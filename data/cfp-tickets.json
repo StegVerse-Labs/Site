@@ -1,0 +1,33 @@
+{
+  "defaults": {
+    "providers": ["seatgeek", "stubhub", "ticketmaster", "vividseats"],
+    "patterns": {
+      "seatgeek": "https://seatgeek.com/search?search={QUERY}",
+      "stubhub": "https://www.stubhub.com/find/s/?q={QUERY}",
+      "ticketmaster": "https://www.ticketmaster.com/search?q={QUERY}",
+      "vividseats": "https://www.vividseats.com/search?search={QUERY}"
+    }
+  },
+
+  "labels": {
+    "seatgeek": "SeatGeek",
+    "stubhub": "StubHub",
+    "ticketmaster": "Ticketmaster",
+    "vividseats": "Vivid Seats"
+  },
+
+  "conferences": {
+    "Big 12": {
+      "providers": ["seatgeek", "stubhub", "vividseats"]
+    }
+  },
+
+  "teams": {
+    "Texas Tech": {
+      "providers": ["stubhub", "seatgeek", "vividseats"]
+    },
+    "BYU": {
+      "providers": ["seatgeek", "ticketmaster", "stubhub"]
+    }
+  }
+}
