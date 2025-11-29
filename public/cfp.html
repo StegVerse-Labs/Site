@@ -10,7 +10,7 @@
   <header class="cfp-header">
     <h1>NCAAF CFP Live Tracker</h1>
     <p class="cfp-subtitle">
-      Live view of projected CFP Top 12 & key game results
+      Live view of official CFP Top 12, game results, and lock scenarios
     </p>
   </header>
 
@@ -23,10 +23,32 @@
       <span id="cfp-status" class="cfp-status"></span>
     </section>
 
+    <section class="cfp-section cfp-legend">
+      <h3>Legend</h3>
+      <div class="cfp-badges-row">
+        <span class="cfp-badge cfp-badge-locked">Locked</span>
+        <span class="cfp-badge cfp-badge-inplay">In Play</span>
+        <span class="cfp-badge cfp-badge-elim">Eliminated</span>
+      </div>
+      <p class="cfp-legend-text">
+        <strong>Locked</strong> spots are guaranteed based on official CFP rankings
+        and remaining games. <strong>In Play</strong> spots list all teams that
+        can still claim that seed and how. <strong>Eliminated</strong> teams
+        cannot reach the Top 12 for this CFP.
+      </p>
+    </section>
+
     <section class="cfp-section">
-      <h2>Projected CFP Top 12</h2>
+      <h2>Official / Projected CFP Top 12</h2>
       <div id="cfp-rankings" class="cfp-rankings">
         <p>Loading rankings…</p>
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>CFP Spot Details (Seeds Not Locked)</h2>
+      <div id="cfp-spot-details" class="cfp-spot-details">
+        <p>Loading spot details…</p>
       </div>
     </section>
 
@@ -41,11 +63,14 @@
       <h3>Notes</h3>
       <ul>
         <li>
-          Rankings and game results refresh when you load the page or tap
-          “Refresh Now”.
+          Rankings update automatically from the latest official CFP release.
         </li>
         <li>
-          Data source is updated automatically when games go final.
+          Locked spots are based on completed games and the CFP committee’s last rankings.
+        </li>
+        <li>
+          “In Play” seeds show all teams still eligible for that spot and what
+          has to happen for each.
         </li>
       </ul>
     </section>
@@ -53,11 +78,16 @@
 
   <footer class="cfp-footer">
     <small>
-      StegVerse CFP Tracker · Experimental · Data may lag a few minutes behind
-      official announcements.
+      StegVerse CFP Tracker · Experimental · Not an official CFP product.
+      Data may lag behind official announcements.
     </small>
   </footer>
 
+  <!-- If you later have a live API, you can set this before cfp.js:
+  <script>
+    window.CFP_DATA_URL = "https://your-api-url/api/cfp-live";
+  </script>
+  -->
   <script src="/cfp.js"></script>
 </body>
 </html>
