@@ -1,29 +1,14 @@
 {
   "last_updated": "2025-11-29T21:00:00Z",
   "sources": [
-    {
-      "id": "1",
-      "label": "College Football Playoff Rankings",
-      "url": "https://collegefootballplayoff.com"
-    },
-    {
-      "id": "2",
-      "label": "AP Top 25",
-      "url": "https://apnews.com/hub/ap-top-25-college-football-poll"
-    },
-    {
-      "id": "3",
-      "label": "USA Today Coaches Poll",
-      "url": "https://sports.usatoday.com/ncaa/college-football/polls/coaches-poll"
-    },
-    {
-      "id": "4",
-      "label": "Conference standings composite",
-      "url": "https://www.espn.com/college-football/standings"
-    }
+    { "id": "1", "label": "College Football Playoff", "url": "https://collegefootballplayoff.com" },
+    { "id": "2", "label": "AP Top 25", "url": "https://apnews.com" },
+    { "id": "3", "label": "Coaches Poll", "url": "https://sports.usatoday.com" },
+    { "id": "4", "label": "ESPN Standings", "url": "https://espn.com/college-football/standings" }
   ],
   "cfp_source_id": "1",
   "conf_source_id": "4",
+
   "rankings": [
     {
       "seed": 1,
@@ -31,12 +16,9 @@
       "record": "12-0",
       "conference": "Big Ten",
       "status": "locked",
-      "lock_reason": "Official CFP #1, no remaining games before selection.",
+      "lock_reason": "CFP #1",
       "spot_scenarios": [
-        {
-          "team": "Ohio State",
-          "path": "Already locked as #1. Big Ten title result will not drop them below #4."
-        }
+        { "team": "Ohio State", "path": "Already locked at #1" }
       ]
     },
     {
@@ -45,16 +27,9 @@
       "record": "11-1",
       "conference": "SEC",
       "status": "in_play",
-      "lock_reason": "",
       "spot_scenarios": [
-        {
-          "team": "Georgia",
-          "path": "Locks #2 by winning the SEC Championship Game."
-        },
-        {
-          "team": "Texas Tech",
-          "path": "Could move up to #2 with a Big 12 title blowout win and a Georgia loss."
-        }
+        { "team": "Georgia", "path": "Win SEC Championship" },
+        { "team": "Texas Tech", "path": "TTU win + Georgia loss" }
       ]
     },
     {
@@ -63,53 +38,29 @@
       "record": "11-1",
       "conference": "Big 12",
       "status": "in_play",
-      "lock_reason": "",
       "spot_scenarios": [
-        {
-          "team": "Texas Tech",
-          "path": "Locks a Top-4 spot with a win vs BYU; can rise as high as #2 in a best-case scenario."
-        },
-        {
-          "team": "BYU",
-          "path": "Steals a Top-6 seed with a Big 12 Championship win over TTU."
-        }
+        { "team": "Texas Tech", "path": "Beat BYU to lock top-4" }
       ]
     }
   ],
+
   "games": [
     {
-      "id": "ttu-byu-2025-big12",
+      "id": "ttu-byu",
       "home": "Texas Tech",
       "away": "BYU",
       "home_score": 0,
       "away_score": 0,
       "status": "Scheduled",
       "kickoff": "2025-12-06T17:00:00Z",
+      "conference": "Big 12",
       "note": "Big 12 Championship Game"
-    },
-    {
-      "id": "atm-texas-2025",
-      "home": "Texas",
-      "away": "Texas A&M",
-      "home_score": 27,
-      "away_score": 17,
-      "status": "Final",
-      "note": "Regular season – Texas A&M takes first loss."
-    },
-    {
-      "id": "byu-ucf-2025",
-      "home": "BYU",
-      "away": "UCF",
-      "home_score": 31,
-      "away_score": 21",
-      "status": "Final",
-      "note": "BYU clinches Big 12 title game berth."
     }
   ],
+
   "polls": [
     {
       "name": "CFP Rankings",
-      "short_name": "CFP",
       "source_id": "1",
       "teams": [
         { "rank": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" },
@@ -119,43 +70,27 @@
     },
     {
       "name": "AP Top 25",
-      "short_name": "AP",
       "source_id": "2",
       "teams": [
-        { "rank": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" },
-        { "rank": 2, "team": "Georgia", "record": "11-1", "conference": "SEC" },
-        { "rank": 3, "team": "Oregon", "record": "11-2", "conference": "Pac-12" }
+        { "rank": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" }
       ]
     },
     {
       "name": "Coaches Poll",
-      "short_name": "Coaches",
       "source_id": "3",
       "teams": [
-        { "rank": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" },
-        { "rank": 2, "team": "Georgia", "record": "11-1", "conference": "SEC" },
-        { "rank": 3, "team": "Texas Tech", "record": "11-1", "conference": "Big 12" }
+        { "rank": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" }
       ]
     }
   ],
+
   "conferences": [
     {
       "id": "big12",
       "name": "Big 12",
-      "source_id": "4",
       "teams": [
         { "team": "Texas Tech", "overall": "11-1", "conference_record": "8-1", "pf": 420, "pa": 260 },
-        { "team": "BYU", "overall": "10-2", "conference_record": "7-2", "pf": 380, "pa": 270 },
-        { "team": "UCF", "overall": "8-4", "conference_record": "6-3", "pf": 350, "pa": 300 }
-      ]
-    },
-    {
-      "id": "sec",
-      "name": "SEC",
-      "source_id": "4",
-      "teams": [
-        { "team": "Georgia", "overall": "11-1", "conference_record": "8-1", "pf": 410, "pa": 210 },
-        { "team": "Alabama", "overall": "9-3", "conference_record": "6-3", "pf": 390, "pa": 280 }
+        { "team": "BYU", "overall": "10-2", "conference_record": "7-2", "pf": 380, "pa": 270 }
       ]
     }
   ]
