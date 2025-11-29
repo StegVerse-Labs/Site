@@ -4,22 +4,21 @@
   <meta charset="UTF-8" />
   <title>NCAAF CFP Live Tracker | StegVerse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/cfp.css" />
+  <link rel="stylesheet" href="/cfp/cfp.css" />
 </head>
 <body>
   <header class="cfp-header">
     <h1>NCAAF CFP Live Tracker</h1>
     <p class="cfp-subtitle">
-      Live view of CFP Top 12, national polls, conference standings & lock scenarios
+      Live CFP Top 12 • Polls • Standings • Tickets • Scenarios
     </p>
   </header>
 
   <main class="cfp-main">
+
     <section class="cfp-controls">
       <button id="cfp-refresh-btn">🔄 Refresh Now</button>
-      <span id="cfp-last-updated" class="cfp-last-updated">
-        Last updated: —
-      </span>
+      <span id="cfp-last-updated" class="cfp-last-updated">Last updated: —</span>
       <span id="cfp-status" class="cfp-status"></span>
     </section>
 
@@ -31,98 +30,67 @@
         <span class="cfp-badge cfp-badge-elim">Eliminated</span>
       </div>
       <p class="cfp-legend-text">
-        <strong>Locked</strong> spots are guaranteed based on official CFP rankings
-        and remaining games. <strong>In Play</strong> spots list all teams that
-        can still claim that seed and how. <strong>Eliminated</strong> teams
-        cannot reach the Top 12 for this CFP.
+        “Locked” seeds are guaranteed; “In Play” seeds list all eligible teams and required scenarios.
       </p>
     </section>
 
     <section class="cfp-section">
-      <h2>
-        Official / Projected CFP Top 12
-        <span id="cfp-top12-source-marker"></span>
-      </h2>
-      <div id="cfp-rankings" class="cfp-rankings">
-        <p>Loading rankings…</p>
-      </div>
+      <h2>CFP Top 12 Rankings <span id="cfp-top12-source-marker"></span></h2>
+      <div id="cfp-rankings" class="cfp-rankings">Loading rankings…</div>
     </section>
 
     <section class="cfp-section">
-      <h2>CFP Spot Details (Seeds Not Locked)</h2>
-      <div id="cfp-spot-details" class="cfp-spot-details">
-        <p>Loading spot details…</p>
-      </div>
+      <h2>Spot Details (Seeds Not Locked)</h2>
+      <div id="cfp-spot-details" class="cfp-spot-details">Loading…</div>
     </section>
 
     <section class="cfp-section">
-      <h2>National Rankings – CFP / AP / Coaches</h2>
-      <div id="cfp-polls" class="cfp-polls">
-        <p>Loading national rankings…</p>
-      </div>
+      <h2>National Polls – CFP / AP / Coaches</h2>
+      <div id="cfp-polls" class="cfp-polls">Loading…</div>
     </section>
 
     <section class="cfp-section">
-      <h2>
-        Conference Standings
-        <span id="cfp-conf-source-marker"></span>
-      </h2>
+      <h2>Conference Standings <span id="cfp-conf-source-marker"></span></h2>
       <div class="cfp-conf-controls">
         <label for="cfp-conf-select">Conference:</label>
         <select id="cfp-conf-select"></select>
       </div>
-      <div id="cfp-conf-standings" class="cfp-conf-standings">
-        <p>Select a conference to view standings.</p>
-      </div>
+      <div id="cfp-conf-standings">Select a conference to view standings.</div>
     </section>
 
     <section class="cfp-section">
-      <h2>Key Games & Final Scores</h2>
-      <div id="cfp-games" class="cfp-games">
-        <p>Loading games…</p>
-      </div>
+      <h2>Games & Results</h2>
+      <div id="cfp-games" class="cfp-games">Loading…</div>
     </section>
 
-    <section class="cfp-section cfp-notes">
-      <h3>Notes</h3>
+    <!-- Coming Soon block -->
+    <section class="cfp-section">
+      <h2>Coming Soon to StegVerse Sports</h2>
       <ul>
-        <li>
-          Rankings update automatically from the latest official CFP, AP and Coaches releases.
-        </li>
-        <li>
-          Locked spots are based on completed games and the CFP committee’s last rankings.
-        </li>
-        <li>
-          “In Play” seeds show all teams still eligible for that spot and what
-          has to happen for each.
-        </li>
-        <li>
-          Every table includes a source marker like <code>[1]</code> linking to the
-          data provider listed below.
-        </li>
+        <li>🔮 Live CFP probability engine</li>
+        <li>📊 Real-time playoff simulations & chaos paths</li>
+        <li>🎟 Smart multi-site ticket price tracking</li>
+        <li>📣 Automated summaries to social platforms</li>
+        <li>📈 Full analytics for every CFP-eligible program</li>
       </ul>
     </section>
 
     <section class="cfp-section">
       <h2>Data Sources</h2>
-      <div id="cfp-sources" class="cfp-sources">
-        <p>Loading sources…</p>
-      </div>
+      <div id="cfp-sources">Loading…</div>
     </section>
+
   </main>
 
   <footer class="cfp-footer">
-    <small>
-      StegVerse CFP Tracker · Experimental · Not an official CFP product.
-      Data may lag behind official announcements.
-    </small>
+    <small>StegVerse CFP Tracker – Experimental – Not an official CFP product.</small>
   </footer>
 
-  <!-- Optional override:
   <script>
-    window.CFP_DATA_URL = "https://your-api-url/api/cfp-live";
+    window.CFP_DATA_URL = "/data/cfp-data.json";
+    window.CFP_TICKETS_URL = "/data/cfp-tickets.json";
   </script>
-  -->
-  <script src="/cfp.js"></script>
+  <script src="/cfp/cfp.js"></script>
+
 </body>
 </html>
