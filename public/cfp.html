@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NCAAF CFP Live Tracker | StegVerse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/cfp.css" />
+</head>
+<body>
+  <header class="cfp-header">
+    <h1>NCAAF CFP Live Tracker</h1>
+    <p class="cfp-subtitle">
+      Live view of projected CFP Top 12 & key game results
+    </p>
+  </header>
+
+  <main class="cfp-main">
+    <section class="cfp-controls">
+      <button id="cfp-refresh-btn">🔄 Refresh Now</button>
+      <span id="cfp-last-updated" class="cfp-last-updated">
+        Last updated: —
+      </span>
+      <span id="cfp-status" class="cfp-status"></span>
+    </section>
+
+    <section class="cfp-section">
+      <h2>Projected CFP Top 12</h2>
+      <div id="cfp-rankings" class="cfp-rankings">
+        <p>Loading rankings…</p>
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>Key Games & Final Scores</h2>
+      <div id="cfp-games" class="cfp-games">
+        <p>Loading games…</p>
+      </div>
+    </section>
+
+    <section class="cfp-section cfp-notes">
+      <h3>Notes</h3>
+      <ul>
+        <li>
+          Rankings and game results refresh when you load the page or tap
+          “Refresh Now”.
+        </li>
+        <li>
+          Data source is updated automatically when games go final.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="cfp-footer">
+    <small>
+      StegVerse CFP Tracker · Experimental · Data may lag a few minutes behind
+      official announcements.
+    </small>
+  </footer>
+
+  <script src="/cfp.js"></script>
+</body>
+</html>
