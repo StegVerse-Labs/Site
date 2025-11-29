@@ -10,7 +10,7 @@
   <header class="cfp-header">
     <h1>NCAAF CFP Live Tracker</h1>
     <p class="cfp-subtitle">
-      Live view of official CFP Top 12, game results, and lock scenarios
+      Live view of CFP Top 12, national polls, conference standings & lock scenarios
     </p>
   </header>
 
@@ -39,7 +39,10 @@
     </section>
 
     <section class="cfp-section">
-      <h2>Official / Projected CFP Top 12</h2>
+      <h2>
+        Official / Projected CFP Top 12
+        <span id="cfp-top12-source-marker"></span>
+      </h2>
       <div id="cfp-rankings" class="cfp-rankings">
         <p>Loading rankings…</p>
       </div>
@@ -49,6 +52,27 @@
       <h2>CFP Spot Details (Seeds Not Locked)</h2>
       <div id="cfp-spot-details" class="cfp-spot-details">
         <p>Loading spot details…</p>
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>National Rankings – CFP / AP / Coaches</h2>
+      <div id="cfp-polls" class="cfp-polls">
+        <p>Loading national rankings…</p>
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>
+        Conference Standings
+        <span id="cfp-conf-source-marker"></span>
+      </h2>
+      <div class="cfp-conf-controls">
+        <label for="cfp-conf-select">Conference:</label>
+        <select id="cfp-conf-select"></select>
+      </div>
+      <div id="cfp-conf-standings" class="cfp-conf-standings">
+        <p>Select a conference to view standings.</p>
       </div>
     </section>
 
@@ -63,7 +87,7 @@
       <h3>Notes</h3>
       <ul>
         <li>
-          Rankings update automatically from the latest official CFP release.
+          Rankings update automatically from the latest official CFP, AP and Coaches releases.
         </li>
         <li>
           Locked spots are based on completed games and the CFP committee’s last rankings.
@@ -72,7 +96,18 @@
           “In Play” seeds show all teams still eligible for that spot and what
           has to happen for each.
         </li>
+        <li>
+          Every table includes a source marker like <code>[1]</code> linking to the
+          data provider listed below.
+        </li>
       </ul>
+    </section>
+
+    <section class="cfp-section">
+      <h2>Data Sources</h2>
+      <div id="cfp-sources" class="cfp-sources">
+        <p>Loading sources…</p>
+      </div>
     </section>
   </main>
 
@@ -83,7 +118,7 @@
     </small>
   </footer>
 
-  <!-- If you later have a live API, you can set this before cfp.js:
+  <!-- Optional override:
   <script>
     window.CFP_DATA_URL = "https://your-api-url/api/cfp-live";
   </script>
