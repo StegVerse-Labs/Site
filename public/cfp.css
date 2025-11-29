@@ -1,0 +1,151 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #050614;
+  color: #f7f7ff;
+}
+
+.cfp-header {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  background: linear-gradient(135deg, #8b0000, #1c1f3b);
+  color: #fff;
+}
+
+.cfp-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.9rem;
+}
+
+.cfp-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.cfp-main {
+  max-width: 1000px;
+  margin: 1.5rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.cfp-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+#cfp-refresh-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #ffcc66;
+  background: #ffcc66;
+  color: #1a1a1a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#cfp-refresh-btn:hover {
+  filter: brightness(1.05);
+}
+
+.cfp-last-updated {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.cfp-status {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.cfp-section {
+  margin-bottom: 1.5rem;
+  background: rgba(15, 18, 50, 0.8);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cfp-section h2,
+.cfp-section h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.cfp-rankings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.cfp-rankings-table th,
+.cfp-rankings-table td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cfp-rankings-table th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.8;
+}
+
+.cfp-rankings-table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cfp-rankings-table .cfp-seed {
+  font-weight: 700;
+  width: 2.5rem;
+}
+
+.cfp-games-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cfp-game {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
+}
+
+.cfp-game:last-child {
+  border-bottom: none;
+}
+
+.cfp-game-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.cfp-game-meta {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.cfp-notes ul {
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+}
+
+.cfp-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  padding: 1rem 0 1.5rem;
+}
