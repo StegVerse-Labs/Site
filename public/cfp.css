@@ -78,6 +78,12 @@ body {
   font-size: 1.2rem;
 }
 
+.cfp-section h2 span,
+.cfp-section h3 span {
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
 /* Legend / badges */
 
 .cfp-legend {
@@ -158,7 +164,7 @@ body {
 }
 
 .cfp-status-cell {
-  width: 5.5rem;
+  width: 6.5rem;
 }
 
 /* Spot details */
@@ -227,6 +233,120 @@ body {
 .cfp-game-meta {
   font-size: 0.8rem;
   opacity: 0.8;
+}
+
+/* Polls */
+
+.cfp-polls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cfp-poll-card {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 0.75rem;
+  background: rgba(8, 10, 30, 0.85);
+  font-size: 0.85rem;
+}
+
+.cfp-poll-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.cfp-poll-title {
+  font-weight: 600;
+}
+
+.cfp-poll-source {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.cfp-poll-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.cfp-poll-table th,
+.cfp-poll-table td {
+  padding: 0.2rem 0.35rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cfp-poll-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Conference standings */
+
+.cfp-conf-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+
+#cfp-conf-select {
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(10, 12, 30, 0.9);
+  color: #f7f7ff;
+}
+
+.cfp-conf-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.cfp-conf-table th,
+.cfp-conf-table td {
+  padding: 0.25rem 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cfp-conf-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.cfp-conf-table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Sources */
+
+.cfp-sources-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.cfp-sources-list li {
+  margin-bottom: 0.25rem;
+}
+
+.cfp-sources-list a {
+  color: #9ddaff;
+  text-decoration: none;
+}
+
+.cfp-sources-list a:hover {
+  text-decoration: underline;
 }
 
 /* Notes / footer */
