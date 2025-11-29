@@ -1,18 +1,190 @@
 {
-  "last_updated": "2025-11-29T14:05:00Z",
+  "last_updated": "2025-11-29T20:05:00Z",
   "rankings": [
-    { "seed": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" },
-    { "seed": 2, "team": "Georgia", "record": "11-1", "conference": "SEC" },
-    { "seed": 3, "team": "Texas Tech", "record": "11-1", "conference": "Big 12" },
-    { "seed": 4, "team": "Indiana", "record": "11-1", "conference": "Big Ten" },
-    { "seed": 5, "team": "Oregon", "record": "10-2", "conference": "Pac-12" },
-    { "seed": 6, "team": "Ole Miss", "record": "10-2", "conference": "SEC" },
-    { "seed": 7, "team": "Oklahoma", "record": "10-2", "conference": "Big 12" },
-    { "seed": 8, "team": "Notre Dame", "record": "10-2", "conference": "IND" },
-    { "seed": 9, "team": "Alabama", "record": "9-3", "conference": "SEC" },
-    { "seed": 10, "team": "BYU", "record": "10-2", "conference": "Big 12" },
-    { "seed": 11, "team": "Miami", "record": "9-3", "conference": "ACC" },
-    { "seed": 12, "team": "SMU", "record": "10-2", "conference": "ACC" }
+    {
+      "seed": 1,
+      "team": "Ohio State",
+      "record": "12-0",
+      "conference": "Big Ten",
+      "status": "locked",
+      "lock_reason": "Official CFP #1, no remaining games before selection.",
+      "spot_scenarios": [
+        {
+          "team": "Ohio State",
+          "path": "Already locked as #1. Big Ten title game win or loss will not drop them below #4."
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "team": "Georgia",
+      "record": "11-1",
+      "conference": "SEC",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Georgia",
+          "path": "Locks #2 by winning the SEC Championship Game. Could fall to #3–#4 with a close loss."
+        },
+        {
+          "team": "Texas Tech",
+          "path": "Could move up to #2 with a Big 12 title blowout win AND a Georgia loss of 10+ points."
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "team": "Texas Tech",
+      "record": "11-1",
+      "conference": "Big 12",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Texas Tech",
+          "path": "Locks a Top-4 spot with a Big 12 Championship Game win vs BYU. Can climb to #2 with style points + SEC chaos."
+        },
+        {
+          "team": "BYU",
+          "path": "Steals this seed by beating Texas Tech decisively and getting help from losses ahead."
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "team": "Indiana",
+      "record": "11-1",
+      "conference": "Big Ten",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Indiana",
+          "path": "Locks a Top-4 spot by winning the Big Ten Championship over Ohio State."
+        },
+        {
+          "team": "Oregon",
+          "path": "Could jump to #4 with a Pac-12 title win AND an Indiana loss."
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "team": "Oregon",
+      "record": "10-2",
+      "conference": "Pac-12",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Oregon",
+          "path": "Can rise into the Top-4 with a Pac-12 title and a loss by one or more of Georgia / Indiana / Texas Tech."
+        }
+      ]
+    },
+    {
+      "seed": 6,
+      "team": "Ole Miss",
+      "record": "10-2",
+      "conference": "SEC",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Ole Miss",
+          "path": "Locked into a first-round game. Ceiling around #5–#6 barring extreme chaos."
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "team": "Oklahoma",
+      "record": "10-2",
+      "conference": "Big 12",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Oklahoma",
+          "path": "Can climb to #6 with a strong finish and losses by Ole Miss / Oregon."
+        }
+      ]
+    },
+    {
+      "seed": 8,
+      "team": "Notre Dame",
+      "record": "10-2",
+      "conference": "IND",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Notre Dame",
+          "path": "Likely locked into seeds #7–#9 depending on other conference title results."
+        }
+      ]
+    },
+    {
+      "seed": 9,
+      "team": "Alabama",
+      "record": "9-3",
+      "conference": "SEC",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Alabama",
+          "path": "Fighting to stay in the Top 12 as an at-large; could fall out with multiple upsets from below."
+        }
+      ]
+    },
+    {
+      "seed": 10,
+      "team": "BYU",
+      "record": "10-2",
+      "conference": "Big 12",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "BYU",
+          "path": "Locks a CFP spot with a win over Texas Tech in the Big 12 Championship Game."
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "team": "Miami",
+      "record": "9-3",
+      "conference": "ACC",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "Miami",
+          "path": "Can lock this spot by winning the ACC title and avoiding blowout loss."
+        }
+      ]
+    },
+    {
+      "seed": 12,
+      "team": "SMU",
+      "record": "10-2",
+      "conference": "ACC",
+      "status": "in_play",
+      "lock_reason": "",
+      "spot_scenarios": [
+        {
+          "team": "SMU",
+          "path": "Holds this seed with an ACC Championship and no surprise champions below."
+        },
+        {
+          "team": "North Texas",
+          "path": "Could steal the #12 slot as highest-ranked G5 champ with a title win and multiple losses above."
+        }
+      ]
+    }
   ],
   "games": [
     {
@@ -32,7 +204,7 @@
       "home_score": 27,
       "away_score": 17,
       "status": "Final",
-      "note": "Regular season"
+      "note": "Regular season – Texas A&M falls from CFP #2."
     },
     {
       "id": "byu-ucf-2025",
@@ -41,7 +213,7 @@
       "home_score": 31,
       "away_score": 21,
       "status": "Final",
-      "note": "Regular season – BYU clinches Big 12 title game berth"
+      "note": "BYU clinches CFP Top-12 contention and Big 12 title game spot."
     }
   ]
 }
