@@ -1,0 +1,47 @@
+{
+  "last_updated": "2025-11-29T14:05:00Z",
+  "rankings": [
+    { "seed": 1, "team": "Ohio State", "record": "12-0", "conference": "Big Ten" },
+    { "seed": 2, "team": "Georgia", "record": "11-1", "conference": "SEC" },
+    { "seed": 3, "team": "Texas Tech", "record": "11-1", "conference": "Big 12" },
+    { "seed": 4, "team": "Indiana", "record": "11-1", "conference": "Big Ten" },
+    { "seed": 5, "team": "Oregon", "record": "10-2", "conference": "Pac-12" },
+    { "seed": 6, "team": "Ole Miss", "record": "10-2", "conference": "SEC" },
+    { "seed": 7, "team": "Oklahoma", "record": "10-2", "conference": "Big 12" },
+    { "seed": 8, "team": "Notre Dame", "record": "10-2", "conference": "IND" },
+    { "seed": 9, "team": "Alabama", "record": "9-3", "conference": "SEC" },
+    { "seed": 10, "team": "BYU", "record": "10-2", "conference": "Big 12" },
+    { "seed": 11, "team": "Miami", "record": "9-3", "conference": "ACC" },
+    { "seed": 12, "team": "SMU", "record": "10-2", "conference": "ACC" }
+  ],
+  "games": [
+    {
+      "id": "ttu-byu-2025-big12",
+      "home": "Texas Tech",
+      "away": "BYU",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "Scheduled",
+      "kickoff": "2025-12-06T17:00:00Z",
+      "note": "Big 12 Championship Game"
+    },
+    {
+      "id": "atm-texas-2025",
+      "home": "Texas",
+      "away": "Texas A&M",
+      "home_score": 27,
+      "away_score": 17,
+      "status": "Final",
+      "note": "Regular season"
+    },
+    {
+      "id": "byu-ucf-2025",
+      "home": "BYU",
+      "away": "UCF",
+      "home_score": 31,
+      "away_score": 21,
+      "status": "Final",
+      "note": "Regular season – BYU clinches Big 12 title game berth"
+    }
+  ]
+}
