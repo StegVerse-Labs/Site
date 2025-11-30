@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Championship Weekend • StegVerse CFP</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="sv-header">
+  <div class="sv-logo">STEGVERSE • CFP</div>
+  <nav class="sv-nav">
+    <a href="index.html">Bracket</a>
+    <a href="championship.html" class="active">Championship Weekend</a>
+    <a href="providers.html">Rankings Providers</a>
+  </nav>
+</header>
+
+<main class="sv-main">
+  <section class="sv-section">
+    <h1>Championship Weekend Paths</h1>
+    <p class="sv-note">
+      For each conference title game: best case, most likely case, and nightmare case
+      for CFP seeding.
+    </p>
+
+    <div id="championship-grid" class="card-grid">
+      <!-- Filled by JS from same JSON, keyed by conference -->
+    </div>
+  </section>
+</main>
+
+<footer class="sv-footer">
+  <p>StegVerse CFP tracker • Championship Weekend</p>
+</footer>
+
+<script src="js/cfp.js"></script>
+</body>
+</html>
