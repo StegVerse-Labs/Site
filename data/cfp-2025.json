@@ -1,119 +1,291 @@
 {
   "season": 2025,
-  "sport": "NCAAF",
-  "pollName": "CFP",
-  "lastRankingRelease": "2025-11-25",
-  "pollWeek": 1,
-  "notes": "Edit this file manually each time new CFP rankings are released. IDs must match ?team= values.",
-
+  "cfp_release_date": "2025-11-18",
+  "note": "Prototype data model. Replace the placeholder teams, records, and scenarios with the real CFP 1-12 each week. Bracket and team pages will update automatically from this file.",
   "teams": [
     {
-      "id": "ttu",
       "seed": 1,
-      "currentRank": 1,
-      "previousRank": 1,
-      "name": "Texas Tech",
-      "shortName": "TTU",
-      "conference": "Big 12",
-      "record": "0-0",
-      "confRecord": "0-0",
-      "sinceLastRanking": 0,
-      "projection": {
-        "nextRank": 1,
-        "movementText": "Holding steady at #1 in most models.",
-        "confidence": 0.72
+      "slug": "team1",
+      "name": "Team One",
+      "shortName": "Team One",
+      "record": "10-1",
+      "conference": "CONF-A",
+      "sinceLastRanking": "+0",
+      "projection": "Win out and locked at #1.",
+      "primaryColor": "#3b82f6",
+      "secondaryColor": "#0f172a",
+      "scenarios": {
+        "bestCase": "Win remaining regular season + conference title; enter CFP as clear #1 with favorable semifinal matchup.",
+        "mostLikely": "Win conference title game, remain in top 2; national championship run depends on semifinal matchup.",
+        "worstCase": "Lose conference title; fall to #3-#4, potentially face toughest possible semifinal opponent."
       },
-      "headline": "Air Raid Reloaded, Eyes on Glendale",
-      "summary": "Texas Tech opens 2025 with a loaded offense and a defense that finally looks playoff-ready. This page tracks how every remaining game shapes their road to the national title.",
-
-      "paths": {
-        "bestCase": {
-          "record": "13-0",
-          "seed": 1,
-          "summary": "Run the table, win the Big 12 title game convincingly, and lock the #1 seed. That likely means at least two ranked road wins and no one-score scares down the stretch."
-        },
-        "mostLikely": {
-          "record": "12-1",
-          "seed": 2,
-          "summary": "Drop one tricky conference game but still win the Big 12 and finish with multiple top-15 wins. Committee keeps them safely inside the top 4."
-        },
-        "worstCase": {
-          "record": "10-3",
-          "seed": 9,
-          "summary": "Injuries and turnover-heavy games lead to multiple losses, including the title game. Tech slides out of the top 4 and into the at-large chaos pile."
-        }
-      },
-
-      "remainingSchedule": [
+      "schedule": [
         {
-          "week": 1,
-          "opponent": "Opp U",
-          "location": "home",
-          "date": "2025-09-01",
-          "isConference": false,
-          "importance": "tuneup",
-          "status": "upcoming",
+          "label": "Conference Championship",
+          "opponent": "Team Nine",
+          "location": "Neutral",
+          "date": "2025-12-06",
           "result": null,
-          "score": null,
-          "notes": "Clean, drama-free win keeps them aligned with expectations."
+          "isChampionship": true,
+          "note": "Win and you’re almost certainly #1."
+        },
+        {
+          "label": "CFP Semifinal",
+          "opponent": "TBD",
+          "location": "Neutral",
+          "date": "2026-01-01",
+          "result": null,
+          "isPlayoff": true,
+          "note": "Opponent depends on final CFP ranking."
+        },
+        {
+          "label": "CFP National Championship",
+          "opponent": "TBD",
+          "location": "Neutral",
+          "date": "2026-01-12",
+          "result": null,
+          "isPlayoff": true,
+          "note": "Win to claim national title."
         }
-      ],
-
-      "notableWins": [],
-      "riskFactors": [
-        "New defensive coordinator still installing scheme.",
-        "QB depth behind starter is untested."
+      ]
+    },
+    {
+      "seed": 2,
+      "slug": "team2",
+      "name": "Team Two",
+      "shortName": "Team Two",
+      "record": "10-1",
+      "conference": "CONF-B",
+      "sinceLastRanking": "+1",
+      "projection": "Tracking for a top-2 seed with a conference title win.",
+      "primaryColor": "#22c55e",
+      "secondaryColor": "#052e16",
+      "scenarios": {
+        "bestCase": "Win conference and finish #1 or #2 with strong momentum into the playoff.",
+        "mostLikely": "Split remaining games, finish between #2 and #3.",
+        "worstCase": "Drop conference title + bad loss; tumble to #4 or barely remain inside top 4."
+      },
+      "schedule": [
+        {
+          "label": "Rivalry Week",
+          "opponent": "Unranked Rival",
+          "location": "Away",
+          "date": "2025-11-29",
+          "result": null,
+          "note": "Trap game before title week."
+        },
+        {
+          "label": "Conference Championship",
+          "opponent": "Team Seven",
+          "location": "Neutral",
+          "date": "2025-12-06",
+          "result": null,
+          "isChampionship": true,
+          "note": "Win to secure CFP spot."
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "slug": "team3",
+      "name": "Team Three",
+      "shortName": "Team Three",
+      "record": "10-1",
+      "conference": "CONF-C",
+      "sinceLastRanking": "-1",
+      "projection": "Firmly in the mix but needs help for a top-2 seed.",
+      "primaryColor": "#f97316",
+      "secondaryColor": "#1f2937",
+      "scenarios": {
+        "bestCase": "Win out + chaos above; sneak into #1 or #2 if others stumble.",
+        "mostLikely": "Finish between #3 and #4 with one more tight win.",
+        "worstCase": "Close loss in title game; slide to #5 if committee favors another champ."
+      },
+      "schedule": [
+        {
+          "label": "Conference Championship",
+          "opponent": "Team Ten",
+          "location": "Neutral",
+          "date": "2025-12-06",
+          "result": null,
+          "isChampionship": true,
+          "note": "Committee will judge margin of victory heavily."
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "slug": "team4",
+      "name": "Team Four",
+      "shortName": "Team Four",
+      "record": "9-2",
+      "conference": "CONF-D",
+      "sinceLastRanking": "+2",
+      "projection": "Controls its own destiny for the last CFP spot.",
+      "primaryColor": "#e11d48",
+      "secondaryColor": "#111827",
+      "scenarios": {
+        "bestCase": "Win out and take conference; could rise as high as #2 with strong results.",
+        "mostLikely": "Win conference in a close game; stay at #4.",
+        "worstCase": "Lose again and fall to #7+; outside looking in."
+      },
+      "schedule": [
+        {
+          "label": "Conference Championship",
+          "opponent": "Team Eight",
+          "location": "Neutral",
+          "date": "2025-12-06",
+          "result": null,
+          "isChampionship": true,
+          "note": "Essentially a CFP play-in game."
+        }
       ]
     },
 
+    // Seeds 5–12 are placeholders; replace with real teams when ready.
     {
-      "id": "uga",
-      "seed": 2,
-      "currentRank": 2,
-      "previousRank": 2,
-      "name": "Georgia",
-      "shortName": "UGA",
-      "conference": "SEC",
-      "record": "0-0",
-      "confRecord": "0-0",
-      "sinceLastRanking": 0,
-      "projection": {
-        "nextRank": 2,
-        "movementText": "Neck-and-neck with #1; any slip opens door to jump or slide.",
-        "confidence": 0.68
+      "seed": 5,
+      "slug": "team5",
+      "name": "Team Five",
+      "shortName": "Team Five",
+      "record": "10-2",
+      "conference": "CONF-E",
+      "sinceLastRanking": "+0",
+      "projection": "First in line to crash the party if someone slips.",
+      "primaryColor": "#a855f7",
+      "secondaryColor": "#312e81",
+      "scenarios": {
+        "bestCase": "Convincing title win + chaos above; jumps into #4.",
+        "mostLikely": "Finishes just outside the top 4 and heads to a NY6 bowl.",
+        "worstCase": "Loss knocks them into lower NY6 / at-large territory."
       },
-      "headline": "Reload or Reign? Dawgs in Familiar Territory",
-      "summary": "Georgia once again starts inside the top 4. The question is less 'can they make the playoff' and more 'can anyone shove them out of it?'",
-
-      "paths": {
-        "bestCase": {
-          "record": "13-0",
-          "seed": 1,
-          "summary": "Perfect regular season plus dominant SEC title win swings the #1 seed back to Athens."
-        },
-        "mostLikely": {
-          "record": "12-1",
-          "seed": 2,
-          "summary": "Survive the SEC with one blemish and another top-tier résumé. CFP lock unless chaos goes nuclear."
-        },
-        "worstCase": {
-          "record": "10-3",
-          "seed": 10,
-          "summary": "Multiple SEC losses and a missed title game push them into New Year’s Six territory instead of the bracket."
-        }
+      "schedule": []
+    },
+    {
+      "seed": 6,
+      "slug": "team6",
+      "name": "Team Six",
+      "shortName": "Team Six",
+      "record": "9-2",
+      "conference": "CONF-F",
+      "sinceLastRanking": "+1",
+      "projection": "NY6 lock with an outside CFP shot.",
+      "primaryColor": "#0ea5e9",
+      "secondaryColor": "#0b1120",
+      "scenarios": {
+        "bestCase": "Win out + upsets in other leagues; squeaks into #4.",
+        "mostLikely": "Finishes #6–#8 in final CFP rankings.",
+        "worstCase": "Could fall to #10–#12 with another loss."
       },
-
-      "remainingSchedule": [],
-      "notableWins": [],
-      "riskFactors": [
-        "Replacing key NFL-bound starters on defense.",
-        "SEC schedule leaves no margin for sloppy weeks."
-      ]
+      "schedule": []
+    },
+    {
+      "seed": 7,
+      "slug": "team7",
+      "name": "Team Seven",
+      "shortName": "Team Seven",
+      "record": "9-3",
+      "conference": "CONF-B",
+      "sinceLastRanking": "-2",
+      "projection": "Needs a wild championship weekend for CFP consideration.",
+      "primaryColor": "#22c55e",
+      "secondaryColor": "#052e16",
+      "scenarios": {
+        "bestCase": "Upset Team Two in conference title + chaos elsewhere; fringe CFP argument.",
+        "mostLikely": "Ends between #7 and #9 with a strong NY6 slot.",
+        "worstCase": "Another loss drops them to lower top-15."
+      },
+      "schedule": []
+    },
+    {
+      "seed": 8,
+      "slug": "team8",
+      "name": "Team Eight",
+      "shortName": "Team Eight",
+      "record": "9-3",
+      "conference": "CONF-D",
+      "sinceLastRanking": "+1",
+      "projection": "Playing spoiler to Team Four’s CFP hopes.",
+      "primaryColor": "#e11d48",
+      "secondaryColor": "#111827",
+      "scenarios": {
+        "bestCase": "Win out; could climb into top-6 and lock a NY6 bowl.",
+        "mostLikely": "Finishes between #8 and #10.",
+        "worstCase": "Loss plus chaos drops them to #12 or lower."
+      },
+      "schedule": []
+    },
+    {
+      "seed": 9,
+      "slug": "team9",
+      "name": "Team Nine",
+      "shortName": "Team Nine",
+      "record": "9-3",
+      "conference": "CONF-A",
+      "sinceLastRanking": "+0",
+      "projection": "Underdog in conference title game vs Team One.",
+      "primaryColor": "#3b82f6",
+      "secondaryColor": "#0f172a",
+      "scenarios": {
+        "bestCase": "Shock upset over Team One vaults them into top-6.",
+        "mostLikely": "Competitive loss keeps them in top-10.",
+        "worstCase": "Blowout loss + other results drop them to #12."
+      },
+      "schedule": []
+    },
+    {
+      "seed": 10,
+      "slug": "team10",
+      "name": "Team Ten",
+      "shortName": "Team Ten",
+      "record": "8-3",
+      "conference": "CONF-C",
+      "sinceLastRanking": "+1",
+      "projection": "Solid but distant CFP long-shot.",
+      "primaryColor": "#f97316",
+      "secondaryColor": "#1f2937",
+      "scenarios": {
+        "bestCase": "Upset Team Three and climb into #7–#8.",
+        "mostLikely": "Finishes between #9 and #11.",
+        "worstCase": "Could fall out of top-12 with another loss."
+      },
+      "schedule": []
+    },
+    {
+      "seed": 11,
+      "slug": "team11",
+      "name": "Team Eleven",
+      "shortName": "Team Eleven",
+      "record": "9-3",
+      "conference": "CONF-G",
+      "sinceLastRanking": "+0",
+      "projection": "Top-12 fringe with NY6 upside.",
+      "primaryColor": "#6366f1",
+      "secondaryColor": "#020617",
+      "scenarios": {
+        "bestCase": "Big ranked win plus chaos; sneaks up to #8–#9.",
+        "mostLikely": "Stays in #10–#12 range.",
+        "worstCase": "Loss or bad performance drops them out of the final 12."
+      },
+      "schedule": []
+    },
+    {
+      "seed": 12,
+      "slug": "team12",
+      "name": "Team Twelve",
+      "shortName": "Team Twelve",
+      "record": "8-4",
+      "conference": "CONF-H",
+      "sinceLastRanking": "+1",
+      "projection": "Hanging on to the last top-12 slot.",
+      "primaryColor": "#facc15",
+      "secondaryColor": "#1e293b",
+      "scenarios": {
+        "bestCase": "Signature win over ranked opponent; climbs to #10.",
+        "mostLikely": "Finishes between #11 and #13.",
+        "worstCase": "Any loss likely pushes them out of the final 12."
+      },
+      "schedule": []
     }
-
-    /*  Add teams 3–12 here.
-        Each team object should match this structure and have a unique "id" field.
-        Example IDs: "osu", "ut", "bama", "mich", "ore", etc.
-    */
   ]
 }
