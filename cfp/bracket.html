@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CFP Bracket & Rankings | StegVerse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/cfp/cfp.css" />
+</head>
+<body>
+  <header class="cfp-header">
+    <h1>CFP Bracket – Top 12</h1>
+    <p class="cfp-subtitle">
+      Official CFP Top 12 • Bracket View • Performance Since Last Release
+    </p>
+  </header>
+
+  <main class="cfp-main">
+
+    <section class="cfp-controls">
+      <button id="bracket-refresh-btn">🔄 Refresh</button>
+      <span id="bracket-last-updated" class="cfp-last-updated">Last updated: —</span>
+      <span id="bracket-status" class="cfp-status"></span>
+    </section>
+
+    <!-- Bracket + Rankings Row -->
+    <section class="cfp-section">
+      <h2>12-Team CFP Bracket (Projected)</h2>
+      <div id="bracket-grid">
+        <!-- Populated by bracket.js -->
+        Loading bracket…
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>CFP Top 12 & Performance Since Last Ranking</h2>
+      <div id="bracket-rankings-wrapper" style="display:flex;flex-wrap:wrap;gap:1rem;">
+        <div style="flex:1;min-width:260px;">
+          <h3>Official CFP Top 12</h3>
+          <div id="bracket-rankings">Loading rankings…</div>
+        </div>
+        <div style="flex:1;min-width:260px;">
+          <h3>Since Last CFP Release</h3>
+          <div id="bracket-since-last">Loading performance…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>Explanation & Movement</h2>
+      <div id="bracket-explanation">
+        Loading explanation…
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>Conference Standings</h2>
+      <div class="cfp-conf-controls">
+        <label for="bracket-conf-select">Conference:</label>
+        <select id="bracket-conf-select"></select>
+      </div>
+      <div id="bracket-conf-standings">
+        Select a conference to view standings.
+      </div>
+    </section>
+
+    <section class="cfp-section">
+      <h2>More CFP Pages</h2>
+      <ul>
+        <li><a href="/cfp/champ-weekend.html">Championship Weekend View</a></li>
+        <li><a href="/cfp/index.html">Full CFP Dashboard</a> (original page)</li>
+        <li><a href="/cfp/team.html?team=texas-tech">Texas Tech – Road to the Title</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="cfp-footer">
+    <small>StegVerse CFP Bracket – Experimental. Not an official CFP product.</small>
+  </footer>
+
+  <script>
+    window.CFP_DATA_URL = "/data/cfp-data.json";
+  </script>
+  <script src="/cfp/bracket.js"></script>
+</body>
+</html>
