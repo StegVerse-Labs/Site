@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "last_cfp_release": "2025-11-26T23:00:00Z",
+    "description": "Per-team CFP road scenarios since the last CFP ranking release."
+  },
+  "teams": [
+    {
+      "id": "texas-tech",
+      "name": "Texas Tech",
+      "conference": "Big 12",
+      "current_seed": 3,
+      "current_record": "11-1",
+      "cfp_rank_at_last_release": 4,
+      "since_last_release": {
+        "wins": 1,
+        "losses": 0,
+        "games": [
+          {
+            "opponent": "BYU",
+            "location": "neutral",
+            "result": "W 38–10",
+            "note": "Big 12 Championship Game"
+          }
+        ]
+      },
+      "best_case": {
+        "headline": "#1 seed, prime path to title",
+        "narrative": "Texas Tech dominates the Big 12 Championship, wins by 30+, and benefits from losses or narrow wins by other top-4 teams. The committee rewards a red-hot finish and elevates TTU to the #1 or #2 seed with a favorable semifinal matchup."
+      },
+      "worst_case": {
+        "headline": "Chaos pushes TTU down the seed line",
+        "narrative": "Even with a solid win, other contenders log blowout victories in high-visibility games, and the committee leans heavily on brand + strength of schedule. TTU drops a spot or two, drawing a tougher semifinal opponent."
+      },
+      "likely_case": {
+        "headline": "Lock in a mid-top-4 seed",
+        "narrative": "TTU wins the Big 12 by a respectable margin, holds serve in the eye test, and secures a #2–#4 seed. The playoff path runs through a balanced semifinal, followed by a title shot against another elite defense/offense combo."
+      },
+      "remaining_games": [
+        {
+          "name": "CFP Semifinal",
+          "round": "Semifinal",
+          "where": "Neutral site",
+          "note": "Matchup will depend on final CFP seeding."
+        },
+        {
+          "name": "CFP National Championship",
+          "round": "Championship",
+          "where": "Neutral site",
+          "note": "If TTU wins the semifinal."
+        }
+      ],
+      "notes": [
+        "Explosive offense and opportunistic defense are the key talking points.",
+        "Committee will weigh margin of victory and strength of schedule heavily versus SEC/Big Ten champions."
+      ]
+    },
+    {
+      "id": "georgia",
+      "name": "Georgia",
+      "conference": "SEC",
+      "current_seed": 2,
+      "current_record": "11-1",
+      "cfp_rank_at_last_release": 1,
+      "since_last_release": {
+        "wins": 0,
+        "losses": 1,
+        "games": [
+          {
+            "opponent": "Alabama",
+            "location": "neutral",
+            "result": "L 24–31",
+            "note": "SEC Championship Game"
+          }
+        ]
+      },
+      "best_case": {
+        "headline": "Stay in the top 4 despite SEC title loss",
+        "narrative": "Georgia’s body of work and prior dominance keep them firmly in the playoff despite a close SEC Championship loss. Other contenders either lose or win less impressively, preserving Georgia’s top-4 status."
+      },
+      "worst_case": {
+        "headline": "Fall out of the top 4",
+        "narrative": "Multiple contenders behind Georgia post statement wins, and the committee opts to prioritize conference champions, pushing a non-SEC-champion Georgia to #5 or lower."
+      },
+      "likely_case": {
+        "headline": "Edge into #3–#4 on resume strength",
+        "narrative": "A strong season plus a narrow SEC title game loss keeps Georgia in the 3–4 range, facing a higher-seeded champion in the semifinal."
+      },
+      "remaining_games": [
+        {
+          "name": "CFP Semifinal (projected)",
+          "round": "Semifinal",
+          "where": "Neutral site",
+          "note": "Subject to final committee vote."
+        }
+      ],
+      "notes": [
+        "Committee will emphasize the SEC schedule strength and margin in the title game.",
+        "Head-to-head results and common opponents will matter if more than one 1-loss team is in contention."
+      ]
+    }
+  ]
+}
