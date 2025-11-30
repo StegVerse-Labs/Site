@@ -1,41 +1,48 @@
 name: CFP Data Sync
 
 on:
-  # Run automatically once per week (tweak as you like)
-  schedule:
-    - cron: "0 6 * * 4"   # Thu 06:00 UTC
-  # Allow manual runs from the Actions tab
   workflow_dispatch: {}
+  schedule:
+    # Runs early Wednesday UTC (after typical Tuesday CFP release)
+    - cron: "0 5 * * WED"
 
 jobs:
-  sync:
+  sync-cfp:
     runs-on: ubuntu-latest
 
-    env:
-      CFP_API_URL: ${{ secrets.CFP_API_URL }}
+    permissions:
+      contents: write
 
     steps:
-      - name: Check out repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Python deps
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Sync CFP data from SCW-API
+      - name: Fetch CFP data from SCW-API
+        env:
+          CFP_API_URL: ${{ secrets.CFP_API_URL }}
         run: |
-          python scripts/cfp_sync.py
+          python scripts/cfp_fetch.py
 
-      - name: Commit & push updated data
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: update CFP data from SCW-API"
-          file_pattern: |
-            data/cfp-*.json
-            data/cfp-sync-meta.json
+      - name: Commit updated CFP data (if any)
+        run: |
+          if git diff --quiet -- data/cfp-data.json data/cfp-teams.json; then
+            echo "No data changes, nothing to commit."
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/cfp-data.json data/cfp-teams.json
+          git commit -m "chore: update CFP data [CI skip]"
+          git push
