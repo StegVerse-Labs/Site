@@ -1,0 +1,306 @@
+{
+  "sport": "NCAAF",
+  "season": 2025,
+  "status": "in_season",
+  "last_cfp_release": "2025-11-26T02:00:00Z",
+  "next_cfp_release": "2025-12-03T02:00:00Z",
+
+  "cfp_top12": [
+    {
+      "rank": 1,
+      "team_id": "osu",
+      "team": "Ohio State",
+      "record": "12-0",
+      "conference": "Big Ten",
+      "locked": true,
+      "notes": "Undefeated; already secure in Top 4."
+    },
+    {
+      "rank": 2,
+      "team_id": "uga",
+      "team": "Georgia",
+      "record": "11-1",
+      "conference": "SEC",
+      "locked": false,
+      "notes": "SEC Championship result will decide seeding."
+    },
+    {
+      "rank": 3,
+      "team_id": "ttu",
+      "team": "Texas Tech",
+      "record": "11-1",
+      "conference": "Big 12",
+      "locked": false,
+      "notes": "Big 12 Championship vs BYU is the statement game."
+    },
+    {
+      "rank": 4,
+      "team_id": "ore",
+      "team": "Oregon",
+      "record": "11-2",
+      "conference": "Pac-12",
+      "locked": false,
+      "notes": "Needs help from other results to hold position."
+    },
+    {
+      "rank": 5,
+      "team_id": "byu",
+      "team": "BYU",
+      "record": "10-2",
+      "conference": "Big 12",
+      "locked": false,
+      "notes": "Win over TTU could vault into Top 4."
+    },
+    {
+      "rank": 6,
+      "team_id": "tex",
+      "team": "Texas",
+      "record": "10-2",
+      "conference": "SEC",
+      "locked": false,
+      "notes": "Signature win vs A&M; sits just outside Top 4."
+    },
+    {
+      "rank": 7,
+      "team_id": "bama",
+      "team": "Alabama",
+      "record": "9-3",
+      "conference": "SEC",
+      "locked": false,
+      "notes": "Needs chaos plus statement in SEC title."
+    },
+    {
+      "rank": 8,
+      "team_id": "fsu",
+      "team": "Florida State",
+      "record": "10-2",
+      "conference": "ACC",
+      "locked": false,
+      "notes": "ACC title path to Top 6."
+    },
+    {
+      "rank": 9,
+      "team_id": "mich",
+      "team": "Michigan",
+      "record": "10-2",
+      "conference": "Big Ten",
+      "locked": false,
+      "notes": "Limited path; needs Ohio State collapse + help."
+    },
+    {
+      "rank": 10,
+      "team_id": "psu",
+      "team": "Penn State",
+      "record": "9-3",
+      "conference": "Big Ten",
+      "locked": false,
+      "notes": "Firmly in New Year’s Six mix."
+    },
+    {
+      "rank": 11,
+      "team_id": "clem",
+      "team": "Clemson",
+      "record": "9-3",
+      "conference": "ACC",
+      "locked": false,
+      "notes": "ACC title would strengthen resume."
+    },
+    {
+      "rank": 12,
+      "team_id": "utah",
+      "team": "Utah",
+      "record": "9-3",
+      "conference": "Pac-12",
+      "locked": false,
+      "notes": "Hanging on to the last CFP seed."
+    }
+  ],
+
+  "since_last_release": [
+    {
+      "team_id": "ttu",
+      "rank": 3,
+      "since_record": "1-0",
+      "key_results": "Defeated BYU 31–21; Big 12 berth locked in.",
+      "trend": "up",
+      "projected_effect": "Win in Big 12 title by 2+ scores could push TTU to #2."
+    },
+    {
+      "team_id": "tex",
+      "rank": 6,
+      "since_record": "1-0",
+      "key_results": "Beat Texas A&M 27–17.",
+      "trend": "steady",
+      "projected_effect": "Needs chaos ahead to crack Top 4 even with strong finish."
+    }
+  ],
+
+  "bracket": {
+    "description": "Bracket reflects the current 12-team CFP field seeded by the latest official CFP rankings. Top 4 receive byes; seeds 5–12 play in the first round. This page always uses the latest official CFP release as the anchor; everything else (projection and paths) updates relative to that.",
+    "rounds": [
+      {
+        "name": "First Round",
+        "note": "On-campus games at higher seed.",
+        "games": [
+          { "id": "FR1", "seed_high": 5, "seed_low": 12 },
+          { "id": "FR2", "seed_high": 6, "seed_low": 11 },
+          { "id": "FR3", "seed_high": 7, "seed_low": 10 },
+          { "id": "FR4", "seed_high": 8, "seed_low": 9 }
+        ]
+      },
+      {
+        "name": "Quarterfinals",
+        "note": "New Year’s Six bowls.",
+        "games": [
+          { "id": "QF1", "seed_high": 1, "seed_low": null, "vs_winner_of": "FR4" },
+          { "id": "QF2", "seed_high": 2, "seed_low": null, "vs_winner_of": "FR3" },
+          { "id": "QF3", "seed_high": 3, "seed_low": null, "vs_winner_of": "FR2" },
+          { "id": "QF4", "seed_high": 4, "seed_low": null, "vs_winner_of": "FR1" }
+        ]
+      }
+    ]
+  },
+
+  "standings": {
+    "conferences": [
+      {
+        "id": "big12",
+        "name": "Big 12",
+        "teams": [
+          { "team_id": "ttu", "team": "Texas Tech", "overall": "11-1", "conf_record": "8-1", "pf": 420, "pa": 260 },
+          { "team_id": "byu", "team": "BYU", "overall": "10-2", "conf_record": "7-2", "pf": 380, "pa": 270 }
+        ]
+      },
+      {
+        "id": "sec",
+        "name": "SEC",
+        "teams": [
+          { "team_id": "uga", "team": "Georgia", "overall": "11-1", "conf_record": "8-1", "pf": 410, "pa": 210 },
+          { "team_id": "tex", "team": "Texas", "overall": "10-2", "conf_record": "7-2", "pf": 390, "pa": 260 },
+          { "team_id": "bama", "team": "Alabama", "overall": "9-3", "conf_record": "6-3", "pf": 375, "pa": 280 }
+        ]
+      }
+    ]
+  },
+
+  "polls": [
+    {
+      "name": "CFP Rankings",
+      "short_name": "CFP",
+      "source_id": 1,
+      "teams": [
+        { "rank": 1, "team_id": "osu", "team": "Ohio State", "record": "12-0", "conference": "Big Ten" },
+        { "rank": 2, "team_id": "uga", "team": "Georgia", "record": "11-1", "conference": "SEC" },
+        { "rank": 3, "team_id": "ttu", "team": "Texas Tech", "record": "11-1", "conference": "Big 12" }
+      ]
+    },
+    {
+      "name": "AP Top 25",
+      "short_name": "AP",
+      "source_id": 2,
+      "teams": [
+        { "rank": 1, "team_id": "osu", "team": "Ohio State", "record": "12-0", "conference": "Big Ten" }
+      ]
+    },
+    {
+      "name": "Coaches Poll",
+      "short_name": "Coaches",
+      "source_id": 3,
+      "teams": [
+        { "rank": 1, "team_id": "osu", "team": "Ohio State", "record": "12-0", "conference": "Big Ten" }
+      ]
+    }
+  ],
+
+  "championship_weekend": {
+    "description": "Championship weekend is where the bracket solidifies: statement wins lock seeds, while upsets trigger chaos scenarios. This page tracks all Power conference championship games plus high-impact G5 titles.",
+    "games": [
+      {
+        "id": "b12",
+        "title": "Big 12 Championship",
+        "teams": ["ttu", "byu"],
+        "koff": "2025-12-06T17:00:00Z",
+        "location": "AT&T Stadium, Arlington, TX",
+        "network": "ABC",
+        "cfp_impact": "Winner effectively locks Top-6; TTU blowout can push toward #2."
+      },
+      {
+        "id": "sec",
+        "title": "SEC Championship",
+        "teams": ["uga", "bama"],
+        "koff": "2025-12-06T21:00:00Z",
+        "location": "Mercedes-Benz Stadium, Atlanta, GA",
+        "network": "CBS",
+        "cfp_impact": "Georgia win locks Top-4; Alabama needs chaos plus convincing margin."
+      }
+    ]
+  },
+
+  "teams": {
+    "ttu": {
+      "id": "ttu",
+      "name": "Texas Tech",
+      "nickname": "Red Raiders",
+      "conference": "Big 12",
+      "current_rank": 3,
+      "record": "11-1",
+      "since_last": {
+        "since_record": "1-0",
+        "summary": "Win vs BYU; offense efficient, defense created turnovers.",
+        "impact": "Win in Big 12 title by 20+ likely boosts them at least one seed."
+      },
+      "road_to_title": {
+        "best_case": [
+          "Dominate BYU in Big 12 Championship (3+ score margin).",
+          "Georgia loses SEC title game by multiple scores.",
+          "Committee rewards TTU with #2 seed and home-field advantages in path."
+        ],
+        "worst_case": [
+          "Loss to BYU in Big 12 title drops TTU out of Top 4.",
+          "Multiple strong wins by other fringe teams push TTU toward #6–8 range."
+        ],
+        "most_likely": [
+          "TTU wins Big 12 by one score.",
+          "Georgia wins SEC.",
+          "TTU locks a 3–4 seed and plays a 6–7 range opponent in first game."
+        ]
+      }
+    },
+
+    "uga": {
+      "id": "uga",
+      "name": "Georgia",
+      "nickname": "Bulldogs",
+      "conference": "SEC",
+      "current_rank": 2,
+      "record": "11-1"
+    },
+
+    "byu": {
+      "id": "byu",
+      "name": "BYU",
+      "nickname": "Cougars",
+      "conference": "Big 12",
+      "current_rank": 5,
+      "record": "10-2"
+    }
+  },
+
+  "sources": [
+    {
+      "id": 1,
+      "label": "College Football Playoff Rankings",
+      "url": "https://collegefootballplayoff.com"
+    },
+    {
+      "id": 2,
+      "label": "AP Top 25",
+      "url": "https://apnews.com/hub/ap-top-25-college-football-poll"
+    },
+    {
+      "id": 3,
+      "label": "USA Today Coaches Poll",
+      "url": "https://sports.usatoday.com/ncaa/college-football/polls/coaches-poll"
+    }
+  ]
+}
