@@ -1,0 +1,49 @@
+name: CFP Data Sync
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Run every 30 minutes during the season (tune as needed)
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-cfp-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install (no-op placeholder)
+        run: |
+          # If you later need dependencies, install here
+          echo "No dependencies to install."
+
+      - name: Run CFP data updater
+        env:
+          # TODO: set this in the Actions UI or repo secrets to your real source.
+          # e.g. https://your-sports-api.example.com/cfp/2025/latest
+          CFP_API_URL: ${{ secrets.CFP_API_URL }}
+        run: |
+          node scripts/update_cfp_data.mjs
+
+      - name: Commit & push if changes
+        run: |
+          if git diff --quiet; then
+            echo "No data changes; nothing to commit."
+            exit 0
+          fi
+
+          git config user.name "StegVerse CFP Bot"
+          git config user.email "cfp-bot@stegverse.local"
+          git add data/cfp-2025.json data/cfp-data.json data/cfp-teams.json
+          git commit -m "chore: auto-update CFP data"
+          git push
