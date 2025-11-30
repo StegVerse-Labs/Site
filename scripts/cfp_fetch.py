@@ -1,81 +1,86 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
-scripts/cfp_fetch.py
+CFP data fetcher for StegVerse-Labs/Site.
 
-Fetches CFP data from SCW-API (CFP_API_URL) and writes:
-- data/cfp-data.json   (full payload)
-- data/cfp-teams.json  (team lookup map, if present)
+- Reads CFP_API_URL from GitHub Actions secrets / env.
+- Calls {CFP_API_URL}/api/cfp.
+- If the endpoint is missing (404) or any error occurs, it logs a warning
+  and exits with code 0 so the workflow stays green and existing JSON files
+  are left untouched.
+- When a real API is available, it will write any returned blobs into:
+
+  data/cfp-2025.json
+  data/cfp-data.json
+  data/cfp-teams.json
+  data/cfp-tickets.json
+  data/ncaaf-2025.json
 """
 
-import json
 import os
 import sys
+import json
 from pathlib import Path
 
 import requests
 
 
 def main() -> int:
-    api_url = os.environ.get("CFP_API_URL", "").strip()
-    if not api_url:
-        print("CFP_API_URL env var is not set.", file=sys.stderr)
-        return 1
+    base = os.getenv("CFP_API_URL", "").strip()
+    if not base:
+        print("[cfp_fetch] CFP_API_URL not set; skipping (no changes).")
+        return 0
 
-    print(f"[cfp_fetch] Fetching CFP data from: {api_url}")
+    base = base.rstrip("/")
+    url = f"{base}/api/cfp"
+    print(f"[cfp_fetch] Fetching CFP data from: {url}")
 
     try:
-        resp = requests.get(api_url, timeout=20)
+        resp = requests.get(url, timeout=20)
+        if resp.status_code == 404:
+            print("[cfp_fetch] WARNING: /api/cfp not found on SCW-API yet; "
+                  "leaving existing CFP data as-is.")
+            return 0
         resp.raise_for_status()
-    except Exception as e:
-        print(f"[cfp_fetch] ERROR calling CFP API: {e}", file=sys.stderr)
-        return 1
-
-    try:
         payload = resp.json()
     except Exception as e:
-        print(f"[cfp_fetch] ERROR parsing JSON: {e}", file=sys.stderr)
-        return 1
+        print(f"[cfp_fetch] WARNING: could not fetch CFP data: {e}")
+        print("[cfp_fetch] Leaving existing CFP data as-is.")
+        return 0
 
-    data_dir = Path("data")
-    data_dir.mkdir(exist_ok=True)
+    # Where our JSON lives in this repo
+    root = Path(__file__).resolve().parents[1] / "data"
 
-    # 1) Write the full payload
-    full_path = data_dir / "cfp-data.json"
-    with full_path.open("w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, sort_keys=True)
-    print(f"[cfp_fetch] Wrote full payload -> {full_path}")
+    mapping = {
+        "cfp_2025": "cfp-2025.json",
+        "cfp_data": "cfp-data.json",
+        "cfp_teams": "cfp-teams.json",
+        "cfp_tickets": "cfp-tickets.json",
+        "ncaaf_2025": "ncaaf-2025.json",
+    }
 
-    # 2) Try to extract a team map for team pages
-    teams = None
+    changed = False
+    for key, filename in mapping.items():
+        if key not in payload:
+            continue
+        target = root / filename
+        new_content = json.dumps(payload[key], indent=2, sort_keys=True)
+        old_content = ""
+        if target.exists():
+            try:
+                old_content = target.read_text()
+            except Exception:
+                old_content = ""
 
-    # preferred key
-    if isinstance(payload, dict):
-        if isinstance(payload.get("teams"), dict):
-            teams = payload["teams"]
-        elif isinstance(payload.get("team_index"), dict):
-            teams = payload["team_index"]
-        # fall back: if there's a list of rankings with embedded team objects
-        elif isinstance(payload.get("rankings"), list):
-            tmap = {}
-            for item in payload["rankings"]:
-                team = item.get("team") or {}
-                code = team.get("code") or team.get("id") or team.get("short_name")
-                if code:
-                    tmap[code] = team
-            if tmap:
-                teams = tmap
+        if old_content.strip() != new_content.strip():
+            target.write_text(new_content + "\n")
+            changed = True
+            print(f"[cfp_fetch] Updated {filename}")
 
-    if teams is not None:
-        teams_path = data_dir / "cfp-teams.json"
-        with teams_path.open("w", encoding="utf-8") as f:
-            json.dump(teams, f, indent=2, sort_keys=True)
-        print(f"[cfp_fetch] Wrote team map -> {teams_path}")
-    else:
-        print("[cfp_fetch] No team map found in payload; skipping cfp-teams.json")
+    if not changed:
+        print("[cfp_fetch] No changes detected in CFP data.")
 
-    print("[cfp_fetch] Done.")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
