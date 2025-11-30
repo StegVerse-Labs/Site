@@ -1,153 +1,192 @@
-// cfp-team.js – per-team CFP road view
+// cfp/team.js
+// Generic team detail page: driven by ?team=<slug> and data/cfp-2025.json.
 
-const CFP_TEAMS_URL = window.CFP_TEAMS_URL || "/data/cfp-teams.json";
-
-const elTitle = document.getElementById("team-title");
-const elMeta = document.getElementById("team-meta");
-const elSnapshot = document.getElementById("team-snapshot");
-const elSinceLast = document.getElementById("team-since-last");
-const elBest = document.getElementById("team-best");
-const elWorst = document.getElementById("team-worst");
-const elLikely = document.getElementById("team-likely");
-const elRemaining = document.getElementById("team-remaining");
-const elNotes = document.getElementById("team-notes");
-
-// Utility to read ?team=slug
-function getTeamIdFromQuery() {
-  const qs = new URLSearchParams(window.location.search);
-  return qs.get("team");
+function getQueryParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
 }
 
-function escapeHTML(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-function renderTeam(meta, t) {
-  elTitle.textContent = `${t.name} – CFP Road`;
-  elMeta.innerHTML = `
-    <div><strong>Conference:</strong> ${escapeHTML(t.conference || "")}</div>
-    <div><strong>Current CFP Seed:</strong> #${t.current_seed ?? "–"}</div>
-    <div><strong>Record:</strong> ${escapeHTML(t.current_record || "")}</div>
-    <div><strong>CFP Rank at Last Release:</strong> #${t.cfp_rank_at_last_release ?? "–"}</div>
-    ${
-      meta && meta.last_cfp_release
-        ? `<div><strong>Last CFP Ranking Release:</strong> ${new Date(
-            meta.last_cfp_release
-          ).toLocaleString()}</div>`
-        : ""
-    }
-  `;
-
-  elSnapshot.innerHTML = `
-    <ul>
-      <li><strong>Current Seed:</strong> #${t.current_seed ?? "–"}</li>
-      <li><strong>Record:</strong> ${escapeHTML(t.current_record || "")}</li>
-      <li><strong>Conference:</strong> ${escapeHTML(t.conference || "")}</li>
-    </ul>
-  `;
-
-  if (t.since_last_release && (t.since_last_release.wins || t.since_last_release.losses)) {
-    const g = t.since_last_release.games || [];
-    const gamesList = g
-      .map(
-        (x) => `
-      <li>
-        <strong>${escapeHTML(x.result || "")}</strong> vs ${escapeHTML(
-          x.opponent || ""
-        )} (${escapeHTML(x.location || "")})${
-          x.note ? ` – ${escapeHTML(x.note)}` : ""
-        }
-      </li>`
-      )
-      .join("");
-
-    elSinceLast.innerHTML = `
-      <p>Since last CFP release: <strong>${t.since_last_release.wins || 0}–${
-      t.since_last_release.losses || 0
-    }</strong></p>
-      <ul>${gamesList}</ul>
-    `;
-  } else {
-    elSinceLast.textContent = "No games reported since the last CFP release.";
-  }
-
-  elBest.innerHTML = `
-    <h3>${escapeHTML(t.best_case?.headline || "Best case")}</h3>
-    <p>${escapeHTML(t.best_case?.narrative || "")}</p>
-  `;
-
-  elWorst.innerHTML = `
-    <h3>${escapeHTML(t.worst_case?.headline || "Worst case")}</h3>
-    <p>${escapeHTML(t.worst_case?.narrative || "")}</p>
-  `;
-
-  elLikely.innerHTML = `
-    <h3>${escapeHTML(t.likely_case?.headline || "Most likely case")}</h3>
-    <p>${escapeHTML(t.likely_case?.narrative || "")}</p>
-  `;
-
-  if (Array.isArray(t.remaining_games) && t.remaining_games.length) {
-    elRemaining.innerHTML = `
-      <ul>
-        ${t.remaining_games
-          .map(
-            (g) => `
-          <li>
-            <strong>${escapeHTML(g.round || g.name || "")}</strong> – ${escapeHTML(
-              g.name || ""
-            )}${
-              g.where ? ` • ${escapeHTML(g.where)}` : ""
-            }${g.note ? ` – ${escapeHTML(g.note)}` : ""}
-          </li>`
-          )
-          .join("")}
-      </ul>
-    `;
-  } else {
-    elRemaining.textContent = "No remaining games listed.";
-  }
-
-  if (Array.isArray(t.notes) && t.notes.length) {
-    elNotes.innerHTML = `
-      <ul>
-        ${t.notes.map((n) => `<li>${escapeHTML(n)}</li>`).join("")}
-      </ul>
-    `;
-  } else {
-    elNotes.textContent = "No additional notes.";
+async function loadCFPData() {
+  try {
+    const res = await fetch("../data/cfp-2025.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to load CFP data:", err);
+    return null;
   }
 }
 
-async function loadTeam() {
-  const teamId = getTeamIdFromQuery();
-  if (!teamId) {
-    elMeta.textContent = "No team specified. Use ?team=texas-tech or similar.";
+function formatDate(str) {
+  if (!str) return "TBD";
+  try {
+    const d = new Date(str);
+    if (Number.isNaN(d.getTime())) return str;
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  } catch {
+    return str;
+  }
+}
+
+function renderSchedule(schedule) {
+  const empty = document.getElementById("schedule-empty");
+  const wrapper = document.getElementById("schedule-table-wrapper");
+  const tbody = document.getElementById("schedule-body");
+
+  if (!tbody) return;
+
+  if (!Array.isArray(schedule) || schedule.length === 0) {
+    if (empty) empty.style.display = "block";
+    if (wrapper) wrapper.style.display = "none";
     return;
   }
 
-  try {
-    const res = await fetch(CFP_TEAMS_URL + "?t=" + Date.now(), { cache: "no-store" });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
+  if (empty) empty.style.display = "none";
+  if (wrapper) wrapper.style.display = "block";
 
-    const meta = data.meta || {};
-    const teams = data.teams || [];
-    const t = teams.find((x) => x.id === teamId);
+  tbody.innerHTML = "";
 
-    if (!t) {
-      elMeta.textContent = `Team not found for id: ${teamId}`;
-      return;
-    }
+  schedule.forEach((g) => {
+    const tr = document.createElement("tr");
 
-    renderTeam(meta, t);
-  } catch (err) {
-    console.error("Failed to load team data:", err);
-    elMeta.textContent = "Failed to load team data.";
+    const tdLabel = document.createElement("td");
+    tdLabel.textContent = g.label || "";
+    tr.appendChild(tdLabel);
+
+    const tdOpp = document.createElement("td");
+    tdOpp.textContent = g.opponent || "";
+    tr.appendChild(tdOpp);
+
+    const tdLoc = document.createElement("td");
+    tdLoc.textContent = g.location || "";
+    tr.appendChild(tdLoc);
+
+    const tdDate = document.createElement("td");
+    tdDate.textContent = formatDate(g.date);
+    tr.appendChild(tdDate);
+
+    const tdResult = document.createElement("td");
+    tdResult.textContent = g.result || "TBD";
+    tr.appendChild(tdResult);
+
+    const tdNote = document.createElement("td");
+    tdNote.textContent = g.note || "";
+    tr.appendChild(tdNote);
+
+    tbody.appendChild(tr);
+  });
+}
+
+function applyTeamColors(team) {
+  if (!team || !team.primaryColor) return;
+  const root = document.documentElement;
+  root.style.setProperty("--team-primary", team.primaryColor);
+  if (team.secondaryColor) {
+    root.style.setProperty("--team-secondary", team.secondaryColor);
   }
 }
 
-loadTeam();
+function renderTeam(team, season) {
+  const title = document.getElementById("team-title");
+  const meta = document.getElementById("team-meta");
+  const recEl = document.getElementById("team-record");
+  const confEl = document.getElementById("team-conference");
+  const seedEl = document.getElementById("team-seed");
+  const bestEl = document.getElementById("scenario-best");
+  const likelyEl = document.getElementById("scenario-likely");
+  const worstEl = document.getElementById("scenario-worst");
+
+  applyTeamColors(team);
+
+  if (title) {
+    title.textContent = `${team.name} – Road to the ${season} Title`;
+  }
+  if (meta) {
+    meta.textContent = `Current CFP seed #${team.seed} in the ${season} season. Projections are relative to the most recent CFP release.`;
+  }
+  if (recEl) {
+    recEl.textContent = `Record: ${team.record || "—"}`;
+  }
+  if (confEl) {
+    confEl.textContent = `Conference: ${team.conference || "—"}`;
+  }
+  if (seedEl) {
+    seedEl.textContent = `Seed: #${team.seed}`;
+  }
+
+  const scenarios = team.scenarios || {};
+  if (bestEl) bestEl.textContent = scenarios.bestCase || "No best-case scenario configured yet.";
+  if (likelyEl) likelyEl.textContent = scenarios.mostLikely || "No most-likely scenario configured yet.";
+  if (worstEl) worstEl.textContent = scenarios.worstCase || "No nightmare scenario configured yet.";
+
+  renderSchedule(team.schedule || []);
+}
+
+function renderNotFound(slug, data) {
+  const title = document.getElementById("team-title");
+  const meta = document.getElementById("team-meta");
+  const cards = document.querySelectorAll(".cfp-card");
+
+  if (title) title.textContent = "Team not found in current CFP Top 12";
+  if (meta) meta.textContent = slug
+    ? `We couldn't find a team for identifier "${slug}".`
+    : "No team identifier was provided.";
+
+  const schedCard = cards[2];
+  if (schedCard) schedCard.style.display = "none";
+
+  // Optional: show a simple list of valid teams for quick copy/paste.
+  const list = document.createElement("ul");
+  list.className = "cfp-simple-list";
+
+  if (data && Array.isArray(data.teams)) {
+    data.teams
+      .slice()
+      .sort((a, b) => (a.seed || 999) - (b.seed || 999))
+      .forEach((t) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = `team.html?team=${encodeURIComponent(t.slug)}`;
+        a.textContent = `#${t.seed} – ${t.name}`;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+  }
+
+  const main = document.querySelector("main");
+  if (main) {
+    const wrapper = document.createElement("section");
+    wrapper.className = "cfp-card";
+    const h2 = document.createElement("h2");
+    h2.className = "cfp-section-title";
+    h2.textContent = "Available CFP Teams";
+    wrapper.appendChild(h2);
+    wrapper.appendChild(list);
+    main.appendChild(wrapper);
+  }
+}
+
+async function initTeamPage() {
+  const slug = getQueryParam("team");
+  const data = await loadCFPData();
+
+  if (!data || !Array.isArray(data.teams)) {
+    renderNotFound(slug, data);
+    return;
+  }
+
+  const season = data.season || "2025";
+
+  const team =
+    data.teams.find((t) => String(t.slug) === String(slug)) ||
+    data.teams.find((t) => String(t.seed) === String(slug));
+
+  if (!team) {
+    renderNotFound(slug, data);
+    return;
+  }
+
+  renderTeam(team, season);
+}
+
+document.addEventListener("DOMContentLoaded", initTeamPage);
