@@ -1,47 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Team Road to the Title • StegVerse CFP</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-<header class="sv-header">
-  <div class="sv-logo">STEGVERSE • CFP</div>
-  <nav class="sv-nav">
-    <a href="index.html">Bracket</a>
-    <a href="championship.html">Championship Weekend</a>
-    <a href="providers.html">Rankings Providers</a>
-  </nav>
-</header>
+  <head>
+    <meta charset="utf-8" />
+    <title>StegVerse CFP • Team Roadmap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<main class="sv-main">
-  <section class="sv-section">
-    <h1 id="team-title">Team Road to the National Championship</h1>
-    <p class="sv-note" id="team-meta"></p>
+    <!-- Reuse the CFP look & feel -->
+    <link rel="stylesheet" href="/cfp/cfp.css" />
 
-    <div class="triple-grid">
-      <article class="card">
-        <h2>Best Case</h2>
-        <p id="best-case"></p>
-      </article>
-      <article class="card">
-        <h2>Most Likely</h2>
-        <p id="likely-case"></p>
-      </article>
-      <article class="card">
-        <h2>Nightmare / Chaos</h2>
-        <p id="worst-case"></p>
-      </article>
+    <meta
+      name="description"
+      content="StegVerse CFP team roadmap — interactive view of each CFP contender's path to the national championship."
+    />
+  </head>
+  <body class="cfp-body-root">
+    <div id="team-root" class="cfp-root">
+      <!-- Populated by js/cfp-team-page.js -->
+      <noscript>
+        <section class="cfp-card cfp-card-error">
+          <h1>JavaScript required</h1>
+          <p>
+            The team roadmap page needs JavaScript enabled to load the current CFP data.
+          </p>
+          <p>
+            If you need a static export for print or archiving, we can add a future
+            Phase 2.5 that generates HTML snapshots from the data model.
+          </p>
+        </section>
+      </noscript>
     </div>
-  </section>
-</main>
 
-<footer class="sv-footer">
-  <p id="team-footer">StegVerse CFP tracker</p>
-</footer>
-
-<script src="js/team.js"></script>
-</body>
+    <!-- Team page driver (ES module) -->
+    <script type="module" src="/js/cfp-team-page.js"></script>
+  </body>
 </html>
