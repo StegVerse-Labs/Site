@@ -1,1 +1,70 @@
-<!doctype html><title>StegVerse</title><h1>StegVerse</h1><p>Sovereign, verifiable, resilient.</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>StegVerse CFP Tracker</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="sv-header">
+    <div class="sv-logo">STEGVERSE • CFP</div>
+    <nav class="sv-nav">
+      <a href="index.html" class="active">Bracket</a>
+      <a href="championship.html">Championship Weekend</a>
+      <a href="providers.html">Rankings Providers</a>
+    </nav>
+  </header>
+
+  <main class="sv-main">
+    <section id="bracket" class="sv-section">
+      <h1>Current CFP Top 12 & Bracket</h1>
+      <p class="sv-note">
+        Rankings below are synced to the most recent official CFP release.
+        Movement and projections are relative to that release.
+      </p>
+
+      <!-- Bracket visualization -->
+      <div id="bracket-grid" class="bracket-grid">
+        <!-- Filled by JS from data/cfp_data.json -->
+      </div>
+
+      <!-- Top 12 table -->
+      <h2>CFP Rankings 1–12</h2>
+      <div class="table-scroll">
+        <table id="cfp-table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th>Record</th>
+            <th>Conf</th>
+            <th>Since Last Ranking</th>
+            <th>Projection (Next Ranking)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- Filled by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="standings" class="sv-section">
+      <h2>Standings & Summary</h2>
+      <p id="summary-text">
+        <!-- Filled by JS from data file -->
+      </p>
+    </section>
+  </main>
+
+  <footer class="sv-footer">
+    <p>
+      Data source: official CFP rankings + StegVerse model notes.
+      Prototype build – rankings are placeholders until wired to live feeds.
+    </p>
+  </footer>
+
+  <script src="js/cfp.js"></script>
+</body>
+</html>
