@@ -1,0 +1,119 @@
+{
+  "season": 2025,
+  "sport": "NCAAF",
+  "pollName": "CFP",
+  "lastRankingRelease": "2025-11-25",
+  "pollWeek": 1,
+  "notes": "Edit this file manually each time new CFP rankings are released. IDs must match ?team= values.",
+
+  "teams": [
+    {
+      "id": "ttu",
+      "seed": 1,
+      "currentRank": 1,
+      "previousRank": 1,
+      "name": "Texas Tech",
+      "shortName": "TTU",
+      "conference": "Big 12",
+      "record": "0-0",
+      "confRecord": "0-0",
+      "sinceLastRanking": 0,
+      "projection": {
+        "nextRank": 1,
+        "movementText": "Holding steady at #1 in most models.",
+        "confidence": 0.72
+      },
+      "headline": "Air Raid Reloaded, Eyes on Glendale",
+      "summary": "Texas Tech opens 2025 with a loaded offense and a defense that finally looks playoff-ready. This page tracks how every remaining game shapes their road to the national title.",
+
+      "paths": {
+        "bestCase": {
+          "record": "13-0",
+          "seed": 1,
+          "summary": "Run the table, win the Big 12 title game convincingly, and lock the #1 seed. That likely means at least two ranked road wins and no one-score scares down the stretch."
+        },
+        "mostLikely": {
+          "record": "12-1",
+          "seed": 2,
+          "summary": "Drop one tricky conference game but still win the Big 12 and finish with multiple top-15 wins. Committee keeps them safely inside the top 4."
+        },
+        "worstCase": {
+          "record": "10-3",
+          "seed": 9,
+          "summary": "Injuries and turnover-heavy games lead to multiple losses, including the title game. Tech slides out of the top 4 and into the at-large chaos pile."
+        }
+      },
+
+      "remainingSchedule": [
+        {
+          "week": 1,
+          "opponent": "Opp U",
+          "location": "home",
+          "date": "2025-09-01",
+          "isConference": false,
+          "importance": "tuneup",
+          "status": "upcoming",
+          "result": null,
+          "score": null,
+          "notes": "Clean, drama-free win keeps them aligned with expectations."
+        }
+      ],
+
+      "notableWins": [],
+      "riskFactors": [
+        "New defensive coordinator still installing scheme.",
+        "QB depth behind starter is untested."
+      ]
+    },
+
+    {
+      "id": "uga",
+      "seed": 2,
+      "currentRank": 2,
+      "previousRank": 2,
+      "name": "Georgia",
+      "shortName": "UGA",
+      "conference": "SEC",
+      "record": "0-0",
+      "confRecord": "0-0",
+      "sinceLastRanking": 0,
+      "projection": {
+        "nextRank": 2,
+        "movementText": "Neck-and-neck with #1; any slip opens door to jump or slide.",
+        "confidence": 0.68
+      },
+      "headline": "Reload or Reign? Dawgs in Familiar Territory",
+      "summary": "Georgia once again starts inside the top 4. The question is less 'can they make the playoff' and more 'can anyone shove them out of it?'",
+
+      "paths": {
+        "bestCase": {
+          "record": "13-0",
+          "seed": 1,
+          "summary": "Perfect regular season plus dominant SEC title win swings the #1 seed back to Athens."
+        },
+        "mostLikely": {
+          "record": "12-1",
+          "seed": 2,
+          "summary": "Survive the SEC with one blemish and another top-tier résumé. CFP lock unless chaos goes nuclear."
+        },
+        "worstCase": {
+          "record": "10-3",
+          "seed": 10,
+          "summary": "Multiple SEC losses and a missed title game push them into New Year’s Six territory instead of the bracket."
+        }
+      },
+
+      "remainingSchedule": [],
+      "notableWins": [],
+      "riskFactors": [
+        "Replacing key NFL-bound starters on defense.",
+        "SEC schedule leaves no margin for sloppy weeks."
+      ]
+    }
+
+    /*  Add teams 3–12 here.
+        Each team object should match this structure and have a unique "id" field.
+        Example IDs: "osu", "ut", "bama", "mich", "ore", etc.
+    */
+  ]
+}
