@@ -1,0 +1,49 @@
+name: Universal Sports Ingestion
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Every hour during the day (adjust as you like)
+    - cron: "5 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ingestion deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pyyaml
+
+      - name: Run universal ingestion
+        run: |
+          cd site
+          python ingest/universal_ingest.py
+
+      - name: Commit & push changes (if any)
+        run: |
+          cd site
+          if git status --porcelain | grep -q .; then
+            echo "Changes detected, committing..."
+            git config user.name "StegVerse Ingest Bot"
+            git config user.email "ingest-bot@users.noreply.github.com"
+            git add cfp/cfp-data.json ingest/*
+            git commit -m "chore: universal ingest update [skip ci]" || echo "No commit made."
+            git push
+          else
+            echo "No changes to commit."
+          fi
