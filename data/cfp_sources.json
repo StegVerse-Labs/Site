@@ -1,63 +1,110 @@
 {
-  "version": 1,
-  "updated": "2025-11-30T00:00:00Z",
-  "notes": "Central CFP/NCAAF data source config. Edit URLs, priorities, and enabled flags here – no code changes needed.",
-  "sources": [
-    {
-      "id": "cfp_official_rankings",
-      "label": "College Football Playoff – Official Rankings",
-      "kind": "cfp_rankings",
-      "season": 2025,
-      "priority": 100,
-      "enabled": true,
-      "url": "https://collegefootballplayoff.com/rankings.aspx?year=2025",
-      "parser": "cfp_official_html_v1"
-    },
+  "_meta": {
+    "description": "Central config for CFP/NCAAF data sources. Edit this file to experiment with new sources or change priority.",
+    "version": 1
+  },
 
-    {
-      "id": "ap_top25",
-      "label": "AP Top 25",
-      "kind": "ap_poll",
-      "season": 2025,
-      "priority": 90,
-      "enabled": true,
-      "url": "https://apnews.com/hub/ap-top-25-college-football-poll",
-      "parser": "ap_poll_html_v1"
-    },
+  "cfp_rankings": {
+    "notes": "Official CFP Top 25 / Top 12 rankings.",
+    "sources": [
+      {
+        "id": "cfp_official_site",
+        "label": "College Football Playoff (official)",
+        "type": "html",
+        "url_template": "https://collegefootballplayoff.com/rankings.aspx?year={year}",
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "id": "ncaa_unofficial_api",
+        "label": "Henrygd NCAA API – CFP rankings",
+        "type": "json",
+        "url_template": "https://ncaa-api.henrygd.me/cfb/rankings/cfp?year={year}&week={week}",
+        "enabled": true,
+        "priority": 2
+      },
+      {
+        "id": "cfbd_backup",
+        "label": "CollegeFootballData.com – CFP rankings",
+        "type": "json",
+        "url_template": "https://api.collegefootballdata.com/rankings?season={year}&seasonType=regular&week={week}",
+        "enabled": false,
+        "priority": 3,
+        "env_api_key": "CFBD_API_KEY",
+        "headers": {
+          "Authorization": "Bearer {CFBD_API_KEY}"
+        }
+      }
+    ]
+  },
 
-    {
-      "id": "coaches_poll",
-      "label": "USA Today Coaches Poll",
-      "kind": "coaches_poll",
-      "season": 2025,
-      "priority": 90,
-      "enabled": true,
-      "url": "https://www.usatoday.com/sports/ncaaf/polls/coaches-poll/",
-      "parser": "coaches_poll_html_v1"
-    },
+  "ap_poll": {
+    "notes": "AP Top 25 sources.",
+    "sources": [
+      {
+        "id": "ap_primary_scrape",
+        "label": "AP Top 25 – primary scrape",
+        "type": "html",
+        "url_template": "https://apnews.com/hub/ap-top-25-college-football-poll",
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "id": "ncaa_ap_api",
+        "label": "Henrygd NCAA API – AP poll",
+        "type": "json",
+        "url_template": "https://ncaa-api.henrygd.me/cfb/rankings/ap?year={year}&week={week}",
+        "enabled": true,
+        "priority": 2
+      }
+    ]
+  },
 
-    {
-      "id": "ncaa_scoreboard",
-      "label": "NCAA – Scoreboard / standings helper",
-      "kind": "ncaaf_scoreboard",
-      "season": 2025,
-      "priority": 80,
-      "enabled": true,
-      "url": "https://www.ncaa.com/scoreboard/football/fbs/2025/13",
-      "parser": "ncaa_scoreboard_html_v1"
-    },
+  "coaches_poll": {
+    "notes": "USA Today Coaches Poll sources.",
+    "sources": [
+      {
+        "id": "coaches_primary_scrape",
+        "label": "USA Today Coaches Poll – primary scrape",
+        "type": "html",
+        "url_template": "https://www.usatoday.com/sports/ncaaf/poll/",
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "id": "ncaa_coaches_api",
+        "label": "Henrygd NCAA API – Coaches poll",
+        "type": "json",
+        "url_template": "https://ncaa-api.henrygd.me/cfb/rankings/coaches?year={year}&week={week}",
+        "enabled": true,
+        "priority": 2
+      }
+    ]
+  },
 
-    {
-      "id": "backup_cfbd",
-      "label": "CFBD (backup API)",
-      "kind": "cfp_rankings",
-      "season": 2025,
-      "priority": 40,
-      "enabled": false,
-      "url": "https://api.collegefootballdata.com/rankings",
-      "parser": "cfbd_api_v1",
-      "needs_api_key": true,
-      "env_api_key": "CFBD_API_KEY"
-    }
-  ]
+  "standings": {
+    "notes": "Conference standings; used to fill the standings view with more teams.",
+    "sources": [
+      {
+        "id": "ncaa_standings_api",
+        "label": "Henrygd NCAA API – conference standings",
+        "type": "json",
+        "url_template": "https://ncaa-api.henrygd.me/cfb/standings?year={year}",
+        "enabled": true,
+        "priority": 1
+      },
+      {
+        "id": "cfbd_standings_backup",
+        "label": "CollegeFootballData – standings backup",
+        "type": "json",
+        "url_template": "https://api.collegefootballdata.com/records?year={year}",
+        "enabled": false,
+        "priority": 2,
+        "env_api_key": "CFBD_API_KEY",
+        "headers": {
+          "Authorization": "Bearer {CFBD_API_KEY}"
+        }
+      }
+    ]
+  }
 }
