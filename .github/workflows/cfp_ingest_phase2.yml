@@ -1,0 +1,42 @@
+name: CFP Phase 2 – Standings & Polls Ingestion
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 30 minutes during the day; adjust as you like
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Run CFP Phase 2 ingestion (standings + polls)
+        run: python tools/cfp_ingest_phase2.py
+
+      - name: Commit and push changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add data/cfp-data.json
+            git commit -m "Update CFP data (standings + polls) [skip ci]" || echo "Nothing to commit"
+            git push
+          else:
+            echo "No changes to commit."
