@@ -1,0 +1,126 @@
+# ingest/ingest_config.yml
+#
+# Universal ingestion config for StegVerse sports data.
+# One place to define all “what to fetch” + “from where” + “where to store”.
+#
+# NOTES:
+# - You can add more sports/leagues under `datasets`.
+# - `primary_sources` is an ordered list (highest priority first).
+# - `backup_sources` are used if primaries fail.
+
+meta:
+  version: 1
+  owner: "StegVerse"
+  description: "Universal ingestion config (CFP + NCAAF first, expandable to NCAAB, NFL, etc.)"
+
+defaults:
+  # Where we store human-friendly logs for debugging
+  log_dir: "ingest/logs"
+  # If true, ingestion runs but does not write/commit files (for dry-runs)
+  dry_run: false
+
+datasets:
+  # -----------------------------
+  # CFP RANKINGS (TOP 12/25)
+  # -----------------------------
+  - id: "cfp_rankings"
+    enabled: true
+    sport: "ncaaf"
+    league: "cfp"
+    priority: 10
+    kind: "cfp_rankings_html"
+    output:
+      type: "json_file"
+      path: "cfp/cfp-data.json"
+      field: "rankings"
+    primary_sources:
+      - id: "cfp_official_2025"
+        type: "html"
+        url: "https://collegefootballplayoff.com/rankings.aspx?year=2025"
+    backup_sources:
+      # Example backup source using a generic API/scraper wrapper
+      - id: "ncaa_api_cfp"
+        type: "api"
+        url: "https://ncaa-api.henrygd.me"   # placeholder; you can change later
+
+  # -----------------------------
+  # CFP-CONNECTED CONFERENCE STANDINGS
+  # -----------------------------
+  - id: "ncaaf_conference_standings"
+    enabled: true
+    sport: "ncaaf"
+    league: "fbs"
+    priority: 8
+    kind: "ncaaf_standings_html"
+    output:
+      type: "json_file"
+      path: "cfp/cfp-data.json"
+      field: "conferences"
+    primary_sources:
+      - id: "espn_standings"
+        type: "html"
+        url: "https://www.espn.com/college-football/standings"
+    backup_sources: []
+
+  # -----------------------------
+  # POLLS: AP / COACHES / CFP
+  # -----------------------------
+  - id: "ncaaf_polls"
+    enabled: true
+    sport: "ncaaf"
+    league: "fbs"
+    priority: 7
+    kind: "ncaaf_polls_html"
+    output:
+      type: "json_file"
+      path: "cfp/cfp-data.json"
+      field: "polls"
+    primary_sources:
+      - id: "ap_poll"
+        type: "html"
+        url: "https://apnews.com/hub/ap-top-25-college-football-poll"
+      - id: "coaches_poll"
+        type: "html"
+        url: "https://sports.usatoday.com/ncaa/college-football/polls"
+    backup_sources: []
+
+  # -----------------------------
+  # GAMES (SCHEDULE + RESULTS)
+  # -----------------------------
+  - id: "ncaaf_games"
+    enabled: true
+    sport: "ncaaf"
+    league: "fbs"
+    priority: 6
+    kind: "ncaaf_games_html"
+    output:
+      type: "json_file"
+      path: "cfp/cfp-data.json"
+      field: "games"
+    primary_sources:
+      - id: "espn_scoreboard"
+        type: "html"
+        url: "https://www.espn.com/college-football/scoreboard"
+    backup_sources:
+      - id: "ncaa_api_scoreboard"
+        type: "api"
+        url: "https://ncaa-api.henrygd.me"
+
+  # -----------------------------
+  # EXAMPLE FUTURE SPORT (NCAAB)
+  # -----------------------------
+  - id: "ncaab_men_2025"
+    enabled: false    # can enable later
+    sport: "ncaab"
+    league: "men"
+    priority: 5
+    kind: "ncaab_standings_html"
+    output:
+      type: "json_file"
+      path: "ncaab/men-2025.json"
+      field: "standings"
+    primary_sources:
+      - id: "espn_ncaab_men"
+        type: "html"
+        url: "https://www.espn.com/mens-college-basketball/standings"
+    backup_sources: []
