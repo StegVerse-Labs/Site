@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "schema_version": 1,
+    "note": "Central config for CFP/NCAAF data sources. You can swap URLs or priorities here without changing code."
+  },
+
+  "polls": {
+    "cfp": {
+      "id": "cfp_official",
+      "label": "College Football Playoff Rankings",
+      "primary": {
+        "id": "cfp_2025",
+        "url": "https://collegefootballplayoff.com/rankings.aspx?year=2025",
+        "type": "html_table"
+      },
+      "backups": []
+    },
+    "ap": {
+      "id": "ap_top25",
+      "label": "AP Top 25",
+      "primary": {
+        "id": "ap_main",
+        "url": "https://apnews.com/hub/ap-top-25-college-football-poll",
+        "type": "html_table"
+      },
+      "backups": []
+    },
+    "coaches": {
+      "id": "coaches_poll",
+      "label": "Coaches Poll (USA Today)",
+      "primary": {
+        "id": "coaches_main",
+        "url": "https://sports.usatoday.com/ncaa/football/polls/coaches-poll/",
+        "type": "html_table"
+      },
+      "backups": []
+    }
+  },
+
+  "standings": {
+    "fbs": {
+      "id": "ncaaf_fbs",
+      "label": "NCAAF FBS Standings",
+      "primary": {
+        "id": "espn_fbs",
+        "url": "https://www.espn.com/college-football/standings",
+        "type": "html_table"
+      },
+      "backups": []
+    }
+  },
+
+  "source_index": [
+    {
+      "id": "cfp_official",
+      "label": "College Football Playoff",
+      "url": "https://collegefootballplayoff.com/rankings.aspx?year=2025"
+    },
+    {
+      "id": "ap_top25",
+      "label": "AP Top 25",
+      "url": "https://apnews.com/hub/ap-top-25-college-football-poll"
+    },
+    {
+      "id": "coaches_poll",
+      "label": "USA Today Coaches Poll",
+      "url": "https://sports.usatoday.com/ncaa/football/polls/coaches-poll/"
+    },
+    {
+      "id": "espn_standings",
+      "label": "ESPN NCAAF Standings",
+      "url": "https://www.espn.com/college-football/standings"
+    }
+  ]
+}
