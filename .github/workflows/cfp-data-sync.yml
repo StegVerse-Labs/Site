@@ -1,46 +1,55 @@
 name: CFP Data Sync
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why are you running the CFP sync?"
+        required: false
   schedule:
-    # Runs every 4 hours during the season; you can tweak this
-    - cron: "0 */4 * * *"
+    # Adjust as needed:
+    # - Tue night for new CFP rankings
+    # - Sat evening for games
+    - cron: "0 3 * * 3"   # Wed 03:00 UTC (Tue night CFP release)
+    - cron: "0 5 * * 0"   # Sun 05:00 UTC (after Saturday games)
+
+permissions:
+  contents: write
 
 jobs:
-  sync:
+  sync-cfp-data:
     runs-on: ubuntu-latest
-
-    env:
-      CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install httpx
 
-      - name: Run CFP ingest script
+      - name: Run CFP fetch script
+        working-directory: .
         run: |
-          python cfp_ingest/cfp_ingest.py
+          ls
+          python scripts/fetch_cfp_data.py
 
       - name: Commit and push changes (if any)
         run: |
-          if git status --porcelain | grep -q "data/cfp-data.json"; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add data/cfp-data.json
-            git commit -m "CFP data sync [skip ci]" || echo "No commit needed"
-            git push
-          else
-            echo "No changes to cfp-data.json"
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
           fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/cfp-data.json
+          git commit -m "Update CFP data [ci skip]"
+          git push
