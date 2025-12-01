@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "updated": "2025-11-30T00:00:00Z",
+  "notes": "Central CFP/NCAAF data source config. Edit URLs, priorities, and enabled flags here – no code changes needed.",
+  "sources": [
+    {
+      "id": "cfp_official_rankings",
+      "label": "College Football Playoff – Official Rankings",
+      "kind": "cfp_rankings",
+      "season": 2025,
+      "priority": 100,
+      "enabled": true,
+      "url": "https://collegefootballplayoff.com/rankings.aspx?year=2025",
+      "parser": "cfp_official_html_v1"
+    },
+
+    {
+      "id": "ap_top25",
+      "label": "AP Top 25",
+      "kind": "ap_poll",
+      "season": 2025,
+      "priority": 90,
+      "enabled": true,
+      "url": "https://apnews.com/hub/ap-top-25-college-football-poll",
+      "parser": "ap_poll_html_v1"
+    },
+
+    {
+      "id": "coaches_poll",
+      "label": "USA Today Coaches Poll",
+      "kind": "coaches_poll",
+      "season": 2025,
+      "priority": 90,
+      "enabled": true,
+      "url": "https://www.usatoday.com/sports/ncaaf/polls/coaches-poll/",
+      "parser": "coaches_poll_html_v1"
+    },
+
+    {
+      "id": "ncaa_scoreboard",
+      "label": "NCAA – Scoreboard / standings helper",
+      "kind": "ncaaf_scoreboard",
+      "season": 2025,
+      "priority": 80,
+      "enabled": true,
+      "url": "https://www.ncaa.com/scoreboard/football/fbs/2025/13",
+      "parser": "ncaa_scoreboard_html_v1"
+    },
+
+    {
+      "id": "backup_cfbd",
+      "label": "CFBD (backup API)",
+      "kind": "cfp_rankings",
+      "season": 2025,
+      "priority": 40,
+      "enabled": false,
+      "url": "https://api.collegefootballdata.com/rankings",
+      "parser": "cfbd_api_v1",
+      "needs_api_key": true,
+      "env_api_key": "CFBD_API_KEY"
+    }
+  ]
+}
