@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "version": 1,
+    "description": "Universal sports data source configuration for StegVerse."
+  },
+
+  "sports": {
+    "ncaaf": {
+      "seasons": {
+        "2025": {
+          "cfp_rankings": {
+            "primary": {
+              "id": "cfp_official",
+              "type": "scrape",
+              "label": "Official CFP Rankings",
+              "url": "https://collegefootballplayoff.com/rankings.aspx?year=2025",
+              "cache_title": "CFP 2025 Official Rankings"
+            },
+            "backup": {
+              "id": "ncaa_api",
+              "type": "api",
+              "label": "Unofficial NCAA API backup",
+              "url": "https://ncaa-api.henrygd.me", 
+              "notes": "Only used if primary scrape fails."
+            }
+          },
+          "standings": {
+            "primary": {
+              "id": "espn_ncaaf_standings",
+              "type": "scrape",
+              "label": "ESPN NCAAF Standings",
+              "url": "https://www.espn.com/college-football/standings",
+              "cache_title": "ESPN NCAAF Standings"
+            }
+          },
+          "polls": {
+            "ap": {
+              "primary": {
+                "id": "ap_poll_apnews",
+                "type": "scrape",
+                "label": "AP Top 25 – APNews",
+                "url": "https://apnews.com/hub/ap-top-25-college-football-poll",
+                "cache_title": "AP Top 25 Poll"
+              }
+            },
+            "coaches": {
+              "primary": {
+                "id": "coaches_poll_usa_today",
+                "type": "scrape",
+                "label": "Coaches Poll – USA Today",
+                "url": "https://sports.usatoday.com/ncaa/football/polls",
+                "cache_title": "Coaches Poll"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "ncaab_men": {
+      "seasons": {
+        "2025-26": {
+          "polls": {
+            "ap": {
+              "primary": {
+                "id": "ncaab_men_ap_poll",
+                "type": "scrape",
+                "label": "AP Top 25 – NCAAB Men",
+                "url": "https://apnews.com/hub/ap-top-25-mens-college-basketball-poll",
+                "cache_title": "AP Top 25 – Men’s Basketball"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "ncaab_women": {
+      "seasons": {
+        "2025-26": {
+          "polls": {
+            "ap": {
+              "primary": {
+                "id": "ncaab_women_ap_poll",
+                "type": "scrape",
+                "label": "AP Top 25 – NCAAB Women",
+                "url": "https://apnews.com/hub/ap-top-25-womens-college-basketball-poll",
+                "cache_title": "AP Top 25 – Women’s Basketball"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
