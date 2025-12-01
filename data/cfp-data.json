@@ -1,10 +1,15 @@
 {
-  "last_updated": "2025-12-01T07:26:37Z",
+  "last_updated": "2025-12-01T07:31:46.279889+00:00",
   "sources": [
     {
       "id": "1",
-      "label": "College Football Playoff",
-      "url": "https://collegefootballplayoff.com"
+      "label": "ESPN Rankings",
+      "url": "https://www.espn.com/college-football/rankings"
+    },
+    {
+      "id": "4",
+      "label": "ESPN Standings",
+      "url": "https://www.espn.com/college-football/standings"
     },
     {
       "id": "2",
@@ -15,11 +20,6 @@
       "id": "3",
       "label": "Coaches Poll",
       "url": "https://sports.usatoday.com"
-    },
-    {
-      "id": "4",
-      "label": "ESPN Standings",
-      "url": "https://www.espn.com/college-football/standings"
     }
   ],
   "cfp_source_id": "1",
@@ -134,6 +134,7 @@
       "spot_scenarios": []
     }
   ],
+  "games": [],
   "polls": [
     {
       "name": "CFP Rankings",
@@ -448,6 +449,5 @@
       ]
     }
   ],
-  "conferences": [],
-  "games": []
+  "conferences": []
 }
