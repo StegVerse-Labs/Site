@@ -1,211 +1,177 @@
-#!/usr/bin/env python
-import os
-import sys
-import json
-import time
-import datetime as dt
-from pathlib import Path
+import json, os, sys, datetime
+from typing import Any, Dict, List
 
 import requests
+from bs4 import BeautifulSoup
 
-# ---- Config ----
+# ---------------------------------------------------------
+# Paths & source config
+# ---------------------------------------------------------
 
-CFBD_API_KEY = os.getenv("CFBD_API_KEY", "").strip()
-if not CFBD_API_KEY:
-    print("ERROR: CFBD_API_KEY env var is not set.", file=sys.stderr)
-    sys.exit(1)
+# Root of the repo (assumes this file lives in site/cfp/)
+ROOT_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Adjust this if your data file is somewhere else
-OUTPUT_PATH = Path("data/cfp-data.json")
+# Our main JSON that the site frontend reads
+CFP_JSON_PATH = os.path.join(ROOT_DIR, "cfp", "cfp-data.json")
 
-CFBD_RANKINGS_URL = "https://api.collegefootballdata.com/rankings"
+# Primary CFP ranking page (scraped)
+CFP_SOURCE_URL = "https://collegefootballplayoff.com/rankings"
 
-# ---- Helpers ----
-
-def now_iso() -> str:
-    return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-
-
-def fetch_rankings(year: int):
-    """Fetch rankings from CFBD and return JSON."""
-    headers = {
-        "Authorization": f"Bearer {CFBD_API_KEY}",
-        "Accept": "application/json",
-    }
-    params = {"year": year}
-    resp = requests.get(CFBD_RANKINGS_URL, headers=headers, params=params, timeout=20)
-    resp.raise_for_status()
-    return resp.json()
+# Optional backup (currently unused, but reserved)
+BACKUP_RANKINGS_URL = "https://www.espn.com/college-football/rankings"
 
 
-def pick_latest_cfp_snapshot(data):
+# ---------------------------------------------------------
+# Helpers: load/save JSON
+# ---------------------------------------------------------
+
+def load_existing() -> Dict[str, Any]:
+    """Load existing cfp-data.json if present, else return empty structure."""
+    if not os.path.exists(CFP_JSON_PATH):
+        return {}
+    try:
+        with open(CFP_JSON_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"[cfp_ingest] failed to load existing JSON: {e}", file=sys.stderr)
+        return {}
+
+
+def save_data(data: Dict[str, Any]) -> None:
+    """Write updated JSON with a fresh last_updated timestamp."""
+    data["last_updated"] = (
+        datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+    )
+    os.makedirs(os.path.dirname(CFP_JSON_PATH), exist_ok=True)
+    with open(CFP_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, sort_keys=False)
+    print(f"[cfp_ingest] wrote {CFP_JSON_PATH}")
+
+
+# ---------------------------------------------------------
+# Scraping: CFP rankings (primary source)
+# ---------------------------------------------------------
+
+def scrape_cfp_rankings() -> List[Dict[str, Any]]:
     """
-    CFBD rankings payload is a list of 'weeks', each with multiple polls.
-    We pick the latest (max season/week) entry that has a CFP poll.
+    Scrape CFP Top 25 from the official CFP rankings page.
+
+    NOTE: The CSS/HTML structure here is a best-effort guess. If the page changes,
+    you'll only need to update the table/selector logic below (the rest of the
+    ingestion + site stays the same).
     """
-    latest = None
-    latest_key = None
+    rankings: List[Dict[str, Any]] = []
 
-    for entry in data:
-        season = entry.get("season")
-        week = entry.get("week")
-        polls = entry.get("polls", [])
+    print(f"[cfp_ingest] fetching CFP rankings from {CFP_SOURCE_URL}")
+    try:
+        resp = requests.get(CFP_SOURCE_URL, timeout=20)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"[cfp_ingest] primary CFP source failed: {e}", file=sys.stderr)
+        return rankings
 
-        for poll in polls:
-            name = poll.get("name", "")
-            # Look for CFP-style poll
-            upper = name.upper()
-            if "CFP" in upper or "PLAYOFF" in upper:
-                key = (season, entry.get("seasonType", ""), week)
-                if latest_key is None or key > latest_key:
-                    latest_key = key
-                    latest = {
-                        "season": season,
-                        "seasonType": entry.get("seasonType"),
-                        "week": week,
-                        "poll": poll,
-                    }
+    soup = BeautifulSoup(resp.text, "html.parser")
 
-    return latest
+    # -----
+    # WARNING:
+    # This is intentionally generic so it has a decent chance of working
+    # without knowing the exact HTML:
+    #   - finds the first <table> that has numeric seeds in first column
+    #   - expects rows like: Rank | Team | Record | ...
+    # If CFP changes structure, we tweak only this block.
+    # -----
+    table = soup.find("table")
+    if not table:
+        print("[cfp_ingest] no <table> found on CFP page", file=sys.stderr)
+        return rankings
 
-
-def build_payload_from_snapshot(snapshot):
-    """
-    Turn the CFBD snapshot into the cfp-data.json structure
-    expected by the frontend.
-    """
-    if not snapshot:
-        raise RuntimeError("No CFP snapshot found in rankings data.")
-
-    season = snapshot["season"]
-    week = snapshot["week"]
-    poll = snapshot["poll"]
-    poll_name = poll.get("name", "CFP Rankings")
-    ranks = poll.get("ranks", [])
-
-    # Build CFP Top 12 rankings for our main table
-    rankings = []
-    for r in ranks:
-        rank = r.get("rank")
-        if rank is None or rank > 12:
+    for row in table.find_all("tr"):
+        cells = [c.get_text(strip=True) for c in row.find_all(["td", "th"])]
+        if not cells:
             continue
-        team = r.get("school") or r.get("team") or "Unknown"
-        conf = r.get("conference", "")
-        rankings.append({
-            "seed": rank,
-            "team": team,
-            "record": "-",            # CFBD rankings payload doesn't include record directly
-            "conference": conf or "",
-            "status": "in_play",      # We could get fancy later
-            "lock_reason": "",
-            "spot_scenarios": []
-        })
+        # Skip header rows and non-numeric seeds
+        if not cells[0].isdigit():
+            continue
 
-    # Build polls block (CFP + possibly AP/Coaches if present)
-    polls_out = []
-    for p in snapshot.get("all_polls", [poll]):
-        name = p.get("name", "Unknown Poll")
-        teams = []
-        for r in p.get("ranks", []):
-            teams.append({
-                "rank": r.get("rank"),
-                "team": r.get("school") or r.get("team") or "Unknown",
-                "record": "-",
-                "conference": r.get("conference", ""),
-            })
-        polls_out.append({
-            "name": name,
-            "source_id": "cfbd",
-            "teams": teams,
-        })
-
-    payload = {
-        "last_updated": now_iso(),
-        "sources": [
-            {
-                "id": "cfbd",
-                "label": "CollegeFootballData.com Rankings API",
-                "url": CFBD_RANKINGS_URL,
-            }
-        ],
-        "cfp_source_id": "cfbd",
-        "conf_source_id": "cfbd",  # placeholder; we can wire standings later
-        "rankings": rankings,
-        "games": [],      # Phase 3: hook to CFBD games endpoint
-        "polls": polls_out,
-        "conferences": [] # Phase 3: hook to CFBD standings/records
-    }
-
-    return payload
-
-
-def attach_all_polls(latest_snapshot, all_data):
-    """
-    Enrich snapshot with 'all_polls' for that same (season, seasonType, week),
-    so we can include AP / Coaches etc. in our UI.
-    """
-    if not latest_snapshot:
-        return latest_snapshot
-
-    season = latest_snapshot["season"]
-    week = latest_snapshot["week"]
-    seasonType = latest_snapshot["seasonType"]
-
-    all_polls = []
-    for entry in all_data:
-        if (
-            entry.get("season") == season and
-            entry.get("week") == week and
-            entry.get("seasonType") == seasonType
-        ):
-            all_polls.extend(entry.get("polls", []))
-
-    latest_snapshot["all_polls"] = all_polls
-    return latest_snapshot
-
-
-def main():
-    year = dt.datetime.utcnow().year
-    print(f"[cfp_ingest] Fetching CFBD rankings for {year}...")
-
-    data = fetch_rankings(year)
-    print(f"[cfp_ingest] Got {len(data)} ranking snapshots from CFBD.")
-
-    snapshot = pick_latest_cfp_snapshot(data)
-    if not snapshot:
-        print("ERROR: No CFP poll found in CFBD rankings data.", file=sys.stderr)
-        sys.exit(1)
-
-    snapshot = attach_all_polls(snapshot, data)
-
-    payload = build_payload_from_snapshot(snapshot)
-
-    # Make sure output directory exists
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-    # If file exists, load previous to avoid meaningless rewrites
-    old = None
-    if OUTPUT_PATH.exists():
         try:
-            old = json.loads(OUTPUT_PATH.read_text())
-        except Exception:
-            old = None
+            seed = int(cells[0])
+        except ValueError:
+            continue
 
-    new_text = json.dumps(payload, indent=2, sort_keys=True)
+        team = cells[1] if len(cells) > 1 else ""
+        record = cells[2] if len(cells) > 2 else ""
+        conference = ""  # can be enriched later from schedule/standings sources
 
-    if old is not None:
-        old_text = json.dumps(old, indent=2, sort_keys=True)
-        if old_text == new_text:
-            print("[cfp_ingest] No change in data; not updating cfp-data.json.")
-            return
+        rankings.append({
+            "seed": seed,
+            "team": team,
+            "record": record,
+            "conference": conference,
+            "status": "in_play",    # can be locked/in_play/eliminated by logic later
+            "lock_reason": "",
+            "spot_scenarios": [],   # filled by your scenario logic later
+        })
 
-    OUTPUT_PATH.write_text(new_text, encoding="utf-8")
-    print(f"[cfp_ingest] Wrote updated CFP data to {OUTPUT_PATH}")
+    print(f"[cfp_ingest] parsed {len(rankings)} ranking rows")
+    return rankings
+
+
+# ---------------------------------------------------------
+# Main entry
+# ---------------------------------------------------------
+
+def main() -> None:
+    data = load_existing()
+
+    # If file was empty/non-existent, initialize minimal structure
+    if not data:
+        data = {
+            "last_updated": "",
+            "sources": [],
+            "cfp_source_id": "cfp",
+            "conf_source_id": "standings",
+            "rankings": [],
+            "games": [],
+            "polls": [],
+            "conferences": [],
+        }
+
+    # -----
+    # 1) Update rankings from CFP
+    # -----
+    rankings = scrape_cfp_rankings()
+    if rankings:
+        data["rankings"] = rankings
+
+        # Ensure sources array exists
+        if "sources" not in data or not isinstance(data["sources"], list):
+            data["sources"] = []
+
+        # Add/refresh CFP source record
+        existing = [s for s in data["sources"] if s.get("id") == "cfp"]
+        if not existing:
+            data["sources"].append({
+                "id": "cfp",
+                "label": "College Football Playoff (scraped)",
+                "url": CFP_SOURCE_URL,
+            })
+        else:
+            for s in data["sources"]:
+                if s.get("id") == "cfp":
+                    s["label"] = "College Football Playoff (scraped)"
+                    s["url"] = CFP_SOURCE_URL
+
+        data["cfp_source_id"] = "cfp"
+    else:
+        print("[cfp_ingest] keeping existing rankings (scrape produced 0 rows)", file=sys.stderr)
+
+    # -----
+    # 2) (Future) Update games / standings / polls from other scraped sources
+    #    For now we just leave them as-is so nothing breaks.
+    # -----
+
+    save_data(data)
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        print(f"[cfp_ingest] ERROR: {e}", file=sys.stderr)
-        sys.exit(1)
+    main()
