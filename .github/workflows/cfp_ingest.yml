@@ -1,21 +1,17 @@
-name: CFP Data Ingestion (scrape primary sources)
+name: CFP Data Ingestion
 
 on:
-  # Manual trigger from GitHub UI
   workflow_dispatch:
-
-  # Scheduled runs (tweak as you like)
-  schedule:
-    # Every 30 minutes on Fridays & Saturdays (heavier traffic / games)
-    - cron: "*/30 * * * 5,6"
-    # Once on Tuesday early UTC (after CFP rankings usually drop)
-    - cron: "0 3 * * 2"
+  # Uncomment this when you're ready for automatic runs:
+  # schedule:
+  #   - cron: "10 2 * * TUE"  # Example: 2:10 UTC every Tuesday (CFP release night)
+  #   - cron: "0 * * * SAT,SUN"  # Example: hourly on weekends during games
 
 permissions:
   contents: write
 
 jobs:
-  scrape-and-commit:
+  update-cfp-data:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,29 +25,28 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install scraping deps
+      - name: Install scraper dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4
 
-      - name: Run CFP scraper
-        working-directory: ./site
-        run: |
-          python cfp/cfp_ingest.py
-
-      - name: Commit & push changes (if any)
+      - name: Run CFP data ingestion script
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: ./site
+          CFP_DATA_PATH: "data/cfp-data.json"
+          # You can override this if CFP changes their URL structure:
+          # CFP_RANKINGS_URL: "https://collegefootballplayoff.com/some/new/path"
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          python tools/cfp/update_cfp_data.py
 
-          if git diff --quiet; then
-            echo "No changes to commit."
-            exit 0
+      - name: Commit updated CFP data (if changed)
+        run: |
+          if git status --porcelain | grep "data/cfp-data.json"; then
+            echo "Changes detected in data/cfp-data.json, committing..."
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/cfp-data.json
+            git commit -m "chore: update CFP rankings data [CI]" || echo "No changes to commit"
+            git push
+          else
+            echo "No changes in data/cfp-data.json, nothing to commit."
           fi
-
-          git add cfp/cfp-data.json
-          git commit -m "chore: update CFP data from primary sources"
-          git push
