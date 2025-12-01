@@ -1,0 +1,46 @@
+name: CFP Data Scrape
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Every hour during the season (adjust as you like)
+    - cron: "5 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Run CFP scraper
+        run: |
+          python scripts/cfp_scrape.py
+
+      - name: Commit changes (if any)
+        run: |
+          if git diff --quiet; then
+            echo "No changes in data/cfp-data.json"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/cfp-data.json
+          git commit -m "Update CFP data (auto-scrape)"
+          git push
