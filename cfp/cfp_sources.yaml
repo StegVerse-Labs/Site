@@ -1,0 +1,52 @@
+# cfp_sources.yaml
+# Master config for where we get standings & polls (and eventually CFP rankings).
+# You can change URLs, priorities, or disable sources here WITHOUT touching code.
+
+version: 1
+
+poll_sources:
+  # Official CFP rankings (weekly, small volume, but most authoritative)
+  - id: cfp_official
+    enabled: true
+    kind: cfp_rankings
+    priority: 1
+    url: "https://collegefootballplayoff.com/rankings.aspx?year=2025"
+    notes: "Official CFP rankings page – HTML scrapable; weekly refresh."
+
+  # AP Top 25
+  - id: ap_top25
+    enabled: true
+    kind: ap_poll
+    priority: 1
+    url: "https://apnews.com/hub/ap-top-25-college-football-poll"
+    notes: "AP Top 25 – HTML; standings & poll table."
+
+  # Coaches Poll (USA Today)
+  - id: coaches_poll
+    enabled: true
+    kind: coaches_poll
+    priority: 1
+    url: "https://sports.usatoday.com/ncaa/football/polls/coaches-poll/"
+    notes: "Coaches Poll – weekly."
+
+standing_sources:
+  # ESPN general FBS standings – conferences
+  - id: espn_fbs
+    enabled: true
+    kind: conference_standings
+    priority: 1
+    url: "https://www.espn.com/college-football/standings"
+    notes: "Full FBS conference standings; parse by conference."
+
+  # Optional: Big 12 focused endpoint (if you want a special override later)
+  - id: espn_big12
+    enabled: false
+    kind: conference_standings
+    priority: 10
+    url: "https://www.espn.com/college-football/standings/_/group/4"
+    notes: "Big 12-only standings; can be enabled if you want special treatment."
+
+# Later we can add:
+# - scoreboard_sources
+# - team_metadata_sources
+# - etc.
