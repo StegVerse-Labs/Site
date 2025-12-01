@@ -1,152 +1,302 @@
-# scripts/cfp_scrape.py
-
+#!/usr/bin/env python3
 """
-CFP / NCAAF data scraper that uses data/cfp_sources.json
-as the single source of truth for where to fetch from.
+cfp_scrape.py
 
-Outputs:
-- data/cfp-data.json   (high-level combined snapshot)
-- data/cfp-2025.json   (raw CFP rankings & bracket-ish info)
-- data/cfp-teams.json  (teams + records)
+Config-driven scraper for CFP rankings (and future polls/standings).
+
+- Reads Site/data/cfp_sources.json
+- Tries enabled sources for "rankings" in priority order
+- Uses the first source that returns valid data
+- Writes normalized rankings into Site/data/cfp-data.json
+
+For now we focus on CFP rankings; polls/standings can be wired in later
+using the same pattern.
+
+Expected output JSON shape (cfp-data.json):
+
+{
+  "year": 2025,
+  "source_id": "cfp_official_html",
+  "source_title": "College Football Playoff — Official Rankings",
+  "generated_at": "2025-11-30T01:23:45Z",
+  "rankings": [
+    {
+      "rank": 1,
+      "team": "Ohio State",
+      "record": "12-0",
+      "conf": "Big Ten"
+    },
+    ...
+  ]
+}
 """
 
 import json
+import os
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import requests
-from bs4 import BeautifulSoup  # make sure 'beautifulsoup4' is in requirements.txt
-
-from scripts.cfp_sources import pick_best_source, SourceConfigError
+from bs4 import BeautifulSoup
 
 
-DATA_DIR = Path("data")
-DATA_DIR.mkdir(exist_ok=True)
+ROOT = Path(__file__).resolve().parents[1]
+DATA_DIR = ROOT / "data"
+CONFIG_PATH = DATA_DIR / "cfp_sources.json"
+OUTPUT_PATH = DATA_DIR / "cfp-data.json"
 
 
-def fetch_html(url: str) -> str:
-    resp = requests.get(url, timeout=20)
+def log(msg: str) -> None:
+    """Simple stderr logger so GitHub Actions shows messages nicely."""
+    sys.stderr.write(f"[cfp_scrape] {msg}\n")
+    sys.stderr.flush()
+
+
+def load_config(path: Path = CONFIG_PATH) -> Dict[str, Any]:
+    if not path.exists():
+        raise FileNotFoundError(f"Config file not found: {path}")
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def select_sources(cfg: Dict[str, Any], section: str) -> List[Dict[str, Any]]:
+    """Return enabled sources for a section (e.g. 'rankings') sorted by priority."""
+    sec = cfg.get(section, {})
+    sources = sec.get("sources", [])
+    enabled = [s for s in sources if s.get("enabled", True)]
+    return sorted(enabled, key=lambda s: int(s.get("priority", 100)))
+
+
+def http_get(url: str, timeout: int = 20) -> requests.Response:
+    log(f"GET {url}")
+    resp = requests.get(url, timeout=timeout)
     resp.raise_for_status()
-    return resp.text
+    return resp
 
 
-# --- Parsers ---------------------------------------------------------------
+# ---------- PARSERS ----------
 
-def parse_cfp_official_rankings(html: str) -> Dict[str, Any]:
+def parse_rankings_from_official_html(html: str, max_teams: Optional[int] = None) -> List[Dict[str, Any]]:
     """
-    Parse the official CFP rankings from the HTML page.
+    Very generic HTML parser for the official CFP rankings page.
 
-    NOTE: This is intentionally simple / placeholder-ish. You can tighten
-    this as you learn the exact HTML structure.
+    We try to find the first table that looks like rankings (has 'Rank' in header),
+    then pull Rank, Team, Record and Conference if available.
+
+    NOTE: This may need tweaking once we see the exact HTML, but it's
+    intentionally defensive and should at least not crash.
     """
     soup = BeautifulSoup(html, "html.parser")
 
-    # You will want to inspect the real page structure in a desktop browser
-    # and adjust these selectors accordingly.
-    table = soup.find("table")
-    if not table:
-        raise RuntimeError("Could not find rankings table in CFP HTML")
+    tables = soup.find_all("table")
+    if not tables:
+        raise ValueError("No tables found on CFP official page.")
 
-    rows = table.find_all("tr")
     rankings: List[Dict[str, Any]] = []
 
-    for row in rows[1:]:
-        cols = [c.get_text(strip=True) for c in row.find_all("td")]
-        if len(cols) < 3:
-            continue
-        rank_txt, team, record = cols[:3]
+    for table in tables:
+        headers = [th.get_text(strip=True) for th in table.find_all("th")]
+        header_line = " | ".join(h.lower() for h in headers)
+
+        if "rank" not in header_line or "team" not in header_line:
+            continue  # not our table
+
+        # Figure out column indices
+        try:
+            rank_idx = next(i for i, h in enumerate(headers) if "rank" in h.lower())
+        except StopIteration:
+            rank_idx = None
 
         try:
-            rank = int(rank_txt.replace("#", "").strip())
-        except ValueError:
+            team_idx = next(i for i, h in enumerate(headers) if "team" in h.lower() or "school" in h.lower())
+        except StopIteration:
+            team_idx = None
+
+        record_idx = None
+        conf_idx = None
+
+        for i, h in enumerate(headers):
+            low = h.lower()
+            if record_idx is None and ("record" in low or "overall" in low):
+                record_idx = i
+            if conf_idx is None and ("conf" in low or "conference" in low):
+                conf_idx = i
+
+        if team_idx is None or rank_idx is None:
+            # Not a usable table; continue searching
+            continue
+
+        for row in table.find_all("tr"):
+            cells = [td.get_text(strip=True) for td in row.find_all("td")]
+            if not cells:
+                continue
+
+            # Guard against short rows
+            rank = None
+            team = None
+            record = ""
+            conf = ""
+
+            if rank_idx is not None and rank_idx < len(cells):
+                rank_str = cells[rank_idx].strip("# ")
+                if rank_str.isdigit():
+                    rank = int(rank_str)
+            if team_idx is not None and team_idx < len(cells):
+                team = cells[team_idx]
+
+            if record_idx is not None and record_idx < len(cells):
+                record = cells[record_idx]
+            if conf_idx is not None and conf_idx < len(cells):
+                conf = cells[conf_idx]
+
+            if rank is None or not team:
+                continue
+
+            rankings.append(
+                {
+                    "rank": rank,
+                    "team": team,
+                    "record": record,
+                    "conf": conf,
+                }
+            )
+
+        break  # we handled the first matching rankings table
+
+    if not rankings:
+        raise ValueError("No rankings rows parsed from CFP official HTML.")
+
+    rankings.sort(key=lambda r: r["rank"])
+    if max_teams:
+        rankings = rankings[:max_teams]
+    return rankings
+
+
+def parse_rankings_from_ncaa_json(data: Any, max_teams: Optional[int] = None) -> List[Dict[str, Any]]:
+    """
+    Parser for the henrygd NCAA API format.
+
+    We expect something like:
+    [
+      { "rank": 1, "school": "Ohio State", "record": "12-0", "conference": "Big Ten", ... },
+      ...
+    ]
+    """
+    if not isinstance(data, list):
+        raise ValueError("NCAA API JSON is not a list.")
+
+    rankings: List[Dict[str, Any]] = []
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+
+        rank = item.get("rank")
+        team = item.get("school") or item.get("team")
+        record = item.get("record") or ""
+        conf = item.get("conference") or item.get("conf") or ""
+
+        if not isinstance(rank, int) or not team:
             continue
 
         rankings.append(
             {
                 "rank": rank,
-                "team": team,
-                "record": record,
+                "team": str(team),
+                "record": str(record),
+                "conf": str(conf),
             }
         )
 
-    return {
-        "source": "cfp_official_rankings",
-        "rankings": rankings,
-    }
+    if not rankings:
+        raise ValueError("No rankings parsed from NCAA API JSON.")
+
+    rankings.sort(key=lambda r: r["rank"])
+    if max_teams:
+        rankings = rankings[:max_teams]
+    return rankings
 
 
-def parse_ap_poll(html: str) -> Dict[str, Any]:
-    # TODO: implement real scraping once we lock the AP page structure.
-    # For now we just stub it.
-    soup = BeautifulSoup(html, "html.parser")
-    # ... parse ...
-    return {
-        "source": "ap_top25",
-        "rankings": [],
-    }
+# ---------- SECTION DRIVERS ----------
+
+def fetch_rankings(cfg: Dict[str, Any]) -> Dict[str, Any]:
+    """Try rankings sources in order, return the first successful normalized payload."""
+    year = cfg.get("meta", {}).get("year", 2025)
+    sources = select_sources(cfg, "rankings")
+
+    if not sources:
+        raise RuntimeError("No enabled rankings sources in config.")
+
+    last_error: Optional[Exception] = None
+
+    for src in sources:
+        src_id = src.get("id")
+        url = src.get("url")
+        src_type = src.get("type")
+        max_teams = src.get("max_teams")
+        title = src.get("title", src_id)
+
+        try:
+            log(f"Trying rankings source '{src_id}' ({src_type})")
+
+            if src_type == "html_table":
+                resp = http_get(url)
+                rankings = parse_rankings_from_official_html(resp.text, max_teams=max_teams)
+
+            elif src_type == "json_api":
+                resp = http_get(url)
+                data = resp.json()
+                rankings = parse_rankings_from_ncaa_json(data, max_teams=max_teams)
+
+            else:
+                raise ValueError(f"Unsupported rankings source type: {src_type}")
+
+            log(f"Source '{src_id}' succeeded with {len(rankings)} teams.")
+            return {
+                "year": year,
+                "source_id": src_id,
+                "source_title": title,
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "rankings": rankings,
+            }
+
+        except Exception as e:  # noqa: BLE001
+            last_error = e
+            log(f"Source '{src_id}' failed: {e!r}")
+            # small backoff before trying next source
+            time.sleep(1.0)
+
+    raise RuntimeError(f"All rankings sources failed. Last error: {last_error!r}")
 
 
-def parse_coaches_poll(html: str) -> Dict[str, Any]:
-    # TODO: implement real scraping once we lock the Coaches page structure.
-    soup = BeautifulSoup(html, "html.parser")
-    # ... parse ...
-    return {
-        "source": "coaches_poll",
-        "rankings": [],
-    }
+# ---------- CLI ----------
 
+def main(argv: List[str]) -> int:
+    log(f"Root dir: {ROOT}")
+    log(f"Config:   {CONFIG_PATH}")
+    log(f"Output:   {OUTPUT_PATH}")
 
-def parse_cfbd_api(url: str, api_key: str) -> Dict[str, Any]:
-    headers = {"Authorization": f"Bearer {api_key}"}
-    resp = requests.get(url, headers=headers, timeout=20)
-    resp.raise_for_status()
-    data = resp.json()
-    return {
-        "source": "cfbd_api",
-        "raw": data,
-    }
-
-
-# --- Orchestration ---------------------------------------------------------
-
-
-def write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
-
-
-def main() -> None:
     try:
-        cfp_src = pick_best_source(kind="cfp_rankings", season=2025)
-    except SourceConfigError as e:
-        print(f"[cfp_scrape] ERROR loading source config: {e}", file=sys.stderr)
-        sys.exit(1)
+        cfg = load_config()
+    except Exception as e:  # noqa: BLE001
+        log(f"ERROR loading config: {e!r}")
+        return 1
 
-    print(f"[cfp_scrape] Using CFP rankings source: {cfp_src['id']} ({cfp_src['url']})")
+    try:
+        rankings_payload = fetch_rankings(cfg)
+    except Exception as e:  # noqa: BLE001
+        log(f"ERROR fetching rankings: {e!r}")
+        return 1
 
-    parser_id = cfp_src.get("parser")
-    url = cfp_src["url"]
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with OUTPUT_PATH.open("w", encoding="utf-8") as f:
+        json.dump(rankings_payload, f, indent=2, ensure_ascii=False)
 
-    if parser_id == "cfp_official_html_v1":
-        html = fetch_html(url)
-        cfp_data = parse_cfp_official_rankings(html)
-    elif parser_id == "cfbd_api_v1":
-        from os import getenv
-
-        api_key_name = cfp_src.get("env_api_key", "CFBD_API_KEY")
-        api_key = getenv(api_key_name)
-        if not api_key:
-            raise RuntimeError(f"CFBD backup source selected but env var {api_key_name} is not set")
-        cfp_data = parse_cfbd_api(url, api_key)
-    else:
-        raise RuntimeError(f"Unknown parser id: {parser_id}")
-
-    # For now we just dump this straight into cfp-2025.json and cfp-data.json
-    write_json(DATA_DIR / "cfp-2025.json", cfp_data)
-    write_json(DATA_DIR / "cfp-data.json", {"cfp": cfp_data})
-
-    print("[cfp_scrape] Wrote data/cfp-2025.json and data/cfp-data.json")
+    log(f"Wrote rankings JSON to {OUTPUT_PATH}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main(sys.argv[1:]))
