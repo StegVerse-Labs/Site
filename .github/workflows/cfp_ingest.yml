@@ -1,20 +1,25 @@
-name: CFP Data Ingestion
+name: CFP Data Ingestion (scrape primary sources)
 
 on:
+  # Manual trigger from GitHub UI
   workflow_dispatch:
+
+  # Scheduled runs (tweak as you like)
   schedule:
-    # Run every Tuesday at 03:10 UTC (CFP-style weekly cadence)
-    - cron: "10 3 * * 2"
+    # Every 30 minutes on Fridays & Saturdays (heavier traffic / games)
+    - cron: "*/30 * * * 5,6"
+    # Once on Tuesday early UTC (after CFP rankings usually drop)
+    - cron: "0 3 * * 2"
 
 permissions:
   contents: write
 
 jobs:
-  ingest:
+  scrape-and-commit:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -22,28 +27,31 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.11"
 
-      - name: Install dependencies (none required, keep pip fresh)
+      - name: Install scraping deps
         run: |
           python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
 
-      - name: Run CFP ingestion
+      - name: Run CFP scraper
+        working-directory: ./site
+        run: |
+          python cfp/cfp_ingest.py
+
+      - name: Commit & push changes (if any)
         env:
-          CFP_SOURCE_URL: ${{ secrets.CFP_SOURCE_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./site
         run: |
-          python tools/cfp_ingest.py
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit and push updated CFP data
-        run: |
           if git diff --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add data/cfp-data.json
-          git commit -m "Update CFP data (auto-ingest)"
+          git add cfp/cfp-data.json
+          git commit -m "chore: update CFP data from primary sources"
           git push
