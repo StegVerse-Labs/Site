@@ -1,4 +1,4 @@
-name: CFP Data Sync
+name: CFP Data Sync Legacy
 
 on:
   workflow_dispatch:
