@@ -205,3 +205,27 @@ We use multiple sources so that **a single failing API never breaks the site**.
 # 6. APPENDIX — CFP_SOURCE_URL, CFP_CACHE_TITLE Notes
 
 These values will live in a new config file:
+/site/cfp/config.yml
+
+Example:
+
+```yaml
+CFP_SOURCE_URL: "https://api.collegefootballdata.com/rankings?season=2024"
+CFP_BACKUP_SOURCE_URL: "https://raw.githubusercontent.com/stegverse/sports-cache/main/cfp.json"
+CFP_CACHE_TITLE: "cfp:2024:last_ranking"
+
+The SCW-API will read these from its env:
+
+CFP_SOURCE_URL=<value>
+CFP_BACKUP_SOURCE_URL=<value>
+CFP_CACHE_TITLE=cfp_2024_cache
+
+7. FINAL NOTE
+
+This roadmap is living, designed to grow as our CFP module evolves into the multi-sport StegVerse Sports Engine.
+
+As milestones complete, check them off directly in this file and commit the update.
+
+git add .
+git commit -m "Update monetization roadmap"
+git push
