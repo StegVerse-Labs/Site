@@ -1,0 +1,50 @@
+name: Sports Data Ingestion (Universal)
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why are you running this manually?"
+        required: false
+  schedule:
+    # Example: run every hour from 16:00–23:00 UTC on Thu–Sun
+    - cron: "0 16-23 * * 4-7"
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Run universal sports ingestion
+        run: |
+          python scripts/ingest_sports.py
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name "stegverse-bot"
+          git config user.email "bot@stegverse.local"
+          if git status --porcelain | grep -q .; then
+            git add data/cfp/cfp-data.json
+            git commit -m "Auto-ingest CFP data [skip ci]" || echo "No changes to commit."
+            git push
+          else
+            echo "No changes detected; skipping commit."
+          fi
