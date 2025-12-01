@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+"""
+CFP Phase 2 – Data Ingestion Script
+
+- Pulls JSON from CFP_SOURCE_URL (env var)
+- Normalizes last_updated
+- Writes to data/cfp-data.json
+"""
+
+import os
+import sys
+import json
+import pathlib
+import datetime
+import urllib.request
+
+
+def log(msg: str) -> None:
+    print(f"[cfp-ingest] {msg}")
+
+
+def main() -> int:
+    repo_root = pathlib.Path(__file__).resolve().parents[1]
+    data_path = repo_root / "data" / "cfp-data.json"
+
+    source_url = os.environ.get("CFP_SOURCE_URL", "").strip()
+    if not source_url:
+        log("ERROR: CFP_SOURCE_URL is not set in environment.")
+        return 1
+
+    log(f"Fetching CFP data from: {source_url}")
+    try:
+        with urllib.request.urlopen(source_url, timeout=20) as resp:
+            raw = resp.read()
+    except Exception as e:
+        log(f"ERROR: failed to fetch source URL: {e}")
+        return 1
+
+    try:
+        data = json.loads(raw)
+    except Exception as e:
+        log(f"ERROR: source response is not valid JSON: {e}")
+        return 1
+
+    # Ensure last_updated is present and current
+    now_utc = datetime.datetime.utcnow().replace(microsecond=0)
+    data["last_updated"] = now_utc.isoformat() + "Z"
+
+    data_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = data_path.with_suffix(".json.tmp")
+
+    try:
+        tmp_path.write_text(
+            json.dumps(data, indent=2, sort_keys=False) + "\n",
+            encoding="utf-8",
+        )
+        tmp_path.replace(data_path)
+    except Exception as e:
+        log(f"ERROR: failed to write {data_path}: {e}")
+        return 1
+
+    log(f"Wrote updated CFP data to {data_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
