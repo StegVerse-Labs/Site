@@ -1,0 +1,20 @@
+{
+  "sports": {
+    "ncaaf_cfp_2025": {
+      "description": "NCAAF CFP Rankings + standings + games for 2025 season",
+      "enabled": true,
+      "output_file": "data/cfp-data.json",
+      "sources": [
+        {
+          "id": "cfp_official",
+          "type": "cfp_collegefootballplayoff",
+          "priority": 1,
+          "enabled": true,
+          "config": {
+            "rankings_url": "https://collegefootballplayoff.com/rankings.aspx?year=2025"
+          }
+        }
+      ]
+    }
+  }
+}
