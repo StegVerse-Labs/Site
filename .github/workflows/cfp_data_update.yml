@@ -1,0 +1,126 @@
+name: CFP Data Ingestion & Site Update
+
+on:
+  # Manual run (button in GitHub UI)
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why are you running this update?"
+        required: false
+        default: "manual refresh"
+
+  # Automatic run (every 30 minutes; adjust as needed)
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  update-cfp-data:
+    runs-on: ubuntu-latest
+
+    env:
+      # Primary CFP rankings page (can be changed later)
+      CFP_SOURCE_URL: "https://collegefootballplayoff.com/rankings.aspx?year=2025"
+
+      # Optional: logical label for this snapshot/year
+      CFP_CACHE_TITLE: "NCAAF 2025 CFP Rankings"
+
+      # If your ingest script reads a prioritized list of sources from here,
+      # it will use this config file. You do NOT have to change this now.
+      CFP_SOURCES_CONFIG: "cfp/cfp_sources.yml"
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ingestion dependencies
+        run: |
+          if [ -f "cfp/requirements.txt" ]; then
+            pip install -r cfp/requirements.txt
+          else
+            pip install requests beautifulsoup4 lxml
+          fi
+
+      - name: Run CFP data ingestion
+        run: |
+          echo "Using CFP_SOURCE_URL=${CFP_SOURCE_URL}"
+          echo "Using CFP_CACHE_TITLE=${CFP_CACHE_TITLE}"
+          echo "Using CFP_SOURCES_CONFIG=${CFP_SOURCES_CONFIG}"
+
+          # This script is expected to:
+          # - Read CFP_SOURCE_URL / CFP_SOURCES_CONFIG from env
+          # - Scrape / pull primary + backup sources
+          # - Normalize to your internal data model
+          # - Overwrite site/data/cfp-data.json (or data/cfp-data.json)
+          #
+          # If your script lives somewhere else, just update the path below.
+          python cfp/scripts/update_cfp_data.py
+
+      - name: Show diff (for logs)
+        run: |
+          echo "Git diff after ingestion:"
+          git diff || true
+
+      - name: Commit updated CFP data (if changed)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Adjust this path if your JSON lives at a different location
+          if [ -f "site/data/cfp-data.json" ]; then
+            git add site/data/cfp-data.json
+          elif [ -f "data/cfp-data.json" ]; then
+            git add data/cfp-data.json
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No CFP data changes detected; skipping commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "CFP data auto-update [skip ci]"
+          git push
+
+      # Optional: ping SCW-API / deploy reporter (can be enabled later)
+      # - name: Report deploy/ingest summary to SCW-API
+      #   if: success()
+      #   env:
+      #     DEPLOY_REPORT_URL: ${{ secrets.SCW_DEPLOY_REPORT_URL }}
+      #     DEPLOY_REPORT_TOKEN: ${{ secrets.SCW_DEPLOY_REPORT_TOKEN }}
+      #   run: |
+      #     if [ -z "$DEPLOY_REPORT_URL" ] || [ -z "$DEPLOY_REPORT_TOKEN" ]; then
+      #       echo "SCW deploy report env not set; skipping."
+      #       exit 0
+      #     fi
+      #
+      #     python - << 'PY'
+      #     import os, json, time, requests
+      #
+      #     url   = os.environ["DEPLOY_REPORT_URL"]
+      #     token = os.environ["DEPLOY_REPORT_TOKEN"]
+      #
+      #     payload = {
+      #       "source": "github-actions",
+      #       "workflow": "CFP Data Ingestion & Site Update",
+      #       "run_id": os.environ.get("GITHUB_RUN_ID", ""),
+      #       "run_url": f"{os.environ.get('GITHUB_SERVER_URL','https://github.com')}/{os.environ.get('GITHUB_REPOSITORY','')}/actions/runs/{os.environ.get('GITHUB_RUN_ID','')}",
+      #       "commit_sha": os.environ.get("GITHUB_SHA",""),
+      #       "branch": os.environ.get("GITHUB_REF_NAME",""),
+      #       "status": "success",
+      #       "health_code": 200,
+      #       "health_body": {"cfp_source_url": os.environ.get("CFP_SOURCE_URL","")},
+      #       "ts": int(time.time()),
+      #     }
+      #
+      #     headers = {"Authorization": f"Bearer {token}"}
+      #     resp = requests.post(url, json=payload, headers=headers, timeout=15)
+      #     print("SCW deploy report status:", resp.status_code)
+      #     print("Body:", resp.text[:500])
+      #     PY
