@@ -1,9 +1,19 @@
+# About StegVerse
 
+StegVerse is a trust, governance, and resilience lab focused on identifying silent failure modes in modern systems.
 
-About StegVerse
+## Where we came from
+StegVerse grew out of operational experience in credentialed, compliance-bound environments where identity, access, automation, and auditability determine whether systems remain defensible after failure.
 
-StegVerse was founded to address a growing problem: systems that appear governed but fail silently under real-world pressure.
+Over time, a consistent pattern emerged: trust breaks silently long before incidents occur—often at the intersections of:
+- identity and automation
+- time/state consistency
+- governance assumptions vs production behavior
 
-Our work is informed by operating credentialed, compliance-bound systems at scale—where trust, time, and identity failures erase accountability.
+As AI and automation accelerated, those failure patterns became more frequent and harder to diagnose. StegVerse exists to surface them early, while remediation is still cheap and explanations remain intact.
 
-We focus on surfacing those failures early.
+## What we believe
+- Systems fail where disciplines overlap
+- Auditability is part of safety
+- Governance must match operational reality
+- Early visibility beats late heroics

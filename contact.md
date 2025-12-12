@@ -1,6 +1,7 @@
-Contact
+# Contact
 
-If your organization is deploying AI or automation and needs clarity around trust, governance, or auditability, get in touch.
+If your organization is deploying AI or automation and needs clarity around trust, governance, or auditability, reach out.
 
-📧 rigel@stegverse.org
-📅 Initial conversations are confidential.
+- **Email:** rigel@stegverse.com
+- **Confidentiality:** Initial conversations are confidential.
+- **Typical next step:** 20–30 minute scoping call, then a short proposal within 24–48 hours.
