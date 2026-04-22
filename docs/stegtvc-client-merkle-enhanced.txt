@@ -1,0 +1,143 @@
+# StegTVC Client with Merkle Support
+
+## Purpose
+
+Browser-based token vault client for StegVerse Site.
+Handles local cryptographic operations without server tokens.
+Verifies merkle proofs from sandbox executions.
+
+## Core Functions
+
+| Function | Input | Output | Server Token |
+|----------|-------|--------|--------------|
+| `generateKeyPair()` | None | Public/private key pair | No |
+| `signMerkleProof(proof, privateKey)` | Merkle proof + key | Signature | No |
+| `verifyMerkleProof(proof, publicKey)` | Proof + key | Boolean | No |
+| `hashOperation(operation)` | JSON operation | SHA-256 | No |
+| `requestToken(scope)` | Scope string | Short-lived token | Yes (TVC server) |
+
+## Merkle Proof Verification (Browser)
+
+```javascript
+// stegtvc-client.js
+class StegTVCClient {
+    constructor() {
+        this.keyPair = null;
+        this.merkleCache = new Map();
+    }
+    
+    async generateKeyPair() {
+        this.keyPair = await window.crypto.subtle.generateKey(
+            { name: 'ECDSA', namedCurve: 'P-256' },
+            true,
+            ['sign', 'verify']
+        );
+        return this.keyPair;
+    }
+    
+    async hashOperation(operation) {
+        const json = JSON.stringify(operation, Object.keys(operation).sort());
+        const encoder = new TextEncoder();
+        const data = encoder.encode(json);
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hashBuffer))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+    }
+    
+    async buildMerkleTree(leaves) {
+        if (leaves.length === 0) {
+            return this.hashOperation({empty: true});
+        }
+        if (leaves.length === 1) {
+            return leaves[0];
+        }
+        
+        // Pad to power of 2
+        while (leaves.length & (leaves.length - 1) !== 0) {
+            leaves.push(leaves[leaves.length - 1]);
+        }
+        
+        let level = leaves;
+        while (level.length > 1) {
+            const nextLevel = [];
+            for (let i = 0; i < level.length; i += 2) {
+                const combined = level[i] + level[i + 1];
+                const hash = await this.hashOperation({combined});
+                nextLevel.push(hash);
+            }
+            level = nextLevel;
+        }
+        
+        return level[0];
+    }
+    
+    async verifyMerkleProof(root, leaf, proof, leafIndex) {
+        let current = leaf;
+        let index = leafIndex;
+        
+        for (const sibling of proof) {
+            let combined;
+            if (index % 2 === 0) {
+                combined = current + sibling;
+            } else {
+                combined = sibling + current;
+            }
+            current = await this.hashOperation({combined});
+            index = Math.floor(index / 2);
+        }
+        
+        return current === root;
+    }
+    
+    async signProof(proof) {
+        if (!this.keyPair) {
+            throw new Error('No key pair generated');
+        }
+        
+        const encoder = new TextEncoder();
+        const data = encoder.encode(JSON.stringify(proof));
+        
+        const signature = await window.crypto.subtle.sign(
+            { name: 'ECDSA', hash: 'SHA-256' },
+            this.keyPair.privateKey,
+            data
+        );
+        
+        return Array.from(new Uint8Array(signature))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+    }
+    
+    cacheMerkleRoot(batchId, root) {
+        this.merkleCache.set(batchId, {
+            root,
+            timestamp: Date.now(),
+            verified: false
+        });
+    }
+    
+    async verifyBatch(batchId, proof) {
+        const cached = this.merkleCache.get(batchId);
+        if (!cached) {
+            return false;
+        }
+        
+        const isValid = await this.verifyMerkleProof(
+            cached.root,
+            proof.leaf,
+            proof.path,
+            proof.leafIndex
+        );
+        
+        if (isValid) {
+            cached.verified = true;
+            this.merkleCache.set(batchId, cached);
+        }
+        
+        return isValid;
+    }
+}
+
+// Export for use
+window.StegTVCClient = StegTVCClient;
