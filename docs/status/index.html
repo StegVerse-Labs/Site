@@ -1,45 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StegVerse Status</title>
-    <style>
-        body { font-family: monospace; margin: 20px; background: #000; color: #0f0; }
-        .status { font-size: 48px; text-align: center; margin: 20px 0; }
-        .green { color: #0f0; }
-        .yellow { color: #ff0; }
-        .red { color: #f00; }
-        .detail { font-size: 14px; margin: 10px 0; }
-        .org { border: 1px solid #0f0; padding: 10px; margin: 10px 0; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StegVerse Status</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #888; margin-bottom: 2rem; }
+    .banner {
+      background: #1a1a2e;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .banner.mockup {
+      border-color: #d4a017;
+      background: #1a1a00;
+    }
+    .banner.mockup .dot { background: #d4a017; }
+    .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #00c853;
+      box-shadow: 0 0 8px #00c853;
+    }
+    .mockup-badge {
+      background: #d4a017;
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .org-card {
+      background: #111118;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .org-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .metric:last-child { border-bottom: none; }
+    .metric-label { color: #888; }
+    .metric-value { font-family: monospace; color: #00c853; }
+    .metric-value.pending { color: #ff9800; }
+    .timestamp {
+      text-align: center;
+      color: #555;
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+    .note {
+      background: #1a1a00;
+      border: 1px solid #d4a01733;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      color: #d4a017;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <h1>StegVerse Ecosystem</h1>
+  <div class="container">
+    <h1>StegVerse Ecosystem Status</h1>
+    <p class="subtitle">Real-time operational status</p>
     
-    <div class="status green" id="global-status">●</div>
-    <div class="detail" id="global-text">All systems operational</div>
-    
-    <div class="org">
-        <h2>StegVerse-Labs</h2>
-        <div id="labs-merkle">Merkle: abc123...</div>
-        <div id="labs-pending">Pending: 0</div>
+    <div class="note">
+      <strong>⚠️ Mockup / Development Preview</strong><br>
+      This page displays sample data for UI/UX development. 
+      Live data feeds are not yet connected. 
+      See <code>docs/status/README.md</code> for integration roadmap.
     </div>
     
-    <div class="org">
-        <h2>StegVerse-org</h2>
-        <div id="org-merkle">Merkle: def456...</div>
-        <div id="org-pending">Pending: 0</div>
+    <div class="banner mockup">
+      <div class="dot"></div>
+      <span class="mockup-badge">Mockup</span>
+      <span>All systems operational (sample data)</span>
     </div>
     
-    <div class="org">
-        <h2>StegGhost</h2>
-        <div id="ghost-merkle">Merkle: ghi789...</div>
-        <div id="ghost-temp">Temp repos: 3 active</div>
-        <div id="ghost-pending">Pending: 0</div>
+    <div class="org-card">
+      <h2>StegVerse-Labs</h2>
+      <div class="metric">
+        <span class="metric-label">Merkle Root</span>
+        <span class="metric-value">sha256:a1b2c3...</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Pending Operations</span>
+        <span class="metric-value">0</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Last Sync</span>
+        <span class="metric-value" id="labs-sync">--</span>
+      </div>
     </div>
     
-    <script>
-        setInterval(() => location.reload(), 60000);
-    </script>
+    <div class="org-card">
+      <h2>StegVerse-org</h2>
+      <div class="metric">
+        <span class="metric-label">Merkle Root</span>
+        <span class="metric-value">sha256:d4e5f6...</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Pending Operations</span>
+        <span class="metric-value">0</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Last Sync</span>
+        <span class="metric-value" id="org-sync">--</span>
+      </div>
+    </div>
+    
+    <div class="org-card">
+      <h2>StegGhost</h2>
+      <div class="metric">
+        <span class="metric-label">Merkle Root</span>
+        <span class="metric-value">sha256:g7h8i9...</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Active Temp Repos</span>
+        <span class="metric-value">3</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Pending Operations</span>
+        <span class="metric-value">0</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Last Sync</span>
+        <span class="metric-value" id="ghost-sync">--</span>
+      </div>
+    </div>
+    
+    <p class="timestamp">
+      Page rendered: <span id="render-time">--</span><br>
+      Data source: Static mockup (see note above)
+    </p>
+  </div>
+  
+  <script>
+    const now = new Date().toISOString();
+    document.getElementById('labs-sync').textContent = now;
+    document.getElementById('org-sync').textContent = now;
+    document.getElementById('ghost-sync').textContent = now;
+    document.getElementById('render-time').textContent = now;
+  </script>
 </body>
 </html>
