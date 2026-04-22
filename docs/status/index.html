@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StegVerse Status</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background: #000; color: #0f0; }
+        .status { font-size: 48px; text-align: center; margin: 20px 0; }
+        .green { color: #0f0; }
+        .yellow { color: #ff0; }
+        .red { color: #f00; }
+        .detail { font-size: 14px; margin: 10px 0; }
+        .org { border: 1px solid #0f0; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>StegVerse Ecosystem</h1>
+    
+    <div class="status green" id="global-status">●</div>
+    <div class="detail" id="global-text">All systems operational</div>
+    
+    <div class="org">
+        <h2>StegVerse-Labs</h2>
+        <div id="labs-merkle">Merkle: abc123...</div>
+        <div id="labs-pending">Pending: 0</div>
+    </div>
+    
+    <div class="org">
+        <h2>StegVerse-org</h2>
+        <div id="org-merkle">Merkle: def456...</div>
+        <div id="org-pending">Pending: 0</div>
+    </div>
+    
+    <div class="org">
+        <h2>StegGhost</h2>
+        <div id="ghost-merkle">Merkle: ghi789...</div>
+        <div id="ghost-temp">Temp repos: 3 active</div>
+        <div id="ghost-pending">Pending: 0</div>
+    </div>
+    
+    <script>
+        setInterval(() => location.reload(), 60000);
+    </script>
+</body>
+</html>
