@@ -1,11 +1,18 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>StegVerse Demo</title>
+
 <style>
-body{background:#0b1020;color:white;font-family:sans-serif;padding:20px}
-textarea,input{width:100%;background:#111827;color:white;margin-top:10px}
-button{margin-top:10px}
+body{background:#0b1020;color:#eef2ff;font-family:system-ui;margin:0}
+main{max-width:900px;margin:auto;padding:24px}
+.card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px;margin-top:16px}
+input,textarea{width:100%;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:10px}
+textarea{min-height:220px;font-family:monospace}
+button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10px;padding:10px}
+.value{white-space:pre-wrap;font-family:monospace}
 .allow{color:#86efac}
 .deny{color:#fde68a}
 .fail{color:#fca5a5}
@@ -13,70 +20,105 @@ button{margin-top:10px}
 </head>
 
 <body>
+<main>
 
-<h2>StegVerse Demo</h2>
+<h1>StegVerse Demo</h1>
 
-<input id="api" value="https://scw-api.onrender.com" />
+<div class="card">
+<label>Backend URL</label>
+<input id="api" value="https://scw-api.onrender.com"/>
+
+<button onclick="loadSample()">Load Sample</button>
+</div>
+
+<div class="card">
 <textarea id="data"></textarea>
-
 <button onclick="run()">Evaluate</button>
+</div>
 
-<h3 id="verdict"></h3>
-<pre id="out"></pre>
+<div class="card">
+<h2>Result</h2>
+
+<h3>Verdict</h3>
+<div id="verdict" class="value">—</div>
+
+<h3>GOD</h3>
+<div id="god" class="value">—</div>
+
+<h3>Confidence</h3>
+<div id="confidence" class="value">—</div>
+
+<h3>Boundary</h3>
+<div id="boundary" class="value">—</div>
+
+<h3>Receipt</h3>
+<div id="receipt" class="value">—</div>
+
+</div>
+
+</main>
 
 <script>
 
-function load() {
+function loadSample(){
 document.getElementById("data").value = JSON.stringify({
 commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
 proposed_state: [0.15,0.15,0.15]
 }, null, 2);
 }
 
-async function run() {
-const api = document.getElementById("api").value;
+async function run(){
+const api = document.getElementById("api").value.replace(/\/$/,"");
 const payload = JSON.parse(document.getElementById("data").value);
 
-const res = await fetch(api + "/v1/demo/run", {
+const res = await fetch(api + "/v1/demo/run",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body: JSON.stringify(payload)
+body:JSON.stringify(payload)
 });
 
 const d = await res.json();
 
-/* ---------------- FIX ---------------- */
+render(d);
+}
+
+function render(d){
+
+const verdictEl = document.getElementById("verdict");
+verdictEl.textContent = d.verdict;
+verdictEl.className = "value " + (
+d.verdict==="ALLOW"?"allow":
+d.verdict==="DENY"?"deny":"fail"
+);
+
+document.getElementById("god").textContent = d.god;
+document.getElementById("confidence").textContent = d.confidence;
+
+document.getElementById("boundary").textContent =
+`Centroid: ${JSON.stringify(d.boundary.centroid)}
+Radius: ${d.boundary.radius}
+Epsilon: ${d.boundary.epsilon}`;
+
+/* ===== FIXED RECEIPT HANDLING ===== */
 
 const r =
 d.receipt_full ||
 d.receipt_v1 ||
 null;
 
-/* ------------------------------------ */
+document.getElementById("receipt").textContent =
+`receipt_hash: ${r?.receipt_hash || d.receipt}
+previous_receipt_hash: ${r?.previous_receipt_hash || "null"}
+decision_id: ${r?.body?.decision_id || "n/a"}
+decision: ${r?.body?.decision || d.verdict}
+input_hash: ${r?.body?.input_hash || "n/a"}
+decision_hash: ${r?.body?.decision_hash || "n/a"}
+runner_attempt: ${JSON.stringify(r?.body?.runner_attempt || {},null,2)}
+evaluated_at: ${r?.body?.evaluated_at || "n/a"}`;
 
-document.getElementById("verdict").innerText = d.verdict;
-document.getElementById("verdict").className =
-d.verdict === "ALLOW" ? "allow" :
-d.verdict === "DENY" ? "deny" : "fail";
-
-document.getElementById("out").innerText = JSON.stringify({
-verdict: d.verdict,
-god: d.god,
-confidence: d.confidence,
-
-receipt_hash: r?.receipt_hash || d.receipt,
-
-decision_id: r?.body?.decision_id,
-decision: r?.body?.decision,
-input_hash: r?.body?.input_hash,
-decision_hash: r?.body?.decision_hash,
-runner_attempt: r?.body?.runner_attempt,
-evaluated_at: r?.body?.evaluated_at
-
-}, null, 2);
 }
 
-load();
+loadSample();
 
 </script>
 </body>
