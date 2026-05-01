@@ -51,7 +51,47 @@ h1{font-size:2rem;margin:0 0 20px}
 <h2>Input run data</h2>
 <p style="color:var(--muted)">The LLM proposes; StegVerse evaluates <em>before</em> effect.</p>
 <form id="demo-form">
-<textarea id="run-data-input" class="code-input" placeholder="Paste JSON or click a sample button above"></textarea>
+<textarea id="run-data-input" class="code-input">{
+  "source": "sdk",
+  "demo_id": "demo_sdk_default",
+  "commit_states": [
+    [
+      0.234,
+      -0.156,
+      0.089
+    ],
+    [
+      -0.312,
+      0.445,
+      -0.078
+    ],
+    [
+      0.189,
+      0.067,
+      0.234
+    ],
+    [
+      -0.067,
+      -0.234,
+      0.156
+    ],
+    [
+      0.278,
+      -0.089,
+      -0.189
+    ]
+  ],
+  "proposed_state": [
+    0.089,
+    -0.045,
+    0.056
+  ],
+  "metadata": {
+    "generated_by": "default",
+    "tier": 0,
+    "note": "This is pre-loaded default data. Click Evaluate or load a different sample."
+  }
+}</textarea>
 <button type="submit" class="btn-eval">Evaluate Commit Boundary</button>
 </form>
 </div>
