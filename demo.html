@@ -22,12 +22,12 @@
 <body>
 <main>
   <span class="pill">Tier 1 · Backend-evaluated · Receipt-producing</span>
-  <h1>Stale-state execution vs. commit-time constraint</h1>
+  <h1>StegVerse Commit Boundary Demo</h1>
 
   <div class="card">
     <label>Backend base URL</label>
     <input id="apiBase" value="https://scw-api.onrender.com" />
-    <p>The LLM proposes; StegVerse evaluates before effect.</p>
+    <p>The browser submits proposed run data. SCW evaluates commit-boundary admissibility and returns a receipt.</p>
     <button onclick="loadSample('llm')">Load LLM Sample</button>
     <button onclick="loadSample('sdk')">Load SDK Sample</button>
     <button onclick="loadSample('human')">Load Human Sample</button>
@@ -43,6 +43,7 @@
 
     <section class="card">
       <h2>Result</h2>
+
       <h3>Verdict</h3>
       <div id="verdict" class="value">—</div>
 
@@ -64,10 +65,10 @@ Epsilon: —</div>
 
   <section class="card" style="margin-top:18px">
     <h2>What is happening?</h2>
-    <p><b>1. Commit Boundary</b><br>The backend reconstructs the boundary from commit_states at evaluation time.</p>
+    <p><b>1. Commit Boundary</b><br>The backend reconstructs the boundary from commit states at evaluation time.</p>
     <p><b>2. GOD Divergence</b><br>Geometrically Ontological Divergence measures how far the proposed state sits from the boundary. GOD = 1.0 is the surface.</p>
-    <p><b>3. Verdict</b><br>ALLOW means inside the boundary. DENY means outside but recoverable. FAIL-CLOSED means catastrophic divergence or malformed input.</p>
-    <p><b>4. Receipt</b><br>The backend returns a SHA-256 receipt hash over the canonical decision record.</p>
+    <p><b>3. Verdict</b><br>ALLOW means inside the boundary. DENY means outside but near the recoverability edge. FAIL-CLOSED means malformed input or excessive divergence.</p>
+    <p><b>4. Receipt</b><br>The backend returns a SHA-256 receipt over the canonical decision record.</p>
   </section>
 </main>
 
@@ -107,11 +108,13 @@ function generateDataset() {
     +(Math.random() * 0.7 - 0.35).toFixed(3),
     +(Math.random() * 0.7 - 0.35).toFixed(3)
   ]);
+
   const proposed = [
     +(Math.random() * 0.9 - 0.45).toFixed(3),
     +(Math.random() * 0.9 - 0.45).toFixed(3),
     +(Math.random() * 0.9 - 0.45).toFixed(3)
   ];
+
   document.getElementById("runData").value = JSON.stringify({
     source: "generated",
     demo_id: "demo_generated_" + Date.now(),
@@ -119,11 +122,13 @@ function generateDataset() {
     proposed_state: proposed,
     metadata: { generated_by: "browser", tier: 1 }
   }, null, 2);
+
   clearResult();
 }
 
 async function evaluateRun() {
   clearResult();
+
   const apiBase = document.getElementById("apiBase").value.replace(/\/$/, "");
   let payload;
 
@@ -142,7 +147,11 @@ async function evaluateRun() {
     });
 
     const data = await res.json();
-    if (!res.ok) throw new Error(data.detail || "Backend rejected request.");
+
+    if (!res.ok) {
+      throw new Error(data.detail || "Backend rejected request.");
+    }
+
     renderResult(data);
   } catch (err) {
     showError(String(err.message || err));
@@ -157,15 +166,22 @@ function renderResult(data) {
     data.verdict === "DENY" ? "deny" : "fail"
   );
 
-  document.getElementById("god").textContent = data.god.toFixed(6);
-  document.getElementById("confidence").textContent = data.confidence.toFixed(6);
+  document.getElementById("god").textContent = Number(data.god).toFixed(6);
+  document.getElementById("confidence").textContent = Number(data.confidence).toFixed(6);
+
   document.getElementById("boundary").textContent =
 `Centroid: ${JSON.stringify(data.boundary.centroid)}
-Radius: ${data.boundary.radius.toFixed(6)}
-Epsilon: ${data.boundary.epsilon.toFixed(6)}`;
+Radius: ${Number(data.boundary.radius).toFixed(6)}
+Epsilon: ${Number(data.boundary.epsilon).toFixed(6)}`;
+
   document.getElementById("receipt").textContent =
 `receipt_hash: ${data.receipt.receipt_hash}
+previous_receipt_hash: ${data.receipt.previous_receipt_hash}
 decision_id: ${data.receipt.decision_id}
+decision: ${data.receipt.decision}
+input_hash: ${data.receipt.input_hash}
+decision_hash: ${data.receipt.decision_hash}
+runner_attempt: ${JSON.stringify(data.receipt.runner_attempt, null, 2)}
 evaluated_at: ${data.receipt.evaluated_at}`;
 }
 
