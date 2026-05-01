@@ -1,206 +1,138 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>StegVerse Demo · Tier 1</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:0;background:#0b1020;color:#eef2ff}
-    main{max-width:1100px;margin:0 auto;padding:28px}
-    .pill{display:inline-block;padding:6px 10px;border:1px solid #334155;border-radius:999px;color:#93c5fd}
-    textarea,input{width:100%;box-sizing:border-box;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:12px}
-    textarea{min-height:280px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-    button{background:#2563eb;color:white;border:0;border-radius:10px;padding:11px 14px;margin:6px 6px 6px 0;font-weight:700}
-    button.secondary{background:#334155}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:18px}
-    .value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
-    .allow{color:#86efac}.deny{color:#fde68a}.fail{color:#fca5a5}
-    @media(max-width:800px){.grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>StegVerse Demo · Tier 1</title>
+
+<style>
+body{font-family:system-ui;margin:0;background:#0b1020;color:#eef2ff}
+main{max-width:1100px;margin:0 auto;padding:24px}
+textarea,input{width:100%;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:10px}
+textarea{min-height:260px;font-family:monospace}
+button{background:#2563eb;color:white;border:0;border-radius:10px;padding:10px 14px;margin-top:10px}
+.card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:18px;margin-top:16px}
+.value{white-space:pre-wrap;font-family:monospace}
+.allow{color:#86efac}.deny{color:#fde68a}.fail{color:#fca5a5}
+</style>
 </head>
+
 <body>
 <main>
-  <span class="pill">Tier 1 · Backend-evaluated · Receipt-producing</span>
-  <h1>StegVerse Commit Boundary Demo</h1>
 
-  <div class="card">
-    <label>Backend base URL</label>
-    <input id="apiBase" value="https://scw-api.onrender.com" />
-    <p>The browser submits proposed run data. SCW evaluates commit-boundary admissibility and returns a receipt.</p>
-    <button onclick="loadSample('llm')">Load LLM Sample</button>
-    <button onclick="loadSample('sdk')">Load SDK Sample</button>
-    <button onclick="loadSample('human')">Load Human Sample</button>
-    <button class="secondary" onclick="generateDataset()">Generate New Dataset</button>
-  </div>
+<h1>StegVerse Commit Boundary Demo</h1>
 
-  <div class="grid" style="margin-top:18px">
-    <section class="card">
-      <h2>Input run data</h2>
-      <textarea id="runData"></textarea>
-      <button onclick="evaluateRun()">Evaluate Commit Boundary</button>
-    </section>
+<div class="card">
+<label>Backend URL</label>
+<input id="apiBase" value="https://scw-api.onrender.com" />
+<button onclick="loadSample()">Load Sample</button>
+</div>
 
-    <section class="card">
-      <h2>Result</h2>
+<div class="card">
+<textarea id="runData"></textarea>
+<button onclick="evaluateRun()">Evaluate Commit Boundary</button>
+</div>
 
-      <h3>Verdict</h3>
-      <div id="verdict" class="value">—</div>
+<div class="card">
+<h2>Result</h2>
 
-      <h3>GOD</h3>
-      <div id="god" class="value">—</div>
+<h3>Verdict</h3>
+<div id="verdict" class="value">—</div>
 
-      <h3>Confidence</h3>
-      <div id="confidence" class="value">—</div>
+<h3>GOD</h3>
+<div id="god" class="value">—</div>
 
-      <h3>Boundary</h3>
-      <div id="boundary" class="value">Centroid: —
-Radius: —
-Epsilon: —</div>
+<h3>Confidence</h3>
+<div id="confidence" class="value">—</div>
 
-      <h3>Receipt</h3>
-      <div id="receipt" class="value">—</div>
-    </section>
-  </div>
+<h3>Boundary</h3>
+<div id="boundary" class="value">—</div>
 
-  <section class="card" style="margin-top:18px">
-    <h2>What is happening?</h2>
-    <p><b>1. Commit Boundary</b><br>The backend reconstructs the boundary from commit states at evaluation time.</p>
-    <p><b>2. GOD Divergence</b><br>Geometrically Ontological Divergence measures how far the proposed state sits from the boundary. GOD = 1.0 is the surface.</p>
-    <p><b>3. Verdict</b><br>ALLOW means inside the boundary. DENY means outside but near the recoverability edge. FAIL-CLOSED means malformed input or excessive divergence.</p>
-    <p><b>4. Receipt</b><br>The backend returns a SHA-256 receipt over the canonical decision record.</p>
-  </section>
+<h3>Receipt</h3>
+<div id="receipt" class="value">—</div>
+
+</div>
+
 </main>
 
 <script>
-const samples = {
-  sdk: {
-    source: "sdk",
-    demo_id: "demo_sdk_tier1",
-    commit_states: [[0.234,-0.156,0.089],[-0.312,0.445,-0.078],[0.189,0.067,0.234],[-0.067,-0.234,0.156],[0.278,-0.089,-0.189]],
-    proposed_state: [0.089,-0.045,0.056],
-    metadata: { generated_by: "default", tier: 1 }
-  },
-  llm: {
-    source: "llm",
-    demo_id: "demo_llm_tier1",
-    commit_states: [[0.15,0.10,0.12],[0.12,0.18,0.08],[0.20,0.11,0.16],[0.09,0.15,0.14]],
-    proposed_state: [0.52,0.49,0.41],
-    metadata: { proposed_by: "llm_adapter", tier: 1 }
-  },
-  human: {
-    source: "human",
-    demo_id: "demo_human_tier1",
-    commit_states: [[-0.10,0.05,0.08],[-0.12,0.07,0.11],[-0.08,0.02,0.05],[-0.11,0.04,0.09]],
-    proposed_state: [-0.105,0.048,0.087],
-    metadata: { proposed_by: "human_operator", tier: 1 }
-  }
-};
 
-function loadSample(name) {
-  document.getElementById("runData").value = JSON.stringify(samples[name], null, 2);
-  clearResult();
-}
-
-function generateDataset() {
-  const states = Array.from({length: 5}, () => [
-    +(Math.random() * 0.7 - 0.35).toFixed(3),
-    +(Math.random() * 0.7 - 0.35).toFixed(3),
-    +(Math.random() * 0.7 - 0.35).toFixed(3)
-  ]);
-
-  const proposed = [
-    +(Math.random() * 0.9 - 0.45).toFixed(3),
-    +(Math.random() * 0.9 - 0.45).toFixed(3),
-    +(Math.random() * 0.9 - 0.45).toFixed(3)
-  ];
-
-  document.getElementById("runData").value = JSON.stringify({
-    source: "generated",
-    demo_id: "demo_generated_" + Date.now(),
-    commit_states: states,
-    proposed_state: proposed,
-    metadata: { generated_by: "browser", tier: 1 }
-  }, null, 2);
-
-  clearResult();
+function loadSample() {
+document.getElementById("runData").value = JSON.stringify({
+commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
+proposed_state: [0.15,0.15,0.15]
+}, null, 2);
 }
 
 async function evaluateRun() {
-  clearResult();
+const api = document.getElementById("apiBase").value.replace(/\/$/, "");
+let payload;
 
-  const apiBase = document.getElementById("apiBase").value.replace(/\/$/, "");
-  let payload;
-
-  try {
-    payload = JSON.parse(document.getElementById("runData").value);
-  } catch {
-    showError("Invalid JSON.");
-    return;
-  }
-
-  try {
-    const res = await fetch(apiBase + "/v1/demo/run", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.detail || "Backend rejected request.");
-    }
-
-    renderResult(data);
-  } catch (err) {
-    showError(String(err.message || err));
-  }
+try {
+payload = JSON.parse(document.getElementById("runData").value);
+} catch {
+showError("Invalid JSON");
+return;
 }
 
-function renderResult(data) {
-  const verdict = document.getElementById("verdict");
-  verdict.textContent = data.verdict;
-  verdict.className = "value " + (
-    data.verdict === "ALLOW" ? "allow" :
-    data.verdict === "DENY" ? "deny" : "fail"
-  );
+try {
+const res = await fetch(api + "/v1/demo/run", {
+method: "POST",
+headers: {"Content-Type":"application/json"},
+body: JSON.stringify(payload)
+});
 
-  document.getElementById("god").textContent = Number(data.god).toFixed(6);
-  document.getElementById("confidence").textContent = Number(data.confidence).toFixed(6);
+const data = await res.json();
 
-  document.getElementById("boundary").textContent =
+if (!res.ok) throw new Error(data.detail || "Error");
+
+render(data);
+
+} catch (e) {
+showError(e.message);
+}
+}
+
+function render(data) {
+
+const verdictEl = document.getElementById("verdict");
+verdictEl.textContent = data.verdict;
+verdictEl.className = "value " + (
+data.verdict === "ALLOW" ? "allow" :
+data.verdict === "DENY" ? "deny" : "fail"
+);
+
+document.getElementById("god").textContent = data.god;
+document.getElementById("confidence").textContent = data.confidence;
+
+document.getElementById("boundary").textContent =
 `Centroid: ${JSON.stringify(data.boundary.centroid)}
-Radius: ${Number(data.boundary.radius).toFixed(6)}
-Epsilon: ${Number(data.boundary.epsilon).toFixed(6)}`;
+Radius: ${data.boundary.radius}
+Epsilon: ${data.boundary.epsilon}`;
 
-  document.getElementById("receipt").textContent =
-`receipt_hash: ${data.receipt.receipt_hash}
-previous_receipt_hash: ${data.receipt.previous_receipt_hash}
-decision_id: ${data.receipt.decision_id}
-decision: ${data.receipt.decision}
-input_hash: ${data.receipt.input_hash}
-decision_hash: ${data.receipt.decision_hash}
-runner_attempt: ${JSON.stringify(data.receipt.runner_attempt, null, 2)}
-evaluated_at: ${data.receipt.evaluated_at}`;
+
+/* ---------------- FIX IS HERE ---------------- */
+
+const r = data.receipt_full || {};
+
+document.getElementById("receipt").textContent =
+`receipt_hash: ${r.receipt_hash || data.receipt}
+previous_receipt_hash: ${r.previous_receipt_hash || "null"}
+decision_id: ${r.body?.decision_id || "n/a"}
+decision: ${r.body?.decision || data.verdict}
+input_hash: ${r.body?.input_hash || "n/a"}
+decision_hash: ${r.body?.decision_hash || "n/a"}
+runner_attempt: ${JSON.stringify(r.body?.runner_attempt || {}, null, 2)}
+evaluated_at: ${r.body?.evaluated_at || "n/a"}`;
 }
 
-function showError(msg) {
-  document.getElementById("verdict").textContent = "FAIL-CLOSED";
-  document.getElementById("verdict").className = "value fail";
-  document.getElementById("receipt").textContent = msg;
+function showError(msg){
+document.getElementById("verdict").textContent="FAIL-CLOSED";
+document.getElementById("receipt").textContent=msg;
 }
 
-function clearResult() {
-  document.getElementById("verdict").textContent = "—";
-  document.getElementById("verdict").className = "value";
-  document.getElementById("god").textContent = "—";
-  document.getElementById("confidence").textContent = "—";
-  document.getElementById("boundary").textContent = "Centroid: —\nRadius: —\nEpsilon: —";
-  document.getElementById("receipt").textContent = "—";
-}
+loadSample();
 
-loadSample("sdk");
 </script>
 </body>
 </html>
