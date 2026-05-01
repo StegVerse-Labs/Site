@@ -13,39 +13,54 @@ p{color:var(--muted);line-height:1.65;font-size:1.05rem;max-width:720px}
 .back{display:inline-block;margin-bottom:30px;color:var(--accent);font-weight:700}
 footer{padding:38px 0 58px;color:var(--muted);border-top:1px solid var(--line);margin-top:36px;text-align:center}
 
-/* Pricing-specific */
+/* Pricing */
 .pricing-section{margin:40px 0}
 .pricing-section h2{font-size:1.5rem;margin-bottom:8px;color:var(--accent)}
 .pricing-desc{color:var(--muted);margin-bottom:20px}
+.pricing-basis{color:var(--muted);font-size:.9rem;font-style:italic;margin-bottom:16px}
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .pricing-card{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px;position:relative}
 .pricing-card.recommended{border-color:var(--accent2)}
 .pricing-card h3{margin:0 0 10px;font-size:1.2rem}
 .pricing-price{font-size:1.6rem;font-weight:800;color:var(--accent2);margin:10px 0}
-.pricing-duration{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+.pricing-duration{color:var(--muted);font-size:.9rem;margin-bottom:8px}
+.pricing-target{color:var(--warn);font-size:.85rem;margin-bottom:12px;font-weight:600}
 .pricing-features{list-style:none;padding:0;margin:0;color:var(--muted);line-height:1.8}
 .pricing-features li{padding-left:20px;position:relative}
 .pricing-features li::before{content:"✓";position:absolute;left:0;color:var(--accent2)}
+.pricing-roi{background:rgba(89,245,155,.08);border:1px solid rgba(89,245,155,.3);border-radius:12px;padding:12px;margin-top:14px;font-size:.85rem;color:var(--accent2);line-height:1.5}
 .pricing-badge{position:absolute;top:16px;right:16px;background:var(--accent2);color:#06111f;padding:4px 10px;border-radius:999px;font-size:.75rem;font-weight:800}
 .pricing-notes{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.pricing-econ{background:rgba(110,231,255,.06);border:1px solid rgba(110,231,255,.2);border-radius:16px;padding:20px;margin-bottom:30px}
+.pricing-econ code{color:var(--accent);font-size:.9rem}
 .pricing-loading,.pricing-error{color:var(--muted);text-align:center;padding:40px}
 .pricing-error{color:var(--warn)}
+
+/* Calculator */
+.pricing-calculator{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:24px;padding:28px;margin:40px 0}
+.pricing-calculator h2{margin:0 0 14px;color:var(--accent)}
+.calc-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0}
+.calc-row{display:flex;flex-direction:column;gap:6px}
+.calc-row label{color:var(--muted);font-size:.85rem}
+.calc-input{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--text);font-size:1rem}
+.calc-input:focus{outline:none;border-color:var(--accent)}
+.calc-result{display:flex;align-items:baseline;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.calc-value{font-size:2rem;font-weight:800;color:var(--accent2)}
+.calc-label{color:var(--muted);font-size:.9rem}
 </style>
 </head>
 <body>
 <div class="wrap">
 <a class="back" href="/">← StegVerse</a>
 <h1>Pricing</h1>
-<p>Single source of truth. Updated automatically from the StegVerse pricing manifest.</p>
+<p>Single source of truth. Every tier grounded in the GCAT/BCAT cost model: governance is ~10,000,000× cheaper than bad execution.</p>
 <div id="pricing-container"></div>
 </div>
 <footer>StegVerse • Trust failures • Commit-time admissibility</footer>
 
 <script src="assets/js/pricing-fetcher.js"></script>
 <script>
-StegVersePricing.render('pricing-container', {
-  // sections: ['audit']  // uncomment to show only audit
-});
+StegVersePricing.render('pricing-container');
 </script>
 </body>
 </html>
