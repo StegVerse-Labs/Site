@@ -14,6 +14,8 @@
 .sample-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 .btn-sample { background: transparent; border: 1px solid var(--border); color: var(--accent); padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
 .btn-sample:hover { background: var(--accent-soft); color: var(--text); }
+.btn-random { border-style: dashed; opacity: 0.85; }
+.btn-random:hover { opacity: 1; border-style: solid; }
 .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
 .panel h2 { margin-top: 0; font-size: 1.3rem; }
 .panel-desc { color: var(--muted); margin-bottom: 1rem; }
@@ -86,6 +88,7 @@ summary:hover { opacity: 0.8; }
     <button id="sample-llm" class="btn-sample">Load LLM Adapter Sample</button>
     <button id="sample-sdk" class="btn-sample">Load SDK Sample</button>
     <button id="sample-human" class="btn-sample">Load Human Sample</button>
+    <button id="generate-new" class="btn-sample btn-random">Generate New Dataset</button>
   </div>
 </section>
 
