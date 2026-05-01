@@ -1,86 +1,204 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StegVerse Demo — Commit-Time Admissibility</title>
-  <meta name="description" content="Run a browser-native StegVerse demo for stale-state execution and commit-time admissibility.">
-  <link rel="stylesheet" href="assets/stegverse.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StegVerse Demo — Tier 0</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── Demo-specific styles (inline to avoid .nojekyll SCSS issues) ── */
+.demo-hero { text-align: center; padding: 3rem 1rem 2rem; }
+.demo-hero h1 { font-size: 2.4rem; line-height: 1.15; margin: 1rem 0; }
+.tier-badge { display: inline-block; padding: 0.4rem 1rem; border: 1px solid var(--accent); border-radius: 2rem; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.05em; }
+.demo-controls { text-align: center; padding: 0 1rem 1.5rem; }
+.sample-buttons { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+.btn-sample { background: transparent; border: 1px solid var(--border); color: var(--accent); padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+.btn-sample:hover { background: var(--accent-soft); color: var(--text); }
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+.panel h2 { margin-top: 0; font-size: 1.3rem; }
+.panel-desc { color: var(--muted); margin-bottom: 1rem; }
+.code-input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; font-family: 'SF Mono', Monaco, monospace; font-size: 0.85rem; line-height: 1.5; color: var(--text); resize: vertical; box-sizing: border-box; }
+.code-input:focus { outline: none; border-color: var(--accent); }
+.btn-evaluate { display: block; width: 100%; margin-top: 1rem; padding: 0.9rem; background: var(--accent); color: var(--bg); border: none; border-radius: var(--radius); font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+.btn-evaluate:hover { opacity: 0.9; }
+.demo-result.hidden { display: none; }
+.result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.result-cell { text-align: center; padding: 1rem; background: var(--bg); border-radius: var(--radius); }
+.result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.5rem; }
+.metric-value { font-family: 'SF Mono', Monaco, monospace; font-size: 1.4rem; font-weight: 600; }
+.verdict-badge { display: inline-block; padding: 0.4rem 1.2rem; border-radius: var(--radius); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; }
+.verdict-allow { background: rgba(74, 222, 128, 0.12); color: #4ade80; border: 1px solid #4ade80; }
+.verdict-deny { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid #fbbf24; }
+.verdict-fail_closed { background: rgba(248, 113, 113, 0.12); color: #f87171; border: 1px solid #f87171; }
+.confidence-bar { width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
+.confidence-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.result-details, .result-receipt { margin-top: 1.5rem; }
+.data-table { width: 100%; border-collapse: collapse; font-family: 'SF Mono', Monaco, monospace; font-size: 0.85rem; }
+.data-table td { padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+.data-table td:first-child { color: var(--muted); width: 140px; }
+.receipt-hash-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.hash-display { flex: 1; font-family: 'SF Mono', Monaco, monospace; font-size: 0.8rem; background: var(--bg); padding: 0.6rem 0.8rem; border-radius: var(--radius); border: 1px solid var(--border); word-break: break-all; }
+.btn-copy { padding: 0.4rem 0.8rem; background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); border-radius: var(--radius); cursor: pointer; font-size: 0.8rem; }
+.error-display { color: var(--danger); margin-top: 1rem; font-size: 0.9rem; }
+.demo-explanation { padding-bottom: 3rem; }
+.explainer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.explainer-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+.explainer-card h3 { margin-top: 0; font-size: 1rem; color: var(--accent); }
+.explainer-card p { font-size: 0.9rem; line-height: 1.5; color: var(--muted); margin-bottom: 0; }
+.verdict-allow-inline { color: #4ade80; font-weight: 600; }
+.verdict-deny-inline { color: #fbbf24; font-weight: 600; }
+.verdict-fail-inline { color: #f87171; font-weight: 600; }
+details { margin-top: 0.75rem; }
+summary { cursor: pointer; color: var(--accent); font-size: 0.9rem; user-select: none; }
+summary:hover { opacity: 0.8; }
+.viz-container { margin: 1.5rem 0; text-align: center; }
+.viz-container h3 { text-align: left; margin-bottom: 0.75rem; }
+.viz-canvas { width: 100%; height: 320px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); cursor: grab; touch-action: none; }
+.viz-canvas:active { cursor: grabbing; }
+.viz-hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">STEGVERSE DEMO</div>
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/demo.html">Live Demo</a>
-      <a href="https://github.com/StegVerse-org/StegVerse-SDK">SDK</a>
-      <a href="https://github.com/StegVerse-org/demo-suite-runner">Demo Runner</a>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="badge">Tier 0 • Browser-only • No backend required</div>
-      <h1>Stale-state execution vs. commit-time constraint.</h1>
-      <p class="lead">
-        Paste static run data below. The demo reconstructs the commit boundary locally and returns
-        ALLOW, DENY, or FAIL-CLOSED with a portable receipt hash.
-      </p>
-    </section>
+<header class="sv-header">
+  <div class="sv-logo">StegVerse</div>
+  <nav class="sv-nav">
+    <a href="index.html">Home</a>
+    <a href="demo.html" class="active">Live Demo</a>
+    <a href="https://github.com/StegVerse-org/StegVerse-SDK">SDK</a>
+  </nav>
+</header>
 
-    <section class="section">
-      <div class="demo-layout">
-        <div class="card">
-          <h2>Input run data</h2>
-          <p>
-            This can be produced by a human, SDK example, or LLM adapter. The key distinction:
-            the LLM proposes; StegVerse evaluates before effect.
-          </p>
-          <textarea id="payload" spellcheck="false"></textarea>
-          <div class="actions">
-            <button class="button primary" id="runDemo">Evaluate at commit</button>
-            <button class="button" id="loadSample">Load sample</button>
-          </div>
-        </div>
+<main class="sv-main">
 
-        <div class="card">
-          <h2>Result receipt</h2>
-          <div id="resultBanner" class="result-banner">
-            <span class="kicker">Commit decision</span>
-            <strong class="fail">WAITING</strong>
-            <div class="small">Submit run data to evaluate.</div>
-          </div>
-          <pre id="resultJson">{}</pre>
-          <div class="actions">
-            <button class="button" id="copyResult">Copy result</button>
-            <button class="button" id="downloadResult">Download JSON</button>
-          </div>
+<section class="demo-hero">
+  <div class="tier-badge">Tier 0 · Browser-only · No backend required</div>
+  <h1>Stale-state execution vs.<br>commit-time constraint.</h1>
+  <p class="lead">
+    Paste static run data below. The demo reconstructs the commit boundary locally
+    and returns <strong>ALLOW</strong>, <strong>DENY</strong>, or <strong>FAIL-CLOSED</strong>
+    with a portable receipt hash.
+  </p>
+</section>
+
+<section class="demo-controls">
+  <div class="sample-buttons">
+    <button id="sample-llm" class="btn-sample">Load LLM Adapter Sample</button>
+    <button id="sample-sdk" class="btn-sample">Load SDK Sample</button>
+    <button id="sample-human" class="btn-sample">Load Human Sample</button>
+  </div>
+</section>
+
+<section class="demo-input">
+  <div class="panel">
+    <h2>Input run data</h2>
+    <p class="panel-desc">
+      This can be produced by a human, SDK example, or LLM adapter.
+      The key distinction: the LLM proposes; StegVerse evaluates <em>before</em> effect.
+    </p>
+    <form id="demo-form">
+      <textarea id="run-data-input" class="code-input" rows="18" placeholder='{
+  "source": "llm_adapter",
+  "demo_id": "demo_001",
+  "commit_states": [
+    [0.1, -0.2, 0.5],
+    [-0.3, 0.4, -0.1],
+    [0.2, 0.1, 0.3]
+  ],
+  "proposed_state": [0.5, -0.6, 0.8],
+  "metadata": {}
+}'></textarea>
+      <button type="submit" class="btn-evaluate">Evaluate Commit Boundary</button>
+    </form>
+  </div>
+</section>
+
+<section id="result-display" class="demo-result hidden">
+  <div class="panel">
+    <h2>Evaluation Result</h2>
+
+    <div class="result-grid">
+      <div class="result-cell">
+        <div class="result-label">Verdict</div>
+        <div id="verdict-badge" class="verdict-badge">—</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-label">GOD Divergence</div>
+        <div id="god-value" class="metric-value">—</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-label">Confidence</div>
+        <div class="confidence-bar">
+          <div id="confidence-bar" class="confidence-bar-fill"></div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="section">
-      <div class="grid-3">
-        <div class="card">
-          <h3>Naive pattern</h3>
-          <p>Evaluate once at T0. Execute later at T1 even if state changed.</p>
-        </div>
-        <div class="card">
-          <h3>StegVerse pattern</h3>
-          <p>Reconstruct state, re-verify authority, recompute admissibility at commit.</p>
-        </div>
-        <div class="card">
-          <h3>LLM adapter path</h3>
-          <p>LLMs submit proposed actions as structured run data. They do not directly execute.</p>
-        </div>
+    <div class="viz-container">
+      <h3>Boundary Geometry</h3>
+      <canvas id="boundary-canvas" class="viz-canvas"></canvas>
+      <p class="viz-hint">← drag to rotate · green sphere = commit boundary · colored dot = proposed state</p>
+    </div>
+
+    <div class="result-details">
+      <h3>Boundary Parameters</h3>
+      <table class="data-table">
+        <tr><td>Centroid</td><td id="boundary-centroid">—</td></tr>
+        <tr><td>Radius</td><td id="boundary-radius">—</td></tr>
+        <tr><td>Epsilon Zone</td><td id="boundary-epsilon">—</td></tr>
+      </table>
+    </div>
+
+    <div class="result-receipt">
+      <h3>Portable Receipt</h3>
+      <div class="receipt-hash-row">
+        <code id="receipt-hash" class="hash-display">—</code>
+        <button class="btn-copy" onclick="navigator.clipboard.writeText(document.getElementById('receipt-hash').textContent)">Copy</button>
       </div>
-    </section>
-  </main>
+      <details>
+        <summary>Canonical form (for verification)</summary>
+        <textarea id="receipt-canonical" class="code-input" rows="6" readonly></textarea>
+      </details>
+    </div>
 
-  <footer class="footer">
-    Tier 0 is local and static. Tier 1 can turn this result into a demo-suite ingestion artifact.
-  </footer>
+    <div id="error-message" class="error-display"></div>
+  </div>
+</section>
 
-  <script src="assets/stegverse-demo.js"></script>
+<section class="demo-explanation">
+  <div class="panel">
+    <h2>What is happening here?</h2>
+    <div class="explainer-grid">
+      <div class="explainer-card">
+        <h3>1. Commit Boundary</h3>
+        <p>The <strong>commit_states</strong> array defines the geometric boundary of valid state space at commit time. The evaluator computes the centroid, radius, and principal normal of this manifold.</p>
+      </div>
+      <div class="explainer-card">
+        <h3>2. GOD Divergence</h3>
+        <p><strong>Geometrically Ontological Divergence</strong> measures how far the proposed state sits from the commit boundary, normalized by the boundary's characteristic scale. GOD = 1.0 is the surface.</p>
+      </div>
+      <div class="explainer-card">
+        <h3>3. Verdict</h3>
+        <p><span class="verdict-allow-inline">ALLOW</span> — within boundary, execute.<br><span class="verdict-deny-inline">DENY</span> — outside but recoverable, reject.<br><span class="verdict-fail-inline">FAIL-CLOSED</span> — catastrophic divergence, halt.</p>
+      </div>
+      <div class="explainer-card">
+        <h3>4. Receipt</h3>
+        <p>A SHA-256 hash of the canonical evaluation record. Anyone with the same inputs can reproduce the same hash, proving this evaluation happened without trusting the evaluator.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="sv-footer">
+  © StegVerse. Commit-time admissibility.
+</footer>
+
+<!-- GCAT/BCAT Tier 0 Evaluator — already deployed in assets/js/ -->
+<script src="assets/js/gcat-evaluator.js"></script>
+<script src="assets/js/boundary-viz.js"></script>
+<script src="assets/js/demo-integration.js"></script>
+
 </body>
 </html>
