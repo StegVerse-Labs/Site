@@ -79,6 +79,16 @@ document.addEventListener('DOMContentLoaded', function () {
             '[' + result.boundary.centroid.map(v => v.toFixed(4)).join(', ') + ']';
         document.getElementById('boundary-radius').textContent = result.boundary.radius.toFixed(6);
         document.getElementById('boundary-epsilon').textContent = result.boundary.epsilon.toFixed(4);
+
+        // Visualization
+        let inputs;
+        try {
+            inputs = JSON.parse(inputArea.value);
+        } catch(e) { return; }
+
+        if (window.BoundaryViz && document.getElementById('boundary-canvas')) {
+            window._vizController = BoundaryViz.attachInteractive('boundary-canvas', inputs, result);
+        }
     }
 
     function showError(msg) {
