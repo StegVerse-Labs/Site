@@ -1,374 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StegVerse Demo</title>
-<style>
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:#edf6ff;background:#07111f}
-.wrap{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:20px}
-h1{font-size:2rem;margin:0 0 20px}
-.tier{display:inline-block;padding:.4rem 1rem;border:1px solid #6ee7ff;border-radius:2rem;font-size:.85rem;color:#6ee7ff;margin-bottom:20px}
-.btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
-.btn{background:transparent;border:1px solid rgba(255,255,255,.14);color:#6ee7ff;padding:.5rem 1rem;border-radius:12px;cursor:pointer;font-size:.9rem}
-.panel{background:#0f1b2d;border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:24px;margin-bottom:20px}
-.code{width:100%;background:#07111f;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1rem;font-family:monospace;font-size:.85rem;color:#edf6ff;resize:vertical;box-sizing:border-box;min-height:200px}
-.eval{display:block;width:100%;margin-top:1rem;padding:.9rem;background:#6ee7ff;color:#06111f;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer}
-.result{display:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:20px 0}
-.cell{text-align:center;padding:1rem;background:#07111f;border-radius:12px}
-.label{font-size:.75rem;text-transform:uppercase;color:#a8b8cc;margin-bottom:.5rem}
-.value{font-family:monospace;font-size:1.4rem;font-weight:600}
-.verdict{display:inline-block;padding:.4rem 1.2rem;border-radius:12px;font-weight:700}
-.v-allow{background:rgba(89,245,155,.12);color:#59f59b;border:1px solid #59f59b}
-.v-deny{background:rgba(255,209,102,.12);color:#ffd166;border:1px solid #ffd166}
-.v-fail{background:rgba(255,107,107,.12);color:#ff6b6b;border:1px solid #ff6b6b}
-.bar{width:100%;height:8px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden;margin-top:.5rem}
-.bar-fill{height:100%;border-radius:4px;transition:width .6s}
-.hash{font-family:monospace;font-size:.8rem;background:#07111f;padding:.6rem;border-radius:12px;border:1px solid rgba(255,255,255,.14);word-break:break-all}
-.error{color:#ff6b6b;margin-top:1rem}
-.card{background:#07111f;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-.card h3{color:#6ee7ff;margin-top:0}
-.card p{color:#a8b8cc;font-size:.9rem;line-height:1.5}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StegVerse Demo · Tier 1</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:0;background:#0b1020;color:#eef2ff}
+    main{max-width:1100px;margin:0 auto;padding:28px}
+    .pill{display:inline-block;padding:6px 10px;border:1px solid #334155;border-radius:999px;color:#93c5fd}
+    textarea,input{width:100%;box-sizing:border-box;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:12px}
+    textarea{min-height:280px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    button{background:#2563eb;color:white;border:0;border-radius:10px;padding:11px 14px;margin:6px 6px 6px 0;font-weight:700}
+    button.secondary{background:#334155}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:18px}
+    .value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+    .allow{color:#86efac}.deny{color:#fde68a}.fail{color:#fca5a5}
+    @media(max-width:800px){.grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-<div class="wrap">
-<div class="tier">Tier 0 · Browser-only · No backend</div>
-<h1>Stale-state execution vs. commit-time constraint</h1>
-<div class="btns">
-<button id="sample-llm" class="btn">Load LLM Sample</button>
-<button id="sample-sdk" class="btn">Load SDK Sample</button>
-<button id="sample-human" class="btn">Load Human Sample</button>
-<button id="generate-new" class="btn">Generate New Dataset</button>
-</div>
-<div class="panel">
-<h2>Input run data</h2>
-<p style="color:#a8b8cc">The LLM proposes; StegVerse evaluates <em>before</em> effect.</p>
-<form id="demo-form">
-<textarea id="run-data-input" class="code">{
-  "source": "sdk",
-  "demo_id": "demo_sdk_default",
-  "commit_states": [
-    [
-      0.234,
-      -0.156,
-      0.089
-    ],
-    [
-      -0.312,
-      0.445,
-      -0.078
-    ],
-    [
-      0.189,
-      0.067,
-      0.234
-    ],
-    [
-      -0.067,
-      -0.234,
-      0.156
-    ],
-    [
-      0.278,
-      -0.089,
-      -0.189
-    ]
-  ],
-  "proposed_state": [
-    0.089,
-    -0.045,
-    0.056
-  ],
-  "metadata": {
-    "generated_by": "default",
-    "tier": 0,
-    "note": "Pre-loaded default data. Tap Evaluate or load a different sample."
-  }
-}</textarea>
-<button type="submit" class="eval">Evaluate Commit Boundary</button>
-</form>
-</div>
-<div id="result-display" class="result">
-<div class="panel">
-<h2>Result</h2>
-<div class="grid">
-<div class="cell"><div class="label">Verdict</div><div id="verdict-badge" class="value">—</div></div>
-<div class="cell"><div class="label">GOD</div><div id="god-value" class="value">—</div></div>
-<div class="cell"><div class="label">Confidence</div><div class="bar"><div id="confidence-bar" class="bar-fill"></div></div></div>
-</div>
-<h3>Boundary</h3>
-<p style="font-family:monospace;font-size:.85rem;color:#a8b8cc">
-Centroid: <span id="boundary-centroid">—</span><br>
-Radius: <span id="boundary-radius">—</span><br>
-Epsilon: <span id="boundary-epsilon">—</span>
-</p>
-<h3>Receipt</h3>
-<div id="receipt-hash" class="hash">—</div>
-<textarea id="receipt-canonical" class="code" rows="4" readonly style="margin-top:10px;font-size:.75rem"></textarea>
-<div id="error-message" class="error"></div>
-</div>
-</div>
-<div>
-<h2>What is happening?</h2>
-<div class="card"><h3>1. Commit Boundary</h3><p>The commit_states array defines the geometric boundary of valid state space at commit time.</p></div>
-<div class="card"><h3>2. GOD Divergence</h3><p>Geometrically Ontological Divergence measures how far the proposed state sits from the boundary. GOD = 1.0 is the surface.</p></div>
-<div class="card"><h3>3. Verdict</h3><p><span style="color:#59f59b">ALLOW</span> — within boundary. <span style="color:#ffd166">DENY</span> — outside, recoverable. <span style="color:#ff6b6b">FAIL-CLOSED</span> — catastrophic divergence.</p></div>
-<div class="card"><h3>4. Receipt</h3><p>SHA-256 hash of the canonical record. Anyone with the same inputs can reproduce it.</p></div>
-</div>
-</div>
+<main>
+  <span class="pill">Tier 1 · Backend-evaluated · Receipt-producing</span>
+  <h1>Stale-state execution vs. commit-time constraint</h1>
+
+  <div class="card">
+    <label>Backend base URL</label>
+    <input id="apiBase" value="https://scw-api.onrender.com" />
+    <p>The LLM proposes; StegVerse evaluates before effect.</p>
+    <button onclick="loadSample('llm')">Load LLM Sample</button>
+    <button onclick="loadSample('sdk')">Load SDK Sample</button>
+    <button onclick="loadSample('human')">Load Human Sample</button>
+    <button class="secondary" onclick="generateDataset()">Generate New Dataset</button>
+  </div>
+
+  <div class="grid" style="margin-top:18px">
+    <section class="card">
+      <h2>Input run data</h2>
+      <textarea id="runData"></textarea>
+      <button onclick="evaluateRun()">Evaluate Commit Boundary</button>
+    </section>
+
+    <section class="card">
+      <h2>Result</h2>
+      <h3>Verdict</h3>
+      <div id="verdict" class="value">—</div>
+
+      <h3>GOD</h3>
+      <div id="god" class="value">—</div>
+
+      <h3>Confidence</h3>
+      <div id="confidence" class="value">—</div>
+
+      <h3>Boundary</h3>
+      <div id="boundary" class="value">Centroid: —
+Radius: —
+Epsilon: —</div>
+
+      <h3>Receipt</h3>
+      <div id="receipt" class="value">—</div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:18px">
+    <h2>What is happening?</h2>
+    <p><b>1. Commit Boundary</b><br>The backend reconstructs the boundary from commit_states at evaluation time.</p>
+    <p><b>2. GOD Divergence</b><br>Geometrically Ontological Divergence measures how far the proposed state sits from the boundary. GOD = 1.0 is the surface.</p>
+    <p><b>3. Verdict</b><br>ALLOW means inside the boundary. DENY means outside but recoverable. FAIL-CLOSED means catastrophic divergence or malformed input.</p>
+    <p><b>4. Receipt</b><br>The backend returns a SHA-256 receipt hash over the canonical decision record.</p>
+  </section>
+</main>
+
 <script>
-window.GCATEvaluator = {
-  VERDICT: { ALLOW: 'ALLOW', DENY: 'DENY', FAIL_CLOSED: 'FAIL-CLOSED' },
-  run: function(inputs) {
-    return new Promise(function(resolve, reject) {
-      try {
-        var n = inputs.commit_states.length;
-        var d = inputs.commit_states[0].length;
-        var centroid = [0, 0, 0];
-        for (var i = 0; i < 3; i++) {
-          var sum = 0;
-          for (var j = 0; j < n; j++) sum += inputs.commit_states[j][i];
-          centroid[i] = sum / n;
-        }
-        var radius = 1e-9;
-        for (var j = 0; j < n; j++) {
-          var dist = 0;
-          for (var i = 0; i < 3; i++) dist += Math.pow(inputs.commit_states[j][i] - centroid[i], 2);
-          dist = Math.sqrt(dist);
-          if (dist > radius) radius = dist;
-        }
-        var p = inputs.proposed_state;
-        var god = 0;
-        for (var i = 0; i < 3; i++) god += Math.pow(p[i] - centroid[i], 2);
-        god = Math.sqrt(god) / radius;
-        var verdict, confidence;
-        if (god <= 1.0) { verdict = 'ALLOW'; confidence = 1.0 - god; }
-        else if (god <= 1.05) { verdict = 'DENY'; confidence = 1.0 - (god - 1.0) / 0.05; }
-        else { verdict = 'FAIL-CLOSED'; confidence = 0.0; }
-        confidence = Math.max(0, Math.min(1, confidence));
-        var canonical = JSON.stringify({
-          v: '0.1.0', source: inputs.source || 'unknown', demo_id: inputs.demo_id,
-          commit_states: inputs.commit_states, proposed_state: p,
-          verdict: verdict, god: god, confidence: confidence,
-          boundary_centroid: centroid, boundary_radius: radius, boundary_epsilon: 0.05
-        });
-        var encoder = new TextEncoder();
-        crypto.subtle.digest('SHA-256', encoder.encode(canonical)).then(function(hashBuffer) {
-          var hashArray = new Uint8Array(hashBuffer);
-          var hashHex = '';
-          for (var i = 0; i < hashArray.length; i++) {
-            hashHex += hashArray[i].toString(16).padStart(2, '0');
-          }
-          resolve({
-            verdict: verdict, god: god, confidence: confidence,
-            boundary: { centroid: centroid, radius: radius, epsilon: 0.05 },
-            receipt: { hash: hashHex, algo: 'SHA-256', canonical: canonical },
-            inputs: { source: inputs.source, commit_count: n, dimensions: d }
-          });
-        });
-      } catch (err) { reject(err); }
-    });
+const samples = {
+  sdk: {
+    source: "sdk",
+    demo_id: "demo_sdk_tier1",
+    commit_states: [[0.234,-0.156,0.089],[-0.312,0.445,-0.078],[0.189,0.067,0.234],[-0.067,-0.234,0.156],[0.278,-0.089,-0.189]],
+    proposed_state: [0.089,-0.045,0.056],
+    metadata: { generated_by: "default", tier: 1 }
   },
-  generateSample: function(source) {
-    var seed = source === 'llm_adapter' ? 11 : source === 'sdk' ? 22 : 33;
-    var x = seed;
-    function rng() { x = (x * 16807) % 2147483647; return (x - 1) / 2147483646; }
-    var cs = [];
-    for (var k = 0; k < 5; k++) {
-      var row = [];
-      for (var i = 0; i < 3; i++) row.push((rng() - 0.5) * 1.2);
-      cs.push(row);
-    }
-    var n = cs.length;
-    var c = [0, 0, 0];
-    for (var i = 0; i < 3; i++) {
-      var sum = 0;
-      for (var j = 0; j < n; j++) sum += cs[j][i];
-      c[i] = sum / n;
-    }
-    var rad = 1e-9;
-    for (var j = 0; j < n; j++) {
-      var dist = 0;
-      for (var i = 0; i < 3; i++) dist += Math.pow(cs[j][i] - c[i], 2);
-      dist = Math.sqrt(dist);
-      if (dist > rad) rad = dist;
-    }
-    var a = c;
-    var sc = rad;
-    var pr = [];
-    if (source === 'sdk') {
-      for (var i = 0; i < 3; i++) pr.push(a[i] + (cs[0][i] - a[i]) * 0.3);
-    } else if (source === 'llm_adapter') {
-      var dir = [];
-      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
-      var dn = 0;
-      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
-      dn = Math.sqrt(dn);
-      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
-      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 1.02);
-    } else {
-      var dir = [];
-      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
-      var dn = 0;
-      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
-      dn = Math.sqrt(dn);
-      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
-      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 2.0);
-    }
-    return {
-      source: source,
-      demo_id: 'demo_' + source + '_' + Date.now(),
-      commit_states: cs,
-      proposed_state: pr,
-      metadata: { generated_by: 'GCATEvaluator.generateSample', tier: 0, deterministic: true }
-    };
+  llm: {
+    source: "llm",
+    demo_id: "demo_llm_tier1",
+    commit_states: [[0.15,0.10,0.12],[0.12,0.18,0.08],[0.20,0.11,0.16],[0.09,0.15,0.14]],
+    proposed_state: [0.52,0.49,0.41],
+    metadata: { proposed_by: "llm_adapter", tier: 1 }
   },
-  generateSampleRandom: function(source) {
-    var seed = Math.floor(Math.random() * 1000000);
-    var x = seed;
-    function rng() { x = (x * 16807) % 2147483647; return (x - 1) / 2147483646; }
-    var cs = [];
-    for (var k = 0; k < 5; k++) {
-      var row = [];
-      for (var i = 0; i < 3; i++) row.push((rng() - 0.5) * 1.2);
-      cs.push(row);
-    }
-    var n = cs.length;
-    var c = [0, 0, 0];
-    for (var i = 0; i < 3; i++) {
-      var sum = 0;
-      for (var j = 0; j < n; j++) sum += cs[j][i];
-      c[i] = sum / n;
-    }
-    var rad = 1e-9;
-    for (var j = 0; j < n; j++) {
-      var dist = 0;
-      for (var i = 0; i < 3; i++) dist += Math.pow(cs[j][i] - c[i], 2);
-      dist = Math.sqrt(dist);
-      if (dist > rad) rad = dist;
-    }
-    var a = c;
-    var sc = rad;
-    var pr = [];
-    if (source === 'sdk') {
-      for (var i = 0; i < 3; i++) pr.push(a[i] + (cs[0][i] - a[i]) * 0.3);
-    } else if (source === 'llm_adapter') {
-      var dir = [];
-      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
-      var dn = 0;
-      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
-      dn = Math.sqrt(dn);
-      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
-      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 1.02);
-    } else {
-      var dir = [];
-      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
-      var dn = 0;
-      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
-      dn = Math.sqrt(dn);
-      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
-      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 2.0);
-    }
-    return {
-      source: source,
-      demo_id: 'demo_' + source + '_' + Date.now(),
-      commit_states: cs,
-      proposed_state: pr,
-      metadata: { generated_by: 'GCATEvaluator.generateSampleRandom', tier: 0, deterministic: false, seed: seed }
-    };
+  human: {
+    source: "human",
+    demo_id: "demo_human_tier1",
+    commit_states: [[-0.10,0.05,0.08],[-0.12,0.07,0.11],[-0.08,0.02,0.05],[-0.11,0.04,0.09]],
+    proposed_state: [-0.105,0.048,0.087],
+    metadata: { proposed_by: "human_operator", tier: 1 }
   }
 };
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var ia = document.getElementById('run-data-input');
-  var rd = document.getElementById('result-display');
-  var vb = document.getElementById('verdict-badge');
-  var gv = document.getElementById('god-value');
-  var cb = document.getElementById('confidence-bar');
-  var rh = document.getElementById('receipt-hash');
-  var rc = document.getElementById('receipt-canonical');
-  var em = document.getElementById('error-message');
-  var bc = document.getElementById('boundary-centroid');
-  var br = document.getElementById('boundary-radius');
-  var be = document.getElementById('boundary-epsilon');
 
-  function clearResult() {
-    rd.style.display = 'none';
-    if (vb) { vb.className = 'value'; vb.textContent = '—'; }
-    if (gv) gv.textContent = '—';
-    if (cb) { cb.style.width = '0%'; cb.className = 'bar-fill'; cb.style.background = ''; }
-    if (rh) rh.textContent = '—';
-    if (rc) rc.value = '';
-    if (em) em.textContent = '';
-    if (bc) bc.textContent = '—';
-    if (br) br.textContent = '—';
-    if (be) be.textContent = '—';
+function loadSample(name) {
+  document.getElementById("runData").value = JSON.stringify(samples[name], null, 2);
+  clearResult();
+}
+
+function generateDataset() {
+  const states = Array.from({length: 5}, () => [
+    +(Math.random() * 0.7 - 0.35).toFixed(3),
+    +(Math.random() * 0.7 - 0.35).toFixed(3),
+    +(Math.random() * 0.7 - 0.35).toFixed(3)
+  ]);
+  const proposed = [
+    +(Math.random() * 0.9 - 0.45).toFixed(3),
+    +(Math.random() * 0.9 - 0.45).toFixed(3),
+    +(Math.random() * 0.9 - 0.45).toFixed(3)
+  ];
+  document.getElementById("runData").value = JSON.stringify({
+    source: "generated",
+    demo_id: "demo_generated_" + Date.now(),
+    commit_states: states,
+    proposed_state: proposed,
+    metadata: { generated_by: "browser", tier: 1 }
+  }, null, 2);
+  clearResult();
+}
+
+async function evaluateRun() {
+  clearResult();
+  const apiBase = document.getElementById("apiBase").value.replace(/\/$/, "");
+  let payload;
+
+  try {
+    payload = JSON.parse(document.getElementById("runData").value);
+  } catch {
+    showError("Invalid JSON.");
+    return;
   }
 
-  function loadSample(src) {
-    try {
-      var s = GCATEvaluator.generateSample(src);
-      ia.value = JSON.stringify(s, null, 2);
-      clearResult();
-    } catch(e) { if (em) em.textContent = 'Load error: ' + e.message; }
-  }
-
-  function generateNew() {
-    try {
-      var src = 'sdk';
-      try { src = JSON.parse(ia.value).source || 'sdk'; } catch(e) {}
-      var s = GCATEvaluator.generateSampleRandom ? GCATEvaluator.generateSampleRandom(src) : GCATEvaluator.generateSample(src);
-      ia.value = JSON.stringify(s, null, 2);
-      clearResult();
-    } catch(e) { if (em) em.textContent = 'Generate error: ' + e.message; }
-  }
-
-  function evaluate(e) {
-    e.preventDefault();
-    var inp;
-    try { inp = JSON.parse(ia.value); } catch(err) { if (em) em.textContent = 'Invalid JSON: ' + err.message; return; }
-    GCATEvaluator.run(inp).then(function(res) {
-      rd.style.display = 'block';
-      if (vb) {
-        vb.textContent = res.verdict;
-        vb.className = 'value verdict v-' + res.verdict.toLowerCase().replace('-', '_');
-      }
-      if (gv) gv.textContent = res.god.toFixed(6);
-      if (cb) {
-        cb.style.width = (res.confidence * 100).toFixed(1) + '%';
-        cb.className = 'bar-fill';
-        if (res.verdict === 'ALLOW') cb.style.background = '#59f59b';
-        else if (res.verdict === 'DENY') cb.style.background = '#ffd166';
-        else cb.style.background = '#ff6b6b';
-      }
-      if (rh) rh.textContent = res.receipt.hash;
-      if (rc) rc.value = res.receipt.canonical;
-      if (bc) bc.textContent = '[' + res.boundary.centroid.map(function(v) { return v.toFixed(4); }).join(', ') + ']';
-      if (br) br.textContent = res.boundary.radius.toFixed(6);
-      if (be) be.textContent = res.boundary.epsilon.toFixed(4);
-      if (em) em.textContent = '';
-    }).catch(function(err) {
-      if (em) em.textContent = 'Evaluation failed: ' + err.message;
+  try {
+    const res = await fetch(apiBase + "/v1/demo/run", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
     });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || "Backend rejected request.");
+    renderResult(data);
+  } catch (err) {
+    showError(String(err.message || err));
   }
+}
 
-  var btnLLM = document.getElementById('sample-llm');
-  var btnSDK = document.getElementById('sample-sdk');
-  var btnHuman = document.getElementById('sample-human');
-  var btnGen = document.getElementById('generate-new');
-  var form = document.getElementById('demo-form');
+function renderResult(data) {
+  const verdict = document.getElementById("verdict");
+  verdict.textContent = data.verdict;
+  verdict.className = "value " + (
+    data.verdict === "ALLOW" ? "allow" :
+    data.verdict === "DENY" ? "deny" : "fail"
+  );
 
-  if (btnLLM) btnLLM.addEventListener('click', function() { loadSample('llm_adapter'); });
-  if (btnSDK) btnSDK.addEventListener('click', function() { loadSample('sdk'); });
-  if (btnHuman) btnHuman.addEventListener('click', function() { loadSample('human'); });
-  if (btnGen) btnGen.addEventListener('click', generateNew);
-  if (form) form.addEventListener('submit', evaluate);
+  document.getElementById("god").textContent = data.god.toFixed(6);
+  document.getElementById("confidence").textContent = data.confidence.toFixed(6);
+  document.getElementById("boundary").textContent =
+`Centroid: ${JSON.stringify(data.boundary.centroid)}
+Radius: ${data.boundary.radius.toFixed(6)}
+Epsilon: ${data.boundary.epsilon.toFixed(6)}`;
+  document.getElementById("receipt").textContent =
+`receipt_hash: ${data.receipt.receipt_hash}
+decision_id: ${data.receipt.decision_id}
+evaluated_at: ${data.receipt.evaluated_at}`;
+}
 
-  if (ia && !ia.value.trim()) loadSample('sdk');
-});
+function showError(msg) {
+  document.getElementById("verdict").textContent = "FAIL-CLOSED";
+  document.getElementById("verdict").className = "value fail";
+  document.getElementById("receipt").textContent = msg;
+}
+
+function clearResult() {
+  document.getElementById("verdict").textContent = "—";
+  document.getElementById("verdict").className = "value";
+  document.getElementById("god").textContent = "—";
+  document.getElementById("confidence").textContent = "—";
+  document.getElementById("boundary").textContent = "Centroid: —\nRadius: —\nEpsilon: —";
+  document.getElementById("receipt").textContent = "—";
+}
+
+loadSample("sdk");
 </script>
 </body>
 </html>
