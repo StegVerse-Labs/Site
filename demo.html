@@ -9,9 +9,9 @@
 body{background:#0b1020;color:#eef2ff;font-family:system-ui;margin:0}
 main{max-width:900px;margin:auto;padding:24px}
 .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px;margin-top:16px}
-input,textarea{width:100%;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:10px}
+input,textarea{width:100%;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:10px;box-sizing:border-box}
 textarea{min-height:220px;font-family:monospace}
-button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10px;padding:10px;margin-right:8px}
+button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10px;padding:10px;margin-right:8px;font-weight:700}
 .value{white-space:pre-wrap;font-family:monospace}
 .allow{color:#86efac}
 .deny{color:#fde68a}
@@ -27,7 +27,6 @@ button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10p
 <div class="card">
 <label>Backend URL</label>
 <input id="api" value="https://scw-api.onrender.com"/>
-
 <button onclick="loadSample()">Load Sample</button>
 <button onclick="randomRun()">Random Test</button>
 </div>
@@ -52,8 +51,11 @@ button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10p
 <h3>Boundary</h3>
 <div id="boundary" class="value">—</div>
 
-<h3>Receipt</h3>
-<div id="receipt" class="value">—</div>
+<h3>Tier 1 — Commit Boundary Receipt</h3>
+<div id="tier1" class="value">—</div>
+
+<h3>Tier 2 — Local Test Runner Receipt</h3>
+<div id="tier2" class="value">—</div>
 
 </div>
 
@@ -63,25 +65,29 @@ button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10p
 
 function loadSample(){
 document.getElementById("data").value = JSON.stringify({
+source: "manual_sample",
+demo_id: "tier1_tier2_sample",
 commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
-proposed_state: [0.15,0.15,0.15]
+proposed_state: [0.15,0.15,0.15],
+metadata: { mode: "sample" }
 }, null, 2);
 }
 
-/* ===== RANDOM GENERATOR ===== */
-
 function rand() {
-  return Math.random() * 2 - 1; // range [-1, 1]
+  return Math.random() * 2 - 1;
 }
 
 function randomRun(){
 const payload = {
+  source: "browser_random",
+  demo_id: "random_" + Date.now(),
   commit_states: [
     [rand(), rand(), rand()],
     [rand(), rand(), rand()],
     [rand(), rand(), rand()]
   ],
-  proposed_state: [rand(), rand(), rand()]
+  proposed_state: [rand(), rand(), rand()],
+  metadata: { mode: "random_test" }
 };
 
 document.getElementById("data").value =
@@ -89,8 +95,6 @@ document.getElementById("data").value =
 
 run();
 }
-
-/* ===== CORE EXECUTION ===== */
 
 async function run(){
 const api = document.getElementById("api").value.replace(/\/$/,"");
@@ -103,7 +107,6 @@ body:JSON.stringify(payload)
 });
 
 const d = await res.json();
-
 render(d);
 }
 
@@ -124,22 +127,39 @@ document.getElementById("boundary").textContent =
 Radius: ${d.boundary.radius}
 Epsilon: ${d.boundary.epsilon}`;
 
-/* ===== RECEIPT HANDLING (v2-safe) ===== */
+const r = d.receipt_full || d.receipt_v1 || null;
+const rb = r?.body || {};
 
-const r =
-d.receipt_full ||
-d.receipt_v1 ||
-null;
-
-document.getElementById("receipt").textContent =
+document.getElementById("tier1").textContent =
 `receipt_hash: ${r?.receipt_hash || d.receipt}
 previous_receipt_hash: ${r?.previous_receipt_hash || "null"}
-decision_id: ${r?.body?.decision_id || "n/a"}
-decision: ${r?.body?.decision || d.verdict}
-input_hash: ${r?.body?.input_hash || "n/a"}
-decision_hash: ${r?.body?.decision_hash || "n/a"}
-runner_attempt: ${JSON.stringify(r?.body?.runner_attempt || {},null,2)}
-evaluated_at: ${r?.body?.evaluated_at || "n/a"}`;
+decision_id: ${rb.decision_id || "n/a"}
+decision: ${rb.decision || d.verdict}
+input_hash: ${rb.input_hash || "n/a"}
+decision_hash: ${rb.decision_hash || "n/a"}
+boundary_hash: ${rb.boundary_hash || "n/a"}
+tier2_attempt_hash: ${rb.tier2_attempt_hash || "n/a"}
+tier2_runner_receipt_hash: ${rb.tier2_runner_receipt_hash || "n/a"}
+evaluated_at: ${rb.evaluated_at || "n/a"}`;
+
+const t2 = d.tier2 || {};
+const t2r = t2.runner_receipt || {};
+const t2b = t2r.body || {};
+
+document.getElementById("tier2").textContent =
+`attempted: ${t2.attempted}
+ok: ${t2.ok}
+mode: ${t2.mode || "not_invoked"}
+reason: ${t2.reason || "n/a"}
+runner_receipt_hash: ${t2.runner_receipt_hash || "n/a"}
+previous_receipt_hash: ${t2r.previous_receipt_hash || "n/a"}
+execution_id: ${t2b.execution_id || "n/a"}
+runner: ${t2b.runner || "n/a"}
+decision_hash: ${t2b.decision_hash || "n/a"}
+decision_receipt_hash: ${t2b.decision_receipt_hash || "n/a"}
+input_hash: ${t2b.input_hash || "n/a"}
+output_hash: ${t2b.output_hash || "n/a"}
+executed_at: ${t2b.executed_at || "n/a"}`;
 
 }
 
