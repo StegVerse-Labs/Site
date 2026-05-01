@@ -1,6 +1,8 @@
 /* ─────────────────────────────────────────────────────────────
    StegVerse Demo — Tier 0 Styles
-   Additions to assets/css/style.scss
+   Designed to integrate with root styles.css variables:
+   --bg, --bg-alt, --card, --accent, --accent-soft, --text, --muted,
+   --danger, --border, --radius, --shadow
    ───────────────────────────────────────────────────────────── */
 
 /* Demo Hero */
@@ -40,25 +42,25 @@
 
 .btn-sample {
   background: transparent;
-  border: 1px solid var(--accent-dim);
+  border: 1px solid var(--border);
   color: var(--accent);
   padding: 0.5rem 1rem;
-  border-radius: 0.4rem;
+  border-radius: var(--radius);
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.2s;
 }
 
 .btn-sample:hover {
-  background: var(--accent-dim);
-  color: var(--bg);
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 /* Panels */
 .panel {
-  background: var(--card-bg);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 0.6rem;
+  border-radius: var(--radius);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -69,7 +71,7 @@
 }
 
 .panel-desc {
-  color: var(--text-dim);
+  color: var(--muted);
   margin-bottom: 1rem;
 }
 
@@ -78,7 +80,7 @@
   width: 100%;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.4rem;
+  border-radius: var(--radius);
   padding: 1rem;
   font-family: 'SF Mono', Monaco, monospace;
   font-size: 0.85rem;
@@ -102,7 +104,7 @@
   background: var(--accent);
   color: var(--bg);
   border: none;
-  border-radius: 0.4rem;
+  border-radius: var(--radius);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -129,14 +131,14 @@
   text-align: center;
   padding: 1rem;
   background: var(--bg);
-  border-radius: 0.4rem;
+  border-radius: var(--radius);
 }
 
 .result-label {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-dim);
+  color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
@@ -150,27 +152,27 @@
 .verdict-badge {
   display: inline-block;
   padding: 0.4rem 1.2rem;
-  border-radius: 0.3rem;
+  border-radius: var(--radius);
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 0.05em;
 }
 
 .verdict-allow {
-  background: #0d3b1e;
+  background: rgba(74, 222, 128, 0.12);
   color: #4ade80;
   border: 1px solid #4ade80;
 }
 
 .verdict-deny {
-  background: #3b1f0d;
+  background: rgba(251, 191, 36, 0.12);
   color: #fbbf24;
   border: 1px solid #fbbf24;
 }
 
 .verdict-fail_closed,
 .verdict-fail {
-  background: #3b0d0d;
+  background: rgba(248, 113, 113, 0.12);
   color: #f87171;
   border: 1px solid #f87171;
 }
@@ -210,7 +212,7 @@
 }
 
 .data-table td:first-child {
-  color: var(--text-dim);
+  color: var(--muted);
   width: 140px;
 }
 
@@ -228,24 +230,24 @@
   font-size: 0.8rem;
   background: var(--bg);
   padding: 0.6rem 0.8rem;
-  border-radius: 0.3rem;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   word-break: break-all;
 }
 
 .btn-copy {
   padding: 0.4rem 0.8rem;
-  background: var(--accent-dim);
+  background: var(--accent-soft);
   color: var(--accent);
   border: 1px solid var(--accent);
-  border-radius: 0.3rem;
+  border-radius: var(--radius);
   cursor: pointer;
   font-size: 0.8rem;
 }
 
 /* Error */
 .error-display {
-  color: #f87171;
+  color: var(--danger);
   margin-top: 1rem;
   font-size: 0.9rem;
 }
@@ -264,7 +266,7 @@
 .explainer-card {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.4rem;
+  border-radius: var(--radius);
   padding: 1.25rem;
 }
 
@@ -277,7 +279,7 @@
 .explainer-card p {
   font-size: 0.9rem;
   line-height: 1.5;
-  color: var(--text-dim);
+  color: var(--muted);
   margin-bottom: 0;
 }
 
@@ -317,7 +319,7 @@ summary:hover {
   height: 320px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.4rem;
+  border-radius: var(--radius);
   cursor: grab;
   touch-action: none;
 }
@@ -328,11 +330,6 @@ summary:hover {
 
 .viz-hint {
   font-size: 0.8rem;
-  color: var(--text-dim);
+  color: var(--muted);
   margin-top: 0.5rem;
 }
-
-/* Inline verdict colors for explainer */
-.verdict-allow-inline { color: #4ade80; font-weight: 600; }
-.verdict-deny-inline { color: #fbbf24; font-weight: 600; }
-.verdict-fail-inline { color: #f87171; font-weight: 600; }
