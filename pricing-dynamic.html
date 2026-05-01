@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing — StegVerse</title>
+<style>
+:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--shadow:0 22px 70px rgba(0,0,0,.34);}
+*{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 18% 0%,rgba(110,231,255,.22),transparent 31%),radial-gradient(circle at 80% 7%,rgba(89,245,155,.13),transparent 28%),linear-gradient(180deg,#07111f 0%,#091321 45%,#050a12 100%);}
+a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:40px 0}
+h1{margin:0 0 22px;font-size:clamp(2rem,5vw,3.5rem);line-height:.95;letter-spacing:-.04em}
+p{color:var(--muted);line-height:1.65;font-size:1.05rem;max-width:720px}
+.back{display:inline-block;margin-bottom:30px;color:var(--accent);font-weight:700}
+footer{padding:38px 0 58px;color:var(--muted);border-top:1px solid var(--line);margin-top:36px;text-align:center}
+
+/* Pricing-specific */
+.pricing-section{margin:40px 0}
+.pricing-section h2{font-size:1.5rem;margin-bottom:8px;color:var(--accent)}
+.pricing-desc{color:var(--muted);margin-bottom:20px}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.pricing-card{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px;position:relative}
+.pricing-card.recommended{border-color:var(--accent2)}
+.pricing-card h3{margin:0 0 10px;font-size:1.2rem}
+.pricing-price{font-size:1.6rem;font-weight:800;color:var(--accent2);margin:10px 0}
+.pricing-duration{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+.pricing-features{list-style:none;padding:0;margin:0;color:var(--muted);line-height:1.8}
+.pricing-features li{padding-left:20px;position:relative}
+.pricing-features li::before{content:"✓";position:absolute;left:0;color:var(--accent2)}
+.pricing-badge{position:absolute;top:16px;right:16px;background:var(--accent2);color:#06111f;padding:4px 10px;border-radius:999px;font-size:.75rem;font-weight:800}
+.pricing-notes{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.pricing-loading,.pricing-error{color:var(--muted);text-align:center;padding:40px}
+.pricing-error{color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← StegVerse</a>
+<h1>Pricing</h1>
+<p>Single source of truth. Updated automatically from the StegVerse pricing manifest.</p>
+<div id="pricing-container"></div>
+</div>
+<footer>StegVerse • Trust failures • Commit-time admissibility</footer>
+
+<script src="assets/js/pricing-fetcher.js"></script>
+<script>
+StegVersePricing.render('pricing-container', {
+  // sections: ['audit']  // uncomment to show only audit
+});
+</script>
+</body>
+</html>
