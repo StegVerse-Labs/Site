@@ -1,0 +1,79 @@
+name: Generate Demo Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Data source type'
+        required: true
+        default: 'sdk'
+        type: choice
+        options:
+          - sdk
+          - llm_adapter
+          - human
+      demo_id:
+        description: 'Demo run identifier'
+        required: false
+        default: ''
+      seed:
+        description: 'Random seed for determinism'
+        required: false
+        default: '42'
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/generate-demo-data.yml'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install SDK
+        run: |
+          pip install -e .
+
+      - name: Generate run data
+        id: generate
+        run: |
+          python scripts/generate_demo_data.py \
+            --source ${{ github.event.inputs.source || 'sdk' }} \
+            --seed ${{ github.event.inputs.seed || '42' }} \
+            --demo-id "${{ github.event.inputs.demo_id || github.run_id }}" \
+            --output demo-run-data.json
+
+      - name: Evaluate with GCAT/BCAT
+        id: evaluate
+        run: |
+          python scripts/evaluate_demo.py \
+            --input demo-run-data.json \
+            --output demo-result.json
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-data-${{ github.run_id }}
+          path: |
+            demo-run-data.json
+            demo-result.json
+          retention-days: 7
+
+      - name: Post to demo page (optional)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "## Demo Run ${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat demo-result.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
