@@ -11,7 +11,7 @@ main{max-width:900px;margin:auto;padding:24px}
 .card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px;margin-top:16px}
 input,textarea{width:100%;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:10px}
 textarea{min-height:220px;font-family:monospace}
-button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10px;padding:10px}
+button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10px;padding:10px;margin-right:8px}
 .value{white-space:pre-wrap;font-family:monospace}
 .allow{color:#86efac}
 .deny{color:#fde68a}
@@ -29,6 +29,7 @@ button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10p
 <input id="api" value="https://scw-api.onrender.com"/>
 
 <button onclick="loadSample()">Load Sample</button>
+<button onclick="randomRun()">Random Test</button>
 </div>
 
 <div class="card">
@@ -67,6 +68,30 @@ proposed_state: [0.15,0.15,0.15]
 }, null, 2);
 }
 
+/* ===== RANDOM GENERATOR ===== */
+
+function rand() {
+  return Math.random() * 2 - 1; // range [-1, 1]
+}
+
+function randomRun(){
+const payload = {
+  commit_states: [
+    [rand(), rand(), rand()],
+    [rand(), rand(), rand()],
+    [rand(), rand(), rand()]
+  ],
+  proposed_state: [rand(), rand(), rand()]
+};
+
+document.getElementById("data").value =
+  JSON.stringify(payload, null, 2);
+
+run();
+}
+
+/* ===== CORE EXECUTION ===== */
+
 async function run(){
 const api = document.getElementById("api").value.replace(/\/$/,"");
 const payload = JSON.parse(document.getElementById("data").value);
@@ -99,7 +124,7 @@ document.getElementById("boundary").textContent =
 Radius: ${d.boundary.radius}
 Epsilon: ${d.boundary.epsilon}`;
 
-/* ===== FIXED RECEIPT HANDLING ===== */
+/* ===== RECEIPT HANDLING (v2-safe) ===== */
 
 const r =
 d.receipt_full ||
