@@ -4,8 +4,9 @@ title: "Live Demo — Tier 0"
 permalink: /demo.html
 ---
 
-<!-- GCAT/BCAT Tier 0 Evaluator — Browser-only, no backend required -->
+<!-- GCAT/BCAT Tier 0 — Browser-only Evaluation + Boundary Visualization -->
 <script src="{{ '/assets/js/gcat-evaluator.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/boundary-viz.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/demo-integration.js' | relative_url }}"></script>
 
 <section class="demo-hero">
@@ -71,8 +72,15 @@ permalink: /demo.html
       </div>
     </div>
 
-    <div class="result-details">
+    <!-- Boundary Visualization -->
+    <div class="viz-container">
       <h3>Boundary Geometry</h3>
+      <canvas id="boundary-canvas" class="viz-canvas"></canvas>
+      <p class="viz-hint">← drag to rotate · green sphere = commit boundary · colored dot = proposed state</p>
+    </div>
+
+    <div class="result-details">
+      <h3>Boundary Parameters</h3>
       <table class="data-table">
         <tr><td>Centroid</td><td id="boundary-centroid">—</td></tr>
         <tr><td>Radius</td><td id="boundary-radius">—</td></tr>
@@ -119,9 +127,9 @@ permalink: /demo.html
       <div class="explainer-card">
         <h3>3. Verdict</h3>
         <p>
-          <span class="verdict-allow">ALLOW</span> — within boundary, execute.<br>
-          <span class="verdict-deny">DENY</span> — outside but recoverable, reject.<br>
-          <span class="verdict-fail">FAIL-CLOSED</span> — catastrophic divergence, halt.
+          <span class="verdict-allow-inline">ALLOW</span> — within boundary, execute.<br>
+          <span class="verdict-deny-inline">DENY</span> — outside but recoverable, reject.<br>
+          <span class="verdict-fail-inline">FAIL-CLOSED</span> — catastrophic divergence, halt.
         </p>
       </div>
       <div class="explainer-card">
