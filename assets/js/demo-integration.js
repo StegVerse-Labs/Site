@@ -17,6 +17,23 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('sample-llm').addEventListener('click', () => loadSample('llm_adapter'));
     document.getElementById('sample-sdk').addEventListener('click', () => loadSample('sdk'));
     document.getElementById('sample-human').addEventListener('click', () => loadSample('human'));
+    // Generate New Dataset button
+    const genBtn = document.getElementById('generate-new');
+    if (genBtn) {
+        genBtn.addEventListener('click', () => {
+            const current = inputArea.value.trim();
+            let source = 'sdk';
+            try {
+                const parsed = JSON.parse(current);
+                source = parsed.source || 'sdk';
+            } catch(e) {}
+            // Use random seed for new data
+            const sample = GCATEvaluator.generateSampleRandom(source);
+            inputArea.value = JSON.stringify(sample, null, 2);
+            clearResult();
+        });
+    }
+
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();

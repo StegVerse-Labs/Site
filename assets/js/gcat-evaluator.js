@@ -339,6 +339,7 @@
         computeGOD,
         generateReceipt,
         generateSample,
+        generateSampleRandom,
         Vec
     };
 }));
