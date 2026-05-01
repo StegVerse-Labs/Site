@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Demo — Commit-Time Admissibility</title>
+  <meta name="description" content="Run a browser-native StegVerse demo for stale-state execution and commit-time admissibility.">
+  <link rel="stylesheet" href="assets/stegverse.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">STEGVERSE DEMO</div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/demo.html">Live Demo</a>
+      <a href="https://github.com/StegVerse-org/StegVerse-SDK">SDK</a>
+      <a href="https://github.com/StegVerse-org/demo-suite-runner">Demo Runner</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">Tier 0 • Browser-only • No backend required</div>
+      <h1>Stale-state execution vs. commit-time constraint.</h1>
+      <p class="lead">
+        Paste static run data below. The demo reconstructs the commit boundary locally and returns
+        ALLOW, DENY, or FAIL-CLOSED with a portable receipt hash.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="demo-layout">
+        <div class="card">
+          <h2>Input run data</h2>
+          <p>
+            This can be produced by a human, SDK example, or LLM adapter. The key distinction:
+            the LLM proposes; StegVerse evaluates before effect.
+          </p>
+          <textarea id="payload" spellcheck="false"></textarea>
+          <div class="actions">
+            <button class="button primary" id="runDemo">Evaluate at commit</button>
+            <button class="button" id="loadSample">Load sample</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Result receipt</h2>
+          <div id="resultBanner" class="result-banner">
+            <span class="kicker">Commit decision</span>
+            <strong class="fail">WAITING</strong>
+            <div class="small">Submit run data to evaluate.</div>
+          </div>
+          <pre id="resultJson">{}</pre>
+          <div class="actions">
+            <button class="button" id="copyResult">Copy result</button>
+            <button class="button" id="downloadResult">Download JSON</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid-3">
+        <div class="card">
+          <h3>Naive pattern</h3>
+          <p>Evaluate once at T0. Execute later at T1 even if state changed.</p>
+        </div>
+        <div class="card">
+          <h3>StegVerse pattern</h3>
+          <p>Reconstruct state, re-verify authority, recompute admissibility at commit.</p>
+        </div>
+        <div class="card">
+          <h3>LLM adapter path</h3>
+          <p>LLMs submit proposed actions as structured run data. They do not directly execute.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Tier 0 is local and static. Tier 1 can turn this result into a demo-suite ingestion artifact.
+  </footer>
+
+  <script src="assets/stegverse-demo.js"></script>
+</body>
+</html>
