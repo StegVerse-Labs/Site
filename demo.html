@@ -5,53 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StegVerse Demo</title>
 <style>
-:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;}
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:var(--text);background:radial-gradient(circle at 18% 0%,rgba(110,231,255,.22),transparent 31%),radial-gradient(circle at 80% 7%,rgba(89,245,155,.13),transparent 28%),linear-gradient(180deg,#07111f 0%,#091321 45%,#050a12 100%)}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:#edf6ff;background:#07111f}
 .wrap{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:20px}
 h1{font-size:2rem;margin:0 0 20px}
-.tier-badge{display:inline-block;padding:.4rem 1rem;border:1px solid var(--accent);border-radius:2rem;font-size:.85rem;color:var(--accent);margin-bottom:20px}
-.sample-buttons{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
-.btn{background:transparent;border:1px solid var(--line);color:var(--accent);padding:.5rem 1rem;border-radius:12px;cursor:pointer;font-size:.9rem}
-.btn:hover{background:rgba(110,231,255,.08)}
-.btn-random{border-style:dashed;opacity:.85}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:24px;margin-bottom:20px}
-.code-input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:1rem;font-family:monospace;font-size:.85rem;color:var(--text);resize:vertical;box-sizing:border-box;min-height:200px}
-.btn-eval{display:block;width:100%;margin-top:1rem;padding:.9rem;background:var(--accent);color:#06111f;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer}
+.tier{display:inline-block;padding:.4rem 1rem;border:1px solid #6ee7ff;border-radius:2rem;font-size:.85rem;color:#6ee7ff;margin-bottom:20px}
+.btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.btn{background:transparent;border:1px solid rgba(255,255,255,.14);color:#6ee7ff;padding:.5rem 1rem;border-radius:12px;cursor:pointer;font-size:.9rem}
+.panel{background:#0f1b2d;border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:24px;margin-bottom:20px}
+.code{width:100%;background:#07111f;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1rem;font-family:monospace;font-size:.85rem;color:#edf6ff;resize:vertical;box-sizing:border-box;min-height:200px}
+.eval{display:block;width:100%;margin-top:1rem;padding:.9rem;background:#6ee7ff;color:#06111f;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer}
 .result{display:none}
-.result.show{display:block}
-.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:20px 0}
-.cell{text-align:center;padding:1rem;background:var(--bg);border-radius:12px}
-.label{font-size:.75rem;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:20px 0}
+.cell{text-align:center;padding:1rem;background:#07111f;border-radius:12px}
+.label{font-size:.75rem;text-transform:uppercase;color:#a8b8cc;margin-bottom:.5rem}
 .value{font-family:monospace;font-size:1.4rem;font-weight:600}
 .verdict{display:inline-block;padding:.4rem 1.2rem;border-radius:12px;font-weight:700}
-.v-allow{background:rgba(89,245,155,.12);color:var(--accent2);border:1px solid var(--accent2)}
-.v-deny{background:rgba(255,209,102,.12);color:var(--warn);border:1px solid var(--warn)}
-.v-fail{background:rgba(255,107,107,.12);color:var(--danger);border:1px solid var(--danger)}
-.bar{width:100%;height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:.5rem}
+.v-allow{background:rgba(89,245,155,.12);color:#59f59b;border:1px solid #59f59b}
+.v-deny{background:rgba(255,209,102,.12);color:#ffd166;border:1px solid #ffd166}
+.v-fail{background:rgba(255,107,107,.12);color:#ff6b6b;border:1px solid #ff6b6b}
+.bar{width:100%;height:8px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden;margin-top:.5rem}
 .bar-fill{height:100%;border-radius:4px;transition:width .6s}
-.hash{font-family:monospace;font-size:.8rem;background:var(--bg);padding:.6rem;border-radius:12px;border:1px solid var(--line);word-break:break-all}
-.error{color:var(--danger);margin-top:1rem}
-.explain{padding:20px 0}
-.card{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-.card h3{color:var(--accent);margin-top:0}
-.card p{color:var(--muted);font-size:.9rem;line-height:1.5}
+.hash{font-family:monospace;font-size:.8rem;background:#07111f;padding:.6rem;border-radius:12px;border:1px solid rgba(255,255,255,.14);word-break:break-all}
+.error{color:#ff6b6b;margin-top:1rem}
+.card{background:#07111f;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.card h3{color:#6ee7ff;margin-top:0}
+.card p{color:#a8b8cc;font-size:.9rem;line-height:1.5}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="tier-badge">Tier 0 · Browser-only · No backend</div>
+<div class="tier">Tier 0 · Browser-only · No backend</div>
 <h1>Stale-state execution vs. commit-time constraint</h1>
-<div class="sample-buttons">
+<div class="btns">
 <button id="sample-llm" class="btn">Load LLM Sample</button>
 <button id="sample-sdk" class="btn">Load SDK Sample</button>
 <button id="sample-human" class="btn">Load Human Sample</button>
-<button id="generate-new" class="btn btn-random">Generate New Dataset</button>
+<button id="generate-new" class="btn">Generate New Dataset</button>
 </div>
 <div class="panel">
 <h2>Input run data</h2>
-<p style="color:var(--muted)">The LLM proposes; StegVerse evaluates <em>before</em> effect.</p>
+<p style="color:#a8b8cc">The LLM proposes; StegVerse evaluates <em>before</em> effect.</p>
 <form id="demo-form">
-<textarea id="run-data-input" class="code-input">{
+<textarea id="run-data-input" class="code">{
   "source": "sdk",
   "demo_id": "demo_sdk_default",
   "commit_states": [
@@ -89,43 +84,291 @@ h1{font-size:2rem;margin:0 0 20px}
   "metadata": {
     "generated_by": "default",
     "tier": 0,
-    "note": "This is pre-loaded default data. Click Evaluate or load a different sample."
+    "note": "Pre-loaded default data. Tap Evaluate or load a different sample."
   }
 }</textarea>
-<button type="submit" class="btn-eval">Evaluate Commit Boundary</button>
+<button type="submit" class="eval">Evaluate Commit Boundary</button>
 </form>
 </div>
 <div id="result-display" class="result">
 <div class="panel">
 <h2>Result</h2>
-<div class="result-grid">
+<div class="grid">
 <div class="cell"><div class="label">Verdict</div><div id="verdict-badge" class="value">—</div></div>
 <div class="cell"><div class="label">GOD</div><div id="god-value" class="value">—</div></div>
 <div class="cell"><div class="label">Confidence</div><div class="bar"><div id="confidence-bar" class="bar-fill"></div></div></div>
 </div>
 <h3>Boundary</h3>
-<p style="font-family:monospace;font-size:.85rem;color:var(--muted)">
+<p style="font-family:monospace;font-size:.85rem;color:#a8b8cc">
 Centroid: <span id="boundary-centroid">—</span><br>
 Radius: <span id="boundary-radius">—</span><br>
 Epsilon: <span id="boundary-epsilon">—</span>
 </p>
 <h3>Receipt</h3>
 <div id="receipt-hash" class="hash">—</div>
-<textarea id="receipt-canonical" class="code-input" rows="4" readonly style="margin-top:10px;font-size:.75rem"></textarea>
+<textarea id="receipt-canonical" class="code" rows="4" readonly style="margin-top:10px;font-size:.75rem"></textarea>
 <div id="error-message" class="error"></div>
 </div>
 </div>
-<div class="explain">
+<div>
 <h2>What is happening?</h2>
 <div class="card"><h3>1. Commit Boundary</h3><p>The commit_states array defines the geometric boundary of valid state space at commit time.</p></div>
 <div class="card"><h3>2. GOD Divergence</h3><p>Geometrically Ontological Divergence measures how far the proposed state sits from the boundary. GOD = 1.0 is the surface.</p></div>
-<div class="card"><h3>3. Verdict</h3><p><span style="color:var(--accent2)">ALLOW</span> — within boundary. <span style="color:var(--warn)">DENY</span> — outside, recoverable. <span style="color:var(--danger)">FAIL-CLOSED</span> — catastrophic divergence.</p></div>
+<div class="card"><h3>3. Verdict</h3><p><span style="color:#59f59b">ALLOW</span> — within boundary. <span style="color:#ffd166">DENY</span> — outside, recoverable. <span style="color:#ff6b6b">FAIL-CLOSED</span> — catastrophic divergence.</p></div>
 <div class="card"><h3>4. Receipt</h3><p>SHA-256 hash of the canonical record. Anyone with the same inputs can reproduce it.</p></div>
 </div>
 </div>
-<script>(function(){window.GCATEvaluator={VERDICT:{ALLOW:"ALLOW",DENY:"DENY",FAIL_CLOSED:"FAIL-CLOSED"},run:async function(inputs){const n=inputs.commit_states.length,d=inputs.commit_states[0].length,c=[0,0,0].map((_,i)=>inputs.commit_states.reduce((s,v)=>s+v[i],0)/n);const r=Math.max(...inputs.commit_states.map(s=>Math.sqrt(s.reduce((a,v,i)=>(v-c[i])**2+a,0))),1e-9);const p=inputs.proposed_state;const god=Math.sqrt(p.reduce((a,v,i)=>(v-c[i])**2+a,0))/r;let v,cf;if(god<=1){v="ALLOW";cf=1-god}else if(god<=1.05){v="DENY";cf=1-(god-1)/0.05}else{v="FAIL-CLOSED";cf=0}cf=Math.max(0,Math.min(1,cf));const can=JSON.stringify({v:"0.1.0",source:inputs.source||"unknown",demo_id:inputs.demo_id,commit_states:inputs.commit_states,proposed_state:p,verdict:v,god:god,confidence:cf,boundary_centroid:c,boundary_radius:r,boundary_epsilon:0.05});const hash=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(can));const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");return{verdict:v,god:god,confidence:cf,boundary:{centroid:c,radius:r,epsilon:0.05},receipt:{hash:hex,algo:"SHA-256",canonical:can},inputs:{source:inputs.source,commit_count:n,dimensions:d}},generateSample:function(source){const rng=s=>{let x=s;return()=>{x=(x*16807)%2147483647;return(x-1)/2147483646}};const r=rng(source==="llm_adapter"?11:source==="sdk"?22:33);const cs=Array.from({length:5},()=>[0,1,2].map(()=>(r()-0.5)*1.2));const b=((states)=>{const n=states.length,d=states[0].length,c=[0,0,0].map((_,i)=>states.reduce((s,v)=>s+v[i],0)/n);const r=Math.max(...states.map(s=>Math.sqrt(s.reduce((a,v,i)=>(v-c[i])**2+a,0))),1e-9);return{centroid:c,radius:r}})(cs);const a=b.centroid;const sc=b.radius;let pr;if(source==="sdk"){pr=a.map((v,i)=>v+(cs[0][i]-v)*0.3)}else if(source==="llm_adapter"){const dir=cs[0].map((v,i)=>v-a[i]);const dn=Math.sqrt(dir.reduce((a,v)=>a+v*v,0));const u=dn>1e-9?dir.map(v=>v/dn):[1,0,0];pr=a.map((v,i)=>v+u[i]*sc*1.02)}else{const dir=cs[0].map((v,i)=>v-a[i]);const dn=Math.sqrt(dir.reduce((a,v)=>a+v*v,0));const u=dn>1e-9?dir.map(v=>v/dn):[1,0,0];pr=a.map((v,i)=>v+u[i]*sc*2)}return{source:source,demo_id:"demo_"+source+"_"+Date.now(),commit_states:cs,proposed_state:pr,metadata:{generated_by:"GCATEvaluator.generateSample",tier:0,deterministic:true}},generateSampleRandom:function(source){const seed=Math.floor(Math.random()*1000000);const rng=s=>{let x=s;return()=>{x=(x*16807)%2147483647;return(x-1)/2147483646}};const r=rng(seed);const cs=Array.from({length:5},()=>[0,1,2].map(()=>(r()-0.5)*1.2));const b=((states)=>{const n=states.length,d=states[0].length,c=[0,0,0].map((_,i)=>states.reduce((s,v)=>s+v[i],0)/n);const r=Math.max(...states.map(s=>Math.sqrt(s.reduce((a,v,i)=>(v-c[i])**2+a,0))),1e-9);return{centroid:c,radius:r}})(cs);const a=b.centroid;const sc=b.radius;let pr;if(source==="sdk"){pr=a.map((v,i)=>v+(cs[0][i]-v)*0.3)}else if(source==="llm_adapter"){const dir=cs[0].map((v,i)=>v-a[i]);const dn=Math.sqrt(dir.reduce((a,v)=>a+v*v,0));const u=dn>1e-9?dir.map(v=>v/dn):[1,0,0];pr=a.map((v,i)=>v+u[i]*sc*1.02)}else{const dir=cs[0].map((v,i)=>v-a[i]);const dn=Math.sqrt(dir.reduce((a,v)=>a+v*v,0));const u=dn>1e-9?dir.map(v=>v/dn):[1,0,0];pr=a.map((v,i)=>v+u[i]*sc*2)}return{source:source,demo_id:"demo_"+source+"_"+Date.now(),commit_states:cs,proposed_state:pr,metadata:{generated_by:"GCATEvaluator.generateSampleRandom",tier:0,deterministic:false,seed:seed}}}}})();
+<script>
+window.GCATEvaluator = {
+  VERDICT: { ALLOW: 'ALLOW', DENY: 'DENY', FAIL_CLOSED: 'FAIL-CLOSED' },
+  run: function(inputs) {
+    return new Promise(function(resolve, reject) {
+      try {
+        var n = inputs.commit_states.length;
+        var d = inputs.commit_states[0].length;
+        var centroid = [0, 0, 0];
+        for (var i = 0; i < 3; i++) {
+          var sum = 0;
+          for (var j = 0; j < n; j++) sum += inputs.commit_states[j][i];
+          centroid[i] = sum / n;
+        }
+        var radius = 1e-9;
+        for (var j = 0; j < n; j++) {
+          var dist = 0;
+          for (var i = 0; i < 3; i++) dist += Math.pow(inputs.commit_states[j][i] - centroid[i], 2);
+          dist = Math.sqrt(dist);
+          if (dist > radius) radius = dist;
+        }
+        var p = inputs.proposed_state;
+        var god = 0;
+        for (var i = 0; i < 3; i++) god += Math.pow(p[i] - centroid[i], 2);
+        god = Math.sqrt(god) / radius;
+        var verdict, confidence;
+        if (god <= 1.0) { verdict = 'ALLOW'; confidence = 1.0 - god; }
+        else if (god <= 1.05) { verdict = 'DENY'; confidence = 1.0 - (god - 1.0) / 0.05; }
+        else { verdict = 'FAIL-CLOSED'; confidence = 0.0; }
+        confidence = Math.max(0, Math.min(1, confidence));
+        var canonical = JSON.stringify({
+          v: '0.1.0', source: inputs.source || 'unknown', demo_id: inputs.demo_id,
+          commit_states: inputs.commit_states, proposed_state: p,
+          verdict: verdict, god: god, confidence: confidence,
+          boundary_centroid: centroid, boundary_radius: radius, boundary_epsilon: 0.05
+        });
+        var encoder = new TextEncoder();
+        crypto.subtle.digest('SHA-256', encoder.encode(canonical)).then(function(hashBuffer) {
+          var hashArray = new Uint8Array(hashBuffer);
+          var hashHex = '';
+          for (var i = 0; i < hashArray.length; i++) {
+            hashHex += hashArray[i].toString(16).padStart(2, '0');
+          }
+          resolve({
+            verdict: verdict, god: god, confidence: confidence,
+            boundary: { centroid: centroid, radius: radius, epsilon: 0.05 },
+            receipt: { hash: hashHex, algo: 'SHA-256', canonical: canonical },
+            inputs: { source: inputs.source, commit_count: n, dimensions: d }
+          });
+        });
+      } catch (err) { reject(err); }
+    });
+  },
+  generateSample: function(source) {
+    var seed = source === 'llm_adapter' ? 11 : source === 'sdk' ? 22 : 33;
+    var x = seed;
+    function rng() { x = (x * 16807) % 2147483647; return (x - 1) / 2147483646; }
+    var cs = [];
+    for (var k = 0; k < 5; k++) {
+      var row = [];
+      for (var i = 0; i < 3; i++) row.push((rng() - 0.5) * 1.2);
+      cs.push(row);
+    }
+    var n = cs.length;
+    var c = [0, 0, 0];
+    for (var i = 0; i < 3; i++) {
+      var sum = 0;
+      for (var j = 0; j < n; j++) sum += cs[j][i];
+      c[i] = sum / n;
+    }
+    var rad = 1e-9;
+    for (var j = 0; j < n; j++) {
+      var dist = 0;
+      for (var i = 0; i < 3; i++) dist += Math.pow(cs[j][i] - c[i], 2);
+      dist = Math.sqrt(dist);
+      if (dist > rad) rad = dist;
+    }
+    var a = c;
+    var sc = rad;
+    var pr = [];
+    if (source === 'sdk') {
+      for (var i = 0; i < 3; i++) pr.push(a[i] + (cs[0][i] - a[i]) * 0.3);
+    } else if (source === 'llm_adapter') {
+      var dir = [];
+      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
+      var dn = 0;
+      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
+      dn = Math.sqrt(dn);
+      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
+      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 1.02);
+    } else {
+      var dir = [];
+      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
+      var dn = 0;
+      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
+      dn = Math.sqrt(dn);
+      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
+      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 2.0);
+    }
+    return {
+      source: source,
+      demo_id: 'demo_' + source + '_' + Date.now(),
+      commit_states: cs,
+      proposed_state: pr,
+      metadata: { generated_by: 'GCATEvaluator.generateSample', tier: 0, deterministic: true }
+    };
+  },
+  generateSampleRandom: function(source) {
+    var seed = Math.floor(Math.random() * 1000000);
+    var x = seed;
+    function rng() { x = (x * 16807) % 2147483647; return (x - 1) / 2147483646; }
+    var cs = [];
+    for (var k = 0; k < 5; k++) {
+      var row = [];
+      for (var i = 0; i < 3; i++) row.push((rng() - 0.5) * 1.2);
+      cs.push(row);
+    }
+    var n = cs.length;
+    var c = [0, 0, 0];
+    for (var i = 0; i < 3; i++) {
+      var sum = 0;
+      for (var j = 0; j < n; j++) sum += cs[j][i];
+      c[i] = sum / n;
+    }
+    var rad = 1e-9;
+    for (var j = 0; j < n; j++) {
+      var dist = 0;
+      for (var i = 0; i < 3; i++) dist += Math.pow(cs[j][i] - c[i], 2);
+      dist = Math.sqrt(dist);
+      if (dist > rad) rad = dist;
+    }
+    var a = c;
+    var sc = rad;
+    var pr = [];
+    if (source === 'sdk') {
+      for (var i = 0; i < 3; i++) pr.push(a[i] + (cs[0][i] - a[i]) * 0.3);
+    } else if (source === 'llm_adapter') {
+      var dir = [];
+      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
+      var dn = 0;
+      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
+      dn = Math.sqrt(dn);
+      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
+      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 1.02);
+    } else {
+      var dir = [];
+      for (var i = 0; i < 3; i++) dir.push(cs[0][i] - a[i]);
+      var dn = 0;
+      for (var i = 0; i < 3; i++) dn += dir[i] * dir[i];
+      dn = Math.sqrt(dn);
+      var u = dn > 1e-9 ? [dir[0]/dn, dir[1]/dn, dir[2]/dn] : [1, 0, 0];
+      for (var i = 0; i < 3; i++) pr.push(a[i] + u[i] * sc * 2.0);
+    }
+    return {
+      source: source,
+      demo_id: 'demo_' + source + '_' + Date.now(),
+      commit_states: cs,
+      proposed_state: pr,
+      metadata: { generated_by: 'GCATEvaluator.generateSampleRandom', tier: 0, deterministic: false, seed: seed }
+    };
+  }
+};
 </script>
-<script>document.addEventListener("DOMContentLoaded",function(){console.log("[SV] DOM ready");if(typeof GCATEvaluator==="undefined"){console.error("[SV] NO EVALUATOR");document.body.innerHTML+="<div style='background:#500;color:#f88;padding:20px;margin:20px;border-radius:12px'>Evaluator not found</div>";return}console.log("[SV] Evaluator OK");const ia=document.getElementById("run-data-input");const rd=document.getElementById("result-display");const vb=document.getElementById("verdict-badge");const gv=document.getElementById("god-value");const cb=document.getElementById("confidence-bar");const rh=document.getElementById("receipt-hash");const rc=document.getElementById("receipt-canonical");const em=document.getElementById("error-message");function ls(src){try{const s=GCATEvaluator.generateSample(src);ia.value=JSON.stringify(s,null,2);rd.classList.add("hidden");vb.className="verdict-badge";vb.textContent="—";gv.textContent="—";cb.style.width="0%";rh.textContent="—";rc.value="";em.textContent="";console.log("[SV] Loaded "+src)}catch(e){console.error("[SV] Load failed",e);em.textContent="Load error: "+e.message}}function gn(){try{let src="sdk";try{src=JSON.parse(ia.value).source||"sdk"}catch(e){}const s=GCATEvaluator.generateSampleRandom?GCATEvaluator.generateSampleRandom(src):GCATEvaluator.generateSample(src);ia.value=JSON.stringify(s,null,2);rd.classList.add("hidden");vb.className="verdict-badge";vb.textContent="—";gv.textContent="—";cb.style.width="0%";rh.textContent="—";rc.value="";em.textContent="";console.log("[SV] Generated new")}catch(e){console.error("[SV] Gen failed",e);em.textContent="Generate error: "+e.message}}async function ev(e){e.preventDefault();console.log("[SV] Evaluate clicked");let inp;try{inp=JSON.parse(ia.value)}catch(err){em.textContent="Invalid JSON: "+err.message;return}try{const res=await GCATEvaluator.run(inp);console.log("[SV] Result:",res.verdict);rd.classList.remove("hidden");vb.textContent=res.verdict;vb.className="verdict-badge verdict-"+res.verdict.toLowerCase().replace("-","_");gv.textContent=res.god.toFixed(6);cb.style.width=(res.confidence*100).toFixed(1)+"%";cb.className="confidence-bar-fill verdict-"+res.verdict.toLowerCase().replace("-","_");rh.textContent=res.receipt.hash;rc.value=res.receipt.canonical;document.getElementById("boundary-centroid").textContent="["+res.boundary.centroid.map(v=>v.toFixed(4)).join(", ")+"]";document.getElementById("boundary-radius").textContent=res.boundary.radius.toFixed(6);document.getElementById("boundary-epsilon").textContent=res.boundary.epsilon.toFixed(4);em.textContent=""}catch(err){console.error("[SV] Eval failed",err);em.textContent="Evaluation failed: "+err.message}}document.getElementById("sample-llm")?.addEventListener("click",()=>ls("llm_adapter"));document.getElementById("sample-sdk")?.addEventListener("click",()=>ls("sdk"));document.getElementById("sample-human")?.addEventListener("click",()=>ls("human"));document.getElementById("generate-new")?.addEventListener("click",gn);document.getElementById("demo-form")?.addEventListener("submit",ev);if(ia&&!ia.value.trim())ls("sdk");console.log("[SV] Init complete")});
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var ia = document.getElementById('run-data-input');
+  var rd = document.getElementById('result-display');
+  var vb = document.getElementById('verdict-badge');
+  var gv = document.getElementById('god-value');
+  var cb = document.getElementById('confidence-bar');
+  var rh = document.getElementById('receipt-hash');
+  var rc = document.getElementById('receipt-canonical');
+  var em = document.getElementById('error-message');
+  var bc = document.getElementById('boundary-centroid');
+  var br = document.getElementById('boundary-radius');
+  var be = document.getElementById('boundary-epsilon');
+
+  function clearResult() {
+    rd.style.display = 'none';
+    if (vb) { vb.className = 'value'; vb.textContent = '—'; }
+    if (gv) gv.textContent = '—';
+    if (cb) { cb.style.width = '0%'; cb.className = 'bar-fill'; cb.style.background = ''; }
+    if (rh) rh.textContent = '—';
+    if (rc) rc.value = '';
+    if (em) em.textContent = '';
+    if (bc) bc.textContent = '—';
+    if (br) br.textContent = '—';
+    if (be) be.textContent = '—';
+  }
+
+  function loadSample(src) {
+    try {
+      var s = GCATEvaluator.generateSample(src);
+      ia.value = JSON.stringify(s, null, 2);
+      clearResult();
+    } catch(e) { if (em) em.textContent = 'Load error: ' + e.message; }
+  }
+
+  function generateNew() {
+    try {
+      var src = 'sdk';
+      try { src = JSON.parse(ia.value).source || 'sdk'; } catch(e) {}
+      var s = GCATEvaluator.generateSampleRandom ? GCATEvaluator.generateSampleRandom(src) : GCATEvaluator.generateSample(src);
+      ia.value = JSON.stringify(s, null, 2);
+      clearResult();
+    } catch(e) { if (em) em.textContent = 'Generate error: ' + e.message; }
+  }
+
+  function evaluate(e) {
+    e.preventDefault();
+    var inp;
+    try { inp = JSON.parse(ia.value); } catch(err) { if (em) em.textContent = 'Invalid JSON: ' + err.message; return; }
+    GCATEvaluator.run(inp).then(function(res) {
+      rd.style.display = 'block';
+      if (vb) {
+        vb.textContent = res.verdict;
+        vb.className = 'value verdict v-' + res.verdict.toLowerCase().replace('-', '_');
+      }
+      if (gv) gv.textContent = res.god.toFixed(6);
+      if (cb) {
+        cb.style.width = (res.confidence * 100).toFixed(1) + '%';
+        cb.className = 'bar-fill';
+        if (res.verdict === 'ALLOW') cb.style.background = '#59f59b';
+        else if (res.verdict === 'DENY') cb.style.background = '#ffd166';
+        else cb.style.background = '#ff6b6b';
+      }
+      if (rh) rh.textContent = res.receipt.hash;
+      if (rc) rc.value = res.receipt.canonical;
+      if (bc) bc.textContent = '[' + res.boundary.centroid.map(function(v) { return v.toFixed(4); }).join(', ') + ']';
+      if (br) br.textContent = res.boundary.radius.toFixed(6);
+      if (be) be.textContent = res.boundary.epsilon.toFixed(4);
+      if (em) em.textContent = '';
+    }).catch(function(err) {
+      if (em) em.textContent = 'Evaluation failed: ' + err.message;
+    });
+  }
+
+  var btnLLM = document.getElementById('sample-llm');
+  var btnSDK = document.getElementById('sample-sdk');
+  var btnHuman = document.getElementById('sample-human');
+  var btnGen = document.getElementById('generate-new');
+  var form = document.getElementById('demo-form');
+
+  if (btnLLM) btnLLM.addEventListener('click', function() { loadSample('llm_adapter'); });
+  if (btnSDK) btnSDK.addEventListener('click', function() { loadSample('sdk'); });
+  if (btnHuman) btnHuman.addEventListener('click', function() { loadSample('human'); });
+  if (btnGen) btnGen.addEventListener('click', generateNew);
+  if (form) form.addEventListener('submit', evaluate);
+
+  if (ia && !ia.value.trim()) loadSample('sdk');
+});
 </script>
 </body>
 </html>
