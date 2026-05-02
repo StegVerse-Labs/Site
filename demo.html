@@ -2,169 +2,223 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>StegVerse Demo</title>
 
 <style>
-body{background:#0b1020;color:#eef2ff;font-family:system-ui;margin:0}
-main{max-width:900px;margin:auto;padding:24px}
-.card{background:#111827;border:1px solid #1f2937;border-radius:16px;padding:20px;margin-top:16px}
-input,textarea{width:100%;background:#111827;color:#e5e7eb;border:1px solid #334155;border-radius:10px;padding:10px;box-sizing:border-box}
-textarea{min-height:220px;font-family:monospace}
-button{margin-top:10px;background:#2563eb;color:white;border:0;border-radius:10px;padding:10px;margin-right:8px;font-weight:700}
-.value{white-space:pre-wrap;font-family:monospace}
-.allow{color:#86efac}
-.deny{color:#fde68a}
-.fail{color:#fca5a5}
+:root {
+  --bg:#07111f;
+  --panel:#0f1b2d;
+  --text:#edf6ff;
+  --muted:#a8b8cc;
+  --line:rgba(255,255,255,.14);
+
+  --tier1:#6ee7ff;
+  --tier2:#59f59b;
+
+  --allow:#59f59b;
+  --deny:#ff6b6b;
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.wrap{
+  width:min(900px,calc(100% - 32px));
+  margin:0 auto;
+}
+
+/* NAV (matches homepage) */
+header{
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.links{
+  display:flex;
+  gap:14px;
+  color:var(--muted);
+}
+
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* INPUT */
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  margin-top:20px;
+}
+
+textarea,input{
+  width:100%;
+  background:#0b1626;
+  color:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px;
+  font-family:monospace;
+}
+
+button{
+  margin-top:12px;
+  padding:10px 16px;
+  border-radius:10px;
+  border:none;
+  background:linear-gradient(135deg,#6ee7ff,#59f59b);
+  color:#051019;
+  font-weight:800;
+}
+
+/* RESULT */
+.result{
+  margin-top:24px;
+}
+
+.section{
+  margin-top:20px;
+}
+
+/* TIER BOXES */
+.tier{
+  border-radius:16px;
+  padding:16px;
+  margin-top:14px;
+}
+
+.tier1{
+  border:1px solid var(--tier1);
+  background:rgba(110,231,255,.06);
+}
+
+.tier2{
+  border:1px solid var(--tier2);
+  background:rgba(89,245,155,.06);
+}
+
+h2{
+  margin:0 0 10px;
+}
+
+h3{
+  margin:0 0 8px;
+  font-size:1rem;
+  opacity:.9;
+}
+
+/* LABELS */
+.allow{color:var(--allow);font-weight:800;}
+.deny{color:var(--deny);font-weight:800;}
+
+pre{
+  white-space:pre-wrap;
+  font-size:.8rem;
+  color:#cfe6ff;
+}
 </style>
 </head>
 
 <body>
-<main>
 
-<h1>StegVerse Demo</h1>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/">StegVerse</a>
+    <div class="links">
+      <a href="/demo.html">Demo</a>
+      <a href="/product.html">Product</a>
+      <a href="/about.html">About</a>
+    </div>
+  </div>
+</header>
 
-<div class="card">
-<label>Backend URL</label>
-<input id="api" value="https://scw-api.onrender.com"/>
-<button onclick="loadSample()">Load Sample</button>
-<button onclick="randomRun()">Random Test</button>
-</div>
+<div class="wrap">
 
-<div class="card">
-<textarea id="data"></textarea>
-<button onclick="run()">Evaluate</button>
-</div>
+  <div class="card">
+    <h2>StegVerse Demo</h2>
 
-<div class="card">
-<h2>Result</h2>
+    <input id="api" value="https://scw-api.onrender.com"/>
 
-<h3>Verdict</h3>
-<div id="verdict" class="value">—</div>
+    <textarea id="payload" rows="8">
+{
+  "commit_states": [
+    [0.1,0.1,0.1],
+    [0.2,0.2,0.2]
+  ],
+  "proposed_state": [0.15,0.15,0.15]
+}
+    </textarea>
 
-<h3>GOD</h3>
-<div id="god" class="value">—</div>
+    <button onclick="run()">Evaluate</button>
+  </div>
 
-<h3>Confidence</h3>
-<div id="confidence" class="value">—</div>
-
-<h3>Boundary</h3>
-<div id="boundary" class="value">—</div>
-
-<h3>Tier 1 — Commit Boundary Receipt</h3>
-<div id="tier1" class="value">—</div>
-
-<h3>Tier 2 — Local Test Runner Receipt</h3>
-<div id="tier2" class="value">—</div>
+  <div id="out" class="result"></div>
 
 </div>
-
-</main>
 
 <script>
-
-function loadSample(){
-document.getElementById("data").value = JSON.stringify({
-source: "manual_sample",
-demo_id: "tier1_tier2_sample",
-commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
-proposed_state: [0.15,0.15,0.15],
-metadata: { mode: "sample" }
-}, null, 2);
-}
-
-function rand() {
-  return Math.random() * 2 - 1;
-}
-
-function randomRun(){
-const payload = {
-  source: "browser_random",
-  demo_id: "random_" + Date.now(),
-  commit_states: [
-    [rand(), rand(), rand()],
-    [rand(), rand(), rand()],
-    [rand(), rand(), rand()]
-  ],
-  proposed_state: [rand(), rand(), rand()],
-  metadata: { mode: "random_test" }
-};
-
-document.getElementById("data").value =
-  JSON.stringify(payload, null, 2);
-
-run();
-}
-
 async function run(){
-const api = document.getElementById("api").value.replace(/\/$/,"");
-const payload = JSON.parse(document.getElementById("data").value);
+  const api=document.getElementById("api").value;
+  const payload=document.getElementById("payload").value;
 
-const res = await fetch(api + "/v1/demo/run",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(payload)
-});
+  const res=await fetch(api+"/v1/demo/evaluate",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:payload
+  });
 
-const d = await res.json();
-render(d);
+  const data=await res.json();
+
+  const verdict=data.verdict==="ALLOW"
+    ?'<span class="allow">ALLOW</span>'
+    :'<span class="deny">DENY</span>';
+
+  document.getElementById("out").innerHTML=`
+
+  <div class="section">
+    <h2>Result</h2>
+    <div>Verdict: ${verdict}</div>
+    <div>Confidence: ${data.confidence}</div>
+  </div>
+
+  <div class="tier tier1">
+    <h3>Tier 1 — Commit Boundary Receipt</h3>
+    <pre>${JSON.stringify(data.receipt,null,2)}</pre>
+  </div>
+
+  <div class="tier tier2">
+    <h3>Tier 2 — Local Test Runner Receipt</h3>
+    <pre>${JSON.stringify(data.tier2,null,2)}</pre>
+  </div>
+
+  <div class="section">
+    <h3>What this proves</h3>
+    <div>
+      Tier 1 enforces admissibility at commit.<br>
+      Tier 2 verifies executable viability post-ALLOW.<br>
+      No action occurs without passing both boundaries.
+    </div>
+  </div>
+  `;
 }
-
-function render(d){
-
-const verdictEl = document.getElementById("verdict");
-verdictEl.textContent = d.verdict;
-verdictEl.className = "value " + (
-d.verdict==="ALLOW"?"allow":
-d.verdict==="DENY"?"deny":"fail"
-);
-
-document.getElementById("god").textContent = d.god;
-document.getElementById("confidence").textContent = d.confidence;
-
-document.getElementById("boundary").textContent =
-`Centroid: ${JSON.stringify(d.boundary.centroid)}
-Radius: ${d.boundary.radius}
-Epsilon: ${d.boundary.epsilon}`;
-
-const r = d.receipt_full || d.receipt_v1 || null;
-const rb = r?.body || {};
-
-document.getElementById("tier1").textContent =
-`receipt_hash: ${r?.receipt_hash || d.receipt}
-previous_receipt_hash: ${r?.previous_receipt_hash || "null"}
-decision_id: ${rb.decision_id || "n/a"}
-decision: ${rb.decision || d.verdict}
-input_hash: ${rb.input_hash || "n/a"}
-decision_hash: ${rb.decision_hash || "n/a"}
-boundary_hash: ${rb.boundary_hash || "n/a"}
-tier2_attempt_hash: ${rb.tier2_attempt_hash || "n/a"}
-tier2_runner_receipt_hash: ${rb.tier2_runner_receipt_hash || "n/a"}
-evaluated_at: ${rb.evaluated_at || "n/a"}`;
-
-const t2 = d.tier2 || {};
-const t2r = t2.runner_receipt || {};
-const t2b = t2r.body || {};
-
-document.getElementById("tier2").textContent =
-`attempted: ${t2.attempted}
-ok: ${t2.ok}
-mode: ${t2.mode || "not_invoked"}
-reason: ${t2.reason || "n/a"}
-runner_receipt_hash: ${t2.runner_receipt_hash || "n/a"}
-previous_receipt_hash: ${t2r.previous_receipt_hash || "n/a"}
-execution_id: ${t2b.execution_id || "n/a"}
-runner: ${t2b.runner || "n/a"}
-decision_hash: ${t2b.decision_hash || "n/a"}
-decision_receipt_hash: ${t2b.decision_receipt_hash || "n/a"}
-input_hash: ${t2b.input_hash || "n/a"}
-output_hash: ${t2b.output_hash || "n/a"}
-executed_at: ${t2b.executed_at || "n/a"}`;
-
-}
-
-loadSample();
-
 </script>
+
 </body>
 </html>
