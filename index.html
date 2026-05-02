@@ -1,349 +1,156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>StegVerse — Trust, Governance, and Execution-Layer Risk</title>
-  <meta name="description" content="StegVerse exposes trust failures before they become incidents and demonstrates commit-time admissibility at the execution boundary." />
-  <style>
-    :root {
-      --bg: #07111f;
-      --panel: #0f1b2d;
-      --panel2: #132640;
-      --text: #edf6ff;
-      --muted: #a8b8cc;
-      --line: rgba(255,255,255,.14);
-      --accent: #6ee7ff;
-      --accent2: #59f59b;
-      --warn: #ffd166;
-      --danger: #ff6b6b;
-      --shadow: 0 22px 70px rgba(0,0,0,.34);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 18% 0%, rgba(110,231,255,.22), transparent 31%),
-        radial-gradient(circle at 80% 7%, rgba(89,245,155,.13), transparent 28%),
-        linear-gradient(180deg, #07111f 0%, #091321 45%, #050a12 100%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .wrap {
-      width: min(1120px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 26px 0 10px;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      font-weight: 900;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      font-size: .92rem;
-    }
-
-    .links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .hero {
-      padding: 76px 0 48px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
-      gap: 30px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.045);
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 8px 12px;
-      margin-bottom: 20px;
-      font-weight: 700;
-      font-size: .92rem;
-    }
-
-    h1 {
-      margin: 0 0 22px;
-      font-size: clamp(2.45rem, 6vw, 5.35rem);
-      line-height: .95;
-      letter-spacing: -.065em;
-    }
-
-    h2 {
-      margin: 0 0 14px;
-      font-size: clamp(1.65rem, 3vw, 2.65rem);
-      line-height: 1.02;
-      letter-spacing: -.04em;
-    }
-
-    h3 {
-      margin: 0 0 10px;
-      font-size: 1.12rem;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 1.05rem;
-    }
-
-    .lead {
-      max-width: 790px;
-      font-size: clamp(1.12rem, 2vw, 1.34rem);
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.055);
-      color: var(--text);
-      font-weight: 800;
-    }
-
-    .button.primary {
-      border: none;
-      color: #06111f;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-    }
-
-    .card, .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 22px;
-    }
-
-    .boundary {
-      display: grid;
-      gap: 12px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 88px 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-    }
-
-    .step strong {
-      color: var(--accent);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-size: .82rem;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-weight: 900;
-      font-size: .75rem;
-    }
-
-    .allow { color: var(--accent2); }
-    .deny { color: var(--danger); }
-    .fail { color: var(--warn); }
-
-    section {
-      padding: 36px 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .list {
-      display: grid;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .list a {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.035);
-      color: var(--text);
-      font-weight: 750;
-    }
-
-    .list span {
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    footer {
-      padding: 38px 0 58px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-      margin-top: 36px;
-    }
-
-    @media (max-width: 840px) {
-      .hero, .grid, .split { grid-template-columns: 1fr; }
-      .step { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>StegVerse — Trust, Governance, Execution-Layer Risk</title>
+<meta name="description" content="StegVerse exposes trust failures before they become incidents and demonstrates commit-time admissibility at the execution boundary."/>
+<style>
+:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
+header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
+.nav{width:min(900px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
+.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
+.links a.active{color:var(--accent)}
+.wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:20px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
+.card h1{font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 12px}
+.card h2{font-size:1.3rem;margin:0 0 12px}
+.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
+.tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:700}
+input,textarea{width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem}
+input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:240px;margin-top:12px;resize:vertical}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{padding:11px 18px;border-radius:12px;border:0;font-weight:800;font-size:.9rem;cursor:pointer;transition:all .2s;min-height:44px}
+button:hover{opacity:.9;transform:translateY(-1px)}button:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
+.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.btn-commit{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#051019}
+.btn-commit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+.result-card.verdict-allow{border-color:rgba(89,245,155,.4);background:rgba(89,245,155,.06)}
+.result-card.verdict-deny{border-color:rgba(255,209,102,.4);background:rgba(255,209,102,.06)}
+.result-card.verdict-fail{border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.06)}
+.verdict-label{font-size:2rem;font-weight:900;margin:0}
+.verdict-allow .verdict-label{color:var(--accent2)}
+.verdict-deny .verdict-label{color:var(--warn)}
+.verdict-fail .verdict-label{color:var(--danger)}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:16px 0}
+.metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:12px}
+.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
+.metric-label{font-size:.75rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
+.progress-bar{width:100%;height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .3s ease;width:0%}
+.receipt-hash{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85rem;background:rgba(0,0,0,.3);padding:12px;border-radius:10px;word-break:break-all;border:1px solid var(--line);margin:8px 0}
+.receipt-actions{display:flex;gap:8px;margin-top:8px}
+.receipt-actions button{padding:6px 12px;font-size:.8rem;min-height:32px}
+.verify-panel{display:none;margin-top:12px;padding:16px;background:rgba(0,0,0,.2);border-radius:12px;border:1px solid var(--line)}
+.verify-panel.show{display:block}
+.verify-result{margin-top:12px;padding:12px;border-radius:8px;font-weight:700}
+.verify-match{background:rgba(89,245,155,.15);color:var(--accent2);border:1px solid rgba(89,245,155,.3)}
+.verify-mismatch{background:rgba(255,107,107,.15);color:var(--danger);border:1px solid rgba(255,107,107,.3)}
+.runner-status{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(0,0,0,.2);border-radius:10px;margin-top:12px}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
+.status-dot.queued{background:var(--warn);animation:pulse 1.5s infinite}
+.status-dot.running{background:var(--accent);animation:pulse 1s infinite}
+.status-dot.completed{background:var(--accent2)}
+.status-dot.failed{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.error-card{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:16px;color:var(--danger);margin:16px 0}
+.error-card button{margin-top:12px;background:rgba(255,107,107,.2);color:var(--danger);border:1px solid var(--danger)}
+.instructions{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03);margin:16px 0}
+.instructions h2{margin:0 0 10px;font-size:1.1rem}
+.instructions p,.instructions li{color:var(--muted);font-size:.9rem}
+.instructions ul{margin:8px 0;padding-left:20px}
+footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
+@media(max-width:600px){
+  .nav{flex-direction:column;align-items:flex-start}
+  .links{width:100%;justify-content:space-between}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+  .btn-row{flex-direction:column}
+  .btn-row button{width:100%}
+  .receipt-actions{flex-direction:column}
+  .receipt-actions button{width:100%}
+}
+</style>
+<style>
+.hero{padding:60px 0 40px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.5rem);line-height:1.1;margin:0 0 20px}
+.lead{font-size:clamp(1.1rem,2.5vw,1.3rem);color:var(--muted);max-width:640px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.actions button,.actions a{padding:14px 22px;border-radius:14px;font-weight:800;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:48px}
+.btn-main{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019;border:none}
+.btn-alt{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:30px 0}
+.grid-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:24px}
+.grid-card h3{margin:0 0 10px;font-size:1.15rem;color:var(--text)}
+.grid-card p{color:var(--muted);font-size:.95rem;margin:0 0 16px}
+.flow{display:grid;gap:12px;margin:20px 0}
+.step{display:grid;grid-template-columns:70px 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
+.step strong{color:var(--accent);letter-spacing:.06em;text-transform:uppercase;font-size:.82rem}
+.pill{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:900;font-size:.75rem}
+.allow{color:var(--accent2)}.deny{color:var(--danger)}.fail{color:var(--warn)}
+.sitemap{display:grid;gap:10px;margin-top:16px}
+.sitemap a{display:flex;justify-content:space-between;gap:14px;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035);color:var(--text);font-weight:750;text-decoration:none}
+.sitemap a span{color:var(--muted);font-weight:600}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="/">StegVerse</a>
-      <nav class="links" aria-label="Primary navigation">
-        <a href="/demo.html">Demo</a>
-        <a href="/product.html">Product</a>
-        <a href="/pricing.html">Pricing</a>
-        <a href="/methodology.html">Methodology</a>
-        <a href="/about.html">About</a>
-      </nav>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">StegVerse</a>
+    <nav class="links"><a href="index.html" class="active">Home</a><a href="demo.html">Demo</a><a href="product.html">Product</a><a href="pricing.html">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="tier-badge">Trust · Governance · Execution-layer risk</div>
+    <h1>Expose trust failures before they become incidents.</h1>
+    <p class="lead">StegVerse identifies where AI systems, governance structures, credentials, and automation silently fail under real-world pressure — then demonstrates how admissibility can be enforced at the moment actions become irreversible.</p>
+    <div class="actions">
+      <a class="btn-main" href="demo.html">Run the execution demo</a>
+      <a class="btn-alt" href="product.html">View audit offering</a>
     </div>
-  </header>
-
-  <main>
-    <div class="wrap hero">
-      <section>
-        <div class="eyebrow">Trust • Governance • Execution-layer risk</div>
-        <h1>Expose trust failures before they become incidents.</h1>
-        <p class="lead">
-          StegVerse identifies where AI systems, governance structures, credentials,
-          and automation silently fail under real-world pressure — then demonstrates
-          how admissibility can be enforced at the moment actions become irreversible.
-        </p>
-        <div class="actions">
-          <a class="button primary" href="/demo.html">Run the execution demo</a>
-          <a class="button" href="/product.html">View audit offering</a>
-        </div>
-      </section>
-
-      <aside class="card" aria-label="Commit-time admissibility flow">
-        <div class="boundary">
-          <div class="step">
-            <strong>T0</strong>
-            <div>Proposal is evaluated against observed state.</div>
-            <span class="pill allow">CHECK</span>
-          </div>
-          <div class="step">
-            <strong>Drift</strong>
-            <div>State, authority, dependencies, or trust boundaries change.</div>
-            <span class="pill fail">RISK</span>
-          </div>
-          <div class="step">
-            <strong>T1</strong>
-            <div>State and authority are reconstructed at commit.</div>
-            <span class="pill allow">VERIFY</span>
-          </div>
-          <div class="step">
-            <strong>Commit</strong>
-            <div>Action returns ALLOW, DENY, or FAIL-CLOSED before effect.</div>
-            <span class="pill deny">GATE</span>
-          </div>
-        </div>
-      </aside>
+  </section>
+  <section class="grid">
+    <div class="grid-card">
+      <h3>Trust & Risk Systems Audit</h3>
+      <p>Short, senior-only engagements that surface AI, governance, credential, and auditability failure modes.</p>
+      <a class="btn-alt" href="product.html" style="display:inline-block;padding:10px 16px;border-radius:12px;font-size:.9rem">Product details</a>
     </div>
-
-    <section>
-      <div class="wrap grid">
-        <article class="card">
-          <h3>Trust & Risk Systems Audit</h3>
-          <p>Short, senior-only engagements that surface AI, governance, credential, and auditability failure modes.</p>
-          <a class="button" href="/site/product.html">Product details</a>
-        </article>
-        <article class="card">
-          <h3>Execution Demo</h3>
-          <p>Paste static run data and see a browser-native commit-boundary decision with a portable receipt hash.</p>
-          <a class="button" href="/demo.html">Run demo</a>
-        </article>
+    <div class="grid-card">
+      <h3>Execution Demo</h3>
+      <p>Paste static run data and see a browser-native commit-boundary decision with a portable receipt hash.</p>
+      <a class="btn-alt" href="demo.html" style="display:inline-block;padding:10px 16px;border-radius:12px;font-size:.9rem">Run demo</a>
+    </div>
+  </section>
+  <section class="split">
+    <div class="card">
+      <h2>Audit is evidence. Commit-time admissibility is control.</h2>
+      <p style="color:var(--muted)">Logs can explain what happened. A commit boundary determines whether an action is still valid before it becomes an irreversible effect.</p>
+      <p style="color:var(--muted)">The StegVerse pattern is simple: reconstruct current state, re-derive current authority, recompute admissibility, then allow, deny, or fail closed.</p>
+    </div>
+    <div class="card">
+      <h2>Site map</h2>
+      <div class="sitemap">
+        <a href="what-we-do.html">What we do <span>what-we-do.html</span></a>
+        <a href="product.html">Product <span>product.html</span></a>
+        <a href="pricing.html">Pricing <span>pricing.html</span></a>
+        <a href="methodology.html">Methodology <span>methodology.html</span></a>
+        <a href="guarantees.html">Guarantees <span>guarantees.html</span></a>
+        <a href="about.html">About <span>about.html</span></a>
       </div>
-    </section>
-
-    <section>
-      <div class="wrap split">
-        <article class="panel">
-          <h2>Audit is evidence. Commit-time admissibility is control.</h2>
-          <p>
-            Logs can explain what happened. A commit boundary determines whether
-            an action is still valid before it becomes an irreversible effect.
-          </p>
-          <p>
-            The StegVerse pattern is simple: reconstruct current state, re-derive
-            current authority, recompute admissibility, then allow, deny, or fail closed.
-          </p>
-        </article>
-
-        <article class="panel">
-          <h2>Site map</h2>
-          <div class="list">
-            <a href="/what-we-do.html">What we do <span>/site/what-we-do.md</span></a>
-            <a href="/product.html">Product <span>/site/product.md</span></a>
-            <a href="/pricing.html">Pricing <span>/site/pricing.md</span></a>
-            <a href="/methodology.html">Methodology <span>/site/methodology.md</span></a>
-            <a href="/guarantees.html">Guarantees <span>/site/guarantees.md</span></a>
-            <a href="/about.html">About <span>/site/about.md</span></a>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      StegVerse • Trust failures • Commit-time admissibility • ALLOW / DENY / FAIL-CLOSED
     </div>
-  </footer>
+  </section>
+</main>
+<footer>
+  StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED
+</footer>
 </body>
 </html>

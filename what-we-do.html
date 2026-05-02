@@ -1,28 +1,103 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>What We Do — StegVerse</title>
 <style>
-:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--shadow:0 22px 70px rgba(0,0,0,.34);}
-*{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 18% 0%,rgba(110,231,255,.22),transparent 31%),radial-gradient(circle at 80% 7%,rgba(89,245,155,.13),transparent 28%),linear-gradient(180deg,#07111f 0%,#091321 45%,#050a12 100%);}
-a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:40px 0}
-h1{margin:0 0 22px;font-size:clamp(2rem,5vw,3.5rem);line-height:.95;letter-spacing:-.04em}
-p,li{color:var(--muted);line-height:1.65;font-size:1.05rem;max-width:720px}
-ul{line-height:1.8}li{margin-bottom:6px}
-.back{display:inline-block;margin-bottom:30px;color:var(--accent);font-weight:700}
-footer{padding:38px 0 58px;color:var(--muted);border-top:1px solid var(--line);margin-top:36px;text-align:center}
-</style></head><body>
-<div class="wrap">
-<a class="back" href="/">← StegVerse</a>
-<h1>What We Do</h1>
-<p>StegVerse delivers short, high-impact trust and risk audits that examine how AI systems, governance structures, and automated trust relationships actually behave in production.</p>
-<h2>We focus on:</h2>
-<ul>
-<li>Where AI decisions escape oversight</li>
-<li>Where governance exists only on paper</li>
-<li>Where credentials drift silently</li>
-<li>Where audit trails fail during recovery</li>
-</ul>
-<p>We do not sell tools. We do not sell platforms. We deliver early visibility.</p>
-</div>
-<footer>StegVerse • Trust failures • Commit-time admissibility</footer>
-</body></html>
+:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
+header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
+.nav{width:min(900px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
+.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
+.links a.active{color:var(--accent)}
+.wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:20px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
+.card h1{font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 12px}
+.card h2{font-size:1.3rem;margin:0 0 12px}
+.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
+.tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:700}
+input,textarea{width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem}
+input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:240px;margin-top:12px;resize:vertical}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{padding:11px 18px;border-radius:12px;border:0;font-weight:800;font-size:.9rem;cursor:pointer;transition:all .2s;min-height:44px}
+button:hover{opacity:.9;transform:translateY(-1px)}button:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
+.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.btn-commit{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#051019}
+.btn-commit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+.result-card.verdict-allow{border-color:rgba(89,245,155,.4);background:rgba(89,245,155,.06)}
+.result-card.verdict-deny{border-color:rgba(255,209,102,.4);background:rgba(255,209,102,.06)}
+.result-card.verdict-fail{border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.06)}
+.verdict-label{font-size:2rem;font-weight:900;margin:0}
+.verdict-allow .verdict-label{color:var(--accent2)}
+.verdict-deny .verdict-label{color:var(--warn)}
+.verdict-fail .verdict-label{color:var(--danger)}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:16px 0}
+.metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:12px}
+.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
+.metric-label{font-size:.75rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
+.progress-bar{width:100%;height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .3s ease;width:0%}
+.receipt-hash{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85rem;background:rgba(0,0,0,.3);padding:12px;border-radius:10px;word-break:break-all;border:1px solid var(--line);margin:8px 0}
+.receipt-actions{display:flex;gap:8px;margin-top:8px}
+.receipt-actions button{padding:6px 12px;font-size:.8rem;min-height:32px}
+.verify-panel{display:none;margin-top:12px;padding:16px;background:rgba(0,0,0,.2);border-radius:12px;border:1px solid var(--line)}
+.verify-panel.show{display:block}
+.verify-result{margin-top:12px;padding:12px;border-radius:8px;font-weight:700}
+.verify-match{background:rgba(89,245,155,.15);color:var(--accent2);border:1px solid rgba(89,245,155,.3)}
+.verify-mismatch{background:rgba(255,107,107,.15);color:var(--danger);border:1px solid rgba(255,107,107,.3)}
+.runner-status{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(0,0,0,.2);border-radius:10px;margin-top:12px}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
+.status-dot.queued{background:var(--warn);animation:pulse 1.5s infinite}
+.status-dot.running{background:var(--accent);animation:pulse 1s infinite}
+.status-dot.completed{background:var(--accent2)}
+.status-dot.failed{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.error-card{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:16px;color:var(--danger);margin:16px 0}
+.error-card button{margin-top:12px;background:rgba(255,107,107,.2);color:var(--danger);border:1px solid var(--danger)}
+.instructions{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03);margin:16px 0}
+.instructions h2{margin:0 0 10px;font-size:1.1rem}
+.instructions p,.instructions li{color:var(--muted);font-size:.9rem}
+.instructions ul{margin:8px 0;padding-left:20px}
+footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
+@media(max-width:600px){
+  .nav{flex-direction:column;align-items:flex-start}
+  .links{width:100%;justify-content:space-between}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+  .btn-row{flex-direction:column}
+  .btn-row button{width:100%}
+  .receipt-actions{flex-direction:column}
+  .receipt-actions button{width:100%}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">StegVerse</a>
+    <nav class="links"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="product.html">Product</a><a href="pricing.html">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+<main class="wrap">
+  <div class="card">
+    <h1>What We Do</h1>
+    <p style="color:var(--muted)">StegVerse delivers short, high-impact trust and risk audits that examine how AI systems, governance structures, and automated trust relationships actually behave in production.</p>
+    <div class="card" style="margin-top:20px">
+      <h2>We focus on:</h2>
+      <ul style="color:var(--muted);line-height:1.8"><li>Where AI decisions escape oversight</li><li>Where governance exists only on paper</li><li>Where credentials drift silently</li><li>Where audit trails fail during recovery</li></ul>
+      <p style="color:var(--muted)">We do not sell tools. We do not sell platforms. We deliver early visibility.</p>
+    </div>
+  </div>
+</main>
+<footer>
+  StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED
+</footer>
+</body>
+</html>
