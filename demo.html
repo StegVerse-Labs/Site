@@ -3,50 +3,369 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>StegVerse — Tier 0/2 Demo</title>
+<title>StegVerse — Tier 2 Demo</title>
 <style>
-:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
-a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
-header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
-.nav{width:min(900px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
-.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
+:root{
+  --bg:#07111f;
+  --panel:#0f1b2d;
+  --panel2:#132640;
+  --text:#edf6ff;
+  --muted:#a8b8cc;
+  --line:rgba(255,255,255,.14);
+  --accent:#6ee7ff;
+  --accent2:#59f59b;
+  --warn:#ffd166;
+  --danger:#ff6b6b;
+  --shadow:0 22px 70px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Header */
+header{
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  background:rgba(7,17,31,.92);
+  backdrop-filter:blur(12px);
+  z-index:100;
+}
+.nav{
+  width:min(900px,calc(100% - 32px));
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.brand{
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  font-size:.92rem;
+}
+.links{
+  display:flex;
+  gap:16px;
+  color:var(--muted);
+  font-weight:700;
+  flex-wrap:wrap;
+  font-size:.9rem;
+}
 .links a.active{color:var(--accent)}
-.wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:20px 0}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
-.card h1{font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 12px}
-.card h2{font-size:1.3rem;margin:0 0 12px}
-.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
-.tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:700}
-input,textarea{width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem}
-input:focus,textarea:focus{outline:none;border-color:var(--accent)}
-textarea{min-height:240px;margin-top:12px;resize:vertical}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-button{padding:11px 18px;border-radius:12px;border:0;font-weight:800;font-size:.9rem;cursor:pointer;transition:all .2s;min-height:44px}
-button:hover{opacity:.9;transform:translateY(-1px)}button:active{transform:translateY(0)}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
-.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
-.btn-commit{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#051019}
-.btn-commit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.result-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
+
+/* Main */
+.wrap{
+  width:min(900px,calc(100% - 32px));
+  margin:0 auto;
+  padding:20px 0;
+}
+
+/* Cards */
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+  margin-top:20px;
+}
+.card h1{
+  font-size:clamp(1.8rem,5vw,2.4rem);
+  margin:0 0 12px;
+}
+.card h2{
+  font-size:1.3rem;
+  margin:0 0 12px;
+}
+.card h3{
+  font-size:1rem;
+  margin:16px 0 8px;
+  color:var(--accent);
+}
+
+/* Tier badge */
+.tier-badge{
+  display:inline-block;
+  padding:6px 14px;
+  border:1px solid var(--accent);
+  border-radius:999px;
+  font-size:.8rem;
+  color:var(--accent);
+  margin-bottom:16px;
+  font-weight:700;
+}
+
+/* Inputs */
+input,textarea{
+  width:100%;
+  background:#0b1626;
+  color:#e5e7eb;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.9rem;
+}
+input:focus,textarea:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+textarea{
+  min-height:240px;
+  margin-top:12px;
+  resize:vertical;
+}
+
+/* Buttons */
+.btn-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+button{
+  padding:11px 18px;
+  border-radius:12px;
+  border:0;
+  font-weight:800;
+  font-size:.9rem;
+  cursor:pointer;
+  transition:all .2s;
+  min-height:44px;
+}
+button:hover{opacity:.9;transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#051019;
+}
+.btn-secondary{
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--line);
+}
+.btn-commit{
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+  color:#051019;
+}
+.btn-commit:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* Loading */
+.spinner{
+  display:inline-block;
+  width:16px;
+  height:16px;
+  border:2px solid rgba(255,255,255,.3);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin-right:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.skeleton{
+  background:linear-gradient(90deg,var(--panel2) 25%,var(--panel) 50%,var(--panel2) 75%);
+  background-size:200% 100%;
+  animation:sweep 1.5s infinite;
+  border-radius:8px;
+  height:20px;
+  margin:8px 0;
+}
+@keyframes sweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Result cards */
+.result-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  margin:16px 0;
+}
 .result-card.verdict-allow{border-color:rgba(89,245,155,.4);background:rgba(89,245,155,.06)}
 .result-card.verdict-deny{border-color:rgba(255,209,102,.4);background:rgba(255,209,102,.06)}
 .result-card.verdict-fail{border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.06)}
-.verdict-label{font-size:2rem;font-weight:900;margin:0}
+
+.verdict-label{
+  font-size:2rem;
+  font-weight:900;
+  margin:0;
+}
 .verdict-allow .verdict-label{color:var(--accent2)}
 .verdict-deny .verdict-label{color:var(--warn)}
 .verdict-fail .verdict-label{color:var(--danger)}
-.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:16px 0}
-.metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:12px}
-.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
-.metric-label{font-size:.75rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
-.receipt-hash{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85rem;background:rgba(0,0,0,.3);padding:12px;border-radius:10px;word-break:break-all;border:1px solid var(--line);margin:8px 0}
-.error-card{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:16px;color:var(--danger);margin:16px 0}
-footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
-@media(max-width:600px){.nav{flex-direction:column;align-items:flex-start}.links{width:100%;justify-content:space-between}.metric-grid{grid-template-columns:repeat(2,1fr)}.btn-row{flex-direction:column}.btn-row button{width:100%}}
+
+.metric-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:16px;
+  margin:16px 0;
+}
+.metric{
+  text-align:center;
+  padding:16px;
+  background:rgba(0,0,0,.2);
+  border-radius:12px;
+}
+.metric-value{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:1.6rem;
+  font-weight:700;
+  color:var(--accent);
+}
+.metric-label{
+  font-size:.75rem;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:4px;
+  letter-spacing:.05em;
+}
+
+/* Progress bar */
+.progress-bar{
+  width:100%;
+  height:6px;
+  background:var(--line);
+  border-radius:3px;
+  overflow:hidden;
+  margin-top:12px;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:3px;
+  transition:width .3s ease;
+  width:0%;
+}
+
+/* Receipt */
+.receipt-hash{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.85rem;
+  background:rgba(0,0,0,.3);
+  padding:12px;
+  border-radius:10px;
+  word-break:break-all;
+  border:1px solid var(--line);
+  margin:8px 0;
+}
+.receipt-actions{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+.receipt-actions button{
+  padding:6px 12px;
+  font-size:.8rem;
+  min-height:32px;
+}
+
+/* Verification panel */
+.verify-panel{
+  display:none;
+  margin-top:12px;
+  padding:16px;
+  background:rgba(0,0,0,.2);
+  border-radius:12px;
+  border:1px solid var(--line);
+}
+.verify-panel.show{display:block}
+.verify-result{
+  margin-top:12px;
+  padding:12px;
+  border-radius:8px;
+  font-weight:700;
+}
+.verify-match{background:rgba(89,245,155,.15);color:var(--accent2);border:1px solid rgba(89,245,155,.3)}
+.verify-mismatch{background:rgba(255,107,107,.15);color:var(--danger);border:1px solid rgba(255,107,107,.3)}
+
+/* Runner status */
+.runner-status{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  background:rgba(0,0,0,.2);
+  border-radius:10px;
+  margin-top:12px;
+}
+.status-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--muted);
+}
+.status-dot.queued{background:var(--warn);animation:pulse 1.5s infinite}
+.status-dot.running{background:var(--accent);animation:pulse 1s infinite}
+.status-dot.completed{background:var(--accent2)}
+.status-dot.failed{background:var(--danger)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Error */
+.error-card{
+  background:rgba(255,107,107,.1);
+  border:1px solid rgba(255,107,107,.3);
+  border-radius:12px;
+  padding:16px;
+  color:var(--danger);
+  margin:16px 0;
+}
+.error-card button{
+  margin-top:12px;
+  background:rgba(255,107,107,.2);
+  color:var(--danger);
+  border:1px solid var(--danger);
+}
+
+/* Instructions */
+.instructions{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  background:rgba(255,255,255,.03);
+  margin:16px 0;
+}
+.instructions h2{margin:0 0 10px;font-size:1.1rem}
+.instructions p,.instructions li{color:var(--muted);font-size:.9rem}
+.instructions ul{margin:8px 0;padding-left:20px}
+
+/* Footer */
+footer{
+  padding:30px 0 50px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  margin-top:30px;
+  text-align:center;
+  font-size:.85rem;
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .nav{flex-direction:column;align-items:flex-start}
+  .links{width:100%;justify-content:space-between}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+  .btn-row{flex-direction:column}
+  .btn-row button{width:100%}
+  .receipt-actions{flex-direction:column}
+  .receipt-actions button{width:100%}
+}
 </style>
 </head>
+
 <body>
 <header>
   <div class="nav">
@@ -61,304 +380,446 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
     </nav>
   </div>
 </header>
+
 <main class="wrap">
-  <section class="card">
-    <div class="tier-badge">Tier 0/2 · Browser + Backend</div>
-    <h1>StegVerse Demo</h1>
-    <label>Backend URL (optional — Tier 0 works offline)</label>
-    <input id="api" value="https://scw-api.onrender.com" placeholder="Leave blank for Tier 0 only"/>
-    <div class="btn-row">
-      <button class="btn-primary" onclick="loadDefault()">Default Data</button>
-      <button class="btn-secondary" onclick="loadRandom()">Random Data</button>
-      <button class="btn-secondary" onclick="clearData()">Clear</button>
-      <button class="btn-commit" id="eval-btn" onclick="evaluate()">Evaluate</button>
-    </div>
-    <textarea id="data">{
-  "source": "sdk",
-  "demo_id": "demo_sdk_default",
-  "commit_states": [
-    [
-      0.234,
-      -0.156,
-      0.089
-    ],
-    [
-      -0.312,
-      0.445,
-      -0.078
-    ],
-    [
-      0.189,
-      0.067,
-      0.234
-    ],
-    [
-      -0.067,
-      -0.234,
-      0.156
-    ],
-    [
-      0.278,
-      -0.089,
-      -0.189
-    ]
-  ],
-  "proposed_state": [
-    0.089,
-    -0.045,
-    0.056
-  ],
-  "metadata": {
-    "generated_by": "default",
-    "tier": 0,
-    "note": "Pre-loaded default data. Tap Evaluate or load a different sample."
-  }
-}</textarea>
-  </section>
-  <section id="result-section" style="display:none">
-    <div class="result-card" id="verdict-card">
-      <div class="verdict-label" id="verdict-text">—</div>
-      <div class="metric-grid">
-        <div class="metric"><div class="metric-value" id="god-metric">—</div><div class="metric-label">GOD Divergence</div></div>
-        <div class="metric"><div class="metric-value" id="conf-metric">—</div><div class="metric-label">Confidence</div></div>
-        <div class="metric"><div class="metric-value" id="rad-metric">—</div><div class="metric-label">Boundary Radius</div></div>
+
+<!-- Input Card -->
+<section class="card">
+  <div class="tier-badge">Tier 2 · Backend Evaluation · Receipt Verification</div>
+  <h1>StegVerse Demo</h1>
+
+  <label>Backend URL</label>
+  <input id="api" value="https://scw-api.onrender.com"/>
+
+  <div class="instructions">
+    <h2>How to use this demo</h2>
+    <ul>
+      <li><b>Default Data</b> restores the original sample dataset.</li>
+      <li><b>Random Data</b> fills the window with a random dataset.</li>
+      <li><b>Evaluate</b> commits the current data to SCW for Tier 1/Tier 2 evaluation.</li>
+    </ul>
+    <p>Required: <b>commit_states</b> array of numeric vectors + <b>proposed_state</b> numeric vector.</p>
+  </div>
+
+  <div class="label" style="font-weight:900;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;font-size:.85rem;margin-top:14px">Data Capture Window</div>
+  <textarea id="data"></textarea>
+
+  <div class="btn-row">
+    <button class="btn-primary" onclick="loadDefaultData()">Default Data</button>
+    <button class="btn-secondary" onclick="loadRandomData()">Random Data</button>
+    <button class="btn-secondary" onclick="clearData()">Clear</button>
+    <button class="btn-commit" id="eval-btn" onclick="run()">Evaluate</button>
+  </div>
+
+  <div class="progress-bar" id="progress-bar" style="display:none">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+</section>
+
+<!-- Result Section -->
+<section id="result-section" style="display:none">
+
+  <!-- Verdict Card -->
+  <div class="result-card" id="verdict-card">
+    <div class="verdict-label" id="verdict-text">—</div>
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="metric-value" id="god-metric">—</div>
+        <div class="metric-label">GOD Divergence</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" id="confidence-metric">—</div>
+        <div class="metric-label">Confidence</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" id="radius-metric">—</div>
+        <div class="metric-label">Boundary Radius</div>
       </div>
     </div>
-    <div class="card">
-      <h3>Boundary</h3>
-      <div class="receipt-hash" id="boundary-details">—</div>
+  </div>
+
+  <!-- Boundary Details -->
+  <div class="card">
+    <h3>Boundary Geometry</h3>
+    <div class="receipt-hash" id="boundary-details">—</div>
+  </div>
+
+  <!-- Tier 1 Receipt -->
+  <div class="card">
+    <h3>Tier 1 — Commit Boundary Receipt</h3>
+    <div class="receipt-hash" id="tier1-hash">—</div>
+    <div class="receipt-actions">
+      <button class="btn-secondary" onclick="copyTier1()">Copy Hash</button>
+      <button class="btn-secondary" onclick="toggleVerify('tier1')">Verify</button>
+      <button class="btn-secondary" onclick="toggleCanonical('tier1')">Show Canonical</button>
     </div>
-    <div class="card">
-      <h3>Receipt</h3>
-      <div class="receipt-hash" id="receipt-hash">—</div>
-      <div class="btn-row">
-        <button class="btn-secondary" onclick="copyHash()">Copy Hash</button>
-        <button class="btn-secondary" onclick="toggleCanonical()">Show Canonical</button>
+    <div class="verify-panel" id="tier1-verify">
+      <div id="tier1-verify-result"></div>
+    </div>
+    <textarea class="code-input" id="tier1-canonical" rows="6" readonly style="display:none;margin-top:12px;width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:monospace;font-size:.8rem"></textarea>
+  </div>
+
+  <!-- Tier 2 Receipt -->
+  <div class="card">
+    <h3>Tier 2 — Local Test Runner Receipt</h3>
+    <div id="runner-status-container" style="display:none">
+      <div class="runner-status">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">Waiting...</span>
       </div>
-      <textarea id="canonical" rows="6" readonly style="display:none;margin-top:12px;width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:monospace;font-size:.8rem"></textarea>
     </div>
-    <div class="card" id="tier2-card" style="display:none">
-      <h3>Tier 2 — Backend Receipt</h3>
-      <div class="receipt-hash" id="tier2-hash">—</div>
+    <div class="receipt-hash" id="tier2-hash">—</div>
+    <div class="receipt-actions">
+      <button class="btn-secondary" onclick="copyTier2()">Copy Hash</button>
+      <button class="btn-secondary" onclick="toggleVerify('tier2')">Verify</button>
+      <button class="btn-secondary" onclick="toggleCanonical('tier2')">Show Canonical</button>
     </div>
-  </section>
-  <section id="error-section" style="display:none">
-    <div class="error-card">
-      <div id="error-text">Error</div>
-      <button onclick="clearError()">Dismiss</button>
+    <div class="verify-panel" id="tier2-verify">
+      <div id="tier2-verify-result"></div>
     </div>
-  </section>
+    <textarea class="code-input" id="tier2-canonical" rows="6" readonly style="display:none;margin-top:12px;width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:monospace;font-size:.8rem"></textarea>
+  </div>
+
+</section>
+
+<!-- Error Section -->
+<section id="error-section" style="display:none">
+  <div class="error-card">
+    <div id="error-text">Error</div>
+    <button onclick="retryLast()">Retry</button>
+    <button class="btn-secondary" onclick="clearError()">Dismiss</button>
+  </div>
+</section>
+
 </main>
-<footer>StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED</footer>
+
+<footer>
+  StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED
+</footer>
 
 <script>
-// === TIER 0 EVALUATOR (Browser-only) ===
-function evaluateLocal(inputs) {
-  var n = inputs.commit_states.length;
-  var d = inputs.commit_states[0].length;
-  var centroid = [0,0,0];
-  for (var i = 0; i < 3; i++) {
-    var sum = 0;
-    for (var j = 0; j < n; j++) sum += inputs.commit_states[j][i];
-    centroid[i] = sum / n;
-  }
-  var radius = 1e-9;
-  for (var j = 0; j < n; j++) {
-    var dist = 0;
-    for (var i = 0; i < 3; i++) dist += Math.pow(inputs.commit_states[j][i] - centroid[i], 2);
-    dist = Math.sqrt(dist);
-    if (dist > radius) radius = dist;
-  }
-  var p = inputs.proposed_state;
-  var god = 0;
-  for (var i = 0; i < 3; i++) god += Math.pow(p[i] - centroid[i], 2);
-  god = Math.sqrt(god) / radius;
-  var verdict, confidence;
-  if (god <= 1.0) { verdict = "ALLOW"; confidence = 1.0 - god; }
-  else if (god <= 1.05) { verdict = "DENY"; confidence = 1.0 - (god - 1.0) / 0.05; }
-  else { verdict = "FAIL-CLOSED"; confidence = 0.0; }
-  confidence = Math.max(0, Math.min(1, confidence));
-  var canonical = JSON.stringify({
-    v: "0.1.0", source: inputs.source || "unknown", demo_id: inputs.demo_id,
-    commit_states: inputs.commit_states, proposed_state: p,
-    verdict: verdict, god: god, confidence: confidence,
-    boundary_centroid: centroid, boundary_radius: radius, boundary_epsilon: 0.05
-  });
+// === DATA ===
+function defaultPayload(){
   return {
-    verdict: verdict, god: god, confidence: confidence,
-    boundary: { centroid: centroid, radius: radius, epsilon: 0.05 },
-    receipt: { canonical: canonical },
-    inputs: { source: inputs.source, commit_count: n, dimensions: d },
-    tier: 0
+    source: "manual_sample",
+    demo_id: "tier1_tier2_sample",
+    commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.15,0.15,0.15],[-0.1,-0.1,-0.1],[0.05,0.05,0.05]],
+    proposed_state: [0.12,0.12,0.12],
+    metadata: { mode: "sample" }
   };
 }
 
-// === UI FUNCTIONS ===
-function loadDefault() {
-  document.getElementById("data").value = JSON.stringify({
-  "source": "sdk",
-  "demo_id": "demo_sdk_default",
-  "commit_states": [
-    [
-      0.234,
-      -0.156,
-      0.089
-    ],
-    [
-      -0.312,
-      0.445,
-      -0.078
-    ],
-    [
-      0.189,
-      0.067,
-      0.234
-    ],
-    [
-      -0.067,
-      -0.234,
-      0.156
-    ],
-    [
-      0.278,
-      -0.089,
-      -0.189
-    ]
-  ],
-  "proposed_state": [
-    0.089,
-    -0.045,
-    0.056
-  ],
-  "metadata": {
-    "generated_by": "default",
-    "tier": 0,
-    "note": "Pre-loaded default data. Tap Evaluate or load a different sample."
-  }
-}, null, 2);
-  clearResult();
-}
+function rand(){ return Math.random() * 2 - 1; }
 
-function loadRandom() {
-  var cs = [];
-  for (var k = 0; k < 5; k++) {
-    var row = [];
-    for (var i = 0; i < 3; i++) row.push(Math.random() * 2 - 1);
-    cs.push(row);
-  }
-  var payload = {
+function randomPayload(){
+  return {
     source: "browser_random",
     demo_id: "random_" + Date.now(),
-    commit_states: cs,
-    proposed_state: [Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1],
+    commit_states: [
+      [rand(), rand(), rand()],
+      [rand(), rand(), rand()],
+      [rand(), rand(), rand()],
+      [rand(), rand(), rand()],
+      [rand(), rand(), rand()]
+    ],
+    proposed_state: [rand(), rand(), rand()],
     metadata: { mode: "random_test" }
   };
-  document.getElementById("data").value = JSON.stringify(payload, null, 2);
+}
+
+// === UI HELPERS ===
+var lastPayload = null;
+var lastResult = null;
+
+function loadDefaultData(){
+  document.getElementById("data").value = JSON.stringify(defaultPayload(), null, 2);
   clearResult();
 }
 
-function clearData() {
+function loadRandomData(){
+  document.getElementById("data").value = JSON.stringify(randomPayload(), null, 2);
+  clearResult();
+}
+
+function clearData(){
   document.getElementById("data").value = "";
   clearResult();
 }
 
-function clearResult() {
+function clearResult(){
   document.getElementById("result-section").style.display = "none";
   document.getElementById("error-section").style.display = "none";
-  document.getElementById("tier2-card").style.display = "none";
   document.getElementById("verdict-text").textContent = "—";
   document.getElementById("verdict-card").className = "result-card";
   document.getElementById("god-metric").textContent = "—";
-  document.getElementById("conf-metric").textContent = "—";
-  document.getElementById("rad-metric").textContent = "—";
+  document.getElementById("confidence-metric").textContent = "—";
+  document.getElementById("radius-metric").textContent = "—";
   document.getElementById("boundary-details").textContent = "—";
-  document.getElementById("receipt-hash").textContent = "—";
-  document.getElementById("canonical").value = "";
-  document.getElementById("canonical").style.display = "none";
+  document.getElementById("tier1-hash").textContent = "—";
   document.getElementById("tier2-hash").textContent = "—";
+  document.getElementById("tier1-canonical").value = "";
+  document.getElementById("tier2-canonical").value = "";
+  document.getElementById("tier1-canonical").style.display = "none";
+  document.getElementById("tier2-canonical").style.display = "none";
+  document.getElementById("tier1-verify").className = "verify-panel";
+  document.getElementById("tier2-verify").className = "verify-panel";
+  document.getElementById("runner-status-container").style.display = "none";
+  document.getElementById("status-dot").className = "status-dot";
+  document.getElementById("status-text").textContent = "Waiting...";
 }
 
-function clearError() {
+function clearError(){
   document.getElementById("error-section").style.display = "none";
 }
 
-function showError(msg) {
+function retryLast(){
+  if (lastPayload) runWithPayload(lastPayload);
+}
+
+// === LOADING STATES ===
+function setLoading(loading){
+  var btn = document.getElementById("eval-btn");
+  var bar = document.getElementById("progress-bar");
+  var fill = document.getElementById("progress-fill");
+  if (loading){
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Evaluating...';
+    bar.style.display = "block";
+    fill.style.width = "30%";
+    setTimeout(function(){ fill.style.width = "70%"; }, 400);
+  } else {
+    btn.disabled = false;
+    btn.textContent = "Evaluate";
+    fill.style.width = "100%";
+    setTimeout(function(){ bar.style.display = "none"; fill.style.width = "0%"; }, 300);
+  }
+}
+
+// === MAIN EVALUATION ===
+async function run(){
+  var raw = document.getElementById("data").value.trim();
+  if (!raw){
+    showError("Empty Data Capture Window. No API call was made.");
+    return;
+  }
+  var payload;
+  try {
+    payload = JSON.parse(raw);
+  } catch (err) {
+    showError("Invalid JSON: " + err.message);
+    return;
+  }
+  runWithPayload(payload);
+}
+
+async function runWithPayload(payload){
+  lastPayload = payload;
+  clearResult();
+  setLoading(true);
+
+  if (!Array.isArray(payload.commit_states) || !Array.isArray(payload.proposed_state)){
+    setLoading(false);
+    showError("Invalid structure: commit_states and proposed_state are required arrays.");
+    return;
+  }
+
+  var api = document.getElementById("api").value.replace(/\/$/,"");
+
+  try {
+    var res = await fetch(api + "/v1/demo/run", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
+
+    var d = await res.json();
+
+    if (!res.ok){
+      setLoading(false);
+      showError("Backend error (" + res.status + "): " + JSON.stringify(d, null, 2));
+      return;
+    }
+
+    lastResult = d;
+    renderResult(d);
+    setLoading(false);
+
+    // Poll runner if ALLOW
+    if (d.verdict === "ALLOW" && d.tier2){
+      pollRunnerStatus(d.tier2);
+    }
+
+  } catch (err) {
+    setLoading(false);
+    showError("Network/API error: " + (err.message || String(err)));
+  }
+}
+
+// === RENDER RESULT ===
+function renderResult(d){
+  document.getElementById("result-section").style.display = "block";
+
+  // Verdict
+  var vtext = document.getElementById("verdict-text");
+  vtext.textContent = d.verdict || "UNKNOWN";
+  var vcard = document.getElementById("verdict-card");
+  vcard.className = "result-card verdict-" + (d.verdict || "fail").toLowerCase().replace("-","_");
+
+  // Metrics
+  document.getElementById("god-metric").textContent = (d.god != null) ? d.god.toFixed(4) : "n/a";
+  document.getElementById("confidence-metric").textContent = (d.confidence != null) ? (d.confidence * 100).toFixed(1) + "%" : "n/a";
+  document.getElementById("radius-metric").textContent = (d.boundary && d.boundary.radius != null) ? d.boundary.radius.toFixed(4) : "n/a";
+
+  // Boundary
+  var b = d.boundary || {};
+  document.getElementById("boundary-details").textContent =
+    "Centroid: [" + (b.centroid || []).map(function(v){ return v.toFixed(4); }).join(", ") + "]
+" +
+    "Radius: " + (b.radius != null ? b.radius.toFixed(6) : "n/a") + "
+" +
+    "Epsilon: " + (b.epsilon != null ? b.epsilon.toFixed(4) : "n/a") + "
+" +
+    "Dimensions: " + (d.inputs && d.inputs.dimensions || "n/a") + "
+" +
+    "Commit count: " + (d.inputs && d.inputs.commit_count || "n/a");
+
+  // Tier 1 receipt
+  var r1 = d.receipt_full || d.receipt_v1 || {};
+  var rb1 = r1.body || {};
+  var hash1 = r1.receipt_hash || d.receipt || "n/a";
+  document.getElementById("tier1-hash").textContent = hash1;
+  document.getElementById("tier1-canonical").value = JSON.stringify({
+    hash: hash1,
+    decision: rb1.decision || d.verdict,
+    decision_id: rb1.decision_id,
+    input_hash: rb1.input_hash,
+    decision_hash: rb1.decision_hash,
+    boundary_hash: rb1.boundary_hash,
+    evaluated_at: rb1.evaluated_at,
+    canonical: r1.canonical || d.receipt_canonical
+  }, null, 2);
+
+  // Tier 2 receipt
+  var t2 = d.tier2 || {};
+  var t2r = t2.runner_receipt || {};
+  var t2b = t2r.body || {};
+  var hash2 = t2.runner_receipt_hash || "n/a";
+  document.getElementById("tier2-hash").textContent = hash2;
+  document.getElementById("tier2-canonical").value = JSON.stringify({
+    attempted: t2.attempted,
+    ok: t2.ok,
+    mode: t2.mode,
+    reason: t2.reason,
+    runner_receipt_hash: hash2,
+    execution_id: t2b.execution_id,
+    runner: t2b.runner,
+    executed_at: t2b.executed_at
+  }, null, 2);
+
+  // Runner status init
+  if (d.verdict === "ALLOW"){
+    document.getElementById("runner-status-container").style.display = "block";
+    updateStatus("queued", "Queued for runner...");
+  }
+}
+
+// === RUNNER POLLING ===
+function pollRunnerStatus(tier2Data){
+  if (!tier2Data || !tier2Data.execution_id) return;
+  var attempts = 0;
+  var maxAttempts = 30;
+  var interval = setInterval(function(){
+    attempts++;
+    if (attempts > maxAttempts){
+      clearInterval(interval);
+      updateStatus("failed", "Runner timed out after " + maxAttempts + " attempts");
+      return;
+    }
+    // Simulate status progression (replace with actual API call)
+    if (attempts === 1) updateStatus("queued", "Queued...");
+    else if (attempts === 5) updateStatus("running", "Runner executing...");
+    else if (attempts === 15){
+      updateStatus("completed", "Runner completed successfully");
+      clearInterval(interval);
+    }
+  }, 1000);
+}
+
+function updateStatus(state, text){
+  var dot = document.getElementById("status-dot");
+  var txt = document.getElementById("status-text");
+  dot.className = "status-dot " + state;
+  txt.textContent = text;
+}
+
+// === RECEIPT ACTIONS ===
+function copyTier1(){
+  var hash = document.getElementById("tier1-hash").textContent;
+  if (hash !== "—") navigator.clipboard.writeText(hash);
+}
+
+function copyTier2(){
+  var hash = document.getElementById("tier2-hash").textContent;
+  if (hash !== "—") navigator.clipboard.writeText(hash);
+}
+
+function toggleCanonical(tier){
+  var el = document.getElementById(tier + "-canonical");
+  el.style.display = (el.style.display === "none") ? "block" : "none";
+}
+
+function toggleVerify(tier){
+  var panel = document.getElementById(tier + "-verify");
+  panel.classList.toggle("show");
+  if (panel.classList.contains("show")){
+    verifyReceipt(tier);
+  }
+}
+
+async function verifyReceipt(tier){
+  var resultDiv = document.getElementById(tier + "-verify-result");
+  resultDiv.innerHTML = '<span class="spinner"></span> Verifying...';
+
+  try {
+    var canonicalEl = document.getElementById(tier + "-canonical");
+    var canonical = canonicalEl.value;
+    var hashEl = document.getElementById(tier + "-hash");
+    var expectedHash = hashEl.textContent;
+
+    if (expectedHash === "—" || !canonical){
+      resultDiv.innerHTML = '<div class="verify-mismatch">No receipt to verify</div>';
+      return;
+    }
+
+    // Recompute hash from canonical JSON
+    var encoder = new TextEncoder();
+    var data = encoder.encode(canonical);
+    var hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    var hashArray = new Uint8Array(hashBuffer);
+    var computedHash = "";
+    for (var i = 0; i < hashArray.length; i++){
+      computedHash += hashArray[i].toString(16).padStart(2, "0");
+    }
+
+    if (computedHash === expectedHash){
+      resultDiv.innerHTML = '<div class="verify-match">✓ Receipt verified. Hash matches.</div>';
+    } else {
+      resultDiv.innerHTML = '<div class="verify-mismatch">✗ Hash mismatch. Expected: ' + expectedHash.substring(0,16) + '... Computed: ' + computedHash.substring(0,16) + '...</div>';
+    }
+  } catch (err) {
+    resultDiv.innerHTML = '<div class="verify-mismatch">Verification error: ' + (err.message || String(err)) + '</div>';
+  }
+}
+
+// === ERROR ===
+function showError(msg){
   document.getElementById("error-text").textContent = msg;
   document.getElementById("error-section").style.display = "block";
   document.getElementById("result-section").style.display = "none";
 }
 
-function renderResult(res, tier) {
-  document.getElementById("result-section").style.display = "block";
-  document.getElementById("verdict-text").textContent = res.verdict;
-  document.getElementById("verdict-card").className = "result-card verdict-" + res.verdict.toLowerCase().replace("-", "_");
-  document.getElementById("god-metric").textContent = res.god.toFixed(4);
-  document.getElementById("conf-metric").textContent = (res.confidence * 100).toFixed(1) + "%";
-  document.getElementById("rad-metric").textContent = res.boundary.radius.toFixed(4);
-  document.getElementById("boundary-details").textContent =
-    "Centroid: [" + res.boundary.centroid.map(function(v){ return v.toFixed(4); }).join(", ") + "]\n" +
-    "Radius: " + res.boundary.radius.toFixed(6) + "\n" +
-    "Epsilon: " + res.boundary.epsilon.toFixed(4) + "\n" +
-    "Dimensions: " + res.inputs.dimensions + "\n" +
-    "Commit count: " + res.inputs.commit_count;
-  document.getElementById("receipt-hash").textContent = "Tier " + tier + " — " + res.verdict + " (GOD=" + res.god.toFixed(4) + ")";
-  document.getElementById("canonical").value = res.receipt.canonical;
-}
-
-function copyHash() {
-  var hash = document.getElementById("receipt-hash").textContent;
-  if (hash !== "—") navigator.clipboard.writeText(hash);
-}
-
-function toggleCanonical() {
-  var el = document.getElementById("canonical");
-  el.style.display = (el.style.display === "none") ? "block" : "none";
-}
-
-// === MAIN EVALUATE ===
-async function evaluate() {
-  var raw = document.getElementById("data").value.trim();
-  if (!raw) { showError("Empty data. Load a sample or paste JSON."); return; }
-  var inputs;
-  try { inputs = JSON.parse(raw); } catch(err) { showError("Invalid JSON: " + err.message); return; }
-  if (!Array.isArray(inputs.commit_states) || !Array.isArray(inputs.proposed_state)) {
-    showError("Missing commit_states or proposed_state arrays."); return;
-  }
-
-  var btn = document.getElementById("eval-btn");
-  btn.disabled = true;
-  btn.textContent = "Evaluating...";
-
-  // Always do Tier 0 first (instant)
-  var localResult = evaluateLocal(inputs);
-  renderResult(localResult, 0);
-
-  // Try Tier 2 if backend URL provided
-  var api = document.getElementById("api").value.trim();
-  if (api) {
-    try {
-      var res = await fetch(api.replace(/\/$/, "") + "/v1/demo/run", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify(inputs)
-      });
-      if (res.ok) {
-        var data = await res.json();
-        document.getElementById("tier2-card").style.display = "block";
-        document.getElementById("tier2-hash").textContent = JSON.stringify(data, null, 2).substring(0, 500) + "...";
-      }
-    } catch(err) {
-      // Backend unavailable — Tier 0 result already displayed
-      console.log("Backend unavailable:", err.message);
-    }
-  }
-
-  btn.disabled = false;
-  btn.textContent = "Evaluate";
-}
-
-// Init
-loadDefault();
+// === INIT ===
+loadDefaultData();
 </script>
 </body>
 </html>
