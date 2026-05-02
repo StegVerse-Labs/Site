@@ -4,33 +4,130 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>StegVerse Demo</title>
+
 <style>
-:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--tier1:#6ee7ff;--tier2:#59f59b;--allow:#59f59b;--deny:#ffd166;--fail:#ff6b6b}
+:root{
+  --bg:#07111f;
+  --panel:#0f1b2d;
+  --panel2:#132640;
+  --text:#edf6ff;
+  --muted:#a8b8cc;
+  --line:rgba(255,255,255,.14);
+  --accent:#6ee7ff;
+  --accent2:#59f59b;
+  --warn:#ffd166;
+  --danger:#ff6b6b;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:#07111f;
+}
 a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline}
-.wrap{width:min(900px,calc(100% - 32px));margin:0 auto}
-header{padding:20px 0;border-bottom:1px solid var(--line)}
-.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.wrap{width:min(960px,calc(100% - 32px));margin:0 auto}
+header{padding:22px 0;border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
 .brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase}
-.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:22px}
-input,textarea{width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-textarea{min-height:260px;margin-top:12px}
-button{margin-top:12px;margin-right:8px;background:linear-gradient(135deg,#6ee7ff,#59f59b);color:#051019;border:0;border-radius:12px;padding:11px 15px;font-weight:900}
-button.secondary{background:#1f2d44;color:var(--text);border:1px solid var(--line)}
-button.commit{background:linear-gradient(135deg,#59f59b,#6ee7ff)}
-.value{white-space:pre-wrap;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#cfe6ff}
-.allow{color:var(--allow);font-weight:900}.deny{color:var(--deny);font-weight:900}.fail{color:var(--fail);font-weight:900}
-.tier{border-radius:18px;padding:18px;margin-top:18px}
-.tier1{border:2px solid var(--tier1);background:rgba(110,231,255,.06)}
-.tier2{border:2px solid var(--tier2);background:rgba(89,245,155,.06)}
-h1{font-size:clamp(2rem,7vw,3rem);margin:0 0 12px}
-h2{margin:0 0 12px} h3{margin:16px 0 8px}
+.links{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-weight:800}
+.links a.active{color:var(--accent)}
+main{padding:26px 0 44px}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px;
+  margin-top:18px;
+}
+.badge{
+  display:inline-flex;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:900;
+  margin-bottom:16px;
+}
+h1{font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;margin:0 0 18px}
+h2{margin:0 0 12px}
+h3{margin:18px 0 8px}
 p,li{color:var(--muted);line-height:1.55}
-.instructions{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(255,255,255,.035);margin:14px 0}
-.label{font-weight:900;color:#6ee7ff;letter-spacing:.05em;text-transform:uppercase;font-size:.85rem;margin-top:14px}
+label,.label{
+  display:block;
+  font-weight:900;
+  color:var(--accent);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  font-size:.86rem;
+  margin:16px 0 8px;
+}
+input,textarea{
+  width:100%;
+  background:#081523;
+  color:#e5e7eb;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.92rem;
+}
+textarea{
+  min-height:300px;
+  resize:vertical;
+}
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-top:14px;
+}
+button{
+  border:0;
+  border-radius:14px;
+  padding:13px 14px;
+  font-weight:950;
+  background:#132640;
+  color:var(--text);
+  border:1px solid var(--line);
+}
+button.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#04111d;
+  border:0;
+}
+button.commit{
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+  color:#04111d;
+  border:0;
+}
+.value{
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:#cfe6ff;
+}
+.allow{color:var(--accent2);font-weight:900}
+.deny{color:var(--warn);font-weight:900}
+.fail{color:var(--danger);font-weight:900}
+.tier{
+  border-radius:18px;
+  padding:18px;
+  margin-top:18px;
+}
+.tier1{border:2px solid var(--accent);background:rgba(110,231,255,.06)}
+.tier2{border:2px solid var(--accent2);background:rgba(89,245,155,.06)}
+.footer{
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  text-align:center;
+  padding:28px 16px 42px;
+}
+@media(max-width:720px){
+  .buttons{grid-template-columns:1fr}
+  textarea{min-height:260px}
+}
 </style>
 </head>
 
@@ -39,7 +136,8 @@ p,li{color:var(--muted);line-height:1.55}
   <div class="wrap nav">
     <a class="brand" href="index.html">StegVerse</a>
     <nav class="links" aria-label="Primary navigation">
-      <a href="demo.html">Demo</a>
+      <a href="index.html">Home</a>
+      <a class="active" href="demo.html">Demo</a>
       <a href="product.html">Product</a>
       <a href="pricing.html">Pricing</a>
       <a href="methodology.html">Methodology</a>
@@ -49,33 +147,37 @@ p,li{color:var(--muted);line-height:1.55}
 </header>
 
 <main class="wrap">
+
   <section class="card">
+    <div class="badge">Tier 2 • Backend Evaluation • Receipt Verification</div>
     <h1>StegVerse Demo</h1>
 
-    <label>Backend URL</label>
+    <label for="api">Backend URL</label>
     <input id="api" value="https://scw-api.onrender.com"/>
 
-    <div class="instructions">
+    <div class="card">
       <h2>How to use this demo</h2>
       <ul>
         <li><b>Default Data</b> restores the original sample dataset. It does not evaluate automatically.</li>
-        <li><b>User Data</b> clears the data window so you can paste or type your own JSON.</li>
-        <li><b>Random Data</b> fills the window with a random dataset. It does not evaluate automatically.</li>
+        <li><b>Random Data</b> fills the Data Capture Window with a random dataset. It does not evaluate automatically.</li>
+        <li><b>Clear</b> removes all data so you can paste your own JSON.</li>
         <li><b>Evaluate</b> is the only button that commits the current data to SCW for Tier 1/Tier 2 evaluation.</li>
       </ul>
       <p>
-        Required shape: <b>commit_states</b> must be an array of numeric vectors, and
-        <b>proposed_state</b> must be one numeric vector of the same length.
+        Required: <b>commit_states</b> must be an array of numeric vectors, and
+        <b>proposed_state</b> must be a numeric vector of the same length.
       </p>
     </div>
 
     <div class="label">Data Capture Window</div>
-    <textarea id="data"></textarea>
+    <textarea id="data" spellcheck="false"></textarea>
 
-    <button onclick="loadDefaultData()">Default Data</button>
-    <button class="secondary" onclick="loadUserData()">User Data</button>
-    <button class="secondary" onclick="loadRandomData()">Random Data</button>
-    <button class="commit" onclick="run()">Evaluate</button>
+    <div class="buttons">
+      <button class="primary" onclick="loadDefaultData()">Default Data</button>
+      <button onclick="loadRandomData()">Random Data</button>
+      <button onclick="clearData()">Clear</button>
+      <button class="commit" onclick="run()">Evaluate</button>
+    </div>
   </section>
 
   <section class="card">
@@ -109,7 +211,12 @@ p,li{color:var(--muted);line-height:1.55}
       Tier 2 produces a local no-side-effect execution receipt only after ALLOW.
     </p>
   </section>
+
 </main>
+
+<footer class="footer">
+  StegVerse • Trust failures • Commit-time admissibility • ALLOW / DENY / FAIL-CLOSED
+</footer>
 
 <script>
 function defaultPayload(){
@@ -127,7 +234,7 @@ function loadDefaultData(){
   clearResult();
 }
 
-function loadUserData(){
+function clearData(){
   document.getElementById("data").value = "";
   clearResult();
 }
@@ -152,6 +259,7 @@ function loadRandomData(){
 
 async function run(){
   const raw = document.getElementById("data").value.trim();
+
   if (!raw) {
     renderLocalFail("Empty Data Capture Window. No API call was made.");
     return;
@@ -209,7 +317,9 @@ function renderLocalFail(message){
   document.getElementById("confidence").textContent = "0";
   document.getElementById("boundary").textContent = "No boundary evaluated.";
   document.getElementById("tier1").textContent = message;
-  document.getElementById("tier2").textContent = "attempted: false\nreason: Tier 2 is not invoked when Tier 1 fails closed locally.";
+  document.getElementById("tier2").textContent =
+`attempted: false
+reason: Tier 2 is not invoked when Tier 1 fails closed locally.`;
 }
 
 function render(d){
