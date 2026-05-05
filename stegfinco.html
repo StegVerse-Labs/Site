@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>StegFinCo — Financial Execution Certification</title>
+<meta name="description" content="StegFinCo is the governed financial execution layer for StegVerse, certified against Fin-Co constraints through Fin-Co-Lab."/>
+<style>
+:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
+header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
+.nav{width:min(1040px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
+.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
+.links a.active{color:var(--accent)}
+.wrap{width:min(1040px,calc(100% - 32px));margin:0 auto;padding:20px 0}
+.hero{padding:58px 0 28px}
+.hero h1{font-size:clamp(2.1rem,6vw,3.45rem);line-height:1.08;margin:0 0 18px}
+.lead{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--muted);max-width:790px}
+.tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:800}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px;box-shadow:var(--shadow)}
+.card h2{font-size:1.35rem;margin:0 0 12px}
+.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
+.card p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:16px;margin:24px 0}
+.grid-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:22px}
+.grid-card h3{margin:0 0 8px;color:var(--text)}
+.grid-card p{margin:0;color:var(--muted);font-size:.94rem}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:20px 0}
+.metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:14px;border:1px solid var(--line)}
+.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.7rem;font-weight:900;color:var(--accent)}
+.metric-label{font-size:.74rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
+.flow{display:grid;gap:12px;margin:16px 0}
+.step{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:center;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
+.step strong{color:var(--accent);letter-spacing:.06em;text-transform:uppercase;font-size:.78rem}
+.step span{color:var(--muted)}
+.pill{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:900;font-size:.75rem;white-space:nowrap}
+.allow{color:var(--accent2)}.deny{color:var(--danger)}.fail{color:var(--warn)}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:16px;overflow:auto;white-space:pre-wrap;color:#e5f6ff}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.actions a{padding:12px 18px;border-radius:14px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:46px}
+.btn-main{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
+.btn-alt{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+th{color:var(--accent);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+td{color:var(--muted)}
+footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
+@media(max-width:700px){
+  .nav{flex-direction:column;align-items:flex-start}
+  .links{width:100%;justify-content:space-between}
+  .step{grid-template-columns:1fr}
+  .pill{width:max-content}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">StegVerse</a>
+    <nav class="links"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="stegfinco.html" class="active">FinCo</a><a href="product.html">Product</a><a href="pricing.html">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a><a href="./publisher/papers.html">Papers</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="tier-badge">Fin-Co · StegFinCo · Fin-Co-Lab · StegPay</div>
+    <h1>Financial execution should not become real until authority, evidence, and admissibility still hold.</h1>
+    <p class="lead">StegFinCo is the governed financial execution layer for StegVerse. It applies Fin-Co constitutional constraints at the point of financial action, while Fin-Co-Lab independently certifies the behavior and StegPay supplies verified payment evidence without becoming authority.</p>
+    <div class="actions">
+      <a class="btn-main" href="#certification">View certification result</a>
+      <a class="btn-alt" href="#stegpay">How StegPay is wired</a>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="grid-card">
+      <h3>Fin-Co</h3>
+      <p>Canonical financial constraint layer. It defines what compatible financial systems must not violate.</p>
+    </div>
+    <div class="grid-card">
+      <h3>StegFinCo</h3>
+      <p>Execution layer. It decides whether a financial transition may become effect-capable.</p>
+    </div>
+    <div class="grid-card">
+      <h3>Fin-Co-Lab</h3>
+      <p>Wind tunnel. It runs certification fixtures, failure cases, metrics, and evidence reports.</p>
+    </div>
+    <div class="grid-card">
+      <h3>StegPay</h3>
+      <p>Payment verifier. It verifies external payment facts and emits deterministic evidence.</p>
+    </div>
+  </section>
+
+  <section id="certification" class="card">
+    <h2>Certification status</h2>
+    <p>The first Fin-Co-Lab StegFinCo certification suite validates 10 deterministic cases across allow, deny, and fail-closed behavior.</p>
+    <div class="metric-grid">
+      <div class="metric"><div class="metric-value">10</div><div class="metric-label">Cases</div></div>
+      <div class="metric"><div class="metric-value">10</div><div class="metric-label">Passed</div></div>
+      <div class="metric"><div class="metric-value">0</div><div class="metric-label">Failed</div></div>
+      <div class="metric"><div class="metric-value">1.0</div><div class="metric-label">Outcome match</div></div>
+      <div class="metric"><div class="metric-value">5</div><div class="metric-label">Allow</div></div>
+      <div class="metric"><div class="metric-value">1</div><div class="metric-label">Deny</div></div>
+      <div class="metric"><div class="metric-value">4</div><div class="metric-label">Fail closed</div></div>
+    </div>
+    <div class="flow">
+      <div class="step"><strong>SFC-01</strong><span>Verified human compensation</span><div class="pill allow">ALLOW</div></div>
+      <div class="step"><strong>SFC-02</strong><span>AI compensation missing scope, beneficiary, and abuse-control basis</span><div class="pill fail">FAIL_CLOSED</div></div>
+      <div class="step"><strong>SFC-03</strong><span>External functional asset watchlist: XLM / Stellar candidate</span><div class="pill allow">ALLOW</div></div>
+      <div class="step"><strong>SFC-04</strong><span>Unclassified external asset with missing function, liquidity, custody, legal, and exposure basis</span><div class="pill fail">FAIL_CLOSED</div></div>
+      <div class="step"><strong>SFC-05</strong><span>Liquidity boundary missing exposure limits</span><div class="pill fail">FAIL_CLOSED</div></div>
+      <div class="step"><strong>SFC-06</strong><span>Verified StegPay payment event admitted as evidence only</span><div class="pill allow">ALLOW</div></div>
+      <div class="step"><strong>SFC-07</strong><span>Unsigned StegPay event</span><div class="pill fail">FAIL_CLOSED</div></div>
+      <div class="step"><strong>SFC-08</strong><span>StegToken attestation action</span><div class="pill allow">ALLOW</div></div>
+      <div class="step"><strong>SFC-09</strong><span>Treasury preparation as review preparation only</span><div class="pill allow">ALLOW</div></div>
+      <div class="step"><strong>SFC-10</strong><span>Treasury preparation attempting market execution</span><div class="pill deny">DENY</div></div>
+    </div>
+  </section>
+
+  <section id="stegpay" class="card">
+    <h2>How StegPay is wired in</h2>
+    <p>StegPay is deliberately narrow: it verifies that a payment event happened. It does not decide what that payment authorizes.</p>
+    <div class="code">Stripe or external payment event
+→ StegPay verifies event integrity and required metadata
+→ StegPay emits deterministic payment evidence
+→ StegFinCo treats the event as evidence only
+→ StegFinCo checks current authority and admissibility
+→ ALLOW / DENY / FAIL_CLOSED
+→ receipt written
+→ downstream StegOps or accounting action may proceed only if admitted</div>
+
+    <div class="split">
+      <div>
+        <h3>StegPay may do</h3>
+        <table>
+          <tr><th>Function</th><th>Boundary</th></tr>
+          <tr><td>Verify signature</td><td>Payment integrity only</td></tr>
+          <tr><td>Validate metadata</td><td>Requires issue number and service</td></tr>
+          <tr><td>Emit event</td><td>Deterministic evidence for governed systems</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>StegPay may not do</h3>
+        <table>
+          <tr><th>Forbidden role</th><th>Why</th></tr>
+          <tr><td>Authorize compensation</td><td>Authority belongs downstream</td></tr>
+          <tr><td>Move StegToken or StegCoin</td><td>Execution belongs to StegFinCo</td></tr>
+          <tr><td>Create entitlement</td><td>Payment is evidence, not authority</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>The financial governance chain</h2>
+    <div class="flow">
+      <div class="step"><strong>Define</strong><span>Fin-Co defines constitutional financial constraints.</span><div class="pill">Fin-Co</div></div>
+      <div class="step"><strong>Execute</strong><span>StegFinCo evaluates financial transitions at the point of action.</span><div class="pill">StegFinCo</div></div>
+      <div class="step"><strong>Certify</strong><span>Fin-Co-Lab independently tests allow, deny, and fail-closed behavior.</span><div class="pill">Fin-Co-Lab</div></div>
+      <div class="step"><strong>Evidence</strong><span>StegPay supplies verified payment evidence without becoming authority.</span><div class="pill">StegPay</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Boundary doctrine</h2>
+    <div class="code">Fin-Co defines.
+StegFinCo executes.
+Fin-Co-Lab certifies.
+StegPay verifies payment evidence.
+
+Payment is evidence.
+Governance creates authority.
+StegFinCo controls effect.
+No uncertain financial transition proceeds without FAIL_CLOSED.</div>
+  </section>
+</main>
+
+<footer>
+  StegVerse · Fin-Co compatibility · StegFinCo execution · Fin-Co-Lab certification · StegPay evidence
+</footer>
+</body>
+</html>
