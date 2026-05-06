@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StegVerse Roadmap — Formalisms, Tests, Papers</title>
+  <meta name="description" content="A public StegVerse roadmap showing green-lit advancement across formalisms, formalism tests, papers, and proof surfaces." />
+  <style>
+    :root {
+      --bg: #070b12;
+      --panel: #0f1724;
+      --panel-2: #111d2d;
+      --text: #edf3ff;
+      --muted: #a9b7cc;
+      --line: #28384f;
+      --green: #39d98a;
+      --yellow: #ffd166;
+      --blue: #66a6ff;
+      --red: #ff6b6b;
+      --gold: #d8b46a;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(102, 166, 255, 0.16), transparent 34rem),
+        radial-gradient(circle at top right, rgba(216, 180, 106, 0.14), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    header {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(15, 23, 36, 0.96), rgba(17, 29, 45, 0.9));
+      box-shadow: 0 18px 50px var(--shadow);
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4.25rem);
+      line-height: 1.02;
+      margin: 0 0 16px;
+    }
+
+    .lede {
+      color: var(--muted);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      max-width: 820px;
+      margin: 0;
+    }
+
+    .definition {
+      margin-top: 22px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--green);
+      background: rgba(57, 217, 138, 0.08);
+      border-radius: 14px;
+      color: var(--text);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      grid-column: span 12;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(15, 23, 36, 0.9);
+      box-shadow: 0 10px 30px var(--shadow);
+      overflow: hidden;
+    }
+
+    @media (min-width: 860px) {
+      .span-6 { grid-column: span 6; }
+      .span-4 { grid-column: span 4; }
+    }
+
+    .card h2,
+    .card h3 {
+      margin: 0;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(17, 29, 45, 0.72);
+    }
+
+    .card-body {
+      padding: 18px 20px 20px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: inline-block;
+      background: var(--muted);
+    }
+
+    .green .dot { background: var(--green); }
+    .yellow .dot { background: var(--yellow); }
+    .blue .dot { background: var(--blue); }
+    .red .dot { background: var(--red); }
+
+    .green { color: var(--green); }
+    .yellow { color: var(--yellow); }
+    .blue { color: var(--blue); }
+    .red { color: var(--red); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: rgba(216, 180, 106, 0.06);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .roadmap {
+      display: grid;
+      gap: 14px;
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .phase-number {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .phase h3 {
+      font-size: 1.05rem;
+      margin-bottom: 5px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .checklist li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 8px;
+      color: var(--muted);
+    }
+
+    .check {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .gate {
+      border-left: 4px solid var(--green);
+      padding: 12px 14px;
+      background: rgba(57, 217, 138, 0.08);
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    code {
+      color: #d7e7ff;
+      background: rgba(102, 166, 255, 0.12);
+      border: 1px solid rgba(102, 166, 255, 0.2);
+      border-radius: 7px;
+      padding: 2px 6px;
+      font-size: 0.92em;
+    }
+
+    footer {
+      color: var(--muted);
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">StegVerse Public Roadmap</div>
+      <h1>Green-light roadmap for formalisms, tests, papers, and proof surfaces.</h1>
+      <p class="lede">
+        This page tracks when each StegVerse advancement is ready to move from idea, to formalism,
+        to executable test, to paper, to public proof surface.
+      </p>
+      <div class="definition">
+        <strong>Roadmap rule:</strong> an advancement is green-lit only when its formal definition,
+        test harness, evidence output, and publication path are visible enough to be independently inspected.
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Roadmap status summary">
+      <article class="card span-4">
+        <div class="card-head">
+          <h2>Formalisms</h2>
+          <span class="status green"><span class="dot"></span>Active</span>
+        </div>
+        <div class="card-body">
+          <p class="muted">
+            Canonical mathematical definitions and architecture notes live under the
+            <code>formalisms</code> organization.
+          </p>
+        </div>
+      </article>
+
+      <article class="card span-4">
+        <div class="card-head">
+          <h2>Tests</h2>
+          <span class="status yellow"><span class="dot"></span>Build-out</span>
+        </div>
+        <div class="card-body">
+          <p class="muted">
+            Executable validation, sweeps, admissibility checks, and receipt verification live under
+            the <code>formalism-tests</code> organization.
+          </p>
+        </div>
+      </article>
+
+      <article class="card span-4">
+        <div class="card-head">
+          <h2>Papers</h2>
+          <span class="status blue"><span class="dot"></span>Drafting</span>
+        </div>
+        <div class="card-body">
+          <p class="muted">
+            Papers promote validated formalism/test pairs into citable public claims.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid" aria-label="Green-light phases">
+      <article class="card">
+        <div class="card-head">
+          <h2>Green-light sequence</h2>
+          <span class="status green"><span class="dot"></span>No silent promotion</span>
+        </div>
+        <div class="card-body roadmap">
+          <div class="phase">
+            <div class="phase-number">1</div>
+            <div>
+              <h3>Define the formalism</h3>
+              <p class="muted">
+                The concept receives a canonical repo, minimal definitions, variables, admissibility conditions,
+                and a clear boundary statement.
+              </p>
+              <div class="gate"><strong>Green light:</strong> the formalism can be read without relying on private conversation context.</div>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-number">2</div>
+            <div>
+              <h3>Build the test surface</h3>
+              <p class="muted">
+                The corresponding test repo receives deterministic examples, failure cases, and executable checks.
+              </p>
+              <div class="gate"><strong>Green light:</strong> the test repo can produce ALLOW, DENY, or FAIL_CLOSED from stated inputs.</div>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-number">3</div>
+            <div>
+              <h3>Generate receipts and replay evidence</h3>
+              <p class="muted">
+                Each test emits evidence showing the proposed transition, decision basis, outcome, and replay path.
+              </p>
+              <div class="gate"><strong>Green light:</strong> an external reader can reconstruct why the transition was accepted or rejected.</div>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-number">4</div>
+            <div>
+              <h3>Promote to paper track</h3>
+              <p class="muted">
+                Validated formalism/test pairs become paper sections, theorem candidates, figures, and claims.
+              </p>
+              <div class="gate"><strong>Green light:</strong> every major paper claim points to a formal definition or executable proof surface.</div>
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-number">5</div>
+            <div>
+              <h3>Publish the proof surface</h3>
+              <p class="muted">
+                The public page links the formalism repo, test repo, paper draft, demo artifact, and receipt outputs.
+              </p>
+              <div class="gate"><strong>Green light:</strong> StegVerse can show admissibility before effect, not just explanation after effect.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid" aria-label="Formalism roadmap table">
+      <article class="card">
+        <div class="card-head">
+          <h2>Formalism advancement table</h2>
+          <span class="status yellow"><span class="dot"></span>Update as repos mature</span>
+        </div>
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr>
+                <th>Advancement</th>
+                <th>Formalism repo</th>
+                <th>Test repo</th>
+                <th>Paper track</th>
+                <th>Current gate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GCAT / BCAT</td>
+                <td><code>formalisms/gcat-bcat-formalism</code></td>
+                <td><code>formalism-tests/gcat-bcat-tests</code></td>
+                <td>Commit-Time Governance / GCAT Framework</td>
+                <td><span class="green">Green-lit for canonicalization</span></td>
+              </tr>
+              <tr>
+                <td>Rigel Recoverability</td>
+                <td><code>formalisms/rigel-recoverability-formalism</code></td>
+                <td><code>formalism-tests/rigel-recoverability-tests</code></td>
+                <td>Recoverability Geometry on the Simplex</td>
+                <td><span class="yellow">Needs dedicated test harness</span></td>
+              </tr>
+              <tr>
+                <td>Inference Window</td>
+                <td><code>formalisms/inference-window-formalism</code></td>
+                <td><code>formalism-tests/inference-window-tests</code></td>
+                <td>Temporal Lag and Commit-Time Admissibility</td>
+                <td><span class="green">Green-lit for first tests</span></td>
+              </tr>
+              <tr>
+                <td>Entropy / Reversibility</td>
+                <td><code>formalisms/entropy-reversibility-formalism</code></td>
+                <td><code>formalism-tests/entropy-reversibility-tests</code></td>
+                <td>Irreversibility and Consequence Binding</td>
+                <td><span class="yellow">Define measurable transition classes</span></td>
+              </tr>
+              <tr>
+                <td>Transition Periodic Table</td>
+                <td><code>formalisms/transition-periodic-table</code></td>
+                <td><code>formalism-tests/transition-periodic-table-tests</code></td>
+                <td>Transition Taxonomy for Governance at Scale</td>
+                <td><span class="yellow">Start with inferable labels only</span></td>
+              </tr>
+              <tr>
+                <td>Triad Formalism</td>
+                <td><code>formalisms/triad-formalism</code></td>
+                <td><code>formalism-tests/triad-tests</code></td>
+                <td>GCAT/BCAT : ECAT/ICAT : Existence</td>
+                <td><span class="blue">Architecture alignment stage</span></td>
+              </tr>
+              <tr>
+                <td>Existence Formalism</td>
+                <td><code>formalisms/existence-formalism</code></td>
+                <td><code>formalism-tests/existence-tests</code></td>
+                <td>Existence and Boundary Conditions</td>
+                <td><span class="blue">Definition stage</span></td>
+              </tr>
+              <tr>
+                <td>ECAT / ICAT</td>
+                <td><code>formalisms/ecat-icat-formalism</code></td>
+                <td><code>formalism-tests/ecat-icat-tests</code></td>
+                <td>Emotional/Cognitive Admissibility</td>
+                <td><span class="blue">Sandbox-only until constraints mature</span></td>
+              </tr>
+              <tr>
+                <td>Sandbox</td>
+                <td><code>formalisms/sandbox-formalism</code></td>
+                <td><code>formalism-tests/sandbox-tests</code></td>
+                <td>Executable Proof-Surface Infrastructure</td>
+                <td><span class="green">Green-lit as shared test substrate</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid" aria-label="Done criteria">
+      <article class="card span-6">
+        <div class="card-head">
+          <h2>Done criteria</h2>
+          <span class="status green"><span class="dot"></span>Verification required</span>
+        </div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li><span class="check">✓</span><span>Canonical formalism repo exists.</span></li>
+            <li><span class="check">✓</span><span>Matching formalism-test repo exists.</span></li>
+            <li><span class="check">✓</span><span>Minimal executable test produces deterministic outcomes.</span></li>
+            <li><span class="check">✓</span><span>Receipts or reports explain the decision basis.</span></li>
+            <li><span class="check">✓</span><span>Paper draft references the formalism and test evidence.</span></li>
+            <li><span class="check">✓</span><span>Public proof surface links all relevant artifacts.</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <div class="card-head">
+          <h2>Public category anchor</h2>
+          <span class="status blue"><span class="dot"></span>Use consistently</span>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>StegVerse is commit-time admissibility infrastructure for consequence-bearing systems.</strong>
+          </p>
+          <p class="muted">
+            It does not merely record what happened after consequence binds. It determines whether a proposed
+            transition has sufficient admissibility to become effect-capable at all.
+          </p>
+          <div class="gate">
+            <strong>Execution rule:</strong> no admissibility at commit, no mutation.
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      StegVerse roadmap page — update statuses as formalism repos, test repos, paper drafts, and proof surfaces become public.
+    </footer>
+  </main>
+</body>
+</html>
