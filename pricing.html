@@ -86,13 +86,34 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 <header>
   <div class="nav">
     <a class="brand" href="index.html">StegVerse</a>
-    <nav class="links"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="product.html">Product</a><a href="pricing.html" class="active">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
+    <!-- Unified navigation matching the home page -->
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="demo.html">Demo</a>
+      <a href="stegfinco.html">FinCo</a>
+      <a href="support.html">Support</a>
+      <a href="product.html">Product</a>
+      <a href="pricing.html" class="active">Pricing</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="about.html">About</a>
+      <a href="./publisher/papers.html">Papers</a>
+    </nav>
   </div>
 </header>
 <main class="wrap">
-  <div class="card">
+    <div class="card">
     <h1>Pricing</h1>
     <p style="color:var(--muted)">Pricing reflects a short, senior-only engagement that produces board-ready clarity with minimal disruption.</p>
+    <!-- Observable enforcement demo section -->
+    <div class="card" style="margin-top:20px">
+      <h2>Observable Enforcement Demo</h2>
+      <p style="color:var(--muted)">StegVerse includes a publicly observable execution-bound governance demonstration.</p>
+      <p style="color:var(--muted)">The system evaluates projected state transitions at commit time and produces deterministic:</p>
+      <div class="receipt-hash">ALLOW<br/>DENY<br/>FAIL_CLOSED</div>
+      <p style="color:var(--muted)">outcomes with full receipt reconstruction and admissibility alignment.</p>
+      <p style="color:var(--muted)">View the SDK demonstration:</p>
+      <p style="color:var(--muted)"><a href="https://github.com/StegVerse-org/demo-suite-runner" target="_blank" rel="noopener noreferrer">github.com/StegVerse-org/demo-suite-runner</a></p>
+    </div>
     <div class="card" style="margin-top:20px">
       <div class="tier-label">Tier 1 — AI & Governance Risk Audit</div>
       <div class="price">$12,500 – $18,000 · 2–3 weeks</div>
@@ -102,13 +123,25 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
     <div class="card" style="margin-top:20px">
       <div class="tier-label">Tier 2 — Full Trust & Risk Audit (Recommended)</div>
       <div class="price">$20,000 – $30,000 · 2–3 weeks</div>
-      <p style="color:var(--muted)">Includes Tier 1 plus: credential lifecycle analysis, trust boundary mapping, automation abuse / privilege drift scenarios, audit trail and recovery integrity assessment.</p>
+      <p style="color:var(--muted)">
+        Includes Tier&nbsp;1 plus: credential lifecycle analysis, trust boundary mapping,
+        automation abuse &amp; privilege drift scenarios, audit trail and recovery integrity assessment,
+        <strong>execution‑path admissibility review</strong>, <strong>receipt‑chain integrity analysis</strong>, and
+        <strong>recovery‑state reconstruction assessment</strong>.
+      </p>
     </div>
     <div class="card" style="margin-top:20px">
-      <div class="tier-label">Tier 3 — Continuous Trust Oversight (Quarterly)</div>
+      <div class="tier-label">Tier 3 — Quarterly Execution Boundary Review</div>
       <div class="price">$60,000 – $90,000 / year</div>
-      <p style="color:var(--muted)">Quarterly cadence every 90 days. Detect risk drift as systems evolve. Maintain defensibility as AI, automation, and identity change.</p>
-      <p style="color:var(--muted)">Includes per quarter: delta analysis, updated risk register + prioritized actions, executive summary update, executive review call.</p>
+      <p style="color:var(--muted)">
+        Quarterly cadence every 90&nbsp;days. Detect drift across state, authority, admissibility, and
+        trust boundaries as systems evolve. Maintain defensibility as AI, automation, and identity
+        change.
+      </p>
+      <p style="color:var(--muted)">
+        Includes per quarter: execution‑path drift analysis, updated risk register &amp; prioritized
+        actions, executive summary update, and executive review session.
+      </p>
     </div>
   </div>
 </main>
