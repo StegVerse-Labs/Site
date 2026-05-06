@@ -104,7 +104,7 @@ jobs:
           echo "**Source path:** papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Target:** StegVerse-Labs/Site/papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public index:** Papers.html" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Directory index:** papers/index.html" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Aliases:** papers.html, papers/, publisher/papers.html, publisher/papers/" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
           if [ -f papers/papers_manifest.json ]; then
@@ -125,7 +125,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add Papers.html papers scripts/mirror_papers.py
+          git add Papers.html papers.html papers publisher scripts/mirror_papers.py
 
           if git diff --cached --quiet; then
             echo "No paper mirror changes to commit."
