@@ -2,6 +2,15 @@ name: Mirror Papers from GCAT-BCAT-Engine
 
 on:
   workflow_dispatch:
+    inputs:
+      source_repository:
+        description: "Repository to mirror from, owner/name"
+        required: false
+        default: "StegVerse-Labs/GCAT-BCAT-Engine"
+      source_ref:
+        description: "Source branch, tag, or SHA"
+        required: false
+        default: "main"
   schedule:
     - cron: "17 */6 * * *"
 
@@ -14,18 +23,65 @@ jobs:
       contents: write
       actions: read
 
+    env:
+      DEFAULT_SOURCE_REPOSITORY: "StegVerse-Labs/GCAT-BCAT-Engine"
+      DEFAULT_SOURCE_REF: "main"
+
     steps:
+      - name: Resolve mirror inputs
+        id: mirror
+        run: |
+          SOURCE_REPOSITORY="${{ github.event.inputs.source_repository }}"
+          SOURCE_REF="${{ github.event.inputs.source_ref }}"
+
+          if [ -z "$SOURCE_REPOSITORY" ]; then
+            SOURCE_REPOSITORY="${{ vars.PAPERS_SOURCE_REPOSITORY }}"
+          fi
+
+          if [ -z "$SOURCE_REF" ]; then
+            SOURCE_REF="${{ vars.PAPERS_SOURCE_REF }}"
+          fi
+
+          if [ -z "$SOURCE_REPOSITORY" ]; then
+            SOURCE_REPOSITORY="$DEFAULT_SOURCE_REPOSITORY"
+          fi
+
+          if [ -z "$SOURCE_REF" ]; then
+            SOURCE_REF="$DEFAULT_SOURCE_REF"
+          fi
+
+          echo "source_repository=$SOURCE_REPOSITORY" >> "$GITHUB_OUTPUT"
+          echo "source_ref=$SOURCE_REF" >> "$GITHUB_OUTPUT"
+
+          echo "Resolved source repository: $SOURCE_REPOSITORY"
+          echo "Resolved source ref: $SOURCE_REF"
+
       - name: Checkout Site
         uses: actions/checkout@v4
         with:
           path: site
 
-      - name: Checkout GCAT-BCAT-Engine
+      - name: Checkout source papers repository
         uses: actions/checkout@v4
         with:
-          repository: StegVerse-Labs/GCAT-BCAT-Engine
-          ref: main
+          repository: ${{ steps.mirror.outputs.source_repository }}
+          ref: ${{ steps.mirror.outputs.source_ref }}
           path: site/_source
+          token: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN || github.token }}
+
+      - name: Verify source papers path
+        working-directory: site
+        run: |
+          if [ ! -d "_source/publisher/papers" ]; then
+            echo "Source checkout succeeded, but _source/publisher/papers was not found."
+            echo "Expected source path: publisher/papers"
+            echo "Source repository: ${{ steps.mirror.outputs.source_repository }}"
+            echo "Source ref: ${{ steps.mirror.outputs.source_ref }}"
+            exit 1
+          fi
+
+          echo "Source papers path found."
+          find _source/publisher/papers -maxdepth 3 -type f -print | head -50
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -43,7 +99,9 @@ jobs:
         run: |
           echo "## Mirror Papers from GCAT-BCAT-Engine" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Source:** StegVerse-Labs/GCAT-BCAT-Engine/publisher/papers" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Source repository:** ${{ steps.mirror.outputs.source_repository }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Source ref:** ${{ steps.mirror.outputs.source_ref }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Source path:** publisher/papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Target:** StegVerse-Labs/Site/papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public index:** Papers.html" >> "$GITHUB_STEP_SUMMARY"
           echo "**Directory index:** papers/index.html" >> "$GITHUB_STEP_SUMMARY"
@@ -54,6 +112,12 @@ jobs:
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
             cat papers/papers_manifest.json >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### Mirror did not produce papers_manifest.json" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "If source checkout failed with repository not found, the source repo is either misnamed or private/inaccessible to the Site workflow token." >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Set a Site repo secret named STEGVERSE_REPO_SYNC_TOKEN with read access to the source repo, or run manually with the correct source_repository input." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Commit mirrored papers
@@ -67,6 +131,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No paper mirror changes to commit."
           else
-            git commit -m "Mirror papers from GCAT-BCAT-Engine"
+            git commit -m "Mirror papers from source repository"
             git push
           fi
