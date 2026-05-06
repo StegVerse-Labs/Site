@@ -11,8 +11,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_PAPERS = REPO_ROOT / "_source" / "papers"
 TARGET_PAPERS = REPO_ROOT / "papers"
+
 PAPERS_HTML = REPO_ROOT / "Papers.html"
+PAPERS_LOWER_HTML = REPO_ROOT / "papers.html"
 PAPERS_INDEX = TARGET_PAPERS / "index.html"
+
+PUBLISHER_DIR = REPO_ROOT / "publisher"
+PUBLISHER_PAPERS_DIR = PUBLISHER_DIR / "papers"
+PUBLISHER_PAPERS_HTML = PUBLISHER_DIR / "papers.html"
+PUBLISHER_PAPERS_INDEX = PUBLISHER_PAPERS_DIR / "index.html"
+
 MANIFEST_PATH = TARGET_PAPERS / "papers_manifest.json"
 
 ALLOWED_EXTENSIONS = {
@@ -29,6 +37,7 @@ def clean_target() -> None:
     if TARGET_PAPERS.exists():
         shutil.rmtree(TARGET_PAPERS)
     TARGET_PAPERS.mkdir(parents=True, exist_ok=True)
+    PUBLISHER_PAPERS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def copy_papers() -> list[dict]:
@@ -68,6 +77,24 @@ def category(extension: str) -> str:
     if extension in {".tex", ".bib"}:
         return "LaTeX and references"
     return "Other paper assets"
+
+
+def render_redirect(target: str) -> str:
+    safe_target = html.escape(target, quote=True)
+    return (
+        '<!DOCTYPE html>\\n'
+        '<html lang="en">\\n'
+        '<head>\\n'
+        '<meta charset="utf-8"/>\\n'
+        '<meta name="viewport" content="width=device-width,initial-scale=1"/>\\n'
+        '<meta http-equiv="refresh" content="0; url=' + safe_target + '"/>\\n'
+        '<title>Redirecting to StegVerse Papers</title>\\n'
+        '<link rel="canonical" href="' + safe_target + '"/>\\n'
+        '<style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07111f;color:#edf6ff;margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}a{color:#6ee7ff}</style>\\n'
+        '</head>\\n'
+        '<body><main><h1>Redirecting to StegVerse Papers</h1><p><a href="' + safe_target + '">Open StegVerse Papers</a></p></main></body>\\n'
+        '</html>\\n'
+    )
 
 
 def render_page(entries: list[dict]) -> str:
@@ -113,7 +140,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         '<main class="wrap">',
         '<section><div class="badge">Mirrored paper outputs</div><h1>StegVerse Papers</h1>',
         '<p class="lead">This page mirrors paper outputs from <strong>GCAT-BCAT-Engine/Publisher/papers</strong> into the public Site repository. When new papers are pushed to that source path and the mirror workflow runs, they become visible here.</p></section>',
-        '<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/Publisher/papers\nTarget: StegVerse-Labs/Site/papers\nIndex: StegVerse-Labs/Site/Papers.html\nGenerated UTC: ' + html.escape(generated) + "\nMirrored files: " + str(len(entries)) + "</pre></section>",
+        '<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/Publisher/papers\\nTarget: StegVerse-Labs/Site/papers\\nIndex: StegVerse-Labs/Site/Papers.html\\nAliases: papers.html, papers/, publisher/papers.html, publisher/papers/\\nGenerated UTC: ' + html.escape(generated) + "\\nMirrored files: " + str(len(entries)) + "</pre></section>",
     ]
 
     if not entries:
@@ -137,7 +164,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         "</html>",
     ])
 
-    return "\n".join(parts)
+    return "\\n".join(parts)
 
 
 def main() -> int:
@@ -147,18 +174,34 @@ def main() -> int:
         "target": "StegVerse-Labs/Site/papers",
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "count": len(entries),
+        "aliases": [
+            "Papers.html",
+            "papers.html",
+            "papers/index.html",
+            "publisher/papers.html",
+            "publisher/papers/index.html"
+        ],
         "entries": entries,
-    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    }, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
 
     page = render_page(entries)
     PAPERS_HTML.write_text(page, encoding="utf-8")
     PAPERS_INDEX.write_text(page, encoding="utf-8")
 
+    PAPERS_LOWER_HTML.write_text(render_redirect("Papers.html"), encoding="utf-8")
+    PUBLISHER_DIR.mkdir(parents=True, exist_ok=True)
+    PUBLISHER_PAPERS_DIR.mkdir(parents=True, exist_ok=True)
+    PUBLISHER_PAPERS_HTML.write_text(render_redirect("../Papers.html"), encoding="utf-8")
+    PUBLISHER_PAPERS_INDEX.write_text(render_redirect("../../Papers.html"), encoding="utf-8")
+
     print(json.dumps({
         "ok": True,
         "mirrored_count": len(entries),
         "papers_html": str(PAPERS_HTML),
+        "papers_lower_html": str(PAPERS_LOWER_HTML),
         "papers_index": str(PAPERS_INDEX),
+        "publisher_papers_html": str(PUBLISHER_PAPERS_HTML),
+        "publisher_papers_index": str(PUBLISHER_PAPERS_INDEX),
         "manifest": str(MANIFEST_PATH),
     }, indent=2, sort_keys=True))
     return 0
