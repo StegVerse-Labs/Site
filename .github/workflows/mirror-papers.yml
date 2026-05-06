@@ -1,0 +1,72 @@
+name: Mirror Papers from GCAT-BCAT-Engine
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+jobs:
+  mirror-papers:
+    name: Mirror papers into Site
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      actions: read
+
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: Checkout GCAT-BCAT-Engine
+        uses: actions/checkout@v4
+        with:
+          repository: StegVerse-Labs/GCAT-BCAT-Engine
+          ref: main
+          path: site/_source
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Mirror papers and generate indexes
+        working-directory: site
+        run: |
+          python scripts/mirror_papers.py
+
+      - name: Write summary
+        if: always()
+        working-directory: site
+        run: |
+          echo "## Mirror Papers from GCAT-BCAT-Engine" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Source:** StegVerse-Labs/GCAT-BCAT-Engine/publisher/papers" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Target:** StegVerse-Labs/Site/papers" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Public index:** Papers.html" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Directory index:** papers/index.html" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f papers/papers_manifest.json ]; then
+            echo "### Papers manifest" >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat papers/papers_manifest.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit mirrored papers
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Papers.html papers scripts/mirror_papers.py
+
+          if git diff --cached --quiet; then
+            echo "No paper mirror changes to commit."
+          else
+            git commit -m "Mirror papers from GCAT-BCAT-Engine"
+            git push
+          fi
