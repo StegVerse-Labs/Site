@@ -1,4 +1,4 @@
-name: Mirror Papers from GCAT-BCAT-Engine
+name: Mirror Papers from Publisher
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       source_repository:
         description: "Repository to mirror from, owner/name"
         required: false
-        default: "StegVerse-Labs/GCAT-BCAT-Engine"
+        default: "BCAT-GCAT-Engine/Publisher"
       source_ref:
         description: "Source branch, tag, or SHA"
         required: false
@@ -24,7 +24,7 @@ jobs:
       actions: read
 
     env:
-      DEFAULT_SOURCE_REPOSITORY: "StegVerse-Labs/GCAT-BCAT-Engine"
+      DEFAULT_SOURCE_REPOSITORY: "BCAT-GCAT-Engine/Publisher"
       DEFAULT_SOURCE_REF: "main"
 
     steps:
@@ -72,16 +72,16 @@ jobs:
       - name: Verify source papers path
         working-directory: site
         run: |
-          if [ ! -d "_source/publisher/papers" ]; then
-            echo "Source checkout succeeded, but _source/publisher/papers was not found."
-            echo "Expected source path: publisher/papers"
+          if [ ! -d "_source/papers" ]; then
+            echo "Source checkout succeeded, but _source/papers was not found."
+            echo "Expected source path: papers"
             echo "Source repository: ${{ steps.mirror.outputs.source_repository }}"
             echo "Source ref: ${{ steps.mirror.outputs.source_ref }}"
             exit 1
           fi
 
           echo "Source papers path found."
-          find _source/publisher/papers -maxdepth 3 -type f -print | head -50
+          find _source/papers -maxdepth 3 -type f -print | head -50
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -97,11 +97,11 @@ jobs:
         if: always()
         working-directory: site
         run: |
-          echo "## Mirror Papers from GCAT-BCAT-Engine" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Mirror Papers from Publisher" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "**Source repository:** ${{ steps.mirror.outputs.source_repository }}" >> "$GITHUB_STEP_SUMMARY"
           echo "**Source ref:** ${{ steps.mirror.outputs.source_ref }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Source path:** publisher/papers" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Source path:** papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Target:** StegVerse-Labs/Site/papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public index:** Papers.html" >> "$GITHUB_STEP_SUMMARY"
           echo "**Directory index:** papers/index.html" >> "$GITHUB_STEP_SUMMARY"
@@ -115,9 +115,8 @@ jobs:
           else
             echo "### Mirror did not produce papers_manifest.json" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "If source checkout failed with repository not found, the source repo is either misnamed or private/inaccessible to the Site workflow token." >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "Set a Site repo secret named STEGVERSE_REPO_SYNC_TOKEN with read access to the source repo, or run manually with the correct source_repository input." >> "$GITHUB_STEP_SUMMARY"
+            echo "If source checkout failed with repository not found, the source repo is private/inaccessible to the Site workflow token." >> "$GITHUB_STEP_SUMMARY"
+            echo "Set a Site repo secret named STEGVERSE_REPO_SYNC_TOKEN with read access to BCAT-GCAT-Engine/Publisher." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Commit mirrored papers
@@ -131,6 +130,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No paper mirror changes to commit."
           else
-            git commit -m "Mirror papers from source repository"
+            git commit -m "Mirror papers from Publisher"
             git push
           fi
