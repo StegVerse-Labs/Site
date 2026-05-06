@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pricing — StegVerse</title>
+<style>
+:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
+header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
+.nav{width:min(900px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
+.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
+.links a.active{color:var(--accent)}
+.wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:20px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
+.card h1{font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 12px}
+.card h2{font-size:1.3rem;margin:0 0 12px}
+.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
+.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.instructions{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03);margin:16px 0}
+.instructions h2{margin:0 0 10px;font-size:1.1rem}
+.instructions p,.instructions li{color:var(--muted);font-size:.9rem}
+footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
+.price{font-size:1.5rem;font-weight:800;color:var(--accent2);margin:10px 0}
+.tier-label{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem}
+.proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.proof-pill{border:1px solid var(--line);background:rgba(0,0,0,.22);border-radius:14px;padding:12px;text-align:center;font-weight:900;letter-spacing:.06em}
+.proof-pill.allow{color:var(--accent2)}
+.proof-pill.deny{color:var(--warn)}
+.proof-pill.fail{color:var(--danger)}
+.small-note{color:var(--muted);font-size:.88rem}
+@media(max-width:600px){.nav{flex-direction:column;align-items:flex-start}.links{width:100%;justify-content:space-between}.btn-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">StegVerse</a>
+    <nav class="links"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="product.html">Product</a><a href="pricing.html" class="active">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+<main class="wrap">
+  <div class="card">
+    <h1>Pricing</h1>
+    <p style="color:var(--muted)">
+      Pricing reflects short, senior-only engagements focused on execution-boundary risk, commit-time admissibility, trust-state drift, and defensible evidence.
+    </p>
+
+    <div class="instructions">
+      <h2>Observable Enforcement Demo</h2>
+      <p>
+        StegVerse includes a publicly observable execution-bound governance demonstration.
+        The demo evaluates projected state transitions at commit-time and produces deterministic outcomes:
+      </p>
+
+      <div class="proof-grid">
+        <div class="proof-pill allow">ALLOW</div>
+        <div class="proof-pill deny">DENY</div>
+        <div class="proof-pill fail">FAIL_CLOSED</div>
+      </div>
+
+      <p>
+        Each outcome is receipt-backed, reconstructable, and checked for GCAT / BCAT admissibility alignment.
+        A denial is not an absence of behavior; it is a recorded boundary enforcement event.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn-primary" style="display:inline-block;padding:11px 18px;border-radius:12px;font-weight:800;color:#051019;text-decoration:none" href="demo.html">View Site Demo</a>
+        <a class="btn-secondary" style="display:inline-block;padding:11px 18px;border-radius:12px;font-weight:800;text-decoration:none" href="https://github.com/StegVerse-org/demo-suite-runner" target="_blank" rel="noopener">View SDK Demo</a>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <div class="tier-label">Tier 1 — Execution-Bound AI & Governance Risk Audit</div>
+      <div class="price">$12,500 – $18,000 · 2–3 weeks</div>
+      <p style="color:var(--muted)">
+        Focus: AI and automation risk exposure, execution-boundary gaps, governance defensibility,
+        accountability alignment, and documentation integrity.
+      </p>
+      <p style="color:var(--muted)">
+        Deliverables: execution-bound risk assessment, trust-boundary map, admissibility exposure summary,
+        prioritized governance findings, and executive briefing materials.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <div class="tier-label">Tier 2 — Full Trust & Execution Boundary Audit (Recommended)</div>
+      <div class="price">$20,000 – $30,000 · 2–3 weeks</div>
+      <p style="color:var(--muted)">
+        Includes Tier 1 plus: credential lifecycle analysis, trust-boundary mapping,
+        execution-path admissibility review, automation abuse / privilege drift scenarios,
+        receipt-chain integrity analysis, and recovery-state reconstruction assessment.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <div class="tier-label">Tier 3 — Quarterly Admissibility Drift Review</div>
+      <div class="price">$60,000 – $90,000 / year</div>
+      <p style="color:var(--muted)">
+        Quarterly review cadence focused on execution-boundary drift, trust-state evolution,
+        credential and authority changes, automation risk expansion, and admissibility degradation over time.
+      </p>
+      <p style="color:var(--muted)">
+        Includes per quarter: delta analysis, execution-path review, updated admissibility findings,
+        prioritized corrective actions, updated risk register, and executive review session.
+      </p>
+    </div>
+
+    <p class="small-note" style="margin-top:20px">
+      These engagements are advisory and evidentiary by default. Production enforcement, managed operation,
+      and customer-specific integrations are scoped separately.
+    </p>
+  </div>
+</main>
+<footer>
+  StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL_CLOSED
+</footer>
+</body>
+</html>
