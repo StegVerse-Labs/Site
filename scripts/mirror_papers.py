@@ -81,20 +81,27 @@ def category(extension: str) -> str:
 
 def render_redirect(target: str) -> str:
     safe_target = html.escape(target, quote=True)
-    return (
-        '<!DOCTYPE html>\\n'
-        '<html lang="en">\\n'
-        '<head>\\n'
-        '<meta charset="utf-8"/>\\n'
-        '<meta name="viewport" content="width=device-width,initial-scale=1"/>\\n'
-        '<meta http-equiv="refresh" content="0; url=' + safe_target + '"/>\\n'
-        '<title>Redirecting to StegVerse Papers</title>\\n'
-        '<link rel="canonical" href="' + safe_target + '"/>\\n'
-        '<style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07111f;color:#edf6ff;margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}a{color:#6ee7ff}</style>\\n'
-        '</head>\\n'
-        '<body><main><h1>Redirecting to StegVerse Papers</h1><p><a href="' + safe_target + '">Open StegVerse Papers</a></p></main></body>\\n'
-        '</html>\\n'
-    )
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta http-equiv="refresh" content="0; url={target}"/>
+<title>Redirecting to StegVerse Papers</title>
+<link rel="canonical" href="{target}"/>
+<style>
+body{{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07111f;color:#edf6ff;margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}}
+a{{color:#6ee7ff}}
+</style>
+</head>
+<body>
+<main>
+<h1>Redirecting to StegVerse Papers</h1>
+<p><a href="{target}">Open StegVerse Papers</a></p>
+</main>
+</body>
+</html>
+""".format(target=safe_target)
 
 
 def render_page(entries: list[dict]) -> str:
@@ -106,17 +113,23 @@ def render_page(entries: list[dict]) -> str:
 
     css = """
 :root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
-a{color:inherit}.wrap{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:24px 0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+a{color:inherit}
+.wrap{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:24px 0}
 header{border-bottom:1px solid var(--line);background:rgba(7,17,31,.92);position:sticky;top:0}
 .nav{width:min(1080px,calc(100% - 32px));margin:0 auto;display:flex;gap:16px;justify-content:space-between;align-items:center;padding:18px 0;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;text-decoration:none}.links{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-weight:700}
-.links a.active{color:var(--accent)}h1{font-size:clamp(2.1rem,6vw,3.45rem);line-height:1.08}.lead,.muted{color:var(--muted)}
+.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;text-decoration:none}
+.links{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-weight:700}
+.links a.active{color:var(--accent)}
+h1{font-size:clamp(2.1rem,6vw,3.45rem);line-height:1.08}
+.lead,.muted{color:var(--muted)}
 .badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:800}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .paper{display:block;border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.04);text-decoration:none}
-.title{font-weight:900}.meta{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-size:.82rem;word-break:break-word}
+.title{font-weight:900}
+.meta{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-size:.82rem;word-break:break-word}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--accent);font-size:.72rem;font-weight:800;margin-top:10px}
 pre{white-space:pre-wrap;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:16px;color:#e5f6ff}
 footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
@@ -140,7 +153,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         '<main class="wrap">',
         '<section><div class="badge">Mirrored paper outputs</div><h1>StegVerse Papers</h1>',
         '<p class="lead">This page mirrors paper outputs from <strong>GCAT-BCAT-Engine/Publisher/papers</strong> into the public Site repository. When new papers are pushed to that source path and the mirror workflow runs, they become visible here.</p></section>',
-        '<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/Publisher/papers\\nTarget: StegVerse-Labs/Site/papers\\nIndex: StegVerse-Labs/Site/Papers.html\\nAliases: papers.html, papers/, publisher/papers.html, publisher/papers/\\nGenerated UTC: ' + html.escape(generated) + "\\nMirrored files: " + str(len(entries)) + "</pre></section>",
+        '<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/Publisher/papers\nTarget: StegVerse-Labs/Site/papers\nIndex: StegVerse-Labs/Site/Papers.html\nAliases: papers.html, papers/, publisher/papers.html, publisher/papers/\nGenerated UTC: ' + html.escape(generated) + "\nMirrored files: " + str(len(entries)) + "</pre></section>",
     ]
 
     if not entries:
@@ -164,7 +177,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         "</html>",
     ])
 
-    return "\\n".join(parts)
+    return "\n".join(parts)
 
 
 def main() -> int:
@@ -182,7 +195,7 @@ def main() -> int:
             "publisher/papers/index.html"
         ],
         "entries": entries,
-    }, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+    }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     page = render_page(entries)
     PAPERS_HTML.write_text(page, encoding="utf-8")
