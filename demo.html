@@ -118,11 +118,54 @@ button.commit{
 }
 .tier1{border:2px solid var(--accent);background:rgba(110,231,255,.06)}
 .tier2{border:2px solid var(--accent2);background:rgba(89,245,155,.06)}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:14px;
+}
+.example{
+  background:rgba(8,21,35,.72);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+}
+.example h3{margin-top:0;color:var(--text)}
+.example .tag{
+  display:inline-flex;
+  border:1px solid var(--line);
+  color:var(--accent);
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:.76rem;
+  font-weight:900;
+  margin-bottom:10px;
+}
+.kv{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:10px;
+  border-top:1px solid var(--line);
+  padding-top:10px;
+  margin-top:10px;
+}
+.kv strong{color:var(--accent)}
+.notice{
+  background:rgba(255,209,102,.08);
+  border:1px solid rgba(255,209,102,.32);
+  border-radius:16px;
+  padding:14px;
+  margin-top:12px;
+}
 .footer{
   border-top:1px solid var(--line);
   color:var(--muted);
   text-align:center;
   padding:28px 16px 42px;
+}
+@media(max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .kv{grid-template-columns:1fr}
 }
 @media(max-width:720px){
   .buttons{grid-template-columns:1fr}
@@ -138,11 +181,13 @@ button.commit{
     <nav class="links" aria-label="Primary navigation">
       <a href="index.html">Home</a>
       <a class="active" href="demo.html">Demo</a>
+      <a href="stegfinco.html">FinCo</a>
+      <a href="support.html">Support</a>
       <a href="product.html">Product</a>
       <a href="pricing.html">Pricing</a>
       <a href="methodology.html">Methodology</a>
       <a href="about.html">About</a>
-      <a href="./publisher/papers.html">Papers</a>
+      <a href="Papers.html">Papers</a>
     </nav>
   </div>
 </header>
@@ -152,23 +197,97 @@ button.commit{
   <section class="card">
     <div class="badge">Tier 2 • Backend Evaluation • Receipt Verification</div>
     <h1>StegVerse Demo</h1>
+    <p>
+      This demo evaluates whether a proposed transition should be allowed to become real.
+      The current state history is represented as <b>commit_states</b>.
+      The requested next state is represented as <b>proposed_state</b>.
+    </p>
+    <p>
+      StegVerse checks the transition at the commit boundary. The question is not whether the action sounds useful.
+      The question is whether the system still has enough valid basis to let that action bind.
+    </p>
+  </section>
 
+  <section class="card">
+    <h2>What this demo evaluates</h2>
+    <div class="kv">
+      <strong>commit_states</strong>
+      <span>Prior system states, evidence states, risk measurements, governance measurements, or trust-relevant observations.</span>
+    </div>
+    <div class="kv">
+      <strong>proposed_state</strong>
+      <span>The next state the system wants to commit. This is the transition being tested before it becomes effect-capable.</span>
+    </div>
+    <div class="kv">
+      <strong>ALLOW</strong>
+      <span>The proposed transition is admissible under the current boundary.</span>
+    </div>
+    <div class="kv">
+      <strong>DENY</strong>
+      <span>The proposed transition crosses the admissibility boundary and should not bind.</span>
+    </div>
+    <div class="kv">
+      <strong>FAIL-CLOSED</strong>
+      <span>The system lacks enough valid structure, data, authority, or connectivity to act safely.</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Real-world examples</h2>
+    <p>
+      The demo uses small numeric vectors so the boundary can be tested quickly in a browser.
+      In a real system, those numbers would come from measurements, checks, receipts, or model outputs.
+    </p>
+
+    <div class="grid">
+      <div class="example">
+        <span class="tag">AI deployment approval</span>
+        <h3>Can an agent deploy a production change?</h3>
+        <p><b>commit_states</b> might represent rollback capacity, authorization confidence, incident pressure, current system stability, and recent deployment history.</p>
+        <p><b>proposed_state</b> represents the deployment state the agent wants to commit.</p>
+        <p>The demo asks whether the deployment is still admissible now, not whether it looked reasonable earlier in planning.</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Payment evidence</span>
+        <h3>Can a payment fact become a financial effect?</h3>
+        <p><b>commit_states</b> might represent payment verification, receipt basis, non-entitlement flags, governance authority, and current financial policy constraints.</p>
+        <p><b>proposed_state</b> represents the requested interpretation of the payment event.</p>
+        <p>The demo asks whether payment evidence remains evidence only, or whether it is trying to create unauthorized entitlement.</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Credential or access change</span>
+        <h3>Can a privileged action proceed?</h3>
+        <p><b>commit_states</b> might represent identity confidence, current trust level, policy freshness, receipt continuity, and anomaly pressure.</p>
+        <p><b>proposed_state</b> represents the access change about to be committed.</p>
+        <p>The demo asks whether enough current authority and evidence still exist to let the access change become real.</p>
+      </div>
+    </div>
+
+    <div class="notice">
+      In all three examples, a transition can appear valid upstream and still become unsafe at the moment of execution.
+      This is why the boundary is checked at commit time.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>How to use this demo</h2>
+    <ul>
+      <li><b>Default Data</b> restores the original sample dataset. It does not evaluate automatically.</li>
+      <li><b>Random Data</b> fills the Data Capture Window with a random dataset. It does not evaluate automatically.</li>
+      <li><b>Clear</b> removes all data so you can paste your own JSON.</li>
+      <li><b>Evaluate</b> is the only button that commits the current data to SCW for Tier 1/Tier 2 evaluation.</li>
+    </ul>
+    <p>
+      Required: <b>commit_states</b> must be an array of numeric vectors, and
+      <b>proposed_state</b> must be a numeric vector of the same length.
+    </p>
+  </section>
+
+  <section class="card">
     <label for="api">Backend URL</label>
     <input id="api" value="https://scw-api.onrender.com"/>
-
-    <div class="card">
-      <h2>How to use this demo</h2>
-      <ul>
-        <li><b>Default Data</b> restores the original sample dataset. It does not evaluate automatically.</li>
-        <li><b>Random Data</b> fills the Data Capture Window with a random dataset. It does not evaluate automatically.</li>
-        <li><b>Clear</b> removes all data so you can paste your own JSON.</li>
-        <li><b>Evaluate</b> is the only button that commits the current data to SCW for Tier 1/Tier 2 evaluation.</li>
-      </ul>
-      <p>
-        Required: <b>commit_states</b> must be an array of numeric vectors, and
-        <b>proposed_state</b> must be a numeric vector of the same length.
-      </p>
-    </div>
 
     <div class="label">Data Capture Window</div>
     <textarea id="data" spellcheck="false"></textarea>
@@ -208,8 +327,15 @@ button.commit{
 
     <h3>What this proves</h3>
     <p>
-      Tier 1 evaluates admissibility at the commit boundary.
-      Tier 2 produces a local no-side-effect execution receipt only after ALLOW.
+      This demo shows the distinction between evaluating a decision and allowing a transition to commit.
+      A system may produce a plausible action, recommendation, payment interpretation, deployment request,
+      or access change. StegVerse evaluates whether that proposed transition is admissible at the moment
+      it would become effect-capable.
+    </p>
+    <p>
+      Tier 1 evaluates the commit boundary. Tier 2 produces a local no-side-effect receipt after ALLOW.
+      DENY and FAIL-CLOSED are also valid evidence outcomes. The point is not to make every action succeed.
+      The point is to prevent unsupported transitions from becoming real.
     </p>
   </section>
 
