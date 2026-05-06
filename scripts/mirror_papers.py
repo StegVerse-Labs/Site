@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_PAPERS = REPO_ROOT / "_source" / "publisher" / "papers"
+SOURCE_PAPERS = REPO_ROOT / "_source" / "papers"
 TARGET_PAPERS = REPO_ROOT / "papers"
 PAPERS_HTML = REPO_ROOT / "Papers.html"
 PAPERS_INDEX = TARGET_PAPERS / "index.html"
@@ -73,6 +73,7 @@ def category(extension: str) -> str:
 def render_page(entries: list[dict]) -> str:
     generated = datetime.now(timezone.utc).isoformat()
     grouped: dict[str, list[dict]] = {}
+
     for entry in entries:
         grouped.setdefault(category(entry["extension"]), []).append(entry)
 
@@ -101,22 +102,22 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         '<meta charset="utf-8"/>',
         '<meta name="viewport" content="width=device-width,initial-scale=1"/>',
         "<title>StegVerse Papers</title>",
-        '<meta name="description" content="Mirrored StegVerse papers from GCAT-BCAT-Engine publisher outputs."/>',
+        '<meta name="description" content="Mirrored StegVerse papers from BCAT-GCAT-Engine/Publisher papers outputs."/>',
         "<style>" + css + "</style>",
         "</head>",
         "<body>",
-        "<header><div class=\"nav\">",
+        '<header><div class="nav">',
         '<a class="brand" href="index.html">StegVerse</a>',
         '<nav class="links"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="stegfinco.html">FinCo</a><a href="support.html">Support</a><a href="product.html">Product</a><a href="pricing.html">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a><a href="Papers.html" class="active">Papers</a></nav>',
         "</div></header>",
         '<main class="wrap">',
         '<section><div class="badge">Mirrored paper outputs</div><h1>StegVerse Papers</h1>',
-        '<p class="lead">This page mirrors paper outputs from <strong>GCAT-BCAT-Engine/publisher/papers</strong> into the public Site repository. When new papers are pushed to that source path and the mirror workflow runs, they become visible here.</p></section>',
-        '<section class="card"><h2>Mirror status</h2><pre>Source: StegVerse-Labs/GCAT-BCAT-Engine/publisher/papers\nTarget: StegVerse-Labs/Site/papers\nIndex: StegVerse-Labs/Site/Papers.html\nGenerated UTC: ' + html.escape(generated) + "\nMirrored files: " + str(len(entries)) + "</pre></section>",
+        '<p class="lead">This page mirrors paper outputs from <strong>BCAT-GCAT-Engine/Publisher/papers</strong> into the public Site repository. When new papers are pushed to that source path and the mirror workflow runs, they become visible here.</p></section>',
+        '<section class="card"><h2>Mirror status</h2><pre>Source: BCAT-GCAT-Engine/Publisher/papers\nTarget: StegVerse-Labs/Site/papers\nIndex: StegVerse-Labs/Site/Papers.html\nGenerated UTC: ' + html.escape(generated) + "\nMirrored files: " + str(len(entries)) + "</pre></section>",
     ]
 
     if not entries:
-        parts.append('<section class="card"><h2>No mirrored papers yet</h2><p class="muted">No supported files were found in GCAT-BCAT-Engine/publisher/papers.</p></section>')
+        parts.append('<section class="card"><h2>No mirrored papers yet</h2><p class="muted">No supported files were found in BCAT-GCAT-Engine/Publisher/papers.</p></section>')
     else:
         for label, label_entries in grouped.items():
             parts.append('<section class="card"><h2>' + html.escape(label) + '</h2><div class="grid">')
@@ -131,7 +132,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 
     parts.extend([
         "</main>",
-        "<footer>StegVerse · Papers mirrored from GCAT-BCAT-Engine · Generated " + html.escape(generated) + "</footer>",
+        "<footer>StegVerse · Papers mirrored from BCAT-GCAT-Engine/Publisher · Generated " + html.escape(generated) + "</footer>",
         "</body>",
         "</html>",
     ])
@@ -142,7 +143,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 def main() -> int:
     entries = copy_papers()
     MANIFEST_PATH.write_text(json.dumps({
-        "source": "StegVerse-Labs/GCAT-BCAT-Engine/publisher/papers",
+        "source": "BCAT-GCAT-Engine/Publisher/papers",
         "target": "StegVerse-Labs/Site/papers",
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "count": len(entries),
