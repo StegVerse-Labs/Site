@@ -59,6 +59,21 @@
       box-shadow: 0 18px 50px var(--shadow);
     }
 
+    .top-links {
+      margin-bottom: 18px;
+    }
+
+    .top-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(102, 166, 255, 0.08);
+      color: var(--text);
+      font-weight: 700;
+    }
+
     .eyebrow {
       color: var(--gold);
       font-weight: 700;
@@ -270,6 +285,9 @@
 <body>
   <main class="wrap">
     <header>
+      <nav class="top-links" aria-label="Primary links">
+        <a href="index.html">← StegVerse Home</a>
+      </nav>
       <div class="eyebrow">StegVerse Public Roadmap</div>
       <h1>Green-light roadmap for formalisms, tests, papers, and proof surfaces.</h1>
       <p class="lede">
@@ -318,6 +336,7 @@
           <p class="muted">
             Papers promote validated formalism/test pairs into citable public claims.
           </p>
+          <p><a href="papers/index.html">View available papers →</a></p>
         </div>
       </article>
     </section>
