@@ -165,7 +165,7 @@
                 const el = form.querySelector(`[data-field="${f.id}"]`);
                 vals[f.id] = parseFloat(el?.value) || 0;
             });
-            // Formula: monthly_evals * (incident_rate/100) * (governance_reduction/100) * avg_incident_cost * 12
+
             const savings = vals.monthly_evals * (vals.incident_rate / 100) * (vals.governance_reduction / 100) * vals.avg_incident_cost * 12;
             result.querySelector('.calc-value').textContent = '$' + Math.round(savings).toLocaleString();
         };
@@ -178,7 +178,7 @@
         container.appendChild(calc);
     }
 
-    async function render(containerId, opts) {
+    async function render(containerId, opts = {}) {
         const container = document.getElementById(containerId);
         if (!container) throw new Error(`Container #${containerId} not found`);
 
@@ -188,7 +188,6 @@
             const manifest = await fetchManifest(opts.source);
             container.innerHTML = '';
 
-            // Economic model header
             if (manifest.economic_model) {
                 const econ = document.createElement('div');
                 econ.className = 'pricing-econ';
