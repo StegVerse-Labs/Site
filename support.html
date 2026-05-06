@@ -11,14 +11,14 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
 a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
 header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
-.nav{width:min(1040px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.nav{width:min(1080px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
 .links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
 .links a.active{color:var(--accent)}
-.wrap{width:min(1040px,calc(100% - 32px));margin:0 auto;padding:20px 0}
+.wrap{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:20px 0}
 .hero{padding:58px 0 30px}
 .hero h1{font-size:clamp(2.1rem,6vw,3.45rem);line-height:1.08;margin:0 0 18px}
-.lead{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--muted);max-width:790px}
+.lead{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--muted);max-width:820px}
 .tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:800}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px;box-shadow:var(--shadow)}
 .card h2{font-size:1.35rem;margin:0 0 12px}
@@ -27,7 +27,7 @@ header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:24px 0}
 .grid-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:22px}
 .grid-card h3{margin:0 0 8px;color:var(--text)}
-.grid-card p{margin:0 0 16px;color:var(--muted);font-size:.94rem}
+.grid-card p{margin:0;color:var(--muted);font-size:.94rem}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 .actions a,.btn{padding:12px 18px;border-radius:14px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:46px}
 .btn-main{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
@@ -35,22 +35,23 @@ header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;
 .btn-support{background:linear-gradient(135deg,var(--warn),var(--accent));color:#051019}
 .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:16px;overflow:auto;white-space:pre-wrap;color:#e5f6ff}
 .flow{display:grid;gap:12px;margin:16px 0}
-.step{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:center;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
+.step{display:grid;grid-template-columns:112px 1fr auto;gap:14px;align-items:center;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
 .step strong{color:var(--accent);letter-spacing:.06em;text-transform:uppercase;font-size:.78rem}
 .step span{color:var(--muted)}
 .pill{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:900;font-size:.75rem;white-space:nowrap}
-.allow{color:var(--accent2)}.deny{color:var(--danger)}.fail{color:var(--warn)}
+.green{color:var(--accent2)}.warn{color:var(--warn)}.red{color:var(--danger)}.blue{color:var(--accent)}
 .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:20px 0}
 .metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:14px;border:1px solid var(--line)}
 .metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.7rem;font-weight:900;color:var(--accent)}
 .metric-label{font-size:.74rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
-.sitemap{display:grid;gap:10px;margin-top:16px}
-.sitemap a{display:flex;justify-content:space-between;gap:14px;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035);color:var(--text);font-weight:750;text-decoration:none}
-.sitemap a span{color:var(--muted);font-weight:600}
 .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
 .notice{border:1px solid rgba(255,209,102,.35);background:rgba(255,209,102,.08);border-radius:16px;padding:16px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.92rem}
+th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+th{color:var(--accent);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+td{color:var(--muted)}
 footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
-@media(max-width:700px){
+@media(max-width:760px){
   .nav{flex-direction:column;align-items:flex-start}
   .links{width:100%;justify-content:space-between}
   .step{grid-template-columns:1fr}
@@ -70,39 +71,76 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 </header>
 <main class="wrap">
   <section class="hero">
-    <div class="tier-badge">Research support · No entitlement · Evidence only</div>
+    <div class="tier-badge">Research support · Validated governance path · No entitlement</div>
     <h1>Support StegVerse Research.</h1>
-    <p class="lead">Support independent StegVerse research, demos, certification work, and open governance infrastructure.</p>
+    <p class="lead">Support independent StegVerse research, demos, certification work, and open governance infrastructure. The support-payment path is treated as evidence only and has been validated across StegPay, StegFinCo, Fin-Co-Lab, and Fin-Co.</p>
     <div class="actions">
       <a class="btn-support" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00" target="_blank" rel="noopener noreferrer">Support StegVerse Research</a>
-      <a class="btn-alt" href="stegfinco.html">View certification stack</a>
+      <a class="btn-alt" href="stegfinco.html">View the governance proof chain</a>
     </div>
   </section>
 
   <section class="card">
-    <h2>What support funds</h2>
-    <div class="grid">
-      <div class="grid-card"><h3>Research</h3><p>Formal work on commit-time admissibility, receipts, certification, and governed execution.</p></div>
-      <div class="grid-card"><h3>Demos</h3><p>Public, reproducible demonstrations of ALLOW / DENY / FAIL-CLOSED behavior.</p></div>
-      <div class="grid-card"><h3>Certification</h3><p>Fin-Co-Lab scenarios, failure-injection cases, reports, and validation tooling.</p></div>
-      <div class="grid-card"><h3>Infrastructure</h3><p>Open governance infrastructure for trust, payment evidence, and execution boundaries.</p></div>
+    <h2>Support-payment governance status</h2>
+    <p>The support path is not an investment, token purchase, membership, governance right, or compensation authorization. It is a payment-evidence path with explicit non-entitlement constraints.</p>
+    <div class="flow">
+      <div class="step"><strong>Site</strong><span>Public support button routes to Stripe hosted payment page.</span><div class="pill green">wired</div></div>
+      <div class="step"><strong>StegPay</strong><span>Stripe webhook receiver, signed support evidence, and support-event normalization are green.</span><div class="pill green">validated</div></div>
+      <div class="step"><strong>StegFinCo</strong><span>Classifies support_event transitions: ALLOW evidence only, DENY entitlement, FAIL_CLOSED missing basis.</span><div class="pill green">validated</div></div>
+      <div class="step"><strong>Fin-Co-Lab</strong><span>Independently certifies six support-event cases with outcome coverage across ALLOW / DENY / FAIL_CLOSED.</span><div class="pill green">certified</div></div>
+      <div class="step"><strong>Fin-Co</strong><span>Records support-payment evidence as compatible only as evidence, with no entitlement across token, coin, governance, investment, repayment, priority, or compensation surfaces.</span><div class="pill green">recorded</div></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="grid-card">
+      <h3>What support funds</h3>
+      <p>Research, demos, certification work, public proof surfaces, and open governance infrastructure.</p>
+    </div>
+    <div class="grid-card">
+      <h3>What support does not create</h3>
+      <p>No token rights, coin rights, governance access, investment upside, repayment claim, priority entitlement, or compensation authorization.</p>
+    </div>
+    <div class="grid-card">
+      <h3>How it is interpreted</h3>
+      <p>As verified payment evidence only. Governance and execution systems decide what, if anything, may happen downstream.</p>
     </div>
   </section>
 
   <section class="card">
-    <h2>Important boundary</h2>
-    <div class="notice">
-      Supporting StegVerse Research does not create StegToken rights, StegCoin rights, governance access, investment upside, priority entitlement, future repayment, or any automatic financial claim.
+    <h2>Validated support-event behavior</h2>
+    <div class="metric-grid">
+      <div class="metric"><div class="metric-value">6</div><div class="metric-label">Certified cases</div></div>
+      <div class="metric"><div class="metric-value">6</div><div class="metric-label">Passed</div></div>
+      <div class="metric"><div class="metric-value">0</div><div class="metric-label">Failed</div></div>
+      <div class="metric"><div class="metric-value">1.0</div><div class="metric-label">Outcome match</div></div>
+      <div class="metric"><div class="metric-value">1</div><div class="metric-label">ALLOW</div></div>
+      <div class="metric"><div class="metric-value">1</div><div class="metric-label">DENY</div></div>
+      <div class="metric"><div class="metric-value">4</div><div class="metric-label">FAIL_CLOSED</div></div>
+    </div>
+    <div class="flow">
+      <div class="step"><strong>ALLOW</strong><span>Verified support evidence may be recorded as evidence only.</span><div class="pill green">evidence</div></div>
+      <div class="step"><strong>DENY</strong><span>Any support event attempting entitlement is denied.</span><div class="pill red">blocked</div></div>
+      <div class="step"><strong>FAIL_CLOSED</strong><span>Wrong metadata, missing receipt basis, unverified signature, or evidence_only=false fails closed.</span><div class="pill warn">closed</div></div>
     </div>
   </section>
 
   <section class="card">
-    <h2>How support is wired</h2>
+    <h2>Payment boundary</h2>
     <div class="code">Stripe support payment
-→ StegPay may verify the payment event later
-→ verified event becomes evidence only
-→ StegFinCo may record the support event if admitted
+→ StegPay verifies payment evidence
+→ StegPay emits evidence_only=true and creates_entitlement=false
+→ StegFinCo classifies the event at the execution boundary
+→ Fin-Co-Lab certifies ALLOW / DENY / FAIL_CLOSED behavior
+→ Fin-Co records compatibility only as evidence
 → no automatic entitlement is created</div>
+  </section>
+
+  <section class="card">
+    <h2>Non-entitlement notice</h2>
+    <div class="notice">
+      Supporting StegVerse Research does not create StegToken rights, StegCoin rights, governance access, investment upside, priority entitlement, repayment claims, or compensation authorization.
+    </div>
   </section>
 </main>
 <footer>
