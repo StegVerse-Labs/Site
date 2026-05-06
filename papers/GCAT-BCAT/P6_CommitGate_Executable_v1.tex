@@ -1,0 +1,71 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,listings,booktabs}
+\usepackage{cite}
+\title{\bf Executable Commit-Time Governance: A Reference Implementation of Admissibility at the Point of Action}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We present a minimal executable reference implementation of the commit-time gate. The system evaluates a deterministic post-commit state against a conservative certified subset of the robust recoverable region. Three benchmark scenarios produce reproducible traces in which the gate denies the transition that violates the certified safety conditions, while recovery succeeds after denial. The implementation uses fewer than 200 lines of Python and constant-time vector operations.
+\end{abstract}
+\section{Implementation Structure}
+The implementation consists of four components: the GCAT state $\x\in[0,1]^4$, the commit operator $\Phiop(\x,u)$, the certified test for $\Scert(\tau)$, and the ALLOW/DENY gate.
+\section{Certified Test}
+A proposed action produces
+\[
+\x_{next}=\Phiop(\x,u).
+\]
+The implementation evaluates whether $\x_{next}\in\Scert(\tau)$, where
+\[
+\Scert(\tau)=\{\x:B_F(\xt)>0\ \wedge\ B_D(\xt)>0\}.
+\]
+The two barriers are
+\[
+B_F(\xt)=d_F(\xt)-\epsilon_{crit}(\tau),\qquad
+B_D(\xt)=d_{max}(\tau)-d_\Delta(\xt,\Rigel).
+\]
+\section{Recovery Step}
+When a commit is denied, the implementation applies a simple recovery move based on the normalized error
+\[
+e=\xt-\Rigel.
+\]
+The normalized recovery input is
+\[
+\tilde u_{rec}=-K_{rec}e.
+\]
+\section{Results}
+\begin{table}[h]
+\centering
+\caption{Gate Outcomes}
+\begin{tabular}{lcccc}
+\toprule
+Scenario & Actions & Allowed & Denied & Recovery \\
+\midrule
+Drone & 4 & 3 & 1 & 100\% \\
+Human & 9 & 8 & 1 & 100\% \\
+Consensus & 11 & 10 & 1 & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+No allowed transition produces a post-commit state outside the certified subset used by the implementation.
+\section{Conclusion}
+The executable gate demonstrates that commit-time governance is not merely conceptual. A small deterministic implementation suffices to enforce a conservative version of the commit rule in real time.
+\end{document}

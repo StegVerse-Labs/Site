@@ -1,0 +1,94 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf Governance Under Lag: A Geometric Framework for Recoverability}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We extend the admissibility and recoverability stack to systems operating under temporal lag. Observation delay, decision delay, and actuation delay together create a window during which the system evolves without corrective intervention. We formalize lag-reachable sets, define robust and existential recoverability under delay, prove monotonic degradation with lag, and introduce a lag-adjusted Rigel number. The framework shows how delay transforms recoverability from a pointwise property into a set-based condition.
+\end{abstract}
+\section{Lag Decomposition}
+Let total lag be
+\[
+\tau=\tau_{obs}+\tau_{dec}+\tau_{act}.
+\]
+\section{Lag-Reachable Sets}
+Let the uncontrolled lag dynamics be
+\[
+\dot{\x}=f_0(\x,d),
+\]
+with bounded disturbance $d\in\mathcal{D}$.
+The lag-reachable set from an initial state $\x_0$ is
+\[
+\mathcal{L}(\x_0,\tau)=\{\x(\tau): \dot{\x}=f_0(\x,d),\ \x(0)=\x_0,\ d\in\mathcal{D}\}.
+\]
+The safe lag-reachable set is
+\[
+\mathcal{L}_{safe}(\x_0,\tau)=\{\x(\tau)\in\mathcal{L}(\x_0,\tau): \x(t)\notin\Cset,\ \forall t\in[0,\tau]\}.
+\]
+\section{Time-Conditioned Recoverability}
+Define robust lag recoverability by
+\[
+\x_0\in\Rrob(\tau)\iff \mathcal{L}_{safe}(\x_0,\tau)\subseteq \Rset(0).
+\]
+Define existential lag recoverability by
+\[
+\x_0\in\mathcal{R}_{ex}(\tau)\iff \mathcal{L}_{safe}(\x_0,\tau)\cap \Rset(0)\neq\emptyset.
+\]
+\section{Monotonic Degradation}
+If $\tau_1<\tau_2$, then robust and existential recoverable regions shrink monotonically:
+\[
+\Rrob(\tau_2)\subseteq \Rrob(\tau_1),\qquad
+\mathcal{R}_{ex}(\tau_2)\subseteq \mathcal{R}_{ex}(\tau_1).
+\]
+\section{Critical Lag}
+For each state $\x_0$, define the critical lag
+\[
+\tau_{crit}(\x_0)=\sup\{\tau:\x_0\in\Rrob(\tau)\}.
+\]
+\section{Lag-Adjusted Rigel Number}
+Define
+\[
+\Ri(\x_0;\tau)=
+\begin{cases}
+\inf_{\x_\tau\in\mathcal{L}_{safe}(\x_0,\tau)} \Ri(\xt_\tau), & \text{if }\mathcal{L}_{safe}(\x_0,\tau)\subseteq \Rset(0),\\
+0, & \text{otherwise.}
+\end{cases}
+\]
+This score is nonincreasing in $\tau$ and vanishes once lag exceeds the critical threshold.
+\section{Illustrative Regimes}
+\begin{table}[h]
+\centering
+\caption{Critical Lag (Illustrative)}
+\begin{tabular}{lcccc}
+\hline
+System & $\tau_{typical}$ & $\tau_{crit}$ & Sensitivity & Regime \\
+\hline
+Drone & 0.8s & $\sim$0.6s & High & Sub-second critical \\
+Human & 48hr & $\sim$72hr & Moderate & Multi-day ceiling \\
+Consensus & 5min & $\sim$15min & Low & Wide tolerance \\
+\hline
+\end{tabular}
+\end{table}
+\section{Conclusion}
+Lag transforms recoverability from a pointwise property into a set-based condition over reachable states. This paper provides the temporal bridge needed before commit-time enforcement can be stated meaningfully.
+\end{document}

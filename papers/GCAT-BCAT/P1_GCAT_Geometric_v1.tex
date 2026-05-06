@@ -1,0 +1,104 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf The GCAT Framework: A Geometric Theory of Governed Autonomy}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We introduce the Governed Capability-Autonomy-Trust (GCAT) framework as a geometric theory for admissible autonomy. The framework defines a four-dimensional state space over governance capacity, control authority, autonomy, and trust, and introduces a multiplicative legitimacy-capacity function that bounds sustainable autonomy. This induces an admissible region defined by a scalar invariant. We characterize the geometry of this region, analyze its boundary structure, derive comparative statics with respect to system parameters, and study a normalized resource-constrained variant on the simplex. The formulation is static by design: it isolates capacity-bounded admissibility prior to any dynamical or enforcement layer.
+\end{abstract}
+\section{Introduction}
+Autonomous systems operate within institutional and operational limits that are rarely captured in a single formal object. Existing work usually isolates control, trust, or governance, but does not provide a common geometry relating them to autonomy.
+GCAT supplies that geometry. The central claim is simple: sustainable autonomy is bounded by the system's joint capacity to govern, control, and sustain trust. This paper focuses only on the static structure of that claim. It does not introduce trajectories, lag, enforcement, or control synthesis.
+\section{State Space and Capacity}
+Let
+\[
+\x=(g,c,a,t)\in[0,1]^4,
+\]
+where $g$ denotes governance capacity, $c$ denotes control authority, $a$ denotes autonomy, and $t$ denotes trust.
+Define the legitimacy-capacity function
+\[
+\Lam(\x)=K g^\alpha c^\beta t^\gamma,
+\]
+with $K>0$ and $\alpha,\beta,\gamma>0$.
+\section{Admissibility}
+Define the admissibility margin
+\[
+m(\x)=\Lam(\x)-a
+\]
+and the admissible region
+\[
+\A=\{\x\in[0,1]^4:m(\x)\ge 0\}.
+\]
+For every admissible state,
+\[
+a\le \Lam(\x).
+\]
+\section{Geometry of the Admissible Region}
+The boundary of $\A$ is the hypersurface
+\[
+a=\Lam(\x)=K g^\alpha c^\beta t^\gamma.
+\]
+For fixed values of the other variables, $\Lam(\x)$ is strictly increasing in each of $g,c,t$. If any of $g,c,t$ approaches zero, then $\Lam(\x)\to 0$, and admissibility requires $a\to 0$. The admissible region is generally nonconvex because the multiplicative boundary is curved.
+\section{Comparative Statics}
+The first-order sensitivities are
+\[
+\frac{\partial \Lam}{\partial g}=\alpha K g^{\alpha-1}c^\beta t^\gamma,\qquad
+\frac{\partial \Lam}{\partial c}=\beta K g^\alpha c^{\beta-1}t^\gamma,\qquad
+\frac{\partial \Lam}{\partial t}=\gamma K g^\alpha c^\beta t^{\gamma-1}.
+\]
+Taking logarithms gives
+\[
+\log \Lam=\log K+\alpha\log g+\beta\log c+\gamma\log t.
+\]
+Thus $\alpha,\beta,\gamma$ are direct log-elasticities.
+\section{Normalized and Resource-Constrained Variant}
+For systems in which total capacity is normalized, define
+\[
+\Delta^3=\left\{y\in\mathbb{R}^4_+:\sum_{i=1}^4 y_i=1\right\}.
+\]
+A normalized state is
+\[
+\xt=\frac{\x}{\|\x\|_1}\in\Delta^3.
+\]
+The resource-constrained variant, BCAT, restricts the system to the simplex by requiring
+\[
+g+c+a+t=1.
+\]
+On this manifold, increasing one component necessarily reduces at least one other component.
+\section{Illustrative Regimes}
+\begin{table}[h]
+\centering
+\caption{Illustrative Regimes}
+\begin{tabular}{lcccccc}
+\hline
+System & $K$ & $\alpha$ & $\beta$ & $\gamma$ & State & $m(\x)$ \\
+\hline
+Drone & 0.135 & 1.0 & 0.5 & 1.2 & (0.40,0.60,0.50,0.30) & $<0$ \\
+Human & 1.200 & 0.8 & 0.2 & 1.0 & (0.50,0.40,0.35,0.60) & $\approx 0$ \\
+Consensus & 0.800 & 1.0 & 0.3 & 1.5 & (0.80,0.20,0.15,0.85) & $>0$ \\
+\hline
+\end{tabular}
+\end{table}
+\section{Conclusion}
+We presented GCAT as a geometric theory of governed autonomy. Its core object is the admissible region defined by the capacity bound $m(\x)\ge 0$. This static geometry serves as the foundation for subsequent papers on recoverability, lag, distributed operation, and commit-time governance.
+\end{document}

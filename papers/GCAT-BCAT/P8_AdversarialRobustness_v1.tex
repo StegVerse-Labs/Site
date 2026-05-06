@@ -1,0 +1,57 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,booktabs}
+\usepackage{cite}
+\title{\bf Adversarial Commit-Time Governance: Robustness Under Attack, Deception, and Distribution Shift}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We analyze the robustness of commit-time governance under adversarial conditions. Four attack classes are considered: state deception, lag inflation, boundary surfing, and recovery disruption. Within a calibration envelope, the executable gate preserves soundness with respect to an expanded certified subset. Outside that envelope, the intended behavior is fail-closed: denial, safe mode, or external intervention rather than unsafe allowance. The residual risk is conservatism and slowdown, not silent catastrophic failure.
+\end{abstract}
+\section{Threat Model}
+The adversary may perturb observed state and lag:
+\begin{align}
+\hat{\x} &= \x+\delta_x,\qquad \|\delta_x\|\le \Delta_x,\\
+\hat\tau &= \tau+\delta_\tau.
+\end{align}
+Define the calibration envelope
+\[
+\mathcal{E}_{cal}=\left\{(\delta_x,\delta_\tau):\|\delta_x\|\le \Delta_x^{cal},\ 0\le \delta_\tau\le \Delta_\tau^{cal}\right\}.
+\]
+\section{Attack Classes}
+State deception perturbs observed state. Lag inflation makes the system believe lag is larger than nominal and therefore only makes the test stricter:
+\[
+\Scert(\hat\tau)\subseteq \Scert(\tau).
+\]
+Boundary surfing composes many individually allowed commits so that the state drifts toward the boundary of the certified subset. Recovery disruption applies disturbance during recovery.
+\section{Adversarial Soundness}
+Within the calibration envelope,
+\[
+\mathrm{ALLOW}(u;\hat{\x},\hat\tau)\Rightarrow \Phiop(\x,u)\in \Scert^+(\tau)\subseteq \Rrob(\tau).
+\]
+Thus bounded perturbations do not invalidate the soundness relationship; they only widen the certified margin required by the gate.
+\section{Fail-Closed Behavior}
+When perturbations exceed the envelope, the gate is no longer guaranteed to classify correctly with respect to the modeled assumptions. The intended behavior is fail-closed: denial, safe mode, or external intervention rather than permissive execution.
+\section{Residual Risk}
+Residual risk takes three main forms: false negatives, operational slowdown, and safe-mode activation. The framework does not claim trajectory-complete protection and does not claim immunity to complete state-estimation compromise.
+\section{Conclusion}
+The commit-time gate is not unbreakable, but it is designed to fail in ways that preserve safety. That is the right claim for the framework: controlled degradation under attack, not perfect invulnerability.
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf The Rigel Framework: Recoverability Geometry on the Normalized Simplex}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We introduce the Rigel framework for geometric recoverability analysis on the normalized GCAT simplex. States are projected onto $\Delta^3$, collapse modes are identified with simplex faces, and the Rigel point serves as the balanced reference maximizing minimum face distance. We define the Rigel number as a ratio combining proximity to collapse and deviation from equilibrium, establish its monotonic properties, and show that recoverability is distinct from static admissibility. The framework supplies the recoverability layer that the static GCAT geometry does not provide.
+\end{abstract}
+\section{Introduction}
+GCAT answers a static capacity question: is the current state admissible? It does not answer whether a system can recover if it leaves that region or approaches collapse. Recoverability requires a different geometry.
+\section{Normalized State Space}
+For any nonzero state $\x\in[0,1]^4\setminus\{0\}$, define
+\[
+\xt=\frac{\x}{\|\x\|_1}\in\Delta^3,\qquad
+\Delta^3=\left\{y\in\mathbb{R}^4_+:\sum_{i=1}^4 y_i=1\right\}.
+\]
+\section{Rigel Point}
+Define the Rigel point
+\[
+\Rigel=\left(\tfrac14,\tfrac14,\tfrac14,\tfrac14\right).
+\]
+It maximizes the minimum coordinate over the simplex.
+\section{Collapse Geometry}
+Define the four collapse faces
+\[
+C_1=\{\xt_g=0\},\quad
+C_2=\{\xt_c=0\},\quad
+C_3=\{\xt_a=0\},\quad
+C_4=\{\xt_t=0\}.
+\]
+The aggregate collapse set is
+\[
+\Cset=\bigcup_{i=1}^4 C_i.
+\]
+Distance to the nearest collapse face is
+\[
+d_F(\xt)=\min_i \xt_i.
+\]
+Distance to the balanced interior point is
+\[
+d_\Delta(\xt,\Rigel)=\|\xt-\Rigel\|_2.
+\]
+\section{Rigel Number}
+Define the Rigel number
+\[
+\Ri(\xt)=\frac{d_F(\xt)}{d_F(\xt)+d_\Delta(\xt,\Rigel)+\delta},
+\]
+where $\delta>0$ is a small regularizer.
+It increases with face distance, decreases with distance from $\Rigel$, tends to zero at the collapse set, and is maximized near the balanced interior.
+\section{Recoverability vs. Admissibility}
+Recoverability and admissibility are not identical. Admissibility depends on the absolute state $\x$ through the capacity margin $m(\x)$. Recoverability depends on the normalized geometry $\xt$ and the system's position relative to collapse and balance.
+\section{Illustrative Regimes}
+\begin{table}[h]
+\centering
+\caption{Rigel Numbers}
+\begin{tabular}{lcccccc}
+\hline
+System & $\xt$ & $d_F$ & $d_\Delta$ & $\Ri$ & Label \\
+\hline
+Drone & (0.222,0.333,0.278,0.167) & 0.167 & 0.124 & 0.49 & Marginal \\
+Human & (0.270,0.216,0.189,0.324) & 0.189 & 0.104 & 0.55 & Moderate \\
+Consensus & (0.400,0.100,0.075,0.425) & 0.075 & 0.326 & 0.17 & Rigid \\
+\hline
+\end{tabular}
+\end{table}
+\section{Conclusion}
+We presented the Rigel framework as a geometric theory of recoverability on the normalized simplex. It provides the second axis required by the series: not merely whether a state is admissible, but whether it is structurally positioned to recover.
+\end{document}

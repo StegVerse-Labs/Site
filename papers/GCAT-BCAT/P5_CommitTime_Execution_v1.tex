@@ -1,0 +1,60 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,algorithm,algpseudocode}
+\usepackage{cite}
+\title{\bf Commit-Time Admissibility: Execution-Layer Governance with Reachability Guarantees}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We introduce commit-time governance: an action is allowed if and only if the resulting post-commit state remains robustly recoverable under lag. The paper formalizes the commit operator, defines admissibility at the point of irreversible transition, and relates denial reachability to recoverability. The resulting commit gate is narrow by design: it governs individual transitions rather than global trajectories.
+\end{abstract}
+\section{Commit Operator}
+Given current state $\x$ and action $u$, define the post-commit state by
+\[
+\Phiop(\x,u)=\mathrm{clip}_{[0,1]^4}(\x+u).
+\]
+The ideal commit rule is
+\[
+\mathrm{ALLOW}_{ideal}(u;\x,\tau)\iff \Phiop(\x,u)\in\Rrob(\tau).
+\]
+\section{Denial Reachability}
+A post-commit state is denial-reachable if there exists a recovery control driving it back into $\A$ without entering collapse:
+\[
+\exists u(\cdot),T<\infty:\ \x(T)\in\A,\ \x(t)\notin\Cset\ \forall t\in[0,T].
+\]
+This is equivalent to membership in $\Rset(0)$ under the recoverability definitions established earlier in the series.
+\section{Commit Safety}
+If every executed action satisfies $\mathrm{ALLOW}_{ideal}$, then every committed post-state lies in $\Rrob(\tau)$. Therefore no committed transition can place the system in a state from which collapse is unavoidable under the assumed lag and disturbance model.
+\section{Algorithmic Form}
+\begin{algorithm}
+\caption{Ideal Commit Gate}
+\begin{algorithmic}[1]
+\State $x_{next}\gets \Phiop(x,u)$
+\If{$x_{next}\notin\Rrob(\tau)$}
+    \State \Return DENY
+\Else
+    \State \Return ALLOW
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+\section{Conclusion}
+Commit-time admissibility shifts governance from state evaluation to transition evaluation. The paper's role in the series is foundational: it defines what it means to govern action exactly at the point of irreversibility.
+\end{document}

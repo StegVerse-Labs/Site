@@ -1,0 +1,74 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf Formal Guarantees for Commit-Time Governance: Viability, Barrier Certificates, and Reachability}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We formalize the relationship between exact recoverability and the executable commit-time gate. Commit admissibility is expressed as a viability condition under lag, and the implementation is shown to operate on a conservative certified subset of that condition. We establish soundness of the certified subset, derive the corollary for the executable gate, and characterize the approximation error as a false-negative region near the boundary of robust recoverability.
+\end{abstract}
+\section{Viability Formulation}
+Consider the controlled dynamics
+\[
+\dot{\x}=f(\x,u,d),
+\]
+with bounded disturbance $d\in\mathcal{D}$.
+Define the viability kernel under lag by
+\[
+\mathrm{Viab}(\tau)=\left\{\x_0:
+\forall d(\cdot),\ \exists u(\cdot),\ 
+\x(t)\notin\Cset\ \forall t\in[0,\tau],\ 
+\x(\tau)\in\Rset(0)\right\}.
+\]
+This is equivalent to robust lag recoverability:
+\[
+\mathrm{Viab}(\tau)=\Rrob(\tau).
+\]
+\section{Barrier Certificates}
+The executable gate uses the two barriers
+\[
+B_F(\xt)=d_F(\xt)-\epsilon_{crit}(\tau),\qquad
+B_D(\xt)=d_{max}(\tau)-d_\Delta(\xt,\Rigel).
+\]
+Define the certified subset
+\[
+\Scert(\tau)=\{\x: B_F(\xt)>0\ \wedge\ B_D(\xt)>0\}.
+\]
+Assume C1: $B_F(\xt)>0$ implies lag-safe separation from the collapse set. Assume C2: $B_D(\xt)>0$ implies existence of a recovery controller returning the state to $\A$.
+\section{Soundness}
+Under C1--C2,
+\[
+\Scert(\tau)\subseteq \Rrob(\tau).
+\]
+Therefore the executable gate satisfies
+\[
+\mathrm{ALLOW}_{impl}(u;\x,\tau)\Rightarrow \mathrm{ALLOW}_{ideal}(u;\x,\tau).
+\]
+\section{Approximation Error}
+The approximation error is the set
+\[
+\mathcal{E}(\tau)=\Rrob(\tau)\setminus\Scert(\tau).
+\]
+These are states that are genuinely robustly recoverable but are denied by the conservative implementation.
+\section{Conclusion}
+The executable commit-time gate is a principled approximation of a formal viability condition. The gap between implementation and exact recoverability is conservative and explicitly characterizable.
+\end{document}

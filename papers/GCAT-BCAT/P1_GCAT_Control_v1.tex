@@ -1,0 +1,88 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf The GCAT Framework: A Control-Theoretic Model of Governed Autonomy}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\xt}{\tilde{\mathbf{x}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\Rrob}{\mathcal{R}_{rob}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Scert}{\mathcal{S}_{cert}}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rigel}{\mathbf{R}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{abstract}
+We present a control-theoretic realization of the GCAT framework. A four-dimensional state space over governance capacity, control authority, autonomy, and trust is coupled to a legitimacy-capacity function that induces an admissible set. We show that this admissible set can be enforced through a barrier condition, derive the relevant directional derivative, and construct a minimally invasive control law that preserves admissibility under control-affine dynamics. This version of GCAT is intentionally dynamical and serves as the control-oriented counterpart to the geometric foundation.
+\end{abstract}
+\section{Introduction}
+The geometric GCAT paper defines what states are admissible. This paper asks a different question: if the system evolves dynamically, can admissibility be maintained by control? The answer is yes under standard control-affine assumptions, provided the admissibility margin is treated as a barrier quantity.
+\section{State, Capacity, and Admissibility}
+Let
+\[
+\x=(g,c,a,t)\in[0,1]^4
+\]
+and
+\[
+\Lam(\x)=K g^\alpha c^\beta t^\gamma,
+\qquad
+m(\x)=\Lam(\x)-a.
+\]
+The admissible set is
+\[
+\A=\{\x:m(\x)\ge 0\}.
+\]
+\section{Dynamics}
+We consider control-affine dynamics
+\[
+\dot{\x}=f(\x)+G(\x)u,
+\]
+with locally Lipschitz $f$ and $G$. For analysis we instantiate
+\begin{align}
+\dot g &= k_g(g_0-g)-\eta_g a,\\
+\dot c &= k_c(c_0-c),\\
+\dot a &= k_a a(1-a)+\eta_a(1-g)+u_a,\\
+\dot t &= k_t(t_0-t),
+\end{align}
+where $u_a$ is the control channel used to suppress autonomy growth near the boundary.
+\section{Barrier Formulation}
+The admissibility margin acts as the barrier quantity. Its derivative is
+\[
+\dot m(\x)=\nabla \Lam(\x)\cdot \dot{\x}-\dot a.
+\]
+A sufficient condition for forward invariance of $\A$ is
+\[
+\dot m(\x,u)\ge -\kappa m(\x),\qquad \kappa>0.
+\]
+When this holds, trajectories starting in $\A$ remain in $\A$.
+\section{Control Synthesis}
+The barrier inequality can be solved for admissible inputs. A practical choice is a quadratic program:
+\begin{align}
+u^\star=\arg\min_u \|u-u_{nom}\|^2\\
+\text{s.t.}\quad \dot m(\x,u)\ge -\kappa m(\x).
+\end{align}
+For the scalar autonomy channel, a simple fallback law is
+\[
+u_a^\star=\min\left(0,\phi(\x)+\kappa m(\x)\right),
+\]
+where $\phi(\x)$ collects the noncontrol terms in the barrier derivative.
+\section{Boundary Behavior}
+At the admissible boundary $m(\x)=0$, the condition reduces to
+\[
+\dot m(\x,u)\ge 0.
+\]
+This is the tangency condition preventing outward crossing.
+\section{Conclusion}
+We presented a control-oriented version of GCAT in which the admissibility margin functions as a barrier quantity. Under control-affine dynamics, this yields an enforcement mechanism that preserves capacity-bounded autonomy over time.
+\end{document}
