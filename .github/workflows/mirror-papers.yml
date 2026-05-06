@@ -6,7 +6,7 @@ on:
       source_repository:
         description: "Repository to mirror from, owner/name"
         required: false
-        default: "BCAT-GCAT-Engine/Publisher"
+        default: "GCAT-BCAT-Engine/Publisher"
       source_ref:
         description: "Source branch, tag, or SHA"
         required: false
@@ -24,7 +24,7 @@ jobs:
       actions: read
 
     env:
-      DEFAULT_SOURCE_REPOSITORY: "BCAT-GCAT-Engine/Publisher"
+      DEFAULT_SOURCE_REPOSITORY: "GCAT-BCAT-Engine/Publisher"
       DEFAULT_SOURCE_REF: "main"
 
     steps:
@@ -116,7 +116,7 @@ jobs:
             echo "### Mirror did not produce papers_manifest.json" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "If source checkout failed with repository not found, the source repo is private/inaccessible to the Site workflow token." >> "$GITHUB_STEP_SUMMARY"
-            echo "Set a Site repo secret named STEGVERSE_REPO_SYNC_TOKEN with read access to BCAT-GCAT-Engine/Publisher." >> "$GITHUB_STEP_SUMMARY"
+            echo "Set a Site repo secret named STEGVERSE_REPO_SYNC_TOKEN with read access to GCAT-BCAT-Engine/Publisher." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Commit mirrored papers
