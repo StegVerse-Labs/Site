@@ -13,6 +13,19 @@
       ],
       "confidence": 0.9,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T2-simplex_conservation_sweep_v1-0002-simplex",
+      "source_run_id": "T2-simplex_conservation_sweep_v1-0002",
+      "source_element": "T2",
+      "delta_type": "constraint_validation",
+      "summary": "Simplex-preserving actions maintained zero net BCAT resource delta.",
+      "informs": [
+        "T2",
+        "T4"
+      ],
+      "confidence": 0.95,
+      "review_required": false
     }
   ]
 }

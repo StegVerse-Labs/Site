@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T22:18:22Z",
+  "generated_at": "2026-05-09T22:24:42Z",
   "generated_by": "tools/transition_experimental_orchestrator.py",
   "evidence_labels": [
     "Proposed",
@@ -20,13 +20,13 @@
       "latest_result_summary": "Deterministic baseline is seeded as tested."
     },
     "T2": {
-      "evidence_level": 3,
-      "evidence_label": "Proven",
-      "brightness": 0.6,
+      "evidence_level": 4,
+      "evidence_label": "Tested",
+      "brightness": 0.8,
       "receipt_backed": false,
-      "runtime_state": "idle",
+      "runtime_state": "completed",
       "caveats": [],
-      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
+      "latest_result_summary": "deterministic simplex conservation sweep passed"
     },
     "T3": {
       "evidence_level": 4,

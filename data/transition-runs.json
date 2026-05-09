@@ -28,6 +28,35 @@
         "reason": "deterministic bounded action sweep passed"
       },
       "run_hash": "1e15403b6d5e68ba651852e5c912b0bc537605370171e44780f411a57054e6b9"
+    },
+    {
+      "run_id": "T2-simplex_conservation_sweep_v1-0002",
+      "element_id": "T2",
+      "experiment": "simplex_conservation_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "local-python-deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120
+      },
+      "started_at": "2026-05-09T22:24:42Z",
+      "completed_at": "2026-05-09T22:24:42Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T2-simplex_conservation_sweep_v1-0002-001",
+        "T2-simplex_conservation_sweep_v1-0002-002",
+        "T2-simplex_conservation_sweep_v1-0002-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T2-simplex_conservation_sweep_v1-0002-simplex"
+      ],
+      "evidence_delta": {
+        "from": 3,
+        "to": 4,
+        "reason": "deterministic simplex conservation sweep passed"
+      },
+      "run_hash": "e0f47847857c5a4907d34e460903fc6d298a7811ad1d46eb95ceff6a1c7e666f"
     }
   ]
 }
