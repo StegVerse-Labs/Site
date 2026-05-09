@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-09T23:24:08Z",
+  "created_at": "2026-05-09T23:27:24Z",
   "run_id": "T3-bounded_action_sweep_v1-0001",
   "ledger_row_id": "T3-bounded_action_sweep_v1-0001-002",
   "element_id": "T3",
@@ -59,5 +59,5 @@
     "status": "replayable",
     "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
   },
-  "receipt_hash": "sha256:8777761a362eef55133088f979a39fe0b36e35e286c9bcaf420c843c3530cbb8"
+  "receipt_hash": "sha256:c4b0b6ac01194c66bcbd5b6213f84195a5b435365a46169c5211a02758c50c07"
 }

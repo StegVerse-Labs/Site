@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T2-simplex_conservation_sweep_v1-0002-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-09T23:24:08Z",
+  "created_at": "2026-05-09T23:27:24Z",
   "run_id": "T2-simplex_conservation_sweep_v1-0002",
   "ledger_row_id": "T2-simplex_conservation_sweep_v1-0002-001",
   "element_id": "T2",
@@ -57,5 +57,5 @@
     "status": "replayable",
     "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
   },
-  "receipt_hash": "sha256:5f98b560607ddda027490b00b2666ab9b419f3c339d5bcc12ff87718a468fa2b"
+  "receipt_hash": "sha256:4b57ec7aac55915085546797fd706f37a93301450b7d7a791816beb467b05749"
 }

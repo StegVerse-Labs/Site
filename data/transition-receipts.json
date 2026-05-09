@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T23:24:08Z",
+  "generated_at": "2026-05-09T23:27:24Z",
   "schema": "stegverse.transition_receipt_index.v1",
   "receipts": [
     {
@@ -12,7 +12,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:4c86e7c755982624587443d4b11b7f6ef3693f72a710117f1658b3651d5e9139",
+      "receipt_hash": "sha256:c3e6746c19f47b5c35e795691f2ac1b24a0d83a53b16bc7a19a35db6293b479c",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json",
       "replay_status": "replayable"
     },
@@ -26,7 +26,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:8777761a362eef55133088f979a39fe0b36e35e286c9bcaf420c843c3530cbb8",
+      "receipt_hash": "sha256:c4b0b6ac01194c66bcbd5b6213f84195a5b435365a46169c5211a02758c50c07",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json",
       "replay_status": "replayable"
     },
@@ -40,7 +40,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:7360990dc5891dc74d3a423c9f70c6bef8164b8d9f071d0acd04bf3185ce4a80",
+      "receipt_hash": "sha256:3982746819c831a50e69e95d2c1d89bd64d7c9f8be6dfba10e3b781928d1ec50",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json",
       "replay_status": "replayable"
     },
@@ -54,7 +54,7 @@
       "admissibility_verdict": "DENY",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:5f98b560607ddda027490b00b2666ab9b419f3c339d5bcc12ff87718a468fa2b",
+      "receipt_hash": "sha256:4b57ec7aac55915085546797fd706f37a93301450b7d7a791816beb467b05749",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-001.json",
       "replay_status": "replayable"
     },
@@ -68,7 +68,7 @@
       "admissibility_verdict": "DENY",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:e2b9f3bbc6d04b15bb43055556be8a0546b7d64d6398c929bdf52313beb0053d",
+      "receipt_hash": "sha256:0b40b5e7558cb8c2b3f3151388d6d159eacb8f51bb43b36340a38d321ff3140c",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-002.json",
       "replay_status": "replayable"
     },
@@ -82,7 +82,7 @@
       "admissibility_verdict": "DENY",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:08cf2196297d95d02f4d2269eb61063bc6221ba87c95a59717b0bbaf799ff697",
+      "receipt_hash": "sha256:a68afbb260b76bd054554687b205f3adec193805165d9e889ce945ce4ceb687a",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-003.json",
       "replay_status": "replayable"
     },
@@ -96,7 +96,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:673a22bccf409bc8f0f67c7e3429fc217e9f4557642f8eef428cbc50fdea5665",
+      "receipt_hash": "sha256:87da19a8e13e07cace05ba9dbe0b1a78a9d8336ffa8e7666777ca743d3227a7f",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-001.json",
       "replay_status": "replayable"
     },
@@ -110,7 +110,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:2292b1ba4758c369757a127670dbcb7fb34876f337984eaa26f511d355fc6438",
+      "receipt_hash": "sha256:e5cb44c67815394129fd063eeec2aed76e44abf987489e818c7fdb612c557653",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-002.json",
       "replay_status": "replayable"
     },
@@ -124,7 +124,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": null,
-      "receipt_hash": "sha256:b36b87ffc879d9c9049b0edb75b70b87c77a30a3dcaa34a41faa323742179fea",
+      "receipt_hash": "sha256:00ed13aebe599d9e63966a4585d0bbbe116fdfcfe02fad0b0c9be6b1cacdca3b",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-003.json",
       "replay_status": "replayable"
     },
@@ -138,7 +138,7 @@
       "admissibility_verdict": "DENY",
       "constraint_result": "PASS",
       "lag_flip": true,
-      "receipt_hash": "sha256:7b577b7fa524609d9448cbef4b4e5e1e10e1626dfa230c06f3e2aedcc2568e54",
+      "receipt_hash": "sha256:e5b781270ce010b8efb3525a849ba6d724b30a10b748db318efdee26dcbdc89a",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-001.json",
       "replay_status": "replayable"
     },
@@ -152,7 +152,7 @@
       "admissibility_verdict": "ALLOW",
       "constraint_result": "PASS",
       "lag_flip": false,
-      "receipt_hash": "sha256:bc4ae3a3cc318a25eb42175dc066369e78e1d178fcc34bb8d0e3745ad670a50c",
+      "receipt_hash": "sha256:7e6ac5c8cf78a4bf598cd222903b0259b2f5747270b4ba6258ae56700e1927e2",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-002.json",
       "replay_status": "replayable"
     },
@@ -166,7 +166,7 @@
       "admissibility_verdict": "DENY",
       "constraint_result": "PASS",
       "lag_flip": true,
-      "receipt_hash": "sha256:f891decd4be95a2a62cc932bba0980b4f76eefff077cbcb748608d8eff8eaaab",
+      "receipt_hash": "sha256:b0f74e9f6ca7e6f1dcf2c1a782765c5c177527b38c27ec8a0d33b0db6ca21b46",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-003.json",
       "replay_status": "replayable"
     }

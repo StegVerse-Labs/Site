@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-003",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-09T23:24:08Z",
+  "created_at": "2026-05-09T23:27:24Z",
   "run_id": "T4-capacity_margin_sweep_v1-0003",
   "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-003",
   "element_id": "T4",
@@ -58,5 +58,5 @@
     "status": "replayable",
     "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
   },
-  "receipt_hash": "sha256:b36b87ffc879d9c9049b0edb75b70b87c77a30a3dcaa34a41faa323742179fea"
+  "receipt_hash": "sha256:00ed13aebe599d9e63966a4585d0bbbe116fdfcfe02fad0b0c9be6b1cacdca3b"
 }
