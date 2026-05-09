@@ -86,6 +86,35 @@
         "reason": "deterministic capacity margin sweep passed"
       },
       "run_hash": "b362a9ae13be7fa2976dd1552ebefc0b483d85496b27ca98a242170e861e6638"
+    },
+    {
+      "run_id": "T5-observation_lag_sweep_v1-0004",
+      "element_id": "T5",
+      "experiment": "observation_lag_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "local-python-deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120
+      },
+      "started_at": "2026-05-09T23:24:08Z",
+      "completed_at": "2026-05-09T23:24:08Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T5-observation_lag_sweep_v1-0004-001",
+        "T5-observation_lag_sweep_v1-0004-002",
+        "T5-observation_lag_sweep_v1-0004-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T5-observation_lag_sweep_v1-0004-observation-lag"
+      ],
+      "evidence_delta": {
+        "from": 1,
+        "to": 4,
+        "reason": "deterministic observation lag sweep passed"
+      },
+      "run_hash": "sha256:9af6347840db1751b5f3aa7029a8e370f119ef57d2c8a7e70486fb453d745f54"
     }
   ]
 }

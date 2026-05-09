@@ -1,0 +1,90 @@
+{
+  "receipt_id": "RCPT-T5-observation_lag_sweep_v1-0004-003",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-09T23:24:08Z",
+  "run_id": "T5-observation_lag_sweep_v1-0004",
+  "ledger_row_id": "T5-observation_lag_sweep_v1-0004-003",
+  "element_id": "T5",
+  "experiment": "observation_lag_sweep_v1",
+  "tested_property": "observation_lag",
+  "sandbox": {
+    "type": "local-python-deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120
+  },
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1,
+    "tau_obs": 3
+  },
+  "pre_state": {
+    "g": 0.46,
+    "c": 0.68,
+    "a": 0.18,
+    "t": 0.72
+  },
+  "observed_state": {
+    "g": 0.46,
+    "c": 0.68,
+    "a": 0.18,
+    "t": 0.72
+  },
+  "lag_drift": {
+    "dg": -0.06,
+    "dc": -0.05,
+    "da": 0.02,
+    "dt": -0.07
+  },
+  "commit_state": {
+    "g": 0.4,
+    "c": 0.63,
+    "a": 0.2,
+    "t": 0.65
+  },
+  "action": {
+    "dg": 0.0,
+    "dc": 0.0,
+    "da": 0.02,
+    "dt": 0.0
+  },
+  "post_state": {
+    "g": 0.4,
+    "c": 0.63,
+    "a": 0.22,
+    "t": 0.65
+  },
+  "observed_post_state": {
+    "g": 0.46,
+    "c": 0.68,
+    "a": 0.2,
+    "t": 0.72
+  },
+  "commit_post_state": {
+    "g": 0.4,
+    "c": 0.63,
+    "a": 0.22,
+    "t": 0.65
+  },
+  "computed": {
+    "admissibility_verdict": "DENY",
+    "constraint_result": "PASS",
+    "invariant": 0.0562,
+    "observed_invariant": -0.02522,
+    "commit_invariant": 0.0562,
+    "observed_verdict": "ALLOW",
+    "commit_verdict": "DENY",
+    "lag_flip": true
+  },
+  "source_hashes": {
+    "ledger_row_hash": "6dcf6622138bb04603c7ca4667c39744b875801cc3acbe60ff0dd3a8ee21ebc9",
+    "run_hash": "sha256:9af6347840db1751b5f3aa7029a8e370f119ef57d2c8a7e70486fb453d745f54"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
+  },
+  "receipt_hash": "sha256:f891decd4be95a2a62cc932bba0980b4f76eefff077cbcb748608d8eff8eaaab"
+}

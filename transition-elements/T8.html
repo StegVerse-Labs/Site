@@ -54,7 +54,7 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
 <section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
 <section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
 <section><h2>Consequential Test Changelog</h2>
@@ -68,6 +68,20 @@ li{margin:0 0 8px}
           <ul><li>margin_estimate: Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul>
           <p><strong>Graph consequence:</strong> informs T4, T5, T8, T11.</p>
           <p><strong>Unlocked under current evidence state:</strong> T4, T5, T8.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T5-observation_lag_sweep_v1-0004</h3>
+          <p><strong>Experiment:</strong> observation_lag_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T5 and informs T8.</p>
+          <p><strong>Evidence consequence:</strong> T5 moved from 1 to 4 because deterministic observation lag sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>lag_flip_fragment: Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T5, T6, T7, T8.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T5, T6, T8.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

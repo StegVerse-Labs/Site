@@ -55,16 +55,17 @@ li{margin:0 0 8px}
 <section><h2>Confirmed Behavior</h2><p>deterministic capacity margin sweep passed</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T4-capacity_margin_sweep_v1-0003</code> · capacity_margin_sweep_v1 · <strong>completed</strong></li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li><li><code>KD-T2-simplex_conservation_sweep_v1-0002-simplex</code> · constraint_validation · Simplex-preserving actions maintained zero net BCAT resource delta.</li><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li><code>T4-capacity_margin_sweep_v1-0003-001</code> · tested property=capacity_margin_sweep_v1 · constraint=n/a · admissibility invariant=-0.04729 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T4-capacity_margin_sweep_v1-0003-002</code> · tested property=capacity_margin_sweep_v1 · constraint=n/a · admissibility invariant=-0.0263 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T4-capacity_margin_sweep_v1-0003-003</code> · tested property=capacity_margin_sweep_v1 · constraint=n/a · admissibility invariant=-0.0154 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T4-capacity_margin_sweep_v1-0003-001</code> · tested property=capacity_margin · constraint=PASS · admissibility invariant=-0.04729 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T4-capacity_margin_sweep_v1-0003-002</code> · tested property=capacity_margin · constraint=PASS · admissibility invariant=-0.0263 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T4-capacity_margin_sweep_v1-0003-003</code> · tested property=capacity_margin · constraint=PASS · admissibility invariant=-0.0154 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
           <h3>RCPT-T4-capacity_margin_sweep_v1-0003-001</h3>
           <p><strong>Run:</strong> T4-capacity_margin_sweep_v1-0003</p>
-          <p><strong>Tested property:</strong> capacity_margin_sweep_v1</p>
+          <p><strong>Tested property:</strong> capacity_margin</p>
           <p><strong>Admissibility verdict:</strong> ALLOW</p>
-          <p><strong>Constraint result:</strong> None</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:8db70c37536aa48d9a0d21231f2822701bad846e8432a87346e25ac0b66caa23</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:673a22bccf409bc8f0f67c7e3429fc217e9f4557642f8eef428cbc50fdea5665</code></p>
           <p><a href="../data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -72,11 +73,12 @@ li{margin:0 0 8px}
         <article class="receipt-entry">
           <h3>RCPT-T4-capacity_margin_sweep_v1-0003-002</h3>
           <p><strong>Run:</strong> T4-capacity_margin_sweep_v1-0003</p>
-          <p><strong>Tested property:</strong> capacity_margin_sweep_v1</p>
+          <p><strong>Tested property:</strong> capacity_margin</p>
           <p><strong>Admissibility verdict:</strong> ALLOW</p>
-          <p><strong>Constraint result:</strong> None</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:8719e46c53fb236107693412d3fd1bad7371e77f102e6256633eea2c90cdf7c7</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:2292b1ba4758c369757a127670dbcb7fb34876f337984eaa26f511d355fc6438</code></p>
           <p><a href="../data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -84,11 +86,12 @@ li{margin:0 0 8px}
         <article class="receipt-entry">
           <h3>RCPT-T4-capacity_margin_sweep_v1-0003-003</h3>
           <p><strong>Run:</strong> T4-capacity_margin_sweep_v1-0003</p>
-          <p><strong>Tested property:</strong> capacity_margin_sweep_v1</p>
+          <p><strong>Tested property:</strong> capacity_margin</p>
           <p><strong>Admissibility verdict:</strong> ALLOW</p>
-          <p><strong>Constraint result:</strong> None</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:f0416f287e0a8cd3f4d191fff7e6bbb15d86ca264c9bb137a264cba0f1465477</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:b36b87ffc879d9c9049b0edb75b70b87c77a30a3dcaa34a41faa323742179fea</code></p>
           <p><a href="../data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-003.json">Open receipt JSON</a></p>
         </article>
         </section>

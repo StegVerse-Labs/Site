@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T5 — Observation-Lag Transition</h1>
 <p class="muted">Does stale observation change admissibility?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>1/5 · Defined</strong></p>
-  <p>Runtime state: <strong>idle</strong></p>
-  <p>Brightness: <strong>0.2</strong></p>
+  <p>Level: <strong>4/5 · Tested</strong></p>
+  <p>Runtime state: <strong>completed</strong></p>
+  <p>Brightness: <strong>0.8</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>1</strong></p>
@@ -52,11 +52,49 @@ li{margin:0 0 8px}
   <p>The observed state may differ from the commit-time state because observation is delayed.</p>
   <div class="formula"><code>I(x(t₀ + τ_obs) + u) ≤ 0</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
-<section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
-<section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
+<section><h2>Confirmed Behavior</h2><p>deterministic observation lag sweep passed</p></section>
+<section><h2>Run Manifests</h2><ul><li><code>T5-observation_lag_sweep_v1-0004</code> · observation_lag_sweep_v1 · <strong>completed</strong></li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T5-observation_lag_sweep_v1-0004-001</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=0.004 · admissibility verdict=<strong>DENY</strong></li><li><code>T5-observation_lag_sweep_v1-0004-002</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=-0.12355 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T5-observation_lag_sweep_v1-0004-003</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=0.0562 · admissibility verdict=<strong>DENY</strong></li></ul></section>
+<section><h2>State Transition Receipts</h2>
+        <article class="receipt-entry">
+          <h3>RCPT-T5-observation_lag_sweep_v1-0004-001</h3>
+          <p><strong>Run:</strong> T5-observation_lag_sweep_v1-0004</p>
+          <p><strong>Tested property:</strong> observation_lag</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Lag flip:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:7b577b7fa524609d9448cbef4b4e5e1e10e1626dfa230c06f3e2aedcc2568e54</code></p>
+          <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-001.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T5-observation_lag_sweep_v1-0004-002</h3>
+          <p><strong>Run:</strong> T5-observation_lag_sweep_v1-0004</p>
+          <p><strong>Tested property:</strong> observation_lag</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Lag flip:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:bc4ae3a3cc318a25eb42175dc066369e78e1d178fcc34bb8d0e3745ad670a50c</code></p>
+          <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-002.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T5-observation_lag_sweep_v1-0004-003</h3>
+          <p><strong>Run:</strong> T5-observation_lag_sweep_v1-0004</p>
+          <p><strong>Tested property:</strong> observation_lag</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Lag flip:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:f891decd4be95a2a62cc932bba0980b4f76eefff077cbcb748608d8eff8eaaab</code></p>
+          <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-003.json">Open receipt JSON</a></p>
+        </article>
+        </section>
 <section><h2>Consequential Test Changelog</h2>
         <article class="change-entry">
           <h3>T4-capacity_margin_sweep_v1-0003</h3>
@@ -68,6 +106,20 @@ li{margin:0 0 8px}
           <ul><li>margin_estimate: Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul>
           <p><strong>Graph consequence:</strong> informs T4, T5, T8, T11.</p>
           <p><strong>Unlocked under current evidence state:</strong> T4, T5, T8.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T5-observation_lag_sweep_v1-0004</h3>
+          <p><strong>Experiment:</strong> observation_lag_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T5.</p>
+          <p><strong>Evidence consequence:</strong> T5 moved from 1 to 4 because deterministic observation lag sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>lag_flip_fragment: Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T5, T6, T7, T8.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T5, T6, T8.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

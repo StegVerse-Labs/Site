@@ -1,7 +1,10 @@
 {
   "planner": "lowest_evidence_unblocked_v1",
-  "status": "idle_no_eligible_experiment",
-  "updated_at": "2026-05-09T23:08:51Z",
-  "last_selected": null,
-  "last_run_id": null
+  "status": "completed",
+  "updated_at": "2026-05-09T23:24:08Z",
+  "last_selected": {
+    "element_id": "T5",
+    "experiment": "observation_lag_sweep_v1"
+  },
+  "last_run_id": "T5-observation_lag_sweep_v1-0004"
 }

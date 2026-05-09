@@ -1,12 +1,12 @@
 {
   "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-09T23:08:51Z",
+  "created_at": "2026-05-09T23:24:08Z",
   "run_id": "T3-bounded_action_sweep_v1-0001",
   "ledger_row_id": "T3-bounded_action_sweep_v1-0001-001",
   "element_id": "T3",
   "experiment": "bounded_action_sweep_v1",
-  "tested_property": "bounded_action_sweep_v1",
+  "tested_property": "bounded_action",
   "sandbox": {
     "type": "local-python-deterministic",
     "parallel_ready": true,
@@ -25,6 +25,9 @@
     "a": 0.14,
     "t": 0.77
   },
+  "observed_state": null,
+  "lag_drift": null,
+  "commit_state": null,
   "action": {
     "dg": 0.02,
     "dc": -0.01,
@@ -37,10 +40,13 @@
     "a": 0.17,
     "t": 0.75
   },
+  "observed_post_state": null,
+  "commit_post_state": null,
   "computed": {
+    "admissibility_verdict": "ALLOW",
+    "constraint_result": "PASS",
     "capacity": 0.1881,
     "invariant": -0.0181,
-    "admissibility_verdict": "ALLOW",
     "action_norm": 0.04243,
     "epsilon": 0.1,
     "bound_status": "WITHIN_BOUND"
@@ -51,7 +57,7 @@
   },
   "replay": {
     "status": "replayable",
-    "instructions": "Recompute post_state = pre_state + action, capacity = K*g*c*t, invariant = a - capacity, then compare computed values and verdict."
+    "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
   },
-  "receipt_hash": "sha256:c7f2be3aefadd54908fe4579c4c041eaa791f64aea61ed1d7a39067ed29cb4b4"
+  "receipt_hash": "sha256:4c86e7c755982624587443d4b11b7f6ef3693f72a710117f1658b3651d5e9139"
 }

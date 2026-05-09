@@ -1,0 +1,90 @@
+{
+  "receipt_id": "RCPT-T5-observation_lag_sweep_v1-0004-002",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-09T23:24:08Z",
+  "run_id": "T5-observation_lag_sweep_v1-0004",
+  "ledger_row_id": "T5-observation_lag_sweep_v1-0004-002",
+  "element_id": "T5",
+  "experiment": "observation_lag_sweep_v1",
+  "tested_property": "observation_lag",
+  "sandbox": {
+    "type": "local-python-deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120
+  },
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1,
+    "tau_obs": 2
+  },
+  "pre_state": {
+    "g": 0.7,
+    "c": 0.64,
+    "a": 0.16,
+    "t": 0.76
+  },
+  "observed_state": {
+    "g": 0.7,
+    "c": 0.64,
+    "a": 0.16,
+    "t": 0.76
+  },
+  "lag_drift": {
+    "dg": -0.02,
+    "dc": -0.02,
+    "da": 0.01,
+    "dt": -0.04
+  },
+  "commit_state": {
+    "g": 0.68,
+    "c": 0.62,
+    "a": 0.17,
+    "t": 0.72
+  },
+  "action": {
+    "dg": 0.0,
+    "dc": 0.0,
+    "da": 0.01,
+    "dt": 0.0
+  },
+  "post_state": {
+    "g": 0.68,
+    "c": 0.62,
+    "a": 0.18,
+    "t": 0.72
+  },
+  "observed_post_state": {
+    "g": 0.7,
+    "c": 0.64,
+    "a": 0.17,
+    "t": 0.76
+  },
+  "commit_post_state": {
+    "g": 0.68,
+    "c": 0.62,
+    "a": 0.18,
+    "t": 0.72
+  },
+  "computed": {
+    "admissibility_verdict": "ALLOW",
+    "constraint_result": "PASS",
+    "invariant": -0.12355,
+    "observed_invariant": -0.17048,
+    "commit_invariant": -0.12355,
+    "observed_verdict": "ALLOW",
+    "commit_verdict": "ALLOW",
+    "lag_flip": false
+  },
+  "source_hashes": {
+    "ledger_row_hash": "a492b31f645ea72f1707b65ebb4a0edfb3cd589075ab48ddad27042cd51834d6",
+    "run_hash": "sha256:9af6347840db1751b5f3aa7029a8e370f119ef57d2c8a7e70486fb453d745f54"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
+  },
+  "receipt_hash": "sha256:bc4ae3a3cc318a25eb42175dc066369e78e1d178fcc34bb8d0e3745ad670a50c"
+}

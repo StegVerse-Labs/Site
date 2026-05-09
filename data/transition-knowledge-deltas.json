@@ -41,6 +41,21 @@
       ],
       "confidence": 0.91,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T5-observation_lag_sweep_v1-0004-observation-lag",
+      "source_run_id": "T5-observation_lag_sweep_v1-0004",
+      "source_element": "T5",
+      "delta_type": "lag_flip_fragment",
+      "summary": "Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.",
+      "informs": [
+        "T5",
+        "T6",
+        "T7",
+        "T8"
+      ],
+      "confidence": 0.88,
+      "review_required": false
     }
   ]
 }
