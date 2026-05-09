@@ -57,6 +57,35 @@
         "reason": "deterministic simplex conservation sweep passed"
       },
       "run_hash": "e0f47847857c5a4907d34e460903fc6d298a7811ad1d46eb95ceff6a1c7e666f"
+    },
+    {
+      "run_id": "T4-capacity_margin_sweep_v1-0003",
+      "element_id": "T4",
+      "experiment": "capacity_margin_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "local-python-deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120
+      },
+      "started_at": "2026-05-09T22:29:39Z",
+      "completed_at": "2026-05-09T22:29:39Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T4-capacity_margin_sweep_v1-0003-001",
+        "T4-capacity_margin_sweep_v1-0003-002",
+        "T4-capacity_margin_sweep_v1-0003-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T4-capacity_margin_sweep_v1-0003-margin"
+      ],
+      "evidence_delta": {
+        "from": 2,
+        "to": 4,
+        "reason": "deterministic capacity margin sweep passed"
+      },
+      "run_hash": "b362a9ae13be7fa2976dd1552ebefc0b483d85496b27ca98a242170e861e6638"
     }
   ]
 }

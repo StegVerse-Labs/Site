@@ -26,6 +26,21 @@
       ],
       "confidence": 0.95,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T4-capacity_margin_sweep_v1-0003-margin",
+      "source_run_id": "T4-capacity_margin_sweep_v1-0003",
+      "source_element": "T4",
+      "delta_type": "margin_estimate",
+      "summary": "Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.",
+      "informs": [
+        "T4",
+        "T5",
+        "T8",
+        "T11"
+      ],
+      "confidence": 0.91,
+      "review_required": false
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T22:24:42Z",
+  "generated_at": "2026-05-09T22:29:39Z",
   "generated_by": "tools/transition_experimental_orchestrator.py",
   "evidence_labels": [
     "Proposed",
@@ -38,13 +38,13 @@
       "latest_result_summary": "deterministic bounded action sweep passed"
     },
     "T4": {
-      "evidence_level": 2,
-      "evidence_label": "Derived",
-      "brightness": 0.4,
+      "evidence_level": 4,
+      "evidence_label": "Tested",
+      "brightness": 0.8,
       "receipt_backed": false,
-      "runtime_state": "idle",
+      "runtime_state": "completed",
       "caveats": [],
-      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
+      "latest_result_summary": "deterministic capacity margin sweep passed"
     },
     "T5": {
       "evidence_level": 1,

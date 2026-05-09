@@ -1,10 +1,10 @@
 {
   "planner": "lowest_evidence_unblocked_v1",
   "status": "completed",
-  "updated_at": "2026-05-09T22:24:42Z",
+  "updated_at": "2026-05-09T22:29:39Z",
   "last_selected": {
-    "element_id": "T2",
-    "experiment": "simplex_conservation_sweep_v1"
+    "element_id": "T4",
+    "experiment": "capacity_margin_sweep_v1"
   },
-  "last_run_id": "T2-simplex_conservation_sweep_v1-0002"
+  "last_run_id": "T4-capacity_margin_sweep_v1-0003"
 }
