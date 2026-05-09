@@ -1,705 +1,98 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Transition Table | A StegVerse Research Contribution</title>
-  <style>
-    :root{--bg:#080b12;--panel:#101827;--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:67,214,148;--shadow:0 24px 80px rgba(0,0,0,.35);--radius:18px;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    *{box-sizing:border-box} html{min-height:100%;background:radial-gradient(circle at 20% 0%,rgba(77,163,255,.22),transparent 34rem),radial-gradient(circle at 82% 8%,rgba(184,123,255,.18),transparent 34rem),var(--bg)}
-    body{margin:0;color:var(--text);font-family:var(--sans);line-height:1.5} a{color:inherit}
-    .page{width:min(1440px,calc(100% - 28px));margin:0 auto;padding:28px 0 44px}
-    .hero,.table-panel,.detail-panel,.ledger-panel,.legend-panel,.funding-panel{border:1px solid var(--line);border-radius:var(--radius);background:rgba(16,24,39,.78);box-shadow:var(--shadow)}
-    .hero{border-radius:28px;background:linear-gradient(145deg,rgba(16,24,39,.92),rgba(10,14,23,.94));padding:clamp(22px,4vw,52px);overflow:hidden;position:relative}
-    .eyebrow{color:rgb(var(--green));font-size:.82rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
-    h1{margin:0;font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;letter-spacing:-.075em;text-transform:uppercase}.subtitle{margin-top:16px;color:var(--muted);font-size:clamp(1.05rem,2.2vw,1.45rem);max-width:980px}
-    .byline,.hero-actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}.hero-actions{margin-top:24px;gap:12px}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.06);color:var(--muted);font-size:.9rem}
-    .funding-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;border:1px solid rgba(67,214,148,.62);border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text);font-weight:900;text-decoration:none;box-shadow:0 12px 34px rgba(67,214,148,.16)}
-    .support-note{color:var(--muted);font-size:.93rem}.notice{margin-top:24px;border-left:4px solid rgb(var(--green));background:rgba(67,214,148,.08);border-radius:14px;padding:14px 16px;color:#dce9f8;max-width:1050px}
-    .toolbar{margin:24px 0 18px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.toolbar-title h2{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);letter-spacing:-.035em}.toolbar-title p{margin:5px 0 0;color:var(--muted)}
-    .view-controls{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);border-radius:999px;padding:10px 13px;font:inherit;font-weight:750;cursor:pointer}button:hover,button.active{background:rgba(77,163,255,.22);border-color:rgba(77,163,255,.52)}
-    .layout-shell{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.55fr);gap:18px;align-items:start}.table-panel{padding:16px;overflow:hidden}.axis-label{color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin:0 0 10px}
-    .transition-grid{display:grid;grid-template-columns:repeat(4,minmax(135px,1fr));gap:12px}.transition-card{min-height:170px;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:13px;background:linear-gradient(160deg,rgba(var(--family-color),calc(.08 + var(--brightness)*.34)),rgba(255,255,255,.035)),rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px rgba(var(--family-color),calc(.08 + var(--brightness)*.26)),0 12px 32px rgba(0,0,0,.18);color:var(--text);display:flex;flex-direction:column;justify-content:space-between;text-align:left;cursor:pointer;transition:transform .14s ease,filter .14s ease,border-color .14s ease;position:relative;overflow:hidden}
-    .transition-card:hover,.transition-card.active{transform:translateY(-2px);border-color:rgba(var(--family-color),.78);filter:brightness(1.12)}.transition-card.active:after{content:"";position:absolute;inset:-2px;border-radius:18px;box-shadow:0 0 0 2px rgba(var(--family-color),.6),0 0 40px rgba(var(--family-color),.28);pointer-events:none}
-    .transition-card.receipt-backed:before{content:"RECEIPT";position:absolute;top:10px;right:-31px;transform:rotate(35deg);background:rgba(67,214,148,.88);color:#03120c;font-size:.64rem;font-weight:950;letter-spacing:.08em;padding:4px 34px}
-    .card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.symbol{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:950;letter-spacing:-.08em;line-height:.9}.family{color:rgba(var(--family-color),.95);font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em}.element-name{margin:10px 0 0;font-weight:850;letter-spacing:-.025em;line-height:1.15;font-size:1.02rem}.element-question{margin-top:7px;color:var(--muted);font-size:.82rem;line-height:1.35}.status-row{display:grid;gap:7px;margin-top:14px}.status-label{color:var(--muted);font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.11em}.meter{height:9px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12)}.meter span{display:block;height:100%;width:calc(var(--brightness)*100%);background:rgba(var(--family-color),.94);box-shadow:0 0 18px rgba(var(--family-color),.48)}
-    .side-stack{display:grid;gap:18px}.detail-panel{padding:18px;min-height:360px}.detail-panel h3{margin:0;font-size:1.45rem;letter-spacing:-.04em}.detail-meta{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px}.detail-section{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}.detail-section h4{margin:0 0 7px;font-size:.82rem;color:rgb(var(--green));text-transform:uppercase;letter-spacing:.13em}.detail-section p{margin:0;color:#dbe7f7}.formula{margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(0,0,0,.24);color:#f5fbff;font-family:var(--mono);font-size:.9rem;overflow-x:auto;white-space:nowrap}.link-note{margin-top:16px;color:var(--muted);font-size:.9rem}
-    .ledger-panel{padding:16px}.ledger-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.ledger-header h3{margin:0;font-size:1rem;text-transform:uppercase;letter-spacing:.12em}.ledger-stream{height:360px;overflow:auto;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.35);padding:12px;font-family:var(--mono);font-size:.78rem;color:#cfe3ff}.ledger-line{margin:0 0 6px;white-space:pre-wrap}.allow{color:rgb(var(--green))}.deny{color:rgb(255,190,84)}.fail{color:rgb(255,100,100)}
-    .legend-panel,.funding-panel{margin-top:18px;padding:18px}.legend-grid{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:10px}.legend-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.04)}.legend-item strong{display:block;margin-bottom:4px}.legend-item span{display:block;color:var(--muted);font-size:.88rem}
-    .funding-panel{border-color:rgba(67,214,148,.34);background:radial-gradient(circle at 10% 0%,rgba(67,214,148,.14),transparent 28rem),rgba(16,24,39,.78)}.funding-panel h2{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);letter-spacing:-.035em}.funding-panel p{color:var(--muted);max-width:980px;margin:8px 0 0}.funding-panel .funding-button{margin-top:16px}.footer{margin-top:26px;color:var(--muted);text-align:center;font-size:.92rem}
-    @media(max-width:980px){.toolbar,.layout-shell{grid-template-columns:1fr}.view-controls{justify-content:flex-start}.transition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.legend-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:560px){.page{width:min(100% - 18px,1440px);padding-top:10px}.hero{border-radius:20px;padding:20px}.transition-grid{grid-template-columns:1fr}.legend-grid{grid-template-columns:1fr}.ledger-stream{height:310px}}
-  </style>
-</head>
-<body>
-  <main class="page">
-    <section class="hero">
-      <div class="eyebrow">StegVerse Research Surface</div><h1>Transition Table</h1>
-      <p class="subtitle">The table interface for the Transition Periodic Table research surface. Cells show expected behavior, confirmed behavior, evidence maturity, and deterministic reorganization views.</p>
-      <div class="byline"><span class="pill">A StegVerse Research Contribution</span><span class="pill">By Rigel Randolph</span></div>
-      <div class="hero-actions"><a class="funding-button" href="transition-periodic-table.html">Research Landing Page</a><a class="funding-button" href="#research-funding">Contribute to Research Funding</a><span class="support-note">Support public research, formalization, demos, and receipt-backed transition experiments.</span></div>
-      <div class="notice">This table loads its transition registry, evidence state, and ledger stream from backend-generated static files in the data directory.</div>
-    </section>
-    <section class="toolbar"><div class="toolbar-title"><h2>Transition Element Atlas</h2><p>Cells link to expected behavior and, where available, confirmed behavior.</p></div><div class="view-controls"><button class="active" type="button" data-view="taxonomy">Taxonomy</button><button type="button" data-view="evidence">Evidence</button><button type="button" data-view="complexity">Complexity</button></div></section>
-    <section class="layout-shell"><section class="table-panel"><p class="axis-label" id="axisLabel">Increasing coupling / composition → · Increasing reality-binding ↓</p><div class="transition-grid" id="transitionGrid" aria-live="polite"></div></section><aside class="side-stack"><section class="detail-panel" id="detailPanel" aria-live="polite"></section><section class="ledger-panel"><div class="ledger-header"><h3>Experimental Ledger</h3><span class="pill" id="ledgerActive">ACTIVE: loading</span></div><div class="ledger-stream" id="ledgerStream" aria-live="polite"></div></section></aside></section>
-    <section class="legend-panel"><div class="legend-grid"><div class="legend-item"><strong>Color</strong><span>Transition family: primitive, lag, coupled, evidence, or open research.</span></div><div class="legend-item"><strong>Brightness</strong><span>Evidence maturity: proposed → defined → derived → proven → tested → receipt-backed.</span></div><div class="legend-item"><strong>Border / Glow</strong><span>The active investigation currently displayed in the ledger.</span></div><div class="legend-item"><strong>Receipt Ribbon</strong><span>Displayed only when a transition class has receipt-backed confirmation.</span></div><div class="legend-item"><strong>Self-Organization</strong><span>Alternate views reorder cells from registry metadata, not visual guesswork.</span></div></div></section>
-    <section class="funding-panel" id="research-funding"><h2>Contribute to Research Funding</h2><p>Contributions support continued StegVerse research, including transition formalization, public demos, deterministic test surfaces, receipt-backed experiments, and documentation of expected versus confirmed behavior.</p><a class="funding-button" href="mailto:rigel@stegverse.org?subject=StegVerse%20Research%20Funding%20Contribution">Contact About Research Funding</a></section>
-    <footer class="footer">Transition Periodic Table · A StegVerse Research Contribution · By Rigel Randolph</footer>
-  </main>
-  <script>
-    const evidenceLabels = ["Proposed","Defined","Derived","Proven","Tested","Receipt-backed"];
-
-    const FALLBACK_ELEMENTS = [
-      {
-            "id": "T1",
-            "name": "Primitive Admissible Transition",
-            "short_name": "Primitive",
-            "family": "primitive",
-            "question": "Does x + u remain admissible?",
-            "expected_behavior": "A transition is admissible iff the post-transition state satisfies the governing invariant.",
-            "formula": "I(Φ(x,u)) ≤ 0  ⇒  a + Δa ≤ K(g + Δg)^α(c + Δc)^β(t + Δt)^γ",
-            "confirmed_behavior": "Analytical characterization exists. Deterministic calculation stream is supported by the static backend.",
-            "evidence_level": 4,
-            "taxonomy_order": 1,
-            "complexity_score": 0,
-            "color": "77, 163, 255"
-      },
-      {
-            "id": "T2",
-            "name": "Simplex-Preserving Transition",
-            "short_name": "Simplex",
-            "family": "primitive",
-            "question": "Does the action preserve BCAT conservation?",
-            "expected_behavior": "The post-transition state must preserve g + c + a + t = 1.",
-            "formula": "Δg + Δc + Δa + Δt = 0 and I(x + u) ≤ 0",
-            "confirmed_behavior": "Expected analytical form is defined. Full linked proof/test record is pending.",
-            "evidence_level": 3,
-            "taxonomy_order": 2,
-            "complexity_score": 1,
-            "color": "77, 163, 255"
-      },
-      {
-            "id": "T3",
-            "name": "Bounded-Action Transition",
-            "short_name": "Bounded Action",
-            "family": "primitive",
-            "question": "Is the action too large to commit safely in one step?",
-            "expected_behavior": "A transition may be mathematically admissible but rejected if its action magnitude exceeds a configured bound.",
-            "formula": "||u|| ≤ ε and I(x + u) ≤ 0",
-            "confirmed_behavior": "Expected behavior is defined; deterministic bound tests are pending.",
-            "evidence_level": 2,
-            "taxonomy_order": 3,
-            "complexity_score": 2,
-            "color": "77, 163, 255"
-      },
-      {
-            "id": "T4",
-            "name": "Capacity-Margin Transition",
-            "short_name": "Capacity Margin",
-            "family": "primitive",
-            "question": "How much admissibility margin remains after action?",
-            "expected_behavior": "The transition computes remaining capacity instead of only returning ALLOW or DENY.",
-            "formula": "M(x') = K(g')^α(c')^β(t')^γ - a'",
-            "confirmed_behavior": "Expected margin equation is defined; live margin display is pending.",
-            "evidence_level": 2,
-            "taxonomy_order": 4,
-            "complexity_score": 2,
-            "color": "77, 163, 255"
-      },
-      {
-            "id": "T5",
-            "name": "Observation-Lag Transition",
-            "short_name": "Observation Lag",
-            "family": "lag",
-            "question": "Does stale observation change admissibility?",
-            "expected_behavior": "The observed state may differ from the commit-time state because observation is delayed.",
-            "formula": "I(x(t₀ + τ_obs) + u) ≤ 0",
-            "confirmed_behavior": "Expected behavior is defined; reachable-set calculation is pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 5,
-            "complexity_score": 4,
-            "color": "255, 190, 84"
-      },
-      {
-            "id": "T6",
-            "name": "Decision-Lag Transition",
-            "short_name": "Decision Lag",
-            "family": "lag",
-            "question": "Does computation delay change admissibility?",
-            "expected_behavior": "The decision may be based on a state that drifts before the commit boundary.",
-            "formula": "∀y ∈ L(x, τ_obs + τ_dec), I(y + u) ≤ 0",
-            "confirmed_behavior": "Expected behavior is defined; robust-region calculation is pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 6,
-            "complexity_score": 5,
-            "color": "255, 190, 84"
-      },
-      {
-            "id": "T7",
-            "name": "Actuation-Lag Transition",
-            "short_name": "Actuation Lag",
-            "family": "lag",
-            "question": "Does the world move before execution binds?",
-            "expected_behavior": "The state at decision time may not be the state at effect time.",
-            "formula": "I(x(t₀ + τ_obs + τ_dec + τ_act) + u) ≤ 0",
-            "confirmed_behavior": "Expected behavior is defined; actuation-bound test harness is pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 7,
-            "complexity_score": 6,
-            "color": "255, 190, 84"
-      },
-      {
-            "id": "T8",
-            "name": "Trust-Drift Transition",
-            "short_name": "Trust Drift",
-            "family": "lag",
-            "question": "Does trust decay during the transition?",
-            "expected_behavior": "Trust may change as a function of elapsed time, reducing admissibility capacity.",
-            "formula": "t' = t e^(-λτ), then a' ≤ K(g')^α(c')^β(t')^γ",
-            "confirmed_behavior": "Expected analytical approximation exists; calibration is pending.",
-            "evidence_level": 2,
-            "taxonomy_order": 8,
-            "complexity_score": 5,
-            "color": "255, 190, 84"
-      },
-      {
-            "id": "T9",
-            "name": "Two-State Coupled Transition",
-            "short_name": "Two-State",
-            "family": "coupled",
-            "question": "Does one state transition disturb another?",
-            "expected_behavior": "The post-state of one transition may depend on another state or transition.",
-            "formula": "x₁' = Φ₁(x₁,u₁,x₂), x₂' = Φ₂(x₂,u₂,x₁), I(x₁')≤0, I(x₂')≤0",
-            "confirmed_behavior": "Expected coupled form is defined; special-case tests are pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 9,
-            "complexity_score": 7,
-            "color": "184, 123, 255"
-      },
-      {
-            "id": "T10",
-            "name": "Multi-Agent Transition",
-            "short_name": "Multi-Agent",
-            "family": "coupled",
-            "question": "Do multiple actors preserve admissibility together?",
-            "expected_behavior": "Individually safe actions may compose into an unsafe aggregate action.",
-            "formula": "x' = Φ(x,u₁,u₂,...,uₙ) and I(x') ≤ 0",
-            "confirmed_behavior": "Expected aggregate form is defined; simulation is pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 10,
-            "complexity_score": 8,
-            "color": "184, 123, 255"
-      },
-      {
-            "id": "T11",
-            "name": "Conflict Transition",
-            "short_name": "Conflict",
-            "family": "coupled",
-            "question": "What happens when admissible actions conflict?",
-            "expected_behavior": "Two actions may be admissible alone but inadmissible when composed.",
-            "formula": "I(x+u₁)≤0, I(x+u₂)≤0, but I(x+u₁+u₂)>0",
-            "confirmed_behavior": "Expected failure condition is defined; conflict-region mapping is pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 11,
-            "complexity_score": 9,
-            "color": "184, 123, 255"
-      },
-      {
-            "id": "T12",
-            "name": "Consensus Transition",
-            "short_name": "Consensus",
-            "family": "coupled",
-            "question": "Can agreement preserve admissibility across validators?",
-            "expected_behavior": "Consensus may authorize a transition only if the underlying invariant also holds.",
-            "formula": "Σ wᵢvᵢ ≥ θ and I(x') ≤ 0",
-            "confirmed_behavior": "Expected protocol condition is defined; validator tests are pending.",
-            "evidence_level": 1,
-            "taxonomy_order": 12,
-            "complexity_score": 8,
-            "color": "184, 123, 255"
-      },
-      {
-            "id": "T13",
-            "name": "Receipt-Bound Transition",
-            "short_name": "Receipt-Bound",
-            "family": "evidence",
-            "question": "Can the transition produce verifiable evidence?",
-            "expected_behavior": "A transition is not complete unless it emits a verifiable receipt.",
-            "formula": "I(x') ≤ 0 and Verify(R) = true",
-            "confirmed_behavior": "Expected receipt model is defined; first receipt-backed runs are pending.",
-            "evidence_level": 2,
-            "taxonomy_order": 13,
-            "complexity_score": 6,
-            "color": "67, 214, 148"
-      },
-      {
-            "id": "T14",
-            "name": "Reconstruction Transition",
-            "short_name": "Reconstruction",
-            "family": "evidence",
-            "question": "Can the end-state be reconstructed from receipts?",
-            "expected_behavior": "Receipts should support reconstruction of the observed end-state and expose unexplained variance.",
-            "formula": "C = f(receipt integrity, state continuity, artifact consistency, unexplained variance)",
-            "confirmed_behavior": "Expected confidence model is defined; reconstruction ledger integration is pending.",
-            "evidence_level": 2,
-            "taxonomy_order": 14,
-            "complexity_score": 7,
-            "color": "67, 214, 148"
-      },
-      {
-            "id": "T15",
-            "name": "Irreversible Transition",
-            "short_name": "Irreversible",
-            "family": "open",
-            "question": "Does the action cross a point of no return?",
-            "expected_behavior": "A transition is irreversible when no admissible reverse transition exists.",
-            "formula": "¬∃u⁻¹ : Φ(x',u⁻¹)=x with I(Φ(x',u⁻¹))≤0",
-            "confirmed_behavior": "Expected behavior is defined; reversibility classification remains open.",
-            "evidence_level": 1,
-            "taxonomy_order": 15,
-            "complexity_score": 10,
-            "color": "255, 100, 100"
-      },
-      {
-            "id": "T16",
-            "name": "Self-Modifying Transition",
-            "short_name": "Self-Modifying",
-            "family": "open",
-            "question": "Can the system alter its own rules safely?",
-            "expected_behavior": "A transition that changes the invariant must not create retroactive governance collapse.",
-            "formula": "I → I' with controlled expansion of A_I(x)",
-            "confirmed_behavior": "High-value open research element. Expected behavior is framed, not confirmed.",
-            "evidence_level": 0,
-            "taxonomy_order": 16,
-            "complexity_score": 12,
-            "color": "255, 100, 100"
-      }
-];
-    const FALLBACK_EVIDENCE = {
-      "generated_at": "2026-05-09T20:20:12Z",
-      "generated_by": "tools/run_transition_experiments.py",
-      "evidence_labels": [
-            "Proposed",
-            "Defined",
-            "Derived",
-            "Proven",
-            "Tested",
-            "Receipt-backed"
-      ],
-      "elements": {
-            "T1": {
-                  "evidence_level": 4,
-                  "evidence_label": "Tested",
-                  "brightness": 0.8,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Deterministic T1 sweep generated 5 rows: 2 ALLOW, 3 DENY, 0 FAIL-CLOSED. Receipt generation remains pending."
-            },
-            "T2": {
-                  "evidence_level": 3,
-                  "evidence_label": "Proven",
-                  "brightness": 0.6,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected analytical form is defined. Full linked proof/test record is pending."
-            },
-            "T3": {
-                  "evidence_level": 2,
-                  "evidence_label": "Derived",
-                  "brightness": 0.4,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected behavior is defined; deterministic bound tests are pending."
-            },
-            "T4": {
-                  "evidence_level": 2,
-                  "evidence_label": "Derived",
-                  "brightness": 0.4,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected margin equation is defined; live margin display is pending."
-            },
-            "T5": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected behavior is defined; reachable-set calculation is pending."
-            },
-            "T6": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected behavior is defined; robust-region calculation is pending."
-            },
-            "T7": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected behavior is defined; actuation-bound test harness is pending."
-            },
-            "T8": {
-                  "evidence_level": 2,
-                  "evidence_label": "Derived",
-                  "brightness": 0.4,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected analytical approximation exists; calibration is pending."
-            },
-            "T9": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected coupled form is defined; special-case tests are pending."
-            },
-            "T10": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected aggregate form is defined; simulation is pending."
-            },
-            "T11": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected failure condition is defined; conflict-region mapping is pending."
-            },
-            "T12": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected protocol condition is defined; validator tests are pending."
-            },
-            "T13": {
-                  "evidence_level": 2,
-                  "evidence_label": "Derived",
-                  "brightness": 0.4,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected receipt model is defined; first receipt-backed runs are pending."
-            },
-            "T14": {
-                  "evidence_level": 2,
-                  "evidence_label": "Derived",
-                  "brightness": 0.4,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected confidence model is defined; reconstruction ledger integration is pending."
-            },
-            "T15": {
-                  "evidence_level": 1,
-                  "evidence_label": "Defined",
-                  "brightness": 0.2,
-                  "receipt_backed": false,
-                  "latest_result_summary": "Expected behavior is defined; reversibility classification remains open."
-            },
-            "T16": {
-                  "evidence_level": 0,
-                  "evidence_label": "Proposed",
-                  "brightness": 0.0,
-                  "receipt_backed": false,
-                  "latest_result_summary": "High-value open research element. Expected behavior is framed, not confirmed."
-            }
-      }
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Transition Table | A StegVerse Research Contribution</title><style>
+:root{--bg:#080b12;--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:67,214,148;--shadow:0 24px 80px rgba(0,0,0,.35);--radius:18px;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{min-height:100%;background:radial-gradient(circle at 20% 0%,rgba(77,163,255,.22),transparent 34rem),radial-gradient(circle at 82% 8%,rgba(184,123,255,.18),transparent 34rem),var(--bg)}body{margin:0;color:var(--text);font-family:var(--sans);line-height:1.5}a{color:inherit}.page{width:min(1440px,calc(100% - 28px));margin:0 auto;padding:18px 0 44px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px;color:var(--muted)}.brand{font-weight:950;color:var(--text);text-decoration:none}.nav-links{display:flex;gap:10px;flex-wrap:wrap}.nav-links a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05)}
+.hero,.table-panel,.detail-panel,.ledger-panel,.legend-panel,.funding-panel{border:1px solid var(--line);border-radius:var(--radius);background:rgba(16,24,39,.78);box-shadow:var(--shadow)}.hero{border-radius:28px;background:linear-gradient(145deg,rgba(16,24,39,.92),rgba(10,14,23,.94));padding:clamp(22px,4vw,52px);overflow:hidden;position:relative}.eyebrow{color:rgb(var(--green));font-size:.82rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}h1{margin:0;font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;letter-spacing:-.075em;text-transform:uppercase}.subtitle{margin-top:16px;color:var(--muted);font-size:clamp(1.05rem,2.2vw,1.45rem);max-width:980px}.byline,.hero-actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}.hero-actions{margin-top:24px;gap:12px}.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.06);color:var(--muted);font-size:.9rem}.funding-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;border:1px solid rgba(67,214,148,.62);border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text);font-weight:900;text-decoration:none;box-shadow:0 12px 34px rgba(67,214,148,.16)}.support-note{color:var(--muted);font-size:.93rem}.notice{margin-top:24px;border-left:4px solid rgb(var(--green));background:rgba(67,214,148,.08);border-radius:14px;padding:14px 16px;color:#dce9f8;max-width:1050px}
+.toolbar{margin:24px 0 18px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.toolbar-title h2{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);letter-spacing:-.035em}.toolbar-title p{margin:5px 0 0;color:var(--muted)}.view-controls{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}button{appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);border-radius:999px;padding:10px 13px;font:inherit;font-weight:750;cursor:pointer}button:hover,button.active{background:rgba(77,163,255,.22);border-color:rgba(77,163,255,.52)}
+.layout-shell{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.55fr);gap:18px;align-items:start}.table-panel{padding:16px;overflow:hidden}.axis-label{color:var(--muted);font-size:.78rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin:0 0 10px}.transition-grid{display:grid;grid-template-columns:repeat(4,minmax(135px,1fr));gap:12px}.transition-card{min-height:170px;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:13px;background:linear-gradient(160deg,rgba(var(--family-color),calc(.08 + var(--brightness)*.34)),rgba(255,255,255,.035)),rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px rgba(var(--family-color),calc(.08 + var(--brightness)*.26)),0 12px 32px rgba(0,0,0,.18);color:var(--text);display:flex;flex-direction:column;justify-content:space-between;text-align:left;cursor:pointer;transition:transform .14s ease,filter .14s ease,border-color .14s ease;position:relative;overflow:hidden;text-decoration:none}.transition-card:hover{transform:translateY(-2px);border-color:rgba(var(--family-color),.78);filter:brightness(1.12)}.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.symbol{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:950;letter-spacing:-.08em;line-height:.9}.family{color:rgba(var(--family-color),.95);font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em}.element-name{margin:10px 0 0;font-weight:850;letter-spacing:-.025em;line-height:1.15;font-size:1.02rem}.element-question{margin-top:7px;color:var(--muted);font-size:.82rem;line-height:1.35}.status-row{display:grid;gap:7px;margin-top:14px}.status-label{color:var(--muted);font-size:.72rem;font-weight:850;text-transform:uppercase;letter-spacing:.11em}.meter{height:9px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12)}.meter span{display:block;height:100%;width:calc(var(--brightness)*100%);background:rgba(var(--family-color),.94);box-shadow:0 0 18px rgba(var(--family-color),.48)}.cell-link{color:#dbe7f7;font-size:.8rem;text-decoration:none}
+.side-stack{display:grid;gap:18px}.detail-panel{padding:18px;min-height:360px}.detail-panel h3{margin:0;font-size:1.45rem;letter-spacing:-.04em}.detail-meta{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px}.detail-section{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}.detail-section h4{margin:0 0 7px;font-size:.82rem;color:rgb(var(--green));text-transform:uppercase;letter-spacing:.13em}.detail-section p{margin:0;color:#dbe7f7}.formula{margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(0,0,0,.24);color:#f5fbff;font-family:var(--mono);font-size:.9rem;overflow-x:auto;white-space:nowrap}.ledger-panel{padding:16px}.ledger-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.ledger-header h3{margin:0;font-size:1rem;text-transform:uppercase;letter-spacing:.12em}.ledger-stream{height:360px;overflow:auto;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.35);padding:12px;font-family:var(--mono);font-size:.78rem;color:#cfe3ff}.ledger-line{margin:0 0 6px;white-space:pre-wrap}.allow{color:rgb(var(--green))}.deny{color:rgb(255,190,84)}.fail{color:rgb(255,100,100)}.legend-panel,.funding-panel{margin-top:18px;padding:18px}.legend-grid{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:10px}.legend-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.04)}.legend-item strong{display:block;margin-bottom:4px}.legend-item span{display:block;color:var(--muted);font-size:.88rem}.funding-panel{border-color:rgba(67,214,148,.34);background:radial-gradient(circle at 10% 0%,rgba(67,214,148,.14),transparent 28rem),rgba(16,24,39,.78)}.funding-panel h2{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);letter-spacing:-.035em}.funding-panel p{color:var(--muted);max-width:980px;margin:8px 0 0}.funding-panel .funding-button{margin-top:16px}.footer{margin-top:26px;color:var(--muted);text-align:center;font-size:.92rem}
+@media(max-width:980px){.toolbar,.layout-shell{grid-template-columns:1fr}.view-controls{justify-content:flex-start}.transition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.legend-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.page{width:min(100% - 18px,1440px);padding-top:10px}.hero{border-radius:20px;padding:20px}.transition-grid{grid-template-columns:1fr}.legend-grid{grid-template-columns:1fr}.ledger-stream{height:310px}}
+</style></head>
+<body><main class="page">
+<nav class="nav" aria-label="Site navigation"><a class="brand" href="index.html">StegVerse</a><div class="nav-links"><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="support.html">Support</a><a href="transition-periodic-table.html">Research Landing</a></div></nav>
+<section class="hero"><div class="eyebrow">StegVerse Research Surface</div><h1>Transition Table</h1><p class="subtitle">The table interface for the Transition Periodic Table research surface. Cells show expected behavior, confirmed behavior, evidence maturity, and deterministic reorganization views.</p><div class="byline"><span class="pill">A StegVerse Research Contribution</span><span class="pill">By Rigel Randolph</span></div><div class="hero-actions"><a class="funding-button" href="transition-periodic-table.html">Research Landing Page</a><a class="funding-button" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support StegVerse Research</a><span class="support-note">Support public research, formalization, demos, and receipt-backed transition experiments.</span></div><div class="notice">This table includes a static HTML fallback grid like the StegVerse demo page, then enhances sorting from backend-generated data when JavaScript is available. Each transition card opens its individual detail page.</div></section>
+<section class="toolbar"><div class="toolbar-title"><h2>Transition Element Atlas</h2><p id="viewDescription">Taxonomy view groups elements by the current research sequence. On mobile, the same order appears as a vertical card stack.</p></div><div class="view-controls"><button class="active" type="button" data-view="taxonomy">Taxonomy</button><button type="button" data-view="evidence">Evidence</button><button type="button" data-view="complexity">Complexity</button></div></section>
+<section class="layout-shell"><section class="table-panel"><p class="axis-label" id="axisLabel">Taxonomy view: primitive → lag → coupled → evidence → open research</p><div class="transition-grid" id="transitionGrid" aria-live="polite"><a class="transition-card" data-element-id="T1" data-taxonomy="1" data-evidence="4" data-complexity="0" href="transition-elements/T1.html" style="--family-color:77, 163, 255;--brightness:0.80">
+<div><div class="card-top"><div><div class="symbol">T1</div><div class="family">primitive</div></div><span class="pill">Tested</span></div><div class="element-name">Primitive Admissible Transition</div><div class="element-question">Does x + u remain admissible?</div></div>
+<div class="status-row"><div class="status-label">Evidence 4/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T1 detail</span></div></a>
+<a class="transition-card" data-element-id="T2" data-taxonomy="2" data-evidence="3" data-complexity="1" href="transition-elements/T2.html" style="--family-color:77, 163, 255;--brightness:0.60">
+<div><div class="card-top"><div><div class="symbol">T2</div><div class="family">primitive</div></div><span class="pill">Proven</span></div><div class="element-name">Simplex-Preserving Transition</div><div class="element-question">Does the action preserve BCAT conservation?</div></div>
+<div class="status-row"><div class="status-label">Evidence 3/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T2 detail</span></div></a>
+<a class="transition-card" data-element-id="T3" data-taxonomy="3" data-evidence="2" data-complexity="2" href="transition-elements/T3.html" style="--family-color:77, 163, 255;--brightness:0.40">
+<div><div class="card-top"><div><div class="symbol">T3</div><div class="family">primitive</div></div><span class="pill">Derived</span></div><div class="element-name">Bounded-Action Transition</div><div class="element-question">Is the action too large to commit safely in one step?</div></div>
+<div class="status-row"><div class="status-label">Evidence 2/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T3 detail</span></div></a>
+<a class="transition-card" data-element-id="T4" data-taxonomy="4" data-evidence="2" data-complexity="2" href="transition-elements/T4.html" style="--family-color:77, 163, 255;--brightness:0.40">
+<div><div class="card-top"><div><div class="symbol">T4</div><div class="family">primitive</div></div><span class="pill">Derived</span></div><div class="element-name">Capacity-Margin Transition</div><div class="element-question">How much admissibility margin remains after action?</div></div>
+<div class="status-row"><div class="status-label">Evidence 2/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T4 detail</span></div></a>
+<a class="transition-card" data-element-id="T5" data-taxonomy="5" data-evidence="1" data-complexity="4" href="transition-elements/T5.html" style="--family-color:255, 190, 84;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T5</div><div class="family">lag</div></div><span class="pill">Defined</span></div><div class="element-name">Observation-Lag Transition</div><div class="element-question">Does stale observation change admissibility?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T5 detail</span></div></a>
+<a class="transition-card" data-element-id="T6" data-taxonomy="6" data-evidence="1" data-complexity="5" href="transition-elements/T6.html" style="--family-color:255, 190, 84;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T6</div><div class="family">lag</div></div><span class="pill">Defined</span></div><div class="element-name">Decision-Lag Transition</div><div class="element-question">Does computation delay change admissibility?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T6 detail</span></div></a>
+<a class="transition-card" data-element-id="T7" data-taxonomy="7" data-evidence="1" data-complexity="6" href="transition-elements/T7.html" style="--family-color:255, 190, 84;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T7</div><div class="family">lag</div></div><span class="pill">Defined</span></div><div class="element-name">Actuation-Lag Transition</div><div class="element-question">Does the world move before execution binds?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T7 detail</span></div></a>
+<a class="transition-card" data-element-id="T8" data-taxonomy="8" data-evidence="2" data-complexity="5" href="transition-elements/T8.html" style="--family-color:255, 190, 84;--brightness:0.40">
+<div><div class="card-top"><div><div class="symbol">T8</div><div class="family">lag</div></div><span class="pill">Derived</span></div><div class="element-name">Trust-Drift Transition</div><div class="element-question">Does trust decay during the transition?</div></div>
+<div class="status-row"><div class="status-label">Evidence 2/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T8 detail</span></div></a>
+<a class="transition-card" data-element-id="T9" data-taxonomy="9" data-evidence="1" data-complexity="7" href="transition-elements/T9.html" style="--family-color:184, 123, 255;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T9</div><div class="family">coupled</div></div><span class="pill">Defined</span></div><div class="element-name">Two-State Coupled Transition</div><div class="element-question">Does one state transition disturb another?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T9 detail</span></div></a>
+<a class="transition-card" data-element-id="T10" data-taxonomy="10" data-evidence="1" data-complexity="8" href="transition-elements/T10.html" style="--family-color:184, 123, 255;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T10</div><div class="family">coupled</div></div><span class="pill">Defined</span></div><div class="element-name">Multi-Agent Transition</div><div class="element-question">Do multiple actors preserve admissibility together?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T10 detail</span></div></a>
+<a class="transition-card" data-element-id="T11" data-taxonomy="11" data-evidence="1" data-complexity="9" href="transition-elements/T11.html" style="--family-color:184, 123, 255;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T11</div><div class="family">coupled</div></div><span class="pill">Defined</span></div><div class="element-name">Conflict Transition</div><div class="element-question">What happens when admissible actions conflict?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T11 detail</span></div></a>
+<a class="transition-card" data-element-id="T12" data-taxonomy="12" data-evidence="1" data-complexity="8" href="transition-elements/T12.html" style="--family-color:184, 123, 255;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T12</div><div class="family">coupled</div></div><span class="pill">Defined</span></div><div class="element-name">Consensus Transition</div><div class="element-question">Can agreement preserve admissibility across validators?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T12 detail</span></div></a>
+<a class="transition-card" data-element-id="T13" data-taxonomy="13" data-evidence="2" data-complexity="6" href="transition-elements/T13.html" style="--family-color:67, 214, 148;--brightness:0.40">
+<div><div class="card-top"><div><div class="symbol">T13</div><div class="family">evidence</div></div><span class="pill">Derived</span></div><div class="element-name">Receipt-Bound Transition</div><div class="element-question">Can the transition produce verifiable evidence?</div></div>
+<div class="status-row"><div class="status-label">Evidence 2/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T13 detail</span></div></a>
+<a class="transition-card" data-element-id="T14" data-taxonomy="14" data-evidence="2" data-complexity="7" href="transition-elements/T14.html" style="--family-color:67, 214, 148;--brightness:0.40">
+<div><div class="card-top"><div><div class="symbol">T14</div><div class="family">evidence</div></div><span class="pill">Derived</span></div><div class="element-name">Reconstruction Transition</div><div class="element-question">Can the end-state be reconstructed from receipts?</div></div>
+<div class="status-row"><div class="status-label">Evidence 2/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T14 detail</span></div></a>
+<a class="transition-card" data-element-id="T15" data-taxonomy="15" data-evidence="1" data-complexity="10" href="transition-elements/T15.html" style="--family-color:255, 100, 100;--brightness:0.20">
+<div><div class="card-top"><div><div class="symbol">T15</div><div class="family">open</div></div><span class="pill">Defined</span></div><div class="element-name">Irreversible Transition</div><div class="element-question">Does the action cross a point of no return?</div></div>
+<div class="status-row"><div class="status-label">Evidence 1/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T15 detail</span></div></a>
+<a class="transition-card" data-element-id="T16" data-taxonomy="16" data-evidence="0" data-complexity="12" href="transition-elements/T16.html" style="--family-color:255, 100, 100;--brightness:0.00">
+<div><div class="card-top"><div><div class="symbol">T16</div><div class="family">open</div></div><span class="pill">Proposed</span></div><div class="element-name">Self-Modifying Transition</div><div class="element-question">Can the system alter its own rules safely?</div></div>
+<div class="status-row"><div class="status-label">Evidence 0/5</div><div class="meter" aria-hidden="true"><span></span></div><span class="cell-link">Open T16 detail</span></div></a></div></section><aside class="side-stack"><section class="detail-panel" id="detailPanel" aria-live="polite"><h3>T1 — Primitive Admissible Transition</h3><div class="detail-meta"><span class="pill">primitive</span><span class="pill">Evidence 4/5 · Tested</span><span class="pill">Receipts pending</span></div><section class="detail-section"><h4>Expected Behavior</h4><p>A transition is admissible iff the post-transition state satisfies the governing invariant.</p><div class="formula">I(Φ(x,u)) ≤ 0  ⇒  a + Δa ≤ K(g + Δg)^α(c + Δc)^β(t + Δt)^γ</div></section><section class="detail-section"><h4>Confirmed Behavior</h4><p>Deterministic T1 sweep generated 5 rows: 2 ALLOW, 3 DENY, 0 FAIL-CLOSED. Receipt generation remains pending.</p></section><section class="detail-section"><h4>Element Page</h4><p><a href="transition-elements/T1.html">Open T1 detail page</a></p></section></section><section class="ledger-panel"><div class="ledger-header"><h3>Experimental Ledger</h3><span class="pill" id="ledgerActive">ACTIVE: T1</span></div><div class="ledger-stream" id="ledgerStream" aria-live="polite"><p class="ledger-line allow">[2026-05-09T20:20:12Z] T1 deterministic_sweep run=t1-001 invariant=-0.03056 verdict=ALLOW</p>
+<p class="ledger-line deny">[2026-05-09T20:20:12Z] T1 deterministic_sweep run=t1-002 invariant=0.1814 verdict=DENY</p>
+<p class="ledger-line deny">[2026-05-09T20:20:12Z] T1 deterministic_sweep run=t1-003 invariant=0.01847 verdict=DENY</p>
+<p class="ledger-line deny">[2026-05-09T20:20:12Z] T1 deterministic_sweep run=t1-004 invariant=0.19957 verdict=DENY</p>
+<p class="ledger-line allow">[2026-05-09T20:20:12Z] T1 deterministic_sweep run=t1-005 invariant=-0.07021 verdict=ALLOW</p></div></section></aside></section>
+<section class="legend-panel"><div class="legend-grid"><div class="legend-item"><strong>Color</strong><span>Transition family: primitive, lag, coupled, evidence, or open research.</span></div><div class="legend-item"><strong>Brightness</strong><span>Evidence maturity: proposed → defined → derived → proven → tested → receipt-backed.</span></div><div class="legend-item"><strong>Views</strong><span>Taxonomy, evidence, and complexity are ordered sequences. Mobile displays them vertically.</span></div><div class="legend-item"><strong>Cards</strong><span>Each card links to its generated transition detail page.</span></div><div class="legend-item"><strong>Self-Organization</strong><span>Alternate views reorder cells from registry metadata, not visual guesswork.</span></div></div></section>
+<section class="funding-panel" id="research-funding"><h2>Support StegVerse Research</h2><p>Contributions support continued StegVerse research, including transition formalization, public demos, deterministic test surfaces, receipt-backed experiments, and documentation of expected versus confirmed behavior.</p><a class="funding-button" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support StegVerse Research</a></section>
+<footer class="footer">Transition Periodic Table · A StegVerse Research Contribution · By Rigel Randolph</footer></main>
+<script>
+const descriptions = {
+  taxonomy: ["Taxonomy view: primitive → lag → coupled → evidence → open research", "Taxonomy view groups elements by the current research sequence. On mobile, the same order appears as a vertical card stack."],
+  evidence: ["Evidence view: highest confirmed maturity first", "Evidence view orders cards by confirmation level, from tested/derived elements toward proposed/open elements. On mobile, this appears vertically."],
+  complexity: ["Complexity view: lower transition complexity toward higher transition complexity", "Complexity view orders cards by registry complexity score. On mobile, this appears vertically from lower to higher complexity."]
 };
-    const FALLBACK_LEDGER_ROWS = [
-      {
-            "timestamp": "2026-05-09T20:20:12Z",
-            "element_id": "T1",
-            "mode": "deterministic_sweep",
-            "run_id": "t1-001",
-            "parameters": {
-                  "K": 1,
-                  "alpha": 1,
-                  "beta": 1,
-                  "gamma": 1
-            },
-            "pre_state": {
-                  "g": 0.42,
-                  "c": 0.71,
-                  "a": 0.19,
-                  "t": 0.88
-            },
-            "action": {
-                  "dg": -0.02,
-                  "dc": 0.01,
-                  "da": 0.03,
-                  "dt": -0.01
-            },
-            "post_state": {
-                  "g": 0.4,
-                  "c": 0.72,
-                  "a": 0.22,
-                  "t": 0.87
-            },
-            "capacity": 0.25056,
-            "invariant": -0.03056,
-            "verdict": "ALLOW",
-            "passed": true,
-            "receipt_hash": null
-      },
-      {
-            "timestamp": "2026-05-09T20:20:12Z",
-            "element_id": "T1",
-            "mode": "deterministic_sweep",
-            "run_id": "t1-002",
-            "parameters": {
-                  "K": 1,
-                  "alpha": 1,
-                  "beta": 1,
-                  "gamma": 1
-            },
-            "pre_state": {
-                  "g": 0.31,
-                  "c": 0.6,
-                  "a": 0.27,
-                  "t": 0.72
-            },
-            "action": {
-                  "dg": 0.02,
-                  "dc": 0.0,
-                  "da": 0.05,
-                  "dt": -0.02
-            },
-            "post_state": {
-                  "g": 0.33,
-                  "c": 0.6,
-                  "a": 0.32,
-                  "t": 0.7
-            },
-            "capacity": 0.1386,
-            "invariant": 0.1814,
-            "verdict": "DENY",
-            "passed": true,
-            "receipt_hash": null
-      },
-      {
-            "timestamp": "2026-05-09T20:20:12Z",
-            "element_id": "T1",
-            "mode": "deterministic_sweep",
-            "run_id": "t1-003",
-            "parameters": {
-                  "K": 1,
-                  "alpha": 1,
-                  "beta": 1,
-                  "gamma": 1
-            },
-            "pre_state": {
-                  "g": 0.8,
-                  "c": 0.63,
-                  "a": 0.36,
-                  "t": 0.7
-            },
-            "action": {
-                  "dg": -0.04,
-                  "dc": 0.04,
-                  "da": 0.02,
-                  "dt": 0.01
-            },
-            "post_state": {
-                  "g": 0.76,
-                  "c": 0.67,
-                  "a": 0.38,
-                  "t": 0.71
-            },
-            "capacity": 0.36153,
-            "invariant": 0.01847,
-            "verdict": "DENY",
-            "passed": true,
-            "receipt_hash": null
-      },
-      {
-            "timestamp": "2026-05-09T20:20:12Z",
-            "element_id": "T1",
-            "mode": "deterministic_sweep",
-            "run_id": "t1-004",
-            "parameters": {
-                  "K": 1,
-                  "alpha": 1,
-                  "beta": 1,
-                  "gamma": 1
-            },
-            "pre_state": {
-                  "g": 0.28,
-                  "c": 0.33,
-                  "a": 0.18,
-                  "t": 0.41
-            },
-            "action": {
-                  "dg": 0.01,
-                  "dc": 0.01,
-                  "da": 0.06,
-                  "dt": 0.0
-            },
-            "post_state": {
-                  "g": 0.29,
-                  "c": 0.34,
-                  "a": 0.24,
-                  "t": 0.41
-            },
-            "capacity": 0.04043,
-            "invariant": 0.19957,
-            "verdict": "DENY",
-            "passed": true,
-            "receipt_hash": null
-      },
-      {
-            "timestamp": "2026-05-09T20:20:12Z",
-            "element_id": "T1",
-            "mode": "deterministic_sweep",
-            "run_id": "t1-005",
-            "parameters": {
-                  "K": 1,
-                  "alpha": 1,
-                  "beta": 1,
-                  "gamma": 1
-            },
-            "pre_state": {
-                  "g": 0.55,
-                  "c": 0.52,
-                  "a": 0.12,
-                  "t": 0.79
-            },
-            "action": {
-                  "dg": 0.0,
-                  "dc": -0.03,
-                  "da": 0.02,
-                  "dt": -0.01
-            },
-            "post_state": {
-                  "g": 0.55,
-                  "c": 0.49,
-                  "a": 0.14,
-                  "t": 0.78
-            },
-            "capacity": 0.21021,
-            "invariant": -0.07021,
-            "verdict": "ALLOW",
-            "passed": true,
-            "receipt_hash": null
-      }
-];
-
-    let elements = [];
-    let evidence = {};
-    let ledgerRows = [];
-    let activeView = "taxonomy";
-    let activeElementId = "T1";
-    const grid = document.getElementById("transitionGrid");
-    const detailPanel = document.getElementById("detailPanel");
-    const ledgerStream = document.getElementById("ledgerStream");
-    const ledgerActive = document.getElementById("ledgerActive");
-    const axisLabel = document.getElementById("axisLabel");
-
-    async function fetchJson(path) {
-      const response = await fetch(path, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Failed to load ${path}`);
-      return await response.json();
-    }
-
-    async function fetchJsonl(path) {
-      const response = await fetch(path, { cache: "no-store" });
-      if (!response.ok) return [];
-      const text = await response.text();
-      return text.split("\n").map(line => line.trim()).filter(Boolean).map(line => JSON.parse(line));
-    }
-
-    async function init() {
-      try {
-        elements = await fetchJson("data/transition-elements.json");
-        evidence = await fetchJson("data/transition-evidence.json");
-        ledgerRows = await fetchJsonl("data/transition-ledger.jsonl");
-      } catch (error) {
-        elements = FALLBACK_ELEMENTS;
-        evidence = FALLBACK_EVIDENCE;
-        ledgerRows = FALLBACK_LEDGER_ROWS;
-        const warning = document.createElement("div");
-        warning.className = "notice";
-        warning.textContent = "Data files could not be fetched, so this page is using its embedded fallback registry. Commit the data directory to enable backend-generated updates.";
-        document.querySelector(".hero").appendChild(warning);
-      }
-      renderGrid();
-      renderDetail();
-      renderLedger();
-    }
-
-    function enriched(element) {
-      const ev = evidence.elements?.[element.id] || {};
-      return { ...element, evidence_level: ev.evidence_level ?? element.evidence_level, evidence_label: ev.evidence_label ?? evidenceLabels[element.evidence_level], brightness: ev.brightness ?? element.evidence_level / 5, receipt_backed: ev.receipt_backed ?? false, latest_result_summary: ev.latest_result_summary ?? element.confirmed_behavior };
-    }
-
-    function sortedElements() {
-      const list = elements.map(enriched);
-      if (activeView === "evidence") {
-        axisLabel.textContent = "Evidence maturity increases left-to-right and top-to-bottom";
-        return list.sort((a,b) => b.evidence_level - a.evidence_level || a.taxonomy_order - b.taxonomy_order);
-      }
-      if (activeView === "complexity") {
-        axisLabel.textContent = "Complexity increases left-to-right and top-to-bottom";
-        return list.sort((a,b) => a.complexity_score - b.complexity_score || a.taxonomy_order - b.taxonomy_order);
-      }
-      axisLabel.textContent = "Increasing coupling / composition → · Increasing reality-binding ↓";
-      return list.sort((a,b) => a.taxonomy_order - b.taxonomy_order);
-    }
-
-    function renderGrid() {
-      grid.innerHTML = "";
-      for (const element of sortedElements()) {
-        const card = document.createElement("button");
-        card.type = "button";
-        card.className = "transition-card";
-        if (element.id === activeElementId) card.classList.add("active");
-        if (element.receipt_backed) card.classList.add("receipt-backed");
-        card.style.setProperty("--family-color", element.color);
-        card.style.setProperty("--brightness", Number(element.brightness).toFixed(2));
-        card.innerHTML = `<div><div class="card-top"><div><div class="symbol">${element.id}</div><div class="family">${element.family}</div></div><span class="pill">${element.evidence_label}</span></div><div class="element-name">${element.name}</div><div class="element-question">${element.question}</div></div><div class="status-row"><div class="status-label">Evidence ${element.evidence_level}/5</div><div class="meter"><span></span></div></div>`;
-        card.addEventListener("click", () => { activeElementId = element.id; renderGrid(); renderDetail(); renderLedger(); });
-        grid.appendChild(card);
-      }
-    }
-
-    function renderDetail() {
-      const element = enriched(elements.find(item => item.id === activeElementId) || elements[0]);
-      if (!element) return;
-      detailPanel.innerHTML = `<h3>${element.id} — ${element.name}</h3><div class="detail-meta"><span class="pill">${element.family}</span><span class="pill">Evidence ${element.evidence_level}/5 · ${element.evidence_label}</span><span class="pill">${element.receipt_backed ? "Receipt-backed" : "Receipts pending"}</span></div><section class="detail-section"><h4>Expected Behavior</h4><p>${element.expected_behavior}</p><div class="formula">${element.formula}</div></section><section class="detail-section"><h4>Confirmed Behavior</h4><p>${element.latest_result_summary}</p></section><section class="detail-section"><h4>Element Page</h4><p><a href="transition-elements/${element.id}.html">Open ${element.id} detail page</a></p><p class="link-note">Generated from registry, evidence, and ledger data.</p></section>`;
-    }
-
-    function renderLedger() {
-      ledgerStream.innerHTML = "";
-      const element = elements.find(item => item.id === activeElementId) || elements[0];
-      if (!element) return;
-      ledgerActive.textContent = `ACTIVE: ${element.id}`;
-      const rows = ledgerRows.filter(row => row.element_id === element.id);
-      if (!rows.length) {
-        line(`[registry] ACTIVE ELEMENT: ${element.id} ${element.name}`);
-        line(`[registry] EXPECTED: ${element.question}`);
-        line(`[registry] FORMULA: ${element.formula}`);
-        line(`[registry] LEDGER: no experimental rows yet`);
-        return;
-      }
-      for (const row of rows.slice(-50)) {
-        const cls = row.verdict === "ALLOW" ? "allow" : row.verdict === "DENY" ? "deny" : "fail";
-        line(`[${row.timestamp}] ${row.element_id} ${row.mode} run=${row.run_id} invariant=${row.invariant} verdict=${row.verdict}`, cls);
-      }
-    }
-
-    function line(text, className = "") {
-      const p = document.createElement("p");
-      p.className = `ledger-line ${className}`.trim();
-      p.textContent = text;
-      ledgerStream.appendChild(p);
-      ledgerStream.scrollTop = ledgerStream.scrollHeight;
-    }
-
-    document.querySelectorAll("[data-view]").forEach(button => {
-      button.addEventListener("click", () => {
-        activeView = button.dataset.view;
-        document.querySelectorAll("[data-view]").forEach(item => item.classList.toggle("active", item === button));
-        renderGrid();
-      });
-    });
-
-    init();
-  </script>
-</body>
-</html>
+function sortCards(view){
+  const grid = document.getElementById("transitionGrid");
+  const cards = Array.from(grid.querySelectorAll(".transition-card"));
+  const key = view === "evidence" ? "evidence" : view === "complexity" ? "complexity" : "taxonomy";
+  cards.sort((a,b) => {
+    const av = Number(a.dataset[key]);
+    const bv = Number(b.dataset[key]);
+    return view === "evidence" ? bv - av || Number(a.dataset.taxonomy) - Number(b.dataset.taxonomy) : av - bv;
+  });
+  cards.forEach(card => grid.appendChild(card));
+  document.getElementById("axisLabel").textContent = descriptions[view][0];
+  document.getElementById("viewDescription").textContent = descriptions[view][1];
+}
+document.querySelectorAll("[data-view]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll("[data-view]").forEach(item=>item.classList.toggle("active", item === button));
+    sortCards(button.dataset.view);
+  });
+});
+</script>
+</body></html>
