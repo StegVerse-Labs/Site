@@ -1,0 +1,55 @@
+{
+  "receipt_id": "RCPT-T2-simplex_conservation_sweep_v1-0002-002",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-09T23:08:51Z",
+  "run_id": "T2-simplex_conservation_sweep_v1-0002",
+  "ledger_row_id": "T2-simplex_conservation_sweep_v1-0002-002",
+  "element_id": "T2",
+  "experiment": "simplex_conservation_sweep_v1",
+  "tested_property": "simplex_conservation_sweep_v1",
+  "sandbox": {
+    "type": "local-python-deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120
+  },
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1
+  },
+  "pre_state": {
+    "g": 0.35,
+    "c": 0.25,
+    "a": 0.1,
+    "t": 0.3
+  },
+  "action": {
+    "dg": -0.04,
+    "dc": 0.03,
+    "da": 0.02,
+    "dt": -0.01
+  },
+  "post_state": {
+    "g": 0.31,
+    "c": 0.28,
+    "a": 0.12,
+    "t": 0.29
+  },
+  "computed": {
+    "capacity": 0.02517,
+    "invariant": 0.09483,
+    "admissibility_verdict": "DENY",
+    "constraint_value": -0.0
+  },
+  "source_hashes": {
+    "ledger_row_hash": "f1a2044704eeb771b2a3284ea4dac14d7887a817d790e1e83efd3661a4c151be",
+    "run_hash": "e0f47847857c5a4907d34e460903fc6d298a7811ad1d46eb95ceff6a1c7e666f"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute post_state = pre_state + action, capacity = K*g*c*t, invariant = a - capacity, then compare computed values and verdict."
+  },
+  "receipt_hash": "sha256:ef80a7fc568e5f10d9693bfde3debed01c0de8593043cb4d2a6e59a0b7ef76bf"
+}

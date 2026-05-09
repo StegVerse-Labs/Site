@@ -1,0 +1,57 @@
+{
+  "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-001",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-09T23:08:51Z",
+  "run_id": "T3-bounded_action_sweep_v1-0001",
+  "ledger_row_id": "T3-bounded_action_sweep_v1-0001-001",
+  "element_id": "T3",
+  "experiment": "bounded_action_sweep_v1",
+  "tested_property": "bounded_action_sweep_v1",
+  "sandbox": {
+    "type": "local-python-deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120
+  },
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1
+  },
+  "pre_state": {
+    "g": 0.42,
+    "c": 0.58,
+    "a": 0.14,
+    "t": 0.77
+  },
+  "action": {
+    "dg": 0.02,
+    "dc": -0.01,
+    "da": 0.03,
+    "dt": -0.02
+  },
+  "post_state": {
+    "g": 0.44,
+    "c": 0.57,
+    "a": 0.17,
+    "t": 0.75
+  },
+  "computed": {
+    "capacity": 0.1881,
+    "invariant": -0.0181,
+    "admissibility_verdict": "ALLOW",
+    "action_norm": 0.04243,
+    "epsilon": 0.1,
+    "bound_status": "WITHIN_BOUND"
+  },
+  "source_hashes": {
+    "ledger_row_hash": "f3d2a4cb22e012823e2ae7901bbe7a4acd1d41afa12404e19079c416340a2e05",
+    "run_hash": "1e15403b6d5e68ba651852e5c912b0bc537605370171e44780f411a57054e6b9"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute post_state = pre_state + action, capacity = K*g*c*t, invariant = a - capacity, then compare computed values and verdict."
+  },
+  "receipt_hash": "sha256:c7f2be3aefadd54908fe4579c4c041eaa791f64aea61ed1d7a39067ed29cb4b4"
+}

@@ -1,0 +1,123 @@
+{
+  "generated_at": "2026-05-09T23:08:51Z",
+  "schema": "stegverse.transition_receipt_index.v1",
+  "receipts": [
+    {
+      "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-001",
+      "element_id": "T3",
+      "run_id": "T3-bounded_action_sweep_v1-0001",
+      "ledger_row_id": "T3-bounded_action_sweep_v1-0001-001",
+      "experiment": "bounded_action_sweep_v1",
+      "tested_property": "bounded_action_sweep_v1",
+      "admissibility_verdict": "ALLOW",
+      "constraint_result": null,
+      "receipt_hash": "sha256:c7f2be3aefadd54908fe4579c4c041eaa791f64aea61ed1d7a39067ed29cb4b4",
+      "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-002",
+      "element_id": "T3",
+      "run_id": "T3-bounded_action_sweep_v1-0001",
+      "ledger_row_id": "T3-bounded_action_sweep_v1-0001-002",
+      "experiment": "bounded_action_sweep_v1",
+      "tested_property": "bounded_action_sweep_v1",
+      "admissibility_verdict": "ALLOW",
+      "constraint_result": null,
+      "receipt_hash": "sha256:da3970179005a9b0e2bf7c750c35653e7b6932c79f5c383de6689e0d229d5bb5",
+      "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-003",
+      "element_id": "T3",
+      "run_id": "T3-bounded_action_sweep_v1-0001",
+      "ledger_row_id": "T3-bounded_action_sweep_v1-0001-003",
+      "experiment": "bounded_action_sweep_v1",
+      "tested_property": "bounded_action_sweep_v1",
+      "admissibility_verdict": "ALLOW",
+      "constraint_result": null,
+      "receipt_hash": "sha256:748fa6728192ee79a6a55dab929eb090c8f6e7169528b5c923f41be9361b1c00",
+      "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T2-simplex_conservation_sweep_v1-0002-001",
+      "element_id": "T2",
+      "run_id": "T2-simplex_conservation_sweep_v1-0002",
+      "ledger_row_id": "T2-simplex_conservation_sweep_v1-0002-001",
+      "experiment": "simplex_conservation_sweep_v1",
+      "tested_property": "simplex_conservation_sweep_v1",
+      "admissibility_verdict": "DENY",
+      "constraint_result": null,
+      "receipt_hash": "sha256:b4beda8049e5e4c4d7273667ab3438b947462444d5adb34e01cf75dcf3b0e2fc",
+      "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-001.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T2-simplex_conservation_sweep_v1-0002-002",
+      "element_id": "T2",
+      "run_id": "T2-simplex_conservation_sweep_v1-0002",
+      "ledger_row_id": "T2-simplex_conservation_sweep_v1-0002-002",
+      "experiment": "simplex_conservation_sweep_v1",
+      "tested_property": "simplex_conservation_sweep_v1",
+      "admissibility_verdict": "DENY",
+      "constraint_result": null,
+      "receipt_hash": "sha256:ef80a7fc568e5f10d9693bfde3debed01c0de8593043cb4d2a6e59a0b7ef76bf",
+      "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-002.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T2-simplex_conservation_sweep_v1-0002-003",
+      "element_id": "T2",
+      "run_id": "T2-simplex_conservation_sweep_v1-0002",
+      "ledger_row_id": "T2-simplex_conservation_sweep_v1-0002-003",
+      "experiment": "simplex_conservation_sweep_v1",
+      "tested_property": "simplex_conservation_sweep_v1",
+      "admissibility_verdict": "DENY",
+      "constraint_result": null,
+      "receipt_hash": "sha256:08d033b39982d2e0967ce2032b1f57ee24d733086729cc83b2b42baa31450141",
+      "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-003.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-001",
+      "element_id": "T4",
+      "run_id": "T4-capacity_margin_sweep_v1-0003",
+      "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-001",
+      "experiment": "capacity_margin_sweep_v1",
+      "tested_property": "capacity_margin_sweep_v1",
+      "admissibility_verdict": "ALLOW",
+      "constraint_result": null,
+      "receipt_hash": "sha256:8db70c37536aa48d9a0d21231f2822701bad846e8432a87346e25ac0b66caa23",
+      "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-001.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-002",
+      "element_id": "T4",
+      "run_id": "T4-capacity_margin_sweep_v1-0003",
+      "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-002",
+      "experiment": "capacity_margin_sweep_v1",
+      "tested_property": "capacity_margin_sweep_v1",
+      "admissibility_verdict": "ALLOW",
+      "constraint_result": null,
+      "receipt_hash": "sha256:8719e46c53fb236107693412d3fd1bad7371e77f102e6256633eea2c90cdf7c7",
+      "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-002.json",
+      "replay_status": "replayable"
+    },
+    {
+      "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-003",
+      "element_id": "T4",
+      "run_id": "T4-capacity_margin_sweep_v1-0003",
+      "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-003",
+      "experiment": "capacity_margin_sweep_v1",
+      "tested_property": "capacity_margin_sweep_v1",
+      "admissibility_verdict": "ALLOW",
+      "constraint_result": null,
+      "receipt_hash": "sha256:f0416f287e0a8cd3f4d191fff7e6bbb15d86ca264c9bb137a264cba0f1465477",
+      "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-003.json",
+      "replay_status": "replayable"
+    }
+  ]
+}

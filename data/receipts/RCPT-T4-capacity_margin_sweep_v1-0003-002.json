@@ -1,0 +1,56 @@
+{
+  "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-002",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-09T23:08:51Z",
+  "run_id": "T4-capacity_margin_sweep_v1-0003",
+  "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-002",
+  "element_id": "T4",
+  "experiment": "capacity_margin_sweep_v1",
+  "tested_property": "capacity_margin_sweep_v1",
+  "sandbox": {
+    "type": "local-python-deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120
+  },
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1
+  },
+  "pre_state": {
+    "g": 0.62,
+    "c": 0.52,
+    "a": 0.17,
+    "t": 0.73
+  },
+  "action": {
+    "dg": 0.0,
+    "dc": -0.02,
+    "da": 0.03,
+    "dt": 0.0
+  },
+  "post_state": {
+    "g": 0.62,
+    "c": 0.5,
+    "a": 0.2,
+    "t": 0.73
+  },
+  "computed": {
+    "capacity": 0.2263,
+    "invariant": -0.0263,
+    "admissibility_verdict": "ALLOW",
+    "margin": 0.0263,
+    "margin_status": "NONNEGATIVE"
+  },
+  "source_hashes": {
+    "ledger_row_hash": "6d2f81620733b6e78c5c51388468183cfc524730533602d046e220ea56bf45af",
+    "run_hash": "b362a9ae13be7fa2976dd1552ebefc0b483d85496b27ca98a242170e861e6638"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute post_state = pre_state + action, capacity = K*g*c*t, invariant = a - capacity, then compare computed values and verdict."
+  },
+  "receipt_hash": "sha256:8719e46c53fb236107693412d3fd1bad7371e77f102e6256633eea2c90cdf7c7"
+}
