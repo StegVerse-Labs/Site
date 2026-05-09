@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transition Periodic Table | A StegVerse Research Contribution</title>
+  <style>
+    :root {
+      --bg:#080b12; --panel:#101827; --text:#eef4ff; --muted:#a9b7cc;
+      --line:rgba(255,255,255,.14); --blue:77,163,255; --green:67,214,148;
+      --amber:255,190,84; --purple:184,123,255; --shadow:0 24px 80px rgba(0,0,0,.35);
+      --radius:18px; --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{min-height:100%;background:radial-gradient(circle at 20% 0%,rgba(77,163,255,.22),transparent 34rem),radial-gradient(circle at 82% 8%,rgba(184,123,255,.18),transparent 34rem),var(--bg)}
+    body{margin:0;color:var(--text);font-family:var(--sans);line-height:1.5}
+    a{color:inherit}
+    .page{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:28px 0 44px}
+    .hero,.panel,.funding-panel{border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(16,24,39,.92),rgba(10,14,23,.94));box-shadow:var(--shadow);padding:clamp(22px,4vw,52px);overflow:hidden;position:relative}
+    .hero:after{content:"";position:absolute;inset:auto -20% -70% 30%;height:24rem;background:radial-gradient(circle,rgba(67,214,148,.16),transparent 68%);pointer-events:none}
+    .eyebrow{color:rgb(var(--green));font-size:.82rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+    h1{margin:0;font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;letter-spacing:-.075em;text-transform:uppercase}
+    .subtitle{margin-top:16px;color:var(--muted);font-size:clamp(1.05rem,2.2vw,1.45rem);max-width:980px}
+    .byline,.hero-actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .hero-actions{margin-top:24px;gap:12px}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.06);color:var(--muted);font-size:.9rem}
+    .primary-button,.funding-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;border-radius:999px;padding:12px 18px;color:var(--text);font-weight:900;text-decoration:none}
+    .primary-button{border:1px solid rgba(77,163,255,.72);background:linear-gradient(135deg,rgba(77,163,255,.34),rgba(184,123,255,.16));box-shadow:0 12px 34px rgba(77,163,255,.16)}
+    .funding-button{border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));box-shadow:0 12px 34px rgba(67,214,148,.16)}
+    .support-note{color:var(--muted);font-size:.93rem}
+    .notice{margin-top:24px;border-left:4px solid rgb(var(--green));background:rgba(67,214,148,.08);border-radius:14px;padding:14px 16px;color:#dce9f8;max-width:1050px}
+    .panel-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .panel,.funding-panel{border-radius:var(--radius);padding:18px;background:rgba(16,24,39,.78)}
+    .panel h2,.funding-panel h2{margin:0;font-size:clamp(1.25rem,2.2vw,1.7rem);letter-spacing:-.035em}
+    .panel p,.funding-panel p{color:var(--muted);margin:8px 0 0}
+    .mini-table{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .mini-cell{min-height:74px;border:1px solid var(--line);border-radius:14px;padding:10px;background:rgba(255,255,255,.04);font-family:var(--mono);font-weight:900}
+    .mini-cell span{display:block;margin-top:5px;font-family:var(--sans);color:var(--muted);font-size:.72rem;font-weight:700}
+    .blue{box-shadow:inset 0 0 0 1px rgba(77,163,255,.28)} .amber{box-shadow:inset 0 0 0 1px rgba(255,190,84,.22)}
+    .purple{box-shadow:inset 0 0 0 1px rgba(184,123,255,.22)} .green{box-shadow:inset 0 0 0 1px rgba(67,214,148,.24)}
+    .funding-panel{margin-top:18px;border-color:rgba(67,214,148,.34);background:radial-gradient(circle at 10% 0%,rgba(67,214,148,.14),transparent 28rem),rgba(16,24,39,.78)}
+    .funding-panel .funding-button{margin-top:16px}
+    .footer{margin-top:26px;color:var(--muted);text-align:center;font-size:.92rem}
+    @media(max-width:860px){.panel-grid{grid-template-columns:1fr}.mini-table{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.page{width:min(100% - 18px,1180px);padding-top:10px}.hero{border-radius:20px;padding:20px}.mini-table{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">StegVerse Research Surface</div>
+      <h1>Transition Periodic Table</h1>
+      <p class="subtitle">A living classification system for admissible, inadmissible, coupled, delayed, irreversible, recursive, and evidence-backed transitions at the boundary where decisions become consequences.</p>
+      <div class="byline"><span class="pill">A StegVerse Research Contribution</span><span class="pill">By Rigel Randolph</span></div>
+      <div class="hero-actions">
+        <a class="primary-button" href="transition-table.html">Open the Transition Table</a>
+        <a class="funding-button" href="#research-funding">Contribute to Research Funding</a>
+        <span class="support-note">Support public research, formalization, demos, and receipt-backed transition experiments.</span>
+      </div>
+      <div class="notice">This public research page introduces the Transition Periodic Table. The dedicated table page displays the transition elements, evidence maturity, expected behavior, confirmed behavior, deterministic reorganization views, and the experimental ledger.</div>
+    </section>
+    <section class="panel-grid">
+      <article class="panel"><h2>What the Table Represents</h2><p>Each transition element represents a class of state transition: primitive, lagged, coupled, irreversible, recursive, or evidence-backed.</p></article>
+      <article class="panel"><h2>Expected vs Confirmed</h2><p>Dim elements indicate expected or partially formalized behavior. Brightened elements indicate increasing levels of calculation, proof, testing, or receipt-backed evidence.</p></article>
+      <article class="panel"><h2>Self-Organizing View</h2><p>The table can be arranged by taxonomy, evidence maturity, or transition complexity using deterministic metadata rather than arbitrary visual placement.</p></article>
+    </section>
+    <section class="panel">
+      <h2>First Static Research Preview</h2>
+      <p>The current research table begins with primitive transitions, then expands into lag, coupling, evidence, irreversibility, and self-modification.</p>
+      <div class="mini-table">
+        <div class="mini-cell blue">T1<span>Primitive</span></div><div class="mini-cell blue">T2<span>Simplex</span></div><div class="mini-cell amber">T5<span>Observation Lag</span></div><div class="mini-cell amber">T8<span>Trust Drift</span></div>
+        <div class="mini-cell purple">T9<span>Two-State</span></div><div class="mini-cell purple">T11<span>Conflict</span></div><div class="mini-cell green">T13<span>Receipt-Bound</span></div><div class="mini-cell green">T14<span>Reconstruction</span></div>
+      </div>
+    </section>
+    <section class="funding-panel" id="research-funding">
+      <h2>Contribute to Research Funding</h2>
+      <p>Contributions support continued StegVerse research, including transition formalization, public demos, deterministic test surfaces, receipt-backed experiments, and documentation of expected versus confirmed behavior.</p>
+      <a class="funding-button" href="mailto:rigel@stegverse.org?subject=StegVerse%20Research%20Funding%20Contribution">Contact About Research Funding</a>
+    </section>
+    <footer class="footer">Transition Periodic Table · A StegVerse Research Contribution · By Rigel Randolph</footer>
+  </main>
+</body>
+</html>
