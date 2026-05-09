@@ -19,22 +19,144 @@ def read_jsonl(name):
 def esc(x):
     return html.escape(str(x), quote=True)
 
-def render_page(e, ev, rows, eruns, deltas):
+def evidence_level(evidence, element_id):
+    return int(evidence.get("elements", {}).get(element_id, {}).get("evidence_level", 0))
+
+def deps_satisfied(target, evidence):
+    requires = target.get("relations", {}).get("requires", [])
+    return all(evidence_level(evidence, dep) >= 4 for dep in requires)
+
+def source_runs_for_page(element, runs, knowledge):
+    eid = element["id"]
+    related_run_ids = set()
+    for run in runs.get("runs", []):
+        if run.get("element_id") == eid:
+            related_run_ids.add(run.get("run_id"))
+    for delta in knowledge.get("knowledge_deltas", []):
+        if delta.get("source_element") == eid or eid in delta.get("informs", []):
+            related_run_ids.add(delta.get("source_run_id"))
+    return [run for run in runs.get("runs", []) if run.get("run_id") in related_run_ids]
+
+def deltas_for_run(run_id, knowledge):
+    return [delta for delta in knowledge.get("knowledge_deltas", []) if delta.get("source_run_id") == run_id]
+
+def changelog_for(element, elements_by_id, evidence, runs, knowledge):
+    eid = element["id"]
+    entries = []
+    for run in source_runs_for_page(element, runs, knowledge):
+        run_id = run.get("run_id", "unknown-run")
+        source = run.get("element_id", "unknown")
+        source_element = elements_by_id.get(source, {})
+        run_deltas = deltas_for_run(run_id, knowledge)
+        informs = []
+        for delta in run_deltas:
+            for target in delta.get("informs", []):
+                if target not in informs:
+                    informs.append(target)
+        if not informs:
+            informs = source_element.get("relations", {}).get("informs", [])
+        unlocked = []
+        for target_id in informs:
+            target = elements_by_id.get(target_id)
+            if target and deps_satisfied(target, evidence):
+                unlocked.append(target_id)
+        evidence_delta = run.get("evidence_delta")
+        if evidence_delta:
+            evidence_text = f"{source} moved from {evidence_delta.get('from')} to {evidence_delta.get('to')} because {evidence_delta.get('reason')}."
+        elif source == eid:
+            evidence_text = "No evidence-level change was recorded for this run."
+        else:
+            evidence_text = f"No direct evidence-level change was recorded for {eid}; this run informs {eid} indirectly."
+        knowledge_items = []
+        for delta in run_deltas:
+            if delta.get("source_element") == eid or eid in delta.get("informs", []) or source == eid:
+                knowledge_items.append(f"{delta.get('delta_type', 'knowledge_delta')}: {delta.get('summary', '')}")
+        if not knowledge_items:
+            knowledge_items = ["No knowledge delta was recorded for this page from this run."]
+        entries.append({
+            "run_id": run_id,
+            "source": source,
+            "experiment": run.get("experiment", "unknown"),
+            "status": run.get("status", "unknown"),
+            "evidence_text": evidence_text,
+            "knowledge_items": knowledge_items,
+            "informs": informs,
+            "unlocked": unlocked,
+            "human_review_required": run.get("human_review_required", False),
+            "relation_text": f"This run originated from {eid}." if source == eid else f"This run originated from {source} and informs {eid}.",
+        })
+    return entries
+
+def changelog_html(entries):
+    if not entries:
+        return "<p>No consequential tests have changed or informed this transition yet.</p>"
+    blocks = []
+    for entry in entries:
+        knowledge_list = "".join(f"<li>{esc(item)}</li>" for item in entry["knowledge_items"])
+        informs = ", ".join(entry["informs"]) if entry["informs"] else "none"
+        unlocked = ", ".join(entry["unlocked"]) if entry["unlocked"] else "none"
+        review = "required" if entry["human_review_required"] else "not required"
+        blocks.append(f"""
+        <article class="change-entry">
+          <h3>{esc(entry["run_id"])}</h3>
+          <p><strong>Experiment:</strong> {esc(entry["experiment"])}</p>
+          <p><strong>Status:</strong> {esc(entry["status"])}</p>
+          <p><strong>Relation to this page:</strong> {esc(entry["relation_text"])}</p>
+          <p><strong>Evidence consequence:</strong> {esc(entry["evidence_text"])}</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul>{knowledge_list}</ul>
+          <p><strong>Graph consequence:</strong> informs {esc(informs)}.</p>
+          <p><strong>Unlocked under current evidence state:</strong> {esc(unlocked)}.</p>
+          <p><strong>Human review:</strong> {esc(review)}.</p>
+        </article>
+        """)
+    return "\n".join(blocks)
+
+def receipts_for_element(element_id, receipt_index):
+    return [r for r in receipt_index.get("receipts", []) if r.get("element_id") == element_id]
+
+def receipts_html(element_id, receipt_index):
+    receipts = receipts_for_element(element_id, receipt_index)
+    if not receipts:
+        return "<p>No replayable state transition receipts have been generated for this transition yet.</p>"
+    blocks = []
+    for r in receipts[-20:]:
+        blocks.append(f"""
+        <article class="receipt-entry">
+          <h3>{esc(r.get("receipt_id", ""))}</h3>
+          <p><strong>Run:</strong> {esc(r.get("run_id", ""))}</p>
+          <p><strong>Tested property:</strong> {esc(r.get("tested_property", ""))}</p>
+          <p><strong>Admissibility verdict:</strong> {esc(r.get("admissibility_verdict", ""))}</p>
+          <p><strong>Constraint result:</strong> {esc(r.get("constraint_result", "not applicable"))}</p>
+          <p><strong>Replay status:</strong> {esc(r.get("replay_status", "unknown"))}</p>
+          <p><strong>Receipt hash:</strong> <code>{esc(r.get("receipt_hash", ""))}</code></p>
+          <p><a href="../{esc(r.get("path", ""))}">Open receipt JSON</a></p>
+        </article>
+        """)
+    return "\n".join(blocks)
+
+def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index):
     eid = e["id"]
     c = e.get("coordinates", {})
     rel = e.get("relations", {})
+
     rows_html = "".join(
-        f"<li><code>{esc(r.get('run_id',''))}</code> · invariant={esc(r.get('invariant',''))} · <strong>{esc(r.get('verdict',''))}</strong></li>"
+        f"<li><code>{esc(r.get('run_id',''))}</code> · tested property={esc(r.get('tested_property', r.get('mode', '')))} · constraint={esc(r.get('constraint_result', 'n/a'))} · admissibility invariant={esc(r.get('invariant',''))} · admissibility verdict=<strong>{esc(r.get('verdict',''))}</strong></li>"
         for r in rows[-20:]
     ) or "<li>No ledger rows yet.</li>"
+
     runs_html = "".join(
         f"<li><code>{esc(r.get('run_id',''))}</code> · {esc(r.get('experiment',''))} · <strong>{esc(r.get('status',''))}</strong></li>"
         for r in eruns[-10:]
     ) or "<li>No run manifests yet.</li>"
+
     deltas_html = "".join(
         f"<li><code>{esc(d.get('delta_id',''))}</code> · {esc(d.get('delta_type',''))} · {esc(d.get('summary',''))}</li>"
         for d in deltas[-10:]
     ) or "<li>No knowledge deltas yet.</li>"
+
+    changes_html = changelog_html(change_entries)
+    receipts_section = receipts_html(eid, receipt_index)
 
     return """<!doctype html>
 <html lang="en">
@@ -51,11 +173,14 @@ nav a{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11p
 section{border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(16,24,39,.78);padding:18px;margin-top:14px}
 h1{font-size:clamp(2rem,7vw,4rem);line-height:.95;margin:0;letter-spacing:-.06em}
 h2{margin:0 0 8px;color:#43d694;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+h3{margin:0 0 8px;font-size:1rem;color:#eef4ff}
 p{color:#dbe7f7}
-code{color:#f5fbff}
+code{color:#f5fbff;word-break:break-all}
 .muted{color:#a9b7cc}
 .formula{overflow-x:auto;white-space:nowrap;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px;background:rgba(0,0,0,.28)}
 li{margin:0 0 8px}
+.change-entry,.receipt-entry{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(0,0,0,.18);padding:14px;margin-top:12px}
+.change-entry p,.receipt-entry p{margin:8px 0}
 </style>
 </head>
 <body>
@@ -91,22 +216,27 @@ li{margin:0 0 8px}
 <section><h2>Run Manifests</h2><ul>__RUNS__</ul></section>
 <section><h2>Knowledge Deltas</h2><ul>__DELTAS__</ul></section>
 <section><h2>Recent Ledger Rows</h2><ul>__ROWS__</ul></section>
+<section><h2>State Transition Receipts</h2>__RECEIPTS__</section>
+<section><h2>Consequential Test Changelog</h2>__CHANGELOG__</section>
 </main>
 </body>
 </html>
-""".replace("__EID__", esc(eid)).replace("__NAME__", esc(e["name"])).replace("__QUESTION__", esc(e["question"])).replace("__SUPPORT__", SUPPORT).replace("__LEVEL__", esc(ev.get("evidence_level", e.get("evidence_level", 0)))).replace("__LABEL__", esc(ev.get("evidence_label", "Unknown"))).replace("__RUNTIME__", esc(ev.get("runtime_state", "idle"))).replace("__BRIGHTNESS__", esc(ev.get("brightness", 0))).replace("__COMPOSITION__", esc(c.get("composition", 0))).replace("__REALITY__", esc(c.get("reality_binding", 0))).replace("__OBS__", esc(c.get("observability_gap", 0))).replace("__REQUIRES__", esc(", ".join(rel.get("requires", [])) or "none")).replace("__INFORMS__", esc(", ".join(rel.get("informs", [])) or "none")).replace("__EXPECTED__", esc(e["expected_behavior"])).replace("__FORMULA__", esc(e["formula"])).replace("__SUMMARY__", esc(ev.get("latest_result_summary", e.get("confirmed_behavior", "")))).replace("__RUNS__", runs_html).replace("__DELTAS__", deltas_html).replace("__ROWS__", rows_html)
+""".replace("__EID__", esc(eid)).replace("__NAME__", esc(e["name"])).replace("__QUESTION__", esc(e["question"])).replace("__SUPPORT__", SUPPORT).replace("__LEVEL__", esc(ev.get("evidence_level", e.get("evidence_level", 0)))).replace("__LABEL__", esc(ev.get("evidence_label", "Unknown"))).replace("__RUNTIME__", esc(ev.get("runtime_state", "idle"))).replace("__BRIGHTNESS__", esc(ev.get("brightness", 0))).replace("__COMPOSITION__", esc(c.get("composition", 0))).replace("__REALITY__", esc(c.get("reality_binding", 0))).replace("__OBS__", esc(c.get("observability_gap", 0))).replace("__REQUIRES__", esc(", ".join(rel.get("requires", [])) or "none")).replace("__INFORMS__", esc(", ".join(rel.get("informs", [])) or "none")).replace("__EXPECTED__", esc(e["expected_behavior"])).replace("__FORMULA__", esc(e["formula"])).replace("__SUMMARY__", esc(ev.get("latest_result_summary", e.get("confirmed_behavior", "")))).replace("__RUNS__", runs_html).replace("__DELTAS__", deltas_html).replace("__ROWS__", rows_html).replace("__RECEIPTS__", receipts_section).replace("__CHANGELOG__", changes_html)
 
 elements = read_json("transition-elements.json", [])
+elements_by_id = {e["id"]: e for e in elements}
 evidence = read_json("transition-evidence.json", {"elements": {}})
 ledger = read_jsonl("transition-ledger.jsonl")
 runs = read_json("transition-runs.json", {"runs": []})
-kd = read_json("transition-knowledge-deltas.json", {"knowledge_deltas": []})
+knowledge = read_json("transition-knowledge-deltas.json", {"knowledge_deltas": []})
+receipt_index = read_json("transition-receipts.json", {"receipts": []})
 
 for e in elements:
     eid = e["id"]
     ev = evidence.get("elements", {}).get(eid, {})
     rows = [r for r in ledger if r.get("element_id") == eid]
     eruns = [r for r in runs.get("runs", []) if r.get("element_id") == eid]
-    deltas = [d for d in kd.get("knowledge_deltas", []) if d.get("source_element") == eid or eid in d.get("informs", [])]
-    (OUT / f"{eid}.html").write_text(render_page(e, ev, rows, eruns, deltas), encoding="utf-8")
+    deltas = [d for d in knowledge.get("knowledge_deltas", []) if d.get("source_element") == eid or eid in d.get("informs", [])]
+    changes = changelog_for(e, elements_by_id, evidence, runs, knowledge)
+    (OUT / f"{eid}.html").write_text(render_page(e, ev, rows, eruns, deltas, changes, receipt_index), encoding="utf-8")
     print(f"Wrote {OUT / (eid + '.html')}")
