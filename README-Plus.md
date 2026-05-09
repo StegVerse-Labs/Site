@@ -1,28 +1,33 @@
-# Transition Experimental Engine v1
+# State Transition Receipts v1
 
-This bundle upgrades the Transition Periodic Table into a static-output experimental engine.
+Upload-safe bundle. No leading-dot paths.
 
-## What it adds
-
-- `tools/transition_experimental_orchestrator.py`
-- dependency-aware experiment selection
-- parallel-ready sandbox run manifests
-- ledger rows
-- knowledge deltas
-- review queue
-- 3D lattice coordinates
-- generated transition detail pages
-
-## Workflow path
-
-The bundle preserves this real GitHub Actions path:
+This bundle replaces:
 
 ```text
-.github/workflows/transition-experimental-engine.yml
+tools/transition_experimental_orchestrator.py
+tools/build_transition_pages.py
 ```
 
-If upload blocks the leading-dot folder, create the workflow manually with GitHub's **Create new file** path field.
+It adds replayable state transition receipts for experiment ledger rows.
 
-## Operating rule
+## New generated outputs
 
-The engine runs one eligible experiment per workflow run, then stops.
+```text
+data/transition-receipts.json
+data/receipts/RCPT-*.json
+```
+
+## Page section order
+
+```text
+Run Manifests
+Knowledge Deltas
+Recent Ledger Rows
+State Transition Receipts
+Consequential Test Changelog
+```
+
+## Important
+
+This patch does not promote evidence to 5/5 Receipt-backed yet. It only creates and exposes replayable receipts. A later verifier should replay receipt JSON before any 5/5 promotion.
