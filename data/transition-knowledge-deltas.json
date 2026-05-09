@@ -1,0 +1,18 @@
+{
+  "knowledge_deltas": [
+    {
+      "delta_id": "KD-T3-bounded_action_sweep_v1-0001-bounded-action",
+      "source_run_id": "T3-bounded_action_sweep_v1-0001",
+      "source_element": "T3",
+      "delta_type": "safe_region_fragment",
+      "summary": "Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.",
+      "informs": [
+        "T3",
+        "T4",
+        "T11"
+      ],
+      "confidence": 0.9,
+      "review_required": false
+    }
+  ]
+}

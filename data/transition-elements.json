@@ -6,12 +6,29 @@
     "family": "primitive",
     "question": "Does x + u remain admissible?",
     "expected_behavior": "A transition is admissible iff the post-transition state satisfies the governing invariant.",
-    "formula": "I(Φ(x,u)) ≤ 0  ⇒  a + Δa ≤ K(g + Δg)^α(c + Δc)^β(t + Δt)^γ",
-    "confirmed_behavior": "Analytical characterization exists. Deterministic calculation stream is supported by the static backend.",
+    "formula": "I(Φ(x,u)) ≤ 0",
+    "confirmed_behavior": "Deterministic baseline is seeded as tested.",
     "evidence_level": 4,
     "taxonomy_order": 1,
     "complexity_score": 0,
-    "color": "77, 163, 255"
+    "color": "77, 163, 255",
+    "coordinates": {
+      "composition": 0,
+      "reality_binding": 0,
+      "observability_gap": 0
+    },
+    "relations": {
+      "requires": [],
+      "informs": [
+        "T2",
+        "T3",
+        "T4",
+        "T5"
+      ]
+    },
+    "experiments": [
+      "primitive_admissibility_sweep_v1"
+    ]
   },
   {
     "id": "T2",
@@ -21,11 +38,27 @@
     "question": "Does the action preserve BCAT conservation?",
     "expected_behavior": "The post-transition state must preserve g + c + a + t = 1.",
     "formula": "Δg + Δc + Δa + Δt = 0 and I(x + u) ≤ 0",
-    "confirmed_behavior": "Expected analytical form is defined. Full linked proof/test record is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 3,
     "taxonomy_order": 2,
     "complexity_score": 1,
-    "color": "77, 163, 255"
+    "color": "77, 163, 255",
+    "coordinates": {
+      "composition": 0,
+      "reality_binding": 0,
+      "observability_gap": 0
+    },
+    "relations": {
+      "requires": [
+        "T1"
+      ],
+      "informs": [
+        "T4"
+      ]
+    },
+    "experiments": [
+      "simplex_conservation_sweep_v1"
+    ]
   },
   {
     "id": "T3",
@@ -33,13 +66,30 @@
     "short_name": "Bounded Action",
     "family": "primitive",
     "question": "Is the action too large to commit safely in one step?",
-    "expected_behavior": "A transition may be mathematically admissible but rejected if its action magnitude exceeds a configured bound.",
+    "expected_behavior": "A transition may be admissible but rejected if its action magnitude exceeds a configured bound.",
     "formula": "||u|| ≤ ε and I(x + u) ≤ 0",
-    "confirmed_behavior": "Expected behavior is defined; deterministic bound tests are pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 2,
     "taxonomy_order": 3,
     "complexity_score": 2,
-    "color": "77, 163, 255"
+    "color": "77, 163, 255",
+    "coordinates": {
+      "composition": 1,
+      "reality_binding": 0,
+      "observability_gap": 0
+    },
+    "relations": {
+      "requires": [
+        "T1"
+      ],
+      "informs": [
+        "T4",
+        "T11"
+      ]
+    },
+    "experiments": [
+      "bounded_action_sweep_v1"
+    ]
   },
   {
     "id": "T4",
@@ -49,11 +99,31 @@
     "question": "How much admissibility margin remains after action?",
     "expected_behavior": "The transition computes remaining capacity instead of only returning ALLOW or DENY.",
     "formula": "M(x') = K(g')^α(c')^β(t')^γ - a'",
-    "confirmed_behavior": "Expected margin equation is defined; live margin display is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 2,
     "taxonomy_order": 4,
     "complexity_score": 2,
-    "color": "77, 163, 255"
+    "color": "77, 163, 255",
+    "coordinates": {
+      "composition": 1,
+      "reality_binding": 1,
+      "observability_gap": 0
+    },
+    "relations": {
+      "requires": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "informs": [
+        "T5",
+        "T8",
+        "T11"
+      ]
+    },
+    "experiments": [
+      "capacity_margin_sweep_v1"
+    ]
   },
   {
     "id": "T5",
@@ -63,11 +133,28 @@
     "question": "Does stale observation change admissibility?",
     "expected_behavior": "The observed state may differ from the commit-time state because observation is delayed.",
     "formula": "I(x(t₀ + τ_obs) + u) ≤ 0",
-    "confirmed_behavior": "Expected behavior is defined; reachable-set calculation is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 5,
     "complexity_score": 4,
-    "color": "255, 190, 84"
+    "color": "255, 190, 84",
+    "coordinates": {
+      "composition": 1,
+      "reality_binding": 1,
+      "observability_gap": 3
+    },
+    "relations": {
+      "requires": [
+        "T1",
+        "T4"
+      ],
+      "informs": [
+        "T6",
+        "T7",
+        "T8"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T6",
@@ -77,11 +164,25 @@
     "question": "Does computation delay change admissibility?",
     "expected_behavior": "The decision may be based on a state that drifts before the commit boundary.",
     "formula": "∀y ∈ L(x, τ_obs + τ_dec), I(y + u) ≤ 0",
-    "confirmed_behavior": "Expected behavior is defined; robust-region calculation is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 6,
     "complexity_score": 5,
-    "color": "255, 190, 84"
+    "color": "255, 190, 84",
+    "coordinates": {
+      "composition": 1,
+      "reality_binding": 1,
+      "observability_gap": 4
+    },
+    "relations": {
+      "requires": [
+        "T5"
+      ],
+      "informs": [
+        "T7"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T7",
@@ -91,11 +192,26 @@
     "question": "Does the world move before execution binds?",
     "expected_behavior": "The state at decision time may not be the state at effect time.",
     "formula": "I(x(t₀ + τ_obs + τ_dec + τ_act) + u) ≤ 0",
-    "confirmed_behavior": "Expected behavior is defined; actuation-bound test harness is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 7,
     "complexity_score": 6,
-    "color": "255, 190, 84"
+    "color": "255, 190, 84",
+    "coordinates": {
+      "composition": 1,
+      "reality_binding": 2,
+      "observability_gap": 4
+    },
+    "relations": {
+      "requires": [
+        "T5",
+        "T6"
+      ],
+      "informs": [
+        "T15"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T8",
@@ -104,12 +220,27 @@
     "family": "lag",
     "question": "Does trust decay during the transition?",
     "expected_behavior": "Trust may change as a function of elapsed time, reducing admissibility capacity.",
-    "formula": "t' = t e^(-λτ), then a' ≤ K(g')^α(c')^β(t')^γ",
-    "confirmed_behavior": "Expected analytical approximation exists; calibration is pending.",
+    "formula": "t' = t e^(-λτ)",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 2,
     "taxonomy_order": 8,
     "complexity_score": 5,
-    "color": "255, 190, 84"
+    "color": "255, 190, 84",
+    "coordinates": {
+      "composition": 1,
+      "reality_binding": 2,
+      "observability_gap": 3
+    },
+    "relations": {
+      "requires": [
+        "T4"
+      ],
+      "informs": [
+        "T9",
+        "T10"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T9",
@@ -118,12 +249,29 @@
     "family": "coupled",
     "question": "Does one state transition disturb another?",
     "expected_behavior": "The post-state of one transition may depend on another state or transition.",
-    "formula": "x₁' = Φ₁(x₁,u₁,x₂), x₂' = Φ₂(x₂,u₂,x₁), I(x₁')≤0, I(x₂')≤0",
-    "confirmed_behavior": "Expected coupled form is defined; special-case tests are pending.",
+    "formula": "x₁'=Φ₁(x₁,u₁,x₂), x₂'=Φ₂(x₂,u₂,x₁)",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 9,
     "complexity_score": 7,
-    "color": "184, 123, 255"
+    "color": "184, 123, 255",
+    "coordinates": {
+      "composition": 3,
+      "reality_binding": 2,
+      "observability_gap": 2
+    },
+    "relations": {
+      "requires": [
+        "T1",
+        "T4",
+        "T8"
+      ],
+      "informs": [
+        "T10",
+        "T11"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T10",
@@ -132,12 +280,27 @@
     "family": "coupled",
     "question": "Do multiple actors preserve admissibility together?",
     "expected_behavior": "Individually safe actions may compose into an unsafe aggregate action.",
-    "formula": "x' = Φ(x,u₁,u₂,...,uₙ) and I(x') ≤ 0",
-    "confirmed_behavior": "Expected aggregate form is defined; simulation is pending.",
+    "formula": "x'=Φ(x,u₁,u₂,...,uₙ) and I(x') ≤ 0",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 10,
     "complexity_score": 8,
-    "color": "184, 123, 255"
+    "color": "184, 123, 255",
+    "coordinates": {
+      "composition": 4,
+      "reality_binding": 2,
+      "observability_gap": 3
+    },
+    "relations": {
+      "requires": [
+        "T9"
+      ],
+      "informs": [
+        "T11",
+        "T12"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T11",
@@ -147,11 +310,29 @@
     "question": "What happens when admissible actions conflict?",
     "expected_behavior": "Two actions may be admissible alone but inadmissible when composed.",
     "formula": "I(x+u₁)≤0, I(x+u₂)≤0, but I(x+u₁+u₂)>0",
-    "confirmed_behavior": "Expected failure condition is defined; conflict-region mapping is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 11,
     "complexity_score": 9,
-    "color": "184, 123, 255"
+    "color": "184, 123, 255",
+    "coordinates": {
+      "composition": 5,
+      "reality_binding": 2,
+      "observability_gap": 3
+    },
+    "relations": {
+      "requires": [
+        "T3",
+        "T4",
+        "T9"
+      ],
+      "informs": [
+        "T3",
+        "T10",
+        "T12"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T12",
@@ -161,11 +342,26 @@
     "question": "Can agreement preserve admissibility across validators?",
     "expected_behavior": "Consensus may authorize a transition only if the underlying invariant also holds.",
     "formula": "Σ wᵢvᵢ ≥ θ and I(x') ≤ 0",
-    "confirmed_behavior": "Expected protocol condition is defined; validator tests are pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 12,
     "complexity_score": 8,
-    "color": "184, 123, 255"
+    "color": "184, 123, 255",
+    "coordinates": {
+      "composition": 4,
+      "reality_binding": 3,
+      "observability_gap": 3
+    },
+    "relations": {
+      "requires": [
+        "T10",
+        "T11"
+      ],
+      "informs": [
+        "T13"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T13",
@@ -175,11 +371,26 @@
     "question": "Can the transition produce verifiable evidence?",
     "expected_behavior": "A transition is not complete unless it emits a verifiable receipt.",
     "formula": "I(x') ≤ 0 and Verify(R) = true",
-    "confirmed_behavior": "Expected receipt model is defined; first receipt-backed runs are pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 2,
     "taxonomy_order": 13,
     "complexity_score": 6,
-    "color": "67, 214, 148"
+    "color": "67, 214, 148",
+    "coordinates": {
+      "composition": 2,
+      "reality_binding": 4,
+      "observability_gap": 2
+    },
+    "relations": {
+      "requires": [
+        "T1",
+        "T12"
+      ],
+      "informs": [
+        "T14"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T14",
@@ -189,11 +400,25 @@
     "question": "Can the end-state be reconstructed from receipts?",
     "expected_behavior": "Receipts should support reconstruction of the observed end-state and expose unexplained variance.",
     "formula": "C = f(receipt integrity, state continuity, artifact consistency, unexplained variance)",
-    "confirmed_behavior": "Expected confidence model is defined; reconstruction ledger integration is pending.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 2,
     "taxonomy_order": 14,
     "complexity_score": 7,
-    "color": "67, 214, 148"
+    "color": "67, 214, 148",
+    "coordinates": {
+      "composition": 2,
+      "reality_binding": 4,
+      "observability_gap": 4
+    },
+    "relations": {
+      "requires": [
+        "T13"
+      ],
+      "informs": [
+        "T15"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T15",
@@ -203,11 +428,26 @@
     "question": "Does the action cross a point of no return?",
     "expected_behavior": "A transition is irreversible when no admissible reverse transition exists.",
     "formula": "¬∃u⁻¹ : Φ(x',u⁻¹)=x with I(Φ(x',u⁻¹))≤0",
-    "confirmed_behavior": "Expected behavior is defined; reversibility classification remains open.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 1,
     "taxonomy_order": 15,
     "complexity_score": 10,
-    "color": "255, 100, 100"
+    "color": "255, 100, 100",
+    "coordinates": {
+      "composition": 3,
+      "reality_binding": 5,
+      "observability_gap": 4
+    },
+    "relations": {
+      "requires": [
+        "T7",
+        "T14"
+      ],
+      "informs": [
+        "T16"
+      ]
+    },
+    "experiments": []
   },
   {
     "id": "T16",
@@ -217,10 +457,22 @@
     "question": "Can the system alter its own rules safely?",
     "expected_behavior": "A transition that changes the invariant must not create retroactive governance collapse.",
     "formula": "I → I' with controlled expansion of A_I(x)",
-    "confirmed_behavior": "High-value open research element. Expected behavior is framed, not confirmed.",
+    "confirmed_behavior": "Expected behavior defined; experimental confirmation is pending.",
     "evidence_level": 0,
     "taxonomy_order": 16,
     "complexity_score": 12,
-    "color": "255, 100, 100"
+    "color": "255, 100, 100",
+    "coordinates": {
+      "composition": 5,
+      "reality_binding": 5,
+      "observability_gap": 5
+    },
+    "relations": {
+      "requires": [
+        "T15"
+      ],
+      "informs": []
+    },
+    "experiments": []
   }
 ]

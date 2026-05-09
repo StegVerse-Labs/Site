@@ -1,0 +1,10 @@
+{
+  "planner": "lowest_evidence_unblocked_v1",
+  "status": "completed",
+  "updated_at": "2026-05-09T22:18:22Z",
+  "last_selected": {
+    "element_id": "T3",
+    "experiment": "bounded_action_sweep_v1"
+  },
+  "last_run_id": "T3-bounded_action_sweep_v1-0001"
+}

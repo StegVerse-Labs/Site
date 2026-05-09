@@ -1,0 +1,33 @@
+{
+  "runs": [
+    {
+      "run_id": "T3-bounded_action_sweep_v1-0001",
+      "element_id": "T3",
+      "experiment": "bounded_action_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "local-python-deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120
+      },
+      "started_at": "2026-05-09T22:18:22Z",
+      "completed_at": "2026-05-09T22:18:22Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T3-bounded_action_sweep_v1-0001-001",
+        "T3-bounded_action_sweep_v1-0001-002",
+        "T3-bounded_action_sweep_v1-0001-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T3-bounded_action_sweep_v1-0001-bounded-action"
+      ],
+      "evidence_delta": {
+        "from": 2,
+        "to": 4,
+        "reason": "deterministic bounded action sweep passed"
+      },
+      "run_hash": "1e15403b6d5e68ba651852e5c912b0bc537605370171e44780f411a57054e6b9"
+    }
+  ]
+}

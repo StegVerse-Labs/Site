@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-09T20:20:12Z",
-  "generated_by": "tools/run_transition_experiments.py",
+  "generated_at": "2026-05-09T22:18:22Z",
+  "generated_by": "tools/transition_experimental_orchestrator.py",
   "evidence_labels": [
     "Proposed",
     "Defined",
@@ -15,112 +15,144 @@
       "evidence_label": "Tested",
       "brightness": 0.8,
       "receipt_backed": false,
-      "latest_result_summary": "Deterministic T1 sweep generated 5 rows: 2 ALLOW, 3 DENY, 0 FAIL-CLOSED. Receipt generation remains pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Deterministic baseline is seeded as tested."
     },
     "T2": {
       "evidence_level": 3,
       "evidence_label": "Proven",
       "brightness": 0.6,
       "receipt_backed": false,
-      "latest_result_summary": "Expected analytical form is defined. Full linked proof/test record is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T3": {
-      "evidence_level": 2,
-      "evidence_label": "Derived",
-      "brightness": 0.4,
+      "evidence_level": 4,
+      "evidence_label": "Tested",
+      "brightness": 0.8,
       "receipt_backed": false,
-      "latest_result_summary": "Expected behavior is defined; deterministic bound tests are pending."
+      "runtime_state": "completed",
+      "caveats": [],
+      "latest_result_summary": "deterministic bounded action sweep passed"
     },
     "T4": {
       "evidence_level": 2,
       "evidence_label": "Derived",
       "brightness": 0.4,
       "receipt_backed": false,
-      "latest_result_summary": "Expected margin equation is defined; live margin display is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T5": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected behavior is defined; reachable-set calculation is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T6": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected behavior is defined; robust-region calculation is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T7": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected behavior is defined; actuation-bound test harness is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T8": {
       "evidence_level": 2,
       "evidence_label": "Derived",
       "brightness": 0.4,
       "receipt_backed": false,
-      "latest_result_summary": "Expected analytical approximation exists; calibration is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T9": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected coupled form is defined; special-case tests are pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T10": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected aggregate form is defined; simulation is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T11": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected failure condition is defined; conflict-region mapping is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T12": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected protocol condition is defined; validator tests are pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T13": {
       "evidence_level": 2,
       "evidence_label": "Derived",
       "brightness": 0.4,
       "receipt_backed": false,
-      "latest_result_summary": "Expected receipt model is defined; first receipt-backed runs are pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T14": {
       "evidence_level": 2,
       "evidence_label": "Derived",
       "brightness": 0.4,
       "receipt_backed": false,
-      "latest_result_summary": "Expected confidence model is defined; reconstruction ledger integration is pending."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T15": {
       "evidence_level": 1,
       "evidence_label": "Defined",
       "brightness": 0.2,
       "receipt_backed": false,
-      "latest_result_summary": "Expected behavior is defined; reversibility classification remains open."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     },
     "T16": {
       "evidence_level": 0,
       "evidence_label": "Proposed",
       "brightness": 0.0,
       "receipt_backed": false,
-      "latest_result_summary": "High-value open research element. Expected behavior is framed, not confirmed."
+      "runtime_state": "idle",
+      "caveats": [],
+      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
     }
   }
 }
