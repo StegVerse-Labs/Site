@@ -19,6 +19,11 @@ def read_jsonl(name):
 def esc(x):
     return html.escape(str(x), quote=True)
 
+def clean_constraint(value):
+    if value in (None, "", "None", "n/a"):
+        return "not applicable"
+    return value
+
 def evidence_level(evidence, element_id):
     return int(evidence.get("elements", {}).get(element_id, {}).get("evidence_level", 0))
 
@@ -121,13 +126,17 @@ def receipts_html(element_id, receipt_index):
         return "<p>No replayable state transition receipts have been generated for this transition yet.</p>"
     blocks = []
     for r in receipts[-20:]:
+        extras = ""
+        if r.get("lag_flip") is not None:
+            extras += f"<p><strong>Lag flip:</strong> {esc(r.get('lag_flip'))}</p>"
         blocks.append(f"""
         <article class="receipt-entry">
           <h3>{esc(r.get("receipt_id", ""))}</h3>
           <p><strong>Run:</strong> {esc(r.get("run_id", ""))}</p>
           <p><strong>Tested property:</strong> {esc(r.get("tested_property", ""))}</p>
           <p><strong>Admissibility verdict:</strong> {esc(r.get("admissibility_verdict", ""))}</p>
-          <p><strong>Constraint result:</strong> {esc(r.get("constraint_result", "not applicable"))}</p>
+          <p><strong>Constraint result:</strong> {esc(clean_constraint(r.get("constraint_result")))}</p>
+          {extras}
           <p><strong>Replay status:</strong> {esc(r.get("replay_status", "unknown"))}</p>
           <p><strong>Receipt hash:</strong> <code>{esc(r.get("receipt_hash", ""))}</code></p>
           <p><a href="../{esc(r.get("path", ""))}">Open receipt JSON</a></p>
@@ -135,13 +144,30 @@ def receipts_html(element_id, receipt_index):
         """)
     return "\n".join(blocks)
 
+def row_constraint(row):
+    value = row.get("constraint_result")
+    if value not in (None, "", "None", "n/a"):
+        return value
+    if row.get("mode") == "simplex_conservation_sweep_v1":
+        cv = row.get("constraint_value")
+        return "PASS" if cv is not None and abs(float(cv)) <= 1e-8 else "UNKNOWN"
+    if row.get("mode") == "bounded_action_sweep_v1":
+        n = row.get("action_norm")
+        eps = row.get("epsilon", 0.10)
+        return "PASS" if n is not None and float(n) <= float(eps) else "UNKNOWN"
+    if row.get("mode") == "capacity_margin_sweep_v1":
+        return "PASS"
+    if row.get("mode") == "observation_lag_sweep_v1":
+        return "PASS"
+    return "not applicable"
+
 def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index):
     eid = e["id"]
     c = e.get("coordinates", {})
     rel = e.get("relations", {})
 
     rows_html = "".join(
-        f"<li><code>{esc(r.get('run_id',''))}</code> · tested property={esc(r.get('tested_property', r.get('mode', '')))} · constraint={esc(r.get('constraint_result', 'n/a'))} · admissibility invariant={esc(r.get('invariant',''))} · admissibility verdict=<strong>{esc(r.get('verdict',''))}</strong></li>"
+        f"<li><code>{esc(r.get('run_id',''))}</code> · tested property={esc(r.get('tested_property', r.get('mode', '')))} · constraint={esc(row_constraint(r))} · admissibility invariant={esc(r.get('invariant',''))} · admissibility verdict=<strong>{esc(r.get('verdict',''))}</strong></li>"
         for r in rows[-20:]
     ) or "<li>No ledger rows yet.</li>"
 

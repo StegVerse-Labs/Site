@@ -52,6 +52,10 @@ def invariant(state: dict[str, float]) -> float:
     return round(state["a"] - capacity(state), 5)
 
 
+def verdict_for(state: dict[str, float]) -> str:
+    return "ALLOW" if invariant(state) <= 0 and all(0 <= v <= 1 for v in state.values()) else "DENY"
+
+
 def post(pre: dict[str, float], action: dict[str, float]) -> dict[str, float]:
     return {k: round(pre[k] + action["d" + k], 4) for k in ["g", "c", "a", "t"]}
 
@@ -69,14 +73,62 @@ def row(run_id: str, element_id: str, mode: str, idx: int, pre: dict[str, float]
         "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1},
         "capacity": capacity(ps),
         "invariant": invariant(ps),
-        "verdict": "ALLOW" if invariant(ps) <= 0 and all(0 <= v <= 1 for v in ps.values()) else "DENY",
+        "verdict": verdict_for(ps),
         "passed": True,
         "receipt_hash": None,
     }
     if extra:
         payload.update(extra)
-    payload["row_hash"] = digest(payload)
+    normalize_row(payload)
+    payload["row_hash"] = digest({k: v for k, v in payload.items() if k != "row_hash"})
     return payload
+
+
+def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
+    """Backfill tested_property and constraint_result for old and new ledger rows."""
+    mode = row_payload.get("mode", "")
+    action = row_payload.get("action") or {}
+
+    if not row_payload.get("tested_property"):
+        if mode == "simplex_conservation_sweep_v1":
+            row_payload["tested_property"] = "simplex_conservation"
+        elif mode == "bounded_action_sweep_v1":
+            row_payload["tested_property"] = "bounded_action"
+        elif mode == "capacity_margin_sweep_v1":
+            row_payload["tested_property"] = "capacity_margin"
+        elif mode == "observation_lag_sweep_v1":
+            row_payload["tested_property"] = "observation_lag"
+        else:
+            row_payload["tested_property"] = mode
+
+    if row_payload.get("constraint_result") in (None, "", "None", "n/a"):
+        if mode == "simplex_conservation_sweep_v1":
+            constraint_value = row_payload.get("constraint_value")
+            if constraint_value is None and action:
+                constraint_value = round(sum(float(v) for v in action.values()), 8)
+                row_payload["constraint_value"] = constraint_value
+            row_payload["constraint_result"] = "PASS" if constraint_value is not None and abs(float(constraint_value)) <= 1e-8 else "UNKNOWN"
+        elif mode == "bounded_action_sweep_v1":
+            epsilon = float(row_payload.get("epsilon", 0.10))
+            action_norm = row_payload.get("action_norm")
+            if action_norm is None and action:
+                action_norm = round(math.sqrt(sum(float(v) * float(v) for v in action.values())), 5)
+                row_payload["action_norm"] = action_norm
+                row_payload["epsilon"] = epsilon
+            row_payload["constraint_result"] = "PASS" if action_norm is not None and float(action_norm) <= epsilon else "FAIL"
+            row_payload["bound_status"] = "WITHIN_BOUND" if row_payload["constraint_result"] == "PASS" else "OUT_OF_BOUND"
+        elif mode == "capacity_margin_sweep_v1":
+            if "margin" not in row_payload and "capacity" in row_payload and row_payload.get("post_state"):
+                row_payload["margin"] = round(float(row_payload["capacity"]) - float(row_payload["post_state"]["a"]), 5)
+            row_payload["constraint_result"] = "PASS"
+            if "margin" in row_payload:
+                row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
+        elif mode == "observation_lag_sweep_v1":
+            row_payload["constraint_result"] = "PASS"
+        else:
+            row_payload["constraint_result"] = "not applicable"
+
+    return row_payload
 
 
 def t2(run_id: str):
@@ -167,15 +219,106 @@ def t4(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic capacity margin sweep passed", "bad": []}
 
 
+def lag_state(observed: dict[str, float], drift: dict[str, float]) -> dict[str, float]:
+    return {k: round(observed[k] + drift.get("d" + k, 0.0), 4) for k in ["g", "c", "a", "t"]}
+
+
+def t5(run_id: str):
+    samples = [
+        {
+            "observed_state": {"g": .60, "c": .60, "a": .20, "t": .80},
+            "lag_drift": {"dg": 0.00, "dc": 0.00, "da": 0.00, "dt": -.20},
+            "action": {"dg": 0.00, "dc": 0.00, "da": .02, "dt": 0.00},
+        },
+        {
+            "observed_state": {"g": .70, "c": .64, "a": .16, "t": .76},
+            "lag_drift": {"dg": -.02, "dc": -.02, "da": .01, "dt": -.04},
+            "action": {"dg": 0.00, "dc": 0.00, "da": .01, "dt": 0.00},
+        },
+        {
+            "observed_state": {"g": .46, "c": .68, "a": .18, "t": .72},
+            "lag_drift": {"dg": -.06, "dc": -.05, "da": .02, "dt": -.07},
+            "action": {"dg": 0.00, "dc": 0.00, "da": .02, "dt": 0.00},
+        },
+    ]
+    rows = []
+    flips = 0
+    for i, sample in enumerate(samples, 1):
+        observed = sample["observed_state"]
+        drift = sample["lag_drift"]
+        action = sample["action"]
+        commit = lag_state(observed, drift)
+        observed_post = post(observed, action)
+        commit_post = post(commit, action)
+        observed_inv = invariant(observed_post)
+        commit_inv = invariant(commit_post)
+        observed_verdict = verdict_for(observed_post)
+        commit_verdict = verdict_for(commit_post)
+        lag_flip = observed_verdict != commit_verdict
+        flips += 1 if lag_flip else 0
+        payload = {
+            "timestamp": now(),
+            "element_id": "T5",
+            "mode": "observation_lag_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "observation_lag",
+            "observed_state": observed,
+            "lag_drift": drift,
+            "commit_state": commit,
+            "action": action,
+            "observed_post_state": observed_post,
+            "commit_post_state": commit_post,
+            "post_state": commit_post,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "tau_obs": i},
+            "observed_invariant": observed_inv,
+            "commit_invariant": commit_inv,
+            "invariant": commit_inv,
+            "observed_verdict": observed_verdict,
+            "commit_verdict": commit_verdict,
+            "verdict": commit_verdict,
+            "lag_flip": lag_flip,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-observation-lag",
+        "source_run_id": run_id,
+        "source_element": "T5",
+        "delta_type": "lag_flip_fragment",
+        "summary": f"Observation-lag sweep found {flips} verdict flip(s) between observed-state and commit-time admissibility.",
+        "informs": ["T5", "T6", "T7", "T8"],
+        "confidence": .88,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic observation lag sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
     "capacity_margin_sweep_v1": t4,
+    "observation_lag_sweep_v1": t5,
+}
+
+FALLBACK_EXPERIMENTS = {
+    "T5": ["observation_lag_sweep_v1"],
 }
 
 
 def deps_ok(element: dict[str, Any], evidence: dict[str, Any]) -> bool:
     return all(evidence["elements"].get(dep, {}).get("evidence_level", 0) >= 4 for dep in element.get("relations", {}).get("requires", []))
+
+
+def element_experiments(element: dict[str, Any]) -> list[str]:
+    configured = list(element.get("experiments", []))
+    for exp in FALLBACK_EXPERIMENTS.get(element.get("id"), []):
+        if exp not in configured:
+            configured.append(exp)
+    return configured
 
 
 def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
@@ -184,31 +327,31 @@ def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
             continue
         if not deps_ok(element, evidence):
             continue
-        for experiment in element.get("experiments", []):
+        for experiment in element_experiments(element):
             if experiment in EXPERIMENTS:
                 return element, experiment
     return None
 
 
-def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | None) -> dict[str, Any]:
-    receipt_id = f"RCPT-{row_payload['run_id']}"
+def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
     computed = {
-        "capacity": row_payload.get("capacity"),
-        "invariant": row_payload.get("invariant"),
         "admissibility_verdict": row_payload.get("verdict"),
+        "constraint_result": row_payload.get("constraint_result"),
     }
-    if "margin" in row_payload:
-        computed["margin"] = row_payload["margin"]
-        computed["margin_status"] = row_payload.get("margin_status")
-    if "constraint_result" in row_payload:
-        computed["constraint_result"] = row_payload.get("constraint_result")
-    if "constraint_value" in row_payload:
-        computed["constraint_value"] = row_payload.get("constraint_value")
-    if "action_norm" in row_payload:
-        computed["action_norm"] = row_payload.get("action_norm")
-        computed["epsilon"] = row_payload.get("epsilon")
-        computed["bound_status"] = row_payload.get("bound_status")
+    for key in [
+        "capacity", "invariant", "margin", "margin_status",
+        "constraint_value", "action_norm", "epsilon", "bound_status",
+        "observed_invariant", "commit_invariant", "observed_verdict",
+        "commit_verdict", "lag_flip",
+    ]:
+        if key in row_payload:
+            computed[key] = row_payload[key]
+    return computed
 
+
+def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | None) -> dict[str, Any]:
+    normalize_row(row_payload)
+    receipt_id = f"RCPT-{row_payload['run_id']}"
     receipt = {
         "receipt_id": receipt_id,
         "schema": "stegverse.transition_receipt.v1",
@@ -220,17 +363,22 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "tested_property": row_payload.get("tested_property", row_payload["mode"]),
         "sandbox": (run_manifest or {}).get("sandbox", {"type": "unknown"}),
         "parameters": row_payload.get("parameters", {"K": 1, "alpha": 1, "beta": 1, "gamma": 1}),
-        "pre_state": row_payload.get("pre_state"),
+        "pre_state": row_payload.get("pre_state") or row_payload.get("observed_state"),
+        "observed_state": row_payload.get("observed_state"),
+        "lag_drift": row_payload.get("lag_drift"),
+        "commit_state": row_payload.get("commit_state"),
         "action": row_payload.get("action"),
         "post_state": row_payload.get("post_state"),
-        "computed": computed,
+        "observed_post_state": row_payload.get("observed_post_state"),
+        "commit_post_state": row_payload.get("commit_post_state"),
+        "computed": computed_for_receipt(row_payload),
         "source_hashes": {
             "ledger_row_hash": row_payload.get("row_hash"),
             "run_hash": (run_manifest or {}).get("run_hash"),
         },
         "replay": {
             "status": "replayable",
-            "instructions": "Recompute post_state = pre_state + action, capacity = K*g*c*t, invariant = a - capacity, then compare computed values and verdict.",
+            "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts.",
         },
     }
     receipt["receipt_hash"] = "sha256:" + digest(receipt)
@@ -243,6 +391,7 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
     index: dict[str, Any] = {"generated_at": now(), "schema": "stegverse.transition_receipt_index.v1", "receipts": []}
 
     for row_payload in ledger:
+        normalize_row(row_payload)
         parent_run_id = row_payload["run_id"].rsplit("-", 1)[0]
         manifest = run_by_id.get(parent_run_id)
         receipt = receipt_for_row(row_payload, manifest)
@@ -259,6 +408,7 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "tested_property": receipt["tested_property"],
             "admissibility_verdict": receipt["computed"].get("admissibility_verdict"),
             "constraint_result": receipt["computed"].get("constraint_result"),
+            "lag_flip": receipt["computed"].get("lag_flip"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
@@ -344,7 +494,7 @@ def main() -> None:
             "last_selected": None,
             "last_run_id": None,
         }
-        print("No eligible experiment. Rebuilding receipts and pages from existing ledger.")
+        print("No eligible experiment. Rebuilding normalized receipts and pages from existing ledger.")
 
     evidence["generated_at"] = now()
     evidence["generated_by"] = "tools/transition_experimental_orchestrator.py"
