@@ -250,6 +250,53 @@
         "reason": "deterministic trust drift sweep passed"
       },
       "run_hash": "sha256:a9dd0659364295472d786808752ad613bf2d304ff5134e360a1fc60013efb57f"
+    },
+    {
+      "run_id": "T9-two_state_coupling_sweep_v1-0008",
+      "element_id": "T9",
+      "experiment": "two_state_coupling_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "coupled_state_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "bounded_batch"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required",
+        "actuation_stage_required",
+        "trust_drift_required"
+      ],
+      "automation_gate": {
+        "mode": "bounded_batch",
+        "max_sequence_steps": 3,
+        "released_by": [
+          "T7"
+        ]
+      },
+      "started_at": "2026-05-10T00:41:33Z",
+      "completed_at": "2026-05-10T00:41:33Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T9-two_state_coupling_sweep_v1-0008-001",
+        "T9-two_state_coupling_sweep_v1-0008-002",
+        "T9-two_state_coupling_sweep_v1-0008-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling"
+      ],
+      "evidence_delta": {
+        "from": 1,
+        "to": 4,
+        "reason": "deterministic two-state coupling sweep passed"
+      },
+      "run_hash": "sha256:961a5aaa891ea792e2964e7348ec98079b3e7c4fed6dbb29ac672eb8c7aa15b7"
     }
   ]
 }

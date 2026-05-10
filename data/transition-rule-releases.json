@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T00:11:30Z",
+  "generated_at": "2026-05-10T00:41:33Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "bounded_batch",
@@ -72,6 +72,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Lag-aware sandboxes may model trust as a decaying state variable during transition delay."
+    },
+    {
+      "rule_id": "two_state_coupling_required",
+      "released_by": "T9",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Coupled sandboxes may model disturbance from one transition state into another."
     }
   ]
 }

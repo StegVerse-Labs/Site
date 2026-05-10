@@ -1,0 +1,141 @@
+{
+  "receipt_id": "RCPT-T9-two_state_coupling_sweep_v1-0008-003",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-10T00:41:33Z",
+  "run_id": "T9-two_state_coupling_sweep_v1-0008",
+  "ledger_row_id": "T9-two_state_coupling_sweep_v1-0008-003",
+  "element_id": "T9",
+  "experiment": "two_state_coupling_sweep_v1",
+  "tested_property": "two_state_coupling",
+  "sandbox": {
+    "type": "coupled_state_deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120,
+    "automation_gate": "bounded_batch"
+  },
+  "applied_rules": [
+    "primitive_admissibility_required",
+    "simplex_constraint_visible",
+    "bounded_action_visible",
+    "capacity_margin_visible",
+    "lag_aware_sandbox_required",
+    "decision_stage_required",
+    "actuation_stage_required",
+    "trust_drift_required"
+  ],
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1,
+    "coupling_model": "deterministic_delta"
+  },
+  "pre_state": {
+    "state_a": {
+      "g": 0.52,
+      "c": 0.72,
+      "a": 0.16,
+      "t": 0.78
+    },
+    "state_b": {
+      "g": 0.5,
+      "c": 0.62,
+      "a": 0.17,
+      "t": 0.76
+    }
+  },
+  "state_a": {
+    "g": 0.52,
+    "c": 0.72,
+    "a": 0.16,
+    "t": 0.78
+  },
+  "state_b": {
+    "g": 0.5,
+    "c": 0.62,
+    "a": 0.17,
+    "t": 0.76
+  },
+  "action_a": {
+    "dg": 0,
+    "dc": 0,
+    "da": 0.02,
+    "dt": 0
+  },
+  "coupling_effect_on_b": {
+    "dg": -0.07,
+    "dc": -0.04,
+    "da": 0.03,
+    "dt": -0.08
+  },
+  "post_state_a": {
+    "g": 0.52,
+    "c": 0.72,
+    "a": 0.18,
+    "t": 0.78
+  },
+  "post_state_b_without_coupling": {
+    "g": 0.5,
+    "c": 0.62,
+    "a": 0.17,
+    "t": 0.76
+  },
+  "post_state_b_with_coupling": {
+    "g": 0.43,
+    "c": 0.58,
+    "a": 0.2,
+    "t": 0.68
+  },
+  "observed_state": null,
+  "observation_lag_drift": null,
+  "decision_state": null,
+  "decision_lag_drift": null,
+  "commit_state": null,
+  "actuation_lag_drift": null,
+  "effect_state": null,
+  "action": null,
+  "post_state": {
+    "a": {
+      "g": 0.52,
+      "c": 0.72,
+      "a": 0.18,
+      "t": 0.78
+    },
+    "b": {
+      "g": 0.43,
+      "c": 0.58,
+      "a": 0.2,
+      "t": 0.68
+    }
+  },
+  "pre_decay_post_state": null,
+  "trust_decayed_state": null,
+  "trust_decayed_post_state": null,
+  "observed_post_state": null,
+  "decision_post_state": null,
+  "commit_post_state": null,
+  "effect_post_state": null,
+  "computed": {
+    "admissibility_verdict": "DENY",
+    "constraint_result": "PASS",
+    "invariant": 0.03041,
+    "a_invariant": -0.11203,
+    "b_invariant_without_coupling": -0.0656,
+    "b_invariant_with_coupling": 0.03041,
+    "a_verdict": "ALLOW",
+    "b_verdict_without_coupling": "ALLOW",
+    "b_verdict_with_coupling": "DENY",
+    "coupling_flip": true,
+    "local_admissible_coupled_denied": true
+  },
+  "source_hashes": {
+    "ledger_row_hash": "25f73bf824c26b37abd1f13c5983f8a1de6fbd89e3365ac6ff8caaf278c72df3",
+    "run_hash": "sha256:961a5aaa891ea792e2964e7348ec98079b3e7c4fed6dbb29ac672eb8c7aa15b7"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
+  },
+  "receipt_hash": "sha256:6398974fee7e7804c6c8ea92e9ba1b50cedee66eed3ecbbee3f4d17cebcfd9d4"
+}

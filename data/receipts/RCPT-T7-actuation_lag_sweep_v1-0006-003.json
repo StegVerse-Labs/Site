@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T7-actuation_lag_sweep_v1-0006-003",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T00:11:30Z",
+  "created_at": "2026-05-10T00:41:33Z",
   "run_id": "T7-actuation_lag_sweep_v1-0006",
   "ledger_row_id": "T7-actuation_lag_sweep_v1-0006-003",
   "element_id": "T7",
@@ -37,6 +37,13 @@
     "a": 0.16,
     "t": 0.82
   },
+  "state_a": null,
+  "state_b": null,
+  "action_a": null,
+  "coupling_effect_on_b": null,
+  "post_state_a": null,
+  "post_state_b_without_coupling": null,
+  "post_state_b_with_coupling": null,
   "observed_state": {
     "g": 0.56,
     "c": 0.7,
@@ -142,5 +149,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:d567be0e267ae94e4e1ab0852c7c925a0b5c8de0e8c53245867bf3672cf71d2b"
+  "receipt_hash": "sha256:d453eb802a2a1262ee7c0e822ec203a69f068b6cc17225188905fe300621f6d1"
 }

@@ -57,13 +57,13 @@ li{margin:0 0 8px}
     <p><strong>Automation gate:</strong> bounded_batch</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling</code> · coupled_state_fragment · Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
 <section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
 <section><h2>Consequential Test Changelog</h2>
@@ -76,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Knowledge consequence:</strong></p>
           <ul><li>safe_region_fragment: Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li></ul>
           <p><strong>Graph consequence:</strong> informs T3, T4, T11.</p>
-          <p><strong>Unlocked under current evidence state:</strong> T3, T4.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T3, T4, T11.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         
@@ -90,7 +90,21 @@ li{margin:0 0 8px}
           <p><strong>Knowledge consequence:</strong></p>
           <ul><li>margin_estimate: Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul>
           <p><strong>Graph consequence:</strong> informs T4, T5, T8, T11.</p>
-          <p><strong>Unlocked under current evidence state:</strong> T4, T5, T8.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T4, T5, T8, T11.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T9-two_state_coupling_sweep_v1-0008</h3>
+          <p><strong>Experiment:</strong> two_state_coupling_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T9 and informs T11.</p>
+          <p><strong>Evidence consequence:</strong> T9 moved from 1 to 4 because deterministic two-state coupling sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>coupled_state_fragment: Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T9, T10, T11.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T9, T10, T11.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

@@ -96,6 +96,20 @@
       ],
       "confidence": 0.86,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling",
+      "source_run_id": "T9-two_state_coupling_sweep_v1-0008",
+      "source_element": "T9",
+      "delta_type": "coupled_state_fragment",
+      "summary": "Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.",
+      "informs": [
+        "T9",
+        "T10",
+        "T11"
+      ],
+      "confidence": 0.85,
+      "review_required": false
     }
   ]
 }

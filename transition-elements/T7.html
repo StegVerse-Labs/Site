@@ -57,7 +57,7 @@ li{margin:0 0 8px}
     <p><strong>Automation gate:</strong> bounded_batch</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
@@ -74,7 +74,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> True</p><p><strong>Total lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:463ba077c8cea218532eba371c2eea9418fcf353ac04503928299ae7cb7d8531</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:d449761b26be3a5fc90e2d1f92d9f19cd3a28365a28e333bd4d98b826cd62502</code></p>
           <p><a href="../data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +87,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> True</p><p><strong>Total lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:ac8cf2014405f89d2b7b6d06b80dccd8669d61715828d41bae34e60e2e054677</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:fbf82f060d064563680971ab40b7267c58a38d9987db14cf567d350675e97de6</code></p>
           <p><a href="../data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +100,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> True</p><p><strong>Total lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:d567be0e267ae94e4e1ab0852c7c925a0b5c8de0e8c53245867bf3672cf71d2b</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:d453eb802a2a1262ee7c0e822ec203a69f068b6cc17225188905fe300621f6d1</code></p>
           <p><a href="../data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-003.json">Open receipt JSON</a></p>
         </article>
         </section>
