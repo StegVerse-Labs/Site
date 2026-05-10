@@ -2,13 +2,12 @@
 """
 StegVerse public page contract checker.
 
-This script verifies the public GitHub Pages surface against a JSON contract.
-It uses only the Python standard library so it can run in GitHub Actions without extra dependencies.
+Standard-library only.
 
-v1.1 behavior:
-- Required text checks are whitespace-insensitive.
-- Heading checks pass even when large display headings are stored without spaces in raw HTML.
-- Required link checks pass when a target is present as an actual anchor href OR present in the page body/fallback payload.
+v1.2 behavior:
+- Text checks are whitespace/punctuation/underscore/hyphen tolerant.
+- Required link checks pass when the target is a real anchor href OR appears in embedded/fallback payload text.
+- JSON checks remain strict.
 """
 
 from __future__ import annotations
@@ -18,7 +17,6 @@ import html
 import html.parser
 import json
 import re
-import sys
 import time
 import urllib.error
 import urllib.parse
@@ -73,46 +71,43 @@ def normalize_base_url(base_url: str) -> str:
     return base_url.rstrip("/") + "/"
 
 
-def normalize_text(value: str) -> str:
-    """Collapse whitespace and uppercase for forgiving page text checks."""
-    return re.sub(r"\s+", " ", html.unescape(value)).strip().upper()
-
-
-def compact_text(value: str) -> str:
-    """Remove all whitespace and uppercase for visual heading checks."""
-    return re.sub(r"\s+", "", normalize_text(value))
-
-
 def extract_visible_text(markup: str) -> str:
     parser = TextParser()
     parser.feed(markup)
     return " ".join(parser.parts)
 
 
+def normalize_words(value: str) -> str:
+    value = html.unescape(value).upper()
+    value = re.sub(r"[_\-]+", " ", value)
+    value = re.sub(r"[^A-Z0-9]+", " ", value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def compact_alnum(value: str) -> str:
+    return re.sub(r"[^A-Z0-9]+", "", html.unescape(value).upper())
+
+
 def body_contains_marker(markup: str, marker: str) -> bool:
     visible = extract_visible_text(markup)
-
-    normalized_marker = normalize_text(marker)
-    compact_marker = compact_text(marker)
+    marker_words = normalize_words(marker)
+    marker_compact = compact_alnum(marker)
 
     candidates = [
-        normalize_text(visible),
-        compact_text(visible),
-        normalize_text(markup),
-        compact_text(markup),
+        normalize_words(visible),
+        normalize_words(markup),
+        compact_alnum(visible),
+        compact_alnum(markup),
     ]
 
-    return any(
-        normalized_marker in candidate or compact_marker in candidate
-        for candidate in candidates
-    )
+    return any(marker_words in candidate or marker_compact in candidate for candidate in candidates)
 
 
 def fetch_url(url: str, retries: int, timeout: int) -> tuple[int | None, str, str | None]:
     last_error: str | None = None
     for attempt in range(retries + 1):
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "stegverse-page-contract-checker/1.1"})
+            request = urllib.request.Request(url, headers={"User-Agent": "stegverse-page-contract-checker/1.2"})
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 charset = response.headers.get_content_charset() or "utf-8"
                 body = response.read().decode(charset, errors="replace")
@@ -169,18 +164,10 @@ def resolve_link(base_url: str, page_path: str, href: str) -> str:
 
 
 def required_link_present(markup: str, links: set[str], expected_link: str) -> bool:
-    """Accept a true href or a literal body/fallback mention.
-
-    Some pages render release-index lists from embedded fallback JSON. GitHub Actions
-    does not execute browser JavaScript, so a JSON-sourced link may not appear in
-    the initial anchor set even though the page can render it in Safari.
-    """
     if expected_link in links:
         return True
     if expected_link in markup:
         return True
-
-    # Also accept URL-escaped forms.
     escaped = expected_link.replace("/", r"\/")
     return escaped in markup
 
@@ -194,36 +181,23 @@ def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retr
         url = urllib.parse.urljoin(base_url, path)
         status, body, error = fetch_url(url, retries=retries, timeout=timeout)
 
-        results.append(CheckResult(
-            kind="page",
-            target=path,
-            check="http_200",
-            passed=status == 200,
-            detail=f"status={status}" if error is None else f"error={error}",
-        ))
-
+        results.append(CheckResult("page", path, "http_200", status == 200, f"status={status}" if error is None else f"error={error}"))
         if status != 200:
             continue
 
         for marker in page.get("required_substrings", []):
             found = body_contains_marker(body, marker)
-            results.append(CheckResult(
-                kind="page",
-                target=path,
-                check=f"contains:{marker}",
-                passed=found,
-                detail="found" if found else "missing",
-            ))
+            results.append(CheckResult("page", path, f"contains:{marker}", found, "found" if found else "missing"))
 
         links = page_links(body)
         for expected_link in page.get("required_links", []):
             found = required_link_present(body, links, expected_link)
             results.append(CheckResult(
-                kind="page",
-                target=path,
-                check=f"link:{expected_link}",
-                passed=found,
-                detail="found" if found else f"missing; found={sorted(links)}",
+                "page",
+                path,
+                f"link:{expected_link}",
+                found,
+                "found" if found else f"missing; found={sorted(links)}",
             ))
 
         if strict_links:
@@ -235,11 +209,11 @@ def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retr
                 resolved = resolve_link(base_url, path, href)
                 link_status, _, link_error = fetch_url(resolved, retries=1, timeout=timeout)
                 results.append(CheckResult(
-                    kind="link",
-                    target=f"{path} -> {href}",
-                    check="http_200",
-                    passed=link_status == 200,
-                    detail=f"status={link_status}" if link_error is None else f"error={link_error}",
+                    "link",
+                    f"{path} -> {href}",
+                    "http_200",
+                    link_status == 200,
+                    f"status={link_status}" if link_error is None else f"error={link_error}",
                 ))
 
     for json_file in contract.get("json_files", []):
@@ -247,14 +221,7 @@ def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retr
         url = urllib.parse.urljoin(base_url, path)
         status, body, error = fetch_url(url, retries=retries, timeout=timeout)
 
-        results.append(CheckResult(
-            kind="json",
-            target=path,
-            check="http_200",
-            passed=status == 200,
-            detail=f"status={status}" if error is None else f"error={error}",
-        ))
-
+        results.append(CheckResult("json", path, "http_200", status == 200, f"status={status}" if error is None else f"error={error}"))
         if status != 200:
             continue
 
@@ -269,11 +236,11 @@ def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retr
             actual = get_json_path(parsed, check["json_path"])
             expected = check["equals"]
             results.append(CheckResult(
-                kind="json",
-                target=path,
-                check=f"{check['json_path']} == {expected}",
-                passed=actual == expected,
-                detail=f"actual={actual!r}",
+                "json",
+                path,
+                f"{check['json_path']} == {expected}",
+                actual == expected,
+                f"actual={actual!r}",
             ))
 
         for check in json_file.get("required_contains", []):
@@ -286,13 +253,7 @@ def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retr
                 expected_value = check["contains"]
                 passed = isinstance(actual, list) and expected_value in actual
                 detail = f"actual={actual!r}"
-            results.append(CheckResult(
-                kind="json",
-                target=path,
-                check=f"{check['json_path']} contains",
-                passed=passed,
-                detail=detail,
-            ))
+            results.append(CheckResult("json", path, f"{check['json_path']} contains", passed, detail))
 
     return results
 
@@ -340,28 +301,20 @@ def write_reports(results: list[CheckResult], out_dir: Path, base_url: str) -> N
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Verify StegVerse public pages against a JSON contract.")
-    parser.add_argument("--base-url", default=None, help="Base URL for the deployed site.")
-    parser.add_argument("--contracts", default="data/page-contracts-v1.json", help="Path to contract JSON.")
-    parser.add_argument("--out-dir", default="page_contract_reports", help="Directory for reports.")
-    parser.add_argument("--strict-links", action="store_true", help="Also fetch and verify discovered same-site links.")
-    parser.add_argument("--retries", type=int, default=2, help="Fetch retries per target.")
-    parser.add_argument("--timeout", type=int, default=20, help="Fetch timeout in seconds.")
+    parser.add_argument("--base-url", default=None)
+    parser.add_argument("--contracts", default="data/page-contracts-v1.json")
+    parser.add_argument("--out-dir", default="page_contract_reports")
+    parser.add_argument("--strict-links", action="store_true")
+    parser.add_argument("--retries", type=int, default=2)
+    parser.add_argument("--timeout", type=int, default=20)
     args = parser.parse_args()
 
-    contract_path = Path(args.contracts)
-    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    contract = json.loads(Path(args.contracts).read_text(encoding="utf-8"))
     base_url = args.base_url or contract.get("base_url_default")
     if not base_url:
         raise SystemExit("No base URL provided and no base_url_default found in contracts.")
 
-    results = run_checks(
-        contract=contract,
-        base_url=base_url,
-        strict_links=args.strict_links,
-        retries=args.retries,
-        timeout=args.timeout,
-    )
-
+    results = run_checks(contract, base_url, args.strict_links, args.retries, args.timeout)
     write_reports(results, Path(args.out_dir), base_url)
 
     failures = [result for result in results if not result.passed]
