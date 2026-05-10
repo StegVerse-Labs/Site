@@ -73,7 +73,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No ingested changes to commit."
           else
-            git commit -m "ingest uploaded bundle"
+            git commit -m "ingest uploaded bundle with receipt"
             git push
           fi
 
