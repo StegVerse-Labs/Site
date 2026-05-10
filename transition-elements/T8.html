@@ -54,6 +54,12 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic trust drift sweep passed</p></section>
 <section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
+<section><h2>Automation Release Verifier</h2>
+    <p><strong>Verifier verdict:</strong> ALLOW</p>
+    <p><strong>All release modes verified:</strong> True</p>
+    <ul><li><strong>manual_single</strong> · verified=True · reported=released · expected=released</li><li><strong>sequence_mode</strong> · verified=True · reported=released · expected=released</li><li><strong>bounded_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>coupled_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>receipt_governed</strong> · verified=True · reported=released · expected=released</li><li><strong>irreversibility_guarded</strong> · verified=True · reported=released · expected=released</li><li><strong>self_modification_guarded</strong> · verified=True · reported=released · expected=released</li></ul>
+    <p><a href="../data/automation-release-verifier.json">Open automation-release verifier JSON</a></p>
+    </section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -66,7 +72,15 @@ li{margin:0 0 8px}
 <section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T8-trust_drift_sweep_v1-0007</code> · trust_drift_sweep_v1 · <strong>completed</strong> · sandbox=lag_aware_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li><li><code>KD-T8-trust_drift_sweep_v1-0007-trust-drift</code> · trust_drift_fragment · Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li><code>T8-trust_drift_sweep_v1-0007-001</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=-0.04641 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T8-trust_drift_sweep_v1-0007-002</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=0.03533 · admissibility verdict=<strong>DENY</strong></li><li><code>T8-trust_drift_sweep_v1-0007-003</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=0.07801 · admissibility verdict=<strong>DENY</strong></li></ul></section>
+<section><h2>Experimental Ledger Summary</h2>
+    <p><strong>Display order:</strong> newest_first</p>
+    <p><strong>Verifier events:</strong></p>
+    <ul><li>No verifier events in this summary.</li></ul>
+    <p><strong>Newest ledger rows:</strong></p>
+    <ul><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>DENY</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-001</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-003</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-002</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li></ul>
+    <p><a href="../data/experimental-ledger-summary.json">Open experimental ledger summary JSON</a></p>
+    </section>
+<section><h2>Recent Ledger Rows For This Transition</h2><ul><li><code>T8-trust_drift_sweep_v1-0007-003</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=0.07801 · admissibility verdict=<strong>DENY</strong></li><li><code>T8-trust_drift_sweep_v1-0007-002</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=0.03533 · admissibility verdict=<strong>DENY</strong></li><li><code>T8-trust_drift_sweep_v1-0007-001</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=-0.04641 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
           <h3>RCPT-T8-trust_drift_sweep_v1-0007-001</h3>
@@ -76,7 +90,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Trust flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:28a62f2dff314148e7f8d9787fd82ca4ae7013ece85664ee010bc18967cef14a</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:382dde520c841633d616b3de956b0f025c00df74254cf9ff5d0411d0f90d9cfa</code></p>
           <p><a href="../data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -89,7 +103,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Trust flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:e64b8f81810ceef515c80819ac6c71c2c4e1613ccc9aaa16227747327e895df7</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:1db8980ba8c0daed8b20096ea8ccba2aa2caed5321db5c6fec32f903f41aa8e0</code></p>
           <p><a href="../data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -102,7 +116,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Trust flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:2c45aac8150569533330ab06e038598d9fe6ca20b1f9c625dd34fb854334b4e3</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:2c70750a2593e396cef55292bc62a31026874eb82b49a041988f3cb75bf5a7e4</code></p>
           <p><a href="../data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-003.json">Open receipt JSON</a></p>
         </article>
         </section>

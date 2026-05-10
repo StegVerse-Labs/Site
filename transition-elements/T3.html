@@ -54,6 +54,12 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic bounded action sweep passed</p></section>
 <section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
+<section><h2>Automation Release Verifier</h2>
+    <p><strong>Verifier verdict:</strong> ALLOW</p>
+    <p><strong>All release modes verified:</strong> True</p>
+    <ul><li><strong>manual_single</strong> · verified=True · reported=released · expected=released</li><li><strong>sequence_mode</strong> · verified=True · reported=released · expected=released</li><li><strong>bounded_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>coupled_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>receipt_governed</strong> · verified=True · reported=released · expected=released</li><li><strong>irreversibility_guarded</strong> · verified=True · reported=released · expected=released</li><li><strong>self_modification_guarded</strong> · verified=True · reported=released · expected=released</li></ul>
+    <p><a href="../data/automation-release-verifier.json">Open automation-release verifier JSON</a></p>
+    </section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -66,7 +72,15 @@ li{margin:0 0 8px}
 <section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T3-bounded_action_sweep_v1-0001</code> · bounded_action_sweep_v1 · <strong>completed</strong> · sandbox=local-python-deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li><code>T3-bounded_action_sweep_v1-0001-001</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.0181 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T3-bounded_action_sweep_v1-0001-002</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.03451 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T3-bounded_action_sweep_v1-0001-003</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.0106 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
+<section><h2>Experimental Ledger Summary</h2>
+    <p><strong>Display order:</strong> newest_first</p>
+    <p><strong>Verifier events:</strong></p>
+    <ul><li>No verifier events in this summary.</li></ul>
+    <p><strong>Newest ledger rows:</strong></p>
+    <ul><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>DENY</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-001</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-003</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-002</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li></ul>
+    <p><a href="../data/experimental-ledger-summary.json">Open experimental ledger summary JSON</a></p>
+    </section>
+<section><h2>Recent Ledger Rows For This Transition</h2><ul><li><code>T3-bounded_action_sweep_v1-0001-003</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.0106 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T3-bounded_action_sweep_v1-0001-002</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.03451 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T3-bounded_action_sweep_v1-0001-001</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.0181 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
           <h3>RCPT-T3-bounded_action_sweep_v1-0001-001</h3>
@@ -76,7 +90,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:882e1f6c757609a97a7bc0d17284cebcc62cafc2156b6093fb7057684fec7596</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:76928e4fd7543fb351132244533e9b15b4902b291feb8c5db8f5aed60faf0eab</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -89,7 +103,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:5ac47b6a12b65c28dda8843191a0175136770a3d146c63f0d30a6dd7bd2e526d</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:1a2e82badaedf85734b982bcbbe526bcc121e7c35225f8dba83032a9201c2186</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -102,7 +116,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:57007bff3c039af6cbc6e518d9f067184a2ee8bd9a51fe2219b7f15e1780ffdc</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:9eacefaf1874631222dd5993e987e7805285124d0251dee4cc9add916c81038c</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json">Open receipt JSON</a></p>
         </article>
         </section>

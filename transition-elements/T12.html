@@ -54,6 +54,12 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic validator consensus sweep passed</p></section>
 <section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
+<section><h2>Automation Release Verifier</h2>
+    <p><strong>Verifier verdict:</strong> ALLOW</p>
+    <p><strong>All release modes verified:</strong> True</p>
+    <ul><li><strong>manual_single</strong> · verified=True · reported=released · expected=released</li><li><strong>sequence_mode</strong> · verified=True · reported=released · expected=released</li><li><strong>bounded_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>coupled_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>receipt_governed</strong> · verified=True · reported=released · expected=released</li><li><strong>irreversibility_guarded</strong> · verified=True · reported=released · expected=released</li><li><strong>self_modification_guarded</strong> · verified=True · reported=released · expected=released</li></ul>
+    <p><a href="../data/automation-release-verifier.json">Open automation-release verifier JSON</a></p>
+    </section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -66,7 +72,15 @@ li{margin:0 0 8px}
 <section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T12-consensus_sweep_v1-0011</code> · consensus_sweep_v1 · <strong>completed</strong> · sandbox=coupled_state_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T10-multi_agent_sweep_v1-0009-multi-agent</code> · multi_agent_fragment · Multi-agent sweep found 0 composition flip(s), including 0 aggregate denial(s) across deterministic samples.</li><li><code>KD-T11-conflict_sweep_v1-0010-conflict</code> · conflict_resolution_fragment · Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).</li><li><code>KD-T12-consensus_sweep_v1-0011-consensus</code> · consensus_fragment · Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li><code>T12-consensus_sweep_v1-0011-001</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.13728 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T12-consensus_sweep_v1-0011-002</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.06739 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T12-consensus_sweep_v1-0011-003</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.12549 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
+<section><h2>Experimental Ledger Summary</h2>
+    <p><strong>Display order:</strong> newest_first</p>
+    <p><strong>Verifier events:</strong></p>
+    <ul><li>No verifier events in this summary.</li></ul>
+    <p><strong>Newest ledger rows:</strong></p>
+    <ul><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>DENY</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-001</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-003</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-002</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li></ul>
+    <p><a href="../data/experimental-ledger-summary.json">Open experimental ledger summary JSON</a></p>
+    </section>
+<section><h2>Recent Ledger Rows For This Transition</h2><ul><li><code>T12-consensus_sweep_v1-0011-003</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.12549 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T12-consensus_sweep_v1-0011-002</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.06739 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T12-consensus_sweep_v1-0011-001</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.13728 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
           <h3>RCPT-T12-consensus_sweep_v1-0011-001</h3>
@@ -76,7 +90,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:f8d8fd8adb51b33b2985aa54a9a44402c550a0d878f2d46c0882efb33ae23df0</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:1a225e5080788e03db13b3fe154bb4b3b8ba121d6a48a96a91049e0f2643b40d</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -89,7 +103,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:8d87815c5488bf996142325e1bee7b1f67f26e41025b417eb366478989fdedae</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:5a84f90232ebe987a8830c20a189ae32a7fe209aae554db60cb09b8792404cdd</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -102,7 +116,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:3c2263e85bd654dc34e5d37bcaa1a1ec1ff81df0a45261f543101c0814a75ac9</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:20ad924274b865ed7f730f774d74ed06e279b0f4cb79ffbf0e753dac03562daf</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-003.json">Open receipt JSON</a></p>
         </article>
         </section>

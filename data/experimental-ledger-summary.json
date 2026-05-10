@@ -1,0 +1,310 @@
+{
+  "generated_at": "2026-05-10T02:22:17Z",
+  "schema": "stegverse.experimental_ledger_summary.v1",
+  "display_order": "newest_first",
+  "recent_runs": [
+    {
+      "run_id": "T16-self_modifying_rule_sweep_v1-0015",
+      "element_id": "T16",
+      "experiment": "self_modifying_rule_sweep_v1",
+      "status": "completed",
+      "sandbox": "open_boundary_deterministic",
+      "automation_gate": "scheduled_ready"
+    },
+    {
+      "run_id": "T15-irreversibility_sweep_v1-0014",
+      "element_id": "T15",
+      "experiment": "irreversibility_sweep_v1",
+      "status": "completed",
+      "sandbox": "open_boundary_deterministic",
+      "automation_gate": "scheduled_ready"
+    },
+    {
+      "run_id": "T14-reconstruction_sweep_v1-0013",
+      "element_id": "T14",
+      "experiment": "reconstruction_sweep_v1",
+      "status": "completed",
+      "sandbox": "receipt_evidence_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T13-receipt_bound_sweep_v1-0012",
+      "element_id": "T13",
+      "experiment": "receipt_bound_sweep_v1",
+      "status": "completed",
+      "sandbox": "receipt_evidence_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T12-consensus_sweep_v1-0011",
+      "element_id": "T12",
+      "experiment": "consensus_sweep_v1",
+      "status": "completed",
+      "sandbox": "coupled_state_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T11-conflict_sweep_v1-0010",
+      "element_id": "T11",
+      "experiment": "conflict_sweep_v1",
+      "status": "completed",
+      "sandbox": "coupled_state_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T10-multi_agent_sweep_v1-0009",
+      "element_id": "T10",
+      "experiment": "multi_agent_sweep_v1",
+      "status": "completed",
+      "sandbox": "coupled_state_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T9-two_state_coupling_sweep_v1-0008",
+      "element_id": "T9",
+      "experiment": "two_state_coupling_sweep_v1",
+      "status": "completed",
+      "sandbox": "coupled_state_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T8-trust_drift_sweep_v1-0007",
+      "element_id": "T8",
+      "experiment": "trust_drift_sweep_v1",
+      "status": "completed",
+      "sandbox": "lag_aware_deterministic",
+      "automation_gate": "bounded_batch"
+    },
+    {
+      "run_id": "T7-actuation_lag_sweep_v1-0006",
+      "element_id": "T7",
+      "experiment": "actuation_lag_sweep_v1",
+      "status": "completed",
+      "sandbox": "lag_aware_deterministic",
+      "automation_gate": "sequence_lag_row"
+    }
+  ],
+  "recent_ledger_rows": [
+    {
+      "timestamp": "2026-05-10T02:02:28Z",
+      "element_id": "T16",
+      "mode": "self_modifying_rule_sweep_v1",
+      "run_id": "T16-self_modifying_rule_sweep_v1-0015-003",
+      "tested_property": "self_modifying_rule_safety",
+      "constraint_result": "PASS",
+      "invariant": null,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:c5307deed1be6edd8458b2be2b88352b97879895aae65379220afc3e1eeafaa9"
+    },
+    {
+      "timestamp": "2026-05-10T02:02:28Z",
+      "element_id": "T16",
+      "mode": "self_modifying_rule_sweep_v1",
+      "run_id": "T16-self_modifying_rule_sweep_v1-0015-002",
+      "tested_property": "self_modifying_rule_safety",
+      "constraint_result": "FAIL",
+      "invariant": null,
+      "verdict": "DENY",
+      "receipt_hash": "sha256:6ce8391b08a8a0bf64fc882bf22e0096474a54b269738c6eb9e14a528838a274"
+    },
+    {
+      "timestamp": "2026-05-10T02:02:28Z",
+      "element_id": "T16",
+      "mode": "self_modifying_rule_sweep_v1",
+      "run_id": "T16-self_modifying_rule_sweep_v1-0015-001",
+      "tested_property": "self_modifying_rule_safety",
+      "constraint_result": "PASS",
+      "invariant": null,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:bef093f006f477b7619402582fe5bc63a3f7e54f99bd658ea09afc3ea17e90de"
+    },
+    {
+      "timestamp": "2026-05-10T01:54:10Z",
+      "element_id": "T15",
+      "mode": "irreversibility_sweep_v1",
+      "run_id": "T15-irreversibility_sweep_v1-0014-003",
+      "tested_property": "irreversibility",
+      "constraint_result": "PASS",
+      "invariant": 0.0296,
+      "verdict": "DENY",
+      "receipt_hash": "sha256:2a9998b88b680c3defb07014e95eb32e3cb57dead25290f7744f3b4ba0b547bd"
+    },
+    {
+      "timestamp": "2026-05-10T01:54:10Z",
+      "element_id": "T15",
+      "mode": "irreversibility_sweep_v1",
+      "run_id": "T15-irreversibility_sweep_v1-0014-002",
+      "tested_property": "irreversibility",
+      "constraint_result": "PASS",
+      "invariant": -0.2733,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:4c0444e0cd02786631948c3f308ea8ba692cc6f8af71609a7b6b117e3de91e45"
+    },
+    {
+      "timestamp": "2026-05-10T01:54:10Z",
+      "element_id": "T15",
+      "mode": "irreversibility_sweep_v1",
+      "run_id": "T15-irreversibility_sweep_v1-0014-001",
+      "tested_property": "irreversibility",
+      "constraint_result": "PASS",
+      "invariant": -0.08598,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:d863fa0776fe96fbebb29ea18d1ad3d0209b684a6203eb2e873ad317f1b7954b"
+    },
+    {
+      "timestamp": "2026-05-10T01:48:33Z",
+      "element_id": "T14",
+      "mode": "reconstruction_sweep_v1",
+      "run_id": "T14-reconstruction_sweep_v1-0013-003",
+      "tested_property": "receipt_reconstruction",
+      "constraint_result": "PASS",
+      "invariant": -0.11263,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:a5fcc977cbd08e6fe92a443540eb67b84b4a1638ac6dd3a85e90117e093d944c"
+    },
+    {
+      "timestamp": "2026-05-10T01:48:33Z",
+      "element_id": "T14",
+      "mode": "reconstruction_sweep_v1",
+      "run_id": "T14-reconstruction_sweep_v1-0013-002",
+      "tested_property": "receipt_reconstruction",
+      "constraint_result": "PASS",
+      "invariant": -0.13709,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:eabb7506d9d8b53e5164e669d9ed4cf223b72ee0fae2b0fef36accb17909ba51"
+    },
+    {
+      "timestamp": "2026-05-10T01:48:33Z",
+      "element_id": "T14",
+      "mode": "reconstruction_sweep_v1",
+      "run_id": "T14-reconstruction_sweep_v1-0013-001",
+      "tested_property": "receipt_reconstruction",
+      "constraint_result": "PASS",
+      "invariant": -0.15686,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:f799529fa2acd8611890df61cdba1ecb4c4609e4353cf1e30ed2401826de6b2d"
+    },
+    {
+      "timestamp": "2026-05-10T01:43:15Z",
+      "element_id": "T13",
+      "mode": "receipt_bound_sweep_v1",
+      "run_id": "T13-receipt_bound_sweep_v1-0012-003",
+      "tested_property": "receipt_bound_transition",
+      "constraint_result": "PASS",
+      "invariant": -0.11263,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:c9d61d9e48c865cd14dad8211a50b6b5d84ec474e871eee1eb7ee199d2e3f70e"
+    },
+    {
+      "timestamp": "2026-05-10T01:43:15Z",
+      "element_id": "T13",
+      "mode": "receipt_bound_sweep_v1",
+      "run_id": "T13-receipt_bound_sweep_v1-0012-002",
+      "tested_property": "receipt_bound_transition",
+      "constraint_result": "PASS",
+      "invariant": -0.13709,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:174fc557193f5bbb94c1859e52fc87d57e533441774592e74981a86d01517241"
+    },
+    {
+      "timestamp": "2026-05-10T01:43:15Z",
+      "element_id": "T13",
+      "mode": "receipt_bound_sweep_v1",
+      "run_id": "T13-receipt_bound_sweep_v1-0012-001",
+      "tested_property": "receipt_bound_transition",
+      "constraint_result": "PASS",
+      "invariant": -0.15686,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:e886f70477afd86d77ad794d26fcc0bc6ba3d28d2934a0241e112bf03f6b0752"
+    },
+    {
+      "timestamp": "2026-05-10T01:08:21Z",
+      "element_id": "T12",
+      "mode": "consensus_sweep_v1",
+      "run_id": "T12-consensus_sweep_v1-0011-003",
+      "tested_property": "validator_consensus",
+      "constraint_result": "PASS",
+      "invariant": -0.12549,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:20ad924274b865ed7f730f774d74ed06e279b0f4cb79ffbf0e753dac03562daf"
+    },
+    {
+      "timestamp": "2026-05-10T01:08:21Z",
+      "element_id": "T12",
+      "mode": "consensus_sweep_v1",
+      "run_id": "T12-consensus_sweep_v1-0011-002",
+      "tested_property": "validator_consensus",
+      "constraint_result": "PASS",
+      "invariant": -0.06739,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:5a84f90232ebe987a8830c20a189ae32a7fe209aae554db60cb09b8792404cdd"
+    },
+    {
+      "timestamp": "2026-05-10T01:08:21Z",
+      "element_id": "T12",
+      "mode": "consensus_sweep_v1",
+      "run_id": "T12-consensus_sweep_v1-0011-001",
+      "tested_property": "validator_consensus",
+      "constraint_result": "PASS",
+      "invariant": -0.13728,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:1a225e5080788e03db13b3fe154bb4b3b8ba121d6a48a96a91049e0f2643b40d"
+    },
+    {
+      "timestamp": "2026-05-10T00:59:44Z",
+      "element_id": "T11",
+      "mode": "conflict_sweep_v1",
+      "run_id": "T11-conflict_sweep_v1-0010-003",
+      "tested_property": "conflict_resolution",
+      "constraint_result": "PASS",
+      "invariant": -0.0273,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:736d6507271654fadb589e53bdb7e36f165bef671b832a8c400edb2794d4a3b0"
+    },
+    {
+      "timestamp": "2026-05-10T00:59:44Z",
+      "element_id": "T11",
+      "mode": "conflict_sweep_v1",
+      "run_id": "T11-conflict_sweep_v1-0010-002",
+      "tested_property": "conflict_resolution",
+      "constraint_result": "PASS",
+      "invariant": -0.1735,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:72c74b35b18d3f3b06024cdfb8ecf22353fd6875313ac4e177a57486d7fe168a"
+    },
+    {
+      "timestamp": "2026-05-10T00:59:44Z",
+      "element_id": "T11",
+      "mode": "conflict_sweep_v1",
+      "run_id": "T11-conflict_sweep_v1-0010-001",
+      "tested_property": "conflict_resolution",
+      "constraint_result": "PASS",
+      "invariant": -0.06684,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:62ed2d9e9584901b9f8e61f9dd81ce38880b04fc6c8d6a489984c634d40569d7"
+    },
+    {
+      "timestamp": "2026-05-10T00:46:16Z",
+      "element_id": "T10",
+      "mode": "multi_agent_sweep_v1",
+      "run_id": "T10-multi_agent_sweep_v1-0009-003",
+      "tested_property": "multi_agent_composition",
+      "constraint_result": "PASS",
+      "invariant": -0.01517,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:9a2cd084f7342a88846b1ba7476ad7b0e3d295b620aba5856ce510cb6bc83b8a"
+    },
+    {
+      "timestamp": "2026-05-10T00:46:16Z",
+      "element_id": "T10",
+      "mode": "multi_agent_sweep_v1",
+      "run_id": "T10-multi_agent_sweep_v1-0009-002",
+      "tested_property": "multi_agent_composition",
+      "constraint_result": "PASS",
+      "invariant": -0.08448,
+      "verdict": "ALLOW",
+      "receipt_hash": "sha256:085f7aa6aff7914d7a36e0ded1f22a367f0e998c624da5e26f19be93c6083100"
+    }
+  ],
+  "verifier_events": []
+}

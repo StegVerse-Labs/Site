@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-05-10T02:22:17Z",
+  "schema": "stegverse.automation_release_verifier.v1",
+  "all_release_modes_verified": true,
+  "current_state": "receipt_backed_automation_ready",
+  "checks": [
+    {
+      "mode": "manual_single",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T1": 4,
+        "T2": 4,
+        "T3": 4,
+        "T4": 4
+      },
+      "missing_or_insufficient": []
+    },
+    {
+      "mode": "sequence_mode",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T5": 4
+      },
+      "missing_or_insufficient": []
+    },
+    {
+      "mode": "bounded_batch",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T7": 4
+      },
+      "missing_or_insufficient": []
+    },
+    {
+      "mode": "coupled_batch",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T9": 4,
+        "T10": 4,
+        "T11": 4,
+        "T12": 4
+      },
+      "missing_or_insufficient": []
+    },
+    {
+      "mode": "receipt_governed",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T13": 5,
+        "T14": 5
+      },
+      "missing_or_insufficient": []
+    },
+    {
+      "mode": "irreversibility_guarded",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T15": 4
+      },
+      "missing_or_insufficient": []
+    },
+    {
+      "mode": "self_modification_guarded",
+      "expected_status": "released",
+      "reported_status": "released",
+      "verified": true,
+      "requirements": {
+        "T16": 4
+      },
+      "missing_or_insufficient": []
+    }
+  ],
+  "receipt_backing_promotions_seen": [],
+  "verdict": "ALLOW"
+}

@@ -54,6 +54,12 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic self-modifying rule safety sweep passed</p></section>
 <section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
+<section><h2>Automation Release Verifier</h2>
+    <p><strong>Verifier verdict:</strong> ALLOW</p>
+    <p><strong>All release modes verified:</strong> True</p>
+    <ul><li><strong>manual_single</strong> · verified=True · reported=released · expected=released</li><li><strong>sequence_mode</strong> · verified=True · reported=released · expected=released</li><li><strong>bounded_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>coupled_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>receipt_governed</strong> · verified=True · reported=released · expected=released</li><li><strong>irreversibility_guarded</strong> · verified=True · reported=released · expected=released</li><li><strong>self_modification_guarded</strong> · verified=True · reported=released · expected=released</li></ul>
+    <p><a href="../data/automation-release-verifier.json">Open automation-release verifier JSON</a></p>
+    </section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -66,7 +72,15 @@ li{margin:0 0 8px}
 <section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T16-self_modifying_rule_sweep_v1-0015</code> · self_modifying_rule_sweep_v1 · <strong>completed</strong> · sandbox=open_boundary_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T14-reconstruction_sweep_v1-0013-reconstruction</code> · reconstruction_fragment · Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li><li><code>KD-T15-irreversibility_sweep_v1-0014-irreversibility</code> · irreversibility_fragment · Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li><li><code>KD-T16-self_modifying_rule_sweep_v1-0015-self-modifying</code> · self_modification_fragment · Self-modifying rule sweep allowed 2 guarded rule patch(es) and blocked 1 unsafe rule patch(es).</li><li><code>KD-T13-receipt-backed-verifier-v1</code> · receipt_backing_fragment · T13 advanced to 5/5 Receipt-backed after verifying replayable receipt coverage for 3 ledger row(s).</li><li><code>KD-T14-receipt-backed-verifier-v1</code> · receipt_backing_fragment · T14 advanced to 5/5 Receipt-backed after verifying replayable receipt coverage for 3 ledger row(s).</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · tested property=self_modifying_rule_safety · constraint=PASS · admissibility invariant= · admissibility verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · tested property=self_modifying_rule_safety · constraint=FAIL · admissibility invariant= · admissibility verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · tested property=self_modifying_rule_safety · constraint=PASS · admissibility invariant= · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
+<section><h2>Experimental Ledger Summary</h2>
+    <p><strong>Display order:</strong> newest_first</p>
+    <p><strong>Verifier events:</strong></p>
+    <ul><li>No verifier events in this summary.</li></ul>
+    <p><strong>Newest ledger rows:</strong></p>
+    <ul><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>DENY</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-001</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-003</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-002</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li></ul>
+    <p><a href="../data/experimental-ledger-summary.json">Open experimental ledger summary JSON</a></p>
+    </section>
+<section><h2>Recent Ledger Rows For This Transition</h2><ul><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · tested property=self_modifying_rule_safety · constraint=PASS · admissibility invariant= · admissibility verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · tested property=self_modifying_rule_safety · constraint=FAIL · admissibility invariant= · admissibility verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · tested property=self_modifying_rule_safety · constraint=PASS · admissibility invariant= · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
           <h3>RCPT-T16-self_modifying_rule_sweep_v1-0015-001</h3>
@@ -76,7 +90,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Self-modification safe:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:790649450a85fa4c9e3a65f84120fea33371e9328e2027855731b01760912331</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:bef093f006f477b7619402582fe5bc63a3f7e54f99bd658ea09afc3ea17e90de</code></p>
           <p><a href="../data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -89,7 +103,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> FAIL</p>
           <p><strong>Self-modification safe:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:fa79f39de29c190589fdad5f5db2d2dfc7047343c4b86b041a2ea99c6daa57d7</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:6ce8391b08a8a0bf64fc882bf22e0096474a54b269738c6eb9e14a528838a274</code></p>
           <p><a href="../data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -102,7 +116,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Self-modification safe:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:2576daded563e40c675b03669aa07216e6ce6b7c405c6afa0b430ca495fb0866</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:c5307deed1be6edd8458b2be2b88352b97879895aae65379220afc3e1eeafaa9</code></p>
           <p><a href="../data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-003.json">Open receipt JSON</a></p>
         </article>
         </section>

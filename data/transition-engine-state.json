@@ -1,7 +1,7 @@
 {
   "planner": "evidence_gated_sequence_v1",
   "status": "idle_no_eligible_experiment",
-  "updated_at": "2026-05-10T02:12:16Z",
+  "updated_at": "2026-05-10T02:22:17Z",
   "automation_gate": {
     "mode": "scheduled_ready",
     "max_sequence_steps": 3,
@@ -11,7 +11,9 @@
     ]
   },
   "automation_release_state": "receipt_backed_automation_ready",
+  "automation_release_verifier": "ALLOW",
   "receipt_backing_promotions": [],
+  "ledger_summary_rows": 20,
   "sequence_completed": [],
   "last_selected": null,
   "last_run_id": null

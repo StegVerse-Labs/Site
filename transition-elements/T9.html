@@ -54,6 +54,12 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic two-state coupling sweep passed</p></section>
 <section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
+<section><h2>Automation Release Verifier</h2>
+    <p><strong>Verifier verdict:</strong> ALLOW</p>
+    <p><strong>All release modes verified:</strong> True</p>
+    <ul><li><strong>manual_single</strong> · verified=True · reported=released · expected=released</li><li><strong>sequence_mode</strong> · verified=True · reported=released · expected=released</li><li><strong>bounded_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>coupled_batch</strong> · verified=True · reported=released · expected=released</li><li><strong>receipt_governed</strong> · verified=True · reported=released · expected=released</li><li><strong>irreversibility_guarded</strong> · verified=True · reported=released · expected=released</li><li><strong>self_modification_guarded</strong> · verified=True · reported=released · expected=released</li></ul>
+    <p><a href="../data/automation-release-verifier.json">Open automation-release verifier JSON</a></p>
+    </section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -66,7 +72,15 @@ li{margin:0 0 8px}
 <section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T9-two_state_coupling_sweep_v1-0008</code> · two_state_coupling_sweep_v1 · <strong>completed</strong> · sandbox=coupled_state_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T8-trust_drift_sweep_v1-0007-trust-drift</code> · trust_drift_fragment · Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.</li><li><code>KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling</code> · coupled_state_fragment · Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li><code>T9-two_state_coupling_sweep_v1-0008-001</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=0.04103 · admissibility verdict=<strong>DENY</strong></li><li><code>T9-two_state_coupling_sweep_v1-0008-002</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=-0.03217 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T9-two_state_coupling_sweep_v1-0008-003</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=0.03041 · admissibility verdict=<strong>DENY</strong></li></ul></section>
+<section><h2>Experimental Ledger Summary</h2>
+    <p><strong>Display order:</strong> newest_first</p>
+    <p><strong>Verifier events:</strong></p>
+    <ul><li>No verifier events in this summary.</li></ul>
+    <p><strong>Newest ledger rows:</strong></p>
+    <ul><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · T16 · self_modifying_rule_sweep_v1 · property=self_modifying_rule_safety · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>DENY</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-001</code> · T15 · irreversibility_sweep_v1 · property=irreversibility · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-003</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li><li><code>T14-reconstruction_sweep_v1-0013-002</code> · T14 · reconstruction_sweep_v1 · property=receipt_reconstruction · verdict=<strong>ALLOW</strong></li></ul>
+    <p><a href="../data/experimental-ledger-summary.json">Open experimental ledger summary JSON</a></p>
+    </section>
+<section><h2>Recent Ledger Rows For This Transition</h2><ul><li><code>T9-two_state_coupling_sweep_v1-0008-003</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=0.03041 · admissibility verdict=<strong>DENY</strong></li><li><code>T9-two_state_coupling_sweep_v1-0008-002</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=-0.03217 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T9-two_state_coupling_sweep_v1-0008-001</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=0.04103 · admissibility verdict=<strong>DENY</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
           <h3>RCPT-T9-two_state_coupling_sweep_v1-0008-001</h3>
@@ -76,7 +90,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Coupling flip:</strong> True</p><p><strong>Local admissible / coupled denied:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:a2d21d078e16b7c4b35798d4b2d1baaf9fc4d25ddf5238bbac4b19c820230015</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:4a109fbce9b56bfde765166c8023735f45ee44eed051162f5234593792a32356</code></p>
           <p><a href="../data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -89,7 +103,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Coupling flip:</strong> False</p><p><strong>Local admissible / coupled denied:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:d1cb20d623e33b1bad90f7df7cd84699ae51a94a87cc1cca9b32465f6f8523f8</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:a1c104aedb24388ed281fdf36aa8a820e3d4de6d341c1205cf5d9ea74a60f864</code></p>
           <p><a href="../data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -102,7 +116,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Coupling flip:</strong> True</p><p><strong>Local admissible / coupled denied:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:9078b8b6d8ce25fd0fc0795257ebe8da30d08ea6e8e186dc14e3a1a6178df71c</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:21066992c71bf10a5d91e014d5390851e37dfd1a813be5c9ccc36a31d0698000</code></p>
           <p><a href="../data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-003.json">Open receipt JSON</a></p>
         </article>
         </section>
