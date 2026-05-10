@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-05-10T22:31:38Z",
+  "schema": "stegverse.ephemeral_sandbox_policy.v1",
+  "policy_id": "ms012i-site-ephemeral-sandbox-protocols-v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "purpose": "Review sandbox_queue bundles in an isolated temporary directory, emit repair candidates back into incoming, and archive reviewed originals without mutating live repo files directly.",
+  "directories": {
+    "sandbox_queue": "sandbox_queue",
+    "sandbox_reports": "sandbox_reports",
+    "sandbox_reviewed": "sandbox_reviewed",
+    "incoming": "incoming",
+    "failed_bundles": "failed_bundles",
+    "privileged_queue": "privileged_queue"
+  },
+  "marker_files": [
+    ".gitkeep",
+    "README.md"
+  ],
+  "repair_rules": {
+    "add_bundle_manifest_when_missing": true,
+    "preserve_safe_members_only": true,
+    "reject_absolute_or_parent_paths": true,
+    "reject_git_paths": true,
+    "do_not_auto_repair_workflow_bundles": true,
+    "do_not_auto_repair_ingestion_engine_mutation_bundles": true,
+    "candidate_suffix": ".sandbox-candidate"
+  },
+  "classifications": {
+    "repair_candidate_created": {
+      "terminal": false,
+      "reentry": "incoming",
+      "description": "Sandbox emitted a repaired candidate bundle back into incoming for normal ingestion."
+    },
+    "manual_review_required": {
+      "terminal": false,
+      "reentry": null,
+      "description": "Bundle requires human review before any candidate can be emitted."
+    },
+    "privileged_review_required": {
+      "terminal": false,
+      "reentry": "privileged_queue",
+      "description": "Bundle contains workflow or authority-sensitive material."
+    },
+    "unrepairable": {
+      "terminal": true,
+      "reentry": null,
+      "description": "Bundle cannot be safely repaired by current sandbox policy."
+    },
+    "invalid_zip": {
+      "terminal": true,
+      "reentry": null,
+      "description": "Bundle is not a valid ZIP."
+    }
+  },
+  "safety": {
+    "bounded_single_pass": true,
+    "does_not_install_live_files": true,
+    "does_not_delete_evidence": true,
+    "reviewed_originals_are_archived": true,
+    "repair_candidates_return_through_incoming": true,
+    "ingestion_remains_only_installer": true,
+    "no_workflow_files_in_bundle": true,
+    "no_cron": true,
+    "no_workflow_run": true,
+    "no_self_trigger": true
+  }
+}

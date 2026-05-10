@@ -130,6 +130,15 @@
       "bundle_class": "artifact_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "generated_at": "2026-05-10T22:38:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012i-site-ephemeral-sandbox-protocols-v1.zip",
+      "bundle_sha256": "eb30748455a992a20bd2508769565020df98b2d5bf5d7f70d8cf3207cf27cf64",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "dfb63cc060255046e2243a8f9f173d80ffadb93851190ffe93df0a211013a355"
     }
   ]
 }

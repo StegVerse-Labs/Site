@@ -1,5 +1,14 @@
 # sandbox_reports
 
-Sandbox review reports are written here.
+Ephemeral sandbox reports are written here.
 
-MS-012F adds purpose-deprecation review. A stale or failed bundle is reviewed not only for file shape, but also for whether its purpose is still active, superseded, deprecated, obsolete, critical even if old, or unknown.
+Expected files:
+
+```text
+ephemeral-sandbox-queue-report.json
+ephemeral-sandbox-queue-report.md
+<bundle-name>.sandbox-report.json
+<bundle-name>.sandbox-report.md
+```
+
+The sandbox may emit repaired candidate bundles into `incoming/`, but it does not install files into the live repo.

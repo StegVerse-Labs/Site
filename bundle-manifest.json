@@ -1,49 +1,49 @@
 {
-  "generated_at": "2026-05-10T20:51:51Z",
+  "generated_at": "2026-05-10T22:31:38Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012h-path-function-sentinel-sandbox-loop-v2",
-  "formal_milestone": "MS-012H \u2014 Path Function Sentinel Sandbox Loop",
-  "purpose": "Install a bounded path-function sentinel that emits sandbox repair tasks for path deficiencies, requires sandbox repair testing, and returns to idle only after ingestion path compliance is restored.",
+  "bundle_id": "ms012i-site-ephemeral-sandbox-protocols-v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "purpose": "Install bounded ephemeral sandbox protocols for Site sandbox_queue review, candidate repair generation, and ingestion re-entry.",
   "files": [
     {
-      "path": "tools/path_function_sentinel_test.py",
-      "version": "v2",
-      "role": "path_function_sentinel_with_sandbox_task_output"
-    },
-    {
-      "path": "data/path-tests/path-function-sentinel-policy-v2.json",
-      "version": "v2",
-      "role": "path_function_sentinel_policy"
-    },
-    {
-      "path": "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
-      "version": "v2",
-      "role": "declared_path_function_sentinel_task"
-    },
-    {
-      "path": "path_function_reports/README.md",
-      "version": "v2",
-      "role": "path_function_report_docs"
-    },
-    {
-      "path": "sandbox_tasks/README.md",
+      "path": "tools/ephemeral_sandbox_runner.py",
       "version": "v1",
-      "role": "sandbox_task_docs"
+      "role": "ephemeral_sandbox_runner"
     },
     {
-      "path": "idle_sentinels/README.md",
-      "version": "v2",
-      "role": "idle_state_docs"
+      "path": "data/sandbox/ephemeral-sandbox-policy-v1.json",
+      "version": "v1",
+      "role": "sandbox_policy"
     },
     {
-      "path": "triggered_loop/README.md",
-      "version": "v2",
-      "role": "triggered_state_docs"
+      "path": "data/headless-tasks/ephemeral-sandbox-run-v1.json",
+      "version": "v1",
+      "role": "declared_sandbox_task"
     },
     {
-      "path": "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+      "path": "sandbox_reports/README.md",
+      "version": "v1",
+      "role": "sandbox_report_docs"
+    },
+    {
+      "path": "sandbox_queue/README.md",
       "version": "v2",
-      "role": "sentinel_sandbox_loop_docs"
+      "role": "sandbox_queue_docs"
+    },
+    {
+      "path": "sandbox_reviewed/README.md",
+      "version": "v1",
+      "role": "sandbox_review_archive_docs"
+    },
+    {
+      "path": "incoming/README.md",
+      "version": "v3",
+      "role": "incoming_reentry_docs"
+    },
+    {
+      "path": "docs/MS-012I-site-ephemeral-sandbox-protocols.md",
+      "version": "v1",
+      "role": "sandbox_protocol_docs"
     }
   ],
   "safety": {
@@ -56,8 +56,7 @@
     "no_cron": true,
     "no_workflow_run_chain": true,
     "no_self_trigger_zip": true,
-    "bounded_single_pass": true,
-    "does_not_delete_evidence": true,
-    "repair_requires_sandbox": true
+    "sandbox_does_not_install": true,
+    "repair_candidates_return_through_incoming": true
   }
 }

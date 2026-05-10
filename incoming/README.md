@@ -2,18 +2,6 @@
 
 Place upload-safe ZIP bundles in this folder.
 
-The ingestion workflow reads the newest `incoming/*.zip` bundle by default.
+When no explicit bundle is supplied, the ingestor processes `incoming/*.zip` as one bounded queue pass.
 
-The ingestor maps:
-
-```text
-github/workflows/example.yml
-```
-
-to:
-
-```text
-.github/workflows/example.yml
-```
-
-No file is deleted by ingestion. Only changed or missing files are applied.
+The ephemeral sandbox may emit repaired candidate ZIPs into this folder. Those candidates must still pass through normal ingestion before any live repo change is installed.

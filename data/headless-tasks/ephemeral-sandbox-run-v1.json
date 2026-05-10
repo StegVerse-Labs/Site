@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-10T22:31:38Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "ephemeral-sandbox-run-v1",
+  "class": "ephemeral_sandbox",
+  "authority_class": "bounded_repair_candidate_generation",
+  "description": "Review sandbox_queue/*.zip in an isolated temp dir, emit repair candidates to incoming/, and archive reviewed originals.",
+  "command": [
+    "python",
+    "tools/ephemeral_sandbox_runner.py",
+    "--policy",
+    "data/sandbox/ephemeral-sandbox-policy-v1.json",
+    "--apply"
+  ],
+  "expected_inputs": [
+    "tools/ephemeral_sandbox_runner.py",
+    "data/sandbox/ephemeral-sandbox-policy-v1.json",
+    "sandbox_queue/"
+  ],
+  "expected_outputs": [
+    "sandbox_reports/ephemeral-sandbox-queue-report.json",
+    "sandbox_reports/ephemeral-sandbox-queue-report.md",
+    "sandbox_reviewed/"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/ephemeral-sandbox-run-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/ephemeral-sandbox-run-v1.report.md"
+}
