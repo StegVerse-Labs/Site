@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T9-two_state_coupling_sweep_v1-0008-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T01:54:10Z",
+  "created_at": "2026-05-10T01:54:23Z",
   "run_id": "T9-two_state_coupling_sweep_v1-0008",
   "ledger_row_id": "T9-two_state_coupling_sweep_v1-0008-001",
   "element_id": "T9",
@@ -163,5 +163,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:cd4a40f1549bc5ab68f09a95fadbd2f8431ccc5f6aaf27b24a953c0f40ef209d"
+  "receipt_hash": "sha256:9d0d63c86719416287b7f60905effe8d41770e0b02878f7912849da3bcff2f94"
 }
