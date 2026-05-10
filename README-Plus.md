@@ -1,4 +1,4 @@
-# Evidence-Gated Sequence + Rule Release + T6/T7 v1
+# T8 Trust-Drift Experiment v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,32 +11,33 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Rule releases generated from tested transition elements.
-- `data/transition-rule-releases.json`.
-- Evidence-gated automation mode:
-  - Before T5: `manual_single`
-  - After T5: `sequence_lag_row`, max 2 steps
-  - After T7: `bounded_batch`, max 3 steps
-  - After T13/T14: `scheduled_ready`
-- Proper lag-aware sandbox class after T5.
-- T6 Decision-Lag experiment.
-- T7 Actuation-Lag experiment.
-- Applied rules recorded on each run manifest and receipt.
-- Transition pages display released rules and applied rules.
+- Adds `T8` experiment: `trust_drift_sweep_v1`.
+- Adds fallback experiment registration for `T8`.
+- Adds trust-drift receipts with:
+  - initial trust
+  - decayed trust
+  - lambda
+  - tau
+  - pre-decay capacity
+  - post-decay capacity
+  - pre-decay verdict
+  - trust-decay verdict
+  - trust_flip
+- Adds `trust_drift_required` as a rule released by `T8` once tested.
+- Updates transition pages to display `Trust flip` in receipt cards.
 
 ## Expected next workflow run
 
-Because T5 is already tested, the engine should enter:
+Because T7 is already tested, the engine should be in bounded-batch mode. The next eligible runnable element should be:
 
 ```text
-sequence_lag_row
+T8 — trust_drift_sweep_v1
 ```
 
-Expected sequence:
+Expected result:
 
 ```text
-T6 decision_lag_sweep_v1
-T7 actuation_lag_sweep_v1
+T8 advances from 2/5 Derived to 4/5 Tested.
+T8 emits a trust_drift_fragment knowledge delta.
+T8 receipts show trust decay and trust_flip values.
 ```
-
-The run stops after max 2 sequence steps.
