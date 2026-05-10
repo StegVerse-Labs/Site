@@ -1,4 +1,4 @@
-# T8 Trust-Drift Experiment v1
+# T9 Two-State Coupled Transition v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,33 +11,36 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Adds `T8` experiment: `trust_drift_sweep_v1`.
-- Adds fallback experiment registration for `T8`.
-- Adds trust-drift receipts with:
-  - initial trust
-  - decayed trust
-  - lambda
-  - tau
-  - pre-decay capacity
-  - post-decay capacity
-  - pre-decay verdict
-  - trust-decay verdict
-  - trust_flip
-- Adds `trust_drift_required` as a rule released by `T8` once tested.
-- Updates transition pages to display `Trust flip` in receipt cards.
+- Adds `T9` experiment: `two_state_coupling_sweep_v1`.
+- Adds fallback experiment registration for `T9`.
+- Adds coupled-state receipts with:
+  - state_a
+  - state_b
+  - action_a
+  - coupling_effect_on_b
+  - post_state_a
+  - post_state_b_without_coupling
+  - post_state_b_with_coupling
+  - a_verdict
+  - b_verdict_without_coupling
+  - b_verdict_with_coupling
+  - coupling_flip
+  - local_admissible_coupled_denied
+- Adds `two_state_coupling_required` as a rule released by `T9` once tested.
+- Adds `coupled_state_deterministic` sandbox class for T9–T12.
 
 ## Expected next workflow run
 
-Because T7 is already tested, the engine should be in bounded-batch mode. The next eligible runnable element should be:
+Current engine status should be idle because no T9 experiment existed. After upload, run:
 
 ```text
-T8 — trust_drift_sweep_v1
+Actions → Transition Experimental Engine → Run workflow
 ```
 
 Expected result:
 
 ```text
-T8 advances from 2/5 Derived to 4/5 Tested.
-T8 emits a trust_drift_fragment knowledge delta.
-T8 receipts show trust decay and trust_flip values.
+T9 advances from 1/5 Defined to 4/5 Tested.
+T9 emits coupled_state_fragment.
+T9 receipts show coupling_flip and local_admissible_coupled_denied.
 ```
