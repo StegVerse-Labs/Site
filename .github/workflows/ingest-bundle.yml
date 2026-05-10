@@ -1,0 +1,86 @@
+name: Ingest Bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      bundle:
+        description: "Bundle path relative to repo root, for example incoming/update.zip. Defaults to newest incoming/*.zip"
+        required: false
+        default: ""
+      apply:
+        description: "Apply bundle changes"
+        required: true
+        type: boolean
+        default: true
+  push:
+    branches:
+      - main
+    paths:
+      - "incoming/*.zip"
+      - "tools/bundle_ingest.py"
+      - "data/bundle-ingestion-policy-v1.json"
+      - ".github/workflows/ingest-bundle.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingest-bundle-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ingest:
+    name: Ingest uploaded bundle
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run bundle ingestion
+        run: |
+          APPLY_FLAG=""
+          if [ "${{ github.event_name }}" = "push" ] || [ "${{ github.event.inputs.apply }}" = "true" ]; then
+            APPLY_FLAG="--apply"
+          fi
+
+          BUNDLE_ARG=""
+          if [ -n "${{ github.event.inputs.bundle }}" ]; then
+            BUNDLE_ARG="--bundle ${{ github.event.inputs.bundle }}"
+          fi
+
+          python tools/bundle_ingest.py \
+            --repo-root . \
+            --policy data/bundle-ingestion-policy-v1.json \
+            --out-dir ingestion_reports \
+            $BUNDLE_ARG \
+            $APPLY_FLAG
+
+      - name: Commit ingested changes
+        if: github.event_name == 'push' || github.event.inputs.apply == 'true'
+        run: |
+          git config user.name "StegVerse Bundle Ingestor"
+          git config user.email "builder@stegverse.org"
+
+          git add .
+          if git diff --cached --quiet; then
+            echo "No ingested changes to commit."
+          else
+            git commit -m "ingest uploaded bundle"
+            git push
+          fi
+
+      - name: Upload ingestion report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-ingestion-report
+          path: ingestion_reports/
+          if-no-files-found: error
