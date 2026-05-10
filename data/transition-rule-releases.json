@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T00:41:33Z",
+  "generated_at": "2026-05-10T00:46:16Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "bounded_batch",
@@ -80,6 +80,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Coupled sandboxes may model disturbance from one transition state into another."
+    },
+    {
+      "rule_id": "multi_agent_composition_required",
+      "released_by": "T10",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Coupled sandboxes may compare individually admissible actions against aggregate admissibility."
     }
   ]
 }

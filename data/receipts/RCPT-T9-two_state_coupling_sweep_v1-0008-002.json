@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T9-two_state_coupling_sweep_v1-0008-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T00:41:33Z",
+  "created_at": "2026-05-10T00:46:16Z",
   "run_id": "T9-two_state_coupling_sweep_v1-0008",
   "ledger_row_id": "T9-two_state_coupling_sweep_v1-0008-002",
   "element_id": "T9",
@@ -109,6 +109,12 @@
       "t": 0.68
     }
   },
+  "shared_state": null,
+  "agent_actions": null,
+  "individual_results": null,
+  "individual_verdicts": null,
+  "aggregate_action": null,
+  "aggregate_post_state": null,
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
@@ -137,5 +143,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:a863fb76756cb4792f1b4357f09a62b9476a1830487d387ac089d25e5fd280ba"
+  "receipt_hash": "sha256:ade13b8a2f8f9bf2d06c2affcfad206248be4244ca5b9177c9926ae41a5e828f"
 }

@@ -110,6 +110,20 @@
       ],
       "confidence": 0.85,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T10-multi_agent_sweep_v1-0009-multi-agent",
+      "source_run_id": "T10-multi_agent_sweep_v1-0009",
+      "source_element": "T10",
+      "delta_type": "multi_agent_fragment",
+      "summary": "Multi-agent sweep found 0 composition flip(s), including 0 aggregate denial(s) across deterministic samples.",
+      "informs": [
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "confidence": 0.84,
+      "review_required": false
     }
   ]
 }
