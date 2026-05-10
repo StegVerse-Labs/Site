@@ -1,7 +1,7 @@
 {
   "planner": "evidence_gated_sequence_v1",
-  "status": "completed",
-  "updated_at": "2026-05-10T01:43:15Z",
+  "status": "idle_no_eligible_experiment",
+  "updated_at": "2026-05-10T01:43:36Z",
   "automation_gate": {
     "mode": "bounded_batch",
     "max_sequence_steps": 3,
@@ -9,19 +9,7 @@
       "T7"
     ]
   },
-  "sequence_completed": [
-    {
-      "run_id": "T13-receipt_bound_sweep_v1-0012",
-      "element_id": "T13",
-      "experiment": "receipt_bound_sweep_v1",
-      "status": "completed"
-    }
-  ],
-  "last_selected": {
-    "run_id": "T13-receipt_bound_sweep_v1-0012",
-    "element_id": "T13",
-    "experiment": "receipt_bound_sweep_v1",
-    "status": "completed"
-  },
-  "last_run_id": "T13-receipt_bound_sweep_v1-0012"
+  "sequence_completed": [],
+  "last_selected": null,
+  "last_run_id": null
 }
