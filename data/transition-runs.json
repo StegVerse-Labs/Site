@@ -601,6 +601,61 @@
         "reason": "deterministic irreversibility sweep passed"
       },
       "run_hash": "sha256:c3a95210ec93f1f08fad9f3f247605a30aea671b02c3eb3540e2349ffa63429c"
+    },
+    {
+      "run_id": "T16-self_modifying_rule_sweep_v1-0015",
+      "element_id": "T16",
+      "experiment": "self_modifying_rule_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "open_boundary_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "scheduled_ready"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required",
+        "actuation_stage_required",
+        "trust_drift_required",
+        "two_state_coupling_required",
+        "multi_agent_composition_required",
+        "conflict_resolution_required",
+        "validator_consensus_required",
+        "receipt_binding_required",
+        "receipt_reconstruction_required",
+        "irreversibility_detection_required"
+      ],
+      "automation_gate": {
+        "mode": "scheduled_ready",
+        "max_sequence_steps": 3,
+        "released_by": [
+          "T13",
+          "T14"
+        ]
+      },
+      "started_at": "2026-05-10T02:02:28Z",
+      "completed_at": "2026-05-10T02:02:28Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T16-self_modifying_rule_sweep_v1-0015-001",
+        "T16-self_modifying_rule_sweep_v1-0015-002",
+        "T16-self_modifying_rule_sweep_v1-0015-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T16-self_modifying_rule_sweep_v1-0015-self-modifying"
+      ],
+      "evidence_delta": {
+        "from": 0,
+        "to": 4,
+        "reason": "deterministic self-modifying rule safety sweep passed"
+      },
+      "run_hash": "sha256:c17464eefe1e2402668cd2a89555f38eed1c9e351836063961205f5be917251e"
     }
   ]
 }

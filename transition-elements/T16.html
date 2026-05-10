@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T16 — Self-Modifying Transition</h1>
 <p class="muted">Can the system alter its own rules safely?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>0/5 · Proposed</strong></p>
-  <p>Runtime state: <strong>idle</strong></p>
-  <p>Brightness: <strong>0.0</strong></p>
+  <p>Level: <strong>4/5 · Tested</strong></p>
+  <p>Runtime state: <strong>completed</strong></p>
+  <p>Brightness: <strong>0.8</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>5</strong></p>
@@ -52,20 +52,58 @@ li{margin:0 0 8px}
   <p>A transition that changes the invariant must not create retroactive governance collapse.</p>
   <div class="formula"><code>I → I&#x27; with controlled expansion of A_I(x)</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
+<section><h2>Confirmed Behavior</h2><p>deterministic self-modifying rule safety sweep passed</p></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li><li><strong>receipt_reconstruction_required</strong> · released by T14 · Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state.</li><li><strong>irreversibility_detection_required</strong> · released by T15 · Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li><li><strong>receipt_reconstruction_required</strong> · released by T14 · Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state.</li><li><strong>irreversibility_detection_required</strong> · released by T15 · Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal.</li><li><strong>self_modification_required</strong> · released by T16 · Open-boundary sandboxes may test guarded rule patches without weakening released rules or disabling review.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
-<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
-<section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T14-reconstruction_sweep_v1-0013-reconstruction</code> · reconstruction_fragment · Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li><li><code>KD-T15-irreversibility_sweep_v1-0014-irreversibility</code> · irreversibility_fragment · Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
-<section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
+<section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li><li>conflict_resolution_required</li><li>validator_consensus_required</li><li>receipt_binding_required</li><li>receipt_reconstruction_required</li><li>irreversibility_detection_required</li></ul></section>
+<section><h2>Run Manifests</h2><ul><li><code>T16-self_modifying_rule_sweep_v1-0015</code> · self_modifying_rule_sweep_v1 · <strong>completed</strong> · sandbox=open_boundary_deterministic</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T14-reconstruction_sweep_v1-0013-reconstruction</code> · reconstruction_fragment · Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li><li><code>KD-T15-irreversibility_sweep_v1-0014-irreversibility</code> · irreversibility_fragment · Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li><li><code>KD-T16-self_modifying_rule_sweep_v1-0015-self-modifying</code> · self_modification_fragment · Self-modifying rule sweep allowed 2 guarded rule patch(es) and blocked 1 unsafe rule patch(es).</li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T16-self_modifying_rule_sweep_v1-0015-001</code> · tested property=self_modifying_rule_safety · constraint=PASS · admissibility invariant= · admissibility verdict=<strong>ALLOW</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-002</code> · tested property=self_modifying_rule_safety · constraint=FAIL · admissibility invariant= · admissibility verdict=<strong>DENY</strong></li><li><code>T16-self_modifying_rule_sweep_v1-0015-003</code> · tested property=self_modifying_rule_safety · constraint=PASS · admissibility invariant= · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
+<section><h2>State Transition Receipts</h2>
+        <article class="receipt-entry">
+          <h3>RCPT-T16-self_modifying_rule_sweep_v1-0015-001</h3>
+          <p><strong>Run:</strong> T16-self_modifying_rule_sweep_v1-0015</p>
+          <p><strong>Tested property:</strong> self_modifying_rule_safety</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Self-modification safe:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:1fe61ca0b30b00294206bb9496e967c08f6022a3db71644a96b966f2aa79b88f</code></p>
+          <p><a href="../data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-001.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T16-self_modifying_rule_sweep_v1-0015-002</h3>
+          <p><strong>Run:</strong> T16-self_modifying_rule_sweep_v1-0015</p>
+          <p><strong>Tested property:</strong> self_modifying_rule_safety</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> FAIL</p>
+          <p><strong>Self-modification safe:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:04441b8621bf7e1890c3641fe9a035a091654a4b992b3d685eab9a54571e96d5</code></p>
+          <p><a href="../data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-002.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T16-self_modifying_rule_sweep_v1-0015-003</h3>
+          <p><strong>Run:</strong> T16-self_modifying_rule_sweep_v1-0015</p>
+          <p><strong>Tested property:</strong> self_modifying_rule_safety</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Self-modification safe:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:086214092b72db573e1b1680aa477b5c27c62cc6380ea472f009776b0e3ec44b</code></p>
+          <p><a href="../data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-003.json">Open receipt JSON</a></p>
+        </article>
+        </section>
 <section><h2>Consequential Test Changelog</h2>
         <article class="change-entry">
           <h3>T14-reconstruction_sweep_v1-0013</h3>
@@ -91,6 +129,20 @@ li{margin:0 0 8px}
           <ul><li>irreversibility_fragment: Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li></ul>
           <p><strong>Graph consequence:</strong> informs T15, T16.</p>
           <p><strong>Unlocked under current evidence state:</strong> T15, T16.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T16-self_modifying_rule_sweep_v1-0015</h3>
+          <p><strong>Experiment:</strong> self_modifying_rule_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T16.</p>
+          <p><strong>Evidence consequence:</strong> T16 moved from 0 to 4 because deterministic self-modifying rule safety sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>self_modification_fragment: Self-modifying rule sweep allowed 2 guarded rule patch(es) and blocked 1 unsafe rule patch(es).</li></ul>
+          <p><strong>Graph consequence:</strong> informs T16.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T16.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

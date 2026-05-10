@@ -1,18 +1,18 @@
 {
-  "receipt_id": "RCPT-T13-receipt_bound_sweep_v1-0012-003",
+  "receipt_id": "RCPT-T16-self_modifying_rule_sweep_v1-0015-002",
   "schema": "stegverse.transition_receipt.v1",
   "created_at": "2026-05-10T02:02:28Z",
-  "run_id": "T13-receipt_bound_sweep_v1-0012",
-  "ledger_row_id": "T13-receipt_bound_sweep_v1-0012-003",
-  "element_id": "T13",
-  "experiment": "receipt_bound_sweep_v1",
-  "tested_property": "receipt_bound_transition",
+  "run_id": "T16-self_modifying_rule_sweep_v1-0015",
+  "ledger_row_id": "T16-self_modifying_rule_sweep_v1-0015-002",
+  "element_id": "T16",
+  "experiment": "self_modifying_rule_sweep_v1",
+  "tested_property": "self_modifying_rule_safety",
   "sandbox": {
-    "type": "receipt_evidence_deterministic",
+    "type": "open_boundary_deterministic",
     "parallel_ready": true,
     "canonical_write_policy": "reducer_only",
     "max_runtime_seconds": 120,
-    "automation_gate": "bounded_batch"
+    "automation_gate": "scheduled_ready"
   },
   "applied_rules": [
     "primitive_admissibility_required",
@@ -26,19 +26,19 @@
     "two_state_coupling_required",
     "multi_agent_composition_required",
     "conflict_resolution_required",
-    "validator_consensus_required"
+    "validator_consensus_required",
+    "receipt_binding_required",
+    "receipt_reconstruction_required",
+    "irreversibility_detection_required"
   ],
   "parameters": {
-    "K": 1,
-    "alpha": 1,
-    "beta": 1,
-    "gamma": 1
+    "rule_model": "deterministic_guarded_patch",
+    "requires_receipts": true,
+    "requires_reconstruction": true
   },
   "pre_state": {
-    "g": 0.58,
-    "c": 0.7,
-    "a": 0.17,
-    "t": 0.8
+    "state_a": null,
+    "state_b": null
   },
   "state_a": null,
   "state_b": null,
@@ -54,17 +54,11 @@
   "commit_state": null,
   "actuation_lag_drift": null,
   "effect_state": null,
-  "action": {
-    "dg": 0,
-    "dc": -0.02,
-    "da": 0.025,
-    "dt": -0.02
-  },
+  "action": null,
   "post_state": {
-    "g": 0.58,
-    "c": 0.68,
-    "a": 0.195,
-    "t": 0.78
+    "released_rules_count": 15,
+    "protected_rules_count": 15,
+    "self_modification_allowed": false
   },
   "shared_state": null,
   "agent_actions": null,
@@ -92,10 +86,29 @@
   "reversal_budget": null,
   "attempted_reversal_state": null,
   "residual_delta": null,
-  "pre_rule_state": null,
-  "rule_patch": null,
-  "safety_constraints": null,
-  "post_rule_state": null,
+  "pre_rule_state": {
+    "released_rules_count": 15,
+    "protected_rules_count": 15,
+    "self_modification_allowed": false
+  },
+  "rule_patch": {
+    "rule_id": "disable_review_queue_for_speed",
+    "operation": "weaken_guard",
+    "target_rule": "conflict_resolution_required",
+    "requires_human_review": false,
+    "disables_review_queue": true
+  },
+  "safety_constraints": {
+    "receipt_bound": true,
+    "reconstruction_verdict_match": true,
+    "does_not_weaken_existing_rule": false,
+    "does_not_disable_review_queue": false
+  },
+  "post_rule_state": {
+    "released_rules_count": 15,
+    "protected_rules_count": 15,
+    "self_modification_allowed": false
+  },
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
@@ -104,23 +117,20 @@
   "commit_post_state": null,
   "effect_post_state": null,
   "computed": {
-    "admissibility_verdict": "ALLOW",
-    "constraint_result": "PASS",
-    "capacity": 0.30763,
-    "invariant": -0.11263,
-    "pre_state_hash": "sha256:4cafed43c97e8ae90614ff60102836656269a48f90e8a988d580faf16fcc4162",
-    "action_hash": "sha256:d888bddb7fb01b9c04cf6e9cbb08556961ee2b2e62170ecd75fd445dee12e1a3",
-    "post_state_hash": "sha256:1f56d5fe0df22c99644ad2e7032357ac40659a72f04346b50b4803dee4dd582c",
-    "receipt_payload_hash": "sha256:b834ec73b0a7c913ddcba1a2c22319e67cc3a81c5bb4cb4a63d30f865d534a4a",
-    "receipt_bound": true
+    "admissibility_verdict": "DENY",
+    "constraint_result": "FAIL",
+    "rule_delta_hash": "sha256:8724a1558acd019a3c48ea408e70f0ae827c9c7b957fff07b1f8819e53ef5de1",
+    "constraints_pass": false,
+    "self_modification_safe": false,
+    "rule_patch_verdict": "DENY"
   },
   "source_hashes": {
-    "ledger_row_hash": "1b3d9083788ea79624042a7102672a821177d377a2e165e880da98fd21f28fda",
-    "run_hash": "sha256:cf65e6c9765719f1f37b4d5153e85ef3fc84c1487caa640e5dd03f5566a048fc"
+    "ledger_row_hash": "a1bf7c867fc78839513f7265363047ea7172da5767317ebbadd1d8a8afd354a6",
+    "run_hash": "sha256:c17464eefe1e2402668cd2a89555f38eed1c9e351836063961205f5be917251e"
   },
   "replay": {
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:75fd4281c8f16686fdd97dfa1c047448f7b173d8d480ab0942940adc6d3ec6a9"
+  "receipt_hash": "sha256:04441b8621bf7e1890c3641fe9a035a091654a4b992b3d685eab9a54571e96d5"
 }

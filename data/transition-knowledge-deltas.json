@@ -193,6 +193,18 @@
       ],
       "confidence": 0.81,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T16-self_modifying_rule_sweep_v1-0015-self-modifying",
+      "source_run_id": "T16-self_modifying_rule_sweep_v1-0015",
+      "source_element": "T16",
+      "delta_type": "self_modification_fragment",
+      "summary": "Self-modifying rule sweep allowed 2 guarded rule patch(es) and blocked 1 unsafe rule patch(es).",
+      "informs": [
+        "T16"
+      ],
+      "confidence": 0.79,
+      "review_required": false
     }
   ]
 }

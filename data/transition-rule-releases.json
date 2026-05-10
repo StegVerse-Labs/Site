@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T01:54:23Z",
+  "generated_at": "2026-05-10T02:02:28Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "scheduled_ready",
@@ -129,6 +129,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal."
+    },
+    {
+      "rule_id": "self_modification_required",
+      "released_by": "T16",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Open-boundary sandboxes may test guarded rule patches without weakening released rules or disabling review."
     }
   ]
 }

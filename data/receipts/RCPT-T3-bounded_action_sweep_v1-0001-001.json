@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T01:54:23Z",
+  "created_at": "2026-05-10T02:02:28Z",
   "run_id": "T3-bounded_action_sweep_v1-0001",
   "ledger_row_id": "T3-bounded_action_sweep_v1-0001-001",
   "element_id": "T3",
@@ -78,6 +78,10 @@
   "reversal_budget": null,
   "attempted_reversal_state": null,
   "residual_delta": null,
+  "pre_rule_state": null,
+  "rule_patch": null,
+  "safety_constraints": null,
+  "post_rule_state": null,
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
@@ -102,5 +106,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:6d4e153e229235afe66a9b5db88ed74b415f11a5a99aa2fe7fe7fa221037aa44"
+  "receipt_hash": "sha256:e62073dc457a367ec86656bc94abd867d4381e19e42b340f35aaebb153373ad5"
 }

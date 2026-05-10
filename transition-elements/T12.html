@@ -57,7 +57,7 @@ li{margin:0 0 8px}
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li><li><strong>receipt_reconstruction_required</strong> · released by T14 · Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state.</li><li><strong>irreversibility_detection_required</strong> · released by T15 · Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li><li><strong>receipt_reconstruction_required</strong> · released by T14 · Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state.</li><li><strong>irreversibility_detection_required</strong> · released by T15 · Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal.</li><li><strong>self_modification_required</strong> · released by T16 · Open-boundary sandboxes may test guarded rule patches without weakening released rules or disabling review.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
@@ -74,7 +74,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:5fa3430f3494516427df49beed2032f8b1ee9c3416e988fe4276d803127fd959</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:c979cac667b7933a074706ce0e42312f600e424b49bde5ee58204d82ca9408bc</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +87,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:3f2df429084382deb8bb3322f69ce3efd7c76538c52528309f6fafa78d852cff</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:70662d38ecee542c1e0681343786a792991399c703399d04ac00b0aa54d2bbac</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +100,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:120eca5845b7cfb05db7768eac227c969d86ad7a2999254f80c803d432881b52</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:7c78f932ab17082ea82afeccac7f381bd784736d240d7b96927326c491c91f31</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-003.json">Open receipt JSON</a></p>
         </article>
         </section>

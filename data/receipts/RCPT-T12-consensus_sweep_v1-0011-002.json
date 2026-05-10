@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T12-consensus_sweep_v1-0011-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T01:54:23Z",
+  "created_at": "2026-05-10T02:02:28Z",
   "run_id": "T12-consensus_sweep_v1-0011",
   "ledger_row_id": "T12-consensus_sweep_v1-0011-002",
   "element_id": "T12",
@@ -175,6 +175,10 @@
   "reversal_budget": null,
   "attempted_reversal_state": null,
   "residual_delta": null,
+  "pre_rule_state": null,
+  "rule_patch": null,
+  "safety_constraints": null,
+  "post_rule_state": null,
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
@@ -201,5 +205,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:3f2df429084382deb8bb3322f69ce3efd7c76538c52528309f6fafa78d852cff"
+  "receipt_hash": "sha256:70662d38ecee542c1e0681343786a792991399c703399d04ac00b0aa54d2bbac"
 }
