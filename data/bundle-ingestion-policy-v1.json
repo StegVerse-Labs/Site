@@ -1,7 +1,9 @@
 {
   "schema": "stegverse.bundle_ingestion_policy.v1",
-  "policy_id": "ms012e-strict-ingestion-thresholds-v1",
-  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "policy_id": "ms012e2-already-seen-incoming-quarantine-fix-v1",
+  "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
+  "purpose": "Ensure already-seen files remaining in incoming/ are quarantined as stale queue debris instead of silently skipped.",
+  "default_mode": "apply_changed_files",
   "queue": {
     "incoming_dir": "incoming",
     "failed_dir": "failed_bundles",
@@ -10,7 +12,13 @@
     "process_order": "name_ascending",
     "skip_previously_failed_hashes": true,
     "skip_previously_applied_hashes": true,
-    "continue_after_failure": true
+    "continue_after_failure": true,
+    "quarantine_stale_incoming": true,
+    "quarantine_already_seen_incoming": true,
+    "stale_non_zip_files": true,
+    "stale_already_seen_zip_files": true,
+    "stale_routed_zip_files": true,
+    "delete_original_after_quarantine": false
   },
   "path_mappings": [
     {
@@ -57,10 +65,19 @@
     "fingerprint_index": "data/bundle-fingerprint-index-v1.json"
   },
   "safety": {
+    "skip_directory_entries": true,
+    "skip_absolute_paths": true,
+    "skip_parent_traversal": true,
     "do_not_delete_files": true,
     "apply_only_changed_or_missing_files": true,
+    "dotless_workflow_paths_are_mapped": true,
+    "known_artifact_reports_are_routed": true,
     "workflow_mutation_requires_privileged_queue": true,
     "unknown_dependency_routes_to_sandbox": true,
-    "failed_bundle_does_not_block_queue": true
+    "failed_bundle_does_not_block_queue": true,
+    "stale_incoming_is_quarantined": true,
+    "already_seen_incoming_is_quarantined": true,
+    "root_readme_in_uploaded_bundle_is_not_applied": true,
+    "missing_bundle_fails_closed": true
   }
 }

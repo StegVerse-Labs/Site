@@ -1,29 +1,19 @@
 {
-  "generated_at": "2026-05-10T19:12:26Z",
+  "generated_at": "2026-05-10T19:25:20Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012f-deprecated-purpose-sandbox-review-v1",
-  "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
-  "purpose": "Upgrade sandbox bundle review so stale and failed bundles are checked for deprecated, superseded, obsolete, critical, active, or unknown purpose status before repair/regeneration.",
+  "bundle_id": "ms012e2-already-seen-incoming-quarantine-fix-v1",
+  "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
+  "purpose": "Fix already-seen incoming bundle behavior so stale incoming ZIPs are quarantined with receipts instead of silently skipped.",
   "files": [
     {
-      "path": "data/deprecation-policy-v1.json",
-      "version": "v1",
-      "role": "purpose_deprecation_policy"
+      "path": "tools/bundle_ingest.py",
+      "version": "v6",
+      "role": "already_seen_stale_quarantine_ingestor"
     },
     {
-      "path": "data/sandbox-review-policy-v1.json",
-      "version": "v1",
-      "role": "sandbox_review_policy"
-    },
-    {
-      "path": "tools/sandbox_bundle_review.py",
-      "version": "v2",
-      "role": "sandbox_review_with_purpose_deprecation"
-    },
-    {
-      "path": "sandbox_reports/README.md",
-      "version": "v2",
-      "role": "sandbox_report_docs"
+      "path": "data/bundle-ingestion-policy-v1.json",
+      "version": "v6",
+      "role": "already_seen_stale_quarantine_policy"
     }
   ],
   "safety": {
@@ -31,7 +21,6 @@
     "contains_workflows": false,
     "changes_public_pages": false,
     "changes_selector_logic": false,
-    "promotes_milestone": false,
-    "silent_repair_allowed": false
+    "promotes_milestone": false
   }
 }

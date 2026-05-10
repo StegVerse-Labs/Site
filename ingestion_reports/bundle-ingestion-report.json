@@ -1,32 +1,84 @@
 {
-  "generated_at": "2026-05-10T19:26:56Z",
+  "generated_at": "2026-05-10T19:33:25Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "bundle": "/home/runner/work/Site/Site/incoming/ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-10T19:26:56Z",
+    "generated_at": "2026-05-10T19:33:25Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
-    "bundle_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
-    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
-    "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
+    "bundle_name": "ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+    "bundle_sha256": "2d13cb1dbce9f9f741b43d1c29cea28f5ca2b4f2274d986acbd4b601fb06d09f",
     "mode": "apply",
     "bundle_class": "ordinary_bundle",
-    "verdict": "SKIPPED_ALREADY_SEEN",
-    "route": "skipped",
+    "verdict": "ALLOW",
+    "route": "ingest",
     "reason": "ordinary bundle allowed",
     "mapped_paths": [
       "README.md",
       "bundle-manifest.json",
-      "data/deprecation-policy-v1.json",
-      "data/sandbox-review-policy-v1.json",
-      "sandbox_reports/README.md",
-      "tools/sandbox_bundle_review.py"
+      "data/bundle-ingestion-policy-v1.json",
+      "tools/bundle_ingest.py"
     ],
-    "decisions": []
+    "files_seen": 4,
+    "files_created": 0,
+    "files_updated": 3,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "48a7c2da20a518c2f68fe5a806a02277fe7042f45cefa39247346f2a4cc97f53",
+      "after_tree_fingerprint": "3929e24d833978b66b16e8eb0d9c95a376d5098561a4e703fc654af7c7d9ab61",
+      "changed_files_fingerprint": "d4afb5d5627eb47734a6eb06ee0bbff9c52b489492eb482f9c658358da54e8ee"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "19d176ed3f207e536ca803fb79a3d37cfde768c53a3245b815640b85c560e87b",
+        "bytes": 1502
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "7d11870676227ac51cf77fb2894bd9c2ed1e7c917241fe2f39bce2f7dfaa1f02",
+        "new_sha256": "df3bcb03c8890d468be2ec3964ac6ad2cc01977a8186c9549eb1669fd27407d4",
+        "bytes": 861
+      },
+      {
+        "bundle_path": "data/bundle-ingestion-policy-v1.json",
+        "repo_path": "data/bundle-ingestion-policy-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "b4c8633549f299102204ddd2a2fe6be4306ab8a0945aa8b41bd1547f693b3699",
+        "new_sha256": "a28416a24724853d31180989f6c07fe9c99117212f01bee329cf35fa8b61496b",
+        "bytes": 3498
+      },
+      {
+        "bundle_path": "tools/bundle_ingest.py",
+        "repo_path": "tools/bundle_ingest.py",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "faeb7ce8ed5fd07728a16ee6b9d9e619f8ec99adeb2ce197d02627b1d2b9e040",
+        "new_sha256": "9ade56b4cd9022282db1ce94df380479881d0ba76ee3c27dcb7b1e881e0faa16",
+        "bytes": 23511
+      }
+    ]
   },
   "summary": {
-    "applied": 0,
-    "skipped": 1
+    "total_entries_seen": 4,
+    "applied": 3,
+    "unchanged": 0,
+    "skipped": 1,
+    "path_mappings": 0,
+    "unsafe_paths_rejected": 0
   }
 }

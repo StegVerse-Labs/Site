@@ -49,6 +49,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "67591b099b7e61e81ab05fc240495737faced39ff7eadeca0e9137867e0ada9b"
+    },
+    {
+      "generated_at": "2026-05-10T19:33:25Z",
+      "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+      "bundle_name": "ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+      "bundle_sha256": "2d13cb1dbce9f9f741b43d1c29cea28f5ca2b4f2274d986acbd4b601fb06d09f",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "d4afb5d5627eb47734a6eb06ee0bbff9c52b489492eb482f9c658358da54e8ee"
     }
   ]
 }
