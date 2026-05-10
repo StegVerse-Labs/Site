@@ -1,4 +1,4 @@
-# T16 Self-Modifying Transition v1
+# Receipt-Backed Automation v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,20 +11,17 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Adds `T16` experiment: `self_modifying_rule_sweep_v1`.
-- Adds fallback experiment registration for `T16`.
-- Adds self-modifying rule receipts with:
-  - pre_rule_state
-  - rule_patch
-  - rule_delta_hash
-  - safety_constraints
-  - post_rule_state
-  - constraints_pass
-  - self_modification_safe
-  - rule_patch_verdict
-- Adds `self_modification_required` as a rule released by `T16` once tested.
-- Updates transition pages to display:
-  - Self-modification safe
+- Adds `receipt_backing_verifier_v1`.
+- Promotes only:
+  - T13 from 4/5 Tested to 5/5 Receipt-backed when receipt binding verifies.
+  - T14 from 4/5 Tested to 5/5 Receipt-backed when reconstruction verifies.
+- Adds generated files:
+  - data/receipt-backing-verifier.json
+  - data/automation-release-state.json
+- Adds page sections:
+  - Automation Release State
+  - Receipt-Backed Verification
+- Does not promote T1–T12, T15, or T16 to 5/5.
 
 ## Expected next workflow run
 
@@ -37,7 +34,8 @@ Actions → Transition Experimental Engine → Run workflow
 Expected result:
 
 ```text
-T16 advances from 0/5 Proposed to 4/5 Tested.
-T16 emits self_modification_fragment.
-T16 receipts show allowed guarded rule patches and blocked unsafe rule patches.
+No new transition experiment runs.
+T13 advances to 5/5 Receipt-backed.
+T14 advances to 5/5 Receipt-backed.
+Automation release state becomes receipt_backed_automation_ready if all release gates are satisfied.
 ```
