@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-10T20:13:22Z",
+  "generated_at": "2026-05-10T20:14:50Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
   "bundle": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-10T20:13:22Z",
+    "generated_at": "2026-05-10T20:14:50Z",
     "schema": "stegverse.stale_incoming_receipt.v1",
     "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
     "incoming_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
