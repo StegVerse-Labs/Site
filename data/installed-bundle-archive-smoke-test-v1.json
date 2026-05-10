@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-10T19:39:01Z",
+  "schema": "stegverse.installed_bundle_archive_smoke_test.v1",
+  "test_id": "installed-bundle-archive-smoke-test-v1",
+  "purpose": "Verify that a successful ordinary ALLOW ingestion archives the source ZIP and installed receipts under installed_bundles/.",
+  "expected_ingestion_verdict": "ALLOW",
+  "expected_target_path": "data/installed-bundle-archive-smoke-test-v1.json",
+  "expected_archive_behavior": {
+    "installed_archived": 1,
+    "archive_dir": "installed_bundles",
+    "expected_files": [
+      "installed_bundles/installed-bundle-archive-smoke-test-v1.zip",
+      "installed_bundles/installed-bundle-archive-smoke-test-v1.installed.json",
+      "installed_bundles/installed-bundle-archive-smoke-test-v1.installed.md"
+    ]
+  },
+  "should_change_milestones": false,
+  "should_change_workflows": false,
+  "should_change_selector_logic": false,
+  "should_change_ingestion_logic": false
+}

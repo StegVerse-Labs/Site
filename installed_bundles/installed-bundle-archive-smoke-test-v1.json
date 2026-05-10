@@ -1,10 +1,14 @@
 {
   "generated_at": "2026-05-10T19:42:50Z",
-  "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/installed-bundle-archive-smoke-test-v1.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
-  "mode": "apply",
-  "receipt": {
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
+  "bundle_name": "installed-bundle-archive-smoke-test-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/installed-bundle-archive-smoke-test-v1.zip",
+  "bundle_sha256": "b6aeabb51c7e0524f48ea989f90551c414a655dce3a09f2997780e74d1912509",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
     "generated_at": "2026-05-10T19:42:50Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
@@ -63,13 +67,13 @@
       }
     ]
   },
-  "summary": {
-    "total_entries_seen": 3,
-    "applied": 2,
-    "unchanged": 0,
-    "skipped": 1,
-    "path_mappings": 0,
-    "unsafe_paths_rejected": 0,
-    "installed_archived": 1
-  }
+  "repo_transition": {
+    "before_tree_fingerprint": "1a795ad78007e4654d10a4a5dbd2ecd99a59bb95f70a4533a2a850c79310f0b6",
+    "after_tree_fingerprint": "c67fb7ad1a78a824a03c354c20dcab2b4f9e8affa1b0e48880d1b3938f63234c",
+    "changed_files_fingerprint": "d3ff4201a7d9a23f61f24ab3ca17c06e50c04d4a1855e541c1baad223fc30f94"
+  },
+  "files_created": 1,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
 }

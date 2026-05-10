@@ -1,13 +1,59 @@
 {
-  "generated_at": "2026-05-10T19:41:40Z",
-  "schema": "stegverse.stale_incoming_receipt.v1",
+  "generated_at": "2026-05-10T19:42:50Z",
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
-  "incoming_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
-  "file_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
-  "file_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
-  "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
-  "verdict": "STALE_INCOMING_QUARANTINED",
-  "route": "failed_bundles",
-  "seen_state": "already_applied",
-  "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+  "bundle_name": "installed-bundle-archive-smoke-test-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/installed-bundle-archive-smoke-test-v1.zip",
+  "bundle_sha256": "b6aeabb51c7e0524f48ea989f90551c414a655dce3a09f2997780e74d1912509",
+  "mode": "apply",
+  "bundle_class": "ordinary_bundle",
+  "verdict": "ALLOW",
+  "route": "ingest",
+  "reason": "ordinary bundle allowed",
+  "mapped_paths": [
+    "README.md",
+    "bundle-manifest.json",
+    "data/installed-bundle-archive-smoke-test-v1.json"
+  ],
+  "files_seen": 3,
+  "files_created": 1,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1,
+  "unsafe_paths_rejected": 0,
+  "path_mappings_applied": [],
+  "repo_transition": {
+    "before_tree_fingerprint": "1a795ad78007e4654d10a4a5dbd2ecd99a59bb95f70a4533a2a850c79310f0b6",
+    "after_tree_fingerprint": "c67fb7ad1a78a824a03c354c20dcab2b4f9e8affa1b0e48880d1b3938f63234c",
+    "changed_files_fingerprint": "d3ff4201a7d9a23f61f24ab3ca17c06e50c04d4a1855e541c1baad223fc30f94"
+  },
+  "decisions": [
+    {
+      "bundle_path": "README.md",
+      "repo_path": null,
+      "action": "skipped",
+      "reason": "bundle root README is documentation and is not applied to repo root",
+      "old_sha256": null,
+      "new_sha256": "157cd2cb2b266b93077c53e5f58644759b7dd0f4246afe16c30626b96df819f0",
+      "bytes": 910
+    },
+    {
+      "bundle_path": "bundle-manifest.json",
+      "repo_path": "bundle-manifest.json",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "71a123eda5f64ee812c20fa511e8f9d2f78a2f07746c5ea10216fd317c4cbe56",
+      "new_sha256": "164983377e3c9c54cd2703812310b5141c46eb754ffe7a54058e73f1193bccef",
+      "bytes": 733
+    },
+    {
+      "bundle_path": "data/installed-bundle-archive-smoke-test-v1.json",
+      "repo_path": "data/installed-bundle-archive-smoke-test-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "3a7e65ddecc5467900198f35e443509481919e20c087af39a74635da7771581c",
+      "bytes": 943
+    }
+  ]
 }

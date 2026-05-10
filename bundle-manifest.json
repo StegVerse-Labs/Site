@@ -1,31 +1,22 @@
 {
-  "generated_at": "2026-05-10T19:29:19Z",
+  "generated_at": "2026-05-10T19:39:01Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012e3-installed-bundle-archive-v1",
+  "bundle_id": "installed-bundle-archive-smoke-test-v1",
   "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
-  "purpose": "Archive successful ALLOW ingestions into installed_bundles/ with installed receipts.",
+  "purpose": "Harmless test bundle proving installed_bundles archive behavior after successful ALLOW ingestion.",
   "files": [
     {
-      "path": "tools/bundle_ingest.py",
-      "version": "v7",
-      "role": "installed_bundle_archive_ingestor"
-    },
-    {
-      "path": "data/bundle-ingestion-policy-v1.json",
-      "version": "v7",
-      "role": "installed_bundle_archive_policy"
-    },
-    {
-      "path": "installed_bundles/README.md",
+      "path": "data/installed-bundle-archive-smoke-test-v1.json",
       "version": "v1",
-      "role": "installed_bundle_archive_docs"
+      "role": "installed_archive_smoke_test_payload"
     }
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
+    "changes_milestones": false,
     "changes_public_pages": false,
     "changes_selector_logic": false,
-    "promotes_milestone": false
+    "changes_ingestion_logic": false
   }
 }
