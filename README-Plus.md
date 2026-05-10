@@ -1,4 +1,4 @@
-# T14 Reconstruction Transition v1
+# T15 Irreversible Transition v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,26 +11,26 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Adds `T14` experiment: `reconstruction_sweep_v1`.
-- Adds fallback experiment registration for `T14`.
-- Adds reconstruction receipts with:
+- Adds `T15` experiment: `irreversibility_sweep_v1`.
+- Adds fallback experiment registration for `T15`.
+- Adds irreversible transition receipts with:
   - pre_state
   - action
-  - observed_post_state
-  - reconstructed_post_state
-  - receipt_packet
-  - observed_post_state_hash
-  - reconstructed_post_state_hash
-  - reconstruction_delta
-  - reconstruction_exact
-  - observed_verdict
-  - reconstructed_verdict
-  - reconstruction_verdict_match
-  - reconstruction_confidence
-- Adds `receipt_reconstruction_required` as a rule released by `T14` once tested.
+  - committed_state
+  - reversal_budget
+  - attempted_reversal_state
+  - residual_delta
+  - residual_norm
+  - irreversible
+  - point_of_no_return
+  - pre_verdict
+  - committed_verdict
+  - attempted_reversal_verdict
+- Adds `irreversibility_detection_required` as a rule released by `T15` once tested.
+- Adds `open_boundary_deterministic` sandbox class for T15–T16.
 - Updates transition pages to display:
-  - Reconstruction exact
-  - Reconstruction verdict match
+  - Irreversible
+  - Point of no return
 
 ## Expected next workflow run
 
@@ -43,7 +43,7 @@ Actions → Transition Experimental Engine → Run workflow
 Expected result:
 
 ```text
-T14 advances from 2/5 Derived to 4/5 Tested.
-T14 emits reconstruction_fragment.
-T14 receipts show exact reconstruction and verdict matching.
+T15 advances from 1/5 Defined to 4/5 Tested.
+T15 emits irreversibility_fragment.
+T15 receipts show irreversible and point_of_no_return fields.
 ```
