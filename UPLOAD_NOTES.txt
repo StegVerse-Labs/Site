@@ -1,4 +1,0 @@
-Upload-safe bundle note:
-- This bundle intentionally stores the workflow under github/workflows/ without a leading dot.
-- To activate the workflow in GitHub Actions, create or move it to .github/workflows/transition-experimental-engine.yml in the repository.
-- All other files may be uploaded as-is to the Site repo root.
