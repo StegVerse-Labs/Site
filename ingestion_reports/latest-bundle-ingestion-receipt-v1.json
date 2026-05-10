@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T19:08:02Z",
+  "generated_at": "2026-05-10T19:13:31Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
   "bundle_name": "ms012d-workflow-report-evidence-v1.zip",
@@ -7,8 +7,8 @@
   "bundle_sha256": "d36ce0d33e3ae90c9f1fd461982ec94499d63fd19aa7116e819eecf3ed4fd136",
   "mode": "apply",
   "bundle_class": "workflow_bundle",
-  "verdict": "PRIVILEGED_EXECUTOR_REQUIRED",
-  "route": "privileged_queue",
+  "verdict": "SKIPPED_ALREADY_SEEN",
+  "route": "skipped",
   "reason": "workflow mutation requires privileged executor",
   "mapped_paths": [
     "README.md",
