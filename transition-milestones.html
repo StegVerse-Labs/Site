@@ -72,7 +72,7 @@ li{margin-bottom:6px}
   <h1>Transition Milestones</h1>
   <p>
     This page tracks formal unlocked milestones of the Transition Periodic Table as the experimental engine advances.
-    Newest unlocked milestones appear first. MS-009 is now the newest unlocked development milestone. Each milestone records what capability was released and why the table state justified the release.
+    Newest unlocked milestones appear first. MS-010 is now the newest unlocked development milestone. Each milestone records what capability was released and why the table state justified the release.
   </p>
   <a class="btn" href="transition-table.html">Open Transition Table</a>
   <a class="btn" href="transition-periodic-table.html">Open Research Landing</a>
@@ -103,28 +103,6 @@ li{margin-bottom:6px}
 
 
 <section>
-  <h2>Next Stage Candidate</h2>
-  <article class="milestone">
-    <p class="kicker">Pending milestone</p>
-    <h3>MS-010 — Public Navigation Integration</h3>
-    <p>
-      This milestone is not unlocked yet. It should unlock when the release index and navigation routes are visible from the main transition research surfaces.
-    </p>
-    <div class="meta">
-      <div><strong>Pending capability</strong>public navigation integration</div>
-      <div><strong>Depends on</strong>MS-009, release index, research landing, transition table</div>
-    </div>
-    <p class="reason"><strong>Unlock reasoning required:</strong> MS-010 should only be marked released after a reader can reach the milestone, status, snapshot, and release-index pages from the main research surfaces without knowing direct URLs.</p>
-    <span class="status pending">pending</span>
-    <ul>
-      <li>Add release-index navigation to primary transition research pages.</li>
-      <li>Expose the release index JSON from a public page.</li>
-      <li>Keep the current release snapshot linked from the index.</li>
-    </ul>
-  </article>
-</section>
-
-<section>
   <h2>Milestone Rule</h2>
   <p>
     A milestone is posted when the table unlocks a new operational capability. The milestone order is not a historical blog order;
@@ -135,6 +113,16 @@ li{margin-bottom:6px}
 
 <script>
 const fallbackMilestones = [
+  {
+    id: "MS-010",
+    formalLabel: "MS-010 — Public Navigation Integration",
+    capability: "public navigation integration",
+    status: "released",
+    releasedBy: ["transition-periodic-table.html", "transition-table.html", "transition-release-index.html"],
+    summary: "Public navigation integration is released when the primary transition research pages expose the milestone, status, snapshot, and release-index surfaces.",
+    reasoning: "This milestone is unlocked because the Transition Table and Transition Periodic Table landing page now link to Milestones, Development Status, Release Snapshot, and Release Index. A reader can reach the verification surfaces from the main research flow without knowing direct URLs.",
+    details: ["Primary research pages now expose release navigation.", "Release index remains public.", "MS-011 is now the next pending verification milestone."]
+  },
   {
     id: "MS-009",
     formalLabel: "MS-009 — Development Release Hardening",

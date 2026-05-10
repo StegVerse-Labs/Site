@@ -1,21 +1,18 @@
-# Transition Release Index v1
+# MS-010 Public Navigation Integration v1
 
 Upload-safe bundle. No leading-dot paths.
 
-Adds:
+Replaces:
 
 ```text
-transition-release-index.html
-data/transition-release-index-v1.json
-snippets/transition-research-nav.html
-```
-
-Replaces/updates:
-
-```text
+transition-table.html
+transition-periodic-table.html
 transition-milestones.html
 transition-development-status.html
 transition-release-snapshot.html
+transition-release-index.html
+data/transition-release-index-v1.json
+data/transition-release-snapshot-v1.json
 ```
 
 Keeps existing tool files from the previous bundle:
@@ -25,18 +22,21 @@ tools/transition_experimental_orchestrator.py
 tools/build_transition_pages.py
 ```
 
-## What this does
+## What changed
 
-- Adds a public release index page.
-- Adds a release index JSON.
-- Adds a reusable static navigation snippet.
-- Links milestone/status/snapshot/index pages together.
-- Adds pending MS-010: Public Navigation Integration.
+- Primary research pages now link to:
+  - Milestones
+  - Development Status
+  - Release Snapshot
+  - Release Index
+- MS-010 is now unlocked and appears at the top of the milestone page.
+- MS-011 is now the next pending milestone.
 
 ## Expected public URLs
 
 ```text
+https://stegverse-labs.github.io/Site/transition-table.html
+https://stegverse-labs.github.io/Site/transition-periodic-table.html
+https://stegverse-labs.github.io/Site/transition-milestones.html
 https://stegverse-labs.github.io/Site/transition-release-index.html
-https://stegverse-labs.github.io/Site/data/transition-release-index-v1.json
-https://stegverse-labs.github.io/Site/snippets/transition-research-nav.html
 ```

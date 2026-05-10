@@ -1,6 +1,137 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Periodic Table</title><style>
-body{margin:0;background:#080b12;color:#eef4ff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}main{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:18px 0 44px}a{color:inherit}nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:12px}nav div{display:flex;gap:10px;flex-wrap:wrap}nav a{text-decoration:none;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05)}section{border:1px solid rgba(255,255,255,.14);border-radius:24px;background:rgba(16,24,39,.78);padding:clamp(22px,4vw,52px);margin-top:14px}h1{font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}p{color:#a9b7cc;font-size:1.05rem}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16))}</style></head><body><main>
-<nav><a href="index.html"><strong>StegVerse</strong></a><div><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="support.html">Support</a><a href="transition-table.html">Transition Table</a></div></nav>
-<section><p style="color:#43d694;text-transform:uppercase;letter-spacing:.18em;font-weight:800">StegVerse Research Surface</p><h1>Transition Periodic Table</h1><p>A living classification system for admissible, coupled, delayed, irreversible, recursive, and evidence-backed transitions at the boundary where decisions become consequences.</p><a class="btn" href="transition-table.html">Open the Transition Table</a><a class="btn" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support StegVerse Research</a></section>
-<section><h2>Experimental Engine</h2><p>The table is a 2D projection of a 3D transition lattice. The engine selects eligible experiments, writes run manifests, emits knowledge deltas, updates evidence, and queues only anomalies for human review.</p></section>
-</main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Transition Periodic Table | StegVerse</title>
+<style>
+:root{
+  --bg:#080b12;
+  --panel:rgba(16,24,39,.82);
+  --text:#eef4ff;
+  --muted:#a9b7cc;
+  --line:rgba(255,255,255,.14);
+  --green:#43d694;
+  --blue:#4da3ff;
+  --gold:#ffbe54;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.14),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
+a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
+nav div{display:flex;gap:10px;flex-wrap:wrap}
+nav a{ text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
+nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
+section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
+h1{font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}
+.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}
+.card strong{display:block;font-size:clamp(1.15rem,6vw,1.7rem);overflow-wrap:anywhere;line-height:1.05}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
+.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
+.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
+ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
+li{margin-bottom:7px}
+code{word-break:break-word;color:#f5fbff}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.controls button{border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);color:var(--text);font-weight:800}
+.controls button.active{border-color:rgba(67,214,148,.62);background:rgba(67,214,148,.12)}
+.table-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.transition-card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:18px;padding:15px;background:linear-gradient(135deg,rgba(67,214,148,.08),rgba(77,163,255,.04)),rgba(0,0,0,.20);min-height:170px}
+.transition-card:hover{border-color:rgba(67,214,148,.55)}
+.transition-card .id{font-size:1.4rem;font-weight:950;letter-spacing:-.04em}
+.transition-card .name{font-weight:850;margin-top:4px}
+.transition-card .meta{color:var(--muted);font-size:.9rem;margin-top:8px}
+.brightness{height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}
+.brightness span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:var(--w,0%)}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
+</style>
+</head>
+<body>
+<main>
+
+<nav>
+  <a href="index.html"><strong>StegVerse</strong></a>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="demo.html">Demo</a>
+    <a href="transition-periodic-table.html">Research Landing</a>
+    <a href="transition-table.html">Transition Table</a>
+    <a href="transition-milestones.html">Milestones</a>
+    <a href="transition-development-status.html">Development Status</a>
+    <a href="transition-release-snapshot.html">Release Snapshot</a>
+    <a href="transition-release-index.html">Release Index</a>
+    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+  </div>
+</nav>
+
+
+<section>
+  <p class="kicker">StegVerse Research Surface</p>
+  <h1>Transition Periodic Table</h1>
+  <p>
+    A living classification system for admissible, coupled, delayed, irreversible, recursive, and evidence-backed transitions at the boundary where decisions become consequences.
+  </p>
+  <a class="btn" href="transition-table.html">Open the Transition Table</a>
+  <a class="btn" href="transition-milestones.html">Open Milestones</a>
+  <a class="btn" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support StegVerse Research</a>
+</section>
+
+<section>
+  <h2>Current Public Release</h2>
+  <div class="grid">
+    <a class="card" href="transition-milestones.html"><span class="kicker">Newest Milestone</span><strong>MS-010</strong><p>Public Navigation Integration.</p></a>
+    <a class="card" href="transition-development-status.html"><span class="kicker">Status</span><strong id="state">Loading…</strong><p>Current automation release state.</p></a>
+    <a class="card" href="transition-release-snapshot.html"><span class="kicker">Snapshot</span><strong>Release v1</strong><p>Named development snapshot.</p></a>
+    <a class="card" href="transition-release-index.html"><span class="kicker">Index</span><strong>Public Verification</strong><p>Pages and JSON surfaces.</p></a>
+  </div>
+</section>
+
+<section>
+  <h2>Experimental Engine</h2>
+  <p>
+    The table is a 2D projection of a 3D transition lattice. The engine selects eligible experiments, writes run manifests,
+    emits knowledge deltas, updates evidence, generates receipts, and queues anomalies for human review.
+  </p>
+  <ul>
+    <li>Primitive row: admissibility, conservation, bounded action, and capacity margin.</li>
+    <li>Lag row: observation lag, decision lag, actuation lag, and trust drift.</li>
+    <li>Coupled row: two-state coupling, multi-agent composition, conflict, and consensus.</li>
+    <li>Evidence row: receipt binding and reconstruction.</li>
+    <li>Open-boundary row: irreversibility and guarded self-modification.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Development Verification</h2>
+  <p>
+    The current development release exposes milestone history, release status, release snapshot, public JSON verifier surfaces, and the transition table itself.
+  </p>
+  <a class="btn" href="data/automation-release-verifier.json">Automation Verifier JSON</a>
+  <a class="btn" href="data/transition-release-index-v1.json">Release Index JSON</a>
+  <a class="btn" href="data/transition-release-snapshot-v1.json">Release Snapshot JSON</a>
+</section>
+</main>
+<script>
+async function fetchJSON(path, fallback) {
+  try {
+    const response = await fetch(path, {cache:"no-store"});
+    if (!response.ok) return fallback;
+    return await response.json();
+  } catch (error) {
+    return fallback;
+  }
+}
+(async () => {
+  const state = await fetchJSON("data/automation-release-state.json", {current_state:"unknown"});
+  document.getElementById("state").textContent = String(state.current_state || "unknown").replaceAll("_"," ");
+})();
+</script>
+</body>
+</html>

@@ -1,16 +1,210 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Table</title><style>
-:root{--bg:#080b12;--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:67,214,148}*{box-sizing:border-box}body{margin:0;background:#080b12;color:#eef4ff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}main{width:min(1440px,calc(100% - 28px));margin:0 auto;padding:18px 0 44px}a{color:inherit}nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:12px}nav div{display:flex;gap:10px;flex-wrap:wrap}nav a,.pill{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:#a9b7cc}.hero,.panel{border:1px solid var(--line);border-radius:24px;background:rgba(16,24,39,.78);padding:18px;margin-top:14px}h1{font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}p{color:#a9b7cc}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:#eef4ff}button{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05);color:#eef4ff;padding:10px 13px;font-weight:750}button.active{background:rgba(77,163,255,.22)}.layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.55fr);gap:18px}.grid{display:grid;grid-template-columns:repeat(4,minmax(135px,1fr));gap:12px}.card{min-height:178px;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:13px;background:linear-gradient(160deg,rgba(var(--color),calc(.08 + var(--b)*.34)),rgba(255,255,255,.035)),rgba(255,255,255,.03);text-decoration:none;display:flex;flex-direction:column;justify-content:space-between}.sym{font-size:2rem;font-weight:950;letter-spacing:-.08em}.fam{color:rgba(var(--color),.95);font-size:.72rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em}.name{font-weight:850;line-height:1.15}.q{color:#a9b7cc;font-size:.82rem}.coords{color:#a9b7cc;font-family:ui-monospace,monospace;font-size:.74rem}.meter{height:9px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12)}.meter span{display:block;height:100%;width:calc(var(--b)*100%);background:rgba(var(--color),.94)}.ledger{height:330px;overflow:auto;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.35);padding:12px;font-family:ui-monospace,monospace;font-size:.78rem}.allow{color:#43d694}.deny{color:#ffbe54}@media(max-width:980px){.layout{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.grid{grid-template-columns:1fr}}</style></head><body><main>
-<nav><a href="index.html"><strong>StegVerse</strong></a><div><a href="index.html">Home</a><a href="demo.html">Demo</a><a href="support.html">Support</a><a href="transition-periodic-table.html">Research Landing</a></div></nav>
-<section class="hero"><p style="color:#43d694;text-transform:uppercase;letter-spacing:.18em;font-weight:800">StegVerse Research Surface</p><h1>Transition Table</h1><p>The table is a 2D projection of a 3D transition lattice. Cards are static links first and can be reordered by taxonomy, evidence maturity, complexity, or lattice coordinates.</p><a class="btn" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support StegVerse Research</a></section>
-<section class="panel"><button class="active" data-view="taxonomy">Taxonomy</button> <button data-view="evidence">Evidence</button> <button data-view="complexity">Complexity</button> <button data-view="lattice">3D Lattice</button><p id="desc">Taxonomy view. Mobile shows the same order as a vertical card stack.</p></section>
-<section class="layout"><section class="panel"><div class="grid" id="grid"></div></section><aside><section class="panel"><h3>Engine Status</h3><p id="status">Loading…</p><ul id="runs"></ul></section><section class="panel"><h3>Experimental Ledger</h3><div class="ledger" id="ledger"></div></section></aside></section>
-</main><script>
-let elements=[], evidence={elements:{}}, runs={runs:[]}, ledger=[], state={}, view="taxonomy";
-async function J(p,f){try{let r=await fetch(p,{cache:"no-store"});return r.ok?await r.json():f}catch(e){return f}}
-async function L(p){try{let r=await fetch(p,{cache:"no-store"});if(!r.ok)return[];let t=await r.text();return t.split("\n").map(x=>x.trim()).filter(Boolean).map(JSON.parse)}catch(e){return[]}}
-function E(e){let v=evidence.elements[e.id]||{};let level=v.evidence_level??e.evidence_level;return {...e,level,label:v.evidence_label||["Proposed","Defined","Derived","Proven","Tested","Receipt-backed"][level],b:v.brightness??level/5,state:v.runtime_state||"idle"}}
-function score(e){if(view==="evidence")return -e.level*100+e.taxonomy_order;if(view==="complexity")return e.complexity_score*100+e.taxonomy_order;if(view==="lattice"){let c=e.coordinates||{};return (c.composition||0)*10000+(c.reality_binding||0)*1000+(c.observability_gap||0)*100+e.taxonomy_order}return e.taxonomy_order}
-function render(){let g=document.getElementById("grid");g.innerHTML="";elements.map(E).sort((a,b)=>score(a)-score(b)).forEach(e=>{let c=e.coordinates||{};let a=document.createElement("a");a.className="card";a.href=`transition-elements/${e.id}.html`;a.style.setProperty("--color",e.color);a.style.setProperty("--b",Number(e.b).toFixed(2));a.innerHTML=`<div><div class="sym">${e.id}</div><div class="fam">${e.family}</div><div class="name">${e.name}</div><div class="q">${e.question}</div><div class="coords">x=${c.composition??0} y=${c.reality_binding??0} z=${c.observability_gap??0} · ${e.state}</div></div><div><div class="q">Evidence ${e.level}/5 · ${e.label}</div><div class="meter"><span></span></div><div class="q">Open ${e.id} detail</div></div>`;g.appendChild(a)});document.getElementById("status").textContent=`Status: ${state.status||"unknown"} · Last run: ${state.last_run_id||"none"}`;let ul=document.getElementById("runs");ul.innerHTML="";(runs.runs||[]).slice(-6).reverse().forEach(r=>{let li=document.createElement("li");li.textContent=`${r.run_id} · ${r.status}`;ul.appendChild(li)});let lg=document.getElementById("ledger");lg.innerHTML="";ledger.slice(-80).forEach(r=>{let p=document.createElement("p");p.className=r.verdict==="ALLOW"?"allow":"deny";p.textContent=`[${r.timestamp}] ${r.element_id} ${r.mode} ${r.run_id} invariant=${r.invariant} verdict=${r.verdict}`;lg.appendChild(p)});if(!ledger.length)lg.textContent="No ledger rows yet. Run the Transition Experimental Engine workflow."}
-document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));view=b.dataset.view;document.getElementById("desc").textContent={taxonomy:"Taxonomy sequence. Mobile shows a vertical card stack.",evidence:"Evidence view sorts highest confirmed maturity first. Mobile shows a vertical card stack.",complexity:"Complexity view sorts lower-to-higher transition complexity. Mobile shows a vertical card stack.",lattice:"3D lattice projection sorts by composition, reality-binding, and observability gap. Mobile shows a vertical projection."}[view];render()});
-(async()=>{elements=await J("data/transition-elements.json",[]);evidence=await J("data/transition-evidence.json",{elements:{}});runs=await J("data/transition-runs.json",{runs:[]});state=await J("data/transition-engine-state.json",{});ledger=await L("data/transition-ledger.jsonl");render()})();
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Transition Table | StegVerse</title>
+<style>
+:root{
+  --bg:#080b12;
+  --panel:rgba(16,24,39,.82);
+  --text:#eef4ff;
+  --muted:#a9b7cc;
+  --line:rgba(255,255,255,.14);
+  --green:#43d694;
+  --blue:#4da3ff;
+  --gold:#ffbe54;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.14),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
+a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
+nav div{display:flex;gap:10px;flex-wrap:wrap}
+nav a{ text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
+nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
+section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
+h1{font-size:clamp(2.35rem,7vw,5.8rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}
+.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}
+.card strong{display:block;font-size:clamp(1.15rem,6vw,1.7rem);overflow-wrap:anywhere;line-height:1.05}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
+.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
+.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
+ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
+li{margin-bottom:7px}
+code{word-break:break-word;color:#f5fbff}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.controls button{border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);color:var(--text);font-weight:800}
+.controls button.active{border-color:rgba(67,214,148,.62);background:rgba(67,214,148,.12)}
+.table-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.transition-card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:18px;padding:15px;background:linear-gradient(135deg,rgba(67,214,148,.08),rgba(77,163,255,.04)),rgba(0,0,0,.20);min-height:170px}
+.transition-card:hover{border-color:rgba(67,214,148,.55)}
+.transition-card .id{font-size:1.4rem;font-weight:950;letter-spacing:-.04em}
+.transition-card .name{font-weight:850;margin-top:4px}
+.transition-card .meta{color:var(--muted);font-size:.9rem;margin-top:8px}
+.brightness{height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}
+.brightness span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:var(--w,0%)}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
+</style>
+</head>
+<body>
+<main>
+
+<nav>
+  <a href="index.html"><strong>StegVerse</strong></a>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="demo.html">Demo</a>
+    <a href="transition-periodic-table.html">Research Landing</a>
+    <a href="transition-table.html">Transition Table</a>
+    <a href="transition-milestones.html">Milestones</a>
+    <a href="transition-development-status.html">Development Status</a>
+    <a href="transition-release-snapshot.html">Release Snapshot</a>
+    <a href="transition-release-index.html">Release Index</a>
+    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+  </div>
+</nav>
+
+
+<section>
+  <p class="kicker">StegVerse Research Surface</p>
+  <h1>Transition Table</h1>
+  <p>
+    The table is a 2D projection of a 3D transition lattice. Cards are static links first and can be reordered by taxonomy,
+    evidence maturity, complexity, or lattice coordinates.
+  </p>
+  <a class="btn" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support StegVerse Research</a>
+  <a class="btn" href="transition-milestones.html">Open Milestones</a>
+  <a class="btn" href="transition-release-index.html">Open Release Index</a>
+</section>
+
+<section>
+  <h2>Release Navigation</h2>
+  <div class="grid">
+    <a class="card" href="transition-milestones.html"><span class="kicker">Milestones</span><strong>MS-010 active</strong><p>Formal milestone ledger with newest unlocked milestone first.</p></a>
+    <a class="card" href="transition-development-status.html"><span class="kicker">Status</span><strong>Development</strong><p>Current development state and verifier links.</p></a>
+    <a class="card" href="transition-release-snapshot.html"><span class="kicker">Snapshot</span><strong>Release v1</strong><p>Named release snapshot for the current table state.</p></a>
+    <a class="card" href="transition-release-index.html"><span class="kicker">Index</span><strong>Verification</strong><p>Directory of public pages and JSON surfaces.</p></a>
+  </div>
+</section>
+
+<section>
+  <h2>Engine Status</h2>
+  <div class="grid">
+    <div class="card"><span class="kicker">Engine</span><strong id="engineStatus">Loading…</strong></div>
+    <div class="card"><span class="kicker">Automation</span><strong id="automationState">Loading…</strong></div>
+    <div class="card"><span class="kicker">Verifier</span><strong id="verifierVerdict">Loading…</strong></div>
+    <div class="card"><span class="kicker">Evidence</span><strong id="evidenceCount">Loading…</strong></div>
+  </div>
+</section>
+
+<section>
+  <h2>Transition Card View</h2>
+  <p id="viewNote">Taxonomy view. Mobile shows the same order as a vertical card stack.</p>
+  <div class="controls">
+    <button class="active" data-sort="taxonomy">Taxonomy</button>
+    <button data-sort="evidence">Evidence</button>
+    <button data-sort="complexity">Complexity</button>
+    <button data-sort="lattice">3D Lattice</button>
+  </div>
+  <div class="table-grid" id="cards"></div>
+</section>
+
+<section>
+  <h2>Experimental Ledger</h2>
+  <ul id="ledgerRows"><li>Loading…</li></ul>
+  <a class="btn" href="data/experimental-ledger-summary.json">Open Ledger Summary JSON</a>
+</section>
+</main>
+
+<script>
+async function fetchJSON(path, fallback) {
+  try {
+    const response = await fetch(path, {cache:"no-store"});
+    if (!response.ok) return fallback;
+    return await response.json();
+  } catch (error) {
+    return fallback;
+  }
+}
+function esc(value) {
+  return String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+function evidenceLabel(level) {
+  return ["Proposed","Defined","Derived","Proven","Tested","Receipt-backed"][Number(level)] || "Unknown";
+}
+let elements = [];
+let evidence = {};
+
+function cardHTML(element) {
+  const ev = evidence.elements?.[element.id] || {};
+  const level = Number(ev.evidence_level ?? element.evidence_level ?? 0);
+  const brightness = Math.max(0, Math.min(100, level * 20));
+  const coords = element.coordinates || {};
+  return `<a class="transition-card" href="transition-elements/${esc(element.id)}.html">
+    <div class="id">${esc(element.id)}</div>
+    <div class="name">${esc(element.name || "Unnamed transition")}</div>
+    <div class="meta">Evidence: <strong>${level}/5 · ${esc(ev.evidence_label || evidenceLabel(level))}</strong></div>
+    <div class="meta">Runtime: ${esc(ev.runtime_state || "idle")}</div>
+    <div class="meta">Lattice: C${esc(coords.composition ?? "—")} · R${esc(coords.reality_binding ?? "—")} · O${esc(coords.observability_gap ?? "—")}</div>
+    <div class="brightness" title="evidence brightness"><span style="--w:${brightness}%"></span></div>
+  </a>`;
+}
+function render(sortMode="taxonomy") {
+  const sorted = [...elements];
+  if (sortMode === "evidence") {
+    sorted.sort((a,b) => (Number(evidence.elements?.[b.id]?.evidence_level ?? b.evidence_level ?? 0) - Number(evidence.elements?.[a.id]?.evidence_level ?? a.evidence_level ?? 0)) || ((a.taxonomy_order||0)-(b.taxonomy_order||0)));
+    document.getElementById("viewNote").textContent = "Evidence view. Highest maturity appears first.";
+  } else if (sortMode === "complexity") {
+    sorted.sort((a,b) => Number(a.complexity || a.taxonomy_order || 0) - Number(b.complexity || b.taxonomy_order || 0));
+    document.getElementById("viewNote").textContent = "Complexity view. Lower complexity appears first.";
+  } else if (sortMode === "lattice") {
+    sorted.sort((a,b) => {
+      const ac=a.coordinates||{}, bc=b.coordinates||{};
+      return Number(ac.composition||0)-Number(bc.composition||0) || Number(ac.reality_binding||0)-Number(bc.reality_binding||0) || Number(ac.observability_gap||0)-Number(bc.observability_gap||0);
+    });
+    document.getElementById("viewNote").textContent = "3D lattice view. Ordered by composition, reality-binding, and observability-gap coordinates.";
+  } else {
+    sorted.sort((a,b) => Number(a.taxonomy_order||0)-Number(b.taxonomy_order||0));
+    document.getElementById("viewNote").textContent = "Taxonomy view. Mobile shows the same order as a vertical card stack.";
+  }
+  document.getElementById("cards").innerHTML = sorted.map(cardHTML).join("");
+}
+(async () => {
+  const [els, ev, engine, auto, verifier, ledger] = await Promise.all([
+    fetchJSON("data/transition-elements.json", []),
+    fetchJSON("data/transition-evidence.json", {elements:{}}),
+    fetchJSON("data/transition-engine-state.json", {status:"unknown"}),
+    fetchJSON("data/automation-release-state.json", {current_state:"unknown"}),
+    fetchJSON("data/automation-release-verifier.json", {verdict:"unknown"}),
+    fetchJSON("data/experimental-ledger-summary.json", {recent_ledger_rows:[]})
+  ]);
+  elements = Array.isArray(els) ? els : [];
+  evidence = ev || {elements:{}};
+  const values = Object.values(evidence.elements || {});
+  const tested = values.filter(v => Number(v.evidence_level) >= 4).length;
+  const backed = values.filter(v => Number(v.evidence_level) >= 5).length;
+  document.getElementById("engineStatus").textContent = String(engine.status || "unknown").replaceAll("_"," ");
+  document.getElementById("automationState").textContent = String(auto.current_state || "unknown").replaceAll("_"," ");
+  document.getElementById("verifierVerdict").textContent = verifier.verdict || "unknown";
+  document.getElementById("evidenceCount").textContent = `${tested} tested / ${backed} backed`;
+  const rows = ledger.recent_ledger_rows || [];
+  document.getElementById("ledgerRows").innerHTML = rows.slice(0,10).map(row => `<li><code>${esc(row.run_id)}</code> · ${esc(row.element_id)} · ${esc(row.mode)} · verdict=<strong>${esc(row.verdict)}</strong></li>`).join("") || "<li>No ledger summary rows found.</li>";
+  render("taxonomy");
+  document.querySelectorAll(".controls button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".controls button").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+      render(button.dataset.sort);
+    });
+  });
+})();
+</script>
+</body>
+</html>
