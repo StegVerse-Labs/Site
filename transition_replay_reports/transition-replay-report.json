@@ -1,0 +1,51 @@
+{
+  "schema": "stegverse.transition_replay_check_report.v1",
+  "fixture_file": "data/transition-replay-fixtures-v1.json",
+  "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
+  "selected_elements": [
+    "T13",
+    "T14"
+  ],
+  "verdict": "ALLOW",
+  "passed": true,
+  "results": [
+    {
+      "id": "T13-receipt-binding-replay-001",
+      "element": "T13",
+      "check": "receipt_binding_replay",
+      "passed": true,
+      "computed": {
+        "pre_state_hash": "sha256:a5560b450a2eab61176549659f7e4600eeef01e77436ae2c01a512b280b5a6d6",
+        "action_hash": "sha256:c52949566d8f91d09a796d8277680b5a9a1ef73a7a47585ec0d0ad69e98337e0",
+        "post_state_hash": "sha256:a2a8649d4f7b39dbdc627d801058a9f068310ffcf6914b888743e5708ab48621",
+        "receipt_material_hash": "sha256:a81a66fdf96b4e3aaade29232f6110bd017508c64704325d05aba614a16d071e"
+      },
+      "expected": {
+        "pre_state_hash": "sha256:a5560b450a2eab61176549659f7e4600eeef01e77436ae2c01a512b280b5a6d6",
+        "action_hash": "sha256:c52949566d8f91d09a796d8277680b5a9a1ef73a7a47585ec0d0ad69e98337e0",
+        "post_state_hash": "sha256:a2a8649d4f7b39dbdc627d801058a9f068310ffcf6914b888743e5708ab48621",
+        "receipt_material_hash": "sha256:a81a66fdf96b4e3aaade29232f6110bd017508c64704325d05aba614a16d071e",
+        "verdict": "ALLOW"
+      },
+      "verdict": "ALLOW"
+    },
+    {
+      "id": "T14-reconstruction-replay-001",
+      "element": "T14",
+      "check": "reconstruction_replay",
+      "passed": true,
+      "computed": {
+        "observed_end_state_hash": "sha256:0bbbcfca4114633179992f87edda0ba3ba8ef108fe158c7fb519f41e8c0b0bfd",
+        "reconstructed_end_state_hash": "sha256:0bbbcfca4114633179992f87edda0ba3ba8ef108fe158c7fb519f41e8c0b0bfd",
+        "reconstruction_packet_hash": "sha256:cd620e727679c16eccb561aac9d77f8ca8068e7413fc541e81ef0020fb22e63e"
+      },
+      "expected": {
+        "observed_end_state_hash": "sha256:0bbbcfca4114633179992f87edda0ba3ba8ef108fe158c7fb519f41e8c0b0bfd",
+        "reconstructed_end_state_hash": "sha256:0bbbcfca4114633179992f87edda0ba3ba8ef108fe158c7fb519f41e8c0b0bfd",
+        "reconstruction_packet_hash": "sha256:cd620e727679c16eccb561aac9d77f8ca8068e7413fc541e81ef0020fb22e63e",
+        "verdict": "ALLOW"
+      },
+      "verdict": "ALLOW"
+    }
+  ]
+}

@@ -22,6 +22,15 @@
       "bundle_sha256": "b2f4073c5df8fd95dee99f33787c542a456c445c0d504ec701dbf905eed5dad2",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "89a6a4de4b79d7af67cd57bcbc033e053aa6fc9556eab40133de5a9eb5b1c2b4"
+    },
+    {
+      "generated_at": "2026-05-10T18:47:06Z",
+      "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+      "bundle_name": "transition-replay-report.zip",
+      "bundle_sha256": "6e4dcecafbae291334e27f36078f174d38f3dbc37396bd93b332ec25c9401188",
+      "bundle_class": "artifact_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "4981e60c0245420ed8f1b8834f207b57fbc4e58c240c56bc49fe0d0ecbf138de"
     }
   ]
 }
