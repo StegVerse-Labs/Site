@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
   schedule:
     # Every hour during the season (adjust as you like)
-    - cron: "5 * * * *"
+    # - cron: "5 * * * *"
 
 permissions:
   contents: write
