@@ -52,6 +52,7 @@ code{word-break:break-word;color:#f5fbff}
     <a href="transition-periodic-table.html">Research Landing</a>
     <a href="transition-table.html">Transition Table</a>
     <a href="transition-milestones.html">Milestones</a>
+    <a href="transition-release-snapshot.html">Release Snapshot</a>
     <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
   </div>
 </nav>
@@ -87,19 +88,19 @@ code{word-break:break-word;color:#f5fbff}
 </section>
 
 <section>
-  <h2>Next Stage Candidate</h2>
+  <h2>Current Development Milestone</h2>
   <article class="card">
-    <span class="status pending">pending</span>
+    <span class="status good">released</span>
     <h3>MS-009 — Development Release Hardening</h3>
     <p>
-      This milestone should unlock only after the public research surface has stable navigation, a clear development status page,
-      readable milestone history, exposed verifier JSON, and a reproducible snapshot of the current table state.
+      This milestone is unlocked because the public research surface now has a development status page,
+      readable milestone history, exposed verifier JSON, and a named release snapshot of the current table state.
     </p>
     <ul>
-      <li>Navigation links should expose milestones and development status from the main research surfaces.</li>
-      <li>All state JSON should be reachable from public pages.</li>
-      <li>The current release should be preserved as a named snapshot.</li>
-      <li>No new transition element should be added until the current release is easier to verify.</li>
+      <li>Navigation exposes milestones, development status, and the release snapshot.</li>
+      <li>State JSON is reachable from public pages.</li>
+      <li>The current release is preserved as <code>transition-release-snapshot-v1</code>.</li>
+      <li>No new transition element is added by this milestone.</li>
     </ul>
   </article>
 </section>
@@ -112,6 +113,7 @@ code{word-break:break-word;color:#f5fbff}
     <li><a href="data/receipt-backing-verifier.json">Receipt-backing verifier JSON</a></li>
     <li><a href="data/experimental-ledger-summary.json">Experimental ledger summary JSON</a></li>
     <li><a href="data/transition-evidence.json">Transition evidence JSON</a></li>
+    <li><a href="data/transition-release-snapshot-v1.json">Transition release snapshot JSON</a></li>
   </ul>
 </section>
 </main>
