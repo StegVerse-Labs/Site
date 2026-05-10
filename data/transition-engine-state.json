@@ -1,7 +1,7 @@
 {
   "planner": "evidence_gated_sequence_v1",
   "status": "idle_no_eligible_experiment",
-  "updated_at": "2026-05-10T04:33:56Z",
+  "updated_at": "2026-05-10T04:51:50Z",
   "automation_gate": {
     "mode": "scheduled_ready",
     "max_sequence_steps": 3,
