@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T11:14:24Z",
+  "generated_at": "2026-05-10T11:18:56Z",
   "schema": "stegverse.next_transition_build_candidate.v1",
   "state_id": "transition-release-state-ms011-ms012-candidate-v1",
   "ruleset_id": "transition-decision-rules-v1",
@@ -14,14 +14,12 @@
     {
       "id": "transition_replay_check",
       "workflow_name": "Transition Replay Check",
-      "required": true,
-      "expected_when_missing": "run workflow"
+      "required": true
     },
     {
       "id": "page_contract_check",
       "workflow_name": "Page Contract Check",
-      "required": true,
-      "expected_when_missing": "run workflow"
+      "required": true
     }
   ],
   "safety": {

@@ -1,39 +1,28 @@
 {
-  "generated_at": "2026-05-10T11:11:04Z",
+  "generated_at": "2026-05-10T11:18:56Z",
   "schema": "stegverse.transition_decision_rules.v1",
   "ruleset_id": "transition-decision-rules-v1",
   "decision_order": [
     {
-      "rule": "missing_candidate",
-      "if": "current_candidate_milestone is absent",
-      "then": "select_next_candidate_from_transition_table",
-      "promotion_allowed": false,
-      "human_required": false
-    },
-    {
-      "rule": "required_check_missing",
-      "if": "one or more required checks has no readable passing report",
-      "then": "run_required_checks",
-      "promotion_allowed": false,
-      "human_required": false
-    },
-    {
       "rule": "required_check_failed",
-      "if": "one or more required checks has a readable failing report",
       "then": "repair_failed_contract_or_replay",
       "promotion_allowed": false,
       "human_required": true
     },
     {
-      "rule": "required_check_conflict",
-      "if": "reports disagree or cannot be classified",
+      "rule": "required_check_unknown",
       "then": "halt_for_human_review",
       "promotion_allowed": false,
       "human_required": true
     },
     {
+      "rule": "required_check_missing",
+      "then": "run_required_checks",
+      "promotion_allowed": false,
+      "human_required": false
+    },
+    {
       "rule": "all_required_checks_passed",
-      "if": "all required checks have readable passing reports",
       "then": "promote_candidate_milestone",
       "promotion_allowed": true,
       "human_required": false
@@ -44,48 +33,13 @@
       "pass": {
         "passed": true,
         "failures": 0
-      },
-      "fail_when": [
-        "passed is false",
-        "failures > 0"
-      ]
+      }
     },
     "transition_replay_check": {
       "pass": {
         "passed": true,
         "verdict": "ALLOW"
-      },
-      "alternate_pass": {
-        "all_replay_fixtures_verified": true,
-        "verdict": "ALLOW"
-      },
-      "fail_when": [
-        "passed is false",
-        "verdict is DENY",
-        "verdict is FAIL_CLOSED"
-      ]
-    }
-  },
-  "actions": {
-    "run_required_checks": {
-      "meaning": "Run missing required workflows before any promotion.",
-      "safe_to_automate": true
-    },
-    "repair_failed_contract_or_replay": {
-      "meaning": "A required verifier failed; repair is needed before promotion.",
-      "safe_to_automate": false
-    },
-    "halt_for_human_review": {
-      "meaning": "Evidence is contradictory or unreadable.",
-      "safe_to_automate": false
-    },
-    "promote_candidate_milestone": {
-      "meaning": "All release gates passed; candidate may be promoted by a separate promoter.",
-      "safe_to_automate": true
-    },
-    "select_next_candidate_from_transition_table": {
-      "meaning": "No candidate exists; select next unresolved transition from table state.",
-      "safe_to_automate": true
+      }
     }
   }
 }

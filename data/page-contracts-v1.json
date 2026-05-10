@@ -113,6 +113,8 @@
         "Replay Fixtures v1",
         "Replay Verifier v1",
         "Next Transition Build Candidate v1",
+        "Transition Release State v1",
+        "Transition Decision Rules v1",
         "Autonomous Next-Step Selector",
         "MS-012",
         "Independent Replay Packet",
@@ -226,8 +228,87 @@
         {
           "json_path": "public_data",
           "contains_object": {
+            "path": "data/transition-release-state-v1.json"
+          }
+        },
+        {
+          "json_path": "public_data",
+          "contains_object": {
+            "path": "data/transition-decision-rules-v1.json"
+          }
+        },
+        {
+          "json_path": "public_data",
+          "contains_object": {
             "path": "data/next-transition-build-candidate-v1.json"
           }
+        }
+      ]
+    },
+    {
+      "path": "data/transition-release-state-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.transition_release_state.v1"
+        },
+        {
+          "json_path": "current_released_milestone.formal_label",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "current_candidate_milestone.formal_label",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        },
+        {
+          "json_path": "selector_policy.allow_promotion_from_chat_or_screenshot",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "path": "data/transition-decision-rules-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.transition_decision_rules.v1"
+        },
+        {
+          "json_path": "ruleset_id",
+          "equals": "transition-decision-rules-v1"
+        }
+      ]
+    },
+    {
+      "path": "data/next-transition-build-candidate-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.next_transition_build_candidate.v1"
+        },
+        {
+          "json_path": "current_released_milestone",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "current_candidate_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        },
+        {
+          "json_path": "next_system_action",
+          "equals": "run_required_checks"
+        },
+        {
+          "json_path": "promotion_allowed",
+          "equals": false
+        },
+        {
+          "json_path": "safety.missing_evidence_promotes",
+          "equals": false
+        },
+        {
+          "json_path": "safety.chat_or_screenshot_promotes",
+          "equals": false
         }
       ]
     },
@@ -320,39 +401,6 @@
         {
           "json_path": "selected_elements",
           "contains": "T14"
-        }
-      ]
-    },
-    {
-      "path": "data/next-transition-build-candidate-v1.json",
-      "required_values": [
-        {
-          "json_path": "schema",
-          "equals": "stegverse.next_transition_build_candidate.v1"
-        },
-        {
-          "json_path": "current_released_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
-        },
-        {
-          "json_path": "current_candidate_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
-        },
-        {
-          "json_path": "next_system_action",
-          "equals": "run_required_checks"
-        },
-        {
-          "json_path": "promotion_allowed",
-          "equals": false
-        },
-        {
-          "json_path": "safety.missing_evidence_promotes",
-          "equals": false
-        },
-        {
-          "json_path": "safety.chat_or_screenshot_promotes",
-          "equals": false
         }
       ]
     }

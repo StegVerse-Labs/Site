@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T11:16:00Z",
+  "generated_at": "2026-05-10T11:18:56Z",
   "schema": "stegverse.transition_release_index.v1",
   "release_id": "transition-release-snapshot-v1-ms011-ms012-candidate-selector",
   "current_release": {
@@ -18,8 +18,7 @@
     "replay_packet_json": "data/transition-replay-packet-v1.json",
     "replay_fixtures_json": "data/transition-replay-fixtures-v1.json",
     "replay_verifier_json": "data/transition-replay-verifier-v1.json",
-    "next_step_selector_json": "data/next-transition-build-candidate-v1.json",
-    "workflow": ".github/workflows/transition-replay-check.yml"
+    "next_step_selector_json": "data/next-transition-build-candidate-v1.json"
   },
   "automation_layer": {
     "formal_label": "Autonomous Next-Step Selector v1",
@@ -27,8 +26,7 @@
     "state_json": "data/transition-release-state-v1.json",
     "rules_json": "data/transition-decision-rules-v1.json",
     "candidate_json": "data/next-transition-build-candidate-v1.json",
-    "workflow": ".github/workflows/select-next-transition-step.yml",
-    "description": "Determines the next admissible transition action from repo-resident state, rules, and verifier reports."
+    "workflow": ".github/workflows/select-next-transition-step.yml"
   },
   "public_pages": [
     {
