@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-10T02:45:59Z",
+  "schema": "stegverse.transition_release_snapshot.v1",
+  "snapshot_id": "transition-release-snapshot-v1-ms009",
+  "formal_milestone": "MS-009 \u2014 Development Release Hardening",
+  "release_state": "development_release_hardened",
+  "basis": {
+    "previous_state": "receipt_backed_automation_ready",
+    "automation_verifier_verdict": "ALLOW",
+    "tested_elements": 16,
+    "receipt_backed_elements": [
+      "T13",
+      "T14"
+    ],
+    "transition_range": [
+      "T1",
+      "T16"
+    ]
+  },
+  "public_surfaces": [
+    "transition-periodic-table.html",
+    "transition-table.html",
+    "transition-milestones.html",
+    "transition-development-status.html",
+    "transition-release-snapshot.html"
+  ],
+  "public_json_surfaces": [
+    "data/automation-release-state.json",
+    "data/automation-release-verifier.json",
+    "data/receipt-backing-verifier.json",
+    "data/experimental-ledger-summary.json",
+    "data/transition-evidence.json",
+    "data/transition-release-snapshot-v1.json"
+  ],
+  "unlocked_capability": "public_development_release_readiness",
+  "unlock_reasoning": "MS-009 is unlocked because the table now has a public milestone ledger, a public development status page, public verifier links, a named release snapshot, and a documented receipt-backed automation state. This makes the current research state independently inspectable without requiring readers to inspect workflow logs.",
+  "not_claimed": [
+    "This is not a claim that all transitions are 5/5 Receipt-backed.",
+    "This is not a claim of unbounded autonomy.",
+    "This is not a final publication release.",
+    "This is a named development snapshot of the current experimental table state."
+  ]
+}
