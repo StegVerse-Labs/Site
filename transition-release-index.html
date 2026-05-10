@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Transition Release Index | StegVerse</title>
 <style>
-:root{
-  --bg:#080b12; --panel:rgba(16,24,39,.82); --text:#eef4ff; --muted:#a9b7cc;
-  --line:rgba(255,255,255,.14); --green:#43d694; --blue:#4da3ff; --gold:#ffbe54;
-}
+:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
 main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
@@ -29,18 +26,14 @@ p{color:var(--muted);font-size:1.02rem}
 .kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
 .status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
 .status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
-ol,ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
+ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
 li{margin-bottom:9px}
 code{word-break:break-word;color:#f5fbff}
-.step{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);margin-top:12px}
-.reason{border-left:3px solid var(--green);padding-left:12px;margin-top:12px;color:#dbe7f7}
 @media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
 </style>
 </head>
 <body>
 <main>
-
-
 <nav>
   <a href="index.html"><strong>StegVerse</strong></a>
   <div>
@@ -58,7 +51,6 @@ code{word-break:break-word;color:#f5fbff}
   </div>
 </nav>
 
-
 <section>
   <p class="kicker">Public Release Directory</p>
   <h1>Transition Release Index</h1>
@@ -70,56 +62,61 @@ code{word-break:break-word;color:#f5fbff}
   <a class="btn" href="data/transition-release-index-v1.json">Open Release Index JSON</a>
   <a class="btn" href="transition-release-snapshot.html">Open Release Snapshot</a>
   <a class="btn" href="transition-verification-guide.html">Open Verification Guide</a>
+  <a class="btn" href="transition-replay-packet.html">Open Replay Packet</a>
 </section>
+
 <section>
   <h2>Current Release</h2>
   <div class="grid">
-    <div class="card"><span class="kicker">Milestone</span><strong>MS-011 — Public Verification Bundle</strong></div>
-    <div class="card"><span class="kicker">Release State</span><strong>public verification bundle released</strong></div>
+    <div class="card">
+      <span class="kicker">Milestone</span>
+      <strong>MS-011 — Public Verification Bundle</strong>
+    </div>
+    <div class="card">
+      <span class="kicker">Release State</span>
+      <strong>public verification bundle released</strong>
+    </div>
   </div>
 </section>
+
 <section>
   <h2>Public Pages</h2>
-  <ul id="pages"></ul>
+  <ul>
+    <li><a href="transition-periodic-table.html">Research Landing</a> <code>transition-periodic-table.html</code></li>
+    <li><a href="transition-table.html">Transition Table</a> <code>transition-table.html</code></li>
+    <li><a href="transition-milestones.html">Milestones</a> <code>transition-milestones.html</code></li>
+    <li><a href="transition-development-status.html">Development Status</a> <code>transition-development-status.html</code></li>
+    <li><a href="transition-release-snapshot.html">Release Snapshot</a> <code>transition-release-snapshot.html</code></li>
+    <li><a href="transition-release-index.html">Release Index</a> <code>transition-release-index.html</code></li>
+    <li><a href="transition-verification-guide.html">Verification Guide</a> <code>transition-verification-guide.html</code></li>
+    <li><a href="transition-replay-packet.html">Replay Packet</a> <code>transition-replay-packet.html</code></li>
+  </ul>
 </section>
+
 <section>
   <h2>Public JSON Surfaces</h2>
-  <ul id="data"></ul>
+  <ul>
+    <li><a href="data/automation-release-state.json">Automation Release State</a> <code>data/automation-release-state.json</code></li>
+    <li><a href="data/automation-release-verifier.json">Automation Release Verifier</a> <code>data/automation-release-verifier.json</code></li>
+    <li><a href="data/receipt-backing-verifier.json">Receipt-Backing Verifier</a> <code>data/receipt-backing-verifier.json</code></li>
+    <li><a href="data/experimental-ledger-summary.json">Experimental Ledger Summary</a> <code>data/experimental-ledger-summary.json</code></li>
+    <li><a href="data/transition-evidence.json">Transition Evidence</a> <code>data/transition-evidence.json</code></li>
+    <li><a href="data/transition-release-snapshot-v1.json">Release Snapshot v1</a> <code>data/transition-release-snapshot-v1.json</code></li>
+    <li><a href="data/transition-release-index-v1.json">Release Index v1</a> <code>data/transition-release-index-v1.json</code></li>
+    <li><a href="data/transition-verification-bundle-v1.json">Verification Bundle v1</a> <code>data/transition-verification-bundle-v1.json</code></li>
+    <li><a href="data/transition-replay-packet-v1.json">Replay Packet v1</a> <code>data/transition-replay-packet-v1.json</code></li>
+  </ul>
 </section>
+
 <section>
   <h2>Next Pending Milestone</h2>
   <span class="status pending">pending</span>
   <h3>MS-012 — Independent Replay Packet</h3>
   <p>
-    This milestone should unlock when a reader-facing replay packet explains how to independently replay selected receipts and compare reconstructed outcomes against the public ledger.
+    This milestone should unlock when the replay packet is live and linked from the verification guide, release index,
+    milestones, development status, release snapshot, transition table, and research landing.
   </p>
 </section>
 </main>
-<script>
-const fallback = {"generated_at": "2026-05-10T04:29:19Z", "schema": "stegverse.transition_release_index.v1", "current_release": {"release_id": "transition-release-snapshot-v1-ms011", "formal_milestone": "MS-011 \u2014 Public Verification Bundle", "state": "public_verification_bundle_released", "snapshot_json": "data/transition-release-snapshot-v1.json", "snapshot_page": "transition-release-snapshot.html", "verification_guide": "transition-verification-guide.html", "verification_bundle_json": "data/transition-verification-bundle-v1.json"}, "public_pages": [{"label": "Research Landing", "path": "transition-periodic-table.html"}, {"label": "Transition Table", "path": "transition-table.html"}, {"label": "Milestones", "path": "transition-milestones.html"}, {"label": "Development Status", "path": "transition-development-status.html"}, {"label": "Release Snapshot", "path": "transition-release-snapshot.html"}, {"label": "Release Index", "path": "transition-release-index.html"}, {"label": "Verification Guide", "path": "transition-verification-guide.html"}], "public_data": [{"label": "Automation Release State", "path": "data/automation-release-state.json"}, {"label": "Automation Release Verifier", "path": "data/automation-release-verifier.json"}, {"label": "Receipt-Backing Verifier", "path": "data/receipt-backing-verifier.json"}, {"label": "Experimental Ledger Summary", "path": "data/experimental-ledger-summary.json"}, {"label": "Transition Evidence", "path": "data/transition-evidence.json"}, {"label": "Release Snapshot v1", "path": "data/transition-release-snapshot-v1.json"}, {"label": "Release Index v1", "path": "data/transition-release-index-v1.json"}, {"label": "Verification Bundle v1", "path": "data/transition-verification-bundle-v1.json"}], "next_pending_milestone": {"formal_milestone": "MS-012 \u2014 Independent Replay Packet", "status": "pending", "unlock_condition": "A reader-facing replay packet explains how to independently replay selected receipts and compare reconstructed outcomes against the public ledger."}};
-async function fetchJSON(path, fallbackValue) {
-  try {
-    const response = await fetch(path, {cache:"no-store"});
-    if (!response.ok) return fallbackValue;
-    return await response.json();
-  } catch (error) {
-    return fallbackValue;
-  }
-}
-function renderList(id, rows) {
-  const node = document.getElementById(id);
-  node.innerHTML = "";
-  rows.forEach(row => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="${row.path}">${row.label}</a> <code>${row.path}</code>`;
-    node.appendChild(li);
-  });
-}
-(async () => {
-  const index = await fetchJSON("data/transition-release-index-v1.json", fallback);
-  renderList("pages", index.public_pages || []);
-  renderList("data", index.public_data || []);
-})();
-</script>
 </body>
 </html>
