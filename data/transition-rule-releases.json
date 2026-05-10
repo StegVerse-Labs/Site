@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T00:07:16Z",
+  "generated_at": "2026-05-10T00:11:14Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "bounded_batch",
@@ -64,6 +64,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Lag sandboxes may separate observed, decision, commit, actuation, and effect states."
+    },
+    {
+      "rule_id": "trust_drift_required",
+      "released_by": "T8",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Lag-aware sandboxes may model trust as a decaying state variable during transition delay."
     }
   ]
 }

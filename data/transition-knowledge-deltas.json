@@ -82,6 +82,20 @@
       ],
       "confidence": 0.87,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T8-trust_drift_sweep_v1-0007-trust-drift",
+      "source_run_id": "T8-trust_drift_sweep_v1-0007",
+      "source_element": "T8",
+      "delta_type": "trust_drift_fragment",
+      "summary": "Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.",
+      "informs": [
+        "T8",
+        "T9",
+        "T10"
+      ],
+      "confidence": 0.86,
+      "review_required": false
     }
   ]
 }

@@ -1,0 +1,104 @@
+{
+  "receipt_id": "RCPT-T8-trust_drift_sweep_v1-0007-003",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-10T00:11:14Z",
+  "run_id": "T8-trust_drift_sweep_v1-0007",
+  "ledger_row_id": "T8-trust_drift_sweep_v1-0007-003",
+  "element_id": "T8",
+  "experiment": "trust_drift_sweep_v1",
+  "tested_property": "trust_drift",
+  "sandbox": {
+    "type": "lag_aware_deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120,
+    "automation_gate": "bounded_batch"
+  },
+  "applied_rules": [
+    "primitive_admissibility_required",
+    "simplex_constraint_visible",
+    "bounded_action_visible",
+    "capacity_margin_visible",
+    "lag_aware_sandbox_required",
+    "decision_stage_required",
+    "actuation_stage_required"
+  ],
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1,
+    "lambda": 0.24,
+    "tau": 4
+  },
+  "pre_state": {
+    "g": 0.72,
+    "c": 0.5,
+    "a": 0.16,
+    "t": 0.74
+  },
+  "observed_state": null,
+  "observation_lag_drift": null,
+  "decision_state": null,
+  "decision_lag_drift": null,
+  "commit_state": null,
+  "actuation_lag_drift": null,
+  "effect_state": null,
+  "action": {
+    "dg": 0,
+    "dc": 0,
+    "da": 0.02,
+    "dt": 0
+  },
+  "post_state": {
+    "g": 0.72,
+    "c": 0.5,
+    "a": 0.18,
+    "t": 0.2833
+  },
+  "pre_decay_post_state": {
+    "g": 0.72,
+    "c": 0.5,
+    "a": 0.18,
+    "t": 0.74
+  },
+  "trust_decayed_state": {
+    "g": 0.72,
+    "c": 0.5,
+    "a": 0.16,
+    "t": 0.28334
+  },
+  "trust_decayed_post_state": {
+    "g": 0.72,
+    "c": 0.5,
+    "a": 0.18,
+    "t": 0.2833
+  },
+  "observed_post_state": null,
+  "decision_post_state": null,
+  "commit_post_state": null,
+  "effect_post_state": null,
+  "computed": {
+    "admissibility_verdict": "DENY",
+    "constraint_result": "PASS",
+    "invariant": 0.07801,
+    "initial_trust": 0.74,
+    "decayed_trust": 0.28334,
+    "pre_decay_capacity": 0.2664,
+    "post_decay_capacity": 0.10199,
+    "pre_decay_invariant": -0.0864,
+    "post_decay_invariant": 0.07801,
+    "pre_decay_verdict": "ALLOW",
+    "trust_decay_verdict": "DENY",
+    "trust_flip": true
+  },
+  "source_hashes": {
+    "ledger_row_hash": "a17fc80365399c4ebcd77f609085d7bb85d3d6739bcfa329575dd93cf13fbb4e",
+    "run_hash": "sha256:a9dd0659364295472d786808752ad613bf2d304ff5134e360a1fc60013efb57f"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
+  },
+  "receipt_hash": "sha256:24d03082e74be8053c3040b427a7aeb208b2a84aff896601d532677b7edc5a1e"
+}

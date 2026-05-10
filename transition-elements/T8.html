@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T8 — Trust-Drift Transition</h1>
 <p class="muted">Does trust decay during the transition?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>2/5 · Derived</strong></p>
-  <p>Runtime state: <strong>idle</strong></p>
-  <p>Brightness: <strong>0.4</strong></p>
+  <p>Level: <strong>4/5 · Tested</strong></p>
+  <p>Runtime state: <strong>completed</strong></p>
+  <p>Brightness: <strong>0.8</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>1</strong></p>
@@ -52,20 +52,58 @@ li{margin:0 0 8px}
   <p>Trust may change as a function of elapsed time, reducing admissibility capacity.</p>
   <div class="formula"><code>t&#x27; = t e^(-λτ)</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
+<section><h2>Confirmed Behavior</h2><p>deterministic trust drift sweep passed</p></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> bounded_batch</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
-<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
-<section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
-<section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
+<section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li></ul></section>
+<section><h2>Run Manifests</h2><ul><li><code>T8-trust_drift_sweep_v1-0007</code> · trust_drift_sweep_v1 · <strong>completed</strong> · sandbox=lag_aware_deterministic</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li><li><code>KD-T8-trust_drift_sweep_v1-0007-trust-drift</code> · trust_drift_fragment · Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.</li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T8-trust_drift_sweep_v1-0007-001</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=-0.04641 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T8-trust_drift_sweep_v1-0007-002</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=0.03533 · admissibility verdict=<strong>DENY</strong></li><li><code>T8-trust_drift_sweep_v1-0007-003</code> · tested property=trust_drift · constraint=PASS · admissibility invariant=0.07801 · admissibility verdict=<strong>DENY</strong></li></ul></section>
+<section><h2>State Transition Receipts</h2>
+        <article class="receipt-entry">
+          <h3>RCPT-T8-trust_drift_sweep_v1-0007-001</h3>
+          <p><strong>Run:</strong> T8-trust_drift_sweep_v1-0007</p>
+          <p><strong>Tested property:</strong> trust_drift</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Trust flip:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:016f20d119c5f528e91cb67ed6bede7f379183d8c8ff16690c75c6831ab25541</code></p>
+          <p><a href="../data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-001.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T8-trust_drift_sweep_v1-0007-002</h3>
+          <p><strong>Run:</strong> T8-trust_drift_sweep_v1-0007</p>
+          <p><strong>Tested property:</strong> trust_drift</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Trust flip:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:9176da8b6c3958fe2ba85c5cb36bd2d9306ee51191013445fee729362da9070c</code></p>
+          <p><a href="../data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-002.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T8-trust_drift_sweep_v1-0007-003</h3>
+          <p><strong>Run:</strong> T8-trust_drift_sweep_v1-0007</p>
+          <p><strong>Tested property:</strong> trust_drift</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Trust flip:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:24d03082e74be8053c3040b427a7aeb208b2a84aff896601d532677b7edc5a1e</code></p>
+          <p><a href="../data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-003.json">Open receipt JSON</a></p>
+        </article>
+        </section>
 <section><h2>Consequential Test Changelog</h2>
         <article class="change-entry">
           <h3>T4-capacity_margin_sweep_v1-0003</h3>
@@ -91,6 +129,20 @@ li{margin:0 0 8px}
           <ul><li>lag_flip_fragment: Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul>
           <p><strong>Graph consequence:</strong> informs T5, T6, T7, T8.</p>
           <p><strong>Unlocked under current evidence state:</strong> T5, T6, T7, T8.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T8-trust_drift_sweep_v1-0007</h3>
+          <p><strong>Experiment:</strong> trust_drift_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T8.</p>
+          <p><strong>Evidence consequence:</strong> T8 moved from 2 to 4 because deterministic trust drift sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>trust_drift_fragment: Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T8, T9, T10.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T8, T9.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

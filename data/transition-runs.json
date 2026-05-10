@@ -204,6 +204,52 @@
         "reason": "deterministic actuation lag sweep passed"
       },
       "run_hash": "sha256:6b69bbbb49865b1a40feaf1db9661faafa4466a6e8660d3368803a1e626ece29"
+    },
+    {
+      "run_id": "T8-trust_drift_sweep_v1-0007",
+      "element_id": "T8",
+      "experiment": "trust_drift_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "lag_aware_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "bounded_batch"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required",
+        "actuation_stage_required"
+      ],
+      "automation_gate": {
+        "mode": "bounded_batch",
+        "max_sequence_steps": 3,
+        "released_by": [
+          "T7"
+        ]
+      },
+      "started_at": "2026-05-10T00:11:14Z",
+      "completed_at": "2026-05-10T00:11:14Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T8-trust_drift_sweep_v1-0007-001",
+        "T8-trust_drift_sweep_v1-0007-002",
+        "T8-trust_drift_sweep_v1-0007-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T8-trust_drift_sweep_v1-0007-trust-drift"
+      ],
+      "evidence_delta": {
+        "from": 2,
+        "to": 4,
+        "reason": "deterministic trust drift sweep passed"
+      },
+      "run_hash": "sha256:a9dd0659364295472d786808752ad613bf2d304ff5134e360a1fc60013efb57f"
     }
   ]
 }
