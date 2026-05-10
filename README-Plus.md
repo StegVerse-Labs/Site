@@ -1,17 +1,11 @@
-# MS-011 Public Verification Bundle v1
+# MS-011 Release Marker v1
 
 Upload-safe bundle. No leading-dot paths.
 
-Adds:
+Replaces:
 
 ```text
 transition-verification-guide.html
-data/transition-verification-bundle-v1.json
-```
-
-Updates:
-
-```text
 transition-release-index.html
 transition-milestones.html
 transition-development-status.html
@@ -19,25 +13,24 @@ transition-release-snapshot.html
 transition-table.html
 transition-periodic-table.html
 data/transition-release-index-v1.json
+data/transition-release-snapshot-v1.json
+data/transition-verification-bundle-v1.json
 ```
 
 ## What this does
 
-- Adds one reader-facing verification guide.
-- Adds one verification bundle JSON.
-- Links the guide from the public release pages.
-- Keeps `MS-011 — Public Verification Bundle` pending until live links are confirmed.
+- Marks `MS-011 — Public Verification Bundle` as released.
+- Sets the current release to `public_verification_bundle_released`.
+- Keeps the automation basis as `receipt_backed_automation_ready`.
+- Sets `MS-012 — Independent Replay Packet` as the next pending milestone.
 
 ## Done check after upload
 
 ```text
-transition-verification-guide.html exists
-transition-release-index.html links to Verification Guide
-transition-milestones.html links to Verification Guide
-transition-development-status.html links to Verification Guide
-transition-release-snapshot.html links to Verification Guide
-transition-table.html links to Verification Guide
-transition-periodic-table.html links to Verification Guide
-data/transition-verification-bundle-v1.json exists
-MS-011 remains pending
+transition-verification-guide.html says MS-011 released
+transition-milestones.html top milestone = MS-011
+transition-release-index.html current release = MS-011
+transition-development-status.html current development milestone = MS-011
+transition-release-snapshot.html says MS-011 unlocked
+MS-012 remains pending
 ```

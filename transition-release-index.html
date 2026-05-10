@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Transition Release Index | StegVerse</title>
 <style>
-:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
+:root{
+  --bg:#080b12; --panel:rgba(16,24,39,.82); --text:#eef4ff; --muted:#a9b7cc;
+  --line:rgba(255,255,255,.14); --green:#43d694; --blue:#4da3ff; --gold:#ffbe54;
+}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
 main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
 a{color:inherit}
 nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
@@ -15,7 +18,7 @@ nav div{display:flex;gap:10px;flex-wrap:wrap}
 nav a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
 nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
 section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
-h1{font-size:clamp(2.2rem,7vw,5.3rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
+h1{font-size:clamp(2.2rem,7vw,5.35rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
 h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 h3{font-size:1.18rem;margin:0 0 8px}
 p{color:var(--muted);font-size:1.02rem}
@@ -26,14 +29,17 @@ p{color:var(--muted);font-size:1.02rem}
 .kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
 .status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
 .status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
-ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
-li{margin-bottom:7px}
+ol,ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
+li{margin-bottom:9px}
 code{word-break:break-word;color:#f5fbff}
+.step{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);margin-top:12px}
+.reason{border-left:3px solid var(--green);padding-left:12px;margin-top:12px;color:#dbe7f7}
 @media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
 </style>
 </head>
 <body>
 <main>
+
 <nav>
   <a href="index.html"><strong>StegVerse</strong></a>
   <div>
@@ -44,6 +50,7 @@ code{word-break:break-word;color:#f5fbff}
     <a href="transition-milestones.html">Milestones</a>
     <a href="transition-development-status.html">Development Status</a>
     <a href="transition-release-snapshot.html">Release Snapshot</a>
+    <a href="transition-release-index.html">Release Index</a>
     <a href="transition-verification-guide.html">Verification Guide</a>
     <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
   </div>
@@ -56,41 +63,37 @@ code{word-break:break-word;color:#f5fbff}
     This page collects the public pages and JSON surfaces for the current Transition Periodic Table development release.
     It is the navigation anchor for verifying the current research state from the public site.
   </p>
-  <span class="status" id="releaseBadge">current release: transition-release-snapshot-v1-ms010</span><br/>
+  <span class="status">current release: transition-release-snapshot-v1-ms011</span><br/>
   <a class="btn" href="data/transition-release-index-v1.json">Open Release Index JSON</a>
   <a class="btn" href="transition-release-snapshot.html">Open Release Snapshot</a>
+  <a class="btn" href="transition-verification-guide.html">Open Verification Guide</a>
 </section>
-
 <section>
   <h2>Current Release</h2>
   <div class="grid">
-    <div class="card"><span class="kicker">Milestone</span><strong id="milestone">MS-010 — Public Navigation Integration</strong></div>
-    <div class="card"><span class="kicker">Release State</span><strong id="releaseState">public navigation integrated</strong></div>
+    <div class="card"><span class="kicker">Milestone</span><strong>MS-011 — Public Verification Bundle</strong></div>
+    <div class="card"><span class="kicker">Release State</span><strong>public verification bundle released</strong></div>
   </div>
 </section>
-
 <section>
   <h2>Public Pages</h2>
   <ul id="pages"></ul>
 </section>
-
 <section>
   <h2>Public JSON Surfaces</h2>
   <ul id="data"></ul>
 </section>
-
 <section>
   <h2>Next Pending Milestone</h2>
   <span class="status pending">pending</span>
-  <h3 id="pending">MS-011 — Public Verification Bundle</h3>
-  <p id="pendingText">
-    This milestone should unlock when a single reader-facing verification guide explains how to verify the table state from public pages and JSON.
+  <h3>MS-012 — Independent Replay Packet</h3>
+  <p>
+    This milestone should unlock when a reader-facing replay packet explains how to independently replay selected receipts and compare reconstructed outcomes against the public ledger.
   </p>
 </section>
 </main>
-
 <script>
-const fallback = {"generated_at": "2026-05-10T03:18:06Z", "schema": "stegverse.transition_release_index.v1", "current_release": {"release_id": "transition-release-snapshot-v1-ms010", "formal_milestone": "MS-010 \u2014 Public Navigation Integration", "state": "public_navigation_integrated", "snapshot_json": "data/transition-release-snapshot-v1.json", "snapshot_page": "transition-release-snapshot.html"}, "public_pages": [{"label": "Research Landing", "path": "transition-periodic-table.html"}, {"label": "Transition Table", "path": "transition-table.html"}, {"label": "Milestones", "path": "transition-milestones.html"}, {"label": "Development Status", "path": "transition-development-status.html"}, {"label": "Release Snapshot", "path": "transition-release-snapshot.html"}, {"label": "Release Index", "path": "transition-release-index.html"}], "public_data": [{"label": "Automation Release State", "path": "data/automation-release-state.json"}, {"label": "Automation Release Verifier", "path": "data/automation-release-verifier.json"}, {"label": "Receipt-Backing Verifier", "path": "data/receipt-backing-verifier.json"}, {"label": "Experimental Ledger Summary", "path": "data/experimental-ledger-summary.json"}, {"label": "Transition Evidence", "path": "data/transition-evidence.json"}, {"label": "Release Snapshot v1", "path": "data/transition-release-snapshot-v1.json"}, {"label": "Release Index v1", "path": "data/transition-release-index-v1.json"}], "next_pending_milestone": {"formal_milestone": "MS-011 \u2014 Public Verification Bundle", "status": "pending", "unlock_condition": "A single reader-facing verification guide explains how to verify the table state from public pages and JSON."}};
+const fallback = {"generated_at": "2026-05-10T04:29:19Z", "schema": "stegverse.transition_release_index.v1", "current_release": {"release_id": "transition-release-snapshot-v1-ms011", "formal_milestone": "MS-011 \u2014 Public Verification Bundle", "state": "public_verification_bundle_released", "snapshot_json": "data/transition-release-snapshot-v1.json", "snapshot_page": "transition-release-snapshot.html", "verification_guide": "transition-verification-guide.html", "verification_bundle_json": "data/transition-verification-bundle-v1.json"}, "public_pages": [{"label": "Research Landing", "path": "transition-periodic-table.html"}, {"label": "Transition Table", "path": "transition-table.html"}, {"label": "Milestones", "path": "transition-milestones.html"}, {"label": "Development Status", "path": "transition-development-status.html"}, {"label": "Release Snapshot", "path": "transition-release-snapshot.html"}, {"label": "Release Index", "path": "transition-release-index.html"}, {"label": "Verification Guide", "path": "transition-verification-guide.html"}], "public_data": [{"label": "Automation Release State", "path": "data/automation-release-state.json"}, {"label": "Automation Release Verifier", "path": "data/automation-release-verifier.json"}, {"label": "Receipt-Backing Verifier", "path": "data/receipt-backing-verifier.json"}, {"label": "Experimental Ledger Summary", "path": "data/experimental-ledger-summary.json"}, {"label": "Transition Evidence", "path": "data/transition-evidence.json"}, {"label": "Release Snapshot v1", "path": "data/transition-release-snapshot-v1.json"}, {"label": "Release Index v1", "path": "data/transition-release-index-v1.json"}, {"label": "Verification Bundle v1", "path": "data/transition-verification-bundle-v1.json"}], "next_pending_milestone": {"formal_milestone": "MS-012 \u2014 Independent Replay Packet", "status": "pending", "unlock_condition": "A reader-facing replay packet explains how to independently replay selected receipts and compare reconstructed outcomes against the public ledger."}};
 async function fetchJSON(path, fallbackValue) {
   try {
     const response = await fetch(path, {cache:"no-store"});
@@ -111,15 +114,8 @@ function renderList(id, rows) {
 }
 (async () => {
   const index = await fetchJSON("data/transition-release-index-v1.json", fallback);
-  const current = index.current_release || fallback.current_release;
-  document.getElementById("releaseBadge").textContent = "current release: " + (current.release_id || "transition-release-snapshot-v1-ms010");
-  document.getElementById("milestone").textContent = current.formal_milestone || "MS-010 — Public Navigation Integration";
-  document.getElementById("releaseState").textContent = String(current.state || "public_navigation_integrated").replaceAll("_"," ");
   renderList("pages", index.public_pages || []);
   renderList("data", index.public_data || []);
-  const pending = index.next_pending_milestone || {};
-  document.getElementById("pending").textContent = pending.formal_milestone || "MS-011 — Public Verification Bundle";
-  document.getElementById("pendingText").textContent = pending.unlock_condition || "A single reader-facing verification guide explains how to verify the table state from public pages and JSON.";
 })();
 </script>
 </body>
