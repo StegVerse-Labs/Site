@@ -644,6 +644,10 @@ def process_queue(root: Path, policy_path: Path, apply: bool, retry_failed: bool
         if path.is_dir():
             continue
 
+        # Structural marker files preserve the intake folder in Git and are not queue items.
+        if path.name in {".gitkeep", "README.md"}:
+            continue
+
         if path.suffix.lower() != ".zip":
             if queue_policy(policy).get("stale_non_zip_files", True):
                 receipt = quarantine_stale(
