@@ -112,6 +112,8 @@
         "Replay Packet v1",
         "Replay Fixtures v1",
         "Replay Verifier v1",
+        "Next Transition Build Candidate v1",
+        "Autonomous Next-Step Selector",
         "MS-012",
         "Independent Replay Packet",
         "candidate"
@@ -121,6 +123,9 @@
         "data/transition-replay-packet-v1.json",
         "data/transition-replay-fixtures-v1.json",
         "data/transition-replay-verifier-v1.json",
+        "data/transition-release-state-v1.json",
+        "data/transition-decision-rules-v1.json",
+        "data/next-transition-build-candidate-v1.json",
         "data/transition-release-index-v1.json"
       ]
     },
@@ -181,6 +186,14 @@
           "equals": "candidate_until_transition_replay_check_and_page_contract_check_pass"
         },
         {
+          "json_path": "automation_layer.formal_label",
+          "equals": "Autonomous Next-Step Selector v1"
+        },
+        {
+          "json_path": "automation_layer.candidate_json",
+          "equals": "data/next-transition-build-candidate-v1.json"
+        },
+        {
           "json_path": "next_pending_milestone.formal_milestone",
           "equals": "MS-012 \u2014 Independent Replay Packet"
         }
@@ -208,6 +221,12 @@
           "json_path": "public_data",
           "contains_object": {
             "path": "data/transition-replay-verifier-v1.json"
+          }
+        },
+        {
+          "json_path": "public_data",
+          "contains_object": {
+            "path": "data/next-transition-build-candidate-v1.json"
           }
         }
       ]
@@ -301,6 +320,39 @@
         {
           "json_path": "selected_elements",
           "contains": "T14"
+        }
+      ]
+    },
+    {
+      "path": "data/next-transition-build-candidate-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.next_transition_build_candidate.v1"
+        },
+        {
+          "json_path": "current_released_milestone",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "current_candidate_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        },
+        {
+          "json_path": "next_system_action",
+          "equals": "run_required_checks"
+        },
+        {
+          "json_path": "promotion_allowed",
+          "equals": false
+        },
+        {
+          "json_path": "safety.missing_evidence_promotes",
+          "equals": false
+        },
+        {
+          "json_path": "safety.chat_or_screenshot_promotes",
+          "equals": false
         }
       ]
     }

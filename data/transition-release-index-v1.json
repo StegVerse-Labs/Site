@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-10T10:38:30Z",
+  "generated_at": "2026-05-10T11:16:00Z",
   "schema": "stegverse.transition_release_index.v1",
-  "release_id": "transition-release-snapshot-v1-ms011-ms012-candidate",
+  "release_id": "transition-release-snapshot-v1-ms011-ms012-candidate-selector",
   "current_release": {
     "release_id": "transition-release-snapshot-v1-ms011",
     "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
@@ -18,7 +18,17 @@
     "replay_packet_json": "data/transition-replay-packet-v1.json",
     "replay_fixtures_json": "data/transition-replay-fixtures-v1.json",
     "replay_verifier_json": "data/transition-replay-verifier-v1.json",
+    "next_step_selector_json": "data/next-transition-build-candidate-v1.json",
     "workflow": ".github/workflows/transition-replay-check.yml"
+  },
+  "automation_layer": {
+    "formal_label": "Autonomous Next-Step Selector v1",
+    "status": "candidate_decision_layer",
+    "state_json": "data/transition-release-state-v1.json",
+    "rules_json": "data/transition-decision-rules-v1.json",
+    "candidate_json": "data/next-transition-build-candidate-v1.json",
+    "workflow": ".github/workflows/select-next-transition-step.yml",
+    "description": "Determines the next admissible transition action from repo-resident state, rules, and verifier reports."
   },
   "public_pages": [
     {
@@ -98,11 +108,23 @@
     {
       "label": "Replay Verifier v1",
       "path": "data/transition-replay-verifier-v1.json"
+    },
+    {
+      "label": "Transition Release State v1",
+      "path": "data/transition-release-state-v1.json"
+    },
+    {
+      "label": "Transition Decision Rules v1",
+      "path": "data/transition-decision-rules-v1.json"
+    },
+    {
+      "label": "Next Transition Build Candidate v1",
+      "path": "data/next-transition-build-candidate-v1.json"
     }
   ],
   "next_pending_milestone": {
     "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
     "status": "candidate",
-    "unlock_condition": "Transition Replay Check passes and Page Contract Check confirms replay packet, fixture, verifier, and release-index links are public."
+    "unlock_condition": "Transition Replay Check passes and Page Contract Check confirms replay packet, fixture, verifier, release-index, and selector-output links are public."
   }
 }
