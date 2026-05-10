@@ -127,7 +127,7 @@ def receipts_html(element_id, receipt_index):
     blocks = []
     for r in receipts[-20:]:
         extras = ""
-        for key, label in [("lag_flip", "Lag flip"), ("decision_flip", "Decision flip"), ("actuation_flip", "Actuation flip"), ("total_lag_flip", "Total lag flip"), ("trust_flip", "Trust flip")]:
+        for key, label in [("lag_flip", "Lag flip"), ("decision_flip", "Decision flip"), ("actuation_flip", "Actuation flip"), ("total_lag_flip", "Total lag flip"), ("trust_flip", "Trust flip"), ("coupling_flip", "Coupling flip"), ("local_admissible_coupled_denied", "Local admissible / coupled denied")]:
             if r.get(key) is not None:
                 extras += f"<p><strong>{label}:</strong> {esc(r.get(key))}</p>"
         blocks.append(f"""
@@ -156,7 +156,7 @@ def row_constraint(row):
         n = row.get("action_norm")
         eps = row.get("epsilon", 0.10)
         return "PASS" if n is not None and float(n) <= float(eps) else "UNKNOWN"
-    if row.get("mode") in ("capacity_margin_sweep_v1", "observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1"):
+    if row.get("mode") in ("capacity_margin_sweep_v1", "observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1"):
         return "PASS"
     return "not applicable"
 

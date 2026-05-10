@@ -83,6 +83,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "actuation_lag"
         elif mode == "trust_drift_sweep_v1":
             row_payload["tested_property"] = "trust_drift"
+        elif mode == "two_state_coupling_sweep_v1":
+            row_payload["tested_property"] = "two_state_coupling"
         else:
             row_payload["tested_property"] = mode
 
@@ -108,7 +110,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -455,6 +457,94 @@ def t8(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic trust drift sweep passed", "bad": []}
 
 
+def t9(run_id: str):
+    samples = [
+        {
+            "state_a": {"g": .64, "c": .64, "a": .18, "t": .82},
+            "state_b": {"g": .42, "c": .56, "a": .15, "t": .74},
+            "action_a": {"dg": 0, "dc": 0, "da": .02, "dt": 0},
+            "coupling_effect_on_b": {"dg": -.04, "dc": -.03, "da": .03, "dt": -.05},
+        },
+        {
+            "state_a": {"g": .70, "c": .58, "a": .16, "t": .80},
+            "state_b": {"g": .60, "c": .50, "a": .13, "t": .72},
+            "action_a": {"dg": 0, "dc": 0, "da": .01, "dt": 0},
+            "coupling_effect_on_b": {"dg": -.03, "dc": -.03, "da": .02, "dt": -.04},
+        },
+        {
+            "state_a": {"g": .52, "c": .72, "a": .16, "t": .78},
+            "state_b": {"g": .50, "c": .62, "a": .17, "t": .76},
+            "action_a": {"dg": 0, "dc": 0, "da": .02, "dt": 0},
+            "coupling_effect_on_b": {"dg": -.07, "dc": -.04, "da": .03, "dt": -.08},
+        },
+    ]
+    rows = []
+    flips = 0
+    coupled_denials = 0
+    for i, sample in enumerate(samples, 1):
+        state_a = sample["state_a"]
+        state_b = sample["state_b"]
+        action_a = sample["action_a"]
+        coupling = sample["coupling_effect_on_b"]
+
+        post_state_a = post(state_a, action_a)
+        post_state_b_without_coupling = dict(state_b)
+        post_state_b_with_coupling = state_add(state_b, coupling)
+
+        a_verdict = verdict_for(post_state_a)
+        b_verdict_without_coupling = verdict_for(post_state_b_without_coupling)
+        b_verdict_with_coupling = verdict_for(post_state_b_with_coupling)
+        coupling_flip = b_verdict_without_coupling != b_verdict_with_coupling
+        local_admissible_coupled_denied = a_verdict == "ALLOW" and b_verdict_without_coupling == "ALLOW" and b_verdict_with_coupling == "DENY"
+
+        flips += int(coupling_flip)
+        coupled_denials += int(local_admissible_coupled_denied)
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T9",
+            "mode": "two_state_coupling_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "two_state_coupling",
+            "state_a": state_a,
+            "state_b": state_b,
+            "action_a": action_a,
+            "coupling_effect_on_b": coupling,
+            "post_state_a": post_state_a,
+            "post_state_b_without_coupling": post_state_b_without_coupling,
+            "post_state_b_with_coupling": post_state_b_with_coupling,
+            "post_state": {"a": post_state_a, "b": post_state_b_with_coupling},
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "coupling_model": "deterministic_delta"},
+            "a_invariant": invariant(post_state_a),
+            "b_invariant_without_coupling": invariant(post_state_b_without_coupling),
+            "b_invariant_with_coupling": invariant(post_state_b_with_coupling),
+            "invariant": max(invariant(post_state_a), invariant(post_state_b_with_coupling)),
+            "a_verdict": a_verdict,
+            "b_verdict_without_coupling": b_verdict_without_coupling,
+            "b_verdict_with_coupling": b_verdict_with_coupling,
+            "verdict": "ALLOW" if a_verdict == "ALLOW" and b_verdict_with_coupling == "ALLOW" else "DENY",
+            "coupling_flip": coupling_flip,
+            "local_admissible_coupled_denied": local_admissible_coupled_denied,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-two-state-coupling",
+        "source_run_id": run_id,
+        "source_element": "T9",
+        "delta_type": "coupled_state_fragment",
+        "summary": f"Two-state coupling sweep found {flips} coupling flip(s), including {coupled_denials} case(s) where local admissibility became coupled inadmissibility.",
+        "informs": ["T9", "T10", "T11"],
+        "confidence": .85,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic two-state coupling sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -463,6 +553,7 @@ EXPERIMENTS = {
     "decision_lag_sweep_v1": t6,
     "actuation_lag_sweep_v1": t7,
     "trust_drift_sweep_v1": t8,
+    "two_state_coupling_sweep_v1": t9,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -470,6 +561,7 @@ FALLBACK_EXPERIMENTS = {
     "T6": ["decision_lag_sweep_v1"],
     "T7": ["actuation_lag_sweep_v1"],
     "T8": ["trust_drift_sweep_v1"],
+    "T9": ["two_state_coupling_sweep_v1"],
 }
 
 
@@ -482,6 +574,7 @@ RULE_DEFS = [
     ("decision_stage_required", "T6", 4, "Lag sandboxes may separate observation state, decision state, and commit state."),
     ("actuation_stage_required", "T7", 4, "Lag sandboxes may separate observed, decision, commit, actuation, and effect states."),
     ("trust_drift_required", "T8", 4, "Lag-aware sandboxes may model trust as a decaying state variable during transition delay."),
+    ("two_state_coupling_required", "T9", 4, "Coupled sandboxes may model disturbance from one transition state into another."),
 ]
 
 
@@ -555,6 +648,8 @@ def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
 
 
 def sandbox_class_for(element_id: str, gate: dict[str, Any]) -> str:
+    if element_id in ("T9", "T10", "T11", "T12"):
+        return "coupled_state_deterministic"
     if element_id in ("T5", "T6", "T7", "T8"):
         if evidence_gate_mode_rank(gate["mode"]) >= evidence_gate_mode_rank("sequence_lag_row"):
             return "lag_aware_deterministic"
@@ -599,6 +694,9 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "initial_trust", "decayed_trust", "pre_decay_capacity", "post_decay_capacity",
         "pre_decay_invariant", "post_decay_invariant", "pre_decay_verdict",
         "trust_decay_verdict", "trust_flip",
+        "a_invariant", "b_invariant_without_coupling", "b_invariant_with_coupling",
+        "a_verdict", "b_verdict_without_coupling", "b_verdict_with_coupling",
+        "coupling_flip", "local_admissible_coupled_denied",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -620,7 +718,14 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "sandbox": (run_manifest or {}).get("sandbox", {"type": "unknown"}),
         "applied_rules": (run_manifest or {}).get("applied_rules", []),
         "parameters": row_payload.get("parameters", {"K": 1, "alpha": 1, "beta": 1, "gamma": 1}),
-        "pre_state": row_payload.get("pre_state") or row_payload.get("observed_state"),
+        "pre_state": row_payload.get("pre_state") or row_payload.get("observed_state") or {"state_a": row_payload.get("state_a"), "state_b": row_payload.get("state_b")},
+        "state_a": row_payload.get("state_a"),
+        "state_b": row_payload.get("state_b"),
+        "action_a": row_payload.get("action_a"),
+        "coupling_effect_on_b": row_payload.get("coupling_effect_on_b"),
+        "post_state_a": row_payload.get("post_state_a"),
+        "post_state_b_without_coupling": row_payload.get("post_state_b_without_coupling"),
+        "post_state_b_with_coupling": row_payload.get("post_state_b_with_coupling"),
         "observed_state": row_payload.get("observed_state"),
         "observation_lag_drift": row_payload.get("observation_lag_drift") or row_payload.get("lag_drift"),
         "decision_state": row_payload.get("decision_state"),
@@ -679,6 +784,8 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "actuation_flip": receipt["computed"].get("actuation_flip"),
             "total_lag_flip": receipt["computed"].get("total_lag_flip"),
             "trust_flip": receipt["computed"].get("trust_flip"),
+            "coupling_flip": receipt["computed"].get("coupling_flip"),
+            "local_admissible_coupled_denied": receipt["computed"].get("local_admissible_coupled_denied"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
