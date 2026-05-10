@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-10T02:50:17Z",
+  "schema": "stegverse.transition_release_index.v1",
+  "current_release": {
+    "release_id": "transition-release-snapshot-v1",
+    "formal_milestone": "MS-009 \u2014 Development Release Hardening",
+    "state": "development_release_hardened",
+    "snapshot_json": "data/transition-release-snapshot-v1.json",
+    "snapshot_page": "transition-release-snapshot.html"
+  },
+  "public_pages": [
+    {
+      "label": "Research Landing",
+      "path": "transition-periodic-table.html"
+    },
+    {
+      "label": "Transition Table",
+      "path": "transition-table.html"
+    },
+    {
+      "label": "Milestones",
+      "path": "transition-milestones.html"
+    },
+    {
+      "label": "Development Status",
+      "path": "transition-development-status.html"
+    },
+    {
+      "label": "Release Snapshot",
+      "path": "transition-release-snapshot.html"
+    },
+    {
+      "label": "Release Index",
+      "path": "transition-release-index.html"
+    }
+  ],
+  "public_data": [
+    {
+      "label": "Automation Release State",
+      "path": "data/automation-release-state.json"
+    },
+    {
+      "label": "Automation Release Verifier",
+      "path": "data/automation-release-verifier.json"
+    },
+    {
+      "label": "Receipt-Backing Verifier",
+      "path": "data/receipt-backing-verifier.json"
+    },
+    {
+      "label": "Experimental Ledger Summary",
+      "path": "data/experimental-ledger-summary.json"
+    },
+    {
+      "label": "Transition Evidence",
+      "path": "data/transition-evidence.json"
+    },
+    {
+      "label": "Release Snapshot v1",
+      "path": "data/transition-release-snapshot-v1.json"
+    },
+    {
+      "label": "Release Index v1",
+      "path": "data/transition-release-index-v1.json"
+    }
+  ],
+  "next_pending_milestone": {
+    "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
+    "status": "pending",
+    "unlock_condition": "The release index and navigation routes are visible from the main transition research surfaces."
+  }
+}
