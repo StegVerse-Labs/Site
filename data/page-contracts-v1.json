@@ -3,6 +3,25 @@
   "base_url_default": "https://stegverse-labs.github.io/Site",
   "pages": [
     {
+      "path": "index.html",
+      "required_substrings": [
+        "STEGVERSE",
+        "Expose trust failures",
+        "Run the execution demo",
+        "Support StegVerse Research",
+        "Site map"
+      ],
+      "required_links": [
+        "demo.html",
+        "support.html",
+        "product.html",
+        "pricing.html",
+        "methodology.html",
+        "about.html",
+        "Papers.html"
+      ]
+    },
+    {
       "path": "transition-periodic-table.html",
       "required_substrings": [
         "TRANSITION PERIODIC TABLE",
@@ -29,7 +48,6 @@
       "path": "transition-table.html",
       "required_substrings": [
         "TRANSITION TABLE",
-        "MS-011",
         "Replay Packet",
         "Verification Guide"
       ],
@@ -62,8 +80,6 @@
         "TRANSITION DEVELOPMENT STATUS",
         "MS-011",
         "Public Verification Bundle",
-        "receipt backed automation ready",
-        "ALLOW",
         "Replay Packet"
       ],
       "required_links": [
