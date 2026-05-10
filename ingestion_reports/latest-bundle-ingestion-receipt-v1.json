@@ -1,52 +1,43 @@
 {
-  "generated_at": "2026-05-10T11:59:34Z",
+  "generated_at": "2026-05-10T12:07:39Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012C \u2014 Ingestion Receipt Boundary",
-  "bundle_name": "ingestion-smoke-test-bundle-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ingestion-smoke-test-bundle-v1.zip",
-  "bundle_sha256": "645dcc3dbef900e9920d9a782e79ac5cbb90c46f25a58249afa6f75210d332d1",
+  "bundle_name": "page-contract-report 2.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/page-contract-report 2.zip",
+  "bundle_sha256": "508e6cce02deffe5088a5e63ef99f468894e04368f54253e1b4c5e6197fd99c4",
   "mode": "apply",
   "verdict": "ALLOW",
-  "files_seen": 3,
+  "files_seen": 2,
   "files_created": 2,
   "files_updated": 0,
   "files_unchanged": 0,
-  "files_skipped": 1,
+  "files_skipped": 0,
   "files_would_apply": 0,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "54e3a9ae922bc5f91ca3dcf34f4c51e711b31595a35c828857fc736fd424851a",
-    "after_tree_fingerprint": "7c9a7aa6c55854e35d36fac159aa4a32e068d60321e675ed39dd20fef70b1b20",
-    "changed_files_fingerprint": "866f4a6412afdb595a3751abc221a611e0461205e4cb78dff28b4daebcbffd0b"
+    "before_tree_fingerprint": "d2aa1b41529f52b30d552722ff8c476160e7be2471cbe2c947b090f821d390b5",
+    "after_tree_fingerprint": "e3758135f480d1e48161eb785cc4e99a0c9edd2843063ee08a6a0ff617a86e01",
+    "changed_files_fingerprint": "4807b3ec54f53c961d8c6230ef4b5fe18125cdbba807fb080e801d4f7d2849b0"
   },
   "decisions": [
     {
-      "bundle_path": "README.md",
-      "repo_path": null,
-      "action": "skipped",
-      "reason": "bundle root README is documentation and is not applied to repo root",
-      "old_sha256": null,
-      "new_sha256": "d5b3984574902946af9454febe2121b70ffbfd8b5915375b25c5af84c0a32214",
-      "bytes": 671
-    },
-    {
-      "bundle_path": "bundle-manifest.json",
-      "repo_path": "bundle-manifest.json",
+      "bundle_path": "page-contract-report.json",
+      "repo_path": "page-contract-report.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "82dd35b13ca219e4aa6be8b9a8182c9496e26d7833791ff284b415ad961922b2",
-      "bytes": 607
+      "new_sha256": "55a6bb11da4710d55ffa5fdf5218b60bf8c05b44aa1bc8aedea8f16068ad43b1",
+      "bytes": 58614
     },
     {
-      "bundle_path": "data/ingestion-smoke-test-v1.json",
-      "repo_path": "data/ingestion-smoke-test-v1.json",
+      "bundle_path": "page-contract-report.md",
+      "repo_path": "page-contract-report.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "af2371827517932255ce84c0066767cc9c021ace929afb10867cdd3eb055a764",
-      "bytes": 870
+      "new_sha256": "5dcb8cea441bd0f65b15a5bc08b7b7247f97a45c9f526f46a9c404a044eefb85",
+      "bytes": 31097
     }
   ]
 }

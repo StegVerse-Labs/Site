@@ -1,0 +1,2122 @@
+{
+  "base_url": "https://stegverse-labs.github.io/Site",
+  "passed": true,
+  "total": 302,
+  "failures": 0,
+  "results": [
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "contains:STEGVERSE",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "contains:Expose trust failures",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "contains:Run the execution demo",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "contains:Support StegVerse Research",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "contains:Site map",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:demo.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:support.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:product.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:pricing.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:methodology.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:about.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "index.html",
+      "check": "link:./publisher/papers.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> ./publisher/papers.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> about.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> guarantees.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> methodology.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> pricing.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> product.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> stegfinco.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> support.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "index.html -> what-we-do.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:TRANSITION PERIODIC TABLE",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Transition Table",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Milestones",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Development Status",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Release Snapshot",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Release Index",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Verification Guide",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "contains:Support Research",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-table.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-milestones.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-development-status.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-release-snapshot.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-release-index.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-verification-guide.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-periodic-table.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> data/automation-release-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> data/transition-release-index-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> data/transition-release-snapshot-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-periodic-table.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "contains:TRANSITION TABLE",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "contains:Verification Guide",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "link:transition-milestones.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "link:transition-release-index.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "link:transition-verification-guide.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-table.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> data/experimental-ledger-summary.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-table.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:TRANSITION MILESTONES",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:MS-011",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:Public Verification Bundle",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:MS-012",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:Independent Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:pending",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "link:transition-verification-guide.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-milestones.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-milestones.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "contains:TRANSITION DEVELOPMENT STATUS",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "contains:MS-011",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "contains:Public Verification Bundle",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "link:transition-verification-guide.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-development-status.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> data/automation-release-state.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> data/automation-release-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> data/experimental-ledger-summary.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> data/receipt-backing-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> data/transition-evidence.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> data/transition-release-snapshot-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-development-status.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "contains:TRANSITION RELEASE SNAPSHOT",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "contains:MS-011",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "contains:public verification bundle released",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "contains:receipt backed automation ready",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "link:transition-verification-guide.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-snapshot.html",
+      "check": "link:data/transition-release-snapshot-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> data/automation-release-state.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> data/automation-release-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> data/experimental-ledger-summary.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> data/receipt-backing-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> data/transition-evidence.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> data/transition-release-snapshot-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-snapshot.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:TRANSITION RELEASE INDEX",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:MS-011",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Public Verification Bundle",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Replay Packet v1",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Replay Fixtures v1",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Replay Verifier v1",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Next Transition Build Candidate v1",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Transition Release State v1",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Transition Decision Rules v1",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Autonomous Next-Step Selector",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:MS-012",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:Independent Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "contains:candidate",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/transition-replay-packet-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/transition-replay-fixtures-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/transition-replay-verifier-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/transition-release-state-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/transition-decision-rules-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/next-transition-build-candidate-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-release-index.html",
+      "check": "link:data/transition-release-index-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/automation-release-state.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/automation-release-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/experimental-ledger-summary.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/next-transition-build-candidate-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/receipt-backing-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-decision-rules-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-evidence.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-release-index-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-release-snapshot-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-release-state-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-replay-fixtures-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-replay-packet-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-replay-verifier-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> data/transition-verification-bundle-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-release-index.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:TRANSITION VERIFICATION GUIDE",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:MS-011 released",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:Why MS-011 Is Unlocked",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:Verification Path",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:MS-012",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:Independent Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "contains:Replay Packet",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "link:transition-replay-packet.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-verification-guide.html",
+      "check": "link:data/transition-verification-bundle-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/automation-release-state.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/automation-release-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/experimental-ledger-summary.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/receipt-backing-verifier.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/transition-evidence.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/transition-release-index-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/transition-release-snapshot-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> data/transition-verification-bundle-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-verification-guide.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:TRANSITION REPLAY PACKET",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:MS-012 pending",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:Replay Scope",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:Replay Steps",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:T13",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:T14",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:MS-011",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "contains:ALLOW",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "link:data/transition-replay-packet-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "link:data/transition-replay-fixtures-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "link:data/transition-replay-verifier-v1.json",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "page",
+      "target": "transition-replay-packet.html",
+      "check": "link:transition-verification-guide.html",
+      "passed": true,
+      "detail": "found"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> data/transition-replay-fixtures-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> data/transition-replay-packet-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> data/transition-replay-verifier-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> demo.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-development-status.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-milestones.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-periodic-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-release-index.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-release-snapshot.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-replay-packet.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-table.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "link",
+      "target": "transition-replay-packet.html -> transition-verification-guide.html",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "current_release.formal_milestone == MS-011 \u2014 Public Verification Bundle",
+      "passed": true,
+      "detail": "actual='MS-011 \u2014 Public Verification Bundle'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "current_release.state == public_verification_bundle_released",
+      "passed": true,
+      "detail": "actual='public_verification_bundle_released'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "candidate_release.formal_milestone == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "candidate_release.state == candidate_until_transition_replay_check_and_page_contract_check_pass",
+      "passed": true,
+      "detail": "actual='candidate_until_transition_replay_check_and_page_contract_check_pass'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "automation_layer.formal_label == Autonomous Next-Step Selector v1",
+      "passed": true,
+      "detail": "actual='Autonomous Next-Step Selector v1'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "automation_layer.candidate_json == data/next-transition-build-candidate-v1.json",
+      "passed": true,
+      "detail": "actual='data/next-transition-build-candidate-v1.json'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "next_pending_milestone.formal_milestone == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_pages contains",
+      "passed": true,
+      "detail": "expected object={'path': 'transition-replay-packet.html'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_data contains",
+      "passed": true,
+      "detail": "expected object={'path': 'data/transition-replay-packet-v1.json'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_data contains",
+      "passed": true,
+      "detail": "expected object={'path': 'data/transition-replay-fixtures-v1.json'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_data contains",
+      "passed": true,
+      "detail": "expected object={'path': 'data/transition-replay-verifier-v1.json'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_data contains",
+      "passed": true,
+      "detail": "expected object={'path': 'data/transition-release-state-v1.json'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_data contains",
+      "passed": true,
+      "detail": "expected object={'path': 'data/transition-decision-rules-v1.json'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-index-v1.json",
+      "check": "public_data contains",
+      "passed": true,
+      "detail": "expected object={'path': 'data/next-transition-build-candidate-v1.json'}"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-state-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-state-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-state-v1.json",
+      "check": "schema == stegverse.transition_release_state.v1",
+      "passed": true,
+      "detail": "actual='stegverse.transition_release_state.v1'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-state-v1.json",
+      "check": "current_released_milestone.formal_label == MS-011 \u2014 Public Verification Bundle",
+      "passed": true,
+      "detail": "actual='MS-011 \u2014 Public Verification Bundle'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-state-v1.json",
+      "check": "current_candidate_milestone.formal_label == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-state-v1.json",
+      "check": "selector_policy.allow_promotion_from_chat_or_screenshot == False",
+      "passed": true,
+      "detail": "actual=False"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-decision-rules-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-decision-rules-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-decision-rules-v1.json",
+      "check": "schema == stegverse.transition_decision_rules.v1",
+      "passed": true,
+      "detail": "actual='stegverse.transition_decision_rules.v1'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-decision-rules-v1.json",
+      "check": "ruleset_id == transition-decision-rules-v1",
+      "passed": true,
+      "detail": "actual='transition-decision-rules-v1'"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "schema == stegverse.next_transition_build_candidate.v1",
+      "passed": true,
+      "detail": "actual='stegverse.next_transition_build_candidate.v1'"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "current_released_milestone == MS-011 \u2014 Public Verification Bundle",
+      "passed": true,
+      "detail": "actual='MS-011 \u2014 Public Verification Bundle'"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "current_candidate_milestone == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "next_system_action == run_required_checks",
+      "passed": true,
+      "detail": "actual='run_required_checks'"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "promotion_allowed == False",
+      "passed": true,
+      "detail": "actual=False"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "safety.missing_evidence_promotes == False",
+      "passed": true,
+      "detail": "actual=False"
+    },
+    {
+      "kind": "json",
+      "target": "data/next-transition-build-candidate-v1.json",
+      "check": "safety.chat_or_screenshot_promotes == False",
+      "passed": true,
+      "detail": "actual=False"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-snapshot-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-snapshot-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-snapshot-v1.json",
+      "check": "formal_milestone == MS-011 \u2014 Public Verification Bundle",
+      "passed": true,
+      "detail": "actual='MS-011 \u2014 Public Verification Bundle'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-release-snapshot-v1.json",
+      "check": "release_state == public_verification_bundle_released",
+      "passed": true,
+      "detail": "actual='public_verification_bundle_released'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-verification-bundle-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-verification-bundle-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-verification-bundle-v1.json",
+      "check": "formal_milestone == MS-011 \u2014 Public Verification Bundle",
+      "passed": true,
+      "detail": "actual='MS-011 \u2014 Public Verification Bundle'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-verification-bundle-v1.json",
+      "check": "status == released",
+      "passed": true,
+      "detail": "actual='released'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-verification-bundle-v1.json",
+      "check": "next_pending_milestone.formal_milestone == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "formal_milestone == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "status == candidate_until_transition_replay_check_and_page_contract_check_pass",
+      "passed": true,
+      "detail": "actual='candidate_until_transition_replay_check_and_page_contract_check_pass'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "current_verified_release.formal_milestone == MS-011 \u2014 Public Verification Bundle",
+      "passed": true,
+      "detail": "actual='MS-011 \u2014 Public Verification Bundle'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "public_inputs.replay_fixtures_json == data/transition-replay-fixtures-v1.json",
+      "passed": true,
+      "detail": "actual='data/transition-replay-fixtures-v1.json'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "public_inputs.replay_verifier_json == data/transition-replay-verifier-v1.json",
+      "passed": true,
+      "detail": "actual='data/transition-replay-verifier-v1.json'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "replay_scope.selected_elements contains",
+      "passed": true,
+      "detail": "actual=['T13', 'T14']"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-packet-v1.json",
+      "check": "replay_scope.selected_elements contains",
+      "passed": true,
+      "detail": "actual=['T13', 'T14']"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "http_200",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "valid_json",
+      "passed": true,
+      "detail": "parsed"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "formal_milestone == MS-012 \u2014 Independent Replay Packet",
+      "passed": true,
+      "detail": "actual='MS-012 \u2014 Independent Replay Packet'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "verdict == ALLOW",
+      "passed": true,
+      "detail": "actual='ALLOW'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "status == candidate_verified_static",
+      "passed": true,
+      "detail": "actual='candidate_verified_static'"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "selected_elements contains",
+      "passed": true,
+      "detail": "actual=['T13', 'T14']"
+    },
+    {
+      "kind": "json",
+      "target": "data/transition-replay-verifier-v1.json",
+      "check": "selected_elements contains",
+      "passed": true,
+      "detail": "actual=['T13', 'T14']"
+    }
+  ]
+}

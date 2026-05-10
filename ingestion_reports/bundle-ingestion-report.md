@@ -1,26 +1,26 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-10T11:59:34Z`
+Generated: `2026-05-10T12:07:39Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ingestion-smoke-test-bundle-v1.zip`
-Bundle SHA-256: `645dcc3dbef900e9920d9a782e79ac5cbb90c46f25a58249afa6f75210d332d1`
+Bundle: `/home/runner/work/Site/Site/incoming/page-contract-report 2.zip`
+Bundle SHA-256: `508e6cce02deffe5088a5e63ef99f468894e04368f54253e1b4c5e6197fd99c4`
 Verdict: `ALLOW`
 
 ## Summary
 
-- `total_entries_seen`: `3`
+- `total_entries_seen`: `2`
 - `applied`: `2`
 - `would_apply`: `0`
 - `unchanged`: `0`
-- `skipped`: `1`
+- `skipped`: `0`
 - `path_mappings`: `0`
 - `unsafe_paths_rejected`: `0`
 
 ## Repo Transition
 
-- `before_tree_fingerprint`: `54e3a9ae922bc5f91ca3dcf34f4c51e711b31595a35c828857fc736fd424851a`
-- `after_tree_fingerprint`: `7c9a7aa6c55854e35d36fac159aa4a32e068d60321e675ed39dd20fef70b1b20`
-- `changed_files_fingerprint`: `866f4a6412afdb595a3751abc221a611e0461205e4cb78dff28b4daebcbffd0b`
+- `before_tree_fingerprint`: `d2aa1b41529f52b30d552722ff8c476160e7be2471cbe2c947b090f821d390b5`
+- `after_tree_fingerprint`: `e3758135f480d1e48161eb785cc4e99a0c9edd2843063ee08a6a0ff617a86e01`
+- `changed_files_fingerprint`: `4807b3ec54f53c961d8c6230ef4b5fe18125cdbba807fb080e801d4f7d2849b0`
 
 ## Path Mappings
 
@@ -28,6 +28,5 @@ No path mappings applied.
 
 ## File Decisions
 
-- `skipped` `README.md` → `(none)` — bundle root README is documentation and is not applied to repo root
-- `created` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `created` `data/ingestion-smoke-test-v1.json` → `data/ingestion-smoke-test-v1.json` — hash differs or target missing
+- `created` `page-contract-report.json` → `page-contract-report.json` — hash differs or target missing
+- `created` `page-contract-report.md` → `page-contract-report.md` — hash differs or target missing

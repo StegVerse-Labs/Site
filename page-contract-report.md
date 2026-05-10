@@ -1,0 +1,317 @@
+# Page Contract Report
+
+Base URL: `https://stegverse-labs.github.io/Site`
+
+Result: **PASS**
+
+Total checks: `302`
+Failures: `0`
+
+## Failures
+
+No failures.
+
+## All Checks
+
+- ✅ `page` `index.html` `http_200` — status=200
+- ✅ `page` `index.html` `contains:STEGVERSE` — found
+- ✅ `page` `index.html` `contains:Expose trust failures` — found
+- ✅ `page` `index.html` `contains:Run the execution demo` — found
+- ✅ `page` `index.html` `contains:Support StegVerse Research` — found
+- ✅ `page` `index.html` `contains:Site map` — found
+- ✅ `page` `index.html` `link:demo.html` — found
+- ✅ `page` `index.html` `link:support.html` — found
+- ✅ `page` `index.html` `link:product.html` — found
+- ✅ `page` `index.html` `link:pricing.html` — found
+- ✅ `page` `index.html` `link:methodology.html` — found
+- ✅ `page` `index.html` `link:about.html` — found
+- ✅ `page` `index.html` `link:./publisher/papers.html` — found
+- ✅ `link` `index.html -> ./publisher/papers.html` `http_200` — status=200
+- ✅ `link` `index.html -> about.html` `http_200` — status=200
+- ✅ `link` `index.html -> demo.html` `http_200` — status=200
+- ✅ `link` `index.html -> guarantees.html` `http_200` — status=200
+- ✅ `link` `index.html -> index.html` `http_200` — status=200
+- ✅ `link` `index.html -> methodology.html` `http_200` — status=200
+- ✅ `link` `index.html -> pricing.html` `http_200` — status=200
+- ✅ `link` `index.html -> product.html` `http_200` — status=200
+- ✅ `link` `index.html -> stegfinco.html` `http_200` — status=200
+- ✅ `link` `index.html -> support.html` `http_200` — status=200
+- ✅ `link` `index.html -> what-we-do.html` `http_200` — status=200
+- ✅ `page` `transition-periodic-table.html` `http_200` — status=200
+- ✅ `page` `transition-periodic-table.html` `contains:TRANSITION PERIODIC TABLE` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Transition Table` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Milestones` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Development Status` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Release Snapshot` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Release Index` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Verification Guide` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-periodic-table.html` `contains:Support Research` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-table.html` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-milestones.html` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-development-status.html` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-release-snapshot.html` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-release-index.html` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-verification-guide.html` — found
+- ✅ `page` `transition-periodic-table.html` `link:transition-replay-packet.html` — found
+- ✅ `link` `transition-periodic-table.html -> data/automation-release-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> data/transition-release-index-v1.json` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> data/transition-release-snapshot-v1.json` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-periodic-table.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-table.html` `http_200` — status=200
+- ✅ `page` `transition-table.html` `contains:TRANSITION TABLE` — found
+- ✅ `page` `transition-table.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-table.html` `contains:Verification Guide` — found
+- ✅ `page` `transition-table.html` `link:transition-milestones.html` — found
+- ✅ `page` `transition-table.html` `link:transition-release-index.html` — found
+- ✅ `page` `transition-table.html` `link:transition-verification-guide.html` — found
+- ✅ `page` `transition-table.html` `link:transition-replay-packet.html` — found
+- ✅ `link` `transition-table.html -> data/experimental-ledger-summary.json` `http_200` — status=200
+- ✅ `link` `transition-table.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-table.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-milestones.html` `http_200` — status=200
+- ✅ `page` `transition-milestones.html` `contains:TRANSITION MILESTONES` — found
+- ✅ `page` `transition-milestones.html` `contains:MS-011` — found
+- ✅ `page` `transition-milestones.html` `contains:Public Verification Bundle` — found
+- ✅ `page` `transition-milestones.html` `contains:MS-012` — found
+- ✅ `page` `transition-milestones.html` `contains:Independent Replay Packet` — found
+- ✅ `page` `transition-milestones.html` `contains:pending` — found
+- ✅ `page` `transition-milestones.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-milestones.html` `link:transition-verification-guide.html` — found
+- ✅ `page` `transition-milestones.html` `link:transition-replay-packet.html` — found
+- ✅ `link` `transition-milestones.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-milestones.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-development-status.html` `http_200` — status=200
+- ✅ `page` `transition-development-status.html` `contains:TRANSITION DEVELOPMENT STATUS` — found
+- ✅ `page` `transition-development-status.html` `contains:MS-011` — found
+- ✅ `page` `transition-development-status.html` `contains:Public Verification Bundle` — found
+- ✅ `page` `transition-development-status.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-development-status.html` `link:transition-verification-guide.html` — found
+- ✅ `page` `transition-development-status.html` `link:transition-replay-packet.html` — found
+- ✅ `link` `transition-development-status.html -> data/automation-release-state.json` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> data/automation-release-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> data/experimental-ledger-summary.json` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> data/receipt-backing-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> data/transition-evidence.json` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> data/transition-release-snapshot-v1.json` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-development-status.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-release-snapshot.html` `http_200` — status=200
+- ✅ `page` `transition-release-snapshot.html` `contains:TRANSITION RELEASE SNAPSHOT` — found
+- ✅ `page` `transition-release-snapshot.html` `contains:MS-011` — found
+- ✅ `page` `transition-release-snapshot.html` `contains:public verification bundle released` — found
+- ✅ `page` `transition-release-snapshot.html` `contains:receipt backed automation ready` — found
+- ✅ `page` `transition-release-snapshot.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-release-snapshot.html` `link:transition-verification-guide.html` — found
+- ✅ `page` `transition-release-snapshot.html` `link:transition-replay-packet.html` — found
+- ✅ `page` `transition-release-snapshot.html` `link:data/transition-release-snapshot-v1.json` — found
+- ✅ `link` `transition-release-snapshot.html -> data/automation-release-state.json` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> data/automation-release-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> data/experimental-ledger-summary.json` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> data/receipt-backing-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> data/transition-evidence.json` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> data/transition-release-snapshot-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-release-snapshot.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-release-index.html` `http_200` — status=200
+- ✅ `page` `transition-release-index.html` `contains:TRANSITION RELEASE INDEX` — found
+- ✅ `page` `transition-release-index.html` `contains:MS-011` — found
+- ✅ `page` `transition-release-index.html` `contains:Public Verification Bundle` — found
+- ✅ `page` `transition-release-index.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-release-index.html` `contains:Replay Packet v1` — found
+- ✅ `page` `transition-release-index.html` `contains:Replay Fixtures v1` — found
+- ✅ `page` `transition-release-index.html` `contains:Replay Verifier v1` — found
+- ✅ `page` `transition-release-index.html` `contains:Next Transition Build Candidate v1` — found
+- ✅ `page` `transition-release-index.html` `contains:Transition Release State v1` — found
+- ✅ `page` `transition-release-index.html` `contains:Transition Decision Rules v1` — found
+- ✅ `page` `transition-release-index.html` `contains:Autonomous Next-Step Selector` — found
+- ✅ `page` `transition-release-index.html` `contains:MS-012` — found
+- ✅ `page` `transition-release-index.html` `contains:Independent Replay Packet` — found
+- ✅ `page` `transition-release-index.html` `contains:candidate` — found
+- ✅ `page` `transition-release-index.html` `link:transition-replay-packet.html` — found
+- ✅ `page` `transition-release-index.html` `link:data/transition-replay-packet-v1.json` — found
+- ✅ `page` `transition-release-index.html` `link:data/transition-replay-fixtures-v1.json` — found
+- ✅ `page` `transition-release-index.html` `link:data/transition-replay-verifier-v1.json` — found
+- ✅ `page` `transition-release-index.html` `link:data/transition-release-state-v1.json` — found
+- ✅ `page` `transition-release-index.html` `link:data/transition-decision-rules-v1.json` — found
+- ✅ `page` `transition-release-index.html` `link:data/next-transition-build-candidate-v1.json` — found
+- ✅ `page` `transition-release-index.html` `link:data/transition-release-index-v1.json` — found
+- ✅ `link` `transition-release-index.html -> data/automation-release-state.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/automation-release-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/experimental-ledger-summary.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/next-transition-build-candidate-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/receipt-backing-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-decision-rules-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-evidence.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-release-index-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-release-snapshot-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-release-state-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-replay-fixtures-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-replay-packet-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-replay-verifier-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> data/transition-verification-bundle-v1.json` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-release-index.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-verification-guide.html` `contains:TRANSITION VERIFICATION GUIDE` — found
+- ✅ `page` `transition-verification-guide.html` `contains:MS-011 released` — found
+- ✅ `page` `transition-verification-guide.html` `contains:Why MS-011 Is Unlocked` — found
+- ✅ `page` `transition-verification-guide.html` `contains:Verification Path` — found
+- ✅ `page` `transition-verification-guide.html` `contains:MS-012` — found
+- ✅ `page` `transition-verification-guide.html` `contains:Independent Replay Packet` — found
+- ✅ `page` `transition-verification-guide.html` `contains:Replay Packet` — found
+- ✅ `page` `transition-verification-guide.html` `link:transition-replay-packet.html` — found
+- ✅ `page` `transition-verification-guide.html` `link:data/transition-verification-bundle-v1.json` — found
+- ✅ `link` `transition-verification-guide.html -> data/automation-release-state.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/automation-release-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/experimental-ledger-summary.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/receipt-backing-verifier.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/transition-evidence.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/transition-release-index-v1.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/transition-release-snapshot-v1.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> data/transition-verification-bundle-v1.json` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-verification-guide.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `page` `transition-replay-packet.html` `http_200` — status=200
+- ✅ `page` `transition-replay-packet.html` `contains:TRANSITION REPLAY PACKET` — found
+- ✅ `page` `transition-replay-packet.html` `contains:MS-012 pending` — found
+- ✅ `page` `transition-replay-packet.html` `contains:Replay Scope` — found
+- ✅ `page` `transition-replay-packet.html` `contains:Replay Steps` — found
+- ✅ `page` `transition-replay-packet.html` `contains:T13` — found
+- ✅ `page` `transition-replay-packet.html` `contains:T14` — found
+- ✅ `page` `transition-replay-packet.html` `contains:MS-011` — found
+- ✅ `page` `transition-replay-packet.html` `contains:ALLOW` — found
+- ✅ `page` `transition-replay-packet.html` `link:data/transition-replay-packet-v1.json` — found
+- ✅ `page` `transition-replay-packet.html` `link:data/transition-replay-fixtures-v1.json` — found
+- ✅ `page` `transition-replay-packet.html` `link:data/transition-replay-verifier-v1.json` — found
+- ✅ `page` `transition-replay-packet.html` `link:transition-verification-guide.html` — found
+- ✅ `link` `transition-replay-packet.html -> data/transition-replay-fixtures-v1.json` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> data/transition-replay-packet-v1.json` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> data/transition-replay-verifier-v1.json` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> demo.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> index.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-development-status.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-milestones.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-periodic-table.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-release-index.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-release-snapshot.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-replay-packet.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-table.html` `http_200` — status=200
+- ✅ `link` `transition-replay-packet.html -> transition-verification-guide.html` `http_200` — status=200
+- ✅ `json` `data/transition-release-index-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-release-index-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-release-index-v1.json` `current_release.formal_milestone == MS-011 — Public Verification Bundle` — actual='MS-011 — Public Verification Bundle'
+- ✅ `json` `data/transition-release-index-v1.json` `current_release.state == public_verification_bundle_released` — actual='public_verification_bundle_released'
+- ✅ `json` `data/transition-release-index-v1.json` `candidate_release.formal_milestone == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/transition-release-index-v1.json` `candidate_release.state == candidate_until_transition_replay_check_and_page_contract_check_pass` — actual='candidate_until_transition_replay_check_and_page_contract_check_pass'
+- ✅ `json` `data/transition-release-index-v1.json` `automation_layer.formal_label == Autonomous Next-Step Selector v1` — actual='Autonomous Next-Step Selector v1'
+- ✅ `json` `data/transition-release-index-v1.json` `automation_layer.candidate_json == data/next-transition-build-candidate-v1.json` — actual='data/next-transition-build-candidate-v1.json'
+- ✅ `json` `data/transition-release-index-v1.json` `next_pending_milestone.formal_milestone == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/transition-release-index-v1.json` `public_pages contains` — expected object={'path': 'transition-replay-packet.html'}
+- ✅ `json` `data/transition-release-index-v1.json` `public_data contains` — expected object={'path': 'data/transition-replay-packet-v1.json'}
+- ✅ `json` `data/transition-release-index-v1.json` `public_data contains` — expected object={'path': 'data/transition-replay-fixtures-v1.json'}
+- ✅ `json` `data/transition-release-index-v1.json` `public_data contains` — expected object={'path': 'data/transition-replay-verifier-v1.json'}
+- ✅ `json` `data/transition-release-index-v1.json` `public_data contains` — expected object={'path': 'data/transition-release-state-v1.json'}
+- ✅ `json` `data/transition-release-index-v1.json` `public_data contains` — expected object={'path': 'data/transition-decision-rules-v1.json'}
+- ✅ `json` `data/transition-release-index-v1.json` `public_data contains` — expected object={'path': 'data/next-transition-build-candidate-v1.json'}
+- ✅ `json` `data/transition-release-state-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-release-state-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-release-state-v1.json` `schema == stegverse.transition_release_state.v1` — actual='stegverse.transition_release_state.v1'
+- ✅ `json` `data/transition-release-state-v1.json` `current_released_milestone.formal_label == MS-011 — Public Verification Bundle` — actual='MS-011 — Public Verification Bundle'
+- ✅ `json` `data/transition-release-state-v1.json` `current_candidate_milestone.formal_label == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/transition-release-state-v1.json` `selector_policy.allow_promotion_from_chat_or_screenshot == False` — actual=False
+- ✅ `json` `data/transition-decision-rules-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-decision-rules-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-decision-rules-v1.json` `schema == stegverse.transition_decision_rules.v1` — actual='stegverse.transition_decision_rules.v1'
+- ✅ `json` `data/transition-decision-rules-v1.json` `ruleset_id == transition-decision-rules-v1` — actual='transition-decision-rules-v1'
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `http_200` — status=200
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `valid_json` — parsed
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `schema == stegverse.next_transition_build_candidate.v1` — actual='stegverse.next_transition_build_candidate.v1'
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `current_released_milestone == MS-011 — Public Verification Bundle` — actual='MS-011 — Public Verification Bundle'
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `current_candidate_milestone == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `next_system_action == run_required_checks` — actual='run_required_checks'
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `promotion_allowed == False` — actual=False
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `safety.missing_evidence_promotes == False` — actual=False
+- ✅ `json` `data/next-transition-build-candidate-v1.json` `safety.chat_or_screenshot_promotes == False` — actual=False
+- ✅ `json` `data/transition-release-snapshot-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-release-snapshot-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-release-snapshot-v1.json` `formal_milestone == MS-011 — Public Verification Bundle` — actual='MS-011 — Public Verification Bundle'
+- ✅ `json` `data/transition-release-snapshot-v1.json` `release_state == public_verification_bundle_released` — actual='public_verification_bundle_released'
+- ✅ `json` `data/transition-verification-bundle-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-verification-bundle-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-verification-bundle-v1.json` `formal_milestone == MS-011 — Public Verification Bundle` — actual='MS-011 — Public Verification Bundle'
+- ✅ `json` `data/transition-verification-bundle-v1.json` `status == released` — actual='released'
+- ✅ `json` `data/transition-verification-bundle-v1.json` `next_pending_milestone.formal_milestone == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/transition-replay-packet-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-replay-packet-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-replay-packet-v1.json` `formal_milestone == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/transition-replay-packet-v1.json` `status == candidate_until_transition_replay_check_and_page_contract_check_pass` — actual='candidate_until_transition_replay_check_and_page_contract_check_pass'
+- ✅ `json` `data/transition-replay-packet-v1.json` `current_verified_release.formal_milestone == MS-011 — Public Verification Bundle` — actual='MS-011 — Public Verification Bundle'
+- ✅ `json` `data/transition-replay-packet-v1.json` `public_inputs.replay_fixtures_json == data/transition-replay-fixtures-v1.json` — actual='data/transition-replay-fixtures-v1.json'
+- ✅ `json` `data/transition-replay-packet-v1.json` `public_inputs.replay_verifier_json == data/transition-replay-verifier-v1.json` — actual='data/transition-replay-verifier-v1.json'
+- ✅ `json` `data/transition-replay-packet-v1.json` `replay_scope.selected_elements contains` — actual=['T13', 'T14']
+- ✅ `json` `data/transition-replay-packet-v1.json` `replay_scope.selected_elements contains` — actual=['T13', 'T14']
+- ✅ `json` `data/transition-replay-verifier-v1.json` `http_200` — status=200
+- ✅ `json` `data/transition-replay-verifier-v1.json` `valid_json` — parsed
+- ✅ `json` `data/transition-replay-verifier-v1.json` `formal_milestone == MS-012 — Independent Replay Packet` — actual='MS-012 — Independent Replay Packet'
+- ✅ `json` `data/transition-replay-verifier-v1.json` `verdict == ALLOW` — actual='ALLOW'
+- ✅ `json` `data/transition-replay-verifier-v1.json` `status == candidate_verified_static` — actual='candidate_verified_static'
+- ✅ `json` `data/transition-replay-verifier-v1.json` `selected_elements contains` — actual=['T13', 'T14']
+- ✅ `json` `data/transition-replay-verifier-v1.json` `selected_elements contains` — actual=['T13', 'T14']
