@@ -18,7 +18,7 @@
         "pricing.html",
         "methodology.html",
         "about.html",
-        "Papers.html"
+        "./publisher/papers.html"
       ]
     },
     {
@@ -159,7 +159,7 @@
       "required_values": [
         {
           "json_path": "current_release.formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
+          "equals": "MS-011 — Public Verification Bundle"
         },
         {
           "json_path": "current_release.state",
@@ -167,7 +167,7 @@
         },
         {
           "json_path": "next_pending_milestone.formal_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
+          "equals": "MS-012 — Independent Replay Packet"
         }
       ],
       "required_contains": [
@@ -190,7 +190,7 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
+          "equals": "MS-011 — Public Verification Bundle"
         },
         {
           "json_path": "release_state",
@@ -203,7 +203,7 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
+          "equals": "MS-011 — Public Verification Bundle"
         },
         {
           "json_path": "status",
@@ -211,7 +211,7 @@
         },
         {
           "json_path": "next_pending_milestone.formal_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
+          "equals": "MS-012 — Independent Replay Packet"
         }
       ]
     },
@@ -220,7 +220,7 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
+          "equals": "MS-012 — Independent Replay Packet"
         },
         {
           "json_path": "status",
@@ -228,7 +228,7 @@
         },
         {
           "json_path": "current_verified_release.formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
+          "equals": "MS-011 — Public Verification Bundle"
         }
       ],
       "required_contains": [
