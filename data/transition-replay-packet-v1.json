@@ -1,90 +1,44 @@
 {
-  "generated_at": "2026-05-10T04:42:21Z",
+  "generated_at": "2026-05-10T10:38:30Z",
   "schema": "stegverse.transition_replay_packet.v1",
   "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
-  "status": "pending_until_public_links_confirmed",
-  "purpose": "Provide a reader-facing packet for independently replaying selected transition receipts and comparing reconstructed outcomes against the public ledger.",
+  "status": "candidate_until_transition_replay_check_and_page_contract_check_pass",
   "current_verified_release": {
     "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
-    "release_state": "public_verification_bundle_released",
-    "automation_state": "receipt_backed_automation_ready",
-    "verifier_verdict": "ALLOW"
+    "state": "public_verification_bundle_released"
   },
   "replay_scope": {
     "selected_elements": [
       "T13",
       "T14"
     ],
-    "reason": "T13 and T14 are the current receipt-backed evidence elements and therefore form the safest public replay target.",
-    "not_in_scope": [
-      "Full autonomous replay of every transition element",
-      "Unbounded engine execution",
-      "Private or unpublished workflow logs",
-      "Final publication proof claims"
+    "reason": "T13 and T14 are the first receipt-backed evidence elements and are sufficient to test receipt binding plus reconstruction matching."
+  },
+  "public_inputs": {
+    "replay_packet_page": "transition-replay-packet.html",
+    "replay_packet_json": "data/transition-replay-packet-v1.json",
+    "replay_fixtures_json": "data/transition-replay-fixtures-v1.json",
+    "replay_verifier_json": "data/transition-replay-verifier-v1.json",
+    "release_index_json": "data/transition-release-index-v1.json",
+    "verification_bundle_json": "data/transition-verification-bundle-v1.json"
+  },
+  "workflow": {
+    "display_path": "github/workflows/transition-replay-check.yml",
+    "actual_path": ".github/workflows/transition-replay-check.yml",
+    "name": "Transition Replay Check"
+  },
+  "release_rule": {
+    "ms012_before_workflow": "candidate",
+    "ms012_releases_when": [
+      "Transition Replay Check returns PASS",
+      "Transition Replay Check report verdict is ALLOW",
+      "Page Contract Check returns PASS",
+      "release index publicly exposes replay packet, fixture, and verifier JSON surfaces"
     ]
   },
-  "replay_steps": [
-    {
-      "step": 1,
-      "name": "Open the verification guide",
-      "page": "transition-verification-guide.html",
-      "data": "data/transition-verification-bundle-v1.json",
-      "checks": [
-        "MS-011 is released",
-        "The verification guide identifies public JSON surfaces",
-        "The guide lists the current verification path"
-      ]
-    },
-    {
-      "step": 2,
-      "name": "Open the receipt backing verifier",
-      "page": "transition-release-snapshot.html",
-      "data": "data/receipt-backing-verifier.json",
-      "checks": [
-        "T13 is receipt-backed",
-        "T14 is receipt-backed",
-        "Receipt-backed evidence is limited to current backed elements"
-      ]
-    },
-    {
-      "step": 3,
-      "name": "Open transition evidence",
-      "page": "transition-table.html",
-      "data": "data/transition-evidence.json",
-      "checks": [
-        "T13 evidence level is 5/5 or receipt-backed",
-        "T14 evidence level is 5/5 or receipt-backed",
-        "Other elements remain at their published evidence levels"
-      ]
-    },
-    {
-      "step": 4,
-      "name": "Open the experimental ledger summary",
-      "page": "transition-table.html",
-      "data": "data/experimental-ledger-summary.json",
-      "checks": [
-        "Recent T13 and T14 ledger rows are visible",
-        "Ledger rows include verdicts",
-        "Ledger rows match the public evidence story"
-      ]
-    },
-    {
-      "step": 5,
-      "name": "Compare replay claim to release state",
-      "page": "transition-release-index.html",
-      "data": "data/transition-release-index-v1.json",
-      "checks": [
-        "Current release remains MS-011 until MS-012 links are live",
-        "MS-012 is the next pending milestone",
-        "Replay packet path is publicly reachable after upload"
-      ]
-    }
-  ],
-  "replay_claim": "A reader can independently inspect the receipt-backed evidence layer by following the replay packet from guide to receipt backing verifier, transition evidence, ledger summary, and release index.",
-  "unlock_condition": "MS-012 can be marked released after transition-replay-packet.html is live and linked from the verification guide, release index, milestones, development status, release snapshot, transition table, and research landing.",
-  "next_pending_milestone_after_release": {
-    "formal_milestone": "MS-013 \u2014 Receipt Replay Demonstration",
-    "status": "pending",
-    "unlock_condition": "A public demonstration shows at least one selected receipt replay path from receipt material to reconstructed result and ledger comparison."
-  }
+  "does_not_claim": [
+    "all transition elements are independently replayed",
+    "final publication readiness",
+    "unbounded autonomous replay"
+  ]
 }

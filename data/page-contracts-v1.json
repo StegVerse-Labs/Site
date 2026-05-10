@@ -110,13 +110,17 @@
         "Public Verification Bundle",
         "Replay Packet",
         "Replay Packet v1",
+        "Replay Fixtures v1",
+        "Replay Verifier v1",
         "MS-012",
         "Independent Replay Packet",
-        "pending"
+        "candidate"
       ],
       "required_links": [
         "transition-replay-packet.html",
         "data/transition-replay-packet-v1.json",
+        "data/transition-replay-fixtures-v1.json",
+        "data/transition-replay-verifier-v1.json",
         "data/transition-release-index-v1.json"
       ]
     },
@@ -169,6 +173,14 @@
           "equals": "public_verification_bundle_released"
         },
         {
+          "json_path": "candidate_release.formal_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        },
+        {
+          "json_path": "candidate_release.state",
+          "equals": "candidate_until_transition_replay_check_and_page_contract_check_pass"
+        },
+        {
           "json_path": "next_pending_milestone.formal_milestone",
           "equals": "MS-012 \u2014 Independent Replay Packet"
         }
@@ -184,6 +196,18 @@
           "json_path": "public_data",
           "contains_object": {
             "path": "data/transition-replay-packet-v1.json"
+          }
+        },
+        {
+          "json_path": "public_data",
+          "contains_object": {
+            "path": "data/transition-replay-fixtures-v1.json"
+          }
+        },
+        {
+          "json_path": "public_data",
+          "contains_object": {
+            "path": "data/transition-replay-verifier-v1.json"
           }
         }
       ]
@@ -227,11 +251,19 @@
         },
         {
           "json_path": "status",
-          "equals": "pending_until_public_links_confirmed"
+          "equals": "candidate_until_transition_replay_check_and_page_contract_check_pass"
         },
         {
           "json_path": "current_verified_release.formal_milestone",
           "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "public_inputs.replay_fixtures_json",
+          "equals": "data/transition-replay-fixtures-v1.json"
+        },
+        {
+          "json_path": "public_inputs.replay_verifier_json",
+          "equals": "data/transition-replay-verifier-v1.json"
         }
       ],
       "required_contains": [

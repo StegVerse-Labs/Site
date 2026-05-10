@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-05-10T04:42:21Z",
+  "generated_at": "2026-05-10T10:38:30Z",
   "schema": "stegverse.transition_release_index.v1",
+  "release_id": "transition-release-snapshot-v1-ms011-ms012-candidate",
   "current_release": {
     "release_id": "transition-release-snapshot-v1-ms011",
     "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
@@ -9,6 +10,15 @@
     "snapshot_page": "transition-release-snapshot.html",
     "verification_guide": "transition-verification-guide.html",
     "verification_bundle_json": "data/transition-verification-bundle-v1.json"
+  },
+  "candidate_release": {
+    "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
+    "state": "candidate_until_transition_replay_check_and_page_contract_check_pass",
+    "replay_packet_page": "transition-replay-packet.html",
+    "replay_packet_json": "data/transition-replay-packet-v1.json",
+    "replay_fixtures_json": "data/transition-replay-fixtures-v1.json",
+    "replay_verifier_json": "data/transition-replay-verifier-v1.json",
+    "workflow": ".github/workflows/transition-replay-check.yml"
   },
   "public_pages": [
     {
@@ -80,11 +90,19 @@
     {
       "label": "Replay Packet v1",
       "path": "data/transition-replay-packet-v1.json"
+    },
+    {
+      "label": "Replay Fixtures v1",
+      "path": "data/transition-replay-fixtures-v1.json"
+    },
+    {
+      "label": "Replay Verifier v1",
+      "path": "data/transition-replay-verifier-v1.json"
     }
   ],
   "next_pending_milestone": {
     "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
-    "status": "pending",
-    "unlock_condition": "The replay packet page is live and linked from the verification guide, release index, milestones, development status, release snapshot, transition table, and research landing."
+    "status": "candidate",
+    "unlock_condition": "Transition Replay Check passes and Page Contract Check confirms replay packet, fixture, verifier, and release-index links are public."
   }
 }
