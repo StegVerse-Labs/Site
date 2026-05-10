@@ -11,7 +11,7 @@ on:
 
   # Automatic run (every 30 minutes; adjust as needed)
   schedule:
-    - cron: "*/30 * * * *"
+  # - cron: "*/30 * * * *"
 
 jobs:
   update-cfp-data:
