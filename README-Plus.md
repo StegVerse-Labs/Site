@@ -1,4 +1,4 @@
-# T13 Receipt-Bound Transition v1
+# T14 Reconstruction Transition v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,20 +11,26 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Adds `T13` experiment: `receipt_bound_sweep_v1`.
-- Adds fallback experiment registration for `T13`.
-- Adds receipt-bound transition receipts with:
+- Adds `T14` experiment: `reconstruction_sweep_v1`.
+- Adds fallback experiment registration for `T14`.
+- Adds reconstruction receipts with:
   - pre_state
   - action
-  - post_state
-  - pre_state_hash
-  - action_hash
-  - post_state_hash
-  - receipt_payload_hash
-  - receipt_bound
-- Adds `receipt_binding_required` as a rule released by `T13` once tested.
-- Adds `receipt_evidence_deterministic` sandbox class for T13–T14.
-- Updates transition pages to display `Receipt bound`.
+  - observed_post_state
+  - reconstructed_post_state
+  - receipt_packet
+  - observed_post_state_hash
+  - reconstructed_post_state_hash
+  - reconstruction_delta
+  - reconstruction_exact
+  - observed_verdict
+  - reconstructed_verdict
+  - reconstruction_verdict_match
+  - reconstruction_confidence
+- Adds `receipt_reconstruction_required` as a rule released by `T14` once tested.
+- Updates transition pages to display:
+  - Reconstruction exact
+  - Reconstruction verdict match
 
 ## Expected next workflow run
 
@@ -37,7 +43,7 @@ Actions → Transition Experimental Engine → Run workflow
 Expected result:
 
 ```text
-T13 advances from 2/5 Derived to 4/5 Tested.
-T13 emits receipt_binding_fragment.
-T13 receipts show receipt_bound=true and hashes for pre-state, action, and post-state.
+T14 advances from 2/5 Derived to 4/5 Tested.
+T14 emits reconstruction_fragment.
+T14 receipts show exact reconstruction and verdict matching.
 ```
