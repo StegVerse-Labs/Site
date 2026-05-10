@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-10T11:14:24Z",
+  "schema": "stegverse.next_transition_build_candidate.v1",
+  "state_id": "transition-release-state-ms011-ms012-candidate-v1",
+  "ruleset_id": "transition-decision-rules-v1",
+  "current_released_milestone": "MS-011 \u2014 Public Verification Bundle",
+  "current_candidate_milestone": "MS-012 \u2014 Independent Replay Packet",
+  "next_system_action": "run_required_checks",
+  "build_allowed": false,
+  "promotion_allowed": false,
+  "human_required": false,
+  "reason": "Required check evidence must be read from repo/workflow-readable reports before MS-012 can be promoted.",
+  "required_checks": [
+    {
+      "id": "transition_replay_check",
+      "workflow_name": "Transition Replay Check",
+      "required": true,
+      "expected_when_missing": "run workflow"
+    },
+    {
+      "id": "page_contract_check",
+      "workflow_name": "Page Contract Check",
+      "required": true,
+      "expected_when_missing": "run workflow"
+    }
+  ],
+  "safety": {
+    "missing_evidence_promotes": false,
+    "chat_or_screenshot_promotes": false,
+    "promotion_requires_all_required_checks": true
+  }
+}
