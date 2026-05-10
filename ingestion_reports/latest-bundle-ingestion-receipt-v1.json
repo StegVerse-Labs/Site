@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-10T22:38:57Z",
+  "generated_at": "2026-05-10T23:02:25Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012i-site-ephemeral-sandbox-protocols-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012i-site-ephemeral-sandbox-protocols-v1.zip",
-  "bundle_sha256": "eb30748455a992a20bd2508769565020df98b2d5bf5d7f70d8cf3207cf27cf64",
+  "bundle_name": "ms012i1-site-ingest-sandbox-workflow-replacement.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012i1-site-ingest-sandbox-workflow-replacement.zip",
+  "bundle_sha256": "84576637b22e90d0a93a3c0a67c88ec9d6d7059b3ebc63cd154245f3ab710ce6",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -12,27 +12,19 @@
   "reason": "ordinary bundle allowed",
   "mapped_paths": [
     "README.md",
-    "bundle-manifest.json",
-    "data/headless-tasks/ephemeral-sandbox-run-v1.json",
-    "data/sandbox/ephemeral-sandbox-policy-v1.json",
-    "docs/MS-012I-site-ephemeral-sandbox-protocols.md",
-    "incoming/README.md",
-    "sandbox_queue/README.md",
-    "sandbox_reports/README.md",
-    "sandbox_reviewed/README.md",
-    "tools/ephemeral_sandbox_runner.py"
+    "ingest-bundle.yml"
   ],
-  "files_seen": 10,
-  "files_created": 5,
-  "files_updated": 4,
+  "files_seen": 2,
+  "files_created": 1,
+  "files_updated": 0,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "121a3d4f96f29b9161cdecbbe71ad3ee08f03c91bb54eb91264c496987b4de2c",
-    "after_tree_fingerprint": "d601a10585da6589f378b9513d459e334af112fad8ed111fff19f1956fbde100",
-    "changed_files_fingerprint": "dfb63cc060255046e2243a8f9f173d80ffadb93851190ffe93df0a211013a355"
+    "before_tree_fingerprint": "30db8c71242645381f9dfded3647c97b5b3af0583ad19a60f9c5adc472c0120a",
+    "after_tree_fingerprint": "c3118eeea2b644c86d5f4be136327ebec14f0321fad15b3e875bf373d1bddb21",
+    "changed_files_fingerprint": "ebfd9eddbd862c30dc4477b771118288d3f12ce11b824a6b8f78d2136ef5b725"
   },
   "decisions": [
     {
@@ -41,89 +33,17 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "f4325d21a7da148f0ab605f78d88b5517ac71676ea6bbd7b0f1a7a0bbc904dfd",
-      "bytes": 968
+      "new_sha256": "6230f1058ed561ce8c8c77bdd930ab5b9f0c1f09f7e9d1e11bef00237e1508c9",
+      "bytes": 801
     },
     {
-      "bundle_path": "bundle-manifest.json",
-      "repo_path": "bundle-manifest.json",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "9327814d4c04df6a3ef78cd8af2bd28fa51fffbdff94ba52e08ec8592292f829",
-      "new_sha256": "74284d88d2de2ac80e7390226e2b7f5c3fda589218b0d56f8d9191e329d0a5eb",
-      "bytes": 1799
-    },
-    {
-      "bundle_path": "data/headless-tasks/ephemeral-sandbox-run-v1.json",
-      "repo_path": "data/headless-tasks/ephemeral-sandbox-run-v1.json",
+      "bundle_path": "ingest-bundle.yml",
+      "repo_path": "ingest-bundle.yml",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "dc2d2117cdacea1f366ee24230e50b0c7ac673f2f2bdbf166d5c8b35ab554f2f",
-      "bytes": 1062
-    },
-    {
-      "bundle_path": "data/sandbox/ephemeral-sandbox-policy-v1.json",
-      "repo_path": "data/sandbox/ephemeral-sandbox-policy-v1.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "d44e43214a70b0e329047143e84a41c2f7d2415ceee7d2d45aff3f6e8c6b58ce",
-      "bytes": 2363
-    },
-    {
-      "bundle_path": "docs/MS-012I-site-ephemeral-sandbox-protocols.md",
-      "repo_path": "docs/MS-012I-site-ephemeral-sandbox-protocols.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "d0cfc8779e729aef22872a3c5429e39f69961fd3a806ff6ec3c063c8ff9f5d42",
-      "bytes": 1134
-    },
-    {
-      "bundle_path": "incoming/README.md",
-      "repo_path": "incoming/README.md",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "eae21da62583afe18786f678c4ed49714491034883c395877017a223d631c356",
-      "new_sha256": "9836228ce48336445b73aef15b120e8ea1216826d3d07119b18f505b1aea2f13",
-      "bytes": 337
-    },
-    {
-      "bundle_path": "sandbox_queue/README.md",
-      "repo_path": "sandbox_queue/README.md",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "c83a290ae04e9e462a511e96090df8ce5afaaff5a2f673c2129659df4fa51369",
-      "new_sha256": "86b0d7f874575284eacc94e86745e41455a3bec51436d1218a5e219fa2009d15",
-      "bytes": 262
-    },
-    {
-      "bundle_path": "sandbox_reports/README.md",
-      "repo_path": "sandbox_reports/README.md",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "be1c0f68edfaddd7b4d4fc2f17644ff336a267777367c242ce7383d328272c57",
-      "new_sha256": "740e6318f52f6eece84cc6566656046be25841796d9fc82a3ae0f1545050253a",
-      "bytes": 346
-    },
-    {
-      "bundle_path": "sandbox_reviewed/README.md",
-      "repo_path": "sandbox_reviewed/README.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "55a87bdc8685138fe9c8fc0dde0eed29f34c4d5d272527fd2aeef1bfe94bbd3e",
-      "bytes": 242
-    },
-    {
-      "bundle_path": "tools/ephemeral_sandbox_runner.py",
-      "repo_path": "tools/ephemeral_sandbox_runner.py",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "722932e4d5a585c9695517435e1d5318bab070203b9d74dd9ead0eb94be3fc32",
-      "bytes": 13860
+      "new_sha256": "d44f6311fc3d934cb04739ad698aa6b981b59258a9e5d8ecd5849371dc7b3d11",
+      "bytes": 7004
     }
   ]
 }

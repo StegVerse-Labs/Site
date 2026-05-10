@@ -139,6 +139,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "dfb63cc060255046e2243a8f9f173d80ffadb93851190ffe93df0a211013a355"
+    },
+    {
+      "generated_at": "2026-05-10T23:02:25Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012i1-site-ingest-sandbox-workflow-replacement.zip",
+      "bundle_sha256": "84576637b22e90d0a93a3c0a67c88ec9d6d7059b3ebc63cd154245f3ab710ce6",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "ebfd9eddbd862c30dc4477b771118288d3f12ce11b824a6b8f78d2136ef5b725"
     }
   ]
 }
