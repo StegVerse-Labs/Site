@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       bundle:
-        description: "Bundle path relative to repo root, for example incoming/update.zip. Defaults to newest incoming/*.zip"
+        description: "Bundle path relative to repo root. Leave blank to process incoming/*.zip as a queue."
         required: false
         default: ""
       apply:
@@ -71,7 +71,113 @@ jobs:
             $BUNDLE_ARG \
             $APPLY_FLAG
 
-      - name: Commit ingested changes
+      - name: Run ephemeral sandbox review
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_APPLY: ${{ github.event.inputs.apply }}
+        run: |
+          APPLY_FLAG=""
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            APPLY_FLAG="--apply"
+          fi
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$INPUT_APPLY" = "true" ]; then
+            APPLY_FLAG="--apply"
+          fi
+
+          if [ -f tools/ephemeral_sandbox_runner.py ] && [ -f data/sandbox/ephemeral-sandbox-policy-v1.json ]; then
+            python tools/ephemeral_sandbox_runner.py \
+              --repo-root . \
+              --policy data/sandbox/ephemeral-sandbox-policy-v1.json \
+              $APPLY_FLAG
+          else
+            echo "Ephemeral sandbox runner is not installed; skipping sandbox pass."
+          fi
+
+      - name: Run post-sandbox ingestion pass
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_APPLY: ${{ github.event.inputs.apply }}
+        run: |
+          APPLY_FLAG=""
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            APPLY_FLAG="--apply"
+          fi
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$INPUT_APPLY" = "true" ]; then
+            APPLY_FLAG="--apply"
+          fi
+
+          python tools/bundle_ingest.py \
+            --repo-root . \
+            --policy data/bundle-ingestion-policy-v1.json \
+            --out-dir ingestion_reports \
+            $APPLY_FLAG
+
+      - name: Build explicit commit path list
+        id: commit_paths
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          paths = set()
+
+          # Known state/output locations touched by ingestion/sandbox.
+          known = [
+              "incoming",
+              "installed_bundles",
+              "failed_bundles",
+              "sandbox_queue",
+              "sandbox_reviewed",
+              "sandbox_reports",
+              "privileged_queue",
+              "ingestion_reports",
+              "data/latest-bundle-ingestion-receipt-v1.json",
+              "data/bundle-ingestion-ledger-v1.jsonl",
+              "data/bundle-fingerprint-index-v1.json",
+          ]
+          paths.update(known)
+
+          def load(path):
+              try:
+                  p = Path(path)
+                  if p.exists():
+                      return json.loads(p.read_text())
+              except Exception:
+                  return None
+              return None
+
+          def add_decision_paths(report):
+              if not isinstance(report, dict):
+                  return
+              receipt = report.get("receipt")
+              if isinstance(receipt, dict):
+                  for row in receipt.get("decisions", []):
+                      repo_path = row.get("repo_path")
+                      action = row.get("action")
+                      if repo_path and action in {"created", "updated", "would_created", "would_updated", "unchanged"}:
+                          paths.add(repo_path)
+
+              for nested in report.get("reports", []):
+                  add_decision_paths(nested)
+
+          add_decision_paths(load("ingestion_reports/bundle-ingestion-report.json"))
+          add_decision_paths(load("ingestion_reports/bundle-queue-report.json"))
+
+          # Keep the workflow itself out of automatic staging unless it was already manually edited.
+          paths.discard(".github")
+          paths.discard(".github/workflows")
+          paths.discard(".github/workflows/ingest-bundle.yml")
+
+          out = Path("/tmp/commit-paths.txt")
+          out.write_text("\n".join(sorted(paths)) + "\n")
+          print(out.read_text())
+          PY
+
+      - name: Commit ingested and sandboxed changes
         env:
           EVENT_NAME: ${{ github.event_name }}
           INPUT_APPLY: ${{ github.event.inputs.apply }}
@@ -94,13 +200,18 @@ jobs:
           git config user.name "StegVerse Bundle Ingestor"
           git config user.email "builder@stegverse.org"
 
-          git add .
+          while IFS= read -r path; do
+            if [ -n "$path" ]; then
+              git add -A -- "$path" || true
+            fi
+          done < /tmp/commit-paths.txt
 
           if git diff --cached --quiet; then
-            echo "No ingested changes to commit."
+            echo "No ingested or sandboxed changes to commit."
           else
-            git commit -m "ingest uploaded bundle with receipt"
-            git push
+            git commit -m "ingest and sandbox uploaded bundle with receipts"
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
 
       - name: Upload ingestion report
@@ -109,4 +220,12 @@ jobs:
         with:
           name: bundle-ingestion-report
           path: ingestion_reports/
-          if-no-files-found: error
+          if-no-files-found: warn
+
+      - name: Upload sandbox report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ephemeral-sandbox-report
+          path: sandbox_reports/
+          if-no-files-found: warn
