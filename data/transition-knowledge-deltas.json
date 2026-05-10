@@ -56,6 +56,32 @@
       ],
       "confidence": 0.88,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T6-decision_lag_sweep_v1-0005-decision_lag",
+      "source_run_id": "T6-decision_lag_sweep_v1-0005",
+      "source_element": "T6",
+      "delta_type": "decision_lag_fragment",
+      "summary": "Decision-lag sweep found 2 total lag flip(s) across deterministic staged samples.",
+      "informs": [
+        "T6",
+        "T7"
+      ],
+      "confidence": 0.87,
+      "review_required": false
+    },
+    {
+      "delta_id": "KD-T7-actuation_lag_sweep_v1-0006-actuation_lag",
+      "source_run_id": "T7-actuation_lag_sweep_v1-0006",
+      "source_element": "T7",
+      "delta_type": "actuation_lag_fragment",
+      "summary": "Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.",
+      "informs": [
+        "T7",
+        "T15"
+      ],
+      "confidence": 0.87,
+      "review_required": false
     }
   ]
 }

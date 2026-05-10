@@ -1,7 +1,33 @@
 {
-  "planner": "lowest_evidence_unblocked_v1",
-  "status": "idle_no_eligible_experiment",
-  "updated_at": "2026-05-09T23:27:24Z",
-  "last_selected": null,
-  "last_run_id": null
+  "planner": "evidence_gated_sequence_v1",
+  "status": "completed_sequence",
+  "updated_at": "2026-05-10T00:07:00Z",
+  "automation_gate": {
+    "mode": "bounded_batch",
+    "max_sequence_steps": 3,
+    "released_by": [
+      "T7"
+    ]
+  },
+  "sequence_completed": [
+    {
+      "run_id": "T6-decision_lag_sweep_v1-0005",
+      "element_id": "T6",
+      "experiment": "decision_lag_sweep_v1",
+      "status": "completed"
+    },
+    {
+      "run_id": "T7-actuation_lag_sweep_v1-0006",
+      "element_id": "T7",
+      "experiment": "actuation_lag_sweep_v1",
+      "status": "completed"
+    }
+  ],
+  "last_selected": {
+    "run_id": "T7-actuation_lag_sweep_v1-0006",
+    "element_id": "T7",
+    "experiment": "actuation_lag_sweep_v1",
+    "status": "completed"
+  },
+  "last_run_id": "T7-actuation_lag_sweep_v1-0006"
 }

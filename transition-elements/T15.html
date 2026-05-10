@@ -53,11 +53,33 @@ li{margin:0 0 8px}
   <div class="formula"><code>¬∃u⁻¹ : Φ(x&#x27;,u⁻¹)=x with I(Φ(x&#x27;,u⁻¹))≤0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
+<section><h2>Released Operational Rules</h2>
+    <p><strong>Automation gate:</strong> bounded_batch</p>
+    <p><strong>Max sequence steps:</strong> 3</p>
+    <p><strong>Released rules:</strong></p>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li></ul>
+    <p><strong>Locked rules:</strong></p>
+    <ul><li>none</li></ul>
+    </section>
+<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li>No knowledge deltas yet.</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T7-actuation_lag_sweep_v1-0006-actuation_lag</code> · actuation_lag_fragment · Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
 <section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
-<section><h2>Consequential Test Changelog</h2><p>No consequential tests have changed or informed this transition yet.</p></section>
+<section><h2>Consequential Test Changelog</h2>
+        <article class="change-entry">
+          <h3>T7-actuation_lag_sweep_v1-0006</h3>
+          <p><strong>Experiment:</strong> actuation_lag_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T7 and informs T15.</p>
+          <p><strong>Evidence consequence:</strong> T7 moved from 1 to 4 because deterministic actuation lag sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>actuation_lag_fragment: Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T7, T15.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T7.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        </section>
 </main>
 </body>
 </html>

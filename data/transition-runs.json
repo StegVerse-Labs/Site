@@ -115,6 +115,95 @@
         "reason": "deterministic observation lag sweep passed"
       },
       "run_hash": "sha256:9af6347840db1751b5f3aa7029a8e370f119ef57d2c8a7e70486fb453d745f54"
+    },
+    {
+      "run_id": "T6-decision_lag_sweep_v1-0005",
+      "element_id": "T6",
+      "experiment": "decision_lag_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "lag_aware_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "sequence_lag_row"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required"
+      ],
+      "automation_gate": {
+        "mode": "sequence_lag_row",
+        "max_sequence_steps": 2,
+        "released_by": [
+          "T5"
+        ]
+      },
+      "started_at": "2026-05-10T00:07:00Z",
+      "completed_at": "2026-05-10T00:07:00Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T6-decision_lag_sweep_v1-0005-001",
+        "T6-decision_lag_sweep_v1-0005-002",
+        "T6-decision_lag_sweep_v1-0005-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T6-decision_lag_sweep_v1-0005-decision_lag"
+      ],
+      "evidence_delta": {
+        "from": 1,
+        "to": 4,
+        "reason": "deterministic decision lag sweep passed"
+      },
+      "run_hash": "sha256:de33aac5663f1aa9ffe063c398a55e5ce5485db32672f028d57a3c51559e947d"
+    },
+    {
+      "run_id": "T7-actuation_lag_sweep_v1-0006",
+      "element_id": "T7",
+      "experiment": "actuation_lag_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "lag_aware_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "sequence_lag_row"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required"
+      ],
+      "automation_gate": {
+        "mode": "sequence_lag_row",
+        "max_sequence_steps": 2,
+        "released_by": [
+          "T5"
+        ]
+      },
+      "started_at": "2026-05-10T00:07:00Z",
+      "completed_at": "2026-05-10T00:07:00Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T7-actuation_lag_sweep_v1-0006-001",
+        "T7-actuation_lag_sweep_v1-0006-002",
+        "T7-actuation_lag_sweep_v1-0006-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T7-actuation_lag_sweep_v1-0006-actuation_lag"
+      ],
+      "evidence_delta": {
+        "from": 1,
+        "to": 4,
+        "reason": "deterministic actuation lag sweep passed"
+      },
+      "run_hash": "sha256:6b69bbbb49865b1a40feaf1db9661faafa4466a6e8660d3368803a1e626ece29"
     }
   ]
 }

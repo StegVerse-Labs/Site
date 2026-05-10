@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-09T23:27:24Z",
+  "created_at": "2026-05-10T00:07:00Z",
   "run_id": "T3-bounded_action_sweep_v1-0001",
   "ledger_row_id": "T3-bounded_action_sweep_v1-0001-002",
   "element_id": "T3",
@@ -13,6 +13,7 @@
     "canonical_write_policy": "reducer_only",
     "max_runtime_seconds": 120
   },
+  "applied_rules": [],
   "parameters": {
     "K": 1,
     "alpha": 1,
@@ -26,8 +27,12 @@
     "t": 0.8
   },
   "observed_state": null,
-  "lag_drift": null,
+  "observation_lag_drift": null,
+  "decision_state": null,
+  "decision_lag_drift": null,
   "commit_state": null,
+  "actuation_lag_drift": null,
+  "effect_state": null,
   "action": {
     "dg": -0.03,
     "dc": 0.02,
@@ -41,7 +46,9 @@
     "t": 0.79
   },
   "observed_post_state": null,
+  "decision_post_state": null,
   "commit_post_state": null,
+  "effect_post_state": null,
   "computed": {
     "admissibility_verdict": "ALLOW",
     "constraint_result": "PASS",
@@ -57,7 +64,7 @@
   },
   "replay": {
     "status": "replayable",
-    "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts."
+    "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:c4b0b6ac01194c66bcbd5b6213f84195a5b435365a46169c5211a02758c50c07"
+  "receipt_hash": "sha256:dc40364d3bbad92971fe41caaca8b39416ce1448886faa4a7f5be628326834f0"
 }

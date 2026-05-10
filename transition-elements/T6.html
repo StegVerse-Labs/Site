@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T6 — Decision-Lag Transition</h1>
 <p class="muted">Does computation delay change admissibility?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>1/5 · Defined</strong></p>
-  <p>Runtime state: <strong>idle</strong></p>
-  <p>Brightness: <strong>0.2</strong></p>
+  <p>Level: <strong>4/5 · Tested</strong></p>
+  <p>Runtime state: <strong>completed</strong></p>
+  <p>Brightness: <strong>0.8</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>1</strong></p>
@@ -52,11 +52,58 @@ li{margin:0 0 8px}
   <p>The decision may be based on a state that drifts before the commit boundary.</p>
   <div class="formula"><code>∀y ∈ L(x, τ_obs + τ_dec), I(y + u) ≤ 0</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
-<section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
-<section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
+<section><h2>Confirmed Behavior</h2><p>deterministic decision lag sweep passed</p></section>
+<section><h2>Released Operational Rules</h2>
+    <p><strong>Automation gate:</strong> bounded_batch</p>
+    <p><strong>Max sequence steps:</strong> 3</p>
+    <p><strong>Released rules:</strong></p>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li></ul>
+    <p><strong>Locked rules:</strong></p>
+    <ul><li>none</li></ul>
+    </section>
+<section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li></ul></section>
+<section><h2>Run Manifests</h2><ul><li><code>T6-decision_lag_sweep_v1-0005</code> · decision_lag_sweep_v1 · <strong>completed</strong> · sandbox=lag_aware_deterministic</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li><li><code>KD-T6-decision_lag_sweep_v1-0005-decision_lag</code> · decision_lag_fragment · Decision-lag sweep found 2 total lag flip(s) across deterministic staged samples.</li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T6-decision_lag_sweep_v1-0005-001</code> · tested property=decision_lag · constraint=PASS · admissibility invariant=0.00112 · admissibility verdict=<strong>DENY</strong></li><li><code>T6-decision_lag_sweep_v1-0005-002</code> · tested property=decision_lag · constraint=PASS · admissibility invariant=-0.06282 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T6-decision_lag_sweep_v1-0005-003</code> · tested property=decision_lag · constraint=PASS · admissibility invariant=0.01871 · admissibility verdict=<strong>DENY</strong></li></ul></section>
+<section><h2>State Transition Receipts</h2>
+        <article class="receipt-entry">
+          <h3>RCPT-T6-decision_lag_sweep_v1-0005-001</h3>
+          <p><strong>Run:</strong> T6-decision_lag_sweep_v1-0005</p>
+          <p><strong>Tested property:</strong> decision_lag</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Decision flip:</strong> True</p><p><strong>Actuation flip:</strong> False</p><p><strong>Total lag flip:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:360df178a6f3bd687a8dd08e9376ddcedfd424d3001d55651cfb498e90b1d89b</code></p>
+          <p><a href="../data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-001.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T6-decision_lag_sweep_v1-0005-002</h3>
+          <p><strong>Run:</strong> T6-decision_lag_sweep_v1-0005</p>
+          <p><strong>Tested property:</strong> decision_lag</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> False</p><p><strong>Total lag flip:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:98eabfe9a5c94c60cad52120047135b7beb24aa4e0f2a21788dff76e29095b76</code></p>
+          <p><a href="../data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-002.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T6-decision_lag_sweep_v1-0005-003</h3>
+          <p><strong>Run:</strong> T6-decision_lag_sweep_v1-0005</p>
+          <p><strong>Tested property:</strong> decision_lag</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Decision flip:</strong> True</p><p><strong>Actuation flip:</strong> False</p><p><strong>Total lag flip:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:197c9b3a511187ebfa44ea3955788d830905d4f1966fce984499ff81c371a034</code></p>
+          <p><a href="../data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-003.json">Open receipt JSON</a></p>
+        </article>
+        </section>
 <section><h2>Consequential Test Changelog</h2>
         <article class="change-entry">
           <h3>T5-observation_lag_sweep_v1-0004</h3>
@@ -67,7 +114,21 @@ li{margin:0 0 8px}
           <p><strong>Knowledge consequence:</strong></p>
           <ul><li>lag_flip_fragment: Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul>
           <p><strong>Graph consequence:</strong> informs T5, T6, T7, T8.</p>
-          <p><strong>Unlocked under current evidence state:</strong> T5, T6, T8.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T5, T6, T7, T8.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T6-decision_lag_sweep_v1-0005</h3>
+          <p><strong>Experiment:</strong> decision_lag_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T6.</p>
+          <p><strong>Evidence consequence:</strong> T6 moved from 1 to 4 because deterministic decision lag sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>decision_lag_fragment: Decision-lag sweep found 2 total lag flip(s) across deterministic staged samples.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T6, T7.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T6, T7.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

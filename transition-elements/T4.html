@@ -53,7 +53,16 @@ li{margin:0 0 8px}
   <div class="formula"><code>M(x&#x27;) = K(g&#x27;)^α(c&#x27;)^β(t&#x27;)^γ - a&#x27;</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic capacity margin sweep passed</p></section>
-<section><h2>Run Manifests</h2><ul><li><code>T4-capacity_margin_sweep_v1-0003</code> · capacity_margin_sweep_v1 · <strong>completed</strong></li></ul></section>
+<section><h2>Released Operational Rules</h2>
+    <p><strong>Automation gate:</strong> bounded_batch</p>
+    <p><strong>Max sequence steps:</strong> 3</p>
+    <p><strong>Released rules:</strong></p>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li></ul>
+    <p><strong>Locked rules:</strong></p>
+    <ul><li>none</li></ul>
+    </section>
+<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
+<section><h2>Run Manifests</h2><ul><li><code>T4-capacity_margin_sweep_v1-0003</code> · capacity_margin_sweep_v1 · <strong>completed</strong> · sandbox=local-python-deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li><li><code>KD-T2-simplex_conservation_sweep_v1-0002-simplex</code> · constraint_validation · Simplex-preserving actions maintained zero net BCAT resource delta.</li><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T4-capacity_margin_sweep_v1-0003-001</code> · tested property=capacity_margin · constraint=PASS · admissibility invariant=-0.04729 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T4-capacity_margin_sweep_v1-0003-002</code> · tested property=capacity_margin · constraint=PASS · admissibility invariant=-0.0263 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T4-capacity_margin_sweep_v1-0003-003</code> · tested property=capacity_margin · constraint=PASS · admissibility invariant=-0.0154 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
@@ -65,7 +74,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:87da19a8e13e07cace05ba9dbe0b1a78a9d8336ffa8e7666777ca743d3227a7f</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:f548cd898cea325ade61c10993fe798a99db42b96828e53ed3c5968b0b19ee11</code></p>
           <p><a href="../data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -78,7 +87,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:e5cb44c67815394129fd063eeec2aed76e44abf987489e818c7fdb612c557653</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:15876916270ea3635b73f5a03e454799e8669fab2a59d5236292fbcab815150f</code></p>
           <p><a href="../data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -91,7 +100,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:00ed13aebe599d9e63966a4585d0bbbe116fdfcfe02fad0b0c9be6b1cacdca3b</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:8331e888c2bbbf47f0f43b03cf7d23cc06a1f63ff06a13c5df40a7e383b3ef05</code></p>
           <p><a href="../data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-003.json">Open receipt JSON</a></p>
         </article>
         </section>

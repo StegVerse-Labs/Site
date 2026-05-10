@@ -53,7 +53,16 @@ li{margin:0 0 8px}
   <div class="formula"><code>I(x(t₀ + τ_obs) + u) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic observation lag sweep passed</p></section>
-<section><h2>Run Manifests</h2><ul><li><code>T5-observation_lag_sweep_v1-0004</code> · observation_lag_sweep_v1 · <strong>completed</strong></li></ul></section>
+<section><h2>Released Operational Rules</h2>
+    <p><strong>Automation gate:</strong> bounded_batch</p>
+    <p><strong>Max sequence steps:</strong> 3</p>
+    <p><strong>Released rules:</strong></p>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li></ul>
+    <p><strong>Locked rules:</strong></p>
+    <ul><li>none</li></ul>
+    </section>
+<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
+<section><h2>Run Manifests</h2><ul><li><code>T5-observation_lag_sweep_v1-0004</code> · observation_lag_sweep_v1 · <strong>completed</strong> · sandbox=local-python-deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T5-observation_lag_sweep_v1-0004-001</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=0.004 · admissibility verdict=<strong>DENY</strong></li><li><code>T5-observation_lag_sweep_v1-0004-002</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=-0.12355 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T5-observation_lag_sweep_v1-0004-003</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=0.0562 · admissibility verdict=<strong>DENY</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
@@ -65,7 +74,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:e5b781270ce010b8efb3525a849ba6d724b30a10b748db318efdee26dcbdc89a</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:8ec03039c609aac0f8c7c2537943c85e6abe4c26a4c43ba33ec916bdad858311</code></p>
           <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -78,7 +87,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Lag flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:7e6ac5c8cf78a4bf598cd222903b0259b2f5747270b4ba6258ae56700e1927e2</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:5a116a9d03f6d848cb8afb4a3630cc7de5ea8eea61c125320c9cbf0c5df43f33</code></p>
           <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -91,7 +100,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:b0f74e9f6ca7e6f1dcf2c1a782765c5c177527b38c27ec8a0d33b0db6ca21b46</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:0cbdc314656c4962176b68e1012441f70c0d74b392c59febca9fd2b5ee8e2589</code></p>
           <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-003.json">Open receipt JSON</a></p>
         </article>
         </section>
@@ -119,7 +128,7 @@ li{margin:0 0 8px}
           <p><strong>Knowledge consequence:</strong></p>
           <ul><li>lag_flip_fragment: Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul>
           <p><strong>Graph consequence:</strong> informs T5, T6, T7, T8.</p>
-          <p><strong>Unlocked under current evidence state:</strong> T5, T6, T8.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T5, T6, T7, T8.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

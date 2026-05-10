@@ -53,7 +53,16 @@ li{margin:0 0 8px}
   <div class="formula"><code>Δg + Δc + Δa + Δt = 0 and I(x + u) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic simplex conservation sweep passed</p></section>
-<section><h2>Run Manifests</h2><ul><li><code>T2-simplex_conservation_sweep_v1-0002</code> · simplex_conservation_sweep_v1 · <strong>completed</strong></li></ul></section>
+<section><h2>Released Operational Rules</h2>
+    <p><strong>Automation gate:</strong> bounded_batch</p>
+    <p><strong>Max sequence steps:</strong> 3</p>
+    <p><strong>Released rules:</strong></p>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li></ul>
+    <p><strong>Locked rules:</strong></p>
+    <ul><li>none</li></ul>
+    </section>
+<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
+<section><h2>Run Manifests</h2><ul><li><code>T2-simplex_conservation_sweep_v1-0002</code> · simplex_conservation_sweep_v1 · <strong>completed</strong> · sandbox=local-python-deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T2-simplex_conservation_sweep_v1-0002-simplex</code> · constraint_validation · Simplex-preserving actions maintained zero net BCAT resource delta.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T2-simplex_conservation_sweep_v1-0002-001</code> · tested property=simplex_conservation · constraint=PASS · admissibility invariant=0.1057 · admissibility verdict=<strong>DENY</strong></li><li><code>T2-simplex_conservation_sweep_v1-0002-002</code> · tested property=simplex_conservation · constraint=PASS · admissibility invariant=0.09483 · admissibility verdict=<strong>DENY</strong></li><li><code>T2-simplex_conservation_sweep_v1-0002-003</code> · tested property=simplex_conservation · constraint=PASS · admissibility invariant=0.05413 · admissibility verdict=<strong>DENY</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
@@ -65,7 +74,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:4b57ec7aac55915085546797fd706f37a93301450b7d7a791816beb467b05749</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:531f03a1c7f6e811c678e9c4a994641d088653f3fc93c6f518cac04a8a173c43</code></p>
           <p><a href="../data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -78,7 +87,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:0b40b5e7558cb8c2b3f3151388d6d159eacb8f51bb43b36340a38d321ff3140c</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:e36995b6ecb7592238b7e517caa0174c20b6cfec6084a11caa417dcd6f24f91f</code></p>
           <p><a href="../data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -91,7 +100,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:a68afbb260b76bd054554687b205f3adec193805165d9e889ce945ce4ceb687a</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:d5457d767c3a0409e888e129179552bd3ba8c22306409d78566469c24c62e436</code></p>
           <p><a href="../data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-003.json">Open receipt JSON</a></p>
         </article>
         </section>

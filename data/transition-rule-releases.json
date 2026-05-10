@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-05-10T00:07:00Z",
+  "schema": "stegverse.transition_rule_releases.v1",
+  "automation_gate": {
+    "mode": "bounded_batch",
+    "max_sequence_steps": 3,
+    "released_by": [
+      "T7"
+    ]
+  },
+  "rules": [
+    {
+      "rule_id": "primitive_admissibility_required",
+      "released_by": "T1",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Every experiment must compute post-state invariant."
+    },
+    {
+      "rule_id": "simplex_constraint_visible",
+      "released_by": "T2",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Ledger rows must distinguish conservation constraints from admissibility verdicts."
+    },
+    {
+      "rule_id": "bounded_action_visible",
+      "released_by": "T3",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Experiments with action vectors must record action bounds when applicable."
+    },
+    {
+      "rule_id": "capacity_margin_visible",
+      "released_by": "T4",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Experiments must record margin when capacity calculations are available."
+    },
+    {
+      "rule_id": "lag_aware_sandbox_required",
+      "released_by": "T5",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Lag-row experiments must separate observed_state from commit_state."
+    },
+    {
+      "rule_id": "decision_stage_required",
+      "released_by": "T6",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Lag sandboxes may separate observation state, decision state, and commit state."
+    },
+    {
+      "rule_id": "actuation_stage_required",
+      "released_by": "T7",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Lag sandboxes may separate observed, decision, commit, actuation, and effect states."
+    }
+  ]
+}
