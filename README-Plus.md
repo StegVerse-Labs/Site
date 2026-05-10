@@ -1,4 +1,4 @@
-# T10 Multi-Agent Transition v1
+# T11 Conflict Transition v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,24 +11,32 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Adds `T10` experiment: `multi_agent_sweep_v1`.
-- Adds fallback experiment registration for `T10`.
-- Adds multi-agent receipts with:
+- Adds `T11` experiment: `conflict_sweep_v1`.
+- Adds fallback experiment registration for `T11`.
+- Adds conflict receipts with:
   - shared_state
-  - agent_actions
-  - individual_results
-  - individual_verdicts
-  - aggregate_action
-  - aggregate_post_state
-  - aggregate_verdict
-  - composition_flip
-  - all_individual_allow
-- Adds `multi_agent_composition_required` as a rule released by `T10` once tested.
-- Updates transition pages to display `Composition flip` and `All individual allow`.
+  - action_a
+  - action_b
+  - post_a
+  - post_b
+  - combined_action
+  - combined_post_state
+  - selected_action
+  - rejected_action
+  - resolved_post_state
+  - verdict_a
+  - verdict_b
+  - combined_verdict
+  - resolved_verdict
+  - conflict_detected
+  - conflict_flip
+  - resolution_policy
+- Adds `conflict_resolution_required` as a rule released by `T11` once tested.
+- Updates transition pages to display `Conflict detected` and `Conflict flip`.
 
 ## Expected next workflow run
 
-Current engine status should be idle because no T10 experiment existed. After upload, run:
+After upload, run:
 
 ```text
 Actions → Transition Experimental Engine → Run workflow
@@ -37,7 +45,7 @@ Actions → Transition Experimental Engine → Run workflow
 Expected result:
 
 ```text
-T10 advances from 1/5 Defined to 4/5 Tested.
-T10 emits multi_agent_fragment.
-T10 receipts show individual verdicts vs aggregate verdict.
+T11 advances from 1/5 Defined to 4/5 Tested.
+T11 emits conflict_resolution_fragment.
+T11 receipts show conflict detection and resolution policy.
 ```
