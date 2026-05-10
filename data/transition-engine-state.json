@@ -1,7 +1,7 @@
 {
   "planner": "evidence_gated_sequence_v1",
-  "status": "receipt_backing_verified",
-  "updated_at": "2026-05-10T02:11:39Z",
+  "status": "idle_no_eligible_experiment",
+  "updated_at": "2026-05-10T02:12:16Z",
   "automation_gate": {
     "mode": "scheduled_ready",
     "max_sequence_steps": 3,
@@ -11,24 +11,7 @@
     ]
   },
   "automation_release_state": "receipt_backed_automation_ready",
-  "receipt_backing_promotions": [
-    {
-      "element_id": "T13",
-      "from": 4,
-      "to": 5,
-      "reason": "receipt-backed replay verification passed",
-      "checked_rows": 3,
-      "receipt_count": 3
-    },
-    {
-      "element_id": "T14",
-      "from": 4,
-      "to": 5,
-      "reason": "receipt-backed replay verification passed",
-      "checked_rows": 3,
-      "receipt_count": 3
-    }
-  ],
+  "receipt_backing_promotions": [],
   "sequence_completed": [],
   "last_selected": null,
   "last_run_id": null

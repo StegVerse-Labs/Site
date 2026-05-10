@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T16-self_modifying_rule_sweep_v1-0015-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T02:11:39Z",
+  "created_at": "2026-05-10T02:12:16Z",
   "run_id": "T16-self_modifying_rule_sweep_v1-0015",
   "ledger_row_id": "T16-self_modifying_rule_sweep_v1-0015-002",
   "element_id": "T16",
@@ -132,5 +132,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:43fe1815360f76dd9f81321e8e73d1a128ba2aff9cf236d2129da9235c030486"
+  "receipt_hash": "sha256:fa79f39de29c190589fdad5f5db2d2dfc7047343c4b86b041a2ea99c6daa57d7"
 }

@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T11-conflict_sweep_v1-0010-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T02:11:39Z",
+  "created_at": "2026-05-10T02:12:16Z",
   "run_id": "T11-conflict_sweep_v1-0010",
   "ledger_row_id": "T11-conflict_sweep_v1-0010-001",
   "element_id": "T11",
@@ -163,5 +163,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:3ffa429de3598b7936538a7b1b400aa93410756347d14a6dff9d515d84e695c7"
+  "receipt_hash": "sha256:6d44f25679d42d2b1f276412cde9eab1d4dbb3821bd927dd4ec9d3ad14583991"
 }

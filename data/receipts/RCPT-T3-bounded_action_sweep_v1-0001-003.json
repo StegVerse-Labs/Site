@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T3-bounded_action_sweep_v1-0001-003",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T02:11:39Z",
+  "created_at": "2026-05-10T02:12:16Z",
   "run_id": "T3-bounded_action_sweep_v1-0001",
   "ledger_row_id": "T3-bounded_action_sweep_v1-0001-003",
   "element_id": "T3",
@@ -106,5 +106,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:9a37f97760a355fa35cd3c026c6e68b416902cbb77f62473ee930c77ca73fa20"
+  "receipt_hash": "sha256:57007bff3c039af6cbc6e518d9f067184a2ee8bd9a51fe2219b7f15e1780ffdc"
 }
