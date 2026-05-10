@@ -1,9 +1,17 @@
 {
   "schema": "stegverse.bundle_ingestion_policy.v1",
-  "policy_id": "ms012c-ingestion-receipt-boundary-v1",
-  "formal_milestone": "MS-012C \u2014 Ingestion Receipt Boundary",
-  "purpose": "Fingerprint and ingest proposed repo-state transitions through a governed intake boundary.",
-  "default_mode": "apply_changed_files",
+  "policy_id": "ms012e-strict-ingestion-thresholds-v1",
+  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "queue": {
+    "incoming_dir": "incoming",
+    "failed_dir": "failed_bundles",
+    "privileged_dir": "privileged_queue",
+    "sandbox_dir": "sandbox_queue",
+    "process_order": "name_ascending",
+    "skip_previously_failed_hashes": true,
+    "skip_previously_applied_hashes": true,
+    "continue_after_failure": true
+  },
   "path_mappings": [
     {
       "bundle_prefix": "github/workflows/",
@@ -11,28 +19,48 @@
       "reason": "Upload-safe bundles use dotless paths; GitHub Actions requires .github/workflows in the repository."
     }
   ],
+  "artifact_file_mappings": [
+    {
+      "bundle_path": "page-contract-report.json",
+      "repo_path": "page_contract_reports/page-contract-report.json",
+      "reason": "Page Contract Check artifact ZIP exposes report JSON at root; selector expects page_contract_reports/."
+    },
+    {
+      "bundle_path": "page-contract-report.md",
+      "repo_path": "page_contract_reports/page-contract-report.md",
+      "reason": "Page Contract Check artifact ZIP exposes report Markdown at root; selector expects page_contract_reports/."
+    },
+    {
+      "bundle_path": "transition-replay-report.json",
+      "repo_path": "transition_replay_reports/transition-replay-report.json",
+      "reason": "Transition Replay Check artifact ZIP exposes report JSON at root; selector expects transition_replay_reports/."
+    },
+    {
+      "bundle_path": "transition-replay-report.md",
+      "repo_path": "transition_replay_reports/transition-replay-report.md",
+      "reason": "Transition Replay Check artifact ZIP exposes report Markdown at root; selector expects transition_replay_reports/."
+    }
+  ],
   "protected_paths": [
     ".git/",
     ".github/workflows/ingest-bundle.yml"
   ],
+  "gate_inputs": {
+    "capability_thresholds": "data/capability-threshold-gates-v1.json",
+    "capability_scopes": "data/transition-capability-scopes-v1.json",
+    "stop_gap_policy": "data/stop-gap-policy-v1.json",
+    "dependency_map": "data/dependency-map-v1.json"
+  },
   "ledger_outputs": {
     "latest_receipt": "data/latest-bundle-ingestion-receipt-v1.json",
     "ledger_jsonl": "data/bundle-ingestion-ledger-v1.jsonl",
     "fingerprint_index": "data/bundle-fingerprint-index-v1.json"
   },
-  "report_outputs": [
-    "ingestion_reports/bundle-ingestion-report.json",
-    "ingestion_reports/bundle-ingestion-report.md",
-    "ingestion_reports/latest-bundle-ingestion-receipt-v1.json"
-  ],
   "safety": {
-    "skip_directory_entries": true,
-    "skip_absolute_paths": true,
-    "skip_parent_traversal": true,
     "do_not_delete_files": true,
     "apply_only_changed_or_missing_files": true,
-    "dotless_workflow_paths_are_mapped": true,
-    "root_readme_in_uploaded_bundle_is_not_applied": true,
-    "missing_bundle_fails_closed": true
+    "workflow_mutation_requires_privileged_queue": true,
+    "unknown_dependency_routes_to_sandbox": true,
+    "failed_bundle_does_not_block_queue": true
   }
 }

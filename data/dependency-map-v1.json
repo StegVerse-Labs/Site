@@ -1,0 +1,134 @@
+{
+  "generated_at": "2026-05-10T18:36:42Z",
+  "schema": "stegverse.dependency_map.v1",
+  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "patterns": [
+    {
+      "pattern": "data/page-contracts-v1.json",
+      "class": "contract_definition",
+      "risk": "medium",
+      "requires": [
+        "page_contract_check"
+      ]
+    },
+    {
+      "pattern": "data/transition-replay-fixtures-v1.json",
+      "class": "replay_fixture",
+      "risk": "medium",
+      "requires": [
+        "transition_replay_check"
+      ]
+    },
+    {
+      "pattern": "data/transition-replay-verifier-v1.json",
+      "class": "replay_verifier",
+      "risk": "medium",
+      "requires": [
+        "transition_replay_check",
+        "page_contract_check"
+      ]
+    },
+    {
+      "pattern": "data/transition-release-state-v1.json",
+      "class": "release_state",
+      "risk": "high",
+      "requires": [
+        "selector_check",
+        "page_contract_check"
+      ]
+    },
+    {
+      "pattern": "data/transition-decision-rules-v1.json",
+      "class": "selector_rule",
+      "risk": "high",
+      "requires": [
+        "selector_check",
+        "human_review_if_self_modifying"
+      ]
+    },
+    {
+      "pattern": "data/bundle-ingestion-policy-v1.json",
+      "class": "ingestion_policy",
+      "risk": "high",
+      "requires": [
+        "ingestion_smoke_test",
+        "dependency_impact_scan"
+      ]
+    },
+    {
+      "pattern": "tools/bundle_ingest.py",
+      "class": "ingestion_tool",
+      "risk": "high",
+      "requires": [
+        "ingestion_smoke_test",
+        "dependency_impact_scan"
+      ]
+    },
+    {
+      "pattern": "tools/*.py",
+      "class": "tooling",
+      "risk": "medium",
+      "requires": [
+        "python_syntax_check",
+        "dependency_impact_scan"
+      ]
+    },
+    {
+      "pattern": "*.html",
+      "class": "public_page",
+      "risk": "medium",
+      "requires": [
+        "page_contract_check"
+      ]
+    },
+    {
+      "pattern": "data/*.json",
+      "class": "public_or_policy_json",
+      "risk": "medium",
+      "requires": [
+        "json_validity",
+        "dependency_impact_scan"
+      ]
+    },
+    {
+      "pattern": "page_contract_reports/*",
+      "class": "repo_readable_evidence",
+      "risk": "low",
+      "requires": [
+        "selector_check"
+      ]
+    },
+    {
+      "pattern": "transition_replay_reports/*",
+      "class": "repo_readable_evidence",
+      "risk": "low",
+      "requires": [
+        "selector_check"
+      ]
+    },
+    {
+      "pattern": "github/workflows/*.yml",
+      "class": "workflow_mutation",
+      "risk": "privileged",
+      "requires": [
+        "privileged_executor"
+      ]
+    },
+    {
+      "pattern": ".github/workflows/*.yml",
+      "class": "workflow_mutation",
+      "risk": "privileged",
+      "requires": [
+        "privileged_executor"
+      ]
+    }
+  ],
+  "default": {
+    "class": "unknown_file",
+    "risk": "unknown",
+    "requires": [
+      "sandbox_review",
+      "human_review"
+    ]
+  }
+}

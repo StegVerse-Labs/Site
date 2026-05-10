@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-05-10T18:36:42Z",
+  "schema": "stegverse.transition_capability_scopes.v1",
+  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "capability_scopes": [
+    {
+      "id": "MS-011",
+      "label": "Public Verification Bundle",
+      "status": "released",
+      "authorizes": [
+        "public_surface_contract_verification"
+      ],
+      "does_not_authorize": [
+        "replay_promotion",
+        "ordinary_ingestion",
+        "workflow_mutation"
+      ]
+    },
+    {
+      "id": "T13",
+      "label": "Receipt-Bound Transition",
+      "status": "candidate_verified_static",
+      "authorizes": [
+        "receipt_binding_replay_fixture"
+      ],
+      "does_not_authorize": [
+        "all_receipts_are_valid",
+        "workflow_mutation"
+      ]
+    },
+    {
+      "id": "T14",
+      "label": "Reconstruction Transition",
+      "status": "candidate_verified_static",
+      "authorizes": [
+        "reconstruction_replay_fixture"
+      ],
+      "does_not_authorize": [
+        "all_reconstructions_are_valid",
+        "milestone_promotion_without_reports"
+      ]
+    },
+    {
+      "id": "MS-012C",
+      "label": "Ingestion Receipt Boundary",
+      "status": "smoke_tested",
+      "authorizes": [
+        "ordinary_bundle_ingestion",
+        "bundle_fingerprinting",
+        "ledger_append",
+        "fingerprint_index_update"
+      ],
+      "does_not_authorize": [
+        "workflow_file_mutation_by_ordinary_token",
+        "secret_mutation",
+        "privileged_authority_change"
+      ]
+    },
+    {
+      "id": "MS-012D",
+      "label": "Workflow Report Evidence",
+      "status": "candidate",
+      "authorizes": [
+        "repo_readable_report_requirement",
+        "artifact_report_routing"
+      ],
+      "does_not_authorize": [
+        "promotion_without_committed_reports"
+      ]
+    },
+    {
+      "id": "MS-012E",
+      "label": "Strict Ingestion Threshold Gates",
+      "status": "candidate",
+      "authorizes": [
+        "capability_gate_check",
+        "dependency_impact_scan",
+        "queue_ingestion",
+        "failure_quarantine"
+      ],
+      "does_not_authorize": [
+        "autonomous_build_loop",
+        "same_cycle_self_modification"
+      ]
+    }
+  ],
+  "default": {
+    "unknown_transition_element": "not_authorized",
+    "unknown_bundle_class": "SANDBOX_REQUIRED",
+    "unknown_dependency_class": "HUMAN_REVIEW_REQUIRED"
+  }
+}

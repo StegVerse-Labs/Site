@@ -1,21 +1,86 @@
 {
-  "generated_at": "2026-05-10T11:58:32Z",
+  "generated_at": "2026-05-10T18:37:46Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ingestion-smoke-test-bundle-v1",
-  "purpose": "Harmless test bundle for the MS-012C ingestion receipt boundary.",
+  "bundle_id": "ms012e-strict-ingestion-thresholds-v1",
+  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "purpose": "Install stop-gap threshold gates, transition capability scopes, dependency impact scanning, sandbox bundle review, queue ingestion, failure quarantine, privileged routing, and strict ingestion enforcement.",
   "files": [
     {
-      "path": "data/ingestion-smoke-test-v1.json",
-      "role": "smoke_test_payload",
+      "path": "data/capability-threshold-gates-v1.json",
       "version": "v1",
-      "expected_action": "created_or_updated"
+      "role": "stop_gap_thresholds"
+    },
+    {
+      "path": "data/transition-capability-scopes-v1.json",
+      "version": "v1",
+      "role": "transition_capability_scopes"
+    },
+    {
+      "path": "data/stop-gap-policy-v1.json",
+      "version": "v1",
+      "role": "hard_stop_policy"
+    },
+    {
+      "path": "data/dependency-map-v1.json",
+      "version": "v1",
+      "role": "dependency_impact_map"
+    },
+    {
+      "path": "data/bundle-ingestion-policy-v1.json",
+      "version": "v4",
+      "role": "strict_ingestion_policy"
+    },
+    {
+      "path": "tools/capability_gate_check.py",
+      "version": "v1",
+      "role": "capability_gate_tool"
+    },
+    {
+      "path": "tools/dependency_impact_scan.py",
+      "version": "v1",
+      "role": "dependency_impact_tool"
+    },
+    {
+      "path": "tools/sandbox_bundle_review.py",
+      "version": "v1",
+      "role": "sandbox_review_tool"
+    },
+    {
+      "path": "tools/bundle_ingest.py",
+      "version": "v4",
+      "role": "queue_strict_ingestion_engine"
+    },
+    {
+      "path": "failed_bundles/README.md",
+      "version": "v1",
+      "role": "failed_bundle_quarantine_docs"
+    },
+    {
+      "path": "privileged_queue/README.md",
+      "version": "v1",
+      "role": "privileged_queue_docs"
+    },
+    {
+      "path": "sandbox_queue/README.md",
+      "version": "v1",
+      "role": "sandbox_queue_docs"
+    },
+    {
+      "path": "dependency_reports/README.md",
+      "version": "v1",
+      "role": "dependency_report_docs"
+    },
+    {
+      "path": "sandbox_reports/README.md",
+      "version": "v1",
+      "role": "sandbox_report_docs"
     }
   ],
   "safety": {
-    "contains_workflows": false,
     "contains_leading_dot_paths": false,
-    "changes_milestones": false,
-    "changes_transition_evidence": false,
-    "changes_release_state": false
+    "contains_workflows": false,
+    "promotes_ms012": false,
+    "changes_public_pages": false,
+    "requires_privileged_executor": false
   }
 }

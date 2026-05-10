@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-05-10T18:36:42Z",
+  "schema": "stegverse.stop_gap_policy.v1",
+  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "hard_stops": [
+    {
+      "id": "workflow_mutation",
+      "condition": "bundle maps any file to .github/workflows/",
+      "verdict": "PRIVILEGED_EXECUTOR_REQUIRED",
+      "route": "privileged_queue",
+      "reason": "Workflow mutation changes the execution authority boundary."
+    },
+    {
+      "id": "secret_or_auth_material",
+      "condition": "bundle path suggests secrets, env, token, key, or credential material",
+      "verdict": "HUMAN_REVIEW_REQUIRED",
+      "route": "failed_bundles",
+      "reason": "Authority material cannot be ordinary-ingested."
+    },
+    {
+      "id": "unknown_dependency_class",
+      "condition": "changed file is not classified by dependency map",
+      "verdict": "SANDBOX_REQUIRED",
+      "route": "sandbox_queue",
+      "reason": "Unknown dependency impact must be reviewed before repo mutation."
+    },
+    {
+      "id": "same_cycle_self_modification",
+      "condition": "bundle changes gate/rule files and attempts to rely on those same new rules for promotion",
+      "verdict": "FAIL_CLOSED",
+      "route": "failed_bundles",
+      "reason": "Self-modification requires one-cycle lag."
+    },
+    {
+      "id": "missing_manifest_for_complex_bundle",
+      "condition": "bundle has more than five files and no bundle-manifest.json",
+      "verdict": "SANDBOX_REQUIRED",
+      "route": "sandbox_queue",
+      "reason": "Complex bundle must declare intent and file roles."
+    }
+  ],
+  "safety": {
+    "chat_or_screenshot_promotes": false,
+    "artifact_only_promotes": false,
+    "missing_evidence_promotes": false,
+    "unclassified_bundle_applies": false,
+    "silent_repair_allowed": false
+  }
+}

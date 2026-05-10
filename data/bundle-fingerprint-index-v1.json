@@ -15,6 +15,13 @@
       "bundle_sha256": "508e6cce02deffe5088a5e63ef99f468894e04368f54253e1b4c5e6197fd99c4",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "4807b3ec54f53c961d8c6230ef4b5fe18125cdbba807fb080e801d4f7d2849b0"
+    },
+    {
+      "generated_at": "2026-05-10T18:45:02Z",
+      "bundle_name": "ms012e-strict-ingestion-thresholds-v1.zip",
+      "bundle_sha256": "b2f4073c5df8fd95dee99f33787c542a456c445c0d504ec701dbf905eed5dad2",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "89a6a4de4b79d7af67cd57bcbc033e053aa6fc9556eab40133de5a9eb5b1c2b4"
     }
   ]
 }

@@ -1,0 +1,179 @@
+{
+  "generated_at": "2026-05-10T18:36:42Z",
+  "schema": "stegverse.capability_threshold_gates.v1",
+  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+  "current_threshold": "C",
+  "thresholds": [
+    {
+      "id": "A",
+      "label": "Public Surface",
+      "status": "released",
+      "allowed": [
+        "static_page_update",
+        "public_json_surface_update"
+      ],
+      "requires": [
+        "page_contract_check"
+      ],
+      "denied": [
+        "workflow_mutation",
+        "self_modification",
+        "privileged_authority_change"
+      ]
+    },
+    {
+      "id": "B",
+      "label": "Receipt Evidence",
+      "status": "released",
+      "allowed": [
+        "receipt_fixture_update",
+        "replay_fixture_update",
+        "verifier_json_update"
+      ],
+      "requires": [
+        "transition_replay_check",
+        "page_contract_check"
+      ],
+      "denied": [
+        "milestone_promotion_without_reports"
+      ]
+    },
+    {
+      "id": "C",
+      "label": "Ingestion Boundary",
+      "status": "active",
+      "allowed": [
+        "ordinary_bundle_ingestion",
+        "artifact_report_routing",
+        "receipt_generation",
+        "ledger_append"
+      ],
+      "requires": [
+        "bundle_ingestion_receipt",
+        "dependency_impact_scan"
+      ],
+      "denied": [
+        "workflow_mutation_by_ordinary_ingestion",
+        "secret_mutation",
+        "branch_protection_mutation"
+      ]
+    },
+    {
+      "id": "D",
+      "label": "Evidence Routing",
+      "status": "candidate",
+      "allowed": [
+        "page_contract_report_routing",
+        "transition_replay_report_routing"
+      ],
+      "requires": [
+        "repo_readable_report",
+        "selector_readable_evidence"
+      ],
+      "denied": [
+        "artifact_only_promotion",
+        "chat_or_screenshot_promotion"
+      ]
+    },
+    {
+      "id": "E",
+      "label": "Dependency-Gated Mutation",
+      "status": "candidate",
+      "allowed": [
+        "dependency_classified_mutation"
+      ],
+      "requires": [
+        "dependency_impact_report",
+        "all_required_impacted_checks"
+      ],
+      "denied": [
+        "unknown_dependency_mutation"
+      ]
+    },
+    {
+      "id": "F",
+      "label": "Sandbox Repair",
+      "status": "candidate",
+      "allowed": [
+        "sandbox_bundle_review",
+        "sandbox_bundle_repair",
+        "corrected_bundle_generation"
+      ],
+      "requires": [
+        "sandbox_review_receipt",
+        "repaired_bundle_new_hash"
+      ],
+      "denied": [
+        "silent_bundle_correction"
+      ]
+    },
+    {
+      "id": "G",
+      "label": "Self-Modification",
+      "status": "locked",
+      "allowed": [
+        "propose_rule_change"
+      ],
+      "requires": [
+        "one_cycle_lag",
+        "human_review",
+        "selector_consistency_check"
+      ],
+      "denied": [
+        "same_cycle_rule_activation"
+      ]
+    },
+    {
+      "id": "H",
+      "label": "Privileged Authority",
+      "status": "locked",
+      "allowed": [
+        "privileged_task_manifest"
+      ],
+      "requires": [
+        "explicit_authority_receipt",
+        "workflow_write_capable_executor"
+      ],
+      "denied": [
+        "ordinary_ingestion_workflow_write"
+      ]
+    },
+    {
+      "id": "I",
+      "label": "Autonomous Build Loop",
+      "status": "locked",
+      "allowed": [
+        "select_build_test_ingest_verify"
+      ],
+      "requires": [
+        "all_stop_conditions_green",
+        "human_threshold_review"
+      ],
+      "denied": [
+        "unbounded_autonomous_progression"
+      ]
+    },
+    {
+      "id": "J",
+      "label": "Irreversible Promotion",
+      "status": "locked",
+      "allowed": [
+        "milestone_release"
+      ],
+      "requires": [
+        "all_required_evidence_repo_readable",
+        "selector_promotion_allowed",
+        "promotion_receipt"
+      ],
+      "denied": [
+        "promotion_from_missing_or_unreadable_evidence"
+      ]
+    }
+  ],
+  "stop_gap_rule": {
+    "advance_within_threshold": "allowed_if_required_checks_pass",
+    "cross_threshold": "requires_explicit_capability_gate_allow",
+    "unknown_capability": "FAIL_CLOSED",
+    "privileged_capability": "PRIVILEGED_EXECUTOR_REQUIRED"
+  }
+}

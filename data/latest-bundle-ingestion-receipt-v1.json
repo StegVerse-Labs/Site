@@ -1,43 +1,169 @@
 {
-  "generated_at": "2026-05-10T12:07:39Z",
+  "generated_at": "2026-05-10T18:45:02Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012C \u2014 Ingestion Receipt Boundary",
-  "bundle_name": "page-contract-report 2.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/page-contract-report 2.zip",
-  "bundle_sha256": "508e6cce02deffe5088a5e63ef99f468894e04368f54253e1b4c5e6197fd99c4",
+  "bundle_name": "ms012e-strict-ingestion-thresholds-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e-strict-ingestion-thresholds-v1.zip",
+  "bundle_sha256": "b2f4073c5df8fd95dee99f33787c542a456c445c0d504ec701dbf905eed5dad2",
   "mode": "apply",
   "verdict": "ALLOW",
-  "files_seen": 2,
-  "files_created": 2,
-  "files_updated": 0,
+  "files_seen": 16,
+  "files_created": 12,
+  "files_updated": 3,
   "files_unchanged": 0,
-  "files_skipped": 0,
+  "files_skipped": 1,
   "files_would_apply": 0,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "d2aa1b41529f52b30d552722ff8c476160e7be2471cbe2c947b090f821d390b5",
-    "after_tree_fingerprint": "e3758135f480d1e48161eb785cc4e99a0c9edd2843063ee08a6a0ff617a86e01",
-    "changed_files_fingerprint": "4807b3ec54f53c961d8c6230ef4b5fe18125cdbba807fb080e801d4f7d2849b0"
+    "before_tree_fingerprint": "13055eaa987b95f02a7781c4d31f2e881334ddaafb5dbf0639ebd40171f5eac9",
+    "after_tree_fingerprint": "abbe80e53e9a6d6815474e91ef387e91adae25ea4125a60044bc85d291b673e8",
+    "changed_files_fingerprint": "89a6a4de4b79d7af67cd57bcbc033e053aa6fc9556eab40133de5a9eb5b1c2b4"
   },
   "decisions": [
     {
-      "bundle_path": "page-contract-report.json",
-      "repo_path": "page-contract-report.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
+      "bundle_path": "README.md",
+      "repo_path": null,
+      "action": "skipped",
+      "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "55a6bb11da4710d55ffa5fdf5218b60bf8c05b44aa1bc8aedea8f16068ad43b1",
-      "bytes": 58614
+      "new_sha256": "97281f94c7f681b67ab0d5784700a1cb6999344a2f6be376c065199462d506b9",
+      "bytes": 3514
     },
     {
-      "bundle_path": "page-contract-report.md",
-      "repo_path": "page-contract-report.md",
+      "bundle_path": "bundle-manifest.json",
+      "repo_path": "bundle-manifest.json",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "82dd35b13ca219e4aa6be8b9a8182c9496e26d7833791ff284b415ad961922b2",
+      "new_sha256": "75ac77a63eeb431b33b1c41fc603641953a8b7464b9b24323d7098ddb9e59971",
+      "bytes": 2365
+    },
+    {
+      "bundle_path": "data/bundle-ingestion-policy-v1.json",
+      "repo_path": "data/bundle-ingestion-policy-v1.json",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "7d7ccc0bc4c37e1d3cf06d6d2f87079169445d69dc3a7abbc1311ebe81e4ad92",
+      "new_sha256": "b4c8633549f299102204ddd2a2fe6be4306ab8a0945aa8b41bd1547f693b3699",
+      "bytes": 2675
+    },
+    {
+      "bundle_path": "data/capability-threshold-gates-v1.json",
+      "repo_path": "data/capability-threshold-gates-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "5dcb8cea441bd0f65b15a5bc08b7b7247f97a45c9f526f46a9c404a044eefb85",
-      "bytes": 31097
+      "new_sha256": "ecdcb87bebf6ee905b8248cd56619a7958274b5719e9b6590900ae3ee46fc40e",
+      "bytes": 4222
+    },
+    {
+      "bundle_path": "data/dependency-map-v1.json",
+      "repo_path": "data/dependency-map-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "00c4d696ead263fc51254d492723fa6a0352198fdb625792278709481ca83160",
+      "bytes": 3010
+    },
+    {
+      "bundle_path": "data/stop-gap-policy-v1.json",
+      "repo_path": "data/stop-gap-policy-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "56b2a9b5f642778c30c775ef24b5671dc4a620006f1126fb77e4632226a49728",
+      "bytes": 1810
+    },
+    {
+      "bundle_path": "data/transition-capability-scopes-v1.json",
+      "repo_path": "data/transition-capability-scopes-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "5e527c5551d7b93de6423bb41b228db04d3bb60b151a5d957d534db72a3c871f",
+      "bytes": 2408
+    },
+    {
+      "bundle_path": "dependency_reports/README.md",
+      "repo_path": "dependency_reports/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "0853dfe2b07457ec21297aadac4adbf02dd3642e8fbec689f86a288c2db80c89",
+      "bytes": 80
+    },
+    {
+      "bundle_path": "failed_bundles/README.md",
+      "repo_path": "failed_bundles/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "22c2b0194df2aabe3becf8df5afe93875b02df2ace41fb8888c24d79bb304a76",
+      "bytes": 192
+    },
+    {
+      "bundle_path": "privileged_queue/README.md",
+      "repo_path": "privileged_queue/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "3cb09b34367c377a6c00d1372cd391e6b8be53994619fac8ba6d3a8a23260c0e",
+      "bytes": 156
+    },
+    {
+      "bundle_path": "sandbox_queue/README.md",
+      "repo_path": "sandbox_queue/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "c83a290ae04e9e462a511e96090df8ce5afaaff5a2f673c2129659df4fa51369",
+      "bytes": 124
+    },
+    {
+      "bundle_path": "sandbox_reports/README.md",
+      "repo_path": "sandbox_reports/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "73c4c888a979b38b8dd10ae48046a056492eece3427ad04bf982b3084961804d",
+      "bytes": 78
+    },
+    {
+      "bundle_path": "tools/bundle_ingest.py",
+      "repo_path": "tools/bundle_ingest.py",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "8287da939279643ce309a06011f4824c8671d0bc42881e492a4aec6828733840",
+      "new_sha256": "faeb7ce8ed5fd07728a16ee6b9d9e619f8ec99adeb2ce197d02627b1d2b9e040",
+      "bytes": 15608
+    },
+    {
+      "bundle_path": "tools/capability_gate_check.py",
+      "repo_path": "tools/capability_gate_check.py",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "aeaf5a82bbd6266873b2058a3d37a409766754252c6273a644e2658dbe459143",
+      "bytes": 2938
+    },
+    {
+      "bundle_path": "tools/dependency_impact_scan.py",
+      "repo_path": "tools/dependency_impact_scan.py",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "ca6bfc2ebd4b042961dfa0f14538506bc25a5623d3b701b0fb85970161664d8e",
+      "bytes": 2966
+    },
+    {
+      "bundle_path": "tools/sandbox_bundle_review.py",
+      "repo_path": "tools/sandbox_bundle_review.py",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "7b41149d7ee5d18b5a282c1782f81e73993da3bb6d6a710aaee40244e84fc853",
+      "bytes": 2871
     }
   ]
 }
