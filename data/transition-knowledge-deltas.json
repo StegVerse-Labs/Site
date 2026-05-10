@@ -152,6 +152,20 @@
       ],
       "confidence": 0.82,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T13-receipt_bound_sweep_v1-0012-receipt-bound",
+      "source_run_id": "T13-receipt_bound_sweep_v1-0012",
+      "source_element": "T13",
+      "delta_type": "receipt_binding_fragment",
+      "summary": "Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.",
+      "informs": [
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "confidence": 0.86,
+      "review_required": false
     }
   ]
 }

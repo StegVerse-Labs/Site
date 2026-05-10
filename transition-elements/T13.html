@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T13 — Receipt-Bound Transition</h1>
 <p class="muted">Can the transition produce verifiable evidence?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>2/5 · Derived</strong></p>
-  <p>Runtime state: <strong>idle</strong></p>
-  <p>Brightness: <strong>0.4</strong></p>
+  <p>Level: <strong>4/5 · Tested</strong></p>
+  <p>Runtime state: <strong>completed</strong></p>
+  <p>Brightness: <strong>0.8</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>2</strong></p>
@@ -52,20 +52,58 @@ li{margin:0 0 8px}
   <p>A transition is not complete unless it emits a verifiable receipt.</p>
   <div class="formula"><code>I(x&#x27;) ≤ 0 and Verify(R) = true</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
+<section><h2>Confirmed Behavior</h2><p>deterministic receipt-bound transition sweep passed</p></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> bounded_batch</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
-<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
-<section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T12-consensus_sweep_v1-0011-consensus</code> · consensus_fragment · Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
-<section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
+<section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li><li>conflict_resolution_required</li><li>validator_consensus_required</li></ul></section>
+<section><h2>Run Manifests</h2><ul><li><code>T13-receipt_bound_sweep_v1-0012</code> · receipt_bound_sweep_v1 · <strong>completed</strong> · sandbox=receipt_evidence_deterministic</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T12-consensus_sweep_v1-0011-consensus</code> · consensus_fragment · Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li><li><code>KD-T13-receipt_bound_sweep_v1-0012-receipt-bound</code> · receipt_binding_fragment · Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T13-receipt_bound_sweep_v1-0012-001</code> · tested property=receipt_bound_transition · constraint=PASS · admissibility invariant=-0.15686 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T13-receipt_bound_sweep_v1-0012-002</code> · tested property=receipt_bound_transition · constraint=PASS · admissibility invariant=-0.13709 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T13-receipt_bound_sweep_v1-0012-003</code> · tested property=receipt_bound_transition · constraint=PASS · admissibility invariant=-0.11263 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
+<section><h2>State Transition Receipts</h2>
+        <article class="receipt-entry">
+          <h3>RCPT-T13-receipt_bound_sweep_v1-0012-001</h3>
+          <p><strong>Run:</strong> T13-receipt_bound_sweep_v1-0012</p>
+          <p><strong>Tested property:</strong> receipt_bound_transition</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Receipt bound:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:4528a6a053cb4d1e94337d3e725bfdd5dbfa50659197697c97257ec1a6ed084e</code></p>
+          <p><a href="../data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-001.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T13-receipt_bound_sweep_v1-0012-002</h3>
+          <p><strong>Run:</strong> T13-receipt_bound_sweep_v1-0012</p>
+          <p><strong>Tested property:</strong> receipt_bound_transition</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Receipt bound:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:53bb0f03ec07baa99e1378f9f2b2893df833482c3c9704a3b327077919934221</code></p>
+          <p><a href="../data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-002.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T13-receipt_bound_sweep_v1-0012-003</h3>
+          <p><strong>Run:</strong> T13-receipt_bound_sweep_v1-0012</p>
+          <p><strong>Tested property:</strong> receipt_bound_transition</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Receipt bound:</strong> True</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:5772f80b2c9cbde133acbed6b3b40de24bd3b66893277ef80b1795833ccf4aa3</code></p>
+          <p><a href="../data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-003.json">Open receipt JSON</a></p>
+        </article>
+        </section>
 <section><h2>Consequential Test Changelog</h2>
         <article class="change-entry">
           <h3>T12-consensus_sweep_v1-0011</h3>
@@ -76,7 +114,21 @@ li{margin:0 0 8px}
           <p><strong>Knowledge consequence:</strong></p>
           <ul><li>consensus_fragment: Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li></ul>
           <p><strong>Graph consequence:</strong> informs T12, T13, T14.</p>
-          <p><strong>Unlocked under current evidence state:</strong> T12, T13.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T12, T13, T14.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T13-receipt_bound_sweep_v1-0012</h3>
+          <p><strong>Experiment:</strong> receipt_bound_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T13.</p>
+          <p><strong>Evidence consequence:</strong> T13 moved from 2 to 4 because deterministic receipt-bound transition sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>receipt_binding_fragment: Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li></ul>
+          <p><strong>Graph consequence:</strong> informs T13, T14, T15.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T13, T14.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

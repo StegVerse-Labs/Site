@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T01:08:31Z",
+  "generated_at": "2026-05-10T01:43:15Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "bounded_batch",
@@ -104,6 +104,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Coupled sandboxes may compare validator quorum against canonical admissibility."
+    },
+    {
+      "rule_id": "receipt_binding_required",
+      "released_by": "T13",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts."
     }
   ]
 }

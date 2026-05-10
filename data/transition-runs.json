@@ -444,6 +444,57 @@
         "reason": "deterministic validator consensus sweep passed"
       },
       "run_hash": "sha256:e34450fa88d0678fa5761080f3e4acb8536b69b9a892fbf8d172b74ea289c8d4"
+    },
+    {
+      "run_id": "T13-receipt_bound_sweep_v1-0012",
+      "element_id": "T13",
+      "experiment": "receipt_bound_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "receipt_evidence_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "bounded_batch"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required",
+        "actuation_stage_required",
+        "trust_drift_required",
+        "two_state_coupling_required",
+        "multi_agent_composition_required",
+        "conflict_resolution_required",
+        "validator_consensus_required"
+      ],
+      "automation_gate": {
+        "mode": "bounded_batch",
+        "max_sequence_steps": 3,
+        "released_by": [
+          "T7"
+        ]
+      },
+      "started_at": "2026-05-10T01:43:15Z",
+      "completed_at": "2026-05-10T01:43:15Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T13-receipt_bound_sweep_v1-0012-001",
+        "T13-receipt_bound_sweep_v1-0012-002",
+        "T13-receipt_bound_sweep_v1-0012-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T13-receipt_bound_sweep_v1-0012-receipt-bound"
+      ],
+      "evidence_delta": {
+        "from": 2,
+        "to": 4,
+        "reason": "deterministic receipt-bound transition sweep passed"
+      },
+      "run_hash": "sha256:cf65e6c9765719f1f37b4d5153e85ef3fc84c1487caa640e5dd03f5566a048fc"
     }
   ]
 }

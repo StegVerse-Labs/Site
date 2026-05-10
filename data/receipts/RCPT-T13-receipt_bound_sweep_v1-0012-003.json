@@ -1,19 +1,33 @@
 {
-  "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-003",
+  "receipt_id": "RCPT-T13-receipt_bound_sweep_v1-0012-003",
   "schema": "stegverse.transition_receipt.v1",
   "created_at": "2026-05-10T01:43:15Z",
-  "run_id": "T4-capacity_margin_sweep_v1-0003",
-  "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-003",
-  "element_id": "T4",
-  "experiment": "capacity_margin_sweep_v1",
-  "tested_property": "capacity_margin",
+  "run_id": "T13-receipt_bound_sweep_v1-0012",
+  "ledger_row_id": "T13-receipt_bound_sweep_v1-0012-003",
+  "element_id": "T13",
+  "experiment": "receipt_bound_sweep_v1",
+  "tested_property": "receipt_bound_transition",
   "sandbox": {
-    "type": "local-python-deterministic",
+    "type": "receipt_evidence_deterministic",
     "parallel_ready": true,
     "canonical_write_policy": "reducer_only",
-    "max_runtime_seconds": 120
+    "max_runtime_seconds": 120,
+    "automation_gate": "bounded_batch"
   },
-  "applied_rules": [],
+  "applied_rules": [
+    "primitive_admissibility_required",
+    "simplex_constraint_visible",
+    "bounded_action_visible",
+    "capacity_margin_visible",
+    "lag_aware_sandbox_required",
+    "decision_stage_required",
+    "actuation_stage_required",
+    "trust_drift_required",
+    "two_state_coupling_required",
+    "multi_agent_composition_required",
+    "conflict_resolution_required",
+    "validator_consensus_required"
+  ],
   "parameters": {
     "K": 1,
     "alpha": 1,
@@ -21,10 +35,10 @@
     "gamma": 1
   },
   "pre_state": {
-    "g": 0.36,
-    "c": 0.49,
-    "a": 0.1,
-    "t": 0.68
+    "g": 0.58,
+    "c": 0.7,
+    "a": 0.17,
+    "t": 0.8
   },
   "state_a": null,
   "state_b": null,
@@ -41,16 +55,16 @@
   "actuation_lag_drift": null,
   "effect_state": null,
   "action": {
-    "dg": 0.02,
-    "dc": 0.01,
-    "da": 0.01,
+    "dg": 0,
+    "dc": -0.02,
+    "da": 0.025,
     "dt": -0.02
   },
   "post_state": {
-    "g": 0.38,
-    "c": 0.5,
-    "a": 0.11,
-    "t": 0.66
+    "g": 0.58,
+    "c": 0.68,
+    "a": 0.195,
+    "t": 0.78
   },
   "shared_state": null,
   "agent_actions": null,
@@ -81,18 +95,21 @@
   "computed": {
     "admissibility_verdict": "ALLOW",
     "constraint_result": "PASS",
-    "capacity": 0.1254,
-    "invariant": -0.0154,
-    "margin": 0.0154,
-    "margin_status": "NONNEGATIVE"
+    "capacity": 0.30763,
+    "invariant": -0.11263,
+    "pre_state_hash": "sha256:4cafed43c97e8ae90614ff60102836656269a48f90e8a988d580faf16fcc4162",
+    "action_hash": "sha256:d888bddb7fb01b9c04cf6e9cbb08556961ee2b2e62170ecd75fd445dee12e1a3",
+    "post_state_hash": "sha256:1f56d5fe0df22c99644ad2e7032357ac40659a72f04346b50b4803dee4dd582c",
+    "receipt_payload_hash": "sha256:b834ec73b0a7c913ddcba1a2c22319e67cc3a81c5bb4cb4a63d30f865d534a4a",
+    "receipt_bound": true
   },
   "source_hashes": {
-    "ledger_row_hash": "31eaa7c3e883bac37b0bb34bcbebe5d6ee99f51edcde69a1f8439a2d94540c28",
-    "run_hash": "b362a9ae13be7fa2976dd1552ebefc0b483d85496b27ca98a242170e861e6638"
+    "ledger_row_hash": "1b3d9083788ea79624042a7102672a821177d377a2e165e880da98fd21f28fda",
+    "run_hash": "sha256:cf65e6c9765719f1f37b4d5153e85ef3fc84c1487caa640e5dd03f5566a048fc"
   },
   "replay": {
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:4052001ecdfa8458b4a0c2ca450a73c0b3ec1c8caf41166e3f7753a20d038d05"
+  "receipt_hash": "sha256:5772f80b2c9cbde133acbed6b3b40de24bd3b66893277ef80b1795833ccf4aa3"
 }
