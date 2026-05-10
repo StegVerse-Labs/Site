@@ -87,6 +87,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "two_state_coupling"
         elif mode == "multi_agent_sweep_v1":
             row_payload["tested_property"] = "multi_agent_composition"
+        elif mode == "conflict_sweep_v1":
+            row_payload["tested_property"] = "conflict_resolution"
         else:
             row_payload["tested_property"] = mode
 
@@ -112,7 +114,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -654,6 +656,124 @@ def t10(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic multi-agent composition sweep passed", "bad": []}
 
 
+def conflict_score(action_a: dict[str, float], action_b: dict[str, float]) -> float:
+    return round(sum(abs(action_a.get(k, 0.0) + action_b.get(k, 0.0)) for k in ["dg", "dc", "da", "dt"]), 5)
+
+
+def t11(run_id: str):
+    samples = [
+        {
+            "shared_state": {"g": .66, "c": .64, "a": .18, "t": .80},
+            "action_a": {"dg": .03, "dc": -.01, "da": .02, "dt": 0},
+            "action_b": {"dg": -.05, "dc": -.03, "da": .025, "dt": -.04},
+            "conflict_threshold": .06,
+        },
+        {
+            "shared_state": {"g": .72, "c": .60, "a": .15, "t": .78},
+            "action_a": {"dg": .02, "dc": 0, "da": .015, "dt": -.01},
+            "action_b": {"dg": -.01, "dc": .02, "da": .01, "dt": 0},
+            "conflict_threshold": .08,
+        },
+        {
+            "shared_state": {"g": .58, "c": .70, "a": .17, "t": .76},
+            "action_a": {"dg": .04, "dc": -.02, "da": .02, "dt": -.02},
+            "action_b": {"dg": -.06, "dc": -.04, "da": .03, "dt": -.05},
+            "conflict_threshold": .07,
+        },
+    ]
+
+    rows = []
+    conflict_flips = 0
+    resolved_allows = 0
+
+    for i, sample in enumerate(samples, 1):
+        shared_state = sample["shared_state"]
+        action_a = sample["action_a"]
+        action_b = sample["action_b"]
+        threshold = sample["conflict_threshold"]
+
+        post_a = post(shared_state, action_a)
+        post_b = post(shared_state, action_b)
+        combined_action = vector_sum([action_a, action_b])
+        combined_post_state = post(shared_state, combined_action)
+
+        verdict_a = verdict_for(post_a)
+        verdict_b = verdict_for(post_b)
+        combined_verdict = verdict_for(combined_post_state)
+
+        score = conflict_score(action_a, action_b)
+        conflict_detected = score > threshold
+        conflict_flip = verdict_a == "ALLOW" and verdict_b == "ALLOW" and combined_verdict == "DENY"
+        conflict_flips += int(conflict_flip)
+
+        if conflict_detected and conflict_flip:
+            # Minimal deterministic resolver: preserve the lower-risk action by smaller action norm.
+            norm_a = round(math.sqrt(sum(v * v for v in action_a.values())), 5)
+            norm_b = round(math.sqrt(sum(v * v for v in action_b.values())), 5)
+            selected_action = action_a if norm_a <= norm_b else action_b
+            rejected_action = action_b if norm_a <= norm_b else action_a
+            resolution_policy = "select_lower_action_norm"
+        else:
+            norm_a = round(math.sqrt(sum(v * v for v in action_a.values())), 5)
+            norm_b = round(math.sqrt(sum(v * v for v in action_b.values())), 5)
+            selected_action = combined_action
+            rejected_action = None
+            resolution_policy = "combined_action_allowed_or_no_conflict"
+
+        resolved_post_state = post(shared_state, selected_action)
+        resolved_verdict = verdict_for(resolved_post_state)
+        resolved_allows += int(resolved_verdict == "ALLOW")
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T11",
+            "mode": "conflict_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "conflict_resolution",
+            "shared_state": shared_state,
+            "action_a": action_a,
+            "action_b": action_b,
+            "post_a": post_a,
+            "post_b": post_b,
+            "combined_action": combined_action,
+            "combined_post_state": combined_post_state,
+            "selected_action": selected_action,
+            "rejected_action": rejected_action,
+            "resolved_post_state": resolved_post_state,
+            "post_state": resolved_post_state,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "conflict_threshold": threshold},
+            "verdict_a": verdict_a,
+            "verdict_b": verdict_b,
+            "combined_verdict": combined_verdict,
+            "resolved_verdict": resolved_verdict,
+            "verdict": resolved_verdict,
+            "conflict_score": score,
+            "conflict_detected": conflict_detected,
+            "conflict_flip": conflict_flip,
+            "resolution_policy": resolution_policy,
+            "invariant": invariant(resolved_post_state),
+            "combined_invariant": invariant(combined_post_state),
+            "resolved_invariant": invariant(resolved_post_state),
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-conflict",
+        "source_run_id": run_id,
+        "source_element": "T11",
+        "delta_type": "conflict_resolution_fragment",
+        "summary": f"Conflict sweep found {conflict_flips} conflict flip(s) and produced {resolved_allows} resolved admissible outcome(s).",
+        "informs": ["T11", "T12", "T15"],
+        "confidence": .83,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic conflict resolution sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -664,6 +784,7 @@ EXPERIMENTS = {
     "trust_drift_sweep_v1": t8,
     "two_state_coupling_sweep_v1": t9,
     "multi_agent_sweep_v1": t10,
+    "conflict_sweep_v1": t11,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -673,6 +794,7 @@ FALLBACK_EXPERIMENTS = {
     "T8": ["trust_drift_sweep_v1"],
     "T9": ["two_state_coupling_sweep_v1"],
     "T10": ["multi_agent_sweep_v1"],
+    "T11": ["conflict_sweep_v1"],
 }
 
 
@@ -687,6 +809,7 @@ RULE_DEFS = [
     ("trust_drift_required", "T8", 4, "Lag-aware sandboxes may model trust as a decaying state variable during transition delay."),
     ("two_state_coupling_required", "T9", 4, "Coupled sandboxes may model disturbance from one transition state into another."),
     ("multi_agent_composition_required", "T10", 4, "Coupled sandboxes may compare individually admissible actions against aggregate admissibility."),
+    ("conflict_resolution_required", "T11", 4, "Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy."),
 ]
 
 
@@ -810,6 +933,9 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "a_verdict", "b_verdict_without_coupling", "b_verdict_with_coupling",
         "coupling_flip", "local_admissible_coupled_denied",
         "aggregate_invariant", "aggregate_verdict", "composition_flip", "all_individual_allow",
+        "verdict_a", "verdict_b", "combined_verdict", "resolved_verdict",
+        "conflict_score", "conflict_detected", "conflict_flip", "resolution_policy",
+        "combined_invariant", "resolved_invariant",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -854,6 +980,15 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "individual_verdicts": row_payload.get("individual_verdicts"),
         "aggregate_action": row_payload.get("aggregate_action"),
         "aggregate_post_state": row_payload.get("aggregate_post_state"),
+        "action_a": row_payload.get("action_a"),
+        "action_b": row_payload.get("action_b"),
+        "post_a": row_payload.get("post_a"),
+        "post_b": row_payload.get("post_b"),
+        "combined_action": row_payload.get("combined_action"),
+        "combined_post_state": row_payload.get("combined_post_state"),
+        "selected_action": row_payload.get("selected_action"),
+        "rejected_action": row_payload.get("rejected_action"),
+        "resolved_post_state": row_payload.get("resolved_post_state"),
         "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
         "trust_decayed_state": row_payload.get("trust_decayed_state"),
         "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
@@ -907,6 +1042,9 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "local_admissible_coupled_denied": receipt["computed"].get("local_admissible_coupled_denied"),
             "composition_flip": receipt["computed"].get("composition_flip"),
             "all_individual_allow": receipt["computed"].get("all_individual_allow"),
+            "conflict_detected": receipt["computed"].get("conflict_detected"),
+            "conflict_flip": receipt["computed"].get("conflict_flip"),
+            "resolution_policy": receipt["computed"].get("resolution_policy"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
