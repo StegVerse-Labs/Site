@@ -1,0 +1,37 @@
+{
+  "schema": "stegverse.bundle_ingestion_policy.v1",
+  "policy_id": "site-bundle-ingestion-engine-v1",
+  "purpose": "Ingest upload-safe bundles into the Site repository without manual file comparison.",
+  "default_mode": "apply_changed_files",
+  "path_mappings": [
+    {
+      "bundle_prefix": "github/workflows/",
+      "repo_prefix": ".github/workflows/",
+      "reason": "Bundles are dotless for upload/display safety; GitHub Actions requires .github/workflows in the repository."
+    }
+  ],
+  "protected_paths": [
+    ".git/",
+    ".github/workflows/ingest-bundle.yml"
+  ],
+  "allowed_top_level_prefixes": [
+    "data/",
+    "tools/",
+    "github/workflows/",
+    ".github/workflows/",
+    "incoming/",
+    ""
+  ],
+  "report_outputs": [
+    "ingestion_reports/bundle-ingestion-report.json",
+    "ingestion_reports/bundle-ingestion-report.md"
+  ],
+  "safety": {
+    "skip_directory_entries": true,
+    "skip_absolute_paths": true,
+    "skip_parent_traversal": true,
+    "do_not_delete_files": true,
+    "apply_only_changed_or_missing_files": true,
+    "dotless_workflow_paths_are_mapped": true
+  }
+}
