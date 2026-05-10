@@ -1,45 +1,66 @@
-# MS-012 Release Directory Wiring Fix v1
+# Autonomous Next-Step Selector v1
 
-Upload-safe bundle.
+This bundle adds the first self-validating transition selection layer.
 
-## Replaces
+## Adds
 
 ```text
-transition-release-index.html
-data/transition-release-index-v1.json
-data/transition-replay-packet-v1.json
-data/page-contracts-v1.json
+data/transition-release-state-v1.json
+data/transition-decision-rules-v1.json
+tools/transition_next_step_selector.py
+.github/workflows/select-next-transition-step.yml
 ```
 
-## What this fixes
+## Display note
 
-The previous MS-012 candidate added replay fixtures and verifier files but did not fully wire them into the public release directory.
-
-This fix makes the release index expose:
+The workflow path may be displayed as:
 
 ```text
-Replay Fixtures v1
-data/transition-replay-fixtures-v1.json
-
-Replay Verifier v1
-data/transition-replay-verifier-v1.json
+github/workflows/select-next-transition-step.yml
 ```
 
-It also updates the replay packet JSON to point to those files.
-
-## Done check
-
-After upload:
+In the repository, it must include the leading dot:
 
 ```text
-1. Wait for Pages deployment to finish.
-2. Run Actions → Transition Replay Check.
-3. Run Actions → Page Contract Check.
+.github/workflows/select-next-transition-step.yml
 ```
 
-Expected:
+## What done means
+
+The repo can answer:
 
 ```text
-Both workflows pass.
-MS-012 remains candidate until both pass.
+Given the current transition release state, what should happen next, and why?
+```
+
+The selector does not promote from chat messages, screenshots, or implied status. Missing evidence defaults to no promotion.
+
+## Current expected output
+
+Until readable workflow reports exist inside the workspace, the selector should produce:
+
+```text
+next_system_action = run_required_checks
+promotion_allowed = false
+human_required = false
+```
+
+After both required reports are available and passing, it should produce:
+
+```text
+next_system_action = promote_candidate_milestone
+promotion_allowed = true
+human_required = false
+```
+
+## Run
+
+```text
+Actions → Select Next Transition Step → Run workflow
+```
+
+Download the artifact:
+
+```text
+next-transition-step-report
 ```
