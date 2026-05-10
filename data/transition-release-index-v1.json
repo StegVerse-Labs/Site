@@ -1,12 +1,14 @@
 {
-  "generated_at": "2026-05-10T04:16:53Z",
+  "generated_at": "2026-05-10T04:29:19Z",
   "schema": "stegverse.transition_release_index.v1",
   "current_release": {
-    "release_id": "transition-release-snapshot-v1-ms010",
-    "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
-    "state": "public_navigation_integrated",
+    "release_id": "transition-release-snapshot-v1-ms011",
+    "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
+    "state": "public_verification_bundle_released",
     "snapshot_json": "data/transition-release-snapshot-v1.json",
-    "snapshot_page": "transition-release-snapshot.html"
+    "snapshot_page": "transition-release-snapshot.html",
+    "verification_guide": "transition-verification-guide.html",
+    "verification_bundle_json": "data/transition-verification-bundle-v1.json"
   },
   "public_pages": [
     {
@@ -73,8 +75,8 @@
     }
   ],
   "next_pending_milestone": {
-    "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
+    "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
     "status": "pending",
-    "unlock_condition": "The verification guide is live and linked from the release index, milestones, development status, release snapshot, transition table, and research landing."
+    "unlock_condition": "A reader-facing replay packet explains how to independently replay selected receipts and compare reconstructed outcomes against the public ledger."
   }
 }

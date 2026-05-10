@@ -1,43 +1,8 @@
 {
-  "generated_at": "2026-05-10T03:18:06Z",
-  "schema": "stegverse.transition_release_snapshot.v1",
-  "snapshot_id": "transition-release-snapshot-v1-ms010",
-  "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
-  "release_state": "public_navigation_integrated",
-  "basis": {
-    "previous_state": "receipt_backed_automation_ready",
-    "automation_verifier_verdict": "ALLOW",
-    "tested_elements": 16,
-    "receipt_backed_elements": [
-      "T13",
-      "T14"
-    ],
-    "transition_range": [
-      "T1",
-      "T16"
-    ]
-  },
-  "public_surfaces": [
-    "transition-periodic-table.html",
-    "transition-table.html",
-    "transition-milestones.html",
-    "transition-development-status.html",
-    "transition-release-snapshot.html"
-  ],
-  "public_json_surfaces": [
-    "data/automation-release-state.json",
-    "data/automation-release-verifier.json",
-    "data/receipt-backing-verifier.json",
-    "data/experimental-ledger-summary.json",
-    "data/transition-evidence.json",
-    "data/transition-release-snapshot-v1.json"
-  ],
-  "unlocked_capability": "public_navigation_integration",
-  "unlock_reasoning": "MS-010 is unlocked because the two primary transition research surfaces now link to the milestone ledger, development status, release snapshot, and release index. A reader can reach the public verification surfaces from the main research pages without knowing direct URLs.",
-  "not_claimed": [
-    "This is not a claim that all transitions are 5/5 Receipt-backed.",
-    "This is not a claim of unbounded autonomy.",
-    "This is not a final publication release.",
-    "This is a named development snapshot of the current experimental table state with public navigation integrated."
-  ]
+  "generated_at": "2026-05-10T04:29:19Z",
+  "snapshot_id": "transition-release-snapshot-v1-ms011",
+  "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
+  "release_state": "public_verification_bundle_released",
+  "unlocked_capability": "public_verification_bundle",
+  "unlock_reasoning": "MS-011 is unlocked because a single reader-facing verification guide is live and linked from the release index, milestones, development status, release snapshot, transition table, and research landing. The guide explains how to verify the current table state from public pages and JSON files."
 }
