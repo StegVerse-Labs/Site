@@ -1,33 +1,46 @@
-# Autonomous Next-Step Selector Public Wiring Fix
+# Autonomous Next-Step Selector Complete v1
 
-This fixes the missing public wiring for the selector output.
+Upload-safe complete replacement for the selector layer.
 
-## Replaces
+## Includes
 
 ```text
 transition-release-index.html
+data/transition-release-state-v1.json
+data/transition-decision-rules-v1.json
+data/next-transition-build-candidate-v1.json
 data/transition-release-index-v1.json
 data/page-contracts-v1.json
+tools/transition_next_step_selector.py
+.github/workflows/select-next-transition-step.yml
 ```
 
-## Why
+## Display note
 
-The selector output file existed, but the public release directory did not yet expose it as a first-class public JSON surface.
-
-## Done
-
-Page Contract Check should verify:
+If displayed without the leading dot, the workflow path is:
 
 ```text
-data/next-transition-build-candidate-v1.json
-Autonomous Next-Step Selector
-Next Transition Build Candidate v1
+github/workflows/select-next-transition-step.yml
 ```
 
-## Run after upload
+In GitHub, the actual path must be:
+
+```text
+.github/workflows/select-next-transition-step.yml
+```
+
+## Done checks
 
 ```text
 1. Wait for Pages deployment.
 2. Run Actions → Page Contract Check.
 3. Run Actions → Select Next Transition Step.
+```
+
+Expected selector result before reports are available in the workspace:
+
+```text
+next_system_action = run_required_checks
+promotion_allowed = false
+human_required = false
 ```
