@@ -1,6 +1,6 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-10T19:52:27Z`
+Generated: `2026-05-10T20:13:22Z`
 Mode: `apply`
 Bundle: `/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip`
 Verdict: `STALE_INCOMING_QUARANTINED`
