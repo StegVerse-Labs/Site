@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T00:59:44Z",
+  "generated_at": "2026-05-10T01:00:09Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "bounded_batch",

@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T4-capacity_margin_sweep_v1-0003-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T00:59:44Z",
+  "created_at": "2026-05-10T01:00:09Z",
   "run_id": "T4-capacity_margin_sweep_v1-0003",
   "ledger_row_id": "T4-capacity_margin_sweep_v1-0003-002",
   "element_id": "T4",
@@ -89,5 +89,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:8f56b5228e24c414bf621e02169a256578acb281c9692271c3202a923fa5005d"
+  "receipt_hash": "sha256:93eeb4e334b03264048fcb76c2395f26ade76e34389afc0f774a274b6ef21acd"
 }
