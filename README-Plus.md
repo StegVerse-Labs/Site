@@ -1,41 +1,45 @@
-# MS-012 Independent Replay Check Candidate v1
+# MS-012 Release Directory Wiring Fix v1
 
 Upload-safe bundle.
 
-## Files
+## Replaces
 
 ```text
-transition-replay-packet.html
-data/transition-replay-fixtures-v1.json
-data/transition-replay-verifier-v1.json
+transition-release-index.html
+data/transition-release-index-v1.json
+data/transition-replay-packet-v1.json
 data/page-contracts-v1.json
-tools/transition_replay_check.py
-github/workflows/transition-replay-check.yml
 ```
 
-Note: `github/workflows/transition-replay-check.yml` is displayed without the leading dot here. The bundle preserves the correct `.github/workflows/transition-replay-check.yml` path for GitHub upload.
+## What this fixes
 
-## What this does
+The previous MS-012 candidate added replay fixtures and verifier files but did not fully wire them into the public release directory.
 
-This creates the first narrow independent replay packet for:
+This fix makes the release index expose:
 
 ```text
-T13 — Receipt-Bound Transition
-T14 — Reconstruction Transition
+Replay Fixtures v1
+data/transition-replay-fixtures-v1.json
+
+Replay Verifier v1
+data/transition-replay-verifier-v1.json
 ```
 
-## Done checks
+It also updates the replay packet JSON to point to those files.
+
+## Done check
 
 After upload:
 
 ```text
 1. Wait for Pages deployment to finish.
 2. Run Actions → Transition Replay Check.
-3. Confirm the workflow passes.
-4. Run Actions → Page Contract Check.
-5. Confirm the workflow passes.
+3. Run Actions → Page Contract Check.
 ```
 
-## Release rule
+Expected:
 
-MS-012 remains a candidate until both workflows pass.
+```text
+Both workflows pass.
+MS-012 remains candidate until both pass.
+```
