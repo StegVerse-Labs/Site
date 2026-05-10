@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-05-10T18:47:06Z",
+  "generated_at": "2026-05-10T18:48:00Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/transition-replay-report.zip",
+  "bundle": "/home/runner/work/Site/Site/incoming/page-contract-report.zip",
   "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-10T18:47:06Z",
+    "generated_at": "2026-05-10T18:48:00Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
-    "bundle_name": "transition-replay-report.zip",
-    "bundle_path": "/home/runner/work/Site/Site/incoming/transition-replay-report.zip",
-    "bundle_sha256": "6e4dcecafbae291334e27f36078f174d38f3dbc37396bd93b332ec25c9401188",
+    "bundle_name": "page-contract-report.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/page-contract-report.zip",
+    "bundle_sha256": "1f70edc4a84a154845cef7862c16d100b5f215381f1a69596b0bf5066d4c7184",
     "mode": "apply",
     "bundle_class": "artifact_bundle",
     "verdict": "ALLOW",
     "route": "ingest",
     "reason": "known report artifact bundle",
     "mapped_paths": [
-      "transition-replay-report.json",
-      "transition-replay-report.md"
+      "page-contract-report.json",
+      "page-contract-report.md"
     ],
     "files_seen": 2,
     "files_created": 2,
@@ -28,39 +28,39 @@
     "unsafe_paths_rejected": 0,
     "path_mappings_applied": [
       {
-        "bundle_path": "transition-replay-report.json",
-        "repo_path": "transition_replay_reports/transition-replay-report.json",
-        "reason": "Transition Replay Check artifact ZIP exposes report JSON at root; selector expects transition_replay_reports/."
+        "bundle_path": "page-contract-report.json",
+        "repo_path": "page_contract_reports/page-contract-report.json",
+        "reason": "Page Contract Check artifact ZIP exposes report JSON at root; selector expects page_contract_reports/."
       },
       {
-        "bundle_path": "transition-replay-report.md",
-        "repo_path": "transition_replay_reports/transition-replay-report.md",
-        "reason": "Transition Replay Check artifact ZIP exposes report Markdown at root; selector expects transition_replay_reports/."
+        "bundle_path": "page-contract-report.md",
+        "repo_path": "page_contract_reports/page-contract-report.md",
+        "reason": "Page Contract Check artifact ZIP exposes report Markdown at root; selector expects page_contract_reports/."
       }
     ],
     "repo_transition": {
-      "before_tree_fingerprint": "37772d88a554bdb67a90f519331d0bb56ce63152246ec2523ba961b3f27e70ab",
-      "after_tree_fingerprint": "5f64344d2230d41fa81ea0bebea84e2e8a9573853f0d2758dde4c6804daf265f",
-      "changed_files_fingerprint": "4981e60c0245420ed8f1b8834f207b57fbc4e58c240c56bc49fe0d0ecbf138de"
+      "before_tree_fingerprint": "d20f618daa51e0a932ec4bb7d57e687eac6c8b50abc09f58fdaeb875c18071df",
+      "after_tree_fingerprint": "a1d91ff955dd1c8ed8097cb36c303df5cee9d7ee38ec7585fb98ee874d55772f",
+      "changed_files_fingerprint": "e22b6413445591b657c421af2fa7924dee41b8f28bfb83236e423cd282e94ea7"
     },
     "decisions": [
       {
-        "bundle_path": "transition-replay-report.json",
-        "repo_path": "transition_replay_reports/transition-replay-report.json",
+        "bundle_path": "page-contract-report.json",
+        "repo_path": "page_contract_reports/page-contract-report.json",
         "action": "created",
         "reason": "hash differs or target missing",
         "old_sha256": null,
-        "new_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
-        "bytes": 2299
+        "new_sha256": "55a6bb11da4710d55ffa5fdf5218b60bf8c05b44aa1bc8aedea8f16068ad43b1",
+        "bytes": 58614
       },
       {
-        "bundle_path": "transition-replay-report.md",
-        "repo_path": "transition_replay_reports/transition-replay-report.md",
+        "bundle_path": "page-contract-report.md",
+        "repo_path": "page_contract_reports/page-contract-report.md",
         "action": "created",
         "reason": "hash differs or target missing",
         "old_sha256": null,
-        "new_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
-        "bytes": 324
+        "new_sha256": "5dcb8cea441bd0f65b15a5bc08b7b7247f97a45c9f526f46a9c404a044eefb85",
+        "bytes": 31097
       }
     ]
   },

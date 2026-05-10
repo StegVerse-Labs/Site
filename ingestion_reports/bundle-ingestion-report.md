@@ -1,8 +1,8 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-10T18:47:06Z`
+Generated: `2026-05-10T18:48:00Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/transition-replay-report.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/page-contract-report.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `artifact_bundle`
@@ -18,5 +18,5 @@ Bundle class: `artifact_bundle`
 
 ## File Decisions
 
-- `created` `transition-replay-report.json` → `transition_replay_reports/transition-replay-report.json` — hash differs or target missing
-- `created` `transition-replay-report.md` → `transition_replay_reports/transition-replay-report.md` — hash differs or target missing
+- `created` `page-contract-report.json` → `page_contract_reports/page-contract-report.json` — hash differs or target missing
+- `created` `page-contract-report.md` → `page_contract_reports/page-contract-report.md` — hash differs or target missing
