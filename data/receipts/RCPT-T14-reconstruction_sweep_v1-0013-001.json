@@ -1,12 +1,12 @@
 {
-  "receipt_id": "RCPT-T13-receipt_bound_sweep_v1-0012-001",
+  "receipt_id": "RCPT-T14-reconstruction_sweep_v1-0013-001",
   "schema": "stegverse.transition_receipt.v1",
   "created_at": "2026-05-10T01:48:33Z",
-  "run_id": "T13-receipt_bound_sweep_v1-0012",
-  "ledger_row_id": "T13-receipt_bound_sweep_v1-0012-001",
-  "element_id": "T13",
-  "experiment": "receipt_bound_sweep_v1",
-  "tested_property": "receipt_bound_transition",
+  "run_id": "T14-reconstruction_sweep_v1-0013",
+  "ledger_row_id": "T14-reconstruction_sweep_v1-0013-001",
+  "element_id": "T14",
+  "experiment": "reconstruction_sweep_v1",
+  "tested_property": "receipt_reconstruction",
   "sandbox": {
     "type": "receipt_evidence_deterministic",
     "parallel_ready": true,
@@ -26,7 +26,8 @@
     "two_state_coupling_required",
     "multi_agent_composition_required",
     "conflict_resolution_required",
-    "validator_consensus_required"
+    "validator_consensus_required",
+    "receipt_binding_required"
   ],
   "parameters": {
     "K": 1,
@@ -85,13 +86,48 @@
   "canonical_post_state": null,
   "validator_results": null,
   "validator_verdicts": null,
-  "receipt_packet": null,
-  "reconstructed_post_state": null,
-  "reconstruction_delta": null,
+  "receipt_packet": {
+    "pre_state": {
+      "g": 0.68,
+      "c": 0.64,
+      "a": 0.18,
+      "t": 0.82
+    },
+    "action": {
+      "dg": 0,
+      "dc": 0,
+      "da": 0.02,
+      "dt": 0
+    },
+    "observed_post_state_hash": "sha256:1d65ce9754d31811adcedb7b3c2a6ad8cd576787bfe0ca1853029d5fc799bb3e",
+    "parameters": {
+      "K": 1,
+      "alpha": 1,
+      "beta": 1,
+      "gamma": 1
+    }
+  },
+  "reconstructed_post_state": {
+    "g": 0.68,
+    "c": 0.64,
+    "a": 0.2,
+    "t": 0.82
+  },
+  "reconstruction_delta": {
+    "g": 0.0,
+    "c": 0.0,
+    "a": 0.0,
+    "t": 0.0
+  },
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
-  "observed_post_state": null,
+  "observed_post_state": {
+    "g": 0.68,
+    "c": 0.64,
+    "a": 0.2,
+    "t": 0.82
+  },
   "decision_post_state": null,
   "commit_post_state": null,
   "effect_post_state": null,
@@ -100,19 +136,27 @@
     "constraint_result": "PASS",
     "capacity": 0.35686,
     "invariant": -0.15686,
-    "pre_state_hash": "sha256:b5fc22959f2bde71b498f8a8e789b47e04c79d1a25348c17d0002045dc97e8d2",
-    "action_hash": "sha256:9dd1ebcec617c641b46b2711a98c173c278d8aaa68f47ab3e739c2f7470a3f09",
-    "post_state_hash": "sha256:1d65ce9754d31811adcedb7b3c2a6ad8cd576787bfe0ca1853029d5fc799bb3e",
-    "receipt_payload_hash": "sha256:c0d9ef5c5183d5d53d68adda65af135c2e659178c1c550574547e7e73e276be8",
-    "receipt_bound": true
+    "observed_verdict": "ALLOW",
+    "observed_post_state_hash": "sha256:1d65ce9754d31811adcedb7b3c2a6ad8cd576787bfe0ca1853029d5fc799bb3e",
+    "reconstructed_post_state_hash": "sha256:1d65ce9754d31811adcedb7b3c2a6ad8cd576787bfe0ca1853029d5fc799bb3e",
+    "reconstruction_delta": {
+      "g": 0.0,
+      "c": 0.0,
+      "a": 0.0,
+      "t": 0.0
+    },
+    "reconstruction_exact": true,
+    "reconstructed_verdict": "ALLOW",
+    "reconstruction_verdict_match": true,
+    "reconstruction_confidence": 1.0
   },
   "source_hashes": {
-    "ledger_row_hash": "de59cfdf1ae56c506512975e0924742ee9e17881ec0634c4e881204fd47e6b8d",
-    "run_hash": "sha256:cf65e6c9765719f1f37b4d5153e85ef3fc84c1487caa640e5dd03f5566a048fc"
+    "ledger_row_hash": "71e517eaebc46f4fc311a8d807e9346ded48f1a0aafcf9cb4fc4ac0bacbd93ee",
+    "run_hash": "sha256:7199597bef8266ecd1fa11f69f64473540f2e6fdf8b513e75e198204fcbdfdbe"
   },
   "replay": {
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:4098316c353b6c0a4f012b35723b0f589b4fc36bf1e3bc4cb8cfa2954957a19d"
+  "receipt_hash": "sha256:fff54787ec778981d3576c2eb2b99f68323c82ade64eb53940ec1652d944c4a6"
 }

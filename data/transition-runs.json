@@ -495,6 +495,58 @@
         "reason": "deterministic receipt-bound transition sweep passed"
       },
       "run_hash": "sha256:cf65e6c9765719f1f37b4d5153e85ef3fc84c1487caa640e5dd03f5566a048fc"
+    },
+    {
+      "run_id": "T14-reconstruction_sweep_v1-0013",
+      "element_id": "T14",
+      "experiment": "reconstruction_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "receipt_evidence_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "bounded_batch"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required",
+        "actuation_stage_required",
+        "trust_drift_required",
+        "two_state_coupling_required",
+        "multi_agent_composition_required",
+        "conflict_resolution_required",
+        "validator_consensus_required",
+        "receipt_binding_required"
+      ],
+      "automation_gate": {
+        "mode": "bounded_batch",
+        "max_sequence_steps": 3,
+        "released_by": [
+          "T7"
+        ]
+      },
+      "started_at": "2026-05-10T01:48:33Z",
+      "completed_at": "2026-05-10T01:48:33Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T14-reconstruction_sweep_v1-0013-001",
+        "T14-reconstruction_sweep_v1-0013-002",
+        "T14-reconstruction_sweep_v1-0013-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T14-reconstruction_sweep_v1-0013-reconstruction"
+      ],
+      "evidence_delta": {
+        "from": 2,
+        "to": 4,
+        "reason": "deterministic receipt reconstruction sweep passed"
+      },
+      "run_hash": "sha256:7199597bef8266ecd1fa11f69f64473540f2e6fdf8b513e75e198204fcbdfdbe"
     }
   ]
 }

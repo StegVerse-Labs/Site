@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T5-observation_lag_sweep_v1-0004-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T01:43:36Z",
+  "created_at": "2026-05-10T01:48:33Z",
   "run_id": "T5-observation_lag_sweep_v1-0004",
   "ledger_row_id": "T5-observation_lag_sweep_v1-0004-002",
   "element_id": "T5",
@@ -87,6 +87,9 @@
   "canonical_post_state": null,
   "validator_results": null,
   "validator_verdicts": null,
+  "receipt_packet": null,
+  "reconstructed_post_state": null,
+  "reconstruction_delta": null,
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
@@ -122,5 +125,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:9a02cd267ba7a8b765c6eead2f0617887e57e55e447565675f5b9ba711aec2c1"
+  "receipt_hash": "sha256:a17a41108e881960f4545716b54bcce8e53f415ba3420eb2edec4a85c0a0fc79"
 }

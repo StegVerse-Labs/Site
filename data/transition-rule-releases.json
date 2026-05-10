@@ -1,11 +1,12 @@
 {
-  "generated_at": "2026-05-10T01:43:36Z",
+  "generated_at": "2026-05-10T01:48:33Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
-    "mode": "bounded_batch",
+    "mode": "scheduled_ready",
     "max_sequence_steps": 3,
     "released_by": [
-      "T7"
+      "T13",
+      "T14"
     ]
   },
   "rules": [
@@ -112,6 +113,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts."
+    },
+    {
+      "rule_id": "receipt_reconstruction_required",
+      "released_by": "T14",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state."
     }
   ]
 }

@@ -1,15 +1,28 @@
 {
   "planner": "evidence_gated_sequence_v1",
-  "status": "idle_no_eligible_experiment",
-  "updated_at": "2026-05-10T01:43:36Z",
+  "status": "completed",
+  "updated_at": "2026-05-10T01:48:33Z",
   "automation_gate": {
-    "mode": "bounded_batch",
+    "mode": "scheduled_ready",
     "max_sequence_steps": 3,
     "released_by": [
-      "T7"
+      "T13",
+      "T14"
     ]
   },
-  "sequence_completed": [],
-  "last_selected": null,
-  "last_run_id": null
+  "sequence_completed": [
+    {
+      "run_id": "T14-reconstruction_sweep_v1-0013",
+      "element_id": "T14",
+      "experiment": "reconstruction_sweep_v1",
+      "status": "completed"
+    }
+  ],
+  "last_selected": {
+    "run_id": "T14-reconstruction_sweep_v1-0013",
+    "element_id": "T14",
+    "experiment": "reconstruction_sweep_v1",
+    "status": "completed"
+  },
+  "last_run_id": "T14-reconstruction_sweep_v1-0013"
 }

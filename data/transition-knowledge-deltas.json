@@ -166,6 +166,20 @@
       ],
       "confidence": 0.86,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T14-reconstruction_sweep_v1-0013-reconstruction",
+      "source_run_id": "T14-reconstruction_sweep_v1-0013",
+      "source_element": "T14",
+      "delta_type": "reconstruction_fragment",
+      "summary": "Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.",
+      "informs": [
+        "T14",
+        "T15",
+        "T16"
+      ],
+      "confidence": 0.87,
+      "review_required": false
     }
   ]
 }
