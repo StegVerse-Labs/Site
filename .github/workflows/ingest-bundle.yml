@@ -12,14 +12,13 @@ on:
         required: true
         type: boolean
         default: true
+
   push:
     branches:
       - main
     paths:
       - "incoming/*.zip"
-      - "tools/bundle_ingest.py"
-      - "data/bundle-ingestion-policy-v1.json"
-      - ".github/workflows/ingest-bundle.yml"
+      - "incoming/**/*.zip"
 
 permissions:
   contents: write
@@ -45,15 +44,24 @@ jobs:
           python-version: "3.x"
 
       - name: Run bundle ingestion
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_BUNDLE: ${{ github.event.inputs.bundle }}
+          INPUT_APPLY: ${{ github.event.inputs.apply }}
         run: |
           APPLY_FLAG=""
-          if [ "${{ github.event_name }}" = "push" ] || [ "${{ github.event.inputs.apply }}" = "true" ]; then
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            APPLY_FLAG="--apply"
+          fi
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$INPUT_APPLY" = "true" ]; then
             APPLY_FLAG="--apply"
           fi
 
           BUNDLE_ARG=""
-          if [ -n "${{ github.event.inputs.bundle }}" ]; then
-            BUNDLE_ARG="--bundle ${{ github.event.inputs.bundle }}"
+          if [ -n "$INPUT_BUNDLE" ]; then
+            BUNDLE_ARG="--bundle $INPUT_BUNDLE"
           fi
 
           python tools/bundle_ingest.py \
@@ -64,12 +72,30 @@ jobs:
             $APPLY_FLAG
 
       - name: Commit ingested changes
-        if: github.event_name == 'push' || github.event.inputs.apply == 'true'
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_APPLY: ${{ github.event.inputs.apply }}
         run: |
+          SHOULD_COMMIT="false"
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            SHOULD_COMMIT="true"
+          fi
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$INPUT_APPLY" = "true" ]; then
+            SHOULD_COMMIT="true"
+          fi
+
+          if [ "$SHOULD_COMMIT" != "true" ]; then
+            echo "Dry run only. No commit will be created."
+            exit 0
+          fi
+
           git config user.name "StegVerse Bundle Ingestor"
           git config user.email "builder@stegverse.org"
 
           git add .
+
           if git diff --cached --quiet; then
             echo "No ingested changes to commit."
           else
