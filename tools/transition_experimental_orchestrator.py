@@ -95,6 +95,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "receipt_bound_transition"
         elif mode == "reconstruction_sweep_v1":
             row_payload["tested_property"] = "receipt_reconstruction"
+        elif mode == "irreversibility_sweep_v1":
+            row_payload["tested_property"] = "irreversibility"
         else:
             row_payload["tested_property"] = mode
 
@@ -120,7 +122,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1", "reconstruction_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1", "reconstruction_sweep_v1", "irreversibility_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -1047,6 +1049,99 @@ def t14(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic receipt reconstruction sweep passed", "bad": []}
 
 
+def t15(run_id: str):
+    samples = [
+        {
+            "pre_state": {"g": .70, "c": .64, "a": .18, "t": .82},
+            "action": {"dg": -.04, "dc": -.03, "da": .04, "dt": -.06},
+            "reversal_budget": {"dg": .02, "dc": .02, "da": -.02, "dt": .03},
+            "irreversibility_threshold": .05,
+        },
+        {
+            "pre_state": {"g": .76, "c": .68, "a": .14, "t": .84},
+            "action": {"dg": -.01, "dc": 0, "da": .01, "dt": -.01},
+            "reversal_budget": {"dg": .02, "dc": .02, "da": -.02, "dt": .02},
+            "irreversibility_threshold": .05,
+        },
+        {
+            "pre_state": {"g": .58, "c": .62, "a": .16, "t": .78},
+            "action": {"dg": -.08, "dc": -.06, "da": .06, "dt": -.10},
+            "reversal_budget": {"dg": .03, "dc": .03, "da": -.03, "dt": .04},
+            "irreversibility_threshold": .05,
+        },
+    ]
+
+    rows = []
+    irreversible_count = 0
+    point_of_no_return_count = 0
+
+    for i, sample in enumerate(samples, 1):
+        pre_state = sample["pre_state"]
+        action = sample["action"]
+        reversal_budget = sample["reversal_budget"]
+        threshold = sample["irreversibility_threshold"]
+
+        committed_state = post(pre_state, action)
+        attempted_reversal_state = post(committed_state, reversal_budget)
+
+        pre_verdict = verdict_for(pre_state)
+        committed_verdict = verdict_for(committed_state)
+        attempted_reversal_verdict = verdict_for(attempted_reversal_state)
+
+        residual_delta = {
+            k: round(pre_state[k] - attempted_reversal_state[k], 8)
+            for k in ["g", "c", "a", "t"]
+        }
+        residual_norm = round(math.sqrt(sum(v * v for v in residual_delta.values())), 5)
+        irreversible = residual_norm > threshold
+        point_of_no_return = committed_verdict == "DENY" and attempted_reversal_verdict == "DENY"
+
+        irreversible_count += int(irreversible)
+        point_of_no_return_count += int(point_of_no_return)
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T15",
+            "mode": "irreversibility_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "irreversibility",
+            "pre_state": pre_state,
+            "action": action,
+            "committed_state": committed_state,
+            "reversal_budget": reversal_budget,
+            "attempted_reversal_state": attempted_reversal_state,
+            "post_state": committed_state,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "irreversibility_threshold": threshold},
+            "pre_verdict": pre_verdict,
+            "committed_verdict": committed_verdict,
+            "attempted_reversal_verdict": attempted_reversal_verdict,
+            "residual_delta": residual_delta,
+            "residual_norm": residual_norm,
+            "irreversible": irreversible,
+            "point_of_no_return": point_of_no_return,
+            "capacity": capacity(committed_state),
+            "invariant": invariant(committed_state),
+            "verdict": committed_verdict,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-irreversibility",
+        "source_run_id": run_id,
+        "source_element": "T15",
+        "delta_type": "irreversibility_fragment",
+        "summary": f"Irreversibility sweep found {irreversible_count} irreversible sample(s), including {point_of_no_return_count} point-of-no-return sample(s).",
+        "informs": ["T15", "T16"],
+        "confidence": .81,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic irreversibility sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -1061,6 +1156,7 @@ EXPERIMENTS = {
     "consensus_sweep_v1": t12,
     "receipt_bound_sweep_v1": t13,
     "reconstruction_sweep_v1": t14,
+    "irreversibility_sweep_v1": t15,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -1074,6 +1170,7 @@ FALLBACK_EXPERIMENTS = {
     "T12": ["consensus_sweep_v1"],
     "T13": ["receipt_bound_sweep_v1"],
     "T14": ["reconstruction_sweep_v1"],
+    "T15": ["irreversibility_sweep_v1"],
 }
 
 
@@ -1092,6 +1189,7 @@ RULE_DEFS = [
     ("validator_consensus_required", "T12", 4, "Coupled sandboxes may compare validator quorum against canonical admissibility."),
     ("receipt_binding_required", "T13", 4, "Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts."),
     ("receipt_reconstruction_required", "T14", 4, "Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state."),
+    ("irreversibility_detection_required", "T15", 4, "Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal."),
 ]
 
 
@@ -1165,6 +1263,8 @@ def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
 
 
 def sandbox_class_for(element_id: str, gate: dict[str, Any]) -> str:
+    if element_id in ("T15", "T16"):
+        return "open_boundary_deterministic"
     if element_id in ("T13", "T14"):
         return "receipt_evidence_deterministic"
     if element_id in ("T9", "T10", "T11", "T12"):
@@ -1226,6 +1326,8 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "observed_post_state_hash", "reconstructed_post_state_hash", "reconstruction_delta",
         "reconstruction_exact", "observed_verdict", "reconstructed_verdict",
         "reconstruction_verdict_match", "reconstruction_confidence",
+        "pre_verdict", "committed_verdict", "attempted_reversal_verdict",
+        "residual_delta", "residual_norm", "irreversible", "point_of_no_return",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -1287,6 +1389,10 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "receipt_packet": row_payload.get("receipt_packet"),
         "reconstructed_post_state": row_payload.get("reconstructed_post_state"),
         "reconstruction_delta": row_payload.get("reconstruction_delta"),
+        "committed_state": row_payload.get("committed_state"),
+        "reversal_budget": row_payload.get("reversal_budget"),
+        "attempted_reversal_state": row_payload.get("attempted_reversal_state"),
+        "residual_delta": row_payload.get("residual_delta"),
         "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
         "trust_decayed_state": row_payload.get("trust_decayed_state"),
         "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
@@ -1348,6 +1454,8 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "receipt_bound": receipt["computed"].get("receipt_bound"),
             "reconstruction_exact": receipt["computed"].get("reconstruction_exact"),
             "reconstruction_verdict_match": receipt["computed"].get("reconstruction_verdict_match"),
+            "irreversible": receipt["computed"].get("irreversible"),
+            "point_of_no_return": receipt["computed"].get("point_of_no_return"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
