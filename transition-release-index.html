@@ -49,6 +49,7 @@ ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word
   <a class="btn" href="transition-release-snapshot.html">Open Release Snapshot</a>
   <a class="btn" href="transition-verification-guide.html">Open Verification Guide</a>
   <a class="btn" href="transition-replay-packet.html">Open Replay Packet</a>
+  <a class="btn" href="data/next-transition-build-candidate-v1.json">Open Next-Step Selector JSON</a>
 </section>
 <section>
   <h2>Current Release</h2>
@@ -63,6 +64,15 @@ ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word
     <div class="card"><span class="kicker">Milestone</span><strong>MS-012 — Independent Replay Packet</strong></div>
     <div class="card"><span class="kicker">Release State</span><strong>candidate until replay and page-contract checks pass</strong></div>
   </div>
+</section>
+<section>
+  <h2>Autonomous Next-Step Selector</h2>
+  <p>The selector is the first repo-resident decision layer. It determines the next admissible transition action from release state, decision rules, and readable verifier reports. Missing evidence does not promote.</p>
+  <ul>
+    <li><a href="data/transition-release-state-v1.json">Transition Release State v1</a> <code>data/transition-release-state-v1.json</code></li>
+    <li><a href="data/transition-decision-rules-v1.json">Transition Decision Rules v1</a> <code>data/transition-decision-rules-v1.json</code></li>
+    <li><a href="data/next-transition-build-candidate-v1.json">Next Transition Build Candidate v1</a> <code>data/next-transition-build-candidate-v1.json</code></li>
+  </ul>
 </section>
 <section>
   <h2>Public Pages</h2>
@@ -91,13 +101,16 @@ ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word
     <li><a href="data/transition-replay-packet-v1.json">Replay Packet v1</a> <code>data/transition-replay-packet-v1.json</code></li>
     <li><a href="data/transition-replay-fixtures-v1.json">Replay Fixtures v1</a> <code>data/transition-replay-fixtures-v1.json</code></li>
     <li><a href="data/transition-replay-verifier-v1.json">Replay Verifier v1</a> <code>data/transition-replay-verifier-v1.json</code></li>
+    <li><a href="data/transition-release-state-v1.json">Transition Release State v1</a> <code>data/transition-release-state-v1.json</code></li>
+    <li><a href="data/transition-decision-rules-v1.json">Transition Decision Rules v1</a> <code>data/transition-decision-rules-v1.json</code></li>
+    <li><a href="data/next-transition-build-candidate-v1.json">Next Transition Build Candidate v1</a> <code>data/next-transition-build-candidate-v1.json</code></li>
   </ul>
 </section>
 <section>
   <h2>Next Pending Milestone</h2>
   <span class="status pending">candidate</span>
   <h3>MS-012 — Independent Replay Packet</h3>
-  <p>This milestone should unlock when Transition Replay Check passes and Page Contract Check confirms the replay packet, fixture, verifier, and release-index links are public.</p>
+  <p>This milestone should unlock when Transition Replay Check passes and Page Contract Check confirms the replay packet, fixture, verifier, release-index, and selector-output links are public.</p>
 </section>
 </main>
 </body>

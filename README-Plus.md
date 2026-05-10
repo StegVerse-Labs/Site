@@ -1,66 +1,33 @@
-# Autonomous Next-Step Selector v1
+# Autonomous Next-Step Selector Public Wiring Fix
 
-This bundle adds the first self-validating transition selection layer.
+This fixes the missing public wiring for the selector output.
 
-## Adds
+## Replaces
 
 ```text
-data/transition-release-state-v1.json
-data/transition-decision-rules-v1.json
-tools/transition_next_step_selector.py
-.github/workflows/select-next-transition-step.yml
+transition-release-index.html
+data/transition-release-index-v1.json
+data/page-contracts-v1.json
 ```
 
-## Display note
+## Why
 
-The workflow path may be displayed as:
+The selector output file existed, but the public release directory did not yet expose it as a first-class public JSON surface.
+
+## Done
+
+Page Contract Check should verify:
 
 ```text
-github/workflows/select-next-transition-step.yml
+data/next-transition-build-candidate-v1.json
+Autonomous Next-Step Selector
+Next Transition Build Candidate v1
 ```
 
-In the repository, it must include the leading dot:
+## Run after upload
 
 ```text
-.github/workflows/select-next-transition-step.yml
-```
-
-## What done means
-
-The repo can answer:
-
-```text
-Given the current transition release state, what should happen next, and why?
-```
-
-The selector does not promote from chat messages, screenshots, or implied status. Missing evidence defaults to no promotion.
-
-## Current expected output
-
-Until readable workflow reports exist inside the workspace, the selector should produce:
-
-```text
-next_system_action = run_required_checks
-promotion_allowed = false
-human_required = false
-```
-
-After both required reports are available and passing, it should produce:
-
-```text
-next_system_action = promote_candidate_milestone
-promotion_allowed = true
-human_required = false
-```
-
-## Run
-
-```text
-Actions → Select Next Transition Step → Run workflow
-```
-
-Download the artifact:
-
-```text
-next-transition-step-report
+1. Wait for Pages deployment.
+2. Run Actions → Page Contract Check.
+3. Run Actions → Select Next Transition Step.
 ```
