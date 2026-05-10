@@ -97,6 +97,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "receipt_reconstruction"
         elif mode == "irreversibility_sweep_v1":
             row_payload["tested_property"] = "irreversibility"
+        elif mode == "self_modifying_rule_sweep_v1":
+            row_payload["tested_property"] = "self_modifying_rule_safety"
         else:
             row_payload["tested_property"] = mode
 
@@ -122,8 +124,9 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1", "reconstruction_sweep_v1", "irreversibility_sweep_v1"):
-            row_payload["constraint_result"] = "PASS"
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1", "reconstruction_sweep_v1", "irreversibility_sweep_v1", "self_modifying_rule_sweep_v1"):
+            if row_payload.get("constraint_result") in (None, "", "None", "n/a"):
+                row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
 
@@ -1142,6 +1145,126 @@ def t15(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic irreversibility sweep passed", "bad": []}
 
 
+def rule_patch_hash(rule_patch: dict[str, Any]) -> str:
+    return "sha256:" + digest(rule_patch)
+
+
+def t16(run_id: str):
+    samples = [
+        {
+            "rule_patch": {
+                "rule_id": "tighten_open_boundary_review",
+                "operation": "add_guard",
+                "target_rule": "irreversibility_detection_required",
+                "requires_receipt_bound": True,
+                "requires_reconstruction_match": True,
+                "requires_human_review": False,
+            },
+            "pre_rule_state": {"released_rules_count": 15, "protected_rules_count": 15, "self_modification_allowed": False},
+            "safety_constraints": {
+                "receipt_bound": True,
+                "reconstruction_verdict_match": True,
+                "does_not_weaken_existing_rule": True,
+                "does_not_disable_review_queue": True,
+            },
+        },
+        {
+            "rule_patch": {
+                "rule_id": "disable_review_queue_for_speed",
+                "operation": "weaken_guard",
+                "target_rule": "conflict_resolution_required",
+                "requires_human_review": False,
+                "disables_review_queue": True,
+            },
+            "pre_rule_state": {"released_rules_count": 15, "protected_rules_count": 15, "self_modification_allowed": False},
+            "safety_constraints": {
+                "receipt_bound": True,
+                "reconstruction_verdict_match": True,
+                "does_not_weaken_existing_rule": False,
+                "does_not_disable_review_queue": False,
+            },
+        },
+        {
+            "rule_patch": {
+                "rule_id": "add_self_modification_receipt_requirement",
+                "operation": "add_guard",
+                "target_rule": "self_modification_required",
+                "requires_receipt_bound": True,
+                "requires_reconstruction_match": True,
+                "requires_irreversibility_check": True,
+                "requires_rule_delta_hash": True,
+            },
+            "pre_rule_state": {"released_rules_count": 15, "protected_rules_count": 15, "self_modification_allowed": False},
+            "safety_constraints": {
+                "receipt_bound": True,
+                "reconstruction_verdict_match": True,
+                "does_not_weaken_existing_rule": True,
+                "does_not_disable_review_queue": True,
+            },
+        },
+    ]
+
+    rows = []
+    safe_count = 0
+    blocked_count = 0
+
+    for i, sample in enumerate(samples, 1):
+        rule_patch = sample["rule_patch"]
+        pre_rule_state = sample["pre_rule_state"]
+        safety = sample["safety_constraints"]
+
+        rule_delta_hash = rule_patch_hash(rule_patch)
+        constraints_pass = all(bool(v) for v in safety.values())
+        self_modification_safe = constraints_pass and rule_patch.get("operation") in ("add_guard", "tighten_guard")
+        rule_patch_verdict = "ALLOW" if self_modification_safe else "DENY"
+
+        post_rule_state = dict(pre_rule_state)
+        if self_modification_safe:
+            post_rule_state["released_rules_count"] = pre_rule_state["released_rules_count"] + 1
+            post_rule_state["protected_rules_count"] = pre_rule_state["protected_rules_count"] + 1
+            post_rule_state["self_modification_allowed"] = True
+            safe_count += 1
+        else:
+            post_rule_state["self_modification_allowed"] = False
+            blocked_count += 1
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T16",
+            "mode": "self_modifying_rule_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "self_modifying_rule_safety",
+            "pre_rule_state": pre_rule_state,
+            "rule_patch": rule_patch,
+            "rule_delta_hash": rule_delta_hash,
+            "safety_constraints": safety,
+            "post_rule_state": post_rule_state,
+            "post_state": post_rule_state,
+            "parameters": {"rule_model": "deterministic_guarded_patch", "requires_receipts": True, "requires_reconstruction": True},
+            "constraints_pass": constraints_pass,
+            "self_modification_safe": self_modification_safe,
+            "rule_patch_verdict": rule_patch_verdict,
+            "verdict": rule_patch_verdict,
+            "constraint_result": "PASS" if constraints_pass else "FAIL",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-self-modifying",
+        "source_run_id": run_id,
+        "source_element": "T16",
+        "delta_type": "self_modification_fragment",
+        "summary": f"Self-modifying rule sweep allowed {safe_count} guarded rule patch(es) and blocked {blocked_count} unsafe rule patch(es).",
+        "informs": ["T16"],
+        "confidence": .79,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic self-modifying rule safety sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -1157,6 +1280,7 @@ EXPERIMENTS = {
     "receipt_bound_sweep_v1": t13,
     "reconstruction_sweep_v1": t14,
     "irreversibility_sweep_v1": t15,
+    "self_modifying_rule_sweep_v1": t16,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -1171,6 +1295,7 @@ FALLBACK_EXPERIMENTS = {
     "T13": ["receipt_bound_sweep_v1"],
     "T14": ["reconstruction_sweep_v1"],
     "T15": ["irreversibility_sweep_v1"],
+    "T16": ["self_modifying_rule_sweep_v1"],
 }
 
 
@@ -1190,6 +1315,7 @@ RULE_DEFS = [
     ("receipt_binding_required", "T13", 4, "Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts."),
     ("receipt_reconstruction_required", "T14", 4, "Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state."),
     ("irreversibility_detection_required", "T15", 4, "Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal."),
+    ("self_modification_required", "T16", 4, "Open-boundary sandboxes may test guarded rule patches without weakening released rules or disabling review."),
 ]
 
 
@@ -1328,6 +1454,7 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "reconstruction_verdict_match", "reconstruction_confidence",
         "pre_verdict", "committed_verdict", "attempted_reversal_verdict",
         "residual_delta", "residual_norm", "irreversible", "point_of_no_return",
+        "rule_delta_hash", "constraints_pass", "self_modification_safe", "rule_patch_verdict",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -1393,6 +1520,10 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "reversal_budget": row_payload.get("reversal_budget"),
         "attempted_reversal_state": row_payload.get("attempted_reversal_state"),
         "residual_delta": row_payload.get("residual_delta"),
+        "pre_rule_state": row_payload.get("pre_rule_state"),
+        "rule_patch": row_payload.get("rule_patch"),
+        "safety_constraints": row_payload.get("safety_constraints"),
+        "post_rule_state": row_payload.get("post_rule_state"),
         "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
         "trust_decayed_state": row_payload.get("trust_decayed_state"),
         "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
@@ -1456,6 +1587,8 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "reconstruction_verdict_match": receipt["computed"].get("reconstruction_verdict_match"),
             "irreversible": receipt["computed"].get("irreversible"),
             "point_of_no_return": receipt["computed"].get("point_of_no_return"),
+            "self_modification_safe": receipt["computed"].get("self_modification_safe"),
+            "rule_patch_verdict": receipt["computed"].get("rule_patch_verdict"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
