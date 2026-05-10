@@ -4,13 +4,20 @@ StegVerse public page contract checker.
 
 This script verifies the public GitHub Pages surface against a JSON contract.
 It uses only the Python standard library so it can run in GitHub Actions without extra dependencies.
+
+v1.1 behavior:
+- Required text checks are whitespace-insensitive.
+- Heading checks pass even when large display headings are stored without spaces in raw HTML.
+- Required link checks pass when a target is present as an actual anchor href OR present in the page body/fallback payload.
 """
 
 from __future__ import annotations
 
 import argparse
+import html
 import html.parser
 import json
+import re
 import sys
 import time
 import urllib.error
@@ -43,15 +50,69 @@ class LinkParser(html.parser.HTMLParser):
                 self.hrefs.append(value)
 
 
+class TextParser(html.parser.HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.parts: list[str] = []
+        self.skip_depth = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() in {"script", "style", "noscript"}:
+            self.skip_depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() in {"script", "style", "noscript"} and self.skip_depth:
+            self.skip_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self.skip_depth == 0:
+            self.parts.append(data)
+
+
 def normalize_base_url(base_url: str) -> str:
     return base_url.rstrip("/") + "/"
+
+
+def normalize_text(value: str) -> str:
+    """Collapse whitespace and uppercase for forgiving page text checks."""
+    return re.sub(r"\s+", " ", html.unescape(value)).strip().upper()
+
+
+def compact_text(value: str) -> str:
+    """Remove all whitespace and uppercase for visual heading checks."""
+    return re.sub(r"\s+", "", normalize_text(value))
+
+
+def extract_visible_text(markup: str) -> str:
+    parser = TextParser()
+    parser.feed(markup)
+    return " ".join(parser.parts)
+
+
+def body_contains_marker(markup: str, marker: str) -> bool:
+    visible = extract_visible_text(markup)
+
+    normalized_marker = normalize_text(marker)
+    compact_marker = compact_text(marker)
+
+    candidates = [
+        normalize_text(visible),
+        compact_text(visible),
+        normalize_text(markup),
+        compact_text(markup),
+    ]
+
+    return any(
+        normalized_marker in candidate or compact_marker in candidate
+        for candidate in candidates
+    )
 
 
 def fetch_url(url: str, retries: int, timeout: int) -> tuple[int | None, str, str | None]:
     last_error: str | None = None
     for attempt in range(retries + 1):
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "stegverse-page-contract-checker/1.0"})
+            request = urllib.request.Request(url, headers={"User-Agent": "stegverse-page-contract-checker/1.1"})
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 charset = response.headers.get_content_charset() or "utf-8"
                 body = response.read().decode(charset, errors="replace")
@@ -107,10 +168,26 @@ def resolve_link(base_url: str, page_path: str, href: str) -> str:
     return urllib.parse.urljoin(page_url, href)
 
 
+def required_link_present(markup: str, links: set[str], expected_link: str) -> bool:
+    """Accept a true href or a literal body/fallback mention.
+
+    Some pages render release-index lists from embedded fallback JSON. GitHub Actions
+    does not execute browser JavaScript, so a JSON-sourced link may not appear in
+    the initial anchor set even though the page can render it in Safari.
+    """
+    if expected_link in links:
+        return True
+    if expected_link in markup:
+        return True
+
+    # Also accept URL-escaped forms.
+    escaped = expected_link.replace("/", r"\/")
+    return escaped in markup
+
+
 def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retries: int, timeout: int) -> list[CheckResult]:
     results: list[CheckResult] = []
     base_url = normalize_base_url(base_url)
-    fetched_pages: dict[str, str] = {}
 
     for page in contract.get("pages", []):
         path = page["path"]
@@ -128,25 +205,25 @@ def run_checks(contract: dict[str, Any], base_url: str, strict_links: bool, retr
         if status != 200:
             continue
 
-        fetched_pages[path] = body
-
         for marker in page.get("required_substrings", []):
+            found = body_contains_marker(body, marker)
             results.append(CheckResult(
                 kind="page",
                 target=path,
                 check=f"contains:{marker}",
-                passed=marker in body,
-                detail="found" if marker in body else "missing",
+                passed=found,
+                detail="found" if found else "missing",
             ))
 
         links = page_links(body)
         for expected_link in page.get("required_links", []):
+            found = required_link_present(body, links, expected_link)
             results.append(CheckResult(
                 kind="page",
                 target=path,
                 check=f"link:{expected_link}",
-                passed=expected_link in links,
-                detail="found" if expected_link in links else f"missing; found={sorted(links)}",
+                passed=found,
+                detail="found" if found else f"missing; found={sorted(links)}",
             ))
 
         if strict_links:
