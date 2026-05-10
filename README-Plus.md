@@ -1,4 +1,4 @@
-# T12 Consensus Transition v1
+# T13 Receipt-Bound Transition v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -11,22 +11,20 @@ tools/build_transition_pages.py
 
 ## What this implements
 
-- Adds `T12` experiment: `consensus_sweep_v1`.
-- Adds fallback experiment registration for `T12`.
-- Adds consensus receipts with:
-  - canonical_state
-  - proposal_action
-  - canonical_post_state
-  - validator_results
-  - validator_verdicts
-  - allow_votes
-  - deny_votes
-  - quorum_threshold
-  - quorum_result
-  - canonical_verdict
-  - consensus_flip
-- Adds `validator_consensus_required` as a rule released by `T12` once tested.
-- Updates transition pages to display `Consensus flip`.
+- Adds `T13` experiment: `receipt_bound_sweep_v1`.
+- Adds fallback experiment registration for `T13`.
+- Adds receipt-bound transition receipts with:
+  - pre_state
+  - action
+  - post_state
+  - pre_state_hash
+  - action_hash
+  - post_state_hash
+  - receipt_payload_hash
+  - receipt_bound
+- Adds `receipt_binding_required` as a rule released by `T13` once tested.
+- Adds `receipt_evidence_deterministic` sandbox class for T13–T14.
+- Updates transition pages to display `Receipt bound`.
 
 ## Expected next workflow run
 
@@ -39,7 +37,7 @@ Actions → Transition Experimental Engine → Run workflow
 Expected result:
 
 ```text
-T12 advances from 1/5 Defined to 4/5 Tested.
-T12 emits consensus_fragment.
-T12 receipts compare validator quorum against canonical admissibility.
+T13 advances from 2/5 Derived to 4/5 Tested.
+T13 emits receipt_binding_fragment.
+T13 receipts show receipt_bound=true and hashes for pre-state, action, and post-state.
 ```
