@@ -6,14 +6,8 @@
 <title>Transition Milestones | StegVerse</title>
 <style>
 :root{
-  --bg:#080b12;
-  --panel:rgba(16,24,39,.78);
-  --text:#eef4ff;
-  --muted:#a9b7cc;
-  --line:rgba(255,255,255,.14);
-  --green:#43d694;
-  --blue:#4da3ff;
-  --gold:#ffbe54;
+  --bg:#080b12; --panel:rgba(16,24,39,.78); --text:#eef4ff; --muted:#a9b7cc;
+  --line:rgba(255,255,255,.14); --green:#43d694; --gold:#ffbe54;
 }
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.14),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
@@ -28,10 +22,9 @@ h1{font-size:clamp(2.35rem,7vw,5.6rem);line-height:.92;margin:0;letter-spacing:-
 h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 h3{font-size:1.2rem;margin:0 0 8px}
 p{color:var(--muted);font-size:1.02rem}
-code{color:#f5fbff;word-break:break-all}
 .btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.stat{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.18);min-width:0}
+.stat,.meta div{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.18);min-width:0;overflow-wrap:anywhere;word-break:break-word}
 .stat strong{display:block;font-size:clamp(1.15rem,7vw,1.6rem);letter-spacing:-.04em;overflow-wrap:anywhere;word-break:break-word;line-height:1.05}
 .timeline{display:grid;gap:14px}
 .milestone{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(67,214,148,.10),rgba(77,163,255,.06)),rgba(0,0,0,.20);padding:18px;min-width:0;overflow:hidden}
@@ -42,7 +35,6 @@ code{color:#f5fbff;word-break:break-all}
 .status.pending{color:var(--gold);border-color:rgba(255,190,84,.35)}
 .small{font-size:.9rem;color:var(--muted)}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
-.meta div{border:1px solid var(--line);border-radius:14px;padding:10px;background:rgba(0,0,0,.16);overflow-wrap:anywhere;word-break:break-word}
 .meta strong{display:block;color:var(--text);font-size:.9rem}
 .reason{border-left:3px solid var(--green);padding-left:12px;margin-top:12px;color:#dbe7f7}
 ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
@@ -72,10 +64,12 @@ li{margin-bottom:6px}
   <h1>Transition Milestones</h1>
   <p>
     This page tracks formal unlocked milestones of the Transition Periodic Table as the experimental engine advances.
-    Newest unlocked milestones appear first. MS-010 is now the newest unlocked development milestone. Each milestone records what capability was released and why the table state justified the release.
+    Newest unlocked milestones appear first. MS-010 is now the newest unlocked development milestone.
+    Each milestone records what capability was released and why the table state justified the release.
   </p>
   <a class="btn" href="transition-table.html">Open Transition Table</a>
   <a class="btn" href="transition-periodic-table.html">Open Research Landing</a>
+  <a class="btn" href="transition-release-index.html">Open Release Index</a>
 </section>
 
 <section>
@@ -90,17 +84,25 @@ li{margin-bottom:6px}
 
 <section>
   <h2>Formal Milestone Ledger</h2>
-  <div class="timeline" id="timeline">
-    <article class="milestone latest">
-      <p class="kicker">Newest unlocked milestone</p>
-      <h3>MS-008 — Receipt-Backed Automation Readiness</h3>
-      <p>Receipt-governed automation is released after T13 and T14 reach receipt-backed status and the automation-release verifier returns ALLOW.</p>
-      <span class="status released">released</span>
-    </article>
-  </div>
+  <div class="timeline" id="timeline"></div>
 </section>
 
-
+<section>
+  <h2>Next Pending Milestone</h2>
+  <article class="milestone">
+    <p class="kicker">Pending milestone</p>
+    <h3>MS-011 — Public Verification Bundle</h3>
+    <p>
+      This milestone should unlock when a single reader-facing verification guide explains how to verify the table state from public pages and JSON.
+    </p>
+    <div class="meta">
+      <div><strong>Pending capability</strong>public verification guide</div>
+      <div><strong>Depends on</strong>MS-010, release index, verifier JSON, table evidence</div>
+    </div>
+    <p class="reason"><strong>Unlock reasoning required:</strong> MS-011 should only be marked released after an outside reader can follow one page to verify the release state, evidence state, receipts, ledger summary, and release snapshot.</p>
+    <span class="status pending">pending</span>
+  </article>
+</section>
 
 <section>
   <h2>Milestone Rule</h2>
@@ -112,7 +114,7 @@ li{margin-bottom:6px}
 </main>
 
 <script>
-const fallbackMilestones = [
+const milestones = [
   {
     id: "MS-010",
     formalLabel: "MS-010 — Public Navigation Integration",
@@ -121,7 +123,7 @@ const fallbackMilestones = [
     releasedBy: ["transition-periodic-table.html", "transition-table.html", "transition-release-index.html"],
     summary: "Public navigation integration is released when the primary transition research pages expose the milestone, status, snapshot, and release-index surfaces.",
     reasoning: "This milestone is unlocked because the Transition Table and Transition Periodic Table landing page now link to Milestones, Development Status, Release Snapshot, and Release Index. A reader can reach the verification surfaces from the main research flow without knowing direct URLs.",
-    details: ["Primary research pages now expose release navigation.", "Release index remains public.", "MS-011 is now the next pending verification milestone."]
+    details: ["Primary research pages expose release navigation.", "Release index remains public.", "MS-011 is now the next pending verification milestone."]
   },
   {
     id: "MS-009",
@@ -130,53 +132,53 @@ const fallbackMilestones = [
     status: "released",
     releasedBy: ["MS-008", "transition-development-status.html", "transition-release-snapshot-v1.json"],
     summary: "The development release layer is unlocked when the current receipt-backed automation state is made publicly inspectable through stable pages, verifier links, and a named release snapshot.",
-    reasoning: "This milestone is unlocked because the table now exposes a milestone ledger, a development status page, a release snapshot page, public verifier JSON, and a named release snapshot JSON. That makes the current experimental state verifiable from the public research surface rather than only from workflow logs.",
+    reasoning: "This milestone is unlocked because the table exposes a milestone ledger, a development status page, a release snapshot page, public verifier JSON, and a named release snapshot JSON. That makes the current experimental state verifiable from the public research surface rather than only from workflow logs.",
     details: ["Development status page added.", "Release snapshot page added.", "Release snapshot JSON added.", "Verifier JSON links exposed."]
   },
   {
     id: "MS-008",
     formalLabel: "MS-008 — Receipt-Backed Automation Readiness",
-    capability: "receipt_backed_automation_ready",
+    capability: "receipt backed automation ready",
     status: "released",
     releasedBy: ["T13", "T14", "automation-release-verifier"],
     summary: "Receipt-governed automation is formally released when T13 and T14 provide replayable receipt binding and reconstruction evidence, and the automation-release verifier confirms all automation modes satisfy their required evidence gates.",
     reasoning: "This milestone is unlocked because T13 reached 5/5 Receipt-backed by verifying receipt-bound transition records, T14 reached 5/5 Receipt-backed by verifying reconstruction from receipt packets, and the automation-release verifier returned ALLOW for the full release stack. That means automation is no longer merely tested; its evidence layer can be replayed and checked.",
-    details: ["Current state: receipt_backed_automation_ready.", "Verifier verdict: ALLOW.", "This does not imply unbounded autonomy; it means the release gates for receipt-governed automation are satisfied."]
+    details: ["Current state: receipt_backed_automation_ready.", "Verifier verdict: ALLOW.", "This does not imply unbounded autonomy."]
   },
   {
     id: "MS-007",
     formalLabel: "MS-007 — Guarded Self-Modification Release",
-    capability: "self_modification_guarded",
+    capability: "self modification guarded",
     status: "released",
     releasedBy: ["T16"],
     summary: "Guarded self-modification is released when the table demonstrates that rule patches can be allowed or denied without weakening released rules or disabling review.",
     reasoning: "This milestone is unlocked because T16 tested self-modifying rule patches under explicit safety constraints. The engine allowed guarded rule additions and denied unsafe weakening behavior, showing that self-modification can be treated as a transition class subject to receipt, reconstruction, and review constraints.",
-    details: ["Unsafe rule patches are denied.", "Self-modification remains constrained by released rules.", "This does not authorize free mutation of the engine."]
+    details: ["Unsafe rule patches are denied.", "Self-modification remains constrained by released rules."]
   },
   {
     id: "MS-006",
     formalLabel: "MS-006 — Irreversibility-Guarded Automation Release",
-    capability: "irreversibility_guarded",
+    capability: "irreversibility guarded",
     status: "released",
     releasedBy: ["T15"],
     summary: "Irreversibility-guarded automation is released when the table can classify whether a committed transition crosses a point of no return under bounded reversal.",
     reasoning: "This milestone is unlocked because T15 tested committed transitions, attempted reversals, residual deltas, residual norms, and point-of-no-return conditions. That gives automation a rule for distinguishing reversible operations from irreversible or non-recoverable consequences.",
-    details: ["Irreversible samples are receipt-recorded.", "Point-of-no-return samples are explicitly identified.", "This becomes a guardrail for real-world consequence boundaries."]
+    details: ["Irreversible samples are receipt-recorded.", "Point-of-no-return samples are explicitly identified."]
   },
   {
     id: "MS-005",
     formalLabel: "MS-005 — Receipt Evidence Layer Release",
-    capability: "receipt_evidence_layer",
+    capability: "receipt evidence layer",
     status: "released",
     releasedBy: ["T13", "T14"],
     summary: "The receipt evidence layer is released when the table proves transition records can be bound and reconstructed.",
     reasoning: "This milestone is unlocked because T13 showed that pre-state, action, and post-state can be bound into replayable receipt material, while T14 showed that end-states can be reconstructed from receipt packets and compared against observed outcomes. Together they establish the evidence layer required for receipt-governed automation.",
-    details: ["T13 binds pre-state, action, and post-state hashes.", "T14 verifies reconstruction exactness and verdict matching.", "This is the bridge from tested automation to receipt-backed automation."]
+    details: ["T13 binds pre-state, action, and post-state hashes.", "T14 verifies reconstruction exactness and verdict matching."]
   },
   {
     id: "MS-004",
     formalLabel: "MS-004 — Coupled-State Automation Release",
-    capability: "coupled_batch",
+    capability: "coupled batch",
     status: "released",
     releasedBy: ["T9", "T10", "T11", "T12"],
     summary: "Coupled-state automation is released when the table can test interactions between states, agents, conflicts, and validators.",
@@ -186,7 +188,7 @@ const fallbackMilestones = [
   {
     id: "MS-003",
     formalLabel: "MS-003 — Lag-Aware Automation Release",
-    capability: "bounded_batch",
+    capability: "bounded batch",
     status: "released",
     releasedBy: ["T5", "T6", "T7", "T8"],
     summary: "Lag-aware automation is released when the table proves that observation, decision, actuation, and trust drift can change admissibility.",
@@ -196,7 +198,7 @@ const fallbackMilestones = [
   {
     id: "MS-002",
     formalLabel: "MS-002 — Primitive Experimental Row Release",
-    capability: "manual_single",
+    capability: "manual single",
     status: "released",
     releasedBy: ["T1", "T2", "T3", "T4"],
     summary: "Manual deterministic experiment execution is released when the primitive row establishes admissibility, conservation, bounded action, and margin.",
@@ -206,7 +208,7 @@ const fallbackMilestones = [
   {
     id: "MS-001",
     formalLabel: "MS-001 — Public Transition Research Surface Release",
-    capability: "public_research_surface",
+    capability: "public research surface",
     status: "released",
     releasedBy: ["Site"],
     summary: "The public research surface is released when the transition table, landing page, and transition detail pages become visible as a static research artifact.",
@@ -217,24 +219,19 @@ const fallbackMilestones = [
 
 async function fetchJSON(path, fallback) {
   try {
-    const response = await fetch(path, {cache: "no-store"});
+    const response = await fetch(path, {cache:"no-store"});
     if (!response.ok) return fallback;
     return await response.json();
   } catch (error) {
     return fallback;
   }
 }
-
 function escapeHTML(value) {
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
-
-function renderTimeline(milestones) {
+function renderTimeline() {
   const timeline = document.getElementById("timeline");
   timeline.innerHTML = "";
   milestones.forEach((m, index) => {
@@ -246,36 +243,32 @@ function renderTimeline(milestones) {
       <h3>${escapeHTML(m.formalLabel)}</h3>
       <p>${escapeHTML(m.summary)}</p>
       <div class="meta">
-        <div><strong>Unlocked capability</strong>${escapeHTML(String(m.capability).replaceAll("_", " "))}</div>
+        <div><strong>Unlocked capability</strong>${escapeHTML(m.capability)}</div>
         <div><strong>Released by</strong>${escapeHTML((m.releasedBy || []).join(", "))}</div>
       </div>
       <p class="reason"><strong>Unlock reasoning:</strong> ${escapeHTML(m.reasoning)}</p>
-      <span class="status ${m.status === "released" ? "released" : "pending"}">${escapeHTML(m.status)}</span>
+      <span class="status released">released</span>
       <ul>${details}</ul>
     `;
     timeline.appendChild(article);
   });
 }
-
 (async () => {
-  const automation = await fetchJSON("data/automation-release-state.json", {current_state:"unknown", releases:[]});
-  const verifier = await fetchJSON("data/automation-release-verifier.json", {verdict:"unknown", checks:[]});
+  const automation = await fetchJSON("data/automation-release-state.json", {current_state:"unknown"});
+  const verifier = await fetchJSON("data/automation-release-verifier.json", {verdict:"unknown"});
   const evidence = await fetchJSON("data/transition-evidence.json", {elements:{}});
-
-  const elements = evidence.elements || {};
-  const values = Object.values(elements);
+  const values = Object.values(evidence.elements || {});
   const tested = values.filter(v => Number(v.evidence_level) >= 4).length;
-  const receiptBacked = values.filter(v => Number(v.evidence_level) >= 5).length;
+  const backed = values.filter(v => Number(v.evidence_level) >= 5).length;
 
   const rawState = automation.current_state || "unknown";
   const stateNode = document.getElementById("state");
-  stateNode.textContent = rawState.replaceAll("_", " ");
+  stateNode.textContent = String(rawState).replaceAll("_", " ");
   stateNode.title = rawState;
   document.getElementById("verdict").textContent = verifier.verdict || "unknown";
-  document.getElementById("receiptBacked").textContent = String(receiptBacked);
+  document.getElementById("receiptBacked").textContent = String(backed);
   document.getElementById("tested").textContent = String(tested);
-
-  renderTimeline(fallbackMilestones);
+  renderTimeline();
 })();
 </script>
 </body>
