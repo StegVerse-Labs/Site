@@ -1,0 +1,47 @@
+name: Transition Replay Check
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/transition_replay_check.py"
+      - "data/transition-replay-fixtures-v1.json"
+      - "data/transition-replay-verifier-v1.json"
+      - ".github/workflows/transition-replay-check.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: transition-replay-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  replay:
+    name: Replay selected transition fixtures
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run transition replay checker
+        run: |
+          python tools/transition_replay_check.py \
+            --fixtures data/transition-replay-fixtures-v1.json \
+            --out-dir transition_replay_reports
+
+      - name: Upload transition replay report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: transition-replay-report
+          path: transition_replay_reports/
+          if-no-files-found: error
