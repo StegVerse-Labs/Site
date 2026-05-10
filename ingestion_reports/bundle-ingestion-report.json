@@ -1,75 +1,33 @@
 {
-  "generated_at": "2026-05-10T18:48:00Z",
+  "generated_at": "2026-05-10T19:08:02Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/page-contract-report.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+  "bundle": "/home/runner/work/Site/Site/incoming/ms012d-workflow-report-evidence-v1.zip",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-10T18:48:00Z",
+    "generated_at": "2026-05-10T19:08:02Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
-    "bundle_name": "page-contract-report.zip",
-    "bundle_path": "/home/runner/work/Site/Site/incoming/page-contract-report.zip",
-    "bundle_sha256": "1f70edc4a84a154845cef7862c16d100b5f215381f1a69596b0bf5066d4c7184",
+    "bundle_name": "ms012d-workflow-report-evidence-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012d-workflow-report-evidence-v1.zip",
+    "bundle_sha256": "d36ce0d33e3ae90c9f1fd461982ec94499d63fd19aa7116e819eecf3ed4fd136",
     "mode": "apply",
-    "bundle_class": "artifact_bundle",
-    "verdict": "ALLOW",
-    "route": "ingest",
-    "reason": "known report artifact bundle",
+    "bundle_class": "workflow_bundle",
+    "verdict": "PRIVILEGED_EXECUTOR_REQUIRED",
+    "route": "privileged_queue",
+    "reason": "workflow mutation requires privileged executor",
     "mapped_paths": [
-      "page-contract-report.json",
-      "page-contract-report.md"
+      "README.md",
+      "bundle-manifest.json",
+      "data/workflow-report-evidence-policy-v1.json",
+      ".github/workflows/page-contract-check.yml",
+      ".github/workflows/transition-replay-check.yml",
+      "page_contract_reports/README.md",
+      "transition_replay_reports/README.md"
     ],
-    "files_seen": 2,
-    "files_created": 2,
-    "files_updated": 0,
-    "files_unchanged": 0,
-    "files_skipped": 0,
-    "unsafe_paths_rejected": 0,
-    "path_mappings_applied": [
-      {
-        "bundle_path": "page-contract-report.json",
-        "repo_path": "page_contract_reports/page-contract-report.json",
-        "reason": "Page Contract Check artifact ZIP exposes report JSON at root; selector expects page_contract_reports/."
-      },
-      {
-        "bundle_path": "page-contract-report.md",
-        "repo_path": "page_contract_reports/page-contract-report.md",
-        "reason": "Page Contract Check artifact ZIP exposes report Markdown at root; selector expects page_contract_reports/."
-      }
-    ],
-    "repo_transition": {
-      "before_tree_fingerprint": "d20f618daa51e0a932ec4bb7d57e687eac6c8b50abc09f58fdaeb875c18071df",
-      "after_tree_fingerprint": "a1d91ff955dd1c8ed8097cb36c303df5cee9d7ee38ec7585fb98ee874d55772f",
-      "changed_files_fingerprint": "e22b6413445591b657c421af2fa7924dee41b8f28bfb83236e423cd282e94ea7"
-    },
-    "decisions": [
-      {
-        "bundle_path": "page-contract-report.json",
-        "repo_path": "page_contract_reports/page-contract-report.json",
-        "action": "created",
-        "reason": "hash differs or target missing",
-        "old_sha256": null,
-        "new_sha256": "55a6bb11da4710d55ffa5fdf5218b60bf8c05b44aa1bc8aedea8f16068ad43b1",
-        "bytes": 58614
-      },
-      {
-        "bundle_path": "page-contract-report.md",
-        "repo_path": "page_contract_reports/page-contract-report.md",
-        "action": "created",
-        "reason": "hash differs or target missing",
-        "old_sha256": null,
-        "new_sha256": "5dcb8cea441bd0f65b15a5bc08b7b7247f97a45c9f526f46a9c404a044eefb85",
-        "bytes": 31097
-      }
-    ]
+    "decisions": []
   },
   "summary": {
-    "total_entries_seen": 2,
-    "applied": 2,
-    "unchanged": 0,
-    "skipped": 0,
-    "path_mappings": 2,
-    "unsafe_paths_rejected": 0
+    "applied": 0,
+    "routed_privileged": 1
   }
 }
