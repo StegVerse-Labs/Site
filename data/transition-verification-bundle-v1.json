@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-05-10T04:16:53Z",
+  "schema": "stegverse.transition_verification_bundle.v1",
+  "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
+  "status": "pending_until_public_links_confirmed",
+  "purpose": "Provide a single reader-facing verification path for the current Transition Periodic Table development release.",
+  "current_verified_release": {
+    "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
+    "release_state": "public_navigation_integrated",
+    "automation_state": "receipt_backed_automation_ready",
+    "verifier_verdict": "ALLOW"
+  },
+  "verification_steps": [
+    {
+      "step": 1,
+      "name": "Confirm release index",
+      "page": "transition-release-index.html",
+      "data": "data/transition-release-index-v1.json",
+      "proves": "The public release directory identifies the current release and lists public pages and JSON surfaces."
+    },
+    {
+      "step": 2,
+      "name": "Confirm milestone ordering",
+      "page": "transition-milestones.html",
+      "data": "data/transition-release-snapshot-v1.json",
+      "proves": "The newest unlocked milestone is MS-010 and MS-011 remains pending."
+    },
+    {
+      "step": 3,
+      "name": "Confirm automation release state",
+      "page": "transition-development-status.html",
+      "data": "data/automation-release-state.json",
+      "proves": "The automation release state is receipt_backed_automation_ready."
+    },
+    {
+      "step": 4,
+      "name": "Confirm verifier verdict",
+      "page": "transition-development-status.html",
+      "data": "data/automation-release-verifier.json",
+      "proves": "The automation-release verifier returned ALLOW and release-mode checks are satisfied."
+    },
+    {
+      "step": 5,
+      "name": "Confirm receipt-backed evidence",
+      "page": "transition-release-snapshot.html",
+      "data": "data/receipt-backing-verifier.json",
+      "proves": "T13 and T14 provide receipt-bound and reconstruction-backed evidence surfaces."
+    },
+    {
+      "step": 6,
+      "name": "Confirm transition evidence",
+      "page": "transition-table.html",
+      "data": "data/transition-evidence.json",
+      "proves": "Transition evidence levels and runtime states are publicly inspectable."
+    },
+    {
+      "step": 7,
+      "name": "Confirm experiment ledger",
+      "page": "transition-table.html",
+      "data": "data/experimental-ledger-summary.json",
+      "proves": "Recent experiment rows and verdicts are visible as the test trail behind the table state."
+    }
+  ],
+  "public_json_surfaces": [
+    "data/transition-release-index-v1.json",
+    "data/transition-release-snapshot-v1.json",
+    "data/automation-release-state.json",
+    "data/automation-release-verifier.json",
+    "data/receipt-backing-verifier.json",
+    "data/transition-evidence.json",
+    "data/experimental-ledger-summary.json",
+    "data/transition-verification-bundle-v1.json"
+  ],
+  "not_claimed": [
+    "This guide does not claim final publication readiness.",
+    "This guide does not claim all transitions are 5/5 Receipt-backed.",
+    "This guide does not claim unbounded autonomy.",
+    "This guide describes how to verify the currently published development state."
+  ],
+  "next_unlock_condition": "MS-011 can be marked released after transition-verification-guide.html is live and linked from the primary public research surfaces."
+}
