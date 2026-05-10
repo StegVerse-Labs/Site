@@ -1,30 +1,43 @@
-# MS-010 Snapshot Reasoning Final Fix v1
+# MS-011 Public Verification Bundle v1
 
 Upload-safe bundle. No leading-dot paths.
 
-Replaces only:
+Adds:
 
 ```text
+transition-verification-guide.html
+data/transition-verification-bundle-v1.json
+```
+
+Updates:
+
+```text
+transition-release-index.html
+transition-milestones.html
+transition-development-status.html
 transition-release-snapshot.html
+transition-table.html
+transition-periodic-table.html
+data/transition-release-index-v1.json
 ```
 
-## What this fixes
+## What this does
 
-Only the “Why this milestone is unlocked” paragraph is corrected.
+- Adds one reader-facing verification guide.
+- Adds one verification bundle JSON.
+- Links the guide from the public release pages.
+- Keeps `MS-011 — Public Verification Bundle` pending until live links are confirmed.
 
-Expected text:
+## Done check after upload
 
 ```text
-MS-010 is unlocked because the two primary transition research surfaces now link to the milestone ledger, development status, release snapshot, and release index. A reader can reach the public verification surfaces from the main research pages without knowing direct URLs.
+transition-verification-guide.html exists
+transition-release-index.html links to Verification Guide
+transition-milestones.html links to Verification Guide
+transition-development-status.html links to Verification Guide
+transition-release-snapshot.html links to Verification Guide
+transition-table.html links to Verification Guide
+transition-periodic-table.html links to Verification Guide
+data/transition-verification-bundle-v1.json exists
+MS-011 remains pending
 ```
-
-## Done check
-
-After upload:
-
-```text
-transition-release-snapshot.html
-Why this milestone is unlocked = MS-010 navigation reasoning
-```
-
-No JSON, experiments, evidence levels, receipts, verifier math, table pages, or milestone pages are changed.
