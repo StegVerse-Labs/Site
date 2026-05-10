@@ -1,61 +1,66 @@
-# Transition Page Contract Checker v1
+# Page Contract MS-012 Stabilized Fix v1
 
-Upload-safe bundle.
+Upload-safe bundle. No leading-dot paths.
 
-This adds an automated public-page checker for the Transition Periodic Table site.
-
-## Files
+Replaces:
 
 ```text
 tools/page_contract_check.py
 data/page-contracts-v1.json
-github/workflows/page-contract-check.yml
 ```
 
-Note: `github/workflows/page-contract-check.yml` is displayed without the leading dot here. The bundle preserves the correct `.github/workflows/page-contract-check.yml` path for GitHub.
+## What changed
 
-## What this checks
-
-The checker verifies:
+The contract is now split correctly:
 
 ```text
-transition-periodic-table.html
-transition-table.html
-transition-milestones.html
-transition-development-status.html
-transition-release-snapshot.html
-transition-release-index.html
-transition-verification-guide.html
-transition-replay-packet.html
+Site-wide homepage checks:
+- index.html
+
+Transition release checks:
+- transition-periodic-table.html
+- transition-table.html
+- transition-milestones.html
+- transition-development-status.html
+- transition-release-snapshot.html
+- transition-release-index.html
+- transition-verification-guide.html
+- transition-replay-packet.html
 ```
 
-It also verifies:
+The checker now tolerates:
 
 ```text
-data/transition-release-index-v1.json
-data/transition-release-snapshot-v1.json
-data/transition-verification-bundle-v1.json
+spaces
+hyphens
+underscores
+line breaks
+visual heading joins
+```
+
+The JSON checks remain strict.
+
+## Important
+
+If the Release Index still does not list:
+
+```text
+Replay Packet v1
 data/transition-replay-packet-v1.json
 ```
 
-## What the workflow produces
+the workflow should still fail. That is a real page-state failure, not a checker failure.
 
-The workflow uploads:
+## Done check
+
+Run:
 
 ```text
-page-contract-report.json
-page-contract-report.md
+Actions → Page Contract Check → Run workflow
 ```
 
-## Manual run
+If it fails, use the uploaded artifact:
 
-After upload:
-
-1. Open GitHub Actions.
-2. Select `Page Contract Check`.
-3. Run workflow.
-4. Download `page-contract-report`.
-
-## Done condition
-
-The workflow passes only if the required pages, JSON files, nav links, milestone markers, and replay packet entries are visible on the public site.
+```text
+page-contract-report.md
+```
