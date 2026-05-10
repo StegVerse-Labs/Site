@@ -56,36 +56,15 @@ def verdict_for(state: dict[str, float]) -> str:
     return "ALLOW" if invariant(state) <= 0 and all(0 <= v <= 1 for v in state.values()) else "DENY"
 
 
+def state_add(state: dict[str, float], delta: dict[str, float]) -> dict[str, float]:
+    return {k: round(state[k] + delta.get("d" + k, 0.0), 4) for k in ["g", "c", "a", "t"]}
+
+
 def post(pre: dict[str, float], action: dict[str, float]) -> dict[str, float]:
-    return {k: round(pre[k] + action["d" + k], 4) for k in ["g", "c", "a", "t"]}
-
-
-def row(run_id: str, element_id: str, mode: str, idx: int, pre: dict[str, float], action: dict[str, float], extra: dict[str, Any] | None = None) -> dict[str, Any]:
-    ps = post(pre, action)
-    payload = {
-        "timestamp": now(),
-        "element_id": element_id,
-        "mode": mode,
-        "run_id": f"{run_id}-{idx:03d}",
-        "pre_state": pre,
-        "action": action,
-        "post_state": ps,
-        "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1},
-        "capacity": capacity(ps),
-        "invariant": invariant(ps),
-        "verdict": verdict_for(ps),
-        "passed": True,
-        "receipt_hash": None,
-    }
-    if extra:
-        payload.update(extra)
-    normalize_row(payload)
-    payload["row_hash"] = digest({k: v for k, v in payload.items() if k != "row_hash"})
-    return payload
+    return state_add(pre, action)
 
 
 def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
-    """Backfill tested_property and constraint_result for old and new ledger rows."""
     mode = row_payload.get("mode", "")
     action = row_payload.get("action") or {}
 
@@ -98,6 +77,10 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "capacity_margin"
         elif mode == "observation_lag_sweep_v1":
             row_payload["tested_property"] = "observation_lag"
+        elif mode == "decision_lag_sweep_v1":
+            row_payload["tested_property"] = "decision_lag"
+        elif mode == "actuation_lag_sweep_v1":
+            row_payload["tested_property"] = "actuation_lag"
         else:
             row_payload["tested_property"] = mode
 
@@ -123,12 +106,36 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode == "observation_lag_sweep_v1":
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
 
     return row_payload
+
+
+def simple_row(run_id: str, element_id: str, mode: str, idx: int, pre: dict[str, float], action: dict[str, float], extra: dict[str, Any] | None = None) -> dict[str, Any]:
+    ps = post(pre, action)
+    payload = {
+        "timestamp": now(),
+        "element_id": element_id,
+        "mode": mode,
+        "run_id": f"{run_id}-{idx:03d}",
+        "pre_state": pre,
+        "action": action,
+        "post_state": ps,
+        "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1},
+        "capacity": capacity(ps),
+        "invariant": invariant(ps),
+        "verdict": verdict_for(ps),
+        "passed": True,
+        "receipt_hash": None,
+    }
+    if extra:
+        payload.update(extra)
+    normalize_row(payload)
+    payload["row_hash"] = digest({k: v for k, v in payload.items() if k != "row_hash"})
+    return payload
 
 
 def t2(run_id: str):
@@ -140,7 +147,7 @@ def t2(run_id: str):
     rows, anomalies = [], []
     for i, (pre, action) in enumerate(samples, 1):
         cv = round(sum(action.values()), 8)
-        r = row(run_id, "T2", "simplex_conservation_sweep_v1", i, pre, action, {
+        r = simple_row(run_id, "T2", "simplex_conservation_sweep_v1", i, pre, action, {
             "tested_property": "simplex_conservation",
             "constraint_result": "PASS" if abs(cv) <= 1e-8 else "FAIL",
             "constraint_value": cv,
@@ -171,7 +178,7 @@ def t3(run_id: str):
     rows = []
     for i, (pre, action) in enumerate(samples, 1):
         norm = round(math.sqrt(sum(v * v for v in action.values())), 5)
-        rows.append(row(run_id, "T3", "bounded_action_sweep_v1", i, pre, action, {
+        rows.append(simple_row(run_id, "T3", "bounded_action_sweep_v1", i, pre, action, {
             "tested_property": "bounded_action",
             "action_norm": norm,
             "epsilon": eps,
@@ -199,7 +206,7 @@ def t4(run_id: str):
     ]
     rows = []
     for i, (pre, action) in enumerate(samples, 1):
-        r = row(run_id, "T4", "capacity_margin_sweep_v1", i, pre, action, {
+        r = simple_row(run_id, "T4", "capacity_margin_sweep_v1", i, pre, action, {
             "tested_property": "capacity_margin",
             "constraint_result": "PASS",
         })
@@ -219,43 +226,24 @@ def t4(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic capacity margin sweep passed", "bad": []}
 
 
-def lag_state(observed: dict[str, float], drift: dict[str, float]) -> dict[str, float]:
-    return {k: round(observed[k] + drift.get("d" + k, 0.0), 4) for k in ["g", "c", "a", "t"]}
-
-
 def t5(run_id: str):
     samples = [
-        {
-            "observed_state": {"g": .60, "c": .60, "a": .20, "t": .80},
-            "lag_drift": {"dg": 0.00, "dc": 0.00, "da": 0.00, "dt": -.20},
-            "action": {"dg": 0.00, "dc": 0.00, "da": .02, "dt": 0.00},
-        },
-        {
-            "observed_state": {"g": .70, "c": .64, "a": .16, "t": .76},
-            "lag_drift": {"dg": -.02, "dc": -.02, "da": .01, "dt": -.04},
-            "action": {"dg": 0.00, "dc": 0.00, "da": .01, "dt": 0.00},
-        },
-        {
-            "observed_state": {"g": .46, "c": .68, "a": .18, "t": .72},
-            "lag_drift": {"dg": -.06, "dc": -.05, "da": .02, "dt": -.07},
-            "action": {"dg": 0.00, "dc": 0.00, "da": .02, "dt": 0.00},
-        },
+        {"observed_state": {"g": .60, "c": .60, "a": .20, "t": .80}, "lag_drift": {"dg": 0, "dc": 0, "da": 0, "dt": -.20}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+        {"observed_state": {"g": .70, "c": .64, "a": .16, "t": .76}, "lag_drift": {"dg": -.02, "dc": -.02, "da": .01, "dt": -.04}, "action": {"dg": 0, "dc": 0, "da": .01, "dt": 0}},
+        {"observed_state": {"g": .46, "c": .68, "a": .18, "t": .72}, "lag_drift": {"dg": -.06, "dc": -.05, "da": .02, "dt": -.07}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
     ]
-    rows = []
-    flips = 0
+    rows, flips = [], 0
     for i, sample in enumerate(samples, 1):
         observed = sample["observed_state"]
         drift = sample["lag_drift"]
         action = sample["action"]
-        commit = lag_state(observed, drift)
+        commit_state = state_add(observed, drift)
         observed_post = post(observed, action)
-        commit_post = post(commit, action)
-        observed_inv = invariant(observed_post)
-        commit_inv = invariant(commit_post)
+        commit_post = post(commit_state, action)
         observed_verdict = verdict_for(observed_post)
         commit_verdict = verdict_for(commit_post)
         lag_flip = observed_verdict != commit_verdict
-        flips += 1 if lag_flip else 0
+        flips += int(lag_flip)
         payload = {
             "timestamp": now(),
             "element_id": "T5",
@@ -264,15 +252,15 @@ def t5(run_id: str):
             "tested_property": "observation_lag",
             "observed_state": observed,
             "lag_drift": drift,
-            "commit_state": commit,
+            "commit_state": commit_state,
             "action": action,
             "observed_post_state": observed_post,
             "commit_post_state": commit_post,
             "post_state": commit_post,
             "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "tau_obs": i},
-            "observed_invariant": observed_inv,
-            "commit_invariant": commit_inv,
-            "invariant": commit_inv,
+            "observed_invariant": invariant(observed_post),
+            "commit_invariant": invariant(commit_post),
+            "invariant": invariant(commit_post),
             "observed_verdict": observed_verdict,
             "commit_verdict": commit_verdict,
             "verdict": commit_verdict,
@@ -297,20 +285,179 @@ def t5(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic observation lag sweep passed", "bad": []}
 
 
+def staged_lag_row(run_id: str, element_id: str, mode: str, tested_property: str, samples: list[dict[str, Any]], delta_type: str, summary_prefix: str, informs: list[str]):
+    rows, flips = [], 0
+    for i, sample in enumerate(samples, 1):
+        observed = sample["observed_state"]
+        obs_drift = sample.get("observation_lag_drift", {})
+        decision_drift = sample.get("decision_lag_drift", {})
+        actuation_drift = sample.get("actuation_lag_drift", {})
+        action = sample["action"]
+
+        decision_state = state_add(observed, obs_drift)
+        commit_state = state_add(decision_state, decision_drift)
+        effect_state = state_add(commit_state, actuation_drift)
+
+        observed_post = post(observed, action)
+        decision_post = post(decision_state, action)
+        commit_post = post(commit_state, action)
+        effect_post = post(effect_state, action)
+
+        observed_verdict = verdict_for(observed_post)
+        decision_verdict = verdict_for(decision_post)
+        commit_verdict = verdict_for(commit_post)
+        effect_verdict = verdict_for(effect_post)
+
+        decision_flip = observed_verdict != commit_verdict
+        actuation_flip = commit_verdict != effect_verdict
+        total_lag_flip = observed_verdict != effect_verdict if mode == "actuation_lag_sweep_v1" else observed_verdict != commit_verdict
+        flips += int(total_lag_flip)
+
+        payload = {
+            "timestamp": now(),
+            "element_id": element_id,
+            "mode": mode,
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": tested_property,
+            "observed_state": observed,
+            "observation_lag_drift": obs_drift,
+            "decision_state": decision_state,
+            "decision_lag_drift": decision_drift,
+            "commit_state": commit_state,
+            "actuation_lag_drift": actuation_drift,
+            "effect_state": effect_state,
+            "action": action,
+            "observed_post_state": observed_post,
+            "decision_post_state": decision_post,
+            "commit_post_state": commit_post,
+            "effect_post_state": effect_post,
+            "post_state": effect_post if mode == "actuation_lag_sweep_v1" else commit_post,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "tau_obs": i, "tau_dec": i, "tau_act": i if mode == "actuation_lag_sweep_v1" else 0},
+            "observed_invariant": invariant(observed_post),
+            "decision_invariant": invariant(decision_post),
+            "commit_invariant": invariant(commit_post),
+            "effect_invariant": invariant(effect_post),
+            "invariant": invariant(effect_post if mode == "actuation_lag_sweep_v1" else commit_post),
+            "observed_verdict": observed_verdict,
+            "decision_verdict": decision_verdict,
+            "commit_verdict": commit_verdict,
+            "effect_verdict": effect_verdict,
+            "verdict": effect_verdict if mode == "actuation_lag_sweep_v1" else commit_verdict,
+            "decision_flip": decision_flip,
+            "actuation_flip": actuation_flip,
+            "total_lag_flip": total_lag_flip,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-{tested_property}",
+        "source_run_id": run_id,
+        "source_element": element_id,
+        "delta_type": delta_type,
+        "summary": f"{summary_prefix} found {flips} total lag flip(s) across deterministic staged samples.",
+        "informs": informs,
+        "confidence": .87,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": f"deterministic {tested_property.replace('_', ' ')} sweep passed", "bad": []}
+
+
+def t6(run_id: str):
+    samples = [
+        {"observed_state": {"g": .60, "c": .60, "a": .18, "t": .78}, "observation_lag_drift": {"dg": 0, "dc": 0, "da": 0, "dt": -.08}, "decision_lag_drift": {"dg": 0, "dc": -.03, "da": .02, "dt": -.06}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+        {"observed_state": {"g": .72, "c": .62, "a": .17, "t": .76}, "observation_lag_drift": {"dg": -.01, "dc": -.01, "da": .01, "dt": -.03}, "decision_lag_drift": {"dg": -.03, "dc": -.02, "da": .02, "dt": -.05}, "action": {"dg": 0, "dc": 0, "da": .01, "dt": 0}},
+        {"observed_state": {"g": .50, "c": .66, "a": .15, "t": .80}, "observation_lag_drift": {"dg": -.02, "dc": 0, "da": .01, "dt": -.04}, "decision_lag_drift": {"dg": -.05, "dc": -.04, "da": .02, "dt": -.08}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+    ]
+    return staged_lag_row(run_id, "T6", "decision_lag_sweep_v1", "decision_lag", samples, "decision_lag_fragment", "Decision-lag sweep", ["T6", "T7"])
+
+
+def t7(run_id: str):
+    samples = [
+        {"observed_state": {"g": .62, "c": .62, "a": .17, "t": .78}, "observation_lag_drift": {"dg": 0, "dc": 0, "da": 0, "dt": -.04}, "decision_lag_drift": {"dg": -.02, "dc": -.02, "da": .01, "dt": -.04}, "actuation_lag_drift": {"dg": -.03, "dc": -.04, "da": .02, "dt": -.08}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+        {"observed_state": {"g": .76, "c": .58, "a": .15, "t": .72}, "observation_lag_drift": {"dg": -.01, "dc": 0, "da": .01, "dt": -.03}, "decision_lag_drift": {"dg": -.02, "dc": -.02, "da": .01, "dt": -.04}, "actuation_lag_drift": {"dg": -.06, "dc": -.03, "da": .03, "dt": -.10}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+        {"observed_state": {"g": .56, "c": .70, "a": .16, "t": .82}, "observation_lag_drift": {"dg": -.02, "dc": -.02, "da": .01, "dt": -.04}, "decision_lag_drift": {"dg": -.03, "dc": -.03, "da": .01, "dt": -.05}, "actuation_lag_drift": {"dg": -.05, "dc": -.05, "da": .02, "dt": -.09}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+    ]
+    return staged_lag_row(run_id, "T7", "actuation_lag_sweep_v1", "actuation_lag", samples, "actuation_lag_fragment", "Actuation-lag sweep", ["T7", "T15"])
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
     "capacity_margin_sweep_v1": t4,
     "observation_lag_sweep_v1": t5,
+    "decision_lag_sweep_v1": t6,
+    "actuation_lag_sweep_v1": t7,
 }
 
 FALLBACK_EXPERIMENTS = {
     "T5": ["observation_lag_sweep_v1"],
+    "T6": ["decision_lag_sweep_v1"],
+    "T7": ["actuation_lag_sweep_v1"],
 }
 
 
+RULE_DEFS = [
+    ("primitive_admissibility_required", "T1", 4, "Every experiment must compute post-state invariant."),
+    ("simplex_constraint_visible", "T2", 4, "Ledger rows must distinguish conservation constraints from admissibility verdicts."),
+    ("bounded_action_visible", "T3", 4, "Experiments with action vectors must record action bounds when applicable."),
+    ("capacity_margin_visible", "T4", 4, "Experiments must record margin when capacity calculations are available."),
+    ("lag_aware_sandbox_required", "T5", 4, "Lag-row experiments must separate observed_state from commit_state."),
+    ("decision_stage_required", "T6", 4, "Lag sandboxes may separate observation state, decision state, and commit state."),
+    ("actuation_stage_required", "T7", 4, "Lag sandboxes may separate observed, decision, commit, actuation, and effect states."),
+]
+
+
+def evidence_level(evidence: dict[str, Any], element_id: str) -> int:
+    return int(evidence.get("elements", {}).get(element_id, {}).get("evidence_level", 0))
+
+
+def released_rules(evidence: dict[str, Any]) -> list[dict[str, Any]]:
+    rules = []
+    for rule_id, released_by, required_level, effect in RULE_DEFS:
+        current = evidence_level(evidence, released_by)
+        rules.append({
+            "rule_id": rule_id,
+            "released_by": released_by,
+            "required_evidence_level": required_level,
+            "current_evidence_level": current,
+            "status": "released" if current >= required_level else "locked",
+            "engine_effect": effect,
+        })
+    return rules
+
+
+def write_rule_releases(evidence: dict[str, Any]) -> dict[str, Any]:
+    payload = {
+        "generated_at": now(),
+        "schema": "stegverse.transition_rule_releases.v1",
+        "automation_gate": automation_gate(evidence),
+        "rules": released_rules(evidence),
+    }
+    write_json(D / "transition-rule-releases.json", payload)
+    return payload
+
+
+def automation_gate(evidence: dict[str, Any]) -> dict[str, Any]:
+    t5 = evidence_level(evidence, "T5")
+    t7 = evidence_level(evidence, "T7")
+    t13 = evidence_level(evidence, "T13")
+    t14 = evidence_level(evidence, "T14")
+
+    if t13 >= 4 and t14 >= 4:
+        return {"mode": "scheduled_ready", "max_sequence_steps": 3, "released_by": ["T13", "T14"]}
+    if t7 >= 4:
+        return {"mode": "bounded_batch", "max_sequence_steps": 3, "released_by": ["T7"]}
+    if t5 >= 4:
+        return {"mode": "sequence_lag_row", "max_sequence_steps": 2, "released_by": ["T5"]}
+    return {"mode": "manual_single", "max_sequence_steps": 1, "released_by": []}
+
+
 def deps_ok(element: dict[str, Any], evidence: dict[str, Any]) -> bool:
-    return all(evidence["elements"].get(dep, {}).get("evidence_level", 0) >= 4 for dep in element.get("relations", {}).get("requires", []))
+    return all(evidence_level(evidence, dep) >= 4 for dep in element.get("relations", {}).get("requires", []))
 
 
 def element_experiments(element: dict[str, Any]) -> list[str]:
@@ -322,8 +469,8 @@ def element_experiments(element: dict[str, Any]) -> list[str]:
 
 
 def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
-    for element in sorted(elements, key=lambda x: (evidence["elements"][x["id"]]["evidence_level"], x["taxonomy_order"])):
-        if evidence["elements"][element["id"]]["evidence_level"] >= 4:
+    for element in sorted(elements, key=lambda x: (evidence_level(evidence, x["id"]), x["taxonomy_order"])):
+        if evidence_level(evidence, element["id"]) >= 4:
             continue
         if not deps_ok(element, evidence):
             continue
@@ -331,6 +478,37 @@ def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
             if experiment in EXPERIMENTS:
                 return element, experiment
     return None
+
+
+def sandbox_class_for(element_id: str, gate: dict[str, Any]) -> str:
+    if element_id in ("T5", "T6", "T7"):
+        if evidence_gate_mode_rank(gate["mode"]) >= evidence_gate_mode_rank("sequence_lag_row"):
+            return "lag_aware_deterministic"
+    return "local_python_deterministic"
+
+
+def evidence_gate_mode_rank(mode: str) -> int:
+    return {
+        "manual_single": 0,
+        "sequence_lag_row": 1,
+        "bounded_batch": 2,
+        "scheduled_ready": 3,
+    }.get(mode, 0)
+
+
+def applied_rules_for_element(evidence: dict[str, Any], element_id: str) -> list[str]:
+    released = [rule["rule_id"] for rule in released_rules(evidence) if rule["status"] == "released"]
+    if element_id in ("T5", "T6", "T7"):
+        return [rule for rule in released if rule in {
+            "primitive_admissibility_required",
+            "simplex_constraint_visible",
+            "bounded_action_visible",
+            "capacity_margin_visible",
+            "lag_aware_sandbox_required",
+            "decision_stage_required",
+            "actuation_stage_required",
+        }]
+    return released
 
 
 def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
@@ -341,8 +519,9 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
     for key in [
         "capacity", "invariant", "margin", "margin_status",
         "constraint_value", "action_norm", "epsilon", "bound_status",
-        "observed_invariant", "commit_invariant", "observed_verdict",
-        "commit_verdict", "lag_flip",
+        "observed_invariant", "decision_invariant", "commit_invariant", "effect_invariant",
+        "observed_verdict", "decision_verdict", "commit_verdict", "effect_verdict",
+        "lag_flip", "decision_flip", "actuation_flip", "total_lag_flip",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -362,15 +541,22 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "experiment": row_payload["mode"],
         "tested_property": row_payload.get("tested_property", row_payload["mode"]),
         "sandbox": (run_manifest or {}).get("sandbox", {"type": "unknown"}),
+        "applied_rules": (run_manifest or {}).get("applied_rules", []),
         "parameters": row_payload.get("parameters", {"K": 1, "alpha": 1, "beta": 1, "gamma": 1}),
         "pre_state": row_payload.get("pre_state") or row_payload.get("observed_state"),
         "observed_state": row_payload.get("observed_state"),
-        "lag_drift": row_payload.get("lag_drift"),
+        "observation_lag_drift": row_payload.get("observation_lag_drift") or row_payload.get("lag_drift"),
+        "decision_state": row_payload.get("decision_state"),
+        "decision_lag_drift": row_payload.get("decision_lag_drift"),
         "commit_state": row_payload.get("commit_state"),
+        "actuation_lag_drift": row_payload.get("actuation_lag_drift"),
+        "effect_state": row_payload.get("effect_state"),
         "action": row_payload.get("action"),
         "post_state": row_payload.get("post_state"),
         "observed_post_state": row_payload.get("observed_post_state"),
+        "decision_post_state": row_payload.get("decision_post_state"),
         "commit_post_state": row_payload.get("commit_post_state"),
+        "effect_post_state": row_payload.get("effect_post_state"),
         "computed": computed_for_receipt(row_payload),
         "source_hashes": {
             "ledger_row_hash": row_payload.get("row_hash"),
@@ -378,7 +564,7 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         },
         "replay": {
             "status": "replayable",
-            "instructions": "Recompute post_state from pre_state + action. For lag experiments, recompute commit_state = observed_state + lag_drift, then compare observed and commit verdicts.",
+            "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts.",
         },
     }
     receipt["receipt_hash"] = "sha256:" + digest(receipt)
@@ -409,6 +595,9 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "admissibility_verdict": receipt["computed"].get("admissibility_verdict"),
             "constraint_result": receipt["computed"].get("constraint_result"),
             "lag_flip": receipt["computed"].get("lag_flip"),
+            "decision_flip": receipt["computed"].get("decision_flip"),
+            "actuation_flip": receipt["computed"].get("actuation_flip"),
+            "total_lag_flip": receipt["computed"].get("total_lag_flip"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
@@ -416,6 +605,67 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
 
     write_json(D / "transition-receipts.json", index)
     return index
+
+
+def run_one(elements: list[dict[str, Any]], evidence: dict[str, Any], ledger: list[dict[str, Any]], runs: dict[str, Any], knowledge: dict[str, Any], review: dict[str, Any], gate: dict[str, Any]):
+    selected = select(elements, evidence)
+    if not selected:
+        return None
+
+    element, experiment_name = selected
+    run_id = f"{element['id']}-{experiment_name}-{len(runs['runs']) + 1:04d}"
+    rows, deltas, promotion = EXPERIMENTS[experiment_name](run_id)
+    applied_rules = applied_rules_for_element(evidence, element["id"])
+
+    manifest = {
+        "run_id": run_id,
+        "element_id": element["id"],
+        "experiment": experiment_name,
+        "status": "completed",
+        "sandbox": {
+            "type": sandbox_class_for(element["id"], gate),
+            "parallel_ready": True,
+            "canonical_write_policy": "reducer_only",
+            "max_runtime_seconds": 120,
+            "automation_gate": gate["mode"],
+        },
+        "applied_rules": applied_rules,
+        "automation_gate": gate,
+        "started_at": now(),
+        "completed_at": now(),
+        "human_review_required": False,
+        "ledger_rows": [r["run_id"] for r in rows],
+        "knowledge_deltas": [d["delta_id"] for d in deltas],
+    }
+
+    if promotion.get("bad"):
+        manifest["status"] = "review_required"
+        manifest["human_review_required"] = True
+        review.setdefault("review_required", []).append({
+            "created_at": now(),
+            "run_id": run_id,
+            "element_id": element["id"],
+            "reason": "experiment_anomaly",
+            "details": promotion["bad"],
+        })
+        evidence["elements"][element["id"]]["runtime_state"] = "review_required"
+    else:
+        current = evidence["elements"][element["id"]]["evidence_level"]
+        new_level = max(current, promotion["to"])
+        evidence["elements"][element["id"]].update({
+            "evidence_level": new_level,
+            "evidence_label": LABELS[new_level],
+            "brightness": round(new_level / 5, 2),
+            "latest_result_summary": promotion["reason"],
+            "runtime_state": "completed",
+        })
+        manifest["evidence_delta"] = {"from": current, "to": new_level, "reason": promotion["reason"]}
+
+    manifest["run_hash"] = "sha256:" + digest({"manifest": manifest, "rows": rows, "knowledge_deltas": deltas})
+    ledger.extend(rows)
+    runs.setdefault("runs", []).append(manifest)
+    knowledge.setdefault("knowledge_deltas", []).extend(deltas)
+    return manifest
 
 
 def main() -> None:
@@ -427,79 +677,52 @@ def main() -> None:
     knowledge = read_json(D / "transition-knowledge-deltas.json", {"knowledge_deltas": []})
     review = read_json(D / "transition-review-queue.json", {"review_required": []})
 
-    selected = select(elements, evidence)
-    if selected:
-        element, experiment_name = selected
-        run_id = f"{element['id']}-{experiment_name}-{len(runs['runs']) + 1:04d}"
-        rows, deltas, promotion = EXPERIMENTS[experiment_name](run_id)
+    gate = automation_gate(evidence)
+    completed = []
 
-        manifest = {
-            "run_id": run_id,
-            "element_id": element["id"],
-            "experiment": experiment_name,
-            "status": "completed",
-            "sandbox": {
-                "type": "local-python-deterministic",
-                "parallel_ready": True,
-                "canonical_write_policy": "reducer_only",
-                "max_runtime_seconds": 120,
-            },
-            "started_at": now(),
-            "completed_at": now(),
-            "human_review_required": False,
-            "ledger_rows": [r["run_id"] for r in rows],
-            "knowledge_deltas": [d["delta_id"] for d in deltas],
-        }
-
-        if promotion.get("bad"):
-            manifest["status"] = "review_required"
-            manifest["human_review_required"] = True
-            review["review_required"].append({
-                "created_at": now(),
-                "run_id": run_id,
-                "element_id": element["id"],
-                "reason": "experiment_anomaly",
-                "details": promotion["bad"],
-            })
-            evidence["elements"][element["id"]]["runtime_state"] = "review_required"
-        else:
-            current = evidence["elements"][element["id"]]["evidence_level"]
-            new_level = max(current, promotion["to"])
-            evidence["elements"][element["id"]].update({
-                "evidence_level": new_level,
-                "evidence_label": LABELS[new_level],
-                "brightness": round(new_level / 5, 2),
-                "latest_result_summary": promotion["reason"],
-                "runtime_state": "completed",
-            })
-            manifest["evidence_delta"] = {"from": current, "to": new_level, "reason": promotion["reason"]}
-
-        manifest["run_hash"] = "sha256:" + digest({"manifest": manifest, "rows": rows, "knowledge_deltas": deltas})
-        ledger.extend(rows)
-        runs["runs"].append(manifest)
-        knowledge["knowledge_deltas"].extend(deltas)
-        state = {
-            "planner": "lowest_evidence_unblocked_v1",
+    for _ in range(gate["max_sequence_steps"]):
+        if review.get("review_required"):
+            break
+        manifest = run_one(elements, evidence, ledger, runs, knowledge, review, gate)
+        if not manifest:
+            break
+        completed.append({
+            "run_id": manifest["run_id"],
+            "element_id": manifest["element_id"],
+            "experiment": manifest["experiment"],
             "status": manifest["status"],
-            "updated_at": now(),
-            "last_selected": {"element_id": element["id"], "experiment": experiment_name},
-            "last_run_id": run_id,
-        }
-        print(json.dumps({"selected": element["id"], "experiment": experiment_name, "run_id": run_id, "status": manifest["status"]}, indent=2))
-    else:
-        state = {
-            "planner": "lowest_evidence_unblocked_v1",
-            "status": "idle_no_eligible_experiment",
-            "updated_at": now(),
-            "last_selected": None,
-            "last_run_id": None,
-        }
-        print("No eligible experiment. Rebuilding normalized receipts and pages from existing ledger.")
+        })
+        if manifest["status"] != "completed":
+            break
+        gate = automation_gate(evidence)
 
     evidence["generated_at"] = now()
     evidence["generated_by"] = "tools/transition_experimental_orchestrator.py"
-
+    rule_payload = write_rule_releases(evidence)
     ensure_receipts(ledger, runs)
+
+    if completed:
+        state = {
+            "planner": "evidence_gated_sequence_v1",
+            "status": "completed_sequence" if len(completed) > 1 else completed[-1]["status"],
+            "updated_at": now(),
+            "automation_gate": rule_payload["automation_gate"],
+            "sequence_completed": completed,
+            "last_selected": completed[-1],
+            "last_run_id": completed[-1]["run_id"],
+        }
+        print(json.dumps({"automation_gate": rule_payload["automation_gate"], "completed": completed}, indent=2))
+    else:
+        state = {
+            "planner": "evidence_gated_sequence_v1",
+            "status": "idle_no_eligible_experiment",
+            "updated_at": now(),
+            "automation_gate": rule_payload["automation_gate"],
+            "sequence_completed": [],
+            "last_selected": None,
+            "last_run_id": None,
+        }
+        print("No eligible experiment. Rebuilding normalized receipts, rule releases, and pages from existing ledger.")
 
     write_jsonl(D / "transition-ledger.jsonl", ledger)
     write_json(D / "transition-evidence.json", evidence)
