@@ -1,6 +1,12 @@
-# Transition Milestones Mobile Layout Fix v1
+# Transition Development Release Layer v1
 
 Upload-safe bundle. No leading-dot paths.
+
+Adds:
+
+```text
+transition-development-status.html
+```
 
 Replaces:
 
@@ -8,16 +14,26 @@ Replaces:
 transition-milestones.html
 ```
 
-## What changed
-
-- Prevents long automation state strings from overflowing on mobile.
-- Displays `receipt_backed_automation_ready` as `receipt backed automation ready`.
-- Preserves the raw state in the HTML title attribute.
-- Adds wrapping protection to stat cards and milestone metadata.
-- Keeps newest milestone first and preserves all formal milestone labels.
-
-Expected public URL:
+Keeps existing tool files from the previous bundle:
 
 ```text
+tools/transition_experimental_orchestrator.py
+tools/build_transition_pages.py
+```
+
+## Purpose
+
+This is the next stage after receipt-backed automation readiness.
+
+It adds a development status surface and marks the next milestone as pending:
+
+```text
+MS-009 — Development Release Hardening
+```
+
+## Expected public URLs
+
+```text
+https://stegverse-labs.github.io/Site/transition-development-status.html
 https://stegverse-labs.github.io/Site/transition-milestones.html
 ```
