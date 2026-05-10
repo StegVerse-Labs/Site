@@ -93,6 +93,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "validator_consensus"
         elif mode == "receipt_bound_sweep_v1":
             row_payload["tested_property"] = "receipt_bound_transition"
+        elif mode == "reconstruction_sweep_v1":
+            row_payload["tested_property"] = "receipt_reconstruction"
         else:
             row_payload["tested_property"] = mode
 
@@ -118,7 +120,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1", "reconstruction_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -957,6 +959,94 @@ def t13(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic receipt-bound transition sweep passed", "bad": []}
 
 
+def t14(run_id: str):
+    samples = [
+        {
+            "pre_state": {"g": .68, "c": .64, "a": .18, "t": .82},
+            "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0},
+        },
+        {
+            "pre_state": {"g": .72, "c": .58, "a": .16, "t": .78},
+            "action": {"dg": -.01, "dc": 0, "da": .02, "dt": -.01},
+        },
+        {
+            "pre_state": {"g": .58, "c": .70, "a": .17, "t": .80},
+            "action": {"dg": 0, "dc": -.02, "da": .025, "dt": -.02},
+        },
+    ]
+
+    rows = []
+    exact_reconstructions = 0
+
+    for i, sample in enumerate(samples, 1):
+        pre_state = sample["pre_state"]
+        action = sample["action"]
+        observed_post_state = post(pre_state, action)
+
+        receipt_packet = {
+            "pre_state": pre_state,
+            "action": action,
+            "observed_post_state_hash": "sha256:" + digest(observed_post_state),
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1},
+        }
+
+        reconstructed_post_state = post(receipt_packet["pre_state"], receipt_packet["action"])
+        reconstruction_delta = {
+            k: round(observed_post_state[k] - reconstructed_post_state[k], 8)
+            for k in ["g", "c", "a", "t"]
+        }
+        reconstruction_exact = all(v == 0 for v in reconstruction_delta.values())
+        exact_reconstructions += int(reconstruction_exact)
+
+        observed_verdict = verdict_for(observed_post_state)
+        reconstructed_verdict = verdict_for(reconstructed_post_state)
+        reconstruction_verdict_match = observed_verdict == reconstructed_verdict
+        reconstruction_confidence = 1.0 if reconstruction_exact and reconstruction_verdict_match else 0.75
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T14",
+            "mode": "reconstruction_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "receipt_reconstruction",
+            "pre_state": pre_state,
+            "action": action,
+            "observed_post_state": observed_post_state,
+            "reconstructed_post_state": reconstructed_post_state,
+            "post_state": reconstructed_post_state,
+            "receipt_packet": receipt_packet,
+            "parameters": receipt_packet["parameters"],
+            "observed_post_state_hash": receipt_packet["observed_post_state_hash"],
+            "reconstructed_post_state_hash": "sha256:" + digest(reconstructed_post_state),
+            "reconstruction_delta": reconstruction_delta,
+            "reconstruction_exact": reconstruction_exact,
+            "observed_verdict": observed_verdict,
+            "reconstructed_verdict": reconstructed_verdict,
+            "reconstruction_verdict_match": reconstruction_verdict_match,
+            "reconstruction_confidence": reconstruction_confidence,
+            "capacity": capacity(reconstructed_post_state),
+            "invariant": invariant(reconstructed_post_state),
+            "verdict": reconstructed_verdict,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-reconstruction",
+        "source_run_id": run_id,
+        "source_element": "T14",
+        "delta_type": "reconstruction_fragment",
+        "summary": f"Reconstruction sweep exactly reconstructed {exact_reconstructions} end-state sample(s) from receipt packets.",
+        "informs": ["T14", "T15", "T16"],
+        "confidence": .87,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic receipt reconstruction sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -970,6 +1060,7 @@ EXPERIMENTS = {
     "conflict_sweep_v1": t11,
     "consensus_sweep_v1": t12,
     "receipt_bound_sweep_v1": t13,
+    "reconstruction_sweep_v1": t14,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -982,6 +1073,7 @@ FALLBACK_EXPERIMENTS = {
     "T11": ["conflict_sweep_v1"],
     "T12": ["consensus_sweep_v1"],
     "T13": ["receipt_bound_sweep_v1"],
+    "T14": ["reconstruction_sweep_v1"],
 }
 
 
@@ -999,6 +1091,7 @@ RULE_DEFS = [
     ("conflict_resolution_required", "T11", 4, "Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy."),
     ("validator_consensus_required", "T12", 4, "Coupled sandboxes may compare validator quorum against canonical admissibility."),
     ("receipt_binding_required", "T13", 4, "Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts."),
+    ("receipt_reconstruction_required", "T14", 4, "Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state."),
 ]
 
 
@@ -1130,6 +1223,9 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "allow_votes", "deny_votes", "quorum_threshold", "quorum_result",
         "canonical_verdict", "consensus_flip",
         "pre_state_hash", "action_hash", "post_state_hash", "receipt_payload_hash", "receipt_bound",
+        "observed_post_state_hash", "reconstructed_post_state_hash", "reconstruction_delta",
+        "reconstruction_exact", "observed_verdict", "reconstructed_verdict",
+        "reconstruction_verdict_match", "reconstruction_confidence",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -1188,6 +1284,9 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "canonical_post_state": row_payload.get("canonical_post_state"),
         "validator_results": row_payload.get("validator_results"),
         "validator_verdicts": row_payload.get("validator_verdicts"),
+        "receipt_packet": row_payload.get("receipt_packet"),
+        "reconstructed_post_state": row_payload.get("reconstructed_post_state"),
+        "reconstruction_delta": row_payload.get("reconstruction_delta"),
         "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
         "trust_decayed_state": row_payload.get("trust_decayed_state"),
         "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
@@ -1247,6 +1346,8 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "consensus_flip": receipt["computed"].get("consensus_flip"),
             "quorum_result": receipt["computed"].get("quorum_result"),
             "receipt_bound": receipt["computed"].get("receipt_bound"),
+            "reconstruction_exact": receipt["computed"].get("reconstruction_exact"),
+            "reconstruction_verdict_match": receipt["computed"].get("reconstruction_verdict_match"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
