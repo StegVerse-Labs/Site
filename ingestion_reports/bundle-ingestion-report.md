@@ -1,11 +1,11 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-10T19:20:50Z`
+Generated: `2026-05-10T19:26:56Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/transition-replay-report.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip`
 Verdict: `SKIPPED_ALREADY_SEEN`
 Route: `skipped`
-Bundle class: `artifact_bundle`
+Bundle class: `ordinary_bundle`
 
 ## Summary
 

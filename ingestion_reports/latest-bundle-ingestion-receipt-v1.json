@@ -1,18 +1,22 @@
 {
-  "generated_at": "2026-05-10T19:20:50Z",
+  "generated_at": "2026-05-10T19:26:56Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
-  "bundle_name": "transition-replay-report.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/transition-replay-report.zip",
-  "bundle_sha256": "6e4dcecafbae291334e27f36078f174d38f3dbc37396bd93b332ec25c9401188",
+  "bundle_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
   "mode": "apply",
-  "bundle_class": "artifact_bundle",
+  "bundle_class": "ordinary_bundle",
   "verdict": "SKIPPED_ALREADY_SEEN",
   "route": "skipped",
-  "reason": "known report artifact bundle",
+  "reason": "ordinary bundle allowed",
   "mapped_paths": [
-    "transition-replay-report.json",
-    "transition-replay-report.md"
+    "README.md",
+    "bundle-manifest.json",
+    "data/deprecation-policy-v1.json",
+    "data/sandbox-review-policy-v1.json",
+    "sandbox_reports/README.md",
+    "tools/sandbox_bundle_review.py"
   ],
   "decisions": []
 }
