@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T01:00:09Z",
+  "generated_at": "2026-05-10T01:08:21Z",
   "generated_by": "tools/transition_experimental_orchestrator.py",
   "evidence_labels": [
     "Proposed",
@@ -110,13 +110,13 @@
       "latest_result_summary": "deterministic conflict resolution sweep passed"
     },
     "T12": {
-      "evidence_level": 1,
-      "evidence_label": "Defined",
-      "brightness": 0.2,
+      "evidence_level": 4,
+      "evidence_label": "Tested",
+      "brightness": 0.8,
       "receipt_backed": false,
-      "runtime_state": "idle",
+      "runtime_state": "completed",
       "caveats": [],
-      "latest_result_summary": "Expected behavior defined; experimental confirmation is pending."
+      "latest_result_summary": "deterministic validator consensus sweep passed"
     },
     "T13": {
       "evidence_level": 2,

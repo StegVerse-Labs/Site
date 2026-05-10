@@ -1,0 +1,198 @@
+{
+  "receipt_id": "RCPT-T12-consensus_sweep_v1-0011-002",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-10T01:08:21Z",
+  "run_id": "T12-consensus_sweep_v1-0011",
+  "ledger_row_id": "T12-consensus_sweep_v1-0011-002",
+  "element_id": "T12",
+  "experiment": "consensus_sweep_v1",
+  "tested_property": "validator_consensus",
+  "sandbox": {
+    "type": "coupled_state_deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120,
+    "automation_gate": "bounded_batch"
+  },
+  "applied_rules": [
+    "primitive_admissibility_required",
+    "simplex_constraint_visible",
+    "bounded_action_visible",
+    "capacity_margin_visible",
+    "lag_aware_sandbox_required",
+    "decision_stage_required",
+    "actuation_stage_required",
+    "trust_drift_required",
+    "two_state_coupling_required",
+    "multi_agent_composition_required",
+    "conflict_resolution_required"
+  ],
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1,
+    "quorum_threshold": 2,
+    "validator_count": 3
+  },
+  "pre_state": {
+    "state_a": null,
+    "state_b": null
+  },
+  "state_a": null,
+  "state_b": null,
+  "action_a": null,
+  "coupling_effect_on_b": null,
+  "post_state_a": null,
+  "post_state_b_without_coupling": null,
+  "post_state_b_with_coupling": null,
+  "observed_state": null,
+  "observation_lag_drift": null,
+  "decision_state": null,
+  "decision_lag_drift": null,
+  "commit_state": null,
+  "actuation_lag_drift": null,
+  "effect_state": null,
+  "action": null,
+  "post_state": {
+    "g": 0.58,
+    "c": 0.58,
+    "a": 0.195,
+    "t": 0.78
+  },
+  "shared_state": null,
+  "agent_actions": null,
+  "individual_results": null,
+  "individual_verdicts": null,
+  "aggregate_action": null,
+  "aggregate_post_state": null,
+  "action_b": null,
+  "post_a": null,
+  "post_b": null,
+  "combined_action": null,
+  "combined_post_state": null,
+  "selected_action": null,
+  "rejected_action": null,
+  "resolved_post_state": null,
+  "canonical_state": {
+    "g": 0.58,
+    "c": 0.58,
+    "a": 0.17,
+    "t": 0.78
+  },
+  "proposal_action": {
+    "dg": 0,
+    "dc": 0,
+    "da": 0.025,
+    "dt": 0
+  },
+  "canonical_post_state": {
+    "g": 0.58,
+    "c": 0.58,
+    "a": 0.195,
+    "t": 0.78
+  },
+  "validator_results": [
+    {
+      "validator": "v1",
+      "drift": {
+        "dg": 0,
+        "dc": 0,
+        "da": 0,
+        "dt": 0
+      },
+      "validator_state": {
+        "g": 0.58,
+        "c": 0.58,
+        "a": 0.17,
+        "t": 0.78
+      },
+      "validator_post_state": {
+        "g": 0.58,
+        "c": 0.58,
+        "a": 0.195,
+        "t": 0.78
+      },
+      "invariant": -0.06739,
+      "verdict": "ALLOW"
+    },
+    {
+      "validator": "v2",
+      "drift": {
+        "dg": -0.03,
+        "dc": -0.02,
+        "da": 0.02,
+        "dt": -0.05
+      },
+      "validator_state": {
+        "g": 0.55,
+        "c": 0.56,
+        "a": 0.19,
+        "t": 0.73
+      },
+      "validator_post_state": {
+        "g": 0.55,
+        "c": 0.56,
+        "a": 0.215,
+        "t": 0.73
+      },
+      "invariant": -0.00984,
+      "verdict": "ALLOW"
+    },
+    {
+      "validator": "v3",
+      "drift": {
+        "dg": -0.04,
+        "dc": -0.03,
+        "da": 0.02,
+        "dt": -0.06
+      },
+      "validator_state": {
+        "g": 0.54,
+        "c": 0.55,
+        "a": 0.19,
+        "t": 0.72
+      },
+      "validator_post_state": {
+        "g": 0.54,
+        "c": 0.55,
+        "a": 0.215,
+        "t": 0.72
+      },
+      "invariant": 0.00116,
+      "verdict": "DENY"
+    }
+  ],
+  "validator_verdicts": [
+    "ALLOW",
+    "ALLOW",
+    "DENY"
+  ],
+  "pre_decay_post_state": null,
+  "trust_decayed_state": null,
+  "trust_decayed_post_state": null,
+  "observed_post_state": null,
+  "decision_post_state": null,
+  "commit_post_state": null,
+  "effect_post_state": null,
+  "computed": {
+    "admissibility_verdict": "ALLOW",
+    "constraint_result": "PASS",
+    "invariant": -0.06739,
+    "allow_votes": 2,
+    "deny_votes": 1,
+    "quorum_threshold": 2,
+    "quorum_result": "ALLOW",
+    "canonical_verdict": "ALLOW",
+    "consensus_flip": false
+  },
+  "source_hashes": {
+    "ledger_row_hash": "3d6b95d79d7b7aa47ed9b667ec0536dd86547034ee0415377e7c5e935c9e3d00",
+    "run_hash": "sha256:e34450fa88d0678fa5761080f3e4acb8536b69b9a892fbf8d172b74ea289c8d4"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
+  },
+  "receipt_hash": "sha256:59dd1590fbf538e3872eb18838e86df1ba3cafa23f4e9feb5d3b3f1f81e5b9c0"
+}

@@ -138,6 +138,20 @@
       ],
       "confidence": 0.83,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T12-consensus_sweep_v1-0011-consensus",
+      "source_run_id": "T12-consensus_sweep_v1-0011",
+      "source_element": "T12",
+      "delta_type": "consensus_fragment",
+      "summary": "Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).",
+      "informs": [
+        "T12",
+        "T13",
+        "T14"
+      ],
+      "confidence": 0.82,
+      "review_required": false
     }
   ]
 }

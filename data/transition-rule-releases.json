@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T01:00:09Z",
+  "generated_at": "2026-05-10T01:08:21Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "bounded_batch",
@@ -96,6 +96,14 @@
       "current_evidence_level": 4,
       "status": "released",
       "engine_effect": "Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy."
+    },
+    {
+      "rule_id": "validator_consensus_required",
+      "released_by": "T12",
+      "required_evidence_level": 4,
+      "current_evidence_level": 4,
+      "status": "released",
+      "engine_effect": "Coupled sandboxes may compare validator quorum against canonical admissibility."
     }
   ]
 }
