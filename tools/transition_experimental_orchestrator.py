@@ -1787,6 +1787,110 @@ def automation_release_state(evidence: dict[str, Any]) -> dict[str, Any]:
 
 
 
+def automation_release_verifier(evidence: dict[str, Any], automation_payload: dict[str, Any], receipt_backing: dict[str, Any]) -> dict[str, Any]:
+    required = {
+        "manual_single": {"elements": {"T1": 4, "T2": 4, "T3": 4, "T4": 4}},
+        "sequence_mode": {"elements": {"T5": 4}},
+        "bounded_batch": {"elements": {"T7": 4}},
+        "coupled_batch": {"elements": {"T9": 4, "T10": 4, "T11": 4, "T12": 4}},
+        "receipt_governed": {"elements": {"T13": 5, "T14": 5}},
+        "irreversibility_guarded": {"elements": {"T15": 4}},
+        "self_modification_guarded": {"elements": {"T16": 4}},
+    }
+
+    checks = []
+    for mode, rule in required.items():
+        missing = []
+        for element_id, level in rule["elements"].items():
+            actual = evidence_level(evidence, element_id)
+            if actual < level:
+                missing.append({
+                    "element_id": element_id,
+                    "required_level": level,
+                    "actual_level": actual,
+                })
+
+        state_entry = next(
+            (item for item in automation_payload.get("releases", []) if item.get("mode") == mode),
+            {},
+        )
+
+        checks.append({
+            "mode": mode,
+            "expected_status": "released" if not missing else "blocked",
+            "reported_status": state_entry.get("status", "missing"),
+            "verified": not missing and state_entry.get("status") == "released",
+            "requirements": rule["elements"],
+            "missing_or_insufficient": missing,
+        })
+
+    all_verified = all(check["verified"] for check in checks)
+    payload = {
+        "generated_at": now(),
+        "schema": "stegverse.automation_release_verifier.v1",
+        "all_release_modes_verified": all_verified,
+        "current_state": automation_payload.get("current_state"),
+        "checks": checks,
+        "receipt_backing_promotions_seen": receipt_backing.get("promotions", []),
+        "verdict": "ALLOW" if all_verified else "DENY",
+    }
+    write_json(D / "automation-release-verifier.json", payload)
+    return payload
+
+
+
+def write_experimental_ledger_summary(ledger: list[dict[str, Any]], runs: dict[str, Any], receipt_backing: dict[str, Any]) -> dict[str, Any]:
+    recent_rows = list(reversed(ledger[-20:]))
+    recent_runs = list(reversed(runs.get("runs", [])[-10:]))
+    verifier_events = []
+
+    for promotion in receipt_backing.get("promotions", []):
+        verifier_events.append({
+            "type": "receipt_backing_promotion",
+            "element_id": promotion.get("element_id"),
+            "from": promotion.get("from"),
+            "to": promotion.get("to"),
+            "reason": promotion.get("reason"),
+            "checked_rows": promotion.get("checked_rows"),
+            "receipt_count": promotion.get("receipt_count"),
+        })
+
+    payload = {
+        "generated_at": now(),
+        "schema": "stegverse.experimental_ledger_summary.v1",
+        "display_order": "newest_first",
+        "recent_runs": [
+            {
+                "run_id": run.get("run_id"),
+                "element_id": run.get("element_id"),
+                "experiment": run.get("experiment"),
+                "status": run.get("status"),
+                "sandbox": run.get("sandbox", {}).get("type"),
+                "automation_gate": run.get("automation_gate", {}).get("mode"),
+            }
+            for run in recent_runs
+        ],
+        "recent_ledger_rows": [
+            {
+                "timestamp": row.get("timestamp"),
+                "element_id": row.get("element_id"),
+                "mode": row.get("mode"),
+                "run_id": row.get("run_id"),
+                "tested_property": row.get("tested_property"),
+                "constraint_result": row.get("constraint_result"),
+                "invariant": row.get("invariant"),
+                "verdict": row.get("verdict"),
+                "receipt_hash": row.get("receipt_hash"),
+            }
+            for row in recent_rows
+        ],
+        "verifier_events": verifier_events,
+    }
+    write_json(D / "experimental-ledger-summary.json", payload)
+    return payload
+
+
+
 def run_one(elements: list[dict[str, Any]], evidence: dict[str, Any], ledger: list[dict[str, Any]], runs: dict[str, Any], knowledge: dict[str, Any], review: dict[str, Any], gate: dict[str, Any]):
     selected = select(elements, evidence)
     if not selected:
@@ -1883,6 +1987,8 @@ def main() -> None:
     verifier_payload = receipt_backing_verifier(ledger, receipt_index, evidence, knowledge, review)
     rule_payload = write_rule_releases(evidence)
     automation_payload = automation_release_state(evidence)
+    automation_verifier_payload = automation_release_verifier(evidence, automation_payload, verifier_payload)
+    ledger_summary_payload = write_experimental_ledger_summary(ledger, runs, verifier_payload)
     ensure_receipts(ledger, runs)
 
     if completed:
@@ -1892,7 +1998,9 @@ def main() -> None:
             "updated_at": now(),
             "automation_gate": rule_payload["automation_gate"],
             "automation_release_state": automation_payload["current_state"],
+            "automation_release_verifier": automation_verifier_payload["verdict"],
             "receipt_backing_promotions": verifier_payload["promotions"],
+            "ledger_summary_rows": len(ledger_summary_payload.get("recent_ledger_rows", [])),
             "sequence_completed": completed,
             "last_selected": completed[-1],
             "last_run_id": completed[-1]["run_id"],
@@ -1900,6 +2008,7 @@ def main() -> None:
         print(json.dumps({
             "automation_gate": rule_payload["automation_gate"],
             "automation_release_state": automation_payload["current_state"],
+            "automation_release_verifier": automation_verifier_payload["verdict"],
             "receipt_backing_promotions": verifier_payload["promotions"],
             "completed": completed
         }, indent=2))
@@ -1910,7 +2019,9 @@ def main() -> None:
             "updated_at": now(),
             "automation_gate": rule_payload["automation_gate"],
             "automation_release_state": automation_payload["current_state"],
+            "automation_release_verifier": automation_verifier_payload["verdict"],
             "receipt_backing_promotions": verifier_payload["promotions"],
+            "ledger_summary_rows": len(ledger_summary_payload.get("recent_ledger_rows", [])),
             "sequence_completed": [],
             "last_selected": None,
             "last_run_id": None,

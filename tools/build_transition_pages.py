@@ -188,6 +188,23 @@ def applied_rules_html(eruns):
         return "<p>No released operational rules have been applied directly by this transition yet.</p>"
     return "<ul>" + "".join(f"<li>{esc(rule)}</li>" for rule in applied) + "</ul>"
 
+def automation_verifier_html(automation_verifier):
+    checks = automation_verifier.get("checks", [])
+    if not checks:
+        return "<p>No automation-release verifier has been generated yet.</p>"
+    items = "".join(
+        f"<li><strong>{esc(check.get('mode'))}</strong> · verified={esc(check.get('verified'))} · reported={esc(check.get('reported_status'))} · expected={esc(check.get('expected_status'))}</li>"
+        for check in checks
+    )
+    return f"""
+    <p><strong>Verifier verdict:</strong> {esc(automation_verifier.get('verdict', 'unknown'))}</p>
+    <p><strong>All release modes verified:</strong> {esc(automation_verifier.get('all_release_modes_verified', False))}</p>
+    <ul>{items}</ul>
+    <p><a href="../data/automation-release-verifier.json">Open automation-release verifier JSON</a></p>
+    """
+
+
+
 def automation_release_html(automation_releases):
     releases = automation_releases.get("releases", [])
     if not releases:
@@ -197,6 +214,33 @@ def automation_release_html(automation_releases):
         for item in releases
     )
     return f"<p><strong>Current automation state:</strong> {esc(automation_releases.get('current_state', 'unknown'))}</p><ul>{items}</ul>"
+
+
+def ledger_summary_html(ledger_summary):
+    recent_rows = ledger_summary.get("recent_ledger_rows", [])
+    verifier_events = ledger_summary.get("verifier_events", [])
+    if not recent_rows and not verifier_events:
+        return "<p>No experimental ledger summary has been generated yet.</p>"
+
+    event_items = "".join(
+        f"<li><strong>{esc(event.get('element_id'))}</strong> · {esc(event.get('type'))} · {esc(event.get('from'))} → {esc(event.get('to'))} · {esc(event.get('reason'))}</li>"
+        for event in verifier_events
+    ) or "<li>No verifier events in this summary.</li>"
+
+    row_items = "".join(
+        f"<li><code>{esc(row.get('run_id'))}</code> · {esc(row.get('element_id'))} · {esc(row.get('mode'))} · property={esc(row.get('tested_property'))} · verdict=<strong>{esc(row.get('verdict'))}</strong></li>"
+        for row in recent_rows[:8]
+    ) or "<li>No recent ledger rows.</li>"
+
+    return f"""
+    <p><strong>Display order:</strong> {esc(ledger_summary.get('display_order', 'newest_first'))}</p>
+    <p><strong>Verifier events:</strong></p>
+    <ul>{event_items}</ul>
+    <p><strong>Newest ledger rows:</strong></p>
+    <ul>{row_items}</ul>
+    <p><a href="../data/experimental-ledger-summary.json">Open experimental ledger summary JSON</a></p>
+    """
+
 
 
 def receipt_backing_html(eid, receipt_backing):
@@ -229,14 +273,14 @@ def receipt_backing_html(eid, receipt_backing):
     return "\\n".join(blocks)
 
 
-def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index, rule_releases, automation_releases, receipt_backing):
+def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index, rule_releases, automation_releases, receipt_backing, ledger_summary, automation_verifier):
     eid = e["id"]
     c = e.get("coordinates", {})
     rel = e.get("relations", {})
 
     rows_html = "".join(
         f"<li><code>{esc(r.get('run_id',''))}</code> · tested property={esc(r.get('tested_property', r.get('mode', '')))} · constraint={esc(row_constraint(r))} · admissibility invariant={esc(r.get('invariant',''))} · admissibility verdict=<strong>{esc(r.get('verdict',''))}</strong></li>"
-        for r in rows[-20:]
+        for r in reversed(rows[-20:])
     ) or "<li>No ledger rows yet.</li>"
 
     runs_html = "".join(
@@ -254,7 +298,9 @@ def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index, rule_
     rules_section = rule_release_html(rule_releases)
     applied_rules_section = applied_rules_html(eruns)
     automation_section = automation_release_html(automation_releases)
+    automation_verifier_section = automation_verifier_html(automation_verifier)
     receipt_backing_section = receipt_backing_html(eid, receipt_backing)
+    ledger_summary_section = ledger_summary_html(ledger_summary)
 
     return """<!doctype html>
 <html lang="en">
@@ -312,18 +358,20 @@ li{margin:0 0 8px}
 </section>
 <section><h2>Confirmed Behavior</h2><p>__SUMMARY__</p></section>
 <section><h2>Automation Release State</h2>__AUTOMATION_RELEASES__</section>
+<section><h2>Automation Release Verifier</h2>__AUTOMATION_VERIFIER__</section>
 <section><h2>Released Operational Rules</h2>__RULES__</section>
 <section><h2>Applied Rules for This Transition</h2>__APPLIED_RULES__</section>
 <section><h2>Receipt-Backed Verification</h2>__RECEIPT_BACKING__</section>
 <section><h2>Run Manifests</h2><ul>__RUNS__</ul></section>
 <section><h2>Knowledge Deltas</h2><ul>__DELTAS__</ul></section>
-<section><h2>Recent Ledger Rows</h2><ul>__ROWS__</ul></section>
+<section><h2>Experimental Ledger Summary</h2>__LEDGER_SUMMARY__</section>
+<section><h2>Recent Ledger Rows For This Transition</h2><ul>__ROWS__</ul></section>
 <section><h2>State Transition Receipts</h2>__RECEIPTS__</section>
 <section><h2>Consequential Test Changelog</h2>__CHANGELOG__</section>
 </main>
 </body>
 </html>
-""".replace("__EID__", esc(eid)).replace("__NAME__", esc(e["name"])).replace("__QUESTION__", esc(e["question"])).replace("__SUPPORT__", SUPPORT).replace("__LEVEL__", esc(ev.get("evidence_level", e.get("evidence_level", 0)))).replace("__LABEL__", esc(ev.get("evidence_label", "Unknown"))).replace("__RUNTIME__", esc(ev.get("runtime_state", "idle"))).replace("__BRIGHTNESS__", esc(ev.get("brightness", 0))).replace("__COMPOSITION__", esc(c.get("composition", 0))).replace("__REALITY__", esc(c.get("reality_binding", 0))).replace("__OBS__", esc(c.get("observability_gap", 0))).replace("__REQUIRES__", esc(", ".join(rel.get("requires", [])) or "none")).replace("__INFORMS__", esc(", ".join(rel.get("informs", [])) or "none")).replace("__EXPECTED__", esc(e["expected_behavior"])).replace("__FORMULA__", esc(e["formula"])).replace("__SUMMARY__", esc(ev.get("latest_result_summary", e.get("confirmed_behavior", "")))).replace("__AUTOMATION_RELEASES__", automation_section).replace("__RULES__", rules_section).replace("__APPLIED_RULES__", applied_rules_section).replace("__RECEIPT_BACKING__", receipt_backing_section).replace("__RUNS__", runs_html).replace("__DELTAS__", deltas_html).replace("__ROWS__", rows_html).replace("__RECEIPTS__", receipts_section).replace("__CHANGELOG__", changes_html)
+""".replace("__EID__", esc(eid)).replace("__NAME__", esc(e["name"])).replace("__QUESTION__", esc(e["question"])).replace("__SUPPORT__", SUPPORT).replace("__LEVEL__", esc(ev.get("evidence_level", e.get("evidence_level", 0)))).replace("__LABEL__", esc(ev.get("evidence_label", "Unknown"))).replace("__RUNTIME__", esc(ev.get("runtime_state", "idle"))).replace("__BRIGHTNESS__", esc(ev.get("brightness", 0))).replace("__COMPOSITION__", esc(c.get("composition", 0))).replace("__REALITY__", esc(c.get("reality_binding", 0))).replace("__OBS__", esc(c.get("observability_gap", 0))).replace("__REQUIRES__", esc(", ".join(rel.get("requires", [])) or "none")).replace("__INFORMS__", esc(", ".join(rel.get("informs", [])) or "none")).replace("__EXPECTED__", esc(e["expected_behavior"])).replace("__FORMULA__", esc(e["formula"])).replace("__SUMMARY__", esc(ev.get("latest_result_summary", e.get("confirmed_behavior", "")))).replace("__AUTOMATION_RELEASES__", automation_section).replace("__AUTOMATION_VERIFIER__", automation_verifier_section).replace("__RULES__", rules_section).replace("__APPLIED_RULES__", applied_rules_section).replace("__RECEIPT_BACKING__", receipt_backing_section).replace("__RUNS__", runs_html).replace("__DELTAS__", deltas_html).replace("__LEDGER_SUMMARY__", ledger_summary_section).replace("__ROWS__", rows_html).replace("__RECEIPTS__", receipts_section).replace("__CHANGELOG__", changes_html)
 
 elements = read_json("transition-elements.json", [])
 elements_by_id = {e["id"]: e for e in elements}
@@ -335,6 +383,8 @@ receipt_index = read_json("transition-receipts.json", {"receipts": []})
 rule_releases = read_json("transition-rule-releases.json", {"rules": [], "automation_gate": {}})
 automation_releases = read_json("automation-release-state.json", {"current_state": "unknown", "releases": []})
 receipt_backing = read_json("receipt-backing-verifier.json", {"checks": [], "promotions": []})
+ledger_summary = read_json("experimental-ledger-summary.json", {"recent_ledger_rows": [], "recent_runs": [], "verifier_events": []})
+automation_verifier = read_json("automation-release-verifier.json", {"checks": [], "verdict": "unknown"})
 
 for e in elements:
     eid = e["id"]
@@ -343,5 +393,5 @@ for e in elements:
     eruns = [r for r in runs.get("runs", []) if r.get("element_id") == eid]
     deltas = [d for d in knowledge.get("knowledge_deltas", []) if d.get("source_element") == eid or eid in d.get("informs", [])]
     changes = changelog_for(e, elements_by_id, evidence, runs, knowledge)
-    (OUT / f"{eid}.html").write_text(render_page(e, ev, rows, eruns, deltas, changes, receipt_index, rule_releases, automation_releases, receipt_backing), encoding="utf-8")
+    (OUT / f"{eid}.html").write_text(render_page(e, ev, rows, eruns, deltas, changes, receipt_index, rule_releases, automation_releases, receipt_backing, ledger_summary, automation_verifier), encoding="utf-8")
     print(f"Wrote {OUT / (eid + '.html')}")
