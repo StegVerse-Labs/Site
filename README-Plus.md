@@ -1,66 +1,41 @@
-# Page Contract MS-012 Stabilized Fix v1
+# MS-012 Independent Replay Check Candidate v1
 
-Upload-safe bundle. No leading-dot paths.
+Upload-safe bundle.
 
-Replaces:
+## Files
 
 ```text
-tools/page_contract_check.py
+transition-replay-packet.html
+data/transition-replay-fixtures-v1.json
+data/transition-replay-verifier-v1.json
 data/page-contracts-v1.json
+tools/transition_replay_check.py
+github/workflows/transition-replay-check.yml
 ```
 
-## What changed
+Note: `github/workflows/transition-replay-check.yml` is displayed without the leading dot here. The bundle preserves the correct `.github/workflows/transition-replay-check.yml` path for GitHub upload.
 
-The contract is now split correctly:
+## What this does
+
+This creates the first narrow independent replay packet for:
 
 ```text
-Site-wide homepage checks:
-- index.html
-
-Transition release checks:
-- transition-periodic-table.html
-- transition-table.html
-- transition-milestones.html
-- transition-development-status.html
-- transition-release-snapshot.html
-- transition-release-index.html
-- transition-verification-guide.html
-- transition-replay-packet.html
+T13 — Receipt-Bound Transition
+T14 — Reconstruction Transition
 ```
 
-The checker now tolerates:
+## Done checks
+
+After upload:
 
 ```text
-spaces
-hyphens
-underscores
-line breaks
-visual heading joins
+1. Wait for Pages deployment to finish.
+2. Run Actions → Transition Replay Check.
+3. Confirm the workflow passes.
+4. Run Actions → Page Contract Check.
+5. Confirm the workflow passes.
 ```
 
-The JSON checks remain strict.
+## Release rule
 
-## Important
-
-If the Release Index still does not list:
-
-```text
-Replay Packet v1
-data/transition-replay-packet-v1.json
-```
-
-the workflow should still fail. That is a real page-state failure, not a checker failure.
-
-## Done check
-
-Run:
-
-```text
-Actions → Page Contract Check → Run workflow
-```
-
-If it fails, use the uploaded artifact:
-
-```text
-page-contract-report.md
-```
+MS-012 remains a candidate until both workflows pass.

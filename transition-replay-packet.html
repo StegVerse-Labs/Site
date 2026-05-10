@@ -5,40 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Transition Replay Packet | StegVerse</title>
 <style>
-:root{
-  --bg:#080b12; --panel:rgba(16,24,39,.82); --text:#eef4ff; --muted:#a9b7cc;
-  --line:rgba(255,255,255,.14); --green:#43d694; --blue:#4da3ff; --gold:#ffbe54;
-}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
-main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
-a{color:inherit}
-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
-nav div{display:flex;gap:10px;flex-wrap:wrap}
+:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}nav div{display:flex;gap:10px;flex-wrap:wrap}
 nav a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
-nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
 section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
 h1{font-size:clamp(2.2rem,7vw,5.35rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
-h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
-h3{font-size:1.18rem;margin:0 0 8px}
-p{color:var(--muted);font-size:1.02rem}
-.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card,.step{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0;margin-top:12px}
-.card strong{display:block;font-size:clamp(1.15rem,6vw,1.6rem);overflow-wrap:anywhere;line-height:1.05}
-.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
-.status{display:inline-flex;border:1px solid rgba(255,190,84,.35);border-radius:999px;padding:5px 9px;background:rgba(255,190,84,.08);color:var(--gold);font-size:.83rem}
-.status.good{color:var(--green);border-color:rgba(67,214,148,.35);background:rgba(67,214,148,.08)}
-ol,ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
-li{margin-bottom:9px}
-code{word-break:break-word;color:#f5fbff}
-.reason{border-left:3px solid var(--green);padding-left:12px;margin-top:12px;color:#dbe7f7}
-@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}.card strong{display:block;font-size:clamp(1.1rem,5vw,1.55rem);overflow-wrap:anywhere;line-height:1.08}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}.status{display:inline-flex;border:1px solid rgba(255,190,84,.35);border-radius:999px;padding:5px 9px;background:rgba(255,190,84,.08);color:var(--gold);font-size:.83rem}
+ul,ol{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word-break:break-word;color:#f5fbff}@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
 </style>
 </head>
 <body>
 <main>
-
 <nav>
   <a href="index.html"><strong>StegVerse</strong></a>
   <div>
@@ -60,87 +42,70 @@ code{word-break:break-word;color:#f5fbff}
   <p class="kicker">Independent Replay Packet</p>
   <h1>Transition Replay Packet</h1>
   <p>
-    This page gives a reader-facing packet for independently replaying selected receipt-backed evidence claims
-    by following public receipt, evidence, ledger, and release surfaces.
+    This page gives a reader-facing packet for independently replaying selected receipt-backed evidence claims by following
+    public receipt, evidence, ledger, fixture, verifier, and release surfaces.
   </p>
-  <span class="status">MS-012 pending until links are confirmed live</span><br/>
-  <a class="btn" href="data/transition-replay-packet-v1.json">Open Replay Packet JSON</a>
+  <span class="status">MS-012 pending until Transition Replay Check passes</span><br/>
+  <a class="btn" href="data/transition-replay-fixtures-v1.json">Open Replay Fixtures JSON</a>
+  <a class="btn" href="data/transition-replay-verifier-v1.json">Open Replay Verifier JSON</a>
   <a class="btn" href="transition-verification-guide.html">Open Verification Guide</a>
 </section>
 
 <section>
   <h2>Replay Scope</h2>
   <div class="grid">
-    <div class="card"><span class="kicker">Current verified release</span><strong>MS-011</strong><p>Public Verification Bundle.</p></div>
-    <div class="card"><span class="kicker">Replay target</span><strong>T13 / T14</strong><p>Receipt-bound and reconstruction-backed evidence elements.</p></div>
-    <div class="card"><span class="kicker">Release state</span><strong>public verification bundle released</strong><p>MS-012 remains pending until this replay packet is linked.</p></div>
-    <div class="card"><span class="kicker">Verifier basis</span><strong>ALLOW</strong><p>Automation release verifier result remains unchanged.</p></div>
+    <div class="card">
+      <span class="kicker">T13</span>
+      <strong>Receipt-Bound Transition</strong>
+      <p>Replays whether pre-state, action, and post-state are bound into deterministic receipt material.</p>
+    </div>
+    <div class="card">
+      <span class="kicker">T14</span>
+      <strong>Reconstruction Transition</strong>
+      <p>Replays whether reconstructed end-state hash matches observed end-state hash.</p>
+    </div>
   </div>
 </section>
 
 <section>
   <h2>Replay Steps</h2>
-  <div id="steps"></div>
+  <ol>
+    <li>Open <a href="data/transition-replay-fixtures-v1.json">data/transition-replay-fixtures-v1.json</a>.</li>
+    <li>For T13, recompute hashes for <code>pre_state</code>, <code>action</code>, and <code>post_state</code>.</li>
+    <li>Build receipt material from those hashes and recompute <code>receipt_material_hash</code>.</li>
+    <li>For T14, recompute the observed and reconstructed end-state hashes.</li>
+    <li>Confirm observed and reconstructed end-state hashes match.</li>
+    <li>Compare the computed values against <a href="data/transition-replay-verifier-v1.json">data/transition-replay-verifier-v1.json</a>.</li>
+    <li>Run <code>tools/transition_replay_check.py</code> through the Transition Replay Check workflow.</li>
+  </ol>
 </section>
 
 <section>
-  <h2>Replay Claim</h2>
-  <p class="reason">
-    A reader can independently inspect the receipt-backed evidence layer by following the replay packet from guide to receipt backing verifier,
-    transition evidence, ledger summary, and release index.
-  </p>
+  <h2>What This Replay Verifies</h2>
+  <ul>
+    <li>T13 replay verifies receipt binding from canonical JSON state/action material.</li>
+    <li>T14 replay verifies reconstruction equality from canonical JSON end-state material.</li>
+    <li>The current verifier verdict is <strong>ALLOW</strong> for the selected T13/T14 fixture set.</li>
+  </ul>
 </section>
 
 <section>
   <h2>What This Does Not Claim</h2>
   <ul>
-    <li>It does not claim full autonomous replay of every transition element.</li>
-    <li>It does not claim unbounded engine execution.</li>
-    <li>It does not rely on private or unpublished workflow logs.</li>
-    <li>It does not claim final publication proof status.</li>
+    <li>It does not claim all transition elements are independently replayed.</li>
+    <li>It does not claim final publication readiness.</li>
+    <li>It does not claim unbounded autonomous replay.</li>
+    <li>It documents a narrow replay packet for the first receipt-backed evidence layer.</li>
   </ul>
 </section>
 
 <section>
-  <h2>MS-012 Unlock Rule</h2>
+  <h2>Next Unlock Condition</h2>
   <p>
-    MS-012 should be marked released only after this replay packet is live and linked from the verification guide,
-    release index, milestones, development status, release snapshot, transition table, and research landing.
+    MS-012 should move from candidate to released only after the Transition Replay Check workflow passes and the Page Contract Check confirms
+    the replay fixture and replay verifier JSON are publicly linked.
   </p>
 </section>
 </main>
-
-<script>
-const fallback = {"generated_at": "2026-05-10T04:42:21Z", "schema": "stegverse.transition_replay_packet.v1", "formal_milestone": "MS-012 \u2014 Independent Replay Packet", "status": "pending_until_public_links_confirmed", "purpose": "Provide a reader-facing packet for independently replaying selected transition receipts and comparing reconstructed outcomes against the public ledger.", "current_verified_release": {"formal_milestone": "MS-011 \u2014 Public Verification Bundle", "release_state": "public_verification_bundle_released", "automation_state": "receipt_backed_automation_ready", "verifier_verdict": "ALLOW"}, "replay_scope": {"selected_elements": ["T13", "T14"], "reason": "T13 and T14 are the current receipt-backed evidence elements and therefore form the safest public replay target.", "not_in_scope": ["Full autonomous replay of every transition element", "Unbounded engine execution", "Private or unpublished workflow logs", "Final publication proof claims"]}, "replay_steps": [{"step": 1, "name": "Open the verification guide", "page": "transition-verification-guide.html", "data": "data/transition-verification-bundle-v1.json", "checks": ["MS-011 is released", "The verification guide identifies public JSON surfaces", "The guide lists the current verification path"]}, {"step": 2, "name": "Open the receipt backing verifier", "page": "transition-release-snapshot.html", "data": "data/receipt-backing-verifier.json", "checks": ["T13 is receipt-backed", "T14 is receipt-backed", "Receipt-backed evidence is limited to current backed elements"]}, {"step": 3, "name": "Open transition evidence", "page": "transition-table.html", "data": "data/transition-evidence.json", "checks": ["T13 evidence level is 5/5 or receipt-backed", "T14 evidence level is 5/5 or receipt-backed", "Other elements remain at their published evidence levels"]}, {"step": 4, "name": "Open the experimental ledger summary", "page": "transition-table.html", "data": "data/experimental-ledger-summary.json", "checks": ["Recent T13 and T14 ledger rows are visible", "Ledger rows include verdicts", "Ledger rows match the public evidence story"]}, {"step": 5, "name": "Compare replay claim to release state", "page": "transition-release-index.html", "data": "data/transition-release-index-v1.json", "checks": ["Current release remains MS-011 until MS-012 links are live", "MS-012 is the next pending milestone", "Replay packet path is publicly reachable after upload"]}], "replay_claim": "A reader can independently inspect the receipt-backed evidence layer by following the replay packet from guide to receipt backing verifier, transition evidence, ledger summary, and release index.", "unlock_condition": "MS-012 can be marked released after transition-replay-packet.html is live and linked from the verification guide, release index, milestones, development status, release snapshot, transition table, and research landing.", "next_pending_milestone_after_release": {"formal_milestone": "MS-013 \u2014 Receipt Replay Demonstration", "status": "pending", "unlock_condition": "A public demonstration shows at least one selected receipt replay path from receipt material to reconstructed result and ledger comparison."}};
-async function fetchJSON(path, fallbackValue) {
-  try {
-    const response = await fetch(path, {cache:"no-store"});
-    if (!response.ok) return fallbackValue;
-    return await response.json();
-  } catch (error) {
-    return fallbackValue;
-  }
-}
-function escapeHTML(value) {
-  return String(value).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-}
-(async () => {
-  const packet = await fetchJSON("data/transition-replay-packet-v1.json", fallback);
-  const steps = document.getElementById("steps");
-  steps.innerHTML = "";
-  (packet.replay_steps || []).forEach(row => {
-    const checks = (row.checks || []).map(check => `<li>${escapeHTML(check)}</li>`).join("");
-    const div = document.createElement("div");
-    div.className = "step";
-    div.innerHTML = `
-      <h3>Step ${escapeHTML(row.step)} — ${escapeHTML(row.name)}</h3>
-      <p><strong>Open page:</strong> <a href="${escapeHTML(row.page)}">${escapeHTML(row.page)}</a></p>
-      <p><strong>Inspect data:</strong> <a href="${escapeHTML(row.data)}">${escapeHTML(row.data)}</a></p>
-      <ul>${checks}</ul>
-    `;
-    steps.appendChild(div);
-  });
-})();
-</script>
 </body>
 </html>
