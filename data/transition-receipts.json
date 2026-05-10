@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T01:48:33Z",
+  "generated_at": "2026-05-10T01:48:52Z",
   "schema": "stegverse.transition_receipt_index.v1",
   "receipts": [
     {
@@ -28,7 +28,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:62751ef6ac54f94a12ef83684cb628ae123d1496fae87bc5fd5256a783880b7f",
+      "receipt_hash": "sha256:fa6de37cda178117ce42eb5ddb47a7e115f865030aafa37859defc5d7a3e7603",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json",
       "replay_status": "replayable"
     },
@@ -58,7 +58,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:c7698b2942deefde565f9a060066467f629c5d14747412cc24a15b4958cf245d",
+      "receipt_hash": "sha256:e8979693c5d6dd417c01e3dd869cfc5e630b75be5a829f057c3c615a773e17f4",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json",
       "replay_status": "replayable"
     },
@@ -88,7 +88,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:0fa8d16ae23438ef84b8684a4f4cc7f64d0d783a471788d808742d124503da6d",
+      "receipt_hash": "sha256:31a1c1377c4a93a526a044515d0b67e041803d896050a02af373e40624786a19",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json",
       "replay_status": "replayable"
     },
@@ -118,7 +118,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:2184ff5a95470a027bb77121357d30d07a1338c1605e074bc36d0afb5558aaf1",
+      "receipt_hash": "sha256:16313c0b931404d9117102fa2c1301774252405581cb95852a9cb9b219a69026",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-001.json",
       "replay_status": "replayable"
     },
@@ -148,7 +148,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:ad81422cb5269ff4364480137dc67e09f7d96c6c05c584caba49d2a027d2699b",
+      "receipt_hash": "sha256:03746708e22156b673a5c184d05959bad5ccb2d0f9414a8a73bda09aea560f90",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-002.json",
       "replay_status": "replayable"
     },
@@ -178,7 +178,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:7c0e5b0942b6465a0480d407ecccc1d76d305a8ea463c22a55582271f0ab1b82",
+      "receipt_hash": "sha256:6b99ad97878ad46c1eb0c7f3f3db24ae857ca5743ccf399d815e716124ce8d47",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-003.json",
       "replay_status": "replayable"
     },
@@ -208,7 +208,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:91433beb66a78cf85ac219c6f5936baa4f51f50967f33f19a8cc698c736979c8",
+      "receipt_hash": "sha256:478ca2cdbcbd35d645bf8756027d94c11387f5b7b02a1a1b14b2ad7851781f43",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-001.json",
       "replay_status": "replayable"
     },
@@ -238,7 +238,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:34b1531e73d79662aa7cf620d16ff9a1081db0fa73e7e4282d78733f91ac0f7d",
+      "receipt_hash": "sha256:09798c2c3eba93be2e16f3ae7298c9ad90a41c2ed5220e455db91e448ba57103",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-002.json",
       "replay_status": "replayable"
     },
@@ -268,7 +268,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:efeba5d411aefbaca6a32b6ea4d5912455319c57c74e30d3ba0c02c9269ecf7c",
+      "receipt_hash": "sha256:10af6cb4f747a61fd75afa9392d5ce02e455beed61ea8fa80c8e86ea242a64ec",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-003.json",
       "replay_status": "replayable"
     },
@@ -298,7 +298,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:794f15f44c6a3670c4118b23786a848db21de18b7dd8514c1821959c4a847bfe",
+      "receipt_hash": "sha256:6b46764547711388b3f3259a48caa4d0c4d55d868f197815a0f75307ae992a5b",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-001.json",
       "replay_status": "replayable"
     },
@@ -328,7 +328,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:a17a41108e881960f4545716b54bcce8e53f415ba3420eb2edec4a85c0a0fc79",
+      "receipt_hash": "sha256:e2aed90f84fcaecc43041dbe60d69e76274aed671326cbc07309b2cdf6ec8aeb",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-002.json",
       "replay_status": "replayable"
     },
@@ -358,7 +358,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:04becc61cbec43de4dac3bee542376e76a04d7f7be3c581c9b2089f768321493",
+      "receipt_hash": "sha256:acbc66d522a62d75d58be835b835cfc7df7fe8b95ea0205c6701d362deeeb04b",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-003.json",
       "replay_status": "replayable"
     },
@@ -388,7 +388,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:953f452654954e6aed5452780861be86f3589ed7eda8e5ade5807e5d902be9dd",
+      "receipt_hash": "sha256:99d0277109b870bf385c8ce6b8fed7bd45e1952e73a45928335a7e55113bddf6",
       "path": "data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-001.json",
       "replay_status": "replayable"
     },
@@ -418,7 +418,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:6c694cb9267f189068bd27e506c16d0caf3a7226b40cc8b0bf5f47c095200c4f",
+      "receipt_hash": "sha256:97dd200053b4155bc0f319650e98fdeeb42116044df69d612f473466ac711b83",
       "path": "data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-002.json",
       "replay_status": "replayable"
     },
@@ -448,7 +448,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:3438d0f3bcb85ef9b9c47246a1b3c7ca3f942eaa663ffb6bdcefff73b8c16757",
+      "receipt_hash": "sha256:fd6606b7683cd67c195f1477a0bded6bf512751a4ad7f343d1a3a95a3dd7ccbe",
       "path": "data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-003.json",
       "replay_status": "replayable"
     },
@@ -478,7 +478,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:872d9787d8fb85267b8839b8c30874f41c3e5cad9109712a921f29b3ddb48fa1",
+      "receipt_hash": "sha256:d0fe0691cce4a7b43c454d3143ba6cb08df757685f862dea7908a9b808c2ee8d",
       "path": "data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-001.json",
       "replay_status": "replayable"
     },
@@ -508,7 +508,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:c0d82fde409c650871ac4a8d3831bcc1efa1dc8ccf893487f3b12ee940499fe0",
+      "receipt_hash": "sha256:78d6e96e9da9c1cde17b48628d6a547de776e1faa0d20f58d8199a201242fcd7",
       "path": "data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-002.json",
       "replay_status": "replayable"
     },
@@ -538,7 +538,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:99412a581ef9c9efb74e0e7d2ff37eec6313fe9dda979061526f39554a10dc2e",
+      "receipt_hash": "sha256:b0d0c8fdde3047256e782bf318798ff1db16fe6e8ce3440d4bcc9336def9ae55",
       "path": "data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-003.json",
       "replay_status": "replayable"
     },
@@ -568,7 +568,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:d93963bb19690b0b6152ac27fccaf2739ead8d8e0d6585141201f67eb5fe307c",
+      "receipt_hash": "sha256:c2661b3a84198354f46a38ea1fa22dae3df3abe2ba721b4035eec781869909ce",
       "path": "data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-001.json",
       "replay_status": "replayable"
     },
@@ -598,7 +598,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:d72390a8157139cec98d56317bff75c6e1adee6f135cdf715ea321a4dba0663f",
+      "receipt_hash": "sha256:111322fbf7e0f424aab6e65e61cd4a2db6ced321b6b43d25fc77df34a5f8c3c7",
       "path": "data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-002.json",
       "replay_status": "replayable"
     },
@@ -628,7 +628,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:60788347f8bf657dd039f10559ebca40e62b2d265a4fabfbec631128422a698a",
+      "receipt_hash": "sha256:de1b1e71f1e4aa13662f28d85fb3a9c7ae6a867ec60d133ea508d373f6765b18",
       "path": "data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-003.json",
       "replay_status": "replayable"
     },
@@ -658,7 +658,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:bdb9bb51fb0e69b7aefb0f879d79a11ecf32d088d556242a3bcfdd144319d867",
+      "receipt_hash": "sha256:8da0850700c9c40432fee29226a9b7f486fc538e8ef2c259bd468a0cd91c868c",
       "path": "data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-001.json",
       "replay_status": "replayable"
     },
@@ -688,7 +688,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:b9382866f856fe07fd52e93c1e54f5b366018fca9bb24e747bebeba99ee679f5",
+      "receipt_hash": "sha256:86461aef084611d58859cd922eb1141d763638a2c15aa8045cf4c522ccba4035",
       "path": "data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-002.json",
       "replay_status": "replayable"
     },
@@ -718,7 +718,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:c3ebb6a40d19e6f36413ddf133769e6405c7207e10c3f8aeb1e160a57130ebe2",
+      "receipt_hash": "sha256:0f5967e47a74647003f9a49c1c8e887a9322d4aaab128c1eb0fe496a6f8c648b",
       "path": "data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-003.json",
       "replay_status": "replayable"
     },
@@ -748,7 +748,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:c097b2e47dfe8bbff1cb6b78a00d70b7ba96f25bf0cf6be5671ed5da2ce5075d",
+      "receipt_hash": "sha256:90d527efd78090243094c67dd426eb118da32444ee284574d599dc50e02edf2f",
       "path": "data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-001.json",
       "replay_status": "replayable"
     },
@@ -778,7 +778,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:966fa821980f451a488d391819f8c46f6e8a6706b28e961b396ea13dfa3fc0f8",
+      "receipt_hash": "sha256:d0b5774c628e4ef0ceb8d652d89c32c76f9c166bd1cff2565e2f77a7a82c4246",
       "path": "data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-002.json",
       "replay_status": "replayable"
     },
@@ -808,7 +808,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:788cf860479f95a65bf5be380c0f2b1ef1c9b3d179ae64f2900d852cfe1279d4",
+      "receipt_hash": "sha256:fb62b67c2750d3930cd9e1cfd866fea6c8dac4085465cae6f4285530d5755ec1",
       "path": "data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-003.json",
       "replay_status": "replayable"
     },
@@ -838,7 +838,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:28af6fd25c070da21efda831b308170b304398bc69391b73d7470186926a91f4",
+      "receipt_hash": "sha256:f72a7a8beb44ef71f646d879e42aa4ad1a24d4055ab682c250091830bf4c7b91",
       "path": "data/receipts/RCPT-T11-conflict_sweep_v1-0010-001.json",
       "replay_status": "replayable"
     },
@@ -868,7 +868,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:51a18d2a904da60b45b435a992e32cb40b3b671921a71b316dd00c13ea302c01",
+      "receipt_hash": "sha256:81e390f1bf507c38842f1f6597ea36155f12dd0c95940b73f810aad51d056354",
       "path": "data/receipts/RCPT-T11-conflict_sweep_v1-0010-002.json",
       "replay_status": "replayable"
     },
@@ -898,7 +898,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:b5f4f6daaebdf0f91469dc458f1e6bac884ec748a502677728b541b391fcd311",
+      "receipt_hash": "sha256:23da1144e2025e907c285807e3eafd806809d605d14827020cce39ee2367a23f",
       "path": "data/receipts/RCPT-T11-conflict_sweep_v1-0010-003.json",
       "replay_status": "replayable"
     },
@@ -928,7 +928,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:d4820b8c79dfd5015ce501cac0e50697b86af187ccae691f8abf5e1d561d9019",
+      "receipt_hash": "sha256:98231c12984cdace92e5d44f85cd3b038395b9965f113278a04f61628ee1d19d",
       "path": "data/receipts/RCPT-T12-consensus_sweep_v1-0011-001.json",
       "replay_status": "replayable"
     },
@@ -958,7 +958,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:a31d35fb24d9903de0cc3f1d63b4be9fba72ede657a1ff200397e577a4739005",
+      "receipt_hash": "sha256:3a8190638ec7a0b8082f959445a2e6e30da898e7f4c2edfb38444fee2b27bc23",
       "path": "data/receipts/RCPT-T12-consensus_sweep_v1-0011-002.json",
       "replay_status": "replayable"
     },
@@ -988,7 +988,7 @@
       "receipt_bound": null,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:9505a4ca6c9a6d890c30a231053508a7076b160557dfe06da164b6d6c674c9f4",
+      "receipt_hash": "sha256:15aaea8acef926ab90b053e2ab1ee6f0f76f3efa3f65220553c60ab72444dd6f",
       "path": "data/receipts/RCPT-T12-consensus_sweep_v1-0011-003.json",
       "replay_status": "replayable"
     },
@@ -1018,7 +1018,7 @@
       "receipt_bound": true,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:4098316c353b6c0a4f012b35723b0f589b4fc36bf1e3bc4cb8cfa2954957a19d",
+      "receipt_hash": "sha256:fbf4ab1bca3cb73d08a87956845d3ef39999bdc755bab34dce7cd2f40fc9281b",
       "path": "data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-001.json",
       "replay_status": "replayable"
     },
@@ -1048,7 +1048,7 @@
       "receipt_bound": true,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:c64c3c056985ad68aa92408de66c5730e154d602122bd6171ec34f19b36947ae",
+      "receipt_hash": "sha256:40e4e71e874f5700b4bc9bd543b1421c6da6e2f9209e0c8127caa97560bfd734",
       "path": "data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-002.json",
       "replay_status": "replayable"
     },
@@ -1078,7 +1078,7 @@
       "receipt_bound": true,
       "reconstruction_exact": null,
       "reconstruction_verdict_match": null,
-      "receipt_hash": "sha256:d1017a4836485af93121d406fc39debbc9ad1ef935bee74944d9b7a52361a6dc",
+      "receipt_hash": "sha256:8adcae80ae2445ca07abe32c1a11ac2225cfb45cb150f2e1485b3011c3339fce",
       "path": "data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-003.json",
       "replay_status": "replayable"
     },
@@ -1108,7 +1108,7 @@
       "receipt_bound": null,
       "reconstruction_exact": true,
       "reconstruction_verdict_match": true,
-      "receipt_hash": "sha256:fff54787ec778981d3576c2eb2b99f68323c82ade64eb53940ec1652d944c4a6",
+      "receipt_hash": "sha256:c341ca96f460b3518d482406684d9c9eb197d6312dabf69e37acefcb60ca6dcf",
       "path": "data/receipts/RCPT-T14-reconstruction_sweep_v1-0013-001.json",
       "replay_status": "replayable"
     },
@@ -1138,7 +1138,7 @@
       "receipt_bound": null,
       "reconstruction_exact": true,
       "reconstruction_verdict_match": true,
-      "receipt_hash": "sha256:9a595824532974f06ad361be3ea6a157613eb4f21621cb8194bda353fe6a7e5d",
+      "receipt_hash": "sha256:1e07b121a43c5b056a2521134a245cc97c63925be5012d244b63f4e0d03051b2",
       "path": "data/receipts/RCPT-T14-reconstruction_sweep_v1-0013-002.json",
       "replay_status": "replayable"
     },
@@ -1168,7 +1168,7 @@
       "receipt_bound": null,
       "reconstruction_exact": true,
       "reconstruction_verdict_match": true,
-      "receipt_hash": "sha256:3331474923afaa99b9b1ef2f14e9d5ae38f64392486e530c1b65f150a5fbce53",
+      "receipt_hash": "sha256:77b8b17197898e2155f32f076edb0a2c1480e4eb1faa0af440b384c13dcd01fd",
       "path": "data/receipts/RCPT-T14-reconstruction_sweep_v1-0013-003.json",
       "replay_status": "replayable"
     }
