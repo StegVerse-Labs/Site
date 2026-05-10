@@ -1,7 +1,7 @@
 {
   "planner": "evidence_gated_sequence_v1",
   "status": "completed",
-  "updated_at": "2026-05-10T00:46:16Z",
+  "updated_at": "2026-05-10T00:59:44Z",
   "automation_gate": {
     "mode": "bounded_batch",
     "max_sequence_steps": 3,
@@ -11,17 +11,17 @@
   },
   "sequence_completed": [
     {
-      "run_id": "T10-multi_agent_sweep_v1-0009",
-      "element_id": "T10",
-      "experiment": "multi_agent_sweep_v1",
+      "run_id": "T11-conflict_sweep_v1-0010",
+      "element_id": "T11",
+      "experiment": "conflict_sweep_v1",
       "status": "completed"
     }
   ],
   "last_selected": {
-    "run_id": "T10-multi_agent_sweep_v1-0009",
-    "element_id": "T10",
-    "experiment": "multi_agent_sweep_v1",
+    "run_id": "T11-conflict_sweep_v1-0010",
+    "element_id": "T11",
+    "experiment": "conflict_sweep_v1",
     "status": "completed"
   },
-  "last_run_id": "T10-multi_agent_sweep_v1-0009"
+  "last_run_id": "T11-conflict_sweep_v1-0010"
 }

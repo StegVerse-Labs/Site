@@ -1,0 +1,151 @@
+{
+  "receipt_id": "RCPT-T11-conflict_sweep_v1-0010-003",
+  "schema": "stegverse.transition_receipt.v1",
+  "created_at": "2026-05-10T00:59:44Z",
+  "run_id": "T11-conflict_sweep_v1-0010",
+  "ledger_row_id": "T11-conflict_sweep_v1-0010-003",
+  "element_id": "T11",
+  "experiment": "conflict_sweep_v1",
+  "tested_property": "conflict_resolution",
+  "sandbox": {
+    "type": "coupled_state_deterministic",
+    "parallel_ready": true,
+    "canonical_write_policy": "reducer_only",
+    "max_runtime_seconds": 120,
+    "automation_gate": "bounded_batch"
+  },
+  "applied_rules": [
+    "primitive_admissibility_required",
+    "simplex_constraint_visible",
+    "bounded_action_visible",
+    "capacity_margin_visible",
+    "lag_aware_sandbox_required",
+    "decision_stage_required",
+    "actuation_stage_required",
+    "trust_drift_required",
+    "two_state_coupling_required",
+    "multi_agent_composition_required"
+  ],
+  "parameters": {
+    "K": 1,
+    "alpha": 1,
+    "beta": 1,
+    "gamma": 1,
+    "conflict_threshold": 0.07
+  },
+  "pre_state": {
+    "state_a": null,
+    "state_b": null
+  },
+  "state_a": null,
+  "state_b": null,
+  "action_a": {
+    "dg": 0.04,
+    "dc": -0.02,
+    "da": 0.02,
+    "dt": -0.02
+  },
+  "coupling_effect_on_b": null,
+  "post_state_a": null,
+  "post_state_b_without_coupling": null,
+  "post_state_b_with_coupling": null,
+  "observed_state": null,
+  "observation_lag_drift": null,
+  "decision_state": null,
+  "decision_lag_drift": null,
+  "commit_state": null,
+  "actuation_lag_drift": null,
+  "effect_state": null,
+  "action": null,
+  "post_state": {
+    "g": 0.56,
+    "c": 0.64,
+    "a": 0.22,
+    "t": 0.69
+  },
+  "shared_state": {
+    "g": 0.58,
+    "c": 0.7,
+    "a": 0.17,
+    "t": 0.76
+  },
+  "agent_actions": null,
+  "individual_results": null,
+  "individual_verdicts": null,
+  "aggregate_action": null,
+  "aggregate_post_state": null,
+  "action_b": {
+    "dg": -0.06,
+    "dc": -0.04,
+    "da": 0.03,
+    "dt": -0.05
+  },
+  "post_a": {
+    "g": 0.62,
+    "c": 0.68,
+    "a": 0.19,
+    "t": 0.74
+  },
+  "post_b": {
+    "g": 0.52,
+    "c": 0.66,
+    "a": 0.2,
+    "t": 0.71
+  },
+  "combined_action": {
+    "dg": -0.02,
+    "dc": -0.06,
+    "da": 0.05,
+    "dt": -0.07
+  },
+  "combined_post_state": {
+    "g": 0.56,
+    "c": 0.64,
+    "a": 0.22,
+    "t": 0.69
+  },
+  "selected_action": {
+    "dg": -0.02,
+    "dc": -0.06,
+    "da": 0.05,
+    "dt": -0.07
+  },
+  "rejected_action": null,
+  "resolved_post_state": {
+    "g": 0.56,
+    "c": 0.64,
+    "a": 0.22,
+    "t": 0.69
+  },
+  "pre_decay_post_state": null,
+  "trust_decayed_state": null,
+  "trust_decayed_post_state": null,
+  "observed_post_state": null,
+  "decision_post_state": null,
+  "commit_post_state": null,
+  "effect_post_state": null,
+  "computed": {
+    "admissibility_verdict": "ALLOW",
+    "constraint_result": "PASS",
+    "invariant": -0.0273,
+    "verdict_a": "ALLOW",
+    "verdict_b": "ALLOW",
+    "combined_verdict": "ALLOW",
+    "resolved_verdict": "ALLOW",
+    "conflict_score": 0.2,
+    "conflict_detected": true,
+    "conflict_flip": false,
+    "resolution_policy": "combined_action_allowed_or_no_conflict",
+    "combined_invariant": -0.0273,
+    "resolved_invariant": -0.0273
+  },
+  "source_hashes": {
+    "ledger_row_hash": "455838ef3e635af9d796671a2a9c0674f59c63d6c768283f79498d107ecd8b03",
+    "run_hash": "sha256:ed2e802e19cf9c41582ad85341cc522ff9da7aff4428e0264ad2063e09566c3f"
+  },
+  "replay": {
+    "status": "replayable",
+    "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
+  },
+  "receipt_hash": "sha256:8b19edcf767584d7e743dd20fa92f4e00e9fd136b1565fb6a051ea982942662d"
+}

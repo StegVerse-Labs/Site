@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T6-decision_lag_sweep_v1-0005-003",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T00:46:16Z",
+  "created_at": "2026-05-10T00:59:44Z",
   "run_id": "T6-decision_lag_sweep_v1-0005",
   "ledger_row_id": "T6-decision_lag_sweep_v1-0005-003",
   "element_id": "T6",
@@ -98,6 +98,14 @@
   "individual_verdicts": null,
   "aggregate_action": null,
   "aggregate_post_state": null,
+  "action_b": null,
+  "post_a": null,
+  "post_b": null,
+  "combined_action": null,
+  "combined_post_state": null,
+  "selected_action": null,
+  "rejected_action": null,
+  "resolved_post_state": null,
   "pre_decay_post_state": null,
   "trust_decayed_state": null,
   "trust_decayed_post_state": null,
@@ -149,5 +157,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:b5b7c3863ca4e3648eb02dc5e1d99effc506f8386f205e5d2e6efd37cee09a2b"
+  "receipt_hash": "sha256:3fa3adb341e5fbd7047c16334e8bee65c55f4fa88b384f5b95e25363776a529c"
 }

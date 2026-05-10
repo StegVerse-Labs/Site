@@ -124,6 +124,20 @@
       ],
       "confidence": 0.84,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T11-conflict_sweep_v1-0010-conflict",
+      "source_run_id": "T11-conflict_sweep_v1-0010",
+      "source_element": "T11",
+      "delta_type": "conflict_resolution_fragment",
+      "summary": "Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).",
+      "informs": [
+        "T11",
+        "T12",
+        "T15"
+      ],
+      "confidence": 0.83,
+      "review_required": false
     }
   ]
 }

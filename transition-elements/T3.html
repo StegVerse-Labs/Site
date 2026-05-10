@@ -57,7 +57,7 @@ li{margin:0 0 8px}
     <p><strong>Automation gate:</strong> bounded_batch</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
@@ -74,7 +74,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:3a9df298638bdaa2948e0c65d7d486e884dd641e80e17d44a9c62d7c2aa5a29d</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:58600f9de45d2de07a8d456c781857befd807e400bee04e54c0b87ecf606f668</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +87,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:4e9785af55172a01d668773134967bab5e74aeb66743001f87084e1a759620a2</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:4be6cf285769e6ad8075cd94035a9a3a42804fe85047c77c55c804770b1201e3</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +100,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:0514bf061b9de73f350c0f2f88c80d0758130845c4b56072488c1c1a0c16daf0</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:108f49d634ee337cd5275146c0f9b5042418ca54b3536979a64b2a1d654b6160</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json">Open receipt JSON</a></p>
         </article>
         </section>

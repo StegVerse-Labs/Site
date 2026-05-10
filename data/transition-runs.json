@@ -345,6 +345,55 @@
         "reason": "deterministic multi-agent composition sweep passed"
       },
       "run_hash": "sha256:42091001de86cfd78e0c900786a9bf4157d8094e98e88ea936109db65c337ef2"
+    },
+    {
+      "run_id": "T11-conflict_sweep_v1-0010",
+      "element_id": "T11",
+      "experiment": "conflict_sweep_v1",
+      "status": "completed",
+      "sandbox": {
+        "type": "coupled_state_deterministic",
+        "parallel_ready": true,
+        "canonical_write_policy": "reducer_only",
+        "max_runtime_seconds": 120,
+        "automation_gate": "bounded_batch"
+      },
+      "applied_rules": [
+        "primitive_admissibility_required",
+        "simplex_constraint_visible",
+        "bounded_action_visible",
+        "capacity_margin_visible",
+        "lag_aware_sandbox_required",
+        "decision_stage_required",
+        "actuation_stage_required",
+        "trust_drift_required",
+        "two_state_coupling_required",
+        "multi_agent_composition_required"
+      ],
+      "automation_gate": {
+        "mode": "bounded_batch",
+        "max_sequence_steps": 3,
+        "released_by": [
+          "T7"
+        ]
+      },
+      "started_at": "2026-05-10T00:59:44Z",
+      "completed_at": "2026-05-10T00:59:44Z",
+      "human_review_required": false,
+      "ledger_rows": [
+        "T11-conflict_sweep_v1-0010-001",
+        "T11-conflict_sweep_v1-0010-002",
+        "T11-conflict_sweep_v1-0010-003"
+      ],
+      "knowledge_deltas": [
+        "KD-T11-conflict_sweep_v1-0010-conflict"
+      ],
+      "evidence_delta": {
+        "from": 1,
+        "to": 4,
+        "reason": "deterministic conflict resolution sweep passed"
+      },
+      "run_hash": "sha256:ed2e802e19cf9c41582ad85341cc522ff9da7aff4428e0264ad2063e09566c3f"
     }
   ]
 }
