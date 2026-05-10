@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-05-10T05:40:25Z",
+  "schema": "stegverse.transition_replay_verifier.v1",
+  "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
+  "status": "candidate_verified_static",
+  "verdict": "ALLOW",
+  "selected_elements": [
+    "T13",
+    "T14"
+  ],
+  "fixture_file": "data/transition-replay-fixtures-v1.json",
+  "checks": [
+    {
+      "id": "T13-receipt-binding-replay-001",
+      "element": "T13",
+      "check": "receipt_material_hash_recomputed",
+      "expected_hash": "sha256:a81a66fdf96b4e3aaade29232f6110bd017508c64704325d05aba614a16d071e",
+      "reported_verdict": "ALLOW",
+      "verified": true
+    },
+    {
+      "id": "T14-reconstruction-replay-001",
+      "element": "T14",
+      "check": "observed_end_state_hash_equals_reconstructed_end_state_hash",
+      "expected_hash": "sha256:0bbbcfca4114633179992f87edda0ba3ba8ef108fe158c7fb519f41e8c0b0bfd",
+      "reported_verdict": "ALLOW",
+      "verified": true
+    }
+  ],
+  "unlock_interpretation": {
+    "ms012_status_before_workflow": "candidate",
+    "ms012_release_condition": "Transition Replay Check workflow passes and Page Contract Check passes with replay verifier links live.",
+    "does_not_claim": [
+      "all transition elements are independently replayed",
+      "final publication readiness",
+      "unbounded autonomous replay"
+    ]
+  }
+}

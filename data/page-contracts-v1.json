@@ -145,10 +145,13 @@
         "Replay Steps",
         "T13",
         "T14",
-        "MS-011"
+        "MS-011",
+        "ALLOW"
       ],
       "required_links": [
         "data/transition-replay-packet-v1.json",
+        "data/transition-replay-fixtures-v1.json",
+        "data/transition-replay-verifier-v1.json",
         "transition-verification-guide.html"
       ]
     }
@@ -159,7 +162,7 @@
       "required_values": [
         {
           "json_path": "current_release.formal_milestone",
-          "equals": "MS-011 — Public Verification Bundle"
+          "equals": "MS-011 \u2014 Public Verification Bundle"
         },
         {
           "json_path": "current_release.state",
@@ -167,7 +170,7 @@
         },
         {
           "json_path": "next_pending_milestone.formal_milestone",
-          "equals": "MS-012 — Independent Replay Packet"
+          "equals": "MS-012 \u2014 Independent Replay Packet"
         }
       ],
       "required_contains": [
@@ -190,7 +193,7 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-011 — Public Verification Bundle"
+          "equals": "MS-011 \u2014 Public Verification Bundle"
         },
         {
           "json_path": "release_state",
@@ -203,7 +206,7 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-011 — Public Verification Bundle"
+          "equals": "MS-011 \u2014 Public Verification Bundle"
         },
         {
           "json_path": "status",
@@ -211,7 +214,7 @@
         },
         {
           "json_path": "next_pending_milestone.formal_milestone",
-          "equals": "MS-012 — Independent Replay Packet"
+          "equals": "MS-012 \u2014 Independent Replay Packet"
         }
       ]
     },
@@ -220,7 +223,7 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-012 — Independent Replay Packet"
+          "equals": "MS-012 \u2014 Independent Replay Packet"
         },
         {
           "json_path": "status",
@@ -228,7 +231,7 @@
         },
         {
           "json_path": "current_verified_release.formal_milestone",
-          "equals": "MS-011 — Public Verification Bundle"
+          "equals": "MS-011 \u2014 Public Verification Bundle"
         }
       ],
       "required_contains": [
@@ -238,6 +241,33 @@
         },
         {
           "json_path": "replay_scope.selected_elements",
+          "contains": "T14"
+        }
+      ]
+    },
+    {
+      "path": "data/transition-replay-verifier-v1.json",
+      "required_values": [
+        {
+          "json_path": "formal_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        },
+        {
+          "json_path": "verdict",
+          "equals": "ALLOW"
+        },
+        {
+          "json_path": "status",
+          "equals": "candidate_verified_static"
+        }
+      ],
+      "required_contains": [
+        {
+          "json_path": "selected_elements",
+          "contains": "T13"
+        },
+        {
+          "json_path": "selected_elements",
           "contains": "T14"
         }
       ]
