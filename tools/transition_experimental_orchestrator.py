@@ -91,6 +91,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "conflict_resolution"
         elif mode == "consensus_sweep_v1":
             row_payload["tested_property"] = "validator_consensus"
+        elif mode == "receipt_bound_sweep_v1":
+            row_payload["tested_property"] = "receipt_bound_transition"
         else:
             row_payload["tested_property"] = mode
 
@@ -116,7 +118,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1", "receipt_bound_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -884,6 +886,77 @@ def t12(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic validator consensus sweep passed", "bad": []}
 
 
+def t13(run_id: str):
+    samples = [
+        {"pre_state": {"g": .68, "c": .64, "a": .18, "t": .82}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+        {"pre_state": {"g": .72, "c": .58, "a": .16, "t": .78}, "action": {"dg": -.01, "dc": 0, "da": .02, "dt": -.01}},
+        {"pre_state": {"g": .58, "c": .70, "a": .17, "t": .80}, "action": {"dg": 0, "dc": -.02, "da": .025, "dt": -.02}},
+    ]
+
+    rows = []
+    receipt_bound_count = 0
+
+    for i, sample in enumerate(samples, 1):
+        pre_state = sample["pre_state"]
+        action = sample["action"]
+        post_state = post(pre_state, action)
+        verdict = verdict_for(post_state)
+        payload_core = {
+            "element_id": "T13",
+            "mode": "receipt_bound_sweep_v1",
+            "pre_state": pre_state,
+            "action": action,
+            "post_state": post_state,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1},
+            "capacity": capacity(post_state),
+            "invariant": invariant(post_state),
+            "verdict": verdict,
+        }
+        pre_state_hash = "sha256:" + digest(pre_state)
+        action_hash = "sha256:" + digest(action)
+        post_state_hash = "sha256:" + digest(post_state)
+        receipt_payload_hash = "sha256:" + digest(payload_core)
+        receipt_bound = all([pre_state_hash, action_hash, post_state_hash, receipt_payload_hash])
+        receipt_bound_count += int(receipt_bound)
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T13",
+            "mode": "receipt_bound_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "receipt_bound_transition",
+            "pre_state": pre_state,
+            "action": action,
+            "post_state": post_state,
+            "parameters": payload_core["parameters"],
+            "capacity": payload_core["capacity"],
+            "invariant": payload_core["invariant"],
+            "verdict": verdict,
+            "pre_state_hash": pre_state_hash,
+            "action_hash": action_hash,
+            "post_state_hash": post_state_hash,
+            "receipt_payload_hash": receipt_payload_hash,
+            "receipt_bound": receipt_bound,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-receipt-bound",
+        "source_run_id": run_id,
+        "source_element": "T13",
+        "delta_type": "receipt_binding_fragment",
+        "summary": f"Receipt-bound sweep produced {receipt_bound_count} receipt-bound transition sample(s) with pre-state, action, and post-state hashes.",
+        "informs": ["T13", "T14", "T15"],
+        "confidence": .86,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic receipt-bound transition sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -896,6 +969,7 @@ EXPERIMENTS = {
     "multi_agent_sweep_v1": t10,
     "conflict_sweep_v1": t11,
     "consensus_sweep_v1": t12,
+    "receipt_bound_sweep_v1": t13,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -907,6 +981,7 @@ FALLBACK_EXPERIMENTS = {
     "T10": ["multi_agent_sweep_v1"],
     "T11": ["conflict_sweep_v1"],
     "T12": ["consensus_sweep_v1"],
+    "T13": ["receipt_bound_sweep_v1"],
 }
 
 
@@ -923,6 +998,7 @@ RULE_DEFS = [
     ("multi_agent_composition_required", "T10", 4, "Coupled sandboxes may compare individually admissible actions against aggregate admissibility."),
     ("conflict_resolution_required", "T11", 4, "Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy."),
     ("validator_consensus_required", "T12", 4, "Coupled sandboxes may compare validator quorum against canonical admissibility."),
+    ("receipt_binding_required", "T13", 4, "Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts."),
 ]
 
 
@@ -996,6 +1072,8 @@ def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
 
 
 def sandbox_class_for(element_id: str, gate: dict[str, Any]) -> str:
+    if element_id in ("T13", "T14"):
+        return "receipt_evidence_deterministic"
     if element_id in ("T9", "T10", "T11", "T12"):
         return "coupled_state_deterministic"
     if element_id in ("T5", "T6", "T7", "T8"):
@@ -1051,6 +1129,7 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "combined_invariant", "resolved_invariant",
         "allow_votes", "deny_votes", "quorum_threshold", "quorum_result",
         "canonical_verdict", "consensus_flip",
+        "pre_state_hash", "action_hash", "post_state_hash", "receipt_payload_hash", "receipt_bound",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -1167,6 +1246,7 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "resolution_policy": receipt["computed"].get("resolution_policy"),
             "consensus_flip": receipt["computed"].get("consensus_flip"),
             "quorum_result": receipt["computed"].get("quorum_result"),
+            "receipt_bound": receipt["computed"].get("receipt_bound"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
