@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Transition Release Index | StegVerse</title>
+<style>
+:root{
+  --bg:#080b12;
+  --panel:rgba(16,24,39,.82);
+  --text:#eef4ff;
+  --muted:#a9b7cc;
+  --line:rgba(255,255,255,.14);
+  --green:#43d694;
+  --blue:#4da3ff;
+  --gold:#ffbe54;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
+a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
+nav div{display:flex;gap:10px;flex-wrap:wrap}
+nav a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
+nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
+section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
+h1{font-size:clamp(2.2rem,7vw,5.3rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
+h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}
+.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}
+.card strong{display:block;font-size:clamp(1.15rem,6vw,1.6rem);overflow-wrap:anywhere;line-height:1.05}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
+.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
+.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
+ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
+li{margin-bottom:7px}
+code{word-break:break-word;color:#f5fbff}
+@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
+</style>
+</head>
+<body>
+<main>
+<nav>
+  <a href="index.html"><strong>StegVerse</strong></a>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="demo.html">Demo</a>
+    <a href="transition-periodic-table.html">Research Landing</a>
+    <a href="transition-table.html">Transition Table</a>
+    <a href="transition-milestones.html">Milestones</a>
+    <a href="transition-development-status.html">Development Status</a>
+    <a href="transition-release-snapshot.html">Release Snapshot</a>
+    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+  </div>
+</nav>
+
+<section>
+  <p class="kicker">Public Release Directory</p>
+  <h1>Transition Release Index</h1>
+  <p>
+    This page collects the public pages and JSON surfaces for the current Transition Periodic Table development release.
+    It is the navigation anchor for verifying the current research state from the public site.
+  </p>
+  <span class="status">current release: transition-release-snapshot-v1</span><br/>
+  <a class="btn" href="data/transition-release-index-v1.json">Open Release Index JSON</a>
+  <a class="btn" href="transition-release-snapshot.html">Open Release Snapshot</a>
+</section>
+
+<section>
+  <h2>Current Release</h2>
+  <div class="grid">
+    <div class="card"><span class="kicker">Milestone</span><strong>MS-009 — Development Release Hardening</strong></div>
+    <div class="card"><span class="kicker">Release State</span><strong>development release hardened</strong></div>
+  </div>
+</section>
+
+<section>
+  <h2>Public Pages</h2>
+  <ul id="pages"></ul>
+</section>
+
+<section>
+  <h2>Public JSON Surfaces</h2>
+  <ul id="data"></ul>
+</section>
+
+<section>
+  <h2>Next Pending Milestone</h2>
+  <span class="status pending">pending</span>
+  <h3>MS-010 — Public Navigation Integration</h3>
+  <p>
+    This milestone should unlock when the release index and navigation routes are visible from the main transition research surfaces.
+  </p>
+</section>
+</main>
+
+<script>
+async function fetchJSON(path, fallback) {
+  try {
+    const response = await fetch(path, {cache: "no-store"});
+    if (!response.ok) return fallback;
+    return await response.json();
+  } catch (error) {
+    return fallback;
+  }
+}
+
+function renderList(id, rows) {
+  const node = document.getElementById(id);
+  node.innerHTML = "";
+  rows.forEach(row => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="${row.path}">${row.label}</a> <code>${row.path}</code>`;
+    node.appendChild(li);
+  });
+}
+
+(async () => {
+  const index = await fetchJSON("data/transition-release-index-v1.json", {"generated_at": "2026-05-10T02:50:17Z", "schema": "stegverse.transition_release_index.v1", "current_release": {"release_id": "transition-release-snapshot-v1", "formal_milestone": "MS-009 \u2014 Development Release Hardening", "state": "development_release_hardened", "snapshot_json": "data/transition-release-snapshot-v1.json", "snapshot_page": "transition-release-snapshot.html"}, "public_pages": [{"label": "Research Landing", "path": "transition-periodic-table.html"}, {"label": "Transition Table", "path": "transition-table.html"}, {"label": "Milestones", "path": "transition-milestones.html"}, {"label": "Development Status", "path": "transition-development-status.html"}, {"label": "Release Snapshot", "path": "transition-release-snapshot.html"}, {"label": "Release Index", "path": "transition-release-index.html"}], "public_data": [{"label": "Automation Release State", "path": "data/automation-release-state.json"}, {"label": "Automation Release Verifier", "path": "data/automation-release-verifier.json"}, {"label": "Receipt-Backing Verifier", "path": "data/receipt-backing-verifier.json"}, {"label": "Experimental Ledger Summary", "path": "data/experimental-ledger-summary.json"}, {"label": "Transition Evidence", "path": "data/transition-evidence.json"}, {"label": "Release Snapshot v1", "path": "data/transition-release-snapshot-v1.json"}, {"label": "Release Index v1", "path": "data/transition-release-index-v1.json"}], "next_pending_milestone": {"formal_milestone": "MS-010 \u2014 Public Navigation Integration", "status": "pending", "unlock_condition": "The release index and navigation routes are visible from the main transition research surfaces."}});
+  renderList("pages", index.public_pages || []);
+  renderList("data", index.public_data || []);
+})();
+</script>
+</body>
+</html>
