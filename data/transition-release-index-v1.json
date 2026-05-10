@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-10T02:50:17Z",
+  "generated_at": "2026-05-10T03:04:39Z",
   "schema": "stegverse.transition_release_index.v1",
   "current_release": {
-    "release_id": "transition-release-snapshot-v1",
-    "formal_milestone": "MS-009 \u2014 Development Release Hardening",
-    "state": "development_release_hardened",
+    "release_id": "transition-release-snapshot-v1-ms010",
+    "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
+    "state": "public_navigation_integrated",
     "snapshot_json": "data/transition-release-snapshot-v1.json",
     "snapshot_page": "transition-release-snapshot.html"
   },
@@ -65,8 +65,8 @@
     }
   ],
   "next_pending_milestone": {
-    "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
+    "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
     "status": "pending",
-    "unlock_condition": "The release index and navigation routes are visible from the main transition research surfaces."
+    "unlock_condition": "A single reader-facing verification guide explains how to verify the table state from public pages and JSON."
   }
 }

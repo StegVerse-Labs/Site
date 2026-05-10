@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-10T02:45:59Z",
+  "generated_at": "2026-05-10T03:04:39Z",
   "schema": "stegverse.transition_release_snapshot.v1",
-  "snapshot_id": "transition-release-snapshot-v1-ms009",
-  "formal_milestone": "MS-009 \u2014 Development Release Hardening",
-  "release_state": "development_release_hardened",
+  "snapshot_id": "transition-release-snapshot-v1-ms010",
+  "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
+  "release_state": "public_navigation_integrated",
   "basis": {
     "previous_state": "receipt_backed_automation_ready",
     "automation_verifier_verdict": "ALLOW",
@@ -32,8 +32,8 @@
     "data/transition-evidence.json",
     "data/transition-release-snapshot-v1.json"
   ],
-  "unlocked_capability": "public_development_release_readiness",
-  "unlock_reasoning": "MS-009 is unlocked because the table now has a public milestone ledger, a public development status page, public verifier links, a named release snapshot, and a documented receipt-backed automation state. This makes the current research state independently inspectable without requiring readers to inspect workflow logs.",
+  "unlocked_capability": "public_navigation_integration",
+  "unlock_reasoning": "MS-010 is unlocked because the two primary transition research surfaces now link to the milestone ledger, development status, release snapshot, and release index. A reader can reach the public verification surfaces from the main research pages without knowing direct URLs.",
   "not_claimed": [
     "This is not a claim that all transitions are 5/5 Receipt-backed.",
     "This is not a claim of unbounded autonomy.",
