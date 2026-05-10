@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-05-10T11:58:32Z",
+  "schema": "stegverse.ingestion_smoke_test.v1",
+  "test_id": "ingestion-smoke-test-v1",
+  "purpose": "Verify that incoming ZIP bundles trigger ingestion, hash comparison, receipt creation, ledger append, and commit.",
+  "expected_ingestion_verdict": "ALLOW",
+  "expected_target_path": "data/ingestion-smoke-test-v1.json",
+  "should_change_milestones": false,
+  "should_change_transition_evidence": false,
+  "should_change_workflows": false,
+  "done_condition": [
+    "Ingest Bundle workflow runs automatically after this ZIP is committed under incoming/",
+    "data/ingestion-smoke-test-v1.json is created or updated",
+    "data/latest-bundle-ingestion-receipt-v1.json records this bundle",
+    "data/bundle-ingestion-ledger-v1.jsonl receives an appended receipt row",
+    "bundle-ingestion-report artifact is uploaded"
+  ]
+}

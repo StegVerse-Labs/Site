@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-10T11:58:32Z",
+  "schema": "stegverse.bundle_manifest.v1",
+  "bundle_id": "ingestion-smoke-test-bundle-v1",
+  "purpose": "Harmless test bundle for the MS-012C ingestion receipt boundary.",
+  "files": [
+    {
+      "path": "data/ingestion-smoke-test-v1.json",
+      "role": "smoke_test_payload",
+      "version": "v1",
+      "expected_action": "created_or_updated"
+    }
+  ],
+  "safety": {
+    "contains_workflows": false,
+    "contains_leading_dot_paths": false,
+    "changes_milestones": false,
+    "changes_transition_evidence": false,
+    "changes_release_state": false
+  }
+}

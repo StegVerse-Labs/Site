@@ -1,5 +1,13 @@
 {
   "schema": "stegverse.bundle_fingerprint_index.v1",
   "formal_milestone": "MS-012C \u2014 Ingestion Receipt Boundary",
-  "receipts": []
+  "receipts": [
+    {
+      "generated_at": "2026-05-10T11:59:34Z",
+      "bundle_name": "ingestion-smoke-test-bundle-v1.zip",
+      "bundle_sha256": "645dcc3dbef900e9920d9a782e79ac5cbb90c46f25a58249afa6f75210d332d1",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "866f4a6412afdb595a3751abc221a611e0461205e4cb78dff28b4daebcbffd0b"
+    }
+  ]
 }
