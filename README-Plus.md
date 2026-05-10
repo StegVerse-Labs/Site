@@ -1,8 +1,15 @@
-# MS-011 Release Marker v1
+# MS-012 Independent Replay Packet v1
 
 Upload-safe bundle. No leading-dot paths.
 
-Replaces:
+Adds:
+
+```text
+transition-replay-packet.html
+data/transition-replay-packet-v1.json
+```
+
+Updates:
 
 ```text
 transition-verification-guide.html
@@ -13,24 +20,26 @@ transition-release-snapshot.html
 transition-table.html
 transition-periodic-table.html
 data/transition-release-index-v1.json
-data/transition-release-snapshot-v1.json
-data/transition-verification-bundle-v1.json
 ```
 
 ## What this does
 
-- Marks `MS-011 — Public Verification Bundle` as released.
-- Sets the current release to `public_verification_bundle_released`.
-- Keeps the automation basis as `receipt_backed_automation_ready`.
-- Sets `MS-012 — Independent Replay Packet` as the next pending milestone.
+- Adds a reader-facing replay packet.
+- Adds replay packet JSON.
+- Links the replay packet from public release and verification pages.
+- Keeps `MS-012 — Independent Replay Packet` pending until live links are confirmed.
 
 ## Done check after upload
 
 ```text
-transition-verification-guide.html says MS-011 released
-transition-milestones.html top milestone = MS-011
-transition-release-index.html current release = MS-011
-transition-development-status.html current development milestone = MS-011
-transition-release-snapshot.html says MS-011 unlocked
+transition-replay-packet.html exists
+data/transition-replay-packet-v1.json exists
+transition-verification-guide.html links to Replay Packet
+transition-release-index.html links to Replay Packet
+transition-milestones.html links to Replay Packet
+transition-development-status.html links to Replay Packet
+transition-release-snapshot.html links to Replay Packet
+transition-table.html links to Replay Packet
+transition-periodic-table.html links to Replay Packet
 MS-012 remains pending
 ```
