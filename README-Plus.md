@@ -1,33 +1,27 @@
-# MS-010 Metadata Consistency Fix v1
+# MS-010 Supporting Pages Consistency Fix v1
 
 Upload-safe bundle. No leading-dot paths.
 
-Replaces:
+Replaces only:
 
 ```text
-transition-milestones.html
-transition-release-index.html
+transition-development-status.html
 transition-release-snapshot.html
-data/transition-release-index-v1.json
-data/transition-release-snapshot-v1.json
 ```
 
 ## What this fixes
 
-- `transition-milestones.html` top milestone is now:
+- `transition-development-status.html` now shows:
   `MS-010 — Public Navigation Integration`
-- `transition-release-index.html` current release is now:
-  `MS-010 — Public Navigation Integration`
-- `data/transition-release-index-v1.json` current release points to MS-010.
-- `data/transition-release-snapshot-v1.json` formal milestone points to MS-010.
+- `transition-release-snapshot.html` now explains why MS-010 is unlocked.
 - `MS-011 — Public Verification Bundle` remains pending.
+- No experiment logic, evidence levels, receipts, verifier math, or table pages are changed.
 
 ## Done check
 
-After upload, these should be true:
+After upload:
 
 ```text
-transition-milestones.html top card = MS-010
-transition-release-index.html current release = MS-010
-transition-release-snapshot.html says MS-010 unlocked
+transition-development-status.html current milestone = MS-010
+transition-release-snapshot.html unlock reasoning = MS-010
 ```
