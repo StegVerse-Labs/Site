@@ -58,6 +58,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "d4afb5d5627eb47734a6eb06ee0bbff9c52b489492eb482f9c658358da54e8ee"
+    },
+    {
+      "generated_at": "2026-05-10T19:36:07Z",
+      "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
+      "bundle_name": "ms012e3-installed-bundle-archive-v1.zip",
+      "bundle_sha256": "80080a9b2439dac2ac184d65082c05021ac7cc127684d4deeecb4f489e1c6359",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "5f31d76d7144fa0a034b68e3b4f4eaa31c388be6d878933afb09f7648445a068"
     }
   ]
 }

@@ -1,24 +1,94 @@
 {
-  "generated_at": "2026-05-10T19:34:59Z",
+  "generated_at": "2026-05-10T19:36:07Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "bundle": "/home/runner/work/Site/Site/incoming/ms012e3-installed-bundle-archive-v1.zip",
+  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-10T19:34:59Z",
-    "schema": "stegverse.stale_incoming_receipt.v1",
+    "generated_at": "2026-05-10T19:36:07Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
-    "incoming_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
-    "file_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
-    "file_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
-    "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
-    "verdict": "STALE_INCOMING_QUARANTINED",
-    "route": "failed_bundles",
-    "seen_state": "already_applied",
-    "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+    "bundle_name": "ms012e3-installed-bundle-archive-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e3-installed-bundle-archive-v1.zip",
+    "bundle_sha256": "80080a9b2439dac2ac184d65082c05021ac7cc127684d4deeecb4f489e1c6359",
+    "mode": "apply",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/bundle-ingestion-policy-v1.json",
+      "installed_bundles/README.md",
+      "tools/bundle_ingest.py"
+    ],
+    "files_seen": 5,
+    "files_created": 1,
+    "files_updated": 3,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "0529662b882341217e416823c2444efa96c3f79464f50a639a3af7fdaf557981",
+      "after_tree_fingerprint": "e99487fc22aeaaa7f760259779a869ed5900666344c9af5a96628227e5d848ae",
+      "changed_files_fingerprint": "5f31d76d7144fa0a034b68e3b4f4eaa31c388be6d878933afb09f7648445a068"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "fba5c4c6af63ccb0380fa9b8dbc8426a20a99e1cb47e3b7ca9ef41f65a454d61",
+        "bytes": 1524
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "df3bcb03c8890d468be2ec3964ac6ad2cc01977a8186c9549eb1669fd27407d4",
+        "new_sha256": "71a123eda5f64ee812c20fa511e8f9d2f78a2f07746c5ea10216fd317c4cbe56",
+        "bytes": 915
+      },
+      {
+        "bundle_path": "data/bundle-ingestion-policy-v1.json",
+        "repo_path": "data/bundle-ingestion-policy-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "a28416a24724853d31180989f6c07fe9c99117212f01bee329cf35fa8b61496b",
+        "new_sha256": "81383b2d5ac63dcdc4945d5191ad5e492750f032023a031b72c75c4d247b8e2b",
+        "bytes": 3638
+      },
+      {
+        "bundle_path": "installed_bundles/README.md",
+        "repo_path": "installed_bundles/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "8cea269e6d691d521991229725f246b06fe314f3d5fa9f056b4bef0ad1275cc0",
+        "bytes": 339
+      },
+      {
+        "bundle_path": "tools/bundle_ingest.py",
+        "repo_path": "tools/bundle_ingest.py",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "9ade56b4cd9022282db1ce94df380479881d0ba76ee3c27dcb7b1e881e0faa16",
+        "new_sha256": "b71e91463f67f6e09da1e238472c6ad39b92007417378f761669b0ea2eca1791",
+        "bytes": 24743
+      }
+    ]
   },
   "summary": {
-    "applied": 0,
-    "stale_quarantined": 1,
-    "seen_state": "already_applied"
+    "total_entries_seen": 5,
+    "applied": 4,
+    "unchanged": 0,
+    "skipped": 1,
+    "path_mappings": 0,
+    "unsafe_paths_rejected": 0
   }
 }

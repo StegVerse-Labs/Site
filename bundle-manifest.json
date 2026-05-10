@@ -1,19 +1,24 @@
 {
-  "generated_at": "2026-05-10T19:25:20Z",
+  "generated_at": "2026-05-10T19:29:19Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012e2-already-seen-incoming-quarantine-fix-v1",
-  "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
-  "purpose": "Fix already-seen incoming bundle behavior so stale incoming ZIPs are quarantined with receipts instead of silently skipped.",
+  "bundle_id": "ms012e3-installed-bundle-archive-v1",
+  "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
+  "purpose": "Archive successful ALLOW ingestions into installed_bundles/ with installed receipts.",
   "files": [
     {
       "path": "tools/bundle_ingest.py",
-      "version": "v6",
-      "role": "already_seen_stale_quarantine_ingestor"
+      "version": "v7",
+      "role": "installed_bundle_archive_ingestor"
     },
     {
       "path": "data/bundle-ingestion-policy-v1.json",
-      "version": "v6",
-      "role": "already_seen_stale_quarantine_policy"
+      "version": "v7",
+      "role": "installed_bundle_archive_policy"
+    },
+    {
+      "path": "installed_bundles/README.md",
+      "version": "v1",
+      "role": "installed_bundle_archive_docs"
     }
   ],
   "safety": {

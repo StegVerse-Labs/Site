@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-10T19:33:25Z",
+  "generated_at": "2026-05-10T19:36:07Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
-  "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
-  "bundle_name": "ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
-  "bundle_sha256": "2d13cb1dbce9f9f741b43d1c29cea28f5ca2b4f2274d986acbd4b601fb06d09f",
+  "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
+  "bundle_name": "ms012e3-installed-bundle-archive-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e3-installed-bundle-archive-v1.zip",
+  "bundle_sha256": "80080a9b2439dac2ac184d65082c05021ac7cc127684d4deeecb4f489e1c6359",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -14,19 +14,20 @@
     "README.md",
     "bundle-manifest.json",
     "data/bundle-ingestion-policy-v1.json",
+    "installed_bundles/README.md",
     "tools/bundle_ingest.py"
   ],
-  "files_seen": 4,
-  "files_created": 0,
+  "files_seen": 5,
+  "files_created": 1,
   "files_updated": 3,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "48a7c2da20a518c2f68fe5a806a02277fe7042f45cefa39247346f2a4cc97f53",
-    "after_tree_fingerprint": "3929e24d833978b66b16e8eb0d9c95a376d5098561a4e703fc654af7c7d9ab61",
-    "changed_files_fingerprint": "d4afb5d5627eb47734a6eb06ee0bbff9c52b489492eb482f9c658358da54e8ee"
+    "before_tree_fingerprint": "0529662b882341217e416823c2444efa96c3f79464f50a639a3af7fdaf557981",
+    "after_tree_fingerprint": "e99487fc22aeaaa7f760259779a869ed5900666344c9af5a96628227e5d848ae",
+    "changed_files_fingerprint": "5f31d76d7144fa0a034b68e3b4f4eaa31c388be6d878933afb09f7648445a068"
   },
   "decisions": [
     {
@@ -35,35 +36,44 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "19d176ed3f207e536ca803fb79a3d37cfde768c53a3245b815640b85c560e87b",
-      "bytes": 1502
+      "new_sha256": "fba5c4c6af63ccb0380fa9b8dbc8426a20a99e1cb47e3b7ca9ef41f65a454d61",
+      "bytes": 1524
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "7d11870676227ac51cf77fb2894bd9c2ed1e7c917241fe2f39bce2f7dfaa1f02",
-      "new_sha256": "df3bcb03c8890d468be2ec3964ac6ad2cc01977a8186c9549eb1669fd27407d4",
-      "bytes": 861
+      "old_sha256": "df3bcb03c8890d468be2ec3964ac6ad2cc01977a8186c9549eb1669fd27407d4",
+      "new_sha256": "71a123eda5f64ee812c20fa511e8f9d2f78a2f07746c5ea10216fd317c4cbe56",
+      "bytes": 915
     },
     {
       "bundle_path": "data/bundle-ingestion-policy-v1.json",
       "repo_path": "data/bundle-ingestion-policy-v1.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "b4c8633549f299102204ddd2a2fe6be4306ab8a0945aa8b41bd1547f693b3699",
-      "new_sha256": "a28416a24724853d31180989f6c07fe9c99117212f01bee329cf35fa8b61496b",
-      "bytes": 3498
+      "old_sha256": "a28416a24724853d31180989f6c07fe9c99117212f01bee329cf35fa8b61496b",
+      "new_sha256": "81383b2d5ac63dcdc4945d5191ad5e492750f032023a031b72c75c4d247b8e2b",
+      "bytes": 3638
+    },
+    {
+      "bundle_path": "installed_bundles/README.md",
+      "repo_path": "installed_bundles/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "8cea269e6d691d521991229725f246b06fe314f3d5fa9f056b4bef0ad1275cc0",
+      "bytes": 339
     },
     {
       "bundle_path": "tools/bundle_ingest.py",
       "repo_path": "tools/bundle_ingest.py",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "faeb7ce8ed5fd07728a16ee6b9d9e619f8ec99adeb2ce197d02627b1d2b9e040",
-      "new_sha256": "9ade56b4cd9022282db1ce94df380479881d0ba76ee3c27dcb7b1e881e0faa16",
-      "bytes": 23511
+      "old_sha256": "9ade56b4cd9022282db1ce94df380479881d0ba76ee3c27dcb7b1e881e0faa16",
+      "new_sha256": "b71e91463f67f6e09da1e238472c6ad39b92007417378f761669b0ea2eca1791",
+      "bytes": 24743
     }
   ]
 }

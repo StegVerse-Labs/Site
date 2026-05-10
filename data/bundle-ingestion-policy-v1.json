@@ -1,11 +1,12 @@
 {
   "schema": "stegverse.bundle_ingestion_policy.v1",
-  "policy_id": "ms012e2-already-seen-incoming-quarantine-fix-v1",
-  "formal_milestone": "MS-012E.2 \u2014 Already-Seen Incoming Quarantine Fix",
-  "purpose": "Ensure already-seen files remaining in incoming/ are quarantined as stale queue debris instead of silently skipped.",
+  "policy_id": "ms012e3-installed-bundle-archive-v1",
+  "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
+  "purpose": "Archive successfully installed bundles separately from incoming, failed, sandbox, and privileged queues.",
   "default_mode": "apply_changed_files",
   "queue": {
     "incoming_dir": "incoming",
+    "installed_dir": "installed_bundles",
     "failed_dir": "failed_bundles",
     "privileged_dir": "privileged_queue",
     "sandbox_dir": "sandbox_queue",
@@ -13,11 +14,13 @@
     "skip_previously_failed_hashes": true,
     "skip_previously_applied_hashes": true,
     "continue_after_failure": true,
+    "archive_installed_bundles": true,
     "quarantine_stale_incoming": true,
     "quarantine_already_seen_incoming": true,
     "stale_non_zip_files": true,
     "stale_already_seen_zip_files": true,
     "stale_routed_zip_files": true,
+    "delete_original_after_install_archive": false,
     "delete_original_after_quarantine": false
   },
   "path_mappings": [
@@ -75,6 +78,7 @@
     "workflow_mutation_requires_privileged_queue": true,
     "unknown_dependency_routes_to_sandbox": true,
     "failed_bundle_does_not_block_queue": true,
+    "installed_bundle_is_archived": true,
     "stale_incoming_is_quarantined": true,
     "already_seen_incoming_is_quarantined": true,
     "root_readme_in_uploaded_bundle_is_not_applied": true,
