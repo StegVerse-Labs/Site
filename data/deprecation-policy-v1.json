@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-05-10T19:12:26Z",
+  "schema": "stegverse.deprecation_policy.v1",
+  "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+  "purpose": "Allow sandbox review to determine whether a failed, stale, or queued bundle still has a valid purpose under the current transition release state.",
+  "purpose_statuses": [
+    {
+      "status": "active",
+      "meaning": "The bundle purpose is still aligned with the current release state and may be repaired or ingested if otherwise admissible."
+    },
+    {
+      "status": "superseded",
+      "meaning": "A newer bundle, policy, receipt, or release state already covers this purpose."
+    },
+    {
+      "status": "deprecated",
+      "meaning": "The bundle purpose was valid earlier but is no longer compatible with the current construction path."
+    },
+    {
+      "status": "obsolete",
+      "meaning": "The bundle purpose is no longer needed because the capability has already been installed, released, or replaced."
+    },
+    {
+      "status": "critical_even_if_old",
+      "meaning": "The bundle is old or stale but contains critical evidence, policy, repair material, or release history that must be preserved."
+    },
+    {
+      "status": "unknown",
+      "meaning": "The sandbox cannot determine whether the bundle purpose is still valid."
+    }
+  ],
+  "known_supersession_rules": [
+    {
+      "older_purpose_contains": "workflow report evidence",
+      "superseded_by": "MS-012D evidence routing plus repo-readable report ingestion",
+      "status": "superseded"
+    },
+    {
+      "older_purpose_contains": "evidence artifact routing",
+      "superseded_by": "MS-012E strict ingestion thresholds artifact routing",
+      "status": "superseded"
+    },
+    {
+      "older_purpose_contains": "stale incoming quarantine",
+      "superseded_by": "MS-012E.1 stale incoming quarantine",
+      "status": "active"
+    },
+    {
+      "older_purpose_contains": "strict ingestion threshold",
+      "superseded_by": "current strict ingestion threshold gates",
+      "status": "active"
+    },
+    {
+      "older_purpose_contains": "promotion",
+      "superseded_by": "current transition release state",
+      "status": "unknown"
+    }
+  ],
+  "critical_preservation_rules": [
+    {
+      "match_path_contains": "receipt",
+      "status": "critical_even_if_old",
+      "reason": "Receipts are historical evidence and should not be discarded merely because the related bundle is stale."
+    },
+    {
+      "match_path_contains": "ledger",
+      "status": "critical_even_if_old",
+      "reason": "Ledger material is historical evidence and should be preserved."
+    },
+    {
+      "match_path_contains": "failure",
+      "status": "critical_even_if_old",
+      "reason": "Failure receipts preserve negative evidence for future review."
+    }
+  ],
+  "sandbox_decision_rules": {
+    "deprecated_or_obsolete_bundle": "do_not_regenerate_unless_human_requests",
+    "superseded_bundle": "preserve_receipt_and_do_not_reingest",
+    "critical_even_if_old": "preserve_and_index",
+    "unknown_purpose": "human_review_required",
+    "active_purpose": "eligible_for_sandbox_repair"
+  }
+}

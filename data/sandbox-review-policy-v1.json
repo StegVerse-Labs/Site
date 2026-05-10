@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-05-10T19:12:26Z",
+  "schema": "stegverse.sandbox_review_policy.v1",
+  "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+  "purpose": "Define sandbox review rules for failed, stale, privileged, malformed, or candidate bundles.",
+  "inputs": {
+    "deprecation_policy": "data/deprecation-policy-v1.json",
+    "release_state": "data/transition-release-state-v1.json",
+    "release_index": "data/transition-release-index-v1.json",
+    "capability_thresholds": "data/capability-threshold-gates-v1.json",
+    "capability_scopes": "data/transition-capability-scopes-v1.json"
+  },
+  "review_dimensions": [
+    "safe_zip_shape",
+    "manifest_present",
+    "workflow_mutation",
+    "root_report_artifact_shape",
+    "purpose_status",
+    "criticality",
+    "repair_eligibility",
+    "regeneration_eligibility"
+  ],
+  "required_outputs": [
+    "sandbox_reports/sandbox-review-report.json",
+    "sandbox_reports/sandbox-review-report.md"
+  ],
+  "safety": {
+    "silent_repair_allowed": false,
+    "deprecated_purpose_auto_ingest_allowed": false,
+    "critical_evidence_discard_allowed": false,
+    "unknown_purpose_requires_human_review": true
+  }
+}

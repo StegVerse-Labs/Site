@@ -1,33 +1,104 @@
 {
-  "generated_at": "2026-05-10T19:13:31Z",
+  "generated_at": "2026-05-10T19:14:29Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012d-workflow-report-evidence-v1.zip",
+  "bundle": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-10T19:13:31Z",
+    "generated_at": "2026-05-10T19:14:29Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
-    "bundle_name": "ms012d-workflow-report-evidence-v1.zip",
-    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012d-workflow-report-evidence-v1.zip",
-    "bundle_sha256": "d36ce0d33e3ae90c9f1fd461982ec94499d63fd19aa7116e819eecf3ed4fd136",
+    "bundle_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+    "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
     "mode": "apply",
-    "bundle_class": "workflow_bundle",
-    "verdict": "SKIPPED_ALREADY_SEEN",
-    "route": "skipped",
-    "reason": "workflow mutation requires privileged executor",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
     "mapped_paths": [
       "README.md",
       "bundle-manifest.json",
-      "data/workflow-report-evidence-policy-v1.json",
-      ".github/workflows/page-contract-check.yml",
-      ".github/workflows/transition-replay-check.yml",
-      "page_contract_reports/README.md",
-      "transition_replay_reports/README.md"
+      "data/deprecation-policy-v1.json",
+      "data/sandbox-review-policy-v1.json",
+      "sandbox_reports/README.md",
+      "tools/sandbox_bundle_review.py"
     ],
-    "decisions": []
+    "files_seen": 6,
+    "files_created": 2,
+    "files_updated": 3,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "585d24246dea54c0600b94fe0afdff7f5a36255a2709bc66a547b6f804c13dd5",
+      "after_tree_fingerprint": "6fd42979ee9f0463a0165f8368db05a7550b63bb334b6431febbe55fa2cc43e4",
+      "changed_files_fingerprint": "67591b099b7e61e81ab05fc240495737faced39ff7eadeca0e9137867e0ada9b"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "c2e7571a38c6aa505d9930be89c681304039612e0ac817129d4862c3fd1a0186",
+        "bytes": 1414
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "75ac77a63eeb431b33b1c41fc603641953a8b7464b9b24323d7098ddb9e59971",
+        "new_sha256": "7d11870676227ac51cf77fb2894bd9c2ed1e7c917241fe2f39bce2f7dfaa1f02",
+        "bytes": 1187
+      },
+      {
+        "bundle_path": "data/deprecation-policy-v1.json",
+        "repo_path": "data/deprecation-policy-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "38957923822202ae4f32e652a7cc13952a4ea5fc9a991f65faec9ef981f539f6",
+        "bytes": 3163
+      },
+      {
+        "bundle_path": "data/sandbox-review-policy-v1.json",
+        "repo_path": "data/sandbox-review-policy-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "9812c52709f195a78d0085a258cff00f3cfd5fad1facfae49099457e258a3713",
+        "bytes": 1194
+      },
+      {
+        "bundle_path": "sandbox_reports/README.md",
+        "repo_path": "sandbox_reports/README.md",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "73c4c888a979b38b8dd10ae48046a056492eece3427ad04bf982b3084961804d",
+        "new_sha256": "be1c0f68edfaddd7b4d4fc2f17644ff336a267777367c242ce7383d328272c57",
+        "bytes": 282
+      },
+      {
+        "bundle_path": "tools/sandbox_bundle_review.py",
+        "repo_path": "tools/sandbox_bundle_review.py",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "7b41149d7ee5d18b5a282c1782f81e73993da3bb6d6a710aaee40244e84fc853",
+        "new_sha256": "c4ce345f433ac63281da5cc4b7e8646c5c0134382ee161d306240382ba51adcf",
+        "bytes": 9750
+      }
+    ]
   },
   "summary": {
-    "applied": 0,
-    "skipped": 1
+    "total_entries_seen": 6,
+    "applied": 5,
+    "unchanged": 0,
+    "skipped": 1,
+    "path_mappings": 0,
+    "unsafe_paths_rejected": 0
   }
 }

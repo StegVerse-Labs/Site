@@ -40,6 +40,15 @@
       "bundle_class": "artifact_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "e22b6413445591b657c421af2fa7924dee41b8f28bfb83236e423cd282e94ea7"
+    },
+    {
+      "generated_at": "2026-05-10T19:14:29Z",
+      "formal_milestone": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+      "bundle_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
+      "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "67591b099b7e61e81ab05fc240495737faced39ff7eadeca0e9137867e0ada9b"
     }
   ]
 }
