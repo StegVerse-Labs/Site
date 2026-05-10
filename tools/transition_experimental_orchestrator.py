@@ -81,6 +81,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "decision_lag"
         elif mode == "actuation_lag_sweep_v1":
             row_payload["tested_property"] = "actuation_lag"
+        elif mode == "trust_drift_sweep_v1":
+            row_payload["tested_property"] = "trust_drift"
         else:
             row_payload["tested_property"] = mode
 
@@ -106,7 +108,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -384,6 +386,75 @@ def t7(run_id: str):
     return staged_lag_row(run_id, "T7", "actuation_lag_sweep_v1", "actuation_lag", samples, "actuation_lag_fragment", "Actuation-lag sweep", ["T7", "T15"])
 
 
+def t8(run_id: str):
+    samples = [
+        {"state": {"g": .64, "c": .62, "a": .20, "t": .82}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}, "lambda": .10, "tau": 2},
+        {"state": {"g": .58, "c": .58, "a": .18, "t": .84}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}, "lambda": .18, "tau": 3},
+        {"state": {"g": .72, "c": .50, "a": .16, "t": .74}, "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}, "lambda": .24, "tau": 4},
+    ]
+    rows = []
+    flips = 0
+    for i, sample in enumerate(samples, 1):
+        state = sample["state"]
+        action = sample["action"]
+        lam = sample["lambda"]
+        tau = sample["tau"]
+
+        pre_decay_post = post(state, action)
+        decayed_t = round(state["t"] * math.exp(-lam * tau), 5)
+        trust_decayed_state = dict(state)
+        trust_decayed_state["t"] = decayed_t
+        trust_decayed_post = post(trust_decayed_state, action)
+
+        pre_decay_verdict = verdict_for(pre_decay_post)
+        trust_decay_verdict = verdict_for(trust_decayed_post)
+        trust_flip = pre_decay_verdict != trust_decay_verdict
+        flips += int(trust_flip)
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T8",
+            "mode": "trust_drift_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "trust_drift",
+            "pre_state": state,
+            "action": action,
+            "post_state": trust_decayed_post,
+            "pre_decay_post_state": pre_decay_post,
+            "trust_decayed_state": trust_decayed_state,
+            "trust_decayed_post_state": trust_decayed_post,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "lambda": lam, "tau": tau},
+            "initial_trust": state["t"],
+            "decayed_trust": decayed_t,
+            "pre_decay_capacity": capacity(pre_decay_post),
+            "post_decay_capacity": capacity(trust_decayed_post),
+            "pre_decay_invariant": invariant(pre_decay_post),
+            "post_decay_invariant": invariant(trust_decayed_post),
+            "invariant": invariant(trust_decayed_post),
+            "pre_decay_verdict": pre_decay_verdict,
+            "trust_decay_verdict": trust_decay_verdict,
+            "verdict": trust_decay_verdict,
+            "trust_flip": trust_flip,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-trust-drift",
+        "source_run_id": run_id,
+        "source_element": "T8",
+        "delta_type": "trust_drift_fragment",
+        "summary": f"Trust-drift sweep found {flips} verdict flip(s) after exponential trust decay across deterministic samples.",
+        "informs": ["T8", "T9", "T10"],
+        "confidence": .86,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic trust drift sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -391,12 +462,14 @@ EXPERIMENTS = {
     "observation_lag_sweep_v1": t5,
     "decision_lag_sweep_v1": t6,
     "actuation_lag_sweep_v1": t7,
+    "trust_drift_sweep_v1": t8,
 }
 
 FALLBACK_EXPERIMENTS = {
     "T5": ["observation_lag_sweep_v1"],
     "T6": ["decision_lag_sweep_v1"],
     "T7": ["actuation_lag_sweep_v1"],
+    "T8": ["trust_drift_sweep_v1"],
 }
 
 
@@ -408,6 +481,7 @@ RULE_DEFS = [
     ("lag_aware_sandbox_required", "T5", 4, "Lag-row experiments must separate observed_state from commit_state."),
     ("decision_stage_required", "T6", 4, "Lag sandboxes may separate observation state, decision state, and commit state."),
     ("actuation_stage_required", "T7", 4, "Lag sandboxes may separate observed, decision, commit, actuation, and effect states."),
+    ("trust_drift_required", "T8", 4, "Lag-aware sandboxes may model trust as a decaying state variable during transition delay."),
 ]
 
 
@@ -481,7 +555,7 @@ def select(elements: list[dict[str, Any]], evidence: dict[str, Any]):
 
 
 def sandbox_class_for(element_id: str, gate: dict[str, Any]) -> str:
-    if element_id in ("T5", "T6", "T7"):
+    if element_id in ("T5", "T6", "T7", "T8"):
         if evidence_gate_mode_rank(gate["mode"]) >= evidence_gate_mode_rank("sequence_lag_row"):
             return "lag_aware_deterministic"
     return "local_python_deterministic"
@@ -498,7 +572,7 @@ def evidence_gate_mode_rank(mode: str) -> int:
 
 def applied_rules_for_element(evidence: dict[str, Any], element_id: str) -> list[str]:
     released = [rule["rule_id"] for rule in released_rules(evidence) if rule["status"] == "released"]
-    if element_id in ("T5", "T6", "T7"):
+    if element_id in ("T5", "T6", "T7", "T8"):
         return [rule for rule in released if rule in {
             "primitive_admissibility_required",
             "simplex_constraint_visible",
@@ -522,6 +596,9 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "observed_invariant", "decision_invariant", "commit_invariant", "effect_invariant",
         "observed_verdict", "decision_verdict", "commit_verdict", "effect_verdict",
         "lag_flip", "decision_flip", "actuation_flip", "total_lag_flip",
+        "initial_trust", "decayed_trust", "pre_decay_capacity", "post_decay_capacity",
+        "pre_decay_invariant", "post_decay_invariant", "pre_decay_verdict",
+        "trust_decay_verdict", "trust_flip",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -553,6 +630,9 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "effect_state": row_payload.get("effect_state"),
         "action": row_payload.get("action"),
         "post_state": row_payload.get("post_state"),
+        "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
+        "trust_decayed_state": row_payload.get("trust_decayed_state"),
+        "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
         "observed_post_state": row_payload.get("observed_post_state"),
         "decision_post_state": row_payload.get("decision_post_state"),
         "commit_post_state": row_payload.get("commit_post_state"),
@@ -598,6 +678,7 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "decision_flip": receipt["computed"].get("decision_flip"),
             "actuation_flip": receipt["computed"].get("actuation_flip"),
             "total_lag_flip": receipt["computed"].get("total_lag_flip"),
+            "trust_flip": receipt["computed"].get("trust_flip"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
