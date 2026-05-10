@@ -1598,6 +1598,195 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
     return index
 
 
+def receipt_backing_checks_for_element(element_id: str, ledger: list[dict[str, Any]], receipt_index: dict[str, Any]) -> dict[str, Any]:
+    element_rows = [row for row in ledger if row.get("element_id") == element_id]
+    element_receipts = [r for r in receipt_index.get("receipts", []) if r.get("element_id") == element_id]
+
+    receipt_by_row = {r.get("ledger_row_id"): r for r in element_receipts}
+    failures = []
+    checked = 0
+
+    for row in element_rows:
+        checked += 1
+        row_id = row.get("run_id")
+        receipt_meta = receipt_by_row.get(row_id)
+        if not receipt_meta:
+            failures.append({"row_id": row_id, "reason": "missing_receipt_index_entry"})
+            continue
+
+        receipt_path = ROOT / receipt_meta.get("path", "")
+        if not receipt_path.exists():
+            failures.append({"row_id": row_id, "reason": "missing_receipt_json", "path": receipt_meta.get("path")})
+            continue
+
+        receipt = read_json(receipt_path, {})
+        if not receipt.get("receipt_hash"):
+            failures.append({"row_id": row_id, "reason": "missing_receipt_hash"})
+            continue
+        if receipt.get("ledger_row_id") != row_id:
+            failures.append({"row_id": row_id, "reason": "ledger_row_mismatch"})
+            continue
+        if receipt.get("replay", {}).get("status") != "replayable":
+            failures.append({"row_id": row_id, "reason": "not_replayable"})
+            continue
+
+        computed = receipt.get("computed", {})
+        if element_id == "T13":
+            required = ["pre_state_hash", "action_hash", "post_state_hash", "receipt_payload_hash", "receipt_bound"]
+            missing = [key for key in required if key not in computed]
+            if missing:
+                failures.append({"row_id": row_id, "reason": "missing_receipt_binding_fields", "missing": missing})
+                continue
+            if computed.get("receipt_bound") is not True:
+                failures.append({"row_id": row_id, "reason": "receipt_not_bound"})
+                continue
+
+        if element_id == "T14":
+            required = ["reconstruction_exact", "reconstruction_verdict_match", "reconstruction_confidence"]
+            missing = [key for key in required if key not in computed]
+            if missing:
+                failures.append({"row_id": row_id, "reason": "missing_reconstruction_fields", "missing": missing})
+                continue
+            if computed.get("reconstruction_exact") is not True:
+                failures.append({"row_id": row_id, "reason": "reconstruction_not_exact"})
+                continue
+            if computed.get("reconstruction_verdict_match") is not True:
+                failures.append({"row_id": row_id, "reason": "reconstruction_verdict_mismatch"})
+                continue
+
+    return {
+        "element_id": element_id,
+        "checked_rows": checked,
+        "receipt_count": len(element_receipts),
+        "verified": checked > 0 and not failures and len(element_receipts) >= checked,
+        "failures": failures,
+    }
+
+
+def receipt_backing_verifier(ledger: list[dict[str, Any]], receipt_index: dict[str, Any], evidence: dict[str, Any], knowledge: dict[str, Any], review: dict[str, Any]) -> dict[str, Any]:
+    checks = {
+        "generated_at": now(),
+        "schema": "stegverse.receipt_backing_verifier.v1",
+        "scope": ["T13", "T14"],
+        "checks": [],
+        "promotions": [],
+        "failures": [],
+    }
+
+    for element_id in ["T13", "T14"]:
+        result = receipt_backing_checks_for_element(element_id, ledger, receipt_index)
+        checks["checks"].append(result)
+
+        current = evidence_level(evidence, element_id)
+        if current >= 4 and result["verified"]:
+            if current < 5:
+                evidence["elements"][element_id].update({
+                    "evidence_level": 5,
+                    "evidence_label": LABELS[5],
+                    "brightness": 1.0,
+                    "latest_result_summary": "receipt-backed replay verification passed",
+                    "runtime_state": "receipt_backed",
+                })
+                promotion = {
+                    "element_id": element_id,
+                    "from": current,
+                    "to": 5,
+                    "reason": "receipt-backed replay verification passed",
+                    "checked_rows": result["checked_rows"],
+                    "receipt_count": result["receipt_count"],
+                }
+                checks["promotions"].append(promotion)
+                knowledge.setdefault("knowledge_deltas", []).append({
+                    "delta_id": f"KD-{element_id}-receipt-backed-verifier-v1",
+                    "source_run_id": "receipt_backing_verifier_v1",
+                    "source_element": element_id,
+                    "delta_type": "receipt_backing_fragment",
+                    "summary": f"{element_id} advanced to 5/5 Receipt-backed after verifying replayable receipt coverage for {result['checked_rows']} ledger row(s).",
+                    "informs": [element_id, "T16"],
+                    "confidence": .93,
+                    "review_required": False,
+                })
+        elif current >= 4 and not result["verified"]:
+            failure = {
+                "created_at": now(),
+                "element_id": element_id,
+                "reason": "receipt_backing_verification_failed",
+                "details": result["failures"],
+            }
+            checks["failures"].append(failure)
+            review.setdefault("review_required", []).append(failure)
+
+    write_json(D / "receipt-backing-verifier.json", checks)
+    return checks
+
+
+def automation_release_state(evidence: dict[str, Any]) -> dict[str, Any]:
+    def ok(element_id: str, level: int = 4) -> bool:
+        return evidence_level(evidence, element_id) >= level
+
+    releases = [
+        {
+            "mode": "manual_single",
+            "status": "released" if all(ok(e) for e in ["T1", "T2", "T3", "T4"]) else "locked",
+            "released_by": ["T1", "T2", "T3", "T4"],
+            "description": "Manual deterministic experiment execution."
+        },
+        {
+            "mode": "sequence_mode",
+            "status": "released" if ok("T5") else "locked",
+            "released_by": ["T5"],
+            "description": "State-dependent sequencing after observation-lag evidence."
+        },
+        {
+            "mode": "bounded_batch",
+            "status": "released" if ok("T7") else "locked",
+            "released_by": ["T7"],
+            "description": "Bounded multi-step automation after observation-decision-actuation lag chain."
+        },
+        {
+            "mode": "coupled_batch",
+            "status": "released" if ok("T12") else "locked",
+            "released_by": ["T9", "T10", "T11", "T12"],
+            "description": "Coupled-state, multi-agent, conflict, and consensus aware automation."
+        },
+        {
+            "mode": "receipt_governed",
+            "status": "released" if ok("T13", 5) and ok("T14", 5) else "pending_receipt_backing",
+            "released_by": ["T13", "T14"],
+            "description": "Automation backed by replayable receipts and reconstruction verification."
+        },
+        {
+            "mode": "irreversibility_guarded",
+            "status": "released" if ok("T15") else "locked",
+            "released_by": ["T15"],
+            "description": "Automation must classify point-of-no-return risk before irreversible actions."
+        },
+        {
+            "mode": "self_modification_guarded",
+            "status": "released" if ok("T16") else "locked",
+            "released_by": ["T16"],
+            "description": "Guarded self-modification under released constraints."
+        },
+    ]
+
+    if all(item["status"] == "released" for item in releases):
+        current = "receipt_backed_automation_ready"
+    elif any(item["mode"] == "receipt_governed" and item["status"] == "pending_receipt_backing" for item in releases):
+        current = "tested_automation_active_receipt_backing_pending"
+    else:
+        current = "partial_automation"
+
+    payload = {
+        "generated_at": now(),
+        "schema": "stegverse.automation_release_state.v1",
+        "current_state": current,
+        "releases": releases,
+    }
+    write_json(D / "automation-release-state.json", payload)
+    return payload
+
+
+
 def run_one(elements: list[dict[str, Any]], evidence: dict[str, Any], ledger: list[dict[str, Any]], runs: dict[str, Any], knowledge: dict[str, Any], review: dict[str, Any], gate: dict[str, Any]):
     selected = select(elements, evidence)
     if not selected:
@@ -1690,6 +1879,10 @@ def main() -> None:
     evidence["generated_at"] = now()
     evidence["generated_by"] = "tools/transition_experimental_orchestrator.py"
     rule_payload = write_rule_releases(evidence)
+    receipt_index = ensure_receipts(ledger, runs)
+    verifier_payload = receipt_backing_verifier(ledger, receipt_index, evidence, knowledge, review)
+    rule_payload = write_rule_releases(evidence)
+    automation_payload = automation_release_state(evidence)
     ensure_receipts(ledger, runs)
 
     if completed:
@@ -1698,22 +1891,35 @@ def main() -> None:
             "status": "completed_sequence" if len(completed) > 1 else completed[-1]["status"],
             "updated_at": now(),
             "automation_gate": rule_payload["automation_gate"],
+            "automation_release_state": automation_payload["current_state"],
+            "receipt_backing_promotions": verifier_payload["promotions"],
             "sequence_completed": completed,
             "last_selected": completed[-1],
             "last_run_id": completed[-1]["run_id"],
         }
-        print(json.dumps({"automation_gate": rule_payload["automation_gate"], "completed": completed}, indent=2))
+        print(json.dumps({
+            "automation_gate": rule_payload["automation_gate"],
+            "automation_release_state": automation_payload["current_state"],
+            "receipt_backing_promotions": verifier_payload["promotions"],
+            "completed": completed
+        }, indent=2))
     else:
         state = {
             "planner": "evidence_gated_sequence_v1",
-            "status": "idle_no_eligible_experiment",
+            "status": "receipt_backing_verified" if verifier_payload["promotions"] else "idle_no_eligible_experiment",
             "updated_at": now(),
             "automation_gate": rule_payload["automation_gate"],
+            "automation_release_state": automation_payload["current_state"],
+            "receipt_backing_promotions": verifier_payload["promotions"],
             "sequence_completed": [],
             "last_selected": None,
             "last_run_id": None,
         }
-        print("No eligible experiment. Rebuilding normalized receipts, rule releases, and pages from existing ledger.")
+        print(json.dumps({
+            "status": state["status"],
+            "automation_release_state": automation_payload["current_state"],
+            "receipt_backing_promotions": verifier_payload["promotions"]
+        }, indent=2))
 
     write_jsonl(D / "transition-ledger.jsonl", ledger)
     write_json(D / "transition-evidence.json", evidence)

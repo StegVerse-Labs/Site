@@ -188,7 +188,48 @@ def applied_rules_html(eruns):
         return "<p>No released operational rules have been applied directly by this transition yet.</p>"
     return "<ul>" + "".join(f"<li>{esc(rule)}</li>" for rule in applied) + "</ul>"
 
-def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index, rule_releases):
+def automation_release_html(automation_releases):
+    releases = automation_releases.get("releases", [])
+    if not releases:
+        return "<p>No automation release state has been generated yet.</p>"
+    items = "".join(
+        f"<li><strong>{esc(item.get('mode'))}</strong> · {esc(item.get('status'))} · released by {esc(', '.join(item.get('released_by', [])))}<br>{esc(item.get('description', ''))}</li>"
+        for item in releases
+    )
+    return f"<p><strong>Current automation state:</strong> {esc(automation_releases.get('current_state', 'unknown'))}</p><ul>{items}</ul>"
+
+
+def receipt_backing_html(eid, receipt_backing):
+    checks = [c for c in receipt_backing.get("checks", []) if c.get("element_id") == eid]
+    promotions = [p for p in receipt_backing.get("promotions", []) if p.get("element_id") == eid]
+    if not checks and not promotions:
+        return "<p>No receipt-backed verification has been run for this transition yet.</p>"
+    blocks = []
+    for check in checks:
+        failures = check.get("failures", [])
+        failure_text = "none" if not failures else esc(failures)
+        blocks.append(f"""
+        <article class="change-entry">
+          <h3>Receipt-backed verifier</h3>
+          <p><strong>Verified:</strong> {esc(check.get("verified"))}</p>
+          <p><strong>Checked rows:</strong> {esc(check.get("checked_rows"))}</p>
+          <p><strong>Receipt count:</strong> {esc(check.get("receipt_count"))}</p>
+          <p><strong>Failures:</strong> {failure_text}</p>
+        </article>
+        """)
+    for promotion in promotions:
+        blocks.append(f"""
+        <article class="change-entry">
+          <h3>Evidence promotion</h3>
+          <p><strong>From:</strong> {esc(promotion.get("from"))}</p>
+          <p><strong>To:</strong> {esc(promotion.get("to"))}</p>
+          <p><strong>Reason:</strong> {esc(promotion.get("reason"))}</p>
+        </article>
+        """)
+    return "\\n".join(blocks)
+
+
+def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index, rule_releases, automation_releases, receipt_backing):
     eid = e["id"]
     c = e.get("coordinates", {})
     rel = e.get("relations", {})
@@ -212,6 +253,8 @@ def render_page(e, ev, rows, eruns, deltas, change_entries, receipt_index, rule_
     receipts_section = receipts_html(eid, receipt_index)
     rules_section = rule_release_html(rule_releases)
     applied_rules_section = applied_rules_html(eruns)
+    automation_section = automation_release_html(automation_releases)
+    receipt_backing_section = receipt_backing_html(eid, receipt_backing)
 
     return """<!doctype html>
 <html lang="en">
@@ -268,8 +311,10 @@ li{margin:0 0 8px}
   <div class="formula"><code>__FORMULA__</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>__SUMMARY__</p></section>
+<section><h2>Automation Release State</h2>__AUTOMATION_RELEASES__</section>
 <section><h2>Released Operational Rules</h2>__RULES__</section>
 <section><h2>Applied Rules for This Transition</h2>__APPLIED_RULES__</section>
+<section><h2>Receipt-Backed Verification</h2>__RECEIPT_BACKING__</section>
 <section><h2>Run Manifests</h2><ul>__RUNS__</ul></section>
 <section><h2>Knowledge Deltas</h2><ul>__DELTAS__</ul></section>
 <section><h2>Recent Ledger Rows</h2><ul>__ROWS__</ul></section>
@@ -278,7 +323,7 @@ li{margin:0 0 8px}
 </main>
 </body>
 </html>
-""".replace("__EID__", esc(eid)).replace("__NAME__", esc(e["name"])).replace("__QUESTION__", esc(e["question"])).replace("__SUPPORT__", SUPPORT).replace("__LEVEL__", esc(ev.get("evidence_level", e.get("evidence_level", 0)))).replace("__LABEL__", esc(ev.get("evidence_label", "Unknown"))).replace("__RUNTIME__", esc(ev.get("runtime_state", "idle"))).replace("__BRIGHTNESS__", esc(ev.get("brightness", 0))).replace("__COMPOSITION__", esc(c.get("composition", 0))).replace("__REALITY__", esc(c.get("reality_binding", 0))).replace("__OBS__", esc(c.get("observability_gap", 0))).replace("__REQUIRES__", esc(", ".join(rel.get("requires", [])) or "none")).replace("__INFORMS__", esc(", ".join(rel.get("informs", [])) or "none")).replace("__EXPECTED__", esc(e["expected_behavior"])).replace("__FORMULA__", esc(e["formula"])).replace("__SUMMARY__", esc(ev.get("latest_result_summary", e.get("confirmed_behavior", "")))).replace("__RULES__", rules_section).replace("__APPLIED_RULES__", applied_rules_section).replace("__RUNS__", runs_html).replace("__DELTAS__", deltas_html).replace("__ROWS__", rows_html).replace("__RECEIPTS__", receipts_section).replace("__CHANGELOG__", changes_html)
+""".replace("__EID__", esc(eid)).replace("__NAME__", esc(e["name"])).replace("__QUESTION__", esc(e["question"])).replace("__SUPPORT__", SUPPORT).replace("__LEVEL__", esc(ev.get("evidence_level", e.get("evidence_level", 0)))).replace("__LABEL__", esc(ev.get("evidence_label", "Unknown"))).replace("__RUNTIME__", esc(ev.get("runtime_state", "idle"))).replace("__BRIGHTNESS__", esc(ev.get("brightness", 0))).replace("__COMPOSITION__", esc(c.get("composition", 0))).replace("__REALITY__", esc(c.get("reality_binding", 0))).replace("__OBS__", esc(c.get("observability_gap", 0))).replace("__REQUIRES__", esc(", ".join(rel.get("requires", [])) or "none")).replace("__INFORMS__", esc(", ".join(rel.get("informs", [])) or "none")).replace("__EXPECTED__", esc(e["expected_behavior"])).replace("__FORMULA__", esc(e["formula"])).replace("__SUMMARY__", esc(ev.get("latest_result_summary", e.get("confirmed_behavior", "")))).replace("__AUTOMATION_RELEASES__", automation_section).replace("__RULES__", rules_section).replace("__APPLIED_RULES__", applied_rules_section).replace("__RECEIPT_BACKING__", receipt_backing_section).replace("__RUNS__", runs_html).replace("__DELTAS__", deltas_html).replace("__ROWS__", rows_html).replace("__RECEIPTS__", receipts_section).replace("__CHANGELOG__", changes_html)
 
 elements = read_json("transition-elements.json", [])
 elements_by_id = {e["id"]: e for e in elements}
@@ -288,6 +333,8 @@ runs = read_json("transition-runs.json", {"runs": []})
 knowledge = read_json("transition-knowledge-deltas.json", {"knowledge_deltas": []})
 receipt_index = read_json("transition-receipts.json", {"receipts": []})
 rule_releases = read_json("transition-rule-releases.json", {"rules": [], "automation_gate": {}})
+automation_releases = read_json("automation-release-state.json", {"current_state": "unknown", "releases": []})
+receipt_backing = read_json("receipt-backing-verifier.json", {"checks": [], "promotions": []})
 
 for e in elements:
     eid = e["id"]
@@ -296,5 +343,5 @@ for e in elements:
     eruns = [r for r in runs.get("runs", []) if r.get("element_id") == eid]
     deltas = [d for d in knowledge.get("knowledge_deltas", []) if d.get("source_element") == eid or eid in d.get("informs", [])]
     changes = changelog_for(e, elements_by_id, evidence, runs, knowledge)
-    (OUT / f"{eid}.html").write_text(render_page(e, ev, rows, eruns, deltas, changes, receipt_index, rule_releases), encoding="utf-8")
+    (OUT / f"{eid}.html").write_text(render_page(e, ev, rows, eruns, deltas, changes, receipt_index, rule_releases, automation_releases, receipt_backing), encoding="utf-8")
     print(f"Wrote {OUT / (eid + '.html')}")
