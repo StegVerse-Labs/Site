@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T02:02:28Z",
+  "generated_at": "2026-05-10T02:11:39Z",
   "generated_by": "tools/transition_experimental_orchestrator.py",
   "evidence_labels": [
     "Proposed",
@@ -119,22 +119,22 @@
       "latest_result_summary": "deterministic validator consensus sweep passed"
     },
     "T13": {
-      "evidence_level": 4,
-      "evidence_label": "Tested",
-      "brightness": 0.8,
+      "evidence_level": 5,
+      "evidence_label": "Receipt-backed",
+      "brightness": 1.0,
       "receipt_backed": false,
-      "runtime_state": "completed",
+      "runtime_state": "receipt_backed",
       "caveats": [],
-      "latest_result_summary": "deterministic receipt-bound transition sweep passed"
+      "latest_result_summary": "receipt-backed replay verification passed"
     },
     "T14": {
-      "evidence_level": 4,
-      "evidence_label": "Tested",
-      "brightness": 0.8,
+      "evidence_level": 5,
+      "evidence_label": "Receipt-backed",
+      "brightness": 1.0,
       "receipt_backed": false,
-      "runtime_state": "completed",
+      "runtime_state": "receipt_backed",
       "caveats": [],
-      "latest_result_summary": "deterministic receipt reconstruction sweep passed"
+      "latest_result_summary": "receipt-backed replay verification passed"
     },
     "T15": {
       "evidence_level": 4,

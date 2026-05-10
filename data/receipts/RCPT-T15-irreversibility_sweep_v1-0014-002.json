@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T15-irreversibility_sweep_v1-0014-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T02:02:28Z",
+  "created_at": "2026-05-10T02:11:39Z",
   "run_id": "T15-irreversibility_sweep_v1-0014",
   "ledger_row_id": "T15-irreversibility_sweep_v1-0014-002",
   "element_id": "T15",
@@ -152,5 +152,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:c852b8ad2a1df20425540f43e6c53f96d97df8dd05d3d0503f006931934f949f"
+  "receipt_hash": "sha256:a1f81f6e33ca2f660bc9748bbc514c34a9639cd9142058b2dac06f0cb6dd9c2a"
 }

@@ -205,6 +205,32 @@
       ],
       "confidence": 0.79,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T13-receipt-backed-verifier-v1",
+      "source_run_id": "receipt_backing_verifier_v1",
+      "source_element": "T13",
+      "delta_type": "receipt_backing_fragment",
+      "summary": "T13 advanced to 5/5 Receipt-backed after verifying replayable receipt coverage for 3 ledger row(s).",
+      "informs": [
+        "T13",
+        "T16"
+      ],
+      "confidence": 0.93,
+      "review_required": false
+    },
+    {
+      "delta_id": "KD-T14-receipt-backed-verifier-v1",
+      "source_run_id": "receipt_backing_verifier_v1",
+      "source_element": "T14",
+      "delta_type": "receipt_backing_fragment",
+      "summary": "T14 advanced to 5/5 Receipt-backed after verifying replayable receipt coverage for 3 ledger row(s).",
+      "informs": [
+        "T14",
+        "T16"
+      ],
+      "confidence": 0.93,
+      "review_required": false
     }
   ]
 }

@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>I(x+u₁)≤0, I(x+u₂)≤0, but I(x+u₁+u₂)&gt;0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic conflict resolution sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T11-conflict_sweep_v1-0010</code> · conflict_sweep_v1 · <strong>completed</strong> · sandbox=coupled_state_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling</code> · coupled_state_fragment · Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.</li><li><code>KD-T10-multi_agent_sweep_v1-0009-multi-agent</code> · multi_agent_fragment · Multi-agent sweep found 0 composition flip(s), including 0 aggregate denial(s) across deterministic samples.</li><li><code>KD-T11-conflict_sweep_v1-0010-conflict</code> · conflict_resolution_fragment · Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T11-conflict_sweep_v1-0010-001</code> · tested property=conflict_resolution · constraint=PASS · admissibility invariant=-0.06684 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T11-conflict_sweep_v1-0010-002</code> · tested property=conflict_resolution · constraint=PASS · admissibility invariant=-0.1735 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T11-conflict_sweep_v1-0010-003</code> · tested property=conflict_resolution · constraint=PASS · admissibility invariant=-0.0273 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Conflict detected:</strong> True</p><p><strong>Conflict flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:235a7c2c04dadc02489a8e5de9f539d8be21fcb8378f8f0fb0bfdc0adb978773</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:3ffa429de3598b7936538a7b1b400aa93410756347d14a6dff9d515d84e695c7</code></p>
           <p><a href="../data/receipts/RCPT-T11-conflict_sweep_v1-0010-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Conflict detected:</strong> False</p><p><strong>Conflict flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:0465e164b99ee1716bfa1554650800d10743c7d7c7be9a88c514df716d74684e</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:f3d56442d21662b072d2dfc5770565d674249f3891c5ca11ff57e7a73d68e1ea</code></p>
           <p><a href="../data/receipts/RCPT-T11-conflict_sweep_v1-0010-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Conflict detected:</strong> True</p><p><strong>Conflict flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:dff7fb3ef624ec3995ad7e306a8d285b9e327885f75c702b137357aa9d654873</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:9867b95f502105bcd91746a1540ed8956a9529e698bb5fc1e16dc496e95d7e64</code></p>
           <p><a href="../data/receipts/RCPT-T11-conflict_sweep_v1-0010-003.json">Open receipt JSON</a></p>
         </article>
         </section>

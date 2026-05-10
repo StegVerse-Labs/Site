@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-05-10T02:11:39Z",
+  "schema": "stegverse.automation_release_state.v1",
+  "current_state": "receipt_backed_automation_ready",
+  "releases": [
+    {
+      "mode": "manual_single",
+      "status": "released",
+      "released_by": [
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "description": "Manual deterministic experiment execution."
+    },
+    {
+      "mode": "sequence_mode",
+      "status": "released",
+      "released_by": [
+        "T5"
+      ],
+      "description": "State-dependent sequencing after observation-lag evidence."
+    },
+    {
+      "mode": "bounded_batch",
+      "status": "released",
+      "released_by": [
+        "T7"
+      ],
+      "description": "Bounded multi-step automation after observation-decision-actuation lag chain."
+    },
+    {
+      "mode": "coupled_batch",
+      "status": "released",
+      "released_by": [
+        "T9",
+        "T10",
+        "T11",
+        "T12"
+      ],
+      "description": "Coupled-state, multi-agent, conflict, and consensus aware automation."
+    },
+    {
+      "mode": "receipt_governed",
+      "status": "released",
+      "released_by": [
+        "T13",
+        "T14"
+      ],
+      "description": "Automation backed by replayable receipts and reconstruction verification."
+    },
+    {
+      "mode": "irreversibility_guarded",
+      "status": "released",
+      "released_by": [
+        "T15"
+      ],
+      "description": "Automation must classify point-of-no-return risk before irreversible actions."
+    },
+    {
+      "mode": "self_modification_guarded",
+      "status": "released",
+      "released_by": [
+        "T16"
+      ],
+      "description": "Guarded self-modification under released constraints."
+    }
+  ]
+}

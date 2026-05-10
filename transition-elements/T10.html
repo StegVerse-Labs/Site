@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>x&#x27;=Φ(x,u₁,u₂,...,uₙ) and I(x&#x27;) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic multi-agent composition sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T10-multi_agent_sweep_v1-0009</code> · multi_agent_sweep_v1 · <strong>completed</strong> · sandbox=coupled_state_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T8-trust_drift_sweep_v1-0007-trust-drift</code> · trust_drift_fragment · Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.</li><li><code>KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling</code> · coupled_state_fragment · Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.</li><li><code>KD-T10-multi_agent_sweep_v1-0009-multi-agent</code> · multi_agent_fragment · Multi-agent sweep found 0 composition flip(s), including 0 aggregate denial(s) across deterministic samples.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T10-multi_agent_sweep_v1-0009-001</code> · tested property=multi_agent_composition · constraint=PASS · admissibility invariant=-0.09087 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T10-multi_agent_sweep_v1-0009-002</code> · tested property=multi_agent_composition · constraint=PASS · admissibility invariant=-0.08448 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T10-multi_agent_sweep_v1-0009-003</code> · tested property=multi_agent_composition · constraint=PASS · admissibility invariant=-0.01517 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Composition flip:</strong> False</p><p><strong>All individual allow:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:91ad700901b951c844c3eb007be95b00b49c65b250758bfa51389f442e0b3ac4</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:f79dd0d8295ea21a380c458a7395aa917366c126ae1f080dfa2616bc802f454f</code></p>
           <p><a href="../data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Composition flip:</strong> False</p><p><strong>All individual allow:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:9733773c09bfa2f5b5424b497ecdb53257b73089f217c47370e552023a9da134</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:398e7a747e9236cf4661dbaf36b66e4509de053781cb5a2ce88a1ba72046781b</code></p>
           <p><a href="../data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Composition flip:</strong> False</p><p><strong>All individual allow:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:6e67d3a1da7b3881f9d0068b0befc1d91b03817654727a88af1698d8997c9743</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:113d5e9326cb196add4253a464760fc19029f14005c407c403e3027419c46864</code></p>
           <p><a href="../data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-003.json">Open receipt JSON</a></p>
         </article>
         </section>

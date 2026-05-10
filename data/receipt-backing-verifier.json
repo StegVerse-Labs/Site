@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-10T02:11:39Z",
+  "schema": "stegverse.receipt_backing_verifier.v1",
+  "scope": [
+    "T13",
+    "T14"
+  ],
+  "checks": [
+    {
+      "element_id": "T13",
+      "checked_rows": 3,
+      "receipt_count": 3,
+      "verified": true,
+      "failures": []
+    },
+    {
+      "element_id": "T14",
+      "checked_rows": 3,
+      "receipt_count": 3,
+      "verified": true,
+      "failures": []
+    }
+  ],
+  "promotions": [
+    {
+      "element_id": "T13",
+      "from": 4,
+      "to": 5,
+      "reason": "receipt-backed replay verification passed",
+      "checked_rows": 3,
+      "receipt_count": 3
+    },
+    {
+      "element_id": "T14",
+      "from": 4,
+      "to": 5,
+      "reason": "receipt-backed replay verification passed",
+      "checked_rows": 3,
+      "receipt_count": 3
+    }
+  ],
+  "failures": []
+}

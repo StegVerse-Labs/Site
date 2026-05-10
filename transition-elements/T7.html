@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>I(x(t₀ + τ_obs + τ_dec + τ_act) + u) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic actuation lag sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T7-actuation_lag_sweep_v1-0006</code> · actuation_lag_sweep_v1 · <strong>completed</strong> · sandbox=lag_aware_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li><li><code>KD-T6-decision_lag_sweep_v1-0005-decision_lag</code> · decision_lag_fragment · Decision-lag sweep found 2 total lag flip(s) across deterministic staged samples.</li><li><code>KD-T7-actuation_lag_sweep_v1-0006-actuation_lag</code> · actuation_lag_fragment · Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T7-actuation_lag_sweep_v1-0006-001</code> · tested property=actuation_lag · constraint=PASS · admissibility invariant=0.0221 · admissibility verdict=<strong>DENY</strong></li><li><code>T7-actuation_lag_sweep_v1-0006-002</code> · tested property=actuation_lag · constraint=PASS · admissibility invariant=0.02469 · admissibility verdict=<strong>DENY</strong></li><li><code>T7-actuation_lag_sweep_v1-0006-003</code> · tested property=actuation_lag · constraint=PASS · admissibility invariant=0.04336 · admissibility verdict=<strong>DENY</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> True</p><p><strong>Total lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:92f31baf8da913338048340a17575af31a6e771e3fdbed1446d31a0aa92bd669</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:4f673d1166977db6785af32f7464916111c4ce02593c64e78edb9d321c0c6b6e</code></p>
           <p><a href="../data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> True</p><p><strong>Total lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:c2d3bd7e5e9a6b40c30933467c9d496150f05da0c31cc2a24fd2c9f794967cfa</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:b6a23a7dd88cb808fc13b5631d50db8acaf2f8847af84d011533714fa2456a94</code></p>
           <p><a href="../data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Decision flip:</strong> False</p><p><strong>Actuation flip:</strong> True</p><p><strong>Total lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:04c3e00fd68be20960c27bdd244f1b04d1f6ff46383c81475b730b7aa7255cf8</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:2a45ae7789f465679e92014462285ec362d486fcac8a1cc34a5238cd2e2d1bbd</code></p>
           <p><a href="../data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-003.json">Open receipt JSON</a></p>
         </article>
         </section>

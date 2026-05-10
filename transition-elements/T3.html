@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>||u|| ≤ ε and I(x + u) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic bounded action sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T3-bounded_action_sweep_v1-0001</code> · bounded_action_sweep_v1 · <strong>completed</strong> · sandbox=local-python-deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T3-bounded_action_sweep_v1-0001-bounded-action</code> · safe_region_fragment · Bounded isolated actions can be evaluated against both magnitude and post-state admissibility.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T3-bounded_action_sweep_v1-0001-001</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.0181 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T3-bounded_action_sweep_v1-0001-002</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.03451 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T3-bounded_action_sweep_v1-0001-003</code> · tested property=bounded_action · constraint=PASS · admissibility invariant=-0.0106 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:e62073dc457a367ec86656bc94abd867d4381e19e42b340f35aaebb153373ad5</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:53fd68c1cbdd4fac117d746fd51180442b12cd96ed1e45e3699358f5918cf85b</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:04a82614a2a79d1783782ef52c3553741aa98c8fe9d534b58150eef453391b55</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:b843035d7b9777d397d4612fb6cb85c2066cf24b9869d4bd3d43143c682bd253</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:8569395bfc041441bcb0679185683b46fe4d67b96b1a5dce4b9dfe2353977250</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:9a37f97760a355fa35cd3c026c6e68b416902cbb77f62473ee930c77ca73fa20</code></p>
           <p><a href="../data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json">Open receipt JSON</a></p>
         </article>
         </section>

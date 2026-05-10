@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>x₁&#x27;=Φ₁(x₁,u₁,x₂), x₂&#x27;=Φ₂(x₂,u₂,x₁)</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic two-state coupling sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T9-two_state_coupling_sweep_v1-0008</code> · two_state_coupling_sweep_v1 · <strong>completed</strong> · sandbox=coupled_state_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T8-trust_drift_sweep_v1-0007-trust-drift</code> · trust_drift_fragment · Trust-drift sweep found 2 verdict flip(s) after exponential trust decay across deterministic samples.</li><li><code>KD-T9-two_state_coupling_sweep_v1-0008-two-state-coupling</code> · coupled_state_fragment · Two-state coupling sweep found 2 coupling flip(s), including 2 case(s) where local admissibility became coupled inadmissibility.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T9-two_state_coupling_sweep_v1-0008-001</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=0.04103 · admissibility verdict=<strong>DENY</strong></li><li><code>T9-two_state_coupling_sweep_v1-0008-002</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=-0.03217 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T9-two_state_coupling_sweep_v1-0008-003</code> · tested property=two_state_coupling · constraint=PASS · admissibility invariant=0.03041 · admissibility verdict=<strong>DENY</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Coupling flip:</strong> True</p><p><strong>Local admissible / coupled denied:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:c6900b53d0e037c216d24c1c94a9ef48aaf376cf8cb445f491821e10e90d4604</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:5d9ec237b9b383ba57feb3a46140de56b044092b14c5c4882590638ec014aa52</code></p>
           <p><a href="../data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Coupling flip:</strong> False</p><p><strong>Local admissible / coupled denied:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:77c57c9a999246a427851053bada9d1983859cdcb34ee4ab9dbc9a397fc3dfee</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:acbb3651ff3ff5e6108aca2d807cbfa42c2459b9cc7e228c5fe0f29f72a79dd2</code></p>
           <p><a href="../data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Coupling flip:</strong> True</p><p><strong>Local admissible / coupled denied:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:d7856b4e9b129c2fb4c2de4dcdaa79d6f221215c0b1f88f8b49403d1ce1e5901</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:38782712e1ddb774203f1a9d4cf0ee835e6a02c8b13ed1c19cb1d24142a066c3</code></p>
           <p><a href="../data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-003.json">Open receipt JSON</a></p>
         </article>
         </section>

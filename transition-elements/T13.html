@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T13 — Receipt-Bound Transition</h1>
 <p class="muted">Can the transition produce verifiable evidence?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>4/5 · Tested</strong></p>
-  <p>Runtime state: <strong>completed</strong></p>
-  <p>Brightness: <strong>0.8</strong></p>
+  <p>Level: <strong>5/5 · Receipt-backed</strong></p>
+  <p>Runtime state: <strong>receipt_backed</strong></p>
+  <p>Brightness: <strong>1.0</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>2</strong></p>
@@ -52,7 +52,8 @@ li{margin:0 0 8px}
   <p>A transition is not complete unless it emits a verifiable receipt.</p>
   <div class="formula"><code>I(x&#x27;) ≤ 0 and Verify(R) = true</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>deterministic receipt-bound transition sweep passed</p></section>
+<section><h2>Confirmed Behavior</h2><p>receipt-backed replay verification passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,8 +63,24 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li><li>conflict_resolution_required</li><li>validator_consensus_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2>
+        <article class="change-entry">
+          <h3>Receipt-backed verifier</h3>
+          <p><strong>Verified:</strong> True</p>
+          <p><strong>Checked rows:</strong> 3</p>
+          <p><strong>Receipt count:</strong> 3</p>
+          <p><strong>Failures:</strong> none</p>
+        </article>
+        \n
+        <article class="change-entry">
+          <h3>Evidence promotion</h3>
+          <p><strong>From:</strong> 4</p>
+          <p><strong>To:</strong> 5</p>
+          <p><strong>Reason:</strong> receipt-backed replay verification passed</p>
+        </article>
+        </section>
 <section><h2>Run Manifests</h2><ul><li><code>T13-receipt_bound_sweep_v1-0012</code> · receipt_bound_sweep_v1 · <strong>completed</strong> · sandbox=receipt_evidence_deterministic</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T12-consensus_sweep_v1-0011-consensus</code> · consensus_fragment · Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li><li><code>KD-T13-receipt_bound_sweep_v1-0012-receipt-bound</code> · receipt_binding_fragment · Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T12-consensus_sweep_v1-0011-consensus</code> · consensus_fragment · Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li><li><code>KD-T13-receipt_bound_sweep_v1-0012-receipt-bound</code> · receipt_binding_fragment · Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li><li><code>KD-T13-receipt-backed-verifier-v1</code> · receipt_backing_fragment · T13 advanced to 5/5 Receipt-backed after verifying replayable receipt coverage for 3 ledger row(s).</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T13-receipt_bound_sweep_v1-0012-001</code> · tested property=receipt_bound_transition · constraint=PASS · admissibility invariant=-0.15686 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T13-receipt_bound_sweep_v1-0012-002</code> · tested property=receipt_bound_transition · constraint=PASS · admissibility invariant=-0.13709 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T13-receipt_bound_sweep_v1-0012-003</code> · tested property=receipt_bound_transition · constraint=PASS · admissibility invariant=-0.11263 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
 <section><h2>State Transition Receipts</h2>
         <article class="receipt-entry">
@@ -74,7 +91,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Receipt bound:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:9a4a449b23b7469ecff5d74d2ab79d995fb27d562af0d7f10dfa198b5d55919e</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:f66ecdf69279230fc2d7406be5979c15b02456ad5ad863d28f47d472dad7efd2</code></p>
           <p><a href="../data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +104,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Receipt bound:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:dc985bc1aa9889849d7cace6b62e19e5e1ef7bd3bb37d616aed8c56937104e75</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:f110013efe490a9096b0b50a3570f3cdc420e22b2e8e773cb4a04ce375e68847</code></p>
           <p><a href="../data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +117,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Receipt bound:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:75fd4281c8f16686fdd97dfa1c047448f7b173d8d480ab0942940adc6d3ec6a9</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:eb8061cc112ef1067bef2d4888ac119c7c2cbdabf821486eb78cd20e674b25ed</code></p>
           <p><a href="../data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-003.json">Open receipt JSON</a></p>
         </article>
         </section>

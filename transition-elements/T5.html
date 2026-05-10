@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>I(x(t₀ + τ_obs) + u) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic observation lag sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T5-observation_lag_sweep_v1-0004</code> · observation_lag_sweep_v1 · <strong>completed</strong> · sandbox=local-python-deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T4-capacity_margin_sweep_v1-0003-margin</code> · margin_estimate · Capacity-margin calculation converts binary admissibility into signed distance-to-violation samples.</li><li><code>KD-T5-observation_lag_sweep_v1-0004-observation-lag</code> · lag_flip_fragment · Observation-lag sweep found 2 verdict flip(s) between observed-state and commit-time admissibility.</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T5-observation_lag_sweep_v1-0004-001</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=0.004 · admissibility verdict=<strong>DENY</strong></li><li><code>T5-observation_lag_sweep_v1-0004-002</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=-0.12355 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T5-observation_lag_sweep_v1-0004-003</code> · tested property=observation_lag · constraint=PASS · admissibility invariant=0.0562 · admissibility verdict=<strong>DENY</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:a8f251ef0e0d057bc33dfd824d290128cdfc548c6adace8c59dcc66bcc3ea48c</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:dfba9ce0c4f97dc05d4cfa290ebec92e4747798b1168bcddfa56ad82cdfa792f</code></p>
           <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Lag flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:72044eedbce5a68824268642b910f8b9a102dcac430699d97c04741275564746</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:e0c6e3c099eeec7e22d5c5c9dace74ca66cafb78606c7c1d24c60527c721b13c</code></p>
           <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Lag flip:</strong> True</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:77db0323f0fe436822daf303725a56e3a2b5024457424e1f4a0e43b2d3f25391</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:21bea7c5134f5acf950a72130d86fb250606c58157b9414dd866dd41e5afc26a</code></p>
           <p><a href="../data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-003.json">Open receipt JSON</a></p>
         </article>
         </section>

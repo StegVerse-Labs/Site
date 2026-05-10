@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>¬∃u⁻¹ : Φ(x&#x27;,u⁻¹)=x with I(Φ(x&#x27;,u⁻¹))≤0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic irreversibility sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li><li>conflict_resolution_required</li><li>validator_consensus_required</li><li>receipt_binding_required</li><li>receipt_reconstruction_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T15-irreversibility_sweep_v1-0014</code> · irreversibility_sweep_v1 · <strong>completed</strong> · sandbox=open_boundary_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T7-actuation_lag_sweep_v1-0006-actuation_lag</code> · actuation_lag_fragment · Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.</li><li><code>KD-T11-conflict_sweep_v1-0010-conflict</code> · conflict_resolution_fragment · Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).</li><li><code>KD-T13-receipt_bound_sweep_v1-0012-receipt-bound</code> · receipt_binding_fragment · Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li><li><code>KD-T14-reconstruction_sweep_v1-0013-reconstruction</code> · reconstruction_fragment · Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li><li><code>KD-T15-irreversibility_sweep_v1-0014-irreversibility</code> · irreversibility_fragment · Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T15-irreversibility_sweep_v1-0014-001</code> · tested property=irreversibility · constraint=PASS · admissibility invariant=-0.08598 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · tested property=irreversibility · constraint=PASS · admissibility invariant=-0.2733 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · tested property=irreversibility · constraint=PASS · admissibility invariant=0.0296 · admissibility verdict=<strong>DENY</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Irreversible:</strong> False</p><p><strong>Point of no return:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:b8951018d7f004691a703c5e935c23247b7c1c47b17e8e8851f3c8e5dbd4b637</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:fb5e081f16b28b92bb55b4a6ab727edae53a79259816a97a960ea5f10b51bc27</code></p>
           <p><a href="../data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Irreversible:</strong> False</p><p><strong>Point of no return:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:c852b8ad2a1df20425540f43e6c53f96d97df8dd05d3d0503f006931934f949f</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:a1f81f6e33ca2f660bc9748bbc514c34a9639cd9142058b2dac06f0cb6dd9c2a</code></p>
           <p><a href="../data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Irreversible:</strong> True</p><p><strong>Point of no return:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:1ab95a84078bcacd547418b9abb7f43c2f19a8fd286ec0ccd36736b59abc3e9b</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:daf532bc0888fcf6b2f64d511c624065f4347d77d6ccd40c0c93c6cc177ca980</code></p>
           <p><a href="../data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-003.json">Open receipt JSON</a></p>
         </article>
         </section>

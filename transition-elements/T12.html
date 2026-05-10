@@ -53,6 +53,7 @@ li{margin:0 0 8px}
   <div class="formula"><code>Σ wᵢvᵢ ≥ θ and I(x&#x27;) ≤ 0</code></div>
 </section>
 <section><h2>Confirmed Behavior</h2><p>deterministic validator consensus sweep passed</p></section>
+<section><h2>Automation Release State</h2><p><strong>Current automation state:</strong> receipt_backed_automation_ready</p><ul><li><strong>manual_single</strong> · released · released by T1, T2, T3, T4<br>Manual deterministic experiment execution.</li><li><strong>sequence_mode</strong> · released · released by T5<br>State-dependent sequencing after observation-lag evidence.</li><li><strong>bounded_batch</strong> · released · released by T7<br>Bounded multi-step automation after observation-decision-actuation lag chain.</li><li><strong>coupled_batch</strong> · released · released by T9, T10, T11, T12<br>Coupled-state, multi-agent, conflict, and consensus aware automation.</li><li><strong>receipt_governed</strong> · released · released by T13, T14<br>Automation backed by replayable receipts and reconstruction verification.</li><li><strong>irreversibility_guarded</strong> · released · released by T15<br>Automation must classify point-of-no-return risk before irreversible actions.</li><li><strong>self_modification_guarded</strong> · released · released by T16<br>Guarded self-modification under released constraints.</li></ul></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
@@ -62,6 +63,7 @@ li{margin:0 0 8px}
     <ul><li>none</li></ul>
     </section>
 <section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li><li>conflict_resolution_required</li></ul></section>
+<section><h2>Receipt-Backed Verification</h2><p>No receipt-backed verification has been run for this transition yet.</p></section>
 <section><h2>Run Manifests</h2><ul><li><code>T12-consensus_sweep_v1-0011</code> · consensus_sweep_v1 · <strong>completed</strong> · sandbox=coupled_state_deterministic</li></ul></section>
 <section><h2>Knowledge Deltas</h2><ul><li><code>KD-T10-multi_agent_sweep_v1-0009-multi-agent</code> · multi_agent_fragment · Multi-agent sweep found 0 composition flip(s), including 0 aggregate denial(s) across deterministic samples.</li><li><code>KD-T11-conflict_sweep_v1-0010-conflict</code> · conflict_resolution_fragment · Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).</li><li><code>KD-T12-consensus_sweep_v1-0011-consensus</code> · consensus_fragment · Consensus sweep found 0 consensus flip(s) between validator quorum and canonical admissibility, with 3 quorum allow outcome(s).</li></ul></section>
 <section><h2>Recent Ledger Rows</h2><ul><li><code>T12-consensus_sweep_v1-0011-001</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.13728 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T12-consensus_sweep_v1-0011-002</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.06739 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T12-consensus_sweep_v1-0011-003</code> · tested property=validator_consensus · constraint=PASS · admissibility invariant=-0.12549 · admissibility verdict=<strong>ALLOW</strong></li></ul></section>
@@ -74,7 +76,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:c979cac667b7933a074706ce0e42312f600e424b49bde5ee58204d82ca9408bc</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:0cc7f7047e57f343e58ba3ffb717cadbf569c1e50fc3b3f7011902f636b27d83</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-001.json">Open receipt JSON</a></p>
         </article>
         
@@ -87,7 +89,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:70662d38ecee542c1e0681343786a792991399c703399d04ac00b0aa54d2bbac</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:4005d69ef0f0dca5f04074cc0881701c4308197f8fc5956133fdde43ab27488b</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-002.json">Open receipt JSON</a></p>
         </article>
         
@@ -100,7 +102,7 @@ li{margin:0 0 8px}
           <p><strong>Constraint result:</strong> PASS</p>
           <p><strong>Consensus flip:</strong> False</p>
           <p><strong>Replay status:</strong> replayable</p>
-          <p><strong>Receipt hash:</strong> <code>sha256:7c78f932ab17082ea82afeccac7f381bd784736d240d7b96927326c491c91f31</code></p>
+          <p><strong>Receipt hash:</strong> <code>sha256:11c33a0effa22ff97b0e1279edca3d890871cc8e942afd6e6a0522f18eeaaa53</code></p>
           <p><a href="../data/receipts/RCPT-T12-consensus_sweep_v1-0011-003.json">Open receipt JSON</a></p>
         </article>
         </section>
