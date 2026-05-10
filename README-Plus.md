@@ -1,4 +1,4 @@
-# Receipt-Backed Automation v1
+# Ledger Display + Automation Release Verifier v1
 
 Upload-safe bundle. No leading-dot paths.
 
@@ -9,19 +9,33 @@ tools/transition_experimental_orchestrator.py
 tools/build_transition_pages.py
 ```
 
-## What this implements
+## What this combines
 
-- Adds `receipt_backing_verifier_v1`.
-- Promotes only:
-  - T13 from 4/5 Tested to 5/5 Receipt-backed when receipt binding verifies.
-  - T14 from 4/5 Tested to 5/5 Receipt-backed when reconstruction verifies.
-- Adds generated files:
-  - data/receipt-backing-verifier.json
-  - data/automation-release-state.json
-- Adds page sections:
-  - Automation Release State
-  - Receipt-Backed Verification
-- Does not promote T1–T12, T15, or T16 to 5/5.
+This bundle includes both:
+
+1. The experimental ledger display fix.
+2. The next automation test: `automation_release_verifier_v1`.
+
+## Generated files
+
+```text
+data/experimental-ledger-summary.json
+data/automation-release-verifier.json
+```
+
+## What the verifier checks
+
+The verifier checks that each automation release mode is backed by the required evidence level:
+
+```text
+manual_single: T1–T4 >= 4
+sequence_mode: T5 >= 4
+bounded_batch: T7 >= 4
+coupled_batch: T9–T12 >= 4
+receipt_governed: T13–T14 >= 5
+irreversibility_guarded: T15 >= 4
+self_modification_guarded: T16 >= 4
+```
 
 ## Expected next workflow run
 
@@ -35,7 +49,7 @@ Expected result:
 
 ```text
 No new transition experiment runs.
-T13 advances to 5/5 Receipt-backed.
-T14 advances to 5/5 Receipt-backed.
-Automation release state becomes receipt_backed_automation_ready if all release gates are satisfied.
+T13 and T14 remain 5/5 Receipt-backed.
+Experimental ledger summary updates newest-first.
+Automation-release verifier writes ALLOW if all modes satisfy their release evidence gates.
 ```
