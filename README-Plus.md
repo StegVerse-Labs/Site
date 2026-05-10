@@ -1,41 +1,42 @@
-# T5 Observation-Lag + Receipt Normalizer v1
+# Evidence-Gated Sequence + Rule Release + T6/T7 v1
 
 Upload-safe bundle. No leading-dot paths.
 
-This bundle replaces:
+Replaces:
 
 ```text
 tools/transition_experimental_orchestrator.py
 tools/build_transition_pages.py
 ```
 
-## What it does
+## What this implements
 
-1. Normalizes old receipts and ledger display:
-   - T2 simplex rows show `constraint=PASS` when the simplex delta is zero.
-   - T3 bounded-action rows show bound status.
-   - T4 capacity-margin rows show margin status.
-2. Adds the first T5 experiment:
-   - `observation_lag_sweep_v1`
-3. Generates replayable receipts for both old and new ledger rows.
-4. Keeps evidence at 4/5 Tested, not 5/5 Receipt-backed.
+- Rule releases generated from tested transition elements.
+- `data/transition-rule-releases.json`.
+- Evidence-gated automation mode:
+  - Before T5: `manual_single`
+  - After T5: `sequence_lag_row`, max 2 steps
+  - After T7: `bounded_batch`, max 3 steps
+  - After T13/T14: `scheduled_ready`
+- Proper lag-aware sandbox class after T5.
+- T6 Decision-Lag experiment.
+- T7 Actuation-Lag experiment.
+- Applied rules recorded on each run manifest and receipt.
+- Transition pages display released rules and applied rules.
 
 ## Expected next workflow run
 
-```text
-Actions → Transition Experimental Engine → Run workflow
-```
-
-Expected selection:
+Because T5 is already tested, the engine should enter:
 
 ```text
-T5 — observation_lag_sweep_v1
+sequence_lag_row
 ```
 
-Expected result:
+Expected sequence:
 
 ```text
-T5 advances from 1/5 Defined to 4/5 Tested
-T5 emits lag_flip_fragment knowledge delta
-T5 receipts include observed_state, lag_drift, commit_state, observed verdict, commit verdict, and lag_flip
+T6 decision_lag_sweep_v1
+T7 actuation_lag_sweep_v1
 ```
+
+The run stops after max 2 sequence steps.
