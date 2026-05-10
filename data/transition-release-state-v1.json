@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-05-10T11:11:04Z",
+  "schema": "stegverse.transition_release_state.v1",
+  "state_id": "transition-release-state-ms011-ms012-candidate-v1",
+  "current_released_milestone": {
+    "id": "MS-011",
+    "formal_label": "MS-011 \u2014 Public Verification Bundle",
+    "status": "released",
+    "release_state": "public_verification_bundle_released",
+    "basis": [
+      "Public verification guide is live.",
+      "Release index exposes public pages and JSON surfaces.",
+      "Milestones, release snapshot, development status, transition table, and research landing link the verification surface."
+    ]
+  },
+  "current_candidate_milestone": {
+    "id": "MS-012",
+    "formal_label": "MS-012 \u2014 Independent Replay Packet",
+    "status": "candidate",
+    "release_state": "candidate_until_transition_replay_check_and_page_contract_check_pass",
+    "basis": [
+      "Replay packet page exists.",
+      "Replay fixture and verifier JSON surfaces exist.",
+      "T13 and T14 are selected for independent replay."
+    ],
+    "required_checks": [
+      {
+        "id": "transition_replay_check",
+        "workflow_name": "Transition Replay Check",
+        "required": true,
+        "accepted_report_globs": [
+          "transition_replay_reports/*.json",
+          "transition-replay-report/*.json",
+          "artifacts/transition-replay-report/*.json"
+        ],
+        "pass_conditions": [
+          "passed == true",
+          "verdict == ALLOW"
+        ]
+      },
+      {
+        "id": "page_contract_check",
+        "workflow_name": "Page Contract Check",
+        "required": true,
+        "accepted_report_globs": [
+          "page_contract_reports/*.json",
+          "page-contract-report/*.json",
+          "artifacts/page-contract-report/*.json"
+        ],
+        "pass_conditions": [
+          "passed == true",
+          "failures == 0"
+        ]
+      }
+    ],
+    "promotion_outputs": [
+      "transition-milestones.html",
+      "transition-release-index.html",
+      "transition-release-snapshot.html",
+      "transition-development-status.html",
+      "data/transition-release-index-v1.json",
+      "data/transition-release-snapshot-v1.json",
+      "data/next-transition-build-candidate-v1.json"
+    ]
+  },
+  "known_public_surfaces": [
+    "transition-periodic-table.html",
+    "transition-table.html",
+    "transition-milestones.html",
+    "transition-development-status.html",
+    "transition-release-snapshot.html",
+    "transition-release-index.html",
+    "transition-verification-guide.html",
+    "transition-replay-packet.html",
+    "data/transition-release-index-v1.json",
+    "data/transition-replay-packet-v1.json",
+    "data/transition-replay-fixtures-v1.json",
+    "data/transition-replay-verifier-v1.json"
+  ],
+  "selector_policy": {
+    "default_when_evidence_missing": "run_required_checks",
+    "default_when_conflict_seen": "halt_for_human_review",
+    "promotion_requires_all_required_checks": true,
+    "allow_promotion_from_chat_or_screenshot": false,
+    "allow_promotion_from_public_page_contract_only": false
+  }
+}
