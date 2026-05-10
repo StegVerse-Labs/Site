@@ -23,7 +23,7 @@ nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bo
 nav div{display:flex;gap:10px;flex-wrap:wrap}
 nav a,.pill{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
 nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
-section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18)}
+section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
 h1{font-size:clamp(2.35rem,7vw,5.6rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
 h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
 h3{font-size:1.2rem;margin:0 0 8px}
@@ -31,10 +31,10 @@ p{color:var(--muted);font-size:1.02rem}
 code{color:#f5fbff;word-break:break-all}
 .btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.stat{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.18)}
-.stat strong{display:block;font-size:1.6rem;letter-spacing:-.04em}
+.stat{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.18);min-width:0}
+.stat strong{display:block;font-size:clamp(1.15rem,7vw,1.6rem);letter-spacing:-.04em;overflow-wrap:anywhere;word-break:break-word;line-height:1.05}
 .timeline{display:grid;gap:14px}
-.milestone{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(67,214,148,.10),rgba(77,163,255,.06)),rgba(0,0,0,.20);padding:18px}
+.milestone{position:relative;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,rgba(67,214,148,.10),rgba(77,163,255,.06)),rgba(0,0,0,.20);padding:18px;min-width:0;overflow:hidden}
 .milestone.latest{border-color:rgba(67,214,148,.62);box-shadow:0 0 0 1px rgba(67,214,148,.18) inset}
 .kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
 .status{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--muted);background:rgba(255,255,255,.04);font-size:.83rem}
@@ -42,7 +42,7 @@ code{color:#f5fbff;word-break:break-all}
 .status.pending{color:var(--gold);border-color:rgba(255,190,84,.35)}
 .small{font-size:.9rem;color:var(--muted)}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
-.meta div{border:1px solid var(--line);border-radius:14px;padding:10px;background:rgba(0,0,0,.16)}
+.meta div{border:1px solid var(--line);border-radius:14px;padding:10px;background:rgba(0,0,0,.16);overflow-wrap:anywhere;word-break:break-word}
 .meta strong{display:block;color:var(--text);font-size:.9rem}
 .reason{border-left:3px solid var(--green);padding-left:12px;margin-top:12px;color:#dbe7f7}
 ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
@@ -221,7 +221,7 @@ function renderTimeline(milestones) {
       <h3>${escapeHTML(m.formalLabel)}</h3>
       <p>${escapeHTML(m.summary)}</p>
       <div class="meta">
-        <div><strong>Unlocked capability</strong>${escapeHTML(m.capability)}</div>
+        <div><strong>Unlocked capability</strong>${escapeHTML(String(m.capability).replaceAll("_", " "))}</div>
         <div><strong>Released by</strong>${escapeHTML((m.releasedBy || []).join(", "))}</div>
       </div>
       <p class="reason"><strong>Unlock reasoning:</strong> ${escapeHTML(m.reasoning)}</p>
@@ -242,7 +242,10 @@ function renderTimeline(milestones) {
   const tested = values.filter(v => Number(v.evidence_level) >= 4).length;
   const receiptBacked = values.filter(v => Number(v.evidence_level) >= 5).length;
 
-  document.getElementById("state").textContent = automation.current_state || "unknown";
+  const rawState = automation.current_state || "unknown";
+  const stateNode = document.getElementById("state");
+  stateNode.textContent = rawState.replaceAll("_", " ");
+  stateNode.title = rawState;
   document.getElementById("verdict").textContent = verifier.verdict || "unknown";
   document.getElementById("receiptBacked").textContent = String(receiptBacked);
   document.getElementById("tested").textContent = String(tested);
