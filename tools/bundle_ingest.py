@@ -11,7 +11,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-
 @dataclass
 class FileDecision:
     bundle_path: str
@@ -22,27 +21,22 @@ class FileDecision:
     new_sha256: str | None
     bytes: int
 
-
 @dataclass
 class PathMapping:
     bundle_path: str
     repo_path: str
     reason: str
 
-
 def now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
-
 def sha_b(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
-
 
 def sha_f(path: Path) -> str | None:
     if not path.exists() or not path.is_file():
         return None
     return sha_b(path.read_bytes())
-
 
 def load(path: Path, default: Any = None) -> Any:
     if not path.exists():
@@ -52,12 +46,10 @@ def load(path: Path, default: Any = None) -> Any:
     except Exception:
         return default
 
-
 def append_jsonl(path: Path, obj: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(obj, sort_keys=True) + "\n")
-
 
 def tree_fp(root: Path) -> str:
     skip = (".git/", "ingestion_reports/", "dependency_reports/", "sandbox_reports/", "__pycache__/")
@@ -68,9 +60,8 @@ def tree_fp(root: Path) -> str:
         rel = path.relative_to(root).as_posix()
         if rel.startswith(skip):
             continue
-        rows.append(f"{sha_f(path)}  {rel}")
+        rows.append(f"{sha_f(path)} {rel}")
     return sha_b("\n".join(rows).encode("utf-8"))
-
 
 def changed_fp(decisions: list[FileDecision]) -> str:
     rows = [
@@ -80,13 +71,11 @@ def changed_fp(decisions: list[FileDecision]) -> str:
     ]
     return sha_b("\n".join(sorted(rows)).encode("utf-8"))
 
-
 def safe_member(name: str) -> bool:
     if not name or name.endswith("/"):
         return False
     p = Path(name)
     return not p.is_absolute() and ".." not in p.parts
-
 
 def artifact_mapping(name: str, policy: dict[str, Any]) -> PathMapping | None:
     clean = name.lstrip("/")
@@ -94,7 +83,6 @@ def artifact_mapping(name: str, policy: dict[str, Any]) -> PathMapping | None:
         if clean == item.get("bundle_path"):
             return PathMapping(clean, str(item["repo_path"]), str(item.get("reason", "known artifact report routed")))
     return None
-
 
 def normalize_path(name: str, policy: dict[str, Any]) -> tuple[str, PathMapping | None]:
     clean = name.lstrip("/")
@@ -106,15 +94,12 @@ def normalize_path(name: str, policy: dict[str, Any]) -> tuple[str, PathMapping 
         return mapped, PathMapping(clean, mapped, "mapped dotless upload-safe workflow path to GitHub Actions workflow path")
     return clean, None
 
-
 def protected(repo_path: str, prefixes: list[str]) -> bool:
     return any(repo_path == p.rstrip("/") or repo_path.startswith(p) for p in prefixes)
-
 
 def inspect_bundle(bundle: Path) -> list[str]:
     with zipfile.ZipFile(bundle, "r") as zf:
         return [name for name in sorted(zf.namelist()) if safe_member(name)]
-
 
 def classify_bundle(bundle: Path) -> dict[str, Any]:
     paths = inspect_bundle(bundle)
@@ -133,28 +118,23 @@ def classify_bundle(bundle: Path) -> dict[str, Any]:
         return {"verdict": "SANDBOX_REQUIRED", "route": "sandbox_queue", "bundle_class": "complex_unmanifested_bundle", "reason": "complex bundle lacks manifest", "mapped_paths": mapped}
     return {"verdict": "ALLOW", "route": "ingest", "bundle_class": "ordinary_bundle", "reason": "ordinary bundle allowed", "mapped_paths": mapped}
 
-
-def copy_with_receipt(root: Path, source: Path, route_dir: str, receipt: dict[str, Any], suffix: str, remove_original: bool = False) -> None:
-    target_dir = root / route_dir
+def emit_receipt_files(target_dir: Path, stem: str, receipt: dict[str, Any]) -> None:
+    """Write JSON and Markdown receipt sidecars for a routed bundle."""
     target_dir.mkdir(parents=True, exist_ok=True)
-    copied = target_dir / source.name
-    if source.resolve() != copied.resolve():
-        shutil.copy2(source, copied)
-
-    base = target_dir / f"{source.stem}.{suffix}"
-    base.with_suffix(".json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
-    md = [
-        f"# Incoming {suffix.replace('-', ' ').title()} Receipt",
+    (target_dir / f"{stem}.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    md_lines = [
+        f"# {stem.replace('-', ' ').title()} Receipt",
         "",
-        f"File: `{source.name}`",
+        f"File: `{receipt.get('bundle_name') or receipt.get('file_name')}`",
         f"Verdict: `{receipt.get('verdict')}`",
         f"Route: `{receipt.get('route')}`",
         f"Reason: {receipt.get('reason')}",
-        f"SHA-256: `{receipt.get('bundle_sha256') or receipt.get('file_sha256')}`",
-        "",
     ]
+    if receipt.get("bundle_sha256") or receipt.get("file_sha256"):
+        md_lines.append(f"SHA-256: `{receipt.get('bundle_sha256') or receipt.get('file_sha256')}`")
     if receipt.get("repo_transition"):
-        md.extend([
+        md_lines.extend([
+            "",
             "## Repo Transition",
             "",
             f"- `before_tree_fingerprint`: `{receipt['repo_transition'].get('before_tree_fingerprint')}`",
@@ -162,11 +142,19 @@ def copy_with_receipt(root: Path, source: Path, route_dir: str, receipt: dict[st
             f"- `changed_files_fingerprint`: `{receipt['repo_transition'].get('changed_files_fingerprint')}`",
             "",
         ])
-    base.with_suffix(".md").write_text("\n".join(md), encoding="utf-8")
+    (target_dir / f"{stem}.md").write_text("\n".join(md_lines), encoding="utf-8")
 
+def route_bundle(root: Path, source: Path, route_dir: str, receipt: dict[str, Any], suffix: str, remove_original: bool = True) -> Path:
+    """Copy bundle to route_dir, emit receipts, optionally remove source."""
+    target_dir = root / route_dir
+    target_dir.mkdir(parents=True, exist_ok=True)
+    copied = target_dir / source.name
+    if source.resolve() != copied.resolve():
+        shutil.copy2(source, copied)
+    emit_receipt_files(target_dir, f"{source.stem}.{suffix}", receipt)
     if remove_original and source.exists() and source.resolve() != copied.resolve():
         source.unlink()
-
+    return copied
 
 def installed_receipt_from_ingestion(source: Path, receipt: dict[str, Any]) -> dict[str, Any]:
     return {
@@ -187,20 +175,18 @@ def installed_receipt_from_ingestion(source: Path, receipt: dict[str, Any]) -> d
         "files_skipped": receipt.get("files_skipped"),
     }
 
-
 def archive_installed_bundle(root: Path, source: Path, policy: dict[str, Any], receipt: dict[str, Any]) -> None:
     if not policy.get("queue", {}).get("archive_installed_bundles", True):
         return
     installed_receipt = installed_receipt_from_ingestion(source, receipt)
-    copy_with_receipt(
+    route_bundle(
         root,
         source,
         policy.get("queue", {}).get("installed_dir", "installed_bundles"),
         installed_receipt,
         "installed",
-        remove_original=bool(policy.get("queue", {}).get("delete_original_after_install_archive", False)),
+        remove_original=True,
     )
-
 
 def seen_status(root: Path, file_sha: str, policy: dict[str, Any]) -> str | None:
     installed_dir = root / policy.get("queue", {}).get("installed_dir", "installed_bundles")
@@ -227,7 +213,6 @@ def seen_status(root: Path, file_sha: str, policy: dict[str, Any]) -> str | None
                 return status
     return None
 
-
 def stale_receipt(path: Path, reason: str, seen_state: str | None = None) -> dict[str, Any]:
     digest = sha_f(path)
     return {
@@ -244,19 +229,17 @@ def stale_receipt(path: Path, reason: str, seen_state: str | None = None) -> dic
         "reason": reason,
     }
 
-
 def quarantine_stale(root: Path, path: Path, policy: dict[str, Any], reason: str, seen_state: str | None = None) -> dict[str, Any]:
     receipt = stale_receipt(path, reason, seen_state)
-    copy_with_receipt(
+    route_bundle(
         root,
         path,
         policy.get("queue", {}).get("failed_dir", "failed_bundles"),
         receipt,
         "stale",
-        remove_original=bool(policy.get("queue", {}).get("delete_original_after_quarantine", False)),
+        remove_original=True,
     )
     return receipt
-
 
 def ingest_one(root: Path, bundle: Path, policy_path: Path, apply: bool, retry_failed: bool = False) -> dict[str, Any]:
     policy = load(policy_path, {})
@@ -270,7 +253,7 @@ def ingest_one(root: Path, bundle: Path, policy_path: Path, apply: bool, retry_f
             seen,
         )
         if apply and policy.get("queue", {}).get("quarantine_already_seen_incoming", True):
-            copy_with_receipt(root, bundle, policy.get("queue", {}).get("failed_dir", "failed_bundles"), receipt, "stale", remove_original=bool(policy.get("queue", {}).get("delete_original_after_quarantine", False)))
+            route_bundle(root, bundle, policy.get("queue", {}).get("failed_dir", "failed_bundles"), receipt, "stale", remove_original=True)
         return {
             "generated_at": receipt["generated_at"],
             "schema": "stegverse.bundle_ingestion_report.v1",
@@ -299,14 +282,14 @@ def ingest_one(root: Path, bundle: Path, policy_path: Path, apply: bool, retry_f
     if gate["verdict"] == "PRIVILEGED_EXECUTOR_REQUIRED":
         receipt = {**base, "decisions": []}
         if apply:
-            copy_with_receipt(root, bundle, policy.get("queue", {}).get("privileged_dir", "privileged_queue"), receipt, "privileged-task")
+            route_bundle(root, bundle, policy.get("queue", {}).get("privileged_dir", "privileged_queue"), receipt, "privileged-task", remove_original=True)
         return {"generated_at": receipt["generated_at"], "schema": "stegverse.bundle_ingestion_report.v1", "bundle": str(bundle), "mode": receipt["mode"], "receipt": receipt, "summary": {"applied": 0, "routed_privileged": 1}}
 
     if gate["verdict"] in {"SANDBOX_REQUIRED", "HUMAN_REVIEW_REQUIRED", "FAIL_CLOSED"}:
         receipt = {**base, "decisions": []}
         route = policy.get("queue", {}).get("sandbox_dir", "sandbox_queue") if gate["verdict"] == "SANDBOX_REQUIRED" else policy.get("queue", {}).get("failed_dir", "failed_bundles")
         if apply:
-            copy_with_receipt(root, bundle, route, receipt, "failure")
+            route_bundle(root, bundle, route, receipt, "failure", remove_original=True)
         return {"generated_at": receipt["generated_at"], "schema": "stegverse.bundle_ingestion_report.v1", "bundle": str(bundle), "mode": receipt["mode"], "receipt": receipt, "summary": {"applied": 0, "routed": route}}
 
     before = tree_fp(root)
@@ -412,7 +395,6 @@ def ingest_one(root: Path, bundle: Path, policy_path: Path, apply: bool, retry_f
         },
     }
 
-
 def write_report(report: dict[str, Any], out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "bundle-ingestion-report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
@@ -438,7 +420,6 @@ def write_report(report: dict[str, Any], out_dir: Path) -> None:
         for row in receipt.get("decisions", []):
             lines.append(f"- `{row.get('action')}` `{row.get('bundle_path')}` → `{row.get('repo_path')}` — {row.get('reason')}")
     (out_dir / "bundle-ingestion-report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-
 
 def process_queue(root: Path, policy_path: Path, apply: bool, retry_failed: bool) -> dict[str, Any]:
     policy = load(policy_path, {})
@@ -473,10 +454,9 @@ def process_queue(root: Path, policy_path: Path, apply: bool, retry_failed: bool
                 "decisions": [],
             }
             if apply:
-                copy_with_receipt(root, path, policy.get("queue", {}).get("failed_dir", "failed_bundles"), receipt, "failure")
+                route_bundle(root, path, policy.get("queue", {}).get("failed_dir", "failed_bundles"), receipt, "failure", remove_original=True)
             reports.append({"generated_at": receipt["generated_at"], "schema": "stegverse.bundle_ingestion_report.v1", "bundle": str(path), "mode": "apply" if apply else "dry_run", "receipt": receipt, "summary": {"failed": 1}})
     return {"generated_at": now(), "schema": "stegverse.bundle_queue_report.v1", "bundles_seen": len(reports), "stale_files_seen": len(stale_receipts), "reports": reports, "stale_receipts": stale_receipts}
-
 
 def write_queue_report(report: dict[str, Any], out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -489,7 +469,6 @@ def write_queue_report(report: dict[str, Any], out_dir: Path) -> None:
         lines.append(f"- `{receipt.get('file_name')}` → `{receipt.get('verdict')}` / `{receipt.get('route')}` — {receipt.get('reason')}")
     (out_dir / "bundle-queue-report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-
 def find_bundle(root: Path, explicit: str | None) -> Path:
     if explicit:
         path = root / explicit
@@ -500,7 +479,6 @@ def find_bundle(root: Path, explicit: str | None) -> Path:
     if not bundles:
         raise SystemExit("No bundle found. Commit a .zip file under incoming/ or pass --bundle.")
     return bundles[0]
-
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -525,11 +503,20 @@ def main() -> int:
         print(json.dumps({"bundles_seen": queue_report["bundles_seen"], "stale_files_seen": queue_report.get("stale_files_seen", 0)}, indent=2))
         return 0
 
-    report = ingest_one(root, find_bundle(root, args.bundle), policy_path, args.apply, args.retry_failed)
-    write_report(report, out_dir)
-    print(json.dumps(report.get("summary", {}), indent=2))
-    return 0
+    # explicit --bundle mode: ingest exactly that bundle, do NOT scan incoming/
+    if args.bundle:
+        report = ingest_one(root, find_bundle(root, args.bundle), policy_path, args.apply, args.retry_failed)
+        write_report(report, out_dir)
+        print(json.dumps(report.get("summary", {}), indent=2))
+        return 0
 
+    # missing --bundle: process all incoming/*.zip once, then exit
+    queue_report = process_queue(root, policy_path, args.apply, args.retry_failed)
+    write_queue_report(queue_report, out_dir)
+    if queue_report["reports"]:
+        write_report(queue_report["reports"][-1], out_dir)
+    print(json.dumps({"bundles_seen": queue_report["bundles_seen"], "stale_files_seen": queue_report.get("stale_files_seen", 0)}, indent=2))
+    return 0
 
 if __name__ == "__main__":
     raise SystemExit(main())
