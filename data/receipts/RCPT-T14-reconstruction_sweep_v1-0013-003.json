@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T14-reconstruction_sweep_v1-0013-003",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T02:22:17Z",
+  "created_at": "2026-05-10T02:22:28Z",
   "run_id": "T14-reconstruction_sweep_v1-0013",
   "ledger_row_id": "T14-reconstruction_sweep_v1-0013-003",
   "element_id": "T14",
@@ -166,5 +166,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:a5fcc977cbd08e6fe92a443540eb67b84b4a1638ac6dd3a85e90117e093d944c"
+  "receipt_hash": "sha256:39ee4afd579c2d10c1c15131e94583a67580296393c0d4ea1105b9ec5978fc0f"
 }
