@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # Every 30 minutes during the day; adjust as you like
-    - cron: "*/30 * * * *"
+    # - cron: "*/30 * * * *"
 
 permissions:
   contents: write
