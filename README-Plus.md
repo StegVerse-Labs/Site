@@ -1,4 +1,4 @@
-# Site Bundle Ingestion Engine v1
+# MS-012C Ingestion Receipt Boundary v1
 
 Upload-safe bundle. No leading-dot paths are included.
 
@@ -6,9 +6,12 @@ Upload-safe bundle. No leading-dot paths are included.
 
 | File | Version | Purpose |
 |---|---:|---|
-| `tools/bundle_ingest.py` | v1 | Reads a ZIP bundle, maps paths, compares hashes, applies changed files, writes reports. |
-| `data/bundle-ingestion-policy-v1.json` | v1 | Defines ingestion policy, protected paths, and dotless workflow path mapping. |
-| `github/workflows/ingest-bundle.yml` | v1 | GitHub Actions workflow for ingesting bundles. |
+| `tools/bundle_ingest.py` | v2 | Ingests bundles, fingerprints proposed repo transitions, writes receipts, appends ledger, updates fingerprint index. |
+| `data/bundle-ingestion-policy-v1.json` | v2 | Defines ingestion policy, protected paths, dotless workflow mapping, and receipt outputs. |
+| `data/latest-bundle-ingestion-receipt-v1.json` | v1 | Latest ingestion receipt placeholder until first run. |
+| `data/bundle-ingestion-ledger-v1.jsonl` | v1 | Append-only ingestion ledger. |
+| `data/bundle-fingerprint-index-v1.json` | v1 | Bundle fingerprint index. |
+| `github/workflows/ingest-bundle.yml` | v2 | Runs the ingestion boundary and commits receipt-backed ingested changes. |
 | `incoming/README.md` | v1 | Explains where upload bundles go. |
 
 ## Important workflow path note
@@ -25,62 +28,33 @@ For GitHub Actions to recognize it, the file must ultimately live at:
 .github/workflows/ingest-bundle.yml
 ```
 
-The ingestion engine itself maps future bundle paths from:
+## What this creates
+
+This is the first ingestion/fingerprinting boundary for autonomous StegVerse construction.
+
+A future bundle becomes a proposed repo-state transition:
 
 ```text
-github/workflows/
-```
-
-to:
-
-```text
-.github/workflows/
-```
-
-## What this solves
-
-Instead of manually comparing bundle contents, you upload a ZIP bundle to:
-
-```text
-incoming/
-```
-
-Then run:
-
-```text
-Actions → Ingest Bundle
-```
-
-The workflow:
-
-```text
-1. Finds the newest incoming/*.zip bundle, unless a specific path is supplied.
-2. Reads all files in the bundle.
-3. Skips unsafe paths.
-4. Maps dotless workflow paths to .github/workflows paths.
-5. Compares target files by SHA-256.
-6. Applies only missing or changed files.
-7. Writes bundle-ingestion-report.json and bundle-ingestion-report.md.
-8. Commits the ingested changes.
+bundle enters
+paths normalized
+workflow paths mapped
+bundle hash computed
+file hashes compared
+changed files applied
+receipt produced
+ledger appended
+fingerprint index updated
+commit made
 ```
 
 ## Done check
 
 ```text
 1. Upload these ingestion-engine files.
-2. Ensure github/workflows/ingest-bundle.yml is placed in GitHub at .github/workflows/ingest-bundle.yml.
+2. Put github/workflows/ingest-bundle.yml at .github/workflows/ingest-bundle.yml.
 3. Commit.
 4. Confirm Actions shows Ingest Bundle.
-5. Place any future bundle under incoming/.
+5. Place a future bundle under incoming/.
 6. Run Actions → Ingest Bundle.
 7. Download bundle-ingestion-report.
-```
-
-## Safety
-
-```text
-No files are deleted.
-Root README.md inside an uploaded bundle is treated as bundle documentation and is not applied to repo root.
-Unsafe absolute paths and parent traversal paths are skipped.
-Protected workflow path for the ingestor itself is skipped.
 ```
