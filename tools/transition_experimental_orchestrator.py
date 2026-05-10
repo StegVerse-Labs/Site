@@ -89,6 +89,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "multi_agent_composition"
         elif mode == "conflict_sweep_v1":
             row_payload["tested_property"] = "conflict_resolution"
+        elif mode == "consensus_sweep_v1":
+            row_payload["tested_property"] = "validator_consensus"
         else:
             row_payload["tested_property"] = mode
 
@@ -114,7 +116,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1", "conflict_sweep_v1", "consensus_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -774,6 +776,114 @@ def t11(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic conflict resolution sweep passed", "bad": []}
 
 
+def t12(run_id: str):
+    samples = [
+        {
+            "canonical_state": {"g": .68, "c": .62, "a": .18, "t": .80},
+            "proposal_action": {"dg": 0, "dc": 0, "da": .02, "dt": 0},
+            "validator_drifts": [
+                {"validator": "v1", "drift": {"dg": 0, "dc": 0, "da": 0, "dt": 0}},
+                {"validator": "v2", "drift": {"dg": -.01, "dc": 0, "da": .005, "dt": -.02}},
+                {"validator": "v3", "drift": {"dg": 0, "dc": -.01, "da": 0, "dt": -.01}},
+            ],
+            "quorum_threshold": 2,
+        },
+        {
+            "canonical_state": {"g": .58, "c": .58, "a": .17, "t": .78},
+            "proposal_action": {"dg": 0, "dc": 0, "da": .025, "dt": 0},
+            "validator_drifts": [
+                {"validator": "v1", "drift": {"dg": 0, "dc": 0, "da": 0, "dt": 0}},
+                {"validator": "v2", "drift": {"dg": -.03, "dc": -.02, "da": .02, "dt": -.05}},
+                {"validator": "v3", "drift": {"dg": -.04, "dc": -.03, "da": .02, "dt": -.06}},
+            ],
+            "quorum_threshold": 2,
+        },
+        {
+            "canonical_state": {"g": .72, "c": .54, "a": .15, "t": .76},
+            "proposal_action": {"dg": 0, "dc": 0, "da": .02, "dt": 0},
+            "validator_drifts": [
+                {"validator": "v1", "drift": {"dg": 0, "dc": 0, "da": 0, "dt": 0}},
+                {"validator": "v2", "drift": {"dg": -.02, "dc": -.01, "da": .01, "dt": -.03}},
+                {"validator": "v3", "drift": {"dg": -.06, "dc": -.04, "da": .03, "dt": -.08}},
+            ],
+            "quorum_threshold": 2,
+        },
+    ]
+
+    rows = []
+    consensus_flips = 0
+    quorum_passes = 0
+
+    for i, sample in enumerate(samples, 1):
+        canonical_state = sample["canonical_state"]
+        proposal_action = sample["proposal_action"]
+        validator_drifts = sample["validator_drifts"]
+        threshold = sample["quorum_threshold"]
+
+        canonical_post_state = post(canonical_state, proposal_action)
+        canonical_verdict = verdict_for(canonical_post_state)
+
+        validator_results = []
+        for entry in validator_drifts:
+            validator_state = state_add(canonical_state, entry["drift"])
+            validator_post_state = post(validator_state, proposal_action)
+            validator_results.append({
+                "validator": entry["validator"],
+                "drift": entry["drift"],
+                "validator_state": validator_state,
+                "validator_post_state": validator_post_state,
+                "invariant": invariant(validator_post_state),
+                "verdict": verdict_for(validator_post_state),
+            })
+
+        allow_votes = sum(1 for result in validator_results if result["verdict"] == "ALLOW")
+        deny_votes = len(validator_results) - allow_votes
+        quorum_result = "ALLOW" if allow_votes >= threshold else "DENY"
+        consensus_flip = quorum_result != canonical_verdict
+        consensus_flips += int(consensus_flip)
+        quorum_passes += int(quorum_result == "ALLOW")
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T12",
+            "mode": "consensus_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "validator_consensus",
+            "canonical_state": canonical_state,
+            "proposal_action": proposal_action,
+            "canonical_post_state": canonical_post_state,
+            "validator_results": validator_results,
+            "validator_verdicts": [result["verdict"] for result in validator_results],
+            "allow_votes": allow_votes,
+            "deny_votes": deny_votes,
+            "quorum_threshold": threshold,
+            "quorum_result": quorum_result,
+            "canonical_verdict": canonical_verdict,
+            "consensus_flip": consensus_flip,
+            "post_state": canonical_post_state,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "quorum_threshold": threshold, "validator_count": len(validator_results)},
+            "invariant": invariant(canonical_post_state),
+            "verdict": quorum_result,
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-consensus",
+        "source_run_id": run_id,
+        "source_element": "T12",
+        "delta_type": "consensus_fragment",
+        "summary": f"Consensus sweep found {consensus_flips} consensus flip(s) between validator quorum and canonical admissibility, with {quorum_passes} quorum allow outcome(s).",
+        "informs": ["T12", "T13", "T14"],
+        "confidence": .82,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic validator consensus sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -785,6 +895,7 @@ EXPERIMENTS = {
     "two_state_coupling_sweep_v1": t9,
     "multi_agent_sweep_v1": t10,
     "conflict_sweep_v1": t11,
+    "consensus_sweep_v1": t12,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -795,6 +906,7 @@ FALLBACK_EXPERIMENTS = {
     "T9": ["two_state_coupling_sweep_v1"],
     "T10": ["multi_agent_sweep_v1"],
     "T11": ["conflict_sweep_v1"],
+    "T12": ["consensus_sweep_v1"],
 }
 
 
@@ -810,6 +922,7 @@ RULE_DEFS = [
     ("two_state_coupling_required", "T9", 4, "Coupled sandboxes may model disturbance from one transition state into another."),
     ("multi_agent_composition_required", "T10", 4, "Coupled sandboxes may compare individually admissible actions against aggregate admissibility."),
     ("conflict_resolution_required", "T11", 4, "Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy."),
+    ("validator_consensus_required", "T12", 4, "Coupled sandboxes may compare validator quorum against canonical admissibility."),
 ]
 
 
@@ -936,6 +1049,8 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "verdict_a", "verdict_b", "combined_verdict", "resolved_verdict",
         "conflict_score", "conflict_detected", "conflict_flip", "resolution_policy",
         "combined_invariant", "resolved_invariant",
+        "allow_votes", "deny_votes", "quorum_threshold", "quorum_result",
+        "canonical_verdict", "consensus_flip",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -989,6 +1104,11 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "selected_action": row_payload.get("selected_action"),
         "rejected_action": row_payload.get("rejected_action"),
         "resolved_post_state": row_payload.get("resolved_post_state"),
+        "canonical_state": row_payload.get("canonical_state"),
+        "proposal_action": row_payload.get("proposal_action"),
+        "canonical_post_state": row_payload.get("canonical_post_state"),
+        "validator_results": row_payload.get("validator_results"),
+        "validator_verdicts": row_payload.get("validator_verdicts"),
         "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
         "trust_decayed_state": row_payload.get("trust_decayed_state"),
         "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
@@ -1045,6 +1165,8 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "conflict_detected": receipt["computed"].get("conflict_detected"),
             "conflict_flip": receipt["computed"].get("conflict_flip"),
             "resolution_policy": receipt["computed"].get("resolution_policy"),
+            "consensus_flip": receipt["computed"].get("consensus_flip"),
+            "quorum_result": receipt["computed"].get("quorum_result"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
