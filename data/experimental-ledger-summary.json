@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T03:07:27Z",
+  "generated_at": "2026-05-10T04:22:47Z",
   "schema": "stegverse.experimental_ledger_summary.v1",
   "display_order": "newest_first",
   "recent_runs": [
@@ -94,7 +94,7 @@
       "constraint_result": "PASS",
       "invariant": null,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:e8dc83f43ec4f7217cc7544874a5f258b514b175fd64cd729ec7c2c13e771e08"
+      "receipt_hash": "sha256:6a05d5643af6985c3c3e2c8703a4c942dcdb7e5dae949b7945722d22541a6894"
     },
     {
       "timestamp": "2026-05-10T02:02:28Z",
@@ -105,7 +105,7 @@
       "constraint_result": "FAIL",
       "invariant": null,
       "verdict": "DENY",
-      "receipt_hash": "sha256:e7523784e6f4ac355f332bf77cd4f67d69ecaed0867648df17f0446f2be652e6"
+      "receipt_hash": "sha256:5f2de80634bba5360b46382be541dfc88fefe947da5543df97b9da0d57d5f0e5"
     },
     {
       "timestamp": "2026-05-10T02:02:28Z",
@@ -116,7 +116,7 @@
       "constraint_result": "PASS",
       "invariant": null,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:7f05c190f070cb4bb1cd3d3f4741557665c466ffcfad372f80d79f097a90e436"
+      "receipt_hash": "sha256:4ecac84493ff23d8dc09402e8a160991b3fb8be89697c348c871f675b6a6f178"
     },
     {
       "timestamp": "2026-05-10T01:54:10Z",
@@ -127,7 +127,7 @@
       "constraint_result": "PASS",
       "invariant": 0.0296,
       "verdict": "DENY",
-      "receipt_hash": "sha256:4a549831dd1297cb6da33fc2805e97d287f50e850477039b369e88f7d213321c"
+      "receipt_hash": "sha256:e27b1f2399ea5f04274f50ceb055def2deca60d61280d74414e72fb20884a28d"
     },
     {
       "timestamp": "2026-05-10T01:54:10Z",
@@ -138,7 +138,7 @@
       "constraint_result": "PASS",
       "invariant": -0.2733,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:8fdff9b3f8b05cc9206a7fdb94bc7f02a0e9c81462f3561c08a68e1aa8c024fa"
+      "receipt_hash": "sha256:60f715b035e7c98ce205c9d108b997f10270250d9597df149b2df49bec9e1f26"
     },
     {
       "timestamp": "2026-05-10T01:54:10Z",
@@ -149,7 +149,7 @@
       "constraint_result": "PASS",
       "invariant": -0.08598,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:1a47b2b12303694a398fe19a22208db184c078fd0eda6fc8ed50765b45e711d4"
+      "receipt_hash": "sha256:2caf59bde734c974b5e22efdb8c9bb09c8388f8d8c1fb929e618549175585f3b"
     },
     {
       "timestamp": "2026-05-10T01:48:33Z",
@@ -160,7 +160,7 @@
       "constraint_result": "PASS",
       "invariant": -0.11263,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:b7f2c295fdc308879a87b49c0e48c70205538c6e4ead3a6bb1c8c09a9c6adf54"
+      "receipt_hash": "sha256:b5f3079d789047c2253ef84c5906e7b87f8a468fafeb5f9a06dc245abcf7bd62"
     },
     {
       "timestamp": "2026-05-10T01:48:33Z",
@@ -171,7 +171,7 @@
       "constraint_result": "PASS",
       "invariant": -0.13709,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:ec3c8c260c236a0c0acd9dd299f6ccb3067d41a45f2ed15bac8f04ba8a1f71a6"
+      "receipt_hash": "sha256:9aa654e4091ffa46f11197939c2893aff5e457e82e59779e80a0acab974f00aa"
     },
     {
       "timestamp": "2026-05-10T01:48:33Z",
@@ -182,7 +182,7 @@
       "constraint_result": "PASS",
       "invariant": -0.15686,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:44f5795e8675ff145a030de540cb26061d617d9083fbd197787d8a76b35c286a"
+      "receipt_hash": "sha256:c8e96ded229e397feb2f41e50e7ea4fa5168d303e20fe496dae3cf15408505eb"
     },
     {
       "timestamp": "2026-05-10T01:43:15Z",
@@ -193,7 +193,7 @@
       "constraint_result": "PASS",
       "invariant": -0.11263,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:9295218d2b37d2fdde3d7260d4b61f8855feebfb31b02daf3be75d151ec75086"
+      "receipt_hash": "sha256:c08bbc96fa461e77496140f8054e658b690aaeb3d4f6e8f8a5d4780dfe2db1cc"
     },
     {
       "timestamp": "2026-05-10T01:43:15Z",
@@ -204,7 +204,7 @@
       "constraint_result": "PASS",
       "invariant": -0.13709,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:d5fd4b4cf6cd910e2c4de2f34b59bac09a3813e613037f9fafe683c3b2fd6b6f"
+      "receipt_hash": "sha256:fe97b9340b6983826db2ec31eefd91fdf02092fd7a30e04f6920320f34f70347"
     },
     {
       "timestamp": "2026-05-10T01:43:15Z",
@@ -215,7 +215,7 @@
       "constraint_result": "PASS",
       "invariant": -0.15686,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:240f430362170e62a7ace8d71d5c75a07f6c0084eb8a481d6346681872ebfc06"
+      "receipt_hash": "sha256:b8b00fbd0bc57d01f20a966a0f5e1ee6d88714bcaa0d3a835f638c4f813adfef"
     },
     {
       "timestamp": "2026-05-10T01:08:21Z",
@@ -226,7 +226,7 @@
       "constraint_result": "PASS",
       "invariant": -0.12549,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:58721e5ebfef400ed894659f7650445bdec034d9d54099b6724bc05cbaf09697"
+      "receipt_hash": "sha256:3f93a76fb3bc87c53e1eebf73037f56e070c3b3d0379286ce81daf1c7177bd37"
     },
     {
       "timestamp": "2026-05-10T01:08:21Z",
@@ -237,7 +237,7 @@
       "constraint_result": "PASS",
       "invariant": -0.06739,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:64a41629ac2b2796fcafe9b05064e6e590d7a0f7a900f1f2b33337c232147318"
+      "receipt_hash": "sha256:1732a8e979ab46e49105204171ce546c754e78cfa7da67160e20c39891718e71"
     },
     {
       "timestamp": "2026-05-10T01:08:21Z",
@@ -248,7 +248,7 @@
       "constraint_result": "PASS",
       "invariant": -0.13728,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:04df17a35289dcfa30c1b47cdb4160c3cff8a2b3f4bb6e684d95df7ee51d2f7d"
+      "receipt_hash": "sha256:075d42d27d4e86c128f15354f0402b362a8c055a23a7467bf2b280f8c107cb3b"
     },
     {
       "timestamp": "2026-05-10T00:59:44Z",
@@ -259,7 +259,7 @@
       "constraint_result": "PASS",
       "invariant": -0.0273,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:4b5595953dca9be353b2db697b69e9b78dd0e48a9c14e1299ffb40b1b9177517"
+      "receipt_hash": "sha256:bef5dcc4dd4ec98b64321a5fd81db9c44e5e9f73fe838a3465210a21496e56ae"
     },
     {
       "timestamp": "2026-05-10T00:59:44Z",
@@ -270,7 +270,7 @@
       "constraint_result": "PASS",
       "invariant": -0.1735,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:1919816a91f3bbc90f4027257a57bef7acb3ab531b2bd735b9a264867932666b"
+      "receipt_hash": "sha256:239e53de69a13c1971ee28c4a92d40a38395f5d47bb83a61b653e22d11b19c86"
     },
     {
       "timestamp": "2026-05-10T00:59:44Z",
@@ -281,7 +281,7 @@
       "constraint_result": "PASS",
       "invariant": -0.06684,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:5aaaefbe5d8f3d1c6644b75e8ae5c90fc228f1b53b6890c67f0fc509057065c8"
+      "receipt_hash": "sha256:8c3efe620db6a86e436d46e9b18641a14bead8ff4cda5e10f67f137614b1ad3c"
     },
     {
       "timestamp": "2026-05-10T00:46:16Z",
@@ -292,7 +292,7 @@
       "constraint_result": "PASS",
       "invariant": -0.01517,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:1b535a788e4efea73f27fb1810b42ed23343050e81ae78a8cf022de46917b455"
+      "receipt_hash": "sha256:973b8c7fcd66c9d0f24166107b8f84744a437eb2af35f58916b77697766f8206"
     },
     {
       "timestamp": "2026-05-10T00:46:16Z",
@@ -303,7 +303,7 @@
       "constraint_result": "PASS",
       "invariant": -0.08448,
       "verdict": "ALLOW",
-      "receipt_hash": "sha256:e59d497b7c09282f3071ae370d5b762417efda666e4dc47a10b5e3241c342ba0"
+      "receipt_hash": "sha256:f6787b93f948195c7669401fba7de49b83bb25431866ed3fd78da491eda309db"
     }
   ],
   "verifier_events": []

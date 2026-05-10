@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T03:07:27Z",
+  "generated_at": "2026-05-10T04:22:47Z",
   "schema": "stegverse.transition_receipt_index.v1",
   "receipts": [
     {
@@ -32,7 +32,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:4fa36f320c711b2da54489a96c4f25d57cee7042e8b7173346ba240ad55e0eab",
+      "receipt_hash": "sha256:1adb1e5063e586c35947c6d4f7be107fdd1c2ffd8bd9c272b3f798dbefdd2f23",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-001.json",
       "replay_status": "replayable"
     },
@@ -66,7 +66,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:17d04f7f91a6c893901c5f7e22ed49e7797bdd81bae8808d3316a47069021d44",
+      "receipt_hash": "sha256:98abe2143a5afca459e4a383a84bab7b43c80791fe003daf641be025214df59a",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-002.json",
       "replay_status": "replayable"
     },
@@ -100,7 +100,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:dda4e7d78edfd02801f72efd53ca76922d33540aa12fd98c8eb054e86d3655af",
+      "receipt_hash": "sha256:d71bf7c5e1e152d625d6295e31379cd1ab9aee93cf73073f7281aafefb6317bb",
       "path": "data/receipts/RCPT-T3-bounded_action_sweep_v1-0001-003.json",
       "replay_status": "replayable"
     },
@@ -134,7 +134,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:e03ffa517eac963cf9a005ca69048e5d9e9bb91f6323907b00ab0497479cd9c0",
+      "receipt_hash": "sha256:699c137d96e8672735c87831b58f087c348470c44142e0bf5db1d4e22c31f933",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-001.json",
       "replay_status": "replayable"
     },
@@ -168,7 +168,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:701d47d58c79a63dc8c05cfd78e1a0c261044006d4763a9f12ed4fdd18778d7b",
+      "receipt_hash": "sha256:4bdc7117e0a3b9783993cfd7733d12752bb46d22f5d37193c997637c5f927547",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-002.json",
       "replay_status": "replayable"
     },
@@ -202,7 +202,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:8921d9a94465ddbda1f9b3f48ec950fc51d5d27dfa1769554e3e18506e31a97e",
+      "receipt_hash": "sha256:dce731c246e1f4231d3e5184f509a9b45257e2dec7adcbf9ac845011ed4be8d8",
       "path": "data/receipts/RCPT-T2-simplex_conservation_sweep_v1-0002-003.json",
       "replay_status": "replayable"
     },
@@ -236,7 +236,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:48b593afaa3715fbcbb004b53d323435ee9bc89933172961251326b58a3a720f",
+      "receipt_hash": "sha256:907cea026c89714d0105ed36a11715b4a81eb53a27394238a8182b05090aa071",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-001.json",
       "replay_status": "replayable"
     },
@@ -270,7 +270,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:51b7806991a57ca32202b8b8234fd9fd1832cf7599aef38be30a4647bce3b99a",
+      "receipt_hash": "sha256:2ccf4b225fa72ffd497999ec03f92e1f1a86ccdde48fa92377983dd6cb28c1db",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-002.json",
       "replay_status": "replayable"
     },
@@ -304,7 +304,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:ed57bea7ea0e99d19759a05e4f0b81d97d43826b6b5de426510687a702a274a3",
+      "receipt_hash": "sha256:b363f071725e1882af62e31b65e7a2cda01fede077b5acc1b18ae95fcaed734c",
       "path": "data/receipts/RCPT-T4-capacity_margin_sweep_v1-0003-003.json",
       "replay_status": "replayable"
     },
@@ -338,7 +338,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:161f2f744efdd85e71e2f0d00d573a1a89b098498e89157d56bdcec76cd947e6",
+      "receipt_hash": "sha256:0b265387121fa413dccbc82aaec284cc0ae8263f0e7455f4e4b05f3e6a242661",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-001.json",
       "replay_status": "replayable"
     },
@@ -372,7 +372,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:2f4e562b0971594930097bab9d4a5790eb5bd1d150f6c6a62c6270200218ea63",
+      "receipt_hash": "sha256:b0103c90871c014edbdba46115aa3f26f49ecb209b57c230a76eadce523862d7",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-002.json",
       "replay_status": "replayable"
     },
@@ -406,7 +406,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:590dc154a23e550e1fe23dde5c8d38d4ced76641e418c0af36e33215b47eda45",
+      "receipt_hash": "sha256:f67301b6a7eafa0e5fc4c67f3f88b4a6b8d12f54473dd26e242398d543424b5a",
       "path": "data/receipts/RCPT-T5-observation_lag_sweep_v1-0004-003.json",
       "replay_status": "replayable"
     },
@@ -440,7 +440,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:58630a431d3e81b9e0729db4982f95f823a18e3d463e956adef9e5bbff3c9095",
+      "receipt_hash": "sha256:996bd88b651c2d6b8a9ff4451ac701e9f60ea2e24d6a91076fc01b226d1cda64",
       "path": "data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-001.json",
       "replay_status": "replayable"
     },
@@ -474,7 +474,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:a81285d8ff9f0f5aae9f471ba2c44f6946aedb8de5c2471aa84c57227714fe4e",
+      "receipt_hash": "sha256:a9fb416a36f02dbf83b3f3d6413890f3732b28e305fee9849abd46662dd2ac2c",
       "path": "data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-002.json",
       "replay_status": "replayable"
     },
@@ -508,7 +508,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:bc20cd26e917db8305a4a1ed5ef2b23db805fadc39740ff19943d2b51ddcd2c7",
+      "receipt_hash": "sha256:81e30ea7e1c41a30ce6f6a20eb12d38a1b43ecd0eed4d2868a343b9157574133",
       "path": "data/receipts/RCPT-T6-decision_lag_sweep_v1-0005-003.json",
       "replay_status": "replayable"
     },
@@ -542,7 +542,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:2837f5261484135f195d4b4740771cf1861c54063b8f7d824f5d62762aaa0c30",
+      "receipt_hash": "sha256:680fa7c4409935fe503c560f9b4c044cb573f390e2600640dbd7e02b4ac8abbc",
       "path": "data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-001.json",
       "replay_status": "replayable"
     },
@@ -576,7 +576,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:f8dddf0655e40a05843cb9f7378e60eb21a47b11639892343d7725f67c9ce648",
+      "receipt_hash": "sha256:2272a0b73847a9a34ed59686cf761318fe57e9bb525d9d7dd77e60efff00ab8e",
       "path": "data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-002.json",
       "replay_status": "replayable"
     },
@@ -610,7 +610,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:cafe68ac93e710c4a3de539c1952d4be88ab0288caa16f7fdd5c69f3213d0fc4",
+      "receipt_hash": "sha256:424e1416ba480b06c1a3b91b1c724623a1281c8008b937f8f2007e62fb534b3a",
       "path": "data/receipts/RCPT-T7-actuation_lag_sweep_v1-0006-003.json",
       "replay_status": "replayable"
     },
@@ -644,7 +644,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:db682bfad5b0c3e369e172f6ca54b18acdd84a185a015b0fa9c5d393d979688f",
+      "receipt_hash": "sha256:46656359d38a09abc49d35379672cfa24ba9d3722ef567f377e76d88a53f3d8f",
       "path": "data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-001.json",
       "replay_status": "replayable"
     },
@@ -678,7 +678,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:7782a84ff9d9021a2339c1590cfd4da3ef60a5d8efec12e0db5d2750d76137d5",
+      "receipt_hash": "sha256:f749317107bc880cad73658a7c0fc62863e803ec4b458c039de4a28bfce82e8a",
       "path": "data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-002.json",
       "replay_status": "replayable"
     },
@@ -712,7 +712,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:55bc6f7f2ea807ae60e6a55c7dd521537685fc24efe348564096a897d201026f",
+      "receipt_hash": "sha256:51247a58f9419ee2aa699b14c26e0c665da5141aec074f9dbd3b021ca79eb53d",
       "path": "data/receipts/RCPT-T8-trust_drift_sweep_v1-0007-003.json",
       "replay_status": "replayable"
     },
@@ -746,7 +746,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:06b2a7f809966e4b137226d745024e5c737222a8eb7ec34d2e1d26414f7eaf21",
+      "receipt_hash": "sha256:bfae7639a58f298e588c992924a18dca8459c1107d57051e26897e22608a246a",
       "path": "data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-001.json",
       "replay_status": "replayable"
     },
@@ -780,7 +780,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:d0d7b39877176efa2b1fc2779f3f97248446c380c733726fe7edd89639dee378",
+      "receipt_hash": "sha256:65195c639c0210c475f8fdc070babf8e134547a4b5e4ee0ac14d0db458120df4",
       "path": "data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-002.json",
       "replay_status": "replayable"
     },
@@ -814,7 +814,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:8a48b7c47113a1f553021279907343d68755498281eabc5d5b518faa01e46dcf",
+      "receipt_hash": "sha256:c0d7de97cdf3de230ba51d9a2663d37ff62a16fe5793685692bbe0ff445c4e76",
       "path": "data/receipts/RCPT-T9-two_state_coupling_sweep_v1-0008-003.json",
       "replay_status": "replayable"
     },
@@ -848,7 +848,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:eb50c5b2329b23684875f3cc02db61bcc9426f87419d507ca90b9c01b28132e0",
+      "receipt_hash": "sha256:d36c64028ec613abe3d6ccbe5865bf650641751a1935511baf3eb6fc8c2a1c04",
       "path": "data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-001.json",
       "replay_status": "replayable"
     },
@@ -882,7 +882,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:e59d497b7c09282f3071ae370d5b762417efda666e4dc47a10b5e3241c342ba0",
+      "receipt_hash": "sha256:f6787b93f948195c7669401fba7de49b83bb25431866ed3fd78da491eda309db",
       "path": "data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-002.json",
       "replay_status": "replayable"
     },
@@ -916,7 +916,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:1b535a788e4efea73f27fb1810b42ed23343050e81ae78a8cf022de46917b455",
+      "receipt_hash": "sha256:973b8c7fcd66c9d0f24166107b8f84744a437eb2af35f58916b77697766f8206",
       "path": "data/receipts/RCPT-T10-multi_agent_sweep_v1-0009-003.json",
       "replay_status": "replayable"
     },
@@ -950,7 +950,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:5aaaefbe5d8f3d1c6644b75e8ae5c90fc228f1b53b6890c67f0fc509057065c8",
+      "receipt_hash": "sha256:8c3efe620db6a86e436d46e9b18641a14bead8ff4cda5e10f67f137614b1ad3c",
       "path": "data/receipts/RCPT-T11-conflict_sweep_v1-0010-001.json",
       "replay_status": "replayable"
     },
@@ -984,7 +984,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:1919816a91f3bbc90f4027257a57bef7acb3ab531b2bd735b9a264867932666b",
+      "receipt_hash": "sha256:239e53de69a13c1971ee28c4a92d40a38395f5d47bb83a61b653e22d11b19c86",
       "path": "data/receipts/RCPT-T11-conflict_sweep_v1-0010-002.json",
       "replay_status": "replayable"
     },
@@ -1018,7 +1018,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:4b5595953dca9be353b2db697b69e9b78dd0e48a9c14e1299ffb40b1b9177517",
+      "receipt_hash": "sha256:bef5dcc4dd4ec98b64321a5fd81db9c44e5e9f73fe838a3465210a21496e56ae",
       "path": "data/receipts/RCPT-T11-conflict_sweep_v1-0010-003.json",
       "replay_status": "replayable"
     },
@@ -1052,7 +1052,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:04df17a35289dcfa30c1b47cdb4160c3cff8a2b3f4bb6e684d95df7ee51d2f7d",
+      "receipt_hash": "sha256:075d42d27d4e86c128f15354f0402b362a8c055a23a7467bf2b280f8c107cb3b",
       "path": "data/receipts/RCPT-T12-consensus_sweep_v1-0011-001.json",
       "replay_status": "replayable"
     },
@@ -1086,7 +1086,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:64a41629ac2b2796fcafe9b05064e6e590d7a0f7a900f1f2b33337c232147318",
+      "receipt_hash": "sha256:1732a8e979ab46e49105204171ce546c754e78cfa7da67160e20c39891718e71",
       "path": "data/receipts/RCPT-T12-consensus_sweep_v1-0011-002.json",
       "replay_status": "replayable"
     },
@@ -1120,7 +1120,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:58721e5ebfef400ed894659f7650445bdec034d9d54099b6724bc05cbaf09697",
+      "receipt_hash": "sha256:3f93a76fb3bc87c53e1eebf73037f56e070c3b3d0379286ce81daf1c7177bd37",
       "path": "data/receipts/RCPT-T12-consensus_sweep_v1-0011-003.json",
       "replay_status": "replayable"
     },
@@ -1154,7 +1154,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:240f430362170e62a7ace8d71d5c75a07f6c0084eb8a481d6346681872ebfc06",
+      "receipt_hash": "sha256:b8b00fbd0bc57d01f20a966a0f5e1ee6d88714bcaa0d3a835f638c4f813adfef",
       "path": "data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-001.json",
       "replay_status": "replayable"
     },
@@ -1188,7 +1188,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:d5fd4b4cf6cd910e2c4de2f34b59bac09a3813e613037f9fafe683c3b2fd6b6f",
+      "receipt_hash": "sha256:fe97b9340b6983826db2ec31eefd91fdf02092fd7a30e04f6920320f34f70347",
       "path": "data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-002.json",
       "replay_status": "replayable"
     },
@@ -1222,7 +1222,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:9295218d2b37d2fdde3d7260d4b61f8855feebfb31b02daf3be75d151ec75086",
+      "receipt_hash": "sha256:c08bbc96fa461e77496140f8054e658b690aaeb3d4f6e8f8a5d4780dfe2db1cc",
       "path": "data/receipts/RCPT-T13-receipt_bound_sweep_v1-0012-003.json",
       "replay_status": "replayable"
     },
@@ -1256,7 +1256,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:44f5795e8675ff145a030de540cb26061d617d9083fbd197787d8a76b35c286a",
+      "receipt_hash": "sha256:c8e96ded229e397feb2f41e50e7ea4fa5168d303e20fe496dae3cf15408505eb",
       "path": "data/receipts/RCPT-T14-reconstruction_sweep_v1-0013-001.json",
       "replay_status": "replayable"
     },
@@ -1290,7 +1290,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:ec3c8c260c236a0c0acd9dd299f6ccb3067d41a45f2ed15bac8f04ba8a1f71a6",
+      "receipt_hash": "sha256:9aa654e4091ffa46f11197939c2893aff5e457e82e59779e80a0acab974f00aa",
       "path": "data/receipts/RCPT-T14-reconstruction_sweep_v1-0013-002.json",
       "replay_status": "replayable"
     },
@@ -1324,7 +1324,7 @@
       "point_of_no_return": null,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:b7f2c295fdc308879a87b49c0e48c70205538c6e4ead3a6bb1c8c09a9c6adf54",
+      "receipt_hash": "sha256:b5f3079d789047c2253ef84c5906e7b87f8a468fafeb5f9a06dc245abcf7bd62",
       "path": "data/receipts/RCPT-T14-reconstruction_sweep_v1-0013-003.json",
       "replay_status": "replayable"
     },
@@ -1358,7 +1358,7 @@
       "point_of_no_return": false,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:1a47b2b12303694a398fe19a22208db184c078fd0eda6fc8ed50765b45e711d4",
+      "receipt_hash": "sha256:2caf59bde734c974b5e22efdb8c9bb09c8388f8d8c1fb929e618549175585f3b",
       "path": "data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-001.json",
       "replay_status": "replayable"
     },
@@ -1392,7 +1392,7 @@
       "point_of_no_return": false,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:8fdff9b3f8b05cc9206a7fdb94bc7f02a0e9c81462f3561c08a68e1aa8c024fa",
+      "receipt_hash": "sha256:60f715b035e7c98ce205c9d108b997f10270250d9597df149b2df49bec9e1f26",
       "path": "data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-002.json",
       "replay_status": "replayable"
     },
@@ -1426,7 +1426,7 @@
       "point_of_no_return": false,
       "self_modification_safe": null,
       "rule_patch_verdict": null,
-      "receipt_hash": "sha256:4a549831dd1297cb6da33fc2805e97d287f50e850477039b369e88f7d213321c",
+      "receipt_hash": "sha256:e27b1f2399ea5f04274f50ceb055def2deca60d61280d74414e72fb20884a28d",
       "path": "data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-003.json",
       "replay_status": "replayable"
     },
@@ -1460,7 +1460,7 @@
       "point_of_no_return": null,
       "self_modification_safe": true,
       "rule_patch_verdict": "ALLOW",
-      "receipt_hash": "sha256:7f05c190f070cb4bb1cd3d3f4741557665c466ffcfad372f80d79f097a90e436",
+      "receipt_hash": "sha256:4ecac84493ff23d8dc09402e8a160991b3fb8be89697c348c871f675b6a6f178",
       "path": "data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-001.json",
       "replay_status": "replayable"
     },
@@ -1494,7 +1494,7 @@
       "point_of_no_return": null,
       "self_modification_safe": false,
       "rule_patch_verdict": "DENY",
-      "receipt_hash": "sha256:e7523784e6f4ac355f332bf77cd4f67d69ecaed0867648df17f0446f2be652e6",
+      "receipt_hash": "sha256:5f2de80634bba5360b46382be541dfc88fefe947da5543df97b9da0d57d5f0e5",
       "path": "data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-002.json",
       "replay_status": "replayable"
     },
@@ -1528,7 +1528,7 @@
       "point_of_no_return": null,
       "self_modification_safe": true,
       "rule_patch_verdict": "ALLOW",
-      "receipt_hash": "sha256:e8dc83f43ec4f7217cc7544874a5f258b514b175fd64cd729ec7c2c13e771e08",
+      "receipt_hash": "sha256:6a05d5643af6985c3c3e2c8703a4c942dcdb7e5dae949b7945722d22541a6894",
       "path": "data/receipts/RCPT-T16-self_modifying_rule_sweep_v1-0015-003.json",
       "replay_status": "replayable"
     }
