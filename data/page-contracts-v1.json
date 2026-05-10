@@ -1,0 +1,230 @@
+{
+  "schema": "stegverse.page_contracts.v1",
+  "base_url_default": "https://stegverse-labs.github.io/Site",
+  "pages": [
+    {
+      "path": "transition-periodic-table.html",
+      "required_substrings": [
+        "TRANSITION PERIODIC TABLE",
+        "Transition Table",
+        "Milestones",
+        "Development Status",
+        "Release Snapshot",
+        "Release Index",
+        "Verification Guide",
+        "Replay Packet",
+        "Support Research"
+      ],
+      "required_links": [
+        "transition-table.html",
+        "transition-milestones.html",
+        "transition-development-status.html",
+        "transition-release-snapshot.html",
+        "transition-release-index.html",
+        "transition-verification-guide.html",
+        "transition-replay-packet.html"
+      ]
+    },
+    {
+      "path": "transition-table.html",
+      "required_substrings": [
+        "TRANSITION TABLE",
+        "MS-011",
+        "Replay Packet",
+        "Verification Guide"
+      ],
+      "required_links": [
+        "transition-milestones.html",
+        "transition-release-index.html",
+        "transition-verification-guide.html",
+        "transition-replay-packet.html"
+      ]
+    },
+    {
+      "path": "transition-milestones.html",
+      "required_substrings": [
+        "TRANSITION MILESTONES",
+        "MS-011",
+        "Public Verification Bundle",
+        "MS-012",
+        "Independent Replay Packet",
+        "pending",
+        "Replay Packet"
+      ],
+      "required_links": [
+        "transition-verification-guide.html",
+        "transition-replay-packet.html"
+      ]
+    },
+    {
+      "path": "transition-development-status.html",
+      "required_substrings": [
+        "TRANSITION DEVELOPMENT STATUS",
+        "MS-011",
+        "Public Verification Bundle",
+        "receipt backed automation ready",
+        "ALLOW",
+        "Replay Packet"
+      ],
+      "required_links": [
+        "transition-verification-guide.html",
+        "transition-replay-packet.html"
+      ]
+    },
+    {
+      "path": "transition-release-snapshot.html",
+      "required_substrings": [
+        "TRANSITION RELEASE SNAPSHOT",
+        "MS-011",
+        "public verification bundle released",
+        "receipt backed automation ready",
+        "Replay Packet"
+      ],
+      "required_links": [
+        "transition-verification-guide.html",
+        "transition-replay-packet.html",
+        "data/transition-release-snapshot-v1.json"
+      ]
+    },
+    {
+      "path": "transition-release-index.html",
+      "required_substrings": [
+        "TRANSITION RELEASE INDEX",
+        "MS-011",
+        "Public Verification Bundle",
+        "Replay Packet",
+        "Replay Packet v1",
+        "MS-012",
+        "Independent Replay Packet",
+        "pending"
+      ],
+      "required_links": [
+        "transition-replay-packet.html",
+        "data/transition-replay-packet-v1.json",
+        "data/transition-release-index-v1.json"
+      ]
+    },
+    {
+      "path": "transition-verification-guide.html",
+      "required_substrings": [
+        "TRANSITION VERIFICATION GUIDE",
+        "MS-011 released",
+        "Why MS-011 Is Unlocked",
+        "Verification Path",
+        "MS-012",
+        "Independent Replay Packet",
+        "Replay Packet"
+      ],
+      "required_links": [
+        "transition-replay-packet.html",
+        "data/transition-verification-bundle-v1.json"
+      ]
+    },
+    {
+      "path": "transition-replay-packet.html",
+      "required_substrings": [
+        "TRANSITION REPLAY PACKET",
+        "MS-012 pending",
+        "Replay Scope",
+        "Replay Steps",
+        "T13",
+        "T14",
+        "MS-011"
+      ],
+      "required_links": [
+        "data/transition-replay-packet-v1.json",
+        "transition-verification-guide.html"
+      ]
+    }
+  ],
+  "json_files": [
+    {
+      "path": "data/transition-release-index-v1.json",
+      "required_values": [
+        {
+          "json_path": "current_release.formal_milestone",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "current_release.state",
+          "equals": "public_verification_bundle_released"
+        },
+        {
+          "json_path": "next_pending_milestone.formal_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        }
+      ],
+      "required_contains": [
+        {
+          "json_path": "public_pages",
+          "contains_object": {
+            "path": "transition-replay-packet.html"
+          }
+        },
+        {
+          "json_path": "public_data",
+          "contains_object": {
+            "path": "data/transition-replay-packet-v1.json"
+          }
+        }
+      ]
+    },
+    {
+      "path": "data/transition-release-snapshot-v1.json",
+      "required_values": [
+        {
+          "json_path": "formal_milestone",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "release_state",
+          "equals": "public_verification_bundle_released"
+        }
+      ]
+    },
+    {
+      "path": "data/transition-verification-bundle-v1.json",
+      "required_values": [
+        {
+          "json_path": "formal_milestone",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        },
+        {
+          "json_path": "status",
+          "equals": "released"
+        },
+        {
+          "json_path": "next_pending_milestone.formal_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        }
+      ]
+    },
+    {
+      "path": "data/transition-replay-packet-v1.json",
+      "required_values": [
+        {
+          "json_path": "formal_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
+        },
+        {
+          "json_path": "status",
+          "equals": "pending_until_public_links_confirmed"
+        },
+        {
+          "json_path": "current_verified_release.formal_milestone",
+          "equals": "MS-011 \u2014 Public Verification Bundle"
+        }
+      ],
+      "required_contains": [
+        {
+          "json_path": "replay_scope.selected_elements",
+          "contains": "T13"
+        },
+        {
+          "json_path": "replay_scope.selected_elements",
+          "contains": "T14"
+        }
+      ]
+    }
+  ]
+}
