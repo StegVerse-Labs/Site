@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T03:04:39Z",
+  "generated_at": "2026-05-10T03:18:06Z",
   "schema": "stegverse.transition_release_snapshot.v1",
   "snapshot_id": "transition-release-snapshot-v1-ms010",
   "formal_milestone": "MS-010 \u2014 Public Navigation Integration",
@@ -38,6 +38,6 @@
     "This is not a claim that all transitions are 5/5 Receipt-backed.",
     "This is not a claim of unbounded autonomy.",
     "This is not a final publication release.",
-    "This is a named development snapshot of the current experimental table state."
+    "This is a named development snapshot of the current experimental table state with public navigation integrated."
   ]
 }
