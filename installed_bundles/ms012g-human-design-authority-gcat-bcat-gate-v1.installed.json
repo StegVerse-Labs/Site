@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+  "bundle_sha256": "f4b132c015493ccd189134084eaff0f40cadcba23b3deab845b7b1755f666463",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
+    "generated_at": "2026-05-10T20:54:57Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+    "bundle_name": "ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+    "bundle_sha256": "f4b132c015493ccd189134084eaff0f40cadcba23b3deab845b7b1755f666463",
+    "mode": "apply",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/gates/human-design-authority-policy-v1.json",
+      "data/gcat-bcat/execution-request-template-v1.json",
+      "data/headless-tasks/execution-gate-check-v1.json",
+      "docs/MS-012G-human-design-authority-gcat-bcat-gate.md",
+      "execution_gate_reports/README.md",
+      "tools/gcat_bcat_execution_gate.py"
+    ],
+    "files_seen": 8,
+    "files_created": 6,
+    "files_updated": 1,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "2a519212cc5d9b40105b8d2f5d450d7d41c6212ca3c92f05adfb683fcad00942",
+      "after_tree_fingerprint": "fbd1d81df18bc42d047430d37344387119f443a7fdae56f2952a72f91ac2cddb",
+      "changed_files_fingerprint": "f6d23d707bad6696d9c106e0c2b47cf864ef8e973a5c3ce2fe196db6b1d3f4e7"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "7990d062963b9ccbcbebbbef7dfafed2579e56a9d44178fcaa1a8a48e3eeee9e",
+        "bytes": 1463
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "2b1ab4dcfbc70b8b74740a55a615d316751f16b1aef3cde65b4c03773bedb642",
+        "new_sha256": "607cb2937e170b52fa46659d5da54b6f65364372179c87fca3470c068443c703",
+        "bytes": 1543
+      },
+      {
+        "bundle_path": "data/gates/human-design-authority-policy-v1.json",
+        "repo_path": "data/gates/human-design-authority-policy-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "4fc2bcf02f0689552059df769e30db9ac7b0515ece15ece8d2f67cc20e34ee7c",
+        "bytes": 3501
+      },
+      {
+        "bundle_path": "data/gcat-bcat/execution-request-template-v1.json",
+        "repo_path": "data/gcat-bcat/execution-request-template-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "e3b745b79dd49f356285d91c59e6ed79346df622f35e16cdd6f7b88d2c152e16",
+        "bytes": 1117
+      },
+      {
+        "bundle_path": "data/headless-tasks/execution-gate-check-v1.json",
+        "repo_path": "data/headless-tasks/execution-gate-check-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "d3231f2300006c169f273e13fd709c0efe0d5c43debaa3f409364787493842fd",
+        "bytes": 1166
+      },
+      {
+        "bundle_path": "docs/MS-012G-human-design-authority-gcat-bcat-gate.md",
+        "repo_path": "docs/MS-012G-human-design-authority-gcat-bcat-gate.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "9956be1b0a04d80f19f20c54e9c8d2222b0d1531fa2fda157131a85985c466d6",
+        "bytes": 1379
+      },
+      {
+        "bundle_path": "execution_gate_reports/README.md",
+        "repo_path": "execution_gate_reports/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "4351c233c01037b53ee0a2021fb7ed57e46bfd81d8d418e874db77d6add9874e",
+        "bytes": 283
+      },
+      {
+        "bundle_path": "tools/gcat_bcat_execution_gate.py",
+        "repo_path": "tools/gcat_bcat_execution_gate.py",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "93d3a3593a08343b201b05104c55535f2053e23c99c57509d52d6f3146bfaa84",
+        "bytes": 10347
+      }
+    ]
+  },
+  "repo_transition": {
+    "before_tree_fingerprint": "2a519212cc5d9b40105b8d2f5d450d7d41c6212ca3c92f05adfb683fcad00942",
+    "after_tree_fingerprint": "fbd1d81df18bc42d047430d37344387119f443a7fdae56f2952a72f91ac2cddb",
+    "changed_files_fingerprint": "f6d23d707bad6696d9c106e0c2b47cf864ef8e973a5c3ce2fe196db6b1d3f4e7"
+  },
+  "files_created": 6,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
+}

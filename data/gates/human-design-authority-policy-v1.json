@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-05-10T20:12:45Z",
+  "schema": "stegverse.execution_gate_policy.v1",
+  "policy_id": "ms012g-human-design-authority-gcat-bcat-gate-v1",
+  "formal_milestone": "MS-012G \u2014 Human Design Authority + GCAT/BCAT Execution Gate",
+  "purpose": "Require GCAT/BCAT admissibility and human-design-authority classification before execution tasks change architecture, authority, recursion, workflows, ingestion, sandbox behavior, promotion, or milestone state.",
+  "invariants": [
+    "trigger_is_not_authority",
+    "schedule_is_not_permission",
+    "queue_item_is_not_permission",
+    "failed_bundle_is_not_repair_authority",
+    "next_action_is_not_execution_authority",
+    "human_design_authority_is_required_for_design_direction"
+  ],
+  "decision_classes": {
+    "implementation_detail": {
+      "human_required": false,
+      "allowed_if_gcat_bcat_allows": true,
+      "description": "Bounded implementation under already-approved architecture and authority."
+    },
+    "design_decision": {
+      "human_required": true,
+      "allowed_if_gcat_bcat_allows": false,
+      "description": "Changes design direction, architecture, product behavior, or execution model."
+    },
+    "authority_expansion": {
+      "human_required": true,
+      "allowed_if_gcat_bcat_allows": false,
+      "description": "Expands what the system may do, who may execute, or what surfaces may mutate."
+    },
+    "recursive_automation": {
+      "human_required": true,
+      "allowed_if_gcat_bcat_allows": false,
+      "description": "Creates, expands, or chains automation that can trigger further automation."
+    },
+    "workflow_mutation": {
+      "human_required": true,
+      "allowed_if_gcat_bcat_allows": false,
+      "description": "Adds, edits, promotes, or removes GitHub Actions workflow files."
+    },
+    "milestone_promotion": {
+      "human_required": true,
+      "allowed_if_gcat_bcat_allows": false,
+      "description": "Changes released/candidate milestone state or public verification state."
+    }
+  },
+  "deny_by_default_indicators": [
+    "cron",
+    "schedule",
+    "workflow_run",
+    "self-trigger",
+    "self trigger",
+    "recursive trigger",
+    "git add .",
+    "push --force",
+    "workflow mutation",
+    ".github/workflows",
+    "github/workflows",
+    "promote milestone",
+    "release milestone",
+    "authority expansion",
+    "secret",
+    "token",
+    "credential"
+  ],
+  "gcat_bcat_thresholds": {
+    "max_authority_expansion_without_human": 0.0,
+    "max_recursive_capacity_without_human": 0.0,
+    "max_workflow_mutation_without_human": 0.0,
+    "max_milestone_promotion_without_human": 0.0,
+    "minimum_observability": 0.75,
+    "minimum_receiptability": 0.85,
+    "maximum_unboundedness": 0.0
+  },
+  "required_receipt_fields": [
+    "request_id",
+    "decision_class",
+    "human_required",
+    "gcat_bcat_verdict",
+    "execution_verdict",
+    "reason",
+    "observability",
+    "receiptability",
+    "unboundedness",
+    "authority_expansion",
+    "recursive_capacity",
+    "workflow_mutation",
+    "milestone_promotion"
+  ],
+  "verdicts": [
+    "ALLOW",
+    "DENY",
+    "FAIL_CLOSED"
+  ],
+  "safety": {
+    "no_trigger_can_authorize_execution": true,
+    "human_approval_required_for_design_direction": true,
+    "deny_recursive_trigger_expansion_by_default": true,
+    "deny_workflow_mutation_by_default": true,
+    "deny_milestone_promotion_by_default": true,
+    "fail_closed_on_missing_request": true,
+    "fail_closed_on_malformed_request": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-05-10T20:17:43Z",
+  "schema": "stegverse.bundle_lifecycle_subject.v1",
+  "subject_id": "ms012f-deprecated-purpose-sandbox-review-v1",
+  "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+  "bundle_names": [
+    "ms012f-deprecated-purpose-sandbox-review-v1.zip"
+  ],
+  "target_files": [
+    "data/deprecation-policy-v1.json",
+    "data/sandbox-review-policy-v1.json",
+    "tools/sandbox_bundle_review.py",
+    "sandbox_reports/README.md"
+  ],
+  "required_schema_markers": [
+    {
+      "path": "data/deprecation-policy-v1.json",
+      "json_path": "formal_milestone",
+      "contains": "MS-012F"
+    },
+    {
+      "path": "data/sandbox-review-policy-v1.json",
+      "json_path": "formal_milestone",
+      "contains": "MS-012F"
+    }
+  ],
+  "expected_installed_archive_files": [
+    "installed_bundles/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+    "installed_bundles/ms012f-deprecated-purpose-sandbox-review-v1.installed.json",
+    "installed_bundles/ms012f-deprecated-purpose-sandbox-review-v1.installed.md"
+  ],
+  "known_issue": "Files may be present while the bundle exists only in failed_bundles due to earlier queue-cleanup and archive behavior gaps."
+}

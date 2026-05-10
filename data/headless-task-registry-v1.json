@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-05-10T19:51:28Z",
+  "schema": "stegverse.headless_task_registry.v1",
+  "formal_milestone": "MS-012E.4 \u2014 Declared Task Runner",
+  "purpose": "Declare executable headless tasks as data so stable workflows can invoke task definitions instead of hardcoding operational logic.",
+  "default_runner": "tools/headless_cmd_runner.py",
+  "task_root": "data/headless-tasks",
+  "report_root": "headless_cmd_reports",
+  "tasks": [
+    {
+      "task_id": "ingest-queue-cleanup-v1",
+      "task_path": "data/headless-tasks/ingest-queue-cleanup-v1.json",
+      "class": "ingestion_queue",
+      "authority_class": "ordinary_ingestion",
+      "status": "active"
+    },
+    {
+      "task_id": "dependency-impact-scan-v1",
+      "task_path": "data/headless-tasks/dependency-impact-scan-v1.json",
+      "class": "dependency_scan",
+      "authority_class": "ordinary_analysis",
+      "status": "active"
+    },
+    {
+      "task_id": "sandbox-bundle-review-v1",
+      "task_path": "data/headless-tasks/sandbox-bundle-review-v1.json",
+      "class": "sandbox_review",
+      "authority_class": "ordinary_analysis",
+      "status": "active"
+    }
+  ],
+  "safety": {
+    "workflow_yaml_is_stable_dispatcher": true,
+    "operational_logic_lives_in_declared_tasks": true,
+    "unknown_task_fails_closed": true,
+    "commands_emit_receipts": true,
+    "stdout_stderr_are_captured": true
+  }
+}

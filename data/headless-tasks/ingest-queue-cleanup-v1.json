@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-05-10T19:51:28Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "ingest-queue-cleanup-v1",
+  "class": "ingestion_queue",
+  "authority_class": "ordinary_ingestion",
+  "description": "Process incoming/ through strict queue ingestion, routing installed, stale, failed, sandbox, and privileged bundles according to ingestion policy.",
+  "command": [
+    "python",
+    "tools/bundle_ingest.py",
+    "--repo-root",
+    ".",
+    "--policy",
+    "data/bundle-ingestion-policy-v1.json",
+    "--out-dir",
+    "ingestion_reports",
+    "--process-queue",
+    "--apply"
+  ],
+  "expected_inputs": [
+    "tools/bundle_ingest.py",
+    "data/bundle-ingestion-policy-v1.json"
+  ],
+  "expected_outputs": [
+    "ingestion_reports/bundle-queue-report.json",
+    "ingestion_reports/bundle-queue-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/ingest-queue-cleanup-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/ingest-queue-cleanup-v1.report.md"
+}

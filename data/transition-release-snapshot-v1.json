@@ -1,8 +1,32 @@
 {
-  "generated_at": "2026-05-10T04:29:19Z",
-  "snapshot_id": "transition-release-snapshot-v1-ms011",
-  "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
-  "release_state": "public_verification_bundle_released",
-  "unlocked_capability": "public_verification_bundle",
-  "unlock_reasoning": "MS-011 is unlocked because a single reader-facing verification guide is live and linked from the release index, milestones, development status, release snapshot, transition table, and research landing. The guide explains how to verify the current table state from public pages and JSON files."
+  "generated_at": "2026-05-10T19:05:31Z",
+  "schema": "stegverse.transition_release_snapshot.v1",
+  "release_id": "transition-release-snapshot-v1-ms012",
+  "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
+  "release_state": "independent_replay_packet_released",
+  "previous_milestone": "MS-011 \u2014 Public Verification Bundle",
+  "current_state": "independent_replay_packet_released",
+  "basis": [
+    "Transition Replay Check passed using repo-readable evidence.",
+    "Page Contract Check passed using repo-readable evidence.",
+    "Select Next Transition Step returned promote_candidate_milestone.",
+    "Promotion was not derived from chat, screenshots, or artifact-only evidence."
+  ],
+  "released_capabilities": [
+    "Public verification bundle remains released.",
+    "Independent replay packet is released.",
+    "T13/T14 replay scope is publicly documented.",
+    "Replay packet, replay fixtures, and replay verifier are public JSON surfaces.",
+    "Strict ingestion threshold gates are installed as development infrastructure."
+  ],
+  "repo_readable_evidence": {
+    "transition_replay_report": "transition_replay_reports/transition-replay-report.json",
+    "page_contract_report": "page_contract_reports/page-contract-report.json",
+    "selector_candidate": "data/next-transition-build-candidate-v1.json"
+  },
+  "next_pending_milestone": {
+    "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+    "status": "candidate",
+    "unlock_condition": "Sandbox review, dependency impact scan, and repair/regeneration receipts prove failed or malformed bundles can be reviewed without silent correction."
+  }
 }

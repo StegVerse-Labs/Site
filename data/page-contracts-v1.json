@@ -62,39 +62,43 @@
       "path": "transition-milestones.html",
       "required_substrings": [
         "TRANSITION MILESTONES",
-        "MS-011",
-        "Public Verification Bundle",
         "MS-012",
         "Independent Replay Packet",
-        "pending",
-        "Replay Packet"
+        "released",
+        "MS-012F",
+        "Sandbox Repair and Candidate Construction"
       ],
       "required_links": [
         "transition-verification-guide.html",
-        "transition-replay-packet.html"
+        "transition-replay-packet.html",
+        "transition-release-index.html"
       ]
     },
     {
       "path": "transition-development-status.html",
       "required_substrings": [
         "TRANSITION DEVELOPMENT STATUS",
-        "MS-011",
-        "Public Verification Bundle",
-        "Replay Packet"
+        "MS-012",
+        "Independent Replay Packet",
+        "released",
+        "MS-012F",
+        "Strict Ingestion Threshold Gates"
       ],
       "required_links": [
         "transition-verification-guide.html",
-        "transition-replay-packet.html"
+        "transition-replay-packet.html",
+        "transition-release-index.html"
       ]
     },
     {
       "path": "transition-release-snapshot.html",
       "required_substrings": [
         "TRANSITION RELEASE SNAPSHOT",
-        "MS-011",
-        "public verification bundle released",
-        "receipt backed automation ready",
-        "Replay Packet"
+        "MS-012",
+        "Independent Replay Packet",
+        "independent replay packet released",
+        "MS-012F",
+        "Sandbox Repair and Candidate Construction"
       ],
       "required_links": [
         "transition-verification-guide.html",
@@ -106,19 +110,13 @@
       "path": "transition-release-index.html",
       "required_substrings": [
         "TRANSITION RELEASE INDEX",
-        "MS-011",
-        "Public Verification Bundle",
-        "Replay Packet",
-        "Replay Packet v1",
-        "Replay Fixtures v1",
-        "Replay Verifier v1",
-        "Next Transition Build Candidate v1",
-        "Transition Release State v1",
-        "Transition Decision Rules v1",
-        "Autonomous Next-Step Selector",
         "MS-012",
         "Independent Replay Packet",
-        "candidate"
+        "independent replay packet released",
+        "MS-012F",
+        "Sandbox Repair and Candidate Construction",
+        "Strict Ingestion Threshold Gates",
+        "Capability Threshold Gates"
       ],
       "required_links": [
         "transition-replay-packet.html",
@@ -126,9 +124,11 @@
         "data/transition-replay-fixtures-v1.json",
         "data/transition-replay-verifier-v1.json",
         "data/transition-release-state-v1.json",
-        "data/transition-decision-rules-v1.json",
-        "data/next-transition-build-candidate-v1.json",
-        "data/transition-release-index-v1.json"
+        "data/transition-release-index-v1.json",
+        "data/capability-threshold-gates-v1.json",
+        "data/transition-capability-scopes-v1.json",
+        "data/stop-gap-policy-v1.json",
+        "data/dependency-map-v1.json"
       ]
     },
     {
@@ -136,7 +136,6 @@
       "required_substrings": [
         "TRANSITION VERIFICATION GUIDE",
         "MS-011 released",
-        "Why MS-011 Is Unlocked",
         "Verification Path",
         "MS-012",
         "Independent Replay Packet",
@@ -151,7 +150,7 @@
       "path": "transition-replay-packet.html",
       "required_substrings": [
         "TRANSITION REPLAY PACKET",
-        "MS-012 pending",
+        "MS-012",
         "Replay Scope",
         "Replay Steps",
         "T13",
@@ -173,142 +172,33 @@
       "required_values": [
         {
           "json_path": "current_release.formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
+          "equals": "MS-012 \u2014 Independent Replay Packet"
         },
         {
           "json_path": "current_release.state",
-          "equals": "public_verification_bundle_released"
-        },
-        {
-          "json_path": "candidate_release.formal_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
-        },
-        {
-          "json_path": "candidate_release.state",
-          "equals": "candidate_until_transition_replay_check_and_page_contract_check_pass"
-        },
-        {
-          "json_path": "automation_layer.formal_label",
-          "equals": "Autonomous Next-Step Selector v1"
-        },
-        {
-          "json_path": "automation_layer.candidate_json",
-          "equals": "data/next-transition-build-candidate-v1.json"
+          "equals": "independent_replay_packet_released"
         },
         {
           "json_path": "next_pending_milestone.formal_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
+          "equals": "MS-012F \u2014 Sandbox Repair and Candidate Construction"
+        },
+        {
+          "json_path": "strict_ingestion_layer.status",
+          "equals": "installed"
         }
       ],
       "required_contains": [
         {
-          "json_path": "public_pages",
+          "json_path": "public_data",
           "contains_object": {
-            "path": "transition-replay-packet.html"
+            "path": "data/capability-threshold-gates-v1.json"
           }
         },
         {
           "json_path": "public_data",
           "contains_object": {
-            "path": "data/transition-replay-packet-v1.json"
+            "path": "data/dependency-map-v1.json"
           }
-        },
-        {
-          "json_path": "public_data",
-          "contains_object": {
-            "path": "data/transition-replay-fixtures-v1.json"
-          }
-        },
-        {
-          "json_path": "public_data",
-          "contains_object": {
-            "path": "data/transition-replay-verifier-v1.json"
-          }
-        },
-        {
-          "json_path": "public_data",
-          "contains_object": {
-            "path": "data/transition-release-state-v1.json"
-          }
-        },
-        {
-          "json_path": "public_data",
-          "contains_object": {
-            "path": "data/transition-decision-rules-v1.json"
-          }
-        },
-        {
-          "json_path": "public_data",
-          "contains_object": {
-            "path": "data/next-transition-build-candidate-v1.json"
-          }
-        }
-      ]
-    },
-    {
-      "path": "data/transition-release-state-v1.json",
-      "required_values": [
-        {
-          "json_path": "schema",
-          "equals": "stegverse.transition_release_state.v1"
-        },
-        {
-          "json_path": "current_released_milestone.formal_label",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
-        },
-        {
-          "json_path": "current_candidate_milestone.formal_label",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
-        },
-        {
-          "json_path": "selector_policy.allow_promotion_from_chat_or_screenshot",
-          "equals": false
-        }
-      ]
-    },
-    {
-      "path": "data/transition-decision-rules-v1.json",
-      "required_values": [
-        {
-          "json_path": "schema",
-          "equals": "stegverse.transition_decision_rules.v1"
-        },
-        {
-          "json_path": "ruleset_id",
-          "equals": "transition-decision-rules-v1"
-        }
-      ]
-    },
-    {
-      "path": "data/next-transition-build-candidate-v1.json",
-      "required_values": [
-        {
-          "json_path": "schema",
-          "equals": "stegverse.next_transition_build_candidate.v1"
-        },
-        {
-          "json_path": "current_released_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
-        },
-        {
-          "json_path": "current_candidate_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
-        },
-        {
-          "json_path": "next_system_action",
-          "equals": "run_required_checks"
-        },
-        {
-          "json_path": "promotion_allowed",
-          "equals": false
-        },
-        {
-          "json_path": "safety.missing_evidence_promotes",
-          "equals": false
-        },
-        {
-          "json_path": "safety.chat_or_screenshot_promotes",
-          "equals": false
         }
       ]
     },
@@ -317,63 +207,97 @@
       "required_values": [
         {
           "json_path": "formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
+          "equals": "MS-012 \u2014 Independent Replay Packet"
         },
         {
           "json_path": "release_state",
-          "equals": "public_verification_bundle_released"
-        }
-      ]
-    },
-    {
-      "path": "data/transition-verification-bundle-v1.json",
-      "required_values": [
-        {
-          "json_path": "formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
-        },
-        {
-          "json_path": "status",
-          "equals": "released"
+          "equals": "independent_replay_packet_released"
         },
         {
           "json_path": "next_pending_milestone.formal_milestone",
-          "equals": "MS-012 \u2014 Independent Replay Packet"
+          "equals": "MS-012F \u2014 Sandbox Repair and Candidate Construction"
         }
       ]
     },
     {
-      "path": "data/transition-replay-packet-v1.json",
+      "path": "data/transition-release-state-v1.json",
       "required_values": [
         {
-          "json_path": "formal_milestone",
+          "json_path": "current_released_milestone.formal_label",
           "equals": "MS-012 \u2014 Independent Replay Packet"
         },
         {
-          "json_path": "status",
-          "equals": "candidate_until_transition_replay_check_and_page_contract_check_pass"
+          "json_path": "current_released_milestone.status",
+          "equals": "released"
         },
         {
-          "json_path": "current_verified_release.formal_milestone",
-          "equals": "MS-011 \u2014 Public Verification Bundle"
-        },
-        {
-          "json_path": "public_inputs.replay_fixtures_json",
-          "equals": "data/transition-replay-fixtures-v1.json"
-        },
-        {
-          "json_path": "public_inputs.replay_verifier_json",
-          "equals": "data/transition-replay-verifier-v1.json"
+          "json_path": "current_candidate_milestone.formal_label",
+          "equals": "MS-012F \u2014 Sandbox Repair and Candidate Construction"
         }
-      ],
-      "required_contains": [
+      ]
+    },
+    {
+      "path": "data/next-transition-build-candidate-v1.json",
+      "required_values": [
         {
-          "json_path": "replay_scope.selected_elements",
-          "contains": "T13"
+          "json_path": "current_released_milestone",
+          "equals": "MS-012 \u2014 Independent Replay Packet"
         },
         {
-          "json_path": "replay_scope.selected_elements",
-          "contains": "T14"
+          "json_path": "current_candidate_milestone",
+          "equals": "MS-012F \u2014 Sandbox Repair and Candidate Construction"
+        },
+        {
+          "json_path": "next_system_action",
+          "equals": "build_candidate_milestone"
+        },
+        {
+          "json_path": "promotion_allowed",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "path": "data/capability-threshold-gates-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.capability_threshold_gates.v1"
+        },
+        {
+          "json_path": "current_threshold",
+          "equals": "C"
+        }
+      ]
+    },
+    {
+      "path": "data/transition-capability-scopes-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.transition_capability_scopes.v1"
+        }
+      ]
+    },
+    {
+      "path": "data/stop-gap-policy-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.stop_gap_policy.v1"
+        },
+        {
+          "json_path": "safety.missing_evidence_promotes",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "path": "data/dependency-map-v1.json",
+      "required_values": [
+        {
+          "json_path": "schema",
+          "equals": "stegverse.dependency_map.v1"
         }
       ]
     },
@@ -387,10 +311,6 @@
         {
           "json_path": "verdict",
           "equals": "ALLOW"
-        },
-        {
-          "json_path": "status",
-          "equals": "candidate_verified_static"
         }
       ],
       "required_contains": [

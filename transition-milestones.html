@@ -1,120 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Transition Milestones | StegVerse</title>
-<style>
-:root{
-  --bg:#080b12; --panel:rgba(16,24,39,.82); --text:#eef4ff; --muted:#a9b7cc;
-  --line:rgba(255,255,255,.14); --green:#43d694; --blue:#4da3ff; --gold:#ffbe54;
-}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
-main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
-a{color:inherit}
-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
-nav div{display:flex;gap:10px;flex-wrap:wrap}
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Milestones | StegVerse</title><style>:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}nav div{display:flex;gap:10px;flex-wrap:wrap}
 nav a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
-nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
 section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
 h1{font-size:clamp(2.2rem,7vw,5.35rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
-h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
-h3{font-size:1.18rem;margin:0 0 8px}
-p{color:var(--muted);font-size:1.02rem}
-.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}
-.card strong{display:block;font-size:clamp(1.15rem,6vw,1.6rem);overflow-wrap:anywhere;line-height:1.05}
-.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
-.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
-.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
-ol,ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
-li{margin-bottom:9px}
-code{word-break:break-word;color:#f5fbff}
-.step{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);margin-top:12px}
-.reason{border-left:3px solid var(--green);padding-left:12px;margin-top:12px;color:#dbe7f7}
-@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
-</style>
-</head>
-<body>
-<main>
-
-
-<nav>
-  <a href="index.html"><strong>StegVerse</strong></a>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="demo.html">Demo</a>
-    <a href="transition-periodic-table.html">Research Landing</a>
-    <a href="transition-table.html">Transition Table</a>
-    <a href="transition-milestones.html">Milestones</a>
-    <a href="transition-development-status.html">Development Status</a>
-    <a href="transition-release-snapshot.html">Release Snapshot</a>
-    <a href="transition-release-index.html">Release Index</a>
-    <a href="transition-verification-guide.html">Verification Guide</a>
-    <a href="transition-replay-packet.html">Replay Packet</a>
-    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
-  </div>
-</nav>
-
-
-<section>
-  <p class="kicker">Development Milestone Ledger</p>
-  <h1>Transition Milestones</h1>
-  <p>
-    This page tracks formal unlocked milestones of the Transition Periodic Table as the experimental engine advances.
-    Newest unlocked milestones appear first. MS-011 is now the newest unlocked development milestone.
-  </p>
-  <a class="btn" href="transition-table.html">Open Transition Table</a>
-  <a class="btn" href="transition-periodic-table.html">Open Research Landing</a>
-  <a class="btn" href="transition-verification-guide.html">Open Verification Guide</a>
-</section>
-<section>
-  <h2>Formal Milestone Ledger</h2>
-  <article class="card" style="border-color:rgba(67,214,148,.62)">
-    <p class="kicker">Newest unlocked milestone</p>
-    <h3>MS-011 — Public Verification Bundle</h3>
-    <p>
-      Public verification is released when one reader-facing guide explains how to verify the current table state from public pages and JSON files.
-    </p>
-    <p class="reason"><strong>Unlock reasoning:</strong> MS-011 is unlocked because the verification guide is live and linked from the release index, milestones, development status, release snapshot, transition table, and research landing.</p>
-    <span class="status">released</span>
-    <ul>
-      <li>Verification guide exists.</li>
-      <li>Verification bundle JSON exists.</li>
-      <li>Primary public pages link to the guide.</li>
-      <li>MS-012 is now the next pending replay milestone.</li>
-    </ul>
-  </article>
-  <article class="card">
-    <p class="kicker">Prior milestone</p>
-    <h3>MS-010 — Public Navigation Integration</h3>
-    <p>Primary transition research pages expose the milestone ledger, development status, release snapshot, and release index.</p>
-    <span class="status">released</span>
-  </article>
-  <article class="card">
-    <p class="kicker">Prior milestone</p>
-    <h3>MS-009 — Development Release Hardening</h3>
-    <p>The development release layer made the current receipt-backed automation state publicly inspectable through stable pages and verifier links.</p>
-    <span class="status">released</span>
-  </article>
-  <article class="card">
-    <p class="kicker">Prior milestone</p>
-    <h3>MS-008 — Receipt-Backed Automation Readiness</h3>
-    <p>T13 and T14 provide replayable receipt binding and reconstruction evidence; the automation-release verifier returned ALLOW.</p>
-    <span class="status">released</span>
-  </article>
-</section>
-<section>
-  <h2>Next Pending Milestone</h2>
-  <span class="status pending">pending</span>
-  <h3>MS-012 — Independent Replay Packet</h3>
-  <p>
-    MS-012 should unlock when a reader-facing replay packet explains how to independently replay selected receipts
-    and compare reconstructed outcomes against the public ledger.
-  </p>
-</section>
-</main>
-</body>
-</html>
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}.card strong{display:block;font-size:clamp(1.15rem,6vw,1.6rem);overflow-wrap:anywhere;line-height:1.05}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
+ul,ol{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word-break:break-word;color:#f5fbff}@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}</style></head><body><main><nav><a href="index.html"><strong>StegVerse</strong></a><div>
+<a href="index.html">Home</a><a href="demo.html">Demo</a><a href="transition-periodic-table.html">Research Landing</a><a href="transition-table.html">Transition Table</a><a href="transition-milestones.html">Milestones</a><a href="transition-development-status.html">Development Status</a><a href="transition-release-snapshot.html">Release Snapshot</a><a href="transition-release-index.html">Release Index</a><a href="transition-verification-guide.html">Verification Guide</a><a href="transition-replay-packet.html">Replay Packet</a><a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+</div></nav>
+<section><p class="kicker">Milestone Ledger</p><h1>Transition Milestones</h1><p>Newest released milestone appears first.</p></section>
+<section><h2>Released</h2><div class="card"><span class="status">released</span><h3>MS-012 — Independent Replay Packet</h3><p>Unlocked because T13/T14 replay evidence became public and repo-readable reports showed Transition Replay Check = ALLOW and Page Contract Check = 0 failures. The selector then returned promote_candidate_milestone.</p></div></section>
+<section><h2>Candidate</h2><div class="card"><span class="status pending">candidate</span><h3>MS-012F — Sandbox Repair and Candidate Construction</h3><p>Next because strict ingestion gates are installed and the system needs sandbox review/repair before autonomous construction advances.</p></div></section>
+<section><h2>Previous Releases</h2><div class="card"><span class="status">released</span><h3>MS-011 — Public Verification Bundle</h3><p>Unlocked the public verification surface, release index, verification guide, and public page contracts.</p></div></section>
+</main></body></html>

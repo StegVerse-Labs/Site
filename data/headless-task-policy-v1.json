@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-10T19:51:28Z",
+  "schema": "stegverse.headless_task_policy.v1",
+  "formal_milestone": "MS-012E.4 \u2014 Declared Task Runner",
+  "purpose": "Define safety rules for declared headless command tasks.",
+  "allowed_authority_classes": [
+    "ordinary_analysis",
+    "ordinary_ingestion",
+    "sandbox_review"
+  ],
+  "denied_authority_classes": [
+    "workflow_mutation",
+    "secret_mutation",
+    "branch_protection_mutation",
+    "privileged_executor"
+  ],
+  "forbidden_command_fragments": [
+    "rm -rf /",
+    "git push --force",
+    "gh secret",
+    "gh auth",
+    "chmod 777 /",
+    "sudo"
+  ],
+  "forbidden_path_prefixes": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "default_timeout_seconds": 120,
+  "max_stdout_chars": 12000,
+  "max_stderr_chars": 12000,
+  "verdicts": [
+    "ALLOW",
+    "DENY",
+    "FAIL_CLOSED"
+  ],
+  "safety": {
+    "do_not_execute_unknown_schema": true,
+    "do_not_execute_denied_authority_class": true,
+    "do_not_execute_forbidden_command_fragment": true,
+    "do_not_execute_if_expected_inputs_missing": true
+  }
+}

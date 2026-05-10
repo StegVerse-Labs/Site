@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012e4-declared-task-runner-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e4-declared-task-runner-v1.zip",
+  "bundle_sha256": "1dca6d1def459bd648c5dcdd9e0d613fddacfd6d59f68775d60145c7eb7e5ada",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
+    "generated_at": "2026-05-10T20:54:57Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+    "bundle_name": "ms012e4-declared-task-runner-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e4-declared-task-runner-v1.zip",
+    "bundle_sha256": "1dca6d1def459bd648c5dcdd9e0d613fddacfd6d59f68775d60145c7eb7e5ada",
+    "mode": "apply",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/headless-task-policy-v1.json",
+      "data/headless-task-registry-v1.json",
+      "data/headless-tasks/dependency-impact-scan-v1.json",
+      "data/headless-tasks/ingest-queue-cleanup-v1.json",
+      "data/headless-tasks/sandbox-bundle-review-v1.json",
+      "headless_cmd_reports/README.md",
+      "tools/headless_cmd_runner.py"
+    ],
+    "files_seen": 9,
+    "files_created": 7,
+    "files_updated": 1,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "237920a8ef477f3e59ee2a07596c5f200747eeae72659548f21213be502666b5",
+      "after_tree_fingerprint": "6e9ff5ad6d5287a7791ee6df80351785a3aa15e1a16de444802c545e50025880",
+      "changed_files_fingerprint": "2c240aa212900b26cb615e5f543aba89015deb70290dce4caff5db2a3bb6ca4f"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "8e163f2dbd5b6a6ccd7f4ec07165fd71213bb47e3cab52f4b8bdf80073032dab",
+        "bytes": 1788
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "ae908fa03062ff188e2240799aacab74f5edd79ad6e4ca7b6223b34f9da5f746",
+        "new_sha256": "1e0b64d25df95f581f140de20bcdd7e1244f804f68ca24761c403ec76ab03a56",
+        "bytes": 1615
+      },
+      {
+        "bundle_path": "data/headless-task-policy-v1.json",
+        "repo_path": "data/headless-task-policy-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "34e07a3d1ad6adbf4c79f8dabaa72c51a34866349f5a5d54483d7c6f439c22fd",
+        "bytes": 1078
+      },
+      {
+        "bundle_path": "data/headless-task-registry-v1.json",
+        "repo_path": "data/headless-task-registry-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "590fd87445a1591a3ddb1aad1b1358003914e7f6d62a56a3c857bce27245eaad",
+        "bytes": 1394
+      },
+      {
+        "bundle_path": "data/headless-tasks/dependency-impact-scan-v1.json",
+        "repo_path": "data/headless-tasks/dependency-impact-scan-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "9d9a7162acd1eed63b166b217fc53ee6bb06c3d47f2651ec2d7340eccab887fe",
+        "bytes": 1123
+      },
+      {
+        "bundle_path": "data/headless-tasks/ingest-queue-cleanup-v1.json",
+        "repo_path": "data/headless-tasks/ingest-queue-cleanup-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "f3d34e59d21c2cfebd940dc0e002b2e6c3adfbce44363d82428bed4199dcb585",
+        "bytes": 1054
+      },
+      {
+        "bundle_path": "data/headless-tasks/sandbox-bundle-review-v1.json",
+        "repo_path": "data/headless-tasks/sandbox-bundle-review-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "83f2a073309578042ddea734196678b4c61e1fbec13bc06d93f08b4e6cf8ec24",
+        "bytes": 1117
+      },
+      {
+        "bundle_path": "headless_cmd_reports/README.md",
+        "repo_path": "headless_cmd_reports/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "ac99f089d5356d8ef2b6287d5b06115b32edd1414f6e7249ccf3abeafa3a783d",
+        "bytes": 275
+      },
+      {
+        "bundle_path": "tools/headless_cmd_runner.py",
+        "repo_path": "tools/headless_cmd_runner.py",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "77bff9374ff03b30d35547667b46294aa191062153473986d27695b43f23cded",
+        "bytes": 7765
+      }
+    ]
+  },
+  "repo_transition": {
+    "before_tree_fingerprint": "237920a8ef477f3e59ee2a07596c5f200747eeae72659548f21213be502666b5",
+    "after_tree_fingerprint": "6e9ff5ad6d5287a7791ee6df80351785a3aa15e1a16de444802c545e50025880",
+    "changed_files_fingerprint": "2c240aa212900b26cb615e5f543aba89015deb70290dce4caff5db2a3bb6ca4f"
+  },
+  "files_created": 7,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
+}

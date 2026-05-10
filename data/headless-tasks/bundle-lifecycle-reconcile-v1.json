@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-05-10T20:17:43Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "bundle-lifecycle-reconcile-v1",
+  "class": "lifecycle_reconciliation",
+  "authority_class": "ordinary_analysis",
+  "description": "Classify bundle/milestone lifecycle state from repo-visible evidence. Override subject with --arg subject=<path>.",
+  "command": [
+    "python",
+    "tools/bundle_lifecycle_reconcile.py",
+    "--subject",
+    "{subject}",
+    "--policy",
+    "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+    "--out-dir",
+    "lifecycle_reports"
+  ],
+  "default_args": {
+    "subject": "data/lifecycle/ms012f-lifecycle-subject-v1.json"
+  },
+  "expected_inputs": [
+    "tools/bundle_lifecycle_reconcile.py",
+    "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+    "data/lifecycle/ms012f-lifecycle-subject-v1.json"
+  ],
+  "expected_outputs": [
+    "lifecycle_reports/bundle-lifecycle-report.json",
+    "lifecycle_reports/bundle-lifecycle-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/bundle-lifecycle-reconcile-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/bundle-lifecycle-reconcile-v1.report.md"
+}

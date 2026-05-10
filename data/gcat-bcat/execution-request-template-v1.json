@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-05-10T20:12:45Z",
+  "schema": "stegverse.execution_request.v1",
+  "request_id": "example-implementation-detail",
+  "title": "Example implementation detail",
+  "description": "Example request showing the required shape for execution-gate evaluation.",
+  "decision_class": "implementation_detail",
+  "proposed_transition": {
+    "summary": "Run one bounded implementation task that does not change architecture, authority, workflows, recursion, or milestones.",
+    "touches_workflows": false,
+    "touches_milestones": false,
+    "expands_authority": false,
+    "expands_recursive_automation": false,
+    "uses_schedule": false,
+    "uses_workflow_run": false,
+    "uses_self_trigger": false,
+    "has_stop_condition": true,
+    "emits_receipt": true
+  },
+  "gcat_bcat_metrics": {
+    "observability": 0.9,
+    "receiptability": 0.95,
+    "unboundedness": 0.0,
+    "authority_expansion": 0.0,
+    "recursive_capacity": 0.0,
+    "workflow_mutation": 0.0,
+    "milestone_promotion": 0.0
+  },
+  "human_approval": {
+    "required": false,
+    "approved": false,
+    "approval_receipt": null
+  }
+}

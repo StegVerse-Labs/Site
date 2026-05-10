@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "transition-replay-report 2.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/transition-replay-report 2.zip",
+  "bundle_sha256": "873f2634850cc686936eea697d478fe2d06f75337192f8e0cba27cdc3ba35f55",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
+    "generated_at": "2026-05-10T20:54:57Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+    "bundle_name": "transition-replay-report 2.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/transition-replay-report 2.zip",
+    "bundle_sha256": "873f2634850cc686936eea697d478fe2d06f75337192f8e0cba27cdc3ba35f55",
+    "mode": "apply",
+    "bundle_class": "artifact_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "known report artifact bundle",
+    "mapped_paths": [
+      "transition-replay-report.json",
+      "transition-replay-report.md"
+    ],
+    "files_seen": 2,
+    "files_created": 0,
+    "files_updated": 0,
+    "files_unchanged": 2,
+    "files_skipped": 0,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [
+      {
+        "bundle_path": "transition-replay-report.json",
+        "repo_path": "transition_replay_reports/transition-replay-report.json",
+        "reason": "Transition Replay Check artifact ZIP exposes report JSON at root; selector expects transition_replay_reports/."
+      },
+      {
+        "bundle_path": "transition-replay-report.md",
+        "repo_path": "transition_replay_reports/transition-replay-report.md",
+        "reason": "Transition Replay Check artifact ZIP exposes report Markdown at root; selector expects transition_replay_reports/."
+      }
+    ],
+    "repo_transition": {
+      "before_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+      "after_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+      "changed_files_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "decisions": [
+      {
+        "bundle_path": "transition-replay-report.json",
+        "repo_path": "transition_replay_reports/transition-replay-report.json",
+        "action": "unchanged",
+        "reason": "target hash already matches",
+        "old_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
+        "new_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
+        "bytes": 2299
+      },
+      {
+        "bundle_path": "transition-replay-report.md",
+        "repo_path": "transition_replay_reports/transition-replay-report.md",
+        "action": "unchanged",
+        "reason": "target hash already matches",
+        "old_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
+        "new_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
+        "bytes": 324
+      }
+    ]
+  },
+  "repo_transition": {
+    "before_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+    "after_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+    "changed_files_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "files_created": 0,
+  "files_updated": 0,
+  "files_unchanged": 2,
+  "files_skipped": 0
+}

@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.stale_incoming_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "incoming_path": "/home/runner/work/Site/Site/incoming/README.md",
+  "file_name": "README.md",
+  "file_sha256": "eae21da62583afe18786f678c4ed49714491034883c395877017a223d631c356",
+  "bundle_sha256": "eae21da62583afe18786f678c4ed49714491034883c395877017a223d631c356",
+  "verdict": "STALE_INCOMING_QUARANTINED",
+  "route": "failed_bundles",
+  "seen_state": null,
+  "reason": "Non-ZIP file in incoming/ cannot be ingested as a bundle."
+}

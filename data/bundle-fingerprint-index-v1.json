@@ -76,6 +76,60 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "d3ff4201a7d9a23f61f24ab3ca17c06e50c04d4a1855e541c1baad223fc30f94"
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012-promotion-bundle-v1.zip",
+      "bundle_sha256": "66e13a408320f04fe19c18e07ff61ed91014186993128927f59ab611428533a4",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "7745fde89ca34d40913a7e568d61423a142f07dfe3799e80163648f98e2b827a"
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012e4-declared-task-runner-v1.zip",
+      "bundle_sha256": "1dca6d1def459bd648c5dcdd9e0d613fddacfd6d59f68775d60145c7eb7e5ada",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "2c240aa212900b26cb615e5f543aba89015deb70290dce4caff5db2a3bb6ca4f"
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012f-lifecycle-reconciler-v1.zip",
+      "bundle_sha256": "db2ce87327fbe487bdda9d57bf1d98282a4ce4361b4fc96f98c9a62e69a7c4c3",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "eecd3bc1713eae7ff0dd57c78ecaf6bd38d6f6faf133dfbba44ebe8816bf4c18"
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+      "bundle_sha256": "f4b132c015493ccd189134084eaff0f40cadcba23b3deab845b7b1755f666463",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "f6d23d707bad6696d9c106e0c2b47cf864ef8e973a5c3ce2fe196db6b1d3f4e7"
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+      "bundle_sha256": "dfbba658c697a1ba0b3ebd688a287eaf1bd3e01272fb4d93843c60997b949128",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "dc5b4e46472076dd8a497d25d5b68d4cd1184608c61b693f805701415a390141"
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "transition-replay-report 2.zip",
+      "bundle_sha256": "873f2634850cc686936eea697d478fe2d06f75337192f8e0cba27cdc3ba35f55",
+      "bundle_class": "artifact_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ]
 }

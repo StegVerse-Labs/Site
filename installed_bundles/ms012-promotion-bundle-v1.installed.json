@@ -1,0 +1,159 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012-promotion-bundle-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012-promotion-bundle-v1.zip",
+  "bundle_sha256": "66e13a408320f04fe19c18e07ff61ed91014186993128927f59ab611428533a4",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
+    "generated_at": "2026-05-10T20:54:57Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+    "bundle_name": "ms012-promotion-bundle-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012-promotion-bundle-v1.zip",
+    "bundle_sha256": "66e13a408320f04fe19c18e07ff61ed91014186993128927f59ab611428533a4",
+    "mode": "apply",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/next-transition-build-candidate-v1.json",
+      "data/page-contracts-v1.json",
+      "data/transition-release-index-v1.json",
+      "data/transition-release-snapshot-v1.json",
+      "data/transition-release-state-v1.json",
+      "transition-development-status.html",
+      "transition-milestones.html",
+      "transition-release-index.html",
+      "transition-release-snapshot.html"
+    ],
+    "files_seen": 11,
+    "files_created": 0,
+    "files_updated": 10,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "ebf47f6f980d1b3e928f4ece4bdb1e73f6955bd0482be3151d1196320a102443",
+      "after_tree_fingerprint": "11fbd7954e58bf670e2a6f2d3bc6aefba9b83501e90ada8c965cf0ee0acd0227",
+      "changed_files_fingerprint": "7745fde89ca34d40913a7e568d61423a142f07dfe3799e80163648f98e2b827a"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "1301c4f1128d5745268e6ce477dc075f77554f408a42619d14106ef82cfc9393",
+        "bytes": 1205
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "164983377e3c9c54cd2703812310b5141c46eb754ffe7a54058e73f1193bccef",
+        "new_sha256": "ae908fa03062ff188e2240799aacab74f5edd79ad6e4ca7b6223b34f9da5f746",
+        "bytes": 1768
+      },
+      {
+        "bundle_path": "data/next-transition-build-candidate-v1.json",
+        "repo_path": "data/next-transition-build-candidate-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "ecf94b52d015212482a43664d68dc0dbcadf4da36a32286909f2e8c8a0963ab5",
+        "new_sha256": "cc6aebc966cdb58ced4ac25f49541233013547da6c781ed18c68c60b12a67ae0",
+        "bytes": 1248
+      },
+      {
+        "bundle_path": "data/page-contracts-v1.json",
+        "repo_path": "data/page-contracts-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "55fb865bf1022146f1abab1dd573c243b739b0ab75a2f6f27b3bd04d17761dd2",
+        "new_sha256": "3df5f2170f58c92f976aeac5fc29d873b8d921d5b8fdae37fbaae9f0b0a57323",
+        "bytes": 9017
+      },
+      {
+        "bundle_path": "data/transition-release-index-v1.json",
+        "repo_path": "data/transition-release-index-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "202b98e6402db9b78a27ce6e3ed6920ab3637812cbbf6485f410b989db3671ee",
+        "new_sha256": "7d4587863b37e83344a38700dda78d9b47f1da35bdda814afe69882691ba9d60",
+        "bytes": 4143
+      },
+      {
+        "bundle_path": "data/transition-release-snapshot-v1.json",
+        "repo_path": "data/transition-release-snapshot-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "d7faba83f0989eef6610964b8531af0431493fa6d6afd2705aa069814faee5f0",
+        "new_sha256": "8be228fd8a3be84c0e6a5e0bbb8ae0e4207556494f904f6aad5a438e242b5bbf",
+        "bytes": 1662
+      },
+      {
+        "bundle_path": "data/transition-release-state-v1.json",
+        "repo_path": "data/transition-release-state-v1.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "a4128ac77bf9a031f00fb913a96737144321b048017b398df5b29857a0fc84e8",
+        "new_sha256": "c667d9f6cd2075d4caf17380c085607197f0cb30362f3bd90643d8fd82d25d9f",
+        "bytes": 2902
+      },
+      {
+        "bundle_path": "transition-development-status.html",
+        "repo_path": "transition-development-status.html",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "54d4804b3dc721de231854343bfb2d94dc1683e6d289a25d2fd4a7c91e2998c2",
+        "new_sha256": "907a5156858dda5f27fa6d2ec2a27a0172034234cfc174f784a9f5407529db7a",
+        "bytes": 4239
+      },
+      {
+        "bundle_path": "transition-milestones.html",
+        "repo_path": "transition-milestones.html",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "73a859ce066f33f08fc55829c7ae0d042a5970081740ce57d994f4a33ad5bed6",
+        "new_sha256": "4c5c654152ce0cfd3d638b3e94baf9736a71a0df24792eeeca9735a75e658222",
+        "bytes": 4327
+      },
+      {
+        "bundle_path": "transition-release-index.html",
+        "repo_path": "transition-release-index.html",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "7416440c1ea81169d55442e6f91fc6b12fc6ffa5a440ff00084ec12dad61d6d8",
+        "new_sha256": "f5e347d2b31036c7b077995c1cc0c06b236380860e9af5d2c350c3cb062c2305",
+        "bytes": 5516
+      },
+      {
+        "bundle_path": "transition-release-snapshot.html",
+        "repo_path": "transition-release-snapshot.html",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "3b87eb85d044957b3c5f705d81549041b0276b62a7551ea568985718ee394421",
+        "new_sha256": "d20568aabdc39d81f2ae51861b4c5a5b906410631739cc080bd8342572b17140",
+        "bytes": 4369
+      }
+    ]
+  },
+  "repo_transition": {
+    "before_tree_fingerprint": "ebf47f6f980d1b3e928f4ece4bdb1e73f6955bd0482be3151d1196320a102443",
+    "after_tree_fingerprint": "11fbd7954e58bf670e2a6f2d3bc6aefba9b83501e90ada8c965cf0ee0acd0227",
+    "changed_files_fingerprint": "7745fde89ca34d40913a7e568d61423a142f07dfe3799e80163648f98e2b827a"
+  },
+  "files_created": 0,
+  "files_updated": 10,
+  "files_unchanged": 0,
+  "files_skipped": 1
+}

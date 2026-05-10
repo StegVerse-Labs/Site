@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-05-10T19:51:28Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "sandbox-bundle-review-v1",
+  "class": "sandbox_review",
+  "authority_class": "sandbox_review",
+  "description": "Run purpose-aware sandbox review for a target bundle. The default target can be overridden by passing --arg bundle=<path> to the runner.",
+  "command": [
+    "python",
+    "tools/sandbox_bundle_review.py",
+    "--bundle",
+    "{bundle}",
+    "--deprecation-policy",
+    "data/deprecation-policy-v1.json",
+    "--out-dir",
+    "sandbox_reports"
+  ],
+  "default_args": {
+    "bundle": "incoming/installed-bundle-archive-smoke-test-v1.zip"
+  },
+  "expected_inputs": [
+    "tools/sandbox_bundle_review.py",
+    "data/deprecation-policy-v1.json"
+  ],
+  "expected_outputs": [
+    "sandbox_reports/sandbox-review-report.json",
+    "sandbox_reports/sandbox-review-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/sandbox-bundle-review-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/sandbox-bundle-review-v1.report.md"
+}

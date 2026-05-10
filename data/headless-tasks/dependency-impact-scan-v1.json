@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-05-10T19:51:28Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "dependency-impact-scan-v1",
+  "class": "dependency_scan",
+  "authority_class": "ordinary_analysis",
+  "description": "Run dependency impact scan for a target bundle. The default target can be overridden by passing --arg bundle=<path> to the runner.",
+  "command": [
+    "python",
+    "tools/dependency_impact_scan.py",
+    "--bundle",
+    "{bundle}",
+    "--dependency-map",
+    "data/dependency-map-v1.json",
+    "--out-dir",
+    "dependency_reports"
+  ],
+  "default_args": {
+    "bundle": "incoming/installed-bundle-archive-smoke-test-v1.zip"
+  },
+  "expected_inputs": [
+    "tools/dependency_impact_scan.py",
+    "data/dependency-map-v1.json"
+  ],
+  "expected_outputs": [
+    "dependency_reports/dependency-impact-report.json",
+    "dependency_reports/dependency-impact-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/dependency-impact-scan-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/dependency-impact-scan-v1.report.md"
+}

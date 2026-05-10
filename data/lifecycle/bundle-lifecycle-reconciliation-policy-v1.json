@@ -1,0 +1,51 @@
+{
+  "generated_at": "2026-05-10T20:17:43Z",
+  "schema": "stegverse.bundle_lifecycle_reconciliation_policy.v1",
+  "policy_id": "ms012f-lifecycle-reconciler-v1",
+  "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+  "purpose": "Classify whether a milestone or bundle is fully installed, partially installed, failed-only, missing, or conflicted based on repo-visible evidence.",
+  "evidence_dirs": {
+    "incoming": "incoming",
+    "installed": "installed_bundles",
+    "failed": "failed_bundles",
+    "sandbox": "sandbox_queue",
+    "privileged": "privileged_queue",
+    "ingestion_reports": "ingestion_reports",
+    "lifecycle_reports": "lifecycle_reports"
+  },
+  "classification_rules": {
+    "installed_verified": [
+      "all_target_files_present",
+      "installed_archive_present",
+      "installed_receipt_present"
+    ],
+    "files_present_but_archive_missing": [
+      "all_target_files_present",
+      "installed_archive_missing_or_receipt_missing"
+    ],
+    "failed_only": [
+      "no_target_files_present",
+      "failed_bundle_or_receipt_present"
+    ],
+    "partially_installed": [
+      "some_target_files_present",
+      "not_all_target_files_present"
+    ],
+    "missing": [
+      "no_target_files_present",
+      "no_bundle_evidence_present"
+    ],
+    "conflicted": [
+      "target_files_present",
+      "failed_bundle_or_receipt_present",
+      "installed_archive_missing_or_receipt_missing"
+    ]
+  },
+  "safety": {
+    "does_not_modify_target_files": true,
+    "does_not_move_bundles": true,
+    "does_not_promote_milestones": true,
+    "does_not_edit_workflows": true,
+    "evidence_only": true
+  }
+}

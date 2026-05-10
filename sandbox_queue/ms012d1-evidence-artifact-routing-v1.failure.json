@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012d1-evidence-artifact-routing-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012d1-evidence-artifact-routing-v1.zip",
+  "bundle_sha256": "a05d7c13ea7be7a1b81ba6ece8ab76fff6c24a97a09cfe115b65b139052cb65e",
+  "mode": "apply",
+  "bundle_class": "ingestion_engine_mutation_bundle",
+  "verdict": "SANDBOX_REQUIRED",
+  "route": "sandbox_queue",
+  "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+  "mapped_paths": [
+    "README.md",
+    "bundle-manifest.json",
+    "data/bundle-ingestion-policy-v1.json",
+    "tools/bundle_ingest.py"
+  ],
+  "decisions": []
+}

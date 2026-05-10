@@ -1,0 +1,1134 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.bundle_queue_report.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "mode": "apply",
+  "bundles_seen": 19,
+  "stale_files_seen": 1,
+  "reports": [
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ingestion-smoke-test-bundle-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/ingestion-smoke-test-bundle-v1.zip",
+        "file_name": "ingestion-smoke-test-bundle-v1.zip",
+        "file_sha256": "645dcc3dbef900e9920d9a782e79ac5cbb90c46f25a58249afa6f75210d332d1",
+        "bundle_sha256": "645dcc3dbef900e9920d9a782e79ac5cbb90c46f25a58249afa6f75210d332d1",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/installed-bundle-archive-smoke-test-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/installed-bundle-archive-smoke-test-v1.zip",
+        "file_name": "installed-bundle-archive-smoke-test-v1.zip",
+        "file_sha256": "b6aeabb51c7e0524f48ea989f90551c414a655dce3a09f2997780e74d1912509",
+        "bundle_sha256": "b6aeabb51c7e0524f48ea989f90551c414a655dce3a09f2997780e74d1912509",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_installed",
+        "reason": "Incoming bundle is already seen as already_installed; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_installed",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012-promotion-bundle-v1.zip",
+      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012-promotion-bundle-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012-promotion-bundle-v1.zip",
+        "bundle_sha256": "66e13a408320f04fe19c18e07ff61ed91014186993128927f59ab611428533a4",
+        "mode": "apply",
+        "bundle_class": "ordinary_bundle",
+        "verdict": "ALLOW",
+        "route": "ingest",
+        "reason": "ordinary bundle allowed",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/next-transition-build-candidate-v1.json",
+          "data/page-contracts-v1.json",
+          "data/transition-release-index-v1.json",
+          "data/transition-release-snapshot-v1.json",
+          "data/transition-release-state-v1.json",
+          "transition-development-status.html",
+          "transition-milestones.html",
+          "transition-release-index.html",
+          "transition-release-snapshot.html"
+        ],
+        "files_seen": 11,
+        "files_created": 0,
+        "files_updated": 10,
+        "files_unchanged": 0,
+        "files_skipped": 1,
+        "unsafe_paths_rejected": 0,
+        "path_mappings_applied": [],
+        "repo_transition": {
+          "before_tree_fingerprint": "ebf47f6f980d1b3e928f4ece4bdb1e73f6955bd0482be3151d1196320a102443",
+          "after_tree_fingerprint": "11fbd7954e58bf670e2a6f2d3bc6aefba9b83501e90ada8c965cf0ee0acd0227",
+          "changed_files_fingerprint": "7745fde89ca34d40913a7e568d61423a142f07dfe3799e80163648f98e2b827a"
+        },
+        "decisions": [
+          {
+            "bundle_path": "README.md",
+            "repo_path": null,
+            "action": "skipped",
+            "reason": "bundle root README is documentation and is not applied to repo root",
+            "old_sha256": null,
+            "new_sha256": "1301c4f1128d5745268e6ce477dc075f77554f408a42619d14106ef82cfc9393",
+            "bytes": 1205
+          },
+          {
+            "bundle_path": "bundle-manifest.json",
+            "repo_path": "bundle-manifest.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "164983377e3c9c54cd2703812310b5141c46eb754ffe7a54058e73f1193bccef",
+            "new_sha256": "ae908fa03062ff188e2240799aacab74f5edd79ad6e4ca7b6223b34f9da5f746",
+            "bytes": 1768
+          },
+          {
+            "bundle_path": "data/next-transition-build-candidate-v1.json",
+            "repo_path": "data/next-transition-build-candidate-v1.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "ecf94b52d015212482a43664d68dc0dbcadf4da36a32286909f2e8c8a0963ab5",
+            "new_sha256": "cc6aebc966cdb58ced4ac25f49541233013547da6c781ed18c68c60b12a67ae0",
+            "bytes": 1248
+          },
+          {
+            "bundle_path": "data/page-contracts-v1.json",
+            "repo_path": "data/page-contracts-v1.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "55fb865bf1022146f1abab1dd573c243b739b0ab75a2f6f27b3bd04d17761dd2",
+            "new_sha256": "3df5f2170f58c92f976aeac5fc29d873b8d921d5b8fdae37fbaae9f0b0a57323",
+            "bytes": 9017
+          },
+          {
+            "bundle_path": "data/transition-release-index-v1.json",
+            "repo_path": "data/transition-release-index-v1.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "202b98e6402db9b78a27ce6e3ed6920ab3637812cbbf6485f410b989db3671ee",
+            "new_sha256": "7d4587863b37e83344a38700dda78d9b47f1da35bdda814afe69882691ba9d60",
+            "bytes": 4143
+          },
+          {
+            "bundle_path": "data/transition-release-snapshot-v1.json",
+            "repo_path": "data/transition-release-snapshot-v1.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "d7faba83f0989eef6610964b8531af0431493fa6d6afd2705aa069814faee5f0",
+            "new_sha256": "8be228fd8a3be84c0e6a5e0bbb8ae0e4207556494f904f6aad5a438e242b5bbf",
+            "bytes": 1662
+          },
+          {
+            "bundle_path": "data/transition-release-state-v1.json",
+            "repo_path": "data/transition-release-state-v1.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "a4128ac77bf9a031f00fb913a96737144321b048017b398df5b29857a0fc84e8",
+            "new_sha256": "c667d9f6cd2075d4caf17380c085607197f0cb30362f3bd90643d8fd82d25d9f",
+            "bytes": 2902
+          },
+          {
+            "bundle_path": "transition-development-status.html",
+            "repo_path": "transition-development-status.html",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "54d4804b3dc721de231854343bfb2d94dc1683e6d289a25d2fd4a7c91e2998c2",
+            "new_sha256": "907a5156858dda5f27fa6d2ec2a27a0172034234cfc174f784a9f5407529db7a",
+            "bytes": 4239
+          },
+          {
+            "bundle_path": "transition-milestones.html",
+            "repo_path": "transition-milestones.html",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "73a859ce066f33f08fc55829c7ae0d042a5970081740ce57d994f4a33ad5bed6",
+            "new_sha256": "4c5c654152ce0cfd3d638b3e94baf9736a71a0df24792eeeca9735a75e658222",
+            "bytes": 4327
+          },
+          {
+            "bundle_path": "transition-release-index.html",
+            "repo_path": "transition-release-index.html",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "7416440c1ea81169d55442e6f91fc6b12fc6ffa5a440ff00084ec12dad61d6d8",
+            "new_sha256": "f5e347d2b31036c7b077995c1cc0c06b236380860e9af5d2c350c3cb062c2305",
+            "bytes": 5516
+          },
+          {
+            "bundle_path": "transition-release-snapshot.html",
+            "repo_path": "transition-release-snapshot.html",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "3b87eb85d044957b3c5f705d81549041b0276b62a7551ea568985718ee394421",
+            "new_sha256": "d20568aabdc39d81f2ae51861b4c5a5b906410631739cc080bd8342572b17140",
+            "bytes": 4369
+          }
+        ]
+      },
+      "summary": {
+        "total_entries_seen": 11,
+        "applied": 10,
+        "unchanged": 0,
+        "skipped": 1,
+        "path_mappings": 0,
+        "unsafe_paths_rejected": 0,
+        "installed_archived": 1,
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012d-workflow-report-evidence-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/ms012d-workflow-report-evidence-v1.zip",
+        "file_name": "ms012d-workflow-report-evidence-v1.zip",
+        "file_sha256": "d36ce0d33e3ae90c9f1fd461982ec94499d63fd19aa7116e819eecf3ed4fd136",
+        "bundle_sha256": "d36ce0d33e3ae90c9f1fd461982ec94499d63fd19aa7116e819eecf3ed4fd136",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_privileged_routed",
+        "reason": "Incoming bundle is already seen as already_privileged_routed; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_privileged_routed",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012d1-evidence-artifact-routing-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012d1-evidence-artifact-routing-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012d1-evidence-artifact-routing-v1.zip",
+        "bundle_sha256": "a05d7c13ea7be7a1b81ba6ece8ab76fff6c24a97a09cfe115b65b139052cb65e",
+        "mode": "apply",
+        "bundle_class": "ingestion_engine_mutation_bundle",
+        "verdict": "SANDBOX_REQUIRED",
+        "route": "sandbox_queue",
+        "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/bundle-ingestion-policy-v1.json",
+          "tools/bundle_ingest.py"
+        ],
+        "decisions": []
+      },
+      "summary": {
+        "applied": 0,
+        "routed": "sandbox_queue",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012e-strict-ingestion-thresholds-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/ms012e-strict-ingestion-thresholds-v1.zip",
+        "file_name": "ms012e-strict-ingestion-thresholds-v1.zip",
+        "file_sha256": "b2f4073c5df8fd95dee99f33787c542a456c445c0d504ec701dbf905eed5dad2",
+        "bundle_sha256": "b2f4073c5df8fd95dee99f33787c542a456c445c0d504ec701dbf905eed5dad2",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012e1-stale-incoming-quarantine-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012e1-stale-incoming-quarantine-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e1-stale-incoming-quarantine-v1.zip",
+        "bundle_sha256": "b23bf57970e554fec39b8e16fc62e3cd365f65ae1d5a0868ee4d5fb5be2b7a82",
+        "mode": "apply",
+        "bundle_class": "ingestion_engine_mutation_bundle",
+        "verdict": "SANDBOX_REQUIRED",
+        "route": "sandbox_queue",
+        "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/bundle-ingestion-policy-v1.json",
+          "tools/bundle_ingest.py"
+        ],
+        "decisions": []
+      },
+      "summary": {
+        "applied": 0,
+        "routed": "sandbox_queue",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+        "file_name": "ms012e2-already-seen-incoming-quarantine-fix-v1.zip",
+        "file_sha256": "2d13cb1dbce9f9f741b43d1c29cea28f5ca2b4f2274d986acbd4b601fb06d09f",
+        "bundle_sha256": "2d13cb1dbce9f9f741b43d1c29cea28f5ca2b4f2274d986acbd4b601fb06d09f",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012e3-installed-bundle-archive-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/ms012e3-installed-bundle-archive-v1.zip",
+        "file_name": "ms012e3-installed-bundle-archive-v1.zip",
+        "file_sha256": "80080a9b2439dac2ac184d65082c05021ac7cc127684d4deeecb4f489e1c6359",
+        "bundle_sha256": "80080a9b2439dac2ac184d65082c05021ac7cc127684d4deeecb4f489e1c6359",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012e4-declared-task-runner-v1.zip",
+      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012e4-declared-task-runner-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e4-declared-task-runner-v1.zip",
+        "bundle_sha256": "1dca6d1def459bd648c5dcdd9e0d613fddacfd6d59f68775d60145c7eb7e5ada",
+        "mode": "apply",
+        "bundle_class": "ordinary_bundle",
+        "verdict": "ALLOW",
+        "route": "ingest",
+        "reason": "ordinary bundle allowed",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/headless-task-policy-v1.json",
+          "data/headless-task-registry-v1.json",
+          "data/headless-tasks/dependency-impact-scan-v1.json",
+          "data/headless-tasks/ingest-queue-cleanup-v1.json",
+          "data/headless-tasks/sandbox-bundle-review-v1.json",
+          "headless_cmd_reports/README.md",
+          "tools/headless_cmd_runner.py"
+        ],
+        "files_seen": 9,
+        "files_created": 7,
+        "files_updated": 1,
+        "files_unchanged": 0,
+        "files_skipped": 1,
+        "unsafe_paths_rejected": 0,
+        "path_mappings_applied": [],
+        "repo_transition": {
+          "before_tree_fingerprint": "237920a8ef477f3e59ee2a07596c5f200747eeae72659548f21213be502666b5",
+          "after_tree_fingerprint": "6e9ff5ad6d5287a7791ee6df80351785a3aa15e1a16de444802c545e50025880",
+          "changed_files_fingerprint": "2c240aa212900b26cb615e5f543aba89015deb70290dce4caff5db2a3bb6ca4f"
+        },
+        "decisions": [
+          {
+            "bundle_path": "README.md",
+            "repo_path": null,
+            "action": "skipped",
+            "reason": "bundle root README is documentation and is not applied to repo root",
+            "old_sha256": null,
+            "new_sha256": "8e163f2dbd5b6a6ccd7f4ec07165fd71213bb47e3cab52f4b8bdf80073032dab",
+            "bytes": 1788
+          },
+          {
+            "bundle_path": "bundle-manifest.json",
+            "repo_path": "bundle-manifest.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "ae908fa03062ff188e2240799aacab74f5edd79ad6e4ca7b6223b34f9da5f746",
+            "new_sha256": "1e0b64d25df95f581f140de20bcdd7e1244f804f68ca24761c403ec76ab03a56",
+            "bytes": 1615
+          },
+          {
+            "bundle_path": "data/headless-task-policy-v1.json",
+            "repo_path": "data/headless-task-policy-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "34e07a3d1ad6adbf4c79f8dabaa72c51a34866349f5a5d54483d7c6f439c22fd",
+            "bytes": 1078
+          },
+          {
+            "bundle_path": "data/headless-task-registry-v1.json",
+            "repo_path": "data/headless-task-registry-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "590fd87445a1591a3ddb1aad1b1358003914e7f6d62a56a3c857bce27245eaad",
+            "bytes": 1394
+          },
+          {
+            "bundle_path": "data/headless-tasks/dependency-impact-scan-v1.json",
+            "repo_path": "data/headless-tasks/dependency-impact-scan-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "9d9a7162acd1eed63b166b217fc53ee6bb06c3d47f2651ec2d7340eccab887fe",
+            "bytes": 1123
+          },
+          {
+            "bundle_path": "data/headless-tasks/ingest-queue-cleanup-v1.json",
+            "repo_path": "data/headless-tasks/ingest-queue-cleanup-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "f3d34e59d21c2cfebd940dc0e002b2e6c3adfbce44363d82428bed4199dcb585",
+            "bytes": 1054
+          },
+          {
+            "bundle_path": "data/headless-tasks/sandbox-bundle-review-v1.json",
+            "repo_path": "data/headless-tasks/sandbox-bundle-review-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "83f2a073309578042ddea734196678b4c61e1fbec13bc06d93f08b4e6cf8ec24",
+            "bytes": 1117
+          },
+          {
+            "bundle_path": "headless_cmd_reports/README.md",
+            "repo_path": "headless_cmd_reports/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "ac99f089d5356d8ef2b6287d5b06115b32edd1414f6e7249ccf3abeafa3a783d",
+            "bytes": 275
+          },
+          {
+            "bundle_path": "tools/headless_cmd_runner.py",
+            "repo_path": "tools/headless_cmd_runner.py",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "77bff9374ff03b30d35547667b46294aa191062153473986d27695b43f23cded",
+            "bytes": 7765
+          }
+        ]
+      },
+      "summary": {
+        "total_entries_seen": 9,
+        "applied": 8,
+        "unchanged": 0,
+        "skipped": 1,
+        "path_mappings": 0,
+        "unsafe_paths_rejected": 0,
+        "installed_archived": 1,
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012e5-default-queue-mode-ingestor-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012e5-default-queue-mode-ingestor-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e5-default-queue-mode-ingestor-v1.zip",
+        "bundle_sha256": "c33ccf07acdd5576f74bed48dae60a67a79ce5d03cdf281c659b19b12b0786f1",
+        "mode": "apply",
+        "bundle_class": "ingestion_engine_mutation_bundle",
+        "verdict": "SANDBOX_REQUIRED",
+        "route": "sandbox_queue",
+        "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "tools/bundle_ingest.py"
+        ],
+        "decisions": []
+      },
+      "summary": {
+        "applied": 0,
+        "routed": "sandbox_queue",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+        "file_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
+        "file_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
+        "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012f-lifecycle-reconciler-v1.zip",
+      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012f-lifecycle-reconciler-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012f-lifecycle-reconciler-v1.zip",
+        "bundle_sha256": "db2ce87327fbe487bdda9d57bf1d98282a4ce4361b4fc96f98c9a62e69a7c4c3",
+        "mode": "apply",
+        "bundle_class": "ordinary_bundle",
+        "verdict": "ALLOW",
+        "route": "ingest",
+        "reason": "ordinary bundle allowed",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/headless-tasks/bundle-lifecycle-reconcile-v1.json",
+          "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+          "data/lifecycle/ms012f-lifecycle-subject-v1.json",
+          "docs/MS-012F-lifecycle-reconciler.md",
+          "lifecycle_reports/README.md",
+          "tools/bundle_lifecycle_reconcile.py"
+        ],
+        "files_seen": 8,
+        "files_created": 6,
+        "files_updated": 1,
+        "files_unchanged": 0,
+        "files_skipped": 1,
+        "unsafe_paths_rejected": 0,
+        "path_mappings_applied": [],
+        "repo_transition": {
+          "before_tree_fingerprint": "ab1b1b27c4c15f89cdbc103a5ba00ae30f5fbcc76ea40e86262307a1b14e3d87",
+          "after_tree_fingerprint": "238570f2c63ab15672a6b4de6092d3b31fa1fa5e3a88d1cebb6105d52fdf8642",
+          "changed_files_fingerprint": "eecd3bc1713eae7ff0dd57c78ecaf6bd38d6f6faf133dfbba44ebe8816bf4c18"
+        },
+        "decisions": [
+          {
+            "bundle_path": "README.md",
+            "repo_path": null,
+            "action": "skipped",
+            "reason": "bundle root README is documentation and is not applied to repo root",
+            "old_sha256": null,
+            "new_sha256": "8ebfc3f73f11d3108631f96fa2cc2fb9a478c62e6616fe4467afe28f6259c18b",
+            "bytes": 1232
+          },
+          {
+            "bundle_path": "bundle-manifest.json",
+            "repo_path": "bundle-manifest.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "1e0b64d25df95f581f140de20bcdd7e1244f804f68ca24761c403ec76ab03a56",
+            "new_sha256": "2b1ab4dcfbc70b8b74740a55a615d316751f16b1aef3cde65b4c03773bedb642",
+            "bytes": 1535
+          },
+          {
+            "bundle_path": "data/headless-tasks/bundle-lifecycle-reconcile-v1.json",
+            "repo_path": "data/headless-tasks/bundle-lifecycle-reconcile-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "22b014b74e1e0209649d634d30e1564b5507675d31d0f4755adeb537689be507",
+            "bytes": 1244
+          },
+          {
+            "bundle_path": "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+            "repo_path": "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "45827047c9361c150e6d00615dc20e0f5d69cf2c5811e0c9858302507a52aba0",
+            "bytes": 1652
+          },
+          {
+            "bundle_path": "data/lifecycle/ms012f-lifecycle-subject-v1.json",
+            "repo_path": "data/lifecycle/ms012f-lifecycle-subject-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "aae06a3a5dd4c4cda26a0d4988c4c0ad37ac5592b2d2f00a8138b7cda5d399f7",
+            "bytes": 1220
+          },
+          {
+            "bundle_path": "docs/MS-012F-lifecycle-reconciler.md",
+            "repo_path": "docs/MS-012F-lifecycle-reconciler.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "394017683ee9532d3cdaedb9ffc0d5e98afde6b89b519addf676f19ee7faf6fd",
+            "bytes": 803
+          },
+          {
+            "bundle_path": "lifecycle_reports/README.md",
+            "repo_path": "lifecycle_reports/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "cdb0b638df84173c2589e7db4a975f3ceb0a599ddaaddddab227aee88ea76554",
+            "bytes": 257
+          },
+          {
+            "bundle_path": "tools/bundle_lifecycle_reconcile.py",
+            "repo_path": "tools/bundle_lifecycle_reconcile.py",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "dd8cec282aacd540dacfecfc2ed8fda8d11b0848320e372170b8291641df8a95",
+            "bytes": 10986
+          }
+        ]
+      },
+      "summary": {
+        "total_entries_seen": 8,
+        "applied": 7,
+        "unchanged": 0,
+        "skipped": 1,
+        "path_mappings": 0,
+        "unsafe_paths_rejected": 0,
+        "installed_archived": 1,
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012g-human-design-authority-gcat-bcat-gate-v1.zip",
+        "bundle_sha256": "f4b132c015493ccd189134084eaff0f40cadcba23b3deab845b7b1755f666463",
+        "mode": "apply",
+        "bundle_class": "ordinary_bundle",
+        "verdict": "ALLOW",
+        "route": "ingest",
+        "reason": "ordinary bundle allowed",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/gates/human-design-authority-policy-v1.json",
+          "data/gcat-bcat/execution-request-template-v1.json",
+          "data/headless-tasks/execution-gate-check-v1.json",
+          "docs/MS-012G-human-design-authority-gcat-bcat-gate.md",
+          "execution_gate_reports/README.md",
+          "tools/gcat_bcat_execution_gate.py"
+        ],
+        "files_seen": 8,
+        "files_created": 6,
+        "files_updated": 1,
+        "files_unchanged": 0,
+        "files_skipped": 1,
+        "unsafe_paths_rejected": 0,
+        "path_mappings_applied": [],
+        "repo_transition": {
+          "before_tree_fingerprint": "2a519212cc5d9b40105b8d2f5d450d7d41c6212ca3c92f05adfb683fcad00942",
+          "after_tree_fingerprint": "fbd1d81df18bc42d047430d37344387119f443a7fdae56f2952a72f91ac2cddb",
+          "changed_files_fingerprint": "f6d23d707bad6696d9c106e0c2b47cf864ef8e973a5c3ce2fe196db6b1d3f4e7"
+        },
+        "decisions": [
+          {
+            "bundle_path": "README.md",
+            "repo_path": null,
+            "action": "skipped",
+            "reason": "bundle root README is documentation and is not applied to repo root",
+            "old_sha256": null,
+            "new_sha256": "7990d062963b9ccbcbebbbef7dfafed2579e56a9d44178fcaa1a8a48e3eeee9e",
+            "bytes": 1463
+          },
+          {
+            "bundle_path": "bundle-manifest.json",
+            "repo_path": "bundle-manifest.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "2b1ab4dcfbc70b8b74740a55a615d316751f16b1aef3cde65b4c03773bedb642",
+            "new_sha256": "607cb2937e170b52fa46659d5da54b6f65364372179c87fca3470c068443c703",
+            "bytes": 1543
+          },
+          {
+            "bundle_path": "data/gates/human-design-authority-policy-v1.json",
+            "repo_path": "data/gates/human-design-authority-policy-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "4fc2bcf02f0689552059df769e30db9ac7b0515ece15ece8d2f67cc20e34ee7c",
+            "bytes": 3501
+          },
+          {
+            "bundle_path": "data/gcat-bcat/execution-request-template-v1.json",
+            "repo_path": "data/gcat-bcat/execution-request-template-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "e3b745b79dd49f356285d91c59e6ed79346df622f35e16cdd6f7b88d2c152e16",
+            "bytes": 1117
+          },
+          {
+            "bundle_path": "data/headless-tasks/execution-gate-check-v1.json",
+            "repo_path": "data/headless-tasks/execution-gate-check-v1.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "d3231f2300006c169f273e13fd709c0efe0d5c43debaa3f409364787493842fd",
+            "bytes": 1166
+          },
+          {
+            "bundle_path": "docs/MS-012G-human-design-authority-gcat-bcat-gate.md",
+            "repo_path": "docs/MS-012G-human-design-authority-gcat-bcat-gate.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "9956be1b0a04d80f19f20c54e9c8d2222b0d1531fa2fda157131a85985c466d6",
+            "bytes": 1379
+          },
+          {
+            "bundle_path": "execution_gate_reports/README.md",
+            "repo_path": "execution_gate_reports/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "4351c233c01037b53ee0a2021fb7ed57e46bfd81d8d418e874db77d6add9874e",
+            "bytes": 283
+          },
+          {
+            "bundle_path": "tools/gcat_bcat_execution_gate.py",
+            "repo_path": "tools/gcat_bcat_execution_gate.py",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "93d3a3593a08343b201b05104c55535f2053e23c99c57509d52d6f3146bfaa84",
+            "bytes": 10347
+          }
+        ]
+      },
+      "summary": {
+        "total_entries_seen": 8,
+        "applied": 7,
+        "unchanged": 0,
+        "skipped": 1,
+        "path_mappings": 0,
+        "unsafe_paths_rejected": 0,
+        "installed_archived": 1,
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+        "bundle_sha256": "dfbba658c697a1ba0b3ebd688a287eaf1bd3e01272fb4d93843c60997b949128",
+        "mode": "apply",
+        "bundle_class": "ordinary_bundle",
+        "verdict": "ALLOW",
+        "route": "ingest",
+        "reason": "ordinary bundle allowed",
+        "mapped_paths": [
+          "README.md",
+          "bundle-manifest.json",
+          "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
+          "data/path-tests/path-function-sentinel-policy-v2.json",
+          "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+          "idle_sentinels/README.md",
+          "path_function_reports/README.md",
+          "sandbox_tasks/README.md",
+          "tools/path_function_sentinel_test.py",
+          "triggered_loop/README.md"
+        ],
+        "files_seen": 10,
+        "files_created": 8,
+        "files_updated": 1,
+        "files_unchanged": 0,
+        "files_skipped": 1,
+        "unsafe_paths_rejected": 0,
+        "path_mappings_applied": [],
+        "repo_transition": {
+          "before_tree_fingerprint": "ce6f7707055bcb74381ed1b88bc64dea1df5bf00bcf88fcdc3adcbb039fd5f33",
+          "after_tree_fingerprint": "5bbbfc9da8cc777f1adda32e31dcacf15c8b3349529e13b1727bbb18cd22cfde",
+          "changed_files_fingerprint": "dc5b4e46472076dd8a497d25d5b68d4cd1184608c61b693f805701415a390141"
+        },
+        "decisions": [
+          {
+            "bundle_path": "README.md",
+            "repo_path": null,
+            "action": "skipped",
+            "reason": "bundle root README is documentation and is not applied to repo root",
+            "old_sha256": null,
+            "new_sha256": "af16aaf09bd797134c54cf5f28344f048e90f6242aa119843f511e47d18e28c3",
+            "bytes": 1141
+          },
+          {
+            "bundle_path": "bundle-manifest.json",
+            "repo_path": "bundle-manifest.json",
+            "action": "updated",
+            "reason": "hash differs or target missing",
+            "old_sha256": "607cb2937e170b52fa46659d5da54b6f65364372179c87fca3470c068443c703",
+            "new_sha256": "9327814d4c04df6a3ef78cd8af2bd28fa51fffbdff94ba52e08ec8592292f829",
+            "bytes": 1979
+          },
+          {
+            "bundle_path": "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
+            "repo_path": "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "a8ed12a40bde784f0e0d5276015012756229bccea908230357d44c2ed959bb6f",
+            "bytes": 1101
+          },
+          {
+            "bundle_path": "data/path-tests/path-function-sentinel-policy-v2.json",
+            "repo_path": "data/path-tests/path-function-sentinel-policy-v2.json",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "8e3e4c8b1248d38a42f456ff84eb04a2fa7648117e9675747fc1a58d476c9cf9",
+            "bytes": 3334
+          },
+          {
+            "bundle_path": "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+            "repo_path": "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "f43d0fad65f82aeb3c6487f06a9fc619c546792c783dff2392004483bc3fe660",
+            "bytes": 746
+          },
+          {
+            "bundle_path": "idle_sentinels/README.md",
+            "repo_path": "idle_sentinels/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "18b45aa8758671f2fbff5736bdea531081e19c15b7b9afe5b15c9f5fb4bc4533",
+            "bytes": 156
+          },
+          {
+            "bundle_path": "path_function_reports/README.md",
+            "repo_path": "path_function_reports/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "59c9fc5eeead0850f1d37646d27caa8ad48ef12a850f2f72088e13dc897f05cb",
+            "bytes": 196
+          },
+          {
+            "bundle_path": "sandbox_tasks/README.md",
+            "repo_path": "sandbox_tasks/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "35693f0048a930e3863db01a4a96b5a8929bfd378dae0ef39580962c4e8df22a",
+            "bytes": 215
+          },
+          {
+            "bundle_path": "tools/path_function_sentinel_test.py",
+            "repo_path": "tools/path_function_sentinel_test.py",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "31f092314f1a2e2a0bd613fef508134ccacbee412499e2985c581c5f8a922e4d",
+            "bytes": 17398
+          },
+          {
+            "bundle_path": "triggered_loop/README.md",
+            "repo_path": "triggered_loop/README.md",
+            "action": "created",
+            "reason": "hash differs or target missing",
+            "old_sha256": null,
+            "new_sha256": "9b99a3bebc4058d5429a7971ca7dd0b6cde7c82437dee84ad9387d5d34433e09",
+            "bytes": 163
+          }
+        ]
+      },
+      "summary": {
+        "total_entries_seen": 10,
+        "applied": 9,
+        "unchanged": 0,
+        "skipped": 1,
+        "path_mappings": 0,
+        "unsafe_paths_rejected": 0,
+        "installed_archived": 1,
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/page-contract-report 2.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/page-contract-report 2.zip",
+        "file_name": "page-contract-report 2.zip",
+        "file_sha256": "508e6cce02deffe5088a5e63ef99f468894e04368f54253e1b4c5e6197fd99c4",
+        "bundle_sha256": "508e6cce02deffe5088a5e63ef99f468894e04368f54253e1b4c5e6197fd99c4",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/page-contract-report.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/page-contract-report.zip",
+        "file_name": "page-contract-report.zip",
+        "file_sha256": "1f70edc4a84a154845cef7862c16d100b5f215381f1a69596b0bf5066d4c7184",
+        "bundle_sha256": "1f70edc4a84a154845cef7862c16d100b5f215381f1a69596b0bf5066d4c7184",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/transition-replay-report 2.zip",
+      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.bundle_ingestion_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "bundle_name": "transition-replay-report 2.zip",
+        "bundle_path": "/home/runner/work/Site/Site/incoming/transition-replay-report 2.zip",
+        "bundle_sha256": "873f2634850cc686936eea697d478fe2d06f75337192f8e0cba27cdc3ba35f55",
+        "mode": "apply",
+        "bundle_class": "artifact_bundle",
+        "verdict": "ALLOW",
+        "route": "ingest",
+        "reason": "known report artifact bundle",
+        "mapped_paths": [
+          "transition-replay-report.json",
+          "transition-replay-report.md"
+        ],
+        "files_seen": 2,
+        "files_created": 0,
+        "files_updated": 0,
+        "files_unchanged": 2,
+        "files_skipped": 0,
+        "unsafe_paths_rejected": 0,
+        "path_mappings_applied": [
+          {
+            "bundle_path": "transition-replay-report.json",
+            "repo_path": "transition_replay_reports/transition-replay-report.json",
+            "reason": "Transition Replay Check artifact ZIP exposes report JSON at root; selector expects transition_replay_reports/."
+          },
+          {
+            "bundle_path": "transition-replay-report.md",
+            "repo_path": "transition_replay_reports/transition-replay-report.md",
+            "reason": "Transition Replay Check artifact ZIP exposes report Markdown at root; selector expects transition_replay_reports/."
+          }
+        ],
+        "repo_transition": {
+          "before_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+          "after_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+          "changed_files_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "decisions": [
+          {
+            "bundle_path": "transition-replay-report.json",
+            "repo_path": "transition_replay_reports/transition-replay-report.json",
+            "action": "unchanged",
+            "reason": "target hash already matches",
+            "old_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
+            "new_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
+            "bytes": 2299
+          },
+          {
+            "bundle_path": "transition-replay-report.md",
+            "repo_path": "transition_replay_reports/transition-replay-report.md",
+            "action": "unchanged",
+            "reason": "target hash already matches",
+            "old_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
+            "new_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
+            "bytes": 324
+          }
+        ]
+      },
+      "summary": {
+        "total_entries_seen": 2,
+        "applied": 0,
+        "unchanged": 2,
+        "skipped": 0,
+        "path_mappings": 2,
+        "unsafe_paths_rejected": 0,
+        "installed_archived": 1,
+        "source_removed_from_incoming": 1
+      }
+    },
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.bundle_ingestion_report.v1",
+      "bundle": "/home/runner/work/Site/Site/incoming/transition-replay-report.zip",
+      "mode": "apply",
+      "receipt": {
+        "generated_at": "2026-05-10T20:54:57Z",
+        "schema": "stegverse.stale_incoming_receipt.v1",
+        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+        "incoming_path": "/home/runner/work/Site/Site/incoming/transition-replay-report.zip",
+        "file_name": "transition-replay-report.zip",
+        "file_sha256": "6e4dcecafbae291334e27f36078f174d38f3dbc37396bd93b332ec25c9401188",
+        "bundle_sha256": "6e4dcecafbae291334e27f36078f174d38f3dbc37396bd93b332ec25c9401188",
+        "verdict": "STALE_INCOMING_QUARANTINED",
+        "route": "failed_bundles",
+        "seen_state": "already_applied",
+        "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+      },
+      "summary": {
+        "applied": 0,
+        "stale_quarantined": 1,
+        "seen_state": "already_applied",
+        "source_removed_from_incoming": 1
+      }
+    }
+  ],
+  "stale_receipts": [
+    {
+      "generated_at": "2026-05-10T20:54:57Z",
+      "schema": "stegverse.stale_incoming_receipt.v1",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "incoming_path": "/home/runner/work/Site/Site/incoming/README.md",
+      "file_name": "README.md",
+      "file_sha256": "eae21da62583afe18786f678c4ed49714491034883c395877017a223d631c356",
+      "bundle_sha256": "eae21da62583afe18786f678c4ed49714491034883c395877017a223d631c356",
+      "verdict": "STALE_INCOMING_QUARANTINED",
+      "route": "failed_bundles",
+      "seen_state": null,
+      "reason": "Non-ZIP file in incoming/ cannot be ingested as a bundle."
+    }
+  ]
+}

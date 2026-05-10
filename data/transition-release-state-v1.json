@@ -1,54 +1,74 @@
 {
-  "generated_at": "2026-05-10T11:18:56Z",
+  "generated_at": "2026-05-10T19:05:31Z",
   "schema": "stegverse.transition_release_state.v1",
-  "state_id": "transition-release-state-ms011-ms012-candidate-v1",
+  "state_id": "transition-release-state-ms012-released-v1",
   "current_released_milestone": {
+    "id": "MS-012",
+    "formal_label": "MS-012 \u2014 Independent Replay Packet",
+    "status": "released",
+    "release_state": "independent_replay_packet_released",
+    "basis": [
+      "Transition Replay Check produced repo-readable passing evidence.",
+      "Page Contract Check produced repo-readable passing evidence.",
+      "Selector returned promote_candidate_milestone with promotion_allowed=true.",
+      "Missing or unreadable evidence did not promote the milestone."
+    ],
+    "evidence": {
+      "transition_replay_report": "transition_replay_reports/transition-replay-report.json",
+      "page_contract_report": "page_contract_reports/page-contract-report.json",
+      "selector_report": "next_transition_step_reports/next_transition_step_report.json",
+      "replay_packet": "data/transition-replay-packet-v1.json",
+      "replay_fixtures": "data/transition-replay-fixtures-v1.json",
+      "replay_verifier": "data/transition-replay-verifier-v1.json"
+    }
+  },
+  "previous_released_milestone": {
     "id": "MS-011",
     "formal_label": "MS-011 \u2014 Public Verification Bundle",
     "status": "released",
     "release_state": "public_verification_bundle_released"
   },
   "current_candidate_milestone": {
-    "id": "MS-012",
-    "formal_label": "MS-012 \u2014 Independent Replay Packet",
+    "id": "MS-012F",
+    "formal_label": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
     "status": "candidate",
-    "release_state": "candidate_until_transition_replay_check_and_page_contract_check_pass",
+    "release_state": "candidate_until_sandbox_review_and_repair_receipts_pass",
+    "basis": [
+      "Strict ingestion thresholds are installed.",
+      "Report artifact routing is operational.",
+      "Failed, privileged, and sandbox queues exist.",
+      "The next missing construction capability is sandbox review, repair, and regenerated-bundle evidence."
+    ],
     "required_checks": [
       {
-        "id": "transition_replay_check",
-        "workflow_name": "Transition Replay Check",
+        "id": "sandbox_bundle_review",
+        "workflow_name": "Sandbox Bundle Review",
         "required": true,
         "accepted_report_globs": [
-          "transition_replay_reports/*.json",
-          "transition-replay-report/*.json",
-          "artifacts/transition-replay-report/*.json"
+          "sandbox_reports/*.json"
         ],
         "pass_conditions": [
-          "passed == true",
-          "verdict == ALLOW"
+          "verdict in [ALLOW, ALLOW_WITH_ARTIFACT_ROUTING, SANDBOX_REQUIRED, PRIVILEGED_EXECUTOR_REQUIRED]",
+          "silent_repair_performed == false"
         ]
       },
       {
-        "id": "page_contract_check",
-        "workflow_name": "Page Contract Check",
+        "id": "dependency_impact_scan",
+        "workflow_name": "Dependency Impact Scan",
         "required": true,
         "accepted_report_globs": [
-          "page_contract_reports/*.json",
-          "page-contract-report/*.json",
-          "artifacts/page-contract-report/*.json"
+          "dependency_reports/*.json"
         ],
         "pass_conditions": [
-          "passed == true",
-          "failures == 0"
+          "verdict in [ALLOW, SANDBOX_REQUIRED, PRIVILEGED_EXECUTOR_REQUIRED]"
         ]
       }
     ]
   },
   "selector_policy": {
-    "default_when_evidence_missing": "run_required_checks",
-    "default_when_conflict_seen": "halt_for_human_review",
+    "missing_evidence_promotes": false,
+    "chat_or_screenshot_promotes": false,
     "promotion_requires_all_required_checks": true,
-    "allow_promotion_from_chat_or_screenshot": false,
-    "allow_promotion_from_public_page_contract_only": false
+    "self_modification_requires_one_cycle_lag": true
   }
 }

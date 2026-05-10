@@ -1,32 +1,41 @@
 {
-  "generated_at": "2026-05-10T11:18:56Z",
+  "generated_at": "2026-05-10T19:05:31Z",
   "schema": "stegverse.transition_release_index.v1",
-  "release_id": "transition-release-snapshot-v1-ms011-ms012-candidate-selector",
+  "release_id": "transition-release-snapshot-v1-ms012",
   "current_release": {
-    "release_id": "transition-release-snapshot-v1-ms011",
-    "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
-    "state": "public_verification_bundle_released",
+    "release_id": "transition-release-snapshot-v1-ms012",
+    "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
+    "state": "independent_replay_packet_released",
     "snapshot_json": "data/transition-release-snapshot-v1.json",
     "snapshot_page": "transition-release-snapshot.html",
     "verification_guide": "transition-verification-guide.html",
-    "verification_bundle_json": "data/transition-verification-bundle-v1.json"
-  },
-  "candidate_release": {
-    "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
-    "state": "candidate_until_transition_replay_check_and_page_contract_check_pass",
+    "verification_bundle_json": "data/transition-verification-bundle-v1.json",
     "replay_packet_page": "transition-replay-packet.html",
-    "replay_packet_json": "data/transition-replay-packet-v1.json",
-    "replay_fixtures_json": "data/transition-replay-fixtures-v1.json",
-    "replay_verifier_json": "data/transition-replay-verifier-v1.json",
-    "next_step_selector_json": "data/next-transition-build-candidate-v1.json"
+    "replay_packet_json": "data/transition-replay-packet-v1.json"
+  },
+  "previous_release": {
+    "formal_milestone": "MS-011 \u2014 Public Verification Bundle",
+    "state": "public_verification_bundle_released"
+  },
+  "next_pending_milestone": {
+    "formal_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+    "status": "candidate",
+    "unlock_condition": "Sandbox review and dependency-impact receipts prove failed or malformed bundles can be classified, repaired, regenerated, or routed without silent correction."
   },
   "automation_layer": {
     "formal_label": "Autonomous Next-Step Selector v1",
-    "status": "candidate_decision_layer",
+    "status": "operational_for_ms012_promotion",
     "state_json": "data/transition-release-state-v1.json",
     "rules_json": "data/transition-decision-rules-v1.json",
-    "candidate_json": "data/next-transition-build-candidate-v1.json",
-    "workflow": ".github/workflows/select-next-transition-step.yml"
+    "candidate_json": "data/next-transition-build-candidate-v1.json"
+  },
+  "strict_ingestion_layer": {
+    "formal_label": "MS-012E \u2014 Strict Ingestion Threshold Gates",
+    "status": "installed",
+    "capability_thresholds": "data/capability-threshold-gates-v1.json",
+    "capability_scopes": "data/transition-capability-scopes-v1.json",
+    "stop_gap_policy": "data/stop-gap-policy-v1.json",
+    "dependency_map": "data/dependency-map-v1.json"
   },
   "public_pages": [
     {
@@ -64,26 +73,6 @@
   ],
   "public_data": [
     {
-      "label": "Automation Release State",
-      "path": "data/automation-release-state.json"
-    },
-    {
-      "label": "Automation Release Verifier",
-      "path": "data/automation-release-verifier.json"
-    },
-    {
-      "label": "Receipt-Backing Verifier",
-      "path": "data/receipt-backing-verifier.json"
-    },
-    {
-      "label": "Experimental Ledger Summary",
-      "path": "data/experimental-ledger-summary.json"
-    },
-    {
-      "label": "Transition Evidence",
-      "path": "data/transition-evidence.json"
-    },
-    {
       "label": "Release Snapshot v1",
       "path": "data/transition-release-snapshot-v1.json"
     },
@@ -118,11 +107,22 @@
     {
       "label": "Next Transition Build Candidate v1",
       "path": "data/next-transition-build-candidate-v1.json"
+    },
+    {
+      "label": "Capability Threshold Gates v1",
+      "path": "data/capability-threshold-gates-v1.json"
+    },
+    {
+      "label": "Transition Capability Scopes v1",
+      "path": "data/transition-capability-scopes-v1.json"
+    },
+    {
+      "label": "Stop-Gap Policy v1",
+      "path": "data/stop-gap-policy-v1.json"
+    },
+    {
+      "label": "Dependency Map v1",
+      "path": "data/dependency-map-v1.json"
     }
-  ],
-  "next_pending_milestone": {
-    "formal_milestone": "MS-012 \u2014 Independent Replay Packet",
-    "status": "candidate",
-    "unlock_condition": "Transition Replay Check passes and Page Contract Check confirms replay packet, fixture, verifier, release-index, and selector-output links are public."
-  }
+  ]
 }

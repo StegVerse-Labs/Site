@@ -1,30 +1,31 @@
 {
-  "generated_at": "2026-05-10T11:18:56Z",
+  "generated_at": "2026-05-10T19:05:31Z",
   "schema": "stegverse.next_transition_build_candidate.v1",
-  "state_id": "transition-release-state-ms011-ms012-candidate-v1",
+  "state_id": "transition-release-state-ms012-released-v1",
   "ruleset_id": "transition-decision-rules-v1",
-  "current_released_milestone": "MS-011 \u2014 Public Verification Bundle",
-  "current_candidate_milestone": "MS-012 \u2014 Independent Replay Packet",
-  "next_system_action": "run_required_checks",
-  "build_allowed": false,
+  "current_released_milestone": "MS-012 \u2014 Independent Replay Packet",
+  "current_candidate_milestone": "MS-012F \u2014 Sandbox Repair and Candidate Construction",
+  "next_system_action": "build_candidate_milestone",
+  "build_allowed": true,
   "promotion_allowed": false,
   "human_required": false,
-  "reason": "Required check evidence must be read from repo/workflow-readable reports before MS-012 can be promoted.",
+  "reason": "MS-012 is released. The next admissible candidate is sandbox repair and candidate construction, because failed/malformed bundles must be reviewed, repaired, regenerated, or routed without silent correction before autonomous build-loop capability can advance.",
   "required_checks": [
     {
-      "id": "transition_replay_check",
-      "workflow_name": "Transition Replay Check",
+      "id": "sandbox_bundle_review",
+      "workflow_name": "Sandbox Bundle Review",
       "required": true
     },
     {
-      "id": "page_contract_check",
-      "workflow_name": "Page Contract Check",
+      "id": "dependency_impact_scan",
+      "workflow_name": "Dependency Impact Scan",
       "required": true
     }
   ],
   "safety": {
     "missing_evidence_promotes": false,
     "chat_or_screenshot_promotes": false,
-    "promotion_requires_all_required_checks": true
+    "promotion_requires_all_required_checks": true,
+    "silent_repair_allowed": false
   }
 }

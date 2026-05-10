@@ -1,59 +1,60 @@
 {
-  "generated_at": "2026-05-10T19:42:50Z",
+  "generated_at": "2026-05-10T20:54:57Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
-  "formal_milestone": "MS-012E.3 \u2014 Installed Bundle Archive",
-  "bundle_name": "installed-bundle-archive-smoke-test-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/installed-bundle-archive-smoke-test-v1.zip",
-  "bundle_sha256": "b6aeabb51c7e0524f48ea989f90551c414a655dce3a09f2997780e74d1912509",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "transition-replay-report 2.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/transition-replay-report 2.zip",
+  "bundle_sha256": "873f2634850cc686936eea697d478fe2d06f75337192f8e0cba27cdc3ba35f55",
   "mode": "apply",
-  "bundle_class": "ordinary_bundle",
+  "bundle_class": "artifact_bundle",
   "verdict": "ALLOW",
   "route": "ingest",
-  "reason": "ordinary bundle allowed",
+  "reason": "known report artifact bundle",
   "mapped_paths": [
-    "README.md",
-    "bundle-manifest.json",
-    "data/installed-bundle-archive-smoke-test-v1.json"
+    "transition-replay-report.json",
+    "transition-replay-report.md"
   ],
-  "files_seen": 3,
-  "files_created": 1,
-  "files_updated": 1,
-  "files_unchanged": 0,
-  "files_skipped": 1,
+  "files_seen": 2,
+  "files_created": 0,
+  "files_updated": 0,
+  "files_unchanged": 2,
+  "files_skipped": 0,
   "unsafe_paths_rejected": 0,
-  "path_mappings_applied": [],
+  "path_mappings_applied": [
+    {
+      "bundle_path": "transition-replay-report.json",
+      "repo_path": "transition_replay_reports/transition-replay-report.json",
+      "reason": "Transition Replay Check artifact ZIP exposes report JSON at root; selector expects transition_replay_reports/."
+    },
+    {
+      "bundle_path": "transition-replay-report.md",
+      "repo_path": "transition_replay_reports/transition-replay-report.md",
+      "reason": "Transition Replay Check artifact ZIP exposes report Markdown at root; selector expects transition_replay_reports/."
+    }
+  ],
   "repo_transition": {
-    "before_tree_fingerprint": "1a795ad78007e4654d10a4a5dbd2ecd99a59bb95f70a4533a2a850c79310f0b6",
-    "after_tree_fingerprint": "c67fb7ad1a78a824a03c354c20dcab2b4f9e8affa1b0e48880d1b3938f63234c",
-    "changed_files_fingerprint": "d3ff4201a7d9a23f61f24ab3ca17c06e50c04d4a1855e541c1baad223fc30f94"
+    "before_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+    "after_tree_fingerprint": "359b7047b6de8f3e221c4fb178949fbdf91fef143e4bf4eecacac7691d529e10",
+    "changed_files_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
   "decisions": [
     {
-      "bundle_path": "README.md",
-      "repo_path": null,
-      "action": "skipped",
-      "reason": "bundle root README is documentation and is not applied to repo root",
-      "old_sha256": null,
-      "new_sha256": "157cd2cb2b266b93077c53e5f58644759b7dd0f4246afe16c30626b96df819f0",
-      "bytes": 910
+      "bundle_path": "transition-replay-report.json",
+      "repo_path": "transition_replay_reports/transition-replay-report.json",
+      "action": "unchanged",
+      "reason": "target hash already matches",
+      "old_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
+      "new_sha256": "dcfbbd5ea06fa017424a62815f69b14e350dda9b4565091f5309dd0e654a98ac",
+      "bytes": 2299
     },
     {
-      "bundle_path": "bundle-manifest.json",
-      "repo_path": "bundle-manifest.json",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "71a123eda5f64ee812c20fa511e8f9d2f78a2f07746c5ea10216fd317c4cbe56",
-      "new_sha256": "164983377e3c9c54cd2703812310b5141c46eb754ffe7a54058e73f1193bccef",
-      "bytes": 733
-    },
-    {
-      "bundle_path": "data/installed-bundle-archive-smoke-test-v1.json",
-      "repo_path": "data/installed-bundle-archive-smoke-test-v1.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "3a7e65ddecc5467900198f35e443509481919e20c087af39a74635da7771581c",
-      "bytes": 943
+      "bundle_path": "transition-replay-report.md",
+      "repo_path": "transition_replay_reports/transition-replay-report.md",
+      "action": "unchanged",
+      "reason": "target hash already matches",
+      "old_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
+      "new_sha256": "4e8003327975da554c9edeb1a7b346a244502356505c26a532e1378f5464d75e",
+      "bytes": 324
     }
   ]
 }

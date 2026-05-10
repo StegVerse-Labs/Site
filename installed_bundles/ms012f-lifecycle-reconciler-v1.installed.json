@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012f-lifecycle-reconciler-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012f-lifecycle-reconciler-v1.zip",
+  "bundle_sha256": "db2ce87327fbe487bdda9d57bf1d98282a4ce4361b4fc96f98c9a62e69a7c4c3",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
+    "generated_at": "2026-05-10T20:54:57Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+    "bundle_name": "ms012f-lifecycle-reconciler-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012f-lifecycle-reconciler-v1.zip",
+    "bundle_sha256": "db2ce87327fbe487bdda9d57bf1d98282a4ce4361b4fc96f98c9a62e69a7c4c3",
+    "mode": "apply",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/headless-tasks/bundle-lifecycle-reconcile-v1.json",
+      "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+      "data/lifecycle/ms012f-lifecycle-subject-v1.json",
+      "docs/MS-012F-lifecycle-reconciler.md",
+      "lifecycle_reports/README.md",
+      "tools/bundle_lifecycle_reconcile.py"
+    ],
+    "files_seen": 8,
+    "files_created": 6,
+    "files_updated": 1,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "ab1b1b27c4c15f89cdbc103a5ba00ae30f5fbcc76ea40e86262307a1b14e3d87",
+      "after_tree_fingerprint": "238570f2c63ab15672a6b4de6092d3b31fa1fa5e3a88d1cebb6105d52fdf8642",
+      "changed_files_fingerprint": "eecd3bc1713eae7ff0dd57c78ecaf6bd38d6f6faf133dfbba44ebe8816bf4c18"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "8ebfc3f73f11d3108631f96fa2cc2fb9a478c62e6616fe4467afe28f6259c18b",
+        "bytes": 1232
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "1e0b64d25df95f581f140de20bcdd7e1244f804f68ca24761c403ec76ab03a56",
+        "new_sha256": "2b1ab4dcfbc70b8b74740a55a615d316751f16b1aef3cde65b4c03773bedb642",
+        "bytes": 1535
+      },
+      {
+        "bundle_path": "data/headless-tasks/bundle-lifecycle-reconcile-v1.json",
+        "repo_path": "data/headless-tasks/bundle-lifecycle-reconcile-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "22b014b74e1e0209649d634d30e1564b5507675d31d0f4755adeb537689be507",
+        "bytes": 1244
+      },
+      {
+        "bundle_path": "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+        "repo_path": "data/lifecycle/bundle-lifecycle-reconciliation-policy-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "45827047c9361c150e6d00615dc20e0f5d69cf2c5811e0c9858302507a52aba0",
+        "bytes": 1652
+      },
+      {
+        "bundle_path": "data/lifecycle/ms012f-lifecycle-subject-v1.json",
+        "repo_path": "data/lifecycle/ms012f-lifecycle-subject-v1.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "aae06a3a5dd4c4cda26a0d4988c4c0ad37ac5592b2d2f00a8138b7cda5d399f7",
+        "bytes": 1220
+      },
+      {
+        "bundle_path": "docs/MS-012F-lifecycle-reconciler.md",
+        "repo_path": "docs/MS-012F-lifecycle-reconciler.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "394017683ee9532d3cdaedb9ffc0d5e98afde6b89b519addf676f19ee7faf6fd",
+        "bytes": 803
+      },
+      {
+        "bundle_path": "lifecycle_reports/README.md",
+        "repo_path": "lifecycle_reports/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "cdb0b638df84173c2589e7db4a975f3ceb0a599ddaaddddab227aee88ea76554",
+        "bytes": 257
+      },
+      {
+        "bundle_path": "tools/bundle_lifecycle_reconcile.py",
+        "repo_path": "tools/bundle_lifecycle_reconcile.py",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "dd8cec282aacd540dacfecfc2ed8fda8d11b0848320e372170b8291641df8a95",
+        "bytes": 10986
+      }
+    ]
+  },
+  "repo_transition": {
+    "before_tree_fingerprint": "ab1b1b27c4c15f89cdbc103a5ba00ae30f5fbcc76ea40e86262307a1b14e3d87",
+    "after_tree_fingerprint": "238570f2c63ab15672a6b4de6092d3b31fa1fa5e3a88d1cebb6105d52fdf8642",
+    "changed_files_fingerprint": "eecd3bc1713eae7ff0dd57c78ecaf6bd38d6f6faf133dfbba44ebe8816bf4c18"
+  },
+  "files_created": 6,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
+}

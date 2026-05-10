@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.stale_incoming_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "incoming_path": "/home/runner/work/Site/Site/incoming/ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "file_name": "ms012f-deprecated-purpose-sandbox-review-v1.zip",
+  "file_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
+  "bundle_sha256": "1c57e703bf687294011acc82706685b34747e35a206680961300ebe5fd86feaf",
+  "verdict": "STALE_INCOMING_QUARANTINED",
+  "route": "failed_bundles",
+  "seen_state": "already_applied",
+  "reason": "Incoming bundle is already seen as already_applied; quarantined as stale queue debris instead of being silently skipped."
+}

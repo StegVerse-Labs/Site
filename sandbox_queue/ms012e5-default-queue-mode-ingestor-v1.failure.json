@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012e5-default-queue-mode-ingestor-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012e5-default-queue-mode-ingestor-v1.zip",
+  "bundle_sha256": "c33ccf07acdd5576f74bed48dae60a67a79ce5d03cdf281c659b19b12b0786f1",
+  "mode": "apply",
+  "bundle_class": "ingestion_engine_mutation_bundle",
+  "verdict": "SANDBOX_REQUIRED",
+  "route": "sandbox_queue",
+  "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+  "mapped_paths": [
+    "README.md",
+    "bundle-manifest.json",
+    "tools/bundle_ingest.py"
+  ],
+  "decisions": []
+}

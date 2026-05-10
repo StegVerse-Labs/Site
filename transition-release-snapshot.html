@@ -1,127 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Transition Release Snapshot | StegVerse</title>
-<style>
-:root{
-  --bg:#080b12;
-  --panel:rgba(16,24,39,.82);
-  --text:#eef4ff;
-  --muted:#a9b7cc;
-  --line:rgba(255,255,255,.14);
-  --green:#43d694;
-  --gold:#ffbe54;
-}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
-main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}
-a{color:inherit}
-nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}
-nav div{display:flex;gap:10px;flex-wrap:wrap}
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Release Snapshot | StegVerse</title><style>:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}nav div{display:flex;gap:10px;flex-wrap:wrap}
 nav a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}
-nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
 section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
-h1{font-size:clamp(2.2rem,7vw,5.3rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
-h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}
-h3{font-size:1.18rem;margin:0 0 8px}
-p{color:var(--muted);font-size:1.02rem}
-.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}
-.card strong{display:block;font-size:clamp(1.15rem,6vw,1.65rem);overflow-wrap:anywhere;line-height:1.05}
-.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}
-.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}
-ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}
-li{margin-bottom:7px}
-code{word-break:break-word;color:#f5fbff}
-pre{white-space:pre-wrap;word-break:break-word;border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.22);color:#dffbea}
-@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
-</style>
-</head>
-<body>
-<main>
-
-
-<nav>
-  <a href="index.html"><strong>StegVerse</strong></a>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="demo.html">Demo</a>
-    <a href="transition-periodic-table.html">Research Landing</a>
-    <a href="transition-table.html">Transition Table</a>
-    <a href="transition-milestones.html">Milestones</a>
-    <a href="transition-development-status.html">Development Status</a>
-    <a href="transition-release-snapshot.html">Release Snapshot</a>
-    <a href="transition-release-index.html">Release Index</a>
-    <a href="transition-verification-guide.html">Verification Guide</a>
-    <a href="transition-replay-packet.html">Replay Packet</a>
-    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
-  </div>
-</nav>
-
-
-
-<section>
-  <p class="kicker">Named Development Snapshot</p>
-  <h1>Transition Release Snapshot</h1>
-  <p>
-    This page records the first named development snapshot after receipt-backed automation readiness and public navigation integration.
-    It is intended to make the current research state easy to inspect without reading workflow logs.
-  </p>
-  <span class="status">MS-011 unlocked</span><br/>
-  <a class="btn" href="data/transition-release-snapshot-v1.json">Open Snapshot JSON</a>
-  <a class="btn" href="transition-milestones.html">Open Milestones</a>
-</section>
-
-<section>
-  <h2>Snapshot Summary</h2>
-  <div class="grid">
-    <div class="card"><span class="kicker">Snapshot</span><strong>transition release snapshot v1</strong></div>
-    <div class="card"><span class="kicker">Release state</span><strong>public verification bundle released</strong></div>
-    <div class="card"><span class="kicker">Basis</span><strong>receipt backed automation ready</strong></div>
-  </div>
-</section>
-
-<section>
-  <h2>Why This Milestone Is Unlocked</h2>
-  <p>
-    MS-011 is unlocked because a single reader-facing verification guide is live and linked from the release index, milestones, development status, release snapshot, transition table, and research landing. The guide explains how to verify the current table state from public pages and JSON files.
-  </p>
-</section>
-
-<section>
-  <h2>What This Snapshot Claims</h2>
-  <ul>
-    <li>T1–T16 completed the first experimental pass.</li>
-    <li>T13 and T14 reached 5/5 Receipt-backed.</li>
-    <li>The automation-release verifier returned ALLOW.</li>
-    <li>The current state is suitable for public navigation integration.</li>
-  </ul>
-</section>
-
-<section>
-  <h2>What This Snapshot Does Not Claim</h2>
-  <ul>
-    <li>It does not claim all transitions are 5/5 Receipt-backed.</li>
-    <li>It does not claim unbounded autonomy.</li>
-    <li>It does not claim final publication readiness.</li>
-    <li>It is a named development snapshot of the current experimental table state.</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Verification Links</h2>
-  <ul>
-    <li><a href="data/transition-release-snapshot-v1.json">Release snapshot JSON</a></li>
-    <li><a href="data/automation-release-state.json">Automation release state JSON</a></li>
-    <li><a href="data/automation-release-verifier.json">Automation release verifier JSON</a></li>
-    <li><a href="data/receipt-backing-verifier.json">Receipt-backing verifier JSON</a></li>
-    <li><a href="data/experimental-ledger-summary.json">Experimental ledger summary JSON</a></li>
-    <li><a href="data/transition-evidence.json">Transition evidence JSON</a></li>
-  </ul>
-</section>
-</main>
-</body>
-</html>
+h1{font-size:clamp(2.2rem,7vw,5.35rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}.card strong{display:block;font-size:clamp(1.15rem,6vw,1.6rem);overflow-wrap:anywhere;line-height:1.05}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
+ul,ol{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word-break:break-word;color:#f5fbff}@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}</style></head><body><main><nav><a href="index.html"><strong>StegVerse</strong></a><div>
+<a href="index.html">Home</a><a href="demo.html">Demo</a><a href="transition-periodic-table.html">Research Landing</a><a href="transition-table.html">Transition Table</a><a href="transition-milestones.html">Milestones</a><a href="transition-development-status.html">Development Status</a><a href="transition-release-snapshot.html">Release Snapshot</a><a href="transition-release-index.html">Release Index</a><a href="transition-verification-guide.html">Verification Guide</a><a href="transition-replay-packet.html">Replay Packet</a><a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+</div></nav>
+<section><p class="kicker">Current Release Snapshot</p><h1>Transition Release Snapshot</h1><p>MS-012 — Independent Replay Packet is released. The transition table now has public replay evidence and repo-readable selector evidence for the first independent replay milestone.</p><span class="status">independent replay packet released</span><br/><a class="btn" href="data/transition-release-snapshot-v1.json">Open Snapshot JSON</a><a class="btn" href="transition-replay-packet.html">Open Replay Packet</a></section>
+<section><h2>Released Milestone</h2><div class="card"><strong>MS-012 — Independent Replay Packet</strong><p>Released because Transition Replay Check and Page Contract Check both produced readable passing reports, and the selector returned promotion_allowed=true.</p></div></section>
+<section><h2>Next Pending Milestone</h2><div class="card"><strong>MS-012F — Sandbox Repair and Candidate Construction</strong><p>Candidate until sandbox review, dependency impact scan, and repair/regeneration receipts prove failed bundles can be handled without silent correction.</p></div></section>
+</main></body></html>

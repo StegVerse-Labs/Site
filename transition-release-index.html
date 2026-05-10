@@ -1,8 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Transition Release Index | StegVerse</title><style>
-:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Release Index | StegVerse</title><style>:root{--bg:#080b12;--panel:rgba(16,24,39,.82);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
 main{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}a{color:inherit}
 nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}nav div{display:flex;gap:10px;flex-wrap:wrap}
@@ -13,95 +9,13 @@ h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.1
 p{color:var(--muted);font-size:1.02rem}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18);min-width:0}.card strong{display:block;font-size:clamp(1.15rem,6vw,1.6rem);overflow-wrap:anywhere;line-height:1.05}
 .kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}.status{display:inline-flex;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.83rem}.status.pending{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}
-ul{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word-break:break-word;color:#f5fbff}@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
-</style></head>
-<body><main>
-<nav>
-  <a href="index.html"><strong>StegVerse</strong></a>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="demo.html">Demo</a>
-    <a href="transition-periodic-table.html">Research Landing</a>
-    <a href="transition-table.html">Transition Table</a>
-    <a href="transition-milestones.html">Milestones</a>
-    <a href="transition-development-status.html">Development Status</a>
-    <a href="transition-release-snapshot.html">Release Snapshot</a>
-    <a href="transition-release-index.html">Release Index</a>
-    <a href="transition-verification-guide.html">Verification Guide</a>
-    <a href="transition-replay-packet.html">Replay Packet</a>
-    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
-  </div>
-</nav>
-
-<section>
-  <p class="kicker">Public Release Directory</p>
-  <h1>Transition Release Index</h1>
-  <p>This page collects the public pages and JSON surfaces for the current Transition Periodic Table development release.</p>
-  <span class="status">current release: transition-release-snapshot-v1-ms011</span>
-  <span class="status pending">candidate: MS-012 independent replay packet</span><br/>
-  <a class="btn" href="data/transition-release-index-v1.json">Open Release Index JSON</a>
-  <a class="btn" href="data/next-transition-build-candidate-v1.json">Open Next-Step Selector JSON</a>
-  <a class="btn" href="transition-replay-packet.html">Open Replay Packet</a>
-</section>
-<section>
-  <h2>Current Release</h2>
-  <div class="grid">
-    <div class="card"><span class="kicker">Milestone</span><strong>MS-011 — Public Verification Bundle</strong></div>
-    <div class="card"><span class="kicker">Release State</span><strong>public verification bundle released</strong></div>
-  </div>
-</section>
-<section>
-  <h2>Candidate Release</h2>
-  <div class="grid">
-    <div class="card"><span class="kicker">Milestone</span><strong>MS-012 — Independent Replay Packet</strong></div>
-    <div class="card"><span class="kicker">Release State</span><strong>candidate until replay and page-contract checks pass</strong></div>
-  </div>
-</section>
-<section>
-  <h2>Autonomous Next-Step Selector</h2>
-  <p>The selector determines the next admissible transition action from release state, decision rules, and readable verifier reports. Missing evidence does not promote.</p>
-  <ul>
-    <li><a href="data/transition-release-state-v1.json">Transition Release State v1</a> <code>data/transition-release-state-v1.json</code></li>
-    <li><a href="data/transition-decision-rules-v1.json">Transition Decision Rules v1</a> <code>data/transition-decision-rules-v1.json</code></li>
-    <li><a href="data/next-transition-build-candidate-v1.json">Next Transition Build Candidate v1</a> <code>data/next-transition-build-candidate-v1.json</code></li>
-  </ul>
-</section>
-<section>
-  <h2>Public Pages</h2>
-  <ul>
-    <li><a href="transition-periodic-table.html">Research Landing</a> <code>transition-periodic-table.html</code></li>
-    <li><a href="transition-table.html">Transition Table</a> <code>transition-table.html</code></li>
-    <li><a href="transition-milestones.html">Milestones</a> <code>transition-milestones.html</code></li>
-    <li><a href="transition-development-status.html">Development Status</a> <code>transition-development-status.html</code></li>
-    <li><a href="transition-release-snapshot.html">Release Snapshot</a> <code>transition-release-snapshot.html</code></li>
-    <li><a href="transition-release-index.html">Release Index</a> <code>transition-release-index.html</code></li>
-    <li><a href="transition-verification-guide.html">Verification Guide</a> <code>transition-verification-guide.html</code></li>
-    <li><a href="transition-replay-packet.html">Replay Packet</a> <code>transition-replay-packet.html</code></li>
-  </ul>
-</section>
-<section>
-  <h2>Public JSON Surfaces</h2>
-  <ul>
-    <li><a href="data/automation-release-state.json">Automation Release State</a> <code>data/automation-release-state.json</code></li>
-    <li><a href="data/automation-release-verifier.json">Automation Release Verifier</a> <code>data/automation-release-verifier.json</code></li>
-    <li><a href="data/receipt-backing-verifier.json">Receipt-Backing Verifier</a> <code>data/receipt-backing-verifier.json</code></li>
-    <li><a href="data/experimental-ledger-summary.json">Experimental Ledger Summary</a> <code>data/experimental-ledger-summary.json</code></li>
-    <li><a href="data/transition-evidence.json">Transition Evidence</a> <code>data/transition-evidence.json</code></li>
-    <li><a href="data/transition-release-snapshot-v1.json">Release Snapshot v1</a> <code>data/transition-release-snapshot-v1.json</code></li>
-    <li><a href="data/transition-release-index-v1.json">Release Index v1</a> <code>data/transition-release-index-v1.json</code></li>
-    <li><a href="data/transition-verification-bundle-v1.json">Verification Bundle v1</a> <code>data/transition-verification-bundle-v1.json</code></li>
-    <li><a href="data/transition-replay-packet-v1.json">Replay Packet v1</a> <code>data/transition-replay-packet-v1.json</code></li>
-    <li><a href="data/transition-replay-fixtures-v1.json">Replay Fixtures v1</a> <code>data/transition-replay-fixtures-v1.json</code></li>
-    <li><a href="data/transition-replay-verifier-v1.json">Replay Verifier v1</a> <code>data/transition-replay-verifier-v1.json</code></li>
-    <li><a href="data/transition-release-state-v1.json">Transition Release State v1</a> <code>data/transition-release-state-v1.json</code></li>
-    <li><a href="data/transition-decision-rules-v1.json">Transition Decision Rules v1</a> <code>data/transition-decision-rules-v1.json</code></li>
-    <li><a href="data/next-transition-build-candidate-v1.json">Next Transition Build Candidate v1</a> <code>data/next-transition-build-candidate-v1.json</code></li>
-  </ul>
-</section>
-<section>
-  <h2>Next Pending Milestone</h2>
-  <span class="status pending">candidate</span>
-  <h3>MS-012 — Independent Replay Packet</h3>
-  <p>This milestone should unlock when Transition Replay Check passes and Page Contract Check confirms the replay packet, fixture, verifier, release-index, and selector-output links are public.</p>
-</section>
+ul,ol{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word-break:break-word;color:#f5fbff}@media(max-width:760px){.grid{grid-template-columns:1fr}section{border-radius:18px}}</style></head><body><main><nav><a href="index.html"><strong>StegVerse</strong></a><div>
+<a href="index.html">Home</a><a href="demo.html">Demo</a><a href="transition-periodic-table.html">Research Landing</a><a href="transition-table.html">Transition Table</a><a href="transition-milestones.html">Milestones</a><a href="transition-development-status.html">Development Status</a><a href="transition-release-snapshot.html">Release Snapshot</a><a href="transition-release-index.html">Release Index</a><a href="transition-verification-guide.html">Verification Guide</a><a href="transition-replay-packet.html">Replay Packet</a><a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+</div></nav>
+<section><p class="kicker">Public Release Directory</p><h1>Transition Release Index</h1><p>MS-012 — Independent Replay Packet is now released. This index exposes the current release surfaces, replay evidence, and next candidate milestone.</p><span class="status">current release: MS-012 — Independent Replay Packet</span><span class="status pending">next candidate: MS-012F — Sandbox Repair and Candidate Construction</span><br/>
+<a class="btn" href="data/transition-release-index-v1.json">Open Release Index JSON</a><a class="btn" href="data/transition-release-snapshot-v1.json">Open Release Snapshot JSON</a><a class="btn" href="data/capability-threshold-gates-v1.json">Open Capability Threshold Gates</a></section>
+<section><h2>Current Release</h2><div class="grid"><div class="card"><span class="kicker">Milestone</span><strong>MS-012 — Independent Replay Packet</strong><p>independent replay packet released</p></div><div class="card"><span class="kicker">Evidence</span><strong>Replay + Page Contract + Selector</strong><p>Promotion was allowed only after repo-readable reports passed.</p></div></div></section>
+<section><h2>Next Candidate</h2><div class="card"><span class="kicker">Candidate</span><strong>MS-012F — Sandbox Repair and Candidate Construction</strong><p>Failed or malformed bundles must be reviewed, repaired, regenerated, or routed without silent correction.</p></div></section>
+<section><h2>Strict Ingestion Threshold Gates</h2><ul><li><a href="data/capability-threshold-gates-v1.json">Capability Threshold Gates v1</a></li><li><a href="data/transition-capability-scopes-v1.json">Transition Capability Scopes v1</a></li><li><a href="data/stop-gap-policy-v1.json">Stop-Gap Policy v1</a></li><li><a href="data/dependency-map-v1.json">Dependency Map v1</a></li></ul></section>
+<section><h2>Replay Surfaces</h2><ul><li><a href="transition-replay-packet.html">Replay Packet</a></li><li><a href="data/transition-replay-packet-v1.json">Replay Packet v1</a></li><li><a href="data/transition-replay-fixtures-v1.json">Replay Fixtures v1</a></li><li><a href="data/transition-replay-verifier-v1.json">Replay Verifier v1</a></li><li><a href="data/transition-release-state-v1.json">Transition Release State v1</a></li></ul></section>
 </main></body></html>

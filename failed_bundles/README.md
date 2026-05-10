@@ -1,5 +1,19 @@
-# failed_bundles
+# incoming
 
-Bundles routed here failed strict ingestion or require human review.
+Place upload-safe ZIP bundles in this folder.
 
-Each failed bundle should have a machine-readable `.json` receipt and human-readable `.md` explanation.
+The ingestion workflow reads the newest `incoming/*.zip` bundle by default.
+
+The ingestor maps:
+
+```text
+github/workflows/example.yml
+```
+
+to:
+
+```text
+.github/workflows/example.yml
+```
+
+No file is deleted by ingestion. Only changed or missing files are applied.

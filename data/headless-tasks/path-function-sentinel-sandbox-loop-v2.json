@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-05-10T20:51:51Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "path-function-sentinel-sandbox-loop-v2",
+  "class": "path_function_sentinel",
+  "authority_class": "ordinary_analysis",
+  "description": "Run one bounded path-function sentinel pass. If deficiencies exist, emit sandbox repair task; otherwise mark idle.",
+  "command": [
+    "python",
+    "tools/path_function_sentinel_test.py",
+    "--policy",
+    "data/path-tests/path-function-sentinel-policy-v2.json",
+    "--out-dir",
+    "path_function_reports"
+  ],
+  "expected_inputs": [
+    "tools/path_function_sentinel_test.py",
+    "data/path-tests/path-function-sentinel-policy-v2.json"
+  ],
+  "expected_outputs": [
+    "path_function_reports/path-function-sentinel-report.json",
+    "path_function_reports/path-function-sentinel-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/path-function-sentinel-sandbox-loop-v2.receipt.json",
+  "markdown_output": "headless_cmd_reports/path-function-sentinel-sandbox-loop-v2.report.md"
+}

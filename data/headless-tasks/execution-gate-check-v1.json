@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-05-10T20:12:45Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "execution-gate-check-v1",
+  "class": "execution_gate",
+  "authority_class": "ordinary_analysis",
+  "description": "Evaluate an execution request under Human Design Authority and GCAT/BCAT gate policy. Override request path with --arg request=<path>.",
+  "command": [
+    "python",
+    "tools/gcat_bcat_execution_gate.py",
+    "--request",
+    "{request}",
+    "--policy",
+    "data/gates/human-design-authority-policy-v1.json",
+    "--out-dir",
+    "execution_gate_reports"
+  ],
+  "default_args": {
+    "request": "data/gcat-bcat/execution-request-template-v1.json"
+  },
+  "expected_inputs": [
+    "tools/gcat_bcat_execution_gate.py",
+    "data/gates/human-design-authority-policy-v1.json"
+  ],
+  "expected_outputs": [
+    "execution_gate_reports/execution-gate-receipt.json",
+    "execution_gate_reports/execution-gate-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/execution-gate-check-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/execution-gate-check-v1.report.md"
+}

@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-05-10T20:51:51Z",
+  "schema": "stegverse.path_function_sentinel_policy.v2",
+  "policy_id": "ms012h-path-function-sentinel-sandbox-loop-v2",
+  "formal_milestone": "MS-012H \u2014 Path Function Sentinel Sandbox Loop",
+  "purpose": "Test ingestion-adjacent path functions, report deficiencies as sandbox tasks, and return the sentinel to idle only after ingestion path compliance is restored.",
+  "transition_table_alignment": {
+    "trigger_is_not_authority": true,
+    "sentinel_observes_but_does_not_repair": true,
+    "sandbox_tests_repairs_before_ingestion": true,
+    "ingestion_applies_only_admissible_repairs": true,
+    "idle_requires_clean_ingestion_path": true,
+    "loop_must_be_bounded": true,
+    "no_recursive_workflow_trigger": true,
+    "evidence_must_not_be_deleted": true
+  },
+  "required_directories": [
+    "incoming",
+    "installed_bundles",
+    "failed_bundles",
+    "sandbox_queue",
+    "privileged_queue",
+    "ingestion_reports",
+    "path_function_reports",
+    "sandbox_tasks",
+    "idle_sentinels",
+    "triggered_loop"
+  ],
+  "checked_queues": {
+    "incoming": {
+      "allowed_file_extensions": [
+        ".zip"
+      ],
+      "deficiency_codes": [
+        "incoming_non_zip_file",
+        "incoming_already_routed_bundle_name",
+        "incoming_duplicate_name"
+      ]
+    },
+    "installed_bundles": {
+      "zip_receipt_suffixes": [
+        "installed"
+      ],
+      "deficiency_codes": [
+        "installed_zip_missing_installed_receipt"
+      ]
+    },
+    "failed_bundles": {
+      "zip_receipt_suffixes": [
+        "failure",
+        "stale"
+      ],
+      "deficiency_codes": [
+        "failed_zip_missing_failure_or_stale_receipt"
+      ]
+    },
+    "sandbox_queue": {
+      "zip_receipt_suffixes": [
+        "failure",
+        "sandbox",
+        "sandbox-task"
+      ],
+      "deficiency_codes": [
+        "sandbox_zip_missing_sandbox_receipt"
+      ]
+    },
+    "privileged_queue": {
+      "zip_receipt_suffixes": [
+        "privileged-task"
+      ],
+      "deficiency_codes": [
+        "privileged_zip_missing_privileged_receipt"
+      ]
+    }
+  },
+  "state_locations": {
+    "idle": "idle_sentinels/path-function-sentinel.idle.json",
+    "triggered": "triggered_loop/path-function-sentinel.triggered.json",
+    "latest_report": "path_function_reports/path-function-sentinel-report.json",
+    "latest_markdown": "path_function_reports/path-function-sentinel-report.md",
+    "sandbox_task_json": "sandbox_tasks/path-function-repair-task.json",
+    "sandbox_task_md": "sandbox_tasks/path-function-repair-task.md"
+  },
+  "repair_flow": {
+    "sentinel_deficiency_report": "path_function_reports/path-function-sentinel-report.json",
+    "sandbox_task": "sandbox_tasks/path-function-repair-task.json",
+    "sandbox_repair_test": "sandbox_reports/sandbox-repair-test-report.json",
+    "repair_bundle_route": "incoming/",
+    "final_state": "idle_sentinels/path-function-sentinel.idle.json"
+  },
+  "verdicts": [
+    "IDLE_READY",
+    "SANDBOX_TASK_REQUIRED",
+    "FAIL_CLOSED"
+  ],
+  "safety": {
+    "does_not_modify_workflows": true,
+    "does_not_delete_evidence": true,
+    "does_not_move_bundles": true,
+    "does_not_create_recursive_trigger": true,
+    "bounded_single_pass": true,
+    "repair_requires_sandbox": true,
+    "idle_requires_no_deficiencies": true
+  }
+}

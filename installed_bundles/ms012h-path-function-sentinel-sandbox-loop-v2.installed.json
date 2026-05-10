@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-05-10T20:54:57Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+  "bundle_sha256": "dfbba658c697a1ba0b3ebd688a287eaf1bd3e01272fb4d93843c60997b949128",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
+    "generated_at": "2026-05-10T20:54:57Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+    "bundle_name": "ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012h-path-function-sentinel-sandbox-loop-v2.zip",
+    "bundle_sha256": "dfbba658c697a1ba0b3ebd688a287eaf1bd3e01272fb4d93843c60997b949128",
+    "mode": "apply",
+    "bundle_class": "ordinary_bundle",
+    "verdict": "ALLOW",
+    "route": "ingest",
+    "reason": "ordinary bundle allowed",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
+      "data/path-tests/path-function-sentinel-policy-v2.json",
+      "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+      "idle_sentinels/README.md",
+      "path_function_reports/README.md",
+      "sandbox_tasks/README.md",
+      "tools/path_function_sentinel_test.py",
+      "triggered_loop/README.md"
+    ],
+    "files_seen": 10,
+    "files_created": 8,
+    "files_updated": 1,
+    "files_unchanged": 0,
+    "files_skipped": 1,
+    "unsafe_paths_rejected": 0,
+    "path_mappings_applied": [],
+    "repo_transition": {
+      "before_tree_fingerprint": "ce6f7707055bcb74381ed1b88bc64dea1df5bf00bcf88fcdc3adcbb039fd5f33",
+      "after_tree_fingerprint": "5bbbfc9da8cc777f1adda32e31dcacf15c8b3349529e13b1727bbb18cd22cfde",
+      "changed_files_fingerprint": "dc5b4e46472076dd8a497d25d5b68d4cd1184608c61b693f805701415a390141"
+    },
+    "decisions": [
+      {
+        "bundle_path": "README.md",
+        "repo_path": null,
+        "action": "skipped",
+        "reason": "bundle root README is documentation and is not applied to repo root",
+        "old_sha256": null,
+        "new_sha256": "af16aaf09bd797134c54cf5f28344f048e90f6242aa119843f511e47d18e28c3",
+        "bytes": 1141
+      },
+      {
+        "bundle_path": "bundle-manifest.json",
+        "repo_path": "bundle-manifest.json",
+        "action": "updated",
+        "reason": "hash differs or target missing",
+        "old_sha256": "607cb2937e170b52fa46659d5da54b6f65364372179c87fca3470c068443c703",
+        "new_sha256": "9327814d4c04df6a3ef78cd8af2bd28fa51fffbdff94ba52e08ec8592292f829",
+        "bytes": 1979
+      },
+      {
+        "bundle_path": "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
+        "repo_path": "data/headless-tasks/path-function-sentinel-sandbox-loop-v2.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "a8ed12a40bde784f0e0d5276015012756229bccea908230357d44c2ed959bb6f",
+        "bytes": 1101
+      },
+      {
+        "bundle_path": "data/path-tests/path-function-sentinel-policy-v2.json",
+        "repo_path": "data/path-tests/path-function-sentinel-policy-v2.json",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "8e3e4c8b1248d38a42f456ff84eb04a2fa7648117e9675747fc1a58d476c9cf9",
+        "bytes": 3334
+      },
+      {
+        "bundle_path": "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+        "repo_path": "docs/MS-012H-path-function-sentinel-sandbox-loop.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "f43d0fad65f82aeb3c6487f06a9fc619c546792c783dff2392004483bc3fe660",
+        "bytes": 746
+      },
+      {
+        "bundle_path": "idle_sentinels/README.md",
+        "repo_path": "idle_sentinels/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "18b45aa8758671f2fbff5736bdea531081e19c15b7b9afe5b15c9f5fb4bc4533",
+        "bytes": 156
+      },
+      {
+        "bundle_path": "path_function_reports/README.md",
+        "repo_path": "path_function_reports/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "59c9fc5eeead0850f1d37646d27caa8ad48ef12a850f2f72088e13dc897f05cb",
+        "bytes": 196
+      },
+      {
+        "bundle_path": "sandbox_tasks/README.md",
+        "repo_path": "sandbox_tasks/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "35693f0048a930e3863db01a4a96b5a8929bfd378dae0ef39580962c4e8df22a",
+        "bytes": 215
+      },
+      {
+        "bundle_path": "tools/path_function_sentinel_test.py",
+        "repo_path": "tools/path_function_sentinel_test.py",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "31f092314f1a2e2a0bd613fef508134ccacbee412499e2985c581c5f8a922e4d",
+        "bytes": 17398
+      },
+      {
+        "bundle_path": "triggered_loop/README.md",
+        "repo_path": "triggered_loop/README.md",
+        "action": "created",
+        "reason": "hash differs or target missing",
+        "old_sha256": null,
+        "new_sha256": "9b99a3bebc4058d5429a7971ca7dd0b6cde7c82437dee84ad9387d5d34433e09",
+        "bytes": 163
+      }
+    ]
+  },
+  "repo_transition": {
+    "before_tree_fingerprint": "ce6f7707055bcb74381ed1b88bc64dea1df5bf00bcf88fcdc3adcbb039fd5f33",
+    "after_tree_fingerprint": "5bbbfc9da8cc777f1adda32e31dcacf15c8b3349529e13b1727bbb18cd22cfde",
+    "changed_files_fingerprint": "dc5b4e46472076dd8a497d25d5b68d4cd1184608c61b693f805701415a390141"
+  },
+  "files_created": 8,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
+}
