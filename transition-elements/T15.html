@@ -35,9 +35,9 @@ li{margin:0 0 8px}
 <h1>T15 — Irreversible Transition</h1>
 <p class="muted">Does the action cross a point of no return?</p>
 <section><h2>Evidence State</h2>
-  <p>Level: <strong>1/5 · Defined</strong></p>
-  <p>Runtime state: <strong>idle</strong></p>
-  <p>Brightness: <strong>0.2</strong></p>
+  <p>Level: <strong>4/5 · Tested</strong></p>
+  <p>Runtime state: <strong>completed</strong></p>
+  <p>Brightness: <strong>0.8</strong></p>
 </section>
 <section><h2>3D Lattice Coordinates</h2>
   <p>Composition: <strong>3</strong></p>
@@ -52,20 +52,58 @@ li{margin:0 0 8px}
   <p>A transition is irreversible when no admissible reverse transition exists.</p>
   <div class="formula"><code>¬∃u⁻¹ : Φ(x&#x27;,u⁻¹)=x with I(Φ(x&#x27;,u⁻¹))≤0</code></div>
 </section>
-<section><h2>Confirmed Behavior</h2><p>Expected behavior defined; experimental confirmation is pending.</p></section>
+<section><h2>Confirmed Behavior</h2><p>deterministic irreversibility sweep passed</p></section>
 <section><h2>Released Operational Rules</h2>
     <p><strong>Automation gate:</strong> scheduled_ready</p>
     <p><strong>Max sequence steps:</strong> 3</p>
     <p><strong>Released rules:</strong></p>
-    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li><li><strong>receipt_reconstruction_required</strong> · released by T14 · Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state.</li></ul>
+    <ul><li><strong>primitive_admissibility_required</strong> · released by T1 · Every experiment must compute post-state invariant.</li><li><strong>simplex_constraint_visible</strong> · released by T2 · Ledger rows must distinguish conservation constraints from admissibility verdicts.</li><li><strong>bounded_action_visible</strong> · released by T3 · Experiments with action vectors must record action bounds when applicable.</li><li><strong>capacity_margin_visible</strong> · released by T4 · Experiments must record margin when capacity calculations are available.</li><li><strong>lag_aware_sandbox_required</strong> · released by T5 · Lag-row experiments must separate observed_state from commit_state.</li><li><strong>decision_stage_required</strong> · released by T6 · Lag sandboxes may separate observation state, decision state, and commit state.</li><li><strong>actuation_stage_required</strong> · released by T7 · Lag sandboxes may separate observed, decision, commit, actuation, and effect states.</li><li><strong>trust_drift_required</strong> · released by T8 · Lag-aware sandboxes may model trust as a decaying state variable during transition delay.</li><li><strong>two_state_coupling_required</strong> · released by T9 · Coupled sandboxes may model disturbance from one transition state into another.</li><li><strong>multi_agent_composition_required</strong> · released by T10 · Coupled sandboxes may compare individually admissible actions against aggregate admissibility.</li><li><strong>conflict_resolution_required</strong> · released by T11 · Coupled sandboxes may detect conflicts between otherwise admissible actions and record resolution policy.</li><li><strong>validator_consensus_required</strong> · released by T12 · Coupled sandboxes may compare validator quorum against canonical admissibility.</li><li><strong>receipt_binding_required</strong> · released by T13 · Evidence sandboxes must bind pre-state, action, and post-state into replayable receipts.</li><li><strong>receipt_reconstruction_required</strong> · released by T14 · Evidence sandboxes may reconstruct end-state from receipt packets and compare reconstructed state to observed state.</li><li><strong>irreversibility_detection_required</strong> · released by T15 · Open-boundary sandboxes may test whether a committed transition crosses a point of no return under bounded reversal.</li></ul>
     <p><strong>Locked rules:</strong></p>
     <ul><li>none</li></ul>
     </section>
-<section><h2>Applied Rules for This Transition</h2><p>No released operational rules have been applied directly by this transition yet.</p></section>
-<section><h2>Run Manifests</h2><ul><li>No run manifests yet.</li></ul></section>
-<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T7-actuation_lag_sweep_v1-0006-actuation_lag</code> · actuation_lag_fragment · Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.</li><li><code>KD-T11-conflict_sweep_v1-0010-conflict</code> · conflict_resolution_fragment · Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).</li><li><code>KD-T13-receipt_bound_sweep_v1-0012-receipt-bound</code> · receipt_binding_fragment · Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li><li><code>KD-T14-reconstruction_sweep_v1-0013-reconstruction</code> · reconstruction_fragment · Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li></ul></section>
-<section><h2>Recent Ledger Rows</h2><ul><li>No ledger rows yet.</li></ul></section>
-<section><h2>State Transition Receipts</h2><p>No replayable state transition receipts have been generated for this transition yet.</p></section>
+<section><h2>Applied Rules for This Transition</h2><ul><li>primitive_admissibility_required</li><li>simplex_constraint_visible</li><li>bounded_action_visible</li><li>capacity_margin_visible</li><li>lag_aware_sandbox_required</li><li>decision_stage_required</li><li>actuation_stage_required</li><li>trust_drift_required</li><li>two_state_coupling_required</li><li>multi_agent_composition_required</li><li>conflict_resolution_required</li><li>validator_consensus_required</li><li>receipt_binding_required</li><li>receipt_reconstruction_required</li></ul></section>
+<section><h2>Run Manifests</h2><ul><li><code>T15-irreversibility_sweep_v1-0014</code> · irreversibility_sweep_v1 · <strong>completed</strong> · sandbox=open_boundary_deterministic</li></ul></section>
+<section><h2>Knowledge Deltas</h2><ul><li><code>KD-T7-actuation_lag_sweep_v1-0006-actuation_lag</code> · actuation_lag_fragment · Actuation-lag sweep found 3 total lag flip(s) across deterministic staged samples.</li><li><code>KD-T11-conflict_sweep_v1-0010-conflict</code> · conflict_resolution_fragment · Conflict sweep found 0 conflict flip(s) and produced 3 resolved admissible outcome(s).</li><li><code>KD-T13-receipt_bound_sweep_v1-0012-receipt-bound</code> · receipt_binding_fragment · Receipt-bound sweep produced 3 receipt-bound transition sample(s) with pre-state, action, and post-state hashes.</li><li><code>KD-T14-reconstruction_sweep_v1-0013-reconstruction</code> · reconstruction_fragment · Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li><li><code>KD-T15-irreversibility_sweep_v1-0014-irreversibility</code> · irreversibility_fragment · Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li></ul></section>
+<section><h2>Recent Ledger Rows</h2><ul><li><code>T15-irreversibility_sweep_v1-0014-001</code> · tested property=irreversibility · constraint=PASS · admissibility invariant=-0.08598 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-002</code> · tested property=irreversibility · constraint=PASS · admissibility invariant=-0.2733 · admissibility verdict=<strong>ALLOW</strong></li><li><code>T15-irreversibility_sweep_v1-0014-003</code> · tested property=irreversibility · constraint=PASS · admissibility invariant=0.0296 · admissibility verdict=<strong>DENY</strong></li></ul></section>
+<section><h2>State Transition Receipts</h2>
+        <article class="receipt-entry">
+          <h3>RCPT-T15-irreversibility_sweep_v1-0014-001</h3>
+          <p><strong>Run:</strong> T15-irreversibility_sweep_v1-0014</p>
+          <p><strong>Tested property:</strong> irreversibility</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Irreversible:</strong> False</p><p><strong>Point of no return:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:957f817c0b5d6365d2b1f60f906c5f7cb7774ab2f7f0fd3d21f81c73721ddda5</code></p>
+          <p><a href="../data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-001.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T15-irreversibility_sweep_v1-0014-002</h3>
+          <p><strong>Run:</strong> T15-irreversibility_sweep_v1-0014</p>
+          <p><strong>Tested property:</strong> irreversibility</p>
+          <p><strong>Admissibility verdict:</strong> ALLOW</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Irreversible:</strong> False</p><p><strong>Point of no return:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:bd3e29ec3ed15b324e126f3eab9ec293704732cd0a125bb48c57f858e7f7043f</code></p>
+          <p><a href="../data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-002.json">Open receipt JSON</a></p>
+        </article>
+        
+
+        <article class="receipt-entry">
+          <h3>RCPT-T15-irreversibility_sweep_v1-0014-003</h3>
+          <p><strong>Run:</strong> T15-irreversibility_sweep_v1-0014</p>
+          <p><strong>Tested property:</strong> irreversibility</p>
+          <p><strong>Admissibility verdict:</strong> DENY</p>
+          <p><strong>Constraint result:</strong> PASS</p>
+          <p><strong>Irreversible:</strong> True</p><p><strong>Point of no return:</strong> False</p>
+          <p><strong>Replay status:</strong> replayable</p>
+          <p><strong>Receipt hash:</strong> <code>sha256:fe2cd084fffa51b2005cbb91672c66db95c836aea55c98719c09a8b36db0eb87</code></p>
+          <p><a href="../data/receipts/RCPT-T15-irreversibility_sweep_v1-0014-003.json">Open receipt JSON</a></p>
+        </article>
+        </section>
 <section><h2>Consequential Test Changelog</h2>
         <article class="change-entry">
           <h3>T7-actuation_lag_sweep_v1-0006</h3>
@@ -118,7 +156,21 @@ li{margin:0 0 8px}
           <p><strong>Knowledge consequence:</strong></p>
           <ul><li>reconstruction_fragment: Reconstruction sweep exactly reconstructed 3 end-state sample(s) from receipt packets.</li></ul>
           <p><strong>Graph consequence:</strong> informs T14, T15, T16.</p>
-          <p><strong>Unlocked under current evidence state:</strong> T14, T15.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T14, T15, T16.</p>
+          <p><strong>Human review:</strong> not required.</p>
+        </article>
+        
+
+        <article class="change-entry">
+          <h3>T15-irreversibility_sweep_v1-0014</h3>
+          <p><strong>Experiment:</strong> irreversibility_sweep_v1</p>
+          <p><strong>Status:</strong> completed</p>
+          <p><strong>Relation to this page:</strong> This run originated from T15.</p>
+          <p><strong>Evidence consequence:</strong> T15 moved from 1 to 4 because deterministic irreversibility sweep passed.</p>
+          <p><strong>Knowledge consequence:</strong></p>
+          <ul><li>irreversibility_fragment: Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).</li></ul>
+          <p><strong>Graph consequence:</strong> informs T15, T16.</p>
+          <p><strong>Unlocked under current evidence state:</strong> T15, T16.</p>
           <p><strong>Human review:</strong> not required.</p>
         </article>
         </section>

@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T8-trust_drift_sweep_v1-0007-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T01:48:52Z",
+  "created_at": "2026-05-10T01:54:10Z",
   "run_id": "T8-trust_drift_sweep_v1-0007",
   "ledger_row_id": "T8-trust_drift_sweep_v1-0007-001",
   "element_id": "T8",
@@ -85,6 +85,10 @@
   "receipt_packet": null,
   "reconstructed_post_state": null,
   "reconstruction_delta": null,
+  "committed_state": null,
+  "reversal_budget": null,
+  "attempted_reversal_state": null,
+  "residual_delta": null,
   "pre_decay_post_state": {
     "g": 0.64,
     "c": 0.62,
@@ -129,5 +133,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:c2661b3a84198354f46a38ea1fa22dae3df3abe2ba721b4035eec781869909ce"
+  "receipt_hash": "sha256:70d9571a3a4b2e4070270a4c17efb2259af6c1780f714e8b98ca6348c78bfd29"
 }

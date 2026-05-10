@@ -1,18 +1,18 @@
 {
-  "receipt_id": "RCPT-T8-trust_drift_sweep_v1-0007-002",
+  "receipt_id": "RCPT-T15-irreversibility_sweep_v1-0014-003",
   "schema": "stegverse.transition_receipt.v1",
   "created_at": "2026-05-10T01:54:10Z",
-  "run_id": "T8-trust_drift_sweep_v1-0007",
-  "ledger_row_id": "T8-trust_drift_sweep_v1-0007-002",
-  "element_id": "T8",
-  "experiment": "trust_drift_sweep_v1",
-  "tested_property": "trust_drift",
+  "run_id": "T15-irreversibility_sweep_v1-0014",
+  "ledger_row_id": "T15-irreversibility_sweep_v1-0014-003",
+  "element_id": "T15",
+  "experiment": "irreversibility_sweep_v1",
+  "tested_property": "irreversibility",
   "sandbox": {
-    "type": "lag_aware_deterministic",
+    "type": "open_boundary_deterministic",
     "parallel_ready": true,
     "canonical_write_policy": "reducer_only",
     "max_runtime_seconds": 120,
-    "automation_gate": "bounded_batch"
+    "automation_gate": "scheduled_ready"
   },
   "applied_rules": [
     "primitive_admissibility_required",
@@ -21,21 +21,27 @@
     "capacity_margin_visible",
     "lag_aware_sandbox_required",
     "decision_stage_required",
-    "actuation_stage_required"
+    "actuation_stage_required",
+    "trust_drift_required",
+    "two_state_coupling_required",
+    "multi_agent_composition_required",
+    "conflict_resolution_required",
+    "validator_consensus_required",
+    "receipt_binding_required",
+    "receipt_reconstruction_required"
   ],
   "parameters": {
     "K": 1,
     "alpha": 1,
     "beta": 1,
     "gamma": 1,
-    "lambda": 0.18,
-    "tau": 3
+    "irreversibility_threshold": 0.05
   },
   "pre_state": {
     "g": 0.58,
-    "c": 0.58,
-    "a": 0.18,
-    "t": 0.84
+    "c": 0.62,
+    "a": 0.16,
+    "t": 0.78
   },
   "state_a": null,
   "state_b": null,
@@ -52,16 +58,16 @@
   "actuation_lag_drift": null,
   "effect_state": null,
   "action": {
-    "dg": 0,
-    "dc": 0,
-    "da": 0.02,
-    "dt": 0
+    "dg": -0.08,
+    "dc": -0.06,
+    "da": 0.06,
+    "dt": -0.1
   },
   "post_state": {
-    "g": 0.58,
-    "c": 0.58,
-    "a": 0.2,
-    "t": 0.4895
+    "g": 0.5,
+    "c": 0.56,
+    "a": 0.22,
+    "t": 0.68
   },
   "shared_state": null,
   "agent_actions": null,
@@ -85,28 +91,33 @@
   "receipt_packet": null,
   "reconstructed_post_state": null,
   "reconstruction_delta": null,
-  "committed_state": null,
-  "reversal_budget": null,
-  "attempted_reversal_state": null,
-  "residual_delta": null,
-  "pre_decay_post_state": {
-    "g": 0.58,
-    "c": 0.58,
-    "a": 0.2,
-    "t": 0.84
+  "committed_state": {
+    "g": 0.5,
+    "c": 0.56,
+    "a": 0.22,
+    "t": 0.68
   },
-  "trust_decayed_state": {
-    "g": 0.58,
-    "c": 0.58,
-    "a": 0.18,
-    "t": 0.48951
+  "reversal_budget": {
+    "dg": 0.03,
+    "dc": 0.03,
+    "da": -0.03,
+    "dt": 0.04
   },
-  "trust_decayed_post_state": {
-    "g": 0.58,
-    "c": 0.58,
-    "a": 0.2,
-    "t": 0.4895
+  "attempted_reversal_state": {
+    "g": 0.53,
+    "c": 0.59,
+    "a": 0.19,
+    "t": 0.72
   },
+  "residual_delta": {
+    "g": 0.05,
+    "c": 0.03,
+    "a": -0.03,
+    "t": 0.06
+  },
+  "pre_decay_post_state": null,
+  "trust_decayed_state": null,
+  "trust_decayed_post_state": null,
   "observed_post_state": null,
   "decision_post_state": null,
   "commit_post_state": null,
@@ -114,24 +125,28 @@
   "computed": {
     "admissibility_verdict": "DENY",
     "constraint_result": "PASS",
-    "invariant": 0.03533,
-    "initial_trust": 0.84,
-    "decayed_trust": 0.48951,
-    "pre_decay_capacity": 0.28258,
-    "post_decay_capacity": 0.16467,
-    "pre_decay_invariant": -0.08258,
-    "post_decay_invariant": 0.03533,
-    "pre_decay_verdict": "ALLOW",
-    "trust_decay_verdict": "DENY",
-    "trust_flip": true
+    "capacity": 0.1904,
+    "invariant": 0.0296,
+    "pre_verdict": "ALLOW",
+    "committed_verdict": "DENY",
+    "attempted_reversal_verdict": "ALLOW",
+    "residual_delta": {
+      "g": 0.05,
+      "c": 0.03,
+      "a": -0.03,
+      "t": 0.06
+    },
+    "residual_norm": 0.08888,
+    "irreversible": true,
+    "point_of_no_return": false
   },
   "source_hashes": {
-    "ledger_row_hash": "616f8fdfde295b0ca02319048974d9ac9726df0be98e9d690bcdae007879f523",
-    "run_hash": "sha256:a9dd0659364295472d786808752ad613bf2d304ff5134e360a1fc60013efb57f"
+    "ledger_row_hash": "13baf3c8c6c458ef02e7f0b68184e70c2a9712a6fc1d79db340e61da114da3ab",
+    "run_hash": "sha256:c3a95210ec93f1f08fad9f3f247605a30aea671b02c3eb3540e2349ffa63429c"
   },
   "replay": {
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:0678fec2e7c5af7fc9d42388fe3c548803f595f04128273350c9b006f6f0cdec"
+  "receipt_hash": "sha256:fe2cd084fffa51b2005cbb91672c66db95c836aea55c98719c09a8b36db0eb87"
 }

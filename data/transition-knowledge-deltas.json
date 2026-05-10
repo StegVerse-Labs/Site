@@ -180,6 +180,19 @@
       ],
       "confidence": 0.87,
       "review_required": false
+    },
+    {
+      "delta_id": "KD-T15-irreversibility_sweep_v1-0014-irreversibility",
+      "source_run_id": "T15-irreversibility_sweep_v1-0014",
+      "source_element": "T15",
+      "delta_type": "irreversibility_fragment",
+      "summary": "Irreversibility sweep found 1 irreversible sample(s), including 0 point-of-no-return sample(s).",
+      "informs": [
+        "T15",
+        "T16"
+      ],
+      "confidence": 0.81,
+      "review_required": false
     }
   ]
 }
