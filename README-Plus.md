@@ -1,27 +1,30 @@
-# MS-010 Supporting Pages Consistency Fix v1
+# MS-010 Snapshot Reasoning Final Fix v1
 
 Upload-safe bundle. No leading-dot paths.
 
 Replaces only:
 
 ```text
-transition-development-status.html
 transition-release-snapshot.html
 ```
 
 ## What this fixes
 
-- `transition-development-status.html` now shows:
-  `MS-010 — Public Navigation Integration`
-- `transition-release-snapshot.html` now explains why MS-010 is unlocked.
-- `MS-011 — Public Verification Bundle` remains pending.
-- No experiment logic, evidence levels, receipts, verifier math, or table pages are changed.
+Only the “Why this milestone is unlocked” paragraph is corrected.
+
+Expected text:
+
+```text
+MS-010 is unlocked because the two primary transition research surfaces now link to the milestone ledger, development status, release snapshot, and release index. A reader can reach the public verification surfaces from the main research pages without knowing direct URLs.
+```
 
 ## Done check
 
 After upload:
 
 ```text
-transition-development-status.html current milestone = MS-010
-transition-release-snapshot.html unlock reasoning = MS-010
+transition-release-snapshot.html
+Why this milestone is unlocked = MS-010 navigation reasoning
 ```
+
+No JSON, experiments, evidence levels, receipts, verifier math, table pages, or milestone pages are changed.
