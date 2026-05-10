@@ -85,6 +85,8 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["tested_property"] = "trust_drift"
         elif mode == "two_state_coupling_sweep_v1":
             row_payload["tested_property"] = "two_state_coupling"
+        elif mode == "multi_agent_sweep_v1":
+            row_payload["tested_property"] = "multi_agent_composition"
         else:
             row_payload["tested_property"] = mode
 
@@ -110,7 +112,7 @@ def normalize_row(row_payload: dict[str, Any]) -> dict[str, Any]:
             row_payload["constraint_result"] = "PASS"
             if "margin" in row_payload:
                 row_payload["margin_status"] = "NONNEGATIVE" if float(row_payload["margin"]) >= 0 else "NEGATIVE"
-        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1"):
+        elif mode in ("observation_lag_sweep_v1", "decision_lag_sweep_v1", "actuation_lag_sweep_v1", "trust_drift_sweep_v1", "two_state_coupling_sweep_v1", "multi_agent_sweep_v1"):
             row_payload["constraint_result"] = "PASS"
         else:
             row_payload["constraint_result"] = "not applicable"
@@ -545,6 +547,113 @@ def t9(run_id: str):
     return rows, kd, {"to": 4, "reason": "deterministic two-state coupling sweep passed", "bad": []}
 
 
+def vector_sum(actions: list[dict[str, float]]) -> dict[str, float]:
+    return {
+        "dg": round(sum(action.get("dg", 0.0) for action in actions), 4),
+        "dc": round(sum(action.get("dc", 0.0) for action in actions), 4),
+        "da": round(sum(action.get("da", 0.0) for action in actions), 4),
+        "dt": round(sum(action.get("dt", 0.0) for action in actions), 4),
+    }
+
+
+def t10(run_id: str):
+    samples = [
+        {
+            "shared_state": {"g": .64, "c": .64, "a": .20, "t": .82},
+            "agent_actions": [
+                {"agent": "agent_1", "action": {"dg": 0, "dc": 0, "da": .01, "dt": 0}},
+                {"agent": "agent_2", "action": {"dg": 0, "dc": 0, "da": .015, "dt": 0}},
+                {"agent": "agent_3", "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+            ],
+        },
+        {
+            "shared_state": {"g": .72, "c": .58, "a": .16, "t": .76},
+            "agent_actions": [
+                {"agent": "agent_1", "action": {"dg": -.01, "dc": 0, "da": .015, "dt": 0}},
+                {"agent": "agent_2", "action": {"dg": 0, "dc": -.01, "da": .015, "dt": 0}},
+                {"agent": "agent_3", "action": {"dg": 0, "dc": 0, "da": .025, "dt": -.02}},
+            ],
+        },
+        {
+            "shared_state": {"g": .56, "c": .68, "a": .18, "t": .78},
+            "agent_actions": [
+                {"agent": "agent_1", "action": {"dg": 0, "dc": 0, "da": .02, "dt": 0}},
+                {"agent": "agent_2", "action": {"dg": -.02, "dc": 0, "da": .02, "dt": -.02}},
+                {"agent": "agent_3", "action": {"dg": 0, "dc": -.02, "da": .025, "dt": -.03}},
+            ],
+        },
+    ]
+
+    rows = []
+    flips = 0
+    aggregate_denials = 0
+
+    for i, sample in enumerate(samples, 1):
+        shared_state = sample["shared_state"]
+        agent_actions = sample["agent_actions"]
+        individual_results = []
+
+        for agent_action in agent_actions:
+            agent_name = agent_action["agent"]
+            action = agent_action["action"]
+            individual_post_state = post(shared_state, action)
+            individual_results.append({
+                "agent": agent_name,
+                "action": action,
+                "post_state": individual_post_state,
+                "invariant": invariant(individual_post_state),
+                "verdict": verdict_for(individual_post_state),
+            })
+
+        aggregate_action = vector_sum([entry["action"] for entry in agent_actions])
+        aggregate_post_state = post(shared_state, aggregate_action)
+        individual_verdicts = [result["verdict"] for result in individual_results]
+        aggregate_verdict = verdict_for(aggregate_post_state)
+        composition_flip = all(v == "ALLOW" for v in individual_verdicts) and aggregate_verdict == "DENY"
+
+        flips += int(composition_flip)
+        aggregate_denials += int(aggregate_verdict == "DENY")
+
+        payload = {
+            "timestamp": now(),
+            "element_id": "T10",
+            "mode": "multi_agent_sweep_v1",
+            "run_id": f"{run_id}-{i:03d}",
+            "tested_property": "multi_agent_composition",
+            "shared_state": shared_state,
+            "agent_actions": agent_actions,
+            "individual_results": individual_results,
+            "individual_verdicts": individual_verdicts,
+            "aggregate_action": aggregate_action,
+            "aggregate_post_state": aggregate_post_state,
+            "post_state": aggregate_post_state,
+            "parameters": {"K": 1, "alpha": 1, "beta": 1, "gamma": 1, "composition_model": "vector_sum"},
+            "aggregate_invariant": invariant(aggregate_post_state),
+            "invariant": invariant(aggregate_post_state),
+            "aggregate_verdict": aggregate_verdict,
+            "verdict": aggregate_verdict,
+            "composition_flip": composition_flip,
+            "all_individual_allow": all(v == "ALLOW" for v in individual_verdicts),
+            "constraint_result": "PASS",
+            "passed": True,
+            "receipt_hash": None,
+        }
+        payload["row_hash"] = digest(payload)
+        rows.append(payload)
+
+    kd = [{
+        "delta_id": f"KD-{run_id}-multi-agent",
+        "source_run_id": run_id,
+        "source_element": "T10",
+        "delta_type": "multi_agent_fragment",
+        "summary": f"Multi-agent sweep found {flips} composition flip(s), including {aggregate_denials} aggregate denial(s) across deterministic samples.",
+        "informs": ["T10", "T11", "T12"],
+        "confidence": .84,
+        "review_required": False,
+    }]
+    return rows, kd, {"to": 4, "reason": "deterministic multi-agent composition sweep passed", "bad": []}
+
+
 EXPERIMENTS = {
     "simplex_conservation_sweep_v1": t2,
     "bounded_action_sweep_v1": t3,
@@ -554,6 +663,7 @@ EXPERIMENTS = {
     "actuation_lag_sweep_v1": t7,
     "trust_drift_sweep_v1": t8,
     "two_state_coupling_sweep_v1": t9,
+    "multi_agent_sweep_v1": t10,
 }
 
 FALLBACK_EXPERIMENTS = {
@@ -562,6 +672,7 @@ FALLBACK_EXPERIMENTS = {
     "T7": ["actuation_lag_sweep_v1"],
     "T8": ["trust_drift_sweep_v1"],
     "T9": ["two_state_coupling_sweep_v1"],
+    "T10": ["multi_agent_sweep_v1"],
 }
 
 
@@ -575,6 +686,7 @@ RULE_DEFS = [
     ("actuation_stage_required", "T7", 4, "Lag sandboxes may separate observed, decision, commit, actuation, and effect states."),
     ("trust_drift_required", "T8", 4, "Lag-aware sandboxes may model trust as a decaying state variable during transition delay."),
     ("two_state_coupling_required", "T9", 4, "Coupled sandboxes may model disturbance from one transition state into another."),
+    ("multi_agent_composition_required", "T10", 4, "Coupled sandboxes may compare individually admissible actions against aggregate admissibility."),
 ]
 
 
@@ -697,6 +809,7 @@ def computed_for_receipt(row_payload: dict[str, Any]) -> dict[str, Any]:
         "a_invariant", "b_invariant_without_coupling", "b_invariant_with_coupling",
         "a_verdict", "b_verdict_without_coupling", "b_verdict_with_coupling",
         "coupling_flip", "local_admissible_coupled_denied",
+        "aggregate_invariant", "aggregate_verdict", "composition_flip", "all_individual_allow",
     ]:
         if key in row_payload:
             computed[key] = row_payload[key]
@@ -735,6 +848,12 @@ def receipt_for_row(row_payload: dict[str, Any], run_manifest: dict[str, Any] | 
         "effect_state": row_payload.get("effect_state"),
         "action": row_payload.get("action"),
         "post_state": row_payload.get("post_state"),
+        "shared_state": row_payload.get("shared_state"),
+        "agent_actions": row_payload.get("agent_actions"),
+        "individual_results": row_payload.get("individual_results"),
+        "individual_verdicts": row_payload.get("individual_verdicts"),
+        "aggregate_action": row_payload.get("aggregate_action"),
+        "aggregate_post_state": row_payload.get("aggregate_post_state"),
         "pre_decay_post_state": row_payload.get("pre_decay_post_state"),
         "trust_decayed_state": row_payload.get("trust_decayed_state"),
         "trust_decayed_post_state": row_payload.get("trust_decayed_post_state"),
@@ -786,6 +905,8 @@ def ensure_receipts(ledger: list[dict[str, Any]], runs: dict[str, Any]) -> dict[
             "trust_flip": receipt["computed"].get("trust_flip"),
             "coupling_flip": receipt["computed"].get("coupling_flip"),
             "local_admissible_coupled_denied": receipt["computed"].get("local_admissible_coupled_denied"),
+            "composition_flip": receipt["computed"].get("composition_flip"),
+            "all_individual_allow": receipt["computed"].get("all_individual_allow"),
             "receipt_hash": receipt["receipt_hash"],
             "path": f"data/receipts/{receipt['receipt_id']}.json",
             "replay_status": "replayable",
