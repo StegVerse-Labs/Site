@@ -1,0 +1,7 @@
+{
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
+  "status": "not_yet_run",
+  "formal_milestone": "MS-012C \u2014 Ingestion Receipt Boundary",
+  "verdict": "PENDING",
+  "reason": "No bundle has been ingested through this receipt boundary yet."
+}

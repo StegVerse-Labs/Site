@@ -1,30 +1,29 @@
 {
   "schema": "stegverse.bundle_ingestion_policy.v1",
-  "policy_id": "site-bundle-ingestion-engine-v1",
-  "purpose": "Ingest upload-safe bundles into the Site repository without manual file comparison.",
+  "policy_id": "ms012c-ingestion-receipt-boundary-v1",
+  "formal_milestone": "MS-012C \u2014 Ingestion Receipt Boundary",
+  "purpose": "Fingerprint and ingest proposed repo-state transitions through a governed intake boundary.",
   "default_mode": "apply_changed_files",
   "path_mappings": [
     {
       "bundle_prefix": "github/workflows/",
       "repo_prefix": ".github/workflows/",
-      "reason": "Bundles are dotless for upload/display safety; GitHub Actions requires .github/workflows in the repository."
+      "reason": "Upload-safe bundles use dotless paths; GitHub Actions requires .github/workflows in the repository."
     }
   ],
   "protected_paths": [
     ".git/",
     ".github/workflows/ingest-bundle.yml"
   ],
-  "allowed_top_level_prefixes": [
-    "data/",
-    "tools/",
-    "github/workflows/",
-    ".github/workflows/",
-    "incoming/",
-    ""
-  ],
+  "ledger_outputs": {
+    "latest_receipt": "data/latest-bundle-ingestion-receipt-v1.json",
+    "ledger_jsonl": "data/bundle-ingestion-ledger-v1.jsonl",
+    "fingerprint_index": "data/bundle-fingerprint-index-v1.json"
+  },
   "report_outputs": [
     "ingestion_reports/bundle-ingestion-report.json",
-    "ingestion_reports/bundle-ingestion-report.md"
+    "ingestion_reports/bundle-ingestion-report.md",
+    "ingestion_reports/latest-bundle-ingestion-receipt-v1.json"
   ],
   "safety": {
     "skip_directory_entries": true,
@@ -32,6 +31,8 @@
     "skip_parent_traversal": true,
     "do_not_delete_files": true,
     "apply_only_changed_or_missing_files": true,
-    "dotless_workflow_paths_are_mapped": true
+    "dotless_workflow_paths_are_mapped": true,
+    "root_readme_in_uploaded_bundle_is_not_applied": true,
+    "missing_bundle_fails_closed": true
   }
 }
