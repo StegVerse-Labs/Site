@@ -193,6 +193,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "3aa199de17293287bfd0faaf4f84ec936f1d357d53d089badcb0f622a8b62ca9"
+    },
+    {
+      "generated_at": "2026-05-11T01:59:40Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k3r-failed-bundle-boundary-processor-v1.zip",
+      "bundle_sha256": "f2b3f5047c46def09ea3503c210fe97f5815666bb57786025a7a0ebb810cdca2",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "ae06d17eb743c487edade1189cf4a55a3cd1e57172ef389b921029e9f9186306"
     }
   ]
 }

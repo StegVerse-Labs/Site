@@ -1,46 +1,41 @@
 {
-  "generated_at": "2026-05-11T01:10:54Z",
+  "generated_at": "2026-05-11T01:57:07Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012k2-site-construction-plane-discovery-report-v1",
-  "formal_milestone": "MS-012K.2 \u2014 Site Construction Plane Discovery Report",
-  "purpose": "Install a construction-plane discovery tool that audits recent Site actions against path-category authority.",
+  "bundle_id": "ms012k3r-failed-bundle-boundary-processor-v1",
+  "formal_milestone": "MS-012K.3R \u2014 Failed Bundle Boundary Processor",
+  "purpose": "Automate failed_bundles as a bounded transition surface.",
   "files": [
     {
-      "path": "data/transition-table/site-construction-plane-discovery-policy-v1.json",
-      "version": "v1",
-      "role": "construction_plane_discovery_policy"
+      "path": "data/transition-table/failed-bundle-boundary-policy-v1.json",
+      "role": "failed_bundle_boundary_policy"
     },
     {
-      "path": "tools/site_construction_plane_discovery.py",
-      "version": "v1",
-      "role": "construction_plane_discovery_tool"
+      "path": "tools/failed_bundle_boundary_processor.py",
+      "role": "failed_bundle_boundary_processor"
     },
     {
-      "path": "data/headless-tasks/site-construction-plane-discovery-v1.json",
-      "version": "v1",
-      "role": "declared_construction_plane_discovery_task"
+      "path": "data/headless-tasks/failed-bundle-boundary-processor-v1.json",
+      "role": "declared_task"
+    },
+    {
+      "path": "reviewed_failed_bundles/README.md",
+      "role": "reviewed_failed_archive_docs"
     },
     {
       "path": "transition_discovery_reports/README.md",
-      "version": "v2",
-      "role": "discovery_report_docs"
+      "role": "report_docs"
     },
     {
-      "path": "docs/MS-012K2-site-construction-plane-discovery-report.md",
-      "version": "v1",
-      "role": "construction_plane_discovery_docs"
+      "path": "docs/MS-012K3R-failed-bundle-boundary-processor.md",
+      "role": "docs"
     }
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "changes_public_pages": false,
-    "changes_selector_logic": false,
-    "promotes_milestone": false,
-    "no_cron": true,
-    "no_workflow_run_chain": true,
-    "no_self_trigger_zip": true,
-    "evidence_only_discovery": true
+    "no_delete": true,
+    "no_direct_install": true,
+    "no_authority_expansion": true
   }
 }

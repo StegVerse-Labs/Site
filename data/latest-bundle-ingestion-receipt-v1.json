@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T01:29:49Z",
+  "generated_at": "2026-05-11T01:59:40Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012k2-site-construction-plane-discovery-report-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k2-site-construction-plane-discovery-report-v1.zip",
-  "bundle_sha256": "7adf6a865d6f219f73f273979ebab9133814dc27af8dab2c80b5fddd99f9958f",
+  "bundle_name": "ms012k3r-failed-bundle-boundary-processor-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k3r-failed-bundle-boundary-processor-v1.zip",
+  "bundle_sha256": "f2b3f5047c46def09ea3503c210fe97f5815666bb57786025a7a0ebb810cdca2",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,23 +13,24 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "data/headless-tasks/site-construction-plane-discovery-v1.json",
-    "data/transition-table/site-construction-plane-discovery-policy-v1.json",
-    "docs/MS-012K2-site-construction-plane-discovery-report.md",
-    "tools/site_construction_plane_discovery.py",
+    "data/headless-tasks/failed-bundle-boundary-processor-v1.json",
+    "data/transition-table/failed-bundle-boundary-policy-v1.json",
+    "docs/MS-012K3R-failed-bundle-boundary-processor.md",
+    "reviewed_failed_bundles/README.md",
+    "tools/failed_bundle_boundary_processor.py",
     "transition_discovery_reports/README.md"
   ],
-  "files_seen": 7,
-  "files_created": 4,
+  "files_seen": 8,
+  "files_created": 5,
   "files_updated": 2,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "e805567e4ee065112c2084c04b1be5046f62982eb2a9b78b55534bb667985664",
-    "after_tree_fingerprint": "e62b73291aa1a4295da375d3a4d611a3cdd6b23b33652fa1dd240445fbb73bd3",
-    "changed_files_fingerprint": "3aa199de17293287bfd0faaf4f84ec936f1d357d53d089badcb0f622a8b62ca9"
+    "before_tree_fingerprint": "b0c0b37bec860e8dd1672fff3b4a5c955a9310a45bfb1fe51477488dead8cfd8",
+    "after_tree_fingerprint": "3983b6cf9743bd80a5a7adbaca7dc4d8e2299b90e9e9b903fb0659a737cd7178",
+    "changed_files_fingerprint": "ae06d17eb743c487edade1189cf4a55a3cd1e57172ef389b921029e9f9186306"
   },
   "decisions": [
     {
@@ -38,62 +39,71 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "7d72d487f9ba52d0bd36b97ecfd92dae0b914769bde4679445ea3fe735b3984b",
-      "bytes": 961
+      "new_sha256": "9e1a394ab3e44e8a522efc8c3c5b082c59948cba577ed0f9991a0b0a77b1b905",
+      "bytes": 178
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "eb43956d30eac008f94ac400f2b4fd8e65fdeca181596e8f647b7bf7456d45c6",
-      "new_sha256": "10838eb334765ab834fec92bc7c9db6f0ff3bfc5e4d60cd77e443453f3225e00",
-      "bytes": 1530
+      "old_sha256": "10838eb334765ab834fec92bc7c9db6f0ff3bfc5e4d60cd77e443453f3225e00",
+      "new_sha256": "d45617f8ee45e9cc5896df2e6be3e6ff810ac32e6bc5631c49c4d6382b8887ca",
+      "bytes": 1222
     },
     {
-      "bundle_path": "data/headless-tasks/site-construction-plane-discovery-v1.json",
-      "repo_path": "data/headless-tasks/site-construction-plane-discovery-v1.json",
+      "bundle_path": "data/headless-tasks/failed-bundle-boundary-processor-v1.json",
+      "repo_path": "data/headless-tasks/failed-bundle-boundary-processor-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "a4fa9dcb1cc21832e67d1d23413758eda06026921becdef1fde82379f74138bb",
-      "bytes": 1319
+      "new_sha256": "85a5854cfeea85eb23b81a618d6429c121510aac841a1c7437fd89373b41620f",
+      "bytes": 1156
     },
     {
-      "bundle_path": "data/transition-table/site-construction-plane-discovery-policy-v1.json",
-      "repo_path": "data/transition-table/site-construction-plane-discovery-policy-v1.json",
+      "bundle_path": "data/transition-table/failed-bundle-boundary-policy-v1.json",
+      "repo_path": "data/transition-table/failed-bundle-boundary-policy-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "b95607e2a6029fdd40f4d59b27f19e7a7fc8c9eba8acffef0c3be83a8940c3b1",
-      "bytes": 1698
+      "new_sha256": "1c16416772499e6b6a0d42e148948b2608bda50f092f2a52bc89f337f131a40e",
+      "bytes": 1988
     },
     {
-      "bundle_path": "docs/MS-012K2-site-construction-plane-discovery-report.md",
-      "repo_path": "docs/MS-012K2-site-construction-plane-discovery-report.md",
+      "bundle_path": "docs/MS-012K3R-failed-bundle-boundary-processor.md",
+      "repo_path": "docs/MS-012K3R-failed-bundle-boundary-processor.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "06a3aef4e434da284a82f85295fd8831cb65f18bb19043afc88b84f026e6efdc",
-      "bytes": 1149
+      "new_sha256": "34a20d96d071c620af7a14df69fdbfe9726c85bc3ff58940ba4f0544d44de66f",
+      "bytes": 701
     },
     {
-      "bundle_path": "tools/site_construction_plane_discovery.py",
-      "repo_path": "tools/site_construction_plane_discovery.py",
+      "bundle_path": "reviewed_failed_bundles/README.md",
+      "repo_path": "reviewed_failed_bundles/README.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "11a21820bad11fbb2c19fc45dddaf6337f3c3b4facd430a7d6a0f4e199d15418",
-      "bytes": 17978
+      "new_sha256": "543da25aeacf7b2fa9b6da5f4734963b7c77ce0ce229562adf7d693a113e145e",
+      "bytes": 297
+    },
+    {
+      "bundle_path": "tools/failed_bundle_boundary_processor.py",
+      "repo_path": "tools/failed_bundle_boundary_processor.py",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "5dc7b0b262feab09baca1e11d68887b14b19fade648c17bba7c2405c7ad1610c",
+      "bytes": 7636
     },
     {
       "bundle_path": "transition_discovery_reports/README.md",
       "repo_path": "transition_discovery_reports/README.md",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "35bec470eb3391a1ff4c67a4a2b7913ebeecd347a48b4d20d63ba44326a3a719",
-      "new_sha256": "bc07a9832430a0b02c0310b4d1846b63c3253afc06ecc53a359513a5500cdb4b",
-      "bytes": 484
+      "old_sha256": "bc07a9832430a0b02c0310b4d1846b63c3253afc06ecc53a359513a5500cdb4b",
+      "new_sha256": "8c822b355cb32d29b5dc306cbd0ca2bf9fd1abab5e424eec6c762652a3bba2f6",
+      "bytes": 196
     }
   ]
 }

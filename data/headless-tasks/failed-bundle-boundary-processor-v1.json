@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-11T01:57:07Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "failed-bundle-boundary-processor-v1",
+  "class": "failed_bundle_boundary_processor",
+  "authority_class": "observe_state",
+  "description": "Process failed_bundles as a bounded automation surface and route only terminal, retryable, or privileged evidence.",
+  "command": [
+    "python",
+    "tools/failed_bundle_boundary_processor.py",
+    "--policy",
+    "data/transition-table/failed-bundle-boundary-policy-v1.json",
+    "--out-dir",
+    "transition_discovery_reports",
+    "--apply"
+  ],
+  "expected_inputs": [
+    "tools/failed_bundle_boundary_processor.py",
+    "data/transition-table/failed-bundle-boundary-policy-v1.json"
+  ],
+  "expected_outputs": [
+    "transition_discovery_reports/failed-bundle-boundary-report.json",
+    "transition_discovery_reports/failed-bundle-boundary-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/failed-bundle-boundary-processor-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/failed-bundle-boundary-processor-v1.report.md"
+}

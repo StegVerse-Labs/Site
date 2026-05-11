@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-05-11T01:57:07Z",
+  "schema": "stegverse.failed_bundle_boundary_policy.v1",
+  "policy_id": "ms012k3r-failed-bundle-boundary-processor-v1",
+  "formal_milestone": "MS-012K.3R \u2014 Failed Bundle Boundary Processor",
+  "purpose": "Turn failed_bundles into an active bounded automation surface without deleting evidence or installing directly.",
+  "source_dir": "failed_bundles",
+  "routes": {
+    "terminal_or_deprecated": "reviewed_failed_bundles",
+    "retryable_repair": "sandbox_queue",
+    "privileged_or_workflow": "privileged_queue",
+    "unknown": "failed_bundles"
+  },
+  "classification_rules": [
+    {
+      "class": "privileged_or_workflow",
+      "contains_any": [
+        "workflow",
+        ".github/workflows",
+        "github/workflows",
+        "declared-headless-task-handler",
+        "workflow_mutation",
+        "authority_expansion"
+      ],
+      "route": "privileged_queue",
+      "reason": "workflow or authority mutation requires privileged review"
+    },
+    {
+      "class": "terminal_or_deprecated",
+      "contains_any": [
+        "deprecated",
+        "unusable",
+        "obsolete",
+        "superseded",
+        "purpose-san",
+        "stale"
+      ],
+      "route": "reviewed_failed_bundles",
+      "reason": "terminal, stale, deprecated, or superseded evidence"
+    },
+    {
+      "class": "retryable_repair",
+      "contains_any": [
+        "missing_manifest",
+        "manifest missing",
+        "repairable",
+        "sandbox required",
+        "sandbox_required"
+      ],
+      "route": "sandbox_queue",
+      "reason": "repairable or sandbox-required failed evidence"
+    }
+  ],
+  "allowed_outputs": [
+    "reviewed_failed_bundles/",
+    "sandbox_queue/",
+    "privileged_queue/",
+    "transition_discovery_reports/",
+    "headless_cmd_reports/"
+  ],
+  "safety": {
+    "no_delete": true,
+    "no_direct_install": true,
+    "no_workflow_mutation": true,
+    "unknown_stays_failed": true,
+    "apply_requires_flag": true
+  }
+}
