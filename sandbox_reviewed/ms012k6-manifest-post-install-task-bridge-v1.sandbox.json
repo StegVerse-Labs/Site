@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-05-11T02:30:49Z",
+  "schema": "stegverse.ephemeral_sandbox_report.v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "bundle_name": "ms012k6-manifest-post-install-task-bridge-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/ms012k6-manifest-post-install-task-bridge-v1.zip",
+  "bundle_sha256": "9af0398a0e5602dc5577cc3dd4eda75948692a946b3e7c687e5c7a0aa2f3ea8a",
+  "mode": "apply",
+  "verdict": "HOLD",
+  "classification": "manual_review_required",
+  "reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
+  "candidate_created": false,
+  "candidate_path": null,
+  "member_findings": [
+    {
+      "path": "README.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 264,
+      "sha256": "5fc8296a1a206d1f94b2dfc101bd8408f2a145221c6b40c41defdb9a09f71ef2"
+    },
+    {
+      "path": "bundle-manifest.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 985,
+      "sha256": "b68af4a0298e5916d48193a4ddbfc8d8a25bc9c2cd67c03a0abcb9eb0ff09075"
+    },
+    {
+      "path": "docs/MS-012K6-manifest-post-install-task-bridge.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 996,
+      "sha256": "3dd2334b4c80624b24af6d6fe60c85a592b6b244572146019b1c40be9ae3b23e"
+    },
+    {
+      "path": "tools/bundle_ingest.py",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 35729,
+      "sha256": "511b985f82e5807a5667bb4c9d9057c51fab9e7e353029b54d72a229c4ef19de"
+    }
+  ]
+}
