@@ -1,35 +1,25 @@
 {
-  "generated_at": "2026-05-11T05:58:20Z",
+  "generated_at": "2026-05-11T06:16:36Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
   "bundle": "/home/runner/work/Site/Site/incoming/ms012k6-approved-ingestion-engine-replacement-v1.zip",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-11T05:58:20Z",
-    "schema": "stegverse.bundle_ingestion_receipt.v1",
+    "generated_at": "2026-05-11T06:16:36Z",
+    "schema": "stegverse.stale_incoming_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-    "bundle_name": "ms012k6-approved-ingestion-engine-replacement-v1.zip",
-    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6-approved-ingestion-engine-replacement-v1.zip",
+    "incoming_path": "/home/runner/work/Site/Site/incoming/ms012k6-approved-ingestion-engine-replacement-v1.zip",
+    "file_name": "ms012k6-approved-ingestion-engine-replacement-v1.zip",
+    "file_sha256": "ef689c69276ca040d2914f10fbbe62ff7bc4e6108a3f2092878c420749ec621a",
     "bundle_sha256": "ef689c69276ca040d2914f10fbbe62ff7bc4e6108a3f2092878c420749ec621a",
-    "mode": "apply",
-    "bundle_class": "ingestion_engine_mutation_bundle",
-    "verdict": "SANDBOX_REQUIRED",
-    "route": "sandbox_queue",
-    "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
-    "mapped_paths": [
-      "README.md",
-      "bundle-manifest.json",
-      "docs/MS-012K6-approved-ingestion-engine-replacement.md",
-      "privileged_queue/ms012k6-human-approval-ingestion-engine-replacement-v1.json",
-      "privileged_queue/ms012k6-human-approval-ingestion-engine-replacement-v1.md",
-      "tools/bundle_ingest.py",
-      "transition_authority_reports/ms012k6-approved-ingestion-engine-replacement-authority-report.json",
-      "transition_authority_reports/ms012k6-approved-ingestion-engine-replacement-authority-report.md"
-    ],
-    "decisions": []
+    "verdict": "STALE_INCOMING_QUARANTINED",
+    "route": "failed_bundles",
+    "seen_state": "already_sandbox_routed",
+    "reason": "Incoming bundle is already seen as already_sandbox_routed; quarantined as stale queue debris instead of being silently skipped."
   },
   "summary": {
     "applied": 0,
-    "routed": "sandbox_queue",
+    "stale_quarantined": 1,
+    "seen_state": "already_sandbox_routed",
     "source_removed_from_incoming": 1
   }
 }
