@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-05-11T03:21:19Z",
+  "schema": "stegverse.vaulted_capability_policy.v1",
+  "policy_id": "ms013-vaulted-capability-policy-v1",
+  "formal_milestone": "MS-013 \u2014 Vaulted Capability Transition Layer",
+  "purpose": "Evaluate vaulted capability requests without exposing secrets or issuing real tokens.",
+  "request_path": "data/vault/example-vaulted-capability-request-v1.json",
+  "out_dir": "vault_reports",
+  "required_fields": [
+    "request_id",
+    "capability_type",
+    "requested_action",
+    "authority_basis",
+    "scope",
+    "owner_claim",
+    "pricing_basis",
+    "revocation_policy"
+  ],
+  "allowed_capability_types": [
+    "api_access_pointer",
+    "model_execution_allowance",
+    "private_dataset_pointer",
+    "sandbox_capability",
+    "customer_privacy_right",
+    "receipt_bound_service_access"
+  ],
+  "denied_capability_types": [
+    "raw_secret",
+    "raw_private_key",
+    "unbounded_root_access",
+    "workflow_mutation_token",
+    "unrevocable_capability"
+  ],
+  "required_authority_basis": [
+    "transition_element",
+    "action_class",
+    "receipt_required"
+  ],
+  "required_scope_fields": [
+    "resource",
+    "duration",
+    "max_uses",
+    "environment"
+  ],
+  "release_policy": {
+    "allow_release_without_real_secret": true,
+    "raw_secret_exposure_allowed": false,
+    "real_token_issuance_allowed": false,
+    "automatic_paid_settlement_allowed": false,
+    "human_review_for_external_value_transfer": true
+  },
+  "verdicts": [
+    "ALLOW_POINTER_RECEIPT",
+    "DENY",
+    "HOLD_FOR_VAULT_REVIEW",
+    "FAIL_CLOSED"
+  ],
+  "safety": {
+    "no_secret_material": true,
+    "no_real_token_issuance": true,
+    "no_payment_settlement": true,
+    "no_workflow_mutation": true,
+    "receipts_only": true
+  }
+}

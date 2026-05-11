@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-05-11T03:21:19Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "vaulted-capability-gate-v1",
+  "class": "vaulted_capability_gate",
+  "authority_class": "observe_state",
+  "description": "Evaluate a vaulted capability request and emit a non-secret capability receipt.",
+  "command": [
+    "python",
+    "tools/vaulted_capability_gate.py",
+    "--policy",
+    "data/vault/vaulted-capability-policy-v1.json",
+    "--out-dir",
+    "vault_reports"
+  ],
+  "expected_inputs": [
+    "tools/vaulted_capability_gate.py",
+    "data/vault/vaulted-capability-policy-v1.json",
+    "data/vault/example-vaulted-capability-request-v1.json"
+  ],
+  "expected_outputs": [
+    "vault_reports/vaulted-capability-gate-report.json",
+    "vault_reports/vaulted-capability-gate-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/",
+    "secrets/",
+    ".env"
+  ],
+  "receipt_output": "headless_cmd_reports/vaulted-capability-gate-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/vaulted-capability-gate-v1.report.md"
+}

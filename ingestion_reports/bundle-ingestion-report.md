@@ -1,16 +1,16 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T02:51:32Z`
+Generated: `2026-05-11T03:25:10Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ms012k6-approval-ingestion-engine-update-review-packet-v1.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ms013-vaulted-capability-transition-layer-v1.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
 
 ## Summary
 
-- `total_entries_seen`: `7`
-- `applied`: `6`
+- `total_entries_seen`: `9`
+- `applied`: `8`
 - `unchanged`: `0`
 - `skipped`: `1`
 - `path_mappings`: `0`
@@ -22,8 +22,10 @@ Bundle class: `ordinary_bundle`
 
 - `skipped` `README.md` → `None` — bundle root README is documentation and is not applied to repo root
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `created` `docs/MS-012K6-approval-ingestion-engine-update-review-packet.md` → `docs/MS-012K6-approval-ingestion-engine-update-review-packet.md` — hash differs or target missing
-- `created` `privileged_queue/ms012k6-ingestion-engine-update-review-packet.json` → `privileged_queue/ms012k6-ingestion-engine-update-review-packet.json` — hash differs or target missing
-- `created` `privileged_queue/ms012k6-ingestion-engine-update-review-packet.md` → `privileged_queue/ms012k6-ingestion-engine-update-review-packet.md` — hash differs or target missing
-- `created` `transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json` → `transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json` — hash differs or target missing
-- `created` `transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md` → `transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md` — hash differs or target missing
+- `created` `data/headless-tasks/vaulted-capability-gate-v1.json` → `data/headless-tasks/vaulted-capability-gate-v1.json` — hash differs or target missing
+- `created` `data/transition-table/vaulted-capability-transition-layer-v1.json` → `data/transition-table/vaulted-capability-transition-layer-v1.json` — hash differs or target missing
+- `created` `data/vault/example-vaulted-capability-request-v1.json` → `data/vault/example-vaulted-capability-request-v1.json` — hash differs or target missing
+- `created` `data/vault/vaulted-capability-policy-v1.json` → `data/vault/vaulted-capability-policy-v1.json` — hash differs or target missing
+- `created` `docs/MS-013-vaulted-capability-transition-layer.md` → `docs/MS-013-vaulted-capability-transition-layer.md` — hash differs or target missing
+- `created` `tools/vaulted_capability_gate.py` → `tools/vaulted_capability_gate.py` — hash differs or target missing
+- `created` `vault_reports/README.md` → `vault_reports/README.md` — hash differs or target missing

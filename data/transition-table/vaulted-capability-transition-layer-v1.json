@@ -1,0 +1,207 @@
+{
+  "generated_at": "2026-05-11T03:21:19Z",
+  "schema": "stegverse.vaulted_capability_transition_layer.v1",
+  "layer_id": "ms013-vaulted-capability-transition-layer-v1",
+  "formal_milestone": "MS-013 \u2014 Vaulted Capability Transition Layer",
+  "purpose": "Define when Token Vault / TVC becomes a consequence of the transition table: when a table-authorized action requests private, scarce, revocable, metered, or value-bearing capability release.",
+  "principle": "The transition table determines admissibility of action; the vault layer determines whether a private/value-bearing capability may be released to perform that action.",
+  "transition_elements": {
+    "TE-020-vaulted-capability-request": {
+      "observed_condition": "A task requests access to a private, credentialed, scarce, paid, user-owned, or value-bearing execution capability.",
+      "unlocked_action_classes": [
+        "prepare_vault_release_review",
+        "validate_vault_claim",
+        "deny_unpriced_or_unowned_capability"
+      ],
+      "not_unlocked": [
+        "raw_secret_exposure",
+        "unmetered_private_execution",
+        "credential_copying",
+        "silent_capability_escalation"
+      ],
+      "required_receipt": "vaulted_capability_request_receipt",
+      "stop_condition": "request is allowed, denied, held for review, or failed closed"
+    },
+    "TE-021-vaulted-capability-denial": {
+      "observed_condition": "A capability request lacks ownership proof, pricing basis, authority basis, scope bound, or policy support.",
+      "unlocked_action_classes": [
+        "deny_vault_release",
+        "emit_capability_denial_receipt"
+      ],
+      "not_unlocked": [
+        "capability_release",
+        "credential_materialization"
+      ],
+      "required_receipt": "vaulted_capability_denial_receipt",
+      "stop_condition": "denial receipt written"
+    },
+    "TE-022-vaulted-capability-hold": {
+      "observed_condition": "A capability request may be valid but requires human, vault, fiduciary, compliance, or pricing review.",
+      "unlocked_action_classes": [
+        "hold_for_vault_review",
+        "prepare_vault_review_packet"
+      ],
+      "not_unlocked": [
+        "automatic_release",
+        "credential_materialization"
+      ],
+      "required_receipt": "vault_review_packet",
+      "stop_condition": "review packet written"
+    },
+    "TE-023-vaulted-capability-release": {
+      "observed_condition": "A capability request satisfies authority, ownership, scope, pricing, revocation, and receipt requirements.",
+      "unlocked_action_classes": [
+        "issue_execution_capability_receipt",
+        "release_capability_pointer"
+      ],
+      "not_unlocked": [
+        "raw_secret_exposure",
+        "unbounded_capability_release",
+        "unreceipted_execution"
+      ],
+      "required_receipt": "vaulted_capability_release_receipt",
+      "stop_condition": "capability pointer or allowance released with receipt; raw secret remains hidden"
+    },
+    "TE-024-tokenized-authority-transfer": {
+      "observed_condition": "A value-bearing right, claim, allowance, stake, or metered execution unit is transferred or bound to a capability request.",
+      "unlocked_action_classes": [
+        "validate_tokenized_claim",
+        "bind_claim_to_capability_receipt"
+      ],
+      "not_unlocked": [
+        "unpriced_execution",
+        "unaudited_transfer",
+        "silent_claim_reuse"
+      ],
+      "required_receipt": "tokenized_authority_transfer_receipt",
+      "stop_condition": "claim is bound, denied, or held"
+    },
+    "TE-025-vaulted-capability-revocation": {
+      "observed_condition": "A previously released capability must be revoked, expired, rotated, or invalidated.",
+      "unlocked_action_classes": [
+        "revoke_capability_pointer",
+        "emit_revocation_receipt",
+        "require_revalidation_before_reuse"
+      ],
+      "not_unlocked": [
+        "continued_execution_after_revocation",
+        "silent_reactivation"
+      ],
+      "required_receipt": "vaulted_capability_revocation_receipt",
+      "stop_condition": "capability invalidated or held for review"
+    }
+  },
+  "action_classes": {
+    "prepare_vault_release_review": {
+      "authority_level": "7_vault_review",
+      "human_approval_required": true,
+      "sandbox_required": false,
+      "allowed_outputs": [
+        "vault_reports/",
+        "privileged_queue/",
+        "transition_authority_reports/"
+      ],
+      "forbidden_outputs": [
+        ".github/workflows/",
+        ".git/",
+        "public_release/",
+        "secrets/",
+        ".env"
+      ],
+      "required_receipt": "vault_review_packet"
+    },
+    "validate_vault_claim": {
+      "authority_level": "7_vault_review",
+      "human_approval_required": false,
+      "sandbox_required": false,
+      "allowed_outputs": [
+        "vault_reports/"
+      ],
+      "forbidden_outputs": [
+        "secrets/",
+        ".env",
+        ".github/workflows/",
+        ".git/"
+      ],
+      "required_receipt": "vaulted_capability_request_receipt"
+    },
+    "deny_unpriced_or_unowned_capability": {
+      "authority_level": "7_vault_review",
+      "human_approval_required": false,
+      "sandbox_required": false,
+      "allowed_outputs": [
+        "vault_reports/"
+      ],
+      "forbidden_outputs": [
+        "secrets/",
+        ".env",
+        ".github/workflows/",
+        ".git/"
+      ],
+      "required_receipt": "vaulted_capability_denial_receipt"
+    },
+    "issue_execution_capability_receipt": {
+      "authority_level": "8_capability_release",
+      "human_approval_required": "conditional",
+      "sandbox_required": false,
+      "allowed_outputs": [
+        "vault_reports/"
+      ],
+      "forbidden_outputs": [
+        "raw_secret_material",
+        "secrets/",
+        ".env",
+        ".github/workflows/",
+        ".git/"
+      ],
+      "required_receipt": "vaulted_capability_release_receipt"
+    },
+    "validate_tokenized_claim": {
+      "authority_level": "8_capability_release",
+      "human_approval_required": "conditional",
+      "sandbox_required": false,
+      "allowed_outputs": [
+        "vault_reports/"
+      ],
+      "forbidden_outputs": [
+        "raw_secret_material",
+        "secrets/",
+        ".env",
+        ".github/workflows/",
+        ".git/"
+      ],
+      "required_receipt": "tokenized_authority_transfer_receipt"
+    },
+    "revoke_capability_pointer": {
+      "authority_level": "8_capability_release",
+      "human_approval_required": "conditional",
+      "sandbox_required": false,
+      "allowed_outputs": [
+        "vault_reports/"
+      ],
+      "forbidden_outputs": [
+        "silent_reactivation",
+        "raw_secret_material"
+      ],
+      "required_receipt": "vaulted_capability_revocation_receipt"
+    }
+  },
+  "tv_tvc_boundary": {
+    "token_vault_role": "Controls private authority objects, capability pointers, revocation status, release conditions, and non-exposure of raw secrets.",
+    "tvc_role": "Represents value-bearing right, price, claim, stake, allowance, or metered access associated with using a vaulted capability.",
+    "not_yet_unlocked": [
+      "real token issuance",
+      "real payment settlement",
+      "raw credential storage",
+      "raw credential release",
+      "public financial promises"
+    ],
+    "first_unlocked_surface": [
+      "capability request evaluation",
+      "claim validation placeholder",
+      "receipt generation",
+      "release denial",
+      "review hold"
+    ]
+  }
+}

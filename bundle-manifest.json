@@ -1,28 +1,43 @@
 {
-  "generated_at": "2026-05-11T02:47:09Z",
+  "generated_at": "2026-05-11T03:21:19Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012k6-approval-ingestion-engine-update-review-packet-v1",
-  "formal_milestone": "MS-012K.6-APPROVAL \u2014 Ingestion Engine Update Review Packet",
-  "purpose": "Create the privileged review packet for the MS-012K.6 ingestion-engine update without installing it.",
+  "bundle_id": "ms013-vaulted-capability-transition-layer-v1",
+  "formal_milestone": "MS-013 \u2014 Vaulted Capability Transition Layer",
+  "purpose": "Introduce the first TV/TVC consequence layer: vaulted capability request evaluation and receipt generation.",
   "files": [
     {
-      "path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
-      "role": "privileged_review_packet"
+      "path": "data/transition-table/vaulted-capability-transition-layer-v1.json",
+      "version": "v1",
+      "role": "transition_layer"
     },
     {
-      "path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
-      "role": "privileged_review_packet_markdown"
+      "path": "data/vault/vaulted-capability-policy-v1.json",
+      "version": "v1",
+      "role": "vault_policy"
     },
     {
-      "path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
-      "role": "authority_review_report"
+      "path": "data/vault/example-vaulted-capability-request-v1.json",
+      "version": "v1",
+      "role": "example_request"
     },
     {
-      "path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md",
-      "role": "authority_review_report_markdown"
+      "path": "tools/vaulted_capability_gate.py",
+      "version": "v1",
+      "role": "vaulted_capability_gate"
     },
     {
-      "path": "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
+      "path": "data/headless-tasks/vaulted-capability-gate-v1.json",
+      "version": "v1",
+      "role": "declared_task"
+    },
+    {
+      "path": "vault_reports/README.md",
+      "version": "v1",
+      "role": "report_docs"
+    },
+    {
+      "path": "docs/MS-013-vaulted-capability-transition-layer.md",
+      "version": "v1",
       "role": "docs"
     }
   ],
@@ -30,9 +45,10 @@
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "changes_ingestion_engine": false,
-    "approves_automatically": false,
-    "installs_engine_update": false,
-    "human_decision_required": true
+    "contains_secrets": false,
+    "issues_real_tokens": false,
+    "settles_payments": false,
+    "raw_secret_release": false,
+    "receipt_only": true
   }
 }

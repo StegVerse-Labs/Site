@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T02:51:32Z",
+  "generated_at": "2026-05-11T03:25:10Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
-  "bundle_sha256": "cf00b40f3bdd2b6e0c08669fffb8d69c8d7050584ec3834c8edacab9d3986039",
+  "bundle_name": "ms013-vaulted-capability-transition-layer-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms013-vaulted-capability-transition-layer-v1.zip",
+  "bundle_sha256": "86b8977e26c3977e188c07a713f2bfd992caf888ef2e8165af53e9c1cdeeb9f0",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,23 +13,25 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
-    "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
-    "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
-    "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
-    "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md"
+    "data/headless-tasks/vaulted-capability-gate-v1.json",
+    "data/transition-table/vaulted-capability-transition-layer-v1.json",
+    "data/vault/example-vaulted-capability-request-v1.json",
+    "data/vault/vaulted-capability-policy-v1.json",
+    "docs/MS-013-vaulted-capability-transition-layer.md",
+    "tools/vaulted_capability_gate.py",
+    "vault_reports/README.md"
   ],
-  "files_seen": 7,
-  "files_created": 5,
+  "files_seen": 9,
+  "files_created": 7,
   "files_updated": 1,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "68daa0f55f0ebdb9bcce445e4d89081dc3dc272022e923ed3e4d0b04b7c88283",
-    "after_tree_fingerprint": "2383cdbedc0eaaeae4939a2e11d2437cdc16a94d31126ccf1d97ed1d782ade23",
-    "changed_files_fingerprint": "c3693a796c6e9a12c43ac79b8ebd7c27f525571ad0c065f093d53af2ebf025bc"
+    "before_tree_fingerprint": "a13f939651cf3074542f7a41103d1bd387ad3fd018ef591418108f716fdb2123",
+    "after_tree_fingerprint": "f40b356243eb6cd22b6d00cc784b29292381cb0404b97a6cdeff882d29f17bc4",
+    "changed_files_fingerprint": "9fe91a78f51c113b6229ba1532d30af617255d7a2448677052bdccdfac57b8de"
   },
   "decisions": [
     {
@@ -38,62 +40,80 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "3f7a01c70bc9fdd46bb1fb4513604d9e84ce1bf0e6e61be9c5e37f7c8f64e871",
-      "bytes": 219
+      "new_sha256": "357ced71bc9715aa6f0489f04f61899bd49c6a0486311861e9f22e6241238b37",
+      "bytes": 371
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "17f0a77baf8cda05c14c8d106d15ad73ae6ba8d641d10c1727429b6979477147",
-      "new_sha256": "d442e1410737da520d80acc3236cd32db7735ab76f684c88a51c892cd2c5aec8",
-      "bytes": 1379
+      "old_sha256": "d442e1410737da520d80acc3236cd32db7735ab76f684c88a51c892cd2c5aec8",
+      "new_sha256": "8344753f7a70c312afe60275d4ba8753d26c3c0e26d539fffb7b75ff9083afff",
+      "bytes": 1559
     },
     {
-      "bundle_path": "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
-      "repo_path": "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
+      "bundle_path": "data/headless-tasks/vaulted-capability-gate-v1.json",
+      "repo_path": "data/headless-tasks/vaulted-capability-gate-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "fc3034c3c11a80d66fb2020ea6ccb242a05e8dd70e6cc5f1083186b4ebab70f1",
-      "bytes": 714
+      "new_sha256": "8b9744026953805804d56bf40001245f25d79234c1e7ec27c875581d5b1e54fc",
+      "bytes": 1068
     },
     {
-      "bundle_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
-      "repo_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
+      "bundle_path": "data/transition-table/vaulted-capability-transition-layer-v1.json",
+      "repo_path": "data/transition-table/vaulted-capability-transition-layer-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "bee704e917d785e408bd83d53e48d84b23f3baa9332e9c0fd9904af36a1afb42",
-      "bytes": 3412
+      "new_sha256": "443d10ffbd3229b21b1d7dd1190c91fb659b0514d093fb17cf3f81ef55456ff9",
+      "bytes": 7460
     },
     {
-      "bundle_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
-      "repo_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
+      "bundle_path": "data/vault/example-vaulted-capability-request-v1.json",
+      "repo_path": "data/vault/example-vaulted-capability-request-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "72c235a46413d79d56dbedc920883935fa294abb4c7b302f71aeb4f5b727b920",
-      "bytes": 2444
+      "new_sha256": "54da3520312f7a1d2ff12ecfbd63fd16f05beeeaba0784c4efb1677579a554e1",
+      "bytes": 1004
     },
     {
-      "bundle_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
-      "repo_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
+      "bundle_path": "data/vault/vaulted-capability-policy-v1.json",
+      "repo_path": "data/vault/vaulted-capability-policy-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "153f0f24d59d48ab26576e889451d16778037c60bdad87e0ed13cafaf8a2735a",
-      "bytes": 726
+      "new_sha256": "9f64a6c06e60e1f2f0117d0ba3aaa8cbef61c1a3c91618fae5409b66422d4ad5",
+      "bytes": 1766
     },
     {
-      "bundle_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md",
-      "repo_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md",
+      "bundle_path": "docs/MS-013-vaulted-capability-transition-layer.md",
+      "repo_path": "docs/MS-013-vaulted-capability-transition-layer.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "ff1d3940622a5822429b3b81d185673f212b6dfb1e31ec4b00ab2e04990432e1",
-      "bytes": 520
+      "new_sha256": "bb4dfd50a9639627efccdcc36eea0c468dcbd2a2f270f7cb3968d706dcb54e48",
+      "bytes": 1254
+    },
+    {
+      "bundle_path": "tools/vaulted_capability_gate.py",
+      "repo_path": "tools/vaulted_capability_gate.py",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "f2034e105c98b9db1c1da24e13158831caf44cbc62423d0524d529cc3d3717df",
+      "bytes": 8447
+    },
+    {
+      "bundle_path": "vault_reports/README.md",
+      "repo_path": "vault_reports/README.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "5b7c0845748dffe6444d0ce09f62362f28dc254f664f40317d4aa01aee37a6f0",
+      "bytes": 280
     }
   ]
 }

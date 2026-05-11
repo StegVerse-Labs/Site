@@ -238,6 +238,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "c3693a796c6e9a12c43ac79b8ebd7c27f525571ad0c065f093d53af2ebf025bc"
+    },
+    {
+      "generated_at": "2026-05-11T03:25:10Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms013-vaulted-capability-transition-layer-v1.zip",
+      "bundle_sha256": "86b8977e26c3977e188c07a713f2bfd992caf888ef2e8165af53e9c1cdeeb9f0",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "9fe91a78f51c113b6229ba1532d30af617255d7a2448677052bdccdfac57b8de"
     }
   ]
 }
