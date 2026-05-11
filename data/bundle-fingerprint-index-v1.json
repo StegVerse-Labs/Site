@@ -166,6 +166,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "4b41ee8f23428961d1be0c703a7614c2457d0d598e6737b3a36a215215893c23"
+    },
+    {
+      "generated_at": "2026-05-11T00:53:30Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k-transition-discovery-ledger-v1.zip",
+      "bundle_sha256": "8b26c620cae739050b1c25d73c164a2e43cd54caa787bc2f603094b142008693",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "6a412a5f37185421312db6d6ddaed1abf5f39dad4cdef8ceea0b001b1ed6af77"
     }
   ]
 }

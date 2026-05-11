@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-05-11T00:24:42Z",
+  "schema": "stegverse.transition_discovery_policy.v1",
+  "policy_id": "ms012k-transition-discovery-ledger-v1",
+  "formal_milestone": "MS-012K \u2014 Transition Discovery Ledger",
+  "purpose": "Convert observed ingestion, sandbox, and transition-authority reports into transition-table discovery evidence.",
+  "inputs": {
+    "authority_map": "data/transition-table/transition-element-action-authority-map-v1.json",
+    "ingestion_reports": [
+      "ingestion_reports/bundle-ingestion-report.json",
+      "ingestion_reports/bundle-queue-report.json"
+    ],
+    "sandbox_report_dir": "sandbox_reports",
+    "authority_audit_report": "transition_authority_reports/transition-authority-audit-report.json"
+  },
+  "outputs": {
+    "ledger_jsonl": "transition_discovery_reports/transition-discovery-ledger.jsonl",
+    "ledger_json": "transition_discovery_reports/transition-discovery-ledger.json",
+    "candidate_elements_json": "transition_discovery_reports/transition-element-candidates.json",
+    "candidate_elements_md": "transition_discovery_reports/transition-element-candidates.md",
+    "summary_json": "transition_discovery_reports/transition-discovery-summary.json",
+    "summary_md": "transition_discovery_reports/transition-discovery-summary.md"
+  },
+  "matching_rules": {
+    "incoming_zip": "TE-001-incoming-bundle-present",
+    "already_seen": "TE-002-already-seen-bundle",
+    "allow_ingest": "TE-003-ordinary-manifested-bundle",
+    "engine_mutation": "TE-004-engine-mutation-bundle",
+    "workflow_mutation": "TE-005-workflow-mutation-bundle",
+    "safe_unmanifested_sandbox": "TE-006-safe-unmanifested-sandbox-payload",
+    "unsafe_path": "TE-007-unsafe-path-detected",
+    "privileged_review": "TE-008-privileged-review-needed",
+    "promotion_request": "TE-009-release-or-milestone-promotion-request",
+    "authority_expansion": "TE-010-authority-expansion-request"
+  },
+  "candidate_rules": {
+    "new_candidate_when_no_transition_match": true,
+    "new_candidate_when_action_exceeds_unlocked_authority": true,
+    "new_candidate_when_human_approval_required": false,
+    "new_candidate_when_unknown_route": true
+  },
+  "safety": {
+    "evidence_only": true,
+    "does_not_install": true,
+    "does_not_delete": true,
+    "does_not_change_workflows": true,
+    "does_not_expand_authority": true,
+    "reports_only": true
+  }
+}

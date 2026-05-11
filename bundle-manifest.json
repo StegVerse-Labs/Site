@@ -1,14 +1,34 @@
 {
-  "generated_at": "2026-05-11T00:18:23Z",
+  "generated_at": "2026-05-11T00:24:42Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012j-authority-map-data-surface-v1",
-  "formal_milestone": "MS-012J \u2014 Authority Map Data Surface",
-  "purpose": "Install the live JSON data surface required by transition-periodic-table.html.",
+  "bundle_id": "ms012k-transition-discovery-ledger-v1",
+  "formal_milestone": "MS-012K \u2014 Transition Discovery Ledger",
+  "purpose": "Install a data/tool/report surface that converts real Site outcomes into transition-table discovery evidence and candidate transition elements.",
   "files": [
     {
-      "path": "data/transition-table/transition-element-action-authority-map-v1.json",
+      "path": "data/transition-table/transition-discovery-policy-v1.json",
       "version": "v1",
-      "role": "public_transition_authority_map_data_surface"
+      "role": "transition_discovery_policy"
+    },
+    {
+      "path": "tools/transition_discovery_ledger.py",
+      "version": "v1",
+      "role": "transition_discovery_tool"
+    },
+    {
+      "path": "data/headless-tasks/transition-discovery-ledger-v1.json",
+      "version": "v1",
+      "role": "declared_discovery_task"
+    },
+    {
+      "path": "transition_discovery_reports/README.md",
+      "version": "v1",
+      "role": "discovery_report_docs"
+    },
+    {
+      "path": "docs/MS-012K-transition-discovery-ledger.md",
+      "version": "v1",
+      "role": "discovery_ledger_docs"
     }
   ],
   "safety": {
@@ -21,6 +41,6 @@
     "no_cron": true,
     "no_workflow_run_chain": true,
     "no_self_trigger_zip": true,
-    "data_only_fix": true
+    "evidence_only_discovery": true
   }
 }

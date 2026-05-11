@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-11T00:24:42Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "transition-discovery-ledger-v1",
+  "class": "transition_discovery_ledger",
+  "authority_class": "observe_state",
+  "description": "Convert ingestion, sandbox, and authority reports into transition-table discovery evidence.",
+  "command": [
+    "python",
+    "tools/transition_discovery_ledger.py",
+    "--policy",
+    "data/transition-table/transition-discovery-policy-v1.json"
+  ],
+  "expected_inputs": [
+    "data/transition-table/transition-discovery-policy-v1.json",
+    "data/transition-table/transition-element-action-authority-map-v1.json"
+  ],
+  "expected_outputs": [
+    "transition_discovery_reports/transition-discovery-ledger.jsonl",
+    "transition_discovery_reports/transition-discovery-ledger.json",
+    "transition_discovery_reports/transition-element-candidates.json",
+    "transition_discovery_reports/transition-element-candidates.md",
+    "transition_discovery_reports/transition-discovery-summary.json",
+    "transition_discovery_reports/transition-discovery-summary.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/transition-discovery-ledger-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/transition-discovery-ledger-v1.report.md"
+}
