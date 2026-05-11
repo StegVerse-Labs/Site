@@ -1,0 +1,257 @@
+{
+  "generated_at": "2026-05-11T08:41:49Z",
+  "schema": "stegverse.transition_dependency_closure_status.v1",
+  "formal_milestone": "MS-012L.2 \u2014 Transition Dependency Closure Model",
+  "purpose": "Record current closure status for known/discovered transition groups.",
+  "transitions": [
+    {
+      "transition_id": "T1",
+      "name": "observe uploaded bundle",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "required_shells": [
+        "workflow_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle"
+      ],
+      "required_receipts": [
+        "workflow_run_record"
+      ],
+      "closure": {
+        "shell_closure": "closed",
+        "surface_closure": "closed",
+        "receipt_closure": "closed",
+        "evidence_closure": "closed",
+        "authority_closure": "closed"
+      },
+      "unresolved_dependencies": []
+    },
+    {
+      "transition_id": "T2",
+      "name": "invoke bounded ingestion workflow",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "required_shells": [
+        "workflow_shell",
+        "tool_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle",
+        "tool:bundle_ingest"
+      ],
+      "required_receipts": [
+        "bundle_queue_report",
+        "bundle_ingestion_receipt"
+      ],
+      "closure": {
+        "shell_closure": "closed",
+        "surface_closure": "closed",
+        "receipt_closure": "closed",
+        "evidence_closure": "closed",
+        "authority_closure": "closed"
+      },
+      "unresolved_dependencies": []
+    },
+    {
+      "transition_id": "T3",
+      "name": "classify bundle path surfaces",
+      "discovery_state": "known",
+      "execution_state": "executable_partial",
+      "required_shells": [
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "tool:bundle_ingest"
+      ],
+      "required_receipts": [
+        "bundle_ingestion_receipt"
+      ],
+      "closure": {
+        "shell_closure": "partial",
+        "surface_closure": "partial",
+        "receipt_closure": "closed",
+        "evidence_closure": "closed",
+        "authority_closure": "partial"
+      },
+      "unresolved_dependencies": [
+        "path classes are partially hardcoded rather than fully canonical data"
+      ]
+    },
+    {
+      "transition_id": "T4",
+      "name": "route bundle lifecycle state",
+      "discovery_state": "known",
+      "execution_state": "executable_partial",
+      "required_shells": [
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "tool:bundle_ingest"
+      ],
+      "required_receipts": [
+        "bundle_ingestion_receipt",
+        "installed_bundle_receipt",
+        "stale_incoming_receipt"
+      ],
+      "closure": {
+        "shell_closure": "partial",
+        "surface_closure": "partial",
+        "receipt_closure": "partial",
+        "evidence_closure": "closed",
+        "authority_closure": "partial"
+      },
+      "unresolved_dependencies": [
+        "terminal lifecycle states are not fully canonical",
+        "approved privileged transition state is discovered but not executable"
+      ]
+    },
+    {
+      "transition_id": "T5",
+      "name": "perform ephemeral sandbox review",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "required_shells": [
+        "workflow_shell",
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle",
+        "tool:ephemeral_sandbox_runner"
+      ],
+      "required_receipts": [
+        "ephemeral_sandbox_report"
+      ],
+      "closure": {
+        "shell_closure": "closed",
+        "surface_closure": "closed",
+        "receipt_closure": "closed",
+        "evidence_closure": "closed",
+        "authority_closure": "closed"
+      },
+      "unresolved_dependencies": []
+    },
+    {
+      "transition_id": "T13",
+      "name": "data-defined transition authority discovery",
+      "discovery_state": "discovered",
+      "execution_state": "blocked",
+      "required_shells": [
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "tool:bundle_ingest",
+        "data:transition-state-rules"
+      ],
+      "required_receipts": [
+        "transition_state_discovery_receipt"
+      ],
+      "closure": {
+        "shell_closure": "partial",
+        "surface_closure": "blocked",
+        "receipt_closure": "open",
+        "evidence_closure": "closed",
+        "authority_closure": "blocked"
+      },
+      "unresolved_dependencies": [
+        "tool:bundle_ingest does not interpret data-defined transition-state rules"
+      ],
+      "allowed_current_actions": [
+        "record_discovery",
+        "record_blocked_state",
+        "map_dependency_closure"
+      ],
+      "forbidden_current_actions": [
+        "self-authorize_tool_mutation",
+        "claim_executable_authority"
+      ]
+    },
+    {
+      "transition_id": "T14",
+      "name": "approved privileged install candidate",
+      "discovery_state": "discovered",
+      "execution_state": "blocked",
+      "required_shells": [
+        "workflow_shell",
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle",
+        "tool:bundle_ingest",
+        "tool:ephemeral_sandbox_runner",
+        "data:human_approval_receipt",
+        "data:sandbox_hold_report"
+      ],
+      "required_receipts": [
+        "sandbox_hold_receipt",
+        "human_approval_receipt",
+        "dependency_closure_receipt",
+        "consumed_approval_receipt"
+      ],
+      "closure": {
+        "shell_closure": "partial",
+        "surface_closure": "partial",
+        "receipt_closure": "open",
+        "evidence_closure": "closed",
+        "authority_closure": "blocked"
+      },
+      "unresolved_dependencies": [
+        "current ingestor checks seen_status before approval transition evaluation",
+        "workflow lacks retry_failed or maintenance transition input",
+        "data-defined approval transition is not interpreted"
+      ],
+      "allowed_current_actions": [
+        "record_discovery",
+        "record_blocked_state",
+        "prepare_dependency_map"
+      ],
+      "forbidden_current_actions": [
+        "ordinary_ingest_retry",
+        "fresh_hash_workaround_claimed_as_solution",
+        "self-authorize_tool_mutation"
+      ]
+    },
+    {
+      "transition_id": "T20",
+      "name": "vaulted capability request",
+      "discovery_state": "discovered",
+      "execution_state": "executable_receipts_only",
+      "required_shells": [
+        "tool_shell",
+        "data_shell",
+        "vault_shell"
+      ],
+      "required_surfaces": [
+        "tool:vaulted_capability_gate"
+      ],
+      "required_receipts": [
+        "vaulted_capability_receipt"
+      ],
+      "closure": {
+        "shell_closure": "partial",
+        "surface_closure": "partial",
+        "receipt_closure": "partial",
+        "evidence_closure": "partial",
+        "authority_closure": "partial"
+      },
+      "unresolved_dependencies": [
+        "real token issuance locked",
+        "payment settlement locked",
+        "raw secret release locked"
+      ],
+      "allowed_current_actions": [
+        "receipt_only_evaluation"
+      ],
+      "forbidden_current_actions": [
+        "real_token_issuance",
+        "payment_settlement",
+        "raw_secret_release"
+      ]
+    }
+  ]
+}

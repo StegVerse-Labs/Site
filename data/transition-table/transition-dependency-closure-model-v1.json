@@ -1,0 +1,108 @@
+{
+  "generated_at": "2026-05-11T08:41:49Z",
+  "schema": "stegverse.transition_dependency_closure_model.v1",
+  "formal_milestone": "MS-012L.2 \u2014 Transition Dependency Closure Model",
+  "purpose": "Define how a discovered transition becomes executable by proving dependency closure across shells, surfaces, receipts, and evidence.",
+  "core_rule": "A transition may be discovered before it is executable, but it may not execute until dependency closure is proven.",
+  "closure_axes": {
+    "shell_closure": {
+      "meaning": "All required authority shells have known canonical surfaces.",
+      "states": [
+        "open",
+        "partial",
+        "closed",
+        "blocked"
+      ]
+    },
+    "surface_closure": {
+      "meaning": "Every workflow/tool/data/capability surface required by the transition exists in the canonical map.",
+      "states": [
+        "open",
+        "partial",
+        "closed",
+        "blocked"
+      ]
+    },
+    "receipt_closure": {
+      "meaning": "All receipts required to prove the transition can be emitted or already exist.",
+      "states": [
+        "open",
+        "partial",
+        "closed",
+        "blocked"
+      ]
+    },
+    "evidence_closure": {
+      "meaning": "Observed receipts/reports support the claimed transition state without contradiction.",
+      "states": [
+        "open",
+        "partial",
+        "closed",
+        "contradicted",
+        "superseded"
+      ]
+    },
+    "authority_closure": {
+      "meaning": "The action remains within the declared scope of mapped surfaces.",
+      "states": [
+        "open",
+        "partial",
+        "closed",
+        "blocked"
+      ]
+    }
+  },
+  "execution_state_rules": [
+    {
+      "execution_state": "non_executable",
+      "requires": [
+        "transition not sufficiently discovered or no required surfaces identified"
+      ]
+    },
+    {
+      "execution_state": "blocked",
+      "requires": [
+        "transition discovered",
+        "one or more closure axes open/blocked/contradicted"
+      ]
+    },
+    {
+      "execution_state": "executable_partial",
+      "requires": [
+        "transition discovered",
+        "some closure axes closed",
+        "remaining axes bounded and non-authority-expanding"
+      ]
+    },
+    {
+      "execution_state": "executable",
+      "requires": [
+        "shell_closure closed",
+        "surface_closure closed",
+        "receipt_closure closed",
+        "evidence_closure closed",
+        "authority_closure closed"
+      ]
+    },
+    {
+      "execution_state": "terminal_rejected",
+      "requires": [
+        "evidence proves transition cannot be admissible under current table"
+      ]
+    },
+    {
+      "execution_state": "terminal_invalid",
+      "requires": [
+        "transition contradicts invariant or would require bypassing canonical surfaces"
+      ]
+    }
+  ],
+  "invariants": [
+    "No transition can execute from discovery state alone.",
+    "No transition can close authority by creating a new unmapped authority surface.",
+    "A lower-shell dependency may be discovered by a higher transition, but the higher transition remains blocked until closure is proven.",
+    "A fresh hash, repeated upload, or renamed bundle is not dependency closure.",
+    "Closure must be receipt-backed.",
+    "Workflow/tool mutation is not ordinary data evolution."
+  ]
+}

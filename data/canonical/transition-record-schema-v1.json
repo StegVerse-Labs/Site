@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-05-11T08:41:49Z",
+  "schema": "stegverse.transition_record_schema.v1",
+  "formal_milestone": "MS-012L.2 \u2014 Transition Dependency Closure Model",
+  "purpose": "Define the canonical shape for transition records used by the dependency graph.",
+  "transition_record_shape": {
+    "transition_id": "string",
+    "name": "string",
+    "summary": "string",
+    "discovery_state": "unknown | suspected | discovered | validated | deprecated",
+    "execution_state": "non_executable | blocked | executable_partial | executable | terminal_success | terminal_rejected | terminal_invalid",
+    "required_shells": [
+      "workflow_shell",
+      "tool_shell",
+      "data_shell",
+      "capability_file_shell",
+      "vault_shell",
+      "value_shell"
+    ],
+    "required_surfaces": [
+      "canonical surface ids"
+    ],
+    "required_prior_transitions": [
+      "transition ids"
+    ],
+    "required_receipts": [
+      "receipt ids or schema names"
+    ],
+    "allowed_current_actions": [
+      "actions currently allowed despite block"
+    ],
+    "forbidden_current_actions": [
+      "actions forbidden while closure is incomplete"
+    ],
+    "closure": {
+      "shell_closure": "open | partial | closed | blocked",
+      "surface_closure": "open | partial | closed | blocked",
+      "receipt_closure": "open | partial | closed | blocked",
+      "evidence_closure": "open | partial | closed | contradicted | superseded",
+      "authority_closure": "open | partial | closed | blocked"
+    },
+    "unresolved_dependencies": [
+      "strings"
+    ],
+    "evidence_refs": [
+      "repo paths or receipt references"
+    ],
+    "canonical_reason": "string"
+  }
+}

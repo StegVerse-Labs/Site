@@ -1,8 +1,8 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T08:40:09Z`
+Generated: `2026-05-11T08:43:29Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ms012l1-transition-table-self-correction-ledger-v1.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ms012l2-transition-dependency-closure-model-v1.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
@@ -22,8 +22,8 @@ Bundle class: `ordinary_bundle`
 
 - `skipped` `README.md` → `None` — bundle root README is documentation and is not applied to repo root
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `created` `data/canonical/transition-correction-ledger-v1.json` → `data/canonical/transition-correction-ledger-v1.json` — hash differs or target missing
-- `created` `data/canonical/transition-evidence-schema-v1.json` → `data/canonical/transition-evidence-schema-v1.json` — hash differs or target missing
-- `created` `data/canonical/transition-status-index-v1.json` → `data/canonical/transition-status-index-v1.json` — hash differs or target missing
-- `created` `data/transition-table/transition-table-self-correction-model-v1.json` → `data/transition-table/transition-table-self-correction-model-v1.json` — hash differs or target missing
-- `created` `docs/MS-012L1-transition-table-self-correction-ledger.md` → `docs/MS-012L1-transition-table-self-correction-ledger.md` — hash differs or target missing
+- `created` `data/canonical/dependency-closure-receipt-schema-v1.json` → `data/canonical/dependency-closure-receipt-schema-v1.json` — hash differs or target missing
+- `created` `data/canonical/transition-dependency-closure-status-v1.json` → `data/canonical/transition-dependency-closure-status-v1.json` — hash differs or target missing
+- `created` `data/canonical/transition-record-schema-v1.json` → `data/canonical/transition-record-schema-v1.json` — hash differs or target missing
+- `created` `data/transition-table/transition-dependency-closure-model-v1.json` → `data/transition-table/transition-dependency-closure-model-v1.json` — hash differs or target missing
+- `created` `docs/MS-012L2-transition-dependency-closure-model.md` → `docs/MS-012L2-transition-dependency-closure-model.md` — hash differs or target missing

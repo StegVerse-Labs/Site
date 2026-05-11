@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-05-11T08:41:49Z",
+  "schema": "stegverse.dependency_closure_receipt_schema.v1",
+  "formal_milestone": "MS-012L.2 \u2014 Transition Dependency Closure Model",
+  "purpose": "Define the receipt needed before a blocked transition may advance execution state.",
+  "receipt_shape": {
+    "schema": "stegverse.dependency_closure_receipt.v1",
+    "transition_id": "string",
+    "prior_execution_state": "string",
+    "new_execution_state": "string",
+    "closure_before": "object",
+    "closure_after": "object",
+    "evidence_refs": [
+      "receipt/report refs"
+    ],
+    "canonical_surface_refs": [
+      "surface ids"
+    ],
+    "authority_scope_confirmation": "string",
+    "forbidden_actions_confirmed_absent": [
+      "strings"
+    ],
+    "decision": "advance | hold | reject | terminalize",
+    "reason": "string"
+  },
+  "required_before_execution_advance": [
+    "all required surfaces exist in canonical execution surface map",
+    "all required receipts exist or can be emitted by mapped surfaces",
+    "evidence does not contradict claimed execution state",
+    "action remains within declared authority scope",
+    "blocked dependencies are cleared or terminally rejected"
+  ]
+}
