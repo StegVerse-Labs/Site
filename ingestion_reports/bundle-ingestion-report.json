@@ -1,76 +1,35 @@
 {
-  "generated_at": "2026-05-11T04:15:07Z",
+  "generated_at": "2026-05-11T05:58:20Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012k6b-transition-automation-post-install-trigger-v1.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
+  "bundle": "/home/runner/work/Site/Site/incoming/ms012k6-approved-ingestion-engine-replacement-v1.zip",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-11T04:15:07Z",
+    "generated_at": "2026-05-11T05:58:20Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-    "bundle_name": "ms012k6b-transition-automation-post-install-trigger-v1.zip",
-    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6b-transition-automation-post-install-trigger-v1.zip",
-    "bundle_sha256": "14d5ba39d96b03d64d219371b65d862901a74aeea902db5d677d9aa43e21b66e",
+    "bundle_name": "ms012k6-approved-ingestion-engine-replacement-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6-approved-ingestion-engine-replacement-v1.zip",
+    "bundle_sha256": "ef689c69276ca040d2914f10fbbe62ff7bc4e6108a3f2092878c420749ec621a",
     "mode": "apply",
-    "bundle_class": "ordinary_bundle",
-    "verdict": "ALLOW",
-    "route": "ingest",
-    "reason": "ordinary bundle allowed",
+    "bundle_class": "ingestion_engine_mutation_bundle",
+    "verdict": "SANDBOX_REQUIRED",
+    "route": "sandbox_queue",
+    "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
     "mapped_paths": [
       "README.md",
       "bundle-manifest.json",
-      "docs/MS-012K6B-transition-automation-post-install-trigger.md"
+      "docs/MS-012K6-approved-ingestion-engine-replacement.md",
+      "privileged_queue/ms012k6-human-approval-ingestion-engine-replacement-v1.json",
+      "privileged_queue/ms012k6-human-approval-ingestion-engine-replacement-v1.md",
+      "tools/bundle_ingest.py",
+      "transition_authority_reports/ms012k6-approved-ingestion-engine-replacement-authority-report.json",
+      "transition_authority_reports/ms012k6-approved-ingestion-engine-replacement-authority-report.md"
     ],
-    "files_seen": 3,
-    "files_created": 1,
-    "files_updated": 1,
-    "files_unchanged": 0,
-    "files_skipped": 1,
-    "unsafe_paths_rejected": 0,
-    "path_mappings_applied": [],
-    "repo_transition": {
-      "before_tree_fingerprint": "d03ed7e5b282e7d97dfc215ff84f6574f22cf7587d3e2bcd6ee1ed8d1380df62",
-      "after_tree_fingerprint": "94a783aff49929ea2e41d928c798487ed0d7ffa70a67f5adaa730b819926929f",
-      "changed_files_fingerprint": "22453584edfe312b6068b0a8f4d3be142fe6e520a142252d18214f3c9c1c9721"
-    },
-    "decisions": [
-      {
-        "bundle_path": "README.md",
-        "repo_path": null,
-        "action": "skipped",
-        "reason": "bundle root README is documentation and is not applied to repo root",
-        "old_sha256": null,
-        "new_sha256": "d49950c7df0dd9d6b9555048a29471037482dae80720f405e887bad515f840f3",
-        "bytes": 175
-      },
-      {
-        "bundle_path": "bundle-manifest.json",
-        "repo_path": "bundle-manifest.json",
-        "action": "updated",
-        "reason": "hash differs or target missing",
-        "old_sha256": "4f0f4d0474c70449137322507879368f124149e86c722605789dc9c827442e93",
-        "new_sha256": "254b44ba77c8e0665399205b25159796547d8da36051dcc69f18dd90c71e3242",
-        "bytes": 829
-      },
-      {
-        "bundle_path": "docs/MS-012K6B-transition-automation-post-install-trigger.md",
-        "repo_path": "docs/MS-012K6B-transition-automation-post-install-trigger.md",
-        "action": "created",
-        "reason": "hash differs or target missing",
-        "old_sha256": null,
-        "new_sha256": "316ad5131f2120143b755bff2835fdbf8423a03951d0650f1d95276d4dd629ac",
-        "bytes": 292
-      }
-    ]
+    "decisions": []
   },
   "summary": {
-    "total_entries_seen": 3,
-    "applied": 2,
-    "unchanged": 0,
-    "skipped": 1,
-    "path_mappings": 0,
-    "unsafe_paths_rejected": 0,
-    "installed_archived": 1,
+    "applied": 0,
+    "routed": "sandbox_queue",
     "source_removed_from_incoming": 1
   }
 }

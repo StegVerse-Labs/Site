@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-11T05:58:20Z",
+  "schema": "stegverse.ephemeral_sandbox_report.v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "bundle_name": "ms012k6-approved-ingestion-engine-replacement-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/ms012k6-approved-ingestion-engine-replacement-v1.zip",
+  "bundle_sha256": "ef689c69276ca040d2914f10fbbe62ff7bc4e6108a3f2092878c420749ec621a",
+  "mode": "apply",
+  "verdict": "HOLD",
+  "classification": "manual_review_required",
+  "reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
+  "candidate_created": false,
+  "candidate_path": null,
+  "member_findings": [
+    {
+      "path": "README.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 381,
+      "sha256": "63b76a9b183dc32d0f3804e8f2e4de2ed7af29444674741366508470e37b74eb"
+    },
+    {
+      "path": "bundle-manifest.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 1949,
+      "sha256": "e1ca462a46231f6ac1ecd44436cf12ea15a937e4dae11da845ce3395fb2eca53"
+    },
+    {
+      "path": "docs/MS-012K6-approved-ingestion-engine-replacement.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 596,
+      "sha256": "00845b90f356c431541e5142747f362a0f0df5c0cedadcee4cd20a75b17a1be0"
+    },
+    {
+      "path": "privileged_queue/ms012k6-human-approval-ingestion-engine-replacement-v1.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 2121,
+      "sha256": "49cd25c26a7d1b95456d87c05499fb49e1c3c103855e846dffc33105c5fe9e44"
+    },
+    {
+      "path": "privileged_queue/ms012k6-human-approval-ingestion-engine-replacement-v1.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 1179,
+      "sha256": "3d1a1cc52b55858ac7cc9705970e7d5654c8bf386e0411c909424f65c1c030ec"
+    },
+    {
+      "path": "tools/bundle_ingest.py",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 35729,
+      "sha256": "511b985f82e5807a5667bb4c9d9057c51fab9e7e353029b54d72a229c4ef19de"
+    },
+    {
+      "path": "transition_authority_reports/ms012k6-approved-ingestion-engine-replacement-authority-report.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 682,
+      "sha256": "0b649bfce7a28b0965e5dea999c5957dda2b873fe004dce88ad5b9b83006d949"
+    },
+    {
+      "path": "transition_authority_reports/ms012k6-approved-ingestion-engine-replacement-authority-report.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 386,
+      "sha256": "e6222a15144e92d95c551ff5061291bb9ddd3cdf7fc2ed060fe121c8b5d14485"
+    }
+  ]
+}
