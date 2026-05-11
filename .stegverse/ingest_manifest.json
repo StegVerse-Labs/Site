@@ -1,0 +1,80 @@
+{
+  "schema": "stegverse_site_ingest_manifest.v1",
+  "bundle_id": "site-transition-pages-wiring",
+  "bundle_version": "0.1.1",
+  "target_repo": "StegVerse-Labs/Site",
+  "purpose": "Wire existing transition Site pages into the shared Stage 4 transition proof surface JSON.",
+  "install_policy": {
+    "default_action": "overwrite_declared_files_only",
+    "fail_on_unclassified_files": true,
+    "preserve_runtime_artifacts": true,
+    "preserve_unlisted_files": true
+  },
+  "required_existing_files": [
+    "data/formalism-tests/transition-proof-surface.json",
+    "data/formalism-tests/transition-table-classes.json"
+  ],
+  "files": [
+    {
+      "path": "transition-release-index.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "transition-development-status.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "transition-verification-guide.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "transition-replay-packet.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "transition-milestones.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "transition-release-snapshot.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "transition-table.html",
+      "class": "site_page",
+      "action": "overwrite"
+    },
+    {
+      "path": "SITE_PAGE_WIRING.md",
+      "class": "documentation",
+      "action": "overwrite"
+    },
+    {
+      "path": ".stegverse/ingest_manifest.json",
+      "class": "ingest_manifest",
+      "action": "read_before_install"
+    }
+  ],
+  "excluded_files": [
+    {
+      "path": "verification.json",
+      "reason": "Runtime verification must not be installed as Site source."
+    },
+    {
+      "path": "reports/*.jsonl",
+      "reason": "Receipt outputs belong to formalism-tests artifacts unless intentionally published as static Site data."
+    }
+  ],
+  "done_criteria": [
+    "All declared Site pages exist at repo root.",
+    "All pages load data/formalism-tests/transition-proof-surface.json successfully.",
+    "transition-table.html loads data/formalism-tests/transition-table-classes.json successfully.",
+    "No runtime verification artifact is installed as source."
+  ]
+}

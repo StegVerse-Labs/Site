@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-05-11T22:17:17Z",
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "site-transition-pages-wiring-with-manifest-bundle.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/site-transition-pages-wiring-with-manifest-bundle.zip",
+  "bundle_sha256": "8599f3e5817ac79b1872521fe7d67c96db00480d006a8410847c9d12e4477285",
+  "mode": "apply",
+  "bundle_class": "complex_unmanifested_bundle",
+  "verdict": "SANDBOX_REQUIRED",
+  "route": "sandbox_queue",
+  "reason": "complex bundle lacks manifest",
+  "mapped_paths": [
+    ".stegverse/ingest_manifest.json",
+    "SITE_PAGE_WIRING.md",
+    "transition-development-status.html",
+    "transition-milestones.html",
+    "transition-release-index.html",
+    "transition-release-snapshot.html",
+    "transition-replay-packet.html",
+    "transition-table.html",
+    "transition-verification-guide.html"
+  ],
+  "decisions": []
+}

@@ -1,18 +1,18 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T12:03:25Z`
+Generated: `2026-05-11T22:17:17Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ms012l4-static-public-canonical-pages-v1.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/site-transition-pages-wiring-with-manifest-bundle.sandbox-candidate.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
 
 ## Summary
 
-- `total_entries_seen`: `8`
-- `applied`: `7`
+- `total_entries_seen`: `10`
+- `applied`: `10`
 - `unchanged`: `0`
-- `skipped`: `1`
+- `skipped`: `0`
 - `path_mappings`: `0`
 - `unsafe_paths_rejected`: `0`
 - `installed_archived`: `1`
@@ -20,11 +20,13 @@ Bundle class: `ordinary_bundle`
 
 ## File Decisions
 
-- `skipped` `README.md` → `None` — bundle root README is documentation and is not applied to repo root
+- `created` `.stegverse/ingest_manifest.json` → `.stegverse/ingest_manifest.json` — hash differs or target missing
+- `created` `SITE_PAGE_WIRING.md` → `SITE_PAGE_WIRING.md` — hash differs or target missing
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `created` `canonical-shell-map.html` → `canonical-shell-map.html` — hash differs or target missing
-- `created` `docs/MS-012L4-static-public-canonical-pages.md` → `docs/MS-012L4-static-public-canonical-pages.md` — hash differs or target missing
-- `created` `transition-dependency-closure.html` → `transition-dependency-closure.html` — hash differs or target missing
 - `updated` `transition-development-status.html` → `transition-development-status.html` — hash differs or target missing
-- `updated` `transition-periodic-table.html` → `transition-periodic-table.html` — hash differs or target missing
-- `created` `transition-self-correction-ledger.html` → `transition-self-correction-ledger.html` — hash differs or target missing
+- `updated` `transition-milestones.html` → `transition-milestones.html` — hash differs or target missing
+- `updated` `transition-release-index.html` → `transition-release-index.html` — hash differs or target missing
+- `updated` `transition-release-snapshot.html` → `transition-release-snapshot.html` — hash differs or target missing
+- `updated` `transition-replay-packet.html` → `transition-replay-packet.html` — hash differs or target missing
+- `updated` `transition-table.html` → `transition-table.html` — hash differs or target missing
+- `updated` `transition-verification-guide.html` → `transition-verification-guide.html` — hash differs or target missing

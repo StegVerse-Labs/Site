@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-05-11T22:17:17Z",
+  "schema": "stegverse.ephemeral_sandbox_report.v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "bundle_name": "site-transition-pages-wiring-with-manifest-bundle.zip",
+  "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/site-transition-pages-wiring-with-manifest-bundle.zip",
+  "bundle_sha256": "8599f3e5817ac79b1872521fe7d67c96db00480d006a8410847c9d12e4477285",
+  "mode": "apply",
+  "verdict": "ALLOW_REENTRY",
+  "classification": "repair_candidate_created",
+  "reason": "Sandbox added a bundle manifest and emitted a candidate ZIP back into incoming.",
+  "candidate_created": true,
+  "candidate_path": "/home/runner/work/Site/Site/incoming/site-transition-pages-wiring-with-manifest-bundle.sandbox-candidate.zip",
+  "member_findings": [
+    {
+      "path": ".stegverse/ingest_manifest.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 2345,
+      "sha256": "2aa6e743472fa9d6bc5d879ff990d46562af214a658042dfdf0cb79e8cebf2e3"
+    },
+    {
+      "path": "SITE_PAGE_WIRING.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 575,
+      "sha256": "c533d14cb48919ae22a41b760032e78e2509dc347bf848094f5d1b63d33dc75b"
+    },
+    {
+      "path": "transition-development-status.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3205,
+      "sha256": "16f21b9ee8c6b110e84ea0b070474e2fb247eb8639ece75f91157ed83f8fc29b"
+    },
+    {
+      "path": "transition-milestones.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3118,
+      "sha256": "29920bad4136754490fa6503bb3abef883cb6a7679aee1a5163b1ff84f6e10e4"
+    },
+    {
+      "path": "transition-release-index.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3575,
+      "sha256": "cf7f19f5dbf523944bc3253557b2263df01d75fb30360b32ebd4f3d3c2a537cb"
+    },
+    {
+      "path": "transition-release-snapshot.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3006,
+      "sha256": "07feefe8a6e9c2fef15758cd67f09d58b9deffcbebd7505b6d828ec364d0d406"
+    },
+    {
+      "path": "transition-replay-packet.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3219,
+      "sha256": "0c72b5dd1e8e6aed2abe74d1555d785532d162c3292bb8a78d241c0d3ec1f6f5"
+    },
+    {
+      "path": "transition-table.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3652,
+      "sha256": "b74625d60e0ec637d0726fe46508f77fe3dd186b90fb0c210c4688825d64236b"
+    },
+    {
+      "path": "transition-verification-guide.html",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3374,
+      "sha256": "d4247b7afc6a946b33b8997f2f66c010c3b34e4e74f902f26e181beccaf46c09"
+    }
+  ]
+}

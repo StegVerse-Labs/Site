@@ -319,6 +319,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "68c5708cbc7136d3bfd430a8acb419aea1f144f3bbd8e1a39d32e5d1f6604a16"
+    },
+    {
+      "generated_at": "2026-05-11T22:17:17Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "site-transition-pages-wiring-with-manifest-bundle.sandbox-candidate.zip",
+      "bundle_sha256": "bef434cf8572166d135e11467df33a13410eef314e0ff51795a5fba2ec25ea13",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "0f5d2313850853928690806dad417044cbcb53313313c29f554d3be556463b1d"
     }
   ]
 }

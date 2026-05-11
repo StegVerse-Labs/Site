@@ -1,42 +1,53 @@
 {
-  "generated_at": "2026-05-11T12:00:17Z",
+  "generated_at": "2026-05-11T22:17:17Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012l4-static-public-canonical-pages-v1",
-  "formal_milestone": "MS-012L.4 \u2014 Static Public Canonical Pages",
-  "purpose": "Add static public HTML pages that reflect canonical shell/dependency/correction/closure JSON at page load.",
+  "bundle_id": "site-transition-pages-wiring-with-manifest-bundle.sandbox-candidate",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "source_bundle": "site-transition-pages-wiring-with-manifest-bundle.zip",
+  "classification": "repair_candidate_created",
+  "purpose": "Sandbox-generated candidate bundle. Must pass through normal ingestion before any live repo changes are applied.",
   "files": [
     {
-      "path": "canonical-shell-map.html",
-      "role": "public_html"
+      "path": ".stegverse/ingest_manifest.json",
+      "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-dependency-closure.html",
-      "role": "public_html"
-    },
-    {
-      "path": "transition-self-correction-ledger.html",
-      "role": "public_html"
-    },
-    {
-      "path": "transition-periodic-table.html",
-      "role": "public_html_replacement"
+      "path": "SITE_PAGE_WIRING.md",
+      "role": "sandbox_preserved_member"
     },
     {
       "path": "transition-development-status.html",
-      "role": "public_html_replacement"
+      "role": "sandbox_preserved_member"
     },
     {
-      "path": "docs/MS-012L4-static-public-canonical-pages.md",
-      "role": "docs"
+      "path": "transition-milestones.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-release-index.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-release-snapshot.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-replay-packet.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-table.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-verification-guide.html",
+      "role": "sandbox_preserved_member"
     }
   ],
   "safety": {
-    "contains_leading_dot_paths": false,
-    "contains_workflows": false,
-    "changes_workflow_files": false,
-    "changes_tools": false,
-    "claims_automatic_static_generation_active": false,
-    "claims_blocked_transition_executable": false,
-    "html_data_reflection_only": true
+    "generated_by_ephemeral_sandbox": true,
+    "requires_ingestion_reentry": true,
+    "does_not_contain_workflow_files": true,
+    "does_not_mutate_ingestion_engine": true
   }
 }
