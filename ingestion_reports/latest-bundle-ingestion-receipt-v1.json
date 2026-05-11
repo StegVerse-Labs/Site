@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T03:50:42Z",
+  "generated_at": "2026-05-11T04:15:07Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms013a-vaulted-capability-automation-runset-extension-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms013a-vaulted-capability-automation-runset-extension-v1.zip",
-  "bundle_sha256": "14ab4cd6c0f632e9cc4b5470acf441fbcdca255cfeba3805ed27d14acaf0b360",
+  "bundle_name": "ms012k6b-transition-automation-post-install-trigger-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6b-transition-automation-post-install-trigger-v1.zip",
+  "bundle_sha256": "14d5ba39d96b03d64d219371b65d862901a74aeea902db5d677d9aa43e21b66e",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,21 +13,19 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
-    "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
-    "transition_discovery_reports/README.md"
+    "docs/MS-012K6B-transition-automation-post-install-trigger.md"
   ],
-  "files_seen": 5,
+  "files_seen": 3,
   "files_created": 1,
-  "files_updated": 3,
+  "files_updated": 1,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "0175d2f2267d40d6649f8de0fcf43cc1880a91c5a5dfa7b08c656a9007103201",
-    "after_tree_fingerprint": "31b3cfb8dc9b9d6df5ebe28f0b2810c42b22d236c6b7b1afc4928be8d8b7f531",
-    "changed_files_fingerprint": "48196ed9831104c85fe5a3e9e7059a8c6e9dfc5ed514d6b50f71f8eda5925f5f"
+    "before_tree_fingerprint": "d03ed7e5b282e7d97dfc215ff84f6574f22cf7587d3e2bcd6ee1ed8d1380df62",
+    "after_tree_fingerprint": "94a783aff49929ea2e41d928c798487ed0d7ffa70a67f5adaa730b819926929f",
+    "changed_files_fingerprint": "22453584edfe312b6068b0a8f4d3be142fe6e520a142252d18214f3c9c1c9721"
   },
   "decisions": [
     {
@@ -36,44 +34,26 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "e0f861fa6100e8cad3e706fbc27e07a347f12639194451aecba2979133eddb65",
-      "bytes": 344
+      "new_sha256": "d49950c7df0dd9d6b9555048a29471037482dae80720f405e887bad515f840f3",
+      "bytes": 175
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "8344753f7a70c312afe60275d4ba8753d26c3c0e26d539fffb7b75ff9083afff",
-      "new_sha256": "4f0f4d0474c70449137322507879368f124149e86c722605789dc9c827442e93",
-      "bytes": 1152
+      "old_sha256": "4f0f4d0474c70449137322507879368f124149e86c722605789dc9c827442e93",
+      "new_sha256": "254b44ba77c8e0665399205b25159796547d8da36051dcc69f18dd90c71e3242",
+      "bytes": 829
     },
     {
-      "bundle_path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
-      "repo_path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "9e7d489397286a25e8f373b19a88a59e9c76eab4f5dcf65c8f4c8d19fddd41f8",
-      "new_sha256": "6a17bde9cefe3905f527c1b8b986dcd5f26a41b298cd0f45bf60020f5ba5ef76",
-      "bytes": 1714
-    },
-    {
-      "bundle_path": "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
-      "repo_path": "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
+      "bundle_path": "docs/MS-012K6B-transition-automation-post-install-trigger.md",
+      "repo_path": "docs/MS-012K6B-transition-automation-post-install-trigger.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "2a1a12316bcea2dda2ed9eebc89602bafd3070e473694ac9af3a8d29aa4bb513",
-      "bytes": 1285
-    },
-    {
-      "bundle_path": "transition_discovery_reports/README.md",
-      "repo_path": "transition_discovery_reports/README.md",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "8c822b355cb32d29b5dc306cbd0ca2bf9fd1abab5e424eec6c762652a3bba2f6",
-      "new_sha256": "356093388fab1f9280dc4527cefacb7643f57fb334ae43d734f13f1629fcbf83",
-      "bytes": 250
+      "new_sha256": "316ad5131f2120143b755bff2835fdbf8423a03951d0650f1d95276d4dd629ac",
+      "bytes": 292
     }
   ]
 }

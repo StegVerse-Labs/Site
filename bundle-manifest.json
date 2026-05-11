@@ -1,35 +1,24 @@
 {
-  "generated_at": "2026-05-11T03:37:38Z",
+  "generated_at": "2026-05-11T03:13:29Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms013a-vaulted-capability-automation-runset-extension-v1",
-  "formal_milestone": "MS-013A \u2014 Vaulted Capability Automation Runset Extension",
-  "purpose": "Add the vaulted capability gate to the data-driven transition discovery automation runset.",
+  "bundle_id": "ms012k6b-transition-automation-post-install-trigger-v1",
+  "formal_milestone": "MS-012K.6B \u2014 Transition Automation Post-Install Trigger",
+  "purpose": "Trigger the installed transition automation controller through the active manifest post-install task bridge.",
   "files": [
     {
-      "path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
-      "version": "v2-ms013a-vault-task-added",
-      "role": "automation_runset"
-    },
-    {
-      "path": "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
+      "path": "docs/MS-012K6B-transition-automation-post-install-trigger.md",
       "version": "v1",
-      "role": "docs"
-    },
-    {
-      "path": "transition_discovery_reports/README.md",
-      "version": "v3",
-      "role": "report_docs"
+      "role": "trigger_docs"
     }
+  ],
+  "post_install_tasks": [
+    "data/headless-tasks/transition-automation-controller-v1.json"
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "changes_ingestion_engine": false,
-    "contains_secrets": false,
-    "issues_real_tokens": false,
-    "settles_payments": false,
-    "raw_secret_release": false,
-    "data_only_runset_extension": true
+    "trigger_only": true,
+    "requires_ms012k6_bridge_active": true
   }
 }
