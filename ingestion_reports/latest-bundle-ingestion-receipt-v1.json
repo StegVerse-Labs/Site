@@ -1,20 +1,59 @@
 {
-  "generated_at": "2026-05-11T02:30:49Z",
+  "generated_at": "2026-05-11T02:31:50Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012k6-manifest-post-install-task-bridge-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6-manifest-post-install-task-bridge-v1.zip",
-  "bundle_sha256": "9af0398a0e5602dc5577cc3dd4eda75948692a946b3e7c687e5c7a0aa2f3ea8a",
+  "bundle_name": "ms012k6a-transition-automation-manifest-trigger-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6a-transition-automation-manifest-trigger-v1.zip",
+  "bundle_sha256": "a222e4f3bdb571a81cdeef25ad0c95cfefe01ac83652e06428df1e4072044647",
   "mode": "apply",
-  "bundle_class": "ingestion_engine_mutation_bundle",
-  "verdict": "SANDBOX_REQUIRED",
-  "route": "sandbox_queue",
-  "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+  "bundle_class": "ordinary_bundle",
+  "verdict": "ALLOW",
+  "route": "ingest",
+  "reason": "ordinary bundle allowed",
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "docs/MS-012K6-manifest-post-install-task-bridge.md",
-    "tools/bundle_ingest.py"
+    "docs/MS-012K6A-transition-automation-manifest-trigger.md"
   ],
-  "decisions": []
+  "files_seen": 3,
+  "files_created": 1,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1,
+  "unsafe_paths_rejected": 0,
+  "path_mappings_applied": [],
+  "repo_transition": {
+    "before_tree_fingerprint": "4b10491352c7d603dcba8924ae0aecb77e0531880b468e85d819f039c92181e5",
+    "after_tree_fingerprint": "153df75ce20302ca4dd9c07a029c99ab0086f4602b812563aab7322fb5312c23",
+    "changed_files_fingerprint": "27fb0ed2e6a5817bff1d43550e6640c198a0146a378434ae0f0e49627eb0c435"
+  },
+  "decisions": [
+    {
+      "bundle_path": "README.md",
+      "repo_path": null,
+      "action": "skipped",
+      "reason": "bundle root README is documentation and is not applied to repo root",
+      "old_sha256": null,
+      "new_sha256": "d0a2f686679a52a34a1ba37a9c409aa985303ccf040e2cbf5879fa9f4562ab44",
+      "bytes": 193
+    },
+    {
+      "bundle_path": "bundle-manifest.json",
+      "repo_path": "bundle-manifest.json",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "fcd0b8fd32f819098d93400f960ba264abc1b3a8ddee9b8d46062a366d5e3f7d",
+      "new_sha256": "17f0a77baf8cda05c14c8d106d15ad73ae6ba8d641d10c1727429b6979477147",
+      "bytes": 766
+    },
+    {
+      "bundle_path": "docs/MS-012K6A-transition-automation-manifest-trigger.md",
+      "repo_path": "docs/MS-012K6A-transition-automation-manifest-trigger.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "b569316f8fcc635b4272c8479a20ad8c3cc407e553d11bd19687fe9e0f478525",
+      "bytes": 329
+    }
+  ]
 }

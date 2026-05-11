@@ -220,6 +220,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "0924e8ca81b55f9958a719ba1b2f26d8831fcb665c83159622074396891a8e1a"
+    },
+    {
+      "generated_at": "2026-05-11T02:31:50Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k6a-transition-automation-manifest-trigger-v1.zip",
+      "bundle_sha256": "a222e4f3bdb571a81cdeef25ad0c95cfefe01ac83652e06428df1e4072044647",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "27fb0ed2e6a5817bff1d43550e6640c198a0146a378434ae0f0e49627eb0c435"
     }
   ]
 }

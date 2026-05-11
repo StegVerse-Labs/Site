@@ -1,33 +1,23 @@
 {
-  "generated_at": "2026-05-11T01:57:07Z",
+  "generated_at": "2026-05-11T02:28:58Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012k5-transition-automation-controller-v1",
-  "formal_milestone": "MS-012K.5 \u2014 Transition Automation Controller",
-  "purpose": "Provide a data-driven transition automation controller for unlocked discovery automation.",
+  "bundle_id": "ms012k6a-transition-automation-manifest-trigger-v1",
+  "formal_milestone": "MS-012K.6A \u2014 Transition Automation Manifest Trigger",
+  "purpose": "Trigger the installed transition automation controller through the manifest post-install task bridge.",
   "files": [
     {
-      "path": "data/transition-automation/transition-automation-controller-policy-v1.json",
-      "role": "controller_policy"
-    },
-    {
-      "path": "tools/transition_automation_controller.py",
-      "role": "controller_tool"
-    },
-    {
-      "path": "data/headless-tasks/transition-automation-controller-v1.json",
-      "role": "declared_task"
-    },
-    {
-      "path": "docs/MS-012K5-transition-automation-controller.md",
-      "role": "docs"
+      "path": "docs/MS-012K6A-transition-automation-manifest-trigger.md",
+      "version": "v1",
+      "role": "trigger_docs"
     }
+  ],
+  "post_install_tasks": [
+    "data/headless-tasks/transition-automation-controller-v1.json"
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "no_direct_install": true,
-    "no_delete": true,
-    "no_authority_expansion": true
+    "trigger_only": true
   }
 }
