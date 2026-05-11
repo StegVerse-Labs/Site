@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-05-11T01:57:07Z",
+  "schema": "stegverse.transition_automation_controller_policy.v1",
+  "policy_id": "ms012k5-transition-automation-controller-v1",
+  "formal_milestone": "MS-012K.5 \u2014 Transition Automation Controller",
+  "purpose": "Execute the currently unlocked automation sequence through stable tools and data policies.",
+  "steps": [
+    {
+      "step_id": "failed_bundle_boundary",
+      "kind": "tool",
+      "command": [
+        "python",
+        "tools/failed_bundle_boundary_processor.py",
+        "--policy",
+        "data/transition-table/failed-bundle-boundary-policy-v1.json",
+        "--out-dir",
+        "transition_discovery_reports",
+        "--apply"
+      ],
+      "required_files": [
+        "tools/failed_bundle_boundary_processor.py",
+        "data/transition-table/failed-bundle-boundary-policy-v1.json"
+      ],
+      "continue_on_failure": true
+    },
+    {
+      "step_id": "transition_discovery_runset",
+      "kind": "tool",
+      "command": [
+        "python",
+        "tools/headless_task_runset.py",
+        "--runset",
+        "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+        "--policy",
+        "data/headless-task-policy-v1.json"
+      ],
+      "required_files": [
+        "tools/headless_task_runset.py",
+        "data/headless-task-runsets/transition-discovery-automation-runset-v1.json"
+      ],
+      "continue_on_failure": true
+    }
+  ],
+  "allowed_outputs": [
+    "headless_cmd_reports/",
+    "transition_authority_reports/",
+    "transition_discovery_reports/",
+    "reviewed_failed_bundles/",
+    "sandbox_queue/",
+    "privileged_queue/"
+  ],
+  "denied_outputs": [
+    ".github/workflows/",
+    ".git/",
+    "public_release/"
+  ],
+  "safety": {
+    "no_workflow_files": true,
+    "no_direct_install": true,
+    "no_delete": true,
+    "no_force_push": true,
+    "controller_is_data_driven": true
+  }
+}

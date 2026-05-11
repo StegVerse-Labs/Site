@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-05-11T01:57:07Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "transition-automation-controller-v1",
+  "class": "transition_automation_controller",
+  "authority_class": "observe_state",
+  "description": "Execute the currently unlocked transition automation sequence through stable tools and data policies.",
+  "command": [
+    "python",
+    "tools/transition_automation_controller.py",
+    "--policy",
+    "data/transition-automation/transition-automation-controller-policy-v1.json"
+  ],
+  "expected_inputs": [
+    "tools/transition_automation_controller.py",
+    "data/transition-automation/transition-automation-controller-policy-v1.json"
+  ],
+  "expected_outputs": [
+    "transition_discovery_reports/transition-automation-controller-report.json",
+    "transition_discovery_reports/transition-automation-controller-report.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/transition-automation-controller-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/transition-automation-controller-v1.report.md"
+}

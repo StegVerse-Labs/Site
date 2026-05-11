@@ -211,6 +211,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "3c9fc6116c6d08174ef811eb010358c2a11c110b1608b037a0ffcc9ce08ee970"
+    },
+    {
+      "generated_at": "2026-05-11T02:00:53Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k5-transition-automation-controller-v1.zip",
+      "bundle_sha256": "6be38d2044412cee46c080e1a708f2404cd544931555f6e1769ace70fd184b07",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "0924e8ca81b55f9958a719ba1b2f26d8831fcb665c83159622074396891a8e1a"
     }
   ]
 }

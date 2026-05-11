@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T02:00:15Z",
+  "generated_at": "2026-05-11T02:00:53Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012k4-declared-task-runset-selector-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k4-declared-task-runset-selector-v1.zip",
-  "bundle_sha256": "8daee58f4653706804f42897c2b05ee667bb19cd66eff74767cf131a2900ce38",
+  "bundle_name": "ms012k5-transition-automation-controller-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k5-transition-automation-controller-v1.zip",
+  "bundle_sha256": "6be38d2044412cee46c080e1a708f2404cd544931555f6e1769ace70fd184b07",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,10 +13,10 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
-    "data/headless-tasks/transition-discovery-automation-runset-v1.json",
-    "docs/MS-012K4-declared-task-runset-selector.md",
-    "tools/headless_task_runset.py"
+    "data/headless-tasks/transition-automation-controller-v1.json",
+    "data/transition-automation/transition-automation-controller-policy-v1.json",
+    "docs/MS-012K5-transition-automation-controller.md",
+    "tools/transition_automation_controller.py"
   ],
   "files_seen": 6,
   "files_created": 4,
@@ -26,9 +26,9 @@
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "6bfc088451dfdc52aad2c1fb8a2b921a844ff260902bf7814074d9f3dcbf1c2b",
-    "after_tree_fingerprint": "edaa5105f5764f475802a1d21d099c08d5fcd8d9c6b29e6e0f27de2d3d57038a",
-    "changed_files_fingerprint": "3c9fc6116c6d08174ef811eb010358c2a11c110b1608b037a0ffcc9ce08ee970"
+    "before_tree_fingerprint": "5351fc0c61330c7c959623dfc14eea970d827b9d451fb0d0ce65309bab54c5c6",
+    "after_tree_fingerprint": "5cb506ba838d01a9331a5d024d5e5fdde825673d99330135b73653bf2df63c6f",
+    "changed_files_fingerprint": "0924e8ca81b55f9958a719ba1b2f26d8831fcb665c83159622074396891a8e1a"
   },
   "decisions": [
     {
@@ -37,53 +37,53 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "76230a53c62afee68084b53c46ac674b6b75dfd9d6e39d442af2bafdacbd6218",
-      "bytes": 170
+      "new_sha256": "25745ee0f29f561c82904b8449035cbba4eb087e415ac10db2830ce624eb8305",
+      "bytes": 176
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "d45617f8ee45e9cc5896df2e6be3e6ff810ac32e6bc5631c49c4d6382b8887ca",
-      "new_sha256": "abaae93a697f8e78fd0c27184fd7596262b643cf75ff5331c827bd593502b926",
-      "bytes": 977
+      "old_sha256": "abaae93a697f8e78fd0c27184fd7596262b643cf75ff5331c827bd593502b926",
+      "new_sha256": "fcd0b8fd32f819098d93400f960ba264abc1b3a8ddee9b8d46062a366d5e3f7d",
+      "bytes": 1032
     },
     {
-      "bundle_path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
-      "repo_path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+      "bundle_path": "data/headless-tasks/transition-automation-controller-v1.json",
+      "repo_path": "data/headless-tasks/transition-automation-controller-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "9e7d489397286a25e8f373b19a88a59e9c76eab4f5dcf65c8f4c8d19fddd41f8",
-      "bytes": 1422
+      "new_sha256": "88406022e58db721fe5cd4098dff119c35d7242451e6d2308a04b68c09b852d6",
+      "bytes": 1125
     },
     {
-      "bundle_path": "data/headless-tasks/transition-discovery-automation-runset-v1.json",
-      "repo_path": "data/headless-tasks/transition-discovery-automation-runset-v1.json",
+      "bundle_path": "data/transition-automation/transition-automation-controller-policy-v1.json",
+      "repo_path": "data/transition-automation/transition-automation-controller-policy-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "b29cbd096ae0c1b0a59fd46a9207767f1729ff60538cceb0bda60158fc07d425",
-      "bytes": 1082
+      "new_sha256": "0ecadc4047392b17582b786d7cd83eb3aa302507d9c777b4711a5ae4074debba",
+      "bytes": 1911
     },
     {
-      "bundle_path": "docs/MS-012K4-declared-task-runset-selector.md",
-      "repo_path": "docs/MS-012K4-declared-task-runset-selector.md",
+      "bundle_path": "docs/MS-012K5-transition-automation-controller.md",
+      "repo_path": "docs/MS-012K5-transition-automation-controller.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "e4b4cf35e7e891088a1d672a432ecb2cf605dfc2fc259761b19b0ecec314f4d7",
-      "bytes": 559
+      "new_sha256": "3435c2979ed43b5be4cf2ba4047722683cdcf9dfcbef27574cda85117b5da347",
+      "bytes": 524
     },
     {
-      "bundle_path": "tools/headless_task_runset.py",
-      "repo_path": "tools/headless_task_runset.py",
+      "bundle_path": "tools/transition_automation_controller.py",
+      "repo_path": "tools/transition_automation_controller.py",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "afd016dc00609601cc44930625185e5350174b4b429e3a8853e4bc391497e40e",
-      "bytes": 5613
+      "new_sha256": "2404563018fe4093aa85b754de58c56aba51fd5c9c01d4c34c41bc4a2ab83556",
+      "bytes": 4602
     }
   ]
 }
