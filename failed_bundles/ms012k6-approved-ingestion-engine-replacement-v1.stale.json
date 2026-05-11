@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-11T06:16:36Z",
+  "generated_at": "2026-05-11T06:20:46Z",
   "schema": "stegverse.stale_incoming_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "incoming_path": "/home/runner/work/Site/Site/incoming/ms012k6-approved-ingestion-engine-replacement-v1.zip",
+  "incoming_path": "/home/runner/work/Site/Site/sandbox_reviewed/ms012k6-approved-ingestion-engine-replacement-v1.zip",
   "file_name": "ms012k6-approved-ingestion-engine-replacement-v1.zip",
   "file_sha256": "ef689c69276ca040d2914f10fbbe62ff7bc4e6108a3f2092878c420749ec621a",
   "bundle_sha256": "ef689c69276ca040d2914f10fbbe62ff7bc4e6108a3f2092878c420749ec621a",
   "verdict": "STALE_INCOMING_QUARANTINED",
   "route": "failed_bundles",
-  "seen_state": "already_sandbox_routed",
-  "reason": "Incoming bundle is already seen as already_sandbox_routed; quarantined as stale queue debris instead of being silently skipped."
+  "seen_state": "already_failed",
+  "reason": "Incoming bundle is already seen as already_failed; quarantined as stale queue debris instead of being silently skipped."
 }
