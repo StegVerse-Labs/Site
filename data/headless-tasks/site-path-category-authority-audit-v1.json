@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-05-11T00:57:40Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "site-path-category-authority-audit-v1",
+  "class": "site_path_category_authority_audit",
+  "authority_class": "observe_state",
+  "description": "Classify touched Site repo paths against the transition authority map path_categories.",
+  "command": [
+    "python",
+    "tools/site_path_category_authority_audit.py",
+    "--authority-map",
+    "data/transition-table/transition-element-action-authority-map-v1.json",
+    "--out-dir",
+    "transition_authority_reports"
+  ],
+  "expected_inputs": [
+    "tools/site_path_category_authority_audit.py",
+    "data/transition-table/transition-element-action-authority-map-v1.json"
+  ],
+  "expected_outputs": [
+    "transition_authority_reports/site-path-category-authority-audit.json",
+    "transition_authority_reports/site-path-category-authority-audit.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/site-path-category-authority-audit-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/site-path-category-authority-audit-v1.report.md"
+}

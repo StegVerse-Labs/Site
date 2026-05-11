@@ -1,17 +1,256 @@
 {
-  "generated_at": "2026-05-11T00:18:23Z",
+  "generated_at": "2026-05-11T00:57:40Z",
   "schema": "stegverse.transition_element_action_authority_map.v1",
-  "map_id": "ms012j-authority-map-data-surface-v1",
-  "formal_milestone": "MS-012J \u2014 Transition Element Action Authority Map",
-  "purpose": "Public data surface for the Transition Periodic Table authority section.",
-  "authority_principle": "Transition elements unlock action classes; workflows handle established bounded paths; tools execute transition-table-authorized outcomes; receipts prove the result.",
+  "map_id": "ms012k1-site-path-category-authority-extension-v1",
+  "formal_milestone": "MS-012K.1 \u2014 Site Path Category Authority Extension",
+  "purpose": "Extend the live transition authority map with explicit Site path categories so scripts, snippets, root-level files, public surfaces, data, docs, tools, and legacy paths are governed by table-authorized action classes.",
+  "authority_principle": "Transition elements unlock action classes; workflows handle established bounded paths; tools execute transition-table-authorized outcomes; path categories define the authority surface; receipts prove the result.",
+  "path_categories": {
+    "incoming_queue": {
+      "patterns": [
+        "incoming/"
+      ],
+      "authority_class": "intake_queue",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Upload-safe incoming bundle queue."
+    },
+    "installed_archive": {
+      "patterns": [
+        "installed_bundles/"
+      ],
+      "authority_class": "accepted_bundle_archive",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Accepted/applied bundle evidence archive."
+    },
+    "failed_archive": {
+      "patterns": [
+        "failed_bundles/"
+      ],
+      "authority_class": "failed_or_stale_bundle_archive",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Failed, stale, or already-reviewed bundle archive."
+    },
+    "sandbox_queue": {
+      "patterns": [
+        "sandbox_queue/",
+        "sandbox_reviewed/",
+        "sandbox_reports/"
+      ],
+      "authority_class": "sandbox_review_surface",
+      "routine_allowed": true,
+      "sandbox_required": true,
+      "human_approval_required": false,
+      "description": "Sandbox review, candidate construction, and sandbox receipts."
+    },
+    "privileged_queue": {
+      "patterns": [
+        "privileged_queue/"
+      ],
+      "authority_class": "privileged_review_surface",
+      "routine_allowed": false,
+      "sandbox_required": false,
+      "human_approval_required": true,
+      "description": "Authority-bearing review lane. Preparation allowed; automatic execution not unlocked."
+    },
+    "reports": {
+      "patterns": [
+        "ingestion_reports/",
+        "transition_authority_reports/",
+        "transition_discovery_reports/",
+        "path_function_reports/",
+        "lifecycle_reports/",
+        "execution_gate_reports/",
+        "headless_cmd_reports/",
+        "dependency_reports/",
+        "page_contract_reports/",
+        "transition_replay_reports/"
+      ],
+      "authority_class": "evidence_report_surface",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Evidence-only reports and receipts."
+    },
+    "docs": {
+      "patterns": [
+        "docs/",
+        "papers/"
+      ],
+      "authority_class": "documentation_surface",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Documentation and research explanation surfaces."
+    },
+    "snippets": {
+      "patterns": [
+        "snippets/"
+      ],
+      "authority_class": "content_fragment_surface",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Reusable non-executable content fragments."
+    },
+    "public_pages": {
+      "patterns": [
+        "index.html",
+        "transition-periodic-table.html",
+        "transition-table.html",
+        "transition-milestones.html",
+        "transition-development-status.html",
+        "transition-release-snapshot.html",
+        "transition-release-index.html",
+        "transition-verification-guide.html",
+        "transition-replay-packet.html",
+        "demo.html",
+        "product.html",
+        "pricing.html",
+        "methodology.html",
+        "about.html",
+        "support.html",
+        "stegfinco.html",
+        "what-we-do.html",
+        "guarantees.html"
+      ],
+      "authority_class": "public_site_surface",
+      "routine_allowed": "conditional",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "description": "Public-facing Site pages. Content updates may be routine; release/promotion or authority claims require review."
+    },
+    "public_assets": {
+      "patterns": [
+        "assets/",
+        "public/",
+        "css/",
+        "js/"
+      ],
+      "authority_class": "public_asset_surface",
+      "routine_allowed": "conditional",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "description": "Public assets and client-side code. Static assets are lower risk than executable JavaScript."
+    },
+    "scripts": {
+      "patterns": [
+        "scripts/"
+      ],
+      "authority_class": "executable_support_surface",
+      "routine_allowed": "conditional",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "description": "Executable support scripts. Must be sandboxed; authority depends on whether they mutate state or only analyze."
+    },
+    "tools": {
+      "patterns": [
+        "tools/"
+      ],
+      "authority_class": "execution_tool_surface",
+      "routine_allowed": "conditional",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "description": "Execution tools. Ingestion, sandbox, transition authority, and governance tools require higher scrutiny."
+    },
+    "authority_data": {
+      "patterns": [
+        "data/transition-table/",
+        "data/sandbox/",
+        "data/headless-tasks/",
+        "data/capability",
+        "data/dependency",
+        "data/stop-gap"
+      ],
+      "authority_class": "authority_data_surface",
+      "routine_allowed": "conditional",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "description": "Data that controls authority, sandboxing, dependencies, stop-gaps, capabilities, and transition maps."
+    },
+    "ordinary_data": {
+      "patterns": [
+        "data/"
+      ],
+      "authority_class": "ordinary_data_surface",
+      "routine_allowed": true,
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "description": "Non-authority data and verifier surfaces."
+    },
+    "legacy": {
+      "patterns": [
+        "legacy/",
+        "ingest/",
+        "ingestion/",
+        "cfp/",
+        "app_node_js/"
+      ],
+      "authority_class": "legacy_or_prior_surface",
+      "routine_allowed": false,
+      "sandbox_required": true,
+      "human_approval_required": true,
+      "description": "Legacy or older construction surfaces. Must be reviewed before reactivation or mutation."
+    },
+    "repo_root": {
+      "patterns": [
+        "README.md",
+        "bundle-manifest.json",
+        "bundle_manifest.json",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js",
+        "tsconfig.json"
+      ],
+      "authority_class": "repo_root_surface",
+      "routine_allowed": "conditional",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "description": "Root-level files. Requires category-specific review because root files can affect public site, tooling, or build behavior."
+    },
+    "workflow_plane": {
+      "patterns": [
+        ".github/workflows/",
+        "github/workflows/"
+      ],
+      "authority_class": "workflow_execution_surface",
+      "routine_allowed": false,
+      "sandbox_required": true,
+      "human_approval_required": true,
+      "description": "Workflow plane. Never routine; requires explicit human approval."
+    },
+    "git_internal": {
+      "patterns": [
+        ".git/"
+      ],
+      "authority_class": "forbidden_internal_surface",
+      "routine_allowed": false,
+      "sandbox_required": false,
+      "human_approval_required": true,
+      "description": "Git internals. Forbidden for bundle mutation."
+    }
+  },
   "action_classes": {
     "observe_state": {
       "authority_level": "0_observe",
+      "allowed_path_categories": [
+        "reports",
+        "ordinary_data",
+        "docs"
+      ],
+      "forbidden_path_categories": [
+        "git_internal"
+      ],
       "allowed_paths": [
         "ingestion_reports/",
         "sandbox_reports/",
         "transition_authority_reports/",
+        "transition_discovery_reports/",
         "data/",
         "docs/"
       ],
@@ -23,6 +262,19 @@
     },
     "route_incoming_bundle": {
       "authority_level": "1_route",
+      "allowed_path_categories": [
+        "incoming_queue",
+        "installed_archive",
+        "failed_archive",
+        "sandbox_queue",
+        "privileged_queue",
+        "reports",
+        "ordinary_data"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "incoming/",
         "installed_bundles/",
@@ -46,6 +298,17 @@
     },
     "quarantine_stale_or_failed": {
       "authority_level": "2_quarantine_archive",
+      "allowed_path_categories": [
+        "incoming_queue",
+        "failed_archive",
+        "reports",
+        "ordinary_data"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "installed_archive",
+        "git_internal"
+      ],
       "allowed_paths": [
         "incoming/",
         "failed_bundles/",
@@ -65,6 +328,15 @@
     },
     "archive_installed_bundle": {
       "authority_level": "2_quarantine_archive",
+      "allowed_path_categories": [
+        "installed_archive",
+        "reports",
+        "ordinary_data"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "installed_bundles/",
         "ingestion_reports/",
@@ -82,6 +354,15 @@
     },
     "hold_for_sandbox": {
       "authority_level": "2_quarantine_archive",
+      "allowed_path_categories": [
+        "sandbox_queue",
+        "reports",
+        "ordinary_data"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "sandbox_queue/",
         "ingestion_reports/",
@@ -99,6 +380,15 @@
     },
     "construct_sandbox_candidate": {
       "authority_level": "3_sandbox_candidate",
+      "allowed_path_categories": [
+        "sandbox_queue",
+        "incoming_queue",
+        "reports"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "sandbox_queue/",
         "sandbox_reviewed/",
@@ -114,8 +404,79 @@
       "human_approval_required": false,
       "stop_condition": "candidate_emitted_to_incoming_or_hold_report_written"
     },
+    "modify_public_research_surface": {
+      "authority_level": "3_sandbox_candidate",
+      "allowed_path_categories": [
+        "public_pages",
+        "docs",
+        "snippets",
+        "ordinary_data",
+        "reports"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal",
+        "legacy"
+      ],
+      "allowed_paths": [
+        "index.html",
+        "transition-periodic-table.html",
+        "transition-table.html",
+        "docs/",
+        "snippets/",
+        "data/",
+        "transition_authority_reports/"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/",
+        "tools/bundle_ingest.py"
+      ],
+      "required_receipt": "public_surface_update_receipt",
+      "sandbox_required": true,
+      "human_approval_required": "conditional",
+      "stop_condition": "public_surface_update_receipt_written"
+    },
+    "modify_executable_support": {
+      "authority_level": "4_privileged_review",
+      "allowed_path_categories": [
+        "scripts",
+        "tools",
+        "authority_data",
+        "reports",
+        "docs"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
+      "allowed_paths": [
+        "scripts/",
+        "tools/",
+        "data/transition-table/",
+        "data/sandbox/",
+        "data/headless-tasks/",
+        "docs/",
+        "transition_authority_reports/"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/"
+      ],
+      "required_receipt": "executable_support_review_packet",
+      "sandbox_required": true,
+      "human_approval_required": true,
+      "stop_condition": "executable_support_review_packet_written"
+    },
     "prepare_privileged_review": {
       "authority_level": "4_privileged_review",
+      "allowed_path_categories": [
+        "privileged_queue",
+        "reports",
+        "docs"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "privileged_queue/",
         "ingestion_reports/",
@@ -133,6 +494,16 @@
     },
     "prepare_promotion_review": {
       "authority_level": "5_promotion_review",
+      "allowed_path_categories": [
+        "docs",
+        "ordinary_data",
+        "authority_data",
+        "reports"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "docs/",
         "data/",
@@ -149,6 +520,15 @@
     },
     "workflow_or_authority_expansion": {
       "authority_level": "6_authority_expansion",
+      "allowed_path_categories": [
+        "docs",
+        "authority_data",
+        "reports"
+      ],
+      "forbidden_path_categories": [
+        "workflow_plane",
+        "git_internal"
+      ],
       "allowed_paths": [
         "docs/",
         "data/transition-table/",
@@ -197,7 +577,8 @@
     "TE-004-engine-mutation-bundle": {
       "observed_condition": "Bundle contains tools/bundle_ingest.py or equivalent ingestion-engine mutation.",
       "unlocked_action_classes": [
-        "hold_for_sandbox"
+        "hold_for_sandbox",
+        "modify_executable_support"
       ],
       "not_unlocked": [
         "archive_installed_bundle",
@@ -263,6 +644,58 @@
         "route_incoming_bundle",
         "archive_installed_bundle"
       ]
+    },
+    "TE-011-public-research-surface-update": {
+      "observed_condition": "A bundle updates public research explanation pages or related public verifier data without changing workflow/execution surfaces.",
+      "unlocked_action_classes": [
+        "modify_public_research_surface"
+      ],
+      "not_unlocked": [
+        "workflow_or_authority_expansion",
+        "direct_public_release_promotion"
+      ]
+    },
+    "TE-012-executable-support-surface-update": {
+      "observed_condition": "A bundle changes scripts, tools, sandbox policy, headless task declarations, or authority data.",
+      "unlocked_action_classes": [
+        "modify_executable_support",
+        "prepare_privileged_review"
+      ],
+      "not_unlocked": [
+        "workflow_or_authority_expansion",
+        "direct_privileged_queue_execution"
+      ]
+    },
+    "TE-013-content-fragment-update": {
+      "observed_condition": "A bundle changes snippets or reusable non-executable content fragments.",
+      "unlocked_action_classes": [
+        "modify_public_research_surface"
+      ],
+      "not_unlocked": [
+        "modify_executable_support",
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-014-legacy-surface-touch": {
+      "observed_condition": "A bundle touches legacy, old ingest, prior app-node, or pre-current construction surfaces.",
+      "unlocked_action_classes": [
+        "prepare_privileged_review"
+      ],
+      "not_unlocked": [
+        "archive_installed_bundle",
+        "route_incoming_bundle",
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-015-root-surface-touch": {
+      "observed_condition": "A bundle touches repository-root files.",
+      "unlocked_action_classes": [
+        "prepare_privileged_review",
+        "modify_public_research_surface"
+      ],
+      "not_unlocked": [
+        "workflow_or_authority_expansion"
+      ]
     }
   },
   "current_site_authority_boundary": {
@@ -273,6 +706,10 @@
       "archive_installed_bundle",
       "hold_for_sandbox",
       "construct_sandbox_candidate"
+    ],
+    "conditional_or_reviewed_action": [
+      "modify_public_research_surface",
+      "modify_executable_support"
     ],
     "human_approval_required": [
       "prepare_privileged_review",

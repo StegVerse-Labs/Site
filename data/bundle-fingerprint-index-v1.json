@@ -175,6 +175,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "6a412a5f37185421312db6d6ddaed1abf5f39dad4cdef8ceea0b001b1ed6af77"
+    },
+    {
+      "generated_at": "2026-05-11T01:08:52Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k1-site-path-category-authority-extension-v1.zip",
+      "bundle_sha256": "0de9cd69b8432ee151e718b809ebbe620990806a663f8d801f86fe8ec2d063cb",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "af55359a6d23c4dcf7e0a8a66150c20f0adf41eb6dcaaa6de4928d24d295775a"
     }
   ]
 }

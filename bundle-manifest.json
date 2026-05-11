@@ -1,34 +1,34 @@
 {
-  "generated_at": "2026-05-11T00:24:42Z",
+  "generated_at": "2026-05-11T00:57:40Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012k-transition-discovery-ledger-v1",
-  "formal_milestone": "MS-012K \u2014 Transition Discovery Ledger",
-  "purpose": "Install a data/tool/report surface that converts real Site outcomes into transition-table discovery evidence and candidate transition elements.",
+  "bundle_id": "ms012k1-site-path-category-authority-extension-v1",
+  "formal_milestone": "MS-012K.1 \u2014 Site Path Category Authority Extension",
+  "purpose": "Extend the live authority map with explicit Site path categories and a path-category audit tool.",
   "files": [
     {
-      "path": "data/transition-table/transition-discovery-policy-v1.json",
-      "version": "v1",
-      "role": "transition_discovery_policy"
+      "path": "data/transition-table/transition-element-action-authority-map-v1.json",
+      "version": "v2-category-extended",
+      "role": "live_authority_map_with_path_categories"
     },
     {
-      "path": "tools/transition_discovery_ledger.py",
+      "path": "tools/site_path_category_authority_audit.py",
       "version": "v1",
-      "role": "transition_discovery_tool"
+      "role": "path_category_authority_audit_tool"
     },
     {
-      "path": "data/headless-tasks/transition-discovery-ledger-v1.json",
+      "path": "data/headless-tasks/site-path-category-authority-audit-v1.json",
       "version": "v1",
-      "role": "declared_discovery_task"
+      "role": "declared_path_category_audit_task"
     },
     {
-      "path": "transition_discovery_reports/README.md",
+      "path": "docs/MS-012K1-site-path-category-authority-extension.md",
       "version": "v1",
-      "role": "discovery_report_docs"
+      "role": "path_category_authority_docs"
     },
     {
-      "path": "docs/MS-012K-transition-discovery-ledger.md",
-      "version": "v1",
-      "role": "discovery_ledger_docs"
+      "path": "transition_authority_reports/README.md",
+      "version": "v2",
+      "role": "authority_report_docs"
     }
   ],
   "safety": {
@@ -41,6 +41,6 @@
     "no_cron": true,
     "no_workflow_run_chain": true,
     "no_self_trigger_zip": true,
-    "evidence_only_discovery": true
+    "authority_map_extension_only": true
   }
 }
