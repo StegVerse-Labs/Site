@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T02:31:50Z",
+  "generated_at": "2026-05-11T02:51:32Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012k6a-transition-automation-manifest-trigger-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6a-transition-automation-manifest-trigger-v1.zip",
-  "bundle_sha256": "a222e4f3bdb571a81cdeef25ad0c95cfefe01ac83652e06428df1e4072044647",
+  "bundle_name": "ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
+  "bundle_sha256": "cf00b40f3bdd2b6e0c08669fffb8d69c8d7050584ec3834c8edacab9d3986039",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,19 +13,23 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "docs/MS-012K6A-transition-automation-manifest-trigger.md"
+    "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
+    "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
+    "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
+    "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
+    "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md"
   ],
-  "files_seen": 3,
-  "files_created": 1,
+  "files_seen": 7,
+  "files_created": 5,
   "files_updated": 1,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "4b10491352c7d603dcba8924ae0aecb77e0531880b468e85d819f039c92181e5",
-    "after_tree_fingerprint": "153df75ce20302ca4dd9c07a029c99ab0086f4602b812563aab7322fb5312c23",
-    "changed_files_fingerprint": "27fb0ed2e6a5817bff1d43550e6640c198a0146a378434ae0f0e49627eb0c435"
+    "before_tree_fingerprint": "68daa0f55f0ebdb9bcce445e4d89081dc3dc272022e923ed3e4d0b04b7c88283",
+    "after_tree_fingerprint": "2383cdbedc0eaaeae4939a2e11d2437cdc16a94d31126ccf1d97ed1d782ade23",
+    "changed_files_fingerprint": "c3693a796c6e9a12c43ac79b8ebd7c27f525571ad0c065f093d53af2ebf025bc"
   },
   "decisions": [
     {
@@ -34,26 +38,62 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "d0a2f686679a52a34a1ba37a9c409aa985303ccf040e2cbf5879fa9f4562ab44",
-      "bytes": 193
+      "new_sha256": "3f7a01c70bc9fdd46bb1fb4513604d9e84ce1bf0e6e61be9c5e37f7c8f64e871",
+      "bytes": 219
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "fcd0b8fd32f819098d93400f960ba264abc1b3a8ddee9b8d46062a366d5e3f7d",
-      "new_sha256": "17f0a77baf8cda05c14c8d106d15ad73ae6ba8d641d10c1727429b6979477147",
-      "bytes": 766
+      "old_sha256": "17f0a77baf8cda05c14c8d106d15ad73ae6ba8d641d10c1727429b6979477147",
+      "new_sha256": "d442e1410737da520d80acc3236cd32db7735ab76f684c88a51c892cd2c5aec8",
+      "bytes": 1379
     },
     {
-      "bundle_path": "docs/MS-012K6A-transition-automation-manifest-trigger.md",
-      "repo_path": "docs/MS-012K6A-transition-automation-manifest-trigger.md",
+      "bundle_path": "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
+      "repo_path": "docs/MS-012K6-approval-ingestion-engine-update-review-packet.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "b569316f8fcc635b4272c8479a20ad8c3cc407e553d11bd19687fe9e0f478525",
-      "bytes": 329
+      "new_sha256": "fc3034c3c11a80d66fb2020ea6ccb242a05e8dd70e6cc5f1083186b4ebab70f1",
+      "bytes": 714
+    },
+    {
+      "bundle_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
+      "repo_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "bee704e917d785e408bd83d53e48d84b23f3baa9332e9c0fd9904af36a1afb42",
+      "bytes": 3412
+    },
+    {
+      "bundle_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
+      "repo_path": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "72c235a46413d79d56dbedc920883935fa294abb4c7b302f71aeb4f5b727b920",
+      "bytes": 2444
+    },
+    {
+      "bundle_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
+      "repo_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "153f0f24d59d48ab26576e889451d16778037c60bdad87e0ed13cafaf8a2735a",
+      "bytes": 726
+    },
+    {
+      "bundle_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md",
+      "repo_path": "transition_authority_reports/ms012k6-ingestion-engine-update-authority-review.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "ff1d3940622a5822429b3b81d185673f212b6dfb1e31ec4b00ab2e04990432e1",
+      "bytes": 520
     }
   ]
 }

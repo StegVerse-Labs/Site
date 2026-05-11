@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-11T02:47:09Z",
+  "schema": "stegverse.transition_authority_review_report.v1",
+  "report_id": "ms012k6-ingestion-engine-update-authority-review-v1",
+  "subject": "MS-012K.6 manifest post-install task bridge",
+  "verdict": "HUMAN_DECISION_REQUIRED",
+  "reason": "The proposed bundle mutates the ingestion engine and therefore cannot be applied by ordinary ingestion or automatic sandbox repair.",
+  "allowed_current_action": "prepare_privileged_review",
+  "not_allowed_current_action": [
+    "ordinary_install",
+    "sandbox_direct_install",
+    "workflow_mutation",
+    "autonomous_authority_expansion"
+  ],
+  "review_packet": "privileged_queue/ms012k6-ingestion-engine-update-review-packet.json"
+}

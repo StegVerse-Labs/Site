@@ -229,6 +229,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "27fb0ed2e6a5817bff1d43550e6640c198a0146a378434ae0f0e49627eb0c435"
+    },
+    {
+      "generated_at": "2026-05-11T02:51:32Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
+      "bundle_sha256": "cf00b40f3bdd2b6e0c08669fffb8d69c8d7050584ec3834c8edacab9d3986039",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "c3693a796c6e9a12c43ac79b8ebd7c27f525571ad0c065f093d53af2ebf025bc"
     }
   ]
 }

@@ -1,10 +1,14 @@
 {
   "generated_at": "2026-05-11T02:51:32Z",
-  "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
-  "mode": "apply",
-  "receipt": {
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k6-approval-ingestion-engine-update-review-packet-v1.zip",
+  "bundle_sha256": "cf00b40f3bdd2b6e0c08669fffb8d69c8d7050584ec3834c8edacab9d3986039",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
     "generated_at": "2026-05-11T02:51:32Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
@@ -103,14 +107,13 @@
       }
     ]
   },
-  "summary": {
-    "total_entries_seen": 7,
-    "applied": 6,
-    "unchanged": 0,
-    "skipped": 1,
-    "path_mappings": 0,
-    "unsafe_paths_rejected": 0,
-    "installed_archived": 1,
-    "source_removed_from_incoming": 1
-  }
+  "repo_transition": {
+    "before_tree_fingerprint": "68daa0f55f0ebdb9bcce445e4d89081dc3dc272022e923ed3e4d0b04b7c88283",
+    "after_tree_fingerprint": "2383cdbedc0eaaeae4939a2e11d2437cdc16a94d31126ccf1d97ed1d782ade23",
+    "changed_files_fingerprint": "c3693a796c6e9a12c43ac79b8ebd7c27f525571ad0c065f093d53af2ebf025bc"
+  },
+  "files_created": 5,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
 }

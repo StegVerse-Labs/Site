@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-05-11T02:47:09Z",
+  "schema": "stegverse.privileged_review_packet.v1",
+  "packet_id": "ms012k6-approval-ingestion-engine-update-review-packet-v1",
+  "formal_milestone": "MS-012K.6-APPROVAL \u2014 Ingestion Engine Update Review Packet",
+  "subject_bundle": "ms012k6-manifest-post-install-task-bridge-v1.zip",
+  "subject_bundle_sha256": "9af0398a0e5602dc5577cc3dd4eda75948692a946b3e7c687e5c7a0aa2f3ea8a",
+  "review_type": "ingestion_engine_mutation",
+  "current_verdict": {
+    "sandbox_verdict": "HOLD",
+    "sandbox_classification": "manual_review_required",
+    "sandbox_reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
+    "candidate_created": false
+  },
+  "proposed_change": {
+    "file": "tools/bundle_ingest.py",
+    "purpose": "Allow ordinary ALLOW bundles to declare bounded post-install tasks in bundle-manifest.json.",
+    "mechanism": [
+      "read bundle-manifest.json from the incoming ZIP",
+      "extract post_install_tasks",
+      "validate each task path is under data/headless-tasks/ and ends with .json",
+      "run validated tasks through tools/headless_cmd_runner.py",
+      "use data/headless-task-policy-v1.json for authority validation",
+      "record post-install execution results in the ingestion receipt"
+    ],
+    "explicit_non_goals": [
+      "no workflow mutation",
+      "no cron",
+      "no workflow_run",
+      "no arbitrary task glob execution",
+      "no privileged task bypass",
+      "no direct install from sandbox",
+      "no execution for bundles routed to sandbox_queue, failed_bundles, or privileged_queue"
+    ]
+  },
+  "authority_basis": {
+    "transition_element": "TE-012-executable-support-surface-update",
+    "action_class": "modify_executable_support",
+    "authority_level": "4_privileged_review",
+    "human_approval_required": true,
+    "sandbox_required": true,
+    "required_receipt": "executable_support_review_packet"
+  },
+  "decision_required": {
+    "decision": "approve_or_reject",
+    "approve_means": "A human approves replacing tools/bundle_ingest.py with the reviewed MS-012K.6 version.",
+    "reject_means": "Do not install MS-012K.6; manifest-declared post-install automation remains unavailable.",
+    "minimum_approval_evidence": [
+      "sandbox HOLD reviewed",
+      "touched file confirmed as tools/bundle_ingest.py",
+      "post_install_tasks path bounds accepted",
+      "headless task policy remains the authority gate",
+      "workflow files remain untouched"
+    ]
+  },
+  "expected_if_approved": {
+    "bridge_active": true,
+    "trigger_bundle": "ms012k6a-transition-automation-manifest-trigger-v1.zip",
+    "trigger_task": "data/headless-tasks/transition-automation-controller-v1.json",
+    "expected_reports": [
+      "transition_discovery_reports/transition-automation-controller-report.json",
+      "transition_discovery_reports/transition-automation-controller-report.md",
+      "transition_discovery_reports/failed-bundle-boundary-report.json",
+      "transition_discovery_reports/failed-bundle-boundary-report.md",
+      "headless_cmd_reports/transition-automation-controller-v1.receipt.json",
+      "headless_cmd_reports/transition-automation-controller-v1.report.md"
+    ]
+  },
+  "safety": {
+    "contains_workflow_files": false,
+    "approves_automatically": false,
+    "installs_engine_update": false,
+    "requires_human_decision": true
+  }
+}
