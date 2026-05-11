@@ -1,139 +1,109 @@
 {
-  "generated_at": "2026-05-11T09:28:12Z",
+  "generated_at": "2026-05-11T12:03:25Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "transition-discovery-public-surface.sandbox-candidate.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/transition-discovery-public-surface.sandbox-candidate.zip",
-  "bundle_sha256": "d22d922ead3834418dc08bd6664f3b5c3ecc1118ac759989129d8765582826e4",
+  "bundle_name": "ms012l4-static-public-canonical-pages-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012l4-static-public-canonical-pages-v1.zip",
+  "bundle_sha256": "887d3be0c347267a188dd2a773b23b7baf04b2063ea9f4684f7be169f3210442",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
   "route": "ingest",
   "reason": "ordinary bundle allowed",
   "mapped_paths": [
+    "README.md",
     "bundle-manifest.json",
-    "transition-discovery-public-surface/README.md",
-    "transition-discovery-public-surface/assets/transition-discovery-state.js",
-    "transition-discovery-public-surface/assets/transition-page-renderer.js",
-    "transition-discovery-public-surface/transition-development-status.html",
-    "transition-discovery-public-surface/transition-milestones.html",
-    "transition-discovery-public-surface/transition-release-index.html",
-    "transition-discovery-public-surface/transition-release-snapshot.html",
-    "transition-discovery-public-surface/transition-replay-packet.html",
-    "transition-discovery-public-surface/transition-table.html",
-    "transition-discovery-public-surface/transition-verification-guide.html"
+    "canonical-shell-map.html",
+    "docs/MS-012L4-static-public-canonical-pages.md",
+    "transition-dependency-closure.html",
+    "transition-development-status.html",
+    "transition-periodic-table.html",
+    "transition-self-correction-ledger.html"
   ],
-  "files_seen": 11,
-  "files_created": 10,
-  "files_updated": 1,
+  "files_seen": 8,
+  "files_created": 4,
+  "files_updated": 3,
   "files_unchanged": 0,
-  "files_skipped": 0,
+  "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "3686b00b2f160e25fe5a8d9876fa605a7b07ecd9927c7239682bb6f6aad27f2f",
-    "after_tree_fingerprint": "0cbd4e42d3843df45a2dc87a40673649ff75de93096b35661f05086656f97757",
-    "changed_files_fingerprint": "2c1d28dbeaf16ad009a844489bc95444341085128e86911308be70c227fdddf9"
+    "before_tree_fingerprint": "014c9e5ad6ef534ebb1563f026cadd80cb71ac1c5c066c0e6fcb60b7239cb535",
+    "after_tree_fingerprint": "38fb04f1589d1d0949b8f0f4c8da84b462167b1d8d9881ae4cb64119789289dd",
+    "changed_files_fingerprint": "68c5708cbc7136d3bfd430a8acb419aea1f144f3bbd8e1a39d32e5d1f6604a16"
   },
   "decisions": [
+    {
+      "bundle_path": "README.md",
+      "repo_path": null,
+      "action": "skipped",
+      "reason": "bundle root README is documentation and is not applied to repo root",
+      "old_sha256": null,
+      "new_sha256": "5eb16bce7df6f3a03761e31ab986381b396f4d9256d711cff489d075e6bd9408",
+      "bytes": 152
+    },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "90c80b757f50128b0d155e802f213d4e4b6cbf28774ad9820b6c7c8470ac2b7a",
-      "new_sha256": "c128217c8bad294503368bb6e758f56d39e4f868f748fbf32493ab03092ececc",
-      "bytes": 2046
+      "old_sha256": "c128217c8bad294503368bb6e758f56d39e4f868f748fbf32493ab03092ececc",
+      "new_sha256": "a1a267eb1ff46215ed5ad93731516689e98d9abcddf965ce7415fc3b7fc6cf45",
+      "bytes": 1239
     },
     {
-      "bundle_path": "transition-discovery-public-surface/README.md",
-      "repo_path": "transition-discovery-public-surface/README.md",
+      "bundle_path": "canonical-shell-map.html",
+      "repo_path": "canonical-shell-map.html",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "cb8e05fca6d86848140e9c7faa639a442061e635909dead6a5b9efb8ae6bd562",
-      "bytes": 1666
+      "new_sha256": "f12541dc3daa4d84bd5065718546ff449f822c5c678c9683b2227a43672582b5",
+      "bytes": 5385
     },
     {
-      "bundle_path": "transition-discovery-public-surface/assets/transition-discovery-state.js",
-      "repo_path": "transition-discovery-public-surface/assets/transition-discovery-state.js",
+      "bundle_path": "docs/MS-012L4-static-public-canonical-pages.md",
+      "repo_path": "docs/MS-012L4-static-public-canonical-pages.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "26b6b6f5e2a478d8911c7d6f9946480573cc4cede8a3e3085a6443939a7e09eb",
-      "bytes": 35691
+      "new_sha256": "81cc83203b9241d54a6f7b726d2658006b6afcb04bfdfabd7ca898f335da8f99",
+      "bytes": 768
     },
     {
-      "bundle_path": "transition-discovery-public-surface/assets/transition-page-renderer.js",
-      "repo_path": "transition-discovery-public-surface/assets/transition-page-renderer.js",
+      "bundle_path": "transition-dependency-closure.html",
+      "repo_path": "transition-dependency-closure.html",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "e37905f57e96d73fdda81fe82137e7457a051d068391e2d373f3e53b8741806d",
-      "bytes": 14795
+      "new_sha256": "7c24995644de2e2ca49cfec8fd9a6b1398cf5f99cf4bfb777981d65639cc927b",
+      "bytes": 5226
     },
     {
-      "bundle_path": "transition-discovery-public-surface/transition-development-status.html",
-      "repo_path": "transition-discovery-public-surface/transition-development-status.html",
+      "bundle_path": "transition-development-status.html",
+      "repo_path": "transition-development-status.html",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "907a5156858dda5f27fa6d2ec2a27a0172034234cfc174f784a9f5407529db7a",
+      "new_sha256": "6305d5adfb5a9a3c837b0279dca5bca751ac0a07a7b66a1a67e47bf48cdc185f",
+      "bytes": 5928
+    },
+    {
+      "bundle_path": "transition-periodic-table.html",
+      "repo_path": "transition-periodic-table.html",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "f4cbae1e7733c21a84845f20d9c96eb50e590b5d37525057b7f99b7d942569a5",
+      "new_sha256": "788ece6938d08b8ea59559be2b00e825b4b96fe9c164370eae5472581ab813f4",
+      "bytes": 5624
+    },
+    {
+      "bundle_path": "transition-self-correction-ledger.html",
+      "repo_path": "transition-self-correction-ledger.html",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "42ab6e776d26e285a743fdaa9c35552cfba0e8c2b2922dd945b011f7ae22b7c1",
-      "bytes": 6559
-    },
-    {
-      "bundle_path": "transition-discovery-public-surface/transition-milestones.html",
-      "repo_path": "transition-discovery-public-surface/transition-milestones.html",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "c1ed62d2584d938884cc21fffd6e34cb10ae4db80ff4646086f2484fa855dd86",
-      "bytes": 6549
-    },
-    {
-      "bundle_path": "transition-discovery-public-surface/transition-release-index.html",
-      "repo_path": "transition-discovery-public-surface/transition-release-index.html",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "69d4a2fb138b6f9856019deec0c1100b850b68baba29cc9b976331c02a0b4aa9",
-      "bytes": 6541
-    },
-    {
-      "bundle_path": "transition-discovery-public-surface/transition-release-snapshot.html",
-      "repo_path": "transition-discovery-public-surface/transition-release-snapshot.html",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "4afadc34043ad4e9748cfedab2ece24de3aa137f9bdb097ce05c78993aa0ce82",
-      "bytes": 6572
-    },
-    {
-      "bundle_path": "transition-discovery-public-surface/transition-replay-packet.html",
-      "repo_path": "transition-discovery-public-surface/transition-replay-packet.html",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "64bb8a3e6b6857d670bf206498c81cca7255869165cc946ee1bc4b97301edb3a",
-      "bytes": 6566
-    },
-    {
-      "bundle_path": "transition-discovery-public-surface/transition-table.html",
-      "repo_path": "transition-discovery-public-surface/transition-table.html",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "9efe7c33ec58273f4e63cedbae57343bc3f7f8ef971b80fbd1105fc77e8106b9",
-      "bytes": 6519
-    },
-    {
-      "bundle_path": "transition-discovery-public-surface/transition-verification-guide.html",
-      "repo_path": "transition-discovery-public-surface/transition-verification-guide.html",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "ca56d99da2d02824ceba87c8a89d0683b31afe62ff856ba789890768d6a27839",
-      "bytes": 6571
+      "new_sha256": "82ff597e85ccab53adae246cc5665c29004a43f0eb6b9d1062da600796bd2973",
+      "bytes": 5566
     }
   ]
 }

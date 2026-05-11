@@ -1,57 +1,42 @@
 {
-  "generated_at": "2026-05-11T09:28:12Z",
+  "generated_at": "2026-05-11T12:00:17Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "transition-discovery-public-surface.sandbox-candidate",
-  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
-  "source_bundle": "transition-discovery-public-surface.zip",
-  "classification": "repair_candidate_created",
-  "purpose": "Sandbox-generated candidate bundle. Must pass through normal ingestion before any live repo changes are applied.",
+  "bundle_id": "ms012l4-static-public-canonical-pages-v1",
+  "formal_milestone": "MS-012L.4 \u2014 Static Public Canonical Pages",
+  "purpose": "Add static public HTML pages that reflect canonical shell/dependency/correction/closure JSON at page load.",
   "files": [
     {
-      "path": "transition-discovery-public-surface/README.md",
-      "role": "sandbox_preserved_member"
+      "path": "canonical-shell-map.html",
+      "role": "public_html"
     },
     {
-      "path": "transition-discovery-public-surface/assets/transition-discovery-state.js",
-      "role": "sandbox_preserved_member"
+      "path": "transition-dependency-closure.html",
+      "role": "public_html"
     },
     {
-      "path": "transition-discovery-public-surface/assets/transition-page-renderer.js",
-      "role": "sandbox_preserved_member"
+      "path": "transition-self-correction-ledger.html",
+      "role": "public_html"
     },
     {
-      "path": "transition-discovery-public-surface/transition-development-status.html",
-      "role": "sandbox_preserved_member"
+      "path": "transition-periodic-table.html",
+      "role": "public_html_replacement"
     },
     {
-      "path": "transition-discovery-public-surface/transition-milestones.html",
-      "role": "sandbox_preserved_member"
+      "path": "transition-development-status.html",
+      "role": "public_html_replacement"
     },
     {
-      "path": "transition-discovery-public-surface/transition-release-index.html",
-      "role": "sandbox_preserved_member"
-    },
-    {
-      "path": "transition-discovery-public-surface/transition-release-snapshot.html",
-      "role": "sandbox_preserved_member"
-    },
-    {
-      "path": "transition-discovery-public-surface/transition-replay-packet.html",
-      "role": "sandbox_preserved_member"
-    },
-    {
-      "path": "transition-discovery-public-surface/transition-table.html",
-      "role": "sandbox_preserved_member"
-    },
-    {
-      "path": "transition-discovery-public-surface/transition-verification-guide.html",
-      "role": "sandbox_preserved_member"
+      "path": "docs/MS-012L4-static-public-canonical-pages.md",
+      "role": "docs"
     }
   ],
   "safety": {
-    "generated_by_ephemeral_sandbox": true,
-    "requires_ingestion_reentry": true,
-    "does_not_contain_workflow_files": true,
-    "does_not_mutate_ingestion_engine": true
+    "contains_leading_dot_paths": false,
+    "contains_workflows": false,
+    "changes_workflow_files": false,
+    "changes_tools": false,
+    "claims_automatic_static_generation_active": false,
+    "claims_blocked_transition_executable": false,
+    "html_data_reflection_only": true
   }
 }

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Development Status | StegVerse</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Transition Self-Correction Ledger | StegVerse</title><style>
 :root{--bg:#080b12;--panel:rgba(16,24,39,.84);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--gold:#ffbe54;--red:#ff6b6b}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.14),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
 main{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}a{color:inherit}
@@ -25,18 +25,17 @@ table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border:1px solid
 <a href="transition-self-correction-ledger.html">Self-Correction Ledger</a>
 </div></nav>
 
-<section><p class="kicker">Development Status</p><h1>Transition Development Status</h1><p>Current public status is anchored to canonical shell, dependency, and self-correction data.</p>
-<a class="btn" href="canonical-shell-map.html">Canonical Shell Map</a><a class="btn" href="transition-dependency-closure.html">Dependency Closure</a><a class="btn" href="transition-self-correction-ledger.html">Self-Correction Ledger</a></section>
-<section><h2>Status Summary</h2><div id="summary" class="grid">Loading…</div></section>
-<section><h2>Blocked Transition Summary</h2><div id="blocked">Loading…</div></section>
-<section><h2>Public Page Contract</h2><p>Canonical data is active. Public HTML reflects canonical JSON at page load. Automatic static-page regeneration is still not active.</p><a class="btn" href="data/page-contracts/public-canonical-page-contract-v1.json">Open Page Contract JSON</a></section>
+<section><p class="kicker">Canonical State</p><h1>Self-Correction Ledger</h1><p>Mistakes may reveal real boundaries. They must not silently become authority.</p>
+<a class="btn" href="data/canonical/transition-correction-ledger-v1.json">Correction Ledger JSON</a><a class="btn" href="data/canonical/transition-status-index-v1.json">Status Index JSON</a></section>
+<section><h2>Correction Entries</h2><div id="corrections" class="grid">Loading…</div></section>
+<section><h2>Status Index</h2><div id="status">Loading…</div></section>
 </main><script>
 async function fetchJSON(path,fallback){try{const r=await fetch(path,{cache:"no-store"});return r.ok?await r.json():fallback}catch(e){return fallback}}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
 function b(v){const s=String(v||"unknown");const c=(s.includes("blocked")||s.includes("partial")||s.includes("open"))?" blocked":"";return `<span class="badge${c}">${esc(s)}</span>`}
 function list(a){return Array.isArray(a)&&a.length?"<ul>"+a.map(x=>`<li>${esc(x)}</li>`).join("")+"</ul>":"none"}
 
-(async()=>{const cl=await fetchJSON("data/canonical/transition-dependency-closure-status-v1.json",{transitions:[]});const bl=await fetchJSON("data/canonical/blocked-transitions-v1.json",{blocked_transitions:[]});const tr=cl.transitions||[];
-document.getElementById("summary").innerHTML=`<article class="card"><strong>${tr.length}</strong><p>tracked closure records</p></article><article class="card"><strong>${tr.filter(t=>t.execution_state==="executable").length}</strong><p>executable</p></article><article class="card"><strong>${tr.filter(t=>String(t.execution_state).includes("blocked")).length}</strong><p>blocked</p></article><article class="card"><strong>${tr.filter(t=>String(t.execution_state).includes("receipts_only")).length}</strong><p>receipt-only</p></article>`;
-document.getElementById("blocked").innerHTML=`<table><thead><tr><th>Transition</th><th>Status</th><th>Reason</th></tr></thead><tbody>${(bl.blocked_transitions||[]).map(t=>`<tr><td><code>${esc(t.transition_id)}</code><br>${esc(t.name)}</td><td>${b(t.current_status)}</td><td>${esc(t.blocked_reason)}</td></tr>`).join("")}</tbody></table>`;})();
+(async()=>{const led=await fetchJSON("data/canonical/transition-correction-ledger-v1.json",{ledger_entries:[]});const st=await fetchJSON("data/canonical/transition-status-index-v1.json",{transitions:[]});
+document.getElementById("corrections").innerHTML=(led.ledger_entries||[]).map(e=>`<article class="card"><strong>${esc(e.subject)}</strong><p><b>Original:</b> ${esc(e.original_assumption)}</p><p><b>Corrected:</b> ${b(e.corrected_state?.discovery_state)} ${b(e.corrected_state?.execution_state)} ${b(e.corrected_state?.correction_state)}</p><p>${esc(e.corrected_state?.canonical_reason)}</p><h3>Forbidden</h3>${list(e.forbidden_next_actions)}</article>`).join("")||"No corrections.";
+document.getElementById("status").innerHTML=`<table><thead><tr><th>Transition</th><th>Discovery</th><th>Execution</th><th>Evidence</th><th>Correction</th></tr></thead><tbody>${(st.transitions||[]).map(t=>`<tr><td><code>${esc(t.transition_id)}</code><br>${esc(t.name)}</td><td>${b(t.discovery_state)}</td><td>${b(t.execution_state)}</td><td>${b(t.evidence_state)}</td><td>${b(t.correction_state)}</td></tr>`).join("")}</tbody></table>`;})();
 </script></body></html>

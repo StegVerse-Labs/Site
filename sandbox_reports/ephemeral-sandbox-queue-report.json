@@ -1,104 +1,10 @@
 {
-  "generated_at": "2026-05-11T09:28:12Z",
+  "generated_at": "2026-05-11T12:03:25Z",
   "schema": "stegverse.ephemeral_sandbox_queue_report.v1",
   "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
   "mode": "apply",
-  "bundles_seen": 1,
-  "reports": [
-    {
-      "generated_at": "2026-05-11T09:28:12Z",
-      "schema": "stegverse.ephemeral_sandbox_report.v1",
-      "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
-      "bundle_name": "transition-discovery-public-surface.zip",
-      "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/transition-discovery-public-surface.zip",
-      "bundle_sha256": "6733ebab5bfb5b13260284384279f7757f8548fba1a2706abd9c5322e281fa8d",
-      "mode": "apply",
-      "verdict": "ALLOW_REENTRY",
-      "classification": "repair_candidate_created",
-      "reason": "Sandbox added a bundle manifest and emitted a candidate ZIP back into incoming.",
-      "candidate_created": true,
-      "candidate_path": "/home/runner/work/Site/Site/incoming/transition-discovery-public-surface.sandbox-candidate.zip",
-      "member_findings": [
-        {
-          "path": "transition-discovery-public-surface/README.md",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 1666,
-          "sha256": "cb8e05fca6d86848140e9c7faa639a442061e635909dead6a5b9efb8ae6bd562"
-        },
-        {
-          "path": "transition-discovery-public-surface/assets/",
-          "action": "ignored",
-          "reason": "directory entry",
-          "size_bytes": null,
-          "sha256": null
-        },
-        {
-          "path": "transition-discovery-public-surface/assets/transition-discovery-state.js",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 35691,
-          "sha256": "26b6b6f5e2a478d8911c7d6f9946480573cc4cede8a3e3085a6443939a7e09eb"
-        },
-        {
-          "path": "transition-discovery-public-surface/assets/transition-page-renderer.js",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 14795,
-          "sha256": "e37905f57e96d73fdda81fe82137e7457a051d068391e2d373f3e53b8741806d"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-development-status.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6559,
-          "sha256": "42ab6e776d26e285a743fdaa9c35552cfba0e8c2b2922dd945b011f7ae22b7c1"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-milestones.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6549,
-          "sha256": "c1ed62d2584d938884cc21fffd6e34cb10ae4db80ff4646086f2484fa855dd86"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-release-index.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6541,
-          "sha256": "69d4a2fb138b6f9856019deec0c1100b850b68baba29cc9b976331c02a0b4aa9"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-release-snapshot.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6572,
-          "sha256": "4afadc34043ad4e9748cfedab2ece24de3aa137f9bdb097ce05c78993aa0ce82"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-replay-packet.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6566,
-          "sha256": "64bb8a3e6b6857d670bf206498c81cca7255869165cc946ee1bc4b97301edb3a"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-table.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6519,
-          "sha256": "9efe7c33ec58273f4e63cedbae57343bc3f7f8ef971b80fbd1105fc77e8106b9"
-        },
-        {
-          "path": "transition-discovery-public-surface/transition-verification-guide.html",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 6571,
-          "sha256": "ca56d99da2d02824ceba87c8a89d0683b31afe62ff856ba789890768d6a27839"
-        }
-      ]
-    }
-  ],
+  "bundles_seen": 0,
+  "reports": [],
   "safety": {
     "bounded_single_pass": true,
     "does_not_install_live_files": true,
