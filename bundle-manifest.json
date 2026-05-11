@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-05-11T00:13:13Z",
+  "generated_at": "2026-05-11T00:18:23Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012j2-transition-periodic-table-authority-surface-v1",
-  "formal_milestone": "MS-012J.2 \u2014 Transition Periodic Table Authority Surface",
-  "purpose": "Update transition-periodic-table.html so action authority is rendered dynamically from the transition element action authority map JSON.",
+  "bundle_id": "ms012j-authority-map-data-surface-v1",
+  "formal_milestone": "MS-012J \u2014 Authority Map Data Surface",
+  "purpose": "Install the live JSON data surface required by transition-periodic-table.html.",
   "files": [
     {
-      "path": "transition-periodic-table.html",
+      "path": "data/transition-table/transition-element-action-authority-map-v1.json",
       "version": "v1",
-      "role": "dynamic_transition_authority_surface"
+      "role": "public_transition_authority_map_data_surface"
     }
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "changes_public_pages": true,
+    "changes_public_pages": false,
     "changes_selector_logic": false,
     "promotes_milestone": false,
     "no_cron": true,
     "no_workflow_run_chain": true,
     "no_self_trigger_zip": true,
-    "data_driven_authority_surface": true
+    "data_only_fix": true
   }
 }

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T00:14:49Z",
+  "generated_at": "2026-05-11T00:20:06Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012j2-transition-periodic-table-authority-surface-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012j2-transition-periodic-table-authority-surface-v1.zip",
-  "bundle_sha256": "9d75a1768fcfab926a7a2aa93ebbf15c1815d11aaa1cb27ac5aef32b6ff393ff",
+  "bundle_name": "ms012j-authority-map-data-surface-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012j-authority-map-data-surface-v1.zip",
+  "bundle_sha256": "e5b550d47d7842df4f388fed35fba6f901f29991fec4a3009fec2f1b45ab54db",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -12,19 +12,19 @@
   "reason": "ordinary bundle allowed",
   "mapped_paths": [
     "bundle-manifest.json",
-    "transition-periodic-table.html"
+    "data/transition-table/transition-element-action-authority-map-v1.json"
   ],
   "files_seen": 2,
-  "files_created": 0,
-  "files_updated": 2,
+  "files_created": 1,
+  "files_updated": 1,
   "files_unchanged": 0,
   "files_skipped": 0,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "4ecce1bfcbec4daa563953f9f710a5a82f1e7817410a1f1ffdd80c7bb5de9e69",
-    "after_tree_fingerprint": "3073fecbff85b7da136fe57b4e35ba2e4ad81e89db393268dd33ed51358e1a92",
-    "changed_files_fingerprint": "b9596f837773a7b129c77ba58d5da3a20dc8f9bd22841808cc6b487c55479950"
+    "before_tree_fingerprint": "49c20ba15361fbc73b944d0b0de67590040e9c1704faf4cbad75c1c4350abf94",
+    "after_tree_fingerprint": "ca98495475c7d3b6b219251016ffd6fe37ec8a9fcf67aee21f36c3551b3c4a6c",
+    "changed_files_fingerprint": "4b41ee8f23428961d1be0c703a7614c2457d0d598e6737b3a36a215215893c23"
   },
   "decisions": [
     {
@@ -32,18 +32,18 @@
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "74284d88d2de2ac80e7390226e2b7f5c3fda589218b0d56f8d9191e329d0a5eb",
-      "new_sha256": "752cd398b99bb97c386a31c39747a8d5df44ba7a09ca3a4de65e1384fd2034eb",
-      "bytes": 919
+      "old_sha256": "752cd398b99bb97c386a31c39747a8d5df44ba7a09ca3a4de65e1384fd2034eb",
+      "new_sha256": "4e69769cb48bd63fc53d38ef9baea36580c4934494818eaf45e39f38e2405183",
+      "bytes": 856
     },
     {
-      "bundle_path": "transition-periodic-table.html",
-      "repo_path": "transition-periodic-table.html",
-      "action": "updated",
+      "bundle_path": "data/transition-table/transition-element-action-authority-map-v1.json",
+      "repo_path": "data/transition-table/transition-element-action-authority-map-v1.json",
+      "action": "created",
       "reason": "hash differs or target missing",
-      "old_sha256": "7818f81e40fe398b1fb12e5d69b4479e14db8efd2f10e7cd3a8c8552889b61ea",
-      "new_sha256": "f4cbae1e7733c21a84845f20d9c96eb50e590b5d37525057b7f99b7d942569a5",
-      "bytes": 14950
+      "old_sha256": null,
+      "new_sha256": "f7c2f5169ad1e73c6c6520a83670e361c3b5992cc1a40754c5e020eb71f19713",
+      "bytes": 9735
     }
   ]
 }

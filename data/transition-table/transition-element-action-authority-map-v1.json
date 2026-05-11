@@ -1,0 +1,291 @@
+{
+  "generated_at": "2026-05-11T00:18:23Z",
+  "schema": "stegverse.transition_element_action_authority_map.v1",
+  "map_id": "ms012j-authority-map-data-surface-v1",
+  "formal_milestone": "MS-012J \u2014 Transition Element Action Authority Map",
+  "purpose": "Public data surface for the Transition Periodic Table authority section.",
+  "authority_principle": "Transition elements unlock action classes; workflows handle established bounded paths; tools execute transition-table-authorized outcomes; receipts prove the result.",
+  "action_classes": {
+    "observe_state": {
+      "authority_level": "0_observe",
+      "allowed_paths": [
+        "ingestion_reports/",
+        "sandbox_reports/",
+        "transition_authority_reports/",
+        "data/",
+        "docs/"
+      ],
+      "forbidden_paths": [],
+      "required_receipt": "classification_report",
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "stop_condition": "report_written"
+    },
+    "route_incoming_bundle": {
+      "authority_level": "1_route",
+      "allowed_paths": [
+        "incoming/",
+        "installed_bundles/",
+        "failed_bundles/",
+        "sandbox_queue/",
+        "privileged_queue/",
+        "ingestion_reports/",
+        "data/latest-bundle-ingestion-receipt-v1.json",
+        "data/bundle-ingestion-ledger-v1.jsonl",
+        "data/bundle-fingerprint-index-v1.json"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/",
+        "public_release/",
+        "branch_deletion"
+      ],
+      "required_receipt": "bundle_ingestion_receipt",
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "stop_condition": "source_bundle_removed_from_incoming_or_preserved_marker"
+    },
+    "quarantine_stale_or_failed": {
+      "authority_level": "2_quarantine_archive",
+      "allowed_paths": [
+        "incoming/",
+        "failed_bundles/",
+        "ingestion_reports/",
+        "data/latest-bundle-ingestion-receipt-v1.json",
+        "data/bundle-ingestion-ledger-v1.jsonl",
+        "data/bundle-fingerprint-index-v1.json"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/",
+        "installed_bundles/"
+      ],
+      "required_receipt": "stale_or_failure_receipt",
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "stop_condition": "bundle_quarantined_with_reason"
+    },
+    "archive_installed_bundle": {
+      "authority_level": "2_quarantine_archive",
+      "allowed_paths": [
+        "installed_bundles/",
+        "ingestion_reports/",
+        "data/latest-bundle-ingestion-receipt-v1.json",
+        "data/bundle-ingestion-ledger-v1.jsonl",
+        "data/bundle-fingerprint-index-v1.json"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/"
+      ],
+      "required_receipt": "installed_bundle_receipt",
+      "sandbox_required": false,
+      "human_approval_required": false,
+      "stop_condition": "installed_archive_receipt_written"
+    },
+    "hold_for_sandbox": {
+      "authority_level": "2_quarantine_archive",
+      "allowed_paths": [
+        "sandbox_queue/",
+        "ingestion_reports/",
+        "data/latest-bundle-ingestion-receipt-v1.json",
+        "data/bundle-ingestion-ledger-v1.jsonl",
+        "data/bundle-fingerprint-index-v1.json"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/"
+      ],
+      "required_receipt": "sandbox_required_receipt",
+      "sandbox_required": true,
+      "human_approval_required": false,
+      "stop_condition": "bundle_moved_to_sandbox_queue"
+    },
+    "construct_sandbox_candidate": {
+      "authority_level": "3_sandbox_candidate",
+      "allowed_paths": [
+        "sandbox_queue/",
+        "sandbox_reviewed/",
+        "sandbox_reports/",
+        "incoming/"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/",
+        "tools/bundle_ingest.py"
+      ],
+      "required_receipt": "ephemeral_sandbox_report",
+      "sandbox_required": true,
+      "human_approval_required": false,
+      "stop_condition": "candidate_emitted_to_incoming_or_hold_report_written"
+    },
+    "prepare_privileged_review": {
+      "authority_level": "4_privileged_review",
+      "allowed_paths": [
+        "privileged_queue/",
+        "ingestion_reports/",
+        "sandbox_reports/",
+        "docs/",
+        "transition_authority_reports/"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/"
+      ],
+      "required_receipt": "privileged_review_packet",
+      "sandbox_required": false,
+      "human_approval_required": true,
+      "stop_condition": "privileged_review_packet_written"
+    },
+    "prepare_promotion_review": {
+      "authority_level": "5_promotion_review",
+      "allowed_paths": [
+        "docs/",
+        "data/",
+        "transition_authority_reports/"
+      ],
+      "forbidden_paths": [
+        "public_release/",
+        ".github/workflows/"
+      ],
+      "required_receipt": "promotion_review_packet",
+      "sandbox_required": false,
+      "human_approval_required": true,
+      "stop_condition": "promotion_review_packet_written"
+    },
+    "workflow_or_authority_expansion": {
+      "authority_level": "6_authority_expansion",
+      "allowed_paths": [
+        "docs/",
+        "data/transition-table/",
+        "transition_authority_reports/"
+      ],
+      "forbidden_paths": [
+        ".github/workflows/"
+      ],
+      "required_receipt": "human_authority_expansion_approval",
+      "sandbox_required": true,
+      "human_approval_required": true,
+      "stop_condition": "human_approval_recorded_before_mutation"
+    }
+  },
+  "transition_elements": {
+    "TE-001-incoming-bundle-present": {
+      "observed_condition": "A ZIP bundle exists under incoming/.",
+      "unlocked_action_classes": [
+        "route_incoming_bundle"
+      ],
+      "not_unlocked": [
+        "workflow_or_authority_expansion",
+        "prepare_promotion_review"
+      ]
+    },
+    "TE-002-already-seen-bundle": {
+      "observed_condition": "Bundle hash or name already appears in installed, failed, sandbox, privileged, or fingerprint ledgers.",
+      "unlocked_action_classes": [
+        "quarantine_stale_or_failed"
+      ],
+      "not_unlocked": [
+        "construct_sandbox_candidate",
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-003-ordinary-manifested-bundle": {
+      "observed_condition": "Bundle paths are safe and allowed by ingestion policy.",
+      "unlocked_action_classes": [
+        "route_incoming_bundle",
+        "archive_installed_bundle"
+      ],
+      "not_unlocked": [
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-004-engine-mutation-bundle": {
+      "observed_condition": "Bundle contains tools/bundle_ingest.py or equivalent ingestion-engine mutation.",
+      "unlocked_action_classes": [
+        "hold_for_sandbox"
+      ],
+      "not_unlocked": [
+        "archive_installed_bundle",
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-005-workflow-mutation-bundle": {
+      "observed_condition": "Bundle contains workflow material or workflow path mapping.",
+      "unlocked_action_classes": [
+        "prepare_privileged_review"
+      ],
+      "not_unlocked": [
+        "route_incoming_bundle",
+        "archive_installed_bundle",
+        "construct_sandbox_candidate"
+      ]
+    },
+    "TE-006-safe-unmanifested-sandbox-payload": {
+      "observed_condition": "Sandbox sees safe payload without manifest and without workflow or ingestion-engine mutation.",
+      "unlocked_action_classes": [
+        "construct_sandbox_candidate"
+      ],
+      "not_unlocked": [
+        "archive_installed_bundle",
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-007-unsafe-path-detected": {
+      "observed_condition": "Bundle contains absolute path, parent traversal, .git path, or other unsafe member.",
+      "unlocked_action_classes": [
+        "quarantine_stale_or_failed"
+      ],
+      "not_unlocked": [
+        "construct_sandbox_candidate",
+        "archive_installed_bundle"
+      ]
+    },
+    "TE-008-privileged-review-needed": {
+      "observed_condition": "Object requires workflow, authority, token, credential, or execution-surface review.",
+      "unlocked_action_classes": [
+        "prepare_privileged_review"
+      ],
+      "not_unlocked": [
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-009-release-or-milestone-promotion-request": {
+      "observed_condition": "Object proposes public release, milestone promotion, or state promotion.",
+      "unlocked_action_classes": [
+        "prepare_promotion_review"
+      ],
+      "not_unlocked": [
+        "archive_installed_bundle",
+        "workflow_or_authority_expansion"
+      ]
+    },
+    "TE-010-authority-expansion-request": {
+      "observed_condition": "Object proposes new workflow surface, recursive automation, branch deletion, direct privileged execution, or table authority expansion.",
+      "unlocked_action_classes": [
+        "workflow_or_authority_expansion"
+      ],
+      "not_unlocked": [
+        "route_incoming_bundle",
+        "archive_installed_bundle"
+      ]
+    }
+  },
+  "current_site_authority_boundary": {
+    "unlocked_for_routine_action": [
+      "observe_state",
+      "route_incoming_bundle",
+      "quarantine_stale_or_failed",
+      "archive_installed_bundle",
+      "hold_for_sandbox",
+      "construct_sandbox_candidate"
+    ],
+    "human_approval_required": [
+      "prepare_privileged_review",
+      "prepare_promotion_review",
+      "workflow_or_authority_expansion"
+    ],
+    "explicitly_not_unlocked": [
+      "branch_deletion",
+      "direct_workflow_mutation",
+      "direct_public_release_promotion",
+      "direct_privileged_queue_execution",
+      "autonomous_authority_expansion",
+      "sandbox_direct_install"
+    ]
+  }
+}

@@ -1,8 +1,8 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T00:14:49Z`
+Generated: `2026-05-11T00:20:06Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ms012j2-transition-periodic-table-authority-surface-v1.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ms012j-authority-map-data-surface-v1.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
@@ -21,4 +21,4 @@ Bundle class: `ordinary_bundle`
 ## File Decisions
 
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `updated` `transition-periodic-table.html` → `transition-periodic-table.html` — hash differs or target missing
+- `created` `data/transition-table/transition-element-action-authority-map-v1.json` → `data/transition-table/transition-element-action-authority-map-v1.json` — hash differs or target missing

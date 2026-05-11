@@ -157,6 +157,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "b9596f837773a7b129c77ba58d5da3a20dc8f9bd22841808cc6b487c55479950"
+    },
+    {
+      "generated_at": "2026-05-11T00:20:06Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012j-authority-map-data-surface-v1.zip",
+      "bundle_sha256": "e5b550d47d7842df4f388fed35fba6f901f29991fec4a3009fec2f1b45ab54db",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "4b41ee8f23428961d1be0c703a7614c2457d0d598e6737b3a36a215215893c23"
     }
   ]
 }
