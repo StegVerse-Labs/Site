@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-11T08:38:41Z",
+  "schema": "stegverse.transition_evidence_schema.v1",
+  "formal_milestone": "MS-012L.1 \u2014 Transition Table Self-Correction Ledger",
+  "purpose": "Define the minimum evidence fields used to update discovery and execution states.",
+  "evidence_record_shape": {
+    "evidence_id": "string",
+    "observed_at": "datetime",
+    "source_type": [
+      "ingestion_receipt",
+      "sandbox_report",
+      "workflow_run",
+      "headless_task_receipt",
+      "vault_receipt",
+      "human_approval_receipt",
+      "manual_observation"
+    ],
+    "source_path": "repo-relative path or external reference",
+    "subject_transition": "transition id or milestone id",
+    "observed_result": "ALLOW / DENY / HOLD / FAIL_CLOSED / SANDBOX_REQUIRED / STALE_INCOMING_QUARANTINED / etc.",
+    "route": "ingest / sandbox_queue / failed_bundles / privileged_queue / installed_bundles / etc.",
+    "state_implication": "what this evidence implies about discovery/execution state",
+    "confidence": "observed / receipt_backed / contradicted / superseded"
+  },
+  "required_for_execution_state_advance": [
+    "evidence must be receipt-backed",
+    "dependency closure must be explicit",
+    "required surfaces must be canonical",
+    "required receipts must exist or be emitted",
+    "forbidden actions must remain untriggered"
+  ]
+}

@@ -1,10 +1,14 @@
 {
-  "generated_at": "2026-05-11T08:40:09Z",
-  "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012l1-transition-table-self-correction-ledger-v1.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
-  "mode": "apply",
-  "receipt": {
+  "generated_at": "2026-05-11T08:40:10Z",
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012l1-transition-table-self-correction-ledger-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012l1-transition-table-self-correction-ledger-v1.zip",
+  "bundle_sha256": "bd873a7507fa7b18dba8b9eef129f44b28a61325ee705eb643417755e8c13502",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
     "generated_at": "2026-05-11T08:40:09Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
@@ -103,14 +107,13 @@
       }
     ]
   },
-  "summary": {
-    "total_entries_seen": 7,
-    "applied": 6,
-    "unchanged": 0,
-    "skipped": 1,
-    "path_mappings": 0,
-    "unsafe_paths_rejected": 0,
-    "installed_archived": 1,
-    "source_removed_from_incoming": 1
-  }
+  "repo_transition": {
+    "before_tree_fingerprint": "ba1559a6bd4506c6d061ccb7f3ca03df975c4441d1b2d14d94c36fb45095243b",
+    "after_tree_fingerprint": "5b35141d090e22f4e1c05157edd1c09494f0bee955d52d27098324712db10de4",
+    "changed_files_fingerprint": "bcaa90372ba45e6f2390a75dbb403527408a5eda32050be34d950780910bc4de"
+  },
+  "files_created": 5,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
 }

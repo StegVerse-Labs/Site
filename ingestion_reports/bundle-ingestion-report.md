@@ -1,16 +1,16 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T08:35:27Z`
+Generated: `2026-05-11T08:40:09Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ms012l0-canonical-shell-dependency-map-v1.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ms012l1-transition-table-self-correction-ledger-v1.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
 
 ## Summary
 
-- `total_entries_seen`: `8`
-- `applied`: `7`
+- `total_entries_seen`: `7`
+- `applied`: `6`
 - `unchanged`: `0`
 - `skipped`: `1`
 - `path_mappings`: `0`
@@ -22,9 +22,8 @@ Bundle class: `ordinary_bundle`
 
 - `skipped` `README.md` → `None` — bundle root README is documentation and is not applied to repo root
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `created` `data/canonical/blocked-transitions-v1.json` → `data/canonical/blocked-transitions-v1.json` — hash differs or target missing
-- `created` `data/canonical/execution-surfaces-v1.json` → `data/canonical/execution-surfaces-v1.json` — hash differs or target missing
-- `created` `data/canonical/shells-v1.json` → `data/canonical/shells-v1.json` — hash differs or target missing
-- `created` `data/canonical/transition-dependency-graph-v1.json` → `data/canonical/transition-dependency-graph-v1.json` — hash differs or target missing
-- `created` `data/transition-table/execution-surface-transition-blocks-v1.json` → `data/transition-table/execution-surface-transition-blocks-v1.json` — hash differs or target missing
-- `created` `docs/MS-012L0-canonical-shell-dependency-map.md` → `docs/MS-012L0-canonical-shell-dependency-map.md` — hash differs or target missing
+- `created` `data/canonical/transition-correction-ledger-v1.json` → `data/canonical/transition-correction-ledger-v1.json` — hash differs or target missing
+- `created` `data/canonical/transition-evidence-schema-v1.json` → `data/canonical/transition-evidence-schema-v1.json` — hash differs or target missing
+- `created` `data/canonical/transition-status-index-v1.json` → `data/canonical/transition-status-index-v1.json` — hash differs or target missing
+- `created` `data/transition-table/transition-table-self-correction-model-v1.json` → `data/transition-table/transition-table-self-correction-model-v1.json` — hash differs or target missing
+- `created` `docs/MS-012L1-transition-table-self-correction-ledger.md` → `docs/MS-012L1-transition-table-self-correction-ledger.md` — hash differs or target missing

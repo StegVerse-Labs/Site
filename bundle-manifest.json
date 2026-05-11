@@ -1,32 +1,28 @@
 {
-  "generated_at": "2026-05-11T08:33:01Z",
+  "generated_at": "2026-05-11T08:38:41Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012l0-canonical-shell-dependency-map-v1",
-  "formal_milestone": "MS-012L.0 \u2014 Canonical Shell Dependency Map",
-  "purpose": "Create a canonical StegDB-like dependency map for shells, execution surfaces, discovered transitions, blocked transitions, and transition blocks.",
+  "bundle_id": "ms012l1-transition-table-self-correction-ledger-v1",
+  "formal_milestone": "MS-012L.1 \u2014 Transition Table Self-Correction Ledger",
+  "purpose": "Define the self-correction model for transition-table mistakes, blocked execution, evidence collection, and dependency graph updates.",
   "files": [
     {
-      "path": "data/canonical/shells-v1.json",
-      "role": "canonical_shells"
+      "path": "data/transition-table/transition-table-self-correction-model-v1.json",
+      "role": "self_correction_model"
     },
     {
-      "path": "data/canonical/execution-surfaces-v1.json",
-      "role": "canonical_execution_surfaces"
+      "path": "data/canonical/transition-correction-ledger-v1.json",
+      "role": "correction_ledger"
     },
     {
-      "path": "data/canonical/transition-dependency-graph-v1.json",
-      "role": "canonical_transition_dependency_graph"
+      "path": "data/canonical/transition-evidence-schema-v1.json",
+      "role": "evidence_schema"
     },
     {
-      "path": "data/canonical/blocked-transitions-v1.json",
-      "role": "canonical_blocked_transitions"
+      "path": "data/canonical/transition-status-index-v1.json",
+      "role": "transition_status_index"
     },
     {
-      "path": "data/transition-table/execution-surface-transition-blocks-v1.json",
-      "role": "execution_surface_transition_blocks"
-    },
-    {
-      "path": "docs/MS-012L0-canonical-shell-dependency-map.md",
+      "path": "docs/MS-012L1-transition-table-self-correction-ledger.md",
       "role": "docs"
     }
   ],

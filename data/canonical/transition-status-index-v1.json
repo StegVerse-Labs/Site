@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-11T08:38:41Z",
+  "schema": "stegverse.transition_status_index.v1",
+  "formal_milestone": "MS-012L.1 \u2014 Transition Table Self-Correction Ledger",
+  "purpose": "Provide a compact status index for known/discovered transitions.",
+  "transitions": [
+    {
+      "transition_id": "T1",
+      "name": "observe uploaded bundle",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "evidence_state": "receipt_backed",
+      "correction_state": "none"
+    },
+    {
+      "transition_id": "T2",
+      "name": "invoke bounded ingestion workflow",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "evidence_state": "receipt_backed",
+      "correction_state": "none"
+    },
+    {
+      "transition_id": "T3",
+      "name": "classify bundle path surfaces",
+      "discovery_state": "known",
+      "execution_state": "executable_partial",
+      "evidence_state": "receipt_backed",
+      "correction_state": "requires_dependency_update"
+    },
+    {
+      "transition_id": "T4",
+      "name": "route bundle lifecycle state",
+      "discovery_state": "known",
+      "execution_state": "executable_partial",
+      "evidence_state": "receipt_backed",
+      "correction_state": "requires_terminal_state_model"
+    },
+    {
+      "transition_id": "T5",
+      "name": "perform ephemeral sandbox review",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "evidence_state": "receipt_backed",
+      "correction_state": "none"
+    },
+    {
+      "transition_id": "T13",
+      "name": "data-defined transition authority discovery",
+      "discovery_state": "discovered",
+      "execution_state": "blocked",
+      "evidence_state": "receipt_backed",
+      "correction_state": "requires_tool_support"
+    },
+    {
+      "transition_id": "T14",
+      "name": "approved privileged install candidate",
+      "discovery_state": "discovered",
+      "execution_state": "blocked",
+      "evidence_state": "receipt_backed",
+      "correction_state": "requires_dependency_update"
+    },
+    {
+      "transition_id": "T20",
+      "name": "vaulted capability request",
+      "discovery_state": "discovered",
+      "execution_state": "executable_receipts_only",
+      "evidence_state": "observed_once",
+      "correction_state": "requires_vault_shell_completion"
+    }
+  ]
+}

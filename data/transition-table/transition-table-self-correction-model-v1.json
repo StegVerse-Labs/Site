@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-05-11T08:38:41Z",
+  "schema": "stegverse.transition_table_self_correction_model.v1",
+  "formal_milestone": "MS-012L.1 \u2014 Transition Table Self-Correction Ledger",
+  "purpose": "Define how the transition table absorbs mistakes, failed attempts, and blocked routes as evidence that corrects discovery/execution state.",
+  "core_principle": "Mistakes may reveal real boundaries. They must not silently become authority.",
+  "invariants": [
+    "Discovery state and execution state are separate.",
+    "A transition can be discovered before it is executable.",
+    "A failed route is evidence, not necessarily terminal failure.",
+    "Repeated failure without new evidence must not create authority.",
+    "Correction happens by updating canonical dependency state, not by adding parallel guardrails.",
+    "A transition may only advance execution state when dependency closure is proven by receipts."
+  ],
+  "state_axes": {
+    "discovery_state": [
+      "unknown",
+      "suspected",
+      "discovered",
+      "validated",
+      "deprecated"
+    ],
+    "execution_state": [
+      "non_executable",
+      "blocked",
+      "executable_partial",
+      "executable",
+      "terminal_success",
+      "terminal_rejected",
+      "terminal_invalid"
+    ],
+    "evidence_state": [
+      "unobserved",
+      "observed_once",
+      "repeated_observation",
+      "receipt_backed",
+      "contradicted",
+      "superseded"
+    ],
+    "correction_state": [
+      "none",
+      "requires_dependency_update",
+      "requires_surface_mapping",
+      "requires_receipt_schema",
+      "requires_human_review",
+      "requires_tool_support",
+      "requires_data_boundary",
+      "terminalize"
+    ]
+  },
+  "correction_loop": [
+    {
+      "step": "propose_transition",
+      "meaning": "A transition is suspected or discovered from reasoning, build attempt, or observed repo behavior."
+    },
+    {
+      "step": "attempt_or_observe",
+      "meaning": "The repo routes, installs, blocks, sandboxes, or fails the attempted transition."
+    },
+    {
+      "step": "collect_receipt",
+      "meaning": "Use ingestion, sandbox, workflow, artifact, or report receipts as evidence."
+    },
+    {
+      "step": "classify_result",
+      "meaning": "Classify the transition as executable, partial, blocked, invalid, or terminal."
+    },
+    {
+      "step": "update_dependency_graph",
+      "meaning": "Record missing shells, surfaces, receipts, gates, or activation states."
+    },
+    {
+      "step": "refine_transition_table",
+      "meaning": "Correct the transition definition without granting unauthorized execution authority."
+    }
+  ],
+  "forbidden_self_correction_patterns": [
+    "Treating repeated upload as new authority.",
+    "Using fresh hash as a substitute for dependency closure.",
+    "Claiming execution state from discovery state.",
+    "Adding guardrails outside the transition model.",
+    "Allowing a path class to grant authority by itself.",
+    "Treating workflow/tool mutation as ordinary data evolution.",
+    "Ignoring receipts that contradict the proposed transition."
+  ]
+}

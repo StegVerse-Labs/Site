@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-05-11T08:38:41Z",
+  "schema": "stegverse.transition_correction_ledger.v1",
+  "formal_milestone": "MS-012L.1 \u2014 Transition Table Self-Correction Ledger",
+  "purpose": "Record concrete correction events where attempted builds revealed boundaries.",
+  "ledger_entries": [
+    {
+      "entry_id": "correction-ms012k6-tool-edge-block",
+      "subject": "MS-012K.6 manifest post-install task bridge",
+      "original_assumption": "A bundle could install a post-install manifest bridge by replacing tools/bundle_ingest.py through the existing ingestion path.",
+      "observed_evidence": [
+        "queue ingestion classified tools/bundle_ingest.py mutation as ingestion_engine_mutation_bundle",
+        "route became sandbox_queue",
+        "sandbox review emitted HOLD / manual_review_required",
+        "explicit retry of already failed hash produced stale quarantine behavior"
+      ],
+      "corrected_state": {
+        "discovery_state": "discovered",
+        "execution_state": "blocked",
+        "correction_state": "requires_tool_support",
+        "canonical_reason": "Current tool shell does not expose a data-driven transition-state loader or maintenance transition path."
+      },
+      "allowed_next_actions": [
+        "record blocked state",
+        "map dependency closure",
+        "do not retry as ordinary bundle"
+      ],
+      "forbidden_next_actions": [
+        "fresh hash workaround claimed as solution",
+        "ordinary queue-mode engine mutation",
+        "claiming post-install bridge active"
+      ]
+    },
+    {
+      "entry_id": "correction-t13-discovery-not-execution",
+      "subject": "T13 data-defined transition authority discovery",
+      "original_assumption": "Once data-defined transition rules are described, they can guide ingestion behavior.",
+      "observed_evidence": [
+        "current tools/bundle_ingest.py reads data/bundle-ingestion-policy-v1.json only for existing knobs",
+        "current tools/bundle_ingest.py does not interpret data/ingestion/transition-state-rules-v1.json"
+      ],
+      "corrected_state": {
+        "discovery_state": "discovered",
+        "execution_state": "blocked",
+        "correction_state": "requires_tool_support",
+        "canonical_reason": "The data shell can describe the rule, but the current tool shell cannot consume it."
+      },
+      "allowed_next_actions": [
+        "record transition as discovered",
+        "define data boundary shape",
+        "defer executable claims"
+      ],
+      "forbidden_next_actions": [
+        "pretend data-only update activates new ingestor behavior",
+        "mutate tools through ordinary ingestion"
+      ]
+    },
+    {
+      "entry_id": "correction-t14-approved-privileged-install",
+      "subject": "T14 approved privileged install candidate",
+      "original_assumption": "Sandbox HOLD plus human approval should be enough to retry explicit ingestion.",
+      "observed_evidence": [
+        "current ingestor checks seen_status before any approval-transition evaluation",
+        "already_failed state causes STALE_INCOMING_QUARANTINED",
+        "workflow exposes only bundle and apply inputs, not retry_failed or maintenance transition input"
+      ],
+      "corrected_state": {
+        "discovery_state": "discovered",
+        "execution_state": "blocked",
+        "correction_state": "requires_dependency_update",
+        "canonical_reason": "Approval transition exists conceptually but lacks executable dependency closure."
+      },
+      "allowed_next_actions": [
+        "record blocked transition",
+        "map required surfaces and receipts",
+        "wait for direct human tool edit or existing maintenance lane"
+      ],
+      "forbidden_next_actions": [
+        "ordinary re-upload",
+        "fresh hash workaround claimed as transition solution",
+        "self-authorized tool mutation"
+      ]
+    }
+  ]
+}
