@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Transition Milestones | StegVerse</title>
+<style>
+:root{--bg:#080b12;--panel:rgba(16,24,39,.84);--panel2:rgba(0,0,0,.20);--text:#eef4ff;--muted:#a9b7cc;--line:rgba(255,255,255,.14);--green:#43d694;--blue:#4da3ff;--gold:#ffbe54;--red:#ff7070;--violet:#b87bff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(67,214,148,.16),transparent 34rem),radial-gradient(circle at bottom right,rgba(77,163,255,.11),transparent 30rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+main{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:18px 0 54px}a{color:inherit}
+nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:14px}nav div{display:flex;gap:10px;flex-wrap:wrap}
+nav a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.05);color:var(--muted)}nav a:hover{color:var(--text);border-color:rgba(67,214,148,.44)}
+section{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:clamp(18px,4vw,42px);margin-top:14px;box-shadow:0 18px 60px rgba(0,0,0,.18);overflow:hidden}
+h1{font-size:clamp(2.2rem,7vw,5.8rem);line-height:.92;margin:0;letter-spacing:-.075em;text-transform:uppercase}
+h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem}h3{font-size:1.18rem;margin:0 0 8px}
+p{color:var(--muted);font-size:1.02rem}.btn{display:inline-flex;margin:8px 8px 0 0;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(67,214,148,.62);background:linear-gradient(135deg,rgba(67,214,148,.28),rgba(77,163,255,.16));color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--panel2);min-width:0}.card strong{display:block;font-size:clamp(1.05rem,5vw,1.55rem);overflow-wrap:anywhere;line-height:1.08}.card small{color:var(--muted)}
+.kicker{color:var(--green);text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:900}.muted{color:var(--muted)}
+.status{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(67,214,148,.35);border-radius:999px;padding:5px 9px;background:rgba(67,214,148,.08);color:var(--green);font-size:.78rem;font-weight:900;margin:2px 6px 6px 0}.status.gold{color:var(--gold);border-color:rgba(255,190,84,.35);background:rgba(255,190,84,.08)}.status.red{color:var(--red);border-color:rgba(255,112,112,.35);background:rgba(255,112,112,.08)}.status.blue{color:var(--blue);border-color:rgba(77,163,255,.35);background:rgba(77,163,255,.08)}.status.violet{color:var(--violet);border-color:rgba(184,123,255,.35);background:rgba(184,123,255,.08)}
+ul,ol{margin:8px 0 0;padding-left:20px;color:#dbe7f7}li{margin-bottom:9px}code{word-break:break-word;color:#f5fbff}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+.table-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.transition-card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:18px;padding:15px;background:linear-gradient(135deg,rgba(67,214,148,.08),rgba(77,163,255,.04)),rgba(0,0,0,.20);min-height:225px}.transition-card.locked{opacity:.72;background:rgba(0,0,0,.18)}.transition-card:hover{border-color:rgba(67,214,148,.55)}
+.transition-card .id{font-size:1.45rem;font-weight:950;letter-spacing:-.04em}.transition-card .name{font-weight:850;margin-top:4px}.transition-card .meta{color:var(--muted);font-size:.9rem;margin-top:8px}
+.brightness{height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}.brightness span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:var(--w,0%)}
+dl{display:grid;grid-template-columns:minmax(160px,.35fr) 1fr;gap:8px 14px;margin:0}dt{color:var(--green);font-weight:900}dd{margin:0;color:#dbe7f7}
+.timeline{display:grid;gap:12px}.warning{border-color:rgba(255,190,84,.36);background:rgba(255,190,84,.06)}
+@media(max-width:860px){.grid,.grid.three,.grid.four{grid-template-columns:1fr}dl{grid-template-columns:1fr}section{border-radius:18px}}
+</style>
+</head>
+<body>
+<main>
+<nav>
+  <a href="index.html"><strong>StegVerse</strong></a>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="demo.html">Demo</a>
+    <a href="transition-periodic-table.html">Research Landing</a>
+    <a href="transition-table.html">Transition Table</a>
+    <a href="transition-milestones.html">Milestones</a>
+    <a href="transition-development-status.html">Development Status</a>
+    <a href="transition-release-snapshot.html">Release Snapshot</a>
+    <a href="transition-release-index.html">Release Index</a>
+    <a href="transition-verification-guide.html">Verification Guide</a>
+    <a href="transition-replay-packet.html">Replay Packet</a>
+    <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
+  </div>
+</nav>
+<section>
+  <p class="kicker">StegVerse Transition Discovery Surface</p>
+  <h1>Transition Milestones</h1>
+  <p>Epistemic ledger of discovery threshold crossings.</p>
+  <p>The Transition Periodic Table is a live research surface for discovering how possible actions become consequence-bearing reality. Page content below is rendered from the canonical transition discovery state.</p>
+  <a class="btn" href="transition-table.html">Open Map</a>
+  <a class="btn" href="transition-milestones.html">Open Ledger</a>
+  <a class="btn" href="transition-verification-guide.html">Verify Claims</a>
+</section>
+<section id="transition-page-root" data-transition-view="milestones">
+  <h2>Loading Canonical Discovery State</h2>
+  <p>If this message remains visible, the shared discovery-state scripts did not load.</p>
+</section>
+<noscript>
+<section class="warning">
+  <h2>JavaScript Required for Live State Rendering</h2>
+  <p>This page uses a shared state file so every transition page reflects the same discovery model. Enable JavaScript to view the rendered research surface.</p>
+</section>
+</noscript>
+</main>
+<script src="assets/transition-discovery-state.js"></script>
+<script src="assets/transition-page-renderer.js"></script>
+</body>
+</html>

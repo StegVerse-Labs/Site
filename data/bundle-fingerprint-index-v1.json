@@ -301,6 +301,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "61ce3b753f49c8a83a7497f8a2975ab0cfb6e352f705a23d2d0968ac74ad0af5"
+    },
+    {
+      "generated_at": "2026-05-11T09:28:12Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "transition-discovery-public-surface.sandbox-candidate.zip",
+      "bundle_sha256": "d22d922ead3834418dc08bd6664f3b5c3ecc1118ac759989129d8765582826e4",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "2c1d28dbeaf16ad009a844489bc95444341085128e86911308be70c227fdddf9"
     }
   ]
 }

@@ -1,30 +1,57 @@
 {
-  "generated_at": "2026-05-11T08:45:42Z",
+  "generated_at": "2026-05-11T09:28:12Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012l3-public-canonical-page-contract-v1",
-  "formal_milestone": "MS-012L.3 \u2014 Public Canonical Page Contract",
-  "purpose": "Define the public HTML page contract for canonical shell/dependency/self-correction/closure data.",
+  "bundle_id": "transition-discovery-public-surface.sandbox-candidate",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "source_bundle": "transition-discovery-public-surface.zip",
+  "classification": "repair_candidate_created",
+  "purpose": "Sandbox-generated candidate bundle. Must pass through normal ingestion before any live repo changes are applied.",
   "files": [
     {
-      "path": "data/page-contracts/public-canonical-page-contract-v1.json",
-      "role": "public_page_contract"
+      "path": "transition-discovery-public-surface/README.md",
+      "role": "sandbox_preserved_member"
     },
     {
-      "path": "data/canonical/public-canonical-page-status-v1.json",
-      "role": "public_page_status"
+      "path": "transition-discovery-public-surface/assets/transition-discovery-state.js",
+      "role": "sandbox_preserved_member"
     },
     {
-      "path": "docs/MS-012L3-public-canonical-page-contract.md",
-      "role": "docs"
+      "path": "transition-discovery-public-surface/assets/transition-page-renderer.js",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-development-status.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-milestones.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-release-index.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-release-snapshot.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-replay-packet.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-table.html",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "transition-discovery-public-surface/transition-verification-guide.html",
+      "role": "sandbox_preserved_member"
     }
   ],
   "safety": {
-    "contains_leading_dot_paths": false,
-    "contains_workflows": false,
-    "changes_workflow_files": false,
-    "changes_tools": false,
-    "claims_automatic_generation_active": false,
-    "claims_blocked_transition_executable": false,
-    "data_docs_only": true
+    "generated_by_ephemeral_sandbox": true,
+    "requires_ingestion_reentry": true,
+    "does_not_contain_workflow_files": true,
+    "does_not_mutate_ingestion_engine": true
   }
 }

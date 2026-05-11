@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-05-11T09:28:12Z",
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "transition-discovery-public-surface.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/transition-discovery-public-surface.zip",
+  "bundle_sha256": "6733ebab5bfb5b13260284384279f7757f8548fba1a2706abd9c5322e281fa8d",
+  "mode": "apply",
+  "bundle_class": "complex_unmanifested_bundle",
+  "verdict": "SANDBOX_REQUIRED",
+  "route": "sandbox_queue",
+  "reason": "complex bundle lacks manifest",
+  "mapped_paths": [
+    "transition-discovery-public-surface/README.md",
+    "transition-discovery-public-surface/assets/transition-discovery-state.js",
+    "transition-discovery-public-surface/assets/transition-page-renderer.js",
+    "transition-discovery-public-surface/transition-development-status.html",
+    "transition-discovery-public-surface/transition-milestones.html",
+    "transition-discovery-public-surface/transition-release-index.html",
+    "transition-discovery-public-surface/transition-release-snapshot.html",
+    "transition-discovery-public-surface/transition-replay-packet.html",
+    "transition-discovery-public-surface/transition-table.html",
+    "transition-discovery-public-surface/transition-verification-guide.html"
+  ],
+  "decisions": []
+}
