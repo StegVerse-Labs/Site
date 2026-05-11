@@ -1,16 +1,17 @@
 {
-  "generated_at": "2026-05-11T01:57:07Z",
+  "generated_at": "2026-05-11T03:37:38Z",
   "schema": "stegverse.headless_task_runset.v1",
   "runset_id": "transition-discovery-automation-runset-v1",
-  "formal_milestone": "MS-012K.4 \u2014 Declared Task Runset Selector",
+  "formal_milestone": "MS-013A \u2014 Vaulted Capability Automation Runset Extension",
   "authority_class": "observe_state",
-  "purpose": "Declare the bounded automation task sequence that advances transition-table discovery.",
+  "purpose": "Declare the bounded automation task sequence that advances transition-table discovery and includes the first TV/TVC consequence gate.",
   "tasks": [
     "data/headless-tasks/transition-authority-audit-v1.json",
     "data/headless-tasks/site-path-category-authority-audit-v1.json",
     "data/headless-tasks/transition-discovery-ledger-v1.json",
     "data/headless-tasks/site-construction-plane-discovery-v1.json",
-    "data/headless-tasks/failed-bundle-boundary-processor-v1.json"
+    "data/headless-tasks/failed-bundle-boundary-processor-v1.json",
+    "data/headless-tasks/vaulted-capability-gate-v1.json"
   ],
   "allowed_task_authority_classes": [
     "observe_state",
@@ -32,12 +33,17 @@
     "transition_discovery_reports/",
     "reviewed_failed_bundles/",
     "sandbox_queue/",
-    "privileged_queue/"
+    "privileged_queue/",
+    "vault_reports/"
   ],
   "stop_on_failure": false,
   "safety": {
     "no_workflow_files": true,
     "no_arbitrary_glob_execution": true,
-    "runset_is_data_authority": true
+    "runset_is_data_authority": true,
+    "no_secret_material": true,
+    "no_real_token_issuance": true,
+    "no_payment_settlement": true,
+    "vaulted_capability_receipts_only": true
   }
 }

@@ -2,9 +2,9 @@
 
 Transition discovery reports are written here.
 
-This bundle adds expected outputs:
+MS-013A extends the automation runset to include the vaulted capability gate. Vault-specific outputs are written under:
 
 ```text
-failed-bundle-boundary-report.json
-failed-bundle-boundary-report.md
+vault_reports/
+headless_cmd_reports/
 ```

@@ -247,6 +247,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "9fe91a78f51c113b6229ba1532d30af617255d7a2448677052bdccdfac57b8de"
+    },
+    {
+      "generated_at": "2026-05-11T03:50:42Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms013a-vaulted-capability-automation-runset-extension-v1.zip",
+      "bundle_sha256": "14ab4cd6c0f632e9cc4b5470acf441fbcdca255cfeba3805ed27d14acaf0b360",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "48196ed9831104c85fe5a3e9e7059a8c6e9dfc5ed514d6b50f71f8eda5925f5f"
     }
   ]
 }

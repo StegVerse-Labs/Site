@@ -1,54 +1,35 @@
 {
-  "generated_at": "2026-05-11T03:21:19Z",
+  "generated_at": "2026-05-11T03:37:38Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms013-vaulted-capability-transition-layer-v1",
-  "formal_milestone": "MS-013 \u2014 Vaulted Capability Transition Layer",
-  "purpose": "Introduce the first TV/TVC consequence layer: vaulted capability request evaluation and receipt generation.",
+  "bundle_id": "ms013a-vaulted-capability-automation-runset-extension-v1",
+  "formal_milestone": "MS-013A \u2014 Vaulted Capability Automation Runset Extension",
+  "purpose": "Add the vaulted capability gate to the data-driven transition discovery automation runset.",
   "files": [
     {
-      "path": "data/transition-table/vaulted-capability-transition-layer-v1.json",
-      "version": "v1",
-      "role": "transition_layer"
+      "path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+      "version": "v2-ms013a-vault-task-added",
+      "role": "automation_runset"
     },
     {
-      "path": "data/vault/vaulted-capability-policy-v1.json",
-      "version": "v1",
-      "role": "vault_policy"
-    },
-    {
-      "path": "data/vault/example-vaulted-capability-request-v1.json",
-      "version": "v1",
-      "role": "example_request"
-    },
-    {
-      "path": "tools/vaulted_capability_gate.py",
-      "version": "v1",
-      "role": "vaulted_capability_gate"
-    },
-    {
-      "path": "data/headless-tasks/vaulted-capability-gate-v1.json",
-      "version": "v1",
-      "role": "declared_task"
-    },
-    {
-      "path": "vault_reports/README.md",
-      "version": "v1",
-      "role": "report_docs"
-    },
-    {
-      "path": "docs/MS-013-vaulted-capability-transition-layer.md",
+      "path": "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
       "version": "v1",
       "role": "docs"
+    },
+    {
+      "path": "transition_discovery_reports/README.md",
+      "version": "v3",
+      "role": "report_docs"
     }
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
+    "changes_ingestion_engine": false,
     "contains_secrets": false,
     "issues_real_tokens": false,
     "settles_payments": false,
     "raw_secret_release": false,
-    "receipt_only": true
+    "data_only_runset_extension": true
   }
 }

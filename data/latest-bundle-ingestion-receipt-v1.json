@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T03:25:10Z",
+  "generated_at": "2026-05-11T03:50:42Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms013-vaulted-capability-transition-layer-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms013-vaulted-capability-transition-layer-v1.zip",
-  "bundle_sha256": "86b8977e26c3977e188c07a713f2bfd992caf888ef2e8165af53e9c1cdeeb9f0",
+  "bundle_name": "ms013a-vaulted-capability-automation-runset-extension-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms013a-vaulted-capability-automation-runset-extension-v1.zip",
+  "bundle_sha256": "14ab4cd6c0f632e9cc4b5470acf441fbcdca255cfeba3805ed27d14acaf0b360",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,25 +13,21 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "data/headless-tasks/vaulted-capability-gate-v1.json",
-    "data/transition-table/vaulted-capability-transition-layer-v1.json",
-    "data/vault/example-vaulted-capability-request-v1.json",
-    "data/vault/vaulted-capability-policy-v1.json",
-    "docs/MS-013-vaulted-capability-transition-layer.md",
-    "tools/vaulted_capability_gate.py",
-    "vault_reports/README.md"
+    "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+    "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
+    "transition_discovery_reports/README.md"
   ],
-  "files_seen": 9,
-  "files_created": 7,
-  "files_updated": 1,
+  "files_seen": 5,
+  "files_created": 1,
+  "files_updated": 3,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "a13f939651cf3074542f7a41103d1bd387ad3fd018ef591418108f716fdb2123",
-    "after_tree_fingerprint": "f40b356243eb6cd22b6d00cc784b29292381cb0404b97a6cdeff882d29f17bc4",
-    "changed_files_fingerprint": "9fe91a78f51c113b6229ba1532d30af617255d7a2448677052bdccdfac57b8de"
+    "before_tree_fingerprint": "0175d2f2267d40d6649f8de0fcf43cc1880a91c5a5dfa7b08c656a9007103201",
+    "after_tree_fingerprint": "31b3cfb8dc9b9d6df5ebe28f0b2810c42b22d236c6b7b1afc4928be8d8b7f531",
+    "changed_files_fingerprint": "48196ed9831104c85fe5a3e9e7059a8c6e9dfc5ed514d6b50f71f8eda5925f5f"
   },
   "decisions": [
     {
@@ -40,80 +36,44 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "357ced71bc9715aa6f0489f04f61899bd49c6a0486311861e9f22e6241238b37",
-      "bytes": 371
+      "new_sha256": "e0f861fa6100e8cad3e706fbc27e07a347f12639194451aecba2979133eddb65",
+      "bytes": 344
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "d442e1410737da520d80acc3236cd32db7735ab76f684c88a51c892cd2c5aec8",
-      "new_sha256": "8344753f7a70c312afe60275d4ba8753d26c3c0e26d539fffb7b75ff9083afff",
-      "bytes": 1559
+      "old_sha256": "8344753f7a70c312afe60275d4ba8753d26c3c0e26d539fffb7b75ff9083afff",
+      "new_sha256": "4f0f4d0474c70449137322507879368f124149e86c722605789dc9c827442e93",
+      "bytes": 1152
     },
     {
-      "bundle_path": "data/headless-tasks/vaulted-capability-gate-v1.json",
-      "repo_path": "data/headless-tasks/vaulted-capability-gate-v1.json",
+      "bundle_path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+      "repo_path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "9e7d489397286a25e8f373b19a88a59e9c76eab4f5dcf65c8f4c8d19fddd41f8",
+      "new_sha256": "6a17bde9cefe3905f527c1b8b986dcd5f26a41b298cd0f45bf60020f5ba5ef76",
+      "bytes": 1714
+    },
+    {
+      "bundle_path": "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
+      "repo_path": "docs/MS-013A-vaulted-capability-automation-runset-extension.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "8b9744026953805804d56bf40001245f25d79234c1e7ec27c875581d5b1e54fc",
-      "bytes": 1068
+      "new_sha256": "2a1a12316bcea2dda2ed9eebc89602bafd3070e473694ac9af3a8d29aa4bb513",
+      "bytes": 1285
     },
     {
-      "bundle_path": "data/transition-table/vaulted-capability-transition-layer-v1.json",
-      "repo_path": "data/transition-table/vaulted-capability-transition-layer-v1.json",
-      "action": "created",
+      "bundle_path": "transition_discovery_reports/README.md",
+      "repo_path": "transition_discovery_reports/README.md",
+      "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "443d10ffbd3229b21b1d7dd1190c91fb659b0514d093fb17cf3f81ef55456ff9",
-      "bytes": 7460
-    },
-    {
-      "bundle_path": "data/vault/example-vaulted-capability-request-v1.json",
-      "repo_path": "data/vault/example-vaulted-capability-request-v1.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "54da3520312f7a1d2ff12ecfbd63fd16f05beeeaba0784c4efb1677579a554e1",
-      "bytes": 1004
-    },
-    {
-      "bundle_path": "data/vault/vaulted-capability-policy-v1.json",
-      "repo_path": "data/vault/vaulted-capability-policy-v1.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "9f64a6c06e60e1f2f0117d0ba3aaa8cbef61c1a3c91618fae5409b66422d4ad5",
-      "bytes": 1766
-    },
-    {
-      "bundle_path": "docs/MS-013-vaulted-capability-transition-layer.md",
-      "repo_path": "docs/MS-013-vaulted-capability-transition-layer.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "bb4dfd50a9639627efccdcc36eea0c468dcbd2a2f270f7cb3968d706dcb54e48",
-      "bytes": 1254
-    },
-    {
-      "bundle_path": "tools/vaulted_capability_gate.py",
-      "repo_path": "tools/vaulted_capability_gate.py",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "f2034e105c98b9db1c1da24e13158831caf44cbc62423d0524d529cc3d3717df",
-      "bytes": 8447
-    },
-    {
-      "bundle_path": "vault_reports/README.md",
-      "repo_path": "vault_reports/README.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "5b7c0845748dffe6444d0ce09f62362f28dc254f664f40317d4aa01aee37a6f0",
-      "bytes": 280
+      "old_sha256": "8c822b355cb32d29b5dc306cbd0ca2bf9fd1abab5e424eec6c762652a3bba2f6",
+      "new_sha256": "356093388fab1f9280dc4527cefacb7643f57fb334ae43d734f13f1629fcbf83",
+      "bytes": 250
     }
   ]
 }
