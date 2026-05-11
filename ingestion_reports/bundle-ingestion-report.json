@@ -1,25 +1,35 @@
 {
-  "generated_at": "2026-05-11T06:23:01Z",
+  "generated_at": "2026-05-11T07:24:15Z",
   "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012k6b-transition-automation-post-install-trigger-v1.zip",
+  "bundle": "/home/runner/work/Site/Site/incoming/ms012k7-approved-privileged-install-transition-state-v1.zip",
   "mode": "apply",
   "receipt": {
-    "generated_at": "2026-05-11T06:23:01Z",
-    "schema": "stegverse.stale_incoming_receipt.v1",
+    "generated_at": "2026-05-11T07:24:15Z",
+    "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-    "incoming_path": "/home/runner/work/Site/Site/incoming/ms012k6b-transition-automation-post-install-trigger-v1.zip",
-    "file_name": "ms012k6b-transition-automation-post-install-trigger-v1.zip",
-    "file_sha256": "14d5ba39d96b03d64d219371b65d862901a74aeea902db5d677d9aa43e21b66e",
-    "bundle_sha256": "14d5ba39d96b03d64d219371b65d862901a74aeea902db5d677d9aa43e21b66e",
-    "verdict": "STALE_INCOMING_QUARANTINED",
-    "route": "failed_bundles",
-    "seen_state": "already_installed",
-    "reason": "Incoming bundle is already seen as already_installed; quarantined as stale queue debris instead of being silently skipped."
+    "bundle_name": "ms012k7-approved-privileged-install-transition-state-v1.zip",
+    "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k7-approved-privileged-install-transition-state-v1.zip",
+    "bundle_sha256": "4e523b6f8c7fd58a1eff9c3532fab63ab252932f4d20700f1076da2efe531ae3",
+    "mode": "apply",
+    "bundle_class": "ingestion_engine_mutation_bundle",
+    "verdict": "SANDBOX_REQUIRED",
+    "route": "sandbox_queue",
+    "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+    "mapped_paths": [
+      "README.md",
+      "bundle-manifest.json",
+      "data/transition-table/approved-privileged-install-transition-state-v1.json",
+      "docs/MS-012K7-approved-privileged-install-transition-state.md",
+      "privileged_queue/ms012k7-human-approval-approved-privileged-install-transition-state-v1.json",
+      "tools/bundle_ingest.py",
+      "transition_authority_reports/ms012k7-approved-privileged-install-transition-state-report.json",
+      "transition_authority_reports/ms012k7-approved-privileged-install-transition-state-report.md"
+    ],
+    "decisions": []
   },
   "summary": {
     "applied": 0,
-    "stale_quarantined": 1,
-    "seen_state": "already_installed",
+    "routed": "sandbox_queue",
     "source_removed_from_incoming": 1
   }
 }
