@@ -1,77 +1,10 @@
 {
-  "generated_at": "2026-05-10T23:02:25Z",
+  "generated_at": "2026-05-11T00:14:50Z",
   "schema": "stegverse.bundle_queue_report.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
   "mode": "apply",
-  "bundles_seen": 1,
+  "bundles_seen": 0,
   "stale_files_seen": 0,
-  "reports": [
-    {
-      "generated_at": "2026-05-10T23:02:25Z",
-      "schema": "stegverse.bundle_ingestion_report.v1",
-      "bundle": "/home/runner/work/Site/Site/incoming/ms012i1-site-ingest-sandbox-workflow-replacement.zip",
-      "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
-      "mode": "apply",
-      "receipt": {
-        "generated_at": "2026-05-10T23:02:25Z",
-        "schema": "stegverse.bundle_ingestion_receipt.v1",
-        "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-        "bundle_name": "ms012i1-site-ingest-sandbox-workflow-replacement.zip",
-        "bundle_path": "/home/runner/work/Site/Site/incoming/ms012i1-site-ingest-sandbox-workflow-replacement.zip",
-        "bundle_sha256": "84576637b22e90d0a93a3c0a67c88ec9d6d7059b3ebc63cd154245f3ab710ce6",
-        "mode": "apply",
-        "bundle_class": "ordinary_bundle",
-        "verdict": "ALLOW",
-        "route": "ingest",
-        "reason": "ordinary bundle allowed",
-        "mapped_paths": [
-          "README.md",
-          "ingest-bundle.yml"
-        ],
-        "files_seen": 2,
-        "files_created": 1,
-        "files_updated": 0,
-        "files_unchanged": 0,
-        "files_skipped": 1,
-        "unsafe_paths_rejected": 0,
-        "path_mappings_applied": [],
-        "repo_transition": {
-          "before_tree_fingerprint": "30db8c71242645381f9dfded3647c97b5b3af0583ad19a60f9c5adc472c0120a",
-          "after_tree_fingerprint": "c3118eeea2b644c86d5f4be136327ebec14f0321fad15b3e875bf373d1bddb21",
-          "changed_files_fingerprint": "ebfd9eddbd862c30dc4477b771118288d3f12ce11b824a6b8f78d2136ef5b725"
-        },
-        "decisions": [
-          {
-            "bundle_path": "README.md",
-            "repo_path": null,
-            "action": "skipped",
-            "reason": "bundle root README is documentation and is not applied to repo root",
-            "old_sha256": null,
-            "new_sha256": "6230f1058ed561ce8c8c77bdd930ab5b9f0c1f09f7e9d1e11bef00237e1508c9",
-            "bytes": 801
-          },
-          {
-            "bundle_path": "ingest-bundle.yml",
-            "repo_path": "ingest-bundle.yml",
-            "action": "created",
-            "reason": "hash differs or target missing",
-            "old_sha256": null,
-            "new_sha256": "d44f6311fc3d934cb04739ad698aa6b981b59258a9e5d8ecd5849371dc7b3d11",
-            "bytes": 7004
-          }
-        ]
-      },
-      "summary": {
-        "total_entries_seen": 2,
-        "applied": 1,
-        "unchanged": 0,
-        "skipped": 1,
-        "path_mappings": 0,
-        "unsafe_paths_rejected": 0,
-        "installed_archived": 1,
-        "source_removed_from_incoming": 1
-      }
-    }
-  ],
+  "reports": [],
   "stale_receipts": []
 }

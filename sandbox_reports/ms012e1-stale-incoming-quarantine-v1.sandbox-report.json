@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-05-11T00:14:50Z",
+  "schema": "stegverse.ephemeral_sandbox_report.v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "bundle_name": "ms012e1-stale-incoming-quarantine-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/ms012e1-stale-incoming-quarantine-v1.zip",
+  "bundle_sha256": "b23bf57970e554fec39b8e16fc62e3cd365f65ae1d5a0868ee4d5fb5be2b7a82",
+  "mode": "apply",
+  "verdict": "HOLD",
+  "classification": "manual_review_required",
+  "reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
+  "candidate_created": false,
+  "candidate_path": null,
+  "member_findings": [
+    {
+      "path": "README.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 1525,
+      "sha256": "95a3e900d07bf75fe99d79a74fa673268e3ff003ab3dfd3a701ed23f945b8ad0"
+    },
+    {
+      "path": "bundle-manifest.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 853,
+      "sha256": "0a80aa5ce8ad85e8dc9ce9d1bfa8054bf0b32561650d91ee2c1c838285671380"
+    },
+    {
+      "path": "data/bundle-ingestion-policy-v1.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 3424,
+      "sha256": "c697c1d0ad8f1902bdf6ebdacc32a11aa166681c29fc63b3ae10069b2f3676c2"
+    },
+    {
+      "path": "tools/bundle_ingest.py",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 18203,
+      "sha256": "e1bf12b52c62d0aef0c884739ce1651ac496346e6573530bccacc8b2bb7a7c14"
+    }
+  ]
+}

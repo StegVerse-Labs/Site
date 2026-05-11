@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-05-11T00:14:50Z",
+  "schema": "stegverse.ephemeral_sandbox_report.v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "bundle_name": "ms012d1-evidence-artifact-routing-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/ms012d1-evidence-artifact-routing-v1.zip",
+  "bundle_sha256": "a05d7c13ea7be7a1b81ba6ece8ab76fff6c24a97a09cfe115b65b139052cb65e",
+  "mode": "apply",
+  "verdict": "HOLD",
+  "classification": "manual_review_required",
+  "reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
+  "candidate_created": false,
+  "candidate_path": null,
+  "member_findings": [
+    {
+      "path": "README.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 1663,
+      "sha256": "112d1e062a0f7dee55a08b52686339468ffecd10506c7d65afe94242426d7de3"
+    },
+    {
+      "path": "bundle-manifest.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 1332,
+      "sha256": "bf51254d457623c7373adf85209cbeb40998389c040be53c88ad66914aa3e709"
+    },
+    {
+      "path": "data/bundle-ingestion-policy-v1.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 2575,
+      "sha256": "145bf0090126df9cdfb431bd04f58c7e0ca5442da04eb79bccdf2c53c5f11bbf"
+    },
+    {
+      "path": "tools/bundle_ingest.py",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 13646,
+      "sha256": "9c518ff90c03525f7cbbac756601dd6f0ce8544fc98434a519dadd928b1c4b0c"
+    }
+  ]
+}

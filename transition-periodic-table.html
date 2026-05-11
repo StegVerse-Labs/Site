@@ -14,6 +14,7 @@
   --green:#43d694;
   --blue:#4da3ff;
   --gold:#ffbe54;
+  --red:#ff6b6b;
 }
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(circle at top left,rgba(77,163,255,.14),transparent 32rem),var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
@@ -49,14 +50,30 @@ code{word-break:break-word;color:#f5fbff}
 .transition-card .meta{color:var(--muted);font-size:.9rem;margin-top:8px}
 .brightness{height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}
 .brightness span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:var(--w,0%)}
-@media(max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.authority-flow{display:grid;gap:12px;margin:16px 0}
+.authority-step{display:grid;grid-template-columns:110px 1fr auto;gap:14px;align-items:center;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
+.authority-step strong{color:var(--green);letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+.authority-step span{color:var(--muted)}
+.pill{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:900;font-size:.75rem;white-space:nowrap}
+.pill.allow{color:var(--green);border-color:rgba(67,214,148,.38);background:rgba(67,214,148,.08)}
+.pill.hold{color:var(--gold);border-color:rgba(255,190,84,.38);background:rgba(255,190,84,.08)}
+.pill.deny{color:var(--red);border-color:rgba(255,107,107,.38);background:rgba(255,107,107,.08)}
+.authority-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+.authority-card{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(0,0,0,.18)}
+.authority-card h3{color:var(--text)}
+.authority-card small{display:block;color:var(--green);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.authority-card p{font-size:.95rem;margin:8px 0}
+.authority-card ul{font-size:.92rem;color:var(--muted)}
+.authority-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:12px}
+.authority-meta div{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.035)}
+.authority-meta strong{display:block;color:var(--green)}
+.warn-box{border:1px solid rgba(255,190,84,.35);background:rgba(255,190,84,.07);border-radius:18px;padding:16px;margin-top:14px;color:var(--muted)}
+@media(max-width:860px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.authority-step{grid-template-columns:1fr}}
 @media(max-width:560px){.grid{grid-template-columns:1fr}section{border-radius:18px}}
 </style>
 </head>
 <body>
 <main>
-
-
 
 <nav>
   <a href="index.html"><strong>StegVerse</strong></a>
@@ -74,9 +91,6 @@ code{word-break:break-word;color:#f5fbff}
     <a href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00">Support Research</a>
   </div>
 </nav>
-
-
-
 
 <section>
   <p class="kicker">StegVerse Research Surface</p>
@@ -115,6 +129,51 @@ code{word-break:break-word;color:#f5fbff}
 </section>
 
 <section>
+  <h2>Transition Elements as Action Authority</h2>
+  <p>
+    Transition elements are not only research categories. In the StegVerse implementation, each discovered element can unlock a bounded action class: what may be done, where it may act, what receipt is required, and when the action must stop.
+  </p>
+  <p>
+    This page reads the live transition authority map from <code>data/transition-table/transition-element-action-authority-map-v1.json</code>. When new actions unlock through table discovery, the data file changes and this section updates automatically.
+  </p>
+
+  <div class="authority-flow">
+    <div class="authority-step">
+      <strong>Path</strong>
+      <span>A known repository path changes or a report/receipt identifies a new outcome.</span>
+      <em class="pill allow">bounded handler</em>
+    </div>
+    <div class="authority-step">
+      <strong>Table</strong>
+      <span>The authority map identifies the observed transition element and unlocked action class.</span>
+      <em class="pill hold">authority source</em>
+    </div>
+    <div class="authority-step">
+      <strong>Tool</strong>
+      <span>A declared tool executes only the authorized outcome: ingest, route, quarantine, archive, sandbox-review, candidate construction, or review preparation.</span>
+      <em class="pill allow">execution surface</em>
+    </div>
+    <div class="authority-step">
+      <strong>Receipt</strong>
+      <span>The result records the allowed paths, required receipt, stop condition, and whether human approval was required.</span>
+      <em class="pill allow">evidence</em>
+    </div>
+  </div>
+
+  <div class="authority-meta" id="authority-boundary">
+    <div><strong>Routine authority</strong><span id="routine-authority">Loading…</span></div>
+    <div><strong>Human approval</strong><span id="human-authority">Loading…</span></div>
+    <div><strong>Not unlocked</strong><span id="locked-authority">Loading…</span></div>
+  </div>
+
+  <div class="authority-grid" id="authority-actions"></div>
+
+  <div class="warn-box" id="authority-source">
+    Loading transition authority map…
+  </div>
+</section>
+
+<section>
   <h2>Development Verification</h2>
   <p>
     The current development release exposes milestone history, release status, release snapshot, public JSON verifier surfaces, and the transition table itself.
@@ -122,6 +181,7 @@ code{word-break:break-word;color:#f5fbff}
   <a class="btn" href="data/automation-release-verifier.json">Automation Verifier JSON</a>
   <a class="btn" href="data/transition-release-index-v1.json">Release Index JSON</a>
   <a class="btn" href="data/transition-release-snapshot-v1.json">Release Snapshot JSON</a>
+  <a class="btn" href="data/transition-table/transition-element-action-authority-map-v1.json">Transition Authority Map JSON</a>
 </section>
 </main>
 <script>
@@ -134,9 +194,70 @@ async function fetchJSON(path, fallback) {
     return fallback;
   }
 }
+function humanize(value) {
+  return String(value || "").replaceAll("_"," ").replaceAll("-"," ");
+}
+function renderList(items) {
+  if (!Array.isArray(items) || items.length === 0) return "none";
+  return items.map(humanize).join(", ");
+}
+function pillFor(action) {
+  if (action.human_approval_required) return '<span class="pill hold">human approval</span>';
+  if (action.sandbox_required) return '<span class="pill hold">sandbox</span>';
+  return '<span class="pill allow">routine</span>';
+}
+function renderAuthorityMap(map) {
+  const boundary = map.current_site_authority_boundary || {};
+  document.getElementById("routine-authority").textContent = renderList(boundary.unlocked_for_routine_action);
+  document.getElementById("human-authority").textContent = renderList(boundary.human_approval_required);
+  document.getElementById("locked-authority").textContent = renderList(boundary.explicitly_not_unlocked);
+
+  const actions = map.action_classes || {};
+  const elements = map.transition_elements || {};
+  const actionHost = document.getElementById("authority-actions");
+  actionHost.innerHTML = "";
+
+  Object.entries(actions).forEach(([name, action]) => {
+    const card = document.createElement("article");
+    card.className = "authority-card";
+    const allowed = (action.allowed_paths || []).slice(0, 5).map(path => `<li><code>${path}</code></li>`).join("");
+    const forbidden = (action.forbidden_paths || []).slice(0, 4).map(path => `<li><code>${path}</code></li>`).join("");
+    card.innerHTML = `
+      <small>${humanize(action.authority_level)}</small>
+      <h3>${humanize(name)}</h3>
+      <p>${pillFor(action)}</p>
+      <p><strong>Required receipt:</strong> <code>${action.required_receipt || "unspecified"}</code></p>
+      <p><strong>Stop condition:</strong> ${humanize(action.stop_condition || "unspecified")}</p>
+      <p><strong>Allowed paths</strong></p>
+      <ul>${allowed || "<li>none declared</li>"}</ul>
+      <p><strong>Forbidden paths</strong></p>
+      <ul>${forbidden || "<li>none declared</li>"}</ul>
+    `;
+    actionHost.appendChild(card);
+  });
+
+  const source = document.getElementById("authority-source");
+  source.innerHTML = `
+    <strong>Live authority map:</strong> <code>${map.map_id || "unknown"}</code><br/>
+    <strong>Transition elements currently mapped:</strong> ${Object.keys(elements).length}<br/>
+    <strong>Action classes currently mapped:</strong> ${Object.keys(actions).length}<br/>
+    <strong>Principle:</strong> ${map.authority_principle || "Transition elements unlock action classes."}
+  `;
+}
 (async () => {
   const state = await fetchJSON("data/automation-release-state.json", {current_state:"unknown"});
   document.getElementById("state").textContent = String(state.current_state || "unknown").replaceAll("_"," ");
+
+  const authorityMap = await fetchJSON("data/transition-table/transition-element-action-authority-map-v1.json", null);
+  if (authorityMap) {
+    renderAuthorityMap(authorityMap);
+  } else {
+    document.getElementById("routine-authority").textContent = "authority map unavailable";
+    document.getElementById("human-authority").textContent = "authority map unavailable";
+    document.getElementById("locked-authority").textContent = "authority map unavailable";
+    document.getElementById("authority-actions").innerHTML = "";
+    document.getElementById("authority-source").textContent = "Transition authority map not found yet. Install MS-012J to enable this live section.";
+  }
 })();
 </script>
 </body>

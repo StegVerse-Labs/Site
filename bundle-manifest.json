@@ -1,62 +1,26 @@
 {
-  "generated_at": "2026-05-10T22:31:38Z",
+  "generated_at": "2026-05-11T00:13:13Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012i-site-ephemeral-sandbox-protocols-v1",
-  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
-  "purpose": "Install bounded ephemeral sandbox protocols for Site sandbox_queue review, candidate repair generation, and ingestion re-entry.",
+  "bundle_id": "ms012j2-transition-periodic-table-authority-surface-v1",
+  "formal_milestone": "MS-012J.2 \u2014 Transition Periodic Table Authority Surface",
+  "purpose": "Update transition-periodic-table.html so action authority is rendered dynamically from the transition element action authority map JSON.",
   "files": [
     {
-      "path": "tools/ephemeral_sandbox_runner.py",
+      "path": "transition-periodic-table.html",
       "version": "v1",
-      "role": "ephemeral_sandbox_runner"
-    },
-    {
-      "path": "data/sandbox/ephemeral-sandbox-policy-v1.json",
-      "version": "v1",
-      "role": "sandbox_policy"
-    },
-    {
-      "path": "data/headless-tasks/ephemeral-sandbox-run-v1.json",
-      "version": "v1",
-      "role": "declared_sandbox_task"
-    },
-    {
-      "path": "sandbox_reports/README.md",
-      "version": "v1",
-      "role": "sandbox_report_docs"
-    },
-    {
-      "path": "sandbox_queue/README.md",
-      "version": "v2",
-      "role": "sandbox_queue_docs"
-    },
-    {
-      "path": "sandbox_reviewed/README.md",
-      "version": "v1",
-      "role": "sandbox_review_archive_docs"
-    },
-    {
-      "path": "incoming/README.md",
-      "version": "v3",
-      "role": "incoming_reentry_docs"
-    },
-    {
-      "path": "docs/MS-012I-site-ephemeral-sandbox-protocols.md",
-      "version": "v1",
-      "role": "sandbox_protocol_docs"
+      "role": "dynamic_transition_authority_surface"
     }
   ],
   "safety": {
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "changes_public_pages": false,
+    "changes_public_pages": true,
     "changes_selector_logic": false,
     "promotes_milestone": false,
     "no_cron": true,
     "no_workflow_run_chain": true,
     "no_self_trigger_zip": true,
-    "sandbox_does_not_install": true,
-    "repair_candidates_return_through_incoming": true
+    "data_driven_authority_surface": true
   }
 }

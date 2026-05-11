@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-05-11T00:14:50Z",
+  "schema": "stegverse.ephemeral_sandbox_report.v1",
+  "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
+  "bundle_name": "ms012e5-default-queue-mode-ingestor-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/ms012e5-default-queue-mode-ingestor-v1.zip",
+  "bundle_sha256": "c33ccf07acdd5576f74bed48dae60a67a79ce5d03cdf281c659b19b12b0786f1",
+  "mode": "apply",
+  "verdict": "HOLD",
+  "classification": "manual_review_required",
+  "reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
+  "candidate_created": false,
+  "candidate_path": null,
+  "member_findings": [
+    {
+      "path": "README.md",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 1241,
+      "sha256": "abcfbcac1ad01387074f487c64b1e2a9cb7bbacef70ab5794a1aefefb52c60de"
+    },
+    {
+      "path": "bundle-manifest.json",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 802,
+      "sha256": "31b2c1bda4e621ee6ee13f6f7756f92273c3d67c471ccf3ca88b63811da98b13"
+    },
+    {
+      "path": "tools/bundle_ingest.py",
+      "action": "accepted_for_review",
+      "reason": "safe member",
+      "size_bytes": 25242,
+      "sha256": "39bd0d9fcae2f22a7270894208f7a64231537c684d0c0995ef0be60152848a8a"
+    }
+  ]
+}

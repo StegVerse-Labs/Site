@@ -148,6 +148,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "ebfd9eddbd862c30dc4477b771118288d3f12ce11b824a6b8f78d2136ef5b725"
+    },
+    {
+      "generated_at": "2026-05-11T00:14:49Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012j2-transition-periodic-table-authority-surface-v1.zip",
+      "bundle_sha256": "9d75a1768fcfab926a7a2aa93ebbf15c1815d11aaa1cb27ac5aef32b6ff393ff",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "b9596f837773a7b129c77ba58d5da3a20dc8f9bd22841808cc6b487c55479950"
     }
   ]
 }
