@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-05-11T08:33:01Z",
+  "schema": "stegverse.canonical_execution_surfaces.v1",
+  "formal_milestone": "MS-012L.0 \u2014 Canonical Shell Dependency Map",
+  "invariant": "Authority cannot emerge from an unmapped surface. A mapped surface cannot exceed its declared scope.",
+  "surfaces": [
+    {
+      "surface_id": "workflow:ingest-bundle",
+      "repo_path": ".github/workflows/ingest-bundle.yml",
+      "shell": "workflow_shell",
+      "surface_class": "workflow_ingestion_surface",
+      "transition_block": "TE-workflow-bounded-ingestion-runner",
+      "current_activation_state": "active_observed",
+      "authority_scope": [
+        "invoke ingestion",
+        "invoke sandbox review",
+        "commit known output paths",
+        "upload reports"
+      ],
+      "mutation_gate": "privileged_workflow_review",
+      "required_receipts": [
+        "bundle_ingestion_receipt",
+        "ephemeral_sandbox_report"
+      ]
+    },
+    {
+      "surface_id": "tool:bundle_ingest",
+      "repo_path": "tools/bundle_ingest.py",
+      "shell": "tool_shell",
+      "surface_class": "ingestion_interpreter",
+      "transition_block": "TE-ingestion-engine-authority-surface",
+      "current_activation_state": "active_observed_hardcoded_bootstrap",
+      "authority_scope": [
+        "inspect bundles",
+        "classify paths",
+        "route lifecycle state",
+        "apply ordinary files",
+        "emit receipts"
+      ],
+      "mutation_gate": "privileged_engine_review",
+      "required_receipts": [
+        "bundle_ingestion_receipt",
+        "installed_bundle_receipt",
+        "stale_incoming_receipt"
+      ],
+      "known_limitation": "Does not interpret data-defined ingestion transition-state rules."
+    },
+    {
+      "surface_id": "tool:ephemeral_sandbox_runner",
+      "repo_path": "tools/ephemeral_sandbox_runner.py",
+      "shell": "tool_shell",
+      "surface_class": "sandbox_interpreter",
+      "transition_block": "TE-ephemeral-sandbox-review-surface",
+      "current_activation_state": "active_observed",
+      "authority_scope": [
+        "review sandbox_queue",
+        "emit sandbox HOLD evidence",
+        "avoid automatic engine-mutation install"
+      ],
+      "mutation_gate": "executable_support_review",
+      "required_receipts": [
+        "ephemeral_sandbox_report"
+      ]
+    },
+    {
+      "surface_id": "tool:headless_cmd_runner",
+      "repo_path": "tools/headless_cmd_runner.py",
+      "shell": "tool_shell",
+      "surface_class": "headless_task_runner",
+      "transition_block": "TE-declared-task-execution-surface",
+      "current_activation_state": "active_observed",
+      "authority_scope": [
+        "execute declared tasks under policy",
+        "emit task receipts",
+        "fail closed on disallowed authority"
+      ],
+      "mutation_gate": "executable_support_review",
+      "required_receipts": [
+        "headless_task_receipt"
+      ]
+    },
+    {
+      "surface_id": "tool:failed_bundle_boundary_processor",
+      "repo_path": "tools/failed_bundle_boundary_processor.py",
+      "shell": "tool_shell",
+      "surface_class": "lifecycle_boundary_processor",
+      "transition_block": "TE-failed-bundle-lifecycle-surface",
+      "current_activation_state": "active_observed",
+      "authority_scope": [
+        "analyze failed bundle evidence",
+        "prepare reviewed lifecycle outputs"
+      ],
+      "mutation_gate": "executable_support_review",
+      "required_receipts": [
+        "failed_bundle_boundary_report"
+      ]
+    },
+    {
+      "surface_id": "tool:headless_task_runset",
+      "repo_path": "tools/headless_task_runset.py",
+      "shell": "tool_shell",
+      "surface_class": "runset_selector",
+      "transition_block": "TE-declared-runset-selection-surface",
+      "current_activation_state": "active_observed",
+      "authority_scope": [
+        "read declared runsets",
+        "invoke bounded task runner sequence"
+      ],
+      "mutation_gate": "executable_support_review",
+      "required_receipts": [
+        "headless_task_runset_report",
+        "headless_task_receipt"
+      ]
+    },
+    {
+      "surface_id": "tool:transition_automation_controller",
+      "repo_path": "tools/transition_automation_controller.py",
+      "shell": "tool_shell",
+      "surface_class": "automation_controller",
+      "transition_block": "TE-transition-automation-controller-surface",
+      "current_activation_state": "active_observed_blocked_by_post_install_bridge",
+      "authority_scope": [
+        "invoke failed bundle boundary processor",
+        "invoke transition discovery runset"
+      ],
+      "mutation_gate": "executable_support_review",
+      "required_receipts": [
+        "transition_automation_controller_report"
+      ],
+      "known_limitation": "Automatic invocation is blocked until a canonical invocation path exists."
+    },
+    {
+      "surface_id": "tool:vaulted_capability_gate",
+      "repo_path": "tools/vaulted_capability_gate.py",
+      "shell": "tool_shell",
+      "surface_class": "vault_gate",
+      "transition_block": "TE-vaulted-capability-request-surface",
+      "current_activation_state": "active_observed_receipts_only",
+      "authority_scope": [
+        "evaluate non-secret vaulted capability request",
+        "emit capability receipts"
+      ],
+      "mutation_gate": "executable_support_review",
+      "required_receipts": [
+        "vaulted_capability_receipt"
+      ]
+    }
+  ]
+}

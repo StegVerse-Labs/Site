@@ -1,83 +1,10 @@
 {
-  "generated_at": "2026-05-11T07:24:15Z",
+  "generated_at": "2026-05-11T08:35:27Z",
   "schema": "stegverse.ephemeral_sandbox_queue_report.v1",
   "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
   "mode": "apply",
-  "bundles_seen": 1,
-  "reports": [
-    {
-      "generated_at": "2026-05-11T07:24:15Z",
-      "schema": "stegverse.ephemeral_sandbox_report.v1",
-      "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
-      "bundle_name": "ms012k7-approved-privileged-install-transition-state-v1.zip",
-      "bundle_path": "/home/runner/work/Site/Site/sandbox_queue/ms012k7-approved-privileged-install-transition-state-v1.zip",
-      "bundle_sha256": "4e523b6f8c7fd58a1eff9c3532fab63ab252932f4d20700f1076da2efe531ae3",
-      "mode": "apply",
-      "verdict": "HOLD",
-      "classification": "manual_review_required",
-      "reason": "Bundle mutates tools/bundle_ingest.py; sandbox will not emit an automatic repair candidate.",
-      "candidate_created": false,
-      "candidate_path": null,
-      "member_findings": [
-        {
-          "path": "README.md",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 467,
-          "sha256": "fc584940d1afb2dbb2b06fa35393550d521f00a6241e10e26f7c23c70174fdd7"
-        },
-        {
-          "path": "bundle-manifest.json",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 1545,
-          "sha256": "b5e48c00a9c0eecc647a7f4c174ee1238fcc2f3e30a09771c2030fce041c3a70"
-        },
-        {
-          "path": "data/transition-table/approved-privileged-install-transition-state-v1.json",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 1391,
-          "sha256": "0ea2ed4cafe14d0fcd6c17f308c0bfaec607a16bcbc0f15d44d2a7989238a339"
-        },
-        {
-          "path": "docs/MS-012K7-approved-privileged-install-transition-state.md",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 953,
-          "sha256": "1aa9f5766b8f6826681b93943d53d6f7292464055c6d906e360eba8577826774"
-        },
-        {
-          "path": "privileged_queue/ms012k7-human-approval-approved-privileged-install-transition-state-v1.json",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 714,
-          "sha256": "7852615b90cc12a195d12154bbe61e8ae1038fd6891c841b1df20f8e8ddfb44d"
-        },
-        {
-          "path": "tools/bundle_ingest.py",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 40618,
-          "sha256": "305cccd78e5b020233265dc14d61fec06c1013cf1a9b677306691226fd1348ff"
-        },
-        {
-          "path": "transition_authority_reports/ms012k7-approved-privileged-install-transition-state-report.json",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 606,
-          "sha256": "84cbc8b3e87269db47df17cbb0574b89bedc7d77ab7d5ec2460e6639358a52cb"
-        },
-        {
-          "path": "transition_authority_reports/ms012k7-approved-privileged-install-transition-state-report.md",
-          "action": "accepted_for_review",
-          "reason": "safe member",
-          "size_bytes": 249,
-          "sha256": "dd40f05c225109223fb739310fdb9f6f21ea9bef4314797302a6960ff1f6ba89"
-        }
-      ]
-    }
-  ],
+  "bundles_seen": 0,
+  "reports": [],
   "safety": {
     "bounded_single_pass": true,
     "does_not_install_live_files": true,

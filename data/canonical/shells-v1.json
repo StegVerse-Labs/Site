@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-05-11T08:33:01Z",
+  "schema": "stegverse.canonical_shells.v1",
+  "formal_milestone": "MS-012L.0 \u2014 Canonical Shell Dependency Map",
+  "principle": "Shells organize authority surfaces. Transitions connect shells. StegDB records dependency closure.",
+  "invariants": [
+    "Shells do not complete independently.",
+    "Transitions may be discovered out of shell order.",
+    "Discovery order is not execution authority order.",
+    "A transition may not execute until dependency closure is satisfied.",
+    "Authority cannot emerge from an unmapped surface.",
+    "A mapped surface cannot exceed its declared scope."
+  ],
+  "shells": [
+    {
+      "shell_id": "S1",
+      "shell_name": "workflow_shell",
+      "surface_type": "bounded invocation and commit surface",
+      "completion_state": "partial"
+    },
+    {
+      "shell_id": "S2",
+      "shell_name": "tool_shell",
+      "surface_type": "bounded interpreter and executable-support surface",
+      "completion_state": "partial"
+    },
+    {
+      "shell_id": "S3",
+      "shell_name": "data_shell",
+      "surface_type": "bounded state, authority, rule, map, and policy surface",
+      "completion_state": "discovered_partial"
+    },
+    {
+      "shell_id": "S4",
+      "shell_name": "capability_file_shell",
+      "surface_type": "capability-bearing file surface",
+      "completion_state": "discovered_partial"
+    },
+    {
+      "shell_id": "S5",
+      "shell_name": "vault_shell",
+      "surface_type": "private authority and revocation surface",
+      "completion_state": "discovered_non_executable"
+    },
+    {
+      "shell_id": "S6",
+      "shell_name": "value_shell",
+      "surface_type": "TVC and fiduciary-value surface",
+      "completion_state": "conceptual"
+    }
+  ]
+}

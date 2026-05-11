@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-05-11T08:33:01Z",
+  "schema": "stegverse.execution_surface_transition_blocks.v1",
+  "formal_milestone": "MS-012L.0 \u2014 Canonical Shell Dependency Map",
+  "transition_blocks": [
+    {
+      "block_id": "TE-workflow-bounded-ingestion-runner",
+      "shell": "workflow_shell",
+      "mild_transition_class": "T1-T2",
+      "surface_ids": [
+        "workflow:ingest-bundle"
+      ]
+    },
+    {
+      "block_id": "TE-ingestion-engine-authority-surface",
+      "shell": "tool_shell",
+      "surface_ids": [
+        "tool:bundle_ingest"
+      ]
+    },
+    {
+      "block_id": "TE-ephemeral-sandbox-review-surface",
+      "shell": "tool_shell",
+      "surface_ids": [
+        "tool:ephemeral_sandbox_runner"
+      ]
+    },
+    {
+      "block_id": "TE-declared-task-execution-surface",
+      "shell": "tool_shell",
+      "surface_ids": [
+        "tool:headless_cmd_runner"
+      ]
+    },
+    {
+      "block_id": "TE-transition-automation-controller-surface",
+      "shell": "tool_shell",
+      "surface_ids": [
+        "tool:transition_automation_controller"
+      ]
+    },
+    {
+      "block_id": "TE-vaulted-capability-request-surface",
+      "shell": "tool_shell",
+      "surface_ids": [
+        "tool:vaulted_capability_gate"
+      ]
+    }
+  ]
+}

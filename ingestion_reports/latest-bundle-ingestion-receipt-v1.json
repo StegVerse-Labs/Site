@@ -1,24 +1,109 @@
 {
-  "generated_at": "2026-05-11T07:24:15Z",
+  "generated_at": "2026-05-11T08:35:27Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012k7-approved-privileged-install-transition-state-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k7-approved-privileged-install-transition-state-v1.zip",
-  "bundle_sha256": "4e523b6f8c7fd58a1eff9c3532fab63ab252932f4d20700f1076da2efe531ae3",
+  "bundle_name": "ms012l0-canonical-shell-dependency-map-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012l0-canonical-shell-dependency-map-v1.zip",
+  "bundle_sha256": "4f8d3cdb1f7ef00c9d0f9eaac754c6f9868ea44d9f529f1f95e8aecc5ab73367",
   "mode": "apply",
-  "bundle_class": "ingestion_engine_mutation_bundle",
-  "verdict": "SANDBOX_REQUIRED",
-  "route": "sandbox_queue",
-  "reason": "automatic queue mode must not apply bundles that mutate the ingestion engine",
+  "bundle_class": "ordinary_bundle",
+  "verdict": "ALLOW",
+  "route": "ingest",
+  "reason": "ordinary bundle allowed",
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "data/transition-table/approved-privileged-install-transition-state-v1.json",
-    "docs/MS-012K7-approved-privileged-install-transition-state.md",
-    "privileged_queue/ms012k7-human-approval-approved-privileged-install-transition-state-v1.json",
-    "tools/bundle_ingest.py",
-    "transition_authority_reports/ms012k7-approved-privileged-install-transition-state-report.json",
-    "transition_authority_reports/ms012k7-approved-privileged-install-transition-state-report.md"
+    "data/canonical/blocked-transitions-v1.json",
+    "data/canonical/execution-surfaces-v1.json",
+    "data/canonical/shells-v1.json",
+    "data/canonical/transition-dependency-graph-v1.json",
+    "data/transition-table/execution-surface-transition-blocks-v1.json",
+    "docs/MS-012L0-canonical-shell-dependency-map.md"
   ],
-  "decisions": []
+  "files_seen": 8,
+  "files_created": 6,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1,
+  "unsafe_paths_rejected": 0,
+  "path_mappings_applied": [],
+  "repo_transition": {
+    "before_tree_fingerprint": "bec229fce8fadede5160eff2db2dd878783d44f9f844d908ca7ece8499c6489b",
+    "after_tree_fingerprint": "0f7cc8a5098ed21bf0e93953c57652e020c80f749adf61e331417368b3259a98",
+    "changed_files_fingerprint": "6353aefbbc13afd94ecdc788a2e755a8e31c9089c5d42687715b5fc1b514579d"
+  },
+  "decisions": [
+    {
+      "bundle_path": "README.md",
+      "repo_path": null,
+      "action": "skipped",
+      "reason": "bundle root README is documentation and is not applied to repo root",
+      "old_sha256": null,
+      "new_sha256": "6f3110aa8de52fce7c85bd9377f808686ddadfa178c3e16cf1b0e9b1141c00dd",
+      "bytes": 256
+    },
+    {
+      "bundle_path": "bundle-manifest.json",
+      "repo_path": "bundle-manifest.json",
+      "action": "updated",
+      "reason": "hash differs or target missing",
+      "old_sha256": "254b44ba77c8e0665399205b25159796547d8da36051dcc69f18dd90c71e3242",
+      "new_sha256": "b2094719cba4697bdb383d76669a965ea296e4d53a861e9bb330235912dd9f04",
+      "bytes": 1347
+    },
+    {
+      "bundle_path": "data/canonical/blocked-transitions-v1.json",
+      "repo_path": "data/canonical/blocked-transitions-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "52ebe93740ad9b8e35db3b7c942ab0ec72223cc767677f87879097e859a2185a",
+      "bytes": 1193
+    },
+    {
+      "bundle_path": "data/canonical/execution-surfaces-v1.json",
+      "repo_path": "data/canonical/execution-surfaces-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "ddfcc4ca2495ab8acaf0f729e6d563e68bfb1e765a01646754141c4e58e9dd1a",
+      "bytes": 5409
+    },
+    {
+      "bundle_path": "data/canonical/shells-v1.json",
+      "repo_path": "data/canonical/shells-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "522f3b905b4e723de609495df03686096ff75f2a5fcaa61a0adcf838531e68ea",
+      "bytes": 1770
+    },
+    {
+      "bundle_path": "data/canonical/transition-dependency-graph-v1.json",
+      "repo_path": "data/canonical/transition-dependency-graph-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "77633660e965af71d6c8e8307caaae28e8e2ccb18ace1c6d0dc41b28349af5bc",
+      "bytes": 4678
+    },
+    {
+      "bundle_path": "data/transition-table/execution-surface-transition-blocks-v1.json",
+      "repo_path": "data/transition-table/execution-surface-transition-blocks-v1.json",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "af0e097a7a7d50d7b284dc2a7ba83dc813137e18ac2766793533c9e88cb4b58a",
+      "bytes": 1270
+    },
+    {
+      "bundle_path": "docs/MS-012L0-canonical-shell-dependency-map.md",
+      "repo_path": "docs/MS-012L0-canonical-shell-dependency-map.md",
+      "action": "created",
+      "reason": "hash differs or target missing",
+      "old_sha256": null,
+      "new_sha256": "750ba0b70ece6e4f1dccee8013ec7f63b97770118786492b0cad8e2eabb9d760",
+      "bytes": 1868
+    }
+  ]
 }

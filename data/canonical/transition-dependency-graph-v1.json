@@ -1,0 +1,163 @@
+{
+  "generated_at": "2026-05-11T08:33:01Z",
+  "schema": "stegverse.transition_dependency_graph.v1",
+  "formal_milestone": "MS-012L.0 \u2014 Canonical Shell Dependency Map",
+  "principle": "Discovery order is not execution authority order.",
+  "transitions": [
+    {
+      "transition_id": "T1",
+      "name": "observe uploaded bundle",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "required_shells": [
+        "workflow_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle"
+      ],
+      "unresolved_dependencies": []
+    },
+    {
+      "transition_id": "T2",
+      "name": "invoke bounded ingestion workflow",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "required_shells": [
+        "workflow_shell",
+        "tool_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle",
+        "tool:bundle_ingest"
+      ],
+      "unresolved_dependencies": []
+    },
+    {
+      "transition_id": "T3",
+      "name": "classify bundle path surfaces",
+      "discovery_state": "known",
+      "execution_state": "executable_partial",
+      "required_shells": [
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "tool:bundle_ingest"
+      ],
+      "unresolved_dependencies": [
+        "path class mapping is partially hardcoded"
+      ]
+    },
+    {
+      "transition_id": "T4",
+      "name": "route bundle lifecycle state",
+      "discovery_state": "known",
+      "execution_state": "executable_partial",
+      "required_shells": [
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "tool:bundle_ingest"
+      ],
+      "unresolved_dependencies": [
+        "terminal lifecycle states are not fully canonicalized"
+      ]
+    },
+    {
+      "transition_id": "T5",
+      "name": "perform ephemeral sandbox review",
+      "discovery_state": "known",
+      "execution_state": "executable",
+      "required_shells": [
+        "workflow_shell",
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle",
+        "tool:ephemeral_sandbox_runner"
+      ],
+      "unresolved_dependencies": []
+    },
+    {
+      "transition_id": "T13",
+      "name": "data-defined transition authority discovery",
+      "discovery_state": "discovered",
+      "execution_state": "blocked",
+      "required_shells": [
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "tool:bundle_ingest",
+        "data:transition-state-rules"
+      ],
+      "unresolved_dependencies": [
+        "current bundle_ingest does not interpret data-defined transition-state rules"
+      ],
+      "allowed_current_actions": [
+        "record_discovery",
+        "record_blocked_state",
+        "map_dependency_closure"
+      ],
+      "forbidden_current_actions": [
+        "self-authorize_tool_mutation",
+        "claim_executable_authority"
+      ]
+    },
+    {
+      "transition_id": "T14",
+      "name": "approved privileged install candidate",
+      "discovery_state": "discovered",
+      "execution_state": "blocked",
+      "required_shells": [
+        "workflow_shell",
+        "tool_shell",
+        "data_shell"
+      ],
+      "required_surfaces": [
+        "workflow:ingest-bundle",
+        "tool:bundle_ingest",
+        "tool:ephemeral_sandbox_runner",
+        "data:human_approval_receipt",
+        "data:sandbox_hold_report"
+      ],
+      "unresolved_dependencies": [
+        "current bundle_ingest treats already_failed as stale before evaluating approval transition state",
+        "current workflow does not expose retry_failed or maintenance transition input",
+        "data-defined approval transition is not interpreted by current ingestor"
+      ],
+      "allowed_current_actions": [
+        "record_discovery",
+        "record_blocked_state",
+        "prepare_dependency_map"
+      ],
+      "forbidden_current_actions": [
+        "ordinary_ingest_retry",
+        "fresh_hash_workaround_claimed_as_solution",
+        "self-authorize_tool_mutation",
+        "claim_executable_authority"
+      ]
+    },
+    {
+      "transition_id": "T20",
+      "name": "vaulted capability request",
+      "discovery_state": "discovered",
+      "execution_state": "executable_receipts_only",
+      "required_shells": [
+        "tool_shell",
+        "data_shell",
+        "vault_shell"
+      ],
+      "required_surfaces": [
+        "tool:vaulted_capability_gate"
+      ],
+      "unresolved_dependencies": [
+        "real token issuance remains locked",
+        "payment settlement remains locked",
+        "raw secret release remains locked"
+      ]
+    }
+  ]
+}

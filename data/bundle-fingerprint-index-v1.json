@@ -265,6 +265,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "22453584edfe312b6068b0a8f4d3be142fe6e520a142252d18214f3c9c1c9721"
+    },
+    {
+      "generated_at": "2026-05-11T08:35:27Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012l0-canonical-shell-dependency-map-v1.zip",
+      "bundle_sha256": "4f8d3cdb1f7ef00c9d0f9eaac754c6f9868ea44d9f529f1f95e8aecc5ab73367",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "6353aefbbc13afd94ecdc788a2e755a8e31c9089c5d42687715b5fc1b514579d"
     }
   ]
 }

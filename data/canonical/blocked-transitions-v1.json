@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-11T08:33:01Z",
+  "schema": "stegverse.blocked_transitions.v1",
+  "formal_milestone": "MS-012L.0 \u2014 Canonical Shell Dependency Map",
+  "blocked_transitions": [
+    {
+      "transition_id": "T13",
+      "name": "data-defined transition authority discovery",
+      "blocked_reason": "Current ingestion tool does not interpret data-defined transition-state rules.",
+      "current_status": "discovered_not_executable"
+    },
+    {
+      "transition_id": "T14",
+      "name": "approved privileged install candidate",
+      "blocked_reason": "Current ingestor quarantines already_failed before evaluating approval transition state.",
+      "current_status": "discovered_not_executable"
+    },
+    {
+      "transition_id": "MS-012K.6",
+      "name": "manifest post-install task bridge",
+      "blocked_reason": "Requires changing tools/bundle_ingest.py; current system correctly blocks that through ordinary ingestion.",
+      "current_status": "blocked_by_tool_edge"
+    }
+  ],
+  "valid_next_actions": [
+    "record canonical dependency",
+    "record blocked state",
+    "map dependency closure",
+    "do not retry blocked engine mutations as ordinary bundles"
+  ]
+}
