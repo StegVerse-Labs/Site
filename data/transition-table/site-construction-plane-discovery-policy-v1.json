@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-05-11T01:10:54Z",
+  "schema": "stegverse.site_construction_plane_discovery_policy.v1",
+  "policy_id": "ms012k2-site-construction-plane-discovery-report-v1",
+  "formal_milestone": "MS-012K.2 \u2014 Site Construction Plane Discovery Report",
+  "purpose": "Audit recent Site construction activity against the path-category authority surface introduced in MS-012K.1.",
+  "inputs": {
+    "authority_map": "data/transition-table/transition-element-action-authority-map-v1.json",
+    "ingestion_reports": [
+      "ingestion_reports/bundle-ingestion-report.json",
+      "ingestion_reports/bundle-queue-report.json"
+    ],
+    "sandbox_report_dir": "sandbox_reports",
+    "transition_authority_report": "transition_authority_reports/transition-authority-audit-report.json",
+    "transition_discovery_ledger": "transition_discovery_reports/transition-discovery-ledger.json"
+  },
+  "outputs": {
+    "report_json": "transition_discovery_reports/site-construction-plane-discovery-report.json",
+    "report_md": "transition_discovery_reports/site-construction-plane-discovery-report.md",
+    "path_inventory_json": "transition_discovery_reports/site-construction-path-inventory.json",
+    "path_inventory_md": "transition_discovery_reports/site-construction-path-inventory.md"
+  },
+  "classification_verdicts": [
+    "ROUTINE_ALLOWED",
+    "CONDITIONAL",
+    "SANDBOX_REQUIRED",
+    "HUMAN_APPROVAL_REQUIRED",
+    "UNMAPPED_PATH_CATEGORY",
+    "FORBIDDEN_INTERNAL_SURFACE"
+  ],
+  "safety": {
+    "evidence_only": true,
+    "does_not_install": true,
+    "does_not_delete": true,
+    "does_not_change_workflows": true,
+    "does_not_expand_authority": true,
+    "reports_only": true
+  }
+}

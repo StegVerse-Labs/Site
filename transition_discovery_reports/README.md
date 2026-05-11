@@ -2,7 +2,7 @@
 
 Transition discovery reports are written here.
 
-Expected outputs:
+Expected outputs include:
 
 ```text
 transition-discovery-ledger.jsonl
@@ -11,6 +11,8 @@ transition-element-candidates.json
 transition-element-candidates.md
 transition-discovery-summary.json
 transition-discovery-summary.md
+site-construction-plane-discovery-report.json
+site-construction-plane-discovery-report.md
+site-construction-path-inventory.json
+site-construction-path-inventory.md
 ```
-
-These reports convert real ingestion, sandbox, and authority audit outcomes into transition-table discovery evidence.

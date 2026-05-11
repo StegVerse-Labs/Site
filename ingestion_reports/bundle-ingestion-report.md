@@ -1,8 +1,8 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T01:08:52Z`
+Generated: `2026-05-11T01:29:49Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ms012k1-site-path-category-authority-extension-v1.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ms012k2-site-construction-plane-discovery-report-v1.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
@@ -22,8 +22,8 @@ Bundle class: `ordinary_bundle`
 
 - `skipped` `README.md` → `None` — bundle root README is documentation and is not applied to repo root
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `created` `data/headless-tasks/site-path-category-authority-audit-v1.json` → `data/headless-tasks/site-path-category-authority-audit-v1.json` — hash differs or target missing
-- `updated` `data/transition-table/transition-element-action-authority-map-v1.json` → `data/transition-table/transition-element-action-authority-map-v1.json` — hash differs or target missing
-- `created` `docs/MS-012K1-site-path-category-authority-extension.md` → `docs/MS-012K1-site-path-category-authority-extension.md` — hash differs or target missing
-- `created` `tools/site_path_category_authority_audit.py` → `tools/site_path_category_authority_audit.py` — hash differs or target missing
-- `created` `transition_authority_reports/README.md` → `transition_authority_reports/README.md` — hash differs or target missing
+- `created` `data/headless-tasks/site-construction-plane-discovery-v1.json` → `data/headless-tasks/site-construction-plane-discovery-v1.json` — hash differs or target missing
+- `created` `data/transition-table/site-construction-plane-discovery-policy-v1.json` → `data/transition-table/site-construction-plane-discovery-policy-v1.json` — hash differs or target missing
+- `created` `docs/MS-012K2-site-construction-plane-discovery-report.md` → `docs/MS-012K2-site-construction-plane-discovery-report.md` — hash differs or target missing
+- `created` `tools/site_construction_plane_discovery.py` → `tools/site_construction_plane_discovery.py` — hash differs or target missing
+- `updated` `transition_discovery_reports/README.md` → `transition_discovery_reports/README.md` — hash differs or target missing

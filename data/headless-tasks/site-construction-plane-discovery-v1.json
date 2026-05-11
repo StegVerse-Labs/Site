@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-11T01:10:54Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "site-construction-plane-discovery-v1",
+  "class": "site_construction_plane_discovery",
+  "authority_class": "observe_state",
+  "description": "Audit recent Site construction activity against path-category authority.",
+  "command": [
+    "python",
+    "tools/site_construction_plane_discovery.py",
+    "--policy",
+    "data/transition-table/site-construction-plane-discovery-policy-v1.json"
+  ],
+  "expected_inputs": [
+    "tools/site_construction_plane_discovery.py",
+    "data/transition-table/site-construction-plane-discovery-policy-v1.json",
+    "data/transition-table/transition-element-action-authority-map-v1.json"
+  ],
+  "expected_outputs": [
+    "transition_discovery_reports/site-construction-plane-discovery-report.json",
+    "transition_discovery_reports/site-construction-plane-discovery-report.md",
+    "transition_discovery_reports/site-construction-path-inventory.json",
+    "transition_discovery_reports/site-construction-path-inventory.md"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/site-construction-plane-discovery-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/site-construction-plane-discovery-v1.report.md"
+}

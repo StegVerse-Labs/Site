@@ -1,10 +1,14 @@
 {
   "generated_at": "2026-05-11T01:29:49Z",
-  "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012k2-site-construction-plane-discovery-report-v1.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
-  "mode": "apply",
-  "receipt": {
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012k2-site-construction-plane-discovery-report-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012k2-site-construction-plane-discovery-report-v1.zip",
+  "bundle_sha256": "7adf6a865d6f219f73f273979ebab9133814dc27af8dab2c80b5fddd99f9958f",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
     "generated_at": "2026-05-11T01:29:49Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
@@ -103,14 +107,13 @@
       }
     ]
   },
-  "summary": {
-    "total_entries_seen": 7,
-    "applied": 6,
-    "unchanged": 0,
-    "skipped": 1,
-    "path_mappings": 0,
-    "unsafe_paths_rejected": 0,
-    "installed_archived": 1,
-    "source_removed_from_incoming": 1
-  }
+  "repo_transition": {
+    "before_tree_fingerprint": "e805567e4ee065112c2084c04b1be5046f62982eb2a9b78b55534bb667985664",
+    "after_tree_fingerprint": "e62b73291aa1a4295da375d3a4d611a3cdd6b23b33652fa1dd240445fbb73bd3",
+    "changed_files_fingerprint": "3aa199de17293287bfd0faaf4f84ec936f1d357d53d089badcb0f622a8b62ca9"
+  },
+  "files_created": 4,
+  "files_updated": 2,
+  "files_unchanged": 0,
+  "files_skipped": 1
 }
