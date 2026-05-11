@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-11T08:45:42Z",
+  "schema": "stegverse.public_canonical_page_status.v1",
+  "formal_milestone": "MS-012L.3 \u2014 Public Canonical Page Contract",
+  "summary": "Canonical data is updating, but public HTML does not yet automatically reflect the new canonical shell/dependency/self-correction files.",
+  "known_existing_pages": [
+    "transition-periodic-table.html",
+    "transition-table.html",
+    "transition-development-status.html",
+    "transition-milestones.html",
+    "transition-release-snapshot.html",
+    "transition-elements/T13.html"
+  ],
+  "required_new_or_updated_pages": [
+    "canonical-shell-map.html",
+    "transition-dependency-closure.html",
+    "transition-self-correction-ledger.html",
+    "transition-development-status.html",
+    "transition-periodic-table.html"
+  ],
+  "blocked_claims": [
+    "automatic canonical HTML generation is active",
+    "MS-012K.6 is active",
+    "T13/T14 are executable"
+  ],
+  "valid_next_steps": [
+    "install this contract",
+    "generate static public HTML pages from canonical data without editing tools",
+    "later map a page-builder update as a tool-shell transition if automatic generation is required"
+  ]
+}

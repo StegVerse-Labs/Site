@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-11T08:43:29Z",
+  "generated_at": "2026-05-11T08:47:19Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ms012l2-transition-dependency-closure-model-v1.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012l2-transition-dependency-closure-model-v1.zip",
-  "bundle_sha256": "930c29c1b999160d6f6ee47475ee8c88651d50a22f57f8603138bcc654771ab7",
+  "bundle_name": "ms012l3-public-canonical-page-contract-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012l3-public-canonical-page-contract-v1.zip",
+  "bundle_sha256": "b536972189f5e9e2a991b87e61809584445b403bba798cd6c5e689cdfc3b83b9",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
@@ -13,23 +13,21 @@
   "mapped_paths": [
     "README.md",
     "bundle-manifest.json",
-    "data/canonical/dependency-closure-receipt-schema-v1.json",
-    "data/canonical/transition-dependency-closure-status-v1.json",
-    "data/canonical/transition-record-schema-v1.json",
-    "data/transition-table/transition-dependency-closure-model-v1.json",
-    "docs/MS-012L2-transition-dependency-closure-model.md"
+    "data/canonical/public-canonical-page-status-v1.json",
+    "data/page-contracts/public-canonical-page-contract-v1.json",
+    "docs/MS-012L3-public-canonical-page-contract.md"
   ],
-  "files_seen": 7,
-  "files_created": 5,
+  "files_seen": 5,
+  "files_created": 3,
   "files_updated": 1,
   "files_unchanged": 0,
   "files_skipped": 1,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "e49612b24397dbdb5526f81bb5c975d53cc304f27d7adddf274ff4565803cf4b",
-    "after_tree_fingerprint": "8644b6fa4cc317c655eb1ce81478d837a8d2edbad3f0401a2a14f1afabc87fdb",
-    "changed_files_fingerprint": "1cfd98638df5ceee53cb202fab5869de6b2fe7e236af2b77dd080a852357a8a6"
+    "before_tree_fingerprint": "0d17e9b986650008f0e7f6289bdf3abfaaa785eb4282536f6dd2033621a585ec",
+    "after_tree_fingerprint": "0136e95e880cfb460690a531c73c1dd5f8764b41ee6b3fb591c5102ed59f0acd",
+    "changed_files_fingerprint": "61ce3b753f49c8a83a7497f8a2975ab0cfb6e352f705a23d2d0968ac74ad0af5"
   },
   "decisions": [
     {
@@ -38,62 +36,44 @@
       "action": "skipped",
       "reason": "bundle root README is documentation and is not applied to repo root",
       "old_sha256": null,
-      "new_sha256": "67ad9f3977cbdadbb287790a5698c8242389e4352893e40642f1978d162379d8",
-      "bytes": 274
+      "new_sha256": "3acde2e71ea7d8d7b915f1668d8e58cc49f13bd6634b50e2c1bb122ee04cfacc",
+      "bytes": 235
     },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "5ad6fb5a3318cd47e62432496857b8cf9410c54e697ddbec0040a0c2cae05795",
-      "new_sha256": "5b04c501c495f0b0aa922146f1fce27d2e5d89bdc1be45852bcaf7bebacddefa",
-      "bytes": 1190
+      "old_sha256": "5b04c501c495f0b0aa922146f1fce27d2e5d89bdc1be45852bcaf7bebacddefa",
+      "new_sha256": "90c80b757f50128b0d155e802f213d4e4b6cbf28774ad9820b6c7c8470ac2b7a",
+      "bytes": 979
     },
     {
-      "bundle_path": "data/canonical/dependency-closure-receipt-schema-v1.json",
-      "repo_path": "data/canonical/dependency-closure-receipt-schema-v1.json",
+      "bundle_path": "data/canonical/public-canonical-page-status-v1.json",
+      "repo_path": "data/canonical/public-canonical-page-status-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "9e6670bc7d4a21f266d6a5c11642b3b782ba7387f0ba40671972ccc62dca98e4",
-      "bytes": 1210
+      "new_sha256": "94c90166fba2f7f560eeb8ef2f3483e0aa5d58bd3152984b86cc11989cd3ee3d",
+      "bytes": 1197
     },
     {
-      "bundle_path": "data/canonical/transition-dependency-closure-status-v1.json",
-      "repo_path": "data/canonical/transition-dependency-closure-status-v1.json",
+      "bundle_path": "data/page-contracts/public-canonical-page-contract-v1.json",
+      "repo_path": "data/page-contracts/public-canonical-page-contract-v1.json",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "2a61fa389fac3ba41a9725c42277b8106a27aafdb806afe5e2282c6ab5c58125",
-      "bytes": 7418
+      "new_sha256": "e85c8291a10fc793f922feec56356c71a2dd062cb2cffc8458e1bec53e8c4024",
+      "bytes": 6230
     },
     {
-      "bundle_path": "data/canonical/transition-record-schema-v1.json",
-      "repo_path": "data/canonical/transition-record-schema-v1.json",
+      "bundle_path": "docs/MS-012L3-public-canonical-page-contract.md",
+      "repo_path": "docs/MS-012L3-public-canonical-page-contract.md",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "009a99fab21ab929a31f070dfa09b9ae6cdca6242cc605551687bc1389bdde40",
-      "bytes": 1676
-    },
-    {
-      "bundle_path": "data/transition-table/transition-dependency-closure-model-v1.json",
-      "repo_path": "data/transition-table/transition-dependency-closure-model-v1.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "45b55a480ba7f4fd5703ec5ec619dd806bdc1d62455018caebe3f2f03f17b0cc",
-      "bytes": 3331
-    },
-    {
-      "bundle_path": "docs/MS-012L2-transition-dependency-closure-model.md",
-      "repo_path": "docs/MS-012L2-transition-dependency-closure-model.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "bc665f36945b07c77fdeed7871ec9ec162cfcbd32502438c2a602b5a0801ba05",
-      "bytes": 1683
+      "new_sha256": "0abcccaf4837e43026f2930adc565914ea5662dbafd5b94c0e35a431a28eda5b",
+      "bytes": 1688
     }
   ]
 }

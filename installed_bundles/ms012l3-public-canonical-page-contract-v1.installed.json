@@ -1,10 +1,14 @@
 {
   "generated_at": "2026-05-11T08:47:19Z",
-  "schema": "stegverse.bundle_ingestion_report.v1",
-  "bundle": "/home/runner/work/Site/Site/incoming/ms012l3-public-canonical-page-contract-v1.zip",
-  "policy": "/home/runner/work/Site/Site/data/bundle-ingestion-policy-v1.json",
-  "mode": "apply",
-  "receipt": {
+  "schema": "stegverse.installed_bundle_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ms012l3-public-canonical-page-contract-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ms012l3-public-canonical-page-contract-v1.zip",
+  "bundle_sha256": "b536972189f5e9e2a991b87e61809584445b403bba798cd6c5e689cdfc3b83b9",
+  "verdict": "INSTALLED_BUNDLE_ARCHIVED",
+  "route": "installed_bundles",
+  "reason": "Bundle was successfully ingested with ALLOW and archived as an installed transition object.",
+  "source_ingestion_receipt": {
     "generated_at": "2026-05-11T08:47:19Z",
     "schema": "stegverse.bundle_ingestion_receipt.v1",
     "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
@@ -83,14 +87,13 @@
       }
     ]
   },
-  "summary": {
-    "total_entries_seen": 5,
-    "applied": 4,
-    "unchanged": 0,
-    "skipped": 1,
-    "path_mappings": 0,
-    "unsafe_paths_rejected": 0,
-    "installed_archived": 1,
-    "source_removed_from_incoming": 1
-  }
+  "repo_transition": {
+    "before_tree_fingerprint": "0d17e9b986650008f0e7f6289bdf3abfaaa785eb4282536f6dd2033621a585ec",
+    "after_tree_fingerprint": "0136e95e880cfb460690a531c73c1dd5f8764b41ee6b3fb591c5102ed59f0acd",
+    "changed_files_fingerprint": "61ce3b753f49c8a83a7497f8a2975ab0cfb6e352f705a23d2d0968ac74ad0af5"
+  },
+  "files_created": 3,
+  "files_updated": 1,
+  "files_unchanged": 0,
+  "files_skipped": 1
 }

@@ -1,0 +1,172 @@
+{
+  "generated_at": "2026-05-11T08:45:42Z",
+  "schema": "stegverse.public_canonical_page_contract.v1",
+  "formal_milestone": "MS-012L.3 \u2014 Public Canonical Page Contract",
+  "purpose": "Define how canonical shell/dependency/self-correction data must surface into public GitHub Pages HTML.",
+  "current_status": {
+    "canonical_data_updates": "active",
+    "public_html_auto_reflection": "not_active",
+    "reason": "Existing transition page builder consumes older transition element data, not the new data/canonical files."
+  },
+  "invariants": [
+    "Public pages must not claim blocked transitions are executable.",
+    "Public pages must distinguish discovery_state from execution_state.",
+    "Public pages must display unresolved dependencies when execution_state is blocked.",
+    "Public pages must cite canonical data files as source surfaces.",
+    "Generated public pages must not mutate workflows or tools.",
+    "Static public page updates are allowed as ordinary site files, but automatic generation requires a mapped tool surface."
+  ],
+  "canonical_sources": [
+    {
+      "source_id": "canonical_shells",
+      "path": "data/canonical/shells-v1.json",
+      "public_meaning": "Shell model, shell roles, completion state, and shell invariants."
+    },
+    {
+      "source_id": "canonical_execution_surfaces",
+      "path": "data/canonical/execution-surfaces-v1.json",
+      "public_meaning": "Mapped workflow/tool authority surfaces and allowed scopes."
+    },
+    {
+      "source_id": "transition_dependency_graph",
+      "path": "data/canonical/transition-dependency-graph-v1.json",
+      "public_meaning": "Transition discovery/execution state, required surfaces, and unresolved dependencies."
+    },
+    {
+      "source_id": "blocked_transitions",
+      "path": "data/canonical/blocked-transitions-v1.json",
+      "public_meaning": "Blocked transitions and valid next actions."
+    },
+    {
+      "source_id": "transition_correction_ledger",
+      "path": "data/canonical/transition-correction-ledger-v1.json",
+      "public_meaning": "Correction events showing how mistakes revealed boundaries."
+    },
+    {
+      "source_id": "transition_status_index",
+      "path": "data/canonical/transition-status-index-v1.json",
+      "public_meaning": "Compact transition status index across discovery/execution/evidence/correction axes."
+    },
+    {
+      "source_id": "transition_dependency_closure_status",
+      "path": "data/canonical/transition-dependency-closure-status-v1.json",
+      "public_meaning": "Closure status for shell, surface, receipt, evidence, and authority axes."
+    }
+  ],
+  "public_pages": [
+    {
+      "page_id": "canonical-shell-map",
+      "path": "canonical-shell-map.html",
+      "status": "required_not_present_or_not_verified",
+      "sources": [
+        "canonical_shells",
+        "canonical_execution_surfaces"
+      ],
+      "must_show": [
+        "shell list",
+        "surface list",
+        "authority invariant",
+        "mapped workflow/tool surfaces",
+        "current shell completion states"
+      ],
+      "must_not_claim": [
+        "all shells are complete",
+        "data shell is executable authority by itself"
+      ]
+    },
+    {
+      "page_id": "transition-dependency-closure",
+      "path": "transition-dependency-closure.html",
+      "status": "required_not_present_or_not_verified",
+      "sources": [
+        "transition_dependency_graph",
+        "transition_dependency_closure_status"
+      ],
+      "must_show": [
+        "discovery_state",
+        "execution_state",
+        "closure axes",
+        "unresolved dependencies",
+        "allowed current actions",
+        "forbidden current actions"
+      ],
+      "must_not_claim": [
+        "T13 is executable",
+        "T14 is executable",
+        "MS-012K.6 is active"
+      ]
+    },
+    {
+      "page_id": "transition-self-correction-ledger",
+      "path": "transition-self-correction-ledger.html",
+      "status": "required_not_present_or_not_verified",
+      "sources": [
+        "transition_correction_ledger",
+        "transition_status_index"
+      ],
+      "must_show": [
+        "correction entries",
+        "original assumptions",
+        "observed evidence",
+        "corrected state",
+        "forbidden next actions"
+      ],
+      "must_not_claim": [
+        "mistakes grant authority",
+        "fresh hash equals dependency closure",
+        "retries replace evidence"
+      ]
+    },
+    {
+      "page_id": "transition-development-status",
+      "path": "transition-development-status.html",
+      "status": "existing_page_should_link_new_pages",
+      "sources": [
+        "transition_status_index",
+        "blocked_transitions"
+      ],
+      "must_show": [
+        "links to canonical shell map",
+        "links to dependency closure page",
+        "links to self-correction ledger",
+        "blocked transition summary"
+      ],
+      "must_not_claim": [
+        "automation bridge active if MS-012K.6 remains blocked"
+      ]
+    },
+    {
+      "page_id": "transition-periodic-table",
+      "path": "transition-periodic-table.html",
+      "status": "existing_page_should_link_new_pages",
+      "sources": [
+        "canonical_shells",
+        "transition_dependency_graph"
+      ],
+      "must_show": [
+        "discovery vs execution distinction",
+        "shell/surface dependency framing",
+        "link to canonical shell map",
+        "link to dependency closure page"
+      ],
+      "must_not_claim": [
+        "transition order is strictly linear",
+        "shells complete independently"
+      ]
+    }
+  ],
+  "automation_requirement": {
+    "desired_behavior": "When canonical data changes, public HTML should be regenerated or refreshed from canonical sources.",
+    "current_block": "Existing builder does not consume the canonical files.",
+    "allowed_now": [
+      "install this page contract",
+      "add static HTML pages generated from canonical data as ordinary site files",
+      "record that automatic generation is not active"
+    ],
+    "blocked_until_mapped": [
+      "claim automatic canonical HTML generation",
+      "mutate tools/build_transition_pages.py through ordinary ingestion",
+      "mutate workflows to add new generation behavior"
+    ]
+  }
+}

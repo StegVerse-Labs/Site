@@ -1,28 +1,20 @@
 {
-  "generated_at": "2026-05-11T08:41:49Z",
+  "generated_at": "2026-05-11T08:45:42Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012l2-transition-dependency-closure-model-v1",
-  "formal_milestone": "MS-012L.2 \u2014 Transition Dependency Closure Model",
-  "purpose": "Define dependency closure as the condition by which discovered transitions become executable.",
+  "bundle_id": "ms012l3-public-canonical-page-contract-v1",
+  "formal_milestone": "MS-012L.3 \u2014 Public Canonical Page Contract",
+  "purpose": "Define the public HTML page contract for canonical shell/dependency/self-correction/closure data.",
   "files": [
     {
-      "path": "data/transition-table/transition-dependency-closure-model-v1.json",
-      "role": "closure_model"
+      "path": "data/page-contracts/public-canonical-page-contract-v1.json",
+      "role": "public_page_contract"
     },
     {
-      "path": "data/canonical/transition-record-schema-v1.json",
-      "role": "transition_record_schema"
+      "path": "data/canonical/public-canonical-page-status-v1.json",
+      "role": "public_page_status"
     },
     {
-      "path": "data/canonical/transition-dependency-closure-status-v1.json",
-      "role": "closure_status"
-    },
-    {
-      "path": "data/canonical/dependency-closure-receipt-schema-v1.json",
-      "role": "closure_receipt_schema"
-    },
-    {
-      "path": "docs/MS-012L2-transition-dependency-closure-model.md",
+      "path": "docs/MS-012L3-public-canonical-page-contract.md",
       "role": "docs"
     }
   ],
@@ -31,6 +23,7 @@
     "contains_workflows": false,
     "changes_workflow_files": false,
     "changes_tools": false,
+    "claims_automatic_generation_active": false,
     "claims_blocked_transition_executable": false,
     "data_docs_only": true
   }

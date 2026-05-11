@@ -292,6 +292,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "1cfd98638df5ceee53cb202fab5869de6b2fe7e236af2b77dd080a852357a8a6"
+    },
+    {
+      "generated_at": "2026-05-11T08:47:19Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012l3-public-canonical-page-contract-v1.zip",
+      "bundle_sha256": "b536972189f5e9e2a991b87e61809584445b403bba798cd6c5e689cdfc3b83b9",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "61ce3b753f49c8a83a7497f8a2975ab0cfb6e352f705a23d2d0968ac74ad0af5"
     }
   ]
 }
