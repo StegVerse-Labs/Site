@@ -202,6 +202,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "ae06d17eb743c487edade1189cf4a55a3cd1e57172ef389b921029e9f9186306"
+    },
+    {
+      "generated_at": "2026-05-11T02:00:15Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ms012k4-declared-task-runset-selector-v1.zip",
+      "bundle_sha256": "8daee58f4653706804f42897c2b05ee667bb19cd66eff74767cf131a2900ce38",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "3c9fc6116c6d08174ef811eb010358c2a11c110b1608b037a0ffcc9ce08ee970"
     }
   ]
 }

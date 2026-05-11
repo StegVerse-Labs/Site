@@ -1,32 +1,24 @@
 {
   "generated_at": "2026-05-11T01:57:07Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "ms012k3r-failed-bundle-boundary-processor-v1",
-  "formal_milestone": "MS-012K.3R \u2014 Failed Bundle Boundary Processor",
-  "purpose": "Automate failed_bundles as a bounded transition surface.",
+  "bundle_id": "ms012k4-declared-task-runset-selector-v1",
+  "formal_milestone": "MS-012K.4 \u2014 Declared Task Runset Selector",
+  "purpose": "Provide a data-driven runset selector for transition discovery automation.",
   "files": [
     {
-      "path": "data/transition-table/failed-bundle-boundary-policy-v1.json",
-      "role": "failed_bundle_boundary_policy"
+      "path": "data/headless-task-runsets/transition-discovery-automation-runset-v1.json",
+      "role": "runset"
     },
     {
-      "path": "tools/failed_bundle_boundary_processor.py",
-      "role": "failed_bundle_boundary_processor"
+      "path": "tools/headless_task_runset.py",
+      "role": "runset_selector"
     },
     {
-      "path": "data/headless-tasks/failed-bundle-boundary-processor-v1.json",
+      "path": "data/headless-tasks/transition-discovery-automation-runset-v1.json",
       "role": "declared_task"
     },
     {
-      "path": "reviewed_failed_bundles/README.md",
-      "role": "reviewed_failed_archive_docs"
-    },
-    {
-      "path": "transition_discovery_reports/README.md",
-      "role": "report_docs"
-    },
-    {
-      "path": "docs/MS-012K3R-failed-bundle-boundary-processor.md",
+      "path": "docs/MS-012K4-declared-task-runset-selector.md",
       "role": "docs"
     }
   ],
@@ -34,8 +26,7 @@
     "contains_leading_dot_paths": false,
     "contains_workflows": false,
     "changes_workflow_files": false,
-    "no_delete": true,
-    "no_direct_install": true,
+    "no_arbitrary_glob_execution": true,
     "no_authority_expansion": true
   }
 }

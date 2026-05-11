@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-11T01:57:07Z",
+  "schema": "stegverse.headless_task_runset.v1",
+  "runset_id": "transition-discovery-automation-runset-v1",
+  "formal_milestone": "MS-012K.4 \u2014 Declared Task Runset Selector",
+  "authority_class": "observe_state",
+  "purpose": "Declare the bounded automation task sequence that advances transition-table discovery.",
+  "tasks": [
+    "data/headless-tasks/transition-authority-audit-v1.json",
+    "data/headless-tasks/site-path-category-authority-audit-v1.json",
+    "data/headless-tasks/transition-discovery-ledger-v1.json",
+    "data/headless-tasks/site-construction-plane-discovery-v1.json",
+    "data/headless-tasks/failed-bundle-boundary-processor-v1.json"
+  ],
+  "allowed_task_authority_classes": [
+    "observe_state",
+    "ordinary_analysis",
+    "sandbox_review"
+  ],
+  "denied_task_authority_classes": [
+    "workflow_mutation",
+    "secret_mutation",
+    "branch_protection_mutation",
+    "privileged_executor",
+    "authority_expansion",
+    "public_release_promotion",
+    "branch_deletion"
+  ],
+  "allowed_outputs": [
+    "headless_cmd_reports/",
+    "transition_authority_reports/",
+    "transition_discovery_reports/",
+    "reviewed_failed_bundles/",
+    "sandbox_queue/",
+    "privileged_queue/"
+  ],
+  "stop_on_failure": false,
+  "safety": {
+    "no_workflow_files": true,
+    "no_arbitrary_glob_execution": true,
+    "runset_is_data_authority": true
+  }
+}
