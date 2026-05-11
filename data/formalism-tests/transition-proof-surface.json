@@ -1,0 +1,68 @@
+{
+  "schema": "stegverse_transition_proof_surface.v1",
+  "title": "Data Continuation to Transition Table Proof Surface",
+  "source_repo": "Data-Continuation/formalism-tests",
+  "site_repo": "StegVerse-Labs/Site",
+  "current_stage": "Stage 4",
+  "status": "Stage 4 verified; Stage 5 next",
+  "canonical_claim": "Admissibility is not local boundary compliance. Admissibility is recoverable convergence across coherent, evolving, coupled boundary fields.",
+  "stages": [
+    {
+      "stage": "Stage 2",
+      "name": "Same-data role dependence",
+      "proof_claim": "same data != same continuation admissibility",
+      "status": "verified",
+      "summary": "The same datum can receive ALLOW, ALLOW_WITH_SIGNOFF, or FAIL_CLOSED depending on the consequence-bearing role and transition."
+    },
+    {
+      "stage": "Stage 3",
+      "name": "Compound and temporal admissibility",
+      "proof_claim": "local allow + local allow does not imply composite allow",
+      "status": "verified",
+      "summary": "Compound consequence mass, commit-time state drift, inference-window collapse, recoverability floor failure, and replay-as-reversal each produce fail-closed conditions."
+    },
+    {
+      "stage": "Stage 4",
+      "name": "Transition classes as admissibility contracts",
+      "proof_claim": "a transition type is not only a label; it is an admissibility contract",
+      "status": "verified",
+      "summary": "Theorem-backed transitions are represented as transition classes with explicit consequence mass, legitimacy capacity, recoverability, inference-window, commit-time, replay, boundary, coupling, and outcome constraints."
+    },
+    {
+      "stage": "Stage 5",
+      "name": "System-coherent boundary transition classes",
+      "proof_claim": "boundary transitions must remain recoverably convergent and system-coherent",
+      "status": "next",
+      "summary": "Next proof layer should add transition classes for system-coherence failure, purpose-convergence failure, boundary reset, boundary evolution, and multi-body coupling stress cases."
+    }
+  ],
+  "verified_tasks": [
+    "archive_runtime_artifacts",
+    "continuation_gate",
+    "compound_continuation_gate",
+    "transition_table_gate"
+  ],
+  "site_pages": [
+    "transition-proof-surface.html",
+    "transition-table-classes.html"
+  ],
+  "data_files": [
+    "data/formalism-tests/transition-proof-surface.json",
+    "data/formalism-tests/transition-table-classes.json"
+  ],
+  "source_artifacts": {
+    "stage2": {
+      "report": "reports/continuation_report.md",
+      "receipts": "reports/sample_receipts.jsonl"
+    },
+    "stage3": {
+      "report": "reports/compound_continuation_report.md",
+      "receipts": "reports/compound_receipts.jsonl"
+    },
+    "stage4": {
+      "report": "reports/transition_table_report.md",
+      "receipts": "reports/transition_table_receipts.jsonl"
+    }
+  },
+  "next_integration_target": "Stage 5: System-Coherent Boundary Transition Classes"
+}

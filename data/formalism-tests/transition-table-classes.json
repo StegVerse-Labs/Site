@@ -1,0 +1,146 @@
+{
+  "schema": "stegverse_transition_table_classes.v1",
+  "source_repo": "Data-Continuation/formalism-tests",
+  "site_repo": "StegVerse-Labs/Site",
+  "current_stage": "Stage 4",
+  "purpose": "Site-facing transition-table class data generated from DCF Stage 3 and Stage 4 proof surfaces.",
+  "classes": [
+    {
+      "transition_id": "T-CONT-COMPOUND-ASSET-001",
+      "transition_name": "compound_asset_transfer_continuation",
+      "transition_family": "compound_continuation",
+      "theorem_basis": "Local-Composite Non-Equivalence",
+      "role": "compound_asset_transfer_basis",
+      "consequence_mass": 0.91,
+      "legitimacy_capacity_required": 0.72,
+      "recoverability_floor": 0.4,
+      "recoverability_score": 0.68,
+      "inference_window_minimum": 0.05,
+      "inference_window_width": 0.24,
+      "commit_time_state_required": true,
+      "replay_semantics": "reconstruct_only",
+      "boundary_behavior": "composite_capacity_check",
+      "multi_body_coupling_class": "shared-resource",
+      "allowed_outcomes": [
+        "ALLOW",
+        "FAIL_CLOSED"
+      ],
+      "verified_decision": "FAIL_CLOSED",
+      "basis": "composite consequence mass exceeds legitimacy capacity"
+    },
+    {
+      "transition_id": "T-CONT-POLICY-DRIFT-001",
+      "transition_name": "policy_continuation_with_state_drift",
+      "transition_family": "commit_time_state",
+      "theorem_basis": "Commit-Time Sufficiency",
+      "role": "policy_basis",
+      "consequence_mass": 0.44,
+      "legitimacy_capacity_required": 0.88,
+      "recoverability_floor": 0.4,
+      "recoverability_score": 0.73,
+      "inference_window_minimum": 0.05,
+      "inference_window_width": 0.2,
+      "commit_time_state_required": true,
+      "replay_semantics": "reconstruct_only",
+      "boundary_behavior": "commit_state_check",
+      "multi_body_coupling_class": "authority-transfer",
+      "allowed_outcomes": [
+        "ALLOW",
+        "FAIL_CLOSED"
+      ],
+      "verified_decision": "FAIL_CLOSED",
+      "basis": "commit-time state drift detected"
+    },
+    {
+      "transition_id": "T-CONT-CLINICAL-WINDOW-001",
+      "transition_name": "clinical_recommendation_with_collapsed_window",
+      "transition_family": "inference_window",
+      "theorem_basis": "Inference-Window Collapse",
+      "role": "clinical_recommendation_basis",
+      "consequence_mass": 0.5,
+      "legitimacy_capacity_required": 0.82,
+      "recoverability_floor": 0.4,
+      "recoverability_score": 0.64,
+      "inference_window_minimum": 0.05,
+      "inference_window_width": 0.02,
+      "commit_time_state_required": true,
+      "replay_semantics": "reconstruct_only",
+      "boundary_behavior": "inference_window_floor",
+      "multi_body_coupling_class": "coherence-coupled",
+      "allowed_outcomes": [
+        "ALLOW",
+        "FAIL_CLOSED"
+      ],
+      "verified_decision": "FAIL_CLOSED",
+      "basis": "inference window collapsed below transition-class minimum"
+    },
+    {
+      "transition_id": "T-CONT-PHYSICAL-RECOVERABILITY-001",
+      "transition_name": "physical_actuation_continuation",
+      "transition_family": "recoverability_floor",
+      "theorem_basis": "Recoverability Floor",
+      "role": "physical_control_signal",
+      "consequence_mass": 0.46,
+      "legitimacy_capacity_required": 0.92,
+      "recoverability_floor": 0.55,
+      "recoverability_score": 0.31,
+      "inference_window_minimum": 0.05,
+      "inference_window_width": 0.22,
+      "commit_time_state_required": true,
+      "replay_semantics": "reconstruct_only",
+      "boundary_behavior": "recoverability_floor",
+      "multi_body_coupling_class": "irreversible-consequence",
+      "allowed_outcomes": [
+        "ALLOW",
+        "FAIL_CLOSED"
+      ],
+      "verified_decision": "FAIL_CLOSED",
+      "basis": "recoverability score below transition-class floor"
+    },
+    {
+      "transition_id": "T-CONT-LEDGER-REPLAY-001",
+      "transition_name": "ledger_transfer_replay_attempt",
+      "transition_family": "replay_semantics",
+      "theorem_basis": "Replay Non-Reversal",
+      "role": "transaction_basis",
+      "consequence_mass": 0.38,
+      "legitimacy_capacity_required": 0.86,
+      "recoverability_floor": 0.4,
+      "recoverability_score": 0.71,
+      "inference_window_minimum": 0.05,
+      "inference_window_width": 0.26,
+      "commit_time_state_required": true,
+      "replay_semantics": "reverse_attempt",
+      "boundary_behavior": "replay_non_reversal",
+      "multi_body_coupling_class": "irreversible-consequence",
+      "allowed_outcomes": [
+        "FAIL_CLOSED"
+      ],
+      "verified_decision": "FAIL_CLOSED",
+      "basis": "transition-class replay semantics prohibit reversal"
+    },
+    {
+      "transition_id": "T-CONT-COMPOUND-INFO-001",
+      "transition_name": "compound_information_continuation",
+      "transition_family": "compound_continuation",
+      "theorem_basis": "Compound Continuation Positive Control",
+      "role": "compound_informational_basis",
+      "consequence_mass": 0.35,
+      "legitimacy_capacity_required": 0.9,
+      "recoverability_floor": 0.4,
+      "recoverability_score": 0.74,
+      "inference_window_minimum": 0.05,
+      "inference_window_width": 0.25,
+      "commit_time_state_required": true,
+      "replay_semantics": "reconstruct_only",
+      "boundary_behavior": "composite_capacity_check",
+      "multi_body_coupling_class": "paired-boundary",
+      "allowed_outcomes": [
+        "ALLOW",
+        "FAIL_CLOSED"
+      ],
+      "verified_decision": "ALLOW",
+      "basis": "transition class admissibility contract satisfied"
+    }
+  ]
+}
