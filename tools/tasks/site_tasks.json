@@ -1,0 +1,6 @@
+{
+  "name": "site declared tasks",
+  "version": "0.1.0",
+  "description": "Site-local declared tasks. Core-lite runs these after ingesting incoming bundles.",
+  "tasks": []
+}
