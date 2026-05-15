@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StegVerse Genealogy Hub</title>
+  <style>
+    :root {
+      --bg: #0a0e14; --surface: #0f1520; --border: #1a2535;
+      --text: #c0d0e0; --muted: #4a6070; --accent: #00FFB2;
+      --warn: #FBBF24; --danger: #FF6B6B; --purple: #A78BFA;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Mono', 'Fira Code', monospace; background: var(--bg); color: var(--text); padding: 20px; }
+    h1 { font-size: 22px; color: var(--accent); margin-bottom: 4px; }
+    h2 { font-size: 14px; color: var(--muted); margin: 20px 0 10px; letter-spacing: .1em; text-transform: uppercase; }
+    .meta { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 16px; margin-bottom: 10px; }
+    .cid { font-size: 13px; color: var(--accent); font-weight: bold; margin-bottom: 4px; }
+    .name { font-size: 16px; color: #e0eaf5; font-weight: bold; margin-bottom: 6px; }
+    .detail { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+    .grade { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: bold; }
+    .grade-A { background: #00180d; color: var(--accent); border: 1px solid var(--accent); }
+    .grade-B { background: #181000; color: var(--warn); border: 1px solid var(--warn); }
+    .grade-C { background: #0d0020; color: var(--purple); border: 1px solid var(--purple); }
+    .grade-D { background: #180000; color: var(--danger); border: 1px solid var(--danger); }
+    .dna-badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; background: #0a001a; color: var(--purple); border: 1px solid var(--purple); margin-left: 6px; }
+    .lineage-line { border-left: 2px solid var(--border); padding-left: 16px; margin-left: 8px; }
+    .fork-btn { display: inline-block; padding: 12px 24px; background: var(--accent); color: #080b10; font-family: inherit; font-size: 14px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; margin-top: 20px; }
+    .fork-btn:hover { opacity: .9; }
+    .stats { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+    .stat { text-align: center; }
+    .stat-val { font-size: 24px; color: var(--accent); font-weight: bold; }
+    .stat-lbl { font-size: 10px; color: var(--muted); letter-spacing: .1em; }
+    .privacy-badge { font-size: 9px; padding: 2px 6px; border-radius: 2px; margin-left: 6px; }
+    .privacy-shared { background: #001520; color: #38BDF8; border: 1px solid #38BDF824; }
+    .privacy-public { background: #001800; color: var(--accent); border: 1px solid var(--accent); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 100; padding: 20px; overflow-y: auto; }
+    .modal.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; max-width: 480px; width: 100%; margin-top: 40px; }
+    .modal-title { font-size: 18px; color: var(--accent); margin-bottom: 16px; }
+    label { font-size: 11px; color: var(--muted); display: block; margin-bottom: 4px; margin-top: 12px; }
+    input[type=text] { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; font-family: inherit; font-size: 12px; border-radius: 4px; outline: none; }
+    input:focus { border-color: var(--accent); }
+    .btn { padding: 10px 20px; background: var(--accent); color: #080b10; font-family: inherit; font-size: 13px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; margin-top: 16px; }
+    .btn-cancel { background: var(--surface); color: var(--muted); border: 1px solid var(--border); margin-left: 8px; }
+    .instructions { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px; margin-top: 16px; font-size: 10px; color: var(--muted); line-height: 1.8; }
+    .chain-status { font-size: 10px; padding: 4px 10px; border-radius: 3px; }
+    .chain-valid   { background: #001810; color: var(--accent); border: 1px solid var(--accent); }
+    .chain-invalid { background: #180000; color: var(--danger); border: 1px solid var(--danger); }
+    #loading { color: var(--muted); font-size: 13px; padding: 40px 0; }
+  </style>
+</head>
+<body>
+
+<div id="header">
+  <h1>StegVerse Genealogy Hub</h1>
+  <div class="meta" id="hub-meta">Loading…</div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div id="chain-status-row"></div>
+
+<h2>Documented Lineage</h2>
+<div id="lineage-tree"></div>
+
+<h2>All Records</h2>
+<div id="all-records"></div>
+
+<button class="fork-btn" onclick="openForkModal()">
+  🌱 Create your own Genealogy Hub!
+</button>
+
+<!-- Fork modal -->
+<div class="modal" id="fork-modal">
+  <div class="modal-box">
+    <div class="modal-title">Create Your Genealogy Hub</div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.7;">
+      Your hub is your sovereign identity ledger. Evidence-graded, receipt-backed,
+      and governed by the StegVerse Ethical Framework. Your data never leaves your custody.
+    </p>
+    <label>Your Name or Family Namespace (2–6 letters, e.g. SMITH)</label>
+    <input type="text" id="fork-namespace" placeholder="SMITH" maxlength="6">
+    <label>Your User ID (will be your vault identifier)</label>
+    <input type="text" id="fork-userid" placeholder="user_your_name">
+    <div class="instructions" id="fork-instructions" style="display:none"></div>
+    <div style="margin-top:4px">
+      <button class="btn" onclick="generateFork()">Generate Fork Manifest</button>
+      <button class="btn btn-cancel" onclick="closeForkModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data loader ────────────────────────────────────────────────────────────
+
+// In production: fetch from ./data/genealogy_hub_summary.json
+// This demo uses inline data matching the Randolph seeded hub
+
+const HUB_DATA = {
+  namespace: "RND",
+  owner: "Rigel Theoden Randolph",
+  total_known: 7,
+  public_count: 6,
+  chain_valid: true,
+  evidence_baseline: "B",
+  migration_pattern: "VA → TN → AR → MO → IN → OR",
+  identities: [
+    {
+      cid: "RND-c1760-001-VA", name: "Peyton Randolph Sr",
+      birth_year: "c.1760", birth_state: "VA", death_year: null,
+      parent_cids: [], evidence_grade: "B",
+      notes: "Virginia origin — pending primary upgrade to Grade A",
+      privacy: "shared", dna_attestation_hash: null
+    },
+    {
+      cid: "RND-1796-001-TN", name: "Ruben Randolph",
+      birth_year: 1796, birth_state: "TN", death_year: null,
+      parent_cids: ["RND-c1760-001-VA"], evidence_grade: "B",
+      notes: "Tennessee County Records (SRC-001)",
+      privacy: "shared", dna_attestation_hash: null
+    },
+    {
+      cid: "RND-1827-001-TN", name: "Isaac Randolph",
+      birth_year: 1827, birth_state: "TN", death_year: null,
+      parent_cids: ["RND-1796-001-TN"], evidence_grade: "B",
+      notes: "Tennessee County Records (SRC-001)",
+      privacy: "shared", dna_attestation_hash: null
+    },
+    {
+      cid: "RND-1853-001-MO", name: "Elijah Randolph",
+      birth_year: 1853, birth_state: "MO", death_year: null,
+      parent_cids: ["RND-1827-001-TN"], evidence_grade: "B",
+      notes: "Missouri Census 1860 (SRC-002)",
+      privacy: "shared", dna_attestation_hash: null
+    },
+    {
+      cid: "RND-1875-001-IN", name: "Benjamin Franklin Randolph",
+      birth_year: 1875, birth_state: "IN", death_year: null,
+      parent_cids: ["RND-1853-001-MO"], evidence_grade: "B",
+      notes: "Civil War Military Records (SRC-003)",
+      privacy: "shared", dna_attestation_hash: null
+    },
+    {
+      cid: "RND-1909-001-OR", name: "Col. Jack Lindley Randolph",
+      birth_year: 1909, birth_state: "OR", death_year: null,
+      parent_cids: ["RND-1875-001-IN"], evidence_grade: "A",
+      notes: "Oregon Death Certificate (SRC-004) — Primary record",
+      privacy: "shared", dna_attestation_hash: null
+    },
+    {
+      cid: "RND-living-001", name: "Frank Edward Randolph",
+      birth_year: null, birth_state: null, death_year: null,
+      parent_cids: ["RND-1909-001-OR"], evidence_grade: "B",
+      notes: "Family record",
+      privacy: "private", dna_attestation_hash: null  // private — not shown
+    }
+  ]
+};
+
+// ── Render ──────────────────────────────────────────────────────────────────
+
+function gradeClass(g) { return `grade grade-${g}`; }
+function privacyBadge(p) {
+  if (p === 'shared') return '<span class="privacy-badge privacy-shared">SHARED</span>';
+  if (p === 'public') return '<span class="privacy-badge privacy-public">PUBLIC</span>';
+  return '';
+}
+
+function renderCard(r) {
+  const dna = r.dna_attestation_hash
+    ? `<span class="dna-badge">🧬 DNA attested</span>` : '';
+  return `
+    <div class="card">
+      <div class="cid">${r.cid}${privacyBadge(r.privacy)}</div>
+      <div class="name">${r.name} ${dna}</div>
+      <div class="detail">Born: ${r.birth_year || '?'} · ${r.birth_state || '?'}</div>
+      <div class="detail">Parents: ${r.parent_cids.length ? r.parent_cids.join(', ') : '— (root)'}</div>
+      <div class="detail" style="margin-top:6px">${r.notes}</div>
+      <div style="margin-top:8px"><span class="${gradeClass(r.evidence_grade)}">Grade ${r.evidence_grade}</span></div>
+    </div>`;
+}
+
+function renderLineage(identities) {
+  // Build lineage tree from root
+  const byId = Object.fromEntries(identities.map(r => [r.cid, r]));
+  const roots = identities.filter(r => r.parent_cids.length === 0);
+
+  function renderNode(r, depth) {
+    const indent = depth > 0 ? `<div class="lineage-line">` : '';
+    const indentClose = depth > 0 ? `</div>` : '';
+    const children = identities.filter(c => c.parent_cids.includes(r.cid));
+    return `${indent}${renderCard(r)}${children.map(c => renderNode(c, depth+1)).join('')}${indentClose}`;
+  }
+  return roots.map(r => renderNode(r, 0)).join('');
+}
+
+window.onload = function() {
+  const pub = HUB_DATA.identities.filter(r => r.privacy !== 'private');
+
+  // Meta
+  document.getElementById('hub-meta').innerHTML =
+    `Namespace: <strong>${HUB_DATA.namespace}</strong> · ` +
+    `Evidence baseline: <strong>${HUB_DATA.evidence_baseline}</strong> · ` +
+    `Migration: <span style="color:var(--accent)">${HUB_DATA.migration_pattern}</span>`;
+
+  // Stats
+  document.getElementById('stats').innerHTML = [
+    [HUB_DATA.total_known, 'KNOWN'],
+    [HUB_DATA.public_count, 'SHARED'],
+    [pub.filter(r=>r.evidence_grade==='A').length, 'GRADE A'],
+    [pub.filter(r=>r.evidence_grade==='B').length, 'GRADE B'],
+    [pub.filter(r=>r.dna_attestation_hash).length, 'DNA ATTESTED'],
+  ].map(([v,l]) => `<div class="stat"><div class="stat-val">${v}</div><div class="stat-lbl">${l}</div></div>`).join('');
+
+  // Chain status
+  document.getElementById('chain-status-row').innerHTML =
+    `<span class="chain-status ${HUB_DATA.chain_valid ? 'chain-valid' : 'chain-invalid'}">
+      ${HUB_DATA.chain_valid ? '✓ Chain integrity verified' : '✗ Chain error detected'}
+    </span>`;
+
+  // Lineage tree
+  document.getElementById('lineage-tree').innerHTML = renderLineage(pub);
+
+  // All records flat
+  document.getElementById('all-records').innerHTML =
+    pub.map(renderCard).join('');
+
+  document.getElementById('loading') && (document.getElementById('loading').style.display = 'none');
+};
+
+// ── Fork flow ───────────────────────────────────────────────────────────────
+
+function openForkModal()  { document.getElementById('fork-modal').classList.add('open'); }
+function closeForkModal() { document.getElementById('fork-modal').classList.remove('open'); }
+
+function generateFork() {
+  const ns  = document.getElementById('fork-namespace').value.toUpperCase().trim();
+  const uid = document.getElementById('fork-userid').value.trim();
+  if (!ns || ns.length < 2) { alert('Enter a namespace (2–6 letters)'); return; }
+  if (!uid) { alert('Enter a user ID'); return; }
+
+  const manifest = {
+    schema: "stegverse_genealogy_hub_fork.v1",
+    fork_id: crypto.randomUUID(),
+    generated_at: new Date().toISOString(),
+    forked_from_hub_id: "rnd-hub",
+    forked_from_namespace: "RND",
+    new_owner_id: uid,
+    new_namespace: ns,
+    seed_identities: HUB_DATA.identities
+      .filter(r => r.privacy !== 'private')
+      .map(r => ({
+        cid: r.cid.replace('RND', ns),
+        name: r.name,
+        birth_year: r.birth_year,
+        birth_state: r.birth_state,
+        evidence_grade: r.evidence_grade,
+        notes: `Forked from RND hub. Original CID: ${r.cid}`,
+        privacy: "private",
+        source_cid: r.cid,
+      })),
+    instructions: [
+      `1. Create vault: python knowledge_vault.py provision ${uid}`,
+      `2. Init hub: python genealogy_hub.py init --owner ${uid} --namespace ${ns}`,
+      `3. Import seeds from this manifest file`,
+      "4. Replace Grade C/D entries with primary evidence",
+      "5. Share with: python genealogy_hub.py share --cid <cid> --privacy shared",
+    ],
+    readme_url: "https://stegverse-labs.github.io/Site/genealogy-hub.html",
+  };
+
+  // Download the manifest
+  const blob = new Blob([JSON.stringify(manifest, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${ns.toLowerCase()}-genealogy-hub-fork-manifest.json`;
+  a.click();
+
+  document.getElementById('fork-instructions').style.display = 'block';
+  document.getElementById('fork-instructions').innerHTML =
+    manifest.instructions.map(i => `• ${i}`).join('<br>') +
+    `<br><br><strong style="color:var(--accent)">Your manifest has been downloaded.</strong><br>` +
+    `Follow the instructions above to set up your hub.`;
+}
+</script>
+</body>
+</html>
