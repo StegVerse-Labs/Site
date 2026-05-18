@@ -1,0 +1,133 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf Consequence Horizon Formalism: Admissibility at the Irreversibility Boundary}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\Cf}{\mathcal{C}}
+\newcommand{\Rec}{R}
+\newcommand{\Obs}{O}
+\newcommand{\Abs}{A}
+\newcommand{\Koh}{K}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+We formalize the consequence horizon as the boundary at which a transition crosses from reversible possibility into binding consequence. Before the horizon, the system may inspect, deny, or contain the transition. At and beyond the horizon, the system must absorb, propagate, or suffer the effects. We derive four admissibility conditions that must hold at the horizon, characterize overload failure, connect entropy to transition-recording cost, and show that the commit gate of GCAT is the operationalization of consequence-horizon admissibility. The formalism is intentionally narrow: it governs the horizon crossing, not the full trajectory.
+\end{abstract}
+
+\section{Introduction}
+Commit-time governance (P0) enforces recoverability at the point of action. Boundary-Coherence Formalism (P9) characterizes the structural conditions for entity persistence. Consequence Horizon Formalism asks what happens at the exact moment a transition becomes binding.
+
+The consequence horizon is not a spatial boundary. It is a temporal and causal boundary: the last point at which the system retains full control over whether a transition binds into reality. After the horizon, reversal requires additional consequence. The commit boundary in GCAT is one instance. Event horizons in physics, financial settlement, legal finality, and biological point-of-no-return are others.
+
+\section{State and Consequence Variables}
+
+Let $S$ be the current system state and $u$ a proposed transition. Define:
+\begin{itemize}
+\item $\Phiop(S, u)$ --- post-transition state
+\item $H$ --- consequence horizon
+\item $\Cf(S,u,\tau)$ --- consequence field induced by $u$ over horizon $\tau$
+\item $\Rec(S,\Cf)$ --- recoverability after absorbing $\Cf$
+\item $\Obs(S,\Cf)$ --- observability of the consequence field
+\item $\Abs(S,\Cf)$ --- absorption capacity
+\item $\Koh(S,\Cf)$ --- coherence retained after consequence propagation
+\end{itemize}
+
+\section{Consequence Horizon Admissibility}
+
+\textbf{Definition 1.} A transition $u$ is admissible at consequence horizon $H$ if and only if:
+\begin{align}
+\Rec(S,\Cf) &\ge R_{\min} \label{eq:rec}\\
+\Obs(S,\Cf) &\ge O_{\min} \label{eq:obs}\\
+\Abs(S,\Cf) &\ge A_{\min} \label{eq:abs}\\
+\Koh(S,\Cf) &\ge K_{\min} \label{eq:koh}
+\end{align}
+
+If any condition fails, the decision is:
+\[
+\text{DENY before } H, \quad \text{FAIL\_CLOSED at } H, \quad \text{QUARANTINE after } H.
+\]
+
+\section{Load-Capacity Form}
+
+Define the consequence load
+\[
+L_{CHF}(u, S) = \|\Cf(S, u, \tau)\|
+\]
+and the consequence absorption capacity $C_{CHF}(S) = \Abs(S, \Cf)$. The admissibility condition \eqref{eq:abs} is then
+\[
+L_{CHF}(u, S) \le C_{CHF}(S).
+\]
+This is the CHF instance of the general load-capacity form.
+
+\section{Overload and Stability}
+
+\textbf{Theorem 1 (Horizon Overload).} If
+\[
+L_{CHF}(u, S) > C_{CHF}(S),
+\]
+then committed consequences accumulate faster than the system can reconcile them. The system enters a destabilizing regime.
+
+\textit{Proof sketch.} Let $Q(t)$ be the total unabsorbed consequence at time $t$. When $\dot Q(t) = L_{CHF} - C_{CHF} > 0$, the unabsorbed queue grows without bound unless $C_{CHF}$ increases or $L_{CHF}$ decreases. \hfill $\blacksquare$
+
+\section{Entropy as Transition-Recording Cost}
+
+A transition is recorded when its pre-state and post-state become distinguishable. Distinguishability requires encoding, which changes the state distribution:
+\[
+S_{t+1} \ne S_t \;\Rightarrow\; I_{\text{record}}(u) > 0 \;\Rightarrow\; \Delta H > 0,
+\]
+where $I_{\text{record}}(u)$ is the information required to distinguish pre- from post-state.
+
+\textbf{Principle.} Entropy is the cost reality pays to remember that a transition happened.
+
+This connects CHF to Data Continuity (P12): the records required for recoverability are exactly the entropy residue of committed transitions.
+
+\section{The Inference Window}
+
+After a transition commits, the set of reachable downstream states is the inference window:
+\[
+IW_\tau(S, u) = \{S' : S' \text{ reachable from } \Phiop(S,u) \text{ within } \tau\}.
+\]
+Weak admissibility checks only $\Phiop(S,u) \in \A$. Strong admissibility requires
+\[
+IW_\tau(S,u) \subseteq \A_{\text{total}}.
+\]
+A transition may appear admissible immediately while opening an inadmissible consequence window.
+
+\section{Connection to GCAT Commit Gate}
+
+The GCAT commit gate (P0) checks whether the post-commit state remains in $\Rrob(\tau)$. This is the computational realization of CHF conditions \eqref{eq:rec}--\eqref{eq:koh}. The robust recoverable region $\Rrob(\tau)$ is the set of states from which recovery remains possible under total lag $\tau$, which corresponds directly to $\Rec(S,\Cf) \ge R_{\min}$ evaluated over the consequence field induced by $u$.
+
+\section{Illustrative Regimes}
+
+\begin{table}[h]
+\centering
+\caption{Consequence Horizon Scenarios}
+\begin{tabular}{lccccl}
+\hline
+Scenario & $L/C$ & $\Rec$ & $\Obs$ & $\Koh$ & Decision \\
+\hline
+Normal commit & 0.40 & 0.85 & 0.90 & 0.88 & ALLOW \\
+Overloaded exec & 1.30 & 0.30 & 0.70 & 0.60 & FAIL\_CLOSED \\
+Unobservable & 0.50 & 0.80 & 0.05 & 0.85 & FAIL\_CLOSED \\
+Post-horizon & --- & 0.20 & 0.40 & 0.55 & QUARANTINE \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+Consequence Horizon Formalism identifies the last controllable surface before a transition binds into reality. Its four admissibility conditions --- recoverability, observability, absorption, and coherence retention --- must hold jointly at the horizon. The GCAT commit gate operationalizes these conditions for AI execution systems. Entropy is the recording cost of committed transitions and the substrate on which Data Continuity operates.
+
+\end{document}

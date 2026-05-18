@@ -11,5 +11,10 @@ Files:
 - P6_CommitGate_Executable_v1.tex
 - P7_FormalGuarantees_Viability_v1.tex
 - P8_AdversarialRobustness_v1.tex
+- P9_BoundaryCoherence_v1.tex
+- P10_ConsequenceHorizon_v1.tex
+- P11_DistributedCoherence_v1.tex
+- P12_DataContinuity_v1.tex
+- P13_AdmissibleExistence_v1.tex
 
 Core notation is aligned and self-contained in each file.

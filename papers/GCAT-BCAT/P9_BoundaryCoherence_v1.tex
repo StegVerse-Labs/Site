@@ -1,0 +1,142 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf Boundary-Coherence Formalism: A Load-Capacity Theory of Entity Persistence}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\FB}{F_B}
+\newcommand{\AB}{A_B}
+\newcommand{\Coh}{C}
+\newcommand{\Rec}{R}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+We introduce Boundary-Coherence Formalism (BC), a load-capacity theory of how bounded entities persist across transitions. A system becomes entity-like when it develops a boundary that preserves internal state continuity while regulating admissible transitions with its environment. We formalize four necessary conditions for boundary-coherence, derive the stability inequalities that govern them, characterize five failure modes, and connect the resulting admissibility conditions to the GCAT legitimacy invariant. The formalism applies uniformly across physical, biological, computational, and governance systems.
+\end{abstract}
+
+\section{Introduction}
+The GCAT framework governs whether an autonomous system may act at commit time. It presupposes that the system is a coherent entity with a stable identity. Boundary-Coherence Formalism asks the prior question: what allows a system to remain itself across transitions at all?
+
+The answer proposed here is structural. A coherent entity requires a boundary that regulates exchange, a state that persists across that regulation, and a capacity to absorb admitted transitions without losing identity. This is not merely a metaphor drawn from cell membranes or event horizons. It is a formal condition with derivable stability thresholds and testable failure modes.
+
+BC is the first layer below Admissible Existence in the AE stack and the parent of Consequence Horizon Formalism, Distributed Coherence, and Data Continuity.
+
+\section{System State and Boundary Variables}
+
+Let the system state be
+\[
+S(t) \in \mathbb{R}^n
+\]
+and let the environment state be $E(t) \in \mathbb{R}^k$. Define:
+\begin{itemize}
+\item $B(t)$ --- boundary condition regulating exchange between $S$ and $E$
+\item $\FB(t) \ge 0$ --- transition flux across the boundary
+\item $\AB(t) > 0$ --- absorption capacity of the system
+\item $\Coh(t) \in [0,1]$ --- coherence measure (identity preservation)
+\item $\Rec(t) \in [0,1]$ --- recoverability measure
+\item $Q(t) \in \mathbb{R}^n$ --- conserved-state vector
+\end{itemize}
+
+\section{Boundary-Coherence Conditions}
+
+A system is boundary-coherent at time $t$ if and only if four conditions hold simultaneously.
+
+\textbf{BC-1 (Interior Continuity).} There exists $Q(t) \ne \emptyset$ for all $t \in [t_0, t_1]$.
+
+\textbf{BC-2 (Boundary Distinction).} There exists $B(t)$ such that $B(t)$ partitions $S(t)$ from $E(t)$.
+
+\textbf{BC-3 (Admissible Exchange).} The flux is governed:
+\[
+\FB(t) = f(S(t), E(t), B(t))
+\]
+where $f$ is measurable and $B(t)$ admits only a defined subset of transitions.
+
+\textbf{BC-4 (Recoverable Coherence).}
+\[
+\Coh(t) \ge C_{\min}, \qquad \Rec(t) \ge R_{\min}.
+\]
+
+\section{Stability Conditions}
+
+\textbf{Theorem 1 (Boundary Stability).} A boundary-coherent system remains stable while
+\[
+\FB(t) \le \AB(t), \quad \Coh(t) \ge C_{\min}, \quad \Rec(t) \ge R_{\min}.
+\]
+
+\textit{Proof sketch.} Define the Lyapunov-like margin
+\[
+m_{BC}(t) = \min\!\left(\AB(t)-\FB(t),\; \Coh(t)-C_{\min},\; \Rec(t)-R_{\min}\right).
+\]
+When $m_{BC}(t) \ge 0$ and $\dot m_{BC}(t) \ge -\kappa m_{BC}(t)$, the system remains within the stable region. Violation of any component drives $m_{BC}$ below zero, triggering instability. \hfill $\blacksquare$
+
+\section{Load-Capacity Form}
+
+The boundary stability condition admits the load-capacity representation
+\[
+L_{BC}(u, S) \le C_{BC}(S),
+\]
+where $L_{BC}(u,S) = \FB(t)$ is the transition flux induced by action $u$ on state $S$, and $C_{BC}(S) = \AB(t)$ is the absorption capacity. This places BC in the same algebraic family as the GCAT invariant
+\[
+a \le K g^\alpha c^\beta t^\gamma.
+\]
+Both are instances of the general admissibility form $L_i(u,S) \le C_i(S)$.
+
+\section{Failure Modes}
+
+\begin{table}[h]
+\centering
+\caption{Boundary-Coherence Failure Modes}
+\begin{tabular}{lll}
+\hline
+Mode & Condition & Decision \\
+\hline
+Boundary overload & $\FB > \AB$ & DENY \\
+Coherence collapse & $\Coh < C_{\min}$ & DENY \\
+Recoverability failure & $\Rec < R_{\min}$ & DENY \\
+Boundary collapse & $B(t) = \emptyset$ & FAIL\_CLOSED \\
+Unobservable state & $\FB$ or $\Coh$ null & FAIL\_CLOSED \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Connection to GCAT}
+
+In GCAT, the legitimacy capacity $\Lam(\x)$ sets the maximum admissible autonomous capability. BC extends this: not only must autonomous capability respect legitimacy capacity, but the boundary through which that capability acts must also preserve coherence and recoverability. A system may satisfy the GCAT invariant while failing BC-4 if admitted transitions degrade coherence below $C_{\min}$.
+
+The joint admissibility condition is
+\[
+a \le \Lam(\x) \quad \text{and} \quad \FB \le \AB \quad \text{and} \quad \Coh \ge C_{\min} \quad \text{and} \quad \Rec \ge R_{\min}.
+\]
+
+\section{Illustrative Regimes}
+
+\begin{table}[h]
+\centering
+\caption{Boundary-Coherence Regimes}
+\begin{tabular}{lccccl}
+\hline
+System & $\FB/\AB$ & $\Coh$ & $\Rec$ & $m_{BC}$ & Outcome \\
+\hline
+Cell & 0.30 & 0.95 & 0.90 & $+$ & ALLOW \\
+Overloaded node & 1.20 & 0.85 & 0.70 & $-$ & DENY \\
+Trust-collapsed AI & 0.40 & 0.30 & 0.60 & $-$ & DENY \\
+Boundary-dissolved & --- & 0.80 & 0.75 & null & FAIL\_CLOSED \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+Boundary-Coherence Formalism characterizes the structural conditions under which a system remains a coherent entity across transitions. Its core object is the margin $m_{BC} \ge 0$, which generalizes the GCAT admissibility margin to the entity level. The consequence horizon, distributed coherence, and data continuity layers each extend BC to specific aspects of multi-transition, multi-entity, and multi-record systems.
+
+\end{document}

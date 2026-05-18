@@ -1,0 +1,187 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx,booktabs}
+\usepackage{cite}
+\title{\bf Data Continuity: Receipt Chains as Reconstruction Surfaces}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\RE}{\mathrm{RE}}
+\newcommand{\St}{S_t}
+\newcommand{\Stp}{S_{t+1}}
+\newcommand{\ut}{u_t}
+\newcommand{\Chain}{\mathcal{D}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+We introduce Data Continuity (DaCo), the record-preservation layer required for coherent systems to remain reconstructable across transitions. A transition may bind into reality and still be unrecoverable if insufficient record survives. We formalize the continuity surface as a receipt chain, define seven structural requirements for a chain to support reconstruction, prove that Data Continuity reduces reverse entropy, characterize eight continuity failure modes, and connect DaCo to the reverse entropy bound of the Admissible Existence unified gate. The central claim is that continuity is not storage: a file that cannot explain its relation to prior state is residue, not continuity.
+\end{abstract}
+
+\section{Introduction}
+
+Consequence Horizon Formalism (P10) establishes that entropy is the cost of recording a transition. When a transition commits, its pre-state and post-state become distinguishable, and that distinguishability requires physical or informational encoding. The resulting records are the substrate on which recovery depends.
+
+Data Continuity asks: are those records sufficient? Not merely present---sufficient. A log is not continuity. A hash is not continuity. A backup is not continuity. Continuity requires a recoverable relationship between prior state, transition, post-state, authority, and reconstruction path.
+
+This paper formalizes that relationship as a receipt chain, proves its connection to reverse entropy, and derives the structural conditions the chain must satisfy.
+
+\section{Reverse Entropy and Reconstruction Difficulty}
+
+\textbf{Definition 1 (Reverse Entropy).} The reverse entropy of a transition is the remaining uncertainty about the prior state given the post-state and all available records:
+\[
+\RE_t = H(\St \mid \Stp,\; \text{receipts},\; \text{residue}).
+\]
+
+Reverse entropy is not thermodynamic reversal. It is conditional reconstruction difficulty. High $\RE_t$ means that even given the post-state and all retained records, the prior state cannot be reliably inferred.
+
+\textbf{Theorem 1 (DaCo Reduces RE).} Let $\Chain_0$ denote the minimal record surface and $\Chain_1 \supset \Chain_0$ an enriched surface satisfying the DaCo structural requirements. Then
+\[
+H(\St \mid \Stp,\; \Chain_1) \le H(\St \mid \Stp,\; \Chain_0).
+\]
+
+\textit{Proof sketch.} Conditioning on additional valid information cannot increase conditional entropy. Each DaCo structural requirement (Section~IV) adds a non-redundant constraint on the prior state given the post-state, strictly reducing the feasible set. \hfill $\blacksquare$
+
+\section{The Continuity Chain}
+
+A continuity chain is a sequence of receipts
+\[
+\Chain = (r_0, r_1, \ldots, r_n),
+\]
+where each receipt $r_k$ records one transition:
+\[
+S_{k} \xrightarrow{u_k / r_k} S_{k+1}.
+\]
+
+A receipt $r_k$ must contain:
+\begin{itemize}
+\item $\text{pre\_hash}(S_k)$ --- hash of the pre-transition state
+\item $\text{post\_hash}(S_{k+1})$ --- hash of the post-transition state
+\item $\text{transition\_id}(u_k)$ --- unique identifier for the transition
+\item $\text{authority\_basis}$ --- who or what authorized $u_k$
+\item $\text{admissibility\_result}$ --- ALLOW, DENY, FAIL\_CLOSED, or QUARANTINE
+\item $\text{parent\_receipt\_hash}(r_{k-1})$ --- chain linkage
+\item $\text{receipt\_hash}(r_k)$ --- self-hash
+\item $\text{known\_gaps}$ --- explicit list of unknowns
+\end{itemize}
+
+The chain is \emph{valid} if every parent link is intact, every hash matches, and every gap is explicit.
+
+\section{Structural Requirements}
+
+\textbf{DaCo-1 (State Reference).} Every transition identifies the state it claims to modify.
+
+\textbf{DaCo-2 (Transition Identity).} Every transition is distinguishable from all others.
+
+\textbf{DaCo-3 (Provenance).} Every transition records its source, actor, or authority basis where possible.
+
+\textbf{DaCo-4 (Admissibility Basis).} Every transition records why it was allowed, denied, failed closed, or quarantined.
+
+\textbf{DaCo-5 (Receipt Linkage).} Every transition produces or references a receipt that connects it to prior and post states.
+
+\textbf{DaCo-6 (Reconstruction Path).} A future observer can reconstruct the transition chain or identify exactly where reconstruction fails.
+
+\textbf{DaCo-7 (Gap Honesty).} Unknowns are explicit. A continuity system that hides uncertainty is not continuous; it is merely confident.
+
+\section{Continuity vs.\ Storage}
+
+Storage says: some data still exists.
+Continuity says: the system can reconstruct how this data relates to prior state, transition, authority, consequence, and current state.
+
+\begin{table}[h]
+\centering
+\caption{Storage vs.\ Continuity}
+\begin{tabular}{lcc}
+\toprule
+Property & Storage & Continuity \\
+\midrule
+Files retained & $\checkmark$ & $\checkmark$ \\
+Hashes recorded & optional & $\checkmark$ \\
+Chain linkage intact & $\times$ & $\checkmark$ \\
+Authority basis present & $\times$ & $\checkmark$ \\
+Admissibility basis present & $\times$ & $\checkmark$ \\
+Gaps explicit & $\times$ & $\checkmark$ \\
+Reconstruction path known & $\times$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Continuity Failure Modes}
+
+\begin{table}[h]
+\centering
+\caption{Data Continuity Failure Modes}
+\begin{tabular}{ll}
+\hline
+Mode & Characterization \\
+\hline
+Broken chain & Parent receipt hash missing or invalid \\
+Ambiguous state & Pre- or post-state cannot be identified \\
+Authority loss & Transition recorded; authority basis absent \\
+Context loss & Insufficient environmental context to interpret \\
+Hash drift & Stored content no longer matches recorded hash \\
+Replay failure & Transition cannot be reconstructed or replayed \\
+Silent mutation & State changed without a transition record \\
+Horizon loss & Post-horizon; record surface insufficient \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Connection to the Admissible Existence Gate}
+
+The AE unified gate (P13) requires
+\[
+\RE(\St, \Phiop(\St,\ut)) \le \RE_{\max}.
+\]
+By Theorem 1, this condition is most likely to hold when the DaCo structural requirements are satisfied. Equivalently, the RE bound is the AE gate's operationalization of data continuity: it is not enough for the transition to have been admissible; it must also be reconstructable.
+
+After a consequence horizon (P10), direct reversibility may be lost. In that case, reconstruction depends almost entirely on the receipt chain. If the chain satisfies DaCo-1 through DaCo-7, then $\RE_t \le \RE_{\max}$ remains achievable even after the horizon. If the chain fails, $\RE_t$ may become unbounded and the AE gate would retroactively deny the transition.
+
+\section{Connection to Distributed Coherence}
+
+Distributed Coherence (P11) requires
+\[
+\text{DaCo}_{\text{integrity}} = \text{true}
+\]
+as one of its four admissibility conditions. This condition is now formal: it means that the continuity chain satisfies DaCo-1 through DaCo-7 for all nodes in the distributed system, and that no node holds a receipt that contradicts the receipts of another.
+
+Receipt divergence---when nodes preserve incompatible transition histories---is a DaCo failure that propagates into a DC failure. The repair requires constructing a reconciled chain from the available records and making gaps explicit per DaCo-7.
+
+\section{Reconstruction Confidence Score}
+
+A practical reconstruction report should include:
+\[
+\rho = 1 - \frac{|\text{known gaps}|}{|\text{total transitions}|},
+\]
+adjusted for the severity of each gap type. The reconstruction is \emph{admissible} when $\rho \ge \rho_{\min}$, corresponding to $\RE_t \le \RE_{\max}$.
+
+\section{Illustrative Regimes}
+
+\begin{table}[h]
+\centering
+\caption{Data Continuity Regimes}
+\begin{tabular}{lccccl}
+\hline
+Scenario & Chain & Hashes & Auth & Gaps & $\RE$ \\
+\hline
+Full receipt chain & intact & match & present & explicit & low \\
+Broken parent link & broken & N/A & present & unknown & high \\
+Silent mutation & absent & mismatch & absent & hidden & unbounded \\
+Post-horizon residue & partial & match & partial & explicit & moderate \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+Data Continuity formalizes the record surface that allows coherent state to survive transition. Its seven structural requirements define what a receipt chain must provide to support reconstruction. By Theorem~1, satisfying these requirements reduces reverse entropy and therefore supports the RE bound of the Admissible Existence unified gate. After a consequence horizon, the receipt chain is often all that remains; Data Continuity determines whether that residue can still reconstruct consequence.
+
+\end{document}

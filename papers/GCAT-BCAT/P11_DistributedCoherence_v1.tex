@@ -1,0 +1,123 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf Distributed Coherence: Global Admissibility Across Coupled Changing Systems}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Ci}{C_i}
+\newcommand{\Cg}{C_{\text{global}}}
+\newcommand{\Rg}{R_{\text{global}}}
+\newcommand{\Lij}{L_{ij}}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+We introduce Distributed Coherence (DC), a formalism for multi-entity admissibility. A node may pass its local admissibility check while the distributed system fails globally. We formalize this gap by distinguishing local coherence from global coherence, derive the distributed admissibility conditions that must hold jointly, identify seven distributed failure modes, and connect DC to the GCAT trust kernel and the Data Continuity receipt chain. The central result is that local validity is necessary but not sufficient for distributed admissibility.
+\end{abstract}
+
+\section{Introduction}
+Boundary-Coherence Formalism (P9) characterizes entity-level persistence. Consequence Horizon Formalism (P10) characterizes what happens when a single entity's transition crosses the irreversibility boundary.
+
+Distributed Coherence asks a different question: when multiple boundary-coherent entities are coupled and each is changing, do they remain coherent with one another? A repository can pass its own tests while an ecosystem breaks. A node can preserve its internal state while a network loses consensus. An AI agent can satisfy the GCAT invariant locally while a multi-agent system drifts into a collectively inadmissible configuration.
+
+DC formalizes the relational layer that local admissibility checks miss.
+
+\section{Distributed State Variables}
+
+Let $N$ be a set of nodes $\{1, \ldots, n\}$. For each node $i$:
+\begin{itemize}
+\item $S_i(t)$ --- state of node $i$
+\item $B_i(t)$ --- boundary condition of node $i$
+\item $C_i(t) \in [0,1]$ --- local coherence of node $i$
+\item $R_i(t) \in [0,1]$ --- recoverability of node $i$
+\item $\Lij(t) \ge 0$ --- lag between nodes $i$ and $j$
+\item $A_{ij}(t)$ --- authority relation between nodes $i$ and $j$
+\end{itemize}
+Define $C_{\text{global}}(t)$ as a measure of coherence across the full distributed system.
+
+\section{Distributed Admissibility Conditions}
+
+\textbf{Definition 1 (Distributed Coherence).} A distributed transition is admissible only if:
+\begin{align}
+C_i(t) &\ge C_{\min} \quad \forall i \in N \label{eq:local}\\
+C_{\text{global}}(t) &\ge C_{\text{global,min}} \label{eq:global}\\
+R_{\text{global}}(t) &\ge R_{\text{global,min}} \label{eq:recovery}\\
+\text{DaCo}_{\text{integrity}} &= \text{true} \label{eq:daco}
+\end{align}
+
+Condition \eqref{eq:local} is local coherence. Condition \eqref{eq:global} is global coherence. Neither implies the other.
+
+\textbf{Theorem 1 (Local-Global Gap).} There exist states satisfying \eqref{eq:local} that violate \eqref{eq:global}.
+
+\textit{Proof.} Let $n=2$. Set $C_1 = C_2 = C_{\min} + \epsilon$ for small $\epsilon > 0$. Let $A_{12}$ and $A_{21}$ assign incompatible authority relations. Then both nodes satisfy \eqref{eq:local}, but global coherence requires reconcilable authority, which fails by construction. \hfill $\blacksquare$
+
+\section{Distributed Failure Modes}
+
+\begin{table}[h]
+\centering
+\caption{Distributed Coherence Failure Modes}
+\begin{tabular}{ll}
+\hline
+Mode & Characterization \\
+\hline
+Local pass / global fail & \eqref{eq:local} holds $\forall i$; \eqref{eq:global} fails \\
+Split-brain coherence & $C_i \ge C_{\min}$ for two incompatible partitions \\
+Authority drift & $A_{ij}$ changes faster than reconciliation \\
+Receipt divergence & Nodes preserve incompatible transition histories \\
+Lag-induced invalidity & $\Lij > \tau_{\text{valid}}$; transition stale on arrival \\
+Quarantine divergence & Node $i$ quarantines; node $j$ admits same transition \\
+Reconciliation failure & No consistent post-transition state constructible \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Load-Capacity Form}
+
+Define the distributed divergence load
+\[
+L_{DC}(u, S) = \max_{i,j} d(S_i, S_j) + \|\Delta A\|
+\]
+where $d(S_i, S_j)$ is a state distance between nodes and $\|\Delta A\|$ measures authority drift. The distributed reconciliation capacity is $C_{DC}(S)$. The DC admissibility condition is
+\[
+L_{DC}(u, S) \le C_{DC}(S).
+\]
+
+\section{Connection to GCAT Trust Kernel}
+
+Paper P4 (TrustKernel Distributed) examines how trust propagates across distributed nodes. DC extends this: trust propagation preserves the GCAT invariant locally, but distributed admissibility also requires that the authority relations $A_{ij}$ remain reconcilable globally. A high-trust node that drifts into authority conflict with its peers produces a DC failure even if each node individually satisfies $a \le \Lam(\x)$.
+
+\section{Connection to Data Continuity}
+
+Condition \eqref{eq:daco} requires that the transition history be reconstructable across nodes. Data Continuity (P12) defines the receipt chain that operationalizes this condition. DC uses DaCo records to determine whether multiple systems still agree about shared state, authority, and consequence. Without intact receipt chains, the distributed system cannot detect or repair reconciliation failures.
+
+\section{Illustrative Regimes}
+
+\begin{table}[h]
+\centering
+\caption{Distributed Coherence Scenarios}
+\begin{tabular}{lccccl}
+\hline
+Scenario & $C_{\min}$ & $C_i$ & $C_g$ & DaCo & Decision \\
+\hline
+Healthy cluster & 0.6 & 0.85 & 0.82 & OK & ALLOW \\
+Local pass / global fail & 0.6 & 0.65 & 0.45 & OK & DENY \\
+Split-brain & 0.6 & 0.80 & N/A & conflict & QUARANTINE \\
+Receipt divergence & 0.6 & 0.75 & 0.70 & broken & FAIL\_CLOSED \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+
+Distributed Coherence formalizes the gap between local and global admissibility. A node satisfying the GCAT invariant and the BC stability conditions is not sufficient for distributed admissibility. Global coherence, global recoverability, and Data Continuity integrity must also hold. Consensus is not coherence: a distributed system may agree on an incoherent state.
+
+\end{document}

@@ -6,7 +6,7 @@
     "publisher/papers.html",
     "publisher/papers/index.html"
   ],
-  "count": 14,
+  "count": 19,
   "entries": [
     {
       "bytes": 5762,
@@ -14,6 +14,34 @@
       "href": "papers/GCAT-BCAT/P0_CommitTime_Synthesis_v1.tex",
       "path": "GCAT-BCAT/P0_CommitTime_Synthesis_v1.tex",
       "title": "P0 CommitTime Synthesis v1"
+    },
+    {
+      "bytes": 6287,
+      "extension": ".tex",
+      "href": "papers/GCAT-BCAT/P10_ConsequenceHorizon_v1.tex",
+      "path": "GCAT-BCAT/P10_ConsequenceHorizon_v1.tex",
+      "title": "P10 ConsequenceHorizon v1"
+    },
+    {
+      "bytes": 6349,
+      "extension": ".tex",
+      "href": "papers/GCAT-BCAT/P11_DistributedCoherence_v1.tex",
+      "path": "GCAT-BCAT/P11_DistributedCoherence_v1.tex",
+      "title": "P11 DistributedCoherence v1"
+    },
+    {
+      "bytes": 9206,
+      "extension": ".tex",
+      "href": "papers/GCAT-BCAT/P12_DataContinuity_v1.tex",
+      "path": "GCAT-BCAT/P12_DataContinuity_v1.tex",
+      "title": "P12 DataContinuity v1"
+    },
+    {
+      "bytes": 7143,
+      "extension": ".tex",
+      "href": "papers/GCAT-BCAT/P13_AdmissibleExistence_v1.tex",
+      "path": "GCAT-BCAT/P13_AdmissibleExistence_v1.tex",
+      "title": "P13 AdmissibleExistence v1"
     },
     {
       "bytes": 3464,
@@ -79,10 +107,17 @@
       "title": "P8 AdversarialRobustness v1"
     },
     {
-      "bytes": 407,
-      "extension": ".txt",
-      "href": "papers/GCAT-BCAT/README.txt",
-      "path": "GCAT-BCAT/README.txt",
+      "bytes": 6228,
+      "extension": ".tex",
+      "href": "papers/GCAT-BCAT/P9_BoundaryCoherence_v1.tex",
+      "path": "GCAT-BCAT/P9_BoundaryCoherence_v1.tex",
+      "title": "P9 BoundaryCoherence v1"
+    },
+    {
+      "bytes": 564,
+      "extension": ".md",
+      "href": "papers/GCAT-BCAT/README.md",
+      "path": "GCAT-BCAT/README.md",
       "title": "README"
     },
     {
@@ -107,7 +142,7 @@
       "title": "stegverse methodology paper draft"
     }
   ],
-  "generated_utc": "2026-05-18T10:43:11.318214+00:00",
+  "generated_utc": "2026-05-18T15:58:00.434282+00:00",
   "source": "GCAT-BCAT-Engine/Publisher/papers",
   "target": "StegVerse-Labs/Site/papers"
 }

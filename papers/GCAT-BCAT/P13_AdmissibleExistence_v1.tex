@@ -1,0 +1,131 @@
+\documentclass[letterpaper,10pt,conference]{ieeeconf}
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm,algpseudocode,booktabs}
+\usepackage{graphicx}
+\usepackage{cite}
+\title{\bf Admissible Existence: A Unified Transition Gate Across Coherence, Consequence, and Continuity}
+\author{[Authors anonymized for submission]}
+
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Atot}{\mathcal{A}_{\text{total}}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Phiop}{\Phi}
+\newcommand{\IW}{\mathrm{IW}}
+\newcommand{\RE}{\mathrm{RE}}
+\newcommand{\St}{S_t}
+\newcommand{\ut}{u_t}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+We present the Admissible Existence (AE) unified transition gate, which integrates the GCAT legitimacy invariant, Boundary-Coherence load-capacity conditions, Consequence Horizon absorption requirements, Distributed Coherence global conditions, Data Continuity integrity, and Triad evaluation layers into a single admissibility decision. The gate strengthens the GCAT point test to a consequence-window test: a transition is allowed only if its inference window remains within the total admissible region and reconstruction difficulty remains bounded. We prove that the unified gate subsumes each component gate, derive the generalized load-capacity vector, characterize seven cross-layer failure modes, and present the operational decision procedure.
+\end{abstract}
+
+\section{Introduction}
+Each prior paper in this series addresses one admissibility layer. GCAT (P1) governs autonomous capability relative to legitimacy capacity. Boundary-Coherence (P9) governs entity-level persistence. Consequence Horizon (P10) governs irreversibility. Distributed Coherence (P11) governs multi-entity global coherence. Data Continuity (P12) governs reconstruction.
+
+These layers are not independent. A transition that satisfies GCAT may violate BC. A transition that satisfies both may open an inadmissible inference window. A transition that satisfies all local conditions may fail the distributed global check. This paper integrates them.
+
+\section{Component Admissibility Regions}
+
+Define admissibility regions for each layer:
+\begin{align*}
+\A_{GCAT} &= \{\x : a \le \Lam(\x)\} \\
+\A_{BC} &= \{S : F_B \le A_B,\; C \ge C_{\min},\; R \ge R_{\min}\} \\
+\A_{CHF} &= \{S : \text{CHF conditions } \eqref{eq:rec}--\eqref{eq:koh} \text{ hold}\} \\
+\A_{DC} &= \{S : C_{\text{global}} \ge C_{g,\min},\; R_{\text{global}} \ge R_{g,\min}\} \\
+\A_{DaCo} &= \{S : \text{receipt chain valid, hashes match}\} \\
+\A_{Triad} &= \A_{GCAT} \cap \A_{ECAT} \cap \A_{Exist}
+\end{align*}
+
+The total admissible region is
+\[
+\Atot = \A_{GCAT} \cap \A_{BC} \cap \A_{CHF} \cap \A_{DC} \cap \A_{DaCo} \cap \A_{Triad}.
+\]
+
+\section{The Unified Gate}
+
+\textbf{Definition 1 (Weak AE Admissibility).}
+\[
+\text{ALLOW}_{\text{weak}}(u;\St) \iff \Phiop(\St,\ut) \in \Atot.
+\]
+
+\textbf{Definition 2 (Strong AE Admissibility).}
+\[
+\text{ALLOW}_{\text{strong}}(u;\St,\tau) \iff \IW_\tau(\St,\ut) \subseteq \Atot \;\wedge\; \RE(\St,\Phiop(\St,\ut)) \le \RE_{\max},
+\]
+where $\IW_\tau(\St,\ut) = \{S' : S' \text{ reachable from } \Phiop(\St,\ut) \text{ within } \tau\}$ is the inference window and $\RE(\St, \Phiop(\St,\ut)) = H(\St \mid \Phiop(\St,\ut), \text{receipts}, \text{residue})$ is the reverse entropy (reconstruction difficulty).
+
+\textbf{Theorem 1 (Subsumption).} $\text{ALLOW}_{\text{strong}}$ implies $\text{ALLOW}_{\text{weak}}$, and $\text{ALLOW}_{\text{weak}}$ does not imply $\text{ALLOW}_{\text{strong}}$.
+
+\textit{Proof.} $\Phiop(\St,\ut) \in \IW_\tau$ by definition, so $\IW_\tau \subseteq \Atot$ implies $\Phiop(\St,\ut) \in \Atot$. For the converse, construct a transition where $\Phiop(\St,\ut) \in \Atot$ but $IW_\tau$ contains a state outside $\A_{CHF}$ due to delayed consequence. \hfill $\blacksquare$
+
+\section{Generalized Load-Capacity Vector}
+
+Each layer contributes a load-capacity pair. Define
+\[
+\mathbf{L}(u,S) = (L_{GCAT}, L_{BC}, L_{CHF}, L_{DC}, L_{DaCo}, L_{Triad})
+\]
+\[
+\mathbf{C}(S) = (C_{GCAT}, C_{BC}, C_{CHF}, C_{DC}, C_{DaCo}, C_{Triad}).
+\]
+The unified admissibility condition is
+\[
+\mathbf{L}(u,S) \le \mathbf{C}(S) \quad \text{(componentwise)},
+\]
+together with $\RE \le \RE_{\max}$. This unifies all component gates in a single vector inequality.
+
+\section{Cross-Layer Failure Modes}
+
+\begin{table}[h]
+\centering
+\caption{Cross-Layer Failure Modes}
+\begin{tabular}{lll}
+\hline
+Mode & Condition & Gate Response \\
+\hline
+Immediate pass / window fail & $\Phiop \in \Atot$; $\IW \not\subseteq \Atot$ & DENY (pre-commit) \\
+GCAT pass / BC fail & $a \le \Lam$; $F_B > A_B$ & DENY \\
+Local pass / global fail & $C_i \ge C_{\min}$; $C_g < C_{g,\min}$ & FAIL\_CLOSED \\
+Record pass / RE explosion & receipts present; $\RE > \RE_{\max}$ & FAIL\_CLOSED \\
+Horizon breach & committed; $\Atot$ not proven & QUARANTINE \\
+Conservation pass / recovery fail & $Q$ preserved; $R < R_{\min}$ & DENY \\
+Authority pass / observer fail & GCAT pass; ECAT fail & DENY \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Operational Decision Procedure}
+
+\begin{algorithmic}[1]
+\Require Current state $\St$, proposed transition $\ut$, horizon $\tau$
+\State Compute $S_{\text{cand}} \gets \Phiop(\St, \ut)$
+\State Compute $\IW \gets \IW_\tau(\St, \ut)$
+\State Compute $\RE \gets H(\St \mid S_{\text{cand}}, \text{receipts}, \text{residue})$
+\If{$\IW \not\subseteq \Atot$} \Return DENY \EndIf
+\If{$\RE > \RE_{\max}$} \Return FAIL\_CLOSED \EndIf
+\If{uncertainty prevents verifying above} \Return FAIL\_CLOSED \EndIf
+\If{transition already crossed horizon and violation detected} \Return QUARANTINE \EndIf
+\State Emit receipt with full admissibility basis
+\Return ALLOW
+\end{algorithmic}
+
+\section{Connection to GCAT Commit Gate}
+
+The GCAT commit gate (P0) checks $\Phiop(\St,\ut) \in \Rrob(\tau)$. The AE unified gate extends this: $\Rrob(\tau)$ is the GCAT projection of $\Atot$, and the full gate adds BC, CHF, DC, DaCo, and Triad layers. The robust recoverable region condition is the AE strong admissibility condition restricted to the GCAT subspace.
+
+\section{Existence vs.\ Presence}
+
+The central philosophical claim of AE is that presence is not existence. A state appears when it is detectable. A state exists admissibly when it coheres across transition without violating the conditions that permit continued coherence. The unified gate is the formal operationalization of this claim: it tests not only that the immediate post-state is admissible, but that the entire consequence window remains within the region in which admissible existence continues to hold.
+
+\section{Conclusion}
+
+The Admissible Existence unified gate integrates all component admissibility layers into a single decision procedure. Its central strengthening of GCAT is the transition from point test to consequence-window test: $\IW_\tau \subseteq \Atot$ and $\RE \le \RE_{\max}$. A system governed by this gate preserves not only its own admissibility but the conditions that allow admissible existence to continue for the systems it is coupled to.
+
+\end{document}
