@@ -1,0 +1,75 @@
+{
+  "providers": [
+    {
+      "use_case": "connectivity-check",
+      "module": "hybrid-collab-bridge",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "temperature": 0.0,
+      "max_tokens": 512
+    },
+    {
+      "use_case": "bundle-ingest-validate",
+      "module": "bundle-ingest",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5",
+      "temperature": 0.0,
+      "max_tokens": 512,
+      "authority_class": "ordinary_analysis",
+      "gcat_bcat_required": true,
+      "receipt_required": true,
+      "budget_ceiling_usd": 0.05
+    },
+    {
+      "use_case": "github-push",
+      "module": "bundle-ingest",
+      "provider": "github",
+      "credential_env": "STEGTVC_GITHUB_TOKEN",
+      "credential_type": "pat_or_app_token",
+      "token_rotation_hours": 1,
+      "scopes_required": ["contents:write", "actions:write"],
+      "authority_class": "repo_write",
+      "gcat_bcat_required": true,
+      "receipt_required": true,
+      "forbidden_paths": [".github/workflows/"],
+      "note": "Phase 1: reads STEGTVC_GITHUB_TOKEN env var. Phase 2: GitHub App issues ephemeral installation token via TVC backend."
+    },
+    {
+      "use_case": "session-ingest",
+      "module": "stegclaw",
+      "provider": "local",
+      "authority_class": "observe_state",
+      "gcat_bcat_required": false,
+      "receipt_required": true,
+      "read_only": true
+    },
+    {
+      "use_case": "gcat-bcat-gate",
+      "module": "bundle-ingest",
+      "provider": "local",
+      "authority_class": "admissibility_check",
+      "gcat_bcat_required": false,
+      "receipt_required": true,
+      "invariant": "I(x) = a - K*g^alpha*c^beta*t^gamma <= 0"
+    }
+  ],
+  "token_policy": {
+    "no_hardcoded_secrets": true,
+    "platform_agnostic": true,
+    "ephemeral_preferred": true,
+    "rotation_hours": 1,
+    "phase1_note": "Credentials read from env vars named in credential_env field.",
+    "phase2_note": "GitHub App backend will issue installation tokens directly. No env var needed."
+  },
+  "github_app": {
+    "status": "not_yet_registered",
+    "phase": 2,
+    "when_registered": {
+      "app_id_env": "STEGTVC_GITHUB_APP_ID",
+      "private_key_env": "STEGTVC_GITHUB_APP_PRIVATE_KEY",
+      "installation_id_env": "STEGTVC_GITHUB_APP_INSTALLATION_ID",
+      "token_endpoint": "https://api.github.com/app/installations/{installation_id}/access_tokens",
+      "token_ttl_seconds": 3600
+    }
+  }
+}
