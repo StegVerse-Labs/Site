@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-18T15:00:00Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "stegclaw-capsule-gen-v1",
+  "class": "capsule_generation",
+  "authority_class": "ordinary_analysis",
+  "description": "Scans incoming/ for .zip bundles that lack companion capsule files. For each unmatched bundle, generates a maintenance capsule, v0 authority token, and v0 verified receipt on-demand. All three files are written to incoming/ alongside the bundle. Safe to run repeatedly — skips bundles that already have capsules.",
+  "command": [
+    "python",
+    "tools/stegclaw_capsule_gen.py",
+    "--policy",
+    "data/headless-tasks/stegclaw-capsule-gen-v1.json"
+  ],
+  "expected_inputs": [
+    "tools/stegclaw_capsule_gen.py",
+    "data/headless-tasks/stegclaw-capsule-gen-v1.json",
+    "incoming/*.zip"
+  ],
+  "expected_outputs": [
+    "headless_cmd_reports/stegclaw-capsule-gen-v1.receipt.json",
+    "headless_cmd_reports/stegclaw-capsule-gen-v1.report.md",
+    "incoming/*.capsule.json",
+    "incoming/*.authority-token.json",
+    "incoming/*.verified-receipt.json"
+  ],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/"
+  ],
+  "receipt_output": "headless_cmd_reports/stegclaw-capsule-gen-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/stegclaw-capsule-gen-v1.report.md",
+  "dry_run_safe": true,
+  "gcat_bcat_gate": false,
+  "idempotent": true,
+  "safety": {
+    "no_workflow_files": true,
+    "no_secret_material": true,
+    "read_zip_only": true,
+    "write_incoming_only": true,
+    "receipt_required": true,
+    "skips_already_capsulated_bundles": true
+  }
+}
