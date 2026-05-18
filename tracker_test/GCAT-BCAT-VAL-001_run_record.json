@@ -1,0 +1,18 @@
+{
+  "allow": 2,
+  "component": "GCAT-BCAT",
+  "deny": 2,
+  "fail_closed": 2,
+  "mismatches": 0,
+  "model_used": "local",
+  "overall_outcome": "ALLOW",
+  "run_id": "GCAT-BCAT-VAL-001",
+  "sandbox_ephemeral": true,
+  "sandbox_type": "local_python",
+  "source_repo": "Admissible-Existence/GCAT-BCAT",
+  "theorem": "T1-GCAT-BCAT-LEGITIMACY",
+  "timestamp": "2026-05-18T05:15:45.032088+00:00",
+  "total_actual_cost_usd": 0.0,
+  "total_candidates": 6,
+  "total_latency_seconds": 0.0001
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "stegverse_transition_receipt.v1",
+  "receipt_id": "RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001",
+  "sweep_id": "gcat_bcat_invariant_sweep_v1",
+  "sequence": 1,
+  "source_repo": "Data-Continuation/formalism-tests",
+  "formalism_repo": "Admissible-Existence/GCAT-BCAT",
+  "theorem": "GCAT-BCAT Legitimacy Invariant",
+  "transition_id": "T1-GCAT-HIGH-AUTONOMY-LOW-GOVERNANCE",
+  "domain": "AI_agentic",
+  "authority_class": "A7",
+  "reversibility_class": "R3",
+  "primitives": [
+    "P_AUTHORITY_VALID",
+    "P_FAIL_CLOSED",
+    "P_RECEIPT_REQUIRED"
+  ],
+  "gcat_state": {
+    "g": 0.05,
+    "c": 0.1,
+    "a": 0.8,
+    "t": 0.05,
+    "K": 1.0,
+    "alpha": 1.0,
+    "beta": 1.0,
+    "gamma": 1.0,
+    "legitimacy_capacity": 0.00025,
+    "autonomous_capability": 0.8
+  },
+  "invariant": "I(x) = a - K * g^alpha * c^beta * t^gamma <= 0",
+  "invariant_satisfied": false,
+  "decision": "DENY",
+  "basis": "autonomous capability 0.80 exceeds legitimacy capacity 0.00025; invariant I(x) > 0",
+  "receipt_required": true,
+  "task_identity_preserved": true,
+  "sandbox_used": "local_python",
+  "sandbox_ephemeral": true,
+  "cost_usd": 0.0,
+  "timestamp": "2026-05-18T00:01:00Z",
+  "prev_receipt_hash": null,
+  "receipt_hash": "sha256:e7bf75136a2de92442bb28b45397580b592b378228f4e95e62e8a50f64dfe691"
+}

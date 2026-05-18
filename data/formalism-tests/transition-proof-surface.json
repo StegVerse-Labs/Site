@@ -3,8 +3,8 @@
   "title": "Data Continuation to Transition Table Proof Surface",
   "source_repo": "Data-Continuation/formalism-tests",
   "site_repo": "StegVerse-Labs/Site",
-  "current_stage": "Stage 4",
-  "status": "Stage 4 verified; Stage 5 next",
+  "current_stage": "Stage 5",
+  "status": "Stage 5 verified; Stage 6 next",
   "canonical_claim": "Admissibility is not local boundary compliance. Admissibility is recoverable convergence across coherent, evolving, coupled boundary fields.",
   "stages": [
     {
@@ -32,15 +32,26 @@
       "stage": "Stage 5",
       "name": "System-coherent boundary transition classes",
       "proof_claim": "boundary transitions must remain recoverably convergent and system-coherent",
+      "status": "verified",
+      "summary": "Boundary-Coherence load-capacity failure, consequence horizon absorption breach, purpose-convergence failure, distributed local-pass/global-fail, split-brain coherence, and boundary reset are each verified as distinct transition classes with deterministic ALLOW, DENY, FAIL_CLOSED, or QUARANTINE decisions. Admissible existence requires that a system preserve not only itself but the conditions that allow coherent existence to continue."
+    },
+    {
+      "stage": "Stage 6",
+      "name": "Admissible Existence unified gate",
+      "proof_claim": "ALLOW(u) iff IW(u) is contained in A_total and RE <= RE_max",
       "status": "next",
-      "summary": "Next proof layer should add transition classes for system-coherence failure, purpose-convergence failure, boundary reset, boundary evolution, and multi-body coupling stress cases."
+      "summary": "Next proof layer integrates the full AE stack: existence conditions, GCAT-BCAT legitimacy invariant, inference window containment, reverse entropy bound, and unified transition gate across all component layers (AE, BC, CHF, DC, DaCo, Triad)."
     }
   ],
   "verified_tasks": [
     "archive_runtime_artifacts",
     "continuation_gate",
     "compound_continuation_gate",
-    "transition_table_gate"
+    "transition_table_gate",
+    "boundary_coherence_gate",
+    "consequence_horizon_gate",
+    "distributed_coherence_gate",
+    "boundary_evolution_gate"
   ],
   "site_pages": [
     "transition-proof-surface.html",
@@ -62,7 +73,11 @@
     "stage4": {
       "report": "reports/transition_table_report.md",
       "receipts": "reports/transition_table_receipts.jsonl"
+    },
+    "stage5": {
+      "report": "reports/boundary_coherence_report.md",
+      "receipts": "data/receipts/boundary_coherence_receipts.jsonl"
     }
   },
-  "next_integration_target": "Stage 5: System-Coherent Boundary Transition Classes"
+  "next_integration_target": "Stage 6: Admissible Existence Unified Gate"
 }

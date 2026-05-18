@@ -1,0 +1,42 @@
+{
+  "schema": "stegverse_transition_receipt.v1",
+  "receipt_id": "RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002",
+  "sweep_id": "gcat_bcat_invariant_sweep_v1",
+  "sequence": 2,
+  "source_repo": "Data-Continuation/formalism-tests",
+  "formalism_repo": "Admissible-Existence/GCAT-BCAT",
+  "theorem": "GCAT-BCAT Legitimacy Invariant",
+  "transition_id": "T1-GCAT-TRUST-COLLAPSE",
+  "domain": "AI_agentic",
+  "authority_class": "A7",
+  "reversibility_class": "R2",
+  "primitives": [
+    "P_AUTHORITY_VALID",
+    "P_FAIL_CLOSED",
+    "P_RECEIPT_REQUIRED"
+  ],
+  "gcat_state": {
+    "g": 0.6,
+    "c": 0.3,
+    "a": 0.05,
+    "t": 0.05,
+    "K": 1.0,
+    "alpha": 1.0,
+    "beta": 1.0,
+    "gamma": 1.0,
+    "legitimacy_capacity": 0.009,
+    "autonomous_capability": 0.05
+  },
+  "invariant": "I(x) = a - K * g^alpha * c^beta * t^gamma <= 0",
+  "invariant_satisfied": false,
+  "decision": "FAIL_CLOSED",
+  "basis": "trust near zero collapses legitimacy capacity; cannot verify admissibility; fail closed",
+  "receipt_required": true,
+  "task_identity_preserved": true,
+  "sandbox_used": "local_python",
+  "sandbox_ephemeral": true,
+  "cost_usd": 0.0,
+  "timestamp": "2026-05-18T00:02:00Z",
+  "prev_receipt_hash": "sha256:e7bf75136a2de92442bb28b45397580b592b378228f4e95e62e8a50f64dfe691",
+  "receipt_hash": "sha256:f589c3a289ea49a4fbf71a38e18a8d1174ae40efef42b11934fd7a2fcb15fba6"
+}

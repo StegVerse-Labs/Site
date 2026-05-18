@@ -328,6 +328,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "0f5d2313850853928690806dad417044cbcb53313313c29f554d3be556463b1d"
+    },
+    {
+      "generated_at": "2026-05-18T11:04:12Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "ae-stage5-gcat-bcat-formal-v1.sandbox-candidate.zip",
+      "bundle_sha256": "db4fb906339b01f6084631ca2e40afee4b21392a3662414d9d664e20ff4587a3",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "9b32a2312cfd0adbfea60761e532027945754409f65a7dd0274de1e8b3d21977"
     }
   ]
 }

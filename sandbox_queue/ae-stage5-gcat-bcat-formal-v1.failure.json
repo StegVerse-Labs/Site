@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-05-18T11:04:12Z",
+  "schema": "stegverse.bundle_ingestion_receipt.v1",
+  "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+  "bundle_name": "ae-stage5-gcat-bcat-formal-v1.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/ae-stage5-gcat-bcat-formal-v1.zip",
+  "bundle_sha256": "d7569e370a2c1745c35bf964dcd86d145cf9b853223f666a7453e5a1c9772b20",
+  "mode": "apply",
+  "bundle_class": "complex_unmanifested_bundle",
+  "verdict": "SANDBOX_REQUIRED",
+  "route": "sandbox_queue",
+  "reason": "complex bundle lacks manifest",
+  "mapped_paths": [
+    "GCAT-BCAT/formal/gcat_bcat_formal.md",
+    "GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json",
+    "GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json",
+    "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json",
+    "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json",
+    "GCAT-BCAT/proposed/gcat_bcat_candidates_001.json",
+    "GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json",
+    "GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json",
+    "data/formalism-tests/transition-proof-surface.json",
+    "data/formalism-tests/transition-table-classes.json",
+    "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json",
+    "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json",
+    "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json",
+    "ingestion-manifest.json",
+    "iosnoperiod.md",
+    "tracker_test/GCAT-BCAT-VAL-001_run_record.json",
+    "validator_runners/gcat_bcat_runner.py"
+  ],
+  "decisions": []
+}

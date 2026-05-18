@@ -1,46 +1,78 @@
 {
-  "generated_at": "2026-05-11T22:17:17Z",
+  "generated_at": "2026-05-18T11:04:12Z",
   "schema": "stegverse.bundle_manifest.v1",
-  "bundle_id": "site-transition-pages-wiring-with-manifest-bundle.sandbox-candidate",
+  "bundle_id": "ae-stage5-gcat-bcat-formal-v1.sandbox-candidate",
   "formal_milestone": "MS-012I \u2014 Site Ephemeral Sandbox Protocols",
-  "source_bundle": "site-transition-pages-wiring-with-manifest-bundle.zip",
+  "source_bundle": "ae-stage5-gcat-bcat-formal-v1.zip",
   "classification": "repair_candidate_created",
   "purpose": "Sandbox-generated candidate bundle. Must pass through normal ingestion before any live repo changes are applied.",
   "files": [
     {
-      "path": ".stegverse/ingest_manifest.json",
+      "path": "GCAT-BCAT/formal/gcat_bcat_formal.md",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "SITE_PAGE_WIRING.md",
+      "path": "GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-development-status.html",
+      "path": "GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-milestones.html",
+      "path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-release-index.html",
+      "path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-release-snapshot.html",
+      "path": "GCAT-BCAT/proposed/gcat_bcat_candidates_001.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-replay-packet.html",
+      "path": "GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-table.html",
+      "path": "GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json",
       "role": "sandbox_preserved_member"
     },
     {
-      "path": "transition-verification-guide.html",
+      "path": "data/formalism-tests/transition-proof-surface.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "data/formalism-tests/transition-table-classes.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "ingestion-manifest.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "iosnoperiod.md",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "tracker_test/GCAT-BCAT-VAL-001_run_record.json",
+      "role": "sandbox_preserved_member"
+    },
+    {
+      "path": "validator_runners/gcat_bcat_runner.py",
       "role": "sandbox_preserved_member"
     }
   ],

@@ -1,0 +1,56 @@
+[
+  {
+    "candidate_id": "GCAT-DENY-001",
+    "component": "GCAT-BCAT",
+    "state": {"g": 0.20, "c": 0.25, "a": 0.35, "t": 0.20,
+              "K": 1.0, "alpha": 1.0, "beta": 1.0, "gamma": 1.0},
+    "expected_decision": "DENY",
+    "invariant_tested": "T1-GCAT-BCAT-LEGITIMACY",
+    "description": "High autonomy. a=0.35 >> Λ=0.01. Invariant violated."
+  },
+  {
+    "candidate_id": "GCAT-DENY-002",
+    "component": "GCAT-BCAT",
+    "state": {"g": 0.30, "c": 0.25, "a": 0.30, "t": 0.15,
+              "K": 1.0, "alpha": 1.0, "beta": 1.0, "gamma": 1.0},
+    "expected_decision": "DENY",
+    "invariant_tested": "T1-GCAT-BCAT-LEGITIMACY",
+    "description": "Moderate autonomy exceeds capacity. a=0.30 >> Λ=0.011."
+  },
+  {
+    "candidate_id": "GCAT-FAIL-CLOSED-001",
+    "component": "GCAT-BCAT",
+    "state": {"g": 0.60, "c": 0.25, "a": 0.10, "t": 0.05,
+              "K": 1.0, "alpha": 1.0, "beta": 1.0, "gamma": 1.0},
+    "expected_decision": "FAIL_CLOSED",
+    "invariant_tested": "T1-GCAT-BCAT-LEGITIMACY",
+    "description": "Trust collapse: t=0.05 collapses legitimacy capacity to near-zero."
+  },
+  {
+    "candidate_id": "GCAT-FAIL-CLOSED-002",
+    "component": "GCAT-BCAT",
+    "state": {"g": null, "c": 0.30, "a": 0.10, "t": 0.20,
+              "K": 1.0, "alpha": 1.0, "beta": 1.0, "gamma": 1.0},
+    "expected_decision": "FAIL_CLOSED",
+    "invariant_tested": "T1-GCAT-BCAT-LEGITIMACY",
+    "description": "Governance capacity unobservable. Cannot compute legitimacy capacity."
+  },
+  {
+    "candidate_id": "GCAT-ALLOW-001",
+    "component": "GCAT-BCAT",
+    "state": {"g": 0.40, "c": 0.35, "a": 0.01, "t": 0.24,
+              "K": 1.0, "alpha": 1.0, "beta": 1.0, "gamma": 1.0},
+    "expected_decision": "ALLOW",
+    "invariant_tested": "T1-GCAT-BCAT-LEGITIMACY",
+    "description": "Minimal autonomous capability. a=0.01 < Λ=0.034. Invariant satisfied. Formal note: BCAT simplex requires very low a for ALLOW under multiplicative form."
+  },
+  {
+    "candidate_id": "GCAT-ALLOW-002",
+    "component": "GCAT-BCAT",
+    "state": {"g": 0.35, "c": 0.35, "a": 0.02, "t": 0.28,
+              "K": 1.0, "alpha": 1.0, "beta": 1.0, "gamma": 1.0},
+    "expected_decision": "ALLOW",
+    "invariant_tested": "T1-GCAT-BCAT-LEGITIMACY",
+    "description": "Balanced governance with minimal autonomy. a=0.02 < Λ=0.034. Admissible."
+  }
+]

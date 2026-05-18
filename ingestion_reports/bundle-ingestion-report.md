@@ -1,16 +1,16 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-11T22:17:17Z`
+Generated: `2026-05-18T11:04:12Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/site-transition-pages-wiring-with-manifest-bundle.sandbox-candidate.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/ae-stage5-gcat-bcat-formal-v1.sandbox-candidate.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
 
 ## Summary
 
-- `total_entries_seen`: `10`
-- `applied`: `10`
+- `total_entries_seen`: `18`
+- `applied`: `18`
 - `unchanged`: `0`
 - `skipped`: `0`
 - `path_mappings`: `0`
@@ -20,13 +20,21 @@ Bundle class: `ordinary_bundle`
 
 ## File Decisions
 
-- `created` `.stegverse/ingest_manifest.json` → `.stegverse/ingest_manifest.json` — hash differs or target missing
-- `created` `SITE_PAGE_WIRING.md` → `SITE_PAGE_WIRING.md` — hash differs or target missing
+- `created` `GCAT-BCAT/formal/gcat_bcat_formal.md` → `GCAT-BCAT/formal/gcat_bcat_formal.md` — hash differs or target missing
+- `created` `GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json` → `GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json` — hash differs or target missing
+- `created` `GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json` → `GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json` — hash differs or target missing
+- `created` `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json` → `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json` — hash differs or target missing
+- `created` `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json` → `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json` — hash differs or target missing
+- `created` `GCAT-BCAT/proposed/gcat_bcat_candidates_001.json` → `GCAT-BCAT/proposed/gcat_bcat_candidates_001.json` — hash differs or target missing
+- `created` `GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json` → `GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json` — hash differs or target missing
+- `created` `GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json` → `GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json` — hash differs or target missing
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `updated` `transition-development-status.html` → `transition-development-status.html` — hash differs or target missing
-- `updated` `transition-milestones.html` → `transition-milestones.html` — hash differs or target missing
-- `updated` `transition-release-index.html` → `transition-release-index.html` — hash differs or target missing
-- `updated` `transition-release-snapshot.html` → `transition-release-snapshot.html` — hash differs or target missing
-- `updated` `transition-replay-packet.html` → `transition-replay-packet.html` — hash differs or target missing
-- `updated` `transition-table.html` → `transition-table.html` — hash differs or target missing
-- `updated` `transition-verification-guide.html` → `transition-verification-guide.html` — hash differs or target missing
+- `updated` `data/formalism-tests/transition-proof-surface.json` → `data/formalism-tests/transition-proof-surface.json` — hash differs or target missing
+- `updated` `data/formalism-tests/transition-table-classes.json` → `data/formalism-tests/transition-table-classes.json` — hash differs or target missing
+- `created` `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json` → `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json` — hash differs or target missing
+- `created` `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json` → `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json` — hash differs or target missing
+- `created` `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json` → `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json` — hash differs or target missing
+- `created` `ingestion-manifest.json` → `ingestion-manifest.json` — hash differs or target missing
+- `created` `iosnoperiod.md` → `iosnoperiod.md` — hash differs or target missing
+- `created` `tracker_test/GCAT-BCAT-VAL-001_run_record.json` → `tracker_test/GCAT-BCAT-VAL-001_run_record.json` — hash differs or target missing
+- `created` `validator_runners/gcat_bcat_runner.py` → `validator_runners/gcat_bcat_runner.py` — hash differs or target missing

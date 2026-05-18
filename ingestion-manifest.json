@@ -1,0 +1,385 @@
+{
+  "schema": {
+    "name": "stegverse.ingestion.manifest",
+    "version": "1.0.0",
+    "protocol": "core-lite-ingestion",
+    "protocol_version": "1.0.0"
+  },
+  "bundle": {
+    "bundle_id": "ae-stage5-gcat-bcat-formal-v1",
+    "bundle_type": "formalism-proof-stage",
+    "title": "AE Stage 5 \u2014 GCAT-BCAT Formal Math + Site Data",
+    "description": "Stage 5 formalism: GCAT-BCAT T1 theorem, validated candidates, site transition-table data, T1 sweep receipts.",
+    "created_at": "2026-05-18T06:00:00Z",
+    "created_by": "StegClaw/Claude",
+    "bundle_hash": "sha256:06300c6c26e16e89dce4c04056a91eb752178b5e7c75827db86504843b47d61f",
+    "content_hash": "sha256:d3ff73e1a609f830e909b75b19d56989486220430be7ab35b17e943343a87e41",
+    "engine_min_version": "1.0.0"
+  },
+  "origin": {
+    "origin_type": "sandbox",
+    "org": "StegVerse-Labs",
+    "repo": "Site",
+    "branch": "main",
+    "actor": "stegclaw",
+    "created_by_engine": true,
+    "engine_id": "StegClaw/bundle_ingest_runner",
+    "engine_version": "1.0.0"
+  },
+  "destination": {
+    "destination_type": "multi-repo",
+    "primary_org": "Admissible-Existence",
+    "primary_repo": "GCAT-BCAT",
+    "branch": "main",
+    "install_mode": "create_or_replace",
+    "allowed_to_create_paths": true,
+    "allowed_to_overwrite": true,
+    "routing": [
+      {
+        "org": "Admissible-Existence",
+        "repo": "GCAT-BCAT",
+        "branch": "main",
+        "path_prefix": "GCAT-BCAT/"
+      },
+      {
+        "org": "Admissible-Existence",
+        "repo": "validator",
+        "branch": "main",
+        "path_prefix": "validator_runners/"
+      },
+      {
+        "org": "StegVerse-Labs",
+        "repo": "Site",
+        "branch": "main",
+        "path_prefix": "data/"
+      }
+    ]
+  },
+  "classification": {
+    "class": "user-entry-plus-master-record-endpoint",
+    "risk_level": "low",
+    "trust_level": "provisional",
+    "requires_sandbox": false,
+    "requires_admissibility_check": true,
+    "requires_master_records_report": true,
+    "contains_executable_code": true,
+    "contains_workflows": false,
+    "contains_secrets": false,
+    "contains_generated_artifacts": true,
+    "transition_id": "T-120",
+    "transition_name": "File Creation",
+    "transition_family": "Installation"
+  },
+  "admissibility": {
+    "status": "pending",
+    "decision": "PENDING",
+    "basis": {
+      "gcat_bcat_required": true,
+      "boundary_coherence_required": true,
+      "data_continuity_required": true
+    },
+    "checks": [
+      {
+        "name": "schema-valid",
+        "status": "pending",
+        "required": true
+      },
+      {
+        "name": "file-hashes-valid",
+        "status": "pending",
+        "required": true
+      },
+      {
+        "name": "destination-authority-valid",
+        "status": "pending",
+        "required": true
+      },
+      {
+        "name": "no-secret-leakage",
+        "status": "pending",
+        "required": true
+      },
+      {
+        "name": "gcat-bcat-invariant",
+        "status": "pending",
+        "required": true
+      }
+    ],
+    "failure_behavior": "fail-closed"
+  },
+  "files": [
+    {
+      "path": "GCAT-BCAT/formal/gcat_bcat_formal.md",
+      "role": "formalism-definition",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:444d8794261f581957f4cbb6484051e47aac2004fe31a43cb4b53206b130e77f",
+      "size_bytes": 6665,
+      "mime_type": "text/markdown",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json",
+      "role": "validation-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:dbac871084d54b0abab8daa3ec2253750d1a6bd5d7fdb04809596e1b36abdb78",
+      "size_bytes": 1175,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json",
+      "role": "validation-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:865b4086cfab58154fbf647811ab1245cff27494f5d28fe5877eb3d511a63fa3",
+      "size_bytes": 1094,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json",
+      "role": "validation-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:fdd4656ef8554b3b062e708d48c66fed7e111a7696942e70a9935dd94e345ba6",
+      "size_bytes": 1155,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json",
+      "role": "validation-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:1fac189aed5e8408695fb267f94e1f747eb7259cf24f221c35639f66acb68067",
+      "size_bytes": 1117,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json",
+      "role": "validation-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:f9ca210c8390f0ce18dffe8119caa2f6fc9a9c9fc4a2ee15f1850846820dbc02",
+      "size_bytes": 1112,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json",
+      "role": "validation-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:d4e0db5ab93f56e266e843e6ad55fabb2b4a7f0666af7ebcbab3d0b36a5b9be3",
+      "size_bytes": 1112,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "GCAT-BCAT/proposed/gcat_bcat_candidates_001.json",
+      "role": "candidate-vector",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:2f464535c777684946dfee6125a071c152f7658573d7790f7a09494c39ed89e5",
+      "size_bytes": 2340,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "validator_runners/gcat_bcat_runner.py",
+      "role": "validator-runner",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:797aed77a9326822602c87db3e6e2ee7a97bd4b6d71b13a1059d0f5d75648638",
+      "size_bytes": 8901,
+      "mime_type": "text/x-python",
+      "is_executable": true,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "data/formalism-tests/transition-table-classes.json",
+      "role": "site-data",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:6f94f7bb97334883dff3b2a973210c3cc6895f0bbd78a3c229ec5ec274ae422e",
+      "size_bytes": 12923,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "data/formalism-tests/transition-proof-surface.json",
+      "role": "site-data",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:2ce293c8267118f868bffe916abbf4ba43c28deb026f4cc7103f1b37e1ffb6a2",
+      "size_bytes": 3946,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json",
+      "role": "theorem-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:bea8812275552c73ab091090ddc646d0a556328454c013c8ceb16cbf37d1d179",
+      "size_bytes": 1374,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json",
+      "role": "theorem-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:3b022df83b33aab688576f412d62ed34a5115b50c5fe4647a17659658a719a86",
+      "size_bytes": 1308,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json",
+      "role": "theorem-receipt",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:9f6649b29a3394c97e2eb3fe4237ffb37fee35241cc55d4586b9681e2bc48b33",
+      "size_bytes": 1363,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    },
+    {
+      "path": "tracker_test/GCAT-BCAT-VAL-001_run_record.json",
+      "role": "data",
+      "operation": "create_or_replace",
+      "required": true,
+      "sha256": "sha256:c83401e5b9f12267d50a242cd75d1a50f7a30a821bf9ea80ab776c59148ff815",
+      "size_bytes": 482,
+      "mime_type": "application/json",
+      "is_executable": false,
+      "requires_iosnoperiod_mirror": false
+    }
+  ],
+  "iosnoperiod": {
+    "required": false,
+    "mappings": []
+  },
+  "receipts": {
+    "receipt_chain_required": true,
+    "previous_receipt_hash": null,
+    "manifest_receipt_hash": "sha256:1c842ac2f37cf6b5143b3e53c3c0b5d73408552d8f89014349b2cafe4feae968",
+    "receipt_files": []
+  },
+  "custody": {
+    "current_holder": "StegVerse-Labs/Site/incoming",
+    "custody_state": "pending-validation",
+    "handoff_required": true,
+    "handoff_to": "Admissible-Existence/GCAT-BCAT",
+    "retain_until_confirmed": true
+  },
+  "routing": {
+    "requires_downstream_delivery": true,
+    "downstream_targets": [
+      {
+        "org": "Admissible-Existence",
+        "repo": "GCAT-BCAT",
+        "branch": "main",
+        "required": true,
+        "status": "pending"
+      },
+      {
+        "org": "Admissible-Existence",
+        "repo": "validator",
+        "branch": "main",
+        "required": true,
+        "status": "pending"
+      },
+      {
+        "org": "StegVerse-Labs",
+        "repo": "Site",
+        "branch": "main",
+        "required": true,
+        "status": "pending"
+      }
+    ],
+    "requires_master_records_delivery": true,
+    "master_records_target": {
+      "org": "master-records",
+      "repo": "telemetry",
+      "branch": "main",
+      "status": "pending"
+    },
+    "routing_status": "pending"
+  },
+  "retention": {
+    "retain_full_bundle": false,
+    "retain_manifest": true,
+    "retain_receipts": true,
+    "retain_hashes": true,
+    "retain_pointers": true,
+    "full_bundle_authoritative_location": "master-records/dist/"
+  },
+  "verification": {
+    "required": true,
+    "checks": [
+      {
+        "name": "manifest-schema-valid",
+        "status": "pending"
+      },
+      {
+        "name": "all-required-files-present",
+        "status": "pending"
+      },
+      {
+        "name": "all-file-hashes-match",
+        "status": "pending"
+      },
+      {
+        "name": "destination-authority-valid",
+        "status": "pending"
+      },
+      {
+        "name": "gcat-bcat-gate",
+        "status": "pending"
+      }
+    ]
+  },
+  "master_records": {
+    "required": true,
+    "event_type": "ingestion-bundle-created",
+    "event_id": "sv-event-stage5-gcat-bcat-20260518",
+    "submit_manifest": true,
+    "submit_receipts": true,
+    "submit_full_bundle": false,
+    "submit_hashes": true,
+    "submit_pointers": true,
+    "state_reconstruction_required": true
+  },
+  "outcome": {
+    "status": "pending",
+    "decision": null,
+    "installed": false,
+    "next_required_action": "validate"
+  },
+  "notes": [
+    "Stage 5 proof bundle: GCAT-BCAT T1 theorem formalized and validated.",
+    "Routes to three destinations: GCAT-BCAT repo, validator repo, Site data.",
+    "T1 receipts complete the sweep sequence alongside T2-T16.",
+    "Site transition-table-classes.json updated to Stage 5 with BC/CHF/DC classes.",
+    "transition-proof-surface.json declares Stage 6 as next target."
+  ]
+}
