@@ -1,209 +1,59 @@
 {
-  "generated_at": "2026-05-18T11:04:12Z",
+  "generated_at": "2026-05-19T21:01:11Z",
   "schema": "stegverse.bundle_ingestion_receipt.v1",
   "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
-  "bundle_name": "ae-stage5-gcat-bcat-formal-v1.sandbox-candidate.zip",
-  "bundle_path": "/home/runner/work/Site/Site/incoming/ae-stage5-gcat-bcat-formal-v1.sandbox-candidate.zip",
-  "bundle_sha256": "db4fb906339b01f6084631ca2e40afee4b21392a3662414d9d664e20ff4587a3",
+  "bundle_name": "stegverse-tvc-v1.1-integration.zip",
+  "bundle_path": "/home/runner/work/Site/Site/incoming/stegverse-tvc-v1.1-integration.zip",
+  "bundle_sha256": "b9218cb1de33ab5b4038c86ef079c755cbcffa026352211b24ef213d3d46d0dc",
   "mode": "apply",
   "bundle_class": "ordinary_bundle",
   "verdict": "ALLOW",
   "route": "ingest",
   "reason": "ordinary bundle allowed",
   "mapped_paths": [
-    "GCAT-BCAT/formal/gcat_bcat_formal.md",
-    "GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json",
-    "GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json",
-    "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json",
-    "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json",
-    "GCAT-BCAT/proposed/gcat_bcat_candidates_001.json",
-    "GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json",
-    "GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json",
     "bundle-manifest.json",
-    "data/formalism-tests/transition-proof-surface.json",
-    "data/formalism-tests/transition-table-classes.json",
-    "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json",
-    "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json",
-    "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json",
-    "ingestion-manifest.json",
-    "iosnoperiod.md",
-    "tracker_test/GCAT-BCAT-VAL-001_run_record.json",
-    "validator_runners/gcat_bcat_runner.py"
+    "tools/stegclaw_capsule_gen.py",
+    "tools/tvc_ingestion_gate.py"
   ],
-  "files_seen": 18,
-  "files_created": 15,
-  "files_updated": 3,
+  "files_seen": 3,
+  "files_created": 1,
+  "files_updated": 2,
   "files_unchanged": 0,
   "files_skipped": 0,
   "unsafe_paths_rejected": 0,
   "path_mappings_applied": [],
   "repo_transition": {
-    "before_tree_fingerprint": "dee34f2ea137d6a6845fa36296a74a3054c8f4e7eadfd97c8cc0766ab5ce3514",
-    "after_tree_fingerprint": "72db7e5e2acbd453930eb262cf18f0dc34a09b4d4ffeff51f8526a55b443c5bf",
-    "changed_files_fingerprint": "9b32a2312cfd0adbfea60761e532027945754409f65a7dd0274de1e8b3d21977"
+    "before_tree_fingerprint": "c0203f8e427e209a8ddf1c17f373f7e51dcfb3c2ba16fcdccb672790360ea1ac",
+    "after_tree_fingerprint": "ec4812c120785f583621990edfe82112f9100203e304e25fab038b17361af033",
+    "changed_files_fingerprint": "67549fe1ac2f7f2737ca35b759bf42a5baf425549af64f9ed1a1708ffdf55e55"
   },
   "decisions": [
-    {
-      "bundle_path": "GCAT-BCAT/formal/gcat_bcat_formal.md",
-      "repo_path": "GCAT-BCAT/formal/gcat_bcat_formal.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "444d8794261f581957f4cbb6484051e47aac2004fe31a43cb4b53206b130e77f",
-      "bytes": 6665
-    },
-    {
-      "bundle_path": "GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json",
-      "repo_path": "GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "865b4086cfab58154fbf647811ab1245cff27494f5d28fe5877eb3d511a63fa3",
-      "bytes": 1094
-    },
-    {
-      "bundle_path": "GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json",
-      "repo_path": "GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "fdd4656ef8554b3b062e708d48c66fed7e111a7696942e70a9935dd94e345ba6",
-      "bytes": 1155
-    },
-    {
-      "bundle_path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json",
-      "repo_path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "dbac871084d54b0abab8daa3ec2253750d1a6bd5d7fdb04809596e1b36abdb78",
-      "bytes": 1175
-    },
-    {
-      "bundle_path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json",
-      "repo_path": "GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "1fac189aed5e8408695fb267f94e1f747eb7259cf24f221c35639f66acb68067",
-      "bytes": 1117
-    },
-    {
-      "bundle_path": "GCAT-BCAT/proposed/gcat_bcat_candidates_001.json",
-      "repo_path": "GCAT-BCAT/proposed/gcat_bcat_candidates_001.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "2f464535c777684946dfee6125a071c152f7658573d7790f7a09494c39ed89e5",
-      "bytes": 2340
-    },
-    {
-      "bundle_path": "GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json",
-      "repo_path": "GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "d4e0db5ab93f56e266e843e6ad55fabb2b4a7f0666af7ebcbab3d0b36a5b9be3",
-      "bytes": 1112
-    },
-    {
-      "bundle_path": "GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json",
-      "repo_path": "GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "f9ca210c8390f0ce18dffe8119caa2f6fc9a9c9fc4a2ee15f1850846820dbc02",
-      "bytes": 1112
-    },
     {
       "bundle_path": "bundle-manifest.json",
       "repo_path": "bundle-manifest.json",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "1fb97196c7542ccd25fd56659ab045ec50a6691085be18c9062044ed355d9347",
-      "new_sha256": "0cb2e188b3517e24e6c0d121b528fcab46b22295a5a0e747d666eeba337327db",
-      "bytes": 2690
+      "old_sha256": "0cb2e188b3517e24e6c0d121b528fcab46b22295a5a0e747d666eeba337327db",
+      "new_sha256": "1ea40f2941199109b867668deb77a1d9713158fc5051b8bc76637e3ec2d2e056",
+      "bytes": 993
     },
     {
-      "bundle_path": "data/formalism-tests/transition-proof-surface.json",
-      "repo_path": "data/formalism-tests/transition-proof-surface.json",
+      "bundle_path": "tools/stegclaw_capsule_gen.py",
+      "repo_path": "tools/stegclaw_capsule_gen.py",
       "action": "updated",
       "reason": "hash differs or target missing",
-      "old_sha256": "fecfc7175157160b09513419a4c136ed340d655a2bfd03fce34dd9846a59cd34",
-      "new_sha256": "2ce293c8267118f868bffe916abbf4ba43c28deb026f4cc7103f1b37e1ffb6a2",
-      "bytes": 3946
+      "old_sha256": "1ea8beb245d5de523ae1ddf33d8e1d04bc9b8628e3546e6099cf24a632c5763b",
+      "new_sha256": "48d43b5438c3bc060b42815d8bd6872f786df3b1ec04d6a949f53e549ba06048",
+      "bytes": 22487
     },
     {
-      "bundle_path": "data/formalism-tests/transition-table-classes.json",
-      "repo_path": "data/formalism-tests/transition-table-classes.json",
-      "action": "updated",
-      "reason": "hash differs or target missing",
-      "old_sha256": "62e5f111ae1ee3c6145ba5bb54f5e3f88a683b4242482c4c4c768b897f774a18",
-      "new_sha256": "6f94f7bb97334883dff3b2a973210c3cc6895f0bbd78a3c229ec5ec274ae422e",
-      "bytes": 12923
-    },
-    {
-      "bundle_path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json",
-      "repo_path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json",
+      "bundle_path": "tools/tvc_ingestion_gate.py",
+      "repo_path": "tools/tvc_ingestion_gate.py",
       "action": "created",
       "reason": "hash differs or target missing",
       "old_sha256": null,
-      "new_sha256": "3b022df83b33aab688576f412d62ed34a5115b50c5fe4647a17659658a719a86",
-      "bytes": 1308
-    },
-    {
-      "bundle_path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json",
-      "repo_path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "bea8812275552c73ab091090ddc646d0a556328454c013c8ceb16cbf37d1d179",
-      "bytes": 1374
-    },
-    {
-      "bundle_path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json",
-      "repo_path": "data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "9f6649b29a3394c97e2eb3fe4237ffb37fee35241cc55d4586b9681e2bc48b33",
-      "bytes": 1363
-    },
-    {
-      "bundle_path": "ingestion-manifest.json",
-      "repo_path": "ingestion-manifest.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "18d67b2a2fb449cc3f16bb4d47d2ac60d3a8ecaefaca257f2dec019eaf3a4450",
-      "bytes": 12140
-    },
-    {
-      "bundle_path": "iosnoperiod.md",
-      "repo_path": "iosnoperiod.md",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "20b8aea9455e49fda2cf72492d1f50ab64e519c37b040ad415f4ad6f6606de9f",
-      "bytes": 89
-    },
-    {
-      "bundle_path": "tracker_test/GCAT-BCAT-VAL-001_run_record.json",
-      "repo_path": "tracker_test/GCAT-BCAT-VAL-001_run_record.json",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "c83401e5b9f12267d50a242cd75d1a50f7a30a821bf9ea80ab776c59148ff815",
-      "bytes": 482
-    },
-    {
-      "bundle_path": "validator_runners/gcat_bcat_runner.py",
-      "repo_path": "validator_runners/gcat_bcat_runner.py",
-      "action": "created",
-      "reason": "hash differs or target missing",
-      "old_sha256": null,
-      "new_sha256": "797aed77a9326822602c87db3e6e2ee7a97bd4b6d71b13a1059d0f5d75648638",
-      "bytes": 8901
+      "new_sha256": "49811f9acc75c00797c0868638ec9deac058518b4fa8c5261d080ae331aa07c9",
+      "bytes": 6647
     }
   ]
 }

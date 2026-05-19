@@ -1,16 +1,16 @@
 # Bundle Ingestion Report
 
-Generated: `2026-05-18T11:04:12Z`
+Generated: `2026-05-19T21:01:11Z`
 Mode: `apply`
-Bundle: `/home/runner/work/Site/Site/incoming/ae-stage5-gcat-bcat-formal-v1.sandbox-candidate.zip`
+Bundle: `/home/runner/work/Site/Site/incoming/stegverse-tvc-v1.1-integration.zip`
 Verdict: `ALLOW`
 Route: `ingest`
 Bundle class: `ordinary_bundle`
 
 ## Summary
 
-- `total_entries_seen`: `18`
-- `applied`: `18`
+- `total_entries_seen`: `3`
+- `applied`: `3`
 - `unchanged`: `0`
 - `skipped`: `0`
 - `path_mappings`: `0`
@@ -20,21 +20,6 @@ Bundle class: `ordinary_bundle`
 
 ## File Decisions
 
-- `created` `GCAT-BCAT/formal/gcat_bcat_formal.md` → `GCAT-BCAT/formal/gcat_bcat_formal.md` — hash differs or target missing
-- `created` `GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json` → `GCAT-BCAT/invalidated/GCAT-DENY-001_receipt.json` — hash differs or target missing
-- `created` `GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json` → `GCAT-BCAT/invalidated/GCAT-DENY-002_receipt.json` — hash differs or target missing
-- `created` `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json` → `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-001_receipt.json` — hash differs or target missing
-- `created` `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json` → `GCAT-BCAT/invalidated/GCAT-FAIL-CLOSED-002_receipt.json` — hash differs or target missing
-- `created` `GCAT-BCAT/proposed/gcat_bcat_candidates_001.json` → `GCAT-BCAT/proposed/gcat_bcat_candidates_001.json` — hash differs or target missing
-- `created` `GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json` → `GCAT-BCAT/validated/GCAT-ALLOW-001_receipt.json` — hash differs or target missing
-- `created` `GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json` → `GCAT-BCAT/validated/GCAT-ALLOW-002_receipt.json` — hash differs or target missing
 - `updated` `bundle-manifest.json` → `bundle-manifest.json` — hash differs or target missing
-- `updated` `data/formalism-tests/transition-proof-surface.json` → `data/formalism-tests/transition-proof-surface.json` — hash differs or target missing
-- `updated` `data/formalism-tests/transition-table-classes.json` → `data/formalism-tests/transition-table-classes.json` — hash differs or target missing
-- `created` `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json` → `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0001-001.json` — hash differs or target missing
-- `created` `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json` → `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0002-002.json` — hash differs or target missing
-- `created` `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json` → `data/receipts/RCPT-T1-gcat_bcat_invariant_sweep_v1-0003-003.json` — hash differs or target missing
-- `created` `ingestion-manifest.json` → `ingestion-manifest.json` — hash differs or target missing
-- `created` `iosnoperiod.md` → `iosnoperiod.md` — hash differs or target missing
-- `created` `tracker_test/GCAT-BCAT-VAL-001_run_record.json` → `tracker_test/GCAT-BCAT-VAL-001_run_record.json` — hash differs or target missing
-- `created` `validator_runners/gcat_bcat_runner.py` → `validator_runners/gcat_bcat_runner.py` — hash differs or target missing
+- `updated` `tools/stegclaw_capsule_gen.py` → `tools/stegclaw_capsule_gen.py` — hash differs or target missing
+- `created` `tools/tvc_ingestion_gate.py` → `tools/tvc_ingestion_gate.py` — hash differs or target missing

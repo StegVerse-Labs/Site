@@ -337,6 +337,15 @@
       "bundle_class": "ordinary_bundle",
       "verdict": "ALLOW",
       "changed_files_fingerprint": "9b32a2312cfd0adbfea60761e532027945754409f65a7dd0274de1e8b3d21977"
+    },
+    {
+      "generated_at": "2026-05-19T21:01:11Z",
+      "formal_milestone": "MS-012E.5 \u2014 Default Queue Mode Ingestor",
+      "bundle_name": "stegverse-tvc-v1.1-integration.zip",
+      "bundle_sha256": "b9218cb1de33ab5b4038c86ef079c755cbcffa026352211b24ef213d3d46d0dc",
+      "bundle_class": "ordinary_bundle",
+      "verdict": "ALLOW",
+      "changed_files_fingerprint": "67549fe1ac2f7f2737ca35b759bf42a5baf425549af64f9ed1a1708ffdf55e55"
     }
   ]
 }
