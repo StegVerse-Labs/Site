@@ -50,9 +50,11 @@ jobs:
           INPUT_APPLY: ${{ github.event.inputs.apply }}
         run: |
           APPLY_FLAG=""
+          QUEUE_FLAG=""
 
           if [ "$EVENT_NAME" = "push" ]; then
             APPLY_FLAG="--apply"
+            QUEUE_FLAG="--process-queue"
           fi
 
           if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$INPUT_APPLY" = "true" ]; then
@@ -68,6 +70,7 @@ jobs:
             --repo-root . \
             --policy data/bundle-ingestion-policy-v1.json \
             --out-dir ingestion_reports \
+            ${QUEUE_FLAG} \
             $BUNDLE_ARG \
             $APPLY_FLAG
 
