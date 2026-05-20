@@ -1,50 +1,52 @@
-# Stage 6 Site Data Mirror Bundle
+# Transition Discovery Color Sync Bundle
 
 ## Assumptions
 
-1. `formalism-tests` remains the authority for tests, candidates, receipts, declared tasks, and workflow output.
-2. `StegVerse-Labs/Site` mirrors public proof data under `data/formalism-tests/`.
-3. Site pages should fetch mirrored JSON data instead of hardcoding proof values.
-4. No workflow files are added or changed.
+1. The missing visual page should be restored as `transition-discovery.html`.
+2. The discovery page should be data-driven from `data/formalism-tests/transition-discovery-map.json`.
+3. Transition classifications should reuse the same 0–5 color scale used by the discovery map.
+4. `formalism-tests` remains the proof/receipt authority; `Site` mirrors public proof data.
+5. No workflow files are added or changed.
 
 ## Done Definition
 
 This bundle is done when:
 
-1. `stage6-unified-gate-results.html` fetches and renders `data/formalism-tests/stage6-unified-gate-results.json`.
-2. The JSON data file contains the Stage 6 successful declared-task result.
-3. `transition-release-index.html` links to `stage6-unified-gate-results.html`.
-4. `transition-table-classes.html` links to `stage6-unified-gate-results.html`.
+1. `transition-discovery.html` renders transition elements in ascending completion order from level 0 through level 5.
+2. `transition-table-classes.html` applies the same level colors to transition classification rows.
+3. `transition-release-index.html` links to the restored discovery map.
+4. `data/formalism-tests/transition-discovery-map.json` carries the shared completion scale.
 5. No workflow files are included.
 
 ## Files Included
 
 | Path | Purpose |
 |---|---|
-| `stage6-unified-gate-results.html` | Data-driven Stage 6 public page. |
-| `data/formalism-tests/stage6-unified-gate-results.json` | Mirrored public Stage 6 proof data. |
-| `transition-release-index.html` | Full replacement adding Stage 6 link. |
-| `transition-table-classes.html` | Full replacement adding Stage 6 link and reset/evolve filter support. |
+| `transition-discovery.html` | Restored data-driven visual transition discovery page. |
+| `data/formalism-tests/transition-discovery-map.json` | Shared completion-level map and color scale. |
+| `transition-table-classes.html` | Full replacement that applies discovery colors to transition classifications. |
+| `transition-release-index.html` | Full replacement that links to discovery and class pages. |
 | `README.md` | Bundle explanation and verification checklist. |
 | `bundle_manifest.json` | Bundle manifest. |
+
+## Completion Scale
+
+| Level | Meaning |
+|---:|---|
+| 0 | Unobserved |
+| 1 | Observed |
+| 2 | Partitioned |
+| 3 | Tested |
+| 4 | Integrated |
+| 5 | Unified |
 
 ## Expected Public URLs
 
 ```text
-https://stegverse-labs.github.io/Site/stage6-unified-gate-results.html
-https://stegverse-labs.github.io/Site/data/formalism-tests/stage6-unified-gate-results.json
-```
-
-## Public Result Mirrored
-
-```text
-candidate_count: 10
-assertion_count: 320
-success: true
-ALLOW: 3
-FAIL_CLOSED: 5
-RESET_BOUNDARY: 1
-EVOLVE_BOUNDARY: 1
+https://stegverse-labs.github.io/Site/transition-discovery.html
+https://stegverse-labs.github.io/Site/data/formalism-tests/transition-discovery-map.json
+https://stegverse-labs.github.io/Site/transition-table-classes.html
+https://stegverse-labs.github.io/Site/transition-release-index.html
 ```
 
 ## Authority Boundary
