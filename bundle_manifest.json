@@ -1,47 +1,47 @@
 {
   "schema": "stegverse_bundle_manifest.v1",
-  "bundle_id": "stage6-site-publication-bundle",
+  "bundle_id": "stage6-site-data-mirror-bundle",
   "target_repo": "StegVerse-Labs/Site",
   "no_workflows": true,
-  "purpose": "Publish Stage 6 unified gate results through the Site public proof surface.",
+  "purpose": "Publish Stage 6 as a data-mirrored Site proof surface.",
   "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
   "files": [
     {
       "path": "stage6-unified-gate-results.html",
-      "action": "create",
-      "description": "New public Stage 6 unified gate results page."
+      "action": "create_or_replace",
+      "description": "Data-driven Stage 6 public page."
+    },
+    {
+      "path": "data/formalism-tests/stage6-unified-gate-results.json",
+      "action": "create_or_replace",
+      "description": "Mirrored public Stage 6 proof data."
     },
     {
       "path": "transition-release-index.html",
       "action": "replace",
-      "description": "Full replacement that adds Stage 6 results page to navigation and canonical page list."
+      "description": "Adds Stage 6 link."
     },
     {
       "path": "transition-table-classes.html",
       "action": "replace",
-      "description": "Full replacement that links to Stage 6 results and supports reset/evolve decisions."
+      "description": "Adds Stage 6 link and reset/evolve decision filters."
     },
     {
       "path": "README.md",
       "action": "include",
-      "description": "Bundle explanation and verification checklist."
+      "description": "Bundle explanation."
     },
     {
       "path": "bundle_manifest.json",
       "action": "include",
-      "description": "Manifest for this bundle."
+      "description": "Bundle manifest."
     }
   ],
-  "verification": {
-    "expected_public_pages": [
-      "https://stegverse-labs.github.io/Site/stage6-unified-gate-results.html",
-      "https://stegverse-labs.github.io/Site/transition-release-index.html",
-      "https://stegverse-labs.github.io/Site/transition-table-classes.html"
-    ],
-    "expected_stage6_summary": {
-      "candidate_count": 10,
-      "test_count": 94,
-      "overall_status": "PASS"
-    }
+  "mirrored_data": {
+    "path": "data/formalism-tests/stage6-unified-gate-results.json",
+    "source_repo": "formalism-tests",
+    "candidate_count": 10,
+    "assertion_count": 320,
+    "success": true
   }
 }

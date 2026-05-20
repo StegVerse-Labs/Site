@@ -1,0 +1,134 @@
+{
+  "schema": "stegverse_stage6_unified_gate_public_result.v1",
+  "stage": "Stage 6",
+  "title": "Stage 6 Unified Gate Results",
+  "source_repo": "formalism-tests",
+  "publication_repo": "StegVerse-Labs/Site",
+  "workflow": "Data Continuation Tests",
+  "task_id": "stage6_unified_gate_tests",
+  "runner": "tools/run_stage6_unified_gate_tests.py",
+  "fixture": "tests/fixtures/stage6_candidates.json",
+  "theorem_basis": "Admissible Existence Unified Gate",
+  "gate_formula": "ALLOW(u) iff IW_tau(S,u) subset A_total AND RE(S -> Phi(S,u)) <= RE_max",
+  "components_covered": [
+    "AE",
+    "BC",
+    "CHF",
+    "DC",
+    "DaCo",
+    "Triad"
+  ],
+  "success": true,
+  "candidate_count": 10,
+  "assertion_count": 320,
+  "decision_counts": {
+    "ALLOW": 3,
+    "FAIL_CLOSED": 5,
+    "RESET_BOUNDARY": 1,
+    "EVOLVE_BOUNDARY": 1
+  },
+  "message": "Stage 6 unified gate checks passed for 10 candidates.",
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "candidates": [
+    {
+      "transition_id": "T-AE-UNIFIED-ALLOW-001",
+      "transition_name": "ae_unified_gate_admissible_transition",
+      "role": "unified_admissibility_positive_control",
+      "coupling": "paired-boundary",
+      "iw_contained": true,
+      "re_within_bound": true,
+      "expected_decision": "ALLOW",
+      "basis": "IW contained within A_total; RE within RE_max; all component gates ALLOW; admissibility contract satisfied"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-IW-BREACH-001",
+      "transition_name": "ae_unified_gate_iw_breach",
+      "role": "iw_containment_failure_governor",
+      "coupling": "irreversible-consequence",
+      "iw_contained": false,
+      "re_within_bound": true,
+      "expected_decision": "FAIL_CLOSED",
+      "basis": "IW breaches A_total boundary; inference propagation exceeds admissible existence envelope"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-RE-BREACH-001",
+      "transition_name": "ae_unified_gate_re_breach",
+      "role": "reverse_entropy_breach_governor",
+      "coupling": "irreversible-consequence",
+      "iw_contained": true,
+      "re_within_bound": false,
+      "expected_decision": "FAIL_CLOSED",
+      "basis": "RE exceeds RE_max; transition would accumulate irreversible entropy beyond admissible bound"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-DUAL-BREACH-001",
+      "transition_name": "ae_unified_gate_dual_breach",
+      "role": "dual_condition_failure_governor",
+      "coupling": "multi-agent-cascade",
+      "iw_contained": false,
+      "re_within_bound": false,
+      "expected_decision": "FAIL_CLOSED",
+      "basis": "Both IW containment and RE bound fail; cascade consequence across all component layers"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-RESET-001",
+      "transition_name": "ae_unified_gate_boundary_reset",
+      "role": "recoverable_non_convergence_reset_governor",
+      "coupling": "authority-transfer",
+      "iw_contained": true,
+      "re_within_bound": true,
+      "expected_decision": "RESET_BOUNDARY",
+      "basis": "IW contained; RE within bound; recoverability above floor; convergence score below minimum"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-EVOLVE-001",
+      "transition_name": "ae_unified_gate_boundary_evolution",
+      "role": "boundary_coherence_evolution_governor",
+      "coupling": "coherence-coupled",
+      "iw_contained": true,
+      "re_within_bound": true,
+      "expected_decision": "EVOLVE_BOUNDARY",
+      "basis": "Recoverability and convergence above minimums; coherence score below minimum; purpose-convergence test fails"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-AI-BLOCK-ALLOW-001",
+      "transition_name": "ae_unified_gate_ai_block_admissible",
+      "role": "ai_block_positive_control",
+      "coupling": "paired-boundary",
+      "iw_contained": true,
+      "re_within_bound": true,
+      "expected_decision": "ALLOW",
+      "basis": "AI Block composed from validated elements; IW contained; RE within bound; scope respected"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-AI-BLOCK-ESCAPE-001",
+      "transition_name": "ae_unified_gate_ai_block_scope_violation",
+      "role": "ai_block_scope_violation_governor",
+      "coupling": "multi-agent-cascade",
+      "iw_contained": false,
+      "re_within_bound": false,
+      "expected_decision": "FAIL_CLOSED",
+      "basis": "AI Block scope violated; attempted capabilities exceed block definition; all gates FAIL_CLOSED"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-FINCO-CHAIN-001",
+      "transition_name": "ae_unified_gate_finco_chain_valid",
+      "role": "finco_chain_admissibility_governor",
+      "coupling": "authority-transfer",
+      "iw_contained": true,
+      "re_within_bound": true,
+      "expected_decision": "ALLOW",
+      "basis": "FinCo receipt chain intact; consent valid; evidence_only true; creates_entitlement false"
+    },
+    {
+      "transition_id": "T-AE-UNIFIED-FINCO-CHAIN-BREAK-001",
+      "transition_name": "ae_unified_gate_finco_chain_broken",
+      "role": "finco_chain_failure_governor",
+      "coupling": "authority-transfer",
+      "iw_contained": true,
+      "re_within_bound": true,
+      "expected_decision": "FAIL_CLOSED",
+      "basis": "FinCo chain broken; consent missing; compensation undefined; entitlement created without authority"
+    }
+  ]
+}

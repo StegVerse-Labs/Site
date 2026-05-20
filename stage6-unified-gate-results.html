@@ -5,124 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stage 6 Unified Gate Results</title>
   <style>
-:root {
-  color-scheme: light dark;
-  --bg: #0f1115;
-  --panel: #171b22;
-  --panel-2: #202632;
-  --text: #f3f5f7;
-  --muted: #aab4c0;
-  --line: #303846;
-  --accent: #8fb7ff;
-  --ok: #9be7b5;
-  --warn: #ffd18f;
-  --bad: #ff9b9b;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.55;
-}
-main {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 32px 18px 64px;
-}
-header, .card {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--panel);
-  padding: 22px;
-}
-header {
-  background: linear-gradient(135deg, var(--panel), var(--panel-2));
-}
-h1 {
-  font-size: clamp(2rem, 5vw, 4.1rem);
-  line-height: 1.1;
-  margin: 0 0 12px;
-}
-h2 { margin-top: 34px; }
-p, li, td { color: var(--muted); }
-a { color: var(--accent); }
-.badges, .nav {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 18px 0;
-}
-.badge, .nav a {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 8px 12px;
-  background: rgba(255,255,255,.04);
-  color: var(--text);
-  text-decoration: none;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 14px;
-}
-.metric {
-  color: var(--ok);
-  font-size: 2.2rem;
-  line-height: 1;
-  font-weight: 800;
-  margin: 0;
-}
-pre {
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: #0a0c10;
-  padding: 14px;
-}
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 980px;
-}
-th, td {
-  border-bottom: 1px solid var(--line);
-  padding: 10px 12px;
-  text-align: left;
-  vertical-align: top;
-}
-th {
-  background: var(--panel-2);
-  color: var(--text);
-}
-tr:last-child td { border-bottom: 0; }
-.ok { color: var(--ok); font-weight: 800; }
-.warn { color: var(--warn); font-weight: 800; }
-footer {
-  margin-top: 42px;
-  color: var(--muted);
-}
+:root{color-scheme:light dark;--bg:#0f1115;--panel:#171b22;--panel-2:#202632;--text:#f3f5f7;--muted:#aab4c0;--line:#303846;--accent:#8fb7ff;--ok:#9be7b5;--warn:#ffd18f;--bad:#ff9b9b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}main{max-width:1180px;margin:0 auto;padding:32px 18px 64px}header,.card{border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:22px}header{background:linear-gradient(135deg,var(--panel),var(--panel-2))}h1{font-size:clamp(2rem,5vw,4.1rem);line-height:1.1;margin:0 0 12px}h2{margin-top:34px}p,li,td{color:var(--muted)}a{color:var(--accent)}.badges,.nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.badge,.nav a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.04);color:var(--text);text-decoration:none}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.metric{color:var(--ok);font-size:2.2rem;line-height:1;font-weight:800;margin:0}pre{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#0a0c10;padding:14px}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}table{width:100%;border-collapse:collapse;min-width:960px}th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}th{background:var(--panel-2);color:var(--text)}tr:last-child td{border-bottom:0}.ok{color:var(--ok);font-weight:800}.bad{color:var(--bad);font-weight:800}footer{margin-top:42px;color:var(--muted)}
   </style>
 </head>
 <body>
 <main>
   <header>
-    <p class="badge">Stage 6 / Public Proof Surface</p>
-    <h1>Unified Gate Results</h1>
-    <p>Stage 6 integrates AE, BC, CHF, DC, DaCo, and Triad into a single admissibility gate.</p>
-    <pre>ALLOW(u) iff IW_tau(S,u) subset A_total AND RE(S -&gt; Phi(S,u)) &lt;= RE_max</pre>
-    <div class="badges">
-      <span class="badge">formalism-tests source</span>
-      <span class="badge">Site publication surface</span>
-      <span class="badge">No Site authority over receipts</span>
-      <span class="badge">Status: PASS</span>
-    </div>
+    <p class="badge">Stage 6 / Data-Mirrored Proof Surface</p>
+    <h1 id="title">Loading Stage 6...</h1>
+    <p id="message">Loading public proof data...</p>
+    <pre id="formula">Loading...</pre>
+    <div class="badges" id="badges"></div>
   </header>
 
   <nav class="nav">
@@ -135,23 +29,13 @@ footer {
   </nav>
 
   <section>
-    <h2>Current validation summary</h2>
-    <div class="grid">
-      <div class="card"><h3>Candidates</h3><p class="metric">10</p></div>
-      <div class="card"><h3>Tests</h3><p class="metric">94</p></div>
-      <div class="card"><h3>Status</h3><p class="metric">PASS</p></div>
-      <div class="card"><h3>Gate</h3><p class="metric">Stage 6</p></div>
-    </div>
+    <h2>Validation summary</h2>
+    <div class="grid" id="summary"></div>
   </section>
 
   <section>
     <h2>Decision distribution</h2>
-    <div class="grid">
-      <div class="card"><h3>ALLOW</h3><p class="metric">2</p></div>
-<div class="card"><h3>FAIL_CLOSED</h3><p class="metric">5</p></div>
-<div class="card"><h3>RESET_BOUNDARY</h3><p class="metric">1</p></div>
-<div class="card"><h3>EVOLVE_BOUNDARY</h3><p class="metric">1</p></div>
-    </div>
+    <div class="grid" id="decisions"></div>
   </section>
 
   <section>
@@ -166,31 +50,29 @@ footer {
             <th>Coupling</th>
             <th>IW</th>
             <th>RE</th>
-            <th>Expected Decision</th>
+            <th>Decision</th>
             <th>Basis</th>
           </tr>
         </thead>
-        <tbody>
-          <tr><td><code>T-AE-UNIFIED-ALLOW-001</code></td><td>ae_unified_gate_admissible_transition</td><td>unified_admissibility_positive_control</td><td>paired-boundary</td><td>PASS</td><td>PASS</td><td><strong>ALLOW</strong></td><td>IW contained; RE within bound; all component gates ALLOW.</td></tr>
-<tr><td><code>T-AE-UNIFIED-IW-BREACH-001</code></td><td>ae_unified_gate_iw_breach</td><td>iw_containment_failure_governor</td><td>irreversible-consequence</td><td>FAIL</td><td>PASS</td><td><strong>FAIL_CLOSED</strong></td><td>IW breaches A_total; IW containment failure dominates.</td></tr>
-<tr><td><code>T-AE-UNIFIED-RE-BREACH-001</code></td><td>ae_unified_gate_re_breach</td><td>reverse_entropy_breach_governor</td><td>irreversible-consequence</td><td>PASS</td><td>FAIL</td><td><strong>FAIL_CLOSED</strong></td><td>RE exceeds RE_max; recoverability below floor.</td></tr>
-<tr><td><code>T-AE-UNIFIED-DUAL-BREACH-001</code></td><td>ae_unified_gate_dual_breach</td><td>dual_condition_failure_governor</td><td>multi-agent-cascade</td><td>FAIL</td><td>FAIL</td><td><strong>FAIL_CLOSED</strong></td><td>Both IW containment and RE bound fail.</td></tr>
-<tr><td><code>T-AE-UNIFIED-RESET-001</code></td><td>ae_unified_gate_boundary_reset</td><td>recoverable_non_convergence_reset_governor</td><td>authority-transfer</td><td>PASS</td><td>PASS</td><td><strong>RESET_BOUNDARY</strong></td><td>Recoverable but globally non-convergent; governed boundary reset.</td></tr>
-<tr><td><code>T-AE-UNIFIED-EVOLVE-001</code></td><td>ae_unified_gate_boundary_evolution</td><td>boundary_coherence_evolution_governor</td><td>coherence-coupled</td><td>PASS</td><td>PASS</td><td><strong>EVOLVE_BOUNDARY</strong></td><td>Boundary no longer coherent; governed evolution.</td></tr>
-<tr><td><code>T-AE-UNIFIED-AI-BLOCK-ALLOW-001</code></td><td>ae_unified_gate_ai_block_admissible</td><td>ai_block_positive_control</td><td>paired-boundary</td><td>PASS</td><td>PASS</td><td><strong>ALLOW</strong></td><td>Validated AI Block; scope respected.</td></tr>
-<tr><td><code>T-AE-UNIFIED-AI-BLOCK-ESCAPE-001</code></td><td>ae_unified_gate_ai_block_scope_violation</td><td>ai_block_scope_violation_governor</td><td>multi-agent-cascade</td><td>FAIL</td><td>FAIL</td><td><strong>FAIL_CLOSED</strong></td><td>AI Block attempted capabilities beyond scope.</td></tr>
-<tr><td><code>T-AE-UNIFIED-FINCO-CHAIN-001</code></td><td>ae_unified_gate_finco_chain_valid</td><td>finco_chain_admissibility_governor</td><td>authority-transfer</td><td>PASS</td><td>PASS</td><td><strong>ALLOW</strong></td><td>FinCo receipt chain intact; consent valid.</td></tr>
-<tr><td><code>T-AE-UNIFIED-FINCO-CHAIN-BREAK-001</code></td><td>ae_unified_gate_finco_chain_broken</td><td>finco_chain_failure_governor</td><td>authority-transfer</td><td>PASS</td><td>PASS</td><td><strong>FAIL_CLOSED</strong></td><td>FinCo chain broken; entitlement created without authority.</td></tr>
-        </tbody>
+        <tbody id="candidateRows"></tbody>
       </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Mirrored public data</h2>
+    <div class="card">
+      <p>This page is rendered from a mirrored public data file rather than hardcoded page values.</p>
+      <p><a href="data/formalism-tests/stage6-unified-gate-results.json">Open Stage 6 JSON data</a></p>
+      <pre id="rawData"></pre>
     </div>
   </section>
 
   <section>
     <h2>Publication boundary</h2>
     <div class="card">
-      <p><strong>formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.</strong></p>
-      <p>This page is a public presentation surface for Stage 6 results. The canonical candidate fixture, tests, and validation receipts remain in the formalism-tests repository.</p>
+      <p><strong id="authority"></strong></p>
+      <p>Canonical candidates, declared task execution, and receipt authority remain in the formalism-tests repository. Site publishes the public proof surface only.</p>
     </div>
   </section>
 
@@ -198,5 +80,73 @@ footer {
     <p><a href="transition-release-index.html">Back to release index</a></p>
   </footer>
 </main>
+
+<script>
+async function loadStage6() {
+  const response = await fetch("data/formalism-tests/stage6-unified-gate-results.json", { cache: "no-store" });
+  if (!response.ok) throw new Error("Could not load stage6-unified-gate-results.json");
+  return response.json();
+}
+
+function badge(text) {
+  const span = document.createElement("span");
+  span.className = "badge";
+  span.textContent = text;
+  return span;
+}
+
+function card(title, value) {
+  const div = document.createElement("div");
+  div.className = "card";
+  div.innerHTML = `<h3>${title}</h3><p class="metric">${value}</p>`;
+  return div;
+}
+
+function render(data) {
+  document.getElementById("title").textContent = data.title || data.stage || "Stage 6 Unified Gate Results";
+  document.getElementById("message").textContent = data.message || "";
+  document.getElementById("formula").textContent = data.gate_formula || "";
+  document.getElementById("authority").textContent = data.authority_boundary || "";
+
+  const badges = document.getElementById("badges");
+  badges.innerHTML = "";
+  [data.source_repo, data.workflow, data.task_id, data.success ? "PASS" : "FAIL"].filter(Boolean).forEach((item) => badges.appendChild(badge(item)));
+
+  const summary = document.getElementById("summary");
+  summary.innerHTML = "";
+  summary.appendChild(card("Candidates", data.candidate_count));
+  summary.appendChild(card("Assertions", data.assertion_count));
+  summary.appendChild(card("Status", data.success ? "PASS" : "FAIL"));
+  summary.appendChild(card("Runner", "Headless"));
+
+  const decisions = document.getElementById("decisions");
+  decisions.innerHTML = "";
+  Object.entries(data.decision_counts || {}).forEach(([key, value]) => decisions.appendChild(card(key, value)));
+
+  const rows = document.getElementById("candidateRows");
+  rows.innerHTML = "";
+  (data.candidates || []).forEach((item) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><code>${item.transition_id}</code></td>
+      <td>${item.transition_name}</td>
+      <td>${item.role}</td>
+      <td>${item.coupling}</td>
+      <td class="${item.iw_contained ? "ok" : "bad"}">${item.iw_contained ? "contained" : "breach"}</td>
+      <td class="${item.re_within_bound ? "ok" : "bad"}">${item.re_within_bound ? "bounded" : "breach"}</td>
+      <td><strong>${item.expected_decision}</strong></td>
+      <td>${item.basis}</td>
+    `;
+    rows.appendChild(tr);
+  });
+
+  document.getElementById("rawData").textContent = JSON.stringify(data, null, 2);
+}
+
+loadStage6().then(render).catch((error) => {
+  document.getElementById("title").textContent = "Stage 6 data unavailable";
+  document.getElementById("message").textContent = error.message;
+});
+</script>
 </body>
 </html>

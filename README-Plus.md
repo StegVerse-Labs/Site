@@ -1,66 +1,56 @@
-# Stage 6 Site Publication Bundle
+# Stage 6 Site Data Mirror Bundle
 
 ## Assumptions
 
-1. `formalism-tests` remains the authoritative source for Stage 6 candidates, tests, receipts, and validation output.
-2. `StegVerse-Labs/Site` is only the public presentation surface.
-3. No GitHub Actions workflows are added or changed.
-4. This bundle may be installed into the `StegVerse-Labs/Site` repository root.
+1. `formalism-tests` remains the authority for tests, candidates, receipts, declared tasks, and workflow output.
+2. `StegVerse-Labs/Site` mirrors public proof data under `data/formalism-tests/`.
+3. Site pages should fetch mirrored JSON data instead of hardcoding proof values.
+4. No workflow files are added or changed.
 
 ## Done Definition
 
 This bundle is done when:
 
-1. `stage6-unified-gate-results.html` opens as a public Site page.
-2. `transition-release-index.html` links to the Stage 6 public results page.
-3. `transition-table-classes.html` links to the Stage 6 public results page.
-4. The Site page describes all 10 completed Stage 6 candidates.
-5. The page reports the first full test surface as 94 tests passing.
-6. The footer/boundary text preserves the rule: `formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.`
+1. `stage6-unified-gate-results.html` fetches and renders `data/formalism-tests/stage6-unified-gate-results.json`.
+2. The JSON data file contains the Stage 6 successful declared-task result.
+3. `transition-release-index.html` links to `stage6-unified-gate-results.html`.
+4. `transition-table-classes.html` links to `stage6-unified-gate-results.html`.
+5. No workflow files are included.
 
 ## Files Included
 
 | Path | Purpose |
 |---|---|
-| `stage6-unified-gate-results.html` | New public Stage 6 results page. |
-| `transition-release-index.html` | Full replacement adding a Stage 6 link in navigation and canonical pages. |
-| `transition-table-classes.html` | Full replacement adding a Stage 6 link and decision-filter support for `RESET_BOUNDARY` and `EVOLVE_BOUNDARY`. |
-| `bundle_manifest.json` | Bundle installation manifest. |
+| `stage6-unified-gate-results.html` | Data-driven Stage 6 public page. |
+| `data/formalism-tests/stage6-unified-gate-results.json` | Mirrored public Stage 6 proof data. |
+| `transition-release-index.html` | Full replacement adding Stage 6 link. |
+| `transition-table-classes.html` | Full replacement adding Stage 6 link and reset/evolve filter support. |
 | `README.md` | Bundle explanation and verification checklist. |
+| `bundle_manifest.json` | Bundle manifest. |
 
-## Stage 6 Public Result Summary
-
-Stage 6 tests the Admissible Existence Unified Gate:
-
-```text
-ALLOW(u) iff IW_tau(S,u) subset A_total AND RE(S -> Phi(S,u)) <= RE_max
-```
-
-The completed candidate set contains 10 candidates and the first full test surface contains 94 tests.
-
-## Candidate Coverage
-
-| Candidate | Expected Decision | Purpose |
-|---|---|---|
-| `T-AE-UNIFIED-ALLOW-001` | `ALLOW` | Positive control for unified admissibility. |
-| `T-AE-UNIFIED-IW-BREACH-001` | `FAIL_CLOSED` | IW containment failure. |
-| `T-AE-UNIFIED-RE-BREACH-001` | `FAIL_CLOSED` | Reverse entropy bound failure. |
-| `T-AE-UNIFIED-DUAL-BREACH-001` | `FAIL_CLOSED` | Dual IW and RE failure. |
-| `T-AE-UNIFIED-RESET-001` | `RESET_BOUNDARY` | Recoverable non-convergence. |
-| `T-AE-UNIFIED-EVOLVE-001` | `EVOLVE_BOUNDARY` | Purpose/coherence boundary failure. |
-| `T-AE-UNIFIED-AI-BLOCK-ALLOW-001` | `ALLOW` | Valid AI Block admissibility. |
-| `T-AE-UNIFIED-AI-BLOCK-ESCAPE-001` | `FAIL_CLOSED` | AI Block scope violation. |
-| `T-AE-UNIFIED-FINCO-CHAIN-001` | `ALLOW` | Valid FinCo chain compliance. |
-| `T-AE-UNIFIED-FINCO-CHAIN-BREAK-001` | `FAIL_CLOSED` | Broken FinCo chain failure. |
-
-## Verification
-
-After upload to `StegVerse-Labs/Site`, verify these pages:
+## Expected Public URLs
 
 ```text
 https://stegverse-labs.github.io/Site/stage6-unified-gate-results.html
-https://stegverse-labs.github.io/Site/transition-release-index.html
-https://stegverse-labs.github.io/Site/transition-table-classes.html
+https://stegverse-labs.github.io/Site/data/formalism-tests/stage6-unified-gate-results.json
 ```
 
-The Stage 6 page should be reachable from both linked pages.
+## Public Result Mirrored
+
+```text
+candidate_count: 10
+assertion_count: 320
+success: true
+ALLOW: 3
+FAIL_CLOSED: 5
+RESET_BOUNDARY: 1
+EVOLVE_BOUNDARY: 1
+```
+
+## Authority Boundary
+
+```text
+formalism-tests produces receipts.
+Site publishes receipts.
+Site must not become the authority for receipts.
+```
