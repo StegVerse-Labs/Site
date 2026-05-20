@@ -1,42 +1,55 @@
 {
   "schema": "stegverse_bundle_manifest.v1",
-  "bundle_id": "transition-discovery-color-sync-bundle",
+  "bundle_id": "site-single-source-status-bundle",
   "target_repo": "StegVerse-Labs/Site",
   "no_workflows": true,
-  "purpose": "Restore the transition discovery map and synchronize transition classification colors to the same 0-5 completion scale.",
-  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "purpose": "Convert main transition status pages to a single Site status source.",
+  "single_status_source": "data/formalism-tests/transition-proof-surface.json",
+  "shared_renderer": "assets/transition-site-status.js",
   "files": [
     {
-      "path": "transition-discovery.html",
-      "action": "create_or_replace",
-      "description": "Restored data-driven discovery map."
+      "path": "data/formalism-tests/transition-proof-surface.json",
+      "action": "replace"
     },
     {
-      "path": "data/formalism-tests/transition-discovery-map.json",
-      "action": "create_or_replace",
-      "description": "Shared completion-level and color-scale data."
+      "path": "assets/transition-site-status.js",
+      "action": "create_or_replace"
     },
     {
-      "path": "transition-table-classes.html",
-      "action": "replace",
-      "description": "Applies discovery color scale to transition classifications."
+      "path": "transition-proof-surface.html",
+      "action": "replace"
     },
     {
       "path": "transition-release-index.html",
-      "action": "replace",
-      "description": "Adds discovery page to release navigation and canonical pages."
+      "action": "replace"
+    },
+    {
+      "path": "transition-development-status.html",
+      "action": "replace"
+    },
+    {
+      "path": "transition-milestones.html",
+      "action": "replace"
+    },
+    {
+      "path": "transition-verification-guide.html",
+      "action": "replace"
+    },
+    {
+      "path": "transition-replay-packet.html",
+      "action": "replace"
+    },
+    {
+      "path": "stage6-unified-gate-results.html",
+      "action": "replace"
     },
     {
       "path": "README.md",
-      "action": "include",
-      "description": "Bundle explanation."
+      "action": "include"
     },
     {
       "path": "bundle_manifest.json",
-      "action": "include",
-      "description": "Bundle manifest."
+      "action": "include"
     }
-  ],
-  "completion_scale": "0-5",
-  "shared_data_path": "data/formalism-tests/transition-discovery-map.json"
+  ]
 }
