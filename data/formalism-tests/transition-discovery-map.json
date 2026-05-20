@@ -1,5 +1,5 @@
 {
-  "schema": "stegverse_transition_discovery_map.v1",
+  "schema": "stegverse_transition_discovery_map.v2",
   "title": "Transition Discovery Map",
   "source_repo": "formalism-tests",
   "publication_repo": "StegVerse-Labs/Site",
@@ -62,6 +62,12 @@
       "summary": "Top-level admissibility envelope for unified gate containment and recoverability.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/ae.html",
+      "details": [
+        "Defines whether a transition may bind into reality under admissible-existence constraints.",
+        "Requires inference-window containment, recoverability, and a coherent existence envelope.",
+        "Stage 6 elevates AE from conceptual boundary framing into executable unified-gate validation."
       ]
     },
     {
@@ -73,6 +79,12 @@
       "summary": "Coherence and purpose-convergence boundary tests integrated into reset/evolve behavior.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/bc.html",
+      "details": [
+        "Tests whether a boundary remains coherent with the entity-system it governs.",
+        "Supports RESET_BOUNDARY when non-convergence is recoverable.",
+        "Supports EVOLVE_BOUNDARY when the boundary remains recoverable but becomes purpose-inverting or incoherent."
       ]
     },
     {
@@ -84,6 +96,12 @@
       "summary": "Consequence-horizon framing for irreversible transition pressure.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/chf.html",
+      "details": [
+        "Models transition consequences as they approach or cross irreversibility horizons.",
+        "Connects irreversible consequence mass to fail-closed and recovery constraints.",
+        "Participates in Stage 6 as part of the unified gate\u2019s consequence-pressure evaluation."
       ]
     },
     {
@@ -95,6 +113,12 @@
       "summary": "Multi-entity/coupled-boundary coherence surface.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/dc.html",
+      "details": [
+        "Tracks coherence across coupled entities rather than only local single-entity state.",
+        "Supports multi-body boundary reasoning and cascade-risk analysis.",
+        "Prevents local pass/global fail conditions from being treated as admissible."
       ]
     },
     {
@@ -106,6 +130,12 @@
       "summary": "Continuation admissibility and data-role consequence binding.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/daco.html",
+      "details": [
+        "Binds data to consequence-bearing roles rather than treating data content as governance-complete.",
+        "Stage 2 and Stage 3 provide the proof surface for same-data role dependence and compound continuation.",
+        "Stage 6 integrates continuation logic into the unified admissibility gate."
       ]
     },
     {
@@ -117,6 +147,12 @@
       "summary": "GCAT/BCAT || ECAT/ICAT || existence/reality axis integration.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/triad.html",
+      "details": [
+        "Connects legitimacy invariants, entity constraints, and existence/reality admissibility.",
+        "Provides the broader formal axis through which IW and reverse entropy can be interpreted.",
+        "In Stage 6, Triad participates as one of the unified gate components."
       ]
     },
     {
@@ -128,6 +164,12 @@
       "summary": "Stage 6 requires inference-window containment inside A_total.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/iw.html",
+      "details": [
+        "Represents the admissible downstream inference region of a transition.",
+        "Stage 6 requires IW_tau(S,u) to be contained inside A_total.",
+        "IW breach dominates even when reverse entropy remains within bound."
       ]
     },
     {
@@ -139,6 +181,12 @@
       "summary": "Stage 6 requires reverse entropy score to remain below RE_max.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/re.html",
+      "details": [
+        "Models the entropy/recoverability cost of reconstructing or reasoning backward from consequence.",
+        "Stage 6 requires RE(S -> Phi(S,u)) <= RE_max.",
+        "RE breach fails closed even when IW containment passes."
       ]
     },
     {
@@ -150,6 +198,12 @@
       "summary": "Recoverable non-convergence routes to a governed reset instead of hard allow.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/reset-boundary.html",
+      "details": [
+        "Used when IW and RE pass, recoverability remains above floor, but convergence fails.",
+        "Prevents recoverable non-convergence loops from being treated as either hard ALLOW or hard FAIL only.",
+        "Preserves authority through a bounded reset pathway."
       ]
     },
     {
@@ -161,6 +215,12 @@
       "summary": "Purpose/coherence failure with recoverability routes to governed evolution.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/evolve-boundary.html",
+      "details": [
+        "Used when a boundary no longer coheres with the entity-system it governs.",
+        "Requires recoverability and convergence to remain above minimums.",
+        "Captures purpose-inverting boundaries that must evolve rather than merely persist."
       ]
     },
     {
@@ -172,6 +232,12 @@
       "summary": "AI block admissibility and scope-escape failure are represented in Stage 6.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/ai-block.html",
+      "details": [
+        "Defines scoped AI capability blocks and verifies composition from validated elements.",
+        "Allows scoped file/write/receipt/bundle behavior when authority and boundaries are respected.",
+        "Fails closed on unauthorized capability acquisition, credential acquisition, workflow creation, or sandbox escape."
       ]
     },
     {
@@ -183,6 +249,12 @@
       "summary": "Consent/access/use/compensation chain integrity participates in Stage 6.",
       "linked_transition_families": [
         "ae_unified_gate"
+      ],
+      "detail_page": "transition-elements/finco-chain.html",
+      "details": [
+        "Tests whether consent, access, use, compensation, and revocation rules form an intact chain.",
+        "Allows evidence-only, non-entitlement-producing governed value transfer.",
+        "Fails closed when private state is consumed without consent, attribution, or compensation authority."
       ]
     },
     {
@@ -194,6 +266,12 @@
       "summary": "Same data can produce different continuation decisions across roles.",
       "linked_transition_families": [
         "data_continuation"
+      ],
+      "detail_page": "transition-elements/role-non-transfer.html",
+      "details": [
+        "Proves that data content alone does not determine admissibility.",
+        "A datum can be informational, advisory, or actuation-bound depending on its role.",
+        "Governance must attach to the transition role and consequence path."
       ]
     },
     {
@@ -205,6 +283,12 @@
       "summary": "Local allow plus local allow does not imply composite allow.",
       "linked_transition_families": [
         "compound_continuation"
+      ],
+      "detail_page": "transition-elements/local-composite.html",
+      "details": [
+        "Shows that individually admissible components may become inadmissible when composed.",
+        "Composite consequence mass can exceed legitimacy capacity.",
+        "Supports global admissibility checks at commit, not local validation alone."
       ]
     },
     {
@@ -216,6 +300,12 @@
       "summary": "Replay reconstructs receipt state but does not reverse consequence.",
       "linked_transition_families": [
         "compound_continuation"
+      ],
+      "detail_page": "transition-elements/replay-non-reversal.html",
+      "details": [
+        "Separates reconstruction from reversal.",
+        "Replay can verify what happened without pretending the consequence can be undone.",
+        "Supports receipt integrity without implying causal undo."
       ]
     },
     {
@@ -227,6 +317,12 @@
       "summary": "Partially covered; direct representation-only receipts still needed.",
       "linked_transition_families": [
         "data_continuation"
+      ],
+      "detail_page": "transition-elements/representation-non-consequence.html",
+      "details": [
+        "Claims that representation alone is not consequence-bearing until bound to a role and continuation path.",
+        "Currently partially covered through role-dependent continuation evidence.",
+        "Needs direct proof receipts showing representation-only state before transition binding."
       ]
     }
   ],
