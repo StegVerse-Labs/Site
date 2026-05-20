@@ -1,54 +1,57 @@
-# Transition Element Pages Bundle
+# Transition Table Mobile Expand Bundle
 
 ## Assumptions
 
-1. Every transition element should have its own public page.
-2. Each element page should render from the shared discovery data file, not from duplicated hardcoded content.
-3. The discovery map should link to each element page.
-4. The transition class page should link relevant classifications back to element detail pages.
+1. Desktop users should retain a full transition-class table.
+2. Mobile users should see a periodic-table-like list of color-coded expandable transition tiles.
+3. The data source remains `data/formalism-tests/transition-table-classes.json`.
+4. Completion level and color information comes from `data/formalism-tests/transition-discovery-map.json`.
 5. No workflow files are added or changed.
 
 ## Done Definition
 
 This bundle is done when:
 
-1. `data/formalism-tests/transition-discovery-map.json` includes `detail_page` and `details` for every mapped element.
-2. `transition-discovery.html` links every element card to its page.
-3. `transition-elements/index.html` lists every element page.
-4. Each current mapped element has a page under `transition-elements/`.
-5. `transition-table-classes.html` includes an Element column with links to detail pages.
-6. No workflow files are included.
+1. `transition-table-classes.html` renders a full table on desktop.
+2. `transition-table-classes.html` renders expandable mobile transition tiles on mobile.
+3. Each mobile tile shows level, transition name, transition ID, and decision before expansion.
+4. Each expanded tile shows family, theorem, role, coupling, boundary, replay, capacity, recoverability, inference-window, linked element, and basis.
+5. Tile colors mirror the discovery 0–5 completion scale.
+6. Filters work for both desktop table rows and mobile tiles.
 
-## Element Pages Included
+## File Included
 
-```text
-transition-elements/ae.html
-transition-elements/bc.html
-transition-elements/chf.html
-transition-elements/dc.html
-transition-elements/daco.html
-transition-elements/triad.html
-transition-elements/iw.html
-transition-elements/re.html
-transition-elements/reset-boundary.html
-transition-elements/evolve-boundary.html
-transition-elements/ai-block.html
-transition-elements/finco-chain.html
-transition-elements/role-non-transfer.html
-transition-elements/local-composite.html
-transition-elements/replay-non-reversal.html
-transition-elements/representation-non-consequence.html
-```
+| Path | Purpose |
+|---|---|
+| `transition-table-classes.html` | Full replacement with desktop table plus mobile expandable periodic-style transition tiles. |
+| `README.md` | Bundle explanation and verification checklist. |
+| `bundle_manifest.json` | Bundle manifest. |
 
-## Source of Truth
+## Mobile Behavior
 
-Each page renders from:
+On screens below `820px`, the wide table is hidden and the page shows expandable cards:
 
 ```text
-data/formalism-tests/transition-discovery-map.json
+[Level]  transition_name                  [Decision]
+         transition_id
+
+Tap to expand:
+  Family
+  Theorem
+  Role
+  Coupling
+  Boundary
+  Replay
+  Capacity
+  Recoverability
+  Inference Window
+  Element
+  Basis
 ```
 
-The page shell only declares the `element_id`. Updating the shared JSON updates the element page content.
+## Desktop Behavior
+
+On screens above `820px`, the page keeps the full table view.
 
 ## Authority Boundary
 

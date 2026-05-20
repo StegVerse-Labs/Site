@@ -1,103 +1,29 @@
 {
   "schema": "stegverse_bundle_manifest.v1",
-  "bundle_id": "transition-element-pages-bundle",
+  "bundle_id": "transition-table-mobile-expand-bundle",
   "target_repo": "StegVerse-Labs/Site",
   "no_workflows": true,
-  "purpose": "Create one detail page for every mapped transition element.",
+  "purpose": "Make transition-table-classes mobile-friendly with expandable periodic-style transition tiles.",
   "files": [
     {
-      "path": "data/formalism-tests/transition-discovery-map.json",
-      "action": "replace"
-    },
-    {
-      "path": "transition-discovery.html",
-      "action": "replace"
-    },
-    {
       "path": "transition-table-classes.html",
-      "action": "replace"
-    },
-    {
-      "path": "transition-elements/index.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/transition-element-detail.js",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/ae.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/bc.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/chf.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/dc.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/daco.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/triad.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/iw.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/re.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/reset-boundary.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/evolve-boundary.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/ai-block.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/finco-chain.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/role-non-transfer.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/local-composite.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/replay-non-reversal.html",
-      "action": "create"
-    },
-    {
-      "path": "transition-elements/representation-non-consequence.html",
-      "action": "create"
+      "action": "replace",
+      "description": "Desktop table plus mobile expandable transition tiles."
     },
     {
       "path": "README.md",
-      "action": "include"
+      "action": "include",
+      "description": "Bundle explanation."
     },
     {
       "path": "bundle_manifest.json",
-      "action": "include"
+      "action": "include",
+      "description": "Bundle manifest."
     }
   ],
-  "element_count": 16,
-  "single_data_source": "data/formalism-tests/transition-discovery-map.json"
+  "data_sources": [
+    "data/formalism-tests/transition-table-classes.json",
+    "data/formalism-tests/transition-discovery-map.json"
+  ],
+  "mobile_breakpoint_px": 820
 }

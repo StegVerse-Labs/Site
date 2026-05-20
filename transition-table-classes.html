@@ -1,23 +1,492 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>StegVerse Transition Table Classes</title><style>:root{color-scheme:light dark;--bg:#0f1115;--panel:#171b22;--panel-2:#202632;--text:#f3f5f7;--muted:#aab4c0;--line:#303846;--accent:#8fb7ff;--level-0:#5f6673;--level-1:#7c6ee6;--level-2:#4da3ff;--level-3:#3dd6c6;--level-4:#9be7b5;--level-5:#ffd18f;--bad:#ff9b9b}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f1115;color:#f3f5f7;line-height:1.55}main{max-width:1120px;margin:0 auto;padding:32px 18px 64px}header,.card{border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:22px}header{background:linear-gradient(135deg,var(--panel),var(--panel-2))}h1{font-size:clamp(2rem,5vw,4rem);line-height:1.1;margin:0 0 12px}p,li,td{color:#aab4c0}a{color:#8fb7ff}.nav,.badges{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.nav a,.badge{border:1px solid #303846;border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.04);color:#f3f5f7;text-decoration:none}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}pre{overflow-x:auto;border:1px solid #303846;border-radius:14px;background:#0a0c10;padding:14px}.level-pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-weight:800;color:#071018}.level-0{background:var(--level-0)}.level-1{background:var(--level-1)}.level-2{background:var(--level-2)}.level-3{background:var(--level-3)}.level-4{background:var(--level-4)}.level-5{background:var(--level-5)}.element-card{border-top:6px solid #303846}.level-border-0{border-top-color:var(--level-0)}.level-border-1{border-top-color:var(--level-1)}.level-border-2{border-top-color:var(--level-2)}.level-border-3{border-top-color:var(--level-3)}.level-border-4{border-top-color:var(--level-4)}.level-border-5{border-top-color:var(--level-5)}footer{margin-top:42px;color:#aab4c0}.controls{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}input,select{border:1px solid #303846;border-radius:10px;background:#171b22;color:#f3f5f7;padding:10px 12px}input{flex:1 1 280px}.table-wrap{overflow-x:auto;border:1px solid #303846;border-radius:16px}table{width:100%;border-collapse:collapse;min-width:1100px}th,td{border-bottom:1px solid #303846;padding:10px 12px;text-align:left;vertical-align:top}th{background:#202632;color:#f3f5f7}tr.level-row-0 td:first-child{border-left:6px solid var(--level-0)}tr.level-row-1 td:first-child{border-left:6px solid var(--level-1)}tr.level-row-2 td:first-child{border-left:6px solid var(--level-2)}tr.level-row-3 td:first-child{border-left:6px solid var(--level-3)}tr.level-row-4 td:first-child{border-left:6px solid var(--level-4)}tr.level-row-5 td:first-child{border-left:6px solid var(--level-5)}</style></head>
-<body><main><header><p class="badge">Stage 4 / Transition Table Integration</p><h1>Transition Table Classes</h1><p>Rows mirror the Transition Discovery completion colors and link to relevant element pages.</p><div class="badges"><a class="badge" href="transition-discovery.html">Transition Discovery</a><a class="badge" href="stage6-unified-gate-results.html">Stage 6 Unified Gate Results</a></div></header>
-<nav class="nav"><a href="transition-proof-surface.html">Proof Surface</a><a href="transition-discovery.html">Transition Discovery</a><a href="transition-table-classes.html">Transition Classes</a><a href="stage6-unified-gate-results.html">Stage 6 Unified Gate</a></nav>
-<section><h2>Filters</h2><div class="controls"><input id="search" type="search" placeholder="Search transition, theorem, role, basis..."><select id="decision"><option value="">All decisions</option><option value="ALLOW">ALLOW</option><option value="FAIL_CLOSED">FAIL_CLOSED</option><option value="RESET_BOUNDARY">RESET_BOUNDARY</option><option value="EVOLVE_BOUNDARY">EVOLVE_BOUNDARY</option></select><select id="coupling"><option value="">All coupling classes</option></select><select id="level"><option value="">All completion levels</option></select></div></section>
-<section><h2>Executable transition-class surface</h2><div class="table-wrap"><table><thead><tr><th>Level</th><th>Transition ID</th><th>Name</th><th>Family</th><th>Theorem</th><th>Role</th><th>Coupling</th><th>Decision</th><th>Element</th><th>Basis</th></tr></thead><tbody id="rows"></tbody></table></div></section>
-<footer><p><a href="transition-discovery.html">Open Transition Discovery</a></p></footer></main>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Transition Table Classes</title>
+  <style>
+:root {
+  color-scheme: light dark;
+  --bg: #0f1115;
+  --panel: #171b22;
+  --panel-2: #202632;
+  --text: #f3f5f7;
+  --muted: #aab4c0;
+  --line: #303846;
+  --accent: #8fb7ff;
+  --level-0: #5f6673;
+  --level-1: #7c6ee6;
+  --level-2: #4da3ff;
+  --level-3: #3dd6c6;
+  --level-4: #9be7b5;
+  --level-5: #ffd18f;
+  --bad: #ff9b9b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 18px 64px;
+}
+header, .card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  padding: 22px;
+}
+header {
+  background: linear-gradient(135deg, var(--panel), var(--panel-2));
+}
+h1 {
+  font-size: clamp(2rem, 5vw, 4.1rem);
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+h2 { margin-top: 34px; }
+p, li, td { color: var(--muted); }
+a { color: var(--accent); }
+.nav, .badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+}
+.nav a, .badge {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  text-decoration: none;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+input, select {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 10px 12px;
+}
+input { flex: 1 1 280px; }
+.level-pill {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-weight: 800;
+  color: #071018;
+  white-space: nowrap;
+}
+.level-0 { background: var(--level-0); }
+.level-1 { background: var(--level-1); }
+.level-2 { background: var(--level-2); }
+.level-3 { background: var(--level-3); }
+.level-4 { background: var(--level-4); }
+.level-5 { background: var(--level-5); }
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1120px;
+}
+th, td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  position: sticky;
+  top: 0;
+  background: var(--panel-2);
+  color: var(--text);
+}
+tr:last-child td { border-bottom: 0; }
+tr.level-row-0 td:first-child { border-left: 6px solid var(--level-0); }
+tr.level-row-1 td:first-child { border-left: 6px solid var(--level-1); }
+tr.level-row-2 td:first-child { border-left: 6px solid var(--level-2); }
+tr.level-row-3 td:first-child { border-left: 6px solid var(--level-3); }
+tr.level-row-4 td:first-child { border-left: 6px solid var(--level-4); }
+tr.level-row-5 td:first-child { border-left: 6px solid var(--level-5); }
+.mobile-grid {
+  display: none;
+  gap: 12px;
+}
+.transition-tile {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  overflow: hidden;
+}
+.transition-tile summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px;
+}
+.transition-tile summary::-webkit-details-marker {
+  display: none;
+}
+.tile-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: start;
+}
+.tile-title {
+  margin: 8px 0 4px;
+  color: var(--text);
+  font-weight: 800;
+}
+.tile-id {
+  color: var(--muted);
+  font-size: 0.85rem;
+  word-break: break-word;
+}
+.tile-decision {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: var(--text);
+  background: rgba(255,255,255,.04);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.tile-body {
+  border-top: 1px solid var(--line);
+  padding: 14px;
+}
+.tile-body dl {
+  display: grid;
+  grid-template-columns: minmax(92px, 32%) 1fr;
+  gap: 8px 10px;
+  margin: 0;
+}
+.tile-body dt {
+  color: var(--text);
+  font-weight: 800;
+}
+.tile-body dd {
+  color: var(--muted);
+  margin: 0;
+  word-break: break-word;
+}
+.tile-accent-0 { border-top: 6px solid var(--level-0); }
+.tile-accent-1 { border-top: 6px solid var(--level-1); }
+.tile-accent-2 { border-top: 6px solid var(--level-2); }
+.tile-accent-3 { border-top: 6px solid var(--level-3); }
+.tile-accent-4 { border-top: 6px solid var(--level-4); }
+.tile-accent-5 { border-top: 6px solid var(--level-5); }
+.empty-state {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  color: var(--muted);
+}
+footer {
+  margin-top: 42px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+@media (max-width: 820px) {
+  main { padding: 22px 12px 48px; }
+  .desktop-table { display: none; }
+  .mobile-grid { display: grid; }
+  .controls { gap: 8px; }
+  input, select { width: 100%; }
+  .nav a, .badge { width: auto; }
+}
+@media (min-width: 821px) {
+  .desktop-table { display: block; }
+}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="badge">Transition Table / Mobile Periodic Layout</p>
+    <h1>Transition Table Classes</h1>
+    <p>Desktop renders a full class table. Mobile renders each transition as a color-coded expandable tile, similar to a periodic-table element.</p>
+    <div class="badges">
+      <span class="badge">Data-driven</span>
+      <span class="badge">Expandable mobile rows</span>
+      <span class="badge">Discovery color scale 0–5</span>
+      <a class="badge" href="transition-discovery.html">Transition Discovery</a>
+      <a class="badge" href="stage6-unified-gate-results.html">Stage 6 Unified Gate</a>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a href="transition-proof-surface.html">Proof Surface</a>
+    <a href="transition-discovery.html">Transition Discovery</a>
+    <a href="transition-table-classes.html">Transition Classes</a>
+    <a href="stage6-unified-gate-results.html">Stage 6 Unified Gate</a>
+    <a href="transition-release-index.html">Release Index</a>
+  </nav>
+
+  <section>
+    <h2>Filters</h2>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search transition, theorem, role, basis...">
+      <select id="decision">
+        <option value="">All decisions</option>
+        <option value="ALLOW">ALLOW</option>
+        <option value="FAIL_CLOSED">FAIL_CLOSED</option>
+        <option value="RESET_BOUNDARY">RESET_BOUNDARY</option>
+        <option value="EVOLVE_BOUNDARY">EVOLVE_BOUNDARY</option>
+      </select>
+      <select id="coupling"><option value="">All coupling classes</option></select>
+      <select id="level"><option value="">All completion levels</option></select>
+    </div>
+  </section>
+
+  <section>
+    <h2>Transition class surface</h2>
+
+    <div class="desktop-table">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Transition ID</th>
+              <th>Name</th>
+              <th>Family</th>
+              <th>Theorem</th>
+              <th>Role</th>
+              <th>Coupling</th>
+              <th>Decision</th>
+              <th>Element</th>
+              <th>Basis</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mobile-grid" id="cards"></div>
+  </section>
+
+  <footer>
+    <p>formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.</p>
+  </footer>
+</main>
+
 <script>
-let classes=[];let discovery=null;
-async function loadClasses(){const response=await fetch("data/formalism-tests/transition-table-classes.json",{cache:"no-store"});if(!response.ok)throw new Error("Could not load transition-table-classes.json");return response.json();}
-async function loadDiscovery(){const response=await fetch("data/formalism-tests/transition-discovery-map.json",{cache:"no-store"});if(!response.ok)throw new Error("Could not load transition-discovery-map.json");return response.json();}
-function unique(values){return[...new Set(values.filter(Boolean))].sort();}
-function getDecision(item){return item.expected_decision||item.verified_decision||item.candidate_expected_outcome||"";}
-function getLevel(item){const familyLevels=discovery?.classification_family_levels||{};const decisionLevels=discovery?.transition_decision_levels||{};if(familyLevels[item.transition_family]!==undefined)return familyLevels[item.transition_family];const decision=getDecision(item);if(decisionLevels[decision]!==undefined)return decisionLevels[decision];return 0;}
-function levelName(level){const match=(discovery?.scale?.levels||[]).find((item)=>item.level===level);return match?match.name:"Unknown";}
-function levelPill(level){return `<span class="level-pill level-${level}">L${level} · ${levelName(level)}</span>`;}
-function elementFor(item){const decision=getDecision(item);if(decision==="RESET_BOUNDARY")return "RESET_BOUNDARY";if(decision==="EVOLVE_BOUNDARY")return "EVOLVE_BOUNDARY";if((item.transition_family||"").includes("ae_unified_gate"))return "AE";if((item.transition_family||"").includes("compound"))return "LOCAL_COMPOSITE";if((item.transition_family||"").includes("data"))return "ROLE_NON_TRANSFER";return "IW";}
-function elementLink(elementId){const element=(discovery.elements||[]).find((item)=>item.element_id===elementId);return element?`<a href="${element.detail_page}">${element.name}</a>`:"";}
-function populateFilters(){const coupling=document.getElementById("coupling");unique(classes.map((item)=>item.multi_body_coupling_class)).forEach((value)=>{const option=document.createElement("option");option.value=value;option.textContent=value;coupling.appendChild(option);});const levelSelect=document.getElementById("level");(discovery?.scale?.levels||[]).forEach((item)=>{const option=document.createElement("option");option.value=String(item.level);option.textContent=`Level ${item.level} · ${item.name}`;levelSelect.appendChild(option);});}
-function matchesFilters(item){const query=document.getElementById("search").value.trim().toLowerCase();const decision=document.getElementById("decision").value;const coupling=document.getElementById("coupling").value;const level=document.getElementById("level").value;const haystack=[item.transition_id,item.transition_name,item.transition_family,item.theorem_basis,item.role,item.boundary_behavior,item.multi_body_coupling_class,item.basis].join(" ").toLowerCase();if(query&&!haystack.includes(query))return false;if(decision&&getDecision(item)!==decision)return false;if(coupling&&item.multi_body_coupling_class!==coupling)return false;if(level&&String(getLevel(item))!==level)return false;return true;}
-function renderRows(){const tbody=document.getElementById("rows");tbody.innerHTML="";classes.filter(matchesFilters).forEach((item)=>{const level=getLevel(item);const eid=elementFor(item);const tr=document.createElement("tr");tr.className=`level-row-${level}`;tr.innerHTML=`<td>${levelPill(level)}</td><td><code>${item.transition_id}</code></td><td>${item.transition_name}</td><td>${item.transition_family}</td><td>${item.theorem_basis}</td><td>${item.role}</td><td>${item.multi_body_coupling_class}</td><td><strong>${getDecision(item)}</strong></td><td>${elementLink(eid)}</td><td>${item.basis}</td>`;tbody.appendChild(tr);});}
-Promise.all([loadClasses(),loadDiscovery()]).then(([classData,discoveryData])=>{classes=classData.classes||[];discovery=discoveryData;populateFilters();renderRows();["search","decision","coupling","level"].forEach((id)=>{document.getElementById(id).addEventListener(id==="search"?"input":"change",renderRows);});}).catch((error)=>{document.getElementById("rows").innerHTML=`<tr><td colspan="10">${error.message}</td></tr>`;});
-</script></body></html>
+let classes = [];
+let discovery = null;
+
+async function loadClasses() {
+  const response = await fetch("data/formalism-tests/transition-table-classes.json", { cache: "no-store" });
+  if (!response.ok) throw new Error("Could not load transition-table-classes.json");
+  return response.json();
+}
+
+async function loadDiscovery() {
+  const response = await fetch("data/formalism-tests/transition-discovery-map.json", { cache: "no-store" });
+  if (!response.ok) throw new Error("Could not load transition-discovery-map.json");
+  return response.json();
+}
+
+function unique(values) {
+  return [...new Set(values.filter(Boolean))].sort();
+}
+
+function text(value) {
+  return value === undefined || value === null ? "" : String(value);
+}
+
+function getDecision(item) {
+  return item.expected_decision || item.verified_decision || item.candidate_expected_outcome || "";
+}
+
+function getLevel(item) {
+  const familyLevels = discovery?.classification_family_levels || {};
+  const decisionLevels = discovery?.transition_decision_levels || {};
+  if (familyLevels[item.transition_family] !== undefined) return familyLevels[item.transition_family];
+  const decision = getDecision(item);
+  if (decisionLevels[decision] !== undefined) return decisionLevels[decision];
+  return 0;
+}
+
+function levelName(level) {
+  const match = (discovery?.scale?.levels || []).find((item) => item.level === level);
+  return match ? match.name : "Unknown";
+}
+
+function levelPill(level) {
+  return `<span class="level-pill level-${level}">L${level} · ${levelName(level)}</span>`;
+}
+
+function elementFor(item) {
+  const decision = getDecision(item);
+  if (decision === "RESET_BOUNDARY") return "RESET_BOUNDARY";
+  if (decision === "EVOLVE_BOUNDARY") return "EVOLVE_BOUNDARY";
+  if ((item.transition_family || "").includes("ae_unified_gate")) return "AE";
+  if ((item.transition_family || "").includes("compound")) return "LOCAL_COMPOSITE";
+  if ((item.transition_family || "").includes("data")) return "ROLE_NON_TRANSFER";
+  return "IW";
+}
+
+function elementLink(elementId) {
+  const element = (discovery?.elements || []).find((item) => item.element_id === elementId);
+  return element ? `<a href="${element.detail_page}">${element.name}</a>` : "";
+}
+
+function populateFilters() {
+  const coupling = document.getElementById("coupling");
+  unique(classes.map((item) => item.multi_body_coupling_class)).forEach((value) => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    coupling.appendChild(option);
+  });
+
+  const levelSelect = document.getElementById("level");
+  (discovery?.scale?.levels || []).forEach((item) => {
+    const option = document.createElement("option");
+    option.value = String(item.level);
+    option.textContent = `Level ${item.level} · ${item.name}`;
+    levelSelect.appendChild(option);
+  });
+}
+
+function matchesFilters(item) {
+  const query = document.getElementById("search").value.trim().toLowerCase();
+  const decision = document.getElementById("decision").value;
+  const coupling = document.getElementById("coupling").value;
+  const level = document.getElementById("level").value;
+
+  const haystack = [
+    item.transition_id,
+    item.transition_name,
+    item.transition_family,
+    item.theorem_basis,
+    item.role,
+    item.boundary_behavior,
+    item.replay_semantics,
+    item.multi_body_coupling_class,
+    item.basis,
+    getDecision(item)
+  ].join(" ").toLowerCase();
+
+  if (query && !haystack.includes(query)) return false;
+  if (decision && getDecision(item) !== decision) return false;
+  if (coupling && item.multi_body_coupling_class !== coupling) return false;
+  if (level && String(getLevel(item)) !== level) return false;
+  return true;
+}
+
+function renderDesktop(items) {
+  const tbody = document.getElementById("rows");
+  tbody.innerHTML = "";
+
+  items.forEach((item) => {
+    const level = getLevel(item);
+    const elementId = elementFor(item);
+    const tr = document.createElement("tr");
+    tr.className = `level-row-${level}`;
+    tr.innerHTML = `
+      <td>${levelPill(level)}</td>
+      <td><code>${text(item.transition_id)}</code></td>
+      <td>${text(item.transition_name)}</td>
+      <td>${text(item.transition_family)}</td>
+      <td>${text(item.theorem_basis)}</td>
+      <td>${text(item.role)}</td>
+      <td>${text(item.multi_body_coupling_class)}</td>
+      <td><strong>${text(getDecision(item))}</strong></td>
+      <td>${elementLink(elementId)}</td>
+      <td>${text(item.basis)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function detailRow(label, value) {
+  return `<dt>${label}</dt><dd>${value || ""}</dd>`;
+}
+
+function renderMobile(items) {
+  const container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  if (!items.length) {
+    container.innerHTML = `<div class="empty-state">No transitions match the current filters.</div>`;
+    return;
+  }
+
+  items.forEach((item, index) => {
+    const level = getLevel(item);
+    const decision = getDecision(item);
+    const elementId = elementFor(item);
+    const details = document.createElement("details");
+    details.className = `transition-tile tile-accent-${level}`;
+    details.innerHTML = `
+      <summary>
+        <div class="tile-head">
+          <div>
+            ${levelPill(level)}
+            <div class="tile-title">${text(item.transition_name)}</div>
+            <div class="tile-id">${text(item.transition_id)}</div>
+          </div>
+          <div class="tile-decision">${text(decision)}</div>
+        </div>
+      </summary>
+      <div class="tile-body">
+        <dl>
+          ${detailRow("Family", text(item.transition_family))}
+          ${detailRow("Theorem", text(item.theorem_basis))}
+          ${detailRow("Role", text(item.role))}
+          ${detailRow("Coupling", text(item.multi_body_coupling_class))}
+          ${detailRow("Boundary", text(item.boundary_behavior))}
+          ${detailRow("Replay", text(item.replay_semantics))}
+          ${detailRow("Capacity", `${text(item.consequence_mass)} / ${text(item.legitimacy_capacity_required)}`)}
+          ${detailRow("Recoverability", `${text(item.recoverability_score)} / ${text(item.recoverability_floor)}`)}
+          ${detailRow("Inference Window", `${text(item.inference_window_width || item.iw_containment?.iw_width)} / ${text(item.inference_window_minimum || item.iw_containment?.iw_minimum)}`)}
+          ${detailRow("Element", elementLink(elementId))}
+          ${detailRow("Basis", text(item.basis))}
+        </dl>
+      </div>
+    `;
+    container.appendChild(details);
+  });
+}
+
+function renderAll() {
+  const filtered = classes.filter(matchesFilters);
+  renderDesktop(filtered);
+  renderMobile(filtered);
+}
+
+Promise.all([loadClasses(), loadDiscovery()])
+  .then(([classData, discoveryData]) => {
+    classes = classData.classes || [];
+    discovery = discoveryData;
+    populateFilters();
+    renderAll();
+    ["search", "decision", "coupling", "level"].forEach((id) => {
+      document.getElementById(id).addEventListener(id === "search" ? "input" : "change", renderAll);
+    });
+  })
+  .catch((error) => {
+    document.getElementById("rows").innerHTML = `<tr><td colspan="10">${error.message}</td></tr>`;
+    document.getElementById("cards").innerHTML = `<div class="empty-state">${error.message}</div>`;
+  });
+</script>
+</body>
+</html>
