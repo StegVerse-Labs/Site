@@ -1,0 +1,248 @@
+{
+  "schema": "stegverse_transition_discovery_map.v1",
+  "title": "Transition Discovery Map",
+  "source_repo": "formalism-tests",
+  "publication_repo": "StegVerse-Labs/Site",
+  "scale": {
+    "minimum": 0,
+    "maximum": 5,
+    "levels": [
+      {
+        "level": 0,
+        "name": "Unobserved",
+        "status": "unobserved",
+        "color_token": "level-0",
+        "description": "Element identified as possible but not yet represented by fixture data or receipts."
+      },
+      {
+        "level": 1,
+        "name": "Observed",
+        "status": "observed",
+        "color_token": "level-1",
+        "description": "Element appears in discussion, fixture inventory, or early evidence."
+      },
+      {
+        "level": 2,
+        "name": "Partitioned",
+        "status": "partitioned",
+        "color_token": "level-2",
+        "description": "Element has a distinct role or transition class boundary."
+      },
+      {
+        "level": 3,
+        "name": "Tested",
+        "status": "tested",
+        "color_token": "level-3",
+        "description": "Element has executable tests or receipt-backed proof cases."
+      },
+      {
+        "level": 4,
+        "name": "Integrated",
+        "status": "integrated",
+        "color_token": "level-4",
+        "description": "Element participates in cross-stage/public proof surfaces."
+      },
+      {
+        "level": 5,
+        "name": "Unified",
+        "status": "unified",
+        "color_token": "level-5",
+        "description": "Element participates in Stage 6 unified admissibility validation."
+      }
+    ]
+  },
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "elements": [
+    {
+      "element_id": "AE",
+      "name": "Admissible Existence",
+      "completion_level": 5,
+      "family": "unified_gate_component",
+      "status": "unified",
+      "summary": "Top-level admissibility envelope for unified gate containment and recoverability.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "BC",
+      "name": "Boundary Coherence",
+      "completion_level": 5,
+      "family": "unified_gate_component",
+      "status": "unified",
+      "summary": "Coherence and purpose-convergence boundary tests integrated into reset/evolve behavior.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "CHF",
+      "name": "Consequence Horizon Formalism",
+      "completion_level": 5,
+      "family": "unified_gate_component",
+      "status": "unified",
+      "summary": "Consequence-horizon framing for irreversible transition pressure.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "DC",
+      "name": "Distributed Coherence",
+      "completion_level": 5,
+      "family": "unified_gate_component",
+      "status": "unified",
+      "summary": "Multi-entity/coupled-boundary coherence surface.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "DaCo",
+      "name": "Data Continuity",
+      "completion_level": 5,
+      "family": "unified_gate_component",
+      "status": "unified",
+      "summary": "Continuation admissibility and data-role consequence binding.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "Triad",
+      "name": "Triad",
+      "completion_level": 5,
+      "family": "unified_gate_component",
+      "status": "unified",
+      "summary": "GCAT/BCAT || ECAT/ICAT || existence/reality axis integration.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "IW",
+      "name": "Inference Window",
+      "completion_level": 5,
+      "family": "gate_condition",
+      "status": "unified",
+      "summary": "Stage 6 requires inference-window containment inside A_total.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "RE",
+      "name": "Reverse Entropy Bound",
+      "completion_level": 5,
+      "family": "gate_condition",
+      "status": "unified",
+      "summary": "Stage 6 requires reverse entropy score to remain below RE_max.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "RESET_BOUNDARY",
+      "name": "Governed Boundary Reset",
+      "completion_level": 5,
+      "family": "decision_class",
+      "status": "unified",
+      "summary": "Recoverable non-convergence routes to a governed reset instead of hard allow.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "EVOLVE_BOUNDARY",
+      "name": "Governed Boundary Evolution",
+      "completion_level": 5,
+      "family": "decision_class",
+      "status": "unified",
+      "summary": "Purpose/coherence failure with recoverability routes to governed evolution.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "AI_BLOCK",
+      "name": "AI Block Scope",
+      "completion_level": 5,
+      "family": "scope_control",
+      "status": "unified",
+      "summary": "AI block admissibility and scope-escape failure are represented in Stage 6.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "FINCO_CHAIN",
+      "name": "FinCo Chain",
+      "completion_level": 5,
+      "family": "receipt_chain",
+      "status": "unified",
+      "summary": "Consent/access/use/compensation chain integrity participates in Stage 6.",
+      "linked_transition_families": [
+        "ae_unified_gate"
+      ]
+    },
+    {
+      "element_id": "ROLE_NON_TRANSFER",
+      "name": "Role Non-Transfer",
+      "completion_level": 4,
+      "family": "data_continuation",
+      "status": "integrated",
+      "summary": "Same data can produce different continuation decisions across roles.",
+      "linked_transition_families": [
+        "data_continuation"
+      ]
+    },
+    {
+      "element_id": "LOCAL_COMPOSITE",
+      "name": "Local-Composite Non-Equivalence",
+      "completion_level": 4,
+      "family": "compound_continuation",
+      "status": "integrated",
+      "summary": "Local allow plus local allow does not imply composite allow.",
+      "linked_transition_families": [
+        "compound_continuation"
+      ]
+    },
+    {
+      "element_id": "REPLAY_NON_REVERSAL",
+      "name": "Replay Non-Reversal",
+      "completion_level": 4,
+      "family": "compound_continuation",
+      "status": "integrated",
+      "summary": "Replay reconstructs receipt state but does not reverse consequence.",
+      "linked_transition_families": [
+        "compound_continuation"
+      ]
+    },
+    {
+      "element_id": "REPRESENTATION_NON_CONSEQUENCE",
+      "name": "Representation Non-Consequence",
+      "completion_level": 2,
+      "family": "data_continuation",
+      "status": "partitioned",
+      "summary": "Partially covered; direct representation-only receipts still needed.",
+      "linked_transition_families": [
+        "data_continuation"
+      ]
+    }
+  ],
+  "classification_family_levels": {
+    "ae_unified_gate": 5,
+    "data_continuation": 4,
+    "compound_continuation": 4,
+    "transition_table": 4,
+    "boundary_transition": 4
+  },
+  "transition_decision_levels": {
+    "ALLOW": 5,
+    "FAIL_CLOSED": 5,
+    "RESET_BOUNDARY": 5,
+    "EVOLVE_BOUNDARY": 5,
+    "DENY": 3,
+    "ALLOW_WITH_SIGNOFF": 3
+  }
+}
