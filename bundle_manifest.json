@@ -1,47 +1,93 @@
 {
   "schema": "stegverse_bundle_manifest.v1",
-  "bundle_id": "site-single-source-status-bundle",
+  "bundle_id": "transition-element-pages-bundle",
   "target_repo": "StegVerse-Labs/Site",
   "no_workflows": true,
-  "purpose": "Convert main transition status pages to a single Site status source.",
-  "single_status_source": "data/formalism-tests/transition-proof-surface.json",
-  "shared_renderer": "assets/transition-site-status.js",
+  "purpose": "Create one detail page for every mapped transition element.",
   "files": [
     {
-      "path": "data/formalism-tests/transition-proof-surface.json",
+      "path": "data/formalism-tests/transition-discovery-map.json",
       "action": "replace"
     },
     {
-      "path": "assets/transition-site-status.js",
-      "action": "create_or_replace"
-    },
-    {
-      "path": "transition-proof-surface.html",
+      "path": "transition-discovery.html",
       "action": "replace"
     },
     {
-      "path": "transition-release-index.html",
+      "path": "transition-table-classes.html",
       "action": "replace"
     },
     {
-      "path": "transition-development-status.html",
-      "action": "replace"
+      "path": "transition-elements/index.html",
+      "action": "create"
     },
     {
-      "path": "transition-milestones.html",
-      "action": "replace"
+      "path": "transition-elements/transition-element-detail.js",
+      "action": "create"
     },
     {
-      "path": "transition-verification-guide.html",
-      "action": "replace"
+      "path": "transition-elements/ae.html",
+      "action": "create"
     },
     {
-      "path": "transition-replay-packet.html",
-      "action": "replace"
+      "path": "transition-elements/bc.html",
+      "action": "create"
     },
     {
-      "path": "stage6-unified-gate-results.html",
-      "action": "replace"
+      "path": "transition-elements/chf.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/dc.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/daco.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/triad.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/iw.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/re.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/reset-boundary.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/evolve-boundary.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/ai-block.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/finco-chain.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/role-non-transfer.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/local-composite.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/replay-non-reversal.html",
+      "action": "create"
+    },
+    {
+      "path": "transition-elements/representation-non-consequence.html",
+      "action": "create"
     },
     {
       "path": "README.md",
@@ -51,5 +97,7 @@
       "path": "bundle_manifest.json",
       "action": "include"
     }
-  ]
+  ],
+  "element_count": 16,
+  "single_data_source": "data/formalism-tests/transition-discovery-map.json"
 }
