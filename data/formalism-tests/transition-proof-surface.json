@@ -1,10 +1,10 @@
 {
   "schema": "stegverse_transition_proof_surface.v1",
-  "title": "Data Continuation to Transition Table Proof Surface",
+  "title": "Data Continuation to Stage 6 Unified Gate Proof Surface",
   "source_repo": "Data-Continuation/formalism-tests",
   "site_repo": "StegVerse-Labs/Site",
-  "current_stage": "Stage 5",
-  "status": "Stage 5 verified; Stage 6 next",
+  "current_stage": "Stage 6",
+  "status": "Stage 6 verified through existing declared-task workflow",
   "canonical_claim": "Admissibility is not local boundary compliance. Admissibility is recoverable convergence across coherent, evolving, coupled boundary fields.",
   "stages": [
     {
@@ -33,16 +33,32 @@
       "name": "System-coherent boundary transition classes",
       "proof_claim": "boundary transitions must remain recoverably convergent and system-coherent",
       "status": "verified",
-      "summary": "Boundary-Coherence load-capacity failure, consequence horizon absorption breach, purpose-convergence failure, distributed local-pass/global-fail, split-brain coherence, and boundary reset are each verified as distinct transition classes with deterministic ALLOW, DENY, FAIL_CLOSED, or QUARANTINE decisions. Admissible existence requires that a system preserve not only itself but the conditions that allow coherent existence to continue."
+      "summary": "Boundary-Coherence load-capacity failure, consequence horizon absorption breach, purpose-convergence failure, distributed local-pass/global-fail, split-brain coherence, and boundary reset are verified as distinct transition classes."
     },
     {
       "stage": "Stage 6",
       "name": "Admissible Existence unified gate",
-      "proof_claim": "ALLOW(u) iff IW(u) is contained in A_total and RE <= RE_max",
-      "status": "next",
-      "summary": "Next proof layer integrates the full AE stack: existence conditions, GCAT-BCAT legitimacy invariant, inference window containment, reverse entropy bound, and unified transition gate across all component layers (AE, BC, CHF, DC, DaCo, Triad)."
+      "proof_claim": "ALLOW(u) iff IW_tau(S,u) is contained in A_total and RE(S -> Phi(S,u)) <= RE_max",
+      "status": "verified",
+      "summary": "Stage 6 integrates AE, BC, CHF, DC, DaCo, and Triad into a single unified admissibility gate. The existing declared-task workflow executed the headless Stage 6 runner successfully across 10 candidates and 320 assertions."
     }
   ],
+  "stage6_result": {
+    "workflow": "Data Continuation Tests",
+    "task_id": "stage6_unified_gate_tests",
+    "runner": "tools/run_stage6_unified_gate_tests.py",
+    "fixture": "tests/fixtures/stage6_candidates.json",
+    "success": true,
+    "candidate_count": 10,
+    "assertion_count": 320,
+    "decision_counts": {
+      "ALLOW": 3,
+      "FAIL_CLOSED": 5,
+      "RESET_BOUNDARY": 1,
+      "EVOLVE_BOUNDARY": 1
+    },
+    "public_page": "stage6-unified-gate-results.html"
+  },
   "verified_tasks": [
     "archive_runtime_artifacts",
     "continuation_gate",
@@ -51,15 +67,25 @@
     "boundary_coherence_gate",
     "consequence_horizon_gate",
     "distributed_coherence_gate",
-    "boundary_evolution_gate"
+    "boundary_evolution_gate",
+    "stage6_unified_gate_tests"
   ],
   "site_pages": [
     "transition-proof-surface.html",
-    "transition-table-classes.html"
+    "transition-discovery.html",
+    "transition-table.html",
+    "transition-table-classes.html",
+    "transition-milestones.html",
+    "transition-release-index.html",
+    "transition-development-status.html",
+    "transition-verification-guide.html",
+    "transition-replay-packet.html",
+    "stage6-unified-gate-results.html"
   ],
   "data_files": [
     "data/formalism-tests/transition-proof-surface.json",
-    "data/formalism-tests/transition-table-classes.json"
+    "data/formalism-tests/transition-table-classes.json",
+    "data/formalism-tests/transition-discovery-map.json"
   ],
   "source_artifacts": {
     "stage2": {
@@ -77,7 +103,13 @@
     "stage5": {
       "report": "reports/boundary_coherence_report.md",
       "receipts": "data/receipts/boundary_coherence_receipts.jsonl"
+    },
+    "stage6": {
+      "report": "declared_task_report.json",
+      "fixture": "tests/fixtures/stage6_candidates.json",
+      "runner": "tools/run_stage6_unified_gate_tests.py"
     }
   },
-  "next_integration_target": "Stage 6: Admissible Existence Unified Gate"
+  "next_integration_target": "Stage 6 public mirror hardening and Stage 7 candidate discovery",
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts."
 }
