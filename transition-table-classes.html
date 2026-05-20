@@ -133,6 +133,7 @@ footer {
       <span class="badge">Data-driven</span>
       <span class="badge">Proof-backed</span>
       <span class="badge">Receipts published by formalism-tests</span>
+      <a class="badge" href="stage6-unified-gate-results.html">Stage 6 Unified Gate Results</a>
     </div>
   </header>
 
@@ -144,6 +145,8 @@ footer {
         <option value="">All decisions</option>
         <option value="ALLOW">ALLOW</option>
         <option value="FAIL_CLOSED">FAIL_CLOSED</option>
+        <option value="RESET_BOUNDARY">RESET_BOUNDARY</option>
+        <option value="EVOLVE_BOUNDARY">EVOLVE_BOUNDARY</option>
       </select>
       <select id="coupling">
         <option value="">All coupling classes</option>
@@ -178,7 +181,7 @@ footer {
   </section>
 
   <footer>
-    <p><a href="transition-proof-surface.html">Back to proof surface</a></p>
+    <p><a href="transition-proof-surface.html">Back to proof surface</a> · <a href="stage6-unified-gate-results.html">Open Stage 6 Unified Gate Results</a></p>
   </footer>
 </main>
 
@@ -205,6 +208,10 @@ function populateCouplingFilter() {
   });
 }
 
+function getDecision(item) {
+  return item.expected_decision || item.verified_decision || item.candidate_expected_outcome || "";
+}
+
 function matchesFilters(item) {
   const query = document.getElementById("search").value.trim().toLowerCase();
   const decision = document.getElementById("decision").value;
@@ -222,7 +229,7 @@ function matchesFilters(item) {
   ].join(" ").toLowerCase();
 
   if (query && !haystack.includes(query)) return false;
-  if (decision && item.verified_decision !== decision) return false;
+  if (decision && getDecision(item) !== decision) return false;
   if (coupling && item.multi_body_coupling_class !== coupling) return false;
   return true;
 }
@@ -244,8 +251,8 @@ function renderRows() {
       <td>${item.replay_semantics}</td>
       <td>${item.consequence_mass} / ${item.legitimacy_capacity_required}</td>
       <td>${item.recoverability_score} / ${item.recoverability_floor}</td>
-      <td>${item.inference_window_width} / ${item.inference_window_minimum}</td>
-      <td><strong>${item.verified_decision}</strong></td>
+      <td>${item.inference_window_width || item.iw_containment?.iw_width || ""} / ${item.inference_window_minimum || item.iw_containment?.iw_minimum || ""}</td>
+      <td><strong>${getDecision(item)}</strong></td>
       <td>${item.basis}</td>
     `;
     tbody.appendChild(tr);
