@@ -1,5 +1,5 @@
 {
-  "bundle_id": "site-dynamic-transition-pages-stage10-hotfix",
+  "bundle_id": "site-dynamic-transition-pages-schema-fix",
   "files": [
     {
       "action": "replace",
@@ -26,44 +26,48 @@
       "path": "stage10-canonical-release.html"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "assets/js/transition-page-renderer.js"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "assets/css/transition-pages.css"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "data/formalism-tests/transition-proof-surface.json"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
+      "path": "data/formalism-tests/transition-table-classes.json"
+    },
+    {
+      "action": "replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/index.json"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.json"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/replay_packet.json"
     },
     {
-      "action": "create_or_replace",
+      "action": "replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/release_receipt.json"
     },
     {
       "action": "create_or_replace",
-      "path": "docs/DYNAMIC_TRANSITION_PAGES.md"
+      "path": "docs/DYNAMIC_TRANSITION_SCHEMA_FIX.md"
     },
     {
       "action": "include",
@@ -75,7 +79,7 @@
     }
   ],
   "no_workflows": true,
-  "purpose": "Replace broken transition pages with dynamic shells backed by shared proof-surface JSON.",
+  "purpose": "Fix dynamic transition page schema mismatch by upgrading proof-surface JSON and making renderer backward-compatible.",
   "schema": "stegverse_bundle_manifest.v1",
   "target_repo": "StegVerse-Labs/Site"
 }

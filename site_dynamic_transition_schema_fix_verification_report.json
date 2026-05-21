@@ -1,0 +1,19 @@
+{
+  "classes_current_stage": "Stage 10",
+  "classes_legacy_stage": "Stage 5",
+  "dynamic_pages_checked": [
+    "transition-release-index.html",
+    "transition-development-status.html",
+    "transition-proof-surface.html",
+    "stage6-unified-gate-results.html",
+    "transition-verification-guide.html",
+    "stage10-canonical-release.html"
+  ],
+  "proof_surface_schema_after": "stegverse_site_transition_proof_surface.v4",
+  "proof_surface_schema_before": "stegverse_site_transition_proof_surface.v2",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "release_id": "transition-table-v1-rc1",
+  "renderer_backward_compatible": true,
+  "schema": "stegverse_site_dynamic_transition_schema_fix_verification.v1",
+  "success": true
+}

@@ -1,18 +1,17 @@
-# Site Dynamic Transition Pages Hotfix Bundle
+# Site Dynamic Transition Pages Schema Fix Bundle
 
 ## Assumptions
 
 1. This bundle targets StegVerse-Labs/Site.
-2. The broken transition pages should be dynamic, not hard-coded static status pages.
-3. The shared source is data/formalism-tests/transition-proof-surface.json.
-4. formalism-tests remains the proof authority.
+2. The current transition-proof-surface.json is schema v2.
+3. The dynamic renderer must support v2 and v4 data.
+4. transition-table-classes.json should be preserved but annotated as legacy Stage 5 class data under Stage 10 Site context.
 5. No workflow files are included.
 
 ## Done Definition
 
-1. The five listed pages are replaced with dynamic shells.
-2. stage10-canonical-release.html is included as a dynamic shell.
-3. assets/js/transition-page-renderer.js renders all pages from shared JSON.
-4. assets/css/transition-pages.css controls layout.
-5. Shared JSON data exists under data/formalism-tests/.
-6. Local verification confirms all page shells reference the shared renderer and shared JSON.
+1. transition-proof-surface.json includes pages, stages, release, and artifact_paths.
+2. transition-page-renderer.js normalizes legacy v2 proof-surface JSON.
+3. transition-table-classes.json is preserved and annotated for Stage 10 context.
+4. All six dynamic page shells remain dynamic.
+5. Local verification passes.
