@@ -1,115 +1,22 @@
 {
-  "schema": "stegverse_transition_proof_surface.v1",
-  "title": "Data Continuation to Stage 6 Unified Gate Proof Surface",
-  "source_repo": "Data-Continuation/formalism-tests",
-  "site_repo": "StegVerse-Labs/Site",
-  "current_stage": "Stage 6",
-  "status": "Stage 6 verified through existing declared-task workflow",
-  "canonical_claim": "Admissibility is not local boundary compliance. Admissibility is recoverable convergence across coherent, evolving, coupled boundary fields.",
-  "stages": [
-    {
-      "stage": "Stage 2",
-      "name": "Same-data role dependence",
-      "proof_claim": "same data != same continuation admissibility",
-      "status": "verified",
-      "summary": "The same datum can receive ALLOW, ALLOW_WITH_SIGNOFF, or FAIL_CLOSED depending on the consequence-bearing role and transition."
-    },
-    {
-      "stage": "Stage 3",
-      "name": "Compound and temporal admissibility",
-      "proof_claim": "local allow + local allow does not imply composite allow",
-      "status": "verified",
-      "summary": "Compound consequence mass, commit-time state drift, inference-window collapse, recoverability floor failure, and replay-as-reversal each produce fail-closed conditions."
-    },
-    {
-      "stage": "Stage 4",
-      "name": "Transition classes as admissibility contracts",
-      "proof_claim": "a transition type is not only a label; it is an admissibility contract",
-      "status": "verified",
-      "summary": "Theorem-backed transitions are represented as transition classes with explicit consequence mass, legitimacy capacity, recoverability, inference-window, commit-time, replay, boundary, coupling, and outcome constraints."
-    },
-    {
-      "stage": "Stage 5",
-      "name": "System-coherent boundary transition classes",
-      "proof_claim": "boundary transitions must remain recoverably convergent and system-coherent",
-      "status": "verified",
-      "summary": "Boundary-Coherence load-capacity failure, consequence horizon absorption breach, purpose-convergence failure, distributed local-pass/global-fail, split-brain coherence, and boundary reset are verified as distinct transition classes."
-    },
-    {
-      "stage": "Stage 6",
-      "name": "Admissible Existence unified gate",
-      "proof_claim": "ALLOW(u) iff IW_tau(S,u) is contained in A_total and RE(S -> Phi(S,u)) <= RE_max",
-      "status": "verified",
-      "summary": "Stage 6 integrates AE, BC, CHF, DC, DaCo, and Triad into a single unified admissibility gate. The existing declared-task workflow executed the headless Stage 6 runner successfully across 10 candidates and 320 assertions."
-    }
-  ],
-  "stage6_result": {
-    "workflow": "Data Continuation Tests",
-    "task_id": "stage6_unified_gate_tests",
-    "runner": "tools/run_stage6_unified_gate_tests.py",
-    "fixture": "tests/fixtures/stage6_candidates.json",
-    "success": true,
-    "candidate_count": 10,
-    "assertion_count": 320,
-    "decision_counts": {
-      "ALLOW": 3,
-      "FAIL_CLOSED": 5,
-      "RESET_BOUNDARY": 1,
-      "EVOLVE_BOUNDARY": 1
-    },
-    "public_page": "stage6-unified-gate-results.html"
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "canonical_element_count": 13,
+  "coupling_class_count": 9,
+  "current_stage": "Stage 10",
+  "current_status": "RELEASE_CANDIDATE",
+  "public_pages": {
+    "stage10_release": "stage10-canonical-release.html"
   },
-  "verified_tasks": [
-    "archive_runtime_artifacts",
-    "continuation_gate",
-    "compound_continuation_gate",
-    "transition_table_gate",
-    "boundary_coherence_gate",
-    "consequence_horizon_gate",
-    "distributed_coherence_gate",
-    "boundary_evolution_gate",
-    "stage6_unified_gate_tests"
-  ],
-  "site_pages": [
-    "transition-proof-surface.html",
-    "transition-discovery.html",
-    "transition-table.html",
-    "transition-table-classes.html",
-    "transition-milestones.html",
-    "transition-release-index.html",
-    "transition-development-status.html",
-    "transition-verification-guide.html",
-    "transition-replay-packet.html",
-    "stage6-unified-gate-results.html"
-  ],
-  "data_files": [
-    "data/formalism-tests/transition-proof-surface.json",
-    "data/formalism-tests/transition-table-classes.json",
-    "data/formalism-tests/transition-discovery-map.json"
-  ],
-  "source_artifacts": {
-    "stage2": {
-      "report": "reports/continuation_report.md",
-      "receipts": "reports/sample_receipts.jsonl"
-    },
-    "stage3": {
-      "report": "reports/compound_continuation_report.md",
-      "receipts": "reports/compound_receipts.jsonl"
-    },
-    "stage4": {
-      "report": "reports/transition_table_report.md",
-      "receipts": "reports/transition_table_receipts.jsonl"
-    },
-    "stage5": {
-      "report": "reports/boundary_coherence_report.md",
-      "receipts": "data/receipts/boundary_coherence_receipts.jsonl"
-    },
-    "stage6": {
-      "report": "declared_task_report.json",
-      "fixture": "tests/fixtures/stage6_candidates.json",
-      "runner": "tools/run_stage6_unified_gate_tests.py"
-    }
-  },
-  "next_integration_target": "Stage 6 public mirror hardening and Stage 7 candidate discovery",
-  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts."
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "release_id": "transition-table-v1-rc1",
+  "schema": "stegverse_site_transition_proof_surface.v2",
+  "site_role": "public_mirror",
+  "source_authority": "formalism-tests",
+  "stage_status": {
+    "Stage 10": "RELEASE_CANDIDATE",
+    "Stage 6": "PASS",
+    "Stage 7": "PASS",
+    "Stage 8": "PASS",
+    "Stage 9": "PASS"
+  }
 }
