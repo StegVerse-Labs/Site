@@ -1,0 +1,10 @@
+{
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "computed_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "current_stage": "Stage 10",
+  "current_status": "RELEASE_CANDIDATE",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "release_id": "transition-table-v1-rc1",
+  "schema": "stegverse_site_stage10_mirror_verification.v1",
+  "success": true
+}

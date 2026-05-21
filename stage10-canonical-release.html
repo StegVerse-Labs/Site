@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stage 10 Canonical Transition Table Release</title>
+  <style>
+    :root { color-scheme: light dark; --bg: #0b1020; --panel: #111827; --text: #f8fafc; --muted: #cbd5e1; --line: #334155; --accent: #38bdf8; --ok: #22c55e; }
+    body { margin: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; }
+    main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 56px; }
+    a { color: var(--accent); }
+    .hero, .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px; margin: 16px 0; }
+    .badge { display: inline-block; border: 1px solid var(--ok); color: var(--ok); border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.03em; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    pre { white-space: pre-wrap; word-break: break-word; background: #020617; border: 1px solid var(--line); border-radius: 14px; padding: 14px; overflow: auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .metric { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: #0f172a; }
+    .metric strong { display: block; font-size: 1.35rem; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <span class="badge">RELEASE CANDIDATE</span>
+    <h1>Stage 10 Canonical Transition Table Release</h1>
+    <p>This page is a public mirror of the Stage 10 canonical transition-table release candidate produced by <code>formalism-tests</code>.</p>
+    <pre>formalism-tests produces receipts.
+Site publishes receipts.
+Site must not become the authority for receipts.</pre>
+  </section>
+
+  <section class="grid">
+    <div class="metric"><span>Release ID</span><strong id="release-id">transition-table-v1-rc1</strong></div>
+    <div class="metric"><span>Status</span><strong id="release-status">release_candidate</strong></div>
+    <div class="metric"><span>Canonical Elements</span><strong id="element-count">13</strong></div>
+    <div class="metric"><span>Coupling Classes</span><strong id="coupling-count">9</strong></div>
+  </section>
+
+  <section class="card"><h2>Release Hash</h2><pre id="release-hash">8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f</pre></section>
+
+  <section class="card">
+    <h2>Release Artifacts</h2>
+    <ul>
+      <li><a href="data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.json">canonical_transition_table_release.json</a></li>
+      <li><a href="data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256">canonical_transition_table_release.sha256</a></li>
+      <li><a href="data/formalism-tests/transition-table-v1-rc1/replay_packet.json">replay_packet.json</a></li>
+      <li><a href="data/formalism-tests/transition-table-v1-rc1/release_receipt.json">release_receipt.json</a></li>
+      <li><a href="data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json">stage10_canonical_release_report.json</a></li>
+    </ul>
+  </section>
+
+  <section class="card"><h2>Canonical Elements</h2><pre id="elements">Loading...</pre></section>
+  <section class="card"><h2>Coupling Classes</h2><pre id="couplings">Loading...</pre></section>
+</main>
+
+<script>
+async function loadRelease() {
+  try {
+    const response = await fetch("data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.json");
+    const data = await response.json();
+    document.getElementById("release-id").textContent = data.release_id;
+    document.getElementById("release-status").textContent = data.canonical_status;
+    document.getElementById("element-count").textContent = data.canonical_elements.length;
+    document.getElementById("coupling-count").textContent = data.coupling_classes.length;
+    document.getElementById("elements").textContent = data.canonical_elements.join("\n");
+    document.getElementById("couplings").textContent = data.coupling_classes.join("\n");
+  } catch (error) {
+    document.getElementById("elements").textContent = "Unable to load release JSON.";
+    document.getElementById("couplings").textContent = "Unable to load release JSON.";
+  }
+}
+loadRelease();
+</script>
+</body>
+</html>

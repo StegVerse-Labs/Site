@@ -1,29 +1,55 @@
 {
-  "schema": "stegverse_bundle_manifest.v1",
-  "bundle_id": "transition-table-mobile-expand-bundle",
-  "target_repo": "StegVerse-Labs/Site",
-  "no_workflows": true,
-  "purpose": "Make transition-table-classes mobile-friendly with expandable periodic-style transition tiles.",
+  "bundle_id": "site-stage10-public-mirror",
   "files": [
     {
-      "path": "transition-table-classes.html",
-      "action": "replace",
-      "description": "Desktop table plus mobile expandable transition tiles."
+      "action": "create_or_replace",
+      "path": "stage10-canonical-release.html"
     },
     {
-      "path": "README.md",
-      "action": "include",
-      "description": "Bundle explanation."
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.json"
     },
     {
-      "path": "bundle_manifest.json",
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/replay_packet.json"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/release_receipt.json"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/index.json"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-proof-surface.json"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "docs/STAGE_10_SITE_MIRROR.md"
+    },
+    {
       "action": "include",
-      "description": "Bundle manifest."
+      "path": "README.bundle.md"
+    },
+    {
+      "action": "include",
+      "path": "bundle_manifest.json"
     }
   ],
-  "data_sources": [
-    "data/formalism-tests/transition-table-classes.json",
-    "data/formalism-tests/transition-discovery-map.json"
-  ],
-  "mobile_breakpoint_px": 820
+  "no_workflows": true,
+  "purpose": "Mirror formalism-tests Stage 10 canonical transition table release candidate into Site as public proof data.",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "release_id": "transition-table-v1-rc1",
+  "schema": "stegverse_bundle_manifest.v1",
+  "target_repo": "StegVerse-Labs/Site"
 }
