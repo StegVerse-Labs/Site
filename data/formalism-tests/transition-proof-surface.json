@@ -1,22 +1,184 @@
 {
+  "artifact_paths": {
+    "canonical_release": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.json",
+    "release_receipt": "data/formalism-tests/transition-table-v1-rc1/release_receipt.json",
+    "release_report": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json",
+    "replay_packet": "data/formalism-tests/transition-table-v1-rc1/replay_packet.json",
+    "sha256": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256"
+  },
   "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
-  "canonical_element_count": 13,
-  "coupling_class_count": 9,
   "current_stage": "Stage 10",
   "current_status": "RELEASE_CANDIDATE",
-  "public_pages": {
-    "stage10_release": "stage10-canonical-release.html"
+  "pages": [
+    {
+      "description": "Release index for current transition-table proof surface.",
+      "id": "release-index",
+      "path": "transition-release-index.html",
+      "sections": [
+        "release",
+        "stages",
+        "pages",
+        "authority"
+      ],
+      "title": "Transition Release Index"
+    },
+    {
+      "description": "Development status from Stage 2 through Stage 10.",
+      "id": "development-status",
+      "path": "transition-development-status.html",
+      "sections": [
+        "stages",
+        "release",
+        "authority"
+      ],
+      "title": "Transition Development Status"
+    },
+    {
+      "description": "Public mirror of transition proof status and release-candidate data.",
+      "id": "proof-surface",
+      "path": "transition-proof-surface.html",
+      "sections": [
+        "release",
+        "stages",
+        "evidence",
+        "authority"
+      ],
+      "title": "Transition Proof Surface"
+    },
+    {
+      "description": "Stage 6 unified gate result rendered from shared proof-surface JSON.",
+      "id": "stage6-results",
+      "path": "stage6-unified-gate-results.html",
+      "sections": [
+        "stage6",
+        "release",
+        "authority"
+      ],
+      "title": "Stage 6 Unified Gate Results"
+    },
+    {
+      "description": "Verification guide for mirrored release data and authority boundaries.",
+      "id": "verification-guide",
+      "path": "transition-verification-guide.html",
+      "sections": [
+        "verification",
+        "release",
+        "authority"
+      ],
+      "title": "Transition Verification Guide"
+    },
+    {
+      "description": "Stage 10 release candidate mirror.",
+      "id": "stage10-release",
+      "path": "stage10-canonical-release.html",
+      "sections": [
+        "release",
+        "artifacts",
+        "authority"
+      ],
+      "title": "Stage 10 Canonical Release"
+    }
+  ],
+  "release": {
+    "canonical_element_count": 13,
+    "canonical_status": "release_candidate",
+    "coupling_class_count": 9,
+    "data_index": "data/formalism-tests/transition-table-v1-rc1/index.json",
+    "next_release_state": "transition-table-v1",
+    "release_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+    "release_id": "transition-table-v1-rc1"
   },
-  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
-  "release_id": "transition-table-v1-rc1",
-  "schema": "stegverse_site_transition_proof_surface.v2",
+  "schema": "stegverse_site_transition_proof_surface.v4",
   "site_role": "public_mirror",
   "source_authority": "formalism-tests",
-  "stage_status": {
-    "Stage 10": "RELEASE_CANDIDATE",
-    "Stage 6": "PASS",
-    "Stage 7": "PASS",
-    "Stage 8": "PASS",
-    "Stage 9": "PASS"
-  }
+  "stages": [
+    {
+      "evidence": [
+        "Role Non-Transfer",
+        "Continuation Capacity",
+        "Fail-Closed Basis Requirement"
+      ],
+      "id": "stage-2",
+      "label": "Stage 2",
+      "name": "Same-data role dependence",
+      "status": "PASS",
+      "summary": "Same data can produce different continuation decisions depending on role and consequence path."
+    },
+    {
+      "evidence": [
+        "Local-Composite Non-Equivalence",
+        "Commit-Time Sufficiency",
+        "Replay Non-Reversal",
+        "Inference-Window Collapse",
+        "Recoverability Floor"
+      ],
+      "id": "stage-3",
+      "label": "Stage 3",
+      "name": "Compound and temporal continuation",
+      "status": "PASS",
+      "summary": "Local allow does not imply composite allow; commit-time state, replay semantics, recoverability, and inference windows matter."
+    },
+    {
+      "decision_counts": {
+        "ALLOW": 3,
+        "EVOLVE_BOUNDARY": 1,
+        "FAIL_CLOSED": 5,
+        "RESET_BOUNDARY": 1
+      },
+      "id": "stage-6",
+      "label": "Stage 6",
+      "metrics": {
+        "assertion_count": 320,
+        "candidate_count": 10
+      },
+      "name": "Admissible Existence Unified Gate",
+      "status": "PASS",
+      "summary": "Unified AE gate validates IW containment and RE bound across 10 candidates and 320 assertions."
+    },
+    {
+      "id": "stage-7",
+      "label": "Stage 7",
+      "metrics": {
+        "assertion_count": 105,
+        "element_count": 13
+      },
+      "name": "Element Dependency Closure",
+      "status": "PASS",
+      "summary": "Unlocked elements have declared dependencies and no Level 5 element depends on an uncovered dependency without explicit boundary."
+    },
+    {
+      "id": "stage-8",
+      "label": "Stage 8",
+      "metrics": {
+        "assertion_count": 64,
+        "candidate_count": 8
+      },
+      "name": "AI Domain Transition Classes",
+      "status": "PASS",
+      "summary": "AI governance, derivation, verification, quorum, hidden authority, closure, and scope transition classes are validated."
+    },
+    {
+      "id": "stage-9",
+      "label": "Stage 9",
+      "metrics": {
+        "assertion_count": 80,
+        "candidate_count": 10,
+        "coupling_class_count": 9
+      },
+      "name": "Multi-Body Coupling Closure",
+      "status": "PASS",
+      "summary": "Admissibility cannot be evaluated in isolation when entities are coupled."
+    },
+    {
+      "id": "stage-10",
+      "label": "Stage 10",
+      "metrics": {
+        "canonical_element_count": 13,
+        "coupling_class_count": 9
+      },
+      "name": "Canonical Transition Table Release",
+      "status": "RELEASE_CANDIDATE",
+      "summary": "Canonical transition-table release candidate emits deterministic release, hash, replay packet, and release receipt."
+    }
+  ]
 }
