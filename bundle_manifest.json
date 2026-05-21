@@ -1,9 +1,45 @@
 {
-  "bundle_id": "site-stage10-public-mirror",
+  "bundle_id": "site-dynamic-transition-pages-stage10-hotfix",
   "files": [
     {
-      "action": "create_or_replace",
+      "action": "replace",
+      "path": "transition-release-index.html"
+    },
+    {
+      "action": "replace",
+      "path": "transition-development-status.html"
+    },
+    {
+      "action": "replace",
+      "path": "transition-proof-surface.html"
+    },
+    {
+      "action": "replace",
+      "path": "stage6-unified-gate-results.html"
+    },
+    {
+      "action": "replace",
+      "path": "transition-verification-guide.html"
+    },
+    {
+      "action": "replace",
       "path": "stage10-canonical-release.html"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "assets/js/transition-page-renderer.js"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "assets/css/transition-pages.css"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-proof-surface.json"
+    },
+    {
+      "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/index.json"
     },
     {
       "action": "create_or_replace",
@@ -15,6 +51,10 @@
     },
     {
       "action": "create_or_replace",
+      "path": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json"
+    },
+    {
+      "action": "create_or_replace",
       "path": "data/formalism-tests/transition-table-v1-rc1/replay_packet.json"
     },
     {
@@ -23,19 +63,7 @@
     },
     {
       "action": "create_or_replace",
-      "path": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json"
-    },
-    {
-      "action": "create_or_replace",
-      "path": "data/formalism-tests/transition-table-v1-rc1/index.json"
-    },
-    {
-      "action": "create_or_replace",
-      "path": "data/formalism-tests/transition-proof-surface.json"
-    },
-    {
-      "action": "create_or_replace",
-      "path": "docs/STAGE_10_SITE_MIRROR.md"
+      "path": "docs/DYNAMIC_TRANSITION_PAGES.md"
     },
     {
       "action": "include",
@@ -47,9 +75,7 @@
     }
   ],
   "no_workflows": true,
-  "purpose": "Mirror formalism-tests Stage 10 canonical transition table release candidate into Site as public proof data.",
-  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
-  "release_id": "transition-table-v1-rc1",
+  "purpose": "Replace broken transition pages with dynamic shells backed by shared proof-surface JSON.",
   "schema": "stegverse_bundle_manifest.v1",
   "target_repo": "StegVerse-Labs/Site"
 }

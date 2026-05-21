@@ -1,0 +1,17 @@
+{
+  "computed_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+  "dynamic_pages_checked": [
+    "transition-release-index.html",
+    "transition-development-status.html",
+    "transition-proof-surface.html",
+    "stage6-unified-gate-results.html",
+    "transition-verification-guide.html",
+    "stage10-canonical-release.html"
+  ],
+  "no_workflows": true,
+  "release_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+  "release_id": "transition-table-v1-rc1",
+  "schema": "stegverse_site_dynamic_transition_pages_verification.v1",
+  "shared_data_source": "data/formalism-tests/transition-proof-surface.json",
+  "success": true
+}

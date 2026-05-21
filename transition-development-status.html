@@ -1,9 +1,18 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Transition Development Status</title><style>body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f1115;color:#f3f5f7;line-height:1.55}main{max-width:1120px;margin:0 auto;padding:32px 18px 64px}header,.card{border:1px solid #303846;border-radius:20px;background:#171b22;padding:22px}header{background:linear-gradient(135deg,#171b22,#202632)}h1{font-size:clamp(2rem,5vw,4rem);line-height:1.1;margin:0 0 12px}p,li,td{color:#aab4c0}a{color:#8fb7ff}.nav,.badges{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.nav a,.badge{border:1px solid #303846;border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.04);color:#f3f5f7;text-decoration:none}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.ok{color:#9be7b5;font-weight:800}.warn{color:#ffd18f;font-weight:800}.bad{color:#ff9b9b;font-weight:800}pre{overflow-x:auto;border:1px solid #303846;border-radius:14px;background:#0a0c10;padding:14px}.table-wrap{overflow-x:auto;border:1px solid #303846;border-radius:16px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{border-bottom:1px solid #303846;padding:10px 12px;text-align:left;vertical-align:top}th{background:#202632;color:#f3f5f7}footer{margin-top:42px;color:#aab4c0}</style></head>
-<body><main>
-<header><p class="badge">StegVerse Transition Development</p><h1>Transition Development Status</h1><p data-transition-claim>Loading...</p><div class="badges" data-transition-badges></div></header>
-<nav class="nav"><a href="transition-proof-surface.html">Proof Surface</a><a href="transition-discovery.html">Transition Discovery</a><a href="transition-table-classes.html">Transition Classes</a><a href="stage6-unified-gate-results.html">Stage 6 Unified Gate</a><a href="transition-release-index.html">Release Index</a><a href="transition-development-status.html">Development Status</a><a href="transition-verification-guide.html">Verification Guide</a><a href="transition-replay-packet.html">Replay Packet</a></nav>
-<section><h2>Status</h2><ul id="status"></ul></section><section><h2>Current integration target</h2><pre data-transition-next>Loading...</pre></section><section><h2>Stage 6 result</h2><div class="grid" id="stage6"></div></section>
-<footer><p data-transition-authority>formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.</p></footer>
-</main><script src="assets/transition-site-status.js"></script><script>renderTransitionStatusPage({stageList:"status",stage6:"stage6"});</script></body></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transition Page</title>
+  <link rel="stylesheet" href="assets/css/transition-pages.css">
+</head>
+<body data-page="development-status">
+  <main id="app">
+    <section>
+      <h1>Loading transition proof surface...</h1>
+      <p>This page renders from data/formalism-tests/transition-proof-surface.json.</p>
+    </section>
+  </main>
+  <script src="assets/js/transition-page-renderer.js"></script>
+</body>
+</html>
