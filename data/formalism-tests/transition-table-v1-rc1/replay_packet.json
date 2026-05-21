@@ -1,13 +1,6 @@
 {
   "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
-  "inputs": [
-    "stage6_unified_gate_report.json",
-    "element_dependency_closure_report.json",
-    "stage8_ai_domain_report.json",
-    "stage9_multi_body_coupling_report.json",
-    "stage9_reconciliation_report.json"
-  ],
-  "release_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
   "release_id": "transition-table-v1-rc1",
   "replay_mode": "reconstruct_only",
   "schema": "stegverse_transition_table_replay_packet.v1"

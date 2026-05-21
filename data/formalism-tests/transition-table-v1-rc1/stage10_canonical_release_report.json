@@ -5,7 +5,7 @@
   "coupling_class_count": 9,
   "message": "Stage 10 canonical transition table release validation passed.",
   "next_release_state": "transition-table-v1",
-  "release_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
   "release_id": "transition-table-v1-rc1",
   "schema": "stegverse_stage10_canonical_release_report.v1",
   "success": true

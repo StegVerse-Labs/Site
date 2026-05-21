@@ -6,11 +6,12 @@
     "release_receipt": "data/formalism-tests/transition-table-v1-rc1/release_receipt.json",
     "release_report": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json",
     "replay_packet": "data/formalism-tests/transition-table-v1-rc1/replay_packet.json",
-    "sha256": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256"
+    "sha256": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256",
+    "transition_classes": "data/formalism-tests/transition-table-classes.json"
   },
-  "release_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
   "release_id": "transition-table-v1-rc1",
-  "schema": "stegverse_site_stage10_release_index.v1",
+  "schema": "stegverse_site_stage10_release_index.v2",
   "site_role": "public_mirror",
   "source_authority": "formalism-tests"
 }
