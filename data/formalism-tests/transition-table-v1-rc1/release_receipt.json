@@ -1,0 +1,9 @@
+{
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "basis": "Stage 6 through Stage 9 reports validated; canonical hash and replay packet emitted.",
+  "decision": "RELEASE_CANDIDATE",
+  "receipt_hash": "78313134aad87fb708317c7f217063a6d4e542e2779b768e8be9865b6900cf7c",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "release_id": "transition-table-v1-rc1",
+  "schema": "stegverse_canonical_transition_table_release_receipt.v1"
+}

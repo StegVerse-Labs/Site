@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    "dist/transition-table-v1-rc1/canonical_transition_table_release.json",
+    "dist/transition-table-v1-rc1/canonical_transition_table_release.sha256",
+    "dist/transition-table-v1-rc1/replay_packet.json",
+    "dist/transition-table-v1-rc1/release_receipt.json"
+  ],
+  "assertion_count": 18,
+  "canonical_element_count": 13,
+  "canonical_status": "release_candidate",
+  "coupling_class_count": 9,
+  "message": "Stage 10 canonical transition table release validation passed.",
+  "next_release_state": "transition-table-v1",
+  "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
+  "release_id": "transition-table-v1-rc1",
+  "report_sources": [
+    "tests/fixtures/stage10_release_reports/stage6_unified_gate_report.json",
+    "tests/fixtures/stage10_release_reports/element_dependency_closure_report.json",
+    "tests/fixtures/stage10_release_reports/stage8_ai_domain_report.json",
+    "tests/fixtures/stage10_release_reports/stage9_multi_body_coupling_report.json",
+    "reports/stage9_reconciliation_report.json"
+  ],
+  "schema": "stegverse_stage10_canonical_release_report.v1",
+  "success": true
+}

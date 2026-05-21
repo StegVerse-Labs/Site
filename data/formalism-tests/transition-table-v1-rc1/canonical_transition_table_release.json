@@ -1,0 +1,59 @@
+{
+  "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
+  "canonical_elements": [
+    "AE",
+    "BC",
+    "CHF",
+    "DC",
+    "DaCo",
+    "Triad",
+    "IW",
+    "RE",
+    "RESET_BOUNDARY",
+    "EVOLVE_BOUNDARY",
+    "AI_BLOCK",
+    "FINCO_CHAIN",
+    "REPRESENTATION_NON_CONSEQUENCE"
+  ],
+  "canonical_status": "release_candidate",
+  "coupling_classes": [
+    "authority-transfer",
+    "coherence-coupled",
+    "distributed-node",
+    "irreversible-consequence",
+    "isolated",
+    "multi-agent-cascade",
+    "paired-boundary",
+    "shared-resource",
+    "trust-field"
+  ],
+  "next_release_state": "transition-table-v1",
+  "prior_stages": [
+    "Stage 6 Unified Gate",
+    "Stage 7 Element Dependency Closure",
+    "Stage 8 AI Domain Transition Classes",
+    "Stage 9 Multi-Body Coupling Closure",
+    "Stage 9 Reconciliation"
+  ],
+  "release_created_at": "2026-05-21T00:00:00Z",
+  "release_guards": [
+    "no_uncovered_level5_dependencies",
+    "no_hidden_authority",
+    "no_unscoped_ai_participation",
+    "no_public_site_authority",
+    "canonical_hash_required",
+    "replay_packet_required",
+    "current_report_snapshot_required"
+  ],
+  "release_id": "transition-table-v1-rc1",
+  "release_name": "Canonical Transition Table Release Candidate 1",
+  "release_stage": "Stage 10",
+  "report_sources": [
+    "tests/fixtures/stage10_release_reports/stage6_unified_gate_report.json",
+    "tests/fixtures/stage10_release_reports/element_dependency_closure_report.json",
+    "tests/fixtures/stage10_release_reports/stage8_ai_domain_report.json",
+    "tests/fixtures/stage10_release_reports/stage9_multi_body_coupling_report.json",
+    "reports/stage9_reconciliation_report.json"
+  ],
+  "schema": "stegverse_canonical_transition_table_release.v1"
+}
