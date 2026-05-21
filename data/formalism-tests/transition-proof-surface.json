@@ -4,11 +4,15 @@
     "release_receipt": "data/formalism-tests/transition-table-v1-rc1/release_receipt.json",
     "release_report": "data/formalism-tests/transition-table-v1-rc1/stage10_canonical_release_report.json",
     "replay_packet": "data/formalism-tests/transition-table-v1-rc1/replay_packet.json",
-    "sha256": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256"
+    "sha256": "data/formalism-tests/transition-table-v1-rc1/canonical_transition_table_release.sha256",
+    "transition_classes": "data/formalism-tests/transition-table-classes.json"
   },
   "authority_boundary": "formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.",
   "current_stage": "Stage 10",
   "current_status": "RELEASE_CANDIDATE",
+  "legacy_public_pages": {
+    "stage10_release": "stage10-canonical-release.html"
+  },
   "pages": [
     {
       "description": "Release index for current transition-table proof surface.",
@@ -85,7 +89,7 @@
     "coupling_class_count": 9,
     "data_index": "data/formalism-tests/transition-table-v1-rc1/index.json",
     "next_release_state": "transition-table-v1",
-    "release_hash": "3944272ef5ffcf24d614e7bbc7dae94bc644c6e629759da56d2db4136ad3ad79",
+    "release_hash": "8330ea16c351226b03bf25e2ad04ef47c0e35a6fbfb1e22a8222122958f8bc2f",
     "release_id": "transition-table-v1-rc1"
   },
   "schema": "stegverse_site_transition_proof_surface.v4",
@@ -93,11 +97,6 @@
   "source_authority": "formalism-tests",
   "stages": [
     {
-      "evidence": [
-        "Role Non-Transfer",
-        "Continuation Capacity",
-        "Fail-Closed Basis Requirement"
-      ],
       "id": "stage-2",
       "label": "Stage 2",
       "name": "Same-data role dependence",
@@ -105,13 +104,6 @@
       "summary": "Same data can produce different continuation decisions depending on role and consequence path."
     },
     {
-      "evidence": [
-        "Local-Composite Non-Equivalence",
-        "Commit-Time Sufficiency",
-        "Replay Non-Reversal",
-        "Inference-Window Collapse",
-        "Recoverability Floor"
-      ],
       "id": "stage-3",
       "label": "Stage 3",
       "name": "Compound and temporal continuation",
