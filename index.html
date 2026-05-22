@@ -1,129 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>StegVerse — Trust, Governance, Execution-Layer Risk</title>
-<meta name="description" content="StegVerse exposes trust failures before they become incidents and demonstrates commit-time admissibility at the execution boundary."/>
-
-<style>
-:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
-a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
-header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
-.nav{width:min(1040px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
-.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
-.links a.active{color:var(--accent)}
-.wrap{width:min(1040px,calc(100% - 32px));margin:0 auto;padding:20px 0}
-.hero{padding:58px 0 30px}
-.hero h1{font-size:clamp(2.1rem,6vw,3.45rem);line-height:1.08;margin:0 0 18px}
-.lead{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--muted);max-width:790px}
-.tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:800}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px;box-shadow:var(--shadow)}
-.card h2{font-size:1.35rem;margin:0 0 12px}
-.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
-.card p,.muted{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:24px 0}
-.grid-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:22px}
-.grid-card h3{margin:0 0 8px;color:var(--text)}
-.grid-card p{margin:0 0 16px;color:var(--muted);font-size:.94rem}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.actions a,.btn{padding:12px 18px;border-radius:14px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:46px}
-.btn-main{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
-.btn-alt{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
-.btn-support{background:linear-gradient(135deg,var(--warn),var(--accent));color:#051019}
-.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:16px;overflow:auto;white-space:pre-wrap;color:#e5f6ff}
-.flow{display:grid;gap:12px;margin:16px 0}
-.step{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:center;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
-.step strong{color:var(--accent);letter-spacing:.06em;text-transform:uppercase;font-size:.78rem}
-.step span{color:var(--muted)}
-.pill{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:900;font-size:.75rem;white-space:nowrap}
-.allow{color:var(--accent2)}.deny{color:var(--danger)}.fail{color:var(--warn)}
-.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:20px 0}
-.metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:14px;border:1px solid var(--line)}
-.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.7rem;font-weight:900;color:var(--accent)}
-.metric-label{font-size:.74rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
-.sitemap{display:grid;gap:10px;margin-top:16px}
-.sitemap a{display:flex;justify-content:space-between;gap:14px;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035);color:var(--text);font-weight:750;text-decoration:none}
-.sitemap a span{color:var(--muted);font-weight:600}
-.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-.notice{border:1px solid rgba(255,209,102,.35);background:rgba(255,209,102,.08);border-radius:16px;padding:16px;color:var(--muted)}
-footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
-@media(max-width:700px){
-  .nav{flex-direction:column;align-items:flex-start}
-  .links{width:100%;justify-content:space-between}
-  .step{grid-template-columns:1fr}
-  .pill{width:max-content}
-  .metric-grid{grid-template-columns:repeat(2,1fr)}
-  .actions a{width:100%}
-}
-</style>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>StegVerse — Trust, Governance, Execution-Layer Risk</title>
+  <meta name="description" content="StegVerse exposes trust failures before they become incidents and demonstrates commit-time admissibility governance.">
+  <link rel="stylesheet" href="assets/css/stegverse-site-shell.css">
 </head>
-<body>
-<header>
-  <div class="nav">
-    <a class="brand" href="index.html">StegVerse</a>
-    <nav class="links"><a href="index.html" class="active">Home</a><a href="demo.html">Demo</a><a href="stegfinco.html">FinCo</a><a href="support.html">Support</a><a href="product.html">Product</a><a href="pricing.html">Pricing</a><a href="methodology.html">Methodology</a><a href="about.html">About</a><a href="./publisher/papers.html">Papers</a></nav>
-  </div>
-</header>
-<main class="wrap">
-  <section class="hero">
-    <div class="tier-badge">Trust · Governance · Execution-layer risk</div>
-    <h1>Expose trust failures before they become incidents.</h1>
-    <p class="lead">StegVerse identifies where AI systems, governance structures, credentials, and automation silently fail under real-world pressure — then demonstrates how admissibility can be enforced at the moment actions become irreversible.</p>
-    <div class="actions">
-      <a class="btn-main" href="demo.html">Run the execution demo</a>
-      <a class="btn-alt" href="stegfinco.html">View StegFinCo certification</a>
-      <a class="btn-support" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00" target="_blank" rel="noopener noreferrer">Support StegVerse Research</a>
-    </div>
-  </section>
-  <section class="grid">
-    <div class="grid-card">
-      <h3>Trust & Risk Systems Audit</h3>
-      <p>Short, senior-only engagements that surface AI, governance, credential, and auditability failure modes.</p>
-      <a class="btn btn-alt" href="product.html">Product details</a>
-    </div>
-    <div class="grid-card">
-      <h3>Execution Demo</h3>
-      <p>Paste static run data and see a browser-native commit-boundary decision with a portable receipt hash.</p>
-      <a class="btn btn-alt" href="demo.html">Run demo</a>
-    </div>
-    <div class="grid-card">
-      <h3>StegFinCo Certification</h3>
-      <p>See the financial execution stack: Fin-Co constraints, StegFinCo execution, Fin-Co-Lab certification, and StegPay evidence wiring.</p>
-      <a class="btn btn-alt" href="stegfinco.html">View page</a>
-    </div>
-    <div class="grid-card">
-      <h3>Support Research</h3>
-      <p>Support independent StegVerse research, demos, certification work, and open governance infrastructure.</p>
-      <a class="btn btn-support" href="https://buy.stripe.com/aFadRb99q0lu0Oa7RSdby00" target="_blank" rel="noopener noreferrer">Support StegVerse Research</a>
-    </div>
-  </section>
-  <section class="split">
-    <div class="card">
-      <h2>Audit is evidence. Commit-time admissibility is control.</h2>
-      <p>Logs can explain what happened. A commit boundary determines whether an action is still valid before it becomes an irreversible effect.</p>
-      <p>The StegVerse pattern is simple: reconstruct current state, re-derive current authority, recompute admissibility, then allow, deny, or fail closed.</p>
-    </div>
-    <div class="card">
-      <h2>Site map</h2>
-      <div class="sitemap">
-        <a href="what-we-do.html">What we do <span>what-we-do.html</span></a>
-        <a href="stegfinco.html">StegFinCo certification <span>stegfinco.html</span></a>
-        <a href="support.html">Support StegVerse Research <span>support.html</span></a>
-        <a href="product.html">Product <span>product.html</span></a>
-        <a href="pricing.html">Pricing <span>pricing.html</span></a>
-        <a href="methodology.html">Methodology <span>methodology.html</span></a>
-        <a href="guarantees.html">Guarantees <span>guarantees.html</span></a>
-        <a href="about.html">About <span>about.html</span></a>
+<body class="sv-shell">
+<div class="sv-wrap">
+  <header class="sv-top">
+    <a class="sv-brand" href="index.html">StegVerse</a>
+    <nav class="sv-nav" data-sv-global-nav aria-label="StegVerse navigation">
+      <a href="index.html">Home</a>
+      <a href="demo.html">Demo</a>
+      <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+      <a href="transition-release-index.html">Transition Releases</a>
+      <a href="Papers.html">Papers</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="sv-hero">
+      <p class="sv-kicker">Trust · Governance · Execution-layer risk</p>
+      <h1>Expose trust failures before they become incidents.</h1>
+      <p>
+        StegVerse identifies where AI systems, governance structures, credentials, and automation silently fail under real-world pressure — then demonstrates how admissibility can be enforced at the moment actions become irreversible.
+      </p>
+      <div class="sv-actions">
+        <a class="sv-button" href="demo.html">Run the execution demo</a>
+        <a class="sv-button secondary" href="formalism-tests-stage-1-to-31.html">View Stage 1–31 proof mirror</a>
+        <a class="sv-button secondary" href="stegfinco.html">View StegFinCo certification</a>
+        <a class="sv-button secondary" href="support.html">Support StegVerse Research</a>
       </div>
-    </div>
-  </section>
-</main>
-<footer>
-  StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED
-</footer>
+    </section>
+
+    <section class="sv-panel">
+      <h2>Current proof status</h2>
+      <p data-sv-loading>Loading StegVerse shared site state...</p>
+      <div data-sv-ready hidden>
+        <p><strong>Status:</strong> <span data-sv-roadmap-status></span></p>
+        <p><strong>Work entity:</strong> <span data-sv-work-entity></span></p>
+        <p><strong>Proof authority:</strong> <span data-sv-proof-authority></span></p>
+        <p><strong>Site role:</strong> <span data-sv-site-role></span></p>
+      </div>
+    </section>
+
+    <section class="sv-grid">
+      <article class="sv-card">
+        <h3>Trust & Risk Systems Audit</h3>
+        <p>Short, senior-only engagements that surface AI, governance, credential, and auditability failure modes.</p>
+        <p><a href="product.html">Product details</a></p>
+      </article>
+      <article class="sv-card">
+        <h3>Execution Demo</h3>
+        <p>Paste static run data and see a browser-native commit-boundary decision with a portable receipt hash.</p>
+        <p><a href="demo.html">Run demo</a></p>
+      </article>
+      <article class="sv-card">
+        <h3>Stage 1–31 Proof Mirror</h3>
+        <p>Review the completed formalism-tests roadmap from data-role admissibility through production accreditation.</p>
+        <p><a href="formalism-tests-stage-1-to-31.html">View proof mirror</a></p>
+      </article>
+      <article class="sv-card">
+        <h3>StegFinCo Certification</h3>
+        <p>See the financial execution stack: FinCo constraints, StegFinCo execution, FinCo-Lab certification, and StegPay evidence wiring.</p>
+        <p><a href="stegfinco.html">View page</a></p>
+      </article>
+    </section>
+
+    <section class="sv-panel">
+      <h2>Audit is evidence. Commit-time admissibility is control.</h2>
+      <p>
+        Logs can explain what happened. A commit boundary determines whether an action is still valid before it becomes an irreversible effect.
+      </p>
+      <p>
+        The StegVerse pattern is simple: reconstruct current state, re-derive current authority, recompute admissibility, then allow, deny, or fail closed.
+      </p>
+    </section>
+
+    <section class="sv-panel">
+      <h2>Current boundaries</h2>
+      <pre><span data-sv-discovery-boundary></span>
+<span data-sv-install-plan-boundary></span>
+<span data-sv-packet-boundary></span>
+<span data-sv-node-boundary></span>
+<span data-sv-finco-boundary></span>
+<span data-sv-production-boundary></span></pre>
+    </section>
+
+    <section class="sv-panel">
+      <h2>Stage 31 summary</h2>
+      <div class="sv-grid">
+        <div class="sv-card"><strong>Task</strong><br><span data-sv-stage31-task></span></div>
+        <div class="sv-card"><strong>Cases</strong><br><span data-sv-stage31-case-count></span></div>
+        <div class="sv-card"><strong>Assertions</strong><br><span data-sv-stage31-assertion-count></span></div>
+        <div class="sv-card"><strong>Receipts</strong><br><span data-sv-stage31-receipt-count></span></div>
+      </div>
+      <div data-sv-stage31-decisions></div>
+    </section>
+
+    <section class="sv-panel">
+      <h2>Site map</h2>
+      <nav class="sv-nav" data-sv-global-nav aria-label="StegVerse footer navigation"></nav>
+    </section>
+  </main>
+
+  <footer class="sv-muted">
+    <p>StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED</p>
+    <p>Site is a public mirror, not proof authority.</p>
+  </footer>
+</div>
+<script src="assets/js/stegverse-site-shell.js"></script>
 </body>
 </html>
