@@ -1,0 +1,1 @@
+{"basis": "Bundle provides additive color-preserving wiring for all listed Site pages.", "decision": "ALLOW_BULK_WIRING_BUNDLE", "generated_at": "2026-05-22T06:48:57.278776+00:00", "receipt_hash": "f39bd883669bdfc040a4be818249ea9fddf2866ab0d592ef5122df364e85fe2e", "schema": "stegverse_site_color_preserving_bulk_wiring_bundle_receipt.v1", "site_is_proof_authority": false}
