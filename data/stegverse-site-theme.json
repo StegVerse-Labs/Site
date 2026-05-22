@@ -1,0 +1,150 @@
+{
+  "extracted_palette_sample": [
+    {
+      "count": 18393,
+      "hex": "#081423",
+      "rank": 1,
+      "rgb": [
+        8,
+        20,
+        35
+      ]
+    },
+    {
+      "count": 1286,
+      "hex": "#535f6b",
+      "rank": 2,
+      "rgb": [
+        83,
+        95,
+        107
+      ]
+    },
+    {
+      "count": 921,
+      "hex": "#203145",
+      "rank": 3,
+      "rgb": [
+        32,
+        49,
+        69
+      ]
+    },
+    {
+      "count": 822,
+      "hex": "#6aece0",
+      "rank": 4,
+      "rgb": [
+        106,
+        236,
+        224
+      ]
+    },
+    {
+      "count": 597,
+      "hex": "#344c58",
+      "rank": 5,
+      "rgb": [
+        52,
+        76,
+        88
+      ]
+    },
+    {
+      "count": 541,
+      "hex": "#5c9a9a",
+      "rank": 6,
+      "rgb": [
+        92,
+        154,
+        154
+      ]
+    },
+    {
+      "count": 541,
+      "hex": "#e0e8ee",
+      "rank": 7,
+      "rgb": [
+        224,
+        232,
+        238
+      ]
+    },
+    {
+      "count": 461,
+      "hex": "#9bddd6",
+      "rank": 8,
+      "rgb": [
+        155,
+        221,
+        214
+      ]
+    },
+    {
+      "count": 429,
+      "hex": "#5ef1af",
+      "rank": 9,
+      "rgb": [
+        94,
+        241,
+        175
+      ]
+    },
+    {
+      "count": 419,
+      "hex": "#95a2a7",
+      "rank": 10,
+      "rgb": [
+        149,
+        162,
+        167
+      ]
+    },
+    {
+      "count": 341,
+      "hex": "#687687",
+      "rank": 11,
+      "rgb": [
+        104,
+        118,
+        135
+      ]
+    },
+    {
+      "count": 329,
+      "hex": "#d5d893",
+      "rank": 12,
+      "rgb": [
+        213,
+        216,
+        147
+      ]
+    }
+  ],
+  "generated_at": "2026-05-22T06:52:41.682614+00:00",
+  "schema": "stegverse_site_theme.v1",
+  "source": "user-confirmed screenshot of StegVerse-Labs/Site index.html ideal color scheme",
+  "theme_id": "stegverse_ideal_dark_aqua_gradient",
+  "tokens": {
+    "accent_aqua": "#6be7f2",
+    "accent_cyan": "#64dff2",
+    "accent_gold": "#ffd86b",
+    "accent_mint": "#55f29a",
+    "background": "#071424",
+    "background_deep": "#03101d",
+    "border": "rgba(174, 187, 208, 0.22)",
+    "button_primary_end": "#55f29a",
+    "button_primary_start": "#65dff2",
+    "button_support_end": "#65dff2",
+    "button_support_start": "#ffd86b",
+    "outline": "rgba(113, 221, 245, 0.82)",
+    "shadow": "rgba(0,0,0,0.28)",
+    "surface": "#101d31",
+    "surface_elevated": "#13233b",
+    "surface_soft": "rgba(255,255,255,0.045)",
+    "text": "#f3f7ff",
+    "text_dim": "#7f8da5",
+    "text_muted": "#aebbd0"
+  },
+  "visual_policy": "preserve current dark navy, cyan/aqua, mint gradient, soft slate panel identity"
+}
