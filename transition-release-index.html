@@ -1,18 +1,77 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-sv-source="data/stegverse-site-state.json">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Transition Page</title>
-  <link rel="stylesheet" href="assets/css/transition-pages.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>StegVerse Transition Releases</title>
+  <link rel="stylesheet" href="assets/css/stegverse-site-state.css">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; line-height: 1.55; margin: 0; }
+    main { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0; }
+    header { margin-bottom: 1.5rem; }
+    code, pre { background: rgba(127,127,127,.12); border-radius: 8px; }
+    pre { padding: 1rem; overflow-x: auto; }
+  </style>
 </head>
-<body data-page="release-index">
-  <main id="app">
-    <section>
-      <h1>Loading transition proof surface...</h1>
-      <p>This page renders from data/formalism-tests/transition-proof-surface.json.</p>
-    </section>
-  </main>
-  <script src="assets/js/transition-page-renderer.js"></script>
+<body>
+<main>
+  <header>
+    <p><a href="index.html">StegVerse</a></p>
+    <h1>Transition Release Index</h1>
+    <p data-sv-loading>Loading StegVerse site state...</p>
+    <div data-sv-ready hidden>
+      <p><strong>Status:</strong> <span data-sv-roadmap-status></span></p>
+      <p><strong>Work entity:</strong> <span data-sv-work-entity></span></p>
+      <p><strong>Site role:</strong> <span data-sv-site-role></span></p>
+    </div>
+  </header>
+
+  <nav class="sv-nav" data-sv-nav aria-label="StegVerse navigation"></nav>
+
+  <section class="sv-panel">
+    <h2>Current release state</h2>
+    <p><span data-sv-roadmap-status></span></p>
+    <p><span data-sv-production-boundary></span></p>
+  </section>
+
+  <section class="sv-panel">
+    <h2>Stage 31 declared-task summary</h2>
+    <div class="sv-grid">
+      <div><strong>Task</strong><span data-sv-stage31-task></span></div>
+      <div><strong>Cases</strong><span data-sv-stage31-case-count></span></div>
+      <div><strong>Assertions</strong><span data-sv-stage31-assertion-count></span></div>
+      <div><strong>Receipts</strong><span data-sv-stage31-receipt-count></span></div>
+    </div>
+    <div data-sv-stage31-decisions></div>
+  </section>
+
+  <section class="sv-panel">
+    <h2>Stage index</h2>
+    <div class="sv-grid" data-sv-stages></div>
+  </section>
+
+  <section class="sv-panel">
+    <h2>Canonical boundaries</h2>
+    <pre><span data-sv-discovery-boundary></span>
+<span data-sv-install-plan-boundary></span>
+<span data-sv-packet-boundary></span>
+<span data-sv-node-boundary></span>
+<span data-sv-finco-boundary></span>
+<span data-sv-production-boundary></span></pre>
+  </section>
+
+  <section class="sv-panel">
+    <h2>Canonical pages</h2>
+    <p><a href="formalism-tests-stage-1-to-31.html">Open Stage 1–31 public mirror</a></p>
+    <p><a href="transition-proof-surface.html">Open proof surface</a></p>
+    <p><a href="transition-table.html">Open class browser</a></p>
+  </section>
+
+  <footer>
+    <p><strong>Boundary:</strong> formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.</p>
+    <p><strong>Proof authority:</strong> <span data-sv-proof-authority></span></p>
+  </footer>
+</main>
+<script src="assets/js/stegverse-site-state.js"></script>
 </body>
 </html>
