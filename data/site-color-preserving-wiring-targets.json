@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-05-22T06:48:57.278776+00:00",
+  "mode": "color_preserving_bulk_wiring",
+  "rules": [
+    "Do not replace existing HTML files.",
+    "Do not set body background, body color, font family, or theme variables.",
+    "Insert CSS link if missing.",
+    "Insert JS script if missing.",
+    "Insert status mount only if missing.",
+    "Emit report and receipt."
+  ],
+  "schema": "stegverse_site_color_preserving_wiring_targets.v1",
+  "targets": [
+    "index.html",
+    "demo.html",
+    "formalism-tests-stage-1-to-31.html",
+    "transition-release-index.html",
+    "transition-proof-surface.html",
+    "transition-table.html",
+    "verification-guide.html",
+    "replay-packet.html",
+    "stegfinco.html",
+    "support.html",
+    "product.html",
+    "pricing.html",
+    "methodology.html",
+    "guarantees.html",
+    "about.html",
+    "Papers.html"
+  ]
+}
