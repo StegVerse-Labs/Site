@@ -1,0 +1,20 @@
+{
+  "compatibility_alias": "data/formalism-tests-stage-1-to-31-status.json",
+  "files": [
+    "data/stegverse-site-state.json",
+    "data/formalism-tests-stage-1-to-31-status.json",
+    "assets/js/stegverse-site-state.js",
+    "assets/css/stegverse-site-state.css",
+    "transition-release-index.html",
+    "docs/site-single-source-plan.md",
+    "reports/site_single_source_alignment_report.json",
+    "receipts/site_single_source_alignment_receipts.jsonl"
+  ],
+  "generated_at": "2026-05-22T05:33:32.923814+00:00",
+  "schema": "stegverse_site_single_source_alignment_report.v1",
+  "single_source": "data/stegverse-site-state.json",
+  "site_is_proof_authority": false,
+  "site_role": "public_mirror_only",
+  "site_state_sha256": "24715fef019337d262fa73cbb9886dd93e37e9d5d35e55a51d66d58ead3d4acc",
+  "success": true
+}
