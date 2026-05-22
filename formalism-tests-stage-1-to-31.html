@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Formalism Tests — Stages 1–31</title>
+  <meta name="description" content="Public mirror page for the completed StegVerse formalism-tests Stage 1–31 roadmap.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0b1020;
+      --panel: #141b34;
+      --text: #eef2ff;
+      --muted: #b7c0df;
+      --accent: #8fb5ff;
+      --ok: #8ee6b4;
+      --warn: #ffd37a;
+      --fail: #ff8f8f;
+      --line: rgba(255,255,255,.14);
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+    header, section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      margin: 18px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    h1, h2, h3 { line-height: 1.15; }
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); margin: 0 0 10px; }
+    h2 { margin-top: 0; }
+    p { max-width: 78ch; }
+    code, pre {
+      background: rgba(255,255,255,.08);
+      border-radius: 8px;
+    }
+    code { padding: 2px 6px; }
+    pre {
+      padding: 14px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .badge-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .badge {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px;
+      color: var(--muted);
+      background: rgba(255,255,255,.06);
+      font-size: .94rem;
+    }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255,255,255,.05);
+    }
+    .stage-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 10px;
+    }
+    .stage {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.045);
+    }
+    .stage strong { display: block; }
+    .small { color: var(--muted); font-size: .92rem; }
+    a { color: var(--accent); }
+    footer { color: var(--muted); padding: 18px 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="small">StegVerse public mirror · formalism-tests</p>
+    <h1>Stages 1–31 Completed</h1>
+    <p>
+      This page mirrors the completed StegVerse formalism-tests roadmap from data-continuation admissibility through governed production accreditation and revocation.
+    </p>
+    <div class="badge-row">
+      <span class="badge ok">Stages 1–31: PASSED</span>
+      <span class="badge">StegVerse-001 / Beta_Orionis</span>
+      <span class="badge warn">Mirror only · not proof authority</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Mirror Boundary</h2>
+    <p>
+      This Site page is a public mirror. It is not proof authority, install authority, packet authority, node authority, FinCo authority, or production accreditation authority.
+    </p>
+    <pre>formalism-tests = proof/test authority
+Site = public mirror
+StegVerse-001 = governed work-entity
+production = accredited participation, not sovereign authority</pre>
+  </section>
+
+  <section>
+    <h2>Core Results</h2>
+    <div class="grid">
+      <div class="card"><strong>Data</strong><p>Same data does not imply same continuation admissibility.</p></div>
+      <div class="card"><strong>Composite</strong><p>Local allow plus local allow does not imply composite allow.</p></div>
+      <div class="card"><strong>Commit Time</strong><p>Admissibility must be resolved at the binding moment.</p></div>
+      <div class="card"><strong>Replay</strong><p>Replay reconstructs consequence state but cannot reverse consequence.</p></div>
+      <div class="card"><strong>Discovery</strong><p>Discovery observes, models, compares, classifies, and proposes. It does not install.</p></div>
+      <div class="card"><strong>Install Plan</strong><p>An install plan is a candidate transition, not installation authority.</p></div>
+      <div class="card"><strong>Packet</strong><p>The packet is portable evidence of a proposed governed transition, not installation authority.</p></div>
+      <div class="card"><strong>Production</strong><p>Production means accredited participation, not sovereign authority.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stage 31 Declared-Task Summary</h2>
+    <pre>task_id: stage31_production_accreditation_revocation_tests
+success: true
+case_count: 26
+assertion_count: 66
+receipt_count: 26
+
+ALLOW_ACCREDITATION: 3
+LEDGER_ACCREDITATION: 1
+REQUIRE_REACCREDITATION: 1
+REVOKE_ACCREDITATION: 1
+REQUIRE_REVIEW: 1
+FAIL_CLOSED: 19</pre>
+  </section>
+
+  <section>
+    <h2>Stages</h2>
+    <div class="stage-list">
+      <div class="stage"><strong>Stage 1 — Initial Continuation Grounding</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 2 — Same Data, Different Role</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 3 — Compound Continuation</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 4 — Representation and Consequence Boundary</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 5 — Transition Elements and AI Block Basis</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 6 — Admissible Existence Unified Gate</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 7 — Boundary Reset and Evolution</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 8 — AI Block Scope and Escape Control</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 9 — FinCo Chain Admissibility</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 10 — Transition Table Binding</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 11 — Active Work-Entity Preparation</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 12 — AI-Governance Scope Readiness</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 13 — Active Work-Entity Release Delta</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 14 — Transition Table AI Governance Binding</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 15 — Work-Entity Policy Scope</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 16 — Work-Entity Release/Queue Integration</strong><span class="small">PASSED</span></div>
+      <div class="stage"><strong>Stage 17 — Self-Audit and Drift Detection</strong><span class="small">PASSED · stage17_self_audit_tests</span></div>
+      <div class="stage"><strong>Stage 18 — Sandbox Candidate Generation</strong><span class="small">PASSED · stage18_sandbox_candidate_generation_tests</span></div>
+      <div class="stage"><strong>Stage 19 — Candidate Review Loop</strong><span class="small">PASSED · stage19_candidate_review_loop_tests</span></div>
+      <div class="stage"><strong>Stage 20 — Release Candidate Assembly</strong><span class="small">PASSED · stage20_release_candidate_assembly_tests</span></div>
+      <div class="stage"><strong>Stage 21 — Canonical Upgrade Replay</strong><span class="small">PASSED · stage21_canonical_upgrade_replay_tests</span></div>
+      <div class="stage"><strong>Stage 22 — Public Mirror Propagation</strong><span class="small">PASSED · stage22_public_mirror_propagation_tests</span></div>
+      <div class="stage"><strong>Stage 23 — Ingestible Bundle Custody</strong><span class="small">PASSED · stage23_ingestible_bundle_tests</span></div>
+      <div class="stage"><strong>Stage 24 — Autonomous Test Planning</strong><span class="small">PASSED · stage24_test_plan_tests</span></div>
+      <div class="stage"><strong>Stage 25 — Entity Operating Charter</strong><span class="small">PASSED · stage25_entity_charter_tests</span></div>
+      <div class="stage"><strong>Stage 26 — StegVerse-001 Declared Testing Loop</strong><span class="small">PASSED · stage26_stegverse001_testing_loop_tests</span></div>
+      <div class="stage"><strong>Stage 27 — Discovery-to-Canonical State DB</strong><span class="small">PASSED · stage27_discovery_to_canonical_state_tests</span></div>
+      <div class="stage"><strong>Stage 28 — Canonical Diff and Install Plan Candidate</strong><span class="small">PASSED · stage28_canonical_diff_install_plan_tests</span></div>
+      <div class="stage"><strong>Stage 29 — Optional Node Status and FinCo Eligibility</strong><span class="small">PASSED · stage29_node_status_finco_eligibility_tests</span></div>
+      <div class="stage"><strong>Stage 30 — Governed Instantiation Packet</strong><span class="small">PASSED · stage30_governed_instantiation_packet_tests</span></div>
+      <div class="stage"><strong>Stage 31 — Production Accreditation and Revocation Boundary</strong><span class="small">PASSED · stage31_production_accreditation_revocation_tests</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Node and FinCo Boundary</h2>
+    <p>
+      Core installation does not imply node participation. Node participation does not imply FinCo eligibility.
+      FinCo eligibility requires explicit node status, valid consent/access/use receipts, compensation rules, revocation rules, and intact chain evidence.
+    </p>
+    <pre>{
+  "core_unit_installed": true,
+  "node_participation_opt_in": false,
+  "node_status": "NOT_A_NODE",
+  "finco_participation_requested": false,
+  "finco_participation_allowed": false
+}</pre>
+  </section>
+
+  <section>
+    <h2>Next Integration Direction</h2>
+    <p>
+      The next phase is controlled integration: update the theorem proof map, add task and artifact indexes, run discovery against the current core-lite state, prepare a production-candidate review packet, and harden master-record export.
+    </p>
+  </section>
+
+  <footer>
+    Generated for Site mirror alignment on 2026-05-22T05:18:36.754082+00:00.
+  </footer>
+</main>
+</body>
+</html>
