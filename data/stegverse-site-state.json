@@ -1,34 +1,9 @@
 {
   "discovery_boundary": "Discovery observes, models, compares, classifies, and proposes. Discovery does not install.",
   "finco_boundary": "Node participation does not imply FinCo eligibility.",
-  "generated_at": "2026-05-22T05:33:32.923814+00:00",
+  "generated_at": "2026-05-22T05:47:33.794824+00:00",
   "install_plan_boundary": "An install plan is a candidate transition, not installation authority.",
-  "navigation": [
-    {
-      "href": "formalism-tests-stage-1-to-31.html",
-      "label": "Stage 1-31 Mirror"
-    },
-    {
-      "href": "transition-release-index.html",
-      "label": "Transition Release Index"
-    },
-    {
-      "href": "transition-proof-surface.html",
-      "label": "Proof Surface"
-    },
-    {
-      "href": "transition-table.html",
-      "label": "Transition Classes"
-    },
-    {
-      "href": "verification-guide.html",
-      "label": "Verification Guide"
-    },
-    {
-      "href": "replay-packet.html",
-      "label": "Replay Packet"
-    }
-  ],
+  "navigation_source": "data/stegverse-site-navigation.json",
   "node_boundary": "Core installation does not imply node participation.",
   "packet_boundary": "The packet is portable evidence of a proposed governed transition, not installation authority.",
   "primary_work_entity": "StegVerse-001 / Beta_Orionis",
@@ -38,10 +13,6 @@
   "schema": "stegverse_site_state.v1",
   "site_is_proof_authority": false,
   "site_role": "public_mirror_only",
-  "source_files": {
-    "legacy_formalism_stage_status_alias": "data/formalism-tests-stage-1-to-31-status.json",
-    "single_source": "data/stegverse-site-state.json"
-  },
   "stage31_summary": {
     "assertion_count": 66,
     "case_count": 26,
@@ -56,177 +27,5 @@
     "receipt_count": 26,
     "success": true,
     "task_id": "stage31_production_accreditation_revocation_tests"
-  },
-  "stages": [
-    {
-      "name": "Initial Continuation Grounding",
-      "stage": 1,
-      "status": "PASSED"
-    },
-    {
-      "name": "Same Data, Different Role",
-      "stage": 2,
-      "status": "PASSED"
-    },
-    {
-      "name": "Compound Continuation",
-      "stage": 3,
-      "status": "PASSED"
-    },
-    {
-      "name": "Representation and Consequence Boundary",
-      "stage": 4,
-      "status": "PASSED"
-    },
-    {
-      "name": "Transition Elements and AI Block Basis",
-      "stage": 5,
-      "status": "PASSED"
-    },
-    {
-      "name": "Admissible Existence Unified Gate",
-      "stage": 6,
-      "status": "PASSED"
-    },
-    {
-      "name": "Boundary Reset and Evolution",
-      "stage": 7,
-      "status": "PASSED"
-    },
-    {
-      "name": "AI Block Scope and Escape Control",
-      "stage": 8,
-      "status": "PASSED"
-    },
-    {
-      "name": "FinCo Chain Admissibility",
-      "stage": 9,
-      "status": "PASSED"
-    },
-    {
-      "name": "Transition Table Binding",
-      "stage": 10,
-      "status": "PASSED"
-    },
-    {
-      "name": "Active Work-Entity Preparation",
-      "stage": 11,
-      "status": "PASSED"
-    },
-    {
-      "name": "AI-Governance Scope Readiness",
-      "stage": 12,
-      "status": "PASSED"
-    },
-    {
-      "name": "Active Work-Entity Release Delta",
-      "stage": 13,
-      "status": "PASSED"
-    },
-    {
-      "name": "Transition Table AI Governance Binding",
-      "stage": 14,
-      "status": "PASSED"
-    },
-    {
-      "name": "Work-Entity Policy Scope",
-      "stage": 15,
-      "status": "PASSED"
-    },
-    {
-      "name": "Work-Entity Release/Queue Integration",
-      "stage": 16,
-      "status": "PASSED"
-    },
-    {
-      "name": "Self-Audit and Drift Detection",
-      "stage": 17,
-      "status": "PASSED",
-      "task_id": "stage17_self_audit_tests"
-    },
-    {
-      "name": "Sandbox Candidate Generation",
-      "stage": 18,
-      "status": "PASSED",
-      "task_id": "stage18_sandbox_candidate_generation_tests"
-    },
-    {
-      "name": "Candidate Review Loop",
-      "stage": 19,
-      "status": "PASSED",
-      "task_id": "stage19_candidate_review_loop_tests"
-    },
-    {
-      "name": "Release Candidate Assembly",
-      "stage": 20,
-      "status": "PASSED",
-      "task_id": "stage20_release_candidate_assembly_tests"
-    },
-    {
-      "name": "Canonical Upgrade Replay",
-      "stage": 21,
-      "status": "PASSED",
-      "task_id": "stage21_canonical_upgrade_replay_tests"
-    },
-    {
-      "name": "Public Mirror Propagation",
-      "stage": 22,
-      "status": "PASSED",
-      "task_id": "stage22_public_mirror_propagation_tests"
-    },
-    {
-      "name": "Ingestible Bundle Custody",
-      "stage": 23,
-      "status": "PASSED",
-      "task_id": "stage23_ingestible_bundle_tests"
-    },
-    {
-      "name": "Autonomous Test Planning",
-      "stage": 24,
-      "status": "PASSED",
-      "task_id": "stage24_test_plan_tests"
-    },
-    {
-      "name": "Entity Operating Charter",
-      "stage": 25,
-      "status": "PASSED",
-      "task_id": "stage25_entity_charter_tests"
-    },
-    {
-      "name": "StegVerse-001 Declared Testing Loop",
-      "stage": 26,
-      "status": "PASSED",
-      "task_id": "stage26_stegverse001_testing_loop_tests"
-    },
-    {
-      "name": "Discovery-to-Canonical State DB",
-      "stage": 27,
-      "status": "PASSED",
-      "task_id": "stage27_discovery_to_canonical_state_tests"
-    },
-    {
-      "name": "Canonical Diff and Install Plan Candidate",
-      "stage": 28,
-      "status": "PASSED",
-      "task_id": "stage28_canonical_diff_install_plan_tests"
-    },
-    {
-      "name": "Optional Node Status and FinCo Eligibility",
-      "stage": 29,
-      "status": "PASSED",
-      "task_id": "stage29_node_status_finco_eligibility_tests"
-    },
-    {
-      "name": "Governed Instantiation Packet",
-      "stage": 30,
-      "status": "PASSED",
-      "task_id": "stage30_governed_instantiation_packet_tests"
-    },
-    {
-      "name": "Production Accreditation and Revocation Boundary",
-      "stage": 31,
-      "status": "PASSED",
-      "task_id": "stage31_production_accreditation_revocation_tests"
-    }
-  ]
+  }
 }

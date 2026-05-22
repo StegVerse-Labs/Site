@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-05-22T05:47:33.794824+00:00",
+  "items": [
+    {
+      "group": "primary",
+      "href": "index.html",
+      "label": "Home"
+    },
+    {
+      "group": "primary",
+      "href": "demo.html",
+      "label": "Demo"
+    },
+    {
+      "group": "proof",
+      "href": "formalism-tests-stage-1-to-31.html",
+      "label": "Stage 1-31"
+    },
+    {
+      "group": "proof",
+      "href": "transition-release-index.html",
+      "label": "Transition Releases"
+    },
+    {
+      "group": "proof",
+      "href": "transition-proof-surface.html",
+      "label": "Proof Surface"
+    },
+    {
+      "group": "proof",
+      "href": "transition-table.html",
+      "label": "Transition Table"
+    },
+    {
+      "group": "proof",
+      "href": "verification-guide.html",
+      "label": "Verification"
+    },
+    {
+      "group": "proof",
+      "href": "replay-packet.html",
+      "label": "Replay Packet"
+    },
+    {
+      "group": "product",
+      "href": "stegfinco.html",
+      "label": "StegFinCo"
+    },
+    {
+      "group": "product",
+      "href": "support.html",
+      "label": "Support"
+    },
+    {
+      "group": "product",
+      "href": "product.html",
+      "label": "Product"
+    },
+    {
+      "group": "product",
+      "href": "pricing.html",
+      "label": "Pricing"
+    },
+    {
+      "group": "about",
+      "href": "methodology.html",
+      "label": "Methodology"
+    },
+    {
+      "group": "about",
+      "href": "guarantees.html",
+      "label": "Guarantees"
+    },
+    {
+      "group": "about",
+      "href": "about.html",
+      "label": "About"
+    },
+    {
+      "group": "about",
+      "href": "Papers.html",
+      "label": "Papers"
+    }
+  ],
+  "required_boundary_links": [
+    "formalism-tests-stage-1-to-31.html",
+    "transition-release-index.html",
+    "transition-proof-surface.html",
+    "transition-table.html"
+  ],
+  "schema": "stegverse_site_navigation.v1",
+  "site_role": "public_mirror_only"
+}
