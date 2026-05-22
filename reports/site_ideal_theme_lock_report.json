@@ -1,0 +1,11 @@
+{
+  "css_sha256": "346091695216037f21c48d492092e56a0fae63ec2e036a0a96682df4f6628a8d",
+  "generated_at": "2026-05-22T06:52:41.682614+00:00",
+  "schema": "stegverse_site_ideal_theme_lock_report.v1",
+  "site_is_proof_authority": false,
+  "source_image": "A79655AA-7EB0-44D1-8C10-11CFADB16501.jpeg",
+  "success": true,
+  "theme_id": "stegverse_ideal_dark_aqua_gradient",
+  "theme_json_sha256": "bb0d55751cb59e7af6609013c9cbf7e4631978c59eb8ac0a1decb30025a0c1a6",
+  "visual_policy": "preserve current dark navy, cyan/aqua, mint gradient, soft slate panel identity"
+}
