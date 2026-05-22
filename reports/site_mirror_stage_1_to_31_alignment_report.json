@@ -1,0 +1,25 @@
+{
+  "files": [
+    "formalism-tests-stage-1-to-31.html",
+    "data/formalism-tests-stage-1-to-31-status.json",
+    "docs/formalism-tests-stage-1-to-31-site-mirror.md",
+    "docs/site-mirror-proof-boundary.md",
+    "reports/site_mirror_stage_1_to_31_alignment_report.json",
+    "receipts/site_mirror_stage_1_to_31_alignment_receipts.jsonl"
+  ],
+  "generated_at": "2026-05-22T05:18:36.754082+00:00",
+  "mirror_target": "StegVerse-Labs/Site",
+  "required_public_rules": [
+    "Site is a public mirror, not proof authority.",
+    "Production means accredited participation, not sovereign authority.",
+    "The packet is portable evidence of a proposed governed transition, not installation authority.",
+    "An install plan is a candidate transition, not installation authority.",
+    "Discovery observes, models, compares, classifies, and proposes. Discovery does not install."
+  ],
+  "roadmap_status": "Stages 1-31 passed",
+  "schema": "stegverse_site_mirror_alignment_report.v1",
+  "site_is_proof_authority": false,
+  "site_role": "public_mirror_only",
+  "source_repository": "Data-Continuation/formalism-tests",
+  "success": true
+}
