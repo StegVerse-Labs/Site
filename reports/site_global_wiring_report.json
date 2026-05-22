@@ -1,0 +1,22 @@
+{
+  "files": [
+    "index.html",
+    "data/stegverse-site-state.json",
+    "data/stegverse-site-navigation.json",
+    "assets/js/stegverse-site-shell.js",
+    "assets/css/stegverse-site-shell.css",
+    "docs/site-global-wiring-plan.md",
+    "reports/site_global_wiring_report.json",
+    "receipts/site_global_wiring_receipts.jsonl"
+  ],
+  "generated_at": "2026-05-22T05:47:33.794824+00:00",
+  "navigation_sha256": "5b74b5e205b1f048bebf0bca508fe5b8f9cd191f38098ef1ec89418ab2661727",
+  "schema": "stegverse_site_global_wiring_report.v1",
+  "site_is_proof_authority": false,
+  "site_role": "public_mirror_only",
+  "site_state_sha256": "cf530f5807d7329aa630deaabc2c59fed8279de0d65b6401d12e324263b5ffee",
+  "source_navigation": "data/stegverse-site-navigation.json",
+  "source_status": "data/stegverse-site-state.json",
+  "success": true,
+  "updated_page": "index.html"
+}
