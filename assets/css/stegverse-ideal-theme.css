@@ -1,0 +1,69 @@
+/* StegVerse Ideal Theme Lock
+   User-confirmed from current Site screenshot.
+   Use this as the shared visual identity for future Site wiring.
+*/
+
+:root {
+  --sv-bg: #071424;
+  --sv-bg-deep: #03101d;
+  --sv-surface: #101d31;
+  --sv-surface-elevated: #13233b;
+  --sv-surface-soft: rgba(255,255,255,0.045);
+
+  --sv-text: #f3f7ff;
+  --sv-text-muted: #aebbd0;
+  --sv-text-dim: #7f8da5;
+
+  --sv-accent-cyan: #64dff2;
+  --sv-accent-aqua: #6be7f2;
+  --sv-accent-mint: #55f29a;
+  --sv-accent-gold: #ffd86b;
+
+  --sv-border: rgba(174, 187, 208, 0.22);
+  --sv-outline: rgba(113, 221, 245, 0.82);
+  --sv-shadow: rgba(0,0,0,0.28);
+
+  --sv-gradient-primary: linear-gradient(135deg, #65dff2 0%, #55f29a 100%);
+  --sv-gradient-support: linear-gradient(135deg, #ffd86b 0%, #65dff2 100%);
+  --sv-gradient-panel: linear-gradient(180deg, rgba(19,35,59,0.96) 0%, rgba(10,24,42,0.96) 100%);
+}
+
+/* Optional body class for pages that need to explicitly adopt the locked theme. */
+body.sv-theme-locked {
+  background: var(--sv-bg-deep);
+  color: var(--sv-text);
+}
+
+/* Utility classes that preserve the current look without forcing page replacement. */
+.sv-theme-panel {
+  background: var(--sv-gradient-panel);
+  border: 1px solid var(--sv-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 38px var(--sv-shadow);
+}
+
+.sv-theme-pill {
+  border: 1px solid var(--sv-outline);
+  color: var(--sv-accent-aqua);
+  border-radius: 999px;
+}
+
+.sv-theme-primary-button {
+  background: var(--sv-gradient-primary);
+  color: #03101d;
+}
+
+.sv-theme-support-button {
+  background: var(--sv-gradient-support);
+  color: #03101d;
+}
+
+.sv-theme-secondary-button {
+  background: var(--sv-surface-elevated);
+  border: 1px solid var(--sv-border);
+  color: var(--sv-text);
+}
+
+.sv-theme-muted {
+  color: var(--sv-text-muted);
+}
