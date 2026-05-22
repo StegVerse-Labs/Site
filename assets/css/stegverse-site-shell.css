@@ -1,0 +1,110 @@
+/* StegVerse shared site shell */
+:root {
+  --sv-bg: #0b1020;
+  --sv-panel: #141b34;
+  --sv-text: #eef2ff;
+  --sv-muted: #b7c0df;
+  --sv-accent: #8fb5ff;
+  --sv-line: rgba(255,255,255,.14);
+  --sv-ok: #8ee6b4;
+  color-scheme: dark light;
+}
+body.sv-shell {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--sv-bg);
+  color: var(--sv-text);
+  line-height: 1.55;
+}
+.sv-wrap {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+.sv-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.sv-brand {
+  color: var(--sv-text);
+  text-decoration: none;
+  font-weight: 800;
+}
+.sv-nav {
+  display: flex;
+  gap: .55rem;
+  flex-wrap: wrap;
+}
+.sv-nav a {
+  color: var(--sv-accent);
+  border: 1px solid var(--sv-line);
+  border-radius: 999px;
+  padding: .35rem .65rem;
+  text-decoration: none;
+  background: rgba(255,255,255,.045);
+}
+.sv-hero, .sv-panel {
+  background: var(--sv-panel);
+  border: 1px solid var(--sv-line);
+  border-radius: 18px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+.sv-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  margin: 0 0 .75rem;
+}
+.sv-kicker, .sv-muted {
+  color: var(--sv-muted);
+}
+.sv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1rem;
+}
+.sv-button {
+  display: inline-block;
+  color: var(--sv-bg);
+  background: var(--sv-accent);
+  padding: .65rem .9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.sv-button.secondary {
+  color: var(--sv-accent);
+  background: transparent;
+  border: 1px solid var(--sv-line);
+}
+.sv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: .8rem;
+}
+.sv-card {
+  border: 1px solid var(--sv-line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.045);
+  padding: 1rem;
+}
+.sv-card a { color: var(--sv-accent); }
+.sv-decision-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--sv-line);
+  padding: .3rem 0;
+}
+code, pre {
+  background: rgba(255,255,255,.08);
+  border-radius: 8px;
+}
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+}
