@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-22T05:51:56.908215+00:00",
+  "navigation_sha256": "2938d14f4d8a0c2c12dae032d8605219d501dcc8d0b8098e94e402ceeadb9ab0",
+  "navigation_source": "data/stegverse-site-navigation.json",
+  "schema": "stegverse_site_color_preserving_wiring_report.v1",
+  "sets_body_background": false,
+  "sets_body_colors": false,
+  "sets_font_family": false,
+  "site_is_proof_authority": false,
+  "site_state_sha256": "223166db80f59e1942e25741feae88eddbb42fd45abf26f7c5ef58333703aa66",
+  "status_source": "data/stegverse-site-state.json",
+  "success": true,
+  "visual_policy": "preserve_existing_site_color_scheme"
+}
