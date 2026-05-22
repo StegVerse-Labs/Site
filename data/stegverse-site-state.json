@@ -1,9 +1,14 @@
 {
   "discovery_boundary": "Discovery observes, models, compares, classifies, and proposes. Discovery does not install.",
   "finco_boundary": "Node participation does not imply FinCo eligibility.",
-  "generated_at": "2026-05-22T05:47:33.794824+00:00",
+  "generated_at": "2026-05-22T05:51:56.908215+00:00",
   "install_plan_boundary": "An install plan is a candidate transition, not installation authority.",
-  "navigation_source": "data/stegverse-site-navigation.json",
+  "links": {
+    "stage_1_to_31": "formalism-tests-stage-1-to-31.html",
+    "transition_proof_surface": "transition-proof-surface.html",
+    "transition_release_index": "transition-release-index.html",
+    "transition_table": "transition-table.html"
+  },
   "node_boundary": "Core installation does not imply node participation.",
   "packet_boundary": "The packet is portable evidence of a proposed governed transition, not installation authority.",
   "primary_work_entity": "StegVerse-001 / Beta_Orionis",
