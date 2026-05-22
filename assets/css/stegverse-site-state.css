@@ -1,0 +1,43 @@
+/* StegVerse Site State Components */
+.sv-panel {
+  border: 1px solid rgba(127, 127, 127, .25);
+  border-radius: 16px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.sv-grid {
+  display: grid;
+  gap: .75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.sv-stage-card {
+  border: 1px solid rgba(127, 127, 127, .22);
+  border-radius: 12px;
+  padding: .8rem;
+}
+.sv-stage-card strong,
+.sv-stage-card span {
+  display: block;
+}
+.sv-small {
+  opacity: .72;
+  font-size: .9rem;
+}
+.sv-decision-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(127, 127, 127, .18);
+  padding: .35rem 0;
+}
+.sv-nav {
+  display: flex;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+.sv-nav a {
+  border: 1px solid rgba(127, 127, 127, .25);
+  border-radius: 999px;
+  padding: .35rem .65rem;
+  text-decoration: none;
+}
