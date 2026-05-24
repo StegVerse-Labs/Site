@@ -1,121 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Methodology — StegVerse</title>
-<style>
-:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b;--shadow:0 22px 70px rgba(0,0,0,.34);}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
-a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}
-header{padding:20px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.92);backdrop-filter:blur(12px);z-index:100}
-.nav{width:min(900px,calc(100% - 32px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase;font-size:.92rem}
-.links{display:flex;gap:16px;color:var(--muted);font-weight:700;flex-wrap:wrap;font-size:.9rem}
-.links a.active{color:var(--accent)}
-.wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:20px 0}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
-.card h1{font-size:clamp(1.8rem,5vw,2.4rem);margin:0 0 12px}
-.card h2{font-size:1.3rem;margin:0 0 12px}
-.card h3{font-size:1rem;margin:16px 0 8px;color:var(--accent)}
-.tier-badge{display:inline-block;padding:6px 14px;border:1px solid var(--accent);border-radius:999px;font-size:.8rem;color:var(--accent);margin-bottom:16px;font-weight:700}
-input,textarea{width:100%;background:#0b1626;color:#e5e7eb;border:1px solid var(--line);border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem}
-input:focus,textarea:focus{outline:none;border-color:var(--accent)}
-textarea{min-height:240px;margin-top:12px;resize:vertical}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-button{padding:11px 18px;border-radius:12px;border:0;font-weight:800;font-size:.9rem;cursor:pointer;transition:all .2s;min-height:44px}
-button:hover{opacity:.9;transform:translateY(-1px)}button:active{transform:translateY(0)}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#051019}
-.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
-.btn-commit{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#051019}
-.btn-commit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.result-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:16px;padding:20px;margin:16px 0}
-.result-card.verdict-allow{border-color:rgba(89,245,155,.4);background:rgba(89,245,155,.06)}
-.result-card.verdict-deny{border-color:rgba(255,209,102,.4);background:rgba(255,209,102,.06)}
-.result-card.verdict-fail{border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.06)}
-.verdict-label{font-size:2rem;font-weight:900;margin:0}
-.verdict-allow .verdict-label{color:var(--accent2)}
-.verdict-deny .verdict-label{color:var(--warn)}
-.verdict-fail .verdict-label{color:var(--danger)}
-.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:16px 0}
-.metric{text-align:center;padding:16px;background:rgba(0,0,0,.2);border-radius:12px}
-.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
-.metric-label{font-size:.75rem;text-transform:uppercase;color:var(--muted);margin-top:4px;letter-spacing:.05em}
-.progress-bar{width:100%;height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:12px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .3s ease;width:0%}
-.receipt-hash{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85rem;background:rgba(0,0,0,.3);padding:12px;border-radius:10px;word-break:break-all;border:1px solid var(--line);margin:8px 0}
-.receipt-actions{display:flex;gap:8px;margin-top:8px}
-.receipt-actions button{padding:6px 12px;font-size:.8rem;min-height:32px}
-.verify-panel{display:none;margin-top:12px;padding:16px;background:rgba(0,0,0,.2);border-radius:12px;border:1px solid var(--line)}
-.verify-panel.show{display:block}
-.verify-result{margin-top:12px;padding:12px;border-radius:8px;font-weight:700}
-.verify-match{background:rgba(89,245,155,.15);color:var(--accent2);border:1px solid rgba(89,245,155,.3)}
-.verify-mismatch{background:rgba(255,107,107,.15);color:var(--danger);border:1px solid rgba(255,107,107,.3)}
-.runner-status{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(0,0,0,.2);border-radius:10px;margin-top:12px}
-.status-dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
-.status-dot.queued{background:var(--warn);animation:pulse 1.5s infinite}
-.status-dot.running{background:var(--accent);animation:pulse 1s infinite}
-.status-dot.completed{background:var(--accent2)}
-.status-dot.failed{background:var(--danger)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.error-card{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:16px;color:var(--danger);margin:16px 0}
-.error-card button{margin-top:12px;background:rgba(255,107,107,.2);color:var(--danger);border:1px solid var(--danger)}
-.instructions{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.03);margin:16px 0}
-.instructions h2{margin:0 0 10px;font-size:1.1rem}
-.instructions p,.instructions li{color:var(--muted);font-size:.9rem}
-.instructions ul{margin:8px 0;padding-left:20px}
-footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
-@media(max-width:600px){
-  .nav{flex-direction:column;align-items:flex-start}
-  .links{width:100%;justify-content:space-between}
-  .metric-grid{grid-template-columns:repeat(2,1fr)}
-  .btn-row{flex-direction:column}
-  .btn-row button{width:100%}
-  .receipt-actions{flex-direction:column}
-  .receipt-actions button{width:100%}
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse methodology — evidence over self-attestation, cross-domain synthesis, board-safe clarity without overpromising.">
+  <title>Methodology — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
 </head>
 <body>
-<header>
-  <div class="nav">
-    <a class="brand" href="index.html">StegVerse</a>
-    <!-- Unified navigation matching the home page -->
-    <nav class="links">
-      <a href="index.html">Home</a>
-      <a href="demo.html">Demo</a>
-      <a href="stegfinco.html">FinCo</a>
-      <a href="support.html">Support</a>
-      <a href="product.html">Product</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="methodology.html" class="active">Methodology</a>
-      <a href="about.html">About</a>
-      <a href="./publisher/papers.html">Papers</a>
-    </nav>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="methodology.html" class="active">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero">
+    <div class="sv-eyebrow">How StegVerse works</div>
+    <h1>Evaluating <em>production reality,</em><br>not intent.</h1>
+    <p>Governance claims are not governance. StegVerse audits the gap between
+    what systems are supposed to do and what they actually do under pressure.</p>
   </div>
-</header>
-<main class="wrap">
-  <div class="card">
-    <h1>Methodology</h1>
-    <p style="color:var(--muted)">StegVerse evaluates <strong>production reality</strong>, not intent.</p>
-    <div class="card" style="margin-top:20px">
-      <h2>Principles</h2>
-      <ul style="color:var(--muted);line-height:1.8"><li>Evidence over self-attestation</li><li>Cross-domain synthesis (AI + governance + trust systems)</li><li>Focus on interaction failures where disciplines overlap</li><li>Board-safe clarity without overpromising</li></ul>
+
+  <h2 class="sv-h2">Principles</h2>
+  <div class="sv-card-grid">
+    <div class="sv-card">
+      <h3 class="sv-h3">Evidence over self-attestation</h3>
+      <p style="font-size:13px;color:var(--muted);">
+        What a system claims about itself is a starting point, not a finding.
+        StegVerse looks for what the evidence actually shows.
+      </p>
     </div>
-    <div class="card" style="margin-top:20px">
-      <h2>What we examine</h2>
-      <ul style="color:var(--muted);line-height:1.8"><li>AI/automation pathways and escalation points</li><li>Governance claims vs operational practice</li><li>Identity and credential lifecycles (humans + service accounts)</li><li>Trust boundary drift and privilege creep</li><li>Audit trail continuity through failure and recovery</li></ul>
+    <div class="sv-card">
+      <h3 class="sv-h3">Cross-domain synthesis</h3>
+      <p style="font-size:13px;color:var(--muted);">
+        Failures happen where AI, governance, and trust systems overlap —
+        not within any single domain where standard reviews already look.
+      </p>
     </div>
-    <div class="card" style="margin-top:20px">
-      <h2>What we deliver</h2>
-      <ul style="color:var(--muted);line-height:1.8"><li>Defensible findings in executive language</li><li>A prioritized risk register</li><li>A remediation roadmap that your team can execute without dependency</li></ul>
+    <div class="sv-card">
+      <h3 class="sv-h3">Interaction failures</h3>
+      <p style="font-size:13px;color:var(--muted);">
+        Focus on the seams: where identity meets automation, where governance
+        assumptions meet operational practice, where audit trails break.
+      </p>
+    </div>
+    <div class="sv-card">
+      <h3 class="sv-h3">Board-safe clarity</h3>
+      <p style="font-size:13px;color:var(--muted);">
+        Findings are delivered in executive language without overpromising.
+        Defensible, prioritized, and actionable by your own team.
+      </p>
     </div>
   </div>
-</main>
-<footer>
-  StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED
+
+  <h2 class="sv-h2">What we examine</h2>
+  <table class="sv-table">
+    <thead><tr><th>Area</th><th>Focus</th></tr></thead>
+    <tbody>
+      <tr><td>AI and automation pathways</td><td>Escalation points, override mechanisms, failure modes</td></tr>
+      <tr><td>Governance vs operational practice</td><td>Where claims diverge from production behavior</td></tr>
+      <tr><td>Identity and credential lifecycles</td><td>Humans and service accounts — drift, expiry, privilege creep</td></tr>
+      <tr><td>Trust boundary drift</td><td>Where authority expands beyond its original scope</td></tr>
+      <tr><td>Audit trail continuity</td><td>Whether the system can reconstruct what happened and why</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sv-h2">What we deliver</h2>
+  <div class="sv-prose">
+    <p>Defensible findings in executive language — not a stack of raw observations.</p>
+    <p>A prioritized risk register with context on severity and interaction effects.</p>
+    <p>A remediation roadmap your team can execute without external dependency.</p>
+  </div>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Trust failures · Commit-time admissibility · ALLOW / DENY / FAIL-CLOSED</span>
+  <span><a href="product.html">Product</a> · <a href="pricing.html">Pricing</a></span>
 </footer>
+
 </body>
 </html>
