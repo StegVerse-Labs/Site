@@ -1,18 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Transition Page</title>
-  <link rel="stylesheet" href="assets/css/transition-pages.css">
+  <meta name="description" content="StegVerse Stage 10 canonical release — Transition Table Binding proof surface and release record.">
+  <title>Stage 10 — Transition Table Binding — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
 </head>
-<body data-page="stage10-release">
-  <main id="app">
-    <section>
-      <h1>Loading transition proof surface...</h1>
-      <p>This page renders from data/formalism-tests/transition-proof-surface.json.</p>
-    </section>
-  </main>
-  <script src="assets/js/transition-page-renderer.js"></script>
+<body>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="methodology.html">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero" style="padding-top:40px;">
+    <div class="sv-eyebrow">Stage 10 · Canonical release · public mirror</div>
+    <h1>Transition Table <em>Binding</em></h1>
+    <p>Stage 10 of the StegVerse formalism-tests roadmap.
+    Proves that the Transition Table correctly binds AI capability
+    to admissibility — that a transition cannot advance a stage
+    by claim, only by evidence.</p>
+  </div>
+
+  <div class="sv-boundary">
+    This page renders from <code>data/formalism-tests/transition-proof-surface.json</code>.
+    It is a public mirror. It is not proof authority, install authority,
+    or production accreditation authority.
+  </div>
+
+  <h2 class="sv-h2">Stage result</h2>
+  <div class="sv-evidence">
+    <div class="sv-evidence-label">Stage 10 — Transition Table Binding</div>
+    <div class="sv-evidence-row"><span class="k">Task ID</span><span class="v">stage10_transition_table_binding_tests</span></div>
+    <div class="sv-evidence-row"><span class="k">Result</span><span class="v">PASSED</span></div>
+    <div class="sv-evidence-row"><span class="k">Authority</span><span class="v">Data-Continuation/formalism-tests</span></div>
+    <div class="sv-evidence-row"><span class="k">Mirror</span><span class="v">StegVerse-Labs/Site</span></div>
+  </div>
+
+  <h2 class="sv-h2">What Stage 10 proves</h2>
+  <div class="sv-prose">
+    <p>Stage 10 establishes that the Transition Table is a binding
+    admissibility constraint — not a label, not a roadmap, not a
+    feature list.</p>
+    <p>A system cannot advance to a higher tier by claiming it.
+    The table checks whether the previous capability has been proven,
+    whether the legitimacy checks for the next tier have been passed,
+    and whether the required evidence exists. Only then is the
+    next capability admitted.</p>
+    <p>This is the stage that makes StegVerse-002 structurally
+    different from a conventional AI deployment: every gate StegVerse-002
+    passed was checked by the Transition Table, not self-declared.</p>
+  </div>
+
+  <h2 class="sv-h2">Core results from Stage 10</h2>
+  <table class="sv-table">
+    <thead><tr><th>Result class</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>TRANSITION_BOUND</code></td><td>AI block capability correctly constrained by table stage</td></tr>
+      <tr><td><code>ADVANCEMENT_DENIED</code></td><td>Stage advancement by claim correctly denied — evidence required</td></tr>
+      <tr><td><code>EVIDENCE_REQUIRED</code></td><td>Higher tier blocked until legitimacy checks are passed</td></tr>
+      <tr><td><code>FAIL_CLOSED</code></td><td>Unknown or unproven state fails closed — not silently permitted</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sv-h2">Boundary doctrine</h2>
+  <pre>Transition Table Stage = Capability Tier = Price/Risk Boundary
+
+Each stage defines:
+  previous capability proven
+  new capability introduced
+  legitimacy checks required
+  evidence required
+  allowed actions
+  forbidden actions
+  STOP condition
+  promotion criteria
+
+A system cannot advance tiers by claim.
+It advances only by evidence.</pre>
+
+  <h2 class="sv-h2">Position in the proof chain</h2>
+  <table class="sv-table">
+    <thead><tr><th>Stage</th><th>Name</th><th>Relationship to Stage 10</th></tr></thead>
+    <tbody>
+      <tr><td>9</td><td>FinCo Chain Admissibility</td><td>Prerequisite — financial chain must be admissible before table binding</td></tr>
+      <tr><td><strong>10</strong></td><td><strong>Transition Table Binding</strong></td><td><strong>This stage</strong></td></tr>
+      <tr><td>11</td><td>Active Work-Entity Preparation</td><td>Depends on table binding — entity can only be prepared after binding proven</td></tr>
+      <tr><td>14</td><td>Transition Table AI Governance Binding</td><td>Extends Stage 10 to AI governance scope</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sv-btn-row" style="margin-top:8px;">
+    <a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Full Stage 1–31 mirror</a>
+    <a class="sv-btn sv-btn-secondary" href="transition-release-index.html">Release index</a>
+    <a class="sv-btn sv-btn-secondary" href="transition-table-visual.html">Visual element table</a>
+  </div>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Stage 10 · Transition Table Binding · Site is not proof authority</span>
+  <span>Source: Data-Continuation/formalism-tests</span>
+</footer>
+
 </body>
 </html>

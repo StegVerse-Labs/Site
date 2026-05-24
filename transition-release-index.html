@@ -1,77 +1,140 @@
-<!doctype html>
-<html lang="en" data-sv-source="data/stegverse-site-state.json">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>StegVerse Transition Releases</title>
-  <link rel="stylesheet" href="assets/css/stegverse-site-state.css">
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; line-height: 1.55; margin: 0; }
-    main { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0; }
-    header { margin-bottom: 1.5rem; }
-    code, pre { background: rgba(127,127,127,.12); border-radius: 8px; }
-    pre { padding: 1rem; overflow-x: auto; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse transition release index — current release state, stage index, and canonical boundaries.">
+  <title>Transition Release Index — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
 </head>
 <body>
-<main>
-  <header>
-    <p><a href="index.html">StegVerse</a></p>
-    <h1>Transition Release Index</h1>
-    <p data-sv-loading>Loading StegVerse site state...</p>
-    <div data-sv-ready hidden>
-      <p><strong>Status:</strong> <span data-sv-roadmap-status></span></p>
-      <p><strong>Work entity:</strong> <span data-sv-work-entity></span></p>
-      <p><strong>Site role:</strong> <span data-sv-site-role></span></p>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="methodology.html">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div style="background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:0;overflow-x:auto;">
+  <a href="transition-proof-surface.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Proof Surface</a>
+  <a href="transition-table-classes.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Transition Classes</a>
+  <a href="transition-release-index.html"      style="font-size:12px;color:var(--text);padding:10px 14px;text-decoration:none;white-space:nowrap;border-bottom:2px solid var(--accent);">Release Index</a>
+  <a href="transition-development-status.html" style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Development Status</a>
+  <a href="transition-verification-guide.html" style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Verification Guide</a>
+  <a href="transition-replay-packet.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Replay Packet</a>
+</div>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero" style="padding-top:40px;">
+    <div class="sv-eyebrow">StegVerse · Transition releases</div>
+    <h1>Transition <em>Release Index</em></h1>
+    <p>Current release state, stage index, and canonical boundaries
+    for the StegVerse transition proof path.</p>
+  </div>
+
+  <div class="sv-boundary">
+    formalism-tests produces receipts. Site publishes receipts.
+    Site must not become the authority for receipts.
+  </div>
+
+  <h2 class="sv-h2">Current release state</h2>
+
+  <div class="sv-card-grid">
+    <div class="sv-card">
+      <h3 class="sv-h3">StegVerse-001 / Beta_Orionis</h3>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+        Stage 31 complete<br>
+        Production accreditation proven<br>
+        Revocation boundary proven<br>
+        <span class="pill pill-green" style="margin-top:6px;display:inline-block;">PASSED</span>
+      </div>
     </div>
-  </header>
-
-  <nav class="sv-nav" data-sv-nav aria-label="StegVerse navigation"></nav>
-
-  <section class="sv-panel">
-    <h2>Current release state</h2>
-    <p><span data-sv-roadmap-status></span></p>
-    <p><span data-sv-production-boundary></span></p>
-  </section>
-
-  <section class="sv-panel">
-    <h2>Stage 31 declared-task summary</h2>
-    <div class="sv-grid">
-      <div><strong>Task</strong><span data-sv-stage31-task></span></div>
-      <div><strong>Cases</strong><span data-sv-stage31-case-count></span></div>
-      <div><strong>Assertions</strong><span data-sv-stage31-assertion-count></span></div>
-      <div><strong>Receipts</strong><span data-sv-stage31-receipt-count></span></div>
+    <div class="sv-card">
+      <h3 class="sv-h3">StegVerse-002 / core-lite</h3>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+        v1.0.0-sv002-m10 tagged<br>
+        M0–M10 complete<br>
+        Intake proven live<br>
+        <span class="pill pill-blue" style="margin-top:6px;display:inline-block;">production-candidate</span>
+      </div>
     </div>
-    <div data-sv-stage31-decisions></div>
-  </section>
+  </div>
 
-  <section class="sv-panel">
-    <h2>Stage index</h2>
-    <div class="sv-grid" data-sv-stages></div>
-  </section>
+  <h2 class="sv-h2">Stage 31 declared-task summary</h2>
+  <div class="sv-stats">
+    <div class="sv-stat"><div class="num">26</div><div class="lbl">Cases</div></div>
+    <div class="sv-stat"><div class="num">66</div><div class="lbl">Assertions</div></div>
+    <div class="sv-stat"><div class="num">26</div><div class="lbl">Receipts</div></div>
+    <div class="sv-stat"><div class="num">1.0</div><div class="lbl">Outcome match</div></div>
+  </div>
 
-  <section class="sv-panel">
-    <h2>Canonical boundaries</h2>
-    <pre><span data-sv-discovery-boundary></span>
-<span data-sv-install-plan-boundary></span>
-<span data-sv-packet-boundary></span>
-<span data-sv-node-boundary></span>
-<span data-sv-finco-boundary></span>
-<span data-sv-production-boundary></span></pre>
-  </section>
+  <h2 class="sv-h2">Stage index</h2>
+  <table class="sv-table">
+    <thead><tr><th>Stage</th><th>Name</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Initial Continuation Grounding</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>2</td><td>Same Data, Different Role</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>3</td><td>Compound Continuation</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>4</td><td>Representation and Consequence Boundary</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>5</td><td>Transition Elements and AI Block Basis</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>6</td><td>Admissible Existence Unified Gate</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>7</td><td>Boundary Reset and Evolution</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>8</td><td>AI Block Scope and Escape Control</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>9</td><td>FinCo Chain Admissibility</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>10</td><td>Transition Table Binding</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>11</td><td>Active Work-Entity Preparation</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>12</td><td>AI-Governance Scope Readiness</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>13</td><td>Active Work-Entity Release Delta</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>14</td><td>Transition Table AI Governance Binding</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>15</td><td>Work-Entity Policy Scope</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>16</td><td>Work-Entity Release/Queue Integration</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>17</td><td>Self-Audit and Drift Detection</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>18</td><td>Sandbox Candidate Generation</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>19</td><td>Candidate Review Loop</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>20</td><td>Release Candidate Assembly</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>21</td><td>Canonical Upgrade Replay</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>22</td><td>Public Mirror Propagation</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>23</td><td>Ingestible Bundle Custody</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>24</td><td>Autonomous Test Planning</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>25</td><td>Entity Operating Charter</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>26</td><td>StegVerse-001 Declared Testing Loop</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>27</td><td>Discovery-to-Canonical State DB</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>28</td><td>Canonical Diff and Install Plan Candidate</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>29</td><td>Optional Node Status and FinCo Eligibility</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>30</td><td>Governed Instantiation Packet</td><td><span class="pill pill-green">PASSED</span></td></tr>
+      <tr><td>31</td><td>Production Accreditation and Revocation Boundary</td><td><span class="pill pill-green">PASSED</span></td></tr>
+    </tbody>
+  </table>
 
-  <section class="sv-panel">
-    <h2>Canonical pages</h2>
-    <p><a href="formalism-tests-stage-1-to-31.html">Open Stage 1–31 public mirror</a></p>
-    <p><a href="transition-proof-surface.html">Open proof surface</a></p>
-    <p><a href="transition-table.html">Open class browser</a></p>
-  </section>
+  <h2 class="sv-h2">Canonical boundaries</h2>
+  <pre>formalism-tests  =  proof/test authority
+Site             =  public mirror
+StegVerse-001    =  governed work-entity (Beta_Orionis)
+StegVerse-002    =  governed work-entity (core-lite, clean-slate)
+production       =  accredited participation, not sovereign authority
+receipts         =  produced by formalism-tests, published by Site</pre>
 
-  <footer>
-    <p><strong>Boundary:</strong> formalism-tests produces receipts. Site publishes receipts. Site must not become the authority for receipts.</p>
-    <p><strong>Proof authority:</strong> <span data-sv-proof-authority></span></p>
-  </footer>
-</main>
-<script src="assets/js/stegverse-site-state.js"></script>
+  <div class="sv-btn-row" style="margin-top:8px;">
+    <a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Stage 1–31 proof mirror</a>
+    <a class="sv-btn sv-btn-secondary" href="transition-proof-surface.html">Proof surface</a>
+    <a class="sv-btn sv-btn-secondary" href="transition-table-visual.html">Visual element table</a>
+    <a class="sv-btn sv-btn-secondary" href="stegverse-002.html">StegVerse-002</a>
+  </div>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Transition release index · Site is not proof authority</span>
+  <span>Proof authority: Data-Continuation/formalism-tests</span>
+</footer>
+
 </body>
 </html>

@@ -1,18 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Transition Page</title>
-  <link rel="stylesheet" href="assets/css/transition-pages.css">
+  <meta name="description" content="StegVerse transition verification guide — how to verify receipts, task chains, and proof artifacts against the formalism-tests authority.">
+  <title>Transition Verification Guide — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
 </head>
-<body data-page="verification-guide">
-  <main id="app">
-    <section>
-      <h1>Loading transition proof surface...</h1>
-      <p>This page renders from data/formalism-tests/transition-proof-surface.json.</p>
-    </section>
-  </main>
-  <script src="assets/js/transition-page-renderer.js"></script>
+<body>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="methodology.html">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div style="background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:0;overflow-x:auto;">
+  <a href="transition-proof-surface.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Proof Surface</a>
+  <a href="transition-table-classes.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Transition Classes</a>
+  <a href="transition-release-index.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Release Index</a>
+  <a href="transition-development-status.html" style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Development Status</a>
+  <a href="transition-verification-guide.html" style="font-size:12px;color:var(--text);padding:10px 14px;text-decoration:none;white-space:nowrap;border-bottom:2px solid var(--accent);">Verification Guide</a>
+  <a href="transition-replay-packet.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Replay Packet</a>
+</div>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero" style="padding-top:40px;">
+    <div class="sv-eyebrow">StegVerse verification</div>
+    <h1>Transition <em>Verification Guide</em></h1>
+    <p>How to verify receipts, task chains, and proof artifacts
+    against the canonical authority at
+    <code>Data-Continuation/formalism-tests</code>.</p>
+  </div>
+
+  <div class="sv-boundary">
+    formalism-tests produces receipts. Site publishes receipts.
+    Site must not become the authority for receipts.<br>
+    Verification must trace back to the source repo, not to this page.
+  </div>
+
+  <h2 class="sv-h2">Receipt authority</h2>
+  <pre>Data-Continuation/formalism-tests</pre>
+
+  <h2 class="sv-h2">What to verify</h2>
+  <table class="sv-table">
+    <thead><tr><th>Artifact</th><th>How to verify</th><th>What proves it</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Receipt hash chain</td>
+        <td>Compare <code>previous_receipt_hash</code> of each entry against <code>receipt_hash</code> of the prior entry</td>
+        <td>Chain is unbroken — no silent mutations between receipts</td>
+      </tr>
+      <tr>
+        <td>CGE fingerprint</td>
+        <td>Recompute SHA-256 of <code>actor:stage:action:timestamp</code> payload</td>
+        <td>Fingerprint matches — CGE ran against the declared inputs</td>
+      </tr>
+      <tr>
+        <td>Stage map completion</td>
+        <td>Check <code>last_run</code> and <code>last_status</code> on each stage entry</td>
+        <td>All stages show <code>last_run_success</code> before promotion</td>
+      </tr>
+      <tr>
+        <td>Candidate hash</td>
+        <td>SHA-256 the candidate file and compare against <code>candidate_hash</code> in the manifest</td>
+        <td>Candidate has not been modified after preparation</td>
+      </tr>
+      <tr>
+        <td>TVC chainlog</td>
+        <td>Verify <code>data/summary/chainlog.jsonl</code> — each entry's export hash must match the prior</td>
+        <td>TV/TVC authority chain is intact</td>
+      </tr>
+      <tr>
+        <td>Identity declaration</td>
+        <td>Confirm all <code>authority_flags</code> are <code>false</code> in <code>identity_declaration.json</code></td>
+        <td>Entity has not self-granted capability</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="sv-h2">Verified task chain — Stage 31</h2>
+  <pre>task_id:         stage31_production_accreditation_revocation_tests
+success:         true
+case_count:      26
+assertion_count: 66
+receipt_count:   26
+
+ALLOW_ACCREDITATION:     3
+LEDGER_ACCREDITATION:    1
+REQUIRE_REACCREDITATION: 1
+REVOKE_ACCREDITATION:    1
+REQUIRE_REVIEW:          1
+FAIL_CLOSED:            19</pre>
+
+  <h2 class="sv-h2">Verified task chain — StegVerse-002</h2>
+  <pre>entity:               StegVerse-002
+version:              1.0.0-sv002-m10
+bootstrap_receipt:    sha256:35b749aeabce66c8fd7993a76d6d035ccff5d2d8815c88f5f44f474e6716fc15
+intake_receipt:       sha256:a151deedbd5ad5d63a42d2c4b91ed2425de7f22ac8ce559b0d8d73473676a910
+cge_fingerprint:      sha256:33aa60e704d4575a17a2459943761aa18c5220e47c1ae25cb0bf676442c0e3fd
+stop_condition_met:   true
+previous_receipt_hash (bootstrap): "" (chain head — correct)
+previous_receipt_hash (intake):    sha256:35b749ae... (chains correctly)</pre>
+
+  <h2 class="sv-h2">Verification principles</h2>
+  <div class="sv-prose">
+    <p>A receipt is not a log. It is a continuity proof. Verification means
+    confirming the chain is unbroken — that each transition was admitted,
+    that the evidence matches the declared inputs, and that no silent
+    mutation occurred between steps.</p>
+    <p>A stage map entry marked complete is not proof of completion.
+    The receipt chain is proof of completion. The stage map records
+    the state. The receipts prove the transitions.</p>
+    <p>Site publication of receipts does not make Site the authority.
+    The authority is the system that produced the receipts.
+    Site is the mirror.</p>
+  </div>
+
+  <div class="sv-btn-row">
+    <a class="sv-btn sv-btn-secondary" href="transition-proof-surface.html">Proof surface</a>
+    <a class="sv-btn sv-btn-secondary" href="transition-replay-packet.html">Replay packet</a>
+    <a class="sv-btn sv-btn-secondary" href="stegverse-002.html">StegVerse-002 mirror</a>
+  </div>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Transition verification guide · Site is not proof authority</span>
+  <span>Authority: Data-Continuation/formalism-tests</span>
+</footer>
+
 </body>
 </html>

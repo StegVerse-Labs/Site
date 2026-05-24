@@ -1,18 +1,114 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Transition Page</title>
-  <link rel="stylesheet" href="assets/css/transition-pages.css">
+  <meta name="description" content="StegVerse transition proof surface — verified task chain, proof progression, and source artifacts from Data-Continuation/formalism-tests.">
+  <title>Transition Proof Surface — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
 </head>
-<body data-page="proof-surface">
-  <main id="app">
-    <section>
-      <h1>Loading transition proof surface...</h1>
-      <p>This page renders from data/formalism-tests/transition-proof-surface.json.</p>
-    </section>
-  </main>
-  <script src="assets/js/transition-page-renderer.js"></script>
+<body>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="methodology.html">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div style="background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:0;overflow-x:auto;">
+  <a href="transition-proof-surface.html"      style="font-size:12px;color:var(--text);padding:10px 14px;text-decoration:none;white-space:nowrap;border-bottom:2px solid var(--accent);">Proof Surface</a>
+  <a href="transition-table-classes.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Transition Classes</a>
+  <a href="transition-release-index.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Release Index</a>
+  <a href="transition-development-status.html" style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Development Status</a>
+  <a href="transition-verification-guide.html" style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Verification Guide</a>
+  <a href="transition-replay-packet.html"      style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Replay Packet</a>
+</div>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero" style="padding-top:40px;">
+    <div class="sv-eyebrow">StegVerse Labs / Site · public mirror</div>
+    <h1>Transition <em>Proof Surface</em></h1>
+    <p>Verified task chain, proof progression, and source artifacts.
+    Source of truth: <code>Data-Continuation/formalism-tests</code>.</p>
+  </div>
+
+  <div class="sv-boundary">
+    This page publishes the proof surface. It does not generate receipts.
+    <code>Data-Continuation/formalism-tests</code> is proof authority.
+    Site is the public mirror.
+  </div>
+
+  <h2 class="sv-h2">Proof progression</h2>
+
+  <div class="sv-evidence">
+    <div class="sv-evidence-label">Stage 1–31 · Beta_Orionis / StegVerse-001</div>
+    <div class="sv-evidence-row"><span class="k">Stages completed</span><span class="v">31 / 31</span></div>
+    <div class="sv-evidence-row"><span class="k">Final stage</span><span class="v">Stage 31 — Production Accreditation and Revocation</span></div>
+    <div class="sv-evidence-row"><span class="k">Case count</span><span class="v">26</span></div>
+    <div class="sv-evidence-row"><span class="k">Assertion count</span><span class="v">66</span></div>
+    <div class="sv-evidence-row"><span class="k">Receipt count</span><span class="v">26</span></div>
+    <div class="sv-evidence-row"><span class="k">Result</span><span class="v">PASSED</span></div>
+  </div>
+
+  <div class="sv-evidence" style="background:#0c1220;border-color:#1e3050;">
+    <div class="sv-evidence-label" style="color:var(--accent);">StegVerse-002 / core-lite · 2026-05-24</div>
+    <div class="sv-evidence-row"><span class="k">Entity</span><span class="v" style="color:var(--accent);">StegVerse-002</span></div>
+    <div class="sv-evidence-row"><span class="k">Gates completed</span><span class="v" style="color:var(--accent);">M0–M10 / M10</span></div>
+    <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v" style="color:var(--accent);">success · stop_condition_met: true</span></div>
+    <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v" style="color:var(--accent);">ALLOW · sha256:33aa60e7</span></div>
+    <div class="sv-evidence-row"><span class="k">Receipt chain</span><span class="v" style="color:var(--accent);">sha256:a151deed · live</span></div>
+  </div>
+
+  <h2 class="sv-h2">Verified task chain</h2>
+  <pre>stage31_production_accreditation_revocation_tests
+  success: true
+  case_count: 26
+  assertion_count: 66
+  receipt_count: 26
+
+  ALLOW_ACCREDITATION:    3
+  LEDGER_ACCREDITATION:   1
+  REQUIRE_REACCREDITATION:1
+  REVOKE_ACCREDITATION:   1
+  REQUIRE_REVIEW:         1
+  FAIL_CLOSED:           19</pre>
+
+  <h2 class="sv-h2">Transition classes</h2>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+    The transition table is rendered from the shared Site data file
+    used by the class browser.
+  </p>
+  <div class="sv-btn-row">
+    <a class="sv-btn sv-btn-secondary" href="transition-table-classes.html">Transition class browser</a>
+    <a class="sv-btn sv-btn-secondary" href="transition-table-visual.html">Visual element table</a>
+    <a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Stage 1–31 mirror</a>
+  </div>
+
+  <h2 class="sv-h2">Source artifacts</h2>
+  <table class="sv-table">
+    <thead><tr><th>Artifact</th><th>Authority</th><th>Site role</th></tr></thead>
+    <tbody>
+      <tr><td><code>formalism-tests/receipts/</code></td><td>Data-Continuation/formalism-tests</td><td>Mirror only</td></tr>
+      <tr><td><code>transition-proof-surface.json</code></td><td>Data-Continuation/formalism-tests</td><td>Render source</td></tr>
+      <tr><td>Stage 1–31 task results</td><td>Data-Continuation/formalism-tests</td><td>Mirror only</td></tr>
+      <tr><td>StegVerse-002 receipts</td><td>StegVerse-002/core-lite</td><td>Mirror only</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Transition proof surface · Site is not proof authority</span>
+  <span>Source: Data-Continuation/formalism-tests</span>
+</footer>
+
 </body>
 </html>
