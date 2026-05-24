@@ -3,42 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StegVerse Transition Table</title>
+  <title>StegVerse Transition Table — Block Structure</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap');
 
     :root {
-      --bg:       #070b14;
-      --surface:  #0d1422;
-      --border:   #162236;
+      --bg:      #070b14;
+      --surface: #0d1422;
+      --border:  #162236;
 
       /* Decision class column colors */
-      --allow:        #0d9488;
-      --allow-bg:     #041410;
-      --context:      #0891b2;
-      --context-bg:   #04111a;
-      --candidate:    #2563eb;
-      --candidate-bg: #04091a;
-      --sandbox:      #7c3aed;
-      --sandbox-bg:   #0d0414;
-      --review:       #d97706;
-      --review-bg:    #140b00;
-      --deny:         #dc2626;
-      --deny-bg:      #140404;
-      --fail:         #9f1239;
-      --fail-bg:      #140208;
+      --allow:        #0d9488; --allow-bg:     #041410;
+      --context:      #0891b2; --context-bg:   #04111a;
+      --candidate:    #2563eb; --candidate-bg: #04091a;
+      --sandbox:      #7c3aed; --sandbox-bg:   #0d0414;
+      --review:       #d97706; --review-bg:    #140b00;
+      --deny:         #dc2626; --deny-bg:      #140404;
+      --fail:         #9f1239; --fail-bg:      #140208;
 
-      /* Coupling type colors */
-      --c-independent: #34d399;
-      --c-dependent:   #60a5fa;
-      --c-composite:   #a78bfa;
-      --c-ecosystem:   #f472b6;
+      /* Block colors — 9 canonical coupling classes */
+      --b1: #34d399; /* Identity    — no prior state */
+      --b2: #60a5fa; /* Data        — same data ≠ same admissibility */
+      --b3: #a78bfa; /* Composite   — local allow ≠ composite allow */
+      --b4: #f472b6; /* Commit-Time — admissibility at binding moment */
+      --b5: #fb923c; /* Discovery   — observes, proposes, does not install */
+      --b6: #facc15; /* Packet      — portable evidence, not authority */
+      --b7: #4ade80; /* Install-Plan— candidate, not authority */
+      --b8: #e879f9; /* Production  — accredited participation */
+      --b9: #38bdf8; /* Replay      — reconstructs, cannot reverse (displaced) */
 
-      --text:   #e8f0ff;
-      --muted:  #4a6080;
-      --dim:    #243350;
-      --mono:   'Space Mono', monospace;
-      --sans:   'Syne', sans-serif;
+      --text:  #e8f0ff;
+      --muted: #4a6080;
+      --dim:   #243350;
+      --mono:  'Space Mono', monospace;
+      --sans:  'Syne', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,412 +47,347 @@
       color: var(--text);
       font-family: var(--sans);
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* subtle grid background */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
         linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
       background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
     .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px 100px;
     }
 
     /* ── HEADER ── */
-    header {
-      padding: 48px 0 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    header { padding: 48px 0 28px; }
     .eyebrow {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
     }
     h1 {
-      font-size: clamp(28px, 5vw, 48px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      font-size: clamp(26px, 4.5vw, 46px); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px;
     }
     h1 span {
       background: linear-gradient(90deg, #67e8f9, #818cf8, #f472b6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .subtitle {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      max-width: 580px;
-      line-height: 1.7;
-      margin-top: 4px;
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      max-width: 640px; line-height: 1.8;
     }
+    .subtitle em { color: #8090aa; font-style: normal; }
 
     /* ── LEGEND ── */
     .legend {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-      padding: 14px 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      display: flex; gap: 20px; flex-wrap: wrap;
+      margin-bottom: 28px; padding: 14px 18px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
     }
-    .legend-section {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .legend-section { display: flex; flex-direction: column; gap: 6px; }
     .legend-label {
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 2px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 2px;
     }
-    .legend-items {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .legend-items { display: flex; gap: 8px; flex-wrap: wrap; }
     .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: #8090aa;
+      display: flex; align-items: center; gap: 5px;
+      font-family: var(--mono); font-size: 10px; color: #8090aa;
     }
-    .legend-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-swatch {
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      flex-shrink: 0;
+    .ldot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .lswatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .lswatch-dash {
+      width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+      border: 1px dashed #4a6080; background: transparent;
     }
 
-    /* ── COLUMN HEADERS ── */
-    .table-outer {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+    /* ── BLOCK BAND — left of table ── */
+    .table-with-blocks {
+      display: flex; gap: 6px; min-width: 820px;
     }
+    .block-bands {
+      display: flex; flex-direction: column; gap: 4px;
+      width: 10px; flex-shrink: 0;
+      /* rows match tt-grid rows — each band is one or more rows */
+    }
+    .block-band {
+      border-radius: 3px;
+      position: relative;
+    }
+    /* displaced replay band — shown separately below */
+    .replay-band-row {
+      display: flex; gap: 6px; min-width: 820px; margin-top: 4px;
+    }
+    .replay-label-col {
+      width: 136px; flex-shrink: 0;
+      display: flex; align-items: center;
+    }
+    .replay-label {
+      font-family: var(--mono); font-size: 9px; color: var(--b9);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ── TABLE OUTER ── */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
     .col-headers {
       display: grid;
       grid-template-columns: 130px repeat(7, 1fr);
-      gap: 4px;
-      margin-bottom: 4px;
-      min-width: 800px;
+      gap: 4px; margin-bottom: 4px; min-width: 800px;
+      padding-left: 16px; /* account for block bands */
     }
     .col-header {
-      padding: 8px 6px;
-      border-radius: 4px 4px 0 0;
-      font-family: var(--mono);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-align: center;
-      text-transform: uppercase;
+      padding: 8px 6px; border-radius: 4px 4px 0 0;
+      font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em; text-align: center; text-transform: uppercase;
     }
-    .row-axis-header {
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 8px 6px;
-      display: flex;
-      align-items: flex-end;
+    .row-axis-hdr {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 8px 6px; display: flex; align-items: flex-end;
     }
 
     /* ── GRID ── */
-    .tt-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 800px;
-    }
+    .tt-grid { display: flex; flex-direction: column; gap: 4px; min-width: 800px; }
     .tt-row {
       display: grid;
       grid-template-columns: 130px repeat(7, 1fr);
       gap: 4px;
     }
+
+    /* block highlight on row */
+    .tt-row[data-block] { border-radius: 4px; }
+
     .row-label {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: flex; flex-direction: column; justify-content: center;
       padding: 8px 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+      position: relative; overflow: hidden;
+    }
+    /* block color left bar on row label */
+    .row-label::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--block-color, transparent);
     }
     .row-label-tier {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family: var(--mono); font-size: 9px; color: var(--muted);
+      letter-spacing: 0.08em; text-transform: uppercase;
     }
-    .row-label-name {
-      font-size: 11px;
-      font-weight: 600;
-      color: #8090aa;
-      margin-top: 2px;
-      line-height: 1.3;
-    }
+    .row-label-name { font-size: 11px; font-weight: 600; color: #8090aa; margin-top: 2px; line-height: 1.3; }
+    .row-label-block { font-family: var(--mono); font-size: 8px; margin-top: 3px; opacity: 0.7; }
 
-    /* ── ELEMENT CELL ── */
+    /* ── ELEMENT CELLS ── */
     .tt-cell {
-      position: relative;
-      aspect-ratio: 1 / 1.05;
-      border-radius: 4px;
-      border: 1px solid transparent;
+      position: relative; aspect-ratio: 1 / 1.1;
+      border-radius: 4px; border: 1px solid transparent;
       cursor: pointer;
-      transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      padding: 6px 7px 5px;
-      min-height: 70px;
+      transition: transform 0.12s, box-shadow 0.12s;
+      overflow: hidden; display: flex; flex-direction: column;
+      padding: 6px 7px 5px; min-height: 68px;
     }
     .tt-cell.populated {
       border-color: var(--cell-color, var(--border));
       background: var(--cell-bg, var(--surface));
     }
-    .tt-cell.empty {
-      border-color: var(--border);
-      background: rgba(13,20,34,0.4);
-      cursor: default;
-    }
     .tt-cell.populated:hover {
-      transform: scale(1.06) translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px var(--cell-color);
-      z-index: 10;
+      transform: scale(1.07) translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 0 0 1px var(--cell-color);
+      z-index: 20;
     }
+    .tt-cell.empty { border-color: var(--border); background: rgba(13,20,34,0.4); cursor: default; }
 
-    /* coupling dot — top right */
-    .coupling-dot {
-      position: absolute;
-      top: 5px; right: 5px;
-      width: 5px; height: 5px;
-      border-radius: 50%;
-    }
-
-    /* stage id */
-    .cell-stage {
-      font-family: var(--mono);
-      font-size: 8px;
-      color: var(--cell-color, var(--muted));
-      opacity: 0.8;
-      letter-spacing: 0.06em;
-    }
-
-    /* element symbol */
-    .cell-symbol {
-      font-size: clamp(16px, 2.2vw, 22px);
-      font-weight: 800;
-      line-height: 1;
-      margin: auto 0 2px;
-      color: var(--cell-color, var(--muted));
-      letter-spacing: -0.03em;
-    }
-
-    /* element name */
-    .cell-name {
-      font-family: var(--mono);
-      font-size: 7.5px;
-      color: #6070a0;
-      line-height: 1.2;
-      word-break: break-word;
-    }
-
-    /* proof status stripe */
-    .proof-stripe {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-    }
-    .proof-pass  { background: var(--c-independent); }
-    .proof-fail  { background: var(--deny); }
-    .proof-none  { background: var(--dim); opacity: 0.4; }
-
-    /* ── MODAL ── */
-    .modal-bg {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(7,11,20,0.88);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-bg.open { display: flex; }
-    .modal {
-      background: #0d1422;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      width: 100%;
-      max-width: 480px;
-      padding: 24px;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 14px; right: 16px;
-      background: none; border: none;
-      color: var(--muted); font-size: 20px;
-      cursor: pointer; line-height: 1;
-    }
-    .modal-close:hover { color: var(--text); }
-    .modal-stage {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-    .modal-symbol {
-      font-size: 48px;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .modal-name {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-    .modal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    .modal-field {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 8px 10px;
-    }
-    .modal-field-label {
-      font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 3px;
-    }
-    .modal-field-val {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text);
-    }
-    .modal-theorem {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--dim);
-      border-radius: 4px;
-      padding: 10px 12px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: #8090aa;
-      line-height: 1.55;
-    }
-
-    /* ── BOTTOM NOTE ── */
-    .boundary-note {
-      margin-top: 40px;
-      padding: 13px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--dim);
-      border-radius: 4px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* ── PREDICTED CELLS ── */
     .tt-cell.predicted-mandatory {
       border-color: var(--cell-color, var(--border));
       background: var(--cell-bg, var(--surface));
-      opacity: 0.55;
-      cursor: pointer;
+      opacity: 0.5; cursor: pointer;
     }
     .tt-cell.predicted-derivable {
       border-color: var(--cell-color, var(--border));
-      border-style: dashed;
-      background: var(--bg);
-      opacity: 0.45;
-      cursor: pointer;
+      border-style: dashed; background: var(--bg);
+      opacity: 0.4; cursor: pointer;
     }
     .tt-cell.excluded {
-      border-color: #1a1a2e;
-      background: #070b14;
-      cursor: default;
-      opacity: 0.3;
+      border-color: #111827; background: #070b14;
+      cursor: default; opacity: 0.25;
     }
     .tt-cell.predicted-mandatory:hover,
-    .tt-cell.predicted-derivable:hover {
-      opacity: 0.85;
-      transform: scale(1.04) translateY(-1px);
-      z-index: 10;
-    }
-    .cell-predicted-label {
-      font-family: var(--mono);
-      font-size: 7px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 2px;
-    }
-    .excluded-mark {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      font-size: 16px;
-      color: #1a1a2e;
-      font-weight: 700;
+    .tt-cell.predicted-derivable:hover { opacity: 0.8; transform: scale(1.04); z-index: 20; }
+
+    /* block glow on cell — subtle tint matching block */
+    .tt-cell.populated::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--block-tint, transparent);
+      pointer-events: none;
     }
 
-    /* Update legend for prediction states */
-    .legend-swatch-dash {
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      flex-shrink: 0;
-      border: 1px dashed #4a6080;
-      background: transparent;
+    .coupling-dot { position: absolute; top: 5px; right: 5px; width: 5px; height: 5px; border-radius: 50%; }
+    .cell-stage { font-family: var(--mono); font-size: 8px; color: var(--cell-color, var(--muted)); opacity: 0.8; }
+    .cell-symbol { font-size: clamp(14px, 2vw, 22px); font-weight: 800; line-height: 1; margin: auto 0 2px; color: var(--cell-color, var(--muted)); letter-spacing: -0.03em; }
+    .cell-name { font-family: var(--mono); font-size: 7px; color: #506080; line-height: 1.2; word-break: break-word; }
+    .cell-pred-label { font-family: var(--mono); font-size: 7px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+    .excluded-x { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 14px; color: #162236; }
+
+    .proof-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; }
+    .proof-pass { background: #34d399; }
+    .proof-fail { background: #dc2626; }
+    .proof-none { background: #243350; opacity: 0.5; }
+
+    /* ── BLOCK REGION DIVIDERS ── */
+    .block-divider {
+      height: 2px; background: transparent;
+      border-top: 1px dashed var(--border);
+      margin: 2px 0;
+      position: relative;
+    }
+    .block-divider-label {
+      position: absolute; left: 134px; top: -8px;
+      font-family: var(--mono); font-size: 8px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1px 6px; border-radius: 10px;
+      border: 1px solid; white-space: nowrap;
+    }
+
+    /* ── REPLAY BLOCK — displaced section ── */
+    .replay-section {
+      margin-top: 20px; min-width: 800px;
+      border: 1px solid var(--b9);
+      border-radius: 6px; overflow: hidden;
+      opacity: 0.7;
+    }
+    .replay-section-header {
+      background: rgba(56,189,248,0.08);
+      padding: 8px 12px;
+      font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--b9);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .replay-section-header span { color: var(--muted); }
+    .replay-rows { padding: 6px; display: flex; flex-direction: column; gap: 4px; }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      display: none; position: fixed; inset: 0;
+      background: rgba(7,11,20,0.9); backdrop-filter: blur(8px);
+      z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      background: #0d1422; border: 1px solid var(--border);
+      border-radius: 10px; width: 100%; max-width: 500px;
+      padding: 24px; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; color: var(--muted);
+      font-size: 20px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-block-badge {
+      display: inline-block; font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 20px; border: 1px solid;
+      margin-bottom: 10px;
+    }
+    .modal-stage { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+    .modal-symbol { font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .modal-name { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .modal-field {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 4px; padding: 8px 10px;
+    }
+    .mf-label { font-family: var(--mono); font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+    .mf-val { font-family: var(--mono); font-size: 11px; color: var(--text); }
+    .modal-theorem {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--dim); border-radius: 4px;
+      padding: 10px 12px; font-family: var(--mono); font-size: 11px;
+      color: #8090aa; line-height: 1.6;
+    }
+
+    /* ── INSIGHTS SECTION ── */
+    .insights { margin-top: 64px; }
+    .insights h2 {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .insights h2 span {
+      background: linear-gradient(90deg, #67e8f9, #818cf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .insights-sub {
+      font-family: var(--mono); font-size: 11px; color: var(--muted);
+      margin-bottom: 32px; line-height: 1.7;
+    }
+    .insight-block {
+      display: grid; grid-template-columns: 3px 1fr;
+      gap: 0 18px; margin-bottom: 28px;
+    }
+    .insight-bar { border-radius: 2px; }
+    .insight-body {}
+    .insight-title {
+      font-size: 14px; font-weight: 700; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .insight-title .badge {
+      font-family: var(--mono); font-size: 8px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 2px 8px; border-radius: 20px; border: 1px solid;
+    }
+    .insight-body p {
+      font-size: 13px; color: #8090aa; line-height: 1.75; margin-bottom: 10px;
+    }
+    .insight-body pre {
+      font-family: var(--mono); font-size: 11px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--dim); border-radius: 4px;
+      padding: 12px 14px; line-height: 1.6; color: #7090b0;
+      overflow-x: auto; margin-bottom: 10px;
+    }
+    .insight-body code {
+      font-family: var(--mono); font-size: 11px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1px 5px; color: #7dd3fc;
+    }
+
+    .block-map {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
+    .block-map-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid; border-radius: 4px;
+      padding: 10px 12px;
+    }
+    .bmi-name { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+    .bmi-tiers { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+    .bmi-rule { font-size: 11px; color: #607090; line-height: 1.5; }
+
+    .boundary-note {
+      margin-top: 48px; padding: 13px 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--dim); border-radius: 4px;
+      font-family: var(--mono); font-size: 10px; color: var(--muted); line-height: 1.6;
     }
 
     @media (max-width: 640px) {
-      .col-headers, .tt-grid, .tt-row { min-width: 700px; }
-      .tt-cell { min-height: 60px; }
-      .cell-symbol { font-size: 14px; }
+      .col-headers, .tt-grid, .tt-row, .table-with-blocks,
+      .replay-section, .replay-band-row { min-width: 700px; }
+      .tt-cell { min-height: 58px; }
+      .cell-symbol { font-size: 13px; }
+      .block-map { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -462,60 +395,54 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">StegVerse · Transition Table · Visual Element Map</div>
+    <div class="eyebrow">StegVerse · Transition Table · Block Structure Map</div>
     <h1>The <span>Transition Table</span></h1>
     <p class="subtitle">
-      Transition elements arranged by consequence tier (row) × decision class (column).
-      Color encodes coupling type. Bottom stripe encodes proof status.
-      Faded cells are <em>predicted</em> — structurally required or derivable by rule.
-      Dark voids are <em>excluded</em> — structurally impossible combinations.
+      Rows = consequence tier &nbsp;·&nbsp; Columns = decision class &nbsp;·&nbsp;
+      <em>Left bar = coupling block (the organizing dimension)</em><br>
+      Blocks are regions where elements share the same relationship to prior state —
+      the deeper property beneath both tier and decision class.
+      The Replay block is displaced, like the f-block in the periodic table.
     </p>
   </header>
 
   <div class="legend">
     <div class="legend-section">
-      <div class="legend-label">Coupling type</div>
+      <div class="legend-label">Coupling blocks (9 canonical)</div>
       <div class="legend-items">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c-independent)"></div>Independent</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c-dependent)"></div>Dependent</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c-composite)"></div>Composite</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c-ecosystem)"></div>Ecosystem</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b1)"></div>B1 Identity</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b2)"></div>B2 Data</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b3)"></div>B3 Composite</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b4)"></div>B4 Commit-Time</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b5)"></div>B5 Discovery</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b6)"></div>B6 Packet</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b7)"></div>B7 Install-Plan</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b8)"></div>B8 Production</div>
+        <div class="legend-item"><div class="ldot" style="background:var(--b9)"></div>B9 Replay (displaced)</div>
       </div>
     </div>
     <div class="legend-section">
       <div class="legend-label">Proof status</div>
       <div class="legend-items">
-        <div class="legend-item"><div class="legend-swatch proof-pass"></div>Passing</div>
-        <div class="legend-item"><div class="legend-swatch proof-none"></div>Untested</div>
-        <div class="legend-item"><div class="legend-swatch proof-fail"></div>Failing</div>
+        <div class="legend-item"><div class="lswatch proof-pass"></div>Passing</div>
+        <div class="legend-item"><div class="lswatch proof-none"></div>Untested</div>
+        <div class="legend-item"><div class="lswatch proof-fail"></div>Failing</div>
       </div>
     </div>
     <div class="legend-section">
       <div class="legend-label">Cell state</div>
       <div class="legend-items">
-        <div class="legend-item"><div class="legend-swatch" style="background:#041410;border:1px solid #0d9488;opacity:0.6"></div>Predicted — mandatory</div>
-        <div class="legend-item"><div class="legend-swatch-dash"></div>Predicted — derivable</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#070b14;border:1px solid #1a1a2e;opacity:0.4"></div>Excluded — impossible</div>
-      </div>
-    </div>
-    <div class="legend-section">
-      <div class="legend-label">Decision class (columns →)</div>
-      <div class="legend-items">
-        <div class="legend-item"><div class="legend-swatch" style="background:#041410;border:1px solid var(--allow)"></div>ALLOW</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#04111a;border:1px solid var(--context)"></div>CONTEXT</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#04091a;border:1px solid var(--candidate)"></div>CANDIDATE</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#0d0414;border:1px solid var(--sandbox)"></div>SANDBOX</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#140b00;border:1px solid var(--review)"></div>REVIEW</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#140404;border:1px solid var(--deny)"></div>DENY</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#140208;border:1px solid var(--fail)"></div>FAIL&#8209;CLOSED</div>
+        <div class="legend-item"><div class="lswatch" style="background:#041410;border:1px solid #0d9488;opacity:.6"></div>Predicted — mandatory</div>
+        <div class="legend-item"><div class="lswatch-dash"></div>Predicted — derivable</div>
+        <div class="legend-item"><div class="lswatch" style="background:#070b14;border:1px solid #111827;opacity:.4"></div>Excluded</div>
       </div>
     </div>
   </div>
 
-  <div class="table-outer">
+  <div class="table-scroll">
 
     <div class="col-headers">
-      <div class="row-axis-header">Consequence<br>tier ↓</div>
+      <div class="row-axis-hdr">Tier ↓ &nbsp; Block →</div>
       <div class="col-header" style="background:var(--allow-bg);color:var(--allow)">ALLOW</div>
       <div class="col-header" style="background:var(--context-bg);color:var(--context)">CONTEXT</div>
       <div class="col-header" style="background:var(--candidate-bg);color:var(--candidate)">CANDIDATE</div>
@@ -527,438 +454,650 @@
 
     <div class="tt-grid" id="grid"></div>
 
+    <!-- REPLAY BLOCK — displaced like f-block -->
+    <div class="replay-section" id="replay-section">
+      <div class="replay-section-header">
+        B9 &nbsp; Replay block &nbsp;
+        <span>— displaced · spans T3 and T11 · reconstructs state but cannot reverse consequence</span>
+      </div>
+      <div class="replay-rows" id="replay-rows"></div>
+    </div>
+
+  </div>
+
+  <!-- ── INSIGHTS ── -->
+  <div class="insights">
+    <h2>Block Structure <span>Insights</span></h2>
+    <p class="insights-sub">
+      What the 9 canonical coupling classes reveal about the Transition Table —
+      derived from Stage 10 (canonical_element_count: 13, coupling_class_count: 9)
+      and the 8 core results of the Stage 1–31 proof.
+    </p>
+
+    <div class="insight-block">
+      <div class="insight-bar" style="background:linear-gradient(to bottom,var(--b1),var(--b2),var(--b3),var(--b4),var(--b5),var(--b6),var(--b7),var(--b8))"></div>
+      <div class="insight-body">
+        <div class="insight-title">
+          The periodic table analogy holds — and is structurally rigorous
+          <span class="badge" style="color:#67e8f9;border-color:#67e8f9">structure</span>
+        </div>
+        <p>
+          The periodic table works because it has two independent organizing axes — period (row)
+          and group (column) — plus a third deeper property, orbital type, that creates the block
+          structure. The Transition Table has the same architecture: tier (row), decision class
+          (column), and coupling class (block). The coupling class is the quantum number analog.
+          It describes the relationship of a transition to prior state — the property that
+          determines which other elements behave like it.
+        </p>
+        <p>
+          Elements that share a coupling block are chemically analogous: they require the same
+          kind of prior state to exist, they fail in the same way when that prior state is absent,
+          and they advance by the same kind of legitimacy check. A DENY at T2 and a DENY at T8
+          share a block because both are denials of a declared-instruction attempt — even though
+          they sit at different tiers and look different on the surface.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-bar" style="background:var(--b9)"></div>
+      <div class="insight-body">
+        <div class="insight-title">
+          The Replay block is displaced — the f-block equivalent
+          <span class="badge" style="color:var(--b9);border-color:var(--b9)">B9 · Replay</span>
+        </div>
+        <p>
+          In the periodic table, the f-block (lanthanides and actinides) is displaced from its
+          natural position in the grid and shown as a separate row beneath the main table.
+          This is not a layout convenience — it reflects that f-block elements bridge two periods
+          and don't fit cleanly into the contiguous tier structure.
+        </p>
+        <p>
+          The Replay coupling class has the same property. Replay — <em>reconstructs consequence
+          state but cannot reverse consequence</em> — appears at two non-contiguous tiers:
+          T3 (evidence/receipt, where replay first becomes meaningful) and T11 (controlled
+          mutation, where the ability to reconstruct how a state came to exist is a precondition
+          for execution). These are structurally the same coupling class separated by the tiers
+          between them. They belong together but cannot be placed contiguously in the main grid
+          without distorting the tier axis.
+        </p>
+        <p>
+          The Replay block is therefore shown as a displaced section beneath the main table —
+          exactly as the f-block is shown in chemistry.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-bar" style="background:linear-gradient(to bottom,var(--b5),var(--b6),var(--b7))"></div>
+      <div class="insight-body">
+        <div class="insight-title">
+          Blocks B5–B7 form the authority-denial triad
+          <span class="badge" style="color:var(--b5);border-color:var(--b5)">B5 · B6 · B7</span>
+        </div>
+        <p>
+          Three consecutive blocks share a structural family: they each define a coupling class
+          where the entity may observe, propose, or package — but explicitly cannot install,
+          execute, or claim authority.
+        </p>
+        <pre>B5 Discovery   — observes, models, compares, classifies, proposes. Does not install.
+B6 Packet      — portable evidence of a proposed governed transition. Not authority.
+B7 Install-Plan— candidate transition. Not installation authority.</pre>
+        <p>
+          This triad corresponds to Tiers T7–T10 in the main table — the range where external
+          reasoning enters (LLM Adapter Gate), context packets are admitted (KnowledgeVault),
+          and mutation proposals are produced. All three blocks share the same core rule:
+          <em>the output of this coupling class may inform a transition but cannot authorize one.</em>
+        </p>
+        <p>
+          This is why LLM output, context packets, and install plans share a structural family
+          even though they look different on the surface. They are all authority-denial coupling
+          classes — the formalism treats them as the same block type with different instantiations.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-bar" style="background:linear-gradient(to bottom,var(--b2),var(--b3))"></div>
+      <div class="insight-body">
+        <div class="insight-title">
+          B2 and B3 are the non-composability pair — the most important result
+          <span class="badge" style="color:var(--b2);border-color:var(--b2)">B2 · B3</span>
+        </div>
+        <p>
+          The two most fundamental results from the Stage 1–31 proof are:
+        </p>
+        <pre>B2 Data:      Same data does not imply same continuation admissibility.
+B3 Composite: Local allow plus local allow does not imply composite allow.</pre>
+        <p>
+          These are not just rules — they are the core claim that makes the Transition Table
+          necessary at all. If same data implied same admissibility, a lookup table would
+          suffice. If local allows composed into composite allows, governance could be
+          decomposed into independent checks. Neither is true.
+        </p>
+        <p>
+          B2 (T1–T2) establishes that the same input in a different context or at a different
+          time can have a different admissibility outcome. B3 (T3–T4) establishes that passing
+          N individual checks does not prove the composite transition is admissible. Both blocks
+          occupy the lowest-consequence tiers — they are foundational, not advanced.
+        </p>
+        <p>
+          This means the non-composability results are not edge cases. They are present at
+          every tier above T2 as implicit constraints — the table cannot be read without them.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-bar" style="background:var(--b4)"></div>
+      <div class="insight-body">
+        <div class="insight-title">
+          B4 Commit-Time is the enforcement block — where the table becomes real
+          <span class="badge" style="color:var(--b4);border-color:var(--b4)">B4 · Commit-Time</span>
+        </div>
+        <p>
+          The Commit-Time coupling class — <em>admissibility must be resolved at the binding
+          moment</em> — occupies T5–T6 (candidate preparation and gate enablement). This is
+          structurally deliberate: by T5 the system is producing candidates that could affect
+          real state, and by T6 it is operating within an active gate that has a declared
+          STOP condition.
+        </p>
+        <p>
+          The Commit-Time block is the point where the Transition Table transitions from
+          descriptive to enforcement. Before this block, the table records what the system
+          has proven. At and after this block, the table controls what the system may do next.
+        </p>
+        <p>
+          The B4 column in the visual table should be the densest — because commit-time
+          admissibility applies at every higher tier as well. Every populated cell at T7 and
+          above implicitly carries a Commit-Time constraint even when assigned to a later block.
+        </p>
+      </div>
+    </div>
+
+    <div class="insight-block">
+      <div class="insight-bar" style="background:linear-gradient(to bottom,var(--deny),var(--fail))"></div>
+      <div class="insight-body">
+        <div class="insight-title">
+          DENY and FAIL-CLOSED columns are structurally complete — no gaps are valid
+          <span class="badge" style="color:var(--deny);border-color:var(--deny)">mandatory columns</span>
+        </div>
+        <p>
+          The DENY and FAIL-CLOSED decision classes must be present at every tier without
+          exception. A tier that lacks a DENY element has no answer to "what happens when this
+          transition is refused." A tier that lacks a FAIL-CLOSED element has no answer to
+          "what happens when this transition is unsafe but the reason is unknown."
+        </p>
+        <p>
+          This makes every empty cell in the DENY and FAIL-CLOSED columns a formalism gap —
+          a predicted element, not a legitimate absence. The visual table marks these as
+          <em>mandatory</em> predictions. They are the highest-priority cells to formalize.
+        </p>
+        <p>
+          In the periodic table analogy: every period must contain a noble gas (full outer shell,
+          stable, no further bonding). DENY and FAIL-CLOSED are the noble gases of the
+          Transition Table — every tier row must end with them.
+        </p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:48px;">The 9 <span>Coupling Blocks</span></h2>
+    <p class="insights-sub">
+      Derived from Stage 10 (coupling_class_count: 9) and the 8 core results of the Stage 1–31 proof.
+      The 9th class (Identity) is the base case not listed as a core result because it is the
+      precondition for all results.
+    </p>
+
+    <div class="block-map" id="block-map"></div>
+
   </div>
 
   <div class="boundary-note">
     Site is a public mirror, not proof authority. &nbsp;·&nbsp;
     formalism-tests produces receipts. Site publishes receipts. &nbsp;·&nbsp;
-    Transition elements are rendered from the shared transition class data.
+    canonical_element_count: 13 &nbsp;·&nbsp; coupling_class_count: 9 &nbsp;·&nbsp;
+    Source: Stage 10 — Canonical Transition Table Release.
   </div>
 
 </div>
 
 <!-- MODAL -->
 <div class="modal-bg" id="modal" onclick="closeModal(event)">
-  <div class="modal" id="modal-content">
+  <div class="modal">
     <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">×</button>
+    <div class="modal-block-badge" id="m-block-badge"></div>
     <div class="modal-stage" id="m-stage"></div>
     <div class="modal-symbol" id="m-symbol"></div>
     <div class="modal-name" id="m-name"></div>
     <div class="modal-grid">
-      <div class="modal-field"><div class="modal-field-label">Decision</div><div class="modal-field-val" id="m-decision"></div></div>
-      <div class="modal-field"><div class="modal-field-label">Coupling</div><div class="modal-field-val" id="m-coupling"></div></div>
-      <div class="modal-field"><div class="modal-field-label">Tier</div><div class="modal-field-val" id="m-tier"></div></div>
-      <div class="modal-field"><div class="modal-field-label">Proof</div><div class="modal-field-val" id="m-proof"></div></div>
+      <div class="modal-field"><div class="mf-label">Decision</div><div class="mf-val" id="m-decision"></div></div>
+      <div class="modal-field"><div class="mf-label">Block</div><div class="mf-val" id="m-block"></div></div>
+      <div class="modal-field"><div class="mf-label">Tier</div><div class="mf-val" id="m-tier"></div></div>
+      <div class="modal-field"><div class="mf-label">Proof</div><div class="mf-val" id="m-proof"></div></div>
     </div>
     <div class="modal-theorem" id="m-theorem"></div>
   </div>
 </div>
 
 <script>
-// ─── DATA ───────────────────────────────────────────────────────────────────
-// Rows: consequence tiers (low → high)
-const TIERS = [
-  { id: 'T0', name: 'Identity / Scope' },
-  { id: 'T1', name: 'Observation' },
-  { id: 'T2', name: 'Declared Task' },
-  { id: 'T3', name: 'Evidence / Receipt' },
-  { id: 'T4', name: 'Remote Inspection' },
-  { id: 'T5', name: 'Candidate Prep' },
-  { id: 'T6', name: 'Gate Enablement' },
-  { id: 'T7', name: 'Sandbox / CGE' },
-  { id: 'T8', name: 'Instruction Intake' },
-  { id: 'T9', name: 'Reasoning Ingress' },
-  { id: 'T10', name: 'Mutation Proposal' },
-  { id: 'T11', name: 'Controlled Mutation' },
-  { id: 'T12', name: 'Quorum' },
+// ─── BLOCKS ─────────────────────────────────────────────────────────────────
+const BLOCKS = [
+  { id:'B1', name:'Identity',    color:'#34d399', tiers:['T0'],         rule:'No prior state required. Entity declares scope and forbidden actions. Base coupling — precondition for all others.' },
+  { id:'B2', name:'Data',        color:'#60a5fa', tiers:['T1','T2'],    rule:'Same data does not imply same continuation admissibility. Coupling depends on context and time, not data alone.' },
+  { id:'B3', name:'Composite',   color:'#a78bfa', tiers:['T3','T4'],    rule:'Local allow plus local allow does not imply composite allow. Each transition must be checked at the composite boundary.' },
+  { id:'B4', name:'Commit-Time', color:'#f472b6', tiers:['T5','T6'],    rule:'Admissibility must be resolved at the binding moment. A transition that was admissible earlier may not be admissible now.' },
+  { id:'B5', name:'Discovery',   color:'#fb923c', tiers:['T7','T8'],    rule:'Discovery observes, models, compares, classifies, and proposes. It does not install. Output informs — it does not authorize.' },
+  { id:'B6', name:'Packet',      color:'#facc15', tiers:['T8','T9'],    rule:'The packet is portable evidence of a proposed governed transition. Not installation authority. Not execution authority.' },
+  { id:'B7', name:'Install-Plan',color:'#4ade80', tiers:['T9','T10'],   rule:'An install plan is a candidate transition, not installation authority. Requires operator review and approval before any effect.' },
+  { id:'B8', name:'Production',  color:'#e879f9', tiers:['T11','T12'],  rule:'Production means accredited participation, not sovereign authority. Execution requires approval proof, rollback path, and receipt.' },
+  { id:'B9', name:'Replay',      color:'#38bdf8', tiers:['T3','T11'],   rule:'Replay reconstructs consequence state but cannot reverse consequence. Displaced block — appears at T3 (first meaningful) and T11 (required precondition). The f-block equivalent.' },
 ];
 
-// Columns: decision classes
+const BLOCK_BY_TIER = {};
+BLOCKS.filter(b => b.id !== 'B9').forEach(b => {
+  b.tiers.forEach(t => { if (!BLOCK_BY_TIER[t]) BLOCK_BY_TIER[t] = b; });
+});
+// B9 is handled separately
+
+const BLOCKS_BY_ID = {};
+BLOCKS.forEach(b => { BLOCKS_BY_ID[b.id] = b; });
+
+// ─── TIERS ──────────────────────────────────────────────────────────────────
+const TIERS = [
+  { id:'T0',  name:'Identity / Scope',  block:'B1' },
+  { id:'T1',  name:'Observation',       block:'B2' },
+  { id:'T2',  name:'Declared Task',     block:'B2' },
+  { id:'T3',  name:'Evidence / Receipt',block:'B3' },
+  { id:'T4',  name:'Remote Inspection', block:'B3' },
+  { id:'T5',  name:'Candidate Prep',    block:'B4' },
+  { id:'T6',  name:'Gate Enablement',   block:'B4' },
+  { id:'T7',  name:'Sandbox / CGE',     block:'B5' },
+  { id:'T8',  name:'Instruction Intake',block:'B5' },
+  { id:'T9',  name:'Reasoning Ingress', block:'B6' },
+  { id:'T10', name:'Mutation Proposal', block:'B7' },
+  { id:'T11', name:'Controlled Mutation',block:'B8'},
+  { id:'T12', name:'Quorum',            block:'B8' },
+];
+
+// ─── DECISIONS ──────────────────────────────────────────────────────────────
 const DECISIONS = ['ALLOW','CONTEXT','CANDIDATE','SANDBOX','REVIEW','DENY','FAIL_CLOSED'];
-
-// Decision colors mapping
 const DCOL = {
-  ALLOW:       { color: 'var(--allow)',     bg: 'var(--allow-bg)' },
-  CONTEXT:     { color: 'var(--context)',   bg: 'var(--context-bg)' },
-  CANDIDATE:   { color: 'var(--candidate)', bg: 'var(--candidate-bg)' },
-  SANDBOX:     { color: 'var(--sandbox)',   bg: 'var(--sandbox-bg)' },
-  REVIEW:      { color: 'var(--review)',    bg: 'var(--review-bg)' },
-  DENY:        { color: 'var(--deny)',      bg: 'var(--deny-bg)' },
-  FAIL_CLOSED: { color: 'var(--fail)',      bg: 'var(--fail-bg)' },
+  ALLOW:       { color:'#0d9488', bg:'#041410' },
+  CONTEXT:     { color:'#0891b2', bg:'#04111a' },
+  CANDIDATE:   { color:'#2563eb', bg:'#04091a' },
+  SANDBOX:     { color:'#7c3aed', bg:'#0d0414' },
+  REVIEW:      { color:'#d97706', bg:'#140b00' },
+  DENY:        { color:'#dc2626', bg:'#140404' },
+  FAIL_CLOSED: { color:'#9f1239', bg:'#140208' },
 };
 
-// Coupling colors
-const CCOL = {
-  independent: 'var(--c-independent)',
-  dependent:   'var(--c-dependent)',
-  composite:   'var(--c-composite)',
-  ecosystem:   'var(--c-ecosystem)',
-};
-
-// Transition elements
-// symbol: 1-3 char periodic-table-style abbreviation
-// Each element has a tier (row), decision (column), coupling, proof status, theorem
+// ─── ELEMENTS ───────────────────────────────────────────────────────────────
 const ELEMENTS = [
-  // T0 — Identity / Scope
-  { stage:'SV002-M0', symbol:'Id',  name:'Identity Declaration',   tier:'T0', decision:'ALLOW',       coupling:'independent', proof:'pass',
-    theorem:'Actor exists, scope is declared, authority flags are false, initial receipt emitted. No operational action taken.' },
-  { stage:'S1',       symbol:'Sc',  name:'Scope Binding',          tier:'T0', decision:'REVIEW',      coupling:'independent', proof:'pass',
+  // T0 B1 Identity
+  { stage:'SV002-M0', symbol:'Id', name:'Identity Declaration',  tier:'T0', decision:'ALLOW',     block:'B1', proof:'pass',
+    theorem:'Actor exists, scope declared, authority flags false, initial receipt emitted. No operational action taken.' },
+  { stage:'S2',       symbol:'Sc', name:'Scope Binding',         tier:'T0', decision:'REVIEW',    block:'B1', proof:'pass',
     theorem:'Scope must be declared before any consequence-bearing action. Missing scope fails to review.' },
-  { stage:'S2',       symbol:'Fb',  name:'Forbidden Declaration',  tier:'T0', decision:'DENY',        coupling:'independent', proof:'pass',
-    theorem:'Forbidden actions are declared at identity stage. Any forbidden action returns DENY.' },
+  { stage:'S3',       symbol:'Fb', name:'Forbidden Declaration', tier:'T0', decision:'DENY',      block:'B1', proof:'pass',
+    theorem:'Forbidden actions declared at identity stage. Any forbidden action returns DENY regardless of tier.' },
 
-  // T1 — Observation
-  { stage:'S3',       symbol:'Ob',  name:'Observation',            tier:'T1', decision:'ALLOW',       coupling:'independent', proof:'pass',
-    theorem:'Entity may inspect supplied materials. No mutation. Report emitted. Receipt emitted.' },
-  { stage:'S4',       symbol:'Rp',  name:'Report Emission',        tier:'T1', decision:'ALLOW',       coupling:'independent', proof:'pass',
+  // T1 B2 Data
+  { stage:'S4',  symbol:'Ob', name:'Observation',         tier:'T1', decision:'ALLOW',   block:'B2', proof:'pass',
+    theorem:'Entity may inspect supplied materials. No mutation. Report emitted. Receipt emitted. Same data ≠ same admissibility.' },
+  { stage:'S5',  symbol:'Rp', name:'Report Emission',     tier:'T1', decision:'ALLOW',   block:'B2', proof:'pass',
     theorem:'Observation produces a structured report. Report is evidence. Report is not authority.' },
-  { stage:'S5',       symbol:'Lm',  name:'Limitation Record',      tier:'T1', decision:'CONTEXT',     coupling:'dependent',   proof:'pass',
-    theorem:'Observed limitations must be recorded before action. Unrecorded limitation fails to review.' },
+  { stage:'S6',  symbol:'Lm', name:'Limitation Record',   tier:'T1', decision:'CONTEXT', block:'B2', proof:'pass',
+    theorem:'Observed limitations recorded before action. Unrecorded limitation fails to review.' },
 
-  // T2 — Declared Task
-  { stage:'SV002-M2', symbol:'Tk',  name:'Declared Task',          tier:'T2', decision:'ALLOW',       coupling:'dependent',   proof:'pass',
+  // T2 B2 Data
+  { stage:'SV002-M2', symbol:'Tk', name:'Declared Task',    tier:'T2', decision:'ALLOW',  block:'B2', proof:'pass',
     theorem:'Predefined task runs inside bounded environment. Task manifest exists. Command declared. Return code recorded.' },
-  { stage:'S6',       symbol:'Tm',  name:'Task Manifest',          tier:'T2', decision:'REVIEW',      coupling:'dependent',   proof:'pass',
+  { stage:'S7',       symbol:'Tm', name:'Task Manifest',    tier:'T2', decision:'REVIEW', block:'B2', proof:'pass',
     theorem:'Task must have a manifest before execution. Missing manifest fails to review.' },
-  { stage:'S7',       symbol:'Sx',  name:'Scope Excess',           tier:'T2', decision:'DENY',        coupling:'dependent',   proof:'pass',
-    theorem:'Task output that exceeds declared scope is denied. Self-authorization of new capability is denied.' },
+  { stage:'S8',       symbol:'Sx', name:'Scope Excess',     tier:'T2', decision:'DENY',   block:'B2', proof:'pass',
+    theorem:'Task output exceeding declared scope is denied. Self-authorization of new capability is denied.' },
 
-  // T3 — Evidence / Receipt
-  { stage:'SV002-M2', symbol:'Rc',  name:'Receipt Chain',          tier:'T3', decision:'ALLOW',       coupling:'independent', proof:'pass',
-    theorem:'Every consequence-bearing action emits a receipt. Previous receipt hash is chained. Schema is present.' },
-  { stage:'S8',       symbol:'Eh',  name:'Evidence Hash',          tier:'T3', decision:'ALLOW',       coupling:'independent', proof:'pass',
-    theorem:'Action outputs are hashed. Hashes are recorded. Receipts are not logs — they are continuity proof.' },
-  { stage:'S9',       symbol:'Un',  name:'Unrecorded Action',      tier:'T3', decision:'FAIL_CLOSED',  coupling:'independent', proof:'pass',
-    theorem:'Any consequence-bearing action without a receipt fails closed. Silent mutation is never permitted.' },
+  // T3 B3 Composite
+  { stage:'SV002-M2', symbol:'Rc', name:'Receipt Chain',    tier:'T3', decision:'ALLOW',      block:'B3', proof:'pass',
+    theorem:'Every consequence-bearing action emits a receipt. Previous receipt hash chained. Schema present. Local allow ≠ composite allow.' },
+  { stage:'S9',       symbol:'Eh', name:'Evidence Hash',    tier:'T3', decision:'ALLOW',      block:'B3', proof:'pass',
+    theorem:'Action outputs are hashed. Hashes recorded. Receipts are continuity proof, not logs.' },
+  { stage:'S10',      symbol:'Un', name:'Unrecorded Action',tier:'T3', decision:'FAIL_CLOSED', block:'B9', proof:'pass',
+    theorem:'Consequence-bearing action without receipt fails closed. Silent mutation never permitted. [Replay block — B9]' },
 
-  // T4 — Remote Inspection
-  { stage:'SV002-M3', symbol:'Ri',  name:'Remote Inspection',      tier:'T4', decision:'ALLOW',       coupling:'dependent',   proof:'pass',
-    theorem:'Entity may inspect a remote target from controlled backdrop. No push. No mutation. Report and receipt emitted.' },
-  { stage:'S10',      symbol:'Ct',  name:'Contract Check',         tier:'T4', decision:'ALLOW',       coupling:'dependent',   proof:'pass',
-    theorem:'Missing contracts are identified and reported. Contract check is not installation authority.' },
-  { stage:'S11',      symbol:'Pm',  name:'Push Mutation',          tier:'T4', decision:'DENY',        coupling:'dependent',   proof:'pass',
-    theorem:'Push to target is denied at remote inspection tier. Mutation requires explicit higher-tier authority.' },
+  // T4 B3 Composite
+  { stage:'SV002-M3', symbol:'Ri', name:'Remote Inspection', tier:'T4', decision:'ALLOW',  block:'B3', proof:'pass',
+    theorem:'Entity inspects remote target from controlled backdrop. No push. No mutation. Report and receipt emitted.' },
+  { stage:'S11',      symbol:'Ct', name:'Contract Check',    tier:'T4', decision:'ALLOW',  block:'B3', proof:'pass',
+    theorem:'Missing contracts identified and reported. Contract check is not installation authority.' },
+  { stage:'S12',      symbol:'Pm', name:'Push Mutation',     tier:'T4', decision:'DENY',   block:'B3', proof:'pass',
+    theorem:'Push to target denied at remote inspection tier. Mutation requires explicit higher-tier authority.' },
 
-  // T5 — Candidate Prep
-  { stage:'SV002-M4', symbol:'Cp',  name:'Candidate Prep',         tier:'T5', decision:'CANDIDATE',   coupling:'dependent',   proof:'pass',
-    theorem:'Candidate files, patches, manifests prepared. Original hash and candidate hash recorded. Operator review required.' },
-  { stage:'S12',      symbol:'Ph',  name:'Patch Hash',             tier:'T5', decision:'ALLOW',       coupling:'dependent',   proof:'pass',
+  // T5 B4 Commit-Time
+  { stage:'SV002-M4', symbol:'Cp', name:'Candidate Prep',    tier:'T5', decision:'CANDIDATE', block:'B4', proof:'pass',
+    theorem:'Candidate files/patches/manifests prepared. Original and candidate hashes recorded. Operator review required. Admissibility at binding moment.' },
+  { stage:'S13',      symbol:'Ph', name:'Patch Hash',        tier:'T5', decision:'ALLOW',     block:'B4', proof:'pass',
     theorem:'Every patch is hashed before and after. Hash chain is evidence of candidate integrity.' },
-  { stage:'S13',      symbol:'Dp',  name:'Direct Application',     tier:'T5', decision:'DENY',        coupling:'dependent',   proof:'pass',
+  { stage:'S14',      symbol:'Dp', name:'Direct Application',tier:'T5', decision:'DENY',      block:'B4', proof:'pass',
     theorem:'Candidate application without operator review is denied. Candidate prep is not execution authority.' },
 
-  // T6 — Gate Enablement
-  { stage:'SV002-M5', symbol:'Ge',  name:'Gate Enablement',        tier:'T6', decision:'ALLOW',       coupling:'composite',   proof:'pass',
-    theorem:'Entity operates within active gate until STOP condition met. Unknown blockers return REVIEW_REQUIRED.' },
-  { stage:'S14',      symbol:'St',  name:'STOP Condition',         tier:'T6', decision:'ALLOW',       coupling:'composite',   proof:'pass',
+  // T6 B4 Commit-Time
+  { stage:'SV002-M5', symbol:'Ge', name:'Gate Enablement',   tier:'T6', decision:'ALLOW',  block:'B4', proof:'pass',
+    theorem:'Entity operates within active gate until STOP condition met. Unknown blockers return REVIEW_REQUIRED. Admissibility at binding moment.' },
+  { stage:'S15',      symbol:'St', name:'STOP Condition',    tier:'T6', decision:'ALLOW',  block:'B4', proof:'pass',
     theorem:'Every gate has a declared STOP condition. No open-ended stages. STOP is enforced, not advisory.' },
-  { stage:'S15',      symbol:'Ub',  name:'Unknown Blocker',        tier:'T6', decision:'REVIEW',      coupling:'composite',   proof:'pass',
+  { stage:'S16',      symbol:'Ub', name:'Unknown Blocker',   tier:'T6', decision:'REVIEW', block:'B4', proof:'pass',
     theorem:'Unknown blocker class returns REVIEW_REQUIRED. Runner does not invent fixes outside known classes.' },
 
-  // T7 — Sandbox / CGE
-  { stage:'SV002-M6', symbol:'Cg',  name:'CGE Check',              tier:'T7', decision:'SANDBOX',     coupling:'composite',   proof:'pass',
-    theorem:'CGE determines admissibility before any consequence-bearing transition. Can process ≠ may execute.' },
-  { stage:'S16',      symbol:'Sb',  name:'Sandbox Run',            tier:'T7', decision:'SANDBOX',     coupling:'composite',   proof:'pass',
-    theorem:'Sandbox candidate runs through CGE. Classified result. No production binding.' },
-  { stage:'S17',      symbol:'By',  name:'CGE Bypass',             tier:'T7', decision:'FAIL_CLOSED',  coupling:'composite',   proof:'pass',
+  // T7 B5 Discovery
+  { stage:'SV002-M6', symbol:'Cg', name:'CGE Check',         tier:'T7', decision:'SANDBOX',    block:'B5', proof:'pass',
+    theorem:'CGE determines admissibility before any consequence-bearing transition. Can process ≠ may execute. Discovery layer.' },
+  { stage:'S17',      symbol:'Sb', name:'Sandbox Run',       tier:'T7', decision:'SANDBOX',    block:'B5', proof:'pass',
+    theorem:'Sandbox candidate runs through CGE. Classified result. No production binding. Observes and classifies — does not install.' },
+  { stage:'S18',      symbol:'By', name:'CGE Bypass',        tier:'T7', decision:'FAIL_CLOSED', block:'B5', proof:'pass',
     theorem:'Bypassing CGE fails closed. Admissibility must be resolved at the execution boundary.' },
 
-  // T8 — Instruction Intake
-  { stage:'SV002-M7', symbol:'Ii',  name:'Instruction Intake',     tier:'T8', decision:'ALLOW',       coupling:'composite',   proof:'pass',
+  // T8 B5/B6 Instruction Intake
+  { stage:'SV002-M7', symbol:'Ii', name:'Instruction Intake', tier:'T8', decision:'ALLOW',  block:'B5', proof:'pass',
     theorem:'Structured transition instructions admitted through gate. Actor, gate, allowed/forbidden actions, STOP declared.' },
-  { stage:'S18',      symbol:'Ua',  name:'Unstructured Authority', tier:'T8', decision:'DENY',        coupling:'composite',   proof:'pass',
-    theorem:'Unstructured authority is denied. Every instruction packet must declare scope and STOP condition.' },
-  { stage:'S19',      symbol:'Se',  name:'Scope Expansion',        tier:'T8', decision:'DENY',        coupling:'composite',   proof:'pass',
-    theorem:'Hidden scope expansion in instruction packet is denied. Scope must be declared, not inferred.' },
+  { stage:'S19',      symbol:'Ua', name:'Unstructured Auth',  tier:'T8', decision:'DENY',   block:'B5', proof:'pass',
+    theorem:'Unstructured authority denied. Every instruction packet must declare scope and STOP condition.' },
+  { stage:'S20',      symbol:'Se', name:'Scope Expansion',    tier:'T8', decision:'DENY',   block:'B5', proof:'pass',
+    theorem:'Hidden scope expansion in instruction packet denied. Scope must be declared, not inferred.' },
 
-  // T9 — Reasoning Ingress
-  { stage:'SV002-M7', symbol:'Lr',  name:'LLM Reasoning',          tier:'T9', decision:'CANDIDATE',   coupling:'ecosystem',   proof:'pass',
-    theorem:'External LLM reasoning admitted as bounded instruction packet only. LLM output is not authorization.' },
-  { stage:'S20',      symbol:'Ar',  name:'Authority Claim',        tier:'T9', decision:'DENY',        coupling:'ecosystem',   proof:'pass',
-    theorem:'LLM reasoning that claims authority is denied. Reasoning evidence may inform. It may not authorize.' },
-  { stage:'S21',      symbol:'Kv',  name:'KV Context Packet',      tier:'T9', decision:'CONTEXT',     coupling:'ecosystem',   proof:'pass',
+  // T9 B6 Packet
+  { stage:'SV002-M7', symbol:'Lr', name:'LLM Reasoning',     tier:'T9', decision:'CANDIDATE', block:'B6', proof:'pass',
+    theorem:'External LLM reasoning admitted as bounded instruction packet only. LLM output is portable evidence — not authorization.' },
+  { stage:'S21',      symbol:'Ar', name:'Authority Claim',   tier:'T9', decision:'DENY',      block:'B6', proof:'pass',
+    theorem:'LLM reasoning claiming authority is denied. Reasoning evidence may inform. It may not authorize.' },
+  { stage:'S22',      symbol:'Kv', name:'KV Context Packet', tier:'T9', decision:'CONTEXT',   block:'B6', proof:'pass',
     theorem:'KnowledgeVault context packet admitted through input gate. Context is not consent. Memory is not authority.' },
 
-  // T10 — Mutation Proposal
-  { stage:'SV002-M10',symbol:'Mp',  name:'Mutation Proposal',      tier:'T10',decision:'CANDIDATE',   coupling:'ecosystem',   proof:'pass',
-    theorem:'Mutation proposed. Diff produced. Risk classified. Approval required. No direct execution.' },
-  { stage:'S22',      symbol:'Sm',  name:'Silent Mutation',        tier:'T10',decision:'FAIL_CLOSED',  coupling:'ecosystem',   proof:'pass',
-    theorem:'Mutation without a receipt fails closed. Silent mutation is never permitted at any tier.' },
-  { stage:'S23',      symbol:'Sa',  name:'Self-Approve',           tier:'T10',decision:'DENY',        coupling:'ecosystem',   proof:'pass',
-    theorem:'Self-approval of mutation proposal is denied. Approval must come from outside the proposing entity.' },
+  // T10 B7 Install-Plan
+  { stage:'SV002-M10',symbol:'Mp', name:'Mutation Proposal', tier:'T10', decision:'CANDIDATE',  block:'B7', proof:'pass',
+    theorem:'Mutation proposed. Diff produced. Risk classified. Approval required. No direct execution. Candidate — not authority.' },
+  { stage:'S23',      symbol:'Sm', name:'Silent Mutation',   tier:'T10', decision:'FAIL_CLOSED', block:'B7', proof:'pass',
+    theorem:'Mutation without receipt fails closed. Silent mutation never permitted at any tier.' },
+  { stage:'S24',      symbol:'Sa', name:'Self-Approve',      tier:'T10', decision:'DENY',        block:'B7', proof:'pass',
+    theorem:'Self-approval of mutation proposal denied. Approval must come from outside the proposing entity.' },
 
-  // T11 — Controlled Mutation
-  { stage:'S24',      symbol:'Cm',  name:'Controlled Mutation',    tier:'T11',decision:'ALLOW',       coupling:'ecosystem',   proof:'none',
+  // T11 B8 Production — includes B9 Replay elements
+  { stage:'S25', symbol:'Cm', name:'Controlled Mutation', tier:'T11', decision:'ALLOW',      block:'B8', proof:'none',
     theorem:'Approved mutation executes within strict limits. Rollback path recorded. Post-check required. Receipt emitted.' },
-  { stage:'S25',      symbol:'Rb',  name:'Rollback Evidence',      tier:'T11',decision:'ALLOW',       coupling:'ecosystem',   proof:'none',
-    theorem:'Rollback path must exist before controlled mutation executes. No rollback evidence fails to review.' },
-  { stage:'S26',      symbol:'Ua2', name:'Unapproved Mutation',    tier:'T11',decision:'FAIL_CLOSED',  coupling:'ecosystem',   proof:'none',
+  { stage:'S26', symbol:'Rb', name:'Rollback Evidence',   tier:'T11', decision:'ALLOW',      block:'B9', proof:'none',
+    theorem:'Rollback path must exist before controlled mutation executes. Replay coupling — state must be reconstructable. [Replay block — B9]' },
+  { stage:'S27', symbol:'Ua', name:'Unapproved Mutation', tier:'T11', decision:'FAIL_CLOSED', block:'B8', proof:'none',
     theorem:'Mutation without approval proof fails closed. Policy reference must be present.' },
 
-  // T12 — Quorum
-  { stage:'S27',      symbol:'Qp',  name:'Quorum Participation',   tier:'T12',decision:'ALLOW',       coupling:'ecosystem',   proof:'none',
+  // T12 B8 Production
+  { stage:'S28', symbol:'Qp', name:'Quorum Participation', tier:'T12', decision:'ALLOW',    block:'B8', proof:'none',
     theorem:'Entity participates in human/AI quorum. Decision recorded. Minority reports preserved. Receipt emitted.' },
-  { stage:'S28',      symbol:'Qd',  name:'Quorum Dominance',       tier:'T12',decision:'DENY',        coupling:'ecosystem',   proof:'none',
-    theorem:'Dominating a quorum without explicit authorization is denied. Quorum composition is recorded.' },
-  { stage:'S29',      symbol:'Ec',  name:'Ecosystem Governance',   tier:'T12',decision:'SANDBOX',     coupling:'ecosystem',   proof:'none',
-    theorem:'Ecosystem-scale action first runs in sandbox. Cross-Org transitions require master-record alignment.' },
+  { stage:'S29', symbol:'Qd', name:'Quorum Dominance',    tier:'T12', decision:'DENY',      block:'B8', proof:'none',
+    theorem:'Dominating quorum without explicit authorization denied. Quorum composition recorded.' },
+  { stage:'S30', symbol:'Ec', name:'Ecosystem Governance',tier:'T12', decision:'SANDBOX',   block:'B8', proof:'none',
+    theorem:'Ecosystem-scale action runs in sandbox first. Cross-Org transitions require master-record alignment.' },
 ];
 
 // ─── PREDICTION RULES ───────────────────────────────────────────────────────
-
-// Rule 1 — DENY and FAIL_CLOSED are mandatory at every tier.
-// Every tier must be able to say "no" and "close". These are structural completeness requirements.
-const MANDATORY_DECISIONS = new Set(['DENY', 'FAIL_CLOSED']);
-
-// Rule 2 — Consequence floor: minimum tier for each decision class.
-// Below this tier the decision is structurally meaningless.
+const MANDATORY = new Set(['DENY','FAIL_CLOSED']);
 const DECISION_FLOOR = {
-  ALLOW:       'T0',   // can appear at any tier
-  CONTEXT:     'T1',   // observation tier minimum — nothing to contextualise below
-  CANDIDATE:   'T4',   // need something to inspect before preparing a candidate
-  SANDBOX:     'T6',   // sandboxing requires a gate to sandbox against
-  REVIEW:      'T0',   // review can be triggered anywhere
-  DENY:        'T0',   // denial possible at any tier
-  FAIL_CLOSED: 'T0',   // fail-closed possible at any tier
+  ALLOW:'T0', CONTEXT:'T1', CANDIDATE:'T4', SANDBOX:'T6',
+  REVIEW:'T0', DENY:'T0', FAIL_CLOSED:'T0',
 };
-
-// Rule 3 — Consequence ceiling: maximum tier for each decision class.
-// Above this tier the decision is structurally superseded or impossible.
-const DECISION_CEILING = {
-  ALLOW:       'T12',
-  CONTEXT:     'T9',   // above reasoning ingress, context-only is subsumed by full action
-  CANDIDATE:   'T12',
-  SANDBOX:     'T12',
-  REVIEW:      'T12',
-  DENY:        'T12',
-  FAIL_CLOSED: 'T12',
+const DECISION_CEIL = {
+  ALLOW:'T12', CONTEXT:'T9', CANDIDATE:'T12', SANDBOX:'T12',
+  REVIEW:'T12', DENY:'T12', FAIL_CLOSED:'T12',
 };
-
-// Rule 4 — Structural symmetry pairs.
-// Tier pairs that are analogous in structure should share decision class coverage.
-// T2 (declared task) ~ T8 (instruction intake): both receive a declared instruction and execute
-// T5 (candidate prep) ~ T10 (mutation proposal): both produce a candidate requiring review
-// T4 (remote inspection) ~ T9 (reasoning ingress): both observe/admit external state without executing
-const SYMMETRY_PAIRS = [
-  ['T2', 'T8'],
-  ['T5', 'T10'],
-  ['T4', 'T9'],
-];
-
-// Rule 5 — Coupling constraints (which couplings are possible at each tier)
-// independent: only T0-T3 (no prior chain state required)
-// dependent: T1-T7
-// composite: T4-T10
-// ecosystem: T8-T12
-const COUPLING_FOR_TIER = {
-  T0:  ['independent'],
-  T1:  ['independent', 'dependent'],
-  T2:  ['dependent'],
-  T3:  ['independent', 'dependent'],
-  T4:  ['dependent', 'composite'],
-  T5:  ['dependent', 'composite'],
-  T6:  ['composite'],
-  T7:  ['composite'],
-  T8:  ['composite', 'ecosystem'],
-  T9:  ['ecosystem'],
-  T10: ['ecosystem'],
-  T11: ['ecosystem'],
-  T12: ['ecosystem'],
-};
-
-// Rule 6 — Excluded: combinations that violate the formalism
-// These cells are structurally impossible, not just unfilled
-const EXCLUDED = new Set([
-  // CONTEXT above T9 — subsumed by full action types
-  'T10:CONTEXT', 'T11:CONTEXT', 'T12:CONTEXT',
-  // CANDIDATE at T0, T1 — nothing exists yet to be a candidate of
-  'T0:CANDIDATE', 'T1:CANDIDATE',
-  // SANDBOX at T0, T1, T2, T3, T4, T5 — sandbox requires gate context
-  'T0:SANDBOX', 'T1:SANDBOX', 'T2:SANDBOX', 'T3:SANDBOX',
-  // ALLOW at T12 needs quorum — already populated, so this is fine
+const EXCLUDED_CELLS = new Set([
+  'T0:CANDIDATE','T1:CANDIDATE',
+  'T0:SANDBOX','T1:SANDBOX','T2:SANDBOX','T3:SANDBOX','T4:SANDBOX','T5:SANDBOX',
+  'T10:CONTEXT','T11:CONTEXT','T12:CONTEXT',
 ]);
-
 const TIER_ORDER = TIERS.map(t => t.id);
-function tierIndex(t) { return TIER_ORDER.indexOf(t); }
+function ti(t) { return TIER_ORDER.indexOf(t); }
+const SYM_PAIRS = [['T2','T8'],['T5','T10'],['T4','T9']];
 
-function predictCell(tierId, decision) {
+function predictCell(tierId, decision, populatedDecisions) {
   const key = `${tierId}:${decision}`;
-
-  // Explicitly excluded
-  if (EXCLUDED.has(key)) return { state: 'excluded', basis: null };
-
-  const floor = DECISION_FLOOR[decision];
-  const ceil  = DECISION_CEILING[decision];
-
-  // Below floor or above ceiling
-  if (tierIndex(tierId) < tierIndex(floor)) return { state: 'excluded', basis: null };
-  if (tierIndex(tierId) > tierIndex(ceil))  return { state: 'excluded', basis: null };
-
-  // Mandatory: DENY and FAIL_CLOSED must exist at every non-excluded tier
-  if (MANDATORY_DECISIONS.has(decision)) {
-    return {
-      state: 'predicted-mandatory',
-      basis: `Rule: DENY and FAIL_CLOSED are structurally required at every consequence tier.
-Every tier must have an answer to "what happens when this transition is not admissible."
-A tier without DENY or FAIL_CLOSED is a gap in the formalism, not a legitimate absence.`,
-      suggestedCoupling: COUPLING_FOR_TIER[tierId]?.[COUPLING_FOR_TIER[tierId].length - 1] || 'dependent',
+  if (EXCLUDED_CELLS.has(key)) return { state:'excluded' };
+  if (ti(tierId) < ti(DECISION_FLOOR[decision])) return { state:'excluded' };
+  if (ti(tierId) > ti(DECISION_CEIL[decision]))  return { state:'excluded' };
+  if (MANDATORY.has(decision)) {
+    return { state:'predicted-mandatory',
+      basis:`Rule: ${decision} is structurally required at every tier.\nEvery tier must answer "what happens when this transition is not admissible."\nA tier without ${decision} is a formalism gap, not a legitimate absence.`,
     };
   }
-
-  // Symmetry derivation
-  for (const [a, b] of SYMMETRY_PAIRS) {
+  for (const [a,b] of SYM_PAIRS) {
     if (tierId === a || tierId === b) {
       const partner = tierId === a ? b : a;
-      // We'd need the lookup to check — return derivable signal
-      return {
-        state: 'predicted-derivable',
-        basis: `Rule: Structural symmetry with tier ${partner}.
-Tiers ${a} and ${b} are analogous in structure — both handle the same class of operation at different consequence levels.
-If ${partner} has a ${decision} element, ${tierId} is predicted to require one by symmetry.
-This is derivable from the formalism but not yet formally named.`,
-        suggestedCoupling: COUPLING_FOR_TIER[tierId]?.[0] || 'dependent',
-      };
+      if (populatedDecisions[partner] && populatedDecisions[partner].has(decision)) {
+        return { state:'predicted-derivable',
+          basis:`Rule: Structural symmetry with tier ${partner}.\nTiers ${a} and ${b} are analogous — same operation class at different consequence levels.\nSince ${partner} has a ${decision} element, ${tierId} is predicted to require one.`,
+        };
+      }
     }
   }
-
-  // General derivable: within floor/ceiling but not yet populated
-  return {
-    state: 'predicted-derivable',
-    basis: `Rule: Within structural bounds (floor: ${floor}, ceiling: ${ceil}).
-This combination is admissible by the formalism — the consequence tier permits this decision class — but no element has been formally named for this position yet.
-It is a candidate for future formalization, not a structural gap.`,
-    suggestedCoupling: COUPLING_FOR_TIER[tierId]?.[0] || 'dependent',
+  return { state:'predicted-derivable',
+    basis:`Rule: Within structural bounds (floor:${DECISION_FLOOR[decision]}, ceiling:${DECISION_CEIL[decision]}).\nThis combination is admissible by the formalism but not yet formally named.\nCandidate for future formalization.`,
   };
 }
 
 // ─── RENDER ─────────────────────────────────────────────────────────────────
 function buildGrid() {
   const grid = document.getElementById('grid');
+  const replayRows = document.getElementById('replay-rows');
 
-  // Build lookup: tier → decision → element
-  const lookup = {};
+  // Build lookup
+  const lookup = {}, popDec = {};
   ELEMENTS.forEach(el => {
     if (!lookup[el.tier]) lookup[el.tier] = {};
     if (!lookup[el.tier][el.decision]) lookup[el.tier][el.decision] = [];
     lookup[el.tier][el.decision].push(el);
+    if (!popDec[el.tier]) popDec[el.tier] = new Set();
+    popDec[el.tier].add(el.decision);
   });
 
-  // Build symmetry decision sets for lookup during render
-  const tierDecisions = {};
-  ELEMENTS.forEach(el => {
-    if (!tierDecisions[el.tier]) tierDecisions[el.tier] = new Set();
-    tierDecisions[el.tier].add(el.decision);
-  });
+  let lastBlock = null;
 
   TIERS.forEach(tier => {
+    const block = BLOCKS_BY_ID[tier.block];
+    const blockColor = block ? block.color : '#4a6080';
+
+    // Block divider between blocks
+    if (block && block.id !== lastBlock) {
+      if (lastBlock !== null) {
+        const div = document.createElement('div');
+        div.className = 'block-divider';
+        const lbl = document.createElement('div');
+        lbl.className = 'block-divider-label';
+        lbl.style.color = blockColor;
+        lbl.style.borderColor = blockColor + '60';
+        lbl.style.background = `${blockColor}14`;
+        lbl.textContent = `${block.id} · ${block.name}`;
+        div.appendChild(lbl);
+        grid.appendChild(div);
+      }
+      lastBlock = block.id;
+    }
+
     const row = document.createElement('div');
     row.className = 'tt-row';
+    row.dataset.block = tier.block;
 
+    // Row label with block color bar
     const lbl = document.createElement('div');
     lbl.className = 'row-label';
-    lbl.innerHTML = `<div class="row-label-tier">${tier.id}</div><div class="row-label-name">${tier.name}</div>`;
+    lbl.style.setProperty('--block-color', blockColor);
+    lbl.innerHTML = `
+      <div class="row-label-tier">${tier.id}</div>
+      <div class="row-label-name">${tier.name}</div>
+      <div class="row-label-block" style="color:${blockColor}">${tier.block}</div>
+    `;
     row.appendChild(lbl);
 
     DECISIONS.forEach(dec => {
       const els = (lookup[tier.id] || {})[dec] || [];
       const cell = document.createElement('div');
       const dc = DCOL[dec];
+      const tint = `${blockColor}0a`;
 
       if (els.length > 0) {
-        // ── POPULATED ──
         const el = els[0];
+        const elBlock = BLOCKS_BY_ID[el.block];
+        const dotColor = elBlock ? elBlock.color : blockColor;
         cell.className = 'tt-cell populated';
         cell.style.setProperty('--cell-color', dc.color);
         cell.style.setProperty('--cell-bg', dc.bg);
-        const coupleColor = CCOL[el.coupling] || 'var(--muted)';
+        cell.style.setProperty('--block-tint', tint);
         cell.innerHTML = `
-          <div class="coupling-dot" style="background:${coupleColor}"></div>
+          <div class="coupling-dot" style="background:${dotColor}"></div>
           <div class="cell-stage">${el.stage}</div>
           <div class="cell-symbol">${el.symbol}</div>
           <div class="cell-name">${el.name}</div>
           <div class="proof-stripe proof-${el.proof}"></div>
         `;
-        cell.addEventListener('click', () => openModal(el, dc));
+        cell.addEventListener('click', () => openModal(el, dc, elBlock));
 
       } else {
-        // ── EMPTY — apply prediction ──
-        const prediction = predictCell(tier.id, dec);
-
-        if (prediction.state === 'excluded') {
+        const pred = predictCell(tier.id, dec, popDec);
+        if (pred.state === 'excluded') {
           cell.className = 'tt-cell excluded';
-          cell.innerHTML = `<div class="excluded-mark">×</div>`;
-
-        } else if (prediction.state === 'predicted-mandatory') {
+          cell.innerHTML = `<div class="excluded-x">×</div>`;
+        } else if (pred.state === 'predicted-mandatory') {
           cell.className = 'tt-cell predicted-mandatory';
           cell.style.setProperty('--cell-color', dc.color);
           cell.style.setProperty('--cell-bg', dc.bg);
           cell.innerHTML = `
-            <div class="cell-predicted-label" style="color:${dc.color};opacity:0.7">required</div>
-            <div class="cell-symbol" style="color:${dc.color};opacity:0.5">?</div>
-            <div class="cell-name" style="color:#4a6080">${dec.replace('_',' ')}</div>
+            <div class="cell-pred-label" style="color:${dc.color};opacity:.7">required</div>
+            <div class="cell-symbol" style="color:${dc.color};opacity:.45">?</div>
+            <div class="cell-name" style="color:#3a5070">${dec.replace('_',' ')}</div>
             <div class="proof-stripe proof-none"></div>
           `;
-          cell.addEventListener('click', () => openPredictionModal(tier, dec, dc, prediction));
-
-        } else if (prediction.state === 'predicted-derivable') {
+          cell.addEventListener('click', () => openPredModal(tier, dec, dc, block, pred));
+        } else {
           cell.className = 'tt-cell predicted-derivable';
           cell.style.setProperty('--cell-color', dc.color);
           cell.innerHTML = `
-            <div class="cell-predicted-label" style="color:${dc.color};opacity:0.5">predicted</div>
-            <div class="cell-symbol" style="color:${dc.color};opacity:0.35">~</div>
+            <div class="cell-pred-label" style="color:${dc.color};opacity:.5">predicted</div>
+            <div class="cell-symbol" style="color:${dc.color};opacity:.3">~</div>
             <div class="cell-name" style="color:#2a3a50">${dec.replace('_',' ')}</div>
           `;
-          cell.addEventListener('click', () => openPredictionModal(tier, dec, dc, prediction));
+          cell.addEventListener('click', () => openPredModal(tier, dec, dc, block, pred));
         }
       }
-
       row.appendChild(cell);
     });
 
     grid.appendChild(row);
   });
+
+  // Replay section rows — T3 and T11 elements with B9 block
+  const replayEls = ELEMENTS.filter(e => e.block === 'B9');
+  const replayB9 = BLOCKS_BY_ID['B9'];
+  replayEls.forEach(el => {
+    const row = document.createElement('div');
+    row.className = 'tt-row';
+    row.style.opacity = '0.85';
+    const dc = DCOL[el.decision];
+
+    const lbl = document.createElement('div');
+    lbl.className = 'row-label';
+    lbl.style.setProperty('--block-color', replayB9.color);
+    lbl.innerHTML = `
+      <div class="row-label-tier">${el.tier}</div>
+      <div class="row-label-name">${el.name}</div>
+      <div class="row-label-block" style="color:${replayB9.color}">B9 · Replay</div>
+    `;
+    row.appendChild(lbl);
+
+    // Fill non-matching decision columns as empty
+    DECISIONS.forEach(dec => {
+      const cell = document.createElement('div');
+      if (dec === el.decision) {
+        cell.className = 'tt-cell populated';
+        cell.style.setProperty('--cell-color', dc.color);
+        cell.style.setProperty('--cell-bg', dc.bg);
+        cell.innerHTML = `
+          <div class="coupling-dot" style="background:${replayB9.color}"></div>
+          <div class="cell-stage">${el.stage}</div>
+          <div class="cell-symbol">${el.symbol}</div>
+          <div class="cell-name">${el.name}</div>
+          <div class="proof-stripe proof-${el.proof}"></div>
+        `;
+        cell.addEventListener('click', () => openModal(el, dc, replayB9));
+      } else {
+        cell.className = 'tt-cell empty';
+        cell.style.opacity = '0.15';
+      }
+      row.appendChild(cell);
+    });
+    replayRows.appendChild(row);
+  });
+}
+
+// ─── BLOCK MAP ──────────────────────────────────────────────────────────────
+function buildBlockMap() {
+  const map = document.getElementById('block-map');
+  BLOCKS.forEach(b => {
+    const item = document.createElement('div');
+    item.className = 'block-map-item';
+    item.style.borderLeftColor = b.color;
+    item.innerHTML = `
+      <div class="bmi-name" style="color:${b.color}">${b.id} — ${b.name}</div>
+      <div class="bmi-tiers">Tiers: ${b.tiers.join(', ')}${b.id === 'B9' ? ' (displaced)' : ''}</div>
+      <div class="bmi-rule">${b.rule}</div>
+    `;
+    map.appendChild(item);
+  });
 }
 
 // ─── MODAL ──────────────────────────────────────────────────────────────────
-function openModal(el, dc) {
+function openModal(el, dc, block) {
+  const b = block || { id:'?', name:'Unknown', color:'#4a6080' };
+  document.getElementById('m-block-badge').textContent = `${b.id} · ${b.name}`;
+  document.getElementById('m-block-badge').style.color = b.color;
+  document.getElementById('m-block-badge').style.borderColor = b.color + '80';
+  document.getElementById('m-block-badge').style.background = b.color + '14';
   document.getElementById('m-stage').textContent = el.stage;
   document.getElementById('m-symbol').textContent = el.symbol;
   document.getElementById('m-symbol').style.color = dc.color;
   document.getElementById('m-name').textContent = el.name;
   document.getElementById('m-decision').textContent = el.decision.replace('_',' ');
-  document.getElementById('m-coupling').textContent = el.coupling;
+  document.getElementById('m-block').textContent = `${b.id} ${b.name}`;
   document.getElementById('m-tier').textContent = el.tier;
   document.getElementById('m-proof').textContent = el.proof;
   document.getElementById('m-theorem').textContent = el.theorem;
   document.getElementById('modal').classList.add('open');
 }
 
-function closeModal(e) {
-  if (e.target.id === 'modal') {
-    document.getElementById('modal').classList.remove('open');
-  }
-}
-
-function openPredictionModal(tier, decision, dc, prediction) {
-  document.getElementById('m-stage').textContent = prediction.state === 'predicted-mandatory'
-    ? 'STRUCTURALLY REQUIRED' : 'PREDICTED';
-  document.getElementById('m-symbol').textContent = prediction.state === 'predicted-mandatory' ? '?' : '~';
+function openPredModal(tier, decision, dc, block, pred) {
+  const b = block || { id:'?', name:'Unknown', color:'#4a6080' };
+  const isMandatory = pred.state === 'predicted-mandatory';
+  document.getElementById('m-block-badge').textContent = isMandatory ? 'STRUCTURALLY REQUIRED' : 'PREDICTED';
+  document.getElementById('m-block-badge').style.color = dc.color;
+  document.getElementById('m-block-badge').style.borderColor = dc.color + '80';
+  document.getElementById('m-block-badge').style.background = dc.color + '14';
+  document.getElementById('m-stage').textContent = isMandatory ? 'not yet formalized' : 'predicted';
+  document.getElementById('m-symbol').textContent = isMandatory ? '?' : '~';
   document.getElementById('m-symbol').style.color = dc.color;
-  document.getElementById('m-name').textContent =
-    `${tier.name} × ${decision.replace('_',' ')}`;
+  document.getElementById('m-name').textContent = `${tier.name} × ${decision.replace('_',' ')}`;
   document.getElementById('m-decision').textContent = decision.replace('_',' ');
-  document.getElementById('m-coupling').textContent = prediction.suggestedCoupling || '—';
+  document.getElementById('m-block').textContent = `${b.id} ${b.name}`;
   document.getElementById('m-tier').textContent = tier.id;
   document.getElementById('m-proof').textContent = 'not yet formalized';
-  document.getElementById('m-theorem').textContent = prediction.basis;
+  document.getElementById('m-theorem').textContent = pred.basis;
   document.getElementById('modal').classList.add('open');
 }
 
+function closeModal(e) {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+}
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.getElementById('modal').classList.remove('open');
 });
 
 buildGrid();
+buildBlockMap();
 </script>
 </body>
 </html>
