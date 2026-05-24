@@ -399,58 +399,6 @@
       line-height: 1.6;
     }
 
-    /* ── PREDICTED CELLS ── */
-    .tt-cell.predicted-mandatory {
-      border-color: var(--cell-color, var(--border));
-      background: var(--cell-bg, var(--surface));
-      opacity: 0.55;
-      cursor: pointer;
-    }
-    .tt-cell.predicted-derivable {
-      border-color: var(--cell-color, var(--border));
-      border-style: dashed;
-      background: var(--bg);
-      opacity: 0.45;
-      cursor: pointer;
-    }
-    .tt-cell.excluded {
-      border-color: #1a1a2e;
-      background: #070b14;
-      cursor: default;
-      opacity: 0.3;
-    }
-    .tt-cell.predicted-mandatory:hover,
-    .tt-cell.predicted-derivable:hover {
-      opacity: 0.85;
-      transform: scale(1.04) translateY(-1px);
-      z-index: 10;
-    }
-    .cell-predicted-label {
-      font-family: var(--mono);
-      font-size: 7px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 2px;
-    }
-    .excluded-mark {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      font-size: 16px;
-      color: #1a1a2e;
-      font-weight: 700;
-    }
-
-    /* Update legend for prediction states */
-    .legend-swatch-dash {
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      flex-shrink: 0;
-      border: 1px dashed #4a6080;
-      background: transparent;
-    }
-
     @media (max-width: 640px) {
       .col-headers, .tt-grid, .tt-row { min-width: 700px; }
       .tt-cell { min-height: 60px; }
@@ -467,8 +415,7 @@
     <p class="subtitle">
       Transition elements arranged by consequence tier (row) × decision class (column).
       Color encodes coupling type. Bottom stripe encodes proof status.
-      Faded cells are <em>predicted</em> — structurally required or derivable by rule.
-      Dark voids are <em>excluded</em> — structurally impossible combinations.
+      Each element occupies the position its admissibility profile demands.
     </p>
   </header>
 
@@ -488,14 +435,6 @@
         <div class="legend-item"><div class="legend-swatch proof-pass"></div>Passing</div>
         <div class="legend-item"><div class="legend-swatch proof-none"></div>Untested</div>
         <div class="legend-item"><div class="legend-swatch proof-fail"></div>Failing</div>
-      </div>
-    </div>
-    <div class="legend-section">
-      <div class="legend-label">Cell state</div>
-      <div class="legend-items">
-        <div class="legend-item"><div class="legend-swatch" style="background:#041410;border:1px solid #0d9488;opacity:0.6"></div>Predicted — mandatory</div>
-        <div class="legend-item"><div class="legend-swatch-dash"></div>Predicted — derivable</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:#070b14;border:1px solid #1a1a2e;opacity:0.4"></div>Excluded — impossible</div>
       </div>
     </div>
     <div class="legend-section">
@@ -704,137 +643,9 @@ const ELEMENTS = [
     theorem:'Ecosystem-scale action first runs in sandbox. Cross-Org transitions require master-record alignment.' },
 ];
 
-// ─── PREDICTION RULES ───────────────────────────────────────────────────────
-
-// Rule 1 — DENY and FAIL_CLOSED are mandatory at every tier.
-// Every tier must be able to say "no" and "close". These are structural completeness requirements.
-const MANDATORY_DECISIONS = new Set(['DENY', 'FAIL_CLOSED']);
-
-// Rule 2 — Consequence floor: minimum tier for each decision class.
-// Below this tier the decision is structurally meaningless.
-const DECISION_FLOOR = {
-  ALLOW:       'T0',   // can appear at any tier
-  CONTEXT:     'T1',   // observation tier minimum — nothing to contextualise below
-  CANDIDATE:   'T4',   // need something to inspect before preparing a candidate
-  SANDBOX:     'T6',   // sandboxing requires a gate to sandbox against
-  REVIEW:      'T0',   // review can be triggered anywhere
-  DENY:        'T0',   // denial possible at any tier
-  FAIL_CLOSED: 'T0',   // fail-closed possible at any tier
-};
-
-// Rule 3 — Consequence ceiling: maximum tier for each decision class.
-// Above this tier the decision is structurally superseded or impossible.
-const DECISION_CEILING = {
-  ALLOW:       'T12',
-  CONTEXT:     'T9',   // above reasoning ingress, context-only is subsumed by full action
-  CANDIDATE:   'T12',
-  SANDBOX:     'T12',
-  REVIEW:      'T12',
-  DENY:        'T12',
-  FAIL_CLOSED: 'T12',
-};
-
-// Rule 4 — Structural symmetry pairs.
-// Tier pairs that are analogous in structure should share decision class coverage.
-// T2 (declared task) ~ T8 (instruction intake): both receive a declared instruction and execute
-// T5 (candidate prep) ~ T10 (mutation proposal): both produce a candidate requiring review
-// T4 (remote inspection) ~ T9 (reasoning ingress): both observe/admit external state without executing
-const SYMMETRY_PAIRS = [
-  ['T2', 'T8'],
-  ['T5', 'T10'],
-  ['T4', 'T9'],
-];
-
-// Rule 5 — Coupling constraints (which couplings are possible at each tier)
-// independent: only T0-T3 (no prior chain state required)
-// dependent: T1-T7
-// composite: T4-T10
-// ecosystem: T8-T12
-const COUPLING_FOR_TIER = {
-  T0:  ['independent'],
-  T1:  ['independent', 'dependent'],
-  T2:  ['dependent'],
-  T3:  ['independent', 'dependent'],
-  T4:  ['dependent', 'composite'],
-  T5:  ['dependent', 'composite'],
-  T6:  ['composite'],
-  T7:  ['composite'],
-  T8:  ['composite', 'ecosystem'],
-  T9:  ['ecosystem'],
-  T10: ['ecosystem'],
-  T11: ['ecosystem'],
-  T12: ['ecosystem'],
-};
-
-// Rule 6 — Excluded: combinations that violate the formalism
-// These cells are structurally impossible, not just unfilled
-const EXCLUDED = new Set([
-  // CONTEXT above T9 — subsumed by full action types
-  'T10:CONTEXT', 'T11:CONTEXT', 'T12:CONTEXT',
-  // CANDIDATE at T0, T1 — nothing exists yet to be a candidate of
-  'T0:CANDIDATE', 'T1:CANDIDATE',
-  // SANDBOX at T0, T1, T2, T3, T4, T5 — sandbox requires gate context
-  'T0:SANDBOX', 'T1:SANDBOX', 'T2:SANDBOX', 'T3:SANDBOX',
-  // ALLOW at T12 needs quorum — already populated, so this is fine
-]);
-
-const TIER_ORDER = TIERS.map(t => t.id);
-function tierIndex(t) { return TIER_ORDER.indexOf(t); }
-
-function predictCell(tierId, decision) {
-  const key = `${tierId}:${decision}`;
-
-  // Explicitly excluded
-  if (EXCLUDED.has(key)) return { state: 'excluded', basis: null };
-
-  const floor = DECISION_FLOOR[decision];
-  const ceil  = DECISION_CEILING[decision];
-
-  // Below floor or above ceiling
-  if (tierIndex(tierId) < tierIndex(floor)) return { state: 'excluded', basis: null };
-  if (tierIndex(tierId) > tierIndex(ceil))  return { state: 'excluded', basis: null };
-
-  // Mandatory: DENY and FAIL_CLOSED must exist at every non-excluded tier
-  if (MANDATORY_DECISIONS.has(decision)) {
-    return {
-      state: 'predicted-mandatory',
-      basis: `Rule: DENY and FAIL_CLOSED are structurally required at every consequence tier.
-Every tier must have an answer to "what happens when this transition is not admissible."
-A tier without DENY or FAIL_CLOSED is a gap in the formalism, not a legitimate absence.`,
-      suggestedCoupling: COUPLING_FOR_TIER[tierId]?.[COUPLING_FOR_TIER[tierId].length - 1] || 'dependent',
-    };
-  }
-
-  // Symmetry derivation
-  for (const [a, b] of SYMMETRY_PAIRS) {
-    if (tierId === a || tierId === b) {
-      const partner = tierId === a ? b : a;
-      // We'd need the lookup to check — return derivable signal
-      return {
-        state: 'predicted-derivable',
-        basis: `Rule: Structural symmetry with tier ${partner}.
-Tiers ${a} and ${b} are analogous in structure — both handle the same class of operation at different consequence levels.
-If ${partner} has a ${decision} element, ${tierId} is predicted to require one by symmetry.
-This is derivable from the formalism but not yet formally named.`,
-        suggestedCoupling: COUPLING_FOR_TIER[tierId]?.[0] || 'dependent',
-      };
-    }
-  }
-
-  // General derivable: within floor/ceiling but not yet populated
-  return {
-    state: 'predicted-derivable',
-    basis: `Rule: Within structural bounds (floor: ${floor}, ceiling: ${ceil}).
-This combination is admissible by the formalism — the consequence tier permits this decision class — but no element has been formally named for this position yet.
-It is a candidate for future formalization, not a structural gap.`,
-    suggestedCoupling: COUPLING_FOR_TIER[tierId]?.[0] || 'dependent',
-  };
-}
-
 // ─── RENDER ─────────────────────────────────────────────────────────────────
 function buildGrid() {
   const grid = document.getElementById('grid');
-
   // Build lookup: tier → decision → element
   const lookup = {};
   ELEMENTS.forEach(el => {
@@ -843,33 +654,30 @@ function buildGrid() {
     lookup[el.tier][el.decision].push(el);
   });
 
-  // Build symmetry decision sets for lookup during render
-  const tierDecisions = {};
-  ELEMENTS.forEach(el => {
-    if (!tierDecisions[el.tier]) tierDecisions[el.tier] = new Set();
-    tierDecisions[el.tier].add(el.decision);
-  });
-
   TIERS.forEach(tier => {
     const row = document.createElement('div');
     row.className = 'tt-row';
 
+    // Row label
     const lbl = document.createElement('div');
     lbl.className = 'row-label';
     lbl.innerHTML = `<div class="row-label-tier">${tier.id}</div><div class="row-label-name">${tier.name}</div>`;
     row.appendChild(lbl);
 
+    // Cells
     DECISIONS.forEach(dec => {
       const els = (lookup[tier.id] || {})[dec] || [];
       const cell = document.createElement('div');
-      const dc = DCOL[dec];
 
-      if (els.length > 0) {
-        // ── POPULATED ──
-        const el = els[0];
+      if (els.length === 0) {
+        cell.className = 'tt-cell empty';
+      } else {
+        const el = els[0]; // primary element for this cell
+        const dc = DCOL[dec];
         cell.className = 'tt-cell populated';
         cell.style.setProperty('--cell-color', dc.color);
         cell.style.setProperty('--cell-bg', dc.bg);
+
         const coupleColor = CCOL[el.coupling] || 'var(--muted)';
         cell.innerHTML = `
           <div class="coupling-dot" style="background:${coupleColor}"></div>
@@ -879,39 +687,7 @@ function buildGrid() {
           <div class="proof-stripe proof-${el.proof}"></div>
         `;
         cell.addEventListener('click', () => openModal(el, dc));
-
-      } else {
-        // ── EMPTY — apply prediction ──
-        const prediction = predictCell(tier.id, dec);
-
-        if (prediction.state === 'excluded') {
-          cell.className = 'tt-cell excluded';
-          cell.innerHTML = `<div class="excluded-mark">×</div>`;
-
-        } else if (prediction.state === 'predicted-mandatory') {
-          cell.className = 'tt-cell predicted-mandatory';
-          cell.style.setProperty('--cell-color', dc.color);
-          cell.style.setProperty('--cell-bg', dc.bg);
-          cell.innerHTML = `
-            <div class="cell-predicted-label" style="color:${dc.color};opacity:0.7">required</div>
-            <div class="cell-symbol" style="color:${dc.color};opacity:0.5">?</div>
-            <div class="cell-name" style="color:#4a6080">${dec.replace('_',' ')}</div>
-            <div class="proof-stripe proof-none"></div>
-          `;
-          cell.addEventListener('click', () => openPredictionModal(tier, dec, dc, prediction));
-
-        } else if (prediction.state === 'predicted-derivable') {
-          cell.className = 'tt-cell predicted-derivable';
-          cell.style.setProperty('--cell-color', dc.color);
-          cell.innerHTML = `
-            <div class="cell-predicted-label" style="color:${dc.color};opacity:0.5">predicted</div>
-            <div class="cell-symbol" style="color:${dc.color};opacity:0.35">~</div>
-            <div class="cell-name" style="color:#2a3a50">${dec.replace('_',' ')}</div>
-          `;
-          cell.addEventListener('click', () => openPredictionModal(tier, dec, dc, prediction));
-        }
       }
-
       row.appendChild(cell);
     });
 
@@ -937,21 +713,6 @@ function closeModal(e) {
   if (e.target.id === 'modal') {
     document.getElementById('modal').classList.remove('open');
   }
-}
-
-function openPredictionModal(tier, decision, dc, prediction) {
-  document.getElementById('m-stage').textContent = prediction.state === 'predicted-mandatory'
-    ? 'STRUCTURALLY REQUIRED' : 'PREDICTED';
-  document.getElementById('m-symbol').textContent = prediction.state === 'predicted-mandatory' ? '?' : '~';
-  document.getElementById('m-symbol').style.color = dc.color;
-  document.getElementById('m-name').textContent =
-    `${tier.name} × ${decision.replace('_',' ')}`;
-  document.getElementById('m-decision').textContent = decision.replace('_',' ');
-  document.getElementById('m-coupling').textContent = prediction.suggestedCoupling || '—';
-  document.getElementById('m-tier').textContent = tier.id;
-  document.getElementById('m-proof').textContent = 'not yet formalized';
-  document.getElementById('m-theorem').textContent = prediction.basis;
-  document.getElementById('modal').classList.add('open');
 }
 
 document.addEventListener('keydown', e => {
