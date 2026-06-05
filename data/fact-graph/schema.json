@@ -1,0 +1,57 @@
+{
+  "schema": "stegverse.fact_graph.schema.v1",
+  "description": "Schema for fact-nodes and term-nodes in the public fact graph. The presentation layer (HTML) holds ZERO facts; it references these nodes by id. Every fact-node must trace to its origin via evidence. Status grades are distinct and must never be conflated.",
+  "status_grades": {
+    "candidate": "Proposed but not yet tested or accepted. Lowest grade.",
+    "proved": "Demonstrated by a passing test/proof in a source repo, with linked evidence. Does NOT imply canonical release.",
+    "released": "Packaged as a canonical release artifact (e.g. transition-table v1-rc1). Implies proved.",
+    "canonical": "The authoritative ecosystem record. Implies released.",
+    "hypothesis": "Conjectured, not proved. May be published only when explicitly labelled as hypothesis."
+  },
+  "origin_types": {
+    "artifact": "Fact is substantiated by repo artifacts (reports, receipts). Requires evidence paths that resolve. Used for proved/released/canonical facts derived from tests.",
+    "declaration": "Fact is a governing declaration (a boundary statement, an authority rule, an entity-nomenclature fact). Its origin is the declaration itself, not a test artifact. Requires a 'source' naming the governing authority; does not require file evidence."
+  },
+  "fact_node": {
+    "required": ["fact_id", "value", "status", "source", "origin_type", "verified_on"],
+    "fields": {
+      "fact_id": "Stable dotted identifier, e.g. 'roadmap.stages_passed'. Never changes; the value behind it may.",
+      "value": "The published value (string, number, or short structured object).",
+      "status": "One of status_grades. The grade of claim this fact makes.",
+      "origin_type": "One of origin_types. 'artifact' facts require resolving evidence; 'declaration' facts do not.",
+      "source": "The repo, artifact, or governing authority of origin. Where the fact is born.",
+      "evidence": "Array of artifact paths that substantiate the value. Required when origin_type is 'artifact' and status is proved/released/canonical. A fact whose required evidence does not resolve must not be published.",
+      "verified_on": "ISO date the fact was last checked against its evidence or re-affirmed as declaration (the match-gate timestamp).",
+      "supersedes": "Optional fact_id (optionally @date) of the fact this replaces.",
+      "label": "Optional human-readable short label for presentation.",
+      "note": "Optional clarifying note, e.g. a stated ambiguity. If a fact's status cannot be stated, it is not published."
+    }
+  },
+  "term_node": {
+    "required": ["term_id", "definition", "introduced_in"],
+    "fields": {
+      "term_id": "Stable identifier for a vocabulary term, e.g. 'admissibility_space'.",
+      "term": "The display form of the term.",
+      "definition": "Canonical definition. Defined once here; every page links to it.",
+      "introduced_in": "Stage/paper/artifact where the term was first introduced.",
+      "supersedes": "Optional term_id this term renames or replaces.",
+      "related_terms": "Optional array of related term_ids."
+    }
+  },
+  "edge": {
+    "required": ["from", "relation", "to"],
+    "fields": {
+      "from": "fact_id or term_id (source).",
+      "relation": "relation_id drawn from relations.json. Edges using an unknown relation are invalid.",
+      "to": "fact_id or term_id (target).",
+      "note": "Optional clarification."
+    }
+  },
+  "publication_rules": [
+    "A page may render a fact only by fact_id; it may not contain the fact's literal value.",
+    "A fact with status proved/released/canonical must have at least one resolving evidence path.",
+    "Every edge's relation must exist in relations.json (closed set).",
+    "A term used in any published fact must have a term_node.",
+    "If a fact's status cannot be stated clearly, the fact is not published."
+  ]
+}

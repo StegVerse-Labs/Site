@@ -1,0 +1,190 @@
+{
+  "schema": "stegverse.fact_graph.instance.v1",
+  "relations_ref": "data/fact-graph/relations.json",
+  "schema_ref": "data/fact-graph/schema.json",
+  "generated_at": "2026-06-04",
+  "facts": [
+    {
+      "fact_id": "roadmap.stages_passed",
+      "label": "Proof roadmap",
+      "value": "Stages 1-34 passed",
+      "status": "proved",
+      "source": "Data-Continuation/formalism-tests",
+      "evidence": [
+        "reports/stage32_admissibility_space_report.json",
+        "reports/stage33_transition_graph_geometry_report.json",
+        "reports/stage34_repair_nearest_admissible_transition_report.json"
+      ],
+      "verified_on": "2026-06-04",
+      "supersedes": "roadmap.stages_passed@2026-05-22",
+      "note": "Proved on the roadmap. Distinct from canonical release; see release.canonical.",
+      "origin_type": "artifact"
+    },
+    {
+      "fact_id": "release.canonical",
+      "label": "Canonical release",
+      "value": "Transition Table v1-rc1 (Stage 10)",
+      "status": "released",
+      "source": "Data-Continuation/formalism-tests",
+      "evidence": [
+        "dist/transition-table-v1-rc1/canonical_transition_table_release.json",
+        "dist/transition-table-v1-rc1/release_receipt.json",
+        "dist/transition-table-v1-rc1/canonical_transition_table_release.sha256"
+      ],
+      "verified_on": "2026-06-04",
+      "note": "What is canonically released. Evidence paths are source-relative (formalism-tests repo). Stages 11-34 are proved but not, by that fact alone, released.",
+      "origin_type": "artifact"
+    },
+    {
+      "fact_id": "boundary.proved_vs_released",
+      "label": "Proved is not released",
+      "value": "A stage being proved on the roadmap does not, by itself, make it canonically released. 'Proved', 'released', and 'canonical' are distinct statuses.",
+      "status": "canonical",
+      "source": "site-governance",
+      "evidence": [],
+      "verified_on": "2026-06-04",
+      "origin_type": "declaration"
+    },
+    {
+      "fact_id": "boundary.site_authority",
+      "label": "Site is a mirror, not an authority",
+      "value": "The site publishes receipts. The site must not become the authority for receipts.",
+      "status": "canonical",
+      "source": "site-governance",
+      "evidence": [],
+      "verified_on": "2026-06-04",
+      "origin_type": "declaration"
+    },
+    {
+      "fact_id": "entity.primary_work_entity",
+      "label": "Primary work entity",
+      "value": "StegVerse-001 / Beta_Orionis",
+      "status": "canonical",
+      "source": "Data-Continuation/formalism-tests",
+      "evidence": [],
+      "verified_on": "2026-06-04",
+      "note": "Entity numbering is nomenclature only and does not denote authority or rank.",
+      "origin_type": "declaration"
+    },
+    {
+      "fact_id": "stage.32",
+      "label": "Stage 32 - Admissibility-Space Coordinates",
+      "value": {
+        "name": "Admissibility-Space Coordinates",
+        "status": "PASSED",
+        "proof_checks": "5/5",
+        "receipt_count": 2
+      },
+      "status": "proved",
+      "source": "Data-Continuation/formalism-tests",
+      "evidence": [
+        "reports/stage32_admissibility_space_report.json",
+        "reports/stage32_admissibility_space_receipts.jsonl"
+      ],
+      "verified_on": "2026-06-04",
+      "origin_type": "artifact"
+    },
+    {
+      "fact_id": "stage.33",
+      "label": "Stage 33 - Transition Graph as Geometric Structure",
+      "value": {
+        "name": "Transition Graph as Geometric Structure",
+        "status": "PASSED",
+        "proof_checks": "6/6",
+        "receipt_count": 2
+      },
+      "status": "proved",
+      "source": "Data-Continuation/formalism-tests",
+      "evidence": [
+        "reports/stage33_transition_graph_geometry_report.json",
+        "reports/stage33_transition_graph_geometry_receipts.jsonl"
+      ],
+      "verified_on": "2026-06-04",
+      "origin_type": "artifact"
+    },
+    {
+      "fact_id": "stage.34",
+      "label": "Stage 34 - Repair as Nearest-Admissible-Transition",
+      "value": {
+        "name": "Repair as Nearest-Admissible-Transition",
+        "status": "PASSED",
+        "proof_checks": "6/6",
+        "receipt_count": 2
+      },
+      "status": "proved",
+      "source": "Data-Continuation/formalism-tests",
+      "evidence": [
+        "reports/stage34_repair_nearest_admissible_transition_report.json",
+        "reports/stage34_repair_nearest_admissible_transition_receipts.jsonl"
+      ],
+      "verified_on": "2026-06-04",
+      "origin_type": "artifact"
+    }
+  ],
+  "terms": [
+    {
+      "term_id": "admissibility_space",
+      "term": "admissibility-space",
+      "definition": "The coordinate space in which transition states are located, with decision-region coordinates and boundary shell metrics; established by Stage 32.",
+      "introduced_in": "stage.32"
+    },
+    {
+      "term_id": "transition_graph_geometry",
+      "term": "transition-graph geometry",
+      "definition": "The view of transitions as a directed graph over admissibility-space, where discovery is constrained shortest-path computation; established by Stage 33.",
+      "introduced_in": "stage.33",
+      "related_terms": [
+        "admissibility_space"
+      ]
+    },
+    {
+      "term_id": "nearest_admissible_transition",
+      "term": "nearest-admissible-transition",
+      "definition": "Repair defined as the search for the closest admissible transition to an inadmissible state, conducted as a bounded sandbox search, with quarantine as preservation of the admissibility metric; established by Stage 34.",
+      "introduced_in": "stage.34",
+      "related_terms": [
+        "transition_graph_geometry",
+        "admissibility_space"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "stage.34",
+      "relation": "evidenced_by",
+      "to": "roadmap.stages_passed",
+      "note": "Stage 34 is one of the stages substantiating the roadmap fact."
+    },
+    {
+      "from": "roadmap.stages_passed",
+      "relation": "bounded_by",
+      "to": "boundary.proved_vs_released"
+    },
+    {
+      "from": "release.canonical",
+      "relation": "bounded_by",
+      "to": "boundary.proved_vs_released"
+    },
+    {
+      "from": "stage.33",
+      "relation": "underlies",
+      "to": "release.canonical",
+      "note": "Transition-graph geometry underlies the released transition table."
+    },
+    {
+      "from": "admissibility_space",
+      "relation": "introduced_in",
+      "to": "stage.32"
+    },
+    {
+      "from": "transition_graph_geometry",
+      "relation": "introduced_in",
+      "to": "stage.33"
+    },
+    {
+      "from": "nearest_admissible_transition",
+      "relation": "introduced_in",
+      "to": "stage.34"
+    }
+  ]
+}

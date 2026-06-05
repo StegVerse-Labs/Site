@@ -1,0 +1,98 @@
+{
+  "schema": "stegverse.fact_graph.relations.v1",
+  "description": "Closed, curated vocabulary of relation types. Every edge in the fact graph MUST use a relation_id from this list. Adding a relation type is a deliberate, documented act - never ad hoc - so the relational layer stays checkable and free of vocabulary drift.",
+  "policy": "closed_curated",
+  "amendment_rule": "A new relation type may be added only as an explicit edit to this file, with a definition and an inverse (or 'none'). Edges referencing an unknown relation_id are invalid and must not be published.",
+  "relations": [
+    {
+      "relation_id": "derives_from",
+      "definition": "The source fact is constructed from, and depends on, the target fact. If the target changes or is withdrawn, the source must be re-evaluated.",
+      "inverse": "underlies",
+      "directional": true
+    },
+    {
+      "relation_id": "underlies",
+      "definition": "The source fact is a foundation that the target depends on. Inverse of derives_from.",
+      "inverse": "derives_from",
+      "directional": true
+    },
+    {
+      "relation_id": "evidences",
+      "definition": "The source is a repo artifact (report, receipt) that substantiates the target fact. Every published fact requires at least one evidences edge or an inline evidence reference.",
+      "inverse": "evidenced_by",
+      "directional": true
+    },
+    {
+      "relation_id": "evidenced_by",
+      "definition": "The source fact is substantiated by the target artifact. Inverse of evidences.",
+      "inverse": "evidences",
+      "directional": true
+    },
+    {
+      "relation_id": "supersedes",
+      "definition": "The source fact replaces the target fact, which is now historical. Used for status changes (e.g. a 1-34 roadmap fact supersedes the prior 1-31 fact).",
+      "inverse": "superseded_by",
+      "directional": true
+    },
+    {
+      "relation_id": "superseded_by",
+      "definition": "The source fact has been replaced by the target fact. Inverse of supersedes.",
+      "inverse": "supersedes",
+      "directional": true
+    },
+    {
+      "relation_id": "mirrors",
+      "definition": "The source (a site fact) is a faithful public copy of the target (a repo fact). Asserts the site is publishing, not authoring.",
+      "inverse": "mirrored_by",
+      "directional": true
+    },
+    {
+      "relation_id": "mirrored_by",
+      "definition": "The source repo fact is mirrored publicly by the target site fact. Inverse of mirrors.",
+      "inverse": "mirrors",
+      "directional": true
+    },
+    {
+      "relation_id": "bounded_by",
+      "definition": "The source fact's interpretation is constrained by the target boundary statement (e.g. a 'proved' status bounded_by the proved-vs-released boundary).",
+      "inverse": "bounds",
+      "directional": true
+    },
+    {
+      "relation_id": "bounds",
+      "definition": "The source boundary statement constrains the interpretation of the target fact. Inverse of bounded_by.",
+      "inverse": "bounded_by",
+      "directional": true
+    },
+    {
+      "relation_id": "defines",
+      "definition": "The source term-node provides the canonical definition for the target term as used in facts.",
+      "inverse": "defined_by",
+      "directional": true
+    },
+    {
+      "relation_id": "defined_by",
+      "definition": "The source fact or term uses a term whose canonical definition is the target term-node. Inverse of defines.",
+      "inverse": "defines",
+      "directional": true
+    },
+    {
+      "relation_id": "introduced_in",
+      "definition": "The source term or fact was first introduced by the target stage, paper, or artifact.",
+      "inverse": "introduces",
+      "directional": true
+    },
+    {
+      "relation_id": "introduces",
+      "definition": "The source stage/paper/artifact first introduced the target term or fact. Inverse of introduced_in.",
+      "inverse": "introduced_in",
+      "directional": true
+    },
+    {
+      "relation_id": "hypothesized_beneath",
+      "definition": "The source is a conjectured deeper structure proposed to underlie the target, NOT yet proved. Status of such a fact must be 'hypothesis'. Distinct from underlies, which asserts a proved foundation.",
+      "inverse": "none",
+      "directional": true
+    }
+  ]
+}
