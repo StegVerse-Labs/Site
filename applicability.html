@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse governed admissibility applicability map for testers across disciplines.">
+  <title>StegVerse — Governed Admissibility Applicability</title>
+  <link rel="stylesheet" href="sv-shared.css">
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="tests/index.html">Tests</a>
+  <a href="math-solver/index.html">Math-Solver</a>
+  <a href="applicability.html" class="active">Applicability</a>
+  <a href="transition-table.html">Transition Table</a>
+  <a href="formalisms/index.html">Formalisms</a>
+</nav>
+
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Applicability map · Tester guide · Public posture</div>
+    <h1>Where Governed<br><em>Admissibility Applies.</em></h1>
+    <p>This page explains the range of disciplines where governed admissibility directly applies and why testers in those disciplines should test outputs before they become claims, actions, records, or decisions.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="applicability/discipline-registry.json">Discipline registry</a>
+      <a class="sv-btn sv-btn-secondary" href="applicability/tester-guide.md">Tester guide</a>
+      <a class="sv-btn sv-btn-secondary" href="tests/index.html">Governance tests</a>
+      <a class="sv-btn sv-btn-secondary" href="math-solver/index.html">Math-solver adapter</a>
+    </div>
+  </div>
+
+  <div class="sv-boundary">
+    <strong>Boundary:</strong> this map identifies where admissibility testing applies. It does not replace domain expertise, formal proof, professional review, medical review, legal review, financial review, engineering sign-off, or civic authority.
+  </div>
+
+  <h2 class="sv-h2">Core question</h2>
+  <pre>What is this output, artifact, instruction, transition, or claim allowed to become?</pre>
+
+  <h2 class="sv-h2">Common test chain</h2>
+  <pre>generated or proposed output
+→ declared intent
+→ domain context
+→ authority / evidence / replay / consequence checks
+→ admissibility decision
+→ allowed next state</pre>
+
+  <h2 class="sv-h2">Discipline-facing range</h2>
+  <table class="sv-table">
+    <thead><tr><th>Discipline</th><th>Why governed admissibility applies</th><th>Typical test object</th></tr></thead>
+    <tbody>
+      <tr><td>AI / LLM systems</td><td>Outputs can become claims, tool calls, agent actions, or automation inputs.</td><td>Model response, tool call, agent plan</td></tr>
+      <tr><td>Mathematics / formal methods</td><td>Proof attempts and derivations require posture before becoming claims.</td><td>Lemma, derivation, solver artifact</td></tr>
+      <tr><td>Software engineering</td><td>Suggestions can become code, workflows, deployments, or scheduled actions.</td><td>Pull request, script, workflow</td></tr>
+      <tr><td>Cybersecurity / identity</td><td>Access and identity transitions require explicit authority and consequence posture.</td><td>Token use, permission change, identity assertion</td></tr>
+      <tr><td>Data governance</td><td>Data movement changes privacy, provenance, and evidence posture.</td><td>Dataset, export, record merge</td></tr>
+      <tr><td>Legal / policy</td><td>Text can affect rights, obligations, compliance, or institutional posture.</td><td>Policy draft, legal summary, compliance claim</td></tr>
+      <tr><td>Medicine / health</td><td>Outputs can be treated as advice, risk classification, or care direction.</td><td>Health explanation, triage note, care instruction</td></tr>
+      <tr><td>Finance / markets</td><td>Claims can influence allocation, payment, risk, or investment behavior.</td><td>Financial summary, risk statement, transaction proposal</td></tr>
+      <tr><td>Education / learning</td><td>Outputs can shape curriculum, assessment, tutoring, or claims of competence.</td><td>Lesson, assessment, grading rationale</td></tr>
+      <tr><td>Science / research</td><td>Findings require source posture and reproducibility posture before publication.</td><td>Hypothesis, analysis result, citation map</td></tr>
+      <tr><td>Engineering / infrastructure</td><td>Recommendations may affect physical systems, uptime, maintenance, or safety.</td><td>Design decision, inspection note, operational change</td></tr>
+      <tr><td>Robotics / autonomy</td><td>Plans may become physical-world actions or safety overrides.</td><td>Motion plan, task instruction, autonomous action</td></tr>
+      <tr><td>Journalism / public information</td><td>Outputs may become public claims, source summaries, timelines, or narratives.</td><td>Article draft, timeline event, public claim</td></tr>
+      <tr><td>Government / civic systems</td><td>Outputs may affect eligibility, services, authority, or public trust.</td><td>Decision memo, eligibility rule, service action</td></tr>
+      <tr><td>Organizational governance</td><td>Approvals and overrides require authority, quorum, evidence, and consequence posture.</td><td>Approval chain, exception, board action</td></tr>
+      <tr><td>Archives / records / history</td><td>Claims require provenance, source posture, and review posture.</td><td>Timeline event, source annotation, historical claim</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sv-h2">Tester output shape</h2>
+  <pre>Discipline:
+Test object:
+Declared intent:
+Authority source:
+Evidence posture:
+Replay posture:
+Consequence level:
+Decision:
+Allowed next state:
+Required follow-up:
+Claim limit:</pre>
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Governed admissibility applicability · Public mirror</span>
+  <span><a href="index.html">Home</a> · <a href="tests/index.html">Tests</a> · <a href="applicability/discipline-registry.json">Registry</a></span>
+</footer>
+</body>
+</html>
