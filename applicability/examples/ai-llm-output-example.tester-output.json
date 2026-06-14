@@ -1,0 +1,47 @@
+{
+  "schema": "stegverse.governed_admissibility.tester_output.v1",
+  "generated": "2026-06-14T00:00:00Z",
+  "tester": {
+    "name_or_role": "AI / LLM systems tester",
+    "discipline_id": "ai_llm_systems",
+    "domain_review_required": false
+  },
+  "test_object": {
+    "object_id": "TEST-OBJECT-20260614-AI-0001",
+    "object_type": "model_response",
+    "summary": "Example model response proposed for public use as a governance claim.",
+    "source_or_reference": "placeholder example only"
+  },
+  "route": {
+    "recommended_route": [
+      "governance_filter",
+      "llm_governance_comparison",
+      "fail_closed"
+    ],
+    "tests_run": [
+      "governance_filter"
+    ],
+    "route_deviation_reason": null
+  },
+  "classification": {
+    "declared_intent": "Public governance claim",
+    "authority_source": null,
+    "evidence_posture": "draft",
+    "replay_posture": "not_replayable",
+    "consequence_level": "medium",
+    "claim_limit": "May remain a draft or research note only until authority and evidence are declared.",
+    "decision": "ALLOW_AS_NOTE",
+    "allowed_next_state": "research_note",
+    "required_follow_up": [
+      "Declare authority source before public claim posture.",
+      "Add evidence or receipt reference before stronger posture.",
+      "Run LLM Governance Comparison and Fail-Closed if action or high consequence is proposed."
+    ]
+  },
+  "boundary": {
+    "does_not_certify_domain_correctness": true,
+    "does_not_replace_domain_review": true,
+    "does_not_create_proof_authority": true
+  },
+  "notes": "Static example only. No real model output is certified."
+}
