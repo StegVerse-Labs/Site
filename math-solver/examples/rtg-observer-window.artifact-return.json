@@ -1,0 +1,37 @@
+{
+  "schema": "stegverse.math_solver.artifact_return.v1",
+  "packet_id": "MATH-INSTRUCTION-20260614-RTG-0001",
+  "artifact_id": "MATH-ARTIFACT-20260614-RTG-0001",
+  "returned_at": "2026-06-14T00:00:00Z",
+  "returned_by": "placeholder-example-not-a-real-solver-run",
+  "artifact_type": "mapping",
+  "summary": "Placeholder artifact showing the expected shape of a bounded RTG observer-window model sketch.",
+  "method": "No solver method executed. This is a static example of the return packet shape.",
+  "result": "A returned artifact would describe candidate observer-window terms, assumptions, claim limits, and open gaps without claiming proof or closure.",
+  "claim_made": "Only that a bounded example artifact-return packet shape exists.",
+  "claim_posture": "DRAFT",
+  "source_usage": [
+    {
+      "source_id": "RTG-PUBLIC-PAGE-001",
+      "used_as": "context",
+      "notes": "Used as candidate formalism context only."
+    },
+    {
+      "source_id": "STCM-PUBLIC-PAGE-001",
+      "used_as": "limitation",
+      "notes": "Used to preserve replay and continuity boundary language."
+    }
+  ],
+  "cost_or_effort_note": "No compute, token, or solver cost. Static example only.",
+  "open_gaps": [
+    "No solver execution occurred.",
+    "No mathematical result is asserted.",
+    "No receipt-backed proof exists for this example."
+  ],
+  "next_instruction_requested": "Create a real governed solver packet only after source papers and authority posture are declared.",
+  "self_limitations": [
+    "Placeholder artifact only.",
+    "Not a proof artifact.",
+    "Not a model-generated result."
+  ]
+}
