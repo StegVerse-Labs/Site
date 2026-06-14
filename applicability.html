@@ -25,6 +25,8 @@
     <p>This page explains the range of disciplines where governed admissibility directly applies and why testers in those disciplines should test outputs before they become claims, actions, records, or decisions.</p>
     <div class="sv-btn-row">
       <a class="sv-btn sv-btn-primary" href="applicability/discipline-registry.json">Discipline registry</a>
+      <a class="sv-btn sv-btn-secondary" href="applicability/test-matrix.md">Test matrix</a>
+      <a class="sv-btn sv-btn-secondary" href="applicability/test-matrix.json">Matrix JSON</a>
       <a class="sv-btn sv-btn-secondary" href="applicability/tester-guide.md">Tester guide</a>
       <a class="sv-btn sv-btn-secondary" href="tests/index.html">Governance tests</a>
       <a class="sv-btn sv-btn-secondary" href="math-solver/index.html">Math-solver adapter</a>
@@ -69,9 +71,21 @@
     </tbody>
   </table>
 
+  <h2 class="sv-h2">Recommended test route</h2>
+  <div class="sv-prose">
+    <p>The discipline registry identifies where admissibility applies. The test matrix identifies which test pages a tester should run first for their discipline.</p>
+  </div>
+  <pre>discipline
+→ recommended test route
+→ declared intent
+→ authority / evidence / replay / consequence checks
+→ admissibility decision
+→ allowed next state</pre>
+
   <h2 class="sv-h2">Tester output shape</h2>
   <pre>Discipline:
 Test object:
+Recommended route:
 Declared intent:
 Authority source:
 Evidence posture:
@@ -85,7 +99,7 @@ Claim limit:</pre>
 
 <footer class="sv-footer">
   <span>StegVerse · Governed admissibility applicability · Public mirror</span>
-  <span><a href="index.html">Home</a> · <a href="tests/index.html">Tests</a> · <a href="applicability/discipline-registry.json">Registry</a></span>
+  <span><a href="index.html">Home</a> · <a href="tests/index.html">Tests</a> · <a href="applicability/discipline-registry.json">Registry</a> · <a href="applicability/test-matrix.md">Matrix</a></span>
 </footer>
 </body>
 </html>
