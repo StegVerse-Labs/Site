@@ -25,6 +25,26 @@
     "receipt_or_replay_posture",
     "next_admissible_instruction"
   ],
+  "packet_templates": [
+    {
+      "id": "INSTRUCTION-PACKET-TEMPLATE-001",
+      "class": "instruction_packet",
+      "path": "math-solver/templates/instruction-packet.template.json",
+      "purpose": "Declares what the solver/model is allowed to attempt."
+    },
+    {
+      "id": "ARTIFACT-RETURN-TEMPLATE-001",
+      "class": "artifact_return",
+      "path": "math-solver/templates/artifact-return.template.json",
+      "purpose": "Declares what the solver/model returned and what claim is attempted."
+    },
+    {
+      "id": "ADMISSIBILITY-RESULT-TEMPLATE-001",
+      "class": "admissibility_result",
+      "path": "math-solver/templates/admissibility-result.template.json",
+      "purpose": "Declares what the returned artifact is allowed to become."
+    }
+  ],
   "packet_fields": {
     "instruction_packet": [
       "schema",
@@ -64,6 +84,10 @@
   "related_public_pages": [
     "math-solver/index.html",
     "math-solver/papers.html",
+    "math-solver/templates/index.md",
+    "math-solver/templates/instruction-packet.template.json",
+    "math-solver/templates/artifact-return.template.json",
+    "math-solver/templates/admissibility-result.template.json",
     "tests/index.html",
     "formalisms/rtg.html",
     "formalisms/stcm.html"
@@ -76,10 +100,9 @@
     "formalism-tests": "proof/test authority where receipts exist"
   },
   "next_stage": [
-    "Create instruction packet template.",
-    "Create artifact return template.",
     "Create paper/source registry entries from compiled papers.",
     "Map papers to formalism targets and claim limits.",
+    "Add example packets for one RTG or STCM solver task.",
     "Add receipt-backed adapter tests when an authority repo exists."
   ]
 }
