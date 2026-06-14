@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse Governance Testing Suite — public tests for admissibility posture and governed LLM output.">
+  <title>StegVerse — Governance Testing Suite</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+</head>
+<body>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="../index.html">StegVerse</a>
+  <a href="../index.html">Home</a>
+  <a href="../demo.html">Demo</a>
+  <a href="../stegfinco.html">FinCo</a>
+  <a href="../product.html">Product</a>
+  <a href="../pricing.html">Pricing</a>
+  <a href="../methodology.html">Methodology</a>
+  <a href="../about.html">About</a>
+  <a href="../transition-table.html">Transition Table</a>
+  <a href="../formalisms/index.html">Formalisms</a>
+  <a href="index.html" class="active">Tests</a>
+  <a href="../Papers.html">Papers</a>
+</nav>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Governance tests · Public admissibility · LLM filtering</div>
+    <h1>Governance<br><em>Testing Suite.</em></h1>
+    <p>These pages let visitors test what a claim, answer, proposed action, or generated output is allowed to become after StegVerse governance is applied.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="governance-filter.html">Run Governance Filter</a>
+      <a class="sv-btn sv-btn-secondary" href="../transition-table.html">Transition Table</a>
+      <a class="sv-btn sv-btn-secondary" href="../public-registry.json">Public registry</a>
+    </div>
+  </div>
+
+  <div class="sv-boundary">
+    <strong>Boundary:</strong> this suite does not host an LLM and does not prove that an LLM answer is true. It tests what pasted output is allowed to become under public governance posture.
+  </div>
+
+  <h2 class="sv-h2">Available tests</h2>
+  <div class="sv-card-grid">
+    <div class="sv-card">
+      <h3 class="sv-h3">LLM Governance Filter</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Paste any LLM output, choose the intended use, and see the governance posture before it becomes a public claim, repo action, or decision artifact.</p>
+      <a class="sv-btn sv-btn-secondary" href="governance-filter.html" style="font-size:12px;padding:8px 14px;">Open test</a>
+    </div>
+  </div>
+
+  <h2 class="sv-h2">Testing doctrine</h2>
+  <pre>The question is not:
+  Is the LLM answer good?
+
+The governing question is:
+  What is this answer allowed to become?</pre>
+
+  <h2 class="sv-h2">Planned tests</h2>
+  <pre>governance-filter.html       Paste output and classify admissibility
+llm-governance-comparison    Compare raw output vs governed posture
+transition-admissibility     Classify proposed state movement
+receipt-replay               Check replayable receipt continuity
+fail-closed                  Show missing evidence / authority gaps</pre>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Governance Testing Suite · Public posture tests</span>
+  <span><a href="../index.html">Home</a> · <a href="governance-filter.html">Governance Filter</a> · <a href="../transition-table.html">Transition Table</a></span>
+</footer>
+
+</body>
+</html>
