@@ -45,6 +45,17 @@
       "purpose": "Declares what the returned artifact is allowed to become."
     }
   ],
+  "example_lifecycles": [
+    {
+      "id": "RTG-OBSERVER-WINDOW-EXAMPLE-001",
+      "posture": "RESEARCH_NOTE",
+      "status": "static example packet lifecycle only",
+      "instruction": "math-solver/examples/rtg-observer-window.instruction.json",
+      "artifact_return": "math-solver/examples/rtg-observer-window.artifact-return.json",
+      "admissibility_result": "math-solver/examples/rtg-observer-window.admissibility-result.json",
+      "boundary": "No real solver run, proof, or mathematical closure is asserted."
+    }
+  ],
   "packet_fields": {
     "instruction_packet": [
       "schema",
@@ -88,6 +99,10 @@
     "math-solver/templates/instruction-packet.template.json",
     "math-solver/templates/artifact-return.template.json",
     "math-solver/templates/admissibility-result.template.json",
+    "math-solver/examples/index.md",
+    "math-solver/examples/rtg-observer-window.instruction.json",
+    "math-solver/examples/rtg-observer-window.artifact-return.json",
+    "math-solver/examples/rtg-observer-window.admissibility-result.json",
     "tests/index.html",
     "formalisms/rtg.html",
     "formalisms/stcm.html"
@@ -102,7 +117,7 @@
   "next_stage": [
     "Create paper/source registry entries from compiled papers.",
     "Map papers to formalism targets and claim limits.",
-    "Add example packets for one RTG or STCM solver task.",
+    "Create one paper-backed instruction packet.",
     "Add receipt-backed adapter tests when an authority repo exists."
   ]
 }
