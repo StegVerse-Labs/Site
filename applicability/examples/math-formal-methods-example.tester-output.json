@@ -1,0 +1,47 @@
+{
+  "schema": "stegverse.governed_admissibility.tester_output.v1",
+  "generated": "2026-06-14T00:00:00Z",
+  "tester": {
+    "name_or_role": "Mathematics / formal methods tester",
+    "discipline_id": "mathematics_formal_methods",
+    "domain_review_required": true
+  },
+  "test_object": {
+    "object_id": "TEST-OBJECT-20260614-MATH-0001",
+    "object_type": "solver_artifact",
+    "summary": "Example derivation or solver artifact proposed as support for a formalism claim.",
+    "source_or_reference": "placeholder example only"
+  },
+  "route": {
+    "recommended_route": [
+      "math_solver_adapter",
+      "receipt_replay",
+      "transition_admissibility"
+    ],
+    "tests_run": [
+      "math_solver_adapter"
+    ],
+    "route_deviation_reason": null
+  },
+  "classification": {
+    "declared_intent": "Formalism support claim",
+    "authority_source": "future formalism-tests or math-solver adapter authority required",
+    "evidence_posture": "research_note",
+    "replay_posture": "not_replayable",
+    "consequence_level": "medium",
+    "claim_limit": "May claim only that a proof or derivation attempt exists; may not claim proof closure.",
+    "decision": "REQUIRE_RECEIPT",
+    "allowed_next_state": "research_note",
+    "required_follow_up": [
+      "Attach source posture and claim limit.",
+      "Run receipt replay before proof-backed posture.",
+      "Run transition admissibility before promoting to formalism claim."
+    ]
+  },
+  "boundary": {
+    "does_not_certify_domain_correctness": true,
+    "does_not_replace_domain_review": true,
+    "does_not_create_proof_authority": true
+  },
+  "notes": "Static example only. No mathematical proof is asserted."
+}
