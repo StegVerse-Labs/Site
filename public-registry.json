@@ -8,7 +8,8 @@
     "Site": "public mirror",
     "future_RTG_Tests": "candidate formalism authority once created",
     "future_STCM_Tests": "conservation formalism authority once created",
-    "future_governance_tests": "governance testing authority once receipt-backed"
+    "future_governance_tests": "governance testing authority once receipt-backed",
+    "future_math_solver_adapter": "adapter authority once receipt-backed"
   },
   "postures": [
     {"id":"DRAFT","description":"Not public-facing yet. May exist as working notes, screenshots, or discussion fragments."},
@@ -67,6 +68,16 @@
       "source_stage":"static public admissibility simulation",
       "public_pages":["tests/index.html","tests/governance-filter.html","tests/llm-governance-comparison.html","tests/transition-admissibility.html","tests/receipt-replay.html","tests/fail-closed.html","tests/test-manifest.json","tests/README.md","index.html"],
       "status":"published as public testing simulation only",
+      "last_reviewed":"2026-06-14"
+    },
+    {
+      "id":"MATH-SOLVER-ADAPTER-001",
+      "title":"Math-solver adapter pages publish the governed solver-action bridge and paper/source posture surface.",
+      "posture":"RESEARCH_NOTE",
+      "source_repo":"StegVerse-Labs/Site",
+      "source_stage":"public adapter concept / paper-source posture surface",
+      "public_pages":["math-solver/index.html","math-solver/papers.html","index.html"],
+      "status":"published as public adapter concept only",
       "last_reviewed":"2026-06-14"
     },
     {
