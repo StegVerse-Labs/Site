@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T2-simplex_conservation_sweep_v1-0002-001",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T10:59:35Z",
+  "created_at": "2026-06-14T06:18:28Z",
   "run_id": "T2-simplex_conservation_sweep_v1-0002",
   "ledger_row_id": "T2-simplex_conservation_sweep_v1-0002-001",
   "element_id": "T2",
@@ -104,5 +104,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:9c5135228f62dfb774fe0c52c5a6f5fa8eb700ec1ed569178ea6076f0db1f074"
+  "receipt_hash": "sha256:8b138e9c7842d2d34a43852ecb8f3c1f60743f5480fe5a6d9d82665f208b858d"
 }

@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T10-multi_agent_sweep_v1-0009-003",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-05-10T10:59:35Z",
+  "created_at": "2026-06-14T06:18:28Z",
   "run_id": "T10-multi_agent_sweep_v1-0009",
   "ledger_row_id": "T10-multi_agent_sweep_v1-0009-003",
   "element_id": "T10",
@@ -210,5 +210,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:0ae623ac1d728cfd9bf280c099c8ae43f785e756cd2b483ac961e38ee1749301"
+  "receipt_hash": "sha256:6fabeed3bd243972b5bbdcd3e189fd48ce4c0dcdaf655864ef67b042cd8337cd"
 }
