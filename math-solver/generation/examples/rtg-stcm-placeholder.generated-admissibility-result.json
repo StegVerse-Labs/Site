@@ -1,0 +1,26 @@
+{
+  "schema": "stegverse.math_solver.admissibility_result.v1",
+  "packet_id": "MATH-INSTRUCTION-20260614-RTG-STCM-GEN-0001",
+  "artifact_id": "MATH-ARTIFACT-20260614-RTG-STCM-GEN-0001",
+  "result_id": "MATH-ADMISSIBILITY-20260614-RTG-STCM-GEN-0001",
+  "reviewed_at": "2026-06-14T00:00:00Z",
+  "reviewed_by": "StegVerse-Labs/Site public scaffold",
+  "decision": "ALLOW_AS_NOTE",
+  "posture": "RESEARCH_NOTE",
+  "reason": "The generated lifecycle is a static placeholder. It may be published only to show adapter structure and cannot support proof, source import, or solver-execution claims.",
+  "allowed_next_state": "May remain as a public generated lifecycle example under math-solver adapter documentation.",
+  "claim_limit": "May claim only that a placeholder generated instruction-to-artifact lifecycle exists.",
+  "receipt_reference": null,
+  "replay_posture": "not_replayable",
+  "required_follow_up": [
+    "Import a real paper source before using the source registry as instruction context.",
+    "Create a reviewed source-to-instruction mapping before generating a real instruction packet.",
+    "Run real solver tasks only through declared packets and receipt-backed review paths."
+  ],
+  "publication_gate": {
+    "may_publish": true,
+    "allowed_page_type": "research_note",
+    "required_boundary_note": "This is a static generated lifecycle example. It is not a real paper import, solver run, or proof authority."
+  },
+  "notes": "Generated lifecycle admissibility placeholder only. No proof or solver correctness is asserted."
+}
