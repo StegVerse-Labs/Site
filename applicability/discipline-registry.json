@@ -1,0 +1,147 @@
+{
+  "schema": "stegverse.governed_admissibility.discipline_registry.v1",
+  "generated": "2026-06-14",
+  "site_role": "public mirror, not proof authority",
+  "purpose": "Define discipline-facing applicability for governed admissibility testing.",
+  "core_question": "What is this output, artifact, instruction, transition, or claim allowed to become?",
+  "common_checks": [
+    "declared_intent",
+    "authority_source",
+    "evidence_posture",
+    "replayability",
+    "consequence_level",
+    "claim_limit",
+    "allowed_next_state"
+  ],
+  "disciplines": [
+    {
+      "id": "ai_llm_systems",
+      "label": "AI / LLM systems",
+      "why_admissibility_applies": "Model outputs can become public claims, tool calls, agent actions, automation inputs, or governance decisions.",
+      "typical_test_objects": ["model_response", "tool_call", "agent_plan", "generated_artifact"],
+      "primary_tests": ["governance_filter", "llm_governance_comparison", "fail_closed"],
+      "directness": "direct"
+    },
+    {
+      "id": "mathematics_formal_methods",
+      "label": "Mathematics / formal methods",
+      "why_admissibility_applies": "Proof attempts, derivations, solver artifacts, and counterexamples require posture before becoming claims.",
+      "typical_test_objects": ["lemma", "derivation", "solver_artifact", "counterexample", "proof_attempt"],
+      "primary_tests": ["math_solver_adapter", "receipt_replay", "transition_admissibility"],
+      "directness": "direct"
+    },
+    {
+      "id": "software_engineering",
+      "label": "Software engineering",
+      "why_admissibility_applies": "Code suggestions and automation can become executed changes, deployments, or workflow actions.",
+      "typical_test_objects": ["pull_request", "script", "workflow", "deployment_action", "config_change"],
+      "primary_tests": ["transition_admissibility", "receipt_replay", "fail_closed"],
+      "directness": "direct"
+    },
+    {
+      "id": "cybersecurity_identity",
+      "label": "Cybersecurity / identity",
+      "why_admissibility_applies": "Credential use, access changes, identity assertions, and trust-boundary movement require explicit authority and consequence posture.",
+      "typical_test_objects": ["token_use", "identity_assertion", "permission_change", "secret_handling", "access_request"],
+      "primary_tests": ["fail_closed", "transition_admissibility", "receipt_replay"],
+      "directness": "direct"
+    },
+    {
+      "id": "data_governance",
+      "label": "Data governance",
+      "why_admissibility_applies": "Data movement changes privacy, evidence, provenance, and authority posture.",
+      "typical_test_objects": ["dataset", "record_merge", "data_export", "retention_action", "provenance_update"],
+      "primary_tests": ["transition_admissibility", "receipt_replay", "governance_filter"],
+      "directness": "direct"
+    },
+    {
+      "id": "legal_policy",
+      "label": "Legal / policy",
+      "why_admissibility_applies": "Generated or summarized text may affect rights, obligations, compliance posture, or policy interpretation.",
+      "typical_test_objects": ["policy_draft", "legal_summary", "compliance_claim", "decision_memo"],
+      "primary_tests": ["governance_filter", "llm_governance_comparison", "fail_closed"],
+      "directness": "direct_with_domain_review_required"
+    },
+    {
+      "id": "medicine_health",
+      "label": "Medicine / health",
+      "why_admissibility_applies": "Outputs may be interpreted as advice, risk classification, diagnosis support, or care instruction.",
+      "typical_test_objects": ["health_explanation", "risk_classification", "care_instruction", "triage_note"],
+      "primary_tests": ["governance_filter", "fail_closed", "transition_admissibility"],
+      "directness": "direct_with_domain_review_required"
+    },
+    {
+      "id": "finance_markets",
+      "label": "Finance / markets",
+      "why_admissibility_applies": "Claims or generated actions can influence allocation, payment, risk, compliance, or investment behavior.",
+      "typical_test_objects": ["financial_summary", "risk_statement", "transaction_proposal", "market_claim"],
+      "primary_tests": ["governance_filter", "transition_admissibility", "fail_closed"],
+      "directness": "direct_with_domain_review_required"
+    },
+    {
+      "id": "education_learning",
+      "label": "Education / learning",
+      "why_admissibility_applies": "Outputs can shape assessment, curriculum, tutoring, learning posture, or claims about understanding.",
+      "typical_test_objects": ["lesson", "assessment", "tutoring_response", "grading_rationale", "curriculum_step"],
+      "primary_tests": ["governance_filter", "llm_governance_comparison", "transition_admissibility"],
+      "directness": "direct"
+    },
+    {
+      "id": "science_research",
+      "label": "Science / research",
+      "why_admissibility_applies": "Hypotheses, summaries, analyses, and claims require source posture, reproducibility posture, and claim limits before publication.",
+      "typical_test_objects": ["hypothesis", "paper_summary", "analysis_result", "citation_map", "research_claim"],
+      "primary_tests": ["governance_filter", "math_solver_adapter", "receipt_replay"],
+      "directness": "direct"
+    },
+    {
+      "id": "engineering_infrastructure",
+      "label": "Engineering / infrastructure",
+      "why_admissibility_applies": "Recommendations may affect physical systems, operational continuity, maintenance, or safety posture.",
+      "typical_test_objects": ["design_decision", "inspection_note", "maintenance_recommendation", "operational_change"],
+      "primary_tests": ["transition_admissibility", "fail_closed", "receipt_replay"],
+      "directness": "direct_with_domain_review_required"
+    },
+    {
+      "id": "robotics_autonomy",
+      "label": "Robotics / autonomy",
+      "why_admissibility_applies": "Model or planner outputs may become physical-world actions or safety overrides.",
+      "typical_test_objects": ["motion_plan", "task_instruction", "safety_override", "autonomous_action"],
+      "primary_tests": ["transition_admissibility", "fail_closed", "receipt_replay"],
+      "directness": "direct"
+    },
+    {
+      "id": "journalism_public_information",
+      "label": "Journalism / public information",
+      "why_admissibility_applies": "Outputs may become public claims, source summaries, timelines, or narratives that shape public understanding.",
+      "typical_test_objects": ["article_draft", "source_summary", "timeline_entry", "public_claim"],
+      "primary_tests": ["governance_filter", "llm_governance_comparison", "receipt_replay"],
+      "directness": "direct"
+    },
+    {
+      "id": "government_civic_systems",
+      "label": "Government / civic systems",
+      "why_admissibility_applies": "Outputs may affect authority, eligibility, public services, civic trust, or administrative action.",
+      "typical_test_objects": ["decision_memo", "eligibility_rule", "service_action", "public_notice"],
+      "primary_tests": ["transition_admissibility", "fail_closed", "receipt_replay"],
+      "directness": "direct_with_domain_review_required"
+    },
+    {
+      "id": "organizational_governance",
+      "label": "Organizational governance",
+      "why_admissibility_applies": "Approvals, overrides, exceptions, and board actions require authority, quorum, evidence, and consequence posture.",
+      "typical_test_objects": ["approval_chain", "override", "exception", "board_action", "policy_change"],
+      "primary_tests": ["transition_admissibility", "receipt_replay", "fail_closed"],
+      "directness": "direct"
+    },
+    {
+      "id": "archives_records_history",
+      "label": "Archives / records / history",
+      "why_admissibility_applies": "Timelines, source annotations, and historical claims require provenance, source posture, and review posture.",
+      "typical_test_objects": ["timeline_event", "source_annotation", "historical_claim", "record_update"],
+      "primary_tests": ["receipt_replay", "governance_filter", "transition_admissibility"],
+      "directness": "direct"
+    }
+  ],
+  "non_goal": "This registry identifies where admissibility testing applies; it does not assert domain expertise or substitute for domain review."
+}
