@@ -11,142 +11,93 @@
     "future_governance_tests": "governance testing authority once receipt-backed"
   },
   "postures": [
-    {
-      "id": "DRAFT",
-      "description": "Not public-facing yet. May exist as working notes, screenshots, or discussion fragments."
-    },
-    {
-      "id": "RESEARCH_NOTE",
-      "description": "Useful public-facing research posture, but not proof authority."
-    },
-    {
-      "id": "MIRROR",
-      "description": "Reflects another repo's state. Does not create authority."
-    },
-    {
-      "id": "RECEIPT_BACKED",
-      "description": "Public claim is tied to a receipt, formalism test, source stage, commit, or hash."
-    },
-    {
-      "id": "CANONICAL_CLAIM",
-      "description": "Stable public doctrine after review. Still points back to authority sources."
-    },
-    {
-      "id": "DEPRECATED",
-      "description": "Retained for history only. Not current public posture."
-    }
+    {"id":"DRAFT","description":"Not public-facing yet. May exist as working notes, screenshots, or discussion fragments."},
+    {"id":"RESEARCH_NOTE","description":"Useful public-facing research posture, but not proof authority."},
+    {"id":"MIRROR","description":"Reflects another repo's state. Does not create authority."},
+    {"id":"RECEIPT_BACKED","description":"Public claim is tied to a receipt, formalism test, source stage, commit, or hash."},
+    {"id":"CANONICAL_CLAIM","description":"Stable public doctrine after review. Still points back to authority sources."},
+    {"id":"DEPRECATED","description":"Retained for history only. Not current public posture."}
   ],
   "claims": [
     {
-      "id": "SITE-BOUNDARY-001",
-      "title": "Site is a public mirror, not proof authority.",
-      "posture": "CANONICAL_CLAIM",
-      "source_repo": "StegVerse-Labs/Site",
-      "source_page": "index.html",
-      "public_pages": [
-        "index.html",
-        "PUBLICATION_PROCESS.md",
-        "public-registry.json"
-      ],
-      "status": "published",
-      "last_reviewed": "2026-06-14"
+      "id":"SITE-BOUNDARY-001",
+      "title":"Site is a public mirror, not proof authority.",
+      "posture":"CANONICAL_CLAIM",
+      "source_repo":"StegVerse-Labs/Site",
+      "source_page":"index.html",
+      "public_pages":["index.html","PUBLICATION_PROCESS.md","public-registry.json"],
+      "status":"published",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "TT-BLOCKS-001",
-      "title": "Transition Table exposes decision classes, consequence tiers, coupling blocks, proof posture, and formalism gaps.",
-      "posture": "MIRROR",
-      "source_repo": "formalism-tests",
-      "source_stage": "Stage 10 — Canonical Transition Table Release",
-      "public_pages": [
-        "index.html",
-        "transition-table.html",
-        "transition-table-visual.html"
-      ],
-      "status": "published",
-      "last_reviewed": "2026-06-14"
+      "id":"TT-BLOCKS-001",
+      "title":"Transition Table exposes decision classes, consequence tiers, coupling blocks, proof posture, and formalism gaps.",
+      "posture":"MIRROR",
+      "source_repo":"formalism-tests",
+      "source_stage":"Stage 10 — Canonical Transition Table Release",
+      "public_pages":["index.html","transition-table.html","transition-table-visual.html"],
+      "status":"published",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "TT-PROOF-SURFACE-001",
-      "title": "Transition Proof Surface mirrors verified task chain, proof progression, and source artifacts.",
-      "posture": "RECEIPT_BACKED",
-      "source_repo": "Data-Continuation/formalism-tests",
-      "source_stage": "Stage 1–31 proof surface",
-      "public_pages": [
-        "transition-proof-surface.html",
-        "formalism-tests-stage-1-to-31.html"
-      ],
-      "status": "published",
-      "last_reviewed": "2026-06-14"
+      "id":"TT-PROOF-SURFACE-001",
+      "title":"Transition Proof Surface mirrors verified task chain, proof progression, and source artifacts.",
+      "posture":"RECEIPT_BACKED",
+      "source_repo":"Data-Continuation/formalism-tests",
+      "source_stage":"Stage 1–31 proof surface",
+      "public_pages":["transition-proof-surface.html","formalism-tests-stage-1-to-31.html"],
+      "status":"published",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "TT-CLASS-BROWSER-001",
-      "title": "Transition Table Classes renders transition class data from formalism-tests mirror data.",
-      "posture": "MIRROR",
-      "source_repo": "Data-Continuation/formalism-tests",
-      "source_data": "data/formalism-tests/transition-table-classes.json",
-      "public_pages": [
-        "transition-table.html",
-        "transition-table-classes.html"
-      ],
-      "status": "published",
-      "last_reviewed": "2026-06-14"
+      "id":"TT-CLASS-BROWSER-001",
+      "title":"Transition Table Classes renders transition class data from formalism-tests mirror data.",
+      "posture":"MIRROR",
+      "source_repo":"Data-Continuation/formalism-tests",
+      "source_data":"data/formalism-tests/transition-table-classes.json",
+      "public_pages":["transition-table.html","transition-table-classes.html"],
+      "status":"published",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "GOV-TEST-SUITE-001",
-      "title": "Governance Testing Suite lets visitors classify what pasted LLM output or proposed state movement is allowed to become under public governance posture.",
-      "posture": "RESEARCH_NOTE",
-      "source_repo": "StegVerse-Labs/Site",
-      "source_stage": "static public admissibility simulation",
-      "public_pages": [
-        "tests/index.html",
-        "tests/governance-filter.html",
-        "tests/llm-governance-comparison.html",
-        "tests/transition-admissibility.html",
-        "index.html"
-      ],
-      "status": "published as public testing simulation only",
-      "last_reviewed": "2026-06-14"
+      "id":"GOV-TEST-SUITE-001",
+      "title":"Governance Testing Suite lets visitors classify what pasted LLM output or proposed state movement is allowed to become under public governance posture.",
+      "posture":"RESEARCH_NOTE",
+      "source_repo":"StegVerse-Labs/Site",
+      "source_stage":"static public admissibility simulation",
+      "public_pages":["tests/index.html","tests/governance-filter.html","tests/llm-governance-comparison.html","tests/transition-admissibility.html","tests/receipt-replay.html","tests/fail-closed.html","index.html"],
+      "status":"published as public testing simulation only",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "STCM-CONSERVATION-001",
-      "title": "STCM — State Transition Conservation Model is published as a conservation model under research-note / canonical-candidate posture.",
-      "posture": "RESEARCH_NOTE",
-      "source_repo": "formalism-tests / future STCM-Tests",
-      "source_stage": "conservation formalism scaffold",
-      "public_pages": [
-        "formalisms/index.html",
-        "formalisms/stcm.html",
-        "index.html"
-      ],
-      "status": "published as conservation-model posture only",
-      "last_reviewed": "2026-06-14"
+      "id":"STCM-CONSERVATION-001",
+      "title":"STCM — State Transition Conservation Model is published as a conservation model under research-note / canonical-candidate posture.",
+      "posture":"RESEARCH_NOTE",
+      "source_repo":"formalism-tests / future STCM-Tests",
+      "source_stage":"conservation formalism scaffold",
+      "public_pages":["formalisms/index.html","formalisms/stcm.html","index.html"],
+      "status":"published as conservation-model posture only",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "RTG-CANDIDATE-001",
-      "title": "RTG — Relative Transition Geometry is published as a candidate formalism under draft / provisional posture.",
-      "posture": "DRAFT",
-      "source_repo": "future RTG-Tests / formalism repo",
-      "source_stage": "candidate formalism scaffold",
-      "public_pages": [
-        "formalisms/index.html",
-        "formalisms/rtg.html",
-        "index.html"
-      ],
-      "status": "published as development posture only",
-      "last_reviewed": "2026-06-14"
+      "id":"RTG-CANDIDATE-001",
+      "title":"RTG — Relative Transition Geometry is published as a candidate formalism under draft / provisional posture.",
+      "posture":"DRAFT",
+      "source_repo":"future RTG-Tests / formalism repo",
+      "source_stage":"candidate formalism scaffold",
+      "public_pages":["formalisms/index.html","formalisms/rtg.html","index.html"],
+      "status":"published as development posture only",
+      "last_reviewed":"2026-06-14"
     },
     {
-      "id": "SV002-CORE-LITE-001",
-      "title": "StegVerse-002 core-lite intake is publicly mirrored as a governed work-entity status.",
-      "posture": "RECEIPT_BACKED",
-      "source_repo": "StegVerse-002/core-lite",
-      "source_stage": "M0–M10 complete · v1.0.0-sv002-m10",
-      "public_pages": [
-        "index.html",
-        "stegverse-002.html"
-      ],
-      "status": "published",
-      "last_reviewed": "2026-06-14"
+      "id":"SV002-CORE-LITE-001",
+      "title":"StegVerse-002 core-lite intake is publicly mirrored as a governed work-entity status.",
+      "posture":"RECEIPT_BACKED",
+      "source_repo":"StegVerse-002/core-lite",
+      "source_stage":"M0–M10 complete · v1.0.0-sv002-m10",
+      "public_pages":["index.html","stegverse-002.html"],
+      "status":"published",
+      "last_reviewed":"2026-06-14"
     }
   ],
   "publication_gate": [
