@@ -22,17 +22,20 @@
     "The adapter does not grant a model or solver free-form authority.",
     "Public pages describe the governance pattern only."
   ],
-  "governed_action_chain": ["formalism_state","governed_instruction_packet","solver_or_model_task","returned_artifact","claim_cost_confirmation","receipt_or_replay_posture","next_admissible_instruction"],
+  "governed_action_chain": ["formalism_state","paper_or_source_entry","source_to_instruction_mapping","governed_instruction_packet","solver_or_model_task","returned_artifact","claim_cost_confirmation","receipt_or_replay_posture","next_admissible_instruction"],
   "packet_templates": [
     {"id":"INSTRUCTION-PACKET-TEMPLATE-001","class":"instruction_packet","path":"math-solver/templates/instruction-packet.template.json","purpose":"Declares what the solver/model is allowed to attempt."},
     {"id":"ARTIFACT-RETURN-TEMPLATE-001","class":"artifact_return","path":"math-solver/templates/artifact-return.template.json","purpose":"Declares what the solver/model returned and what claim is attempted."},
-    {"id":"ADMISSIBILITY-RESULT-TEMPLATE-001","class":"admissibility_result","path":"math-solver/templates/admissibility-result.template.json","purpose":"Declares what the returned artifact is allowed to become."}
+    {"id":"ADMISSIBILITY-RESULT-TEMPLATE-001","class":"admissibility_result","path":"math-solver/templates/admissibility-result.template.json","purpose":"Declares what the returned artifact is allowed to become."},
+    {"id":"SOURCE-TO-INSTRUCTION-MAPPING-TEMPLATE-001","class":"source_to_instruction_mapping","path":"math-solver/mappings/source-to-instruction.template.json","purpose":"Declares how a paper/source may inform a governed instruction packet."}
   ],
   "source_registry": {
     "id": "MATH-SOLVER-PAPER-SOURCES-001",
     "path": "math-solver/sources/paper-sources.json",
     "template": "math-solver/sources/source-entry.template.json",
     "example": "math-solver/sources/examples/rtg-stcm-context-placeholder.source.json",
+    "mapping_template": "math-solver/mappings/source-to-instruction.template.json",
+    "mapping_example": "math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json",
     "status": "scaffold awaiting structured paper entries",
     "posture": "RESEARCH_NOTE"
   },
@@ -40,6 +43,7 @@
     {"id":"RTG-OBSERVER-WINDOW-EXAMPLE-001","posture":"RESEARCH_NOTE","status":"static example packet lifecycle only","instruction":"math-solver/examples/rtg-observer-window.instruction.json","artifact_return":"math-solver/examples/rtg-observer-window.artifact-return.json","admissibility_result":"math-solver/examples/rtg-observer-window.admissibility-result.json","boundary":"No real solver run, proof, or mathematical closure is asserted."}
   ],
   "packet_fields": {
+    "source_to_instruction_mapping": ["schema","mapping_id","source_id","source_posture_class","instruction_packet_target","allowed_source_use","disallowed_source_use","claim_limit","review_requirement","admissibility_target","receipt_reference"],
     "instruction_packet": ["schema","packet_id","formalism_id","task_type","declared_goal","allowed_operations","source_context","expected_artifact","claim_limit","review_requirement","created_at"],
     "artifact_return": ["schema","packet_id","artifact_id","artifact_type","summary","claim_made","claim_posture","cost_or_effort_note","open_gaps","returned_at"],
     "admissibility_result": ["schema","packet_id","decision","posture","reason","allowed_next_state","receipt_reference"]
@@ -53,6 +57,9 @@
     "math-solver/sources/paper-sources.json",
     "math-solver/sources/source-entry.template.json",
     "math-solver/sources/examples/rtg-stcm-context-placeholder.source.json",
+    "math-solver/mappings/index.md",
+    "math-solver/mappings/source-to-instruction.template.json",
+    "math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json",
     "math-solver/templates/index.md",
     "math-solver/templates/instruction-packet.template.json",
     "math-solver/templates/artifact-return.template.json",
