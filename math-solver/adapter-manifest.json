@@ -16,12 +16,7 @@
     "workflow_reference": "GCAT-BCAT-Engine/workflows/math-solver",
     "public_source_registry": "math-solver/sources/paper-sources.json"
   },
-  "boundary": [
-    "The adapter does not prove solver correctness.",
-    "The adapter does not create mathematical proof authority.",
-    "The adapter does not grant a model or solver free-form authority.",
-    "Public pages describe the governance pattern only."
-  ],
+  "boundary": ["The adapter does not prove solver correctness.","The adapter does not create mathematical proof authority.","The adapter does not grant a model or solver free-form authority.","Public pages describe the governance pattern only."],
   "governed_action_chain": ["formalism_state","paper_or_source_entry","source_to_instruction_mapping","mapping_to_instruction_generation","governed_instruction_packet","solver_or_model_task","returned_artifact","claim_cost_confirmation","receipt_or_replay_posture","next_admissible_instruction"],
   "packet_templates": [
     {"id":"INSTRUCTION-PACKET-TEMPLATE-001","class":"instruction_packet","path":"math-solver/templates/instruction-packet.template.json","purpose":"Declares what the solver/model is allowed to attempt."},
@@ -38,13 +33,15 @@
     "mapping_template": "math-solver/mappings/source-to-instruction.template.json",
     "mapping_example": "math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json",
     "generation_template": "math-solver/generation/mapping-to-instruction.template.json",
-    "generation_example": "math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json",
+    "generation_instruction_example": "math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json",
+    "generation_artifact_return_example": "math-solver/generation/examples/rtg-stcm-placeholder.generated-artifact-return.json",
+    "generation_admissibility_result_example": "math-solver/generation/examples/rtg-stcm-placeholder.generated-admissibility-result.json",
     "status": "scaffold awaiting structured paper entries",
     "posture": "RESEARCH_NOTE"
   },
   "example_lifecycles": [
     {"id":"RTG-OBSERVER-WINDOW-EXAMPLE-001","posture":"RESEARCH_NOTE","status":"static example packet lifecycle only","instruction":"math-solver/examples/rtg-observer-window.instruction.json","artifact_return":"math-solver/examples/rtg-observer-window.artifact-return.json","admissibility_result":"math-solver/examples/rtg-observer-window.admissibility-result.json","boundary":"No real solver run, proof, or mathematical closure is asserted."},
-    {"id":"RTG-STCM-GENERATED-INSTRUCTION-EXAMPLE-001","posture":"RESEARCH_NOTE","status":"static generation example only","generation_template":"math-solver/generation/mapping-to-instruction.template.json","generated_instruction":"math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json","boundary":"No real paper import, solver run, proof, or mathematical closure is asserted."}
+    {"id":"RTG-STCM-GENERATED-LIFECYCLE-EXAMPLE-001","posture":"RESEARCH_NOTE","status":"static generated lifecycle example only","generation_template":"math-solver/generation/mapping-to-instruction.template.json","generated_instruction":"math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json","generated_artifact_return":"math-solver/generation/examples/rtg-stcm-placeholder.generated-artifact-return.json","generated_admissibility_result":"math-solver/generation/examples/rtg-stcm-placeholder.generated-admissibility-result.json","boundary":"No real paper import, solver run, proof, or mathematical closure is asserted."}
   ],
   "packet_fields": {
     "source_to_instruction_mapping": ["schema","mapping_id","source_id","source_posture_class","instruction_packet_target","allowed_source_use","disallowed_source_use","claim_limit","review_requirement","admissibility_target","receipt_reference"],
@@ -68,6 +65,8 @@
     "math-solver/generation/index.md",
     "math-solver/generation/mapping-to-instruction.template.json",
     "math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json",
+    "math-solver/generation/examples/rtg-stcm-placeholder.generated-artifact-return.json",
+    "math-solver/generation/examples/rtg-stcm-placeholder.generated-admissibility-result.json",
     "math-solver/templates/index.md",
     "math-solver/templates/instruction-packet.template.json",
     "math-solver/templates/artifact-return.template.json",
@@ -89,10 +88,5 @@
     "GCAT-BCAT-Engine/Publisher/papers": "canonical internal papers location",
     "GCAT-BCAT-Engine/workflows": "canonical internal workflow machinery"
   },
-  "next_stage": [
-    "Add structured entries for compiled papers from GCAT-BCAT-Engine/Publisher/papers.",
-    "Map papers to formalism targets and claim limits.",
-    "Create one paper-backed instruction packet.",
-    "Add receipt-backed adapter tests when an authority repo exists."
-  ]
+  "next_stage": ["Add structured entries for compiled papers from GCAT-BCAT-Engine/Publisher/papers.","Map papers to formalism targets and claim limits.","Create one paper-backed instruction packet.","Add receipt-backed adapter tests when an authority repo exists."]
 }
