@@ -1,0 +1,53 @@
+{
+  "schema": "stegverse.math_solver.instruction_packet.v1",
+  "packet_id": "MATH-INSTRUCTION-20260614-RTG-STCM-GEN-0001",
+  "created_at": "2026-06-14T00:00:00Z",
+  "created_by": "StegVerse-Labs/Site public scaffold",
+  "generated_from_mapping": "SOURCE-INSTRUCTION-MAP-20260614-RTG-STCM-0001",
+  "formalism_id": "RTG",
+  "task_type": "construct",
+  "declared_goal": "Placeholder generated instruction showing how a source-to-instruction mapping can become a bounded RTG observer-window task.",
+  "allowed_operations": [
+    "Reference the source placeholder as context only.",
+    "Preserve RTG draft posture and STCM research-note boundary.",
+    "Return only a bounded research-note artifact shape."
+  ],
+  "disallowed_operations": [
+    "Do not assert that a real paper was imported.",
+    "Do not claim the placeholder source is evidence.",
+    "Do not claim RTG proof, final equations, or production authority.",
+    "Do not remove review requirements."
+  ],
+  "source_context": [
+    {
+      "source_id": "SOURCE-20260614-RTG-STCM-0001",
+      "source_type": "placeholder_source_entry",
+      "title": "RTG / STCM compiled-paper placeholder",
+      "posture": "context",
+      "reference": "math-solver/sources/examples/rtg-stcm-context-placeholder.source.json",
+      "use_limit": "Use only to demonstrate generated instruction shape."
+    },
+    {
+      "source_id": "SOURCE-INSTRUCTION-MAP-20260614-RTG-STCM-0001",
+      "source_type": "source_to_instruction_mapping",
+      "title": "RTG / STCM placeholder source-to-instruction mapping",
+      "posture": "RESEARCH_NOTE",
+      "reference": "math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json",
+      "use_limit": "Use only as mapping scaffold, not evidence."
+    }
+  ],
+  "expected_artifact": {
+    "artifact_type": "mapping",
+    "required_sections": [
+      "summary",
+      "candidate_terms",
+      "assumptions",
+      "claim_limits",
+      "open_gaps"
+    ]
+  },
+  "claim_limit": "May claim only that a placeholder generated instruction packet shape exists.",
+  "review_requirement": "research_note_only",
+  "admissibility_target": "research_note",
+  "notes": "Static generated-instruction placeholder only. No real source import, solver execution, or proof is asserted."
+}
