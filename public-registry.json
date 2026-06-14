@@ -1,0 +1,83 @@
+{
+  "schema": "stegverse.site.public_registry.v1",
+  "generated": "2026-06-14",
+  "site_role": "public mirror, not proof authority",
+  "authority_repos": {
+    "formalism_tests": "proof/test authority",
+    "StegVerse-002": "governed work-entity",
+    "Site": "public mirror"
+  },
+  "postures": [
+    {
+      "id": "DRAFT",
+      "description": "Not public-facing yet. May exist as working notes, screenshots, or discussion fragments."
+    },
+    {
+      "id": "RESEARCH_NOTE",
+      "description": "Useful public-facing research posture, but not proof authority."
+    },
+    {
+      "id": "MIRROR",
+      "description": "Reflects another repo's state. Does not create authority."
+    },
+    {
+      "id": "RECEIPT_BACKED",
+      "description": "Public claim is tied to a receipt, formalism test, source stage, commit, or hash."
+    },
+    {
+      "id": "CANONICAL_CLAIM",
+      "description": "Stable public doctrine after review. Still points back to authority sources."
+    },
+    {
+      "id": "DEPRECATED",
+      "description": "Retained for history only. Not current public posture."
+    }
+  ],
+  "claims": [
+    {
+      "id": "SITE-BOUNDARY-001",
+      "title": "Site is a public mirror, not proof authority.",
+      "posture": "CANONICAL_CLAIM",
+      "source_repo": "StegVerse-Labs/Site",
+      "source_page": "index.html",
+      "public_pages": [
+        "index.html"
+      ],
+      "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "TT-BLOCKS-001",
+      "title": "Transition Table exposes decision classes, consequence tiers, coupling blocks, proof posture, and formalism gaps.",
+      "posture": "MIRROR",
+      "source_repo": "formalism-tests",
+      "source_stage": "Stage 10 — Canonical Transition Table Release",
+      "public_pages": [
+        "index.html",
+        "transition-table-visual.html"
+      ],
+      "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "SV002-CORE-LITE-001",
+      "title": "StegVerse-002 core-lite intake is publicly mirrored as a governed work-entity status.",
+      "posture": "RECEIPT_BACKED",
+      "source_repo": "StegVerse-002/core-lite",
+      "source_stage": "M0–M10 complete · v1.0.0-sv002-m10",
+      "public_pages": [
+        "index.html",
+        "stegverse-002.html"
+      ],
+      "status": "published",
+      "last_reviewed": "2026-06-14"
+    }
+  ],
+  "publication_gate": [
+    "Classify the incoming information before public placement.",
+    "Name the authority source or mark the item as draft/research-note.",
+    "Never let Site assert proof that belongs to formalism-tests or a governed work-entity.",
+    "Use shared navigation and footer for public pages.",
+    "Mark stale claims deprecated rather than silently deleting public history."
+  ]
+}
