@@ -24,7 +24,15 @@ These paths are referenced here as canonical internal locations for the compiled
 math-solver/sources/paper-sources.json
 ```
 
-The registry starts empty until individual compiled papers are added as structured entries.
+The registry starts with a reusable template and one placeholder example. Actual compiled papers should be added only after their title, canonical location, posture, claim limit, and review state are known.
+
+## Source files
+
+| File | Purpose |
+|---|---|
+| `paper-sources.json` | Machine-readable source registry scaffold. |
+| `source-entry.template.json` | Reusable source entry template. |
+| `examples/rtg-stcm-context-placeholder.source.json` | Placeholder example showing source-entry shape only. |
 
 ## Source posture classes
 
@@ -67,6 +75,10 @@ review_status
 last_reviewed
 notes
 ```
+
+## Placeholder boundary
+
+The current placeholder example does not assert that any specific paper has been reviewed, mapped, or accepted as evidence. It exists only to show the source-entry shape.
 
 ## Next stage
 
