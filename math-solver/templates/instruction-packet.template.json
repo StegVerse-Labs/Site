@@ -1,0 +1,39 @@
+{
+  "schema": "stegverse.math_solver.instruction_packet.v1",
+  "packet_id": "MATH-INSTRUCTION-YYYYMMDD-0001",
+  "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "created_by": "human-or-governed-entity",
+  "formalism_id": "RTG | STCM | OTHER",
+  "task_type": "derive | check | compare | summarize | translate | construct | review",
+  "declared_goal": "State the bounded goal of this solver/model task.",
+  "allowed_operations": [
+    "Operation the solver/model is allowed to perform."
+  ],
+  "disallowed_operations": [
+    "Claims or actions the solver/model must not perform."
+  ],
+  "source_context": [
+    {
+      "source_id": "SOURCE-0001",
+      "source_type": "paper | note | prior_artifact | test_result | formalism_doc",
+      "title": "Source title",
+      "posture": "DRAFT | RESEARCH_NOTE | RECEIPT_BACKED | DEPRECATED",
+      "reference": "URL, path, citation, or receipt reference",
+      "use_limit": "How this source may be used in the task."
+    }
+  ],
+  "expected_artifact": {
+    "artifact_type": "derivation | proof_attempt | counterexample | summary | mapping | test_plan",
+    "required_sections": [
+      "summary",
+      "method",
+      "result",
+      "claim_limits",
+      "open_gaps"
+    ]
+  },
+  "claim_limit": "No public claim may exceed the returned artifact and declared sources.",
+  "review_requirement": "human_review_required | formalism_test_required | receipt_required | research_note_only",
+  "admissibility_target": "draft | research_note | receipt_backed_candidate",
+  "notes": "Additional constraints or context."
+}
