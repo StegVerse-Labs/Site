@@ -11,6 +11,7 @@
 <nav class="sv-nav">
   <a class="sv-nav-brand" href="index.html">StegVerse</a>
   <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
   <a href="tests/index.html">Tests</a>
   <a href="math-solver/index.html">Math-Solver</a>
   <a href="applicability.html" class="active">Applicability</a>
@@ -24,7 +25,8 @@
     <h1>Where Governed<br><em>Admissibility Applies.</em></h1>
     <p>This page explains the range of disciplines where governed admissibility directly applies and why testers in those disciplines should test outputs before they become claims, actions, records, or decisions.</p>
     <div class="sv-btn-row">
-      <a class="sv-btn sv-btn-primary" href="applicability/discipline-registry.json">Discipline registry</a>
+      <a class="sv-btn sv-btn-primary" href="demo.html">Run dynamic demo</a>
+      <a class="sv-btn sv-btn-secondary" href="applicability/discipline-registry.json">Discipline registry</a>
       <a class="sv-btn sv-btn-secondary" href="applicability/test-matrix.md">Test matrix</a>
       <a class="sv-btn sv-btn-secondary" href="applicability/test-matrix.json">Matrix JSON</a>
       <a class="sv-btn sv-btn-secondary" href="applicability/tester-output.template.json">Tester template</a>
@@ -75,14 +77,14 @@
 
   <h2 class="sv-h2">Recommended test route</h2>
   <div class="sv-prose">
-    <p>The discipline registry identifies where admissibility applies. The test matrix identifies which test pages a tester should run first for their discipline.</p>
+    <p>The discipline registry identifies where admissibility applies. The test matrix identifies which test pages a tester should run first for their discipline. The demo now accepts dynamic tester packets so these classifications can be exercised live.</p>
   </div>
   <pre>discipline
 → recommended test route
-→ declared intent
+→ dynamic tester packet
 → authority / evidence / replay / consequence checks
 → admissibility decision
-→ allowed next state</pre>
+→ result packet</pre>
 
   <h2 class="sv-h2">Tester output shape</h2>
   <pre>Discipline:
@@ -103,13 +105,14 @@ Claim limit:</pre>
     <p>Tester packets give outside reviewers a common shape for returning admissibility classifications without claiming domain certification.</p>
   </div>
   <pre>tester-output.template.json
-→ discipline-specific tester-output example
+→ dynamic demo input
+→ admissibility result packet
 → review / receipt / registry posture</pre>
 </div>
 
 <footer class="sv-footer">
   <span>StegVerse · Governed admissibility applicability · Public mirror</span>
-  <span><a href="index.html">Home</a> · <a href="tests/index.html">Tests</a> · <a href="applicability/discipline-registry.json">Registry</a> · <a href="applicability/test-matrix.md">Matrix</a> · <a href="applicability/tester-output.template.json">Template</a></span>
+  <span><a href="index.html">Home</a> · <a href="demo.html">Demo</a> · <a href="tests/index.html">Tests</a> · <a href="applicability/discipline-registry.json">Registry</a> · <a href="applicability/test-matrix.md">Matrix</a> · <a href="applicability/tester-output.template.json">Template</a></span>
 </footer>
 </body>
 </html>
