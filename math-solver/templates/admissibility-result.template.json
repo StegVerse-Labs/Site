@@ -1,0 +1,24 @@
+{
+  "schema": "stegverse.math_solver.admissibility_result.v1",
+  "packet_id": "MATH-INSTRUCTION-YYYYMMDD-0001",
+  "artifact_id": "MATH-ARTIFACT-YYYYMMDD-0001",
+  "result_id": "MATH-ADMISSIBILITY-YYYYMMDD-0001",
+  "reviewed_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "reviewed_by": "human-or-governed-reviewer",
+  "decision": "ALLOW_AS_NOTE | ALLOW_WITH_POSTURE | REQUIRE_REVIEW | REQUIRE_TEST | REQUIRE_RECEIPT | HOLD | FAIL_CLOSED",
+  "posture": "DRAFT | RESEARCH_NOTE | RECEIPT_BACKED_CANDIDATE | RECEIPT_BACKED | NOT_ADMISSIBLE",
+  "reason": "Why this decision was reached.",
+  "allowed_next_state": "What the artifact is allowed to become next.",
+  "claim_limit": "Maximum public claim allowed from this artifact.",
+  "receipt_reference": "Receipt, commit, hash, test result, or null.",
+  "replay_posture": "not_replayable | partially_replayable | replayable | receipt_backed",
+  "required_follow_up": [
+    "Follow-up required before stronger claim or next instruction."
+  ],
+  "publication_gate": {
+    "may_publish": false,
+    "allowed_page_type": "none | research_note | formalism_page | proof_mirror | registry_entry",
+    "required_boundary_note": "Boundary language required if published."
+  },
+  "notes": "Additional review notes."
+}
