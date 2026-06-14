@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Show how missing authority, evidence, or replay continuity produces fail-closed governance posture.">
+  <title>StegVerse — Fail-Closed Test</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    select { width:100%; border:1px solid var(--border); border-radius:12px; background:var(--surface); color:var(--text); padding:12px 14px; font:inherit; }
+    .test-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
+    .field label { display:block; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a><a href="../demo.html">Demo</a><a href="index.html" class="active">Tests</a><a href="../transition-table.html">Transition Table</a><a href="../formalisms/index.html">Formalisms</a><a href="../Papers.html">Papers</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Fail-closed test · Missing authority · Boundary control</div>
+    <h1>Fail-Closed<br><em>Posture.</em></h1>
+    <p>Test whether a proposed public movement should stop when authority, evidence, replay, or consequence checks are not strong enough.</p>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-secondary" href="governance-filter.html">Governance Filter</a><a class="sv-btn sv-btn-secondary" href="receipt-replay.html">Receipt Replay</a><a class="sv-btn sv-btn-secondary" href="../transition-table.html">Transition Table</a></div>
+  </div>
+  <div class="sv-boundary"><strong>Boundary:</strong> this page demonstrates public posture logic only. It does not enforce runtime policy.</div>
+  <h2 class="sv-h2">Boundary inputs</h2>
+  <div class="test-grid">
+    <div class="field"><label for="authority">Authority</label><select id="authority"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+    <div class="field"><label for="evidence">Evidence</label><select id="evidence"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+    <div class="field"><label for="replay">Replay</label><select id="replay"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+    <div class="field"><label for="consequence">Consequence</label><select id="consequence"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
+  </div>
+  <div class="sv-btn-row"><button class="sv-btn sv-btn-primary" type="button" onclick="runTest()">Run fail-closed check</button><button class="sv-btn sv-btn-secondary" type="button" onclick="loadExample()">Load example</button></div>
+  <div id="result"></div>
+  <h2 class="sv-h2">Fail-closed rule</h2><pre>When required continuity is missing,
+the safe posture is not optimistic allow.
+The safe posture is hold, review, or fail closed.</pre>
+</div>
+<footer class="sv-footer"><span>StegVerse · Fail-Closed · Static public test</span><span><a href="index.html">Tests</a> · <a href="../transition-table.html">Transition Table</a></span></footer>
+<script>
+function v(id){return document.getElementById(id).value;}
+function decide(a,e,r,c){const missing=[a,e,r].filter(x=>x==="missing").length;if(c==="high"&&missing>0)return{d:"FAIL_CLOSED",p:"NOT_ADMISSIBLE",reason:"High consequence movement cannot proceed with missing continuity."};if(missing>=2)return{d:"FAIL_CLOSED",p:"NOT_ADMISSIBLE",reason:"Multiple continuity gaps block admissible movement."};if(missing===1)return{d:"HOLD",p:"DRAFT",reason:"One continuity gap remains open."};if(a==="confirmed"&&e==="confirmed"&&r==="confirmed")return{d:"ALLOW",p:"RECEIPT_BACKED",reason:"Boundary checks are complete for posture-bound movement."};return{d:"REQUIRE_REVIEW",p:"RESEARCH_NOTE",reason:"Continuity exists but is not fully confirmed."};}
+function runTest(){const out=decide(v("authority"),v("evidence"),v("replay"),v("consequence"));document.getElementById("result").innerHTML=`<h2 class="sv-h2">Fail-closed result</h2><div class="sv-evidence"><div class="sv-evidence-label">Boundary posture</div><div class="sv-evidence-row"><span class="k">Decision</span><span class="v">${out.d}</span></div><div class="sv-evidence-row"><span class="k">Posture</span><span class="v">${out.p}</span></div><div class="sv-evidence-row"><span class="k">Reason</span><span class="v">${out.reason}</span></div></div>`;}
+function loadExample(){document.getElementById("authority").value="missing";document.getElementById("evidence").value="declared";document.getElementById("replay").value="missing";document.getElementById("consequence").value="high";runTest();}
+</script>
+</body>
+</html>
