@@ -35,6 +35,8 @@ The Site references these paths as source posture and workflow context. The Site
 
 ```text
 formalism state
+→ paper/source entry
+→ source-to-instruction mapping
 → governed instruction packet
 → solver or model task
 → returned artifact
@@ -52,6 +54,7 @@ formalism state
 | `math-solver/adapter-manifest.json` | Machine-readable adapter manifest. |
 | `math-solver/sources/README.md` | Paper/source intake rules. |
 | `math-solver/sources/paper-sources.json` | Machine-readable paper/source registry scaffold. |
+| `math-solver/mappings/index.md` | Source-to-instruction mapping index. |
 | `math-solver/templates/index.md` | Packet template index. |
 | `math-solver/examples/index.md` | Example packet lifecycle index. |
 
@@ -72,6 +75,23 @@ math-solver/sources/paper-sources.json
 ```
 
 A source entry should declare title, source, canonical location, related formalisms, posture class, claim limit, mapped claims, review status, and whether it may be used in instruction packets.
+
+## Source-to-instruction mapping
+
+Sources do not automatically become solver instructions. A mapping is required:
+
+```text
+paper/source entry
+→ source-to-instruction mapping
+→ governed instruction packet
+```
+
+Mapping files:
+
+| File | Purpose |
+|---|---|
+| `math-solver/mappings/source-to-instruction.template.json` | Reusable mapping template. |
+| `math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json` | Placeholder mapping example only. |
 
 ## Packet templates
 
@@ -95,67 +115,13 @@ This example is not a real solver run and does not assert proof. It exists to sh
 
 ## Packet boundary
 
-The adapter supports three packet classes:
+The adapter supports four relevant packet/mapping classes:
 
 ```text
+source_to_instruction_mapping
 instruction_packet
 artifact_return
 admissibility_result
-```
-
-### instruction_packet
-
-Declares what the solver/model is allowed to attempt.
-
-Suggested fields:
-
-```text
-schema
-packet_id
-formalism_id
-task_type
-declared_goal
-allowed_operations
-source_context
-expected_artifact
-claim_limit
-review_requirement
-created_at
-```
-
-### artifact_return
-
-Declares what the solver/model returned and what claim, if any, is being attempted.
-
-Suggested fields:
-
-```text
-schema
-packet_id
-artifact_id
-artifact_type
-summary
-claim_made
-claim_posture
-cost_or_effort_note
-open_gaps
-returned_at
-```
-
-### admissibility_result
-
-Declares whether the artifact can become a public claim, a next instruction, or only a draft/research note.
-
-Suggested fields:
-
-```text
-schema
-packet_id
-decision
-posture
-reason
-allowed_next_state
-receipt_reference
 ```
 
 ## Papers and source posture
