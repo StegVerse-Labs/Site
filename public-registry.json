@@ -5,7 +5,8 @@
   "authority_repos": {
     "formalism_tests": "proof/test authority",
     "StegVerse-002": "governed work-entity",
-    "Site": "public mirror"
+    "Site": "public mirror",
+    "future_RTG_Tests": "candidate formalism authority once created"
   },
   "postures": [
     {
@@ -86,6 +87,20 @@
         "transition-table-classes.html"
       ],
       "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "RTG-CANDIDATE-001",
+      "title": "RTG — Relative Transition Geometry is published as a candidate formalism under draft / provisional posture.",
+      "posture": "DRAFT",
+      "source_repo": "future RTG-Tests / formalism repo",
+      "source_stage": "candidate formalism scaffold",
+      "public_pages": [
+        "formalisms/index.html",
+        "formalisms/rtg.html",
+        "index.html"
+      ],
+      "status": "published as development posture only",
       "last_reviewed": "2026-06-14"
     },
     {
