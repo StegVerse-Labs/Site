@@ -76,7 +76,7 @@
       "posture":"RESEARCH_NOTE",
       "source_repo":"StegVerse-Labs/Site",
       "source_stage":"public adapter concept / paper-source posture surface",
-      "public_pages":["math-solver/index.html","math-solver/papers.html","math-solver/adapter-manifest.json","math-solver/README.md","index.html"],
+      "public_pages":["math-solver/index.html","math-solver/papers.html","math-solver/adapter-manifest.json","math-solver/README.md","math-solver/templates/index.md","math-solver/templates/instruction-packet.template.json","math-solver/templates/artifact-return.template.json","math-solver/templates/admissibility-result.template.json","index.html"],
       "status":"published as public adapter concept only",
       "last_reviewed":"2026-06-14"
     },
