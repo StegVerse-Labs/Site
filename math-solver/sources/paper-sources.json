@@ -7,27 +7,28 @@
     "canonical_workflows_path": "GCAT-BCAT-Engine/workflows",
     "workflow_reference": "GCAT-BCAT-Engine/workflows/math-solver"
   },
-  "posture_classes": [
+  "templates": [
     {
-      "id": "context",
-      "description": "Paper or source provides background context only."
-    },
-    {
-      "id": "solver_instruction_source",
-      "description": "Paper or source may be used as declared context in an instruction packet."
-    },
-    {
-      "id": "mapped_claim_support",
-      "description": "Paper or source is mapped to a bounded claim but is not proof authority by itself."
-    },
-    {
-      "id": "receipt_backed_support",
-      "description": "Paper or source is connected to a receipt-backed artifact, test, or governed review."
-    },
-    {
-      "id": "superseded_deprecated",
-      "description": "Paper or source is retained for history only."
+      "id": "SOURCE-ENTRY-TEMPLATE-001",
+      "path": "math-solver/sources/source-entry.template.json",
+      "purpose": "Reusable source-entry shape for compiled papers and source materials."
     }
+  ],
+  "examples": [
+    {
+      "id": "SOURCE-20260614-RTG-STCM-0001",
+      "path": "math-solver/sources/examples/rtg-stcm-context-placeholder.source.json",
+      "posture_class": "context",
+      "status": "placeholder example only",
+      "claim_limit": "May show source-entry shape only; does not assert reviewed evidence."
+    }
+  ],
+  "posture_classes": [
+    {"id":"context","description":"Paper or source provides background context only."},
+    {"id":"solver_instruction_source","description":"Paper or source may be used as declared context in an instruction packet."},
+    {"id":"mapped_claim_support","description":"Paper or source is mapped to a bounded claim but is not proof authority by itself."},
+    {"id":"receipt_backed_support","description":"Paper or source is connected to a receipt-backed artifact, test, or governed review."},
+    {"id":"superseded_deprecated","description":"Paper or source is retained for history only."}
   ],
   "formalism_targets": [
     "RTG",
