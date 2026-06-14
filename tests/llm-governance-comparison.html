@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare raw LLM output with governed public posture under StegVerse governance.">
+  <title>StegVerse — LLM Governance Comparison</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    textarea, select { width:100%; border:1px solid var(--border); border-radius:12px; background:var(--surface); color:var(--text); padding:12px 14px; font:inherit; }
+    textarea { min-height:150px; resize:vertical; }
+    .test-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:20px 0; }
+    .field label { display:block; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="../index.html">StegVerse</a>
+  <a href="../index.html">Home</a>
+  <a href="../demo.html">Demo</a>
+  <a href="index.html" class="active">Tests</a>
+  <a href="../transition-table.html">Transition Table</a>
+  <a href="../formalisms/index.html">Formalisms</a>
+  <a href="../Papers.html">Papers</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Comparison test · Raw output vs governed posture</div>
+    <h1>LLM Governance<br><em>Comparison.</em></h1>
+    <p>Paste a raw LLM answer and compare it with the governance posture required before that answer can become a public claim, repo action, or decision artifact.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-secondary" href="governance-filter.html">Governance Filter</a>
+      <a class="sv-btn sv-btn-secondary" href="transition-admissibility.html">Transition Admissibility</a>
+      <a class="sv-btn sv-btn-secondary" href="../formalisms/stcm.html">STCM</a>
+    </div>
+  </div>
+  <div class="sv-boundary"><strong>Boundary:</strong> this comparison does not call or evaluate a model. It compares raw text against the governance layer required before public movement.</div>
+
+  <h2 class="sv-h2">Input</h2>
+  <div class="field"><label for="rawOutput">Raw LLM output</label><textarea id="rawOutput" placeholder="Paste a raw answer or generated output..."></textarea></div>
+  <div class="test-grid">
+    <div class="field"><label for="use">Intended destination</label><select id="use"><option value="public_claim">Public claim</option><option value="research_note">Research note</option><option value="repo_action">Repo action</option><option value="decision_artifact">Decision artifact</option><option value="private_note">Private note</option></select></div>
+    <div class="field"><label for="evidence">Evidence posture</label><select id="evidence"><option value="none">None</option><option value="source">Source named</option><option value="receipt">Receipt-backed</option><option value="test">Test-backed</option></select></div>
+  </div>
+  <div class="sv-btn-row"><button class="sv-btn sv-btn-primary" type="button" onclick="compareOutput()">Compare</button><button class="sv-btn sv-btn-secondary" type="button" onclick="loadExample()">Load example</button><button class="sv-btn sv-btn-secondary" type="button" onclick="clearPage()">Clear</button></div>
+  <div id="result"></div>
+</div>
+<footer class="sv-footer"><span>StegVerse · LLM Governance Comparison · Public test</span><span><a href="index.html">Tests</a> · <a href="../transition-table.html">Transition Table</a></span></footer>
+<script>
+function v(id){return document.getElementById(id).value;}
+function governed(use,evidence,text){
+ if(!text.trim()) return {decision:"REQUIRE_INPUT", posture:"DRAFT", governed:"No governed output can be formed until raw output exists."};
+ if(use==="private_note") return {decision:"ALLOW_PRIVATE", posture:"PRIVATE_NOTE", governed:"Keep as private note. No public posture required."};
+ if(evidence==="test"||evidence==="receipt") return {decision:"ALLOW_WITH_POSTURE", posture:"RECEIPT_BACKED", governed:"May move with source, receipt/test reference, posture label, and boundary note."};
+ if(use==="decision_artifact"||use==="repo_action") return {decision:"REQUIRE_REVIEW", posture:"DRAFT", governed:"Hold. Add authority, evidence, and replay path before action."};
+ if(use==="public_claim"&&evidence==="none") return {decision:"HOLD", posture:"RESEARCH_NOTE", governed:"May be retained as research note. Must not publish as doctrine."};
+ return {decision:"ALLOW_AS_NOTE", posture:"RESEARCH_NOTE", governed:"May publish as note with non-authority boundary."};
+}
+function compareOutput(){const text=v("rawOutput");const g=governed(v("use"),v("evidence"),text);document.getElementById("result").innerHTML=`<h2 class="sv-h2">Comparison result</h2><div class="test-grid"><div class="sv-card"><h3 class="sv-h3">Raw LLM output</h3><p style="font-size:13px;color:var(--muted);white-space:pre-wrap;">${text||"No raw output supplied."}</p></div><div class="sv-card"><h3 class="sv-h3">Governed posture</h3><div class="sv-evidence"><div class="sv-evidence-row"><span class="k">Decision</span><span class="v">${g.decision}</span></div><div class="sv-evidence-row"><span class="k">Posture</span><span class="v">${g.posture}</span></div><div class="sv-evidence-row"><span class="k">Governed output</span><span class="v">${g.governed}</span></div></div></div></div>`;}
+function loadExample(){document.getElementById("rawOutput").value="This generated response makes a broad public claim but does not include an authority source, receipt, or test reference.";document.getElementById("use").value="public_claim";document.getElementById("evidence").value="none";compareOutput();}
+function clearPage(){document.getElementById("rawOutput").value="";document.getElementById("result").innerHTML="";}
+</script>
+</body>
+</html>
