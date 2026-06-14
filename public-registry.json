@@ -7,7 +7,8 @@
     "StegVerse-002": "governed work-entity",
     "Site": "public mirror",
     "future_RTG_Tests": "candidate formalism authority once created",
-    "future_STCM_Tests": "conservation formalism authority once created"
+    "future_STCM_Tests": "conservation formalism authority once created",
+    "future_governance_tests": "governance testing authority once receipt-backed"
   },
   "postures": [
     {
@@ -88,6 +89,20 @@
         "transition-table-classes.html"
       ],
       "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "GOV-TEST-SUITE-001",
+      "title": "Governance Testing Suite lets visitors classify what pasted LLM output is allowed to become under public governance posture.",
+      "posture": "RESEARCH_NOTE",
+      "source_repo": "StegVerse-Labs/Site",
+      "source_stage": "static public admissibility simulation",
+      "public_pages": [
+        "tests/index.html",
+        "tests/governance-filter.html",
+        "index.html"
+      ],
+      "status": "published as public testing simulation only",
       "last_reviewed": "2026-06-14"
     },
     {
