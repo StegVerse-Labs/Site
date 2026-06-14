@@ -40,6 +40,7 @@ formalism state
 | `math-solver/index.html` | Public posture page for the adapter concept. |
 | `math-solver/papers.html` | Public posture page for papers and formalism sources. |
 | `math-solver/adapter-manifest.json` | Machine-readable adapter manifest. |
+| `math-solver/templates/index.md` | Packet template index. |
 
 ## Current posture
 
@@ -49,9 +50,19 @@ Posture: RESEARCH_NOTE
 Status: published as public adapter concept only
 ```
 
+## Packet templates
+
+The first public packet templates are now present:
+
+| Packet | Path | Purpose |
+|---|---|---|
+| instruction_packet | `math-solver/templates/instruction-packet.template.json` | Declares what the solver/model is allowed to attempt. |
+| artifact_return | `math-solver/templates/artifact-return.template.json` | Declares what the solver/model returned and what claim is attempted. |
+| admissibility_result | `math-solver/templates/admissibility-result.template.json` | Declares what the returned artifact is allowed to become. |
+
 ## Packet boundary
 
-The adapter should eventually support three packet classes:
+The adapter supports three packet classes:
 
 ```text
 instruction_packet
@@ -128,8 +139,7 @@ superseded / deprecated
 
 ## Next stage
 
-1. Create instruction packet template.
-2. Create artifact return template.
-3. Add structured entries for the compiled papers.
-4. Map papers to RTG, STCM, math-solver adapter, or other formalism targets.
-5. Add receipt-backed adapter tests once the authority repo exists.
+1. Add structured entries for the compiled papers.
+2. Map papers to RTG, STCM, math-solver adapter, or other formalism targets.
+3. Add one example RTG or STCM instruction packet.
+4. Add receipt-backed adapter tests once the authority repo exists.
