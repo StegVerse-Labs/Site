@@ -37,6 +37,7 @@ The Site references these paths as source posture and workflow context. The Site
 formalism state
 → paper/source entry
 → source-to-instruction mapping
+→ mapping-to-instruction generation
 → governed instruction packet
 → solver or model task
 → returned artifact
@@ -55,6 +56,7 @@ formalism state
 | `math-solver/sources/README.md` | Paper/source intake rules. |
 | `math-solver/sources/paper-sources.json` | Machine-readable paper/source registry scaffold. |
 | `math-solver/mappings/index.md` | Source-to-instruction mapping index. |
+| `math-solver/generation/index.md` | Mapping-to-instruction generation index. |
 | `math-solver/templates/index.md` | Packet template index. |
 | `math-solver/examples/index.md` | Example packet lifecycle index. |
 
@@ -83,6 +85,7 @@ Sources do not automatically become solver instructions. A mapping is required:
 ```text
 paper/source entry
 → source-to-instruction mapping
+→ mapping-to-instruction generation
 → governed instruction packet
 ```
 
@@ -92,6 +95,13 @@ Mapping files:
 |---|---|
 | `math-solver/mappings/source-to-instruction.template.json` | Reusable mapping template. |
 | `math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json` | Placeholder mapping example only. |
+
+Generation files:
+
+| File | Purpose |
+|---|---|
+| `math-solver/generation/mapping-to-instruction.template.json` | Reusable generation record template. |
+| `math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json` | Placeholder generated instruction packet. |
 
 ## Packet templates
 
@@ -115,10 +125,11 @@ This example is not a real solver run and does not assert proof. It exists to sh
 
 ## Packet boundary
 
-The adapter supports four relevant packet/mapping classes:
+The adapter supports five relevant packet/mapping/generation classes:
 
 ```text
 source_to_instruction_mapping
+mapping_to_instruction_generation
 instruction_packet
 artifact_return
 admissibility_result
