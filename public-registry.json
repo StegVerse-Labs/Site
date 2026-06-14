@@ -93,13 +93,15 @@
     },
     {
       "id": "GOV-TEST-SUITE-001",
-      "title": "Governance Testing Suite lets visitors classify what pasted LLM output is allowed to become under public governance posture.",
+      "title": "Governance Testing Suite lets visitors classify what pasted LLM output or proposed state movement is allowed to become under public governance posture.",
       "posture": "RESEARCH_NOTE",
       "source_repo": "StegVerse-Labs/Site",
       "source_stage": "static public admissibility simulation",
       "public_pages": [
         "tests/index.html",
         "tests/governance-filter.html",
+        "tests/llm-governance-comparison.html",
+        "tests/transition-admissibility.html",
         "index.html"
       ],
       "status": "published as public testing simulation only",
