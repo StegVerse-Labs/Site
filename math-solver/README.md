@@ -21,6 +21,16 @@ Proof        = formalism-tests or future adapter authority with receipts
 
 The public math-solver pages do not claim solver correctness, completed proof, external verification, or production authority.
 
+## Canonical internal paths
+
+```text
+GCAT-BCAT-Engine/Publisher/papers
+GCAT-BCAT-Engine/workflows
+GCAT-BCAT-Engine/workflows/math-solver
+```
+
+The Site references these paths as source posture and workflow context. The Site does not become the authority for those internal sources.
+
 ## Governed action chain
 
 ```text
@@ -40,6 +50,8 @@ formalism state
 | `math-solver/index.html` | Public posture page for the adapter concept. |
 | `math-solver/papers.html` | Public posture page for papers and formalism sources. |
 | `math-solver/adapter-manifest.json` | Machine-readable adapter manifest. |
+| `math-solver/sources/README.md` | Paper/source intake rules. |
+| `math-solver/sources/paper-sources.json` | Machine-readable paper/source registry scaffold. |
 | `math-solver/templates/index.md` | Packet template index. |
 | `math-solver/examples/index.md` | Example packet lifecycle index. |
 
@@ -50,6 +62,16 @@ Claim id: MATH-SOLVER-ADAPTER-001
 Posture: RESEARCH_NOTE
 Status: published as public adapter concept only
 ```
+
+## Source intake
+
+Compiled papers and source material should enter through:
+
+```text
+math-solver/sources/paper-sources.json
+```
+
+A source entry should declare title, source, canonical location, related formalisms, posture class, claim limit, mapped claims, review status, and whether it may be used in instruction packets.
 
 ## Packet templates
 
@@ -150,7 +172,7 @@ superseded / deprecated
 
 ## Next stage
 
-1. Add structured entries for the compiled papers.
+1. Add structured entries for the compiled papers from `GCAT-BCAT-Engine/Publisher/papers`.
 2. Map papers to RTG, STCM, math-solver adapter, or other formalism targets.
 3. Create one paper-backed instruction packet.
 4. Add receipt-backed adapter tests once the authority repo exists.
