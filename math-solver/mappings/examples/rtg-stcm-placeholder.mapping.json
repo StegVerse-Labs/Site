@@ -1,0 +1,34 @@
+{
+  "schema": "stegverse.math_solver.source_to_instruction_mapping.v1",
+  "mapping_id": "SOURCE-INSTRUCTION-MAP-20260614-RTG-STCM-0001",
+  "created_at": "2026-06-14T00:00:00Z",
+  "created_by": "StegVerse-Labs/Site public scaffold",
+  "source_id": "SOURCE-20260614-RTG-STCM-0001",
+  "source_posture_class": "context",
+  "source_reference": "GCAT-BCAT-Engine/Publisher/papers/<pending-file>",
+  "related_formalisms": [
+    "RTG",
+    "STCM",
+    "Math-Solver Adapter"
+  ],
+  "instruction_packet_target": {
+    "formalism_id": "RTG",
+    "task_type": "construct",
+    "declared_goal": "Placeholder mapping from a future compiled source into a bounded RTG observer-window instruction packet.",
+    "expected_artifact_type": "mapping"
+  },
+  "allowed_source_use": [
+    "Show how a context-only source may be referenced by an instruction packet after review.",
+    "Preserve source posture and claim limits."
+  ],
+  "disallowed_source_use": [
+    "Do not treat the placeholder as an imported paper.",
+    "Do not claim evidence support from the placeholder.",
+    "Do not use the placeholder to promote RTG beyond draft posture."
+  ],
+  "claim_limit": "May claim only that a placeholder source-to-instruction mapping shape exists.",
+  "review_requirement": "research_note_only",
+  "admissibility_target": "research_note",
+  "receipt_reference": null,
+  "notes": "Static placeholder only. No actual paper has been imported or mapped."
+}
