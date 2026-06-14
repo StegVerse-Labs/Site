@@ -1,0 +1,53 @@
+{
+  "schema": "stegverse.math_solver.instruction_packet.v1",
+  "packet_id": "MATH-INSTRUCTION-20260614-RTG-0001",
+  "created_at": "2026-06-14T00:00:00Z",
+  "created_by": "StegVerse-Labs/Site public scaffold",
+  "formalism_id": "RTG",
+  "task_type": "construct",
+  "declared_goal": "Construct a bounded observer-window model sketch for RTG without claiming mathematical closure.",
+  "allowed_operations": [
+    "Define candidate terms for observer window, evidence density, and transition visibility.",
+    "Identify assumptions that would need later formal testing.",
+    "Return a bounded research-note artifact with open gaps."
+  ],
+  "disallowed_operations": [
+    "Do not claim RTG is proven.",
+    "Do not claim final equations.",
+    "Do not claim production governance authority.",
+    "Do not promote the artifact beyond research-note posture."
+  ],
+  "source_context": [
+    {
+      "source_id": "RTG-PUBLIC-PAGE-001",
+      "source_type": "formalism_doc",
+      "title": "RTG — Relative Transition Geometry",
+      "posture": "DRAFT",
+      "reference": "formalisms/rtg.html",
+      "use_limit": "Use only as candidate formalism context, not proof authority."
+    },
+    {
+      "source_id": "STCM-PUBLIC-PAGE-001",
+      "source_type": "formalism_doc",
+      "title": "STCM — State Transition Conservation Model",
+      "posture": "RESEARCH_NOTE",
+      "reference": "formalisms/stcm.html",
+      "use_limit": "Use only for replay/continuity boundary language."
+    }
+  ],
+  "expected_artifact": {
+    "artifact_type": "mapping",
+    "required_sections": [
+      "summary",
+      "candidate_terms",
+      "assumptions",
+      "result",
+      "claim_limits",
+      "open_gaps"
+    ]
+  },
+  "claim_limit": "May claim only that an observer-window model sketch was requested as a research-note artifact.",
+  "review_requirement": "human_review_required",
+  "admissibility_target": "research_note",
+  "notes": "Example packet only. No real solver run is asserted."
+}
