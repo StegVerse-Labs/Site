@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Check whether a proposed transition has enough continuity to be replayable under STCM.">
+  <title>StegVerse — Receipt Replay Test</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    textarea, select { width:100%; border:1px solid var(--border); border-radius:12px; background:var(--surface); color:var(--text); padding:12px 14px; font:inherit; }
+    textarea { min-height:110px; resize:vertical; }
+    .test-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
+    .field label { display:block; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a><a href="../demo.html">Demo</a><a href="index.html" class="active">Tests</a><a href="../transition-table.html">Transition Table</a><a href="../formalisms/index.html">Formalisms</a><a href="../Papers.html">Papers</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Replay test · Receipt continuity · STCM</div>
+    <h1>Receipt<br><em>Replay.</em></h1>
+    <p>Check whether a proposed transition has enough continuity to be replayed from prior state to next state under public posture rules.</p>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-secondary" href="transition-admissibility.html">Transition Admissibility</a><a class="sv-btn sv-btn-secondary" href="fail-closed.html">Fail-Closed</a><a class="sv-btn sv-btn-secondary" href="../formalisms/stcm.html">STCM</a></div>
+  </div>
+  <div class="sv-boundary"><strong>Boundary:</strong> this is a static public replay simulation. It does not replace receipt-backed tests.</div>
+  <h2 class="sv-h2">Replay inputs</h2>
+  <div class="test-grid">
+    <div class="field"><label for="prior">Prior state receipt</label><select id="prior"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+    <div class="field"><label for="decision">Decision receipt</label><select id="decision"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+    <div class="field"><label for="next">Next state receipt</label><select id="next"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+    <div class="field"><label for="authority">Authority continuity</label><select id="authority"><option value="missing">Missing</option><option value="declared">Declared</option><option value="confirmed">Confirmed</option></select></div>
+  </div>
+  <div class="field"><label for="notes">Replay note</label><textarea id="notes" placeholder="Describe what would need to replay cleanly..."></textarea></div>
+  <div class="sv-btn-row"><button class="sv-btn sv-btn-primary" type="button" onclick="runReplay()">Check replay</button><button class="sv-btn sv-btn-secondary" type="button" onclick="loadExample()">Load example</button><button class="sv-btn sv-btn-secondary" type="button" onclick="clearPage()">Clear</button></div>
+  <div id="result"></div>
+  <h2 class="sv-h2">Replay rule</h2><pre>prior receipt
+→ authority continuity
+→ decision receipt
+→ next-state receipt
+→ replayable chain</pre>
+</div>
+<footer class="sv-footer"><span>StegVerse · Receipt Replay · Static public test</span><span><a href="index.html">Tests</a> · <a href="../formalisms/stcm.html">STCM</a></span></footer>
+<script>
+function v(id){return document.getElementById(id).value;}
+function replay(prior,decision,next,authority){const values=[prior,decision,next,authority];const confirmed=values.filter(x=>x==="confirmed").length;const missing=values.filter(x=>x==="missing").length;if(missing>=2)return{d:"FAIL_CLOSED",p:"NOT_REPLAYABLE",r:"Multiple continuity points are missing."};if(authority==="missing")return{d:"REQUIRE_AUTHORITY",p:"DRAFT",r:"Replay needs authority continuity."};if(confirmed===4)return{d:"REPLAY_CONFIRMED",p:"RECEIPT_BACKED",r:"Continuity is complete for public replay posture."};if(confirmed>=2&&missing===0)return{d:"PARTIAL_REPLAY",p:"RESEARCH_NOTE",r:"Continuity exists, but at least one point remains declared rather than confirmed."};return{d:"REQUIRE_REVIEW",p:"DRAFT",r:"Replay continuity is not strong enough for receipt-backed posture."};}
+function runReplay(){const out=replay(v("prior"),v("decision"),v("next"),v("authority"));document.getElementById("result").innerHTML=`<h2 class="sv-h2">Replay result</h2><div class="sv-evidence"><div class="sv-evidence-label">Receipt continuity</div><div class="sv-evidence-row"><span class="k">Decision</span><span class="v">${out.d}</span></div><div class="sv-evidence-row"><span class="k">Posture</span><span class="v">${out.p}</span></div><div class="sv-evidence-row"><span class="k">Reason</span><span class="v">${out.r}</span></div></div>`;}
+function loadExample(){document.getElementById("prior").value="confirmed";document.getElementById("decision").value="declared";document.getElementById("next").value="declared";document.getElementById("authority").value="confirmed";document.getElementById("notes").value="Prior receipt and authority exist, but the remaining continuity points are not confirmed.";runReplay();}
+function clearPage(){document.getElementById("notes").value="";document.getElementById("result").innerHTML="";}
+</script>
+</body>
+</html>
