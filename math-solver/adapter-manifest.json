@@ -1,0 +1,85 @@
+{
+  "schema": "stegverse.site.math_solver_adapter_manifest.v1",
+  "generated": "2026-06-14",
+  "site_role": "public mirror, not proof authority",
+  "adapter": {
+    "id": "MATH-SOLVER-ADAPTER-001",
+    "title": "Math-Solver Governance Adapter",
+    "posture": "RESEARCH_NOTE",
+    "status": "public adapter concept",
+    "future_authority": "future_math_solver_adapter once receipt-backed"
+  },
+  "purpose": "Govern formalism-development actions by requiring declared instruction packets, returned artifacts, claim posture, and replay/receipt continuity before next instructions are admitted.",
+  "boundary": [
+    "The adapter does not prove solver correctness.",
+    "The adapter does not create mathematical proof authority.",
+    "The adapter does not grant a model or solver free-form authority.",
+    "Public pages describe the governance pattern only."
+  ],
+  "governed_action_chain": [
+    "formalism_state",
+    "governed_instruction_packet",
+    "solver_or_model_task",
+    "returned_artifact",
+    "claim_cost_confirmation",
+    "receipt_or_replay_posture",
+    "next_admissible_instruction"
+  ],
+  "packet_fields": {
+    "instruction_packet": [
+      "schema",
+      "packet_id",
+      "formalism_id",
+      "task_type",
+      "declared_goal",
+      "allowed_operations",
+      "source_context",
+      "expected_artifact",
+      "claim_limit",
+      "review_requirement",
+      "created_at"
+    ],
+    "artifact_return": [
+      "schema",
+      "packet_id",
+      "artifact_id",
+      "artifact_type",
+      "summary",
+      "claim_made",
+      "claim_posture",
+      "cost_or_effort_note",
+      "open_gaps",
+      "returned_at"
+    ],
+    "admissibility_result": [
+      "schema",
+      "packet_id",
+      "decision",
+      "posture",
+      "reason",
+      "allowed_next_state",
+      "receipt_reference"
+    ]
+  },
+  "related_public_pages": [
+    "math-solver/index.html",
+    "math-solver/papers.html",
+    "tests/index.html",
+    "formalisms/rtg.html",
+    "formalisms/stcm.html"
+  ],
+  "related_structures": {
+    "RTG": "candidate geometry / formalism target",
+    "STCM": "conservation and replay continuity rule",
+    "Governance Testing Suite": "public output and state-movement classification surface",
+    "CGE": "future decision and enforcement manager",
+    "formalism-tests": "proof/test authority where receipts exist"
+  },
+  "next_stage": [
+    "Create instruction packet template.",
+    "Create artifact return template.",
+    "Create paper/source registry entries from compiled papers.",
+    "Map papers to formalism targets and claim limits.",
+    "Add receipt-backed adapter tests when an authority repo exists."
+  ]
+}
