@@ -1,0 +1,93 @@
+{
+  "schema": "stegverse.site.governance_test_manifest.v1",
+  "generated": "2026-06-14",
+  "site_role": "public mirror, not proof authority",
+  "suite": {
+    "id": "GOV-TEST-SUITE-001",
+    "title": "Governance Testing Suite",
+    "posture": "RESEARCH_NOTE",
+    "status": "static public admissibility simulation",
+    "future_authority": "future_governance_tests once receipt-backed"
+  },
+  "doctrine": {
+    "not_the_question": "Is the LLM answer good?",
+    "governing_question": "What is this answer allowed to become?",
+    "boundary": "Static tests classify public posture. They do not create proof authority."
+  },
+  "decisions": [
+    "ALLOW",
+    "ALLOW_AS_NOTE",
+    "ALLOW_PRIVATE",
+    "ALLOW_WITH_POSTURE",
+    "FAIL_CLOSED",
+    "HOLD",
+    "PARTIAL_REPLAY",
+    "REPLAY_CONFIRMED",
+    "REQUIRE_AUTHORITY",
+    "REQUIRE_INPUT",
+    "REQUIRE_REPLAY",
+    "REQUIRE_REVIEW"
+  ],
+  "postures": [
+    "DRAFT",
+    "HOLD",
+    "NOT_ADMISSIBLE",
+    "NOT_REPLAYABLE",
+    "PRIVATE_NOTE",
+    "RECEIPT_BACKED",
+    "RESEARCH_NOTE"
+  ],
+  "tests": [
+    {
+      "id": "GOV-FILTER-001",
+      "title": "LLM Governance Filter",
+      "path": "tests/governance-filter.html",
+      "purpose": "Paste output, declare intended use, authority, and evidence, then classify admissibility posture.",
+      "inputs": ["output", "intended_use", "authority_source", "evidence_level"],
+      "outputs": ["transition_class", "decision", "public_posture", "allowed_next_state"],
+      "status": "published"
+    },
+    {
+      "id": "GOV-COMPARE-001",
+      "title": "LLM Governance Comparison",
+      "path": "tests/llm-governance-comparison.html",
+      "purpose": "Compare raw generated output against governed posture required before public or executable movement.",
+      "inputs": ["raw_output", "intended_destination", "evidence_posture"],
+      "outputs": ["decision", "posture", "governed_output"],
+      "status": "published"
+    },
+    {
+      "id": "TRANSITION-ADMISSIBILITY-001",
+      "title": "Transition Admissibility",
+      "path": "tests/transition-admissibility.html",
+      "purpose": "Classify proposed state movement against authority, evidence, replay continuity, and consequence level.",
+      "inputs": ["proposed_transition", "authority", "evidence", "replay_continuity", "consequence"],
+      "outputs": ["decision", "posture", "reason"],
+      "status": "published"
+    },
+    {
+      "id": "RECEIPT-REPLAY-001",
+      "title": "Receipt Replay",
+      "path": "tests/receipt-replay.html",
+      "purpose": "Check whether receipt continuity is strong enough to replay movement from prior state to next state.",
+      "inputs": ["prior_state_receipt", "decision_receipt", "next_state_receipt", "authority_continuity"],
+      "outputs": ["decision", "posture", "reason"],
+      "status": "published"
+    },
+    {
+      "id": "FAIL-CLOSED-001",
+      "title": "Fail-Closed",
+      "path": "tests/fail-closed.html",
+      "purpose": "Show how missing authority, evidence, or replay continuity should stop unsafe public movement.",
+      "inputs": ["authority", "evidence", "replay", "consequence"],
+      "outputs": ["decision", "posture", "reason"],
+      "status": "published"
+    }
+  ],
+  "next_stage": [
+    "Extract shared testing rules into a reusable script.",
+    "Add test vectors with expected decisions.",
+    "Add receipt-backed replay fixtures when formalism authority exists.",
+    "Promote selected tests from simulation to receipt-backed posture only after authority and replay evidence exist."
+  ]
+}
