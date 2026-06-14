@@ -1,0 +1,39 @@
+{
+  "schema": "stegverse.math_solver.artifact_return.v1",
+  "packet_id": "MATH-INSTRUCTION-20260614-RTG-STCM-GEN-0001",
+  "artifact_id": "MATH-ARTIFACT-20260614-RTG-STCM-GEN-0001",
+  "returned_at": "2026-06-14T00:00:00Z",
+  "returned_by": "placeholder-example-not-a-real-solver-run",
+  "generated_from_instruction": "math-solver/generation/examples/rtg-stcm-placeholder.generated-instruction.json",
+  "artifact_type": "mapping",
+  "summary": "Placeholder artifact return for the generated RTG/STCM instruction packet lifecycle.",
+  "method": "No solver method executed. This is a static artifact-return shape for the generated lifecycle.",
+  "result": "A real artifact would return bounded candidate terms, assumptions, claim limits, and open gaps. This placeholder returns no mathematical result.",
+  "claim_made": "Only that a generated lifecycle artifact-return placeholder exists.",
+  "claim_posture": "DRAFT",
+  "source_usage": [
+    {
+      "source_id": "SOURCE-20260614-RTG-STCM-0001",
+      "used_as": "context_placeholder",
+      "notes": "Placeholder source only. Not reviewed evidence."
+    },
+    {
+      "source_id": "SOURCE-INSTRUCTION-MAP-20260614-RTG-STCM-0001",
+      "used_as": "mapping_placeholder",
+      "notes": "Placeholder mapping only. Not a real mapping from imported paper."
+    }
+  ],
+  "cost_or_effort_note": "No compute, token, or solver cost. Static generated lifecycle example only.",
+  "open_gaps": [
+    "No real paper was imported.",
+    "No real solver execution occurred.",
+    "No mathematical result is asserted.",
+    "No receipt-backed proof exists for this generated lifecycle."
+  ],
+  "next_instruction_requested": "Do not continue as a real solver chain until a real paper source and reviewed mapping exist.",
+  "self_limitations": [
+    "Placeholder artifact only.",
+    "Not a proof artifact.",
+    "Not a model-generated result."
+  ]
+}
