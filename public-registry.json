@@ -41,7 +41,9 @@
       "source_repo": "StegVerse-Labs/Site",
       "source_page": "index.html",
       "public_pages": [
-        "index.html"
+        "index.html",
+        "PUBLICATION_PROCESS.md",
+        "public-registry.json"
       ],
       "status": "published",
       "last_reviewed": "2026-06-14"
@@ -54,7 +56,34 @@
       "source_stage": "Stage 10 — Canonical Transition Table Release",
       "public_pages": [
         "index.html",
+        "transition-table.html",
         "transition-table-visual.html"
+      ],
+      "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "TT-PROOF-SURFACE-001",
+      "title": "Transition Proof Surface mirrors verified task chain, proof progression, and source artifacts.",
+      "posture": "RECEIPT_BACKED",
+      "source_repo": "Data-Continuation/formalism-tests",
+      "source_stage": "Stage 1–31 proof surface",
+      "public_pages": [
+        "transition-proof-surface.html",
+        "formalism-tests-stage-1-to-31.html"
+      ],
+      "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "TT-CLASS-BROWSER-001",
+      "title": "Transition Table Classes renders transition class data from formalism-tests mirror data.",
+      "posture": "MIRROR",
+      "source_repo": "Data-Continuation/formalism-tests",
+      "source_data": "data/formalism-tests/transition-table-classes.json",
+      "public_pages": [
+        "transition-table.html",
+        "transition-table-classes.html"
       ],
       "status": "published",
       "last_reviewed": "2026-06-14"
