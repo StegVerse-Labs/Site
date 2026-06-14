@@ -3,174 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>StegVerse Demo</title>
+<title>StegVerse Demo — Dynamic Admissibility</title>
 
 <style>
-:root{
-  --bg:#07111f;
-  --panel:#0f1b2d;
-  --panel2:#132640;
-  --text:#edf6ff;
-  --muted:#a8b8cc;
-  --line:rgba(255,255,255,.14);
-  --accent:#6ee7ff;
-  --accent2:#59f59b;
-  --warn:#ffd166;
-  --danger:#ff6b6b;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:#07111f;
-}
-a{color:inherit;text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{width:min(960px,calc(100% - 32px));margin:0 auto}
-header{padding:22px 0;border-bottom:1px solid var(--line)}
-.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
-.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase}
-.links{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-weight:800}
-.links a.active{color:var(--accent)}
-main{padding:26px 0 44px}
-.card{
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:20px;
-  margin-top:18px;
-}
-.badge{
-  display:inline-flex;
-  border:1px solid var(--accent);
-  color:var(--accent);
-  border-radius:999px;
-  padding:8px 12px;
-  font-weight:900;
-  margin-bottom:16px;
-}
-h1{font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;margin:0 0 18px}
-h2{margin:0 0 12px}
-h3{margin:18px 0 8px}
-p,li{color:var(--muted);line-height:1.55}
-label,.label{
-  display:block;
-  font-weight:900;
-  color:var(--accent);
-  letter-spacing:.05em;
-  text-transform:uppercase;
-  font-size:.86rem;
-  margin:16px 0 8px;
-}
-input,textarea{
-  width:100%;
-  background:#081523;
-  color:#e5e7eb;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:.92rem;
-}
-textarea{
-  min-height:300px;
-  resize:vertical;
-}
-.buttons{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-  margin-top:14px;
-}
-button{
-  border:0;
-  border-radius:14px;
-  padding:13px 14px;
-  font-weight:950;
-  background:#132640;
-  color:var(--text);
-  border:1px solid var(--line);
-}
-button.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#04111d;
-  border:0;
-}
-button.commit{
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  color:#04111d;
-  border:0;
-}
-.value{
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  color:#cfe6ff;
-}
-.allow{color:var(--accent2);font-weight:900}
-.deny{color:var(--warn);font-weight:900}
-.fail{color:var(--danger);font-weight:900}
-.tier{
-  border-radius:18px;
-  padding:18px;
-  margin-top:18px;
-}
-.tier1{border:2px solid var(--accent);background:rgba(110,231,255,.06)}
-.tier2{border:2px solid var(--accent2);background:rgba(89,245,155,.06)}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-  margin-top:14px;
-}
-.example{
-  background:rgba(8,21,35,.72);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:16px;
-}
-.example h3{margin-top:0;color:var(--text)}
-.example .tag{
-  display:inline-flex;
-  border:1px solid var(--line);
-  color:var(--accent);
-  border-radius:999px;
-  padding:5px 9px;
-  font-size:.76rem;
-  font-weight:900;
-  margin-bottom:10px;
-}
-.kv{
-  display:grid;
-  grid-template-columns:150px 1fr;
-  gap:10px;
-  border-top:1px solid var(--line);
-  padding-top:10px;
-  margin-top:10px;
-}
-.kv strong{color:var(--accent)}
-.notice{
-  background:rgba(255,209,102,.08);
-  border:1px solid rgba(255,209,102,.32);
-  border-radius:16px;
-  padding:14px;
-  margin-top:12px;
-}
-.footer{
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  text-align:center;
-  padding:28px 16px 42px;
-}
-@media(max-width:860px){
-  .grid{grid-template-columns:1fr}
-  .kv{grid-template-columns:1fr}
-}
-@media(max-width:720px){
-  .buttons{grid-template-columns:1fr}
-  textarea{min-height:260px}
-}
+:root{--bg:#07111f;--panel:#0f1b2d;--panel2:#132640;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;--danger:#ff6b6b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:#07111f}a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}.wrap{width:min(1040px,calc(100% - 32px));margin:0 auto}header{padding:22px 0;border-bottom:1px solid var(--line)}.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:.15em;text-transform:uppercase}.links{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-weight:800}.links a.active{color:var(--accent)}main{padding:26px 0 44px}.card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:18px}.badge{display:inline-flex;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:8px 12px;font-weight:900;margin-bottom:16px}h1{font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;margin:0 0 18px}h2{margin:0 0 12px}h3{margin:18px 0 8px}p,li{color:var(--muted);line-height:1.55}label,.label{display:block;font-weight:900;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;font-size:.86rem;margin:16px 0 8px}input,textarea,select{width:100%;background:#081523;color:#e5e7eb;border:1px solid var(--line);border-radius:14px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem}textarea{min-height:360px;resize:vertical}.buttons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}button{border:0;border-radius:14px;padding:13px 14px;font-weight:950;background:#132640;color:var(--text);border:1px solid var(--line)}button.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04111d;border:0}button.commit{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#04111d;border:0}.value{white-space:pre-wrap;overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#cfe6ff}.allow{color:var(--accent2);font-weight:900}.deny{color:var(--warn);font-weight:900}.fail{color:var(--danger);font-weight:900}.tier{border-radius:18px;padding:18px;margin-top:18px}.tier1{border:2px solid var(--accent);background:rgba(110,231,255,.06)}.tier2{border:2px solid var(--accent2);background:rgba(89,245,155,.06)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}.example{background:rgba(8,21,35,.72);border:1px solid var(--line);border-radius:18px;padding:16px}.example h3{margin-top:0;color:var(--text)}.example .tag{display:inline-flex;border:1px solid var(--line);color:var(--accent);border-radius:999px;padding:5px 9px;font-size:.76rem;font-weight:900;margin-bottom:10px}.kv{display:grid;grid-template-columns:180px 1fr;gap:10px;border-top:1px solid var(--line);padding-top:10px;margin-top:10px}.kv strong{color:var(--accent)}.notice{background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.32);border-radius:16px;padding:14px;margin-top:12px}.footer{border-top:1px solid var(--line);color:var(--muted);text-align:center;padding:28px 16px 42px}.pill{display:inline-flex;border-radius:999px;border:1px solid var(--line);padding:5px 9px;font-size:.78rem;color:var(--accent);font-weight:900;margin:4px 6px 4px 0}@media(max-width:900px){.grid{grid-template-columns:1fr}.kv{grid-template-columns:1fr}.buttons{grid-template-columns:1fr 1fr}}@media(max-width:620px){.buttons{grid-template-columns:1fr}textarea{min-height:300px}}
 </style>
 </head>
 
@@ -181,13 +18,12 @@ button.commit{
     <nav class="links" aria-label="Primary navigation">
       <a href="index.html">Home</a>
       <a class="active" href="demo.html">Demo</a>
+      <a href="tests/index.html">Tests</a>
+      <a href="applicability.html">Applicability</a>
+      <a href="math-solver/index.html">Math-Solver</a>
       <a href="stegfinco.html">FinCo</a>
-      <a href="support.html">Support</a>
-      <a href="product.html">Product</a>
-      <a href="pricing.html">Pricing</a>
       <a href="methodology.html">Methodology</a>
       <a href="about.html">About</a>
-      <a href="Papers.html">Papers</a>
     </nav>
   </div>
 </header>
@@ -195,106 +31,52 @@ button.commit{
 <main class="wrap">
 
   <section class="card">
-    <div class="badge">Tier 2 • Backend Evaluation • Receipt Verification</div>
-    <h1>StegVerse Demo</h1>
+    <div class="badge">Dynamic Data Testing • Governed Admissibility • Demo</div>
+    <h1>StegVerse Dynamic Admissibility Demo</h1>
     <p>
-      This demo evaluates whether a proposed transition should be allowed to become real.
-      The current state history is represented as <b>commit_states</b>.
-      The requested next state is represented as <b>proposed_state</b>.
+      This demo now accepts live tester packets, pasted JSON, or legacy numeric transition payloads.
+      Static examples are no longer the only test path. The default mode is dynamic: paste a proposed output,
+      artifact, instruction, claim, or transition packet and evaluate what it is allowed to become.
     </p>
     <p>
-      StegVerse checks the transition at the commit boundary. The question is not whether the action sounds useful.
-      The question is whether the system still has enough valid basis to let that action bind.
+      The question is not whether the output sounds useful. The question is whether the output has enough declared
+      authority, evidence, replay posture, and consequence posture to become its intended next state.
+    </p>
+    <p>
+      <span class="pill">dynamic tester packet</span>
+      <span class="pill">discipline route</span>
+      <span class="pill">admissibility decision</span>
+      <span class="pill">result packet</span>
+      <span class="pill">legacy vector fallback</span>
     </p>
   </section>
 
   <section class="card">
-    <h2>What this demo evaluates</h2>
-    <div class="kv">
-      <strong>commit_states</strong>
-      <span>Prior system states, evidence states, risk measurements, governance measurements, or trust-relevant observations.</span>
-    </div>
-    <div class="kv">
-      <strong>proposed_state</strong>
-      <span>The next state the system wants to commit. This is the transition being tested before it becomes effect-capable.</span>
-    </div>
-    <div class="kv">
-      <strong>ALLOW</strong>
-      <span>The proposed transition is admissible under the current boundary.</span>
-    </div>
-    <div class="kv">
-      <strong>DENY</strong>
-      <span>The proposed transition crosses the admissibility boundary and should not bind.</span>
-    </div>
-    <div class="kv">
-      <strong>FAIL-CLOSED</strong>
-      <span>The system lacks enough valid structure, data, authority, or connectivity to act safely.</span>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Real-world examples</h2>
-    <p>
-      The demo uses small numeric vectors so the boundary can be tested quickly in a browser.
-      In a real system, those numbers would come from measurements, checks, receipts, or model outputs.
-    </p>
-
-    <div class="grid">
-      <div class="example">
-        <span class="tag">AI deployment approval</span>
-        <h3>Can an agent deploy a production change?</h3>
-        <p><b>commit_states</b> might represent rollback capacity, authorization confidence, incident pressure, current system stability, and recent deployment history.</p>
-        <p><b>proposed_state</b> represents the deployment state the agent wants to commit.</p>
-        <p>The demo asks whether the deployment is still admissible now, not whether it looked reasonable earlier in planning.</p>
-      </div>
-
-      <div class="example">
-        <span class="tag">Payment evidence</span>
-        <h3>Can a payment fact become a financial effect?</h3>
-        <p><b>commit_states</b> might represent payment verification, receipt basis, non-entitlement flags, governance authority, and current financial policy constraints.</p>
-        <p><b>proposed_state</b> represents the requested interpretation of the payment event.</p>
-        <p>The demo asks whether payment evidence remains evidence only, or whether it is trying to create unauthorized entitlement.</p>
-      </div>
-
-      <div class="example">
-        <span class="tag">Credential or access change</span>
-        <h3>Can a privileged action proceed?</h3>
-        <p><b>commit_states</b> might represent identity confidence, current trust level, policy freshness, receipt continuity, and anomaly pressure.</p>
-        <p><b>proposed_state</b> represents the access change about to be committed.</p>
-        <p>The demo asks whether enough current authority and evidence still exist to let the access change become real.</p>
-      </div>
-    </div>
-
+    <h2>Dynamic admissibility path</h2>
+    <pre class="value">tester packet or proposed artifact
+→ declared discipline and test object
+→ recommended test route
+→ authority / evidence / replay / consequence checks
+→ admissibility decision
+→ structured result packet</pre>
     <div class="notice">
-      In all three examples, a transition can appear valid upstream and still become unsafe at the moment of execution.
-      This is why the boundary is checked at commit time.
+      This browser demo does not certify domain correctness or create proof authority. It classifies allowed posture and next state.
+      Real deployments should attach receipts, authority sources, and domain review.
     </div>
   </section>
 
   <section class="card">
-    <h2>How to use this demo</h2>
-    <ul>
-      <li><b>Default Data</b> restores the original sample dataset. It does not evaluate automatically.</li>
-      <li><b>Random Data</b> fills the Data Capture Window with a random dataset. It does not evaluate automatically.</li>
-      <li><b>Clear</b> removes all data so you can paste your own JSON.</li>
-      <li><b>Evaluate</b> is the only button that commits the current data to SCW for Tier 1/Tier 2 evaluation.</li>
-    </ul>
-    <p>
-      Required: <b>commit_states</b> must be an array of numeric vectors, and
-      <b>proposed_state</b> must be a numeric vector of the same length.
-    </p>
-  </section>
-
-  <section class="card">
-    <label for="api">Backend URL</label>
+    <h2>Input</h2>
+    <label for="api">Legacy backend URL, used only for legacy commit_states/proposed_state payloads</label>
     <input id="api" value="https://scw-api.onrender.com"/>
 
-    <div class="label">Data Capture Window</div>
+    <div class="label">Dynamic Data Capture Window</div>
     <textarea id="data" spellcheck="false"></textarea>
 
     <div class="buttons">
-      <button class="primary" onclick="loadDefaultData()">Default Data</button>
-      <button onclick="loadRandomData()">Random Data</button>
+      <button class="primary" onclick="loadDynamicPacket()">Dynamic Packet</button>
+      <button onclick="loadRandomDynamicPacket()">Random Dynamic</button>
+      <button onclick="loadLegacyVectorData()">Legacy Vector</button>
       <button onclick="clearData()">Clear</button>
       <button class="commit" onclick="run()">Evaluate</button>
     </div>
@@ -306,58 +88,141 @@ button.commit{
     <h3>Verdict</h3>
     <div id="verdict" class="value">—</div>
 
-    <h3>GOD</h3>
-    <div id="god" class="value">—</div>
+    <h3>Mode</h3>
+    <div id="mode" class="value">—</div>
 
-    <h3>Confidence</h3>
-    <div id="confidence" class="value">—</div>
-
-    <h3>Boundary</h3>
-    <div id="boundary" class="value">—</div>
+    <h3>Classification</h3>
+    <div id="classification" class="value">—</div>
 
     <div class="tier tier1">
-      <h2>Tier 1 — Commit Boundary Receipt</h2>
+      <h2>Tier 1 — Admissibility Result Packet</h2>
       <div id="tier1" class="value">—</div>
     </div>
 
     <div class="tier tier2">
-      <h2>Tier 2 — Local Test Runner Receipt</h2>
+      <h2>Tier 2 — Receipt / Replay Posture</h2>
       <div id="tier2" class="value">—</div>
     </div>
 
     <h3>What this proves</h3>
     <p>
-      This demo shows the distinction between evaluating a decision and allowing a transition to commit.
-      A system may produce a plausible action, recommendation, payment interpretation, deployment request,
-      or access change. StegVerse evaluates whether that proposed transition is admissible at the moment
-      it would become effect-capable.
-    </p>
-    <p>
-      Tier 1 evaluates the commit boundary. Tier 2 produces a local no-side-effect receipt after ALLOW.
-      DENY and FAIL-CLOSED are also valid evidence outcomes. The point is not to make every action succeed.
-      The point is to prevent unsupported transitions from becoming real.
+      This demo shows the difference between producing an output and admitting that output into a next state.
+      Dynamic tester packets can be evaluated without waiting for static sample data to be hard-coded into the page.
     </p>
   </section>
 
 </main>
 
 <footer class="footer">
-  StegVerse • Trust failures • Commit-time admissibility • ALLOW / DENY / FAIL-CLOSED
+  StegVerse • Dynamic admissibility • Commit-time posture • ALLOW / HOLD / REQUIRE-REVIEW / FAIL-CLOSED
 </footer>
 
 <script>
-function defaultPayload(){
+const ROUTES = {
+  ai_llm_systems: ["governance_filter", "llm_governance_comparison", "fail_closed"],
+  mathematics_formal_methods: ["math_solver_adapter", "receipt_replay", "transition_admissibility"],
+  software_engineering: ["transition_admissibility", "receipt_replay", "fail_closed"],
+  cybersecurity_identity: ["fail_closed", "transition_admissibility", "receipt_replay"],
+  data_governance: ["transition_admissibility", "receipt_replay", "governance_filter"],
+  legal_policy: ["governance_filter", "llm_governance_comparison", "fail_closed"],
+  medicine_health: ["governance_filter", "fail_closed", "transition_admissibility"],
+  finance_markets: ["governance_filter", "transition_admissibility", "fail_closed"],
+  education_learning: ["governance_filter", "llm_governance_comparison", "transition_admissibility"],
+  science_research: ["governance_filter", "math_solver_adapter", "receipt_replay"],
+  engineering_infrastructure: ["transition_admissibility", "fail_closed", "receipt_replay"],
+  robotics_autonomy: ["transition_admissibility", "fail_closed", "receipt_replay"],
+  journalism_public_information: ["governance_filter", "llm_governance_comparison", "receipt_replay"],
+  government_civic_systems: ["transition_admissibility", "fail_closed", "receipt_replay"],
+  organizational_governance: ["transition_admissibility", "receipt_replay", "fail_closed"],
+  archives_records_history: ["receipt_replay", "governance_filter", "transition_admissibility"]
+};
+
+const HIGH_STAKES = new Set(["legal_policy","medicine_health","finance_markets","engineering_infrastructure","government_civic_systems","robotics_autonomy","cybersecurity_identity"]);
+
+function dynamicPayload(){
   return {
-    source: "manual_sample",
-    demo_id: "tier1_tier2_sample",
-    commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
-    proposed_state: [0.15,0.15,0.15],
-    metadata: { mode: "sample" }
+    schema: "stegverse.governed_admissibility.dynamic_demo_input.v1",
+    generated: new Date().toISOString(),
+    tester: {
+      name_or_role: "AI / LLM systems tester",
+      discipline_id: "ai_llm_systems",
+      domain_review_required: false
+    },
+    test_object: {
+      object_id: "TEST-OBJECT-" + Date.now(),
+      object_type: "model_response",
+      summary: "A model response is proposed for use as a public governance claim.",
+      source_or_reference: "pasted live demo input"
+    },
+    route: {
+      recommended_route: ROUTES.ai_llm_systems,
+      tests_run: ["governance_filter"],
+      route_deviation_reason: null
+    },
+    classification: {
+      declared_intent: "public_claim",
+      authority_source: null,
+      evidence_posture: "draft",
+      replay_posture: "not_replayable",
+      consequence_level: "medium",
+      claim_limit: "May remain a research note only until authority and evidence are declared."
+    }
   };
 }
 
-function loadDefaultData(){
-  document.getElementById("data").value = JSON.stringify(defaultPayload(), null, 2);
+function loadDynamicPacket(){
+  document.getElementById("data").value = JSON.stringify(dynamicPayload(), null, 2);
+  clearResult();
+}
+
+function loadRandomDynamicPacket(){
+  const disciplines = Object.keys(ROUTES);
+  const discipline = disciplines[Math.floor(Math.random() * disciplines.length)];
+  const high = HIGH_STAKES.has(discipline);
+  const payload = {
+    schema: "stegverse.governed_admissibility.dynamic_demo_input.v1",
+    generated: new Date().toISOString(),
+    tester: {
+      name_or_role: discipline.replaceAll("_", " ") + " tester",
+      discipline_id: discipline,
+      domain_review_required: high
+    },
+    test_object: {
+      object_id: "TEST-OBJECT-RANDOM-" + Date.now(),
+      object_type: high ? "high_consequence_instruction" : "generated_artifact",
+      summary: high ? "A generated output is proposed for high-consequence use." : "A generated output is proposed for public or operational use.",
+      source_or_reference: "browser random dynamic packet"
+    },
+    route: {
+      recommended_route: ROUTES[discipline],
+      tests_run: [ROUTES[discipline][0]],
+      route_deviation_reason: null
+    },
+    classification: {
+      declared_intent: high ? "action_or_decision" : "research_note_or_public_claim",
+      authority_source: Math.random() > 0.5 ? "declared reviewer authority placeholder" : null,
+      evidence_posture: Math.random() > 0.5 ? "source_backed" : "draft",
+      replay_posture: Math.random() > 0.5 ? "partially_replayable" : "not_replayable",
+      consequence_level: high ? "high" : (Math.random() > 0.5 ? "medium" : "low"),
+      claim_limit: "Dynamic random packet. Do not promote beyond generated decision posture."
+    }
+  };
+  document.getElementById("data").value = JSON.stringify(payload, null, 2);
+  clearResult();
+}
+
+function legacyVectorPayload(){
+  return {
+    source: "legacy_vector_sample",
+    demo_id: "legacy_tier1_tier2_sample",
+    commit_states: [[0.1,0.1,0.1],[0.2,0.2,0.2]],
+    proposed_state: [0.15,0.15,0.15],
+    metadata: { mode: "legacy_vector_backend" }
+  };
+}
+
+function loadLegacyVectorData(){
+  document.getElementById("data").value = JSON.stringify(legacyVectorPayload(), null, 2);
   clearResult();
 }
 
@@ -366,73 +231,121 @@ function clearData(){
   clearResult();
 }
 
-function rand(){ return Math.random() * 2 - 1; }
-
-function loadRandomData(){
-  const payload = {
-    source: "browser_random",
-    demo_id: "random_" + Date.now(),
-    commit_states: [
-      [rand(), rand(), rand()],
-      [rand(), rand(), rand()],
-      [rand(), rand(), rand()]
-    ],
-    proposed_state: [rand(), rand(), rand()],
-    metadata: { mode: "random_test" }
-  };
-  document.getElementById("data").value = JSON.stringify(payload, null, 2);
-  clearResult();
-}
-
 async function run(){
   const raw = document.getElementById("data").value.trim();
-
-  if (!raw) {
-    renderLocalFail("Empty Data Capture Window. No API call was made.");
-    return;
-  }
+  if (!raw) return renderLocalFail("Empty Data Capture Window. No evaluation was made.");
 
   let payload;
-  try {
-    payload = JSON.parse(raw);
-  } catch (err) {
-    renderLocalFail("Invalid JSON. No API call was made.");
-    return;
+  try { payload = JSON.parse(raw); }
+  catch (err) { return renderLocalFail("Invalid JSON. No evaluation was made."); }
+
+  if (isDynamicPacket(payload)) return renderDynamic(evaluateDynamicPacket(payload));
+  if (Array.isArray(payload.commit_states) && Array.isArray(payload.proposed_state)) return runLegacyBackend(payload);
+  return renderLocalFail("Unrecognized payload. Provide a dynamic tester packet or legacy commit_states/proposed_state JSON.");
+}
+
+function isDynamicPacket(payload){
+  return !!(payload && payload.tester && payload.test_object && (payload.classification || payload.route));
+}
+
+function evaluateDynamicPacket(payload){
+  const discipline = payload.tester?.discipline_id || "unknown";
+  const route = payload.route?.recommended_route || ROUTES[discipline] || ["governance_filter", "fail_closed"];
+  const c = payload.classification || {};
+  const consequence = (c.consequence_level || "medium").toLowerCase();
+  const authority = c.authority_source;
+  const evidence = (c.evidence_posture || "none").toLowerCase();
+  const replay = (c.replay_posture || "not_replayable").toLowerCase();
+  const intent = String(c.declared_intent || payload.test_object?.object_type || "unknown").toLowerCase();
+  const highConsequence = ["high", "critical"].includes(consequence) || HIGH_STAKES.has(discipline) || /action|decision|care|financial|deploy|access|motion|eligibility/.test(intent);
+
+  let decision = "ALLOW_AS_NOTE";
+  let allowedNextState = "research_note";
+  let requiredFollowUp = [];
+
+  if (!authority && highConsequence) {
+    decision = "FAIL_CLOSED";
+    allowedNextState = "fail_closed";
+    requiredFollowUp.push("Declare authority source before high-consequence movement.");
+  } else if (!authority) {
+    decision = "REQUIRE_REVIEW";
+    allowedNextState = "hold";
+    requiredFollowUp.push("Add authority source or reviewer before stronger posture.");
   }
 
-  if (!Array.isArray(payload.commit_states) || !Array.isArray(payload.proposed_state)) {
-    renderLocalFail("Invalid structure: commit_states and proposed_state are required.");
-    return;
+  if (["none", "draft"].includes(evidence) && decision !== "FAIL_CLOSED") {
+    decision = highConsequence ? "REQUIRE_RECEIPT" : "ALLOW_AS_NOTE";
+    allowedNextState = highConsequence ? "hold" : "research_note";
+    requiredFollowUp.push("Attach evidence, source, receipt, or review before public claim posture.");
   }
 
+  if (["not_replayable", "none"].includes(replay) && ["source_backed", "receipt_backed"].includes(evidence) && decision !== "FAIL_CLOSED") {
+    decision = "REQUIRE_REPLAY";
+    allowedNextState = "hold";
+    requiredFollowUp.push("Add replay path before promotion beyond research note.");
+  }
+
+  if (authority && evidence === "receipt_backed" && replay === "receipt_backed" && !highConsequence) {
+    decision = "ALLOW_WITH_POSTURE";
+    allowedNextState = "receipt_backed_claim";
+    requiredFollowUp.push("Keep receipt reference attached to any publication or action.");
+  }
+
+  const result = {
+    schema: "stegverse.governed_admissibility.dynamic_demo_result.v1",
+    evaluated_at: new Date().toISOString(),
+    mode: "dynamic_tester_packet",
+    input_object_id: payload.test_object?.object_id || null,
+    discipline_id: discipline,
+    recommended_route: route,
+    classification: {
+      declared_intent: c.declared_intent || "unknown",
+      authority_source: authority || null,
+      evidence_posture: evidence,
+      replay_posture: replay,
+      consequence_level: consequence,
+      claim_limit: c.claim_limit || "No claim beyond research-note posture without review.",
+      decision,
+      allowed_next_state: allowedNextState,
+      required_follow_up: requiredFollowUp
+    },
+    boundary: {
+      does_not_certify_domain_correctness: true,
+      does_not_replace_domain_review: true,
+      does_not_create_proof_authority: true
+    },
+    receipt_posture: replay === "receipt_backed" ? "receipt_backed" : "demo_local_not_receipt_backed"
+  };
+  result.local_receipt_hash = localHash(JSON.stringify(result));
+  return result;
+}
+
+function localHash(text){
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return "fnv1a32:" + (h >>> 0).toString(16).padStart(8, "0");
+}
+
+async function runLegacyBackend(payload){
   const api = document.getElementById("api").value.replace(/\/$/,"");
-
   try {
-    const res = await fetch(api + "/v1/demo/run", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
-
+    const res = await fetch(api + "/v1/demo/run", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const d = await res.json();
-
-    if (!res.ok) {
-      renderLocalFail("Backend rejected input: " + JSON.stringify(d, null, 2));
-      return;
-    }
-
-    render(d);
+    if (!res.ok) return renderLocalFail("Backend rejected legacy input: " + JSON.stringify(d, null, 2));
+    renderLegacy(d);
   } catch (err) {
-    renderLocalFail("Network/API error: " + String(err.message || err));
+    renderLocalFail("Network/API error for legacy vector mode: " + String(err.message || err));
   }
 }
 
 function clearResult(){
   document.getElementById("verdict").textContent = "—";
   document.getElementById("verdict").className = "value";
-  document.getElementById("god").textContent = "—";
-  document.getElementById("confidence").textContent = "—";
-  document.getElementById("boundary").textContent = "—";
+  document.getElementById("mode").textContent = "—";
+  document.getElementById("classification").textContent = "—";
   document.getElementById("tier1").textContent = "—";
   document.getElementById("tier2").textContent = "—";
 }
@@ -440,67 +353,37 @@ function clearResult(){
 function renderLocalFail(message){
   document.getElementById("verdict").textContent = "FAIL-CLOSED";
   document.getElementById("verdict").className = "value fail";
-  document.getElementById("god").textContent = "n/a";
-  document.getElementById("confidence").textContent = "0";
-  document.getElementById("boundary").textContent = "No boundary evaluated.";
+  document.getElementById("mode").textContent = "local_input_validation";
+  document.getElementById("classification").textContent = message;
   document.getElementById("tier1").textContent = message;
-  document.getElementById("tier2").textContent =
-`attempted: false
-reason: Tier 2 is not invoked when Tier 1 fails closed locally.`;
+  document.getElementById("tier2").textContent = "receipt_posture: not_created";
 }
 
-function render(d){
+function renderDynamic(result){
+  const verdictEl = document.getElementById("verdict");
+  const decision = result.classification.decision;
+  verdictEl.textContent = decision;
+  verdictEl.className = "value " + (decision.startsWith("ALLOW") ? "allow" : decision === "FAIL_CLOSED" ? "fail" : "deny");
+  document.getElementById("mode").textContent = result.mode;
+  document.getElementById("classification").textContent = JSON.stringify(result.classification, null, 2);
+  document.getElementById("tier1").textContent = JSON.stringify(result, null, 2);
+  document.getElementById("tier2").textContent = `local_receipt_hash: ${result.local_receipt_hash}\nreceipt_posture: ${result.receipt_posture}\nside_effects: none`;
+}
+
+function renderLegacy(d){
   const verdictEl = document.getElementById("verdict");
   verdictEl.textContent = d.verdict || "UNKNOWN";
-  verdictEl.className = "value " + (
-    d.verdict === "ALLOW" ? "allow" :
-    d.verdict === "DENY" ? "deny" : "fail"
-  );
-
-  document.getElementById("god").textContent = d.god ?? "n/a";
-  document.getElementById("confidence").textContent = d.confidence ?? "n/a";
-
-  document.getElementById("boundary").textContent =
-`Centroid: ${JSON.stringify(d.boundary?.centroid ?? [])}
-Radius: ${d.boundary?.radius ?? "n/a"}
-Epsilon: ${d.boundary?.epsilon ?? "n/a"}`;
-
+  verdictEl.className = "value " + (d.verdict === "ALLOW" ? "allow" : d.verdict === "DENY" ? "deny" : "fail");
+  document.getElementById("mode").textContent = "legacy_vector_backend";
+  document.getElementById("classification").textContent = `god: ${d.god ?? "n/a"}\nconfidence: ${d.confidence ?? "n/a"}`;
   const r = d.receipt_full || d.receipt_v1 || {};
   const rb = r.body || {};
-
-  document.getElementById("tier1").textContent =
-`receipt_hash: ${r.receipt_hash || d.receipt || "n/a"}
-previous_receipt_hash: ${r.previous_receipt_hash || "null"}
-decision_id: ${rb.decision_id || "n/a"}
-decision: ${rb.decision || d.verdict || "n/a"}
-input_hash: ${rb.input_hash || "n/a"}
-decision_hash: ${rb.decision_hash || "n/a"}
-boundary_hash: ${rb.boundary_hash || "n/a"}
-tier2_attempt_hash: ${rb.tier2_attempt_hash || "n/a"}
-tier2_runner_receipt_hash: ${rb.tier2_runner_receipt_hash || "n/a"}
-evaluated_at: ${rb.evaluated_at || "n/a"}`;
-
+  document.getElementById("tier1").textContent = `receipt_hash: ${r.receipt_hash || d.receipt || "n/a"}\nprevious_receipt_hash: ${r.previous_receipt_hash || "null"}\ndecision_id: ${rb.decision_id || "n/a"}\ndecision: ${rb.decision || d.verdict || "n/a"}\ninput_hash: ${rb.input_hash || "n/a"}\ndecision_hash: ${rb.decision_hash || "n/a"}\nboundary_hash: ${rb.boundary_hash || "n/a"}\nevaluated_at: ${rb.evaluated_at || "n/a"}`;
   const t2 = d.tier2 || {};
-  const t2r = t2.runner_receipt || {};
-  const t2b = t2r.body || {};
-
-  document.getElementById("tier2").textContent =
-`attempted: ${t2.attempted ?? "n/a"}
-ok: ${t2.ok ?? "n/a"}
-mode: ${t2.mode || "not_invoked"}
-reason: ${t2.reason || "n/a"}
-runner_receipt_hash: ${t2.runner_receipt_hash || "n/a"}
-previous_receipt_hash: ${t2r.previous_receipt_hash || "n/a"}
-execution_id: ${t2b.execution_id || "n/a"}
-runner: ${t2b.runner || "n/a"}
-decision_hash: ${t2b.decision_hash || "n/a"}
-decision_receipt_hash: ${t2b.decision_receipt_hash || "n/a"}
-input_hash: ${t2b.input_hash || "n/a"}
-output_hash: ${t2b.output_hash || "n/a"}
-executed_at: ${t2b.executed_at || "n/a"}`;
+  document.getElementById("tier2").textContent = `attempted: ${t2.attempted ?? "n/a"}\nok: ${t2.ok ?? "n/a"}\nmode: ${t2.mode || "not_invoked"}\nreason: ${t2.reason || "n/a"}\nrunner_receipt_hash: ${t2.runner_receipt_hash || "n/a"}`;
 }
 
-loadDefaultData();
+loadDynamicPacket();
 </script>
 </body>
 </html>
