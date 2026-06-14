@@ -34,7 +34,8 @@
       <a class="sv-btn sv-btn-primary" href="governance-filter.html">Run Governance Filter</a>
       <a class="sv-btn sv-btn-secondary" href="llm-governance-comparison.html">LLM Comparison</a>
       <a class="sv-btn sv-btn-secondary" href="transition-admissibility.html">Transition Admissibility</a>
-      <a class="sv-btn sv-btn-secondary" href="../transition-table.html">Transition Table</a>
+      <a class="sv-btn sv-btn-secondary" href="receipt-replay.html">Receipt Replay</a>
+      <a class="sv-btn sv-btn-secondary" href="fail-closed.html">Fail-Closed</a>
     </div>
   </div>
 
@@ -59,6 +60,16 @@
       <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Declare a proposed state movement and test whether authority, evidence, and replay continuity are enough for admissible transition.</p>
       <a class="sv-btn sv-btn-secondary" href="transition-admissibility.html" style="font-size:12px;padding:8px 14px;">Open test</a>
     </div>
+    <div class="sv-card">
+      <h3 class="sv-h3">Receipt Replay</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Check whether receipt continuity is strong enough to replay movement from prior state to next state.</p>
+      <a class="sv-btn sv-btn-secondary" href="receipt-replay.html" style="font-size:12px;padding:8px 14px;">Open test</a>
+    </div>
+    <div class="sv-card">
+      <h3 class="sv-h3">Fail-Closed</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Show how missing authority, evidence, or replay continuity should stop unsafe public movement.</p>
+      <a class="sv-btn sv-btn-secondary" href="fail-closed.html" style="font-size:12px;padding:8px 14px;">Open test</a>
+    </div>
   </div>
 
   <h2 class="sv-h2">Testing doctrine</h2>
@@ -68,7 +79,7 @@
 The governing question is:
   What is this answer allowed to become?</pre>
 
-  <h2 class="sv-h2">Planned tests</h2>
+  <h2 class="sv-h2">Baseline tests</h2>
   <pre>governance-filter.html       Paste output and classify admissibility
 llm-governance-comparison    Compare raw output vs governed posture
 transition-admissibility     Classify proposed state movement
