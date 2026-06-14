@@ -8,20 +8,19 @@
     "workflow_reference": "GCAT-BCAT-Engine/workflows/math-solver"
   },
   "templates": [
-    {
-      "id": "SOURCE-ENTRY-TEMPLATE-001",
-      "path": "math-solver/sources/source-entry.template.json",
-      "purpose": "Reusable source-entry shape for compiled papers and source materials."
-    }
+    {"id":"SOURCE-ENTRY-TEMPLATE-001","path":"math-solver/sources/source-entry.template.json","purpose":"Reusable source-entry shape for compiled papers and source materials."},
+    {"id":"SOURCE-TO-INSTRUCTION-MAPPING-TEMPLATE-001","path":"math-solver/mappings/source-to-instruction.template.json","purpose":"Reusable mapping shape from source posture to governed instruction packet."}
   ],
   "examples": [
-    {
-      "id": "SOURCE-20260614-RTG-STCM-0001",
-      "path": "math-solver/sources/examples/rtg-stcm-context-placeholder.source.json",
-      "posture_class": "context",
-      "status": "placeholder example only",
-      "claim_limit": "May show source-entry shape only; does not assert reviewed evidence."
-    }
+    {"id":"SOURCE-20260614-RTG-STCM-0001","path":"math-solver/sources/examples/rtg-stcm-context-placeholder.source.json","posture_class":"context","status":"placeholder example only","claim_limit":"May show source-entry shape only; does not assert reviewed evidence."},
+    {"id":"SOURCE-INSTRUCTION-MAP-20260614-RTG-STCM-0001","path":"math-solver/mappings/examples/rtg-stcm-placeholder.mapping.json","posture_class":"context","status":"placeholder mapping only","claim_limit":"May show source-to-instruction mapping shape only; does not assert reviewed evidence."}
+  ],
+  "mapping_chain": [
+    "paper/source entry",
+    "source-to-instruction mapping",
+    "governed instruction packet",
+    "artifact return",
+    "admissibility result"
   ],
   "posture_classes": [
     {"id":"context","description":"Paper or source provides background context only."},
@@ -30,15 +29,7 @@
     {"id":"receipt_backed_support","description":"Paper or source is connected to a receipt-backed artifact, test, or governed review."},
     {"id":"superseded_deprecated","description":"Paper or source is retained for history only."}
   ],
-  "formalism_targets": [
-    "RTG",
-    "STCM",
-    "BCAT",
-    "GCAT",
-    "CGE",
-    "Governance Testing Suite",
-    "Math-Solver Adapter"
-  ],
+  "formalism_targets": ["RTG","STCM","BCAT","GCAT","CGE","Governance Testing Suite","Math-Solver Adapter"],
   "sources": [],
   "entry_shape": {
     "source_id": "PAPER-YYYYMMDD-0001",
