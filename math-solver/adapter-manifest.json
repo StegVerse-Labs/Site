@@ -10,6 +10,12 @@
     "future_authority": "future_math_solver_adapter once receipt-backed"
   },
   "purpose": "Govern formalism-development actions by requiring declared instruction packets, returned artifacts, claim posture, and replay/receipt continuity before next instructions are admitted.",
+  "source_locations": {
+    "canonical_papers_path": "GCAT-BCAT-Engine/Publisher/papers",
+    "canonical_workflows_path": "GCAT-BCAT-Engine/workflows",
+    "workflow_reference": "GCAT-BCAT-Engine/workflows/math-solver",
+    "public_source_registry": "math-solver/sources/paper-sources.json"
+  },
   "boundary": [
     "The adapter does not prove solver correctness.",
     "The adapter does not create mathematical proof authority.",
@@ -26,75 +32,31 @@
     "next_admissible_instruction"
   ],
   "packet_templates": [
-    {
-      "id": "INSTRUCTION-PACKET-TEMPLATE-001",
-      "class": "instruction_packet",
-      "path": "math-solver/templates/instruction-packet.template.json",
-      "purpose": "Declares what the solver/model is allowed to attempt."
-    },
-    {
-      "id": "ARTIFACT-RETURN-TEMPLATE-001",
-      "class": "artifact_return",
-      "path": "math-solver/templates/artifact-return.template.json",
-      "purpose": "Declares what the solver/model returned and what claim is attempted."
-    },
-    {
-      "id": "ADMISSIBILITY-RESULT-TEMPLATE-001",
-      "class": "admissibility_result",
-      "path": "math-solver/templates/admissibility-result.template.json",
-      "purpose": "Declares what the returned artifact is allowed to become."
-    }
+    {"id":"INSTRUCTION-PACKET-TEMPLATE-001","class":"instruction_packet","path":"math-solver/templates/instruction-packet.template.json","purpose":"Declares what the solver/model is allowed to attempt."},
+    {"id":"ARTIFACT-RETURN-TEMPLATE-001","class":"artifact_return","path":"math-solver/templates/artifact-return.template.json","purpose":"Declares what the solver/model returned and what claim is attempted."},
+    {"id":"ADMISSIBILITY-RESULT-TEMPLATE-001","class":"admissibility_result","path":"math-solver/templates/admissibility-result.template.json","purpose":"Declares what the returned artifact is allowed to become."}
   ],
+  "source_registry": {
+    "id": "MATH-SOLVER-PAPER-SOURCES-001",
+    "path": "math-solver/sources/paper-sources.json",
+    "status": "empty scaffold awaiting structured paper entries",
+    "posture": "RESEARCH_NOTE"
+  },
   "example_lifecycles": [
-    {
-      "id": "RTG-OBSERVER-WINDOW-EXAMPLE-001",
-      "posture": "RESEARCH_NOTE",
-      "status": "static example packet lifecycle only",
-      "instruction": "math-solver/examples/rtg-observer-window.instruction.json",
-      "artifact_return": "math-solver/examples/rtg-observer-window.artifact-return.json",
-      "admissibility_result": "math-solver/examples/rtg-observer-window.admissibility-result.json",
-      "boundary": "No real solver run, proof, or mathematical closure is asserted."
-    }
+    {"id":"RTG-OBSERVER-WINDOW-EXAMPLE-001","posture":"RESEARCH_NOTE","status":"static example packet lifecycle only","instruction":"math-solver/examples/rtg-observer-window.instruction.json","artifact_return":"math-solver/examples/rtg-observer-window.artifact-return.json","admissibility_result":"math-solver/examples/rtg-observer-window.admissibility-result.json","boundary":"No real solver run, proof, or mathematical closure is asserted."}
   ],
   "packet_fields": {
-    "instruction_packet": [
-      "schema",
-      "packet_id",
-      "formalism_id",
-      "task_type",
-      "declared_goal",
-      "allowed_operations",
-      "source_context",
-      "expected_artifact",
-      "claim_limit",
-      "review_requirement",
-      "created_at"
-    ],
-    "artifact_return": [
-      "schema",
-      "packet_id",
-      "artifact_id",
-      "artifact_type",
-      "summary",
-      "claim_made",
-      "claim_posture",
-      "cost_or_effort_note",
-      "open_gaps",
-      "returned_at"
-    ],
-    "admissibility_result": [
-      "schema",
-      "packet_id",
-      "decision",
-      "posture",
-      "reason",
-      "allowed_next_state",
-      "receipt_reference"
-    ]
+    "instruction_packet": ["schema","packet_id","formalism_id","task_type","declared_goal","allowed_operations","source_context","expected_artifact","claim_limit","review_requirement","created_at"],
+    "artifact_return": ["schema","packet_id","artifact_id","artifact_type","summary","claim_made","claim_posture","cost_or_effort_note","open_gaps","returned_at"],
+    "admissibility_result": ["schema","packet_id","decision","posture","reason","allowed_next_state","receipt_reference"]
   },
   "related_public_pages": [
     "math-solver/index.html",
     "math-solver/papers.html",
+    "math-solver/adapter-manifest.json",
+    "math-solver/README.md",
+    "math-solver/sources/README.md",
+    "math-solver/sources/paper-sources.json",
     "math-solver/templates/index.md",
     "math-solver/templates/instruction-packet.template.json",
     "math-solver/templates/artifact-return.template.json",
@@ -112,10 +74,12 @@
     "STCM": "conservation and replay continuity rule",
     "Governance Testing Suite": "public output and state-movement classification surface",
     "CGE": "future decision and enforcement manager",
-    "formalism-tests": "proof/test authority where receipts exist"
+    "formalism-tests": "proof/test authority where receipts exist",
+    "GCAT-BCAT-Engine/Publisher/papers": "canonical internal papers location",
+    "GCAT-BCAT-Engine/workflows": "canonical internal workflow machinery"
   },
   "next_stage": [
-    "Create paper/source registry entries from compiled papers.",
+    "Add structured entries for compiled papers from GCAT-BCAT-Engine/Publisher/papers.",
     "Map papers to formalism targets and claim limits.",
     "Create one paper-backed instruction packet.",
     "Add receipt-backed adapter tests when an authority repo exists."
