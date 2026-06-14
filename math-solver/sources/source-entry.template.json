@@ -1,0 +1,17 @@
+{
+  "source_id": "PAPER-YYYYMMDD-0001",
+  "title": "Paper title",
+  "authors_or_source": "Authors, publisher, repository, or source entity",
+  "source_path_or_reference": "Path, URL, citation, or receipt reference",
+  "canonical_location": "GCAT-BCAT-Engine/Publisher/papers/<filename>",
+  "related_formalisms": [
+    "RTG"
+  ],
+  "posture_class": "context",
+  "claim_limit": "This paper may be used as context only until mapped to a bounded claim and reviewed.",
+  "mapped_claims": [],
+  "use_in_instruction_packets": false,
+  "review_status": "unreviewed",
+  "last_reviewed": null,
+  "notes": "Short posture note."
+}
