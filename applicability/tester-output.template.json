@@ -1,0 +1,41 @@
+{
+  "schema": "stegverse.governed_admissibility.tester_output.v1",
+  "generated": "YYYY-MM-DDTHH:MM:SSZ",
+  "tester": {
+    "name_or_role": "discipline tester or reviewer role",
+    "discipline_id": "ai_llm_systems | mathematics_formal_methods | software_engineering | cybersecurity_identity | data_governance | legal_policy | medicine_health | finance_markets | education_learning | science_research | engineering_infrastructure | robotics_autonomy | journalism_public_information | government_civic_systems | organizational_governance | archives_records_history",
+    "domain_review_required": false
+  },
+  "test_object": {
+    "object_id": "TEST-OBJECT-YYYYMMDD-0001",
+    "object_type": "model_response | tool_call | derivation | pull_request | policy_draft | health_explanation | financial_summary | lesson | research_claim | operational_change | motion_plan | timeline_event | other",
+    "summary": "Short description of what is being tested.",
+    "source_or_reference": "Path, URL, citation, prompt, artifact id, or receipt reference."
+  },
+  "route": {
+    "recommended_route": [
+      "governance_filter",
+      "llm_governance_comparison",
+      "fail_closed"
+    ],
+    "tests_run": [],
+    "route_deviation_reason": null
+  },
+  "classification": {
+    "declared_intent": "What the output is intended to become.",
+    "authority_source": "Authority source or null.",
+    "evidence_posture": "none | draft | research_note | source_backed | receipt_backed",
+    "replay_posture": "not_replayable | partially_replayable | replayable | receipt_backed",
+    "consequence_level": "low | medium | high | critical",
+    "claim_limit": "Maximum allowed claim.",
+    "decision": "ALLOW | ALLOW_AS_NOTE | ALLOW_WITH_POSTURE | REQUIRE_REVIEW | REQUIRE_TEST | REQUIRE_RECEIPT | REQUIRE_REPLAY | HOLD | FAIL_CLOSED | NOT_ADMISSIBLE",
+    "allowed_next_state": "draft | private_note | research_note | public_claim | repo_action | formalism_artifact | receipt_backed_claim | hold | fail_closed",
+    "required_follow_up": []
+  },
+  "boundary": {
+    "does_not_certify_domain_correctness": true,
+    "does_not_replace_domain_review": true,
+    "does_not_create_proof_authority": true
+  },
+  "notes": "Additional tester notes."
+}
