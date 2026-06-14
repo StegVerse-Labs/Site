@@ -14,6 +14,8 @@ The generation step does not create proof authority. It preserves source posture
 |---|---|
 | `mapping-to-instruction.template.json` | Reusable generation record template. |
 | `examples/rtg-stcm-placeholder.generated-instruction.json` | Placeholder generated instruction packet. |
+| `examples/rtg-stcm-placeholder.generated-artifact-return.json` | Placeholder artifact return from the generated instruction. |
+| `examples/rtg-stcm-placeholder.generated-admissibility-result.json` | Placeholder admissibility result for the generated lifecycle. |
 
 ## Chain
 
@@ -28,7 +30,15 @@ paper/source entry
 
 ## Boundary
 
-The current generated instruction is a placeholder. It does not assert source import, solver execution, proof, final equations, or production authority.
+The current generated lifecycle is a placeholder. It does not assert source import, solver execution, proof, final equations, or production authority.
+
+## Current placeholder lifecycle
+
+```text
+rtg-stcm-placeholder.generated-instruction.json
+→ rtg-stcm-placeholder.generated-artifact-return.json
+→ rtg-stcm-placeholder.generated-admissibility-result.json
+```
 
 ## Next stage
 
