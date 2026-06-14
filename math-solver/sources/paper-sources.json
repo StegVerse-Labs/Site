@@ -1,0 +1,58 @@
+{
+  "schema": "stegverse.math_solver.paper_sources.v1",
+  "generated": "2026-06-14",
+  "site_role": "public mirror, not proof authority",
+  "source_locations": {
+    "canonical_papers_path": "GCAT-BCAT-Engine/Publisher/papers",
+    "canonical_workflows_path": "GCAT-BCAT-Engine/workflows",
+    "workflow_reference": "GCAT-BCAT-Engine/workflows/math-solver"
+  },
+  "posture_classes": [
+    {
+      "id": "context",
+      "description": "Paper or source provides background context only."
+    },
+    {
+      "id": "solver_instruction_source",
+      "description": "Paper or source may be used as declared context in an instruction packet."
+    },
+    {
+      "id": "mapped_claim_support",
+      "description": "Paper or source is mapped to a bounded claim but is not proof authority by itself."
+    },
+    {
+      "id": "receipt_backed_support",
+      "description": "Paper or source is connected to a receipt-backed artifact, test, or governed review."
+    },
+    {
+      "id": "superseded_deprecated",
+      "description": "Paper or source is retained for history only."
+    }
+  ],
+  "formalism_targets": [
+    "RTG",
+    "STCM",
+    "BCAT",
+    "GCAT",
+    "CGE",
+    "Governance Testing Suite",
+    "Math-Solver Adapter"
+  ],
+  "sources": [],
+  "entry_shape": {
+    "source_id": "PAPER-YYYYMMDD-0001",
+    "title": "Paper title",
+    "authors_or_source": "Authors, publisher, repo, or source entity",
+    "source_path_or_reference": "Path, URL, citation, or receipt reference",
+    "canonical_location": "GCAT-BCAT-Engine/Publisher/papers/<filename>",
+    "related_formalisms": ["RTG"],
+    "posture_class": "context | solver_instruction_source | mapped_claim_support | receipt_backed_support | superseded_deprecated",
+    "claim_limit": "Maximum claim allowed from this source.",
+    "mapped_claims": [],
+    "use_in_instruction_packets": false,
+    "review_status": "unreviewed | reviewed | mapped | deprecated",
+    "last_reviewed": null,
+    "notes": "Short posture note."
+  },
+  "publication_rule": "A paper may inform a solver instruction packet, but it does not become proof authority unless mapped to receipts, tests, or governed review."
+}
