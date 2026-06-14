@@ -1,0 +1,26 @@
+{
+  "schema": "stegverse.math_solver.admissibility_result.v1",
+  "packet_id": "MATH-INSTRUCTION-20260614-RTG-0001",
+  "artifact_id": "MATH-ARTIFACT-20260614-RTG-0001",
+  "result_id": "MATH-ADMISSIBILITY-20260614-RTG-0001",
+  "reviewed_at": "2026-06-14T00:00:00Z",
+  "reviewed_by": "StegVerse-Labs/Site public scaffold",
+  "decision": "ALLOW_AS_NOTE",
+  "posture": "RESEARCH_NOTE",
+  "reason": "The artifact-return example is a static packet-shape placeholder. It may be published only as a research-note example of adapter structure.",
+  "allowed_next_state": "May remain as public example packet under math-solver adapter documentation.",
+  "claim_limit": "May claim only that a placeholder example lifecycle exists for the math-solver adapter.",
+  "receipt_reference": null,
+  "replay_posture": "not_replayable",
+  "required_follow_up": [
+    "Add structured paper/source entries before real solver instruction packets are admitted.",
+    "Create an authority repo or receipt-backed test path before promoting examples beyond research-note posture.",
+    "Run real solver tasks only through declared instruction packets."
+  ],
+  "publication_gate": {
+    "may_publish": true,
+    "allowed_page_type": "research_note",
+    "required_boundary_note": "This is a static example packet lifecycle. It is not a real solver run and not proof authority."
+  },
+  "notes": "Example admissibility result only. No proof or solver correctness is asserted."
+}
