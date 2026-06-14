@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Paste LLM output and test what it is allowed to become under StegVerse governance posture.">
+  <title>StegVerse — LLM Governance Filter</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    textarea, select { width: 100%; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); padding: 12px 14px; font: inherit; }
+    textarea { min-height: 180px; resize: vertical; }
+    .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+    .field label { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+    .result-pill { display: inline-flex; border-radius: 999px; border: 1px solid var(--border); padding: 8px 12px; font-family: var(--mono); font-size: 12px; background: rgba(255,255,255,.04); margin: 0 8px 8px 0; }
+    .result-block { margin-top: 20px; }
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="../index.html">StegVerse</a>
+  <a href="../index.html">Home</a>
+  <a href="../demo.html">Demo</a>
+  <a href="../stegfinco.html">FinCo</a>
+  <a href="../product.html">Product</a>
+  <a href="../pricing.html">Pricing</a>
+  <a href="../methodology.html">Methodology</a>
+  <a href="../about.html">About</a>
+  <a href="../transition-table.html">Transition Table</a>
+  <a href="../formalisms/index.html">Formalisms</a>
+  <a href="index.html" class="active">Tests</a>
+  <a href="../Papers.html">Papers</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Testing suite · LLM output · Governance layer</div>
+    <h1>LLM Governance<br><em>Filter.</em></h1>
+    <p>Paste any LLM output, choose what it is intended to become, and see how StegVerse governance classifies its public admissibility posture.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-secondary" href="index.html">Tests index</a>
+      <a class="sv-btn sv-btn-secondary" href="../formalisms/stcm.html">STCM</a>
+      <a class="sv-btn sv-btn-secondary" href="../transition-table.html">Transition Table</a>
+    </div>
+  </div>
+  <div class="sv-boundary"><strong>Boundary:</strong> this static test does not judge truth. It classifies what pasted output is allowed to become based on declared use, evidence, authority, and risk posture.</div>
+  <h2 class="sv-h2">Paste output and declare intended use</h2>
+  <div class="field"><label for="llmOutput">LLM output / proposed claim / proposed action</label><textarea id="llmOutput" placeholder="Paste an LLM answer, generated recommendation, proposed repo action, policy claim, public statement, or governance decision..."></textarea></div>
+  <div class="test-grid">
+    <div class="field"><label for="intendedUse">Intended use</label><select id="intendedUse"><option value="public_claim">Public claim</option><option value="research_note">Research note</option><option value="repo_publication">Repo publication</option><option value="code_change">Code change</option><option value="governance_decision">Governance decision</option><option value="professional_advice">Professional advice</option><option value="private_note">Private note</option></select></div>
+    <div class="field"><label for="authoritySource">Authority source</label><select id="authoritySource"><option value="none">None declared</option><option value="self">Self / author claim</option><option value="source">Named source</option><option value="receipt">Receipt / commit / hash / test artifact</option><option value="formalism">formalism-tests / governed authority repo</option></select></div>
+    <div class="field"><label for="evidenceLevel">Evidence level</label><select id="evidenceLevel"><option value="none">No evidence</option><option value="context">Context only</option><option value="source">Source cited</option><option value="receipt">Receipt-backed</option><option value="test">Test / replay-backed</option></select></div>
+  </div>
+  <div class="sv-btn-row"><button class="sv-btn sv-btn-primary" type="button" onclick="runGovernanceFilter()">Run governance filter</button><button class="sv-btn sv-btn-secondary" type="button" onclick="loadExample()">Load example</button><button class="sv-btn sv-btn-secondary" type="button" onclick="clearTest()">Clear</button></div>
+  <div id="result" class="result-block"></div>
+  <h2 class="sv-h2">Governance rule</h2><pre>raw LLM output
+→ declared use
+→ authority check
+→ evidence check
+→ transition classification
+→ admissibility posture
+→ allowed next state</pre>
+</div>
+<footer class="sv-footer"><span>StegVerse · LLM Governance Filter · Static public test</span><span><a href="index.html">Tests</a> · <a href="../formalisms/stcm.html">STCM</a> · <a href="../public-registry.json">Registry</a></span></footer>
+<script>
+function value(id){return document.getElementById(id).value;}
+function classifyTransition(use,text){if(!text.trim())return "EMPTY_INPUT";if(use==="professional_advice")return "HIGH_STAKES_ADVICE";if(use==="governance_decision")return "AUTHORITY_DECISION";if(use==="code_change")return "REPO_ACTION";if(use==="repo_publication")return "PUBLICATION_TRANSITION";if(use==="public_claim")return "PUBLIC_CLAIM";if(use==="research_note")return "RESEARCH_NOTE";return "PRIVATE_NOTE";}
+function decide(use,authority,evidence,transition){
+ if(transition==="EMPTY_INPUT")return{decision:"REQUIRE_INPUT",posture:"DRAFT",reason:"No output was supplied for classification.",next:"Paste output before testing admissibility."};
+ if(transition==="HIGH_STAKES_ADVICE")return{decision:"REQUIRE_REVIEW",posture:"HOLD",reason:"Professional advice needs qualified authority and evidence before becoming public guidance.",next:"Convert to research note or route to qualified review."};
+ if(transition==="AUTHORITY_DECISION"&&authority!=="formalism"&&authority!=="receipt")return{decision:"FAIL_CLOSED",posture:"NOT_ADMISSIBLE",reason:"Governance decisions require authority or receipt-backed evidence before becoming action.",next:"Declare authority source, evidence packet, and replay path."};
+ if((transition==="REPO_ACTION"||transition==="PUBLICATION_TRANSITION")&&evidence!=="receipt"&&evidence!=="test")return{decision:"REQUIRE_REVIEW",posture:"DRAFT",reason:"Repo/publication movement needs receipt or test-backed evidence before commit or public posture.",next:"Attach commit, test result, receipt, or source stage."};
+ if(transition==="PUBLIC_CLAIM"&&authority==="none")return{decision:"HOLD",posture:"RESEARCH_NOTE",reason:"A public claim without authority should not publish as doctrine.",next:"Publish only as research note or add authority/evidence."};
+ if(evidence==="receipt"||evidence==="test"||authority==="formalism")return{decision:"ALLOW_WITH_POSTURE",posture:"RECEIPT_BACKED",reason:"The output has enough declared authority/evidence to move as a posture-bound artifact.",next:"Publish with source, posture, and boundary note."};
+ return{decision:"ALLOW_AS_NOTE",posture:"RESEARCH_NOTE",reason:"The output may be useful, but should not become proof authority.",next:"Publish as note, not doctrine."};}
+function runGovernanceFilter(){const text=value("llmOutput");const use=value("intendedUse");const authority=value("authoritySource");const evidence=value("evidenceLevel");const transition=classifyTransition(use,text);const verdict=decide(use,authority,evidence,transition);document.getElementById("result").innerHTML=`<h2 class="sv-h2">Governance result</h2><div class="sv-evidence"><div class="sv-evidence-label">Admissibility posture</div><div class="sv-evidence-row"><span class="k">Transition class</span><span class="v">${transition}</span></div><div class="sv-evidence-row"><span class="k">Decision</span><span class="v">${verdict.decision}</span></div><div class="sv-evidence-row"><span class="k">Public posture</span><span class="v">${verdict.posture}</span></div><div class="sv-evidence-row"><span class="k">Reason</span><span class="v">${verdict.reason}</span></div><div class="sv-evidence-row"><span class="k">Allowed next state</span><span class="v">${verdict.next}</span></div></div><div><span class="result-pill">use=${use}</span><span class="result-pill">authority=${authority}</span><span class="result-pill">evidence=${evidence}</span></div>`;}
+function loadExample(){document.getElementById("llmOutput").value="This generated answer recommends publishing a public governance claim, but it does not cite a source, receipt, commit, test, or authority artifact.";document.getElementById("intendedUse").value="public_claim";document.getElementById("authoritySource").value="none";document.getElementById("evidenceLevel").value="none";runGovernanceFilter();}
+function clearTest(){document.getElementById("llmOutput").value="";document.getElementById("result").innerHTML="";}
+</script>
+</body>
+</html>
