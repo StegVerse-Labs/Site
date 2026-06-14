@@ -1,0 +1,29 @@
+{
+  "schema": "stegverse.math_solver.source_to_instruction_mapping.v1",
+  "mapping_id": "SOURCE-INSTRUCTION-MAP-YYYYMMDD-0001",
+  "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "created_by": "human-or-governed-entity",
+  "source_id": "PAPER-YYYYMMDD-0001",
+  "source_posture_class": "context | solver_instruction_source | mapped_claim_support | receipt_backed_support | superseded_deprecated",
+  "source_reference": "GCAT-BCAT-Engine/Publisher/papers/<filename>",
+  "related_formalisms": [
+    "RTG"
+  ],
+  "instruction_packet_target": {
+    "formalism_id": "RTG | STCM | OTHER",
+    "task_type": "derive | check | compare | summarize | translate | construct | review",
+    "declared_goal": "Bounded solver/model goal permitted by the source posture.",
+    "expected_artifact_type": "derivation | proof_attempt | counterexample | summary | mapping | test_plan"
+  },
+  "allowed_source_use": [
+    "How the source may be used in the instruction packet."
+  ],
+  "disallowed_source_use": [
+    "How the source may not be used."
+  ],
+  "claim_limit": "Maximum claim that may be made from the source-to-instruction mapping.",
+  "review_requirement": "human_review_required | formalism_test_required | receipt_required | research_note_only",
+  "admissibility_target": "draft | research_note | receipt_backed_candidate",
+  "receipt_reference": null,
+  "notes": "Short mapping note."
+}
