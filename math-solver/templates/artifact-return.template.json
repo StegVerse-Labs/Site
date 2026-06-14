@@ -1,0 +1,28 @@
+{
+  "schema": "stegverse.math_solver.artifact_return.v1",
+  "packet_id": "MATH-INSTRUCTION-YYYYMMDD-0001",
+  "artifact_id": "MATH-ARTIFACT-YYYYMMDD-0001",
+  "returned_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "returned_by": "solver-or-model-identifier",
+  "artifact_type": "derivation | proof_attempt | counterexample | summary | mapping | test_plan",
+  "summary": "Short summary of what was returned.",
+  "method": "Brief description of method used.",
+  "result": "Bounded result. Do not overstate proof status.",
+  "claim_made": "The strongest claim this artifact attempts to support.",
+  "claim_posture": "DRAFT | RESEARCH_NOTE | RECEIPT_BACKED_CANDIDATE | NOT_ADMISSIBLE",
+  "source_usage": [
+    {
+      "source_id": "SOURCE-0001",
+      "used_as": "context | assumption | comparison | support | limitation",
+      "notes": "How the source was used."
+    }
+  ],
+  "cost_or_effort_note": "Token, compute, review, or effort note if available.",
+  "open_gaps": [
+    "Gap that remains after this artifact."
+  ],
+  "next_instruction_requested": "Optional proposed next task. Must be reviewed before admission.",
+  "self_limitations": [
+    "Limitation declared by the solver/model or reviewer."
+  ]
+}
