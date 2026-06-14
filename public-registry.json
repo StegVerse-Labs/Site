@@ -6,7 +6,8 @@
     "formalism_tests": "proof/test authority",
     "StegVerse-002": "governed work-entity",
     "Site": "public mirror",
-    "future_RTG_Tests": "candidate formalism authority once created"
+    "future_RTG_Tests": "candidate formalism authority once created",
+    "future_STCM_Tests": "conservation formalism authority once created"
   },
   "postures": [
     {
@@ -87,6 +88,20 @@
         "transition-table-classes.html"
       ],
       "status": "published",
+      "last_reviewed": "2026-06-14"
+    },
+    {
+      "id": "STCM-CONSERVATION-001",
+      "title": "STCM — State Transition Conservation Model is published as a conservation model under research-note / canonical-candidate posture.",
+      "posture": "RESEARCH_NOTE",
+      "source_repo": "formalism-tests / future STCM-Tests",
+      "source_stage": "conservation formalism scaffold",
+      "public_pages": [
+        "formalisms/index.html",
+        "formalisms/stcm.html",
+        "index.html"
+      ],
+      "status": "published as conservation-model posture only",
       "last_reviewed": "2026-06-14"
     },
     {
