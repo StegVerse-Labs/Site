@@ -1,0 +1,19 @@
+{
+  "source_id": "SOURCE-20260614-RTG-STCM-0001",
+  "title": "RTG / STCM compiled-paper placeholder",
+  "authors_or_source": "Pending compiled paper import",
+  "source_path_or_reference": "GCAT-BCAT-Engine/Publisher/papers/<pending-file>",
+  "canonical_location": "GCAT-BCAT-Engine/Publisher/papers/<pending-file>",
+  "related_formalisms": [
+    "RTG",
+    "STCM",
+    "Math-Solver Adapter"
+  ],
+  "posture_class": "context",
+  "claim_limit": "May be used only as a placeholder showing source-entry shape until an actual paper is imported and reviewed.",
+  "mapped_claims": [],
+  "use_in_instruction_packets": false,
+  "review_status": "unreviewed",
+  "last_reviewed": null,
+  "notes": "Static placeholder only. Does not assert that a specific paper has been reviewed, mapped, or accepted as evidence."
+}
