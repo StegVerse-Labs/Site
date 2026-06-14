@@ -65,7 +65,7 @@
       "posture":"RESEARCH_NOTE",
       "source_repo":"StegVerse-Labs/Site",
       "source_stage":"static public admissibility simulation",
-      "public_pages":["tests/index.html","tests/governance-filter.html","tests/llm-governance-comparison.html","tests/transition-admissibility.html","tests/receipt-replay.html","tests/fail-closed.html","index.html"],
+      "public_pages":["tests/index.html","tests/governance-filter.html","tests/llm-governance-comparison.html","tests/transition-admissibility.html","tests/receipt-replay.html","tests/fail-closed.html","tests/test-manifest.json","tests/README.md","index.html"],
       "status":"published as public testing simulation only",
       "last_reviewed":"2026-06-14"
     },
