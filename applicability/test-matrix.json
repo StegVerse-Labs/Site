@@ -1,0 +1,133 @@
+{
+  "schema": "stegverse.governed_admissibility.test_matrix.v1",
+  "generated": "2026-06-14",
+  "site_role": "public mirror, not proof authority",
+  "purpose": "Map disciplines to existing governed admissibility tests and explain what each test is meant to classify.",
+  "test_surfaces": [
+    {
+      "id": "governance_filter",
+      "label": "Governance Filter",
+      "path": "tests/governance-filter.html",
+      "classifies": "Whether an output can become a public claim, research note, repo action, code change, governance decision, professional advice, or private note.",
+      "refuses_or_limits": ["unsupported public claims", "high-stakes advice without review", "authority decisions without authority", "repo actions without evidence"]
+    },
+    {
+      "id": "llm_governance_comparison",
+      "label": "LLM Governance Comparison",
+      "path": "tests/llm-governance-comparison.html",
+      "classifies": "Difference between raw output usefulness and governed posture before publication or action.",
+      "refuses_or_limits": ["raw output as proof", "raw output as public decision", "unbounded model authority"]
+    },
+    {
+      "id": "transition_admissibility",
+      "label": "Transition Admissibility",
+      "path": "tests/transition-admissibility.html",
+      "classifies": "Whether a proposed state movement has authority, evidence, replay posture, and consequence posture sufficient for the next state.",
+      "refuses_or_limits": ["unauthorized state movement", "missing evidence", "missing replay", "high consequence without authority"]
+    },
+    {
+      "id": "receipt_replay",
+      "label": "Receipt Replay",
+      "path": "tests/receipt-replay.html",
+      "classifies": "Whether the prior state, decision receipt, next state, and authority continuity can be replayed.",
+      "refuses_or_limits": ["non-replayable claims", "missing continuity", "untraceable transitions"]
+    },
+    {
+      "id": "fail_closed",
+      "label": "Fail-Closed",
+      "path": "tests/fail-closed.html",
+      "classifies": "Whether missing authority, evidence, replay, or high consequence requires hold, review, or fail-closed posture.",
+      "refuses_or_limits": ["optimistic allow", "silent escalation", "unbounded risk movement"]
+    },
+    {
+      "id": "math_solver_adapter",
+      "label": "Math-Solver Adapter",
+      "path": "math-solver/index.html",
+      "classifies": "How formalism-development work should move from source to instruction packet, artifact return, admissibility result, and claim posture.",
+      "refuses_or_limits": ["solver output as proof without review", "paper as invisible authority", "free-form model authority"]
+    }
+  ],
+  "discipline_test_routes": [
+    {
+      "discipline_id": "ai_llm_systems",
+      "recommended_route": ["governance_filter", "llm_governance_comparison", "fail_closed"],
+      "why": "Separates fluent model output from allowed publication, action, tool use, or agent execution."
+    },
+    {
+      "discipline_id": "mathematics_formal_methods",
+      "recommended_route": ["math_solver_adapter", "receipt_replay", "transition_admissibility"],
+      "why": "Separates derivation/proof attempts from receipt-backed proof posture and bounded research-note status."
+    },
+    {
+      "discipline_id": "software_engineering",
+      "recommended_route": ["transition_admissibility", "receipt_replay", "fail_closed"],
+      "why": "Tests whether code, workflow, or deployment changes are authorized, replayable, and safe to execute now."
+    },
+    {
+      "discipline_id": "cybersecurity_identity",
+      "recommended_route": ["fail_closed", "transition_admissibility", "receipt_replay"],
+      "why": "Prioritizes authority, consequence, credential boundary, and replay posture before access movement."
+    },
+    {
+      "discipline_id": "data_governance",
+      "recommended_route": ["transition_admissibility", "receipt_replay", "governance_filter"],
+      "why": "Tests whether data movement has provenance, authority, retention posture, and allowed claim limits."
+    },
+    {
+      "discipline_id": "legal_policy",
+      "recommended_route": ["governance_filter", "llm_governance_comparison", "fail_closed"],
+      "why": "Keeps legal or policy text from becoming advice, compliance posture, or institutional position without review."
+    },
+    {
+      "discipline_id": "medicine_health",
+      "recommended_route": ["governance_filter", "fail_closed", "transition_admissibility"],
+      "why": "Distinguishes general information from care guidance, risk classification, or high-stakes instruction."
+    },
+    {
+      "discipline_id": "finance_markets",
+      "recommended_route": ["governance_filter", "transition_admissibility", "fail_closed"],
+      "why": "Separates contextual notes from allocation, payment, investment, or risk actions requiring review."
+    },
+    {
+      "discipline_id": "education_learning",
+      "recommended_route": ["governance_filter", "llm_governance_comparison", "transition_admissibility"],
+      "why": "Tests whether outputs support learning, replace judgment, or create assessment/curriculum claims."
+    },
+    {
+      "discipline_id": "science_research",
+      "recommended_route": ["governance_filter", "math_solver_adapter", "receipt_replay"],
+      "why": "Preserves source posture, reproducibility posture, and claim limits before research publication."
+    },
+    {
+      "discipline_id": "engineering_infrastructure",
+      "recommended_route": ["transition_admissibility", "fail_closed", "receipt_replay"],
+      "why": "Tests whether recommendations that affect physical systems have authority, review, replay, and consequence posture."
+    },
+    {
+      "discipline_id": "robotics_autonomy",
+      "recommended_route": ["transition_admissibility", "fail_closed", "receipt_replay"],
+      "why": "Classifies whether a plan may execute, hold, require review, or fail closed before physical action."
+    },
+    {
+      "discipline_id": "journalism_public_information",
+      "recommended_route": ["governance_filter", "llm_governance_comparison", "receipt_replay"],
+      "why": "Separates draft/source notes from public claims, timelines, and narratives requiring source posture."
+    },
+    {
+      "discipline_id": "government_civic_systems",
+      "recommended_route": ["transition_admissibility", "fail_closed", "receipt_replay"],
+      "why": "Tests authority, eligibility, service action, public notice, and administrative consequence posture."
+    },
+    {
+      "discipline_id": "organizational_governance",
+      "recommended_route": ["transition_admissibility", "receipt_replay", "fail_closed"],
+      "why": "Tests authority, quorum, evidence, refusal, override, and commit-time validity."
+    },
+    {
+      "discipline_id": "archives_records_history",
+      "recommended_route": ["receipt_replay", "governance_filter", "transition_admissibility"],
+      "why": "Tests provenance and replay posture before source notes become timeline or historical claims."
+    }
+  ],
+  "non_goal": "This matrix maps test applicability. It does not certify domain correctness or replace expert review."
+}
