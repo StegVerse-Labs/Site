@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Classify proposed state movement under StegVerse transition admissibility rules.">
+  <title>StegVerse — Transition Admissibility Test</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    textarea, select { width:100%; border:1px solid var(--border); border-radius:12px; background:var(--surface); color:var(--text); padding:12px 14px; font:inherit; }
+    textarea { min-height:120px; resize:vertical; }
+    .test-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
+    .field label { display:block; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:8px; }
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="../index.html">StegVerse</a>
+  <a href="../index.html">Home</a>
+  <a href="../demo.html">Demo</a>
+  <a href="index.html" class="active">Tests</a>
+  <a href="../transition-table.html">Transition Table</a>
+  <a href="../formalisms/index.html">Formalisms</a>
+  <a href="../Papers.html">Papers</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Transition test · STCM · Commit-time admissibility</div>
+    <h1>Transition<br><em>Admissibility.</em></h1>
+    <p>Describe a proposed state movement and see whether the transition should allow, hold, require review, or fail closed under authority and receipt continuity checks.</p>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-secondary" href="governance-filter.html">Governance Filter</a><a class="sv-btn sv-btn-secondary" href="llm-governance-comparison.html">LLM Comparison</a><a class="sv-btn sv-btn-secondary" href="../formalisms/stcm.html">STCM</a></div>
+  </div>
+  <div class="sv-boundary"><strong>Boundary:</strong> this is a static public simulation. It does not create proof authority or replace receipt-backed tests.</div>
+  <h2 class="sv-h2">Declare proposed transition</h2>
+  <div class="field"><label for="transitionText">Proposed state movement</label><textarea id="transitionText" placeholder="Describe what changes from prior state to next state..."></textarea></div>
+  <div class="test-grid">
+    <div class="field"><label for="authority">Authority</label><select id="authority"><option value="none">None declared</option><option value="declared">Declared but not verified</option><option value="verified">Verified authority</option></select></div>
+    <div class="field"><label for="evidence">Evidence</label><select id="evidence"><option value="none">None</option><option value="packet">Evidence packet</option><option value="receipt">Receipt-backed</option></select></div>
+    <div class="field"><label for="replay">Replay continuity</label><select id="replay"><option value="none">No replay path</option><option value="partial">Partial replay path</option><option value="complete">Replayable</option></select></div>
+    <div class="field"><label for="impact">Consequence</label><select id="impact"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
+  </div>
+  <div class="sv-btn-row"><button class="sv-btn sv-btn-primary" type="button" onclick="testTransition()">Test transition</button><button class="sv-btn sv-btn-secondary" type="button" onclick="loadExample()">Load example</button><button class="sv-btn sv-btn-secondary" type="button" onclick="clearPage()">Clear</button></div>
+  <div id="result"></div>
+  <h2 class="sv-h2">STCM chain</h2><pre>prior state
+→ declared transition
+→ authority source
+→ evidence packet
+→ admissibility decision
+→ receipt
+→ replayable next state</pre>
+</div>
+<footer class="sv-footer"><span>StegVerse · Transition Admissibility · Static public test</span><span><a href="index.html">Tests</a> · <a href="../formalisms/stcm.html">STCM</a></span></footer>
+<script>
+function v(id){return document.getElementById(id).value;}
+function decision(authority,evidence,replay,impact,text){
+ if(!text.trim()) return {d:"REQUIRE_INPUT",p:"DRAFT",r:"No transition was declared."};
+ if(authority==="none"&&impact==="high") return {d:"FAIL_CLOSED",p:"NOT_ADMISSIBLE",r:"High consequence movement without authority must fail closed."};
+ if(authority==="none") return {d:"HOLD",p:"DRAFT",r:"No authority source was declared."};
+ if(evidence==="none") return {d:"REQUIRE_REVIEW",p:"DRAFT",r:"Evidence is missing for the declared movement."};
+ if(replay==="none") return {d:"REQUIRE_REPLAY",p:"DRAFT",r:"STCM continuity is incomplete without a replay path."};
+ if(authority==="verified"&&evidence==="receipt"&&replay==="complete") return {d:"ALLOW",p:"RECEIPT_BACKED",r:"Authority, evidence, and replay continuity are sufficient for posture-bound movement."};
+ return {d:"REQUIRE_REVIEW",p:"RESEARCH_NOTE",r:"Some continuity exists, but the transition is not fully receipt-backed."};
+}
+function testTransition(){const out=decision(v("authority"),v("evidence"),v("replay"),v("impact"),v("transitionText"));document.getElementById("result").innerHTML=`<h2 class="sv-h2">Admissibility result</h2><div class="sv-evidence"><div class="sv-evidence-label">Transition posture</div><div class="sv-evidence-row"><span class="k">Decision</span><span class="v">${out.d}</span></div><div class="sv-evidence-row"><span class="k">Posture</span><span class="v">${out.p}</span></div><div class="sv-evidence-row"><span class="k">Reason</span><span class="v">${out.r}</span></div></div>`;}
+function loadExample(){document.getElementById("transitionText").value="Move a draft governance note into public doctrine.";document.getElementById("authority").value="declared";document.getElementById("evidence").value="packet";document.getElementById("replay").value="partial";document.getElementById("impact").value="medium";testTransition();}
+function clearPage(){document.getElementById("transitionText").value="";document.getElementById("result").innerHTML="";}
+</script>
+</body>
+</html>
