@@ -1,0 +1,33 @@
+{
+  "schema": "stegverse.admissibility.gax_exchange.v1",
+  "exchange_type": "bundle_export",
+  "created_at": "2026-06-14T00:00:00Z",
+  "producer": {
+    "component": "site_dynamic_demo",
+    "version": "1.0"
+  },
+  "bundle": {
+    "schema": "stegverse.admissibility.bundle.v1",
+    "source": "site_sample",
+    "bridge_type": "generic_tester_packet",
+    "admissibility_result": {
+      "schema": "stegverse.governed_admissibility.dynamic_demo_result.v1",
+      "classification": {
+        "decision": "ALLOW_AS_NOTE",
+        "allowed_next_state": "research_note"
+      },
+      "receipt_posture": "local_reference"
+    },
+    "admissibility_receipt_reference": {
+      "schema": "stegverse.admissibility.receipt_reference.v1",
+      "reference_id": "admref-site-sample-0001",
+      "decision": "ALLOW_AS_NOTE",
+      "allowed_next_state": "research_note"
+    },
+    "bundle_hash": "sha256:sample-bundle-hash"
+  },
+  "attachments": {
+    "notes": ["Static public sample for Site exchange demonstration."],
+    "related_formalisms": ["RTG", "STCM"]
+  }
+}
