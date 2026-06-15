@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Public mirror for StegVerse-002/core-lite — governed AI/intellect block, clean-slate successor to StegVerse-001. Intake proven live. All gates complete.">
+  <meta name="description" content="Public mirror for StegVerse-002/core-lite — governed AI/intellect block, clean-slate successor to StegVerse-001. Intake proven live. M0–M11 complete with recovery, transition-table, CGE, and regression proof.">
   <title>StegVerse-002 — Core-Lite Governed Deployment</title>
   <link rel="stylesheet" href="sv-shared.css">
 </head>
@@ -33,8 +33,8 @@
     with live receipt evidence at every gate.</p>
     <div class="sv-btn-row">
       <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">intake proven live</span>
-      <span class="pill pill-blue"  style="font-size:12px;padding:5px 12px;">v1.0.0-sv002-m10</span>
-      <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">M0–M10 complete</span>
+      <span class="pill pill-blue"  style="font-size:12px;padding:5px 12px;">v1.1.0-sv002-m11</span>
+      <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">M0–M11 complete</span>
     </div>
   </div>
 
@@ -46,13 +46,15 @@
 
   <h2 class="sv-h2">Proven evidence</h2>
   <div class="sv-evidence">
-    <div class="sv-evidence-label">Live run results — 2026-05-24</div>
+    <div class="sv-evidence-label">Live run results — updated 2026-06-15</div>
     <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all authority flags false</span></div>
     <div class="sv-evidence-row"><span class="k">Bootstrap receipt</span><span class="v">sha256:35b749ae...</span></div>
     <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v">success · stop_condition_met: true</span></div>
-    <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v">ALLOW · sha256:33aa60e7...</span></div>
+    <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v">ALLOW · recovery evidence proof guarded</span></div>
     <div class="sv-evidence-row"><span class="k">Intake receipt</span><span class="v">sha256:a151deed...</span></div>
-    <div class="sv-evidence-row"><span class="k">Stage map</span><span class="v">M0–M10 complete · last_run: 2026-05-24</span></div>
+    <div class="sv-evidence-row"><span class="k">Stage map</span><span class="v">M0–M11 complete · recovery proof green</span></div>
+    <div class="sv-evidence-row"><span class="k">Recovery proof</span><span class="v">old bundle FAIL_CLOSED · corrected bundle ALLOW</span></div>
+    <div class="sv-evidence-row"><span class="k">CGE regression guard</span><span class="v">ALLOW · no CGE ERROR fallback</span></div>
   </div>
 
   <h2 class="sv-h2">What StegVerse-002 demonstrates</h2>
@@ -69,19 +71,21 @@
 
   <h2 class="sv-h2">Architecture</h2>
   <div class="sv-boundary">
-    Stable dispatcher pattern — two workflow files only. All capabilities
-    are declared tasks under <code>tools/</code>. No new workflow files for new features.
+    Stable dispatcher pattern — workflow files only route declared capabilities.
+    Recovery evidence is wrapped, transition-gated, CGE-checked, and regression-guarded before final cleanup authority is considered.
   </div>
   <table class="sv-table">
     <thead><tr><th>Layer</th><th>Purpose</th></tr></thead>
     <tbody>
       <tr><td><code>core_lite/cge.py</code></td><td>CGE admissibility — ALLOW / DENY / SANDBOX / FAIL_CLOSED</td></tr>
+      <tr><td><code>core_lite/transition_table/</code></td><td>Transition-table ingest gate — admission geometry, receipts, CGE composition</td></tr>
       <tr><td><code>core_lite/intake.py</code></td><td>Intake orchestrator — CGE fingerprint, ingest report, receipts</td></tr>
       <tr><td><code>core_lite/receipts.py</code></td><td>Append-only chained receipt log</td></tr>
       <tr><td><code>core_lite/multimodal/</code></td><td>13-step multimodal input pipeline</td></tr>
       <tr><td><code>core_lite/knowledgevault/</code></td><td>Context packet intake with memory-use receipts</td></tr>
       <tr><td><code>core_lite/tvc/</code></td><td>TVC package registry authority and chainlog</td></tr>
       <tr><td><code>core_lite/tv/</code></td><td>TV policy apply / verify / heal</td></tr>
+      <tr><td><code>tools/scripts/repo_recovery_*.py</code></td><td>Repo recovery audit, wrapping, corrected rebuild, and one-bundle proof</td></tr>
       <tr><td><code>tools/repair/</code></td><td>StegVerse-001 repair — all known SV001-M3 blocker classes</td></tr>
     </tbody>
   </table>
@@ -165,6 +169,31 @@
         <div class="sv-stage-stop">Production-candidate · v1.0.0-sv002-m10 · repair capability proven</div>
       </div>
     </div>
+    <div class="sv-stage">
+      <div class="sv-stage-id">SV002-M11</div>
+      <div class="sv-stage-body">
+        <div class="sv-stage-name">Governed repo recovery proof &nbsp;<span class="pill pill-green">complete · guarded</span></div>
+        <div class="sv-stage-stop">stale bundle FAIL_CLOSED · corrected evidence bundle ALLOW · CGE ALLOW · regression guard ALLOW</div>
+      </div>
+    </div>
+    <div class="sv-stage">
+      <div class="sv-stage-id">SV002-M12</div>
+      <div class="sv-stage-body">
+        <div class="sv-stage-name">Finalization authority design &nbsp;<span class="pill pill-blue">next</span></div>
+        <div class="sv-stage-stop">Defines final cleanup/removal authority; M11 does not grant deletion or bulk relocation</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sv-h2">SV002-M11 recovery proof boundary</h2>
+  <div class="sv-evidence">
+    <div class="sv-evidence-label">Recovery/admissibility result — 2026-06-15</div>
+    <div class="sv-evidence-row"><span class="k">Old recovery bundle</span><span class="v">FAIL_CLOSED · missing transition block</span></div>
+    <div class="sv-evidence-row"><span class="k">Corrected bundle hash</span><span class="v">sha256:17f224bca33c1a1c...</span></div>
+    <div class="sv-evidence-row"><span class="k">Transition table</span><span class="v">ALLOW · evidence_state · B7</span></div>
+    <div class="sv-evidence-row"><span class="k">CGE</span><span class="v">ALLOW · evidence_only · fingerprint present</span></div>
+    <div class="sv-evidence-row"><span class="k">Regression guard</span><span class="v">ALLOW · forbids CGE ERROR fallback</span></div>
+    <div class="sv-evidence-row"><span class="k">Authority boundary</span><span class="v">no bulk ingestion · no original deletion · final cleanup deferred</span></div>
   </div>
 
   <h2 class="sv-h2">Node and FinCo boundary</h2>
@@ -206,6 +235,7 @@
       <tr><td><code>v0.5.0-sv002-m5</code></td><td>M5</td><td>Core-Lite Intake STOP met — proven live</td></tr>
       <tr><td><code>v0.7.0-sv002-m7</code></td><td>M7</td><td>LLM Adapter Gate + KnowledgeVault packets</td></tr>
       <tr><td><code>v1.0.0-sv002-m10</code></td><td>M10</td><td>Full governed deployment — production-candidate</td></tr>
+      <tr><td><code>v1.1.0-sv002-m11</code></td><td>M11</td><td>Governed recovery proof — corrected bundle admitted, CGE ALLOW, regression guard green</td></tr>
     </tbody>
   </table>
 
@@ -219,7 +249,7 @@
 
 <footer class="sv-footer">
   <span>StegVerse-002 public mirror · Site is not proof authority</span>
-  <span>Generated 2026-05-24</span>
+  <span>Generated 2026-06-15</span>
 </footer>
 
 </body>
