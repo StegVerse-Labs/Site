@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Public mirror for StegVerse-002/core-lite — governed AI/intellect block. M0–M12 complete through recovery proof and non-executing finalization design evidence.">
+  <meta name="description" content="Public mirror for StegVerse-002/core-lite — governed AI/intellect block. M0–M13 complete through recovery proof, finalization design, and non-mutating finalize-one proposal evidence.">
   <title>StegVerse-002 — Core-Lite Governed Deployment</title>
   <link rel="stylesheet" href="sv-shared.css">
 </head>
@@ -29,50 +29,50 @@
     <div class="sv-eyebrow">Public mirror · StegVerse-002/core-lite · not proof authority</div>
     <h1>StegVerse-002<br><em>Core-Lite</em></h1>
     <p>Governed AI/intellect block — clean-slate successor to StegVerse-001.
-    Staged from identity declaration through governed mutation proposal,
-    recovery admissibility, and finalization-authority design, with receipt evidence at every gate.</p>
+    Staged from identity declaration through governed mutation proposal, recovery admissibility,
+    finalization-authority design, and non-mutating finalize-one proposal evidence.</p>
     <div class="sv-btn-row">
       <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">intake proven live</span>
-      <span class="pill pill-blue"  style="font-size:12px;padding:5px 12px;">v1.2.0-sv002-m12</span>
-      <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">M0–M12 complete</span>
+      <span class="pill pill-blue"  style="font-size:12px;padding:5px 12px;">v1.3.0-sv002-m13</span>
+      <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">M0–M13 complete</span>
     </div>
   </div>
 
   <div class="sv-boundary">
     This page is a public mirror. It is not proof authority, install authority, packet authority,
-    node authority, FinCo authority, cleanup authority, deletion authority, or production accreditation authority.<br>
+    node authority, FinCo authority, cleanup authority, deletion authority, execution authority, or production accreditation authority.<br>
     <code>StegVerse-002/core-lite</code> is proof authority &nbsp;·&nbsp; Site is the public mirror.
   </div>
 
   <h2 class="sv-h2">Proven evidence</h2>
   <div class="sv-evidence">
-    <div class="sv-evidence-label">Live run results — updated 2026-06-15</div>
+    <div class="sv-evidence-label">Live run results — updated 2026-06-16</div>
     <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all authority flags false</span></div>
     <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v">success · stop_condition_met: true</span></div>
     <div class="sv-evidence-row"><span class="k">Recovery proof</span><span class="v">old bundle FAIL_CLOSED · corrected bundle ALLOW</span></div>
     <div class="sv-evidence-row"><span class="k">CGE regression guard</span><span class="v">ALLOW · no CGE ERROR fallback</span></div>
     <div class="sv-evidence-row"><span class="k">M12 destination plan</span><span class="v">PLAN_ONLY · proposed destination not executable</span></div>
     <div class="sv-evidence-row"><span class="k">M12 finalization check</span><span class="v">REVIEW_ONLY · single proposal review eligible</span></div>
+    <div class="sv-evidence-row"><span class="k">M13 finalize-one candidate</span><span class="v">FINALIZE_ONE_PROPOSED_REVIEW_ONLY · mutation_performed false</span></div>
     <div class="sv-evidence-row"><span class="k">Authority boundary</span><span class="v">execution none · cleanup none · bulk none · original removal none</span></div>
   </div>
 
   <h2 class="sv-h2">What StegVerse-002 demonstrates</h2>
   <div class="sv-prose">
     <p>StegVerse-002 is the first clean-slate instantiation of the StegVerse Governed
-    Tiered Intellect Model as a deployable, running system. It shows that
-    consequence-bearing AI capability can be staged, admissibility-checked,
-    receipted, and stopped — not as theory, but as a running GitHub Actions
-    deployment with a chain-linked receipt log.</p>
-    <p>M12 extends the demonstration by separating finalization review from finalization execution.
-    The repo can propose and evaluate a finalization path without moving files, deleting originals,
-    bulk ingesting, or granting cleanup authority.</p>
+    Tiered Intellect Model as a deployable, running system. It shows that consequence-bearing
+    AI capability can be staged, admissibility-checked, receipted, and stopped — not as theory,
+    but as a running GitHub Actions deployment with a chain-linked receipt log.</p>
+    <p>M12 separates finalization review from finalization execution. M13 then proves a single
+    finalize-one candidate proposal can be emitted without moving files, deleting originals,
+    replacing destinations, bulk ingesting, or granting cleanup authority.</p>
   </div>
 
   <h2 class="sv-h2">Architecture</h2>
   <div class="sv-boundary">
     Stable dispatcher pattern — workflow files only route declared capabilities.
     Recovery evidence is wrapped, transition-gated, CGE-checked, regression-guarded,
-    destination-planned, and finalization-reviewed before any future execution lane can be considered.
+    destination-planned, finalization-reviewed, and candidate-proposed before any future execution lane can be considered.
   </div>
   <table class="sv-table">
     <thead><tr><th>Layer</th><th>Purpose</th></tr></thead>
@@ -81,7 +81,7 @@
       <tr><td><code>core_lite/transition_table/</code></td><td>Transition-table ingest gate — admission geometry, receipts, CGE composition</td></tr>
       <tr><td><code>core_lite/intake.py</code></td><td>Intake orchestrator — CGE fingerprint, ingest report, receipts</td></tr>
       <tr><td><code>core_lite/receipts.py</code></td><td>Append-only chained receipt log</td></tr>
-      <tr><td><code>tools/scripts/repo_recovery_*.py</code></td><td>Repo recovery audit, wrapping, corrected rebuild, proof, destination plan, and review-only finalization check</td></tr>
+      <tr><td><code>tools/scripts/repo_recovery_*.py</code></td><td>Repo recovery audit, wrapping, corrected rebuild, proof, destination plan, finalization check, and finalize-one proposal</td></tr>
       <tr><td><code>core_lite/tvc/</code></td><td>TVC package registry authority and chainlog</td></tr>
       <tr><td><code>core_lite/tv/</code></td><td>TV policy apply / verify / heal</td></tr>
     </tbody>
@@ -102,6 +102,7 @@
     <div class="sv-stage"><div class="sv-stage-id">SV002-M10</div><div class="sv-stage-body"><div class="sv-stage-name">Governed mutation proposal + quorum &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Production-candidate · repair capability proven</div></div></div>
     <div class="sv-stage"><div class="sv-stage-id">SV002-M11</div><div class="sv-stage-body"><div class="sv-stage-name">Governed repo recovery proof &nbsp;<span class="pill pill-green">complete · guarded</span></div><div class="sv-stage-stop">stale bundle FAIL_CLOSED · corrected evidence bundle ALLOW · CGE ALLOW · regression guard ALLOW</div></div></div>
     <div class="sv-stage"><div class="sv-stage-id">SV002-M12</div><div class="sv-stage-body"><div class="sv-stage-name">Finalization authority design &nbsp;<span class="pill pill-green">complete · review-only</span></div><div class="sv-stage-stop">destination plan PLAN_ONLY · finalization check REVIEW_ONLY · no execution/cleanup/bulk/removal authority</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M13</div><div class="sv-stage-body"><div class="sv-stage-name">Finalize-one candidate proposal &nbsp;<span class="pill pill-green">complete · proposal-only</span></div><div class="sv-stage-stop">FINALIZE_ONE_PROPOSED_REVIEW_ONLY · mutation_performed false · future execution lane required</div></div></div>
   </div>
 
   <h2 class="sv-h2">SV002-M11 recovery proof boundary</h2>
@@ -123,13 +124,21 @@
     <div class="sv-evidence-row"><span class="k">Original source</span><span class="v">exists · removal NOT_AUTHORIZED</span></div>
     <div class="sv-evidence-row"><span class="k">Proposed destination</span><span class="v">exists · no replacement or movement performed</span></div>
     <div class="sv-evidence-row"><span class="k">Guardrails</span><span class="v">does not move · does not delete · does not bulk ingest · does not grant final authority</span></div>
-    <div class="sv-evidence-row"><span class="k">Future requirement</span><span class="v">explicit finalize-one receipt required before any repository mutation</span></div>
+  </div>
+
+  <h2 class="sv-h2">SV002-M13 finalize-one proposal boundary</h2>
+  <div class="sv-evidence">
+    <div class="sv-evidence-label">Candidate proposal result — 2026-06-16</div>
+    <div class="sv-evidence-row"><span class="k">Candidate decision</span><span class="v">FINALIZE_ONE_PROPOSED_REVIEW_ONLY</span></div>
+    <div class="sv-evidence-row"><span class="k">Mutation status</span><span class="v">mutation_performed: false</span></div>
+    <div class="sv-evidence-row"><span class="k">Candidate bundle</span><span class="v">sha256:17f224bca33c1a1c...</span></div>
+    <div class="sv-evidence-row"><span class="k">Pre-mutation hash</span><span class="v">CHANGELOG.md · sha256:30d45378723d...</span></div>
+    <div class="sv-evidence-row"><span class="k">Operator defaults</span><span class="v">bulk false · original removal false · replacement false · rollback required</span></div>
+    <div class="sv-evidence-row"><span class="k">Guardrails</span><span class="v">proposal only · no movement · no deletion · no replacement · future execution lane required</span></div>
   </div>
 
   <h2 class="sv-h2">Node and FinCo boundary</h2>
-  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-    Core installation does not imply node participation. Node participation does not imply FinCo eligibility.
-  </p>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Core installation does not imply node participation. Node participation does not imply FinCo eligibility.</p>
   <pre>{
   "core_unit_installed": true,
   "node_participation_opt_in": false,
@@ -164,6 +173,7 @@
       <tr><td><code>v1.0.0-sv002-m10</code></td><td>M10</td><td>Full governed deployment — production-candidate</td></tr>
       <tr><td><code>v1.1.0-sv002-m11</code></td><td>M11</td><td>Governed recovery proof — corrected bundle admitted, CGE ALLOW, regression guard green</td></tr>
       <tr><td><code>v1.2.0-sv002-m12</code></td><td>M12</td><td>Finalization design proof — destination plan PLAN_ONLY, finalization check REVIEW_ONLY</td></tr>
+      <tr><td><code>v1.3.0-sv002-m13</code></td><td>M13</td><td>Finalize-one proposal proof — proposal-only, mutation_performed false</td></tr>
     </tbody>
   </table>
 
@@ -177,7 +187,7 @@
 
 <footer class="sv-footer">
   <span>StegVerse-002 public mirror · Site is not proof authority</span>
-  <span>Generated 2026-06-15</span>
+  <span>Generated 2026-06-16</span>
 </footer>
 
 </body>
