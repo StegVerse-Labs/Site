@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Public mirror for StegVerse-002/core-lite — governed AI/intellect block, clean-slate successor to StegVerse-001. Intake proven live. M0–M11 complete with recovery, transition-table, CGE, and regression proof.">
+  <meta name="description" content="Public mirror for StegVerse-002/core-lite — governed AI/intellect block. M0–M12 complete through recovery proof and non-executing finalization design evidence.">
   <title>StegVerse-002 — Core-Lite Governed Deployment</title>
   <link rel="stylesheet" href="sv-shared.css">
 </head>
@@ -30,17 +30,17 @@
     <h1>StegVerse-002<br><em>Core-Lite</em></h1>
     <p>Governed AI/intellect block — clean-slate successor to StegVerse-001.
     Staged from identity declaration through governed mutation proposal,
-    with live receipt evidence at every gate.</p>
+    recovery admissibility, and finalization-authority design, with receipt evidence at every gate.</p>
     <div class="sv-btn-row">
       <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">intake proven live</span>
-      <span class="pill pill-blue"  style="font-size:12px;padding:5px 12px;">v1.1.0-sv002-m11</span>
-      <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">M0–M11 complete</span>
+      <span class="pill pill-blue"  style="font-size:12px;padding:5px 12px;">v1.2.0-sv002-m12</span>
+      <span class="pill pill-green" style="font-size:12px;padding:5px 12px;">M0–M12 complete</span>
     </div>
   </div>
 
   <div class="sv-boundary">
     This page is a public mirror. It is not proof authority, install authority, packet authority,
-    node authority, FinCo authority, or production accreditation authority.<br>
+    node authority, FinCo authority, cleanup authority, deletion authority, or production accreditation authority.<br>
     <code>StegVerse-002/core-lite</code> is proof authority &nbsp;·&nbsp; Site is the public mirror.
   </div>
 
@@ -48,13 +48,12 @@
   <div class="sv-evidence">
     <div class="sv-evidence-label">Live run results — updated 2026-06-15</div>
     <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all authority flags false</span></div>
-    <div class="sv-evidence-row"><span class="k">Bootstrap receipt</span><span class="v">sha256:35b749ae...</span></div>
     <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v">success · stop_condition_met: true</span></div>
-    <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v">ALLOW · recovery evidence proof guarded</span></div>
-    <div class="sv-evidence-row"><span class="k">Intake receipt</span><span class="v">sha256:a151deed...</span></div>
-    <div class="sv-evidence-row"><span class="k">Stage map</span><span class="v">M0–M11 complete · recovery proof green</span></div>
     <div class="sv-evidence-row"><span class="k">Recovery proof</span><span class="v">old bundle FAIL_CLOSED · corrected bundle ALLOW</span></div>
     <div class="sv-evidence-row"><span class="k">CGE regression guard</span><span class="v">ALLOW · no CGE ERROR fallback</span></div>
+    <div class="sv-evidence-row"><span class="k">M12 destination plan</span><span class="v">PLAN_ONLY · proposed destination not executable</span></div>
+    <div class="sv-evidence-row"><span class="k">M12 finalization check</span><span class="v">REVIEW_ONLY · single proposal review eligible</span></div>
+    <div class="sv-evidence-row"><span class="k">Authority boundary</span><span class="v">execution none · cleanup none · bulk none · original removal none</span></div>
   </div>
 
   <h2 class="sv-h2">What StegVerse-002 demonstrates</h2>
@@ -64,15 +63,16 @@
     consequence-bearing AI capability can be staged, admissibility-checked,
     receipted, and stopped — not as theory, but as a running GitHub Actions
     deployment with a chain-linked receipt log.</p>
-    <p>Every stage requires evidence to advance. No stage claims completion
-    without a receipt. No action is open-ended — every gate has a declared
-    STOP condition.</p>
+    <p>M12 extends the demonstration by separating finalization review from finalization execution.
+    The repo can propose and evaluate a finalization path without moving files, deleting originals,
+    bulk ingesting, or granting cleanup authority.</p>
   </div>
 
   <h2 class="sv-h2">Architecture</h2>
   <div class="sv-boundary">
     Stable dispatcher pattern — workflow files only route declared capabilities.
-    Recovery evidence is wrapped, transition-gated, CGE-checked, and regression-guarded before final cleanup authority is considered.
+    Recovery evidence is wrapped, transition-gated, CGE-checked, regression-guarded,
+    destination-planned, and finalization-reviewed before any future execution lane can be considered.
   </div>
   <table class="sv-table">
     <thead><tr><th>Layer</th><th>Purpose</th></tr></thead>
@@ -81,108 +81,27 @@
       <tr><td><code>core_lite/transition_table/</code></td><td>Transition-table ingest gate — admission geometry, receipts, CGE composition</td></tr>
       <tr><td><code>core_lite/intake.py</code></td><td>Intake orchestrator — CGE fingerprint, ingest report, receipts</td></tr>
       <tr><td><code>core_lite/receipts.py</code></td><td>Append-only chained receipt log</td></tr>
-      <tr><td><code>core_lite/multimodal/</code></td><td>13-step multimodal input pipeline</td></tr>
-      <tr><td><code>core_lite/knowledgevault/</code></td><td>Context packet intake with memory-use receipts</td></tr>
+      <tr><td><code>tools/scripts/repo_recovery_*.py</code></td><td>Repo recovery audit, wrapping, corrected rebuild, proof, destination plan, and review-only finalization check</td></tr>
       <tr><td><code>core_lite/tvc/</code></td><td>TVC package registry authority and chainlog</td></tr>
       <tr><td><code>core_lite/tv/</code></td><td>TV policy apply / verify / heal</td></tr>
-      <tr><td><code>tools/scripts/repo_recovery_*.py</code></td><td>Repo recovery audit, wrapping, corrected rebuild, and one-bundle proof</td></tr>
-      <tr><td><code>tools/repair/</code></td><td>StegVerse-001 repair — all known SV001-M3 blocker classes</td></tr>
     </tbody>
   </table>
 
   <h2 class="sv-h2">Transition gate map</h2>
   <div class="sv-stage-list">
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M0</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Identity and scope declaration &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">All authority flags false · node_status NOT_A_NODE · receipt: sha256:35b749ae</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M1</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Observation and reporting &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">Report emitted · no mutation</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M2</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Declared task execution + receipts &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">Task catalog operational · receipt chain live</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M3</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Remote target inspection &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">Data-Continuation/core-lite inspected · StegVerse-001 repair candidates prepared</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M4</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Candidate preparation &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">All four known SV001-M3 blocker classes handled · operator applies</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M5</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Core-Lite Intake Enablement &nbsp;<span class="pill pill-green">complete · proven live</span></div>
-        <div class="sv-stage-stop">status: success · stop_condition_met: true · receipt: sha256:a151deed</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M6</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">CGE + sandbox loop &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">CGE decision ALLOW · fingerprint: sha256:33aa60e7</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M7</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">LLM Adapter Gate &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">External reasoning admitted as bounded instruction packets only</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M8</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">KnowledgeVault context-packet integration &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">Context packets flow through CGE with memory-use receipts</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M9</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">TV/TVC encryption layer &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">TVC registry authority · TV apply/verify/heal · chainlog live</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M10</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Governed mutation proposal + quorum &nbsp;<span class="pill pill-green">complete</span></div>
-        <div class="sv-stage-stop">Production-candidate · v1.0.0-sv002-m10 · repair capability proven</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M11</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Governed repo recovery proof &nbsp;<span class="pill pill-green">complete · guarded</span></div>
-        <div class="sv-stage-stop">stale bundle FAIL_CLOSED · corrected evidence bundle ALLOW · CGE ALLOW · regression guard ALLOW</div>
-      </div>
-    </div>
-    <div class="sv-stage">
-      <div class="sv-stage-id">SV002-M12</div>
-      <div class="sv-stage-body">
-        <div class="sv-stage-name">Finalization authority design &nbsp;<span class="pill pill-blue">next</span></div>
-        <div class="sv-stage-stop">Defines final cleanup/removal authority; M11 does not grant deletion or bulk relocation</div>
-      </div>
-    </div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M0</div><div class="sv-stage-body"><div class="sv-stage-name">Identity and scope declaration &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">All authority flags false · node_status NOT_A_NODE</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M1</div><div class="sv-stage-body"><div class="sv-stage-name">Observation and reporting &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Report emitted · no mutation</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M2</div><div class="sv-stage-body"><div class="sv-stage-name">Declared task execution + receipts &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Task catalog operational · receipt chain live</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M3</div><div class="sv-stage-body"><div class="sv-stage-name">Remote target inspection &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Data-Continuation/core-lite inspected · repair candidates prepared</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M4</div><div class="sv-stage-body"><div class="sv-stage-name">Candidate preparation &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Known SV001-M3 blocker classes handled · operator applies</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M5</div><div class="sv-stage-body"><div class="sv-stage-name">Core-Lite Intake Enablement &nbsp;<span class="pill pill-green">complete · proven live</span></div><div class="sv-stage-stop">status: success · stop_condition_met: true</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M6</div><div class="sv-stage-body"><div class="sv-stage-name">CGE + sandbox loop &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">CGE decision ALLOW</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M7</div><div class="sv-stage-body"><div class="sv-stage-name">LLM Adapter Gate &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">External reasoning admitted as bounded instruction packets only</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M8</div><div class="sv-stage-body"><div class="sv-stage-name">KnowledgeVault context-packet integration &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Context packets flow through CGE with memory-use receipts</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M9</div><div class="sv-stage-body"><div class="sv-stage-name">TV/TVC encryption layer &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">TVC registry authority · TV apply/verify/heal</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M10</div><div class="sv-stage-body"><div class="sv-stage-name">Governed mutation proposal + quorum &nbsp;<span class="pill pill-green">complete</span></div><div class="sv-stage-stop">Production-candidate · repair capability proven</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M11</div><div class="sv-stage-body"><div class="sv-stage-name">Governed repo recovery proof &nbsp;<span class="pill pill-green">complete · guarded</span></div><div class="sv-stage-stop">stale bundle FAIL_CLOSED · corrected evidence bundle ALLOW · CGE ALLOW · regression guard ALLOW</div></div></div>
+    <div class="sv-stage"><div class="sv-stage-id">SV002-M12</div><div class="sv-stage-body"><div class="sv-stage-name">Finalization authority design &nbsp;<span class="pill pill-green">complete · review-only</span></div><div class="sv-stage-stop">destination plan PLAN_ONLY · finalization check REVIEW_ONLY · no execution/cleanup/bulk/removal authority</div></div></div>
   </div>
 
   <h2 class="sv-h2">SV002-M11 recovery proof boundary</h2>
@@ -196,10 +115,20 @@
     <div class="sv-evidence-row"><span class="k">Authority boundary</span><span class="v">no bulk ingestion · no original deletion · final cleanup deferred</span></div>
   </div>
 
+  <h2 class="sv-h2">SV002-M12 finalization design boundary</h2>
+  <div class="sv-evidence">
+    <div class="sv-evidence-label">Destination/finalization review result — 2026-06-15</div>
+    <div class="sv-evidence-row"><span class="k">Destination plan</span><span class="v">PLAN_ONLY · proposed destination: CHANGELOG.md</span></div>
+    <div class="sv-evidence-row"><span class="k">Finalization check</span><span class="v">REVIEW_ONLY · FINALIZATION_ALLOWED_SINGLE_PROPOSAL_ONLY</span></div>
+    <div class="sv-evidence-row"><span class="k">Original source</span><span class="v">exists · removal NOT_AUTHORIZED</span></div>
+    <div class="sv-evidence-row"><span class="k">Proposed destination</span><span class="v">exists · no replacement or movement performed</span></div>
+    <div class="sv-evidence-row"><span class="k">Guardrails</span><span class="v">does not move · does not delete · does not bulk ingest · does not grant final authority</span></div>
+    <div class="sv-evidence-row"><span class="k">Future requirement</span><span class="v">explicit finalize-one receipt required before any repository mutation</span></div>
+  </div>
+
   <h2 class="sv-h2">Node and FinCo boundary</h2>
   <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-    Core installation does not imply node participation.
-    Node participation does not imply FinCo eligibility.
+    Core installation does not imply node participation. Node participation does not imply FinCo eligibility.
   </p>
   <pre>{
   "core_unit_installed": true,
@@ -231,11 +160,10 @@
     <thead><tr><th>Tag</th><th>Gate</th><th>Description</th></tr></thead>
     <tbody>
       <tr><td><code>v0.1.0-sv002-m0</code></td><td>M0</td><td>Identity declaration</td></tr>
-      <tr><td><code>v0.2.0-sv002-m3</code></td><td>M3</td><td>Remote inspection + repair candidates</td></tr>
       <tr><td><code>v0.5.0-sv002-m5</code></td><td>M5</td><td>Core-Lite Intake STOP met — proven live</td></tr>
-      <tr><td><code>v0.7.0-sv002-m7</code></td><td>M7</td><td>LLM Adapter Gate + KnowledgeVault packets</td></tr>
       <tr><td><code>v1.0.0-sv002-m10</code></td><td>M10</td><td>Full governed deployment — production-candidate</td></tr>
       <tr><td><code>v1.1.0-sv002-m11</code></td><td>M11</td><td>Governed recovery proof — corrected bundle admitted, CGE ALLOW, regression guard green</td></tr>
+      <tr><td><code>v1.2.0-sv002-m12</code></td><td>M12</td><td>Finalization design proof — destination plan PLAN_ONLY, finalization check REVIEW_ONLY</td></tr>
     </tbody>
   </table>
 
