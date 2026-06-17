@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Exchange Check</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.5; max-width: 920px; }
+    code, pre { background: #f5f5f5; padding: 0.15rem 0.3rem; border-radius: 4px; }
+    section { margin-block: 1.5rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>StegVerse Exchange Check</h1>
+    <p>This page is a public-facing placeholder for checking whether an exchange, packet, receipt, or transition artifact is declared, bounded, and reviewable before it is treated as a governance signal.</p>
+
+    <section>
+      <h2>Boundary</h2>
+      <p>This page does not authorize transitions, declare consent, validate identity, or replace commit-time admissibility checks. It is a review surface only.</p>
+    </section>
+
+    <section>
+      <h2>Minimum fields</h2>
+      <ul>
+        <li>Artifact identifier</li>
+        <li>Artifact hash</li>
+        <li>Declared source</li>
+        <li>Declared scope</li>
+        <li>Policy reference</li>
+        <li>Authority class</li>
+        <li>Receipt or evidence pointer</li>
+        <li>Commit-time posture</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Result meanings</h2>
+      <p><strong>Reviewable</strong> means the artifact exposes enough declared structure to be inspected. It does not mean the transition is admissible.</p>
+      <p><strong>Incomplete</strong> means one or more minimum fields are absent or unclear.</p>
+      <p><strong>Out of scope</strong> means the artifact attempts to claim authority outside the declared review boundary.</p>
+    </section>
+  </main>
+</body>
+</html>
