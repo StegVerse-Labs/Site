@@ -1,0 +1,70 @@
+{
+  "schema": "stegverse_site_current_admissibility_status.v1",
+  "generated_at": "2026-06-17T00:00:00Z",
+  "site_role": "public_mirror",
+  "source_authority": "Data-Continuation/formalism-tests",
+  "vocabulary_authority": "StegVerse-Labs/admissibility-wiki",
+  "authority_boundary": "formalism-tests produces receipts. Site publishes public status and links. Site must not become the authority for receipts.",
+  "current_status": {
+    "workstream": "Admissibility Wiki + Public Proof Surface Sync",
+    "status": "ACTIVE_BUILD",
+    "summary": "The public Site mirrors current proof posture while the Admissibility Wiki maintains public vocabulary, governance terms, and proof-path explanations.",
+    "current_public_stage": "Stage 31 / StegVerse-001 proof mirror plus StegVerse-002 production-candidate mirror",
+    "historical_transition_table_stage": "Stage 10 release-candidate data is preserved as transition-table history and must not be read as the only current admissibility status."
+  },
+  "repositories": [
+    {
+      "name": "StegVerse-Labs/Site",
+      "role": "public display surface and mirror",
+      "status": "active",
+      "boundary": "Publishes status, pages, and public mirrors; does not generate receipts."
+    },
+    {
+      "name": "StegVerse-Labs/admissibility-wiki",
+      "role": "public vocabulary, glossary, ontology, and proof-path explanation layer",
+      "status": "active",
+      "boundary": "Defines and documents vocabulary; does not replace executable proof authority."
+    },
+    {
+      "name": "Data-Continuation/formalism-tests",
+      "role": "proof and test authority",
+      "status": "source_authority",
+      "boundary": "Produces executable formalism results and receipts."
+    }
+  ],
+  "proof_path_status": {
+    "allow_example": "installed",
+    "deny_example": "installed",
+    "escalate_example": "installed",
+    "refuse_example": "installed",
+    "drift_denial_example": "installed",
+    "machine_readable_vocabulary": "expanded_with_outcome_and_proposal_lifecycle_terms"
+  },
+  "public_pages": {
+    "admissibility_wiki_bridge": "admissibility-wiki.html",
+    "transition_proof_surface": "transition-proof-surface.html",
+    "transition_release_index": "transition-release-index.html",
+    "transition_replay_packet": "transition-replay-packet.html",
+    "stage_1_to_31_mirror": "formalism-tests-stage-1-to-31.html",
+    "stegverse_002_mirror": "stegverse-002.html"
+  },
+  "decision_outcomes": [
+    "ALLOW",
+    "DENY",
+    "ESCALATE",
+    "REFUSE",
+    "FAIL_CLOSED"
+  ],
+  "non_claims": [
+    "Site is not proof authority.",
+    "Site does not generate receipts.",
+    "The Admissibility Wiki does not replace executable formalism tests.",
+    "A public page is not proof of admissibility by itself.",
+    "Stage 10 transition-table release-candidate data is historical unless explicitly labeled current by a newer status artifact."
+  ],
+  "next_actions": [
+    "Add Admissibility-Wiki AI Entity review posture page.",
+    "Add page governance template requiring proposal, decision, replay, and reconstruction links.",
+    "Version or preserve historical Stage 10 transition-table data separately from current Stage 31 / SV-002 status."
+  ]
+}
