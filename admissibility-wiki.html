@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse Admissibility Wiki bridge — public vocabulary, proof-path examples, and authority boundaries.">
+  <title>Admissibility Wiki — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+</head>
+<body>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="demo.html">Demo</a>
+  <a href="tests/index.html">Tests</a>
+  <a href="applicability.html">Applicability</a>
+  <a href="math-solver/index.html">Math-Solver</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="methodology.html">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="transition-table.html">Transition Table</a>
+  <a href="formalisms/index.html">Formalisms</a>
+  <a href="admissibility-wiki.html" class="active">Admissibility Wiki</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Vocabulary · Proof paths · Governance boundaries</div>
+    <h1>Admissibility <em>Wiki</em></h1>
+    <p>The Admissibility Wiki is the StegVerse vocabulary and explanation layer for transition governance, commit-time authority, receipt-bound execution, and reconstructable proof paths.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="https://github.com/StegVerse-Labs/admissibility-wiki">Open repository</a>
+      <a class="sv-btn sv-btn-secondary" href="data/formalism-tests/current-admissibility-status.json">Current status JSON</a>
+      <a class="sv-btn sv-btn-secondary" href="transition-proof-surface.html">Proof surface</a>
+      <a class="sv-btn sv-btn-secondary" href="transition-replay-packet.html">Replay packet</a>
+    </div>
+  </div>
+
+  <div class="sv-boundary">
+    Site is the public mirror. The Admissibility Wiki defines vocabulary and proof-path explanations. Data-Continuation/formalism-tests remains proof authority.
+  </div>
+
+  <h2 class="sv-h2">Current role split</h2>
+  <div class="sv-card-grid">
+    <div class="sv-card">
+      <h3 class="sv-h3">Site</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Public display surface for status pages, proof mirrors, and explanatory entry points. Site must not become the authority for receipts.</p>
+      <span class="pill pill-blue">public mirror</span>
+    </div>
+    <div class="sv-card">
+      <h3 class="sv-h3">Admissibility Wiki</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Vocabulary, glossary, ontology, governance-page templates, and minimal public proof-path explanations.</p>
+      <span class="pill pill-blue">vocabulary layer</span>
+    </div>
+    <div class="sv-card">
+      <h3 class="sv-h3">formalism-tests</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Executable proof/test authority that produces formalism results and receipts.</p>
+      <span class="pill pill-green">proof authority</span>
+    </div>
+  </div>
+
+  <h2 class="sv-h2">Installed proof-path outcomes</h2>
+  <table class="sv-table">
+    <thead><tr><th>Outcome</th><th>Meaning</th><th>Wiki status</th></tr></thead>
+    <tbody>
+      <tr><td><code>ALLOW</code></td><td>The transition has standing to bind under declared commit-time conditions.</td><td><span class="pill pill-green">installed</span></td></tr>
+      <tr><td><code>DENY</code></td><td>The transition does not have standing to bind consequence under declared commit-time conditions.</td><td><span class="pill pill-green">installed</span></td></tr>
+      <tr><td><code>ESCALATE</code></td><td>The evaluator cannot allow or deny without higher, different, or additional review.</td><td><span class="pill pill-green">installed</span></td></tr>
+      <tr><td><code>REFUSE</code></td><td>The evaluator declines the request as framed because it is outside declared scope or lacks valid transition basis.</td><td><span class="pill pill-green">installed</span></td></tr>
+      <tr><td><code>DRIFT DENIAL</code></td><td>A prior review no longer supplies standing because relevant state changed before commit time.</td><td><span class="pill pill-green">installed</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sv-h2">Machine-readable status</h2>
+  <div class="sv-prose">
+    <p>The current public status artifact is:</p>
+    <pre>data/formalism-tests/current-admissibility-status.json</pre>
+    <p>This artifact exists to prevent older Stage 10 transition-table release-candidate data from being mistaken as the only current public admissibility status.</p>
+  </div>
+
+  <h2 class="sv-h2">Non-claims</h2>
+  <pre>Site is not proof authority.
+Site does not generate receipts.
+The Admissibility Wiki does not replace executable formalism tests.
+A public page is not proof of admissibility by itself.
+Stage 10 transition-table data is historical unless explicitly labeled current by a newer status artifact.</pre>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Admissibility Wiki · Public vocabulary bridge</span>
+  <span><a href="index.html">Home</a> · <a href="transition-proof-surface.html">Proof Surface</a> · <a href="data/formalism-tests/current-admissibility-status.json">Current Status JSON</a></span>
+</footer>
+
+</body>
+</html>
