@@ -38,6 +38,12 @@ Site must never become the authority for receipts, transitions, or accreditation
 | [`support.html`](support.html) | Support StegVerse Research |
 | [`Papers.html`](Papers.html) | Papers and research |
 
+### Public positioning
+
+| Document | Purpose |
+|----------|---------|
+| [`docs/public-positioning/ai-safety-to-transition-admissibility.md`](docs/public-positioning/ai-safety-to-transition-admissibility.md) | External bridge from AI safety framing to StegVerse transition admissibility, GLM, EVIDE, and runtime governance |
+
 ### Transition pages
 
 | Page | Purpose |
