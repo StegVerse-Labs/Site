@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -27,6 +28,25 @@ ALLOWED_EXTENSIONS = {
     ".html", ".htm", ".pdf", ".md", ".txt", ".tex", ".bib",
     ".png", ".jpg", ".jpeg", ".svg", ".webp", ".json"
 }
+
+
+def mirror_metadata() -> dict:
+    source_repository = os.environ.get("SOURCE_REPOSITORY", "GCAT-BCAT-Engine/Publisher")
+    source_ref = os.environ.get("SOURCE_REF", "main")
+    source_path = os.environ.get("SOURCE_PATH", "papers")
+    target_repository = os.environ.get("TARGET_REPOSITORY", "StegVerse-Labs/Site")
+
+    return {
+        "source_repository": source_repository,
+        "source_ref": source_ref,
+        "source_path": source_path,
+        "source_of_truth": f"{source_repository}/{source_path}",
+        "target_repository": target_repository,
+        "target_path": "papers",
+        "display_policy": "docs/SITE_PAPER_DISPLAY_POLICY.md",
+        "mirror_protocol": "docs/README_SITE_PAPERS_MIRROR.md",
+        "workflow": ".github/workflows/mirror-papers.yml",
+    }
 
 
 def is_allowed_file(path: Path) -> bool:
@@ -104,12 +124,17 @@ a{{color:#6ee7ff}}
 """.format(target=safe_target)
 
 
-def render_page(entries: list[dict]) -> str:
+def render_page(entries: list[dict], metadata: dict) -> str:
     generated = datetime.now(timezone.utc).isoformat()
     grouped: dict[str, list[dict]] = {}
 
     for entry in entries:
         grouped.setdefault(category(entry["extension"]), []).append(entry)
+
+    source_of_truth = html.escape(metadata["source_of_truth"])
+    target_path = html.escape(f'{metadata["target_repository"]}/{metadata["target_path"]}')
+    source_repository = html.escape(metadata["source_repository"])
+    source_ref = html.escape(metadata["source_ref"])
 
     css = """
 :root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;}
@@ -142,7 +167,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         '<meta charset="utf-8"/>',
         '<meta name="viewport" content="width=device-width,initial-scale=1"/>',
         "<title>StegVerse Papers</title>",
-        '<meta name="description" content="Mirrored StegVerse papers from GCAT-BCAT-Engine/Publisher papers outputs."/>',
+        '<meta name="description" content="Mirrored StegVerse papers from Publisher papers outputs."/>',
         "<style>" + css + "</style>",
         "</head>",
         "<body>",
@@ -152,12 +177,12 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
         "</div></header>",
         '<main class="wrap">',
         '<section><div class="badge">Mirrored paper outputs</div><h1>StegVerse Papers</h1>',
-        '<p class="lead">This page mirrors paper outputs from <strong>GCAT-BCAT-Engine/Publisher/papers</strong> into the public Site repository. When new papers are pushed to that source path and the mirror workflow runs, they become visible here.</p></section>',
-        '<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/Publisher/papers\nTarget: StegVerse-Labs/Site/papers\nIndex: StegVerse-Labs/Site/Papers.html\nAliases: papers.html, papers/, publisher/papers.html, publisher/papers/\nGenerated UTC: ' + html.escape(generated) + "\nMirrored files: " + str(len(entries)) + "</pre></section>",
+        '<p class="lead">This page mirrors paper outputs from <strong>' + source_of_truth + '</strong> into the public Site repository. When new papers are pushed to that source path and the mirror workflow runs, they become visible here.</p></section>',
+        '<section class="card"><h2>Mirror status</h2><pre>Source repository: ' + source_repository + "\nSource ref: " + source_ref + "\nSource of truth: " + source_of_truth + "\nTarget: " + target_path + "\nIndex: StegVerse-Labs/Site/Papers.html\nAliases: papers.html, papers/, publisher/papers.html, publisher/papers/\nGenerated UTC: " + html.escape(generated) + "\nMirrored files: " + str(len(entries)) + "</pre></section>",
     ]
 
     if not entries:
-        parts.append('<section class="card"><h2>No mirrored papers yet</h2><p class="muted">No supported files were found in GCAT-BCAT-Engine/Publisher/papers.</p></section>')
+        parts.append('<section class="card"><h2>No mirrored papers yet</h2><p class="muted">No supported files were found in ' + source_of_truth + '.</p></section>')
     else:
         for label, label_entries in grouped.items():
             parts.append('<section class="card"><h2>' + html.escape(label) + '</h2><div class="grid">')
@@ -172,7 +197,7 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 
     parts.extend([
         "</main>",
-        "<footer>StegVerse · Papers mirrored from GCAT-BCAT-Engine/Publisher · Generated " + html.escape(generated) + "</footer>",
+        "<footer>StegVerse · Papers mirrored from " + source_of_truth + " · Generated " + html.escape(generated) + "</footer>",
         "</body>",
         "</html>",
     ])
@@ -181,10 +206,10 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 
 
 def main() -> int:
+    metadata = mirror_metadata()
     entries = copy_papers()
     MANIFEST_PATH.write_text(json.dumps({
-        "source": "GCAT-BCAT-Engine/Publisher/papers",
-        "target": "StegVerse-Labs/Site/papers",
+        **metadata,
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "count": len(entries),
         "aliases": [
@@ -197,7 +222,7 @@ def main() -> int:
         "entries": entries,
     }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-    page = render_page(entries)
+    page = render_page(entries, metadata)
     PAPERS_HTML.write_text(page, encoding="utf-8")
     PAPERS_INDEX.write_text(page, encoding="utf-8")
 
@@ -210,6 +235,9 @@ def main() -> int:
     print(json.dumps({
         "ok": True,
         "mirrored_count": len(entries),
+        "source_repository": metadata["source_repository"],
+        "source_ref": metadata["source_ref"],
+        "source_of_truth": metadata["source_of_truth"],
         "papers_html": str(PAPERS_HTML),
         "papers_lower_html": str(PAPERS_LOWER_HTML),
         "papers_index": str(PAPERS_INDEX),
