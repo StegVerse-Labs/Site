@@ -107,6 +107,11 @@ jobs:
         run: |
           python scripts/mirror_papers.py
 
+      - name: Check mirrored manifest metadata
+        working-directory: site
+        run: |
+          python scripts/check_papers_manifest_metadata.py
+
       - name: Write summary
         if: always()
         working-directory: site
@@ -139,7 +144,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add Papers.html papers.html papers publisher scripts/mirror_papers.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md scripts/check_paper_display_policy.py
+          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md scripts/check_paper_display_policy.py
 
           if git diff --cached --quiet; then
             echo "No paper mirror changes to commit."
