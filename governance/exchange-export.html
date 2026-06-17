@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Exchange Export</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.5; max-width: 920px; }
+    code, pre { background: #f5f5f5; padding: 0.15rem 0.3rem; border-radius: 4px; }
+    section { margin-block: 1.5rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>StegVerse Exchange Export</h1>
+    <p>This page defines the public export shape for reviewable exchange artifacts. It is a documentation and copy target for future machine-readable exports.</p>
+
+    <section>
+      <h2>Export contract</h2>
+      <pre>{
+  "schema": "stegverse.exchange.export.v1",
+  "artifact_id": "",
+  "artifact_hash": "sha256:",
+  "source": "",
+  "scope": "",
+  "policy_ref": "",
+  "authority_class": "",
+  "receipt_ref": "",
+  "commit_time_posture": "review_required"
+}</pre>
+    </section>
+
+    <section>
+      <h2>Non-claim</h2>
+      <p>An exported exchange artifact is not a grant of authority. It is a portable review object that downstream systems may inspect before running their own admissibility checks.</p>
+    </section>
+
+    <section>
+      <h2>Use</h2>
+      <p>Use this page when a public or semi-public surface needs to show what would be exported without exposing private operational signals, secrets, or user data.</p>
+    </section>
+  </main>
+</body>
+</html>
