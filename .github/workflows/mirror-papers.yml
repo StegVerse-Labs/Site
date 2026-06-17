@@ -26,6 +26,8 @@ jobs:
     env:
       DEFAULT_SOURCE_REPOSITORY: "GCAT-BCAT-Engine/Publisher"
       DEFAULT_SOURCE_REF: "main"
+      DEFAULT_SOURCE_PATH: "papers"
+      TARGET_REPOSITORY: "StegVerse-Labs/Site"
 
     steps:
       - name: Resolve mirror inputs
@@ -52,9 +54,11 @@ jobs:
 
           echo "source_repository=$SOURCE_REPOSITORY" >> "$GITHUB_OUTPUT"
           echo "source_ref=$SOURCE_REF" >> "$GITHUB_OUTPUT"
+          echo "source_path=$DEFAULT_SOURCE_PATH" >> "$GITHUB_OUTPUT"
 
           echo "Resolved source repository: $SOURCE_REPOSITORY"
           echo "Resolved source ref: $SOURCE_REF"
+          echo "Resolved source path: $DEFAULT_SOURCE_PATH"
 
       - name: Checkout Site
         uses: actions/checkout@v4
@@ -77,16 +81,16 @@ jobs:
       - name: Verify source papers path
         working-directory: site
         run: |
-          if [ ! -d "_source/papers" ]; then
-            echo "Source checkout succeeded, but _source/papers was not found."
-            echo "Expected source path: papers"
+          if [ ! -d "_source/${{ steps.mirror.outputs.source_path }}" ]; then
+            echo "Source checkout succeeded, but _source/${{ steps.mirror.outputs.source_path }} was not found."
+            echo "Expected source path: ${{ steps.mirror.outputs.source_path }}"
             echo "Source repository: ${{ steps.mirror.outputs.source_repository }}"
             echo "Source ref: ${{ steps.mirror.outputs.source_ref }}"
             exit 1
           fi
 
           echo "Source papers path found."
-          find _source/papers -maxdepth 3 -type f -print | head -50
+          find "_source/${{ steps.mirror.outputs.source_path }}" -maxdepth 3 -type f -print | head -50
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -95,6 +99,11 @@ jobs:
 
       - name: Mirror papers and generate indexes
         working-directory: site
+        env:
+          SOURCE_REPOSITORY: ${{ steps.mirror.outputs.source_repository }}
+          SOURCE_REF: ${{ steps.mirror.outputs.source_ref }}
+          SOURCE_PATH: ${{ steps.mirror.outputs.source_path }}
+          TARGET_REPOSITORY: ${{ env.TARGET_REPOSITORY }}
         run: |
           python scripts/mirror_papers.py
 
@@ -106,7 +115,7 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "**Source repository:** ${{ steps.mirror.outputs.source_repository }}" >> "$GITHUB_STEP_SUMMARY"
           echo "**Source ref:** ${{ steps.mirror.outputs.source_ref }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Source path:** papers" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Source path:** ${{ steps.mirror.outputs.source_path }}" >> "$GITHUB_STEP_SUMMARY"
           echo "**Target:** StegVerse-Labs/Site/papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public index:** Papers.html" >> "$GITHUB_STEP_SUMMARY"
           echo "**Aliases:** papers.html, papers/, publisher/papers.html, publisher/papers/" >> "$GITHUB_STEP_SUMMARY"
