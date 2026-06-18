@@ -8,6 +8,8 @@ It must not be marked complete until the Publisher dry-run, Publisher live dispa
 
 `docs/SITE_MIRROR_HANDOFF.md` remains the handoff and task source of truth.
 
+`docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json` is the machine-readable activation-state companion for this packet.
+
 ## Current State
 
 ```text
@@ -17,6 +19,7 @@ repository: StegVerse-Labs/Site
 source_repository: GCAT-BCAT-Engine/Publisher
 source_path: papers
 target_path: papers
+live_evidence_state: docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 ```
 
 ## Required Evidence Fields
@@ -45,6 +48,7 @@ python scripts/check_paper_display_policy.py
 python scripts/check_papers_manifest_metadata.py
 python scripts/check_paper_aliases.py
 python scripts/check_site_mirror_evidence_packet.py
+python scripts/check_site_mirror_live_evidence_state.py
 ```
 
 ## Activation Completion Condition
@@ -67,6 +71,24 @@ The Site mirror evidence packet checker must also complete without missing field
 python scripts/check_site_mirror_evidence_packet.py
 ```
 
+The Site mirror live evidence state checker must also complete without unresolved activation claims:
+
+```text
+python scripts/check_site_mirror_live_evidence_state.py
+```
+
+Pending state must print:
+
+```text
+valid: Site mirror live evidence state pending
+```
+
+Activated state must print:
+
+```text
+valid: Site mirror live evidence state activated
+```
+
 ## Non-Claims
 
 This pending packet does not claim:
@@ -81,4 +103,4 @@ This pending packet does not claim:
 
 ## Governing Sentence
 
-The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Publisher-side dry-run receipt evidence, and Publisher-side receipt/tracker/status closure.
+The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Publisher-side dry-run receipt evidence, Publisher-side receipt/tracker/status closure, and a machine-readable live evidence state that cannot claim activation while required evidence is pending.
