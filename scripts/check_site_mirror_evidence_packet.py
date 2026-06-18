@@ -15,6 +15,7 @@ PACKET_PATH = REPO_ROOT / "docs" / "SITE_MIRROR_EVIDENCE_PACKET.md"
 
 REQUIRED_FIELDS = [
     "publisher_dry_run_workflow_url",
+    "publisher_dry_run_receipt_commit",
     "publisher_live_dispatch_workflow_url",
     "site_mirror_workflow_url",
     "site_mirror_commit_sha",
@@ -24,6 +25,7 @@ REQUIRED_FIELDS = [
     "alias_verification_results",
     "publisher_receipt_update_commit",
     "publisher_verification_tracker_commit",
+    "publisher_activation_status_update_commit",
 ]
 
 REQUIRED_REFERENCES = [
