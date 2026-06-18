@@ -22,6 +22,7 @@ Activation state: ready_for_live_mirror_verification
 scripts/mirror_papers.py
 scripts/check_paper_display_policy.py
 scripts/check_papers_manifest_metadata.py
+papers/papers_manifest.json
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
 docs/SITE_MIRROR_ACTIVATION_STATUS.md
@@ -50,6 +51,8 @@ count
 aliases
 entries
 ```
+
+The checked-in `papers/papers_manifest.json` now includes the required source-preserving metadata fields. Live activation still requires workflow evidence from Publisher and Site.
 
 The manifest checker is:
 
@@ -95,6 +98,13 @@ Publisher verification tracker activation commit
 
 ```text
 docs/SITE_MIRROR_LIVE_VERIFICATION.md
+```
+
+## Current Delta
+
+```text
+Resolved: checked-in papers/papers_manifest.json now includes required source metadata.
+Pending: live Publisher dry-run dispatch, live Publisher dispatch, Site workflow evidence, public alias verification, Publisher receipt update, and Publisher verification tracker activation.
 ```
 
 ## Archive Readiness
