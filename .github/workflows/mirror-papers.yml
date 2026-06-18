@@ -70,6 +70,11 @@ jobs:
         run: |
           python scripts/check_paper_display_policy.py
 
+      - name: Check Site mirror evidence packet
+        working-directory: site
+        run: |
+          python scripts/check_site_mirror_evidence_packet.py
+
       - name: Checkout source papers repository
         uses: actions/checkout@v4
         with:
@@ -124,6 +129,7 @@ jobs:
           echo "**Target:** StegVerse-Labs/Site/papers" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public index:** Papers.html" >> "$GITHUB_STEP_SUMMARY"
           echo "**Aliases:** papers.html, papers/, publisher/papers.html, publisher/papers/" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Evidence packet:** docs/SITE_MIRROR_EVIDENCE_PACKET.md" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
           if [ -f papers/papers_manifest.json ]; then
@@ -144,7 +150,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md scripts/check_paper_display_policy.py
+          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py scripts/check_site_mirror_evidence_packet.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md docs/SITE_MIRROR_EVIDENCE_PACKET.md scripts/check_paper_display_policy.py
 
           if git diff --cached --quiet; then
             echo "No paper mirror changes to commit."
