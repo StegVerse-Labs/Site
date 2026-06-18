@@ -68,12 +68,26 @@ The checked-in manifest is metadata-compliant, but this document still does not 
 ```bash
 python scripts/check_paper_display_policy.py
 python scripts/check_papers_manifest_metadata.py
+python scripts/check_paper_aliases.py
+python scripts/check_site_mirror_evidence_packet.py
 ```
 
 Expected successful manifest result:
 
 ```text
 valid: Site papers manifest metadata
+```
+
+Expected successful alias result:
+
+```text
+valid: Site paper aliases resolve
+```
+
+Expected successful evidence-packet result:
+
+```text
+valid: Site mirror evidence packet structure
 ```
 
 ## Evidence To Capture
