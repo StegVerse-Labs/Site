@@ -30,11 +30,16 @@ REQUIRED_FIELDS = [
 
 REQUIRED_REFERENCES = [
     "docs/SITE_MIRROR_HANDOFF.md",
+    "docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json",
     "python scripts/check_paper_display_policy.py",
     "python scripts/check_papers_manifest_metadata.py",
     "python scripts/check_paper_aliases.py",
+    "python scripts/check_site_mirror_evidence_packet.py",
+    "python scripts/check_site_mirror_live_evidence_state.py",
     "valid: Site papers manifest metadata",
     "valid: Site paper aliases resolve",
+    "valid: Site mirror live evidence state pending",
+    "valid: Site mirror live evidence state activated",
 ]
 
 
