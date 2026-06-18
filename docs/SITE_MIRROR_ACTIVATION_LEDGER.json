@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "source_repository": "GCAT-BCAT-Engine/Publisher",
+  "source_path": "papers",
+  "target_path": "papers",
+  "source_of_truth": "Publisher",
+  "activation_state": "pending",
+  "non_activation_rule": "Site-side evidence alone does not activate the mirror. Publisher closure remains required before activation can be claimed.",
+  "required_evidence": {
+    "publisher_workflow_run_url": "pending",
+    "publisher_verification_receipt_artifact": "pending",
+    "publisher_live_dispatch_workflow_url": "pending",
+    "site_mirror_workflow_url": "pending",
+    "site_mirror_commit_sha": "pending",
+    "site_evidence_artifact": "pending",
+    "publisher_closure_nudge_result": "pending",
+    "publisher_closure_receipt": "pending",
+    "publisher_verification_tracker_activation_commit": "pending",
+    "publisher_activation_status_update_commit": "pending"
+  },
+  "required_checks": [
+    "python scripts/check_site_mirror_handoff.py",
+    "python scripts/check_site_mirror_evidence_packet.py",
+    "python scripts/check_site_mirror_live_evidence_state.py",
+    "python scripts/check_site_mirror_closure_next_build.py",
+    "python scripts/check_site_mirror_closure_guard.py",
+    "python scripts/check_site_mirror_activation_ledger.py"
+  ],
+  "activation_allowed_when": [
+    "Publisher automated dispatch workflow produces a verification receipt artifact.",
+    "Publisher workflow dispatches Site mirror workflow successfully.",
+    "Site mirror workflow completes.",
+    "Site mirror workflow writes and uploads Site evidence artifact.",
+    "Publisher closure workflow consumes Publisher and Site evidence artifacts.",
+    "Publisher closure workflow writes docs/mirror-activation-closures/<closure>.json.",
+    "Publisher verification tracker is updated to activated.",
+    "Publisher activation status is updated to activated."
+  ],
+  "activation_blocked_by": [
+    "publisher_workflow_run_url",
+    "publisher_verification_receipt_artifact",
+    "publisher_live_dispatch_workflow_url",
+    "site_mirror_workflow_url",
+    "site_mirror_commit_sha",
+    "site_evidence_artifact",
+    "publisher_closure_nudge_result",
+    "publisher_closure_receipt",
+    "publisher_verification_tracker_activation_commit",
+    "publisher_activation_status_update_commit"
+  ]
+}
