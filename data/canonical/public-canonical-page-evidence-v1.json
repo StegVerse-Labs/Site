@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-18T05:22:00Z",
+  "generated_at": "2026-06-18T05:32:00Z",
   "schema": "stegverse.public_canonical_page_evidence.v1",
-  "formal_milestone": "MS-012L.5 - Public Canonical Page Evidence State",
-  "evidence_state": "static_reflection_verified",
+  "formal_milestone": "MS-012L.6 - Full Public Canonical Page Verification",
+  "evidence_state": "full_static_public_reflection_verified",
   "evidence_items": [
     {
       "evidence_id": "ms012l4-canonical-shell-map-present",
@@ -15,11 +15,30 @@
       "source_path": "transition-dependency-closure.html",
       "observed_result": "present_on_main",
       "state_implication": "dependency closure public page exists and preserves blocked claims"
+    },
+    {
+      "evidence_id": "ms012l4-self-correction-ledger-present",
+      "source_path": "transition-self-correction-ledger.html",
+      "observed_result": "present_on_main",
+      "state_implication": "self-correction ledger public page exists"
+    },
+    {
+      "evidence_id": "ms012l4-periodic-table-canonical-links-present",
+      "source_path": "transition-periodic-table.html",
+      "observed_result": "present_on_main",
+      "state_implication": "research landing links canonical public pages"
+    },
+    {
+      "evidence_id": "ms012l6-development-status-canonical-links-present",
+      "source_path": "transition-development-status.html",
+      "observed_result": "present_on_main",
+      "state_implication": "development status links canonical public pages and evidence JSON"
     }
   ],
   "non_claims": [
     "This evidence does not prove automatic static HTML generation.",
     "This evidence does not activate MS-012K.6.",
-    "This evidence does not make T13 or T14 executable."
+    "This evidence does not make T13 or T14 executable.",
+    "This evidence does not complete Publisher to Site mirror activation."
   ]
 }
