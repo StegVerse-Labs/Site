@@ -1,0 +1,14 @@
+{
+  "goal": "ecosystem_managed_completion",
+  "repository": "StegVerse-Labs/Site",
+  "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+  "status": "management_ready_pending_external_evidence",
+  "remaining_evidence": [
+    "Publisher receipt artifact",
+    "Site evidence artifact",
+    "Publisher closure receipt",
+    "Publisher tracker activation",
+    "Publisher activation status update"
+  ],
+  "archive_ready": true
+}
