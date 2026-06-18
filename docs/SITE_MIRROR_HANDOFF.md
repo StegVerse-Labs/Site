@@ -25,6 +25,8 @@ scripts/check_papers_manifest_metadata.py
 scripts/check_paper_aliases.py
 scripts/check_site_mirror_evidence_packet.py
 scripts/check_site_mirror_live_evidence_state.py
+scripts/check_transition_table_public_copy.py
+scripts/check_site_public_ingestion_contract.py
 papers/papers_manifest.json
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
@@ -119,6 +121,14 @@ The combined hardening packet is:
 ```text
 docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
 ```
+
+The public ingestion contract checker is:
+
+```text
+python scripts/check_site_public_ingestion_contract.py
+```
+
+The mirror workflow now runs this checker before evidence packet and live-state validation.
 
 These documents do not activate the mirror. They prevent overclaiming by separating:
 
@@ -228,10 +238,12 @@ Resolved: Site traffic and ingestion signal snapshot is now documented without t
 Resolved: Site public path semantics are now documented in docs/SITE_PUBLIC_PATHS.md.
 Resolved: Site ingestion surface semantics are now documented in docs/SITE_INGESTION_SURFACES.md.
 Resolved: Site combined public path and ingestion-surface hardening packet is now documented in docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md.
+Resolved: Site public path and ingestion-surface documentation is now enforced by scripts/check_site_public_ingestion_contract.py.
+Resolved: Site mirror workflow now runs the public ingestion contract checker and carries those docs/scripts into mirror commits.
 Pending: optional display-copy hardening for transition-table-visual.html badge text if public extraction continues to render `structurally rigorous structure`.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, next run order, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, next run order, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
