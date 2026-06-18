@@ -23,6 +23,7 @@ target_path: papers
 
 ```text
 publisher_dry_run_workflow_url: PENDING
+publisher_dry_run_receipt_commit: PENDING
 publisher_live_dispatch_workflow_url: PENDING
 site_mirror_workflow_url: PENDING
 site_mirror_commit_sha: PENDING
@@ -32,6 +33,7 @@ manifest_source_of_truth: PENDING
 alias_verification_results: PENDING
 publisher_receipt_update_commit: PENDING
 publisher_verification_tracker_commit: PENDING
+publisher_activation_status_update_commit: PENDING
 ```
 
 ## Verification Commands
