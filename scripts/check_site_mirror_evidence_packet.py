@@ -23,6 +23,8 @@ REQUIRED_FIELDS = [
     "manifest_source_ref",
     "manifest_source_of_truth",
     "alias_verification_results",
+    "site_evidence_packet_completion_commit",
+    "site_live_evidence_state_completion_commit",
     "publisher_receipt_update_commit",
     "publisher_verification_tracker_commit",
     "publisher_activation_status_update_commit",
