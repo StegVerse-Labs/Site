@@ -1,0 +1,50 @@
+name: Site Mirror Live Verification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "papers/papers_manifest.json"
+      - "scripts/check_site_mirror_live_verification.py"
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_MIRROR_LIVE_VERIFICATION.md"
+      - ".github/workflows/site-mirror-live-verification.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-site-mirror-status:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check live verification status
+        id: live_verification
+        run: |
+          set +e
+          python scripts/check_site_mirror_live_verification.py --json > site_mirror_live_verification.result.json
+          status=$?
+          cat site_mirror_live_verification.result.json
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload live verification result
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-mirror-live-verification-result
+          path: site_mirror_live_verification.result.json
+
+      - name: Explain pre-live status
+        if: steps.live_verification.outputs.status != '0'
+        run: |
+          echo "Site mirror is still in ready_for_live_mirror_verification state."
+          echo "This is expected until Publisher dispatch regenerates papers/papers_manifest.json with source-preserving metadata."
+          echo "See docs/SITE_MIRROR_HANDOFF.md for required run order and evidence capture."
