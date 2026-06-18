@@ -1,111 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegVerse transition development status — current integration targets, gate map, and next steps.">
-  <title>Transition Development Status — StegVerse</title>
-  <link rel="stylesheet" href="sv-shared.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transition Development Status - StegVerse</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.panel{border:1px solid var(--border);border-radius:18px;padding:20px;margin:18px 0;background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{border:1px solid var(--border);border-radius:14px;padding:16px;background:rgba(255,255,255,.03)}
+</style>
 </head>
 <body>
-
 <nav class="sv-nav">
-  <a class="sv-nav-brand" href="index.html">StegVerse</a>
-  <a href="index.html">Home</a>
-  <a href="demo.html">Demo</a>
-  <a href="stegfinco.html">FinCo</a>
-  <a href="product.html">Product</a>
-  <a href="pricing.html">Pricing</a>
-  <a href="methodology.html">Methodology</a>
-  <a href="about.html">About</a>
-  <a href="stegverse-002.html">StegVerse-002</a>
-  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
-  <a href="Papers.html">Papers</a>
+<a class="sv-nav-brand" href="index.html">StegVerse</a>
+<a href="transition-periodic-table.html">Research Landing</a>
+<a href="transition-table.html">Transition Table</a>
+<a href="transition-development-status.html">Development Status</a>
+<a href="canonical-shell-map.html">Canonical Shell Map</a>
+<a href="transition-dependency-closure.html">Dependency Closure</a>
+<a href="transition-self-correction-ledger.html">Self-Correction Ledger</a>
+<a href="Papers.html">Papers</a>
 </nav>
-
-<!-- Sub-nav for transition pages -->
-<div style="background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;gap:0;overflow-x:auto;">
-  <a href="transition-proof-surface.html"    style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Proof Surface</a>
-  <a href="transition-table-classes.html"    style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Transition Classes</a>
-  <a href="transition-release-index.html"    style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Release Index</a>
-  <a href="transition-development-status.html" style="font-size:12px;color:var(--text);padding:10px 14px;text-decoration:none;white-space:nowrap;border-bottom:2px solid var(--accent);">Development Status</a>
-  <a href="transition-verification-guide.html" style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Verification Guide</a>
-  <a href="transition-replay-packet.html"    style="font-size:12px;color:var(--muted);padding:10px 14px;text-decoration:none;white-space:nowrap;">Replay Packet</a>
-</div>
-
-<div class="sv-wrap">
-
-  <div class="sv-hero" style="padding-top:40px;">
-    <div class="sv-eyebrow">StegVerse Transition Development</div>
-    <h1>Development <em>Status</em></h1>
-    <p>Current integration targets, gate progress, and next steps
-    for the StegVerse transition development path.</p>
-  </div>
-
-  <div class="sv-boundary">
-    formalism-tests produces receipts. Site publishes receipts.
-    Site must not become the authority for receipts.
-  </div>
-
-  <h2 class="sv-h2">Current status</h2>
-
-  <div class="sv-evidence">
-    <div class="sv-evidence-label">StegVerse-002 / core-lite · 2026-05-24</div>
-    <div class="sv-evidence-row"><span class="k">Entity</span><span class="v">StegVerse-002</span></div>
-    <div class="sv-evidence-row"><span class="k">Current gate</span><span class="v">SV002-M10 complete · production-candidate</span></div>
-    <div class="sv-evidence-row"><span class="k">Release</span><span class="v">v1.0.0-sv002-m10 · tagged</span></div>
-    <div class="sv-evidence-row"><span class="k">Intake</span><span class="v">success · stop_condition_met: true</span></div>
-    <div class="sv-evidence-row"><span class="k">Receipt chain</span><span class="v">live · sha256:a151deed</span></div>
-  </div>
-
-  <h2 class="sv-h2">Gate completion</h2>
-  <table class="sv-table">
-    <thead><tr><th>Gate</th><th>Name</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr><td><code>SV002-M0</code></td><td>Identity and scope declaration</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M1</code></td><td>Observation and reporting</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M2</code></td><td>Declared task execution + receipts</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M3</code></td><td>Remote target inspection</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M4</code></td><td>Candidate preparation</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M5</code></td><td>Core-Lite Intake Enablement</td><td><span class="pill pill-green">complete · proven live</span></td></tr>
-      <tr><td><code>SV002-M6</code></td><td>CGE + sandbox loop</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M7</code></td><td>LLM Adapter Gate</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M8</code></td><td>KnowledgeVault context-packet integration</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M9</code></td><td>TV/TVC encryption layer</td><td><span class="pill pill-green">complete</span></td></tr>
-      <tr><td><code>SV002-M10</code></td><td>Governed mutation proposal + quorum</td><td><span class="pill pill-green">complete</span></td></tr>
-    </tbody>
-  </table>
-
-  <h2 class="sv-h2">Next integration target</h2>
-  <pre>StegVerse-001 repair
-  target: Data-Continuation/core-lite
-  gate:   SV001-M3 — Core-Lite Intake Enablement
-  tool:   sv001.repair.intake.enablement
-  method: paste failure text → classify blocker → prepare candidate → operator applies
-  STOP:   Core-Lite Intake succeeds with task_id blank and skip_tasks true</pre>
-
-  <h2 class="sv-h2">Formalism-tests integration</h2>
-  <div class="sv-prose">
-    <p>The completed Stage 1–31 roadmap (Beta_Orionis / StegVerse-001) established
-    the proof surface through production accreditation and revocation. StegVerse-002
-    is the first clean-slate deployment against that proof surface.</p>
-    <p>The next phase is controlled integration: update the theorem proof map,
-    add task and artifact indexes, run discovery against current core-lite state,
-    and prepare a production-candidate review packet.</p>
-  </div>
-
-  <div class="sv-btn-row">
-    <a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Stage 1–31 proof mirror</a>
-    <a class="sv-btn sv-btn-secondary" href="transition-release-index.html">Release index</a>
-    <a class="sv-btn sv-btn-secondary" href="stegverse-002.html">StegVerse-002 mirror</a>
-  </div>
-
-</div>
-
-<footer class="sv-footer">
-  <span>StegVerse · Transition development status · Site is not proof authority</span>
-  <span>Updated 2026-05-24</span>
-</footer>
-
+<main class="sv-wrap">
+<section class="sv-hero"><div class="sv-eyebrow">StegVerse Transition Development</div><h1>Development <em>Status</em></h1><p>Current public canonical page state, integration targets, and evidence boundary.</p></section>
+<section class="panel"><h2 class="sv-h2">Canonical public-page state</h2><div class="grid">
+<div class="card"><strong>Canonical data</strong><p>active</p></div>
+<div class="card"><strong>Public HTML data reflection</strong><p>active</p></div>
+<div class="card"><strong>Automatic static regeneration</strong><p>not active</p></div>
+</div></section>
+<section class="panel"><h2 class="sv-h2">Canonical pages</h2><p><a class="sv-btn sv-btn-secondary" href="canonical-shell-map.html">Canonical shell map</a> <a class="sv-btn sv-btn-secondary" href="transition-dependency-closure.html">Dependency closure</a> <a class="sv-btn sv-btn-secondary" href="transition-self-correction-ledger.html">Self-correction ledger</a></p></section>
+<section class="panel"><h2 class="sv-h2">Evidence JSON</h2><p><a class="sv-btn sv-btn-secondary" href="data/canonical/public-canonical-page-status-v1.json">Public canonical page status</a> <a class="sv-btn sv-btn-secondary" href="data/page-contracts/public-canonical-page-contract-status-v1.json">Contract status</a> <a class="sv-btn sv-btn-secondary" href="data/canonical/public-canonical-page-evidence-v1.json">Evidence state</a></p></section>
+<section class="panel"><h2 class="sv-h2">Boundary</h2><p>Site publishes canonical public evidence. Site is not the proof authority. Workflow and tool changes remain outside this milestone.</p></section>
+</main>
+<footer class="sv-footer"><span>StegVerse - Transition development status</span><span>Updated 2026-06-18</span></footer>
 </body>
 </html>
