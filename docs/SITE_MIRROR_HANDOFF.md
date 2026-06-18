@@ -129,6 +129,8 @@ papers/papers_manifest.json source_repository
 papers/papers_manifest.json source_ref
 papers/papers_manifest.json source_of_truth
 public alias verification results
+Site evidence packet completion commit
+Site live evidence state completion commit
 Publisher receipt update commit
 Publisher verification tracker activation commit
 Publisher activation-status update commit
@@ -162,6 +164,7 @@ Resolved: Site handoff run order now separates dry-run receipt capture, Site evi
 Resolved: Site now has docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json as the machine-readable live activation state companion.
 Resolved: Site now has scripts/check_site_mirror_live_evidence_state.py to prevent activation claims while required evidence remains pending.
 Resolved: Site mirror workflow now runs the live evidence state checker before and after mirror generation.
+Resolved: Publisher companion handoff now requires Site live evidence state completion and validation before Publisher activation can be marked activated.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
