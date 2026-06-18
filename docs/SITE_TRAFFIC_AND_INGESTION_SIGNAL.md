@@ -107,6 +107,19 @@ Which receipts prove that a generated artifact is valid?
 Which files are public evidence versus operational scaffolding?
 ```
 
+## Public Path and Ingestion Surface Documentation
+
+The public path and ingestion-surface hardening layer is now documented in:
+
+```text
+docs/SITE_PUBLIC_PATHS.md
+docs/SITE_INGESTION_SURFACES.md
+```
+
+`docs/SITE_PUBLIC_PATHS.md` defines human-readable public semantics for frequently viewed paths.
+
+`docs/SITE_INGESTION_SURFACES.md` defines machine-facing ingestion and evidence semantics for upload, incoming, tools, data, actions, and papers.
+
 ## Relationship To Site Mirror Activation
 
 This traffic document does not replace the Site mirror handoff.
@@ -119,22 +132,24 @@ docs/SITE_MIRROR_HANDOFF.md
 
 Current activation state remains controlled by the evidence requirements in that handoff.
 
-The traffic signal only adds a supporting reason to harden public path semantics and artifact documentation before or during live verification.
+The traffic signal only adds supporting context for public path semantics and artifact documentation before or during live verification.
 
 ## Recommended Next Build Step
 
-Create or harden public path documentation for the observed high-interest surfaces.
+The documentation hardening step named by this traffic snapshot is complete.
 
-Minimum next files:
+Primary next action returns to live mirror verification evidence capture:
 
 ```text
-docs/SITE_PUBLIC_PATHS.md
-docs/SITE_INGESTION_SURFACES.md
+1. Publisher dry-run dispatch.
+2. Publisher dry-run receipt commit.
+3. Publisher live dispatch.
+4. Site workflow evidence capture.
+5. Public alias verification.
+6. Site evidence packet completion.
+7. Site live evidence state completion.
+8. Publisher receipt, tracker, and activation-status updates.
 ```
-
-`docs/SITE_PUBLIC_PATHS.md` should define human-readable public semantics for frequently viewed paths.
-
-`docs/SITE_INGESTION_SURFACES.md` should define machine-facing ingestion and evidence semantics for upload, incoming, tools, data, actions, and papers.
 
 ## Done Criteria
 
@@ -144,14 +159,14 @@ This traffic signal is considered documented when:
 The traffic snapshot is captured in a checked-in Markdown file.
 Allowed and non-allowed interpretations are explicit.
 The Site mirror handoff references the traffic signal document.
-The next public-path and ingestion-surface hardening step is named.
+The public-path and ingestion-surface hardening documents exist.
 The document does not claim adoption or activation from traffic alone.
 ```
 
 ## Current Status
 
 ```text
-Status: documented_snapshot
+Status: documented_snapshot_with_public_path_and_ingestion_surface_hardening
 Activation impact: supporting_context_only
-Primary next action: create public path and ingestion surface documentation
+Primary next action: live Publisher/Site mirror verification evidence capture
 ```
