@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-06-18T05:22:00Z",
+  "schema": "stegverse.public_canonical_page_contract_status.v1",
+  "formal_milestone": "MS-012L.5 - Public Canonical Page Evidence State",
+  "contract_source": "data/page-contracts/public-canonical-page-contract-v1.json",
+  "contract_result": "static_public_html_data_reflection_active",
+  "automatic_generation_result": "not_active",
+  "page_results": [
+    {
+      "path": "canonical-shell-map.html",
+      "contract_status": "fulfilled_static_reflection"
+    },
+    {
+      "path": "transition-dependency-closure.html",
+      "contract_status": "fulfilled_static_reflection"
+    },
+    {
+      "path": "transition-self-correction-ledger.html",
+      "contract_status": "fulfilled_static_reflection"
+    },
+    {
+      "path": "transition-periodic-table.html",
+      "contract_status": "updated_with_canonical_links_and_reflection"
+    },
+    {
+      "path": "transition-development-status.html",
+      "contract_status": "updated_with_canonical_links_and_blocked_summary"
+    }
+  ],
+  "invariants_preserved": [
+    "Public pages do not claim blocked transitions are executable.",
+    "Public pages distinguish discovery state from execution state.",
+    "Generated public pages do not mutate workflows or tools.",
+    "Automatic generation still requires a mapped tool surface."
+  ]
+}
