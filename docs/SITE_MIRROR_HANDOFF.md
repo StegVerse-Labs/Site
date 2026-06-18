@@ -33,6 +33,7 @@ docs/SITE_MIRROR_LIVE_VERIFICATION.md
 docs/SITE_MIRROR_ALIAS_VERIFICATION.md
 docs/SITE_MIRROR_EVIDENCE_PACKET.md
 docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
+docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -148,6 +149,16 @@ docs/SITE_MIRROR_EVIDENCE_PACKET.md
 docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 ```
 
+## Traffic And Ingestion Signal Packet
+
+```text
+docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
+```
+
+The traffic packet records the current GitHub traffic snapshot and prevents overclaiming. It treats clone/view activity as repository-behavior evidence only, not adoption, activation, endorsement, or live mirror proof.
+
+Use this packet as supporting context for public path and ingestion-surface hardening.
+
 ## Companion Publisher Handoff
 
 ```text
@@ -173,10 +184,12 @@ Resolved: Site live evidence state now tracks Site evidence-packet and live-stat
 Resolved: Site live evidence state checker now prevents drift between non-pending JSON evidence values and Markdown packet evidence values.
 Resolved: transition-table-visual.html source text separates the public claim `structurally rigorous` from its `structure` badge; public text extractors may still concatenate those adjacent nodes.
 Resolved: Site evidence packet checker now requires Site evidence-packet and live-state completion commit fields so packet, JSON state, and checker requirements remain aligned.
+Resolved: Site traffic and ingestion signal snapshot is now documented without treating traffic as adoption, activation, endorsement, or live mirror proof.
 Pending: optional display-copy hardening for transition-table-visual.html badge text if public extraction continues to render `structurally rigorous structure`.
+Pending: public path and ingestion-surface hardening for observed high-interest paths including upload, incoming, tools, data, actions, and papers.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, next run order, and evidence requirements needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, next run order, evidence requirements, and traffic-signal documentation needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
