@@ -171,6 +171,8 @@ Resolved: Site mirror workflow now runs the live evidence state checker before a
 Resolved: Publisher companion handoff now requires Site live evidence state completion and validation before Publisher activation can be marked activated.
 Resolved: Site live evidence state now tracks Site evidence-packet and live-state completion commits as first-class activation evidence.
 Resolved: Site live evidence state checker now prevents drift between non-pending JSON evidence values and Markdown packet evidence values.
+Resolved: transition-table-visual.html source text separates the public claim `structurally rigorous` from its `structure` badge; public text extractors may still concatenate those adjacent nodes.
+Pending: optional display-copy hardening for transition-table-visual.html badge text if public extraction continues to render `structurally rigorous structure`.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
