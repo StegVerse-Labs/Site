@@ -19,6 +19,7 @@ Activation state: ready_for_automated_site_evidence_and_closure_nudge
 
 ```text
 github/workflows/mirror-papers.yml
+github/workflows/site-mirror-closure-guard.yml
 scripts/mirror_papers.py
 scripts/check_paper_display_policy.py
 scripts/check_papers_manifest_metadata.py
@@ -46,7 +47,7 @@ docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
-Note: `github/workflows/mirror-papers.yml` is displayed without the leading dot. The actual repository path includes the leading dot.
+Note: `github/workflows/...` paths are displayed without the leading dot. The actual repository paths include the leading dot.
 
 ## Site Mirror Contract
 
@@ -97,6 +98,18 @@ The Site mirror workflow performs the Site-side evidence path automatically:
 ```
 
 If cross-repo credentials are unavailable, the Site workflow exits that nudge step successfully and the scheduled Publisher closure workflow remains the fallback.
+
+## Closure Guard Workflow
+
+The no-secret closure guard workflow verifies closure-boundary documentation and checkers independently of the mirror workflow:
+
+```text
+github/workflows/site-mirror-closure-guard.yml
+python scripts/check_site_mirror_handoff.py
+python scripts/check_site_mirror_closure_next_build.py
+```
+
+This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation continues to preserve the Publisher activation boundary.
 
 ## Validators
 
@@ -266,9 +279,10 @@ Resolved: Site has scripts/check_site_mirror_handoff.py to verify handoff-to-rep
 Resolved: Site mirror workflow runs the handoff verifier and records it in the workflow summary.
 Resolved: Site has docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md to define the closure-readiness build boundary.
 Resolved: Site has scripts/check_site_mirror_closure_next_build.py to prevent closure-readiness work from overclaiming activation.
+Resolved: Site has github/workflows/site-mirror-closure-guard.yml to enforce closure-readiness docs and checkers without cross-repo credentials.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
