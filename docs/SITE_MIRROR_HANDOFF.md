@@ -25,6 +25,7 @@ scripts/check_papers_manifest_metadata.py
 scripts/check_paper_aliases.py
 scripts/check_site_mirror_evidence_packet.py
 scripts/check_site_mirror_live_evidence_state.py
+scripts/check_site_mirror_handoff.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
 scripts/check_site_public_ingestion_contract.py
@@ -79,17 +80,18 @@ The Site mirror workflow performs the Site-side evidence path automatically:
 3. Check transition-table public copy.
 4. Check public ingestion contract.
 5. Validate pending evidence packet and live evidence state before mirror.
-6. Check out Publisher papers source.
-7. Verify source papers path.
-8. Mirror papers and generate public indexes.
-9. Validate mirrored manifest metadata.
-10. Validate paper aliases.
-11. Run scripts/write_site_mirror_evidence.py.
-12. Validate docs/SITE_MIRROR_EVIDENCE_PACKET.md after evidence writing.
-13. Validate docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json after evidence writing.
-14. Upload site-mirror-evidence-<run>-<attempt> artifact.
-15. Nudge GCAT-BCAT-Engine/Publisher close-site-mirror-activation.yml when cross-repo credentials are available.
-16. Commit mirrored papers and evidence updates when changed.
+6. Validate that this handoff's Built Files list matches the repository structure.
+7. Check out Publisher papers source.
+8. Verify source papers path.
+9. Mirror papers and generate public indexes.
+10. Validate mirrored manifest metadata.
+11. Validate paper aliases.
+12. Run scripts/write_site_mirror_evidence.py.
+13. Validate docs/SITE_MIRROR_EVIDENCE_PACKET.md after evidence writing.
+14. Validate docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json after evidence writing.
+15. Upload site-mirror-evidence-<run>-<attempt> artifact.
+16. Nudge GCAT-BCAT-Engine/Publisher close-site-mirror-activation.yml when cross-repo credentials are available.
+17. Commit mirrored papers and evidence updates when changed.
 ```
 
 If cross-repo credentials are unavailable, the Site workflow exits that nudge step successfully and the scheduled Publisher closure workflow remains the fallback.
@@ -129,6 +131,14 @@ python scripts/check_site_mirror_live_evidence_state.py
 ```
 
 The live evidence state checker verifies that non-pending values in `docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json` match the companion Markdown evidence fields in `docs/SITE_MIRROR_EVIDENCE_PACKET.md`.
+
+The handoff checker is:
+
+```text
+python scripts/check_site_mirror_handoff.py
+```
+
+The handoff checker verifies that `docs/SITE_MIRROR_HANDOFF.md` keeps its Built Files list aligned with repository structure, retains required current-goal fields, records required validator commands, preserves required evidence terms, and keeps the pending activation boundary explicit.
 
 ## Public Path and Ingestion Surface Contract
 
@@ -233,9 +243,11 @@ Resolved: Site mirror workflow writes Site evidence automatically using scripts/
 Resolved: Site mirror workflow uploads site-mirror-evidence-<run>-<attempt> artifacts.
 Resolved: Site mirror workflow nudges Publisher close-site-mirror-activation.yml when cross-repo credentials are available.
 Resolved: Site paper display policy checker requires the automated evidence writer, artifact upload path, and Publisher closure nudge/fallback path.
+Resolved: Site has scripts/check_site_mirror_handoff.py to verify handoff-to-repository structure alignment before mirror execution proceeds.
+Resolved: Site mirror workflow runs the handoff verifier and records it in the workflow summary.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
