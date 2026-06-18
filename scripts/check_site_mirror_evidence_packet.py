@@ -30,7 +30,9 @@ REQUIRED_REFERENCES = [
     "docs/SITE_MIRROR_HANDOFF.md",
     "python scripts/check_paper_display_policy.py",
     "python scripts/check_papers_manifest_metadata.py",
+    "python scripts/check_paper_aliases.py",
     "valid: Site papers manifest metadata",
+    "valid: Site paper aliases resolve",
 ]
 
 
