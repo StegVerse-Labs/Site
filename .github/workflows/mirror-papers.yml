@@ -70,6 +70,11 @@ jobs:
         run: |
           python scripts/check_paper_display_policy.py
 
+      - name: Check Transition Table public copy
+        working-directory: site
+        run: |
+          python scripts/check_transition_table_public_copy.py
+
       - name: Check Site mirror evidence packet
         working-directory: site
         run: |
@@ -166,7 +171,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py scripts/check_paper_aliases.py scripts/check_site_mirror_evidence_packet.py scripts/check_site_mirror_live_evidence_state.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md docs/SITE_MIRROR_EVIDENCE_PACKET.md docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json scripts/check_paper_display_policy.py
+          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py scripts/check_paper_aliases.py scripts/check_site_mirror_evidence_packet.py scripts/check_site_mirror_live_evidence_state.py scripts/check_transition_table_public_copy.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md docs/SITE_MIRROR_EVIDENCE_PACKET.md docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json scripts/check_paper_display_policy.py
 
           if git diff --cached --quiet; then
             echo "No paper mirror changes to commit."
