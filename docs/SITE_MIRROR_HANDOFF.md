@@ -28,6 +28,7 @@ scripts/check_site_mirror_evidence_packet.py
 scripts/check_site_mirror_live_evidence_state.py
 scripts/check_site_mirror_handoff.py
 scripts/check_site_mirror_closure_next_build.py
+scripts/check_site_mirror_closure_guard.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
 scripts/check_site_public_ingestion_contract.py
@@ -40,6 +41,7 @@ docs/SITE_MIRROR_ALIAS_VERIFICATION.md
 docs/SITE_MIRROR_EVIDENCE_PACKET.md
 docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md
+docs/SITE_MIRROR_CLOSURE_GUARD.md
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_PUBLIC_PATHS.md
 docs/SITE_INGESTION_SURFACES.md
@@ -107,6 +109,7 @@ The no-secret closure guard workflow verifies closure-boundary documentation and
 github/workflows/site-mirror-closure-guard.yml
 python scripts/check_site_mirror_handoff.py
 python scripts/check_site_mirror_closure_next_build.py
+python scripts/check_site_mirror_closure_guard.py
 ```
 
 This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation continues to preserve the Publisher activation boundary.
@@ -162,6 +165,14 @@ python scripts/check_site_mirror_closure_next_build.py
 ```
 
 The closure next-build checker verifies that `docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md` preserves the Publisher closure boundary and does not mark activation complete from Site-side evidence alone.
+
+The closure guard checker is:
+
+```text
+python scripts/check_site_mirror_closure_guard.py
+```
+
+The closure guard checker verifies that `docs/SITE_MIRROR_CLOSURE_GUARD.md`, `github/workflows/site-mirror-closure-guard.yml`, and this handoff preserve the no-secret closure guard boundary.
 
 ## Public Path and Ingestion Surface Contract
 
@@ -220,6 +231,15 @@ python scripts/check_site_mirror_closure_next_build.py
 ```
 
 This packet makes the next build boundary explicit: Site may prepare and validate closure-readiness evidence, but Publisher closure remains required before activation can be claimed.
+
+## Closure Guard Packet
+
+```text
+docs/SITE_MIRROR_CLOSURE_GUARD.md
+python scripts/check_site_mirror_closure_guard.py
+```
+
+This packet makes the closure guard workflow independently auditable as a read-only Site-local boundary check.
 
 ## Traffic And Ingestion Signal Packet
 
@@ -280,9 +300,11 @@ Resolved: Site mirror workflow runs the handoff verifier and records it in the w
 Resolved: Site has docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md to define the closure-readiness build boundary.
 Resolved: Site has scripts/check_site_mirror_closure_next_build.py to prevent closure-readiness work from overclaiming activation.
 Resolved: Site has github/workflows/site-mirror-closure-guard.yml to enforce closure-readiness docs and checkers without cross-repo credentials.
+Resolved: Site has docs/SITE_MIRROR_CLOSURE_GUARD.md to make the closure guard workflow independently auditable.
+Resolved: Site has scripts/check_site_mirror_closure_guard.py to verify the closure guard packet, workflow, and handoff alignment.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
