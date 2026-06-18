@@ -10,7 +10,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
     Path("docs/SITE_PAPER_DISPLAY_POLICY.md"),
     Path("docs/README_SITE_PAPERS_MIRROR.md"),
+    Path("docs/SITE_MIRROR_ACTIVATION_STATUS.md"),
     Path("scripts/mirror_papers.py"),
+    Path("scripts/check_papers_manifest_metadata.py"),
     Path(".github/workflows/mirror-papers.yml"),
 ]
 
@@ -31,8 +33,10 @@ REQUIRED_WORKFLOW_TERMS = [
     "default: \"GCAT-BCAT-Engine/Publisher\"",
     "DEFAULT_SOURCE_REPOSITORY: \"GCAT-BCAT-Engine/Publisher\"",
     "DEFAULT_SOURCE_REF: \"main\"",
-    "if [ ! -d \"_source/papers\" ]; then",
+    "DEFAULT_SOURCE_PATH: \"papers\"",
+    "TARGET_REPOSITORY: \"StegVerse-Labs/Site\"",
     "python scripts/mirror_papers.py",
+    "python scripts/check_papers_manifest_metadata.py",
     "Papers.html",
     "papers.html",
     "publisher/papers.html",
@@ -45,8 +49,40 @@ REQUIRED_SCRIPT_TERMS = [
     "PAPERS_LOWER_HTML = REPO_ROOT / \"papers.html\"",
     "PUBLISHER_PAPERS_HTML = PUBLISHER_DIR / \"papers.html\"",
     "PUBLISHER_PAPERS_INDEX = PUBLISHER_PAPERS_DIR / \"index.html\"",
+    "mirror_metadata",
+    "source_repository",
+    "source_ref",
+    "source_path",
+    "source_of_truth",
+    "target_repository",
+    "display_policy",
+    "mirror_protocol",
     "papers_manifest.json",
-    "GCAT-BCAT-Engine/Publisher/papers",
+]
+
+REQUIRED_MANIFEST_CHECKER_TERMS = [
+    "source_repository",
+    "source_ref",
+    "source_path",
+    "source_of_truth",
+    "target_repository",
+    "target_path",
+    "display_policy",
+    "mirror_protocol",
+    "workflow",
+    "valid: Site papers manifest metadata",
+]
+
+REQUIRED_MIRROR_DOC_TERMS = [
+    "docs/SITE_PAPER_DISPLAY_POLICY.md",
+    "docs/SITE_MIRROR_ACTIVATION_STATUS.md",
+    "papers/papers_manifest.json",
+    "scripts/check_papers_manifest_metadata.py",
+    "source_repository",
+    "source_ref",
+    "source_path",
+    "source_of_truth",
+    "Validate papers/papers_manifest.json metadata",
 ]
 
 
@@ -91,9 +127,13 @@ def main() -> int:
     if result is not None:
         return result
 
-    mirror_doc = read(Path("docs/README_SITE_PAPERS_MIRROR.md"))
-    if "docs/SITE_PAPER_DISPLAY_POLICY.md" not in mirror_doc:
-        return fail("mirror README does not link the Site paper display policy")
+    result = require_terms(Path("scripts/check_papers_manifest_metadata.py"), REQUIRED_MANIFEST_CHECKER_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("docs/README_SITE_PAPERS_MIRROR.md"), REQUIRED_MIRROR_DOC_TERMS)
+    if result is not None:
+        return result
 
     print("valid: Site paper display policy")
     return 0
