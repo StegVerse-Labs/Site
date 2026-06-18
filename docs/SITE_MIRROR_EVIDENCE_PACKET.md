@@ -4,7 +4,7 @@
 
 This packet records the evidence required to complete Publisher-to-Site paper mirror activation.
 
-It must not be marked complete until the Publisher dry-run, Publisher live dispatch, Site mirror workflow, regenerated manifest, public aliases, and Publisher receipt/tracker updates are all verified.
+It must not be marked complete until the Publisher dry-run, Publisher live dispatch, Site mirror workflow, regenerated manifest, public aliases, Site evidence completion commits, and Publisher receipt/tracker updates are all verified.
 
 `docs/SITE_MIRROR_HANDOFF.md` remains the handoff and task source of truth.
 
@@ -30,10 +30,12 @@ publisher_dry_run_receipt_commit: PENDING
 publisher_live_dispatch_workflow_url: PENDING
 site_mirror_workflow_url: PENDING
 site_mirror_commit_sha: PENDING
-manifest_source_repository: PENDING
-manifest_source_ref: PENDING
-manifest_source_of_truth: PENDING
+manifest_source_repository: GCAT-BCAT-Engine/Publisher
+manifest_source_ref: main
+manifest_source_of_truth: Publisher papers directory
 alias_verification_results: PENDING
+site_evidence_packet_completion_commit: PENDING
+site_live_evidence_state_completion_commit: PENDING
 publisher_receipt_update_commit: PENDING
 publisher_verification_tracker_commit: PENDING
 publisher_activation_status_update_commit: PENDING
@@ -71,7 +73,7 @@ The Site mirror evidence packet checker must also complete without missing field
 python scripts/check_site_mirror_evidence_packet.py
 ```
 
-The Site mirror live evidence state checker must also complete without unresolved activation claims:
+The Site mirror live evidence state checker must also complete without unresolved activation claims or Markdown/JSON evidence drift:
 
 ```text
 python scripts/check_site_mirror_live_evidence_state.py
@@ -99,8 +101,10 @@ This pending packet does not claim:
 - Publisher verification tracker completion;
 - Publisher activation-status completion;
 - public alias verification success;
+- Site evidence-packet completion;
+- Site live-evidence-state completion;
 - Site manifest metadata success.
 
 ## Governing Sentence
 
-The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Publisher-side dry-run receipt evidence, Publisher-side receipt/tracker/status closure, and a machine-readable live evidence state that cannot claim activation while required evidence is pending.
+The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Site evidence completion commits, Publisher-side dry-run receipt evidence, Publisher-side receipt/tracker/status closure, and a machine-readable live evidence state that cannot claim activation while required evidence is pending or while its human-readable packet has drifted.
