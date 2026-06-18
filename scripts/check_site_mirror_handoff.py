@@ -31,6 +31,8 @@ REQUIRED_VALIDATOR_COMMANDS = {
     "python scripts/check_site_mirror_live_evidence_state.py",
     "python scripts/check_site_mirror_handoff.py",
     "python scripts/check_site_mirror_closure_next_build.py",
+    "python scripts/check_site_mirror_closure_guard.py",
+    "python scripts/check_site_mirror_activation_ledger.py",
     "python scripts/check_papers_manifest_metadata.py",
     "python scripts/check_paper_aliases.py",
 }
@@ -51,6 +53,14 @@ REQUIRED_CLOSURE_TERMS = {
     "Closure Next-Build Packet",
     "Site may prepare and validate closure-readiness evidence",
     "Publisher closure remains required before activation can be claimed",
+}
+
+REQUIRED_LEDGER_TERMS = {
+    "docs/SITE_MIRROR_ACTIVATION_LEDGER.json",
+    "docs/SITE_MIRROR_ACTIVATION_LEDGER.md",
+    "Activation Ledger Packet",
+    "python scripts/check_site_mirror_activation_ledger.py",
+    "Site-side evidence alone does not activate the mirror",
 }
 
 
@@ -150,6 +160,17 @@ def main() -> int:
             errors.append(
                 "Handoff is missing required closure next-build terms: "
                 + ", ".join(missing_closure_terms)
+            )
+
+        missing_ledger_terms = _require_terms(
+            markdown,
+            REQUIRED_LEDGER_TERMS,
+            "Activation Ledger Packet",
+        )
+        if missing_ledger_terms:
+            errors.append(
+                "Handoff is missing required activation ledger terms: "
+                + ", ".join(missing_ledger_terms)
             )
 
         if "Archive Readiness" not in markdown:
