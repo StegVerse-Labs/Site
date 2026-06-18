@@ -34,6 +34,8 @@ docs/SITE_MIRROR_ALIAS_VERIFICATION.md
 docs/SITE_MIRROR_EVIDENCE_PACKET.md
 docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
+docs/SITE_PUBLIC_PATHS.md
+docs/SITE_INGESTION_SURFACES.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -95,6 +97,32 @@ python scripts/check_site_mirror_live_evidence_state.py
 
 The live evidence state checker also verifies that non-pending values in `docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json` match the companion Markdown evidence fields in `docs/SITE_MIRROR_EVIDENCE_PACKET.md`.
 
+## Public Path and Ingestion Surface Contract
+
+The Site repository is also documented as a public artifact endpoint and ingestion-facing repository.
+
+The public path semantics document is:
+
+```text
+docs/SITE_PUBLIC_PATHS.md
+```
+
+The ingestion surface semantics document is:
+
+```text
+docs/SITE_INGESTION_SURFACES.md
+```
+
+These documents do not activate the mirror. They prevent overclaiming by separating:
+
+```text
+ingestion from authority
+upload from validation
+display from source of truth
+workflow visibility from activation evidence
+traffic from adoption
+```
+
 ## Required Run Order
 
 ```text
@@ -153,11 +181,15 @@ docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 
 ```text
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
+docs/SITE_PUBLIC_PATHS.md
+docs/SITE_INGESTION_SURFACES.md
 ```
 
 The traffic packet records the current GitHub traffic snapshot and prevents overclaiming. It treats clone/view activity as repository-behavior evidence only, not adoption, activation, endorsement, or live mirror proof.
 
-Use this packet as supporting context for public path and ingestion-surface hardening.
+The public path and ingestion-surface documents make observed high-interest routes legible without granting authority to uploaded, candidate, mirrored, generated, or workflow-visible artifacts by placement alone.
+
+Use these packets as supporting context for public path and ingestion-surface hardening.
 
 ## Companion Publisher Handoff
 
@@ -185,11 +217,12 @@ Resolved: Site live evidence state checker now prevents drift between non-pendin
 Resolved: transition-table-visual.html source text separates the public claim `structurally rigorous` from its `structure` badge; public text extractors may still concatenate those adjacent nodes.
 Resolved: Site evidence packet checker now requires Site evidence-packet and live-state completion commit fields so packet, JSON state, and checker requirements remain aligned.
 Resolved: Site traffic and ingestion signal snapshot is now documented without treating traffic as adoption, activation, endorsement, or live mirror proof.
+Resolved: Site public path semantics are now documented in docs/SITE_PUBLIC_PATHS.md.
+Resolved: Site ingestion surface semantics are now documented in docs/SITE_INGESTION_SURFACES.md.
 Pending: optional display-copy hardening for transition-table-visual.html badge text if public extraction continues to render `structurally rigorous structure`.
-Pending: public path and ingestion-surface hardening for observed high-interest paths including upload, incoming, tools, data, actions, and papers.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, next run order, evidence requirements, and traffic-signal documentation needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, next run order, evidence requirements, traffic-signal documentation, public path semantics, and ingestion-surface semantics needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
