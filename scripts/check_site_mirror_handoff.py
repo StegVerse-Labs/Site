@@ -35,6 +35,7 @@ REQUIRED_VALIDATOR_COMMANDS = {
     "python scripts/check_site_mirror_activation_ledger.py",
     "python scripts/check_site_mirror_activation_status.py",
     "python scripts/check_site_mirror_evidence_requirements.py",
+    "python scripts/check_site_mirror_evidence_transition_rules.py",
     "python scripts/check_papers_manifest_metadata.py",
     "python scripts/check_paper_aliases.py",
 }
@@ -77,6 +78,13 @@ REQUIRED_EVIDENCE_REQUIREMENTS_TERMS = {
     "Evidence Requirements Packet",
     "python scripts/check_site_mirror_evidence_requirements.py",
     "exact evidence keys required before activation may advance",
+}
+
+REQUIRED_EVIDENCE_TRANSITION_TERMS = {
+    "docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md",
+    "Evidence Transition Rules Packet",
+    "python scripts/check_site_mirror_evidence_transition_rules.py",
+    "evidence values may advance from pending",
 }
 
 
@@ -209,6 +217,17 @@ def main() -> int:
             errors.append(
                 "Handoff is missing required evidence requirements terms: "
                 + ", ".join(missing_evidence_requirements_terms)
+            )
+
+        missing_evidence_transition_terms = _require_terms(
+            markdown,
+            REQUIRED_EVIDENCE_TRANSITION_TERMS,
+            "Evidence Transition Rules Packet",
+        )
+        if missing_evidence_transition_terms:
+            errors.append(
+                "Handoff is missing required evidence transition terms: "
+                + ", ".join(missing_evidence_transition_terms)
             )
 
         if "Archive Readiness" not in markdown:
