@@ -19,6 +19,8 @@
     "manifest_source_ref": "main",
     "manifest_source_of_truth": "Publisher papers directory",
     "alias_verification_results": "PENDING",
+    "site_evidence_packet_completion_commit": "PENDING",
+    "site_live_evidence_state_completion_commit": "PENDING",
     "publisher_receipt_update_commit": "PENDING",
     "publisher_verification_tracker_commit": "PENDING",
     "publisher_activation_status_update_commit": "PENDING"
@@ -39,6 +41,8 @@
     "This state does not claim Publisher dry-run completion.",
     "This state does not claim Publisher live-dispatch completion.",
     "This state does not claim public HTTP alias verification success.",
+    "This state does not claim Site evidence-packet completion.",
+    "This state does not claim Site live-evidence-state completion.",
     "This state does not claim Publisher tracker or activation-status closure."
   ]
 }
