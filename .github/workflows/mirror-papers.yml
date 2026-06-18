@@ -167,6 +167,32 @@ jobs:
             site/docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
           if-no-files-found: error
 
+      - name: Nudge Publisher closure workflow
+        env:
+          PUBLISHER_REPOSITORY: "GCAT-BCAT-Engine/Publisher"
+          PUBLISHER_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
+        run: |
+          if [ -z "$PUBLISHER_TOKEN" ]; then
+            echo "Publisher closure nudge skipped: cross-repo token is not configured. Scheduled Publisher closure remains the fallback."
+            exit 0
+          fi
+
+          status=$(curl -sS -o /tmp/publisher-closure-dispatch.json -w "%{http_code}" \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $PUBLISHER_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$PUBLISHER_REPOSITORY/actions/workflows/close-site-mirror-activation.yml/dispatches" \
+            -d '{"ref":"main"}')
+
+          if [ "$status" != "204" ]; then
+            echo "Publisher closure nudge failed with HTTP status $status. Scheduled Publisher closure remains the fallback."
+            cat /tmp/publisher-closure-dispatch.json
+            exit 0
+          fi
+
+          echo "Publisher closure workflow nudged."
+
       - name: Write summary
         if: always()
         working-directory: site
@@ -182,6 +208,7 @@ jobs:
           echo "**Evidence packet:** docs/SITE_MIRROR_EVIDENCE_PACKET.md" >> "$GITHUB_STEP_SUMMARY"
           echo "**Live evidence state:** docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json" >> "$GITHUB_STEP_SUMMARY"
           echo "**Evidence artifact:** site-mirror-evidence-${{ github.run_id }}-${{ github.run_attempt }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Publisher closure nudge:** attempted when cross-repo token is available; scheduled Publisher closure remains fallback" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public ingestion contract:** docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
