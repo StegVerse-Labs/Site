@@ -41,6 +41,7 @@ Run these after the Site mirror workflow completes:
 ```bash
 python scripts/check_paper_display_policy.py
 python scripts/check_papers_manifest_metadata.py
+python scripts/check_paper_aliases.py
 python scripts/check_site_mirror_evidence_packet.py
 ```
 
@@ -50,6 +51,12 @@ Mirror activation may only be marked complete when every evidence field is repla
 
 ```text
 valid: Site papers manifest metadata
+```
+
+The Site alias checker must also return:
+
+```text
+valid: Site paper aliases resolve
 ```
 
 ## Non-Claims
