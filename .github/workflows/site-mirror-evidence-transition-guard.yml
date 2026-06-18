@@ -1,0 +1,56 @@
+name: Site Mirror Evidence Transition Guard
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md"
+      - "docs/SITE_MIRROR_ACTIVATION_LEDGER.json"
+      - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
+      - "docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md"
+      - "scripts/check_site_mirror_handoff.py"
+      - "scripts/check_site_mirror_evidence_transition_rules.py"
+      - "scripts/check_site_mirror_activation_ledger.py"
+      - "scripts/check_site_mirror_activation_status.py"
+      - "scripts/check_site_mirror_evidence_requirements.py"
+
+jobs:
+  evidence-transition-guard:
+    name: Verify Site mirror evidence transition boundary
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Check Site mirror handoff
+        run: python scripts/check_site_mirror_handoff.py
+
+      - name: Check Site mirror activation ledger
+        run: python scripts/check_site_mirror_activation_ledger.py
+
+      - name: Check Site mirror activation status
+        run: python scripts/check_site_mirror_activation_status.py
+
+      - name: Check Site mirror evidence requirements
+        run: python scripts/check_site_mirror_evidence_requirements.py
+
+      - name: Check Site mirror evidence transition rules
+        run: python scripts/check_site_mirror_evidence_transition_rules.py
+
+      - name: Write summary
+        if: always()
+        run: |
+          echo "## Site Mirror Evidence Transition Guard" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Handoff:** docs/SITE_MIRROR_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Evidence transition rules:** docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Activation ledger:** docs/SITE_MIRROR_ACTIVATION_LEDGER.json" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Activation status:** docs/SITE_MIRROR_ACTIVATION_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Evidence requirements:** docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Evidence transition checker:** scripts/check_site_mirror_evidence_transition_rules.py" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Activation boundary:** evidence values must remain pending until governed Publisher/Site closure evidence exists." >> "$GITHUB_STEP_SUMMARY"
