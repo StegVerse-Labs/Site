@@ -100,10 +100,19 @@ Publisher verification tracker activation commit
 docs/SITE_MIRROR_LIVE_VERIFICATION.md
 ```
 
+## Companion Publisher Handoff
+
+```text
+GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_MIRROR_HANDOFF.md
+```
+
+Use the Publisher handoff for Publisher-side dry-run, live dispatch, receipt capture, and verification-tracker continuation.
+
 ## Current Delta
 
 ```text
 Resolved: checked-in papers/papers_manifest.json now includes required source metadata.
+Resolved: Publisher now has a companion mirror handoff for non-Site sessions.
 Pending: live Publisher dry-run dispatch, live Publisher dispatch, Site workflow evidence, public alias verification, Publisher receipt update, and Publisher verification tracker activation.
 ```
 
