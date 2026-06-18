@@ -137,10 +137,35 @@ jobs:
         run: |
           python scripts/check_paper_aliases.py
 
-      - name: Check live evidence state after mirror
+      - name: Write Site mirror evidence
+        working-directory: site
+        env:
+          SOURCE_REPOSITORY: ${{ steps.mirror.outputs.source_repository }}
+          SOURCE_REF: ${{ steps.mirror.outputs.source_ref }}
+          SITE_MIRROR_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SITE_MIRROR_COMMIT_SHA: ${{ github.sha }}
+          ALIAS_VERIFICATION_RESULTS: "valid: Site paper aliases resolve"
+        run: |
+          python scripts/write_site_mirror_evidence.py
+
+      - name: Check Site mirror evidence packet after writing evidence
+        working-directory: site
+        run: |
+          python scripts/check_site_mirror_evidence_packet.py
+
+      - name: Check live evidence state after writing evidence
         working-directory: site
         run: |
           python scripts/check_site_mirror_live_evidence_state.py
+
+      - name: Upload Site mirror evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-mirror-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            site/docs/SITE_MIRROR_EVIDENCE_PACKET.md
+            site/docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
+          if-no-files-found: error
 
       - name: Write summary
         if: always()
@@ -156,6 +181,7 @@ jobs:
           echo "**Aliases:** papers.html, papers/, publisher/papers.html, publisher/papers/" >> "$GITHUB_STEP_SUMMARY"
           echo "**Evidence packet:** docs/SITE_MIRROR_EVIDENCE_PACKET.md" >> "$GITHUB_STEP_SUMMARY"
           echo "**Live evidence state:** docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Evidence artifact:** site-mirror-evidence-${{ github.run_id }}-${{ github.run_attempt }}" >> "$GITHUB_STEP_SUMMARY"
           echo "**Public ingestion contract:** docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
 
@@ -168,20 +194,20 @@ jobs:
             echo "### Mirror did not produce papers_manifest.json" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "If source checkout failed with repository not found, the source repo is private/inaccessible to the Site workflow token." >> "$GITHUB_STEP_SUMMARY"
-            echo "Set a Site repo secret named STEGVERSE_REPO_SYNC_TOKEN with read access to GCAT-BCAT-Engine/Publisher." >> "$GITHUB_STEP_SUMMARY"
+            echo "Configure the Site workflow with repository-read credentials for GCAT-BCAT-Engine/Publisher." >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Commit mirrored papers
+      - name: Commit mirrored papers and evidence
         working-directory: site
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py scripts/check_paper_aliases.py scripts/check_site_mirror_evidence_packet.py scripts/check_site_mirror_live_evidence_state.py scripts/check_transition_table_public_copy.py scripts/check_site_public_ingestion_contract.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md docs/SITE_MIRROR_EVIDENCE_PACKET.md docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json docs/SITE_PUBLIC_PATHS.md docs/SITE_INGESTION_SURFACES.md docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md scripts/check_paper_display_policy.py
+          git add Papers.html papers.html papers publisher scripts/mirror_papers.py scripts/check_papers_manifest_metadata.py scripts/check_paper_aliases.py scripts/check_site_mirror_evidence_packet.py scripts/check_site_mirror_live_evidence_state.py scripts/write_site_mirror_evidence.py scripts/check_transition_table_public_copy.py scripts/check_site_public_ingestion_contract.py docs/SITE_PAPER_DISPLAY_POLICY.md docs/README_SITE_PAPERS_MIRROR.md docs/SITE_MIRROR_EVIDENCE_PACKET.md docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json docs/SITE_PUBLIC_PATHS.md docs/SITE_INGESTION_SURFACES.md docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md scripts/check_paper_display_policy.py
 
           if git diff --cached --quiet; then
-            echo "No paper mirror changes to commit."
+            echo "No paper mirror or evidence changes to commit."
           else
-            git commit -m "Mirror papers from Publisher"
+            git commit -m "Mirror papers and Site evidence from Publisher"
             git push
           fi
