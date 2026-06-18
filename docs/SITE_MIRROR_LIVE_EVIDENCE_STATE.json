@@ -30,6 +30,7 @@
     "required_activation_state": "activated",
     "required_commands": [
       "python scripts/check_paper_display_policy.py",
+      "python scripts/check_transition_table_public_copy.py",
       "python scripts/check_papers_manifest_metadata.py",
       "python scripts/check_paper_aliases.py",
       "python scripts/check_site_mirror_evidence_packet.py",
