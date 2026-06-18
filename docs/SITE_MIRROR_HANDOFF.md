@@ -36,6 +36,7 @@ docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_PUBLIC_PATHS.md
 docs/SITE_INGESTION_SURFACES.md
+docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -113,6 +114,12 @@ The ingestion surface semantics document is:
 docs/SITE_INGESTION_SURFACES.md
 ```
 
+The combined hardening packet is:
+
+```text
+docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
+```
+
 These documents do not activate the mirror. They prevent overclaiming by separating:
 
 ```text
@@ -183,6 +190,7 @@ docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_PUBLIC_PATHS.md
 docs/SITE_INGESTION_SURFACES.md
+docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
 ```
 
 The traffic packet records the current GitHub traffic snapshot and prevents overclaiming. It treats clone/view activity as repository-behavior evidence only, not adoption, activation, endorsement, or live mirror proof.
@@ -219,10 +227,11 @@ Resolved: Site evidence packet checker now requires Site evidence-packet and liv
 Resolved: Site traffic and ingestion signal snapshot is now documented without treating traffic as adoption, activation, endorsement, or live mirror proof.
 Resolved: Site public path semantics are now documented in docs/SITE_PUBLIC_PATHS.md.
 Resolved: Site ingestion surface semantics are now documented in docs/SITE_INGESTION_SURFACES.md.
+Resolved: Site combined public path and ingestion-surface hardening packet is now documented in docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md.
 Pending: optional display-copy hardening for transition-table-visual.html badge text if public extraction continues to render `structurally rigorous structure`.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, next run order, evidence requirements, traffic-signal documentation, public path semantics, and ingestion-surface semantics needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, next run order, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
