@@ -12,6 +12,12 @@ For the governing display policy, see:
 docs/SITE_PAPER_DISPLAY_POLICY.md
 ```
 
+For Site-side activation state, see:
+
+```text
+docs/SITE_MIRROR_ACTIVATION_STATUS.md
+```
+
 ## Source Repository
 
 The source repo is:
@@ -47,12 +53,47 @@ publisher/papers.html
 publisher/papers/index.html
 ```
 
+## Source Metadata Contract
+
+The mirror writes a machine-readable manifest at:
+
+```text
+papers/papers_manifest.json
+```
+
+The manifest must preserve:
+
+```text
+source_repository
+source_ref
+source_path
+source_of_truth
+target_repository
+target_path
+display_policy
+mirror_protocol
+workflow
+generated_utc
+count
+aliases
+entries
+```
+
+The manifest is validated by:
+
+```text
+scripts/check_papers_manifest_metadata.py
+```
+
+That checker runs after `scripts/mirror_papers.py` and before the workflow commits mirrored files.
+
 ## Done Condition
 
 The mirror is working when the Site repo contains:
 
 ```text
 scripts/mirror_papers.py
+scripts/check_papers_manifest_metadata.py
 Papers.html
 papers.html
 papers/index.html
@@ -68,7 +109,7 @@ and the workflow:
 Mirror Papers from Publisher
 ```
 
-runs green and commits any changed paper files back to the Site repo.
+runs green, validates manifest metadata, and commits any changed paper files back to the Site repo.
 
 ## Policy Boundary
 
@@ -92,6 +133,7 @@ Generate papers/index.html
 Generate publisher/papers.html redirect
 Generate publisher/papers/index.html redirect
 Generate papers/papers_manifest.json
+Validate papers/papers_manifest.json metadata
 Commit changes back to Site
 ```
 
@@ -105,8 +147,9 @@ Use this order when updating the current public paper display:
 3. Run or dispatch the Site mirror workflow.
 4. Confirm mirrored files update under papers/.
 5. Confirm Papers.html and papers/index.html update.
-6. Confirm aliases resolve.
-7. Commit or accept the workflow commit.
+6. Confirm papers/papers_manifest.json preserves source_repository, source_ref, source_path, and source_of_truth.
+7. Confirm aliases resolve.
+8. Commit or accept the workflow commit.
 ```
 
 ## iOS Workflow Note
