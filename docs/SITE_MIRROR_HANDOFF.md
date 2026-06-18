@@ -25,6 +25,7 @@ scripts/check_papers_manifest_metadata.py
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
 docs/SITE_MIRROR_ACTIVATION_STATUS.md
+docs/SITE_MIRROR_LIVE_VERIFICATION.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -88,6 +89,12 @@ papers/papers_manifest.json source_of_truth
 public alias verification results
 Publisher receipt update commit
 Publisher verification tracker activation commit
+```
+
+## Live Verification Packet
+
+```text
+docs/SITE_MIRROR_LIVE_VERIFICATION.md
 ```
 
 ## Archive Readiness
