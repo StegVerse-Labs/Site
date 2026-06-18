@@ -31,6 +31,7 @@ scripts/check_site_mirror_closure_next_build.py
 scripts/check_site_mirror_closure_guard.py
 scripts/check_site_mirror_activation_ledger.py
 scripts/check_site_mirror_activation_status.py
+scripts/check_site_mirror_evidence_requirements.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
 scripts/check_site_public_ingestion_contract.py
@@ -46,6 +47,7 @@ docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md
 docs/SITE_MIRROR_CLOSURE_GUARD.md
 docs/SITE_MIRROR_ACTIVATION_LEDGER.md
 docs/SITE_MIRROR_ACTIVATION_LEDGER.json
+docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_PUBLIC_PATHS.md
 docs/SITE_INGESTION_SURFACES.md
@@ -116,6 +118,7 @@ python scripts/check_site_mirror_closure_next_build.py
 python scripts/check_site_mirror_closure_guard.py
 python scripts/check_site_mirror_activation_ledger.py
 python scripts/check_site_mirror_activation_status.py
+python scripts/check_site_mirror_evidence_requirements.py
 ```
 
 This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation continues to preserve the Publisher activation boundary.
@@ -162,7 +165,7 @@ The handoff checker is:
 python scripts/check_site_mirror_handoff.py
 ```
 
-The handoff checker verifies that `docs/SITE_MIRROR_HANDOFF.md` keeps its Built Files list aligned with repository structure, retains required current-goal fields, records required validator commands, preserves required evidence terms, keeps closure terms present, records activation-ledger terms, records activation-status terms, and keeps the pending activation boundary explicit.
+The handoff checker verifies that `docs/SITE_MIRROR_HANDOFF.md` keeps its Built Files list aligned with repository structure, retains required current-goal fields, records required validator commands, preserves required evidence terms, keeps closure terms present, records activation-ledger terms, records activation-status terms, records evidence-requirements terms, and keeps the pending activation boundary explicit.
 
 The closure next-build checker is:
 
@@ -195,6 +198,14 @@ python scripts/check_site_mirror_activation_status.py
 ```
 
 The activation status checker verifies that `docs/SITE_MIRROR_ACTIVATION_STATUS.md` remains aligned with the activation ledger and does not advance beyond pending while required Publisher closure evidence remains pending.
+
+The evidence requirements checker is:
+
+```text
+python scripts/check_site_mirror_evidence_requirements.py
+```
+
+The evidence requirements checker verifies that `docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md`, `docs/SITE_MIRROR_ACTIVATION_LEDGER.json`, and this handoff preserve the exact evidence keys required before activation may advance.
 
 ## Public Path and Ingestion Surface Contract
 
@@ -282,6 +293,15 @@ python scripts/check_site_mirror_activation_status.py
 
 This packet keeps human-readable activation status aligned with the activation ledger and prevents the older status file from drifting beyond pending before Publisher closure evidence exists.
 
+## Evidence Requirements Packet
+
+```text
+docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
+python scripts/check_site_mirror_evidence_requirements.py
+```
+
+This packet keeps the exact evidence keys required before activation may advance aligned with the activation ledger, status, and handoff.
+
 ## Traffic And Ingestion Signal Packet
 
 ```text
@@ -350,9 +370,12 @@ Resolved: Site closure guard workflow runs scripts/check_site_mirror_activation_
 Resolved: Site has docs/SITE_MIRROR_ACTIVATION_STATUS.md aligned to the activation ledger pending state.
 Resolved: Site has scripts/check_site_mirror_activation_status.py to verify activation status remains aligned with the activation ledger.
 Resolved: Site closure guard workflow runs scripts/check_site_mirror_activation_status.py.
+Resolved: Site has docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md to enumerate exact activation-blocking evidence keys.
+Resolved: Site has scripts/check_site_mirror_evidence_requirements.py to verify the evidence requirements remain aligned with the ledger and handoff.
+Resolved: Site closure guard workflow runs scripts/check_site_mirror_evidence_requirements.py.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, machine-verifiable activation ledger, activation-status reconciliation, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, machine-verifiable activation ledger, activation-status reconciliation, evidence-requirements reconciliation, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
