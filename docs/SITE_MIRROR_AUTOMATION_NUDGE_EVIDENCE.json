@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.site_mirror.automation_nudge_evidence.v1",
+  "generated_utc": "2026-06-18T05:45:00Z",
+  "goal": "Site mirror activation hardening",
+  "site_repository": "StegVerse-Labs/Site",
+  "publisher_repository": "GCAT-BCAT-Engine/Publisher",
+  "publisher_tracker_nudge_commit": "770c60a99388b19e59c61e42a882a61be3b21f7e",
+  "publisher_tracker_state": "pending_automated_dispatch_nudged",
+  "site_live_evidence_state": "pending_live_verification",
+  "activation_claim": false,
+  "next_expected_automation": [
+    "Publisher dispatch workflow run",
+    "Publisher verification receipt artifact",
+    "Site mirror evidence artifact",
+    "Publisher closure receipt"
+  ]
+}
