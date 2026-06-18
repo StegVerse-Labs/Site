@@ -1,0 +1,39 @@
+name: Site Mirror Alias Check
+
+on:
+  push:
+    paths:
+      - "Papers.html"
+      - "papers.html"
+      - "papers/**"
+      - "publisher/papers.html"
+      - "publisher/papers/**"
+      - "scripts/check_paper_aliases.py"
+      - "docs/SITE_MIRROR_ALIAS_VERIFICATION.md"
+  pull_request:
+    paths:
+      - "Papers.html"
+      - "papers.html"
+      - "papers/**"
+      - "publisher/papers.html"
+      - "publisher/papers/**"
+      - "scripts/check_paper_aliases.py"
+      - "docs/SITE_MIRROR_ALIAS_VERIFICATION.md"
+  workflow_dispatch:
+
+jobs:
+  alias-check:
+    name: Verify Site paper aliases
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify paper aliases
+        run: python scripts/check_paper_aliases.py
