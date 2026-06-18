@@ -1,0 +1,44 @@
+{
+  "schema": "stegverse.site_mirror.live_evidence_state.v1",
+  "generated_utc": "2026-06-18T00:00:00Z",
+  "source_handoff": "docs/SITE_MIRROR_HANDOFF.md",
+  "goal": "Site mirror activation hardening",
+  "repository": "StegVerse-Labs/Site",
+  "source_repository": "GCAT-BCAT-Engine/Publisher",
+  "source_path": "papers",
+  "target_path": "papers",
+  "activation_state": "pending_live_verification",
+  "live_activation_verified": false,
+  "evidence": {
+    "publisher_dry_run_workflow_url": "PENDING",
+    "publisher_dry_run_receipt_commit": "PENDING",
+    "publisher_live_dispatch_workflow_url": "PENDING",
+    "site_mirror_workflow_url": "PENDING",
+    "site_mirror_commit_sha": "PENDING",
+    "manifest_source_repository": "GCAT-BCAT-Engine/Publisher",
+    "manifest_source_ref": "main",
+    "manifest_source_of_truth": "Publisher papers directory",
+    "alias_verification_results": "PENDING",
+    "publisher_receipt_update_commit": "PENDING",
+    "publisher_verification_tracker_commit": "PENDING",
+    "publisher_activation_status_update_commit": "PENDING"
+  },
+  "completion_rule": {
+    "required_boolean": "live_activation_verified must be true only when every evidence field is real evidence, not PENDING",
+    "required_activation_state": "activated",
+    "required_commands": [
+      "python scripts/check_paper_display_policy.py",
+      "python scripts/check_papers_manifest_metadata.py",
+      "python scripts/check_paper_aliases.py",
+      "python scripts/check_site_mirror_evidence_packet.py",
+      "python scripts/check_site_mirror_live_evidence_state.py"
+    ]
+  },
+  "non_claims": [
+    "This state does not claim live mirror activation.",
+    "This state does not claim Publisher dry-run completion.",
+    "This state does not claim Publisher live-dispatch completion.",
+    "This state does not claim public HTTP alias verification success.",
+    "This state does not claim Publisher tracker or activation-status closure."
+  ]
+}
