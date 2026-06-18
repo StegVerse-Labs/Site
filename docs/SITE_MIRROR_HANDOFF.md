@@ -92,6 +92,8 @@ The live evidence state checker is:
 python scripts/check_site_mirror_live_evidence_state.py
 ```
 
+The live evidence state checker also verifies that non-pending values in `docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json` match the companion Markdown evidence fields in `docs/SITE_MIRROR_EVIDENCE_PACKET.md`.
+
 ## Required Run Order
 
 ```text
@@ -101,7 +103,7 @@ python scripts/check_site_mirror_live_evidence_state.py
 4. Publisher: confirm activation validation completes.
 5. Publisher: capture dry-run workflow URL.
 6. Publisher: capture dry-run receipt commit using docs/verification-run-receipt.template.json.
-7. Publisher: confirm or install SITE_MIRROR_DISPATCH_TOKEN.
+7. Publisher: confirm the Site mirror dispatch credential is configured.
 8. Publisher: Dispatch Site Paper Mirror with dry_run: false.
 9. Site: confirm Mirror Papers from Publisher workflow starts and completes.
 10. Site: capture Site mirror workflow URL.
@@ -110,11 +112,13 @@ python scripts/check_site_mirror_live_evidence_state.py
 13. Site: confirm public aliases resolve.
 14. Site: update docs/SITE_MIRROR_EVIDENCE_PACKET.md with real evidence values.
 15. Site: update docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json with matching real evidence values.
-16. Site: run python scripts/check_site_mirror_evidence_packet.py.
-17. Site: run python scripts/check_site_mirror_live_evidence_state.py.
-18. Publisher: update live-dispatch receipt.
-19. Publisher: update verification tracker to activated.
-20. Publisher: update activation-status to activated.
+16. Site: capture Site evidence packet completion commit.
+17. Site: capture Site live evidence state completion commit.
+18. Site: run python scripts/check_site_mirror_evidence_packet.py.
+19. Site: run python scripts/check_site_mirror_live_evidence_state.py.
+20. Publisher: update live-dispatch receipt.
+21. Publisher: update verification tracker to activated.
+22. Publisher: update activation-status to activated.
 ```
 
 ## Evidence To Capture
@@ -165,6 +169,8 @@ Resolved: Site now has docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json as the machine-
 Resolved: Site now has scripts/check_site_mirror_live_evidence_state.py to prevent activation claims while required evidence remains pending.
 Resolved: Site mirror workflow now runs the live evidence state checker before and after mirror generation.
 Resolved: Publisher companion handoff now requires Site live evidence state completion and validation before Publisher activation can be marked activated.
+Resolved: Site live evidence state now tracks Site evidence-packet and live-state completion commits as first-class activation evidence.
+Resolved: Site live evidence state checker now prevents drift between non-pending JSON evidence values and Markdown packet evidence values.
 Pending: live Publisher dry-run dispatch, dry-run receipt commit, live Publisher dispatch, Site workflow evidence, public alias verification, Site evidence packet completion, live evidence state completion, Publisher receipt update, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
