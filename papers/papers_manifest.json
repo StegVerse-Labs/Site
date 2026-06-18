@@ -7,6 +7,7 @@
     "publisher/papers/index.html"
   ],
   "count": 19,
+  "display_policy": "docs/SITE_PAPER_DISPLAY_POLICY.md",
   "entries": [
     {
       "bytes": 5762,
@@ -143,6 +144,14 @@
     }
   ],
   "generated_utc": "2026-06-16T21:21:32.858405+00:00",
+  "mirror_protocol": "docs/README_SITE_PAPERS_MIRROR.md",
   "source": "GCAT-BCAT-Engine/Publisher/papers",
-  "target": "StegVerse-Labs/Site/papers"
+  "source_of_truth": "GCAT-BCAT-Engine/Publisher/papers",
+  "source_path": "papers",
+  "source_ref": "main",
+  "source_repository": "GCAT-BCAT-Engine/Publisher",
+  "target": "StegVerse-Labs/Site/papers",
+  "target_path": "papers",
+  "target_repository": "StegVerse-Labs/Site",
+  "workflow": ".github/workflows/mirror-papers.yml"
 }
