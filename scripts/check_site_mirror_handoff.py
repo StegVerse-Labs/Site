@@ -30,6 +30,7 @@ REQUIRED_VALIDATOR_COMMANDS = {
     "python scripts/check_site_mirror_evidence_packet.py",
     "python scripts/check_site_mirror_live_evidence_state.py",
     "python scripts/check_site_mirror_handoff.py",
+    "python scripts/check_site_mirror_closure_next_build.py",
     "python scripts/check_papers_manifest_metadata.py",
     "python scripts/check_paper_aliases.py",
 }
@@ -40,8 +41,16 @@ REQUIRED_EVIDENCE_TERMS = {
     "Site mirror workflow URL",
     "Site evidence artifact",
     "Publisher closure nudge result",
+    "Publisher closure receipt",
     "Publisher verification tracker activation commit",
     "Publisher activation-status update commit",
+}
+
+REQUIRED_CLOSURE_TERMS = {
+    "docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md",
+    "Closure Next-Build Packet",
+    "Site may prepare and validate closure-readiness evidence",
+    "Publisher closure remains required before activation can be claimed",
 }
 
 
@@ -130,6 +139,17 @@ def main() -> int:
             errors.append(
                 "Handoff is missing required evidence terms: "
                 + ", ".join(missing_evidence)
+            )
+
+        missing_closure_terms = _require_terms(
+            markdown,
+            REQUIRED_CLOSURE_TERMS,
+            "Closure Next-Build Packet",
+        )
+        if missing_closure_terms:
+            errors.append(
+                "Handoff is missing required closure next-build terms: "
+                + ", ".join(missing_closure_terms)
             )
 
         if "Archive Readiness" not in markdown:
