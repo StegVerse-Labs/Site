@@ -1,0 +1,39 @@
+name: Site Mirror Closure Guard
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md"
+      - "scripts/check_site_mirror_handoff.py"
+      - "scripts/check_site_mirror_closure_next_build.py"
+
+jobs:
+  closure-guard:
+    name: Verify Site mirror closure boundary
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Check Site mirror handoff
+        run: python scripts/check_site_mirror_handoff.py
+
+      - name: Check Site mirror closure next-build packet
+        run: python scripts/check_site_mirror_closure_next_build.py
+
+      - name: Write summary
+        if: always()
+        run: |
+          echo "## Site Mirror Closure Guard" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Handoff:** docs/SITE_MIRROR_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Closure packet:** docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Handoff checker:** scripts/check_site_mirror_handoff.py" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Closure checker:** scripts/check_site_mirror_closure_next_build.py" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Activation boundary:** Publisher closure remains required before activation can be claimed." >> "$GITHUB_STEP_SUMMARY"
