@@ -12,7 +12,7 @@ Repository: StegVerse-Labs/Site
 Source repository: GCAT-BCAT-Engine/Publisher
 Source path: papers
 Target path: papers
-Activation state: ready_for_automated_site_evidence
+Activation state: ready_for_automated_site_evidence_and_closure_nudge
 ```
 
 ## Built Files
@@ -67,11 +67,11 @@ aliases
 entries
 ```
 
-The checked-in `papers/papers_manifest.json` includes the required source-preserving metadata fields. Live activation still requires real Publisher and Site workflow evidence, but Site workflow-local evidence is now generated automatically by `scripts/write_site_mirror_evidence.py`.
+The checked-in `papers/papers_manifest.json` includes the required source-preserving metadata fields. Live activation still requires real Publisher and Site workflow evidence, but Site workflow-local evidence is generated automatically by `scripts/write_site_mirror_evidence.py`.
 
 ## Automated Site Evidence Path
 
-The Site mirror workflow now performs the Site-side evidence path automatically:
+The Site mirror workflow performs the Site-side evidence path automatically:
 
 ```text
 1. Resolve Publisher source repository/ref/path.
@@ -88,8 +88,11 @@ The Site mirror workflow now performs the Site-side evidence path automatically:
 12. Validate docs/SITE_MIRROR_EVIDENCE_PACKET.md after evidence writing.
 13. Validate docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json after evidence writing.
 14. Upload site-mirror-evidence-<run>-<attempt> artifact.
-15. Commit mirrored papers and evidence updates when changed.
+15. Nudge GCAT-BCAT-Engine/Publisher close-site-mirror-activation.yml when cross-repo credentials are available.
+16. Commit mirrored papers and evidence updates when changed.
 ```
+
+If cross-repo credentials are unavailable, the Site workflow exits that nudge step successfully and the scheduled Publisher closure workflow remains the fallback.
 
 ## Validators
 
@@ -111,7 +114,7 @@ The policy/config checker is:
 python scripts/check_paper_display_policy.py
 ```
 
-The policy/config checker also requires the automated evidence writer and workflow artifact upload path.
+The policy/config checker requires the automated evidence writer, evidence artifact upload path, and Publisher closure nudge/fallback path.
 
 The evidence packet checker is:
 
@@ -161,6 +164,7 @@ papers/papers_manifest.json source_ref
 papers/papers_manifest.json source_of_truth
 public alias verification results
 Site evidence artifact
+Publisher closure nudge result
 Site evidence packet completion commit
 Site live evidence state completion commit
 Publisher verification tracker activation commit
@@ -194,7 +198,7 @@ The public path and ingestion-surface documents make observed high-interest rout
 GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_MIRROR_HANDOFF.md
 ```
 
-Use the Publisher handoff for Publisher-side automated dispatch, Publisher receipt artifacts, and verification-tracker continuation.
+Use the Publisher handoff for Publisher-side automated dispatch, Publisher receipt artifacts, closure workflow, and verification-tracker continuation.
 
 ## Cross-Repo Activation Boundary
 
@@ -207,8 +211,8 @@ The mirror may only be marked activated after:
 4. Site mirror workflow writes and uploads Site evidence artifact.
 5. Site manifest metadata is verified.
 6. Site paper aliases are verified.
-7. Site evidence packet and live evidence state contain real values for every required field.
-8. Site evidence validators pass with activated state.
+7. Publisher closure workflow consumes Publisher and Site evidence artifacts.
+8. Publisher closure workflow writes docs/mirror-activation-closures/<closure>.json.
 9. Publisher verification tracker is updated to activated.
 10. Publisher activation status is updated to activated.
 ```
@@ -225,12 +229,13 @@ Resolved: Site has docs/SITE_MIRROR_LIVE_EVIDENCE_STATE.json as the machine-read
 Resolved: Site has scripts/check_site_mirror_live_evidence_state.py to prevent activation claims while required evidence remains pending.
 Resolved: Site live evidence state checker prevents drift between non-pending JSON evidence values and Markdown packet evidence values.
 Resolved: Site public path and ingestion-surface documentation is enforced by scripts/check_site_public_ingestion_contract.py.
-Resolved: Site mirror workflow now writes Site evidence automatically using scripts/write_site_mirror_evidence.py.
-Resolved: Site mirror workflow now uploads site-mirror-evidence-<run>-<attempt> artifacts.
-Resolved: Site paper display policy checker now requires the automated evidence writer and artifact upload path.
-Pending: automated Publisher dispatch run evidence, Publisher receipt artifact, Site workflow evidence artifact, Site evidence packet completion with all Publisher fields, Site live evidence state completion with all Publisher fields, Publisher verification tracker activation, and Publisher activation-status update.
+Resolved: Site mirror workflow writes Site evidence automatically using scripts/write_site_mirror_evidence.py.
+Resolved: Site mirror workflow uploads site-mirror-evidence-<run>-<attempt> artifacts.
+Resolved: Site mirror workflow nudges Publisher close-site-mirror-activation.yml when cross-repo credentials are available.
+Resolved: Site paper display policy checker requires the automated evidence writer, artifact upload path, and Publisher closure nudge/fallback path.
+Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
