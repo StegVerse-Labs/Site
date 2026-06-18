@@ -22,11 +22,15 @@ Activation state: ready_for_live_mirror_verification
 scripts/mirror_papers.py
 scripts/check_paper_display_policy.py
 scripts/check_papers_manifest_metadata.py
+scripts/check_paper_aliases.py
+scripts/check_site_mirror_evidence_packet.py
 papers/papers_manifest.json
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
 docs/SITE_MIRROR_ACTIVATION_STATUS.md
 docs/SITE_MIRROR_LIVE_VERIFICATION.md
+docs/SITE_MIRROR_ALIAS_VERIFICATION.md
+docs/SITE_MIRROR_EVIDENCE_PACKET.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -60,10 +64,22 @@ The manifest checker is:
 python scripts/check_papers_manifest_metadata.py
 ```
 
+The alias checker is:
+
+```text
+python scripts/check_paper_aliases.py
+```
+
 The policy/config checker is:
 
 ```text
 python scripts/check_paper_display_policy.py
+```
+
+The evidence packet checker is:
+
+```text
+python scripts/check_site_mirror_evidence_packet.py
 ```
 
 ## Required Run Order
@@ -113,6 +129,8 @@ Use the Publisher handoff for Publisher-side dry-run, live dispatch, receipt cap
 ```text
 Resolved: checked-in papers/papers_manifest.json now includes required source metadata.
 Resolved: Publisher now has a companion mirror handoff for non-Site sessions.
+Resolved: Site mirror workflow now runs scripts/check_paper_aliases.py after manifest metadata verification.
+Resolved: Site evidence packet checker now requires the alias verification command and expected alias success output.
 Pending: live Publisher dry-run dispatch, live Publisher dispatch, Site workflow evidence, public alias verification, Publisher receipt update, and Publisher verification tracker activation.
 ```
 
