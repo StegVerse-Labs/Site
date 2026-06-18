@@ -1,6 +1,7 @@
 # Site Mirror Live Verification
 
 Generated: 2026-06-17
+Updated: 2026-06-17
 
 ## Purpose
 
@@ -21,20 +22,9 @@ Activation state: ready_for_live_mirror_verification
 
 ## Current Finding
 
-The current checked-in `papers/papers_manifest.json` is not yet the activated live mirror manifest expected by the current validation contract.
+The checked-in `papers/papers_manifest.json` now contains the source-preserving metadata required by the current Site validation contract.
 
-It currently includes legacy fields:
-
-```text
-aliases
-count
-entries
-generated_utc
-source
-target
-```
-
-The current checker requires source-preserving metadata fields:
+The manifest includes:
 
 ```text
 source_repository
@@ -52,9 +42,13 @@ aliases
 entries
 ```
 
+The remaining activation gap is not manifest structure. The remaining gap is live evidence capture from the Publisher dry-run dispatch, Publisher live dispatch, Site mirror workflow completion, public alias verification, and Publisher-side receipt/tracker update.
+
 ## Interpretation
 
-The Site mirror system is built for live verification, but the checked-in manifest remains pre-activation output until Publisher dispatch and the Site mirror workflow regenerate `papers/papers_manifest.json` with required metadata.
+The Site mirror system is structurally ready for live verification.
+
+The checked-in manifest is metadata-compliant, but this document still does not claim final activation until the required live workflow evidence is captured and Publisher records activation.
 
 ## Required Run Order
 
@@ -113,6 +107,6 @@ This document does not activate the mirror by itself.
 
 This document does not replace Publisher as source of truth.
 
-This document does not mark the current checked-in manifest as live verified.
+This document does not mark live Publisher dispatch evidence as captured.
 
-This document records the pre-live verification delta and the exact evidence required to complete activation.
+This document records the remaining live verification evidence required to complete activation.
