@@ -47,6 +47,7 @@ Run these after the Site mirror workflow completes:
 
 ```bash
 python scripts/check_paper_display_policy.py
+python scripts/check_transition_table_public_copy.py
 python scripts/check_papers_manifest_metadata.py
 python scripts/check_paper_aliases.py
 python scripts/check_site_mirror_evidence_packet.py
@@ -65,6 +66,12 @@ The Site alias checker must also return:
 
 ```text
 valid: Site paper aliases resolve
+```
+
+The Transition Table public copy checker must also return:
+
+```text
+valid: Transition Table public copy extraction-safe
 ```
 
 The Site mirror evidence packet checker must also complete without missing fields or unresolved required references:
@@ -107,4 +114,4 @@ This pending packet does not claim:
 
 ## Governing Sentence
 
-The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Site evidence completion commits, Publisher-side dry-run receipt evidence, Publisher-side receipt/tracker/status closure, and a machine-readable live evidence state that cannot claim activation while required evidence is pending or while its human-readable packet has drifted.
+The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Transition Table public-copy safety, Site evidence completion commits, Publisher-side dry-run receipt evidence, Publisher-side receipt/tracker/status closure, and a machine-readable live evidence state that cannot claim activation while required evidence is pending or while its human-readable packet has drifted.
