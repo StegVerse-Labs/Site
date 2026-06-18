@@ -13,6 +13,7 @@ REQUIRED_FILES = [
     Path("docs/SITE_MIRROR_ACTIVATION_STATUS.md"),
     Path("scripts/mirror_papers.py"),
     Path("scripts/check_papers_manifest_metadata.py"),
+    Path("scripts/write_site_mirror_evidence.py"),
     Path(".github/workflows/mirror-papers.yml"),
 ]
 
@@ -37,6 +38,10 @@ REQUIRED_WORKFLOW_TERMS = [
     "TARGET_REPOSITORY: \"StegVerse-Labs/Site\"",
     "python scripts/mirror_papers.py",
     "python scripts/check_papers_manifest_metadata.py",
+    "python scripts/check_paper_aliases.py",
+    "python scripts/write_site_mirror_evidence.py",
+    "site-mirror-evidence-${{ github.run_id }}-${{ github.run_attempt }}",
+    "actions/upload-artifact@v4",
     "Papers.html",
     "papers.html",
     "publisher/papers.html",
@@ -58,6 +63,16 @@ REQUIRED_SCRIPT_TERMS = [
     "display_policy",
     "mirror_protocol",
     "papers_manifest.json",
+]
+
+REQUIRED_EVIDENCE_WRITER_TERMS = [
+    "SITE_MIRROR_EVIDENCE_PACKET.md",
+    "SITE_MIRROR_LIVE_EVIDENCE_STATE.json",
+    "site_mirror_workflow_url",
+    "site_mirror_commit_sha",
+    "alias_verification_results",
+    "live_activation_verified",
+    "PENDING",
 ]
 
 REQUIRED_MANIFEST_CHECKER_TERMS = [
@@ -124,6 +139,10 @@ def main() -> int:
         return result
 
     result = require_terms(Path("scripts/mirror_papers.py"), REQUIRED_SCRIPT_TERMS)
+    if result is not None:
+        return result
+
+    result = require_terms(Path("scripts/write_site_mirror_evidence.py"), REQUIRED_EVIDENCE_WRITER_TERMS)
     if result is not None:
         return result
 
