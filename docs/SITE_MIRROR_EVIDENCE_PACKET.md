@@ -61,16 +61,24 @@ The Site alias checker must also return:
 valid: Site paper aliases resolve
 ```
 
+The Site mirror evidence packet checker must also complete without missing fields or unresolved required references:
+
+```text
+python scripts/check_site_mirror_evidence_packet.py
+```
+
 ## Non-Claims
 
 This pending packet does not claim:
 
 - live mirror activation;
+- Publisher dry-run receipt completion;
 - Publisher receipt completion;
 - Publisher verification tracker completion;
+- Publisher activation-status completion;
 - public alias verification success;
 - Site manifest metadata success.
 
 ## Governing Sentence
 
-The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, and Publisher-side receipt/tracker closure.
+The Publisher-to-Site mirror is not activated by workflow existence alone; activation requires live dispatch evidence, Site mirror completion evidence, manifest source metadata, alias verification, Publisher-side dry-run receipt evidence, and Publisher-side receipt/tracker/status closure.
