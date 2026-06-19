@@ -19,7 +19,9 @@ REQUIRED_PACKET_TERMS = {
     "scripts/check_site_mirror_closure_next_build.py",
     "scripts/check_site_mirror_closure_guard.py",
     "scripts/check_site_mirror_evidence_transition_rules.py",
+    "scripts/check_site_self_managed_completion.py",
     "Publisher closure remains required before activation can be claimed",
+    "repository-managed continuation readiness",
     "Archive Readiness",
 }
 
@@ -32,13 +34,16 @@ REQUIRED_WORKFLOW_TERMS = {
     "python scripts/check_site_mirror_closure_next_build.py",
     "python scripts/check_site_mirror_closure_guard.py",
     "python scripts/check_site_mirror_evidence_transition_rules.py",
+    "python scripts/check_site_self_managed_completion.py",
     "Publisher closure remains required before activation can be claimed.",
 }
 
 REQUIRED_HANDOFF_TERMS = {
     "docs/SITE_MIRROR_CLOSURE_GUARD.md",
+    "docs/SITE_SELF_MANAGED_COMPLETION.md",
     "python scripts/check_site_mirror_closure_guard.py",
     "python scripts/check_site_mirror_evidence_transition_rules.py",
+    "python scripts/check_site_self_managed_completion.py",
     "no-secret closure guard workflow",
     "Publisher closure remains required before activation can be claimed",
 }
