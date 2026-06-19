@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Verify that the Site mirror handoff matches the repository structure.
-
-This checker keeps docs/SITE_MIRROR_HANDOFF.md from drifting away from the
-files and automation it declares as the current source of truth for mirror
-activation handoff.
-"""
+"""Verify that the Site mirror handoff matches the repository structure."""
 
 from __future__ import annotations
 
@@ -16,11 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 HANDOFF_PATH = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 
 REQUIRED_GOAL_FIELDS = {
-    "Goal: Site mirror activation hardening",
+    "Goal: autonomous Site mirror completion or ecosystem-managed handoff",
     "Repository: StegVerse-Labs/Site",
     "Source repository: GCAT-BCAT-Engine/Publisher",
     "Source path: papers",
     "Target path: papers",
+    "Assessment state: ecosystem_managed_handoff_capable",
 }
 
 REQUIRED_VALIDATOR_COMMANDS = {
@@ -36,6 +32,7 @@ REQUIRED_VALIDATOR_COMMANDS = {
     "python scripts/check_site_mirror_activation_status.py",
     "python scripts/check_site_mirror_evidence_requirements.py",
     "python scripts/check_site_mirror_evidence_transition_rules.py",
+    "python scripts/check_site_mirror_autonomous_completion_assessment.py",
     "python scripts/check_papers_manifest_metadata.py",
     "python scripts/check_paper_aliases.py",
 }
@@ -87,6 +84,13 @@ REQUIRED_EVIDENCE_TRANSITION_TERMS = {
     "evidence values may advance from pending",
 }
 
+REQUIRED_ASSESSMENT_TERMS = {
+    "docs/SITE_MIRROR_AUTONOMOUS_COMPLETION_ASSESSMENT.md",
+    "Autonomous Completion Assessment Packet",
+    "python scripts/check_site_mirror_autonomous_completion_assessment.py",
+    "ecosystem-managed handoff",
+}
+
 
 class HandoffError(Exception):
     """Raised when the handoff is incomplete or inconsistent."""
@@ -114,7 +118,6 @@ def _extract_built_files(markdown: str) -> list[str]:
 
 
 def _repository_path(display_path: str) -> Path:
-    # Handoff display avoids leading-dot workflow paths for mobile upload safety.
     if display_path.startswith("github/workflows/"):
         display_path = f".{display_path}"
     return ROOT / display_path
@@ -128,7 +131,7 @@ def _check_built_files_exist(display_paths: list[str]) -> list[str]:
     return missing
 
 
-def _require_terms(markdown: str, terms: set[str], section_name: str) -> list[str]:
+def _require_terms(markdown: str, terms: set[str]) -> list[str]:
     return sorted(term for term in terms if term not in markdown)
 
 
@@ -141,94 +144,24 @@ def main() -> int:
 
         missing_files = _check_built_files_exist(built_files)
         if missing_files:
-            errors.append(
-                "Built Files contains paths that do not exist: "
-                + ", ".join(missing_files)
-            )
+            errors.append("Built Files contains paths that do not exist: " + ", ".join(missing_files))
 
-        missing_goal_fields = _require_terms(markdown, REQUIRED_GOAL_FIELDS, "Current Goal")
-        if missing_goal_fields:
-            errors.append(
-                "Current Goal is missing required fields: "
-                + ", ".join(missing_goal_fields)
-            )
+        checks = [
+            ("Current Goal", REQUIRED_GOAL_FIELDS),
+            ("Validators", REQUIRED_VALIDATOR_COMMANDS),
+            ("Evidence To Capture", REQUIRED_EVIDENCE_TERMS),
+            ("Closure Next-Build Packet", REQUIRED_CLOSURE_TERMS),
+            ("Activation Ledger Packet", REQUIRED_LEDGER_TERMS),
+            ("Activation Status Packet", REQUIRED_STATUS_TERMS),
+            ("Evidence Requirements Packet", REQUIRED_EVIDENCE_REQUIREMENTS_TERMS),
+            ("Evidence Transition Rules Packet", REQUIRED_EVIDENCE_TRANSITION_TERMS),
+            ("Autonomous Completion Assessment Packet", REQUIRED_ASSESSMENT_TERMS),
+        ]
 
-        missing_commands = _require_terms(
-            markdown,
-            REQUIRED_VALIDATOR_COMMANDS,
-            "Validators",
-        )
-        if missing_commands:
-            errors.append(
-                "Handoff is missing required validator commands: "
-                + ", ".join(missing_commands)
-            )
-
-        missing_evidence = _require_terms(
-            markdown,
-            REQUIRED_EVIDENCE_TERMS,
-            "Evidence To Capture",
-        )
-        if missing_evidence:
-            errors.append(
-                "Handoff is missing required evidence terms: "
-                + ", ".join(missing_evidence)
-            )
-
-        missing_closure_terms = _require_terms(
-            markdown,
-            REQUIRED_CLOSURE_TERMS,
-            "Closure Next-Build Packet",
-        )
-        if missing_closure_terms:
-            errors.append(
-                "Handoff is missing required closure next-build terms: "
-                + ", ".join(missing_closure_terms)
-            )
-
-        missing_ledger_terms = _require_terms(
-            markdown,
-            REQUIRED_LEDGER_TERMS,
-            "Activation Ledger Packet",
-        )
-        if missing_ledger_terms:
-            errors.append(
-                "Handoff is missing required activation ledger terms: "
-                + ", ".join(missing_ledger_terms)
-            )
-
-        missing_status_terms = _require_terms(
-            markdown,
-            REQUIRED_STATUS_TERMS,
-            "Activation Status Packet",
-        )
-        if missing_status_terms:
-            errors.append(
-                "Handoff is missing required activation status terms: "
-                + ", ".join(missing_status_terms)
-            )
-
-        missing_evidence_requirements_terms = _require_terms(
-            markdown,
-            REQUIRED_EVIDENCE_REQUIREMENTS_TERMS,
-            "Evidence Requirements Packet",
-        )
-        if missing_evidence_requirements_terms:
-            errors.append(
-                "Handoff is missing required evidence requirements terms: "
-                + ", ".join(missing_evidence_requirements_terms)
-            )
-
-        missing_evidence_transition_terms = _require_terms(
-            markdown,
-            REQUIRED_EVIDENCE_TRANSITION_TERMS,
-            "Evidence Transition Rules Packet",
-        )
-        if missing_evidence_transition_terms:
-            errors.append(
-                "Handoff is missing required evidence transition terms: "
-                + ", ".join(missing_evidence_transition_terms)
-            )
+        for section_name, terms in checks:
+            missing_terms = _require_terms(markdown, terms)
+            if missing_terms:
+                errors.append(f"Handoff is missing required {section_name} terms: " + ", ".join(missing_terms))
 
         if "Archive Readiness" not in markdown:
             errors.append("Handoff is missing Archive Readiness section.")
