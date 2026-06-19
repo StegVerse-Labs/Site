@@ -23,16 +23,18 @@ Actual repository path:
 ```text
 1. Run on workflow_dispatch.
 2. Run on pushes that affect Site mirror closure documentation or checkers.
-3. Use read-only contents permission.
-4. Check docs/SITE_MIRROR_HANDOFF.md through scripts/check_site_mirror_handoff.py.
-5. Check docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md through scripts/check_site_mirror_closure_next_build.py.
-6. Check this guard packet through scripts/check_site_mirror_closure_guard.py.
-7. Check the activation ledger through scripts/check_site_mirror_activation_ledger.py.
-8. Check activation status through scripts/check_site_mirror_activation_status.py.
-9. Check evidence requirements through scripts/check_site_mirror_evidence_requirements.py.
-10. Check evidence transition rules through scripts/check_site_mirror_evidence_transition_rules.py.
-11. Check self-managed completion through scripts/check_site_self_managed_completion.py.
-12. Write a workflow summary stating that Publisher closure remains required before activation can be claimed.
+3. Include docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md in the guarded push trigger surface.
+4. Use read-only contents permission.
+5. Check docs/SITE_MIRROR_HANDOFF.md through scripts/check_site_mirror_handoff.py.
+6. Check docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md through scripts/check_site_mirror_closure_next_build.py.
+7. Check this guard packet through scripts/check_site_mirror_closure_guard.py.
+8. Check the activation ledger through scripts/check_site_mirror_activation_ledger.py.
+9. Check activation status through scripts/check_site_mirror_activation_status.py.
+10. Check evidence requirements through scripts/check_site_mirror_evidence_requirements.py.
+11. Check evidence transition rules through scripts/check_site_mirror_evidence_transition_rules.py.
+12. Check self-managed completion through scripts/check_site_self_managed_completion.py.
+13. Summarize docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as the ecosystem management handoff.
+14. Write a workflow summary stating that Publisher closure remains required before activation can be claimed.
 ```
 
 ## Forbidden Guard Behavior
@@ -79,4 +81,4 @@ pass.
 
 ## Archive Readiness
 
-This file is sufficient for a future session to verify the Site mirror closure guard boundary and repository-managed continuation readiness without prior chat context.
+This file is sufficient for a future session to verify the Site mirror closure guard boundary, ecosystem management handoff surface, and repository-managed continuation readiness without prior chat context.
