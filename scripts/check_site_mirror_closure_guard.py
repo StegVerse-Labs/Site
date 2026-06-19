@@ -15,6 +15,8 @@ REQUIRED_PACKET_TERMS = {
     "github/workflows/site-mirror-closure-guard.yml",
     ".github/workflows/site-mirror-closure-guard.yml",
     "Use read-only contents permission.",
+    "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
+    "ecosystem management handoff",
     "scripts/check_site_mirror_handoff.py",
     "scripts/check_site_mirror_closure_next_build.py",
     "scripts/check_site_mirror_closure_guard.py",
@@ -28,6 +30,8 @@ REQUIRED_PACKET_TERMS = {
 REQUIRED_WORKFLOW_TERMS = {
     "name: Site Mirror Closure Guard",
     "workflow_dispatch:",
+    "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
+    "**Ecosystem management handoff:** docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
     "permissions:",
     "contents: read",
     "python scripts/check_site_mirror_handoff.py",
@@ -41,6 +45,7 @@ REQUIRED_WORKFLOW_TERMS = {
 REQUIRED_HANDOFF_TERMS = {
     "docs/SITE_MIRROR_CLOSURE_GUARD.md",
     "docs/SITE_SELF_MANAGED_COMPLETION.md",
+    "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
     "python scripts/check_site_mirror_closure_guard.py",
     "python scripts/check_site_mirror_evidence_transition_rules.py",
     "python scripts/check_site_self_managed_completion.py",
