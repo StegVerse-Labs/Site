@@ -21,6 +21,7 @@ Self-management state: repository_managed_continuation_ready
 ```text
 github/workflows/mirror-papers.yml
 github/workflows/site-mirror-closure-guard.yml
+github/workflows/site-self-managed-completion.yml
 scripts/mirror_papers.py
 scripts/check_paper_display_policy.py
 scripts/check_papers_manifest_metadata.py
@@ -269,6 +270,7 @@ Site evidence packet completion commit
 Site live evidence state completion commit
 Publisher verification tracker activation commit
 Publisher activation-status update commit
+Publisher closure receipt
 ```
 
 ## Live Verification Packet
@@ -339,9 +341,12 @@ This packet defines how evidence values may advance from pending without allowin
 ```text
 docs/SITE_SELF_MANAGED_COMPLETION.md
 python scripts/check_site_self_managed_completion.py
+github/workflows/site-self-managed-completion.yml
 ```
 
 This packet defines the new assessment goal: continue building without manual actions needed through completion, or until task handoff and task completion are capable of being handled by ecosystem management. It marks repository-managed continuation ready while keeping activation pending until governed Publisher closure evidence exists.
+
+The self-managed completion workflow runs the primary handoff checker and self-managed completion checker whenever the handoff, assessment, activation ledger, activation status, or their checkers change.
 
 ## Traffic And Ingestion Signal Packet
 
@@ -418,9 +423,10 @@ Resolved: Site has docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md to define gover
 Resolved: Site has scripts/check_site_mirror_evidence_transition_rules.py to verify evidence transition rules remain aligned with the ledger and handoff.
 Resolved: Site has docs/SITE_SELF_MANAGED_COMPLETION.md to define repository-managed continuation readiness under the new goal.
 Resolved: Site has scripts/check_site_self_managed_completion.py to verify the self-managed completion assessment while preserving pending activation.
+Resolved: Site has github/workflows/site-self-managed-completion.yml to run self-managed completion and handoff checks automatically on relevant changes.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, evidence transition rules, self-managed completion assessment, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, machine-verifiable activation ledger, activation-status reconciliation, evidence-requirements reconciliation, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, evidence transition rules, self-managed completion assessment, self-managed completion workflow, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, machine-verifiable activation ledger, activation-status reconciliation, evidence-requirements reconciliation, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
