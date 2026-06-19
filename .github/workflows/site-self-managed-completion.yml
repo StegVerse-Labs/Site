@@ -1,0 +1,30 @@
+name: Site Self-Managed Completion Guard
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "docs/SITE_SELF_MANAGED_COMPLETION.md"
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_MIRROR_ACTIVATION_LEDGER.json"
+      - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
+      - "scripts/check_site_self_managed_completion.py"
+      - "scripts/check_site_mirror_handoff.py"
+
+jobs:
+  self-managed-completion:
+    name: Verify self-managed completion handoff
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Check Site mirror handoff
+        run: python scripts/check_site_mirror_handoff.py
+
+      - name: Check Site self-managed completion
+        run: python scripts/check_site_self_managed_completion.py
