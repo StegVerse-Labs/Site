@@ -12,12 +12,20 @@ FILES = {
     "status": ROOT / "docs" / "SITE_MIRROR_ACTIVATION_STATUS.md",
 }
 
+GOAL = "Goal: Continue building without manual actions needed through completion"
+ECOSYSTEM_GOAL = "task handoff and task completion are capable of being handled by the ecosystem's own management"
+
 REQUIRED = {
     "assessment": [
-        "repository-managed continuation",
-        "pending_publisher_closure_evidence",
-        "repository_managed_continuation_ready",
+        GOAL,
+        ECOSYSTEM_GOAL,
+        "Repository: StegVerse-Labs/Site",
+        "Activation state: pending_publisher_closure_evidence",
+        "Self-management state: repository_managed_continuation_ready",
+        "Repository-managed continuation: ready",
+        "Activation: pending",
         "Manual chat context required: no",
+        "Manual evidence reconstruction required: no",
         "Publisher receipt artifact",
         "Site evidence artifact",
         "Publisher closure receipt",
@@ -25,6 +33,13 @@ REQUIRED = {
         "Publisher activation-status update",
     ],
     "handoff": [
+        GOAL,
+        ECOSYSTEM_GOAL,
+        "Repository: StegVerse-Labs/Site",
+        "Activation state: pending_publisher_closure_evidence",
+        "Self-management state: repository_managed_continuation_ready",
+        "docs/SITE_SELF_MANAGED_COMPLETION.md",
+        "python scripts/check_site_self_managed_completion.py",
         "Publisher remains authoritative",
         "Publisher closure remains required before activation can be claimed",
         "The prior chat thread is no longer required",
@@ -34,6 +49,7 @@ REQUIRED = {
 }
 
 FORBIDDEN = [
+    "Goal: Site mirror activation hardening",
     "Activation: complete",
     "Activation state: activated",
     "activation complete",
