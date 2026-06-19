@@ -40,6 +40,13 @@ Site must never become the authority for receipts, transitions, or accreditation
 | [`support.html`](support.html) | Support StegVerse Research |
 | [`Papers.html`](Papers.html) | Papers and research |
 
+### Ecosystem chat activation
+
+| File | Purpose |
+|------|---------|
+| [`assets/ecosystem-chat.js`](assets/ecosystem-chat.js) | Browser-side text-only console logic, local route scaffold, fail-closed gateway adapter |
+| [`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md) | Backend activation contract for `POST /api/ecosystem-chat` and receipt boundary rules |
+
 ### Public positioning
 
 | Document | Purpose |
