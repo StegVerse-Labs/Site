@@ -126,11 +126,11 @@ python scripts/check_site_mirror_closure_guard.py
 python scripts/check_site_mirror_activation_ledger.py
 python scripts/check_site_mirror_activation_status.py
 python scripts/check_site_mirror_evidence_requirements.py
+python scripts/check_site_mirror_evidence_transition_rules.py
+python scripts/check_site_self_managed_completion.py
 ```
 
-This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation continues to preserve the Publisher activation boundary.
-
-Note: `scripts/check_site_mirror_evidence_transition_rules.py` and `scripts/check_site_self_managed_completion.py` are enforced by repository-local validators and should be added to the closure guard workflow when workflow replacement is accepted by the connector.
+This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation, evidence transition rules, and self-managed completion documentation continue to preserve the Publisher activation boundary.
 
 ## Validators
 
@@ -422,8 +422,10 @@ Resolved: Site has scripts/check_site_mirror_evidence_requirements.py to verify 
 Resolved: Site closure guard workflow runs scripts/check_site_mirror_evidence_requirements.py.
 Resolved: Site has docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md to define governed evidence transitions.
 Resolved: Site has scripts/check_site_mirror_evidence_transition_rules.py to verify evidence transition rules remain aligned with the ledger and handoff.
+Resolved: Site closure guard workflow runs scripts/check_site_mirror_evidence_transition_rules.py.
 Resolved: Site has docs/SITE_SELF_MANAGED_COMPLETION.md to define repository-managed continuation readiness under the new goal.
 Resolved: Site has scripts/check_site_self_managed_completion.py to verify the self-managed completion assessment while preserving pending activation.
+Resolved: Site closure guard workflow runs scripts/check_site_self_managed_completion.py.
 Resolved: Site has github/workflows/site-self-managed-completion.yml to run self-managed completion and handoff checks automatically on relevant changes.
 Resolved: Site built-files ledger now records docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as part of the repo-resident management handoff surface.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
