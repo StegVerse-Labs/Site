@@ -42,6 +42,7 @@ These paths are visible enough that their purpose, authority, and evidence bound
 | Path | Public meaning | May contain | Must not imply | Authority source |
 |---|---|---|---|---|
 | `/` | Site repository landing surface and public entry point. | Overview material, links to public evidence, display pages, and documentation. | Adoption, endorsement, or activated mirror status by itself. | `StegVerse-Labs/Site` checked-in content. |
+| `/admissibility-wiki.html` | Public bridge to the Admissibility Wiki. | Vocabulary bridge copy, AI-governed proposal-system explanation, transition-table element mapping, proposal transition blocks, and links to wiki source/status. | That Site accepts wiki proposals, issues wiki receipts, authors wiki decisions, or becomes proof authority. | `StegVerse-Labs/admissibility-wiki` remains source of truth for wiki records; Site is display/bridge only. |
 | `/papers` | Public display target for mirrored Publisher papers. | Mirrored papers, manifest-derived listings, paper aliases, display-policy references. | That Site is the editorial source of truth. | `GCAT-BCAT-Engine/Publisher` remains source of truth. |
 | `/upload` | GitHub upload route, not a StegVerse evidence intake guarantee. | User-initiated GitHub upload UI if permissions allow. | That uploaded files are automatically accepted, validated, or committed. | GitHub permissions and repository review rules. |
 | `/upload/main` | GitHub upload route targeting the default branch context. | Candidate file uploads from authorized GitHub users. | That default-branch uploads bypass validation or review. | GitHub branch protections, workflows, and maintainers. |
@@ -60,6 +61,7 @@ These paths are visible enough that their purpose, authority, and evidence bound
 
 ```text
 /
+/admissibility-wiki.html
 /papers
 /docs
 ```
@@ -112,6 +114,7 @@ workflow evidence surface
 source-preserving mirror path
 sandbox-only candidate material
 pending validation
+public bridge surface
 ```
 
 Avoid:
@@ -124,6 +127,18 @@ trusted by traffic
 validated by upload
 production-proven from views
 ```
+
+## Admissibility Wiki Bridge Boundary
+
+For `admissibility-wiki.html`, the Site repository is a public bridge surface.
+
+The vocabulary, terminology-convergence, proposal-review, decision-record, receipt, ontology, and wiki-status authority remains:
+
+```text
+StegVerse-Labs/admissibility-wiki
+```
+
+Site may explain the AI-governed proposal system and transition-table elements, but Site must not claim that it accepts wiki proposals, issues wiki receipts, or decides wiki terminology standing.
 
 ## Mirror-Specific Boundary
 
@@ -174,6 +189,7 @@ This document is complete when:
 high-interest public paths have explicit semantics
 upload routes are marked as candidate-submission routes only
 papers are marked as mirror display targets only
+admissibility-wiki.html is marked as public bridge only
 traffic is not treated as adoption or activation
 workflow history is tied to receipts and evidence fields
 ```
