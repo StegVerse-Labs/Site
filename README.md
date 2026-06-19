@@ -13,6 +13,7 @@ governance documentation, and product information from canonical source data.
 formalism-tests    =  proof/test authority
 StegVerse-002      =  governed deployment authority
 Site               =  public mirror only
+Ecosystem Chat     =  text-only command surface, not proof authority
 
 Site publishes receipts. Site does not generate them.
 Site must never become the authority for receipts, transitions, or accreditation.
@@ -27,6 +28,7 @@ Site must never become the authority for receipts, transitions, or accreditation
 | Page | Purpose |
 |------|---------|
 | [`index.html`](index.html) | Home — proof status, product overview, live evidence |
+| [`ecosystem-chat.html`](ecosystem-chat.html) | Text-only ecosystem command console — local route scaffold, no proof authority |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
