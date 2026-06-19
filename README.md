@@ -47,6 +47,7 @@ Site must never become the authority for receipts, transitions, or accreditation
 | [`assets/ecosystem-chat.js`](assets/ecosystem-chat.js) | Browser-side text-only console logic, local route scaffold, fail-closed gateway adapter |
 | [`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md) | Backend activation contract for `POST /api/ecosystem-chat` and receipt boundary rules |
 | [`scripts/check_ecosystem_chat_contract.py`](scripts/check_ecosystem_chat_contract.py) | Static checker for the console page, gateway adapter, README index, and receipt boundary contract |
+| `github/workflows/check-ecosystem-chat.yml` | Workflow path shown without leading dot; runs the Ecosystem Chat contract checker on relevant pushes, pull requests, and manual dispatch |
 
 ### Public positioning
 
@@ -82,6 +83,7 @@ Current delta: checked-in manifest remains pending live Publisher dispatch and S
 ```
 
 Note: the workflow path starts with a leading dot in the repository. It is shown here without the leading dot as requested: `github/workflows/mirror-papers.yml`.
+Note: the Ecosystem Chat workflow path also starts with a leading dot in the repository. It is shown here without the leading dot as requested: `github/workflows/check-ecosystem-chat.yml`.
 
 ### Transition pages
 
