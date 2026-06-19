@@ -31,7 +31,8 @@ Actual repository path:
 8. Check activation status through scripts/check_site_mirror_activation_status.py.
 9. Check evidence requirements through scripts/check_site_mirror_evidence_requirements.py.
 10. Check evidence transition rules through scripts/check_site_mirror_evidence_transition_rules.py.
-11. Write a workflow summary stating that Publisher closure remains required before activation can be claimed.
+11. Check self-managed completion through scripts/check_site_self_managed_completion.py.
+12. Write a workflow summary stating that Publisher closure remains required before activation can be claimed.
 ```
 
 ## Forbidden Guard Behavior
@@ -71,10 +72,11 @@ This packet is complete when:
 ```text
 python scripts/check_site_mirror_closure_guard.py
 python scripts/check_site_mirror_evidence_transition_rules.py
+python scripts/check_site_self_managed_completion.py
 ```
 
 pass.
 
 ## Archive Readiness
 
-This file is sufficient for a future session to verify the Site mirror closure guard boundary without prior chat context.
+This file is sufficient for a future session to verify the Site mirror closure guard boundary and repository-managed continuation readiness without prior chat context.
