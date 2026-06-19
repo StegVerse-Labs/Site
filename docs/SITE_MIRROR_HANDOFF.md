@@ -54,6 +54,7 @@ docs/SITE_MIRROR_ACTIVATION_LEDGER.json
 docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
 docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md
 docs/SITE_SELF_MANAGED_COMPLETION.md
+docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_PUBLIC_PATHS.md
 docs/SITE_INGESTION_SURFACES.md
@@ -424,9 +425,10 @@ Resolved: Site has scripts/check_site_mirror_evidence_transition_rules.py to ver
 Resolved: Site has docs/SITE_SELF_MANAGED_COMPLETION.md to define repository-managed continuation readiness under the new goal.
 Resolved: Site has scripts/check_site_self_managed_completion.py to verify the self-managed completion assessment while preserving pending activation.
 Resolved: Site has github/workflows/site-self-managed-completion.yml to run self-managed completion and handoff checks automatically on relevant changes.
+Resolved: Site built-files ledger now records docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as part of the repo-resident management handoff surface.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
 ## Archive Readiness
 
-This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, evidence transition rules, self-managed completion assessment, self-managed completion workflow, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, machine-verifiable activation ledger, activation-status reconciliation, evidence-requirements reconciliation, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff contains the repo state, automated Site evidence path, Publisher closure nudge, validators, evidence requirements, evidence transition rules, self-managed completion assessment, self-managed completion workflow, Site mirror ecosystem management handoff, traffic-signal documentation, public path semantics, ingestion-surface semantics, enforced public ingestion contract, handoff-to-repository structure verification, closure next-build guard, no-secret closure guard workflow, independently auditable closure guard packet, machine-verifiable activation ledger, activation-status reconciliation, evidence-requirements reconciliation, and combined hardening packet needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
