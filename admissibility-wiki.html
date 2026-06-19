@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegVerse Admissibility Wiki bridge — public vocabulary, proof-path examples, and authority boundaries.">
+  <meta name="description" content="StegVerse Admissibility Wiki bridge — public vocabulary, AI-governed proposal intake, transition-table posture, proof-path examples, and authority boundaries.">
   <title>Admissibility Wiki — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
 </head>
@@ -32,39 +32,89 @@
 <div class="sv-wrap">
 
   <div class="sv-hero">
-    <div class="sv-eyebrow">Vocabulary · Proof paths · Governance boundaries</div>
+    <div class="sv-eyebrow">Vocabulary · Proposal receipts · Transition blocks · Governance boundaries</div>
     <h1>Admissibility <em>Wiki</em></h1>
-    <p>The Admissibility Wiki is the StegVerse vocabulary and explanation layer for transition governance, commit-time authority, receipt-bound execution, and reconstructable proof paths.</p>
+    <p>The Admissibility Wiki is the StegVerse vocabulary, terminology convergence, AI-governed proposal-review, and proof-path explanation layer for transition governance.</p>
     <div class="sv-btn-row">
       <a class="sv-btn sv-btn-primary" href="https://github.com/StegVerse-Labs/admissibility-wiki">Open repository</a>
-      <a class="sv-btn sv-btn-secondary" href="data/formalism-tests/current-admissibility-status.json">Current status JSON</a>
-      <a class="sv-btn sv-btn-secondary" href="transition-proof-surface.html">Proof surface</a>
-      <a class="sv-btn sv-btn-secondary" href="transition-replay-packet.html">Replay packet</a>
+      <a class="sv-btn sv-btn-secondary" href="https://stegverse-labs.github.io/admissibility-wiki/">Open wiki site</a>
+      <a class="sv-btn sv-btn-secondary" href="https://raw.githubusercontent.com/StegVerse-Labs/admissibility-wiki/main/static/status/admissibility-wiki-status.json">Wiki status JSON</a>
+      <a class="sv-btn sv-btn-secondary" href="transition-table.html">Transition Table</a>
     </div>
   </div>
 
   <div class="sv-boundary">
-    Site is the public mirror. The Admissibility Wiki defines vocabulary and proof-path explanations. Data-Continuation/formalism-tests remains proof authority.
+    Site is a public bridge and display surface. The Admissibility Wiki repository remains the source of truth for wiki vocabulary, proposal records, decision records, and terminology convergence posture. Formalism tests remain proof authority where executable proof is required.
+  </div>
+
+  <h2 class="sv-h2">Why this page exists</h2>
+  <div class="sv-prose">
+    <p>This page exists so public visitors can understand what the Admissibility Wiki is, why it exists, and how the wiki's own proposal system is described using transition-table language.</p>
+    <p>It does not accept proposals, issue receipts, approve terminology, or activate proof authority. It points to the governed wiki surface and explains the current role split.</p>
   </div>
 
   <h2 class="sv-h2">Current role split</h2>
   <div class="sv-card-grid">
     <div class="sv-card">
       <h3 class="sv-h3">Site</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Public display surface for status pages, proof mirrors, and explanatory entry points. Site must not become the authority for receipts.</p>
-      <span class="pill pill-blue">public mirror</span>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Public navigation and bridge surface for status pages, proof mirrors, and explanatory entry points. Site must not become the authority for wiki decisions or receipts.</p>
+      <span class="pill pill-blue">public bridge</span>
     </div>
     <div class="sv-card">
       <h3 class="sv-h3">Admissibility Wiki</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Vocabulary, glossary, ontology, governance-page templates, and minimal public proof-path explanations.</p>
-      <span class="pill pill-blue">vocabulary layer</span>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Vocabulary, terminology convergence, glossary pages, proposal lifecycle, decision records, ontology, and public proof-path explanations.</p>
+      <span class="pill pill-blue">governed vocabulary layer</span>
     </div>
     <div class="sv-card">
       <h3 class="sv-h3">formalism-tests</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Executable proof/test authority that produces formalism results and receipts.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Executable proof/test authority that produces formalism results and receipts where executable proof is required.</p>
       <span class="pill pill-green">proof authority</span>
     </div>
   </div>
+
+  <h2 class="sv-h2">AI-governed proposal system</h2>
+  <div class="sv-prose">
+    <p>The AI-governed proposal system is the wiki process by which user-submitted, maintainer-submitted, browser-originated, LLM-assisted, and AI-entity-suggested changes enter structured review.</p>
+    <p>A proposal may request a new term, revised definition, equivalence claim, overlap claim, adjacent-term mapping, implementation mapping, external reference, counterexample, dispute, or proof-path example.</p>
+    <p>Submission creates a proposal record and a submission receipt. It does not create acceptance authority. Acceptance, rejection, deferral, escalation, refusal, or supersession requires a decision record.</p>
+  </div>
+
+  <h2 class="sv-h2">Submission receipt timing</h2>
+  <div class="sv-prose">
+    <p>User proposal receipts should include timing for the submission process itself: when the proposal was received, when the receipt was issued, which submission-stage tasks ran, and when each task started and completed.</p>
+    <p>Timing supports reconstructability. Timing does not prove the submitted claim, accept the proposal, or replace the decision record.</p>
+  </div>
+
+  <h2 class="sv-h2">Transition-table elements defining the wiki</h2>
+  <table class="sv-table">
+    <thead><tr><th>Element</th><th>Current wiki meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>Transition</code></td><td>A proposed change to wiki content, ontology, governance policy, proof-path examples, status mirrors, or terminology mappings.</td></tr>
+      <tr><td><code>Actor / proposer</code></td><td>Maintainer, contributor, external user, browser-originated flow, LLM-assisted draft, or AI Entity suggestion.</td></tr>
+      <tr><td><code>Authority class</code></td><td>The declared standing of the actor or process, such as wiki maintainer, vocabulary editor, contributor suggestion, or AI Entity review.</td></tr>
+      <tr><td><code>Policy reference</code></td><td>The rule basis for the wiki decision, including page-review policy and related governance pages.</td></tr>
+      <tr><td><code>Evidence posture</code></td><td>The state of supporting information: none, partial, present, sufficient, conflicting, stale, or insufficient.</td></tr>
+      <tr><td><code>Review posture</code></td><td>The state of review: submitted, receipt issued, triaged, under review, needs evidence, entity reviewed, maintainer reviewed, or quorum reviewed.</td></tr>
+      <tr><td><code>Drift</code></td><td>A relevant change in page state, ontology state, evidence, proposal content, external terminology, or review context.</td></tr>
+      <tr><td><code>Decision result</code></td><td>ALLOW, DENY, ESCALATE, REFUSE, DEFER, SUPERSEDE, or another declared wiki-governance result.</td></tr>
+      <tr><td><code>Receipt</code></td><td>A durable record of the proposal, timing, review, decision, replay, and reconstruction links.</td></tr>
+      <tr><td><code>Commit-time validity</code></td><td>Whether the page or governance change had standing when accepted into the wiki.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sv-h2">Transition blocks for wiki proposals</h2>
+  <table class="sv-table">
+    <thead><tr><th>Block</th><th>Purpose</th><th>Authority boundary</th></tr></thead>
+    <tbody>
+      <tr><td>Submission block</td><td>Captures proposal ID, proposer class, target page, claim class, evidence posture, and receipt link.</td><td>Produces a receipt, not acceptance.</td></tr>
+      <tr><td>Intake timing block</td><td>Records received time, task timing, receipt issue time, and timing posture.</td><td>Supports reconstruction only.</td></tr>
+      <tr><td>Relationship classification block</td><td>Classifies terminology claims as equivalent, overlapping, adjacent, broader, narrower, contradictory, or unresolved.</td><td>Classification is review input, not final disposition.</td></tr>
+      <tr><td>Review block</td><td>Applies declared wiki policy and authority class.</td><td>Produces or informs a decision record.</td></tr>
+      <tr><td>Decision block</td><td>Records ALLOW, DENY, ESCALATE, REFUSE, DEFER, or SUPERSEDE with authority, policy, evidence, and review posture.</td><td>Only the decision record gives the proposal standing.</td></tr>
+      <tr><td>Publication block</td><td>Publishes accepted changes to pages, ontology, governance records, or status mirrors.</td><td>Publication must not erase rejected, deferred, or disputed records.</td></tr>
+      <tr><td>Replay and reconstruction block</td><td>Provides evidence and replay pointers for mature decisions.</td><td>Makes the decision path visible; does not replace proof authority.</td></tr>
+    </tbody>
+  </table>
 
   <h2 class="sv-h2">Installed proof-path outcomes</h2>
   <table class="sv-table">
@@ -80,23 +130,24 @@
 
   <h2 class="sv-h2">Machine-readable status</h2>
   <div class="sv-prose">
-    <p>The current public status artifact is:</p>
-    <pre>data/formalism-tests/current-admissibility-status.json</pre>
-    <p>This artifact exists to prevent older Stage 10 transition-table release-candidate data from being mistaken as the only current public admissibility status.</p>
+    <p>The current wiki status artifact is maintained by the Admissibility Wiki repository:</p>
+    <pre>static/status/admissibility-wiki-status.json</pre>
+    <p>Site may link to that artifact, but Site does not author the wiki status or create wiki activation standing.</p>
   </div>
 
   <h2 class="sv-h2">Non-claims</h2>
   <pre>Site is not proof authority.
-Site does not generate receipts.
+Site does not generate Admissibility Wiki proposal receipts.
+Site does not accept wiki terminology proposals.
+Site does not replace Admissibility Wiki governance records.
 The Admissibility Wiki does not replace executable formalism tests.
-A public page is not proof of admissibility by itself.
-Stage 10 transition-table data is historical unless explicitly labeled current by a newer status artifact.</pre>
+A public page is not proof of admissibility by itself.</pre>
 
 </div>
 
 <footer class="sv-footer">
   <span>StegVerse · Admissibility Wiki · Public vocabulary bridge</span>
-  <span><a href="index.html">Home</a> · <a href="transition-proof-surface.html">Proof Surface</a> · <a href="data/formalism-tests/current-admissibility-status.json">Current Status JSON</a></span>
+  <span><a href="index.html">Home</a> · <a href="transition-table.html">Transition Table</a> · <a href="https://github.com/StegVerse-Labs/admissibility-wiki">Admissibility Wiki Repo</a></span>
 </footer>
 
 </body>
