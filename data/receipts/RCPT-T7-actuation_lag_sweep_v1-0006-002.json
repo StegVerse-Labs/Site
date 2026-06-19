@@ -1,7 +1,7 @@
 {
   "receipt_id": "RCPT-T7-actuation_lag_sweep_v1-0006-002",
   "schema": "stegverse.transition_receipt.v1",
-  "created_at": "2026-06-14T06:18:28Z",
+  "created_at": "2026-06-19T12:10:47Z",
   "run_id": "T7-actuation_lag_sweep_v1-0006",
   "ledger_row_id": "T7-actuation_lag_sweep_v1-0006-002",
   "element_id": "T7",
@@ -179,5 +179,5 @@
     "status": "replayable",
     "instructions": "Recompute each staged state by adding the recorded drift/action vectors, then recompute capacity, invariant, and verdicts."
   },
-  "receipt_hash": "sha256:47b3703670bd0bf172ec53f4712b28282d902766254350be2bba480ffcd05c72"
+  "receipt_hash": "sha256:91c3d9a022e36d2ba4fe0d010e5383d5575f88437a09cd171198b3d2eb32b454"
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T06:18:28Z",
+  "generated_at": "2026-06-19T12:10:47Z",
   "schema": "stegverse.automation_release_verifier.v1",
   "all_release_modes_verified": true,
   "current_state": "receipt_backed_automation_ready",

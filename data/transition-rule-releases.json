@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T06:18:28Z",
+  "generated_at": "2026-06-19T12:10:47Z",
   "schema": "stegverse.transition_rule_releases.v1",
   "automation_gate": {
     "mode": "scheduled_ready",
