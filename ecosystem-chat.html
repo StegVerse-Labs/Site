@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Text-only StegVerse ecosystem command console for build routing, boundary classification, and receipt-style local transcripts.">
+  <title>StegVerse — Ecosystem Chat Console</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .chat-shell {
+      display: grid;
+      gap: 16px;
+    }
+    .chat-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .chat-log {
+      min-height: 360px;
+      max-height: 560px;
+      overflow-y: auto;
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      background: linear-gradient(180deg, rgba(77,184,255,0.04), rgba(11,15,26,0));
+    }
+    .chat-message {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      background: rgba(17, 24, 39, 0.88);
+    }
+    .chat-message.user {
+      border-color: #27405f;
+      background: rgba(26, 34, 53, 0.92);
+    }
+    .chat-message.system {
+      border-left: 3px solid var(--green);
+    }
+    .chat-message .label {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+    .chat-message .body {
+      color: #c8d4e8;
+      white-space: pre-wrap;
+    }
+    .chat-form {
+      border-top: 1px solid var(--border);
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      background: #0c1320;
+    }
+    .chat-input {
+      width: 100%;
+      min-height: 116px;
+      resize: vertical;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      background: #080d16;
+      color: var(--text);
+      font: 13px/1.55 var(--mono);
+      padding: 12px;
+    }
+    .chat-input:focus {
+      outline: 1px solid var(--accent);
+      border-color: var(--accent);
+    }
+    .chat-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chat-hint {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .receipt-block {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #132215;
+      overflow-wrap: anywhere;
+    }
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .route-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .route-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .route-card span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    @media (max-width: 600px) {
+      .chat-log { min-height: 300px; padding: 12px; }
+      .chat-actions { align-items: stretch; }
+      .chat-actions .sv-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="ecosystem-chat.html" class="active">Ecosystem Chat</a>
+  <a href="demo.html">Demo</a>
+  <a href="tests/index.html">Tests</a>
+  <a href="applicability.html">Applicability</a>
+  <a href="math-solver/index.html">Math-Solver</a>
+  <a href="stegfinco.html">FinCo</a>
+  <a href="product.html">Product</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="methodology.html">Methodology</a>
+  <a href="about.html">About</a>
+  <a href="stegverse-002.html">StegVerse-002</a>
+  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
+  <a href="transition-table.html">Transition Table</a>
+  <a href="formalisms/index.html">Formalisms</a>
+  <a href="admissibility-wiki.html">Admissibility Wiki</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+
+<div class="sv-wrap">
+
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Text-only build console · public mirror boundary</div>
+    <h1>StegVerse Ecosystem Chat<br><em>command routing without authority drift.</em></h1>
+    <p>Type a build or governance request, classify the intended route, and produce a local receipt-style transcript. This page is a browser-native console scaffold for StegVerse work; it does not create proof receipts, execute repository writes, or replace governed deployment authority.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="#console">Open console</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md">Management handoff</a>
+      <a class="sv-btn sv-btn-secondary" href="transition-verification-guide.html">Verification guide</a>
+    </div>
+  </div>
+
+  <div class="sv-boundary">
+    <strong>Boundary:</strong> Site is a public mirror and command surface. The console can classify, draft, and preserve a local transcript. It must not claim receipt authority, transition authority, accreditation authority, or autonomous deployment authority.
+  </div>
+
+  <h2 class="sv-h2">Initial text-only routing map</h2>
+  <div class="route-grid">
+    <div class="route-card"><strong>Site</strong><span>Pages, public mirrors, navigation, handoff display, proof surfaces.</span></div>
+    <div class="route-card"><strong>StegVerse-002</strong><span>Governed deployment posture, intake state, clean-slate work entity.</span></div>
+    <div class="route-card"><strong>formalism-tests</strong><span>Proof/test authority references, formalism validation, admissibility checks.</span></div>
+    <div class="route-card"><strong>Continuity</strong><span>Receipt-chain concepts, replay context, state continuity language.</span></div>
+    <div class="route-card"><strong>Publisher</strong><span>Paper mirror source posture, manifest regeneration, publication boundaries.</span></div>
+    <div class="route-card"><strong>Unknown</strong><span>Fallback for requests needing human clarification or new ecosystem mapping.</span></div>
+  </div>
+
+  <h2 class="sv-h2" id="console">Console</h2>
+  <div class="chat-shell">
+    <div class="chat-panel">
+      <div class="chat-log" id="chatLog" aria-live="polite">
+        <div class="chat-message system">
+          <div class="label">StegVerse Console</div>
+          <div class="body">Ready for text-only ecosystem build requests. Try: “continue building Site”, “update README”, “prepare handoff”, “summarize repo state”, or “classify this transition request”.</div>
+          <div class="receipt-block">mode=local-simulation · authority=none · receipt=not-issued</div>
+        </div>
+      </div>
+      <form class="chat-form" id="chatForm">
+        <label class="chat-hint" for="messageInput">Text input only. No uploads, voice, images, or hidden external execution in this MVP.</label>
+        <textarea class="chat-input" id="messageInput" name="message" placeholder="Type a StegVerse build/governance request..." required></textarea>
+        <div class="chat-actions">
+          <span class="chat-hint">Local transcript only. Future gateway: <code>POST /api/ecosystem-chat</code>.</span>
+          <button class="sv-btn sv-btn-primary" type="submit">Route request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <h2 class="sv-h2">Gateway contract target</h2>
+  <pre>POST /api/ecosystem-chat
+{
+  "message": "continue building Site",
+  "session_id": "browser-session-id",
+  "repo": "StegVerse-Labs/Site",
+  "goal": "text-only ecosystem command console"
+}
+
+200 OK
+{
+  "response": "...",
+  "routed_module": "Site",
+  "receipt_id": "authority-issued-receipt-id-or-null",
+  "next_action": "..."
+}</pre>
+
+  <h2 class="sv-h2">MVP completion definition</h2>
+  <div class="sv-prose">
+    <p>Done for this page means a user can type a StegVerse ecosystem request, see a deterministic route classification, receive a bounded response scaffold, and preserve a local transcript without confusing Site with proof authority.</p>
+    <p>The next activation step is replacing the local response generator with a governed backend gateway that can call the correct StegVerse handler and return an authority-issued receipt when appropriate.</p>
+  </div>
+
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · Text-only ecosystem console · Public mirror boundary</span>
+  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="transition-verification-guide.html">Verification Guide</a></span>
+</footer>
+
+<script>
+  const ROUTES = [
+    { name: 'Site', terms: ['site', 'page', 'html', 'nav', 'navigation', 'mirror', 'public', 'readme', 'papers'] },
+    { name: 'StegVerse-002', terms: ['sv002', 'stegverse-002', 'core-lite', 'intake', 'deployment', 'm10'] },
+    { name: 'formalism-tests', terms: ['formalism', 'test', 'proof', 'admissibility', 'allow', 'deny', 'fail-closed', 'stage'] },
+    { name: 'Continuity', terms: ['continuity', 'receipt', 'replay', 'hash', 'chain', 'state'] },
+    { name: 'Publisher', terms: ['publisher', 'paper', 'manifest', 'publication', 'mirror-papers'] }
+  ];
+
+  const form = document.getElementById('chatForm');
+  const input = document.getElementById('messageInput');
+  const log = document.getElementById('chatLog');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const message = input.value.trim();
+    if (!message) return;
+
+    appendMessage('User', message, 'user');
+    input.value = '';
+
+    const route = classifyRoute(message);
+    const receipt = await localReceipt(message, route);
+    const response = buildLocalResponse(message, route);
+    appendMessage('Console Route', response, 'system', receipt);
+  });
+
+  function classifyRoute(message) {
+    const text = message.toLowerCase();
+    const scored = ROUTES.map((route) => ({
+      name: route.name,
+      score: route.terms.reduce((total, term) => total + (text.includes(term) ? 1 : 0), 0)
+    })).sort((a, b) => b.score - a.score);
+
+    return scored[0].score > 0 ? scored[0].name : 'Unknown';
+  }
+
+  function buildLocalResponse(message, route) {
+    const nextAction = route === 'Unknown'
+      ? 'Define a new ecosystem route or restate the request with repo/module context.'
+      : `Send this request to the ${route} handler once the governed backend gateway is connected.`;
+
+    return [
+      `Route: ${route}`,
+      'Authority: none; browser-local classification only.',
+      'Boundary: Site may draft, classify, and display; Site must not issue proof receipts or perform governed commits.',
+      `Next action: ${nextAction}`,
+      '',
+      'Request preserved:',
+      message
+    ].join('\n');
+  }
+
+  async function localReceipt(message, route) {
+    const payload = JSON.stringify({
+      route,
+      message,
+      mode: 'local-simulation',
+      authority: 'none',
+      issued_at: new Date().toISOString()
+    });
+    const data = new TextEncoder().encode(payload);
+    const digest = await crypto.subtle.digest('SHA-256', data);
+    const hash = Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
+    return `local_receipt_hash=sha256:${hash} · authority=none · receipt=not-issued`;
+  }
+
+  function appendMessage(label, body, type, receipt) {
+    const wrapper = document.createElement('div');
+    wrapper.className = `chat-message ${type || ''}`.trim();
+
+    const labelNode = document.createElement('div');
+    labelNode.className = 'label';
+    labelNode.textContent = label;
+
+    const bodyNode = document.createElement('div');
+    bodyNode.className = 'body';
+    bodyNode.textContent = body;
+
+    wrapper.appendChild(labelNode);
+    wrapper.appendChild(bodyNode);
+
+    if (receipt) {
+      const receiptNode = document.createElement('div');
+      receiptNode.className = 'receipt-block';
+      receiptNode.textContent = receipt;
+      wrapper.appendChild(receiptNode);
+    }
+
+    log.appendChild(wrapper);
+    log.scrollTop = log.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
