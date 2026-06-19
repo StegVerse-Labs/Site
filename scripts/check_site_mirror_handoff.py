@@ -11,12 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 HANDOFF_PATH = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 
 REQUIRED_GOAL_FIELDS = {
-    "Goal: autonomous Site mirror completion or ecosystem-managed handoff",
+    "Goal: Continue building without manual actions needed through completion",
+    "task handoff and task completion are capable of being handled by the ecosystem's own management",
     "Repository: StegVerse-Labs/Site",
     "Source repository: GCAT-BCAT-Engine/Publisher",
     "Source path: papers",
     "Target path: papers",
-    "Assessment state: ecosystem_managed_handoff_capable",
+    "Activation state: pending_publisher_closure_evidence",
+    "Self-management state: repository_managed_continuation_ready",
 }
 
 REQUIRED_VALIDATOR_COMMANDS = {
@@ -32,7 +34,7 @@ REQUIRED_VALIDATOR_COMMANDS = {
     "python scripts/check_site_mirror_activation_status.py",
     "python scripts/check_site_mirror_evidence_requirements.py",
     "python scripts/check_site_mirror_evidence_transition_rules.py",
-    "python scripts/check_site_mirror_autonomous_completion_assessment.py",
+    "python scripts/check_site_self_managed_completion.py",
     "python scripts/check_papers_manifest_metadata.py",
     "python scripts/check_paper_aliases.py",
 }
@@ -84,11 +86,22 @@ REQUIRED_EVIDENCE_TRANSITION_TERMS = {
     "evidence values may advance from pending",
 }
 
-REQUIRED_ASSESSMENT_TERMS = {
+REQUIRED_SELF_MANAGED_TERMS = {
+    "docs/SITE_SELF_MANAGED_COMPLETION.md",
+    "Self-Managed Completion Packet",
+    "python scripts/check_site_self_managed_completion.py",
+    "repository-managed continuation ready",
+    "keeping activation pending until governed Publisher closure evidence exists",
+}
+
+FORBIDDEN_TERMS = {
+    "Goal: Site mirror activation hardening",
+    "Goal: autonomous Site mirror completion or ecosystem-managed handoff",
+    "Assessment state: ecosystem_managed_handoff_capable",
     "docs/SITE_MIRROR_AUTONOMOUS_COMPLETION_ASSESSMENT.md",
-    "Autonomous Completion Assessment Packet",
     "python scripts/check_site_mirror_autonomous_completion_assessment.py",
-    "ecosystem-managed handoff",
+    "Activation state: activated",
+    "Activation: complete",
 }
 
 
@@ -135,6 +148,10 @@ def _require_terms(markdown: str, terms: set[str]) -> list[str]:
     return sorted(term for term in terms if term not in markdown)
 
 
+def _reject_terms(markdown: str, terms: set[str]) -> list[str]:
+    return sorted(term for term in terms if term in markdown)
+
+
 def main() -> int:
     try:
         markdown = _load_handoff()
@@ -155,13 +172,17 @@ def main() -> int:
             ("Activation Status Packet", REQUIRED_STATUS_TERMS),
             ("Evidence Requirements Packet", REQUIRED_EVIDENCE_REQUIREMENTS_TERMS),
             ("Evidence Transition Rules Packet", REQUIRED_EVIDENCE_TRANSITION_TERMS),
-            ("Autonomous Completion Assessment Packet", REQUIRED_ASSESSMENT_TERMS),
+            ("Self-Managed Completion Packet", REQUIRED_SELF_MANAGED_TERMS),
         ]
 
         for section_name, terms in checks:
             missing_terms = _require_terms(markdown, terms)
             if missing_terms:
                 errors.append(f"Handoff is missing required {section_name} terms: " + ", ".join(missing_terms))
+
+        forbidden_terms = _reject_terms(markdown, FORBIDDEN_TERMS)
+        if forbidden_terms:
+            errors.append("Handoff contains obsolete or forbidden terms: " + ", ".join(forbidden_terms))
 
         if "Archive Readiness" not in markdown:
             errors.append("Handoff is missing Archive Readiness section.")
