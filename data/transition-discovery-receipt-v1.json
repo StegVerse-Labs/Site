@@ -1,0 +1,57 @@
+{
+  "schema": "stegverse.transition_discovery_receipt.v1",
+  "generated_at": "2026-06-20T00:00:00-05:00",
+  "repository": "StegVerse-Labs/Site",
+  "scope": "transition-discovery-public-surface",
+  "purpose": "Compact receipt for the public Transition Periodic Table discovery surface packet.",
+  "state": {
+    "current_release": "MS-012",
+    "current_frontier": "MS-012F",
+    "receipt_backed_partitions": ["T13", "T14"],
+    "expected_replay_verdict": "ALLOW",
+    "site_mirror_activation": "pending_publisher_closure_evidence"
+  },
+  "artifacts": {
+    "browser_state": "assets/transition-discovery-state.js",
+    "machine_state": "data/transition-discovery-state-v1.json",
+    "page_contract": "data/transition-page-contract-v1.json",
+    "renderer": "assets/transition-page-renderer.js",
+    "validator": "scripts/check_transition_discovery_public_surface.py",
+    "documentation": "docs/TRANSITION_DISCOVERY_PUBLIC_SURFACE.md",
+    "workflow": ".github/workflows/transition-discovery-public-surface.yml",
+    "ios_workflow_mirror": "iosnoperiod/github/workflows/transition-discovery-public-surface.yml",
+    "ios_manifest": "iosnoperiod/manifest.json"
+  },
+  "public_pages": [
+    "transition-table.html",
+    "transition-milestones.html",
+    "transition-development-status.html",
+    "transition-release-snapshot.html",
+    "transition-release-index.html",
+    "transition-verification-guide.html",
+    "transition-replay-packet.html"
+  ],
+  "validation": {
+    "command": "python scripts/check_transition_discovery_public_surface.py",
+    "expected_result": "transition discovery public surface checks passed",
+    "checks": [
+      "canonical browser state exists",
+      "machine-readable state exists",
+      "machine-readable page contract exists",
+      "receipt exists",
+      "seven root-level pages load shared state and renderer",
+      "seven root-level pages declare expected views",
+      "renderer exposes machine-readable state JSON",
+      "T13 and T14 remain receipt-backed",
+      "workflow calls validator",
+      "iosnoperiod workflow mirror matches canonical workflow",
+      "iosnoperiod manifest maps canonical and mirror workflow paths",
+      "Publisher closure boundary remains pending"
+    ]
+  },
+  "non_claims": [
+    "This receipt does not activate the Publisher-to-Site mirror.",
+    "This receipt does not claim the Transition Periodic Table is complete.",
+    "This receipt does not promote partitions outside the current evidence state."
+  ]
+}
