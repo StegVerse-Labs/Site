@@ -12,6 +12,8 @@ assets/transition-page-renderer.js
 data/transition-discovery-state-v1.json
 data/transition-page-contract-v1.json
 data/transition-discovery-receipt-v1.json
+docs/TRANSITION_DISCOVERY_RECEIPT.md
+docs/TRANSITION_DISCOVERY_STATUS.md
 ```
 
 `assets/transition-discovery-state.js` owns the browser-facing public discovery state.
@@ -23,6 +25,10 @@ data/transition-discovery-receipt-v1.json
 `data/transition-page-contract-v1.json` defines the machine-readable contract for the seven public page roles, expected views, required shared loads, required JSON exposure, workflow command, non-claims, and pending Publisher closure boundary.
 
 `data/transition-discovery-receipt-v1.json` records the compact public-surface receipt: current release, frontier, receipt-backed partitions, expected replay verdict, artifact pointers, validation command, and non-claims.
+
+`docs/TRANSITION_DISCOVERY_RECEIPT.md` is the human-readable receipt summary.
+
+`docs/TRANSITION_DISCOVERY_STATUS.md` is the future-session status handoff and active blocker surface.
 
 ## Root-level pages
 
@@ -58,6 +64,8 @@ Expected replay verdict: ALLOW
 Machine-readable mirror: data/transition-discovery-state-v1.json
 Machine-readable page contract: data/transition-page-contract-v1.json
 Machine-readable receipt: data/transition-discovery-receipt-v1.json
+Human-readable receipt: docs/TRANSITION_DISCOVERY_RECEIPT.md
+Status handoff: docs/TRANSITION_DISCOVERY_STATUS.md
 ```
 
 ## Validator
@@ -73,6 +81,8 @@ canonical JavaScript state exists
 machine-readable JSON mirror exists
 machine-readable page contract exists
 machine-readable receipt exists
+human-readable receipt exists
+status handoff exists
 JSON mirror schema is stegverse.transition_discovery_state.v1
 page contract schema is stegverse.transition_page_contract.v1
 receipt schema is stegverse.transition_discovery_receipt.v1
@@ -88,6 +98,7 @@ page contract preserves MS-012, MS-012F, T13/T14, and pending Publisher closure 
 page contract requires each page to expose data/transition-discovery-state-v1.json
 receipt lists all public artifacts and exact validation command
 receipt preserves the Publisher closure boundary as pending
+status handoff identifies Publisher closure evidence as the only mirror-activation blocker
 this documentation lists the expected public surfaces and boundary references
 the dedicated workflow exists and calls the checker
 the iosnoperiod workflow mirror matches the canonical workflow exactly
@@ -108,7 +119,7 @@ Displayed without the leading dot for iOS-safe review:
 github/workflows/transition-discovery-public-surface.yml
 ```
 
-The workflow runs on manual dispatch and on pushes that affect the canonical discovery state, machine-readable state, machine-readable page contract, machine-readable receipt, renderer, seven root-level public pages, this document, or the checker.
+The workflow runs on manual dispatch and on pushes that affect the canonical discovery state, machine-readable state, machine-readable page contract, machine-readable receipt, human-readable receipt, status handoff, renderer, seven root-level public pages, this document, or the checker.
 
 ## iOS-safe mirror
 
