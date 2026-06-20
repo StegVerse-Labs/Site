@@ -2,9 +2,9 @@
 """Validate the text-only Ecosystem Chat activation surface.
 
 This checker is intentionally static. It verifies that the public Site page,
-browser-side script, gateway contract, workflow gate, iOS path mapping, and
-README continue to preserve the public-mirror boundary and the gateway handoff
-contract.
+browser-side script, gateway contract, activation status, workflow gate, iOS
+path mapping, and README continue to preserve the public-mirror boundary and
+the gateway handoff contract.
 """
 
 from pathlib import Path
@@ -34,6 +34,12 @@ CHECKS = {
         "receipt_id",
         "Local transcript hashes are not proof receipts.",
         "Only the appropriate governed backend authority may issue a proof receipt.",
+    ],
+    "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md": [
+        "Backend gateway state: not installed",
+        "Authority-issued receipt state: not installed",
+        "Overall state: pre-backend activation",
+        "python scripts/check_ecosystem_chat_contract.py",
     ],
     ".github/workflows/check-ecosystem-chat.yml": [
         "name: Check Ecosystem Chat Contract",
