@@ -6,6 +6,7 @@ on:
     paths:
       - "assets/transition-discovery-state.js"
       - "assets/transition-page-renderer.js"
+      - "data/transition-discovery-state-v1.json"
       - "transition-table.html"
       - "transition-milestones.html"
       - "transition-development-status.html"
