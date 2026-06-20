@@ -3,10 +3,12 @@
 
 The transition pages must remain root-level public views of the canonical
 transition discovery state. This checker catches page drift, missing shared
-scripts, missing view declarations, and stale milestone claims.
+scripts, missing view declarations, stale milestone claims, and missing
+workflow/iOS mirror governance.
 """
 
 from pathlib import Path
+import json
 import re
 import sys
 
@@ -15,6 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "assets" / "transition-discovery-state.js"
 RENDERER_PATH = ROOT / "assets" / "transition-page-renderer.js"
 DOC_PATH = ROOT / "docs" / "TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
+WORKFLOW_PATH = ROOT / ".github" / "workflows" / "transition-discovery-public-surface.yml"
+IOS_MIRROR_PATH = ROOT / "iosnoperiod" / "github" / "workflows" / "transition-discovery-public-surface.yml"
+IOS_MANIFEST_PATH = ROOT / "iosnoperiod" / "manifest.json"
 
 PAGES = {
     "transition-table.html": "table",
@@ -58,6 +63,7 @@ REQUIRED_DOC_TERMS = [
     "MS-012F",
     "T13, T14",
     "docs/SITE_MIRROR_HANDOFF.md",
+    "python scripts/check_transition_discovery_public_surface.py",
 ]
 
 
@@ -87,6 +93,33 @@ def page_declares_view(text: str, expected_view: str) -> bool:
     return False
 
 
+def validate_workflow() -> None:
+    workflow = read(WORKFLOW_PATH)
+    mirror = read(IOS_MIRROR_PATH)
+    if workflow != mirror:
+        fail("iosnoperiod workflow mirror must match canonical workflow exactly")
+    require_terms(
+        "transition discovery workflow",
+        workflow,
+        [
+            "Transition Discovery Public Surface",
+            "workflow_dispatch",
+            "assets/transition-discovery-state.js",
+            "assets/transition-page-renderer.js",
+            "scripts/check_transition_discovery_public_surface.py",
+            "python scripts/check_transition_discovery_public_surface.py",
+        ],
+    )
+    manifest = json.loads(read(IOS_MANIFEST_PATH))
+    entries = manifest.get("authoritative_paths", [])
+    expected = {
+        "canonical": ".github/workflows/transition-discovery-public-surface.yml",
+        "mirror": "iosnoperiod/github/workflows/transition-discovery-public-surface.yml",
+    }
+    if not any(entry.get("canonical") == expected["canonical"] and entry.get("mirror") == expected["mirror"] for entry in entries):
+        fail("iosnoperiod manifest does not map transition discovery workflow canonical/mirror paths")
+
+
 def main() -> None:
     state = read(STATE_PATH)
     renderer = read(RENDERER_PATH)
@@ -97,6 +130,8 @@ def main() -> None:
 
     if "querySelector(\"[data-transition-view]\")" not in renderer:
         fail("renderer does not locate data-transition-view root")
+    if "transition-discovery-renderer-style" not in renderer:
+        fail("renderer does not inject shared transition discovery styling")
     for view in PAGES.values():
         if view not in renderer:
             fail(f"renderer missing view key/content for {view}")
@@ -114,6 +149,7 @@ def main() -> None:
     if receipt_status_count < 2:
         fail("canonical state must keep at least T13/T14 receipt-backed")
 
+    validate_workflow()
     print("transition discovery public surface checks passed")
 
 
