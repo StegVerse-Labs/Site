@@ -50,6 +50,7 @@ Site must never become the authority for receipts, transitions, or accreditation
 | [`docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md`](docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md) | Current local-simulation status, installed surfaces, and next backend milestone |
 | [`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json) | Example gateway request payload for backend implementers |
 | [`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json) | Example gateway response payload with null receipt state before backend activation |
+| [`fixtures/ecosystem-chat/sdk-form-payload.example.json`](fixtures/ecosystem-chat/sdk-form-payload.example.json) | Canonical SDK form payload preserving fields, manifest, and receipt_window layers |
 | [`scripts/check_ecosystem_chat_contract.py`](scripts/check_ecosystem_chat_contract.py) | Static checker for the console page, gateway adapter, README index, and receipt boundary contract |
 | `github/workflows/check-ecosystem-chat.yml` | Workflow path shown without leading dot; runs the Ecosystem Chat contract checker on relevant pushes, pull requests, and manual dispatch |
 | [`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md) | iOS no-leading-dot handling note for workflow paths |
