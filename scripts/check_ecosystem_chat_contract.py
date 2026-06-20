@@ -88,6 +88,10 @@ CHECKS = {
     ],
     ".github/workflows/check-ecosystem-chat.yml": [
         "name: Check Ecosystem Chat Contract",
+        "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+        "fixtures/ecosystem-chat/request.example.json",
+        "fixtures/ecosystem-chat/response.example.json",
+        "fixtures/ecosystem-chat/sdk-form-payload.example.json",
         "workflow_dispatch:",
         "python scripts/check_ecosystem_chat_contract.py",
     ],
