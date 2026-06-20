@@ -9,6 +9,7 @@ on:
       - "data/transition-discovery-state-v1.json"
       - "data/transition-page-contract-v1.json"
       - "data/transition-discovery-receipt-v1.json"
+      - "data/transition-discovery-status-v1.json"
       - "transition-table.html"
       - "transition-milestones.html"
       - "transition-development-status.html"
