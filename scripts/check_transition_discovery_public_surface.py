@@ -5,7 +5,8 @@ The transition pages must remain root-level public views of the canonical
 transition discovery state. This checker catches page drift, missing shared
 scripts, missing view declarations, stale milestone claims, missing JSON state,
 missing page contract state, missing receipt state, missing receipt documentation,
-missing renderer JSON links, and missing workflow/iOS mirror governance.
+missing status handoff, missing renderer JSON links, and missing workflow/iOS
+mirror governance.
 """
 
 from pathlib import Path
@@ -20,6 +21,7 @@ JSON_STATE_PATH = ROOT / "data" / "transition-discovery-state-v1.json"
 PAGE_CONTRACT_PATH = ROOT / "data" / "transition-page-contract-v1.json"
 RECEIPT_PATH = ROOT / "data" / "transition-discovery-receipt-v1.json"
 RECEIPT_DOC_PATH = ROOT / "docs" / "TRANSITION_DISCOVERY_RECEIPT.md"
+STATUS_DOC_PATH = ROOT / "docs" / "TRANSITION_DISCOVERY_STATUS.md"
 RENDERER_PATH = ROOT / "assets" / "transition-page-renderer.js"
 DOC_PATH = ROOT / "docs" / "TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "transition-discovery-public-surface.yml"
@@ -61,6 +63,7 @@ REQUIRED_DOC_TERMS = [
     "data/transition-page-contract-v1.json",
     "data/transition-discovery-receipt-v1.json",
     "docs/TRANSITION_DISCOVERY_RECEIPT.md",
+    "docs/TRANSITION_DISCOVERY_STATUS.md",
     "transition-table.html",
     "transition-milestones.html",
     "transition-development-status.html",
@@ -87,6 +90,21 @@ REQUIRED_RECEIPT_DOC_TERMS = [
     "transition discovery public surface checks passed",
     "docs/SITE_MIRROR_HANDOFF.md",
     "does not activate the Publisher-to-Site mirror",
+]
+
+REQUIRED_STATUS_DOC_TERMS = [
+    "Transition Discovery Status",
+    "status: public_surface_governed",
+    "current_release: MS-012",
+    "current_frontier: MS-012F",
+    "receipt_backed_partitions: T13, T14",
+    "site_mirror_activation: pending_publisher_closure_evidence",
+    "Publisher-to-Site mirror activation",
+    "Publisher closure evidence has not been provided to Site.",
+    "Provide governed Publisher closure evidence satisfying docs/SITE_MIRROR_HANDOFF.md.",
+    "It must not claim Publisher-to-Site mirror activation.",
+    "python scripts/check_transition_discovery_public_surface.py",
+    "transition discovery public surface checks passed",
 ]
 
 
@@ -186,6 +204,7 @@ def validate_receipt() -> None:
         "page_contract",
         "receipt",
         "receipt_doc",
+        "status_doc",
         "renderer",
         "validator",
         "documentation",
@@ -198,6 +217,8 @@ def validate_receipt() -> None:
             fail(f"receipt missing artifact pointer: {key}")
     if artifacts.get("receipt_doc") != "docs/TRANSITION_DISCOVERY_RECEIPT.md":
         fail("receipt_doc artifact must point to docs/TRANSITION_DISCOVERY_RECEIPT.md")
+    if artifacts.get("status_doc") != "docs/TRANSITION_DISCOVERY_STATUS.md":
+        fail("status_doc artifact must point to docs/TRANSITION_DISCOVERY_STATUS.md")
     if set(receipt.get("public_pages", [])) != set(PAGES):
         fail("receipt must list exactly the seven transition pages")
     validation = receipt.get("validation", {})
@@ -205,6 +226,8 @@ def validate_receipt() -> None:
         fail("receipt validation command mismatch")
     if "human-readable receipt exists" not in validation.get("checks", []):
         fail("receipt validation checks must require human-readable receipt")
+    if "status handoff exists" not in validation.get("checks", []):
+        fail("receipt validation checks must require status handoff")
     if "Publisher closure boundary remains pending" not in validation.get("checks", []):
         fail("receipt validation checks must preserve Publisher closure boundary")
 
@@ -226,6 +249,7 @@ def validate_workflow() -> None:
             "data/transition-page-contract-v1.json",
             "data/transition-discovery-receipt-v1.json",
             "docs/TRANSITION_DISCOVERY_RECEIPT.md",
+            "docs/TRANSITION_DISCOVERY_STATUS.md",
             "scripts/check_transition_discovery_public_surface.py",
             "python scripts/check_transition_discovery_public_surface.py",
         ],
@@ -245,10 +269,12 @@ def main() -> None:
     renderer = read(RENDERER_PATH)
     doc = read(DOC_PATH)
     receipt_doc = read(RECEIPT_DOC_PATH)
+    status_doc = read(STATUS_DOC_PATH)
 
     require_terms("canonical discovery state", state, REQUIRED_STATE_TERMS)
     require_terms("public surface doc", doc, REQUIRED_DOC_TERMS)
     require_terms("human-readable receipt doc", receipt_doc, REQUIRED_RECEIPT_DOC_TERMS)
+    require_terms("transition status handoff", status_doc, REQUIRED_STATUS_DOC_TERMS)
     validate_json_state(state)
     validate_page_contract()
     validate_receipt()
