@@ -12,6 +12,7 @@ on:
       - fixtures/ecosystem-chat/request.example.json
       - fixtures/ecosystem-chat/response.example.json
       - fixtures/ecosystem-chat/sdk-form-payload.example.json
+      - fixtures/ecosystem-chat/sdk-backend-response.example.json
       - scripts/check_ecosystem_chat_contract.py
       - iosnoperiod/iosnoperiod.md
       - iosnoperiod/workflow-map.json
@@ -28,6 +29,7 @@ on:
       - fixtures/ecosystem-chat/request.example.json
       - fixtures/ecosystem-chat/response.example.json
       - fixtures/ecosystem-chat/sdk-form-payload.example.json
+      - fixtures/ecosystem-chat/sdk-backend-response.example.json
       - scripts/check_ecosystem_chat_contract.py
       - iosnoperiod/iosnoperiod.md
       - iosnoperiod/workflow-map.json
