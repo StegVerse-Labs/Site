@@ -6,6 +6,7 @@ on:
       - ecosystem-chat.html
       - assets/ecosystem-chat.js
       - docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md
+      - docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
       - scripts/check_ecosystem_chat_contract.py
       - iosnoperiod/iosnoperiod.md
       - iosnoperiod/workflow-map.json
@@ -16,6 +17,7 @@ on:
       - ecosystem-chat.html
       - assets/ecosystem-chat.js
       - docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md
+      - docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
       - scripts/check_ecosystem_chat_contract.py
       - iosnoperiod/iosnoperiod.md
       - iosnoperiod/workflow-map.json
