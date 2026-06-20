@@ -3,8 +3,8 @@
 
 The transition pages must remain root-level public views of the canonical
 transition discovery state. This checker catches page drift, missing shared
-scripts, missing view declarations, stale milestone claims, and missing
-workflow/iOS mirror governance.
+scripts, missing view declarations, stale milestone claims, missing JSON state,
+and missing workflow/iOS mirror governance.
 """
 
 from pathlib import Path
@@ -15,6 +15,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 STATE_PATH = ROOT / "assets" / "transition-discovery-state.js"
+JSON_STATE_PATH = ROOT / "data" / "transition-discovery-state-v1.json"
 RENDERER_PATH = ROOT / "assets" / "transition-page-renderer.js"
 DOC_PATH = ROOT / "docs" / "TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "transition-discovery-public-surface.yml"
@@ -52,6 +53,7 @@ REQUIRED_STATE_TERMS = [
 REQUIRED_DOC_TERMS = [
     "assets/transition-discovery-state.js",
     "assets/transition-page-renderer.js",
+    "data/transition-discovery-state-v1.json",
     "transition-table.html",
     "transition-milestones.html",
     "transition-development-status.html",
@@ -93,6 +95,28 @@ def page_declares_view(text: str, expected_view: str) -> bool:
     return False
 
 
+def validate_json_state(state_text: str) -> None:
+    data = json.loads(read(JSON_STATE_PATH))
+    if data.get("schema") != "stegverse.transition_discovery_state.v1":
+        fail("JSON discovery state has wrong schema")
+    if data.get("current_release") != "MS-012":
+        fail("JSON discovery state current_release must be MS-012")
+    if data.get("current_frontier") != "MS-012F":
+        fail("JSON discovery state current_frontier must be MS-012F")
+    if data.get("receipt_backed_partitions") != ["T13", "T14"]:
+        fail("JSON discovery state receipt_backed_partitions must be T13/T14")
+    ids = {partition.get("id"): partition for partition in data.get("partitions", [])}
+    if len(ids) < 16:
+        fail("JSON discovery state must list all 16 current transition partitions")
+    for partition_id in ["T13", "T14"]:
+        if ids.get(partition_id, {}).get("status") != "RECEIPT_BACKED":
+            fail(f"JSON discovery state must keep {partition_id} receipt-backed")
+        if f'id: "{partition_id}"' not in state_text and f'id":"{partition_id}"' not in state_text:
+            fail(f"canonical JS state missing {partition_id}")
+    if data.get("boundary", {}).get("site_mirror_activation") != "pending_publisher_closure_evidence":
+        fail("JSON discovery state must preserve pending Publisher closure boundary")
+
+
 def validate_workflow() -> None:
     workflow = read(WORKFLOW_PATH)
     mirror = read(IOS_MIRROR_PATH)
@@ -127,6 +151,7 @@ def main() -> None:
 
     require_terms("canonical discovery state", state, REQUIRED_STATE_TERMS)
     require_terms("public surface doc", doc, REQUIRED_DOC_TERMS)
+    validate_json_state(state)
 
     if "querySelector(\"[data-transition-view]\")" not in renderer:
         fail("renderer does not locate data-transition-view root")
