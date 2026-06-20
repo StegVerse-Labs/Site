@@ -1,0 +1,43 @@
+{
+  "schema": "stegverse.transition_discovery_status.v1",
+  "generated_at": "2026-06-20T00:00:00-05:00",
+  "repository": "StegVerse-Labs/Site",
+  "scope": "transition-discovery-public-surface",
+  "status": "public_surface_governed",
+  "current_release": "MS-012",
+  "current_frontier": "MS-012F",
+  "receipt_backed_partitions": ["T13", "T14"],
+  "expected_replay_verdict": "ALLOW",
+  "site_mirror_activation": "pending_publisher_closure_evidence",
+  "complete": [
+    "root-level public transition pages exist",
+    "browser-facing canonical transition state exists",
+    "machine-readable transition state exists",
+    "machine-readable page contract exists",
+    "machine-readable receipt exists",
+    "human-readable receipt exists",
+    "human-readable status handoff exists",
+    "shared renderer exposes machine-readable state JSON",
+    "validator checks pages, states, contract, receipts, workflow, iOS mirror, status, and boundary",
+    "canonical workflow runs validator",
+    "iosnoperiod workflow mirror matches canonical workflow",
+    "iosnoperiod manifest maps canonical and mirror workflow paths"
+  ],
+  "blocked": [
+    {
+      "item": "Publisher-to-Site mirror activation",
+      "reason": "Publisher closure evidence has not been provided to Site.",
+      "unlock_condition": "Provide governed Publisher closure evidence satisfying docs/SITE_MIRROR_HANDOFF.md."
+    }
+  ],
+  "continue_building_rule": "Until Publisher closure evidence exists, continue-building work may improve the public transition discovery surface, validators, receipts, documentation, and non-activating public read surfaces, but must not claim Publisher-to-Site mirror activation.",
+  "validation": {
+    "command": "python scripts/check_transition_discovery_public_surface.py",
+    "expected_result": "transition discovery public surface checks passed"
+  },
+  "non_claims": [
+    "This status file does not activate the Publisher-to-Site mirror.",
+    "This status file does not supersede docs/SITE_MIRROR_HANDOFF.md.",
+    "This status file does not claim the Transition Periodic Table is complete."
+  ]
+}
