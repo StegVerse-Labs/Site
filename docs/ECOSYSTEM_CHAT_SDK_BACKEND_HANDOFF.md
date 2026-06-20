@@ -14,6 +14,7 @@ Closed-choice dropdowns: installed
 Manifest window: installed
 Receipt window: installed
 Three-layer SDK payload fixture: installed
+SDK backend response fixture: installed
 Local correctness check: installed
 Live backend submission: not installed
 Authority-issued receipt: not installed
@@ -59,6 +60,16 @@ fixtures/ecosystem-chat/sdk-form-payload.example.json
 
 The fixture is not a proof receipt. It is a submission-shape example for the SDK intake boundary.
 
+## Canonical response fixture
+
+Use this Site fixture as the backend response-shape example:
+
+```text
+fixtures/ecosystem-chat/sdk-backend-response.example.json
+```
+
+The response fixture keeps `receipt_id` as `null` before backend authority is connected.
+
 ## Backend response requirement
 
 The backend must return a bounded response containing:
@@ -89,6 +100,7 @@ This backend handoff is complete when:
 
 1. Site has an installed SDK form and generated preview windows;
 2. Site has a canonical SDK form payload fixture;
-3. the checker validates the Site-side contract and fixture structure;
-4. the workflow runs the checker on relevant changes;
-5. a future SDK backend implementation can consume the fixture without changing the Site-side payload contract.
+3. Site has a canonical SDK backend response fixture;
+4. the checker validates the Site-side contract and fixture structure;
+5. the workflow runs the checker on relevant changes;
+6. a future SDK backend implementation can consume the fixtures without changing the Site-side payload contract.
