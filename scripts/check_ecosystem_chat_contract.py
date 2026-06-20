@@ -118,6 +118,35 @@ EXPECTED_IOS_MAPPING = {
     "status": "canonical_active",
 }
 
+REQUIRED_PAYLOAD_KEYS = {"fields", "manifest", "receipt_window"}
+REQUIRED_FORM_KEYS = {
+    "target_entry_point",
+    "input_mode",
+    "requested_route",
+    "receipt_expectation",
+    "submission_posture",
+    "user_request",
+    "declared_goal",
+    "operator_note",
+}
+REQUIRED_MANIFEST_KEYS = {
+    "target_entry_point",
+    "input_mode",
+    "requested_route",
+    "user_request",
+    "declared_goal",
+    "operator_note",
+    "source_surface",
+}
+REQUIRED_RECEIPT_WINDOW_KEYS = {
+    "receipt_expectation",
+    "submission_posture",
+    "site_receipt_authority",
+    "manifest_correct_at_submission",
+    "submission_target",
+    "correctness_errors",
+}
+
 
 def main() -> int:
     failures: list[str] = []
@@ -134,6 +163,7 @@ def main() -> int:
                 failures.append(f"{relative_path}: missing required fragment: {fragment}")
 
     failures.extend(check_ios_workflow_map())
+    failures.extend(check_sdk_payload_fixture())
 
     if failures:
         print("Ecosystem Chat contract check failed:")
@@ -170,6 +200,46 @@ def check_ios_workflow_map() -> list[str]:
                 "iosnoperiod/workflow-map.json: "
                 f"expected {key}={expected_value!r}, got {first_mapping.get(key)!r}"
             )
+
+    return failures
+
+
+def check_sdk_payload_fixture() -> list[str]:
+    path = ROOT / "fixtures/ecosystem-chat/sdk-form-payload.example.json"
+    if not path.exists():
+        return ["missing file: fixtures/ecosystem-chat/sdk-form-payload.example.json"]
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return [f"fixtures/ecosystem-chat/sdk-form-payload.example.json: invalid JSON: {error}"]
+
+    failures: list[str] = []
+    if set(payload) != REQUIRED_PAYLOAD_KEYS:
+        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: top-level keys must be fields, manifest, receipt_window")
+        return failures
+
+    sections = {
+        "fields": REQUIRED_FORM_KEYS,
+        "manifest": REQUIRED_MANIFEST_KEYS,
+        "receipt_window": REQUIRED_RECEIPT_WINDOW_KEYS,
+    }
+    for section, required_keys in sections.items():
+        value = payload.get(section)
+        if not isinstance(value, dict):
+            failures.append(f"fixtures/ecosystem-chat/sdk-form-payload.example.json: {section} must be an object")
+            continue
+        if set(value) != required_keys:
+            failures.append(f"fixtures/ecosystem-chat/sdk-form-payload.example.json: {section} keys do not match required contract")
+
+    manifest = payload.get("manifest", {})
+    receipt_window = payload.get("receipt_window", {})
+    if manifest.get("target_entry_point") != "StegVerse-org/SDK":
+        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: manifest target_entry_point must be StegVerse-org/SDK")
+    if receipt_window.get("site_receipt_authority") is not False:
+        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: site_receipt_authority must be false")
+    if not isinstance(receipt_window.get("correctness_errors"), list):
+        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: correctness_errors must be a list")
 
     return failures
 
