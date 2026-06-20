@@ -9,11 +9,14 @@ This document records the Site public-surface correction that makes the transiti
 ```text
 assets/transition-discovery-state.js
 assets/transition-page-renderer.js
+data/transition-discovery-state-v1.json
 ```
 
-`assets/transition-discovery-state.js` owns the public discovery state.
+`assets/transition-discovery-state.js` owns the browser-facing public discovery state.
 
 `assets/transition-page-renderer.js` renders each public page from that state and injects the shared transition discovery styling so lightweight shells remain presentable.
+
+`data/transition-discovery-state-v1.json` mirrors the public discovery state for validators, ingestion engines, and non-browser consumers.
 
 ## Root-level pages
 
@@ -46,6 +49,7 @@ Current release: MS-012
 Current frontier: MS-012F
 Receipt-backed partitions: T13, T14
 Expected replay verdict: ALLOW
+Machine-readable mirror: data/transition-discovery-state-v1.json
 ```
 
 ## Validator
@@ -57,12 +61,16 @@ python scripts/check_transition_discovery_public_surface.py
 The checker verifies that:
 
 ```text
-canonical state exists
+canonical JavaScript state exists
+machine-readable JSON mirror exists
+JSON mirror schema is stegverse.transition_discovery_state.v1
 shared renderer exists
 shared renderer injects transition discovery styling
 all seven root-level public pages load both shared files
 all seven pages declare the expected transition view
-T13 and T14 remain receipt-backed in the canonical state
+T13 and T14 remain receipt-backed in both canonical and JSON state
+JSON state lists all 16 current transition partitions
+JSON state preserves pending Publisher closure boundary
 this documentation lists the expected public surfaces and boundary references
 the dedicated workflow exists and calls the checker
 the iosnoperiod workflow mirror matches the canonical workflow exactly
