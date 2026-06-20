@@ -17,6 +17,7 @@ on:
       - "transition-verification-guide.html"
       - "transition-replay-packet.html"
       - "docs/TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
+      - "docs/TRANSITION_DISCOVERY_RECEIPT.md"
       - "scripts/check_transition_discovery_public_surface.py"
 
 jobs:
