@@ -142,6 +142,7 @@ CHECKS = {
         "[`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json)",
         "[`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json)",
         "[`fixtures/ecosystem-chat/sdk-form-payload.example.json`](fixtures/ecosystem-chat/sdk-form-payload.example.json)",
+        "[`fixtures/ecosystem-chat/sdk-backend-response.example.json`](fixtures/ecosystem-chat/sdk-backend-response.example.json)",
         "[`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md)",
         "[`iosnoperiod/workflow-map.json`](iosnoperiod/workflow-map.json)",
         "Ecosystem Chat     =  text-only command surface, not proof authority",
