@@ -1,0 +1,12 @@
+{
+  "purpose": "Map no-leading-dot iOS-safe paths to canonical repository paths.",
+  "mappings": [
+    {
+      "ios_path": "iosnoperiod/github/workflows/check-ecosystem-chat.yml",
+      "canonical_path": ".github/workflows/check-ecosystem-chat.yml",
+      "display_path_without_leading_dot": "github/workflows/check-ecosystem-chat.yml",
+      "status": "canonical_active",
+      "purpose": "Runs the Ecosystem Chat contract checker on relevant pushes, pull requests, and manual dispatch."
+    }
+  ]
+}
