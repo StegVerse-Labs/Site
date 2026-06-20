@@ -89,6 +89,16 @@ The Site browser gateway prepares and submits user input to the SDK entry point 
 }
 ```
 
+## Canonical payload fixture
+
+The canonical SDK form payload fixture is `fixtures/ecosystem-chat/sdk-form-payload.example.json`.
+
+The fixture preserves all three layers:
+
+1. `fields`;
+2. `manifest`;
+3. `receipt_window`.
+
 ## Done condition for the browser model
 
 The browser model is ready when the Site page contains:
