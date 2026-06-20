@@ -59,11 +59,40 @@ The checker verifies that:
 ```text
 canonical state exists
 shared renderer exists
+shared renderer injects transition discovery styling
 all seven root-level public pages load both shared files
 all seven pages declare the expected transition view
 T13 and T14 remain receipt-backed in the canonical state
 this documentation lists the expected public surfaces and boundary references
+the dedicated workflow exists and calls the checker
+the iosnoperiod workflow mirror matches the canonical workflow exactly
+the iosnoperiod manifest maps canonical and mirror workflow paths
 ```
+
+## Workflow enforcement
+
+Canonical workflow path:
+
+```text
+.github/workflows/transition-discovery-public-surface.yml
+```
+
+Displayed without the leading dot for iOS-safe review:
+
+```text
+github/workflows/transition-discovery-public-surface.yml
+```
+
+The workflow runs on manual dispatch and on pushes that affect the canonical discovery state, renderer, seven root-level public pages, this document, or the checker.
+
+## iOS-safe mirror
+
+```text
+iosnoperiod/github/workflows/transition-discovery-public-surface.yml
+iosnoperiod/manifest.json
+```
+
+The mirror is not authoritative. It is an iOS-safe copy of the canonical workflow path for review or restoration.
 
 ## Boundary note
 
