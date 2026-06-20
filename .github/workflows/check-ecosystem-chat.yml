@@ -7,6 +7,7 @@ on:
       - assets/ecosystem-chat.js
       - docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md
       - docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md
+      - docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md
       - docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
       - fixtures/ecosystem-chat/request.example.json
       - fixtures/ecosystem-chat/response.example.json
@@ -22,6 +23,7 @@ on:
       - assets/ecosystem-chat.js
       - docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md
       - docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md
+      - docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md
       - docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
       - fixtures/ecosystem-chat/request.example.json
       - fixtures/ecosystem-chat/response.example.json
