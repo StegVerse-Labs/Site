@@ -1,0 +1,75 @@
+{
+  "schema": "stegverse.transition_discovery_state.v1",
+  "generated_at": "2026-06-19T00:00:00-05:00",
+  "current_release": "MS-012",
+  "current_frontier": "MS-012F",
+  "purpose": "Machine-readable mirror of the public transition discovery state for validators, ingestion engines, and non-browser consumers.",
+  "research_premise": {
+    "title": "Transition Periodic Table",
+    "short_definition": "A live StegVerse research surface for discovering the partition structure of consequence-capable transitions.",
+    "central_question": "What distinct transition classes govern how possible actions become consequence-bearing reality?",
+    "public_caution": "Illuminated blocks represent current discovery state, not final completeness."
+  },
+  "public_pages": {
+    "transition-table.html": "Map of discovered transition space",
+    "transition-milestones.html": "Epistemic ledger of threshold crossings",
+    "transition-development-status.html": "Current frontier of the exploration",
+    "transition-release-snapshot.html": "Frozen knowledge boundary",
+    "transition-release-index.html": "Index of public discovery states",
+    "transition-verification-guide.html": "Reader procedure for checking table claims",
+    "transition-replay-packet.html": "Reconstructable evidence surface"
+  },
+  "lifecycle": [
+    "LOCKED",
+    "OBSERVED",
+    "CANDIDATE",
+    "PARTITIONED",
+    "MODELED",
+    "SANDBOXED",
+    "RECEIPT_BACKED",
+    "PROMOTED",
+    "MERGED",
+    "DEPRECATED"
+  ],
+  "receipt_backed_partitions": [
+    "T13",
+    "T14"
+  ],
+  "partitions": [
+    {"id": "T1", "name": "Primitive Admissible Transition", "status": "SANDBOXED", "confidence": "C3", "family": "primitive", "evidence_level": 4},
+    {"id": "T2", "name": "Simplex-Preserving Transition", "status": "MODELED", "confidence": "C2", "family": "primitive", "evidence_level": 3},
+    {"id": "T3", "name": "Bounded-Action Transition", "status": "PARTITIONED", "confidence": "C2", "family": "primitive", "evidence_level": 2},
+    {"id": "T4", "name": "Capacity-Margin Transition", "status": "PARTITIONED", "confidence": "C2", "family": "primitive", "evidence_level": 2},
+    {"id": "T5", "name": "Observation-Lag Transition", "status": "OBSERVED", "confidence": "C1", "family": "lag", "evidence_level": 1},
+    {"id": "T6", "name": "Decision-Lag Transition", "status": "OBSERVED", "confidence": "C1", "family": "lag", "evidence_level": 1},
+    {"id": "T7", "name": "Actuation-Lag Transition", "status": "OBSERVED", "confidence": "C1", "family": "lag", "evidence_level": 1},
+    {"id": "T8", "name": "Trust-Drift Transition", "status": "PARTITIONED", "confidence": "C2", "family": "lag", "evidence_level": 2},
+    {"id": "T9", "name": "Two-State Coupled Transition", "status": "OBSERVED", "confidence": "C1", "family": "coupled", "evidence_level": 1},
+    {"id": "T10", "name": "Multi-Agent Transition", "status": "OBSERVED", "confidence": "C1", "family": "coupled", "evidence_level": 1},
+    {"id": "T11", "name": "Conflict Transition", "status": "OBSERVED", "confidence": "C1", "family": "coupled", "evidence_level": 1},
+    {"id": "T12", "name": "Consensus Transition", "status": "OBSERVED", "confidence": "C1", "family": "coupled", "evidence_level": 1},
+    {"id": "T13", "name": "Receipt-Bound Transition", "status": "RECEIPT_BACKED", "confidence": "C4", "family": "evidence", "evidence_level": 5, "evidence": ["EV-MS012-REPLAY-PACKET"]},
+    {"id": "T14", "name": "Reconstruction Transition", "status": "RECEIPT_BACKED", "confidence": "C4", "family": "evidence", "evidence_level": 5, "evidence": ["EV-MS012-REPLAY-PACKET"]},
+    {"id": "T15", "name": "Irreversible Transition", "status": "OBSERVED", "confidence": "C1", "family": "open", "evidence_level": 1},
+    {"id": "T16", "name": "Self-Modifying Transition", "status": "LOCKED", "confidence": "C0", "family": "open", "evidence_level": 0}
+  ],
+  "evidence_records": [
+    {
+      "id": "EV-MS012-REPLAY-PACKET",
+      "type": "replay_packet",
+      "status": "public",
+      "supports": ["T13", "T14"],
+      "expected_verdict": "ALLOW",
+      "actual_verdict": "ALLOW"
+    }
+  ],
+  "verification_expectations": {
+    "expected_replay_verdict": "ALLOW",
+    "expected_page_contract_failures": 0,
+    "expected_receipt_backed_partitions": ["T13", "T14"]
+  },
+  "boundary": {
+    "site_mirror_activation": "pending_publisher_closure_evidence",
+    "source_of_truth_note": "This JSON mirrors transition discovery state only and does not activate the Publisher-to-Site mirror."
+  }
+}
