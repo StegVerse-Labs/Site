@@ -4,7 +4,8 @@
 The transition pages must remain root-level public views of the canonical
 transition discovery state. This checker catches page drift, missing shared
 scripts, missing view declarations, stale milestone claims, missing JSON state,
-missing renderer JSON links, and missing workflow/iOS mirror governance.
+missing page contract state, missing renderer JSON links, and missing
+workflow/iOS mirror governance.
 """
 
 from pathlib import Path
@@ -16,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 STATE_PATH = ROOT / "assets" / "transition-discovery-state.js"
 JSON_STATE_PATH = ROOT / "data" / "transition-discovery-state-v1.json"
+PAGE_CONTRACT_PATH = ROOT / "data" / "transition-page-contract-v1.json"
 RENDERER_PATH = ROOT / "assets" / "transition-page-renderer.js"
 DOC_PATH = ROOT / "docs" / "TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "transition-discovery-public-surface.yml"
@@ -54,6 +56,7 @@ REQUIRED_DOC_TERMS = [
     "assets/transition-discovery-state.js",
     "assets/transition-page-renderer.js",
     "data/transition-discovery-state-v1.json",
+    "data/transition-page-contract-v1.json",
     "transition-table.html",
     "transition-milestones.html",
     "transition-development-status.html",
@@ -117,6 +120,36 @@ def validate_json_state(state_text: str) -> None:
         fail("JSON discovery state must preserve pending Publisher closure boundary")
 
 
+def validate_page_contract() -> None:
+    contract = json.loads(read(PAGE_CONTRACT_PATH))
+    if contract.get("schema") != "stegverse.transition_page_contract.v1":
+        fail("transition page contract has wrong schema")
+    expectations = contract.get("release_expectations", {})
+    if expectations.get("current_release") != "MS-012":
+        fail("page contract current_release must be MS-012")
+    if expectations.get("current_frontier") != "MS-012F":
+        fail("page contract current_frontier must be MS-012F")
+    if expectations.get("receipt_backed_partitions") != ["T13", "T14"]:
+        fail("page contract receipt_backed_partitions must be T13/T14")
+    if expectations.get("site_mirror_activation") != "pending_publisher_closure_evidence":
+        fail("page contract must preserve pending Publisher closure boundary")
+    pages = {entry.get("path"): entry for entry in contract.get("pages", [])}
+    if set(pages) != set(PAGES):
+        fail("page contract must list exactly the seven transition pages")
+    for path, view in PAGES.items():
+        entry = pages[path]
+        if entry.get("view") != view:
+            fail(f"page contract view mismatch for {path}")
+        must_load = entry.get("must_load", [])
+        if "assets/transition-discovery-state.js" not in must_load or "assets/transition-page-renderer.js" not in must_load:
+            fail(f"page contract missing shared loads for {path}")
+        if "data/transition-discovery-state-v1.json" not in entry.get("must_expose", []):
+            fail(f"page contract missing JSON exposure for {path}")
+    workflow_contract = contract.get("workflow_contract", {})
+    if workflow_contract.get("required_command") != "python scripts/check_transition_discovery_public_surface.py":
+        fail("page contract workflow required_command mismatch")
+
+
 def validate_workflow() -> None:
     workflow = read(WORKFLOW_PATH)
     mirror = read(IOS_MIRROR_PATH)
@@ -153,6 +186,7 @@ def main() -> None:
     require_terms("canonical discovery state", state, REQUIRED_STATE_TERMS)
     require_terms("public surface doc", doc, REQUIRED_DOC_TERMS)
     validate_json_state(state)
+    validate_page_contract()
 
     if "querySelector(\"[data-transition-view]\")" not in renderer:
         fail("renderer does not locate data-transition-view root")
