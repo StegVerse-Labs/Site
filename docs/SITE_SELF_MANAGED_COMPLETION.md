@@ -29,12 +29,13 @@ The Site repository reaches repository-managed continuation readiness when all o
 4. The handoff records the automated Site evidence path.
 5. The handoff records the no-secret closure guard path.
 6. The handoff records validators for manifest metadata, aliases, policy/config, evidence packet, live evidence state, handoff integrity, closure next-build, closure guard, activation ledger, activation status, evidence requirements, and evidence transition rules.
-7. The activation ledger remains pending until Publisher closure evidence exists.
-8. The activation status remains aligned with the activation ledger.
-9. Evidence requirements remain explicit and machine-checkable.
-10. Evidence transition rules prevent pending evidence values from being advanced by Site-local evidence alone.
-11. Archive readiness states that prior chat context is no longer required for forward progress.
-12. Remaining work is expressed as evidence capture or governed workflow closure, not as manual reconstruction from chat.
+7. The ecosystem management handoff exists and is named in closure guard workflow, closure guard packet, and checker terms.
+8. The activation ledger remains pending until Publisher closure evidence exists.
+9. The activation status remains aligned with the activation ledger.
+10. Evidence requirements remain explicit and machine-checkable.
+11. Evidence transition rules prevent pending evidence values from being advanced by Site-local evidence alone.
+12. Archive readiness states that prior chat context is no longer required for forward progress.
+13. Remaining work is expressed as evidence capture or governed workflow closure, not as manual reconstruction from chat.
 ```
 
 ## Current Assessment
@@ -67,17 +68,18 @@ The ecosystem can continue this task from repository state alone by reading, in 
 
 ```text
 1. docs/SITE_MIRROR_HANDOFF.md
-2. docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
-3. docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md
-4. docs/SITE_MIRROR_ACTIVATION_LEDGER.json
-5. docs/SITE_MIRROR_ACTIVATION_STATUS.md
-6. docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md
-7. docs/SITE_MIRROR_CLOSURE_GUARD.md
-8. docs/SITE_SELF_MANAGED_COMPLETION.md
+2. docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+3. docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
+4. docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md
+5. docs/SITE_MIRROR_ACTIVATION_LEDGER.json
+6. docs/SITE_MIRROR_ACTIVATION_STATUS.md
+7. docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md
+8. docs/SITE_MIRROR_CLOSURE_GUARD.md
+9. docs/SITE_SELF_MANAGED_COMPLETION.md
 ```
 
 If the evidence remains pending, the next valid action is to run or wait for the governed Publisher/Site workflow path. No session may claim activation from Site-local evidence alone.
 
 ## Archive Readiness
 
-This document makes the new assessment goal explicit. Together with `docs/SITE_MIRROR_HANDOFF.md`, it records enough repository-local state for future sessions, automated checks, or ecosystem management agents to continue without relying on prior chat context.
+This document makes the new assessment goal explicit. Together with `docs/SITE_MIRROR_HANDOFF.md` and `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md`, it records enough repository-local state for future sessions, automated checks, or ecosystem management agents to continue without relying on prior chat context.
