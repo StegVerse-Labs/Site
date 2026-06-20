@@ -66,11 +66,13 @@ CHECKS = {
     ],
     "docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md": [
         "Live backend submission: not installed",
+        "SDK backend response fixture: installed",
         "fields",
         "manifest",
         "receipt_window",
         "site_receipt_authority` is anything other than `false`",
         "fixtures/ecosystem-chat/sdk-form-payload.example.json",
+        "fixtures/ecosystem-chat/sdk-backend-response.example.json",
         "accepted",
         "routed_module",
         "receipt_id",
@@ -107,6 +109,13 @@ CHECKS = {
         "\"site_receipt_authority\": false",
         "\"manifest_correct_at_submission\": true",
     ],
+    "fixtures/ecosystem-chat/sdk-backend-response.example.json": [
+        "\"accepted\": true",
+        "\"routed_module\": \"StegVerse-org/SDK\"",
+        "\"receipt_id\": null",
+        "\"next_action\"",
+        "\"errors\": []",
+    ],
     ".github/workflows/check-ecosystem-chat.yml": [
         "name: Check Ecosystem Chat Contract",
         "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
@@ -114,6 +123,7 @@ CHECKS = {
         "fixtures/ecosystem-chat/request.example.json",
         "fixtures/ecosystem-chat/response.example.json",
         "fixtures/ecosystem-chat/sdk-form-payload.example.json",
+        "fixtures/ecosystem-chat/sdk-backend-response.example.json",
         "workflow_dispatch:",
         "python scripts/check_ecosystem_chat_contract.py",
     ],
@@ -173,6 +183,7 @@ REQUIRED_RECEIPT_WINDOW_KEYS = {
     "submission_target",
     "correctness_errors",
 }
+REQUIRED_BACKEND_RESPONSE_KEYS = {"accepted", "routed_module", "receipt_id", "next_action", "errors"}
 
 
 def main() -> int:
@@ -191,6 +202,7 @@ def main() -> int:
 
     failures.extend(check_ios_workflow_map())
     failures.extend(check_sdk_payload_fixture())
+    failures.extend(check_sdk_backend_response_fixture())
 
     if failures:
         print("Ecosystem Chat contract check failed:")
@@ -267,6 +279,29 @@ def check_sdk_payload_fixture() -> list[str]:
         failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: site_receipt_authority must be false")
     if not isinstance(receipt_window.get("correctness_errors"), list):
         failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: correctness_errors must be a list")
+
+    return failures
+
+
+def check_sdk_backend_response_fixture() -> list[str]:
+    path = ROOT / "fixtures/ecosystem-chat/sdk-backend-response.example.json"
+    if not path.exists():
+        return ["missing file: fixtures/ecosystem-chat/sdk-backend-response.example.json"]
+
+    try:
+        response = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return [f"fixtures/ecosystem-chat/sdk-backend-response.example.json: invalid JSON: {error}"]
+
+    failures: list[str] = []
+    if set(response) != REQUIRED_BACKEND_RESPONSE_KEYS:
+        failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: keys must be accepted, routed_module, receipt_id, next_action, errors")
+    if response.get("receipt_id") is not None:
+        failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: receipt_id must be null before backend activation")
+    if not isinstance(response.get("accepted"), bool):
+        failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: accepted must be boolean")
+    if not isinstance(response.get("errors"), list):
+        failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: errors must be a list")
 
     return failures
 
