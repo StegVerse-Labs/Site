@@ -2,9 +2,9 @@
 """Validate the text-only Ecosystem Chat activation surface.
 
 This checker is intentionally static. It verifies that the public Site page,
-browser-side script, gateway contract, form gateway model, activation status,
-gateway fixtures, workflow gate, iOS path mapping, and README continue to
-preserve the public-mirror boundary and the gateway handoff contract.
+browser-side script, gateway contract, form gateway model, SDK backend handoff,
+activation status, gateway fixtures, workflow gate, iOS path mapping, and README
+continue to preserve the public-mirror boundary and the gateway handoff contract.
 """
 
 from pathlib import Path
@@ -64,6 +64,20 @@ CHECKS = {
         "`manifest`",
         "`receipt_window`",
     ],
+    "docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md": [
+        "Live backend submission: not installed",
+        "fields",
+        "manifest",
+        "receipt_window",
+        "site_receipt_authority` is anything other than `false`",
+        "fixtures/ecosystem-chat/sdk-form-payload.example.json",
+        "accepted",
+        "routed_module",
+        "receipt_id",
+        "next_action",
+        "errors",
+        "Before authority issuance, `receipt_id` must remain `null`.",
+    ],
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md": [
         "SDK Entry Form is installed",
         "Form gateway model",
@@ -96,6 +110,7 @@ CHECKS = {
     ".github/workflows/check-ecosystem-chat.yml": [
         "name: Check Ecosystem Chat Contract",
         "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+        "docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md",
         "fixtures/ecosystem-chat/request.example.json",
         "fixtures/ecosystem-chat/response.example.json",
         "fixtures/ecosystem-chat/sdk-form-payload.example.json",
@@ -113,6 +128,7 @@ CHECKS = {
         "[`assets/ecosystem-chat.js`](assets/ecosystem-chat.js)",
         "[`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md)",
         "[`docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md`](docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md)",
+        "[`docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md`](docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md)",
         "[`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json)",
         "[`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json)",
         "[`fixtures/ecosystem-chat/sdk-form-payload.example.json`](fixtures/ecosystem-chat/sdk-form-payload.example.json)",
