@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.iosnoperiod.manifest.v1",
+  "purpose": "Map leading-period canonical paths to iOS-safe mirror paths.",
+  "authoritative_paths": [
+    {
+      "canonical": ".github/workflows/transition-discovery-public-surface.yml",
+      "mirror": "iosnoperiod/github/workflows/transition-discovery-public-surface.yml",
+      "status": "canonical_present_and_mirrored",
+      "description": "Runs the transition discovery public-surface checker for the canonical state, renderer, docs, and seven root-level transition pages."
+    }
+  ],
+  "notes": [
+    "The iosnoperiod mirror is not authoritative.",
+    "Use canonical paths for normal repository operation.",
+    "Use mirror paths only for iOS-safe review or restoration."
+  ]
+}
