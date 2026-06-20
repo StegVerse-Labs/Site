@@ -34,6 +34,8 @@ CHECKS = {
         "receipt_id",
         "Local transcript hashes are not proof receipts.",
         "Only the appropriate governed backend authority may issue a proof receipt.",
+        "fixtures/ecosystem-chat/request.example.json",
+        "fixtures/ecosystem-chat/response.example.json",
     ],
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md": [
         "Backend gateway state: not installed",
@@ -64,6 +66,8 @@ CHECKS = {
         "[`ecosystem-chat.html`](ecosystem-chat.html)",
         "[`assets/ecosystem-chat.js`](assets/ecosystem-chat.js)",
         "[`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md)",
+        "[`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json)",
+        "[`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json)",
         "[`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md)",
         "[`iosnoperiod/workflow-map.json`](iosnoperiod/workflow-map.json)",
         "Ecosystem Chat     =  text-only command surface, not proof authority",
