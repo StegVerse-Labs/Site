@@ -17,6 +17,7 @@ The SDK Entry Form is installed as a browser-side user input surface for the Ste
 | Gateway contract | Installed: `docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md` |
 | Form gateway model | Installed: `docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md` |
 | SDK form payload fixture | Installed: `fixtures/ecosystem-chat/sdk-form-payload.example.json` |
+| SDK backend response fixture | Installed: `fixtures/ecosystem-chat/sdk-backend-response.example.json` |
 | Gateway fixtures | Installed: `fixtures/ecosystem-chat/request.example.json` and `fixtures/ecosystem-chat/response.example.json` |
 | Static checker | Installed: `scripts/check_ecosystem_chat_contract.py` |
 | Workflow gate | Installed: `github/workflows/check-ecosystem-chat.yml` path shown without leading dot |
@@ -31,6 +32,7 @@ Manifest window state: installed
 Receipt window state: installed
 Submission correctness check state: installed locally
 SDK payload fixture state: installed
+SDK backend response fixture state: installed
 SDK backend submission state: not installed
 ```
 
@@ -74,6 +76,8 @@ manifest
 receipt_window
 ```
 
+The SDK backend response must preserve `receipt_id: null` until backend authority is connected.
+
 ## Activation state
 
 ```text
@@ -83,6 +87,7 @@ Contract state: installed
 Form model state: installed
 Fixture state: installed
 SDK form state: installed
+SDK backend response fixture state: installed
 Check state: installed
 Workflow state: installed
 Backend gateway state: not installed
