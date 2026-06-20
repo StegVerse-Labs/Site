@@ -120,6 +120,7 @@ The no-secret closure guard workflow verifies closure-boundary documentation and
 
 ```text
 github/workflows/site-mirror-closure-guard.yml
+docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 python scripts/check_site_mirror_handoff.py
 python scripts/check_site_mirror_closure_next_build.py
 python scripts/check_site_mirror_closure_guard.py
@@ -130,7 +131,7 @@ python scripts/check_site_mirror_evidence_transition_rules.py
 python scripts/check_site_self_managed_completion.py
 ```
 
-This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation, evidence transition rules, and self-managed completion documentation continue to preserve the Publisher activation boundary.
+This workflow does not dispatch Publisher, does not consume cross-repo credentials, and does not claim activation. It only confirms that Site closure-readiness documentation, evidence transition rules, self-managed completion documentation, and the ecosystem management handoff surface continue to preserve the Publisher activation boundary.
 
 ## Validators
 
@@ -190,7 +191,7 @@ The closure guard checker is:
 python scripts/check_site_mirror_closure_guard.py
 ```
 
-The closure guard checker verifies that `docs/SITE_MIRROR_CLOSURE_GUARD.md`, `github/workflows/site-mirror-closure-guard.yml`, and this handoff preserve the no-secret closure guard boundary.
+The closure guard checker verifies that `docs/SITE_MIRROR_CLOSURE_GUARD.md`, `github/workflows/site-mirror-closure-guard.yml`, and this handoff preserve the no-secret closure guard boundary and ecosystem-management handoff surface.
 
 The activation ledger checker is:
 
@@ -230,7 +231,7 @@ The self-managed completion checker is:
 python scripts/check_site_self_managed_completion.py
 ```
 
-The self-managed completion checker verifies that `docs/SITE_SELF_MANAGED_COMPLETION.md`, this handoff, the activation ledger, and activation status preserve repository-managed continuation readiness without claiming activation.
+The self-managed completion checker verifies that `docs/SITE_SELF_MANAGED_COMPLETION.md`, `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md`, this handoff, the activation ledger, and activation status preserve repository-managed continuation readiness without claiming activation.
 
 ## Public Path and Ingestion Surface Contract
 
@@ -345,7 +346,7 @@ python scripts/check_site_self_managed_completion.py
 github/workflows/site-self-managed-completion.yml
 ```
 
-This packet defines the new assessment goal: continue building without manual actions needed through completion, or until task handoff and task completion are capable of being handled by ecosystem management. It marks repository-managed continuation ready while keeping activation pending until governed Publisher closure evidence exists.
+This packet defines the new assessment goal: continue building without manual actions needed through completion, or until task handoff and task completion are capable of being handled by ecosystem management. It marks repository-managed continuation ready while keeping activation pending until governed Publisher closure evidence exists and now requires the ecosystem management handoff to be part of the self-managed completion contract.
 
 The self-managed completion workflow runs the primary handoff checker and self-managed completion checker whenever the handoff, assessment, activation ledger, activation status, or their checkers change.
 
@@ -428,6 +429,11 @@ Resolved: Site has scripts/check_site_self_managed_completion.py to verify the s
 Resolved: Site closure guard workflow runs scripts/check_site_self_managed_completion.py.
 Resolved: Site has github/workflows/site-self-managed-completion.yml to run self-managed completion and handoff checks automatically on relevant changes.
 Resolved: Site built-files ledger now records docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md as part of the repo-resident management handoff surface.
+Resolved: Site closure guard workflow watches docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md and summarizes it as the ecosystem management handoff.
+Resolved: Site closure guard packet requires the ecosystem management handoff as part of the guarded push trigger surface and workflow summary.
+Resolved: Site closure guard checker requires the ecosystem management handoff in the packet, workflow, and handoff contract.
+Resolved: Site self-managed completion assessment includes the ecosystem management handoff in its done definition and repository-state read order.
+Resolved: Site self-managed completion checker reads docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md and validates its self-managed handoff state.
 Pending: actual Publisher receipt artifact, actual Site evidence artifact, Publisher closure receipt, Publisher verification tracker activation, and Publisher activation-status update.
 ```
 
