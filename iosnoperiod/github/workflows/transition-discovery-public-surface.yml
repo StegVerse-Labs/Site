@@ -1,0 +1,28 @@
+name: Transition Discovery Public Surface
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "assets/transition-discovery-state.js"
+      - "assets/transition-page-renderer.js"
+      - "transition-table.html"
+      - "transition-milestones.html"
+      - "transition-development-status.html"
+      - "transition-release-snapshot.html"
+      - "transition-release-index.html"
+      - "transition-verification-guide.html"
+      - "transition-replay-packet.html"
+      - "docs/TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
+      - "scripts/check_transition_discovery_public_surface.py"
+
+jobs:
+  verify-transition-discovery-surface:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+      - name: Check transition discovery public surface
+        run: python scripts/check_transition_discovery_public_surface.py
