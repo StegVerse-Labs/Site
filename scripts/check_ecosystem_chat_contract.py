@@ -2,9 +2,9 @@
 """Validate the text-only Ecosystem Chat activation surface.
 
 This checker is intentionally static. It verifies that the public Site page,
-browser-side script, gateway contract, activation status, gateway fixtures,
-workflow gate, iOS path mapping, and README continue to preserve the
-public-mirror boundary and the gateway handoff contract.
+browser-side script, gateway contract, form gateway model, activation status,
+gateway fixtures, workflow gate, iOS path mapping, and README continue to
+preserve the public-mirror boundary and the gateway handoff contract.
 """
 
 from pathlib import Path
@@ -30,12 +30,22 @@ CHECKS = {
     ],
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md": [
         "The browser page must not become proof authority",
-        "POST /api/ecosystem-chat",
-        "receipt_id",
-        "Local transcript hashes are not proof receipts.",
-        "Only the appropriate governed backend authority may issue a proof receipt.",
+        "SDK entry IFF rule",
+        "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+        "fillable form fields generate text only into the manifest window and receipt window",
+        "dropdown-style controls",
+        "determined correct at the time of submission",
         "fixtures/ecosystem-chat/request.example.json",
         "fixtures/ecosystem-chat/response.example.json",
+    ],
+    "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md": [
+        "StegVerse-org/SDK entry point",
+        "if and only if",
+        "Fillable form fields",
+        "Manifest window",
+        "Receipt window",
+        "dropdown-style controls",
+        "manifest_correct_at_submission",
     ],
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md": [
         "Backend gateway state: not installed",
@@ -66,6 +76,7 @@ CHECKS = {
         "[`ecosystem-chat.html`](ecosystem-chat.html)",
         "[`assets/ecosystem-chat.js`](assets/ecosystem-chat.js)",
         "[`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md)",
+        "[`docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md`](docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md)",
         "[`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json)",
         "[`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json)",
         "[`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md)",
