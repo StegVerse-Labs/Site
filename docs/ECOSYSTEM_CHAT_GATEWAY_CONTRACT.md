@@ -34,6 +34,8 @@ Content-Type: application/json
 }
 ```
 
+Canonical example: `fixtures/ecosystem-chat/request.example.json`.
+
 ## Response contract
 
 ```json
@@ -44,6 +46,8 @@ Content-Type: application/json
   "next_action": "Send this request to the Site handler once governed backend routing is active."
 }
 ```
+
+Canonical example: `fixtures/ecosystem-chat/response.example.json`.
 
 ## Route vocabulary
 
