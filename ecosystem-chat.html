@@ -51,17 +51,15 @@
       color: #c8d4e8;
       white-space: pre-wrap;
     }
-    .chat-form {
+    .chat-form, .sdk-entry-form {
       border-top: 1px solid var(--border);
       padding: 14px;
       display: grid;
       gap: 10px;
       background: #0c1320;
     }
-    .chat-input {
+    .chat-input, .sdk-field, .sdk-textarea {
       width: 100%;
-      min-height: 116px;
-      resize: vertical;
       border: 1px solid var(--border2);
       border-radius: var(--radius);
       background: #080d16;
@@ -69,18 +67,22 @@
       font: 13px/1.55 var(--mono);
       padding: 12px;
     }
-    .chat-input:focus {
+    .chat-input, .sdk-textarea {
+      min-height: 116px;
+      resize: vertical;
+    }
+    .sdk-field:focus, .sdk-textarea:focus, .chat-input:focus {
       outline: 1px solid var(--accent);
       border-color: var(--accent);
     }
-    .chat-actions {
+    .chat-actions, .sdk-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
     }
-    .chat-hint {
+    .chat-hint, .sdk-hint {
       color: var(--muted);
       font-size: 12px;
     }
@@ -93,32 +95,52 @@
       border-top: 1px solid #132215;
       overflow-wrap: anywhere;
     }
-    .route-grid {
+    .route-grid, .sdk-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 12px;
       margin-bottom: 24px;
     }
-    .route-card {
+    .route-card, .sdk-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px;
     }
-    .route-card strong {
+    .route-card strong, .sdk-card strong, .sdk-label {
       display: block;
       color: var(--text);
       font-size: 13px;
       margin-bottom: 4px;
     }
-    .route-card span {
+    .route-card span, .sdk-card span {
       color: var(--muted);
       font-size: 12px;
     }
+    .sdk-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .sdk-preview {
+      min-height: 260px;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    .sdk-status {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      border: 1px solid #12351b;
+      border-radius: var(--radius);
+      padding: 10px;
+      background: rgba(18, 49, 27, 0.22);
+    }
     @media (max-width: 600px) {
       .chat-log { min-height: 300px; padding: 12px; }
-      .chat-actions { align-items: stretch; }
-      .chat-actions .sv-btn { width: 100%; }
+      .chat-actions, .sdk-actions { align-items: stretch; }
+      .chat-actions .sv-btn, .sdk-actions .sv-btn { width: 100%; }
     }
   </style>
 </head>
@@ -152,15 +174,16 @@
     <h1>StegVerse Ecosystem Chat<br><em>command routing without authority drift.</em></h1>
     <p>Type a build or governance request, classify the intended route, and produce a local receipt-style transcript. This page is a browser-native console scaffold for StegVerse work; it does not create proof receipts, execute repository writes, or replace governed deployment authority.</p>
     <div class="sv-btn-row">
-      <a class="sv-btn sv-btn-primary" href="#console">Open console</a>
+      <a class="sv-btn sv-btn-primary" href="#sdk-entry">Open SDK form</a>
+      <a class="sv-btn sv-btn-secondary" href="#console">Open console</a>
       <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway contract</a>
-      <a class="sv-btn sv-btn-secondary" href="docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md">Management handoff</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form model</a>
       <a class="sv-btn sv-btn-secondary" href="transition-verification-guide.html">Verification guide</a>
     </div>
   </div>
 
   <div class="sv-boundary">
-    <strong>Boundary:</strong> Site is a public mirror and command surface. The console can classify, draft, and preserve a local transcript. It must not claim receipt authority, transition authority, accreditation authority, or autonomous deployment authority.
+    <strong>Boundary:</strong> Site is a public mirror and command surface. The fillable fields generate text only into the manifest window and receipt window. Those generated windows are previews until correctness is determined at submission time. Site must not claim receipt authority, transition authority, accreditation authority, or autonomous deployment authority.
   </div>
 
   <h2 class="sv-h2">Initial text-only routing map</h2>
@@ -171,6 +194,83 @@
     <div class="route-card"><strong>Continuity</strong><span>Receipt-chain concepts, replay context, state continuity language.</span></div>
     <div class="route-card"><strong>Publisher</strong><span>Paper mirror source posture, manifest regeneration, publication boundaries.</span></div>
     <div class="route-card"><strong>Unknown</strong><span>Fallback for requests needing human clarification or new ecosystem mapping.</span></div>
+  </div>
+
+  <h2 class="sv-h2" id="sdk-entry">SDK Entry Form</h2>
+  <div class="chat-panel">
+    <form class="sdk-entry-form" id="sdkEntryForm">
+      <div class="sdk-grid">
+        <label>
+          <span class="sdk-label">Target entry point</span>
+          <select class="sdk-field" id="targetEntryPoint" name="target_entry_point">
+            <option value="StegVerse-org/SDK">StegVerse-org/SDK</option>
+          </select>
+        </label>
+        <label>
+          <span class="sdk-label">Input mode</span>
+          <select class="sdk-field" id="inputMode" name="input_mode">
+            <option value="text_form">text_form</option>
+          </select>
+        </label>
+        <label>
+          <span class="sdk-label">Requested route</span>
+          <select class="sdk-field" id="requestedRoute" name="requested_route">
+            <option value="Site">Site</option>
+            <option value="StegVerse-002">StegVerse-002</option>
+            <option value="formalism-tests">formalism-tests</option>
+            <option value="Continuity">Continuity</option>
+            <option value="Publisher">Publisher</option>
+            <option value="Unknown">Unknown</option>
+          </select>
+        </label>
+        <label>
+          <span class="sdk-label">Receipt expectation</span>
+          <select class="sdk-field" id="receiptExpectation" name="receipt_expectation">
+            <option value="none">none</option>
+            <option value="sdk_intake_receipt_requested">sdk_intake_receipt_requested</option>
+          </select>
+        </label>
+        <label>
+          <span class="sdk-label">Submission posture</span>
+          <select class="sdk-field" id="submissionPosture" name="submission_posture">
+            <option value="draft">draft</option>
+            <option value="ready_for_submission">ready_for_submission</option>
+          </select>
+        </label>
+      </div>
+
+      <label>
+        <span class="sdk-label">User request</span>
+        <textarea class="sdk-textarea" id="userRequest" name="user_request" placeholder="Describe the StegVerse build/governance request...">continue building Site</textarea>
+      </label>
+      <label>
+        <span class="sdk-label">Declared goal</span>
+        <input class="sdk-field" id="declaredGoal" name="declared_goal" value="text-only ecosystem command console">
+      </label>
+      <label>
+        <span class="sdk-label">Operator note</span>
+        <textarea class="sdk-textarea" id="operatorNote" name="operator_note" placeholder="Optional SDK intake context."></textarea>
+      </label>
+
+      <div class="sdk-status" id="sdkFormStatus">Generated JSON is evaluated locally before submission.</div>
+
+      <div class="sdk-preview-grid">
+        <div>
+          <strong class="sdk-label">Manifest window</strong>
+          <pre class="sdk-preview" id="manifestPreview" aria-live="polite"></pre>
+        </div>
+        <div>
+          <strong class="sdk-label">Receipt window</strong>
+          <pre class="sdk-preview" id="receiptPreview" aria-live="polite"></pre>
+        </div>
+      </div>
+
+      <div class="sdk-actions">
+        <span class="sdk-hint">The windows are generated previews. They are not proof receipts and cannot be edited directly in the normal path.</span>
+        <button class="sv-btn sv-btn-secondary" id="useManifestAsConsoleMessage" type="button">Copy payload to console</button>
+        <button class="sv-btn sv-btn-primary" type="submit">Check submission correctness</button>
+      </div>
+    </form>
   </div>
 
   <h2 class="sv-h2" id="console">Console</h2>
@@ -221,7 +321,7 @@
 
 <footer class="sv-footer">
   <span>StegVerse · Text-only ecosystem console · Public mirror boundary</span>
-  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway Contract</a> · <a href="transition-verification-guide.html">Verification Guide</a></span>
+  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway Contract</a> · <a href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form Model</a> · <a href="transition-verification-guide.html">Verification Guide</a></span>
 </footer>
 
 <script src="assets/ecosystem-chat.js"></script>
