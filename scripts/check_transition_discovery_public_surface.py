@@ -4,7 +4,7 @@
 The transition pages must remain root-level public views of the canonical
 transition discovery state. This checker catches page drift, missing shared
 scripts, missing view declarations, stale milestone claims, missing JSON state,
-and missing workflow/iOS mirror governance.
+missing renderer JSON links, and missing workflow/iOS mirror governance.
 """
 
 from pathlib import Path
@@ -130,6 +130,7 @@ def validate_workflow() -> None:
             "workflow_dispatch",
             "assets/transition-discovery-state.js",
             "assets/transition-page-renderer.js",
+            "data/transition-discovery-state-v1.json",
             "scripts/check_transition_discovery_public_surface.py",
             "python scripts/check_transition_discovery_public_surface.py",
         ],
@@ -157,6 +158,16 @@ def main() -> None:
         fail("renderer does not locate data-transition-view root")
     if "transition-discovery-renderer-style" not in renderer:
         fail("renderer does not inject shared transition discovery styling")
+    require_terms(
+        "transition renderer",
+        renderer,
+        [
+            "data/transition-discovery-state-v1.json",
+            "Open machine-readable discovery state JSON",
+            "Machine-readable discovery state JSON",
+            "Machine-readable mirror",
+        ],
+    )
     for view in PAGES.values():
         if view not in renderer:
             fail(f"renderer missing view key/content for {view}")
