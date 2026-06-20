@@ -1,0 +1,29 @@
+{
+  "fields": {
+    "target_entry_point": "StegVerse-org/SDK",
+    "input_mode": "text_form",
+    "requested_route": "Site",
+    "receipt_expectation": "sdk_intake_receipt_requested",
+    "submission_posture": "ready_for_submission",
+    "user_request": "continue building Site",
+    "declared_goal": "text-only ecosystem command console",
+    "operator_note": ""
+  },
+  "manifest": {
+    "target_entry_point": "StegVerse-org/SDK",
+    "input_mode": "text_form",
+    "requested_route": "Site",
+    "user_request": "continue building Site",
+    "declared_goal": "text-only ecosystem command console",
+    "operator_note": "",
+    "source_surface": "StegVerse-Labs/Site/ecosystem-chat.html"
+  },
+  "receipt_window": {
+    "receipt_expectation": "sdk_intake_receipt_requested",
+    "submission_posture": "ready_for_submission",
+    "site_receipt_authority": false,
+    "manifest_correct_at_submission": true,
+    "submission_target": "StegVerse-org/SDK",
+    "correctness_errors": []
+  }
+}
