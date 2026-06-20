@@ -11,6 +11,7 @@ assets/transition-discovery-state.js
 assets/transition-page-renderer.js
 data/transition-discovery-state-v1.json
 data/transition-page-contract-v1.json
+data/transition-discovery-receipt-v1.json
 ```
 
 `assets/transition-discovery-state.js` owns the browser-facing public discovery state.
@@ -20,6 +21,8 @@ data/transition-page-contract-v1.json
 `data/transition-discovery-state-v1.json` mirrors the public discovery state for validators, ingestion engines, and non-browser consumers.
 
 `data/transition-page-contract-v1.json` defines the machine-readable contract for the seven public page roles, expected views, required shared loads, required JSON exposure, workflow command, non-claims, and pending Publisher closure boundary.
+
+`data/transition-discovery-receipt-v1.json` records the compact public-surface receipt: current release, frontier, receipt-backed partitions, expected replay verdict, artifact pointers, validation command, and non-claims.
 
 ## Root-level pages
 
@@ -54,6 +57,7 @@ Receipt-backed partitions: T13, T14
 Expected replay verdict: ALLOW
 Machine-readable mirror: data/transition-discovery-state-v1.json
 Machine-readable page contract: data/transition-page-contract-v1.json
+Machine-readable receipt: data/transition-discovery-receipt-v1.json
 ```
 
 ## Validator
@@ -68,18 +72,22 @@ The checker verifies that:
 canonical JavaScript state exists
 machine-readable JSON mirror exists
 machine-readable page contract exists
+machine-readable receipt exists
 JSON mirror schema is stegverse.transition_discovery_state.v1
 page contract schema is stegverse.transition_page_contract.v1
+receipt schema is stegverse.transition_discovery_receipt.v1
 shared renderer exists
 shared renderer injects transition discovery styling
 all seven root-level public pages load both shared files
 all seven pages declare the expected transition view
-T13 and T14 remain receipt-backed in both canonical and JSON state
+T13 and T14 remain receipt-backed in canonical, JSON, contract, and receipt state
 JSON state lists all 16 current transition partitions
 JSON state preserves pending Publisher closure boundary
 page contract lists exactly the seven transition pages
 page contract preserves MS-012, MS-012F, T13/T14, and pending Publisher closure boundary
 page contract requires each page to expose data/transition-discovery-state-v1.json
+receipt lists all public artifacts and exact validation command
+receipt preserves the Publisher closure boundary as pending
 this documentation lists the expected public surfaces and boundary references
 the dedicated workflow exists and calls the checker
 the iosnoperiod workflow mirror matches the canonical workflow exactly
@@ -100,7 +108,7 @@ Displayed without the leading dot for iOS-safe review:
 github/workflows/transition-discovery-public-surface.yml
 ```
 
-The workflow runs on manual dispatch and on pushes that affect the canonical discovery state, machine-readable state, machine-readable page contract, renderer, seven root-level public pages, this document, or the checker.
+The workflow runs on manual dispatch and on pushes that affect the canonical discovery state, machine-readable state, machine-readable page contract, machine-readable receipt, renderer, seven root-level public pages, this document, or the checker.
 
 ## iOS-safe mirror
 
