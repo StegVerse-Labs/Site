@@ -59,6 +59,10 @@ CHECKS = {
         "Receipt window",
         "dropdown-style controls",
         "manifest_correct_at_submission",
+        "fixtures/ecosystem-chat/sdk-form-payload.example.json",
+        "`fields`",
+        "`manifest`",
+        "`receipt_window`",
     ],
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md": [
         "Backend gateway state: not installed",
@@ -73,6 +77,14 @@ CHECKS = {
     "fixtures/ecosystem-chat/response.example.json": [
         "\"routed_module\": \"Site\"",
         "\"receipt_id\": null",
+    ],
+    "fixtures/ecosystem-chat/sdk-form-payload.example.json": [
+        "\"fields\"",
+        "\"manifest\"",
+        "\"receipt_window\"",
+        "\"target_entry_point\": \"StegVerse-org/SDK\"",
+        "\"site_receipt_authority\": false",
+        "\"manifest_correct_at_submission\": true",
     ],
     ".github/workflows/check-ecosystem-chat.yml": [
         "name: Check Ecosystem Chat Contract",
@@ -92,6 +104,7 @@ CHECKS = {
         "[`docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md`](docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md)",
         "[`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json)",
         "[`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json)",
+        "[`fixtures/ecosystem-chat/sdk-form-payload.example.json`](fixtures/ecosystem-chat/sdk-form-payload.example.json)",
         "[`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md)",
         "[`iosnoperiod/workflow-map.json`](iosnoperiod/workflow-map.json)",
         "Ecosystem Chat     =  text-only command surface, not proof authority",
