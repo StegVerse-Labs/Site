@@ -8,6 +8,18 @@ The browser page may collect text input, classify local route posture, display l
 
 The browser page must not become proof authority, transition authority, accreditation authority, or autonomous deployment authority.
 
+## SDK entry IFF rule
+
+The browser gateway may act as an acceptable user-facing input into the StegVerse-org/SDK entry point if and only if:
+
+1. fillable form fields generate text only into the manifest window and receipt window;
+2. the manifest window and receipt window remain generated previews, not proof receipts;
+3. fields with strictly limited choices are rendered as dropdown-style controls;
+4. the generated manifest and receipt-window JSON are determined correct at the time of submission;
+5. the submitted payload preserves the distinction between form fields, generated manifest JSON, and generated receipt-window JSON.
+
+Detailed browser form model: `docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md`.
+
 ## Done condition
 
 The text-only console is activation-ready when:
