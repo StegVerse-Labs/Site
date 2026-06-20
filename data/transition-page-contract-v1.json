@@ -1,0 +1,81 @@
+{
+  "schema": "stegverse.transition_page_contract.v1",
+  "generated_at": "2026-06-20T00:00:00-05:00",
+  "purpose": "Machine-readable page contract for the public Transition Periodic Table discovery surface.",
+  "source_files": {
+    "browser_state": "assets/transition-discovery-state.js",
+    "machine_state": "data/transition-discovery-state-v1.json",
+    "renderer": "assets/transition-page-renderer.js",
+    "validator": "scripts/check_transition_discovery_public_surface.py",
+    "documentation": "docs/TRANSITION_DISCOVERY_PUBLIC_SURFACE.md"
+  },
+  "release_expectations": {
+    "current_release": "MS-012",
+    "current_frontier": "MS-012F",
+    "receipt_backed_partitions": ["T13", "T14"],
+    "expected_replay_verdict": "ALLOW",
+    "site_mirror_activation": "pending_publisher_closure_evidence"
+  },
+  "pages": [
+    {
+      "path": "transition-table.html",
+      "view": "table",
+      "role": "Map of discovered transition space",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    },
+    {
+      "path": "transition-milestones.html",
+      "view": "milestones",
+      "role": "Epistemic ledger of threshold crossings",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    },
+    {
+      "path": "transition-development-status.html",
+      "view": "development-status",
+      "role": "Current frontier of the exploration",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    },
+    {
+      "path": "transition-release-snapshot.html",
+      "view": "release-snapshot",
+      "role": "Frozen knowledge boundary",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    },
+    {
+      "path": "transition-release-index.html",
+      "view": "release-index",
+      "role": "Index of public discovery states",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    },
+    {
+      "path": "transition-verification-guide.html",
+      "view": "verification-guide",
+      "role": "Reader procedure for checking table claims",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    },
+    {
+      "path": "transition-replay-packet.html",
+      "view": "replay-packet",
+      "role": "Reconstructable evidence surface",
+      "must_load": ["assets/transition-discovery-state.js", "assets/transition-page-renderer.js"],
+      "must_expose": ["data/transition-discovery-state-v1.json"]
+    }
+  ],
+  "workflow_contract": {
+    "canonical": ".github/workflows/transition-discovery-public-surface.yml",
+    "ios_mirror": "iosnoperiod/github/workflows/transition-discovery-public-surface.yml",
+    "manifest": "iosnoperiod/manifest.json",
+    "required_command": "python scripts/check_transition_discovery_public_surface.py"
+  },
+  "non_claims": [
+    "This contract does not activate the Publisher-to-Site mirror.",
+    "This contract does not claim the Transition Periodic Table is complete.",
+    "This contract does not promote partitions outside the current evidence state."
+  ]
+}
