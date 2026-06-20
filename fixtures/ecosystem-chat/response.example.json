@@ -1,0 +1,6 @@
+{
+  "response": "Route: Site\nAuthority: none until a governed backend issues a receipt.\nNext action: Send this request to the Site handler once governed backend routing is active.",
+  "routed_module": "Site",
+  "receipt_id": null,
+  "next_action": "Send this request to the Site handler once governed backend routing is active."
+}
