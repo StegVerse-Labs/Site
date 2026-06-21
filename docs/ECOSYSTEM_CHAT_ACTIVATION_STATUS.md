@@ -8,6 +8,8 @@ The page is currently in local-simulation mode. It does not call a live backend 
 
 The SDK Entry Form is installed as a browser-side user input surface for the StegVerse-org/SDK entry point if and only if the generated manifest window and receipt window remain distinct from the fillable fields and are determined correct at submission time.
 
+The Site-side activation surface is complete for pre-backend handoff. Remaining activation belongs to the governed SDK/backend implementation boundary.
+
 ## Current installed surface
 
 | Surface | State |
@@ -16,6 +18,7 @@ The SDK Entry Form is installed as a browser-side user input surface for the Ste
 | Browser script | Installed: `assets/ecosystem-chat.js` |
 | Gateway contract | Installed: `docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md` |
 | Form gateway model | Installed: `docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md` |
+| SDK backend handoff | Installed: `docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md` |
 | SDK form payload fixture | Installed: `fixtures/ecosystem-chat/sdk-form-payload.example.json` |
 | SDK backend response fixture | Installed: `fixtures/ecosystem-chat/sdk-backend-response.example.json` |
 | Gateway fixtures | Installed: `fixtures/ecosystem-chat/request.example.json` and `fixtures/ecosystem-chat/response.example.json` |
@@ -85,13 +88,15 @@ Page state: installed
 Script state: installed
 Contract state: installed
 Form model state: installed
+SDK backend handoff state: installed
 Fixture state: installed
 SDK form state: installed
 SDK backend response fixture state: installed
 Check state: installed
 Workflow state: installed
+Site-side pre-backend handoff state: complete
 Backend gateway state: not installed
 SDK backend submission state: not installed
 Authority-issued receipt state: not installed
-Overall state: pre-backend activation
+Overall state: Site-side complete; SDK/backend activation pending
 ```
