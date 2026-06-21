@@ -82,7 +82,8 @@ CHECKS = {
     ],
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md": [
         "SDK Entry Form is installed",
-        "Form gateway model",
+        "The Site-side activation surface is complete for pre-backend handoff.",
+        "SDK backend handoff",
         "SDK form payload fixture",
         "SDK backend response fixture",
         "SDK backend response fixture state: installed",
@@ -91,9 +92,10 @@ CHECKS = {
         "Closed-choice dropdown state: installed",
         "Manifest window state: installed",
         "Receipt window state: installed",
+        "Site-side pre-backend handoff state: complete",
         "SDK backend submission state: not installed",
         "Authority-issued receipt state: not installed",
-        "Overall state: pre-backend activation",
+        "Overall state: Site-side complete; SDK/backend activation pending",
         "python scripts/check_ecosystem_chat_contract.py",
     ],
     "fixtures/ecosystem-chat/request.example.json": [
