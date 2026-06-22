@@ -128,6 +128,32 @@
     </tbody>
   </table>
 
+  <h2 class="sv-h2">Irreversibility-Inference Convergence Theorem</h2>
+  <div class="sv-prose">
+    <p>The Irreversibility-Inference Convergence Theorem, or IICT, is a proposed theorem candidate under commit-time admissibility. It does not replace commit-time admissibility. Commit-time admissibility asks whether execution still has standing at the moment of commitment. IICT proposes a convergence behavior that may emerge when admissibility systems are repeatedly optimized and tested.</p>
+    <p>The core question is: how close should the final valid inference be to the first irreversible action?</p>
+    <p><strong>Theorem candidate:</strong> a governance system subjected to repeated admissibility optimization will converge toward structures that minimize the distance between irreversible commitment and the final admissible inference while preserving reconstructability.</p>
+  </div>
+
+  <table class="sv-table">
+    <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+    <tbody>
+      <tr><td><code>Inference Window</code></td><td>The interval in which authority, policy, evidence, context, delegation, and memory are still valid enough to support a standing determination.</td></tr>
+      <tr><td><code>Point of Irreversibility</code></td><td>The point after which an action cannot be fully recalled, reversed, re-bound, or restored to its prior admissible state.</td></tr>
+      <tr><td><code>Governance Distance</code></td><td>The distance between the final valid inference and the point of irreversibility.</td></tr>
+      <tr><td><code>Final Valid Inference</code></td><td>The most recent inference that still retains standing under current authority, policy, evidence, context, delegation, and memory conditions.</td></tr>
+      <tr><td><code>Irreversible Commitment</code></td><td>The crossing point where a proposed transition becomes practically, procedurally, or materially non-recoverable without a new recovery or remediation process.</td></tr>
+      <tr><td><code>Reconstructability</code></td><td>The ability to recover the evidence, receipts, policy references, authority state, context, and decision path needed to explain or replay why a transition did or did not have standing.</td></tr>
+      <tr><td><code>Admissibility Geometry</code></td><td>The structural relationship among authority, policy, evidence, context, delegation, memory, inference timing, and irreversible action.</td></tr>
+      <tr><td><code>Commit-time Admissibility</code></td><td>The requirement that a transition still have standing at the moment it crosses into commitment, rather than relying only on prior review or historical approval.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sv-prose">
+    <p>Under IICT, larger governance distance increases the likelihood of stale authority, stale evidence, delegation drift, memory contamination, or context mismatch. The expected convergence target is not merely an ALLOW or DENY result. It is a structural geometry that keeps irreversible action as close as possible to the live inference window while preserving enough evidence to reconstruct the decision path.</p>
+    <p>In the wiki posture, IICT should be treated as proposed vocabulary and theorem framing until formalism tests, evidence packets, and peer review establish stronger standing.</p>
+  </div>
+
   <h2 class="sv-h2">Machine-readable status</h2>
   <div class="sv-prose">
     <p>The current wiki status artifact is maintained by the Admissibility Wiki repository:</p>
@@ -141,6 +167,7 @@ Site does not generate Admissibility Wiki proposal receipts.
 Site does not accept wiki terminology proposals.
 Site does not replace Admissibility Wiki governance records.
 The Admissibility Wiki does not replace executable formalism tests.
+IICT does not replace commit-time admissibility.
 A public page is not proof of admissibility by itself.</pre>
 
 </div>
