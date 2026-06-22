@@ -1,0 +1,30 @@
+name: Check Publication Micro-Node Workflow
+
+on:
+  push:
+    paths:
+      - "docs/PUBLICATION_MICRO_NODE_WORKFLOW.md"
+      - "docs/RELEASE_EVALUATOR_HANDOFF.md"
+      - "docs/MASTER_RECORDS_PUBLICATION_CONFIRMATION_GATE.md"
+      - "docs/PUBLICATION_WORKFLOW_PACKET_SCHEMA.md"
+      - "scripts/check_publication_micro_node_workflow.py"
+      - ".github/workflows/check-publication-micro-node-workflow.yml"
+  pull_request:
+    paths:
+      - "docs/PUBLICATION_MICRO_NODE_WORKFLOW.md"
+      - "docs/RELEASE_EVALUATOR_HANDOFF.md"
+      - "docs/MASTER_RECORDS_PUBLICATION_CONFIRMATION_GATE.md"
+      - "docs/PUBLICATION_WORKFLOW_PACKET_SCHEMA.md"
+      - "scripts/check_publication_micro_node_workflow.py"
+      - ".github/workflows/check-publication-micro-node-workflow.yml"
+  workflow_dispatch:
+
+jobs:
+  check-publication-micro-node-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run publication micro-node workflow documentation check
+        run: python scripts/check_publication_micro_node_workflow.py
