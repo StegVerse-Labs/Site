@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_type": "site_mirror_receipt",
+  "target_repo": "StegVerse-Labs/Site",
+  "source_repo": "StegVerse-Labs/StegTalk",
+  "production_ready": false,
+  "installed_files": [
+    "SITE_MIRROR_HANDOFF.md",
+    "data/stegtalk-local-candidate.json"
+  ],
+  "source_artifacts": [
+    "STEGTALK_MIRROR_HANDOFF.md",
+    "STEGTALK_CANDIDATE_STATUS.json",
+    "STEGTALK_LOCAL_CANDIDATE.json",
+    "STEGTALK_RELEASE_HANDOFF.json"
+  ],
+  "remaining_targets": [
+    "GCAT-BCAT-Engine/Publisher",
+    "admissibility-wiki",
+    "stegguardian-wiki"
+  ]
+}
