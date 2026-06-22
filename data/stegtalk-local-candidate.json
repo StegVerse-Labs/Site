@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "site_stegtalk_local_candidate_status",
+  "source_repo": "StegVerse-Labs/StegTalk",
+  "site_repo": "StegVerse-Labs/Site",
+  "candidate": "local-prototype-candidate-1",
+  "production_ready": false,
+  "status": "non-production local prototype candidate",
+  "ready_lanes": [
+    "entity_runtime",
+    "message_envelope",
+    "contact_routing",
+    "local_inbox_projection",
+    "local_persistence",
+    "boundary_module",
+    "public_discovery",
+    "shell_lane",
+    "account_lane"
+  ],
+  "source_artifacts": [
+    "STEGTALK_MIRROR_HANDOFF.md",
+    "STEGTALK_CANDIDATE_STATUS.json",
+    "STEGTALK_LOCAL_CANDIDATE.json",
+    "STEGTALK_RELEASE_HANDOFF.json"
+  ],
+  "next_targets": [
+    "GCAT-BCAT-Engine/Publisher",
+    "admissibility-wiki",
+    "stegguardian-wiki"
+  ]
+}
