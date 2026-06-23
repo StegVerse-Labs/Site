@@ -6,7 +6,7 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 
 ## Current Priority
 
-Publish or update StegTalk non-production local candidate status from `StegVerse-Labs/StegTalk`.
+StegTalk non-production local candidate status has been mirrored to Site and propagated through the known downstream targets.
 
 ## Source Artifacts
 
@@ -17,26 +17,32 @@ Destination source: `StegVerse-Labs/StegTalk`
 - `STEGTALK_LOCAL_CANDIDATE.json`
 - `STEGTALK_RELEASE_HANDOFF.json`
 
-## Required Site Install
+## Site Install Complete
 
 Destination: `StegVerse-Labs/Site`
 
-- Site-visible StegTalk status page or data record
-- Site mirror receipt that records source artifacts and non-production boundary
+- `data/stegtalk-local-candidate.json`
+- `data/stegtalk-local-candidate-receipt.json`
 
-## Downstream Propagation Still Required
+## Downstream Propagation Complete
 
 Destination: `GCAT-BCAT-Engine/Publisher`
 
-- publish/update StegTalk local candidate status
+- `PUBLISHER_MIRROR_HANDOFF.md`
+- `data/stegtalk-local-candidate.json`
+- `data/stegtalk-local-candidate-publisher-receipt.json`
 
-Destination: `admissibility-wiki`
+Destination: `StegVerse-Labs/admissibility-wiki`
 
-- add/update StegTalk admissibility boundary notes
+- `ADMISSIBILITY_MIRROR_HANDOFF.md`
+- `pages/stegtalk-admissibility-boundary.md`
+- `receipts/stegtalk-admissibility-boundary-receipt.json`
 
-Destination: `stegguardian-wiki`
+Destination: `StegVerse-002/stegguardian-wiki`
 
-- add/update StegTalk guardian/account boundary notes
+- `STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md`
+- `pages/stegtalk-guardian-account-boundary.md`
+- `receipts/stegtalk-boundary-receipt.json`
 
 ## Build Rule
 
@@ -45,3 +51,7 @@ Before continuing any Site mirror task, check this file first and treat it as th
 ## Boundary
 
 StegTalk remains a non-production local prototype candidate. Do not publish it as production ready.
+
+## Next Integration Candidate
+
+No additional StegTalk propagation target is currently known from this handoff.
