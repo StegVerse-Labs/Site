@@ -6,7 +6,7 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 
 ## Current Priority
 
-StegTalk non-production local candidate status has been mirrored to Site and propagated through the known downstream targets.
+StegTalk non-production local candidate status has been mirrored to Site, propagated through the known downstream targets, and linked to public wiki targets.
 
 ## Source Artifacts
 
@@ -23,6 +23,24 @@ Destination: `StegVerse-Labs/Site`
 
 - `data/stegtalk-local-candidate.json`
 - `data/stegtalk-local-candidate-receipt.json`
+- `data/wiki-public-links.json`
+- `docs/wiki-links.md`
+
+## Public Wiki Links Complete
+
+Destination: `StegVerse-Labs/stegtalk-wiki`
+
+- `https://stegverse-labs.github.io/stegtalk-wiki/`
+- `.github/workflows/pages.yml`
+
+Destination: `StegVerse-002/stegguardian-wiki`
+
+- `https://stegverse-002.github.io/stegguardian-wiki/`
+- `.github/workflows/pages.yml`
+
+Destination: `StegVerse-Labs/admissibility-wiki`
+
+- `https://stegverse-labs.github.io/admissibility-wiki/`
 
 ## Downstream Propagation Complete
 
