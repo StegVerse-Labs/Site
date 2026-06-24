@@ -1,0 +1,11 @@
+{
+  "receipt_type": "pwc002_repo_install_receipt",
+  "repo": "StegVerse-Labs/Site",
+  "role": "site_mirror",
+  "branch": "pwc002/install-runtime-handoff",
+  "live_default_branch_write": false,
+  "merge_authorized": false,
+  "site_publication_claimed": false,
+  "manual_task_eliminated": "site mirror handoff placement",
+  "result": "DRAFT_BRANCH_INSTALLED"
+}
