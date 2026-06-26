@@ -14,6 +14,9 @@ on:
       - "docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md"
       - "docs/SITE_SELF_MANAGED_COMPLETION.md"
       - "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
+      - "docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md"
+      - "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md"
+      - "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json"
       - "scripts/check_site_mirror_handoff.py"
       - "scripts/check_site_mirror_closure_next_build.py"
       - "scripts/check_site_mirror_closure_guard.py"
@@ -22,6 +25,8 @@ on:
       - "scripts/check_site_mirror_evidence_requirements.py"
       - "scripts/check_site_mirror_evidence_transition_rules.py"
       - "scripts/check_site_self_managed_completion.py"
+      - "scripts/check_site_tt_code_representation_mirror.py"
+      - "scripts/render_tt_code_representation_status.py"
 
 jobs:
   closure-guard:
@@ -59,6 +64,12 @@ jobs:
       - name: Check Site self-managed completion
         run: python scripts/check_site_self_managed_completion.py
 
+      - name: Check Site TT code-representation mirror
+        run: python scripts/check_site_tt_code_representation_mirror.py
+
+      - name: Render Site TT code-representation status
+        run: python scripts/render_tt_code_representation_status.py
+
       - name: Write summary
         if: always()
         run: |
@@ -73,6 +84,8 @@ jobs:
           echo "**Evidence transition rules:** docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md" >> "$GITHUB_STEP_SUMMARY"
           echo "**Self-managed completion:** docs/SITE_SELF_MANAGED_COMPLETION.md" >> "$GITHUB_STEP_SUMMARY"
           echo "**Ecosystem management handoff:** docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**TT code mirror:** docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "**TT code status:** docs/SITE_TT_CODE_REPRESENTATION_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
           echo "**Handoff checker:** scripts/check_site_mirror_handoff.py" >> "$GITHUB_STEP_SUMMARY"
           echo "**Closure checker:** scripts/check_site_mirror_closure_next_build.py" >> "$GITHUB_STEP_SUMMARY"
           echo "**Closure guard checker:** scripts/check_site_mirror_closure_guard.py" >> "$GITHUB_STEP_SUMMARY"
@@ -81,5 +94,7 @@ jobs:
           echo "**Evidence requirements checker:** scripts/check_site_mirror_evidence_requirements.py" >> "$GITHUB_STEP_SUMMARY"
           echo "**Evidence transition rules checker:** scripts/check_site_mirror_evidence_transition_rules.py" >> "$GITHUB_STEP_SUMMARY"
           echo "**Self-managed completion checker:** scripts/check_site_self_managed_completion.py" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Assessment state:** repository-managed continuation ready; full activation still requires Publisher closure evidence." >> "$GITHUB_STEP_SUMMARY"
-          echo "**Activation boundary:** Publisher closure remains required before activation can be claimed." >> "$GITHUB_STEP_SUMMARY"
+          echo "**TT mirror checker:** scripts/check_site_tt_code_representation_mirror.py" >> "$GITHUB_STEP_SUMMARY"
+          echo "**TT status renderer:** scripts/render_tt_code_representation_status.py" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Assessment state:** repository-managed continuation ready; full activation still requires Publisher closure evidence and propagated TT bundle evidence." >> "$GITHUB_STEP_SUMMARY"
+          echo "**Activation boundary:** Publisher closure remains required before activation can be claimed; TT mirrored status does not grant execution authority." >> "$GITHUB_STEP_SUMMARY"
