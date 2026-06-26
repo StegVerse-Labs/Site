@@ -43,6 +43,7 @@ These paths are visible enough that their purpose, authority, and evidence bound
 |---|---|---|---|---|
 | `/` | Site repository landing surface and public entry point. | Overview material, links to public evidence, display pages, and documentation. | Adoption, endorsement, or activated mirror status by itself. | `StegVerse-Labs/Site` checked-in content. |
 | `/admissibility-wiki.html` | Public bridge to the Admissibility Wiki. | Vocabulary bridge copy, AI-governed proposal-system explanation, transition-table element mapping, proposal transition blocks, and links to wiki source/status. | That Site accepts wiki proposals, issues wiki receipts, authors wiki decisions, or becomes proof authority. | `StegVerse-Labs/admissibility-wiki` remains source of truth for wiki records; Site is display/bridge only. |
+| `/tt-code-representation.html` | Public mirror surface for TT code-representation status. | Human-readable explanation of TT registry/code/fixture/receipt linkage and links to Site-rendered TT status artifacts. | That Site is the canonical TT source, that a rendered element grants authority, or that TT status equals SPE ALLOW. | `Admissible-Existence/TT` remains source of truth; Site is display/mirror only. |
 | `/papers` | Public display target for mirrored Publisher papers. | Mirrored papers, manifest-derived listings, paper aliases, display-policy references. | That Site is the editorial source of truth. | `GCAT-BCAT-Engine/Publisher` remains source of truth. |
 | `/upload` | GitHub upload route, not a StegVerse evidence intake guarantee. | User-initiated GitHub upload UI if permissions allow. | That uploaded files are automatically accepted, validated, or committed. | GitHub permissions and repository review rules. |
 | `/upload/main` | GitHub upload route targeting the default branch context. | Candidate file uploads from authorized GitHub users. | That default-branch uploads bypass validation or review. | GitHub branch protections, workflows, and maintainers. |
@@ -62,6 +63,7 @@ These paths are visible enough that their purpose, authority, and evidence bound
 ```text
 /
 /admissibility-wiki.html
+/tt-code-representation.html
 /papers
 /docs
 ```
@@ -140,6 +142,27 @@ StegVerse-Labs/admissibility-wiki
 
 Site may explain the AI-governed proposal system and transition-table elements, but Site must not claim that it accepts wiki proposals, issues wiki receipts, or decides wiki terminology standing.
 
+## TT Code Representation Boundary
+
+For `tt-code-representation.html`, the Site repository is a public mirror surface.
+
+The canonical Transition Table code-representation authority remains:
+
+```text
+Admissible-Existence/TT
+```
+
+Site may render mirrored TT status and link to generated Site status artifacts, but Site must not claim that it defines TT semantics, grants execution authority, or returns SPE standing determinations.
+
+Required companion references:
+
+```text
+docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md
+docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
+docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
+docs/SITE_MIRROR_HANDOFF.md
+```
+
 ## Mirror-Specific Boundary
 
 For `papers`, the Site repository is a display target.
@@ -190,6 +213,7 @@ high-interest public paths have explicit semantics
 upload routes are marked as candidate-submission routes only
 papers are marked as mirror display targets only
 admissibility-wiki.html is marked as public bridge only
+tt-code-representation.html is marked as public mirror only
 traffic is not treated as adoption or activation
 workflow history is tied to receipts and evidence fields
 ```
