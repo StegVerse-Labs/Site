@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse — TT Code Representation</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.55; max-width: 980px; }
+    code, pre { background: #f4f4f4; padding: 0.15rem 0.3rem; border-radius: 4px; }
+    pre { padding: 1rem; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: 0.55rem; text-align: left; }
+    th { background: #f4f4f4; }
+    .notice { border-left: 4px solid #444; padding: 0.75rem 1rem; background: #fafafa; }
+  </style>
+</head>
+<body>
+  <h1>Transition Table Code Representation</h1>
+
+  <p class="notice">
+    <strong>Canonical source:</strong> <code>Admissible-Existence/TT</code>. This Site page is a public mirror surface only.
+    It does not redefine Transition Table semantics or grant execution authority.
+  </p>
+
+  <h2>Purpose</h2>
+  <p>
+    This page explains how Transition Table elements are represented as canonical registry entries,
+    code references, fixtures, receipt schemas, and generated mirror status.
+  </p>
+
+  <h2>Representation Chain</h2>
+  <pre>Transition Table element
+        |
+        v
+canonical registry entry
+        |
+        v
+specific code reference
+        |
+        v
+test fixture
+        |
+        v
+receipt-producing evaluation</pre>
+
+  <h2>Required Element Fields</h2>
+  <table>
+    <thead>
+      <tr><th>Field</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>transition_id</code></td><td>Stable Transition Table element identifier.</td></tr>
+      <tr><td><code>transition_name</code></td><td>Canonical human-readable transition name.</td></tr>
+      <tr><td><code>transition_family</code></td><td>Canonical family grouping.</td></tr>
+      <tr><td><code>code_ref</code></td><td>Declared handler path and symbol.</td></tr>
+      <tr><td><code>fixture_ref</code></td><td>Declared fixture path.</td></tr>
+      <tr><td><code>receipt_schema_ref</code></td><td>Declared receipt schema path.</td></tr>
+      <tr><td><code>implementation_status</code></td><td>Whether the element is implemented, default-handler, scaffolded, missing, or deprecated.</td></tr>
+      <tr><td><code>propagation_status</code></td><td>Whether downstream mirrors are pending, mirrored, superseded, or blocked.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Current Site Mirror Status</h2>
+  <p>
+    The generated Site mirror status is available at:
+  </p>
+  <ul>
+    <li><a href="docs/SITE_TT_CODE_REPRESENTATION_STATUS.md">Markdown status</a></li>
+    <li><a href="docs/SITE_TT_CODE_REPRESENTATION_STATUS.json">JSON status</a></li>
+  </ul>
+
+  <h2>Fail-Closed Rule</h2>
+  <p>
+    If Site displays, indexes, or routes a transition element whose canonical TT registry entry lacks a valid
+    <code>code_ref</code>, <code>fixture_ref</code>, or <code>receipt_schema_ref</code>, the mirrored status must mark
+    the element as not operational and downstream evaluators should return <code>FAIL_CLOSED</code>.
+  </p>
+
+  <h2>Authority Boundary</h2>
+  <p>
+    A rendered Site page, registry entry, code reference, fixture, or passing mirror check does not grant execution authority.
+    SPE must still reconstruct current standing before any commit boundary is allowed.
+  </p>
+
+  <h2>Companion Documentation</h2>
+  <ul>
+    <li><a href="docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md">Site TT Code Representation Mirror</a></li>
+    <li><a href="docs/SITE_MIRROR_HANDOFF.md">Site Mirror Handoff</a></li>
+    <li><a href="docs/SITE_PUBLIC_PATHS.md">Site Public Paths</a></li>
+  </ul>
+</body>
+</html>
