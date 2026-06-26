@@ -1,0 +1,6 @@
+{
+  "status": "PENDING",
+  "canonical_source": "Admissible-Existence/TT",
+  "reason": "No propagated TT bundle found at data/tt/transition-element-propagation-bundle.manifest.json.",
+  "fail_closed": true
+}
