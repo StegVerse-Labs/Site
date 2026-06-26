@@ -11,7 +11,7 @@ Goal: Continue building without manual actions needed through completion, or unt
 Repository: StegVerse-Labs/Site
 Source repository: GCAT-BCAT-Engine/Publisher and Admissible-Existence/TT
 Source path: papers and TT propagation artifacts
-Target path: papers and docs
+Target path: papers, docs, and public HTML surfaces
 Activation state: pending_publisher_closure_evidence
 Self-management state: repository_managed_continuation_ready
 ```
@@ -43,6 +43,7 @@ scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
 scripts/check_site_public_ingestion_contract.py
 papers/papers_manifest.json
+tt-code-representation.html
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
 docs/SITE_MIRROR_ACTIVATION_STATUS.md
@@ -73,6 +74,16 @@ Note: `github/workflows/...` paths are displayed without the leading dot. The ac
 ## Site Mirror Contract
 
 The Site mirror must not become a separate editorial source of truth. Publisher remains authoritative for papers. `Admissible-Existence/TT` remains authoritative for Transition Table code-representation semantics.
+
+## Public TT Code Representation Page
+
+Site now exposes a public HTML mirror surface:
+
+```text
+tt-code-representation.html
+```
+
+This page explains TT code representation, links to Site-rendered status artifacts, and preserves the boundary that rendered Site pages do not grant execution authority.
 
 ## TT Code Representation Sync
 
@@ -128,9 +139,9 @@ This mirror preserves the boundary that Site may display and route canonical TT 
 ## Current Completion Estimate
 
 ```text
-StegVerse-Labs - 96%complete
-Site - 95%complete
-Site - 95%complete TO GOAL ACTIVATION
+StegVerse-Labs - 97%complete
+Site - 96%complete
+Site - 96%complete TO GOAL ACTIVATION
 ```
 
 The complete thread is ready for archiving after the TT sync workflow produces the first committed bundle-fed status.
