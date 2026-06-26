@@ -22,6 +22,7 @@ Self-management state: repository_managed_continuation_ready
 github/workflows/mirror-papers.yml
 github/workflows/site-mirror-closure-guard.yml
 github/workflows/site-self-managed-completion.yml
+github/workflows/sync-tt-code-representation.yml
 scripts/mirror_papers.py
 scripts/check_paper_display_policy.py
 scripts/check_papers_manifest_metadata.py
@@ -73,6 +74,18 @@ Note: `github/workflows/...` paths are displayed without the leading dot. The ac
 
 The Site mirror must not become a separate editorial source of truth. Publisher remains authoritative for papers. `Admissible-Existence/TT` remains authoritative for Transition Table code-representation semantics.
 
+## TT Code Representation Sync
+
+Site now has a workflow that fetches canonical TT, builds the TT propagation bundle, copies it into Site, renders Site status, checks the mirror contract, and commits changed mirror artifacts.
+
+Workflow path shown without leading period for iOS compatibility:
+
+```text
+github/workflows/sync-tt-code-representation.yml
+```
+
+Canonical repository path begins with a leading period.
+
 ## TT Code Representation Status Rendering
 
 Site now has a renderer:
@@ -115,9 +128,9 @@ This mirror preserves the boundary that Site may display and route canonical TT 
 ## Current Completion Estimate
 
 ```text
-StegVerse-Labs - 94%complete
-Site - 91%complete
-Site - 91%complete TO GOAL ACTIVATION
+StegVerse-Labs - 96%complete
+Site - 95%complete
+Site - 95%complete TO GOAL ACTIVATION
 ```
 
-The complete thread is ready for archiving after Site TT code-representation status is fed by an actual propagated TT bundle.
+The complete thread is ready for archiving after the TT sync workflow produces the first committed bundle-fed status.
