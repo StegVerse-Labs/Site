@@ -9,8 +9,10 @@ on:
       - "docs/SITE_SELF_MANAGED_COMPLETION.md"
       - "docs/SITE_MIRROR_HANDOFF.md"
       - "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
+      - "docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
       - "docs/SITE_MIRROR_ACTIVATION_LEDGER.json"
       - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
+      - "docs/SITE_EXTERNAL_EVIDENCE_STATE.json"
       - "docs/SITE_FINAL_ACTIVATION_PENDING.md"
       - "docs/SITE_FINAL_GOAL_STATUS.md"
       - "docs/SITE_FINAL_GOAL_STATUS.json"
@@ -18,6 +20,7 @@ on:
       - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json"
       - "scripts/check_site_self_managed_completion.py"
       - "scripts/check_site_mirror_handoff.py"
+      - "scripts/check_site_ecosystem_management_handoff.py"
       - "scripts/check_site_final_activation_pending.py"
       - "scripts/check_site_final_goal_status.py"
       - "scripts/check_site_governance_observatory_status.py"
@@ -41,6 +44,9 @@ jobs:
       - name: Check Site continuation document
         run: python scripts/check_site_self_managed_completion.py
 
+      - name: Check ecosystem management handoff
+        run: python scripts/check_site_ecosystem_management_handoff.py
+
       - name: Check final activation pending boundary
         run: python scripts/check_site_final_activation_pending.py
 
@@ -57,6 +63,8 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Handoff: docs/SITE_MIRROR_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Continuation: docs/SITE_SELF_MANAGED_COMPLETION.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Ecosystem management: docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Mirror ecosystem management: docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Final activation pending: docs/SITE_FINAL_ACTIVATION_PENDING.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Final goal status: docs/SITE_FINAL_GOAL_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Governance Observatory status: docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
