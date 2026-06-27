@@ -21,6 +21,7 @@ Self-management state: repository_managed_continuation_ready
 ```text
 github/workflows/mirror-papers.yml
 github/workflows/site-mirror-closure-guard.yml
+github/workflows/site-public-mirror-status-guard.yml
 github/workflows/site-self-managed-completion.yml
 github/workflows/sync-tt-code-representation.yml
 github/workflows/validate-governance-observatory-status.yml
@@ -40,6 +41,7 @@ scripts/check_site_mirror_evidence_transition_rules.py
 scripts/check_site_self_managed_completion.py
 scripts/check_site_tt_code_representation_mirror.py
 scripts/check_site_tt_public_page.py
+scripts/check_site_non_activation_mirror_status.py
 scripts/render_tt_code_representation_status.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
@@ -115,6 +117,22 @@ github/workflows/validate-governance-observatory-status.yml
 ```
 
 Canonical repository path begins with a leading period.
+
+## Public Mirror Status Guard
+
+Site has a public mirror status guard workflow:
+
+```text
+github/workflows/site-public-mirror-status-guard.yml
+```
+
+It runs:
+
+```text
+python scripts/check_site_non_activation_mirror_status.py
+```
+
+This guard verifies that TT and Governance Observatory status surfaces remain display/status surfaces only.
 
 ## Final Activation Pending Record
 
