@@ -22,7 +22,7 @@ REQUIRED_GOAL_FIELDS = {
     "GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, and StegVerse-Labs/governance-observatory",
     "papers, TT propagation artifacts, and Governance Observatory source-intake status",
     "Target path: papers, docs, and public HTML surfaces",
-    "Activation state: pending_publisher_closure_evidence",
+    "Activation state: pending_external_evidence",
     "Self-management state: repository_managed_continuation_ready",
 }
 
@@ -33,6 +33,16 @@ REQUIRED_BOUNDARY_TERMS = {
     "StegVerse-Labs/governance-observatory remains authoritative for Governance Observatory source-intake records.",
     "must not redefine transition-element semantics",
     "display does not certify external sources",
+}
+
+REQUIRED_AUTONOMOUS_TERMS = {
+    "github/workflows/site-autonomous-continuation.yml",
+    "Sync TT Code Representation",
+    "Validate Governance Observatory Status",
+    "write external evidence state",
+    "update final goal status",
+    "validate final goal status",
+    "commit computed state changes",
 }
 
 REQUIRED_TT_TERMS = {
@@ -54,15 +64,24 @@ REQUIRED_OBSERVATORY_TERMS = {
     "github/workflows/validate-governance-observatory-status.yml",
 }
 
+REQUIRED_FINAL_STATUS_TERMS = {
+    "github/workflows/site-final-goal-status.yml",
+    "python scripts/update_site_final_goal_status.py",
+    "python scripts/check_site_final_goal_status.py",
+    "docs/SITE_FINAL_GOAL_STATUS.md",
+    "docs/SITE_FINAL_GOAL_STATUS.json",
+    "pending_external_evidence",
+}
+
 REQUIRED_ARCHIVE_TERMS = {
     "complete thread is ready for archiving",
-    "first committed bundle-fed status",
-    "Governance Observatory status validation passes",
+    "automated final goal status reports `ready`",
 }
 
 FORBIDDEN_TERMS = {
     "Activation state: activated",
     "Activation: complete",
+    "Activation state: pending_publisher_closure_evidence",
     "Site is proof authority",
     "TT authority source: StegVerse-Labs/Site",
 }
@@ -129,8 +148,10 @@ def main() -> int:
         checks = [
             ("Current Goal", REQUIRED_GOAL_FIELDS),
             ("Canonical Boundaries", REQUIRED_BOUNDARY_TERMS),
+            ("Autonomous Continuation", REQUIRED_AUTONOMOUS_TERMS),
             ("TT Code Representation", REQUIRED_TT_TERMS),
             ("Governance Observatory", REQUIRED_OBSERVATORY_TERMS),
+            ("Final Goal Status", REQUIRED_FINAL_STATUS_TERMS),
             ("Archive Readiness", REQUIRED_ARCHIVE_TERMS),
         ]
 
