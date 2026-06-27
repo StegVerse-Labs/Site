@@ -19,8 +19,8 @@ REQUIRED_GOAL_FIELDS = {
     "Goal: Continue building without manual actions needed through completion",
     "task handoff and task completion are capable of being handled by the ecosystem's own management",
     "Repository: StegVerse-Labs/Site",
-    "Source repository: GCAT-BCAT-Engine/Publisher and Admissible-Existence/TT",
-    "Source path: papers and TT propagation artifacts",
+    "GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, and StegVerse-Labs/governance-observatory",
+    "papers, TT propagation artifacts, and Governance Observatory source-intake status",
     "Target path: papers, docs, and public HTML surfaces",
     "Activation state: pending_publisher_closure_evidence",
     "Self-management state: repository_managed_continuation_ready",
@@ -30,8 +30,9 @@ REQUIRED_BOUNDARY_TERMS = {
     "The Site mirror must not become a separate editorial source of truth.",
     "Publisher remains authoritative for papers.",
     "Admissible-Existence/TT remains authoritative for Transition Table code-representation semantics.",
+    "StegVerse-Labs/governance-observatory remains authoritative for Governance Observatory source-intake records.",
     "must not redefine transition-element semantics",
-    "treat a rendered element as execution authority",
+    "display does not certify external sources",
 }
 
 REQUIRED_TT_TERMS = {
@@ -39,16 +40,24 @@ REQUIRED_TT_TERMS = {
     "github/workflows/sync-tt-code-representation.yml",
     "python scripts/render_tt_code_representation_status.py",
     "python scripts/check_site_tt_code_representation_mirror.py",
-    "python scripts/check_site_tt_public_page.py",
     "data/tt/transition-element-propagation-bundle.manifest.json",
     "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md",
     "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json",
     "pending fail-closed status",
 }
 
+REQUIRED_OBSERVATORY_TERMS = {
+    "governance-observatory.html",
+    "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md",
+    "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json",
+    "python scripts/check_site_governance_observatory_status.py",
+    "github/workflows/validate-governance-observatory-status.yml",
+}
+
 REQUIRED_ARCHIVE_TERMS = {
     "complete thread is ready for archiving",
     "first committed bundle-fed status",
+    "Governance Observatory status validation passes",
 }
 
 FORBIDDEN_TERMS = {
@@ -121,6 +130,7 @@ def main() -> int:
             ("Current Goal", REQUIRED_GOAL_FIELDS),
             ("Canonical Boundaries", REQUIRED_BOUNDARY_TERMS),
             ("TT Code Representation", REQUIRED_TT_TERMS),
+            ("Governance Observatory", REQUIRED_OBSERVATORY_TERMS),
             ("Archive Readiness", REQUIRED_ARCHIVE_TERMS),
         ]
 
