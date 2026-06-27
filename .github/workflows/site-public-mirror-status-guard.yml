@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - "docs/SITE_FINAL_ACTIVATION_PENDING.md"
       - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
+      - "docs/SITE_MIRROR_HANDOFF.md"
       - "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md"
       - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
+      - "scripts/check_site_final_activation_pending.py"
       - "scripts/check_site_non_activation_mirror_status.py"
 
 jobs:
@@ -21,10 +24,14 @@ jobs:
       - name: Check public mirror status boundaries
         run: python scripts/check_site_non_activation_mirror_status.py
 
+      - name: Check final activation pending boundary
+        run: python scripts/check_site_final_activation_pending.py
+
       - name: Write summary
         if: always()
         run: |
           echo "## Site Public Mirror Status Guard" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Checked public mirror status boundaries for TT and Governance Observatory surfaces." >> "$GITHUB_STEP_SUMMARY"
+          echo "Checked final activation pending boundary." >> "$GITHUB_STEP_SUMMARY"
           echo "These public mirror surfaces remain display/status surfaces only." >> "$GITHUB_STEP_SUMMARY"
