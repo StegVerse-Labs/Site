@@ -12,11 +12,14 @@ on:
       - "docs/SITE_MIRROR_ACTIVATION_LEDGER.json"
       - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
       - "docs/SITE_FINAL_ACTIVATION_PENDING.md"
+      - "docs/SITE_FINAL_GOAL_STATUS.md"
+      - "docs/SITE_FINAL_GOAL_STATUS.json"
       - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
       - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json"
       - "scripts/check_site_self_managed_completion.py"
       - "scripts/check_site_mirror_handoff.py"
       - "scripts/check_site_final_activation_pending.py"
+      - "scripts/check_site_final_goal_status.py"
       - "scripts/check_site_governance_observatory_status.py"
       - ".github/workflows/site-self-managed-completion.yml"
 
@@ -41,6 +44,9 @@ jobs:
       - name: Check final activation pending boundary
         run: python scripts/check_site_final_activation_pending.py
 
+      - name: Check final goal status
+        run: python scripts/check_site_final_goal_status.py
+
       - name: Check Governance Observatory status mirror
         run: python scripts/check_site_governance_observatory_status.py
 
@@ -52,5 +58,6 @@ jobs:
           echo "Handoff: docs/SITE_MIRROR_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Continuation: docs/SITE_SELF_MANAGED_COMPLETION.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Final activation pending: docs/SITE_FINAL_ACTIVATION_PENDING.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Final goal status: docs/SITE_FINAL_GOAL_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Governance Observatory status: docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
           echo "Activation remains pending until external workflow evidence exists." >> "$GITHUB_STEP_SUMMARY"
