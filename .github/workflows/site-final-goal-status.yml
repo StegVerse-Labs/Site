@@ -4,15 +4,28 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '7 */6 * * *'
+  workflow_run:
+    workflows:
+      - Sync TT Code Representation
+      - Validate Governance Observatory Status
+      - Site External Evidence State
+    types:
+      - completed
   push:
     paths:
+      - "data/tt/transition-element-propagation-bundle.manifest.json"
       - "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json"
       - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json"
+      - "docs/SITE_EXTERNAL_EVIDENCE_STATE.json"
       - "scripts/update_site_final_goal_status.py"
       - ".github/workflows/site-final-goal-status.yml"
 
 permissions:
   contents: write
+
+concurrency:
+  group: site-final-goal-status
+  cancel-in-progress: false
 
 jobs:
   update-final-goal-status:
