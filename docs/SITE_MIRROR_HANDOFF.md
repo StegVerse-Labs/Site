@@ -12,7 +12,7 @@ Repository: StegVerse-Labs/Site
 Source repository: GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, and StegVerse-Labs/governance-observatory
 Source path: papers, TT propagation artifacts, and Governance Observatory source-intake status
 Target path: papers, docs, and public HTML surfaces
-Activation state: pending_publisher_closure_evidence
+Activation state: pending_external_evidence
 Self-management state: repository_managed_continuation_ready
 ```
 
@@ -72,6 +72,7 @@ docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
 docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
 docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
 docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
+docs/SITE_FINAL_ACTIVATION_PENDING.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -99,7 +100,7 @@ python scripts/check_site_tt_public_page.py
 
 ## Governance Observatory Status Page
 
-Site now exposes a public HTML status surface:
+Site exposes a public HTML status surface:
 
 ```text
 governance-observatory.html
@@ -114,6 +115,16 @@ github/workflows/validate-governance-observatory-status.yml
 ```
 
 Canonical repository path begins with a leading period.
+
+## Final Activation Pending Record
+
+Site now has a final activation pending record:
+
+```text
+docs/SITE_FINAL_ACTIVATION_PENDING.md
+```
+
+This record states that the remaining activation blocker is external workflow evidence rather than another local public page, status document, or checker.
 
 ## TT Code Representation Sync
 
