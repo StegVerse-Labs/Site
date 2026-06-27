@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+INDEX = ROOT / "index.html"
 HTML = ROOT / "governance-observatory.html"
 STATUS_MD = ROOT / "docs" / "SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
 STATUS_JSON = ROOT / "docs" / "SITE_GOVERNANCE_OBSERVATORY_STATUS.json"
@@ -14,6 +15,12 @@ REQUIRED_TEXT = [
     "DecisionAssure",
     "Morrison Runtime",
     "Site is not the source of truth",
+]
+
+INDEX_REQUIRED = [
+    "governance-observatory.html",
+    "Governance Observatory",
+    "source-intake status mirror",
 ]
 
 PUBLIC_PATH_REQUIRED = [
@@ -36,10 +43,15 @@ def read(path: Path) -> str:
 
 
 def main() -> None:
+    index = read(INDEX)
     html = read(HTML)
     status_md = read(STATUS_MD)
     status_json_text = read(STATUS_JSON)
     public_paths = read(PUBLIC_PATHS)
+
+    for phrase in INDEX_REQUIRED:
+        if phrase not in index:
+            fail(f"landing page missing required phrase: {phrase}")
 
     for phrase in REQUIRED_TEXT:
         if phrase not in html and phrase not in status_md and phrase not in status_json_text:
