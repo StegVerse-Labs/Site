@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '23 */6 * * *'
+  workflow_run:
+    workflows:
+      - Sync TT Code Representation
+      - Validate Governance Observatory Status
+    types:
+      - completed
   push:
     paths:
       - "data/tt/transition-element-propagation-bundle.manifest.json"
@@ -14,11 +20,16 @@ on:
       - "scripts/write_site_external_evidence_state.py"
       - ".github/workflows/site-external-evidence-state.yml"
 
+permissions:
+  contents: write
+
+concurrency:
+  group: site-external-evidence-state
+  cancel-in-progress: false
+
 jobs:
   write-external-evidence-state:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout Site
         uses: actions/checkout@v4
