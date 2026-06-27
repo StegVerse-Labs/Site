@@ -43,6 +43,7 @@ scripts/check_site_mirror_activation_status.py
 scripts/check_site_mirror_evidence_requirements.py
 scripts/check_site_mirror_evidence_transition_rules.py
 scripts/check_site_self_managed_completion.py
+scripts/check_site_ecosystem_management_handoff.py
 scripts/check_site_tt_code_representation_mirror.py
 scripts/check_site_tt_public_page.py
 scripts/check_site_non_activation_mirror_status.py
@@ -73,6 +74,7 @@ docs/SITE_MIRROR_ACTIVATION_LEDGER.json
 docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
 docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md
 docs/SITE_SELF_MANAGED_COMPLETION.md
+docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/SITE_TRAFFIC_AND_INGESTION_SIGNAL.md
 docs/SITE_PUBLIC_PATHS.md
@@ -182,6 +184,23 @@ python scripts/check_site_manual_task_elimination.py
 ```
 
 The guard verifies local continuation work is workflow-managed and no local manual inspection is required to determine the state of TT status, Governance Observatory status, external evidence state, or final goal status.
+
+## Ecosystem Management Handoffs
+
+Site has ecosystem management handoffs:
+
+```text
+docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+```
+
+They are checked by:
+
+```text
+python scripts/check_site_ecosystem_management_handoff.py
+```
+
+The checker verifies that future sessions can determine the current goal, pending evidence boundary, autonomous continuation path, and archive-readiness state from repository files rather than prior chat context.
 
 ## Automated External Evidence State
 
