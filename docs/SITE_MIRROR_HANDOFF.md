@@ -21,6 +21,7 @@ Self-management state: repository_managed_continuation_ready
 ```text
 github/workflows/mirror-papers.yml
 github/workflows/site-mirror-closure-guard.yml
+github/workflows/site-final-goal-status.yml
 github/workflows/site-public-mirror-status-guard.yml
 github/workflows/site-self-managed-completion.yml
 github/workflows/sync-tt-code-representation.yml
@@ -43,6 +44,7 @@ scripts/check_site_tt_code_representation_mirror.py
 scripts/check_site_tt_public_page.py
 scripts/check_site_non_activation_mirror_status.py
 scripts/check_site_final_activation_pending.py
+scripts/update_site_final_goal_status.py
 scripts/render_tt_code_representation_status.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
@@ -76,6 +78,8 @@ docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
 docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
 docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
 docs/SITE_FINAL_ACTIVATION_PENDING.md
+docs/SITE_FINAL_GOAL_STATUS.md
+docs/SITE_FINAL_GOAL_STATUS.json
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -138,13 +142,36 @@ This guard verifies that TT and Governance Observatory status surfaces remain di
 
 ## Final Activation Pending Record
 
-Site now has a final activation pending record:
+Site has a final activation pending record:
 
 ```text
 docs/SITE_FINAL_ACTIVATION_PENDING.md
 ```
 
 This record states that the remaining activation blocker is external workflow evidence rather than another local public page, status document, or checker.
+
+## Final Goal Status Automation
+
+Site has an automated final goal status workflow:
+
+```text
+github/workflows/site-final-goal-status.yml
+```
+
+It runs:
+
+```text
+python scripts/update_site_final_goal_status.py
+```
+
+The updater writes:
+
+```text
+docs/SITE_FINAL_GOAL_STATUS.md
+docs/SITE_FINAL_GOAL_STATUS.json
+```
+
+It marks the goal `ready` only when the TT bundle-fed status is PASS and Governance Observatory status remains valid. Otherwise it writes `pending_external_evidence` without inventing completion.
 
 ## TT Code Representation Sync
 
@@ -205,4 +232,4 @@ Site - 99%complete
 Site - 99%complete TO GOAL ACTIVATION
 ```
 
-The complete thread is ready for archiving after the TT sync workflow produces the first committed bundle-fed status and Governance Observatory status validation passes.
+The complete thread is ready for archiving after the automated final goal status reports `ready`.
