@@ -4,7 +4,7 @@
 
 This handoff defines how future build sessions should continue Site work without manual chat recovery, prior-thread dependency, or silent guesses about the next action.
 
-The goal is ecosystem-managed continuation: the repository should be able to state its current boundary, identify the next safe build candidate, and distinguish pending evidence from completed activation.
+The goal is ecosystem-managed continuation: the repository should state its current boundary, identify the next safe build candidate, and distinguish pending evidence from completed readiness.
 
 ## Current Goal
 
@@ -12,11 +12,11 @@ The goal is ecosystem-managed continuation: the repository should be able to sta
 Goal: Continue building without manual actions needed through completion OR until task handoff and task completion is capable of being handled by the ecosystem's own management.
 Repository: StegVerse-Labs/Site
 Primary handoff: docs/SITE_MIRROR_HANDOFF.md
-Companion source handoff: GCAT-BCAT-Engine/Publisher/docs/PUBLISHER_MIRROR_HANDOFF.md
-Source repository: GCAT-BCAT-Engine/Publisher
-Source path: papers
-Target path: papers
-Activation state: pending Publisher/Site closure evidence
+Companion handoff: docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+Source repositories: GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, StegVerse-Labs/governance-observatory
+Source paths: papers, TT propagation artifacts, Governance Observatory source-intake status
+Target paths: papers, docs, public HTML surfaces
+Activation state: pending_external_evidence
 Management state: ecosystem-managed continuation ready after this packet and checker pass
 ```
 
@@ -27,38 +27,36 @@ The Site repository can be treated as ecosystem-managed for this goal when:
 ```text
 1. docs/SITE_MIRROR_HANDOFF.md remains the mirror activation source of truth.
 2. docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md records the continuation goal and next-action rules.
-3. scripts/check_site_ecosystem_management_handoff.py verifies this packet, the mirror handoff, and the activation ledger.
-4. The activation ledger remains pending until Publisher closure evidence exists.
-5. The next build candidate can be selected from repository evidence without prior chat context.
-6. The archive-readiness text states that the prior chat thread is no longer required for forward progress.
+3. docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md records the autonomous continuation handoff.
+4. scripts/check_site_ecosystem_management_handoff.py verifies this packet, the mirror handoff, and the computed status artifacts.
+5. docs/SITE_EXTERNAL_EVIDENCE_STATE.json remains pending until computed evidence exists.
+6. docs/SITE_FINAL_GOAL_STATUS.json remains pending until TT bundle-fed status is PASS and Governance Observatory status is valid.
+7. The next build candidate can be selected from repository evidence without prior chat context.
+8. Archive-readiness text states that the prior chat thread is no longer required for forward progress.
 ```
 
 ## Source Documents
 
 ```text
 docs/SITE_MIRROR_HANDOFF.md
-docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md
-docs/SITE_MIRROR_CLOSURE_GUARD.md
-docs/SITE_MIRROR_ACTIVATION_LEDGER.md
-docs/SITE_MIRROR_ACTIVATION_LEDGER.json
-docs/SITE_MIRROR_ACTIVATION_STATUS.md
-docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
-docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md
-docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
+docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+docs/SITE_EXTERNAL_EVIDENCE_STATE.json
+docs/SITE_FINAL_GOAL_STATUS.json
+docs/SITE_FINAL_ACTIVATION_PENDING.md
+docs/SITE_SELF_MANAGED_COMPLETION.md
+docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
 ```
 
 ## Required Checks
 
 ```text
 python scripts/check_site_mirror_handoff.py
-python scripts/check_site_mirror_closure_next_build.py
-python scripts/check_site_mirror_closure_guard.py
-python scripts/check_site_mirror_activation_ledger.py
-python scripts/check_site_mirror_activation_status.py
-python scripts/check_site_mirror_evidence_requirements.py
-python scripts/check_site_mirror_evidence_transition_rules.py
-python scripts/check_site_public_ingestion_contract.py
+python scripts/check_site_self_managed_completion.py
 python scripts/check_site_ecosystem_management_handoff.py
+python scripts/check_site_final_goal_status.py
+python scripts/check_site_final_activation_pending.py
+python scripts/check_site_governance_observatory_status.py
 ```
 
 ## Next-Action Selection Rules
@@ -66,50 +64,44 @@ python scripts/check_site_ecosystem_management_handoff.py
 Future sessions should choose the next action in this order:
 
 ```text
-1. If docs/SITE_MIRROR_ACTIVATION_LEDGER.json has activation_state other than pending, verify Publisher closure evidence before accepting it.
-2. If any required evidence value is pending, do not claim activation.
-3. If Site-local closure guard documentation or checkers are missing, build those before new public features.
-4. If the no-secret closure guard workflow omits a required checker, add the checker to that workflow when workflow replacement is available.
-5. If Publisher closure evidence exists, reconcile the ledger, evidence packet, live state, activation status, and handoff together.
-6. If Publisher closure evidence does not exist, keep building repository-local management, verification, and handoff surfaces only.
+1. If docs/SITE_FINAL_GOAL_STATUS.json reports ready, verify the source-boundary non-claims before accepting it.
+2. If TT bundle-fed status is not PASS, let site-autonomous-continuation or sync-tt-code-representation compute it.
+3. If Governance Observatory status is not valid, repair only the failing Site status/checker path.
+4. If external evidence state remains pending, do not claim readiness.
+5. If all computed gates pass, update the handoff and choose the next integration target from the target handoff.
+6. If gates do not pass, keep building repository-local management, validation, and handoff surfaces only.
 ```
 
 ## Current Next Build Candidate
 
 ```text
-Candidate: promote scripts/check_site_mirror_evidence_transition_rules.py into github/workflows/site-mirror-closure-guard.yml
-Reason: the handoff records the checker as enforced by the handoff verifier but not yet listed in the no-secret closure guard workflow.
-Boundary: workflow replacement may be connector-blocked; if blocked, preserve the drop-in-ready workflow replacement and continue with repository-local handoff/checker hardening.
-Activation impact: no activation claim
+Candidate: wait for autonomous continuation to compute TT bundle-fed status, external evidence state, and final goal status
+Reason: local continuation and validation paths are installed; remaining state is computed evidence
+Boundary: Site display pages alone cannot move final goal status to ready
+Activation impact: no readiness claim until computed gates pass
 ```
 
-Note: `github/workflows/site-mirror-closure-guard.yml` is displayed without the leading dot. The actual repository path is `.github/workflows/site-mirror-closure-guard.yml`.
+Note: `github/workflows/site-autonomous-continuation.yml` is displayed without the leading dot. The actual repository path is `.github/workflows/site-autonomous-continuation.yml`.
 
-## Pending Activation Evidence
+## Pending Evidence Gates
 
-Activation remains blocked until these evidence values are real artifacts or commits, not placeholders:
+Readiness remains blocked until these computed gates are true:
 
 ```text
-publisher_workflow_run_url
-publisher_verification_receipt_artifact
-publisher_live_dispatch_workflow_url
-site_mirror_workflow_url
-site_mirror_commit_sha
-site_evidence_artifact
-publisher_closure_nudge_result
-publisher_closure_receipt
-publisher_verification_tracker_activation_commit
-publisher_activation_status_update_commit
+tt_bundle_fed_status_ready
+governance_observatory_status_ready
+external evidence state computed from checked-in artifacts
+final goal status reports ready
 ```
 
-## Non-Activation Rule
+## Non-Readiness Rule
 
-Site-side evidence alone does not activate the mirror. Publisher closure remains required before activation can be claimed.
+Site-local display pages alone do not make the final goal ready. The final goal status must be computed from checked-in artifacts and validated by automation.
 
 ## Completion Boundary
 
-This packet does not complete live mirror activation. It completes the repository-local management handoff layer for continuing the build without prior chat context.
+This packet does not complete final goal readiness. It completes the repository-local management handoff layer for continuing the build without prior chat context.
 
 ## Archive Readiness
 
-This file, together with docs/SITE_MIRROR_HANDOFF.md and scripts/check_site_ecosystem_management_handoff.py, is sufficient for a future build session to determine the current goal, verify the pending activation boundary, select the next safe build candidate, and continue without requiring the prior chat thread.
+This file, together with docs/SITE_MIRROR_HANDOFF.md, docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md, and scripts/check_site_ecosystem_management_handoff.py, is sufficient for a future build session to determine the current goal, verify the pending evidence boundary, select the next safe build candidate, and continue without requiring the prior chat thread.
