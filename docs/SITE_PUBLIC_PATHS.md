@@ -44,6 +44,7 @@ These paths are visible enough that their purpose, authority, and evidence bound
 | `/` | Site repository landing surface and public entry point. | Overview material, links to public evidence, display pages, and documentation. | Adoption, endorsement, or activated mirror status by itself. | `StegVerse-Labs/Site` checked-in content. |
 | `/admissibility-wiki.html` | Public bridge to the Admissibility Wiki. | Vocabulary bridge copy, AI-governed proposal-system explanation, transition-table element mapping, proposal transition blocks, and links to wiki source/status. | That Site accepts wiki proposals, issues wiki receipts, authors wiki decisions, or becomes proof authority. | `StegVerse-Labs/admissibility-wiki` remains source of truth for wiki records; Site is display/bridge only. |
 | `/tt-code-representation.html` | Public mirror surface for TT code-representation status. | Human-readable explanation of TT registry/code/fixture/receipt linkage and links to Site-rendered TT status artifacts. | That Site is the canonical TT source, that a rendered element grants authority, or that TT status equals SPE ALLOW. | `Admissible-Existence/TT` remains source of truth; Site is display/mirror only. |
+| `/governance-observatory.html` | Public mirror surface for Governance Observatory source-intake status. | Human-readable source-intake posture, deferred-source boundaries, non-executing fixture status, and links to Site-rendered status artifacts. | That Site certifies external sources, proves SDK compatibility, creates source-intake records, or issues commit-time permission. | `StegVerse-Labs/governance-observatory` remains source of truth; Site is display/mirror only. |
 | `/papers` | Public display target for mirrored Publisher papers. | Mirrored papers, manifest-derived listings, paper aliases, display-policy references. | That Site is the editorial source of truth. | `GCAT-BCAT-Engine/Publisher` remains source of truth. |
 | `/upload` | GitHub upload route, not a StegVerse evidence intake guarantee. | User-initiated GitHub upload UI if permissions allow. | That uploaded files are automatically accepted, validated, or committed. | GitHub permissions and repository review rules. |
 | `/upload/main` | GitHub upload route targeting the default branch context. | Candidate file uploads from authorized GitHub users. | That default-branch uploads bypass validation or review. | GitHub branch protections, workflows, and maintainers. |
@@ -64,6 +65,7 @@ These paths are visible enough that their purpose, authority, and evidence bound
 /
 /admissibility-wiki.html
 /tt-code-representation.html
+/governance-observatory.html
 /papers
 /docs
 ```
@@ -117,6 +119,7 @@ source-preserving mirror path
 sandbox-only candidate material
 pending validation
 public bridge surface
+public status surface
 ```
 
 Avoid:
@@ -160,6 +163,26 @@ Required companion references:
 docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md
 docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
 docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
+docs/SITE_MIRROR_HANDOFF.md
+```
+
+## Governance Observatory Boundary
+
+For `governance-observatory.html`, the Site repository is a public status surface.
+
+The source-intake, SDK relationship, fixture, validation, and deferred-source authority remains:
+
+```text
+StegVerse-Labs/governance-observatory
+```
+
+Site may display source-intake status and link to status artifacts, but Site must not certify external sources, prove SDK compatibility, create Governance Observatory records, or issue commit-time permission.
+
+Required companion references:
+
+```text
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -214,14 +237,7 @@ upload routes are marked as candidate-submission routes only
 papers are marked as mirror display targets only
 admissibility-wiki.html is marked as public bridge only
 tt-code-representation.html is marked as public mirror only
+governance-observatory.html is marked as public status surface only
 traffic is not treated as adoption or activation
 workflow history is tied to receipts and evidence fields
-```
-
-## Current Status
-
-```text
-Status: public_path_semantics_documented
-Activation impact: supporting_context_only
-Next dependency: docs/SITE_INGESTION_SURFACES.md
 ```
