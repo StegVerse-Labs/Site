@@ -39,6 +39,7 @@ scripts/check_site_mirror_evidence_requirements.py
 scripts/check_site_mirror_evidence_transition_rules.py
 scripts/check_site_self_managed_completion.py
 scripts/check_site_tt_code_representation_mirror.py
+scripts/check_site_tt_public_page.py
 scripts/render_tt_code_representation_status.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
@@ -89,6 +90,12 @@ tt-code-representation.html
 ```
 
 This page explains TT code representation, links to Site-rendered status artifacts, and preserves the boundary that rendered Site pages are display only.
+
+The public page checker is:
+
+```text
+python scripts/check_site_tt_public_page.py
+```
 
 ## Governance Observatory Status Page
 
@@ -162,9 +169,9 @@ This mirror preserves the boundary that Site may display and route canonical TT 
 ## Current Completion Estimate
 
 ```text
-StegVerse-Labs - 98%complete
-Site - 97%complete
-Site - 97%complete TO GOAL ACTIVATION
+StegVerse-Labs - 99%complete
+Site - 99%complete
+Site - 99%complete TO GOAL ACTIVATION
 ```
 
 The complete thread is ready for archiving after the TT sync workflow produces the first committed bundle-fed status and Governance Observatory status validation passes.
