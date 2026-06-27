@@ -13,6 +13,8 @@ on:
       - "scripts/update_site_final_goal_status.py"
       - "scripts/render_tt_code_representation_status.py"
       - "scripts/check_site_governance_observatory_status.py"
+      - "scripts/check_site_final_goal_status.py"
+      - "scripts/check_site_final_activation_pending.py"
       - ".github/workflows/site-autonomous-continuation.yml"
 
 jobs:
@@ -62,6 +64,14 @@ jobs:
         working-directory: site
         run: python scripts/update_site_final_goal_status.py
 
+      - name: Validate final goal status
+        working-directory: site
+        run: python scripts/check_site_final_goal_status.py
+
+      - name: Validate final activation boundary
+        working-directory: site
+        run: python scripts/check_site_final_activation_pending.py
+
       - name: Commit autonomous continuation updates
         working-directory: site
         run: |
@@ -82,4 +92,5 @@ jobs:
           echo "## Site Autonomous Continuation" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "TT bundle, TT status, external evidence state, and final goal status were computed from repository workflows." >> "$GITHUB_STEP_SUMMARY"
+          echo "Final goal status and activation boundary were validated before commit." >> "$GITHUB_STEP_SUMMARY"
           echo "No manual inspection is required for these local continuation checks." >> "$GITHUB_STEP_SUMMARY"
