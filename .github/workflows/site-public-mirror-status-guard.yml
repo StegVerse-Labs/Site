@@ -1,0 +1,30 @@
+name: Site Public Mirror Status Guard
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
+      - "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md"
+      - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
+      - "scripts/check_site_non_activation_mirror_status.py"
+
+jobs:
+  public-mirror-status:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Check public mirror status boundaries
+        run: python scripts/check_site_non_activation_mirror_status.py
+
+      - name: Write summary
+        if: always()
+        run: |
+          echo "## Site Public Mirror Status Guard" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Checked public mirror status boundaries for TT and Governance Observatory surfaces." >> "$GITHUB_STEP_SUMMARY"
+          echo "These public mirror surfaces remain display/status surfaces only." >> "$GITHUB_STEP_SUMMARY"
