@@ -1,0 +1,32 @@
+{
+  "schema": "site_governance_observatory_status.v0.1",
+  "repository": "StegVerse-Labs/Site",
+  "source_repository": "StegVerse-Labs/governance-observatory",
+  "public_page": "governance-observatory.html",
+  "snapshot_candidate": "governance-observatory-v0.1-source-intake-dev",
+  "mirror_status": "active_public_status_surface",
+  "source_posture": {
+    "source_intake_registry_layer": "installed",
+    "sdk_relationship_mapping_layer": "installed",
+    "templates": "installed",
+    "source_resolution_checklist": "installed",
+    "deferred_source_decision_record": "installed",
+    "non_executing_fixture_packages": "installed",
+    "sample_results": "installed",
+    "sample_intake_outputs": "installed",
+    "promoted_result_readiness_records": "installed",
+    "admissibility_bench_foundations": "installed",
+    "validation_scripts": "installed",
+    "automated_validation_tagging_retry": "installed"
+  },
+  "deferred_sources": [
+    "DecisionAssure",
+    "Morrison Runtime"
+  ],
+  "non_claims": [
+    "Site is not the Governance Observatory source of truth.",
+    "Site does not certify external sources.",
+    "Site does not prove SDK compatibility.",
+    "Site does not issue commit-time permission."
+  ]
+}
