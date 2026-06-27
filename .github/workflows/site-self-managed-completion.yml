@@ -1,7 +1,9 @@
-name: Site Self-Managed Completion Guard
+name: Site Continuation Guard
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '57 */6 * * *'
   push:
     paths:
       - "docs/SITE_SELF_MANAGED_COMPLETION.md"
@@ -9,12 +11,18 @@ on:
       - "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
       - "docs/SITE_MIRROR_ACTIVATION_LEDGER.json"
       - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
+      - "docs/SITE_FINAL_ACTIVATION_PENDING.md"
+      - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
+      - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json"
       - "scripts/check_site_self_managed_completion.py"
       - "scripts/check_site_mirror_handoff.py"
+      - "scripts/check_site_final_activation_pending.py"
+      - "scripts/check_site_governance_observatory_status.py"
+      - ".github/workflows/site-self-managed-completion.yml"
 
 jobs:
-  self-managed-completion:
-    name: Verify self-managed completion handoff
+  continuation-guard:
+    name: Verify Site continuation handoff
     runs-on: ubuntu-latest
 
     permissions:
@@ -27,17 +35,22 @@ jobs:
       - name: Check Site mirror handoff
         run: python scripts/check_site_mirror_handoff.py
 
-      - name: Check Site self-managed completion
+      - name: Check Site continuation document
         run: python scripts/check_site_self_managed_completion.py
+
+      - name: Check final activation pending boundary
+        run: python scripts/check_site_final_activation_pending.py
+
+      - name: Check Governance Observatory status mirror
+        run: python scripts/check_site_governance_observatory_status.py
 
       - name: Write summary
         if: always()
         run: |
-          echo "## Site Self-Managed Completion Guard" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Site Continuation Guard" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Handoff:** docs/SITE_MIRROR_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Self-managed completion:** docs/SITE_SELF_MANAGED_COMPLETION.md" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Ecosystem management handoff:** docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Activation ledger:** docs/SITE_MIRROR_ACTIVATION_LEDGER.json" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Activation status:** docs/SITE_MIRROR_ACTIVATION_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Assessment state:** repository-managed continuation ready; activation remains pending until Publisher closure evidence exists." >> "$GITHUB_STEP_SUMMARY"
+          echo "Handoff: docs/SITE_MIRROR_HANDOFF.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Continuation: docs/SITE_SELF_MANAGED_COMPLETION.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Final activation pending: docs/SITE_FINAL_ACTIVATION_PENDING.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Governance Observatory status: docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Activation remains pending until external workflow evidence exists." >> "$GITHUB_STEP_SUMMARY"
