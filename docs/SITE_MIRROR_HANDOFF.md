@@ -26,6 +26,7 @@ github/workflows/site-mirror-closure-guard.yml
 github/workflows/site-final-goal-status.yml
 github/workflows/site-public-mirror-status-guard.yml
 github/workflows/site-self-managed-completion.yml
+github/workflows/site-task-elimination-guard.yml
 github/workflows/sync-tt-code-representation.yml
 github/workflows/validate-governance-observatory-status.yml
 scripts/mirror_papers.py
@@ -47,6 +48,7 @@ scripts/check_site_tt_public_page.py
 scripts/check_site_non_activation_mirror_status.py
 scripts/check_site_final_activation_pending.py
 scripts/check_site_final_goal_status.py
+scripts/check_site_manual_task_elimination.py
 scripts/update_site_final_goal_status.py
 scripts/write_site_external_evidence_state.py
 scripts/render_tt_code_representation_status.py
@@ -87,6 +89,8 @@ docs/SITE_EXTERNAL_EVIDENCE_REQUIREMENTS.md
 docs/SITE_FINAL_ACTIVATION_PENDING.md
 docs/SITE_FINAL_GOAL_STATUS.md
 docs/SITE_FINAL_GOAL_STATUS.json
+docs/SITE_MANUAL_TASK_ELIMINATION.md
+docs/SITE_TASK_ELIMINATION_GUARD.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -162,6 +166,22 @@ commit computed state changes
 ```
 
 This removes manual coordination between the TT sync workflow, external evidence state writer, and final goal status updater. The workflow writes `pending_external_evidence` until the required evidence is present and only lets the final goal status become `ready` when computed gates pass.
+
+## Manual Task Elimination
+
+Site has a task-elimination guard workflow:
+
+```text
+github/workflows/site-task-elimination-guard.yml
+```
+
+It runs:
+
+```text
+python scripts/check_site_manual_task_elimination.py
+```
+
+The guard verifies local continuation work is workflow-managed and no local manual inspection is required to determine the state of TT status, Governance Observatory status, external evidence state, or final goal status.
 
 ## Automated External Evidence State
 
