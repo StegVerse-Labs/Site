@@ -20,6 +20,7 @@ Self-management state: repository_managed_continuation_ready
 
 ```text
 github/workflows/mirror-papers.yml
+github/workflows/site-external-evidence-state.yml
 github/workflows/site-mirror-closure-guard.yml
 github/workflows/site-final-goal-status.yml
 github/workflows/site-public-mirror-status-guard.yml
@@ -45,6 +46,7 @@ scripts/check_site_tt_public_page.py
 scripts/check_site_non_activation_mirror_status.py
 scripts/check_site_final_activation_pending.py
 scripts/update_site_final_goal_status.py
+scripts/write_site_external_evidence_state.py
 scripts/render_tt_code_representation_status.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
@@ -77,6 +79,9 @@ docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
 docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
 docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
 docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
+docs/SITE_EXTERNAL_EVIDENCE_STATE.md
+docs/SITE_EXTERNAL_EVIDENCE_STATE.json
+docs/SITE_EXTERNAL_EVIDENCE_REQUIREMENTS.md
 docs/SITE_FINAL_ACTIVATION_PENDING.md
 docs/SITE_FINAL_GOAL_STATUS.md
 docs/SITE_FINAL_GOAL_STATUS.json
@@ -122,6 +127,29 @@ github/workflows/validate-governance-observatory-status.yml
 ```
 
 Canonical repository path begins with a leading period.
+
+## Automated External Evidence State
+
+Site now has a workflow-managed external evidence state:
+
+```text
+github/workflows/site-external-evidence-state.yml
+```
+
+It runs:
+
+```text
+python scripts/write_site_external_evidence_state.py
+```
+
+The writer produces:
+
+```text
+docs/SITE_EXTERNAL_EVIDENCE_STATE.md
+docs/SITE_EXTERNAL_EVIDENCE_STATE.json
+```
+
+This removes the need to manually inspect whether the remaining external evidence has appeared. The repository writes `pending_external_evidence` until the TT bundle and status artifacts exist.
 
 ## Public Mirror Status Guard
 
