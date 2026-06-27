@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HTML = ROOT / "governance-observatory.html"
 STATUS_MD = ROOT / "docs" / "SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
 STATUS_JSON = ROOT / "docs" / "SITE_GOVERNANCE_OBSERVATORY_STATUS.json"
+PUBLIC_PATHS = ROOT / "docs" / "SITE_PUBLIC_PATHS.md"
 
 REQUIRED_TEXT = [
     "StegVerse-Labs/governance-observatory",
@@ -13,6 +14,14 @@ REQUIRED_TEXT = [
     "DecisionAssure",
     "Morrison Runtime",
     "Site is not the source of truth",
+]
+
+PUBLIC_PATH_REQUIRED = [
+    "/governance-observatory.html",
+    "Governance Observatory Boundary",
+    "StegVerse-Labs/governance-observatory",
+    "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md",
+    "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json",
 ]
 
 
@@ -30,10 +39,15 @@ def main() -> None:
     html = read(HTML)
     status_md = read(STATUS_MD)
     status_json_text = read(STATUS_JSON)
+    public_paths = read(PUBLIC_PATHS)
 
     for phrase in REQUIRED_TEXT:
         if phrase not in html and phrase not in status_md and phrase not in status_json_text:
             fail(f"missing required phrase: {phrase}")
+
+    for phrase in PUBLIC_PATH_REQUIRED:
+        if phrase not in public_paths:
+            fail(f"public path semantics missing required phrase: {phrase}")
 
     try:
         status = json.loads(status_json_text)
