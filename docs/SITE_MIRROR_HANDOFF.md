@@ -42,6 +42,7 @@ scripts/check_site_self_managed_completion.py
 scripts/check_site_tt_code_representation_mirror.py
 scripts/check_site_tt_public_page.py
 scripts/check_site_non_activation_mirror_status.py
+scripts/check_site_final_activation_pending.py
 scripts/render_tt_code_representation_status.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
@@ -130,9 +131,10 @@ It runs:
 
 ```text
 python scripts/check_site_non_activation_mirror_status.py
+python scripts/check_site_final_activation_pending.py
 ```
 
-This guard verifies that TT and Governance Observatory status surfaces remain display/status surfaces only.
+This guard verifies that TT and Governance Observatory status surfaces remain display/status surfaces only and that final activation remains pending on external workflow evidence.
 
 ## Final Activation Pending Record
 
