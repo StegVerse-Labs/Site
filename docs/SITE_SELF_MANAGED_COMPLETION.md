@@ -2,19 +2,19 @@
 
 ## Purpose
 
-This document updates the active build goal from manual chat continuation toward repository-managed continuation.
+This document records the current repository-managed continuation posture for `StegVerse-Labs/Site`.
 
-The Site mirror is not considered activated by this document. This assessment only defines when the repository has enough checked-in handoff, workflow, validator, evidence, and closure-boundary material for the ecosystem to continue without manual chat context.
+The Site mirror is not considered ready by this document. This assessment only defines when the repository has enough checked-in handoff, workflow, validator, evidence, and boundary material for the ecosystem to continue without manual chat context.
 
 ## Current Goal
 
 ```text
 Goal: Continue building without manual actions needed through completion, or until task handoff and task completion are capable of being handled by the ecosystem's own management.
 Repository: StegVerse-Labs/Site
-Source repository: GCAT-BCAT-Engine/Publisher
-Source path: papers
-Target path: papers
-Activation state: pending_publisher_closure_evidence
+Source repository: GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, and StegVerse-Labs/governance-observatory
+Source path: papers, TT propagation artifacts, and Governance Observatory source-intake status
+Target path: papers, docs, and public HTML surfaces
+Activation state: pending_external_evidence
 Self-management state: repository_managed_continuation_ready
 ```
 
@@ -23,19 +23,17 @@ Self-management state: repository_managed_continuation_ready
 The Site repository reaches repository-managed continuation readiness when all of the following are true:
 
 ```text
-1. A current handoff file identifies the active goal, repository, source repository, source path, target path, and activation state.
-2. The handoff preserves the Publisher-as-source-of-truth boundary.
+1. A current handoff file identifies the active goal, repository, source repositories, source paths, target paths, and activation state.
+2. The handoff preserves Publisher, TT, and Governance Observatory source-of-truth boundaries.
 3. The handoff lists all built files needed for continuation.
-4. The handoff records the automated Site evidence path.
-5. The handoff records the no-secret closure guard path.
-6. The handoff records validators for manifest metadata, aliases, policy/config, evidence packet, live evidence state, handoff integrity, closure next-build, closure guard, activation ledger, activation status, evidence requirements, and evidence transition rules.
-7. The ecosystem management handoff exists and is named in closure guard workflow, closure guard packet, and checker terms.
-8. The activation ledger remains pending until Publisher closure evidence exists.
-9. The activation status remains aligned with the activation ledger.
-10. Evidence requirements remain explicit and machine-checkable.
-11. Evidence transition rules prevent pending evidence values from being advanced by Site-local evidence alone.
-12. Archive readiness states that prior chat context is no longer required for forward progress.
-13. Remaining work is expressed as evidence capture or governed workflow closure, not as manual reconstruction from chat.
+4. The handoff records the autonomous continuation workflow.
+5. The handoff records the external evidence state writer.
+6. The handoff records the final goal status updater and checker.
+7. The handoff records the TT sync and Governance Observatory validation paths.
+8. The external evidence state remains pending until computed evidence exists.
+9. The final goal status remains pending until TT bundle-fed status is PASS and Governance Observatory status is valid.
+10. Archive readiness states that prior chat context is no longer required for forward progress.
+11. Remaining work is expressed as governed workflow evidence, not as manual reconstruction from chat.
 ```
 
 ## Current Assessment
@@ -45,21 +43,20 @@ Repository-managed continuation: ready
 Activation: pending
 Manual chat context required: no
 Manual evidence reconstruction required: no
-Manual workflow dispatch may still be required if cross-repo credentials are unavailable: yes
+Manual workflow dispatch required: no
 ```
 
 ## Remaining Completion Boundary
 
-The Site mirror may advance from repository-managed continuation readiness to activation only after the cross-repo activation boundary in `docs/SITE_MIRROR_HANDOFF.md` is satisfied.
+The Site mirror may advance from repository-managed continuation readiness to goal-ready only after the computed gate in `docs/SITE_FINAL_GOAL_STATUS.json` is satisfied.
 
 The remaining activation-blocking evidence is:
 
 ```text
-Publisher receipt artifact
-Site evidence artifact
-Publisher closure receipt
-Publisher verification tracker activation
-Publisher activation-status update
+TT bundle-fed status is PASS
+Governance Observatory status is valid
+external evidence state is computed from checked-in artifacts
+final goal status reports ready
 ```
 
 ## Ecosystem Management Rule
@@ -68,18 +65,15 @@ The ecosystem can continue this task from repository state alone by reading, in 
 
 ```text
 1. docs/SITE_MIRROR_HANDOFF.md
-2. docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
-3. docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md
-4. docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md
-5. docs/SITE_MIRROR_ACTIVATION_LEDGER.json
-6. docs/SITE_MIRROR_ACTIVATION_STATUS.md
-7. docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md
-8. docs/SITE_MIRROR_CLOSURE_GUARD.md
-9. docs/SITE_SELF_MANAGED_COMPLETION.md
+2. docs/SITE_EXTERNAL_EVIDENCE_STATE.json
+3. docs/SITE_FINAL_GOAL_STATUS.json
+4. docs/SITE_FINAL_ACTIVATION_PENDING.md
+5. docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
+6. docs/SITE_SELF_MANAGED_COMPLETION.md
 ```
 
-If the evidence remains pending, the next valid action is to run or wait for the governed Publisher/Site workflow path. No session may claim activation from Site-local evidence alone.
+If the evidence remains pending, the next valid action is to let the autonomous continuation and final goal status workflows compute the state. No session may claim readiness from Site-local display pages alone.
 
 ## Archive Readiness
 
-This document makes the new assessment goal explicit. Together with `docs/SITE_MIRROR_HANDOFF.md` and `docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md`, it records enough repository-local state for future sessions, automated checks, or ecosystem management agents to continue without relying on prior chat context.
+This document records enough repository-local state for future sessions, automated checks, or ecosystem management agents to continue without relying on prior chat context.
