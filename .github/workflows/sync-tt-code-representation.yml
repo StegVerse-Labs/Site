@@ -3,7 +3,12 @@ name: Sync TT Code Representation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 6 * * *'
+    - cron: '17 */6 * * *'
+  push:
+    paths:
+      - ".github/workflows/sync-tt-code-representation.yml"
+      - "scripts/render_tt_code_representation_status.py"
+      - "scripts/check_site_tt_code_representation_mirror.py"
 
 jobs:
   sync-tt-code-representation:
@@ -65,7 +70,7 @@ jobs:
         run: |
           echo "## TT Code Representation Sync" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Canonical source:** Admissible-Existence/TT" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Site bundle:** data/tt/transition-element-propagation-bundle.manifest.json" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Site status:** docs/SITE_TT_CODE_REPRESENTATION_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Authority boundary:** mirrored status does not grant execution authority." >> "$GITHUB_STEP_SUMMARY"
+          echo "Canonical source: Admissible-Existence/TT" >> "$GITHUB_STEP_SUMMARY"
+          echo "Site bundle: data/tt/transition-element-propagation-bundle.manifest.json" >> "$GITHUB_STEP_SUMMARY"
+          echo "Site status: docs/SITE_TT_CODE_REPRESENTATION_STATUS.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "Boundary: mirrored status does not issue commit-time permission." >> "$GITHUB_STEP_SUMMARY"
