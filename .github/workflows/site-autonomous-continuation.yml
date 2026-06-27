@@ -1,0 +1,85 @@
+name: Site Autonomous Continuation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '11 */6 * * *'
+  push:
+    paths:
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_EXTERNAL_EVIDENCE_STATE.json"
+      - "docs/SITE_FINAL_GOAL_STATUS.json"
+      - "scripts/write_site_external_evidence_state.py"
+      - "scripts/update_site_final_goal_status.py"
+      - "scripts/render_tt_code_representation_status.py"
+      - "scripts/check_site_governance_observatory_status.py"
+      - ".github/workflows/site-autonomous-continuation.yml"
+
+jobs:
+  continue-site:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: Checkout canonical TT
+        uses: actions/checkout@v4
+        with:
+          repository: Admissible-Existence/TT
+          path: tt
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build TT propagation bundle
+        working-directory: tt
+        run: python scripts/build_transition_element_propagation_bundle.py
+
+      - name: Copy TT bundle into Site
+        run: |
+          mkdir -p site/data/tt
+          cp tt/dist/transition-element-propagation-bundle.manifest.json site/data/tt/transition-element-propagation-bundle.manifest.json
+
+      - name: Render TT status
+        working-directory: site
+        run: python scripts/render_tt_code_representation_status.py
+
+      - name: Check Governance Observatory status
+        working-directory: site
+        run: python scripts/check_site_governance_observatory_status.py
+
+      - name: Write external evidence state
+        working-directory: site
+        run: python scripts/write_site_external_evidence_state.py
+
+      - name: Update final goal status
+        working-directory: site
+        run: python scripts/update_site_final_goal_status.py
+
+      - name: Commit autonomous continuation updates
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tt/transition-element-propagation-bundle.manifest.json docs/SITE_TT_CODE_REPRESENTATION_STATUS.md docs/SITE_TT_CODE_REPRESENTATION_STATUS.json docs/SITE_EXTERNAL_EVIDENCE_STATE.md docs/SITE_EXTERNAL_EVIDENCE_STATE.json docs/SITE_FINAL_GOAL_STATUS.md docs/SITE_FINAL_GOAL_STATUS.json
+          if git diff --cached --quiet; then
+            echo "No autonomous continuation changes to commit."
+          else
+            git commit -m "Update autonomous Site continuation state"
+            git push
+          fi
+
+      - name: Write summary
+        if: always()
+        working-directory: site
+        run: |
+          echo "## Site Autonomous Continuation" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "TT bundle, TT status, external evidence state, and final goal status were computed from repository workflows." >> "$GITHUB_STEP_SUMMARY"
+          echo "No manual inspection is required for these local continuation checks." >> "$GITHUB_STEP_SUMMARY"
