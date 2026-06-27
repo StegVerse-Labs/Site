@@ -9,8 +9,8 @@ This handoff lets the next build session continue Site mirror activation without
 ```text
 Goal: Continue building without manual actions needed through completion, or until task handoff and task completion are capable of being handled by the ecosystem's own management.
 Repository: StegVerse-Labs/Site
-Source repository: GCAT-BCAT-Engine/Publisher and Admissible-Existence/TT
-Source path: papers and TT propagation artifacts
+Source repository: GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, and StegVerse-Labs/governance-observatory
+Source path: papers, TT propagation artifacts, and Governance Observatory source-intake status
 Target path: papers, docs, and public HTML surfaces
 Activation state: pending_publisher_closure_evidence
 Self-management state: repository_managed_continuation_ready
@@ -23,6 +23,7 @@ github/workflows/mirror-papers.yml
 github/workflows/site-mirror-closure-guard.yml
 github/workflows/site-self-managed-completion.yml
 github/workflows/sync-tt-code-representation.yml
+github/workflows/validate-governance-observatory-status.yml
 scripts/mirror_papers.py
 scripts/check_paper_display_policy.py
 scripts/check_papers_manifest_metadata.py
@@ -42,8 +43,10 @@ scripts/render_tt_code_representation_status.py
 scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
 scripts/check_site_public_ingestion_contract.py
+scripts/check_site_governance_observatory_status.py
 papers/papers_manifest.json
 tt-code-representation.html
+governance-observatory.html
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
 docs/SITE_MIRROR_ACTIVATION_STATUS.md
@@ -66,6 +69,8 @@ docs/SITE_PUBLIC_PATH_AND_INGESTION_SURFACE_HARDENING.md
 docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md
 docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
 docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -73,21 +78,39 @@ Note: `github/workflows/...` paths are displayed without the leading dot. The ac
 
 ## Site Mirror Contract
 
-The Site mirror must not become a separate editorial source of truth. Publisher remains authoritative for papers. `Admissible-Existence/TT` remains authoritative for Transition Table code-representation semantics.
+The Site mirror must not become a separate editorial source of truth. Publisher remains authoritative for papers. `Admissible-Existence/TT` remains authoritative for Transition Table code-representation semantics. `StegVerse-Labs/governance-observatory` remains authoritative for Governance Observatory source-intake records.
 
 ## Public TT Code Representation Page
 
-Site now exposes a public HTML mirror surface:
+Site exposes a public HTML mirror surface:
 
 ```text
 tt-code-representation.html
 ```
 
-This page explains TT code representation, links to Site-rendered status artifacts, and preserves the boundary that rendered Site pages do not grant execution authority.
+This page explains TT code representation, links to Site-rendered status artifacts, and preserves the boundary that rendered Site pages are display only.
+
+## Governance Observatory Status Page
+
+Site now exposes a public HTML status surface:
+
+```text
+governance-observatory.html
+```
+
+This page displays Governance Observatory source-intake status, links to Site status artifacts, and preserves the boundary that Site display does not certify external sources, prove SDK compatibility, or issue commit-time permission.
+
+Validation path shown without leading period for iOS compatibility:
+
+```text
+github/workflows/validate-governance-observatory-status.yml
+```
+
+Canonical repository path begins with a leading period.
 
 ## TT Code Representation Sync
 
-Site now has a workflow that fetches canonical TT, builds the TT propagation bundle, copies it into Site, renders Site status, checks the mirror contract, and commits changed mirror artifacts.
+Site has a workflow that fetches canonical TT, builds the TT propagation bundle, copies it into Site, renders Site status, checks the mirror contract, and commits changed mirror artifacts.
 
 Workflow path shown without leading period for iOS compatibility:
 
@@ -99,7 +122,7 @@ Canonical repository path begins with a leading period.
 
 ## TT Code Representation Status Rendering
 
-Site now has a renderer:
+Site has a renderer:
 
 ```text
 python scripts/render_tt_code_representation_status.py
@@ -134,14 +157,14 @@ Its checker is:
 python scripts/check_site_tt_code_representation_mirror.py
 ```
 
-This mirror preserves the boundary that Site may display and route canonical TT records, but must not redefine transition-element semantics or treat a rendered element as execution authority.
+This mirror preserves the boundary that Site may display and route canonical TT records, but must not redefine transition-element semantics.
 
 ## Current Completion Estimate
 
 ```text
-StegVerse-Labs - 97%complete
-Site - 96%complete
-Site - 96%complete TO GOAL ACTIVATION
+StegVerse-Labs - 98%complete
+Site - 97%complete
+Site - 97%complete TO GOAL ACTIVATION
 ```
 
-The complete thread is ready for archiving after the TT sync workflow produces the first committed bundle-fed status.
+The complete thread is ready for archiving after the TT sync workflow produces the first committed bundle-fed status and Governance Observatory status validation passes.
