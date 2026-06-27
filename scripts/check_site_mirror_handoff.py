@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Verify that the Site mirror handoff matches the repository structure."""
+"""Verify that the Site mirror handoff matches the current repository structure.
+
+The handoff is the build-continuation source of truth. This checker validates
+that it still names the current goal, preserves canonical-source boundaries, and
+lists repository files that actually exist.
+"""
 
 from __future__ import annotations
 
@@ -14,94 +19,43 @@ REQUIRED_GOAL_FIELDS = {
     "Goal: Continue building without manual actions needed through completion",
     "task handoff and task completion are capable of being handled by the ecosystem's own management",
     "Repository: StegVerse-Labs/Site",
-    "Source repository: GCAT-BCAT-Engine/Publisher",
-    "Source path: papers",
-    "Target path: papers",
+    "Source repository: GCAT-BCAT-Engine/Publisher and Admissible-Existence/TT",
+    "Source path: papers and TT propagation artifacts",
+    "Target path: papers, docs, and public HTML surfaces",
     "Activation state: pending_publisher_closure_evidence",
     "Self-management state: repository_managed_continuation_ready",
 }
 
-REQUIRED_VALIDATOR_COMMANDS = {
-    "python scripts/check_paper_display_policy.py",
-    "python scripts/check_transition_table_public_copy.py",
-    "python scripts/check_site_public_ingestion_contract.py",
-    "python scripts/check_site_mirror_evidence_packet.py",
-    "python scripts/check_site_mirror_live_evidence_state.py",
-    "python scripts/check_site_mirror_handoff.py",
-    "python scripts/check_site_mirror_closure_next_build.py",
-    "python scripts/check_site_mirror_closure_guard.py",
-    "python scripts/check_site_mirror_activation_ledger.py",
-    "python scripts/check_site_mirror_activation_status.py",
-    "python scripts/check_site_mirror_evidence_requirements.py",
-    "python scripts/check_site_mirror_evidence_transition_rules.py",
-    "python scripts/check_site_self_managed_completion.py",
-    "python scripts/check_papers_manifest_metadata.py",
-    "python scripts/check_paper_aliases.py",
+REQUIRED_BOUNDARY_TERMS = {
+    "The Site mirror must not become a separate editorial source of truth.",
+    "Publisher remains authoritative for papers.",
+    "Admissible-Existence/TT remains authoritative for Transition Table code-representation semantics.",
+    "must not redefine transition-element semantics",
+    "treat a rendered element as execution authority",
 }
 
-REQUIRED_EVIDENCE_TERMS = {
-    "Publisher workflow run URL",
-    "Publisher verification receipt artifact",
-    "Site mirror workflow URL",
-    "Site evidence artifact",
-    "Publisher closure nudge result",
-    "Publisher closure receipt",
-    "Publisher verification tracker activation commit",
-    "Publisher activation-status update commit",
+REQUIRED_TT_TERMS = {
+    "tt-code-representation.html",
+    "github/workflows/sync-tt-code-representation.yml",
+    "python scripts/render_tt_code_representation_status.py",
+    "python scripts/check_site_tt_code_representation_mirror.py",
+    "python scripts/check_site_tt_public_page.py",
+    "data/tt/transition-element-propagation-bundle.manifest.json",
+    "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md",
+    "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json",
+    "pending fail-closed status",
 }
 
-REQUIRED_CLOSURE_TERMS = {
-    "docs/SITE_MIRROR_CLOSURE_NEXT_BUILD.md",
-    "Closure Next-Build Packet",
-    "Site may prepare and validate closure-readiness evidence",
-    "Publisher closure remains required before activation can be claimed",
-}
-
-REQUIRED_LEDGER_TERMS = {
-    "docs/SITE_MIRROR_ACTIVATION_LEDGER.json",
-    "docs/SITE_MIRROR_ACTIVATION_LEDGER.md",
-    "Activation Ledger Packet",
-    "python scripts/check_site_mirror_activation_ledger.py",
-    "Site-side evidence alone does not activate the mirror",
-}
-
-REQUIRED_STATUS_TERMS = {
-    "docs/SITE_MIRROR_ACTIVATION_STATUS.md",
-    "Activation Status Packet",
-    "python scripts/check_site_mirror_activation_status.py",
-    "activation status remains aligned with the activation ledger",
-}
-
-REQUIRED_EVIDENCE_REQUIREMENTS_TERMS = {
-    "docs/SITE_MIRROR_EVIDENCE_REQUIREMENTS.md",
-    "Evidence Requirements Packet",
-    "python scripts/check_site_mirror_evidence_requirements.py",
-    "exact evidence keys required before activation may advance",
-}
-
-REQUIRED_EVIDENCE_TRANSITION_TERMS = {
-    "docs/SITE_MIRROR_EVIDENCE_TRANSITION_RULES.md",
-    "Evidence Transition Rules Packet",
-    "python scripts/check_site_mirror_evidence_transition_rules.py",
-    "evidence values may advance from pending",
-}
-
-REQUIRED_SELF_MANAGED_TERMS = {
-    "docs/SITE_SELF_MANAGED_COMPLETION.md",
-    "Self-Managed Completion Packet",
-    "python scripts/check_site_self_managed_completion.py",
-    "repository-managed continuation ready",
-    "keeping activation pending until governed Publisher closure evidence exists",
+REQUIRED_ARCHIVE_TERMS = {
+    "complete thread is ready for archiving",
+    "first committed bundle-fed status",
 }
 
 FORBIDDEN_TERMS = {
-    "Goal: Site mirror activation hardening",
-    "Goal: autonomous Site mirror completion or ecosystem-managed handoff",
-    "Assessment state: ecosystem_managed_handoff_capable",
-    "docs/SITE_MIRROR_AUTONOMOUS_COMPLETION_ASSESSMENT.md",
-    "python scripts/check_site_mirror_autonomous_completion_assessment.py",
     "Activation state: activated",
     "Activation: complete",
+    "Site is proof authority",
+    "TT authority source: StegVerse-Labs/Site",
 }
 
 
@@ -165,14 +119,9 @@ def main() -> int:
 
         checks = [
             ("Current Goal", REQUIRED_GOAL_FIELDS),
-            ("Validators", REQUIRED_VALIDATOR_COMMANDS),
-            ("Evidence To Capture", REQUIRED_EVIDENCE_TERMS),
-            ("Closure Next-Build Packet", REQUIRED_CLOSURE_TERMS),
-            ("Activation Ledger Packet", REQUIRED_LEDGER_TERMS),
-            ("Activation Status Packet", REQUIRED_STATUS_TERMS),
-            ("Evidence Requirements Packet", REQUIRED_EVIDENCE_REQUIREMENTS_TERMS),
-            ("Evidence Transition Rules Packet", REQUIRED_EVIDENCE_TRANSITION_TERMS),
-            ("Self-Managed Completion Packet", REQUIRED_SELF_MANAGED_TERMS),
+            ("Canonical Boundaries", REQUIRED_BOUNDARY_TERMS),
+            ("TT Code Representation", REQUIRED_TT_TERMS),
+            ("Archive Readiness", REQUIRED_ARCHIVE_TERMS),
         ]
 
         for section_name, terms in checks:
@@ -183,12 +132,6 @@ def main() -> int:
         forbidden_terms = _reject_terms(markdown, FORBIDDEN_TERMS)
         if forbidden_terms:
             errors.append("Handoff contains obsolete or forbidden terms: " + ", ".join(forbidden_terms))
-
-        if "Archive Readiness" not in markdown:
-            errors.append("Handoff is missing Archive Readiness section.")
-
-        if "Pending: actual Publisher receipt artifact" not in markdown:
-            errors.append("Handoff no longer records the current pending activation evidence boundary.")
 
         if errors:
             for error in errors:
