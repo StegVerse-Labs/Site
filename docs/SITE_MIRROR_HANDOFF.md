@@ -20,6 +20,7 @@ Self-management state: repository_managed_continuation_ready
 
 ```text
 github/workflows/mirror-papers.yml
+github/workflows/site-autonomous-continuation.yml
 github/workflows/site-external-evidence-state.yml
 github/workflows/site-mirror-closure-guard.yml
 github/workflows/site-final-goal-status.yml
@@ -128,9 +129,33 @@ github/workflows/validate-governance-observatory-status.yml
 
 Canonical repository path begins with a leading period.
 
+## Autonomous Continuation
+
+Site now has one scheduled continuation workflow that performs the local continuation sequence without manual coordination:
+
+```text
+github/workflows/site-autonomous-continuation.yml
+```
+
+It performs:
+
+```text
+checkout Site
+checkout Admissible-Existence/TT
+build TT propagation bundle
+copy TT bundle into Site
+render TT status
+check Governance Observatory status
+write external evidence state
+update final goal status
+commit computed state changes
+```
+
+This removes manual coordination between the TT sync workflow, external evidence state writer, and final goal status updater. The workflow writes `pending_external_evidence` until the required evidence is present and only lets the final goal status become `ready` when computed gates pass.
+
 ## Automated External Evidence State
 
-Site now has a workflow-managed external evidence state:
+Site has a workflow-managed external evidence state:
 
 ```text
 github/workflows/site-external-evidence-state.yml
