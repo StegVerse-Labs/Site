@@ -46,6 +46,7 @@ scripts/check_site_tt_code_representation_mirror.py
 scripts/check_site_tt_public_page.py
 scripts/check_site_non_activation_mirror_status.py
 scripts/check_site_final_activation_pending.py
+scripts/check_site_final_goal_status.py
 scripts/update_site_final_goal_status.py
 scripts/write_site_external_evidence_state.py
 scripts/render_tt_code_representation_status.py
@@ -131,10 +132,17 @@ Canonical repository path begins with a leading period.
 
 ## Autonomous Continuation
 
-Site now has one scheduled continuation workflow that performs the local continuation sequence without manual coordination:
+Site has one scheduled continuation workflow that performs the local continuation sequence without manual coordination:
 
 ```text
 github/workflows/site-autonomous-continuation.yml
+```
+
+It runs on schedule, manual dispatch, relevant pushes, and completed upstream workflow runs from:
+
+```text
+Sync TT Code Representation
+Validate Governance Observatory Status
 ```
 
 It performs:
@@ -148,6 +156,8 @@ render TT status
 check Governance Observatory status
 write external evidence state
 update final goal status
+validate final goal status
+validate final activation boundary
 commit computed state changes
 ```
 
@@ -159,6 +169,13 @@ Site has a workflow-managed external evidence state:
 
 ```text
 github/workflows/site-external-evidence-state.yml
+```
+
+It runs on schedule, manual dispatch, relevant pushes, and completed upstream workflow runs from:
+
+```text
+Sync TT Code Representation
+Validate Governance Observatory Status
 ```
 
 It runs:
@@ -211,10 +228,19 @@ Site has an automated final goal status workflow:
 github/workflows/site-final-goal-status.yml
 ```
 
+It runs on schedule, manual dispatch, relevant pushes, and completed workflow runs from:
+
+```text
+Sync TT Code Representation
+Validate Governance Observatory Status
+Site External Evidence State
+```
+
 It runs:
 
 ```text
 python scripts/update_site_final_goal_status.py
+python scripts/check_site_final_goal_status.py
 ```
 
 The updater writes:
