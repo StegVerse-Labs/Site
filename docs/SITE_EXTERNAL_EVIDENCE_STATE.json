@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-06-27T02:36:13.016631+00:00",
+  "repository": "StegVerse-Labs/Site",
+  "state": "pending_external_evidence",
+  "local_build_state": "repository_managed",
+  "records": [
+    {
+      "id": "tt_bundle_present",
+      "label": "TT propagated bundle present",
+      "path": "data/tt/transition-element-propagation-bundle.manifest.json",
+      "exists": false,
+      "pending_text_present": false,
+      "status": "missing"
+    },
+    {
+      "id": "tt_status_markdown_present",
+      "label": "TT status markdown present",
+      "path": "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md",
+      "exists": true,
+      "pending_text_present": true,
+      "status": "present"
+    },
+    {
+      "id": "tt_status_json_present",
+      "label": "TT status JSON present",
+      "path": "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json",
+      "exists": true,
+      "pending_text_present": true,
+      "status": "present"
+    },
+    {
+      "id": "governance_observatory_markdown_present",
+      "label": "Governance Observatory status markdown present",
+      "path": "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md",
+      "exists": true,
+      "pending_text_present": true,
+      "status": "present"
+    },
+    {
+      "id": "governance_observatory_json_present",
+      "label": "Governance Observatory status JSON present",
+      "path": "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json",
+      "exists": true,
+      "pending_text_present": false,
+      "status": "present"
+    }
+  ],
+  "next_action": "Repository workflows continue checking until external evidence is present.",
+  "non_claim": "This state file does not grant execution authority or change source-repository authority."
+}
