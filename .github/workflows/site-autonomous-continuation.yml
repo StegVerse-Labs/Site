@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '11 */6 * * *'
+  workflow_run:
+    workflows:
+      - Sync TT Code Representation
+      - Validate Governance Observatory Status
+    types:
+      - completed
   push:
     paths:
       - "docs/SITE_MIRROR_HANDOFF.md"
@@ -16,6 +22,10 @@ on:
       - "scripts/check_site_final_goal_status.py"
       - "scripts/check_site_final_activation_pending.py"
       - ".github/workflows/site-autonomous-continuation.yml"
+
+concurrency:
+  group: site-autonomous-continuation
+  cancel-in-progress: false
 
 jobs:
   continue-site:
