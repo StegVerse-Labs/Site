@@ -28,6 +28,7 @@
   <a href="tt-code-representation.html">TT Code</a>
   <a href="formalisms/index.html">Formalisms</a>
   <a href="admissibility-wiki.html">Admissibility Wiki</a>
+  <a href="governance-observatory.html">Governance Observatory</a>
   <a href="Papers.html">Papers</a>
 </nav>
 
@@ -38,7 +39,7 @@
     <h1>Expose trust failures<br><em>before they become incidents.</em></h1>
     <p>StegVerse identifies where AI systems, governance structures, credentials,
     and automation silently fail under real-world pressure — then demonstrates
-    how admissibility can be enforced at the moment actions become irreversible.</p>
+    how admissibility can be checked at the moment actions become irreversible.</p>
     <div class="sv-btn-row">
       <a class="sv-btn sv-btn-primary" href="tests/governance-filter.html">Run governance filter</a>
       <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html">Open ecosystem chat</a>
@@ -49,6 +50,7 @@
       <a class="sv-btn sv-btn-secondary" href="transition-table.html">Transition Table</a>
       <a class="sv-btn sv-btn-secondary" href="tt-code-representation.html">TT Code Representation</a>
       <a class="sv-btn sv-btn-secondary" href="admissibility-wiki.html">Admissibility Wiki</a>
+      <a class="sv-btn sv-btn-secondary" href="governance-observatory.html">Governance Observatory</a>
       <a class="sv-btn sv-btn-secondary" href="formalisms/stcm.html">STCM</a>
       <a class="sv-btn sv-btn-secondary" href="formalisms/rtg.html">RTG</a>
     </div>
@@ -58,7 +60,7 @@
 
   <div class="sv-evidence">
     <div class="sv-evidence-label">StegVerse-002 / core-lite — live run 2026-05-24</div>
-    <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all authority flags false</span></div>
+    <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all permission flags false</span></div>
     <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v">ALLOW · sha256:33aa60e7</span></div>
     <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v">success · stop_condition_met: true</span></div>
     <div class="sv-evidence-row"><span class="k">Receipt chain</span><span class="v">sha256:a151deed · live</span></div>
@@ -66,6 +68,7 @@
     <div class="sv-evidence-row"><span class="k">Transition Table</span><span class="v">public mirror · Stage 10 source posture</span></div>
     <div class="sv-evidence-row"><span class="k">TT Code Representation</span><span class="v">public mirror · canonical source remains Admissible-Existence/TT</span></div>
     <div class="sv-evidence-row"><span class="k">Admissibility Wiki</span><span class="v">vocabulary bridge · outcome proof-path examples installed</span></div>
+    <div class="sv-evidence-row"><span class="k">Governance Observatory</span><span class="v">source-intake status mirror · source repository remains StegVerse-Labs/governance-observatory</span></div>
     <div class="sv-evidence-row"><span class="k">Governance Tests</span><span class="v">public testing suite · static admissibility posture</span></div>
     <div class="sv-evidence-row"><span class="k">Applicability Map</span><span class="v">discipline-facing tester map · research-note posture</span></div>
     <div class="sv-evidence-row"><span class="k">Math-Solver Adapter</span><span class="v">public adapter concept · research-note posture</span></div>
@@ -80,7 +83,7 @@
       <h3 class="sv-h3">Ecosystem Chat</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
         Text-only command console for routing StegVerse build and governance requests
-        without claiming Site authority.
+        without claiming Site control.
       </p>
       <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html" style="font-size:12px;padding:8px 14px;">Open console</a>
     </div>
@@ -89,7 +92,7 @@
       <h3 class="sv-h3">Governance Testing Suite</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
         Paste LLM output and see what it is allowed to become under declared use,
-        authority, evidence, and posture constraints.
+        permission, evidence, and posture constraints.
       </p>
       <a class="sv-btn sv-btn-secondary" href="tests/governance-filter.html" style="font-size:12px;padding:8px 14px;">Run governance filter</a>
     </div>
@@ -164,6 +167,15 @@
     </div>
 
     <div class="sv-card">
+      <h3 class="sv-h3">Governance Observatory</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
+        Public status mirror for source-intake records, SDK relationship mapping,
+        deferred-source boundaries, and non-executing fixture posture.
+      </p>
+      <a class="sv-btn sv-btn-secondary" href="governance-observatory.html" style="font-size:12px;padding:8px 14px;">View observatory status</a>
+    </div>
+
+    <div class="sv-card">
       <h3 class="sv-h3">STCM Formalism</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
         State Transition Conservation Model. Conservation rule for admissible state movement.
@@ -185,7 +197,7 @@
       <h3 class="sv-h3">StegFinCo</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
         Governed financial execution layer. Payment evidence at the
-        boundary — not authority.
+        boundary — not permission.
       </p>
       <a class="sv-btn sv-btn-secondary" href="stegfinco.html" style="font-size:12px;padding:8px 14px;">View FinCo</a>
     </div>
@@ -206,28 +218,29 @@
     <p>Logs can explain what happened. A commit boundary determines whether
     an action is still valid before it becomes an irreversible effect.</p>
     <p>The StegVerse pattern is simple: reconstruct current state, re-derive
-    current authority, recompute admissibility, then allow, deny, or fail closed.</p>
+    current permission, recompute admissibility, then allow, deny, or fail closed.</p>
     <p>The Transition Table is the public map of those boundary decisions. It
     may describe public posture, but it does not replace the receipt-producing
-    proof authority.</p>
+    proof source.</p>
   </div>
 
   <h2 class="sv-h2">Boundary doctrine</h2>
-  <pre>formalism-tests  =  proof/test authority
+  <pre>formalism-tests  =  proof/test source
 Site             =  public mirror
-Ecosystem Chat   =  text-only command surface, not proof authority
+Ecosystem Chat   =  text-only command surface, not proof source
 Admissibility Wiki = public vocabulary and proof-path explanation layer
+Governance Observatory = source-intake status mirror, not source repository
 StegVerse-002    =  governed work-entity
 Transition Table =  public posture map
-TT Code Representation = public mirror of canonical TT code surface, not authority
-Tests            =  public admissibility simulations, not proof authority
-Applicability    =  discipline-facing tester map, not domain authority
+TT Code Representation = public mirror of canonical TT code surface, not source repository
+Tests            =  public admissibility simulations, not proof source
+Applicability    =  discipline-facing tester map, not domain source
 Math-Solver      =  adapter concept / research-note posture
 STCM             =  conservation model / research-note posture
 RTG              =  candidate formalism / draft posture
-production       =  accredited participation, not sovereign authority
+production       =  accredited participation, not final proof by itself
 
-Site is a public mirror, not proof authority.</pre>
+Site is a public mirror, not proof source.</pre>
 
 </div>
 
