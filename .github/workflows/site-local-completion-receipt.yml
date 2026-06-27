@@ -1,0 +1,48 @@
+name: Site Local Completion Receipt
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */6 * * *'
+  push:
+    paths:
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_MANUAL_TASK_ELIMINATION.md"
+      - "docs/SITE_TASK_ELIMINATION_GUARD.md"
+      - "docs/SITE_EXTERNAL_EVIDENCE_STATE.md"
+      - "docs/SITE_EXTERNAL_EVIDENCE_STATE.json"
+      - "docs/SITE_FINAL_GOAL_STATUS.md"
+      - "docs/SITE_FINAL_GOAL_STATUS.json"
+      - "scripts/write_site_local_completion_receipt.py"
+      - ".github/workflows/site-local-completion-receipt.yml"
+
+jobs:
+  local-completion-receipt:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Write local completion receipt
+        run: python scripts/write_site_local_completion_receipt.py
+
+      - name: Commit local completion receipt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/SITE_LOCAL_COMPLETION_RECEIPT.md docs/SITE_LOCAL_COMPLETION_RECEIPT.json
+          if git diff --cached --quiet; then
+            echo "No local completion receipt changes to commit."
+          else
+            git commit -m "Update Site local completion receipt"
+            git push
+          fi
+
+      - name: Write summary
+        if: always()
+        run: |
+          echo "## Site Local Completion Receipt" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Wrote local completion receipt for repository-managed continuation surfaces." >> "$GITHUB_STEP_SUMMARY"
