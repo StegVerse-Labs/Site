@@ -2,6 +2,8 @@ name: Site Public Mirror Status Guard
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '47 */6 * * *'
   push:
     paths:
       - "docs/SITE_FINAL_ACTIVATION_PENDING.md"
@@ -11,6 +13,7 @@ on:
       - "docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md"
       - "scripts/check_site_final_activation_pending.py"
       - "scripts/check_site_non_activation_mirror_status.py"
+      - ".github/workflows/site-public-mirror-status-guard.yml"
 
 jobs:
   public-mirror-status:
