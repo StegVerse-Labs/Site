@@ -1,0 +1,19 @@
+{
+  "receipt_id": "site-tcl-propagation-receipt-001",
+  "receipt_type": "site_tcl_propagation_intake_receipt",
+  "created_at": "2026-06-24T00:00:00Z",
+  "source_repository": "StegVerse-Labs/T-CL",
+  "destination_repository": "StegVerse-Labs/Site",
+  "source_handoff": "docs/TCL_RELEASE_CANDIDATE_MIRROR_HANDOFF.md",
+  "destination_handoff_checked": "docs/SITE_MIRROR_HANDOFF.md",
+  "intake_record": "docs/SITE_TCL_PROPAGATION_INTAKE.json",
+  "manual_task_required": false,
+  "standing": "intake_recorded_display_not_yet_published",
+  "site_boundary": {
+    "display_surface_only": true,
+    "no_semantic_redefinition": true,
+    "no_downstream_completion_claim": true,
+    "no_measured_savings_claim": true
+  },
+  "next_step": "Validate receipt with scripts/check_site_tcl_propagation_receipt.py before any Site display update."
+}
