@@ -7,8 +7,12 @@ on:
   push:
     paths:
       - "docs/SITE_MANUAL_TASK_ELIMINATION.md"
+      - "docs/SITE_TASK_ELIMINATION_GUARD.md"
       - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
+      - "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md"
       - "scripts/check_site_manual_task_elimination.py"
+      - "scripts/check_site_ecosystem_management_handoff.py"
       - ".github/workflows/site-task-elimination-guard.yml"
 
 jobs:
@@ -23,9 +27,13 @@ jobs:
       - name: Check local task elimination state
         run: python scripts/check_site_manual_task_elimination.py
 
+      - name: Check ecosystem management handoff state
+        run: python scripts/check_site_ecosystem_management_handoff.py
+
       - name: Write summary
         if: always()
         run: |
           echo "## Site Task Elimination Guard" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Checked that Site local continuation work is workflow-managed." >> "$GITHUB_STEP_SUMMARY"
+          echo "Checked that ecosystem management handoffs are repository-resident." >> "$GITHUB_STEP_SUMMARY"
