@@ -1,0 +1,43 @@
+name: Site Final Goal After Local Receipt
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Site Local Completion Receipt
+    types:
+      - completed
+  push:
+    paths:
+      - "docs/SITE_LOCAL_COMPLETION_RECEIPT.json"
+      - "scripts/update_site_final_goal_status.py"
+      - "scripts/check_site_final_goal_status.py"
+      - ".github/workflows/site-final-goal-after-local-receipt.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-final-goal-after-local-receipt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Update final goal status
+        run: python scripts/update_site_final_goal_status.py
+
+      - name: Check final goal status
+        run: python scripts/check_site_final_goal_status.py
+
+      - name: Commit final goal status
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/SITE_FINAL_GOAL_STATUS.md docs/SITE_FINAL_GOAL_STATUS.json
+          if git diff --cached --quiet; then
+            echo "No final goal status changes to commit."
+          else
+            git commit -m "Update Site final goal after local receipt"
+            git push
+          fi
