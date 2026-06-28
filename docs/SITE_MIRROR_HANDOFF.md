@@ -22,6 +22,7 @@ Self-management state: repository_managed_continuation_ready
 github/workflows/mirror-papers.yml
 github/workflows/site-autonomous-continuation.yml
 github/workflows/site-external-evidence-state.yml
+github/workflows/site-local-completion-receipt.yml
 github/workflows/site-mirror-closure-guard.yml
 github/workflows/site-final-goal-status.yml
 github/workflows/site-public-mirror-status-guard.yml
@@ -50,6 +51,8 @@ scripts/check_site_non_activation_mirror_status.py
 scripts/check_site_final_activation_pending.py
 scripts/check_site_final_goal_status.py
 scripts/check_site_manual_task_elimination.py
+scripts/write_site_local_completion_receipt.py
+scripts/check_site_local_completion_receipt.py
 scripts/update_site_final_goal_status.py
 scripts/write_site_external_evidence_state.py
 scripts/render_tt_code_representation_status.py
@@ -91,6 +94,8 @@ docs/SITE_EXTERNAL_EVIDENCE_REQUIREMENTS.md
 docs/SITE_FINAL_ACTIVATION_PENDING.md
 docs/SITE_FINAL_GOAL_STATUS.md
 docs/SITE_FINAL_GOAL_STATUS.json
+docs/SITE_LOCAL_COMPLETION_RECEIPT.md
+docs/SITE_LOCAL_COMPLETION_RECEIPT.json
 docs/SITE_MANUAL_TASK_ELIMINATION.md
 docs/SITE_TASK_ELIMINATION_GUARD.md
 docs/SITE_MIRROR_HANDOFF.md
@@ -168,6 +173,30 @@ commit computed state changes
 ```
 
 This removes manual coordination between the TT sync workflow, external evidence state writer, and final goal status updater. The workflow writes `pending_external_evidence` until the required evidence is present and only lets the final goal status become `ready` when computed gates pass.
+
+## Local Completion Receipt
+
+Site has a repository-managed local completion receipt workflow:
+
+```text
+github/workflows/site-local-completion-receipt.yml
+```
+
+It runs:
+
+```text
+python scripts/write_site_local_completion_receipt.py
+python scripts/check_site_local_completion_receipt.py
+```
+
+The workflow writes and validates:
+
+```text
+docs/SITE_LOCAL_COMPLETION_RECEIPT.md
+docs/SITE_LOCAL_COMPLETION_RECEIPT.json
+```
+
+This receipt confirms repository-managed continuation surfaces exist. It does not activate the Site mirror, grant commit-time permission, or move source authority into Site.
 
 ## Manual Task Elimination
 
