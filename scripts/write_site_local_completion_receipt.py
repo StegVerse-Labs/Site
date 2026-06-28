@@ -16,17 +16,23 @@ REQUIRED_PATHS = [
     "docs/SITE_MIRROR_HANDOFF.md",
     "docs/SITE_MANUAL_TASK_ELIMINATION.md",
     "docs/SITE_TASK_ELIMINATION_GUARD.md",
+    "docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
+    "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
     "docs/SITE_EXTERNAL_EVIDENCE_STATE.md",
     "docs/SITE_EXTERNAL_EVIDENCE_STATE.json",
     "docs/SITE_FINAL_GOAL_STATUS.md",
     "docs/SITE_FINAL_GOAL_STATUS.json",
     "scripts/check_site_manual_task_elimination.py",
+    "scripts/check_site_ecosystem_management_handoff.py",
     "scripts/write_site_external_evidence_state.py",
     "scripts/update_site_final_goal_status.py",
     "scripts/check_site_final_goal_status.py",
     "scripts/check_site_final_activation_pending.py",
+    "scripts/write_site_local_completion_receipt.py",
+    "scripts/check_site_local_completion_receipt.py",
     ".github/workflows/site-autonomous-continuation.yml",
     ".github/workflows/site-task-elimination-guard.yml",
+    ".github/workflows/site-local-completion-receipt.yml",
 ]
 
 
