@@ -12,6 +12,7 @@ on:
       - completed
   push:
     paths:
+      - "data/tt/transition-element-propagation-bundle.manifest.json"
       - "docs/SITE_MIRROR_HANDOFF.md"
       - "docs/SITE_EXTERNAL_EVIDENCE_STATE.json"
       - "docs/SITE_FINAL_GOAL_STATUS.json"
@@ -38,13 +39,29 @@ jobs:
         with:
           path: site
 
+      - name: Resolve TT checkout mode
+        id: tt_mode
+        run: |
+          if [ -n "${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}" ]; then
+            echo "use_private_checkout=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "use_private_checkout=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout canonical TT
+        if: steps.tt_mode.outputs.use_private_checkout == 'true'
         uses: actions/checkout@v4
         with:
           repository: Admissible-Existence/TT
           ref: main
           path: tt
-          token: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN || github.token }}
+          token: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
+
+      - name: Use checked-in TT bundle fallback
+        if: steps.tt_mode.outputs.use_private_checkout != 'true'
+        run: |
+          test -f site/data/tt/transition-element-propagation-bundle.manifest.json
+          echo "Using checked-in Site TT bundle fallback because STEGVERSE_REPO_SYNC_TOKEN is not available to this workflow."
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -52,10 +69,12 @@ jobs:
           python-version: '3.12'
 
       - name: Build TT propagation bundle
+        if: steps.tt_mode.outputs.use_private_checkout == 'true'
         working-directory: tt
         run: python scripts/build_transition_element_propagation_bundle.py
 
       - name: Copy TT bundle into Site
+        if: steps.tt_mode.outputs.use_private_checkout == 'true'
         run: |
           mkdir -p site/data/tt
           cp tt/dist/transition-element-propagation-bundle.manifest.json site/data/tt/transition-element-propagation-bundle.manifest.json
