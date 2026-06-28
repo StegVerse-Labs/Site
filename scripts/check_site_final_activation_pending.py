@@ -25,8 +25,10 @@ REQUIRED_HANDOFF_TERMS = {
     "Activation state: pending_external_evidence",
     "docs/SITE_FINAL_ACTIVATION_PENDING.md",
     "remaining activation blocker is external workflow evidence",
-    "first committed bundle-fed status",
-    "Governance Observatory status validation passes",
+    "github/workflows/site-autonomous-continuation.yml",
+    "python scripts/update_site_final_goal_status.py",
+    "python scripts/check_site_final_goal_status.py",
+    "automated final goal status reports `ready`",
 }
 
 FORBIDDEN_TERMS = {
