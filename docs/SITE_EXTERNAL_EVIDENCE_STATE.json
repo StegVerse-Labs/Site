@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-06-28T19:15:52.946586+00:00",
+  "generated_at": "2026-06-28T19:49:08.654544+00:00",
   "repository": "StegVerse-Labs/Site",
-  "state": "pending_external_evidence",
+  "state": "external_evidence_present",
   "local_build_state": "repository_managed",
   "records": [
     {
       "id": "tt_bundle_present",
       "label": "TT propagated bundle present",
       "path": "data/tt/transition-element-propagation-bundle.manifest.json",
-      "exists": false,
-      "pending_text_present": false,
-      "status": "missing"
+      "exists": true,
+      "pending_text_present": true,
+      "status": "present"
     },
     {
       "id": "tt_status_markdown_present",

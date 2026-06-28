@@ -3,8 +3,8 @@
 ## Status
 
 ```text
-state: pending_external_evidence
-generated_at: 2026-06-28T19:15:52.946586+00:00
+state: external_evidence_present
+generated_at: 2026-06-28T19:49:08.654544+00:00
 local_build_state: repository_managed
 ```
 
@@ -12,7 +12,7 @@ local_build_state: repository_managed
 
 | ID | Path | Exists | Pending Text Present |
 |---|---|---:|---:|
-| tt_bundle_present | `data/tt/transition-element-propagation-bundle.manifest.json` | false | false |
+| tt_bundle_present | `data/tt/transition-element-propagation-bundle.manifest.json` | true | true |
 | tt_status_markdown_present | `docs/SITE_TT_CODE_REPRESENTATION_STATUS.md` | true | true |
 | tt_status_json_present | `docs/SITE_TT_CODE_REPRESENTATION_STATUS.json` | true | true |
 | governance_observatory_markdown_present | `docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md` | true | true |
