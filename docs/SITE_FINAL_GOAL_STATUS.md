@@ -4,7 +4,7 @@
 
 ```text
 goal_status: pending_external_evidence
-generated_at: 2026-06-28T09:44:54.023101+00:00
+generated_at: 2026-06-28T13:01:09.622567+00:00
 repository: StegVerse-Labs/Site
 ```
 
@@ -13,6 +13,7 @@ repository: StegVerse-Labs/Site
 ```text
 tt_bundle_fed_status_ready: false
 governance_observatory_status_ready: true
+local_completion_receipt_ready: true
 ```
 
 ## Source Boundaries

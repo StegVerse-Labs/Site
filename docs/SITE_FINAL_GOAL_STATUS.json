@@ -1,11 +1,12 @@
 {
   "schema": "site_final_goal_status.v0.1",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-06-28T09:44:54.023101+00:00",
+  "generated_at": "2026-06-28T13:01:09.622567+00:00",
   "goal_status": "pending_external_evidence",
   "gates": {
     "tt_bundle_fed_status_ready": false,
-    "governance_observatory_status_ready": true
+    "governance_observatory_status_ready": true,
+    "local_completion_receipt_ready": true
   },
   "source_boundaries": {
     "publisher": "GCAT-BCAT-Engine/Publisher remains paper source of truth.",
