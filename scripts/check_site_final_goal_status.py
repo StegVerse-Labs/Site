@@ -25,9 +25,16 @@ REQUIRED_MD_TERMS = {
     "goal_status:",
     "tt_bundle_fed_status_ready:",
     "governance_observatory_status_ready:",
+    "local_completion_receipt_ready:",
     "StegVerse-Labs/Site",
     "Admissible-Existence/TT remains TT source of truth.",
     "StegVerse-Labs/governance-observatory remains source-intake source of truth.",
+}
+
+REQUIRED_GATES = {
+    "tt_bundle_fed_status_ready",
+    "governance_observatory_status_ready",
+    "local_completion_receipt_ready",
 }
 
 FORBIDDEN_TERMS = {
@@ -65,7 +72,7 @@ def main() -> int:
         fail("invalid goal_status")
 
     gates = data.get("gates", {})
-    for gate in ("tt_bundle_fed_status_ready", "governance_observatory_status_ready"):
+    for gate in REQUIRED_GATES:
         if gate not in gates or not isinstance(gates[gate], bool):
             fail(f"invalid gate: {gate}")
 
