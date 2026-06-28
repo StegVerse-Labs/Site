@@ -10,6 +10,8 @@ GUARD_DOC = ROOT / "docs" / "SITE_TASK_ELIMINATION_GUARD.md"
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 WORKFLOW = ROOT / ".github" / "workflows" / "site-autonomous-continuation.yml"
 GUARD_WORKFLOW = ROOT / ".github" / "workflows" / "site-task-elimination-guard.yml"
+RECEIPT_WORKFLOW = ROOT / ".github" / "workflows" / "site-local-completion-receipt.yml"
+RECEIPT_CHECKER = ROOT / "scripts" / "check_site_local_completion_receipt.py"
 
 REQUIRED_DOC_TERMS = [
     "local_manual_tasks: eliminated",
@@ -45,6 +47,20 @@ REQUIRED_GUARD_WORKFLOW_TERMS = [
     "python scripts/check_site_manual_task_elimination.py",
 ]
 
+REQUIRED_RECEIPT_WORKFLOW_TERMS = [
+    "Site Local Completion Receipt",
+    "python scripts/write_site_local_completion_receipt.py",
+    "python scripts/check_site_local_completion_receipt.py",
+    "docs/SITE_LOCAL_COMPLETION_RECEIPT.md",
+    "docs/SITE_LOCAL_COMPLETION_RECEIPT.json",
+]
+
+REQUIRED_RECEIPT_CHECKER_TERMS = [
+    "site_local_completion_receipt.v0.1",
+    "pending_external_evidence",
+    "does not activate the Site mirror",
+]
+
 REQUIRED_HANDOFF_TERMS = [
     "github/workflows/site-autonomous-continuation.yml",
     "github/workflows/site-task-elimination-guard.yml",
@@ -75,6 +91,8 @@ def main() -> int:
         ("guard document", read(GUARD_DOC), REQUIRED_GUARD_DOC_TERMS),
         ("autonomous workflow", read(WORKFLOW), REQUIRED_WORKFLOW_TERMS),
         ("guard workflow", read(GUARD_WORKFLOW), REQUIRED_GUARD_WORKFLOW_TERMS),
+        ("receipt workflow", read(RECEIPT_WORKFLOW), REQUIRED_RECEIPT_WORKFLOW_TERMS),
+        ("receipt checker", read(RECEIPT_CHECKER), REQUIRED_RECEIPT_CHECKER_TERMS),
         ("handoff", read(HANDOFF), REQUIRED_HANDOFF_TERMS),
     ]
     for label, text, terms in checks:
