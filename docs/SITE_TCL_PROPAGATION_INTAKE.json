@@ -1,0 +1,21 @@
+{
+  "intake_id": "site-tcl-propagation-intake-001",
+  "created_at": "2026-06-24T00:00:00Z",
+  "source_repository": "StegVerse-Labs/T-CL",
+  "source_handoff": "docs/TCL_RELEASE_CANDIDATE_MIRROR_HANDOFF.md",
+  "source_release_readiness": "release/tcl_release_readiness.json",
+  "source_propagation_record": "propagation/tcl_downstream_propagation_verification.json",
+  "destination_repository": "StegVerse-Labs/Site",
+  "destination_handoff_checked": "docs/SITE_MIRROR_HANDOFF.md",
+  "destination_handoff_state": "pending_external_evidence",
+  "manual_task_required": false,
+  "propagation_status": "intake_recorded_no_publication_claim",
+  "required_site_action": "evaluate whether T-CL release-readiness summary, Core-Lite intake posture, fail-closed proof-claim boundary, and admissibility-cost guardrails should be displayed as Site status-only surfaces",
+  "site_boundary": {
+    "site_is_display_surface_only": true,
+    "site_must_not_redefine_tcl_semantics": true,
+    "site_must_not_claim_downstream_propagation_completion_without_receipt": true,
+    "site_must_not_claim_admissibility_cost_savings_are_measured": true
+  },
+  "next_step": "Create or update Site display/status artifacts only after a Site-local propagation receipt and checker are added."
+}
