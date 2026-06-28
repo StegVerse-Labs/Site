@@ -1,6 +1,9 @@
 {
-  "status": "PENDING",
+  "generated_at": "2026-06-28T19:57:34.954036+00:00",
+  "status": "PASS",
   "canonical_source": "Admissible-Existence/TT",
-  "reason": "No propagated TT bundle found at data/tt/transition-element-propagation-bundle.manifest.json.",
-  "fail_closed": true
+  "bundle_id": "tt-transition-element-propagation-bundle-v1",
+  "artifact_count": 39,
+  "missing_count": 0,
+  "fail_closed": false
 }

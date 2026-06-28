@@ -4,7 +4,7 @@
 
 ```text
 state: external_evidence_present
-generated_at: 2026-06-28T19:56:38.173685+00:00
+generated_at: 2026-06-28T19:57:35.038395+00:00
 local_build_state: repository_managed
 ```
 
@@ -13,8 +13,8 @@ local_build_state: repository_managed
 | ID | Path | Exists | Pending Text Present |
 |---|---|---:|---:|
 | tt_bundle_present | `data/tt/transition-element-propagation-bundle.manifest.json` | true | true |
-| tt_status_markdown_present | `docs/SITE_TT_CODE_REPRESENTATION_STATUS.md` | true | true |
-| tt_status_json_present | `docs/SITE_TT_CODE_REPRESENTATION_STATUS.json` | true | true |
+| tt_status_markdown_present | `docs/SITE_TT_CODE_REPRESENTATION_STATUS.md` | true | false |
+| tt_status_json_present | `docs/SITE_TT_CODE_REPRESENTATION_STATUS.json` | true | false |
 | governance_observatory_markdown_present | `docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md` | true | true |
 | governance_observatory_json_present | `docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json` | true | false |
 

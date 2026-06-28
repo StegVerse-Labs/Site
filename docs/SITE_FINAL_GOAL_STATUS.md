@@ -3,15 +3,15 @@
 ## Status
 
 ```text
-goal_status: pending_external_evidence
-generated_at: 2026-06-28T19:57:00.666847+00:00
+goal_status: ready
+generated_at: 2026-06-28T19:57:35.079983+00:00
 repository: StegVerse-Labs/Site
 ```
 
 ## Gates
 
 ```text
-tt_bundle_fed_status_ready: false
+tt_bundle_fed_status_ready: true
 governance_observatory_status_ready: true
 local_completion_receipt_ready: true
 ```

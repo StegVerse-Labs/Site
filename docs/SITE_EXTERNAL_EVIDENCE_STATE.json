@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T19:56:38.173685+00:00",
+  "generated_at": "2026-06-28T19:57:35.038395+00:00",
   "repository": "StegVerse-Labs/Site",
   "state": "external_evidence_present",
   "local_build_state": "repository_managed",
@@ -17,7 +17,7 @@
       "label": "TT status markdown present",
       "path": "docs/SITE_TT_CODE_REPRESENTATION_STATUS.md",
       "exists": true,
-      "pending_text_present": true,
+      "pending_text_present": false,
       "status": "present"
     },
     {
@@ -25,7 +25,7 @@
       "label": "TT status JSON present",
       "path": "docs/SITE_TT_CODE_REPRESENTATION_STATUS.json",
       "exists": true,
-      "pending_text_present": true,
+      "pending_text_present": false,
       "status": "present"
     },
     {
