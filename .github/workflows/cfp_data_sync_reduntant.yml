@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
   schedule:
     # Run every 30 minutes during the season (tune as needed)
-    - cron: "*/30 * * * *"
+    # - cron: "*/30 * * * *"
 
 permissions:
   contents: write
