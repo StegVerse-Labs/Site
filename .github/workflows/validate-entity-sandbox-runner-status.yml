@@ -1,0 +1,33 @@
+name: Validate Entity Sandbox Runner Status
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/validate-entity-sandbox-runner-status.yml"
+      - "docs/SITE_ENTITY_SANDBOX_RUNNER_STATUS.md"
+      - "docs/SITE_ENTITY_SANDBOX_RUNNER_STATUS.json"
+      - "scripts/check_site_entity_sandbox_runner_status.py"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-entity-sandbox-runner-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate status surface
+        run: python scripts/check_site_entity_sandbox_runner_status.py
