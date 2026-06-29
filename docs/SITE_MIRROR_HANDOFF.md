@@ -9,11 +9,12 @@ This handoff lets the next build session continue Site mirror activation without
 ```text
 Goal: Continue building without manual actions needed through completion, or until task handoff and task completion are capable of being handled by the ecosystem's own management.
 Repository: StegVerse-Labs/Site
-Source repository: GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, and StegVerse-Labs/governance-observatory
-Source path: papers, TT propagation artifacts, and Governance Observatory source-intake status
+Source repository: GCAT-BCAT-Engine/Publisher, Admissible-Existence/TT, StegVerse-Labs/governance-observatory, and StegVerse-Labs/repo-standards
+Source path: papers, TT propagation artifacts, Governance Observatory source-intake status, and repository standards release-candidate surface
 Target path: papers, docs, and public HTML surfaces
 Activation state: pending_external_evidence
 Self-management state: repository_managed_continuation_ready
+Repo standards mirror state: installed_display_only
 ```
 
 ## Built Files
@@ -60,9 +61,11 @@ scripts/write_site_mirror_evidence.py
 scripts/check_transition_table_public_copy.py
 scripts/check_site_public_ingestion_contract.py
 scripts/check_site_governance_observatory_status.py
+scripts/check_site_repo_standards_mirror.py
 papers/papers_manifest.json
 tt-code-representation.html
 governance-observatory.html
+repo-standards.html
 docs/SITE_PAPER_DISPLAY_POLICY.md
 docs/README_SITE_PAPERS_MIRROR.md
 docs/SITE_MIRROR_ACTIVATION_STATUS.md
@@ -98,6 +101,8 @@ docs/SITE_LOCAL_COMPLETION_RECEIPT.md
 docs/SITE_LOCAL_COMPLETION_RECEIPT.json
 docs/SITE_MANUAL_TASK_ELIMINATION.md
 docs/SITE_TASK_ELIMINATION_GUARD.md
+docs/SITE_REPO_STANDARDS_MIRROR.md
+docs/SITE_REPO_STANDARDS_STATUS.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -105,7 +110,7 @@ Note: `github/workflows/...` paths are displayed without the leading dot. The ac
 
 ## Site Mirror Contract
 
-The Site mirror must not become a separate editorial source of truth. Publisher remains authoritative for papers. `Admissible-Existence/TT` remains authoritative for Transition Table code-representation semantics. `StegVerse-Labs/governance-observatory` remains authoritative for Governance Observatory source-intake records.
+The Site mirror must not become a separate editorial source of truth. Publisher remains authoritative for papers. `Admissible-Existence/TT` remains authoritative for Transition Table code-representation semantics. `StegVerse-Labs/governance-observatory` remains authoritative for Governance Observatory source-intake records. `StegVerse-Labs/repo-standards` remains authoritative for repository standards, schemas, templates, validators, correction tooling, and release readiness.
 
 ## Public TT Code Representation Page
 
@@ -140,6 +145,28 @@ github/workflows/validate-governance-observatory-status.yml
 ```
 
 Canonical repository path begins with a leading period.
+
+## Repo Standards Mirror Page
+
+Site exposes a public HTML mirror surface:
+
+```text
+repo-standards.html
+```
+
+This page displays the `StegVerse-Labs/repo-standards` release-candidate surface and adoption path. It preserves the boundary that Site display does not certify release validation, grant correction authority, or replace source repository evidence.
+
+The checker is:
+
+```text
+python scripts/check_site_repo_standards_mirror.py
+```
+
+The status document is:
+
+```text
+docs/SITE_REPO_STANDARDS_STATUS.md
+```
 
 ## Autonomous Continuation
 
@@ -212,7 +239,7 @@ It runs:
 python scripts/check_site_manual_task_elimination.py
 ```
 
-The guard verifies local continuation work is workflow-managed and no local manual inspection is required to determine the state of TT status, Governance Observatory status, external evidence state, or final goal status.
+The guard verifies local continuation work is workflow-managed and no local manual inspection is required to determine the state of TT status, Governance Observatory status, repo standards status, external evidence state, or final goal status.
 
 ## Ecosystem Management Handoffs
 
@@ -259,124 +286,19 @@ docs/SITE_EXTERNAL_EVIDENCE_STATE.md
 docs/SITE_EXTERNAL_EVIDENCE_STATE.json
 ```
 
-This removes the need to manually inspect whether the remaining external evidence has appeared. The repository writes `pending_external_evidence` until the TT bundle and status artifacts exist.
-
-## Public Mirror Status Guard
-
-Site has a public mirror status guard workflow:
+## Current Repo Standards Mirror Completion
 
 ```text
-github/workflows/site-public-mirror-status-guard.yml
+Site repo-standards mirror: installed
+Public page: installed
+Checker: installed
+Status artifact: installed
+Source validation evidence: pending in source repo
+Publisher mirror: pending
+admissibility-wiki mirror: pending
+stegguardian-wiki mirror: pending
 ```
 
-It runs:
+## Next Integration Goal Candidate
 
-```text
-python scripts/check_site_non_activation_mirror_status.py
-python scripts/check_site_final_activation_pending.py
-```
-
-This guard verifies that TT and Governance Observatory status surfaces remain display/status surfaces only and that final activation remains pending on external workflow evidence.
-
-## Final Activation Pending Record
-
-Site has a final activation pending record:
-
-```text
-docs/SITE_FINAL_ACTIVATION_PENDING.md
-```
-
-This record states that the remaining activation blocker is external workflow evidence rather than another local public page, status document, or checker.
-
-## Final Goal Status Automation
-
-Site has an automated final goal status workflow:
-
-```text
-github/workflows/site-final-goal-status.yml
-```
-
-It runs on schedule, manual dispatch, relevant pushes, and completed workflow runs from:
-
-```text
-Sync TT Code Representation
-Validate Governance Observatory Status
-Site External Evidence State
-```
-
-It runs:
-
-```text
-python scripts/update_site_final_goal_status.py
-python scripts/check_site_final_goal_status.py
-```
-
-The updater writes:
-
-```text
-docs/SITE_FINAL_GOAL_STATUS.md
-docs/SITE_FINAL_GOAL_STATUS.json
-```
-
-It marks the goal `ready` only when the TT bundle-fed status is PASS and Governance Observatory status remains valid. Otherwise it writes `pending_external_evidence` without inventing completion.
-
-## TT Code Representation Sync
-
-Site has a workflow that fetches canonical TT, builds the TT propagation bundle, copies it into Site, renders Site status, checks the mirror contract, and commits changed mirror artifacts.
-
-Workflow path shown without leading period for iOS compatibility:
-
-```text
-github/workflows/sync-tt-code-representation.yml
-```
-
-Canonical repository path begins with a leading period.
-
-## TT Code Representation Status Rendering
-
-Site has a renderer:
-
-```text
-python scripts/render_tt_code_representation_status.py
-```
-
-The renderer consumes this propagated bundle when present:
-
-```text
-data/tt/transition-element-propagation-bundle.manifest.json
-```
-
-It writes:
-
-```text
-docs/SITE_TT_CODE_REPRESENTATION_STATUS.md
-docs/SITE_TT_CODE_REPRESENTATION_STATUS.json
-```
-
-If the TT bundle is missing, the renderer writes a pending fail-closed status instead of inventing canonical data.
-
-## TT Code Representation Mirror
-
-The TT code-representation mirror page is:
-
-```text
-docs/SITE_TT_CODE_REPRESENTATION_MIRROR.md
-```
-
-Its checker is:
-
-```text
-python scripts/check_site_tt_code_representation_mirror.py
-```
-
-This mirror preserves the boundary that Site may display and route canonical TT records, but must not redefine transition-element semantics.
-
-## Current Completion Estimate
-
-```text
-StegVerse-Labs - 99%complete
-Site - 99%complete
-Site - 99%complete TO GOAL ACTIVATION
-```
-
-The complete thread is ready for archiving after the automated final goal status reports `ready`.
+Continue with `GCAT-BCAT-Engine/Publisher` standards-publication task after source validation evidence is available or after a governed decision accepts release-candidate display-only propagation.
