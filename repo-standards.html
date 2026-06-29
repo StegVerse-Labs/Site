@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Repository Standards Mirror</title>
+</head>
+<body>
+  <main>
+    <h1>StegVerse Repository Standards Mirror</h1>
+
+    <p>This page mirrors the current <code>StegVerse-Labs/repo-standards</code> release-candidate surface for public display and adoption guidance.</p>
+
+    <h2>Authority Boundary</h2>
+    <p><code>StegVerse-Labs/repo-standards</code> remains authoritative for repository standards, schemas, templates, validators, correction tooling, and release readiness.</p>
+    <p>Site is display-only. This page does not create repository standards, certify conformance, grant correction authority, or replace validation evidence from the source repository.</p>
+
+    <h2>Source State</h2>
+    <ul>
+      <li>Source repository: <code>StegVerse-Labs/repo-standards</code></li>
+      <li>Source status: <code>0.1.0-rc.1 release-candidate surface prepared</code></li>
+      <li>Source handoff: <code>REPO_STANDARDS_MIRROR_HANDOFF.md</code></li>
+      <li>Source release report: <code>reports/release-candidate-status.md</code></li>
+    </ul>
+
+    <h2>Core Standards</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Standard</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ST-001</td><td>README Source Map</td><td>README claims derive from mapped repository facts.</td></tr>
+        <tr><td>ST-002</td><td>Workflow and Task Declaration</td><td>Repos use no more than two active workflows.</td></tr>
+        <tr><td>ST-003</td><td>Repository Correction</td><td>Corrections follow audit, plan, minimal change, validation, receipt.</td></tr>
+        <tr><td>ST-004</td><td>Transition Table Elements</td><td>Org AI Entity actions declare actor, action, target, authority, evidence, validation, receipt, and recovery.</td></tr>
+        <tr><td>ST-005</td><td>Repository Layout</td><td>Required and reserved directory structure.</td></tr>
+        <tr><td>ST-006</td><td>Metadata</td><td>Repository identity, status, capabilities, and standard references.</td></tr>
+        <tr><td>ST-007</td><td>Evidence and Receipt</td><td>Validation and correction outputs are reconstructable.</td></tr>
+        <tr><td>ST-008</td><td>Naming</td><td>Stable naming for standards, schemas, templates, tools, and generated artifacts.</td></tr>
+        <tr><td>ST-009</td><td>Dependency</td><td>Standards and repo dependencies are declared explicitly.</td></tr>
+        <tr><td>ST-010</td><td>Lifecycle</td><td>Repository maturity states and transition rules.</td></tr>
+        <tr><td>ST-011</td><td>Validation</td><td>Validators are deterministic and fail closed.</td></tr>
+        <tr><td>ST-012</td><td>Org AI Entity Capability</td><td>Entity capabilities and authority classes are explicit.</td></tr>
+        <tr><td>ST-013</td><td>Standards Admissibility</td><td>Repositories prove conformance rather than merely claiming it.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Adoption Path</h2>
+    <p>A consuming repository should add <code>README_SOURCE_MAP.md</code>, <code>readme.sources.yaml</code>, <code>repo.metadata.yaml</code>, and <code>declared-tasks.yaml</code>, then validate against the shared standards surface.</p>
+
+    <h2>Validation Boundary</h2>
+    <p>The Site mirror records that GitHub returned no commit statuses and no workflow runs for the latest checked <code>repo-standards</code> release-candidate commit. Therefore Site must not display the release candidate as a validated release.</p>
+
+    <h2>Downstream Status</h2>
+    <ul>
+      <li>Site mirror: installed</li>
+      <li>Publisher mirror: pending</li>
+      <li>admissibility-wiki mirror: pending</li>
+      <li>stegguardian-wiki mirror: pending</li>
+    </ul>
+  </main>
+</body>
+</html>
