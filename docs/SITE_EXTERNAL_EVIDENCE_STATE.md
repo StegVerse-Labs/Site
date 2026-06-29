@@ -4,7 +4,7 @@
 
 ```text
 state: external_evidence_present
-generated_at: 2026-06-29T04:56:02.286603+00:00
+generated_at: 2026-06-29T05:02:30.540701+00:00
 local_build_state: repository_managed
 ```
 
