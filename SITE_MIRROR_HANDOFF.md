@@ -6,61 +6,47 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 
 ## Current Priority
 
-StegTalk non-production local candidate status has been mirrored to Site, propagated through the known downstream targets, and linked to public wiki targets.
+Standing-Proof-Engine v0.5.0 status has been received and recorded for Site propagation.
 
 ## Source Artifacts
 
-Destination source: `StegVerse-Labs/StegTalk`
+Destination source: `StegVerse-Labs/Standing-Proof-Engine`
 
-- `STEGTALK_MIRROR_HANDOFF.md`
-- `STEGTALK_CANDIDATE_STATUS.json`
-- `STEGTALK_LOCAL_CANDIDATE.json`
-- `STEGTALK_RELEASE_HANDOFF.json`
+- `SPE_MIRROR_HANDOFF.md`
+- `docs/release_snapshot_v0_5_0.md`
+- `samples/destination_receipt_chain_001.json`
+- `spe/verify_receipt_chain.py`
 
-## Site Install Complete
+## Master Records Emission
+
+Destination source: `master-records/core-lite`
+
+- `MASTER_RECORDS_MIRROR_HANDOFF.md`
+- `records/spe_destination_receipt_chain_001.json`
+- `docs/spe_v0_5_0_status.md`
+
+## Site Record
 
 Destination: `StegVerse-Labs/Site`
 
-- `data/stegtalk-local-candidate.json`
-- `data/stegtalk-local-candidate-receipt.json`
-- `data/wiki-public-links.json`
-- `docs/wiki-links.md`
+- `data/spe-v0-5-0-status.json`
 
-## Public Wiki Links Complete
-
-Destination: `StegVerse-Labs/stegtalk-wiki`
-
-- `https://stegverse-labs.github.io/stegtalk-wiki/`
-- `.github/workflows/pages.yml`
-
-Destination: `StegVerse-002/stegguardian-wiki`
-
-- `https://stegverse-002.github.io/stegguardian-wiki/`
-- `.github/workflows/pages.yml`
-
-Destination: `StegVerse-Labs/admissibility-wiki`
-
-- `https://stegverse-labs.github.io/admissibility-wiki/`
-
-## Downstream Propagation Complete
+## Downstream Propagation Targets
 
 Destination: `GCAT-BCAT-Engine/Publisher`
 
 - `PUBLISHER_MIRROR_HANDOFF.md`
-- `data/stegtalk-local-candidate.json`
-- `data/stegtalk-local-candidate-publisher-receipt.json`
+- `data/spe-v0-5-0-status.json`
 
 Destination: `StegVerse-Labs/admissibility-wiki`
 
 - `ADMISSIBILITY_MIRROR_HANDOFF.md`
-- `pages/stegtalk-admissibility-boundary.md`
-- `receipts/stegtalk-admissibility-boundary-receipt.json`
+- `pages/spe-v0-5-0-standing-boundary.md`
 
 Destination: `StegVerse-002/stegguardian-wiki`
 
 - `STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md`
-- `pages/stegtalk-guardian-account-boundary.md`
-- `receipts/stegtalk-boundary-receipt.json`
+- `pages/spe-v0-5-0-guardian-boundary.md`
 
 ## Build Rule
 
@@ -68,8 +54,8 @@ Before continuing any Site mirror task, check this file first and treat it as th
 
 ## Boundary
 
-StegTalk remains a non-production local prototype candidate. Do not publish it as production ready.
+SPE v0.5.0 is a local SPE receipt-chain package with master-records emission recorded. Do not claim external production deployment beyond the recorded targets.
 
 ## Next Integration Candidate
 
-No additional StegTalk propagation target is currently known from this handoff.
+Publisher/wiki propagation verification.
