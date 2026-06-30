@@ -1,0 +1,18 @@
+name: Site Governed Ecosystem Live URL
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */8 * * *'
+
+jobs:
+  live-url:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Check governed ecosystem live URL
+        run: python scripts/check_site_governed_ecosystem_live_url.py
