@@ -10,6 +10,8 @@
     "local_page_present": true,
     "local_checker_present": true,
     "public_guard_wired": true,
+    "live_url_checker_present": true,
+    "live_url_workflow_present": true,
     "public_url_verified": false
   },
   "boundary": {
