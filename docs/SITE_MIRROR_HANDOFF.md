@@ -13,15 +13,18 @@ Source repository: StegVerse-Labs/admissibility-wiki
 Target path: governed-ecosystem.html and docs status surfaces
 Activation state: display_only_installed
 Live URL state: live_url_checker_and_pending_state_wired
+Homepage state: governed_ecosystem_homepage_link_wired
 ```
 
 ## Built Files
 
 ```text
+index.html
 governed-ecosystem.html
 scripts/check_site_governed_ecosystem_mirror.py
 scripts/check_site_governed_ecosystem_public_verification.py
 scripts/check_site_governed_ecosystem_live_url.py
+scripts/check_site_homepage_governed_ecosystem.py
 scripts/check_site_public_paths.py
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json
@@ -39,6 +42,7 @@ Note: `github/workflows/...` paths are displayed without the leading dot. Actual
 python scripts/check_site_governed_ecosystem_mirror.py
 python scripts/check_site_governed_ecosystem_public_verification.py
 python scripts/check_site_governed_ecosystem_live_url.py
+python scripts/check_site_homepage_governed_ecosystem.py
 python scripts/check_site_public_paths.py
 ```
 
