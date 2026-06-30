@@ -14,6 +14,7 @@ Target path: governed-ecosystem.html and docs status surfaces
 Activation state: display_only_installed
 Guard state: governed_ecosystem_public_verification_pending_wired
 Public path state: governed_ecosystem_registered
+Live URL state: live_url_checker_present
 ```
 
 ## Built Files
@@ -22,11 +23,13 @@ Public path state: governed_ecosystem_registered
 governed-ecosystem.html
 scripts/check_site_governed_ecosystem_mirror.py
 scripts/check_site_governed_ecosystem_public_verification.py
+scripts/check_site_governed_ecosystem_live_url.py
 scripts/check_site_public_paths.py
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json
 docs/SITE_PUBLIC_PATHS.md
 github/workflows/site-public-mirror-status-guard.yml
+github/workflows/site-governed-ecosystem-live-url.yml
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -49,13 +52,15 @@ StegVerse-Labs/admissibility-wiki
 ```text
 python scripts/check_site_governed_ecosystem_mirror.py
 python scripts/check_site_governed_ecosystem_public_verification.py
+python scripts/check_site_governed_ecosystem_live_url.py
 python scripts/check_site_public_paths.py
 ```
 
-## Guard workflow
+## Guard workflows
 
 ```text
 github/workflows/site-public-mirror-status-guard.yml
+github/workflows/site-governed-ecosystem-live-url.yml
 ```
 
 ## Boundary
@@ -67,7 +72,8 @@ Site is display-only for this surface. The wiki remains the source repository fo
 ```text
 StegVerse-Labs/Site:
   - run public mirror status guard
-  - public deployment verification
+  - run governed ecosystem live URL workflow
+  - update public verification JSON only after live URL passes
 
 GCAT-BCAT-Engine/Publisher:
   - publication/import awareness after Site mirror validation
