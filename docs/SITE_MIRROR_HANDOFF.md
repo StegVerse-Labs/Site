@@ -14,6 +14,7 @@ Source path: governed ecosystem public pages and capability status surface
 Target path: governed-ecosystem.html and docs status surfaces
 Activation state: display_only_installed
 Self-management state: repository_managed_continuation_ready
+Guard state: governed_ecosystem_checker_wired
 ```
 
 ## Built Files
@@ -22,6 +23,7 @@ Self-management state: repository_managed_continuation_ready
 governed-ecosystem.html
 scripts/check_site_governed_ecosystem_mirror.py
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
+github/workflows/site-public-mirror-status-guard.yml
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -53,6 +55,12 @@ The status document is:
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 ```
 
+The guard workflow is displayed without the leading dot:
+
+```text
+github/workflows/site-public-mirror-status-guard.yml
+```
+
 ## Boundary
 
 Site is display-only for this surface. The wiki remains the source repository for governed ecosystem vocabulary, capability lifecycle framing, and capability status examples.
@@ -63,7 +71,8 @@ This mirror does not create production authority, release authorization, operati
 
 ```text
 StegVerse-Labs/Site:
-  - run checker and public deployment verification
+  - run public mirror status guard
+  - public deployment verification
 
 GCAT-BCAT-Engine/Publisher:
   - publication/import awareness after Site mirror validation
