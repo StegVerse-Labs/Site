@@ -12,7 +12,7 @@ Repository: StegVerse-Labs/Site
 Source repository: StegVerse-Labs/admissibility-wiki
 Target path: governed-ecosystem.html and docs status surfaces
 Activation state: display_only_installed
-Guard state: governed_ecosystem_checker_wired
+Guard state: governed_ecosystem_and_public_paths_wired
 Public path state: governed_ecosystem_registered
 ```
 
@@ -21,6 +21,7 @@ Public path state: governed_ecosystem_registered
 ```text
 governed-ecosystem.html
 scripts/check_site_governed_ecosystem_mirror.py
+scripts/check_site_public_paths.py
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 docs/SITE_PUBLIC_PATHS.md
 github/workflows/site-public-mirror-status-guard.yml
@@ -41,10 +42,11 @@ governed-ecosystem.html
 StegVerse-Labs/admissibility-wiki
 ```
 
-## Checker
+## Checkers
 
 ```text
 python scripts/check_site_governed_ecosystem_mirror.py
+python scripts/check_site_public_paths.py
 ```
 
 ## Guard workflow
