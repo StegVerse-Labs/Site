@@ -1,0 +1,20 @@
+{
+  "schema": "site.governed_ecosystem_public_verification.v1",
+  "repo": "StegVerse-Labs/Site",
+  "public_page": "governed-ecosystem.html",
+  "public_url": "https://stegverse-labs.github.io/Site/governed-ecosystem.html",
+  "status": "PUBLIC_VERIFICATION_PENDING",
+  "source_authority": "StegVerse-Labs/admissibility-wiki",
+  "site_role": "display_mirror",
+  "checks": {
+    "local_page_present": true,
+    "local_checker_present": true,
+    "public_guard_wired": true,
+    "public_url_verified": false
+  },
+  "boundary": {
+    "public_verification_record_is_authority": false,
+    "display_mirror_grants_production_authority": false,
+    "display_mirror_grants_operational_standing": false
+  }
+}
