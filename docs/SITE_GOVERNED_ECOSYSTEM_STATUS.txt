@@ -1,0 +1,14 @@
+Site Governed Ecosystem Status
+
+Public page:
+governed-ecosystem.html
+
+Source repository:
+StegVerse-Labs/admissibility-wiki
+
+Current status:
+SITE_GOVERNED_ECOSYSTEM_MIRROR_PRESENT
+DISPLAY_ONLY
+
+Boundary:
+Site is a display mirror only. The wiki remains the source for this framing.
