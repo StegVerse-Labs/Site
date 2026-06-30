@@ -12,9 +12,7 @@ Repository: StegVerse-Labs/Site
 Source repository: StegVerse-Labs/admissibility-wiki
 Target path: governed-ecosystem.html and docs status surfaces
 Activation state: display_only_installed
-Guard state: governed_ecosystem_public_verification_pending_wired
-Public path state: governed_ecosystem_registered
-Live URL state: live_url_checker_present
+Live URL state: live_url_checker_and_pending_state_wired
 ```
 
 ## Built Files
@@ -35,18 +33,6 @@ docs/SITE_MIRROR_HANDOFF.md
 
 Note: `github/workflows/...` paths are displayed without the leading dot. Actual repository paths include the leading dot.
 
-## Public Governed Ecosystem Page
-
-```text
-governed-ecosystem.html
-```
-
-## Source repository
-
-```text
-StegVerse-Labs/admissibility-wiki
-```
-
 ## Checkers
 
 ```text
@@ -55,17 +41,6 @@ python scripts/check_site_governed_ecosystem_public_verification.py
 python scripts/check_site_governed_ecosystem_live_url.py
 python scripts/check_site_public_paths.py
 ```
-
-## Guard workflows
-
-```text
-github/workflows/site-public-mirror-status-guard.yml
-github/workflows/site-governed-ecosystem-live-url.yml
-```
-
-## Boundary
-
-Site is display-only for this surface. The wiki remains the source repository for governed ecosystem vocabulary, capability lifecycle framing, and capability status examples.
 
 ## Remaining targets
 
