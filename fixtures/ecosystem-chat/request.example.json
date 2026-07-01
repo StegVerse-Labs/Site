@@ -1,6 +1,11 @@
 {
   "message": "continue building Site",
   "session_id": "browser-session-id",
-  "repo": "StegVerse-Labs/Site",
-  "goal": "text-only ecosystem command console"
+  "requested_route": "Site",
+  "goal": "user advancement console with governed task boundaries",
+  "execution_model": "allowlisted_task_request_only",
+  "raw_shell_allowed": false,
+  "authority_required": true,
+  "rate_limit_required": true,
+  "receipt_required_for_execution": true
 }
