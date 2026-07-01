@@ -6,15 +6,22 @@
     "receipt_expectation": "sdk_intake_receipt_requested",
     "submission_posture": "ready_for_submission",
     "user_request": "continue building Site",
-    "declared_goal": "text-only ecosystem command console",
+    "declared_goal": "user advancement console with governed task boundaries",
     "operator_note": ""
   },
   "manifest": {
     "target_entry_point": "StegVerse-org/SDK",
     "input_mode": "text_form",
     "requested_route": "Site",
+    "detected_route": "Site",
+    "task_status": "preview_only",
+    "raw_shell_allowed": false,
+    "authority_required": true,
+    "rate_limit_required": true,
+    "receipt_required_for_execution": true,
+    "restricted_admin_review_required": false,
     "user_request": "continue building Site",
-    "declared_goal": "text-only ecosystem command console",
+    "declared_goal": "user advancement console with governed task boundaries",
     "operator_note": "",
     "source_surface": "StegVerse-Labs/Site/ecosystem-chat.html"
   },
@@ -22,8 +29,13 @@
     "receipt_expectation": "sdk_intake_receipt_requested",
     "submission_posture": "ready_for_submission",
     "site_receipt_authority": false,
+    "site_shell_authority": false,
+    "site_credential_authority": false,
     "manifest_correct_at_submission": true,
     "submission_target": "StegVerse-org/SDK",
+    "execution_allowed_from_site": false,
+    "authority_required_before_execution": true,
+    "receipt_required_for_execution": true,
     "correctness_errors": []
   }
 }
