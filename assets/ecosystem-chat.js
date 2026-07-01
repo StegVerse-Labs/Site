@@ -1,9 +1,25 @@
 const STEGVERSE_ROUTES = [
   { name: 'Site', terms: ['site', 'page', 'html', 'nav', 'navigation', 'mirror', 'public', 'readme', 'papers'] },
+  { name: 'repo-standards', terms: ['repo-standards', 'standard', 'standards', 'allowed task', 'manifest', 'maintenance', 'remediation', 'branch cleanup'] },
   { name: 'StegVerse-002', terms: ['sv002', 'stegverse-002', 'core-lite', 'intake', 'deployment', 'm10'] },
   { name: 'formalism-tests', terms: ['formalism', 'test', 'proof', 'admissibility', 'allow', 'deny', 'fail-closed', 'stage'] },
   { name: 'Continuity', terms: ['continuity', 'receipt', 'replay', 'hash', 'chain', 'state'] },
-  { name: 'Publisher', terms: ['publisher', 'paper', 'manifest', 'publication', 'mirror-papers'] }
+  { name: 'Publisher', terms: ['publisher', 'paper', 'publication', 'mirror-papers'] },
+  { name: 'Restricted admin', terms: ['delete branch', 'delete branches', 'secret', 'token', 'credential', 'permission', 'workflow', 'force push', 'force-push', 'release', 'deploy key', 'webhook', 'collaborator'] }
+];
+
+const RESTRICTED_PATTERNS = [
+  /\bgh\s+/i,
+  /\bgit\s+push\b/i,
+  /\bgit\s+branch\b/i,
+  /\brm\s+-rf\b/i,
+  /\bcurl\s+/i,
+  /\btoken\b/i,
+  /\bsecret\b/i,
+  /\bcredential\b/i,
+  /\bworkflow\b/i,
+  /\bforce[-\s]?push\b/i,
+  /\bdelete\s+(branch|branches|repo|repository|release|tag|workflow)\b/i
 ];
 
 const STEGVERSE_GATEWAY_PATH = '/api/ecosystem-chat';
@@ -39,7 +55,7 @@ if (sdkForm && manifestPreview && receiptPreview) {
     event.preventDefault();
     const result = getSubmissionCheck();
     sdkStatus.textContent = result.ok
-      ? 'Submission check passed locally. Payload is ready for a governed SDK entry point; Site still issues no proof receipt.'
+      ? 'Submission check passed locally. Payload is ready for a governed SDK entry point; Site still issues no proof receipt and performs no execution.'
       : `Submission check failed: ${result.errors.join('; ')}`;
   });
 
@@ -56,26 +72,36 @@ if (sdkForm && manifestPreview && receiptPreview) {
 }
 
 async function routeEcosystemRequest(message) {
+  const posture = classifyRequestPosture(message);
+  if (posture.restricted) {
+    return localRouteResult(message, 'Restricted request detected; local gateway refuses execution and routes to authority review.', posture);
+  }
+
   if (!STEGVERSE_LOCAL_MODE) {
     try {
-      return await sendGatewayRequest(message);
+      return await sendGatewayRequest(message, posture);
     } catch (error) {
-      return localRouteResult(message, 'Gateway request failed; fail-closed to local classification.');
+      return localRouteResult(message, 'Gateway request failed; fail-closed to local classification.', posture);
     }
   }
 
-  return localRouteResult(message, 'Local simulation mode; no external execution attempted.');
+  return localRouteResult(message, 'Local simulation mode; no external execution attempted.', posture);
 }
 
-async function sendGatewayRequest(message) {
+async function sendGatewayRequest(message, posture) {
   const response = await fetch(STEGVERSE_GATEWAY_PATH, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       message,
       session_id: getSessionId(),
-      repo: 'StegVerse-Labs/Site',
-      goal: 'text-only ecosystem command console'
+      requested_route: posture.route,
+      goal: 'user advancement console with governed task boundaries',
+      execution_model: 'allowlisted_task_request_only',
+      raw_shell_allowed: false,
+      authority_required: true,
+      rate_limit_required: true,
+      receipt_required_for_execution: true
     })
   });
 
@@ -89,18 +115,31 @@ async function sendGatewayRequest(message) {
     : 'receipt=not-issued';
 
   return {
-    response: data.response || buildLocalResponse(message, data.routed_module || 'Unknown', 'Gateway returned no response body.'),
-    receipt_line: `${receiptLine} · routed_module=${data.routed_module || 'Unknown'} · source=gateway`
+    response: data.response || buildLocalResponse(message, data.routed_module || 'Unknown', 'Gateway returned no response body.', posture),
+    receipt_line: `${receiptLine} · routed_module=${data.routed_module || 'Unknown'} · source=gateway · shell=disabled`
   };
 }
 
-async function localRouteResult(message, status) {
-  const route = classifyRoute(message);
-  const receiptLine = await localReceipt(message, route);
+async function localRouteResult(message, status, posture = classifyRequestPosture(message)) {
+  const receiptLine = await localReceipt(message, posture);
 
   return {
-    response: buildLocalResponse(message, route, status),
+    response: buildLocalResponse(message, posture.route, status, posture),
     receipt_line: receiptLine
+  };
+}
+
+function classifyRequestPosture(message) {
+  const route = classifyRoute(message);
+  const restricted = route === 'Restricted admin' || RESTRICTED_PATTERNS.some((pattern) => pattern.test(message));
+  const taskStatus = restricted ? 'pending_authority' : 'preview_only';
+  return {
+    route: restricted ? 'Restricted admin' : route,
+    restricted,
+    raw_shell_allowed: false,
+    authority_required: true,
+    task_status: taskStatus,
+    receipt_required_for_execution: true
   };
 }
 
@@ -114,16 +153,21 @@ function classifyRoute(message) {
   return scored[0].score > 0 ? scored[0].name : 'Unknown';
 }
 
-function buildLocalResponse(message, route, status) {
-  const nextAction = route === 'Unknown'
-    ? 'Define a new ecosystem route or restate the request with repo/module context.'
-    : `Send this request to the ${route} handler once the governed backend gateway is connected.`;
+function buildLocalResponse(message, route, status, posture = classifyRequestPosture(message)) {
+  const nextAction = posture.restricted
+    ? 'Route to a governed admin task definition, authority check, scope limit, and receipt path before any execution can occur.'
+    : route === 'Unknown'
+      ? 'Define a new ecosystem route or restate the request with repo/module context.'
+      : `Send this request to the ${route} handler only after the governed backend gateway validates allowed-task status.`;
 
   return [
     `Route: ${route}`,
+    `Task status: ${posture.task_status}`,
     'Authority: none; browser-local classification only.',
+    'Shell: disabled; raw commands are not executed.',
+    'Credentials: not accepted; do not paste secrets or tokens.',
     `Status: ${status}`,
-    'Boundary: Site may draft, classify, and display; Site must not issue proof receipts or perform governed commits.',
+    'Boundary: Site may draft, classify, and display; Site must not issue proof receipts, perform governed commits, or expose administrative execution.',
     `Next action: ${nextAction}`,
     '',
     'Request preserved:',
@@ -132,11 +176,20 @@ function buildLocalResponse(message, route, status) {
 }
 
 function buildManifest() {
+  const userRequest = getFieldValue('userRequest').trim();
+  const posture = classifyRequestPosture(userRequest);
   return {
     target_entry_point: getFieldValue('targetEntryPoint'),
     input_mode: getFieldValue('inputMode'),
     requested_route: getFieldValue('requestedRoute'),
-    user_request: getFieldValue('userRequest').trim(),
+    detected_route: posture.route,
+    task_status: posture.task_status,
+    raw_shell_allowed: false,
+    authority_required: true,
+    rate_limit_required: true,
+    receipt_required_for_execution: true,
+    restricted_admin_review_required: posture.restricted,
+    user_request: userRequest,
     declared_goal: getFieldValue('declaredGoal').trim(),
     operator_note: getFieldValue('operatorNote').trim(),
     source_surface: 'StegVerse-Labs/Site/ecosystem-chat.html'
@@ -149,8 +202,13 @@ function buildReceiptWindow(manifest) {
     receipt_expectation: getFieldValue('receiptExpectation'),
     submission_posture: getFieldValue('submissionPosture'),
     site_receipt_authority: false,
+    site_shell_authority: false,
+    site_credential_authority: false,
     manifest_correct_at_submission: check.ok,
     submission_target: 'StegVerse-org/SDK',
+    execution_allowed_from_site: false,
+    authority_required_before_execution: true,
+    receipt_required_for_execution: true,
     correctness_errors: check.errors
   };
 }
@@ -174,7 +232,7 @@ function updateGeneratedWindows() {
   if (sdkStatus) {
     const check = getSubmissionCheck(manifest);
     sdkStatus.textContent = check.ok
-      ? 'Generated JSON is locally complete. Final correctness is determined at submission time.'
+      ? 'Generated JSON is locally complete. Final correctness, authority, rate limits, and allowed-task status are determined at submission time.'
       : `Generated JSON is incomplete: ${check.errors.join('; ')}`;
   }
 }
@@ -185,6 +243,10 @@ function getSubmissionCheck(manifest = buildManifest()) {
   if (!manifest.declared_goal) errors.push('declared_goal is required');
   if (manifest.target_entry_point !== 'StegVerse-org/SDK') errors.push('target_entry_point must be StegVerse-org/SDK');
   if (manifest.input_mode !== 'text_form') errors.push('input_mode must be text_form');
+  if (manifest.raw_shell_allowed !== false) errors.push('raw_shell_allowed must be false');
+  if (manifest.authority_required !== true) errors.push('authority_required must be true');
+  if (manifest.rate_limit_required !== true) errors.push('rate_limit_required must be true');
+  if (manifest.receipt_required_for_execution !== true) errors.push('receipt_required_for_execution must be true');
 
   return { ok: errors.length === 0, errors };
 }
@@ -207,18 +269,22 @@ function getFieldValue(id) {
   return element ? element.value : '';
 }
 
-async function localReceipt(message, route) {
+async function localReceipt(message, posture) {
   const payload = JSON.stringify({
-    route,
+    route: posture.route,
     message,
     mode: 'local-simulation',
     authority: 'none',
+    shell: 'disabled',
+    raw_shell_allowed: false,
+    task_status: posture.task_status,
+    receipt: 'not-issued',
     issued_at: new Date().toISOString()
   });
   const data = new TextEncoder().encode(payload);
   const digest = await crypto.subtle.digest('SHA-256', data);
   const hash = Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
-  return `local_receipt_hash=sha256:${hash} · authority=none · receipt=not-issued`;
+  return `local_receipt_hash=sha256:${hash} · authority=none · shell=disabled · task_status=${posture.task_status} · receipt=not-issued`;
 }
 
 function appendMessage(label, body, type, receipt) {
