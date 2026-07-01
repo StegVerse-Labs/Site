@@ -13,10 +13,10 @@ governance documentation, and product information from canonical source data.
 formalism-tests    =  proof/test authority
 StegVerse-002      =  governed deployment authority
 Site               =  public mirror only
-Ecosystem Chat     =  text-only command surface, not proof authority
+Ecosystem Chat     =  text-only user advancement surface, not proof authority or shell authority
 
 Site publishes receipts. Site does not generate them.
-Site must never become the authority for receipts, transitions, or accreditation.
+Site must never become the authority for receipts, transitions, accreditation, shell execution, credentials, or repository administration.
 ```
 
 ---
@@ -28,7 +28,7 @@ Site must never become the authority for receipts, transitions, or accreditation
 | Page | Purpose |
 |------|---------|
 | [`index.html`](index.html) | Home — proof status, product overview, live evidence |
-| [`ecosystem-chat.html`](ecosystem-chat.html) | Text-only ecosystem command console — local route scaffold, no proof authority |
+| [`ecosystem-chat.html`](ecosystem-chat.html) | User advancement console — local route scaffold, no shell, no credential authority, no proof authority |
 | [`demo.html`](demo.html) | Execution demo — commit-boundary decision with receipt hash |
 | [`stegverse-002.html`](stegverse-002.html) | StegVerse-002 / core-lite mirror — gate map, live evidence |
 | [`formalism-tests-stage-1-to-31.html`](formalism-tests-stage-1-to-31.html) | Stage 1–31 proof mirror — Beta_Orionis / StegVerse-001 |
@@ -44,19 +44,29 @@ Site must never become the authority for receipts, transitions, or accreditation
 
 | File | Purpose |
 |------|---------|
-| [`assets/ecosystem-chat.js`](assets/ecosystem-chat.js) | Browser-side text-only console logic, local route scaffold, fail-closed gateway adapter |
-| [`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md) | Backend activation contract for `POST /api/ecosystem-chat` and receipt boundary rules |
+| [`assets/ecosystem-chat.js`](assets/ecosystem-chat.js) | Browser-side text-only console logic, local route scaffold, restricted-admin detection, fail-closed gateway adapter |
+| [`docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`](docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md) | Backend activation contract for `POST /api/ecosystem-chat`, allowed-task routing, and receipt boundary rules |
 | [`docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md`](docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md) | Browser form model for StegVerse-org/SDK entry, manifest window, receipt window, and dropdown-limited fields |
+| [`docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md`](docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md) | Local verification task for public links, no-shell/no-credential language, authority-required state, and receipt-required fixtures |
 | [`docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md`](docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md) | Backend handoff for SDK intake checks over fields, manifest, and receipt_window layers |
 | [`docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md`](docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md) | Current local-simulation status, installed surfaces, and next backend milestone |
 | [`fixtures/ecosystem-chat/request.example.json`](fixtures/ecosystem-chat/request.example.json) | Example gateway request payload for backend implementers |
 | [`fixtures/ecosystem-chat/response.example.json`](fixtures/ecosystem-chat/response.example.json) | Example gateway response payload with null receipt state before backend activation |
 | [`fixtures/ecosystem-chat/sdk-form-payload.example.json`](fixtures/ecosystem-chat/sdk-form-payload.example.json) | Canonical SDK form payload preserving fields, manifest, and receipt_window layers |
 | [`fixtures/ecosystem-chat/sdk-backend-response.example.json`](fixtures/ecosystem-chat/sdk-backend-response.example.json) | Canonical SDK backend response payload with receipt_id null before backend activation |
+| [`scripts/check_ecosystem_chat_boundary.py`](scripts/check_ecosystem_chat_boundary.py) | Static checker for the public boundary across page, JavaScript, docs, public links, and fixtures |
 | [`scripts/check_ecosystem_chat_contract.py`](scripts/check_ecosystem_chat_contract.py) | Static checker for the console page, gateway adapter, README index, and receipt boundary contract |
+| [`data/headless-tasks/ecosystem-chat-boundary-check-v1.json`](data/headless-tasks/ecosystem-chat-boundary-check-v1.json) | Declared task wrapper for `python scripts/check_ecosystem_chat_boundary.py` using the existing headless task registry |
+| [`data/headless-task-registry-v1.json`](data/headless-task-registry-v1.json) | Registry containing `ecosystem-chat-boundary-check-v1` |
 | `github/workflows/check-ecosystem-chat.yml` | Workflow path shown without leading dot; runs the Ecosystem Chat contract checker on relevant pushes, pull requests, and manual dispatch |
 | [`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md) | iOS no-leading-dot handling note for workflow paths |
 | [`iosnoperiod/workflow-map.json`](iosnoperiod/workflow-map.json) | Canonical-to-iOS workflow path manifest |
+
+Direct boundary verification command:
+
+```bash
+python scripts/check_ecosystem_chat_boundary.py
+```
 
 ### Public positioning
 
