@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 TEXT_FILES = [
+    ROOT / "README.md",
     ROOT / "ecosystem-chat.html",
     ROOT / "assets" / "ecosystem-chat.js",
     ROOT / "docs" / "ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
@@ -39,6 +40,14 @@ REQUIRED_PAGE_LINKS = [
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
     "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
+]
+
+REQUIRED_README_REFERENCES = [
+    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
+    "scripts/check_ecosystem_chat_boundary.py",
+    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
+    "data/headless-task-registry-v1.json",
+    "python scripts/check_ecosystem_chat_boundary.py",
 ]
 
 JSON_FIXTURES = [
@@ -77,6 +86,13 @@ def verify_page_links() -> None:
     missing = [link for link in REQUIRED_PAGE_LINKS if link not in page]
     if missing:
         raise AssertionError(f"ecosystem-chat.html missing required public links: {', '.join(missing)}")
+
+
+def verify_readme_references() -> None:
+    readme = read_text(ROOT / "README.md")
+    missing = [ref for ref in REQUIRED_README_REFERENCES if ref not in readme]
+    if missing:
+        raise AssertionError(f"README.md missing required Ecosystem Chat boundary references: {', '.join(missing)}")
 
 
 def verify_request_fixture() -> None:
@@ -144,6 +160,7 @@ def main() -> int:
         require_text(path, REQUIRED_BOUNDARY_TEXT)
 
     verify_page_links()
+    verify_readme_references()
 
     for fixture in JSON_FIXTURES:
         load_json(fixture)
@@ -156,6 +173,7 @@ def main() -> int:
         "ok": True,
         "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES],
         "required_page_links": REQUIRED_PAGE_LINKS,
+        "required_readme_references": REQUIRED_README_REFERENCES,
         "boundary": "no-shell/no-credential/authority-required/receipt-required",
     }, indent=2))
     return 0
