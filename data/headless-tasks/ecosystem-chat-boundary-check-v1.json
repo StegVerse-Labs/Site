@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-07-01T00:00:00Z",
+  "schema": "stegverse.headless_cmd_task.v1",
+  "task_id": "ecosystem-chat-boundary-check-v1",
+  "class": "public_surface_boundary_verification",
+  "authority_class": "ordinary_analysis",
+  "description": "Verify the Ecosystem Chat public surface, local router, gateway contract, form model, and fixtures preserve the no-shell, no-credential, authority-required, receipt-required execution boundary.",
+  "command": [
+    "python",
+    "scripts/check_ecosystem_chat_boundary.py"
+  ],
+  "expected_inputs": [
+    "ecosystem-chat.html",
+    "assets/ecosystem-chat.js",
+    "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
+    "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+    "fixtures/ecosystem-chat/request.example.json",
+    "fixtures/ecosystem-chat/response.example.json",
+    "fixtures/ecosystem-chat/sdk-form-payload.example.json",
+    "scripts/check_ecosystem_chat_boundary.py"
+  ],
+  "expected_outputs": [],
+  "forbidden_paths": [
+    ".git/",
+    ".github/workflows/",
+    "secrets/",
+    "private/"
+  ],
+  "receipt_output": "headless_cmd_reports/ecosystem-chat-boundary-check-v1.receipt.json",
+  "markdown_output": "headless_cmd_reports/ecosystem-chat-boundary-check-v1.report.md"
+}
