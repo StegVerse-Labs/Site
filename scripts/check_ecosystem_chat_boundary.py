@@ -17,6 +17,7 @@ TEXT_FILES = [
     ROOT / "assets" / "ecosystem-chat.js",
     ROOT / "docs" / "ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
     ROOT / "docs" / "ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+    ROOT / "docs" / "ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
 ]
 
 REQUIRED_TEXT = [
@@ -32,6 +33,12 @@ REQUIRED_BOUNDARY_TEXT = [
     "credential",
     "receipt",
     "authority",
+]
+
+REQUIRED_PAGE_LINKS = [
+    "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
+    "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
 ]
 
 JSON_FIXTURES = [
@@ -63,6 +70,13 @@ def load_json(path: Path) -> dict:
     if not isinstance(data, dict):
         raise AssertionError(f"{path.relative_to(ROOT)} must contain a JSON object")
     return data
+
+
+def verify_page_links() -> None:
+    page = read_text(ROOT / "ecosystem-chat.html")
+    missing = [link for link in REQUIRED_PAGE_LINKS if link not in page]
+    if missing:
+        raise AssertionError(f"ecosystem-chat.html missing required public links: {', '.join(missing)}")
 
 
 def verify_request_fixture() -> None:
@@ -129,6 +143,8 @@ def main() -> int:
         require_text(path, REQUIRED_TEXT)
         require_text(path, REQUIRED_BOUNDARY_TEXT)
 
+    verify_page_links()
+
     for fixture in JSON_FIXTURES:
         load_json(fixture)
 
@@ -139,6 +155,7 @@ def main() -> int:
     print(json.dumps({
         "ok": True,
         "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES],
+        "required_page_links": REQUIRED_PAGE_LINKS,
         "boundary": "no-shell/no-credential/authority-required/receipt-required",
     }, indent=2))
     return 0
