@@ -1,6 +1,7 @@
 {
-  "response": "Route: Site\nAuthority: none until a governed backend issues a receipt.\nNext action: Send this request to the Site handler once governed backend routing is active.",
+  "response": "Route: Site\nTask status: preview_only\nAuthority: none until a governed backend validates allowed-task status and issues or records receipt data.\nShell: disabled; raw commands are not executed.\nNext action: Send this request to the Site handler only after governed backend routing validates allowed-task status.",
   "routed_module": "Site",
+  "task_status": "preview_only",
   "receipt_id": null,
-  "next_action": "Send this request to the Site handler once governed backend routing is active."
+  "next_action": "Send this request to the Site handler only after governed backend routing validates allowed-task status."
 }
