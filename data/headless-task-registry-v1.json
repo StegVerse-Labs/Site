@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-10T19:51:28Z",
+  "generated_at": "2026-07-01T00:00:00Z",
   "schema": "stegverse.headless_task_registry.v1",
-  "formal_milestone": "MS-012E.4 \u2014 Declared Task Runner",
+  "formal_milestone": "MS-012E.4 — Declared Task Runner",
   "purpose": "Declare executable headless tasks as data so stable workflows can invoke task definitions instead of hardcoding operational logic.",
   "default_runner": "tools/headless_cmd_runner.py",
   "task_root": "data/headless-tasks",
@@ -25,6 +25,13 @@
       "task_id": "sandbox-bundle-review-v1",
       "task_path": "data/headless-tasks/sandbox-bundle-review-v1.json",
       "class": "sandbox_review",
+      "authority_class": "ordinary_analysis",
+      "status": "active"
+    },
+    {
+      "task_id": "ecosystem-chat-boundary-check-v1",
+      "task_path": "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
+      "class": "public_surface_boundary_verification",
       "authority_class": "ordinary_analysis",
       "status": "active"
     }
