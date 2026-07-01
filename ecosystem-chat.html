@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Text-only StegVerse ecosystem command console for build routing, boundary classification, and receipt-style local transcripts.">
-  <title>StegVerse — Ecosystem Chat Console</title>
+  <meta name="description" content="StegVerse user advancement console for intent routing, governed task boundaries, authority checks, and receipt-style local transcripts.">
+  <title>StegVerse — Ecosystem Advancement Console</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
     .chat-shell {
@@ -95,27 +95,36 @@
       border-top: 1px solid #132215;
       overflow-wrap: anywhere;
     }
-    .route-grid, .sdk-grid {
+    .route-grid, .sdk-grid, .guardrail-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 12px;
       margin-bottom: 24px;
     }
-    .route-card, .sdk-card {
+    .route-card, .sdk-card, .guardrail-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px;
     }
-    .route-card strong, .sdk-card strong, .sdk-label {
+    .route-card strong, .sdk-card strong, .guardrail-card strong, .sdk-label {
       display: block;
       color: var(--text);
       font-size: 13px;
       margin-bottom: 4px;
     }
-    .route-card span, .sdk-card span {
+    .route-card span, .sdk-card span, .guardrail-card span {
       color: var(--muted);
       font-size: 12px;
+    }
+    .risk-note {
+      border: 1px solid #3a2a12;
+      border-radius: var(--radius);
+      background: rgba(63, 44, 13, 0.28);
+      color: #f0d9a0;
+      padding: 12px 14px;
+      margin-bottom: 24px;
+      font-size: 13px;
     }
     .sdk-preview-grid {
       display: grid;
@@ -170,12 +179,13 @@
 <div class="sv-wrap">
 
   <div class="sv-hero">
-    <div class="sv-eyebrow">Text-only build console · public mirror boundary</div>
-    <h1>StegVerse Ecosystem Chat<br><em>command routing without authority drift.</em></h1>
-    <p>Type a build or governance request, classify the intended route, and produce a local receipt-style transcript. This page is a browser-native console scaffold for StegVerse work; it does not create proof receipts, execute repository writes, or replace governed deployment authority.</p>
+    <div class="sv-eyebrow">User advancement console · governed task boundary · public mirror</div>
+    <h1>StegVerse Ecosystem Chat<br><em>intent routing without authority drift.</em></h1>
+    <p>Describe the outcome you want, classify the intended route, and produce a local receipt-style transcript. This page accepts user goals, not raw infrastructure commands. It does not execute shell commands, expose repository credentials, create proof receipts, perform repository writes, or replace governed deployment authority.</p>
     <div class="sv-btn-row">
       <a class="sv-btn sv-btn-primary" href="#sdk-entry">Open SDK form</a>
       <a class="sv-btn sv-btn-secondary" href="#console">Open console</a>
+      <a class="sv-btn sv-btn-secondary" href="#guardrails">View guardrails</a>
       <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway contract</a>
       <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form model</a>
       <a class="sv-btn sv-btn-secondary" href="transition-verification-guide.html">Verification guide</a>
@@ -183,17 +193,32 @@
   </div>
 
   <div class="sv-boundary">
-    <strong>Boundary:</strong> Site is a public mirror and command surface. The fillable fields generate text only into the manifest window and receipt window. Those generated windows are previews until correctness is determined at submission time. Site must not claim receipt authority, transition authority, accreditation authority, or autonomous deployment authority.
+    <strong>Boundary:</strong> Site is a public mirror and user-facing advancement surface. Fillable fields generate text only into the manifest window and receipt window. Those generated windows are previews until correctness, authority, rate limits, and allowed-task status are determined at submission time. Site must not claim shell access, credential access, receipt authority, transition authority, accreditation authority, administrative authority, or autonomous deployment authority.
+  </div>
+
+  <h2 class="sv-h2" id="guardrails">Public guardrails</h2>
+  <div class="risk-note">
+    Ecosystem Chat is not a public terminal. It is an intent-to-governed-action interface. Public users can request advancement; restricted operators and authorized ecosystem entities determine whether a task may execute through an approved task definition and an auditable receipt path.
+  </div>
+  <div class="guardrail-grid">
+    <div class="guardrail-card"><strong>No raw shell</strong><span>Messages are routed as requests. Arbitrary bash, GitHub CLI, token inspection, workflow edits, and destructive commands are not accepted here.</span></div>
+    <div class="guardrail-card"><strong>Allowed tasks only</strong><span>Executable tasks must be defined outside this page by governed standards, manifests, workflows, and reviewable scripts.</span></div>
+    <div class="guardrail-card"><strong>Authority checked</strong><span>Public advancement requests are separate from restricted administration such as deleting branches, rotating secrets, changing permissions, or modifying protected settings.</span></div>
+    <div class="guardrail-card"><strong>Receipts expected</strong><span>Accepted executable transitions must return status and receipt data that can be audited, replayed, or rejected by the relevant authority layer.</span></div>
+    <div class="guardrail-card"><strong>Abuse bounded</strong><span>Any live gateway must enforce rate limits, validation, replay protection, and scope limits before it can accept public submissions.</span></div>
+    <div class="guardrail-card"><strong>Unfinished means restricted</strong><span>Prototype, pending, or concept features are display-only until the governing task contract and authority path are complete.</span></div>
   </div>
 
   <h2 class="sv-h2">Initial text-only routing map</h2>
   <div class="route-grid">
     <div class="route-card"><strong>Site</strong><span>Pages, public mirrors, navigation, handoff display, proof surfaces.</span></div>
+    <div class="route-card"><strong>repo-standards</strong><span>Allowed task definitions, reusable standards, maintenance manifests, and governed remediation rules.</span></div>
     <div class="route-card"><strong>StegVerse-002</strong><span>Governed deployment posture, intake state, clean-slate work entity.</span></div>
     <div class="route-card"><strong>formalism-tests</strong><span>Proof/test authority references, formalism validation, admissibility checks.</span></div>
     <div class="route-card"><strong>Continuity</strong><span>Receipt-chain concepts, replay context, state continuity language.</span></div>
     <div class="route-card"><strong>Publisher</strong><span>Paper mirror source posture, manifest regeneration, publication boundaries.</span></div>
-    <div class="route-card"><strong>Unknown</strong><span>Fallback for requests needing human clarification or new ecosystem mapping.</span></div>
+    <div class="route-card"><strong>Restricted admin</strong><span>Credential, branch, workflow, permission, release, or destructive maintenance requests require separate authority before execution.</span></div>
+    <div class="route-card"><strong>Unknown</strong><span>Fallback for requests needing human clarification, new ecosystem mapping, or missing task authority.</span></div>
   </div>
 
   <h2 class="sv-h2" id="sdk-entry">SDK Entry Form</h2>
@@ -216,10 +241,12 @@
           <span class="sdk-label">Requested route</span>
           <select class="sdk-field" id="requestedRoute" name="requested_route">
             <option value="Site">Site</option>
+            <option value="repo-standards">repo-standards</option>
             <option value="StegVerse-002">StegVerse-002</option>
             <option value="formalism-tests">formalism-tests</option>
             <option value="Continuity">Continuity</option>
             <option value="Publisher">Publisher</option>
+            <option value="Restricted admin">Restricted admin</option>
             <option value="Unknown">Unknown</option>
           </select>
         </label>
@@ -227,7 +254,9 @@
           <span class="sdk-label">Receipt expectation</span>
           <select class="sdk-field" id="receiptExpectation" name="receipt_expectation">
             <option value="none">none</option>
+            <option value="local_preview_only">local_preview_only</option>
             <option value="sdk_intake_receipt_requested">sdk_intake_receipt_requested</option>
+            <option value="authority_issued_receipt_required">authority_issued_receipt_required</option>
           </select>
         </label>
         <label>
@@ -235,6 +264,7 @@
           <select class="sdk-field" id="submissionPosture" name="submission_posture">
             <option value="draft">draft</option>
             <option value="ready_for_submission">ready_for_submission</option>
+            <option value="restricted_review_required">restricted_review_required</option>
           </select>
         </label>
       </div>
@@ -245,14 +275,14 @@
       </label>
       <label>
         <span class="sdk-label">Declared goal</span>
-        <input class="sdk-field" id="declaredGoal" name="declared_goal" value="text-only ecosystem command console">
+        <input class="sdk-field" id="declaredGoal" name="declared_goal" value="user advancement console with governed task boundaries">
       </label>
       <label>
         <span class="sdk-label">Operator note</span>
-        <textarea class="sdk-textarea" id="operatorNote" name="operator_note" placeholder="Optional SDK intake context."></textarea>
+        <textarea class="sdk-textarea" id="operatorNote" name="operator_note" placeholder="Optional SDK intake context. Do not paste secrets, tokens, credentials, or destructive shell commands."></textarea>
       </label>
 
-      <div class="sdk-status" id="sdkFormStatus">Generated JSON is evaluated locally before submission.</div>
+      <div class="sdk-status" id="sdkFormStatus">Generated JSON is evaluated locally before submission. Local preview is not execution authority.</div>
 
       <div class="sdk-preview-grid">
         <div>
@@ -266,7 +296,7 @@
       </div>
 
       <div class="sdk-actions">
-        <span class="sdk-hint">The windows are generated previews. They are not proof receipts and cannot be edited directly in the normal path.</span>
+        <span class="sdk-hint">The windows are generated previews. They are not proof receipts, not shell output, and cannot be edited directly in the normal path.</span>
         <button class="sv-btn sv-btn-secondary" id="useManifestAsConsoleMessage" type="button">Copy payload to console</button>
         <button class="sv-btn sv-btn-primary" type="submit">Check submission correctness</button>
       </div>
@@ -278,16 +308,16 @@
     <div class="chat-panel">
       <div class="chat-log" id="chatLog" aria-live="polite">
         <div class="chat-message system">
-          <div class="label">StegVerse Console</div>
-          <div class="body">Ready for text-only ecosystem build requests. Try: “continue building Site”, “update README”, “prepare handoff”, “summarize repo state”, or “classify this transition request”.</div>
-          <div class="receipt-block">mode=local-simulation · authority=none · receipt=not-issued</div>
+          <div class="label">StegVerse Advancement Console</div>
+          <div class="body">Ready for text-only ecosystem advancement requests. Try: “continue building Site”, “update README”, “prepare handoff”, “summarize repo state”, or “classify this transition request”. Do not paste secrets, tokens, credentials, or raw shell commands.</div>
+          <div class="receipt-block">mode=local-simulation · authority=none · shell=disabled · receipt=not-issued</div>
         </div>
       </div>
       <form class="chat-form" id="chatForm">
-        <label class="chat-hint" for="messageInput">Text input only. No uploads, voice, images, or hidden external execution in this MVP.</label>
-        <textarea class="chat-input" id="messageInput" name="message" placeholder="Type a StegVerse build/governance request..." required></textarea>
+        <label class="chat-hint" for="messageInput">Text input only. No uploads, voice, images, hidden external execution, arbitrary shell, or credential access in this MVP.</label>
+        <textarea class="chat-input" id="messageInput" name="message" placeholder="Type a StegVerse advancement/governance request. Do not enter shell commands or secrets." required></textarea>
         <div class="chat-actions">
-          <span class="chat-hint">Local transcript only. Future gateway: <code>POST /api/ecosystem-chat</code>.</span>
+          <span class="chat-hint">Local transcript only. Future gateway requires allowlisted tasks, authority evaluation, rate limits, and receipts before execution.</span>
           <button class="sv-btn sv-btn-primary" type="submit">Route request</button>
         </div>
       </form>
@@ -299,28 +329,34 @@
 {
   "message": "continue building Site",
   "session_id": "browser-session-id",
-  "repo": "StegVerse-Labs/Site",
-  "goal": "text-only ecosystem command console"
+  "requested_route": "Site",
+  "goal": "user advancement console with governed task boundaries",
+  "execution_model": "allowlisted_task_request_only",
+  "raw_shell_allowed": false,
+  "authority_required": true,
+  "rate_limit_required": true,
+  "receipt_required_for_execution": true
 }
 
 200 OK
 {
   "response": "...",
   "routed_module": "Site",
+  "task_status": "preview_only | rejected | pending_authority | accepted_for_execution",
   "receipt_id": "authority-issued-receipt-id-or-null",
   "next_action": "..."
 }</pre>
 
   <h2 class="sv-h2">MVP completion definition</h2>
   <div class="sv-prose">
-    <p>Done for this page means a user can type a StegVerse ecosystem request, see a deterministic route classification, receive a bounded response scaffold, and preserve a local transcript without confusing Site with proof authority.</p>
-    <p>The next activation step is replacing the local response generator with a governed backend gateway that can call the correct StegVerse handler and return an authority-issued receipt when appropriate.</p>
+    <p>Done for this page means a user can type a StegVerse ecosystem request, see a deterministic route classification, receive a bounded response scaffold, distinguish advancement requests from restricted administration, and preserve a local transcript without confusing Site with shell access or proof authority.</p>
+    <p>The next activation step is replacing the local response generator with a governed backend gateway that can call only approved StegVerse handlers, enforce rate limits and authority checks, reject raw command execution, and return an authority-issued receipt when appropriate.</p>
   </div>
 
 </div>
 
 <footer class="sv-footer">
-  <span>StegVerse · Text-only ecosystem console · Public mirror boundary</span>
+  <span>StegVerse · User advancement console · Governed task boundary · Public mirror</span>
   <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway Contract</a> · <a href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form Model</a> · <a href="transition-verification-guide.html">Verification Guide</a></span>
 </footer>
 
