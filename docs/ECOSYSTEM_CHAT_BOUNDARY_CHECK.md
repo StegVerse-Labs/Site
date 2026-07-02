@@ -76,6 +76,22 @@ data/headless-task-registry-v1.json
 python scripts/check_ecosystem_chat_boundary.py
 ```
 
+The verifier also checks that the declared task and registry remain aligned:
+
+```text
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json
+  task_id = ecosystem-chat-boundary-check-v1
+  command = python scripts/check_ecosystem_chat_boundary.py
+  authority_class = ordinary_analysis
+  expected_inputs include README, page, JavaScript, docs, fixtures, task file, and registry
+
+data/headless-task-registry-v1.json
+  contains exactly one ecosystem-chat-boundary-check-v1 entry
+  task_path = data/headless-tasks/ecosystem-chat-boundary-check-v1.json
+  status = active
+  authority_class = ordinary_analysis
+```
+
 The verified boundary is:
 
 ```text
@@ -94,12 +110,13 @@ The check is passing when the verifier emits JSON with:
 ```json
 {
   "ok": true,
+  "declared_task": "ecosystem-chat-boundary-check-v1",
   "boundary": "no-shell/no-credential/authority-required/receipt-required"
 }
 ```
 
 ## Failure meaning
 
-A failure means the public page, JavaScript behavior, documentation, README references, public links, or fixtures no longer agree on the same execution boundary.
+A failure means the public page, JavaScript behavior, documentation, README references, public links, declared task, registry, or fixtures no longer agree on the same execution boundary.
 
 A failed check should be treated as a public-surface drift event. The page should not be advertised as a governed advancement interface until the drift is corrected.
