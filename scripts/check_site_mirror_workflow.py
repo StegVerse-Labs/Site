@@ -16,7 +16,7 @@ def main() -> int:
         "pull_request:",
         "push:",
         "workflow_dispatch:",
-        "python scripts/check_site_mirror_readiness.py",
+        "python scripts/check_site_mirror_full_readiness.py",
     ]
     missing = [item for item in required if item not in text]
     if missing:
