@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = [
     [sys.executable, "scripts/check_site_mirror_orchestration.py"],
+    [sys.executable, "scripts/check_site_navigation_discovery.py"],
 ]
 
 
