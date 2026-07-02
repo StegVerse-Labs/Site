@@ -2,9 +2,9 @@
 
 ## Status
 
-`ecosystem-chat.html` is installed as a text-only browser command surface for StegVerse build and governance requests.
+`ecosystem-chat.html` is installed as a text-only user advancement surface for StegVerse build and governance requests.
 
-The page is currently in local-simulation mode. It does not call a live backend and does not issue proof receipts.
+The page is currently in local-simulation mode. It does not call a live backend, execute shell commands, accept credentials, perform repository writes, or issue proof receipts.
 
 The SDK Entry Form is installed as a browser-side user input surface for the StegVerse-org/SDK entry point if and only if the generated manifest window and receipt window remain distinct from the fillable fields and are determined correct at submission time.
 
@@ -18,11 +18,16 @@ The Site-side activation surface is complete for pre-backend handoff. Remaining 
 | Browser script | Installed: `assets/ecosystem-chat.js` |
 | Gateway contract | Installed: `docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md` |
 | Form gateway model | Installed: `docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md` |
+| Boundary check doc | Installed: `docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md` |
 | SDK backend handoff | Installed: `docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md` |
+| README discovery | Installed: `README.md` references boundary doc, verifier, declared task, registry, and direct command |
 | SDK form payload fixture | Installed: `fixtures/ecosystem-chat/sdk-form-payload.example.json` |
 | SDK backend response fixture | Installed: `fixtures/ecosystem-chat/sdk-backend-response.example.json` |
 | Gateway fixtures | Installed: `fixtures/ecosystem-chat/request.example.json` and `fixtures/ecosystem-chat/response.example.json` |
-| Static checker | Installed: `scripts/check_ecosystem_chat_contract.py` |
+| Contract checker | Installed: `scripts/check_ecosystem_chat_contract.py` |
+| Boundary verifier | Installed: `scripts/check_ecosystem_chat_boundary.py` |
+| Declared boundary task | Installed: `data/headless-tasks/ecosystem-chat-boundary-check-v1.json` |
+| Headless task registry | Installed: `data/headless-task-registry-v1.json` contains active `ecosystem-chat-boundary-check-v1` |
 | Workflow gate | Installed: `github/workflows/check-ecosystem-chat.yml` path shown without leading dot |
 | iOS path mapping | Installed: `iosnoperiod/iosnoperiod.md` and `iosnoperiod/workflow-map.json` |
 
@@ -34,6 +39,11 @@ Closed-choice dropdown state: installed
 Manifest window state: installed
 Receipt window state: installed
 Submission correctness check state: installed locally
+No-shell boundary state: installed
+No-credential boundary state: installed
+Restricted-admin routing state: installed
+Authority-required manifest state: installed
+Receipt-required execution state: installed
 SDK payload fixture state: installed
 SDK backend response fixture state: installed
 SDK backend submission state: not installed
@@ -41,15 +51,17 @@ SDK backend submission state: not installed
 
 ## Boundary
 
-Site remains a public mirror and command surface only.
+Site remains a public mirror and user advancement surface only.
 
-The console may collect text input, classify local route posture, display local transcript hashes, preserve a bounded browser transcript, generate form-derived manifest and receipt-window previews, and call a governed backend gateway when that gateway exists.
+The console may collect text input, classify local route posture, display local transcript hashes, preserve a bounded browser transcript, generate form-derived manifest and receipt-window previews, identify restricted administration requests, and call a governed backend gateway when that gateway exists.
 
-The console must not issue proof receipts, claim deployment authority, or replace StegVerse-002, formalism-tests, Continuity, StegVerse-org/SDK, or any other authority-bearing ecosystem component.
+The console must not issue proof receipts, execute shell commands, accept credentials, expose tokens, perform repository writes, delete branches, edit workflows, claim deployment authority, or replace StegVerse-002, formalism-tests, Continuity, StegVerse-org/SDK, repo-standards, or any other authority-bearing ecosystem component.
 
 The manifest window and receipt window are generated previews. They are not proof receipts.
 
-## Verification command
+## Verification commands
+
+Contract check:
 
 ```bash
 python scripts/check_ecosystem_chat_contract.py
@@ -61,6 +73,40 @@ Expected output:
 Ecosystem Chat contract check passed.
 ```
 
+Boundary check:
+
+```bash
+python scripts/check_ecosystem_chat_boundary.py
+```
+
+Expected output contains:
+
+```json
+{
+  "ok": true,
+  "declared_task": "ecosystem-chat-boundary-check-v1",
+  "boundary": "no-shell/no-credential/authority-required/receipt-required"
+}
+```
+
+Declared task:
+
+```text
+ecosystem-chat-boundary-check-v1
+```
+
+Declared task path:
+
+```text
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json
+```
+
+Registry path:
+
+```text
+data/headless-task-registry-v1.json
+```
+
 ## Next activation milestone
 
 Create the governed backend gateway for:
@@ -69,7 +115,7 @@ Create the governed backend gateway for:
 POST /api/ecosystem-chat
 ```
 
-The backend must accept the existing request contract, apply route policy, dispatch to the correct ecosystem handler, and return a bounded response with either an authority-issued receipt ID or an explicit `null` receipt state.
+The backend must accept the existing request contract, apply route policy, enforce validation and rate limits, reject raw command execution, reject or route credential/destructive administration intent to restricted review, dispatch only to approved ecosystem handlers, and return a bounded response with task status and either an authority-issued receipt ID or an explicit `null` receipt state.
 
 The StegVerse-org/SDK intake path must accept the three-layer SDK form payload only after correctness is determined at submission time:
 
@@ -88,12 +134,20 @@ Page state: installed
 Script state: installed
 Contract state: installed
 Form model state: installed
+Boundary check doc state: installed
+README discovery state: installed
 SDK backend handoff state: installed
 Fixture state: installed
 SDK form state: installed
 SDK backend response fixture state: installed
-Check state: installed
+Contract check state: installed
+Boundary verifier state: installed
+Declared task state: installed
+Registry state: installed
 Workflow state: installed
+No-shell boundary state: installed
+No-credential boundary state: installed
+Restricted-admin routing state: installed
 Site-side pre-backend handoff state: complete
 Backend gateway state: not installed
 SDK backend submission state: not installed
