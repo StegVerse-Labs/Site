@@ -11,6 +11,9 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TASK_ID = "ecosystem-chat-boundary-check-v1"
+TASK_PATH = f"data/headless-tasks/{TASK_ID}.json"
+VERIFIER_COMMAND = ["python", "scripts/check_ecosystem_chat_boundary.py"]
 
 TEXT_FILES = [
     ROOT / "README.md",
@@ -45,7 +48,7 @@ REQUIRED_PAGE_LINKS = [
 REQUIRED_README_REFERENCES = [
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     "scripts/check_ecosystem_chat_boundary.py",
-    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
+    TASK_PATH,
     "data/headless-task-registry-v1.json",
     "python scripts/check_ecosystem_chat_boundary.py",
 ]
@@ -54,6 +57,21 @@ JSON_FIXTURES = [
     ROOT / "fixtures" / "ecosystem-chat" / "request.example.json",
     ROOT / "fixtures" / "ecosystem-chat" / "response.example.json",
     ROOT / "fixtures" / "ecosystem-chat" / "sdk-form-payload.example.json",
+]
+
+EXPECTED_TASK_INPUTS = [
+    "README.md",
+    "ecosystem-chat.html",
+    "assets/ecosystem-chat.js",
+    "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
+    "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
+    "fixtures/ecosystem-chat/request.example.json",
+    "fixtures/ecosystem-chat/response.example.json",
+    "fixtures/ecosystem-chat/sdk-form-payload.example.json",
+    "scripts/check_ecosystem_chat_boundary.py",
+    TASK_PATH,
+    "data/headless-task-registry-v1.json",
 ]
 
 
@@ -93,6 +111,40 @@ def verify_readme_references() -> None:
     missing = [ref for ref in REQUIRED_README_REFERENCES if ref not in readme]
     if missing:
         raise AssertionError(f"README.md missing required Ecosystem Chat boundary references: {', '.join(missing)}")
+
+
+def verify_declared_task() -> None:
+    task = load_json(ROOT / TASK_PATH)
+    if task.get("task_id") != TASK_ID:
+        raise AssertionError(f"{TASK_PATH} must declare task_id={TASK_ID}")
+    if task.get("command") != VERIFIER_COMMAND:
+        raise AssertionError(f"{TASK_PATH} must run {VERIFIER_COMMAND!r}")
+    if task.get("authority_class") != "ordinary_analysis":
+        raise AssertionError(f"{TASK_PATH} must remain ordinary_analysis")
+
+    expected_inputs = task.get("expected_inputs")
+    if not isinstance(expected_inputs, list):
+        raise AssertionError(f"{TASK_PATH} expected_inputs must be a list")
+    missing = [item for item in EXPECTED_TASK_INPUTS if item not in expected_inputs]
+    if missing:
+        raise AssertionError(f"{TASK_PATH} missing expected_inputs: {', '.join(missing)}")
+
+
+def verify_task_registry() -> None:
+    registry = load_json(ROOT / "data" / "headless-task-registry-v1.json")
+    tasks = registry.get("tasks")
+    if not isinstance(tasks, list):
+        raise AssertionError("data/headless-task-registry-v1.json tasks must be a list")
+    matches = [task for task in tasks if task.get("task_id") == TASK_ID]
+    if len(matches) != 1:
+        raise AssertionError(f"registry must contain exactly one {TASK_ID} entry")
+    entry = matches[0]
+    if entry.get("task_path") != TASK_PATH:
+        raise AssertionError(f"registry {TASK_ID} task_path must be {TASK_PATH}")
+    if entry.get("status") != "active":
+        raise AssertionError(f"registry {TASK_ID} status must be active")
+    if entry.get("authority_class") != "ordinary_analysis":
+        raise AssertionError(f"registry {TASK_ID} authority_class must be ordinary_analysis")
 
 
 def verify_request_fixture() -> None:
@@ -161,6 +213,8 @@ def main() -> int:
 
     verify_page_links()
     verify_readme_references()
+    verify_declared_task()
+    verify_task_registry()
 
     for fixture in JSON_FIXTURES:
         load_json(fixture)
@@ -171,9 +225,10 @@ def main() -> int:
 
     print(json.dumps({
         "ok": True,
-        "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES],
+        "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES] + [TASK_PATH, "data/headless-task-registry-v1.json"],
         "required_page_links": REQUIRED_PAGE_LINKS,
         "required_readme_references": REQUIRED_README_REFERENCES,
+        "declared_task": TASK_ID,
         "boundary": "no-shell/no-credential/authority-required/receipt-required",
     }, indent=2))
     return 0
