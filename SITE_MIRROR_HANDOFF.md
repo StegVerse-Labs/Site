@@ -1,61 +1,126 @@
 # Site Mirror Handoff
 
-## Status
+## Current source of truth
 
-This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.
+This file is the documentation mirror handoff source of truth for `StegVerse-Labs/admissibility-wiki/docs/` until superseded.
 
-## Current Priority
+## Active goal
 
-Standing-Proof-Engine v0.5.0 status has been received and recorded for Site propagation.
+Goal 3: Governed LLM end-to-end demonstrator public documentation and Site mirror sync.
 
-## Source Artifacts
+The Site documentation layer should reflect the governed LLM demonstrator only after the runtime and SDK handoffs are present:
 
-Destination source: `StegVerse-Labs/Standing-Proof-Engine`
+```text
+StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md
+StegVerse-org/StegVerse-SDK/STEGVERSE_SDK_MIRROR_HANDOFF.md
+StegVerse-Labs/admissibility-wiki/ADMISSIBILITY_MIRROR_HANDOFF.md
+StegVerse-Labs/admissibility-wiki/docs/SITE_MIRROR_HANDOFF.md
+```
 
-- `SPE_MIRROR_HANDOFF.md`
-- `docs/release_snapshot_v0_5_0.md`
-- `samples/destination_receipt_chain_001.json`
-- `spe/verify_receipt_chain.py`
+## Current proof path
 
-## Master Records Emission
+```text
+fixture query
+-> LLM-adapter governed session packet
+-> SDK validation
+-> SDK intake routing
+-> SDK manifest binding
+-> SDK receipt handoff
+-> wiki public demo overview
+-> Site navigation and deployment verification
+```
 
-Destination source: `master-records/core-lite`
+## Source repositories
 
-- `MASTER_RECORDS_MIRROR_HANDOFF.md`
-- `records/spe_destination_receipt_chain_001.json`
-- `docs/spe_v0_5_0_status.md`
+```text
+StegVerse-org/LLM-adapter
+  -> runtime demonstrator source
+  -> emits governed session demo packet
 
-## Site Record
+StegVerse-org/StegVerse-SDK
+  -> SDK intake and receipt handoff verification source
+  -> validates demo packet and binds receipt handoff
 
-Destination: `StegVerse-Labs/Site`
+StegVerse-Labs/admissibility-wiki
+  -> public doctrine, demo overview, verification, deployment status, and archive handoff
+```
 
-- `data/spe-v0-5-0-status.json`
+## Existing governed LLM Site pages
 
-## Downstream Propagation Targets
+```text
+docs/governance/governed-llm-reconstructive-search.md
+docs/governance/governed-llm-activation-map.md
+docs/governance/governed-llm-site-verification.md
+docs/governance/governed-llm-deployment-status.md
+docs/governance/governed-llm-archive-handoff.md
+```
 
-Destination: `GCAT-BCAT-Engine/Publisher`
+## Files authorized for Goal 3 Site mirror work
 
-- `PUBLISHER_MIRROR_HANDOFF.md`
-- `data/spe-v0-5-0-status.json`
+```text
+docs/governance/governed-llm-demo-overview.md
+docs/governance/governed-llm-demo-verification.md
+scripts/check_governed_llm_demo_docs.py
+sidebars.js update
+README.md update
+```
 
-Destination: `StegVerse-Labs/admissibility-wiki`
+## Required invariant
 
-- `ADMISSIBILITY_MIRROR_HANDOFF.md`
-- `pages/spe-v0-5-0-standing-boundary.md`
+```text
+site_claims_live_provider_governance == false
+site_claims_execution_authority == false
+site_claims_external_indexing == false
+site_claims_master_record_persistence == false
+demo_is_fixture_first == true
+adapter_and_sdk_remain_source_of_implementation_truth == true
+```
 
-Destination: `StegVerse-002/stegguardian-wiki`
+## Local verification commands
 
-- `STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md`
-- `pages/spe-v0-5-0-guardian-boundary.md`
+```bash
+python scripts/check_governed_llm_pages.py
+python scripts/check_governed_llm_demo_docs.py
+npm run build
+```
 
-## Build Rule
+## Deployment verification command
 
-Before continuing any Site mirror task, check this file first and treat it as the current handoff and task source of truth.
+```bash
+python scripts/check_governed_llm_deployment_status.py
+```
+
+Expected deployed result after Pages publishes:
+
+```text
+GOVERNED LLM DEPLOYMENT: PASS - deployed pages reachable
+```
 
 ## Boundary
 
-SPE v0.5.0 is a local SPE receipt-chain package with master-records emission recorded. Do not claim external production deployment beyond the recorded targets.
+```text
+Site mirror publication is not provider governance.
+Site mirror publication is not execution authority.
+Site mirror publication is not commit-time standing.
+Site mirror publication is not master-record persistence.
+Site mirror publication is not external indexing.
+```
 
-## Next Integration Candidate
+## Installation order
 
-Publisher/wiki propagation verification.
+```text
+1. Confirm LLM_ADAPTER_MIRROR_HANDOFF.md is installed in LLM-adapter.
+2. Confirm STEGVERSE_SDK_MIRROR_HANDOFF.md is installed in StegVerse-SDK.
+3. Confirm ADMISSIBILITY_MIRROR_HANDOFF.md is installed in admissibility-wiki.
+4. Install or update this SITE_MIRROR_HANDOFF.md in docs/.
+5. Install governed LLM demo overview and verification pages.
+6. Update sidebar and README references.
+7. Run local verification.
+8. Run deployment verification after Pages publishes.
+```
+
+## Current archive posture
+
+Not archive-ready until the governed LLM demo overview and demo verification pages are installed, linked in navigation, and locally verified.
+
+Once local verification passes, the Site mirror work may be archived as repo-local complete, with deployed GitHub Pages confirmation tracked separately.
