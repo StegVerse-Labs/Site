@@ -3,7 +3,7 @@
   "repository": "StegVerse-Labs/Site",
   "repo_local_build": "AUTOMATED_VALIDATION_READY",
   "validation_workflow": ".github/workflows/site-mirror-readiness.yml",
-  "validation_command": "python scripts/check_site_mirror_readiness.py",
+  "validation_command": "python scripts/check_site_mirror_full_readiness.py",
   "installed_surfaces": [
     "SITE_MIRROR_HANDOFF.md",
     "docs/governance/repo-standards-site-mirror-plan.md",
@@ -11,12 +11,15 @@
     "docs/governance/site-navigation-discovery.md",
     "static/status/site-mirror-orchestration.json",
     "static/status/site-mirror-release-readiness.json",
+    "static/status/site-mirror-task-completion-status.json",
     ".github/workflows/site-mirror-readiness.yml",
     "scripts/check_site_mirror_orchestration.py",
     "scripts/check_site_navigation_discovery.py",
     "scripts/check_site_mirror_release_readiness.py",
     "scripts/check_site_mirror_workflow.py",
-    "scripts/check_site_mirror_readiness.py"
+    "scripts/check_site_mirror_readiness.py",
+    "scripts/check_site_mirror_task_completion.py",
+    "scripts/check_site_mirror_full_readiness.py"
   ],
   "remaining_gates": [
     "discover Site navigation structure",
