@@ -19,5 +19,5 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run Site mirror readiness checks
-        run: python scripts/check_site_mirror_readiness.py
+      - name: Run Site mirror full readiness checks
+        run: python scripts/check_site_mirror_full_readiness.py
