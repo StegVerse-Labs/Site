@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = [
     [sys.executable, "scripts/check_site_mirror_readiness.py"],
     [sys.executable, "scripts/check_site_mirror_task_completion.py"],
+    [sys.executable, "scripts/check_site_upstream_gates.py"],
 ]
 
 
