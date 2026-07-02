@@ -10,6 +10,7 @@ COMMANDS = [
     [sys.executable, "scripts/check_site_mirror_orchestration.py"],
     [sys.executable, "scripts/check_site_navigation_discovery.py"],
     [sys.executable, "scripts/check_site_mirror_release_readiness.py"],
+    [sys.executable, "scripts/check_site_mirror_workflow.py"],
 ]
 
 
