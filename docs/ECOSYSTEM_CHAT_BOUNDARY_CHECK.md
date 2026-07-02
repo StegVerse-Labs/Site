@@ -47,6 +47,7 @@ The task uses the existing headless task pattern. No new workflow is required.
 The verifier checks that these files preserve the same boundary language and fixture values:
 
 ```text
+README.md
 ecosystem-chat.html
 assets/ecosystem-chat.js
 docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md
@@ -63,6 +64,16 @@ The verifier also checks that `ecosystem-chat.html` keeps public links to:
 docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md
 docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md
 docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md
+```
+
+The verifier also checks that `README.md` keeps references to:
+
+```text
+docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md
+scripts/check_ecosystem_chat_boundary.py
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json
+data/headless-task-registry-v1.json
+python scripts/check_ecosystem_chat_boundary.py
 ```
 
 The verified boundary is:
@@ -89,6 +100,6 @@ The check is passing when the verifier emits JSON with:
 
 ## Failure meaning
 
-A failure means the public page, JavaScript behavior, documentation, public links, or fixtures no longer agree on the same execution boundary.
+A failure means the public page, JavaScript behavior, documentation, README references, public links, or fixtures no longer agree on the same execution boundary.
 
 A failed check should be treated as a public-surface drift event. The page should not be advertised as a governed advancement interface until the drift is corrected.
