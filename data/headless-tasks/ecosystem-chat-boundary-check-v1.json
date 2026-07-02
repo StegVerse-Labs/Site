@@ -4,20 +4,24 @@
   "task_id": "ecosystem-chat-boundary-check-v1",
   "class": "public_surface_boundary_verification",
   "authority_class": "ordinary_analysis",
-  "description": "Verify the Ecosystem Chat public surface, local router, gateway contract, form model, and fixtures preserve the no-shell, no-credential, authority-required, receipt-required execution boundary.",
+  "description": "Verify the Ecosystem Chat public surface, README references, local router, gateway contract, form model, public links, fixtures, and declared-task boundary preserve the no-shell, no-credential, authority-required, receipt-required execution boundary.",
   "command": [
     "python",
     "scripts/check_ecosystem_chat_boundary.py"
   ],
   "expected_inputs": [
+    "README.md",
     "ecosystem-chat.html",
     "assets/ecosystem-chat.js",
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
     "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
+    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     "fixtures/ecosystem-chat/request.example.json",
     "fixtures/ecosystem-chat/response.example.json",
     "fixtures/ecosystem-chat/sdk-form-payload.example.json",
-    "scripts/check_ecosystem_chat_boundary.py"
+    "scripts/check_ecosystem_chat_boundary.py",
+    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
+    "data/headless-task-registry-v1.json"
   ],
   "expected_outputs": [],
   "forbidden_paths": [
