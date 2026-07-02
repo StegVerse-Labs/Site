@@ -1,0 +1,33 @@
+{
+  "status_id": "site-upstream-gates",
+  "repository": "StegVerse-Labs/Site",
+  "status": "WAITING_ON_UPSTREAM_GATES",
+  "gates": [
+    {
+      "id": "repo-standards-release-tag",
+      "source": "StegVerse-Labs/repo-standards",
+      "required_state": "tag_or_release_recorded",
+      "current_state": "pending"
+    },
+    {
+      "id": "admissibility-wiki-validation-receipt",
+      "source": "StegVerse-Labs/admissibility-wiki",
+      "required_state": "validation_receipt_recorded",
+      "current_state": "pending"
+    },
+    {
+      "id": "site-navigation-structure",
+      "source": "StegVerse-Labs/Site",
+      "required_state": "navigation_structure_identified",
+      "current_state": "pending"
+    },
+    {
+      "id": "public-deployment-verification",
+      "source": "StegVerse-Labs/Site",
+      "required_state": "public_pages_verified",
+      "current_state": "pending"
+    }
+  ],
+  "automated_validation": ".github/workflows/site-mirror-readiness.yml",
+  "next_action": "WAIT_FOR_UPSTREAM_GATE_EVENTS"
+}
