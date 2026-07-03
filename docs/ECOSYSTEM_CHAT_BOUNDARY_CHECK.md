@@ -87,8 +87,18 @@ Restricted-admin routing state: installed
 Boundary verifier state: installed
 Declared task state: installed
 Registry state: installed
+Contract check state: installed and aligned with boundary task
 Backend gateway state: not installed
 Authority-issued receipt state: not installed
+```
+
+The verifier also checks that `docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md` keeps the checker-alignment chain:
+
+```text
+scripts/check_ecosystem_chat_contract.py -> confirms contract surfaces and boundary-task references
+scripts/check_ecosystem_chat_boundary.py -> confirms no-shell/no-credential/authority-required/receipt-required boundary
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json -> declares the boundary verifier
+data/headless-task-registry-v1.json -> keeps ecosystem-chat-boundary-check-v1 active
 ```
 
 The verifier also checks that the declared task and registry remain aligned:
@@ -131,6 +141,6 @@ The check is passing when the verifier emits JSON with:
 
 ## Failure meaning
 
-A failure means the public page, JavaScript behavior, documentation, activation status, README references, public links, declared task, registry, or fixtures no longer agree on the same execution boundary.
+A failure means the public page, JavaScript behavior, documentation, activation status, checker-alignment chain, README references, public links, declared task, registry, or fixtures no longer agree on the same execution boundary.
 
 A failed check should be treated as a public-surface drift event. The page should not be advertised as a governed advancement interface until the drift is corrected.
