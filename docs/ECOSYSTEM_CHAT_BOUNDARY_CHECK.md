@@ -73,6 +73,7 @@ The verifier also checks that `README.md` keeps references to:
 docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
 docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md
 scripts/check_ecosystem_chat_boundary.py
+scripts/check_ecosystem_chat_contract.py
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 data/headless-task-registry-v1.json
 python scripts/check_ecosystem_chat_boundary.py
@@ -108,7 +109,7 @@ data/headless-tasks/ecosystem-chat-boundary-check-v1.json
   task_id = ecosystem-chat-boundary-check-v1
   command = python scripts/check_ecosystem_chat_boundary.py
   authority_class = ordinary_analysis
-  expected_inputs include README, page, JavaScript, docs, activation status, fixtures, task file, and registry
+  expected_inputs include README, page, JavaScript, docs, activation status, fixtures, boundary checker, contract checker, task file, and registry
 
 data/headless-task-registry-v1.json
   contains exactly one ecosystem-chat-boundary-check-v1 entry
