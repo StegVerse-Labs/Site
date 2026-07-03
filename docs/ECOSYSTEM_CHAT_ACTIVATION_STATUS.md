@@ -20,12 +20,12 @@ The Site-side activation surface is complete for pre-backend handoff. Remaining 
 | Form gateway model | Installed: `docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md` |
 | Boundary check doc | Installed: `docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md` |
 | SDK backend handoff | Installed: `docs/ECOSYSTEM_CHAT_SDK_BACKEND_HANDOFF.md` |
-| README discovery | Installed: `README.md` references boundary doc, verifier, declared task, registry, and direct command |
+| README discovery | Installed: `README.md` references activation status, boundary doc, verifier, declared task, registry, and direct command |
 | SDK form payload fixture | Installed: `fixtures/ecosystem-chat/sdk-form-payload.example.json` |
 | SDK backend response fixture | Installed: `fixtures/ecosystem-chat/sdk-backend-response.example.json` |
 | Gateway fixtures | Installed: `fixtures/ecosystem-chat/request.example.json` and `fixtures/ecosystem-chat/response.example.json` |
-| Contract checker | Installed: `scripts/check_ecosystem_chat_contract.py` |
-| Boundary verifier | Installed: `scripts/check_ecosystem_chat_boundary.py` |
+| Contract checker | Installed and aligned: `scripts/check_ecosystem_chat_contract.py` checks the boundary task path and activation-status boundary state |
+| Boundary verifier | Installed and aligned: `scripts/check_ecosystem_chat_boundary.py` checks page, docs, README, activation status, fixtures, declared task, and registry |
 | Declared boundary task | Installed: `data/headless-tasks/ecosystem-chat-boundary-check-v1.json` |
 | Headless task registry | Installed: `data/headless-task-registry-v1.json` contains active `ecosystem-chat-boundary-check-v1` |
 | Workflow gate | Installed: `github/workflows/check-ecosystem-chat.yml` path shown without leading dot |
@@ -59,6 +59,22 @@ The console must not issue proof receipts, execute shell commands, accept creden
 
 The manifest window and receipt window are generated previews. They are not proof receipts.
 
+## Verification chain
+
+```text
+scripts/check_ecosystem_chat_contract.py
+  -> confirms the page, script, docs, fixtures, workflow/iOS surfaces, README, and boundary-task references preserve the contract.
+
+scripts/check_ecosystem_chat_boundary.py
+  -> confirms the no-shell/no-credential/authority-required/receipt-required boundary across page, docs, README, activation status, fixtures, declared task, and registry.
+
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json
+  -> declares the boundary verifier as ordinary_analysis with expected inputs including activation status.
+
+data/headless-task-registry-v1.json
+  -> keeps ecosystem-chat-boundary-check-v1 active.
+```
+
 ## Verification commands
 
 Contract check:
@@ -84,7 +100,6 @@ Expected output contains:
 ```json
 {
   "ok": true,
-  "declared_task": "ecosystem-chat-boundary-check-v1",
   "boundary": "no-shell/no-credential/authority-required/receipt-required"
 }
 ```
@@ -140,7 +155,7 @@ SDK backend handoff state: installed
 Fixture state: installed
 SDK form state: installed
 SDK backend response fixture state: installed
-Contract check state: installed
+Contract check state: installed and aligned with boundary task
 Boundary verifier state: installed
 Declared task state: installed
 Registry state: installed
