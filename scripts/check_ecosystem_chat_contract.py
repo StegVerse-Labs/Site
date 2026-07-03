@@ -187,6 +187,7 @@ CHECKS = {
         "[`fixtures/ecosystem-chat/sdk-backend-response.example.json`](fixtures/ecosystem-chat/sdk-backend-response.example.json)",
         f"[`{BOUNDARY_SCRIPT}`]({BOUNDARY_SCRIPT})",
         f"[`{BOUNDARY_TASK_PATH}`]({BOUNDARY_TASK_PATH})",
+        "python scripts/check_ecosystem_chat_contract.py",
         "python scripts/check_ecosystem_chat_boundary.py",
         "Ecosystem Chat     =  text-only user advancement surface, not proof authority or shell authority",
     ],
@@ -411,8 +412,10 @@ def check_boundary_task_fixture() -> list[str]:
     expected_inputs = task.get("expected_inputs")
     if not isinstance(expected_inputs, list):
         checks.append(f"{BOUNDARY_TASK_PATH}: expected_inputs must be a list")
-    elif "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md" not in expected_inputs:
-        checks.append(f"{BOUNDARY_TASK_PATH}: expected_inputs must include activation status")
+    else:
+        for required_input in ["docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", "scripts/check_ecosystem_chat_contract.py"]:
+            if required_input not in expected_inputs:
+                checks.append(f"{BOUNDARY_TASK_PATH}: expected_inputs must include {required_input}")
     return checks
 
 
