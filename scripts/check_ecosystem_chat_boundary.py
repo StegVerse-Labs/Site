@@ -35,6 +35,7 @@ REQUIRED_PAGE_LINKS = [
 ]
 
 REQUIRED_README_REFERENCES = [
+    "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     "scripts/check_ecosystem_chat_boundary.py",
     "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
