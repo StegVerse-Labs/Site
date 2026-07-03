@@ -38,6 +38,7 @@ REQUIRED_README_REFERENCES = [
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     "scripts/check_ecosystem_chat_boundary.py",
+    "scripts/check_ecosystem_chat_contract.py",
     "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
     "data/headless-task-registry-v1.json",
     "python scripts/check_ecosystem_chat_boundary.py",
@@ -55,6 +56,7 @@ REQUIRED_TASK_INPUTS = [
     "fixtures/ecosystem-chat/response.example.json",
     "fixtures/ecosystem-chat/sdk-form-payload.example.json",
     "scripts/check_ecosystem_chat_boundary.py",
+    "scripts/check_ecosystem_chat_contract.py",
     "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
     "data/headless-task-registry-v1.json",
 ]
