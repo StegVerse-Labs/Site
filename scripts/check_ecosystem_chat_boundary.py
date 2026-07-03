@@ -15,6 +15,7 @@ TEXT_FILES = [
     ROOT / "docs" / "ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
     ROOT / "docs" / "ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     ROOT / "docs" / "ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
+    ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
 ]
 
 REQUIRED_TEXT = [
@@ -48,12 +49,24 @@ REQUIRED_TASK_INPUTS = [
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
     "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
+    "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
     "fixtures/ecosystem-chat/request.example.json",
     "fixtures/ecosystem-chat/response.example.json",
     "fixtures/ecosystem-chat/sdk-form-payload.example.json",
     "scripts/check_ecosystem_chat_boundary.py",
     "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
     "data/headless-task-registry-v1.json",
+]
+
+REQUIRED_ACTIVATION_STATUS_TEXT = [
+    "No-shell boundary state: installed",
+    "No-credential boundary state: installed",
+    "Restricted-admin routing state: installed",
+    "Boundary verifier state: installed",
+    "Declared task state: installed",
+    "Registry state: installed",
+    "Backend gateway state: not installed",
+    "Authority-issued receipt state: not installed",
 ]
 
 JSON_FIXTURES = [
@@ -101,6 +114,10 @@ def verify_readme_references() -> None:
     missing = [ref for ref in REQUIRED_README_REFERENCES if ref not in readme]
     if missing:
         raise AssertionError(f"README.md missing references: {', '.join(missing)}")
+
+
+def verify_activation_status() -> None:
+    require_text(ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", REQUIRED_ACTIVATION_STATUS_TEXT)
 
 
 def verify_declared_task() -> None:
@@ -201,6 +218,7 @@ def main() -> int:
 
     verify_page_links()
     verify_readme_references()
+    verify_activation_status()
     verify_declared_task()
     verify_registry_entry()
 
