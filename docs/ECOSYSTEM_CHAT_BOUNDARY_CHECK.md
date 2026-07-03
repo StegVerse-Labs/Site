@@ -76,6 +76,7 @@ scripts/check_ecosystem_chat_boundary.py
 scripts/check_ecosystem_chat_contract.py
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 data/headless-task-registry-v1.json
+python scripts/check_ecosystem_chat_contract.py
 python scripts/check_ecosystem_chat_boundary.py
 ```
 
