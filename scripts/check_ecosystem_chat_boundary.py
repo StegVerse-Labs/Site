@@ -66,6 +66,11 @@ REQUIRED_ACTIVATION_STATUS_TEXT = [
     "Boundary verifier state: installed",
     "Declared task state: installed",
     "Registry state: installed",
+    "Contract check state: installed and aligned with boundary task",
+    "scripts/check_ecosystem_chat_contract.py\n  -> confirms",
+    "scripts/check_ecosystem_chat_boundary.py\n  -> confirms",
+    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json\n  -> declares",
+    "data/headless-task-registry-v1.json\n  -> keeps ecosystem-chat-boundary-check-v1 active.",
     "Backend gateway state: not installed",
     "Authority-issued receipt state: not installed",
 ]
