@@ -62,6 +62,12 @@ Site must never become the authority for receipts, transitions, accreditation, s
 | [`iosnoperiod/iosnoperiod.md`](iosnoperiod/iosnoperiod.md) | iOS no-leading-dot handling note for workflow paths |
 | [`iosnoperiod/workflow-map.json`](iosnoperiod/workflow-map.json) | Canonical-to-iOS workflow path manifest |
 
+Direct contract verification command:
+
+```bash
+python scripts/check_ecosystem_chat_contract.py
+```
+
 Direct boundary verification command:
 
 ```bash
