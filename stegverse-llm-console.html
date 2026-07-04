@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse governed LLM console with primary governed response and external LLM comparison panes.">
+  <title>StegVerse — LLM Console</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .llm-shell { display: grid; gap: 16px; }
+    .llm-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .llm-input { width: 100%; min-height: 130px; resize: vertical; border: 1px solid var(--border2); border-radius: var(--radius); background: #080d16; color: var(--text); font: 13px/1.55 var(--mono); padding: 12px; }
+    .llm-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    .llm-hint { color: var(--muted); font-size: 12px; }
+    .response-grid { display: grid; gap: 14px; }
+    .primary-response { border-left: 4px solid var(--green); }
+    .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .model-card { min-height: 180px; }
+    .model-card h3 { margin-top: 0; font-size: 15px; }
+    .model-output { white-space: pre-wrap; color: #c8d4e8; font-size: 13px; }
+    .receipt-line { margin-top: 12px; border-top: 1px solid #132215; padding-top: 10px; color: var(--green); font-family: var(--mono); font-size: 11px; overflow-wrap: anywhere; }
+    .comparison-note { border: 1px solid #3a2a12; border-radius: var(--radius); background: rgba(63, 44, 13, 0.28); color: #f0d9a0; padding: 12px 14px; font-size: 13px; }
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="ecosystem-chat.html">Ecosystem Chat</a>
+  <a href="stegverse-llm-console.html" class="active">LLM Console</a>
+  <a href="admissibility-wiki.html">Admissibility Wiki</a>
+</nav>
+
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">StegVerse LLM · governed response first · comparison panes below</div>
+    <h1>StegVerse LLM Console<br><em>one governed answer, external model comparisons.</em></h1>
+    <p>Enter a query or statement. The StegVerse response area represents the governed ecosystem answer candidate. External model panes are comparison outputs only unless later passed through the same governance path.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="#llm-input-panel">Open console</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Console target spec</a>
+      <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html">Existing advancement console</a>
+    </div>
+  </div>
+
+  <div class="sv-boundary">
+    <strong>Boundary:</strong> This prototype is local and fixture-first. It does not call live providers, execute actions, mutate memory, write repos, issue authority, or certify external LLMs. External model panes are comparison surfaces only.
+  </div>
+
+  <section class="llm-shell" id="llm-input-panel">
+    <div class="llm-panel">
+      <h2 class="sv-h2">Input</h2>
+      <textarea id="llmInput" class="llm-input" placeholder="Enter a question, statement, or governed input candidate...">What does a StegVerse governed LLM do differently from a normal chatbot?</textarea>
+      <div class="llm-actions">
+        <span class="llm-hint">Local prototype. The generated response is a scaffold, not a live LLM call.</span>
+        <button class="sv-btn sv-btn-primary" id="generateComparison" type="button">Generate local comparison</button>
+      </div>
+    </div>
+
+    <div class="response-grid">
+      <div class="llm-panel primary-response">
+        <h2 class="sv-h2">StegVerse LLM response</h2>
+        <div class="model-output" id="stegverseOutput">Awaiting input.</div>
+        <div class="receipt-line" id="stegverseReceipt">mode=local-prototype · governed_candidate=true · authority=not-issued · receipt=preview</div>
+      </div>
+
+      <div class="comparison-note">
+        External panes are shown for comparison. They are not StegVerse-authorized outputs, not proof receipts, and not execution authority.
+      </div>
+
+      <div class="comparison-grid">
+        <div class="llm-panel model-card">
+          <h3>ChatGPT comparison</h3>
+          <div class="model-output" id="chatgptOutput">Awaiting input.</div>
+          <div class="receipt-line">external_comparison=true · authority=false</div>
+        </div>
+        <div class="llm-panel model-card">
+          <h3>Claude comparison</h3>
+          <div class="model-output" id="claudeOutput">Awaiting input.</div>
+          <div class="receipt-line">external_comparison=true · authority=false</div>
+        </div>
+        <div class="llm-panel model-card">
+          <h3>Other LLM comparison</h3>
+          <div class="model-output" id="otherOutput">Awaiting input.</div>
+          <div class="receipt-line">external_comparison=true · authority=false</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="sv-h2">MVP completion definition</h2>
+  <div class="sv-prose">
+    <p>Done for this prototype means a user can enter one input, see a clearly labeled StegVerse governed answer candidate first, and view separate external LLM comparison panes below it without confusing those external outputs for governed authority.</p>
+    <p>The next activation step is replacing local scaffolds with governed backend adapters that preserve input hashing, admissibility checks, provider response capture, receipt metadata, and reconstruction evidence.</p>
+  </div>
+</div>
+
+<footer class="sv-footer">
+  <span>StegVerse · LLM Console · Governed response first</span>
+  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Console Target Spec</a></span>
+</footer>
+
+<script>
+  function escapeText(value) {
+    return String(value || '').replace(/[&<>]/g, function (ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[ch];
+    });
+  }
+
+  function generateLocalComparison() {
+    var input = document.getElementById('llmInput').value.trim();
+    var safeInput = escapeText(input || 'No input provided.');
+    document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as a governed transition candidate.\n\nInput observed: ' + safeInput + '\n\nLocal scaffold: preserve the claim, classify the request, identify required evidence, check authority, bound the output, and attach receipt/reconstruction metadata before consequence.';
+    document.getElementById('stegverseReceipt').textContent = 'mode=local-prototype · governed_candidate=true · input_length=' + input.length + ' · authority=not-issued · receipt=preview';
+    document.getElementById('chatgptOutput').innerHTML = 'Comparison placeholder: a general assistant-style answer would be displayed here after provider adapter activation.';
+    document.getElementById('claudeOutput').innerHTML = 'Comparison placeholder: a Claude-style answer would be displayed here after provider adapter activation.';
+    document.getElementById('otherOutput').innerHTML = 'Comparison placeholder: another provider answer would be displayed here after provider adapter activation.';
+  }
+
+  document.getElementById('generateComparison').addEventListener('click', generateLocalComparison);
+  generateLocalComparison();
+</script>
+</body>
+</html>
