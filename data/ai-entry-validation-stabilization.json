@@ -1,0 +1,46 @@
+{
+  "schema_version": "stegverse.ai_entry.validation_stabilization.v0.1",
+  "goal": "Eliminate manual CI failure triage for AI Entry preview build",
+  "failure_classes_repaired": [
+    {
+      "repo": "StegVerse-Labs/Site",
+      "failure_class": "route_precedence",
+      "symptom": "generic route swallowed sdk/runtime route",
+      "automated_checks": [
+        "scripts/check_ecosystem_chat_backend.py",
+        "scripts/check_ecosystem_chat_ui_route_priority.py",
+        "fixtures/ecosystem-chat/route-precedence-cases.json"
+      ]
+    },
+    {
+      "repo": "StegVerse-org/LLM-adapter",
+      "failure_class": "optional_dependency_import",
+      "symptom": "package import required optional HTTP dependency during preview validation",
+      "automated_checks": [
+        "scripts/check_lightweight_package_init.py",
+        "scripts/verify_goal4.py"
+      ]
+    },
+    {
+      "repo": "StegVerse-org/StegVerse-SDK",
+      "failure_class": "pytest_helper_compatibility",
+      "symptom": "test depended on pytest.raises compatibility surface",
+      "automated_checks": [
+        "scripts/check_pytest_compatibility_surface.py",
+        "scripts/verify_goal4.py"
+      ]
+    }
+  ],
+  "manual_tasks_eliminated": [
+    "manual route precedence inspection",
+    "manual optional dependency import diagnosis",
+    "manual pytest compatibility diagnosis"
+  ],
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false
+  },
+  "remaining_external_confirmation": "green GitHub Actions run confirmation"
+}
