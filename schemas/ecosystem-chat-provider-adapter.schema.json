@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/ecosystem-chat-provider-adapter.schema.json",
+  "title": "Ecosystem Chat Provider Adapter Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider",
+    "enabled",
+    "authority",
+    "live_call_allowed",
+    "comparison_only",
+    "output_label"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "stegverse.ecosystem_chat.provider_adapter.v0.1"
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "enabled": {
+      "type": "boolean",
+      "const": false
+    },
+    "authority": {
+      "type": "boolean",
+      "const": false
+    },
+    "live_call_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "comparison_only": {
+      "type": "boolean",
+      "const": true
+    },
+    "output_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "activation_requirements": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
