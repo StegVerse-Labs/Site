@@ -31,6 +31,7 @@ data/ai-entry-application-completion.json
 data/ai-entry-backend-activation-boundary.json
 data/ai-entry-activation-routes.json
 data/ai-entry-backend-activation-progress.json
+data/ai-entry-ci-visibility.json
 schemas/ecosystem-chat-backend-response.schema.json
 schemas/ecosystem-chat-provider-adapter.schema.json
 schemas/ecosystem-chat-sdk-access.schema.json
@@ -77,6 +78,7 @@ scripts/check_ai_entry_activation_routes.py
 scripts/check_ai_entry_backend_activation_fixtures.py
 scripts/check_ai_entry_ui_activation_routes.py
 scripts/check_ai_entry_backend_activation_progress.py
+scripts/check_ai_entry_ci_visibility.py
 scripts/check_ecosystem_chat_ai_entry.py
 scripts/check_ecosystem_chat_ai_entry_full.py
 scripts/check_ecosystem_chat_application.py
@@ -126,13 +128,13 @@ activation_route_model=true
 backend_activation_request_fixture=true
 backend_activation_response_fixture=true
 ui_activation_guidance_routes=true
+ci_visibility_state_recorded=true
 ```
 
 Remaining governed-live components:
 
 ```text
-handoff_sync=true
-final_green_run_confirmation=true
+true_green_run_confirmation=true
 governed_live_authority_service=true
 receipt_issuer_boundary=true
 provider_capture_boundary=true
@@ -151,6 +153,20 @@ receipt_issue=false
 execution_authority_issue=false
 repo_mutation=false
 ```
+
+## CI visibility status
+
+Connector checks for recent Site commits returned no visible combined statuses and no visible workflow runs. This is recorded as:
+
+```text
+ci_visibility_state=not_visible_through_connector
+green_run_confirmed=false
+manual_screenshot_required=false
+treat_ci_as_green=false
+local_validator_command=python scripts/check_ecosystem_chat_application.py
+```
+
+Green is not claimed until connector-visible or workflow-visible data confirms it.
 
 ## Upstream adapter boundary
 
@@ -200,6 +216,7 @@ AI_ENTRY_ACTIVATION_ROUTES_PASS
 AI_ENTRY_BACKEND_ACTIVATION_FIXTURES_PASS
 AI_ENTRY_UI_ACTIVATION_ROUTES_PASS
 AI_ENTRY_BACKEND_ACTIVATION_PROGRESS_PASS
+AI_ENTRY_CI_VISIBILITY_PASS
 ECOSYSTEM_CHAT_APPLICATION_PASS
 ```
 
@@ -235,6 +252,8 @@ activation_status_surface_present == true
 activation_status_fail_closed == true
 activation_routes_present == true
 activation_request_response_fixtures_present == true
+ci_visibility_state_recorded == true
+green_run_confirmed == false until visible data confirms green
 deterministic_backend_scaffold_present == true
 api_wrapper_present == true
 provider_calls_enabled == false
@@ -261,8 +280,8 @@ Operator recoverability boundary -> StegVerse-Labs/Site / StegVerse-org/LLM-adap
 
 ## Boundary
 
-The current build is cohesive, preview-only, and live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance.
+The current build is cohesive, preview-only, and live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance. CI green is also not claimed while connector-visible run data is absent.
 
 ## Archive posture
 
-This handoff preserves the cohesive AI Entry application and governed backend activation preview path so the Complete thread can be archived without additional context. The activation preview path is complete pending workflow-run confirmation or future governed-live authority work.
+This handoff preserves the cohesive AI Entry application, governed backend activation preview path, and CI visibility state so the Complete thread can be archived without additional context. The activation preview path is complete pending true green-run confirmation or future governed-live authority work.
