@@ -1,0 +1,32 @@
+{
+  "schema_version": "stegverse.ai_entry.ci_visibility.v0.1",
+  "goal": "No manual screenshot-based CI confirmation",
+  "checked_commits": [
+    {
+      "commit_sha": "04ede17d3b9e0695d0d28c3a9365f24b6b59209e",
+      "combined_status_visible": false,
+      "workflow_runs_visible": false
+    },
+    {
+      "commit_sha": "dbdbc51fb4a45e25f11737c1ee7e9343f28c3c5f",
+      "combined_status_visible": false,
+      "workflow_runs_visible": false
+    },
+    {
+      "commit_sha": "1f76b4f7fa482356f992e654a8da4470fd328859",
+      "combined_status_visible": false,
+      "workflow_runs_visible": false
+    }
+  ],
+  "ci_visibility_state": "not_visible_through_connector",
+  "green_run_confirmed": false,
+  "manual_screenshot_required": false,
+  "local_validator_command": "python scripts/check_ecosystem_chat_application.py",
+  "current_boundary": {
+    "treat_ci_as_green": false,
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "execution_authority_issued": false,
+    "activation_request_executes": false
+  }
+}
