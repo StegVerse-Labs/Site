@@ -1,0 +1,29 @@
+{
+  "schema_version": "stegverse.ai_entry.activation_proposal.v0.1",
+  "goal": "green-data-dependent activation proposal",
+  "state": "proposal_only_waiting_for_green_data",
+  "proposal_inputs": {
+    "runtime_design_complete": true,
+    "runtime_design_not_ready": true,
+    "visible_green_data": false,
+    "tag_gate_ready": false
+  },
+  "proposal_steps": [
+    "recheck visible green data",
+    "update tag gate only after green data exists",
+    "promote runtime readiness flags only after tag gate is ready",
+    "generate a new proposal packet before any implementation change"
+  ],
+  "current_readiness": {
+    "provider_ready": false,
+    "sdk_ready": false,
+    "credential_ready": false,
+    "authority_ready": false,
+    "receipt_ready": false,
+    "activation_ready": false,
+    "execution_ready": false,
+    "repo_write_ready": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "proposal completion index"
+}
