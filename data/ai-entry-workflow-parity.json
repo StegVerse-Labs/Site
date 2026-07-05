@@ -1,0 +1,35 @@
+{
+  "schema_version": "stegverse.ai_entry.workflow_parity.v0.1",
+  "goal": "No manual workflow parity checks across AI Entry repos",
+  "repos": {
+    "StegVerse-Labs/Site": {
+      "canonical": ".github/workflows/validate.yml",
+      "mirror": "iosnoperiod/github/workflows/validate.yml",
+      "command": "python scripts/check_ecosystem_chat_ai_entry_full.py",
+      "parity_expected": true
+    },
+    "StegVerse-org/LLM-adapter": {
+      "canonical": ".github/workflows/validate.yml",
+      "mirror": "iosnoperiod/github/workflows/validate.yml",
+      "command": "python scripts/verify_goal4.py",
+      "parity_expected": true
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "canonical": ".github/workflows/validate.yml",
+      "mirror": "iosnoperiod/github/workflows/validate.yml",
+      "command": "python scripts/verify_goal4.py",
+      "parity_expected": true
+    }
+  },
+  "manual_tasks_eliminated": [
+    "manual canonical workflow command comparison",
+    "manual iOS mirror command comparison",
+    "manual repo validation command inventory"
+  ],
+  "current_boundary": {
+    "workflow_count_exceeds_two": false,
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "execution_authority_issued": false
+  }
+}
