@@ -1,0 +1,26 @@
+{
+  "schema_version": "stegverse.ai_entry.governed_live_activation_request.v0.1",
+  "request_id": "activation-preview-0001",
+  "requested_by": "stegverse-ai-entry-preview",
+  "requested_activation": "provider_adapter_calls",
+  "scope": {
+    "repo": "StegVerse-Labs/Site",
+    "surface": "Ecosystem Chat & LLM",
+    "live_calls_requested": false
+  },
+  "preconditions": [
+    {"name": "provider_adapter_authority_gate", "satisfied": false},
+    {"name": "receipt_capture_path", "satisfied": false},
+    {"name": "execution_authority_boundary", "satisfied": false}
+  ],
+  "authority_boundary": {
+    "authority_issued": false,
+    "execution_allowed": false,
+    "credential_access_allowed": false
+  },
+  "fail_closed_boundary": {
+    "default_decision": "DENY",
+    "recovery_required": true,
+    "manual_override_allowed": false
+  }
+}
