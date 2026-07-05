@@ -1,0 +1,26 @@
+{
+  "schema_version": "stegverse.ai_entry.green_run_visibility_consolidation.v0.1",
+  "goal": "green run visibility consolidation",
+  "state": "not_visible_through_connector",
+  "checked_repositories": {
+    "StegVerse-Labs/Site": {
+      "commit_sha": "d776d9448ffa6e247dcd75d9fa6b53db1d5e1413",
+      "workflow_runs_visible": false,
+      "validation_command": "python scripts/check_ecosystem_chat_application.py"
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "commit_sha": "6e46eeb7bf40043fdb5e2962a501f816c265459e",
+      "workflow_runs_visible": false,
+      "validation_command": "python scripts/verify_goal4.py"
+    },
+    "StegVerse-org/LLM-adapter": {
+      "commit_sha": "f9139d7f78893265c475493c4f48806287b97c9d",
+      "workflow_runs_visible": false,
+      "validation_command": "python scripts/verify_goal4_full.py"
+    }
+  },
+  "green_run_confirmed": false,
+  "manual_screenshot_required": false,
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "release-readiness lockfile"
+}
