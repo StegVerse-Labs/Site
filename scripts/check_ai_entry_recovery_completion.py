@@ -13,6 +13,9 @@ COMPLETED = (
     "adapter_recovery_boundary_mirror",
     "adapter_recovery_boundary_verifier",
     "adapter_validation_wired",
+    "site_recovery_fixtures",
+    "site_recovery_fixture_verifier",
+    "site_completion_validator_wired",
 )
 FALSE_KEYS = (
     "recovery_confirmed",
@@ -31,16 +34,20 @@ def main() -> int:
     data = json.loads(INDEX.read_text(encoding="utf-8"))
     if data.get("schema_version") != "stegverse.site.ai_entry.recovery_completion.v0.1":
         fail("bad schema version")
-    if data.get("state") != "preview_partial_live_disabled":
+    if data.get("state") != "preview_complete_live_disabled":
         fail("state mismatch")
     completed = data.get("completed_components", {})
     for key in COMPLETED:
         if completed.get(key) is not True:
             fail(f"{key} must be true")
+    if data.get("remaining_components") != {}:
+        fail("remaining components must be empty")
     boundary = data.get("current_boundary", {})
     for key in FALSE_KEYS:
         if boundary.get(key) is not False:
             fail(f"{key} must be false")
+    if data.get("next_goal_candidate") != "cross-repo activation handoff consolidation":
+        fail("next goal candidate mismatch")
     print("AI_ENTRY_RECOVERY_COMPLETION_PASS")
     return 0
 
