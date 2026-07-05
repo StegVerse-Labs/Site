@@ -11,7 +11,7 @@
     "StegVerse-org/LLM-adapter": {
       "canonical": ".github/workflows/validate.yml",
       "mirror": "iosnoperiod/github/workflows/validate.yml",
-      "command": "python scripts/verify_goal4.py",
+      "command": "python scripts/verify_goal4_full.py",
       "parity_expected": true
     },
     "StegVerse-org/StegVerse-SDK": {
