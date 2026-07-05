@@ -1,0 +1,25 @@
+{
+  "schema_version": "stegverse.ai_entry.visible_green_monitor_goal.v0.1",
+  "goal": "monitor visible green data or open new activation design goal",
+  "state": "monitor_goal_defined",
+  "source_files": [
+    "data/ai-entry-no-manual-closure.json",
+    "data/ai-entry-proposal-completion.json",
+    "data/ai-entry-visibility-recheck-index.json",
+    "data/ai-entry-green-run-visibility-consolidation.json"
+  ],
+  "monitor_targets": {
+    "StegVerse-Labs/Site": "python scripts/check_ecosystem_chat_application.py",
+    "StegVerse-org/LLM-adapter": "python scripts/verify_goal4_full.py",
+    "StegVerse-org/StegVerse-SDK": "python scripts/verify_goal4.py"
+  },
+  "current_state": {
+    "visible_green_data": false,
+    "ready_for_tag": false,
+    "ready_for_live_activation": false,
+    "manual_tasks_remaining": 0
+  },
+  "next_allowed_goal_when_green_visible": "tag readiness promotion packet",
+  "next_allowed_goal_without_green": "design-only activation refinement",
+  "manual_tasks_remaining": []
+}
