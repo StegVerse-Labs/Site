@@ -1,0 +1,32 @@
+{
+  "schema_version": "stegverse.ecosystem_chat.ai_entry_readiness.v0.1",
+  "surface": "StegVerse AI Entry Point",
+  "status": "local_ready_live_disabled",
+  "canonical_validation_command": "python scripts/check_ecosystem_chat_ai_entry.py",
+  "installed_boundaries": {
+    "route_manifest": true,
+    "deterministic_backend_scaffold": true,
+    "browser_adapter": true,
+    "api_wrapper": true,
+    "provider_adapter_manifest": true,
+    "sdk_access_boundary": true,
+    "receipt_preview": true
+  },
+  "disabled_until_governed_activation": {
+    "live_provider_calls": true,
+    "live_sdk_calls": true,
+    "credential_surface": true,
+    "execution_authority": true,
+    "real_receipt_issuance": true,
+    "reconstruction_claims": true,
+    "repo_mutation": true
+  },
+  "next_activation_requirements": [
+    "run aggregate validator in CI or local verification surface",
+    "connect page to live-compatible API wrapper endpoint",
+    "install governed secret boundary before provider calls",
+    "install SDK receipt capture before SDK calls",
+    "keep external provider outputs comparison-only unless governed",
+    "issue real receipts only after governed receipt service activation"
+  ]
+}
