@@ -1,0 +1,36 @@
+{
+  "schema_version": "stegverse.ai_entry.backend_activation_boundary.v0.1",
+  "goal": "Governed backend adapter activation path",
+  "state": "boundary_defined_live_disabled",
+  "activation_boundary": {
+    "entry_surface": "stegverse-llm-console.html",
+    "browser_adapter": "assets/ecosystem-ai-entry-adapter.js",
+    "backend_scaffold": "api/ecosystem_chat_backend.py",
+    "api_wrapper": "api/ecosystem_chat_api_wrapper.py",
+    "activation_request_schema": "schemas/ai-entry-governed-live-activation-request.schema.json"
+  },
+  "required_before_live": [
+    "authority decision service boundary",
+    "receipt issuer boundary",
+    "provider adapter capture boundary",
+    "SDK access decision boundary",
+    "operator recoverability boundary",
+    "fail-closed execution boundary"
+  ],
+  "non_executing_contract": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "credential_surface_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "repo_mutation_from_chat_enabled": false,
+    "activation_request_executes": false
+  },
+  "next_build_targets": [
+    "activation route model",
+    "backend adapter request fixture",
+    "backend adapter response fixture",
+    "activation boundary verifier",
+    "UI route to activation guidance"
+  ]
+}
