@@ -1,0 +1,44 @@
+{
+  "schema_version": "stegverse.ai_entry.authority_service_boundary.v0.1",
+  "goal": "Governed live authority service boundary",
+  "state": "boundary_defined_non_executing",
+  "authority_service": {
+    "name": "ai-entry-authority-service-preview",
+    "purpose": "Define the authority decision boundary required before governed-live backend activation.",
+    "surface": "Ecosystem Chat & LLM",
+    "decision_mode": "preview_only",
+    "default_decision": "DENY"
+  },
+  "required_inputs": [
+    "activation_request",
+    "actor_identity_context",
+    "target_surface_context",
+    "provider_capture_boundary",
+    "receipt_issuer_boundary",
+    "sdk_access_decision_boundary",
+    "operator_recoverability_boundary"
+  ],
+  "required_outputs": [
+    "authority_decision",
+    "decision_reason",
+    "missing_preconditions",
+    "execution_allowed",
+    "credential_access_allowed",
+    "live_calls_allowed"
+  ],
+  "non_executing_contract": {
+    "authority_issued": false,
+    "execution_allowed": false,
+    "credential_access_allowed": false,
+    "live_provider_calls_allowed": false,
+    "live_sdk_calls_allowed": false,
+    "activation_request_executes": false,
+    "repo_mutation_allowed": false
+  },
+  "next_build_targets": [
+    "authority decision request fixture",
+    "authority decision response fixture",
+    "authority service preview verifier",
+    "adapter-side authority boundary mirror"
+  ]
+}
