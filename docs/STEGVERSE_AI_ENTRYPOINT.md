@@ -11,12 +11,32 @@ Users should not need to understand which repo, SDK, runtime, adapter, or govern
 ```text
 User input
 -> StegVerse AI entry point
--> route classification
+-> backend route classification
 -> governed LLM response when appropriate
 -> ecosystem task guidance when appropriate
 -> SDK access guidance when appropriate
 -> comparison panes when requested or useful
 -> receipt / reconstruction metadata when available
+```
+
+## Backend route model
+
+The existing Ecosystem Chat sections should become route-specific backend handlers rather than separate user burdens.
+
+Reference: `docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md`
+
+Core route families:
+
+```text
+chat_answer
+llm_comparison
+ecosystem_explanation
+sdk_access_guidance
+sdk_intake_candidate
+governance_review
+runtime_status
+documentation_route
+restricted_admin
 ```
 
 ## Primary functions
@@ -51,6 +71,6 @@ The entry point is not a raw terminal, not a credential surface, not a direct re
 
 ## Relationship to current pages
 
-`ecosystem-chat.html` is the current advancement console. `stegverse-llm-console.html` is the current static LLM comparison prototype.
+`ecosystem-chat.html` is the current advancement console. `stegverse-llm-console.html` is the current static AI entry prototype.
 
 The next product step is to rename/reframe the user-facing entry as `Ecosystem Chat & LLM` and make the first visible interface one StegVerse AI input window with route-aware outputs underneath.
