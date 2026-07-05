@@ -17,6 +17,17 @@ ROUTE_MANIFEST = ROOT / "data" / "ecosystem-chat-routes.json"
 
 PROVIDERS = ("ChatGPT", "Claude", "Other LLM")
 GENERIC_ROUTE_ID = "chat_answer"
+ROUTE_PRIORITY = {
+    "restricted_admin": 100,
+    "sdk_intake_candidate": 90,
+    "sdk_access_guidance": 80,
+    "runtime_status": 70,
+    "llm_comparison": 60,
+    "governance_review": 50,
+    "documentation_route": 40,
+    "ecosystem_explanation": 30,
+    "chat_answer": 10,
+}
 
 
 def stable_response_id(message: str, route_id: str) -> str:
@@ -28,16 +39,21 @@ def read_manifest() -> dict[str, Any]:
     return json.loads(ROUTE_MANIFEST.read_text(encoding="utf-8"))
 
 
+def route_match_score(route: dict[str, Any], lower_message: str) -> tuple[int, int]:
+    matches = sum(1 for keyword in route.get("keywords", []) if keyword.lower() in lower_message)
+    if matches == 0:
+        return (0, 0)
+    return (matches, ROUTE_PRIORITY.get(str(route.get("id")), 0))
+
+
 def classify_route(message: str, manifest: dict[str, Any] | None = None) -> dict[str, Any]:
     manifest = manifest or read_manifest()
     lower = message.lower()
     routes = list(manifest.get("routes", []))
-    specific_routes = [route for route in routes if route.get("id") != GENERIC_ROUTE_ID]
-    generic_routes = [route for route in routes if route.get("id") == GENERIC_ROUTE_ID]
-    for route in specific_routes + generic_routes:
-        for keyword in route.get("keywords", []):
-            if keyword.lower() in lower:
-                return route
+    scored = [(route_match_score(route, lower), route) for route in routes]
+    scored = [(score, route) for score, route in scored if score[0] > 0]
+    if scored:
+        return max(scored, key=lambda item: item[0])[1]
     default_route = manifest.get("default_route", GENERIC_ROUTE_ID)
     for route in routes:
         if route.get("id") == default_route:
