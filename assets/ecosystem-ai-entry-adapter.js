@@ -18,7 +18,10 @@
   };
   var ROUTE_PRIORITY = {
     restricted_admin: 100,
+    activation_request_preview: 95,
     sdk_intake_candidate: 90,
+    activation_boundary_review: 85,
+    activation_guidance: 82,
     sdk_access_guidance: 80,
     runtime_status: 70,
     llm_comparison: 60,
@@ -29,6 +32,9 @@
   };
   var ROUTES = [
     { id: 'restricted_admin', label: 'Restricted administration', authority_required: true, execution_allowed: false, purpose: 'Reject or require separate authority for restricted administrative actions.', words: ['secret', 'token', 'credential', 'shell', 'delete', 'release', 'permission', 'workflow', 'repo write'] },
+    { id: 'activation_request_preview', label: 'Activation request preview', authority_required: true, execution_allowed: false, purpose: 'Prepare a non-executing governed-live backend activation request preview. This does not enable providers, SDK calls, credentials, receipts, authority, or repo mutation.', words: ['request activation', 'activation request', 'enable backend', 'enable provider', 'go live'] },
+    { id: 'activation_boundary_review', label: 'Activation boundary review', authority_required: false, execution_allowed: false, purpose: 'Review authority, receipt issuer, provider capture, SDK access, recoverability, and fail-closed execution boundaries before any activation.', words: ['activation boundary', 'receipt issuer', 'authority service', 'recoverability', 'fail closed'] },
+    { id: 'activation_guidance', label: 'Activation guidance', authority_required: false, execution_allowed: false, purpose: 'Explain what must exist before governed-live activation can proceed while keeping the current UI local-ready and live-disabled.', words: ['activate', 'activation', 'live', 'provider', 'backend', 'adapter'] },
     { id: 'llm_comparison', label: 'LLM comparison', authority_required: false, execution_allowed: false, purpose: 'Show StegVerse response first and external LLM comparison panes below.', words: ['compare', 'comparison', 'chatgpt', 'claude', 'gemini', 'grok', 'other llm'] },
     { id: 'sdk_access_guidance', label: 'SDK access guidance', authority_required: false, execution_allowed: false, purpose: 'Explain SDK access, onboarding, manifests, receipts, permissions, and next steps.', words: ['sdk', 'api', 'access', 'onboard', 'permission', 'manifest', 'receipt'] },
     { id: 'sdk_intake_candidate', label: 'SDK intake candidate', authority_required: true, execution_allowed: false, purpose: 'Prepare an SDK intake candidate or manifest preview without execution authority.', words: ['submit', 'intake', 'candidate', 'packet', 'request access', 'integration'] },
