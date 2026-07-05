@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/ecosystem-chat-backend-response.schema.json",
+  "title": "Ecosystem Chat Backend Response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "response_id",
+    "primary_route",
+    "stegverse_response",
+    "route_guidance",
+    "sdk_guidance",
+    "comparison_outputs",
+    "governance"
+  ],
+  "properties": {
+    "response_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "primary_route": {
+      "type": "string",
+      "enum": [
+        "chat_answer",
+        "llm_comparison",
+        "ecosystem_explanation",
+        "sdk_access_guidance",
+        "sdk_intake_candidate",
+        "governance_review",
+        "runtime_status",
+        "documentation_route",
+        "restricted_admin"
+      ]
+    },
+    "stegverse_response": {
+      "type": "string"
+    },
+    "route_guidance": {
+      "type": "string"
+    },
+    "sdk_guidance": {
+      "type": "string"
+    },
+    "comparison_outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider", "authority", "response"],
+        "properties": {
+          "provider": {
+            "type": "string"
+          },
+          "authority": {
+            "type": "boolean",
+            "const": false
+          },
+          "response": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "governed_candidate",
+        "authority_issued",
+        "receipt_id",
+        "reconstruction_available"
+      ],
+      "properties": {
+        "governed_candidate": {
+          "type": "boolean"
+        },
+        "authority_issued": {
+          "type": "boolean",
+          "const": false
+        },
+        "receipt_id": {
+          "type": ["string", "null"]
+        },
+        "reconstruction_available": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
