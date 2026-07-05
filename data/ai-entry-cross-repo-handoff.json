@@ -1,0 +1,43 @@
+{
+  "schema_version": "stegverse.ai_entry.cross_repo_handoff.v0.1",
+  "goal": "cross repo handoff consolidation",
+  "state": "preview_consolidated",
+  "repos": {
+    "StegVerse-Labs/Site": {
+      "command": "python scripts/check_ecosystem_chat_application.py",
+      "ready_items": [
+        "backend activation preview",
+        "authority preview",
+        "recovery preview"
+      ]
+    },
+    "StegVerse-org/LLM-adapter": {
+      "command": "python scripts/verify_goal4_full.py",
+      "ready_items": [
+        "authority mirror",
+        "receipt mirror",
+        "provider capture preview",
+        "recovery mirror"
+      ]
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "command": "python scripts/verify_goal4.py",
+      "ready_items": [
+        "receipt preview",
+        "SDK access preview"
+      ]
+    }
+  },
+  "boundary": {
+    "provider_live": false,
+    "sdk_live": false,
+    "secret_surface": false,
+    "authority_live": false,
+    "receipt_live": false,
+    "chat_repo_write": false,
+    "activation_live": false,
+    "execution_live": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "green run visibility consolidation"
+}
