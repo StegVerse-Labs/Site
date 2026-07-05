@@ -1,0 +1,49 @@
+{
+  "schema_version": "stegverse.ai_entry.activation_routes.v0.1",
+  "goal": "Governed backend adapter activation path",
+  "routes": [
+    {
+      "id": "activation_guidance",
+      "label": "Activation guidance",
+      "purpose": "Explain what must exist before governed-live activation can proceed.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "live_calls_allowed": false,
+      "keywords": ["activate", "activation", "live", "provider", "backend", "adapter"]
+    },
+    {
+      "id": "activation_request_preview",
+      "label": "Activation request preview",
+      "purpose": "Prepare a non-executing activation request preview using the governed-live activation request schema.",
+      "authority_required": true,
+      "execution_allowed": false,
+      "live_calls_allowed": false,
+      "keywords": ["request activation", "activation request", "enable backend", "enable provider", "go live"]
+    },
+    {
+      "id": "activation_boundary_review",
+      "label": "Activation boundary review",
+      "purpose": "Review authority, receipt, provider capture, SDK access, recoverability, and fail-closed execution boundaries.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "live_calls_allowed": false,
+      "keywords": ["boundary", "receipt issuer", "authority service", "recoverability", "fail closed"]
+    }
+  ],
+  "forbidden_during_preview": [
+    "provider_call",
+    "sdk_call",
+    "credential_lookup",
+    "receipt_issue",
+    "execution_authority_issue",
+    "repo_mutation"
+  ],
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "credential_surface_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "repo_mutation_from_chat_enabled": false
+  }
+}
