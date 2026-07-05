@@ -1,0 +1,23 @@
+{
+  "schema_version": "stegverse.ai_entry.design_only_refinement.v0.1",
+  "goal": "design-only activation refinement",
+  "state": "design_only_green_absent",
+  "source_files": [
+    "data/ai-entry-visible-green-monitor-goal.json",
+    "data/ai-entry-no-manual-closure.json",
+    "data/ai-entry-proposal-completion.json"
+  ],
+  "refinement_scope": {
+    "document_missing_green_data": true,
+    "preserve_tag_block": true,
+    "preserve_runtime_not_ready": true,
+    "preserve_manual_task_zero": true
+  },
+  "readiness_flags": {
+    "visible_green_data": false,
+    "ready_for_tag": false,
+    "ready_for_live_activation": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "design-only refinement completion"
+}
