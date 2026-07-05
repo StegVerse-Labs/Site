@@ -14,6 +14,7 @@ Target path: governed-ecosystem.html and docs status surfaces
 Activation state: display_only_installed
 Live URL state: live_url_checker_and_pending_state_wired
 Homepage state: governed_ecosystem_homepage_link_wired
+Micro-node return-path state: display_only_installed_on_branch
 ```
 
 ## Built Files
@@ -36,6 +37,13 @@ docs/SITE_MIRROR_HANDOFF.md
 
 Note: `github/workflows/...` paths are displayed without the leading dot. Actual repository paths include the leading dot.
 
+## Current branch addition
+
+```text
+Branch: sync/micro-node-site
+governed-ecosystem.html now includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
+```
+
 ## Checkers
 
 ```text
@@ -50,6 +58,7 @@ python scripts/check_site_public_paths.py
 
 ```text
 StegVerse-Labs/Site:
+  - update checker coverage for the new Portable Governed Return Path section
   - run public mirror status guard
   - run governed ecosystem live URL workflow
   - update public verification JSON only after live URL passes
