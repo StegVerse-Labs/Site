@@ -11,6 +11,13 @@ REQUIRED_PAGE_TEXT = [
     "Governed Ecosystem Index",
     "Ecosystem Capability Status",
     "Capability Lifecycle",
+    "Portable Governed Return Path",
+    "external UI or model system",
+    "LLM-adapter fixture",
+    "micro-node-compatible transition request",
+    "governed return payload",
+    "original customer path",
+    "fixture-bound and records contract compatibility only",
 ]
 
 REQUIRED_STATUS_TEXT = [
