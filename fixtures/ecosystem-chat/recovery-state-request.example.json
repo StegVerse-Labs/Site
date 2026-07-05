@@ -1,0 +1,18 @@
+{
+  "schema_version": "stegverse.site.ai_entry.recovery_state_request.v0.1",
+  "request_id": "recovery-state-preview-0001",
+  "activation_request_id": "backend-activation-preview-0001",
+  "mode": "preview_only",
+  "state_checks": {
+    "intent_recoverable": false,
+    "degraded_state_handled": false,
+    "rollback_path_declared": false,
+    "pause_path_declared": false,
+    "fail_closed_reachable": true
+  },
+  "requested_result": {
+    "confirm_recovery": false,
+    "allow_activation": false,
+    "allow_execution": false
+  }
+}
