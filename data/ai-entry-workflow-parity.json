@@ -5,7 +5,7 @@
     "StegVerse-Labs/Site": {
       "canonical": ".github/workflows/validate.yml",
       "mirror": "iosnoperiod/github/workflows/validate.yml",
-      "command": "python scripts/check_ecosystem_chat_ai_entry_full.py",
+      "command": "python scripts/check_ecosystem_chat_application.py",
       "parity_expected": true
     },
     "StegVerse-org/LLM-adapter": {
