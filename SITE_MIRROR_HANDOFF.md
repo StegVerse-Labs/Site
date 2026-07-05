@@ -6,11 +6,11 @@ This file is the active handoff for `StegVerse-Labs/Site` until superseded.
 
 ## Active goal
 
-Goal: Governed Backend Adapter Activation Path, preview-only/live-disabled, extending the completed cohesive StegVerse AI Entry Application.
+Goal: Governed Live Authority Service Boundary, preview-only/live-disabled, extending the completed cohesive StegVerse AI Entry Application and governed backend activation preview path.
 
-The Site presents one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, restricted-admin paths, governed-live activation status, and backend activation guidance without forcing the user to choose repo-specific pages first.
+The Site presents one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, restricted-admin paths, governed-live activation status, backend activation guidance, and authority decision previews without forcing the user to choose repo-specific pages first.
 
-## Installed AI entry application and activation-path artifacts
+## Installed AI entry application, activation-path, and authority-boundary artifacts
 
 ```text
 stegverse-llm-console.html
@@ -32,6 +32,7 @@ data/ai-entry-backend-activation-boundary.json
 data/ai-entry-activation-routes.json
 data/ai-entry-backend-activation-progress.json
 data/ai-entry-ci-visibility.json
+data/ai-entry-authority-service-boundary.json
 schemas/ecosystem-chat-backend-response.schema.json
 schemas/ecosystem-chat-provider-adapter.schema.json
 schemas/ecosystem-chat-sdk-access.schema.json
@@ -45,6 +46,8 @@ fixtures/ecosystem-chat/route-precedence-cases.json
 fixtures/ecosystem-chat/governed-live-activation-request.example.json
 fixtures/ecosystem-chat/backend-activation-request.example.json
 fixtures/ecosystem-chat/backend-activation-response.example.json
+fixtures/ecosystem-chat/authority-decision-request.example.json
+fixtures/ecosystem-chat/authority-decision-response.example.json
 docs/STEGVERSE_AI_ENTRYPOINT.md
 docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md
 docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md
@@ -79,6 +82,8 @@ scripts/check_ai_entry_backend_activation_fixtures.py
 scripts/check_ai_entry_ui_activation_routes.py
 scripts/check_ai_entry_backend_activation_progress.py
 scripts/check_ai_entry_ci_visibility.py
+scripts/check_ai_entry_authority_service_boundary.py
+scripts/check_ai_entry_authority_decision_fixtures.py
 scripts/check_ecosystem_chat_ai_entry.py
 scripts/check_ecosystem_chat_ai_entry_full.py
 scripts/check_ecosystem_chat_application.py
@@ -129,22 +134,27 @@ backend_activation_request_fixture=true
 backend_activation_response_fixture=true
 ui_activation_guidance_routes=true
 ci_visibility_state_recorded=true
+authority_service_boundary=true
+authority_decision_request_fixture=true
+authority_decision_response_fixture=true
+adapter_authority_boundary_mirror=true
 ```
 
 Remaining governed-live components:
 
 ```text
 true_green_run_confirmation=true
-governed_live_authority_service=true
 receipt_issuer_boundary=true
 provider_capture_boundary=true
 sdk_access_decision_boundary=true
 operator_recoverability_boundary=true
 ```
 
-The activation path is still non-executing:
+The activation and authority paths are still non-executing:
 
 ```text
+authority_decision=DENY
+authority_issued=false
 activation_request_executes=false
 provider_call=false
 sdk_call=false
@@ -177,6 +187,8 @@ llm_adapter/ai_entry_provider_boundary.py
 llm_adapter/ai_entry_backend_service.py
 llm_adapter/ai_entry_endpoint.py
 llm_adapter/ai_entry_service_wrapper.py
+llm_adapter/ai_entry_authority_boundary.py
+scripts/check_ai_entry_authority_boundary.py
 scripts/verify_goal4_full.py
 scripts/check_workflow_parity.py
 ```
@@ -217,6 +229,8 @@ AI_ENTRY_BACKEND_ACTIVATION_FIXTURES_PASS
 AI_ENTRY_UI_ACTIVATION_ROUTES_PASS
 AI_ENTRY_BACKEND_ACTIVATION_PROGRESS_PASS
 AI_ENTRY_CI_VISIBILITY_PASS
+AI_ENTRY_AUTHORITY_SERVICE_BOUNDARY_PASS
+AI_ENTRY_AUTHORITY_DECISION_FIXTURES_PASS
 ECOSYSTEM_CHAT_APPLICATION_PASS
 ```
 
@@ -241,6 +255,9 @@ The mirror remains only as an iOS-safe restoration copy. The canonical workflow 
 one_window_entry_surface == true
 cohesive_application_surface == true
 backend_activation_preview_path == true
+authority_service_boundary_present == true
+authority_decision_fixtures_present == true
+adapter_authority_boundary_mirror_present == true
 route_manifest_present == true
 route_precedence_fixture_present == true
 backend_route_priority_self_verified == true
@@ -271,7 +288,6 @@ manual_tasks_remaining == []
 ## Remaining files or modules to install
 
 ```text
-Governed live authority service boundary -> StegVerse-Labs/Site or StegVerse-org/LLM-adapter
 Receipt issuer boundary -> StegVerse-org/StegVerse-SDK and/or StegVerse-org/LLM-adapter
 Provider capture boundary -> StegVerse-org/LLM-adapter
 SDK access decision boundary -> StegVerse-org/StegVerse-SDK
@@ -284,4 +300,4 @@ The current build is cohesive, preview-only, and live-disabled. It is not live p
 
 ## Archive posture
 
-This handoff preserves the cohesive AI Entry application, governed backend activation preview path, and CI visibility state so the Complete thread can be archived without additional context. The activation preview path is complete pending true green-run confirmation or future governed-live authority work.
+This handoff preserves the cohesive AI Entry application, governed backend activation preview path, authority service boundary, adapter authority mirror, and CI visibility state so the Complete thread can be archived without additional context. The authority boundary is complete pending true green-run confirmation or future receipt/provider/SDK/recoverability boundary work.
