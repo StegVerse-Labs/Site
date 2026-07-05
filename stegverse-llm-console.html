@@ -20,6 +20,9 @@
     .model-output { white-space: pre-wrap; color: #c8d4e8; font-size: 13px; }
     .receipt-line { margin-top: 12px; border-top: 1px solid #132215; padding-top: 10px; color: var(--green); font-family: var(--mono); font-size: 11px; overflow-wrap: anywhere; }
     .comparison-note { border: 1px solid #3a2a12; border-radius: var(--radius); background: rgba(63, 44, 13, 0.28); color: #f0d9a0; padding: 12px 14px; font-size: 13px; }
+    .activation-panel { border-left: 4px solid #f0d9a0; }
+    .activation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin-top: 12px; }
+    .activation-chip { border: 1px solid var(--border); border-radius: 999px; padding: 7px 10px; color: #f0d9a0; font: 11px/1.35 var(--mono); background: rgba(63, 44, 13, 0.22); }
   </style>
 </head>
 <body>
@@ -83,6 +86,20 @@ How can I help you today?</div>
         </div>
       </div>
 
+      <div class="llm-panel activation-panel">
+        <h3>Governed-live activation status</h3>
+        <div class="model-output" id="activationOutput">Governed-live activation is planned but not ready. Provider calls, SDK calls, credential access, real receipts, execution authority, and repo mutation remain disabled.</div>
+        <div class="activation-grid" id="activationChips">
+          <span class="activation-chip">mode=local_ready_live_disabled</span>
+          <span class="activation-chip">readiness=not_ready_fail_closed</span>
+          <span class="activation-chip">provider_calls=false</span>
+          <span class="activation-chip">sdk_calls=false</span>
+          <span class="activation-chip">authority=false</span>
+          <span class="activation-chip">real_receipt=false</span>
+        </div>
+        <div class="receipt-line">activation_preview=true · fail_closed=true</div>
+      </div>
+
       <div class="comparison-note">
         External panes are shown for comparison. They are not StegVerse-authorized outputs, not proof receipts, and not execution authority.
       </div>
@@ -109,8 +126,8 @@ How can I help you today?</div>
 
   <h2 class="sv-h2">MVP completion definition</h2>
   <div class="sv-prose">
-    <p>Done for this prototype means a user can enter one input, receive a StegVerse AI response first, see routing and SDK guidance when relevant, and view external LLM comparison panes below without confusing those external outputs for governed authority.</p>
-    <p>The next activation step is replacing local scaffolds with governed backend adapters that preserve input hashing, admissibility checks, provider response capture, receipt metadata, reconstruction evidence, and route-specific authority boundaries.</p>
+    <p>Done for this prototype means a user can enter one input, receive a StegVerse AI response first, see routing and SDK guidance when relevant, view activation readiness, and view external LLM comparison panes below without confusing those external outputs for governed authority.</p>
+    <p>The next activation step is replacing local scaffolds with governed backend adapters that preserve input hashing, admissibility checks, provider response capture, receipt metadata, reconstruction evidence, route-specific authority boundaries, and fail-closed activation gates.</p>
   </div>
 </div>
 
@@ -131,11 +148,29 @@ How can I help you today?</div>
     document.getElementById(id).innerHTML = escapeText(text);
   }
 
+  function boolText(value) {
+    return value ? 'true' : 'false';
+  }
+
+  function renderActivation(status) {
+    var activation = status || {};
+    setText('activationOutput', activation.status_message || 'Governed-live activation status unavailable.');
+    document.getElementById('activationChips').innerHTML = [
+      'mode=' + (activation.current_mode || 'unknown'),
+      'readiness=' + (activation.readiness_state || 'unknown'),
+      'provider_calls=' + boolText(activation.live_provider_calls_enabled),
+      'sdk_calls=' + boolText(activation.live_sdk_calls_enabled),
+      'authority=' + boolText(activation.execution_authority_issued),
+      'real_receipt=' + boolText(activation.real_receipt_issued)
+    ].map(function (item) { return '<span class="activation-chip">' + escapeText(item) + '</span>'; }).join('');
+  }
+
   function renderResponse(response) {
     setText('stegverseOutput', response.stegverse_response);
     document.getElementById('stegverseReceipt').textContent = 'mode=browser-adapter · route=' + response.primary_route + ' · governed_candidate=' + response.governance.governed_candidate + ' · authority_issued=' + response.governance.authority_issued + ' · receipt=' + (response.governance.receipt_id || 'preview');
     setText('routeOutput', response.route_guidance);
     setText('sdkOutput', response.sdk_guidance);
+    renderActivation(response.activation_status);
     setText('chatgptOutput', response.comparison_outputs[0].response);
     setText('claudeOutput', response.comparison_outputs[1].response);
     setText('otherOutput', response.comparison_outputs[2].response);
@@ -147,6 +182,7 @@ How can I help you today?</div>
     renderResponse(response);
   }
 
+  renderResponse(window.StegVerseAIEntryAdapter.buildResponse(''));
   document.getElementById('generateComparison').addEventListener('click', generateLocalComparison);
 </script>
 </body>
