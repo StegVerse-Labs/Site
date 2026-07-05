@@ -1,0 +1,20 @@
+{
+  "schema_version": "stegverse.site.ai_entry.recovery_state_response.v0.1",
+  "request_id": "recovery-state-preview-0001",
+  "activation_request_id": "backend-activation-preview-0001",
+  "recovery_decision": "DENY",
+  "response_state": "preview_only",
+  "decision_outputs": {
+    "recovery_confirmed": false,
+    "activation_allowed": false,
+    "execution_allowed": false,
+    "live_provider_calls_allowed": false,
+    "live_sdk_calls_allowed": false
+  },
+  "missing_preconditions": [
+    "intent recoverable",
+    "degraded state handled",
+    "rollback path declared",
+    "pause path declared"
+  ]
+}
