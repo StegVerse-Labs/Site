@@ -3,6 +3,11 @@
   "goal": "No manual screenshot-based CI confirmation",
   "checked_commits": [
     {
+      "commit_sha": "2b8ff407371a7a6e9446e94653bb95153f402136",
+      "combined_status_visible": false,
+      "workflow_runs_visible": false
+    },
+    {
       "commit_sha": "04ede17d3b9e0695d0d28c3a9365f24b6b59209e",
       "combined_status_visible": false,
       "workflow_runs_visible": false
