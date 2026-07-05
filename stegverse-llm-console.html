@@ -54,7 +54,7 @@
       <h2 class="sv-h2">One StegVerse AI window</h2>
       <textarea id="llmInput" class="llm-input" placeholder="Ask StegVerse, request SDK guidance, compare model answers, or submit a governed input candidate..."></textarea>
       <div class="llm-actions">
-        <span class="llm-hint">Local prototype. The generated response is a route-aware scaffold, not a live LLM call.</span>
+        <span class="llm-hint">Local prototype. The generated response uses the same response shape as the deterministic backend scaffold.</span>
         <button class="sv-btn sv-btn-primary" id="generateComparison" type="button">Generate local StegVerse response</button>
       </div>
     </div>
@@ -119,55 +119,32 @@ How can I help you today?</div>
   <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/STEGVERSE_AI_ENTRYPOINT.md">AI Entry Spec</a> · <a href="docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md">Route Model</a></span>
 </footer>
 
+<script src="assets/ecosystem-ai-entry-adapter.js"></script>
 <script>
-  var ROUTES = [
-    { id: 'restricted_admin', label: 'Restricted administration', words: ['secret', 'token', 'credential', 'shell', 'delete', 'release', 'permission', 'workflow', 'repo write'] },
-    { id: 'llm_comparison', label: 'LLM comparison', words: ['compare', 'comparison', 'chatgpt', 'claude', 'gemini', 'grok', 'other llm'] },
-    { id: 'sdk_access_guidance', label: 'SDK access guidance', words: ['sdk', 'api', 'access', 'onboard', 'permission', 'manifest', 'receipt'] },
-    { id: 'sdk_intake_candidate', label: 'SDK intake candidate', words: ['submit', 'intake', 'candidate', 'packet', 'request access', 'integration'] },
-    { id: 'governance_review', label: 'Governance review', words: ['governance', 'admissibility', 'authority', 'evidence', 'reconstruction', 'replay', 'transition'] },
-    { id: 'runtime_status', label: 'Runtime status', words: ['runtime', 'adapter', 'micro-node', 'micro node', 'capability', 'goal'] },
-    { id: 'documentation_route', label: 'Documentation route', words: ['docs', 'documentation', 'wiki', 'paper', 'spec', 'runbook', 'proof'] },
-    { id: 'ecosystem_explanation', label: 'Ecosystem explanation', words: ['ecosystem', 'stegverse', 'concept', 'component', 'role', 'status'] }
-  ];
-
   function escapeText(value) {
     return String(value || '').replace(/[&<>]/g, function (ch) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[ch];
     });
   }
 
-  function classifyRoute(input) {
-    var lower = input.toLowerCase();
-    for (var i = 0; i < ROUTES.length; i += 1) {
-      for (var j = 0; j < ROUTES[i].words.length; j += 1) {
-        if (lower.indexOf(ROUTES[i].words[j]) !== -1) return ROUTES[i];
-      }
-    }
-    return { id: 'chat_answer', label: 'StegVerse answer', words: [] };
+  function setText(id, text) {
+    document.getElementById(id).innerHTML = escapeText(text);
+  }
+
+  function renderResponse(response) {
+    setText('stegverseOutput', response.stegverse_response);
+    document.getElementById('stegverseReceipt').textContent = 'mode=browser-adapter · route=' + response.primary_route + ' · governed_candidate=' + response.governance.governed_candidate + ' · authority_issued=' + response.governance.authority_issued + ' · receipt=' + (response.governance.receipt_id || 'preview');
+    setText('routeOutput', response.route_guidance);
+    setText('sdkOutput', response.sdk_guidance);
+    setText('chatgptOutput', response.comparison_outputs[0].response);
+    setText('claudeOutput', response.comparison_outputs[1].response);
+    setText('otherOutput', response.comparison_outputs[2].response);
   }
 
   function generateLocalComparison() {
     var input = document.getElementById('llmInput').value.trim();
-    if (!input) {
-      document.getElementById('stegverseOutput').innerHTML = 'Welcome to StegVerse AI.\n\nI can help answer questions, explain StegVerse concepts, route ecosystem requests, describe SDK access, compare external LLM responses, and prepare governed transition candidates with clear authority and receipt boundaries.\n\nHow can I help you today?';
-      document.getElementById('stegverseReceipt').textContent = 'mode=welcome · governed_candidate=false · authority=not-issued · receipt=not-issued';
-      document.getElementById('routeOutput').innerHTML = 'Route guidance will appear here when a request is entered.';
-      document.getElementById('sdkOutput').innerHTML = 'SDK and access guidance will appear here when relevant.';
-      document.getElementById('chatgptOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
-      document.getElementById('claudeOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
-      document.getElementById('otherOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
-      return;
-    }
-    var route = classifyRoute(input);
-    var safeInput = escapeText(input);
-    document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as one entry-point request.\n\nInput observed: ' + safeInput + '\n\nSelected route: ' + route.label + ' (' + route.id + ')\n\nLocal scaffold: answer directly when safe, route ecosystem work when needed, explain SDK access without exposing credentials, and treat any consequential output as a governed transition candidate.';
-    document.getElementById('stegverseReceipt').textContent = 'mode=local-prototype · route=' + route.id + ' · governed_candidate=true · input_length=' + input.length + ' · authority=not-issued · receipt=preview';
-    document.getElementById('routeOutput').innerHTML = 'Route preview: ' + route.label + '\n\nThis local classifier mirrors the backend route manifest at data/ecosystem-chat-routes.json. A live backend should preserve the user request, classify the route, check authority requirements, and return a bounded response.';
-    document.getElementById('sdkOutput').innerHTML = route.id.indexOf('sdk') === 0 ? 'SDK guidance preview: explain available SDK entry points, required permissions, manifests, receipts, and next steps. Do not expose credentials or imply access has been granted.' : 'SDK guidance preview: no SDK-specific route was selected. Ask about SDK access, API onboarding, manifests, or intake packets to open this path.';
-    document.getElementById('chatgptOutput').innerHTML = 'Comparison placeholder: a ChatGPT response would be displayed here after provider adapter activation.';
-    document.getElementById('claudeOutput').innerHTML = 'Comparison placeholder: a Claude response would be displayed here after provider adapter activation.';
-    document.getElementById('otherOutput').innerHTML = 'Comparison placeholder: another provider response would be displayed here after provider adapter activation.';
+    var response = window.StegVerseAIEntryAdapter.buildResponse(input);
+    renderResponse(response);
   }
 
   document.getElementById('generateComparison').addEventListener('click', generateLocalComparison);
