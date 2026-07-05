@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/ecosystem-chat-sdk-access.schema.json",
+  "title": "Ecosystem Chat SDK Access Boundary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "enabled",
+    "access_granted",
+    "credential_surface",
+    "intake_allowed",
+    "execution_allowed",
+    "required_steps"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "stegverse.ecosystem_chat.sdk_access.v0.1"
+    },
+    "enabled": {
+      "type": "boolean",
+      "const": false
+    },
+    "access_granted": {
+      "type": "boolean",
+      "const": false
+    },
+    "credential_surface": {
+      "type": "boolean",
+      "const": false
+    },
+    "intake_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "execution_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "required_steps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    }
+  }
+}
