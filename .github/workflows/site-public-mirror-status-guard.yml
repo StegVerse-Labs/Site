@@ -7,6 +7,7 @@ on:
   push:
     paths:
       - "index.html"
+      - "ecosystem-chat.html"
       - "docs/SITE_FINAL_ACTIVATION_PENDING.md"
       - "docs/SITE_MIRROR_ACTIVATION_STATUS.md"
       - "docs/SITE_MIRROR_HANDOFF.md"
@@ -15,6 +16,7 @@ on:
       - "docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt"
       - "docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json"
       - "docs/SITE_PUBLIC_PATHS.md"
+      - "docs/LLM_FREE_TIER_TRUST_STATUS.md"
       - "governed-ecosystem.html"
       - "scripts/check_site_final_activation_pending.py"
       - "scripts/check_site_mirror_handoff_final_pending.py"
@@ -23,6 +25,7 @@ on:
       - "scripts/check_site_governed_ecosystem_public_verification.py"
       - "scripts/check_site_homepage_governed_ecosystem.py"
       - "scripts/check_site_public_paths.py"
+      - "scripts/check_site_llm_free_tier_trust.py"
       - ".github/workflows/site-public-mirror-status-guard.yml"
 
 jobs:
@@ -45,6 +48,9 @@ jobs:
 
       - name: Check governed ecosystem public verification state
         run: python scripts/check_site_governed_ecosystem_public_verification.py
+
+      - name: Check LLM free-tier trust display
+        run: python scripts/check_site_llm_free_tier_trust.py
 
       - name: Check final activation pending boundary
         run: python scripts/check_site_final_activation_pending.py
