@@ -1,0 +1,24 @@
+{
+  "schema_version": "stegverse.ai_entry.runtime_design_request.v0.1",
+  "request_id": "runtime-design-preview-0001",
+  "mode": "design_only",
+  "requested_inputs": {
+    "visible_green_data": false,
+    "tag_gate_ready": false,
+    "authority_path": true,
+    "receipt_path": true,
+    "provider_path": true,
+    "sdk_path": true,
+    "recovery_path": true
+  },
+  "requested_readiness": {
+    "provider_ready": false,
+    "sdk_ready": false,
+    "credential_ready": false,
+    "authority_ready": false,
+    "receipt_ready": false,
+    "activation_ready": false,
+    "execution_ready": false,
+    "repo_write_ready": false
+  }
+}
