@@ -1,0 +1,27 @@
+{
+  "schema_version": "stegverse.ai_entry.authority_decision_request.v0.1",
+  "request_id": "authority-preview-0001",
+  "activation_request_id": "backend-activation-preview-0001",
+  "surface": "Ecosystem Chat & LLM",
+  "decision_mode": "preview_only",
+  "actor_identity_context": {
+    "actor_known": false,
+    "actor_authorized": false
+  },
+  "target_surface_context": {
+    "surface_known": true,
+    "live_activation_requested": false
+  },
+  "boundary_inputs_present": {
+    "provider_capture_boundary": false,
+    "receipt_issuer_boundary": false,
+    "sdk_access_decision_boundary": false,
+    "operator_recoverability_boundary": false
+  },
+  "requested_effects": {
+    "execution_allowed": false,
+    "credential_access_allowed": false,
+    "live_calls_allowed": false,
+    "repo_mutation_allowed": false
+  }
+}
