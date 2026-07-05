@@ -39,6 +39,7 @@ scripts/check_ecosystem_chat_sdk_access.py
 scripts/check_ecosystem_chat_receipt_preview.py
 scripts/check_ecosystem_chat_readiness.py
 scripts/check_ecosystem_chat_ai_entry.py
+.github/workflows/validate.yml
 iosnoperiod/github/workflows/validate.yml
 iosnoperiod.md
 ```
@@ -62,20 +63,20 @@ ECOSYSTEM_CHAT_READINESS_PASS
 ECOSYSTEM_CHAT_AI_ENTRY_PASS
 ```
 
-## Prepared validation workflow mirror
+## Active validation workflow
 
 ```text
 Canonical: .github/workflows/validate.yml
 Mirror: iosnoperiod/github/workflows/validate.yml
 ```
 
-The mirror runs:
+The canonical workflow and mirror run:
 
 ```bash
 python scripts/check_ecosystem_chat_ai_entry.py
 ```
 
-The mirror is prepared but not activation evidence until copied or restored to the canonical workflow path.
+The mirror remains only as an iOS-safe restoration copy. The canonical workflow is the active validation surface.
 
 ## Required invariant
 
@@ -111,4 +112,4 @@ The current build is local-ready/live-disabled. It is not live provider activati
 
 ## Archive posture
 
-This handoff preserves the AI entry build state so the complete thread can be archived without additional context. Next work should start by activating the prepared validate mirror only if canonical workflow activation is authorized, or by running the canonical validation command in an existing validation surface.
+This handoff preserves the AI entry build state so the complete thread can be archived without additional context. The local-ready/live-disabled Site surface is repo-local complete pending workflow-run confirmation and future governed-live activation in the selected backend service repo.
