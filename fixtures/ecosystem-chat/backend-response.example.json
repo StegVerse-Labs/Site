@@ -1,0 +1,30 @@
+{
+  "response_id": "preview-ecosystem-chat-response-001",
+  "primary_route": "sdk_access_guidance",
+  "stegverse_response": "StegVerse treats this as one entry-point request. The selected route is SDK access guidance. A live backend would preserve the user request, explain SDK access, avoid exposing credentials, and prepare governed transition metadata when needed.",
+  "route_guidance": "Route preview: SDK access guidance. This route explains access paths, manifests, receipts, and authority boundaries without granting access.",
+  "sdk_guidance": "SDK guidance preview: explain available SDK entry points, required permissions, manifests, receipts, and next steps. Do not expose credentials or imply access has been granted.",
+  "comparison_outputs": [
+    {
+      "provider": "ChatGPT",
+      "authority": false,
+      "response": "Comparison placeholder."
+    },
+    {
+      "provider": "Claude",
+      "authority": false,
+      "response": "Comparison placeholder."
+    },
+    {
+      "provider": "Other LLM",
+      "authority": false,
+      "response": "Comparison placeholder."
+    }
+  ],
+  "governance": {
+    "governed_candidate": true,
+    "authority_issued": false,
+    "receipt_id": null,
+    "reconstruction_available": false
+  }
+}
