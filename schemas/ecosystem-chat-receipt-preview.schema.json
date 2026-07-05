@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/ecosystem-chat-receipt-preview.schema.json",
+  "title": "Ecosystem Chat Receipt Preview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "preview_only",
+    "receipt_issued",
+    "authority_issued",
+    "input_hash",
+    "route_id",
+    "response_id",
+    "reconstruction_available"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "stegverse.ecosystem_chat.receipt_preview.v0.1"
+    },
+    "preview_only": {
+      "type": "boolean",
+      "const": true
+    },
+    "receipt_issued": {
+      "type": "boolean",
+      "const": false
+    },
+    "authority_issued": {
+      "type": "boolean",
+      "const": false
+    },
+    "input_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "route_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "response_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reconstruction_available": {
+      "type": "boolean",
+      "const": false
+    }
+  }
+}
