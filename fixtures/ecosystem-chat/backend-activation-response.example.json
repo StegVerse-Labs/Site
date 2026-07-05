@@ -1,0 +1,25 @@
+{
+  "schema_version": "stegverse.ai_entry.backend_activation_response.v0.1",
+  "request_id": "backend-activation-preview-0001",
+  "route_id": "activation_request_preview",
+  "decision": "DENY",
+  "status": "preview_record_only",
+  "activation_state": "not_activated_fail_closed",
+  "message": "Backend activation request preview captured. Live calls remain disabled until all governed activation preconditions are complete and authority is issued through a separate decision path.",
+  "response_boundary": {
+    "provider_call_performed": false,
+    "sdk_call_performed": false,
+    "credential_lookup_performed": false,
+    "real_receipt_issued": false,
+    "execution_authority_issued": false,
+    "repo_mutation_performed": false
+  },
+  "next_required_boundaries": [
+    "authority decision service boundary",
+    "receipt issuer boundary",
+    "provider adapter capture boundary",
+    "SDK access decision boundary",
+    "operator recoverability boundary",
+    "fail-closed execution boundary"
+  ]
+}
