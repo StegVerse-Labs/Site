@@ -11,20 +11,22 @@ AGGREGATE = ROOT / "scripts" / "check_ecosystem_chat_ai_entry.py"
 STATUS = ROOT / "docs" / "AI_ENTRY_CONTRACT_SYNC_RUN_STATUS.md"
 HANDOFF = ROOT / "SITE_MIRROR_HANDOFF.md"
 
-REQUIRED = "python scripts/check_ecosystem_chat_ai_entry.py"
+REQUIRED_STANDARD = "python scripts/check_ecosystem_chat_ai_entry.py"
+REQUIRED_FULL = "python scripts/check_ecosystem_chat_ai_entry_full.py"
 
 
 def fail(message: str) -> None:
     raise SystemExit(f"AI_ENTRY_NO_MANUAL_TASKS_FAIL: {message}")
 
 
-def require_text(path: Path, markers: tuple[str, ...]) -> None:
+def require_text(path: Path, markers: tuple[str, ...]) -> str:
     if not path.exists():
         fail(f"missing {path.relative_to(ROOT)}")
     text = path.read_text(encoding="utf-8")
     for marker in markers:
         if marker not in text:
             fail(f"{path.relative_to(ROOT)} missing {marker}")
+    return text
 
 
 def require_any_text(path: Path, markers: tuple[str, ...]) -> None:
@@ -35,10 +37,16 @@ def require_any_text(path: Path, markers: tuple[str, ...]) -> None:
         fail(f"{path.relative_to(ROOT)} missing one of: {', '.join(markers)}")
 
 
+def require_workflow_command(path: Path) -> None:
+    text = require_text(path, ("workflow_dispatch",))
+    if REQUIRED_STANDARD not in text and REQUIRED_FULL not in text:
+        fail(f"{path.relative_to(ROOT)} missing supported AI Entry validation command")
+
+
 def main() -> int:
     require_text(AGGREGATE, ("check_ecosystem_chat_adapter_extension.py", "ECOSYSTEM_CHAT_AI_ENTRY_PASS"))
-    require_text(CANONICAL, (REQUIRED, "workflow_dispatch"))
-    require_text(MIRROR, (REQUIRED, "workflow_dispatch"))
+    require_workflow_command(CANONICAL)
+    require_workflow_command(MIRROR)
     require_text(STATUS, ("installation_complete == true", "workflow_run_confirmed == false"))
     require_text(HANDOFF, ("None for Site-side AI Entry contract sync", "Archive posture"))
     require_any_text(HANDOFF, ("complete thread can be archived", "Complete thread can be archived"))
