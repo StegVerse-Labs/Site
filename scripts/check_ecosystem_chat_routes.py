@@ -45,6 +45,16 @@ REQUIRED_ADAPTER_MARKERS = [
     "classifyRoute",
     "authority_issued: false",
     "receipt_id: null",
+    "adapter_extension",
+    "adapter_status",
+    "preview_marker",
+    "endpoint_marker",
+    "service_marker",
+    "provider_calls: false",
+    "provider_authority: false",
+    "capture_required_before_activation: true",
+    "pure_function_preview",
+    "stegverse-ai-entry-interim-backend",
 ]
 
 
