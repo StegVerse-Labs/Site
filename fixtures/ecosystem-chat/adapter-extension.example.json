@@ -1,0 +1,30 @@
+{
+  "adapter_status": {
+    "provider_calls": false,
+    "provider_authority": false,
+    "test_secret_required": false,
+    "capture_required_before_activation": true
+  },
+  "preview_marker": {
+    "preview_only": true,
+    "capture_enabled": false,
+    "record_saved": false,
+    "authority_granted": false,
+    "input_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "route_id": "llm_comparison",
+    "response_id": "preview-llm-comparison-example"
+  },
+  "endpoint_marker": {
+    "mode": "pure_function_preview",
+    "started": false,
+    "calls_performed": false,
+    "side_effects": false
+  },
+  "service_marker": {
+    "name": "stegverse-ai-entry-interim-backend",
+    "wrapper_present": true,
+    "started_by_import": false,
+    "calls_enabled": false,
+    "side_effects_enabled": false
+  }
+}
