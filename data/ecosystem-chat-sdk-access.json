@@ -1,0 +1,15 @@
+{
+  "schema_version": "stegverse.ecosystem_chat.sdk_access.v0.1",
+  "enabled": false,
+  "access_granted": false,
+  "credential_surface": false,
+  "intake_allowed": false,
+  "execution_allowed": false,
+  "required_steps": [
+    "user request classified as SDK route",
+    "public SDK guidance returned without credentials",
+    "governed intake candidate prepared only when authorized",
+    "manifest and receipt boundaries preserved",
+    "separate approval before live SDK calls or credential exposure"
+  ]
+}
