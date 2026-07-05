@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "data" / "ai-entry-workflow-parity.json"
 SITE_CANONICAL = ROOT / ".github" / "workflows" / "validate.yml"
 SITE_MIRROR = ROOT / "iosnoperiod" / "github" / "workflows" / "validate.yml"
-SITE_COMMAND = "python scripts/check_ecosystem_chat_ai_entry_full.py"
+SITE_COMMAND = "python scripts/check_ecosystem_chat_application.py"
 EXPECTED_REPOS = {
     "StegVerse-Labs/Site",
     "StegVerse-org/LLM-adapter",
@@ -38,7 +38,7 @@ def main() -> int:
     for path in (SITE_CANONICAL, SITE_MIRROR):
         text = path.read_text(encoding="utf-8")
         if SITE_COMMAND not in text:
-            fail(f"{path.relative_to(ROOT)} missing Site full validation command")
+            fail(f"{path.relative_to(ROOT)} missing Site application validation command")
         if "workflow_dispatch" not in text:
             fail(f"{path.relative_to(ROOT)} missing workflow_dispatch")
     boundary = data.get("current_boundary", {})
