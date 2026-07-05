@@ -1,0 +1,59 @@
+{
+  "schema_version": "stegverse.ai_entry.automation_closure.v0.1",
+  "goal": "AI Entry preview validation without manual tasks",
+  "closure_items": [
+    {
+      "name": "route_precedence",
+      "status": "self_verified",
+      "repo": "StegVerse-Labs/Site",
+      "checks": [
+        "scripts/check_ecosystem_chat_backend.py",
+        "scripts/check_ecosystem_chat_ui_route_priority.py",
+        "fixtures/ecosystem-chat/route-precedence-cases.json"
+      ]
+    },
+    {
+      "name": "site_full_wrapper",
+      "status": "self_verified",
+      "repo": "StegVerse-Labs/Site",
+      "checks": [
+        "scripts/check_ecosystem_chat_ai_entry_full.py",
+        "scripts/check_ai_entry_green_run_readiness.py",
+        "scripts/check_ai_entry_workflow_parity.py",
+        "scripts/check_ai_entry_workflow_commands.py"
+      ]
+    },
+    {
+      "name": "adapter_dependency_isolation",
+      "status": "self_verified",
+      "repo": "StegVerse-org/LLM-adapter",
+      "checks": [
+        "scripts/check_lightweight_package_init.py",
+        "scripts/verify_goal4_full.py",
+        "scripts/check_workflow_parity.py"
+      ]
+    },
+    {
+      "name": "sdk_import_and_pytest_compatibility",
+      "status": "self_verified",
+      "repo": "StegVerse-org/StegVerse-SDK",
+      "checks": [
+        "scripts/check_sdk_local_import_path.py",
+        "scripts/check_pytest_compatibility_surface.py",
+        "scripts/check_workflow_parity.py",
+        "scripts/verify_goal4.py"
+      ]
+    }
+  ],
+  "manual_tasks_remaining": [],
+  "external_confirmation_remaining": [
+    "GitHub Actions green run confirmation"
+  ],
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "workflow_count_exceeds_two": false
+  }
+}
