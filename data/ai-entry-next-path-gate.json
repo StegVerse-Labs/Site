@@ -1,0 +1,27 @@
+{
+  "schema_version": "stegverse.ai_entry.next_path_gate.v0.1",
+  "goal": "visible-green-watch-or-live-activation-design",
+  "state": "watch_mode_green_not_visible",
+  "available_paths": {
+    "visible_green_watch": {
+      "selected": true,
+      "reason": "Connector-visible green data is still absent. Continue machine-recorded visibility checks."
+    },
+    "live_activation_design": {
+      "selected": false,
+      "reason": "Design work can begin only as non-executing architecture until visible green data exists."
+    }
+  },
+  "current_boundary": {
+    "green_run_confirmed": false,
+    "tag_candidate_ready": false,
+    "live_activation_enabled": false,
+    "live_provider_enabled": false,
+    "live_sdk_enabled": false,
+    "credential_surface_enabled": false,
+    "authority_live": false,
+    "receipt_live": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "scheduled visibility recheck index"
+}
