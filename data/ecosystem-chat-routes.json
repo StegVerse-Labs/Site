@@ -1,0 +1,87 @@
+{
+  "schema_version": "stegverse.ecosystem_chat.routes.v0.1",
+  "default_route": "chat_answer",
+  "routes": [
+    {
+      "id": "chat_answer",
+      "label": "StegVerse answer",
+      "purpose": "Answer normal user questions as a StegVerse governed response candidate.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": true,
+      "keywords": ["ask", "question", "answer", "explain", "what", "why", "how"]
+    },
+    {
+      "id": "llm_comparison",
+      "label": "LLM comparison",
+      "purpose": "Show StegVerse response first and external LLM comparison panes below.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": true,
+      "keywords": ["compare", "comparison", "chatgpt", "claude", "gemini", "grok", "other llm"]
+    },
+    {
+      "id": "ecosystem_explanation",
+      "label": "Ecosystem explanation",
+      "purpose": "Explain StegVerse ecosystem concepts, components, roles, and status.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["ecosystem", "stegverse", "concept", "component", "role", "status"]
+    },
+    {
+      "id": "sdk_access_guidance",
+      "label": "SDK access guidance",
+      "purpose": "Explain SDK access, onboarding, manifests, receipts, permissions, and next steps.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["sdk", "api", "access", "onboard", "permission", "manifest", "receipt"]
+    },
+    {
+      "id": "sdk_intake_candidate",
+      "label": "SDK intake candidate",
+      "purpose": "Prepare an SDK intake candidate or manifest preview without execution authority.",
+      "authority_required": true,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["submit", "intake", "candidate", "packet", "request access", "integration"]
+    },
+    {
+      "id": "governance_review",
+      "label": "Governance review",
+      "purpose": "Classify authority, admissibility, evidence, receipt, and reconstruction posture.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["governance", "admissibility", "authority", "evidence", "reconstruction", "replay", "transition"]
+    },
+    {
+      "id": "runtime_status",
+      "label": "Runtime status",
+      "purpose": "Explain runtime, adapter, micro-node, and capability status.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["runtime", "adapter", "micro-node", "micro node", "capability", "goal"]
+    },
+    {
+      "id": "documentation_route",
+      "label": "Documentation route",
+      "purpose": "Route users to public docs, wiki pages, proofs, papers, runbooks, and specifications.",
+      "authority_required": false,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["docs", "documentation", "wiki", "paper", "spec", "runbook", "proof"]
+    },
+    {
+      "id": "restricted_admin",
+      "label": "Restricted administration",
+      "purpose": "Reject or require separate authority for secrets, shell, credentials, repo mutation, releases, permissions, or destructive tasks.",
+      "authority_required": true,
+      "execution_allowed": false,
+      "comparison_allowed": false,
+      "keywords": ["secret", "token", "credential", "shell", "delete", "release", "permission", "workflow", "repo write"]
+    }
+  ]
+}
