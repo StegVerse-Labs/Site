@@ -1,0 +1,35 @@
+{
+  "schema_version": "stegverse.ai_entry.release_readiness_lockfile.v0.1",
+  "goal": "release-readiness lockfile",
+  "state": "preview_locked_live_disabled",
+  "locked_scope": {
+    "site_application_surface": true,
+    "backend_activation_preview": true,
+    "authority_preview": true,
+    "receipt_preview": true,
+    "provider_capture_preview": true,
+    "sdk_access_preview": true,
+    "recovery_preview": true,
+    "cross_repo_handoff": true,
+    "green_run_visibility_recorded": true
+  },
+  "validation_commands": {
+    "StegVerse-Labs/Site": "python scripts/check_ecosystem_chat_application.py",
+    "StegVerse-org/LLM-adapter": "python scripts/verify_goal4_full.py",
+    "StegVerse-org/StegVerse-SDK": "python scripts/verify_goal4.py"
+  },
+  "live_state": {
+    "provider_live": false,
+    "sdk_live": false,
+    "credentials_live": false,
+    "authority_live": false,
+    "receipt_live": false,
+    "repo_write_live": false,
+    "activation_live": false,
+    "execution_live": false
+  },
+  "green_run_confirmed": false,
+  "manual_tasks_remaining": [],
+  "release_tag_ready": false,
+  "next_goal_candidate": "tag-readiness gate"
+}
