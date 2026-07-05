@@ -1,0 +1,26 @@
+{
+  "schema_version": "stegverse.ai_entry.stable_archive_checkpoint.v0.1",
+  "goal": "stable archive checkpoint",
+  "state": "stable_checkpoint_recorded",
+  "checkpoint_scope": {
+    "site_validation_wired": true,
+    "cross_repo_continuation_file_driven": true,
+    "manual_tasks_remaining_zero": true,
+    "green_data_absent_recorded": true,
+    "tag_block_preserved": true,
+    "runtime_not_ready_preserved": true,
+    "archive_ready": true
+  },
+  "checkpoint_files": [
+    "data/ai-entry-no-manual-closure.json",
+    "data/ai-entry-visible-green-monitor-goal.json",
+    "data/ai-entry-design-only-refinement-completion.json"
+  ],
+  "readiness_flags": {
+    "visible_green_data": false,
+    "ready_for_tag": false,
+    "ready_for_live_activation": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "post-archive green-data monitor"
+}
