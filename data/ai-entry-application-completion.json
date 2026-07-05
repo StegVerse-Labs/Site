@@ -1,0 +1,29 @@
+{
+  "schema_version": "stegverse.ai_entry.application_completion.v0.1",
+  "goal": "Cohesive StegVerse AI Entry Application preview",
+  "state": "preview_complete_live_disabled",
+  "application_surface": {
+    "one_window_entry": true,
+    "stegverse_response_panel": true,
+    "route_essentials_panel": true,
+    "sdk_guidance_panel": true,
+    "governed_live_activation_status_panel": true,
+    "external_llm_comparison_panes": true
+  },
+  "validation_surface": {
+    "application_validator": "scripts/check_ecosystem_chat_application.py",
+    "page_validator": "scripts/check_ai_entry_application_page.py",
+    "ui_activation_status_validator": "scripts/check_ai_entry_ui_activation_status.py",
+    "workflow_command": "python scripts/check_ecosystem_chat_application.py"
+  },
+  "remaining_manual_tasks": [],
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "credential_surface_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "repo_mutation_from_chat_enabled": false
+  },
+  "next_goal_candidate": "governed backend adapter activation path"
+}
