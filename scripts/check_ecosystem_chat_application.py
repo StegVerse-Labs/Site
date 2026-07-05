@@ -35,6 +35,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ai_entry_runtime_design_packet.py"),
     (sys.executable, "scripts/check_ai_entry_runtime_design_fixtures.py"),
     (sys.executable, "scripts/check_ai_entry_runtime_design_completion.py"),
+    (sys.executable, "scripts/check_ai_entry_green_data_packet.py"),
 )
 
 
