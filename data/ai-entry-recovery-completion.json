@@ -1,0 +1,24 @@
+{
+  "schema_version": "stegverse.site.ai_entry.recovery_completion.v0.1",
+  "goal": "Operator Recoverability Boundary",
+  "state": "preview_partial_live_disabled",
+  "completed_components": {
+    "site_recoverability_boundary": true,
+    "site_recoverability_boundary_verifier": true,
+    "adapter_recovery_boundary_mirror": true,
+    "adapter_recovery_boundary_verifier": true,
+    "adapter_validation_wired": true
+  },
+  "remaining_components": {
+    "site_recovery_fixtures": true,
+    "site_recovery_fixture_verifier": true,
+    "site_completion_validator_wired": true
+  },
+  "current_boundary": {
+    "recovery_confirmed": false,
+    "activation_allowed": false,
+    "execution_allowed": false,
+    "live_provider_calls_allowed": false,
+    "live_sdk_calls_allowed": false
+  }
+}
