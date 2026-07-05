@@ -9,6 +9,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 ROUTE_MANIFEST = ROOT / "data" / "ecosystem-chat-routes.json"
 AI_ENTRY_PAGE = ROOT / "stegverse-llm-console.html"
+AI_ENTRY_ADAPTER = ROOT / "assets" / "ecosystem-ai-entry-adapter.js"
 AI_ENTRY_DOC = ROOT / "docs" / "STEGVERSE_AI_ENTRYPOINT.md"
 ROUTE_MODEL_DOC = ROOT / "docs" / "ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md"
 RESPONSE_SCHEMA = ROOT / "schemas" / "ecosystem-chat-backend-response.schema.json"
@@ -34,6 +35,16 @@ REQUIRED_PAGE_MARKERS = [
     "Claude comparison",
     "Other LLM comparison",
     "docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md",
+    "assets/ecosystem-ai-entry-adapter.js",
+    "window.StegVerseAIEntryAdapter.buildResponse",
+]
+
+REQUIRED_ADAPTER_MARKERS = [
+    "window.StegVerseAIEntryAdapter",
+    "buildResponse",
+    "classifyRoute",
+    "authority_issued: false",
+    "receipt_id: null",
 ]
 
 
@@ -83,6 +94,7 @@ def validate_backend_fixture(schema: dict[str, Any], fixture: dict[str, Any]) ->
 def main() -> int:
     require_path(ROUTE_MANIFEST, "route manifest")
     require_path(AI_ENTRY_PAGE, "AI entry page")
+    require_path(AI_ENTRY_ADAPTER, "AI entry browser adapter")
     require_path(AI_ENTRY_DOC, "AI entry doc")
     require_path(ROUTE_MODEL_DOC, "backend route model doc")
     require_path(RESPONSE_SCHEMA, "backend response schema")
@@ -117,9 +129,14 @@ def main() -> int:
     for marker in REQUIRED_PAGE_MARKERS:
         if marker not in page:
             fail("AI entry page missing marker: " + marker)
+
+    adapter = AI_ENTRY_ADAPTER.read_text(encoding="utf-8")
+    for marker in REQUIRED_ADAPTER_MARKERS:
+        if marker not in adapter:
+            fail("AI entry adapter missing marker: " + marker)
     for route_id in REQUIRED_ROUTES:
-        if route_id not in page and route_id not in {"ecosystem_explanation", "documentation_route"}:
-            fail("AI entry page missing route id marker: " + route_id)
+        if route_id not in adapter:
+            fail("AI entry adapter missing route id marker: " + route_id)
 
     doc = AI_ENTRY_DOC.read_text(encoding="utf-8")
     if "ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md" not in doc:
