@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: '3.11'
       - name: Validate StegVerse AI Entry Point
-        run: python scripts/check_ecosystem_chat_ai_entry.py
+        run: python scripts/check_ecosystem_chat_ai_entry_full.py
