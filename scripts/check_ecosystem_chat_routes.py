@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Ecosystem Chat & LLM route manifest and static page wiring."""
+"""Validate Ecosystem Chat & LLM route manifest, static page wiring, and backend response fixture."""
 from __future__ import annotations
 
 import json
@@ -11,6 +11,8 @@ ROUTE_MANIFEST = ROOT / "data" / "ecosystem-chat-routes.json"
 AI_ENTRY_PAGE = ROOT / "stegverse-llm-console.html"
 AI_ENTRY_DOC = ROOT / "docs" / "STEGVERSE_AI_ENTRYPOINT.md"
 ROUTE_MODEL_DOC = ROOT / "docs" / "ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md"
+RESPONSE_SCHEMA = ROOT / "schemas" / "ecosystem-chat-backend-response.schema.json"
+RESPONSE_FIXTURE = ROOT / "fixtures" / "ecosystem-chat" / "backend-response.example.json"
 
 REQUIRED_ROUTES = {
     "chat_answer",
@@ -43,15 +45,48 @@ def fail(message: str) -> None:
     raise SystemExit(f"ECOSYSTEM_CHAT_ROUTES_FAIL: {message}")
 
 
+def require_path(path: Path, label: str) -> None:
+    if not path.exists():
+        fail(f"missing {label}")
+
+
+def validate_backend_fixture(schema: dict[str, Any], fixture: dict[str, Any]) -> None:
+    required = schema.get("required", [])
+    for key in required:
+        if key not in fixture:
+            fail("backend fixture missing required key: " + key)
+
+    route_enum = set(schema["properties"]["primary_route"]["enum"])
+    if fixture.get("primary_route") not in route_enum:
+        fail("backend fixture primary_route is not allowed")
+    if fixture.get("primary_route") not in REQUIRED_ROUTES:
+        fail("backend fixture primary_route is not in manifest routes")
+
+    comparisons = fixture.get("comparison_outputs")
+    if not isinstance(comparisons, list) or not comparisons:
+        fail("backend fixture must include comparison outputs")
+    for comparison in comparisons:
+        if comparison.get("authority") is not False:
+            fail("comparison output authority must be false")
+        if not comparison.get("provider"):
+            fail("comparison output provider required")
+
+    governance = fixture.get("governance")
+    if not isinstance(governance, dict):
+        fail("backend fixture governance must be object")
+    if governance.get("authority_issued") is not False:
+        fail("backend fixture must not issue authority")
+    if governance.get("receipt_id") is not None:
+        fail("preview fixture receipt_id must be null")
+
+
 def main() -> int:
-    if not ROUTE_MANIFEST.exists():
-        fail("missing route manifest")
-    if not AI_ENTRY_PAGE.exists():
-        fail("missing AI entry page")
-    if not AI_ENTRY_DOC.exists():
-        fail("missing AI entry doc")
-    if not ROUTE_MODEL_DOC.exists():
-        fail("missing backend route model doc")
+    require_path(ROUTE_MANIFEST, "route manifest")
+    require_path(AI_ENTRY_PAGE, "AI entry page")
+    require_path(AI_ENTRY_DOC, "AI entry doc")
+    require_path(ROUTE_MODEL_DOC, "backend route model doc")
+    require_path(RESPONSE_SCHEMA, "backend response schema")
+    require_path(RESPONSE_FIXTURE, "backend response fixture")
 
     manifest = read_json(ROUTE_MANIFEST)
     routes = manifest.get("routes")
@@ -94,6 +129,10 @@ def main() -> int:
     for route_id in REQUIRED_ROUTES:
         if route_id not in route_doc:
             fail("route model doc missing route id: " + route_id)
+
+    schema = read_json(RESPONSE_SCHEMA)
+    fixture = read_json(RESPONSE_FIXTURE)
+    validate_backend_fixture(schema, fixture)
 
     print("ECOSYSTEM_CHAT_ROUTES_PASS")
     return 0
