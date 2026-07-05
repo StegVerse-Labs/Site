@@ -51,7 +51,7 @@
   <section class="llm-shell" id="llm-input-panel">
     <div class="llm-panel">
       <h2 class="sv-h2">One StegVerse AI window</h2>
-      <textarea id="llmInput" class="llm-input" placeholder="Ask StegVerse, request SDK guidance, compare model answers, or submit a governed input candidate...">How do I access the StegVerse SDK and compare StegVerse with other LLMs?</textarea>
+      <textarea id="llmInput" class="llm-input" placeholder="Ask StegVerse, request SDK guidance, compare model answers, or submit a governed input candidate..."></textarea>
       <div class="llm-actions">
         <span class="llm-hint">Local prototype. The generated response is a route-aware scaffold, not a live LLM call.</span>
         <button class="sv-btn sv-btn-primary" id="generateComparison" type="button">Generate local StegVerse response</button>
@@ -61,19 +61,23 @@
     <div class="response-grid">
       <div class="llm-panel primary-response">
         <h2 class="sv-h2">StegVerse AI response</h2>
-        <div class="model-output" id="stegverseOutput">Awaiting input.</div>
-        <div class="receipt-line" id="stegverseReceipt">mode=local-prototype · governed_candidate=true · authority=not-issued · receipt=preview</div>
+        <div class="model-output" id="stegverseOutput">Welcome to StegVerse AI.
+
+I can help answer questions, explain StegVerse concepts, route ecosystem requests, describe SDK access, compare external LLM responses, and prepare governed transition candidates with clear authority and receipt boundaries.
+
+How can I help you today?</div>
+        <div class="receipt-line" id="stegverseReceipt">mode=welcome · governed_candidate=false · authority=not-issued · receipt=not-issued</div>
       </div>
 
       <div class="route-grid">
         <div class="llm-panel model-card">
           <h3>Route / ecosystem essentials</h3>
-          <div class="model-output" id="routeOutput">Awaiting input.</div>
+          <div class="model-output" id="routeOutput">Route guidance will appear here when a request is entered.</div>
           <div class="receipt-line">route_preview=true · execution=false</div>
         </div>
         <div class="llm-panel model-card">
           <h3>SDK / access guidance</h3>
-          <div class="model-output" id="sdkOutput">Awaiting input.</div>
+          <div class="model-output" id="sdkOutput">SDK and access guidance will appear here when relevant.</div>
           <div class="receipt-line">sdk_guidance=true · credential_surface=false</div>
         </div>
       </div>
@@ -85,17 +89,17 @@
       <div class="comparison-grid">
         <div class="llm-panel model-card">
           <h3>ChatGPT comparison</h3>
-          <div class="model-output" id="chatgptOutput">Awaiting input.</div>
+          <div class="model-output" id="chatgptOutput">Comparison output will appear here when external provider adapters are activated.</div>
           <div class="receipt-line">external_comparison=true · authority=false</div>
         </div>
         <div class="llm-panel model-card">
           <h3>Claude comparison</h3>
-          <div class="model-output" id="claudeOutput">Awaiting input.</div>
+          <div class="model-output" id="claudeOutput">Comparison output will appear here when external provider adapters are activated.</div>
           <div class="receipt-line">external_comparison=true · authority=false</div>
         </div>
         <div class="llm-panel model-card">
           <h3>Other LLM comparison</h3>
-          <div class="model-output" id="otherOutput">Awaiting input.</div>
+          <div class="model-output" id="otherOutput">Comparison output will appear here when external provider adapters are activated.</div>
           <div class="receipt-line">external_comparison=true · authority=false</div>
         </div>
       </div>
@@ -123,7 +127,17 @@
 
   function generateLocalComparison() {
     var input = document.getElementById('llmInput').value.trim();
-    var safeInput = escapeText(input || 'No input provided.');
+    if (!input) {
+      document.getElementById('stegverseOutput').innerHTML = 'Welcome to StegVerse AI.\n\nI can help answer questions, explain StegVerse concepts, route ecosystem requests, describe SDK access, compare external LLM responses, and prepare governed transition candidates with clear authority and receipt boundaries.\n\nHow can I help you today?';
+      document.getElementById('stegverseReceipt').textContent = 'mode=welcome · governed_candidate=false · authority=not-issued · receipt=not-issued';
+      document.getElementById('routeOutput').innerHTML = 'Route guidance will appear here when a request is entered.';
+      document.getElementById('sdkOutput').innerHTML = 'SDK and access guidance will appear here when relevant.';
+      document.getElementById('chatgptOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
+      document.getElementById('claudeOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
+      document.getElementById('otherOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
+      return;
+    }
+    var safeInput = escapeText(input);
     document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as one entry-point request.\n\nInput observed: ' + safeInput + '\n\nLocal scaffold: answer directly when safe, route ecosystem work when needed, explain SDK access without exposing credentials, and treat any consequential output as a governed transition candidate.';
     document.getElementById('stegverseReceipt').textContent = 'mode=local-prototype · governed_candidate=true · input_length=' + input.length + ' · authority=not-issued · receipt=preview';
     document.getElementById('routeOutput').innerHTML = 'Route preview: classify as chat, research, SDK/API, runtime, governance, documentation, or restricted administration. Restricted administration requires separate authority.';
@@ -134,7 +148,6 @@
   }
 
   document.getElementById('generateComparison').addEventListener('click', generateLocalComparison);
-  generateLocalComparison();
 </script>
 </body>
 </html>
