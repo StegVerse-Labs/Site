@@ -1,0 +1,48 @@
+{
+  "schema_version": "stegverse.ai_entry.release_readiness.v0.1",
+  "goal": "AI Entry preview/local-ready cross-repo integration",
+  "repo_set_required_now": [
+    "StegVerse-Labs/Site",
+    "StegVerse-org/LLM-adapter",
+    "StegVerse-org/StegVerse-SDK"
+  ],
+  "repo_set_sufficient_for_preview": true,
+  "future_backend_repo_required_now": false,
+  "canonical_commands": {
+    "StegVerse-Labs/Site": "python scripts/check_ecosystem_chat_ai_entry.py",
+    "StegVerse-org/LLM-adapter": "python scripts/verify_goal4.py",
+    "StegVerse-org/StegVerse-SDK": "python scripts/verify_goal4.py"
+  },
+  "repo_local_status": {
+    "StegVerse-Labs/Site": {
+      "contract_sync_complete": true,
+      "workflow_wired": true,
+      "ios_mirror_present": true,
+      "manual_verification_gap_closed": true
+    },
+    "StegVerse-org/LLM-adapter": {
+      "preview_backend_complete": true,
+      "workflow_wired": true,
+      "ios_mirror_present": true,
+      "manual_verification_gap_closed": true
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "receipt_preview_complete": true,
+      "workflow_wired": true,
+      "ios_mirror_present": true,
+      "manual_verification_gap_closed": true
+    }
+  },
+  "external_run_confirmation": {
+    "required_for_repo_local_completion": false,
+    "status": "not_confirmed_by_available_github_status_tools"
+  },
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "credential_surface_enabled": false
+  },
+  "next_integration_candidate": "shared integration verifier"
+}
