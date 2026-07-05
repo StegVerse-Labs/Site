@@ -39,6 +39,7 @@
     <div class="sv-btn-row">
       <a class="sv-btn sv-btn-primary" href="#llm-input-panel">Open AI entry</a>
       <a class="sv-btn sv-btn-secondary" href="docs/STEGVERSE_AI_ENTRYPOINT.md">AI entry spec</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md">Backend route model</a>
       <a class="sv-btn sv-btn-secondary" href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Comparison spec</a>
       <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html">Existing advancement console</a>
     </div>
@@ -115,14 +116,35 @@ How can I help you today?</div>
 
 <footer class="sv-footer">
   <span>StegVerse · AI Entry Point · Governed routing behind one window</span>
-  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/STEGVERSE_AI_ENTRYPOINT.md">AI Entry Spec</a> · <a href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Comparison Spec</a></span>
+  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/STEGVERSE_AI_ENTRYPOINT.md">AI Entry Spec</a> · <a href="docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md">Route Model</a></span>
 </footer>
 
 <script>
+  var ROUTES = [
+    { id: 'restricted_admin', label: 'Restricted administration', words: ['secret', 'token', 'credential', 'shell', 'delete', 'release', 'permission', 'workflow', 'repo write'] },
+    { id: 'llm_comparison', label: 'LLM comparison', words: ['compare', 'comparison', 'chatgpt', 'claude', 'gemini', 'grok', 'other llm'] },
+    { id: 'sdk_access_guidance', label: 'SDK access guidance', words: ['sdk', 'api', 'access', 'onboard', 'permission', 'manifest', 'receipt'] },
+    { id: 'sdk_intake_candidate', label: 'SDK intake candidate', words: ['submit', 'intake', 'candidate', 'packet', 'request access', 'integration'] },
+    { id: 'governance_review', label: 'Governance review', words: ['governance', 'admissibility', 'authority', 'evidence', 'reconstruction', 'replay', 'transition'] },
+    { id: 'runtime_status', label: 'Runtime status', words: ['runtime', 'adapter', 'micro-node', 'micro node', 'capability', 'goal'] },
+    { id: 'documentation_route', label: 'Documentation route', words: ['docs', 'documentation', 'wiki', 'paper', 'spec', 'runbook', 'proof'] },
+    { id: 'ecosystem_explanation', label: 'Ecosystem explanation', words: ['ecosystem', 'stegverse', 'concept', 'component', 'role', 'status'] }
+  ];
+
   function escapeText(value) {
     return String(value || '').replace(/[&<>]/g, function (ch) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[ch];
     });
+  }
+
+  function classifyRoute(input) {
+    var lower = input.toLowerCase();
+    for (var i = 0; i < ROUTES.length; i += 1) {
+      for (var j = 0; j < ROUTES[i].words.length; j += 1) {
+        if (lower.indexOf(ROUTES[i].words[j]) !== -1) return ROUTES[i];
+      }
+    }
+    return { id: 'chat_answer', label: 'StegVerse answer', words: [] };
   }
 
   function generateLocalComparison() {
@@ -137,11 +159,12 @@ How can I help you today?</div>
       document.getElementById('otherOutput').innerHTML = 'Comparison output will appear here when external provider adapters are activated.';
       return;
     }
+    var route = classifyRoute(input);
     var safeInput = escapeText(input);
-    document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as one entry-point request.\n\nInput observed: ' + safeInput + '\n\nLocal scaffold: answer directly when safe, route ecosystem work when needed, explain SDK access without exposing credentials, and treat any consequential output as a governed transition candidate.';
-    document.getElementById('stegverseReceipt').textContent = 'mode=local-prototype · governed_candidate=true · input_length=' + input.length + ' · authority=not-issued · receipt=preview';
-    document.getElementById('routeOutput').innerHTML = 'Route preview: classify as chat, research, SDK/API, runtime, governance, documentation, or restricted administration. Restricted administration requires separate authority.';
-    document.getElementById('sdkOutput').innerHTML = 'SDK guidance preview: explain available SDK entry points, required permissions, manifests, receipts, and next steps. Do not expose credentials or imply access has been granted.';
+    document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as one entry-point request.\n\nInput observed: ' + safeInput + '\n\nSelected route: ' + route.label + ' (' + route.id + ')\n\nLocal scaffold: answer directly when safe, route ecosystem work when needed, explain SDK access without exposing credentials, and treat any consequential output as a governed transition candidate.';
+    document.getElementById('stegverseReceipt').textContent = 'mode=local-prototype · route=' + route.id + ' · governed_candidate=true · input_length=' + input.length + ' · authority=not-issued · receipt=preview';
+    document.getElementById('routeOutput').innerHTML = 'Route preview: ' + route.label + '\n\nThis local classifier mirrors the backend route manifest at data/ecosystem-chat-routes.json. A live backend should preserve the user request, classify the route, check authority requirements, and return a bounded response.';
+    document.getElementById('sdkOutput').innerHTML = route.id.indexOf('sdk') === 0 ? 'SDK guidance preview: explain available SDK entry points, required permissions, manifests, receipts, and next steps. Do not expose credentials or imply access has been granted.' : 'SDK guidance preview: no SDK-specific route was selected. Ask about SDK access, API onboarding, manifests, or intake packets to open this path.';
     document.getElementById('chatgptOutput').innerHTML = 'Comparison placeholder: a ChatGPT response would be displayed here after provider adapter activation.';
     document.getElementById('claudeOutput').innerHTML = 'Comparison placeholder: a Claude response would be displayed here after provider adapter activation.';
     document.getElementById('otherOutput').innerHTML = 'Comparison placeholder: another provider response would be displayed here after provider adapter activation.';
