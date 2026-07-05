@@ -1,0 +1,18 @@
+{
+  "schema_version": "stegverse.ai_entry.tag_gate.v0.1",
+  "goal": "tag gate",
+  "state": "waiting_for_visible_green",
+  "inputs": {
+    "release_lockfile": true,
+    "cross_repo_index": true,
+    "visibility_index": true,
+    "visible_green": false
+  },
+  "candidate": {
+    "name": "ai-entry-preview-v0.1.0",
+    "ready": false,
+    "note": "Preview package is locked. Tagging waits for visible green data."
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "site handoff final consolidation"
+}
