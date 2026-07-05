@@ -1,0 +1,10 @@
+{
+  "schema_version": "stegverse.ecosystem_chat.receipt_preview.v0.1",
+  "preview_only": true,
+  "receipt_issued": false,
+  "authority_issued": false,
+  "input_hash": "preview-input-hash",
+  "route_id": "sdk_access_guidance",
+  "response_id": "preview-ecosystem-chat-response-001",
+  "reconstruction_available": false
+}
