@@ -1,0 +1,27 @@
+{
+  "schema_version": "stegverse.ai_entry.proposal_completion.v0.1",
+  "goal": "proposal completion index",
+  "state": "proposal_complete_waiting_for_green_data",
+  "completed_components": {
+    "proposal_packet": true,
+    "proposal_verifier": true,
+    "green_data_packet_alias": true,
+    "site_validation_wired": true
+  },
+  "blocked_inputs": {
+    "visible_green_data": false,
+    "tag_gate_ready": false
+  },
+  "current_readiness": {
+    "provider_ready": false,
+    "sdk_ready": false,
+    "credential_ready": false,
+    "authority_ready": false,
+    "receipt_ready": false,
+    "activation_ready": false,
+    "execution_ready": false,
+    "repo_write_ready": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "final no-manual-task closure"
+}
