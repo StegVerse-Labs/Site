@@ -1,0 +1,51 @@
+{
+  "schema_version": "stegverse.ecosystem_chat.provider_adapters.v0.1",
+  "providers": [
+    {
+      "schema_version": "stegverse.ecosystem_chat.provider_adapter.v0.1",
+      "provider": "ChatGPT",
+      "enabled": false,
+      "authority": false,
+      "live_call_allowed": false,
+      "comparison_only": true,
+      "output_label": "ChatGPT comparison",
+      "activation_requirements": [
+        "governed provider adapter approval",
+        "secret management boundary",
+        "per-request capture receipt",
+        "comparison-only label retained"
+      ]
+    },
+    {
+      "schema_version": "stegverse.ecosystem_chat.provider_adapter.v0.1",
+      "provider": "Claude",
+      "enabled": false,
+      "authority": false,
+      "live_call_allowed": false,
+      "comparison_only": true,
+      "output_label": "Claude comparison",
+      "activation_requirements": [
+        "governed provider adapter approval",
+        "secret management boundary",
+        "per-request capture receipt",
+        "comparison-only label retained"
+      ]
+    },
+    {
+      "schema_version": "stegverse.ecosystem_chat.provider_adapter.v0.1",
+      "provider": "Other LLM",
+      "enabled": false,
+      "authority": false,
+      "live_call_allowed": false,
+      "comparison_only": true,
+      "output_label": "Other LLM comparison",
+      "activation_requirements": [
+        "provider named explicitly",
+        "governed provider adapter approval",
+        "secret management boundary",
+        "per-request capture receipt",
+        "comparison-only label retained"
+      ]
+    }
+  ]
+}
