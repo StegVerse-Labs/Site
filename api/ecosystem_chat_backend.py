@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ROUTE_MANIFEST = ROOT / "data" / "ecosystem-chat-routes.json"
 
 PROVIDERS = ("ChatGPT", "Claude", "Other LLM")
+GENERIC_ROUTE_ID = "chat_answer"
 
 
 def stable_response_id(message: str, route_id: str) -> str:
@@ -30,12 +31,15 @@ def read_manifest() -> dict[str, Any]:
 def classify_route(message: str, manifest: dict[str, Any] | None = None) -> dict[str, Any]:
     manifest = manifest or read_manifest()
     lower = message.lower()
-    for route in manifest.get("routes", []):
+    routes = list(manifest.get("routes", []))
+    specific_routes = [route for route in routes if route.get("id") != GENERIC_ROUTE_ID]
+    generic_routes = [route for route in routes if route.get("id") == GENERIC_ROUTE_ID]
+    for route in specific_routes + generic_routes:
         for keyword in route.get("keywords", []):
             if keyword.lower() in lower:
                 return route
-    default_route = manifest.get("default_route", "chat_answer")
-    for route in manifest.get("routes", []):
+    default_route = manifest.get("default_route", GENERIC_ROUTE_ID)
+    for route in routes:
         if route.get("id") == default_route:
             return route
     raise ValueError(f"default route not found: {default_route}")
