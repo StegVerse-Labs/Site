@@ -13,6 +13,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ecosystem_chat_ai_entry.py"),
     (sys.executable, "scripts/check_ai_entry_green_run_readiness.py"),
     (sys.executable, "scripts/check_ai_entry_workflow_parity.py"),
+    (sys.executable, "scripts/check_ai_entry_workflow_commands.py"),
 )
 
 
