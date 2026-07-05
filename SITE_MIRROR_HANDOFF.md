@@ -6,11 +6,11 @@ This file is the active handoff for `StegVerse-Labs/Site` until superseded.
 
 ## Active goal
 
-Goal: Cohesive StegVerse AI Entry Application, local-ready/live-disabled, with no-manual-task validation closure.
+Goal: Governed Backend Adapter Activation Path, preview-only/live-disabled, extending the completed cohesive StegVerse AI Entry Application.
 
-The Site presents one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, restricted-admin paths, and governed-live activation status without forcing the user to choose repo-specific pages first.
+The Site presents one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, restricted-admin paths, governed-live activation status, and backend activation guidance without forcing the user to choose repo-specific pages first.
 
-## Installed AI entry application artifacts
+## Installed AI entry application and activation-path artifacts
 
 ```text
 stegverse-llm-console.html
@@ -27,6 +27,10 @@ data/ai-entry-workflow-parity.json
 data/ai-entry-automation-closure.json
 data/ai-entry-governed-live-activation-plan.json
 data/ai-entry-governed-live-readiness.json
+data/ai-entry-application-completion.json
+data/ai-entry-backend-activation-boundary.json
+data/ai-entry-activation-routes.json
+data/ai-entry-backend-activation-progress.json
 schemas/ecosystem-chat-backend-response.schema.json
 schemas/ecosystem-chat-provider-adapter.schema.json
 schemas/ecosystem-chat-sdk-access.schema.json
@@ -38,6 +42,8 @@ fixtures/ecosystem-chat/receipt-preview.example.json
 fixtures/ecosystem-chat/adapter-extension.example.json
 fixtures/ecosystem-chat/route-precedence-cases.json
 fixtures/ecosystem-chat/governed-live-activation-request.example.json
+fixtures/ecosystem-chat/backend-activation-request.example.json
+fixtures/ecosystem-chat/backend-activation-response.example.json
 docs/STEGVERSE_AI_ENTRYPOINT.md
 docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md
 docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md
@@ -65,6 +71,12 @@ scripts/check_ai_entry_governed_live_activation_request.py
 scripts/check_ai_entry_governed_live_readiness.py
 scripts/check_ai_entry_ui_activation_status.py
 scripts/check_ai_entry_application_page.py
+scripts/check_ai_entry_application_completion.py
+scripts/check_ai_entry_backend_activation_boundary.py
+scripts/check_ai_entry_activation_routes.py
+scripts/check_ai_entry_backend_activation_fixtures.py
+scripts/check_ai_entry_ui_activation_routes.py
+scripts/check_ai_entry_backend_activation_progress.py
 scripts/check_ecosystem_chat_ai_entry.py
 scripts/check_ecosystem_chat_ai_entry_full.py
 scripts/check_ecosystem_chat_application.py
@@ -86,6 +98,9 @@ Governed-live activation status
 ChatGPT comparison
 Claude comparison
 Other LLM comparison
+Activation guidance
+Activation request preview
+Activation boundary review
 ```
 
 The browser adapter exposes `activation_status` and remains fail-closed:
@@ -99,6 +114,42 @@ credential_surface_enabled=false
 execution_authority_issued=false
 real_receipt_issued=false
 repo_mutation_from_chat_enabled=false
+```
+
+## Backend activation path status
+
+Completed preview components:
+
+```text
+activation_boundary_contract=true
+activation_route_model=true
+backend_activation_request_fixture=true
+backend_activation_response_fixture=true
+ui_activation_guidance_routes=true
+```
+
+Remaining governed-live components:
+
+```text
+handoff_sync=true
+final_green_run_confirmation=true
+governed_live_authority_service=true
+receipt_issuer_boundary=true
+provider_capture_boundary=true
+sdk_access_decision_boundary=true
+operator_recoverability_boundary=true
+```
+
+The activation path is still non-executing:
+
+```text
+activation_request_executes=false
+provider_call=false
+sdk_call=false
+credential_lookup=false
+receipt_issue=false
+execution_authority_issue=false
+repo_mutation=false
 ```
 
 ## Upstream adapter boundary
@@ -143,6 +194,12 @@ AI_ENTRY_GOVERNED_LIVE_READINESS_PASS
 ECOSYSTEM_CHAT_AI_ENTRY_FULL_PASS
 AI_ENTRY_UI_ACTIVATION_STATUS_PASS
 AI_ENTRY_APPLICATION_PAGE_PASS
+AI_ENTRY_APPLICATION_COMPLETION_PASS
+AI_ENTRY_BACKEND_ACTIVATION_BOUNDARY_PASS
+AI_ENTRY_ACTIVATION_ROUTES_PASS
+AI_ENTRY_BACKEND_ACTIVATION_FIXTURES_PASS
+AI_ENTRY_UI_ACTIVATION_ROUTES_PASS
+AI_ENTRY_BACKEND_ACTIVATION_PROGRESS_PASS
 ECOSYSTEM_CHAT_APPLICATION_PASS
 ```
 
@@ -166,6 +223,7 @@ The mirror remains only as an iOS-safe restoration copy. The canonical workflow 
 ```text
 one_window_entry_surface == true
 cohesive_application_surface == true
+backend_activation_preview_path == true
 route_manifest_present == true
 route_precedence_fixture_present == true
 backend_route_priority_self_verified == true
@@ -175,6 +233,8 @@ adapter_extension_present == true
 adapter_extension_validated == true
 activation_status_surface_present == true
 activation_status_fail_closed == true
+activation_routes_present == true
+activation_request_response_fixtures_present == true
 deterministic_backend_scaffold_present == true
 api_wrapper_present == true
 provider_calls_enabled == false
@@ -183,6 +243,7 @@ credential_surface_enabled == false
 execution_authority_issued == false
 real_receipt_issued == false
 repo_mutation_from_chat_enabled == false
+activation_request_executes == false
 external_provider_outputs_authority == false
 workflow_count_exceeds_two == false
 manual_tasks_remaining == []
@@ -191,13 +252,17 @@ manual_tasks_remaining == []
 ## Remaining files or modules to install
 
 ```text
-None for current cohesive AI Entry application preview.
+Governed live authority service boundary -> StegVerse-Labs/Site or StegVerse-org/LLM-adapter
+Receipt issuer boundary -> StegVerse-org/StegVerse-SDK and/or StegVerse-org/LLM-adapter
+Provider capture boundary -> StegVerse-org/LLM-adapter
+SDK access decision boundary -> StegVerse-org/StegVerse-SDK
+Operator recoverability boundary -> StegVerse-Labs/Site / StegVerse-org/LLM-adapter
 ```
 
 ## Boundary
 
-The current build is cohesive, local-ready, and live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance.
+The current build is cohesive, preview-only, and live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance.
 
 ## Archive posture
 
-This handoff preserves the cohesive AI Entry application state so the Complete thread can be archived without additional context. The application preview is complete pending workflow-run confirmation or future governed-live activation work.
+This handoff preserves the cohesive AI Entry application and governed backend activation preview path so the Complete thread can be archived without additional context. The activation preview path is complete pending workflow-run confirmation or future governed-live authority work.
