@@ -1,0 +1,21 @@
+{
+  "schema_version": "stegverse.ai_entry.post_archive_monitor.v0.1",
+  "goal": "post-archive green-data monitor",
+  "state": "monitor_active_green_absent",
+  "source_checkpoint": "data/ai-entry-stable-archive-checkpoint.json",
+  "tracked_files": [
+    "data/ai-entry-green-run-visibility-consolidation.json",
+    "data/ai-entry-visibility-recheck-index.json",
+    "data/ai-entry-visible-green-monitor-goal.json",
+    "data/ai-entry-stable-archive-checkpoint.json"
+  ],
+  "monitor_outputs": {
+    "visible_green_data": false,
+    "ready_for_tag": false,
+    "ready_for_live_activation": false,
+    "manual_task_count": 0
+  },
+  "next_action_when_green_visible": "create tag readiness promotion packet",
+  "next_action_when_green_absent": "continue post archive monitor",
+  "manual_tasks_remaining": []
+}
