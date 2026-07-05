@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run full AI Entry validation plus cohesive application surface checks."""
+"""Run AI Entry validation checks."""
 from __future__ import annotations
 
 import subprocess
@@ -33,6 +33,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ai_entry_next_path_gate.py"),
     (sys.executable, "scripts/check_ai_entry_visibility_recheck_index.py"),
     (sys.executable, "scripts/check_ai_entry_runtime_design_packet.py"),
+    (sys.executable, "scripts/check_ai_entry_runtime_design_fixtures.py"),
 )
 
 
