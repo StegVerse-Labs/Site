@@ -5,6 +5,17 @@
   'use strict';
 
   var PROVIDERS = ['ChatGPT', 'Claude', 'Other LLM'];
+  var ACTIVATION_STATUS = {
+    current_mode: 'local_ready_live_disabled',
+    readiness_state: 'not_ready_fail_closed',
+    status_message: 'Governed-live activation is planned but not ready. Provider calls, SDK calls, credential access, real receipts, execution authority, and repo mutation remain disabled.',
+    live_provider_calls_enabled: false,
+    live_sdk_calls_enabled: false,
+    credential_surface_enabled: false,
+    execution_authority_issued: false,
+    real_receipt_issued: false,
+    repo_mutation_from_chat_enabled: false
+  };
   var ROUTE_PRIORITY = {
     restricted_admin: 100,
     sdk_intake_candidate: 90,
@@ -76,6 +87,10 @@
     });
   }
 
+  function activationStatus() {
+    return Object.assign({}, ACTIVATION_STATUS);
+  }
+
   function adapterExtension(message, routeId, responseIdValue) {
     return {
       adapter_status: {
@@ -120,6 +135,7 @@
         sdk_guidance: 'SDK and access guidance appears when relevant.',
         comparison_outputs: comparisonOutputs('Comparison output will appear here when external provider adapters are activated.'),
         governance: { governed_candidate: false, authority_issued: false, receipt_id: null, reconstruction_available: false },
+        activation_status: activationStatus(),
         adapter_extension: adapterExtension('', 'chat_answer', 'welcome')
       };
     }
@@ -138,6 +154,7 @@
       sdk_guidance: sdkGuidance,
       comparison_outputs: comparisonOutputs('Comparison placeholder pending provider adapter activation.'),
       governance: { governed_candidate: true, authority_issued: false, receipt_id: null, reconstruction_available: false },
+      activation_status: activationStatus(),
       adapter_extension: adapterExtension(clean, route.id, rid)
     };
   }
