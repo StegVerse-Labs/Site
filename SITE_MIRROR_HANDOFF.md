@@ -133,4 +133,4 @@ The current build is contract-synced local-ready/live-disabled. It is not live p
 
 ## Archive posture
 
-This handoff preserves the AI Entry Site contract-sync state so the complete thread can be archived without additional context. The Site-side contract sync is complete pending workflow-run confirmation or future governed-live activation work.
+This handoff preserves the AI Entry Site contract-sync state so the Complete thread can be archived without additional context. The Site-side contract sync is complete pending workflow-run confirmation or future governed-live activation work.
