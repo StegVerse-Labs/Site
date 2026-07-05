@@ -95,25 +95,25 @@
       border-top: 1px solid #132215;
       overflow-wrap: anywhere;
     }
-    .route-grid, .sdk-grid, .guardrail-grid {
+    .route-grid, .sdk-grid, .guardrail-grid, .trust-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 12px;
       margin-bottom: 24px;
     }
-    .route-card, .sdk-card, .guardrail-card {
+    .route-card, .sdk-card, .guardrail-card, .trust-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px;
     }
-    .route-card strong, .sdk-card strong, .guardrail-card strong, .sdk-label {
+    .route-card strong, .sdk-card strong, .guardrail-card strong, .trust-card strong, .sdk-label {
       display: block;
       color: var(--text);
       font-size: 13px;
       margin-bottom: 4px;
     }
-    .route-card span, .sdk-card span, .guardrail-card span {
+    .route-card span, .sdk-card span, .guardrail-card span, .trust-card span {
       color: var(--muted);
       font-size: 12px;
     }
@@ -124,6 +124,15 @@
       color: #f0d9a0;
       padding: 12px 14px;
       margin-bottom: 24px;
+      font-size: 13px;
+    }
+    .trust-note {
+      border: 1px solid #12351b;
+      border-radius: var(--radius);
+      background: rgba(18, 49, 27, 0.22);
+      color: #bce9c5;
+      padding: 12px 14px;
+      margin-bottom: 16px;
       font-size: 13px;
     }
     .sdk-preview-grid {
@@ -186,6 +195,8 @@
       <a class="sv-btn sv-btn-primary" href="#sdk-entry">Open SDK form</a>
       <a class="sv-btn sv-btn-secondary" href="#console">Open console</a>
       <a class="sv-btn sv-btn-secondary" href="#guardrails">View guardrails</a>
+      <a class="sv-btn sv-btn-secondary" href="#free-tier-trust">Free-tier trust</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/LLM_FREE_TIER_TRUST_STATUS.md">Trust status</a>
       <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway contract</a>
       <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form model</a>
       <a class="sv-btn sv-btn-secondary" href="docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md">Boundary check</a>
@@ -195,6 +206,19 @@
 
   <div class="sv-boundary">
     <strong>Boundary:</strong> Site is a public mirror and user-facing advancement surface. Fillable fields generate text only into the manifest window and receipt window. Those generated windows are previews until correctness, authority, rate limits, and allowed-task status are determined at submission time. Site must not claim shell access, credential access, receipt authority, transition authority, accreditation authority, administrative authority, or autonomous deployment authority.
+  </div>
+
+  <h2 class="sv-h2" id="free-tier-trust">Bounded free-tier trust display</h2>
+  <div class="trust-note">
+    This section mirrors the `free_tier_trust` contract from `StegVerse-org/LLM-adapter`. It is designed for bounded live governed use, not a static demo. Site displays the public envelope only; it does not call live model providers, issue receipts, persist records, export audit packets, or grant execution authority.
+  </div>
+  <div class="trust-grid">
+    <div class="trust-card"><strong>Governed inquiries</strong><span>5 per day, 25 trial total, enough for a real trust-forming sequence without unlimited provider cost.</span></div>
+    <div class="trust-card"><strong>Receipt inspection</strong><span>Enabled as metadata display; receipt export is limited to 1 per day and is not permanent retention.</span></div>
+    <div class="trust-card"><strong>Replay</strong><span>1 recent-session replay per day in the free envelope. Replay does not grant commit-time standing.</span></div>
+    <div class="trust-card"><strong>Reconstruction</strong><span>Recent-session limited. Reconstruction does not grant commit-time standing or execution authority.</span></div>
+    <div class="trust-card"><strong>Upgrade boundary</strong><span>Upgrade is for higher quota, private connectors, premium models, longer retention, team workspaces, API access, custom policy, and audit packets.</span></div>
+    <div class="trust-card"><strong>Non-claim</strong><span>Quota availability is not admissibility, not execution authority, and does not change governance requirements.</span></div>
   </div>
 
   <h2 class="sv-h2" id="guardrails">Public guardrails</h2>
@@ -358,7 +382,7 @@
 
 <footer class="sv-footer">
   <span>StegVerse · User advancement console · Governed task boundary · Public mirror</span>
-  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway Contract</a> · <a href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form Model</a> · <a href="docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md">Boundary Check</a> · <a href="transition-verification-guide.html">Verification Guide</a></span>
+  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/LLM_FREE_TIER_TRUST_STATUS.md">Free-Tier Trust</a> · <a href="docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md">Gateway Contract</a> · <a href="docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md">Form Model</a> · <a href="docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md">Boundary Check</a> · <a href="transition-verification-guide.html">Verification Guide</a></span>
 </footer>
 
 <script src="assets/ecosystem-chat.js"></script>
