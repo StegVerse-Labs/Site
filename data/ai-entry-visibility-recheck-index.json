@@ -1,0 +1,26 @@
+{
+  "schema_version": "stegverse.ai_entry.visibility_recheck_index.v0.1",
+  "goal": "scheduled visibility recheck index",
+  "state": "recheck_plan_defined",
+  "recheck_targets": {
+    "StegVerse-Labs/Site": {
+      "last_checked_commit": "d776d9448ffa6e247dcd75d9fa6b53db1d5e1413",
+      "command": "python scripts/check_ecosystem_chat_application.py"
+    },
+    "StegVerse-org/LLM-adapter": {
+      "last_checked_commit": "f9139d7f78893265c475493c4f48806287b97c9d",
+      "command": "python scripts/verify_goal4_full.py"
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "last_checked_commit": "6e46eeb7bf40043fdb5e2962a501f816c265459e",
+      "command": "python scripts/verify_goal4.py"
+    }
+  },
+  "recheck_rule": {
+    "trigger": "new connector-visible workflow run data or new commit on tracked repo",
+    "green_claim_allowed": false,
+    "manual_screenshot_required": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "live-activation architecture packet"
+}
