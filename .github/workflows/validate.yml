@@ -13,5 +13,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Validate StegVerse AI Entry Point
-        run: python scripts/check_ecosystem_chat_ai_entry_full.py
+      - name: Validate StegVerse AI Entry Application
+        run: python scripts/check_ecosystem_chat_application.py
