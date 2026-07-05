@@ -39,6 +39,8 @@ scripts/check_ecosystem_chat_sdk_access.py
 scripts/check_ecosystem_chat_receipt_preview.py
 scripts/check_ecosystem_chat_readiness.py
 scripts/check_ecosystem_chat_ai_entry.py
+iosnoperiod/github/workflows/validate.yml
+iosnoperiod.md
 ```
 
 ## Canonical validation command
@@ -60,6 +62,21 @@ ECOSYSTEM_CHAT_READINESS_PASS
 ECOSYSTEM_CHAT_AI_ENTRY_PASS
 ```
 
+## Prepared validation workflow mirror
+
+```text
+Canonical: .github/workflows/validate.yml
+Mirror: iosnoperiod/github/workflows/validate.yml
+```
+
+The mirror runs:
+
+```bash
+python scripts/check_ecosystem_chat_ai_entry.py
+```
+
+The mirror is prepared but not activation evidence until copied or restored to the canonical workflow path.
+
 ## Required invariant
 
 ```text
@@ -74,15 +91,10 @@ credential_surface_enabled == false
 execution_authority_issued == false
 real_receipt_issued == false
 external_provider_outputs_authority == false
+workflow_count_exceeds_two == false
 ```
 
 ## Remaining files or modules to install
-
-Destination: `StegVerse-Labs/Site`
-
-```text
-CI/build workflow or existing validate workflow integration for python scripts/check_ecosystem_chat_ai_entry.py
-```
 
 Destination: governed backend service repo when selected
 
@@ -99,4 +111,4 @@ The current build is local-ready/live-disabled. It is not live provider activati
 
 ## Archive posture
 
-This handoff preserves the AI entry build state so the complete thread can be archived without additional context. Next work should start by running or wiring the canonical validation command.
+This handoff preserves the AI entry build state so the complete thread can be archived without additional context. Next work should start by activating the prepared validate mirror only if canonical workflow activation is authorized, or by running the canonical validation command in an existing validation surface.
