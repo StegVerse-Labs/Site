@@ -1,0 +1,21 @@
+{
+  "schema_version": "stegverse.ai_entry.authority_decision_response.v0.1",
+  "request_id": "authority-preview-0001",
+  "activation_request_id": "backend-activation-preview-0001",
+  "authority_decision": "DENY",
+  "decision_reason": "Preview-only authority boundary denies activation because governed-live prerequisites are incomplete.",
+  "missing_preconditions": [
+    "actor authorization",
+    "provider capture boundary",
+    "receipt issuer boundary",
+    "SDK access decision boundary",
+    "operator recoverability boundary"
+  ],
+  "decision_outputs": {
+    "authority_issued": false,
+    "execution_allowed": false,
+    "credential_access_allowed": false,
+    "live_calls_allowed": false,
+    "repo_mutation_allowed": false
+  }
+}
