@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/ecosystem-chat-adapter-extension.schema.json",
+  "title": "Ecosystem Chat Adapter Extension",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["adapter_status", "preview_marker", "endpoint_marker", "service_marker"],
+  "properties": {
+    "adapter_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_calls", "provider_authority", "test_secret_required", "capture_required_before_activation"],
+      "properties": {
+        "provider_calls": { "type": "boolean", "const": false },
+        "provider_authority": { "type": "boolean", "const": false },
+        "test_secret_required": { "type": "boolean", "const": false },
+        "capture_required_before_activation": { "type": "boolean", "const": true }
+      }
+    },
+    "preview_marker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preview_only", "capture_enabled", "record_saved", "authority_granted", "input_hash", "route_id", "response_id"],
+      "properties": {
+        "preview_only": { "type": "boolean", "const": true },
+        "capture_enabled": { "type": "boolean", "const": false },
+        "record_saved": { "type": "boolean", "const": false },
+        "authority_granted": { "type": "boolean", "const": false },
+        "input_hash": { "type": "string", "minLength": 64, "maxLength": 64 },
+        "route_id": { "type": "string" },
+        "response_id": { "type": "string" }
+      }
+    },
+    "endpoint_marker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "started", "calls_performed", "side_effects"],
+      "properties": {
+        "mode": { "type": "string", "const": "pure_function_preview" },
+        "started": { "type": "boolean", "const": false },
+        "calls_performed": { "type": "boolean", "const": false },
+        "side_effects": { "type": "boolean", "const": false }
+      }
+    },
+    "service_marker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "wrapper_present", "started_by_import", "calls_enabled", "side_effects_enabled"],
+      "properties": {
+        "name": { "type": "string", "const": "stegverse-ai-entry-interim-backend" },
+        "wrapper_present": { "type": "boolean", "const": true },
+        "started_by_import": { "type": "boolean", "const": false },
+        "calls_enabled": { "type": "boolean", "const": false },
+        "side_effects_enabled": { "type": "boolean", "const": false }
+      }
+    }
+  }
+}
