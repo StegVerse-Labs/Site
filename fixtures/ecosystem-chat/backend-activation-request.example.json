@@ -1,0 +1,26 @@
+{
+  "schema_version": "stegverse.ai_entry.backend_activation_request.v0.1",
+  "request_id": "backend-activation-preview-0001",
+  "route_id": "activation_request_preview",
+  "requested_surface": "Ecosystem Chat & LLM",
+  "requested_backend": "api/ecosystem_chat_api_wrapper.py",
+  "mode": "preview_only",
+  "live_calls_requested": false,
+  "authority_boundary": {
+    "authority_required": true,
+    "authority_issued": false,
+    "execution_allowed": false,
+    "credential_access_allowed": false
+  },
+  "requested_capabilities": {
+    "provider_adapter_calls": false,
+    "sdk_access_calls": false,
+    "receipt_issuer": false,
+    "repo_mutation": false
+  },
+  "fail_closed_boundary": {
+    "default_decision": "DENY",
+    "activation_request_executes": false,
+    "manual_override_allowed": false
+  }
+}
