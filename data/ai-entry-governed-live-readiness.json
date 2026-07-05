@@ -1,0 +1,32 @@
+{
+  "schema_version": "stegverse.ai_entry.governed_live_readiness.v0.1",
+  "surface": "Ecosystem Chat & LLM",
+  "current_mode": "local_ready_live_disabled",
+  "readiness_state": "not_ready_fail_closed",
+  "readiness_checks": [
+    {"name": "activation_plan_present", "ready": true},
+    {"name": "activation_request_schema_present", "ready": true},
+    {"name": "activation_request_fixture_present", "ready": true},
+    {"name": "provider_authority_gate_live", "ready": false},
+    {"name": "sdk_authority_gate_live", "ready": false},
+    {"name": "receipt_issuer_live", "ready": false},
+    {"name": "execution_authority_live", "ready": false},
+    {"name": "operator_recoverability_live", "ready": false}
+  ],
+  "status_message": "Governed-live activation is planned but not ready. The AI Entry surface remains local-ready/live-disabled and must fail closed until authority, receipt, SDK, provider, and recoverability gates are complete.",
+  "public_surface_fields": {
+    "show_activation_status": true,
+    "show_live_disabled_notice": true,
+    "show_authority_not_issued": true,
+    "show_provider_calls_disabled": true,
+    "show_sdk_calls_disabled": true
+  },
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "credential_surface_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "repo_mutation_from_chat_enabled": false
+  }
+}
