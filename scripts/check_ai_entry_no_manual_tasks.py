@@ -27,12 +27,21 @@ def require_text(path: Path, markers: tuple[str, ...]) -> None:
             fail(f"{path.relative_to(ROOT)} missing {marker}")
 
 
+def require_any_text(path: Path, markers: tuple[str, ...]) -> None:
+    if not path.exists():
+        fail(f"missing {path.relative_to(ROOT)}")
+    text = path.read_text(encoding="utf-8")
+    if not any(marker in text for marker in markers):
+        fail(f"{path.relative_to(ROOT)} missing one of: {', '.join(markers)}")
+
+
 def main() -> int:
     require_text(AGGREGATE, ("check_ecosystem_chat_adapter_extension.py", "ECOSYSTEM_CHAT_AI_ENTRY_PASS"))
     require_text(CANONICAL, (REQUIRED, "workflow_dispatch"))
     require_text(MIRROR, (REQUIRED, "workflow_dispatch"))
     require_text(STATUS, ("installation_complete == true", "workflow_run_confirmed == false"))
-    require_text(HANDOFF, ("None for Site-side AI Entry contract sync", "Complete thread can be archived"))
+    require_text(HANDOFF, ("None for Site-side AI Entry contract sync", "Archive posture"))
+    require_any_text(HANDOFF, ("complete thread can be archived", "Complete thread can be archived"))
     print("AI_ENTRY_NO_MANUAL_TASKS_PASS")
     return 0
 
