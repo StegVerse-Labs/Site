@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegVerse governed LLM console with primary governed response and external LLM comparison panes.">
-  <title>StegVerse — LLM Console</title>
+  <meta name="description" content="StegVerse AI entry point for governed answers, ecosystem routing, SDK guidance, and external LLM comparison panes.">
+  <title>StegVerse — AI Entry Point</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
     .llm-shell { display: grid; gap: 16px; }
@@ -14,7 +14,7 @@
     .llm-hint { color: var(--muted); font-size: 12px; }
     .response-grid { display: grid; gap: 14px; }
     .primary-response { border-left: 4px solid var(--green); }
-    .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .comparison-grid, .route-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
     .model-card { min-height: 180px; }
     .model-card h3 { margin-top: 0; font-size: 15px; }
     .model-output { white-space: pre-wrap; color: #c8d4e8; font-size: 13px; }
@@ -27,41 +27,55 @@
   <a class="sv-nav-brand" href="index.html">StegVerse</a>
   <a href="index.html">Home</a>
   <a href="ecosystem-chat.html">Ecosystem Chat</a>
-  <a href="stegverse-llm-console.html" class="active">LLM Console</a>
+  <a href="stegverse-llm-console.html" class="active">AI Entry</a>
   <a href="admissibility-wiki.html">Admissibility Wiki</a>
 </nav>
 
 <div class="sv-wrap">
   <div class="sv-hero">
-    <div class="sv-eyebrow">StegVerse LLM · governed response first · comparison panes below</div>
-    <h1>StegVerse LLM Console<br><em>one governed answer, external model comparisons.</em></h1>
-    <p>Enter a query or statement. The StegVerse response area represents the governed ecosystem answer candidate. External model panes are comparison outputs only unless later passed through the same governance path.</p>
+    <div class="sv-eyebrow">StegVerse AI · one entry window · governed routing behind the scenes</div>
+    <h1>StegVerse AI Entry Point<br><em>ask once, route correctly.</em></h1>
+    <p>Enter a question, statement, ecosystem request, SDK question, or governance input candidate. StegVerse should answer when it can, route when it should, explain access when needed, and show external LLM comparison panes without treating them as authority.</p>
     <div class="sv-btn-row">
-      <a class="sv-btn sv-btn-primary" href="#llm-input-panel">Open console</a>
-      <a class="sv-btn sv-btn-secondary" href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Console target spec</a>
+      <a class="sv-btn sv-btn-primary" href="#llm-input-panel">Open AI entry</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/STEGVERSE_AI_ENTRYPOINT.md">AI entry spec</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Comparison spec</a>
       <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html">Existing advancement console</a>
     </div>
   </div>
 
   <div class="sv-boundary">
-    <strong>Boundary:</strong> This prototype is local and fixture-first. It does not call live providers, execute actions, mutate memory, write repos, issue authority, or certify external LLMs. External model panes are comparison surfaces only.
+    <strong>Boundary:</strong> This prototype is local and fixture-first. It does not call live providers, execute actions, mutate memory, write repos, issue authority, or certify external LLMs. It demonstrates the intended one-window StegVerse AI entry point.
   </div>
 
   <section class="llm-shell" id="llm-input-panel">
     <div class="llm-panel">
-      <h2 class="sv-h2">Input</h2>
-      <textarea id="llmInput" class="llm-input" placeholder="Enter a question, statement, or governed input candidate...">What does a StegVerse governed LLM do differently from a normal chatbot?</textarea>
+      <h2 class="sv-h2">One StegVerse AI window</h2>
+      <textarea id="llmInput" class="llm-input" placeholder="Ask StegVerse, request SDK guidance, compare model answers, or submit a governed input candidate...">How do I access the StegVerse SDK and compare StegVerse with other LLMs?</textarea>
       <div class="llm-actions">
-        <span class="llm-hint">Local prototype. The generated response is a scaffold, not a live LLM call.</span>
-        <button class="sv-btn sv-btn-primary" id="generateComparison" type="button">Generate local comparison</button>
+        <span class="llm-hint">Local prototype. The generated response is a route-aware scaffold, not a live LLM call.</span>
+        <button class="sv-btn sv-btn-primary" id="generateComparison" type="button">Generate local StegVerse response</button>
       </div>
     </div>
 
     <div class="response-grid">
       <div class="llm-panel primary-response">
-        <h2 class="sv-h2">StegVerse LLM response</h2>
+        <h2 class="sv-h2">StegVerse AI response</h2>
         <div class="model-output" id="stegverseOutput">Awaiting input.</div>
         <div class="receipt-line" id="stegverseReceipt">mode=local-prototype · governed_candidate=true · authority=not-issued · receipt=preview</div>
+      </div>
+
+      <div class="route-grid">
+        <div class="llm-panel model-card">
+          <h3>Route / ecosystem essentials</h3>
+          <div class="model-output" id="routeOutput">Awaiting input.</div>
+          <div class="receipt-line">route_preview=true · execution=false</div>
+        </div>
+        <div class="llm-panel model-card">
+          <h3>SDK / access guidance</h3>
+          <div class="model-output" id="sdkOutput">Awaiting input.</div>
+          <div class="receipt-line">sdk_guidance=true · credential_surface=false</div>
+        </div>
       </div>
 
       <div class="comparison-note">
@@ -90,14 +104,14 @@
 
   <h2 class="sv-h2">MVP completion definition</h2>
   <div class="sv-prose">
-    <p>Done for this prototype means a user can enter one input, see a clearly labeled StegVerse governed answer candidate first, and view separate external LLM comparison panes below it without confusing those external outputs for governed authority.</p>
-    <p>The next activation step is replacing local scaffolds with governed backend adapters that preserve input hashing, admissibility checks, provider response capture, receipt metadata, and reconstruction evidence.</p>
+    <p>Done for this prototype means a user can enter one input, receive a StegVerse AI response first, see routing and SDK guidance when relevant, and view external LLM comparison panes below without confusing those external outputs for governed authority.</p>
+    <p>The next activation step is replacing local scaffolds with governed backend adapters that preserve input hashing, admissibility checks, provider response capture, receipt metadata, reconstruction evidence, and route-specific authority boundaries.</p>
   </div>
 </div>
 
 <footer class="sv-footer">
-  <span>StegVerse · LLM Console · Governed response first</span>
-  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Console Target Spec</a></span>
+  <span>StegVerse · AI Entry Point · Governed routing behind one window</span>
+  <span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="docs/STEGVERSE_AI_ENTRYPOINT.md">AI Entry Spec</a> · <a href="docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md">Comparison Spec</a></span>
 </footer>
 
 <script>
@@ -110,11 +124,13 @@
   function generateLocalComparison() {
     var input = document.getElementById('llmInput').value.trim();
     var safeInput = escapeText(input || 'No input provided.');
-    document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as a governed transition candidate.\n\nInput observed: ' + safeInput + '\n\nLocal scaffold: preserve the claim, classify the request, identify required evidence, check authority, bound the output, and attach receipt/reconstruction metadata before consequence.';
+    document.getElementById('stegverseOutput').innerHTML = 'StegVerse treats this as one entry-point request.\n\nInput observed: ' + safeInput + '\n\nLocal scaffold: answer directly when safe, route ecosystem work when needed, explain SDK access without exposing credentials, and treat any consequential output as a governed transition candidate.';
     document.getElementById('stegverseReceipt').textContent = 'mode=local-prototype · governed_candidate=true · input_length=' + input.length + ' · authority=not-issued · receipt=preview';
-    document.getElementById('chatgptOutput').innerHTML = 'Comparison placeholder: a general assistant-style answer would be displayed here after provider adapter activation.';
-    document.getElementById('claudeOutput').innerHTML = 'Comparison placeholder: a Claude-style answer would be displayed here after provider adapter activation.';
-    document.getElementById('otherOutput').innerHTML = 'Comparison placeholder: another provider answer would be displayed here after provider adapter activation.';
+    document.getElementById('routeOutput').innerHTML = 'Route preview: classify as chat, research, SDK/API, runtime, governance, documentation, or restricted administration. Restricted administration requires separate authority.';
+    document.getElementById('sdkOutput').innerHTML = 'SDK guidance preview: explain available SDK entry points, required permissions, manifests, receipts, and next steps. Do not expose credentials or imply access has been granted.';
+    document.getElementById('chatgptOutput').innerHTML = 'Comparison placeholder: a ChatGPT response would be displayed here after provider adapter activation.';
+    document.getElementById('claudeOutput').innerHTML = 'Comparison placeholder: a Claude response would be displayed here after provider adapter activation.';
+    document.getElementById('otherOutput').innerHTML = 'Comparison placeholder: another provider response would be displayed here after provider adapter activation.';
   }
 
   document.getElementById('generateComparison').addEventListener('click', generateLocalComparison);
