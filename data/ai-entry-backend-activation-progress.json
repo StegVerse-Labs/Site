@@ -1,0 +1,30 @@
+{
+  "schema_version": "stegverse.ai_entry.backend_activation_progress.v0.1",
+  "goal": "Governed backend adapter activation path",
+  "state": "preview_path_partial_live_disabled",
+  "completed_components": {
+    "activation_boundary_contract": true,
+    "activation_route_model": true,
+    "backend_activation_request_fixture": true,
+    "backend_activation_response_fixture": true,
+    "ui_activation_guidance_routes": true
+  },
+  "remaining_components": {
+    "handoff_sync": true,
+    "final_green_run_confirmation": true,
+    "governed_live_authority_service": true,
+    "receipt_issuer_boundary": true,
+    "provider_capture_boundary": true,
+    "sdk_access_decision_boundary": true,
+    "operator_recoverability_boundary": true
+  },
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "credential_surface_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "repo_mutation_from_chat_enabled": false,
+    "activation_request_executes": false
+  }
+}
