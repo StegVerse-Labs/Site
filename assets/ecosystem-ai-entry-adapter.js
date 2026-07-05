@@ -5,6 +5,17 @@
   'use strict';
 
   var PROVIDERS = ['ChatGPT', 'Claude', 'Other LLM'];
+  var ROUTE_PRIORITY = {
+    restricted_admin: 100,
+    sdk_intake_candidate: 90,
+    sdk_access_guidance: 80,
+    runtime_status: 70,
+    llm_comparison: 60,
+    governance_review: 50,
+    documentation_route: 40,
+    ecosystem_explanation: 30,
+    chat_answer: 10
+  };
   var ROUTES = [
     { id: 'restricted_admin', label: 'Restricted administration', authority_required: true, execution_allowed: false, purpose: 'Reject or require separate authority for restricted administrative actions.', words: ['secret', 'token', 'credential', 'shell', 'delete', 'release', 'permission', 'workflow', 'repo write'] },
     { id: 'llm_comparison', label: 'LLM comparison', authority_required: false, execution_allowed: false, purpose: 'Show StegVerse response first and external LLM comparison panes below.', words: ['compare', 'comparison', 'chatgpt', 'claude', 'gemini', 'grok', 'other llm'] },
@@ -16,14 +27,26 @@
     { id: 'ecosystem_explanation', label: 'Ecosystem explanation', authority_required: false, execution_allowed: false, purpose: 'Explain StegVerse ecosystem concepts, components, roles, and status.', words: ['ecosystem', 'stegverse', 'concept', 'component', 'role', 'status'] }
   ];
 
+  function routeScore(route, lower) {
+    var matches = 0;
+    for (var i = 0; i < route.words.length; i += 1) {
+      if (lower.indexOf(route.words[i]) !== -1) matches += 1;
+    }
+    return { matches: matches, priority: ROUTE_PRIORITY[route.id] || 0 };
+  }
+
   function classifyRoute(message) {
     var lower = String(message || '').toLowerCase();
+    var bestRoute = null;
+    var bestScore = { matches: 0, priority: 0 };
     for (var i = 0; i < ROUTES.length; i += 1) {
-      for (var j = 0; j < ROUTES[i].words.length; j += 1) {
-        if (lower.indexOf(ROUTES[i].words[j]) !== -1) return ROUTES[i];
+      var score = routeScore(ROUTES[i], lower);
+      if (score.matches > bestScore.matches || (score.matches === bestScore.matches && score.priority > bestScore.priority)) {
+        bestRoute = ROUTES[i];
+        bestScore = score;
       }
     }
-    return { id: 'chat_answer', label: 'StegVerse answer', authority_required: false, execution_allowed: false, purpose: 'Answer normal user questions as a StegVerse governed response candidate.', words: [] };
+    return bestRoute || { id: 'chat_answer', label: 'StegVerse answer', authority_required: false, execution_allowed: false, purpose: 'Answer normal user questions as a StegVerse governed response candidate.', words: [] };
   }
 
   function responseId(message, routeId) {
