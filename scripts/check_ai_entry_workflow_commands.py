@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "data" / "ai-entry-workflow-parity.json"
 EXPECTED = {
-    "StegVerse-Labs/Site": "python scripts/check_ecosystem_chat_ai_entry_full.py",
+    "StegVerse-Labs/Site": "python scripts/check_ecosystem_chat_application.py",
     "StegVerse-org/LLM-adapter": "python scripts/verify_goal4_full.py",
     "StegVerse-org/StegVerse-SDK": "python scripts/verify_goal4.py",
 }
