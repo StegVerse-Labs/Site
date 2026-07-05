@@ -36,10 +36,54 @@
     return 'preview-' + routeId + '-' + Math.abs(hash).toString(16);
   }
 
+  function inputHash(message) {
+    var base = String(message || '');
+    var hash = 0;
+    for (var i = 0; i < base.length; i += 1) {
+      hash = ((hash << 5) - hash) + base.charCodeAt(i);
+      hash |= 0;
+    }
+    var hex = Math.abs(hash).toString(16);
+    return (hex + '0000000000000000000000000000000000000000000000000000000000000000').slice(0, 64);
+  }
+
   function comparisonOutputs(text) {
     return PROVIDERS.map(function (provider) {
       return { provider: provider, authority: false, response: text };
     });
+  }
+
+  function adapterExtension(message, routeId, responseIdValue) {
+    return {
+      adapter_status: {
+        provider_calls: false,
+        provider_authority: false,
+        test_secret_required: false,
+        capture_required_before_activation: true
+      },
+      preview_marker: {
+        preview_only: true,
+        capture_enabled: false,
+        record_saved: false,
+        authority_granted: false,
+        input_hash: inputHash(message),
+        route_id: routeId,
+        response_id: responseIdValue
+      },
+      endpoint_marker: {
+        mode: 'pure_function_preview',
+        started: false,
+        calls_performed: false,
+        side_effects: false
+      },
+      service_marker: {
+        name: 'stegverse-ai-entry-interim-backend',
+        wrapper_present: true,
+        started_by_import: false,
+        calls_enabled: false,
+        side_effects_enabled: false
+      }
+    };
   }
 
   function buildResponse(message) {
@@ -52,23 +96,26 @@
         route_guidance: 'Enter a request to classify the route.',
         sdk_guidance: 'SDK and access guidance appears when relevant.',
         comparison_outputs: comparisonOutputs('Comparison output will appear here when external provider adapters are activated.'),
-        governance: { governed_candidate: false, authority_issued: false, receipt_id: null, reconstruction_available: false }
+        governance: { governed_candidate: false, authority_issued: false, receipt_id: null, reconstruction_available: false },
+        adapter_extension: adapterExtension('', 'chat_answer', 'welcome')
       };
     }
 
     var route = classifyRoute(clean);
+    var rid = responseId(clean, route.id);
     var sdkGuidance = route.id.indexOf('sdk') === 0
       ? 'SDK route selected: explain SDK entry points, permissions, manifests, receipts, and next steps. Do not expose credentials or imply access has been granted.'
       : 'No SDK-specific route was selected. Ask about SDK access, API onboarding, manifests, or intake packets to open this path.';
 
     return {
-      response_id: responseId(clean, route.id),
+      response_id: rid,
       primary_route: route.id,
       stegverse_response: 'StegVerse treats this as one entry-point request.\n\nSelected route: ' + route.label + ' (' + route.id + ').\n\nA live backend would preserve the original request, apply governed route handling, check authority requirements, and return bounded output with receipt/reconstruction metadata when available.',
       route_guidance: 'Route preview: ' + route.label + '.\n\n' + route.purpose + '\n\nauthority_required=' + route.authority_required + ' · execution_allowed=' + route.execution_allowed,
       sdk_guidance: sdkGuidance,
       comparison_outputs: comparisonOutputs('Comparison placeholder pending provider adapter activation.'),
-      governance: { governed_candidate: true, authority_issued: false, receipt_id: null, reconstruction_available: false }
+      governance: { governed_candidate: true, authority_issued: false, receipt_id: null, reconstruction_available: false },
+      adapter_extension: adapterExtension(clean, route.id, rid)
     };
   }
 
