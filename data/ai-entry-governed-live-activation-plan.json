@@ -1,0 +1,60 @@
+{
+  "schema_version": "stegverse.ai_entry.governed_live_activation_plan.v0.1",
+  "goal": "Prepare governed-live AI Entry activation without enabling live calls",
+  "activation_state": "planned_fail_closed",
+  "current_mode": "local_ready_live_disabled",
+  "activation_preconditions": [
+    {
+      "name": "provider_adapter_authority_gate",
+      "required": true,
+      "complete": false,
+      "description": "Provider adapters must remain non-authoritative until a governed activation decision exists."
+    },
+    {
+      "name": "sdk_access_authority_gate",
+      "required": true,
+      "complete": false,
+      "description": "SDK access guidance must not imply access grant or credential availability."
+    },
+    {
+      "name": "receipt_capture_path",
+      "required": true,
+      "complete": false,
+      "description": "Preview receipts must remain placeholders until a governed receipt issuer exists."
+    },
+    {
+      "name": "execution_authority_boundary",
+      "required": true,
+      "complete": false,
+      "description": "Execution authority must be issued only through a separate governed decision path."
+    },
+    {
+      "name": "operator_recoverability_boundary",
+      "required": true,
+      "complete": false,
+      "description": "Activation must preserve fail-closed recovery if operator authority or external adapter state degrades."
+    }
+  ],
+  "activation_forbidden_until_preconditions_complete": [
+    "live_provider_calls",
+    "live_sdk_calls",
+    "credential_exposure",
+    "real_receipt_issuance",
+    "execution_authority_issuance",
+    "repo_mutation_from_chat"
+  ],
+  "next_build_targets": [
+    "governed activation request schema",
+    "activation readiness fixture",
+    "fail-closed activation verifier",
+    "activation status surface for Ecosystem Chat & LLM"
+  ],
+  "current_boundary": {
+    "live_provider_calls_enabled": false,
+    "live_sdk_calls_enabled": false,
+    "credential_surface_enabled": false,
+    "execution_authority_issued": false,
+    "real_receipt_issued": false,
+    "repo_mutation_from_chat_enabled": false
+  }
+}
