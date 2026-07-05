@@ -31,6 +31,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ai_entry_tag_gate.py"),
     (sys.executable, "scripts/check_ai_entry_final_handoff_index.py"),
     (sys.executable, "scripts/check_ai_entry_next_path_gate.py"),
+    (sys.executable, "scripts/check_ai_entry_visibility_recheck_index.py"),
 )
 
 
