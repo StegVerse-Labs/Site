@@ -1,0 +1,31 @@
+{
+  "schema_version": "stegverse.ai_entry.runtime_design_packet.v0.1",
+  "goal": "runtime design packet",
+  "state": "design_only",
+  "required_inputs": [
+    "visible green data",
+    "tag gate ready",
+    "authority path",
+    "receipt path",
+    "provider path",
+    "SDK path",
+    "recovery path"
+  ],
+  "repo_surfaces": {
+    "StegVerse-Labs/Site": "request and status surfaces",
+    "StegVerse-org/LLM-adapter": "adapter boundary surfaces",
+    "StegVerse-org/StegVerse-SDK": "receipt and SDK boundary surfaces"
+  },
+  "readiness_flags": {
+    "provider_ready": false,
+    "sdk_ready": false,
+    "credential_ready": false,
+    "authority_ready": false,
+    "receipt_ready": false,
+    "activation_ready": false,
+    "execution_ready": false,
+    "repo_write_ready": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "runtime design schema fixtures"
+}
