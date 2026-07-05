@@ -2,125 +2,101 @@
 
 ## Current source of truth
 
-This file is the documentation mirror handoff source of truth for `StegVerse-Labs/admissibility-wiki/docs/` until superseded.
+This file is the active handoff for `StegVerse-Labs/Site` until superseded.
 
 ## Active goal
 
-Goal 3: Governed LLM end-to-end demonstrator public documentation and Site mirror sync.
+Goal: StegVerse AI Entry Point local-ready/live-disabled activation surface.
 
-The Site documentation layer should reflect the governed LLM demonstrator only after the runtime and SDK handoffs are present:
+The Site now presents the target product direction: one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, or restricted-admin paths without forcing the user to choose repo-specific pages first.
+
+## Installed AI entry artifacts
 
 ```text
-StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md
-StegVerse-org/StegVerse-SDK/STEGVERSE_SDK_MIRROR_HANDOFF.md
-StegVerse-Labs/admissibility-wiki/ADMISSIBILITY_MIRROR_HANDOFF.md
-StegVerse-Labs/admissibility-wiki/docs/SITE_MIRROR_HANDOFF.md
+stegverse-llm-console.html
+assets/ecosystem-ai-entry-adapter.js
+api/ecosystem_chat_backend.py
+api/ecosystem_chat_api_wrapper.py
+data/ecosystem-chat-routes.json
+data/ecosystem-chat-provider-adapters.json
+data/ecosystem-chat-sdk-access.json
+data/ecosystem-chat-ai-entry-readiness.json
+schemas/ecosystem-chat-backend-response.schema.json
+schemas/ecosystem-chat-provider-adapter.schema.json
+schemas/ecosystem-chat-sdk-access.schema.json
+schemas/ecosystem-chat-receipt-preview.schema.json
+fixtures/ecosystem-chat/backend-response.example.json
+fixtures/ecosystem-chat/receipt-preview.example.json
+docs/STEGVERSE_AI_ENTRYPOINT.md
+docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md
+docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md
+docs/ECOSYSTEM_CHAT_ROUTE_ACTIVATION_STATUS.md
+scripts/check_ecosystem_chat_routes.py
+scripts/check_ecosystem_chat_backend.py
+scripts/check_ecosystem_chat_api_wrapper.py
+scripts/check_ecosystem_chat_provider_adapters.py
+scripts/check_ecosystem_chat_sdk_access.py
+scripts/check_ecosystem_chat_receipt_preview.py
+scripts/check_ecosystem_chat_readiness.py
+scripts/check_ecosystem_chat_ai_entry.py
 ```
 
-## Current proof path
+## Canonical validation command
 
-```text
-fixture query
--> LLM-adapter governed session packet
--> SDK validation
--> SDK intake routing
--> SDK manifest binding
--> SDK receipt handoff
--> wiki public demo overview
--> Site navigation and deployment verification
+```bash
+python scripts/check_ecosystem_chat_ai_entry.py
 ```
 
-## Source repositories
+Expected terminal output includes:
 
 ```text
-StegVerse-org/LLM-adapter
-  -> runtime demonstrator source
-  -> emits governed session demo packet
-
-StegVerse-org/StegVerse-SDK
-  -> SDK intake and receipt handoff verification source
-  -> validates demo packet and binds receipt handoff
-
-StegVerse-Labs/admissibility-wiki
-  -> public doctrine, demo overview, verification, deployment status, and archive handoff
-```
-
-## Existing governed LLM Site pages
-
-```text
-docs/governance/governed-llm-reconstructive-search.md
-docs/governance/governed-llm-activation-map.md
-docs/governance/governed-llm-site-verification.md
-docs/governance/governed-llm-deployment-status.md
-docs/governance/governed-llm-archive-handoff.md
-```
-
-## Files authorized for Goal 3 Site mirror work
-
-```text
-docs/governance/governed-llm-demo-overview.md
-docs/governance/governed-llm-demo-verification.md
-scripts/check_governed_llm_demo_docs.py
-sidebars.js update
-README.md update
+ECOSYSTEM_CHAT_ROUTES_PASS
+ECOSYSTEM_CHAT_BACKEND_PASS
+ECOSYSTEM_CHAT_API_WRAPPER_PASS
+ECOSYSTEM_CHAT_PROVIDER_ADAPTERS_PASS
+ECOSYSTEM_CHAT_SDK_ACCESS_PASS
+ECOSYSTEM_CHAT_RECEIPT_PREVIEW_PASS
+ECOSYSTEM_CHAT_READINESS_PASS
+ECOSYSTEM_CHAT_AI_ENTRY_PASS
 ```
 
 ## Required invariant
 
 ```text
-site_claims_live_provider_governance == false
-site_claims_execution_authority == false
-site_claims_external_indexing == false
-site_claims_master_record_persistence == false
-demo_is_fixture_first == true
-adapter_and_sdk_remain_source_of_implementation_truth == true
+one_window_entry_surface == true
+route_manifest_present == true
+browser_adapter_present == true
+deterministic_backend_scaffold_present == true
+api_wrapper_present == true
+live_provider_calls_enabled == false
+live_sdk_calls_enabled == false
+credential_surface_enabled == false
+execution_authority_issued == false
+real_receipt_issued == false
+external_provider_outputs_authority == false
 ```
 
-## Local verification commands
+## Remaining files or modules to install
 
-```bash
-python scripts/check_governed_llm_pages.py
-python scripts/check_governed_llm_demo_docs.py
-npm run build
-```
-
-## Deployment verification command
-
-```bash
-python scripts/check_governed_llm_deployment_status.py
-```
-
-Expected deployed result after Pages publishes:
+Destination: `StegVerse-Labs/Site`
 
 ```text
-GOVERNED LLM DEPLOYMENT: PASS - deployed pages reachable
+CI/build workflow or existing validate workflow integration for python scripts/check_ecosystem_chat_ai_entry.py
+```
+
+Destination: governed backend service repo when selected
+
+```text
+HTTP endpoint wrapping api/ecosystem_chat_api_wrapper.py
+secret boundary for provider adapters
+SDK receipt capture adapter
+real receipt issuance service after governed activation
 ```
 
 ## Boundary
 
-```text
-Site mirror publication is not provider governance.
-Site mirror publication is not execution authority.
-Site mirror publication is not commit-time standing.
-Site mirror publication is not master-record persistence.
-Site mirror publication is not external indexing.
-```
+The current build is local-ready/live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance.
 
-## Installation order
+## Archive posture
 
-```text
-1. Confirm LLM_ADAPTER_MIRROR_HANDOFF.md is installed in LLM-adapter.
-2. Confirm STEGVERSE_SDK_MIRROR_HANDOFF.md is installed in StegVerse-SDK.
-3. Confirm ADMISSIBILITY_MIRROR_HANDOFF.md is installed in admissibility-wiki.
-4. Install or update this SITE_MIRROR_HANDOFF.md in docs/.
-5. Install governed LLM demo overview and verification pages.
-6. Update sidebar and README references.
-7. Run local verification.
-8. Run deployment verification after Pages publishes.
-```
-
-## Current archive posture
-
-Not archive-ready until the governed LLM demo overview and demo verification pages are installed, linked in navigation, and locally verified.
-
-Once local verification passes, the Site mirror work may be archived as repo-local complete, with deployed GitHub Pages confirmation tracked separately.
+This handoff preserves the AI entry build state so the complete thread can be archived without additional context. Next work should start by running or wiring the canonical validation command.
