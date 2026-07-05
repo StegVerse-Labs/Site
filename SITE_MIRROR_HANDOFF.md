@@ -6,9 +6,9 @@ This file is the active handoff for `StegVerse-Labs/Site` until superseded.
 
 ## Active goal
 
-Goal: StegVerse AI Entry Point local-ready/live-disabled activation surface.
+Goal: StegVerse AI Entry Point contract-synced local-ready/live-disabled surface.
 
-The Site now presents the target product direction: one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, or restricted-admin paths without forcing the user to choose repo-specific pages first.
+The Site presents one StegVerse AI entry window that routes user input into chat, comparison, SDK guidance, governance review, runtime status, documentation, or restricted-admin paths without forcing the user to choose repo-specific pages first.
 
 ## Installed AI entry artifacts
 
@@ -25,8 +25,10 @@ schemas/ecosystem-chat-backend-response.schema.json
 schemas/ecosystem-chat-provider-adapter.schema.json
 schemas/ecosystem-chat-sdk-access.schema.json
 schemas/ecosystem-chat-receipt-preview.schema.json
+schemas/ecosystem-chat-adapter-extension.schema.json
 fixtures/ecosystem-chat/backend-response.example.json
 fixtures/ecosystem-chat/receipt-preview.example.json
+fixtures/ecosystem-chat/adapter-extension.example.json
 docs/STEGVERSE_AI_ENTRYPOINT.md
 docs/STEGVERSE_LLM_COMPARISON_CONSOLE.md
 docs/ECOSYSTEM_CHAT_BACKEND_ROUTE_MODEL.md
@@ -38,10 +40,31 @@ scripts/check_ecosystem_chat_provider_adapters.py
 scripts/check_ecosystem_chat_sdk_access.py
 scripts/check_ecosystem_chat_receipt_preview.py
 scripts/check_ecosystem_chat_readiness.py
+scripts/check_ecosystem_chat_adapter_extension.py
 scripts/check_ecosystem_chat_ai_entry.py
 .github/workflows/validate.yml
 iosnoperiod/github/workflows/validate.yml
 iosnoperiod.md
+```
+
+## Upstream adapter boundary
+
+`StegVerse-org/LLM-adapter` now provides the interim adapter-side AI Entry boundary:
+
+```text
+llm_adapter/ai_entry_provider_boundary.py
+llm_adapter/ai_entry_backend_service.py
+llm_adapter/ai_entry_endpoint.py
+llm_adapter/ai_entry_service_wrapper.py
+```
+
+The Site browser adapter now emits `adapter_extension` markers that align with that interim boundary:
+
+```text
+adapter_status
+preview_marker
+endpoint_marker
+service_marker
 ```
 
 ## Canonical validation command
@@ -60,6 +83,7 @@ ECOSYSTEM_CHAT_PROVIDER_ADAPTERS_PASS
 ECOSYSTEM_CHAT_SDK_ACCESS_PASS
 ECOSYSTEM_CHAT_RECEIPT_PREVIEW_PASS
 ECOSYSTEM_CHAT_READINESS_PASS
+ECOSYSTEM_CHAT_ADAPTER_EXTENSION_PASS
 ECOSYSTEM_CHAT_AI_ENTRY_PASS
 ```
 
@@ -84,10 +108,12 @@ The mirror remains only as an iOS-safe restoration copy. The canonical workflow 
 one_window_entry_surface == true
 route_manifest_present == true
 browser_adapter_present == true
+adapter_extension_present == true
+adapter_extension_validated == true
 deterministic_backend_scaffold_present == true
 api_wrapper_present == true
-live_provider_calls_enabled == false
-live_sdk_calls_enabled == false
+provider_calls_enabled == false
+sdk_calls_enabled == false
 credential_surface_enabled == false
 execution_authority_issued == false
 real_receipt_issued == false
@@ -97,19 +123,14 @@ workflow_count_exceeds_two == false
 
 ## Remaining files or modules to install
 
-Destination: governed backend service repo when selected
-
 ```text
-HTTP endpoint wrapping api/ecosystem_chat_api_wrapper.py
-secret boundary for provider adapters
-SDK receipt capture adapter
-real receipt issuance service after governed activation
+None for Site-side AI Entry contract sync.
 ```
 
 ## Boundary
 
-The current build is local-ready/live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance.
+The current build is contract-synced local-ready/live-disabled. It is not live provider activation, not SDK access, not credential exposure, not authority issuance, not repo mutation, and not real receipt issuance.
 
 ## Archive posture
 
-This handoff preserves the AI entry build state so the complete thread can be archived without additional context. The local-ready/live-disabled Site surface is repo-local complete pending workflow-run confirmation and future governed-live activation in the selected backend service repo.
+This handoff preserves the AI Entry Site contract-sync state so the complete thread can be archived without additional context. The Site-side contract sync is complete pending workflow-run confirmation or future governed-live activation work.
