@@ -1,0 +1,35 @@
+{
+  "schema_version": "stegverse.ai_entry.route_precedence_cases.v0.1",
+  "cases": [
+    {
+      "message": "How do I access the SDK?",
+      "expected_route": "sdk_access_guidance",
+      "reason": "sdk/access must outrank generic how"
+    },
+    {
+      "message": "Explain runtime adapter status",
+      "expected_route": "runtime_status",
+      "reason": "runtime/adapter must outrank generic ecosystem/status explanation"
+    },
+    {
+      "message": "Compare StegVerse with ChatGPT and Claude",
+      "expected_route": "llm_comparison",
+      "reason": "provider names and compare must select comparison"
+    },
+    {
+      "message": "Review governance evidence reconstruction",
+      "expected_route": "governance_review",
+      "reason": "governance evidence must select governance review"
+    },
+    {
+      "message": "Show docs for proof runbook",
+      "expected_route": "documentation_route",
+      "reason": "docs/proof/runbook must select documentation route"
+    },
+    {
+      "message": "What is StegVerse?",
+      "expected_route": "ecosystem_explanation",
+      "reason": "explicit StegVerse concept question should select ecosystem explanation"
+    }
+  ]
+}
