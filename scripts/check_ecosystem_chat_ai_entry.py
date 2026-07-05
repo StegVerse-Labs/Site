@@ -17,6 +17,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ecosystem_chat_sdk_access.py"),
     (sys.executable, "scripts/check_ecosystem_chat_receipt_preview.py"),
     (sys.executable, "scripts/check_ecosystem_chat_readiness.py"),
+    (sys.executable, "scripts/check_ecosystem_chat_adapter_extension.py"),
 )
 
 
