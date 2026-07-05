@@ -17,6 +17,7 @@ Live URL state: live_url_checker_and_pending_state_wired
 Homepage state: governed_ecosystem_homepage_link_wired
 Micro-node return-path state: display_only_installed_on_branch
 LLM free-tier trust state: display_only_installed
+Public mirror guard state: includes_llm_free_tier_trust_checker
 ```
 
 ## Built Files
@@ -48,6 +49,7 @@ Note: `github/workflows/...` paths are displayed without the leading dot. Actual
 Branch: sync/micro-node-site
 governed-ecosystem.html includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
 ecosystem-chat.html includes a display-only Bounded free-tier trust display mirrored from StegVerse-org/LLM-adapter free_tier_trust metadata.
+site-public-mirror-status-guard.yml now runs scripts/check_site_llm_free_tier_trust.py.
 ```
 
 ## Checkers
@@ -68,7 +70,6 @@ StegVerse-Labs/Site:
   - run public mirror status guard
   - run governed ecosystem live URL workflow
   - update public verification JSON only after live URL passes
-  - optionally add the LLM free-tier trust checker to an aggregate Site guard if one exists
 
 StegVerse-org/StegVerse-SDK:
   - ingest quota/receipt/replay metadata contract from StegVerse-org/LLM-adapter
