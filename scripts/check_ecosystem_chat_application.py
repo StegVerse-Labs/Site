@@ -25,6 +25,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ai_entry_operator_recoverability_boundary.py"),
     (sys.executable, "scripts/check_ai_entry_recovery_state_fixtures.py"),
     (sys.executable, "scripts/check_ai_entry_recovery_completion.py"),
+    (sys.executable, "scripts/check_ai_entry_cross_repo_handoff.py"),
 )
 
 
