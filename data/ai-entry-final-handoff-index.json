@@ -1,0 +1,29 @@
+{
+  "schema_version": "stegverse.ai_entry.final_handoff_index.v0.1",
+  "goal": "site handoff final consolidation",
+  "state": "handoff_index_complete",
+  "source_of_truth_files": [
+    "SITE_MIRROR_HANDOFF.md",
+    "data/ai-entry-cross-repo-handoff.json",
+    "data/ai-entry-green-run-visibility-consolidation.json",
+    "data/ai-entry-release-readiness-lockfile.json",
+    "data/ai-entry-tag-gate.json",
+    "data/ai-entry-recovery-completion.json"
+  ],
+  "validation_files": [
+    "scripts/check_ecosystem_chat_application.py",
+    "scripts/check_ai_entry_cross_repo_handoff.py",
+    "scripts/check_ai_entry_green_run_visibility_consolidation.py",
+    "scripts/check_ai_entry_release_readiness_lockfile.py",
+    "scripts/check_ai_entry_tag_gate.py",
+    "scripts/check_ai_entry_recovery_completion.py"
+  ],
+  "cross_repo_commands": {
+    "StegVerse-Labs/Site": "python scripts/check_ecosystem_chat_application.py",
+    "StegVerse-org/LLM-adapter": "python scripts/verify_goal4_full.py",
+    "StegVerse-org/StegVerse-SDK": "python scripts/verify_goal4.py"
+  },
+  "manual_tasks_remaining": [],
+  "archive_ready": true,
+  "next_goal_candidate": "visible-green-watch-or-live-activation-design"
+}
