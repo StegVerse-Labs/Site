@@ -1,0 +1,25 @@
+{
+  "schema_version": "stegverse.ai_entry.loop_checkpoint.v0.1",
+  "goal": "loop checkpoint",
+  "state": "recorded",
+  "inputs": [
+    "data/ai-entry-post-archive-monitor.json",
+    "data/ai-entry-post-archive-monitor-completion.json",
+    "data/ai-entry-stable-archive-checkpoint.json"
+  ],
+  "outputs": {
+    "green_visible": false,
+    "tag_ready": false,
+    "runtime_ready": false,
+    "manual_count": 0,
+    "path": "continue"
+  },
+  "guards": {
+    "green_claim": false,
+    "tag_change": false,
+    "runtime_change": false,
+    "manual_image": false
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "loop checkpoint completion"
+}
