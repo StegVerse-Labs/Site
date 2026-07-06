@@ -39,6 +39,12 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
 
 concurrency:
   group: site-task-runner
@@ -47,7 +53,7 @@ concurrency:
 jobs:
   run-site-task:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Resolve task
         id: task
@@ -127,6 +133,19 @@ jobs:
             git push
           fi
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy Pages
+        id: deployment
+        if: github.event_name != 'pull_request'
+        uses: actions/deploy-pages@v4
+
       - name: Write summary
         if: always()
         working-directory: site
@@ -134,5 +153,5 @@ jobs:
           echo "## Site Task Runner" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Workflow role: stable declared-task execution surface." >> "$GITHUB_STEP_SUMMARY"
+          echo "Workflow role: stable declared-task execution surface plus GitHub Pages deployment." >> "$GITHUB_STEP_SUMMARY"
           echo "Boundary: generated Site state is committed only after task validation completes." >> "$GITHUB_STEP_SUMMARY"
