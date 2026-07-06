@@ -1,0 +1,17 @@
+{
+  "record_id": "device-continuity-layer-v0.1.0",
+  "source_repo": "StegVerse-Labs/device-continuity-layer",
+  "candidate_tag": "v0.1.0-offline-baseline",
+  "destinations": [
+    "StegVerse-Labs/StegTalk",
+    "StegVerse-Labs/StegMusic"
+  ],
+  "status": "offline_baseline_with_destination_payloads",
+  "tracks": [
+    "device_recovery",
+    "stegtalk",
+    "stegmusic"
+  ],
+  "summary": "Local-first device recovery and interoperability layer with non-authorizing handoff payloads for StegTalk and StegMusic.",
+  "non_authority_rule": "Device Continuity records are handoff candidates only; destination repos issue their own receipts."
+}
