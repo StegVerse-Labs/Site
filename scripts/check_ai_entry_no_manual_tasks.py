@@ -51,7 +51,14 @@ def main() -> int:
     require_workflow_command(CANONICAL)
     require_workflow_command(MIRROR)
     require_text(STATUS, ("installation_complete == true", "workflow_run_confirmed == false"))
-    require_text(HANDOFF, ("None for Site-side AI Entry contract sync", "Archive posture"))
+    require_text(
+        HANDOFF,
+        (
+            "manual_tasks_remaining == []",
+            "repo_mutation_from_chat_enabled == false",
+            "Archive posture",
+        ),
+    )
     require_any_text(HANDOFF, ("complete thread can be archived", "Complete thread can be archived"))
     print("AI_ENTRY_NO_MANUAL_TASKS_PASS")
     return 0
