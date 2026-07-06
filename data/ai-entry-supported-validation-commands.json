@@ -1,0 +1,17 @@
+{
+  "schema_version": "stegverse.ai_entry.supported_validation_commands.v0.1",
+  "goal": "prevent stale validator invalidation",
+  "state": "active",
+  "supported_commands": [
+    "python scripts/check_ecosystem_chat_ai_entry.py",
+    "python scripts/check_ecosystem_chat_ai_entry_full.py",
+    "python scripts/check_ecosystem_chat_application.py"
+  ],
+  "required_locations": [
+    ".github/workflows/validate.yml",
+    "iosnoperiod/github/workflows/validate.yml",
+    "scripts/check_ai_entry_no_manual_tasks.py"
+  ],
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "rerun validation confirmation"
+}
