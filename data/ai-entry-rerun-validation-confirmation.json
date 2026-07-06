@@ -1,0 +1,12 @@
+{
+  "schema_version": "stegverse.ai_entry.rerun_validation_confirmation.v0.1",
+  "goal": "rerun validation confirmation",
+  "state": "workflow_run_not_connector_visible",
+  "checked_commit": "0a2e7e93494893ec5b4101f243782457797bb782",
+  "workflow_runs_visible": false,
+  "validation_failure_interpretation": "not confirmed by connector; do not treat as code failure without run data",
+  "known_false_negative_fixed": true,
+  "supported_command_registry_present": true,
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "workflow visibility refresh"
+}
