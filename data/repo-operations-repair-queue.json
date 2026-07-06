@@ -1,0 +1,97 @@
+{
+  "schema_version": "stegverse.repo_operations.repair_queue.v0.2",
+  "generated_from": "Gmail GitHub failure monitor and active repair PR queue",
+  "status": "classified_repair_queue",
+  "readiness_terms": [
+    "THIS PR IS READY FOR REVIEW.",
+    "THIS PR IS READY FOR MERGE.",
+    "NOT READY FOR REVIEW."
+  ],
+  "authority_boundary": {
+    "auto_merge_enabled": false,
+    "repo_mutation_from_monitor_enabled": false,
+    "credential_changes_allowed": false,
+    "destructive_actions_allowed": false,
+    "requires_review_before_merge": true
+  },
+  "ready_for_review": [
+    {
+      "repo": "StegVerse-Labs/admissibility-wiki",
+      "pr": 8,
+      "title": "Repair Guardian destination continuity",
+      "status_statement": "THIS PR IS READY FOR REVIEW.",
+      "class": "handoff_and_destination_continuity_repair",
+      "remaining": ["review", "workflow validation", "merge authorization"]
+    },
+    {
+      "repo": "StegVerse-Labs/Site",
+      "pr": 6,
+      "title": "Repair CFP phase 2 workflow shell syntax",
+      "status_statement": "THIS PR IS READY FOR REVIEW.",
+      "class": "workflow_syntax_repair",
+      "remaining": ["review", "workflow validation", "merge authorization"]
+    },
+    {
+      "repo": "StegVerse-Labs/StegOps-Orchestrator",
+      "pr": 2,
+      "title": "Repair archive manager workflow paths",
+      "status_statement": "THIS PR IS READY FOR REVIEW.",
+      "class": "workflow_path_and_import_repair",
+      "remaining": ["review", "missing-secret fail-closed validation", "merge authorization"]
+    },
+    {
+      "repo": "StegVerse-Labs/Site",
+      "pr": 5,
+      "title": "Fix AI Entry no-manual handoff marker check",
+      "status_statement": "THIS PR IS READY FOR REVIEW.",
+      "class": "validator_marker_drift_repair",
+      "remaining": ["review", "application validation", "merge authorization"]
+    },
+    {
+      "repo": "GCAT-BCAT-Engine/core-lite",
+      "pr": 1,
+      "title": "Add architecture manifest for core-lite guard",
+      "status_statement": "THIS PR IS READY FOR REVIEW.",
+      "class": "architecture_manifest_repair",
+      "remaining": ["review", "Architecture Guard validation", "merge authorization"]
+    },
+    {
+      "repo": "StegGhost/StegCGE",
+      "pr": 1,
+      "title": "Add architecture manifest for StegCGE guard",
+      "status_statement": "THIS PR IS READY FOR REVIEW.",
+      "class": "architecture_manifest_repair",
+      "remaining": ["review", "Architecture Guard validation", "merge authorization"]
+    }
+  ],
+  "not_ready_for_review": [
+    {
+      "repo": "StegVerse-Labs/StegVerse-SCW",
+      "pr": 18,
+      "title": "Repair SCW repo-ops handoff and alignment checker",
+      "status_statement": "NOT READY FOR REVIEW.",
+      "blockers": ["cross-repo TVC access needs credential review", "report-writing workflow push hardening remains", "CI/lint output review remains"]
+    },
+    {
+      "repo": "StegVerse-Labs/StegDB",
+      "pr": 8,
+      "title": "Document canonical docs sync blocker",
+      "status_statement": "NOT READY FOR REVIEW.",
+      "blockers": ["canonical docs source repository must be confirmed", "access or workflow source path repair remains"]
+    },
+    {
+      "repo": "StegVerse-Labs/device-continuity-layer",
+      "pr": 1,
+      "title": "Install pytest in check workflow",
+      "status_statement": "NOT READY FOR REVIEW.",
+      "blockers": ["manifest validation drift remains", "offline baseline must be rerun after manifest repair"]
+    }
+  ],
+  "next_safe_steps": [
+    "Review ready-for-review PRs against repo handoffs.",
+    "Run validation on PR branches where available.",
+    "Repair blockers on NOT READY FOR REVIEW PRs before upgrading readiness.",
+    "Do not merge without explicit authorization.",
+    "Do not change secrets or PAT scopes from monitor context."
+  ]
+}
