@@ -42,10 +42,6 @@ permissions:
   pages: write
   id-token: write
 
-environment:
-  name: github-pages
-  url: ${{ steps.deployment.outputs.page_url }}
-
 concurrency:
   group: site-task-runner
   cancel-in-progress: false
@@ -54,6 +50,9 @@ jobs:
   run-site-task:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Resolve task
         id: task
