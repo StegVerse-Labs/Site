@@ -11,8 +11,11 @@ AGGREGATE = ROOT / "scripts" / "check_ecosystem_chat_ai_entry.py"
 STATUS = ROOT / "docs" / "AI_ENTRY_CONTRACT_SYNC_RUN_STATUS.md"
 HANDOFF = ROOT / "SITE_MIRROR_HANDOFF.md"
 
-REQUIRED_STANDARD = "python scripts/check_ecosystem_chat_ai_entry.py"
-REQUIRED_FULL = "python scripts/check_ecosystem_chat_ai_entry_full.py"
+SUPPORTED_COMMANDS = (
+    "python scripts/check_ecosystem_chat_ai_entry.py",
+    "python scripts/check_ecosystem_chat_ai_entry_full.py",
+    "python scripts/check_ecosystem_chat_application.py",
+)
 
 
 def fail(message: str) -> None:
@@ -39,7 +42,7 @@ def require_any_text(path: Path, markers: tuple[str, ...]) -> None:
 
 def require_workflow_command(path: Path) -> None:
     text = require_text(path, ("workflow_dispatch",))
-    if REQUIRED_STANDARD not in text and REQUIRED_FULL not in text:
+    if not any(command in text for command in SUPPORTED_COMMANDS):
         fail(f"{path.relative_to(ROOT)} missing supported AI Entry validation command")
 
 
