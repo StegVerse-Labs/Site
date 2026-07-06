@@ -1,0 +1,8 @@
+{
+  "receipt_id": "site-device-continuity-layer-v0.1.0",
+  "source_repo": "StegVerse-Labs/device-continuity-layer",
+  "destination_repo": "StegVerse-Labs/Site",
+  "created_at": "2026-07-05T19:30:00Z",
+  "decision": "recorded_public_overview_data",
+  "reconstructable": true
+}
