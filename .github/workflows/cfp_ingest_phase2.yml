@@ -38,5 +38,6 @@ jobs:
             git add data/cfp-data.json
             git commit -m "Update CFP data (standings + polls) [skip ci]" || echo "Nothing to commit"
             git push
-          else:
+          else
             echo "No changes to commit."
+          fi
