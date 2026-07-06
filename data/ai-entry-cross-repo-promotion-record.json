@@ -1,0 +1,27 @@
+{
+  "schema_version": "stegverse.ai_entry.cross_repo_promotion_record.v0.1",
+  "goal": "cross-repo promotion record",
+  "state": "promotion_recorded_not_green",
+  "repos": {
+    "StegVerse-Labs/Site": {
+      "status": "structured_validation_fixed",
+      "visible_run": false,
+      "promotion_ready": false
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "status": "goal8_completion_checkpoint_recorded",
+      "visible_run": false,
+      "promotion_ready": false
+    },
+    "StegVerse-org/LLM-adapter": {
+      "status": "goal4_full_validation_surface_present",
+      "visible_run": false,
+      "promotion_ready": false
+    }
+  },
+  "green_data_promotion": false,
+  "tag_ready": false,
+  "live_activation_ready": false,
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "cross-repo promotion verifier"
+}
