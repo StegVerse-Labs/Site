@@ -1,1 +1,31 @@
-{}
+{
+  "schema_version": "stegverse.repo_operations.repair_queue.v0.3",
+  "generated_from": "Repo Operations Center repair queue after Site PR #7 creation",
+  "status": "classified_repair_queue_self_referenced",
+  "authority_boundary": {
+    "auto_merge_enabled": false,
+    "repo_mutation_from_monitor_enabled": false,
+    "destructive_actions_allowed": false,
+    "requires_review_before_merge": true
+  },
+  "ready_for_review": [
+    {"repo": "StegVerse-Labs/Site", "pr": 7, "title": "Add repo operations repair queue status", "status_statement": "THIS PR IS READY FOR REVIEW."},
+    {"repo": "StegVerse-Labs/admissibility-wiki", "pr": 8, "title": "Repair Guardian destination continuity", "status_statement": "THIS PR IS READY FOR REVIEW."},
+    {"repo": "StegVerse-Labs/Site", "pr": 6, "title": "Repair CFP phase 2 workflow shell syntax", "status_statement": "THIS PR IS READY FOR REVIEW."},
+    {"repo": "StegVerse-Labs/StegOps-Orchestrator", "pr": 2, "title": "Repair archive manager workflow paths", "status_statement": "THIS PR IS READY FOR REVIEW."},
+    {"repo": "StegVerse-Labs/Site", "pr": 5, "title": "Fix AI Entry no-manual handoff marker check", "status_statement": "THIS PR IS READY FOR REVIEW."},
+    {"repo": "GCAT-BCAT-Engine/core-lite", "pr": 1, "title": "Add architecture manifest for core-lite guard", "status_statement": "THIS PR IS READY FOR REVIEW."},
+    {"repo": "StegGhost/StegCGE", "pr": 1, "title": "Add architecture manifest for StegCGE guard", "status_statement": "THIS PR IS READY FOR REVIEW."}
+  ],
+  "not_ready_for_review": [
+    {"repo": "StegVerse-Labs/StegVerse-SCW", "pr": 18, "title": "Repair SCW repo-ops handoff and alignment checker", "status_statement": "NOT READY FOR REVIEW."},
+    {"repo": "StegVerse-Labs/StegDB", "pr": 8, "title": "Document canonical docs sync blocker", "status_statement": "NOT READY FOR REVIEW."},
+    {"repo": "StegVerse-Labs/device-continuity-layer", "pr": 1, "title": "Install pytest in check workflow", "status_statement": "NOT READY FOR REVIEW."}
+  ],
+  "next_safe_steps": [
+    "Review ready-for-review PRs against repo handoffs.",
+    "Run validation on PR branches where available.",
+    "Repair blocker PRs before upgrading readiness.",
+    "Do not merge without explicit authorization."
+  ]
+}
