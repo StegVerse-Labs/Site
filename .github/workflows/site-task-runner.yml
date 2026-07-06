@@ -1,0 +1,138 @@
+name: Site Task Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: Declared Site task to run
+        required: true
+        default: all-local
+        type: choice
+        options:
+          - all-local
+          - validate
+          - test-readiness
+          - mirror-readiness
+          - public-guard
+          - live-url
+          - tt-status
+          - external-evidence
+          - autonomous-continuation
+          - universal-ingest
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_run:
+    workflows:
+      - Site Bootstrap Validate
+    types:
+      - completed
+  push:
+    paths:
+      - 'index.html'
+      - 'governed-ecosystem.html'
+      - 'ecosystem-chat.html'
+      - 'data/**'
+      - 'docs/**'
+      - 'ingestion/**'
+      - 'scripts/**'
+      - '.github/workflows/site-task-runner.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-task-runner
+  cancel-in-progress: false
+
+jobs:
+  run-site-task:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Resolve task
+        id: task
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "name=${{ inputs.task }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=all-local" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout Site
+        uses: actions/checkout@v4
+        with:
+          path: site
+          persist-credentials: true
+
+      - name: Resolve TT checkout mode
+        id: tt_mode
+        run: |
+          if [ -n "${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}" ]; then
+            echo "use_private_checkout=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "use_private_checkout=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout canonical TT
+        if: steps.tt_mode.outputs.use_private_checkout == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: Admissible-Existence/TT
+          ref: main
+          path: tt
+          token: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install optional ingest dependencies
+        if: steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'universal-ingest'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests beautifulsoup4
+
+      - name: Build TT propagation bundle
+        if: steps.tt_mode.outputs.use_private_checkout == 'true' && (steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'tt-status' || steps.task.outputs.name == 'autonomous-continuation')
+        working-directory: tt
+        run: python scripts/build_transition_element_propagation_bundle.py
+
+      - name: Copy TT bundle into Site
+        if: steps.tt_mode.outputs.use_private_checkout == 'true' && (steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'tt-status' || steps.task.outputs.name == 'autonomous-continuation')
+        run: |
+          mkdir -p site/data/tt
+          cp tt/dist/transition-element-propagation-bundle.manifest.json site/data/tt/transition-element-propagation-bundle.manifest.json
+
+      - name: Confirm checked-in TT fallback
+        if: steps.tt_mode.outputs.use_private_checkout != 'true' && (steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'tt-status' || steps.task.outputs.name == 'autonomous-continuation')
+        run: |
+          test -f site/data/tt/transition-element-propagation-bundle.manifest.json
+          echo "Using checked-in Site TT bundle fallback because STEGVERSE_REPO_SYNC_TOKEN is not available."
+
+      - name: Run declared Site task
+        working-directory: site
+        run: python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
+
+      - name: Commit generated Site state
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ docs/ || true
+          if git diff --cached --quiet; then
+            echo "No generated Site state changes to commit."
+          else
+            git commit -m "Update Site generated state"
+            git push
+          fi
+
+      - name: Write summary
+        if: always()
+        working-directory: site
+        run: |
+          echo "## Site Task Runner" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Workflow role: stable declared-task execution surface." >> "$GITHUB_STEP_SUMMARY"
+          echo "Boundary: generated Site state is committed only after task validation completes." >> "$GITHUB_STEP_SUMMARY"
