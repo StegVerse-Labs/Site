@@ -1,0 +1,17 @@
+{
+  "schema_version": "stegverse.ai_entry.infrastructure_stabilization.v0.1",
+  "goal": "infrastructure stabilization",
+  "state": "patched_pending_visible_rerun",
+  "site_fix": {
+    "path": "scripts/check_ai_entry_no_manual_tasks.py",
+    "brittle_handoff_prose_removed": true,
+    "structured_no_manual_state_checked": true
+  },
+  "sdk_fix": {
+    "path": "scripts/verify_goal4.py",
+    "demo_packet_session_argument_supplied": true,
+    "demo_session_fixture_present": true
+  },
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "infrastructure stabilization verification"
+}
