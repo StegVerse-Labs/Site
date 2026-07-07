@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify Ecosystem Chat public boundary and single-entry UX alignment."""
+"""Verify Ecosystem Chat public boundary, single-entry UX, and preview telemetry alignment."""
 
 from __future__ import annotations
 
@@ -30,6 +30,22 @@ REQUIRED_TEXT = [
 ]
 
 REQUIRED_BOUNDARY_TEXT = ["shell", "credential", "receipt", "authority"]
+
+INTERACTION_BANDS = ["intra", "inter", "research", "provider", "solver", "receipt"]
+
+REQUIRED_INTERACTION_TEXT = [
+    "Ecosystem LLM routing bands",
+    "interaction_profile",
+    "interaction_bands",
+    "math_solver_supported",
+    "Math solver",
+    "INTRA",
+    "INTER",
+    "RESEARCH",
+    "PROVIDER",
+    "SOLVER",
+    "RECEIPT",
+]
 
 REQUIRED_PAGE_LINKS = [
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
@@ -181,6 +197,22 @@ def verify_single_entry_ux() -> None:
         raise AssertionError("ecosystem-chat.html hero actions must point only to chat preview and boundary explanation")
 
 
+def verify_interaction_band_surface() -> None:
+    require_text(ROOT / "ecosystem-chat.html", REQUIRED_INTERACTION_TEXT)
+    require_text(ROOT / "assets" / "ecosystem-chat.js", REQUIRED_INTERACTION_TEXT)
+    page = read_text(ROOT / "ecosystem-chat.html")
+    script = read_text(ROOT / "assets" / "ecosystem-chat.js")
+    for band in INTERACTION_BANDS:
+        if f'"{band}"' not in page and f"'{band}'" not in script:
+            raise AssertionError(f"interaction band {band!r} missing from page/script")
+        if f'"{band}"' not in script and f"'{band}'" not in script:
+            raise AssertionError(f"interaction band {band!r} missing from JavaScript classifier")
+    if 'id="interactionBandMeter"' not in page:
+        raise AssertionError("ecosystem-chat.html missing interactionBandMeter preview surface")
+    if 'calculateInteractionProfile' not in script or 'renderInteractionBands' not in script:
+        raise AssertionError("assets/ecosystem-chat.js missing interaction profile functions")
+
+
 def verify_readme_references() -> None:
     readme = read_text(ROOT / "README.md")
     missing = [ref for ref in REQUIRED_README_REFERENCES if ref not in readme]
@@ -232,6 +264,25 @@ def verify_registry_entry() -> None:
             raise AssertionError(f"registry entry expected {key}={value!r}")
 
 
+def require_interaction_contract(data: dict, path: str) -> None:
+    bands = data.get("interaction_bands")
+    if bands != INTERACTION_BANDS:
+        raise AssertionError(f"{path} must declare interaction_bands={INTERACTION_BANDS!r}")
+    profile = data.get("interaction_profile")
+    if not isinstance(profile, dict):
+        raise AssertionError(f"{path} must declare interaction_profile object")
+    missing = [band for band in INTERACTION_BANDS if band not in profile]
+    if missing:
+        raise AssertionError(f"{path} interaction_profile missing bands: {', '.join(missing)}")
+    for band, value in profile.items():
+        if band not in INTERACTION_BANDS:
+            raise AssertionError(f"{path} interaction_profile contains unknown band {band!r}")
+        if not isinstance(value, int) or value < 0 or value > 100:
+            raise AssertionError(f"{path} interaction_profile {band!r} must be integer 0..100")
+    if data.get("math_solver_supported") is not True:
+        raise AssertionError(f"{path} must declare math_solver_supported=true")
+
+
 def verify_request_fixture() -> None:
     data = load_json(ROOT / "fixtures" / "ecosystem-chat" / "request.example.json")
     expected = {
@@ -244,6 +295,7 @@ def verify_request_fixture() -> None:
     for key, value in expected.items():
         if data.get(key) != value:
             raise AssertionError(f"request.example.json expected {key}={value!r}")
+    require_interaction_contract(data, "request.example.json")
 
 
 def verify_response_fixture() -> None:
@@ -253,9 +305,15 @@ def verify_response_fixture() -> None:
     if data.get("receipt_id") is not None:
         raise AssertionError("response.example.json must keep receipt_id null")
     response = str(data.get("response", ""))
-    for needle in ["Shell: disabled", "Authority:"]:
+    for needle in ["Shell: disabled", "Authority:", "Interaction bands:", "Math solver:"]:
         if needle not in response:
             raise AssertionError(f"response.example.json response missing {needle!r}")
+    profile = data.get("interaction_profile")
+    if not isinstance(profile, dict):
+        raise AssertionError("response.example.json must declare interaction_profile object")
+    missing = [band for band in INTERACTION_BANDS if band not in profile]
+    if missing:
+        raise AssertionError(f"response.example.json interaction_profile missing bands: {', '.join(missing)}")
 
 
 def verify_sdk_fixture() -> None:
@@ -275,6 +333,7 @@ def verify_sdk_fixture() -> None:
     }.items():
         if manifest.get(key) != value:
             raise AssertionError(f"sdk manifest expected {key}={value!r}")
+    require_interaction_contract(manifest, "sdk-form-payload.example.json manifest")
     for key, value in {
         "site_receipt_authority": False,
         "site_shell_authority": False,
@@ -285,6 +344,7 @@ def verify_sdk_fixture() -> None:
     }.items():
         if receipt_window.get(key) != value:
             raise AssertionError(f"sdk receipt_window expected {key}={value!r}")
+    require_interaction_contract(receipt_window, "sdk-form-payload.example.json receipt_window")
 
 
 def main() -> int:
@@ -294,6 +354,7 @@ def main() -> int:
 
     verify_page_links()
     verify_single_entry_ux()
+    verify_interaction_band_surface()
     verify_readme_references()
     verify_activation_status()
     verify_ux_status()
@@ -315,6 +376,8 @@ def main() -> int:
         "required_task_inputs": REQUIRED_TASK_INPUTS,
         "boundary": "no-shell/no-credential/authority-required/receipt-required",
         "ux_contract": "single-primary-governed-chat-preview-entry",
+        "interaction_bands": INTERACTION_BANDS,
+        "math_solver_supported": True,
     }, indent=2))
     return 0
 
