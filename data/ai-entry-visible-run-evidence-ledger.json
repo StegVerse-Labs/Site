@@ -1,0 +1,17 @@
+{
+  "schema_version": "stegverse.ai_entry.visible_run_evidence_ledger.v0.1",
+  "goal": "visible-run evidence ledger",
+  "state": "ledger_empty_no_evidence_claimed",
+  "schema": "data/ai-entry-visible-run-evidence-schema.json",
+  "records": [],
+  "required_record_count": 3,
+  "tracked_repos": [
+    "StegVerse-Labs/Site",
+    "StegVerse-org/StegVerse-SDK",
+    "StegVerse-org/LLM-adapter"
+  ],
+  "green_data_promotion": false,
+  "tag_allowed": false,
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "visible-run evidence ledger verifier"
+}
