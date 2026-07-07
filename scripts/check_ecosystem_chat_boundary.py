@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Verify Ecosystem Chat public boundary alignment."""
+"""Verify Ecosystem Chat public boundary and single-entry UX alignment."""
 
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,6 +79,21 @@ REQUIRED_ACTIVATION_STATUS_TEXT = [
     "Authority-issued receipt state: not installed",
 ]
 
+REQUIRED_SINGLE_ENTRY_TEXT = [
+    "Try the governed chat preview",
+    "How the boundary works",
+    "Technical preview details",
+    "This page has one public purpose",
+    "It is a governed chat preview, not a shell, not a repo control panel, not a proof issuer, and not the full product.",
+]
+
+FORBIDDEN_PRIMARY_ENTRY_TEXT = [
+    "Open SDK form",
+    "Open console",
+    "View guardrails",
+    "Gateway contract target",
+]
+
 JSON_FIXTURES = [
     ROOT / "fixtures" / "ecosystem-chat" / "request.example.json",
     ROOT / "fixtures" / "ecosystem-chat" / "response.example.json",
@@ -116,6 +132,30 @@ def verify_page_links() -> None:
     missing = [link for link in REQUIRED_PAGE_LINKS if link not in page]
     if missing:
         raise AssertionError(f"ecosystem-chat.html missing public links: {', '.join(missing)}")
+
+
+def verify_single_entry_ux() -> None:
+    page = read_text(ROOT / "ecosystem-chat.html")
+    missing = [text for text in REQUIRED_SINGLE_ENTRY_TEXT if text not in page]
+    if missing:
+        raise AssertionError(f"ecosystem-chat.html missing single-entry UX text: {', '.join(missing)}")
+
+    forbidden = [text for text in FORBIDDEN_PRIMARY_ENTRY_TEXT if text in page]
+    if forbidden:
+        raise AssertionError(f"ecosystem-chat.html restored old competing primary entry text: {', '.join(forbidden)}")
+
+    primary_buttons = re.findall(r'class="sv-btn sv-btn-primary"', page)
+    if len(primary_buttons) != 2:
+        raise AssertionError(f"ecosystem-chat.html expected exactly 2 primary buttons: hero chat entry and chat submit; found {len(primary_buttons)}")
+
+    if '<details class="simple-card" id="technical-details">' not in page:
+        raise AssertionError("ecosystem-chat.html must keep SDK/gateway details in collapsible technical section")
+
+    hero_start = page.find('<div class="sv-hero">')
+    hero_end = page.find('</div>', hero_start)
+    hero = page[hero_start:hero_end]
+    if hero.count('sv-btn') > 2:
+        raise AssertionError("ecosystem-chat.html hero must not return to multi-button task-launcher layout")
 
 
 def verify_readme_references() -> None:
@@ -226,6 +266,7 @@ def main() -> int:
         require_text(path, REQUIRED_BOUNDARY_TEXT)
 
     verify_page_links()
+    verify_single_entry_ux()
     verify_readme_references()
     verify_activation_status()
     verify_declared_task()
@@ -245,6 +286,7 @@ def main() -> int:
         "required_readme_references": REQUIRED_README_REFERENCES,
         "required_task_inputs": REQUIRED_TASK_INPUTS,
         "boundary": "no-shell/no-credential/authority-required/receipt-required",
+        "ux_contract": "single-primary-governed-chat-preview-entry",
     }, indent=2))
     return 0
 
