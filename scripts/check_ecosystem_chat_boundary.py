@@ -134,6 +134,16 @@ def verify_page_links() -> None:
         raise AssertionError(f"ecosystem-chat.html missing public links: {', '.join(missing)}")
 
 
+def hero_region(page: str) -> str:
+    hero_start = page.find('<div class="sv-hero">')
+    if hero_start < 0:
+        raise AssertionError("ecosystem-chat.html missing sv-hero section")
+    boundary_start = page.find('<div class="sv-boundary">', hero_start)
+    if boundary_start < 0:
+        raise AssertionError("ecosystem-chat.html missing sv-boundary section after hero")
+    return page[hero_start:boundary_start]
+
+
 def verify_single_entry_ux() -> None:
     page = read_text(ROOT / "ecosystem-chat.html")
     missing = [text for text in REQUIRED_SINGLE_ENTRY_TEXT if text not in page]
@@ -151,11 +161,11 @@ def verify_single_entry_ux() -> None:
     if '<details class="simple-card" id="technical-details">' not in page:
         raise AssertionError("ecosystem-chat.html must keep SDK/gateway details in collapsible technical section")
 
-    hero_start = page.find('<div class="sv-hero">')
-    hero_end = page.find('</div>', hero_start)
-    hero = page[hero_start:hero_end]
-    if hero.count('sv-btn') > 2:
-        raise AssertionError("ecosystem-chat.html hero must not return to multi-button task-launcher layout")
+    hero = hero_region(page)
+    if hero.count('sv-btn') != 2:
+        raise AssertionError("ecosystem-chat.html hero must have exactly one primary action and one secondary boundary action")
+    if 'href="#console"' not in hero or 'href="#how-it-works"' not in hero:
+        raise AssertionError("ecosystem-chat.html hero actions must point only to chat preview and boundary explanation")
 
 
 def verify_readme_references() -> None:
