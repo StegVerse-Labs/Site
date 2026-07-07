@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1.0",
+  "status_type": "cross_wiki_metadata_graph_status",
+  "repo": "StegVerse-Labs/Site",
+  "role": "public_ecosystem_surface",
+  "public_url": "https://stegverse-labs.github.io/Site/",
+  "source_seed": {
+    "repo": "StegVerse-002/stegguardian-wiki",
+    "path": "data/cross-wiki-metadata-graph.json",
+    "status": "seed_installed"
+  },
+  "linked_wikis": [
+    {
+      "id": "stegguardian-wiki",
+      "repo": "StegVerse-002/stegguardian-wiki",
+      "public_url": "https://stegverse-002.github.io/stegguardian-wiki/",
+      "role": "guardian_boundary_documentation"
+    },
+    {
+      "id": "admissibility-wiki",
+      "repo": "StegVerse-Labs/admissibility-wiki",
+      "public_url": "https://stegverse-labs.github.io/admissibility-wiki/",
+      "role": "admissibility_and_standing_source"
+    },
+    {
+      "id": "stegverse-site",
+      "repo": "StegVerse-Labs/Site",
+      "public_url": "https://stegverse-labs.github.io/Site/",
+      "role": "public_ecosystem_surface"
+    },
+    {
+      "id": "stegtalk-wiki",
+      "repo": "StegVerse-Labs/stegtalk-wiki",
+      "public_url": "https://stegverse-labs.github.io/stegtalk-wiki/",
+      "role": "application_boundary_documentation"
+    }
+  ],
+  "verification_state": {
+    "local_status_artifact": "installed",
+    "site_aggregate_checker_wiring": "pending",
+    "cross_wiki_public_url_confirmation": "pending",
+    "cross_wiki_machine_record_confirmation": "pending"
+  },
+  "non_claims": {
+    "cross_wiki_authority_granted": false,
+    "public_url_confirmed_by_connector": false,
+    "standing_conferred": false,
+    "execution_authority": false
+  }
+}
