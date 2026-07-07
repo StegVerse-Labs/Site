@@ -19,7 +19,7 @@ Micro-node return-path state: display_only_installed_on_branch
 LLM free-tier trust state: display_only_installed
 Public mirror guard state: consolidated_into_site_task_runner
 Workflow reduction state: reduced_to_two_active_workflows_plus_disabled_legacy_test_readiness_placeholder
-Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_and_validate_wired
+Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_validate_wired_and_status_artifact_installed
 ```
 
 ## Built Files
@@ -36,7 +36,9 @@ scripts/check_site_homepage_governed_ecosystem.py
 scripts/check_site_public_paths.py
 scripts/check_site_llm_free_tier_trust.py
 scripts/run_site_task.py
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
+docs/ECOSYSTEM_CHAT_UX_STATUS.md
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json
 docs/SITE_PUBLIC_PATHS.md
@@ -83,7 +85,8 @@ Triggers: none declared
 Branch: main
 governed-ecosystem.html includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
 ecosystem-chat.html now uses one primary governed chat preview entry, with SDK/gateway details moved into a secondary technical section.
-scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract.
+scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract and checks docs/ECOSYSTEM_CHAT_UX_STATUS.md.
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json now declares docs/ECOSYSTEM_CHAT_UX_STATUS.md as an expected input.
 scripts/run_site_task.py validate now runs the Ecosystem Chat boundary/UX checker.
 site-task-runner.yml now carries the former validation, readiness, mirror, TT, evidence, autonomous continuation, live URL, and ingest tasks.
 ```
