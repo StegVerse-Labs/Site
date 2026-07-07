@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RECORD = ROOT / "data" / "ai-entry-cross-repo-promotion-record.json"
 REFRESH = ROOT / "data" / "ai-entry-visibility-refresh-index.json"
 EVIDENCE_SCHEMA = ROOT / "data" / "ai-entry-visible-run-evidence-schema.json"
+EVIDENCE_LEDGER = ROOT / "data" / "ai-entry-visible-run-evidence-ledger.json"
 EXPECTED_REPOS = {
     "StegVerse-Labs/Site",
     "StegVerse-org/StegVerse-SDK",
@@ -69,7 +70,20 @@ def main() -> int:
     for key in ("evidence_claimed", "promotion_allowed", "tag_allowed"):
         if evidence_schema.get(key) is not False:
             stop(f"evidence schema {key} must be false")
-    if data.get("manual_tasks_remaining") != [] or refresh.get("manual_tasks_remaining") != [] or evidence_schema.get("manual_tasks_remaining") != []:
+    ledger = json.loads(EVIDENCE_LEDGER.read_text(encoding="utf-8"))
+    if ledger.get("schema_version") != "stegverse.ai_entry.visible_run_evidence_ledger.v0.1":
+        stop("bad ledger schema version")
+    if ledger.get("schema") != "data/ai-entry-visible-run-evidence-schema.json":
+        stop("ledger schema pointer mismatch")
+    if ledger.get("records") != []:
+        stop("ledger records must remain empty until evidence is visible")
+    if ledger.get("required_record_count") != 3:
+        stop("ledger required record count mismatch")
+    if set(ledger.get("tracked_repos", [])) != EXPECTED_REPOS:
+        stop("ledger tracked repo mismatch")
+    if ledger.get("green_data_promotion") is not False or ledger.get("tag_allowed") is not False:
+        stop("ledger cannot allow promotion or tag")
+    if data.get("manual_tasks_remaining") != [] or refresh.get("manual_tasks_remaining") != [] or evidence_schema.get("manual_tasks_remaining") != [] or ledger.get("manual_tasks_remaining") != []:
         stop("manual tasks must remain empty")
     if data.get("next_goal_candidate") != "cross-repo promotion verifier":
         stop("next goal candidate mismatch")
