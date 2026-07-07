@@ -9,6 +9,7 @@
     current_mode: 'local_ready_live_disabled',
     readiness_state: 'not_ready_fail_closed',
     status_message: 'Governed-live activation is planned but not ready. Provider calls, SDK calls, credential access, real receipts, execution authority, and repo mutation remain disabled.',
+    live_calls_enabled: false,
     live_provider_calls_enabled: false,
     live_sdk_calls_enabled: false,
     credential_surface_enabled: false,
