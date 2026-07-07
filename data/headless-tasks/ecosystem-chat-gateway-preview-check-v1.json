@@ -11,6 +11,7 @@
     "backend/ecosystem_chat_gateway_preview.py",
     "scripts/check_ecosystem_chat_gateway_preview.py",
     "docs/ECOSYSTEM_CHAT_INTERACTION_TELEMETRY.md",
+    "docs/ECOSYSTEM_CHAT_GATEWAY_PREVIEW_STATUS.md",
     "fixtures/ecosystem-chat/request.example.json",
     "fixtures/ecosystem-chat/response.example.json",
     "fixtures/ecosystem-chat/sdk-form-payload.example.json"
