@@ -1,9 +1,9 @@
 name: Site Bootstrap Validate
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,5 +17,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run bootstrap validation task
-        run: python scripts/run_site_task.py validate
+      - name: Validate application
+        run: python scripts/check_ecosystem_chat_application.py
