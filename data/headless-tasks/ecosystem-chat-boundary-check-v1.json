@@ -4,7 +4,7 @@
   "task_id": "ecosystem-chat-boundary-check-v1",
   "class": "public_surface_boundary_verification",
   "authority_class": "ordinary_analysis",
-  "description": "Verify the Ecosystem Chat public surface, README references, local router, gateway contract, form model, activation status, public links, fixtures, contract checker, and declared-task boundary preserve the no-shell, no-credential, authority-required, receipt-required execution boundary.",
+  "description": "Verify the Ecosystem Chat public surface, README references, local router, gateway contract, form model, activation status, UX status, public links, fixtures, contract checker, and declared-task boundary preserve the no-shell, no-credential, authority-required, receipt-required execution boundary and single-entry UX contract.",
   "command": [
     "python",
     "scripts/check_ecosystem_chat_boundary.py"
@@ -17,6 +17,7 @@
     "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
+    "docs/ECOSYSTEM_CHAT_UX_STATUS.md",
     "fixtures/ecosystem-chat/request.example.json",
     "fixtures/ecosystem-chat/response.example.json",
     "fixtures/ecosystem-chat/sdk-form-payload.example.json",
