@@ -34,6 +34,13 @@
       "class": "public_surface_boundary_verification",
       "authority_class": "ordinary_analysis",
       "status": "active"
+    },
+    {
+      "task_id": "ecosystem-chat-gateway-preview-check-v1",
+      "task_path": "data/headless-tasks/ecosystem-chat-gateway-preview-check-v1.json",
+      "class": "public_surface_gateway_preview_verification",
+      "authority_class": "ordinary_analysis",
+      "status": "active"
     }
   ],
   "safety": {
