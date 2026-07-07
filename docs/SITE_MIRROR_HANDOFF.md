@@ -20,6 +20,8 @@ LLM free-tier trust state: display_only_installed
 Public mirror guard state: consolidated_into_site_task_runner
 Workflow reduction state: reduced_to_two_active_workflows_plus_disabled_legacy_test_readiness_placeholder
 Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_validate_wired_and_status_artifact_installed
+Ecosystem Chat interaction-band state: local_preview_installed_for_intra_inter_research_provider_solver_receipt
+Math solver band state: preview_routing_installed_no_live_solver_execution
 ```
 
 ## Built Files
@@ -28,6 +30,7 @@ Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_v
 index.html
 governed-ecosystem.html
 ecosystem-chat.html
+assets/ecosystem-chat.js
 scripts/check_ecosystem_chat_boundary.py
 scripts/check_site_governed_ecosystem_mirror.py
 scripts/check_site_governed_ecosystem_public_verification.py
@@ -61,6 +64,21 @@ Do not present the page as a task launcher, demo index, repo control panel, or e
 Site remains preview-only and cannot issue receipts, access credentials, execute shell commands, or grant authority.
 ```
 
+## Ecosystem LLM Interaction Bands
+
+```text
+The Ecosystem Chat page is the public preview surface for the future StegVerse Ecosystem LLM interface.
+Every interaction should eventually expose transparent routing bands:
+- intra: StegVerse repos, wikis, manifests, receipts, standards, and local ecosystem records
+- inter: connected adapters, partner systems, provider clients, and external ecosystem nodes
+- research: networked sources outside the ecosystem when outside evidence is necessary
+- provider: LLM/model calls, model routing, fallback, cost, latency, and quota accounting
+- solver: math-problem solver, calculation traces, symbolic checks, unit conversion, and proof-step verification
+- receipt: hash, replay, reconstruction, admissibility, continuity, and authority evidence load
+
+Current Site implementation is preview-only. It deterministically classifies local text and renders a local band meter. It does not call providers, search the network, solve math live, issue receipts, or grant authority.
+```
+
 ## Workflow Standard
 
 ```text
@@ -85,6 +103,8 @@ Triggers: none declared
 Branch: main
 governed-ecosystem.html includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
 ecosystem-chat.html now uses one primary governed chat preview entry, with SDK/gateway details moved into a secondary technical section.
+ecosystem-chat.html now includes local preview routing bands for intra, inter, research, provider, solver, and receipt load.
+assets/ecosystem-chat.js now emits local interaction_profile metadata and math_solver_supported=true in the preview manifest and receipt window.
 scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract and checks docs/ECOSYSTEM_CHAT_UX_STATUS.md.
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json now declares docs/ECOSYSTEM_CHAT_UX_STATUS.md as an expected input.
 scripts/run_site_task.py validate now runs the Ecosystem Chat boundary/UX checker.
@@ -116,9 +136,11 @@ StegVerse-Labs/Site:
   - remove disabled .github/workflows/test-readiness.yml if a later connector/local Git path permits deletion
   - update public verification JSON only after live URL passes
   - keep Ecosystem Chat as a single-primary-path preview page
+  - connect live_governed_gateway.py, provider clients, cost model, usage metrics, and math solver behind the preview boundary when backend authority path exists
 
 StegVerse-org/StegVerse-SDK:
   - ingest quota/receipt/replay metadata contract from StegVerse-org/LLM-adapter
+  - ingest interaction_profile and math_solver_supported fields from Ecosystem Chat
 
 GCAT-BCAT-Engine/Publisher:
   - publication/import awareness after Site mirror validation
