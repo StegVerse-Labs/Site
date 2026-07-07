@@ -5,7 +5,17 @@ const STEGVERSE_ROUTES = [
   { name: 'formalism-tests', terms: ['formalism', 'test', 'proof', 'admissibility', 'allow', 'deny', 'fail-closed', 'stage'] },
   { name: 'Continuity', terms: ['continuity', 'receipt', 'replay', 'hash', 'chain', 'state'] },
   { name: 'Publisher', terms: ['publisher', 'paper', 'publication', 'mirror-papers'] },
+  { name: 'Solver', terms: ['math', 'solve', 'solver', 'equation', 'calculate', 'calculation', 'algebra', 'proof', 'unit conversion', 'derivative', 'integral'] },
   { name: 'Restricted admin', terms: ['delete branch', 'delete branches', 'secret', 'token', 'credential', 'permission', 'workflow', 'force push', 'force-push', 'release', 'deploy key', 'webhook', 'collaborator'] }
+];
+
+const INTERACTION_BANDS = [
+  { key: 'intra', label: 'INTRA', terms: ['site', 'stegverse', 'repo', 'wiki', 'manifest', 'receipt', 'handoff', 'standard', 'transition', 'continuity', 'publisher', 'admissibility'] },
+  { key: 'inter', label: 'INTER', terms: ['adapter', 'api', 'provider client', 'partner', 'external system', 'github', 'google', 'slack', 'connector', 'node'] },
+  { key: 'research', label: 'RESEARCH', terms: ['search', 'web', 'online', 'latest', 'current', 'news', 'paper', 'source', 'documentation', 'research'] },
+  { key: 'provider', label: 'PROVIDER', terms: ['llm', 'model', 'provider', 'token', 'quota', 'cost', 'latency', 'openai', 'claude', 'gemini'] },
+  { key: 'solver', label: 'SOLVER', terms: ['math', 'solve', 'solver', 'equation', 'calculate', 'calculation', '+', '-', '*', '/', '=', 'algebra', 'proof', 'unit'] },
+  { key: 'receipt', label: 'RECEIPT', terms: ['receipt', 'replay', 'hash', 'reconstruct', 'fingerprint', 'authority', 'admissibility', 'evidence', 'audit'] }
 ];
 
 const RESTRICTED_PATTERNS = [
@@ -33,6 +43,17 @@ const manifestPreview = document.getElementById('manifestPreview');
 const receiptPreview = document.getElementById('receiptPreview');
 const sdkStatus = document.getElementById('sdkFormStatus');
 const useManifestButton = document.getElementById('useManifestAsConsoleMessage');
+const interactionBandMeter = document.getElementById('interactionBandMeter');
+
+if (interactionBandMeter) {
+  renderInteractionBands(calculateInteractionProfile(''));
+}
+
+if (input && interactionBandMeter) {
+  input.addEventListener('input', () => {
+    renderInteractionBands(calculateInteractionProfile(input.value));
+  });
+}
 
 if (form && input && log) {
   form.addEventListener('submit', async (event) => {
@@ -45,6 +66,7 @@ if (form && input && log) {
 
     const result = await routeEcosystemRequest(message);
     appendMessage('Console Route', result.response, 'system', result.receipt_line);
+    if (interactionBandMeter) renderInteractionBands(result.interaction_profile);
   });
 }
 
@@ -65,6 +87,7 @@ if (sdkForm && manifestPreview && receiptPreview) {
       const payload = buildSdkPayload();
       input.value = JSON.stringify(payload, null, 2);
       input.focus();
+      if (interactionBandMeter) renderInteractionBands(calculateInteractionProfile(input.value));
     });
   }
 
@@ -101,7 +124,10 @@ async function sendGatewayRequest(message, posture) {
       raw_shell_allowed: false,
       authority_required: true,
       rate_limit_required: true,
-      receipt_required_for_execution: true
+      receipt_required_for_execution: true,
+      interaction_profile: posture.interaction_profile,
+      interaction_bands: INTERACTION_BANDS.map((band) => band.key),
+      math_solver_supported: true
     })
   });
 
@@ -113,10 +139,12 @@ async function sendGatewayRequest(message, posture) {
   const receiptLine = data.receipt_id
     ? `receipt_id=${data.receipt_id}`
     : 'receipt=not-issued';
+  const interactionProfile = normalizeInteractionProfile(data.interaction_profile || posture.interaction_profile);
 
   return {
     response: data.response || buildLocalResponse(message, data.routed_module || 'Unknown', 'Gateway returned no response body.', posture),
-    receipt_line: `${receiptLine} · routed_module=${data.routed_module || 'Unknown'} · source=gateway · shell=disabled`
+    receipt_line: `${receiptLine} · routed_module=${data.routed_module || 'Unknown'} · source=gateway · shell=disabled · bands=${formatInteractionProfile(interactionProfile)}`,
+    interaction_profile: interactionProfile
   };
 }
 
@@ -125,7 +153,8 @@ async function localRouteResult(message, status, posture = classifyRequestPostur
 
   return {
     response: buildLocalResponse(message, posture.route, status, posture),
-    receipt_line: receiptLine
+    receipt_line: receiptLine,
+    interaction_profile: posture.interaction_profile
   };
 }
 
@@ -133,13 +162,16 @@ function classifyRequestPosture(message) {
   const route = classifyRoute(message);
   const restricted = route === 'Restricted admin' || RESTRICTED_PATTERNS.some((pattern) => pattern.test(message));
   const taskStatus = restricted ? 'pending_authority' : 'preview_only';
+  const interactionProfile = calculateInteractionProfile(message);
   return {
     route: restricted ? 'Restricted admin' : route,
     restricted,
     raw_shell_allowed: false,
     authority_required: true,
     task_status: taskStatus,
-    receipt_required_for_execution: true
+    receipt_required_for_execution: true,
+    interaction_profile: interactionProfile,
+    math_solver_supported: true
   };
 }
 
@@ -153,19 +185,76 @@ function classifyRoute(message) {
   return scored[0].score > 0 ? scored[0].name : 'Unknown';
 }
 
+function calculateInteractionProfile(message) {
+  const text = message.toLowerCase();
+  const profile = {};
+  INTERACTION_BANDS.forEach((band) => {
+    const score = band.terms.reduce((total, term) => total + (text.includes(term.toLowerCase()) ? 1 : 0), 0);
+    const operatorSignal = band.key === 'solver' && /\d+\s*[+\-*/=]\s*\d+/.test(message) ? 2 : 0;
+    const authoritySignal = band.key === 'receipt' && /\b(allow|deny|defer|quarantine|fail[-_ ]closed)\b/i.test(message) ? 1 : 0;
+    profile[band.key] = Math.min(100, Math.max(0, (score + operatorSignal + authoritySignal) * 20));
+  });
+  return normalizeInteractionProfile(profile);
+}
+
+function normalizeInteractionProfile(profile) {
+  return INTERACTION_BANDS.reduce((normalized, band) => {
+    const value = Number(profile && profile[band.key]);
+    normalized[band.key] = Number.isFinite(value) ? Math.min(100, Math.max(0, Math.round(value))) : 0;
+    return normalized;
+  }, {});
+}
+
+function formatInteractionProfile(profile) {
+  const normalized = normalizeInteractionProfile(profile);
+  return INTERACTION_BANDS.map((band) => `${band.key}:${normalized[band.key]}`).join(',');
+}
+
+function renderInteractionBands(profile) {
+  if (!interactionBandMeter) return;
+  const normalized = normalizeInteractionProfile(profile);
+  interactionBandMeter.innerHTML = '';
+  INTERACTION_BANDS.forEach((band) => {
+    const row = document.createElement('div');
+    row.className = 'band-row';
+
+    const label = document.createElement('span');
+    label.textContent = band.label;
+
+    const track = document.createElement('span');
+    track.className = 'band-track';
+    const fill = document.createElement('span');
+    fill.className = 'band-fill';
+    fill.style.setProperty('--value', `${normalized[band.key]}%`);
+    track.appendChild(fill);
+
+    const value = document.createElement('span');
+    value.textContent = `${normalized[band.key]}%`;
+
+    row.appendChild(label);
+    row.appendChild(track);
+    row.appendChild(value);
+    interactionBandMeter.appendChild(row);
+  });
+}
+
 function buildLocalResponse(message, route, status, posture = classifyRequestPosture(message)) {
   const nextAction = posture.restricted
     ? 'Route to a governed admin task definition, authority check, scope limit, and receipt path before any execution can occur.'
     : route === 'Unknown'
       ? 'Define a new ecosystem route or restate the request with repo/module context.'
-      : `Send this request to the ${route} handler only after the governed backend gateway validates allowed-task status.`;
+      : route === 'Solver'
+        ? 'Route to the math-problem solver path only after the governed backend can return checked steps, calculator trace, and receipt metadata.'
+        : `Send this request to the ${route} handler only after the governed backend gateway validates allowed-task status.`;
 
   return [
     `Route: ${route}`,
     `Task status: ${posture.task_status}`,
+    `Interaction bands: ${formatInteractionProfile(posture.interaction_profile)}`,
     'Authority: none; browser-local classification only.',
     'Shell: disabled; raw commands are not executed.',
     'Credentials: not accepted; do not paste secrets or tokens.',
+    'Math solver: preview-supported; live checked solving requires governed backend integration.',
     `Status: ${status}`,
     'Boundary: Site may draft, classify, and display; Site must not issue proof receipts, perform governed commits, or expose administrative execution.',
     `Next action: ${nextAction}`,
@@ -189,6 +278,9 @@ function buildManifest() {
     rate_limit_required: true,
     receipt_required_for_execution: true,
     restricted_admin_review_required: posture.restricted,
+    interaction_profile: posture.interaction_profile,
+    interaction_bands: INTERACTION_BANDS.map((band) => band.key),
+    math_solver_supported: true,
     user_request: userRequest,
     declared_goal: getFieldValue('declaredGoal').trim(),
     operator_note: getFieldValue('operatorNote').trim(),
@@ -209,6 +301,9 @@ function buildReceiptWindow(manifest) {
     execution_allowed_from_site: false,
     authority_required_before_execution: true,
     receipt_required_for_execution: true,
+    interaction_profile: manifest.interaction_profile,
+    interaction_bands: manifest.interaction_bands,
+    math_solver_supported: manifest.math_solver_supported,
     correctness_errors: check.errors
   };
 }
@@ -229,10 +324,12 @@ function updateGeneratedWindows() {
   manifestPreview.textContent = JSON.stringify(manifest, null, 2);
   receiptPreview.textContent = JSON.stringify(receiptWindow, null, 2);
 
+  if (interactionBandMeter) renderInteractionBands(manifest.interaction_profile);
+
   if (sdkStatus) {
     const check = getSubmissionCheck(manifest);
     sdkStatus.textContent = check.ok
-      ? 'Generated JSON is locally complete. Final correctness, authority, rate limits, and allowed-task status are determined at submission time.'
+      ? 'Generated JSON is locally complete. Final correctness, authority, rate limits, allowed-task status, solver use, and interaction-band telemetry are determined at submission time.'
       : `Generated JSON is incomplete: ${check.errors.join('; ')}`;
   }
 }
@@ -247,6 +344,8 @@ function getSubmissionCheck(manifest = buildManifest()) {
   if (manifest.authority_required !== true) errors.push('authority_required must be true');
   if (manifest.rate_limit_required !== true) errors.push('rate_limit_required must be true');
   if (manifest.receipt_required_for_execution !== true) errors.push('receipt_required_for_execution must be true');
+  if (!Array.isArray(manifest.interaction_bands)) errors.push('interaction_bands must be present');
+  if (manifest.math_solver_supported !== true) errors.push('math_solver_supported must be true');
 
   return { ok: errors.length === 0, errors };
 }
@@ -279,12 +378,15 @@ async function localReceipt(message, posture) {
     raw_shell_allowed: false,
     task_status: posture.task_status,
     receipt: 'not-issued',
+    interaction_profile: posture.interaction_profile,
+    interaction_bands: INTERACTION_BANDS.map((band) => band.key),
+    math_solver_supported: true,
     issued_at: new Date().toISOString()
   });
   const data = new TextEncoder().encode(payload);
   const digest = await crypto.subtle.digest('SHA-256', data);
   const hash = Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
-  return `local_receipt_hash=sha256:${hash} · authority=none · shell=disabled · task_status=${posture.task_status} · receipt=not-issued`;
+  return `local_receipt_hash=sha256:${hash} · authority=none · shell=disabled · task_status=${posture.task_status} · receipt=not-issued · bands=${formatInteractionProfile(posture.interaction_profile)}`;
 }
 
 function appendMessage(label, body, type, receipt) {
