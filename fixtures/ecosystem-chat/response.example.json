@@ -1,7 +1,15 @@
 {
-  "response": "Route: Site\nTask status: preview_only\nAuthority: none until a governed backend validates allowed-task status and issues or records receipt data.\nShell: disabled; raw commands are not executed.\nNext action: Send this request to the Site handler only after governed backend routing validates allowed-task status.",
+  "response": "Route: Site\nTask status: preview_only\nInteraction bands: intra:40,inter:0,research:0,provider:0,solver:0,receipt:0\nAuthority: none until a governed backend validates allowed-task status and issues or records receipt data.\nShell: disabled; raw commands are not executed.\nMath solver: preview-supported; live checked solving requires governed backend integration.\nNext action: Send this request to the Site handler only after governed backend routing validates allowed-task status.",
   "routed_module": "Site",
   "task_status": "preview_only",
   "receipt_id": null,
+  "interaction_profile": {
+    "intra": 40,
+    "inter": 0,
+    "research": 0,
+    "provider": 0,
+    "solver": 0,
+    "receipt": 0
+  },
   "next_action": "Send this request to the Site handler only after governed backend routing validates allowed-task status."
 }
