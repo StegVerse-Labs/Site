@@ -17,6 +17,8 @@ on:
           - live-url
           - tt-status
           - external-evidence
+          - task-elimination-guard
+          - local-completion-receipt
           - autonomous-continuation
           - universal-ingest
   schedule:
@@ -154,4 +156,4 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
           echo "Workflow role: stable declared-task execution surface plus GitHub Pages deployment." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: generated Site state is committed only after task validation completes." >> "$GITHUB_STEP_SUMMARY"
+          echo "Boundary: generated Site state is committed only after task validation completes."
