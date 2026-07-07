@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+UX_STATUS_PATH = ROOT / "docs" / "ECOSYSTEM_CHAT_UX_STATUS.md"
 
 TEXT_FILES = [
     ROOT / "README.md",
@@ -17,6 +18,7 @@ TEXT_FILES = [
     ROOT / "docs" / "ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     ROOT / "docs" / "ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
+    UX_STATUS_PATH,
 ]
 
 REQUIRED_TEXT = [
@@ -54,6 +56,7 @@ REQUIRED_TASK_INPUTS = [
     "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
     "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
+    "docs/ECOSYSTEM_CHAT_UX_STATUS.md",
     "fixtures/ecosystem-chat/request.example.json",
     "fixtures/ecosystem-chat/response.example.json",
     "fixtures/ecosystem-chat/sdk-form-payload.example.json",
@@ -77,6 +80,16 @@ REQUIRED_ACTIVATION_STATUS_TEXT = [
     "data/headless-task-registry-v1.json\n  -> keeps ecosystem-chat-boundary-check-v1 active.",
     "Backend gateway state: not installed",
     "Authority-issued receipt state: not installed",
+]
+
+REQUIRED_UX_STATUS_TEXT = [
+    "UX contract: single-primary-governed-chat-preview-entry",
+    "Primary: Try the governed chat preview -> #console",
+    "Secondary: How the boundary works -> #how-it-works",
+    "multi-entry console",
+    "task launcher",
+    "repo control panel",
+    "python scripts/run_site_task.py validate",
 ]
 
 REQUIRED_SINGLE_ENTRY_TEXT = [
@@ -179,6 +192,10 @@ def verify_activation_status() -> None:
     require_text(ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", REQUIRED_ACTIVATION_STATUS_TEXT)
 
 
+def verify_ux_status() -> None:
+    require_text(UX_STATUS_PATH, REQUIRED_UX_STATUS_TEXT)
+
+
 def verify_declared_task() -> None:
     task = load_json(TASK_PATH)
     if task.get("task_id") != "ecosystem-chat-boundary-check-v1":
@@ -279,6 +296,7 @@ def main() -> int:
     verify_single_entry_ux()
     verify_readme_references()
     verify_activation_status()
+    verify_ux_status()
     verify_declared_task()
     verify_registry_entry()
 
