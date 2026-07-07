@@ -1,17 +1,34 @@
 {
-  "schema_version": "stegverse.ai_entry.supported_validation_commands.v0.1",
-  "goal": "prevent stale validator invalidation",
-  "state": "active",
+  "schema_version": "stegverse.ai_entry.supported_validation_commands.v0.2",
+  "goal": "prevent stale validator invalidation during workflow consolidation",
+  "state": "active_compatibility_contract",
+  "canonical_validation_command": "python scripts/check_ecosystem_chat_application.py",
+  "legacy_validation_commands": [
+    "python scripts/check_ecosystem_chat_ai_entry.py",
+    "python scripts/check_ecosystem_chat_ai_entry_full.py"
+  ],
   "supported_commands": [
     "python scripts/check_ecosystem_chat_ai_entry.py",
     "python scripts/check_ecosystem_chat_ai_entry_full.py",
     "python scripts/check_ecosystem_chat_application.py"
+  ],
+  "accepted_workflow_commands": [
+    "python scripts/check_ecosystem_chat_ai_entry.py",
+    "python scripts/check_ecosystem_chat_ai_entry_full.py",
+    "python scripts/check_ecosystem_chat_application.py"
+  ],
+  "accepted_guard_markers": [
+    "REGISTRY = ROOT / \"data\" / \"ai-entry-supported-validation-commands.json\"",
+    "supported_commands = registry.get(\"supported_commands\", [])",
+    "require_workflow_command(CANONICAL, supported_commands)",
+    "require_workflow_command(MIRROR, supported_commands)"
   ],
   "required_locations": [
     ".github/workflows/validate.yml",
     "iosnoperiod/github/workflows/validate.yml",
     "scripts/check_ai_entry_no_manual_tasks.py"
   ],
+  "compatibility_rule": "Workflow files may use any accepted workflow command. Guards must read this registry instead of hard-coding every legacy command.",
   "manual_tasks_remaining": [],
   "next_goal_candidate": "rerun validation confirmation"
 }
