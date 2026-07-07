@@ -19,7 +19,7 @@ Micro-node return-path state: display_only_installed_on_branch
 LLM free-tier trust state: display_only_installed
 Public mirror guard state: consolidated_into_site_task_runner
 Workflow reduction state: reduced_to_two_active_workflows_plus_disabled_legacy_test_readiness_placeholder
-Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry
+Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_and_validate_wired
 ```
 
 ## Built Files
@@ -28,6 +28,7 @@ Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry
 index.html
 governed-ecosystem.html
 ecosystem-chat.html
+scripts/check_ecosystem_chat_boundary.py
 scripts/check_site_governed_ecosystem_mirror.py
 scripts/check_site_governed_ecosystem_public_verification.py
 scripts/check_site_governed_ecosystem_live_url.py
@@ -35,6 +36,7 @@ scripts/check_site_homepage_governed_ecosystem.py
 scripts/check_site_public_paths.py
 scripts/check_site_llm_free_tier_trust.py
 scripts/run_site_task.py
+docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json
 docs/SITE_PUBLIC_PATHS.md
@@ -63,6 +65,7 @@ Site remains preview-only and cannot issue receipts, access credentials, execute
 Active workflow 1: .github/workflows/validate.yml
 Role: bootstrap validation gate
 Runs: scripts/run_site_task.py validate
+Validate now includes: scripts/check_ecosystem_chat_application.py and scripts/check_ecosystem_chat_boundary.py
 
 Active workflow 2: .github/workflows/site-task-runner.yml
 Role: stable declared-task execution surface
@@ -80,6 +83,8 @@ Triggers: none declared
 Branch: main
 governed-ecosystem.html includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
 ecosystem-chat.html now uses one primary governed chat preview entry, with SDK/gateway details moved into a secondary technical section.
+scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract.
+scripts/run_site_task.py validate now runs the Ecosystem Chat boundary/UX checker.
 site-task-runner.yml now carries the former validation, readiness, mirror, TT, evidence, autonomous continuation, live URL, and ingest tasks.
 ```
 
@@ -87,6 +92,7 @@ site-task-runner.yml now carries the former validation, readiness, mirror, TT, e
 
 ```text
 python scripts/run_site_task.py validate
+python scripts/check_ecosystem_chat_boundary.py
 python scripts/run_site_task.py test-readiness
 python scripts/run_site_task.py mirror-readiness
 python scripts/run_site_task.py public-guard
