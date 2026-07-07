@@ -107,6 +107,16 @@ def external_evidence() -> None:
     run_if_present("scripts/write_site_external_evidence_state.py")
 
 
+def task_elimination_guard() -> None:
+    run_if_present("scripts/check_site_manual_task_elimination.py")
+    run_if_present("scripts/check_site_ecosystem_management_handoff.py")
+
+
+def local_completion_receipt() -> None:
+    run_if_present("scripts/write_site_local_completion_receipt.py")
+    run_if_present("scripts/check_site_local_completion_receipt.py")
+
+
 def autonomous_continuation() -> None:
     tt_status()
     run_if_present("scripts/check_site_governance_observatory_status.py")
@@ -114,6 +124,8 @@ def autonomous_continuation() -> None:
     run_if_present("scripts/update_site_final_goal_status.py")
     run_if_present("scripts/check_site_final_goal_status.py")
     run_if_present("scripts/check_site_final_activation_pending.py")
+    task_elimination_guard()
+    local_completion_receipt()
 
 
 def universal_ingest() -> None:
@@ -140,6 +152,8 @@ TASKS = {
     "live-url": live_url,
     "tt-status": tt_status,
     "external-evidence": external_evidence,
+    "task-elimination-guard": task_elimination_guard,
+    "local-completion-receipt": local_completion_receipt,
     "autonomous-continuation": autonomous_continuation,
     "universal-ingest": universal_ingest,
     "all-local": all_local,
