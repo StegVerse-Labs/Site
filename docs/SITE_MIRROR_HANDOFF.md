@@ -19,6 +19,7 @@ Micro-node return-path state: display_only_installed_on_branch
 LLM free-tier trust state: display_only_installed
 Public mirror guard state: consolidated_into_site_task_runner
 Workflow reduction state: reduced_to_two_active_workflows_plus_disabled_legacy_test_readiness_placeholder
+Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry
 ```
 
 ## Built Files
@@ -43,6 +44,19 @@ docs/LLM_FREE_TIER_TRUST_STATUS.md
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
+## Ecosystem Chat Simplification Rule
+
+```text
+ecosystem-chat.html should remain a governed chat preview with one primary user path:
+1. user reads the boundary
+2. user tries the governed chat preview
+3. technical SDK/gateway details remain secondary under a collapsible technical section
+
+Do not re-expand the hero into multiple competing primary buttons.
+Do not present the page as a task launcher, demo index, repo control panel, or execution console.
+Site remains preview-only and cannot issue receipts, access credentials, execute shell commands, or grant authority.
+```
+
 ## Workflow Standard
 
 ```text
@@ -65,7 +79,7 @@ Triggers: none declared
 ```text
 Branch: main
 governed-ecosystem.html includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
-ecosystem-chat.html includes a display-only Bounded free-tier trust display mirrored from StegVerse-org/LLM-adapter free_tier_trust metadata.
+ecosystem-chat.html now uses one primary governed chat preview entry, with SDK/gateway details moved into a secondary technical section.
 site-task-runner.yml now carries the former validation, readiness, mirror, TT, evidence, autonomous continuation, live URL, and ingest tasks.
 ```
 
@@ -92,6 +106,7 @@ StegVerse-Labs/Site:
   - verify Site Task Runner all-local passes
   - remove disabled .github/workflows/test-readiness.yml if a later connector/local Git path permits deletion
   - update public verification JSON only after live URL passes
+  - keep Ecosystem Chat as a single-primary-path preview page
 
 StegVerse-org/StegVerse-SDK:
   - ingest quota/receipt/replay metadata contract from StegVerse-org/LLM-adapter
