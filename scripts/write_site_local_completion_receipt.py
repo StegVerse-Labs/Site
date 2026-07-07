@@ -30,9 +30,9 @@ REQUIRED_PATHS = [
     "scripts/check_site_final_activation_pending.py",
     "scripts/write_site_local_completion_receipt.py",
     "scripts/check_site_local_completion_receipt.py",
-    ".github/workflows/site-autonomous-continuation.yml",
-    ".github/workflows/site-task-elimination-guard.yml",
-    ".github/workflows/site-local-completion-receipt.yml",
+    "scripts/run_site_task.py",
+    ".github/workflows/validate.yml",
+    ".github/workflows/site-task-runner.yml",
 ]
 
 
@@ -66,6 +66,8 @@ def build_receipt() -> dict[str, object]:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "local_completion_state": "complete" if local_complete else "incomplete",
         "activation_state": "pending_external_evidence",
+        "workflow_surface": "consolidated_two_workflow_surface",
+        "active_workflows": [".github/workflows/validate.yml", ".github/workflows/site-task-runner.yml"],
         "artifacts": artifacts,
         "missing": missing,
         "non_claims": [
@@ -86,15 +88,23 @@ def render_markdown(receipt: dict[str, object]) -> str:
         "```text",
         f"local_completion_state: {receipt['local_completion_state']}",
         f"activation_state: {receipt['activation_state']}",
+        f"workflow_surface: {receipt['workflow_surface']}",
         f"generated_at: {receipt['generated_at']}",
         "repository: StegVerse-Labs/Site",
         "```",
+        "",
+        "## Active Workflows",
+        "",
+    ]
+    for workflow in receipt["active_workflows"]:  # type: ignore[index]
+        lines.append(f"- `{workflow}`")
+    lines.extend([
         "",
         "## Artifacts",
         "",
         "| Path | iOS Display Path | Exists | SHA-256 |",
         "|---|---|---:|---|",
-    ]
+    ])
     for artifact in receipt["artifacts"]:  # type: ignore[index]
         lines.append(
             f"| `{artifact['path']}` | `{artifact['ios_display_path']}` | {str(artifact['exists']).lower()} | `{artifact['sha256'] or ''}` |"
