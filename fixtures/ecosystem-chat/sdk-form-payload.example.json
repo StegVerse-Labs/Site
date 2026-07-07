@@ -20,6 +20,23 @@
     "rate_limit_required": true,
     "receipt_required_for_execution": true,
     "restricted_admin_review_required": false,
+    "interaction_profile": {
+      "intra": 40,
+      "inter": 0,
+      "research": 0,
+      "provider": 0,
+      "solver": 0,
+      "receipt": 0
+    },
+    "interaction_bands": [
+      "intra",
+      "inter",
+      "research",
+      "provider",
+      "solver",
+      "receipt"
+    ],
+    "math_solver_supported": true,
     "user_request": "continue building Site",
     "declared_goal": "user advancement console with governed task boundaries",
     "operator_note": "",
@@ -36,6 +53,23 @@
     "execution_allowed_from_site": false,
     "authority_required_before_execution": true,
     "receipt_required_for_execution": true,
+    "interaction_profile": {
+      "intra": 40,
+      "inter": 0,
+      "research": 0,
+      "provider": 0,
+      "solver": 0,
+      "receipt": 0
+    },
+    "interaction_bands": [
+      "intra",
+      "inter",
+      "research",
+      "provider",
+      "solver",
+      "receipt"
+    ],
+    "math_solver_supported": true,
     "correctness_errors": []
   }
 }
