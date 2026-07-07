@@ -19,6 +19,16 @@ Site publishes receipts. Site does not generate them.
 Site must never become the authority for receipts, transitions, accreditation, shell execution, credentials, or repository administration.
 ```
 
+### Ecosystem Chat boundary markers
+
+```text
+raw_shell_allowed=false
+authority_required=true
+rate_limit_required=true
+receipt_required_for_execution=true
+Restricted admin=false for public Site runtime
+```
+
 ---
 
 ## Site structure
