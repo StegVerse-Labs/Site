@@ -18,12 +18,13 @@ Homepage state: governed_ecosystem_homepage_link_wired
 Micro-node return-path state: display_only_installed_on_branch
 LLM free-tier trust state: display_only_installed
 Public mirror guard state: consolidated_into_site_task_runner
-Workflow reduction state: reduced_to_two_active_workflows_plus_disabled_legacy_test_readiness_placeholder
+Workflow reduction state: two_active_workflows_with_legacy_guard_workflows_retired
 Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_validate_wired_and_status_artifact_installed
 Ecosystem Chat interaction-band state: local_preview_installed_for_intra_inter_research_provider_solver_receipt
 Math solver band state: preview_routing_installed_no_live_solver_execution
 Interaction-band fixture state: request_response_sdk_examples_updated
 Interaction-band verifier state: boundary_checker_enforces_preview_telemetry_contract
+Local completion receipt state: migrated_into_site_task_runner
 ```
 
 ## Built Files
@@ -43,6 +44,8 @@ scripts/check_site_governed_ecosystem_live_url.py
 scripts/check_site_homepage_governed_ecosystem.py
 scripts/check_site_public_paths.py
 scripts/check_site_llm_free_tier_trust.py
+scripts/write_site_local_completion_receipt.py
+scripts/check_site_local_completion_receipt.py
 scripts/run_site_task.py
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
@@ -89,17 +92,18 @@ Current Site implementation is preview-only. It deterministically classifies loc
 ```text
 Active workflow 1: .github/workflows/validate.yml
 Role: bootstrap validation gate
-Runs: scripts/run_site_task.py validate
-Validate now includes: scripts/check_ecosystem_chat_application.py and scripts/check_ecosystem_chat_boundary.py
+Runs: scripts/check_ecosystem_chat_application.py
 
 Active workflow 2: .github/workflows/site-task-runner.yml
-Role: stable declared-task execution surface
+Role: stable declared-task execution surface plus GitHub Pages deployment
 Runs: scripts/run_site_task.py <task>
-Tasks: all-local, validate, test-readiness, mirror-readiness, public-guard, live-url, tt-status, external-evidence, autonomous-continuation, universal-ingest
+Tasks: all-local, validate, test-readiness, mirror-readiness, public-guard, live-url, tt-status, external-evidence, task-elimination-guard, local-completion-receipt, autonomous-continuation, universal-ingest
 
-Legacy placeholder: .github/workflows/test-readiness.yml
-Role: disabled superseded file only; direct deletion was blocked by connector safety layer
-Triggers: none declared
+Retired legacy workflows:
+- .github/workflows/site-mirror-closure-guard.yml
+- .github/workflows/site-task-elimination-guard.yml
+- .github/workflows/site-mirror-evidence-transition-guard.yml
+- .github/workflows/site-local-completion-receipt.yml
 ```
 
 ## Current branch addition
@@ -116,7 +120,7 @@ fixtures/ecosystem-chat/sdk-form-payload.example.json now includes interaction t
 scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract, interaction-band preview surface, fixture telemetry shape, and docs/ECOSYSTEM_CHAT_UX_STATUS.md.
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json now declares docs/ECOSYSTEM_CHAT_UX_STATUS.md as an expected input.
 scripts/run_site_task.py validate now runs the Ecosystem Chat boundary/UX checker.
-site-task-runner.yml now carries the former validation, readiness, mirror, TT, evidence, autonomous continuation, live URL, and ingest tasks.
+site-task-runner.yml now carries the former validation, readiness, mirror, TT, evidence, local completion receipt, task-elimination, autonomous continuation, live URL, and ingest tasks.
 ```
 
 ## Checkers
@@ -130,6 +134,8 @@ python scripts/run_site_task.py public-guard
 python scripts/run_site_task.py live-url
 python scripts/run_site_task.py tt-status
 python scripts/run_site_task.py external-evidence
+python scripts/run_site_task.py task-elimination-guard
+python scripts/run_site_task.py local-completion-receipt
 python scripts/run_site_task.py autonomous-continuation
 python scripts/run_site_task.py universal-ingest
 python scripts/run_site_task.py all-local
@@ -140,8 +146,8 @@ python scripts/run_site_task.py all-local
 ```text
 StegVerse-Labs/Site:
   - verify Site Bootstrap Validate passes
-  - verify Site Task Runner all-local passes
-  - remove disabled .github/workflows/test-readiness.yml if a later connector/local Git path permits deletion
+  - verify Site Task Runner all-local passes after local completion receipt migration
+  - confirm no legacy guard workflows remain active beyond validate.yml and site-task-runner.yml
   - update public verification JSON only after live URL passes
   - keep Ecosystem Chat as a single-primary-path preview page
   - connect live_governed_gateway.py, provider clients, cost model, usage metrics, and math solver behind the preview boundary when backend authority path exists
