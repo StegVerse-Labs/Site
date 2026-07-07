@@ -22,6 +22,8 @@ Workflow reduction state: reduced_to_two_active_workflows_plus_disabled_legacy_t
 Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_validate_wired_and_status_artifact_installed
 Ecosystem Chat interaction-band state: local_preview_installed_for_intra_inter_research_provider_solver_receipt
 Math solver band state: preview_routing_installed_no_live_solver_execution
+Interaction-band fixture state: request_response_sdk_examples_updated
+Interaction-band verifier state: boundary_checker_enforces_preview_telemetry_contract
 ```
 
 ## Built Files
@@ -31,6 +33,9 @@ index.html
 governed-ecosystem.html
 ecosystem-chat.html
 assets/ecosystem-chat.js
+fixtures/ecosystem-chat/request.example.json
+fixtures/ecosystem-chat/response.example.json
+fixtures/ecosystem-chat/sdk-form-payload.example.json
 scripts/check_ecosystem_chat_boundary.py
 scripts/check_site_governed_ecosystem_mirror.py
 scripts/check_site_governed_ecosystem_public_verification.py
@@ -105,7 +110,10 @@ governed-ecosystem.html includes a display-only Portable Governed Return Path se
 ecosystem-chat.html now uses one primary governed chat preview entry, with SDK/gateway details moved into a secondary technical section.
 ecosystem-chat.html now includes local preview routing bands for intra, inter, research, provider, solver, and receipt load.
 assets/ecosystem-chat.js now emits local interaction_profile metadata and math_solver_supported=true in the preview manifest and receipt window.
-scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract and checks docs/ECOSYSTEM_CHAT_UX_STATUS.md.
+fixtures/ecosystem-chat/request.example.json now includes interaction_bands, interaction_profile, and math_solver_supported.
+fixtures/ecosystem-chat/response.example.json now includes interaction_profile and response text for interaction bands and math solver preview.
+fixtures/ecosystem-chat/sdk-form-payload.example.json now includes interaction telemetry in manifest and receipt_window.
+scripts/check_ecosystem_chat_boundary.py now enforces the single-entry UX contract, interaction-band preview surface, fixture telemetry shape, and docs/ECOSYSTEM_CHAT_UX_STATUS.md.
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json now declares docs/ECOSYSTEM_CHAT_UX_STATUS.md as an expected input.
 scripts/run_site_task.py validate now runs the Ecosystem Chat boundary/UX checker.
 site-task-runner.yml now carries the former validation, readiness, mirror, TT, evidence, autonomous continuation, live URL, and ingest tasks.
