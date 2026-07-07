@@ -11,13 +11,13 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 
 BOUNDARY_TASK_ID = "ecosystem-chat-boundary-check-v1"
 BOUNDARY_TASK_PATH = "data/headless-tasks/ecosystem-chat-boundary-check-v1.json"
 BOUNDARY_SCRIPT = "scripts/check_ecosystem_chat_boundary.py"
+INTERACTION_BANDS = ["intra", "inter", "research", "provider", "solver", "receipt"]
 
 CHECKS = {
     "ecosystem-chat.html": [
@@ -33,18 +33,31 @@ CHECKS = {
         "id=\"manifestPreview\"",
         "id=\"receiptPreview\"",
         "id=\"sdkFormStatus\"",
-        "This page accepts user goals, not raw infrastructure commands.",
-        "Site is a public mirror and user-facing advancement surface",
+        "id=\"interactionBandMeter\"",
+        "Ecosystem LLM routing bands",
+        "Math solver",
+        "INTRA",
+        "INTER",
+        "RESEARCH",
+        "PROVIDER",
+        "SOLVER",
+        "RECEIPT",
         "Restricted admin",
         "raw_shell_allowed",
         "authority_required",
         "rate_limit_required",
         "receipt_required_for_execution",
+        "interaction_profile",
+        "interaction_bands",
+        "math_solver_supported",
     ],
     "assets/ecosystem-chat.js": [
         "const STEGVERSE_GATEWAY_PATH = '/api/ecosystem-chat';",
         "const STEGVERSE_LOCAL_MODE = true;",
         "RESTRICTED_PATTERNS",
+        "INTERACTION_BANDS",
+        "calculateInteractionProfile",
+        "renderInteractionBands",
         "Restricted admin",
         "buildManifest",
         "buildReceiptWindow",
@@ -58,6 +71,9 @@ CHECKS = {
         "site_shell_authority: false",
         "site_credential_authority: false",
         "receipt=not-issued",
+        "interaction_profile",
+        "interaction_bands",
+        "math_solver_supported",
     ],
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md": [
         "Ecosystem Chat is not a public terminal.",
@@ -120,12 +136,18 @@ CHECKS = {
         "\"authority_required\": true",
         "\"rate_limit_required\": true",
         "\"receipt_required_for_execution\": true",
+        "\"interaction_bands\"",
+        "\"interaction_profile\"",
+        "\"math_solver_supported\": true",
     ],
     "fixtures/ecosystem-chat/response.example.json": [
         "\"routed_module\": \"Site\"",
         "\"task_status\": \"preview_only\"",
         "\"receipt_id\": null",
         "Shell: disabled",
+        "Interaction bands:",
+        "Math solver:",
+        "\"interaction_profile\"",
     ],
     "fixtures/ecosystem-chat/sdk-form-payload.example.json": [
         "\"fields\"",
@@ -137,6 +159,9 @@ CHECKS = {
         "\"site_shell_authority\": false",
         "\"site_credential_authority\": false",
         "\"manifest_correct_at_submission\": true",
+        "\"interaction_bands\"",
+        "\"interaction_profile\"",
+        "\"math_solver_supported\": true",
     ],
     "fixtures/ecosystem-chat/sdk-backend-response.example.json": [
         "\"accepted\": true",
@@ -145,19 +170,8 @@ CHECKS = {
         "\"next_action\"",
         "\"errors\": []",
     ],
-    BOUNDARY_TASK_PATH: [
-        BOUNDARY_TASK_ID,
-        BOUNDARY_SCRIPT,
-        "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
-        "ordinary_analysis",
-        "public_surface_boundary_verification",
-    ],
-    "data/headless-task-registry-v1.json": [
-        BOUNDARY_TASK_ID,
-        BOUNDARY_TASK_PATH,
-        "ordinary_analysis",
-        "active",
-    ],
+    BOUNDARY_TASK_PATH: [BOUNDARY_TASK_ID, BOUNDARY_SCRIPT, "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", "ordinary_analysis", "public_surface_boundary_verification"],
+    "data/headless-task-registry-v1.json": [BOUNDARY_TASK_ID, BOUNDARY_TASK_PATH, "ordinary_analysis", "active"],
     ".github/workflows/check-ecosystem-chat.yml": [
         "name: Check Ecosystem Chat Contract",
         "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
@@ -201,75 +215,34 @@ EXPECTED_IOS_MAPPING = {
 }
 
 REQUIRED_PAYLOAD_KEYS = {"fields", "manifest", "receipt_window"}
-REQUIRED_FORM_KEYS = {
-    "target_entry_point",
-    "input_mode",
-    "requested_route",
-    "receipt_expectation",
-    "submission_posture",
-    "user_request",
-    "declared_goal",
-    "operator_note",
-}
-REQUIRED_MANIFEST_KEYS = {
-    "target_entry_point",
-    "input_mode",
-    "requested_route",
-    "detected_route",
-    "task_status",
-    "raw_shell_allowed",
-    "authority_required",
-    "rate_limit_required",
-    "receipt_required_for_execution",
-    "restricted_admin_review_required",
-    "user_request",
-    "declared_goal",
-    "operator_note",
-    "source_surface",
-}
-REQUIRED_RECEIPT_WINDOW_KEYS = {
-    "receipt_expectation",
-    "submission_posture",
-    "site_receipt_authority",
-    "site_shell_authority",
-    "site_credential_authority",
-    "manifest_correct_at_submission",
-    "submission_target",
-    "execution_allowed_from_site",
-    "authority_required_before_execution",
-    "receipt_required_for_execution",
-    "correctness_errors",
-}
+REQUIRED_FORM_KEYS = {"target_entry_point", "input_mode", "requested_route", "receipt_expectation", "submission_posture", "user_request", "declared_goal", "operator_note"}
+REQUIRED_MANIFEST_KEYS = {"target_entry_point", "input_mode", "requested_route", "detected_route", "task_status", "raw_shell_allowed", "authority_required", "rate_limit_required", "receipt_required_for_execution", "restricted_admin_review_required", "interaction_profile", "interaction_bands", "math_solver_supported", "user_request", "declared_goal", "operator_note", "source_surface"}
+REQUIRED_RECEIPT_WINDOW_KEYS = {"receipt_expectation", "submission_posture", "site_receipt_authority", "site_shell_authority", "site_credential_authority", "manifest_correct_at_submission", "submission_target", "execution_allowed_from_site", "authority_required_before_execution", "receipt_required_for_execution", "interaction_profile", "interaction_bands", "math_solver_supported", "correctness_errors"}
 REQUIRED_BACKEND_RESPONSE_KEYS = {"accepted", "routed_module", "receipt_id", "next_action", "errors"}
 
 
 def main() -> int:
     failures: list[str] = []
-
     for relative_path, required_fragments in CHECKS.items():
         path = ROOT / relative_path
         if not path.exists():
             failures.append(f"missing file: {relative_path}")
             continue
-
         content = path.read_text(encoding="utf-8")
         for fragment in required_fragments:
             if fragment not in content:
                 failures.append(f"{relative_path}: missing required fragment: {fragment}")
-
     failures.extend(check_ios_workflow_map())
     failures.extend(check_gateway_request_fixture())
     failures.extend(check_gateway_response_fixture())
     failures.extend(check_sdk_payload_fixture())
     failures.extend(check_sdk_backend_response_fixture())
     failures.extend(check_boundary_task_fixture())
-
     if failures:
         print("Ecosystem Chat contract check failed:")
         for failure in failures:
             print(f"- {failure}")
         return 1
-
     print("Ecosystem Chat contract check passed.")
     return 0
 
@@ -291,21 +264,33 @@ def check_ios_workflow_map() -> list[str]:
     data, failures = load_json("iosnoperiod/workflow-map.json")
     if failures:
         return failures
-
     mappings = data.get("mappings")
-    if not isinstance(mappings, list):
-        return ["iosnoperiod/workflow-map.json: mappings must be a list"]
-    if not mappings:
-        return ["iosnoperiod/workflow-map.json: mappings must not be empty"]
+    if not isinstance(mappings, list) or not mappings:
+        return ["iosnoperiod/workflow-map.json: mappings must be a non-empty list"]
+    return [
+        "iosnoperiod/workflow-map.json: " f"expected {key}={expected_value!r}, got {mappings[0].get(key)!r}"
+        for key, expected_value in EXPECTED_IOS_MAPPING.items()
+        if mappings[0].get(key) != expected_value
+    ]
 
-    first_mapping = mappings[0]
+
+def require_interaction_contract(data: dict, label: str) -> list[str]:
     failures = []
-    for key, expected_value in EXPECTED_IOS_MAPPING.items():
-        if first_mapping.get(key) != expected_value:
-            failures.append(
-                "iosnoperiod/workflow-map.json: "
-                f"expected {key}={expected_value!r}, got {first_mapping.get(key)!r}"
-            )
+    if data.get("interaction_bands") != INTERACTION_BANDS:
+        failures.append(f"{label}: interaction_bands must be {INTERACTION_BANDS!r}")
+    profile = data.get("interaction_profile")
+    if not isinstance(profile, dict):
+        failures.append(f"{label}: interaction_profile must be an object")
+    else:
+        for band in INTERACTION_BANDS:
+            value = profile.get(band)
+            if not isinstance(value, int) or value < 0 or value > 100:
+                failures.append(f"{label}: interaction_profile.{band} must be integer 0..100")
+        for band in profile:
+            if band not in INTERACTION_BANDS:
+                failures.append(f"{label}: unknown interaction band {band!r}")
+    if data.get("math_solver_supported") is not True:
+        failures.append(f"{label}: math_solver_supported must be true")
     return failures
 
 
@@ -313,45 +298,35 @@ def check_gateway_request_fixture() -> list[str]:
     data, failures = load_json("fixtures/ecosystem-chat/request.example.json")
     if failures:
         return failures
-    expected = {
-        "execution_model": "allowlisted_task_request_only",
-        "raw_shell_allowed": False,
-        "authority_required": True,
-        "rate_limit_required": True,
-        "receipt_required_for_execution": True,
-    }
-    return [f"fixtures/ecosystem-chat/request.example.json: expected {key}={value!r}" for key, value in expected.items() if data.get(key) != value]
+    expected = {"execution_model": "allowlisted_task_request_only", "raw_shell_allowed": False, "authority_required": True, "rate_limit_required": True, "receipt_required_for_execution": True}
+    failures = [f"fixtures/ecosystem-chat/request.example.json: expected {key}={value!r}" for key, value in expected.items() if data.get(key) != value]
+    failures.extend(require_interaction_contract(data, "fixtures/ecosystem-chat/request.example.json"))
+    return failures
 
 
 def check_gateway_response_fixture() -> list[str]:
     data, failures = load_json("fixtures/ecosystem-chat/response.example.json")
     if failures:
         return failures
-    checks = []
     if data.get("routed_module") != "Site":
-        checks.append("fixtures/ecosystem-chat/response.example.json: routed_module must be Site")
+        failures.append("fixtures/ecosystem-chat/response.example.json: routed_module must be Site")
     if data.get("task_status") != "preview_only":
-        checks.append("fixtures/ecosystem-chat/response.example.json: task_status must be preview_only")
+        failures.append("fixtures/ecosystem-chat/response.example.json: task_status must be preview_only")
     if data.get("receipt_id") is not None:
-        checks.append("fixtures/ecosystem-chat/response.example.json: receipt_id must be null")
-    return checks
+        failures.append("fixtures/ecosystem-chat/response.example.json: receipt_id must be null")
+    profile_wrapper = {"interaction_bands": INTERACTION_BANDS, "interaction_profile": data.get("interaction_profile"), "math_solver_supported": True}
+    failures.extend(require_interaction_contract(profile_wrapper, "fixtures/ecosystem-chat/response.example.json"))
+    return failures
 
 
 def check_sdk_payload_fixture() -> list[str]:
     payload, failures = load_json("fixtures/ecosystem-chat/sdk-form-payload.example.json")
     if failures:
         return failures
-
     failures = []
     if set(payload) != REQUIRED_PAYLOAD_KEYS:
-        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: top-level keys must be fields, manifest, receipt_window")
-        return failures
-
-    sections = {
-        "fields": REQUIRED_FORM_KEYS,
-        "manifest": REQUIRED_MANIFEST_KEYS,
-        "receipt_window": REQUIRED_RECEIPT_WINDOW_KEYS,
-    }
+        return ["fixtures/ecosystem-chat/sdk-form-payload.example.json: top-level keys must be fields, manifest, receipt_window"]
+    sections = {"fields": REQUIRED_FORM_KEYS, "manifest": REQUIRED_MANIFEST_KEYS, "receipt_window": REQUIRED_RECEIPT_WINDOW_KEYS}
     for section, required_keys in sections.items():
         value = payload.get(section)
         if not isinstance(value, dict):
@@ -359,24 +334,20 @@ def check_sdk_payload_fixture() -> list[str]:
             continue
         if set(value) != required_keys:
             failures.append(f"fixtures/ecosystem-chat/sdk-form-payload.example.json: {section} keys do not match required contract")
-
     manifest = payload.get("manifest", {})
     receipt_window = payload.get("receipt_window", {})
     if manifest.get("target_entry_point") != "StegVerse-org/SDK":
         failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: manifest target_entry_point must be StegVerse-org/SDK")
-    if manifest.get("raw_shell_allowed") is not False:
-        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: manifest raw_shell_allowed must be false")
+    for key in ["raw_shell_allowed", "site_receipt_authority", "site_shell_authority", "site_credential_authority"]:
+        section = manifest if key == "raw_shell_allowed" else receipt_window
+        if section.get(key) is not False:
+            failures.append(f"fixtures/ecosystem-chat/sdk-form-payload.example.json: {key} must be false")
     if manifest.get("authority_required") is not True:
         failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: manifest authority_required must be true")
-    if receipt_window.get("site_receipt_authority") is not False:
-        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: site_receipt_authority must be false")
-    if receipt_window.get("site_shell_authority") is not False:
-        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: site_shell_authority must be false")
-    if receipt_window.get("site_credential_authority") is not False:
-        failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: site_credential_authority must be false")
     if not isinstance(receipt_window.get("correctness_errors"), list):
         failures.append("fixtures/ecosystem-chat/sdk-form-payload.example.json: correctness_errors must be a list")
-
+    failures.extend(require_interaction_contract(manifest, "fixtures/ecosystem-chat/sdk-form-payload.example.json manifest"))
+    failures.extend(require_interaction_contract(receipt_window, "fixtures/ecosystem-chat/sdk-form-payload.example.json receipt_window"))
     return failures
 
 
@@ -384,7 +355,6 @@ def check_sdk_backend_response_fixture() -> list[str]:
     response, failures = load_json("fixtures/ecosystem-chat/sdk-backend-response.example.json")
     if failures:
         return failures
-
     failures = []
     if set(response) != REQUIRED_BACKEND_RESPONSE_KEYS:
         failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: keys must be accepted, routed_module, receipt_id, next_action, errors")
@@ -394,7 +364,6 @@ def check_sdk_backend_response_fixture() -> list[str]:
         failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: accepted must be boolean")
     if not isinstance(response.get("errors"), list):
         failures.append("fixtures/ecosystem-chat/sdk-backend-response.example.json: errors must be a list")
-
     return failures
 
 
@@ -420,4 +389,4 @@ def check_boundary_task_fixture() -> list[str]:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
