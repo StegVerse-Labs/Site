@@ -1,0 +1,25 @@
+{
+  "schema_version": "stegverse.ai_entry.visible_run_evidence_schema.v0.1",
+  "goal": "visible-run evidence schema",
+  "state": "schema_recorded_no_evidence_claimed",
+  "required_fields": [
+    "repo",
+    "commit_sha",
+    "workflow_name",
+    "run_id",
+    "conclusion",
+    "checked_at",
+    "source"
+  ],
+  "allowed_conclusions": ["success"],
+  "tracked_repos": [
+    "StegVerse-Labs/Site",
+    "StegVerse-org/StegVerse-SDK",
+    "StegVerse-org/LLM-adapter"
+  ],
+  "evidence_claimed": false,
+  "promotion_allowed": false,
+  "tag_allowed": false,
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "visible-run evidence verifier"
+}
