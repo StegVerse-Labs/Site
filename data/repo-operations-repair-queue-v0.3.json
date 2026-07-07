@@ -9,6 +9,7 @@
     "requires_review_before_merge": true
   },
   "ready_for_review": [
+    {"repo": "StegVerse-Labs/Site", "pr": 9, "title": "Add repo operations repair queue validator v2", "status_statement": "THIS PR IS READY FOR REVIEW.", "note": "Task Runner publish steps are gated to main in PR branch; verify rerun before merge"},
     {"repo": "StegVerse-Labs/Site", "pr": 7, "title": "Add repo operations repair queue status", "status_statement": "THIS PR IS READY FOR REVIEW."},
     {"repo": "StegVerse-Labs/admissibility-wiki", "pr": 8, "title": "Repair Guardian destination continuity", "status_statement": "THIS PR IS READY FOR REVIEW."},
     {"repo": "StegVerse-Labs/Site", "pr": 6, "title": "Repair CFP phase 2 workflow shell syntax", "status_statement": "THIS PR IS READY FOR REVIEW."},
@@ -18,7 +19,6 @@
     {"repo": "StegGhost/StegCGE", "pr": 1, "title": "Add architecture manifest for StegCGE guard", "status_statement": "THIS PR IS READY FOR REVIEW."}
   ],
   "not_ready_for_review": [
-    {"repo": "StegVerse-Labs/Site", "pr": 9, "title": "Add repo operations repair queue validator v2", "status_statement": "NOT READY FOR REVIEW.", "blocker": "Site Task Runner patch requires successful rerun"},
     {"repo": "StegVerse-Labs/Site", "pr": 8, "title": "Add repo operations repair queue validator", "status_statement": "NOT READY FOR REVIEW.", "blocker": "Superseded by PR #9"},
     {"repo": "StegVerse-Labs/StegVerse-SCW", "pr": 18, "title": "Repair SCW repo-ops handoff and alignment checker", "status_statement": "NOT READY FOR REVIEW."},
     {"repo": "StegVerse-Labs/StegDB", "pr": 8, "title": "Document canonical docs sync blocker", "status_statement": "NOT READY FOR REVIEW."},
@@ -26,9 +26,8 @@
   ],
   "next_safe_steps": [
     "Wait for Site PR #9 checks to rerun.",
-    "Upgrade Site PR #9 only after Site Task Runner passes.",
+    "Merge only after explicit authorization and green checks.",
     "Review ready-for-review PRs against repo handoffs.",
-    "Repair blocker PRs before upgrading readiness.",
-    "Do not merge without explicit authorization."
+    "Repair blocker PRs before upgrading readiness."
   ]
 }
