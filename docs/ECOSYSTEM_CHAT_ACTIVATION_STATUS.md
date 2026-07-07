@@ -2,11 +2,13 @@
 
 ## Status
 
-`ecosystem-chat.html` is installed as a text-only user advancement surface for StegVerse build and governance requests.
+`ecosystem-chat.html` is installed as a text-only governed chat preview for StegVerse build and governance requests.
 
 The page is currently in local-simulation mode. It does not call a live backend, execute shell commands, accept credentials, perform repository writes, or issue proof receipts.
 
-The SDK Entry Form is installed as a browser-side user input surface for the StegVerse-org/SDK entry point if and only if the generated manifest window and receipt window remain distinct from the fillable fields and are determined correct at submission time.
+The page now has one public primary path: a user reads the boundary, tries the governed chat preview, and receives local route classification. Technical SDK/gateway details remain available, but only as a secondary collapsible technical section.
+
+The SDK Entry Form is installed as a browser-side technical preview for the StegVerse-org/SDK entry point if and only if the generated manifest window and receipt window remain distinct from the fillable fields and are determined correct at submission time.
 
 The Site-side activation surface is complete for pre-backend handoff. Remaining activation belongs to the governed SDK/backend implementation boundary.
 
@@ -16,6 +18,7 @@ The Site-side activation surface is complete for pre-backend handoff. Remaining 
 |---|---|
 | Public page | Installed: `ecosystem-chat.html` |
 | Browser script | Installed: `assets/ecosystem-chat.js` |
+| Single-entry UX contract | Installed and guarded: one primary governed chat preview entry, technical details collapsible |
 | Gateway contract | Installed: `docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md` |
 | Form gateway model | Installed: `docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md` |
 | Boundary check doc | Installed: `docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md` |
@@ -25,7 +28,7 @@ The Site-side activation surface is complete for pre-backend handoff. Remaining 
 | SDK backend response fixture | Installed: `fixtures/ecosystem-chat/sdk-backend-response.example.json` |
 | Gateway fixtures | Installed: `fixtures/ecosystem-chat/request.example.json` and `fixtures/ecosystem-chat/response.example.json` |
 | Contract checker | Installed and aligned: `scripts/check_ecosystem_chat_contract.py` checks the boundary task path, activation-status boundary state, and README command discovery |
-| Boundary verifier | Installed and aligned: `scripts/check_ecosystem_chat_boundary.py` checks page, docs, README command discovery, activation status, fixtures, declared task, and registry |
+| Boundary verifier | Installed and aligned: `scripts/check_ecosystem_chat_boundary.py` checks page, single-entry UX, docs, README command discovery, activation status, fixtures, declared task, and registry |
 | Declared boundary task | Installed: `data/headless-tasks/ecosystem-chat-boundary-check-v1.json` |
 | Headless task registry | Installed: `data/headless-task-registry-v1.json` contains active `ecosystem-chat-boundary-check-v1` |
 | Workflow gate | Installed: `github/workflows/check-ecosystem-chat.yml` path shown without leading dot |
@@ -34,6 +37,8 @@ The Site-side activation surface is complete for pre-backend handoff. Remaining 
 ## Browser form state
 
 ```text
+Primary public path state: single governed chat preview entry
+Technical details state: collapsible secondary section
 Fillable fields state: installed
 Closed-choice dropdown state: installed
 Manifest window state: installed
@@ -47,6 +52,23 @@ Receipt-required execution state: installed
 SDK payload fixture state: installed
 SDK backend response fixture state: installed
 SDK backend submission state: not installed
+```
+
+## UX contract
+
+The public page must not return to a multi-entry console or task-launcher shape.
+
+```text
+Required:
+- one primary hero action to try the governed chat preview
+- one secondary hero action explaining the boundary
+- local chat classification remains the visible primary interaction
+- SDK/gateway details remain under a collapsible technical section
+- Site remains preview-only
+
+Forbidden:
+- multiple competing hero actions such as SDK form, console, guardrails, trust status, gateway contract, form model, boundary check, and verification guide all presented together as primary options
+- public framing as a control panel, task launcher, demo index, shell, receipt issuer, or repo admin surface
 ```
 
 ## Boundary
@@ -66,7 +88,7 @@ scripts/check_ecosystem_chat_contract.py
   -> confirms the page, script, docs, fixtures, workflow/iOS surfaces, README command discovery, and boundary-task references preserve the contract.
 
 scripts/check_ecosystem_chat_boundary.py
-  -> confirms the no-shell/no-credential/authority-required/receipt-required boundary across page, docs, README command discovery, activation status, fixtures, declared task, and registry.
+  -> confirms the no-shell/no-credential/authority-required/receipt-required boundary and single-entry UX contract across page, docs, README command discovery, activation status, fixtures, declared task, and registry.
 
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json
   -> declares the boundary verifier as ordinary_analysis with expected inputs including activation status and both checkers.
@@ -89,7 +111,7 @@ Expected output:
 Ecosystem Chat contract check passed.
 ```
 
-Boundary check:
+Boundary and UX check:
 
 ```bash
 python scripts/check_ecosystem_chat_boundary.py
@@ -100,7 +122,8 @@ Expected output contains:
 ```json
 {
   "ok": true,
-  "boundary": "no-shell/no-credential/authority-required/receipt-required"
+  "boundary": "no-shell/no-credential/authority-required/receipt-required",
+  "ux_contract": "single-primary-governed-chat-preview-entry"
 }
 ```
 
@@ -149,6 +172,7 @@ Page state: installed
 Script state: installed
 Contract state: installed
 Form model state: installed
+Single-entry UX contract state: installed and guarded
 Boundary check doc state: installed
 README discovery state: installed and guarded
 SDK backend handoff state: installed
@@ -156,7 +180,7 @@ Fixture state: installed
 SDK form state: installed
 SDK backend response fixture state: installed
 Contract check state: installed and aligned with boundary task
-Boundary verifier state: installed
+Boundary verifier state: installed with single-entry UX guard
 Declared task state: installed
 Registry state: installed
 Workflow state: installed
