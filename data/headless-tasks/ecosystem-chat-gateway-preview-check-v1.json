@@ -1,0 +1,24 @@
+{
+  "task_id": "ecosystem-chat-gateway-preview-check-v1",
+  "class": "public_surface_gateway_preview_verification",
+  "authority_class": "ordinary_analysis",
+  "status": "active",
+  "command": [
+    "python",
+    "scripts/check_ecosystem_chat_gateway_preview.py"
+  ],
+  "expected_inputs": [
+    "backend/ecosystem_chat_gateway_preview.py",
+    "scripts/check_ecosystem_chat_gateway_preview.py",
+    "docs/ECOSYSTEM_CHAT_INTERACTION_TELEMETRY.md",
+    "fixtures/ecosystem-chat/request.example.json",
+    "fixtures/ecosystem-chat/response.example.json",
+    "fixtures/ecosystem-chat/sdk-form-payload.example.json"
+  ],
+  "expected_outputs": [],
+  "non_authority_notes": [
+    "Preview verification only.",
+    "Does not issue authority receipts.",
+    "Does not perform provider, research, or solver activation."
+  ]
+}
