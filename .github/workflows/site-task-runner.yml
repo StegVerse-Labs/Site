@@ -121,6 +121,7 @@ jobs:
         run: python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
 
       - name: Commit generated Site state
+        if: github.ref == 'refs/heads/main'
         working-directory: site
         run: |
           git config user.name "github-actions[bot]"
@@ -133,17 +134,23 @@ jobs:
             git push
           fi
 
+      - name: Skip generated state commit on non-main refs
+        if: github.ref != 'refs/heads/main'
+        run: echo "Validation-only ref: skipping generated state commit."
+
       - name: Configure Pages
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
       - name: Deploy Pages
         id: deployment
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/deploy-pages@v4
 
       - name: Write summary
@@ -153,5 +160,5 @@ jobs:
           echo "## Site Task Runner" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Workflow role: stable declared-task execution surface plus GitHub Pages deployment." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: generated Site state is committed only after task validation completes." >> "$GITHUB_STEP_SUMMARY"
+          echo "Workflow role: stable declared-task execution surface plus GitHub Pages deployment."
+          echo "Boundary: generated Site state is committed and deployed only from main."
