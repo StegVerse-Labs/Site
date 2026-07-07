@@ -1,0 +1,23 @@
+{
+  "schema_version": "stegverse.ai_entry.visibility_refresh_index.v0.1",
+  "goal": "connector-visible rerun tracking",
+  "state": "refresh_index_recorded_not_green",
+  "tracked_repos": {
+    "StegVerse-Labs/Site": {
+      "latest_known_state": "validation_surface_updated",
+      "visible_run": false
+    },
+    "StegVerse-org/StegVerse-SDK": {
+      "latest_known_state": "goal8_checkpoint_complete_visibility_pending",
+      "visible_run": false
+    },
+    "StegVerse-org/LLM-adapter": {
+      "latest_known_state": "goal4_full_surface_expected",
+      "visible_run": false
+    }
+  },
+  "promotion_allowed": false,
+  "tag_allowed": false,
+  "manual_tasks_remaining": [],
+  "next_goal_candidate": "visibility refresh verifier"
+}
