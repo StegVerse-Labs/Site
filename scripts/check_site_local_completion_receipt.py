@@ -11,7 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 RECEIPT_MD = ROOT / "docs" / "SITE_LOCAL_COMPLETION_RECEIPT.md"
 RECEIPT_JSON = ROOT / "docs" / "SITE_LOCAL_COMPLETION_RECEIPT.json"
 WRITER = ROOT / "scripts" / "write_site_local_completion_receipt.py"
-WORKFLOW = ROOT / ".github" / "workflows" / "site-local-completion-receipt.yml"
+TASK_RUNNER = ROOT / "scripts" / "run_site_task.py"
+VALIDATE_WORKFLOW = ROOT / ".github" / "workflows" / "validate.yml"
+TASK_WORKFLOW = ROOT / ".github" / "workflows" / "site-task-runner.yml"
 
 REQUIRED_JSON_KEYS = {
     "schema",
@@ -19,6 +21,8 @@ REQUIRED_JSON_KEYS = {
     "generated_at",
     "local_completion_state",
     "activation_state",
+    "workflow_surface",
+    "active_workflows",
     "artifacts",
     "missing",
     "non_claims",
@@ -28,16 +32,22 @@ REQUIRED_MD_TERMS = {
     "# Site Local Completion Receipt",
     "local_completion_state:",
     "activation_state: pending_external_evidence",
+    "workflow_surface: consolidated_two_workflow_surface",
     "This receipt confirms local repository-managed continuation surfaces exist.",
     "does not activate the Site mirror",
     "does not grant commit-time permission",
 }
 
+REQUIRED_TASK_TERMS = {
+    "local-completion-receipt",
+    "write_site_local_completion_receipt.py",
+    "check_site_local_completion_receipt.py",
+}
+
 REQUIRED_WORKFLOW_TERMS = {
-    "Site Local Completion Receipt",
-    "python scripts/write_site_local_completion_receipt.py",
-    "docs/SITE_LOCAL_COMPLETION_RECEIPT.md",
-    "docs/SITE_LOCAL_COMPLETION_RECEIPT.json",
+    "Site Task Runner",
+    "python scripts/run_site_task.py",
+    "local-completion-receipt",
 }
 
 FORBIDDEN_TERMS = {
@@ -63,7 +73,9 @@ def main() -> int:
     md = read(RECEIPT_MD)
     raw = read(RECEIPT_JSON)
     writer = read(WRITER)
-    workflow = read(WORKFLOW)
+    task_runner = read(TASK_RUNNER)
+    validate_workflow = read(VALIDATE_WORKFLOW)
+    task_workflow = read(TASK_WORKFLOW)
     data = json.loads(raw)
 
     missing_keys = sorted(REQUIRED_JSON_KEYS - set(data))
@@ -76,19 +88,28 @@ def main() -> int:
         fail("receipt repository mismatch")
     if data.get("activation_state") != "pending_external_evidence":
         fail("receipt activation state must remain pending_external_evidence")
+    if data.get("workflow_surface") != "consolidated_two_workflow_surface":
+        fail("receipt workflow surface must reference consolidated two-workflow state")
     if data.get("local_completion_state") not in {"complete", "incomplete"}:
         fail("invalid local_completion_state")
     if not isinstance(data.get("artifacts"), list):
         fail("artifacts must be a list")
+    if data.get("active_workflows") != [".github/workflows/validate.yml", ".github/workflows/site-task-runner.yml"]:
+        fail("active workflow list must match consolidated Site workflow surface")
     if data.get("local_completion_state") == "complete" and data.get("missing"):
         fail("complete receipt cannot have missing artifacts")
 
     for term in REQUIRED_MD_TERMS:
         if term not in md:
             fail(f"receipt markdown missing term: {term}")
+    for term in REQUIRED_TASK_TERMS:
+        if term not in task_runner:
+            fail(f"task runner missing term: {term}")
     for term in REQUIRED_WORKFLOW_TERMS:
-        if term not in workflow:
-            fail(f"receipt workflow missing term: {term}")
+        if term not in task_workflow:
+            fail(f"task workflow missing term: {term}")
+    if "Site Bootstrap Validate" not in validate_workflow:
+        fail("validate workflow missing bootstrap name")
     if "site_local_completion_receipt.v0.1" not in writer:
         fail("receipt writer missing schema marker")
 
