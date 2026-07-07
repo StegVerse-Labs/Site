@@ -1,6 +1,6 @@
 {
   "schema_version": "stegverse.repo_operations.repair_queue.v0.3",
-  "generated_from": "Repo Operations Center repair queue after Site PR #7 creation",
+  "generated_from": "Repo Operations Center repair queue after Site PR #8 creation",
   "status": "classified_repair_queue_self_referenced",
   "authority_boundary": {
     "auto_merge_enabled": false,
@@ -9,6 +9,7 @@
     "requires_review_before_merge": true
   },
   "ready_for_review": [
+    {"repo": "StegVerse-Labs/Site", "pr": 8, "title": "Add repo operations repair queue validator", "status_statement": "THIS PR IS READY FOR REVIEW."},
     {"repo": "StegVerse-Labs/Site", "pr": 7, "title": "Add repo operations repair queue status", "status_statement": "THIS PR IS READY FOR REVIEW."},
     {"repo": "StegVerse-Labs/admissibility-wiki", "pr": 8, "title": "Repair Guardian destination continuity", "status_statement": "THIS PR IS READY FOR REVIEW."},
     {"repo": "StegVerse-Labs/Site", "pr": 6, "title": "Repair CFP phase 2 workflow shell syntax", "status_statement": "THIS PR IS READY FOR REVIEW."},
