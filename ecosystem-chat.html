@@ -25,16 +25,20 @@
     .chat-hint, .sdk-hint, .muted { color: var(--muted); font-size: 12px; }
     .receipt-block { font-family: var(--mono); font-size: 11px; color: var(--green); margin-top: 10px; padding-top: 10px; border-top: 1px solid #132215; overflow-wrap: anywhere; }
     .decision-path { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 18px 0; }
-    .decision-step, .trust-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
-    .decision-step strong, .trust-card strong, .sdk-label { display: block; color: var(--text); font-size: 13px; margin-bottom: 4px; }
-    .decision-step span, .trust-card span { color: var(--muted); font-size: 12px; }
+    .decision-step, .trust-card, .band-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+    .decision-step strong, .trust-card strong, .sdk-label, .band-card strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 4px; }
+    .decision-step span, .trust-card span, .band-card span { color: var(--muted); font-size: 12px; }
     .risk-note, .trust-note { border: 1px solid #3a2a12; border-radius: var(--radius); background: rgba(63, 44, 13, 0.28); color: #f0d9a0; padding: 12px 14px; margin-bottom: 16px; font-size: 13px; }
     .trust-note { border-color: #12351b; background: rgba(18, 49, 27, 0.22); color: #bce9c5; }
-    .sdk-grid, .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .sdk-grid, .trust-grid, .band-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
     .sdk-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 14px; }
     .sdk-preview { min-height: 220px; white-space: pre-wrap; overflow-x: auto; }
     .sdk-status { color: var(--green); font-family: var(--mono); font-size: 12px; border: 1px solid #12351b; border-radius: var(--radius); padding: 10px; background: rgba(18, 49, 27, 0.22); }
-    @media (max-width: 600px) { .chat-log { min-height: 280px; padding: 12px; } .chat-actions, .sdk-actions { align-items: stretch; } .chat-actions .sv-btn, .sdk-actions .sv-btn { width: 100%; } }
+    .band-meter { display: grid; gap: 8px; margin: 12px 0 4px; }
+    .band-row { display: grid; grid-template-columns: 92px 1fr 52px; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .band-track { height: 8px; border-radius: 999px; background: #0a111c; border: 1px solid var(--border2); overflow: hidden; }
+    .band-fill { display: block; height: 100%; width: var(--value, 0%); background: linear-gradient(90deg, rgba(77,184,255,0.22), rgba(102,255,153,0.72)); }
+    @media (max-width: 600px) { .chat-log { min-height: 280px; padding: 12px; } .chat-actions, .sdk-actions { align-items: stretch; } .chat-actions .sv-btn, .sdk-actions .sv-btn { width: 100%; } .band-row { grid-template-columns: 76px 1fr 42px; } }
   </style>
 </head>
 <body>
@@ -76,19 +80,34 @@
     </div>
   </section>
 
+  <section class="simple-card" id="interaction-bands">
+    <h2 class="sv-h2">Ecosystem LLM routing bands</h2>
+    <p class="muted">The full product should expose the source class and micronode load for every interaction. This preview computes a local, non-authorizing visualization so users can see whether a request is intra-ecosystem, inter-ecosystem, research, provider, solver, or receipt-heavy.</p>
+    <div class="band-grid">
+      <div class="band-card"><strong>Intra</strong><span>StegVerse repos, wikis, manifests, receipts, standards, and local ecosystem records.</span></div>
+      <div class="band-card"><strong>Inter</strong><span>Connected adapters, partner systems, provider clients, and external ecosystem nodes.</span></div>
+      <div class="band-card"><strong>Research</strong><span>Networked sources outside the ecosystem when current outside evidence is necessary.</span></div>
+      <div class="band-card"><strong>Provider</strong><span>LLM provider calls, model routing, fallback, cost, latency, and quota accounting.</span></div>
+      <div class="band-card"><strong>Solver</strong><span>Math-problem solver, calculation traces, symbolic checks, unit conversion, and proof-step verification.</span></div>
+      <div class="band-card"><strong>Receipt</strong><span>Hash, replay, reconstruction, admissibility, continuity, and authority evidence load.</span></div>
+    </div>
+    <div class="band-meter" id="interactionBandMeter" aria-live="polite"></div>
+    <p class="muted">Preview-only: values are deterministic local classifications, not live telemetry, not network access, and not authority-issued proof.</p>
+  </section>
+
   <h2 class="sv-h2" id="console">Governed chat preview</h2>
   <div class="chat-shell">
     <div class="chat-panel">
       <div class="chat-log" id="chatLog" aria-live="polite">
         <div class="chat-message system">
           <div class="label">StegVerse governed chat preview</div>
-          <div class="body">Ready for a text-only ecosystem request. Try: “summarize Site state”, “classify this transition request”, or “prepare a handoff summary”. Do not paste secrets, tokens, credentials, or raw shell commands.</div>
+          <div class="body">Ready for a text-only ecosystem request. Try: “summarize Site state”, “classify this transition request”, “solve 2x + 3 = 11”, or “prepare a handoff summary”. Do not paste secrets, tokens, credentials, or raw shell commands.</div>
           <div class="receipt-block">mode=local-simulation · authority=none · shell=disabled · receipt=not-issued</div>
         </div>
       </div>
       <form class="chat-form" id="chatForm">
         <label class="chat-hint" for="messageInput">Text input only. No uploads, hidden external execution, arbitrary shell, credential access, or proof receipt issuance in this preview.</label>
-        <textarea class="chat-input" id="messageInput" name="message" placeholder="Describe a StegVerse ecosystem/governance request. Do not enter shell commands or secrets." required></textarea>
+        <textarea class="chat-input" id="messageInput" name="message" placeholder="Describe a StegVerse ecosystem/governance request, external research need, or math problem. Do not enter shell commands or secrets." required></textarea>
         <div class="chat-actions">
           <span class="chat-hint">Local transcript only. Accepted executable transitions require a separate governed task, authority check, rate limit, and receipt path.</span>
           <button class="sv-btn sv-btn-primary" type="submit">Classify request</button>
@@ -126,7 +145,7 @@
       <div class="sdk-grid">
         <label><span class="sdk-label">Target entry point</span><select class="sdk-field" id="targetEntryPoint" name="target_entry_point"><option value="StegVerse-org/SDK">StegVerse-org/SDK</option></select></label>
         <label><span class="sdk-label">Input mode</span><select class="sdk-field" id="inputMode" name="input_mode"><option value="text_form">text_form</option></select></label>
-        <label><span class="sdk-label">Requested route</span><select class="sdk-field" id="requestedRoute" name="requested_route"><option value="Site">Site</option><option value="repo-standards">repo-standards</option><option value="StegVerse-002">StegVerse-002</option><option value="formalism-tests">formalism-tests</option><option value="Continuity">Continuity</option><option value="Publisher">Publisher</option><option value="Restricted admin">Restricted admin</option><option value="Unknown">Unknown</option></select></label>
+        <label><span class="sdk-label">Requested route</span><select class="sdk-field" id="requestedRoute" name="requested_route"><option value="Site">Site</option><option value="repo-standards">repo-standards</option><option value="StegVerse-002">StegVerse-002</option><option value="formalism-tests">formalism-tests</option><option value="Continuity">Continuity</option><option value="Publisher">Publisher</option><option value="Restricted admin">Restricted admin</option><option value="Solver">Solver</option><option value="Unknown">Unknown</option></select></label>
         <label><span class="sdk-label">Receipt expectation</span><select class="sdk-field" id="receiptExpectation" name="receipt_expectation"><option value="none">none</option><option value="local_preview_only">local_preview_only</option><option value="sdk_intake_receipt_requested">sdk_intake_receipt_requested</option><option value="authority_issued_receipt_required">authority_issued_receipt_required</option></select></label>
         <label><span class="sdk-label">Submission posture</span><select class="sdk-field" id="submissionPosture" name="submission_posture"><option value="draft">draft</option><option value="ready_for_submission">ready_for_submission</option><option value="restricted_review_required">restricted_review_required</option></select></label>
       </div>
@@ -160,7 +179,9 @@
   "raw_shell_allowed": false,
   "authority_required": true,
   "rate_limit_required": true,
-  "receipt_required_for_execution": true
+  "receipt_required_for_execution": true,
+  "interaction_bands": ["intra", "inter", "research", "provider", "solver", "receipt"],
+  "math_solver_supported": true
 }
 
 200 OK
@@ -169,6 +190,14 @@
   "routed_module": "Site",
   "task_status": "preview_only | rejected | pending_authority | accepted_for_execution",
   "receipt_id": "authority-issued-receipt-id-or-null",
+  "interaction_profile": {
+    "intra": 0,
+    "inter": 0,
+    "research": 0,
+    "provider": 0,
+    "solver": 0,
+    "receipt": 0
+  },
   "next_action": "..."
 }</pre>
 
@@ -177,7 +206,7 @@
 
   <section class="simple-card">
     <h2 class="sv-h2">MVP completion definition</h2>
-    <p class="muted">Done for this page means a user can type one StegVerse ecosystem request, see deterministic route classification, understand that restricted administration requires a separate authority path, and preserve a local transcript without confusing Site with shell access, demo execution, or proof authority.</p>
+    <p class="muted">Done for this page means a user can type one StegVerse ecosystem request, see deterministic route classification, understand that restricted administration requires a separate authority path, see local interaction-band telemetry including solver load, and preserve a local transcript without confusing Site with shell access, demo execution, or proof authority.</p>
   </section>
 </div>
 
