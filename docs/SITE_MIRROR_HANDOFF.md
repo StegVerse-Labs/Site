@@ -7,14 +7,14 @@ This handoff lets the next build session continue Site mirror activation without
 ## Current Goal
 
 ```text
-Goal: governed ecosystem Site mirror propagation plus bounded LLM free-tier trust display
+Goal: unified governed Site experience centered on Ecosystem Chat as the primary operating surface
 Repository: StegVerse-Labs/Site
 Source repository: StegVerse-Labs/admissibility-wiki
 LLM trust source repository: StegVerse-org/LLM-adapter
-Target paths: governed-ecosystem.html, ecosystem-chat.html, and docs status surfaces
-Activation state: display_only_installed
+Target paths: index.html, ecosystem-chat.html, governed-ecosystem.html, and docs status surfaces
+Activation state: phase_1_unified_entry_installed
 Live URL state: live_url_checker_and_pending_state_wired
-Homepage state: governed_ecosystem_homepage_link_wired
+Homepage state: ecosystem_chat_primary_operating_surface_installed
 Micro-node return-path state: display_only_installed_on_branch
 LLM free-tier trust state: display_only_installed
 Public mirror guard state: consolidated_into_site_task_runner
@@ -24,6 +24,7 @@ Ecosystem Chat interaction-band state: local_preview_installed_for_intra_inter_r
 Math solver band state: preview_routing_installed_no_live_solver_execution
 Interaction-band fixture state: request_response_sdk_examples_updated
 Interaction-band verifier state: boundary_checker_enforces_preview_telemetry_contract
+Unified governed experience state: phase_1_homepage_transition_router_installed
 Local completion receipt state: migrated_into_site_task_runner
 ```
 
@@ -38,6 +39,7 @@ fixtures/ecosystem-chat/request.example.json
 fixtures/ecosystem-chat/response.example.json
 fixtures/ecosystem-chat/sdk-form-payload.example.json
 scripts/check_ecosystem_chat_boundary.py
+scripts/check_site_unified_governed_experience.py
 scripts/check_site_governed_ecosystem_mirror.py
 scripts/check_site_governed_ecosystem_public_verification.py
 scripts/check_site_governed_ecosystem_live_url.py
@@ -50,6 +52,7 @@ scripts/run_site_task.py
 data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
 docs/ECOSYSTEM_CHAT_UX_STATUS.md
+docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
 docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
 docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json
 docs/SITE_PUBLIC_PATHS.md
@@ -57,6 +60,22 @@ docs/LLM_FREE_TIER_TRUST_STATUS.md
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
 docs/SITE_MIRROR_HANDOFF.md
+```
+
+## Unified Governed Experience Rule
+
+```text
+Site should behave as one governed application, not a flat collection of equal entry pages.
+Primary user path:
+1. user starts at Ecosystem Chat
+2. request is classified
+3. boundary is checked
+4. evidence route is selected
+5. destination is offered as a governed transition
+6. receipt/replay path becomes available only when live authority exists
+
+The homepage must emphasize Ecosystem Chat as the primary operating surface.
+Demo, Wiki, Papers, Runtime, Formalisms, Product, and Math Solver remain available as transition destinations, not competing starting points.
 ```
 
 ## Ecosystem Chat Simplification Rule
@@ -110,6 +129,10 @@ Retired legacy workflows:
 
 ```text
 Branch: main
+index.html now frames Ecosystem Chat as the primary Site operating surface and converts major destinations into governed transition cards.
+docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md records the phase-1 unified experience contract.
+scripts/check_site_unified_governed_experience.py validates homepage single-entry framing and transition menu status.
+scripts/run_site_task.py validate now runs the unified governed experience checker.
 governed-ecosystem.html includes a display-only Portable Governed Return Path section and link to the admissibility-wiki source page.
 ecosystem-chat.html now uses one primary governed chat preview entry, with SDK/gateway details moved into a secondary technical section.
 ecosystem-chat.html now includes local preview routing bands for intra, inter, research, provider, solver, and receipt load.
@@ -127,6 +150,7 @@ site-task-runner.yml now carries the former validation, readiness, mirror, TT, e
 
 ```text
 python scripts/run_site_task.py validate
+python scripts/check_site_unified_governed_experience.py
 python scripts/check_ecosystem_chat_boundary.py
 python scripts/run_site_task.py test-readiness
 python scripts/run_site_task.py mirror-readiness
@@ -146,10 +170,11 @@ python scripts/run_site_task.py all-local
 ```text
 StegVerse-Labs/Site:
   - verify Site Bootstrap Validate passes
-  - verify Site Task Runner all-local passes after local completion receipt migration
+  - verify Site Task Runner all-local passes after unified experience installation
   - confirm no legacy guard workflows remain active beyond validate.yml and site-task-runner.yml
   - update public verification JSON only after live URL passes
   - keep Ecosystem Chat as a single-primary-path preview page
+  - phase 2: build intent engine categories for Explain, Demonstrate, Compare, Research, Build, Replay, Runtime, Paper, Formalism, SDK, and Implementation
   - connect live_governed_gateway.py, provider clients, cost model, usage metrics, and math solver behind the preview boundary when backend authority path exists
 
 StegVerse-org/StegVerse-SDK:
