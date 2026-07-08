@@ -53,6 +53,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_cross_wiki_metadata_graph_status.py"),
     (sys.executable, "scripts/check_site_media_pipeline_mirror.py"),
     (sys.executable, "scripts/check_publication_manifest.py"),
+    (sys.executable, "scripts/check_media_pipeline_downstream_publication.py"),
 )
 
 
