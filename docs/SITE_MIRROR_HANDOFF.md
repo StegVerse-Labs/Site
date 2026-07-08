@@ -12,7 +12,7 @@ Repository: StegVerse-Labs/Site
 Source repository: StegVerse-Labs/admissibility-wiki
 LLM trust source repository: StegVerse-org/LLM-adapter
 Target paths: index.html, ecosystem-chat.html, governed-ecosystem.html, and docs status surfaces
-Activation state: phase_2_local_transition_intent_engine_installed
+Activation state: phase_3_contextual_continuation_panel_installed
 Live URL state: live_url_checker_and_pending_state_wired
 Homepage state: ecosystem_chat_primary_operating_surface_installed
 Micro-node return-path state: display_only_installed_on_branch
@@ -21,11 +21,11 @@ Public mirror guard state: consolidated_into_site_task_runner
 Workflow reduction state: two_active_workflows_with_legacy_guard_workflows_retired
 Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_validate_wired_and_status_artifact_installed
 Ecosystem Chat interaction-band state: local_preview_installed_for_intra_inter_research_provider_solver_receipt
-Ecosystem Chat intent state: local_transition_intent_catalog_and_classifier_installed
+Ecosystem Chat intent state: local_transition_intent_catalog_classifier_and_continuation_panel_installed
 Math solver band state: preview_routing_installed_no_live_solver_execution
 Interaction-band fixture state: request_response_sdk_examples_updated
 Interaction-band verifier state: boundary_checker_enforces_preview_telemetry_contract
-Unified governed experience state: phase_2_intent_engine_installed
+Unified governed experience state: phase_3_contextual_continuation_panel_installed
 Local completion receipt state: migrated_into_site_task_runner
 ```
 
@@ -74,7 +74,8 @@ Primary user path:
 3. boundary is checked
 4. evidence route is selected
 5. destination is offered as a governed transition
-6. receipt/replay path becomes available only when live authority exists
+6. contextual Continue to panel is updated
+7. receipt/replay path becomes available only when live authority exists
 
 The homepage must emphasize Ecosystem Chat as the primary operating surface.
 Demo, Wiki, Papers, Runtime, Formalisms, Product, and Math Solver remain available as transition destinations, not competing starting points.
@@ -85,6 +86,7 @@ Demo, Wiki, Papers, Runtime, Formalisms, Product, and Math Solver remain availab
 ```text
 Catalog: data/ecosystem-chat-transition-intents.json
 Browser classifier: assets/ecosystem-chat.js
+Continuation renderer: renderContinuationPanel in assets/ecosystem-chat.js
 Validator: scripts/check_ecosystem_chat_boundary.py
 Declared task: data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 Status doc: docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
@@ -103,6 +105,17 @@ Installed categories:
 - Solver
 
 Every local chat preview should include transition intent, suggested transition, transition destination, transition boundary, interaction bands, and no-authority/no-shell posture.
+```
+
+## Contextual Continuation Panel
+
+```text
+Panel: ecosystem-chat.html#continuationPanel
+Summary: ecosystem-chat.html#continuationSummary
+Destination grid: ecosystem-chat.html#continuationGrid
+Default state: Explain request boundary first
+Runtime behavior: updates from local transition intent on input, SDK payload copy, and submitted chat result
+Boundary: links are preview navigation only; they do not grant authority, receipts, or execution
 ```
 
 ## Ecosystem Chat Simplification Rule
@@ -130,7 +143,7 @@ Every interaction should eventually expose transparent routing bands:
 - solver: math-problem solver, calculation traces, symbolic checks, unit conversion, and proof-step verification
 - receipt: hash, replay, reconstruction, admissibility, continuity, and authority evidence load
 
-Current Site implementation is preview-only. It deterministically classifies local text, renders a local band meter, and suggests a governed transition destination. It does not call providers, search the network, solve math live, issue receipts, or grant authority.
+Current Site implementation is preview-only. It deterministically classifies local text, renders a local band meter, suggests a governed transition destination, and updates a contextual continuation panel. It does not call providers, search the network, solve math live, issue receipts, or grant authority.
 ```
 
 ## Workflow Standard
@@ -158,14 +171,16 @@ Retired legacy workflows:
 Branch: main
 index.html frames Ecosystem Chat as the primary Site operating surface and converts major destinations into governed transition cards.
 data/ecosystem-chat-transition-intents.json defines the local transition intent catalog.
-assets/ecosystem-chat.js classifies local requests into transition intents and includes transition intent/destination/boundary in responses, local receipt hash payloads, SDK manifest previews, and receipt windows.
-docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md records phase-2 local intent engine status and the next contextual continuation panel target.
+ecosystem-chat.html includes #continuationPanel, #continuationSummary, and #continuationGrid under the chat.
+assets/ecosystem-chat.js classifies local requests into transition intents and updates the contextual continuation panel on input, SDK payload copy, and submitted chat result.
+assets/ecosystem-chat.js includes transition intent/destination/boundary in responses, local receipt hash payloads, SDK manifest previews, and receipt windows.
+docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md records phase-3 contextual continuation panel status and the next ecosystem visualization path target.
 scripts/check_site_unified_governed_experience.py validates homepage single-entry framing and transition menu status.
-scripts/check_ecosystem_chat_boundary.py validates the transition intent catalog, JavaScript classifier, fixture transition fields, single-entry UX contract, and interaction-band preview surface.
-data/headless-tasks/ecosystem-chat-boundary-check-v1.json now declares data/ecosystem-chat-transition-intents.json as an expected input.
-fixtures/ecosystem-chat/request.example.json now includes transition_intent and transition_destination.
-fixtures/ecosystem-chat/response.example.json now includes transition intent, suggested transition, and transition destination text.
-fixtures/ecosystem-chat/sdk-form-payload.example.json now includes transition intent metadata in manifest and receipt_window.
+scripts/check_ecosystem_chat_boundary.py validates the transition intent catalog, contextual continuation panel, JavaScript classifier, fixture transition fields, single-entry UX contract, and interaction-band preview surface.
+data/headless-tasks/ecosystem-chat-boundary-check-v1.json declares data/ecosystem-chat-transition-intents.json as an expected input.
+fixtures/ecosystem-chat/request.example.json includes transition_intent and transition_destination.
+fixtures/ecosystem-chat/response.example.json includes transition intent, suggested transition, and transition destination text.
+fixtures/ecosystem-chat/sdk-form-payload.example.json includes transition intent metadata in manifest and receipt_window.
 scripts/run_site_task.py validate runs the unified governed experience checker and Ecosystem Chat boundary/UX/intent checker.
 site-task-runner.yml carries validation, readiness, mirror, TT, evidence, local completion receipt, task-elimination, autonomous continuation, live URL, and ingest tasks.
 ```
@@ -194,11 +209,11 @@ python scripts/run_site_task.py all-local
 ```text
 StegVerse-Labs/Site:
   - verify Site Bootstrap Validate passes
-  - verify Site Task Runner all-local passes after local intent engine installation
+  - verify Site Task Runner all-local passes after contextual continuation panel installation
   - confirm no legacy guard workflows remain active beyond validate.yml and site-task-runner.yml
   - update public verification JSON only after live URL passes
   - keep Ecosystem Chat as a single-primary-path preview page
-  - phase 3: build contextual continuation panel using the transition intent result
+  - phase 4: build ecosystem visualization path that reads as governed traversal rather than only text plus meters
   - connect live_governed_gateway.py, provider clients, cost model, usage metrics, and math solver behind the preview boundary when backend authority path exists
 
 StegVerse-org/StegVerse-SDK:
