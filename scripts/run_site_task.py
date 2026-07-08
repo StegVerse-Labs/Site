@@ -44,6 +44,7 @@ def run_if_present(script: str, *, optional: bool = False) -> None:
 def validate() -> None:
     run_if_present("scripts/check_ecosystem_chat_application.py")
     run_if_present("scripts/check_ecosystem_chat_boundary.py")
+    run_if_present("scripts/check_site_unified_governed_experience.py")
     test_readiness()
 
 
