@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify Ecosystem Chat public boundary, single-entry UX, transition intents, and preview telemetry alignment."""
+"""Verify Ecosystem Chat public boundary, single-entry UX, transition intents, continuation panel, and preview telemetry alignment."""
 
 from __future__ import annotations
 
@@ -12,91 +12,18 @@ UX_STATUS_PATH = ROOT / "docs" / "ECOSYSTEM_CHAT_UX_STATUS.md"
 INTENT_CATALOG_PATH = ROOT / "data" / "ecosystem-chat-transition-intents.json"
 TASK_PATH = ROOT / "data" / "headless-tasks" / "ecosystem-chat-boundary-check-v1.json"
 REGISTRY_PATH = ROOT / "data" / "headless-task-registry-v1.json"
-JSON_FIXTURES = [
-    ROOT / "fixtures" / "ecosystem-chat" / "request.example.json",
-    ROOT / "fixtures" / "ecosystem-chat" / "response.example.json",
-    ROOT / "fixtures" / "ecosystem-chat" / "sdk-form-payload.example.json",
-    INTENT_CATALOG_PATH,
-]
-TEXT_FILES = [
-    ROOT / "README.md",
-    ROOT / "ecosystem-chat.html",
-    ROOT / "assets" / "ecosystem-chat.js",
-    ROOT / "docs" / "ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
-    ROOT / "docs" / "ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
-    ROOT / "docs" / "ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
-    ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
-    UX_STATUS_PATH,
-]
-
+JSON_FIXTURES = [ROOT / "fixtures" / "ecosystem-chat" / "request.example.json", ROOT / "fixtures" / "ecosystem-chat" / "response.example.json", ROOT / "fixtures" / "ecosystem-chat" / "sdk-form-payload.example.json", INTENT_CATALOG_PATH]
+TEXT_FILES = [ROOT / "README.md", ROOT / "ecosystem-chat.html", ROOT / "assets" / "ecosystem-chat.js", ROOT / "docs" / "ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md", ROOT / "docs" / "ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md", ROOT / "docs" / "ECOSYSTEM_CHAT_BOUNDARY_CHECK.md", ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", UX_STATUS_PATH]
 INTERACTION_BANDS = ["intra", "inter", "research", "provider", "solver", "receipt"]
 TRANSITION_INTENTS = ["explain", "demonstrate", "compare", "research", "build", "replay", "runtime", "formalism", "sdk", "implementation", "solver"]
 REQUIRED_TEXT = ["raw_shell_allowed", "authority_required", "rate_limit_required", "receipt_required_for_execution", "Restricted admin"]
 REQUIRED_BOUNDARY_TEXT = ["shell", "credential", "receipt", "authority"]
-REQUIRED_PAGE_LINKS = [
-    "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
-    "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
-    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
-]
-REQUIRED_README_REFERENCES = [
-    "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
-    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
-    "scripts/check_ecosystem_chat_boundary.py",
-    "scripts/check_ecosystem_chat_contract.py",
-    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
-    "data/headless-task-registry-v1.json",
-    "python scripts/check_ecosystem_chat_contract.py",
-    "python scripts/check_ecosystem_chat_boundary.py",
-]
-REQUIRED_TASK_INPUTS = [
-    "README.md",
-    "ecosystem-chat.html",
-    "assets/ecosystem-chat.js",
-    "data/ecosystem-chat-transition-intents.json",
-    "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
-    "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
-    "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
-    "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md",
-    "docs/ECOSYSTEM_CHAT_UX_STATUS.md",
-    "fixtures/ecosystem-chat/request.example.json",
-    "fixtures/ecosystem-chat/response.example.json",
-    "fixtures/ecosystem-chat/sdk-form-payload.example.json",
-    "scripts/check_ecosystem_chat_boundary.py",
-    "scripts/check_ecosystem_chat_contract.py",
-    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json",
-    "data/headless-task-registry-v1.json",
-]
-REQUIRED_ACTIVATION_STATUS_TEXT = [
-    "No-shell boundary state: installed",
-    "No-credential boundary state: installed",
-    "Restricted-admin routing state: installed",
-    "Boundary verifier state: installed",
-    "Declared task state: installed",
-    "Registry state: installed",
-    "Contract check state: installed and aligned with boundary task",
-    "scripts/check_ecosystem_chat_contract.py\n  -> confirms",
-    "scripts/check_ecosystem_chat_boundary.py\n  -> confirms",
-    "data/headless-tasks/ecosystem-chat-boundary-check-v1.json\n  -> declares",
-    "data/headless-task-registry-v1.json\n  -> keeps ecosystem-chat-boundary-check-v1 active.",
-    "Backend gateway state: not installed",
-    "Authority-issued receipt state: not installed",
-]
-REQUIRED_UX_STATUS_TEXT = [
-    "UX contract: single-primary-governed-chat-preview-entry",
-    "Primary: Try the governed chat preview -> #console",
-    "Secondary: How the boundary works -> #how-it-works",
-    "multi-entry console",
-    "task launcher",
-    "repo control panel",
-    "python scripts/run_site_task.py validate",
-]
-REQUIRED_SINGLE_ENTRY_TEXT = [
-    "Try the governed chat preview",
-    "How the boundary works",
-    "Technical preview details",
-    "This page has one public purpose",
-    "It is a governed chat preview, not a shell, not a repo control panel, not a proof issuer, and not the full product.",
-]
+REQUIRED_PAGE_LINKS = ["docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md", "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md", "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md"]
+REQUIRED_README_REFERENCES = ["docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md", "scripts/check_ecosystem_chat_boundary.py", "scripts/check_ecosystem_chat_contract.py", "data/headless-tasks/ecosystem-chat-boundary-check-v1.json", "data/headless-task-registry-v1.json", "python scripts/check_ecosystem_chat_contract.py", "python scripts/check_ecosystem_chat_boundary.py"]
+REQUIRED_TASK_INPUTS = ["README.md", "ecosystem-chat.html", "assets/ecosystem-chat.js", "data/ecosystem-chat-transition-intents.json", "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md", "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md", "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md", "docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", "docs/ECOSYSTEM_CHAT_UX_STATUS.md", "fixtures/ecosystem-chat/request.example.json", "fixtures/ecosystem-chat/response.example.json", "fixtures/ecosystem-chat/sdk-form-payload.example.json", "scripts/check_ecosystem_chat_boundary.py", "scripts/check_ecosystem_chat_contract.py", "data/headless-tasks/ecosystem-chat-boundary-check-v1.json", "data/headless-task-registry-v1.json"]
+REQUIRED_ACTIVATION_STATUS_TEXT = ["No-shell boundary state: installed", "No-credential boundary state: installed", "Restricted-admin routing state: installed", "Boundary verifier state: installed", "Declared task state: installed", "Registry state: installed", "Contract check state: installed and aligned with boundary task", "scripts/check_ecosystem_chat_contract.py\n  -> confirms", "scripts/check_ecosystem_chat_boundary.py\n  -> confirms", "data/headless-tasks/ecosystem-chat-boundary-check-v1.json\n  -> declares", "data/headless-task-registry-v1.json\n  -> keeps ecosystem-chat-boundary-check-v1 active.", "Backend gateway state: not installed", "Authority-issued receipt state: not installed"]
+REQUIRED_UX_STATUS_TEXT = ["UX contract: single-primary-governed-chat-preview-entry", "Primary: Try the governed chat preview -> #console", "Secondary: How the boundary works -> #how-it-works", "multi-entry console", "task launcher", "repo control panel", "python scripts/run_site_task.py validate"]
+REQUIRED_SINGLE_ENTRY_TEXT = ["Try the governed chat preview", "How the boundary works", "Technical preview details", "This page has one public purpose", "It is a governed chat preview, not a shell, not a repo control panel, not a proof issuer, and not the full product."]
 FORBIDDEN_PRIMARY_ENTRY_TEXT = ["Open SDK form", "Open console", "View guardrails", "Gateway contract target"]
 
 
@@ -180,6 +107,17 @@ def verify_transition_intent_engine() -> None:
     for intent in TRANSITION_INTENTS:
         if f"id: '{intent}'" not in script:
             raise AssertionError(f"assets/ecosystem-chat.js missing transition intent {intent!r}")
+
+
+def verify_contextual_continuation_panel() -> None:
+    page = read_text(ROOT / "ecosystem-chat.html")
+    script = read_text(ROOT / "assets" / "ecosystem-chat.js")
+    for needle in ['id="continuationPanel"', 'id="continuationSummary"', 'id="continuationGrid"', "Continue to…", "Classify a request to see the governed transition destination."]:
+        if needle not in page:
+            raise AssertionError(f"ecosystem-chat.html missing contextual continuation panel text: {needle}")
+    for needle in ["renderContinuationPanel", "CONTINUATION_SUPPORT", "continuationSummary", "continuationGrid", "Offer governed transition:"]:
+        if needle not in script:
+            raise AssertionError(f"assets/ecosystem-chat.js missing continuation panel code: {needle}")
 
 
 def verify_docs_and_tasks() -> None:
@@ -277,17 +215,10 @@ def main() -> int:
     verify_single_entry_ux()
     verify_interaction_band_surface()
     verify_transition_intent_engine()
+    verify_contextual_continuation_panel()
     verify_docs_and_tasks()
     verify_fixtures()
-    print(json.dumps({
-        "ok": True,
-        "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES + [TASK_PATH, REGISTRY_PATH]],
-        "boundary": "no-shell/no-credential/authority-required/receipt-required",
-        "ux_contract": "single-primary-governed-chat-preview-entry",
-        "transition_intents": TRANSITION_INTENTS,
-        "interaction_bands": INTERACTION_BANDS,
-        "math_solver_supported": True,
-    }, indent=2))
+    print(json.dumps({"ok": True, "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES + [TASK_PATH, REGISTRY_PATH]], "boundary": "no-shell/no-credential/authority-required/receipt-required", "ux_contract": "single-primary-governed-chat-preview-entry", "transition_intents": TRANSITION_INTENTS, "contextual_continuation_panel": True, "interaction_bands": INTERACTION_BANDS, "math_solver_supported": True}, indent=2))
     return 0
 
 
