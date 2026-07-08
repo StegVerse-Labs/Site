@@ -3,65 +3,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegVerse exposes trust failures before they become incidents and demonstrates commit-time admissibility governance.">
-  <title>StegVerse — Trust, Governance, Execution-Layer Risk</title>
+  <meta name="description" content="StegVerse routes users through one governed ecosystem chat surface into evidence, demos, papers, formalisms, runtime evaluation, and implementation paths.">
+  <title>StegVerse — Governed Ecosystem Interface</title>
   <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .transition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0; }
+    .transition-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .transition-card strong { display:block; color: var(--text); margin-bottom: 6px; }
+    .transition-card span { display:block; color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+    .path-strip { display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 18px 0; }
+    .path-step { border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; color: var(--muted); background: rgba(17,24,39,0.74); font-size: 12px; text-align: center; }
+    .single-entry-note { border:1px solid #12351b; border-radius: var(--radius); background: rgba(18, 49, 27, 0.22); color:#bce9c5; padding: 14px; margin: 16px 0; }
+  </style>
 </head>
 <body>
 
 <nav class="sv-nav">
   <a class="sv-nav-brand" href="index.html">StegVerse</a>
   <a href="index.html" class="active">Home</a>
-  <a href="ecosystem-chat.html">Ecosystem Chat</a>
-  <a href="demo.html">Demo</a>
-  <a href="tests/index.html">Tests</a>
-  <a href="applicability.html">Applicability</a>
-  <a href="math-solver/index.html">Math-Solver</a>
-  <a href="stegfinco.html">FinCo</a>
-  <a href="product.html">Product</a>
-  <a href="pricing.html">Pricing</a>
-  <a href="methodology.html">Methodology</a>
-  <a href="about.html">About</a>
-  <a href="stegverse-002.html">StegVerse-002</a>
-  <a href="formalism-tests-stage-1-to-31.html">Stage 1–31</a>
-  <a href="transition-table.html">Transition Table</a>
-  <a href="tt-code-representation.html">TT Code</a>
-  <a href="formalisms/index.html">Formalisms</a>
-  <a href="admissibility-wiki.html">Admissibility Wiki</a>
+  <a href="ecosystem-chat.html">Start with Ecosystem Chat</a>
   <a href="governed-ecosystem.html">Governed Ecosystem</a>
-  <a href="governance-observatory.html">Governance Observatory</a>
+  <a href="admissibility-wiki.html">Admissibility Wiki</a>
   <a href="Papers.html">Papers</a>
 </nav>
 
 <div class="sv-wrap">
 
   <div class="sv-hero">
-    <div class="sv-eyebrow">Trust · Governance · Execution-layer risk</div>
-    <h1>Expose trust failures<br><em>before they become incidents.</em></h1>
-    <p>StegVerse identifies where AI systems, governance structures, credentials,
-    and automation silently fail under real-world pressure — then demonstrates
-    how admissibility can be checked at the moment actions become irreversible.</p>
+    <div class="sv-eyebrow">One governed entry · transition-routed Site · preview only</div>
+    <h1>Start with Ecosystem Chat.<br><em>Everything else is a governed transition.</em></h1>
+    <p>StegVerse is being reshaped from a collection of separate public pages into one governed ecosystem interface. A user should not have to choose between Demo, Wiki, Papers, Runtime, SDK, or Formalisms first. The user asks once; the ecosystem classifies the request and offers the appropriate transition path.</p>
     <div class="sv-btn-row">
-      <a class="sv-btn sv-btn-primary" href="tests/governance-filter.html">Run governance filter</a>
-      <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html">Open ecosystem chat</a>
-      <a class="sv-btn sv-btn-secondary" href="applicability.html">Where it applies</a>
-      <a class="sv-btn sv-btn-secondary" href="math-solver/index.html">Math-solver adapter</a>
-      <a class="sv-btn sv-btn-secondary" href="demo.html">Run execution demo</a>
-      <a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Stage 1–31 proof</a>
-      <a class="sv-btn sv-btn-secondary" href="transition-table.html">Transition Table</a>
-      <a class="sv-btn sv-btn-secondary" href="tt-code-representation.html">TT Code Representation</a>
-      <a class="sv-btn sv-btn-secondary" href="admissibility-wiki.html">Admissibility Wiki</a>
-      <a class="sv-btn sv-btn-secondary" href="governed-ecosystem.html">Governed Ecosystem</a>
-      <a class="sv-btn sv-btn-secondary" href="governance-observatory.html">Governance Observatory</a>
-      <a class="sv-btn sv-btn-secondary" href="formalisms/stcm.html">STCM</a>
-      <a class="sv-btn sv-btn-secondary" href="formalisms/rtg.html">RTG</a>
+      <a class="sv-btn sv-btn-primary" href="ecosystem-chat.html">Open Ecosystem Chat</a>
+      <a class="sv-btn sv-btn-secondary" href="#transition-menu">View transition menu</a>
     </div>
   </div>
 
-  <h2 class="sv-h2">Current proof status</h2>
+  <div class="single-entry-note">
+    Ecosystem Chat is the primary operating surface for the Site. The other pages remain available as evidence, demonstration, formal definition, research, runtime evaluation, and implementation destinations. They should not feel like competing starting points.
+  </div>
 
+  <h2 class="sv-h2">Governed transition path</h2>
+  <div class="path-strip">
+    <div class="path-step">User request</div>
+    <div class="path-step">Intent classification</div>
+    <div class="path-step">Boundary check</div>
+    <div class="path-step">Evidence route</div>
+    <div class="path-step">Transition destination</div>
+    <div class="path-step">Receipt / replay path</div>
+  </div>
+
+  <section id="transition-menu">
+    <h2 class="sv-h2">Continue to a governed transition</h2>
+    <p class="muted">These are framed as actions the Ecosystem Chat surface can route into, not as separate products competing for attention.</p>
+    <div class="transition-grid">
+      <div class="transition-card"><strong>Explain admissibility</strong><span>Open the vocabulary, proof-path examples, and public formalism bridge.</span><a class="sv-btn sv-btn-secondary" href="admissibility-wiki.html">Continue to Admissibility Wiki</a></div>
+      <div class="transition-card"><strong>Demonstrate governance</strong><span>Run a static browser demo after the request is classified as a demonstration transition.</span><a class="sv-btn sv-btn-secondary" href="demo.html">Continue to Demo</a></div>
+      <div class="transition-card"><strong>Evaluate a runtime</strong><span>Review public observatory and external framework comparison posture.</span><a class="sv-btn sv-btn-secondary" href="governance-observatory.html">Continue to Governance Observatory</a></div>
+      <div class="transition-card"><strong>View governed ecosystem model</strong><span>See input classes, transition standing, output classes, and capability lifecycle framing.</span><a class="sv-btn sv-btn-secondary" href="governed-ecosystem.html">Continue to Governed Ecosystem</a></div>
+      <div class="transition-card"><strong>Inspect transition table</strong><span>Use the public posture map for boundary decisions and consequence classes.</span><a class="sv-btn sv-btn-secondary" href="transition-table.html">Continue to Transition Table</a></div>
+      <div class="transition-card"><strong>Inspect TT implementation mirror</strong><span>Review the public mirror of TT registry, handlers, fixtures, receipts, and propagation status.</span><a class="sv-btn sv-btn-secondary" href="tt-code-representation.html">Continue to TT Code</a></div>
+      <div class="transition-card"><strong>Use math-solver adapter</strong><span>Route calculation, symbolic, unit, and proof-step checks through a preview adapter posture.</span><a class="sv-btn sv-btn-secondary" href="math-solver/index.html">Continue to Math Solver</a></div>
+      <div class="transition-card"><strong>Read the research</strong><span>Open public papers and exposition after the question requires research context.</span><a class="sv-btn sv-btn-secondary" href="Papers.html">Continue to Papers</a></div>
+      <div class="transition-card"><strong>Review product boundary</strong><span>Understand service posture, pricing, and senior trust-risk audit framing.</span><a class="sv-btn sv-btn-secondary" href="product.html">Continue to Product</a></div>
+      <div class="transition-card"><strong>Inspect proof stages</strong><span>View the formalism-tests Stage 1–31 proof mirror.</span><a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html">Continue to Stage 1–31</a></div>
+      <div class="transition-card"><strong>Review STCM</strong><span>State Transition Conservation Model research-note posture.</span><a class="sv-btn sv-btn-secondary" href="formalisms/stcm.html">Continue to STCM</a></div>
+      <div class="transition-card"><strong>Review RTG</strong><span>Relative Transition Geometry draft formalism posture.</span><a class="sv-btn sv-btn-secondary" href="formalisms/rtg.html">Continue to RTG</a></div>
+    </div>
+  </section>
+
+  <h2 class="sv-h2">Current proof status</h2>
   <div class="sv-evidence">
-    <div class="sv-evidence-label">StegVerse-002 / core-lite — live run 2026-05-24</div>
+    <div class="sv-evidence-label">StegVerse public mirror status</div>
+    <div class="sv-evidence-row"><span class="k">Primary surface</span><span class="v">Ecosystem Chat · single governed entry preview</span></div>
+    <div class="sv-evidence-row"><span class="k">Ecosystem Chat</span><span class="v">local route classification · interaction bands · no execution authority</span></div>
     <div class="sv-evidence-row"><span class="k">Identity declaration</span><span class="v">SV002-M0 · all permission flags false</span></div>
     <div class="sv-evidence-row"><span class="k">CGE decision</span><span class="v">ALLOW · sha256:33aa60e7</span></div>
     <div class="sv-evidence-row"><span class="k">Intake status</span><span class="v">success · stop_condition_met: true</span></div>
@@ -75,171 +90,21 @@
     <div class="sv-evidence-row"><span class="k">Governance Tests</span><span class="v">public testing suite · static admissibility posture</span></div>
     <div class="sv-evidence-row"><span class="k">Applicability Map</span><span class="v">discipline-facing tester map · research-note posture</span></div>
     <div class="sv-evidence-row"><span class="k">Math-Solver Adapter</span><span class="v">public adapter concept · research-note posture</span></div>
-    <div class="sv-evidence-row"><span class="k">Ecosystem Chat</span><span class="v">text-only command console · local route scaffold</span></div>
     <div class="sv-evidence-row"><span class="k">STCM</span><span class="v">conservation model · research-note / canonical-candidate</span></div>
     <div class="sv-evidence-row"><span class="k">RTG</span><span class="v">candidate formalism · draft / provisional</span></div>
   </div>
 
-  <div class="sv-card-grid">
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Ecosystem Chat</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Text-only command console for routing StegVerse build and governance requests
-        without claiming Site control.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html" style="font-size:12px;padding:8px 14px;">Open console</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Governance Testing Suite</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Paste LLM output and see what it is allowed to become under declared use,
-        permission, evidence, and posture constraints.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="tests/governance-filter.html" style="font-size:12px;padding:8px 14px;">Run governance filter</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Applicability Map</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Discipline-facing map showing where governed admissibility applies and what testers should classify.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="applicability.html" style="font-size:12px;padding:8px 14px;">View applicability</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Math-Solver Adapter</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Public posture page for governed formalism work packets, solver artifacts,
-        and paper/source context before claims are made.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="math-solver/index.html" style="font-size:12px;padding:8px 14px;">View adapter</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Trust &amp; Risk Audit</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Senior-only engagements that surface AI, governance, credential,
-        and auditability failure modes before they become incidents.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="product.html" style="font-size:12px;padding:8px 14px;">Product details</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Execution Demo</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Paste static run data and see a browser-native commit-boundary
-        decision with a portable receipt hash.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="demo.html" style="font-size:12px;padding:8px 14px;">Run demo</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Stage 1–31 Proof</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Completed formalism-tests roadmap from data-role admissibility
-        through production accreditation.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="formalism-tests-stage-1-to-31.html" style="font-size:12px;padding:8px 14px;">View proof mirror</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Transition Table</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Public map of decision classes, consequence tiers, coupling blocks,
-        proof posture, and formalism gaps.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="transition-table.html" style="font-size:12px;padding:8px 14px;">View table mirror</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">TT Code Representation</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Public mirror for canonical TT registry, handler, fixture, receipt, and propagation-bundle status.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="tt-code-representation.html" style="font-size:12px;padding:8px 14px;">View TT code mirror</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Admissibility Wiki</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Public bridge to the vocabulary, glossary, ontology, and proof-path examples for ALLOW, DENY, ESCALATE, REFUSE, and drift denial.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="admissibility-wiki.html" style="font-size:12px;padding:8px 14px;">Open wiki bridge</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Governed Ecosystem</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Public display mirror for governed inputs, transition standing, output classes,
-        and capability lifecycle framing. Source authority remains the Admissibility Wiki.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="governed-ecosystem.html" style="font-size:12px;padding:8px 14px;">View governed ecosystem</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">Governance Observatory</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Public status mirror for source-intake records, SDK relationship mapping,
-        deferred-source boundaries, and non-executing fixture posture.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="governance-observatory.html" style="font-size:12px;padding:8px 14px;">View observatory status</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">STCM Formalism</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        State Transition Conservation Model. Conservation rule for admissible state movement.
-        Research-note posture, not standalone proof-complete.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="formalisms/stcm.html" style="font-size:12px;padding:8px 14px;">View STCM</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">RTG Formalism</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Relative Transition Geometry. Candidate geometry beneath the Transition Table.
-        Draft posture, not completed proof.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="formalisms/rtg.html" style="font-size:12px;padding:8px 14px;">View RTG</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">StegFinCo</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Governed financial execution layer. Payment evidence at the
-        boundary — not permission.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="stegfinco.html" style="font-size:12px;padding:8px 14px;">View FinCo</a>
-    </div>
-
-    <div class="sv-card">
-      <h3 class="sv-h3">StegVerse-002</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
-        Clean-slate governed deployment. Intake proven live.
-        All gates complete. v1.0.0-sv002-m10.
-      </p>
-      <a class="sv-btn sv-btn-secondary" href="stegverse-002.html" style="font-size:12px;padding:8px 14px;">View mirror</a>
-    </div>
-
-  </div>
-
   <h2 class="sv-h2">Audit is evidence. Commit-time admissibility is control.</h2>
   <div class="sv-prose">
-    <p>Logs can explain what happened. A commit boundary determines whether
-    an action is still valid before it becomes an irreversible effect.</p>
-    <p>The StegVerse pattern is simple: reconstruct current state, re-derive
-    current permission, recompute admissibility, then allow, deny, or fail closed.</p>
-    <p>The Transition Table is the public map of those boundary decisions. It
-    may describe public posture, but it does not replace the receipt-producing
-    proof source.</p>
+    <p>Logs can explain what happened. A commit boundary determines whether an action is still valid before it becomes an irreversible effect.</p>
+    <p>The StegVerse pattern is simple: reconstruct current state, re-derive current permission, recompute admissibility, then allow, deny, or fail closed.</p>
+    <p>The Transition Table is the public map of those boundary decisions. It may describe public posture, but it does not replace the receipt-producing proof source.</p>
   </div>
 
   <h2 class="sv-h2">Boundary doctrine</h2>
   <pre>formalism-tests  =  proof/test source
 Site             =  public mirror
-Ecosystem Chat   =  text-only command surface, not proof source
+Ecosystem Chat   =  primary operating surface preview, not proof source
 Admissibility Wiki = public vocabulary and proof-path explanation layer
 Governed Ecosystem = public display mirror, not source authority
 Governance Observatory = source-intake status mirror, not source repository
@@ -253,7 +118,7 @@ STCM             =  conservation model / research-note posture
 RTG              =  candidate formalism / draft posture
 production       =  accredited participation, not final proof by itself
 
-Site is a public mirror, not proof source.</pre>
+Site is a public mirror and transition router preview, not proof source.</pre>
 
 </div>
 
