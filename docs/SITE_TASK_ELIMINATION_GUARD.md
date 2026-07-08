@@ -2,21 +2,21 @@
 
 ## Assumptions
 
-1. Site local continuation should be checked by repository workflows, not by manual review.
+1. Site local continuation should be checked by repository workflows and declared tasks, not by manual review.
 2. The guard checks that declared local continuation work has a workflow, script, or generated state surface.
-3. Site remains a mirror and display repository; this guard does not grant commit-time permission.
+3. Site remains a mirror and display repository.
 4. Workflow paths displayed here without a leading period are iOS-safe display paths. Canonical repository paths begin with a leading period.
 
 ## Done Definition
 
-This document is done when the task-elimination guard has a clear role, workflow path, checker commands, and non-authority boundary.
+This document is done when the task-elimination guard has a clear role, workflow path, checker commands, and boundary statement.
 
 ## Guard Workflow
 
 Workflow path displayed without leading period for iOS compatibility:
 
 ```text
-github/workflows/site-task-elimination-guard.yml
+github/workflows/site-task-runner.yml
 ```
 
 The canonical repository path begins with a leading period.
@@ -24,6 +24,8 @@ The canonical repository path begins with a leading period.
 ## Checkers
 
 ```text
+python scripts/run_site_task.py task-elimination-guard
+python scripts/run_site_task.py local-completion-receipt
 python scripts/check_site_manual_task_elimination.py
 python scripts/check_site_ecosystem_management_handoff.py
 ```
@@ -36,23 +38,23 @@ docs/SITE_TASK_ELIMINATION_GUARD.md
 docs/SITE_MIRROR_HANDOFF.md
 docs/SITE_ECOSYSTEM_MANAGEMENT_HANDOFF.md
 docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md
-github/workflows/site-autonomous-continuation.yml
-github/workflows/site-task-elimination-guard.yml
+github/workflows/site-task-runner.yml
+scripts/run_site_task.py
 ```
 
 ## Guard Meaning
 
-The guard confirms that local continuation work is workflow-managed and that ecosystem management handoffs are repository-resident.
+The guard confirms that local continuation work is workflow-managed through the consolidated Site task runner and that ecosystem management handoffs are repository-resident.
 
-It does not claim:
+Boundary:
 
 ```text
-Site activation
-Publisher closure
-TT source authority
-Governance Observatory source authority
-SPE standing
-commit-time permission
+Site activation remains pending.
+Publisher closure remains external.
+TT source authority remains external.
+Governance Observatory source authority remains external.
+SPE standing remains separate.
+Commit-time permission remains separate.
 ```
 
 ## Current State
