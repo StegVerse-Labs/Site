@@ -58,6 +58,35 @@ docs/SITE_MIRROR_HANDOFF.md
 scripts/check_site_governed_ecosystem_mirror.py
 ```
 
+## Governance Observatory Boundary
+
+For `/governance-observatory.html`, the Site repository is a public mirror surface for Governance Observatory source-intake status only.
+
+The source authority remains:
+
+```text
+StegVerse-Labs/governance-observatory
+```
+
+Companion references:
+
+```text
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
+scripts/check_site_governance_observatory_status.py
+```
+
+Public meaning:
+
+```text
+Governance Observatory Boundary
+Site may display source-intake status.
+Site is not the source of truth.
+Site does not certify external sources.
+Site does not prove SDK compatibility.
+Site does not grant commit-time permission.
+```
+
 ## Boundary
 
 Site display does not replace source authority or validation evidence.
