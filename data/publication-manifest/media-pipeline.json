@@ -1,0 +1,32 @@
+{
+  "manifest_id": "media_pipeline_publication_manifest_001",
+  "manual_actions_required": false,
+  "source_repo": "StegVerse-Labs/collective-environment-engine",
+  "target_repo": "StegVerse-Labs/Site",
+  "status": "ready_for_validation",
+  "artifacts": [
+    {
+      "artifact_id": "media_pipeline_overview_001",
+      "source_path": "docs/media-pipeline-overview.md",
+      "target_path": "docs/media/media-pipeline-overview.md",
+      "publication_status": "mirrored",
+      "mirror_permitted": true,
+      "required_checks": [
+        "scripts/check_site_media_pipeline_mirror.py"
+      ],
+      "boundary": "planning_and_replay_only"
+    }
+  ],
+  "downstream_repositories": [
+    "GCAT-BCAT-Engine/Publisher",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-Labs/stegguardian-wiki"
+  ],
+  "blocked_capabilities": [
+    "live_camera_use",
+    "live_microphone_use",
+    "public_broadcast",
+    "external_platform_streaming",
+    "provider_execution"
+  ]
+}
