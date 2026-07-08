@@ -9,6 +9,22 @@ const STEGVERSE_ROUTES = [
   { name: 'Restricted admin', terms: ['delete branch', 'delete branches', 'secret', 'token', 'credential', 'permission', 'workflow', 'force push', 'force-push', 'release', 'deploy key', 'webhook', 'collaborator'] }
 ];
 
+const TRANSITION_INTENTS = [
+  { id: 'explain', label: 'Explain', transition: 'Explain admissibility', destination: 'admissibility-wiki.html', keywords: ['explain', 'define', 'what is', 'meaning', 'admissibility', 'glossary', 'ontology', 'formal definition'], boundary: 'public explanation only' },
+  { id: 'demonstrate', label: 'Demonstrate', transition: 'Demonstrate governance', destination: 'demo.html', keywords: ['demo', 'demonstrate', 'show', 'simulate', 'example', 'run example', 'browser demo'], boundary: 'static browser demonstration only' },
+  { id: 'compare', label: 'Compare', transition: 'Compare an external framework', destination: 'governance-observatory.html', keywords: ['compare', 'framework', 'external', 'morrison', 'resurrection', 'decisionassure', 'glm', 'evide', 'runtime governance'], boundary: 'comparison posture only' },
+  { id: 'research', label: 'Research', transition: 'Read the research', destination: 'Papers.html', keywords: ['paper', 'research', 'publish', 'theorem', 'proof', 'citation', 'scientific', 'peer review'], boundary: 'research reference only' },
+  { id: 'build', label: 'Build', transition: 'Prepare build handoff', destination: 'docs/SITE_MIRROR_HANDOFF.md', keywords: ['build', 'continue', 'install', 'patch', 'repo', 'handoff', 'workflow', 'validator'], boundary: 'handoff preview only; no repo mutation from Site' },
+  { id: 'replay', label: 'Replay', transition: 'Inspect replay or receipt posture', destination: 'transition-verification-guide.html', keywords: ['replay', 'receipt', 'hash', 'reconstruct', 'reconstruction', 'audit', 'verify', 'verification'], boundary: 'public verification guide only' },
+  { id: 'runtime', label: 'Runtime', transition: 'Evaluate runtime governance', destination: 'governance-observatory.html', keywords: ['runtime', 'agent', 'tool', 'allow', 'block', 'deny', 'boundary', 'morrison', 'resurrection'], boundary: 'runtime evaluation preview only' },
+  { id: 'formalism', label: 'Formalism', transition: 'Inspect formalisms', destination: 'formalisms/index.html', keywords: ['formalism', 'stcm', 'rtg', 'transition table', 'geometry', 'model', 'math'], boundary: 'formalism mirror only' },
+  { id: 'sdk', label: 'SDK', transition: 'Inspect SDK manifest preview', destination: 'ecosystem-chat.html#technical-details', keywords: ['sdk', 'adapter', 'manifest', 'api', 'backend', 'gateway', 'provider', 'client'], boundary: 'SDK preview only; no backend submission' },
+  { id: 'implementation', label: 'Implementation', transition: 'Inspect implementation mirrors', destination: 'tt-code-representation.html', keywords: ['implementation', 'code', 'registry', 'handler', 'fixture', 'script', 'package', 'module'], boundary: 'public implementation mirror only' },
+  { id: 'solver', label: 'Solver', transition: 'Use math-solver adapter preview', destination: 'math-solver/index.html', keywords: ['solve', 'calculate', 'equation', 'unit', 'math', 'symbolic', 'proof step'], boundary: 'solver preview only; no live solver execution' }
+];
+
+const FALLBACK_INTENT = { id: 'explain', label: 'Explain', transition: 'Explain request boundary first', destination: 'ecosystem-chat.html#how-it-works', boundary: 'classification fallback only' };
+
 const INTERACTION_BANDS = [
   { key: 'intra', label: 'INTRA', terms: ['site', 'stegverse', 'repo', 'wiki', 'manifest', 'receipt', 'handoff', 'standard', 'transition', 'continuity', 'publisher', 'admissibility'] },
   { key: 'inter', label: 'INTER', terms: ['adapter', 'api', 'provider client', 'partner', 'external system', 'github', 'google', 'slack', 'connector', 'node'] },
@@ -65,7 +81,7 @@ if (form && input && log) {
     input.value = '';
 
     const result = await routeEcosystemRequest(message);
-    appendMessage('Console Route', result.response, 'system', result.receipt_line);
+    appendMessage('Governed Transition Preview', result.response, 'system', result.receipt_line);
     if (interactionBandMeter) renderInteractionBands(result.interaction_profile);
   });
 }
@@ -119,6 +135,8 @@ async function sendGatewayRequest(message, posture) {
       message,
       session_id: getSessionId(),
       requested_route: posture.route,
+      transition_intent: posture.intent.id,
+      transition_destination: posture.intent.destination,
       goal: 'user advancement console with governed task boundaries',
       execution_model: 'allowlisted_task_request_only',
       raw_shell_allowed: false,
@@ -131,26 +149,21 @@ async function sendGatewayRequest(message, posture) {
     })
   });
 
-  if (!response.ok) {
-    throw new Error(`Gateway returned ${response.status}`);
-  }
+  if (!response.ok) throw new Error(`Gateway returned ${response.status}`);
 
   const data = await response.json();
-  const receiptLine = data.receipt_id
-    ? `receipt_id=${data.receipt_id}`
-    : 'receipt=not-issued';
+  const receiptLine = data.receipt_id ? `receipt_id=${data.receipt_id}` : 'receipt=not-issued';
   const interactionProfile = normalizeInteractionProfile(data.interaction_profile || posture.interaction_profile);
 
   return {
     response: data.response || buildLocalResponse(message, data.routed_module || 'Unknown', 'Gateway returned no response body.', posture),
-    receipt_line: `${receiptLine} · routed_module=${data.routed_module || 'Unknown'} · source=gateway · shell=disabled · bands=${formatInteractionProfile(interactionProfile)}`,
+    receipt_line: `${receiptLine} · routed_module=${data.routed_module || 'Unknown'} · intent=${posture.intent.id} · source=gateway · shell=disabled · bands=${formatInteractionProfile(interactionProfile)}`,
     interaction_profile: interactionProfile
   };
 }
 
 async function localRouteResult(message, status, posture = classifyRequestPosture(message)) {
   const receiptLine = await localReceipt(message, posture);
-
   return {
     response: buildLocalResponse(message, posture.route, status, posture),
     receipt_line: receiptLine,
@@ -160,11 +173,13 @@ async function localRouteResult(message, status, posture = classifyRequestPostur
 
 function classifyRequestPosture(message) {
   const route = classifyRoute(message);
+  const intent = classifyTransitionIntent(message);
   const restricted = route === 'Restricted admin' || RESTRICTED_PATTERNS.some((pattern) => pattern.test(message));
   const taskStatus = restricted ? 'pending_authority' : 'preview_only';
   const interactionProfile = calculateInteractionProfile(message);
   return {
     route: restricted ? 'Restricted admin' : route,
+    intent,
     restricted,
     raw_shell_allowed: false,
     authority_required: true,
@@ -181,8 +196,16 @@ function classifyRoute(message) {
     name: route.name,
     score: route.terms.reduce((total, term) => total + (text.includes(term) ? 1 : 0), 0)
   })).sort((a, b) => b.score - a.score);
-
   return scored[0].score > 0 ? scored[0].name : 'Unknown';
+}
+
+function classifyTransitionIntent(message) {
+  const text = message.toLowerCase();
+  const scored = TRANSITION_INTENTS.map((intent) => ({
+    intent,
+    score: intent.keywords.reduce((total, keyword) => total + (text.includes(keyword.toLowerCase()) ? 1 : 0), 0)
+  })).sort((a, b) => b.score - a.score);
+  return scored[0].score > 0 ? scored[0].intent : FALLBACK_INTENT;
 }
 
 function calculateInteractionProfile(message) {
@@ -217,20 +240,16 @@ function renderInteractionBands(profile) {
   INTERACTION_BANDS.forEach((band) => {
     const row = document.createElement('div');
     row.className = 'band-row';
-
     const label = document.createElement('span');
     label.textContent = band.label;
-
     const track = document.createElement('span');
     track.className = 'band-track';
     const fill = document.createElement('span');
     fill.className = 'band-fill';
     fill.style.setProperty('--value', `${normalized[band.key]}%`);
     track.appendChild(fill);
-
     const value = document.createElement('span');
     value.textContent = `${normalized[band.key]}%`;
-
     row.appendChild(label);
     row.appendChild(track);
     row.appendChild(value);
@@ -239,16 +258,17 @@ function renderInteractionBands(profile) {
 }
 
 function buildLocalResponse(message, route, status, posture = classifyRequestPosture(message)) {
+  const intent = posture.intent || FALLBACK_INTENT;
   const nextAction = posture.restricted
     ? 'Route to a governed admin task definition, authority check, scope limit, and receipt path before any execution can occur.'
-    : route === 'Unknown'
-      ? 'Define a new ecosystem route or restate the request with repo/module context.'
-      : route === 'Solver'
-        ? 'Route to the math-problem solver path only after the governed backend can return checked steps, calculator trace, and receipt metadata.'
-        : `Send this request to the ${route} handler only after the governed backend gateway validates allowed-task status.`;
+    : `Offer governed transition: ${intent.transition} -> ${intent.destination}.`;
 
   return [
     `Route: ${route}`,
+    `Transition intent: ${intent.label} (${intent.id})`,
+    `Suggested transition: ${intent.transition}`,
+    `Transition destination: ${intent.destination}`,
+    `Transition boundary: ${intent.boundary}`,
     `Task status: ${posture.task_status}`,
     `Interaction bands: ${formatInteractionProfile(posture.interaction_profile)}`,
     'Authority: none; browser-local classification only.',
@@ -272,6 +292,10 @@ function buildManifest() {
     input_mode: getFieldValue('inputMode'),
     requested_route: getFieldValue('requestedRoute'),
     detected_route: posture.route,
+    transition_intent: posture.intent.id,
+    transition_label: posture.intent.label,
+    transition_destination: posture.intent.destination,
+    transition_boundary: posture.intent.boundary,
     task_status: posture.task_status,
     raw_shell_allowed: false,
     authority_required: true,
@@ -301,6 +325,8 @@ function buildReceiptWindow(manifest) {
     execution_allowed_from_site: false,
     authority_required_before_execution: true,
     receipt_required_for_execution: true,
+    transition_intent: manifest.transition_intent,
+    transition_destination: manifest.transition_destination,
     interaction_profile: manifest.interaction_profile,
     interaction_bands: manifest.interaction_bands,
     math_solver_supported: manifest.math_solver_supported,
@@ -311,11 +337,7 @@ function buildReceiptWindow(manifest) {
 function buildSdkPayload() {
   const manifest = buildManifest();
   const receipt_window = buildReceiptWindow(manifest);
-  return {
-    fields: readSdkFields(),
-    manifest,
-    receipt_window
-  };
+  return { fields: readSdkFields(), manifest, receipt_window };
 }
 
 function updateGeneratedWindows() {
@@ -323,13 +345,11 @@ function updateGeneratedWindows() {
   const receiptWindow = buildReceiptWindow(manifest);
   manifestPreview.textContent = JSON.stringify(manifest, null, 2);
   receiptPreview.textContent = JSON.stringify(receiptWindow, null, 2);
-
   if (interactionBandMeter) renderInteractionBands(manifest.interaction_profile);
-
   if (sdkStatus) {
     const check = getSubmissionCheck(manifest);
     sdkStatus.textContent = check.ok
-      ? 'Generated JSON is locally complete. Final correctness, authority, rate limits, allowed-task status, solver use, and interaction-band telemetry are determined at submission time.'
+      ? 'Generated JSON is locally complete. Final correctness, authority, rate limits, allowed-task status, transition intent, solver use, and interaction-band telemetry are determined at submission time.'
       : `Generated JSON is incomplete: ${check.errors.join('; ')}`;
   }
 }
@@ -338,6 +358,8 @@ function getSubmissionCheck(manifest = buildManifest()) {
   const errors = [];
   if (!manifest.user_request) errors.push('user_request is required');
   if (!manifest.declared_goal) errors.push('declared_goal is required');
+  if (!manifest.transition_intent) errors.push('transition_intent is required');
+  if (!manifest.transition_destination) errors.push('transition_destination is required');
   if (manifest.target_entry_point !== 'StegVerse-org/SDK') errors.push('target_entry_point must be StegVerse-org/SDK');
   if (manifest.input_mode !== 'text_form') errors.push('input_mode must be text_form');
   if (manifest.raw_shell_allowed !== false) errors.push('raw_shell_allowed must be false');
@@ -346,7 +368,6 @@ function getSubmissionCheck(manifest = buildManifest()) {
   if (manifest.receipt_required_for_execution !== true) errors.push('receipt_required_for_execution must be true');
   if (!Array.isArray(manifest.interaction_bands)) errors.push('interaction_bands must be present');
   if (manifest.math_solver_supported !== true) errors.push('math_solver_supported must be true');
-
   return { ok: errors.length === 0, errors };
 }
 
@@ -371,6 +392,8 @@ function getFieldValue(id) {
 async function localReceipt(message, posture) {
   const payload = JSON.stringify({
     route: posture.route,
+    transition_intent: posture.intent.id,
+    transition_destination: posture.intent.destination,
     message,
     mode: 'local-simulation',
     authority: 'none',
@@ -386,31 +409,26 @@ async function localReceipt(message, posture) {
   const data = new TextEncoder().encode(payload);
   const digest = await crypto.subtle.digest('SHA-256', data);
   const hash = Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
-  return `local_receipt_hash=sha256:${hash} · authority=none · shell=disabled · task_status=${posture.task_status} · receipt=not-issued · bands=${formatInteractionProfile(posture.interaction_profile)}`;
+  return `local_receipt_hash=sha256:${hash} · authority=none · shell=disabled · task_status=${posture.task_status} · intent=${posture.intent.id} · receipt=not-issued · bands=${formatInteractionProfile(posture.interaction_profile)}`;
 }
 
 function appendMessage(label, body, type, receipt) {
   const wrapper = document.createElement('div');
   wrapper.className = `chat-message ${type || ''}`.trim();
-
   const labelNode = document.createElement('div');
   labelNode.className = 'label';
   labelNode.textContent = label;
-
   const bodyNode = document.createElement('div');
   bodyNode.className = 'body';
   bodyNode.textContent = body;
-
   wrapper.appendChild(labelNode);
   wrapper.appendChild(bodyNode);
-
   if (receipt) {
     const receiptNode = document.createElement('div');
     receiptNode.className = 'receipt-block';
     receiptNode.textContent = receipt;
     wrapper.appendChild(receiptNode);
   }
-
   log.appendChild(wrapper);
   log.scrollTop = log.scrollHeight;
 }
@@ -419,7 +437,6 @@ function getSessionId() {
   const key = 'stegverse_ecosystem_chat_session';
   const existing = window.sessionStorage.getItem(key);
   if (existing) return existing;
-
   const generated = crypto.randomUUID ? crypto.randomUUID() : `session-${Date.now()}`;
   window.sessionStorage.setItem(key, generated);
   return generated;
