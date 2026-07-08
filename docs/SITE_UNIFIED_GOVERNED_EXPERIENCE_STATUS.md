@@ -5,9 +5,10 @@
 ```text
 Repository: StegVerse-Labs/Site
 Goal: unified-governed-experience
-Status: phase-1-installed
+Status: phase-2-local-intent-engine-installed
 Primary operating surface: ecosystem-chat.html
 Homepage posture: single primary Ecosystem Chat entry plus governed transition menu
+Intent catalog: data/ecosystem-chat-transition-intents.json
 Execution authority: none from Site
 Receipt authority: none from Site
 ```
@@ -33,6 +34,42 @@ Primary hero action: Open Ecosystem Chat -> ecosystem-chat.html
 Secondary hero action: View transition menu -> #transition-menu
 Transition menu required: yes
 Primary framing required: Everything else is a governed transition.
+```
+
+## Transition Intent Engine
+
+Phase 2 installs a local preview intent engine. It does not call a model provider, search the network, write repositories, or execute tasks.
+
+```text
+Catalog: data/ecosystem-chat-transition-intents.json
+Browser classifier: assets/ecosystem-chat.js
+Validator: scripts/check_ecosystem_chat_boundary.py
+Declared task: data/headless-tasks/ecosystem-chat-boundary-check-v1.json
+```
+
+Required categories:
+
+```text
+Explain
+Demonstrate
+Compare
+Research
+Build
+Replay
+Runtime
+Formalism
+SDK
+Implementation
+Solver
+```
+
+Each chat preview response should include:
+
+```text
+Transition intent
+Suggested transition
+Transition destination
+Transition boundary
 ```
 
 ## Transition Destinations
@@ -61,12 +98,13 @@ Homepage transition links are not execution authority.
 Ecosystem Chat preview is not live backend activation.
 A transition destination is not a proof receipt.
 The Site is still a public mirror and transition-router preview.
+The local intent engine is not model reasoning, not authority, and not a live backend.
 ```
 
 ## Next Phase
 
 ```text
-Phase 2: intent engine
+Phase 3: contextual continuation panel
 ```
 
-The next phase should connect typed user requests to transition categories such as Explain, Demonstrate, Compare, Research, Build, Replay, Runtime, Paper, Formalism, SDK, and Implementation.
+The next phase should show contextual "Continue to..." destinations beside the chat response, derived from the same transition intent classification.
