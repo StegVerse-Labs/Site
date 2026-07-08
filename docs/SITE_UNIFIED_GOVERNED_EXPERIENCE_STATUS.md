@@ -5,10 +5,11 @@
 ```text
 Repository: StegVerse-Labs/Site
 Goal: unified-governed-experience
-Status: phase-2-local-intent-engine-installed
+Status: phase-3-contextual-continuation-panel-installed
 Primary operating surface: ecosystem-chat.html
 Homepage posture: single primary Ecosystem Chat entry plus governed transition menu
 Intent catalog: data/ecosystem-chat-transition-intents.json
+Continuation panel: ecosystem-chat.html#continuationPanel
 Execution authority: none from Site
 Receipt authority: none from Site
 ```
@@ -24,6 +25,7 @@ User request
   -> boundary check
   -> evidence route
   -> transition destination
+  -> contextual Continue to panel
   -> receipt / replay path when live authority exists
 ```
 
@@ -72,6 +74,20 @@ Transition destination
 Transition boundary
 ```
 
+## Contextual Continuation Panel
+
+Phase 3 installs a browser-local continuation panel. It updates from the same transition intent classification used by the chat response.
+
+```text
+Panel: ecosystem-chat.html#continuationPanel
+Summary: ecosystem-chat.html#continuationSummary
+Destination grid: ecosystem-chat.html#continuationGrid
+Renderer: renderContinuationPanel in assets/ecosystem-chat.js
+Validator: scripts/check_ecosystem_chat_boundary.py
+```
+
+The continuation panel may provide links, but those links are not authority, proof, or execution.
+
 ## Transition Destinations
 
 The homepage may keep destination links, but they must be framed as governed transitions instead of competing starting points.
@@ -97,6 +113,7 @@ Review RTG -> formalisms/rtg.html
 Homepage transition links are not execution authority.
 Ecosystem Chat preview is not live backend activation.
 A transition destination is not a proof receipt.
+The continuation panel is not execution authority.
 The Site is still a public mirror and transition-router preview.
 The local intent engine is not model reasoning, not authority, and not a live backend.
 ```
@@ -104,7 +121,7 @@ The local intent engine is not model reasoning, not authority, and not a live ba
 ## Next Phase
 
 ```text
-Phase 3: contextual continuation panel
+Phase 4: ecosystem visualization path
 ```
 
-The next phase should show contextual "Continue to..." destinations beside the chat response, derived from the same transition intent classification.
+The next phase should make the interaction-band and transition-intent path visually read as a governed ecosystem traversal rather than only text plus meter values.
