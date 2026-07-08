@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate that Site local continuation work is workflow-managed."""
+"""Validate that Site local continuation work is managed by declared tasks."""
 
 from pathlib import Path
 import sys
@@ -8,16 +8,16 @@ ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "SITE_MANUAL_TASK_ELIMINATION.md"
 GUARD_DOC = ROOT / "docs" / "SITE_TASK_ELIMINATION_GUARD.md"
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
-WORKFLOW = ROOT / ".github" / "workflows" / "site-autonomous-continuation.yml"
-GUARD_WORKFLOW = ROOT / ".github" / "workflows" / "site-task-elimination-guard.yml"
-RECEIPT_WORKFLOW = ROOT / ".github" / "workflows" / "site-local-completion-receipt.yml"
+TASK_RUNNER = ROOT / "scripts" / "run_site_task.py"
+TASK_WORKFLOW = ROOT / ".github" / "workflows" / "site-task-runner.yml"
 RECEIPT_CHECKER = ROOT / "scripts" / "check_site_local_completion_receipt.py"
 
 REQUIRED_DOC_TERMS = [
     "local_manual_tasks: eliminated",
     "local_continuation: workflow_managed",
     "activation_state: pending_external_evidence",
-    "github/workflows/site-autonomous-continuation.yml",
+    "github/workflows/site-task-runner.yml",
+    "scripts/run_site_task.py",
     "scripts/write_site_external_evidence_state.py",
     "scripts/render_tt_code_representation_status.py",
     "scripts/update_site_final_goal_status.py",
@@ -26,33 +26,27 @@ REQUIRED_DOC_TERMS = [
 ]
 
 REQUIRED_GUARD_DOC_TERMS = [
-    "github/workflows/site-task-elimination-guard.yml",
-    "python scripts/check_site_manual_task_elimination.py",
+    "github/workflows/site-task-runner.yml",
+    "python scripts/run_site_task.py task-elimination-guard",
+    "python scripts/run_site_task.py local-completion-receipt",
     "local_manual_tasks: eliminated",
     "remaining_blocker: external_workflow_evidence",
 ]
 
+REQUIRED_TASK_RUNNER_TERMS = [
+    "def task_elimination_guard()",
+    "def local_completion_receipt()",
+    "scripts/check_site_manual_task_elimination.py",
+    "scripts/check_site_ecosystem_management_handoff.py",
+    "scripts/write_site_local_completion_receipt.py",
+    "scripts/check_site_local_completion_receipt.py",
+]
+
 REQUIRED_WORKFLOW_TERMS = [
-    "Build TT propagation bundle",
-    "Render TT status",
-    "Write external evidence state",
-    "Update final goal status",
-    "Validate final goal status",
-    "Validate final activation boundary",
-    "Commit autonomous continuation updates",
-]
-
-REQUIRED_GUARD_WORKFLOW_TERMS = [
-    "Site Task Elimination Guard",
-    "python scripts/check_site_manual_task_elimination.py",
-]
-
-REQUIRED_RECEIPT_WORKFLOW_TERMS = [
-    "Site Local Completion Receipt",
-    "python scripts/write_site_local_completion_receipt.py",
-    "python scripts/check_site_local_completion_receipt.py",
-    "docs/SITE_LOCAL_COMPLETION_RECEIPT.md",
-    "docs/SITE_LOCAL_COMPLETION_RECEIPT.json",
+    "Site Task Runner",
+    "task-elimination-guard",
+    "local-completion-receipt",
+    "python scripts/run_site_task.py",
 ]
 
 REQUIRED_RECEIPT_CHECKER_TERMS = [
@@ -62,14 +56,19 @@ REQUIRED_RECEIPT_CHECKER_TERMS = [
 ]
 
 REQUIRED_HANDOFF_TERMS = [
-    "github/workflows/site-autonomous-continuation.yml",
-    "github/workflows/site-task-elimination-guard.yml",
-    "scripts/check_site_manual_task_elimination.py",
+    "github/workflows/site-task-runner.yml",
+    "scripts/run_site_task.py",
+    "task-elimination-guard",
+    "local-completion-receipt",
     "docs/SITE_MANUAL_TASK_ELIMINATION.md",
     "docs/SITE_TASK_ELIMINATION_GUARD.md",
-    "write external evidence state",
-    "update final goal status",
     "pending_external_evidence",
+]
+
+FORBIDDEN_REQUIRED_PATHS = [
+    ".github/workflows/site-autonomous-continuation.yml",
+    ".github/workflows/site-task-elimination-guard.yml",
+    ".github/workflows/site-local-completion-receipt.yml",
 ]
 
 
@@ -89,9 +88,8 @@ def main() -> int:
     checks = [
         ("manual task document", read(DOC), REQUIRED_DOC_TERMS),
         ("guard document", read(GUARD_DOC), REQUIRED_GUARD_DOC_TERMS),
-        ("autonomous workflow", read(WORKFLOW), REQUIRED_WORKFLOW_TERMS),
-        ("guard workflow", read(GUARD_WORKFLOW), REQUIRED_GUARD_WORKFLOW_TERMS),
-        ("receipt workflow", read(RECEIPT_WORKFLOW), REQUIRED_RECEIPT_WORKFLOW_TERMS),
+        ("task runner", read(TASK_RUNNER), REQUIRED_TASK_RUNNER_TERMS),
+        ("task workflow", read(TASK_WORKFLOW), REQUIRED_WORKFLOW_TERMS),
         ("receipt checker", read(RECEIPT_CHECKER), REQUIRED_RECEIPT_CHECKER_TERMS),
         ("handoff", read(HANDOFF), REQUIRED_HANDOFF_TERMS),
     ]
@@ -99,11 +97,14 @@ def main() -> int:
         miss = missing(text, terms)
         if miss:
             errors.append(f"{label} missing: " + ", ".join(miss))
+    for rel in FORBIDDEN_REQUIRED_PATHS:
+        if (ROOT / rel).exists():
+            errors.append(f"retired workflow should not remain active: {rel}")
     if errors:
         for error in errors:
             print("FAIL: " + error, file=sys.stderr)
         return 1
-    print("PASS: Site local continuation work is workflow-managed.")
+    print("PASS: Site local continuation work is managed by consolidated declared tasks.")
     return 0
 
 
