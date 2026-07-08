@@ -1,0 +1,111 @@
+{
+  "schema": "stegverse.site.transition_intents.v0.1",
+  "repository": "StegVerse-Labs/Site",
+  "mode": "local_preview_only",
+  "authority": "none",
+  "intents": [
+    {
+      "id": "explain",
+      "label": "Explain",
+      "transition": "Explain admissibility",
+      "destination": "admissibility-wiki.html",
+      "keywords": ["explain", "define", "what is", "meaning", "admissibility", "glossary", "ontology", "formal definition"],
+      "boundary": "public explanation only"
+    },
+    {
+      "id": "demonstrate",
+      "label": "Demonstrate",
+      "transition": "Demonstrate governance",
+      "destination": "demo.html",
+      "keywords": ["demo", "demonstrate", "show", "simulate", "example", "run example", "browser demo"],
+      "boundary": "static browser demonstration only"
+    },
+    {
+      "id": "compare",
+      "label": "Compare",
+      "transition": "Compare an external framework",
+      "destination": "governance-observatory.html",
+      "keywords": ["compare", "framework", "external", "morrison", "resurrection", "decisionassure", "glm", "evide", "runtime governance"],
+      "boundary": "comparison posture only"
+    },
+    {
+      "id": "research",
+      "label": "Research",
+      "transition": "Read the research",
+      "destination": "Papers.html",
+      "keywords": ["paper", "research", "publish", "theorem", "proof", "citation", "scientific", "peer review"],
+      "boundary": "research reference only"
+    },
+    {
+      "id": "build",
+      "label": "Build",
+      "transition": "Prepare build handoff",
+      "destination": "docs/SITE_MIRROR_HANDOFF.md",
+      "keywords": ["build", "continue", "install", "patch", "repo", "handoff", "workflow", "validator"],
+      "boundary": "handoff preview only; no repo mutation from Site"
+    },
+    {
+      "id": "replay",
+      "label": "Replay",
+      "transition": "Inspect replay or receipt posture",
+      "destination": "transition-verification-guide.html",
+      "keywords": ["replay", "receipt", "hash", "reconstruct", "reconstruction", "audit", "verify", "verification"],
+      "boundary": "public verification guide only"
+    },
+    {
+      "id": "runtime",
+      "label": "Runtime",
+      "transition": "Evaluate runtime governance",
+      "destination": "governance-observatory.html",
+      "keywords": ["runtime", "agent", "tool", "allow", "block", "deny", "boundary", "morrison", "resurrection"],
+      "boundary": "runtime evaluation preview only"
+    },
+    {
+      "id": "paper",
+      "label": "Paper",
+      "transition": "Open papers",
+      "destination": "Papers.html",
+      "keywords": ["paper", "article", "draft", "abstract", "publication", "iiict", "iict"],
+      "boundary": "paper index only"
+    },
+    {
+      "id": "formalism",
+      "label": "Formalism",
+      "transition": "Inspect formalisms",
+      "destination": "formalisms/index.html",
+      "keywords": ["formalism", "stcm", "rtg", "transition table", "geometry", "model", "math"],
+      "boundary": "formalism mirror only"
+    },
+    {
+      "id": "sdk",
+      "label": "SDK",
+      "transition": "Inspect SDK manifest preview",
+      "destination": "ecosystem-chat.html#technical-details",
+      "keywords": ["sdk", "adapter", "manifest", "api", "backend", "gateway", "provider", "client"],
+      "boundary": "SDK preview only; no backend submission"
+    },
+    {
+      "id": "implementation",
+      "label": "Implementation",
+      "transition": "Inspect implementation mirrors",
+      "destination": "tt-code-representation.html",
+      "keywords": ["implementation", "code", "registry", "handler", "fixture", "script", "package", "module"],
+      "boundary": "public implementation mirror only"
+    },
+    {
+      "id": "solver",
+      "label": "Solver",
+      "transition": "Use math-solver adapter preview",
+      "destination": "math-solver/index.html",
+      "keywords": ["solve", "calculate", "equation", "unit", "math", "symbolic", "proof step"],
+      "boundary": "solver preview only; no live solver execution"
+    }
+  ],
+  "fallback": {
+    "id": "explain",
+    "label": "Explain",
+    "transition": "Explain request boundary first",
+    "destination": "ecosystem-chat.html#how-it-works",
+    "boundary": "classification fallback only"
+  }
+}
