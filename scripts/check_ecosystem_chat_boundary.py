@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify Ecosystem Chat public boundary, single-entry UX, and preview telemetry alignment."""
+"""Verify Ecosystem Chat public boundary, single-entry UX, transition intents, and preview telemetry alignment."""
 
 from __future__ import annotations
 
@@ -9,12 +9,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 UX_STATUS_PATH = ROOT / "docs" / "ECOSYSTEM_CHAT_UX_STATUS.md"
+INTENT_CATALOG_PATH = ROOT / "data" / "ecosystem-chat-transition-intents.json"
 TASK_PATH = ROOT / "data" / "headless-tasks" / "ecosystem-chat-boundary-check-v1.json"
 REGISTRY_PATH = ROOT / "data" / "headless-task-registry-v1.json"
 JSON_FIXTURES = [
     ROOT / "fixtures" / "ecosystem-chat" / "request.example.json",
     ROOT / "fixtures" / "ecosystem-chat" / "response.example.json",
     ROOT / "fixtures" / "ecosystem-chat" / "sdk-form-payload.example.json",
+    INTENT_CATALOG_PATH,
 ]
 TEXT_FILES = [
     ROOT / "README.md",
@@ -28,6 +30,7 @@ TEXT_FILES = [
 ]
 
 INTERACTION_BANDS = ["intra", "inter", "research", "provider", "solver", "receipt"]
+TRANSITION_INTENTS = ["explain", "demonstrate", "compare", "research", "build", "replay", "runtime", "formalism", "sdk", "implementation", "solver"]
 REQUIRED_TEXT = ["raw_shell_allowed", "authority_required", "rate_limit_required", "receipt_required_for_execution", "Restricted admin"]
 REQUIRED_BOUNDARY_TEXT = ["shell", "credential", "receipt", "authority"]
 REQUIRED_PAGE_LINKS = [
@@ -49,6 +52,7 @@ REQUIRED_TASK_INPUTS = [
     "README.md",
     "ecosystem-chat.html",
     "assets/ecosystem-chat.js",
+    "data/ecosystem-chat-transition-intents.json",
     "docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md",
     "docs/ECOSYSTEM_CHAT_FORM_GATEWAY_MODEL.md",
     "docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md",
@@ -156,6 +160,28 @@ def verify_interaction_band_surface() -> None:
             raise AssertionError(f"interaction band {band!r} missing from JavaScript classifier")
 
 
+def verify_transition_intent_engine() -> None:
+    catalog = load_json(INTENT_CATALOG_PATH)
+    if catalog.get("schema") != "stegverse.site.transition_intents.v0.1":
+        raise AssertionError("transition intent catalog schema drift")
+    if catalog.get("mode") != "local_preview_only" or catalog.get("authority") != "none":
+        raise AssertionError("transition intent catalog must remain local_preview_only with authority none")
+    intents = catalog.get("intents")
+    if not isinstance(intents, list):
+        raise AssertionError("transition intent catalog must declare intents list")
+    ids = [intent.get("id") for intent in intents if isinstance(intent, dict)]
+    missing = [intent for intent in TRANSITION_INTENTS if intent not in ids]
+    if missing:
+        raise AssertionError("transition intent catalog missing ids: " + ", ".join(missing))
+    script = read_text(ROOT / "assets" / "ecosystem-chat.js")
+    for needle in ["TRANSITION_INTENTS", "classifyTransitionIntent", "transition_intent", "transition_destination", "Suggested transition:", "Transition boundary:"]:
+        if needle not in script:
+            raise AssertionError(f"assets/ecosystem-chat.js missing transition intent code: {needle}")
+    for intent in TRANSITION_INTENTS:
+        if f"id: '{intent}'" not in script:
+            raise AssertionError(f"assets/ecosystem-chat.js missing transition intent {intent!r}")
+
+
 def verify_docs_and_tasks() -> None:
     for link in REQUIRED_PAGE_LINKS:
         if link not in read_text(ROOT / "ecosystem-chat.html"):
@@ -202,6 +228,13 @@ def require_interaction_contract(data: dict, path: str) -> None:
         raise AssertionError(f"{path} must declare math_solver_supported=true")
 
 
+def require_transition_contract(data: dict, path: str) -> None:
+    if data.get("transition_intent") not in TRANSITION_INTENTS:
+        raise AssertionError(f"{path} must declare known transition_intent")
+    if not isinstance(data.get("transition_destination"), str) or not data.get("transition_destination"):
+        raise AssertionError(f"{path} must declare transition_destination")
+
+
 def verify_fixtures() -> None:
     for fixture in JSON_FIXTURES:
         load_json(fixture)
@@ -210,14 +243,16 @@ def verify_fixtures() -> None:
         if request.get(key) != value:
             raise AssertionError(f"request.example.json expected {key}={value!r}")
     require_interaction_contract(request, "request.example.json")
+    require_transition_contract(request, "request.example.json")
     response = load_json(ROOT / "fixtures" / "ecosystem-chat" / "response.example.json")
     if response.get("task_status") != "preview_only" or response.get("receipt_id") is not None:
         raise AssertionError("response.example.json must remain preview_only with null receipt_id")
-    for needle in ["Shell: disabled", "Authority:", "Interaction bands:", "Math solver:"]:
+    for needle in ["Shell: disabled", "Authority:", "Interaction bands:", "Math solver:", "Transition intent:", "Suggested transition:"]:
         if needle not in str(response.get("response", "")):
             raise AssertionError(f"response.example.json response missing {needle!r}")
-    profile = {"interaction_profile": response.get("interaction_profile"), "interaction_bands": INTERACTION_BANDS, "math_solver_supported": True}
+    profile = {"interaction_profile": response.get("interaction_profile"), "interaction_bands": INTERACTION_BANDS, "math_solver_supported": True, "transition_intent": response.get("transition_intent"), "transition_destination": response.get("transition_destination")}
     require_interaction_contract(profile, "response.example.json")
+    require_transition_contract(profile, "response.example.json")
     sdk = load_json(ROOT / "fixtures" / "ecosystem-chat" / "sdk-form-payload.example.json")
     manifest = sdk.get("manifest")
     receipt_window = sdk.get("receipt_window")
@@ -227,10 +262,12 @@ def verify_fixtures() -> None:
         if manifest.get(key) != value:
             raise AssertionError(f"sdk manifest expected {key}={value!r}")
     require_interaction_contract(manifest, "sdk-form-payload.example.json manifest")
+    require_transition_contract(manifest, "sdk-form-payload.example.json manifest")
     for key, value in {"site_receipt_authority": False, "site_shell_authority": False, "site_credential_authority": False, "execution_allowed_from_site": False, "authority_required_before_execution": True, "receipt_required_for_execution": True}.items():
         if receipt_window.get(key) != value:
             raise AssertionError(f"sdk receipt_window expected {key}={value!r}")
     require_interaction_contract(receipt_window, "sdk-form-payload.example.json receipt_window")
+    require_transition_contract(receipt_window, "sdk-form-payload.example.json receipt_window")
 
 
 def main() -> int:
@@ -239,6 +276,7 @@ def main() -> int:
         require_text(path, REQUIRED_BOUNDARY_TEXT)
     verify_single_entry_ux()
     verify_interaction_band_surface()
+    verify_transition_intent_engine()
     verify_docs_and_tasks()
     verify_fixtures()
     print(json.dumps({
@@ -246,6 +284,7 @@ def main() -> int:
         "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES + [TASK_PATH, REGISTRY_PATH]],
         "boundary": "no-shell/no-credential/authority-required/receipt-required",
         "ux_contract": "single-primary-governed-chat-preview-entry",
+        "transition_intents": TRANSITION_INTENTS,
         "interaction_bands": INTERACTION_BANDS,
         "math_solver_supported": True,
     }, indent=2))
