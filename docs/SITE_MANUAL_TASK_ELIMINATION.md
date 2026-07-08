@@ -9,7 +9,7 @@
 
 ## Done Definition
 
-This document is done when every remaining local manual task has a repository-managed workflow, script, or generated state file.
+This document is done when every remaining local manual task has a repository-managed workflow, script, generated state file, or declared task.
 
 ## Eliminated Manual Tasks
 
@@ -21,30 +21,35 @@ This document is done when every remaining local manual task has a repository-ma
 | Decide whether final Site goal is ready | `scripts/update_site_final_goal_status.py` |
 | Validate final goal state | `scripts/check_site_final_goal_status.py` |
 | Confirm final activation remains bounded | `scripts/check_site_final_activation_pending.py` |
-| Run local continuation sequence in order | `github/workflows/site-autonomous-continuation.yml` |
-| Commit computed Site continuation state | `github/workflows/site-autonomous-continuation.yml` |
+| Run local continuation sequence in order | `scripts/run_site_task.py all-local` through `github/workflows/site-task-runner.yml` |
+| Commit computed Site continuation state | `github/workflows/site-task-runner.yml` |
+| Validate task elimination state | `scripts/run_site_task.py task-elimination-guard` |
+| Write and validate local completion receipt | `scripts/run_site_task.py local-completion-receipt` |
 
 ## Local Continuation Workflow
 
 The local continuation path is now:
 
 ```text
-github/workflows/site-autonomous-continuation.yml
+github/workflows/site-task-runner.yml
+scripts/run_site_task.py all-local
 ```
 
 It performs:
 
 ```text
 checkout Site
-checkout Admissible-Existence/TT
-build TT propagation bundle
-copy TT bundle into Site
+optional checkout Admissible-Existence/TT
+optional build TT propagation bundle
+copy or confirm TT bundle fallback
 render TT status
 check Governance Observatory status
 write external evidence state
 update final goal status
 validate final goal status
 validate final activation boundary
+run task-elimination guard
+write and validate local completion receipt
 commit computed state changes
 ```
 
