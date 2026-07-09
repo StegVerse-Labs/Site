@@ -1,0 +1,34 @@
+{
+  "payload_type": "hps_visualization_status",
+  "preview_only": true,
+  "authority_granted": false,
+  "execution_enabled": false,
+  "receipt_issued_by_site": false,
+  "heartbeat": {
+    "state": "PASS",
+    "phase": "restored_standing",
+    "receipt_id": "hb_hps_valid_001"
+  },
+  "standing": {
+    "class": "RESTORED",
+    "score": 1.0
+  },
+  "capabilities": {
+    "open": ["memory.commit"],
+    "closed": [],
+    "expired": ["publication.emit", "state.record"]
+  },
+  "continuity": {
+    "replay_available": true,
+    "reconstruction_available": true,
+    "chain_head": "sha256:chain-head-valid-placeholder"
+  },
+  "display": {
+    "summary": "Standing restored in preview fixture; governed capabilities are shown as windowed, not permanently enabled.",
+    "bars": {
+      "standing": 1.0,
+      "continuity": 1.0,
+      "capability_availability": 0.333333
+    }
+  }
+}
