@@ -10,13 +10,13 @@ This file is the current source of truth for continuing the StegVerse-Labs/Site 
 Goal: unified governed Site experience centered on Ecosystem Chat as the primary operating surface
 Repository: StegVerse-Labs/Site
 Primary surface: ecosystem-chat.html
-Activation state: phase_7_governed_solver_response_preview_installed
+Activation state: phase_8_backend_authority_handshake_preview_installed
 Live backend state: not installed
+Site local mode: preserved true
 Live provider invocation: false
 Live solver execution: false
-Current pricing state: not asserted
-Site authority state: none
-Site execution state: disabled
+Site authority state: DENY preview
+Site execution state: NOT_ATTEMPTED
 Receipt issuance state: not issued by Site
 Workflow standard: exactly two active workflows
 Documentation mesh state: shared endpoint registry and Site cross-wiki health record installed
@@ -32,13 +32,13 @@ Documentation mesh state: shared endpoint registry and Site cross-wiki health re
 - fixture-bound HPS heartbeat and standing visualization
 - bounded request-to-receipt traversal preview
 - fixture-bound provider routing, fallback, quota, usage, cost, and latency visualization
-- provider state explicitly NOT_INVOKED
-- current pricing explicitly false
-- billable usage explicitly zero
-- provider latency explicitly unavailable/null
-- governed solver fixture with expression, operation class, answer, units, proof steps, verification, and resource limits
-- solver state explicitly live_solver_execution=false
-- solver verification explicitly fixture-backed and not independent
+- governed solver fixture with proof steps, units, verification, and resource limits
+- backend authority-handshake request and response fixtures
+- explicit identity, delegation, policy, evidence freshness, operation allowlist, resource limit, provider, solver, authority, execution, and receipt fields
+- deterministic authority result DENY
+- deterministic execution result NOT_ATTEMPTED
+- local mode preserved after denial
+- replayable request and reconstructable decision posture
 - local SDK manifest and receipt-window previews
 - restricted-admin fail-closed routing
 ```
@@ -50,8 +50,6 @@ Endpoint registry: data/ecosystem-documentation-endpoints.json
 Cross-wiki health: data/cross-wiki-health-status.json
 Validator: scripts/check_documentation_mesh_status.py
 Validation surfaces: scripts/run_site_task.py validate and public-guard
-Public registry URL: https://stegverse-labs.github.io/Site/data/ecosystem-documentation-endpoints.json
-Public health URL: https://stegverse-labs.github.io/Site/data/cross-wiki-health-status.json
 Current health state: pending_live_peer_checks
 ```
 
@@ -64,7 +62,7 @@ https://stegverse-002.github.io/stegguardian-wiki/
 https://stegverse-labs.github.io/stegtalk-wiki/
 ```
 
-These records describe discovery and health posture only. They do not grant authority, execution standing, admissibility, receipt standing, or cross-repo control.
+Documentation discovery and health records do not grant authority, execution standing, admissibility, receipt standing, or cross-repo control.
 
 ## Built files central to the current phase
 
@@ -78,12 +76,15 @@ assets/ecosystem-chat-solver.js
 fixtures/ecosystem-chat/hps-visualization-status.example.json
 fixtures/ecosystem-chat/provider-status.example.json
 fixtures/ecosystem-chat/solver-response.example.json
+fixtures/ecosystem-chat/authority-handshake-request.example.json
+fixtures/ecosystem-chat/authority-handshake-response.example.json
 data/ecosystem-documentation-endpoints.json
 data/cross-wiki-health-status.json
 scripts/check_ecosystem_chat_boundary.py
 scripts/check_ecosystem_chat_traversal.py
 scripts/check_ecosystem_chat_provider_status.py
 scripts/check_ecosystem_chat_solver_response.py
+scripts/check_ecosystem_chat_authority_handshake.py
 scripts/check_site_hps_visualization.py
 scripts/check_site_unified_governed_experience.py
 scripts/check_documentation_mesh_status.py
@@ -91,6 +92,7 @@ scripts/run_site_task.py
 docs/hps/ecosystem-chat-visualization.md
 docs/ECOSYSTEM_CHAT_PROVIDER_STATUS.md
 docs/ECOSYSTEM_CHAT_SOLVER_STATUS.md
+docs/ECOSYSTEM_CHAT_AUTHORITY_HANDSHAKE.md
 docs/SITE_MIRROR_HANDOFF.md
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
@@ -102,13 +104,12 @@ docs/SITE_MIRROR_HANDOFF.md
 Site may draft, classify, visualize, and offer governed transition destinations.
 Site must not execute shell commands, access credentials, mutate repositories, grant authority, or grant admissibility.
 A local hash must not be described as an authority-issued receipt.
-HPS, traversal, provider, and solver inputs must fail closed when preview contracts are not satisfied.
+HPS, traversal, provider, solver, and authority-handshake inputs must fail closed when preview contracts are not satisfied.
 Provider fixture values must not be described as live provider state, current pricing, actual billing, account quota, or model availability.
 Solver fixture values must not be described as live execution or independent verification.
-A correct mathematical result does not itself grant authority to act on that result.
-Payment, quota, provider availability, or solver correctness must never be treated as execution standing.
-Documentation endpoint registration and health records must not be treated as cross-repo authority or peer verification.
-Technical SDK and gateway details remain secondary and collapsible.
+Handshake schema existence must not be treated as backend activation.
+An authority ALLOW would still not itself equal execution.
+Payment, quota, provider availability, solver correctness, endpoint registration, or documentation health must never be treated as execution standing.
 ```
 
 ## Validation surface
@@ -120,6 +121,7 @@ python scripts/check_ecosystem_chat_boundary.py
 python scripts/check_ecosystem_chat_traversal.py
 python scripts/check_ecosystem_chat_provider_status.py
 python scripts/check_ecosystem_chat_solver_response.py
+python scripts/check_ecosystem_chat_authority_handshake.py
 python scripts/check_site_hps_visualization.py
 python scripts/check_site_unified_governed_experience.py
 python scripts/check_documentation_mesh_status.py
@@ -127,7 +129,7 @@ python scripts/run_site_task.py public-guard
 python scripts/run_site_task.py all-local
 ```
 
-The consolidated task runner includes traversal, provider-status, solver-response, and documentation-mesh checks in both `validate` and `public-guard` where applicable.
+The consolidated task runner includes traversal, provider-status, solver-response, authority-handshake, and documentation-mesh checks in `validate` and `public-guard` where applicable.
 
 ## Workflow standard
 
@@ -145,21 +147,20 @@ Do not create additional workflows for HPS, traversal, provider, solver, cost, q
 ```text
 1. Verify validate and all-local on the current main branch.
 2. Confirm GitHub Pages publishes HPS, traversal, provider, solver, endpoint-registry, and cross-wiki health surfaces.
-3. Define the backend authority handshake required to change STEGVERSE_LOCAL_MODE.
+3. Define the first positive authority-handshake test without enabling execution.
 4. Define live provider response provenance and pricing-source requirements.
-5. Define live solver execution allowlist, resource limits, independent verification posture, and receipt path.
-6. Do not update public verification JSON until the live URL checker confirms deployed state.
+5. Define live solver operation allowlist, independent verification posture, and receipt path.
+6. Do not change STEGVERSE_LOCAL_MODE until a governed backend independently validates the handshake at commit time.
+7. Do not update public verification JSON until the live URL checker confirms deployed state.
 ```
 
 ### StegVerse-org/StegVerse-SDK
 
 ```text
 - ingest interaction profile and bands
-- ingest transition intent and destination
-- ingest HPS display posture without treating display as authority
-- ingest provider status, fallback, quota, usage, cost, and latency posture
-- ingest solver expression, operation class, units, proof steps, verification, and resource-limit posture
-- return explicit live_invocation, live_solver_execution, pricing_current, authority, execution, and receipt fields
+- ingest HPS, provider, solver, and authority-handshake posture
+- independently reconstruct identity, delegation, policy, evidence freshness, operation allowlisting, and resource limits
+- return explicit authority, execution, provider, solver, pricing, and receipt results
 ```
 
 ### StegVerse-org/LLM-adapter
@@ -199,9 +200,9 @@ StegVerse-Labs/Sit: integration status after Site validation
 ## Next integration goal
 
 ```text
-Phase 8: backend authority handshake contract for changing STEGVERSE_LOCAL_MODE.
+Phase 9: positive authority-evaluation fixture that can return ALLOW while execution remains NOT_ATTEMPTED.
 
-Begin with a machine-readable request/response fixture and validator. The handshake must distinguish identity, delegation, policy, evidence freshness, allowed operation, resource limits, provider/solver posture, authority result, execution result, and receipt result. Do not enable live execution merely because the handshake schema exists.
+The positive fixture must use verified identity, valid delegation, current policy, fresh complete evidence, an allowlisted bounded operation, and non-zero but constrained resource limits. It must still prove that authority and execution are separate transitions and that Site cannot issue the governing receipt.
 ```
 
 ## Handoff instruction
