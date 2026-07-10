@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "stegverse_ecosystem_documentation_endpoints",
+  "declared_at": "2026-07-10",
+  "declared_by": "shared_documentation_mesh",
+  "endpoints": [
+    {"id":"stegverse-site","repo":"StegVerse-Labs/Site","url":"https://stegverse-labs.github.io/Site/","role":"ecosystem_site"},
+    {"id":"admissibility-wiki","repo":"StegVerse-Labs/admissibility-wiki","url":"https://stegverse-labs.github.io/admissibility-wiki/","role":"admissibility_reference"},
+    {"id":"stegguardian-wiki","repo":"StegVerse-002/stegguardian-wiki","url":"https://stegverse-002.github.io/stegguardian-wiki/","role":"guardian_reference"},
+    {"id":"stegtalk-wiki","repo":"StegVerse-Labs/stegtalk-wiki","url":"https://stegverse-labs.github.io/stegtalk-wiki/","role":"communication_reference"}
+  ],
+  "non_claims": {
+    "all_endpoints_externally_verified": false,
+    "peer_machine_records_verified": false,
+    "cross_repo_authority_granted": false,
+    "standing_conferred": false,
+    "execution_authority": false
+  }
+}
