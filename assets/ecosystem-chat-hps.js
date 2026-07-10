@@ -91,8 +91,10 @@
     .then(render)
     .catch(() => setFailClosed('Fixture could not be loaded; the visualization failed closed.'));
 
-  const traversalScript = document.createElement('script');
-  traversalScript.src = 'assets/ecosystem-chat-traversal.js';
-  traversalScript.dataset.previewOnly = 'true';
-  document.body.appendChild(traversalScript);
+  for (const source of ['assets/ecosystem-chat-traversal.js', 'assets/ecosystem-chat-provider.js']) {
+    const script = document.createElement('script');
+    script.src = source;
+    script.dataset.previewOnly = 'true';
+    document.body.appendChild(script);
+  }
 })();
