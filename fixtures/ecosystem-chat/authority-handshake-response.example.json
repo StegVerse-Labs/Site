@@ -1,0 +1,46 @@
+{
+  "payload_type": "authority_handshake_response_preview",
+  "preview_only": true,
+  "request_id": "ahr_site_preview_001",
+  "site_local_mode_before": true,
+  "site_local_mode_after": true,
+  "authority": {
+    "result": "DENY",
+    "reason_codes": [
+      "IDENTITY_UNVERIFIED",
+      "DELEGATION_ABSENT",
+      "POLICY_NOT_CURRENT",
+      "EVIDENCE_INCOMPLETE",
+      "OPERATION_NOT_ALLOWLISTED"
+    ],
+    "authority_granted": false
+  },
+  "execution": {
+    "result": "NOT_ATTEMPTED",
+    "execution_enabled": false,
+    "provider_invoked": false,
+    "solver_executed": false,
+    "repository_mutated": false
+  },
+  "receipt": {
+    "authority_receipt_issued": false,
+    "execution_receipt_issued": false,
+    "receipt_id": null,
+    "receipt_issuer": null
+  },
+  "continuity": {
+    "fail_closed": true,
+    "replayable_request": true,
+    "reconstructable_decision": true,
+    "local_mode_preserved": true
+  },
+  "next_requirements": [
+    "verify actor identity",
+    "provide valid delegation",
+    "resolve current policy and hash",
+    "complete evidence freshness checks",
+    "allowlist the requested operation",
+    "define non-zero bounded resource limits only after authority review",
+    "require backend-issued authority and execution receipts"
+  ]
+}
