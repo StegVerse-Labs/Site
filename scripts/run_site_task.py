@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Consolidated task runner for StegVerse-Labs/Site.
-
-The repository standard is to keep GitHub Actions workflows thin and move
-repository behavior into declared, replayable task code.  This runner is the
-stable execution surface used by the Site task workflow.
-"""
+"""Consolidated task runner for StegVerse-Labs/Site."""
 from __future__ import annotations
 
 import argparse
@@ -44,6 +39,7 @@ def run_if_present(script: str, *, optional: bool = False) -> None:
 def validate() -> None:
     run_if_present("scripts/check_ecosystem_chat_application.py")
     run_if_present("scripts/check_ecosystem_chat_boundary.py")
+    run_if_present("scripts/check_ecosystem_chat_traversal.py")
     run_if_present("scripts/check_site_hps_visualization.py")
     run_if_present("scripts/check_site_unified_governed_experience.py")
     test_readiness()
@@ -53,23 +49,19 @@ def test_readiness() -> None:
     failures: list[str] = []
     if not any((ROOT / name).exists() for name in ("README.md", "README.MD")):
         failures.append("missing README.md")
-
     workflows = ROOT / ".github" / "workflows"
     if workflows.exists():
         bad = sorted(p.name for p in workflows.glob("*.ym"))
         if bad:
             failures.append("workflow files must end in .yml or .yaml: " + ", ".join(bad))
-
     import json
-
     for path in sorted(ROOT.rglob("*.json")):
         if any(part in {".git", "node_modules", ".venv", "venv"} for part in path.parts):
             continue
         try:
             json.loads(path.read_text(encoding="utf-8"))
-        except Exception as exc:  # pragma: no cover - diagnostic surface
+        except Exception as exc:
             failures.append(f"invalid JSON: {path.relative_to(ROOT)}: {exc}")
-
     if failures:
         print("TEST READINESS FAILED")
         for failure in failures:
@@ -90,6 +82,7 @@ def public_guard() -> None:
         "scripts/check_site_governed_ecosystem_public_verification.py",
         "scripts/check_site_llm_free_tier_trust.py",
         "scripts/check_site_hps_visualization.py",
+        "scripts/check_ecosystem_chat_traversal.py",
         "scripts/check_site_final_activation_pending.py",
         "scripts/check_site_governed_ecosystem_mirror.py",
         "scripts/check_site_mirror_handoff_final_pending.py",
