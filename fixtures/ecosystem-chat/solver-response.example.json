@@ -1,0 +1,58 @@
+{
+  "payload_type": "solver_response_preview",
+  "preview_only": true,
+  "live_solver_execution": false,
+  "authority_granted": false,
+  "execution_enabled": false,
+  "receipt_issued_by_site": false,
+  "request": {
+    "expression": "2x + 3 = 11",
+    "operation_class": "linear_equation",
+    "variables": ["x"],
+    "units": null
+  },
+  "result": {
+    "status": "VERIFIED_FIXTURE",
+    "answer": "x = 4",
+    "answer_type": "scalar",
+    "units": null
+  },
+  "proof_steps": [
+    {
+      "index": 1,
+      "statement": "2x + 3 = 11",
+      "operation": "subtract 3 from both sides",
+      "result": "2x = 8"
+    },
+    {
+      "index": 2,
+      "statement": "2x = 8",
+      "operation": "divide both sides by 2",
+      "result": "x = 4"
+    }
+  ],
+  "verification": {
+    "method": "substitution",
+    "substitution": "2(4) + 3 = 11",
+    "left_value": 11,
+    "right_value": 11,
+    "passed": true,
+    "independent_engine": false
+  },
+  "limits": {
+    "operation_allowlisted": true,
+    "resource_limit_applied": true,
+    "max_steps": 8,
+    "steps_used": 2,
+    "symbolic_depth": 1
+  },
+  "display": {
+    "summary": "This is a static, validator-backed solver fixture. No live solver ran, no authority was granted, and no receipt was issued.",
+    "confidence_posture": "fixture_verified_not_independent",
+    "bands": {
+      "step_completion": 0.25,
+      "verification": 1.0,
+      "resource_use": 0.25
+    }
+  }
+}
