@@ -1,0 +1,62 @@
+{
+  "payload_type": "authority_handshake_request_preview",
+  "preview_only": true,
+  "site_local_mode": true,
+  "requested_local_mode_change": false,
+  "request_id": "ahr_site_preview_001",
+  "actor": {
+    "identity_id": "entity.preview.operator",
+    "identity_verified": false,
+    "identity_source": "fixture_only"
+  },
+  "delegation": {
+    "delegation_id": "delegation.preview.none",
+    "present": false,
+    "scope": [],
+    "valid_at_request_time": false
+  },
+  "policy": {
+    "policy_id": "policy.ecosystem-chat.local-mode.v1",
+    "policy_version": "1.0.0-preview",
+    "policy_hash": "sha256:preview-policy-placeholder",
+    "policy_current": false
+  },
+  "evidence": {
+    "references": [
+      "fixtures/ecosystem-chat/provider-status.example.json",
+      "fixtures/ecosystem-chat/solver-response.example.json",
+      "fixtures/ecosystem-chat/hps-visualization-status.example.json"
+    ],
+    "freshness_checked": false,
+    "freshness_result": "NOT_CHECKED",
+    "complete": false
+  },
+  "operation": {
+    "name": "ecosystem_chat.gateway.enable",
+    "allowlisted": false,
+    "raw_shell_allowed": false,
+    "repository_mutation_allowed": false,
+    "provider_invocation_requested": false,
+    "solver_execution_requested": false
+  },
+  "resource_limits": {
+    "max_provider_calls": 0,
+    "max_solver_steps": 0,
+    "max_execution_seconds": 0,
+    "max_cost_usd": 0.0
+  },
+  "provider_posture": {
+    "live_invocation": false,
+    "pricing_current": false,
+    "quota_current": false
+  },
+  "solver_posture": {
+    "live_solver_execution": false,
+    "independent_verification": false
+  },
+  "receipt_expectation": {
+    "authority_receipt_required": true,
+    "execution_receipt_required": true,
+    "site_may_issue_receipt": false
+  }
+}
