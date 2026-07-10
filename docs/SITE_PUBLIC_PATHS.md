@@ -58,6 +58,26 @@ docs/SITE_MIRROR_HANDOFF.md
 scripts/check_site_governed_ecosystem_mirror.py
 ```
 
+## Governance Observatory Boundary
+
+For `governance-observatory.html`, the Site repository is a public source-intake status mirror only.
+
+The source authority remains:
+
+```text
+StegVerse-Labs/governance-observatory
+```
+
+Companion references:
+
+```text
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.md
+docs/SITE_GOVERNANCE_OBSERVATORY_STATUS.json
+scripts/check_site_governance_observatory_status.py
+```
+
+The Site surface does not replace the source repository, grant execution authority, establish production standing, or convert deferred observations such as DecisionAssure or Morrison Runtime into validated adoption claims.
+
 ## Boundary
 
 Site display does not replace source authority or validation evidence.
