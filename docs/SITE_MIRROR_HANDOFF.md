@@ -2,257 +2,154 @@
 
 ## Purpose
 
-This handoff lets the next build session continue Site mirror activation without needing prior chat context.
+This file is the current source of truth for continuing the StegVerse-Labs/Site build without prior chat context.
 
 ## Current Goal
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat as the primary operating surface
 Repository: StegVerse-Labs/Site
-Source repository: StegVerse-Labs/admissibility-wiki
-LLM trust source repository: StegVerse-org/LLM-adapter
-HPS formalism source: Admissible-Existence/HPS
-HPS orchestration source: master-records/orchestration
-Target paths: index.html, ecosystem-chat.html, governed-ecosystem.html, and docs status surfaces
-Activation state: phase_4_hps_visualization_preview_installed
-Live URL state: live_url_checker_and_pending_state_wired
-Homepage state: ecosystem_chat_primary_operating_surface_installed
-Micro-node return-path state: display_only_installed_on_branch
-LLM free-tier trust state: display_only_installed
-HPS visualization state: preview_fixture_and_checker_installed
-Public mirror guard state: consolidated_into_site_task_runner
-Workflow reduction state: two_active_workflows_with_legacy_guard_workflows_retired
-Ecosystem Chat UX state: simplified_to_one_primary_governed_chat_preview_entry_validate_wired_and_status_artifact_installed
-Ecosystem Chat interaction-band state: local_preview_installed_for_intra_inter_research_provider_solver_receipt
-Ecosystem Chat intent state: local_transition_intent_catalog_classifier_and_continuation_panel_installed
-Math solver band state: preview_routing_installed_no_live_solver_execution
-Interaction-band fixture state: request_response_sdk_examples_updated
-Interaction-band verifier state: boundary_checker_enforces_preview_telemetry_contract
-Unified governed experience state: phase_3_contextual_continuation_panel_installed
-Local completion receipt state: migrated_into_site_task_runner
+Primary surface: ecosystem-chat.html
+Activation state: phase_5_bounded_traversal_preview_installed
+Live backend state: not installed
+Site authority state: none
+Site execution state: disabled
+Receipt issuance state: not issued by Site
+Workflow standard: exactly two active workflows
 ```
 
-## Built Files
+## Installed Ecosystem Chat capabilities
 
 ```text
-index.html
-governed-ecosystem.html
+- single primary governed chat entry
+- local route classification
+- local transition-intent classification
+- contextual continuation panel
+- INTRA / INTER / RESEARCH / PROVIDER / SOLVER / RECEIPT interaction bands
+- fixture-bound HPS heartbeat and standing visualization
+- fail-closed HPS fixture validation
+- visible standing, continuity, capability-window, replay, reconstruction, and chain-head posture
+- bounded traversal preview: request -> intent -> boundary -> evidence -> destination -> receipt
+- traversal evidence posture: fixture-only
+- traversal receipt posture: not-issued
+- local SDK manifest and receipt-window previews
+- restricted-admin fail-closed routing
+- math-solver routing preview without live solver execution
+```
+
+## Built files central to this phase
+
+```text
 ecosystem-chat.html
 assets/ecosystem-chat.js
+assets/ecosystem-chat-hps.js
+assets/ecosystem-chat-traversal.js
 data/ecosystem-chat-transition-intents.json
-fixtures/ecosystem-chat/request.example.json
-fixtures/ecosystem-chat/response.example.json
-fixtures/ecosystem-chat/sdk-form-payload.example.json
 fixtures/ecosystem-chat/hps-visualization-status.example.json
 scripts/check_ecosystem_chat_boundary.py
+scripts/check_ecosystem_chat_traversal.py
 scripts/check_site_hps_visualization.py
 scripts/check_site_unified_governed_experience.py
-scripts/check_site_governed_ecosystem_mirror.py
-scripts/check_site_governed_ecosystem_public_verification.py
-scripts/check_site_governed_ecosystem_live_url.py
-scripts/check_site_homepage_governed_ecosystem.py
-scripts/check_site_public_paths.py
-scripts/check_site_llm_free_tier_trust.py
-scripts/write_site_local_completion_receipt.py
-scripts/check_site_local_completion_receipt.py
 scripts/run_site_task.py
-data/headless-tasks/ecosystem-chat-boundary-check-v1.json
 docs/hps/ecosystem-chat-visualization.md
-docs/ECOSYSTEM_CHAT_ACTIVATION_STATUS.md
-docs/ECOSYSTEM_CHAT_UX_STATUS.md
-docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
-docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt
-docs/SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json
-docs/SITE_PUBLIC_PATHS.md
-docs/LLM_FREE_TIER_TRUST_STATUS.md
+docs/SITE_MIRROR_HANDOFF.md
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
-docs/SITE_MIRROR_HANDOFF.md
 ```
 
-## Unified Governed Experience Rule
+## Non-negotiable public boundary
 
 ```text
-Site should behave as one governed application, not a flat collection of equal entry pages.
-Primary user path:
-1. user starts at Ecosystem Chat
-2. request is classified
-3. boundary is checked
-4. evidence route is selected
-5. destination is offered as a governed transition
-6. contextual Continue to panel is updated
-7. receipt/replay path becomes available only when live authority exists
-
-The homepage must emphasize Ecosystem Chat as the primary operating surface.
-Demo, Wiki, Papers, Runtime, Formalisms, Product, and Math Solver remain available as transition destinations, not competing starting points.
+Site may draft, classify, visualize, and offer governed transition destinations.
+Site must not execute shell commands.
+Site must not access credentials or secrets.
+Site must not mutate repositories.
+Site must not grant authority or admissibility.
+Site must not describe a local hash as an authority-issued receipt.
+Site must fail closed when HPS or traversal inputs do not satisfy the preview contract.
+Technical SDK and gateway details remain secondary and collapsible.
+The hero must not become a multi-entry task launcher or repository control panel.
 ```
 
-## HPS Visualization Preview Rule
+## Validation surface
 
 ```text
-Site HPS visualization is preview-only.
-It is not authority.
-It is not execution.
-It is not a live receipt issuer.
-It is not proof of current backend standing.
-
-The Site may display fixture-bound heartbeat state, standing class, standing score, capability windows, replay availability, reconstruction availability, and chain-head reference.
+python scripts/run_site_task.py validate
+python scripts/check_ecosystem_chat_application.py
+python scripts/check_ecosystem_chat_boundary.py
+python scripts/check_ecosystem_chat_traversal.py
+python scripts/check_site_hps_visualization.py
+python scripts/check_site_unified_governed_experience.py
+python scripts/run_site_task.py public-guard
+python scripts/run_site_task.py all-local
 ```
 
-## Local Transition Intent Engine
+The consolidated task runner now includes the traversal checker in both `validate` and `public-guard`.
 
-```text
-Catalog: data/ecosystem-chat-transition-intents.json
-Browser classifier: assets/ecosystem-chat.js
-Continuation renderer: renderContinuationPanel in assets/ecosystem-chat.js
-Validator: scripts/check_ecosystem_chat_boundary.py
-Declared task: data/headless-tasks/ecosystem-chat-boundary-check-v1.json
-Status doc: docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md
-
-Installed categories:
-- Explain
-- Demonstrate
-- Compare
-- Research
-- Build
-- Replay
-- Runtime
-- Formalism
-- SDK
-- Implementation
-- Solver
-
-Every local chat preview should include transition intent, suggested transition, transition destination, transition boundary, interaction bands, and no-authority/no-shell posture.
-```
-
-## Contextual Continuation Panel
-
-```text
-Panel: ecosystem-chat.html#continuationPanel
-Summary: ecosystem-chat.html#continuationSummary
-Destination grid: ecosystem-chat.html#continuationGrid
-Default state: Explain request boundary first
-Runtime behavior: updates from local transition intent on input, SDK payload copy, and submitted chat result
-Boundary: links are preview navigation only; they do not grant authority, receipts, or execution
-```
-
-## Ecosystem Chat Simplification Rule
-
-```text
-ecosystem-chat.html should remain a governed chat preview with one primary user path:
-1. user reads the boundary
-2. user tries the governed chat preview
-3. technical SDK/gateway details remain secondary under a collapsible technical section
-
-Do not re-expand the hero into multiple competing primary buttons.
-Do not present the page as a task launcher, demo index, repo control panel, or execution console.
-Site remains preview-only and cannot issue receipts, access credentials, execute shell commands, or grant authority.
-```
-
-## Ecosystem LLM Interaction Bands
-
-```text
-The Ecosystem Chat page is the public preview surface for the future StegVerse Ecosystem LLM interface.
-Every interaction should eventually expose transparent routing bands:
-- intra: StegVerse repos, wikis, manifests, receipts, standards, and local ecosystem records
-- inter: connected adapters, partner systems, provider clients, and external ecosystem nodes
-- research: networked sources outside the ecosystem when outside evidence is necessary
-- provider: LLM/model calls, model routing, fallback, cost, latency, and quota accounting
-- solver: math-problem solver, calculation traces, symbolic checks, unit conversion, and proof-step verification
-- receipt: hash, replay, reconstruction, admissibility, continuity, and authority evidence load
-- hps: heartbeat state, standing score, capability-window availability, expiration, replay, and reconstruction posture
-
-Current Site implementation is preview-only. It deterministically classifies local text, renders a local band meter, suggests a governed transition destination, and updates a contextual continuation panel. It does not call providers, search the network, solve math live, issue receipts, or grant authority.
-```
-
-## Workflow Standard
+## Workflow standard
 
 ```text
 Active workflow 1: .github/workflows/validate.yml
 Role: bootstrap validation gate
-Runs: scripts/check_ecosystem_chat_application.py
 
 Active workflow 2: .github/workflows/site-task-runner.yml
-Role: stable declared-task execution surface plus GitHub Pages deployment
-Runs: scripts/run_site_task.py <task>
-Tasks: all-local, validate, test-readiness, mirror-readiness, public-guard, live-url, tt-status, external-evidence, task-elimination-guard, local-completion-receipt, autonomous-continuation, universal-ingest
+Role: declared-task execution plus GitHub Pages deployment
 
-Retired legacy workflows:
-- .github/workflows/site-mirror-closure-guard.yml
-- .github/workflows/site-task-elimination-guard.yml
-- .github/workflows/site-mirror-evidence-transition-guard.yml
-- .github/workflows/site-local-completion-receipt.yml
-```
-
-## Current branch addition
-
-```text
-Branch: main
-index.html frames Ecosystem Chat as the primary Site operating surface and converts major destinations into governed transition cards.
-data/ecosystem-chat-transition-intents.json defines the local transition intent catalog.
-ecosystem-chat.html includes #continuationPanel, #continuationSummary, and #continuationGrid under the chat.
-assets/ecosystem-chat.js classifies local requests into transition intents and updates the contextual continuation panel on input, SDK payload copy, and submitted chat result.
-assets/ecosystem-chat.js includes transition intent/destination/boundary in responses, local receipt hash payloads, SDK manifest previews, and receipt windows.
-docs/SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md records phase-3 contextual continuation panel status and the next ecosystem visualization path target.
-docs/hps/ecosystem-chat-visualization.md records HPS preview visualization boundary.
-fixtures/ecosystem-chat/hps-visualization-status.example.json provides a fixture-bound HPS visualization payload.
-scripts/check_site_hps_visualization.py validates the HPS preview/no-authority contract.
-scripts/check_site_unified_governed_experience.py validates homepage single-entry framing and transition menu status.
-scripts/check_ecosystem_chat_boundary.py validates the transition intent catalog, contextual continuation panel, JavaScript classifier, fixture transition fields, single-entry UX contract, and interaction-band preview surface.
-data/headless-tasks/ecosystem-chat-boundary-check-v1.json declares data/ecosystem-chat-transition-intents.json as an expected input.
-fixtures/ecosystem-chat/request.example.json includes transition_intent and transition_destination.
-fixtures/ecosystem-chat/response.example.json includes transition intent, suggested transition, and transition destination text.
-fixtures/ecosystem-chat/sdk-form-payload.example.json includes transition intent metadata in manifest and receipt_window.
-scripts/run_site_task.py validate runs the unified governed experience checker, Ecosystem Chat boundary/UX/intent checker, and HPS visualization checker.
-site-task-runner.yml carries validation, readiness, mirror, TT, evidence, local completion receipt, task-elimination, autonomous continuation, live URL, and ingest tasks.
-```
-
-## Checkers
-
-```text
-python scripts/run_site_task.py validate
-python scripts/check_site_unified_governed_experience.py
-python scripts/check_ecosystem_chat_boundary.py
-python scripts/check_site_hps_visualization.py
-python scripts/run_site_task.py test-readiness
-python scripts/run_site_task.py mirror-readiness
-python scripts/run_site_task.py public-guard
-python scripts/run_site_task.py live-url
-python scripts/run_site_task.py tt-status
-python scripts/run_site_task.py external-evidence
-python scripts/run_site_task.py task-elimination-guard
-python scripts/run_site_task.py local-completion-receipt
-python scripts/run_site_task.py autonomous-continuation
-python scripts/run_site_task.py universal-ingest
-python scripts/run_site_task.py all-local
+No additional workflow should be created for Ecosystem Chat traversal, HPS, provider, solver, cost, or usage work. Add validators and declared tasks behind the two stable workflows.
 ```
 
 ## Remaining targets
 
+### StegVerse-Labs/Site
+
 ```text
-StegVerse-Labs/Site:
-  - verify Site Bootstrap Validate passes
-  - verify Site Task Runner all-local passes after HPS visualization preview installation
-  - confirm no legacy guard workflows remain active beyond validate.yml and site-task-runner.yml
-  - update public verification JSON only after live URL passes
-  - keep Ecosystem Chat as a single-primary-path preview page
-  - phase 4 next: render HPS fixture visibly in Ecosystem Chat without granting live authority
-  - connect live_governed_gateway.py, provider clients, cost model, usage metrics, math solver, and HPS live payloads behind the preview boundary when backend authority path exists
+1. Verify validate and all-local on the current main branch.
+2. Confirm GitHub Pages publishes the visible HPS panel and traversal behavior.
+3. Preserve preview-only behavior while adding a provider-status contract fixture.
+4. Add cost, quota, latency, fallback, and usage fields as bounded display contracts before live provider calls.
+5. Add a governed math-solver response fixture and checker before live solver execution.
+6. Define the backend authority handshake required to change STEGVERSE_LOCAL_MODE.
+7. Do not update public verification JSON until the live URL checker confirms the deployed state.
+```
 
-StegVerse-org/StegVerse-SDK:
-  - ingest quota/receipt/replay metadata contract from StegVerse-org/LLM-adapter
-  - ingest interaction_profile, math_solver_supported, transition_intent, and transition_destination fields from Ecosystem Chat
+### StegVerse-org/StegVerse-SDK
 
-GCAT-BCAT-Engine/Publisher:
-  - publication/import awareness after Site mirror validation
+```text
+- ingest interaction_profile
+- ingest interaction_bands
+- ingest math_solver_supported
+- ingest transition_intent and transition_destination
+- ingest HPS display posture without treating display as authority
+- return explicit authority, execution, receipt, replay, reconstruction, quota, cost, and provider fields
+```
 
-admissibility-wiki:
-  - downstream summary after Site mirror validation
+### StegVerse-org/LLM-adapter
 
-stegguardian-wiki:
-  - downstream summary after Site mirror validation
+```text
+- provide bounded provider-routing contract
+- provide quota and free-tier counters
+- provide cost and latency accounting schema
+- provide fallback posture
+- preserve no-capability-by-payment governance rule
+```
+
+### Downstream publication targets
+
+```text
+GCAT-BCAT-Engine/Publisher: publication/import awareness after Site validation
+StegVerse-Labs/admissibility-wiki: downstream implementation summary after Site validation
+stegguardian-wiki: boundary and authority summary after Site validation
+StegVerse-Labs/Sit: integration status after Site validation
+```
+
+## Next integration goal
+
+```text
+Phase 6: bounded provider-status, cost, quota, latency, and usage visualization contract.
+
+The next phase should begin with fixtures and validators, not live provider execution. The public page may display declared provider posture only when it remains clearly distinguished from actual model invocation, current pricing, authority, execution, or proof.
 ```
 
 ## Handoff instruction
 
-Continue from this file before relying on prior chat context. The complete thread can be archived without needing additional context to continue.
+Continue from this file before relying on prior conversation context. The complete thread is ready for archiving; no additional part of the thread is needed to move forward.
