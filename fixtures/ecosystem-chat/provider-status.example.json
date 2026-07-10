@@ -1,0 +1,48 @@
+{
+  "payload_type": "provider_status_preview",
+  "preview_only": true,
+  "live_invocation": false,
+  "authority_granted": false,
+  "execution_enabled": false,
+  "receipt_issued_by_site": false,
+  "pricing_current": false,
+  "provider": {
+    "route": "governed_provider_adapter",
+    "model": "declared-preview-model",
+    "fallback": "local_classification_only",
+    "status": "NOT_INVOKED"
+  },
+  "quota": {
+    "window": "daily",
+    "limit": 5,
+    "used": 1,
+    "remaining": 4,
+    "trial_total_limit": 25,
+    "trial_total_used": 7
+  },
+  "usage": {
+    "requests": 1,
+    "input_units": 420,
+    "output_units": 0,
+    "billable_units": 0
+  },
+  "cost": {
+    "currency": "USD",
+    "estimated": 0.0,
+    "billed": 0.0,
+    "pricing_source": "fixture_only_not_current"
+  },
+  "latency": {
+    "classification_ms": 6,
+    "provider_ms": null,
+    "total_ms": 6
+  },
+  "display": {
+    "summary": "Provider posture is displayed from a static fixture. No model was invoked, no current price was fetched, and no authority or receipt was issued.",
+    "bands": {
+      "quota_remaining": 0.8,
+      "trial_remaining": 0.72,
+      "provider_activity": 0.0
+    }
+  }
+}
