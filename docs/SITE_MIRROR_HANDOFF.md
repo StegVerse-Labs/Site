@@ -10,7 +10,7 @@ This file is the current source of truth for continuing the StegVerse-Labs/Site 
 Goal: unified governed Site experience centered on Ecosystem Chat as the primary operating surface
 Repository: StegVerse-Labs/Site
 Primary surface: ecosystem-chat.html
-Activation state: phase_10_execution_transition_dry_run_preview_installed
+Activation state: phase_11_backend_receipt_envelope_previews_installed
 Live backend state: not installed
 Site local mode: preserved true
 Live provider invocation: false
@@ -18,7 +18,9 @@ Live solver execution: false
 Authority preview states: DENY and ALLOW fixtures installed
 Execution preview state: DRY_RUN_ONLY
 State change: false
-Receipt issuance state: not issued by Site
+Receipt envelope state: backend-shaped previews installed
+Live signatures: false
+Verified receipt issuer: false
 Workflow standard: exactly two active workflows
 Documentation mesh state: shared endpoint registry and Site cross-wiki health record installed
 ```
@@ -40,12 +42,13 @@ Documentation mesh state: shared endpoint registry and Site cross-wiki health re
 - commit-time revalidation of identity, delegation, policy, evidence freshness, operation allowlist, and resource limits
 - authority input explicitly insufficient for execution by itself
 - execution state explicitly DRY_RUN_ONLY with no state change
-- provider, solver, repository mutation, and raw shell activity remain false
-- bounded resource limits declared while actual dry-run resource use remains zero
-- rollback availability, pre-state preservation, and operator interrupt posture installed
-- separate authority and execution receipt expectations remain backend-only
-- local mode preserved through authority and execution previews
-- replayable and reconstructable transition posture
+- backend-shaped authority receipt envelope preview
+- backend-shaped execution receipt envelope preview
+- authority and execution receipt artifacts remain distinct
+- preview-shaped SHA-256 digests with null signatures, null key IDs, and unverified issuers
+- receipt bindings include policy, evidence, validity, replay, reconstruction, resource use, state change, and supersession posture
+- Site receipt issuance remains false
+- local mode preserved through all previews
 - local SDK manifest and receipt-window previews
 - restricted-admin fail-closed routing
 ```
@@ -89,6 +92,8 @@ fixtures/ecosystem-chat/authority-handshake-positive-request.example.json
 fixtures/ecosystem-chat/authority-handshake-positive-response.example.json
 fixtures/ecosystem-chat/execution-transition-request.example.json
 fixtures/ecosystem-chat/execution-transition-response.example.json
+fixtures/ecosystem-chat/authority-receipt-envelope.example.json
+fixtures/ecosystem-chat/execution-receipt-envelope.example.json
 data/ecosystem-documentation-endpoints.json
 data/cross-wiki-health-status.json
 scripts/check_ecosystem_chat_boundary.py
@@ -98,6 +103,7 @@ scripts/check_ecosystem_chat_solver_response.py
 scripts/check_ecosystem_chat_authority_handshake.py
 scripts/check_ecosystem_chat_positive_authority.py
 scripts/check_ecosystem_chat_execution_transition.py
+scripts/check_ecosystem_chat_receipt_envelopes.py
 scripts/check_site_hps_visualization.py
 scripts/check_site_unified_governed_experience.py
 scripts/check_documentation_mesh_status.py
@@ -107,6 +113,7 @@ docs/ECOSYSTEM_CHAT_PROVIDER_STATUS.md
 docs/ECOSYSTEM_CHAT_SOLVER_STATUS.md
 docs/ECOSYSTEM_CHAT_AUTHORITY_HANDSHAKE.md
 docs/ECOSYSTEM_CHAT_EXECUTION_TRANSITION.md
+docs/ECOSYSTEM_CHAT_RECEIPT_ENVELOPES.md
 docs/SITE_MIRROR_HANDOFF.md
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
@@ -116,15 +123,15 @@ docs/SITE_MIRROR_HANDOFF.md
 
 ```text
 Site may draft, classify, visualize, and offer governed transition destinations.
-Site must not execute shell commands, access credentials, mutate repositories, grant admissibility, or issue governing receipts.
-A local hash must not be described as an authority-issued receipt.
-HPS, traversal, provider, solver, authority-handshake, and execution-transition inputs must fail closed when preview contracts are not satisfied.
+Site must not execute shell commands, access credentials, mutate repositories, grant admissibility, sign receipts, verify receipt issuers, or issue governing receipts.
+A local hash or preview digest must not be described as an authority-issued receipt or live signature.
+HPS, traversal, provider, solver, authority-handshake, execution-transition, and receipt-envelope inputs must fail closed when preview contracts are not satisfied.
 Provider fixture values must not be described as live provider state, current pricing, actual billing, account quota, or model availability.
 Solver fixture values must not be described as live execution or independent verification.
-Handshake or execution schema existence must not be treated as backend activation.
+Handshake, execution, or receipt schema existence must not be treated as backend activation.
 Authority ALLOW must remain distinct from execution.
 Commit-time revalidation PASS must remain distinct from state change.
-The dry-run fixture does not authorize provider calls, solver execution, repository mutation, raw shell use, or local-mode change.
+Receipt structure must remain distinct from cryptographic proof.
 Payment, quota, provider availability, solver correctness, endpoint registration, or documentation health must never be treated as execution standing.
 ```
 
@@ -140,6 +147,7 @@ python scripts/check_ecosystem_chat_solver_response.py
 python scripts/check_ecosystem_chat_authority_handshake.py
 python scripts/check_ecosystem_chat_positive_authority.py
 python scripts/check_ecosystem_chat_execution_transition.py
+python scripts/check_ecosystem_chat_receipt_envelopes.py
 python scripts/check_site_hps_visualization.py
 python scripts/check_site_unified_governed_experience.py
 python scripts/check_documentation_mesh_status.py
@@ -147,7 +155,7 @@ python scripts/run_site_task.py public-guard
 python scripts/run_site_task.py all-local
 ```
 
-The consolidated task runner includes authority and execution-transition checks in both `validate` and `public-guard`.
+The consolidated task runner includes receipt-envelope validation in both `validate` and `public-guard`.
 
 ## Workflow standard
 
@@ -155,7 +163,7 @@ The consolidated task runner includes authority and execution-transition checks 
 Active workflow 1: .github/workflows/validate.yml
 Active workflow 2: .github/workflows/site-task-runner.yml
 
-Do not create additional workflows for HPS, traversal, provider, solver, cost, quota, usage, authority evaluation, execution transition, or documentation-mesh work. Add validators and declared tasks behind the two stable workflows.
+Do not create additional workflows for HPS, traversal, provider, solver, authority, execution, receipt, or documentation-mesh work. Add validators and declared tasks behind the two stable workflows.
 ```
 
 ## Remaining targets
@@ -165,10 +173,10 @@ Do not create additional workflows for HPS, traversal, provider, solver, cost, q
 ```text
 1. Verify validate and all-local on the current main branch.
 2. Confirm GitHub Pages publishes HPS, traversal, provider, solver, endpoint-registry, and cross-wiki health surfaces.
-3. Define a backend-issued authority receipt fixture and a separate backend-issued execution receipt fixture without enabling live execution.
+3. Define actual receipt canonicalization and signature-verification contracts without enabling Site signing.
 4. Define live provider response provenance and pricing-source requirements.
 5. Define live solver operation allowlist, independent verification posture, and receipt path.
-6. Do not change STEGVERSE_LOCAL_MODE until a governed backend independently validates authority and execution at commit time and issues the required receipts.
+6. Do not change STEGVERSE_LOCAL_MODE until a governed backend independently validates authority and execution at commit time and issues verified receipts.
 7. Do not update public verification JSON until the live URL checker confirms deployed state.
 ```
 
@@ -176,10 +184,11 @@ Do not create additional workflows for HPS, traversal, provider, solver, cost, q
 
 ```text
 - ingest interaction profile and bands
-- ingest HPS, provider, solver, authority, and execution-transition posture
+- ingest HPS, provider, solver, authority, execution, and receipt posture
 - independently reconstruct identity, delegation, policy, evidence freshness, operation allowlisting, resource limits, recoverability, and actual resource use
-- consume authority result as input to a separate execution transition
-- return explicit authority, execution, provider, solver, pricing, state-change, rollback, and receipt results
+- canonicalize and verify receipt envelopes using governed backend keys
+- keep authority and execution receipts separate
+- return explicit authority, execution, provider, solver, pricing, state-change, rollback, signature, issuer, and supersession results
 ```
 
 ### StegVerse-org/LLM-adapter
@@ -219,9 +228,9 @@ StegVerse-Labs/Sit: integration status after Site validation
 ## Next integration goal
 
 ```text
-Phase 11: backend receipt-envelope fixtures for authority and execution transitions.
+Phase 12: canonical receipt payload and signature-verification preview contracts.
 
-The receipts must remain backend-issued preview artifacts, cryptographically-shaped but not falsely claimed as live signatures. They must bind request ID, transition type, authority/execution result, policy and evidence references, commit-time validity, resource use, state-change posture, issuer class, replay data, reconstruction data, and supersession posture.
+Add canonical payload fixtures, digest recomputation checks, governed key metadata, signature-verification result posture, expiry/revocation fields, and fail-closed handling. Do not include or claim a live private key or valid production signature.
 ```
 
 ## Handoff instruction
