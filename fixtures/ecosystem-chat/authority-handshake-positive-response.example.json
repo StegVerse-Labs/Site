@@ -1,0 +1,48 @@
+{
+  "payload_type": "authority_handshake_response_preview",
+  "preview_only": true,
+  "request_id": "ahr_site_preview_allow_001",
+  "site_local_mode_before": true,
+  "site_local_mode_after": true,
+  "authority": {
+    "result": "ALLOW",
+    "reason_codes": [
+      "IDENTITY_VERIFIED",
+      "DELEGATION_VALID",
+      "POLICY_CURRENT",
+      "EVIDENCE_FRESH_COMPLETE",
+      "OPERATION_ALLOWLISTED",
+      "RESOURCE_LIMITS_BOUNDED"
+    ],
+    "authority_granted": true,
+    "scope": ["ecosystem_chat.gateway.evaluate"]
+  },
+  "execution": {
+    "result": "NOT_ATTEMPTED",
+    "execution_enabled": false,
+    "provider_invoked": false,
+    "solver_executed": false,
+    "repository_mutated": false
+  },
+  "receipt": {
+    "authority_receipt_issued": false,
+    "execution_receipt_issued": false,
+    "receipt_id": null,
+    "receipt_issuer": null,
+    "required_issuer": "governed_backend_authority"
+  },
+  "continuity": {
+    "fail_closed": true,
+    "replayable_request": true,
+    "reconstructable_decision": true,
+    "local_mode_preserved": true,
+    "authority_execution_separated": true
+  },
+  "next_requirements": [
+    "obtain backend-issued authority receipt",
+    "submit a separate execution transition",
+    "revalidate identity delegation policy and evidence at execution time",
+    "enforce bounded provider solver time and cost limits",
+    "issue execution receipt only from governing backend after execution result"
+  ]
+}
