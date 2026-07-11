@@ -29,16 +29,6 @@ on:
       - Site Bootstrap Validate
     types:
       - completed
-  push:
-    paths:
-      - 'index.html'
-      - 'governed-ecosystem.html'
-      - 'ecosystem-chat.html'
-      - 'data/**'
-      - 'docs/**'
-      - 'ingestion/**'
-      - 'scripts/**'
-      - '.github/workflows/site-task-runner.yml'
 
 permissions:
   contents: write
@@ -54,7 +44,10 @@ concurrency:
 
 jobs:
   run-site-task:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
@@ -136,6 +129,7 @@ jobs:
           retention-days: 14
 
       - name: Commit generated Site state
+        if: github.ref == 'refs/heads/main'
         working-directory: site
         run: |
           git config user.name "github-actions[bot]"
@@ -149,17 +143,23 @@ jobs:
             git push
           fi
 
+      - name: Skip generated state commit on non-main refs
+        if: github.ref != 'refs/heads/main'
+        run: echo "Validation-only ref; generated state commit is restricted to main."
+
       - name: Configure Pages
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
       - name: Deploy Pages
         id: deployment
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/deploy-pages@v4
 
       - name: Write summary
@@ -169,6 +169,7 @@ jobs:
           echo "## Site Task Runner" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Trigger: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/site-task-diagnostic.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
@@ -180,5 +181,5 @@ jobs:
           print(f"Authority effect: {receipt['authority_effect']}")
           PY
           fi
-          echo "Workflow role: stable declared-task execution surface plus GitHub Pages deployment." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: generated Site state is committed only after task validation completes." >> "$GITHUB_STEP_SUMMARY"
+          echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on main." >> "$GITHUB_STEP_SUMMARY"
+          echo "Boundary: generated Site state is committed and deployed only from main after task validation succeeds." >> "$GITHUB_STEP_SUMMARY"
