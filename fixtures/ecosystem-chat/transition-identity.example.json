@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "governed_transition_relationship",
+  "transition_id": "transition.site.ecosystem-chat.example-session.0001",
+  "run_id": "site-chat-run.example-session.0001",
+  "lifecycle_state": "DECLARED",
+  "origin": {
+    "origin_class": "SITE_INPUT",
+    "event_id": "site-chat-event:example-session:0001",
+    "origin_manifest_id": "origin.site.ecosystem-chat.example-session.0001",
+    "observed_at": "2026-07-11T00:00:00Z",
+    "source_ref": "StegVerse-Labs/Site/ecosystem-chat.html"
+  },
+  "relationships": {
+    "parent_transition_id": null,
+    "previous_receipt_id": null,
+    "actor_ref": "site-session:example-session",
+    "target_ref": "repository:StegVerse-Labs/hybrid-collab-bridge",
+    "repository_ref": "StegVerse-Labs/Site",
+    "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
+    "task_ref": "task:ecosystem-chat:build",
+    "next_task_ref": null
+  },
+  "governance": {
+    "policy_refs": ["policy:site-preview-only", "policy:ecosystem-chat-candidate"],
+    "delegation_refs": [],
+    "evidence_refs": ["evidence:site-chat-message:site-chat-event:example-session:0001"],
+    "micro_node_manifest_ref": null,
+    "admissibility_result": "PENDING",
+    "commit_time_validity": "PENDING"
+  },
+  "execution": {
+    "action_ref": null,
+    "verification_ref": null,
+    "resulting_state_ref": null
+  },
+  "continuity": {
+    "final_receipt_id": null,
+    "master_record_ref": null,
+    "master_record_status": "NOT_YET_SUBMITTED",
+    "reconstruction_status": "NOT_YET_CHECKED"
+  },
+  "projection": {
+    "site_visibility": "SUMMARY",
+    "wiki_visibility": "SUMMARY",
+    "redaction_class": "PUBLIC_REDACTED"
+  },
+  "preview_payload": {
+    "message": "continue building Site",
+    "requested_route": "Site",
+    "transition_intent": "build",
+    "interaction_profile": {
+      "intra": 60,
+      "inter": 0,
+      "research": 0,
+      "provider": 0,
+      "solver": 0,
+      "receipt": 20
+    },
+    "raw_shell_allowed": false,
+    "execution_authorized": false,
+    "receipt_issued": false
+  }
+}
