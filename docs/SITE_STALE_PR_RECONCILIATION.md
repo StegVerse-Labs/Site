@@ -3,9 +3,9 @@
 This record reconciles Site PRs `#8`, `#9`, and `#10` against current `main`.
 
 ```text
-PR #8: stale and superseded; repair-queue validator installed directly on main
-PR #9: stale and conflicted; useful workflow guards and validator reconciled onto main
-PR #10: stale and conflicted; Governance Observatory Boundary already present on main
+PR #8: CLOSED UNMERGED — stale and superseded; repair-queue validator installed directly on main
+PR #9: CLOSED UNMERGED — stale and conflicted; useful workflow guards and validator reconciled onto main
+PR #10: CLOSED UNMERGED — stale and conflicted; Governance Observatory Boundary already present on main
 ```
 
 Current-main reconciliation commits:
@@ -19,4 +19,12 @@ e9e0f79717ed6c490c19058f5c74ea9804680f3e
 
 `scripts/check_repo_operations_repair_queue.py` is registered in both `validate` and `public-guard`.
 
-Closing the stale PRs does not merge their branches, resolve conflicts into current `main`, grant deployment authority, or infer validation success. Current-main checks remain authoritative.
+Closure evidence:
+
+```text
+PR #8 closed without merge on 2026-07-11
+PR #9 closed without merge on 2026-07-11
+PR #10 closed without merge on 2026-07-11
+```
+
+Closing the stale PRs did not merge their branches, resolve conflicts into current `main`, grant deployment authority, or infer validation success. Current-main checks remain authoritative.
