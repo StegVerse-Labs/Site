@@ -19,9 +19,11 @@ SOURCE_WORKFLOW = "Runtime Evidence Validation"
 ARTIFACT_NAME = "governed-transition-index-export"
 INDEX_MEMBER = "reports/governed_transition_index.generated.json"
 RECEIPT_MEMBER = "reports/governed_transition_index.export-receipt.json"
+EXECUTOR_MEMBER = "reports/governed_executor_handoff.active.generated.json"
 IMPORTER = ROOT / "scripts" / "import_governed_transition_index.py"
 OUTPUT = ROOT / "data" / "governed-transition-index.json"
 STATUS = ROOT / "data" / "governed-transition-index-import-status.json"
+EXECUTOR_OUTPUT = ROOT / "data" / "governed-executor-status.json"
 API_ROOT = "https://api.github.com"
 
 
@@ -82,19 +84,20 @@ def select_artifact(payload: dict[str, Any]) -> dict[str, Any]:
     raise AcquisitionError("required governed-transition-index-export artifact not found")
 
 
-def safe_extract(archive: Path, destination: Path) -> tuple[Path, Path]:
+def safe_extract(archive: Path, destination: Path) -> tuple[Path, Path, Path]:
+    required = (INDEX_MEMBER, RECEIPT_MEMBER, EXECUTOR_MEMBER)
     with zipfile.ZipFile(archive) as bundle:
         names = set(bundle.namelist())
-        missing = [name for name in (INDEX_MEMBER, RECEIPT_MEMBER) if name not in names]
+        missing = [name for name in required if name not in names]
         if missing:
             raise AcquisitionError(f"artifact missing required members: {missing}")
-        for member in (INDEX_MEMBER, RECEIPT_MEMBER):
+        for member in required:
             target = (destination / member).resolve()
             if destination.resolve() not in target.parents:
                 raise AcquisitionError("artifact contains unsafe member path")
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(bundle.read(member))
-    return destination / INDEX_MEMBER, destination / RECEIPT_MEMBER
+    return destination / INDEX_MEMBER, destination / RECEIPT_MEMBER, destination / EXECUTOR_MEMBER
 
 
 def activate_fallback(reason: str) -> int:
@@ -104,6 +107,7 @@ def activate_fallback(reason: str) -> int:
             str(IMPORTER),
             "--output", str(OUTPUT),
             "--status", str(STATUS),
+            "--executor-output", str(EXECUTOR_OUTPUT),
             "--allow-local-fallback",
         ],
         cwd=ROOT,
@@ -174,15 +178,17 @@ def main() -> int:
                 token,
                 archive,
             )
-            index_path, receipt_path = safe_extract(archive, temp / "extracted")
+            index_path, receipt_path, executor_path = safe_extract(archive, temp / "extracted")
             result = subprocess.run(
                 [
                     sys.executable,
                     str(IMPORTER),
                     "--index", str(index_path),
                     "--receipt", str(receipt_path),
+                    "--executor-handoff", str(executor_path),
                     "--output", str(OUTPUT),
                     "--status", str(STATUS),
+                    "--executor-output", str(EXECUTOR_OUTPUT),
                 ],
                 cwd=ROOT,
                 text=True,
@@ -192,7 +198,7 @@ def main() -> int:
             )
             print(result.stdout, end="")
             if result.returncode != 0:
-                raise AcquisitionError("existing governed transition importer rejected the acquired artifact")
+                raise AcquisitionError("governed transition importer rejected the acquired artifact")
 
         status = json.loads(STATUS.read_text(encoding="utf-8"))
         status.update({
@@ -200,10 +206,10 @@ def main() -> int:
             "source_workflow_run_url": run.get("html_url"),
             "source_artifact_id": str(artifact.get("id")),
             "source_artifact_name": artifact.get("name"),
-            "acquisition_reason": "latest_successful_receipted_export",
+            "acquisition_reason": "latest_successful_receipted_export_with_executor_state",
         })
         STATUS.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
-        print(f"GOVERNED TRANSITION ARTIFACT ACQUISITION: PASS (run={run_id}, artifact={artifact['id']})")
+        print(f"GOVERNED TRANSITION ARTIFACT ACQUISITION: PASS (run={run_id}, artifact={artifact['id']}, executor=ACTIVE)")
         return 0
     except (AcquisitionError, zipfile.BadZipFile) as exc:
         if args.require_artifact:
