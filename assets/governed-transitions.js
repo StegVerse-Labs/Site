@@ -6,6 +6,7 @@
   const stateEl = document.getElementById('state');
   const originEl = document.getElementById('origin');
   let records = [];
+  let importStatus = null;
 
   const esc = (value) => String(value ?? '—').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
@@ -61,7 +62,10 @@
     });
     renderSummary(visible);
     recordsEl.innerHTML = visible.map(card).join('') || '<p>No transitions match the current filters.</p>';
-    statusEl.textContent = `${visible.length} of ${records.length} transition records shown.`;
+    const provenance = importStatus
+      ? `${importStatus.state}; source=${importStatus.source}; hash_verified=${importStatus.hash_verified}; live_feed=${importStatus.live_orchestration_feed}`
+      : 'import status unavailable';
+    statusEl.textContent = `${visible.length} of ${records.length} transition records shown. Projection provenance: ${provenance}.`;
   }
 
   function fill(select, values) {
@@ -73,16 +77,24 @@
     });
   }
 
-  fetch('data/governed-transition-index.json', {cache: 'no-store'})
-    .then((response) => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
+  Promise.all([
+    fetch('data/governed-transition-index.json', {cache: 'no-store'}),
+    fetch('data/governed-transition-index-import-status.json', {cache: 'no-store'}),
+  ])
+    .then(async ([indexResponse, statusResponse]) => {
+      if (!indexResponse.ok) throw new Error(`index HTTP ${indexResponse.status}`);
+      if (!statusResponse.ok) throw new Error(`import status HTTP ${statusResponse.status}`);
+      return [await indexResponse.json(), await statusResponse.json()];
     })
-    .then((data) => {
+    .then(([data, status]) => {
       if (data.projection_type !== 'governed_transition_index' || !Array.isArray(data.records)) {
         throw new Error('projection contract mismatch');
       }
+      if (status.status_type !== 'governed_transition_index_import_status') {
+        throw new Error('import status contract mismatch');
+      }
       records = data.records.filter((item) => item.site_visibility !== 'HIDDEN');
+      importStatus = status;
       fill(stateEl, records.map((item) => item.lifecycle_state));
       fill(originEl, records.map((item) => item.origin_class));
       render();
