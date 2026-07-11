@@ -45,6 +45,7 @@ def validate() -> None:
     run_if_present("scripts/check_ecosystem_chat_authority_handshake.py")
     run_if_present("scripts/check_ecosystem_chat_positive_authority.py")
     run_if_present("scripts/check_ecosystem_chat_execution_transition.py")
+    run_if_present("scripts/check_ecosystem_chat_receipt_envelopes.py")
     run_if_present("scripts/check_site_hps_visualization.py")
     run_if_present("scripts/check_site_unified_governed_experience.py")
     run_if_present("scripts/check_documentation_mesh_status.py")
@@ -94,6 +95,7 @@ def public_guard() -> None:
         "scripts/check_ecosystem_chat_authority_handshake.py",
         "scripts/check_ecosystem_chat_positive_authority.py",
         "scripts/check_ecosystem_chat_execution_transition.py",
+        "scripts/check_ecosystem_chat_receipt_envelopes.py",
         "scripts/check_documentation_mesh_status.py",
         "scripts/check_site_final_activation_pending.py",
         "scripts/check_site_governed_ecosystem_mirror.py",
