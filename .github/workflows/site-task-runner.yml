@@ -21,6 +21,7 @@ on:
           - local-completion-receipt
           - autonomous-continuation
           - universal-ingest
+          - import-governed-transition-index
   schedule:
     - cron: '17 */6 * * *'
   workflow_run:
@@ -43,6 +44,9 @@ permissions:
   contents: write
   pages: write
   id-token: write
+
+env:
+  STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
 
 concurrency:
   group: site-task-runner
@@ -75,7 +79,7 @@ jobs:
       - name: Resolve TT checkout mode
         id: tt_mode
         run: |
-          if [ -n "${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}" ]; then
+          if [ -n "${STEGVERSE_REPO_SYNC_TOKEN:-}" ]; then
             echo "use_private_checkout=true" >> "$GITHUB_OUTPUT"
           else
             echo "use_private_checkout=false" >> "$GITHUB_OUTPUT"
@@ -141,6 +145,7 @@ jobs:
             echo "No generated Site state changes to commit."
           else
             git commit -m "Update Site generated state"
+            git pull --rebase
             git push
           fi
 
