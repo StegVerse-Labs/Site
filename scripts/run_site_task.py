@@ -125,6 +125,7 @@ def validate() -> None:
     run_if_present("scripts/check_governed_transition_index_import.py")
     run_if_present("scripts/check_site_task_diagnostic_contract.py")
     run_if_present("scripts/check_repo_operations_repair_queue.py")
+    run_if_present("scripts/check_site_workflow_inventory.py")
     test_readiness()
 
 
@@ -185,6 +186,7 @@ def public_guard() -> None:
         "scripts/check_governed_transition_index_import.py",
         "scripts/check_site_task_diagnostic_contract.py",
         "scripts/check_repo_operations_repair_queue.py",
+        "scripts/check_site_workflow_inventory.py",
         "scripts/check_site_final_activation_pending.py",
         "scripts/check_site_governed_ecosystem_mirror.py",
         "scripts/check_site_mirror_handoff_final_pending.py",
