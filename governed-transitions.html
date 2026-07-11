@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Governed Ecosystem Transitions | StegVerse</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; }
+    body { margin: 0; background: #08111f; color: #eef6ff; }
+    main { max-width: 1120px; margin: auto; padding: 32px 20px 72px; }
+    a { color: #9bd7ff; }
+    .eyebrow { letter-spacing: .12em; text-transform: uppercase; color: #8fb4ce; font-size: .78rem; }
+    h1 { font-size: clamp(2rem, 5vw, 4rem); margin: .35rem 0 1rem; }
+    .lede { max-width: 760px; color: #bfd0df; line-height: 1.65; }
+    .boundary { border: 1px solid #334b62; background: #0d1a2a; padding: 16px; border-radius: 14px; margin: 24px 0; }
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
+    select, input { background: #0c1826; color: #eef6ff; border: 1px solid #385069; border-radius: 10px; padding: 10px 12px; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 12px; margin: 22px 0; }
+    .metric, .card { border: 1px solid #2c4156; background: #0c1826; border-radius: 14px; }
+    .metric { padding: 15px; }
+    .metric strong { display: block; font-size: 1.6rem; }
+    .grid { display: grid; gap: 16px; }
+    .card { padding: 18px; }
+    .row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .tag { border: 1px solid #44617d; border-radius: 999px; padding: 4px 9px; font-size: .76rem; }
+    dl { display: grid; grid-template-columns: minmax(130px, .35fr) 1fr; gap: 8px 16px; margin: 18px 0 0; }
+    dt { color: #8fb4ce; }
+    dd { margin: 0; overflow-wrap: anywhere; }
+    .pending { color: #ffd596; }
+    .complete { color: #9ef0bb; }
+    .error { color: #ff9f9f; }
+    footer { margin-top: 42px; color: #8fa6b8; }
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">StegVerse operational projection</p>
+  <h1>Governed Ecosystem Transitions</h1>
+  <p class="lede">A relationship-first view of transition candidates, handoffs, verification, final receipts, Master-Records custody, and reconstruction posture. This page reads the same projection contract used by the bootstrap notification model and the developing native orchestration layer.</p>
+
+  <div class="boundary"><strong>Authority boundary:</strong> This page is a derived public projection. It does not authorize, execute, sign, admit records, or replace orchestration and Master-Records as continuity sources.</div>
+
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search transition, repo, task…" aria-label="Search transitions" />
+    <select id="state" aria-label="Filter lifecycle state"><option value="">All lifecycle states</option></select>
+    <select id="origin" aria-label="Filter origin"><option value="">All origins</option></select>
+  </div>
+
+  <section id="summary" class="summary" aria-label="Transition summary"></section>
+  <section id="records" class="grid" aria-live="polite"></section>
+  <p id="status">Loading transition projection…</p>
+
+  <footer>
+    <p>Formal governance explanation: <a href="https://stegverse-labs.github.io/admissibility-wiki/governance/admissible-automated-transitions">Admissible Automated Transitions</a>.</p>
+    <p><a href="ecosystem-chat.html">Return to Ecosystem Chat</a></p>
+  </footer>
+</main>
+<script src="assets/governed-transitions.js" defer></script>
+</body>
+</html>
