@@ -54,6 +54,18 @@ SDK backend response fixture state: installed
 SDK backend submission state: not installed
 ```
 
+## Machine-readable boundary declarations
+
+```yaml
+raw_shell_allowed: false
+authority_required: true
+rate_limit_required: true
+receipt_required_for_execution: true
+restricted_admin_route: "Restricted admin"
+```
+
+These declarations describe the Site preview boundary only. They do not grant execution, repository mutation, deployment, receipt issuance, or ecosystem-wide authority.
+
 ## UX contract
 
 The public page must not return to a multi-entry console or task-launcher shape.
