@@ -10,7 +10,7 @@ Canonical handoff path: `docs/SITE_MIRROR_HANDOFF.md`
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: first-failing-validator-repair-installed
+Phase: second-failing-validator-repair-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site remains preview-only
@@ -21,7 +21,7 @@ Live solver execution: false
 Live signatures: false
 Verified receipt issuer: false
 Workflow standard: exactly two active workflows
-Result: BOUNDED_VALIDATOR_REPAIR_INSTALLED_VALIDATION_PENDING
+Result: BOUNDED_BOUNDARY_DOC_REPAIR_INSTALLED_VALIDATION_PENDING
 ```
 
 ## Governed transition observatory
@@ -129,29 +129,36 @@ No workflow was added.
 Branch: main
 Workflow: Site Task Runner
 Job: run-site-task
-Run: 29162235846
-Commit: ddae4ec4a122e1ec1a60832ae4556c5dab7765f8
+Run: 29162414799
+Commit: 145878cbea0b53ce8820e32b39424d1ea35d3e62
 Selected task: all-local
-Diagnostic artifact: site-task-diagnostic-29162235846-1
-Artifact digest: sha256:74bdc68249c3f5ba03dc5fee15bf5d68575b94e18b5bf4f34bae4a2124aab140
+Diagnostic artifact: site-task-diagnostic-29162414799-1
+Artifact digest: sha256:e136e9440cd800041745c5df692dc2a67ffe3f5d329269c0fbcc08c8b8316587
 Diagnostic status: FAILED
-Failed validator: scripts/check_ecosystem_chat_application.py
-Validator index: 1
+Completed validator: scripts/check_ecosystem_chat_application.py
+Failed validator: scripts/check_ecosystem_chat_boundary.py
+Validator index: 2
 Exit code: 1
+Failure class: VALIDATION_FAILURE
 Authority effect: NONE
 Site mode: PREVIEW_ONLY
 State change authorized: false
 ```
 
-The diagnostic artifact was generated and uploaded successfully. It identified the first failing validator without inference.
+The prior canonical handoff-path repair passed: `scripts/check_ecosystem_chat_application.py` completed successfully. The diagnostic advanced deterministically to validator 2.
 
-The nested validator output showed that all AI-entry checks, cross-wiki metadata graph checks, and media-pipeline mirror checks passed except one exact handoff declaration:
+The second validator reported an exact repository-local documentation drift:
 
 ```text
-FAIL docs/SITE_MIRROR_HANDOFF.md missing docs/SITE_MIRROR_HANDOFF.md
+docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md missing required text:
+raw_shell_allowed
+authority_required
+rate_limit_required
+receipt_required_for_execution
+Restricted admin
 ```
 
-This was a repository-local documentation contract mismatch. The handoff now contains the canonical path declaration `docs/SITE_MIRROR_HANDOFF.md`. No validator was weakened, and no deployment, receipt, custody, admissibility, execution, or external-repository boundary changed.
+The boundary document now preserves those exact fixture-aligned declarations while explicitly retaining preview-only, no-backend, no-execution, and no-authority posture. No validator was weakened.
 
 ## Latest bounded build
 
@@ -164,9 +171,14 @@ Commit: 4e924f4f762cbddb061e444b6236aaffd44c53f8
 File: .github/workflows/site-task-runner.yml
 Change: upload the diagnostic artifact on success or failure and include its key fields in the workflow summary.
 
-Current repair:
+Commit: 145878cbea0b53ce8820e32b39424d1ea35d3e62
 File: docs/SITE_MIRROR_HANDOFF.md
-Change: restore the exact canonical handoff-path declaration required by the media-pipeline mirror validator and record the diagnostic artifact evidence.
+Change: restore the exact canonical handoff-path declaration required by the media-pipeline mirror validator.
+Verification: passed; validator 1 completed in run 29162414799.
+
+Commit: 14bd5e686f3977fd28036e99a39b1562a0f2dad0
+File: docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md
+Change: restore exact machine-readable boundary declarations required by the boundary validator without enabling any live capability or authority.
 Authority effect: none.
 Verification: pending the next validate, public-guard, and all-local runs.
 ```
@@ -175,9 +187,10 @@ Verification: pending the next validate, public-guard, and all-local runs.
 
 ```text
 StegVerse-Labs/Site:
-  - verify the canonical handoff-path repair
+  - verify the ecosystem boundary-document repair
   - verify validate and public-guard
-  - verify all-local progresses beyond validator 1
+  - verify all-local progresses beyond validator 2
+  - inspect and repair only any successor diagnostic validator
   - governed artifact acquisition as a declared task
   - live URL verification for page, index, and import status
   - Ecosystem Chat transition identity linkage
@@ -197,7 +210,7 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify the current Site Task Runner diagnostic no longer fails on the canonical handoff path.
+1. Verify the current Site Task Runner diagnostic no longer fails on scripts/check_ecosystem_chat_boundary.py.
 2. Verify validate and public-guard both pass.
 3. Inspect any successor diagnostic and repair only the next recorded validator if one fails.
 4. Add a declared artifact-acquisition task behind one existing workflow.
@@ -208,4 +221,4 @@ Downstream after validation:
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, authority boundaries, diagnostic receipt contract, exact failing validator, bounded repair, remaining work, and next task. Earlier conversation context is not required.
+This handoff contains the current Site architecture, authority boundaries, diagnostic receipt contract, verified validator progression, bounded second-validator repair, remaining work, and next task. Earlier conversation context is not required.
