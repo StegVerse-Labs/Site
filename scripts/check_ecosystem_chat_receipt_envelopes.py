@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Validate authority and execution receipt envelope preview contracts."""
+"""Validate authority, execution, and transition identity preview contracts."""
 
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTH = ROOT / "fixtures" / "ecosystem-chat" / "authority-receipt-envelope.example.json"
 EXEC = ROOT / "fixtures" / "ecosystem-chat" / "execution-receipt-envelope.example.json"
+IDENTITY_VALIDATOR = ROOT / "scripts" / "check_ecosystem_chat_transition_identity.py"
 
 
 def fail(message: str) -> int:
@@ -113,7 +116,21 @@ def main() -> int:
     if "authority-receipt-envelope.example.json" not in exec_required:
         return fail("execution reconstruction is missing authority receipt pointer")
 
-    print("PASS: receipt envelopes bind transitions without claiming live signatures")
+    if not IDENTITY_VALIDATOR.exists():
+        return fail("transition identity validator is missing")
+    completed = subprocess.run(
+        [sys.executable, str(IDENTITY_VALIDATOR)],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    print(completed.stdout, end="")
+    if completed.returncode != 0:
+        return fail("transition identity contract failed")
+
+    print("PASS: receipt envelopes and transition identity bind previews without claiming live signatures or execution")
     return 0
 
 
