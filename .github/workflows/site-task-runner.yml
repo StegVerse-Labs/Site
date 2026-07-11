@@ -122,6 +122,15 @@ jobs:
         working-directory: site
         run: python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
 
+      - name: Upload Site task diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-task-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}
+          path: site/reports/site-task-diagnostic.json
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Commit generated Site state
         working-directory: site
         run: |
@@ -155,5 +164,16 @@ jobs:
           echo "## Site Task Runner" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f reports/site-task-diagnostic.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('reports/site-task-diagnostic.json').read_text())
+          print(f"Status: {receipt['status']}")
+          print(f"Failed validator: {receipt.get('failed_validator') or 'none'}")
+          print(f"Exit code: {receipt['exit_code']}")
+          print(f"Authority effect: {receipt['authority_effect']}")
+          PY
+          fi
           echo "Workflow role: stable declared-task execution surface plus GitHub Pages deployment." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: generated Site state is committed only after task validation completes."
+          echo "Boundary: generated Site state is committed only after task validation completes." >> "$GITHUB_STEP_SUMMARY"
