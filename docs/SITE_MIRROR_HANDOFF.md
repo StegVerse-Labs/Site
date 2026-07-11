@@ -10,7 +10,7 @@ Canonical path: `docs/SITE_MIRROR_HANDOFF.md`
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: workflow-consolidation-and-validator-progression
+Phase: governed-transition-acquisition-and-public-verification-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site mode: PREVIEW_ONLY
@@ -20,7 +20,7 @@ Live solver execution: false
 Live signatures: false
 Verified receipt issuer: false
 Workflow target: exactly two operational repository workflows
-Result: BOUNDED_REPAIRS_INSTALLED_LIVE_VALIDATION_PENDING
+Result: BOUNDED_IMPLEMENTATION_INSTALLED_LIVE_VALIDATION_PENDING
 ```
 
 ## Non-negotiable boundary
@@ -42,7 +42,11 @@ Main:
 main push
   -> Site Bootstrap Validate / bootstrap-validate
   -> only after success: Site Task Runner / run-site-task
+  -> acquire governed transition projection
   -> all-local
+  -> commit generated bounded Site state
+  -> deploy Pages
+  -> verify governed transition page, index, and import-status URLs
   -> site-task-diagnostic-<run>-<attempt>
 ```
 
@@ -65,24 +69,6 @@ Installed:
 scripts/write_site_workflow_inventory.py
 scripts/check_site_workflow_inventory.py
 data/site-workflow-inventory.json
-```
-
-The inventory records every repository workflow file, its triggers, job presence, operational classification, write permissions, secret use, artifact upload, Pages deployment, git push, and release/tag capability.
-
-Installed commits:
-
-```text
-0f6b1500b58176d98995cacd6147fe352111bb27
-  initial workflow inventory writer
-
-fd8901c9c0e83bc7571072158c44b46bf369d190
-  operational workflow inventory guard
-
-cc508ec835e5bf8582f2fca7c76812e0c7ef90c9
-  has_jobs and operational classification added
-
-7a804a258a12c576de05dbef0caf1c09dd45c7e5
-  Bootstrap now enforces the two-operational-workflow guard
 ```
 
 Completion condition:
@@ -131,7 +117,7 @@ site_mode = PREVIEW_ONLY
 state_change_authorized = false
 ```
 
-## Latest Site Task Runner evidence
+## Latest recorded Site Task Runner evidence
 
 ```text
 Workflow: Site Task Runner
@@ -147,27 +133,15 @@ Authority effect: NONE
 Site mode: PREVIEW_ONLY
 State change authorized: false
 Artifact: site-task-diagnostic-29166812942-1
-Artifact digest: sha256:3f9ac587c82b970d5ae9114b163b78889baf5464fcf278ca926a913cea9d9680
 ```
 
-Exact failure:
+Exact historical failure:
 
 ```text
 docs/ECOSYSTEM_CHAT_UX_STATUS.md missing required text: credential
 ```
 
-Bounded repair installed:
-
-```text
-File: docs/ECOSYSTEM_CHAT_UX_STATUS.md
-Commit: eb33a3eb1563fe712ef0aff8a6242fa1dc4b85d9
-Change: explicit credential access prohibition added
-Authority effect: NONE
-Workflow change: none
-Live verification: pending
-```
-
-No validator was weakened. No deployment, release, tag, merge, credential use, or authority expansion occurred.
+Bounded repair was installed in commit `eb33a3eb1563fe712ef0aff8a6242fa1dc4b85d9`. Current-head verification remains pending. No validator was weakened.
 
 ## Governed transition observatory
 
@@ -182,11 +156,12 @@ scripts/check_governed_transition_observatory.py
 scripts/import_governed_transition_index.py
 scripts/check_governed_transition_index_import.py
 scripts/acquire_governed_transition_index.py
+scripts/check_governed_transition_live_urls.py
 ```
 
 The Site importer verifies the orchestration export receipt, artifact name, SHA-256, record count, and authority boundary before replacing the local projection.
 
-Supported states remain:
+Supported states:
 
 ```text
 LOCAL_FALLBACK_ACTIVE
@@ -195,18 +170,53 @@ RECEIPTED_EXPORT_IMPORTED
 
 Neither state grants execution, admissibility, custody, reconstruction, or final-receipt authority.
 
+## Governed artifact acquisition
+
+The existing `Site Task Runner` declares:
+
+```text
+import-governed-transition-index
+```
+
+Scheduled and post-bootstrap `all-local` runs now acquire before validation. Acquisition behavior:
+
+```text
+STEGVERSE_REPO_SYNC_TOKEN available
+  -> locate latest successful main Runtime Evidence Validation run
+  -> locate non-expired governed-transition-index-export artifact
+  -> safely extract only index and export receipt
+  -> verify through existing importer
+  -> record source run, artifact, receipt, commit, and hash posture
+
+Token or receipted artifact unavailable
+  -> preserve LOCAL_FALLBACK_ACTIVE
+  -> record explicit acquisition_reason
+  -> do not claim receipt, hash verification, live feed, custody, or reconstruction
+```
+
+`--require-artifact` is available for strict runs that must fail rather than use fallback.
+
+## Public verification
+
+After Pages deployment, the existing Site workflow retries verification for:
+
+```text
+https://stegverse-labs.github.io/Site/governed-transitions.html
+https://stegverse-labs.github.io/Site/data/governed-transition-index.json
+https://stegverse-labs.github.io/Site/data/governed-transition-index-import-status.json
+```
+
+The verifier checks HTTP status, page markers, projection type, records structure, import-state contract, and fallback/receipted-import non-overclaim rules.
+
 ## Remaining files/modules and destinations
 
 ```text
 StegVerse-Labs/Site:
-- verify commit eb33a3e progresses beyond validator 2
-- inspect and repair only the next recorded validator if one fails
-- verify workflow inventory guard passes
-- register scripts/check_site_workflow_inventory.py in validate and public-guard task surfaces
-- verify validate and public-guard both pass
+- verify latest Site Bootstrap Validate
+- verify workflow inventory reports exactly two operational workflows
 - verify exactly one post-bootstrap all-local run
-- run import-governed-transition-index through Site Task Runner
-- verify governed-transitions.html, index, and import-status routes
+- verify acquisition state and public URL checks
+- register scripts/check_site_workflow_inventory.py in validate and public-guard if not already registered
 - connect Ecosystem Chat interactions to preserved transition_id and run_id
 - remove triggerless CFP placeholder only when deletion is explicitly authorized
 
@@ -226,21 +236,17 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify Site Bootstrap Validate passes on the latest main head.
-2. Verify the workflow inventory reports exactly two operational workflows.
-3. Verify exactly one post-bootstrap all-local run is created.
-4. Inspect its diagnostic and confirm validator 2 passes.
-5. Repair only the next recorded validator if one fails.
-6. Register the workflow inventory guard in validate and public-guard task surfaces.
-7. Verify validate and public-guard both pass.
-8. Run import-governed-transition-index.
-9. Verify public governed-transition routes.
+1. Verify current Site Bootstrap Validate and Site Task Runner results.
+2. Confirm acquisition chooses RECEIPTED_EXPORT_IMPORTED when the source artifact and token are available, otherwise explicit fallback.
+3. Confirm all three public governed-transition URLs pass after deployment.
+4. Add Master-Records custody admission and reconstruction-result enrichment in master-records/orchestration.
+5. Connect Ecosystem Chat requests and responses to preserved transition_id and run_id.
 ```
 
 ## Release posture
 
-No release tag is authorized. Validation, successful artifact acquisition, public-route verification, custody, reconstruction, and chat linkage remain incomplete.
+No release tag is authorized. Validation evidence, successful receipted acquisition, public-route verification, custody, reconstruction, and chat linkage remain incomplete.
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, authority boundaries, workflow consolidation state, latest diagnostic, installed repair, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
+This handoff contains the current Site architecture, authority boundaries, workflow consolidation state, artifact acquisition, public verification, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
