@@ -15,7 +15,6 @@ e91c767b3342725d4e279fcc338dc6b43b2178b5
 1c4a8ae4c0bfd655e136bb48babd610ac8456864
 e9e0f79717ed6c490c19058f5c74ea9804680f3e
 250831149b9c56fce68ff2a51a31be44e59905d5
-f54a9ffd9ba5582d227e224bad936bd1941f01b2
 ```
 
 `scripts/check_repo_operations_repair_queue.py` is registered in both `validate` and `public-guard`.
