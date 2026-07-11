@@ -1,0 +1,61 @@
+{
+  "payload_type": "execution_transition_response_preview",
+  "preview_only": true,
+  "dry_run": true,
+  "request_id": "etr_site_preview_001",
+  "authority_consumption": {
+    "authority_result": "ALLOW",
+    "authority_scope_matched": true,
+    "authority_receipt_present": false,
+    "authority_sufficient_for_execution": false
+  },
+  "commit_time_revalidation": {
+    "result": "PASS",
+    "all_passed": true,
+    "revalidated_fields": [
+      "identity",
+      "delegation",
+      "policy",
+      "evidence_freshness",
+      "operation_allowlist",
+      "resource_limits"
+    ]
+  },
+  "execution": {
+    "result": "DRY_RUN_ONLY",
+    "execution_enabled": false,
+    "provider_invoked": false,
+    "solver_executed": false,
+    "repository_mutated": false,
+    "raw_shell_used": false,
+    "state_changed": false
+  },
+  "resource_use": {
+    "provider_calls": 0,
+    "solver_steps": 0,
+    "execution_seconds": 0,
+    "cost_usd": 0.0
+  },
+  "recoverability": {
+    "rollback_required": true,
+    "rollback_available": true,
+    "rollback_performed": false,
+    "pre_state_preserved": true,
+    "post_state_created": false,
+    "operator_interrupt_preserved": true
+  },
+  "receipt": {
+    "authority_receipt_issued": false,
+    "execution_receipt_issued": false,
+    "receipt_id": null,
+    "receipt_issuer": null,
+    "required_issuer": "governed_backend_authority"
+  },
+  "continuity": {
+    "authority_execution_separated": true,
+    "fail_closed": true,
+    "replayable": true,
+    "reconstructable": true,
+    "site_local_mode_preserved": true
+  }
+}
