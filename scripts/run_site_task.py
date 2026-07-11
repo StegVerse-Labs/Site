@@ -26,7 +26,6 @@ def write_diagnostic(
     failure_class: str | None = None,
     detail: str | None = None,
 ) -> None:
-    """Write a reconstructable task result without changing validation authority."""
     global DIAGNOSTIC_WRITTEN
     payload = {
         "schema_version": "1.0.0",
@@ -230,6 +229,12 @@ def universal_ingest() -> None:
     run([sys.executable, "ingestion/ingest_runner.py"])
 
 
+def import_governed_transition_index() -> None:
+    run_if_present("scripts/acquire_governed_transition_index.py")
+    run_if_present("scripts/check_governed_transition_index_import.py")
+    run_if_present("scripts/check_governed_transition_observatory.py")
+
+
 def all_local() -> None:
     validate()
     mirror_readiness()
@@ -251,6 +256,7 @@ TASKS = {
     "local-completion-receipt": local_completion_receipt,
     "autonomous-continuation": autonomous_continuation,
     "universal-ingest": universal_ingest,
+    "import-governed-transition-index": import_governed_transition_index,
     "all-local": all_local,
 }
 
