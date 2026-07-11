@@ -9,6 +9,7 @@ PAGE = ROOT / "governed-transitions.html"
 SCRIPT = ROOT / "assets" / "governed-transitions.js"
 DATA = ROOT / "data" / "governed-transition-index.json"
 STATUS = ROOT / "data" / "governed-transition-index-import-status.json"
+EXECUTOR = ROOT / "data" / "governed-executor-status.json"
 
 
 def fail(message: str) -> int:
@@ -17,7 +18,7 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in [PAGE, SCRIPT, DATA, STATUS]:
+    for path in [PAGE, SCRIPT, DATA, STATUS, EXECUTOR]:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
@@ -25,10 +26,13 @@ def main() -> int:
     script = SCRIPT.read_text(encoding="utf-8")
     data = json.loads(DATA.read_text(encoding="utf-8"))
     status = json.loads(STATUS.read_text(encoding="utf-8"))
+    executor = json.loads(EXECUTOR.read_text(encoding="utf-8"))
 
     for marker in [
         "Governed Ecosystem Transitions",
         "derived public projection",
+        "executor-status",
+        "does not authorize, execute, activate executors",
         "assets/governed-transitions.js",
         "Admissible Automated Transitions",
     ]:
@@ -38,11 +42,15 @@ def main() -> int:
     for marker in [
         "data/governed-transition-index.json",
         "data/governed-transition-index-import-status.json",
+        "data/governed-executor-status.json",
         "projection_type",
         "master_record_status",
         "reconstruction_status",
+        "activation_receipt_id",
+        "executor_state_imported",
         "hash_verified",
         "live_orchestration_feed",
+        "does not grant per-transition execution",
     ]:
         if marker not in script:
             return fail(f"renderer missing marker: {marker}")
@@ -73,6 +81,27 @@ def main() -> int:
         if phrase not in boundary:
             return fail(f"authority boundary missing: {phrase}")
 
+    if executor.get("projection_type") != "governed_executor_status":
+        return fail("executor projection_type mismatch")
+    if executor.get("activation", {}).get("state") != "ACTIVE":
+        return fail("executor projection must show ACTIVE")
+    if not executor.get("activation", {}).get("activation_receipt_id"):
+        return fail("executor projection requires activation receipt")
+    if executor.get("to_executor", {}).get("status") != "ACTIVE":
+        return fail("native executor must be ACTIVE")
+    if executor.get("from_executor", {}).get("status") != "FALLBACK_ONLY":
+        return fail("bootstrap executor must be FALLBACK_ONLY")
+    executor_boundary = executor.get("authority_boundary", {})
+    for key in [
+        "projection_grants_execution_authority",
+        "projection_grants_publication_authority",
+        "projection_grants_admissibility",
+        "projection_is_master_records_custody",
+        "activation_is_per_transition_authority",
+    ]:
+        if executor_boundary.get(key) is not False:
+            return fail(f"executor projection boundary invalid: {key}")
+
     if status.get("status_type") != "governed_transition_index_import_status":
         return fail("import status_type mismatch")
     if status.get("state") == "LOCAL_FALLBACK_ACTIVE":
@@ -85,8 +114,10 @@ def main() -> int:
             return fail("receipted import must be hash verified")
     else:
         return fail("unsupported import state")
+    if status.get("executor_state_imported") is not True:
+        return fail("executor state must be imported")
 
-    print(f"GOVERNED TRANSITION OBSERVATORY: PASS ({len(records)} record(s), {status['state']})")
+    print(f"GOVERNED TRANSITION OBSERVATORY: PASS ({len(records)} record(s), executor ACTIVE, {status['state']})")
     return 0
 
 
