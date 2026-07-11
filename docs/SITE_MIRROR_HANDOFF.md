@@ -10,13 +10,13 @@ This file is the current source of truth for continuing the StegVerse-Labs/Site 
 Goal: unified governed Site experience centered on Ecosystem Chat as the primary operating surface
 Repository: StegVerse-Labs/Site
 Primary surface: ecosystem-chat.html
-Activation state: phase_8_backend_authority_handshake_preview_installed
+Activation state: phase_9_positive_authority_evaluation_preview_installed
 Live backend state: not installed
 Site local mode: preserved true
 Live provider invocation: false
 Live solver execution: false
-Site authority state: DENY preview
-Site execution state: NOT_ATTEMPTED
+Authority preview states: DENY and ALLOW fixtures installed
+Execution state for both authority fixtures: NOT_ATTEMPTED
 Receipt issuance state: not issued by Site
 Workflow standard: exactly two active workflows
 Documentation mesh state: shared endpoint registry and Site cross-wiki health record installed
@@ -33,11 +33,13 @@ Documentation mesh state: shared endpoint registry and Site cross-wiki health re
 - bounded request-to-receipt traversal preview
 - fixture-bound provider routing, fallback, quota, usage, cost, and latency visualization
 - governed solver fixture with proof steps, units, verification, and resource limits
-- backend authority-handshake request and response fixtures
-- explicit identity, delegation, policy, evidence freshness, operation allowlist, resource limit, provider, solver, authority, execution, and receipt fields
-- deterministic authority result DENY
-- deterministic execution result NOT_ATTEMPTED
-- local mode preserved after denial
+- negative backend authority handshake: DENY + NOT_ATTEMPTED
+- positive authority evaluation: ALLOW + NOT_ATTEMPTED
+- positive authority scope limited to ecosystem_chat.gateway.evaluate
+- verified identity, valid delegation, current policy, fresh complete evidence, allowlisted operation, and bounded non-zero limits represented in the positive fixture
+- authority and execution proven as separate transitions
+- Site receipt issuance remains false in both cases
+- local mode preserved in both cases
 - replayable request and reconstructable decision posture
 - local SDK manifest and receipt-window previews
 - restricted-admin fail-closed routing
@@ -78,6 +80,8 @@ fixtures/ecosystem-chat/provider-status.example.json
 fixtures/ecosystem-chat/solver-response.example.json
 fixtures/ecosystem-chat/authority-handshake-request.example.json
 fixtures/ecosystem-chat/authority-handshake-response.example.json
+fixtures/ecosystem-chat/authority-handshake-positive-request.example.json
+fixtures/ecosystem-chat/authority-handshake-positive-response.example.json
 data/ecosystem-documentation-endpoints.json
 data/cross-wiki-health-status.json
 scripts/check_ecosystem_chat_boundary.py
@@ -85,6 +89,7 @@ scripts/check_ecosystem_chat_traversal.py
 scripts/check_ecosystem_chat_provider_status.py
 scripts/check_ecosystem_chat_solver_response.py
 scripts/check_ecosystem_chat_authority_handshake.py
+scripts/check_ecosystem_chat_positive_authority.py
 scripts/check_site_hps_visualization.py
 scripts/check_site_unified_governed_experience.py
 scripts/check_documentation_mesh_status.py
@@ -102,13 +107,14 @@ docs/SITE_MIRROR_HANDOFF.md
 
 ```text
 Site may draft, classify, visualize, and offer governed transition destinations.
-Site must not execute shell commands, access credentials, mutate repositories, grant authority, or grant admissibility.
+Site must not execute shell commands, access credentials, mutate repositories, grant admissibility, or issue governing receipts.
 A local hash must not be described as an authority-issued receipt.
 HPS, traversal, provider, solver, and authority-handshake inputs must fail closed when preview contracts are not satisfied.
 Provider fixture values must not be described as live provider state, current pricing, actual billing, account quota, or model availability.
 Solver fixture values must not be described as live execution or independent verification.
 Handshake schema existence must not be treated as backend activation.
-An authority ALLOW would still not itself equal execution.
+Authority ALLOW must remain distinct from execution.
+The positive fixture authorizes evaluation only; it does not authorize provider calls, solver execution, repository mutation, or local-mode change.
 Payment, quota, provider availability, solver correctness, endpoint registration, or documentation health must never be treated as execution standing.
 ```
 
@@ -122,6 +128,7 @@ python scripts/check_ecosystem_chat_traversal.py
 python scripts/check_ecosystem_chat_provider_status.py
 python scripts/check_ecosystem_chat_solver_response.py
 python scripts/check_ecosystem_chat_authority_handshake.py
+python scripts/check_ecosystem_chat_positive_authority.py
 python scripts/check_site_hps_visualization.py
 python scripts/check_site_unified_governed_experience.py
 python scripts/check_documentation_mesh_status.py
@@ -129,7 +136,7 @@ python scripts/run_site_task.py public-guard
 python scripts/run_site_task.py all-local
 ```
 
-The consolidated task runner includes traversal, provider-status, solver-response, authority-handshake, and documentation-mesh checks in `validate` and `public-guard` where applicable.
+The consolidated task runner includes negative and positive authority checks in both `validate` and `public-guard`.
 
 ## Workflow standard
 
@@ -137,7 +144,7 @@ The consolidated task runner includes traversal, provider-status, solver-respons
 Active workflow 1: .github/workflows/validate.yml
 Active workflow 2: .github/workflows/site-task-runner.yml
 
-Do not create additional workflows for HPS, traversal, provider, solver, cost, quota, usage, authority handshake, or documentation-mesh work. Add validators and declared tasks behind the two stable workflows.
+Do not create additional workflows for HPS, traversal, provider, solver, cost, quota, usage, authority evaluation, or documentation-mesh work. Add validators and declared tasks behind the two stable workflows.
 ```
 
 ## Remaining targets
@@ -147,10 +154,10 @@ Do not create additional workflows for HPS, traversal, provider, solver, cost, q
 ```text
 1. Verify validate and all-local on the current main branch.
 2. Confirm GitHub Pages publishes HPS, traversal, provider, solver, endpoint-registry, and cross-wiki health surfaces.
-3. Define the first positive authority-handshake test without enabling execution.
+3. Define the first execution-transition fixture that consumes a valid authority result but still performs no live execution.
 4. Define live provider response provenance and pricing-source requirements.
 5. Define live solver operation allowlist, independent verification posture, and receipt path.
-6. Do not change STEGVERSE_LOCAL_MODE until a governed backend independently validates the handshake at commit time.
+6. Do not change STEGVERSE_LOCAL_MODE until a governed backend independently validates authority and then separately validates execution at commit time.
 7. Do not update public verification JSON until the live URL checker confirms deployed state.
 ```
 
@@ -160,6 +167,7 @@ Do not create additional workflows for HPS, traversal, provider, solver, cost, q
 - ingest interaction profile and bands
 - ingest HPS, provider, solver, and authority-handshake posture
 - independently reconstruct identity, delegation, policy, evidence freshness, operation allowlisting, and resource limits
+- consume authority result as input to a separate execution transition
 - return explicit authority, execution, provider, solver, pricing, and receipt results
 ```
 
@@ -200,9 +208,9 @@ StegVerse-Labs/Sit: integration status after Site validation
 ## Next integration goal
 
 ```text
-Phase 9: positive authority-evaluation fixture that can return ALLOW while execution remains NOT_ATTEMPTED.
+Phase 10: execution-transition preview fixture that references a valid authority result while execution remains dry-run and receipt issuance remains backend-only.
 
-The positive fixture must use verified identity, valid delegation, current policy, fresh complete evidence, an allowlisted bounded operation, and non-zero but constrained resource limits. It must still prove that authority and execution are separate transitions and that Site cannot issue the governing receipt.
+The fixture must prove that authority input can be consumed without collapsing authority into execution. It should include commit-time revalidation fields, bounded resource use, execution posture, rollback/recoverability posture, and separate authority/execution receipt expectations.
 ```
 
 ## Handoff instruction
