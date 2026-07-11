@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "status_type": "governed_transition_index_import_status",
+  "state": "LOCAL_FALLBACK_ACTIVE",
+  "source": "data/governed-transition-index.json",
+  "source_receipt": null,
+  "source_commit": null,
+  "hash_verified": false,
+  "live_orchestration_feed": false,
+  "authority_boundary": "Local fallback is a projection fixture and does not grant authority, custody, or reconstruction standing."
+}
