@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "projection_type": "governed_transition_index",
+  "generated_at": "2026-07-10T00:00:00Z",
+  "source_contract": "master-records/orchestration/schemas/governed.transition.relationship.schema.json",
+  "records": [
+    {
+      "transition_id": "transition.sdk.example-001",
+      "run_id": "sdk-example-001",
+      "lifecycle_state": "READY",
+      "origin_class": "SDK_INPUT",
+      "repository_ref": "StegVerse-org/StegVerse-SDK",
+      "task_ref": "task:sdk-origin-route-candidate",
+      "actor_ref": "sdk:user-ai-pair:example",
+      "admissibility_result": "PENDING",
+      "commit_time_validity": "PENDING",
+      "verification_ref": "delegation-verification:delegation_allowed_001",
+      "final_receipt_id": null,
+      "master_record_status": "NOT_YET_SUBMITTED",
+      "reconstruction_status": "NOT_YET_CHECKED",
+      "site_visibility": "SUMMARY",
+      "redaction_class": "PUBLIC_REDACTED",
+      "relationships": {
+        "event_id": "sdk-event:example-001",
+        "origin_manifest_id": "origin.sdk.sdk-example-001",
+        "parent_transition_id": null,
+        "previous_receipt_id": null,
+        "handoff_ref": "SDK_MIRROR_HANDOFF.md",
+        "next_task_ref": null,
+        "master_record_ref": null
+      }
+    },
+    {
+      "transition_id": "transition.github.admissibility-wiki.validation.2026-07-10",
+      "run_id": "github-notification-bootstrap-example-001",
+      "lifecycle_state": "COMPLETED",
+      "origin_class": "GITHUB_NOTIFICATION",
+      "repository_ref": "StegVerse-Labs/admissibility-wiki",
+      "task_ref": "task:canonical-validation-repair",
+      "actor_ref": "executor:external-notification-bootstrap",
+      "admissibility_result": "ALLOW",
+      "commit_time_validity": "VALID",
+      "verification_ref": "receipt:public-activation-receipt:example-001",
+      "final_receipt_id": "receipt:governed-transition:example-001",
+      "master_record_status": "PENDING",
+      "reconstruction_status": "PENDING",
+      "site_visibility": "SUMMARY",
+      "redaction_class": "PUBLIC_REDACTED",
+      "relationships": {
+        "event_id": "github-notification:workflow-run:example-001",
+        "origin_manifest_id": "origin.github-notification.example-001",
+        "parent_transition_id": null,
+        "previous_receipt_id": null,
+        "handoff_ref": "docs/ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
+        "next_task_ref": "task:public-transition-feed-installation",
+        "master_record_ref": null
+      }
+    }
+  ],
+  "authority_boundary": "This Site data file is a derived projection fixture. It does not grant admissibility, execution authority, receipt standing, or Master-Records custody."
+}
