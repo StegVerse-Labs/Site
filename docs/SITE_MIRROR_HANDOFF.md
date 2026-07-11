@@ -89,40 +89,41 @@ No workflow was added.
 
 ```text
 Branch: main
-Workflow: Site Bootstrap Validate
-Job: bootstrap-validate
-Run: 29155796294
-Commit: fe38a2b8e711f176b541fe9bff6b7fb4d695d386
-Result: failed in 6 seconds
+Workflow: Site Task Runner
+Job: run-site-task
+Run: 29157692302
+Commit: 59db1f798dd37e1f9d9620e8e0191e91fd3af613
+Result: failed in 12 seconds
 Annotations: 2
-First failing step: Validate application
-Failure class: repository-local bootstrap validation failure; exact validator output unavailable from notification
+Selected task: all-local
+First failing step: Run declared Site task
+Failure class: repository-local declared-task validation failure; exact validator output unavailable from the connector response
 ```
 
 Verified run context:
 
-- checkout succeeded;
-- Python setup succeeded;
-- the failure occurred in `Validate application`;
+- runner provisioning, checkout, Python setup, optional dependency installation, and checked-in TT fallback confirmation succeeded;
+- the workflow resolved the push-triggered task to `all-local`;
+- canonical TT checkout and TT propagation steps were skipped by declared conditions;
+- failure occurred inside `python scripts/run_site_task.py all-local` at `Run declared Site task`;
+- commit, Pages configuration, artifact upload, and Pages deployment were skipped;
 - no deploy, release, tag, credential access, external-repository mutation, or public authority transition occurred.
 
-The exact command error and both annotations are still required before a bounded repair can be selected. Because the Site is preview-only and the handoff prohibits live-boundary changes, no speculative validator, deployment, provider, receipt, or external-repository modification was made.
-
-The earlier `Site Task Runner` failure at run `29155088387` remains unresolved and separately requires the selected task and validator output.
+The earlier `Site Bootstrap Validate` failure at run `29155796294` remains relevant because `all-local` begins with the same repository-local validation chain. The complete validator output and both annotations remain required before selecting a bounded repair.
 
 ## Required evidence before repair
 
-1. both annotation messages from run `29155796294`;
-2. complete output from `Validate application`;
-3. the exact validator or command that returned nonzero;
-4. for run `29155088387`, the declared task selected and failing validator output;
+1. both annotation messages from run `29157692302`;
+2. complete output from `Run declared Site task`;
+3. the first validator invoked by `all-local` that returned nonzero;
+4. complete `Validate application` output and annotations from run `29155796294` where available;
 5. confirmation that any repair remains preview-only and repository-local.
 
 ## Remaining files/modules and destinations
 
 ```text
 StegVerse-Labs/Site:
-  - bootstrap validation diagnostic and bounded repair
+  - all-local validation diagnostic and bounded repair
   - governed artifact acquisition as a declared task
   - live URL verification for page, index, and import status
   - Ecosystem Chat transition identity linkage
@@ -142,15 +143,16 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Obtain and inspect the complete `Validate application` failure output and both annotations from run 29155796294.
-2. Repair only the identified repository-local validator failure.
-3. Verify `validate` and `public-guard` both pass.
-4. Add a declared artifact-acquisition task behind one existing workflow.
-5. Add live URL verification for governed-transitions.html, its index, and import status.
-6. Add Master-Records custody and reconstruction references only from canonical receipts.
-7. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
+1. Obtain and inspect the complete `Run declared Site task` output and both annotations from run 29157692302.
+2. Identify the first failing validator in the `all-local` chain.
+3. Repair only that repository-local validator failure.
+4. Verify `validate` and `public-guard` both pass.
+5. Add a declared artifact-acquisition task behind one existing workflow.
+6. Add live URL verification for governed-transitions.html, its index, and import status.
+7. Add Master-Records custody and reconstruction references only from canonical receipts.
+8. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
 ```
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, authority boundaries, exact bootstrap failure location, unresolved evidence, remaining work, and next task. Earlier conversation context is not required.
+This handoff contains the current Site architecture, authority boundaries, exact latest workflow stage, unresolved evidence, remaining work, and next task. Earlier conversation context is not required.
