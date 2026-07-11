@@ -52,6 +52,8 @@ Site may draft, classify, and display local preview text.
 
 Site may not execute commands, accept secrets, change repositories, issue proof receipts, or grant admissibility.
 
+Restricted admin routing remains documentation-only and unavailable from the public preview surface.
+
 Any future live path must preserve:
 
 ```text
@@ -59,6 +61,7 @@ raw_shell_allowed=false
 authority_required=true
 rate_limit_required=true
 receipt_required_for_execution=true
+Restricted admin
 ```
 
 ## Current Guard
