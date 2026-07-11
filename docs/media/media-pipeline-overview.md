@@ -54,7 +54,7 @@ The replay checker recomputes request hash, stage-map hash, each receipt hash, a
 
 ## Current Boundary
 
-This Site page is a mirror of the governed planning and replay surface. It is not a live media platform. It does not claim live camera use, live microphone use, external platform streaming, public broadcast, live provider execution, or platform connector capability.
+This Site page is a mirror of the governed planning and replay surface. It is not a live media platform. It does not claim live camera use. It does not claim live microphone use. It does not claim external platform streaming, public broadcast, live provider execution, or platform connector capability.
 
 ## Next Integration Candidate
 
