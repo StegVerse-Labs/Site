@@ -51,6 +51,14 @@ python scripts/run_site_task.py validate
 python scripts/run_site_task.py public-guard
 ```
 
+## Reconciliation result
+
+```text
+PR #8: superseded; close without merge
+PR #9: superseded by current-main implementation; close without merge
+PR #10: useful content already represented on current main; close without merge
+```
+
 ## Boundary
 
 Closing these stale PRs does not merge their branches, resolve their conflicts into current `main`, grant deployment authority, or infer validation success. Current-main checks remain authoritative.
