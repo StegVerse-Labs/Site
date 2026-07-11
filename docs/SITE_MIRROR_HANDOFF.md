@@ -43,70 +43,13 @@ Expected public route after deployment:
 https://stegverse-labs.github.io/Site/governed-transitions.html
 ```
 
-The page displays the canonical relational fields and now also displays projection provenance:
-
-```text
-import state
-source repository or local fallback
-source receipt
-source commit
-hash verification status
-live orchestration feed status
-```
+The page displays the canonical relational fields and projection provenance, including import state, source repository or fallback, source receipt and commit, hash verification, and live-feed status.
 
 ## Import contract
 
-`master-records/orchestration` now exports:
+`master-records/orchestration` exports `governed-transition-index-export`, containing the generated index and an export receipt. The Site importer verifies the receipt, artifact name, SHA-256, record count, and authority boundary before replacing the local projection.
 
-```text
-Artifact: governed-transition-index-export
-governed_transition_index.generated.json
-governed_transition_index.export-receipt.json
-```
-
-The Site importer verifies the export receipt, artifact name, SHA-256, record count, and authority boundary before replacing the local projection.
-
-Supported states:
-
-```text
-LOCAL_FALLBACK_ACTIVE
-  -> checked-in projection fixture
-  -> hash_verified: false
-  -> live_orchestration_feed: false
-  -> no source receipt claimed
-
-RECEIPTED_EXPORT_IMPORTED
-  -> orchestration export receipt verified
-  -> index SHA-256 verified
-  -> still not a live feed
-  -> still no execution, admissibility, custody, or reconstruction authority
-```
-
-The importer does not silently treat unavailable artifacts as current orchestration state.
-
-## Current cross-repository path
-
-```text
-StegVerse-SDK / LLM-adapter
-  -> emit DECLARED canonical candidates
-
-hybrid-collab-bridge
-  -> preserve identity and attach bridge evidence
-
-Ecosystem-Delegation
-  -> preserve identity and attach delegation references
-
-master-records/orchestration
-  -> verify bounded intake
-  -> govern lifecycle and final receipt
-  -> generate transition index
-  -> issue hash-bound export receipt
-
-StegVerse-Labs/Site
-  -> verify and import the export artifact
-  -> or remain on explicit local fallback
-  -> render the bounded projection only
-```
+Supported states remain `LOCAL_FALLBACK_ACTIVE` and `RECEIPTED_EXPORT_IMPORTED`. Neither state grants execution, admissibility, custody, reconstruction, or final-receipt authority.
 
 ## Non-negotiable public boundary
 
@@ -146,29 +89,40 @@ No workflow was added.
 
 ```text
 Branch: main
-Workflow: Site Task Runner
-Job: run-site-task
-Run: 29155088387
-Commit: b62d558
-Result: failed in 9 seconds
+Workflow: Site Bootstrap Validate
+Job: bootstrap-validate
+Run: 29155796294
+Commit: fe38a2b8e711f176b541fe9bff6b7fb4d695d386
+Result: failed in 6 seconds
 Annotations: 2
-Failure class: unresolved task-runner validation failure
+First failing step: Validate application
+Failure class: repository-local bootstrap validation failure; exact validator output unavailable from notification
 ```
 
-The notification does not expose the failing step, selected declared task, or annotation text. The task runner can invoke multiple repository-local validation surfaces, so no speculative file repair, artifact acquisition, deployment, release, tag, external-repository mutation, or live-boundary change is authorized from this notification alone.
+Verified run context:
 
-Required evidence before repair:
+- checkout succeeded;
+- Python setup succeeded;
+- the failure occurred in `Validate application`;
+- no deploy, release, tag, credential access, external-repository mutation, or public authority transition occurred.
 
-1. first failing step;
-2. both annotation messages;
-3. declared task selected for the run;
-4. command output identifying which validator failed;
-5. confirmation that the repair remains preview-only and repository-local.
+The exact command error and both annotations are still required before a bounded repair can be selected. Because the Site is preview-only and the handoff prohibits live-boundary changes, no speculative validator, deployment, provider, receipt, or external-repository modification was made.
+
+The earlier `Site Task Runner` failure at run `29155088387` remains unresolved and separately requires the selected task and validator output.
+
+## Required evidence before repair
+
+1. both annotation messages from run `29155796294`;
+2. complete output from `Validate application`;
+3. the exact validator or command that returned nonzero;
+4. for run `29155088387`, the declared task selected and failing validator output;
+5. confirmation that any repair remains preview-only and repository-local.
 
 ## Remaining files/modules and destinations
 
 ```text
 StegVerse-Labs/Site:
+  - bootstrap validation diagnostic and bounded repair
   - governed artifact acquisition as a declared task
   - live URL verification for page, index, and import status
   - Ecosystem Chat transition identity linkage
@@ -188,14 +142,15 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify Site validate and public-guard after the failing task and annotations are identified.
-2. Add a declared artifact-acquisition task behind one existing workflow.
-3. Add live URL verification for governed-transitions.html, its index, and import status.
-4. Add Master-Records custody and reconstruction references only from canonical receipts.
-5. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
-6. Preserve the same contract when the external bootstrap executor hands off to the StegVerse AI entity.
+1. Obtain and inspect the complete `Validate application` failure output and both annotations from run 29155796294.
+2. Repair only the identified repository-local validator failure.
+3. Verify `validate` and `public-guard` both pass.
+4. Add a declared artifact-acquisition task behind one existing workflow.
+5. Add live URL verification for governed-transitions.html, its index, and import status.
+6. Add Master-Records custody and reconstruction references only from canonical receipts.
+7. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
 ```
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, installed files, authority boundaries, latest workflow blocker, remaining work, and next task. Earlier conversation context is not required.
+This handoff contains the current Site architecture, authority boundaries, exact bootstrap failure location, unresolved evidence, remaining work, and next task. Earlier conversation context is not required.
