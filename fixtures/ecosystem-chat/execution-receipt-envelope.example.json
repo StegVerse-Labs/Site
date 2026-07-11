@@ -1,0 +1,59 @@
+{
+  "payload_type": "execution_receipt_envelope_preview",
+  "preview_only": true,
+  "live_signature": false,
+  "receipt_id": "receipt.preview.execution.etr_site_preview_001",
+  "issuer": {
+    "class": "governed_backend_authority",
+    "issuer_id": "backend.preview.execution",
+    "verified": false
+  },
+  "binding": {
+    "request_id": "etr_site_preview_001",
+    "transition_type": "execution_transition",
+    "result": "DRY_RUN_ONLY",
+    "authority_request_id": "ahr_site_preview_allow_001",
+    "authority_result": "ALLOW",
+    "policy_reference": "policy.ecosystem-chat.gateway-evaluate.v1",
+    "evidence_references": [
+      "fixtures/ecosystem-chat/execution-transition-request.example.json",
+      "fixtures/ecosystem-chat/execution-transition-response.example.json"
+    ],
+    "commit_time_validity": "PASS",
+    "resource_use": {
+      "provider_calls": 0,
+      "solver_steps": 0,
+      "execution_seconds": 0,
+      "cost_usd": 0.0
+    },
+    "state_change": false,
+    "rollback_performed": false
+  },
+  "cryptographic_shape": {
+    "canonicalization": "JCS-preview",
+    "digest_algorithm": "sha256",
+    "digest": "sha256:preview-execution-receipt-digest",
+    "signature_algorithm": null,
+    "signature": null,
+    "key_id": null
+  },
+  "replay": {
+    "request_replayable": true,
+    "decision_replayable": true,
+    "inputs_embedded": false,
+    "input_pointers_present": true
+  },
+  "reconstruction": {
+    "reconstructable": true,
+    "required_artifacts": [
+      "authority-receipt-envelope.example.json",
+      "execution-transition-request.example.json",
+      "execution-transition-response.example.json"
+    ]
+  },
+  "supersession": {
+    "status": "CURRENT_PREVIEW",
+    "supersedes_receipt_id": null,
+    "superseded_by_receipt_id": null
+  }
+}
