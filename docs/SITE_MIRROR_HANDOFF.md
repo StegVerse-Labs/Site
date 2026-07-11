@@ -23,6 +23,7 @@ Live signatures: false
 Verified receipt issuer: false
 Workflow standard: exactly two active workflows
 Documentation mesh state: shared endpoint registry and Site cross-wiki health record installed
+Site remains preview-only
 ```
 
 ## Installed Ecosystem Chat capabilities
@@ -164,6 +165,23 @@ Active workflow 1: .github/workflows/validate.yml
 Active workflow 2: .github/workflows/site-task-runner.yml
 
 Do not create additional workflows for HPS, traversal, provider, solver, authority, execution, receipt, or documentation-mesh work. Add validators and declared tasks behind the two stable workflows.
+```
+
+## Latest CI handling
+
+```text
+Event: Site Bootstrap Validate failure
+Run: 29140167458
+Commit: 5cbd5475907cb6bce6fe8ea33135f119c5651ccb
+Job: bootstrap-validate
+Failure class: exact public-boundary declaration mismatch
+Observed failures:
+- docs/media/media-pipeline-overview.md missing "does not claim live microphone use"
+- docs/SITE_MIRROR_HANDOFF.md missing "Site remains preview-only"
+Repair commit 1: 24d2e3f9b5d73fa957db70547008acb4dd14a24e
+Repair posture: bounded documentation-only clarification; no activation, deployment, signing, release, or authority change
+Verification: pending canonical workflow run on current main
+Next task after green verification: continue Phase 12 canonical receipt payload and signature-verification preview contracts
 ```
 
 ## Remaining targets
