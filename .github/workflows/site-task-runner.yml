@@ -35,12 +35,12 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
-
 concurrency:
   group: site-task-runner
   cancel-in-progress: false
+
+env:
+  STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
 
 jobs:
   run-site-task:
@@ -115,6 +115,11 @@ jobs:
           test -f site/data/tt/transition-element-propagation-bundle.manifest.json
           echo "Using checked-in Site TT bundle fallback because STEGVERSE_REPO_SYNC_TOKEN is not available."
 
+      - name: Acquire governed transition projection
+        if: steps.task.outputs.name == 'all-local'
+        working-directory: site
+        run: python scripts/acquire_governed_transition_index.py
+
       - name: Run declared Site task
         working-directory: site
         run: python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
@@ -162,6 +167,20 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/deploy-pages@v4
 
+      - name: Verify governed transition public surfaces
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        working-directory: site
+        run: |
+          for attempt in $(seq 1 12); do
+            if python scripts/check_governed_transition_live_urls.py; then
+              exit 0
+            fi
+            echo "Public observatory verification attempt ${attempt}/12 did not pass; waiting for Pages propagation."
+            sleep 10
+          done
+          echo "Governed transition public surfaces did not verify after deployment retries."
+          exit 1
+
       - name: Write summary
         if: always()
         working-directory: site
@@ -170,6 +189,17 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
           echo "Trigger: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f data/governed-transition-index-import-status.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          status = json.loads(Path('data/governed-transition-index-import-status.json').read_text())
+          print(f"Transition projection state: {status['state']}")
+          print(f"Transition projection source: {status.get('source')}")
+          print(f"Transition projection hash verified: {status.get('hash_verified')}")
+          print(f"Transition projection live feed: {status.get('live_orchestration_feed')}")
+          PY
+          fi
           if [ -f reports/site-task-diagnostic.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
