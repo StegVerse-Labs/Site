@@ -142,6 +142,29 @@ Active workflow 2: .github/workflows/site-task-runner.yml
 
 No workflow was added.
 
+## Latest workflow failure
+
+```text
+Branch: main
+Workflow: Site Task Runner
+Job: run-site-task
+Run: 29155088387
+Commit: b62d558
+Result: failed in 9 seconds
+Annotations: 2
+Failure class: unresolved task-runner validation failure
+```
+
+The notification does not expose the failing step, selected declared task, or annotation text. The task runner can invoke multiple repository-local validation surfaces, so no speculative file repair, artifact acquisition, deployment, release, tag, external-repository mutation, or live-boundary change is authorized from this notification alone.
+
+Required evidence before repair:
+
+1. first failing step;
+2. both annotation messages;
+3. declared task selected for the run;
+4. command output identifying which validator failed;
+5. confirmation that the repair remains preview-only and repository-local.
+
 ## Remaining files/modules and destinations
 
 ```text
@@ -165,7 +188,7 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify Site validate and public-guard.
+1. Verify Site validate and public-guard after the failing task and annotations are identified.
 2. Add a declared artifact-acquisition task behind one existing workflow.
 3. Add live URL verification for governed-transitions.html, its index, and import status.
 4. Add Master-Records custody and reconstruction references only from canonical receipts.
@@ -175,4 +198,4 @@ Downstream after validation:
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, installed files, authority boundaries, remaining work, and next task. Earlier conversation context is not required.
+This handoff contains the current Site architecture, installed files, authority boundaries, latest workflow blocker, remaining work, and next task. Earlier conversation context is not required.
