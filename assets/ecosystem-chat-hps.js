@@ -92,6 +92,7 @@
     .catch(() => setFailClosed('Fixture could not be loaded; the visualization failed closed.'));
 
   for (const source of [
+    'assets/ecosystem-chat-transition-identity.js',
     'assets/ecosystem-chat-traversal.js',
     'assets/ecosystem-chat-provider.js',
     'assets/ecosystem-chat-solver.js'
