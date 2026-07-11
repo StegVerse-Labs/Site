@@ -23,11 +23,19 @@ REQUIRED_PAGE_MARKERS = [
     "does not claim live microphone use",
     "public broadcast",
 ]
+
+# These markers intentionally track the current handoff contract rather than
+# legacy prose. The handoff remains the source of truth, while this check
+# verifies its preview-only boundary and exact two-workflow declaration.
 REQUIRED_HANDOFF_MARKERS = [
-    "docs/SITE_MIRROR_HANDOFF.md",
-    "Site remains preview-only",
-    "Active workflow 1: .github/workflows/validate.yml",
-    "Active workflow 2: .github/workflows/site-task-runner.yml",
+    "# Site Mirror Handoff",
+    "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
+    "Site mode: PREVIEW_ONLY",
+    "Workflow target: exactly two operational workflows",
+    ".github/workflows/validate.yml",
+    ".github/workflows/site-task-runner.yml",
+    "Site may draft, classify, visualize, filter, and emit preview candidates.",
+    "Site must not execute, mutate repositories, access credentials, grant admissibility or delegation, sign receipts, issue final receipts, admit Master-Records records, or claim reconstruction success.",
 ]
 
 
