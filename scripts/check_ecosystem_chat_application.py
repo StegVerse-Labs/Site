@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run AI Entry validation checks."""
+"""Run the canonical Site application validation checks."""
 from __future__ import annotations
 
 import subprocess
@@ -10,6 +10,7 @@ from typing import Sequence
 ROOT = Path(__file__).resolve().parents[1]
 
 COMMANDS: tuple[tuple[str, ...], ...] = (
+    (sys.executable, "scripts/check_governed_transition_observatory.py"),
     (sys.executable, "scripts/check_ecosystem_chat_ai_entry_full.py"),
     (sys.executable, "scripts/check_ai_entry_ui_activation_status.py"),
     (sys.executable, "scripts/check_ai_entry_application_page.py"),
@@ -66,10 +67,12 @@ def run(command: Sequence[str]) -> None:
         stderr=subprocess.STDOUT,
         check=False,
     )
-    print("$ " + " ".join(command))
-    print(completed.stdout.rstrip())
+    label = " ".join(command)
     if completed.returncode != 0:
+        print(f"SITE_APPLICATION_CHECK_FAIL: {label}")
+        print(completed.stdout.rstrip())
         raise SystemExit(completed.returncode)
+    print(f"SITE_APPLICATION_CHECK_PASS: {label}")
 
 
 def main() -> int:
