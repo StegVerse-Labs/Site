@@ -130,6 +130,18 @@ receipt required for execution
 restricted administration routed separately
 ```
 
+The exact fixture-aligned declarations preserved by this check are:
+
+```text
+raw_shell_allowed = false
+authority_required = true
+rate_limit_required = true
+receipt_required_for_execution = true
+Restricted admin requests are routed separately and are not available through the public preview.
+```
+
+These declarations describe verification requirements only. They do not install a backend, grant execution authority, issue receipts, authorize repository mutation, or enable restricted administration.
+
 ## Done condition
 
 The check is passing when the verifier emits JSON with:
