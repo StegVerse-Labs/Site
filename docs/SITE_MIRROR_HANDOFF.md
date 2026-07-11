@@ -10,7 +10,7 @@ Canonical handoff path: `docs/SITE_MIRROR_HANDOFF.md`
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: bounded-repairs-acquisition-and-diagnostic-guard-installed
+Phase: canonical-validation-progression-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site remains preview-only
@@ -21,7 +21,7 @@ Live solver execution: false
 Live signatures: false
 Verified receipt issuer: false
 Workflow standard: exactly two active workflows
-Result: LOCAL_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
+Result: CANONICAL_BOOTSTRAP_TO_ALL_LOCAL_CHAIN_INSTALLED_VALIDATION_PENDING
 ```
 
 ## Governed transition observatory
@@ -145,6 +145,45 @@ d0e7112b65cd3478f4af40013ae8c825c8d502d8
 
 The diagnostic is evidence of task execution only. It is not a final receipt, admissibility result, custody record, execution authority, deployment authorization, or production issuer verification.
 
+## Canonical validation progression
+
+The required progression is now explicit:
+
+```text
+Pull request gate:
+current conflict-free PR head
+  -> Site Bootstrap Validate / bootstrap-validate
+
+Main progression gate:
+main push
+  -> Site Bootstrap Validate / bootstrap-validate
+  -> only after success: Site Task Runner / run-site-task
+  -> declared task: all-local
+  -> site-task-diagnostic-<run>-<attempt>
+```
+
+Only checks attached to the latest current head SHA count. Historical failures from superseded commits or stale pull requests do not satisfy or block the current handoff unless the same failure is reproduced on the current head.
+
+`.github/workflows/site-task-runner.yml` no longer runs directly on every push. It retains:
+
+```text
+workflow_dispatch
+schedule
+workflow_run after Site Bootstrap Validate
+```
+
+For `workflow_run`, execution is limited to a successful `Site Bootstrap Validate` whose `head_branch` is `main`. Pull-request validation therefore has one canonical required check: `Site Bootstrap Validate / bootstrap-validate`. The full `all-local` progression occurs once on main after bootstrap succeeds.
+
+Generated-state commit, Pages configuration, Pages artifact upload, and Pages deployment are restricted to `refs/heads/main`. A manual run on another ref is validation-only.
+
+Installed trigger-consolidation commit:
+
+```text
+dba6ae4431c4648a55c6abd41c7ffb54af825cfb
+```
+
+This consolidation does not resolve conflicts, mark a draft ready, merge a pull request, alter branch protection, grant deployment authority, or infer readiness from historical checks.
+
 ## Non-negotiable public boundary
 
 ```text
@@ -216,7 +255,10 @@ python scripts/run_site_task.py import-governed-transition-index
 
 ```text
 Active workflow 1: .github/workflows/validate.yml
+Role: sole pull-request validation gate and main bootstrap prerequisite
+
 Active workflow 2: .github/workflows/site-task-runner.yml
+Role: manual/scheduled declared tasks and one post-bootstrap all-local main progression
 ```
 
 No workflow was added.
@@ -225,6 +267,7 @@ No workflow was added.
 
 ```text
 StegVerse-Labs/Site:
+- verify canonical trigger consolidation parses and runs
 - observe validation of the boundary-document repair
 - verify validate and public-guard
 - verify all-local progresses beyond validator 2
@@ -232,6 +275,11 @@ StegVerse-Labs/Site:
 - observe import-governed-transition-index against the orchestration export
 - verify public page, index, and import-status routes
 - connect Ecosystem Chat interactions to preserved transition_id and run_id
+
+Open Site pull requests:
+- PR #8 remains stale, draft, and superseded by PR #9
+- PR #9 requires conflict resolution against current main before its current-head validation can count
+- PR #10 remains a separate draft and requires conflict resolution before current-head validation can count
 
 master-records/orchestration:
 - consume verified Site import evidence before custody admission
@@ -249,20 +297,21 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Observe the next Site Task Runner diagnostic.
-2. Confirm scripts/check_ecosystem_chat_boundary.py passes.
-3. Repair only the next recorded validator if one fails.
-4. Verify validate and public-guard both pass.
-5. Run import-governed-transition-index through the existing Site Task Runner.
-6. Verify governed-transitions.html, its index, and import status after deployment.
-7. Add Master-Records custody and reconstruction references only from canonical receipts.
-8. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
+1. Verify Site Bootstrap Validate passes on commit dba6ae4431c4648a55c6abd41c7ffb54af825cfb or its handoff successor.
+2. Verify exactly one post-bootstrap Site Task Runner all-local run is created for main.
+3. Inspect the diagnostic and confirm scripts/check_ecosystem_chat_boundary.py passes.
+4. Repair only the next recorded validator if one fails.
+5. Verify validate and public-guard both pass.
+6. Run import-governed-transition-index through the existing Site Task Runner.
+7. Verify governed-transitions.html, its index, and import status after deployment.
+8. Add Master-Records custody and reconstruction references only from canonical receipts.
+9. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
 ```
 
 ## Release posture
 
-The Site diagnostic contract, diagnostic guard, and governed artifact-acquisition path are installed without adding workflows. Validation, successful artifact acquisition, public route verification, custody, reconstruction, and chat linkage remain incomplete. No release tag is authorized yet.
+The Site diagnostic contract, diagnostic guard, governed artifact-acquisition path, and canonical Bootstrap-to-all-local progression are installed without adding workflows. Validation, successful artifact acquisition, public route verification, custody, reconstruction, and chat linkage remain incomplete. No release tag is authorized yet.
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, authority boundaries, diagnostic progression, diagnostic guard, bounded validator repair, declared artifact-acquisition task, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
+This handoff contains the current Site architecture, authority boundaries, canonical validation progression, diagnostic progression, diagnostic guard, bounded validator repair, declared artifact-acquisition task, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
