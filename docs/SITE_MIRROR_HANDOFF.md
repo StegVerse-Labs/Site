@@ -10,7 +10,7 @@ Canonical handoff path: `docs/SITE_MIRROR_HANDOFF.md`
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: second-validator-repair-and-artifact-acquisition-installed
+Phase: bounded-repairs-acquisition-and-diagnostic-guard-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site remains preview-only
@@ -21,7 +21,7 @@ Live solver execution: false
 Live signatures: false
 Verified receipt issuer: false
 Workflow standard: exactly two active workflows
-Result: BOUNDED_REPAIRS_AND_DECLARED_ACQUISITION_INSTALLED_VALIDATION_PENDING
+Result: LOCAL_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
 ```
 
 ## Governed transition observatory
@@ -70,7 +70,7 @@ scripts/check_governed_transition_index_import.py
 scripts/check_governed_transition_observatory.py
 ```
 
-The acquisition script resolves a successful main-branch `Runtime Evidence Validation` run in `master-records/orchestration`, requires the `governed-transition-index-export` artifact, extracts only the generated index and export receipt, and delegates all receipt, hash, record-count, artifact-name, and authority-boundary checks to the existing importer.
+The acquisition script resolves a successful main-branch `Runtime Evidence Validation` run in `master-records/orchestration`, requires the `governed-transition-index-export` artifact, extracts only the generated index and export receipt, and delegates receipt, hash, record-count, artifact-name, and authority-boundary checks to the existing importer.
 
 Installed commits:
 
@@ -80,7 +80,7 @@ Installed commits:
 91e6414874d61f3bda2a5bc15f65cb9280b00400
 ```
 
-No workflow was added. `.github/workflows/site-task-runner.yml` remains one of exactly two active workflows.
+No workflow was added. `.github/workflows/site-task-runner.yml` remains one of exactly two active workflows and exposes the declared import task.
 
 ## Fail-path diagnostic contract
 
@@ -88,6 +88,7 @@ Installed repository-local diagnostics:
 
 ```text
 scripts/run_site_task.py
+scripts/check_site_task_diagnostic_contract.py
 reports/site-task-diagnostic.json
 .github/workflows/site-task-runner.yml
 ```
@@ -108,12 +109,38 @@ site_mode
 state_change_authorized
 ```
 
-The diagnostic is written on validator failure, missing required validator, test-readiness failure, unhandled exception, unresolved task exit, and successful completion.
-
 The existing Site Task Runner uploads the diagnostic with `if: always()` as:
 
 ```text
 site-task-diagnostic-<workflow_run_id>-<workflow_run_attempt>
+```
+
+The diagnostic contract checker guards:
+
+```text
+required diagnostic fields
+failure-path coverage
+successful completion receipt
+workflow upload on success or failure
+workflow summary fields
+exactly two active workflows
+PREVIEW_ONLY site mode
+authority_effect = NONE
+state_change_authorized = false
+```
+
+It is registered in both repository-local paths:
+
+```text
+python scripts/run_site_task.py validate
+python scripts/run_site_task.py public-guard
+```
+
+Installed commits:
+
+```text
+d0e7112b65cd3478f4af40013ae8c825c8d502d8
+590f72149e0a58a19d57d5ecdcbfa6738959cbb1
 ```
 
 The diagnostic is evidence of task execution only. It is not a final receipt, admissibility result, custody record, execution authority, deployment authorization, or production issuer verification.
@@ -131,42 +158,16 @@ Commit-time validity remains distinct from state change.
 Site remains preview-only until a governed backend independently validates transitions and issues verified receipts.
 ```
 
-## Validation surface
-
-```text
-python scripts/check_governed_transition_observatory.py
-python scripts/check_governed_transition_index_import.py
-python scripts/run_site_task.py validate
-python scripts/run_site_task.py public-guard
-python scripts/run_site_task.py all-local
-python scripts/run_site_task.py import-governed-transition-index
-```
-
-Both transition validators are registered in `validate` and `public-guard` through the existing task runner.
-
-## Workflow standard
-
-```text
-Active workflow 1: .github/workflows/validate.yml
-Active workflow 2: .github/workflows/site-task-runner.yml
-```
-
-No workflow was added.
-
 ## Latest diagnostic verification
 
 ```text
 Branch: main
 Workflow: Site Task Runner
-Job: run-site-task
 Run: 29162414799
 Commit: 145878cbea0b53ce8820e32b39424d1ea35d3e62
 Selected task: all-local
-Diagnostic artifact: site-task-diagnostic-29162414799-1
-Diagnostic status: FAILED
-Completed validator: scripts/check_ecosystem_chat_application.py
-Failed validator: scripts/check_ecosystem_chat_boundary.py
-Validator index: 2
+Completed validator 1: scripts/check_ecosystem_chat_application.py
+Failed validator 2: scripts/check_ecosystem_chat_boundary.py
 Exit code: 1
 Failure class: VALIDATION_FAILURE
 Authority effect: NONE
@@ -174,9 +175,7 @@ Site mode: PREVIEW_ONLY
 State change authorized: false
 ```
 
-The prior canonical handoff-path repair passed. The diagnostic advanced deterministically to validator 2.
-
-The second validator reported exact repository-local documentation drift:
+The second validator reported repository-local documentation drift:
 
 ```text
 docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md missing required text:
@@ -187,42 +186,50 @@ receipt_required_for_execution
 Restricted admin
 ```
 
-The boundary document now preserves those exact fixture-aligned declarations while retaining preview-only, no-backend, no-execution, and no-authority posture. No validator was weakened.
+The boundary document now contains those exact fixture-aligned declarations while retaining preview-only, no-backend, no-execution, and no-authority posture.
 
-## Latest bounded builds
+Installed repair:
 
 ```text
-Commit: 145878cbea0b53ce8820e32b39424d1ea35d3e62
-File: docs/SITE_MIRROR_HANDOFF.md
-Change: restore the exact canonical handoff-path declaration.
-Verification: passed; validator 1 completed in run 29162414799.
-
 Commit: 14bd5e686f3977fd28036e99a39b1562a0f2dad0
 File: docs/ECOSYSTEM_CHAT_BOUNDARY_CHECK.md
-Change: restore exact machine-readable boundary declarations.
-Verification: pending.
-
-Commit: 673a32d0125ea1b76a9ee000187a088220a0516e
-File: scripts/acquire_governed_transition_index.py
-Change: add bounded acquisition of the receipted orchestration export artifact.
-
-Commit: 0a565828c470c476de8617346596143569ae246f
-File: scripts/run_site_task.py
-Change: register import-governed-transition-index as a declared task.
-
-Commit: 91e6414874d61f3bda2a5bc15f65cb9280b00400
-File: .github/workflows/site-task-runner.yml
-Change: expose the declared import task through the existing workflow and make generated-state publication rebase-safe.
+Static alignment: required strings present
+Workflow verification: pending
 ```
+
+No validator was weakened, and no PASS is claimed from static alignment alone.
+
+## Validation surface
+
+```text
+python scripts/check_ecosystem_chat_boundary.py
+python scripts/check_site_task_diagnostic_contract.py
+python scripts/check_governed_transition_observatory.py
+python scripts/check_governed_transition_index_import.py
+python scripts/run_site_task.py validate
+python scripts/run_site_task.py public-guard
+python scripts/run_site_task.py all-local
+python scripts/run_site_task.py import-governed-transition-index
+```
+
+## Workflow standard
+
+```text
+Active workflow 1: .github/workflows/validate.yml
+Active workflow 2: .github/workflows/site-task-runner.yml
+```
+
+No workflow was added.
 
 ## Remaining files/modules and destinations
 
 ```text
 StegVerse-Labs/Site:
-- verify the ecosystem boundary-document repair
+- observe validation of the boundary-document repair
 - verify validate and public-guard
 - verify all-local progresses beyond validator 2
-- verify import-governed-transition-index against the orchestration export
+- inspect and repair only any successor diagnostic validator
+- observe import-governed-transition-index against the orchestration export
 - verify public page, index, and import-status routes
 - connect Ecosystem Chat interactions to preserved transition_id and run_id
 
@@ -236,20 +243,26 @@ Downstream after validation:
 - StegVerse-Labs/admissibility-wiki
 - GCAT-BCAT-Engine/Publisher
 - StegVerse-002/stegguardian-wiki
+- StegVerse-Labs/Sit
 ```
 
 ## Next task
 
 ```text
-1. Verify the current Site Task Runner diagnostic no longer fails on scripts/check_ecosystem_chat_boundary.py.
-2. Verify validate and public-guard both pass.
-3. Inspect any successor diagnostic and repair only the next recorded validator if one fails.
-4. Run import-governed-transition-index through the existing Site Task Runner.
-5. Verify governed-transitions.html, its index, and import status after deployment.
-6. Add Master-Records custody and reconstruction references only from canonical receipts.
-7. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
+1. Observe the next Site Task Runner diagnostic.
+2. Confirm scripts/check_ecosystem_chat_boundary.py passes.
+3. Repair only the next recorded validator if one fails.
+4. Verify validate and public-guard both pass.
+5. Run import-governed-transition-index through the existing Site Task Runner.
+6. Verify governed-transitions.html, its index, and import status after deployment.
+7. Add Master-Records custody and reconstruction references only from canonical receipts.
+8. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
 ```
+
+## Release posture
+
+The Site diagnostic contract, diagnostic guard, and governed artifact-acquisition path are installed without adding workflows. Validation, successful artifact acquisition, public route verification, custody, reconstruction, and chat linkage remain incomplete. No release tag is authorized yet.
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, authority boundaries, diagnostic progression, bounded validator repairs, declared artifact-acquisition task, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
+This handoff contains the current Site architecture, authority boundaries, diagnostic progression, diagnostic guard, bounded validator repair, declared artifact-acquisition task, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
