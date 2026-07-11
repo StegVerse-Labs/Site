@@ -51,16 +51,25 @@ def mentions(text: str, token: str) -> bool:
     return token in text
 
 
+def has_jobs(text: str) -> bool:
+    return re.search(r"(?m)^jobs:\s*$", text) is not None
+
+
 def main() -> int:
     records = []
     for path in sorted(WORKFLOWS.glob("*.y*ml")):
         text = path.read_text(encoding="utf-8")
+        triggers = trigger_names(text)
+        jobs_present = has_jobs(text)
+        operational = bool(triggers or jobs_present)
         records.append(
             {
                 "file": path.name,
                 "name": scalar_name(text, path.name),
                 "classification": "CANONICAL" if path.name in CANONICAL else "MIGRATION_REQUIRED",
-                "triggers": trigger_names(text),
+                "triggers": triggers,
+                "has_jobs": jobs_present,
+                "operational": operational,
                 "capabilities": {
                     "contents_write": mentions(text, "contents: write"),
                     "pages_write": mentions(text, "pages: write"),
@@ -74,22 +83,38 @@ def main() -> int:
                     ),
                 },
                 "migration_status": (
-                    "RETAIN" if path.name in CANONICAL else "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+                    "RETAIN"
+                    if path.name in CANONICAL
+                    else (
+                        "TRIGGERLESS_JOBLESS_PLACEHOLDER"
+                        if not operational
+                        else "INVENTORY_ONLY_NOT_AUTHORIZED_TO_RETIRE"
+                    )
                 ),
             }
         )
 
+    operational_records = [record for record in records if record["operational"]]
+    operational_noncanonical = [
+        record for record in operational_records if record["file"] not in CANONICAL
+    ]
     payload = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "inventory_type": "site_workflow_consolidation_inventory",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "repository": "StegVerse-Labs/Site",
         "canonical_workflows": sorted(CANONICAL),
-        "active_workflow_file_count": len(records),
+        "workflow_file_count": len(records),
+        "operational_workflow_count": len(operational_records),
         "canonical_count": sum(r["classification"] == "CANONICAL" for r in records),
-        "migration_required_count": sum(r["classification"] == "MIGRATION_REQUIRED" for r in records),
-        "consolidation_complete": len(records) == len(CANONICAL) and all(
-            r["classification"] == "CANONICAL" for r in records
+        "migration_required_file_count": sum(
+            r["classification"] == "MIGRATION_REQUIRED" for r in records
+        ),
+        "migration_required_operational_count": len(operational_noncanonical),
+        "placeholder_count": sum(not r["operational"] for r in records),
+        "consolidation_complete": (
+            {record["file"] for record in operational_records} == CANONICAL
+            and len(operational_noncanonical) == 0
         ),
         "authority_boundary": {
             "inventory_disables_workflows": False,
@@ -102,9 +127,12 @@ def main() -> int:
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(f"SITE WORKFLOW INVENTORY: {len(records)} active workflow file(s)")
+    print(f"SITE WORKFLOW INVENTORY: {len(records)} workflow file(s)")
+    print(f"OPERATIONAL: {payload['operational_workflow_count']}")
     print(f"CANONICAL: {payload['canonical_count']}")
-    print(f"MIGRATION REQUIRED: {payload['migration_required_count']}")
+    print(f"MIGRATION REQUIRED OPERATIONAL: {payload['migration_required_operational_count']}")
+    print(f"PLACEHOLDERS: {payload['placeholder_count']}")
+    print(f"CONSOLIDATION COMPLETE: {payload['consolidation_complete']}")
     print(f"OUTPUT: {OUTPUT.relative_to(ROOT)}")
     return 0
 
