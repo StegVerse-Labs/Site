@@ -4,11 +4,13 @@
 
 This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.
 
+Canonical handoff path: `docs/SITE_MIRROR_HANDOFF.md`
+
 ## Current goal
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: fail-path-diagnostic-receipts-installed
+Phase: first-failing-validator-repair-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site remains preview-only
@@ -19,7 +21,7 @@ Live solver execution: false
 Live signatures: false
 Verified receipt issuer: false
 Workflow standard: exactly two active workflows
-Result: DIAGNOSTIC_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
+Result: BOUNDED_VALIDATOR_REPAIR_INSTALLED_VALIDATION_PENDING
 ```
 
 ## Governed transition observatory
@@ -121,29 +123,35 @@ Active workflow 2: .github/workflows/site-task-runner.yml
 
 No workflow was added.
 
-## Latest workflow failure
+## Latest diagnostic verification
 
 ```text
 Branch: main
 Workflow: Site Task Runner
 Job: run-site-task
-Run: 29157692302
-Commit: 59db1f798dd37e1f9d9620e8e0191e91fd3af613
-Result: failed in 12 seconds
-Annotations: 2
+Run: 29162235846
+Commit: ddae4ec4a122e1ec1a60832ae4556c5dab7765f8
 Selected task: all-local
-First failing step: Run declared Site task
-Failure class: repository-local declared-task validation failure; exact validator output unavailable from the connector response
+Diagnostic artifact: site-task-diagnostic-29162235846-1
+Artifact digest: sha256:74bdc68249c3f5ba03dc5fee15bf5d68575b94e18b5bf4f34bae4a2124aab140
+Diagnostic status: FAILED
+Failed validator: scripts/check_ecosystem_chat_application.py
+Validator index: 1
+Exit code: 1
+Authority effect: NONE
+Site mode: PREVIEW_ONLY
+State change authorized: false
 ```
 
-Verified run context:
+The diagnostic artifact was generated and uploaded successfully. It identified the first failing validator without inference.
 
-- runner provisioning, checkout, Python setup, optional dependency installation, and checked-in TT fallback confirmation succeeded;
-- the workflow resolved the push-triggered task to `all-local`;
-- canonical TT checkout and TT propagation steps were skipped by declared conditions;
-- failure occurred inside `python scripts/run_site_task.py all-local` at `Run declared Site task`;
-- commit, Pages configuration, artifact upload, and Pages deployment were skipped;
-- no deploy, release, tag, credential access, external-repository mutation, or public authority transition occurred.
+The nested validator output showed that all AI-entry checks, cross-wiki metadata graph checks, and media-pipeline mirror checks passed except one exact handoff declaration:
+
+```text
+FAIL docs/SITE_MIRROR_HANDOFF.md missing docs/SITE_MIRROR_HANDOFF.md
+```
+
+This was a repository-local documentation contract mismatch. The handoff now contains the canonical path declaration `docs/SITE_MIRROR_HANDOFF.md`. No validator was weakened, and no deployment, receipt, custody, admissibility, execution, or external-repository boundary changed.
 
 ## Latest bounded build
 
@@ -156,20 +164,20 @@ Commit: 4e924f4f762cbddb061e444b6236aaffd44c53f8
 File: .github/workflows/site-task-runner.yml
 Change: upload the diagnostic artifact on success or failure and include its key fields in the workflow summary.
 
+Current repair:
+File: docs/SITE_MIRROR_HANDOFF.md
+Change: restore the exact canonical handoff-path declaration required by the media-pipeline mirror validator and record the diagnostic artifact evidence.
 Authority effect: none.
-Verification: pending the workflow run triggered by the diagnostic installation.
+Verification: pending the next validate, public-guard, and all-local runs.
 ```
-
-The diagnostic installation does not repair the unknown validator. It makes the next failure directly reconstructable so that only the actual first failing validator can be repaired.
 
 ## Remaining files/modules and destinations
 
 ```text
 StegVerse-Labs/Site:
-  - verify site-task-diagnostic artifact generation
-  - inspect first failing validator from the next all-local run
-  - bounded repair of only that validator
-  - validate and public-guard verification
+  - verify the canonical handoff-path repair
+  - verify validate and public-guard
+  - verify all-local progresses beyond validator 1
   - governed artifact acquisition as a declared task
   - live URL verification for page, index, and import status
   - Ecosystem Chat transition identity linkage
@@ -189,16 +197,15 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify the next Site Task Runner run uploads site-task-diagnostic-<run>-<attempt>.
-2. Read reports/site-task-diagnostic.json from that artifact.
-3. Repair only the recorded first failing validator.
-4. Verify validate and public-guard both pass.
-5. Add a declared artifact-acquisition task behind one existing workflow.
-6. Add live URL verification for governed-transitions.html, its index, and import status.
-7. Add Master-Records custody and reconstruction references only from canonical receipts.
-8. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
+1. Verify the current Site Task Runner diagnostic no longer fails on the canonical handoff path.
+2. Verify validate and public-guard both pass.
+3. Inspect any successor diagnostic and repair only the next recorded validator if one fails.
+4. Add a declared artifact-acquisition task behind one existing workflow.
+5. Add live URL verification for governed-transitions.html, its index, and import status.
+6. Add Master-Records custody and reconstruction references only from canonical receipts.
+7. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
 ```
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, authority boundaries, diagnostic receipt contract, latest workflow stage, remaining work, and next task. Earlier conversation context is not required.
+This handoff contains the current Site architecture, authority boundaries, diagnostic receipt contract, exact failing validator, bounded repair, remaining work, and next task. Earlier conversation context is not required.
