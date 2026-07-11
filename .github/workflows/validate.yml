@@ -19,5 +19,7 @@ jobs:
           python-version: '3.12'
       - name: Inventory workflow entry points
         run: python scripts/write_site_workflow_inventory.py
+      - name: Enforce two operational workflows
+        run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
