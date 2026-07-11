@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "governed-transitions.html"
 SCRIPT = ROOT / "assets" / "governed-transitions.js"
 DATA = ROOT / "data" / "governed-transition-index.json"
+STATUS = ROOT / "data" / "governed-transition-index-import-status.json"
 
 
 def fail(message: str) -> int:
@@ -16,13 +17,14 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in [PAGE, SCRIPT, DATA]:
+    for path in [PAGE, SCRIPT, DATA, STATUS]:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
     script = SCRIPT.read_text(encoding="utf-8")
     data = json.loads(DATA.read_text(encoding="utf-8"))
+    status = json.loads(STATUS.read_text(encoding="utf-8"))
 
     for marker in [
         "Governed Ecosystem Transitions",
@@ -35,9 +37,12 @@ def main() -> int:
 
     for marker in [
         "data/governed-transition-index.json",
+        "data/governed-transition-index-import-status.json",
         "projection_type",
         "master_record_status",
         "reconstruction_status",
+        "hash_verified",
+        "live_orchestration_feed",
     ]:
         if marker not in script:
             return fail(f"renderer missing marker: {marker}")
@@ -68,7 +73,20 @@ def main() -> int:
         if phrase not in boundary:
             return fail(f"authority boundary missing: {phrase}")
 
-    print(f"GOVERNED TRANSITION OBSERVATORY: PASS ({len(records)} record(s))")
+    if status.get("status_type") != "governed_transition_index_import_status":
+        return fail("import status_type mismatch")
+    if status.get("state") == "LOCAL_FALLBACK_ACTIVE":
+        if status.get("hash_verified") is not False:
+            return fail("local fallback must not claim hash verification")
+        if status.get("live_orchestration_feed") is not False:
+            return fail("local fallback must not claim live feed")
+    elif status.get("state") == "RECEIPTED_EXPORT_IMPORTED":
+        if status.get("hash_verified") is not True:
+            return fail("receipted import must be hash verified")
+    else:
+        return fail("unsupported import state")
+
+    print(f"GOVERNED TRANSITION OBSERVATORY: PASS ({len(records)} record(s), {status['state']})")
     return 0
 
 
