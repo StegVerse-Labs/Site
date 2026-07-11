@@ -1,16 +1,16 @@
 # Site Mirror Handoff
 
-## Purpose
+## Source of truth
 
-This file is the current source of truth for continuing `StegVerse-Labs/Site` without prior chat context.
+This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.
 
 ## Current goal
 
 ```text
-Goal: unified governed Site experience centered on Ecosystem Chat
-Phase: governed-transition-observatory-installed
+Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
+Phase: receipted-transition-index-import-installed
 Primary surface: ecosystem-chat.html
-New operational projection: governed-transitions.html
+Operational projection: governed-transitions.html
 Site remains preview-only
 Live backend: not installed
 Site local mode: true
@@ -19,6 +19,7 @@ Live solver execution: false
 Live signatures: false
 Verified receipt issuer: false
 Workflow standard: exactly two active workflows
+Result: LOCAL_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
 ```
 
 ## Governed transition observatory
@@ -29,33 +30,59 @@ Installed:
 governed-transitions.html
 assets/governed-transitions.js
 data/governed-transition-index.json
+data/governed-transition-index-import-status.json
 scripts/check_governed_transition_observatory.py
+scripts/import_governed_transition_index.py
+scripts/check_governed_transition_index_import.py
 scripts/run_site_task.py
 ```
 
-The page consumes the canonical projection shape derived from:
+Expected public route after deployment:
 
 ```text
-master-records/orchestration/schemas/governed.transition.relationship.schema.json
-master-records/orchestration/schemas/governed.transition.index.schema.json
+https://stegverse-labs.github.io/Site/governed-transitions.html
 ```
 
-Current displayed relationship classes include:
+The page displays the canonical relational fields and now also displays projection provenance:
 
 ```text
-transition_id and run_id
-origin event and manifest
-repository, actor, task, and handoff
-parent transition and previous receipt
-admissibility and commit-time validity
-verification and final receipt
-Master-Records custody status
-reconstruction status
-next task
-visibility and redaction class
+import state
+source repository or local fallback
+source receipt
+source commit
+hash verification status
+live orchestration feed status
 ```
 
-The checked-in data is a projection fixture. It is not a live Master-Records feed and does not prove custody or reconstruction.
+## Import contract
+
+`master-records/orchestration` now exports:
+
+```text
+Artifact: governed-transition-index-export
+governed_transition_index.generated.json
+governed_transition_index.export-receipt.json
+```
+
+The Site importer verifies the export receipt, artifact name, SHA-256, record count, and authority boundary before replacing the local projection.
+
+Supported states:
+
+```text
+LOCAL_FALLBACK_ACTIVE
+  -> checked-in projection fixture
+  -> hash_verified: false
+  -> live_orchestration_feed: false
+  -> no source receipt claimed
+
+RECEIPTED_EXPORT_IMPORTED
+  -> orchestration export receipt verified
+  -> index SHA-256 verified
+  -> still not a live feed
+  -> still no execution, admissibility, custody, or reconstruction authority
+```
+
+The importer does not silently treat unavailable artifacts as current orchestration state.
 
 ## Current cross-repository path
 
@@ -71,48 +98,26 @@ Ecosystem-Delegation
 
 master-records/orchestration
   -> verify bounded intake
-  -> govern lifecycle, final receipt, custody, reconstruction
-  -> generate Site projection
+  -> govern lifecycle and final receipt
+  -> generate transition index
+  -> issue hash-bound export receipt
 
 StegVerse-Labs/Site
+  -> verify and import the export artifact
+  -> or remain on explicit local fallback
   -> render the bounded projection only
-```
-
-## Installed Ecosystem Chat capabilities
-
-```text
-single governed chat entry
-local route and transition-intent classification
-INTRA / INTER / RESEARCH / PROVIDER / SOLVER / RECEIPT bands
-fixture-bound HPS visualization
-bounded request-to-receipt traversal preview
-provider, quota, usage, cost, latency, and fallback previews
-governed solver fixture
-negative and positive authority handshake previews
-execution dry-run preview
-backend-shaped authority and execution receipt envelopes
-local SDK manifest and receipt-window previews
-restricted-admin fail-closed routing
-```
-
-## Documentation mesh
-
-```text
-Endpoint registry: data/ecosystem-documentation-endpoints.json
-Cross-wiki health: data/cross-wiki-health-status.json
-Validator: scripts/check_documentation_mesh_status.py
-State: pending_live_peer_checks
 ```
 
 ## Non-negotiable public boundary
 
 ```text
-Site may draft, classify, visualize, and offer governed transition destinations.
-Site must not execute shell commands, access credentials, mutate repositories, grant admissibility, sign receipts, verify receipt issuers, issue governing receipts, or claim Master-Records custody.
+Site may draft, classify, visualize, filter, and link governed transition records.
+Site must not execute shell commands, access credentials, mutate repositories, grant admissibility, grant delegation, sign receipts, verify production issuers, issue final receipts, admit Master-Records records, or claim reconstruction success.
 A projection is not the source of truth.
+A verified export is not a final transition receipt.
+A verified export is not Master-Records custody.
 Authority ALLOW remains distinct from execution.
 Commit-time validity remains distinct from state change.
-Receipt structure remains distinct from cryptographic proof.
 Site remains preview-only until a governed backend independently validates transitions and issues verified receipts.
 ```
 
@@ -120,12 +125,13 @@ Site remains preview-only until a governed backend independently validates trans
 
 ```text
 python scripts/check_governed_transition_observatory.py
+python scripts/check_governed_transition_index_import.py
 python scripts/run_site_task.py validate
 python scripts/run_site_task.py public-guard
 python scripts/run_site_task.py all-local
 ```
 
-The observatory validator is registered in both `validate` and `public-guard` through the existing task runner.
+Both transition validators are registered in `validate` and `public-guard` through the existing task runner.
 
 ## Workflow standard
 
@@ -134,28 +140,39 @@ Active workflow 1: .github/workflows/validate.yml
 Active workflow 2: .github/workflows/site-task-runner.yml
 ```
 
-No additional workflow may be created for the transition observatory. Validators and tasks remain behind these two stable workflows.
+No workflow was added.
+
+## Remaining files/modules and destinations
+
+```text
+StegVerse-Labs/Site:
+  - governed artifact acquisition as a declared task
+  - live URL verification for page, index, and import status
+  - Ecosystem Chat transition identity linkage
+
+master-records/orchestration:
+  - Master-Records custody admission contract
+  - reconstruction-result enrichment
+  - native StegVerse AI executor handoff
+
+Downstream after validation:
+  - StegVerse-Labs/admissibility-wiki
+  - GCAT-BCAT-Engine/Publisher
+  - StegVerse-002/stegguardian-wiki
+  - StegVerse-Labs/Sit
+```
 
 ## Next task
 
 ```text
-1. Verify Site validate and public-guard with the observatory installed.
-2. Add a generated-data handoff from master-records/orchestration without making Site the source of truth.
-3. Add live URL verification for governed-transitions.html after deployment.
-4. Replace projection fixtures with receipted generated artifacts when orchestration output is available.
-5. Add Master-Records custody and reconstruction references only when independently recorded.
-6. Continue Phase 12 canonical receipt payload and signature-verification preview contracts without enabling Site signing.
+1. Verify Site validate and public-guard.
+2. Add a declared artifact-acquisition task behind one existing workflow.
+3. Add live URL verification for governed-transitions.html, its index, and import status.
+4. Add Master-Records custody and reconstruction references only from canonical receipts.
+5. Connect Ecosystem Chat interactions to the same transition identities and projection feed.
+6. Preserve the same contract when the external bootstrap executor hands off to the StegVerse AI entity.
 ```
 
-## Downstream publication targets after Site validation
+## Archive readiness
 
-```text
-GCAT-BCAT-Engine/Publisher
-StegVerse-Labs/admissibility-wiki
-StegVerse-002/stegguardian-wiki
-StegVerse-Labs/Sit
-```
-
-## Handoff instruction
-
-Continue from this file before relying on prior chat context. The complete thread is ready for archiving; no additional part of the thread is required.
+This handoff contains the current Site architecture, installed files, authority boundaries, remaining work, and next task. Earlier conversation context is not required.
