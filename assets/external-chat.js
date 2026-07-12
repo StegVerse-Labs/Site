@@ -37,6 +37,10 @@
     return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
   }
 
+  function lines(id) {
+    return document.getElementById(id).value.split('\n').map((value) => value.trim()).filter(Boolean);
+  }
+
   function downloadJson(filename, payload) {
     const blob = new Blob([JSON.stringify(payload, null, 2) + '\n'], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -135,12 +139,8 @@
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.detail?.reason || `HTTP ${response.status}`);
-        if (data.compatibility_evidence_only !== true || data.boundary?.compatibility_result_is_authority !== false) {
-          throw new Error('compatibility authority boundary mismatch');
-        }
-        if (data.submission_retained !== false || data.wiki_record_created !== false) {
-          throw new Error('submission retention/publication boundary mismatch');
-        }
+        if (data.compatibility_evidence_only !== true || data.boundary?.compatibility_result_is_authority !== false) throw new Error('compatibility authority boundary mismatch');
+        if (data.submission_retained !== false || data.wiki_record_created !== false) throw new Error('submission retention/publication boundary mismatch');
         render(data);
       } finally {
         window.clearTimeout(timeout);
@@ -188,6 +188,41 @@
     });
   }
 
+  function downloadReviewPackage() {
+    if (!lastResult) return;
+    if (document.getElementById('review-opt-in').checked !== true) {
+      statusEl.innerHTML = '<span class="error">Explicit cooperative-review opt-in is required.</span>';
+      return;
+    }
+    const reviewScope = lines('review-scope');
+    if (!reviewScope.length) {
+      statusEl.innerHTML = '<span class="error">At least one review-scope item is required.</span>';
+      return;
+    }
+    downloadJson(`external-chat-${lastResult.framework_id || 'framework'}-review-package.json`, {
+      schema_version: '1.0.0',
+      packet_type: 'external_framework_cooperative_review_package',
+      framework_id: lastResult.framework_id,
+      framework_name: lastResult.framework_name || null,
+      compatibility_receipt_id: lastResult.receipt_id,
+      submission_sha256: lastResult.submission_sha256,
+      compatibility_result: lastResult.result,
+      submitter_opt_in: true,
+      publication_requested: document.getElementById('publication-requested').checked === true,
+      raw_submission_included: false,
+      review_scope: reviewScope,
+      evidence_references: lines('evidence-references'),
+      contact_reference: null,
+      boundary: {
+        package_is_publication_authority: false,
+        package_is_certification: false,
+        package_creates_standing: false,
+        review_may_change_result_without_receipt: false,
+      },
+    });
+    statusEl.innerHTML = '<span class="good">Cooperative review package created locally.</span> No upload or publication occurred.';
+  }
+
   catalogEl.addEventListener('change', () => {
     if (!catalogEl.value) return;
     idEl.value = catalogEl.value;
@@ -201,6 +236,7 @@
   document.getElementById('submit').addEventListener('click', submit);
   document.getElementById('download-result').addEventListener('click', downloadResultPacket);
   document.getElementById('download-challenge').addEventListener('click', downloadChallengePacket);
+  document.getElementById('download-review').addEventListener('click', downloadReviewPackage);
   loadCatalog().catch((error) => { catalogStatusEl.innerHTML = `<span class="error">Catalog unavailable: ${esc(error.message)}</span>`; });
   loadExample().catch(() => {});
 })();
