@@ -2,6 +2,26 @@
   'use strict';
 
   const FIXTURE_PATH = 'fixtures/ecosystem-chat/hps-visualization-status.example.json';
+
+  function ensurePrimaryNavigation() {
+    const nav = document.querySelector('nav.sv-nav');
+    if (!nav) return;
+    const links = [
+      ['ecosystem-usage.html', 'Usage Ledger'],
+      ['ecosystem-comparison.html', 'Route Comparison']
+    ];
+    for (const [href, label] of links) {
+      if (nav.querySelector(`a[href="${href}"]`)) continue;
+      const anchor = document.createElement('a');
+      anchor.href = href;
+      anchor.textContent = label;
+      anchor.dataset.ecosystemNavigation = 'true';
+      nav.appendChild(anchor);
+    }
+  }
+
+  ensurePrimaryNavigation();
+
   const host = document.getElementById('hpsVisualization');
   if (!host) return;
 
