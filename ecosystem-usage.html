@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse cross-entry session usage ledger and entry-point role guide.">
+  <title>StegVerse — Ecosystem Usage Ledger</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .usage-grid,.role-grid,.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card,.transition-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.transition-card{margin:12px 0}.usage-prepend{font:11px/1.55 var(--mono);border-left:3px solid var(--green);padding:10px 12px;background:#0b1420;overflow-wrap:anywhere}.usage-prepend strong{color:var(--text)}.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}.metric{border:1px solid var(--border);border-radius:var(--radius);padding:9px}.metric span,.muted{color:var(--muted);font-size:12px}.metric strong{display:block;margin-top:3px}.role-card h3{margin:0 0 6px}.role-card ul{padding-left:18px;color:var(--muted)}.boundary{border:1px solid #3a2a12;background:rgba(63,44,13,.25);border-radius:var(--radius);padding:13px;color:#f0d9a0}.session-status{font:11px var(--mono);color:var(--green)}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="ecosystem-usage.html" class="active">Usage Ledger</a><a href="governed-transitions.html">Transitions</a><a href="governed-ecosystem.html">Governed Ecosystem</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero"><div class="sv-eyebrow">Cross-entry session continuity · usage before every transition</div><h1>Ecosystem Usage Ledger<br><em>one session, many entry points.</em></h1><p>This page describes the primary and related roles of each entry point, then prepends every displayed transition with the usage information owned by the systems that participated in it.</p></div>
+  <div class="boundary"><strong>Boundary:</strong> usage display is not authority, admissibility, standing, execution, billing settlement, or proof of live measurement. Evidence classes remain visible and configured values are never relabeled as measured.</div>
+  <section><h2 class="sv-h2">Entry-point roles</h2><div class="role-grid" id="entryPointRoles"><p class="muted">Loading role declarations…</p></div></section>
+  <section><h2 class="sv-h2">Session summary</h2><div class="summary-grid" id="sessionSummary"><p class="muted">Loading usage events…</p></div><p class="session-status" id="sessionStatus" aria-live="polite"></p></section>
+  <section><h2 class="sv-h2">Transition timeline</h2><p class="muted">Each transition begins with a usage prepend. Measurements are deduplicated by metric owner and stable measurement identity across SDK, LLM Adapter, runtime, Ecosystem Chat, and future entry points.</p><div id="transitionTimeline" aria-live="polite"></div></section>
+</div>
+<footer class="sv-footer"><span>StegVerse · Shared usage ledger · No execution authority</span><span><a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="governed-transitions.html">Transition Observatory</a></span></footer>
+<script src="assets/ecosystem-usage-ledger.js"></script>
+</body>
+</html>
