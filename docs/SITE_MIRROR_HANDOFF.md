@@ -153,41 +153,40 @@ SQLite persistence and custody display
 live observatory lookup and RECORDED consistency
 ```
 
-## Latest Site Bootstrap Validate failure and bounded repair
-
-GitHub Actions run `29179673207` on `main` at commit `c19e0015c24ba2f5ccd39eda6c97477d78e2a92a` failed in job `bootstrap-validate`, step `Validate application`.
-
-The preserved validation artifact was:
+## Observed validation failures and bounded repairs
 
 ```text
-site-application-validation-result
+Workflow: Site Bootstrap Validate
+Run: 29179673207
+Commit: c19e0015c24ba2f5ccd39eda6c97477d78e2a92a
+First failing step: Validate application
+Failing command: python scripts/check_site_media_pipeline_mirror.py
+Failure class: stale preview-only handoff assertion
+Repair commit: 181668077ecd3e8d686374758de051f7ba76c07f
+Artifact: site-application-validation-result
 Artifact ID: 8256003741
-SHA256: 1bf661d6438c63a016c868ac383ceeb61a03b80d8ba966cb21b5edd0d4885852
+Artifact digest: sha256:1bf661d6438c63a016c868ac383ceeb61a03b80d8ba966cb21b5edd0d4885852
+
+Workflow: Site Task Runner
+Run: 29191451576
+Commit: 1d64d9c16b91cea0b9fbb56874193caf491d30ff
+First failing step: Run declared Site task
+Failing validator: python scripts/check_ecosystem_chat_boundary.py
+Failure class: deterministic substring-count bug in hero button validation
+Repair commit: 62d6c88df9e126978b477ac14913a9ef4dc375c0
+Artifact: site-task-diagnostic-29191451576-1
+Artifact ID: 8259633062
+Artifact digest: sha256:8dd3daca1a24e0f534fd7279b97c85573c59b1fb4af0bb087a8891c37794009a
 ```
 
-The failing command was:
+The boundary checker now counts actual `a` or `button` elements carrying the `sv-btn` class rather than counting repeated class-name substrings. It still requires exactly two total public buttons, exactly two hero links, and the canonical `#console` and `#how-it-works` destinations.
 
-```text
-python scripts/check_site_media_pipeline_mirror.py
-```
-
-The checker still required the superseded `Site mode: PREVIEW_ONLY` contract and legacy preview-only prose even though this handoff now declares `GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK` and preserves the current non-execution, provider-authority, custody, and no-release-tag boundaries.
-
-Applied bounded repair:
-
-```text
-scripts/check_site_media_pipeline_mirror.py
-Commit: 181668077ecd3e8d686374758de051f7ba76c07f
-```
-
-The checker now validates the current handoff contract without changing Site mode, workflow count, provider authority, custody authority, deployment status, credentials, or release posture.
-
-Verification remains pending on commit `181668077ecd3e8d686374758de051f7ba76c07f` or later.
+Verification remains pending on commit `62d6c88df9e126978b477ac14913a9ef4dc375c0` or a documented successor.
 
 ## Next task
 
 ```text
-1. Verify current-main Site and LLM-adapter tests, including Site Bootstrap Validate on commit 181668077ecd3e8d686374758de051f7ba76c07f or later.
+1. Verify current-main Site and LLM-adapter tests, including Site Task Runner and Site Bootstrap Validate on commit 62d6c88df9e126978b477ac14913a9ef4dc375c0 or later.
 2. Preserve the passing Site validation receipt before deployment work.
 3. Deploy gateway and custody production blueprints only with required deployment authority.
 4. Configure shared custody credentials only through authorized secret-management paths.
@@ -203,4 +202,4 @@ Provider policy and display, deterministic fallback, persistent storage profiles
 
 ## Archive readiness
 
-This handoff contains the current provider, gateway, custody, Site display, latest bounded validation repair, preserved authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff contains the current provider, gateway, custody, Site display, latest bounded validation repairs, preserved authority boundaries, and continuation state. Earlier conversation context is not required.
