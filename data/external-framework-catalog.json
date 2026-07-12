@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "external_framework_catalog",
+  "source_repository": "StegVerse-Labs/admissibility-wiki",
+  "source_path": "docs/external-frameworks/reports",
+  "generated_from": "checked-in compatibility report inventory",
+  "frameworks": [
+    {"framework_id": "decisionassure", "report": "decisionassure.compatibility.json"},
+    {"framework_id": "glm", "report": "glm.compatibility.json"},
+    {"framework_id": "morrison-runtime", "report": "morrison-runtime.compatibility.json"},
+    {"framework_id": "care-runtime", "report": "care-runtime.compatibility.json"},
+    {"framework_id": "nist-ai-rmf", "report": "nist-ai-rmf.compatibility.json"},
+    {"framework_id": "eu-ai-act", "report": "eu-ai-act.compatibility.json"},
+    {"framework_id": "mitre-atlas", "report": "mitre-atlas.compatibility.json"},
+    {"framework_id": "owasp-top-10-llm", "report": "owasp-top-10-llm.compatibility.json"},
+    {"framework_id": "iso-iec-42001", "report": "iso-iec-42001.compatibility.json"},
+    {"framework_id": "policy-cards", "report": "policy-cards.compatibility.json"},
+    {"framework_id": "mindforge", "report": "mindforge.compatibility.json"},
+    {"framework_id": "decision-authority", "report": "decision-authority.compatibility.json"}
+  ],
+  "authority_boundary": {
+    "catalog_is_certification": false,
+    "catalog_is_execution_authority": false,
+    "catalog_is_general_compatibility_proof": false
+  }
+}
