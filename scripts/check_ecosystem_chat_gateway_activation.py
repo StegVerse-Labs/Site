@@ -58,6 +58,11 @@ def main() -> int:
         "sqlite_persisted",
         "storage_durable_across_restarts",
         "custody_submission",
+        "provider_status",
+        "provider_receipt_id",
+        "estimated_cost_usd",
+        "provider_output_is_authority",
+        "DETERMINISTIC_FALLBACK",
         "EPHEMERAL_HOST_STORAGE",
         "LOCAL_CLASSIFICATION",
         "AbortController",
@@ -66,14 +71,17 @@ def main() -> int:
             return fail(f"client missing marker: {marker}")
     for marker in [
         "Governed gateway",
-        "bounded response pipeline",
         "LOCAL FALLBACK",
         "UNAVAILABLE",
         "repository mutation",
-        "Master-Records custody",
+        "custody overclaim",
         "sqlite_transition_store",
         "storage_durable_across_restarts",
         "Master-Records submission",
+        "governed_provider_enabled",
+        "provider_output_is_authority",
+        "provider_failure_falls_back",
+        "provider credentials are not exposed",
     ]:
         if marker not in health:
             return fail(f"health indicator missing marker: {marker}")
