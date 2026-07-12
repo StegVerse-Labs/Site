@@ -29,25 +29,21 @@ No workflow was added.
 
 ```text
 ecosystem-usage.html
+assets/ecosystem-usage-auth-client.js
 assets/ecosystem-usage-ledger.js
 data/entry-point-roles.json
 data/usage-session-fixture.json
 data/ecosystem-usage-config.json
+data/ecosystem-usage-live-contract.json
+scripts/check_ecosystem_usage_auth_contract.py
 scripts/check_ecosystem_usage_ledger.py
 ```
 
 The usage surface preserves one session identity across entry points, deduplicates by `metric_owner + measurement_id`, preserves evidence classes, prepends usage before each transition, supports session lookup, JSON export, and receipt navigation.
 
-## Prepared authenticated usage retrieval boundary
+The authenticated client is now loaded before the ledger renderer. Loading the client does not activate live retrieval. `data/ecosystem-usage-config.json` keeps `live_transport.enabled=false`, `usage_api_base=null`, and requires `AUTHORIZED_DEPLOYED_ENDPOINT` before activation.
 
-```text
-data/ecosystem-usage-live-contract.json
-assets/ecosystem-usage-auth-client.js
-scripts/check_ecosystem_usage_auth_contract.py
-scripts/check_ecosystem_chat_application.py
-```
-
-Current posture:
+## Authenticated usage retrieval boundary
 
 ```text
 contract status: PREPARED_NOT_DEPLOYED
@@ -60,11 +56,24 @@ query-string tokens: prohibited
 local-storage tokens: prohibited
 request timeout: 10 seconds
 cache posture: no-store
+live transport enabled: false
+usage API base: null
+activation prerequisite: AUTHORIZED_DEPLOYED_ENDPOINT
 ```
 
-The client validates the response schema, requested session identity, event identity, evidence classes, null values for `UNAVAILABLE`, and the retrieval receipt. Authentication failure, session-identity mismatch, missing receipt, or contract-invalid output fails closed and may not silently downgrade to fixture evidence.
+The client validates the response schema, requested session identity, event identity, evidence classes, null values for `UNAVAILABLE`, and the retrieval receipt.
 
-The prepared client does not activate an endpoint, configure a credential, change deployment state, or claim live retrieval. Endpoint implementation and authenticated deployment remain destination-controlled work.
+Fallback behavior is separated by failure class:
+
+```text
+network unavailable -> bounded local or configured-fixture fallback may occur
+authentication failure -> fail closed
+session identity mismatch -> fail closed
+missing retrieval receipt -> fail closed
+contract-invalid output -> fail closed
+```
+
+The prepared and loaded client does not activate an endpoint, configure a credential, change deployment state, or claim live retrieval. Endpoint implementation and authenticated deployment remain destination-controlled work.
 
 ## Installed governed-versus-recursive comparison surface
 
@@ -126,7 +135,7 @@ The canonical delta formula is:
 external_recursive - stegverse_governed
 ```
 
-Positive values therefore mean the external recursive route used more of the displayed metric.
+Positive values mean the external recursive route used more of the displayed metric.
 
 ## Authority boundary
 
@@ -137,6 +146,8 @@ Usage event != authority.
 Usage display != admissibility.
 Usage retrieval receipt != Master-Records custody.
 Prepared authenticated client != deployed authenticated endpoint.
+Loaded authenticated client != enabled live transport.
+Network fallback != live evidence.
 Comparison != authority.
 Comparison != admissibility.
 Entry-point acceptance != authority.
@@ -164,30 +175,25 @@ python scripts/check_ecosystem_chat_application.py
   -> python scripts/check_ecosystem_comparison.py
 ```
 
-The authenticated retrieval checker verifies:
+The authenticated retrieval and ledger checks verify:
 
 ```text
-PREPARED_NOT_DEPLOYED posture
+PREPARED_NOT_DEPLOYED contract posture
+authenticated client loads before ledger renderer
 same-origin credential isolation
 no Site-configured bearer/query/local-storage token path
 bounded timeout and no-store transport
+live_transport.enabled == false
+usage_api_base == null
+activation requires AUTHORIZED_DEPLOYED_ENDPOINT
 session identity preservation
 retrieval receipt requirement
 MEASURED / CONFIGURED / DERIVED / UNAVAILABLE evidence classes
 UNAVAILABLE values remain null
-no silent fallback after authentication or integrity failure
+network-only bounded fallback
+no fallback after authentication or integrity failure
+exported state retains authority=none and custody=not-recorded-by-site
 retrieval grants no authority, admissibility, custody, or RECORDED status
-```
-
-The navigation checker verifies:
-
-```text
-primary navigation exists
-usage target exists
-comparison target exists
-runtime navigation installer exists
-both labels and hrefs are declared
-no authority or execution marker is introduced
 ```
 
 The comparison checker verifies:
@@ -208,20 +214,20 @@ fail-closed rendering exists
 ## Latest bounded task completion
 
 ```text
-Task: prepare Site-owned authenticated live usage retrieval boundary
-Contract commit: 48105fdf455cdba89c3904d9b325c566b7ab6701
-Client commit: 8e254127dc6e3d093e1c94a887775fdad21fc033
-Validator commit: 86d01352a9b14d660bf6f5e868d3278915017619
-Canonical integration commit: 94067c07c581c00334ba2c468b6c796cd04417b8
-State: PREPARED_NOT_DEPLOYED; current-main workflow verification pending
+Task: integrate authenticated usage client into the public ledger without activating transport
+Configuration commit: d96a8150b3c85f2d451774b14a5c4215d5c4db15
+Page integration commit: 540aa3f027aa5d5a5eff1bf144259492a851ead9
+Renderer integration commit: 554a70d7fcfa3fd7cc2997af2941db1027c58fd2
+Validator integration commit: 4eccd604003e03ebc5646802707aec8a80fdd179
+State: CLIENT_LOADED_TRANSPORT_DISABLED; current-main workflow verification pending
 ```
 
 ## Remaining files or modules
 
 ```text
 StegVerse-Labs/Site
-  -> load the authenticated client on the usage surface after an authorized endpoint exists
-  -> deployed authenticated live usage retrieval
+  -> current-main green validation receipt
+  -> authorized deployed authenticated live usage endpoint configuration
   -> live paired-result ingestion replacing configured comparison fixture
   -> public retrieval, comparison, and receipt-navigation verification
 
@@ -242,18 +248,19 @@ master-records
 ## Next task
 
 ```text
-1. Verify the current-main Site workflow passes with navigation and authenticated-usage contract checks included.
+1. Verify current-main Site workflows with authenticated-client integration included.
 2. Preserve the passing Site application validation receipt.
-3. Review the current destination handoff before any LLM-adapter endpoint mutation.
-4. Load the authenticated client only after an authorized endpoint and same-origin authentication path exist.
-5. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
-6. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
+3. Review the current LLM-adapter handoff before any endpoint mutation.
+4. Implement the authenticated session-usage endpoint only under destination authority.
+5. Configure usage_api_base and set live_transport.enabled=true only after deployed endpoint and same-origin authentication evidence exist.
+6. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
+7. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
 ```
 
 ## Release posture
 
-Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, fail-closed browser client, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, or tag is authorized by this handoff.
+Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, loaded fail-closed browser client, disabled activation configuration, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED` and `CLIENT_LOADED_TRANSPORT_DISABLED`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, or tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval boundary, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval integration, disabled activation posture, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
