@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK",
+  "enabled": true,
+  "endpoint": "https://stegverse-ecosystem-chat-gateway.onrender.com/api/ecosystem-chat",
+  "health_endpoint": "https://stegverse-ecosystem-chat-gateway.onrender.com/health",
+  "timeout_ms": 20000,
+  "fallback": "LOCAL_CLASSIFICATION",
+  "authority_boundary": {
+    "site_execution_authority": false,
+    "gateway_execution_authority": false,
+    "gateway_receipt_is_final": false,
+    "master_records_authority": false
+  }
+}
