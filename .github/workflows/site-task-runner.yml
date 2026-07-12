@@ -120,6 +120,11 @@ jobs:
         working-directory: site
         run: python scripts/acquire_governed_transition_index.py
 
+      - name: Acquire external framework catalog
+        if: steps.task.outputs.name == 'all-local'
+        working-directory: site
+        run: python scripts/acquire_external_framework_catalog.py
+
       - name: Run declared Site task
         working-directory: site
         run: python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
@@ -198,6 +203,16 @@ jobs:
           print(f"Transition projection source: {status.get('source')}")
           print(f"Transition projection hash verified: {status.get('hash_verified')}")
           print(f"Transition projection live feed: {status.get('live_orchestration_feed')}")
+          PY
+          fi
+          if [ -f data/external-framework-catalog-import-status.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          status = json.loads(Path('data/external-framework-catalog-import-status.json').read_text())
+          print(f"External framework catalog state: {status['state']}")
+          print(f"External framework catalog hash verified: {status.get('hash_verified')}")
+          print(f"External framework count: {status.get('framework_count')}")
           PY
           fi
           if [ -f reports/site-task-diagnostic.json ]; then
