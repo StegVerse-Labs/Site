@@ -117,7 +117,7 @@ def verify_continuation_panel() -> None:
     for needle in ['id="continuationPanel"', 'id="continuationSummary"', 'id="continuationGrid"', "Continue to…"]:
         if needle not in page:
             raise AssertionError(f"ecosystem-chat.html missing continuation-panel surface: {needle}")
-    for needle in ["renderContinuationPanel", "transition_destination", "continuation", "destinationHref"]:
+    for needle in ["renderContinuationPanel", "transition_destination", "continuation", "item.destination", "link.href"]:
         if needle not in script:
             raise AssertionError(f"assets/ecosystem-chat.js missing continuation-panel behavior: {needle}")
 
