@@ -13,9 +13,9 @@
     .lede,.muted { color:#bfd0df; line-height:1.6; }
     .boundary,.card { border:1px solid #334b62; background:#0c1826; border-radius:14px; padding:18px; margin:18px 0; }
     label { display:block; margin:12px 0 6px; color:#bcd3e6; }
-    input,textarea,button { box-sizing:border-box; width:100%; border-radius:10px; border:1px solid #385069; background:#081421; color:#eef6ff; padding:11px; }
+    input,textarea,button,select { box-sizing:border-box; width:100%; border-radius:10px; border:1px solid #385069; background:#081421; color:#eef6ff; padding:11px; }
     textarea { min-height:360px; font-family:ui-monospace,SFMono-Regular,monospace; }
-    button { width:auto; cursor:pointer; background:#18334d; font-weight:700; margin-top:12px; }
+    button { width:auto; cursor:pointer; background:#18334d; font-weight:700; margin:12px 8px 0 0; }
     pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#07101c; padding:16px; border-radius:10px; }
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
     .metric { border:1px solid #30485f; border-radius:12px; padding:14px; }
@@ -30,6 +30,14 @@
   <h1>External Chat</h1>
   <p class="lede">Submit a framework description or trace for bounded compatibility testing against the same transition-table fields used by the Admissibility Wiki external-framework pages.</p>
   <div class="boundary"><strong>Boundary:</strong> This tool produces compatibility evidence only. It does not certify, endorse, execute, establish equivalence, grant authority, or create standing. Submitted content is evaluated in memory and is not automatically published to the wiki.</div>
+
+  <section class="card">
+    <h2>Known framework findings</h2>
+    <p class="muted">This receipted catalog is a Site projection of checked-in Admissibility Wiki compatibility reports. Inclusion does not certify compatibility.</p>
+    <label for="known-framework">Load a known framework identifier</label>
+    <select id="known-framework"><option value="">Select a framework…</option></select>
+    <p id="catalog-status" class="muted">Loading catalog projection…</p>
+  </section>
 
   <section class="card">
     <h2>Framework submission</h2>
@@ -48,6 +56,8 @@
     <h2>Compatibility result</h2>
     <div id="summary" class="grid"></div>
     <p id="wiki-links"></p>
+    <button id="download-result" type="button">Download result packet</button>
+    <button id="download-challenge" type="button">Create challenge packet</button>
     <pre id="output"></pre>
   </section>
 
