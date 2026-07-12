@@ -7,14 +7,15 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 ## Current goal
 
 ```text
-Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: receipted-executor-activation-projection-installed
+Goal: fully functional governed Ecosystem Chat request-response path
+Phase: live-gateway-client-integration-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
-Site mode: PREVIEW_ONLY
-Live backend: not installed
+Site mode: GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK
+Backend implementation: installed in StegVerse-org/LLM-adapter
+Backend deployment and health: verification pending
 Workflow target: exactly two operational workflows
-Result: LOCAL_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
+Result: CROSS_REPOSITORY_IMPLEMENTATION_INSTALLED_LIVE_VALIDATION_PENDING
 ```
 
 ## Canonical workflow progression
@@ -22,11 +23,11 @@ Result: LOCAL_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
 ```text
 Site Bootstrap Validate
 -> Site Task Runner
--> acquire governed transition projection and activated executor handoff
+-> acquire governed transition projection and executor state
 -> all-local validation
 -> commit bounded generated state on main
 -> deploy Pages
--> verify transition page, index, import status, and executor projection
+-> verify public routes
 ```
 
 Active workflows remain:
@@ -36,150 +37,112 @@ Active workflows remain:
 .github/workflows/site-task-runner.yml
 ```
 
-## Governed transition observatory
+## Ecosystem Chat live gateway client
+
+Installed or updated:
+
+```text
+data/ecosystem-chat-gateway.json
+assets/ecosystem-chat-transition-identity.js
+scripts/check_ecosystem_chat_gateway_activation.py
+scripts/check_ecosystem_chat_receipt_envelopes.py
+```
+
+Configured service:
+
+```text
+POST https://stegverse-ecosystem-chat-gateway.onrender.com/api/ecosystem-chat
+GET  https://stegverse-ecosystem-chat-gateway.onrender.com/health
+```
+
+Browser behavior:
+
+```text
+create canonical SITE_INPUT identity
+-> load validated gateway configuration
+-> submit text request plus transition identity
+-> require transition_id/run_id/event_id/origin_manifest_id round-trip equality
+-> display bounded gateway response and GATEWAY_INTAKE_RECEIPT
+-> on timeout, non-OK response, malformed response, or identity mismatch: fail closed to local classification
+```
+
+The fallback does not claim a gateway receipt, final receipt, execution, admissibility, custody, or reconstruction.
+
+## Deployable gateway implementation
+
+Canonical backend repository:
+
+```text
+StegVerse-org/LLM-adapter
+```
+
+Installed there:
+
+```text
+llm_adapter/ecosystem_chat_gateway.py
+tests/test_ecosystem_chat_gateway.py
+render.yaml
+pyproject.toml
+```
+
+The service provides validation, CORS, rate limiting, restricted-request handling, canonical identity preservation, bounded response generation, gateway intake receipts, and `/health`.
+
+## Executor and observatory state
+
+The governed transition observatory and receipted executor projection remain installed:
 
 ```text
 governed-transitions.html
-assets/governed-transitions.js
 data/governed-transition-index.json
 data/governed-transition-index-import-status.json
 data/governed-executor-status.json
-scripts/acquire_governed_transition_index.py
-scripts/import_governed_transition_index.py
-scripts/check_governed_transition_observatory.py
-scripts/check_governed_transition_index_import.py
-scripts/check_governed_transition_live_urls.py
 ```
 
-Supported import states:
-
-```text
-LOCAL_FALLBACK_ACTIVE
-RECEIPTED_EXPORT_IMPORTED
-```
-
-Neither state grants execution, admissibility, executor activation, final-receipt, custody, or reconstruction authority.
-
-## Receipted executor activation projection
-
-The existing orchestration export artifact now includes:
-
-```text
-reports/governed_executor_handoff.active.generated.json
-```
-
-Site imports that file into:
-
-```text
-data/governed-executor-status.json
-```
-
-The projection displays:
-
-```text
-from_executor.status = FALLBACK_ONLY
-to_executor.status = ACTIVE
-activation.state = ACTIVE
-activation_receipt_id = executor-activation-receipt:stegverse-ai:example-001
-transition_id
-run_id
-```
-
-The projection is bounded:
-
-```text
-projection_grants_execution_authority = false
-projection_grants_publication_authority = false
-projection_grants_admissibility = false
-projection_is_master_records_custody = false
-activation_is_per_transition_authority = false
-```
-
-Executor activation indicates eligibility to receive governed work. It is not per-transition execution authority and Site cannot activate an executor.
-
-## Ecosystem Chat transition identity
-
-Every browser-local chat interaction creates a preview candidate with:
-
-```text
-transition_id
-run_id
-event_id
-origin_manifest_id
-origin_class = SITE_INPUT
-lifecycle_state = DECLARED
-parent_transition_id
-previous_receipt_id
-```
-
-The candidate targets:
-
-```text
-repository:StegVerse-Labs/hybrid-collab-bridge
-```
-
-The candidate remains explicitly non-authorizing:
-
-```text
-admissibility_result = PENDING
-commit_time_validity = PENDING
-action_ref = null
-final_receipt_id = null
-master_record_status = NOT_YET_SUBMITTED
-reconstruction_status = NOT_YET_CHECKED
-raw_shell_allowed = false
-execution_authorized = false
-receipt_issued = false
-```
-
-## Current cross-repository path
-
-```text
-Ecosystem Chat / SDK / LLM-adapter
--> canonical DECLARED candidate
--> hybrid-collab-bridge
--> Ecosystem-Delegation
--> Standing-Proof-Engine
--> master-records/orchestration
--> receipted native executor activation
--> governed transition final receipt
--> Master-Records custody
--> reconstruction
--> Site projection
-```
+Native executor eligibility and a gateway request are separate boundaries. Executor activation does not grant per-transition execution authority.
 
 ## Non-negotiable boundary
 
 ```text
-Site may draft, classify, visualize, filter, and emit preview candidates.
-Site must not execute, mutate repositories, access credentials, grant admissibility or delegation, sign receipts, issue final receipts, admit Master-Records records, or claim reconstruction success.
-Site must not activate executors.
-A local hash is not a final receipt.
-A Site candidate is not execution authority.
-Executor activation is not per-transition execution authority.
-A projection is not source authority.
+Site does not execute or mutate repositories.
+Gateway intake receipt != final transition receipt.
+Gateway response != admissibility.
+Gateway routing != execution authority.
+Native executor activation != per-transition authority.
+Final receipt != Master-Records custody.
+Projection != source authority.
 ```
 
 ## Validation surface
 
-No workflow was added. The existing observatory checker now verifies:
+The existing receipt-envelope validation now also checks:
 
 ```text
-executor projection exists
-native executor is ACTIVE
-bootstrap executor is FALLBACK_ONLY
-activation receipt is present
-all projection authority flags remain false
-browser renderer loads the executor projection
-artifact acquisition requires the activated handoff member
+gateway config schema and HTTPS endpoints
+authority boundary flags
+identity-preserving client markers
+timeout and local fallback behavior
+gateway receipt/final receipt distinction
 ```
+
+No workflow was added.
 
 ## Remaining files/modules and destinations
 
 ```text
+StegVerse-org/LLM-adapter:
+- current-main gateway test evidence
+- successful Render deployment
+- GET /health public verification
+
 StegVerse-Labs/Site:
-- current PR validation evidence
-- verify deployed executor projection route
+- current-main validation evidence
+- live browser POST round-trip evidence
+- public status indicator for gateway health
+
+Cross-repository runtime:
+- transport accepted gateway candidate into hybrid-collab-bridge
+- return delegation/SPE/orchestration lifecycle updates to the same chat transition
+- return final receipt and Master-Records state when independently issued
 
 Downstream after validation:
 - StegVerse-Labs/admissibility-wiki
@@ -191,16 +154,17 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify Site validation passes with the executor activation projection.
-2. Import the latest successful main-branch orchestration artifact when credentials are available.
-3. Verify the deployed governed-transitions page renders the ACTIVE/FALLBACK_ONLY states and activation receipt.
-4. Propagate verified status downstream only after current-main and deployed-route evidence exists.
+1. Verify LLM-adapter tests including the FastAPI gateway suite.
+2. Deploy render.yaml and verify /health.
+3. Submit one public Ecosystem Chat request and verify identity-preserving response.
+4. Install gateway-to-hybrid-collab-bridge transport.
+5. Stream lifecycle and final receipt updates back to the same transition.
 ```
 
 ## Release posture
 
-No release tag is authorized until current PR validation and deployed-route evidence exist.
+The browser and deployable backend implementations are connected by contract. The system must not be called fully live until service deployment, health verification, public POST round-trip, and downstream bridge transport are observed.
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, transition identity linkage, receipted executor projection, authority boundaries, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
+This handoff contains the current implementation, deployment boundary, validation rules, and continuation order. Earlier conversation context is not required.
