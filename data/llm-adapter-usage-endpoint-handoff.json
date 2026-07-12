@@ -1,0 +1,82 @@
+{
+  "schema": "stegverse.site.llm_adapter_usage_endpoint_handoff.v1",
+  "source_repository": "StegVerse-Labs/Site",
+  "destination_repository": "StegVerse-org/LLM-adapter",
+  "state": "AWAITING_DESTINATION_HANDOFF_AUTHORITY",
+  "requested_capability": "authenticated_session_usage_retrieval",
+  "route_contract": {
+    "method": "GET",
+    "path_template": "/api/usage/sessions/{session_id}",
+    "request_authentication": "same_origin_session",
+    "cache": "no-store",
+    "response_schema": "stegverse.usage.session.v1",
+    "source_class": "LIVE_USAGE_API"
+  },
+  "required_response_fields": [
+    "schema",
+    "session_id",
+    "source_class",
+    "events",
+    "retrieval_receipt"
+  ],
+  "required_event_fields": [
+    "measurement_id",
+    "session_id",
+    "transition_id",
+    "origin_entry_point",
+    "entry_point",
+    "entry_point_role",
+    "interaction_type",
+    "metric_owner",
+    "measurement_source",
+    "metrics",
+    "timestamp",
+    "receipt_refs"
+  ],
+  "retrieval_receipt_requirements": {
+    "session_id_must_match_request": true,
+    "authority_granted": false,
+    "custody_recorded": false,
+    "receipt_id_required": true,
+    "retrieved_at_required": true,
+    "producer_identity_required": true,
+    "policy_reference_required": true
+  },
+  "evidence_requirements": {
+    "allowed_classes": ["MEASURED", "CONFIGURED", "DERIVED", "UNAVAILABLE"],
+    "unavailable_value_must_be_null": true,
+    "configured_values_may_not_be_relabelled_measured": true,
+    "metric_owner_and_measurement_id_must_be_stable": true
+  },
+  "failure_contract": {
+    "unauthenticated": 401,
+    "unauthorized": 403,
+    "invalid_session_identity": 400,
+    "session_conflict": 409,
+    "invalid_contract_output": 422,
+    "authentication_failure_may_fallback": false,
+    "identity_mismatch_may_fallback": false,
+    "receipt_missing_may_fallback": false
+  },
+  "activation_evidence_required": [
+    "current destination *_MIRROR_HANDOFF.md authorizes endpoint work",
+    "destination tests pass",
+    "same-origin authenticated deployment observed",
+    "sample response validates against Site contract",
+    "retrieval receipt validates",
+    "no bearer/query/local-storage secret surface",
+    "Site current-main validation passes after configuration"
+  ],
+  "authority_boundaries": {
+    "site_may_modify_destination_without_handoff": false,
+    "endpoint_response_is_authority": false,
+    "retrieval_receipt_is_master_records_custody": false,
+    "site_may_enable_transport_before_deployment_evidence": false,
+    "site_may_claim_recorded": false
+  },
+  "blocker": {
+    "code": "DESTINATION_HANDOFF_MISSING",
+    "detail": "No current *_MIRROR_HANDOFF.md was found in StegVerse-org/LLM-adapter; destination mutation is not authorized."
+  },
+  "next_action": "Create or identify the destination handoff, verify endpoint authority, then implement and test the endpoint in the destination repository."
+}
