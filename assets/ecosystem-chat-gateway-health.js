@@ -46,11 +46,17 @@
         if (!healthResponse.ok) throw new Error(`health HTTP ${healthResponse.status}`);
         const health = await healthResponse.json();
         if (health.status !== 'ok' || health.service !== 'stegverse-ecosystem-chat-gateway') throw new Error('health contract mismatch');
+        const storage = health.sqlite_transition_store === true
+          ? (health.storage_durable_across_restarts === true ? 'SQLite durable across restarts' : 'SQLite on ephemeral host storage')
+          : 'transition persistence unavailable';
+        const custody = health.master_records_submission_enabled === true
+          ? 'Master-Records submission enabled'
+          : 'Master-Records submission pending configuration';
         render(
           panel,
           'healthy',
           `Native executor ${health.native_executor_status || 'UNKNOWN'}; bounded response pipeline ${health.bounded_response_pipeline === true ? 'available' : 'unavailable'}.`,
-          'Live text requests may return an identity-preserving lifecycle and final response receipt. Repository mutation and Master-Records custody remain outside this gateway.'
+          `${storage}; ${custody}. Local persistence is not Master-Records custody. Repository mutation remains outside this gateway.`
         );
       } finally {
         window.clearTimeout(timeout);
