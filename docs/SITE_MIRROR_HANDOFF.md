@@ -41,7 +41,7 @@ scripts/check_ecosystem_usage_ledger.py
 
 The usage surface preserves one session identity across entry points, deduplicates by `metric_owner + measurement_id`, preserves evidence classes, prepends usage before each transition, supports session lookup, JSON export, and receipt navigation.
 
-The authenticated client is now loaded before the ledger renderer. Loading the client does not activate live retrieval. `data/ecosystem-usage-config.json` keeps `live_transport.enabled=false`, `usage_api_base=null`, and requires `AUTHORIZED_DEPLOYED_ENDPOINT` before activation.
+The authenticated client is loaded before the ledger renderer. Loading the client does not activate live retrieval. `data/ecosystem-usage-config.json` keeps `live_transport.enabled=false`, `usage_api_base=null`, and requires `AUTHORIZED_DEPLOYED_ENDPOINT` before activation.
 
 ## Authenticated usage retrieval boundary
 
@@ -74,6 +74,26 @@ contract-invalid output -> fail closed
 ```
 
 The prepared and loaded client does not activate an endpoint, configure a credential, change deployment state, or claim live retrieval. Endpoint implementation and authenticated deployment remain destination-controlled work.
+
+## Destination handoff packet
+
+```text
+data/llm-adapter-usage-endpoint-handoff.json
+scripts/check_llm_adapter_usage_endpoint_handoff.py
+scripts/check_ecosystem_chat_application.py
+```
+
+The packet declares the destination route, response schema, event fields, receipt requirements, failure statuses, activation evidence, and authority boundaries for `StegVerse-org/LLM-adapter`.
+
+Current destination state:
+
+```text
+state: AWAITING_DESTINATION_HANDOFF_AUTHORITY
+blocker: DESTINATION_HANDOFF_MISSING
+reason: no current *_MIRROR_HANDOFF.md was found in StegVerse-org/LLM-adapter
+```
+
+Site therefore does not mutate the destination repository, enable transport, configure credentials, or claim endpoint availability. The packet is an implementation request and verification contract, not delegated authority.
 
 ## Installed governed-versus-recursive comparison surface
 
@@ -147,6 +167,8 @@ Usage display != admissibility.
 Usage retrieval receipt != Master-Records custody.
 Prepared authenticated client != deployed authenticated endpoint.
 Loaded authenticated client != enabled live transport.
+Destination handoff packet != destination authority.
+Missing destination handoff == mutation blocked.
 Network fallback != live evidence.
 Comparison != authority.
 Comparison != admissibility.
@@ -172,10 +194,11 @@ python scripts/check_ecosystem_chat_application.py
   -> python scripts/check_ecosystem_chat_navigation.py
   -> python scripts/check_ecosystem_usage_auth_contract.py
   -> python scripts/check_ecosystem_usage_ledger.py
+  -> python scripts/check_llm_adapter_usage_endpoint_handoff.py
   -> python scripts/check_ecosystem_comparison.py
 ```
 
-The authenticated retrieval and ledger checks verify:
+The authenticated retrieval and destination-handoff checks verify:
 
 ```text
 PREPARED_NOT_DEPLOYED contract posture
@@ -192,34 +215,21 @@ MEASURED / CONFIGURED / DERIVED / UNAVAILABLE evidence classes
 UNAVAILABLE values remain null
 network-only bounded fallback
 no fallback after authentication or integrity failure
+401 / 403 / 400 / 409 / 422 fail-closed destination statuses
+destination mutation prohibited without current handoff authority
+activation evidence must include endpoint tests, deployment observation, response validation, and Site current-main validation
 exported state retains authority=none and custody=not-recorded-by-site
 retrieval grants no authority, admissibility, custody, or RECORDED status
-```
-
-The comparison checker verifies:
-
-```text
-public comparison page and renderer exist
-exactly one STEGVERSE_GOVERNED route exists
-exactly one EXTERNAL_RECURSIVE route exists
-like-for-like task and output identity are preserved
-valid MEASURED / CONFIGURED / DERIVED / UNAVAILABLE classes
-UNAVAILABLE values remain null
-configured values are not represented as measured
-canonical delta formula is preserved
-comparison does not claim authority or admissibility
-fail-closed rendering exists
 ```
 
 ## Latest bounded task completion
 
 ```text
-Task: integrate authenticated usage client into the public ledger without activating transport
-Configuration commit: d96a8150b3c85f2d451774b14a5c4215d5c4db15
-Page integration commit: 540aa3f027aa5d5a5eff1bf144259492a851ead9
-Renderer integration commit: 554a70d7fcfa3fd7cc2997af2941db1027c58fd2
-Validator integration commit: 4eccd604003e03ebc5646802707aec8a80fdd179
-State: CLIENT_LOADED_TRANSPORT_DISABLED; current-main workflow verification pending
+Task: formalize the authenticated usage endpoint destination handoff without crossing repository authority
+Handoff packet commit: 73abe3bb08a592a74f773c2db7becfd437e4b120
+Handoff validator commit: d8f6ac7afd29a6bbc22725aa7f9d7d968195ee2a
+Canonical integration commit: e86775b00c7fd57d33e4be959af558f68c1c3eae
+State: AWAITING_DESTINATION_HANDOFF_AUTHORITY; current-main workflow verification pending
 ```
 
 ## Remaining files or modules
@@ -232,6 +242,8 @@ StegVerse-Labs/Site
   -> public retrieval, comparison, and receipt-navigation verification
 
 StegVerse-org/LLM-adapter
+  -> establish or identify current *_MIRROR_HANDOFF.md
+  -> authorize authenticated session-usage endpoint work
   -> automatic provider usage emission
   -> authenticated session-usage retrieval endpoint
   -> live external recursive route endpoint
@@ -248,10 +260,10 @@ master-records
 ## Next task
 
 ```text
-1. Verify current-main Site workflows with authenticated-client integration included.
+1. Verify current-main Site workflows with destination-handoff validation included.
 2. Preserve the passing Site application validation receipt.
-3. Review the current LLM-adapter handoff before any endpoint mutation.
-4. Implement the authenticated session-usage endpoint only under destination authority.
+3. Locate or establish the current LLM-adapter *_MIRROR_HANDOFF.md.
+4. Implement the authenticated session-usage endpoint only when that handoff explicitly authorizes the work.
 5. Configure usage_api_base and set live_transport.enabled=true only after deployed endpoint and same-origin authentication evidence exist.
 6. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
 7. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
@@ -259,8 +271,8 @@ master-records
 
 ## Release posture
 
-Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, loaded fail-closed browser client, disabled activation configuration, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED` and `CLIENT_LOADED_TRANSPORT_DISABLED`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, or tag is authorized by this handoff.
+Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, loaded fail-closed browser client, disabled activation configuration, destination handoff packet, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`, `CLIENT_LOADED_TRANSPORT_DISABLED`, and `AWAITING_DESTINATION_HANDOFF_AUTHORITY`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, destination mutation, or tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval integration, disabled activation posture, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval integration, disabled activation posture, destination handoff blocker, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
