@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate authority, execution, and transition identity preview contracts."""
+"""Validate authority, execution, transition identity, and gateway preview contracts."""
 
 from __future__ import annotations
 
@@ -11,7 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 AUTH = ROOT / "fixtures" / "ecosystem-chat" / "authority-receipt-envelope.example.json"
 EXEC = ROOT / "fixtures" / "ecosystem-chat" / "execution-receipt-envelope.example.json"
-IDENTITY_VALIDATOR = ROOT / "scripts" / "check_ecosystem_chat_transition_identity.py"
+NESTED_VALIDATORS = [
+    ROOT / "scripts" / "check_ecosystem_chat_transition_identity.py",
+    ROOT / "scripts" / "check_ecosystem_chat_gateway_activation.py",
+]
 
 
 def fail(message: str) -> int:
@@ -116,21 +119,22 @@ def main() -> int:
     if "authority-receipt-envelope.example.json" not in exec_required:
         return fail("execution reconstruction is missing authority receipt pointer")
 
-    if not IDENTITY_VALIDATOR.exists():
-        return fail("transition identity validator is missing")
-    completed = subprocess.run(
-        [sys.executable, str(IDENTITY_VALIDATOR)],
-        cwd=ROOT,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        check=False,
-    )
-    print(completed.stdout, end="")
-    if completed.returncode != 0:
-        return fail("transition identity contract failed")
+    for validator in NESTED_VALIDATORS:
+        if not validator.exists():
+            return fail(f"nested validator missing: {validator.name}")
+        completed = subprocess.run(
+            [sys.executable, str(validator)],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+        print(completed.stdout, end="")
+        if completed.returncode != 0:
+            return fail(f"nested contract failed: {validator.name}")
 
-    print("PASS: receipt envelopes and transition identity bind previews without claiming live signatures or execution")
+    print("PASS: receipt envelopes, transition identity, and governed gateway contract are aligned")
     return 0
 
 
