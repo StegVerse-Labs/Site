@@ -19,6 +19,7 @@ def main() -> int:
     roles = json.loads((ROOT / "data/entry-point-roles.json").read_text(encoding="utf-8"))
     fixture = json.loads((ROOT / "data/usage-session-fixture.json").read_text(encoding="utf-8"))
     config = json.loads((ROOT / "data/ecosystem-usage-config.json").read_text(encoding="utf-8"))
+    contract = json.loads((ROOT / "data/ecosystem-usage-live-contract.json").read_text(encoding="utf-8"))
 
     for marker in (
         "Ecosystem Usage Ledger",
@@ -26,13 +27,20 @@ def main() -> int:
         "Session summary",
         "Transition timeline",
         "usage display is not authority",
+        "assets/ecosystem-usage-auth-client.js",
         "assets/ecosystem-usage-ledger.js",
+        "authenticated usage client is prepared and loaded",
+        "prepared client is not a deployed service",
+        "retrieval receipt is not Master-Records custody",
         'id="sessionFilter"',
         'id="loadSession"',
         'id="exportSession"',
         "Open Ecosystem Chat",
     ):
         require(html, marker, "page marker")
+
+    if html.index("assets/ecosystem-usage-auth-client.js") > html.index("assets/ecosystem-usage-ledger.js"):
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: authenticated client must load before ledger")
 
     for marker in (
         "stegverse.transitionUsageEvents.v1",
@@ -48,6 +56,14 @@ def main() -> int:
         "CONFIGURED_FIXTURE_FALLBACK",
         "governed-transitions.html?transition_id=",
         "exportActiveSession",
+        "StegVerseUsageAuthClient.retrieve",
+        "AUTHORIZED_DEPLOYED_ENDPOINT",
+        "fallback_on_integrity_failure",
+        "fallback_on_network_unavailable",
+        "isIntegrityFailure",
+        "retrieval_receipt",
+        "authority: 'none'",
+        "custody: 'not-recorded-by-site'",
     ):
         require(script, marker, "renderer invariant")
 
@@ -55,11 +71,29 @@ def main() -> int:
         raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: session query parameter drift")
     if config.get("allow_local_storage") is not True or config.get("allow_fixture_fallback") is not True:
         raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: bounded fallback configuration missing")
+
+    live = config.get("live_transport", {})
+    if live.get("enabled") is not False:
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: live transport activated without deployed endpoint evidence")
+    if live.get("contract_path") != "data/ecosystem-usage-live-contract.json":
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: live contract path drift")
+    if live.get("activation_requires") != "AUTHORIZED_DEPLOYED_ENDPOINT":
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: activation prerequisite drift")
+    if live.get("fallback_on_network_unavailable") is not True:
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: bounded network fallback missing")
+    if live.get("fallback_on_integrity_failure") is not False:
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: integrity failures may not fallback")
+    if config.get("usage_api_base") is not None:
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: undeployed usage endpoint configured")
+    if contract.get("status") != "PREPARED_NOT_DEPLOYED":
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: prepared contract claimed deployment")
+
     boundaries = config.get("authority_boundaries", {})
     if any(boundaries.get(name) is not False for name in (
         "usage_retrieval_is_authority",
         "usage_display_is_admissibility",
         "fixture_is_live_measurement",
+        "prepared_client_is_deployed_endpoint",
     )):
         raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: usage configuration claims authority")
 
