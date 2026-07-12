@@ -20,6 +20,9 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 | Path | Public meaning | Authority source |
 |---|---|---|
 | `/` | Site repository landing surface and public entry point. | `StegVerse-Labs/Site` checked-in content. |
+| `/ecosystem-chat.html` | Public governed chat interface with bounded gateway and local fallback. | Gateway lifecycle and receipts remain external to Site authority. |
+| `/external-chat.html` | Public external-framework compatibility intake and comparison surface. | `StegVerse-Labs/admissibility-wiki/docs/external-frameworks` remains source of truth for published framework findings; Site performs bounded intake only. |
+| `/governed-transitions.html` | Public projection of governed transition, executor, custody, and reconstruction state. | Orchestration and Master-Records remain source authorities. |
 | `/admissibility-wiki.html` | Public bridge to the Admissibility Wiki. | `StegVerse-Labs/admissibility-wiki` remains source of truth; Site is display/bridge only. |
 | `/governed-ecosystem.html` | Public mirror surface for governed ecosystem transition framing. | `StegVerse-Labs/admissibility-wiki` remains source of truth; Site is display/mirror only. |
 | `/tt-code-representation.html` | Public mirror surface for TT code-representation status. | `Admissible-Existence/TT` remains source of truth; Site is display/mirror only. |
@@ -32,12 +35,36 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 
 ```text
 /
+/ecosystem-chat.html
+/external-chat.html
+/governed-transitions.html
 /admissibility-wiki.html
 /governed-ecosystem.html
 /tt-code-representation.html
 /governance-observatory.html
 /papers
 /docs
+```
+
+## External Chat Boundary
+
+For `external-chat.html`, Site accepts a bounded JSON description or trace and forwards it to the governed compatibility endpoint.
+
+The published findings source remains:
+
+```text
+StegVerse-Labs/admissibility-wiki/docs/external-frameworks
+```
+
+External Chat may return field coverage, missing fields, failure classes, a compatibility evidence receipt, and links to matching wiki reports. It does not automatically publish a wiki record, retain the raw submission, execute the submitted framework, certify compatibility, establish semantic equivalence, grant authority, or create standing.
+
+Companion references:
+
+```text
+assets/external-chat.js
+data/external-chat-example.json
+scripts/check_external_chat_compatibility.py
+StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-submission-contract.md
 ```
 
 ## Governed Ecosystem Boundary
