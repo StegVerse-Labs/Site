@@ -1,0 +1,70 @@
+{
+  "schema": "stegverse.site.ecosystem_usage_live_contract.v1",
+  "status": "PREPARED_NOT_DEPLOYED",
+  "route_template": "/api/usage/sessions/{session_id}",
+  "authentication": {
+    "mode": "same_origin_session",
+    "browser_credentials": "same-origin",
+    "authorization_header_from_site_config": false,
+    "token_in_query": false,
+    "token_in_local_storage": false,
+    "secret_material_rendered": false
+  },
+  "transport": {
+    "same_origin_required_for_credentials": true,
+    "cross_origin_credentials_allowed": false,
+    "https_required_for_cross_origin_read_only": true,
+    "timeout_ms": 10000,
+    "cache": "no-store",
+    "method": "GET"
+  },
+  "request": {
+    "session_id_required": true,
+    "session_id_max_length": 160,
+    "session_id_pattern": "^[A-Za-z0-9._:-]+$"
+  },
+  "response": {
+    "required_fields": [
+      "schema",
+      "session_id",
+      "source_class",
+      "events",
+      "retrieval_receipt"
+    ],
+    "schema": "stegverse.usage.session.v1",
+    "source_class": "LIVE_USAGE_API",
+    "events_must_be_array": true,
+    "requested_session_identity_must_match": true,
+    "retrieval_receipt_required": true,
+    "allowed_evidence_classes": [
+      "MEASURED",
+      "CONFIGURED",
+      "DERIVED",
+      "UNAVAILABLE"
+    ],
+    "unavailable_value_must_be_null": true,
+    "event_identity_fields": [
+      "session_id",
+      "transition_id",
+      "entry_point",
+      "metric_owner",
+      "measurement_id",
+      "metrics",
+      "receipt_refs"
+    ]
+  },
+  "fallback": {
+    "network_unavailable_may_use_local_or_fixture": true,
+    "authentication_failure_may_fallback": false,
+    "identity_mismatch_may_fallback": false,
+    "contract_invalid_may_fallback": false,
+    "receipt_missing_may_fallback": false
+  },
+  "authority_boundaries": {
+    "retrieval_is_authority": false,
+    "retrieval_is_admissibility": false,
+    "retrieval_receipt_is_custody": false,
+    "site_may_mutate_usage_records": false,
+    "site_may_claim_recorded": false
+  }
+}
