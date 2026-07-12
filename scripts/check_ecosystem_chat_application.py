@@ -14,6 +14,7 @@ RESULT = ROOT / "site_application_validation.result.json"
 COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_governed_transition_observatory.py"),
     (sys.executable, "scripts/check_external_chat_compatibility.py"),
+    (sys.executable, "scripts/check_external_review_console.py"),
     (sys.executable, "scripts/check_ecosystem_chat_ai_entry_full.py"),
     (sys.executable, "scripts/check_ai_entry_ui_activation_status.py"),
     (sys.executable, "scripts/check_ai_entry_application_page.py"),
@@ -62,14 +63,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
 
 
 def execute(command: Sequence[str]) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        list(command),
-        cwd=ROOT,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        check=False,
-    )
+    return subprocess.run(list(command), cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False)
 
 
 def write_result(payload: dict) -> None:
@@ -82,31 +76,14 @@ def main() -> int:
         label = " ".join(command)
         completed = execute(command)
         if completed.returncode != 0:
-            payload = {
-                "schema_version": "1.0.0",
-                "status_type": "site_application_validation_result",
-                "passed": False,
-                "failed_command": label,
-                "returncode": completed.returncode,
-                "output": completed.stdout.rstrip(),
-                "passed_commands": passed,
-            }
+            payload = {"schema_version": "1.0.0", "status_type": "site_application_validation_result", "passed": False, "failed_command": label, "returncode": completed.returncode, "output": completed.stdout.rstrip(), "passed_commands": passed}
             write_result(payload)
             print(f"SITE_APPLICATION_CHECK_FAIL: {label}")
             print(completed.stdout.rstrip())
             return completed.returncode
         passed.append(label)
         print(f"SITE_APPLICATION_CHECK_PASS: {label}")
-
-    write_result({
-        "schema_version": "1.0.0",
-        "status_type": "site_application_validation_result",
-        "passed": True,
-        "failed_command": None,
-        "returncode": 0,
-        "output": "ECOSYSTEM_CHAT_APPLICATION_PASS",
-        "passed_commands": passed,
-    })
+    write_result({"schema_version": "1.0.0", "status_type": "site_application_validation_result", "passed": True, "failed_command": None, "returncode": 0, "output": "ECOSYSTEM_CHAT_APPLICATION_PASS", "passed_commands": passed})
     print("ECOSYSTEM_CHAT_APPLICATION_PASS")
     return 0
 
