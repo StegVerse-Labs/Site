@@ -167,22 +167,41 @@ live verification receipt != deployment authority
 network resolution failure != product failure
 ```
 
+## Latest Site validation failure and bounded repair
+
+```text
+Workflow: Site Bootstrap Validate
+Run: 29209702373
+Commit: e86775b00c7fd57d33e4be959af558f68c1c3eae
+Job: bootstrap-validate
+First failing command: python scripts/check_external_chat_live_routes.py
+Failure: external-review.html missing marker: delegated reviewer
+Artifact: site-application-validation-result
+Artifact ID: 8264785721
+Artifact SHA-256: 20bc478640e0188339fd6150e2bdb661493d1fdac4a234ec52aefeb6db2fda11
+Repair commit: b7050a0ef9c7b9792642b7fbbeafccd24c02e127
+Verification: pending on repair commit or successor
+```
+
+The page already contained the required delegated-review marker. The checker validated markers against the 500-character receipt preview rather than the complete HTTP response body. The repair now validates against the transient complete body while retaining only the bounded preview and parsed contract in the receipt. No deployment, route, mutation, credential, publication, or authority state changed.
+
 ## Validation status
 
-Repository implementation, test registration, staging posture validation, and evidence-producing live checks are installed. The current execution environment could not resolve the public hostnames, so no deployed success or failure is claimed from that attempt. Current-main green CI, a successful externally networked live-route receipt, and one separately authorized disposable-path staging mutation remain unobserved.
+Repository implementation, test registration, staging posture validation, and evidence-producing live checks are installed. The latest bounded marker-validation repair is installed. Current-main green CI, successful gateway health evidence, and one separately authorized disposable-path staging mutation remain unobserved.
 
 ## Next tasks
 
 ```text
-1. Confirm the current-main LLM-adapter validation run includes and passes External Chat review, publication, mutation, and staging checks.
-2. Confirm the Admissibility Wiki Goal 5 aggregate validates the mutation-receipt contract.
-3. Deploy the gateway with mutation disabled and run the live verifier from an environment with public DNS/network access.
-4. Retain the generated live-verification receipt as deployment evidence.
-5. Conduct one separately authorized mutation under docs/external-frameworks/staging/.
-6. Inspect commit/blob identities and mutation receipt before any production publication enablement.
-7. Expand the framework catalog after verified report imports.
+1. Confirm Site Bootstrap Validate passes on b7050a0ef9c7b9792642b7fbbeafccd24c02e127 or a successor.
+2. Preserve the passing Site application validation receipt.
+3. Confirm the current-main LLM-adapter validation run includes and passes External Chat review, publication, mutation, and staging checks.
+4. Confirm the Admissibility Wiki Goal 5 aggregate validates the mutation-receipt contract.
+5. Deploy the gateway with mutation disabled and run the live verifier from an environment with public DNS/network access.
+6. Retain the generated live-verification receipt as deployment evidence.
+7. Conduct one separately authorized mutation under docs/external-frameworks/staging/.
+8. Inspect commit/blob identities and mutation receipt before any production publication enablement.
 ```
 
 ## Sharing posture
 
-External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Public verification is now evidence-producing and the existing gateway workflow validates the full non-mutating review/publication/mutation contract. Production mutation remains disabled and unverified.
+External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Public verification is evidence-producing and now validates page markers against complete responses while retaining bounded receipts. Production mutation remains disabled and unverified.
