@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0",
+  "status_type": "external_framework_catalog_import_status",
+  "state": "LOCAL_RECEIPTED_CATALOG_RETAINED",
+  "hash_verified": false,
+  "publication_authority": false,
+  "certification_authority": false
+}
