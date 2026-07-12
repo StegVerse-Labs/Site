@@ -1,0 +1,32 @@
+{
+  "framework_id": "decisionassure",
+  "framework_name": "DecisionAssure",
+  "source_references": [
+    "https://example.org/framework-docs"
+  ],
+  "input_artifact_type": "governed decision trace",
+  "output_artifact_type": "ALLOW / DENY / FAIL_CLOSED result with causal trace",
+  "actor_or_authority_model": "Named actor with separately declared authority context",
+  "evidence_model": "Hash-linked evidence references with source timestamps",
+  "policy_or_rule_model": "Versioned policy reference evaluated at commit time",
+  "delegation_model": "Explicit bounded delegation reference",
+  "decision_or_result_model": "Deterministic bounded result with non-authority boundary",
+  "receipt_or_trace_model": "Causal trace and response receipt",
+  "reconstruction_model": "Reconstruct from canonical policy, delegation, evidence, and trace artifacts",
+  "fail_closed_conditions": [
+    "missing policy",
+    "identity drift",
+    "stale evidence",
+    "delegation mismatch"
+  ],
+  "execution_authority_claim": false,
+  "commit_time_authority_claim": false,
+  "certification_claim": false,
+  "equivalence_claim": false,
+  "sample_artifact": {
+    "decision": "DENY",
+    "causal_continuity_persisted": false,
+    "policy_ref": "policy:v2",
+    "delegation_ref": "delegation:example"
+  }
+}
