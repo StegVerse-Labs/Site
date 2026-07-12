@@ -13,6 +13,7 @@ RESULT = ROOT / "site_application_validation.result.json"
 
 COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ecosystem_chat_navigation.py"),
+    (sys.executable, "scripts/check_ecosystem_usage_auth_contract.py"),
     (sys.executable, "scripts/check_ecosystem_usage_ledger.py"),
     (sys.executable, "scripts/check_ecosystem_comparison.py"),
     (sys.executable, "scripts/check_governed_transition_observatory.py"),
