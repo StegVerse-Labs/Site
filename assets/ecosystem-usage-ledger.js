@@ -114,35 +114,76 @@
   }
 
   function safeApiBase(value) {
-    if (!value) return null;
+    if (!value) return window.location.origin;
     const url = new URL(value, window.location.href);
     if (url.origin !== window.location.origin && url.protocol !== 'https:') throw new Error('usage API must be same-origin or HTTPS');
     return url.href.replace(/\/$/, '');
   }
 
+  function isIntegrityFailure(error) {
+    const client = window.StegVerseUsageAuthClient;
+    return Boolean(client && client.UsageIntegrityError && error instanceof client.UsageIntegrityError);
+  }
+
+  async function loadLiveSession(sessionId) {
+    const live = activeConfig.live_transport || {};
+    if (live.enabled !== true) return null;
+    if (!window.StegVerseUsageAuthClient) throw new Error('authenticated usage client is unavailable');
+    if (!activeConfig.usage_api_base) throw new Error('authorized usage API base is not configured');
+    const payload = await window.StegVerseUsageAuthClient.retrieve({
+      sessionId,
+      apiBase: safeApiBase(activeConfig.usage_api_base)
+    });
+    return {
+      payload,
+      source: 'LIVE_USAGE_API',
+      retrievalReceipt: payload.retrieval_receipt
+    };
+  }
+
   async function loadSession(sessionId) {
     const clean = String(sessionId || '').trim();
     if (!clean) throw new Error('session_id is required');
-    const apiBase = safeApiBase(activeConfig.usage_api_base);
-    if (apiBase) {
-      const live = await loadJson(`${apiBase}/sessions/${encodeURIComponent(clean)}`);
-      if (live.session_id !== clean || !Array.isArray(live.events)) throw new Error('live usage response changed session identity');
-      return {payload: live, source: 'LIVE_USAGE_API'};
+
+    const liveConfig = activeConfig.live_transport || {};
+    if (liveConfig.enabled === true) {
+      try {
+        const live = await loadLiveSession(clean);
+        if (live) return live;
+      } catch (error) {
+        if (isIntegrityFailure(error) || liveConfig.fallback_on_integrity_failure !== false) throw error;
+        if (liveConfig.fallback_on_network_unavailable !== true) throw error;
+        console.warn('Live usage transport unavailable; applying explicitly configured bounded fallback', error);
+      }
     }
+
     if (activeConfig.allow_local_storage) {
-      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-      if (stored && stored.session_id === clean && Array.isArray(stored.events)) return {payload: stored, source: 'SYNCHRONIZED_LOCAL_LEDGER'};
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (stored && stored.session_id === clean && Array.isArray(stored.events)) {
+          return {payload: stored, source: 'SYNCHRONIZED_LOCAL_LEDGER', retrievalReceipt: null};
+        }
+      } catch (error) {
+        console.warn('Ignoring invalid local usage ledger', error);
+      }
     }
     if (activeConfig.allow_fixture_fallback) {
       const fixture = await loadJson(activeConfig.fixture_path);
-      if (fixture.session_id === clean) return {payload: fixture, source: 'CONFIGURED_FIXTURE_FALLBACK'};
+      if (fixture.session_id === clean) return {payload: fixture, source: 'CONFIGURED_FIXTURE_FALLBACK', retrievalReceipt: null};
     }
     throw new Error(`session ${clean} was not available`);
   }
 
-  function present(payload, sourceLabel) {
+  function present(payload, sourceLabel, retrievalReceipt = null) {
     const unique = dedupe(payload.events, payload.session_id);
-    activePayload = {session_id: payload.session_id, events: unique, source: sourceLabel};
+    activePayload = {
+      session_id: payload.session_id,
+      events: unique,
+      source: sourceLabel,
+      retrieval_receipt: retrievalReceipt,
+      authority: 'none',
+      custody: 'not-recorded-by-site'
+    };
     filterRoot.value = payload.session_id;
     renderSummary(payload.session_id, unique, sourceLabel);
     renderTimeline(unique);
@@ -164,6 +205,10 @@
 
   async function main() {
     activeConfig = await loadJson('data/ecosystem-usage-config.json');
+    const liveConfig = activeConfig.live_transport || {};
+    if (liveConfig.enabled === true && liveConfig.activation_requires !== 'AUTHORIZED_DEPLOYED_ENDPOINT') {
+      throw new Error('live usage activation boundary is invalid');
+    }
     const roles = await loadJson(activeConfig.roles_path);
     renderRoles(roles);
     const querySession = new URL(window.location.href).searchParams.get(activeConfig.session_query_parameter);
@@ -181,13 +226,13 @@
       initial = fixture.session_id;
     }
     const loaded = await loadSession(initial);
-    present(loaded.payload, loaded.source);
+    present(loaded.payload, loaded.source, loaded.retrievalReceipt);
   }
 
   loadButton.addEventListener('click', async () => {
     try {
       const loaded = await loadSession(filterRoot.value);
-      present(loaded.payload, loaded.source);
+      present(loaded.payload, loaded.source, loaded.retrievalReceipt);
     } catch (error) {
       statusRoot.textContent = `USAGE_SESSION_LOAD_FAILED: ${error.message}`;
     }
