@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "entry_points": [
+    {
+      "entry_point_id": "sdk",
+      "display_name": "StegVerse SDK",
+      "primary_role": "Developer-native programmatic intake, testing, integration, and observation boundary.",
+      "related_roles": ["testing harness", "integration contract", "transport boundary", "evidence inspection"],
+      "interaction_types": ["raw data governance testing", "module compatibility testing", "schema validation", "runtime comparison", "developer integration"],
+      "authority_boundary": "Acceptance and validation do not create execution authority or admissibility."
+    },
+    {
+      "entry_point_id": "llm_adapter",
+      "display_name": "StegVerse LLM Adapter",
+      "primary_role": "Machine-readable translation and interoperability boundary for models, agents, tools, providers, and external frameworks.",
+      "related_roles": ["provider abstraction", "normalization", "telemetry capture", "external compatibility"],
+      "interaction_types": ["provider output normalization", "agent trace conversion", "recursive telemetry", "machine-readable governance conversion"],
+      "authority_boundary": "Translation and provider output do not create authority or admissibility."
+    },
+    {
+      "entry_point_id": "ecosystem_chat",
+      "display_name": "StegVerse Ecosystem Chat",
+      "primary_role": "Universal browser interface for governed conversation, ecosystem discovery, development, testing, and orchestration.",
+      "related_roles": ["ecosystem navigator", "governed assistant", "development console", "orchestration surface"],
+      "interaction_types": ["governed conversation", "guided testing", "governed coding", "governed research", "governed social posting", "capability discovery"],
+      "authority_boundary": "Browser display and guidance do not create execution authority, standing, or admissibility."
+    }
+  ]
+}
