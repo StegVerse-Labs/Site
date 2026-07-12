@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "governed-transitions.html"
 SCRIPT = ROOT / "assets" / "governed-transitions.js"
+LIVE = ROOT / "assets" / "governed-transitions-live-custody.js"
 DATA = ROOT / "data" / "governed-transition-index.json"
 STATUS = ROOT / "data" / "governed-transition-index-import-status.json"
 EXECUTOR = ROOT / "data" / "governed-executor-status.json"
@@ -18,12 +19,13 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in [PAGE, SCRIPT, DATA, STATUS, EXECUTOR]:
+    for path in [PAGE, SCRIPT, LIVE, DATA, STATUS, EXECUTOR]:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
     script = SCRIPT.read_text(encoding="utf-8")
+    live = LIVE.read_text(encoding="utf-8")
     data = json.loads(DATA.read_text(encoding="utf-8"))
     status = json.loads(STATUS.read_text(encoding="utf-8"))
     executor = json.loads(EXECUTOR.read_text(encoding="utf-8"))
@@ -32,8 +34,10 @@ def main() -> int:
         "Governed Ecosystem Transitions",
         "derived public projection",
         "executor-status",
+        "live-custody-status",
         "does not authorize, execute, activate executors",
         "assets/governed-transitions.js",
+        "assets/governed-transitions-live-custody.js",
         "Admissible Automated Transitions",
     ]:
         if marker not in page:
@@ -54,6 +58,22 @@ def main() -> int:
     ]:
         if marker not in script:
             return fail(f"renderer missing marker: {marker}")
+
+    for marker in [
+        "data/ecosystem-chat-gateway.json",
+        "stegverse_ecosystem_chat_last_gateway_result",
+        "transition_id",
+        "/api/transitions/",
+        "custody_submission",
+        "custody_receipt_id",
+        "master_record_status",
+        "master_record_ref",
+        "reconstruction_status",
+        "RECORDED custody contract mismatch",
+        "Site does not issue the final receipt",
+    ]:
+        if marker not in live:
+            return fail(f"live custody overlay missing marker: {marker}")
 
     if data.get("schema_version") != "1.0.0":
         return fail("schema_version must be 1.0.0")
@@ -117,7 +137,7 @@ def main() -> int:
     if status.get("executor_state_imported") is not True:
         return fail("executor state must be imported")
 
-    print(f"GOVERNED TRANSITION OBSERVATORY: PASS ({len(records)} record(s), executor ACTIVE, {status['state']})")
+    print(f"GOVERNED TRANSITION OBSERVATORY: PASS ({len(records)} record(s), executor ACTIVE, live custody overlay installed, {status['state']})")
     return 0
 
 
