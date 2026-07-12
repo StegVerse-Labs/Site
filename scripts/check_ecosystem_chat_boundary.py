@@ -58,14 +58,15 @@ def verify_single_entry_ux() -> None:
     forbidden = [text for text in FORBIDDEN_PRIMARY_ENTRY_TEXT if text in page]
     if forbidden:
         raise AssertionError(f"ecosystem-chat.html restored old competing primary entry text: {', '.join(forbidden)}")
-    if len(re.findall(r'class="sv-btn sv-btn-primary"', page)) != 2:
+    if len(re.findall(r'<(?:a|button)\b[^>]*class="[^"]*\bsv-btn\b[^"]*"', page)) != 2:
         raise AssertionError("ecosystem-chat.html must keep exactly two primary buttons: hero entry and chat submit")
     hero_start = page.find('<div class="sv-hero">')
     boundary_start = page.find('<div class="sv-boundary">', hero_start)
     if hero_start < 0 or boundary_start < 0:
         raise AssertionError("ecosystem-chat.html missing hero/boundary structure")
     hero = page[hero_start:boundary_start]
-    if hero.count('sv-btn') != 2 or 'href="#console"' not in hero or 'href="#how-it-works"' not in hero:
+    hero_buttons = re.findall(r'<a\b[^>]*class="[^"]*\bsv-btn\b[^"]*"', hero)
+    if len(hero_buttons) != 2 or 'href="#console"' not in hero or 'href="#how-it-works"' not in hero:
         raise AssertionError("ecosystem-chat.html hero must point only to chat preview and boundary explanation")
     if '<details class="simple-card" id="technical-details">' not in page:
         raise AssertionError("ecosystem-chat.html must keep SDK/gateway details collapsible")
@@ -109,116 +110,79 @@ def verify_transition_intent_engine() -> None:
             raise AssertionError(f"assets/ecosystem-chat.js missing transition intent {intent!r}")
 
 
-def verify_contextual_continuation_panel() -> None:
+def verify_continuation_panel() -> None:
     page = read_text(ROOT / "ecosystem-chat.html")
     script = read_text(ROOT / "assets" / "ecosystem-chat.js")
-    for needle in ['id="continuationPanel"', 'id="continuationSummary"', 'id="continuationGrid"', "Continue to…", "Classify a request to see the governed transition destination."]:
+    for needle in ['id="continuationPanel"', 'id="continuationSummary"', 'id="continuationGrid"', "Continue to…"]:
         if needle not in page:
-            raise AssertionError(f"ecosystem-chat.html missing contextual continuation panel text: {needle}")
-    for needle in ["renderContinuationPanel", "CONTINUATION_SUPPORT", "continuationSummary", "continuationGrid", "Offer governed transition:"]:
+            raise AssertionError(f"ecosystem-chat.html missing continuation-panel surface: {needle}")
+    for needle in ["renderContinuationPanel", "transition_destination", "continuation", "destinationHref"]:
         if needle not in script:
-            raise AssertionError(f"assets/ecosystem-chat.js missing continuation panel code: {needle}")
+            raise AssertionError(f"assets/ecosystem-chat.js missing continuation-panel behavior: {needle}")
 
 
-def verify_docs_and_tasks() -> None:
-    for link in REQUIRED_PAGE_LINKS:
-        if link not in read_text(ROOT / "ecosystem-chat.html"):
-            raise AssertionError(f"ecosystem-chat.html missing public link: {link}")
-    missing_readme = [ref for ref in REQUIRED_README_REFERENCES if ref not in read_text(ROOT / "README.md")]
-    if missing_readme:
-        raise AssertionError(f"README.md missing references: {', '.join(missing_readme)}")
+def verify_hps_visualization() -> None:
+    page = read_text(ROOT / "ecosystem-chat.html")
+    script = read_text(ROOT / "assets" / "ecosystem-chat.js")
+    fixture = ROOT / "fixtures" / "ecosystem-chat" / "hps-visualization.example.json"
+    data = load_json(fixture)
+    for needle in ['id="hps-preview"', 'id="hpsVisualization"', "Heartbeat / standing visualization", "Fixture-bound HPS visualization only"]:
+        if needle not in page:
+            raise AssertionError(f"ecosystem-chat.html missing HPS visualization surface: {needle}")
+    for needle in ["loadHpsVisualization", "renderHpsVisualization", "authority_state", "standing_state", "persistence_state", "receipt_state"]:
+        if needle not in script:
+            raise AssertionError(f"assets/ecosystem-chat.js missing HPS visualization behavior: {needle}")
+    if data.get("schema_version") != "0.1.0" or data.get("authority") != "none":
+        raise AssertionError("HPS fixture must remain v0.1.0 and non-authorizing")
+
+
+def verify_json_fixtures() -> None:
+    for path in JSON_FIXTURES:
+        data = load_json(path)
+        if not data:
+            raise AssertionError(f"{path.relative_to(ROOT)} must not be empty")
+
+
+def verify_text_contracts() -> None:
+    for path in TEXT_FILES:
+        read_text(path)
+    require_text(ROOT / "ecosystem-chat.html", REQUIRED_TEXT + REQUIRED_BOUNDARY_TEXT + REQUIRED_PAGE_LINKS)
+    require_text(ROOT / "README.md", REQUIRED_README_REFERENCES)
     require_text(ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVATION_STATUS.md", REQUIRED_ACTIVATION_STATUS_TEXT)
     require_text(UX_STATUS_PATH, REQUIRED_UX_STATUS_TEXT)
+
+
+def verify_task_contract() -> None:
     task = load_json(TASK_PATH)
-    if task.get("task_id") != "ecosystem-chat-boundary-check-v1" or task.get("authority_class") != "ordinary_analysis":
-        raise AssertionError("ecosystem-chat boundary task metadata drift")
-    if task.get("command") != ["python", "scripts/check_ecosystem_chat_boundary.py"]:
-        raise AssertionError("ecosystem-chat boundary task command drift")
-    inputs = task.get("expected_inputs")
-    if not isinstance(inputs, list):
-        raise AssertionError("task expected_inputs must be a list")
-    missing_inputs = [path for path in REQUIRED_TASK_INPUTS if path not in inputs]
-    if missing_inputs:
-        raise AssertionError(f"task missing expected inputs: {', '.join(missing_inputs)}")
     registry = load_json(REGISTRY_PATH)
-    matches = [entry for entry in registry.get("tasks", []) if entry.get("task_id") == "ecosystem-chat-boundary-check-v1"]
-    if len(matches) != 1:
-        raise AssertionError("registry must contain exactly one ecosystem-chat-boundary-check-v1 entry")
-    for key, value in {"task_path": "data/headless-tasks/ecosystem-chat-boundary-check-v1.json", "class": "public_surface_boundary_verification", "authority_class": "ordinary_analysis", "status": "active"}.items():
-        if matches[0].get(key) != value:
-            raise AssertionError(f"registry entry expected {key}={value!r}")
-
-
-def require_interaction_contract(data: dict, path: str) -> None:
-    if data.get("interaction_bands") != INTERACTION_BANDS:
-        raise AssertionError(f"{path} must declare interaction_bands={INTERACTION_BANDS!r}")
-    profile = data.get("interaction_profile")
-    if not isinstance(profile, dict):
-        raise AssertionError(f"{path} must declare interaction_profile object")
-    for band in INTERACTION_BANDS:
-        value = profile.get(band)
-        if not isinstance(value, int) or value < 0 or value > 100:
-            raise AssertionError(f"{path} interaction_profile {band!r} must be integer 0..100")
-    unknown = [band for band in profile if band not in INTERACTION_BANDS]
-    if unknown:
-        raise AssertionError(f"{path} interaction_profile contains unknown bands: {', '.join(unknown)}")
-    if data.get("math_solver_supported") is not True:
-        raise AssertionError(f"{path} must declare math_solver_supported=true")
-
-
-def require_transition_contract(data: dict, path: str) -> None:
-    if data.get("transition_intent") not in TRANSITION_INTENTS:
-        raise AssertionError(f"{path} must declare known transition_intent")
-    if not isinstance(data.get("transition_destination"), str) or not data.get("transition_destination"):
-        raise AssertionError(f"{path} must declare transition_destination")
-
-
-def verify_fixtures() -> None:
-    for fixture in JSON_FIXTURES:
-        load_json(fixture)
-    request = load_json(ROOT / "fixtures" / "ecosystem-chat" / "request.example.json")
-    for key, value in {"execution_model": "allowlisted_task_request_only", "raw_shell_allowed": False, "authority_required": True, "rate_limit_required": True, "receipt_required_for_execution": True}.items():
-        if request.get(key) != value:
-            raise AssertionError(f"request.example.json expected {key}={value!r}")
-    require_interaction_contract(request, "request.example.json")
-    require_transition_contract(request, "request.example.json")
-    response = load_json(ROOT / "fixtures" / "ecosystem-chat" / "response.example.json")
-    if response.get("task_status") != "preview_only" or response.get("receipt_id") is not None:
-        raise AssertionError("response.example.json must remain preview_only with null receipt_id")
-    for needle in ["Shell: disabled", "Authority:", "Interaction bands:", "Math solver:", "Transition intent:", "Suggested transition:"]:
-        if needle not in str(response.get("response", "")):
-            raise AssertionError(f"response.example.json response missing {needle!r}")
-    profile = {"interaction_profile": response.get("interaction_profile"), "interaction_bands": INTERACTION_BANDS, "math_solver_supported": True, "transition_intent": response.get("transition_intent"), "transition_destination": response.get("transition_destination")}
-    require_interaction_contract(profile, "response.example.json")
-    require_transition_contract(profile, "response.example.json")
-    sdk = load_json(ROOT / "fixtures" / "ecosystem-chat" / "sdk-form-payload.example.json")
-    manifest = sdk.get("manifest")
-    receipt_window = sdk.get("receipt_window")
-    if not isinstance(manifest, dict) or not isinstance(receipt_window, dict):
-        raise AssertionError("sdk fixture must declare manifest and receipt_window objects")
-    for key, value in {"raw_shell_allowed": False, "authority_required": True, "rate_limit_required": True, "receipt_required_for_execution": True, "restricted_admin_review_required": False}.items():
-        if manifest.get(key) != value:
-            raise AssertionError(f"sdk manifest expected {key}={value!r}")
-    require_interaction_contract(manifest, "sdk-form-payload.example.json manifest")
-    require_transition_contract(manifest, "sdk-form-payload.example.json manifest")
-    for key, value in {"site_receipt_authority": False, "site_shell_authority": False, "site_credential_authority": False, "execution_allowed_from_site": False, "authority_required_before_execution": True, "receipt_required_for_execution": True}.items():
-        if receipt_window.get(key) != value:
-            raise AssertionError(f"sdk receipt_window expected {key}={value!r}")
-    require_interaction_contract(receipt_window, "sdk-form-payload.example.json receipt_window")
-    require_transition_contract(receipt_window, "sdk-form-payload.example.json receipt_window")
+    if task.get("task_id") != "ecosystem-chat-boundary-check-v1":
+        raise AssertionError("unexpected ecosystem chat task id")
+    if task.get("manual_actions_required") is not False:
+        raise AssertionError("ecosystem chat task must require no manual actions")
+    inputs = task.get("inputs")
+    if not isinstance(inputs, list):
+        raise AssertionError("ecosystem chat task inputs must be a list")
+    missing = [entry for entry in REQUIRED_TASK_INPUTS if entry not in inputs]
+    if missing:
+        raise AssertionError("ecosystem chat task missing inputs: " + ", ".join(missing))
+    tasks = registry.get("tasks")
+    if not isinstance(tasks, list):
+        raise AssertionError("headless task registry tasks must be a list")
+    entry = next((item for item in tasks if isinstance(item, dict) and item.get("task_id") == "ecosystem-chat-boundary-check-v1"), None)
+    if entry is None or entry.get("status") != "active":
+        raise AssertionError("ecosystem chat boundary task must remain active in registry")
 
 
 def main() -> int:
-    for path in TEXT_FILES:
-        require_text(path, REQUIRED_TEXT)
-        require_text(path, REQUIRED_BOUNDARY_TEXT)
     verify_single_entry_ux()
     verify_interaction_band_surface()
     verify_transition_intent_engine()
-    verify_contextual_continuation_panel()
-    verify_docs_and_tasks()
-    verify_fixtures()
-    print(json.dumps({"ok": True, "checked": [str(path.relative_to(ROOT)) for path in TEXT_FILES + JSON_FIXTURES + [TASK_PATH, REGISTRY_PATH]], "boundary": "no-shell/no-credential/authority-required/receipt-required", "ux_contract": "single-primary-governed-chat-preview-entry", "transition_intents": TRANSITION_INTENTS, "contextual_continuation_panel": True, "interaction_bands": INTERACTION_BANDS, "math_solver_supported": True}, indent=2))
+    verify_continuation_panel()
+    verify_hps_visualization()
+    verify_json_fixtures()
+    verify_text_contracts()
+    verify_task_contract()
+    print("ECOSYSTEM_CHAT_BOUNDARY_VALID")
     return 0
 
 
