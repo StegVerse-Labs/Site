@@ -18,6 +18,7 @@ def main() -> int:
     script = (ROOT / "assets/ecosystem-usage-ledger.js").read_text(encoding="utf-8")
     roles = json.loads((ROOT / "data/entry-point-roles.json").read_text(encoding="utf-8"))
     fixture = json.loads((ROOT / "data/usage-session-fixture.json").read_text(encoding="utf-8"))
+    config = json.loads((ROOT / "data/ecosystem-usage-config.json").read_text(encoding="utf-8"))
 
     for marker in (
         "Ecosystem Usage Ledger",
@@ -26,6 +27,10 @@ def main() -> int:
         "Transition timeline",
         "usage display is not authority",
         "assets/ecosystem-usage-ledger.js",
+        'id="sessionFilter"',
+        'id="loadSession"',
+        'id="exportSession"',
+        "Open Ecosystem Chat",
     ):
         require(html, marker, "page marker")
 
@@ -37,8 +42,26 @@ def main() -> int:
         "CONFIGURED",
         "UNAVAILABLE",
         "does not alter provider output or transition hashes",
+        "usage API must be same-origin or HTTPS",
+        "LIVE_USAGE_API",
+        "SYNCHRONIZED_LOCAL_LEDGER",
+        "CONFIGURED_FIXTURE_FALLBACK",
+        "governed-transitions.html?transition_id=",
+        "exportActiveSession",
     ):
         require(script, marker, "renderer invariant")
+
+    if config.get("session_query_parameter") != "session_id":
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: session query parameter drift")
+    if config.get("allow_local_storage") is not True or config.get("allow_fixture_fallback") is not True:
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: bounded fallback configuration missing")
+    boundaries = config.get("authority_boundaries", {})
+    if any(boundaries.get(name) is not False for name in (
+        "usage_retrieval_is_authority",
+        "usage_display_is_admissibility",
+        "fixture_is_live_measurement",
+    )):
+        raise SystemExit("ECOSYSTEM_USAGE_LEDGER_FAIL: usage configuration claims authority")
 
     ids = {item["entry_point_id"] for item in roles.get("entry_points", [])}
     if ids != {"sdk", "llm_adapter", "ecosystem_chat"}:
