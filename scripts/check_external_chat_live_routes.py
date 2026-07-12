@@ -26,12 +26,50 @@ def fetch(url: str) -> dict[str, Any]:
             body = response.read().decode("utf-8", errors="replace")
             content_type = response.headers.get("Content-Type", "")
             parsed = json.loads(body) if "json" in content_type else None
-            return {"url": url, "observed_at": observed_at(), "reachable": True, "http_status": response.status, "content_type": content_type, "body_preview": body[:500], "json": parsed, "error_class": None, "error": None}
+            return {
+                "url": url,
+                "observed_at": observed_at(),
+                "reachable": True,
+                "http_status": response.status,
+                "content_type": content_type,
+                "body_preview": body[:500],
+                "json": parsed,
+                "error_class": None,
+                "error": None,
+                "_validation_body": body,
+            }
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")
-        return {"url": url, "observed_at": observed_at(), "reachable": True, "http_status": exc.code, "content_type": exc.headers.get("Content-Type", "") if exc.headers else "", "body_preview": body[:500], "json": None, "error_class": "HTTPError", "error": str(exc)}
+        return {
+            "url": url,
+            "observed_at": observed_at(),
+            "reachable": True,
+            "http_status": exc.code,
+            "content_type": exc.headers.get("Content-Type", "") if exc.headers else "",
+            "body_preview": body[:500],
+            "json": None,
+            "error_class": "HTTPError",
+            "error": str(exc),
+            "_validation_body": body,
+        }
     except (urllib.error.URLError, TimeoutError, socket.timeout, OSError) as exc:
-        return {"url": url, "observed_at": observed_at(), "reachable": False, "http_status": None, "content_type": None, "body_preview": None, "json": None, "error_class": type(exc).__name__, "error": str(exc)}
+        return {
+            "url": url,
+            "observed_at": observed_at(),
+            "reachable": False,
+            "http_status": None,
+            "content_type": None,
+            "body_preview": None,
+            "json": None,
+            "error_class": type(exc).__name__,
+            "error": str(exc),
+            "_validation_body": "",
+        }
+
+
+def public_check(check: dict[str, Any]) -> dict[str, Any]:
+    """Remove transient response bodies before retaining the verification receipt."""
+    return {key: value for key, value in check.items() if not key.startswith("_")}
 
 
 def write_report(checks: list[dict[str, Any]], passed: bool, failure: str | None) -> None:
@@ -42,7 +80,7 @@ def write_report(checks: list[dict[str, Any]], passed: bool, failure: str | None
         "generated_at": observed_at(),
         "passed": passed,
         "failure": failure,
-        "checks": checks,
+        "checks": [public_check(check) for check in checks],
         "required_public_mutation_state": "DISABLED",
         "authority_boundary": {
             "live_check_is_deployment_authority": False,
@@ -72,7 +110,7 @@ def main() -> int:
         if result["http_status"] != 200:
             failure = f"http_status:{url}:{result['http_status']}"
             break
-        body = result["body_preview"] or ""
+        body = result.get("_validation_body", "")
         missing = [marker for marker in markers if marker not in body]
         if missing:
             failure = f"page_markers:{url}:{','.join(missing)}"
