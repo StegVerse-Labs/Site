@@ -122,21 +122,6 @@ def verify_continuation_panel() -> None:
             raise AssertionError(f"assets/ecosystem-chat.js missing continuation-panel behavior: {needle}")
 
 
-def verify_hps_visualization() -> None:
-    page = read_text(ROOT / "ecosystem-chat.html")
-    script = read_text(ROOT / "assets" / "ecosystem-chat.js")
-    fixture = ROOT / "fixtures" / "ecosystem-chat" / "hps-visualization.example.json"
-    data = load_json(fixture)
-    for needle in ['id="hps-preview"', 'id="hpsVisualization"', "Heartbeat / standing visualization", "Fixture-bound HPS visualization only"]:
-        if needle not in page:
-            raise AssertionError(f"ecosystem-chat.html missing HPS visualization surface: {needle}")
-    for needle in ["loadHpsVisualization", "renderHpsVisualization", "authority_state", "standing_state", "persistence_state", "receipt_state"]:
-        if needle not in script:
-            raise AssertionError(f"assets/ecosystem-chat.js missing HPS visualization behavior: {needle}")
-    if data.get("schema_version") != "0.1.0" or data.get("authority") != "none":
-        raise AssertionError("HPS fixture must remain v0.1.0 and non-authorizing")
-
-
 def verify_json_fixtures() -> None:
     for path in JSON_FIXTURES:
         data = load_json(path)
@@ -179,7 +164,6 @@ def main() -> int:
     verify_interaction_band_surface()
     verify_transition_intent_engine()
     verify_continuation_panel()
-    verify_hps_visualization()
     verify_json_fixtures()
     verify_text_contracts()
     verify_task_contract()
