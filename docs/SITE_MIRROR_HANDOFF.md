@@ -177,16 +177,30 @@ Repair commit: 62d6c88df9e126978b477ac14913a9ef4dc375c0
 Artifact: site-task-diagnostic-29191451576-1
 Artifact ID: 8259633062
 Artifact digest: sha256:8dd3daca1a24e0f534fd7279b97c85573c59b1fb4af0bb087a8891c37794009a
+
+Workflow: Site Task Runner
+Run: 29192461329
+Commit: 82d485c224ba9590aa05c53ff4b008b26978095f
+First failing step: Run declared Site task
+Failing validator: python scripts/check_ecosystem_chat_boundary.py
+Failure class: stale continuation-panel identifier assertion (`destinationHref`)
+Observed implementation: `item.destination` assigned through `link.href`
+Repair commit: ba8e68d4906654698a736c02475077d5bef40921
+Artifact: site-task-diagnostic-29192461329-1
+Artifact ID: 8259922135
+Artifact digest: sha256:f3e3daa6beedf5da6895c55739ddaa8297b01464f1afdd757e47b20b95f624ad
+Authority effect: NONE
+State change authorized by repair: false
 ```
 
-The boundary checker now counts actual `a` or `button` elements carrying the `sv-btn` class rather than counting repeated class-name substrings. It still requires exactly two total public buttons, exactly two hero links, and the canonical `#console` and `#how-it-works` destinations.
+The boundary checker now counts the two `sv-btn-primary` elements for the hero entry and chat submit, independently verifies the two hero links, and validates the continuation implementation against its current `item.destination` and `link.href` behavior rather than a removed local identifier.
 
-Verification remains pending on commit `62d6c88df9e126978b477ac14913a9ef4dc375c0` or a documented successor.
+Verification remains pending on commit `ba8e68d4906654698a736c02475077d5bef40921` or a documented successor.
 
 ## Next task
 
 ```text
-1. Verify current-main Site and LLM-adapter tests, including Site Task Runner and Site Bootstrap Validate on commit 62d6c88df9e126978b477ac14913a9ef4dc375c0 or later.
+1. Verify current-main Site and LLM-adapter tests, including Site Task Runner and Site Bootstrap Validate on commit ba8e68d4906654698a736c02475077d5bef40921 or later.
 2. Preserve the passing Site validation receipt before deployment work.
 3. Deploy gateway and custody production blueprints only with required deployment authority.
 4. Configure shared custody credentials only through authorized secret-management paths.
