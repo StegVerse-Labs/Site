@@ -74,6 +74,9 @@ def main() -> int:
         fail("retrieval contract exceeded Site authority")
 
     required_client_markers = (
+        "INTEGRITY_HTTP_STATUSES",
+        "400, 401, 403, 409, 422",
+        "throw new UsageIntegrityError(`usage request rejected with HTTP ${response.status}`)",
         "credentials: sameOrigin ? 'same-origin' : 'omit'",
         "cache: 'no-store'",
         "AbortController",
