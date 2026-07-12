@@ -28,79 +28,29 @@ Result: CROSS_REPOSITORY_IMPLEMENTATION_INSTALLED_LIVE_VALIDATION_PENDING
 
 No workflow was added.
 
-## Ecosystem Chat governed request path
+## Installed Site surfaces
 
 ```text
-create canonical SITE_INPUT identity
--> submit to governed gateway
--> validate identity-preserving response
--> display governed provider posture or deterministic fallback
--> display final response receipt
--> display SQLite persistence and restart durability
--> display custody queue and Master-Records state
--> inspect the same transition in governed-transitions.html
-```
-
-## Shared entry-point role and usage surface
-
-Installed:
-
-```text
+ecosystem-chat.html
 ecosystem-usage.html
+governed-transitions.html
+assets/ecosystem-chat.js
+assets/ecosystem-chat-transition-identity.js
+assets/ecosystem-chat-gateway-health.js
 assets/ecosystem-usage-ledger.js
+assets/governed-transitions-live-custody.js
 data/entry-point-roles.json
 data/usage-session-fixture.json
+scripts/check_ecosystem_chat_application.py
+scripts/check_ecosystem_chat_boundary.py
 scripts/check_ecosystem_usage_ledger.py
-scripts/check_ecosystem_chat_application.py invokes the usage-ledger checker
+scripts/check_ecosystem_chat_gateway_activation.py
+scripts/check_governed_transition_observatory.py
 ```
 
-The page gives easily identified primary and related role descriptions for:
+The shared usage surface preserves session and transition identity, origin and participating entry points, measurement owners, receipt references, evidence-classified metrics, and deduplication by `metric_owner + measurement_id`.
 
-```text
-StegVerse SDK
-  -> developer-native programmatic testing, integration, and observation
-
-StegVerse LLM Adapter
-  -> machine-readable translation and external interoperability
-
-StegVerse Ecosystem Chat
-  -> universal browser-based governed conversation, discovery, development, testing, and orchestration
-```
-
-Every displayed transition begins with a usage prepend containing the preserved session and transition identity, origin and participating entry points, measurement owners, receipt references, and evidence-classified metrics.
-
-## Cross-entry usage proof path
-
-```text
-SDK / LLM Adapter / Ecosystem Chat / runtime event
--> validate one session identity
--> preserve transition lineage
--> deduplicate metric_owner + measurement_id
--> retain MEASURED / CONFIGURED / DERIVED / UNAVAILABLE classification
--> aggregate evidence-separated session usage
--> prepend usage metadata before transition content
--> render shared session timeline
-```
-
-The browser reads `stegverse.transitionUsageEvents.v1` from local storage when a synchronized entry point has supplied a session ledger. It uses the configured fixture only when no synchronized local session exists.
-
-## Usage ownership boundary
-
-```text
-Ecosystem Chat owns browser interaction and presentation measurements.
-SDK owns SDK validation and orchestration measurements.
-LLM Adapter owns provider, token, and translation measurements.
-Runtime owns node, execution, closure, receipt, and runtime-storage measurements.
-Master-Records owns custody and persistence measurements.
-```
-
-The Site does not re-own or duplicate measurements. Deduplication is based on the stable pair:
-
-```text
-metric_owner + measurement_id
-```
-
-## Evidence and authority boundary
+## Authority boundary
 
 ```text
 Site display != execution.
@@ -114,62 +64,78 @@ Final response receipt != Master-Records custody.
 Configured fixture values != live measurements.
 Usage presentation does not alter provider output or transition hashes.
 RECORDED requires authenticated custody evidence and reconstructability PASS.
+Site does not execute or mutate external repositories.
 ```
 
-## Existing provider and custody display
-
-The Site already displays provider source, status, name, model, provider receipt, estimated provider cost, deterministic fallback, lifecycle, final receipt, custody queue, custody receipt, Master-Records reference, and reconstruction posture.
-
-Relevant surfaces:
+## Observed validation failures and bounded repairs
 
 ```text
-assets/ecosystem-chat-transition-identity.js
-assets/ecosystem-chat-gateway-health.js
-assets/governed-transitions-live-custody.js
-ecosystem-chat.html
-governed-transitions.html
-scripts/check_ecosystem_chat_gateway_activation.py
-scripts/check_governed_transition_observatory.py
+Workflow: Site Bootstrap Validate
+Run: 29179673207
+Commit: c19e0015c24ba2f5ccd39eda6c97477d78e2a92a
+Failure: stale preview-only handoff assertion
+Repair: 181668077ecd3e8d686374758de051f7ba76c07f
+
+Workflow: Site Task Runner
+Run: 29191451576
+Commit: 1d64d9c16b91cea0b9fbb56874193caf491d30ff
+Failure: substring-count bug in hero button validation
+Repair: 62d6c88df9e126978b477ac14913a9ef4dc375c0
+
+Workflow: Site Task Runner
+Run: 29192461329
+Commit: 82d485c224ba9590aa05c53ff4b008b26978095f
+Failure: stale continuation-panel identifier assertion
+Repair: ba8e68d4906654698a736c02475077d5bef40921
+
+Workflow: Site Task Runner
+Run: 29197743889
+Commit: ca3914d4a9fca0f669a275801c32c5169c34db2f
+Job: run-site-task
+Failing command: python scripts/check_ecosystem_chat_boundary.py
+Failure class: obsolete HPS visualization assertion
+Observed blocker: missing fixtures/ecosystem-chat/hps-visualization.example.json; current page and renderer no longer declare the HPS preview surface
+Repair: 49373bae2f92521df052397a033212d3e9d982f9
+Repair scope: removed only the obsolete verify_hps_visualization validator and invocation
+Authority effect: NONE
+State change authorized by repair: false
+Diagnostic artifact: site-task-diagnostic-29197743889-1
+Artifact ID: 8261471385
+Artifact digest: sha256:f7212ac35e4d945e26be053b8664a6a38673ab32fb7d958d3621ad95ed673c34
 ```
 
-## Validation surface
+The repair aligns validation with the current declared Site surface. It does not add, restore, or remove user-facing HPS functionality; does not deploy; does not configure credentials; and does not alter authority, release, custody, or provider posture.
 
-The existing `Site Bootstrap Validate` workflow now reaches the usage-ledger checker through:
-
-```text
-python scripts/check_ecosystem_chat_application.py
-  -> python scripts/check_ecosystem_usage_ledger.py
-```
-
-The checker verifies:
+## Next task
 
 ```text
-public usage page and renderer exist
-SDK / LLM Adapter / Ecosystem Chat roles are declared
-fixture spans browser, SDK, adapter, and runtime owners
-one session identity is preserved
-measurement identities are unique per owner
-evidence classes remain valid
-UNAVAILABLE values remain null
-transition usage prepend is rendered
-usage does not claim authority or alter transition output
+1. Verify current-main Site Task Runner and Site Bootstrap Validate on commit 49373bae2f92521df052397a033212d3e9d982f9 or a documented successor.
+2. Preserve passing Site validation and task diagnostic receipts.
+3. Link Ecosystem Usage Ledger prominently from Ecosystem Chat and primary navigation only after current-main validation is green.
+4. Ingest live gateway usage events instead of fixture fallback when the authenticated transport prerequisite is available.
+5. Render governed-vs-recursive paired output and delta bars.
+6. Add session filtering, export, and receipt navigation.
+7. Deploy gateway and custody production blueprints only with explicit deployment authority.
+8. Configure credentials only through authorized secret-management paths.
+9. Verify one public provider-used or explicit deterministic-fallback response and the same transition reaching RECORDED custody.
+10. Run the orchestration live round-trip verifier before activation claims.
 ```
 
 ## Remaining files or modules
 
 ```text
 StegVerse-Labs/Site
-  -> link Ecosystem Usage Ledger prominently from Ecosystem Chat and primary navigation
-  -> ingest live gateway usage events instead of fixture fallback
-  -> render governed-vs-recursive paired output and delta bars
-  -> add session filtering, export, and receipt navigation
+  -> prominent Ecosystem Usage Ledger navigation
+  -> live gateway usage ingestion
+  -> governed-vs-recursive paired output and delta bars
+  -> session filtering, export, and receipt navigation
 
 StegVerse-org/LLM-adapter
-  -> automatically emit provider usage during the live provider lifecycle
-  -> expose authenticated session-usage retrieval
+  -> provider usage emission during live lifecycle
+  -> authenticated session-usage retrieval
 
 StegVerse-org/core-node-runtime-demo
-  -> automatically emit runtime usage during governed execution
+  -> runtime usage emission during governed execution
 
 master-records
   -> custody usage events, deduplication index, and session reconstruction pointers
@@ -177,8 +143,8 @@ master-records
 
 ## Release posture
 
-Role descriptions, the shared usage page, transition prepend rendering, local cross-entry aggregation, deduplication, fixtures, and validation are installed. Live event transport, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No release tag is authorized.
+Role descriptions, shared usage display, transition prepend rendering, local cross-entry aggregation, deduplication, fixtures, and validation are installed. Live event transport, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, or tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff preserves the provider, gateway, custody, cross-entry role, usage-ledger, validation, authority-boundary, and continuation state. Earlier conversation context is not required.
+This handoff preserves the current provider, gateway, custody, cross-entry role, usage-ledger, validation, repair, authority-boundary, and continuation state. Earlier conversation context is not required.
