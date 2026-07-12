@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "usage_api_base": null,
+  "session_query_parameter": "session_id",
+  "allow_local_storage": true,
+  "allow_fixture_fallback": true,
+  "fixture_path": "data/usage-session-fixture.json",
+  "roles_path": "data/entry-point-roles.json",
+  "authority_boundaries": {
+    "usage_retrieval_is_authority": false,
+    "usage_display_is_admissibility": false,
+    "fixture_is_live_measurement": false
+  }
+}
