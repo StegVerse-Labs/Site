@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>External Chat Reviewer Console | StegVerse</title>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,sans-serif}body{margin:0;background:#08111f;color:#eef6ff}main{max-width:1100px;margin:auto;padding:32px 20px 72px}a{color:#9bd7ff}.card,.boundary{border:1px solid #334b62;background:#0c1826;border-radius:14px;padding:18px;margin:18px 0}label{display:block;margin:12px 0 6px;color:#bcd3e6}input,textarea,select,button{box-sizing:border-box;width:100%;border-radius:10px;border:1px solid #385069;background:#081421;color:#eef6ff;padding:11px}textarea{min-height:130px;font-family:ui-monospace,SFMono-Regular,monospace}button{width:auto;cursor:pointer;background:#18334d;font-weight:700;margin:12px 8px 0 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#07101c;padding:16px;border-radius:10px}.muted{color:#bfd0df;line-height:1.6}.good{color:#9ef0bb}.error{color:#ffabab}
+  </style>
+</head>
+<body><main>
+  <p><a href="external-chat.html">External Chat</a> · <a href="governed-transitions.html">Transition Observatory</a></p>
+  <h1>Delegated reviewer console</h1>
+  <p class="muted">Inspect one cooperative-review package and issue an evidence-bound correction request under a current reviewer delegation.</p>
+  <div class="boundary"><strong>Boundary:</strong> Reviewer access does not grant certification, publication, execution, repository mutation, or standing authority. Tokens remain only in current page memory.</div>
+
+  <section class="card">
+    <h2>Load assigned package</h2>
+    <label for="package-id">Package ID</label><input id="package-id" autocomplete="off" />
+    <label for="reviewer-ref">Reviewer reference</label><input id="reviewer-ref" autocomplete="off" />
+    <label for="reviewer-token">Reviewer token</label><input id="reviewer-token" type="password" autocomplete="off" />
+    <button id="load-package" type="button">Load delegated package</button>
+    <p id="lookup-status" class="muted">No package loaded.</p>
+    <pre id="package-output"></pre>
+  </section>
+
+  <section class="card">
+    <h2>Issue correction receipt</h2>
+    <label for="decision">Review decision</label>
+    <select id="decision"><option>UPHOLD</option><option>CORRECT</option><option>PARTIAL_CORRECTION</option><option>INSUFFICIENT_EVIDENCE</option></select>
+    <label for="reviewed-fields">Reviewed fields, one per line</label><textarea id="reviewed-fields"></textarea>
+    <label for="supporting-evidence">Supporting evidence references, one per line</label><textarea id="supporting-evidence"></textarea>
+    <label for="rationale">Rationale</label><textarea id="rationale"></textarea>
+    <label for="replacement-result">Replacement result, only for correction decisions</label><input id="replacement-result" />
+    <label for="replacement-receipt">Replacement receipt ID, only for correction decisions</label><input id="replacement-receipt" />
+    <button id="issue-correction" type="button">Issue delegated correction</button>
+    <p id="correction-status" class="muted">No correction issued.</p>
+    <pre id="correction-output"></pre>
+  </section>
+</main><script src="assets/external-review.js" defer></script></body></html>
