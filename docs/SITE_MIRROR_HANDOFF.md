@@ -65,6 +65,23 @@ The comparison page renders governed and recursive output summaries, route postu
 
 Current comparison data is classified `CONFIGURED_FIXTURE`. It is not a live provider or runtime measurement.
 
+## Installed Ecosystem Chat navigation
+
+```text
+assets/ecosystem-chat-hps.js
+scripts/check_ecosystem_chat_navigation.py
+scripts/check_ecosystem_chat_application.py
+```
+
+The already-loaded Ecosystem Chat bootstrap installs direct primary-navigation links to:
+
+```text
+ecosystem-usage.html -> Usage Ledger
+ecosystem-comparison.html -> Route Comparison
+```
+
+The navigation installer runs before HPS fixture loading, does not depend on the fixture succeeding, does not grant authority, and does not alter transition hashes, provider output, receipts, custody, or evidence standing.
+
 ## Required comparison invariants
 
 ```text
@@ -111,8 +128,20 @@ No release tag is authorized.
 
 ```text
 python scripts/check_ecosystem_chat_application.py
+  -> python scripts/check_ecosystem_chat_navigation.py
   -> python scripts/check_ecosystem_usage_ledger.py
   -> python scripts/check_ecosystem_comparison.py
+```
+
+The navigation checker verifies:
+
+```text
+primary navigation exists
+usage target exists
+comparison target exists
+runtime navigation installer exists
+both labels and hrefs are declared
+no authority or execution marker is introduced
 ```
 
 The comparison checker verifies:
@@ -130,11 +159,20 @@ comparison does not claim authority or admissibility
 fail-closed rendering exists
 ```
 
+## Latest bounded task completion
+
+```text
+Task: direct Usage Ledger and Route Comparison links inside ecosystem-chat.html primary navigation
+Implementation commit: 533fc4588a74eae65f69449c1ce2e0e43b270365
+Validator commit: ce6fbc6ae0e025e1e62c32c8fda94db97316891a
+Canonical integration commit: 428cfe3f52d30c995dc6db3cab994748846f1aac
+State: installed; current-main workflow verification pending
+```
+
 ## Remaining files or modules
 
 ```text
 StegVerse-Labs/Site
-  -> direct Usage Ledger and Route Comparison links inside ecosystem-chat.html primary navigation
   -> deployed authenticated live usage retrieval
   -> live paired-result ingestion replacing configured comparison fixture
   -> public retrieval, comparison, and receipt-navigation verification
@@ -153,10 +191,20 @@ master-records
   -> deduplication and reconstruction indexes
 ```
 
+## Next task
+
+```text
+1. Verify the current-main Site workflow passes with the navigation checker included.
+2. Preserve the passing Site application validation receipt.
+3. Prepare deployed authenticated live usage retrieval only through an authorized endpoint and secret-management path.
+4. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
+5. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
+```
+
 ## Release posture
 
-Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, and validation are installed. Live transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, or tag is authorized by this handoff. No release tag is authorized.
+Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, validation, and direct Ecosystem Chat navigation are installed. Live transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, or tag is authorized by this handoff. No release tag is authorized.
 
 ## Archive readiness
 
-This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
