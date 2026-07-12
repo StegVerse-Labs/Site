@@ -58,8 +58,9 @@ def verify_single_entry_ux() -> None:
     forbidden = [text for text in FORBIDDEN_PRIMARY_ENTRY_TEXT if text in page]
     if forbidden:
         raise AssertionError(f"ecosystem-chat.html restored old competing primary entry text: {', '.join(forbidden)}")
-    if len(re.findall(r'<(?:a|button)\b[^>]*class="[^"]*\bsv-btn\b[^"]*"', page)) != 2:
-        raise AssertionError("ecosystem-chat.html must keep exactly two primary buttons: hero entry and chat submit")
+    primary_buttons = re.findall(r'<(?:a|button)\b[^>]*class="[^"]*\bsv-btn-primary\b[^"]*"', page)
+    if len(primary_buttons) != 2:
+        raise AssertionError("ecosystem-chat.html must keep exactly two primary actions: hero entry and chat submit")
     hero_start = page.find('<div class="sv-hero">')
     boundary_start = page.find('<div class="sv-boundary">', hero_start)
     if hero_start < 0 or boundary_start < 0:
