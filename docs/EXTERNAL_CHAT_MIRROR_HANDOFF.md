@@ -4,8 +4,8 @@
 
 ```text
 Goal: public compatibility testing, delegated review, publication candidacy, and separately authorized wiki mutation
-Phase: commit-time-revalidated-repository-mutation-adapter-installed
-Result: implementation installed; live validation pending
+Phase: live-route-and-disposable-staging-verification-installed
+Result: implementation installed; deployed validation pending
 ```
 
 ## Public paths
@@ -15,7 +15,23 @@ https://stegverse-labs.github.io/Site/external-chat.html
 https://stegverse-labs.github.io/Site/external-review.html
 ```
 
-## Installed Site surfaces
+## Implemented lifecycle
+
+```text
+framework submission
+-> compatibility evidence receipt
+-> explicit cooperative-review opt-in
+-> authenticated package-only intake
+-> delegated reviewer correction receipt
+-> independently delegated publication candidate
+-> separately delegated repository mutation request
+-> commit-time authority/delegation/policy/freshness revalidation
+-> repository-head and target-blob drift checks
+-> GitHub-confirmed commit and blob identity
+-> repository mutation receipt
+```
+
+## Site verification surfaces
 
 ```text
 external-chat.html
@@ -25,36 +41,39 @@ assets/external-chat-review.js
 assets/external-review.js
 scripts/check_external_chat_compatibility.py
 scripts/check_external_review_console.py
+scripts/check_external_chat_live_routes.py
 scripts/check_ecosystem_chat_application.py
-scripts/acquire_external_framework_catalog.py
 ```
 
-## Governed gateway path
+`scripts/check_external_chat_live_routes.py` verifies:
+
+```text
+External Chat page HTTP 200 and expected boundary markers
+reviewer console HTTP 200 and expected delegated-review markers
+GET /api/external-review/health contract
+GET /api/external-review/repository-mutation/health contract
+public mutation_enabled = false
+allowed repository = StegVerse-Labs/admissibility-wiki
+allowed path prefix = docs/external-frameworks/
+commit-time revalidation required
+publication transition is not mutation authority
+```
+
+The live-route verifier is registered in canonical Site application validation. No workflow was added.
+
+## Gateway mutation surfaces
 
 Repository: `StegVerse-org/LLM-adapter`
 
 ```text
-framework submission
--> compatibility receipt
--> explicit cooperative-review opt-in
--> authenticated package-only intake
--> delegated reviewer correction receipt
--> independently delegated publication candidate
--> commit-time-revalidated repository mutation request
--> GitHub-confirmed commit and blob identity
--> repository mutation receipt
-```
-
-Installed mutation surfaces:
-
-```text
 llm_adapter/external_publication_mutation.py
+scripts/verify_external_publication_staging.py
 tests/test_external_publication_mutation.py
 llm_adapter/combined_gateway.py
 render-production.yaml
 ```
 
-Endpoint:
+Endpoints:
 
 ```text
 GET  /api/external-review/repository-mutation/health
@@ -63,41 +82,22 @@ POST /api/external-review/repository-mutations
 
 ## Mutation activation boundary
 
-The mutation adapter is disabled by default:
+The mutation adapter remains disabled by default:
 
 ```text
 STEGVERSE_EXTERNAL_MUTATION_ENABLED=false
 ```
 
-Activation additionally requires externally configured:
-
-```text
-STEGVERSE_EXTERNAL_MUTATORS_JSON
-STEGVERSE_EXTERNAL_GITHUB_TOKEN
-STEGVERSE_EXTERNAL_MUTATION_RECEIPT_KEY
-STEGVERSE_EXTERNAL_MUTATION_POLICY_REF
-```
-
-No credential is stored in Site, a review packet, a publication transition, or a mutation receipt.
+Activation requires externally configured mutator registry, GitHub credential, mutation receipt key, and required policy reference. No credential is stored in Site, packets, publication transitions, or receipts.
 
 ## Commit-time predicates
 
-The adapter consumes only a stored:
-
-```text
-ALLOW_PUBLICATION_CANDIDATE
-```
-
-It must revalidate all of the following immediately before a GitHub contents mutation:
+The adapter consumes only a stored `ALLOW_PUBLICATION_CANDIDATE` and revalidates:
 
 ```text
 mutator identity and token hash
-delegation validity window
-delegation reference
-repository mutation scope
-framework scope
-repository allowlist
-path prefix allowlist
+delegation validity and reference
+repository, path, framework, and mutation scopes
 authority reference
 policy reference
 freshness window
@@ -107,57 +107,31 @@ expected repository head SHA
 expected target blob SHA
 ```
 
-Any mismatch fails closed before the write.
+Any mismatch fails closed before a write.
 
-## Mutation constraints
-
-```text
-allowed repository: StegVerse-Labs/admissibility-wiki
-allowed branch: main
-allowed path prefix: docs/external-frameworks/
-path traversal: rejected
-repository-head drift: rejected
-target-blob drift: rejected
-publication target mismatch: rejected
-policy/delegation mismatch: rejected
-mutation disabled or incompletely configured: rejected
-```
-
-The adapter uses the GitHub contents API only after all predicates pass. A successful response must contain both a new commit SHA and a new blob SHA before a mutation receipt is issued.
-
-## Canonical wiki receipt contract
-
-Repository: `StegVerse-Labs/admissibility-wiki`
+## Disposable-path staging verifier
 
 ```text
-docs/external-frameworks/schemas/external-chat-repository-mutation-receipt.schema.json
-docs/external-frameworks/examples/external-chat-repository-mutation-receipt.example.json
-scripts/check_external_chat_review_packets.py
-scripts/check_goal5_external_frameworks_all.py
+python scripts/verify_external_publication_staging.py
 ```
 
-A successful write produces:
+Default behavior is non-mutating and requires the public mutation health route to report `mutation_enabled = false`.
+
+A real staging mutation requires explicit:
 
 ```text
-external-framework-repository-mutation-receipt:hmac-sha256:...
+STEGVERSE_STAGING_MUTATION_EXECUTE=true
 ```
 
-The receipt binds:
+and all required identity, delegation, authority, policy, expected-head, target-path, content, and mutator-token environment values. The target must remain under:
 
 ```text
-publication transition
-repository and target path
-previous blob SHA
-new blob SHA
-content SHA-256
-commit SHA
-mutator identity
-delegation, authority, and policy references
-commit timestamp
-all commit-time predicate results
+docs/external-frameworks/staging/
 ```
 
-## Boundary
+The verifier accepts success only when the service returns a mutation receipt, commit SHA, new blob SHA, and content SHA-256 while preserving `certification_created = false` and `standing_created = false`.
+
+## Authority boundary
 
 ```text
 compatibility evidence != certification
@@ -169,35 +143,24 @@ publication transition != repository mutation
 mutation request != successful mutation
 GitHub commit confirmation != certification
 mutation receipt != standing
-a published finding != general compatibility proof
+published finding != general compatibility proof
 ```
 
 ## Validation status
 
-Tests now cover:
-
-```text
-mutation disabled fail-closed behavior
-successful commit-time revalidation with mocked GitHub confirmation
-repository-head drift rejection
-policy mismatch rejection
-path-boundary rejection
-receipt non-certification boundary
-```
-
-No workflow was added. Current-main CI and deployed-route evidence remain required before launch claims.
+Repository implementation and validation contracts are installed. Current-main green CI, deployed gateway verification, and one separately authorized disposable-path staging mutation have not yet been observed.
 
 ## Next tasks
 
 ```text
-1. Verify current-main gateway mutation tests and wiki Goal 5 aggregate.
-2. Add live-route checks for External Chat, reviewer console, review health, and mutation health.
-3. Deploy the gateway with mutation disabled and verify all non-mutating public paths.
-4. Conduct one separately authorized staging mutation against a disposable external-framework test path.
-5. Inspect the returned commit/blob identities and mutation receipt before enabling any production publication path.
+1. Confirm current-main gateway mutation tests and wiki Goal 5 aggregate.
+2. Deploy the gateway with mutation disabled and run the live-route verifier.
+3. Record page, review-health, and mutation-health evidence.
+4. Conduct one separately authorized mutation under docs/external-frameworks/staging/.
+5. Inspect commit/blob identities and mutation receipt before any production publication enablement.
 6. Expand the framework catalog after verified report imports.
 ```
 
 ## Sharing posture
 
-External Chat now implements the full governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated repository mutation adapter. The mutation capability remains disabled by default and is not yet publicly verified or authorized for production writes.
+External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Public non-mutating route verification and a disposable staging protocol are installed; production mutation remains disabled and unverified.
