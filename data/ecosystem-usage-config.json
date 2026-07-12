@@ -1,14 +1,22 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "usage_api_base": null,
   "session_query_parameter": "session_id",
   "allow_local_storage": true,
   "allow_fixture_fallback": true,
   "fixture_path": "data/usage-session-fixture.json",
   "roles_path": "data/entry-point-roles.json",
+  "live_transport": {
+    "enabled": false,
+    "contract_path": "data/ecosystem-usage-live-contract.json",
+    "activation_requires": "AUTHORIZED_DEPLOYED_ENDPOINT",
+    "fallback_on_network_unavailable": true,
+    "fallback_on_integrity_failure": false
+  },
   "authority_boundaries": {
     "usage_retrieval_is_authority": false,
     "usage_display_is_admissibility": false,
-    "fixture_is_live_measurement": false
+    "fixture_is_live_measurement": false,
+    "prepared_client_is_deployed_endpoint": false
   }
 }
