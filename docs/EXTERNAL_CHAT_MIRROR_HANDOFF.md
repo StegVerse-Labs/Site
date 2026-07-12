@@ -4,7 +4,7 @@
 
 ```text
 Goal: public compatibility testing for external frameworks
-Phase: receipted-catalog-and-packet-generation-installed
+Phase: automated-catalog-import-and-cooperative-review-packages-installed
 Result: implementation installed; live validation pending
 ```
 
@@ -22,10 +22,13 @@ assets/external-chat.js
 data/external-chat-example.json
 data/external-framework-catalog.json
 data/external-framework-catalog.receipt.json
+data/external-framework-catalog-import-status.json
+scripts/acquire_external_framework_catalog.py
 scripts/check_external_chat_compatibility.py
 docs/SITE_PUBLIC_PATHS.md
 scripts/check_site_public_paths.py
 scripts/check_ecosystem_chat_application.py
+.github/workflows/site-task-runner.yml
 ```
 
 ## Installed gateway files
@@ -47,18 +50,72 @@ Endpoint:
 POST /api/external-framework-compatibility
 ```
 
-## Canonical wiki catalog
+## Automated catalog import
+
+The existing Site Task Runner now runs:
+
+```text
+python scripts/acquire_external_framework_catalog.py
+```
+
+for `all-local` tasks before Site validation.
+
+The importer retrieves:
+
+```text
+StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-catalog.json
+StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-catalog.receipt.json
+```
+
+It validates catalog type, unique framework IDs, SHA-256, framework count, projection-only status, and non-authority boundaries before atomically replacing the Site projection.
+
+Import states:
+
+```text
+RECEIPTED_WIKI_CATALOG_IMPORTED
+LOCAL_RECEIPTED_CATALOG_RETAINED
+```
+
+An unavailable or invalid remote catalog does not erase the checked-in receipted fallback and does not claim hash verification.
+
+## Canonical wiki review contracts
 
 Repository: `StegVerse-Labs/admissibility-wiki`
 
 ```text
-docs/external-frameworks/external-chat-catalog.json
-docs/external-frameworks/external-chat-catalog.receipt.json
-docs/external-frameworks/external-chat-submission-contract.md
-docs/external-frameworks/reports/*.compatibility.json
+docs/external-frameworks/schemas/external-chat-cooperative-review-package.schema.json
+docs/external-frameworks/schemas/external-chat-correction-receipt.schema.json
+docs/external-frameworks/examples/external-chat-cooperative-review-package.example.json
+docs/external-frameworks/examples/external-chat-correction-receipt.example.json
+scripts/check_external_chat_review_packets.py
 ```
 
-The Site catalog is a checked-in projection of the canonical wiki catalog and is bound by SHA-256 and framework count. The catalog is not certification, execution authority, or general compatibility proof.
+## Browser-local packets
+
+External Chat can generate three local JSON packets without retaining the raw submitted artifact:
+
+```text
+external_framework_compatibility_result_packet
+external_framework_compatibility_challenge_packet
+external_framework_cooperative_review_package
+```
+
+A cooperative review package requires explicit submitter opt-in and at least one review-scope item. It may request publication review, but the request is not publication authority.
+
+The cooperative package binds:
+
+```text
+framework_id
+compatibility_receipt_id
+submission_sha256
+compatibility_result
+review scope
+evidence references
+publication_requested
+raw_submission_included = false
+```
+
+A reviewer correction must be represented by a distinct `external_framework_correction_receipt`. Corrections require reviewed fields, supporting evidence, reviewer reference, and—when a result changes—a replacement result and replacement receipt.
 
 ## Result classes
 
@@ -68,36 +125,15 @@ PARTIAL_COMPATIBILITY_INTAKE
 FAIL_CLOSED_BOUNDARY_REVIEW
 ```
 
-The evaluator returns required-field coverage, missing fields, applicable failure classes, a content-bound compatibility receipt, and links to matching Admissibility Wiki framework findings when available.
-
-## Browser-local packets
-
-External Chat can now generate two downloadable JSON packets without retaining the submitted raw artifact:
-
-```text
-external_framework_compatibility_result_packet
-external_framework_compatibility_challenge_packet
-```
-
-The result packet contains the returned compatibility result and its receipt. The challenge packet identifies the challenged receipt and submission hash, with empty fields for the challenged field, reason, supporting evidence, and requested correction or standing change.
-
-Neither packet publishes a wiki record, creates standing, or authorizes a correction.
-
 ## Validation registration
 
-The dedicated validator is now included in the canonical Site application validation through:
+The dedicated validator is included in canonical Site application validation through:
 
 ```text
 scripts/check_ecosystem_chat_application.py
 ```
 
-The public guard checks the page, client, validator, catalog, and receipt through:
-
-```text
-scripts/check_site_public_paths.py
-```
-
-No workflow was added.
+The existing Site Task Runner performs the catalog acquisition before `all-local` validation. No workflow was added.
 
 ## Data handling
 
@@ -108,6 +144,7 @@ wiki_record_created = false
 execution_performed = false
 review_required_before_publication = true
 browser_packet_generation = local only
+cooperative_review_requires_explicit_opt_in = true
 ```
 
 ## Boundary
@@ -120,6 +157,8 @@ compatibility receipt != execution authority
 compatibility receipt != commit-time admissibility
 catalog inclusion != endorsement
 challenge packet != automatic correction
+review package != publication authority
+correction receipt != certification
 submission != publication
 publication != standing
 ```
@@ -127,14 +166,14 @@ publication != standing
 ## Next tasks
 
 ```text
-1. Replace manual catalog projection with an automated, receipted cross-repository import.
-2. Add opt-in submission packaging for cooperative review without automatic publication.
-3. Add reviewer-side packet validation and correction receipt schemas.
+1. Register the review-packet validator in the wiki Goal 5 aggregate.
+2. Add an authenticated opt-in review transport that stores only the submitted package, never the raw artifact by default.
+3. Add reviewer identity/delegation verification before correction receipts may be issued.
 4. Add live endpoint and public page verification.
 5. Record current-main CI and deployed-route evidence before launch claims.
-6. Expand the catalog beyond the initial 12 checked-in report identifiers.
+6. Expand the catalog beyond the initial checked-in report identifiers.
 ```
 
 ## Sharing posture
 
-External Chat is a bounded compatibility-intake prototype with a receipted known-framework catalog and downloadable evidence/challenge packets. It is not framework certification, automatic wiki publication, or proof of general interoperability.
+External Chat is a bounded compatibility-intake and cooperative-review prototype with an automated receipted wiki catalog, portable evidence/challenge packages, and explicit opt-in review packages. It is not framework certification, automatic publication, or proof of general interoperability.
