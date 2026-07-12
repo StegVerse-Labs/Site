@@ -58,14 +58,20 @@ StegVerse-Labs/admissibility-wiki/docs/external-frameworks
 
 External Chat may return field coverage, missing fields, failure classes, a compatibility evidence receipt, and links to matching wiki reports. It does not automatically publish a wiki record, retain the raw submission, execute the submitted framework, certify compatibility, establish semantic equivalence, grant authority, or create standing.
 
+The checked-in catalog is a receipted Site projection of known wiki report identifiers. It is not a certification directory or proof of interoperability.
+
 Companion references:
 
 ```text
 assets/external-chat.js
 data/external-chat-example.json
+data/external-framework-catalog.json
+data/external-framework-catalog.receipt.json
 scripts/check_external_chat_compatibility.py
 StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-submission-contract.md
 ```
+
+External Chat may generate browser-local downloadable result and challenge packets. Packet generation does not retain or publish the raw submission and creates no standing.
 
 ## Governed Ecosystem Boundary
 
