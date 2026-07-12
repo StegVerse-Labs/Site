@@ -24,18 +24,20 @@ REQUIRED_PAGE_MARKERS = [
     "public broadcast",
 ]
 
-# These markers intentionally track the current handoff contract rather than
-# legacy prose. The handoff remains the source of truth, while this check
-# verifies its preview-only boundary and exact two-workflow declaration.
+# These markers track the current handoff contract. The handoff remains the
+# source of truth; this check verifies its governed-gateway posture, exact
+# two-workflow declaration, and non-execution authority boundary.
 REQUIRED_HANDOFF_MARKERS = [
     "# Site Mirror Handoff",
     "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
-    "Site mode: PREVIEW_ONLY",
+    "Site mode: GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK",
     "Workflow target: exactly two operational workflows",
     ".github/workflows/validate.yml",
     ".github/workflows/site-task-runner.yml",
-    "Site may draft, classify, visualize, filter, and emit preview candidates.",
-    "Site must not execute, mutate repositories, access credentials, grant admissibility or delegation, sign receipts, issue final receipts, admit Master-Records records, or claim reconstruction success.",
+    "Site does not execute or mutate repositories.",
+    "Provider output != authority.",
+    "RECORDED requires the authenticated custody service receipt.",
+    "No release tag is authorized.",
 ]
 
 
