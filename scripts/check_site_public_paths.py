@@ -7,11 +7,13 @@ REQUIRED = [
     "/governed-ecosystem.html",
     "/ecosystem-chat.html",
     "/external-chat.html",
+    "/external-review.html",
     "/governed-transitions.html",
     "StegVerse-Labs/admissibility-wiki",
     "docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt",
     "scripts/check_site_governed_ecosystem_mirror.py",
     "scripts/check_external_chat_compatibility.py",
+    "scripts/check_external_review_console.py",
     "external-chat-submission-contract.md",
     "data/external-framework-catalog.json",
     "data/external-framework-catalog.receipt.json",
@@ -30,8 +32,11 @@ def main():
             errors.append("missing:" + item)
     for path in [
         ROOT / "external-chat.html",
+        ROOT / "external-review.html",
         ROOT / "assets" / "external-chat.js",
+        ROOT / "assets" / "external-review.js",
         ROOT / "scripts" / "check_external_chat_compatibility.py",
+        ROOT / "scripts" / "check_external_review_console.py",
         ROOT / "data" / "external-framework-catalog.json",
         ROOT / "data" / "external-framework-catalog.receipt.json",
     ]:
