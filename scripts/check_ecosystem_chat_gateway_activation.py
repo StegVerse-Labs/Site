@@ -7,6 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "data" / "ecosystem-chat-gateway.json"
 CLIENT = ROOT / "assets" / "ecosystem-chat-transition-identity.js"
+HEALTH = ROOT / "assets" / "ecosystem-chat-gateway-health.js"
+LOADER = ROOT / "assets" / "ecosystem-chat-hps.js"
 
 
 def fail(message: str) -> int:
@@ -15,10 +17,13 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    if not CONFIG.exists() or not CLIENT.exists():
-        return fail("gateway config or client missing")
+    for path in [CONFIG, CLIENT, HEALTH, LOADER]:
+        if not path.exists():
+            return fail(f"missing {path.relative_to(ROOT)}")
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     client = CLIENT.read_text(encoding="utf-8")
+    health = HEALTH.read_text(encoding="utf-8")
+    loader = LOADER.read_text(encoding="utf-8")
     if config.get("schema_version") != "1.0.0":
         return fail("schema_version mismatch")
     if config.get("mode") != "GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK":
@@ -26,11 +31,11 @@ def main() -> int:
     if config.get("fallback") != "LOCAL_CLASSIFICATION":
         return fail("fallback must remain LOCAL_CLASSIFICATION")
     endpoint = config.get("endpoint", "")
-    health = config.get("health_endpoint", "")
+    health_endpoint = config.get("health_endpoint", "")
     if config.get("enabled") is True:
         if not endpoint.startswith("https://") or not endpoint.endswith("/api/ecosystem-chat"):
             return fail("enabled endpoint must be HTTPS and end with /api/ecosystem-chat")
-        if not health.startswith("https://") or not health.endswith("/health"):
+        if not health_endpoint.startswith("https://") or not health_endpoint.endswith("/health"):
             return fail("enabled health endpoint must be HTTPS and end with /health")
     boundary = config.get("authority_boundary", {})
     for key in [
@@ -54,6 +59,18 @@ def main() -> int:
     ]:
         if marker not in client:
             return fail(f"client missing marker: {marker}")
+    for marker in [
+        "Governed gateway",
+        "bounded response pipeline",
+        "LOCAL FALLBACK",
+        "UNAVAILABLE",
+        "repository mutation",
+        "Master-Records custody",
+    ]:
+        if marker not in health:
+            return fail(f"health indicator missing marker: {marker}")
+    if "assets/ecosystem-chat-gateway-health.js" not in loader:
+        return fail("health indicator is not loaded by Ecosystem Chat")
     print("ECOSYSTEM CHAT GATEWAY ACTIVATION: PASS")
     return 0
 
