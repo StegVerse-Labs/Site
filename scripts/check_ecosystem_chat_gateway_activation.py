@@ -45,7 +45,10 @@ def main() -> int:
         "transition_identity",
         "identity mismatch",
         "gateway_receipt_id",
-        "final_receipt=false",
+        "final_receipt_id",
+        "lifecycle_state",
+        "master_record_status",
+        "reconstruction_status",
         "LOCAL_CLASSIFICATION",
         "AbortController",
     ]:
