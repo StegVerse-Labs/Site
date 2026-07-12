@@ -22,6 +22,7 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 | `/` | Site repository landing surface and public entry point. | `StegVerse-Labs/Site` checked-in content. |
 | `/ecosystem-chat.html` | Public governed chat interface with bounded gateway and local fallback. | Gateway lifecycle and receipts remain external to Site authority. |
 | `/external-chat.html` | Public external-framework compatibility intake and comparison surface. | `StegVerse-Labs/admissibility-wiki/docs/external-frameworks` remains source of truth for published framework findings; Site performs bounded intake only. |
+| `/external-review.html` | Delegated reviewer console for package lookup and correction receipt requests. | Reviewer identity, delegation, and receipt authority remain in the governed review service; Site stores no reviewer credential. |
 | `/governed-transitions.html` | Public projection of governed transition, executor, custody, and reconstruction state. | Orchestration and Master-Records remain source authorities. |
 | `/admissibility-wiki.html` | Public bridge to the Admissibility Wiki. | `StegVerse-Labs/admissibility-wiki` remains source of truth; Site is display/bridge only. |
 | `/governed-ecosystem.html` | Public mirror surface for governed ecosystem transition framing. | `StegVerse-Labs/admissibility-wiki` remains source of truth; Site is display/mirror only. |
@@ -37,6 +38,7 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 /
 /ecosystem-chat.html
 /external-chat.html
+/external-review.html
 /governed-transitions.html
 /admissibility-wiki.html
 /governed-ecosystem.html
@@ -64,14 +66,19 @@ Companion references:
 
 ```text
 assets/external-chat.js
+assets/external-chat-review.js
+external-review.html
 data/external-chat-example.json
 data/external-framework-catalog.json
 data/external-framework-catalog.receipt.json
 scripts/check_external_chat_compatibility.py
+scripts/check_external_review_console.py
 StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-submission-contract.md
 ```
 
-External Chat may generate browser-local downloadable result and challenge packets. Packet generation does not retain or publish the raw submission and creates no standing.
+External Chat may generate browser-local result, challenge, and cooperative-review packets. The reviewer console may submit a correction request only after delegated lookup. Neither surface stores tokens in browser storage or grants publication authority.
+
+A correction receipt remains distinct from a wiki-publication transition. Even `ALLOW_PUBLICATION_CANDIDATE` is not a repository write; a separately authorized mutation is still required.
 
 ## Governed Ecosystem Boundary
 
