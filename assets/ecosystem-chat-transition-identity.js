@@ -133,13 +133,18 @@
       if (!response.ok) throw new Error(`gateway HTTP ${response.status}`);
       const data = await response.json();
       if (data.transition_id !== identity.transition_id || data.run_id !== identity.run_id || data.event_id !== identity.event_id || data.origin_manifest_id !== identity.origin_manifest_id) throw new Error('gateway identity mismatch');
+      const finalReceipt = data.final_receipt_id || 'null';
       return {
-        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nGateway status: ${data.task_status}\nFinal receipt: false`,
-        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · receipt_class=${data.receipt_class || 'unknown'} · final_receipt=false · transition_id=${data.transition_id} · run_id=${data.run_id}`,
+        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nLifecycle: ${data.lifecycle_state || 'UNKNOWN'}\nAdmissibility: ${data.admissibility_result || 'PENDING'}\nCommit-time validity: ${data.commit_time_validity || 'PENDING'}\nFinal response receipt: ${finalReceipt}\nMaster-Records: ${data.master_record_status || 'NOT_YET_SUBMITTED'}\nReconstruction: ${data.reconstruction_status || 'NOT_YET_CHECKED'}`,
+        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · receipt_class=${data.receipt_class || 'unknown'} · final_receipt_id=${finalReceipt} · lifecycle=${data.lifecycle_state || 'UNKNOWN'} · transition_id=${data.transition_id} · run_id=${data.run_id}`,
         interaction_profile: data.interaction_profile || posture.interaction_profile,
         intent: posture.intent,
         route: data.routed_module || posture.route,
         gateway_status: data.task_status,
+        lifecycle_state: data.lifecycle_state,
+        final_receipt_id: data.final_receipt_id,
+        master_record_status: data.master_record_status,
+        reconstruction_status: data.reconstruction_status,
         transition_id: data.transition_id,
         run_id: data.run_id,
         event_id: data.event_id,
