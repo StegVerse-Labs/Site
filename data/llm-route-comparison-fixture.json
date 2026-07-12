@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "comparison_id": "cmp_site_fixture_001",
+  "task_identity": "sha256:site-fixture-task",
+  "measurement_posture": "CONFIGURED_FIXTURE",
+  "routes": [
+    {
+      "route_id": "stegverse-governed",
+      "route_kind": "STEGVERSE_GOVERNED",
+      "label": "StegVerse governed route",
+      "output_summary": "Fixture-bound governed response with admissibility, receipt, and reconstruction posture.",
+      "admissibility_result": "ALLOW_FIXTURE_ONLY",
+      "metrics": {
+        "total_cost_usd": {"value": 0.0184, "unit": "USD", "evidence_class": "CONFIGURED"},
+        "latency_ms": {"value": 2800, "unit": "ms", "evidence_class": "CONFIGURED"},
+        "model_calls": {"value": 2, "unit": "calls", "evidence_class": "CONFIGURED"},
+        "input_tokens": {"value": 2100, "unit": "tokens", "evidence_class": "CONFIGURED"},
+        "output_tokens": {"value": 620, "unit": "tokens", "evidence_class": "CONFIGURED"},
+        "tool_calls": {"value": 1, "unit": "calls", "evidence_class": "CONFIGURED"},
+        "retries": {"value": 0, "unit": "count", "evidence_class": "CONFIGURED"},
+        "node_or_cell_activations": {"value": 7, "unit": "nodes", "evidence_class": "CONFIGURED"},
+        "receipt_count": {"value": 3, "unit": "receipts", "evidence_class": "CONFIGURED"}
+      },
+      "receipt_refs": ["receipt://cmp_site_fixture_001/governed"]
+    },
+    {
+      "route_id": "external-recursive",
+      "route_kind": "EXTERNAL_RECURSIVE",
+      "label": "External recursive route",
+      "output_summary": "Fixture-bound recursive response with provider-neutral telemetry and no admissibility claim.",
+      "admissibility_result": "NOT_EVALUATED_BY_EXTERNAL_ROUTE",
+      "metrics": {
+        "total_cost_usd": {"value": 0.0927, "unit": "USD", "evidence_class": "CONFIGURED"},
+        "latency_ms": {"value": 7400, "unit": "ms", "evidence_class": "CONFIGURED"},
+        "model_calls": {"value": 7, "unit": "calls", "evidence_class": "CONFIGURED"},
+        "input_tokens": {"value": 5900, "unit": "tokens", "evidence_class": "CONFIGURED"},
+        "output_tokens": {"value": 1650, "unit": "tokens", "evidence_class": "CONFIGURED"},
+        "tool_calls": {"value": 3, "unit": "calls", "evidence_class": "CONFIGURED"},
+        "retries": {"value": 2, "unit": "count", "evidence_class": "CONFIGURED"},
+        "node_or_cell_activations": {"value": 0, "unit": "nodes", "evidence_class": "CONFIGURED"},
+        "receipt_count": {"value": 1, "unit": "receipts", "evidence_class": "CONFIGURED"}
+      },
+      "receipt_refs": ["receipt://cmp_site_fixture_001/external"]
+    }
+  ],
+  "deltas": {
+    "total_cost_usd": {"value": 0.0743, "unit": "USD", "evidence_class": "CONFIGURED", "formula": "external_recursive - stegverse_governed"},
+    "latency_ms": {"value": 4600, "unit": "ms", "evidence_class": "CONFIGURED", "formula": "external_recursive - stegverse_governed"},
+    "model_calls": {"value": 5, "unit": "calls", "evidence_class": "CONFIGURED", "formula": "external_recursive - stegverse_governed"},
+    "input_tokens": {"value": 3800, "unit": "tokens", "evidence_class": "CONFIGURED", "formula": "external_recursive - stegverse_governed"},
+    "output_tokens": {"value": 1030, "unit": "tokens", "evidence_class": "CONFIGURED", "formula": "external_recursive - stegverse_governed"},
+    "receipt_count": {"value": -2, "unit": "receipts", "evidence_class": "CONFIGURED", "formula": "external_recursive - stegverse_governed"}
+  },
+  "invariants": {
+    "same_task_identity": true,
+    "same_output_requirement": true,
+    "configured_values_are_measured": false,
+    "comparison_is_authority": false,
+    "comparison_is_admissibility": false
+  }
+}
