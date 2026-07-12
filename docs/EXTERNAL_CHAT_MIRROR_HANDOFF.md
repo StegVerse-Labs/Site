@@ -4,7 +4,7 @@
 
 ```text
 Goal: public compatibility testing, delegated review, publication candidacy, and separately authorized wiki mutation
-Phase: live-route-and-disposable-staging-verification-installed
+Phase: live-verification-receipt-and-staging-ci-integration-installed
 Result: implementation installed; deployed validation pending
 ```
 
@@ -43,6 +43,7 @@ scripts/check_external_chat_compatibility.py
 scripts/check_external_review_console.py
 scripts/check_external_chat_live_routes.py
 scripts/check_ecosystem_chat_application.py
+reports/external-chat-live-verification.json
 ```
 
 `scripts/check_external_chat_live_routes.py` verifies:
@@ -59,11 +60,29 @@ commit-time revalidation required
 publication transition is not mutation authority
 ```
 
+Every execution writes `reports/external-chat-live-verification.json` with the exact URLs, observation times, HTTP status, content type, bounded body preview or JSON contract, failure class, and authority boundary.
+
+Network or DNS resolution failure is recorded distinctly and is not converted into a product failure, deployment success, or activation claim.
+
 The live-route verifier is registered in canonical Site application validation. No workflow was added.
 
-## Gateway mutation surfaces
+## Gateway validation integration
 
 Repository: `StegVerse-org/LLM-adapter`
+
+The existing `.github/workflows/validate.yml` now:
+
+```text
+installs the package with [dev] service/test dependencies
+runs the staging verifier in non-mutating mode
+executes compatibility and authenticated-review tests
+executes publication-transition and mutation-adapter tests
+preserves recursive comparison and provider-usage validation
+```
+
+No additional workflow was created.
+
+## Gateway mutation surfaces
 
 ```text
 llm_adapter/external_publication_mutation.py
@@ -144,23 +163,26 @@ mutation request != successful mutation
 GitHub commit confirmation != certification
 mutation receipt != standing
 published finding != general compatibility proof
+live verification receipt != deployment authority
+network resolution failure != product failure
 ```
 
 ## Validation status
 
-Repository implementation and validation contracts are installed. Current-main green CI, deployed gateway verification, and one separately authorized disposable-path staging mutation have not yet been observed.
+Repository implementation, test registration, staging posture validation, and evidence-producing live checks are installed. The current execution environment could not resolve the public hostnames, so no deployed success or failure is claimed from that attempt. Current-main green CI, a successful externally networked live-route receipt, and one separately authorized disposable-path staging mutation remain unobserved.
 
 ## Next tasks
 
 ```text
-1. Confirm current-main gateway mutation tests and wiki Goal 5 aggregate.
-2. Deploy the gateway with mutation disabled and run the live-route verifier.
-3. Record page, review-health, and mutation-health evidence.
-4. Conduct one separately authorized mutation under docs/external-frameworks/staging/.
-5. Inspect commit/blob identities and mutation receipt before any production publication enablement.
-6. Expand the framework catalog after verified report imports.
+1. Confirm the current-main LLM-adapter validation run includes and passes External Chat review, publication, mutation, and staging checks.
+2. Confirm the Admissibility Wiki Goal 5 aggregate validates the mutation-receipt contract.
+3. Deploy the gateway with mutation disabled and run the live verifier from an environment with public DNS/network access.
+4. Retain the generated live-verification receipt as deployment evidence.
+5. Conduct one separately authorized mutation under docs/external-frameworks/staging/.
+6. Inspect commit/blob identities and mutation receipt before any production publication enablement.
+7. Expand the framework catalog after verified report imports.
 ```
 
 ## Sharing posture
 
-External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Public non-mutating route verification and a disposable staging protocol are installed; production mutation remains disabled and unverified.
+External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Public verification is now evidence-producing and the existing gateway workflow validates the full non-mutating review/publication/mutation contract. Production mutation remains disabled and unverified.
