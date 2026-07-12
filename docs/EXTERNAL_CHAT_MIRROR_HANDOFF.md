@@ -4,7 +4,7 @@
 
 ```text
 Goal: public compatibility testing for external frameworks
-Phase: automated-catalog-import-and-cooperative-review-packages-installed
+Phase: automated-catalog-import-and-reviewed-packet-contracts-installed
 Result: implementation installed; live validation pending
 ```
 
@@ -52,7 +52,7 @@ POST /api/external-framework-compatibility
 
 ## Automated catalog import
 
-The existing Site Task Runner now runs:
+The existing Site Task Runner runs:
 
 ```text
 python scripts/acquire_external_framework_catalog.py
@@ -60,14 +60,7 @@ python scripts/acquire_external_framework_catalog.py
 
 for `all-local` tasks before Site validation.
 
-The importer retrieves:
-
-```text
-StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-catalog.json
-StegVerse-Labs/admissibility-wiki/docs/external-frameworks/external-chat-catalog.receipt.json
-```
-
-It validates catalog type, unique framework IDs, SHA-256, framework count, projection-only status, and non-authority boundaries before atomically replacing the Site projection.
+The importer retrieves the canonical wiki catalog and receipt, validates catalog type, unique framework IDs, SHA-256, framework count, projection-only status, and non-authority boundaries, then atomically replaces the Site projection.
 
 Import states:
 
@@ -88,7 +81,10 @@ docs/external-frameworks/schemas/external-chat-correction-receipt.schema.json
 docs/external-frameworks/examples/external-chat-cooperative-review-package.example.json
 docs/external-frameworks/examples/external-chat-correction-receipt.example.json
 scripts/check_external_chat_review_packets.py
+scripts/check_goal5_external_frameworks_all.py
 ```
+
+The review-packet validator is registered in the Goal 5 aggregate.
 
 ## Browser-local packets
 
@@ -127,13 +123,19 @@ FAIL_CLOSED_BOUNDARY_REVIEW
 
 ## Validation registration
 
-The dedicated validator is included in canonical Site application validation through:
-
 ```text
-scripts/check_ecosystem_chat_application.py
+Site application validation:
+  scripts/check_ecosystem_chat_application.py
+
+Site External Chat validator:
+  scripts/check_external_chat_compatibility.py
+
+Wiki Goal 5 aggregate:
+  scripts/check_goal5_external_frameworks_all.py
+  -> scripts/check_external_chat_review_packets.py
 ```
 
-The existing Site Task Runner performs the catalog acquisition before `all-local` validation. No workflow was added.
+No workflow was added. The existing Site Task Runner performs catalog acquisition before `all-local` validation.
 
 ## Data handling
 
@@ -166,9 +168,9 @@ publication != standing
 ## Next tasks
 
 ```text
-1. Register the review-packet validator in the wiki Goal 5 aggregate.
-2. Add an authenticated opt-in review transport that stores only the submitted package, never the raw artifact by default.
-3. Add reviewer identity/delegation verification before correction receipts may be issued.
+1. Add an authenticated opt-in review transport that stores only the review package, never the raw artifact by default.
+2. Add reviewer identity, delegation, and scope verification before correction receipts may be issued.
+3. Add append-only review/correction receipt storage with conflict detection.
 4. Add live endpoint and public page verification.
 5. Record current-main CI and deployed-route evidence before launch claims.
 6. Expand the catalog beyond the initial checked-in report identifiers.
@@ -176,4 +178,4 @@ publication != standing
 
 ## Sharing posture
 
-External Chat is a bounded compatibility-intake and cooperative-review prototype with an automated receipted wiki catalog, portable evidence/challenge packages, and explicit opt-in review packages. It is not framework certification, automatic publication, or proof of general interoperability.
+External Chat is a bounded compatibility-intake and cooperative-review prototype with an automated receipted wiki catalog, portable evidence/challenge packages, explicit opt-in review packages, and validated correction-receipt contracts. It is not framework certification, automatic publication, or proof of general interoperability.
