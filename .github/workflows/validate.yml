@@ -23,3 +23,24 @@ jobs:
         run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
+      - name: Upload application validation result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-application-validation-result
+          path: site_application_validation.result.json
+          if-no-files-found: error
+      - name: Record live mirror verification status
+        id: live_verification
+        run: |
+          set +e
+          python scripts/check_site_mirror_live_verification.py --json > site_mirror_live_verification.result.json
+          status=$?
+          cat site_mirror_live_verification.result.json
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload live mirror verification result
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-mirror-live-verification-result
+          path: site_mirror_live_verification.result.json

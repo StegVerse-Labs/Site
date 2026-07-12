@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "projection_type": "governed_executor_status",
+  "source_repository": "master-records/orchestration",
+  "handoff_id": "executor-handoff:github-bootstrap-to-stegverse-ai:example-001",
+  "transition_id": "transition.github.admissibility-wiki.validation.2026-07-10",
+  "run_id": "github-notification-bootstrap-example-001",
+  "from_executor": {
+    "executor_id": "executor:external-notification-bootstrap",
+    "executor_class": "EXTERNAL_NOTIFICATION_BOOTSTRAP",
+    "status": "FALLBACK_ONLY"
+  },
+  "to_executor": {
+    "executor_id": "executor:stegverse-ai-entity:001",
+    "executor_class": "STEGVERSE_AI_ENTITY",
+    "status": "ACTIVE",
+    "participant_ref": "participant:stegverse-ai-entity:001"
+  },
+  "activation": {
+    "state": "ACTIVE",
+    "activation_receipt_id": "executor-activation-receipt:stegverse-ai:example-001",
+    "completed_checks": [
+      "consume_current_handoff",
+      "preserve_transition_identity",
+      "emit_schema_compatible_manifest",
+      "produce_schema_compatible_final_receipt",
+      "update_same_site_projection",
+      "fail_closed_without_authority"
+    ]
+  },
+  "authority_boundary": {
+    "projection_grants_execution_authority": false,
+    "projection_grants_publication_authority": false,
+    "projection_grants_admissibility": false,
+    "projection_is_master_records_custody": false,
+    "activation_is_per_transition_authority": false
+  },
+  "projection_note": "Derived fallback projection of a receipted orchestration executor state. Site does not activate executors or grant task authority."
+}

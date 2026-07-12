@@ -2,11 +2,13 @@
   const recordsEl = document.getElementById('records');
   const summaryEl = document.getElementById('summary');
   const statusEl = document.getElementById('status');
+  const executorEl = document.getElementById('executor-status');
   const searchEl = document.getElementById('search');
   const stateEl = document.getElementById('state');
   const originEl = document.getElementById('origin');
   let records = [];
   let importStatus = null;
+  let executorStatus = null;
 
   const esc = (value) => String(value ?? '—').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
@@ -23,7 +25,34 @@
       metric('Completed', completed),
       metric('Custody pending', pendingCustody),
       metric('Reconstruction pending', pendingReconstruction),
+      metric('Native executor', executorStatus?.activation?.state || 'UNAVAILABLE'),
     ].join('');
+  }
+
+  function renderExecutor() {
+    if (!executorStatus) {
+      executorEl.innerHTML = '<p>Executor projection unavailable.</p>';
+      return;
+    }
+    const source = executorStatus.from_executor || {};
+    const target = executorStatus.to_executor || {};
+    const activation = executorStatus.activation || {};
+    executorEl.innerHTML = `<article class="card">
+      <div class="row">
+        <div><span class="eyebrow">Receipted orchestration projection</span><h2>Native StegVerse AI executor</h2></div>
+        <span class="tag ${activation.state === 'ACTIVE' ? 'complete' : 'pending'}">${esc(activation.state)}</span>
+      </div>
+      <dl>
+        <dt>Native executor</dt><dd>${esc(target.executor_id)}</dd>
+        <dt>Native status</dt><dd>${esc(target.status)}</dd>
+        <dt>Bootstrap executor</dt><dd>${esc(source.executor_id)}</dd>
+        <dt>Bootstrap status</dt><dd>${esc(source.status)}</dd>
+        <dt>Activation receipt</dt><dd>${esc(activation.activation_receipt_id)}</dd>
+        <dt>Transition</dt><dd>${esc(executorStatus.transition_id)}</dd>
+        <dt>Run</dt><dd>${esc(executorStatus.run_id)}</dd>
+      </dl>
+      <p class="lede">Activation indicates eligibility to receive governed work. It does not grant per-transition execution, publication, admissibility, receipt-signing, or Master-Records authority.</p>
+    </article>`;
   }
 
   function card(item) {
@@ -61,9 +90,10 @@
       return (!query || haystack.includes(query)) && (!state || item.lifecycle_state === state) && (!origin || item.origin_class === origin);
     });
     renderSummary(visible);
+    renderExecutor();
     recordsEl.innerHTML = visible.map(card).join('') || '<p>No transitions match the current filters.</p>';
     const provenance = importStatus
-      ? `${importStatus.state}; source=${importStatus.source}; hash_verified=${importStatus.hash_verified}; live_feed=${importStatus.live_orchestration_feed}`
+      ? `${importStatus.state}; source=${importStatus.source}; hash_verified=${importStatus.hash_verified}; executor_state_imported=${importStatus.executor_state_imported}; live_feed=${importStatus.live_orchestration_feed}`
       : 'import status unavailable';
     statusEl.textContent = `${visible.length} of ${records.length} transition records shown. Projection provenance: ${provenance}.`;
   }
@@ -80,21 +110,27 @@
   Promise.all([
     fetch('data/governed-transition-index.json', {cache: 'no-store'}),
     fetch('data/governed-transition-index-import-status.json', {cache: 'no-store'}),
+    fetch('data/governed-executor-status.json', {cache: 'no-store'}),
   ])
-    .then(async ([indexResponse, statusResponse]) => {
+    .then(async ([indexResponse, statusResponse, executorResponse]) => {
       if (!indexResponse.ok) throw new Error(`index HTTP ${indexResponse.status}`);
       if (!statusResponse.ok) throw new Error(`import status HTTP ${statusResponse.status}`);
-      return [await indexResponse.json(), await statusResponse.json()];
+      if (!executorResponse.ok) throw new Error(`executor status HTTP ${executorResponse.status}`);
+      return [await indexResponse.json(), await statusResponse.json(), await executorResponse.json()];
     })
-    .then(([data, status]) => {
+    .then(([data, status, executor]) => {
       if (data.projection_type !== 'governed_transition_index' || !Array.isArray(data.records)) {
         throw new Error('projection contract mismatch');
       }
       if (status.status_type !== 'governed_transition_index_import_status') {
         throw new Error('import status contract mismatch');
       }
+      if (executor.projection_type !== 'governed_executor_status') {
+        throw new Error('executor projection contract mismatch');
+      }
       records = data.records.filter((item) => item.site_visibility !== 'HIDDEN');
       importStatus = status;
+      executorStatus = executor;
       fill(stateEl, records.map((item) => item.lifecycle_state));
       fill(originEl, records.map((item) => item.origin_class));
       render();

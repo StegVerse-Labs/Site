@@ -6,6 +6,8 @@
   "source_receipt": null,
   "source_commit": null,
   "hash_verified": false,
+  "executor_state_imported": true,
+  "executor_activation_receipt_id": "executor-activation-receipt:stegverse-ai:example-001",
   "live_orchestration_feed": false,
-  "authority_boundary": "Local fallback is a projection fixture and does not grant authority, custody, or reconstruction standing."
+  "authority_boundary": "Local fallback is a projection fixture and does not grant authority, custody, executor activation, or reconstruction standing."
 }

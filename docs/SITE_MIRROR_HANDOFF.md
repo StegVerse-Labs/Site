@@ -8,7 +8,7 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 
 ```text
 Goal: unified governed Site experience centered on Ecosystem Chat and governed transition observability
-Phase: ecosystem-chat-transition-identity-installed
+Phase: receipted-executor-activation-projection-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site mode: PREVIEW_ONLY
@@ -22,11 +22,11 @@ Result: LOCAL_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
 ```text
 Site Bootstrap Validate
 -> Site Task Runner
--> acquire governed transition projection
+-> acquire governed transition projection and activated executor handoff
 -> all-local validation
 -> commit bounded generated state on main
 -> deploy Pages
--> verify transition page, index, and import status
+-> verify transition page, index, import status, and executor projection
 ```
 
 Active workflows remain:
@@ -43,6 +43,7 @@ governed-transitions.html
 assets/governed-transitions.js
 data/governed-transition-index.json
 data/governed-transition-index-import-status.json
+data/governed-executor-status.json
 scripts/acquire_governed_transition_index.py
 scripts/import_governed_transition_index.py
 scripts/check_governed_transition_observatory.py
@@ -57,21 +58,48 @@ LOCAL_FALLBACK_ACTIVE
 RECEIPTED_EXPORT_IMPORTED
 ```
 
-Neither state grants execution, admissibility, final-receipt, custody, or reconstruction authority.
+Neither state grants execution, admissibility, executor activation, final-receipt, custody, or reconstruction authority.
+
+## Receipted executor activation projection
+
+The existing orchestration export artifact now includes:
+
+```text
+reports/governed_executor_handoff.active.generated.json
+```
+
+Site imports that file into:
+
+```text
+data/governed-executor-status.json
+```
+
+The projection displays:
+
+```text
+from_executor.status = FALLBACK_ONLY
+to_executor.status = ACTIVE
+activation.state = ACTIVE
+activation_receipt_id = executor-activation-receipt:stegverse-ai:example-001
+transition_id
+run_id
+```
+
+The projection is bounded:
+
+```text
+projection_grants_execution_authority = false
+projection_grants_publication_authority = false
+projection_grants_admissibility = false
+projection_is_master_records_custody = false
+activation_is_per_transition_authority = false
+```
+
+Executor activation indicates eligibility to receive governed work. It is not per-transition execution authority and Site cannot activate an executor.
 
 ## Ecosystem Chat transition identity
 
-Installed:
-
-```text
-assets/ecosystem-chat-transition-identity.js
-fixtures/ecosystem-chat/transition-identity.example.json
-scripts/check_ecosystem_chat_transition_identity.py
-assets/ecosystem-chat-hps.js
-scripts/check_ecosystem_chat_receipt_envelopes.py
-```
-
-Every browser-local chat interaction now creates a preview candidate with:
+Every browser-local chat interaction creates a preview candidate with:
 
 ```text
 transition_id
@@ -104,8 +132,6 @@ execution_authorized = false
 receipt_issued = false
 ```
 
-The transition identity is added to the visible response and local preview receipt line. The same identifiers are also added to the SDK manifest preview.
-
 ## Current cross-repository path
 
 ```text
@@ -115,7 +141,8 @@ Ecosystem Chat / SDK / LLM-adapter
 -> Ecosystem-Delegation
 -> Standing-Proof-Engine
 -> master-records/orchestration
--> final receipt
+-> receipted native executor activation
+-> governed transition final receipt
 -> Master-Records custody
 -> reconstruction
 -> Site projection
@@ -126,26 +153,33 @@ Ecosystem Chat / SDK / LLM-adapter
 ```text
 Site may draft, classify, visualize, filter, and emit preview candidates.
 Site must not execute, mutate repositories, access credentials, grant admissibility or delegation, sign receipts, issue final receipts, admit Master-Records records, or claim reconstruction success.
+Site must not activate executors.
 A local hash is not a final receipt.
 A Site candidate is not execution authority.
+Executor activation is not per-transition execution authority.
 A projection is not source authority.
 ```
 
 ## Validation surface
 
-The existing receipt-envelope validator now invokes the transition-identity validator, so the current Site `validate` and `public-guard` task paths cover this new contract without adding a workflow.
+No workflow was added. The existing observatory checker now verifies:
+
+```text
+executor projection exists
+native executor is ACTIVE
+bootstrap executor is FALLBACK_ONLY
+activation receipt is present
+all projection authority flags remain false
+browser renderer loads the executor projection
+artifact acquisition requires the activated handoff member
+```
 
 ## Remaining files/modules and destinations
 
 ```text
 StegVerse-Labs/Site:
-- current-main validation evidence for transition identity linkage
-- verify public transition routes
-- display native executor handoff status when exported by orchestration
-
-master-records/orchestration:
-- current-main validation evidence for custody/reconstruction and executor handoff declaration
-- executor activation receipt and activation-state transition
+- current PR validation evidence
+- verify deployed executor projection route
 
 Downstream after validation:
 - StegVerse-Labs/admissibility-wiki
@@ -157,17 +191,16 @@ Downstream after validation:
 ## Next task
 
 ```text
-1. Verify Site validation passes with the chat transition identity contract.
-2. Verify orchestration validation passes with the executor handoff declaration.
-3. Add an executor activation receipt schema and bounded activation operation.
-4. Export executor handoff state through the same Site projection contract.
-5. Propagate verified status downstream only after current-main evidence exists.
+1. Verify Site validation passes with the executor activation projection.
+2. Import the latest successful main-branch orchestration artifact when credentials are available.
+3. Verify the deployed governed-transitions page renders the ACTIVE/FALLBACK_ONLY states and activation receipt.
+4. Propagate verified status downstream only after current-main and deployed-route evidence exists.
 ```
 
 ## Release posture
 
-No release tag is authorized. Current-main validation, executor activation, and downstream propagation remain pending.
+No release tag is authorized until current PR validation and deployed-route evidence exist.
 
 ## Archive readiness
 
-This handoff contains the current Site architecture, installed transition identity linkage, boundaries, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
+This handoff contains the current Site architecture, transition identity linkage, receipted executor projection, authority boundaries, remaining work, and continuation order. Earlier conversation context is not required; the complete thread is ready for archiving.
