@@ -38,6 +38,34 @@ scripts/check_ecosystem_usage_ledger.py
 
 The usage surface preserves one session identity across entry points, deduplicates by `metric_owner + measurement_id`, preserves evidence classes, prepends usage before each transition, supports session lookup, JSON export, and receipt navigation.
 
+## Prepared authenticated usage retrieval boundary
+
+```text
+data/ecosystem-usage-live-contract.json
+assets/ecosystem-usage-auth-client.js
+scripts/check_ecosystem_usage_auth_contract.py
+scripts/check_ecosystem_chat_application.py
+```
+
+Current posture:
+
+```text
+contract status: PREPARED_NOT_DEPLOYED
+route template: /api/usage/sessions/{session_id}
+authentication mode: same_origin_session
+same-origin browser credentials: allowed
+cross-origin browser credentials: prohibited
+Site-configured bearer tokens: prohibited
+query-string tokens: prohibited
+local-storage tokens: prohibited
+request timeout: 10 seconds
+cache posture: no-store
+```
+
+The client validates the response schema, requested session identity, event identity, evidence classes, null values for `UNAVAILABLE`, and the retrieval receipt. Authentication failure, session-identity mismatch, missing receipt, or contract-invalid output fails closed and may not silently downgrade to fixture evidence.
+
+The prepared client does not activate an endpoint, configure a credential, change deployment state, or claim live retrieval. Endpoint implementation and authenticated deployment remain destination-controlled work.
+
 ## Installed governed-versus-recursive comparison surface
 
 ```text
@@ -107,6 +135,8 @@ Site display != execution.
 Usage retrieval != authority.
 Usage event != authority.
 Usage display != admissibility.
+Usage retrieval receipt != Master-Records custody.
+Prepared authenticated client != deployed authenticated endpoint.
 Comparison != authority.
 Comparison != admissibility.
 Entry-point acceptance != authority.
@@ -129,8 +159,24 @@ No release tag is authorized.
 ```text
 python scripts/check_ecosystem_chat_application.py
   -> python scripts/check_ecosystem_chat_navigation.py
+  -> python scripts/check_ecosystem_usage_auth_contract.py
   -> python scripts/check_ecosystem_usage_ledger.py
   -> python scripts/check_ecosystem_comparison.py
+```
+
+The authenticated retrieval checker verifies:
+
+```text
+PREPARED_NOT_DEPLOYED posture
+same-origin credential isolation
+no Site-configured bearer/query/local-storage token path
+bounded timeout and no-store transport
+session identity preservation
+retrieval receipt requirement
+MEASURED / CONFIGURED / DERIVED / UNAVAILABLE evidence classes
+UNAVAILABLE values remain null
+no silent fallback after authentication or integrity failure
+retrieval grants no authority, admissibility, custody, or RECORDED status
 ```
 
 The navigation checker verifies:
@@ -162,24 +208,26 @@ fail-closed rendering exists
 ## Latest bounded task completion
 
 ```text
-Task: direct Usage Ledger and Route Comparison links inside ecosystem-chat.html primary navigation
-Implementation commit: 533fc4588a74eae65f69449c1ce2e0e43b270365
-Validator commit: ce6fbc6ae0e025e1e62c32c8fda94db97316891a
-Canonical integration commit: 428cfe3f52d30c995dc6db3cab994748846f1aac
-State: installed; current-main workflow verification pending
+Task: prepare Site-owned authenticated live usage retrieval boundary
+Contract commit: 48105fdf455cdba89c3904d9b325c566b7ab6701
+Client commit: 8e254127dc6e3d093e1c94a887775fdad21fc033
+Validator commit: 86d01352a9b14d660bf6f5e868d3278915017619
+Canonical integration commit: 94067c07c581c00334ba2c468b6c796cd04417b8
+State: PREPARED_NOT_DEPLOYED; current-main workflow verification pending
 ```
 
 ## Remaining files or modules
 
 ```text
 StegVerse-Labs/Site
+  -> load the authenticated client on the usage surface after an authorized endpoint exists
   -> deployed authenticated live usage retrieval
   -> live paired-result ingestion replacing configured comparison fixture
   -> public retrieval, comparison, and receipt-navigation verification
 
 StegVerse-org/LLM-adapter
   -> automatic provider usage emission
-  -> authenticated session-usage retrieval
+  -> authenticated session-usage retrieval endpoint
   -> live external recursive route endpoint
 
 StegVerse-org/core-node-runtime-demo
@@ -194,17 +242,18 @@ master-records
 ## Next task
 
 ```text
-1. Verify the current-main Site workflow passes with the navigation checker included.
+1. Verify the current-main Site workflow passes with navigation and authenticated-usage contract checks included.
 2. Preserve the passing Site application validation receipt.
-3. Prepare deployed authenticated live usage retrieval only through an authorized endpoint and secret-management path.
-4. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
-5. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
+3. Review the current destination handoff before any LLM-adapter endpoint mutation.
+4. Load the authenticated client only after an authorized endpoint and same-origin authentication path exist.
+5. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
+6. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
 ```
 
 ## Release posture
 
-Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, validation, and direct Ecosystem Chat navigation are installed. Live transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, or tag is authorized by this handoff. No release tag is authorized.
+Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, fail-closed browser client, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, or tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval boundary, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
