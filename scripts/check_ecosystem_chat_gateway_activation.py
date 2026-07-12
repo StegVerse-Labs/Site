@@ -53,7 +53,12 @@ def main() -> int:
         "final_receipt_id",
         "lifecycle_state",
         "master_record_status",
+        "master_record_ref",
         "reconstruction_status",
+        "sqlite_persisted",
+        "storage_durable_across_restarts",
+        "custody_submission",
+        "EPHEMERAL_HOST_STORAGE",
         "LOCAL_CLASSIFICATION",
         "AbortController",
     ]:
@@ -66,6 +71,9 @@ def main() -> int:
         "UNAVAILABLE",
         "repository mutation",
         "Master-Records custody",
+        "sqlite_transition_store",
+        "storage_durable_across_restarts",
+        "Master-Records submission",
     ]:
         if marker not in health:
             return fail(f"health indicator missing marker: {marker}")
