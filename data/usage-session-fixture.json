@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "sess_site_usage_fixture_001",
+  "evidence_posture": "CONFIGURED_FIXTURE",
+  "events": [
+    {
+      "measurement_id": "m_chat_001",
+      "session_id": "sess_site_usage_fixture_001",
+      "transition_id": "tr_001",
+      "parent_transition_id": null,
+      "origin_entry_point": "ecosystem_chat",
+      "entry_point": "ecosystem_chat",
+      "entry_point_role": "human_guidance_and_orchestration",
+      "interaction_type": "governed_conversation",
+      "metric_owner": "ecosystem_chat",
+      "measurement_source": "browser_fixture",
+      "route_kind": "STEGVERSE_GOVERNED",
+      "provider": null,
+      "model": null,
+      "timestamp": "2026-07-12T12:00:00Z",
+      "receipt_refs": ["receipt:chat-intake-fixture"],
+      "metrics": {
+        "browser_latency_ms": {"value": "24", "unit": "ms", "evidence_class": "CONFIGURED"},
+        "presentation_events": {"value": "1", "unit": "events", "evidence_class": "CONFIGURED"}
+      }
+    },
+    {
+      "measurement_id": "m_sdk_001",
+      "session_id": "sess_site_usage_fixture_001",
+      "transition_id": "tr_001",
+      "parent_transition_id": null,
+      "origin_entry_point": "ecosystem_chat",
+      "entry_point": "sdk",
+      "entry_point_role": "developer_contract_and_orchestration",
+      "interaction_type": "comparison_orchestration",
+      "metric_owner": "sdk",
+      "measurement_source": "sdk_fixture",
+      "route_kind": "STEGVERSE_GOVERNED",
+      "provider": null,
+      "model": null,
+      "timestamp": "2026-07-12T12:00:01Z",
+      "receipt_refs": ["receipt:sdk-validation-fixture"],
+      "metrics": {
+        "validation_latency_ms": {"value": "18", "unit": "ms", "evidence_class": "CONFIGURED"},
+        "orchestration_steps": {"value": "2", "unit": "steps", "evidence_class": "CONFIGURED"}
+      }
+    },
+    {
+      "measurement_id": "m_adapter_001",
+      "session_id": "sess_site_usage_fixture_001",
+      "transition_id": "tr_001",
+      "parent_transition_id": null,
+      "origin_entry_point": "ecosystem_chat",
+      "entry_point": "llm_adapter",
+      "entry_point_role": "machine_readable_translation",
+      "interaction_type": "provider_output_normalization",
+      "metric_owner": "llm_adapter",
+      "measurement_source": "provider_fixture",
+      "route_kind": "EXTERNAL_RECURSIVE",
+      "provider": "fixture-provider",
+      "model": "fixture-model",
+      "timestamp": "2026-07-12T12:00:02Z",
+      "receipt_refs": ["receipt:provider-fixture"],
+      "metrics": {
+        "input_tokens": {"value": "842", "unit": "tokens", "evidence_class": "CONFIGURED"},
+        "output_tokens": {"value": "316", "unit": "tokens", "evidence_class": "CONFIGURED"},
+        "provider_latency_ms": {"value": "1240", "unit": "ms", "evidence_class": "CONFIGURED"},
+        "provider_cost_usd": {"value": "0.0064", "unit": "USD", "evidence_class": "CONFIGURED"}
+      }
+    },
+    {
+      "measurement_id": "m_runtime_001",
+      "session_id": "sess_site_usage_fixture_001",
+      "transition_id": "tr_001",
+      "parent_transition_id": null,
+      "origin_entry_point": "ecosystem_chat",
+      "entry_point": "runtime",
+      "entry_point_role": "governed_execution_and_closure",
+      "interaction_type": "governed_runtime_transition",
+      "metric_owner": "core-node-runtime-demo",
+      "measurement_source": "runtime_fixture",
+      "route_kind": "STEGVERSE_GOVERNED",
+      "provider": null,
+      "model": null,
+      "timestamp": "2026-07-12T12:00:03Z",
+      "receipt_refs": ["receipt:runtime-fixture"],
+      "metrics": {
+        "runtime_cost_usd": {"value": "0.0018", "unit": "USD", "evidence_class": "CONFIGURED"},
+        "runtime_latency_ms": {"value": "460", "unit": "ms", "evidence_class": "CONFIGURED"},
+        "node_or_cell_activations": {"value": "7", "unit": "activations", "evidence_class": "CONFIGURED"},
+        "receipt_count": {"value": "2", "unit": "receipts", "evidence_class": "CONFIGURED"}
+      }
+    }
+  ]
+}
