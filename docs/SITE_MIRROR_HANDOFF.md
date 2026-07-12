@@ -98,8 +98,11 @@ Final response receipt != Master-Records custody.
 Configured fixture values != live measurements.
 JSON export != custody.
 Usage presentation does not alter provider output or transition hashes.
-RECORDED requires authenticated custody evidence and reconstructability PASS.
+Site does not execute or mutate repositories.
 Site does not execute or mutate external repositories.
+RECORDED requires the authenticated custody service receipt.
+RECORDED requires authenticated custody evidence and reconstructability PASS.
+No release tag is authorized.
 ```
 
 ## Validation surface
@@ -152,14 +155,27 @@ Failing command: python scripts/check_ecosystem_chat_boundary.py
 Failure: obsolete HPS visualization assertion
 Repair: 49373bae2f92521df052397a033212d3e9d982f9
 Authority effect: NONE
+
+Workflow: Site Bootstrap Validate
+Run: 29197932988
+Commit: 4e0239370aa85794af106039fddb65bd35c035fb
+Job: bootstrap-validate
+Failing command: python scripts/check_site_media_pipeline_mirror.py
+Failure: canonical handoff safety-assertion text drift
+Missing assertions: Site does not execute or mutate repositories.; RECORDED requires the authenticated custody service receipt.; No release tag is authorized.
+Repair scope: restored the three exact canonical assertions without changing Site behavior, deployment, credentials, custody, provider, workflow, or release posture
+Authority effect: NONE
+Validation artifact: site-application-validation-result
+Artifact ID: 8261521156
+Artifact digest: sha256:0f9591f14bb2937f8c12d9ca83603efca51e541c21dd0e902eb77e52bb6f389a
 ```
 
-The HPS repair removed only an obsolete validator and invocation. It did not change user-facing authority, release, custody, deployment, or provider posture.
+The repairs align validation with the current declared Site surface and preserve canonical safety language. They do not change user-facing authority, release, custody, deployment, credentials, workflow inventory, or provider posture.
 
 ## Next task
 
 ```text
-1. Verify current-main Site Task Runner and Site Bootstrap Validate on the current successor commit.
+1. Verify current-main Site Task Runner and Site Bootstrap Validate on the canonical-safety repair commit or a documented successor.
 2. Preserve passing Site validation and task diagnostic receipts.
 3. Add the direct Usage Ledger link inside ecosystem-chat.html primary navigation after current-main validation is green.
 4. Connect usage_api_base to an authenticated deployed session-usage service.
@@ -190,7 +206,7 @@ master-records
 
 ## Release posture
 
-Role descriptions, shared usage display, transition prepend rendering, local cross-entry aggregation, deduplication, bounded live retrieval configuration, session filtering, JSON export, receipt navigation, fixtures, and validation are installed. Live event transport, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, or tag is authorized by this handoff.
+Role descriptions, shared usage display, transition prepend rendering, local cross-entry aggregation, deduplication, bounded live retrieval configuration, session filtering, JSON export, receipt navigation, fixtures, and validation are installed. Live event transport, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, or tag is authorized by this handoff. No release tag is authorized.
 
 ## Archive readiness
 
