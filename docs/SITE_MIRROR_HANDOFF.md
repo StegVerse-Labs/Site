@@ -152,7 +152,8 @@ Ecosystem Chat / SDK / LLM-adapter
 
 ```text
 Site may draft, classify, visualize, filter, and emit preview candidates.
-Site must not execute, activate executors, mutate repositories, access credentials, grant admissibility or delegation, sign receipts, issue final receipts, admit Master-Records records, or claim reconstruction success.
+Site must not execute, mutate repositories, access credentials, grant admissibility or delegation, sign receipts, issue final receipts, admit Master-Records records, or claim reconstruction success.
+Site must not activate executors.
 A local hash is not a final receipt.
 A Site candidate is not execution authority.
 Executor activation is not per-transition execution authority.
