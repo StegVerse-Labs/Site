@@ -63,22 +63,14 @@
         admissibility_result: 'PENDING',
         commit_time_validity: 'PENDING'
       },
-      execution: {
-        action_ref: null,
-        verification_ref: null,
-        resulting_state_ref: null
-      },
+      execution: { action_ref: null, verification_ref: null, resulting_state_ref: null },
       continuity: {
         final_receipt_id: null,
         master_record_ref: null,
         master_record_status: 'NOT_YET_SUBMITTED',
         reconstruction_status: 'NOT_YET_CHECKED'
       },
-      projection: {
-        site_visibility: 'SUMMARY',
-        wiki_visibility: 'SUMMARY',
-        redaction_class: 'PUBLIC_REDACTED'
-      },
+      projection: { site_visibility: 'SUMMARY', wiki_visibility: 'SUMMARY', redaction_class: 'PUBLIC_REDACTED' },
       preview_payload: {
         message,
         requested_route: posture.route,
@@ -133,20 +125,27 @@
       if (!response.ok) throw new Error(`gateway HTTP ${response.status}`);
       const data = await response.json();
       if (data.transition_id !== identity.transition_id || data.run_id !== identity.run_id || data.event_id !== identity.event_id || data.origin_manifest_id !== identity.origin_manifest_id) throw new Error('gateway identity mismatch');
+      if (data.authority && data.authority.provider_output_is_authority !== false) throw new Error('provider authority boundary mismatch');
+
       const finalReceipt = data.final_receipt_id || 'null';
-      const custodyState = data.custody_submission && data.custody_submission.state
-        ? data.custody_submission.state
-        : (data.master_record_status || 'NOT_YET_SUBMITTED');
+      const custodyState = data.custody_submission?.state || data.master_record_status || 'NOT_YET_SUBMITTED';
       const persistence = data.sqlite_persisted === true ? 'SQLITE_PERSISTED' : 'UNCONFIRMED';
       const restartDurability = data.storage_durable_across_restarts === true ? 'DURABLE' : 'EPHEMERAL_HOST_STORAGE';
+      const provider = data.provider || {};
+      const providerStatus = provider.status || 'NOT_EVALUATED';
+      const providerMode = provider.used === true ? 'GOVERNED_PROVIDER_USED' : 'DETERMINISTIC_FALLBACK';
+      const providerReceipt = provider.provider_receipt_id || 'null';
+      const providerCost = Number(provider.estimated_cost_usd || 0).toFixed(8);
+
       return {
-        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nLifecycle: ${data.lifecycle_state || 'UNKNOWN'}\nAdmissibility: ${data.admissibility_result || 'PENDING'}\nCommit-time validity: ${data.commit_time_validity || 'PENDING'}\nFinal response receipt: ${finalReceipt}\nLocal persistence: ${persistence}\nRestart durability: ${restartDurability}\nMaster-Records custody: ${data.master_record_status || 'NOT_YET_SUBMITTED'}\nCustody queue: ${custodyState}\nMaster record: ${data.master_record_ref || 'null'}\nReconstruction: ${data.reconstruction_status || 'NOT_YET_CHECKED'}`,
-        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · receipt_class=${data.receipt_class || 'unknown'} · final_receipt_id=${finalReceipt} · lifecycle=${data.lifecycle_state || 'UNKNOWN'} · persistence=${persistence} · custody=${custodyState} · transition_id=${data.transition_id} · run_id=${data.run_id}`,
+        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nLifecycle: ${data.lifecycle_state || 'UNKNOWN'}\nAdmissibility: ${data.admissibility_result || 'PENDING'}\nCommit-time validity: ${data.commit_time_validity || 'PENDING'}\nResponse source: ${providerMode}\nProvider status: ${providerStatus}\nProvider: ${provider.provider_name || 'none'}\nProvider model: ${provider.model || 'none'}\nProvider response receipt: ${providerReceipt}\nEstimated provider cost: $${providerCost}\nProvider output authority: false\nFinal response receipt: ${finalReceipt}\nLocal persistence: ${persistence}\nRestart durability: ${restartDurability}\nMaster-Records custody: ${data.master_record_status || 'NOT_YET_SUBMITTED'}\nCustody queue: ${custodyState}\nMaster record: ${data.master_record_ref || 'null'}\nReconstruction: ${data.reconstruction_status || 'NOT_YET_CHECKED'}`,
+        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · provider_status=${providerStatus} · provider_receipt_id=${providerReceipt} · final_receipt_id=${finalReceipt} · lifecycle=${data.lifecycle_state || 'UNKNOWN'} · persistence=${persistence} · custody=${custodyState} · transition_id=${data.transition_id} · run_id=${data.run_id}`,
         interaction_profile: data.interaction_profile || posture.interaction_profile,
         intent: posture.intent,
         route: data.routed_module || posture.route,
         gateway_status: data.task_status,
         lifecycle_state: data.lifecycle_state,
+        provider,
         final_receipt_id: data.final_receipt_id,
         master_record_status: data.master_record_status,
         master_record_ref: data.master_record_ref,
@@ -182,12 +181,9 @@
         }
       }
       const result = await originalRoute(message);
-      result.transition_id = identity.transition_id;
-      result.run_id = identity.run_id;
-      result.event_id = identity.event_id;
-      result.origin_manifest_id = identity.origin_manifest_id;
-      result.receipt_line = `${result.receipt_line} · transition_id=${identity.transition_id} · run_id=${identity.run_id} · origin_manifest_id=${identity.origin_manifest_id} · gateway=fallback`;
-      result.response = `${result.response}\n\nTransition identity: ${identity.transition_id}\nRun identity: ${identity.run_id}\nOrigin manifest: ${identity.origin_manifest_id}\nLifecycle: DECLARED\nGateway: unavailable or disabled; local fallback active\nAuthority effect: none`;
+      Object.assign(result, identity);
+      result.receipt_line = `${result.receipt_line} · transition_id=${identity.transition_id} · run_id=${identity.run_id} · origin_manifest_id=${identity.origin_manifest_id} · gateway=fallback · provider_status=NOT_CALLED`;
+      result.response = `${result.response}\n\nTransition identity: ${identity.transition_id}\nRun identity: ${identity.run_id}\nOrigin manifest: ${identity.origin_manifest_id}\nLifecycle: DECLARED\nGateway: unavailable or disabled; local fallback active\nProvider: not called\nAuthority effect: none`;
       return result;
     };
   }
@@ -201,14 +197,9 @@
         ...manifest,
         schema_version: CONTRACT_VERSION,
         record_type: 'governed_transition_relationship_candidate',
-        transition_id: identity.transition_id,
-        run_id: identity.run_id,
-        event_id: identity.event_id,
-        origin_manifest_id: identity.origin_manifest_id,
+        ...identity,
         origin_class: ORIGIN_CLASS,
         lifecycle_state: 'DECLARED',
-        parent_transition_id: null,
-        previous_receipt_id: null,
         final_receipt_id: null,
         master_record_status: 'NOT_YET_SUBMITTED',
         reconstruction_status: 'NOT_YET_CHECKED'
