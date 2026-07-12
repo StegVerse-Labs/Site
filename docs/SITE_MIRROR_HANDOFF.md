@@ -7,9 +7,9 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 ## Current goal
 
 ```text
-Goal: fully functional governed Ecosystem Chat request-response, provider, and custody path
-Phase: governed-provider-status-client-installed
+Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path
 Primary surface: ecosystem-chat.html
+Usage and role surface: ecosystem-usage.html
 Operational projection: governed-transitions.html
 Site mode: GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK
 Gateway implementation: installed in StegVerse-org/LLM-adapter
@@ -41,179 +41,144 @@ create canonical SITE_INPUT identity
 -> inspect the same transition in governed-transitions.html
 ```
 
-## Governed provider display
-
-Updated:
-
-```text
-assets/ecosystem-chat-transition-identity.js
-assets/ecosystem-chat-gateway-health.js
-scripts/check_ecosystem_chat_gateway_activation.py
-```
-
-For every gateway response, the Site displays:
-
-```text
-response source = GOVERNED_PROVIDER_USED | DETERMINISTIC_FALLBACK
-provider status
-provider name
-provider model
-provider response receipt
-estimated provider cost
-provider output authority = false
-```
-
-The Site rejects any response claiming `provider_output_is_authority != false`.
-
-The health panel displays whether the provider broker is enabled under bounded policy or disabled with deterministic fallback. It also requires `provider_failure_falls_back = true`.
-
-Provider credentials are never sent to or rendered by Site.
-
-## Provider fail-closed posture
-
-The gateway may fall back deterministically when the provider is:
-
-```text
-disabled
-misconfigured
-outside the hostname allowlist
-over quota
-over request or daily cost boundary
-over input/output size boundary
-unavailable
-contract-invalid
-identity-mismatched
-```
-
-Fallback does not claim a provider receipt and does not change transition authority.
-
-## Live custody observatory
+## Shared entry-point role and usage surface
 
 Installed:
 
 ```text
-assets/governed-transitions-live-custody.js
-governed-transitions.html
-scripts/check_governed_transition_observatory.py
+ecosystem-usage.html
+assets/ecosystem-usage-ledger.js
+data/entry-point-roles.json
+data/usage-session-fixture.json
+scripts/check_ecosystem_usage_ledger.py
+scripts/check_ecosystem_chat_application.py invokes the usage-ledger checker
 ```
 
-The observatory resolves `?transition_id=<canonical-transition-id>` or the latest successful browser transition and displays lifecycle, final receipt, custody queue, custody receipt, Master-Records reference, and reconstruction posture.
-
-A `RECORDED` result is rejected unless `master_record_ref` exists and `reconstruction_status = PASS`.
-
-## Current backend surfaces
-
-`StegVerse-org/LLM-adapter`:
+The page gives easily identified primary and related role descriptions for:
 
 ```text
-llm_adapter/ecosystem_chat_gateway.py
-llm_adapter/governed_provider.py
-llm_adapter/governed_chat_pipeline.py
-llm_adapter/transition_store.py
-llm_adapter/master_records_client.py
-llm_adapter/custody_worker.py
-render.yaml
-render-production.yaml
+StegVerse SDK
+  -> developer-native programmatic testing, integration, and observation
+
+StegVerse LLM Adapter
+  -> machine-readable translation and external interoperability
+
+StegVerse Ecosystem Chat
+  -> universal browser-based governed conversation, discovery, development, testing, and orchestration
 ```
 
-`master-records/orchestration`:
+Every displayed transition begins with a usage prepend containing the preserved session and transition identity, origin and participating entry points, measurement owners, receipt references, and evidence-classified metrics.
+
+## Cross-entry usage proof path
 
 ```text
-services/master_records_custody_api.py
-render-custody.yaml
-render-custody-production.yaml
-tools/verify_live_ecosystem_chat_custody_roundtrip.py
+SDK / LLM Adapter / Ecosystem Chat / runtime event
+-> validate one session identity
+-> preserve transition lineage
+-> deduplicate metric_owner + measurement_id
+-> retain MEASURED / CONFIGURED / DERIVED / UNAVAILABLE classification
+-> aggregate evidence-separated session usage
+-> prepend usage metadata before transition content
+-> render shared session timeline
 ```
 
-## Non-negotiable boundary
+The browser reads `stegverse.transitionUsageEvents.v1` from local storage when a synchronized entry point has supplied a session ledger. It uses the configured fixture only when no synchronized local session exists.
+
+## Usage ownership boundary
 
 ```text
-Site does not execute or mutate repositories.
+Ecosystem Chat owns browser interaction and presentation measurements.
+SDK owns SDK validation and orchestration measurements.
+LLM Adapter owns provider, token, and translation measurements.
+Runtime owns node, execution, closure, receipt, and runtime-storage measurements.
+Master-Records owns custody and persistence measurements.
+```
+
+The Site does not re-own or duplicate measurements. Deduplication is based on the stable pair:
+
+```text
+metric_owner + measurement_id
+```
+
+## Evidence and authority boundary
+
+```text
+Site display != execution.
+Usage event != authority.
+Usage event != admissibility.
+Entry-point acceptance != authority.
+Translation != admissibility.
 Provider output != authority.
 Provider receipt != final response receipt.
-Provider response != admissibility.
-Gateway intake receipt != final response receipt.
 Final response receipt != Master-Records custody.
-SQLite persistence != Master-Records custody.
-RECORDED requires the authenticated custody service receipt.
-Live projection != source authority.
+Configured fixture values != live measurements.
+Usage presentation does not alter provider output or transition hashes.
+RECORDED requires authenticated custody evidence and reconstructability PASS.
+```
+
+## Existing provider and custody display
+
+The Site already displays provider source, status, name, model, provider receipt, estimated provider cost, deterministic fallback, lifecycle, final receipt, custody queue, custody receipt, Master-Records reference, and reconstruction posture.
+
+Relevant surfaces:
+
+```text
+assets/ecosystem-chat-transition-identity.js
+assets/ecosystem-chat-gateway-health.js
+assets/governed-transitions-live-custody.js
+ecosystem-chat.html
+governed-transitions.html
+scripts/check_ecosystem_chat_gateway_activation.py
+scripts/check_governed_transition_observatory.py
 ```
 
 ## Validation surface
 
-The existing Site validation checks:
+The existing `Site Bootstrap Validate` workflow now reaches the usage-ledger checker through:
 
 ```text
-gateway and health HTTPS endpoints
-identity-preserving request/response markers
-provider status, receipt, cost, and deterministic fallback markers
-provider authority and credential-isolation boundaries
-lifecycle and final receipt display
-SQLite persistence and custody display
-live observatory lookup and RECORDED consistency
+python scripts/check_ecosystem_chat_application.py
+  -> python scripts/check_ecosystem_usage_ledger.py
 ```
 
-## Observed validation failures and bounded repairs
+The checker verifies:
 
 ```text
-Workflow: Site Bootstrap Validate
-Run: 29179673207
-Commit: c19e0015c24ba2f5ccd39eda6c97477d78e2a92a
-First failing step: Validate application
-Failing command: python scripts/check_site_media_pipeline_mirror.py
-Failure class: stale preview-only handoff assertion
-Repair commit: 181668077ecd3e8d686374758de051f7ba76c07f
-Artifact: site-application-validation-result
-Artifact ID: 8256003741
-Artifact digest: sha256:1bf661d6438c63a016c868ac383ceeb61a03b80d8ba966cb21b5edd0d4885852
-
-Workflow: Site Task Runner
-Run: 29191451576
-Commit: 1d64d9c16b91cea0b9fbb56874193caf491d30ff
-First failing step: Run declared Site task
-Failing validator: python scripts/check_ecosystem_chat_boundary.py
-Failure class: deterministic substring-count bug in hero button validation
-Repair commit: 62d6c88df9e126978b477ac14913a9ef4dc375c0
-Artifact: site-task-diagnostic-29191451576-1
-Artifact ID: 8259633062
-Artifact digest: sha256:8dd3daca1a24e0f534fd7279b97c85573c59b1fb4af0bb087a8891c37794009a
-
-Workflow: Site Task Runner
-Run: 29192461329
-Commit: 82d485c224ba9590aa05c53ff4b008b26978095f
-First failing step: Run declared Site task
-Failing validator: python scripts/check_ecosystem_chat_boundary.py
-Failure class: stale continuation-panel identifier assertion (`destinationHref`)
-Observed implementation: `item.destination` assigned through `link.href`
-Repair commit: ba8e68d4906654698a736c02475077d5bef40921
-Artifact: site-task-diagnostic-29192461329-1
-Artifact ID: 8259922135
-Artifact digest: sha256:f3e3daa6beedf5da6895c55739ddaa8297b01464f1afdd757e47b20b95f624ad
-Authority effect: NONE
-State change authorized by repair: false
+public usage page and renderer exist
+SDK / LLM Adapter / Ecosystem Chat roles are declared
+fixture spans browser, SDK, adapter, and runtime owners
+one session identity is preserved
+measurement identities are unique per owner
+evidence classes remain valid
+UNAVAILABLE values remain null
+transition usage prepend is rendered
+usage does not claim authority or alter transition output
 ```
 
-The boundary checker now counts the two `sv-btn-primary` elements for the hero entry and chat submit, independently verifies the two hero links, and validates the continuation implementation against its current `item.destination` and `link.href` behavior rather than a removed local identifier.
-
-Verification remains pending on commit `ba8e68d4906654698a736c02475077d5bef40921` or a documented successor.
-
-## Next task
+## Remaining files or modules
 
 ```text
-1. Verify current-main Site and LLM-adapter tests, including Site Task Runner and Site Bootstrap Validate on commit ba8e68d4906654698a736c02475077d5bef40921 or later.
-2. Preserve the passing Site validation receipt before deployment work.
-3. Deploy gateway and custody production blueprints only with required deployment authority.
-4. Configure shared custody credentials only through authorized secret-management paths.
-5. Optionally configure the provider broker with endpoint, hostname allowlist, token, model, quota, and cost ceilings.
-6. Verify one public response reports provider USED or explicit deterministic fallback.
-7. Verify the same transition reaches RECORDED custody.
-8. Run the orchestration live round-trip verifier before public activation claims.
+StegVerse-Labs/Site
+  -> link Ecosystem Usage Ledger prominently from Ecosystem Chat and primary navigation
+  -> ingest live gateway usage events instead of fixture fallback
+  -> render governed-vs-recursive paired output and delta bars
+  -> add session filtering, export, and receipt navigation
+
+StegVerse-org/LLM-adapter
+  -> automatically emit provider usage during the live provider lifecycle
+  -> expose authenticated session-usage retrieval
+
+StegVerse-org/core-node-runtime-demo
+  -> automatically emit runtime usage during governed execution
+
+master-records
+  -> custody usage events, deduplication index, and session reconstruction pointers
 ```
 
 ## Release posture
 
-Provider policy and display, deterministic fallback, persistent storage profiles, custody admission, and live observability are implemented. Public deployment, secrets, green current-main evidence, and an observed identity-preserving RECORDED transition remain pending. No release tag is authorized.
+Role descriptions, the shared usage page, transition prepend rendering, local cross-entry aggregation, deduplication, fixtures, and validation are installed. Live event transport, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No release tag is authorized.
 
 ## Archive readiness
 
-This handoff contains the current provider, gateway, custody, Site display, latest bounded validation repairs, preserved authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff preserves the provider, gateway, custody, cross-entry role, usage-ledger, validation, authority-boundary, and continuation state. Earlier conversation context is not required.
