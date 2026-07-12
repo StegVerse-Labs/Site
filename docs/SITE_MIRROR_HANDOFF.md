@@ -8,7 +8,7 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 
 ```text
 Goal: fully functional governed Ecosystem Chat request-response and custody path
-Phase: persistence-and-custody-status-client-installed
+Phase: live-custody-observatory-overlay-installed
 Primary surface: ecosystem-chat.html
 Operational projection: governed-transitions.html
 Site mode: GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK
@@ -102,6 +102,51 @@ no execution or mutation
 
 On timeout, non-OK response, malformed response, or identity mismatch, the browser fails closed to deterministic local classification.
 
+## Live custody observatory overlay
+
+Installed:
+
+```text
+assets/governed-transitions-live-custody.js
+governed-transitions.html
+scripts/check_governed_transition_observatory.py
+```
+
+The observatory now resolves a transition from either:
+
+```text
+?transition_id=<canonical-transition-id>
+```
+
+or the most recent successful Ecosystem Chat gateway result retained in browser session storage.
+
+It queries:
+
+```text
+GET /api/transitions/{transition_id}
+```
+
+and displays the same live identity and continuity state:
+
+```text
+transition_id
+run_id
+lifecycle_state
+admissibility_result
+commit_time_validity
+final_receipt_id
+custody queue state
+custody_receipt_id
+master_record_status
+master_record_ref
+reconstruction_status
+local SQLite persistence posture
+```
+
+The overlay fails closed when the gateway is unavailable and leaves the checked-in/receipted static projection visible below it. A `RECORDED` result is rejected unless `master_record_ref` exists and `reconstruction_status = PASS`.
+
+The Site does not issue the final receipt, custody receipt, Master-Records admission, or reconstruction result.
+
 ## Public health signal
 
 The gateway status panel distinguishes:
@@ -112,7 +157,7 @@ LOCAL FALLBACK
 UNAVAILABLE
 ```
 
-When healthy it now reports:
+When healthy it reports:
 
 ```text
 native executor posture
@@ -126,7 +171,7 @@ It explicitly states that local SQLite persistence is not Master-Records custody
 
 ## Gateway implementation
 
-`StegVerse-org/LLM-adapter` now contains:
+`StegVerse-org/LLM-adapter` contains:
 
 ```text
 llm_adapter/ecosystem_chat_gateway.py
@@ -138,26 +183,29 @@ tests/test_ecosystem_chat_gateway.py
 tests/test_governed_chat_pipeline.py
 tests/test_transition_store_and_custody.py
 render.yaml
+render-production.yaml
 ```
 
 ## Master-Records receiving implementation
 
-`master-records/orchestration` now contains:
+`master-records/orchestration` contains:
 
 ```text
 services/master_records_custody_api.py
 tests/test_master_records_custody_api.py
 requirements-service.txt
 render-custody.yaml
+render-custody-production.yaml
+tools/verify_live_ecosystem_chat_custody_roundtrip.py
 ```
 
-The custody service requires authentication, preserves transition/run/final-receipt identity, issues an HMAC-bound custody receipt, and returns `RECORDED` only after its reconstruction checks pass.
+The custody service requires authentication, preserves transition/run/final-receipt identity, issues an HMAC-bound custody receipt, and returns `RECORDED` only after reconstruction checks pass.
 
 ## Storage posture
 
-Both supplied free Render blueprints currently use `/tmp` SQLite files and declare restart durability as false. This supports end-to-end contract validation but is not durable retention across redeploys.
+Free validation blueprints use `/tmp` SQLite files and declare restart durability false.
 
-Before production custody claims, both services require persistent disks or managed storage.
+Production blueprints use persistent disks under `/var/data` and declare restart durability true. Deploying either production blueprint may create paid infrastructure and remains an explicit external action.
 
 ## Non-negotiable boundary
 
@@ -169,12 +217,12 @@ SQLite persistence != Master-Records custody.
 Custody submission != custody admission.
 RECORDED requires the authenticated custody service receipt.
 Native executor activation != blanket per-transition authority.
-Projection != source authority.
+Live status projection != source authority.
 ```
 
 ## Validation surface
 
-The existing Site validation now checks:
+The existing Site validation checks:
 
 ```text
 gateway configuration and HTTPS endpoints
@@ -184,6 +232,8 @@ lifecycle and final receipt display
 SQLite persistence and restart-durability markers
 custody queue and Master-Records reference display
 public gateway health module
+live observatory transition lookup
+RECORDED custody consistency
 non-overclaim authority boundaries
 ```
 
@@ -192,20 +242,20 @@ No workflow was added.
 ## Next task
 
 ```text
-1. Verify LLM-adapter gateway, pipeline, storage, and custody-client tests.
-2. Verify orchestration custody API tests.
-3. Deploy both Render blueprints and configure shared custody credentials.
+1. Verify LLM-adapter gateway, pipeline, storage, custody-client, and production-blueprint tests.
+2. Verify orchestration custody API, production-blueprint, and live-verifier tests.
+3. Deploy both production Render blueprints and configure shared custody credentials.
 4. Verify gateway /health and custody /health.
 5. Submit one public Ecosystem Chat request and observe COMPLETED -> PENDING -> RECORDED.
-6. Move both SQLite databases to persistent disks or managed storage.
-7. Export live custody state into governed-transitions.html.
+6. Run tools/verify_live_ecosystem_chat_custody_roundtrip.py.
+7. Verify governed-transitions.html renders the live RECORDED custody receipt and Master-Records reference.
 8. Add provider-backed responses only after provider policy, cost, quota, and credential boundaries are active.
 ```
 
 ## Release posture
 
-The browser, gateway, persistence, custody queue, authenticated receiving service, and lifecycle display are implemented. Public deployment, current-main validation, authenticated end-to-end evidence, and persistent storage remain pending. No release tag is authorized.
+The browser, gateway, lifecycle persistence, custody queue, authenticated receiving service, persistent production profiles, live verifier, and live custody observatory are implemented. Public deployment, current-main validation, authenticated end-to-end evidence, and paid persistent infrastructure activation remain pending. No release tag is authorized.
 
 ## Archive readiness
 
-This handoff contains the current implementation, persistence/custody distinction, deployment boundaries, and continuation order. Earlier conversation context is not required.
+This handoff contains the current implementation, persistence/custody distinction, live observatory contract, deployment boundaries, and continuation order. Earlier conversation context is not required.
