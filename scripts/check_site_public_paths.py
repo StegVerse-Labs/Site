@@ -13,6 +13,8 @@ REQUIRED = [
     "scripts/check_site_governed_ecosystem_mirror.py",
     "scripts/check_external_chat_compatibility.py",
     "external-chat-submission-contract.md",
+    "data/external-framework-catalog.json",
+    "data/external-framework-catalog.receipt.json",
 ]
 
 
@@ -26,6 +28,15 @@ def main():
     for item in REQUIRED:
         if item not in text:
             errors.append("missing:" + item)
+    for path in [
+        ROOT / "external-chat.html",
+        ROOT / "assets" / "external-chat.js",
+        ROOT / "scripts" / "check_external_chat_compatibility.py",
+        ROOT / "data" / "external-framework-catalog.json",
+        ROOT / "data" / "external-framework-catalog.receipt.json",
+    ]:
+        if not path.exists():
+            errors.append("missing_file:" + str(path.relative_to(ROOT)))
     if errors:
         print("SITE PUBLIC PATHS: FAIL - " + ", ".join(errors))
         return 1
