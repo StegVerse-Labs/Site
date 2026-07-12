@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_type": "external_framework_catalog_projection_receipt",
+  "source_repository": "StegVerse-Labs/admissibility-wiki",
+  "source_path": "docs/external-frameworks/reports",
+  "catalog_path": "data/external-framework-catalog.json",
+  "catalog_sha256": "c17907e888e2b964acd48581e5ad37a8f4e6fb094f09fe311b2ceb225ef6529a",
+  "framework_count": 12,
+  "projection_only": true,
+  "authority_boundary": {
+    "receipt_is_certification": false,
+    "receipt_is_execution_authority": false,
+    "receipt_is_publication_authority": false,
+    "receipt_is_general_compatibility_proof": false
+  }
+}
