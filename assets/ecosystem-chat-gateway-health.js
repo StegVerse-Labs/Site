@@ -10,11 +10,8 @@
     panel.setAttribute('aria-live', 'polite');
     panel.innerHTML = '<h2 class="sv-h2">Governed gateway status</h2><p class="muted">Checking the bounded request-response service…</p>';
     const consoleHeading = document.getElementById('console');
-    if (consoleHeading && consoleHeading.parentNode) {
-      consoleHeading.parentNode.insertBefore(panel, consoleHeading);
-    } else {
-      document.querySelector('.sv-wrap')?.appendChild(panel);
-    }
+    if (consoleHeading?.parentNode) consoleHeading.parentNode.insertBefore(panel, consoleHeading);
+    else document.querySelector('.sv-wrap')?.appendChild(panel);
     return panel;
   }
 
@@ -36,7 +33,7 @@
       if (!configResponse.ok) throw new Error(`config HTTP ${configResponse.status}`);
       const config = await configResponse.json();
       if (config.enabled !== true || !config.health_endpoint) {
-        render(panel, 'fallback', 'Gateway disabled by configuration.', 'Requests remain available through deterministic local classification. No gateway or final response receipt is claimed.');
+        render(panel, 'fallback', 'Gateway disabled by configuration.', 'Requests remain available through deterministic local classification. No gateway, provider, or final response receipt is claimed.');
         return;
       }
       const controller = new AbortController();
@@ -46,17 +43,21 @@
         if (!healthResponse.ok) throw new Error(`health HTTP ${healthResponse.status}`);
         const health = await healthResponse.json();
         if (health.status !== 'ok' || health.service !== 'stegverse-ecosystem-chat-gateway') throw new Error('health contract mismatch');
+        if (health.provider_output_is_authority !== false || health.provider_failure_falls_back !== true) throw new Error('provider boundary mismatch');
         const storage = health.sqlite_transition_store === true
-          ? (health.storage_durable_across_restarts === true ? 'SQLite durable across restarts' : 'SQLite on ephemeral host storage')
+          ? (health.storage_durable_across_restarts === true ? 'persistent SQLite storage' : 'SQLite on ephemeral host storage')
           : 'transition persistence unavailable';
         const custody = health.master_records_submission_enabled === true
           ? 'Master-Records submission enabled'
           : 'Master-Records submission pending configuration';
+        const provider = health.governed_provider_enabled === true
+          ? 'provider enabled under quota and cost policy'
+          : 'provider disabled; deterministic fallback active';
         render(
           panel,
           'healthy',
-          `Native executor ${health.native_executor_status || 'UNKNOWN'}; bounded response pipeline ${health.bounded_response_pipeline === true ? 'available' : 'unavailable'}.`,
-          `${storage}; ${custody}. Local persistence is not Master-Records custody. Repository mutation remains outside this gateway.`
+          `Native executor ${health.native_executor_status || 'UNKNOWN'}; ${provider}.`,
+          `${storage}; ${custody}. Provider output is never authority, provider credentials are not exposed to Site, and provider failure falls back without repository mutation or custody overclaim.`
         );
       } finally {
         window.clearTimeout(timeout);
