@@ -134,9 +134,14 @@
       const data = await response.json();
       if (data.transition_id !== identity.transition_id || data.run_id !== identity.run_id || data.event_id !== identity.event_id || data.origin_manifest_id !== identity.origin_manifest_id) throw new Error('gateway identity mismatch');
       const finalReceipt = data.final_receipt_id || 'null';
+      const custodyState = data.custody_submission && data.custody_submission.state
+        ? data.custody_submission.state
+        : (data.master_record_status || 'NOT_YET_SUBMITTED');
+      const persistence = data.sqlite_persisted === true ? 'SQLITE_PERSISTED' : 'UNCONFIRMED';
+      const restartDurability = data.storage_durable_across_restarts === true ? 'DURABLE' : 'EPHEMERAL_HOST_STORAGE';
       return {
-        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nLifecycle: ${data.lifecycle_state || 'UNKNOWN'}\nAdmissibility: ${data.admissibility_result || 'PENDING'}\nCommit-time validity: ${data.commit_time_validity || 'PENDING'}\nFinal response receipt: ${finalReceipt}\nMaster-Records: ${data.master_record_status || 'NOT_YET_SUBMITTED'}\nReconstruction: ${data.reconstruction_status || 'NOT_YET_CHECKED'}`,
-        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · receipt_class=${data.receipt_class || 'unknown'} · final_receipt_id=${finalReceipt} · lifecycle=${data.lifecycle_state || 'UNKNOWN'} · transition_id=${data.transition_id} · run_id=${data.run_id}`,
+        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nLifecycle: ${data.lifecycle_state || 'UNKNOWN'}\nAdmissibility: ${data.admissibility_result || 'PENDING'}\nCommit-time validity: ${data.commit_time_validity || 'PENDING'}\nFinal response receipt: ${finalReceipt}\nLocal persistence: ${persistence}\nRestart durability: ${restartDurability}\nMaster-Records custody: ${data.master_record_status || 'NOT_YET_SUBMITTED'}\nCustody queue: ${custodyState}\nMaster record: ${data.master_record_ref || 'null'}\nReconstruction: ${data.reconstruction_status || 'NOT_YET_CHECKED'}`,
+        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · receipt_class=${data.receipt_class || 'unknown'} · final_receipt_id=${finalReceipt} · lifecycle=${data.lifecycle_state || 'UNKNOWN'} · persistence=${persistence} · custody=${custodyState} · transition_id=${data.transition_id} · run_id=${data.run_id}`,
         interaction_profile: data.interaction_profile || posture.interaction_profile,
         intent: posture.intent,
         route: data.routed_module || posture.route,
@@ -144,7 +149,11 @@
         lifecycle_state: data.lifecycle_state,
         final_receipt_id: data.final_receipt_id,
         master_record_status: data.master_record_status,
+        master_record_ref: data.master_record_ref,
         reconstruction_status: data.reconstruction_status,
+        sqlite_persisted: data.sqlite_persisted === true,
+        storage_durable_across_restarts: data.storage_durable_across_restarts === true,
+        custody_submission: data.custody_submission || null,
         transition_id: data.transition_id,
         run_id: data.run_id,
         event_id: data.event_id,
