@@ -60,7 +60,7 @@
     <button id="download-result" type="button">Download result packet</button>
     <button id="download-challenge" type="button">Create challenge packet</button>
     <h3>Optional cooperative review</h3>
-    <label><input id="review-opt-in" type="checkbox" /> I explicitly opt in to preparing a cooperative review package.</label>
+    <label><input id="review-opt-in" type="checkbox" /> I explicitly opt in to preparing or submitting a cooperative review package.</label>
     <label><input id="publication-requested" type="checkbox" /> Request publication review. This does not authorize publication.</label>
     <label for="review-scope">Review scope, one item per line</label>
     <textarea id="review-scope" style="min-height:110px">transition-table mapping
@@ -69,6 +69,12 @@ authority boundary</textarea>
     <label for="evidence-references">Evidence references, one per line</label>
     <textarea id="evidence-references" style="min-height:110px"></textarea>
     <button id="download-review" type="button">Create opt-in review package</button>
+    <h3>Authenticated review intake</h3>
+    <p class="muted">An access token is required to submit the package. The token remains in this page only and is not placed in the package, receipt, browser storage, or wiki.</p>
+    <label for="review-access-token">Review submission access token</label>
+    <input id="review-access-token" type="password" autocomplete="off" spellcheck="false" />
+    <button id="submit-review" type="button">Submit package for delegated review</button>
+    <p id="review-status" class="muted">No cooperative review package has been submitted.</p>
     <pre id="output"></pre>
   </section>
 
