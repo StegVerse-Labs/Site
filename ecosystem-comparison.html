@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse governed versus recursive route comparison with evidence-classified deltas.">
+  <title>StegVerse — Governed vs Recursive Comparison</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .route-grid,.delta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.route-card h3{margin:0 0 5px}.route-kind{font:10px var(--mono);letter-spacing:.06em;color:var(--green)}.metric-row{display:grid;grid-template-columns:145px 1fr 76px;gap:10px;align-items:center;margin:10px 0;font:11px var(--mono)}.metric-track{height:9px;border:1px solid var(--border2);border-radius:999px;background:#08101b;overflow:hidden}.metric-fill{display:block;height:100%;width:var(--width,0%);background:linear-gradient(90deg,rgba(77,184,255,.25),rgba(102,255,153,.75))}.metric-value{text-align:right;color:var(--text)}.delta-card strong{display:block;font-size:20px}.boundary{border:1px solid #3a2a12;background:rgba(63,44,13,.25);border-radius:var(--radius);padding:13px;color:#f0d9a0}.status{font:11px var(--mono);color:var(--green);margin:10px 0}.receipt-list{font:11px var(--mono);overflow-wrap:anywhere;color:var(--muted)}
+    @media(max-width:600px){.metric-row{grid-template-columns:110px 1fr 64px}}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="ecosystem-usage.html">Usage Ledger</a><a href="ecosystem-comparison.html" class="active">Route Comparison</a><a href="governed-transitions.html">Transitions</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero"><div class="sv-eyebrow">One task · two routes · transparent deltas</div><h1>Governed vs Recursive<br><em>compare the complete route.</em></h1><p>This surface compares one normalized request across a StegVerse governed route and an external recursive route using the same task identity, output requirement, and telemetry contract.</p></div>
+  <div class="boundary"><strong>Boundary:</strong> comparison is not authority, admissibility, certification, or proof of universal superiority. Configured and modeled values remain visibly distinct from live measured traces.</div>
+  <p class="status" id="comparisonStatus" aria-live="polite">Loading comparison receipt…</p>
+  <section><h2 class="sv-h2">Route outputs and telemetry</h2><div class="route-grid" id="routeComparison"></div></section>
+  <section><h2 class="sv-h2">External recursive minus StegVerse governed</h2><div class="delta-grid" id="deltaComparison"></div><p class="muted">A positive delta means the external recursive route used more of the displayed metric. Receipt-count deltas may be negative when the governed route emits more reconstructability artifacts.</p></section>
+  <section class="card"><h2 class="sv-h2">Comparison receipt posture</h2><div id="comparisonReceipt"></div></section>
+</div>
+<footer class="sv-footer"><span>StegVerse · Route comparison · Evidence-classified telemetry</span><span><a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="ecosystem-usage.html">Usage Ledger</a></span></footer>
+<script src="assets/ecosystem-comparison.js"></script>
+</body>
+</html>
