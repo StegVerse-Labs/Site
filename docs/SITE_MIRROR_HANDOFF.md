@@ -153,16 +153,48 @@ SQLite persistence and custody display
 live observatory lookup and RECORDED consistency
 ```
 
+## Latest Site Bootstrap Validate failure and bounded repair
+
+GitHub Actions run `29179673207` on `main` at commit `c19e0015c24ba2f5ccd39eda6c97477d78e2a92a` failed in job `bootstrap-validate`, step `Validate application`.
+
+The preserved validation artifact was:
+
+```text
+site-application-validation-result
+Artifact ID: 8256003741
+SHA256: 1bf661d6438c63a016c868ac383ceeb61a03b80d8ba966cb21b5edd0d4885852
+```
+
+The failing command was:
+
+```text
+python scripts/check_site_media_pipeline_mirror.py
+```
+
+The checker still required the superseded `Site mode: PREVIEW_ONLY` contract and legacy preview-only prose even though this handoff now declares `GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK` and preserves the current non-execution, provider-authority, custody, and no-release-tag boundaries.
+
+Applied bounded repair:
+
+```text
+scripts/check_site_media_pipeline_mirror.py
+Commit: 181668077ecd3e8d686374758de051f7ba76c07f
+```
+
+The checker now validates the current handoff contract without changing Site mode, workflow count, provider authority, custody authority, deployment status, credentials, or release posture.
+
+Verification remains pending on commit `181668077ecd3e8d686374758de051f7ba76c07f` or later.
+
 ## Next task
 
 ```text
-1. Verify current-main Site and LLM-adapter tests.
-2. Deploy gateway and custody production blueprints.
-3. Configure shared custody credentials.
-4. Optionally configure the provider broker with endpoint, hostname allowlist, token, model, quota, and cost ceilings.
-5. Verify one public response reports provider USED or explicit deterministic fallback.
-6. Verify the same transition reaches RECORDED custody.
-7. Run the orchestration live round-trip verifier before public activation claims.
+1. Verify current-main Site and LLM-adapter tests, including Site Bootstrap Validate on commit 181668077ecd3e8d686374758de051f7ba76c07f or later.
+2. Preserve the passing Site validation receipt before deployment work.
+3. Deploy gateway and custody production blueprints only with required deployment authority.
+4. Configure shared custody credentials only through authorized secret-management paths.
+5. Optionally configure the provider broker with endpoint, hostname allowlist, token, model, quota, and cost ceilings.
+6. Verify one public response reports provider USED or explicit deterministic fallback.
+7. Verify the same transition reaches RECORDED custody.
+8. Run the orchestration live round-trip verifier before public activation claims.
 ```
 
 ## Release posture
@@ -171,4 +203,4 @@ Provider policy and display, deterministic fallback, persistent storage profiles
 
 ## Archive readiness
 
-This handoff contains the current provider, gateway, custody, Site display, validation, and continuation state. Earlier conversation context is not required.
+This handoff contains the current provider, gateway, custody, Site display, latest bounded validation repair, preserved authority boundaries, and continuation state. Earlier conversation context is not required.
