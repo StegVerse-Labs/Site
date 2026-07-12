@@ -4,6 +4,7 @@
   const CONTRACT_PATH = 'data/ecosystem-usage-live-contract.json';
   const SESSION_PATTERN = /^[A-Za-z0-9._:-]+$/;
   const EVIDENCE_CLASSES = new Set(['MEASURED', 'CONFIGURED', 'DERIVED', 'UNAVAILABLE']);
+  const INTEGRITY_HTTP_STATUSES = new Set([400, 401, 403, 409, 422]);
 
   class UsageIntegrityError extends Error {
     constructor(message) {
@@ -14,7 +15,12 @@
 
   const readJson = async (url, options = {}) => {
     const response = await fetch(url, options);
-    if (!response.ok) throw new Error(`usage request failed with HTTP ${response.status}`);
+    if (!response.ok) {
+      if (INTEGRITY_HTTP_STATUSES.has(response.status)) {
+        throw new UsageIntegrityError(`usage request rejected with HTTP ${response.status}`);
+      }
+      throw new Error(`usage request failed with HTTP ${response.status}`);
+    }
     return response.json();
   };
 
