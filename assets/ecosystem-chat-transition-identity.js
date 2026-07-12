@@ -6,6 +6,7 @@
   const SOURCE_REF = 'StegVerse-Labs/Site/ecosystem-chat.html';
   const SESSION_KEY = 'stegverse_ecosystem_chat_session';
   const COUNTER_KEY = 'stegverse_ecosystem_chat_transition_counter';
+  const CONFIG_PATH = 'data/ecosystem-chat-gateway.json';
 
   function sessionId() {
     const existing = window.sessionStorage.getItem(SESSION_KEY);
@@ -90,6 +91,65 @@
     };
   }
 
+  async function loadGatewayConfig() {
+    try {
+      const response = await fetch(CONFIG_PATH, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`config HTTP ${response.status}`);
+      const config = await response.json();
+      if (config.schema_version !== CONTRACT_VERSION) throw new Error('config version mismatch');
+      if (!config.authority_boundary || config.authority_boundary.site_execution_authority !== false || config.authority_boundary.gateway_execution_authority !== false) throw new Error('authority boundary mismatch');
+      return config;
+    } catch (error) {
+      return { enabled: false, fallback: 'LOCAL_CLASSIFICATION', error: String(error) };
+    }
+  }
+
+  async function callGateway(config, message, posture, identity) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), Number(config.timeout_ms || 20000));
+    try {
+      const response = await fetch(config.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-SteGVerse-Session': sessionId() },
+        signal: controller.signal,
+        body: JSON.stringify({
+          message,
+          session_id: sessionId(),
+          requested_route: posture.route,
+          transition_intent: posture.intent.id,
+          transition_destination: posture.intent.destination,
+          goal: 'user advancement console with governed task boundaries',
+          execution_model: 'allowlisted_task_request_only',
+          raw_shell_allowed: false,
+          authority_required: true,
+          rate_limit_required: true,
+          receipt_required_for_execution: true,
+          interaction_profile: posture.interaction_profile,
+          interaction_bands: ['intra', 'inter', 'research', 'provider', 'solver', 'receipt'],
+          math_solver_supported: true,
+          transition_identity: identity
+        })
+      });
+      if (!response.ok) throw new Error(`gateway HTTP ${response.status}`);
+      const data = await response.json();
+      if (data.transition_id !== identity.transition_id || data.run_id !== identity.run_id || data.event_id !== identity.event_id || data.origin_manifest_id !== identity.origin_manifest_id) throw new Error('gateway identity mismatch');
+      return {
+        response: `${data.response}\n\nTransition identity: ${data.transition_id}\nRun identity: ${data.run_id}\nOrigin manifest: ${data.origin_manifest_id}\nGateway status: ${data.task_status}\nFinal receipt: false`,
+        receipt_line: `gateway_receipt_id=${data.receipt_id || 'null'} · receipt_class=${data.receipt_class || 'unknown'} · final_receipt=false · transition_id=${data.transition_id} · run_id=${data.run_id}`,
+        interaction_profile: data.interaction_profile || posture.interaction_profile,
+        intent: posture.intent,
+        route: data.routed_module || posture.route,
+        gateway_status: data.task_status,
+        transition_id: data.transition_id,
+        run_id: data.run_id,
+        event_id: data.event_id,
+        origin_manifest_id: data.origin_manifest_id
+      };
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  }
+
   const originalRoute = window.routeEcosystemRequest;
   if (typeof originalRoute === 'function') {
     window.routeEcosystemRequest = async function governedIdentityRoute(message) {
@@ -97,13 +157,23 @@
       const identity = nextIdentity();
       const envelope = identityEnvelope(identity, message, posture);
       window.sessionStorage.setItem('stegverse_ecosystem_chat_last_candidate', JSON.stringify(envelope));
+      const config = await loadGatewayConfig();
+      if (config.enabled === true && config.endpoint) {
+        try {
+          const result = await callGateway(config, message, posture, identity);
+          window.sessionStorage.setItem('stegverse_ecosystem_chat_last_gateway_result', JSON.stringify(result));
+          return result;
+        } catch (error) {
+          window.sessionStorage.setItem('stegverse_ecosystem_chat_gateway_error', String(error));
+        }
+      }
       const result = await originalRoute(message);
       result.transition_id = identity.transition_id;
       result.run_id = identity.run_id;
       result.event_id = identity.event_id;
       result.origin_manifest_id = identity.origin_manifest_id;
-      result.receipt_line = `${result.receipt_line} · transition_id=${identity.transition_id} · run_id=${identity.run_id} · origin_manifest_id=${identity.origin_manifest_id}`;
-      result.response = `${result.response}\n\nTransition identity: ${identity.transition_id}\nRun identity: ${identity.run_id}\nOrigin manifest: ${identity.origin_manifest_id}\nLifecycle: DECLARED\nAuthority effect: none`;
+      result.receipt_line = `${result.receipt_line} · transition_id=${identity.transition_id} · run_id=${identity.run_id} · origin_manifest_id=${identity.origin_manifest_id} · gateway=fallback`;
+      result.response = `${result.response}\n\nTransition identity: ${identity.transition_id}\nRun identity: ${identity.run_id}\nOrigin manifest: ${identity.origin_manifest_id}\nLifecycle: DECLARED\nGateway: unavailable or disabled; local fallback active\nAuthority effect: none`;
       return result;
     };
   }
@@ -136,6 +206,7 @@
     contract_version: CONTRACT_VERSION,
     origin_class: ORIGIN_CLASS,
     nextIdentity,
-    identityEnvelope
+    identityEnvelope,
+    loadGatewayConfig
   };
 })();
