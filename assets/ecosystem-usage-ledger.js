@@ -6,6 +6,11 @@
   const summaryRoot = document.getElementById('sessionSummary');
   const timelineRoot = document.getElementById('transitionTimeline');
   const statusRoot = document.getElementById('sessionStatus');
+  const filterRoot = document.getElementById('sessionFilter');
+  const loadButton = document.getElementById('loadSession');
+  const exportButton = document.getElementById('exportSession');
+  let activePayload = null;
+  let activeConfig = null;
 
   const esc = (value) => String(value ?? '').replace(/[&<>'"]/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 
@@ -61,7 +66,7 @@
     return {totals, evidenceCounts};
   }
 
-  function renderSummary(sessionId, events) {
+  function renderSummary(sessionId, events, sourceLabel) {
     const {totals, evidenceCounts} = aggregate(events);
     const owners = [...new Set(events.map((event) => event.metric_owner))];
     const transitions = [...new Set(events.map((event) => event.transition_id))];
@@ -70,7 +75,13 @@
       <div class="card"><strong>Transitions</strong><span class="muted">${transitions.length}</span></div>
       <div class="card"><strong>Measurement owners</strong><span class="muted">${owners.map(esc).join(', ')}</span></div>
       <div class="card"><strong>Evidence posture</strong><span class="muted">Measured ${evidenceCounts.MEASURED} · Configured ${evidenceCounts.CONFIGURED} · Derived ${evidenceCounts.DERIVED} · Unavailable ${evidenceCounts.UNAVAILABLE}</span></div>`;
-    statusRoot.textContent = `${events.length} unique usage events · ${totals.size} evidence-separated aggregate metrics · no double counting by owner + measurement identity`;
+    statusRoot.textContent = `${sourceLabel} · ${events.length} unique usage events · ${totals.size} evidence-separated aggregate metrics · no double counting by owner + measurement identity`;
+  }
+
+  function receiptHref(ref, transitionId) {
+    const encoded = encodeURIComponent(transitionId);
+    if (/^https:\/\//.test(ref)) return ref;
+    return `governed-transitions.html?transition_id=${encoded}#receipt-${encodeURIComponent(ref)}`;
   }
 
   function renderTimeline(events) {
@@ -86,8 +97,10 @@
         <div class="metric"><span>${esc(name)} · ${esc(event.metric_owner)}</span><strong>${metric.value === null ? 'Unavailable' : `${esc(metric.value)} ${esc(metric.unit)}`}</strong><span>${esc(metric.evidence_class)}</span></div>`)).join('');
       const owners = [...new Set(items.map((item) => item.metric_owner))];
       const receipts = [...new Set(items.flatMap((item) => item.receipt_refs || []))];
+      const receiptLinks = receipts.length ? `<div class="receipt-links">${receipts.map((ref) => `<a class="sv-btn sv-btn-secondary" href="${esc(receiptHref(String(ref), transitionId))}">${esc(ref)}</a>`).join('')}</div>` : '';
       return `<article class="transition-card">
         <div class="usage-prepend"><strong>Usage prepend</strong><br>Session: ${esc(first.session_id)} · Transition: ${esc(transitionId)} · Origin: ${esc(first.origin_entry_point)} · Entry points: ${esc([...new Set(items.map((item) => item.entry_point))].join(', '))}<br>Metric owners: ${esc(owners.join(', '))} · Receipt refs: ${esc(receipts.join(', ') || 'none')}</div>
+        ${receiptLinks}
         <div class="metric-grid">${metricCards}</div>
         <p class="muted">Transition content follows this usage block. The prepend is presentation metadata and does not alter provider output or transition hashes.</p>
       </article>`;
@@ -100,26 +113,89 @@
     return response.json();
   }
 
-  async function main() {
-    const [roles, fixture] = await Promise.all([
-      loadJson('data/entry-point-roles.json'),
-      loadJson('data/usage-session-fixture.json')
-    ]);
-    renderRoles(roles);
-    let events = fixture.events;
-    try {
-      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-      if (stored && Array.isArray(stored.events) && stored.session_id) {
-        events = stored.events;
-        fixture.session_id = stored.session_id;
-      }
-    } catch (error) {
-      console.warn('Ignoring invalid local usage ledger', error);
-    }
-    const unique = dedupe(events, fixture.session_id);
-    renderSummary(fixture.session_id, unique);
-    renderTimeline(unique);
+  function safeApiBase(value) {
+    if (!value) return null;
+    const url = new URL(value, window.location.href);
+    if (url.origin !== window.location.origin && url.protocol !== 'https:') throw new Error('usage API must be same-origin or HTTPS');
+    return url.href.replace(/\/$/, '');
   }
+
+  async function loadSession(sessionId) {
+    const clean = String(sessionId || '').trim();
+    if (!clean) throw new Error('session_id is required');
+    const apiBase = safeApiBase(activeConfig.usage_api_base);
+    if (apiBase) {
+      const live = await loadJson(`${apiBase}/sessions/${encodeURIComponent(clean)}`);
+      if (live.session_id !== clean || !Array.isArray(live.events)) throw new Error('live usage response changed session identity');
+      return {payload: live, source: 'LIVE_USAGE_API'};
+    }
+    if (activeConfig.allow_local_storage) {
+      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if (stored && stored.session_id === clean && Array.isArray(stored.events)) return {payload: stored, source: 'SYNCHRONIZED_LOCAL_LEDGER'};
+    }
+    if (activeConfig.allow_fixture_fallback) {
+      const fixture = await loadJson(activeConfig.fixture_path);
+      if (fixture.session_id === clean) return {payload: fixture, source: 'CONFIGURED_FIXTURE_FALLBACK'};
+    }
+    throw new Error(`session ${clean} was not available`);
+  }
+
+  function present(payload, sourceLabel) {
+    const unique = dedupe(payload.events, payload.session_id);
+    activePayload = {session_id: payload.session_id, events: unique, source: sourceLabel};
+    filterRoot.value = payload.session_id;
+    renderSummary(payload.session_id, unique, sourceLabel);
+    renderTimeline(unique);
+    const url = new URL(window.location.href);
+    url.searchParams.set(activeConfig.session_query_parameter, payload.session_id);
+    window.history.replaceState({}, '', url);
+  }
+
+  function exportActiveSession() {
+    if (!activePayload) throw new Error('no active session to export');
+    const body = JSON.stringify(activePayload, null, 2) + '\n';
+    const blob = new Blob([body], {type: 'application/json'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${activePayload.session_id}.usage.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  async function main() {
+    activeConfig = await loadJson('data/ecosystem-usage-config.json');
+    const roles = await loadJson(activeConfig.roles_path);
+    renderRoles(roles);
+    const querySession = new URL(window.location.href).searchParams.get(activeConfig.session_query_parameter);
+    let initial = querySession;
+    if (!initial && activeConfig.allow_local_storage) {
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (stored && stored.session_id) initial = stored.session_id;
+      } catch (error) {
+        console.warn('Ignoring invalid local usage ledger', error);
+      }
+    }
+    if (!initial && activeConfig.allow_fixture_fallback) {
+      const fixture = await loadJson(activeConfig.fixture_path);
+      initial = fixture.session_id;
+    }
+    const loaded = await loadSession(initial);
+    present(loaded.payload, loaded.source);
+  }
+
+  loadButton.addEventListener('click', async () => {
+    try {
+      const loaded = await loadSession(filterRoot.value);
+      present(loaded.payload, loaded.source);
+    } catch (error) {
+      statusRoot.textContent = `USAGE_SESSION_LOAD_FAILED: ${error.message}`;
+    }
+  });
+  exportButton.addEventListener('click', () => {
+    try { exportActiveSession(); }
+    catch (error) { statusRoot.textContent = `USAGE_EXPORT_FAILED: ${error.message}`; }
+  });
 
   main().catch((error) => {
     statusRoot.textContent = `USAGE_LEDGER_LOAD_FAILED: ${error.message}`;
