@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>External Chat Compatibility Test | StegVerse</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; }
+    body { margin:0; background:#08111f; color:#eef6ff; }
+    main { max-width:1100px; margin:auto; padding:32px 20px 72px; }
+    a { color:#9bd7ff; }
+    h1 { font-size:clamp(2rem,5vw,4rem); margin:.3rem 0 1rem; }
+    .lede,.muted { color:#bfd0df; line-height:1.6; }
+    .boundary,.card { border:1px solid #334b62; background:#0c1826; border-radius:14px; padding:18px; margin:18px 0; }
+    label { display:block; margin:12px 0 6px; color:#bcd3e6; }
+    input,textarea,button { box-sizing:border-box; width:100%; border-radius:10px; border:1px solid #385069; background:#081421; color:#eef6ff; padding:11px; }
+    textarea { min-height:360px; font-family:ui-monospace,SFMono-Regular,monospace; }
+    button { width:auto; cursor:pointer; background:#18334d; font-weight:700; margin-top:12px; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#07101c; padding:16px; border-radius:10px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+    .metric { border:1px solid #30485f; border-radius:12px; padding:14px; }
+    .metric strong { display:block; font-size:1.35rem; }
+    .error { color:#ffabab; }
+    .good { color:#9ef0bb; }
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="ecosystem-chat.html">Ecosystem Chat</a> · <a href="governed-transitions.html">Transition Observatory</a></p>
+  <h1>External Chat</h1>
+  <p class="lede">Submit a framework description or trace for bounded compatibility testing against the same transition-table fields used by the Admissibility Wiki external-framework pages.</p>
+  <div class="boundary"><strong>Boundary:</strong> This tool produces compatibility evidence only. It does not certify, endorse, execute, establish equivalence, grant authority, or create standing. Submitted content is evaluated in memory and is not automatically published to the wiki.</div>
+
+  <section class="card">
+    <h2>Framework submission</h2>
+    <label for="framework-id">Framework ID</label>
+    <input id="framework-id" value="decisionassure" maxlength="128" />
+    <label for="framework-name">Framework name</label>
+    <input id="framework-name" value="DecisionAssure" maxlength="256" />
+    <label for="submission">Framework manifest or trace JSON</label>
+    <textarea id="submission" spellcheck="false"></textarea>
+    <button id="load-example" type="button">Load example</button>
+    <button id="submit" type="button">Run compatibility test</button>
+    <p id="status" class="muted">Ready. No submission has been sent.</p>
+  </section>
+
+  <section id="result" class="card" hidden>
+    <h2>Compatibility result</h2>
+    <div id="summary" class="grid"></div>
+    <p id="wiki-links"></p>
+    <pre id="output"></pre>
+  </section>
+
+  <section class="card">
+    <h2>What is compared</h2>
+    <p class="muted">Identity, source references, artifact types, actor/authority model, evidence, policy, delegation, decision/result semantics, receipts/traces, reconstruction, fail-closed behavior, and non-claim boundaries. Similar findings indicate structural overlap only—not semantic equivalence or StegVerse admissibility.</p>
+    <p><a href="https://stegverse-labs.github.io/admissibility-wiki/external-frameworks/">Browse current external-framework findings</a></p>
+  </section>
+</main>
+<script src="assets/external-chat.js" defer></script>
+</body>
+</html>
