@@ -5,9 +5,14 @@ PUBLIC_PATHS = ROOT / "docs" / "SITE_PUBLIC_PATHS.md"
 
 REQUIRED = [
     "/governed-ecosystem.html",
+    "/ecosystem-chat.html",
+    "/external-chat.html",
+    "/governed-transitions.html",
     "StegVerse-Labs/admissibility-wiki",
     "docs/SITE_GOVERNED_ECOSYSTEM_STATUS.txt",
     "scripts/check_site_governed_ecosystem_mirror.py",
+    "scripts/check_external_chat_compatibility.py",
+    "external-chat-submission-contract.md",
 ]
 
 
