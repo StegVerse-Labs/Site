@@ -25,19 +25,25 @@ REQUIRED = {
         "thread_archive_ready: true",
     ],
     "mirror": [
-        "Activation state: pending_external_evidence",
-        "github/workflows/site-autonomous-continuation.yml",
-        "docs/SITE_FINAL_GOAL_STATUS.json",
+        ".github/workflows/validate.yml",
+        ".github/workflows/site-task-runner.yml",
+        "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+        "PREPARED_NOT_DEPLOYED",
+        "No release tag is authorized",
     ],
     "final_goal": ["site_final_goal_status.v0.1", "pending_external_evidence"],
     "external": ["pending_external_evidence"],
 }
 
+# These are concrete positive state declarations. Source-of-truth phrases are not
+# checked as raw substrings because the canonical mirror handoff intentionally
+# includes them inside an explicit non-claims section.
 FORBIDDEN = [
     "Activation state: activated",
     "ready_completion: ready",
-    "Site is the TT source of truth",
-    "Site is the Governance Observatory source of truth",
+    "site_state: activated",
+    "contract_status: DEPLOYED",
+    "live_transport_enabled: true",
 ]
 
 FILES = {
@@ -55,8 +61,9 @@ def main() -> int:
             print(f"missing {path.relative_to(ROOT)}", file=sys.stderr)
             return 1
         text = path.read_text(encoding="utf-8")
-        missing = [term for term in REQUIRED[label] if term not in text]
-        blocked = [term for term in FORBIDDEN if term in text]
+        folded = text.casefold()
+        missing = [term for term in REQUIRED[label] if term.casefold() not in folded]
+        blocked = [term for term in FORBIDDEN if term.casefold() in folded]
         if missing or blocked:
             print(f"{label} ecosystem handoff check failed", file=sys.stderr)
             for term in missing:
