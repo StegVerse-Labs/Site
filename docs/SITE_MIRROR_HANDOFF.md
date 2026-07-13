@@ -13,7 +13,7 @@ Usage and role surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
 Workflow target: exactly two operational workflows
-Result: destination usage endpoint implementation installed; validation, same-origin deployment, custody, and live activation evidence pending
+Result: destination usage endpoint implementation installed; Site validation is advancing; same-origin deployment, custody, and live activation evidence remain pending
 ```
 
 ## Active workflows
@@ -41,7 +41,7 @@ scripts/check_ecosystem_usage_ledger.py
 
 The surface preserves session identity across entry points, deduplicates by `metric_owner + measurement_id`, preserves evidence classes, prepends usage before transitions, supports session lookup, JSON export, and receipt navigation.
 
-Current Site transport posture remains:
+Current transport posture:
 
 ```text
 contract status: PREPARED_NOT_DEPLOYED
@@ -73,13 +73,13 @@ state: DESTINATION_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
 blocker: DESTINATION_VALIDATION_AND_DEPLOYMENT_EVIDENCE_PENDING
 ```
 
-The former `DESTINATION_HANDOFF_MISSING` blocker is resolved. A current destination handoff now exists at:
+The current destination handoff exists at:
 
 ```text
 StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md
 ```
 
-The destination now contains:
+Installed destination components:
 
 ```text
 llm_adapter/usage_session_api.py
@@ -87,31 +87,60 @@ scripts/verify_usage_session_api.py
 tests/test_usage_session_api.py
 ```
 
-and mounts the route into `llm_adapter.combined_gateway`.
-
-Installed destination routes:
+Installed routes:
 
 ```text
 POST /api/usage/sessions
 GET  /api/usage/sessions/{session_id}
 ```
 
-The retrieval implementation matches the prepared Site contract:
+The retrieval contract requires same-origin session identity, `stegverse.usage.session.v1`, `LIVE_USAGE_API`, requested session preservation, a retrieval receipt, producer and policy identity, `authority_granted=false`, and `custody_recorded=false`.
+
+Machine submission is separately authenticated. Site does not receive, render, store, or configure the submission credential.
+
+## Latest Site validation handling
 
 ```text
-same-origin session cookie or matching X-SteGVerse-Session identity
-stegverse.usage.session.v1
-LIVE_USAGE_API
-requested session identity preserved
-mandatory retrieval receipt
-retrieved_at present
-producer_identity present
-policy_reference present
-authority_granted=false
-custody_recorded=false
+Workflow: Site Bootstrap Validate
+Run: 29228087741
+Branch: main
+Commit: 6289a4be10a7aaaa5a0524080b3fb88e3851144a
+Job: bootstrap-validate
+Failure class: destination handoff validator state drift
+Passing steps:
+- workflow inventory
+- two-operational-workflow guard
+- navigation validation
+- authenticated usage contract
+- usage ledger validation
+Failed command:
+python scripts/check_llm_adapter_usage_endpoint_handoff.py
+Artifact: site-application-validation-result
+Artifact digest: sha256:58181fedd142fc9a87a5edb00282c03895a98d615b8b7f912e319f08813823a8
+Failure output: LLM_ADAPTER_USAGE_HANDOFF_FAIL: handoff must remain blocked until destination authority exists
 ```
 
-Machine submission is separately authenticated. The Site does not receive, render, store, or configure the submission credential.
+The data packet had correctly advanced from `AWAITING_DESTINATION_HANDOFF_AUTHORITY` to `DESTINATION_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING`, but the validator still required only the former state.
+
+Bounded repair:
+
+```text
+File: scripts/check_llm_adapter_usage_endpoint_handoff.py
+Commit: 7448cbec119023fe447a2560e1680d7b352f830f
+```
+
+The validator now:
+
+```text
+accepts only the two explicitly governed handoff states
+preserves all route, receipt, failure, evidence, and authority checks
+requires exact destination implementation, verifier, test, and handoff paths
+requires the combined gateway route and workflow registration to be true
+requires unobserved validation, deployment, and conformance evidence to remain false
+requires DESTINATION_VALIDATION_AND_DEPLOYMENT_EVIDENCE_PENDING while those proofs are absent
+```
+
+No check was removed. No deployment, credential configuration, transport activation, release, merge, or tag occurred.
 
 ## Destination validation posture
 
@@ -127,7 +156,7 @@ Master-Records custody: not observed
 reconstructability PASS: not observed
 ```
 
-The implementation is not represented as deployed merely because the route exists in source.
+Source implementation is not represented as deployed.
 
 ## Activation evidence and preactivation checkpoint
 
@@ -152,7 +181,7 @@ Master-Records custody
 reconstructability
 ```
 
-Current checkpoint remains:
+Current checkpoint:
 
 ```text
 SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED
@@ -193,7 +222,7 @@ scripts/check_ecosystem_comparison.py
 scripts/check_ecosystem_chat_navigation.py
 ```
 
-The comparison remains `CONFIGURED_FIXTURE`, uses `external_recursive - stegverse_governed`, and does not claim live measurement, authority, or admissibility. Ecosystem Chat exposes direct navigation to the usage and comparison pages.
+The comparison remains `CONFIGURED_FIXTURE`, uses `external_recursive - stegverse_governed`, and does not claim live measurement, authority, or admissibility.
 
 ## Canonical validation surface
 
@@ -236,7 +265,8 @@ No release tag is authorized.
 
 ```text
 StegVerse-Labs/Site
-  -> observe a successful current-main workflow artifact set
+  -> observe the successor current-main validation artifact set after commit 7448cbec119023fe447a2560e1680d7b352f830f
+  -> repair only the next exact failing command without removing checks
   -> verify result, receipt, and manifest hashes
   -> bind verified Site evidence into the activation ledger
   -> run conformance against an authorized same-origin deployment
@@ -263,14 +293,15 @@ StegVerse-org/core-node-runtime-demo
 ## Next task
 
 ```text
-1. Observe the destination validate workflow containing usage-session verification.
-2. Repair the first failing step without removing existing checks.
-3. Observe the next current-main Site validation artifact set.
-4. Verify all Site artifact hashes and run identities.
-5. Deploy only through an authorized same-origin topology.
-6. Run the Site endpoint conformance suite against the deployed route.
-7. Do not enable live transport until all activation evidence is VERIFIED.
-8. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
+1. Observe the successor Site Bootstrap Validate run after commit 7448cbec119023fe447a2560e1680d7b352f830f.
+2. Confirm the destination handoff validator passes.
+3. Repair only the next failing command without removing existing checks.
+4. Verify the first successful current-main Site result, receipt, and manifest artifact set.
+5. Observe the destination validate workflow containing usage-session verification.
+6. Deploy only through an authorized same-origin topology.
+7. Run the Site endpoint conformance suite against the deployed route.
+8. Do not enable live transport until all activation evidence is VERIFIED.
+9. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
 ```
 
 ## Release posture
@@ -279,4 +310,4 @@ The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`. Destination
 
 ## Archive readiness
 
-This handoff preserves the current provider, gateway, custody, usage, comparison, navigation, endpoint implementation, validation, conformance, activation, authority-boundary, and continuation state. Earlier conversation context is not required.
+This handoff preserves the current provider, gateway, custody, usage, comparison, navigation, endpoint implementation, validation, conformance, activation, authority-boundary, failure repair, and continuation state. Earlier conversation context is not required.
