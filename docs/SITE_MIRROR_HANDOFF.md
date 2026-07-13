@@ -69,7 +69,32 @@ Commit: 3fbd3720976ea83439c7641da0b5d6b2aaedb00b
 File: scripts/check_site_llm_free_tier_trust.py
 ```
 
-The checker now validates the user-facing page forms and retains the canonical machine-facing destination, policy, quota, replay, export, admissibility, and upgrade assertions in `docs/LLM_FREE_TIER_TRUST_STATUS.md`. No public claim, quota, authority boundary, workflow, deployment posture, or external destination was changed.
+The checker was rebound to the user-facing page forms while retaining canonical machine-facing destination, policy, quota, replay, export, admissibility, and upgrade assertions in `docs/LLM_FREE_TIER_TRUST_STATUS.md`.
+
+### Run 29265864007
+
+```text
+Commit: b5da6e9a4fc87b7957c8a57dbc942d09b6b5be72
+Branch: main
+Workflow: Site Task Runner
+Job: run-site-task
+Result: FAILED after governed public verification passed
+Passing boundary: scripts/check_site_governed_ecosystem_public_verification.py
+Failed command: scripts/check_site_llm_free_tier_trust.py
+Failure: page_missing:no provider call
+Failure class: case-sensitive validator mismatch against existing public copy "No provider call"
+```
+
+The page already contained the required boundary at `ecosystem-chat.html`: `No provider call, proof receipt, shell access, or repo write occurs.` The failure did not identify a missing governance claim, quota, status field, workflow capability, or destination contract.
+
+Bounded repair:
+
+```text
+Commit: 343c614049cc3486933cef065f59fd291e4ce9c9
+File: scripts/check_site_llm_free_tier_trust.py
+```
+
+Public-facing prose checks now use Unicode case normalization while exact machine-facing status assertions remain unchanged. No public copy, claim, quota, workflow, deployment posture, external destination, release authority, or activation boundary changed.
 
 Successor current-main verification is pending.
 
@@ -130,7 +155,7 @@ No release tag is authorized.
 
 ```text
 StegVerse-Labs/Site
-  -> observe successor current-main validation after commit 3fbd3720976ea83439c7641da0b5d6b2aaedb00b
+  -> observe successor current-main validation after commit 343c614049cc3486933cef065f59fd291e4ce9c9
   -> confirm scripts/check_site_llm_free_tier_trust.py passes
   -> repair only the next exact failing command without removing checks
   -> verify one successful result, receipt, and manifest artifact set
@@ -158,7 +183,7 @@ StegVerse-org/core-node-runtime-demo
 ## Next task
 
 ```text
-1. Observe the successor Site Task Runner/current-main validation after commit 3fbd3720976ea83439c7641da0b5d6b2aaedb00b.
+1. Observe the successor Site Task Runner/current-main validation after commit 343c614049cc3486933cef065f59fd291e4ce9c9.
 2. Confirm scripts/check_site_llm_free_tier_trust.py passes.
 3. Repair only the next exact failing command without removing existing checks.
 4. Verify the first successful current-main result, receipt, and manifest artifact set.
