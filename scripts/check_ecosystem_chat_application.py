@@ -27,6 +27,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_site_current_main_validation_evidence.py"),
     (sys.executable, "scripts/check_site_current_main_validation_receipt_writer.py"),
     (sys.executable, "scripts/check_site_validation_artifact_manifest_writer.py"),
+    (sys.executable, "scripts/check_site_validation_artifact_bundle_verifier.py"),
     (sys.executable, "scripts/check_ecosystem_comparison.py"),
     (sys.executable, "scripts/check_governed_transition_observatory.py"),
     (sys.executable, "scripts/check_external_chat_compatibility.py"),
