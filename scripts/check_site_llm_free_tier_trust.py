@@ -43,8 +43,12 @@ def main():
     else:
         status_text = STATUS.read_text(encoding="utf-8")
 
+    # Public-facing prose may vary in capitalization without changing the
+    # governed claim. Compare normalized text while preserving exact machine-
+    # facing status assertions below.
+    page_text_normalized = page_text.casefold()
     for item in REQUIRED_PAGE_TEXT:
-        if item not in page_text:
+        if item.casefold() not in page_text_normalized:
             errors.append("page_missing:" + item)
     for item in REQUIRED_STATUS_TEXT:
         if item not in status_text:
