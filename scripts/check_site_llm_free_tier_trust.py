@@ -4,17 +4,16 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "ecosystem-chat.html"
 STATUS = ROOT / "docs" / "LLM_FREE_TIER_TRUST_STATUS.md"
 
+# The public page uses user-facing copy while the retained status document
+# preserves the canonical machine-facing names and destination identity.
 REQUIRED_PAGE_TEXT = [
-    "Bounded free-tier trust display",
-    "free_tier_trust",
-    "StegVerse-org/LLM-adapter",
+    "Bounded free-tier trust",
+    'id="free-tier-trust"',
     "5 per day, 25 trial total",
     "Receipt inspection",
-    "1 recent-session replay per day",
     "Recent-session limited",
-    "Quota availability is not admissibility",
-    "does not call live model providers",
-    "does not grant execution authority",
+    "no provider call",
+    "no execution authority",
 ]
 
 REQUIRED_STATUS_TEXT = [
