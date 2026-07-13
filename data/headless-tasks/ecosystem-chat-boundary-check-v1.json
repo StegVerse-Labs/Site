@@ -4,6 +4,7 @@
   "task_id": "ecosystem-chat-boundary-check-v1",
   "class": "public_surface_boundary_verification",
   "authority_class": "ordinary_analysis",
+  "manual_actions_required": false,
   "description": "Verify the Ecosystem Chat public surface, README references, local router, transition intent catalog, gateway contract, form model, activation status, UX status, public links, fixtures, contract checker, and declared-task boundary preserve the no-shell, no-credential, authority-required, receipt-required execution boundary, transition-intent engine, and single-entry UX contract.",
   "command": [
     "python",
