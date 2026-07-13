@@ -145,12 +145,12 @@ def verify_task_contract() -> None:
         raise AssertionError("unexpected ecosystem chat task id")
     if task.get("manual_actions_required") is not False:
         raise AssertionError("ecosystem chat task must require no manual actions")
-    inputs = task.get("inputs")
+    inputs = task.get("expected_inputs")
     if not isinstance(inputs, list):
-        raise AssertionError("ecosystem chat task inputs must be a list")
+        raise AssertionError("ecosystem chat task expected_inputs must be a list")
     missing = [entry for entry in REQUIRED_TASK_INPUTS if entry not in inputs]
     if missing:
-        raise AssertionError("ecosystem chat task missing inputs: " + ", ".join(missing))
+        raise AssertionError("ecosystem chat task missing expected_inputs: " + ", ".join(missing))
     tasks = registry.get("tasks")
     if not isinstance(tasks, list):
         raise AssertionError("headless task registry tasks must be a list")
