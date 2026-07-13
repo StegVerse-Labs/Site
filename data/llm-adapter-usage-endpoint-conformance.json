@@ -1,0 +1,185 @@
+{
+  "schema": "stegverse.site.llm_adapter_usage_endpoint_conformance.v1",
+  "requested_session_id": "session-demo-001",
+  "cases": [
+    {
+      "case_id": "valid_live_usage_response",
+      "expected": "ALLOW",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-demo-001",
+        "source_class": "LIVE_USAGE_API",
+        "events": [
+          {
+            "measurement_id": "m-llm-001",
+            "session_id": "session-demo-001",
+            "transition_id": "transition-demo-001",
+            "origin_entry_point": "ecosystem_chat",
+            "entry_point": "llm_adapter",
+            "entry_point_role": "provider_gateway",
+            "interaction_type": "provider_request",
+            "metric_owner": "llm_adapter",
+            "measurement_source": "provider_receipt",
+            "metrics": {
+              "provider_calls": {"value": 1, "unit": "count", "evidence_class": "MEASURED"},
+              "estimated_cost": {"value": 0.0021, "unit": "usd", "evidence_class": "DERIVED"},
+              "provider_cache_hit": {"value": null, "unit": "boolean", "evidence_class": "UNAVAILABLE"}
+            },
+            "timestamp": "2026-07-12T20:00:00Z",
+            "receipt_refs": ["provider-receipt-demo-001"]
+          }
+        ],
+        "retrieval_receipt": {
+          "receipt_id": "usage-retrieval-demo-001",
+          "session_id": "session-demo-001",
+          "retrieved_at": "2026-07-12T20:00:01Z",
+          "producer_identity": "StegVerse-org/LLM-adapter",
+          "policy_reference": "usage-retrieval-policy-v1",
+          "authority_granted": false,
+          "custody_recorded": false
+        }
+      }
+    },
+    {
+      "case_id": "session_identity_drift",
+      "expected": "DENY",
+      "failure_class": "IDENTITY_MISMATCH",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-other",
+        "source_class": "LIVE_USAGE_API",
+        "events": [],
+        "retrieval_receipt": {
+          "receipt_id": "usage-retrieval-demo-002",
+          "session_id": "session-other",
+          "retrieved_at": "2026-07-12T20:00:01Z",
+          "producer_identity": "StegVerse-org/LLM-adapter",
+          "policy_reference": "usage-retrieval-policy-v1",
+          "authority_granted": false,
+          "custody_recorded": false
+        }
+      }
+    },
+    {
+      "case_id": "missing_retrieval_receipt",
+      "expected": "DENY",
+      "failure_class": "RECEIPT_MISSING",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-demo-001",
+        "source_class": "LIVE_USAGE_API",
+        "events": []
+      }
+    },
+    {
+      "case_id": "authority_overreach",
+      "expected": "DENY",
+      "failure_class": "AUTHORITY_OVERREACH",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-demo-001",
+        "source_class": "LIVE_USAGE_API",
+        "events": [],
+        "retrieval_receipt": {
+          "receipt_id": "usage-retrieval-demo-003",
+          "session_id": "session-demo-001",
+          "retrieved_at": "2026-07-12T20:00:01Z",
+          "producer_identity": "StegVerse-org/LLM-adapter",
+          "policy_reference": "usage-retrieval-policy-v1",
+          "authority_granted": true,
+          "custody_recorded": false
+        }
+      }
+    },
+    {
+      "case_id": "custody_overreach",
+      "expected": "DENY",
+      "failure_class": "CUSTODY_OVERREACH",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-demo-001",
+        "source_class": "LIVE_USAGE_API",
+        "events": [],
+        "retrieval_receipt": {
+          "receipt_id": "usage-retrieval-demo-004",
+          "session_id": "session-demo-001",
+          "retrieved_at": "2026-07-12T20:00:01Z",
+          "producer_identity": "StegVerse-org/LLM-adapter",
+          "policy_reference": "usage-retrieval-policy-v1",
+          "authority_granted": false,
+          "custody_recorded": true
+        }
+      }
+    },
+    {
+      "case_id": "invalid_evidence_class",
+      "expected": "DENY",
+      "failure_class": "EVIDENCE_CLASS_INVALID",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-demo-001",
+        "source_class": "LIVE_USAGE_API",
+        "events": [
+          {
+            "measurement_id": "m-llm-002",
+            "session_id": "session-demo-001",
+            "transition_id": "transition-demo-002",
+            "origin_entry_point": "ecosystem_chat",
+            "entry_point": "llm_adapter",
+            "entry_point_role": "provider_gateway",
+            "interaction_type": "provider_request",
+            "metric_owner": "llm_adapter",
+            "measurement_source": "provider_receipt",
+            "metrics": {"provider_calls": {"value": 1, "unit": "count", "evidence_class": "ASSERTED"}},
+            "timestamp": "2026-07-12T20:00:00Z",
+            "receipt_refs": ["provider-receipt-demo-002"]
+          }
+        ],
+        "retrieval_receipt": {
+          "receipt_id": "usage-retrieval-demo-005",
+          "session_id": "session-demo-001",
+          "retrieved_at": "2026-07-12T20:00:01Z",
+          "producer_identity": "StegVerse-org/LLM-adapter",
+          "policy_reference": "usage-retrieval-policy-v1",
+          "authority_granted": false,
+          "custody_recorded": false
+        }
+      }
+    },
+    {
+      "case_id": "unavailable_value_violation",
+      "expected": "DENY",
+      "failure_class": "UNAVAILABLE_VALUE_INVALID",
+      "payload": {
+        "schema": "stegverse.usage.session.v1",
+        "session_id": "session-demo-001",
+        "source_class": "LIVE_USAGE_API",
+        "events": [
+          {
+            "measurement_id": "m-llm-003",
+            "session_id": "session-demo-001",
+            "transition_id": "transition-demo-003",
+            "origin_entry_point": "ecosystem_chat",
+            "entry_point": "llm_adapter",
+            "entry_point_role": "provider_gateway",
+            "interaction_type": "provider_request",
+            "metric_owner": "llm_adapter",
+            "measurement_source": "provider_receipt",
+            "metrics": {"provider_cache_hit": {"value": false, "unit": "boolean", "evidence_class": "UNAVAILABLE"}},
+            "timestamp": "2026-07-12T20:00:00Z",
+            "receipt_refs": ["provider-receipt-demo-003"]
+          }
+        ],
+        "retrieval_receipt": {
+          "receipt_id": "usage-retrieval-demo-006",
+          "session_id": "session-demo-001",
+          "retrieved_at": "2026-07-12T20:00:01Z",
+          "producer_identity": "StegVerse-org/LLM-adapter",
+          "policy_reference": "usage-retrieval-policy-v1",
+          "authority_granted": false,
+          "custody_recorded": false
+        }
+      }
+    }
+  ]
+}
