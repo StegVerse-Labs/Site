@@ -22,8 +22,14 @@ def main() -> int:
         fail("source repository drift")
     if packet.get("destination_repository") != "StegVerse-org/LLM-adapter":
         fail("destination repository drift")
-    if packet.get("state") != "AWAITING_DESTINATION_HANDOFF_AUTHORITY":
-        fail("handoff must remain blocked until destination authority exists")
+
+    state = packet.get("state")
+    allowed_states = {
+        "AWAITING_DESTINATION_HANDOFF_AUTHORITY",
+        "DESTINATION_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING",
+    }
+    if state not in allowed_states:
+        fail("unsupported handoff state")
 
     route = packet.get("route_contract", {})
     expected_route = {
@@ -86,10 +92,35 @@ def main() -> int:
         fail("handoff exceeded Site authority")
 
     blocker = packet.get("blocker", {})
-    if blocker.get("code") != "DESTINATION_HANDOFF_MISSING":
-        fail("destination handoff blocker missing")
-    if "*_MIRROR_HANDOFF.md" not in str(blocker.get("detail", "")):
-        fail("blocker detail does not identify required handoff")
+    if state == "AWAITING_DESTINATION_HANDOFF_AUTHORITY":
+        if blocker.get("code") != "DESTINATION_HANDOFF_MISSING":
+            fail("destination handoff blocker missing")
+        if "*_MIRROR_HANDOFF.md" not in str(blocker.get("detail", "")):
+            fail("blocker detail does not identify required handoff")
+    else:
+        destination = packet.get("destination_evidence", {})
+        expected_paths = {
+            "handoff_path": "LLM_ADAPTER_MIRROR_HANDOFF.md",
+            "implementation_path": "llm_adapter/usage_session_api.py",
+            "verifier_path": "scripts/verify_usage_session_api.py",
+            "test_path": "tests/test_usage_session_api.py",
+        }
+        for key, value in expected_paths.items():
+            if destination.get(key) != value:
+                fail(f"destination evidence path drift: {key}")
+        if destination.get("combined_gateway_route_mounted") is not True:
+            fail("destination route is not mounted")
+        if destination.get("workflow_registered") is not True:
+            fail("destination verification is not workflow registered")
+        for key in (
+            "current_main_green_observed",
+            "same_origin_deployment_observed",
+            "site_conformance_against_deployment_observed",
+        ):
+            if destination.get(key) is not False:
+                fail(f"unverified destination evidence may not be promoted: {key}")
+        if blocker.get("code") != "DESTINATION_VALIDATION_AND_DEPLOYMENT_EVIDENCE_PENDING":
+            fail("destination validation/deployment blocker missing")
 
     required_activation = {
         "current destination *_MIRROR_HANDOFF.md authorizes endpoint work",
@@ -103,7 +134,7 @@ def main() -> int:
     if set(packet.get("activation_evidence_required", [])) != required_activation:
         fail("activation evidence set drift")
 
-    print("LLM_ADAPTER_USAGE_HANDOFF_VALID")
+    print(f"LLM_ADAPTER_USAGE_HANDOFF_VALID: {state}")
     return 0
 
 
