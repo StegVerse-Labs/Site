@@ -25,7 +25,9 @@ jobs:
         run: python scripts/check_ecosystem_chat_application.py
       - name: Write bound current-main validation receipt
         run: python scripts/write_site_current_main_validation_receipt.py
-      - name: Upload application validation result and receipt
+      - name: Write validation artifact manifest
+        run: python scripts/write_site_validation_artifact_manifest.py
+      - name: Upload application validation result, receipt, and manifest
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -33,6 +35,7 @@ jobs:
           path: |
             site_application_validation.result.json
             site_current_main_validation.receipt.json
+            site_current_main_validation.manifest.json
           if-no-files-found: error
       - name: Record live mirror verification status
         id: live_verification
