@@ -24,18 +24,19 @@ REQUIRED_PAGE_MARKERS = [
     "public broad" + "cast",
 ]
 
-# Validate stable Site handoff obligations instead of one transient phase label.
+# Validate stable Site handoff obligations rather than one transient phase label.
 REQUIRED_HANDOFF_MARKERS = [
     "# Site Mirror Handoff",
     "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
     "Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path",
-    "Result: implementation installed; live validation pending",
+    "Result: Site preparation complete; live activation and external custody evidence pending",
     "Workflow target: exactly two operational workflows",
     ".github/workflows/validate.yml",
     ".github/workflows/site-task-runner.yml",
-    "Site does not execute or mutate repositories.",
-    "Provider output != authority.",
-    "RECORDED requires the authenticated custody service receipt.",
+    "Site does not execute or mutate external repositories.",
+    "Usage retrieval != authority.",
+    "Validation receipt != deployment evidence.",
+    "RECORDED requires authenticated custody evidence and reconstructability PASS.",
     "No release tag is authorized.",
 ]
 
