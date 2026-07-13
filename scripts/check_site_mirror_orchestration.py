@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DOC = ROOT / "docs" / "governance" / "site-mirror-orchestration.md"
 STATUS = ROOT / "static" / "status" / "site-mirror-orchestration.json"
-HANDOFF = ROOT / "SITE_MIRROR_HANDOFF.md"
+HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 PLAN = ROOT / "docs" / "governance" / "repo-standards-site-mirror-plan.md"
 
 
@@ -25,8 +25,10 @@ def main() -> int:
 
     if "SITE_MIRROR_ORCHESTRATION_PREPARED" not in doc:
         raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - doc status missing")
-    if "Goal 3" not in handoff:
-        raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - existing handoff not preserved")
+    if "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`." not in handoff:
+        raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - current handoff source marker missing")
+    if "Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path" not in handoff:
+        raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - current handoff goal missing")
     if "READY_FOR_ACTIVATION_AFTER_UPSTREAM_GATES" not in plan:
         raise SystemExit("SITE MIRROR ORCHESTRATION: FAIL - repo standards plan not ready")
     if data.get("status") != "SITE_MIRROR_ORCHESTRATION_PREPARED":
