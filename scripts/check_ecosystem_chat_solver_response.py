@@ -84,7 +84,7 @@ def main() -> int:
         "data.receipt_issued_by_site === false",
         "Fixture exceeded declared resource limits",
         "Fixture verification did not pass",
-        "independent engine",
+        "Independent engine",
         "live_solver_execution=false",
         "receipt=not-issued",
         "authority=none",
