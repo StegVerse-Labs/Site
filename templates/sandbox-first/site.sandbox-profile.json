@@ -1,0 +1,15 @@
+{
+  "schema_version":"1.0.0",
+  "record_type":"sandbox_validation_profile",
+  "profile_id":"site-application",
+  "repository":"StegVerse-Labs/Site",
+  "timeout_seconds":600,
+  "exclude":[".git","__pycache__",".pytest_cache","reports"],
+  "commands":[
+    {"id":"compile-python","argv":["python","-m","compileall","scripts"],"expected_exit":0},
+    {"id":"write-workflow-inventory","argv":["python","scripts/write_site_workflow_inventory.py"],"expected_exit":0},
+    {"id":"validate-workflow-inventory","argv":["python","scripts/check_site_workflow_inventory.py"],"expected_exit":0},
+    {"id":"validate-application","argv":["python","scripts/check_ecosystem_chat_application.py"],"expected_exit":0},
+    {"id":"validate-st017-adoption","argv":["python","scripts/check_st017_sandbox_adoption.py","--structural-only"],"expected_exit":0}
+  ]
+}

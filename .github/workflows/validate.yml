@@ -9,7 +9,28 @@ permissions:
   contents: read
 
 jobs:
+  st017-sandbox:
+    name: ST-017 isolated validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute Site sandbox
+        run: python scripts/run_sandbox_validation.py
+      - name: Upload Site sandbox report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-st017-sandbox-report
+          path: reports/sandbox-first-validation.report.json
+          if-no-files-found: error
+          retention-days: 30
+
   bootstrap-validate:
+    needs: st017-sandbox
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
