@@ -4,8 +4,8 @@
 
 ```text
 Goal: public compatibility testing, delegated review, publication candidacy, and separately authorized wiki mutation
-Phase: live-verification-receipt-and-staging-ci-integration-installed
-Result: implementation installed; deployed validation pending
+Phase: post-deployment-live-verification-boundary-installed
+Result: implementation installed; successor validation and deployed evidence pending
 ```
 
 ## Public paths
@@ -41,12 +41,61 @@ assets/external-chat-review.js
 assets/external-review.js
 scripts/check_external_chat_compatibility.py
 scripts/check_external_review_console.py
+scripts/check_external_chat_verification_phase.py
 scripts/check_external_chat_live_routes.py
 scripts/check_ecosystem_chat_application.py
+.github/workflows/site-task-runner.yml
 reports/external-chat-live-verification.json
 ```
 
-`scripts/check_external_chat_live_routes.py` verifies:
+## Validation phase separation
+
+External Chat local application checks run before Pages deployment:
+
+```text
+compatibility page and client contract
+reviewer console and client contract
+catalog and receipt contract
+review packet and authority boundaries
+verification-phase regression guard
+```
+
+The network-dependent live verifier is intentionally excluded from the pre-deployment `COMMANDS` aggregate. This prevents the deployment from being blocked because a newly added page is not yet present on the prior Pages revision.
+
+The existing Site Task Runner now performs this order on `main`:
+
+```text
+run local Site validation
+-> upload local diagnostic
+-> deploy Pages
+-> verify governed transition public surfaces
+-> verify External Chat public pages and gateway health with retries
+-> upload External Chat live-verification receipt even on failure
+```
+
+The regression guard requires:
+
+```text
+live route checker absent from pre-deployment COMMANDS
+site application result declares POST_DEPLOYMENT live verification
+External Chat verification follows Deploy Pages
+live receipt upload follows verification
+receipt upload uses if: always()
+```
+
+No workflow was added.
+
+## Live verification receipt
+
+`scripts/check_external_chat_live_routes.py` writes:
+
+```text
+reports/external-chat-live-verification.json
+```
+
+Each observation records the exact URL, timestamp, reachability, HTTP status, content type, bounded body preview or parsed JSON contract, failure class, required disabled-mutation posture, and non-authority boundary.
+
+It verifies:
 
 ```text
 External Chat page HTTP 200 and expected boundary markers
@@ -60,44 +109,33 @@ commit-time revalidation required
 publication transition is not mutation authority
 ```
 
-Every execution writes `reports/external-chat-live-verification.json` with the exact URLs, observation times, HTTP status, content type, bounded body preview or JSON contract, failure class, and authority boundary.
+Network or DNS resolution failure is recorded separately and is not converted into product failure, deployment success, or activation standing.
 
-Network or DNS resolution failure is recorded distinctly and is not converted into a product failure, deployment success, or activation claim.
+The Site Task Runner uploads this receipt as:
 
-The live-route verifier is registered in canonical Site application validation. No workflow was added.
+```text
+external-chat-live-verification-<run_id>-<run_attempt>
+```
+
+with 30-day retention.
 
 ## Gateway validation integration
 
 Repository: `StegVerse-org/LLM-adapter`
 
-The existing `.github/workflows/validate.yml` now:
+The existing `.github/workflows/validate.yml` installs the package with development/service dependencies and runs:
 
 ```text
-installs the package with [dev] service/test dependencies
-runs the staging verifier in non-mutating mode
-executes compatibility and authenticated-review tests
-executes publication-transition and mutation-adapter tests
-preserves recursive comparison and provider-usage validation
+non-mutating staging verification
+compatibility evaluator and API tests
+authenticated review tests
+publication-transition tests
+repository-mutation tests
+recursive comparison and provider-usage checks
+existing authority, receipt, recovery, transition, and Goal 4 checks
 ```
 
 No additional workflow was created.
-
-## Gateway mutation surfaces
-
-```text
-llm_adapter/external_publication_mutation.py
-scripts/verify_external_publication_staging.py
-tests/test_external_publication_mutation.py
-llm_adapter/combined_gateway.py
-render-production.yaml
-```
-
-Endpoints:
-
-```text
-GET  /api/external-review/repository-mutation/health
-POST /api/external-review/repository-mutations
-```
 
 ## Mutation activation boundary
 
@@ -107,11 +145,9 @@ The mutation adapter remains disabled by default:
 STEGVERSE_EXTERNAL_MUTATION_ENABLED=false
 ```
 
-Activation requires externally configured mutator registry, GitHub credential, mutation receipt key, and required policy reference. No credential is stored in Site, packets, publication transitions, or receipts.
+Activation requires externally configured mutator registry, GitHub credential, mutation receipt key, and required policy reference. No credential is stored in Site, review packets, publication transitions, live receipts, or mutation receipts.
 
-## Commit-time predicates
-
-The adapter consumes only a stored `ALLOW_PUBLICATION_CANDIDATE` and revalidates:
+The adapter consumes only a stored `ALLOW_PUBLICATION_CANDIDATE` and revalidates immediately before a write:
 
 ```text
 mutator identity and token hash
@@ -126,29 +162,29 @@ expected repository head SHA
 expected target blob SHA
 ```
 
-Any mismatch fails closed before a write.
+Any mismatch fails closed before mutation.
 
-## Disposable-path staging verifier
+## Disposable staging verifier
 
 ```text
 python scripts/verify_external_publication_staging.py
 ```
 
-Default behavior is non-mutating and requires the public mutation health route to report `mutation_enabled = false`.
+Default mode is non-mutating and requires the public mutation-health route to report `mutation_enabled = false`.
 
-A real staging mutation requires explicit:
+A real staging write requires explicit:
 
 ```text
 STEGVERSE_STAGING_MUTATION_EXECUTE=true
 ```
 
-and all required identity, delegation, authority, policy, expected-head, target-path, content, and mutator-token environment values. The target must remain under:
+and all identity, delegation, authority, policy, expected-head, target-path, content, and mutator-token values. The target must remain under:
 
 ```text
 docs/external-frameworks/staging/
 ```
 
-The verifier accepts success only when the service returns a mutation receipt, commit SHA, new blob SHA, and content SHA-256 while preserving `certification_created = false` and `standing_created = false`.
+Success requires a mutation receipt, commit SHA, new blob SHA, and content SHA-256 while preserving `certification_created = false` and `standing_created = false`.
 
 ## Authority boundary
 
@@ -165,43 +201,44 @@ mutation receipt != standing
 published finding != general compatibility proof
 live verification receipt != deployment authority
 network resolution failure != product failure
+pre-deployment validation != deployed-route verification
 ```
 
-## Latest Site validation failure and bounded repair
+## Latest validation sequence
+
+The earlier Site Bootstrap run failed because the live verifier was executed before the new Pages content could be deployed and because marker validation initially used a bounded preview. Marker validation was corrected to inspect the complete transient response while retaining only bounded receipt content.
+
+The successor architectural repair is now installed:
 
 ```text
-Workflow: Site Bootstrap Validate
-Run: 29209702373
-Commit: e86775b00c7fd57d33e4be959af558f68c1c3eae
-Job: bootstrap-validate
-First failing command: python scripts/check_external_chat_live_routes.py
-Failure: external-review.html missing marker: delegated reviewer
-Artifact: site-application-validation-result
-Artifact ID: 8264785721
-Artifact SHA-256: 20bc478640e0188339fd6150e2bdb661493d1fdac4a234ec52aefeb6db2fda11
-Repair commit: b7050a0ef9c7b9792642b7fbbeafccd24c02e127
-Verification: pending on repair commit or successor
+21c82e834dc23facda43bdc59e1b7ea22e487900
+  remove live network check from pre-deployment application aggregate
+
+e88126a29afde6bfa74afafc4005e97be71dc387
+  run External Chat verification after Pages deployment and upload receipt
+
+a895ddb5b75396ea3a12f148c914e79624c8d0ef
+  add verification-phase regression guard
+
+0c726313017cb97c168788c679023e4f8dcf76b8
+  register regression guard in canonical Site application validation
 ```
 
-The page already contained the required delegated-review marker. The checker validated markers against the 500-character receipt preview rather than the complete HTTP response body. The repair now validates against the transient complete body while retaining only the bounded preview and parsed contract in the receipt. No deployment, route, mutation, credential, publication, or authority state changed.
-
-## Validation status
-
-Repository implementation, test registration, staging posture validation, and evidence-producing live checks are installed. The latest bounded marker-validation repair is installed. Current-main green CI, successful gateway health evidence, and one separately authorized disposable-path staging mutation remain unobserved.
+No deployment, mutation, credential, publication, certification, or standing authority changed through these repairs.
 
 ## Next tasks
 
 ```text
-1. Confirm Site Bootstrap Validate passes on b7050a0ef9c7b9792642b7fbbeafccd24c02e127 or a successor.
-2. Preserve the passing Site application validation receipt.
-3. Confirm the current-main LLM-adapter validation run includes and passes External Chat review, publication, mutation, and staging checks.
-4. Confirm the Admissibility Wiki Goal 5 aggregate validates the mutation-receipt contract.
-5. Deploy the gateway with mutation disabled and run the live verifier from an environment with public DNS/network access.
-6. Retain the generated live-verification receipt as deployment evidence.
-7. Conduct one separately authorized mutation under docs/external-frameworks/staging/.
-8. Inspect commit/blob identities and mutation receipt before any production publication enablement.
+1. Confirm Site Bootstrap Validate passes on 0c726313017cb97c168788c679023e4f8dcf76b8 or a successor.
+2. Confirm Site Task Runner reaches Pages deployment and executes External Chat verification afterward.
+3. Preserve the local diagnostic and external-chat-live-verification artifacts with run and commit identity.
+4. Confirm current-main LLM-adapter validation passes External Chat review, publication, mutation, staging, comparison, and usage checks.
+5. Confirm the Admissibility Wiki Goal 5 aggregate validates the mutation-receipt contract and current Pages build repair.
+6. Deploy the gateway with mutation disabled before accepting any public review submissions.
+7. Conduct one separately authorized mutation under docs/external-frameworks/staging/ only after non-mutating health evidence passes.
+8. Inspect commit/blob identities and the mutation receipt before any production publication enablement.
 ```
 
 ## Sharing posture
 
-External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Public verification is evidence-producing and now validates page markers against complete responses while retaining bounded receipts. Production mutation remains disabled and unverified.
+External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Local validation no longer depends on an undeployed page; live checks now occur after Pages deployment and always produce an artifact. Production mutation remains disabled and unverified.
