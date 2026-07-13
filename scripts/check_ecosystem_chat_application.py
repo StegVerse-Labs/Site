@@ -34,6 +34,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_external_review_console.py"),
     (sys.executable, "scripts/check_external_chat_verification_phase.py"),
     (sys.executable, "scripts/check_external_chat_activation_evidence.py"),
+    (sys.executable, "scripts/check_external_chat_activation_request.py"),
     (sys.executable, "scripts/check_ecosystem_chat_ai_entry_full.py"),
     (sys.executable, "scripts/check_ai_entry_ui_activation_status.py"),
     (sys.executable, "scripts/check_ai_entry_application_page.py"),
