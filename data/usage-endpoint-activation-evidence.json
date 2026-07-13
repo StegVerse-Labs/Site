@@ -1,0 +1,71 @@
+{
+  "schema": "stegverse.site.usage_endpoint_activation_evidence.v1",
+  "state": "BLOCKED",
+  "target": {
+    "destination_repository": "StegVerse-org/LLM-adapter",
+    "route": "/api/usage/sessions/{session_id}",
+    "site_configuration": "data/ecosystem-usage-config.json"
+  },
+  "requirements": {
+    "destination_handoff_authority": {
+      "status": "MISSING",
+      "evidence_ref": null
+    },
+    "destination_endpoint_tests": {
+      "status": "UNOBSERVED",
+      "evidence_ref": null
+    },
+    "same_origin_authenticated_deployment": {
+      "status": "UNOBSERVED",
+      "evidence_ref": null
+    },
+    "sample_response_conformance": {
+      "status": "PREPARED_NOT_OBSERVED",
+      "evidence_ref": "data/llm-adapter-usage-endpoint-conformance.json"
+    },
+    "retrieval_receipt_validation": {
+      "status": "PREPARED_NOT_OBSERVED",
+      "evidence_ref": "data/llm-adapter-usage-endpoint-conformance.json"
+    },
+    "no_browser_secret_surface": {
+      "status": "PREPARED_NOT_OBSERVED",
+      "evidence_ref": "data/ecosystem-usage-live-contract.json"
+    },
+    "site_current_main_validation": {
+      "status": "UNOBSERVED",
+      "evidence_ref": null
+    },
+    "master_records_custody": {
+      "status": "UNOBSERVED",
+      "evidence_ref": null
+    },
+    "reconstructability": {
+      "status": "UNOBSERVED",
+      "evidence_ref": null
+    }
+  },
+  "activation_rule": {
+    "ready_state": "READY_TO_ENABLE",
+    "all_requirements_must_equal": "VERIFIED",
+    "site_may_set_usage_api_base_before_ready": false,
+    "site_may_enable_live_transport_before_ready": false,
+    "site_may_claim_live_before_ready": false,
+    "site_may_claim_recorded_before_custody_and_reconstructability": false
+  },
+  "current_blockers": [
+    "DESTINATION_HANDOFF_MISSING",
+    "DESTINATION_TESTS_UNOBSERVED",
+    "DEPLOYMENT_UNOBSERVED",
+    "SITE_CURRENT_MAIN_VALIDATION_UNOBSERVED",
+    "MASTER_RECORDS_CUSTODY_UNOBSERVED",
+    "RECONSTRUCTABILITY_UNOBSERVED"
+  ],
+  "authority_boundaries": {
+    "evidence_ledger_is_authority": false,
+    "prepared_fixture_is_live_evidence": false,
+    "endpoint_response_is_custody": false,
+    "site_may_modify_destination": false,
+    "site_may_deploy": false,
+    "site_may_release": false
+  }
+}
