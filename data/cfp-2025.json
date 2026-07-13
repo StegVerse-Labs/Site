@@ -141,8 +141,6 @@
         }
       ]
     },
-
-    // Seeds 5–12 are placeholders; replace with real teams when ready.
     {
       "seed": 5,
       "slug": "team5",
