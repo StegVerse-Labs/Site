@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "external_chat_activation_request",
+  "requested_at": "2026-07-13T00:00:00Z",
+  "requested_by": "repository_owner_operator",
+  "request_basis": "Explicit operator instruction: Make it happen",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "requested_transition": "run_existing_validation_deployment_and_post_deployment_external_chat_observation_chain",
+  "required_workflow_sequence": [
+    "Site Bootstrap Validate",
+    "Site Task Runner"
+  ],
+  "required_observations": [
+    "external_chat_page_http_200",
+    "external_review_page_http_200",
+    "review_health_package_only_storage_true",
+    "review_health_raw_artifact_storage_allowed_false",
+    "review_health_publication_authority_false",
+    "mutation_health_commit_time_revalidation_required_true",
+    "mutation_health_publication_transition_is_mutation_authority_false",
+    "mutation_health_mutation_enabled_false"
+  ],
+  "required_artifacts": [
+    "site-task-diagnostic-<run_id>-<run_attempt>",
+    "external-chat-live-verification-<run_id>-<run_attempt>",
+    "external-chat-activation-evidence-<run_id>-<run_attempt>"
+  ],
+  "success_result": "OBSERVED_NON_MUTATING_PUBLIC_PATHS",
+  "authority_boundary": {
+    "request_authorizes_existing_validation_and_deployment_sequence": true,
+    "request_authorizes_repository_mutation": false,
+    "request_authorizes_external_framework_publication": false,
+    "request_authorizes_certification": false,
+    "request_creates_standing": false,
+    "production_mutation_must_remain_disabled": true,
+    "canonical_status_promotion_remains_separately_governed": true
+  },
+  "failure_posture": "fail_closed_and_preserve_machine_readable_evidence",
+  "required_next_transition_after_success": "admissibility_wiki_exact_artifact_sync_and_separately_authorized_observation_status_promotion"
+}
