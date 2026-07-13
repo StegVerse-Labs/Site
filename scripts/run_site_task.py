@@ -196,6 +196,7 @@ def public_guard() -> None:
 
 def live_url() -> None:
     run_if_present("scripts/check_site_governed_ecosystem_live_url.py")
+    run_if_present("scripts/check_governed_transition_live_urls.py")
 
 
 def tt_status() -> None:
