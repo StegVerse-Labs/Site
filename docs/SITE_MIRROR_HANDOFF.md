@@ -122,6 +122,36 @@ File: scripts/check_site_mirror_handoff_final_pending.py
 
 The checker now validates the current two-workflow inventory, `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED`, `PREPARED_NOT_DEPLOYED`, destination current-main tests, Master-Records custody, reconstructability PASS, and the no-release-tag boundary. Forbidden activated, deployed, proof-authority, and live-transport assertions remain fail-closed. No workflow, deployment, release, custody, credential, transport, or external-repository state changed.
 
+### Run 29281814383
+
+```text
+Commit: f465efe23b59cc7c1217f5a5f52b70731f585201
+Branch: main
+Workflow: Site Task Runner
+Job: run-site-task
+Result: FAILED after scripts/check_site_manual_task_elimination.py passed
+Passing boundary: scripts/check_site_manual_task_elimination.py
+Failed command: scripts/check_site_ecosystem_management_handoff.py
+Validator index: 52
+Completed validators: 51
+Failure class: VALIDATION_FAILURE
+Diagnostic artifact: site-task-diagnostic-29281814383-1
+Authority effect: NONE
+Site mode: PREVIEW_ONLY
+state_change_authorized: false
+```
+
+The retained diagnostic showed that the ecosystem-management checker failed on a lowercase readiness phrase while the canonical handoff used sentence case, and treated explicit non-claims (`Site is not the TT or Governance Observatory source of truth`) as forbidden positive claims.
+
+Bounded repair:
+
+```text
+Commit: 0c076216f980f6b3c91677571d0692153d7ce94f
+File: scripts/check_site_ecosystem_management_handoff.py
+```
+
+Required handoff terms now use Unicode case-normalized comparison. Raw source-of-truth substrings were removed from the global forbidden list because the canonical handoff intentionally contains them inside an explicit non-claims section; concrete positive activation, deployment, ready-completion, and live-transport declarations remain fail-closed. The mirror assertions now bind the active two-workflow, prepared-not-deployed handoff rather than deleted autonomous workflows. No workflow, deployment, release, custody, credential, transport, or external-repository state changed.
+
 Successor current-main verification is pending.
 
 ## Activation evidence and checkpoint
@@ -181,8 +211,8 @@ No release tag is authorized.
 
 ```text
 StegVerse-Labs/Site
-  -> observe successor current-main validation after commit 3c701c2acd146eb6bc1716e6c87308c61004b9e0
-  -> confirm scripts/check_site_mirror_handoff_final_pending.py passes
+  -> observe successor current-main validation after commit 0c076216f980f6b3c91677571d0692153d7ce94f
+  -> confirm scripts/check_site_ecosystem_management_handoff.py passes
   -> repair only the next exact failing command without removing checks
   -> verify one successful result, receipt, and manifest artifact set
   -> bind verified Site evidence into the activation ledger
@@ -209,8 +239,8 @@ StegVerse-org/core-node-runtime-demo
 ## Next task
 
 ```text
-1. Observe the successor Site Task Runner/current-main validation after commit 3c701c2acd146eb6bc1716e6c87308c61004b9e0.
-2. Confirm scripts/check_site_mirror_handoff_final_pending.py passes.
+1. Observe the successor Site Task Runner/current-main validation after commit 0c076216f980f6b3c91677571d0692153d7ce94f.
+2. Confirm scripts/check_site_ecosystem_management_handoff.py passes.
 3. Repair only the next exact failing command without removing existing checks.
 4. Verify the first successful current-main result, receipt, and manifest artifact set.
 5. Observe StegVerse-org/LLM-adapter current-main validation containing usage-session verification.
