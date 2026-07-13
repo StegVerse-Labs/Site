@@ -4,7 +4,7 @@
 
 ```text
 Goal: public compatibility testing, delegated review, publication candidacy, and separately authorized wiki mutation
-Phase: post-deployment-live-verification-boundary-installed
+Phase: deployment-correlated-activation-evidence-installed
 Result: implementation installed; successor validation and deployed evidence pending
 ```
 
@@ -31,7 +31,7 @@ framework submission
 -> repository mutation receipt
 ```
 
-## Site verification surfaces
+## Site surfaces
 
 ```text
 external-chat.html
@@ -43,44 +43,29 @@ scripts/check_external_chat_compatibility.py
 scripts/check_external_review_console.py
 scripts/check_external_chat_verification_phase.py
 scripts/check_external_chat_live_routes.py
+scripts/build_external_chat_activation_evidence.py
+scripts/check_external_chat_activation_evidence.py
 scripts/check_ecosystem_chat_application.py
 .github/workflows/site-task-runner.yml
 reports/external-chat-live-verification.json
+reports/external-chat-activation-evidence.json
 ```
 
 ## Validation phase separation
 
-External Chat local application checks run before Pages deployment:
+Repository-local validation runs before deployment and includes compatibility, catalog, reviewer-console, packet, authority, verification-phase, and activation-evidence contract checks.
+
+Network-dependent verification runs only after Pages deployment. The existing Site Task Runner performs:
 
 ```text
-compatibility page and client contract
-reviewer console and client contract
-catalog and receipt contract
-review packet and authority boundaries
-verification-phase regression guard
-```
-
-The network-dependent live verifier is intentionally excluded from the pre-deployment `COMMANDS` aggregate. This prevents the deployment from being blocked because a newly added page is not yet present on the prior Pages revision.
-
-The existing Site Task Runner now performs this order on `main`:
-
-```text
-run local Site validation
--> upload local diagnostic
--> deploy Pages
--> verify governed transition public surfaces
--> verify External Chat public pages and gateway health with retries
--> upload External Chat live-verification receipt even on failure
-```
-
-The regression guard requires:
-
-```text
-live route checker absent from pre-deployment COMMANDS
-site application result declares POST_DEPLOYMENT live verification
-External Chat verification follows Deploy Pages
-live receipt upload follows verification
-receipt upload uses if: always()
+local Site validation
+-> local diagnostic artifact
+-> Pages deployment
+-> governed transition live verification
+-> External Chat page and gateway-health verification with retries
+-> live-verification receipt
+-> deployment-correlated activation evidence
+-> evidence artifact upload
 ```
 
 No workflow was added.
@@ -93,51 +78,90 @@ No workflow was added.
 reports/external-chat-live-verification.json
 ```
 
-Each observation records the exact URL, timestamp, reachability, HTTP status, content type, bounded body preview or parsed JSON contract, failure class, required disabled-mutation posture, and non-authority boundary.
+It records exact URLs, timestamps, reachability, HTTP status, content type, bounded response evidence, parsed health contracts, failure class, and required disabled-mutation posture.
 
 It verifies:
 
 ```text
-External Chat page HTTP 200 and expected boundary markers
-reviewer console HTTP 200 and expected delegated-review markers
-GET /api/external-review/health contract
-GET /api/external-review/repository-mutation/health contract
-public mutation_enabled = false
-allowed repository = StegVerse-Labs/admissibility-wiki
-allowed path prefix = docs/external-frameworks/
+External Chat page and boundary markers
+reviewer console and delegated-review markers
+package-only review health contract
+raw artifact storage prohibited
+publication authority false
+mutation service repository/path allowlist
 commit-time revalidation required
 publication transition is not mutation authority
+mutation_enabled = false
 ```
 
-Network or DNS resolution failure is recorded separately and is not converted into product failure, deployment success, or activation standing.
+Network or DNS failure is recorded distinctly and is not converted into product failure, deployed success, activation standing, or authority.
 
-The Site Task Runner uploads this receipt as:
+## Deployment-correlated activation evidence
+
+`scripts/build_external_chat_activation_evidence.py` writes:
 
 ```text
-external-chat-live-verification-<run_id>-<run_attempt>
+reports/external-chat-activation-evidence.json
+```
+
+The activation evidence binds:
+
+```text
+repository and exact commit SHA
+GitHub ref and event
+workflow, run ID, run attempt, and job
+Pages deployment URL
+gateway base URL
+local Site diagnostic status and SHA-256
+post-deployment live receipt status and SHA-256
+mutation-disabled observation
+observation count
+evidence SHA-256
+```
+
+Result classes:
+
+```text
+OBSERVED_NON_MUTATING_PUBLIC_PATHS
+LOCAL_VALIDATION_NOT_CONFIRMED
+LIVE_EVIDENCE_NOT_AVAILABLE
+LIVE_EVIDENCE_NOT_CONFIRMED
+```
+
+`OBSERVED_NON_MUTATING_PUBLIC_PATHS` requires all three:
+
+```text
+local diagnostic status = PASSED
+live verification result = PASS
+mutation_required_disabled = true
+```
+
+The workflow builds this record with `if: always()` after External Chat live verification and uploads it as:
+
+```text
+external-chat-activation-evidence-<run_id>-<run_attempt>
 ```
 
 with 30-day retention.
 
-## Gateway validation integration
+## Activation evidence authority boundary
+
+```text
+activation evidence != deployment authority
+activation evidence != repository mutation authority
+activation evidence != publication authority
+activation evidence != certification
+activation evidence != standing
+mutation remains separately authorized
+```
+
+The evidence record describes what a specific workflow run observed. It does not authorize deployment, publication, mutation, certification, compatibility standing, or external consequence.
+
+## Gateway and mutation boundary
 
 Repository: `StegVerse-org/LLM-adapter`
 
-The existing `.github/workflows/validate.yml` installs the package with development/service dependencies and runs:
-
-```text
-non-mutating staging verification
-compatibility evaluator and API tests
-authenticated review tests
-publication-transition tests
-repository-mutation tests
-recursive comparison and provider-usage checks
-existing authority, receipt, recovery, transition, and Goal 4 checks
-```
-
-No additional workflow was created.
-
-## Mutation activation boundary
+The gateway implements compatibility intake, authenticated package-only review, delegated correction, publication candidacy, and the separately authorized mutation adapter.
 
 The mutation adapter remains disabled by default:
 
@@ -145,9 +169,7 @@ The mutation adapter remains disabled by default:
 STEGVERSE_EXTERNAL_MUTATION_ENABLED=false
 ```
 
-Activation requires externally configured mutator registry, GitHub credential, mutation receipt key, and required policy reference. No credential is stored in Site, review packets, publication transitions, live receipts, or mutation receipts.
-
-The adapter consumes only a stored `ALLOW_PUBLICATION_CANDIDATE` and revalidates immediately before a write:
+It consumes only a stored `ALLOW_PUBLICATION_CANDIDATE` and revalidates immediately before a write:
 
 ```text
 mutator identity and token hash
@@ -162,7 +184,15 @@ expected repository head SHA
 expected target blob SHA
 ```
 
-Any mismatch fails closed before mutation.
+Allowed destination:
+
+```text
+repository: StegVerse-Labs/admissibility-wiki
+branch: main
+path prefix: docs/external-frameworks/
+```
+
+Any mismatch fails closed before mutation. A receipt is issued only after GitHub returns both commit and blob identities.
 
 ## Disposable staging verifier
 
@@ -170,23 +200,21 @@ Any mismatch fails closed before mutation.
 python scripts/verify_external_publication_staging.py
 ```
 
-Default mode is non-mutating and requires the public mutation-health route to report `mutation_enabled = false`.
-
-A real staging write requires explicit:
+Default mode is non-mutating and requires mutation health to report disabled. A real staging write additionally requires:
 
 ```text
 STEGVERSE_STAGING_MUTATION_EXECUTE=true
 ```
 
-and all identity, delegation, authority, policy, expected-head, target-path, content, and mutator-token values. The target must remain under:
+and a target under:
 
 ```text
 docs/external-frameworks/staging/
 ```
 
-Success requires a mutation receipt, commit SHA, new blob SHA, and content SHA-256 while preserving `certification_created = false` and `standing_created = false`.
+Success requires mutation receipt, commit SHA, new blob SHA, content SHA-256, `certification_created = false`, and `standing_created = false`.
 
-## Authority boundary
+## Boundary summary
 
 ```text
 compatibility evidence != certification
@@ -199,46 +227,43 @@ mutation request != successful mutation
 GitHub commit confirmation != certification
 mutation receipt != standing
 published finding != general compatibility proof
-live verification receipt != deployment authority
-network resolution failure != product failure
 pre-deployment validation != deployed-route verification
+live verification receipt != deployment authority
+activation evidence != authority
 ```
 
-## Latest validation sequence
-
-The earlier Site Bootstrap run failed because the live verifier was executed before the new Pages content could be deployed and because marker validation initially used a bounded preview. Marker validation was corrected to inspect the complete transient response while retaining only bounded receipt content.
-
-The successor architectural repair is now installed:
+## Latest build commits
 
 ```text
-21c82e834dc23facda43bdc59e1b7ea22e487900
-  remove live network check from pre-deployment application aggregate
+c2e14cd5897557c0a93325b0e477554e4c022909
+  add activation evidence builder
 
-e88126a29afde6bfa74afafc4005e97be71dc387
-  run External Chat verification after Pages deployment and upload receipt
+1e67ca11846ab8b2cc42fb9c0ae92d48faf69b5e
+  add activation evidence contract validator
 
-a895ddb5b75396ea3a12f148c914e79624c8d0ef
-  add verification-phase regression guard
+a9eae7cf1c32d96686381826fbd964638933c0c5
+  register validator in canonical Site application checks
 
-0c726313017cb97c168788c679023e4f8dcf76b8
-  register regression guard in canonical Site application validation
+de65366abc0a6f0b05863a7fce64356205ffe7d8
+  bind workflow, deployment URL, live receipt, local diagnostic, and commit/run identity
 ```
 
-No deployment, mutation, credential, publication, certification, or standing authority changed through these repairs.
+No deployment, mutation, credential, publication, certification, or standing authority changed through these repository-local additions.
 
 ## Next tasks
 
 ```text
-1. Confirm Site Bootstrap Validate passes on 0c726313017cb97c168788c679023e4f8dcf76b8 or a successor.
-2. Confirm Site Task Runner reaches Pages deployment and executes External Chat verification afterward.
-3. Preserve the local diagnostic and external-chat-live-verification artifacts with run and commit identity.
-4. Confirm current-main LLM-adapter validation passes External Chat review, publication, mutation, staging, comparison, and usage checks.
-5. Confirm the Admissibility Wiki Goal 5 aggregate validates the mutation-receipt contract and current Pages build repair.
-6. Deploy the gateway with mutation disabled before accepting any public review submissions.
-7. Conduct one separately authorized mutation under docs/external-frameworks/staging/ only after non-mutating health evidence passes.
-8. Inspect commit/blob identities and the mutation receipt before any production publication enablement.
+1. Confirm Site Bootstrap Validate passes on this handoff commit or a successor.
+2. Confirm Site Task Runner reaches Pages deployment and post-deployment External Chat verification.
+3. Preserve site-task-diagnostic, external-chat-live-verification, and external-chat-activation-evidence artifacts together.
+4. Verify activation evidence binds the exact deployed commit and reports mutation disabled.
+5. Confirm current-main LLM-adapter validation passes review, publication, mutation, staging, comparison, and usage checks.
+6. Confirm Admissibility Wiki Goal 5 validates mutation-receipt contracts and current Pages repair.
+7. Deploy the gateway with mutation disabled before accepting public review submissions.
+8. Conduct one separately authorized disposable staging mutation only after non-mutating public evidence passes.
+9. Inspect commit/blob identities and mutation receipt before any production publication enablement.
 ```
 
 ## Sharing posture
 
-External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and a separately authorized commit-time-revalidated mutation adapter. Local validation no longer depends on an undeployed page; live checks now occur after Pages deployment and always produce an artifact. Production mutation remains disabled and unverified.
+External Chat implements the governed path from compatibility intake through delegated review, publication candidacy, and separately authorized commit-time-revalidated mutation. The Site now produces a single content-bound activation-evidence record correlating local validation, deployment identity, live route observations, and mutation-disabled posture. Production mutation remains disabled and unverified.
