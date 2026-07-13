@@ -186,6 +186,29 @@ jobs:
           echo "Governed transition public surfaces did not verify after deployment retries."
           exit 1
 
+      - name: Verify External Chat public surfaces
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        working-directory: site
+        run: |
+          for attempt in $(seq 1 12); do
+            if python scripts/check_external_chat_live_routes.py; then
+              exit 0
+            fi
+            echo "External Chat verification attempt ${attempt}/12 did not pass; waiting for Pages or gateway propagation."
+            sleep 10
+          done
+          echo "External Chat public surfaces did not verify after deployment retries."
+          exit 1
+
+      - name: Upload External Chat live verification receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-chat-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: site/reports/external-chat-live-verification.json
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: Write summary
         if: always()
         working-directory: site
@@ -224,6 +247,16 @@ jobs:
           print(f"Failed validator: {receipt.get('failed_validator') or 'none'}")
           print(f"Exit code: {receipt['exit_code']}")
           print(f"Authority effect: {receipt['authority_effect']}")
+          PY
+          fi
+          if [ -f reports/external-chat-live-verification.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('reports/external-chat-live-verification.json').read_text())
+          print(f"External Chat live verification: {receipt.get('result')}")
+          print(f"External Chat failure class: {receipt.get('failure_class') or 'none'}")
+          print(f"Mutation required disabled: {receipt.get('mutation_required_disabled')}")
           PY
           fi
           echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on main." >> "$GITHUB_STEP_SUMMARY"
