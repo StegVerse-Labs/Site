@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Run the canonical Site application validation checks."""
+"""Run the canonical Site application validation checks.
+
+Live public-route checks are intentionally excluded from this pre-deployment
+aggregate. They run after Pages deployment in the existing Site Task Runner,
+where the deployment can be observed without creating a circular dependency.
+"""
 from __future__ import annotations
 
 import json
@@ -20,7 +25,6 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_governed_transition_observatory.py"),
     (sys.executable, "scripts/check_external_chat_compatibility.py"),
     (sys.executable, "scripts/check_external_review_console.py"),
-    (sys.executable, "scripts/check_external_chat_live_routes.py"),
     (sys.executable, "scripts/check_ecosystem_chat_ai_entry_full.py"),
     (sys.executable, "scripts/check_ai_entry_ui_activation_status.py"),
     (sys.executable, "scripts/check_ai_entry_application_page.py"),
@@ -82,14 +86,14 @@ def main() -> int:
         label = " ".join(command)
         completed = execute(command)
         if completed.returncode != 0:
-            payload = {"schema_version": "1.0.0", "status_type": "site_application_validation_result", "passed": False, "failed_command": label, "returncode": completed.returncode, "output": completed.stdout.rstrip(), "passed_commands": passed}
+            payload = {"schema_version": "1.0.0", "status_type": "site_application_validation_result", "passed": False, "failed_command": label, "returncode": completed.returncode, "output": completed.stdout.rstrip(), "passed_commands": passed, "live_route_verification_phase": "POST_DEPLOYMENT"}
             write_result(payload)
             print(f"SITE_APPLICATION_CHECK_FAIL: {label}")
             print(completed.stdout.rstrip())
             return completed.returncode
         passed.append(label)
         print(f"SITE_APPLICATION_CHECK_PASS: {label}")
-    write_result({"schema_version": "1.0.0", "status_type": "site_application_validation_result", "passed": True, "failed_command": None, "returncode": 0, "output": "ECOSYSTEM_CHAT_APPLICATION_PASS", "passed_commands": passed})
+    write_result({"schema_version": "1.0.0", "status_type": "site_application_validation_result", "passed": True, "failed_command": None, "returncode": 0, "output": "ECOSYSTEM_CHAT_APPLICATION_PASS", "passed_commands": passed, "live_route_verification_phase": "POST_DEPLOYMENT"})
     print("ECOSYSTEM_CHAT_APPLICATION_PASS")
     return 0
 
