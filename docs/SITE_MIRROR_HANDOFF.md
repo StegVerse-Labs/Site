@@ -153,6 +153,34 @@ This handoff now preserves the exact required compatibility marker without chang
 
 No validator was weakened. No deployment, credential configuration, live transport activation, release, merge, tag, custody admission, or authority expansion occurred.
 
+### Run 29249185595
+
+```text
+Commit: de68f9c99d4e58f081732dbd9dfadced606891a5
+Result: FAILED after all prior readiness repairs passed
+Passing boundaries:
+- site mirror orchestration
+- navigation discovery
+- mirror release readiness
+- consolidated workflow validation
+- mirror readiness
+Failed command: scripts/check_site_mirror_task_completion.py
+Failure: task-completion checker and status still referenced removed .github/workflows/site-mirror-readiness.yml
+```
+
+Bounded repair:
+
+```text
+Commits:
+- b7c7523d4e6d48480cc3766a78012be3f0c35473
+- ce611a66d6da46d11253a1d1d89fa8303728c3e4
+Files:
+- scripts/check_site_mirror_task_completion.py
+- static/status/site-mirror-task-completion-status.json
+```
+
+The checker and status now bind validation to `.github/workflows/site-task-runner.yml`, task `mirror-readiness`, `scripts/run_site_task.py`, and `scripts/check_site_mirror_full_readiness.py`. The exactly-two-workflow architecture remains unchanged. Successor current-main verification is pending.
+
 ## Activation evidence and checkpoint
 
 ```text
@@ -232,7 +260,7 @@ No release tag is authorized.
 
 ```text
 StegVerse-Labs/Site
-  -> observe the successor current-main validation after this handoff compatibility repair
+  -> observe the successor current-main validation after commit ce611a66d6da46d11253a1d1d89fa8303728c3e4
   -> repair only the next exact failing command without removing checks
   -> verify one successful result, receipt, and manifest artifact set
   -> bind verified Site evidence into the activation ledger
@@ -259,8 +287,8 @@ StegVerse-org/core-node-runtime-demo
 ## Next task
 
 ```text
-1. Observe the successor Site Bootstrap Validate run.
-2. Confirm scripts/check_site_media_pipeline_mirror.py passes.
+1. Observe the successor Site Task Runner/current-main validation after commit ce611a66d6da46d11253a1d1d89fa8303728c3e4.
+2. Confirm scripts/check_site_mirror_task_completion.py passes.
 3. Repair only the next failing command without removing existing checks.
 4. Verify the first successful current-main result, receipt, and manifest artifact set.
 5. Observe StegVerse-org/LLM-adapter current-main validation containing usage-session verification.
