@@ -6,8 +6,8 @@ STATE = ROOT / "docs" / "SITE_GOVERNED_ECOSYSTEM_PUBLIC_VERIFICATION.json"
 PAGE = ROOT / "governed-ecosystem.html"
 LOCAL_CHECKER = ROOT / "scripts" / "check_site_governed_ecosystem_mirror.py"
 LIVE_URL_CHECKER = ROOT / "scripts" / "check_site_governed_ecosystem_live_url.py"
-GUARD = ROOT / ".github" / "workflows" / "site-public-mirror-status-guard.yml"
-LIVE_URL_WORKFLOW = ROOT / ".github" / "workflows" / "site-governed-ecosystem-live-url.yml"
+TASK_RUNNER = ROOT / "scripts" / "run_site_task.py"
+CONSOLIDATED_WORKFLOW = ROOT / ".github" / "workflows" / "site-task-runner.yml"
 
 
 def main():
@@ -17,15 +17,38 @@ def main():
         data = {}
     else:
         data = json.loads(STATE.read_text(encoding="utf-8"))
+
     for path, label in [
         (PAGE, "missing_page"),
         (LOCAL_CHECKER, "missing_local_checker"),
         (LIVE_URL_CHECKER, "missing_live_url_checker"),
-        (GUARD, "missing_guard"),
-        (LIVE_URL_WORKFLOW, "missing_live_url_workflow"),
+        (TASK_RUNNER, "missing_task_runner"),
+        (CONSOLIDATED_WORKFLOW, "missing_consolidated_workflow"),
     ]:
         if not path.exists():
             errors.append(label)
+
+    if TASK_RUNNER.exists():
+        task_text = TASK_RUNNER.read_text(encoding="utf-8")
+        for marker, label in [
+            ("def public_guard()", "missing_public_guard_task"),
+            ("scripts/check_site_governed_ecosystem_public_verification.py", "missing_public_guard_checker_binding"),
+            ("def live_url()", "missing_live_url_task"),
+            ("scripts/check_site_governed_ecosystem_live_url.py", "missing_live_url_checker_binding"),
+        ]:
+            if marker not in task_text:
+                errors.append(label)
+
+    if CONSOLIDATED_WORKFLOW.exists():
+        workflow_text = CONSOLIDATED_WORKFLOW.read_text(encoding="utf-8")
+        for marker, label in [
+            ("- public-guard", "missing_public_guard_option"),
+            ("- live-url", "missing_live_url_option"),
+            ("python scripts/run_site_task.py", "missing_task_runner_execution"),
+        ]:
+            if marker not in workflow_text:
+                errors.append(label)
+
     if data.get("schema") != "site.governed_ecosystem_public_verification.v1":
         errors.append("schema")
     if data.get("status") != "PUBLIC_VERIFICATION_PENDING":
