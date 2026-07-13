@@ -95,6 +95,28 @@ reason: no current *_MIRROR_HANDOFF.md was found in StegVerse-org/LLM-adapter
 
 Site therefore does not mutate the destination repository, enable transport, configure credentials, or claim endpoint availability. The packet is an implementation request and verification contract, not delegated authority.
 
+## Endpoint conformance suite
+
+```text
+data/llm-adapter-usage-endpoint-conformance.json
+scripts/check_llm_adapter_usage_endpoint_conformance.py
+scripts/check_ecosystem_chat_application.py
+```
+
+The conformance suite includes one valid authenticated usage response and six negative cases:
+
+```text
+valid_live_usage_response -> ALLOW
+session_identity_drift -> DENY:IDENTITY_MISMATCH
+missing_retrieval_receipt -> DENY:RECEIPT_MISSING
+authority_overreach -> DENY:AUTHORITY_OVERREACH
+custody_overreach -> DENY:CUSTODY_OVERREACH
+invalid_evidence_class -> DENY:EVIDENCE_CLASS_INVALID
+unavailable_value_violation -> DENY:UNAVAILABLE_VALUE_INVALID
+```
+
+The suite is a compatibility target for the destination endpoint. Passing the fixtures does not authorize deployment, prove live routing, grant authority, or establish custody.
+
 ## Installed governed-versus-recursive comparison surface
 
 ```text
@@ -168,6 +190,7 @@ Usage retrieval receipt != Master-Records custody.
 Prepared authenticated client != deployed authenticated endpoint.
 Loaded authenticated client != enabled live transport.
 Destination handoff packet != destination authority.
+Conformance fixture pass != deployment authority.
 Missing destination handoff == mutation blocked.
 Network fallback != live evidence.
 Comparison != authority.
@@ -195,10 +218,11 @@ python scripts/check_ecosystem_chat_application.py
   -> python scripts/check_ecosystem_usage_auth_contract.py
   -> python scripts/check_ecosystem_usage_ledger.py
   -> python scripts/check_llm_adapter_usage_endpoint_handoff.py
+  -> python scripts/check_llm_adapter_usage_endpoint_conformance.py
   -> python scripts/check_ecosystem_comparison.py
 ```
 
-The authenticated retrieval and destination-handoff checks verify:
+The authenticated retrieval, destination-handoff, and conformance checks verify:
 
 ```text
 PREPARED_NOT_DEPLOYED contract posture
@@ -218,6 +242,7 @@ no fallback after authentication or integrity failure
 401 / 403 / 400 / 409 / 422 fail-closed destination statuses
 destination mutation prohibited without current handoff authority
 activation evidence must include endpoint tests, deployment observation, response validation, and Site current-main validation
+one positive conformance case and six negative fail-closed cases
 exported state retains authority=none and custody=not-recorded-by-site
 retrieval grants no authority, admissibility, custody, or RECORDED status
 ```
@@ -225,11 +250,11 @@ retrieval grants no authority, admissibility, custody, or RECORDED status
 ## Latest bounded task completion
 
 ```text
-Task: formalize the authenticated usage endpoint destination handoff without crossing repository authority
-Handoff packet commit: 73abe3bb08a592a74f773c2db7becfd437e4b120
-Handoff validator commit: d8f6ac7afd29a6bbc22725aa7f9d7d968195ee2a
-Canonical integration commit: e86775b00c7fd57d33e4be959af558f68c1c3eae
-State: AWAITING_DESTINATION_HANDOFF_AUTHORITY; current-main workflow verification pending
+Task: install the authenticated usage endpoint conformance suite without crossing repository authority
+Conformance fixture commit: 09105669d3d4c694357565eacbb24390c300396e
+Conformance validator commit: ab759dcad7cb1c42bce9d9de7c9cfb373f7ad928
+Canonical integration commit: 3bb5f0ea0f0b3c84988e038e66721e4e2ed0198f
+State: CONFORMANCE_READY_AWAITING_DESTINATION_AUTHORITY; current-main workflow verification pending
 ```
 
 ## Remaining files or modules
@@ -244,6 +269,7 @@ StegVerse-Labs/Site
 StegVerse-org/LLM-adapter
   -> establish or identify current *_MIRROR_HANDOFF.md
   -> authorize authenticated session-usage endpoint work
+  -> implement endpoint against Site conformance suite
   -> automatic provider usage emission
   -> authenticated session-usage retrieval endpoint
   -> live external recursive route endpoint
@@ -260,19 +286,20 @@ master-records
 ## Next task
 
 ```text
-1. Verify current-main Site workflows with destination-handoff validation included.
+1. Verify current-main Site workflows with endpoint conformance validation included.
 2. Preserve the passing Site application validation receipt.
 3. Locate or establish the current LLM-adapter *_MIRROR_HANDOFF.md.
 4. Implement the authenticated session-usage endpoint only when that handoff explicitly authorizes the work.
-5. Configure usage_api_base and set live_transport.enabled=true only after deployed endpoint and same-origin authentication evidence exist.
-6. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
-7. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
+5. Require the destination endpoint to pass the Site conformance suite.
+6. Configure usage_api_base and set live_transport.enabled=true only after deployed endpoint and same-origin authentication evidence exist.
+7. Preserve CONFIGURED_FIXTURE classification until live paired results are observed and validated.
+8. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
 ```
 
 ## Release posture
 
-Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, loaded fail-closed browser client, disabled activation configuration, destination handoff packet, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`, `CLIENT_LOADED_TRANSPORT_DISABLED`, and `AWAITING_DESTINATION_HANDOFF_AUTHORITY`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, destination mutation, or tag is authorized by this handoff.
+Role descriptions, shared usage display, transition prepends, local aggregation, session filtering, JSON export, receipt navigation, governed-versus-recursive route rendering, delta rendering, fixtures, navigation, authenticated retrieval contract, loaded fail-closed browser client, disabled activation configuration, destination handoff packet, endpoint conformance suite, and canonical validation are installed. The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`, `CLIENT_LOADED_TRANSPORT_DISABLED`, `AWAITING_DESTINATION_HANDOFF_AUTHORITY`, and `CONFORMANCE_READY_AWAITING_DESTINATION_AUTHORITY`. Live endpoint transport, live paired results, Master-Records custody, public endpoint verification, current-main green evidence, and an observed identity-preserving RECORDED transition remain activation gates. No deployment, release, merge, credential configuration, destination mutation, or tag is authorized by this handoff.
 
 ## Archive readiness
 
-This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval integration, disabled activation posture, destination handoff blocker, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
+This handoff preserves the provider, gateway, custody, cross-entry usage, route comparison, navigation, authenticated retrieval integration, disabled activation posture, destination handoff blocker, conformance target, validation, authority boundaries, and continuation state. Earlier conversation context is not required.
