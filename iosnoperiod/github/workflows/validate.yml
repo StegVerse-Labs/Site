@@ -23,12 +23,16 @@ jobs:
         run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
-      - name: Upload application validation result
+      - name: Write bound current-main validation receipt
+        run: python scripts/write_site_current_main_validation_receipt.py
+      - name: Upload application validation result and receipt
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: site-application-validation-result
-          path: site_application_validation.result.json
+          path: |
+            site_application_validation.result.json
+            site_current_main_validation.receipt.json
           if-no-files-found: error
       - name: Record live mirror verification status
         id: live_verification
