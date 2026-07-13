@@ -200,6 +200,14 @@ jobs:
           echo "External Chat public surfaces did not verify after deployment retries."
           exit 1
 
+      - name: Build External Chat activation evidence
+        if: always()
+        working-directory: site
+        env:
+          STEGVERSE_PAGES_DEPLOYMENT_URL: ${{ steps.deployment.outputs.page_url }}
+          STEGVERSE_GATEWAY_BASE_URL: https://stegverse-ecosystem-chat-gateway.onrender.com
+        run: python scripts/build_external_chat_activation_evidence.py
+
       - name: Upload External Chat live verification receipt
         if: always()
         uses: actions/upload-artifact@v4
@@ -207,6 +215,15 @@ jobs:
           name: external-chat-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
           path: site/reports/external-chat-live-verification.json
           if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload External Chat activation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-chat-activation-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: site/reports/external-chat-activation-evidence.json
+          if-no-files-found: error
           retention-days: 30
 
       - name: Write summary
@@ -257,6 +274,16 @@ jobs:
           print(f"External Chat live verification: {receipt.get('result')}")
           print(f"External Chat failure class: {receipt.get('failure_class') or 'none'}")
           print(f"Mutation required disabled: {receipt.get('mutation_required_disabled')}")
+          PY
+          fi
+          if [ -f reports/external-chat-activation-evidence.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          evidence = json.loads(Path('reports/external-chat-activation-evidence.json').read_text())
+          print(f"External Chat activation evidence: {evidence.get('result')}")
+          print(f"External Chat evidence SHA-256: {evidence.get('evidence_sha256')}")
+          print(f"External Chat evidence authority: none")
           PY
           fi
           echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on main." >> "$GITHUB_STEP_SUMMARY"
