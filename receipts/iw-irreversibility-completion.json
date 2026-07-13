@@ -1,0 +1,30 @@
+{
+  "schema": "admissible_existence.iw.destination-completion.v1",
+  "source": {
+    "repository": "Admissible-Existence/IW",
+    "commit_sha": "87fd24ea829b413373ea42381dd0b08d45b79239",
+    "canonical_markdown": "docs/irreversibility.md",
+    "publication_pdf": "docs/irreversibility.pdf"
+  },
+  "target": {
+    "repository": "StegVerse-Labs/Site",
+    "role": "publication",
+    "commit_sha": "62059bbb89ad290260f80f46ae5a1f75b3cd6161"
+  },
+  "application": {
+    "files": [
+      {
+        "path": "docs/papers/irreversibility-runtime-admissibility.md",
+        "sha256": "ec48655b1b187e80b8f433981e407b63f3987c2835a242f3b57c69826cd2ecd9"
+      }
+    ],
+    "required_updates_satisfied": true,
+    "claim_boundary_preserved": true
+  },
+  "authority": false,
+  "completion_state": "complete",
+  "evidence": [
+    "destination commit 62059bbb89ad290260f80f46ae5a1f75b3cd6161",
+    "published governed IW reference with canonical Markdown and PDF links"
+  ]
+}
