@@ -10,20 +10,23 @@ ROOT = Path(__file__).resolve().parents[1]
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 
 REQUIRED_TERMS = {
-    "Activation state: pending_external_evidence",
-    "github/workflows/site-public-mirror-status-guard.yml",
-    "python scripts/check_site_non_activation_mirror_status.py",
-    "python scripts/check_site_final_activation_pending.py",
-    "docs/SITE_FINAL_ACTIVATION_PENDING.md",
-    "final activation remains pending on external workflow evidence",
-    "first committed bundle-fed status",
-    "Governance Observatory status validation passes",
+    "Result: Site preparation complete; live activation and external custody evidence pending",
+    ".github/workflows/validate.yml",
+    ".github/workflows/site-task-runner.yml",
+    "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+    "PREPARED_NOT_DEPLOYED",
+    "destination current-main tests",
+    "Master-Records custody",
+    "reconstructability PASS",
+    "No release tag is authorized.",
 }
 
 FORBIDDEN_TERMS = {
     "Activation state: activated",
     "Activation: complete",
     "Site is proof authority",
+    "live_transport.enabled: true",
+    "contract_status: DEPLOYED",
 }
 
 
@@ -37,7 +40,7 @@ def main() -> int:
         if forbidden:
             print("handoff final-pending check forbidden: " + ", ".join(forbidden), file=sys.stderr)
         return 1
-    print("PASS: Site handoff preserves final-pending external evidence boundary.")
+    print("PASS: Site handoff preserves current activation-blocked external-evidence boundary.")
     return 0
 
 
