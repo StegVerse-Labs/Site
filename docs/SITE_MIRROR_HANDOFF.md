@@ -60,16 +60,7 @@ Failed command: scripts/check_site_llm_free_tier_trust.py
 Failure class: stale literal-form assertions against the current bounded public display and canonical status surface
 ```
 
-The public page already contained the bounded free-tier section, quota, receipt inspection, recent-session replay limitation, no-provider-call boundary, and no-execution-authority boundary. The canonical status file already retained `StegVerse-org/LLM-adapter`, `adapter.capabilities.json`, `free_tier_trust`, exact quota values, replay/export limits, and explicit admissibility and upgrade non-claims.
-
-Bounded repair:
-
-```text
-Commit: 3fbd3720976ea83439c7641da0b5d6b2aaedb00b
-File: scripts/check_site_llm_free_tier_trust.py
-```
-
-The checker was rebound to the user-facing page forms while retaining canonical machine-facing destination, policy, quota, replay, export, admissibility, and upgrade assertions in `docs/LLM_FREE_TIER_TRUST_STATUS.md`.
+Bounded repair: commit `3fbd3720976ea83439c7641da0b5d6b2aaedb00b` updated `scripts/check_site_llm_free_tier_trust.py` to bind user-facing display forms while retaining canonical destination, policy, quota, replay, export, admissibility, and upgrade assertions.
 
 ### Run 29265864007
 
@@ -85,16 +76,7 @@ Failure: page_missing:no provider call
 Failure class: case-sensitive validator mismatch against existing public copy "No provider call"
 ```
 
-The page already contained the required boundary at `ecosystem-chat.html`: `No provider call, proof receipt, shell access, or repo write occurs.` The failure did not identify a missing governance claim, quota, status field, workflow capability, or destination contract.
-
-Bounded repair:
-
-```text
-Commit: 343c614049cc3486933cef065f59fd291e4ce9c9
-File: scripts/check_site_llm_free_tier_trust.py
-```
-
-Public-facing prose checks now use Unicode case normalization while exact machine-facing status assertions remain unchanged. No public copy, claim, quota, workflow, deployment posture, external destination, release authority, or activation boundary changed.
+Bounded repair: commit `343c614049cc3486933cef065f59fd291e4ce9c9` changed only public-facing prose checks to Unicode case normalization. Exact machine-facing status assertions remained unchanged.
 
 ### Run 29270157819
 
@@ -109,16 +91,36 @@ Failed command: scripts/check_site_final_activation_pending.py
 Failure class: stale activation-pending assertions requiring a removed third workflow and obsolete final-goal helper commands
 ```
 
-The current handoff still declares exactly two operational workflows and keeps Site in `PREPARED_NOT_DEPLOYED`, `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED`, and `live_transport_enabled: false` posture. The failed checker required `site-autonomous-continuation.yml` plus obsolete final-goal update/check commands that are not part of the current two-workflow architecture.
+Bounded repair: commit `a1793b66c30cf16c6154eceac96def652c6df144` aligned `scripts/check_site_final_activation_pending.py` with the current two-workflow inventory, prepared-not-deployed checkpoint, disabled live transport, destination validation, Master-Records custody, reconstructability, and no-release boundary.
+
+### Run 29274167609
+
+```text
+Commit: 73d24d42e035a4dc76bf3daa7bbdd03a01f160b8
+Branch: main
+Workflow: Site Task Runner
+Job: run-site-task
+Result: FAILED after scripts/check_site_final_activation_pending.py passed
+Passing boundary: scripts/check_site_final_activation_pending.py
+Failed command: scripts/check_site_mirror_handoff_final_pending.py
+Validator index: 41
+Failure class: stale handoff assertions requiring a deleted standalone guard workflow and obsolete final-pending phrases
+Diagnostic artifact: site-task-diagnostic-29274167609-1
+Authority effect: NONE
+Site mode: PREVIEW_ONLY
+state_change_authorized: false
+```
+
+The retained diagnostic confirmed 40 completed validators before the failure. The stale checker required `site-public-mirror-status-guard.yml`, obsolete helper-command phrases, and historical status wording that no longer describes the active two-workflow, activation-blocked handoff.
 
 Bounded repair:
 
 ```text
-Commit: a1793b66c30cf16c6154eceac96def652c6df144
-File: scripts/check_site_final_activation_pending.py
+Commit: 3c701c2acd146eb6bc1716e6c87308c61004b9e0
+File: scripts/check_site_mirror_handoff_final_pending.py
 ```
 
-The checker now validates the current two-workflow inventory, prepared-not-deployed checkpoint, disabled live transport, destination validation, Master-Records custody, reconstructability, and no-release boundary while preserving all existing non-claim and forbidden-activation assertions. No workflow, deployment, release, custody, credential, or external-repository state changed.
+The checker now validates the current two-workflow inventory, `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED`, `PREPARED_NOT_DEPLOYED`, destination current-main tests, Master-Records custody, reconstructability PASS, and the no-release-tag boundary. Forbidden activated, deployed, proof-authority, and live-transport assertions remain fail-closed. No workflow, deployment, release, custody, credential, transport, or external-repository state changed.
 
 Successor current-main verification is pending.
 
@@ -179,8 +181,8 @@ No release tag is authorized.
 
 ```text
 StegVerse-Labs/Site
-  -> observe successor current-main validation after commit a1793b66c30cf16c6154eceac96def652c6df144
-  -> confirm scripts/check_site_final_activation_pending.py passes
+  -> observe successor current-main validation after commit 3c701c2acd146eb6bc1716e6c87308c61004b9e0
+  -> confirm scripts/check_site_mirror_handoff_final_pending.py passes
   -> repair only the next exact failing command without removing checks
   -> verify one successful result, receipt, and manifest artifact set
   -> bind verified Site evidence into the activation ledger
@@ -207,8 +209,8 @@ StegVerse-org/core-node-runtime-demo
 ## Next task
 
 ```text
-1. Observe the successor Site Task Runner/current-main validation after commit a1793b66c30cf16c6154eceac96def652c6df144.
-2. Confirm scripts/check_site_final_activation_pending.py passes.
+1. Observe the successor Site Task Runner/current-main validation after commit 3c701c2acd146eb6bc1716e6c87308c61004b9e0.
+2. Confirm scripts/check_site_mirror_handoff_final_pending.py passes.
 3. Repair only the next exact failing command without removing existing checks.
 4. Verify the first successful current-main result, receipt, and manifest artifact set.
 5. Observe StegVerse-org/LLM-adapter current-main validation containing usage-session verification.
