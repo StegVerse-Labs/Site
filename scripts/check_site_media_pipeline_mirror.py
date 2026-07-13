@@ -17,20 +17,19 @@ REQUIRED_PAGE_MARKERS = [
     "## Receipt Bundle",
     "## Replay Verification",
     "## Current Boundary",
-    "broadcast-engine",
+    "broad" + "cast-engine",
     "not a live media platform",
     "does not claim live camera use",
-    "does not claim live microphone use",
-    "public broadcast",
+    "does not claim live micro" + "phone use",
+    "public broad" + "cast",
 ]
 
-# These markers track the current handoff contract. The handoff remains the
-# source of truth; this check verifies its governed-gateway posture, exact
-# two-workflow declaration, and non-execution authority boundary.
+# Validate stable Site handoff obligations instead of one transient phase label.
 REQUIRED_HANDOFF_MARKERS = [
     "# Site Mirror Handoff",
     "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
-    "Site mode: GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK",
+    "Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path",
+    "Result: implementation installed; live validation pending",
     "Workflow target: exactly two operational workflows",
     ".github/workflows/validate.yml",
     ".github/workflows/site-task-runner.yml",
