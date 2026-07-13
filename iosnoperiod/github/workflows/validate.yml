@@ -23,6 +23,8 @@ jobs:
         run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
+      - name: Verify deployed executor activation projection
+        run: python scripts/check_governed_transition_live_urls.py
       - name: Write bound current-main validation receipt
         run: python scripts/write_site_current_main_validation_receipt.py
       - name: Write validation artifact manifest
