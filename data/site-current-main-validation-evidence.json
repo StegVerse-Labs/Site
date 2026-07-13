@@ -1,0 +1,41 @@
+{
+  "schema": "stegverse.site.current_main_validation_evidence.v1",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "state": "UNOBSERVED",
+  "required_validation_command": "python scripts/check_ecosystem_chat_application.py",
+  "required_workflows": [
+    ".github/workflows/validate.yml",
+    ".github/workflows/site-task-runner.yml"
+  ],
+  "evidence": {
+    "commit_sha": null,
+    "workflow_run_id": null,
+    "workflow_name": null,
+    "job_name": null,
+    "conclusion": null,
+    "validated_at": null,
+    "result_artifact": null,
+    "result_hash": null
+  },
+  "verification_rule": {
+    "verified_state": "VERIFIED",
+    "all_evidence_fields_required": true,
+    "conclusion_must_equal": "success",
+    "commit_must_be_current_main": true,
+    "validator_output_must_equal": "ECOSYSTEM_CHAT_APPLICATION_PASS",
+    "workflow_identity_must_match_declared_workflow": true
+  },
+  "current_blockers": [
+    "CURRENT_MAIN_WORKFLOW_RUN_UNOBSERVED",
+    "VALIDATION_RECEIPT_UNOBSERVED"
+  ],
+  "authority_boundaries": {
+    "pending_record_is_green_evidence": false,
+    "workflow_start_is_success": false,
+    "commit_presence_is_validation": false,
+    "site_may_claim_live_from_validation_alone": false,
+    "validation_receipt_is_master_records_custody": false,
+    "validation_receipt_is_release_authority": false
+  }
+}
