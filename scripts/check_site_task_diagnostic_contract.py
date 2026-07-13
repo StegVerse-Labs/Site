@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "scripts" / "run_site_task.py"
 WORKFLOW = ROOT / ".github" / "workflows" / "site-task-runner.yml"
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
+ADDENDUM = ROOT / "docs" / "SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md"
 
 RUNNER_REQUIRED = [
     'DIAGNOSTIC_PATH = ROOT / "reports" / "site-task-diagnostic.json"',
@@ -43,12 +44,19 @@ WORKFLOW_REQUIRED = [
 ]
 
 HANDOFF_REQUIRED = [
+    "# Site Mirror Handoff",
+    "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
+]
+
+ADDENDUM_REQUIRED = [
+    "# Site Mirror Handoff Diagnostic Addendum",
     "Fail-path diagnostic contract",
     "reports/site-task-diagnostic.json",
     "authority_effect",
     "site_mode",
     "state_change_authorized",
     "The diagnostic is evidence of task execution only.",
+    "does not expand repository authority",
 ]
 
 
@@ -68,6 +76,7 @@ def main() -> int:
     failures.extend(require_text(RUNNER, RUNNER_REQUIRED))
     failures.extend(require_text(WORKFLOW, WORKFLOW_REQUIRED))
     failures.extend(require_text(HANDOFF, HANDOFF_REQUIRED))
+    failures.extend(require_text(ADDENDUM, ADDENDUM_REQUIRED))
 
     workflow_dir = ROOT / ".github" / "workflows"
     active_workflows = sorted(
