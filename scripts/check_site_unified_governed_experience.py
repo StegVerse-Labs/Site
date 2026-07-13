@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,13 +29,18 @@ REQUIRED_INDEX_TEXT = [
     "Ecosystem Chat   =  primary operating surface preview, not proof source",
 ]
 
+# Validate stable semantic milestones instead of binding CI to one transient phase label.
 REQUIRED_STATUS_TEXT = [
     "Goal: unified-governed-experience",
-    "Status: phase-1-installed",
     "Primary operating surface: ecosystem-chat.html",
     "Primary hero action: Open Ecosystem Chat -> ecosystem-chat.html",
     "Secondary hero action: View transition menu -> #transition-menu",
-    "Phase 2: intent engine",
+    "## Transition Intent Engine",
+    "Phase 2 installs a local preview intent engine.",
+    "## Contextual Continuation Panel",
+    "Phase 3 installs a browser-local continuation panel.",
+    "Execution authority: none from Site",
+    "Receipt authority: none from Site",
 ]
 
 FORBIDDEN_HERO_TEXT = [
@@ -76,7 +82,8 @@ def main() -> int:
         raise AssertionError("SITE_UNIFIED_GOVERNED_EXPERIENCE_STATUS.md missing text: " + ", ".join(missing_status))
 
     hero = hero_region(index)
-    if hero.count('sv-btn') != 2:
+    hero_buttons = re.findall(r'<(?:a|button)\b[^>]*class="[^"]*\bsv-btn\b[^"]*"', hero)
+    if len(hero_buttons) != 2:
         raise AssertionError("homepage hero must expose exactly one primary chat action and one secondary transition-menu action")
     forbidden = [item for item in FORBIDDEN_HERO_TEXT if item in hero]
     if forbidden:
