@@ -1,0 +1,47 @@
+{
+  "schema": "stegverse.site.usage_endpoint_preactivation_checkpoint.v1",
+  "checkpoint_id": "usage-endpoint-preactivation-site-v1",
+  "repository": "StegVerse-Labs/Site",
+  "state": "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+  "completed_site_scope": [
+    "authenticated retrieval contract",
+    "fail-closed browser client",
+    "public ledger client loading",
+    "disabled transport configuration",
+    "destination handoff packet",
+    "positive and negative endpoint conformance suite",
+    "activation evidence ledger",
+    "canonical validation integration"
+  ],
+  "unmet_external_or_live_prerequisites": [
+    "current StegVerse-org/LLM-adapter *_MIRROR_HANDOFF.md",
+    "destination endpoint implementation",
+    "destination endpoint test evidence",
+    "same-origin authenticated deployment evidence",
+    "observed live response conformance",
+    "observed retrieval receipt validation",
+    "Site current-main green validation receipt",
+    "Master-Records custody receipt",
+    "reconstructability PASS"
+  ],
+  "configuration_posture": {
+    "usage_api_base": null,
+    "live_transport_enabled": false,
+    "contract_status": "PREPARED_NOT_DEPLOYED",
+    "activation_evidence_state": "BLOCKED"
+  },
+  "claims": {
+    "endpoint_live": false,
+    "deployment_verified": false,
+    "authority_granted": false,
+    "admissibility_granted": false,
+    "custody_recorded": false,
+    "recorded_status": false,
+    "release_authorized": false
+  },
+  "continuation": {
+    "next_repository": "StegVerse-org/LLM-adapter",
+    "next_task": "establish or identify the current mirror handoff and explicitly authorize the authenticated session-usage endpoint",
+    "site_resume_condition": "all activation evidence requirements are VERIFIED"
+  }
+}
