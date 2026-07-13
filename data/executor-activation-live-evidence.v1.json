@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "executor_activation_live_projection_evidence",
+  "evidence_id": "site-executor-activation-live-2026-07-13-001",
+  "source_repository": "StegVerse-Labs/Site",
+  "source_merge_commit": "4ed8dd8f05c21037993631cc5f3eb72f0277dcc6",
+  "live_gate_commit": "2274b96f5ff8ad2b5f58a20ed6ae48e620cf2a49",
+  "page_marker_commit": "788ee0efbec74f37efd3b75f1cf620886d2eb93a",
+  "evidence_pull_request": 12,
+  "evidence_workflow": {
+    "name": "Site Bootstrap Validate",
+    "run_number": 735,
+    "run_id": 29228471442,
+    "conclusion": "success"
+  },
+  "verified_public_surfaces": [
+    "https://stegverse-labs.github.io/Site/governed-transitions.html",
+    "https://stegverse-labs.github.io/Site/data/governed-transition-index.json",
+    "https://stegverse-labs.github.io/Site/data/governed-transition-index-import-status.json",
+    "https://stegverse-labs.github.io/Site/data/governed-executor-status.json"
+  ],
+  "verified_executor_state": {
+    "from_executor_status": "FALLBACK_ONLY",
+    "to_executor_status": "ACTIVE",
+    "activation_state": "ACTIVE",
+    "activation_receipt_present": true
+  },
+  "authority_boundary": {
+    "projection_grants_execution_authority": false,
+    "projection_grants_publication_authority": false,
+    "projection_grants_admissibility": false,
+    "projection_is_master_records_custody": false,
+    "activation_is_per_transition_authority": false
+  },
+  "propagation_targets": [
+    "GCAT-BCAT-Engine/Publisher",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki"
+  ],
+  "nonexistent_target_correction": {
+    "requested_or_legacy_name": "StegVerse-Labs/Sit",
+    "resolved_repository": "StegVerse-Labs/Site",
+    "separate_repository_exists": false
+  }
+}
