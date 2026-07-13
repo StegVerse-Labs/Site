@@ -22,13 +22,16 @@ REQUIRED_FINAL_TERMS = {
 }
 
 REQUIRED_HANDOFF_TERMS = {
-    "Activation state: pending_external_evidence",
-    "docs/SITE_FINAL_ACTIVATION_PENDING.md",
-    "remaining activation blocker is external workflow evidence",
-    "github/workflows/site-autonomous-continuation.yml",
-    "python scripts/update_site_final_goal_status.py",
-    "python scripts/check_site_final_goal_status.py",
-    "automated final goal status reports `ready`",
+    "Result: Site preparation complete; live activation and external custody evidence pending",
+    ".github/workflows/validate.yml",
+    ".github/workflows/site-task-runner.yml",
+    "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+    "contract_status: PREPARED_NOT_DEPLOYED",
+    "live_transport_enabled: false",
+    "destination current-main tests",
+    "Master-Records custody",
+    "reconstructability PASS",
+    "No release tag is authorized.",
 }
 
 FORBIDDEN_TERMS = {
@@ -77,7 +80,7 @@ def main() -> int:
             print(f"final activation pending verification failed: {error}", file=sys.stderr)
         return 1
 
-    print("PASS: Site final activation remains pending on external workflow evidence only.")
+    print("PASS: Site final activation remains pending on verified external deployment, custody, and reconstructability evidence.")
     return 0
 
 
