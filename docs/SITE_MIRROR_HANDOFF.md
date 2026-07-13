@@ -96,6 +96,30 @@ File: scripts/check_site_llm_free_tier_trust.py
 
 Public-facing prose checks now use Unicode case normalization while exact machine-facing status assertions remain unchanged. No public copy, claim, quota, workflow, deployment posture, external destination, release authority, or activation boundary changed.
 
+### Run 29270157819
+
+```text
+Commit: c2464f8fdb44315babeee18d4c0031b8c2e75961
+Branch: main
+Workflow: Site Task Runner
+Job: run-site-task
+Result: FAILED after the free-tier trust validator passed
+Passing boundary: scripts/check_site_llm_free_tier_trust.py
+Failed command: scripts/check_site_final_activation_pending.py
+Failure class: stale activation-pending assertions requiring a removed third workflow and obsolete final-goal helper commands
+```
+
+The current handoff still declares exactly two operational workflows and keeps Site in `PREPARED_NOT_DEPLOYED`, `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED`, and `live_transport_enabled: false` posture. The failed checker required `site-autonomous-continuation.yml` plus obsolete final-goal update/check commands that are not part of the current two-workflow architecture.
+
+Bounded repair:
+
+```text
+Commit: a1793b66c30cf16c6154eceac96def652c6df144
+File: scripts/check_site_final_activation_pending.py
+```
+
+The checker now validates the current two-workflow inventory, prepared-not-deployed checkpoint, disabled live transport, destination validation, Master-Records custody, reconstructability, and no-release boundary while preserving all existing non-claim and forbidden-activation assertions. No workflow, deployment, release, custody, credential, or external-repository state changed.
+
 Successor current-main verification is pending.
 
 ## Activation evidence and checkpoint
@@ -155,8 +179,8 @@ No release tag is authorized.
 
 ```text
 StegVerse-Labs/Site
-  -> observe successor current-main validation after commit 343c614049cc3486933cef065f59fd291e4ce9c9
-  -> confirm scripts/check_site_llm_free_tier_trust.py passes
+  -> observe successor current-main validation after commit a1793b66c30cf16c6154eceac96def652c6df144
+  -> confirm scripts/check_site_final_activation_pending.py passes
   -> repair only the next exact failing command without removing checks
   -> verify one successful result, receipt, and manifest artifact set
   -> bind verified Site evidence into the activation ledger
@@ -183,8 +207,8 @@ StegVerse-org/core-node-runtime-demo
 ## Next task
 
 ```text
-1. Observe the successor Site Task Runner/current-main validation after commit 343c614049cc3486933cef065f59fd291e4ce9c9.
-2. Confirm scripts/check_site_llm_free_tier_trust.py passes.
+1. Observe the successor Site Task Runner/current-main validation after commit a1793b66c30cf16c6154eceac96def652c6df144.
+2. Confirm scripts/check_site_final_activation_pending.py passes.
 3. Repair only the next exact failing command without removing existing checks.
 4. Verify the first successful current-main result, receipt, and manifest artifact set.
 5. Observe StegVerse-org/LLM-adapter current-main validation containing usage-session verification.
