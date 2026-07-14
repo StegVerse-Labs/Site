@@ -2,364 +2,429 @@
 
 ## Purpose
 
-This template turns the StegVerse company-testbed offer into a repeatable, bounded audit format.
+This template defines a bounded, non-production audit for one AI or agentic workflow at the point where a decision may become an action with real consequences.
 
-The audit evaluates one representative AI or agentic workflow and asks whether the downstream action has authority, admissibility, current-state validity, and receipt-verifiable evidence before it binds consequences.
-
-## Use Boundary
-
-This template is intended for:
+The audit evaluates two inseparable commit-time questions:
 
 ```text
-non-production workflow review
-staging workflow review
-mock workflow review
-conceptual workflow review
-limited advisory assessment
-pilot-scoping conversation
+1. Does the actor still have valid authority to act?
+2. Is the resulting state transition admissible for the current system state?
 ```
 
-This template is not intended to claim:
+If either condition fails, or cannot be proven with sufficient evidence, execution must not proceed.
+
+## Audit Boundary
 
 ```text
-production certification
-regulatory approval
-security certification
-third-party endorsement
-complete ecosystem deployment
+One workflow.
+One decision path.
+One execution boundary.
+One receipt trail.
+One admissibility report.
 ```
 
-## Audit Header
+This audit does not require production credentials, production data, live mutation authority, or invasive integration.
 
-```text
-Audit name:
-Company / team:
-Workflow owner:
-Date:
-Reviewer:
-Confidentiality level:
-Production status: production / staging / mock / conceptual
-Case-study permission: named / anonymized / internal-only / undecided
+## Audit Status
+
+```yaml
+audit_id: ""
+organization: ""
+workflow_name: ""
+environment: mock | conceptual | staging | non_production
+status: draft | evidence_collection | evaluation | complete
+prepared_by: ""
+prepared_at: ""
+reviewed_by: ""
+reviewed_at: ""
 ```
 
 ## 1. Workflow Summary
 
-Describe the workflow in plain language.
-
 ```text
-Workflow name:
 Workflow purpose:
-Business or operational function:
-Primary users or actors:
-Systems involved:
-Current maturity: concept / prototype / pilot / production-adjacent / production
-```
-
-### Summary Narrative
-
-```text
-[Write a short paragraph explaining what the workflow does and why it matters.]
+Primary users or operators:
+AI, model, agent, automation, or human-AI component:
+Downstream system or actuator:
+Potential consequence if the action executes:
+Why this workflow was selected:
 ```
 
 ## 2. Decision Point
 
-Identify where an AI system, agent, model, assistant, automation, or human-AI process produces a decision, recommendation, classification, instruction, or action proposal.
+Identify where a recommendation, classification, plan, or proposed action is produced.
 
-```text
-Decision producer:
-Decision type:
-Input data used:
-Output produced:
-Human review present: yes / no / partial / unknown
-Decision confidence or scoring available: yes / no / partial / unknown
+```yaml
+decision_component: ""
+decision_type: ""
+decision_output: ""
+decision_timestamp_source: ""
+decision_version_or_model: ""
+decision_trace_available: true | false | partial
 ```
 
-### Decision Description
+Questions:
 
-```text
-[Describe the AI or agentic decision in plain language.]
-```
+1. What produces the decision?
+2. Is the output advisory, preparatory, executable, or already binding?
+3. Can the decision be replayed from recorded inputs and versioned logic?
+4. What assumptions are made before the decision is passed downstream?
 
 ## 3. Execution Boundary
 
-Identify where the decision becomes capable of binding consequences.
+Identify the governed point of irreversibility: the final boundary at which the proposed action becomes capable of binding consequences.
 
-```text
-Downstream action:
-Action executor:
-Trigger mechanism:
-Manual or automated execution:
-Reversibility: reversible / partially reversible / irreversible / unknown
-Potential consequence class: low / medium / high / critical
+```yaml
+boundary_name: ""
+boundary_component: ""
+proposed_action: ""
+target_system_or_resource: ""
+commit_operation: ""
+reversibility_class: reversible | compensatable | partially_irreversible | irreversible
+commit_timestamp_source: ""
 ```
 
-### Boundary Statement
+Boundary statement:
 
 ```text
-The execution boundary occurs when [decision/output] causes or authorizes [downstream action].
+The proposed action becomes real when:
 ```
 
-## 4. Authority Assumptions
+Examples include releasing payment, modifying an identity record, ordering treatment, issuing a refund, deploying code, changing access, publishing a record, or actuating infrastructure.
 
-Identify the authority currently assumed before execution.
+## 4. Actor And Authority Assumptions
 
-```text
-Who or what is authorized to act:
-Source of authority:
-Authority scope:
-Authority expiration or refresh rule:
-Delegated authority present: yes / no / unknown
-Human accountable owner:
-Policy or contract reference:
+Authority engineering at this boundary is not limited to identifying who may act. The audit must establish whether authority is current, scoped, version-valid, time-valid, revocable, and applicable to this exact action.
+
+```yaml
+actor_id: ""
+actor_type: human | service | agent | model | automation | composite
+principal_or_sponsor: ""
+authority_source: ""
+authority_version: ""
+scope: ""
+valid_from: ""
+valid_until: ""
+revocation_source: ""
+delegation_reference: ""
+approval_chain_reference: ""
 ```
 
-### Authority Gap Notes
+Evaluate:
 
 ```text
-[Describe any missing, implicit, stale, overbroad, or unclear authority assumptions.]
+[ ] Actor identity is established.
+[ ] Authority source is machine-legible.
+[ ] Authority applies to the exact action.
+[ ] Scope limits are explicit.
+[ ] Amount, resource, role, geography, rail, channel, or domain limits are explicit where applicable.
+[ ] Delegation is valid and has not exceeded its depth or purpose.
+[ ] Required approvals are present and current.
+[ ] Authority version matches the policy version used at commit time.
+[ ] Authority has not expired or been revoked.
+[ ] Authority can be independently reconstructed later.
 ```
 
-## 5. State Dependencies
+## 5. Current-State Dependencies
 
-Identify what must be true at commit time for the action to remain valid.
+List every system fact that must still be current when execution is attempted.
 
-```text
-Required current state 1:
-Required current state 2:
-Required current state 3:
-State source systems:
-State freshness requirement:
-State drift risk:
-State verification method:
-```
+| State dependency | Source of truth | Freshness requirement | Version or hash | Failure effect |
+|---|---|---|---|---|
+|  |  |  |  |  |
 
-### State Validity Notes
+Examples:
 
 ```text
-[Describe whether the workflow can prove the relevant state is current at the moment of execution.]
+account balance
+inventory level
+patient status
+policy version
+fraud score
+identity status
+consent state
+delegation state
+rate limit
+risk limit
+resource lock
+prior transaction state
+destination availability
+recoverability margin
 ```
 
 ## 6. Admissibility Conditions
 
-Define the conditions that must be satisfied before the action can execute.
+Define whether the resulting transition is permitted for the current system state. The audit must test the proposed transition, not only the actor.
 
-```text
-Condition 1:
-Condition 2:
-Condition 3:
-Condition 4:
-Condition 5:
+```yaml
+pre_state_reference: ""
+proposed_transition: ""
+post_state_projection_method: ""
+invariant_set_reference: ""
+viability_or_recoverability_reference: ""
+policy_reference: ""
 ```
 
-### Minimal Admissibility Rule
+Evaluate:
 
 ```text
-The action is admissible only if current authority, current state, required evidence, and permitted action scope are all satisfied before execution.
+[ ] Required preconditions hold.
+[ ] The proposed post-state does not violate a hard invariant.
+[ ] Aggregate or concurrent effects are considered.
+[ ] The action does not exceed current system capacity or risk limits.
+[ ] The action preserves required recoverability.
+[ ] The action does not make future governance materially impossible.
+[ ] The action does not rely on stale policy, stale evidence, or stale state.
+[ ] The action remains admissible under the policy version valid at commit time.
+[ ] The result can be classified deterministically as ALLOW, DENY, or FAIL_CLOSED.
 ```
 
-## 7. Evidence Currently Available
-
-List the evidence the organization already captures.
+Minimal rule:
 
 ```text
-Input log available: yes / no / partial / unknown
-Decision log available: yes / no / partial / unknown
-Authority record available: yes / no / partial / unknown
-State snapshot available: yes / no / partial / unknown
-Execution log available: yes / no / partial / unknown
-Receipt or trace available: yes / no / partial / unknown
-Reviewer record available: yes / no / partial / unknown
-Policy reference available: yes / no / partial / unknown
+ALLOW only when actor authority and state-transition admissibility both hold.
+DENY when either is known to fail.
+FAIL_CLOSED when either cannot be proven sufficiently.
 ```
 
-### Evidence Notes
+## 7. Concurrency And Aggregate-State Review
+
+Individually authorized actions may still combine into a globally invalid state.
+
+| Concurrent action or aggregate limit | Detection method | Serialization, lock, or coordination control | Failure behavior |
+|---|---|---|---|
+|  |  |  |  |
+
+Questions:
+
+1. Can two valid actions race?
+2. Can individually valid actions exceed a shared limit when combined?
+3. Is the post-state checked against the latest committed state?
+4. Is there a transaction, compare-and-swap, lock, quorum, reservation, or equivalent control?
+5. What happens if the state changes between evaluation and commit?
+
+## 8. Evidence Currently Available
+
+| Evidence artifact | Producer | Version or hash | Timestamp | Custody location | Independently verifiable? |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
+
+Potential evidence:
 
 ```text
-[Describe what evidence exists today and whether it is enough to reconstruct the action later.]
+policy artifact
+authority declaration
+delegation record
+approval record
+state snapshot
+model or agent version
+input hash
+output hash
+execution request
+risk result
+invariant result
+commit response
+system log
+custody receipt
+reconstruction report
 ```
 
-## 8. Evidence Gaps
+## 9. Evidence Gaps
 
-List missing or insufficient proof surfaces.
+| Missing evidence | Why it matters | Risk created | Required producer | Required before commit? |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+Classify each gap:
 
 ```text
-Missing authority evidence:
-Missing state evidence:
-Missing decision evidence:
-Missing execution evidence:
-Missing reviewer evidence:
-Missing policy reference:
-Missing receipt fields:
-Missing reconstruction fields:
+informational
+material
+commit-blocking
+reconstruction-blocking
+custody-blocking
 ```
 
-### Gap Severity
+## 10. Fail-Closed Conditions
+
+Execution must fail closed when a required fact cannot be proven at the governed point of irreversibility.
 
 ```text
-Low:
-Medium:
-High:
-Critical:
+[ ] Actor identity cannot be established.
+[ ] Authority is missing, expired, revoked, stale, ambiguous, or out of scope.
+[ ] Required approval or delegation is missing.
+[ ] Policy version cannot be resolved.
+[ ] Current state cannot be read or trusted.
+[ ] Evidence freshness is outside the valid window.
+[ ] Proposed transition violates an invariant.
+[ ] Concurrent state changed after evaluation.
+[ ] Recoverability falls below the required boundary.
+[ ] Required receipt cannot be emitted.
+[ ] Required custody destination is unavailable when custody is mandatory.
+[ ] Reconstruction inputs are incomplete.
 ```
 
-## 9. Fail-Closed Conditions
+Required refusal behavior:
 
-Define when the system should refuse execution because authority, admissibility, state, or evidence cannot be proven.
-
-```text
-Fail closed if authority is missing: yes / no / conditional
-Fail closed if state is stale: yes / no / conditional
-Fail closed if evidence is missing: yes / no / conditional
-Fail closed if policy reference is missing: yes / no / conditional
-Fail closed if actor identity is uncertain: yes / no / conditional
-Fail closed if downstream consequence class is critical: yes / no / conditional
+```yaml
+result: DENY | FAIL_CLOSED
+execution_attempted: false
+mutation_committed: false
+escalation_target: ""
+operator_message: ""
+retry_allowed: true | false
+retry_conditions: ""
 ```
 
-### Fail-Closed Rule
+## 11. Receipt Fields
 
-```text
-If the workflow cannot prove authority, admissibility, current state, and minimum receipt evidence before execution, the action should FAIL_CLOSED rather than proceed by default.
+A minimal execution-boundary receipt should bind the decision, actor, authority, state, policy, admissibility result, and commit outcome.
+
+```yaml
+receipt_schema: stegverse.execution_boundary.receipt.v1
+receipt_id: ""
+audit_id: ""
+transition_id: ""
+correlation_id: ""
+actor_id: ""
+actor_type: ""
+principal_or_sponsor: ""
+action: ""
+target: ""
+scope: ""
+request_timestamp: ""
+evaluation_timestamp: ""
+commit_timestamp: ""
+policy_reference: ""
+policy_version: ""
+authority_reference: ""
+authority_version: ""
+delegation_reference: ""
+approval_references: []
+pre_state_hash: ""
+proposed_transition_hash: ""
+projected_post_state_hash: ""
+committed_post_state_hash: ""
+state_freshness_result: PASS | FAIL | UNKNOWN
+authority_result: PASS | FAIL | UNKNOWN
+admissibility_result: PASS | FAIL | UNKNOWN
+recoverability_result: PASS | FAIL | UNKNOWN
+evidence_sufficiency_result: PASS | FAIL | UNKNOWN
+final_decision: ALLOW | DENY | FAIL_CLOSED
+execution_attempted: true | false
+mutation_committed: true | false
+commit_result_reference: ""
+refusal_reason_codes: []
+evidence_references: []
+custody_reference: ""
+producer_identity: ""
+producer_signature_or_attestation: ""
 ```
 
-## 10. Receipt Fields
-
-Define the minimum receipt fields needed for reconstruction.
+## 12. Reconstruction Path
 
 ```text
-receipt_id:
-generated_utc:
-workflow_id:
-decision_id:
-action_id:
-actor_id:
-authority_source:
-authority_scope:
-authority_valid_at:
-state_snapshot_ref:
-state_valid_at:
-policy_ref:
-admissibility_result: ALLOW / DENY / FAIL_CLOSED
-admissibility_reason:
-evidence_refs:
-execution_boundary:
-downstream_action:
-reviewer_ref:
-case_study_visibility:
-receipt_hash:
-previous_receipt_hash:
+1. Resolve the receipt and verify producer identity.
+2. Resolve the policy, authority, delegation, and approval versions referenced by the receipt.
+3. Verify input, state, and proposed-transition hashes.
+4. Re-run or independently evaluate the authority checks.
+5. Re-run or independently evaluate the admissibility and invariant checks.
+6. Confirm the policy and evidence were valid at the recorded commit time.
+7. Compare the expected result with the recorded final decision.
+8. Confirm whether a mutation occurred.
+9. Confirm custody and receipt-chain continuity.
+10. Record PASS, PARTIAL, FAIL, or UNRECONSTRUCTABLE.
 ```
 
-## 11. Reconstruction Path
-
-Define what a reviewer should be able to reconstruct after the event.
-
-```text
-Can reconstruct input state: yes / no / partial
-Can reconstruct decision output: yes / no / partial
-Can reconstruct authority basis: yes / no / partial
-Can reconstruct current-state validity: yes / no / partial
-Can reconstruct admissibility result: yes / no / partial
-Can reconstruct execution action: yes / no / partial
-Can reconstruct fail-closed reason: yes / no / partial
-Can reconstruct reviewer involvement: yes / no / partial
+```yaml
+reconstructability: PASS | PARTIAL | FAIL | UNRECONSTRUCTABLE
+replayability: PASS | PARTIAL | FAIL | NOT_APPLICABLE
+cryptographic_verifiability: PASS | PARTIAL | FAIL
+independent_authority_reconstruction: PASS | PARTIAL | FAIL
+independent_admissibility_reconstruction: PASS | PARTIAL | FAIL
+notes: ""
 ```
 
-### Reconstruction Notes
+## 13. Audit Decision
 
-```text
-[Describe what can and cannot be reconstructed from the available evidence.]
+```yaml
+authority_result: PASS | FAIL | PARTIAL | UNKNOWN
+state_validity_result: PASS | FAIL | PARTIAL | UNKNOWN
+admissibility_result: PASS | FAIL | PARTIAL | UNKNOWN
+evidence_result: PASS | FAIL | PARTIAL | UNKNOWN
+receipt_readiness: PASS | FAIL | PARTIAL | UNKNOWN
+reconstruction_readiness: PASS | FAIL | PARTIAL | UNKNOWN
+overall_result: ALLOWABLE_WITH_CURRENT_CONTROLS | REQUIRES_REMEDIATION | FAIL_CLOSED_REQUIRED | INSUFFICIENT_EVIDENCE
 ```
 
-## 12. Risk Classification
-
-Assign a preliminary risk level.
+Decision rationale:
 
 ```text
-Execution consequence risk: low / medium / high / critical
-Authority ambiguity risk: low / medium / high / critical
-State staleness risk: low / medium / high / critical
-Evidence gap risk: low / medium / high / critical
-Reconstruction failure risk: low / medium / high / critical
-Overall audit risk: low / medium / high / critical
-```
 
-## 13. StegVerse Decision Readiness
-
-Classify the current workflow.
-
-```text
-Current readiness: ALLOW_READY / DENY_READY / FAIL_CLOSED_REQUIRED / INSUFFICIENT_EVIDENCE
-Reason:
-Minimum remediation required:
-```
-
-### Classification Meanings
-
-```text
-ALLOW_READY: The workflow appears to have enough authority, state, and evidence for a controlled allow path.
-DENY_READY: The workflow has enough evidence to determine that the action should not execute under stated conditions.
-FAIL_CLOSED_REQUIRED: The workflow cannot prove enough to safely execute and should fail closed.
-INSUFFICIENT_EVIDENCE: The audit cannot classify readiness because required information is unavailable.
 ```
 
 ## 14. Recommendations
 
-List concrete next steps.
+| Priority | Recommendation | Owner | Required evidence | Completion condition |
+|---|---|---|---|---|
+| Commit-blocking |  |  |  |  |
+| High |  |  |  |  |
+| Medium |  |  |  |  |
+| Low |  |  |  |  |
+
+## 15. Permitted Claims
+
+Permitted examples:
 
 ```text
-Recommendation 1:
-Recommendation 2:
-Recommendation 3:
-Recommendation 4:
-Recommendation 5:
+A non-production workflow was mapped.
+The governed point of irreversibility was identified.
+Authority and state-transition admissibility conditions were documented.
+Evidence gaps and fail-closed conditions were identified.
+A proposed receipt and reconstruction path were produced.
 ```
 
-Recommended categories:
+Prohibited without further evidence:
 
 ```text
-authority model clarification
-state freshness check
-receipt schema addition
-fail-closed trigger addition
-reviewer record addition
-policy reference addition
-execution log hardening
-reconstruction test
-non-production gate prototype
+production deployment
+regulatory approval
+third-party certification
+live adoption
+complete safety
+complete security
+full compliance
+successful custody
+independent reconstructability
 ```
 
-## 15. Pilot Outcome
+## 16. Sign-Off
 
-Record what the pilot produced.
-
-```text
-Boundary map completed: yes / no
-Authority gaps identified: yes / no
-State gaps identified: yes / no
-Evidence gaps identified: yes / no
-Fail-closed rules proposed: yes / no
-Receipt fields proposed: yes / no
-Reconstruction path proposed: yes / no
-Company follow-up requested: yes / no
-Case-study permitted: yes / no / anonymized / undecided
+```yaml
+organization_reviewer: ""
+organization_review_date: ""
+stegverse_reviewer: ""
+stegverse_review_date: ""
+confidentiality_classification: ""
+public_case_study_permission: none | anonymized | named
+open_questions: []
 ```
 
-## 16. Audit Summary
+## Completion Rule
+
+The audit is complete only when:
 
 ```text
-[Write a concise summary of the audit outcome, including whether the workflow is ready for a minimal admissibility gate, needs receipt hardening, or should fail closed until authority/state/evidence gaps are resolved.]
-```
-
-## 17. Completion Footer
-
-```text
-Audit completion: ___%
-Workflow mapped: ___%
-Authority/admissibility evaluated: ___%
-Receipt/reconstruction evaluated: ___%
-Ready for next pilot step: yes / no / conditional
+1. the execution boundary is explicit,
+2. actor authority is evaluated,
+3. the resulting state transition is evaluated,
+4. fail-closed conditions are explicit,
+5. evidence and evidence gaps are recorded,
+6. a receipt shape is defined,
+7. the reconstruction path is documented,
+8. and claims remain bounded to verified evidence.
 ```
 
 ## Archive Readiness
 
-This template contains the minimum structure needed to perform a bounded StegVerse Execution Boundary Audit without needing prior chat context. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This template contains the complete bounded audit structure needed to continue without prior chat context. It preserves the dual commit-time evaluation of actor authority and resulting-state admissibility, the fail-closed rule, receipt shape, reconstruction path, and permitted-claims boundary.
