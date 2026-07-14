@@ -109,10 +109,10 @@ def main() -> None:
     if workflows != ["site-task-runner.yml", "validate.yml"]:
         fail(f"expected exactly two operational workflows, found: {workflows}")
 
-    runner = (ROOT / "scripts" / "run_site_task.py").read_text(encoding="utf-8")
-    binding = 'run_if_present("scripts/check_site_company_testbed_artifacts.py")'
-    if binding not in runner:
-        fail("validator is not bound into scripts/run_site_task.py")
+    inventory_check = (ROOT / "scripts" / "check_site_workflow_inventory.py").read_text(encoding="utf-8")
+    binding = 'COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artifacts.py"'
+    if binding not in inventory_check:
+        fail("validator is not bound through scripts/check_site_workflow_inventory.py")
 
     print("COMPANY TESTBED ARTIFACT VALIDATION PASSED")
     for label, path in REQUIRED_FILES.items():
