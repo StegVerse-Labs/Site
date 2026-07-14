@@ -2,343 +2,318 @@
 
 ## Purpose
 
-This document is a completed, synthetic example of the `StegVerse Execution Boundary Audit` applied to a non-production agentic workflow.
+This document is a completed synthetic example of the `StegVerse Execution Boundary Audit` applied to a non-production treasury-payment agent workflow.
 
-It demonstrates how actor authority and resulting-state admissibility are evaluated together at the governed point of irreversibility.
+It demonstrates the required failure case:
 
-No production system, company, customer, credential, payment rail, personal data, or third-party implementation is represented.
+```text
+The actor has valid authority.
+A concurrent payment changes the latest committed state.
+The proposed post-state can no longer be proven admissible.
+The execution boundary returns FAIL_CLOSED.
+No mutation is attempted or committed.
+```
+
+No real organization, account, payment rail, credential, customer, personal data, endorsement, deployment, or production evidence is represented.
 
 ## Audit Boundary
 
 ```text
 One synthetic organization.
-One mock refund workflow.
-One proposed payment action.
-One governed commit boundary.
-One receipt and reconstruction path.
+One mock treasury-payment workflow.
+One proposed payment.
+One concurrent state change.
+One governed point of irreversibility.
+One fail-closed receipt and reconstruction path.
 ```
 
 ## Audit Status
 
 ```yaml
-audit_id: audit-sample-refund-001
-organization: Example Commerce Lab
-workflow_name: Agent-Assisted Refund Approval
-transform_class: synthetic_anonymized_example
+audit_id: audit-sample-treasury-001
+organization: Example Treasury Lab
+workflow_name: Agent-Assisted Vendor Payment
 environment: non_production
 status: complete
 prepared_by: StegVerse sample documentation
-prepared_at: 2026-07-14T15:30:00Z
+prepared_at: 2026-07-14T15:45:00Z
 reviewed_by: internal documentation review
-reviewed_at: 2026-07-14T15:30:00Z
+reviewed_at: 2026-07-14T15:45:00Z
 ```
 
 ## 1. Workflow Summary
 
 ```text
 Workflow purpose:
-Evaluate customer refund requests and propose a refund amount and destination.
+Evaluate approved synthetic invoices and propose a treasury payment.
 
 Primary users or operators:
-Support agents and finance reviewers in a synthetic test environment.
+Mock accounts-payable operators and treasury reviewers.
 
 AI, model, agent, automation, or human-AI component:
-A mock agent reads an order record, return status, policy version, prior refund history, and risk indicators. It proposes ALLOW, DENY, or ESCALATE with a refund amount.
+A mock payment agent reads an approved invoice, vendor record, delegation, policy, account balance, reserved obligations, daily aggregate, and risk result. It proposes a payment request.
 
 Downstream system or actuator:
-A non-production payment gateway simulator.
+A non-production treasury ledger and payment-rail simulator.
 
 Potential consequence if the action executes:
-A simulated account balance changes and a synthetic refund ledger entry becomes committed.
+The synthetic treasury balance decreases and a payment ledger entry becomes committed.
 
 Why this workflow was selected:
-It contains a clear decision-to-action path, scoped authority, time-sensitive state, aggregate limits, possible concurrent requests, and a definite commit boundary.
+It exposes the difference between valid actor authority and admissible state transition. A concurrent payment can consume liquidity after evaluation but before commit.
 ```
 
 ## 2. Decision Point
 
 ```yaml
-decision_component: mock_refund_agent
-decision_type: refund_recommendation
-decision_output: proposed_refund_amount_destination_and_reason
+decision_component: mock_treasury_payment_agent
+decision_type: vendor_payment_proposal
+decision_output: pay_USD_4000_to_vendor_sample_42
 decision_timestamp_source: signed_test_clock
-decision_version_or_model: refund-agent-sim-v0.3
+decision_version_or_model: treasury-agent-sim-v0.4
 decision_trace_available: true
 ```
 
 The agent consumes:
 
 ```text
-order identifier
-paid amount
-return status
-refund policy version
-customer account status
-prior committed refunds
-pending refund reservations
-risk result
-operator role and delegation
+approved invoice
+vendor identity and destination
+payment policy version
+operator and service delegation
+current treasury balance
+minimum liquidity reserve
+pending reservations
+committed daily aggregate
+risk and sanctions fixtures
 ```
 
-The output is preparatory, not binding. It becomes executable only after a separate commit-time gate validates current authority and the projected state transition.
+The output is preparatory. It does not authorize or execute payment.
 
-The decision can be replayed from versioned synthetic inputs and deterministic policy fixtures. Model-language explanation is retained for review but is not treated as execution authority.
-
-Assumptions passed downstream:
+Decision-time assumptions:
 
 ```text
-The order is still refundable.
-The proposed amount has not already been refunded.
-The operator's delegation remains valid.
-The policy version remains active.
-The payment destination still matches the original eligible destination.
-No concurrent refund has consumed the remaining refundable balance.
+Treasury balance: USD 10,000
+Minimum required reserve after payment: USD 5,000
+Proposed payment: USD 4,000
+Projected balance: USD 6,000
+Actor authority: valid up to USD 5,000 per payment
+Vendor and destination: approved
+Policy version: treasury-policy-v8
 ```
+
+At decision time, the projected transition appears admissible.
 
 ## 3. Execution Boundary
 
 ```yaml
-boundary_name: refund_commit_boundary
-boundary_component: mock_payment_gateway_commit_adapter
-proposed_action: issue_refund
-target_system_or_resource: synthetic_order_and_refund_ledger
-commit_operation: commit_refund_transaction
-reversibility_class: compensatable
+boundary_name: treasury_payment_commit_boundary
+boundary_component: mock_payment_rail_commit_adapter
+proposed_action: release_vendor_payment
+target_system_or_resource: synthetic_treasury_account_and_payment_ledger
+commit_operation: atomic_payment_commit
+reversibility_class: partially_irreversible
 commit_timestamp_source: signed_test_clock
 ```
 
 Boundary statement:
 
 ```text
-The proposed action becomes real when the gateway simulator atomically commits the refund ledger entry and reduces the order's remaining refundable balance.
+The proposed action becomes real only when the payment-rail simulator atomically debits the synthetic treasury account and records the payment ledger entry.
 ```
 
-A recommendation, approval screen, queued request, or signed execution request is not itself the mutation.
+A model recommendation, invoice approval, operator click, signed request, or queued payment is not itself the mutation.
 
 ## 4. Actor And Authority Assumptions
 
 ```yaml
-actor_id: refund-agent-service:sample-01
+actor_id: treasury-agent-service:sample-01
 actor_type: composite
-principal_or_sponsor: Example Commerce Lab Finance Operations
-human_operator_id: support-operator:sample-17
-authority_source: policy://example-commerce/refund-delegation
- authority_version: refund-delegation-v4
-scope: propose and submit refunds up to USD 250 for eligible orders; no destination change; no cash-equivalent conversion
+principal_or_sponsor: Example Treasury Lab Finance Operations
+human_operator_id: treasury-operator:sample-07
+authority_source: policy://example-treasury/payment-delegation
+authority_version: payment-delegation-v5
+scope: submit approved vendor payments up to USD 5000 per payment and USD 15000 per day
 valid_from: 2026-07-01T00:00:00Z
 valid_until: 2026-07-31T23:59:59Z
-revocation_source: state://example-commerce/delegation-status
- delegation_reference: delegation://refund/support-tier-2/sample-17/v4
-approval_chain_reference: approval://refund/standard-under-250/v2
+revocation_source: state://example-treasury/delegation-status
+delegation_reference: delegation://treasury/operator/sample-07/v5
+approval_chain_reference: approval://invoice/sample-9001/v2
 ```
 
-Evaluation:
+Authority evaluation at commit attempt:
 
 ```text
 [x] Actor identity is established.
 [x] Authority source is machine-legible.
-[x] Authority applies to the exact action type.
-[x] Scope limits are explicit.
-[x] Amount, destination, role, and time limits are explicit.
-[x] Delegation depth is one and purpose-bound.
-[x] Required approval policy is present and current.
-[x] Authority version matches the policy family used at commit time.
-[x] Authority is checked for expiry and revocation immediately before commit.
-[x] Authority references are retained for later reconstruction.
+[x] Authority applies to vendor-payment submission.
+[x] Proposed USD 4,000 amount is within the USD 5,000 per-payment limit.
+[x] Daily aggregate would remain within the delegated USD 15,000 limit.
+[x] Delegation is current and unrevoked.
+[x] Required invoice approval is present and current.
+[x] Vendor destination is within scope.
+[x] Authority can be reconstructed from retained fixtures.
 ```
 
-Important distinction:
-
-```text
-Valid actor authority does not by itself make the refund admissible.
-The projected refund state must also remain within order, aggregate, destination, policy, and recoverability constraints.
+```yaml
+authority_result: PASS
 ```
+
+Authority PASS does not authorize commit by itself.
 
 ## 5. Current-State Dependencies
 
 | State dependency | Source of truth | Freshness requirement | Version or hash | Failure effect |
 |---|---|---|---|---|
-| Order paid amount | synthetic order ledger | read in same commit transaction | order-state-hash | FAIL_CLOSED |
-| Remaining refundable balance | synthetic refund ledger | latest committed state | refund-state-hash | FAIL_CLOSED |
-| Return eligibility | synthetic returns service | maximum age 60 seconds | return-state-hash | FAIL_CLOSED |
-| Active refund policy | policy registry | exact active version at commit | refund-policy-v7 | FAIL_CLOSED |
-| Operator delegation | delegation registry | current and unrevoked | delegation-v4 | DENY if revoked; FAIL_CLOSED if unavailable |
-| Customer account status | account registry | maximum age 60 seconds | account-state-hash | FAIL_CLOSED |
-| Original payment destination | payment record | immutable reference | payment-record-hash | DENY on mismatch |
-| Pending refund reservations | reservation ledger | read in same commit transaction | reservation-state-hash | FAIL_CLOSED |
-| Daily operator aggregate | aggregate counter | latest committed state | operator-aggregate-hash | DENY if exceeded |
-| Gateway availability | gateway simulator | current | gateway-health-attestation | FAIL_CLOSED |
-| Custody destination availability | mock custody service | current when custody required | custody-health-attestation | FAIL_CLOSED |
+| Treasury available balance | synthetic treasury ledger | latest committed state under account lock | treasury-state-hash | FAIL_CLOSED |
+| Minimum liquidity reserve | policy registry | exact active version at commit | treasury-policy-v8 | FAIL_CLOSED |
+| Pending payment reservations | reservation ledger | latest committed state | reservation-state-hash | FAIL_CLOSED |
+| Daily payment aggregate | aggregate ledger | latest committed state | daily-aggregate-hash | DENY if exceeded |
+| Invoice approval | approval registry | current and unrevoked | invoice-approval-hash | DENY if invalid |
+| Actor delegation | delegation registry | current and unrevoked | delegation-v5-hash | DENY if revoked; FAIL_CLOSED if unavailable |
+| Vendor identity and destination | vendor registry | current approved record | vendor-state-hash | DENY on mismatch |
+| Policy version | policy registry | exact active version | treasury-policy-v8 | FAIL_CLOSED |
+| Duplicate transition status | payment ledger | latest committed state | transition-index-hash | DENY duplicate |
+| Custody destination availability | mock custody service | current when custody is mandatory | custody-health-attestation | FAIL_CLOSED |
 
 ## 6. Admissibility Conditions
 
 ```yaml
-pre_state_reference: state://sample/refund/pre/transition-001
-proposed_transition: order_refundable_balance_minus_120_and_refund_ledger_plus_120
-post_state_projection_method: deterministic_refund_state_projector_v1
-invariant_set_reference: invariant://sample/refund/v3
-viability_or_recoverability_reference: recoverability://sample/refund/compensation/v1
-policy_reference: policy://example-commerce/refund/v7
-```
-
-Required preconditions:
-
-```text
-The order exists and is paid.
-The return remains eligible.
-The requested amount is positive and no greater than the remaining refundable balance.
-The destination matches the original eligible payment destination.
-The actor's authority is valid and amount-scoped.
-The customer account is not blocked for refund execution.
-No duplicate transition identifier has already committed.
+pre_state_reference: state://sample/treasury/pre/transition-001
+proposed_transition: treasury_balance_minus_USD_4000_and_payment_ledger_plus_entry
+post_state_projection_method: deterministic_treasury_state_projector_v1
+invariant_set_reference: invariant://sample/treasury/v4
+viability_or_recoverability_reference: recoverability://sample/treasury/minimum-liquidity/v2
+policy_reference: policy://example-treasury/payment/v8
 ```
 
 Hard invariants:
 
 ```text
-Total committed refunds for the order must not exceed the paid amount.
-A refund must not change destination without separate explicit authority.
-A transition identifier may commit at most once.
-The operator's daily committed total must remain within the delegated aggregate limit.
-The committed post-state must equal the state projected from the latest locked pre-state.
+Committed treasury balance must remain at or above USD 5,000.
+The same transition identifier may commit at most once.
+The payment destination must match the approved vendor destination.
+The payment amount must remain within actor and daily aggregate scope.
+The committed post-state must be projected from the latest locked pre-state.
+Required evidence and receipt production must remain available.
 ```
 
-Recoverability requirements:
+### Decision-Time Projection
 
 ```text
-A compensation reference must be available for a committed refund.
-The receipt must bind the committed state and gateway result.
-The system must preserve sufficient evidence to reconstruct why the action was allowed or refused.
-The action must not consume evidence needed for later review.
+Observed balance: USD 10,000
+Proposed payment: USD 4,000
+Projected post-state balance: USD 6,000
+Minimum reserve: USD 5,000
+Decision-time admissibility: appears PASS
 ```
 
-Evaluation result for the primary sample request:
+### Concurrent State Change
+
+Before the proposed USD 4,000 payment reaches the commit boundary, another authorized payment commits:
 
 ```text
-Proposed refund: USD 120
-Remaining refundable balance at locked pre-state: USD 150
-Operator per-action limit: USD 250
-Operator remaining daily aggregate: USD 180
-Destination: unchanged
-Policy version: current
-Delegation: current and unrevoked
-Concurrent reservation: none
-Projected remaining refundable balance: USD 30
-Projected operator remaining daily aggregate: USD 60
+Concurrent payment: USD 3,000
+New latest committed balance: USD 7,000
+Original request pre-state hash: stale
+Reprojected balance after proposed USD 4,000 payment: USD 3,000
+Minimum reserve: USD 5,000
 ```
 
+The concurrent payment is not evidence that either actor lacked authority. It changes the state against which admissibility must be evaluated.
+
+Commit-time evaluation:
+
 ```text
-[x] Required preconditions hold.
-[x] The proposed post-state does not violate a hard invariant.
-[x] Aggregate and concurrent effects are included.
-[x] The action stays within current risk and capacity limits.
-[x] Required compensating recovery remains available.
-[x] Future governance and reconstruction remain possible.
-[x] State, policy, and evidence satisfy freshness rules.
-[x] The transition is admissible under the policy valid at commit time.
-[x] The result is deterministically classifiable.
+[x] Actor authority remains valid.
+[ ] Original pre-state remains current.
+[ ] Projected post-state preserves the minimum reserve.
+[ ] Transition is admissible against the latest committed state.
 ```
 
-Primary sample classification:
-
-```text
+```yaml
+state_freshness_result: FAIL
 authority_result: PASS
-admissibility_result: PASS
-final_decision: ALLOW
+admissibility_result: FAIL
+recoverability_result: FAIL
+evidence_sufficiency_result: PASS
+final_decision: FAIL_CLOSED
+execution_attempted: false
+mutation_committed: false
 ```
+
+The boundary refuses execution before consequence.
 
 ## 7. Concurrency And Aggregate-State Review
 
 | Concurrent action or aggregate limit | Detection method | Serialization, lock, or coordination control | Failure behavior |
 |---|---|---|---|
-| Two refunds against one remaining balance | order-scoped version and state hash | atomic compare-and-swap on refund ledger | stale request is re-evaluated; no commit |
-| Duplicate submission | transition-id lookup | uniqueness constraint | DENY duplicate |
-| Operator daily aggregate | latest aggregate counter | atomic aggregate update in same transaction | DENY if projected total exceeds limit |
-| Reservation race | pending reservation query | order-scoped reservation lock | FAIL_CLOSED if reservation state unavailable |
-| Policy rotation during evaluation | policy version comparison | commit requires exact active version | FAIL_CLOSED and re-evaluate |
-| Delegation revocation during evaluation | revocation epoch comparison | commit requires current revocation epoch | DENY if revoked; FAIL_CLOSED if unresolved |
+| Two payments consume the same available liquidity | account state version and pre-state hash | account-scoped lock plus compare-and-swap | stale request is reprojected before commit |
+| Daily aggregate exceeded by combined payments | latest aggregate ledger | atomic aggregate update | DENY if projected aggregate exceeds scope |
+| Duplicate payment submission | transition-id lookup | uniqueness constraint | DENY duplicate |
+| Policy changes during evaluation | policy version comparison | exact commit-time version requirement | FAIL_CLOSED and re-evaluate |
+| Delegation revocation during evaluation | revocation epoch comparison | current epoch required | DENY if revoked; FAIL_CLOSED if unresolved |
+| Reservation created after decision | reservation state version | lock or reservation-aware projection | FAIL_CLOSED if latest reservation state unavailable |
 
-### Concurrent Failure Scenario
-
-Two individually reasonable refund requests of USD 100 are evaluated while only USD 150 remains refundable.
+The key result is:
 
 ```text
-Request A evaluates first against refundable balance USD 150.
-Request B also evaluates against an earlier USD 150 snapshot.
-Request A commits and leaves USD 50.
-Request B reaches commit with a stale pre-state hash.
+An individually authorized action can become globally inadmissible because another valid action changes the shared state.
 ```
-
-Required result for Request B:
-
-```yaml
-state_freshness_result: FAIL
-authority_result: PASS
-admissibility_result: UNKNOWN
-final_decision: FAIL_CLOSED
-execution_attempted: false
-mutation_committed: false
-refusal_reason_codes:
-  - STALE_PRE_STATE
-  - REEVALUATION_REQUIRED
-```
-
-This demonstrates why actor authorization alone cannot safely govern execution.
 
 ## 8. Evidence Currently Available
 
 | Evidence artifact | Producer | Version or hash | Timestamp | Custody location | Independently verifiable? |
 |---|---|---|---|---|---|
-| Synthetic input bundle | sample fixture builder | input-bundle-hash | 2026-07-14T15:29:50Z | local sample evidence directory | yes |
-| Refund policy | mock policy registry | refund-policy-v7 | 2026-07-14T15:00:00Z | policy fixture | yes |
-| Authority declaration | mock authority registry | authority-v4-hash | 2026-07-14T15:29:55Z | authority fixture | yes |
-| Delegation record | mock delegation registry | delegation-v4-hash | 2026-07-14T15:29:55Z | delegation fixture | yes |
-| Pre-state snapshot | synthetic ledgers | pre-state-hash | 2026-07-14T15:29:58Z | state fixture | yes |
-| Agent decision trace | mock refund agent | decision-trace-hash | 2026-07-14T15:29:56Z | trace fixture | yes |
-| Projected transition | deterministic projector | transition-hash | 2026-07-14T15:29:59Z | evaluation fixture | yes |
-| Invariant result | mock admissibility gate | invariant-result-hash | 2026-07-14T15:29:59Z | evaluation fixture | yes |
-| Commit response | gateway simulator | commit-result-hash | 2026-07-14T15:30:00Z | gateway fixture | yes |
-| Execution-boundary receipt | sample receipt producer | receipt-hash | 2026-07-14T15:30:00Z | mock custody package | yes |
+| Synthetic invoice bundle | sample fixture builder | invoice-bundle-hash | 2026-07-14T15:44:40Z | local sample evidence | yes |
+| Payment policy | mock policy registry | treasury-policy-v8 | 2026-07-14T15:00:00Z | policy fixture | yes |
+| Authority declaration | mock authority registry | authority-v5-hash | 2026-07-14T15:44:45Z | authority fixture | yes |
+| Delegation record | mock delegation registry | delegation-v5-hash | 2026-07-14T15:44:45Z | delegation fixture | yes |
+| Decision-time pre-state | synthetic treasury ledger | pre-state-hash-A | 2026-07-14T15:44:50Z | state fixture | yes |
+| Concurrent commit record | payment simulator | concurrent-commit-hash | 2026-07-14T15:44:55Z | payment fixture | yes |
+| Latest commit-time state | synthetic treasury ledger | pre-state-hash-B | 2026-07-14T15:44:58Z | state fixture | yes |
+| Reprojected transition | deterministic projector | reprojected-transition-hash | 2026-07-14T15:44:59Z | evaluation fixture | yes |
+| Invariant failure result | mock admissibility gate | invariant-fail-hash | 2026-07-14T15:44:59Z | evaluation fixture | yes |
+| Fail-closed receipt | sample receipt producer | receipt-hash | 2026-07-14T15:45:00Z | local sample custody | yes |
 
 Evidence limitation:
 
 ```text
-All evidence is synthetic and locally represented. No authenticated external Master-Records custody is claimed.
+All artifacts are synthetic and locally represented. Authenticated external Master-Records custody is not claimed.
 ```
 
 ## 9. Evidence Gaps
 
 | Missing evidence | Why it matters | Risk created | Required producer | Required before commit? |
 |---|---|---|---|---|
-| External custody receipt | proves independent custody continuity | local artifact loss or substitution | authorized custody service | yes when custody is mandatory |
-| Independent producer attestation | binds evaluator identity | unverifiable producer claim | authorized evaluation signer | yes for higher assurance |
-| Live gateway authorization | proves permission to mutate a real rail | unauthorized deployment claim | destination owner | yes for any production use |
-| External reconstruction report | tests independent replay and interpretation | self-verification bias | independent reviewer | no for sample; yes for external assurance claim |
+| Authenticated external custody receipt | proves durable evidence continuity | local substitution or loss | authorized custody service | yes when custody is mandatory |
+| Governed producer signature | verifies receipt producer identity | unverifiable producer claim | authorized gate signer | yes for signed assurance |
+| Destination deployment authority | permits mutation of a real rail | unauthorized production use | destination owner | yes for production |
+| Independent reconstruction report | tests external reproducibility | self-verification bias | independent reviewer | no for sample; yes for external assurance claim |
 
-Gap classifications:
+Classifications:
 
 ```text
-External custody receipt: custody-blocking for RECORDED claims.
-Independent producer attestation: material for signed assurance.
-Live gateway authorization: commit-blocking for production.
-External reconstruction report: reconstruction-blocking for independent reconstructability claims.
+External custody: custody-blocking for RECORDED claims.
+Producer signature: material for signed assurance.
+Deployment authority: commit-blocking for production.
+Independent reconstruction: reconstruction-blocking for independent assurance claims.
 ```
 
 ## 10. Fail-Closed Conditions
 
-Execution must not proceed when:
+Execution must fail closed when:
 
 ```text
-Actor identity cannot be established.
-Authority is missing, expired, revoked, ambiguous, stale, or out of scope.
-Required approval or delegation is missing.
+Actor identity or authority cannot be established.
+Authority is expired, revoked, stale, ambiguous, or out of scope.
+Required approval is missing.
 Policy version cannot be resolved exactly.
-Current order, refund, reservation, or aggregate state cannot be read and locked.
-Evidence freshness is outside its required window.
-The projected refund violates an order or aggregate invariant.
+Current treasury, aggregate, reservation, or duplicate state cannot be read and locked.
 The pre-state changes after evaluation.
-The destination differs from the original eligible destination.
-A receipt cannot be emitted.
+The reprojected post-state violates the liquidity reserve.
+Required evidence freshness is outside its valid window.
+A required receipt cannot be emitted.
 Mandatory custody is unavailable.
 Reconstruction inputs are incomplete beyond the permitted assurance level.
 ```
@@ -349,76 +324,83 @@ Required refusal behavior:
 result: FAIL_CLOSED
 execution_attempted: false
 mutation_committed: false
-escalation_target: synthetic_finance_review_queue
-operator_message: Commit-time authority or admissibility could not be proven. No refund was issued.
+escalation_target: synthetic_treasury_review_queue
+operator_message: Latest-state admissibility failed after a concurrent payment. No payment was released.
 retry_allowed: true
-retry_conditions: refresh state, resolve authority and policy versions, then create a new evaluation bound to the new pre-state
+retry_conditions: acquire the latest state, create a new projection, obtain any required renewed approval, and issue a new transition identifier
 ```
 
-## 11. Sample Receipt
+## 11. Fail-Closed Receipt
 
 ```yaml
 receipt_schema: stegverse.execution_boundary.receipt.v1
-receipt_id: receipt-sample-refund-001
-audit_id: audit-sample-refund-001
-transition_id: transition-sample-refund-001
-correlation_id: correlation-sample-order-4421
-actor_id: refund-agent-service:sample-01
+receipt_id: receipt-sample-treasury-001
+audit_id: audit-sample-treasury-001
+transition_id: transition-sample-payment-001
+correlation_id: correlation-sample-invoice-9001
+actor_id: treasury-agent-service:sample-01
 actor_type: composite
-principal_or_sponsor: Example Commerce Lab Finance Operations
-action: issue_refund
-target: synthetic-order:4421
-scope: USD 120 to original eligible destination
-request_timestamp: 2026-07-14T15:29:56Z
-evaluation_timestamp: 2026-07-14T15:29:59Z
-commit_timestamp: 2026-07-14T15:30:00Z
-policy_reference: policy://example-commerce/refund/v7
-policy_version: refund-policy-v7
-authority_reference: policy://example-commerce/refund-delegation
-authority_version: refund-delegation-v4
-delegation_reference: delegation://refund/support-tier-2/sample-17/v4
+principal_or_sponsor: Example Treasury Lab Finance Operations
+action: release_vendor_payment
+target: synthetic-vendor:42
+scope: USD 4000 to approved destination
+request_timestamp: 2026-07-14T15:44:50Z
+evaluation_timestamp: 2026-07-14T15:44:52Z
+commit_timestamp: null
+policy_reference: policy://example-treasury/payment/v8
+policy_version: treasury-policy-v8
+authority_reference: policy://example-treasury/payment-delegation
+authority_version: payment-delegation-v5
+delegation_reference: delegation://treasury/operator/sample-07/v5
 approval_references:
-  - approval://refund/standard-under-250/v2
-pre_state_hash: sha256:sample-pre-state
+  - approval://invoice/sample-9001/v2
+pre_state_hash: sha256:sample-pre-state-A
+latest_state_hash: sha256:sample-pre-state-B
 proposed_transition_hash: sha256:sample-transition
-projected_post_state_hash: sha256:sample-projected-post-state
-committed_post_state_hash: sha256:sample-committed-post-state
-state_freshness_result: PASS
+projected_post_state_hash: sha256:sample-invalid-post-state
+committed_post_state_hash: null
+state_freshness_result: FAIL
 authority_result: PASS
-admissibility_result: PASS
-recoverability_result: PASS
+admissibility_result: FAIL
+recoverability_result: FAIL
 evidence_sufficiency_result: PASS
-final_decision: ALLOW
-execution_attempted: true
-mutation_committed: true
-commit_result_reference: gateway-sim://commit/sample-refund-001
-refusal_reason_codes: []
+final_decision: FAIL_CLOSED
+execution_attempted: false
+mutation_committed: false
+commit_result_reference: null
+refusal_reason_codes:
+  - STALE_PRE_STATE
+  - CONCURRENT_PAYMENT_COMMITTED
+  - MINIMUM_LIQUIDITY_RESERVE_VIOLATION
+  - REEVALUATION_REQUIRED
 evidence_references:
-  - evidence://sample/input-bundle
-  - evidence://sample/authority-v4
-  - evidence://sample/pre-state
-  - evidence://sample/invariant-result
-custody_reference: local-synthetic-custody://sample-refund-001
+  - evidence://sample/invoice-bundle
+  - evidence://sample/authority-v5
+  - evidence://sample/pre-state-A
+  - evidence://sample/concurrent-commit
+  - evidence://sample/pre-state-B
+  - evidence://sample/invariant-failure
+custody_reference: local-synthetic-custody://sample-treasury-001
 producer_identity: sample-execution-boundary-gate
 producer_signature_or_attestation: synthetic-example-not-a-trust-claim
 ```
 
-The local custody reference is a fixture pointer only. It does not establish authenticated external custody or permit a `RECORDED` ecosystem claim.
+The local custody pointer is a fixture reference only. It does not establish authenticated custody or permit a `RECORDED` claim.
 
 ## 12. Reconstruction Path
 
 ```text
-1. Resolve the sample receipt and confirm its schema.
-2. Resolve the synthetic policy, authority, delegation, and approval fixtures.
-3. Verify that their versions match the receipt.
-4. Recompute the pre-state hash from the synthetic ledgers.
-5. Recompute the proposed transition and projected post-state.
-6. Re-evaluate actor authority against scope, time, revocation, destination, and amount limits.
-7. Re-evaluate admissibility against order balance, aggregate limit, duplicate prevention, concurrency, and recoverability invariants.
-8. Verify that the gateway simulator committed the expected post-state.
-9. Compare the committed post-state hash with the receipt.
-10. Confirm that the local custody pointer resolves to the same synthetic evidence package.
-11. Record the limits caused by absent authenticated external custody and absent independent attestation.
+1. Resolve the fail-closed receipt and verify its schema.
+2. Resolve the policy, authority, delegation, approval, invoice, and vendor fixtures.
+3. Verify that actor authority was valid for USD 4,000 at the attempted commit time.
+4. Recompute the original decision-time pre-state hash.
+5. Verify the concurrent USD 3,000 commit and its resulting state.
+6. Recompute the latest commit-time state hash.
+7. Reproject the proposed USD 4,000 transition from the latest state.
+8. Verify that the projected USD 3,000 balance violates the USD 5,000 minimum reserve.
+9. Verify the recorded FAIL_CLOSED result.
+10. Confirm that no debit or payment ledger mutation occurred for transition-sample-payment-001.
+11. Record the limits caused by absent authenticated external custody and trusted producer signature.
 ```
 
 ```yaml
@@ -427,50 +409,52 @@ replayability: PASS
 cryptographic_verifiability: PARTIAL
 independent_authority_reconstruction: PASS
 independent_admissibility_reconstruction: PASS
-notes: The synthetic fixture is fully reconstructable locally. Cryptographic verifiability remains PARTIAL because the sample does not include an externally trusted signature or authenticated Master-Records custody receipt.
+notes: The synthetic failure is locally reconstructable. Cryptographic verifiability remains PARTIAL because no externally trusted signature or authenticated Master-Records custody receipt is present.
 ```
 
 ## 13. Audit Decision
 
 ```yaml
 authority_result: PASS
-state_validity_result: PASS
-admissibility_result: PASS
+state_validity_result: FAIL
+admissibility_result: FAIL
 evidence_result: PARTIAL
 receipt_readiness: PASS
 reconstruction_readiness: PASS
-overall_result: REQUIRES_REMEDIATION
+overall_result: FAIL_CLOSED_REQUIRED
 ```
 
 Decision rationale:
 
 ```text
-The sample workflow demonstrates a viable dual commit-time gate. The primary transition is allowable in the synthetic environment because actor authority and projected state admissibility both pass against current locked state.
-
-The workflow is not production-ready and cannot support external custody, certification, deployment, or independent assurance claims. Production use would require destination authorization, authenticated custody, signed producer identity, deployment-specific policy and authority sources, and independent validation.
+The actor remained validly authorized to submit the payment. However, a concurrent payment changed the latest committed treasury state. Reprojection showed that the proposed payment would reduce liquidity below the governed reserve. Because authority and transition admissibility are coupled requirements, the execution boundary correctly returned FAIL_CLOSED without attempting or committing a mutation.
 ```
 
 ## 14. Recommendations
 
 | Priority | Recommendation | Owner | Required evidence | Completion condition |
 |---|---|---|---|---|
-| Commit-blocking | Require atomic pre-state lock and compare-and-swap | destination implementation owner | concurrency tests and commit receipts | stale concurrent request cannot mutate |
-| Commit-blocking | Bind active authority and revocation epoch at commit | authority service owner | revocation test evidence | revoked or unresolved authority cannot mutate |
-| High | Add authenticated custody for receipts and evidence | custody owner | custody receipt and retrieval proof | evidence package reconstructs from authenticated custody |
-| High | Sign gate decisions with a governed producer identity | execution-gate owner | key governance and signature verification evidence | receipt producer can be independently verified |
-| Medium | Add independent reconstruction test | independent reviewer | reconstruction report | expected and recorded decisions agree |
-| Low | Add operator-facing explanation codes | workflow owner | usability review | refusals are actionable without weakening fail-closed behavior |
+| Commit-blocking | Require latest-state lock and compare-and-swap | destination implementation owner | concurrency tests and receipts | stale requests cannot mutate |
+| Commit-blocking | Reproject every payment from the locked commit-time state | admissibility-gate owner | invariant test evidence | reserve violations always refuse |
+| High | Bind authority and revocation epoch at commit | authority service owner | revocation tests | invalid authority cannot proceed |
+| High | Add authenticated custody | custody owner | custody receipt and retrieval proof | evidence reconstructs from authenticated custody |
+| High | Sign gate receipts with governed producer identity | gate owner | key governance and signature verification | producer is independently verifiable |
+| Medium | Add independent reconstruction tests | independent reviewer | reconstruction report | reconstructed result matches FAIL_CLOSED |
+| Low | Provide operator-facing retry guidance | workflow owner | usability review | retries require fresh state and new transition id |
 
 ## 15. Permitted Claims
 
 Permitted:
 
 ```text
-A synthetic non-production refund workflow was mapped.
+A synthetic non-production treasury-payment workflow was mapped.
 The governed point of irreversibility was identified.
-Actor authority and resulting-state admissibility were evaluated as coupled commit-time conditions.
-Concurrency, aggregate limits, fail-closed conditions, receipt fields, and a reconstruction path were documented.
-A local synthetic reconstruction produced PASS with cryptographic verifiability classified PARTIAL.
+Actor authority passed while latest-state transition admissibility failed.
+A concurrent payment made the proposed post-state violate a minimum-liquidity invariant.
+The sample gate returned FAIL_CLOSED before execution.
+No mutation was attempted or committed.
+A fail-closed receipt and reconstruction path were documented.
+Local reconstructability and replayability passed; cryptographic verifiability remained partial.
 ```
 
 Prohibited:
@@ -478,12 +462,12 @@ Prohibited:
 ```text
 Production deployment.
 Live company adoption.
+Authorized real payment execution.
 Third-party certification or endorsement.
 Regulatory approval.
 Complete safety, security, or compliance.
 Authenticated Master-Records custody.
 Independent external reconstructability.
-Authorized payment execution.
 ```
 
 ## 16. Sign-Off
@@ -496,9 +480,9 @@ stegverse_review_date: 2026-07-14
 confidentiality_classification: public_synthetic_example
 public_case_study_permission: anonymized
 open_questions:
-  - Which destination will own production authority evaluation?
-  - Which authorized custody service will retain receipts and reconstruction evidence?
-  - What assurance level will require independent attestation?
+  - Which destination will own production commit-time admissibility evaluation?
+  - Which custody service will retain receipts and reconstruction evidence?
+  - What assurance level will require independent signatures and review?
 ```
 
 ## Completion Rule Result
@@ -507,13 +491,17 @@ open_questions:
 Execution boundary explicit: PASS
 Actor authority evaluated: PASS
 Resulting transition evaluated: PASS
+Concurrency and aggregate-state risk evaluated: PASS
 Fail-closed conditions explicit: PASS
 Evidence and gaps recorded: PASS
 Receipt shape defined: PASS
 Reconstruction path documented: PASS
 Claims bounded to evidence: PASS
+Required final result FAIL_CLOSED: PASS
+execution_attempted false: PASS
+mutation_committed false: PASS
 ```
 
 ## Archive Readiness
 
-This sample contains the complete synthetic workflow, decision path, governed point of irreversibility, authority evaluation, state-transition admissibility evaluation, concurrency analysis, evidence inventory, evidence gaps, fail-closed behavior, receipt, reconstruction result, recommendations, and claims boundary needed for future continuation without prior conversation context.
+This sample preserves the complete synthetic treasury-payment workflow, valid actor authority, concurrent state change, failed commit-time admissibility, fail-closed decision, no-mutation result, evidence inventory, receipt, reconstruction path, recommendations, and bounded claims needed for future continuation without prior conversation context.
