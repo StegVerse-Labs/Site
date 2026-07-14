@@ -11,54 +11,9 @@ It does not replace `docs/SITE_MIRROR_HANDOFF.md`, which remains authoritative f
 ```text
 Goal: Company testbed discovery and execution-boundary pilot readiness
 Repository: StegVerse-Labs/Site
-Primary public artifact: docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
-Operational audit artifact: docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
-Intake artifact: docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md
-Completed example: docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md
 Activation state: ready_for_external_testbed_outreach
-Release state: validation_pending
-```
-
-## Source Of Truth Boundary
-
-Permitted scope:
-
-```text
-public positioning
-company-testbed discovery
-pilot-readiness documentation
-non-production workflow qualification
-execution-boundary audit framing
-commit-time authority validation
-resulting-state admissibility evaluation
-receipt and reconstruction design
-bounded outreach artifacts
-handoff continuity
-```
-
-Prohibited claims:
-
-```text
-live company adoption
-production integration
-paid pilot completion
-third-party endorsement
-regulatory approval
-full ecosystem deployment
-authenticated Master-Records custody
-independent external certification
-activated Publisher-to-Site mirror status
-```
-
-## Required Companion Files
-
-```text
-docs/SITE_MIRROR_HANDOFF.md
-docs/COMPANY_TESTBED_MIRROR_HANDOFF.md
-docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
-docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
-docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md
-docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md
+Release state: current_main_validation_pending
+Workflow target: exactly two operational workflows
 ```
 
 ## External-Facing Thesis
@@ -106,24 +61,7 @@ One receipt trail.
 One reconstruction report.
 ```
 
-The audit identifies:
-
-```text
-where a decision becomes action
-what actor and principal are involved
-what authority is assumed
-what policy and state must still be current
-what transition is proposed
-what invariants and recoverability conditions apply
-what concurrent or aggregate risks exist
-what evidence is available or missing
-what must fail closed
-what receipt should be emitted
-what can be reconstructed later
-what public claims the evidence permits
-```
-
-## Built Files
+## Built Artifact Set
 
 ```text
 docs/COMPANY_TESTBED_MIRROR_HANDOFF.md
@@ -131,21 +69,36 @@ docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
 docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
 docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md
 docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md
+docs/STEGVERSE_COMPANY_TESTBED_TARGET_LIST_TEMPLATE.md
+scripts/check_site_company_testbed_artifacts.py
+scripts/check_site_workflow_inventory.py
 ```
 
-## Latest Completed Build
+## Latest Build Progression
 
 ```text
 Commit: 55ec8ec98e5d3a016e63cb6f18671ac789e88cd5
-File: docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md
 Result: completed synthetic fail-closed treasury concurrency audit
+
+Commit: 8bec43dbd47c0e178374bac7c918dbc2b6096498
+Result: added governed company-testbed target-list template
+
+Commit: 6846ac6f6f8255f7f1c8971b4a4117f77ad86d70
+Result: added fail-closed company-testbed artifact validator
+
+Commit: ec4333667778bddd57b5c4c1020ef1efb55f1502
+Result: aligned validator integration contract with the existing workflow-inventory path
+
+Commit: ca6f271cd39cae5f8a612a1a932d44258a29d88d
+Result: bound company-testbed validation into the existing canonical Site validation path without adding a workflow
 ```
 
-The sample demonstrates:
+## Sample Audit Evidence Boundary
+
+The completed synthetic sample demonstrates:
 
 ```text
 synthetic treasury-payment agent workflow
-explicit governed point of irreversibility
 valid actor identity, delegation, approval, scope, and authority
 USD 4,000 proposed payment against an initial USD 10,000 balance
 USD 5,000 required minimum liquidity reserve
@@ -158,14 +111,43 @@ recoverability_result: FAIL
 final_decision: FAIL_CLOSED
 execution_attempted: false
 mutation_committed: false
-fail-closed receipt and refusal reason codes
 local reconstructability: PASS
 replayability: PASS
 cryptographic verifiability: PARTIAL
-bounded permitted and prohibited claims
 ```
 
 No real company, account, payment rail, credential, personal data, endorsement, deployment, external custody, or third-party assurance is represented.
+
+## Target-List Governance Boundary
+
+The target-list template records only public-source research, fit hypotheses, permission state, confidentiality state, and the next permitted action.
+
+It explicitly prohibits treating a research candidate as a partner, customer, adopter, endorser, validator, certified entity, deployment, integration, or paid pilot.
+
+Permitted default claim:
+
+```text
+Prospective research candidate identified from public information.
+```
+
+## Validation Integration
+
+The company-testbed validator is fail-closed and checks:
+
+```text
+required artifact presence
+minimum content completeness
+commit-time authority and admissibility language
+sample FAIL_CLOSED result
+execution_attempted: false
+mutation_committed: false
+target-list permission and claim boundaries
+forbidden unsupported positive claims
+exactly two operational workflows
+binding through scripts/check_site_workflow_inventory.py
+```
+
+The existing `scripts/run_site_task.py` already invokes `scripts/check_site_workflow_inventory.py` in both the validation and public-guard paths. No third workflow was added.
 
 ## Current Completion State
 
@@ -178,16 +160,11 @@ Testbed README: built
 Operational audit template: built
 Intake questionnaire: built
 Synthetic completed sample audit: built
-Dual authority and transition-admissibility model: built
-Concurrency and aggregate-state failure example: built
-Receipt field set: built
-Reconstruction path: built
-Repo handoff: built
-External target-list template: pending
-Artifact-set validator: pending
-Validation integration in existing workflow architecture: pending
-Repository validation: pending
-External target list: pending
+Governed target-list template: built
+Artifact-set validator: built
+Validation integration in existing workflow architecture: built
+Repository current-main validation: pending observation
+External populated target list: pending
 Outbound messages: pending
 External company conversation: pending
 External workflow audit: pending
@@ -198,9 +175,11 @@ Case study or pilot evidence: pending
 
 ```text
 StegVerse-Labs/Site
-  -> docs/STEGVERSE_COMPANY_TESTBED_TARGET_LIST_TEMPLATE.md
-  -> validator binding the README, audit template, intake questionnaire, sample audit, and handoff
-  -> validator integration without adding a third workflow
+  -> observe current-main validation containing scripts/check_site_company_testbed_artifacts.py
+  -> repair only the next exact failure without removing checks
+  -> record a successful company-testbed artifact validation result
+  -> create bounded release notes only after validation passes
+  -> verify explicit release authority before any tag
   -> optional public landing-page copy only when Site routing is authorized
 
 master-records/orchestration
@@ -218,45 +197,15 @@ stegguardian-wiki
 
 These are continuation candidates, not claims that cross-repository installation is currently authorized.
 
-## Recommended Next Build
+## Next Task
 
 ```text
-Build docs/STEGVERSE_COMPANY_TESTBED_TARGET_LIST_TEMPLATE.md
-```
-
-Purpose:
-
-```text
-Provide a governed research and outreach surface for identifying prospective testbed partners without recording unsupported endorsements, sensitive personal data, or adoption claims.
-```
-
-Minimum fields:
-
-```text
-organization
-sector
-candidate workflow category
-relevant role
-public source reference
-execution-boundary fit hypothesis
-non-production scope plausibility
-authority question
-state-transition question
-contact status
-permission and confidentiality state
-next permitted action
-claim boundary
-```
-
-After the target-list template:
-
-```text
-1. add a fail-closed documentation validator;
-2. bind it into the existing validation/task-runner architecture without adding a workflow;
-3. validate the complete company-testbed artifact set;
-4. repair only exact failures without removing checks;
-5. reassess release readiness;
-6. do not tag unless validation passes and release authority is explicit.
+1. Observe current-main workflow validation after commit ca6f271cd39cae5f8a612a1a932d44258a29d88d.
+2. Confirm the company-testbed validator executes through the canonical validation path.
+3. Repair only the exact failing assertion if validation fails.
+4. Record the first successful current-main validation evidence.
+5. Reassess release readiness.
+6. Do not tag unless validation passes and release authority is explicit.
 ```
 
 ## LinkedIn And External Dialogue Continuity
@@ -285,16 +234,16 @@ Do not publish confidential third-party information, imply approval, or associat
 
 ## Release Posture
 
-The required intake questionnaire and one completed synthetic sample audit are present, but release tagging is not yet authorized.
+The complete documentation and validator surface is now built, but release tagging is not yet authorized.
 
 Release requires:
 
 ```text
-complete artifact-set validation
+successful current-main artifact-set validation
 no unresolved internal inconsistencies
 explicit release authority
 bounded release notes
-verification that no production, custody, certification, or adoption claim is implied
+verification that no production, custody, certification, adoption, partnership, or endorsement claim is implied
 ```
 
 When release-ready, create a follow-up task to assess updates for:
@@ -311,10 +260,10 @@ stegguardian-wiki
 ```text
 StegVerse-Labs/Site owns the current documentation build and validation path.
 External organizations own permission to inspect, describe, or publish their workflows.
-Destination repositories own any later custody, publication, terminology, or operator-guidance integration.
-No external validation, custody, adoption, or endorsement is currently treated as completed evidence.
+Destination repositories own later custody, publication, terminology, or operator-guidance integration.
+No external validation, custody, adoption, partnership, endorsement, or certification is completed evidence.
 ```
 
 ## Archive Readiness
 
-This handoff preserves the active goal, decisions, built artifacts, latest commit, remaining files, blockers, ownership, release posture, external-dialogue framing, claim limits, pending validation, and exact permitted continuation scope. Earlier conversation context is not required for forward progress.
+This handoff preserves the active goal, decisions, built artifacts, commits, remaining work, blockers, ownership, release posture, external-dialogue framing, claim limits, pending validation, and exact permitted continuation scope. Earlier conversation context is not required for forward progress.
