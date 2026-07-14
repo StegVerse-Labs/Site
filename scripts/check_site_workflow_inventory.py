@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WRITER = ROOT / "scripts" / "write_site_workflow_inventory.py"
 INVENTORY = ROOT / "data" / "site-workflow-inventory.json"
 COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artifacts.py"
+COMPANY_TESTBED_TESTS = ROOT / "scripts" / "test_site_company_testbed_artifacts.py"
 ACTIVATION_LEDGER_VALIDATOR = ROOT / "scripts" / "check_site_activation_ledger.py"
 ACTIVATION_LEDGER_TESTS = ROOT / "scripts" / "test_site_activation_ledger.py"
 CANONICAL = {"validate.yml", "site-task-runner.yml"}
@@ -28,9 +29,9 @@ def main() -> int:
         print("SITE WORKFLOW INVENTORY CHECK: FAIL")
         print("- missing scripts/write_site_workflow_inventory.py")
         return 1
-
     for validator in (
         COMPANY_TESTBED_VALIDATOR,
+        COMPANY_TESTBED_TESTS,
         ACTIVATION_LEDGER_VALIDATOR,
         ACTIVATION_LEDGER_TESTS,
     ):
@@ -77,6 +78,7 @@ def main() -> int:
     if not failures:
         for label, validator in (
             ("company-testbed artifact", COMPANY_TESTBED_VALIDATOR),
+            ("company-testbed adversarial tests", COMPANY_TESTBED_TESTS),
             ("activation-ledger", ACTIVATION_LEDGER_VALIDATOR),
             ("activation-ledger adversarial tests", ACTIVATION_LEDGER_TESTS),
         ):
