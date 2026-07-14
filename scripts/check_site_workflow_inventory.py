@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WRITER = ROOT / "scripts" / "write_site_workflow_inventory.py"
 INVENTORY = ROOT / "data" / "site-workflow-inventory.json"
+COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artifacts.py"
 CANONICAL = {"validate.yml", "site-task-runner.yml"}
 
 
@@ -24,6 +25,11 @@ def main() -> int:
     if not WRITER.exists():
         print("SITE WORKFLOW INVENTORY CHECK: FAIL")
         print("- missing scripts/write_site_workflow_inventory.py")
+        return 1
+
+    if not COMPANY_TESTBED_VALIDATOR.exists():
+        print("SITE WORKFLOW INVENTORY CHECK: FAIL")
+        print("- missing scripts/check_site_company_testbed_artifacts.py")
         return 1
 
     completed = subprocess.run([sys.executable, str(WRITER)], cwd=ROOT, check=False)
@@ -60,6 +66,18 @@ def main() -> int:
 
     if data.get("canonical_count") != 2:
         failures.append("canonical_count must equal 2")
+
+    if not failures:
+        company_testbed = subprocess.run(
+            [sys.executable, str(COMPANY_TESTBED_VALIDATOR)],
+            cwd=ROOT,
+            check=False,
+        )
+        if company_testbed.returncode != 0:
+            failures.append(
+                "company-testbed artifact validator exited with "
+                f"{company_testbed.returncode}"
+            )
 
     print("SITE WORKFLOW INVENTORY CHECK:", "FAIL" if failures else "PASS")
     print("Operational workflows:", ", ".join(sorted(operational)) or "none")
