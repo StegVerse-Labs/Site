@@ -20,6 +20,9 @@ COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artif
 COMPANY_TESTBED_TESTS = ROOT / "scripts" / "test_site_company_testbed_artifacts.py"
 ACTIVATION_LEDGER_VALIDATOR = ROOT / "scripts" / "check_site_activation_ledger.py"
 ACTIVATION_LEDGER_TESTS = ROOT / "scripts" / "test_site_activation_ledger.py"
+ACTIVATION_LEDGER_HANDOFF_VALIDATOR = (
+    ROOT / "scripts" / "check_site_activation_ledger_handoff.py"
+)
 CANONICAL = {"validate.yml", "site-task-runner.yml"}
 
 
@@ -34,6 +37,7 @@ def main() -> int:
         COMPANY_TESTBED_TESTS,
         ACTIVATION_LEDGER_VALIDATOR,
         ACTIVATION_LEDGER_TESTS,
+        ACTIVATION_LEDGER_HANDOFF_VALIDATOR,
     ):
         if not validator.exists():
             print("SITE WORKFLOW INVENTORY CHECK: FAIL")
@@ -81,6 +85,7 @@ def main() -> int:
             ("company-testbed adversarial tests", COMPANY_TESTBED_TESTS),
             ("activation-ledger", ACTIVATION_LEDGER_VALIDATOR),
             ("activation-ledger adversarial tests", ACTIVATION_LEDGER_TESTS),
+            ("activation-ledger handoff", ACTIVATION_LEDGER_HANDOFF_VALIDATOR),
         ):
             completed_validator = subprocess.run(
                 [sys.executable, str(validator)],
