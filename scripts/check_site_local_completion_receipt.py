@@ -35,7 +35,7 @@ REQUIRED_MD_TERMS = {
     "workflow_surface: consolidated_two_workflow_surface",
     "This receipt confirms local repository-managed continuation surfaces exist.",
     "does not activate the Site mirror",
-    "does not grant commit-time permission",
+    "grant commit-time permission",
 }
 
 REQUIRED_TASK_TERMS = {
