@@ -1,0 +1,69 @@
+{
+  "schema": "stegverse.site.activation-ledger.v1",
+  "generated_at": "2026-07-14T17:30:00Z",
+  "goal": "fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path",
+  "checkpoint": "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+  "contract_status": "PREPARED_NOT_DEPLOYED",
+  "activation_status": "BLOCKED",
+  "live_transport_enabled": false,
+  "authority_granted": false,
+  "custody_recorded": false,
+  "release_authorized": false,
+  "gates": {
+    "site_same_run_artifact_set": {
+      "status": "NOT_OBSERVED",
+      "required_artifacts": [
+        "site_application_validation.result.json",
+        "site_current_main_validation.receipt.json",
+        "site_current_main_validation.manifest.json"
+      ],
+      "same_run_required": true
+    },
+    "llm_adapter_current_main_validation": {
+      "status": "NOT_OBSERVED",
+      "minimum_observed_source_commit": "1b47369091bc8f7d9f2126d21d03bda3432e5c84",
+      "source_implementation_observed": true,
+      "workflow_pass_observed": false
+    },
+    "sdk_current_main_validation": {
+      "status": "NOT_OBSERVED",
+      "minimum_observed_source_commit": "df48ea4dc2735f77091ab2a2899878214ec24dc2",
+      "adapter_origin_fixture_observed": true,
+      "receipt_tuple_preservation_observed": true,
+      "workflow_pass_observed": false
+    },
+    "same_origin_authenticated_deployment": {
+      "status": "NOT_OBSERVED",
+      "usage_api_base": null,
+      "browser_secret_surface_allowed": false
+    },
+    "live_endpoint_conformance": {
+      "status": "NOT_OBSERVED",
+      "authorized_deployment_required_first": true
+    },
+    "master_records_authenticated_custody": {
+      "status": "NOT_OBSERVED",
+      "local_persistence_is_custody": false,
+      "custody_receipt_required": true
+    },
+    "reconstructability": {
+      "status": "NOT_OBSERVED",
+      "required_result": "PASS"
+    }
+  },
+  "observed_structural_evidence": [
+    "6b6a915fdedbbd941c204bd17d57fdeaa8fb63ed",
+    "6e2c22b0da378726cb4c367d88d5d7a70e5ece99",
+    "df48ea4dc2735f77091ab2a2899878214ec24dc2",
+    "af419f04e8cd961043b0392b4290690f06ad065f"
+  ],
+  "activation_rule": "ACTIVATE only when every gate status is VERIFIED and authority_granted, custody_recorded, and release_authorized are supported by their own authenticated evidence.",
+  "non_claims": [
+    "source implementation is not workflow validation",
+    "workflow validation is not deployment authority",
+    "SDK acceptance is not admissibility",
+    "local persistence is not Master-Records custody",
+    "SPE ALLOW is not execution authority",
+    "receipt presence is not reconstructability"
+  ]
+}
