@@ -11,18 +11,27 @@ EXTERNAL = ROOT / "docs" / "SITE_EXTERNAL_EVIDENCE_STATE.json"
 
 REQUIRED = {
     "ecosystem": [
-        "Activation state: pending_external_evidence",
+        "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+        "Contract status: PREPARED_NOT_DEPLOYED",
         "Management state: ecosystem-managed continuation ready after this packet and checker pass",
-        "docs/SITE_MIRROR_ECOSYSTEM_MANAGEMENT_HANDOFF.md",
-        "docs/SITE_FINAL_GOAL_STATUS.json remains pending until TT bundle-fed status is PASS",
-        "Site-local display pages alone do not make the final goal ready",
+        ".github/workflows/validate.yml",
+        ".github/workflows/site-task-runner.yml",
+        "repository-local goal gates: ready",
+        "live governed activation: blocked pending external evidence",
+        "No release tag is authorized",
         "prior chat thread",
     ],
     "mirror_ecosystem": [
         "management_state: self_managed_handoff_ready",
         "site_state: autonomous_continuation_ready",
+        "local_goal_status: ready",
+        "activation_checkpoint: SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
+        "contract_status: PREPARED_NOT_DEPLOYED",
+        "live_transport_enabled: false",
         "final goal status reports ready",
         "thread_archive_ready: true",
+        ".github/workflows/validate.yml",
+        ".github/workflows/site-task-runner.yml",
     ],
     "mirror": [
         ".github/workflows/validate.yml",
@@ -30,25 +39,23 @@ REQUIRED = {
         "SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED",
         "PREPARED_NOT_DEPLOYED",
         "No release tag is authorized",
+        "live_transport_enabled: false",
+        "Master-Records custody",
+        "reconstructability PASS",
     ],
-    # SITE_FINAL_GOAL_STATUS.json records Site-local completion gates. Once all
-    # three local gates pass, its valid state is ready.
     "final_goal": ["site_final_goal_status.v0.1", '"goal_status": "ready"'],
-    # SITE_EXTERNAL_EVIDENCE_STATE.json records whether the bounded TT and
-    # Governance Observatory source artifacts are present. It is not the live
-    # endpoint, custody, deployment, or activation ledger.
     "external": ['"state": "external_evidence_present"', '"local_build_state": "repository_managed"'],
 }
 
-# These are concrete positive state declarations. Source-of-truth phrases are not
-# checked as raw substrings because the canonical mirror handoff intentionally
-# includes them inside an explicit non-claims section.
 FORBIDDEN = [
     "Activation state: activated",
     "ready_completion: ready",
     "site_state: activated",
     "contract_status: DEPLOYED",
     "live_transport_enabled: true",
+    "custody_recorded: true",
+    "authority_granted: true",
+    "release tag authorized",
 ]
 
 FILES = {
