@@ -13,6 +13,7 @@ Goal: Company testbed discovery and execution-boundary pilot readiness
 Repository: StegVerse-Labs/Site
 Companion handoff: docs/SITE_MIRROR_HANDOFF.md
 Primary public artifact: docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
+Operational audit artifact: docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
 Activation state: ready_for_external_testbed_outreach
 ```
 
@@ -49,6 +50,7 @@ full ecosystem deployment
 ```text
 docs/COMPANY_TESTBED_MIRROR_HANDOFF.md
 docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
+docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
 ```
 
 ## Companion Files To Check Before Continuing
@@ -56,6 +58,7 @@ docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
 ```text
 docs/SITE_MIRROR_HANDOFF.md
 docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md
+docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
 ```
 
 The Site mirror handoff remains the source of truth for Publisher-to-Site paper-display work. This company-testbed handoff is the source of truth for LinkedIn/company-testbed continuation work.
@@ -65,6 +68,25 @@ The Site mirror handoff remains the source of truth for Publisher-to-Site paper-
 ```text
 Before an AI or agentic system turns a decision into action, can it prove that the action is still authorized, admissible, state-valid, and receipt-verifiable?
 ```
+
+## Commit-Time Clarification
+
+Authority engineering at the governed point of irreversibility evaluates both:
+
+```text
+1. whether the actor has valid authority to act;
+2. whether the resulting state transition is admissible for the current system state.
+```
+
+These are not competing layers. They are coupled conditions at the same commit boundary.
+
+```text
+ALLOW only when both hold.
+DENY when either is known to fail.
+FAIL_CLOSED when either cannot be proven sufficiently.
+```
+
+The audit template now binds this dual evaluation explicitly and also addresses concurrent or aggregate actions that may be individually authorized but globally inadmissible.
 
 ## Current Wedge
 
@@ -94,11 +116,13 @@ The audit maps one representative AI or agentic workflow and determines:
 1. where a decision becomes action,
 2. what authority is assumed,
 3. what state must be current,
-4. what admissibility conditions should apply,
-5. what evidence currently exists or is missing,
-6. what should fail closed,
-7. what receipt should be emitted,
-8. and what can be reconstructed later.
+4. what admissibility conditions apply,
+5. whether the projected transition preserves invariants and recoverability,
+6. what evidence currently exists or is missing,
+7. what should fail closed,
+8. what receipt should be emitted,
+9. what can be reconstructed later,
+10. and which claims the available evidence actually permits.
 ```
 
 ## Target Company Categories
@@ -175,6 +199,10 @@ Target sectors: built
 Target roles: built
 Outreach language: built
 README artifact: built
+Audit template: built
+Dual authority/transition admissibility clarification: built
+Receipt field set: built
+Reconstruction path: built
 Repo handoff: built
 External target list: pending
 Outbound messages: pending
@@ -183,43 +211,99 @@ External workflow audit: pending
 Case study or pilot evidence: pending
 ```
 
-## Next Build Candidates
+## Completed In Latest Build
 
-1. Add a lightweight target-list template for company outreach.
-2. Add an execution-boundary audit template.
-3. Add an intake questionnaire as a reusable artifact.
-4. Add a sample anonymized workflow audit for a mock agentic AI workflow.
-5. Add a public landing-page copy draft if Site routing is active.
+```text
+Commit: ae8d5896d428151bdc7a197e2967446ad481aeaf
+File: docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
+```
+
+The audit template was upgraded from a basic questionnaire into an operational audit surface with:
+
+```text
+explicit governed point of irreversibility
+actor authority validation
+resulting-state transition admissibility
+state freshness and version checks
+concurrency and aggregate-state review
+recoverability and future-governability checks
+ALLOW / DENY / FAIL_CLOSED semantics
+commit-blocking evidence gaps
+receipt schema fields
+independent reconstruction outcomes
+bounded permitted-claims language
+```
+
+## Remaining Files Or Modules To Build
+
+```text
+StegVerse-Labs/Site
+  -> docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md
+  -> docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md
+  -> docs/STEGVERSE_COMPANY_TESTBED_TARGET_LIST_TEMPLATE.md
+  -> optional public landing-page copy only if Site routing is authorized
+
+master-records/orchestration
+  -> future custody schema for completed audit receipts and reconstruction evidence
+
+GCAT-BCAT-Engine/Publisher
+  -> future publication packet only after an audit or formal research artifact is release-ready
+
+admissibility-wiki
+  -> future terminology page for governed point of irreversibility, authority validity, and transition admissibility
+
+stegguardian-wiki
+  -> future operator escalation and fail-closed response guidance
+```
+
+These destinations are continuation candidates, not claims that installation or mirroring is authorized now.
 
 ## Recommended Next Build
 
 ```text
-Build docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md
+Build docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md
 ```
 
 Purpose:
 
 ```text
-Give a company a concrete, non-production audit shape that can be completed without production data.
+Give a prospective company or lab a short pre-audit form that identifies one suitable non-production workflow without requiring sensitive production data.
 ```
 
 Minimum sections:
 
 ```text
+organization and contact boundary
 workflow summary
-decision point
-execution boundary
-authority assumptions
+decision producer
+downstream action
+governed point of irreversibility
+authority source and scope
 state dependencies
-admissibility conditions
-evidence currently available
-evidence gaps
-fail-closed conditions
-receipt fields
-reconstruction path
-recommendations
+known failure modes
+available evidence
+confidentiality and case-study permissions
+pilot usefulness criteria
+```
+
+After that file is built, create a sample anonymized audit for a mock agentic workflow using the operational audit template.
+
+## Release Posture
+
+The company-testbed documentation is ready for outreach but not for a release tag. A release/tag becomes appropriate only when the intake questionnaire and at least one completed sample audit are present and repository validation confirms the public artifact set is internally consistent.
+
+When that state is reached:
+
+```text
+1. verify whether tagging is authorized;
+2. create the release only after validation;
+3. create a follow-up task to assess updates for:
+   - StegVerse-Labs/Site
+   - GCAT-BCAT-Engine/Publisher
+   - admissibility-wiki
+   - stegguardian-wiki
 ```
 
 ## Archive Readiness
 
-This handoff contains the active company-testbed goal, repo boundary, public thesis, pilot offer, target categories, outreach boundary, IP hygiene language, completion state, and next build candidates needed to continue. The prior chat thread is no longer required for forward progress once this file is present in the repository.
+This handoff preserves the active company-testbed goal, repo boundary, decisions, built artifacts, latest commit, remaining tasks, destination candidates, claim limits, release posture, and permitted continuation scope. Earlier conversation context is not required for forward progress.
