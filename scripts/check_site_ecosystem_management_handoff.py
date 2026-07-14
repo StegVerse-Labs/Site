@@ -32,10 +32,12 @@ REQUIRED = {
         "No release tag is authorized",
     ],
     # SITE_FINAL_GOAL_STATUS.json records Site-local completion gates. Once all
-    # three local gates pass, its valid state is ready. External activation
-    # evidence remains governed independently by SITE_EXTERNAL_EVIDENCE_STATE.json.
+    # three local gates pass, its valid state is ready.
     "final_goal": ["site_final_goal_status.v0.1", '"goal_status": "ready"'],
-    "external": ["pending_external_evidence"],
+    # SITE_EXTERNAL_EVIDENCE_STATE.json records whether the bounded TT and
+    # Governance Observatory source artifacts are present. It is not the live
+    # endpoint, custody, deployment, or activation ledger.
+    "external": ['"state": "external_evidence_present"', '"local_build_state": "repository_managed"'],
 }
 
 # These are concrete positive state declarations. Source-of-truth phrases are not
