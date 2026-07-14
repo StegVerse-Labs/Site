@@ -71,6 +71,7 @@ docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md
 docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md
 docs/STEGVERSE_COMPANY_TESTBED_TARGET_LIST_TEMPLATE.md
 scripts/check_site_company_testbed_artifacts.py
+scripts/test_site_company_testbed_artifacts.py
 scripts/check_site_workflow_inventory.py
 ```
 
@@ -91,6 +92,12 @@ Result: aligned validator integration contract with the existing workflow-invent
 
 Commit: ca6f271cd39cae5f8a612a1a932d44258a29d88d
 Result: bound company-testbed validation into the existing canonical Site validation path without adding a workflow
+
+Commit: ba5c1fbd75f9d9e593204388492784c7efecefe6
+Result: added six adversarial regression cases for the company-testbed validator
+
+Commit: 674e4c58ef23f276dae8a966217551b7990f0587
+Result: bound company-testbed adversarial tests into the canonical workflow-inventory validation path without adding a workflow
 ```
 
 ## Sample Audit Evidence Boundary
@@ -147,7 +154,19 @@ exactly two operational workflows
 binding through scripts/check_site_workflow_inventory.py
 ```
 
-The existing `scripts/run_site_task.py` already invokes `scripts/check_site_workflow_inventory.py` in both the validation and public-guard paths. No third workflow was added.
+The adversarial regression script verifies that validation rejects:
+
+```text
+missing required fail-closed results
+unsupported deployment claims
+a third workflow file
+removal of canonical validator binding
+truncated required artifacts
+```
+
+It also verifies that a complete bounded fixture passes. The tests have no mutation, deployment, custody, release, or authority effect.
+
+The existing `scripts/run_site_task.py` invokes `scripts/check_site_workflow_inventory.py` in both the validation and public-guard paths. The workflow inventory now invokes both the company-testbed validator and its adversarial tests. No third workflow was added.
 
 ## Current Completion State
 
@@ -162,6 +181,7 @@ Intake questionnaire: built
 Synthetic completed sample audit: built
 Governed target-list template: built
 Artifact-set validator: built
+Adversarial validator regression tests: built
 Validation integration in existing workflow architecture: built
 Repository current-main validation: pending observation
 External populated target list: pending
@@ -175,7 +195,8 @@ Case study or pilot evidence: pending
 
 ```text
 StegVerse-Labs/Site
-  -> observe current-main validation containing scripts/check_site_company_testbed_artifacts.py
+  -> observe current-main validation containing scripts/test_site_company_testbed_artifacts.py
+  -> confirm the baseline and all six adversarial cases execute successfully
   -> repair only the next exact failure without removing checks
   -> record a successful company-testbed artifact validation result
   -> create bounded release notes only after validation passes
@@ -200,12 +221,13 @@ These are continuation candidates, not claims that cross-repository installation
 ## Next Task
 
 ```text
-1. Observe current-main workflow validation after commit ca6f271cd39cae5f8a612a1a932d44258a29d88d.
-2. Confirm the company-testbed validator executes through the canonical validation path.
-3. Repair only the exact failing assertion if validation fails.
-4. Record the first successful current-main validation evidence.
-5. Reassess release readiness.
-6. Do not tag unless validation passes and release authority is explicit.
+1. Observe current-main workflow validation after commit 674e4c58ef23f276dae8a966217551b7990f0587.
+2. Confirm scripts/test_site_company_testbed_artifacts.py reports all six cases PASS.
+3. Confirm the company-testbed validator executes through the canonical validation path.
+4. Repair only the exact failing assertion if validation fails.
+5. Record the first successful current-main validation evidence.
+6. Reassess release readiness.
+7. Do not tag unless validation passes and release authority is explicit.
 ```
 
 ## LinkedIn And External Dialogue Continuity
@@ -234,12 +256,12 @@ Do not publish confidential third-party information, imply approval, or associat
 
 ## Release Posture
 
-The complete documentation and validator surface is now built, but release tagging is not yet authorized.
+The complete documentation, validator, and adversarial-test surface is built, but release tagging is not yet authorized.
 
 Release requires:
 
 ```text
-successful current-main artifact-set validation
+successful current-main artifact-set and adversarial-test validation
 no unresolved internal inconsistencies
 explicit release authority
 bounded release notes
