@@ -18,8 +18,10 @@ Current result: ACTIVATION_LEDGER_AND_ADVERSARIAL_GUARDS_INSTALLED_VALIDATION_OB
 
 ```text
 docs/SITE_ACTIVATION_LEDGER.json
+docs/SITE_ACTIVATION_LEDGER_MIRROR_HANDOFF.md
 scripts/check_site_activation_ledger.py
 scripts/test_site_activation_ledger.py
+scripts/check_site_activation_ledger_handoff.py
 scripts/check_site_workflow_inventory.py
 ```
 
@@ -33,6 +35,9 @@ e41558bb615cff21afc1707499c48fbee673534a  bind activation ledger validation into
 1cd0a04dc1a7b08ee7ec227f2f21e59a5911f199  add adversarial activation ledger regression tests
 8ccecf055fffa16175c5aa82321a5f2cd97c30f6  run adversarial tests in canonical validation path
 55da6f9c9a3551ab6e3b16674fee69a987892023  create activation-ledger mirror handoff
+d037784cca42c0c21ac37b77dc084305774d63ad  advance handoff through adversarial coverage
+dd33ee0d81c0c02318544d60c3fa4fc0d5907d79  add fail-closed activation-ledger handoff validator
+5ffdb9a83ce993e64685b035b005138011b97bb7  run handoff validator in canonical validation path
 ```
 
 ## Current ledger state
@@ -62,7 +67,7 @@ reconstructability: NOT_OBSERVED
 
 ## Validator and adversarial invariants
 
-The canonical validation path now requires the ledger validator and adversarial regression suite. It preserves:
+The canonical validation path now requires the ledger validator, adversarial regression suite, and subordinate handoff validator. It preserves:
 
 ```text
 exact schema, checkpoint, contract, and blocked activation state
@@ -76,7 +81,8 @@ local persistence is not Master-Records custody
 reconstructability requires PASS
 all gates VERIFIED still requires a separate authorized transition
 regression coverage for invalid and authority-escalating ledger mutations
-fail closed when the validator or adversarial test file is missing
+fail closed when the validator, adversarial test, or handoff validator file is missing
+fail closed when this handoff drops required blocked-state or non-claim statements
 ```
 
 Expected repository-local outputs while activation remains blocked:
@@ -84,6 +90,7 @@ Expected repository-local outputs while activation remains blocked:
 ```text
 site_activation_ledger:PASS_BLOCKED
 activation-ledger adversarial tests: PASS
+SITE ACTIVATION LEDGER HANDOFF CHECK: PASS
 ```
 
 ## Evidence already observed
@@ -103,8 +110,8 @@ Structural source evidence and repository-local tests do not satisfy workflow, d
 
 ```text
 StegVerse-Labs/Site
-  -> observe a current-main workflow containing 8ccecf055fffa16175c5aa82321a5f2cd97c30f6 or later
-  -> verify activation-ledger validation and adversarial tests pass in that run
+  -> observe a current-main workflow containing 5ffdb9a83ce993e64685b035b005138011b97bb7 or later
+  -> verify activation-ledger validation, adversarial tests, and handoff validation pass in that run
   -> verify the Site result, receipt, and manifest belong to one successful run
   -> update only evidence-backed gate states
 
@@ -151,8 +158,8 @@ No deployment, credential configuration, live transport, external mutation, cust
 ## Next task
 
 ```text
-1. Observe the first current-main workflow containing 8ccecf055fffa16175c5aa82321a5f2cd97c30f6 or later.
-2. Confirm activation-ledger validation and adversarial tests pass.
+1. Observe the first current-main workflow containing 5ffdb9a83ce993e64685b035b005138011b97bb7 or later.
+2. Confirm activation-ledger validation, adversarial tests, and handoff validation pass.
 3. Verify one same-run Site result, receipt, and manifest artifact set.
 4. Repair only the first exact failing repository-local command without removing checks.
 5. Keep every gate NOT_OBSERVED until its required authenticated evidence exists.
@@ -162,4 +169,4 @@ No deployment, credential configuration, live transport, external mutation, cust
 
 ## Archive readiness
 
-This handoff preserves the activation-ledger decisions, installed files and commits, adversarial coverage, current gate state, blockers, ownership, pending validation, permitted continuation scope, and non-claims. Earlier conversation context is not required for this workstream.
+This handoff preserves the activation-ledger decisions, installed files and commits, adversarial and handoff coverage, current gate state, blockers, ownership, pending validation, permitted continuation scope, and non-claims. Earlier conversation context is not required for this workstream.
