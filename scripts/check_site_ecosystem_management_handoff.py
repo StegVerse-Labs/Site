@@ -31,7 +31,10 @@ REQUIRED = {
         "PREPARED_NOT_DEPLOYED",
         "No release tag is authorized",
     ],
-    "final_goal": ["site_final_goal_status.v0.1", "pending_external_evidence"],
+    # SITE_FINAL_GOAL_STATUS.json records Site-local completion gates. Once all
+    # three local gates pass, its valid state is ready. External activation
+    # evidence remains governed independently by SITE_EXTERNAL_EVIDENCE_STATE.json.
+    "final_goal": ["site_final_goal_status.v0.1", '"goal_status": "ready"'],
     "external": ["pending_external_evidence"],
 }
 
