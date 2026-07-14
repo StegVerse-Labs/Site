@@ -3,11 +3,14 @@
 
 The consumer accepts status-only packets and never converts verification into
 execution authority, custody, admissibility, deployment, or release authority.
+Transient retrieval failure leaves the last validated local status unchanged.
 """
 
 from __future__ import annotations
 
 import json
+import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 from typing import Any, Mapping
@@ -62,6 +65,16 @@ def write_packet(packet: Mapping[str, Any]) -> bool:
     return True
 
 
-if __name__ == "__main__":
-    changed = write_packet(fetch_packet())
+def main() -> int:
+    try:
+        packet = fetch_packet()
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
+        print(f"System-boundary status retrieval deferred; retained prior validated state: {exc}", file=sys.stderr)
+        return 0
+    changed = write_packet(packet)
     print("System-boundary status updated." if changed else "System-boundary status unchanged.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
