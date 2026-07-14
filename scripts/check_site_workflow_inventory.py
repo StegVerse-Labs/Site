@@ -18,6 +18,7 @@ WRITER = ROOT / "scripts" / "write_site_workflow_inventory.py"
 INVENTORY = ROOT / "data" / "site-workflow-inventory.json"
 COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artifacts.py"
 ACTIVATION_LEDGER_VALIDATOR = ROOT / "scripts" / "check_site_activation_ledger.py"
+ACTIVATION_LEDGER_TESTS = ROOT / "scripts" / "test_site_activation_ledger.py"
 CANONICAL = {"validate.yml", "site-task-runner.yml"}
 
 
@@ -28,7 +29,11 @@ def main() -> int:
         print("- missing scripts/write_site_workflow_inventory.py")
         return 1
 
-    for validator in (COMPANY_TESTBED_VALIDATOR, ACTIVATION_LEDGER_VALIDATOR):
+    for validator in (
+        COMPANY_TESTBED_VALIDATOR,
+        ACTIVATION_LEDGER_VALIDATOR,
+        ACTIVATION_LEDGER_TESTS,
+    ):
         if not validator.exists():
             print("SITE WORKFLOW INVENTORY CHECK: FAIL")
             print(f"- missing {validator.relative_to(ROOT)}")
@@ -73,6 +78,7 @@ def main() -> int:
         for label, validator in (
             ("company-testbed artifact", COMPANY_TESTBED_VALIDATOR),
             ("activation-ledger", ACTIVATION_LEDGER_VALIDATOR),
+            ("activation-ledger adversarial tests", ACTIVATION_LEDGER_TESTS),
         ):
             completed_validator = subprocess.run(
                 [sys.executable, str(validator)],
