@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What If We Stopped Storing Conversations?</title>
+<meta name="description" content="A StegVerse position paper on Merkle-backed conversation continuity, selective retention, provenance, and searchable knowledge reconstruction.">
+<link rel="stylesheet" href="../../sv-shared.css">
+<style>
+body{background:#07111f;color:#edf6ff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.72;margin:0}.wrap{width:min(900px,calc(100% - 32px));margin:0 auto;padding:28px 0 70px}.hero{padding:48px 0 28px;border-bottom:1px solid rgba(255,255,255,.14)}h1{font-size:clamp(2.35rem,7vw,4.6rem);line-height:1.02;margin:.2em 0}.eyebrow{color:#6ee7ff;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.lead{font-size:1.2rem;color:#b8c8db}.card,section{margin-top:28px}.card{background:#0f1b2d;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px}h2{margin-top:42px;font-size:1.7rem}h3{margin-top:28px}blockquote{border-left:4px solid #6ee7ff;margin:24px 0;padding:4px 0 4px 20px;color:#d9f8ff;font-size:1.12rem}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}pre{white-space:pre-wrap;background:#081524;border:1px solid rgba(255,255,255,.14);padding:18px;border-radius:14px;color:#dff8ff}.muted{color:#a8b8cc}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-block;padding:11px 16px;border-radius:10px;text-decoration:none;font-weight:800;border:1px solid #6ee7ff}.primary{background:#6ee7ff;color:#07111f}.secondary{color:#6ee7ff}.status{font-size:.9rem;color:#a8b8cc}ul{padding-left:22px}footer{margin-top:54px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);color:#a8b8cc}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+<div class="eyebrow">KnowledgeVault · Conversation Continuity</div>
+<h1>What If We Stopped Storing Conversations—and Started Preserving Their Continuity?</h1>
+<p class="lead">A position paper on treating durable consequences, rather than transcript renderings, as the primary searchable record of long-running human–AI work.</p>
+<div class="actions"><a class="btn primary" href="https://github.com/StegVerse-Labs/continuity-vault-kit">Inspect the working prototype</a><a class="btn secondary" href="../../Papers.html">Back to Papers</a></div>
+<p class="status">Public HTML edition. A direct PDF asset will be added when binary publication is available through the governed Site path.</p>
+</header>
+
+<section>
+<h2>The premise</h2>
+<p>Most systems preserve conversational memory by retaining the chat itself: transcripts, screenshots, exports, attachments, summaries, embeddings, and copied sessions. The assumption is understandable—if the system may need to remember something later, preserve everything now.</p>
+<blockquote>But is a complete transcript really the best form of memory, or merely the easiest artifact to capture?</blockquote>
+<p>A conversation may contain hundreds of messages while producing only a few durable consequences: a decision, a correction, a rejected proposal, an accepted definition, an unresolved question, a generated artifact, a change in authority, a task, a dependency, a handoff, or a new system state.</p>
+<p>The proposed model preserves those consequences as canonical events and treats the transcript as one possible evidence source rather than the sole unit of record.</p>
+</section>
+
+<section>
+<h2>Conversation continuity as an event chain</h2>
+<p>Each meaningful transition becomes a versioned event in an append-only record:</p>
+<pre>session_opened
+message_submitted
+claim_introduced
+claim_challenged
+decision_proposed
+decision_revised
+decision_accepted
+decision_superseded
+artifact_created
+authority_changed
+handoff_committed
+session_archived</pre>
+<p>An event can bind its identity, prior-event hash, timestamp, actor, event type, content commitment, retention class, authority context, policy context, references, artifacts, and resulting state.</p>
+<p>A Merkle root can then summarize the committed event set. Later mutation or reordering of the committed sequence becomes detectable without requiring the root itself to contain the conversation.</p>
+</section>
+
+<section>
+<h2>What the KnowledgeVault retains</h2>
+<p>The KnowledgeVault does not need an automatic imperative to retain every transcript, screenshot, copied session, or duplicate attachment. It should retain or reference the durable knowledge consequences produced by the interaction.</p>
+<ul>
+<li>decision records and corrections;</li>
+<li>accepted and superseded state;</li>
+<li>artifacts and their source events;</li>
+<li>tasks, dependencies, and handoffs;</li>
+<li>authority and policy transitions;</li>
+<li>evidence commitments and reconstruction metadata.</li>
+</ul>
+<p>This reduces duplication and separates temporary discussion from durable consequence.</p>
+</section>
+
+<section>
+<h2>Three retention classes</h2>
+<h3>Integrity-only</h3>
+<p>The system retains hashes, ordering, identities, timestamps, event types, state transitions, and receipts. It can verify a later-presented payload, but it cannot recreate discarded content.</p>
+<h3>Reconstructable</h3>
+<p>The system retains enough semantic or encrypted payload information to recover the substance of the interaction through structured decisions, semantic deltas, canonical summaries, durable artifact references, or authorized content-addressed storage.</p>
+<h3>Full-fidelity</h3>
+<p>The exact messages and authorized attachments remain recoverable where exact language has legal, scientific, contractual, safety, research, or evidentiary significance.</p>
+<blockquote>A hash proves integrity. It does not regenerate content that no longer exists.</blockquote>
+</section>
+
+<section>
+<h2>Search changes when the stored unit changes</h2>
+<p>A transcript-centered system answers “what did we decide six months ago?” by returning conversations to reread. A continuity system can return the original proposal, the correction, the accepted decision, the resulting artifact, implementation status, supersession state, fidelity level, and cryptographic provenance.</p>
+<p>Search can index the things users actually remember:</p>
+<pre>topic
+actor
+claim
+decision
+correction
+artifact
+state change
+authority
+date range
+dependency
+implementation
+supersession
+fidelity
+retention class</pre>
+<p>This turns retrieval from searching old language into querying the evolution of knowledge.</p>
+</section>
+
+<section>
+<h2>Why the model is cleaner</h2>
+<ul>
+<li><strong>Source is separated from consequence.</strong> Not every statement becomes a decision, and not every proposal survives review.</li>
+<li><strong>Duplication is reduced.</strong> A canonical consequence can be stored once and referenced across many conversations and artifacts.</li>
+<li><strong>Supersession is explicit.</strong> Historical states remain visible while the current state is unambiguous.</li>
+<li><strong>Provenance remains attached.</strong> Summaries retain links to source events, actors, artifacts, policies, and later verification.</li>
+<li><strong>Fidelity becomes selective.</strong> Exact content is preserved where necessary; compact continuity is retained elsewhere.</li>
+<li><strong>Archival becomes safer.</strong> A conversation can close once its unique continuity has been durably absorbed.</li>
+</ul>
+</section>
+
+<section>
+<h2>Why the model is more stable</h2>
+<p>Chat interfaces, provider exports, database schemas, and visual renderings change. A continuity layer can instead depend on durable primitives: canonical schemas, content-addressed objects, cryptographic commitments, signed identities, explicit state transitions, versioned semantic objects, and rebuildable indexes.</p>
+<p>The presentation can change without invalidating the underlying record. Where exact payloads remain available, a transcript can be rendered from the continuity record rather than treated as the only source of truth.</p>
+</section>
+
+<section>
+<h2>The difficult questions</h2>
+<p>The system does not eliminate the memory problem. It makes the problem explicit, structured, searchable, and governable.</p>
+<ul>
+<li>Who decides what is worth retaining?</li>
+<li>When is a semantic reconstruction sufficient?</li>
+<li>Can users understand what was retained and what was discarded?</li>
+<li>Can reconstruction bias be detected and audited?</li>
+<li>What happens when valid provenance supports an incorrect interpretation?</li>
+<li>Can the search index be rebuilt from canonical records?</li>
+<li>Does a smaller primary footprint merely shift storage into event logs, embeddings, payload stores, and provenance graphs?</li>
+<li>Can a meaningful right to deletion coexist with retained integrity proofs?</li>
+<li>Does selective retention become selective forgetting?</li>
+<li>Does the cost of governing memory exceed the cost of storing it?</li>
+</ul>
+</section>
+
+<section class="card">
+<h2>What is already built</h2>
+<p>A working local-first prototype exists in <code>StegVerse-Labs/continuity-vault-kit</code>. It:</p>
+<ul>
+<li>creates canonical conversation events;</li>
+<li>commits them into a mutation-evident hash chain;</li>
+<li>calculates a deterministic Merkle root;</li>
+<li>applies integrity-only, reconstructable, and full-fidelity retention classes;</li>
+<li>indexes durable consequences;</li>
+<li>reconstructs historical decisions with provenance;</li>
+<li>and fails verification after adversarial mutation.</li>
+</ul>
+<p>The larger production architecture—provider import, signing, encrypted payload custody, access controls, governed deletion, distributed replication, semantic ranking, and a complete user interface—remains under development.</p>
+</section>
+
+<section>
+<h2>The open question</h2>
+<blockquote>Would a system that preserves the continuity of a conversation without always preserving the conversation itself materially improve long-term human–AI memory?</blockquote>
+<p>The strongest claim is not that it stores conversations using less space. It is that knowledge can remain reconstructable, decisions attributable, changes traceable, and claims verifiable without treating every conversational rendering as permanent canonical memory.</p>
+<p>That promise must still prove that it can retain less without understanding less, preserve provenance without overwhelming the user, and make selective retention safer than indiscriminate storage.</p>
+</section>
+
+<footer>StegVerse · KnowledgeVault Conversation Continuity · Public position-paper edition</footer>
+</main>
+</body>
+</html>
