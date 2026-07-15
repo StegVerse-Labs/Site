@@ -45,7 +45,7 @@ REQUIRED_TERMS = {
         "Minimum Acceptance Rule",
     ),
     "sample": (
-        "synthetic treasury-payment agent workflow",
+        "non-production treasury-payment agent workflow",
         "authority_result: PASS",
         "state_freshness_result: FAIL",
         "admissibility_result: FAIL",
