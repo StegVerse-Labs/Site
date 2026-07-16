@@ -6,9 +6,10 @@ post-deployment live receipt, Pages deployment URL, and mutation-disabled
 posture. It is evidence of what was observed, not deployment, mutation,
 certification, publication, or standing authority.
 
-After writing the evidence record, this script automatically refreshes the
-machine-owned Ecosystem Chat activation state. Scheduled/current-main workflow
-runs therefore maintain the continuation plan without manual observation.
+After writing the evidence record, this script automatically imports durable
+owner-repository activation states and refreshes the machine-owned Ecosystem Chat
+activation state. Scheduled/current-main workflow runs therefore maintain the
+continuation plan without manual observation or artifact transfer.
 """
 from __future__ import annotations
 
@@ -19,6 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from import_ecosystem_chat_external_activation_states import main as import_external_states
 from update_ecosystem_chat_activation_state import main as update_activation_state
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -123,6 +125,9 @@ def main() -> int:
     print(f"EXTERNAL CHAT ACTIVATION EVIDENCE: {result}")
     print(f"Receipt: {OUTPUT.relative_to(ROOT)}")
 
+    import_result = import_external_states()
+    if import_result != 0:
+        raise SystemExit(import_result)
     state_result = update_activation_state()
     if state_result != 0:
         raise SystemExit(state_result)
