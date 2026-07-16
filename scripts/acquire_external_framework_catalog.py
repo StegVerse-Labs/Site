@@ -5,6 +5,8 @@ import hashlib
 import json
 import os
 import shutil
+import subprocess
+import sys
 import tempfile
 import urllib.request
 from pathlib import Path
@@ -13,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG_OUT = ROOT / "data" / "external-framework-catalog.json"
 RECEIPT_OUT = ROOT / "data" / "external-framework-catalog.receipt.json"
 STATUS_OUT = ROOT / "data" / "external-framework-catalog-import-status.json"
+ACTIVATION_IMPORTER = ROOT / "scripts" / "acquire_ecosystem_chat_live_activation_receipt.py"
 
 DEFAULT_CATALOG_URL = "https://raw.githubusercontent.com/StegVerse-Labs/admissibility-wiki/main/docs/external-frameworks/external-chat-catalog.json"
 DEFAULT_RECEIPT_URL = "https://raw.githubusercontent.com/StegVerse-Labs/admissibility-wiki/main/docs/external-frameworks/external-chat-catalog.receipt.json"
@@ -23,8 +26,8 @@ def canonical_bytes(payload: object) -> bytes:
 
 
 def fetch_json(url: str) -> dict:
-    request = urllib.request.Request(url, headers={"User-Agent": "StegVerse-Site-Catalog-Importer/1.0"})
-    with urllib.request.urlopen(request, timeout=20) as response:
+    outbound = urllib.request.Request(url, headers={"User-Agent": "StegVerse-Site-Catalog-Importer/1.0"})
+    with urllib.request.urlopen(outbound, timeout=20) as response:
         return json.loads(response.read().decode("utf-8"))
 
 
@@ -57,9 +60,24 @@ def validate(catalog: dict, receipt: dict) -> None:
             raise ValueError(f"authority boundary invalid: {key}")
 
 
+def acquire_activation_receipt() -> None:
+    result = subprocess.run(
+        [sys.executable, str(ACTIVATION_IMPORTER)],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    print(result.stdout, end="")
+    if result.returncode != 0:
+        raise RuntimeError("adapter live activation receipt was rejected")
+
+
 def main() -> int:
     catalog_url = os.getenv("EXTERNAL_FRAMEWORK_CATALOG_URL", DEFAULT_CATALOG_URL)
     receipt_url = os.getenv("EXTERNAL_FRAMEWORK_CATALOG_RECEIPT_URL", DEFAULT_RECEIPT_URL)
+    catalog_result = 0
     try:
         catalog = fetch_json(catalog_url)
         receipt = fetch_json(receipt_url)
@@ -87,7 +105,6 @@ def main() -> int:
         }
         STATUS_OUT.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
         print(f"EXTERNAL FRAMEWORK CATALOG IMPORT: PASS ({receipt['framework_count']} frameworks)")
-        return 0
     except Exception as exc:
         status = {
             "schema_version": "1.0.0",
@@ -101,7 +118,13 @@ def main() -> int:
         STATUS_OUT.parent.mkdir(parents=True, exist_ok=True)
         STATUS_OUT.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
         print(f"EXTERNAL FRAMEWORK CATALOG IMPORT: FALLBACK - {exc}")
-        return 0
+
+    try:
+        acquire_activation_receipt()
+    except Exception as exc:
+        print(f"ECOSYSTEM CHAT ACTIVATION RECEIPT IMPORT: FAIL - {exc}")
+        catalog_result = 1
+    return catalog_result
 
 
 if __name__ == "__main__":
