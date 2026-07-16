@@ -7,13 +7,12 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 ## Current goal
 
 ```text
-Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path
+Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, usage, and downstream propagation path
 Primary surface: ecosystem-chat.html
-Usage and role surface: ecosystem-usage.html
+Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
-Workflow target: exactly two operational workflows
-Result: Site preparation complete; live activation and external custody evidence pending
+Result: SITE_AUTOMATED_ACTIVATION_CONSUMPTION_INSTALLED_LIVE_VERIFIED_RECEIPT_PENDING
 ```
 
 ## Active workflows
@@ -21,239 +20,198 @@ Result: Site preparation complete; live activation and external custody evidence
 ```text
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
+.github/workflows/ecosystem-chat-activation-retention.yml
 ```
 
-The iOS mirror remains `iosnoperiod/github/workflows/validate.yml`. No workflow was added.
+The iOS validation mirror remains `iosnoperiod/github/workflows/validate.yml`.
+No additional workflow is required for destination receipt ingestion.
 
-## Current Site and destination posture
+## Current architecture
 
 ```text
-contract_status: PREPARED_NOT_DEPLOYED
-route: GET /api/usage/sessions/{session_id}
-authentication: same_origin_session
-same-origin browser credentials: allowed
-cross-origin browser credentials: prohibited
-Site bearer/query/local-storage token configuration: prohibited
-live_transport.enabled: false
-usage_api_base: null
-
-destination repository: StegVerse-org/LLM-adapter
-destination handoff: LLM_ADAPTER_MIRROR_HANDOFF.md
-destination state: DESTINATION_IMPLEMENTATION_INSTALLED_VALIDATION_PENDING
-blocker: DESTINATION_VALIDATION_AND_DEPLOYMENT_EVIDENCE_PENDING
+StegVerse-org/LLM-adapter live governed gateway
+-> provider response
+-> provider usage local persistence
+-> authenticated provider-usage Master-Records custody
+-> transition Master-Records custody
+-> reconstruction PASS for both custody chains
+-> retained adapter VERIFIED activation receipt
+-> automatic Site receipt acquisition and validation
+-> Site activation-state recomputation
+-> downstream propagation packet
 ```
 
-The retrieval contract requires same-origin session identity, `stegverse.usage.session.v1`, `LIVE_USAGE_API`, requested-session preservation, a mandatory retrieval receipt, producer and policy identity, `authority_granted=false`, and `custody_recorded=false`.
+## Destination evidence consumer
 
-## Current-main validation progression
-
-### Run 29261718764
+Installed:
 
 ```text
-Commit: d56f5faa37c63d87f92e271825dcf166773ad7c5
-Branch: main
-Workflow: Site Task Runner
-Job: run-site-task
-Result: FAILED after prior public-verification repair passed
-Passing boundary: scripts/check_site_governed_ecosystem_public_verification.py
-Failed command: scripts/check_site_llm_free_tier_trust.py
-Failure class: stale literal-form assertions against the current bounded public display and canonical status surface
+scripts/acquire_ecosystem_chat_live_activation_receipt.py
+scripts/acquire_external_framework_catalog.py
+scripts/check_ecosystem_chat_activation_receipt_import.py
+scripts/update_ecosystem_chat_activation_state.py
+docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md
 ```
 
-Bounded repair: commit `3fbd3720976ea83439c7641da0b5d6b2aaedb00b` updated `scripts/check_site_llm_free_tier_trust.py` to bind user-facing display forms while retaining canonical destination, policy, quota, replay, export, admissibility, and upgrade assertions.
-
-### Run 29265864007
+Generated state:
 
 ```text
-Commit: b5da6e9a4fc87b7957c8a57dbc942d09b6b5be72
-Branch: main
-Workflow: Site Task Runner
-Job: run-site-task
-Result: FAILED after governed public verification passed
-Passing boundary: scripts/check_site_governed_ecosystem_public_verification.py
-Failed command: scripts/check_site_llm_free_tier_trust.py
-Failure: page_missing:no provider call
-Failure class: case-sensitive validator mismatch against existing public copy "No provider call"
+data/ecosystem-chat-destination-activation-receipt.json
+data/ecosystem-chat-destination-activation-import-status.json
+data/ecosystem-chat-activation-state.json
+data/ecosystem-chat-activation-propagation.json
 ```
 
-Bounded repair: commit `343c614049cc3486933cef065f59fd291e4ce9c9` changed only public-facing prose checks to Unicode case normalization. Exact machine-facing status assertions remained unchanged.
+The existing scheduled Site task runner invokes external catalog synchronization, which
+also acquires the retained adapter activation receipt. No browser credential, copy/paste,
+or manually executed verification command is required.
 
-### Run 29270157819
+## Fail-closed destination gates
+
+The Site no longer hard-codes destination gates to false. It computes them from a
+canonical, hash-verified adapter receipt:
 
 ```text
-Commit: c2464f8fdb44315babeee18d4c0031b8c2e75961
-Branch: main
-Workflow: Site Task Runner
-Job: run-site-task
-Result: FAILED after the free-tier trust validator passed
-Passing boundary: scripts/check_site_llm_free_tier_trust.py
-Failed command: scripts/check_site_final_activation_pending.py
-Failure class: stale activation-pending assertions requiring a removed third workflow and obsolete final-goal helper commands
+destination_current_main_validation
+same_origin_authenticated_deployment
+retrieval_receipt_validation
+master_records_custody
+reconstructability_pass
 ```
 
-Bounded repair: commit `a1793b66c30cf16c6154eceac96def652c6df144` aligned `scripts/check_site_final_activation_pending.py` with the current two-workflow inventory, prepared-not-deployed checkpoint, disabled live transport, destination validation, Master-Records custody, reconstructability, and no-release boundary.
+Receipt acceptance requires a real provider response, non-custodial local usage,
+provider-usage custody, transition custody, reconstruction PASS for both chains, exact
+identity preservation, no blockers, and all authority flags false.
 
-### Run 29274167609
+Missing evidence remains pending. Invalid, conflicting, or authority-escalating evidence
+is rejected and cannot activate the Site.
+
+## Site-local gates
+
+The following remain independently required:
 
 ```text
-Commit: 73d24d42e035a4dc76bf3daa7bbdd03a01f160b8
-Branch: main
-Workflow: Site Task Runner
-Job: run-site-task
-Result: FAILED after scripts/check_site_final_activation_pending.py passed
-Passing boundary: scripts/check_site_final_activation_pending.py
-Failed command: scripts/check_site_mirror_handoff_final_pending.py
-Validator index: 41
-Failure class: stale handoff assertions requiring a deleted standalone guard workflow and obsolete final-pending phrases
-Diagnostic artifact: site-task-diagnostic-29274167609-1
-Authority effect: NONE
-Site mode: PREVIEW_ONLY
-state_change_authorized: false
+site_current_main_validation
+public_route_verification
+mutation_required_disabled
+site_activation_evidence
 ```
 
-The retained diagnostic confirmed 40 completed validators before the failure. The stale checker required `site-public-mirror-status-guard.yml`, obsolete helper-command phrases, and historical status wording that no longer describes the active two-workflow, activation-blocked handoff.
-
-Bounded repair:
+Only when every local and destination gate is true does the state become:
 
 ```text
-Commit: 3c701c2acd146eb6bc1716e6c87308c61004b9e0
-File: scripts/check_site_mirror_handoff_final_pending.py
+ACTIVATION_COMPLETE
 ```
 
-The checker now validates the current two-workflow inventory, `SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED`, `PREPARED_NOT_DEPLOYED`, destination current-main tests, Master-Records custody, reconstructability PASS, and the no-release-tag boundary. Forbidden activated, deployed, proof-authority, and live-transport assertions remain fail-closed. No workflow, deployment, release, custody, credential, transport, or external-repository state changed.
+## Downstream propagation
 
-### Run 29281814383
+The activation-state writer generates:
 
 ```text
-Commit: f465efe23b59cc7c1217f5a5f52b70731f585201
-Branch: main
-Workflow: Site Task Runner
-Job: run-site-task
-Result: FAILED after scripts/check_site_manual_task_elimination.py passed
-Passing boundary: scripts/check_site_manual_task_elimination.py
-Failed command: scripts/check_site_ecosystem_management_handoff.py
-Validator index: 52
-Completed validators: 51
-Failure class: VALIDATION_FAILURE
-Diagnostic artifact: site-task-diagnostic-29281814383-1
-Authority effect: NONE
-Site mode: PREVIEW_ONLY
-state_change_authorized: false
+data/ecosystem-chat-activation-propagation.json
 ```
 
-The retained diagnostic showed that the ecosystem-management checker failed on a lowercase readiness phrase while the canonical handoff used sentence case, and treated explicit non-claims (`Site is not the TT or Governance Observatory source of truth`) as forbidden positive claims.
-
-Bounded repair:
+Before completion:
 
 ```text
-Commit: 0c076216f980f6b3c91677571d0692153d7ce94f
-File: scripts/check_site_ecosystem_management_handoff.py
+state: PENDING_ACTIVATION_EVIDENCE
 ```
 
-Required handoff terms now use Unicode case-normalized comparison. Raw source-of-truth substrings were removed from the global forbidden list because the canonical handoff intentionally contains them inside an explicit non-claims section; concrete positive activation, deployment, ready-completion, and live-transport declarations remain fail-closed. The mirror assertions now bind the active two-workflow, prepared-not-deployed handoff rather than deleted autonomous workflows. No workflow, deployment, release, custody, credential, transport, or external-repository state changed.
-
-Successor current-main verification is pending.
-
-## Activation evidence and checkpoint
-
-Activation remains blocked until all are verified:
+After completion:
 
 ```text
-destination current-main tests
-same-origin authenticated deployment
-sample response conformance
-retrieval receipt validation
-no browser secret surface
-Site current-main validation
-Master-Records custody
-reconstructability PASS
+state: READY_FOR_DOWNSTREAM_INGESTION
 ```
 
-Current checkpoint:
+Destinations:
 
 ```text
-SITE_PREPARATION_COMPLETE_ACTIVATION_BLOCKED
-usage_api_base: null
-live_transport_enabled: false
-contract_status: PREPARED_NOT_DEPLOYED
+GCAT-BCAT-Engine/Publisher
+StegVerse-Labs/admissibility-wiki
+StegVerse-Labs/stegguardian-wiki
+StegVerse-Labs/Sit
 ```
 
-The validation workflow is expected to produce:
+The packet is non-authorizing and is not custody, publication authority, release
+authority, or activation authority.
+
+## Current evidence state
 
 ```text
-site_application_validation.result.json
-site_current_main_validation.receipt.json
-site_current_main_validation.manifest.json
+Site destination receipt importer: INSTALLED
+Receipt canonical hash verification: INSTALLED
+Authority-escalation guards: INSTALLED
+Destination gate computation: INSTALLED
+Downstream propagation packet writer: INSTALLED
+Canonical Site validation binding: INSTALLED
+Scheduled import path: INSTALLED
+Adapter retained VERIFIED activation receipt: NOT YET OBSERVED
+Site imported verified destination receipt: NOT YET OBSERVED
+Site activation state ACTIVATION_COMPLETE: NOT YET OBSERVED
+Downstream ingestion: NOT YET OBSERVED
 ```
 
-A successful result, receipt, and manifest artifact set has not yet been observed together on one current-main run.
+## Current blocker
+
+```text
+StegVerse-org/LLM-adapter/receipts/ecosystem-chat-live-activation.verified.json
+has not yet been retained on current main.
+```
+
+The adapter workflow owns live observation and first verified receipt retention. The Site
+workflow owns automatic acquisition, validation, activation-state recomputation, Pages
+publication, and downstream propagation-packet generation after the receipt appears.
+
+## Remaining work
+
+```text
+StegVerse-org/LLM-adapter
+  -> complete current-main validation
+  -> deploy current source through existing autoDeploy
+  -> run scheduled live activation verification
+  -> retain the first VERIFIED activation receipt
+
+master-records/orchestration
+  -> deploy provider-usage custody route
+  -> return authenticated provider-usage and transition custody receipts
+  -> return reconstruction PASS evidence
+
+StegVerse-Labs/Site
+  -> automatically import the retained adapter receipt
+  -> recompute local and destination activation gates
+  -> repair only an exact rejected receipt gate or failing Site validator
+  -> publish ACTIVATION_COMPLETE only when every gate passes
+  -> generate READY_FOR_DOWNSTREAM_INGESTION propagation state
+
+Downstream repositories
+  -> ingest the propagation packet after it becomes ready
+  -> preserve non-authorizing boundaries
+  -> update documentation and publication surfaces only from verified evidence
+```
 
 ## Authority boundary
 
 ```text
 Site display != execution.
+Provider output != authority.
 Usage retrieval != authority.
-Usage display != admissibility.
-Prepared client != deployed endpoint.
-Destination handoff packet != destination authority.
-Source implementation != live deployment.
-Conformance fixture pass != deployment authority.
-Validation receipt != deployment evidence.
-Workflow artifact != Master-Records custody.
-Configured fixture != live measurement.
-Retrieval receipt != Master-Records custody.
-RECORDED requires authenticated custody evidence and reconstructability PASS.
-Site does not execute or mutate external repositories.
-No release tag is authorized.
-```
-
-## Remaining work
-
-```text
-StegVerse-Labs/Site
-  -> observe successor current-main validation after commit 0c076216f980f6b3c91677571d0692153d7ce94f
-  -> confirm scripts/check_site_ecosystem_management_handoff.py passes
-  -> repair only the next exact failing command without removing checks
-  -> verify one successful result, receipt, and manifest artifact set
-  -> bind verified Site evidence into the activation ledger
-  -> run conformance only against an authorized same-origin deployment
-  -> enable live transport only after every activation prerequisite passes
-
-StegVerse-org/LLM-adapter
-  -> observe current-main validation containing usage-session verification
-  -> integrate automatic provider-owned usage submission
-  -> deploy combined gateway with mutation disabled only under explicit destination authority
-  -> establish authorized same-origin gateway/proxy
-  -> emit retrieval and provider usage receipts
-
-master-records/orchestration
-  -> custody usage and comparison events
-  -> provide authenticated custody receipt
-  -> provide reconstructability PASS evidence
-
-StegVerse-org/core-node-runtime-demo
-  -> automatic runtime usage emission
-  -> live governed route result submission
-```
-
-## Next task
-
-```text
-1. Observe the successor Site Task Runner/current-main validation after commit 0c076216f980f6b3c91677571d0692153d7ce94f.
-2. Confirm scripts/check_site_ecosystem_management_handoff.py passes.
-3. Repair only the next exact failing command without removing existing checks.
-4. Verify the first successful current-main result, receipt, and manifest artifact set.
-5. Observe StegVerse-org/LLM-adapter current-main validation containing usage-session verification.
-6. Deploy only through an explicitly authorized same-origin topology.
-7. Run Site endpoint conformance only against that deployed route.
-8. Do not enable live transport until all activation evidence is VERIFIED.
-9. Do not claim RECORDED until authenticated Master-Records custody and reconstructability PASS are observed.
+Usage measurement != admissibility.
+Local persistence != custody.
+Submission != custody.
+Imported receipt != deployment authority.
+Propagation packet != publication authority.
+Reconstruction PASS != execution authority.
+No release tag is authorized before all validation and live-evidence gates pass.
 ```
 
 ## Release posture
 
-The authenticated retrieval surface remains `PREPARED_NOT_DEPLOYED`. Destination source implementation is installed, but current-main validation, authorized same-origin deployment, live response conformance, authenticated custody, reconstructability, and public-route verification remain activation gates. No deployment, credential configuration, transport activation, release, merge, or tag is authorized by this handoff.
+Repository-local automation for acquisition, validation, activation-state computation,
+and propagation packaging is installed. Live deployed evidence and downstream ingestion
+remain pending. No tag or release is authorized.
 
 ## Archive readiness
 
-This handoff preserves the current provider, gateway, custody, usage, comparison, workflow consolidation, validation, activation, authority boundary, latest bounded repair, and continuation state. Earlier conversation context is not required.
+This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and
+Master-Records handoffs, generated machine-readable state, workflows, and repository
+history preserve all continuation state. Earlier conversation context is not required.
