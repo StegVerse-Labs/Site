@@ -73,14 +73,20 @@ def public_check(check: dict[str, Any]) -> dict[str, Any]:
 
 
 def write_report(checks: list[dict[str, Any]], passed: bool, failure: str | None) -> None:
+    observations = [public_check(check) for check in checks]
+    failure_class = failure.split(":", 1)[0] if failure else None
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps({
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "receipt_type": "external_chat_live_verification_receipt",
         "generated_at": observed_at(),
+        "result": "PASS" if passed else "FAIL",
         "passed": passed,
         "failure": failure,
-        "checks": [public_check(check) for check in checks],
+        "failure_class": failure_class,
+        "observations": observations,
+        "checks": observations,
+        "mutation_required_disabled": True,
         "required_public_mutation_state": "DISABLED",
         "authority_boundary": {
             "live_check_is_deployment_authority": False,
