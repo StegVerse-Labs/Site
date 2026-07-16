@@ -1,0 +1,90 @@
+name: Ecosystem Chat Activation Retention
+
+on:
+  workflow_run:
+    workflows:
+      - Site Task Runner
+    types:
+      - completed
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: ecosystem-chat-activation-retention
+  cancel-in-progress: false
+
+jobs:
+  retain-owner-routed-state:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download Site task diagnostic
+        uses: actions/download-artifact@v4
+        with:
+          pattern: site-task-diagnostic-${{ github.event.workflow_run.id }}-*
+          path: reports
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Download live verification receipt when available
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: external-chat-live-verification-${{ github.event.workflow_run.id }}-*
+          path: reports
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Download activation evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: external-chat-activation-evidence-${{ github.event.workflow_run.id }}-*
+          path: reports
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Rebuild machine-owned activation state
+        run: python scripts/update_ecosystem_chat_activation_state.py
+
+      - name: Persist retained evidence and continuation state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ecosystem-chat-activation-state.json reports/site-task-diagnostic.json reports/external-chat-live-verification.json reports/external-chat-activation-evidence.json || true
+          if git diff --cached --quiet; then
+            echo "No Ecosystem Chat activation state changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: retain Ecosystem Chat activation evidence [activation-state]"
+          git pull --rebase
+          git push
+
+      - name: Summarize owner-routed continuation
+        if: always()
+        run: |
+          echo "## Ecosystem Chat Activation Retention" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source Site Task Runner: ${{ github.event.workflow_run.id }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source conclusion: ${{ github.event.workflow_run.conclusion }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f data/ecosystem-chat-activation-state.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          state = json.loads(Path('data/ecosystem-chat-activation-state.json').read_text())
+          print(f"Activation state: {state.get('state')}")
+          print(f"Manual user action required: {state.get('manual_user_action_required')}")
+          print(f"Owner-routed actions: {len(state.get('next_actions', []))}")
+          print(f"State SHA-256: {state.get('state_sha256')}")
+          PY
+          fi
