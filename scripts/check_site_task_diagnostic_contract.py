@@ -59,6 +59,12 @@ ADDENDUM_REQUIRED = [
     "does not expand repository authority",
 ]
 
+EXPECTED_WORKFLOWS = [
+    "ecosystem-chat-activation-retention.yml",
+    "site-task-runner.yml",
+    "validate.yml",
+]
+
 
 def require_text(path: Path, needles: list[str]) -> list[str]:
     if not path.exists():
@@ -84,10 +90,11 @@ def main() -> int:
         for path in workflow_dir.iterdir()
         if path.is_file() and path.suffix in {".yml", ".yaml"}
     )
-    if active_workflows != ["site-task-runner.yml", "validate.yml"]:
+    if active_workflows != EXPECTED_WORKFLOWS:
         failures.append(
             "active workflow set drift: expected exactly "
-            "site-task-runner.yml and validate.yml, got "
+            + ", ".join(EXPECTED_WORKFLOWS)
+            + ", got "
             + ", ".join(active_workflows)
         )
 
