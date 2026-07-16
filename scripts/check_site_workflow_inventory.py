@@ -3,8 +3,9 @@
 
 The check distinguishes repository workflow files from operational workflow
 entry points. Triggerless, jobless placeholders are recorded but do not count
-as active execution surfaces. The only permitted operational workflows are the
-canonical bootstrap and declared-task runner.
+as active execution surfaces. The permitted operational workflows are the
+canonical bootstrap, declared-task runner, and bounded Ecosystem Chat evidence
+retention workflow.
 """
 from __future__ import annotations
 
@@ -23,7 +24,11 @@ ACTIVATION_LEDGER_TESTS = ROOT / "scripts" / "test_site_activation_ledger.py"
 ACTIVATION_LEDGER_HANDOFF_VALIDATOR = (
     ROOT / "scripts" / "check_site_activation_ledger_handoff.py"
 )
-CANONICAL = {"validate.yml", "site-task-runner.yml"}
+CANONICAL = {
+    "validate.yml",
+    "site-task-runner.yml",
+    "ecosystem-chat-activation-retention.yml",
+}
 
 
 def main() -> int:
@@ -73,11 +78,11 @@ def main() -> int:
         failures.append(
             "operational workflow set mismatch: "
             + ", ".join(sorted(operational))
-            + " (expected validate.yml, site-task-runner.yml)"
+            + " (expected ecosystem-chat-activation-retention.yml, site-task-runner.yml, validate.yml)"
         )
 
-    if data.get("canonical_count") != 2:
-        failures.append("canonical_count must equal 2")
+    if data.get("canonical_count") != len(CANONICAL):
+        failures.append(f"canonical_count must equal {len(CANONICAL)}")
 
     if not failures:
         for label, validator in (
