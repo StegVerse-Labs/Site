@@ -42,7 +42,7 @@ def main() -> int:
     gov_ready = gov.get("schema") == "site_governance_observatory_status.v0.1" and gov.get("mirror_status") == "active_public_status_surface"
     local_receipt_ready = local_receipt.get("schema") == "site_local_completion_receipt.v0.1" and local_receipt.get("local_completion_state") == "complete" and local_receipt.get("activation_state") == "pending_external_evidence"
     system_boundary_verified = system_boundary.get("activation_state") == "VERIFIED" and system_boundary.get("verified") is True and system_boundary.get("downstream_propagation_allowed") is True
-    ready = tt_ready and gov_ready and local_receipt_ready
+    ready = tt_ready and gov_ready and local_receipt_ready and system_boundary_verified
 
     status = {
         "schema": "site_final_goal_status.v0.1",
