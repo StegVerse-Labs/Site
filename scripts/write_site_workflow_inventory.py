@@ -16,7 +16,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = ROOT / ".github" / "workflows"
 OUTPUT = ROOT / "data" / "site-workflow-inventory.json"
-CANONICAL = {"validate.yml", "site-task-runner.yml"}
+CANONICAL = {
+    "validate.yml",
+    "site-task-runner.yml",
+    "ecosystem-chat-activation-retention.yml",
+}
 
 
 def scalar_name(text: str, fallback: str) -> str:
