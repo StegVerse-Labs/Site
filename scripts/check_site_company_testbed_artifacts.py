@@ -78,6 +78,12 @@ FORBIDDEN_POSITIVE_CLAIMS = (
     "release tagging is authorized",
 )
 
+CANONICAL_WORKFLOWS = [
+    "ecosystem-chat-activation-retention.yml",
+    "site-task-runner.yml",
+    "validate.yml",
+]
+
 
 def fail(message: str) -> None:
     raise SystemExit(f"COMPANY TESTBED ARTIFACT VALIDATION FAILED: {message}")
@@ -106,8 +112,8 @@ def main() -> None:
 
     workflow_dir = ROOT / ".github" / "workflows"
     workflows = sorted(path.name for path in workflow_dir.glob("*.yml"))
-    if workflows != ["site-task-runner.yml", "validate.yml"]:
-        fail(f"expected exactly two operational workflows, found: {workflows}")
+    if workflows != CANONICAL_WORKFLOWS:
+        fail(f"expected canonical operational workflows {CANONICAL_WORKFLOWS}, found: {workflows}")
 
     inventory_check = (ROOT / "scripts" / "check_site_workflow_inventory.py").read_text(encoding="utf-8")
     binding = 'COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artifacts.py"'
@@ -117,7 +123,7 @@ def main() -> None:
     print("COMPANY TESTBED ARTIFACT VALIDATION PASSED")
     for label, path in REQUIRED_FILES.items():
         print(f"- {label}: {path.relative_to(ROOT)}")
-    print("- workflow inventory: exactly two operational workflows")
+    print("- workflow inventory: canonical three operational workflows")
     print("- authority effect: NONE")
     print("- release authority: NOT GRANTED")
 
