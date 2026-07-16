@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build the machine-owned Ecosystem Chat activation state.
 
-The state is fail-closed. It converts local validation, live verification, and
-activation-evidence records into an explicit owner-routed continuation plan.
-No manual observation or confirmation is required to keep the state current.
+The state is fail-closed. It converts local validation, live verification, destination
+activation evidence, and activation-evidence records into an explicit owner-routed
+continuation plan. No manual observation or confirmation is required.
 """
 from __future__ import annotations
 
@@ -19,6 +19,8 @@ DATA = ROOT / "data"
 LOCAL = REPORTS / "site-task-diagnostic.json"
 LIVE = REPORTS / "external-chat-live-verification.json"
 EVIDENCE = REPORTS / "external-chat-activation-evidence.json"
+DESTINATION = DATA / "ecosystem-chat-destination-activation-receipt.json"
+DESTINATION_IMPORT = DATA / "ecosystem-chat-destination-activation-import-status.json"
 OUTPUT = DATA / "ecosystem-chat-activation-state.json"
 
 
@@ -38,10 +40,40 @@ def canonical_sha256(value: dict[str, Any] | None) -> str | None:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def destination_gates(receipt: dict[str, Any] | None, import_status: dict[str, Any] | None) -> dict[str, bool]:
+    if not receipt or not import_status:
+        return {
+            "destination_current_main_validation": False,
+            "same_origin_authenticated_deployment": False,
+            "retrieval_receipt_validation": False,
+            "master_records_custody": False,
+            "reconstructability_pass": False,
+        }
+    imported = import_status.get("state") == "VERIFIED_SOURCE_RECEIPT_IMPORTED"
+    verified = receipt.get("state") == "VERIFIED" and receipt.get("blockers") == []
+    evidence = receipt.get("evidence") or {}
+    health = evidence.get("health") or {}
+    chat = evidence.get("chat") or {}
+    transition = evidence.get("transition") or {}
+    provider_usage = chat.get("master_records_usage_submission") or {}
+    local_usage = chat.get("provider_usage_submission") or {}
+    provider = chat.get("provider") or {}
+
+    return {
+        "destination_current_main_validation": imported and verified,
+        "same_origin_authenticated_deployment": imported and health.get("status") == "ok",
+        "retrieval_receipt_validation": imported and provider.get("used") is True and local_usage.get("event_sha256") is not None,
+        "master_records_custody": imported and provider_usage.get("custody_recorded") is True and transition.get("master_record_status") == "RECORDED",
+        "reconstructability_pass": imported and provider_usage.get("reconstructability") == "PASS" and transition.get("reconstruction_status") == "PASS",
+    }
+
+
 def main() -> int:
     local = load(LOCAL)
     live = load(LIVE)
     evidence = load(EVIDENCE)
+    destination = load(DESTINATION)
+    destination_import = load(DESTINATION_IMPORT)
 
     local_ok = bool(local and local.get("status") == "PASSED")
     live_ok = bool(live and live.get("result") == "PASS")
@@ -53,11 +85,7 @@ def main() -> int:
         "public_route_verification": live_ok,
         "mutation_required_disabled": mutation_disabled,
         "site_activation_evidence": evidence_ok,
-        "destination_current_main_validation": False,
-        "same_origin_authenticated_deployment": False,
-        "retrieval_receipt_validation": False,
-        "master_records_custody": False,
-        "reconstructability_pass": False,
+        **destination_gates(destination, destination_import),
     }
 
     if all(gates.values()):
@@ -82,11 +110,11 @@ def main() -> int:
             "public_route_verification": "Verify deployed Site and gateway public routes and emit the live receipt.",
             "mutation_required_disabled": "Confirm the live route remains non-mutating unless separately authorized.",
             "site_activation_evidence": "Build and retain the correlated activation-evidence record.",
-            "destination_current_main_validation": "Run usage-session verification on destination current-main.",
-            "same_origin_authenticated_deployment": "Deploy the authorized same-origin gateway or proxy topology.",
-            "retrieval_receipt_validation": "Emit and validate retrieval and provider-usage receipts.",
-            "master_records_custody": "Ingest Site, retrieval, and provider receipts into authenticated custody.",
-            "reconstructability_pass": "Run reconstruction against the custody chain and emit PASS evidence.",
+            "destination_current_main_validation": "Allow adapter validation and live-activation automation to publish a verified receipt.",
+            "same_origin_authenticated_deployment": "Allow the production gateway deployment and health verification to complete.",
+            "retrieval_receipt_validation": "Allow the live verifier to emit provider and local usage identity evidence.",
+            "master_records_custody": "Allow transition and provider-usage custody receipts to be verified and imported.",
+            "reconstructability_pass": "Allow both custody chains to return reconstruction PASS evidence.",
         }
         for gate, passed in gates.items():
             if not passed:
@@ -97,11 +125,10 @@ def main() -> int:
                     "manual_user_action_required": "false",
                 })
 
-    generated_at = datetime.now(timezone.utc).isoformat()
     payload: dict[str, Any] = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "record_type": "ecosystem_chat_activation_state",
-        "generated_at": generated_at,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "state": state,
         "manual_user_action_required": False,
         "local_manual_tasks": "eliminated",
@@ -112,6 +139,8 @@ def main() -> int:
             "site_task_diagnostic": {"present": local is not None, "sha256": canonical_sha256(local)},
             "live_verification": {"present": live is not None, "sha256": canonical_sha256(live)},
             "activation_evidence": {"present": evidence is not None, "sha256": canonical_sha256(evidence)},
+            "destination_activation": {"present": destination is not None, "sha256": canonical_sha256(destination)},
+            "destination_import_status": {"present": destination_import is not None, "sha256": canonical_sha256(destination_import)},
         },
         "authority_boundary": {
             "state_grants_deployment_authority": False,
