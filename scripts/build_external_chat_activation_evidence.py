@@ -5,6 +5,10 @@ The record correlates the exact Site commit, workflow run, local diagnostic,
 post-deployment live receipt, Pages deployment URL, and mutation-disabled
 posture. It is evidence of what was observed, not deployment, mutation,
 certification, publication, or standing authority.
+
+After writing the evidence record, this script automatically refreshes the
+machine-owned Ecosystem Chat activation state. Scheduled/current-main workflow
+runs therefore maintain the continuation plan without manual observation.
 """
 from __future__ import annotations
 
@@ -14,6 +18,8 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from update_ecosystem_chat_activation_state import main as update_activation_state
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
@@ -116,6 +122,10 @@ def main() -> int:
     OUTPUT.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
     print(f"EXTERNAL CHAT ACTIVATION EVIDENCE: {result}")
     print(f"Receipt: {OUTPUT.relative_to(ROOT)}")
+
+    state_result = update_activation_state()
+    if state_result != 0:
+        raise SystemExit(state_result)
     return 0
 
 
