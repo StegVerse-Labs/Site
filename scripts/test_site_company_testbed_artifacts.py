@@ -48,6 +48,9 @@ def build_fixture(root: Path, validator) -> None:
     )
     (workflows / "validate.yml").write_text("name: validate\n", encoding="utf-8")
     (workflows / "site-task-runner.yml").write_text("name: runner\n", encoding="utf-8")
+    (workflows / "ecosystem-chat-activation-retention.yml").write_text(
+        "name: retention\n", encoding="utf-8"
+    )
 
 
 def configure(validator, root: Path) -> None:
@@ -117,7 +120,7 @@ def add_forbidden_claim(root: Path, validator) -> None:
     )
 
 
-def add_third_workflow(root: Path, validator) -> None:
+def add_fourth_workflow(root: Path, validator) -> None:
     del validator
     (root / ".github" / "workflows" / "extra.yml").write_text(
         "name: prohibited extra workflow\n", encoding="utf-8"
@@ -150,9 +153,9 @@ def main() -> int:
             "forbidden unsupported positive claim present: StegVerse has deployed with",
         ),
         (
-            "third operational workflow file",
-            add_third_workflow,
-            "expected exactly two operational workflows",
+            "fourth operational workflow file",
+            add_fourth_workflow,
+            "expected canonical operational workflows",
         ),
         (
             "validator binding removed",
@@ -168,7 +171,6 @@ def main() -> int:
 
     for name, mutate, expected in cases:
         run_case(name, mutate, expected)
-
     print("COMPANY TESTBED ARTIFACT ADVERSARIAL TESTS PASSED")
     print(f"- cases: {len(cases)}")
     print("- authority effect: NONE")
