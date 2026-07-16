@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import json
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,7 +44,7 @@ REQUIRED = {
         "Master-Records custody",
         "reconstructability PASS",
     ],
-    "final_goal": ["site_final_goal_status.v0.1", '"goal_status": "ready"'],
+    "final_goal": ["site_final_goal_status.v0.1"],
     "external": ['"state": "external_evidence_present"', '"local_build_state": "repository_managed"'],
 }
 
@@ -66,6 +67,8 @@ FILES = {
     "external": EXTERNAL,
 }
 
+ALLOWED_FINAL_GOAL_STATES = {"ready", "pending_external_evidence"}
+
 
 def main() -> int:
     for label, path in FILES.items():
@@ -83,7 +86,24 @@ def main() -> int:
             for term in blocked:
                 print(f"forbidden: {term}", file=sys.stderr)
             return 1
-    print("OK: Site ecosystem management handoff validated")
+
+    final_goal = json.loads(FINAL_GOAL.read_text(encoding="utf-8"))
+    final_state = final_goal.get("goal_status")
+    if final_state not in ALLOWED_FINAL_GOAL_STATES:
+        print(f"final_goal ecosystem handoff check failed: invalid goal_status {final_state!r}", file=sys.stderr)
+        return 1
+    gates = final_goal.get("gates")
+    if not isinstance(gates, dict) or not gates:
+        print("final_goal ecosystem handoff check failed: gates object required", file=sys.stderr)
+        return 1
+    if final_state == "ready" and not all(value is True for value in gates.values()):
+        print("final_goal ecosystem handoff check failed: ready requires all gates true", file=sys.stderr)
+        return 1
+    if final_state == "pending_external_evidence" and all(value is True for value in gates.values()):
+        print("final_goal ecosystem handoff check failed: pending state requires an unresolved gate", file=sys.stderr)
+        return 1
+
+    print(f"OK: Site ecosystem management handoff validated ({final_state})")
     return 0
 
 
