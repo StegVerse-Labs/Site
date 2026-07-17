@@ -1,22 +1,30 @@
 {
-  "schema_version": "stegverse.ai_entry.backend_activation_progress.v0.1",
+  "schema_version": "stegverse.ai_entry.backend_activation_progress.v0.2",
   "goal": "Governed backend adapter activation path",
-  "state": "preview_path_partial_live_disabled",
+  "state": "repository_boundaries_complete_live_evidence_pending",
   "completed_components": {
     "activation_boundary_contract": true,
     "activation_route_model": true,
     "backend_activation_request_fixture": true,
     "backend_activation_response_fixture": true,
-    "ui_activation_guidance_routes": true
-  },
-  "remaining_components": {
+    "ui_activation_guidance_routes": true,
     "handoff_sync": true,
-    "final_green_run_confirmation": true,
-    "governed_live_authority_service": true,
-    "receipt_issuer_boundary": true,
-    "provider_capture_boundary": true,
-    "sdk_access_decision_boundary": true,
-    "operator_recoverability_boundary": true
+    "governed_live_authority_service_preview": true,
+    "receipt_issuer_boundary_preview": true,
+    "provider_capture_boundary_preview": true,
+    "sdk_access_decision_boundary_preview": true,
+    "operator_recoverability_boundary": true,
+    "cross_repo_handoff_consolidation": true,
+    "automated_green_visibility_monitor": true,
+    "terminal_loop_cycle_record": true
+  },
+  "remaining_repository_components": {},
+  "external_evidence_gates": {
+    "connector_visible_green_run": false,
+    "live_provider_observation": false,
+    "live_sdk_observation": false,
+    "live_custody_and_reconstruction": false,
+    "release_authority_receipt": false
   },
   "current_boundary": {
     "live_provider_calls_enabled": false,
@@ -26,5 +34,9 @@
     "real_receipt_issued": false,
     "repo_mutation_from_chat_enabled": false,
     "activation_request_executes": false
-  }
+  },
+  "manual_tasks_remaining": [],
+  "continuation_mode": "scheduled_fail_closed_evidence_monitor",
+  "next_repository_local_goal": null,
+  "archive_ready": true
 }
