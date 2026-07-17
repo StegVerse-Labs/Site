@@ -1,0 +1,61 @@
+{
+  "schema": "stegverse.ecosystem_chat.activation_propagation.v1",
+  "state": "PENDING_ACTIVATION_EVIDENCE",
+  "source_repository": "StegVerse-Labs/Site",
+  "source_state_path": "data/ecosystem-chat-activation-state.json",
+  "source_state_sha256": "f66bedbcab47665b911ef70f87896d4270f867fa7ea9ae20378ebd7f4739d4b1",
+  "destinations": [
+    {
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "ingestion_ready": false,
+      "required_action": "wait_for_verified_activation_state",
+      "manual_user_action_required": false
+    },
+    {
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "ingestion_ready": false,
+      "required_action": "wait_for_verified_activation_state",
+      "manual_user_action_required": false
+    },
+    {
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "ingestion_ready": false,
+      "required_action": "wait_for_verified_activation_state",
+      "manual_user_action_required": false
+    }
+  ],
+  "gates": {
+    "site_current_main_validation": false,
+    "public_route_verification": false,
+    "mutation_required_disabled": false,
+    "site_activation_evidence": false,
+    "destination_state_imported": false,
+    "custody_state_imported": false,
+    "external_import_status_recorded": false,
+    "destination_current_main_validation": false,
+    "same_origin_authenticated_deployment": false,
+    "automatic_provider_usage_submission": false,
+    "retrieval_receipt_validation": false,
+    "orchestration_current_main_validation": false,
+    "persistent_custody_service_configuration": false,
+    "master_records_custody": false,
+    "reconstructability_pass": false
+  },
+  "source_receipts": {
+    "site_task_diagnostic": {"present": false, "sha256": null},
+    "live_verification": {"present": false, "sha256": null},
+    "activation_evidence": {"present": false, "sha256": null},
+    "legacy_destination_activation": {"present": false, "sha256": null},
+    "legacy_destination_import_status": {"present": false, "sha256": null},
+    "external_destination_activation_state": {"present": false, "sha256": null},
+    "external_custody_activation_state": {"present": false, "sha256": null},
+    "external_activation_import_status": {"present": false, "sha256": null}
+  },
+  "authority_boundary": {
+    "propagation_is_activation_authority": false,
+    "propagation_is_release_authority": false,
+    "propagation_is_publication_authority": false,
+    "propagation_is_custody": false
+  },
+  "packet_sha256": "808a9f3bf0907925a068cf7ebe63f36e7c3b348378e7dbde2e07119f36a70ee5"
+}
