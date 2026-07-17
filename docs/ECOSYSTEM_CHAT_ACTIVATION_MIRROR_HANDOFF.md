@@ -91,8 +91,7 @@ It remains `PENDING_ACTIVATION_EVIDENCE` until activation is complete, then beco
 ```text
 GCAT-BCAT-Engine/Publisher
 StegVerse-Labs/admissibility-wiki
-StegVerse-Labs/stegguardian-wiki
-StegVerse-Labs/Sit
+StegVerse-002/stegguardian-wiki
 ```
 
 The packet is non-authorizing and never constitutes custody, release authority,
