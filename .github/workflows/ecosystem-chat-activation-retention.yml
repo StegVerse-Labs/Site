@@ -55,6 +55,11 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
 
+      - name: Import external owner activation states
+        env:
+          STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
+        run: python scripts/import_ecosystem_chat_external_activation_states.py
+
       - name: Rebuild machine-owned activation state
         run: python scripts/update_ecosystem_chat_activation_state.py
 
@@ -62,7 +67,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ecosystem-chat-activation-state.json reports/site-task-diagnostic.json reports/external-chat-live-verification.json reports/external-chat-activation-evidence.json || true
+          git add data/ecosystem-chat-activation-state.json data/ecosystem-chat-activation-propagation.json data/ecosystem-chat-destination-activation-state.external.json data/ecosystem-chat-custody-activation-state.external.json data/ecosystem-chat-external-activation-import-status.json reports/site-task-diagnostic.json reports/external-chat-live-verification.json reports/external-chat-activation-evidence.json || true
           if git diff --cached --quiet; then
             echo "No Ecosystem Chat activation state changes to commit."
             exit 0
