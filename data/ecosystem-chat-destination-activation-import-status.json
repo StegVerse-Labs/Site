@@ -1,0 +1,28 @@
+{
+  "authority_granted": false,
+  "deployment_authorized": false,
+  "manual_user_action_required": false,
+  "reason": "verified_receipt_not_yet_published",
+  "receipt_present": false,
+  "receipt_sha256": null,
+  "receipt_state": null,
+  "release_authorized": false,
+  "schema": "stegverse.site.ecosystem_chat_activation_import.v1",
+  "source_activation_state": "PENDING",
+  "source_blockers": [
+    "live_activation_observation_not_yet_recorded"
+  ],
+  "source_gates": {
+    "durable_storage": false,
+    "gateway_health_ok": false,
+    "governed_provider_enabled": false,
+    "master_records_submission_enabled": false,
+    "provider_usage_custody_recorded": false,
+    "provider_usage_reconstructability_pass": false,
+    "provider_used": false,
+    "transition_custody_recorded": false,
+    "transition_reconstructability_pass": false
+  },
+  "source_status_sha256": "9a3cbb86725b3fefbe028f548abeb7ed1af865e2759e45f1a1c4a817f6fee14a",
+  "state": "PENDING_SOURCE_RECEIPT"
+}
