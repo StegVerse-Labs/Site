@@ -21,6 +21,10 @@ def main() -> int:
         "scripts/acquire_ecosystem_chat_live_activation_receipt.py",
         (
             "ecosystem-chat-live-activation.verified.json",
+            "ecosystem-chat-live-activation-status.json",
+            "pending_status_digest_mismatch",
+            '"source_blockers"',
+            '"source_gates"',
             "receipt_digest_mismatch",
             "provider_usage_custody",
             "transition_reconstructability",
