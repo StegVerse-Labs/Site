@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Verify the bounded Site task diagnostic contract.
+"""Verify the bounded Site task diagnostic and activation-retention contracts.
 
 This checker validates the repository-local diagnostic implementation and its
-existing workflow integration. It does not execute Site tasks or grant authority.
+workflow integration. It does not execute Site tasks or grant authority.
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "scripts" / "run_site_task.py"
 WORKFLOW = ROOT / ".github" / "workflows" / "site-task-runner.yml"
+RETENTION_WORKFLOW = ROOT / ".github" / "workflows" / "ecosystem-chat-activation-retention.yml"
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 ADDENDUM = ROOT / "docs" / "SITE_MIRROR_HANDOFF_DIAGNOSTIC_ADDENDUM.md"
 
@@ -41,6 +42,17 @@ WORKFLOW_REQUIRED = [
     "if-no-files-found: error",
     "Failed validator:",
     "Authority effect:",
+]
+
+RETENTION_REQUIRED = [
+    "Import external owner activation states",
+    "python scripts/import_ecosystem_chat_external_activation_states.py",
+    "STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}",
+    "python scripts/update_ecosystem_chat_activation_state.py",
+    "data/ecosystem-chat-destination-activation-state.external.json",
+    "data/ecosystem-chat-custody-activation-state.external.json",
+    "data/ecosystem-chat-external-activation-import-status.json",
+    "data/ecosystem-chat-activation-propagation.json",
 ]
 
 HANDOFF_REQUIRED = [
@@ -81,6 +93,7 @@ def main() -> int:
     failures: list[str] = []
     failures.extend(require_text(RUNNER, RUNNER_REQUIRED))
     failures.extend(require_text(WORKFLOW, WORKFLOW_REQUIRED))
+    failures.extend(require_text(RETENTION_WORKFLOW, RETENTION_REQUIRED))
     failures.extend(require_text(HANDOFF, HANDOFF_REQUIRED))
     failures.extend(require_text(ADDENDUM, ADDENDUM_REQUIRED))
 
@@ -105,6 +118,7 @@ def main() -> int:
         return 1
 
     print("SITE_TASK_DIAGNOSTIC_CONTRACT_PASS")
+    print("activation_retention_external_import=GUARDED")
     print("authority_effect=NONE")
     print("site_mode=PREVIEW_ONLY")
     print("state_change_authorized=false")
