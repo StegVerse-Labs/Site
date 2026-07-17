@@ -120,10 +120,28 @@ jobs:
         working-directory: site
         run: python scripts/acquire_governed_transition_index.py
 
-      - name: Acquire external framework catalog
+      - name: Acquire external framework catalog and Ecosystem Chat activation evidence
         if: steps.task.outputs.name == 'all-local'
         working-directory: site
         run: python scripts/acquire_external_framework_catalog.py
+
+      - name: Persist activation import state before downstream validation
+        if: steps.task.outputs.name == 'all-local' && github.ref == 'refs/heads/main'
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ecosystem-chat-destination-activation-import-status.json || true
+          if [ -f data/ecosystem-chat-destination-activation-receipt.json ]; then
+            git add data/ecosystem-chat-destination-activation-receipt.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Activation import state unchanged."
+          else
+            git commit -m "chore: retain Ecosystem Chat activation import state [skip ci]"
+            git pull --rebase
+            git push
+          fi
 
       - name: Run declared Site task
         working-directory: site
@@ -255,6 +273,15 @@ jobs:
           print(f"External framework count: {status.get('framework_count')}")
           PY
           fi
+          if [ -f data/ecosystem-chat-destination-activation-import-status.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          status = json.loads(Path('data/ecosystem-chat-destination-activation-import-status.json').read_text())
+          print(f"Ecosystem Chat activation import: {status.get('state')}")
+          print(f"Ecosystem Chat source blockers: {', '.join(status.get('source_blockers', [])) or 'none'}")
+          PY
+          fi
           if [ -f reports/site-task-diagnostic.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
@@ -287,4 +314,4 @@ jobs:
           PY
           fi
           echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on main." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: generated Site state is committed and deployed only from main after task validation succeeds." >> "$GITHUB_STEP_SUMMARY"
+          echo "Boundary: generated Site state is committed and deployed only from main after task validation succeeds; activation import status is retained earlier as non-authorizing continuation evidence." >> "$GITHUB_STEP_SUMMARY"
