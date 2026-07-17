@@ -1,0 +1,24 @@
+{
+  "schema": "stegverse.spe-receipt-chain-propagation.v1",
+  "propagation_id": "SITE-MR-SPE-RECEIPT-CHAIN-001",
+  "source_repository": "master-records/core-lite",
+  "source_artifact": "records/spe_destination_receipt_chain_001.json",
+  "source_emission_id": "MR-LIVE-SPE-RECEIPT-CHAIN-001",
+  "source_snapshot": "StegVerse-Labs/Standing-Proof-Engine@v0.5.0",
+  "destination_repository": "StegVerse-Labs/Site",
+  "state": "RECEIVED",
+  "chain_result": "CHAIN_EMITTED",
+  "local_equivalent_chain_result": "CHAIN_BOUND",
+  "authority": {
+    "execution": false,
+    "publication": false,
+    "release": false,
+    "activation": false
+  },
+  "manual_action_required": false,
+  "next_destinations": [
+    "GCAT-BCAT-Engine/Publisher",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki"
+  ]
+}
