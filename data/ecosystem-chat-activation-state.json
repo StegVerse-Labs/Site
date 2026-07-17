@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.3.0",
+  "record_type": "ecosystem_chat_activation_state",
+  "generated_at": "2026-07-16T00:00:00+00:00",
+  "state": "ACTIVATION_PENDING_EVIDENCE",
+  "manual_user_action_required": false,
+  "local_manual_tasks": "eliminated",
+  "continuation_mode": "workflow_managed_owner_routed_cross_repository",
+  "gates": {
+    "site_current_main_validation": false,
+    "public_route_verification": false,
+    "mutation_required_disabled": false,
+    "site_activation_evidence": false,
+    "destination_state_imported": false,
+    "custody_state_imported": false,
+    "external_import_status_recorded": false,
+    "destination_current_main_validation": false,
+    "same_origin_authenticated_deployment": false,
+    "automatic_provider_usage_submission": false,
+    "retrieval_receipt_validation": false,
+    "orchestration_current_main_validation": false,
+    "persistent_custody_service_configuration": false,
+    "master_records_custody": false,
+    "reconstructability_pass": false
+  },
+  "next_actions": [
+    {"gate": "site_current_main_validation", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "public_route_verification", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "mutation_required_disabled", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "site_activation_evidence", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "destination_state_imported", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "custody_state_imported", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "external_import_status_recorded", "owner": "StegVerse-Labs/Site", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "destination_current_main_validation", "owner": "StegVerse-org/LLM-adapter", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "same_origin_authenticated_deployment", "owner": "StegVerse-org/LLM-adapter", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "automatic_provider_usage_submission", "owner": "StegVerse-org/LLM-adapter", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "retrieval_receipt_validation", "owner": "StegVerse-org/LLM-adapter", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "orchestration_current_main_validation", "owner": "master-records/orchestration", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "persistent_custody_service_configuration", "owner": "master-records/orchestration", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "master_records_custody", "owner": "master-records/orchestration", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"},
+    {"gate": "reconstructability_pass", "owner": "master-records/orchestration", "action": "Await repository-owned scheduled evidence; no manual user action is required.", "manual_user_action_required": "false"}
+  ],
+  "source_receipts": {
+    "site_task_diagnostic": {"present": false, "sha256": null},
+    "live_verification": {"present": false, "sha256": null},
+    "activation_evidence": {"present": false, "sha256": null},
+    "legacy_destination_activation": {"present": false, "sha256": null},
+    "legacy_destination_import_status": {"present": false, "sha256": null},
+    "external_destination_activation_state": {"present": false, "sha256": null},
+    "external_custody_activation_state": {"present": false, "sha256": null},
+    "external_activation_import_status": {"present": false, "sha256": null}
+  },
+  "downstream_propagation_path": "data/ecosystem-chat-activation-propagation.json",
+  "authority_boundary": {
+    "state_grants_deployment_authority": false,
+    "state_grants_mutation_authority": false,
+    "state_grants_custody_authority": false,
+    "state_grants_release_authority": false
+  },
+  "state_sha256": "f66bedbcab47665b911ef70f87896d4270f867fa7ea9ae20378ebd7f4739d4b1"
+}
