@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Acquire and validate the retained Ecosystem Chat live-activation receipt.
+"""Acquire and validate retained Ecosystem Chat activation evidence.
 
-The source is the adapter's immutable checked-in VERIFIED receipt. Missing or pending
-source evidence remains a non-authorizing pending state. No credential is required for
-the public repository path and no external repository is mutated.
+The immutable VERIFIED receipt remains the only activation input. Until it exists, the
+adapter's stable non-authorizing blocker status is imported so continuation does not
+depend on expiring workflow artifacts or manual inspection.
 """
 from __future__ import annotations
 
@@ -21,26 +21,78 @@ SOURCE_URL = os.getenv(
     "STEGVERSE_ECOSYSTEM_CHAT_ACTIVATION_RECEIPT_URL",
     "https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/receipts/ecosystem-chat-live-activation.verified.json",
 )
+SOURCE_STATUS_URL = os.getenv(
+    "STEGVERSE_ECOSYSTEM_CHAT_ACTIVATION_STATUS_URL",
+    "https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/reports/ecosystem-chat-live-activation-status.json",
+)
 TIMEOUT = float(os.getenv("STEGVERSE_ECOSYSTEM_CHAT_ACTIVATION_FETCH_TIMEOUT_SECONDS", "20"))
 
 
-def canonical_sha(payload: dict[str, Any]) -> str:
+def canonical_sha(payload: dict[str, Any], field: str) -> str:
     material = dict(payload)
-    material.pop("result_sha256", None)
+    material.pop(field, None)
     return hashlib.sha256(
-        json.dumps(material, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        json.dumps(material, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     ).hexdigest()
 
 
-def write_status(state: str, reason: str, receipt: dict[str, Any] | None = None) -> None:
+def fetch_json(url: str) -> dict[str, Any]:
+    with request.urlopen(url, timeout=TIMEOUT) as response:
+        value = json.loads(response.read().decode("utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("source_not_object")
+    return value
+
+
+def validate_pending_status(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise ValueError("pending_status_not_object")
+    if value.get("schema") != "stegverse.ecosystem_chat.live_activation_status.v1":
+        raise ValueError("pending_status_schema_mismatch")
+    if value.get("repository") != "StegVerse-org/LLM-adapter":
+        raise ValueError("pending_status_repository_mismatch")
+    if value.get("state") not in {"PENDING", "VERIFIED"}:
+        raise ValueError("pending_status_state_invalid")
+    if value.get("manual_user_action_required") is not False:
+        raise ValueError("pending_status_manual_action_invalid")
+    boundary = value.get("authority_boundary") or {}
+    if any(
+        boundary.get(key) is not False
+        for key in (
+            "status_is_activation_authority",
+            "status_is_deployment_authority",
+            "status_is_custody",
+            "status_is_release_authority",
+        )
+    ):
+        raise ValueError("pending_status_authority_escalation")
+    if canonical_sha(value, "status_sha256") != value.get("status_sha256"):
+        raise ValueError("pending_status_digest_mismatch")
+    blockers = value.get("blockers")
+    if not isinstance(blockers, list) or any(not isinstance(item, str) for item in blockers):
+        raise ValueError("pending_status_blockers_invalid")
+    return value
+
+
+def write_status(
+    state: str,
+    reason: str,
+    receipt: dict[str, Any] | None = None,
+    pending_status: dict[str, Any] | None = None,
+) -> None:
     payload = {
         "schema": "stegverse.site.ecosystem_chat_activation_import.v1",
         "state": state,
         "reason": reason,
         "source_url": SOURCE_URL,
+        "source_status_url": SOURCE_STATUS_URL,
         "receipt_present": receipt is not None,
         "receipt_state": receipt.get("state") if receipt else None,
         "receipt_sha256": receipt.get("result_sha256") if receipt else None,
+        "source_activation_state": pending_status.get("state") if pending_status else None,
+        "source_blockers": pending_status.get("blockers", []) if pending_status else [],
+        "source_gates": pending_status.get("gates", {}) if pending_status else {},
+        "source_status_sha256": pending_status.get("status_sha256") if pending_status else None,
         "manual_user_action_required": False,
         "authority_granted": False,
         "deployment_authorized": False,
@@ -65,8 +117,7 @@ def validate(receipt: Any) -> dict[str, Any]:
         raise ValueError("receipt_publication_escalation")
     if receipt.get("repository_mutation_authorized") is not False:
         raise ValueError("receipt_mutation_escalation")
-    expected = canonical_sha(receipt)
-    if receipt.get("result_sha256") != expected:
+    if receipt.get("result_sha256") != canonical_sha(receipt, "result_sha256"):
         raise ValueError("receipt_digest_mismatch")
 
     evidence = receipt.get("evidence")
@@ -98,22 +149,27 @@ def validate(receipt: Any) -> dict[str, Any]:
     return receipt
 
 
+def import_pending_status(reason: str) -> int:
+    try:
+        status = validate_pending_status(fetch_json(SOURCE_STATUS_URL))
+        write_status("PENDING_SOURCE_RECEIPT", reason, pending_status=status)
+        print(f"ECOSYSTEM_CHAT_ACTIVATION_PENDING:{','.join(status.get('blockers', [])) or 'no_semantic_blockers'}")
+    except error.HTTPError as exc:
+        write_status("PENDING_SOURCE_RECEIPT", f"{reason};status_http_{exc.code}")
+    except (error.URLError, TimeoutError, OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
+        write_status("PENDING_SOURCE_RECEIPT", f"{reason};status_unavailable:{type(exc).__name__}")
+    return 0
+
+
 def main() -> int:
     try:
-        with request.urlopen(SOURCE_URL, timeout=TIMEOUT) as response:
-            raw = response.read()
+        receipt = validate(fetch_json(SOURCE_URL))
     except error.HTTPError as exc:
         if exc.code == 404:
-            write_status("PENDING_SOURCE_RECEIPT", "verified_receipt_not_yet_published")
-            return 0
-        write_status("PENDING_SOURCE_RECEIPT", f"source_http_status_{exc.code}")
-        return 0
+            return import_pending_status("verified_receipt_not_yet_published")
+        return import_pending_status(f"source_http_status_{exc.code}")
     except (error.URLError, TimeoutError, OSError) as exc:
-        write_status("PENDING_SOURCE_RECEIPT", f"source_transport_error:{type(exc).__name__}")
-        return 0
-
-    try:
-        receipt = validate(json.loads(raw.decode("utf-8")))
+        return import_pending_status(f"source_transport_error:{type(exc).__name__}")
     except (UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
         write_status("REJECTED_SOURCE_RECEIPT", str(exc))
         return 1
