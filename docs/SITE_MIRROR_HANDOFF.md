@@ -12,7 +12,8 @@ Primary surface: ecosystem-chat.html
 Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
-Result: SITE_AUTOMATED_ACTIVATION_CONSUMPTION_INSTALLED_LIVE_VERIFIED_RECEIPT_PENDING
+Result: SITE_AUTOMATED_PENDING_AND_VERIFIED_ACTIVATION_CONSUMPTION_INSTALLED
+Manual user action required: false
 ```
 
 ## Active workflows
@@ -21,10 +22,10 @@ Result: SITE_AUTOMATED_ACTIVATION_CONSUMPTION_INSTALLED_LIVE_VERIFIED_RECEIPT_PE
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
 .github/workflows/ecosystem-chat-activation-retention.yml
+iosnoperiod/github/workflows/validate.yml
 ```
 
-The iOS validation mirror remains `iosnoperiod/github/workflows/validate.yml`.
-No additional workflow is required for destination receipt ingestion.
+No additional destination-ingestion workflow is required.
 
 ## Current architecture
 
@@ -34,9 +35,10 @@ StegVerse-org/LLM-adapter live governed gateway
 -> provider usage local persistence
 -> authenticated provider-usage Master-Records custody
 -> transition Master-Records custody
--> reconstruction PASS for both custody chains
--> retained adapter VERIFIED activation receipt
--> automatic Site receipt acquisition and validation
+-> reconstruction PASS for both chains
+-> adapter stable semantic blocker status while pending
+-> adapter immutable VERIFIED activation receipt after all gates pass
+-> automatic Site acquisition and validation
 -> Site activation-state recomputation
 -> downstream propagation packet
 ```
@@ -62,33 +64,45 @@ data/ecosystem-chat-activation-state.json
 data/ecosystem-chat-activation-propagation.json
 ```
 
-The existing scheduled Site task runner invokes external catalog synchronization, which
-also acquires the retained adapter activation receipt. No browser credential, copy/paste,
-or manually executed verification command is required.
-
-## Fail-closed destination gates
-
-The Site no longer hard-codes destination gates to false. It computes them from a
-canonical, hash-verified adapter receipt:
+The scheduled Site path first seeks the immutable adapter receipt:
 
 ```text
-destination_current_main_validation
-same_origin_authenticated_deployment
-retrieval_receipt_validation
-master_records_custody
-reconstructability_pass
+https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/receipts/ecosystem-chat-live-activation.verified.json
 ```
 
-Receipt acceptance requires a real provider response, non-custodial local usage,
-provider-usage custody, transition custody, reconstruction PASS for both chains, exact
-identity preservation, no blockers, and all authority flags false.
+Until that receipt exists, it imports and validates the adapter's stable blocker status:
 
-Missing evidence remains pending. Invalid, conflicting, or authority-escalating evidence
-is rejected and cannot activate the Site.
+```text
+https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/reports/ecosystem-chat-live-activation-status.json
+```
+
+The pending status is accepted only when its repository identity, schema, canonical hash, blocker list, manual-action boundary, and all authority flags validate. Pending status cannot activate Site.
+
+This removes the need to inspect expiring workflow artifacts merely to determine why activation remains pending.
+
+## Verified receipt gates
+
+The immutable verified receipt remains the only destination activation input. Acceptance requires:
+
+```text
+state = VERIFIED
+blockers = []
+canonical receipt hash valid
+gateway health OK
+durable storage
+governed provider enabled
+real provider use
+local usage non-custodial
+provider-usage custody RECORDED
+provider-usage reconstructability PASS
+transition custody RECORDED
+transition reconstructability PASS
+all authority flags false
+```
+
+Invalid, conflicting, or authority-escalating evidence is rejected.
 
 ## Site-local gates
-
-The following remain independently required:
 
 ```text
 site_current_main_validation
@@ -97,7 +111,7 @@ mutation_required_disabled
 site_activation_evidence
 ```
 
-Only when every local and destination gate is true does the state become:
+Only when every local and destination gate is true does Site publish:
 
 ```text
 ACTIVATION_COMPLETE
@@ -105,7 +119,7 @@ ACTIVATION_COMPLETE
 
 ## Downstream propagation
 
-The activation-state writer generates:
+Site generates:
 
 ```text
 data/ecosystem-chat-activation-propagation.json
@@ -123,7 +137,7 @@ After completion:
 state: READY_FOR_DOWNSTREAM_INGESTION
 ```
 
-Destinations:
+Canonical destinations:
 
 ```text
 GCAT-BCAT-Engine/Publisher
@@ -131,86 +145,61 @@ StegVerse-Labs/admissibility-wiki
 StegVerse-002/stegguardian-wiki
 ```
 
-The packet is non-authorizing and is not custody, publication authority, release
-authority, or activation authority.
+The packet is not custody, activation authority, publication authority, execution authority, or release authority.
 
 ## Current evidence state
 
 ```text
-Site destination receipt importer: INSTALLED
-Receipt canonical hash verification: INSTALLED
+Site verified-receipt importer: INSTALLED
+Site pending semantic-status importer: INSTALLED
+Pending status canonical hash verification: INSTALLED
+Verified receipt canonical hash verification: INSTALLED
 Authority-escalation guards: INSTALLED
 Destination gate computation: INSTALLED
 Downstream propagation packet writer: INSTALLED
 Canonical Site validation binding: INSTALLED
 Scheduled import path: INSTALLED
-Adapter retained VERIFIED activation receipt: NOT YET OBSERVED
-Site imported verified destination receipt: NOT YET OBSERVED
-Site activation state ACTIVATION_COMPLETE: NOT YET OBSERVED
-Downstream ingestion: NOT YET OBSERVED
+Adapter first stable blocker state: NOT YET OBSERVED
+Adapter immutable VERIFIED activation receipt: NOT YET OBSERVED
+Site ACTIVATION_COMPLETE: NOT YET OBSERVED
+Downstream verified ingestion: NOT YET OBSERVED
 ```
 
-## Current blocker
+## Machine-owned continuation
 
 ```text
-StegVerse-org/LLM-adapter/receipts/ecosystem-chat-live-activation.verified.json
-has not yet been retained on current main.
+1. Adapter scheduled verification writes a stable semantic blocker state when pending.
+2. Site scheduled acquisition imports and validates that pending state automatically.
+3. Exact blockers propagate through Site state without granting activation.
+4. Adapter retains the first immutable VERIFIED receipt after all live gates pass.
+5. Site imports and validates that receipt automatically.
+6. Site recomputes local and destination activation gates.
+7. Site publishes ACTIVATION_COMPLETE only when every gate passes.
+8. Publisher and both wiki consumers ingest the ready propagation packet automatically.
+9. Release readiness remains fail-closed until downstream public evidence is observed.
 ```
 
-The adapter workflow owns live observation and first verified receipt retention. The Site
-workflow owns automatic acquisition, validation, activation-state recomputation, Pages
-publication, and downstream propagation-packet generation after the receipt appears.
-
-## Remaining work
-
-```text
-StegVerse-org/LLM-adapter
-  -> complete current-main validation
-  -> deploy current source through existing autoDeploy
-  -> run scheduled live activation verification
-  -> retain the first VERIFIED activation receipt
-
-master-records/orchestration
-  -> deploy provider-usage custody route
-  -> return authenticated provider-usage and transition custody receipts
-  -> return reconstruction PASS evidence
-
-StegVerse-Labs/Site
-  -> automatically import the retained adapter receipt
-  -> recompute local and destination activation gates
-  -> repair only an exact rejected receipt gate or failing Site validator
-  -> publish ACTIVATION_COMPLETE only when every gate passes
-  -> generate READY_FOR_DOWNSTREAM_INGESTION propagation state
-
-Downstream repositories
-  -> ingest the propagation packet after it becomes ready
-  -> preserve non-authorizing boundaries
-  -> update documentation and publication surfaces only from verified evidence
-```
+No browser credential, copy/paste, workflow dispatch, artifact download, manually executed verifier, or manual blocker transcription is required.
 
 ## Authority boundary
 
 ```text
-Site display != execution.
-Provider output != authority.
-Usage retrieval != authority.
-Usage measurement != admissibility.
-Local persistence != custody.
-Submission != custody.
-Imported receipt != deployment authority.
-Propagation packet != publication authority.
-Reconstruction PASS != execution authority.
-No release tag is authorized before all validation and live-evidence gates pass.
+Site display != execution
+provider output != authority
+usage retrieval != authority
+usage measurement != admissibility
+local persistence != custody
+submission != custody
+pending status != activation
+imported verified receipt != deployment authority
+propagation packet != publication authority
+reconstruction PASS != execution authority
 ```
 
 ## Release posture
 
-Repository-local automation for acquisition, validation, activation-state computation,
-and propagation packaging is installed. Live deployed evidence and downstream ingestion
-remain pending. No tag or release is authorized.
+Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, and propagation packaging is installed. Live deployment evidence, Site completion, and downstream verified ingestion remain pending. No tag or release is authorized.
 
 ## Archive readiness
 
-This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and
-Master-Records handoffs, generated machine-readable state, workflows, and repository
-history preserve all continuation state. Earlier conversation context is not required.
+This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and Master-Records handoffs, generated machine-readable state, workflows, and repository history preserve all continuation state. This workstream should remain active until the first stable pending blocker state or immutable verified receipt has propagated through Site and any exact repository-owned failure has been repaired.
