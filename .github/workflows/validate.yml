@@ -2,6 +2,8 @@ name: Site Bootstrap Validate
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "11 * * * *"
   push:
   pull_request:
 
