@@ -1,0 +1,46 @@
+name: Autonomous Adjacent Construction Receipt
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/persist_authoritative_site_receipt.py"
+      - "data/autonomy/authoritative-site-packet.json"
+      - "SITE_MIRROR_HANDOFF.md"
+      - ".github/workflows/autonomous-adjacent-construction-receipt.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autonomous-adjacent-construction-receipt
+  cancel-in-progress: false
+
+jobs:
+  validate-and-receipt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate authoritative Site packet and create receipt
+        run: python scripts/persist_authoritative_site_receipt.py
+      - name: Persist Site-owned receipt
+        run: |
+          if git diff --quiet -- data/autonomy; then
+            exit 0
+          fi
+          git config user.name "stegverse-automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/autonomy
+          git commit -m "chore: persist Site adjacent construction receipt [adjacent-target-output]"
+          git push
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-adjacent-construction-receipt
+          path: data/autonomy/
+          if-no-files-found: error
