@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+# This validator is intentionally deterministic and safe to rerun.
 import hashlib
 import json
 from datetime import datetime, timezone
