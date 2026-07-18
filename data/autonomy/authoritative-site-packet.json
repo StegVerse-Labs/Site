@@ -1,0 +1,21 @@
+{
+  "artifact_type": "stegverse_adjacent_construction_packet",
+  "authority_posture": "TARGET_MAY_FAIL_CLOSED",
+  "construction_profile": "bounded-receipt-intake-v1",
+  "generated_utc": "2026-07-16T17:20:01Z",
+  "goal_id": "stegpay-stegops-two-generation-autonomy",
+  "packet_hash_sha256": "70b6c8fa6565fc5ac8cdd0b55bbed2dec5b2514c9ad2fb7f57de0fcea4aa3e71",
+  "participants": [
+    "StegVerse-Labs/StegPay",
+    "StegVerse-Labs/StegOps-Orchestrator"
+  ],
+  "plan_hash_sha256": "bde58a715d87a31844b3b4f7a2f16aba746dcfc24fd175ac007e6ca2400262ee",
+  "required_target_result": "COMPLETE",
+  "schema_version": 1,
+  "sequence": 2,
+  "target_completion_receipt": "data/autonomy/adjacent-construction-receipt.json",
+  "target_goal": "Install and validate a non-deploying public-status intake for verified adjacent-construction receipts while preserving PREPARED_NOT_DEPLOYED and all Site activation gates.",
+  "target_handoff_path": "SITE_MIRROR_HANDOFF.md",
+  "target_repository": "StegVerse-Labs/Site",
+  "transport_is_authority": false
+}
