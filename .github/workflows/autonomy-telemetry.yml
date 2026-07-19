@@ -1,0 +1,49 @@
+name: Public Autonomy Telemetry
+
+on:
+  push:
+    paths:
+      - 'data/autonomy/public-ecosystem-scope.json'
+      - 'scripts/run_public_autonomy_telemetry.py'
+      - '.github/workflows/autonomy-telemetry.yml'
+  schedule:
+    - cron: '31 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: public-autonomy-telemetry
+  cancel-in-progress: false
+
+jobs:
+  run-public-autonomy-cycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enumerate, inspect, classify, and plan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/run_public_autonomy_telemetry.py
+      - name: Persist public inventory, actions, and live tree
+        run: |
+          if git diff --quiet -- data/autonomy; then
+            echo "No autonomy telemetry changes to persist."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/autonomy/public-ecosystem-inventory.json \
+            data/autonomy/public-next-actions.json \
+            data/autonomy/live-status.json
+          git commit -m "chore: persist public autonomy telemetry"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push
