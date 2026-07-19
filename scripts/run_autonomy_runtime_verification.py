@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,13 +29,36 @@ def write(path: Path, value: dict[str, Any]) -> None:
     path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
 
 
-def fetch(url: str, accept: str, attempts: int = 3) -> tuple[int, str, str, int]:
+def cache_busted_url(url: str, attempt: int) -> str:
+    """Return a semantically identical URL with a unique cache-bypass query."""
+    parts = urlsplit(url)
+    query = dict(parse_qsl(parts.query, keep_blank_values=True))
+    query["runtime_verifier_nonce"] = f"{time.time_ns()}-{attempt}"
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
+
+
+def fetch(url: str, accept: str, attempts: int = 3) -> tuple[int, str, str, int, str]:
     last_error: Exception | None = None
     for attempt in range(1, attempts + 1):
-        request = Request(url, headers={"Accept": accept, "User-Agent": "StegVerse-Site-Runtime-Verifier/1.2"})
+        effective_url = cache_busted_url(url, attempt)
+        request = Request(
+            effective_url,
+            headers={
+                "Accept": accept,
+                "Cache-Control": "no-cache, no-store, max-age=0",
+                "Pragma": "no-cache",
+                "User-Agent": "StegVerse-Site-Runtime-Verifier/1.3",
+            },
+        )
         try:
             with urlopen(request, timeout=30) as response:
-                return response.status, response.headers.get("content-type", ""), response.read().decode("utf-8"), attempt
+                return (
+                    response.status,
+                    response.headers.get("content-type", ""),
+                    response.read().decode("utf-8"),
+                    attempt,
+                    effective_url,
+                )
         except (HTTPError, URLError, TimeoutError) as exc:
             last_error = exc
             if attempt < attempts:
@@ -120,12 +144,29 @@ def main() -> None:
         try:
             kind = check.get("type")
             if kind == "http-json":
-                status, content_type, body, attempts = fetch(str(check["url"]), "application/json")
+                status, content_type, body, attempts, effective_url = fetch(str(check["url"]), "application/json")
                 telemetry = json.loads(body)
-                result.update(url=check["url"], status_code=status, content_type=content_type, attempts=attempts, passed=status == 200 and isinstance(telemetry, dict))
+                result.update(
+                    url=check["url"],
+                    effective_url=effective_url,
+                    cache_bypass=True,
+                    status_code=status,
+                    content_type=content_type,
+                    attempts=attempts,
+                    passed=status == 200 and isinstance(telemetry, dict),
+                )
             elif kind == "http-html":
-                status, content_type, body, attempts = fetch(str(check["url"]), "text/html")
-                result.update(url=check["url"], status_code=status, content_type=content_type, attempts=attempts, body_character_count=len(body), passed=status == 200 and "<html" in body.lower() and len(body) > 500)
+                status, content_type, body, attempts, effective_url = fetch(str(check["url"]), "text/html")
+                result.update(
+                    url=check["url"],
+                    effective_url=effective_url,
+                    cache_bypass=True,
+                    status_code=status,
+                    content_type=content_type,
+                    attempts=attempts,
+                    body_character_count=len(body),
+                    passed=status == 200 and "<html" in body.lower() and len(body) > 500,
+                )
             elif kind == "json-field":
                 if telemetry is None:
                     raise RuntimeError("telemetry JSON was not loaded")
@@ -143,14 +184,14 @@ def main() -> None:
                     page = browser.new_page(viewport=check["viewport"])
                     console_errors: list[str] = []
                     page.on("console", lambda message: console_errors.append(message.text) if message.type == "error" else None)
-                    response = page.goto(str(check["url"]), wait_until="networkidle", timeout=60000)
+                    response = page.goto(cache_busted_url(str(check["url"]), 1), wait_until="networkidle", timeout=60000)
                     selector = str(check["ready_selector"])
                     page.locator(selector).wait_for(state="visible", timeout=30000)
                     text = page.locator(selector).inner_text()
                     mode_text = page.locator("#mode").inner_text() if page.locator("#mode").count() else ""
                     overflow = page.evaluate("document.documentElement.scrollWidth > document.documentElement.clientWidth")
                     minimum = int(check.get("minimum_text_characters", 40))
-                    result.update(url=check["url"], status_code=response.status if response else None, selector=selector, text_character_count=len(text), horizontal_overflow=overflow, mode=mode_text, console_errors=console_errors, passed=bool(response and response.ok and len(text) >= minimum and not overflow and "TELEMETRY_UNAVAILABLE" not in mode_text and not console_errors))
+                    result.update(url=check["url"], cache_bypass=True, status_code=response.status if response else None, selector=selector, text_character_count=len(text), horizontal_overflow=overflow, mode=mode_text, console_errors=console_errors, passed=bool(response and response.ok and len(text) >= minimum and not overflow and "TELEMETRY_UNAVAILABLE" not in mode_text and not console_errors))
                     browser.close()
             else:
                 raise ValueError(f"unsupported check type: {kind}")
