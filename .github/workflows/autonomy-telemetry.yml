@@ -8,6 +8,7 @@ on:
       - 'data/autonomy/mutation-authority-policy.json'
       - 'data/autonomy/generated-stegpay-integration-status.json'
       - 'data/autonomy/runtime-checks.json'
+      - 'data/autonomy/completion-evidence.json'
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
       - 'scripts/run_autonomy_runtime_verification.py'
@@ -60,6 +61,33 @@ jobs:
           assert evidence['authority']['scheduled_reenumeration_is_required'] is True
           assert evidence['authority']['manual_user_action_required'] is False
           print('canonical public organization scope valid')
+          PY
+      - name: Validate strict Site completion evidence
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          evidence = json.loads(Path('data/autonomy/completion-evidence.json').read_text())
+          verified_at = datetime.fromisoformat(evidence['verified_at'].replace('Z', '+00:00'))
+          assert evidence['schema_version'] == '1.0'
+          assert evidence['repository'] == 'StegVerse-Labs/Site'
+          assert evidence['objective_id'] == 'site-public-autonomy-observability'
+          assert evidence['runtime_observed'] is True
+          assert evidence['user_visible_outcome_verified'] is True
+          assert evidence['verifier_source'] == 'github-actions'
+          assert evidence['critical_blockers'] == 0
+          assert evidence['manual_completion_dependency'] is False
+          assert verified_at >= datetime.now(timezone.utc) - timedelta(days=30)
+          assert len(evidence['evidence_urls']) >= 4
+          assert evidence['observed_results']['required_checks'] == 7
+          assert evidence['observed_results']['passed_required_checks'] == 7
+          assert evidence['observed_results']['failed_required_check_ids'] == []
+          assert evidence['authority']['evidence_is_release_authority'] is False
+          assert evidence['authority']['evidence_is_ecosystem_completion_authority'] is False
+          assert evidence['authority']['site_runtime_completion_is_adapter_activation'] is False
+          assert evidence['authority']['manual_user_action_required'] is False
+          print('strict Site completion evidence valid')
           PY
       - name: Validate generated StegPay integration status
         run: python scripts/validate_generated_stegpay_integration_status.py
@@ -136,6 +164,7 @@ jobs:
             data/autonomy/live-status.json \
             data/autonomy/action-executions.json \
             data/autonomy/objective-contract.json \
+            data/autonomy/completion-evidence.json \
             data/autonomy/runtime-checks.json \
             data/autonomy/runtime-verification-evidence.json \
             data/autonomy/generated-stegpay-integration-validation.json \
