@@ -52,33 +52,30 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 
 ## Proven state
 
-- The existing adapter gateway exposes the governed Ecosystem Chat endpoint, requires transition identity, applies bounded provider and rate policies, persists lifecycle state, and reports custody and reconstruction posture.
-- The production blueprint allows the canonical StegVerse Site origins through CORS and configures the existing provider, durable storage, and Master-Records connection.
-- The existing Site classifier and fail-closed local fallback remain installed.
-- A bounded additive Site binding supplies transition identity and submits non-restricted requests to the existing governed gateway.
-- Restricted requests remain local and require separate review. Provider output is not authority.
-- The binding is loaded through the existing Ecosystem Chat page loader.
-- The existing roadmap and live-tree pages are rebound to the current Ecosystem Chat goal rather than duplicated.
+- The existing adapter gateway code defines `/health`, `/api/ecosystem-chat`, and transition-status routes and preserves the established provider, persistence, custody, reconstruction, receipt, and authority boundaries.
+- The production blueprint configures the combined gateway application, durable storage, provider integration, Master-Records connection, CORS, and `/health` health check.
+- The existing Site classifier, fail-closed local fallback, and bounded gateway binding remain installed.
 - Adapter evidence retention, immutable receipt retention, Site activation consumers, and downstream consumers remain implemented.
-- Draft PR `StegVerse-org/LLM-adapter#8` produced observable validation runs through the existing pull-request trigger.
-- The stale no-manual-task checker was repaired at adapter commit `beab2903df8468925006a2b5b4d84215be368340`; its validation step passes.
-- The stale capability-manifest verifier was repaired at adapter commit `3f35b6b0e645f631af837a191f3e2152815a3480`; manifest verification and the earlier provider, usage, and Master-Records custody tests pass.
-- The overbroad live-activation contract assertion was bounded at adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`; the contract test passes while explicit prohibited monitor phrases remain checked.
-- The canonical validation workflow and iOS-safe mirror were restored to exact parity at adapter commit `5a6dbafe6db960ef8afab892684ba46d8af24324` without changing workflow behavior.
-- Validation run `29706109903` and Architecture Guard run `29706109924` both completed successfully.
-- The existing push-triggered live path was directly retriggered on `main` by adapter commit `27ee5eb743be467af939e0b47b73b1c429ba7f93`; the verifier logic and authority boundary were unchanged.
+- Draft PR `StegVerse-org/LLM-adapter#8` passes the installed validation suite and Architecture Guard.
+- The no-manual-task, capability-manifest, live-activation-contract, and iOS workflow-parity blockers were repaired without removing existing runtime architecture.
+- Validation run `29706109903` and Architecture Guard run `29706109924` completed successfully.
+- An observable deployed probe was added to the existing PR validation path at adapter commits `025ca539f1d110675572d9e924a009a836d8f898` and `8bf65c85acb7c76b3cc98b219e59530fb4baae6d`.
+- Validation run `29706857317` executed the real deployed verifier and uploaded artifact `8448172403`.
+- The retained receipt proves the configured host resolves and responds, but `/health`, `/api/ecosystem-chat`, and `/api/transitions/{id}` each returned HTTP 404.
+- The receipt remains `PENDING`; all authority and repository-mutation flags remain false.
+- The existing production blueprint was bounded on the probe branch at adapter commit `33d652229a80246ab0b0384409b13b2c6c285a11` with `renderSubdomainPolicy: enabled` for the already-intended public gateway URL.
 
 ## Current blocker
 
-The stable activation record has not yet been rewritten after main-branch trigger commit `27ee5eb743be467af939e0b47b73b1c429ba7f93`. It remains `PENDING` with blocker `live_activation_observation_not_yet_recorded`. No current provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion is yet retained.
+The deployed `onrender.com` gateway hostname is reachable but serves 404 for every required gateway route. Repository code and the production blueprint define those routes, so the current boundary is deployment/service exposure rather than DNS, transport, provider logic, or Master-Records logic. The bounded Render subdomain-policy repair is validated only on the probe branch and is not yet deployed.
 
 ## Next executable integration step
 
-Observe the evidence produced by main-branch trigger commit `27ee5eb743be467af939e0b47b73b1c429ba7f93`. If the stable status is rewritten, repair only its first concrete gateway, provider, persistence, custody, reconstruction, or receipt blocker. If no run or retained observation appears, inspect the installed push-trigger execution itself rather than creating another executor.
+Complete validation for adapter commit `33d652229a80246ab0b0384409b13b2c6c285a11`, integrate the bounded production-blueprint repair through the established repository path, allow the existing `checksPass` deployment policy to operate, then rerun the same deployed verifier. Repair only the first remaining concrete runtime blocker.
 
 ## Manual user action requirement
 
-False for routine application use. Repository validation and the installed live trigger are being operated through connected tooling.
+False for routine repository work. The remaining deployment action must use the already-established Render Blueprint and `checksPass` authority; no new deployment, release, custody, execution, or governance authority is being granted.
 
 ## Progress accounting
 
@@ -91,11 +88,11 @@ False for routine application use. Repository validation and the installed live 
 
 - Date: 2026-07-19
 - Draft execution probe: `StegVerse-org/LLM-adapter#8`
-- No-manual-task repair: `beab2903df8468925006a2b5b4d84215be368340`
-- Capability-manifest compatibility repair: `3f35b6b0e645f631af837a191f3e2152815a3480`
-- Live-activation contract repair: `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`
-- Workflow parity repair: `5a6dbafe6db960ef8afab892684ba46d8af24324`
 - Green validation run: `29706109903`
 - Green Architecture Guard run: `29706109924`
-- Main live-path trigger: `27ee5eb743be467af939e0b47b73b1c429ba7f93`
-- Runtime gate delta: none yet; validation is fully green and the existing live verifier has been directly retriggered, but retained live evidence has not yet changed.
+- Observable deployed-probe commits: `025ca539f1d110675572d9e924a009a836d8f898`, `8bf65c85acb7c76b3cc98b219e59530fb4baae6d`
+- Deployed-probe validation run: `29706857317`
+- Deployed receipt artifact: `8448172403`
+- Exact runtime failure: HTTP 404 at health, chat, and transition routes
+- Bounded Render exposure repair: `33d652229a80246ab0b0384409b13b2c6c285a11`
+- Runtime gate delta: the real deployed path is now EXECUTED and its first concrete failure is retained; provider, custody, reconstruction, receipt verification, Site activation, and propagation remain unproven.
