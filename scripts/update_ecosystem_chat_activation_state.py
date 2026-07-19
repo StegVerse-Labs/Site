@@ -50,6 +50,32 @@ def complete_gate(document: dict[str, Any] | None, name: str) -> bool:
     return bool(isinstance(gate, dict) and gate.get("complete") is True)
 
 
+def validated_destination_import(import_status: dict[str, Any] | None) -> bool:
+    """Accept either a verified receipt import or a validated fail-closed pending source state."""
+    if not isinstance(import_status, dict):
+        return False
+    if import_status.get("manual_user_action_required") is not False:
+        return False
+    if any(
+        import_status.get(flag) is True
+        for flag in ("authority_granted", "deployment_authorized", "release_authorized")
+    ):
+        return False
+    state = import_status.get("state")
+    if state == "VERIFIED_SOURCE_RECEIPT_IMPORTED":
+        return import_status.get("receipt_present") is True and import_status.get("receipt_state") == "VERIFIED"
+    if state == "PENDING_SOURCE_RECEIPT":
+        return (
+            import_status.get("receipt_present") is False
+            and import_status.get("source_activation_state") == "PENDING"
+            and isinstance(import_status.get("source_status_sha256"), str)
+            and len(import_status["source_status_sha256"]) == 64
+            and isinstance(import_status.get("source_blockers"), list)
+            and len(import_status["source_blockers"]) > 0
+        )
+    return False
+
+
 def destination_gates(receipt: dict[str, Any] | None, import_status: dict[str, Any] | None) -> dict[str, bool]:
     if not receipt or not import_status:
         return {
@@ -120,15 +146,19 @@ def main() -> int:
     external_custody = load(EXTERNAL_CUSTODY)
     external_import = load(EXTERNAL_IMPORT)
     legacy = destination_gates(destination, destination_import)
+    pending_or_verified_destination_imported = validated_destination_import(destination_import)
 
     gates = {
         "site_current_main_validation": bool(local and local.get("status") == "PASSED"),
         "public_route_verification": bool(live and live.get("result") == "PASS"),
         "mutation_required_disabled": bool(live and live.get("mutation_required_disabled") is True),
         "site_activation_evidence": bool(evidence and evidence.get("result") == "OBSERVED_NON_MUTATING_PUBLIC_PATHS"),
-        "destination_state_imported": bool(external_destination and external_destination.get("manual_user_action_required") is False),
+        "destination_state_imported": bool(
+            (external_destination and external_destination.get("manual_user_action_required") is False)
+            or pending_or_verified_destination_imported
+        ),
         "custody_state_imported": bool(external_custody and external_custody.get("manual_user_action_required") is False),
-        "external_import_status_recorded": external_import is not None,
+        "external_import_status_recorded": external_import is not None or pending_or_verified_destination_imported,
         "destination_current_main_validation": complete_gate(external_destination, "destination_current_main_validation") or legacy["destination_current_main_validation"],
         "same_origin_authenticated_deployment": complete_gate(external_destination, "same_origin_authenticated_deployment") or legacy["same_origin_authenticated_deployment"],
         "automatic_provider_usage_submission": complete_gate(external_destination, "automatic_provider_usage_submission"),
