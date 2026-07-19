@@ -81,7 +81,7 @@ def ensure_site_objective(policy: dict[str, Any], now: str) -> dict[str, Any]:
 def ensure_runtime_checks(policy: dict[str, Any], now: str) -> dict[str, Any]:
     ensure_allowed(policy, "ENSURE_SITE_RUNTIME_CHECK_SPEC", RUNTIME_CHECKS_PATH)
     payload = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "repository": SITE,
         "objective_id": "site-public-autonomy-observability",
         "generated_at": now,
@@ -91,7 +91,16 @@ def ensure_runtime_checks(policy: dict[str, Any], now: str) -> dict[str, Any]:
             {"id": "roadmap-page", "type": "http-html", "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html", "required": True},
             {"id": "freshness", "type": "json-field", "path": "generated_at", "max_age_minutes": 90, "required": True},
             {"id": "machine-mode", "type": "json-field", "path": "mode", "allowed": ["PUBLIC_MACHINE_GENERATED_AUTONOMY_TELEMETRY"], "required": True},
-            {"id": "mobile-flow", "type": "browser", "viewport": {"width": 390, "height": 844}, "required": True}
+            {
+                "id": "live-mobile-flow", "type": "browser", "url": "https://stegverse-labs.github.io/Site/autonomy-live.html",
+                "ready_selector": "#graph", "minimum_text_characters": 40,
+                "viewport": {"width": 390, "height": 844}, "required": True
+            },
+            {
+                "id": "roadmap-mobile-flow", "type": "browser", "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
+                "ready_selector": "#phases", "minimum_text_characters": 120,
+                "viewport": {"width": 390, "height": 844}, "required": True
+            }
         ],
         "completion_effect": "NONE_UNTIL_EXECUTED",
         "authority": {"runtime_check_pass_is_completion": False, "all_objective_evidence_required": True}
@@ -152,41 +161,26 @@ def main() -> None:
     nodes = [n for n in nodes if n.get("id") not in {"bounded-dispatch", "site-objective-contract", "site-runtime-check-spec", "cross-repo-authority-gate"}]
     nodes.extend([
         {
-            "id": "bounded-dispatch",
-            "title": "Execute bounded remediation actions",
-            "status": "COMPLETE",
+            "id": "bounded-dispatch", "title": "Execute bounded remediation actions", "status": "COMPLETE",
             "result": f"Applied or verified {len(records)} Site-owned controls and evaluated {len(denied)} cross-repository actions under deny-by-default authority.",
-            "owner": SITE,
-            "updated_at": now,
-            "depends_on": ["next-action-planning"],
+            "owner": SITE, "updated_at": now, "depends_on": ["next-action-planning"],
             "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
         },
         {
-            "id": "site-objective-contract",
-            "title": "Bind Site autonomy objective",
-            "status": "COMPLETE",
+            "id": "site-objective-contract", "title": "Bind Site autonomy objective", "status": "COMPLETE",
             "result": "A machine-readable outcome contract now defines the required public observability capability and disallowed substitutes.",
-            "owner": SITE,
-            "updated_at": now,
-            "depends_on": ["bounded-dispatch"]
+            "owner": SITE, "updated_at": now, "depends_on": ["bounded-dispatch"]
         },
         {
-            "id": "site-runtime-check-spec",
-            "title": "Define Site runtime verification checks",
-            "status": "COMPLETE",
-            "result": "Endpoint, freshness, machine-mode, and mobile browser checks are specified; execution evidence is still required.",
-            "owner": SITE,
-            "updated_at": now,
-            "depends_on": ["bounded-dispatch"]
+            "id": "site-runtime-check-spec", "title": "Define Site runtime verification checks", "status": "COMPLETE",
+            "result": "Endpoint, freshness, machine-mode, live-page mobile, and roadmap mobile checks are specified; execution evidence is produced later in this cycle.",
+            "owner": SITE, "updated_at": now, "depends_on": ["bounded-dispatch"]
         },
         {
-            "id": "cross-repo-authority-gate",
-            "title": "Route external repository remediation",
+            "id": "cross-repo-authority-gate", "title": "Route external repository remediation",
             "status": "BLOCKED_BY_REPOSITORY_AUTHORITY" if denied else "COMPLETE",
             "current_step": f"{len(denied)} actions require repository-owned runners; none were falsely executed by Site.",
-            "owner": SITE,
-            "updated_at": now,
-            "depends_on": ["bounded-dispatch"]
+            "owner": SITE, "updated_at": now, "depends_on": ["bounded-dispatch"]
         }
     ])
     graph["nodes"] = nodes
