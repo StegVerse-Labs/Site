@@ -47,20 +47,22 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 
 - Existing adapter live verifier implements the required request/provider/custody/reconstruction checks.
 - Existing Site acquisition, validation, state recomputation, retention, and propagation consumers are implemented.
-- Adapter automation contract assertions are aligned with the heartbeat-corrected activation workflow at commit `7c26041eeeb7f165583308efaedd59e1d17a8c92`.
+- Adapter automation contract assertions are aligned with the heartbeat-corrected activation workflow.
+- The existing activation workflow now persists both the detailed latest live observation and stable semantic status to the adapter repository when they change.
+- The immutable VERIFIED receipt remains separately retained only after zero-blocker verification.
 - Site handoff no longer reports removed CI artifacts as heartbeat blockers.
-- Existing adapter stable pending status is the current accepted source evidence.
+- Existing adapter stable pending status remains the current accepted runtime source until the next detailed observation is produced.
 - Site-local autonomy checks do not complete Ecosystem Chat activation.
 
 ## Current blocker
 
-No completed validation or live-activation execution associated with adapter commit `7c26041eeeb7f165583308efaedd59e1d17a8c92` is observable through the available repository evidence. Direct execution from the current environment also failed before reaching the gateway because DNS resolution for the deployed hostname was unavailable; that local transport limitation is not evidence that the deployed gateway is down.
+The repaired activation workflow has not yet produced the next repository-retained `receipts/ecosystem-chat-live-activation.latest.json` observation. Therefore the first actual gateway, provider, persistence, custody, reconstruction, or receipt failure is still not observable.
 
-The stable adapter status therefore remains `PENDING` with `live_activation_observation_not_yet_recorded`.
+The stable adapter status remains `PENDING` with `live_activation_observation_not_yet_recorded` until that execution occurs.
 
 ## Next executable integration step
 
-Use the existing adapter validation and live-activation workflows to produce and retain the next machine-readable live observation. Once that evidence exists, repair only the first reported gateway, provider, persistence, custody, reconstruction, or receipt failure using existing components.
+Execute the existing adapter live-activation workflow after commits `58e61aef236d847885a3eb3750a8b20697120488` and `06ee40df1370eec398fca29105f0cba8ab0463a9`. Inspect the repository-retained detailed observation and repair only its first reported runtime blocker using existing components.
 
 ## Manual user action requirement
 
@@ -77,7 +79,6 @@ These measures must not be collapsed into one percentage.
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
-- Adapter commit: `7c26041eeeb7f165583308efaedd59e1d17a8c92`
-- Site handoff commit: `95be2549e7576d742fe0c687da44e3b5ba33b400`
-- Advancement: aligned the existing adapter automation contract with the heartbeat-corrected workflow and corrected the authoritative Site handoff without introducing a new heartbeat, monitor, scheduler, service, or runtime subsystem.
-- Latest cycle finding: structural repair is complete, but no post-repair execution receipt or exact runtime failure has yet been retained; runtime completion is unchanged.
+- Adapter evidence-retention commits: `a5e0b92ac58d924e77e8cc43f2a0d3d2ee8153ae`, `58e61aef236d847885a3eb3750a8b20697120488`
+- Adapter contract commit: `06ee40df1370eec398fca29105f0cba8ab0463a9`
+- Advancement: repaired the existing live-activation workflow so its already-generated detailed pending or verified observation is durably retained in repository state, eliminating dependence on expiring workflow artifacts for the first actual runtime blocker.
