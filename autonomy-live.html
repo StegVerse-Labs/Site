@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StegVerse Live Autonomy Activity</title>
+<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:1000px;margin:auto;padding:20px;line-height:1.5}nav{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}.panel{border:1px solid #aaa;border-radius:12px;padding:16px;margin:12px 0}.warning{font-weight:700}pre{white-space:pre-wrap;overflow-wrap:anywhere}a{color:inherit}</style>
+</head>
+<body>
+<nav><a href="autonomy-roadmap.html">Autonomy roadmap</a><a href="index.html">Site home</a></nav>
+<h1>Live Autonomy Activity</h1>
+<p id="mode" class="warning">Loading truthful telemetry state…</p>
+<div class="panel"><h2>Active tasks</h2><div id="tasks">Loading…</div></div>
+<div class="panel"><h2>Execution steps and results</h2><div id="steps">Loading…</div></div>
+<div class="panel"><h2>Corrective actions</h2><div id="actions">Loading…</div></div>
+<div class="panel"><h2>Task record</h2><p><a id="task-link" href="https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7">Open governing task</a></p></div>
+<script>
+const render=(items,empty)=>items?.length?'<ol>'+items.map(x=>'<li><pre>'+escapeHtml(JSON.stringify(x,null,2))+'</pre></li>').join('')+'</ol>':'<p>'+empty+'</p>';
+const escapeHtml=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+fetch('data/autonomy/live-status.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('status unavailable');return r.json()}).then(d=>{
+ document.getElementById('mode').textContent=d.mode+': '+d.truthful_notice;
+ document.getElementById('tasks').innerHTML=render(d.active_tasks,'No machine-reported active task is connected.');
+ document.getElementById('steps').innerHTML=render(d.recent_steps,'No machine-reported execution steps are available.');
+ document.getElementById('actions').innerHTML=render(d.corrective_actions,'No machine-reported corrective actions are available.');
+ if(d.task_source)document.getElementById('task-link').href='https://github.com/'+d.task_source.replace('/issues/','/issues/');
+}).catch(e=>{
+ document.getElementById('mode').textContent='TELEMETRY_UNAVAILABLE: '+e.message;
+ document.getElementById('tasks').textContent='No verified data.';
+ document.getElementById('steps').textContent='No verified data.';
+ document.getElementById('actions').textContent='No verified data.';
+});
+</script>
+</body></html>
