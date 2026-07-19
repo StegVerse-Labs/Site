@@ -6,8 +6,10 @@ on:
       - 'data/autonomy/public-ecosystem-scope.json'
       - 'data/autonomy/mutation-authority-policy.json'
       - 'data/autonomy/generated-stegpay-integration-status.json'
+      - 'data/autonomy/runtime-checks.json'
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
+      - 'scripts/run_autonomy_runtime_verification.py'
       - 'scripts/generate_autonomy_roadmap_status.py'
       - 'scripts/validate_generated_stegpay_integration_status.py'
       - '.github/workflows/autonomy-telemetry.yml'
@@ -33,6 +35,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install browser runtime verifier
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.52.0
+          python -m playwright install --with-deps chromium
       - name: Validate generated StegPay integration status
         run: python scripts/validate_generated_stegpay_integration_status.py
       - name: Enumerate, inspect, classify, and plan
@@ -47,25 +53,32 @@ jobs:
         run: python scripts/run_public_autonomy_telemetry.py
       - name: Reapply execution telemetry after reinspection
         run: python scripts/run_bounded_autonomy_dispatcher.py
+      - name: Execute runtime verification
+        id: runtime
+        continue-on-error: true
+        run: python scripts/run_autonomy_runtime_verification.py
       - name: Generate autonomy roadmap state
         run: python scripts/generate_autonomy_roadmap_status.py
-      - name: Validate generated roadmap state
+      - name: Validate generated roadmap and runtime evidence
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          path = Path('data/autonomy/roadmap-status.json')
-          data = json.loads(path.read_text(encoding='utf-8'))
-          assert data['schema_version'] == '1.1'
-          assert data['generated_from'] == 'data/autonomy/live-status.json'
-          assert data['manual_user_action_required'] is False
-          assert len(data['phases']) == 5
-          assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in data['phases'])
-          assert all(0 <= int(p['progress_percent']) <= 100 for p in data['phases'])
-          assert data['authority_boundary']['roadmap_display_is_execution_authority'] is False
-          print('roadmap status valid')
+          roadmap = json.loads(Path('data/autonomy/roadmap-status.json').read_text())
+          runtime = json.loads(Path('data/autonomy/runtime-verification-evidence.json').read_text())
+          assert roadmap['schema_version'] == '1.2'
+          assert roadmap['generated_from'] == 'data/autonomy/live-status.json'
+          assert roadmap['runtime_evidence_source'] == 'data/autonomy/runtime-verification-evidence.json'
+          assert roadmap['manual_user_action_required'] is False
+          assert len(roadmap['phases']) == 5
+          assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in roadmap['phases'])
+          assert all(0 <= int(p['progress_percent']) <= 100 for p in roadmap['phases'])
+          assert runtime['state'] in {'PASS', 'FAIL'}
+          assert runtime['required_checks'] == len([c for c in runtime['checks'] if c['required']])
+          assert runtime['authority']['runtime_check_pass_is_completion'] is False
+          print('roadmap and runtime evidence valid')
           PY
-      - name: Persist inventory, actions, execution records, validation, roadmap, and live tree
+      - name: Persist inventory, actions, execution records, runtime evidence, roadmap, and live tree
         run: |
           if git diff --quiet -- data/autonomy; then
             echo "No autonomy state changes to persist."
@@ -80,8 +93,14 @@ jobs:
             data/autonomy/action-executions.json \
             data/autonomy/objective-contract.json \
             data/autonomy/runtime-checks.json \
+            data/autonomy/runtime-verification-evidence.json \
             data/autonomy/generated-stegpay-integration-validation.json \
             data/autonomy/roadmap-status.json
           git commit -m "chore: persist bounded public autonomy cycle"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
+      - name: Fail workflow when required runtime checks fail
+        if: steps.runtime.outcome == 'failure'
+        run: |
+          echo "Required runtime verification failed; evidence was persisted for repair."
+          exit 1
