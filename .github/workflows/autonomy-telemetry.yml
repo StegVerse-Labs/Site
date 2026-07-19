@@ -8,6 +8,7 @@ on:
       - 'data/autonomy/generated-stegpay-integration-status.json'
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
+      - 'scripts/generate_autonomy_roadmap_status.py'
       - 'scripts/validate_generated_stegpay_integration_status.py'
       - '.github/workflows/autonomy-telemetry.yml'
   schedule:
@@ -46,7 +47,25 @@ jobs:
         run: python scripts/run_public_autonomy_telemetry.py
       - name: Reapply execution telemetry after reinspection
         run: python scripts/run_bounded_autonomy_dispatcher.py
-      - name: Persist inventory, actions, execution records, validation, and live tree
+      - name: Generate autonomy roadmap state
+        run: python scripts/generate_autonomy_roadmap_status.py
+      - name: Validate generated roadmap state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path('data/autonomy/roadmap-status.json')
+          data = json.loads(path.read_text(encoding='utf-8'))
+          assert data['schema_version'] == '1.1'
+          assert data['generated_from'] == 'data/autonomy/live-status.json'
+          assert data['manual_user_action_required'] is False
+          assert len(data['phases']) == 5
+          assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in data['phases'])
+          assert all(0 <= int(p['progress_percent']) <= 100 for p in data['phases'])
+          assert data['authority_boundary']['roadmap_display_is_execution_authority'] is False
+          print('roadmap status valid')
+          PY
+      - name: Persist inventory, actions, execution records, validation, roadmap, and live tree
         run: |
           if git diff --quiet -- data/autonomy; then
             echo "No autonomy state changes to persist."
@@ -61,7 +80,8 @@ jobs:
             data/autonomy/action-executions.json \
             data/autonomy/objective-contract.json \
             data/autonomy/runtime-checks.json \
-            data/autonomy/generated-stegpay-integration-validation.json
+            data/autonomy/generated-stegpay-integration-validation.json \
+            data/autonomy/roadmap-status.json
           git commit -m "chore: persist bounded public autonomy cycle"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
