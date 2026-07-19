@@ -22,6 +22,7 @@ Manual user action required: false
 .github/workflows/validate.yml
 .github/workflows/site-task-runner.yml
 .github/workflows/ecosystem-chat-activation-retention.yml
+.github/workflows/autonomy-telemetry.yml
 iosnoperiod/github/workflows/validate.yml
 ```
 
@@ -178,6 +179,8 @@ Canonical Site validation binding: INSTALLED
 Scheduled import path: INSTALLED
 Retention independent source reacquisition: INSTALLED
 Retention cross-artifact consistency gate: INSTALLED
+Site autonomy strict completion evidence: INSTALLED
+Site autonomy strict completion evidence validation: INSTALLED
 Adapter first stable blocker state: OBSERVED_AND_VALIDATED
 Adapter pending source state: PENDING
 Adapter exact blocker: live_activation_observation_not_yet_recorded
@@ -186,6 +189,20 @@ Site ACTIVATION_COMPLETE: NOT YET OBSERVED
 Downstream verified ingestion: NOT YET OBSERVED
 ```
 
+## Site autonomy evidence advancement
+
+The public autonomy runtime has produced a current PASS receipt for all seven required checks, including both mobile flows. Site now persists the strict classifier input at:
+
+```text
+data/autonomy/completion-evidence.json
+```
+
+The receipt binds `StegVerse-Labs/Site` to objective `site-public-autonomy-observability`, records the observed public user outcome, names GitHub Actions as the machine verifier, declares zero critical blockers for that bounded objective, rejects manual completion dependency, and links the public runtime evidence surfaces.
+
+`.github/workflows/autonomy-telemetry.yml` now validates this receipt before enumeration and includes it in persisted autonomy state. The next public autonomy cycle must therefore classify Site as `OPERATIONALLY_COMPLETE`, increase `valid_completion_evidence` from zero to at least one, and retain automatic freshness downgrade when the receipt becomes older than 30 days.
+
+This bounded Site autonomy completion evidence does not complete Ecosystem Chat activation, authorize release, or grant authority to any downstream repository.
+
 ## Machine-owned continuation
 
 ```text
@@ -193,12 +210,13 @@ Downstream verified ingestion: NOT YET OBSERVED
 2. Site scheduled acquisition has imported and validated that pending state automatically.
 3. Site retention independently reacquires source evidence and rebuilds a hash-bound activation projection.
 4. Exact blockers propagate through Site state without granting activation.
-5. Adapter must execute and record the live activation observation, then retain the first immutable VERIFIED receipt after every live gate passes.
-6. Site imports and validates that receipt automatically.
-7. Site recomputes local and destination activation gates.
-8. Site publishes ACTIVATION_COMPLETE only when every gate passes.
-9. Publisher and both wiki consumers ingest the ready propagation packet automatically.
-10. Release readiness remains fail-closed until downstream public evidence is observed.
+5. Site public autonomy cycle validates and consumes data/autonomy/completion-evidence.json.
+6. Adapter must execute and record the live activation observation, then retain the first immutable VERIFIED receipt after every live gate passes.
+7. Site imports and validates that receipt automatically.
+8. Site recomputes local and destination activation gates.
+9. Site publishes ACTIVATION_COMPLETE only when every gate passes.
+10. Publisher and both wiki consumers ingest the ready propagation packet automatically.
+11. Release readiness remains fail-closed until downstream public evidence is observed.
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, manually executed verifier, or manual blocker transcription is required.
@@ -227,12 +245,14 @@ pending status != activation
 imported verified receipt != deployment authority
 propagation packet != publication authority
 reconstruction PASS != execution authority
+Site autonomy runtime PASS != Ecosystem Chat activation
+Site autonomy completion evidence != release authority
 ```
 
 ## Release posture
 
-Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, propagation packaging, independent retention reacquisition, and cross-artifact consistency validation is installed. The first stable pending blocker has been observed and validated. Live activation observation, immutable verified receipt publication, Site completion, and downstream verified ingestion remain pending. No tag or release is authorized.
+Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, propagation packaging, independent retention reacquisition, cross-artifact consistency validation, strict Site autonomy evidence persistence, and evidence validation is installed. The first stable pending blocker and the Site autonomy seven-check runtime PASS have been observed and validated. Live Ecosystem Chat activation observation, immutable verified receipt publication, Site activation completion, and downstream verified ingestion remain pending. No tag or release is authorized.
 
 ## Archive readiness
 
-This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and Master-Records handoffs, generated machine-readable state, workflows, and repository history preserve all continuation state. This workstream should remain active until the adapter records live activation evidence or publishes the immutable verified receipt, Site recomputes its activation state, and any exact repository-owned failure is repaired.
+This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and Master-Records handoffs, generated machine-readable state, workflows, strict Site autonomy completion evidence, and repository history preserve all continuation state. This workstream should remain active until the adapter records live activation evidence or publishes the immutable verified receipt, Site recomputes its activation state, and any exact repository-owned failure is repaired.
