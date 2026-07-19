@@ -10,6 +10,7 @@ on:
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
       - 'scripts/run_autonomy_runtime_verification.py'
+      - 'scripts/bind_runtime_evidence_to_live_status.py'
       - 'scripts/generate_autonomy_roadmap_status.py'
       - 'scripts/validate_generated_stegpay_integration_status.py'
       - '.github/workflows/autonomy-telemetry.yml'
@@ -57,15 +58,18 @@ jobs:
         id: runtime
         continue-on-error: true
         run: python scripts/run_autonomy_runtime_verification.py
+      - name: Bind runtime evidence into live telemetry
+        run: python scripts/bind_runtime_evidence_to_live_status.py
       - name: Generate autonomy roadmap state
         run: python scripts/generate_autonomy_roadmap_status.py
-      - name: Validate generated roadmap and runtime evidence
+      - name: Validate generated roadmap, runtime evidence, and live projection
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           roadmap = json.loads(Path('data/autonomy/roadmap-status.json').read_text())
           runtime = json.loads(Path('data/autonomy/runtime-verification-evidence.json').read_text())
+          live = json.loads(Path('data/autonomy/live-status.json').read_text())
           expected_ids = {
               'telemetry-file', 'live-page', 'roadmap-page', 'freshness',
               'machine-mode', 'live-mobile-flow', 'roadmap-mobile-flow'
@@ -87,7 +91,15 @@ jobs:
           assert runtime['authority']['runtime_check_pass_is_release_authority'] is False
           assert runtime['authority']['runtime_check_pass_is_admissibility_authority'] is False
           assert runtime['authority']['manual_user_action_required'] is False
-          print('roadmap and expanded runtime evidence valid')
+          projection = live['runtime_verification']
+          assert projection['state'] == runtime['state']
+          assert projection['required_checks'] == runtime['required_checks']
+          assert projection['passed_required_checks'] == runtime['passed_required_checks']
+          assert projection['failed_required_check_ids'] == runtime['failed_required_check_ids']
+          assert projection['completion_authority'] is False
+          node = next(n for n in live['task_graph']['nodes'] if n['id'] == 'site-runtime-verification')
+          assert node['status'] == ('COMPLETE' if runtime['state'] == 'PASS' else 'BLOCKED_BY_RUNTIME_EVIDENCE')
+          print('roadmap, expanded runtime evidence, and live projection valid')
           PY
       - name: Persist inventory, actions, execution records, runtime evidence, roadmap, and live tree
         run: |
@@ -113,5 +125,5 @@ jobs:
       - name: Fail workflow when required runtime checks fail
         if: steps.runtime.outcome == 'failure'
         run: |
-          echo "Required runtime verification failed; evidence was persisted for repair."
+          echo "Required runtime verification failed; evidence was persisted and projected for repair."
           exit 1
