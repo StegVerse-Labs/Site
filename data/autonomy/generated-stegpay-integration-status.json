@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "artifact_type": "site_generated_stegpay_integration_status",
+  "state": "VERIFIED_TEST_INTEGRATION",
+  "source_repository": "StegVerse-Labs/StegOps-Orchestrator",
+  "producer_repository": "StegVerse-Labs/StegPay",
+  "source_handoff": "docs/STEGOPS_ORCHESTRATOR_MIRROR_HANDOFF.md",
+  "source_evidence": {
+    "consumer_receipt": "docs/_automation/generated-stegpay-consumption/latest/consumer_receipt.json",
+    "producer_receipt": "docs/_automation/generated-stegpay-consumption/latest/producer_receipt.json",
+    "state": "docs/_automation/generated-stegpay-consumption/latest/state.json",
+    "ledger": "docs/_automation/generated-stegpay-consumption/latest/ledger.jsonl"
+  },
+  "verification": {
+    "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
+    "provider_id": "pi_test_123",
+    "issuer": "stegpay-test-filesystem-relay-001",
+    "key_id": "stegpay-test-filesystem-relay-v1",
+    "schema_version": 1,
+    "event_hash_sha256": "817c1ee39d84693c8a89519e3e6afa87426715ffe80e7ad25d4ab1e9e4acfb06",
+    "envelope_hash_sha256": "b5ceb4ebfe57e87a6ca541c3a45a21ed883e60f6f590f9204f025417e53bda8d",
+    "transport_hash_sha256": "22913d3f6e34995b3dffb92e039983b748bdd855b48abc1c9da718f09aa4394e",
+    "producer_receipt_hash_sha256": "376a47858129b17254e6b9a8fe76ef0330e72d56016f17c4642577cc5ab35198",
+    "consumer_state": "deliverables_ready",
+    "verified_reasons": [
+      "signed_envelope_verified",
+      "stegpay_verified_event"
+    ],
+    "matching_ledger_entries": 1,
+    "producer_consumer_agreement": true,
+    "transport_is_authority": false,
+    "test_only": true
+  },
+  "authority": {
+    "production_payment_authority": false,
+    "deployment_authority": false,
+    "release_authority": false,
+    "publication_authority": false,
+    "admissibility_authority": false
+  },
+  "next_destinations": [
+    "GCAT-BCAT-Engine/Publisher",
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki"
+  ],
+  "manual_user_action_required": false
+}
