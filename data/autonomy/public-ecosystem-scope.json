@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "coverage": "PUBLIC_REPOSITORIES_ONLY",
+  "organizations": [
+    "StegVerse-Labs",
+    "StegVerse-org",
+    "StegVerse-002",
+    "GCAT-BCAT-Engine",
+    "BCAT-GCAT-Engine",
+    "master-records",
+    "Data-Continuation",
+    "AaCT-E",
+    "StegGhost"
+  ],
+  "unknown_is_complete": false,
+  "private_coverage_claimed": false
+}
