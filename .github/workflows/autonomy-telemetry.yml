@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'data/autonomy/public-ecosystem-scope.json'
+      - 'data/autonomy/scope-normalization-evidence.json'
       - 'data/autonomy/mutation-authority-policy.json'
       - 'data/autonomy/generated-stegpay-integration-status.json'
       - 'data/autonomy/runtime-checks.json'
@@ -40,6 +41,26 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check playwright==1.52.0
           python -m playwright install --with-deps chromium
+      - name: Validate canonical public organization scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          scope = json.loads(Path('data/autonomy/public-ecosystem-scope.json').read_text())
+          evidence = json.loads(Path('data/autonomy/scope-normalization-evidence.json').read_text())
+          organizations = scope['organizations']
+          excluded = {item['name']: item for item in scope.get('excluded_organization_aliases', [])}
+          assert scope['schema_version'] == '1.1'
+          assert len(organizations) == len(set(organizations))
+          assert 'GCAT-BCAT-Engine' in organizations
+          assert 'BCAT-GCAT-Engine' not in organizations
+          assert excluded['BCAT-GCAT-Engine']['replacement'] == 'GCAT-BCAT-Engine'
+          assert evidence['mutation']['removed_entry'] == 'BCAT-GCAT-Engine'
+          assert evidence['mutation']['canonical_entry'] == 'GCAT-BCAT-Engine'
+          assert evidence['authority']['scheduled_reenumeration_is_required'] is True
+          assert evidence['authority']['manual_user_action_required'] is False
+          print('canonical public organization scope valid')
+          PY
       - name: Validate generated StegPay integration status
         run: python scripts/validate_generated_stegpay_integration_status.py
       - name: Enumerate, inspect, classify, and plan
