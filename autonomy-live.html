@@ -1,26 +1,77 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>StegVerse Live Autonomy Activity</title>
 <style>
-:root{color-scheme:light dark;--border:#777;--muted:.76;--card:#ffffff08;--ok:#2e9d57;--wait:#b78a20;--block:#b54a4a}*{box-sizing:border-box;min-width:0}html{font-size:16px}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;max-width:1200px;margin:auto;padding:clamp(12px,3vw,24px);line-height:1.5;overflow-x:hidden}nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}nav a{padding:9px 12px;border:1px solid var(--border);border-radius:999px;text-decoration:none}h1{font-size:clamp(1.8rem,7vw,3rem);line-height:1.05;margin:.2em 0 .35em}h2{font-size:clamp(1.3rem,5vw,2rem);line-height:1.15;margin:.1em 0 .45em}.panel{border:1px solid var(--border);border-radius:16px;padding:clamp(14px,3vw,22px);margin:14px 0;overflow:hidden}.warning{font-weight:700;overflow-wrap:anywhere}.graph{display:flex;flex-direction:column;gap:18px;padding:4px}.level{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;width:100%}.node{border:1px solid var(--border);border-radius:14px;padding:16px;background:var(--card);position:relative;overflow:hidden}.node h3{margin:0 0 10px;font-size:1.1rem;line-height:1.25;overflow-wrap:anywhere}.node p{margin:7px 0;overflow-wrap:anywhere;word-break:normal}.meta{font-size:.92rem;opacity:var(--muted)}.status{display:inline-block;width:auto;max-width:100%;padding:5px 9px;border:1px solid currentColor;border-radius:999px;font-size:.82rem;font-weight:800;line-height:1.2;letter-spacing:.01em;overflow-wrap:anywhere}.status.complete{color:var(--ok)}.status.waiting{color:var(--wait)}.status.blocked{color:var(--block)}.deps{font-size:.88rem;margin-top:10px!important;padding-top:10px;border-top:1px dashed var(--border)}.split::after,.converge::before{position:static;display:block;margin-top:10px;font-size:.78rem;opacity:.72}.split::after{content:'↘ splits into parallel work'}.converge::before{content:'↗ convergence gate';margin-bottom:8px}.history article{border-left:4px solid var(--border);padding:10px 12px;margin:10px 0}.history h3{margin:0 0 4px}.empty{opacity:var(--muted)}a{color:inherit}ol{padding-left:1.35rem}li{padding-left:.25rem;margin:.55rem 0}@media(max-width:640px){html{font-size:15px}body{padding:12px}.panel{padding:14px}.level{grid-template-columns:1fr}.node{width:100%;padding:15px}.node h3{font-size:1.18rem}.status{font-size:.78rem}.meta,.deps{font-size:.9rem}}
+:root{color-scheme:light dark;--bg:#0f1115;--panel:#171a20;--card:#1d2128;--border:#3d4450;--text:#f3f5f7;--muted:#aab2bd;--ok:#65d28a;--wait:#e4b85d;--block:#ed7777;--link:#b9d8ff}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:16px;background:var(--bg)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;max-width:1180px;margin:0 auto;padding:24px;color:var(--text);background:var(--bg);font-size:16px;line-height:1.48;overflow-x:hidden}
+nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+nav a{display:inline-flex;align-items:center;min-height:40px;padding:8px 13px;border:1px solid var(--border);border-radius:10px;text-decoration:none;background:var(--panel)}
+h1{font-size:2.15rem;line-height:1.12;margin:0 0 10px;letter-spacing:-.025em}
+h2{font-size:1.35rem;line-height:1.2;margin:0 0 10px;letter-spacing:-.01em}
+p{margin:8px 0}
+a{color:var(--link);overflow-wrap:anywhere}
+.panel{border:1px solid var(--border);border-radius:16px;padding:20px;margin:16px 0;background:var(--panel);overflow:hidden}
+.warning{font-size:.95rem;font-weight:650;color:var(--muted);overflow-wrap:anywhere}
+.graph{display:flex;flex-direction:column;gap:16px;width:100%;padding:0;overflow:visible}
+.level{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;width:100%}
+.node{display:flex;flex-direction:column;width:100%;border:1px solid var(--border);border-radius:14px;padding:16px;background:var(--card);overflow:hidden}
+.node h3{margin:0 0 10px;font-size:1.05rem;line-height:1.3;letter-spacing:-.01em;overflow-wrap:anywhere}
+.node p{font-size:.94rem;line-height:1.48;overflow-wrap:anywhere;word-break:normal}
+.meta{font-size:.82rem!important;line-height:1.42!important;color:var(--muted)}
+.status{display:inline-flex;align-items:center;max-width:100%;padding:4px 8px;border:1px solid currentColor;border-radius:7px;font-size:.72rem;font-weight:800;line-height:1.25;letter-spacing:.035em;overflow-wrap:anywhere;word-break:break-word;white-space:normal}
+.status.complete{color:var(--ok)}.status.waiting{color:var(--wait)}.status.blocked{color:var(--block)}
+.deps{font-size:.8rem!important;margin-top:10px!important;padding-top:10px;border-top:1px solid var(--border);color:var(--muted)}
+.flow-label{margin-top:auto;padding-top:12px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.history article{border:1px solid var(--border);border-radius:12px;padding:14px;margin:10px 0;background:var(--card)}
+.history h3{margin:0 0 6px;font-size:1rem}.empty{color:var(--muted)}
+ol{padding-left:1.3rem}li{padding-left:.2rem;margin:.65rem 0;font-size:.94rem}
+@media(max-width:900px){
+ body{max-width:none;padding:14px;font-size:15px}
+ nav{margin-bottom:18px}
+ h1{font-size:1.72rem}
+ h2{font-size:1.2rem}
+ .panel{padding:14px;border-radius:14px;margin:12px 0}
+ .level{display:flex;flex-direction:column;gap:12px}
+ .node{padding:14px;border-radius:12px}
+ .node h3{font-size:1rem}
+ .node p{font-size:.9rem;line-height:1.44}
+ .meta{font-size:.78rem!important}
+ .deps{font-size:.77rem!important}
+ .flow-label{display:none}
+}
+@media(max-width:430px){
+ body{padding:10px;font-size:14px}
+ h1{font-size:1.5rem}
+ h2{font-size:1.08rem}
+ .panel{padding:11px;border-radius:12px}
+ .node{padding:12px}
+ .node h3{font-size:.96rem}
+ .node p{font-size:.86rem;line-height:1.4}
+ .status{font-size:.66rem;padding:3px 6px}
+ .meta,.deps{font-size:.73rem!important}
+ nav a{font-size:.82rem;min-height:36px;padding:7px 10px}
+}
 </style>
 </head>
 <body>
 <nav><a href="autonomy-roadmap.html">Autonomy roadmap</a><a href="index.html">Site home</a></nav>
 <h1>Live Autonomy Activity</h1>
 <p id="mode" class="warning">Loading truthful telemetry state…</p>
-<div class="panel"><h2>Execution tree</h2><p>Tasks split into concurrent branches, converge on shared gates, and may split again. Completed branches remain below as history while newer activity is prepended.</p><div id="graph" class="graph">Loading…</div></div>
+<div class="panel"><h2>Execution tree</h2><p class="warning">Tasks split into concurrent branches, converge on shared gates, and may split again. Completed work remains in history.</p><div id="graph" class="graph">Loading…</div></div>
 <div class="panel"><h2>Corrective actions</h2><div id="actions">Loading…</div></div>
-<div class="panel"><h2>Completed history — newest first</h2><div id="history" class="history">Loading…</div></div>
+<div class="panel"><h2>Completed history</h2><div id="history" class="history">Loading…</div></div>
 <div class="panel"><h2>Task record</h2><p><a id="task-link" href="https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7">Open governing task</a></p></div>
 <script>
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const byId=nodes=>Object.fromEntries(nodes.map(n=>[n.id,n]));
 function levels(nodes){const map=byId(nodes),memo={};const depth=id=>memo[id]??(memo[id]=Math.max(0,...((map[id]?.depends_on)||[]).map(x=>depth(x)+1)));nodes.forEach(n=>depth(n.id));return Object.entries(nodes.reduce((a,n)=>(a[memo[n.id]]??=[],a[memo[n.id]].push(n),a),{})).sort((a,b)=>Number(a[0])-Number(b[0])).map(x=>x[1]);}
 function statusClass(status){const s=String(status||'').toUpperCase();if(s==='COMPLETE')return'complete';if(s.includes('BLOCKED'))return'blocked';return'waiting';}
-function renderGraph(nodes){if(!nodes?.length)return'<p class="empty">No machine-reported task graph is connected.</p>';const childCount={};nodes.forEach(n=>(n.depends_on||[]).forEach(p=>childCount[p]=(childCount[p]||0)+1));return levels(nodes).map(group=>'<div class="level">'+group.map(n=>{const split=(childCount[n.id]||0)>1?' split':'';const conv=(n.depends_on||[]).length>1?' converge':'';return`<article class="node${split}${conv}"><h3>${esc(n.title||n.id)}</h3><p><span class="status ${statusClass(n.status)}">${esc(n.status)}</span></p><p>${esc(n.result||n.current_step||'')}</p><p class="meta"><strong>Owner:</strong> ${esc(n.owner||'unassigned')}</p><p class="meta"><strong>Updated:</strong> ${esc(n.updated_at||'unknown')}</p>${(n.depends_on||[]).length?`<p class="deps"><strong>Depends on:</strong> ${n.depends_on.map(esc).join(', ')}</p>`:''}${n.task_url?`<p><a href="${esc(n.task_url)}">Task record</a></p>`:''}</article>`}).join('')+'</div>').join('');}
+function renderGraph(nodes){if(!nodes?.length)return'<p class="empty">No machine-reported task graph is connected.</p>';const childCount={};nodes.forEach(n=>(n.depends_on||[]).forEach(p=>childCount[p]=(childCount[p]||0)+1));return levels(nodes).map(group=>'<div class="level">'+group.map(n=>{const split=(childCount[n.id]||0)>1;const conv=(n.depends_on||[]).length>1;const label=conv?'Convergence gate':split?'Parallel split':'';return`<article class="node"><h3>${esc(n.title||n.id)}</h3><p><span class="status ${statusClass(n.status)}">${esc(n.status)}</span></p><p>${esc(n.result||n.current_step||'')}</p><p class="meta"><strong>Owner:</strong> ${esc(n.owner||'unassigned')}</p><p class="meta"><strong>Updated:</strong> ${esc(n.updated_at||'unknown')}</p>${(n.depends_on||[]).length?`<p class="deps"><strong>Depends on:</strong> ${n.depends_on.map(esc).join(', ')}</p>`:''}${n.task_url?`<p><a href="${esc(n.task_url)}">Task record</a></p>`:''}${label?`<div class="flow-label">${label}</div>`:''}</article>`}).join('')+'</div>').join('');}
 function renderItems(items,empty){return items?.length?'<ol>'+items.map(x=>`<li><strong>${esc(x.action||x.title||x.id)}</strong> — ${esc(x.status||'')}<br>${esc(x.result||x.reason||'')}</li>`).join('')+'</ol>':`<p class="empty">${esc(empty)}</p>`;}
 function renderHistory(items){if(!items?.length)return'<p class="empty">No completed machine-reported tasks are available.</p>';return[...items].sort((a,b)=>String(b.completed_at||'').localeCompare(String(a.completed_at||''))).map(x=>`<article><h3>${esc(x.title||x.id)}</h3><p><strong>${esc(x.status||'COMPLETE')}</strong> — ${esc(x.result||'')}</p><p class="meta">Completed: ${esc(x.completed_at||'unknown')} · Branches: ${esc((x.branch_ids||[]).join(', ')||'none')}</p>${x.task_url?`<p><a href="${esc(x.task_url)}">Task record</a></p>`:''}</article>`).join('');}
 fetch('data/autonomy/live-status.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('status unavailable');return r.json()}).then(d=>{document.getElementById('mode').textContent=d.mode+': '+d.truthful_notice;document.getElementById('graph').innerHTML=renderGraph(d.task_graph?.nodes||[]);document.getElementById('actions').innerHTML=renderItems(d.corrective_actions,'No machine-reported corrective actions are available.');document.getElementById('history').innerHTML=renderHistory(d.completed_history||[]);if(d.task_source)document.getElementById('task-link').href='https://github.com/'+d.task_source;}).catch(e=>{document.getElementById('mode').textContent='TELEMETRY_UNAVAILABLE: '+e.message;document.getElementById('graph').textContent='No verified data.';document.getElementById('actions').textContent='No verified data.';document.getElementById('history').textContent='No verified data.';});
