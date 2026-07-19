@@ -41,7 +41,7 @@ Documentation, status files, handoffs, monitors, CI schedules, installed workflo
 
 ## Heartbeat boundary
 
-GitHub Actions and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. The adapter and Site no longer require CI-derived heartbeat or scheduler-status artifacts. Runtime heartbeat architecture was not modified.
+GitHub Actions and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. The adapter and Site do not require CI-derived heartbeat or scheduler-status artifacts. Runtime heartbeat architecture was not modified.
 
 ## Proven state
 
@@ -54,11 +54,13 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 
 ## Current blocker
 
-A current live activation execution after the contract repair has not yet been observed and retained. The stable adapter status therefore remains `PENDING` with `live_activation_observation_not_yet_recorded`.
+No completed validation or live-activation execution associated with adapter commit `7c26041eeeb7f165583308efaedd59e1d17a8c92` is observable through the available repository evidence. Direct execution from the current environment also failed before reaching the gateway because DNS resolution for the deployed hostname was unavailable; that local transport limitation is not evidence that the deployed gateway is down.
+
+The stable adapter status therefore remains `PENDING` with `live_activation_observation_not_yet_recorded`.
 
 ## Next executable integration step
 
-Allow the existing adapter validation and live-activation workflows to execute from commit `7c26041eeeb7f165583308efaedd59e1d17a8c92`. Inspect the resulting live observation and repair only the first actual gateway, provider, persistence, custody, reconstruction, or receipt failure using existing components.
+Use the existing adapter validation and live-activation workflows to produce and retain the next machine-readable live observation. Once that evidence exists, repair only the first reported gateway, provider, persistence, custody, reconstruction, or receipt failure using existing components.
 
 ## Manual user action requirement
 
@@ -77,4 +79,5 @@ These measures must not be collapsed into one percentage.
 - Date: 2026-07-19
 - Adapter commit: `7c26041eeeb7f165583308efaedd59e1d17a8c92`
 - Site handoff commit: `95be2549e7576d742fe0c687da44e3b5ba33b400`
-- Advancement: aligned the existing adapter automation contract with the current heartbeat-corrected workflow and corrected the authoritative Site handoff without introducing a new heartbeat, monitor, scheduler, service, or runtime subsystem.
+- Advancement: aligned the existing adapter automation contract with the heartbeat-corrected workflow and corrected the authoritative Site handoff without introducing a new heartbeat, monitor, scheduler, service, or runtime subsystem.
+- Latest cycle finding: structural repair is complete, but no post-repair execution receipt or exact runtime failure has yet been retained; runtime completion is unchanged.
