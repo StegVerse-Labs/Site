@@ -31,13 +31,20 @@ Portable-node expansion remains out of scope until this hosted vertical slice is
 - Downstream admissibility projection: `StegVerse-Labs/admissibility-wiki`
 - Downstream guardian projection: `StegVerse-002/stegguardian-wiki`
 
+## Goal-monitoring Site pages
+
+- High-level goal progression: `autonomy-roadmap.html`
+- Prompt-level task tree: `autonomy-live.html`
+
+These existing pages are reused and now read the Ecosystem Chat goal state from `data/autonomy/roadmap-status.json` and `data/autonomy/live-status.json`. Green checks require completed or integrated evidence states; red Xs identify unpassed runtime gates. The pages do not grant execution, completion, custody, release, or heartbeat authority.
+
 ## What counts as real progress
 
 Execution, repair of an observed runtime failure, verification, custody, reconstruction, immutable receipt production, Site activation, and verified downstream ingestion.
 
 ## What does not count as completion
 
-Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, browser code existence, or propagation packets without verified runtime evidence.
+Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, browser code existence, goal-page check marks, task-tree entries, or propagation packets without verified runtime evidence.
 
 ## Heartbeat boundary
 
@@ -48,17 +55,18 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - The existing adapter gateway exposes the governed Ecosystem Chat endpoint, requires transition identity, applies bounded provider and rate policies, persists lifecycle state, and reports custody and reconstruction posture.
 - The production blueprint allows the canonical StegVerse Site origins through CORS and configures the existing provider, durable storage, and Master-Records connection.
 - The existing Site classifier and fail-closed local fallback remain installed.
-- A bounded additive Site binding now supplies transition identity and submits non-restricted requests to the existing governed gateway.
+- A bounded additive Site binding supplies transition identity and submits non-restricted requests to the existing governed gateway.
 - Restricted requests remain local and require separate review. Provider output is not authority.
 - The binding is loaded through the existing Ecosystem Chat page loader.
-- JavaScript syntax validation for the binding passed with `node --check`.
+- The existing roadmap and live-tree pages are rebound to the current Ecosystem Chat goal rather than duplicated.
+- Both monitoring pages now use explicit status marks and bounded responsive card layouts.
 - Adapter evidence retention, immutable receipt retention, Site activation consumers, and downstream consumers remain implemented.
 
 ## Current blocker
 
-The browser-to-gateway binding is IMPLEMENTED and INTEGRATED in repository state but has not yet been EXECUTED or VERIFIED from the deployed public Site. No real browser request, provider response, usage persistence, custody, reconstruction, or receipt evidence was produced during this cycle.
+The browser-to-gateway binding is IMPLEMENTED and INTEGRATED in repository state but has not yet been EXECUTED or VERIFIED from a deployed public Site origin. No real browser request, provider response, usage persistence, custody, reconstruction, or receipt evidence was produced during this cycle.
 
-The separate adapter live-activation workflow also has not produced a repository-retained detailed observation, and the available GitHub interfaces still do not expose Actions settings or dispatch.
+The goal and prompt-level monitoring pages accurately expose this boundary but do not advance the runtime gate by themselves.
 
 ## Next executable integration step
 
@@ -78,6 +86,8 @@ False for routine application use. A platform-owner action is required only if t
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
-- Site live-binding commit: `4b1cf2472a510d64c3803d42cf85451594198fce`
-- Site loader integration commit: `b6f087d6f0c79edc660e53eb1b726bf0519ea01c`
-- Advancement: reused the existing Site classifier and adapter gateway to connect the public Ecosystem Chat form to the governed provider, custody, and reconstruction path while retaining restricted-request refusal and local fail-closed fallback.
+- Goal-page integration: `7c1020e4f83c2ba43a4e1a17c288ea25e905ab9a`
+- Prompt-tree integration: `b56bd49a6adf8b5053282ffb158ce5882c18dbd8`
+- Goal data update: `310d0873143faceae61fc35fafd06bb89a232353`
+- Prompt-tree data update: `2371b90b0f00c161b382fd8a852da03ba542cb7b`
+- Advancement: reused the existing monitoring pages, rebound them to the current Ecosystem Chat vertical slice, and repaired narrow-screen card containment without creating replacement pages or changing the declared goal.
