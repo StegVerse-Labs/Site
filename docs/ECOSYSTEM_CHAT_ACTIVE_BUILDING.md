@@ -7,77 +7,95 @@
 ## Work performed
 
 - Re-read the authoritative Site handoff, build-goal record, and active-building record.
-- Inspected the public Ecosystem Chat page and confirmed it still used only local classification even though the existing adapter gateway and Site-origin CORS configuration already existed.
-- Inspected the existing Site classifier, gateway contract, production blueprint, live verifier, combined gateway, and Ecosystem Chat endpoint.
-- Evaluated reuse options before implementation.
-- Added a bounded live-binding adapter that reuses the existing classifier and submits non-restricted requests to the existing governed gateway with canonical transition identity.
-- Loaded the binding through the existing Ecosystem Chat page loader.
-- Preserved restricted-request refusal and local fail-closed fallback.
-- Ran JavaScript syntax validation for the new binding with `node --check`.
+- Located the two existing monitoring pages created earlier: `autonomy-roadmap.html` and `autonomy-live.html`.
+- Confirmed the roadmap page was still displaying the broad autonomy roadmap rather than the current Ecosystem Chat vertical slice.
+- Confirmed the live page already contained the earlier mobile/card-layout repair and a dependency-tree renderer with newest-first completed history.
+- Evaluated reuse unchanged, bounded modification, adapter, and replacement options.
+- Reused both existing pages and renderers rather than creating replacement goal or task pages.
+- Rebound the roadmap data to the eight required Ecosystem Chat runtime gates.
+- Rebound the live tree to prompt-level Ecosystem Chat tasks and dependencies.
+- Added explicit green check, red X, and waiting markers without upgrading unverified runtime states.
+- Tightened grid minimums, overflow wrapping, word breaking, responsive stacking, and narrow-screen typography so task text remains inside its cards.
 
 ## Existing ecosystem components reused
 
-- `StegVerse-Labs/Site/ecosystem-chat.html`
-- `StegVerse-Labs/Site/assets/ecosystem-chat.js`
-- `StegVerse-Labs/Site/assets/ecosystem-chat-hps.js`
-- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_GATEWAY_CONTRACT.md`
-- `StegVerse-org/LLM-adapter/llm_adapter/ecosystem_chat_gateway.py`
-- `StegVerse-org/LLM-adapter/llm_adapter/combined_gateway.py`
-- `StegVerse-org/LLM-adapter/render-production.yaml`
-- Existing provider integration, local usage persistence, Master-Records paths, activation receipts, Site importers, and downstream consumers
+- `StegVerse-Labs/Site/autonomy-roadmap.html`
+- `StegVerse-Labs/Site/autonomy-live.html`
+- `StegVerse-Labs/Site/data/autonomy/roadmap-status.json`
+- `StegVerse-Labs/Site/data/autonomy/live-status.json`
+- Existing phase-card renderer
+- Existing dependency-depth tree renderer
+- Existing completed-history newest-first behavior
+- Existing mobile/card containment repair
+- Existing Ecosystem Chat build-goal and active-building records
+- Existing Site-to-gateway integration and downstream runtime path
 
 ## Components modified
 
-- `StegVerse-Labs/Site/assets/ecosystem-chat-hps.js`
-  - Loads the bounded gateway binding through the existing page loader.
-  - Existing HPS fixture visualization behavior remains unchanged.
-- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_BUILD_GOAL.md`
-  - Updated the runtime path, current blocker, next executable step, and latest meaningful advancement.
-- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md`
-  - Updated with this cycle’s implementation and evidence posture.
+- `autonomy-roadmap.html`
+  - Retitled as Ecosystem Chat Goal Progress.
+  - Added links to the prompt tree and Ecosystem Chat.
+  - Added explicit status marks.
+  - Preserved separation of implementation, operation, evidence, and exit gate.
+  - Added bounded responsive card behavior.
+- `autonomy-live.html`
+  - Retitled as Ecosystem Chat Prompt-Level Task Tree.
+  - Added prompt/task references and explicit status marks.
+  - Preserved dependency levels and newest-first completed history.
+  - Strengthened text containment for narrow mobile cards.
+- `data/autonomy/roadmap-status.json`
+  - Replaced stale broad-autonomy phase content with the eight current Ecosystem Chat runtime gates.
+- `data/autonomy/live-status.json`
+  - Replaced stale broad-autonomy activity with the current prompt-level Ecosystem Chat task tree.
+- `docs/ECOSYSTEM_CHAT_BUILD_GOAL.md`
+  - Recorded the two monitoring pages and this reuse cycle.
+- `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md`
+  - Recorded exact changes and evidence posture.
 
 ## Adapters added
 
-- `StegVerse-Labs/Site/assets/ecosystem-chat-live-binding.js`
-  - Supplies the transition identity required by the existing adapter endpoint.
-  - Sends non-restricted requests to the existing deployed gateway.
-  - Displays gateway receipt, final receipt posture, provider use, local persistence, usage custody and reconstruction, and transition custody and reconstruction.
-  - Falls back to the existing local classifier when the gateway is unavailable or rejects the request.
+None.
+
+The existing renderers and data interfaces accepted the required goal and prompt-level content through bounded modification.
 
 ## New components and decision rationale
 
-Required capability: connect the public Site form to the existing governed gateway.
+None.
+
+Required capability: provide a high-level goal checklist and prompt-level task tree for the current Ecosystem Chat goal.
 
 Options evaluated:
 
-1. Reuse unchanged: no live request would occur.
-2. Modify the full existing classifier: possible, but higher regression risk across routing, SDK preview, telemetry, and local receipts.
-3. Add a bounded adapter: additive, low-risk, reversible, and preserves existing consumers and fallback behavior.
-4. Replace the classifier or gateway: duplicates core capability and adds unnecessary risk.
+1. Reuse unchanged: low effort, but would continue showing the wrong broad-autonomy goal.
+2. Modify the existing pages and data: direct progress, low technical risk, no authority change, preserves URLs and consumers, fully reversible through repository history.
+3. Add a bounded adapter: unnecessary because the existing JSON interfaces already accept the required state.
+4. Build replacement pages: duplicates working card and tree components and increases formatting risk.
 
-Selected option: bounded adapter.
+Selected option: bounded modification of the existing pages and their existing data sources.
 
 ## Runtime tests actually executed
 
-- Inspected the current Site page and confirmed the original path was local-only.
-- Inspected the adapter request model and confirmed `transition_identity` is required.
-- Inspected production CORS configuration and confirmed canonical StegVerse origins are allowed.
-- Inspected the gateway response fields used by the binding.
-- Ran `node --check` against the new live-binding JavaScript: PASS.
-- No deployed browser request was executed from this environment because external DNS remains unavailable.
+- Inspected current source for both existing pages.
+- Inspected both existing machine-readable data files.
+- Verified the live renderer retains dependency grouping and newest-first completed history.
+- Verified the updated CSS applies `min-width: 0`, bounded grid minimums, overflow wrapping, word breaking, mobile stacking, and narrow-screen font reductions.
+- Verified goal states remain fail-closed: provider, persistence, custody, reconstruction, receipt, Site activation, and downstream propagation remain unproven.
+- No deployed browser rendering was executed in this cycle.
 
 ## Observed results
 
-- Site now contains a browser request payload compatible with the existing gateway request model.
-- The live binding preserves the established classifier and local fail-closed path.
-- Restricted requests are not sent to the live gateway by the binding.
-- The returned receipt line can expose the first actual provider, persistence, custody, reconstruction, or receipt failure directly on the public surface.
-- No heartbeat architecture was modified.
+- The correct existing pages are now identified and reused.
+- The goal page now represents the current Ecosystem Chat vertical slice instead of the ecosystem-wide autonomy roadmap.
+- The task page now represents prompt-level Ecosystem Chat work in dependency order.
+- Completed task groups remain prepended newest-first in history.
+- Unpassed runtime gates display red Xs rather than implied completion.
+- Card text is bounded for mobile and narrow screens in source.
+- No heartbeat architecture or authority boundary was modified.
 
 ## Exact failures
 
-- Public Site deployment of the new binding: NOT YET VERIFIED.
-- Browser-to-gateway request: NOT YET EXECUTED.
+- Deployed rendering of the updated monitoring pages: NOT YET VERIFIED.
+- Deployed Ecosystem Chat browser request: NOT YET EXECUTED.
 - Real provider response: UNPROVEN.
 - Provider usage persistence: UNPROVEN.
 - Provider-usage custody and reconstruction: UNPROVEN.
@@ -85,21 +103,26 @@ Selected option: bounded adapter.
 - Immutable VERIFIED receipt: UNPROVEN.
 - Site activation: UNPROVEN.
 - Downstream ingestion: UNPROVEN.
-- Adapter Actions settings and dispatch remain unavailable through the current connected interfaces.
 
 ## Durable evidence produced
 
-- Site live-binding commit: `4b1cf2472a510d64c3803d42cf85451594198fce`
-- Site loader integration commit: `b6f087d6f0c79edc660e53eb1b726bf0519ea01c`
-- Site build-goal update: `5b2f57d69df2487a6752a251314fb824dc0503fb`
+- Goal page integration: `7c1020e4f83c2ba43a4e1a17c288ea25e905ab9a`
+- Prompt-tree integration: `b56bd49a6adf8b5053282ffb158ce5882c18dbd8`
+- Goal data update: `310d0873143faceae61fc35fafd06bb89a232353`
+- Prompt-tree data update: `2371b90b0f00c161b382fd8a852da03ba542cb7b`
+- Build-goal update: `39a308329c77b0da24726a7fded08374e710a8c5`
 
 ## State classification
 
+- Existing goal-page renderer: IMPLEMENTED
+- Ecosystem Chat goal binding: INTEGRATED
+- Existing task-tree renderer: IMPLEMENTED
+- Prompt-level Ecosystem Chat tree binding: INTEGRATED
+- Narrow-card/mobile containment: IMPLEMENTED
+- Deployed monitoring-page rendering: UNPROVEN
 - Existing browser classifier: IMPLEMENTED
 - Governed gateway endpoint: IMPLEMENTED
 - Site-to-gateway request binding: INTEGRATED
-- Binding syntax validation: VERIFIED
-- Public Site deployment of binding: UNPROVEN
 - Browser request execution: UNPROVEN
 - Real provider request/response: UNPROVEN
 - Provider-usage custody and reconstruction: UNPROVEN
@@ -112,32 +135,32 @@ Selected option: bounded adapter.
 
 None.
 
-No existing classifier, workflow, gateway, provider integration, custody path, receipt path, Site consumer, downstream consumer, or heartbeat component was removed or replaced.
+No page, renderer, data interface, classifier, workflow, gateway, provider integration, custody path, receipt path, Site consumer, downstream consumer, or heartbeat component was removed, renamed, disabled, superseded, or replaced.
 
 ## Current next step
 
-Execute one non-restricted request through the deployed public Ecosystem Chat page and inspect the returned receipt line. Repair only the first concrete gateway, provider, persistence, custody, reconstruction, or receipt failure. If the new binding is not yet deployed, use the existing Site deployment path rather than creating another workflow or service.
+Execute one non-restricted request through the deployed public Ecosystem Chat page and inspect the returned receipt line. Repair only the first concrete gateway, provider, persistence, custody, reconstruction, or receipt failure.
 
 ## Goal delta
 
-The public Site now has an integrated code path to the existing governed gateway. Before this cycle, the page could only classify locally and could not enter the provider, persistence, custody, or reconstruction path.
+The two previously built monitoring pages now track the actual current Ecosystem Chat goal and prompt-level work. Before this cycle they existed but displayed the wrong broad-autonomy state.
 
-No runtime gate is counted as complete until a deployed browser request succeeds and produces evidence.
+No runtime gate is counted as complete because the monitoring-page integration did not execute the provider/custody path.
 
 ## Reuse delta
 
-The existing Site classifier, gateway contract, deployed adapter endpoint, provider integration, persistence, Master-Records paths, receipt fields, and Site activation consumers eliminated the need to build a new chat application, provider service, custody service, or gateway.
+The existing roadmap cards, dependency tree, JSON interfaces, newest-first history, and mobile layout repair eliminated the need for new pages, a new renderer, a new schema, or a new monitoring service.
 
 ## Runtime evidence
 
-The binding passed static JavaScript syntax validation. No live provider, custody, reconstruction, immutable receipt, activation, or propagation evidence was produced during this cycle.
+Repository commits prove the monitoring pages and data bindings were updated. No live provider, custody, reconstruction, immutable receipt, activation, or propagation evidence was produced.
 
 ## Non-progress
 
-- Documentation updates do not increase runtime completion.
-- Static syntax validation does not prove deployment or live gateway behavior.
-- The unresolved GitHub Actions settings and dispatch boundary remains separate from the new direct browser integration.
+- Goal and task visualization does not complete any runtime gate.
+- Source-level responsive CSS does not prove deployed rendering.
+- Status marks report evidence state; they do not create evidence.
 
 ## Manual user action requirement
 
-False for routine application use. A platform-owner action is required only if the existing Site deployment cannot be operated through connected tooling.
+False for routine use. A platform-owner action is required only if the existing Site deployment cannot be operated through connected tooling.
