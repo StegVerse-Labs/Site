@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "site-public-autonomy-dispatch-v1",
+  "default": "DENY",
+  "actor": "github-actions[bot]",
+  "repository": "StegVerse-Labs/Site",
+  "allowed_actions": {
+    "ENSURE_SITE_OBJECTIVE_CONTRACT": {
+      "allowed_paths": ["data/autonomy/objective-contract.json"]
+    },
+    "ENSURE_SITE_RUNTIME_CHECK_SPEC": {
+      "allowed_paths": ["data/autonomy/runtime-checks.json"]
+    },
+    "RETRY_PUBLIC_INSPECTION": {
+      "allowed_paths": [
+        "data/autonomy/public-ecosystem-inventory.json",
+        "data/autonomy/public-next-actions.json",
+        "data/autonomy/live-status.json"
+      ]
+    },
+    "PERSIST_EXECUTION_RECORD": {
+      "allowed_paths": ["data/autonomy/action-executions.json"]
+    }
+  },
+  "cross_repository_mutation": false,
+  "issue_creation_is_execution": false,
+  "proposal_is_completion": false,
+  "manual_user_action_required": false,
+  "completion_requires_runtime_evidence": true,
+  "completion_requires_user_visible_outcome": true
+}
