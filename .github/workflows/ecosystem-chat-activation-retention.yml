@@ -21,13 +21,16 @@ jobs:
     steps:
       - name: Checkout Site
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Download Site task diagnostic
+      - name: Download Site task diagnostic when available
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           pattern: site-task-diagnostic-${{ github.event.workflow_run.id }}-*
@@ -46,7 +49,8 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Download activation evidence
+      - name: Download activation evidence when available
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           pattern: external-chat-activation-evidence-${{ github.event.workflow_run.id }}-*
@@ -54,6 +58,12 @@ jobs:
           merge-multiple: true
           github-token: ${{ github.token }}
           run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Reacquire immutable activation receipt or stable blocker status
+        run: python scripts/acquire_ecosystem_chat_live_activation_receipt.py
+
+      - name: Validate acquired activation import state
+        run: python scripts/check_ecosystem_chat_activation_receipt_import.py
 
       - name: Import external owner activation states
         env:
@@ -63,11 +73,52 @@ jobs:
       - name: Rebuild machine-owned activation state
         run: python scripts/update_ecosystem_chat_activation_state.py
 
+      - name: Validate activation-state and propagation consistency
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          state = json.loads(Path('data/ecosystem-chat-activation-state.json').read_text())
+          propagation = json.loads(Path('data/ecosystem-chat-activation-propagation.json').read_text())
+          imported = json.loads(Path('data/ecosystem-chat-destination-activation-import-status.json').read_text())
+
+          assert state['manual_user_action_required'] is False
+          assert propagation['source_state_sha256'] == state['state_sha256']
+          assert state['gates']['destination_state_imported'] is True
+          assert state['gates']['external_import_status_recorded'] is True
+
+          if imported['state'] == 'VERIFIED_SOURCE_RECEIPT_IMPORTED':
+              assert imported['receipt_present'] is True
+              assert imported['receipt_state'] == 'VERIFIED'
+          else:
+              assert imported['state'] == 'PENDING_SOURCE_RECEIPT'
+              assert imported['receipt_present'] is False
+              assert imported['source_activation_state'] == 'PENDING'
+              assert imported['source_blockers']
+              assert state['state'] == 'ACTIVATION_PENDING_EVIDENCE'
+              assert propagation['state'] == 'PENDING_ACTIVATION_EVIDENCE'
+
+          print('activation retention state is internally consistent')
+          PY
+
       - name: Persist retained evidence and continuation state
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ecosystem-chat-activation-state.json data/ecosystem-chat-activation-propagation.json data/ecosystem-chat-destination-activation-state.external.json data/ecosystem-chat-custody-activation-state.external.json data/ecosystem-chat-external-activation-import-status.json reports/site-task-diagnostic.json reports/external-chat-live-verification.json reports/external-chat-activation-evidence.json || true
+          git add \
+            data/ecosystem-chat-activation-state.json \
+            data/ecosystem-chat-activation-propagation.json \
+            data/ecosystem-chat-destination-activation-import-status.json \
+            data/ecosystem-chat-destination-activation-state.external.json \
+            data/ecosystem-chat-custody-activation-state.external.json \
+            data/ecosystem-chat-external-activation-import-status.json \
+            reports/site-task-diagnostic.json \
+            reports/external-chat-live-verification.json \
+            reports/external-chat-activation-evidence.json || true
+          if [ -f data/ecosystem-chat-destination-activation-receipt.json ]; then
+            git add data/ecosystem-chat-destination-activation-receipt.json
+          fi
           if git diff --cached --quiet; then
             echo "No Ecosystem Chat activation state changes to commit."
             exit 0
