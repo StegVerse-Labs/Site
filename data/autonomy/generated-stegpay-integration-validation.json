@@ -1,0 +1,41 @@
+{
+  "artifact_type": "site_generated_stegpay_integration_validation",
+  "authority": {
+    "admissibility_authority": false,
+    "deployment_authority": false,
+    "production_payment_authority": false,
+    "publication_authority": false,
+    "release_authority": false
+  },
+  "checks": {
+    "artifact_type": true,
+    "authority_fail_closed": true,
+    "consumer_state": true,
+    "destinations": true,
+    "event_id": true,
+    "event_schema_version": true,
+    "evidence_paths": true,
+    "hashes": true,
+    "issuer": true,
+    "key_id": true,
+    "manual_user_action_false": true,
+    "matching_ledger_entries": true,
+    "producer_consumer_agreement": true,
+    "producer_repository": true,
+    "provider_id": true,
+    "schema_version": true,
+    "source_handoff": true,
+    "source_repository": true,
+    "state": true,
+    "test_only": true,
+    "transport_not_authority": true,
+    "verified_reasons": true
+  },
+  "downstream_ingestion_ready": true,
+  "failures": [],
+  "manual_user_action_required": false,
+  "schema_version": "1.0",
+  "source_canonical_sha256": "3b932c2f456d4dc7a8e5d98a7cd0199b5346649586de6da532b20aa042a79994",
+  "source_path": "data/autonomy/generated-stegpay-integration-status.json",
+  "state": "VALID"
+}
