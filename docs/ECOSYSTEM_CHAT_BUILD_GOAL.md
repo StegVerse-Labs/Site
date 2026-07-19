@@ -33,37 +33,48 @@ Portable-node expansion is out of scope until this first hosted vertical slice i
 
 ## What counts as real progress
 
-Execution, repair, verification, custody, reconstruction, immutable receipt production, Site activation, and verified downstream ingestion.
+Execution, repair of an observed runtime failure, verification, custody, reconstruction, immutable receipt production, Site activation, and verified downstream ingestion.
 
 ## What does not count as completion
 
-Documentation, status files, monitors, CI schedules, installed workflows, pending imports, local persistence, or propagation packets without verified runtime evidence.
+Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, or propagation packets without verified runtime evidence.
+
+## Heartbeat boundary
+
+GitHub Actions and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. The adapter and Site no longer require CI-derived heartbeat or scheduler-status artifacts. Runtime heartbeat architecture was not modified.
 
 ## Proven state
 
+- Existing adapter live verifier implements the required request/provider/custody/reconstruction checks.
 - Existing Site acquisition, validation, state recomputation, retention, and propagation consumers are implemented.
+- Adapter automation contract assertions are aligned with the heartbeat-corrected activation workflow at commit `7c26041eeeb7f165583308efaedd59e1d17a8c92`.
+- Site handoff no longer reports removed CI artifacts as heartbeat blockers.
 - Existing adapter stable pending status is the current accepted source evidence.
 - Site-local autonomy checks do not complete Ecosystem Chat activation.
-- The adapter has removed the incorrect GitHub-derived heartbeat and scheduler-status artifacts.
-- Site has been repaired to observe only stable activation status and the immutable VERIFIED receipt; it does not define or modify runtime heartbeat authority.
 
 ## Current blocker
 
-The adapter activation automation contract test still requires the removed heartbeat writer, heartbeat report, monitor hash, and heartbeat workflow steps. The adapter activation workflow is configured to run after successful `validate`; therefore this stale contract is the first identified executable validation boundary before a clean runtime activation cycle can be proven.
-
-The adapter also has not yet published an immutable VERIFIED receipt proving real provider use, custody, reconstruction, and zero blockers.
+A current live activation execution after the contract repair has not yet been observed and retained. The stable adapter status therefore remains `PENDING` with `live_activation_observation_not_yet_recorded`.
 
 ## Next executable integration step
 
-After approval of the listed non-destructive removal proposal, remove only the obsolete heartbeat assertions from `StegVerse-org/LLM-adapter/tests/test_live_activation_automation_contract.py`, preserve the request/provider/custody/reconstruction and immutable-receipt assertions, run validation, and then execute the existing activation-verification path.
+Allow the existing adapter validation and live-activation workflows to execute from commit `7c26041eeeb7f165583308efaedd59e1d17a8c92`. Inspect the resulting live observation and repair only the first actual gateway, provider, persistence, custody, reconstruction, or receipt failure using existing components.
 
 ## Manual user action requirement
 
-False for routine execution. Explicit approval is required only for removal of the obsolete test assertions under the standing no-unilateral-removal boundary.
+False.
+
+## Progress accounting
+
+- Implementation coverage describes code and integrations that exist.
+- Runtime gate completion describes current gates passed by real execution.
+- Evidence state uses DESIGNED, IMPLEMENTED, INTEGRATED, EXECUTED, VERIFIED, DEPLOYED, LIVE, and PROPAGATED.
+
+These measures must not be collapsed into one percentage.
 
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
-- Site commits: `427f9c6709a7c6a889e07d5a85a1b2226973fd90`, `bbdc5852221bf032a494f20109e70258e4f9f998`
-- Advancement: repaired Site’s stale dependency on removed CI-derived heartbeat/scheduler artifacts while preserving the established activation evidence path.
-- Latest blocker finding: adapter test `tests/test_live_activation_automation_contract.py` remains inconsistent with the current heartbeat-corrected workflow and requires an approved bounded assertion cleanup before validation can be proven.
+- Adapter commit: `7c26041eeeb7f165583308efaedd59e1d17a8c92`
+- Site handoff commit: `95be2549e7576d742fe0c687da44e3b5ba33b400`
+- Advancement: aligned the existing adapter automation contract with the current heartbeat-corrected workflow and corrected the authoritative Site handoff without introducing a new heartbeat, monitor, scheduler, service, or runtime subsystem.
