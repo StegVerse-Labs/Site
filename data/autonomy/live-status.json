@@ -1,13 +1,82 @@
 {
   "schema_version": "2.0",
-  "generated_at": null,
-  "mode": "NOT_YET_CONNECTED",
-  "truthful_notice": "The task-graph renderer is installed, but no autonomous telemetry producer is connected. Empty graph data must not be represented as live execution evidence.",
+  "generated_at": "2026-07-19T04:45:00Z",
+  "mode": "VERIFIED_REPOSITORY_ACTIVITY",
+  "truthful_notice": "This tree contains verified repository writes from the truth-layer bootstrap. The scheduled validator is installed, but no workflow-run result has yet been ingested automatically into this telemetry record.",
   "task_graph": {
-    "graph_id": null,
-    "root_task_ids": [],
-    "nodes": [],
-    "edges": [],
+    "graph_id": "truth-layer-bootstrap-2026-07-19",
+    "root_task_ids": ["truth-layer-root"],
+    "nodes": [
+      {
+        "id": "truth-layer-root",
+        "title": "Phase 1 truth-layer bootstrap",
+        "status": "IN_PROGRESS",
+        "current_step": "Three foundational controls completed in parallel; convergence validation awaits observed workflow execution.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-19T04:45:00Z",
+        "depends_on": [],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+      },
+      {
+        "id": "objective-contract",
+        "title": "Define objective contracts",
+        "status": "COMPLETE",
+        "result": "Objective schema now requires the requested capability, user-visible outcome, live runtime evidence, disallowed substitutes, and fail-closed completion policy. Commit 681828fe84e10e25bcaf7730d5c9dcd47211db2b.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-19T04:40:00Z",
+        "depends_on": ["truth-layer-root"],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+      },
+      {
+        "id": "dual-status",
+        "title": "Separate implementation and operational status",
+        "status": "COMPLETE",
+        "result": "Repository status schema prevents completion unless implementation is installed, operation is verified, and evidence is fresh. Commit 0cf7addb181d5f0e6b41f0350e9618c913ee3edd.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-19T04:41:00Z",
+        "depends_on": ["truth-layer-root"],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+      },
+      {
+        "id": "successor-freeze",
+        "title": "Install fail-closed successor freeze",
+        "status": "COMPLETE",
+        "result": "Successor selection defaults to DENY unless operational verification, fresh evidence, zero critical blockers, and no manual completion dependency are proven. Commit a95b6541b83da1809da62c8d562c986af9e7c371.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-19T04:42:00Z",
+        "depends_on": ["truth-layer-root"],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+      },
+      {
+        "id": "truth-layer-convergence",
+        "title": "Converge and validate truth-layer controls",
+        "status": "AWAITING_OBSERVED_RUN",
+        "current_step": "Dependency-free validator and hourly GitHub Actions workflow are installed. Awaiting an observed run result before this convergence gate can pass.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-19T04:45:00Z",
+        "depends_on": ["objective-contract", "dual-status", "successor-freeze"],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+      },
+      {
+        "id": "ecosystem-inventory",
+        "title": "Enumerate accessible organizations and repositories",
+        "status": "BLOCKED_BY_CONVERGENCE_GATE",
+        "current_step": "Will begin only after the truth-layer convergence validator produces verified PASS evidence.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-19T04:45:00Z",
+        "depends_on": ["truth-layer-convergence"],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+      }
+    ],
+    "edges": [
+      {"from": "truth-layer-root", "to": "objective-contract", "type": "split"},
+      {"from": "truth-layer-root", "to": "dual-status", "type": "split"},
+      {"from": "truth-layer-root", "to": "successor-freeze", "type": "split"},
+      {"from": "objective-contract", "to": "truth-layer-convergence", "type": "converge"},
+      {"from": "dual-status", "to": "truth-layer-convergence", "type": "converge"},
+      {"from": "successor-freeze", "to": "truth-layer-convergence", "type": "converge"},
+      {"from": "truth-layer-convergence", "to": "ecosystem-inventory", "type": "resplit"}
+    ],
     "semantics": {
       "split": "One completed or active node may feed multiple concurrent child nodes.",
       "converge": "A node with multiple dependencies cannot begin until its required parent branches satisfy their declared gates.",
@@ -15,8 +84,25 @@
       "history_order": "Completed task groups are prepended newest-first and never removed merely because later work begins."
     }
   },
-  "corrective_actions": [],
-  "completed_history": [],
+  "corrective_actions": [
+    {
+      "id": "telemetry-producer-gap",
+      "action": "Connect workflow-run results to live-status.json",
+      "status": "REQUIRED",
+      "reason": "The tree currently records verified repository writes, but workflow results are not yet automatically ingested."
+    }
+  ],
+  "completed_history": [
+    {
+      "id": "truth-layer-parallel-controls",
+      "title": "First parallel truth-layer controls",
+      "status": "COMPLETE",
+      "result": "Objective contracts, dual implementation/operational status, and fail-closed successor eligibility were installed as three parallel branches.",
+      "completed_at": "2026-07-19T04:42:00Z",
+      "branch_ids": ["objective-contract", "dual-status", "successor-freeze"],
+      "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+    }
+  ],
   "roadmap_path": "autonomy-roadmap.html",
   "task_source": "StegVerse-Labs/StegOps-Orchestrator/issues/7"
 }
