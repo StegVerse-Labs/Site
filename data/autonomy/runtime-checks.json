@@ -39,9 +39,24 @@
       "type": "json-field"
     },
     {
-      "id": "mobile-flow",
+      "id": "live-mobile-flow",
       "required": true,
       "type": "browser",
+      "url": "https://stegverse-labs.github.io/Site/autonomy-live.html",
+      "ready_selector": "#graph",
+      "minimum_text_characters": 40,
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "id": "roadmap-mobile-flow",
+      "required": true,
+      "type": "browser",
+      "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
+      "ready_selector": "#phases",
+      "minimum_text_characters": 120,
       "viewport": {
         "height": 844,
         "width": 390
@@ -52,5 +67,5 @@
   "generated_at": "2026-07-19T11:26:28Z",
   "objective_id": "site-public-autonomy-observability",
   "repository": "StegVerse-Labs/Site",
-  "schema_version": "1.0"
+  "schema_version": "1.1"
 }
