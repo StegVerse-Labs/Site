@@ -61,22 +61,24 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - The existing roadmap and live-tree pages are rebound to the current Ecosystem Chat goal rather than duplicated.
 - Adapter evidence retention, immutable receipt retention, Site activation consumers, and downstream consumers remain implemented.
 - Draft PR `StegVerse-org/LLM-adapter#8` produced observable validation runs through the existing pull-request trigger.
-- The stale no-manual-task checker was repaired at adapter commit `beab2903df8468925006a2b5b4d84215be368340`; its validation step now passes.
-- The stale capability-manifest verifier was repaired at adapter commit `3f35b6b0e645f631af837a191f3e2152815a3480`; manifest verification and all earlier provider, usage, and Master-Records custody tests now pass.
-- The overbroad live-activation contract assertion was bounded at adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`; the contract test now passes while explicit prohibited monitor phrases remain checked.
-- Workflow parity then failed because the canonical validation workflow carried the branch-probe comment and its required iOS-safe mirror did not. The mirror was restored to exact parity at adapter commit `5a6dbafe6db960ef8afab892684ba46d8af24324` without changing workflow behavior.
+- The stale no-manual-task checker was repaired at adapter commit `beab2903df8468925006a2b5b4d84215be368340`; its validation step passes.
+- The stale capability-manifest verifier was repaired at adapter commit `3f35b6b0e645f631af837a191f3e2152815a3480`; manifest verification and the earlier provider, usage, and Master-Records custody tests pass.
+- The overbroad live-activation contract assertion was bounded at adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`; the contract test passes while explicit prohibited monitor phrases remain checked.
+- The canonical validation workflow and iOS-safe mirror were restored to exact parity at adapter commit `5a6dbafe6db960ef8afab892684ba46d8af24324` without changing workflow behavior.
+- Validation run `29706109903` and Architecture Guard run `29706109924` both completed successfully.
+- The existing push-triggered live path was directly retriggered on `main` by adapter commit `27ee5eb743be467af939e0b47b73b1c429ba7f93`; the verifier logic and authority boundary were unchanged.
 
 ## Current blocker
 
-Validation run `29706109903` for adapter commit `5a6dbafe6db960ef8afab892684ba46d8af24324` is in progress. No current live provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion has yet been retained.
+The stable activation record has not yet been rewritten after main-branch trigger commit `27ee5eb743be467af939e0b47b73b1c429ba7f93`. It remains `PENDING` with blocker `live_activation_observation_not_yet_recorded`. No current provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion is yet retained.
 
 ## Next executable integration step
 
-Observe validation run `29706109903`. If validation passes, inspect the existing live-activation execution and repair only its first concrete runtime blocker. If another validation check fails, repair only that exact boundary without changing heartbeat architecture or authority.
+Observe the evidence produced by main-branch trigger commit `27ee5eb743be467af939e0b47b73b1c429ba7f93`. If the stable status is rewritten, repair only its first concrete gateway, provider, persistence, custody, reconstruction, or receipt blocker. If no run or retained observation appears, inspect the installed push-trigger execution itself rather than creating another executor.
 
 ## Manual user action requirement
 
-False for routine application use. Draft PR execution and repository validation are being operated through connected tooling.
+False for routine application use. Repository validation and the installed live trigger are being operated through connected tooling.
 
 ## Progress accounting
 
@@ -93,5 +95,7 @@ False for routine application use. Draft PR execution and repository validation 
 - Capability-manifest compatibility repair: `3f35b6b0e645f631af837a191f3e2152815a3480`
 - Live-activation contract repair: `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`
 - Workflow parity repair: `5a6dbafe6db960ef8afab892684ba46d8af24324`
-- Active validation run: `29706109903`
-- Runtime gate delta: none yet; validation advanced past the live-activation contract and is rerunning after exact mirror parity was restored.
+- Green validation run: `29706109903`
+- Green Architecture Guard run: `29706109924`
+- Main live-path trigger: `27ee5eb743be467af939e0b47b73b1c429ba7f93`
+- Runtime gate delta: none yet; validation is fully green and the existing live verifier has been directly retriggered, but retained live evidence has not yet changed.
