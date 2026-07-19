@@ -1,0 +1,28 @@
+{
+  "completion_policy": {
+    "require_live_execution": true,
+    "require_user_visible_outcome": true,
+    "unknown_is_complete": false
+  },
+  "disallowed_substitutes": [
+    "workflow file exists",
+    "issue exists",
+    "conversation says complete",
+    "local placeholder telemetry",
+    "repository write without observed runtime"
+  ],
+  "generated_at": "2026-07-19T05:19:00Z",
+  "generated_by": "bounded-autonomy-dispatcher",
+  "objective_id": "site-public-autonomy-observability",
+  "repository": "StegVerse-Labs/Site",
+  "requested_capability": "Continuously display governed autonomous task execution, branching, convergence, results, and corrective actions on the public Site.",
+  "required_runtime_evidence": [
+    "scheduled_workflow_run_success",
+    "machine_persisted_public_inventory",
+    "machine_persisted_action_execution_log",
+    "live_page_loads_current_repository_owned_telemetry",
+    "mobile_user_flow_verified"
+  ],
+  "required_user_outcome": "A visitor can inspect current and completed autonomous work without reading GitHub history or relying on conversational claims.",
+  "schema_version": "1.0"
+}

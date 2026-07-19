@@ -1,0 +1,2312 @@
+{
+  "classification_counts": {
+    "PARTIAL": 8,
+    "SCAFFOLD_ONLY": 63,
+    "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
+  },
+  "coverage": "PUBLIC_REPOSITORIES_ONLY",
+  "generated_at": "2026-07-19T05:19:00Z",
+  "organizations": [
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "StegVerse-Labs",
+      "repository_count": 46
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "StegVerse-org",
+      "repository_count": 10
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "StegVerse-002",
+      "repository_count": 2
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "GCAT-BCAT-Engine",
+      "repository_count": 7
+    },
+    {
+      "enumeration_error": "HTTP 404",
+      "inspection_error_count": 0,
+      "organization": "BCAT-GCAT-Engine",
+      "repository_count": 0
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "master-records",
+      "repository_count": 1
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "Data-Continuation",
+      "repository_count": 3
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "AaCT-E",
+      "repository_count": 3
+    },
+    {
+      "enumeration_error": null,
+      "inspection_error_count": 0,
+      "organization": "StegGhost",
+      "repository_count": 0
+    }
+  ],
+  "private_coverage_claimed": false,
+  "repositories": [
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-04-27T02:51:03Z",
+      "repository": "AaCT-E/.github",
+      "successor_eligible": false,
+      "url": "https://github.com/AaCT-E/.github"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-12T07:43:01Z",
+      "repository": "AaCT-E/demo",
+      "successor_eligible": false,
+      "url": "https://github.com/AaCT-E/demo"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-05-03T18:29:43Z",
+      "repository": "AaCT-E/telemetry",
+      "successor_eligible": false,
+      "url": "https://github.com/AaCT-E/telemetry"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-18T00:19:26Z",
+      "repository": "Data-Continuation/RTG-Tests",
+      "successor_eligible": false,
+      "url": "https://github.com/Data-Continuation/RTG-Tests"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-15T03:50:49Z",
+      "repository": "Data-Continuation/core-lite",
+      "successor_eligible": false,
+      "url": "https://github.com/Data-Continuation/core-lite"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-15T22:19:39Z",
+      "repository": "Data-Continuation/formalism-tests",
+      "successor_eligible": false,
+      "url": "https://github.com/Data-Continuation/formalism-tests"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-05-05T21:48:16Z",
+      "repository": "GCAT-BCAT-Engine/Documentation",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/Documentation"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-19T04:46:13Z",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-05-18T12:13:46Z",
+      "repository": "GCAT-BCAT-Engine/StegSim",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/StegSim"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-04-27T02:55:02Z",
+      "repository": "GCAT-BCAT-Engine/Triage",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/Triage"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-07T07:39:44Z",
+      "repository": "GCAT-BCAT-Engine/core-lite",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/core-lite"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T06:50:38Z",
+      "repository": "GCAT-BCAT-Engine/core-lite-prod",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/core-lite-prod"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-18T05:45:47Z",
+      "repository": "GCAT-BCAT-Engine/workflows",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/workflows"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-13T06:12:46Z",
+      "repository": "StegVerse-002/core-lite",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-002/core-lite"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-19T02:42:58Z",
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-002/stegguardian-wiki"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-20T02:39:59Z",
+      "repository": "StegVerse-Labs/.github",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/.github"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T00:13:54Z",
+      "repository": "StegVerse-Labs/3I-Atlas",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/3I-Atlas"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T20:46:11Z",
+      "repository": "StegVerse-Labs/Administrations",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Administrations"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T11:01:11Z",
+      "repository": "StegVerse-Labs/Boundary-Test",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Boundary-Test"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T23:07:04Z",
+      "repository": "StegVerse-Labs/Continuity",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Continuity"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [
+          "Dockerfile"
+        ],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:25:17Z",
+      "repository": "StegVerse-Labs/CosDen",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/CosDen"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:28:56Z",
+      "repository": "StegVerse-Labs/CrystalWorks",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/CrystalWorks"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:28:11Z",
+      "repository": "StegVerse-Labs/DiamondOps-Core",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/DiamondOps-Core"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T00:19:06Z",
+      "repository": "StegVerse-Labs/Epsteinality",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Epsteinality"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-16T18:38:49Z",
+      "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Executive_Rhetoric_Ledger"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-18T11:33:10Z",
+      "repository": "StegVerse-Labs/FREE-DOM",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/FREE-DOM"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T17:28:44Z",
+      "repository": "StegVerse-Labs/FREE-DOM_Books",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/FREE-DOM_Books"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-05-06T01:43:34Z",
+      "repository": "StegVerse-Labs/Fin-Co-Lab",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Fin-Co-Lab"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:24:47Z",
+      "repository": "StegVerse-Labs/Giuffre-ality",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Giuffre-ality"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:28:06Z",
+      "repository": "StegVerse-Labs/HEE-Showcase",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/HEE-Showcase"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T17:26:14Z",
+      "repository": "StegVerse-Labs/HouseHold",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/HouseHold"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T17:20:59Z",
+      "repository": "StegVerse-Labs/HydraSafe",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/HydraSafe"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-03-06T22:40:44Z",
+      "repository": "StegVerse-Labs/JRRZ",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/JRRZ"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T00:20:06Z",
+      "repository": "StegVerse-Labs/Maxwellality",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Maxwellality"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T12:45:54Z",
+      "repository": "StegVerse-Labs/Patents",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Patents"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:26:28Z",
+      "repository": "StegVerse-Labs/Randolph_Geneaology_Hub",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Randolph_Geneaology_Hub"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T00:17:45Z",
+      "repository": "StegVerse-Labs/ReactorOps",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/ReactorOps"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:26:01Z",
+      "repository": "StegVerse-Labs/SDE",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/SDE"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "SITE_MIRROR_HANDOFF.md",
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/validate.yml",
+          ".github/workflows/autonomy-telemetry.yml"
+        ]
+      },
+      "pushed_at": "2026-07-19T05:11:44Z",
+      "repository": "StegVerse-Labs/Site",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Site"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-11T17:22:41Z",
+      "repository": "StegVerse-Labs/Standing-Proof-Engine",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Standing-Proof-Engine"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:24:18Z",
+      "repository": "StegVerse-Labs/StegBiography",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegBiography"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T23:05:03Z",
+      "repository": "StegVerse-Labs/StegCore",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegCore"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:27:53Z",
+      "repository": "StegVerse-Labs/StegCustody",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegCustody"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-23T21:45:08Z",
+      "repository": "StegVerse-Labs/StegDJ",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegDJ"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-18T22:49:22Z",
+      "repository": "StegVerse-Labs/StegEntity",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegEntity"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-14T20:57:35Z",
+      "repository": "StegVerse-Labs/StegLearn",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegLearn"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T17:23:32Z",
+      "repository": "StegVerse-Labs/StegScholar",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegScholar"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-15T02:23:49Z",
+      "repository": "StegVerse-Labs/StegSocials",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegSocials"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:26:06Z",
+      "repository": "StegVerse-Labs/StegSports-CFP",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegSports-CFP"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-07-17T05:40:24Z",
+      "repository": "StegVerse-Labs/StegTalk",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegTalk"
+    },
+    {
+      "archived": false,
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T17:24:26Z",
+      "repository": "StegVerse-Labs/StegVerse-Healer",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/StegVerse-Healer"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-03-08T17:45:59Z",
+      "repository": "StegVerse-Labs/Talarico",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Talarico"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-12T00:48:51Z",
+      "repository": "StegVerse-Labs/Trumpality",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Trumpality"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T00:19:51Z",
+      "repository": "StegVerse-Labs/Value",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Value"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-15T01:28:46Z",
+      "repository": "StegVerse-Labs/YieldOS",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/YieldOS"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-19T02:39:35Z",
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/admissibility-wiki"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-19T03:59:36Z",
+      "repository": "StegVerse-Labs/continuity-vault-kit",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/continuity-vault-kit"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-18T01:37:19Z",
+      "repository": "StegVerse-Labs/footprint-auditor",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/footprint-auditor"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-07-14T11:58:52Z",
+      "repository": "StegVerse-Labs/hybrid-collab-bridge",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/hybrid-collab-bridge"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-02-25T02:10:52Z",
+      "repository": "StegVerse-Labs/stegseed",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/stegseed"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-13T04:55:55Z",
+      "repository": "StegVerse-Labs/stegtalk-wiki",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/stegtalk-wiki"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:48:43Z",
+      "repository": "StegVerse-org/.github",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/.github"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [
+          "render.yaml",
+          "Dockerfile"
+        ],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/validate.yml"
+        ]
+      },
+      "pushed_at": "2026-07-17T02:22:04Z",
+      "repository": "StegVerse-org/LLM-adapter",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/LLM-adapter"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/validate.yml"
+        ]
+      },
+      "pushed_at": "2026-07-18T19:42:54Z",
+      "repository": "StegVerse-org/StegVerse-SDK",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/StegVerse-SDK"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:36:54Z",
+      "repository": "StegVerse-org/demo-sandbox",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/demo-sandbox"
+    },
+    {
+      "archived": false,
+      "classification": "PARTIAL",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": [
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "pushed_at": "2026-06-21T23:36:32Z",
+      "repository": "StegVerse-org/demo-suite-runner",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/demo-suite-runner"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-20T17:32:54Z",
+      "repository": "StegVerse-org/demo_ingest_engine",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/demo_ingest_engine"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:37:43Z",
+      "repository": "StegVerse-org/discovery",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/discovery"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:38:48Z",
+      "repository": "StegVerse-org/manifests",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/manifests"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:35:25Z",
+      "repository": "StegVerse-org/stegverse-demo-suite",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/stegverse-demo-suite"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:37:13Z",
+      "repository": "StegVerse-org/stegverse-gsl",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/stegverse-gsl"
+    },
+    {
+      "archived": false,
+      "classification": "SCAFFOLD_ONLY",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-05-02T05:44:11Z",
+      "repository": "master-records/monitoring",
+      "successor_eligible": false,
+      "url": "https://github.com/master-records/monitoring"
+    }
+  ],
+  "repository_count": 72,
+  "schema_version": "1.0"
+}

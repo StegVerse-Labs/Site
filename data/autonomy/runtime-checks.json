@@ -1,0 +1,56 @@
+{
+  "authority": {
+    "all_objective_evidence_required": true,
+    "runtime_check_pass_is_completion": false
+  },
+  "checks": [
+    {
+      "id": "telemetry-file",
+      "required": true,
+      "type": "http-json",
+      "url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json"
+    },
+    {
+      "id": "live-page",
+      "required": true,
+      "type": "http-html",
+      "url": "https://stegverse-labs.github.io/Site/autonomy-live.html"
+    },
+    {
+      "id": "roadmap-page",
+      "required": true,
+      "type": "http-html",
+      "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html"
+    },
+    {
+      "id": "freshness",
+      "max_age_minutes": 90,
+      "path": "generated_at",
+      "required": true,
+      "type": "json-field"
+    },
+    {
+      "allowed": [
+        "PUBLIC_MACHINE_GENERATED_AUTONOMY_TELEMETRY"
+      ],
+      "id": "machine-mode",
+      "path": "mode",
+      "required": true,
+      "type": "json-field"
+    },
+    {
+      "id": "mobile-flow",
+      "required": true,
+      "type": "browser",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    }
+  ],
+  "completion_effect": "NONE_UNTIL_EXECUTED",
+  "generated_at": "2026-07-19T05:19:00Z",
+  "objective_id": "site-public-autonomy-observability",
+  "repository": "StegVerse-Labs/Site",
+  "schema_version": "1.0"
+}

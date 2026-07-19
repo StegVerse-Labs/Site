@@ -1,0 +1,214 @@
+{
+  "actor": "github-actions[bot]",
+  "applied": [
+    {
+      "action": "ENSURE_SITE_OBJECTIVE_CONTRACT",
+      "path": "data/autonomy/objective-contract.json",
+      "status": "APPLIED"
+    },
+    {
+      "action": "ENSURE_SITE_RUNTIME_CHECK_SPEC",
+      "path": "data/autonomy/runtime-checks.json",
+      "status": "APPLIED"
+    }
+  ],
+  "completion_claimed": false,
+  "denied": [
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:Triage",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/Triage",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:CosDen",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/CosDen",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:StegTalk",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/StegTalk",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:hybrid-collab-bridge",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/hybrid-collab-bridge",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-org:LLM-adapter",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/LLM-adapter",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-org:StegVerse-SDK",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/StegVerse-SDK",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-org:demo-suite-runner",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/demo-suite-runner",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:AaCT-E:.github",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "AaCT-E/.github",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:AaCT-E:demo",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "AaCT-E/demo",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:AaCT-E:telemetry",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "AaCT-E/telemetry",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:Data-Continuation:RTG-Tests",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "Data-Continuation/RTG-Tests",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:Data-Continuation:core-lite",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "Data-Continuation/core-lite",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:Data-Continuation:formalism-tests",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "Data-Continuation/formalism-tests",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:Documentation",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/Documentation",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:Publisher",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:StegSim",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/StegSim",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:core-lite",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/core-lite",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:core-lite-prod",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/core-lite-prod",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:GCAT-BCAT-Engine:workflows",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "GCAT-BCAT-Engine/workflows",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-002:core-lite",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-002/core-lite",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-002:stegguardian-wiki",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:.github",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/.github",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:3I-Atlas",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/3I-Atlas",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:Administrations",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/Administrations",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    }
+  ],
+  "generated_at": "2026-07-19T05:19:00Z",
+  "manual_user_action_required": false,
+  "policy_id": "site-public-autonomy-dispatch-v1",
+  "schema_version": "1.0"
+}
