@@ -60,21 +60,21 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - The binding is loaded through the existing Ecosystem Chat page loader.
 - The existing roadmap and live-tree pages are rebound to the current Ecosystem Chat goal rather than duplicated.
 - Adapter evidence retention, immutable receipt retention, Site activation consumers, and downstream consumers remain implemented.
-- The existing adapter live-verification workflow was deliberately retriggered through a bounded additive comment-only update at commit `356e99de77e520a520260ba811a54c26a6f2892e`; no verifier logic, authority, heartbeat architecture, deployment configuration, or consumer contract was changed.
+- Draft PR `StegVerse-org/LLM-adapter#8` produced observable validation runs through the existing pull-request trigger.
+- The stale no-manual-task checker was repaired at adapter commit `beab2903df8468925006a2b5b4d84215be368340`; its validation step now passes.
+- The stale capability-manifest verifier was repaired at adapter commit `3f35b6b0e645f631af837a191f3e2152815a3480`; manifest verification and all earlier provider, usage, and Master-Records custody tests now pass.
 
 ## Current blocker
 
-The live-verification trigger has been committed, but the stable adapter result still reports `PENDING` with blocker `live_activation_observation_not_yet_recorded`. No new real provider response, persistence, custody, reconstruction, immutable receipt, activation, or propagation evidence has yet been retained from that trigger.
-
-The goal and prompt-level monitoring pages report this boundary but do not advance the runtime gate by themselves.
+Validation now reaches `Test live activation automation contract` and fails there. This is the first remaining concrete blocker in the existing validation-to-live-activation path. No current real provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion has yet been retained.
 
 ## Next executable integration step
 
-Inspect the first retained result produced from adapter commit `356e99de77e520a520260ba811a54c26a6f2892e`. Repair only the first concrete gateway, provider, persistence, custody, reconstruction, or receipt failure. If the result becomes zero-blocker `VERIFIED`, allow the existing Site acquisition, activation-state, and downstream propagation consumers to proceed without creating replacement machinery.
+Inspect the failing assertions in `tests/test_live_activation_automation_contract.py`, compare them with the current live-activation workflow and heartbeat boundary, repair only the stale or conflicting contract assertion, rerun validation, and allow the existing live verifier to execute only after validation succeeds.
 
 ## Manual user action requirement
 
-False for routine application use. A platform-owner action is required only if the existing Site deployment or GitHub Actions policy cannot be operated through connected tooling.
+False for routine application use. Draft PR execution and repository validation are being operated through connected tooling.
 
 ## Progress accounting
 
@@ -86,8 +86,8 @@ False for routine application use. A platform-owner action is required only if t
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
-- Adapter live-verifier trigger: `356e99de77e520a520260ba811a54c26a6f2892e`
-- Action: reused and triggered the existing end-to-end verifier after source-of-truth review; no new gateway, provider adapter, custody path, receipt system, scheduler, monitor, schema, or heartbeat component was created.
-- Runtime gate delta: none yet; the retained stable status remains `PENDING` until the triggered execution writes exact evidence.
-- Prior goal-page integration: `7c1020e4f83c2ba43a4e1a17c288ea25e905ab9a`
-- Prior prompt-tree integration: `b56bd49a6adf8b5053282ffb158ce5882c18dbd8`
+- Draft execution probe: `StegVerse-org/LLM-adapter#8`
+- No-manual-task repair: `beab2903df8468925006a2b5b4d84215be368340`
+- Capability-manifest compatibility repair: `3f35b6b0e645f631af837a191f3e2152815a3480`
+- Validation evidence: run `29704731997` passed setup, provider boundary, backend, endpoint, no-manual-task wiring, free-tier verification, transition verification, provider usage tests, and Master-Records usage custody before failing at the live-activation automation contract.
+- Runtime gate delta: none yet; the build moved measurably closer by clearing two validation blockers and exposing the next exact failure.
