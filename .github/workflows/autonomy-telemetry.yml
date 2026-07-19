@@ -5,8 +5,10 @@ on:
     paths:
       - 'data/autonomy/public-ecosystem-scope.json'
       - 'data/autonomy/mutation-authority-policy.json'
+      - 'data/autonomy/generated-stegpay-integration-status.json'
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
+      - 'scripts/validate_generated_stegpay_integration_status.py'
       - '.github/workflows/autonomy-telemetry.yml'
   schedule:
     - cron: '31 * * * *'
@@ -30,6 +32,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Validate generated StegPay integration status
+        run: python scripts/validate_generated_stegpay_integration_status.py
       - name: Enumerate, inspect, classify, and plan
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -42,7 +46,7 @@ jobs:
         run: python scripts/run_public_autonomy_telemetry.py
       - name: Reapply execution telemetry after reinspection
         run: python scripts/run_bounded_autonomy_dispatcher.py
-      - name: Persist inventory, actions, execution records, and live tree
+      - name: Persist inventory, actions, execution records, validation, and live tree
         run: |
           if git diff --quiet -- data/autonomy; then
             echo "No autonomy state changes to persist."
@@ -56,7 +60,8 @@ jobs:
             data/autonomy/live-status.json \
             data/autonomy/action-executions.json \
             data/autonomy/objective-contract.json \
-            data/autonomy/runtime-checks.json
+            data/autonomy/runtime-checks.json \
+            data/autonomy/generated-stegpay-integration-validation.json
           git commit -m "chore: persist bounded public autonomy cycle"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
