@@ -15,6 +15,14 @@
   "completion_claimed": false,
   "denied": [
     {
+      "action_id": "public-remediate:StegVerse-org:LLM-adapter",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/LLM-adapter",
+      "requested_action": "execute the real user flow and persist strict completion evidence",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
       "action_id": "public-remediate:GCAT-BCAT-Engine:Triage",
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
@@ -43,14 +51,6 @@
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "requested_action": "derive and install an outcome-level objective contract",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
-      "action_id": "public-remediate:StegVerse-org:LLM-adapter",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "StegVerse-org/LLM-adapter",
       "requested_action": "derive and install an outcome-level objective contract",
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     },
@@ -207,7 +207,7 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     }
   ],
-  "generated_at": "2026-07-19T10:16:02Z",
+  "generated_at": "2026-07-19T11:26:28Z",
   "manual_user_action_required": false,
   "policy_id": "site-public-autonomy-dispatch-v1",
   "schema_version": "1.0"

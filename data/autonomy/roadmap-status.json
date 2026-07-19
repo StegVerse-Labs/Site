@@ -1,14 +1,20 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "generated_from": "data/autonomy/live-status.json",
+  "source_generated_at": "2026-07-19T11:26:28Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
-  "status_model": ["implementation", "operation", "evidence", "exit_gate"],
+  "status_model": [
+    "implementation",
+    "operation",
+    "evidence",
+    "exit_gate"
+  ],
   "phases": [
     {
       "id": "truth-layer",
-      "title": "Phase 1 — Truth layer",
+      "title": "Phase 1 \u2014 Truth layer",
       "implementation": "ADVANCED",
       "operation": "PARTIAL",
       "evidence": "INSUFFICIENT",
@@ -27,55 +33,99 @@
         "successful enumeration of every configured organization",
         "successor freeze evidence"
       ],
-      "blockers": ["BCAT-GCAT-Engine organization enumeration returns HTTP 404", "0 of 72 repositories satisfy strict completion evidence"]
+      "blockers": [
+        "BCAT-GCAT-Engine: HTTP 404",
+        "0 of 72 repositories satisfy strict completion evidence"
+      ]
     },
     {
       "id": "execution-layer",
-      "title": "Phase 2 — Execution layer",
-      "implementation": "PARTIAL",
+      "title": "Phase 2 \u2014 Execution layer",
+      "implementation": "ADVANCED",
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 46,
-      "completed": ["next-action planning", "bounded Site-owned dispatch", "deny-by-default cross-repository routing"],
-      "remaining": ["repository-owned bounded runners", "persistent retry and remediation evidence", "dependency-complete external execution"],
-      "blockers": ["24 queued actions require destination-repository authority"]
+      "completed": [
+        "next-action planning",
+        "bounded Site-owned dispatch",
+        "deny-by-default cross-repository routing"
+      ],
+      "remaining": [
+        "repository-owned bounded runners",
+        "persistent retry and remediation evidence",
+        "dependency-complete external execution"
+      ],
+      "blockers": [
+        "24 queued actions cannot be mutated by Site's repository-scoped token."
+      ]
     },
     {
       "id": "runtime-verification-layer",
-      "title": "Phase 3 — Runtime verification layer",
+      "title": "Phase 3 \u2014 Runtime verification layer",
       "implementation": "SPECIFIED",
       "operation": "NOT_OBSERVED",
       "evidence": "MISSING",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 25,
-      "completed": ["endpoint, freshness, machine-mode, and mobile-browser check specification"],
-      "remaining": ["execute endpoint checks", "execute browser user-flow tests", "record integration and deployment verification", "enforce evidence freshness"],
-      "blockers": ["runtime execution evidence has not been recorded"]
+      "completed": [
+        "endpoint, freshness, machine-mode, and mobile-browser check specification"
+      ],
+      "remaining": [
+        "execute endpoint checks",
+        "execute browser user-flow tests",
+        "record integration and deployment verification",
+        "enforce evidence freshness"
+      ],
+      "blockers": [
+        "runtime execution evidence has not been recorded"
+      ]
     },
     {
       "id": "governance-layer",
-      "title": "Phase 4 — Governance layer",
-      "implementation": "PARTIAL",
+      "title": "Phase 4 \u2014 Governance layer",
+      "implementation": "ADVANCED",
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 42,
-      "completed": ["authority checks", "fail-closed completion classification", "cross-repository mutation refusal"],
-      "remaining": ["successor eligibility", "audit downgrade evidence", "cross-repository admissibility completion"],
-      "blockers": ["destination-owned admissibility evidence remains incomplete"]
+      "completed": [
+        "authority checks",
+        "fail-closed completion classification",
+        "cross-repository mutation refusal"
+      ],
+      "remaining": [
+        "successor eligibility",
+        "audit downgrade evidence",
+        "cross-repository admissibility completion"
+      ],
+      "blockers": [
+        "destination-owned admissibility evidence remains incomplete"
+      ]
     },
     {
       "id": "continuity-layer",
-      "title": "Phase 5 — Continuity layer",
+      "title": "Phase 5 \u2014 Continuity layer",
       "implementation": "PARTIAL",
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 34,
-      "completed": ["Site mirror handoff", "machine-owned continuation sequence", "repository history and generated state preservation"],
-      "remaining": ["human-readable ecosystem map", "operational inheritance packet", "debt and service inventory", "transfer and shutdown procedures", "durable ecosystem master record"],
-      "blockers": ["ecosystem-wide continuity packet is not yet complete"]
+      "completed": [
+        "Site mirror handoff",
+        "machine-owned continuation sequence",
+        "repository history and generated state preservation"
+      ],
+      "remaining": [
+        "human-readable ecosystem map",
+        "operational inheritance packet",
+        "debt and service inventory",
+        "transfer and shutdown procedures",
+        "durable ecosystem master record"
+      ],
+      "blockers": [
+        "ecosystem-wide continuity packet is not yet complete"
+      ]
     }
   ],
   "authority_boundary": {

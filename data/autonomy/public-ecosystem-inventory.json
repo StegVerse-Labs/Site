@@ -1,12 +1,12 @@
 {
   "classification_counts": {
-    "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED": 1,
-    "PARTIAL": 7,
+    "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED": 2,
+    "PARTIAL": 6,
     "SCAFFOLD_ONLY": 63,
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T10:16:02Z",
+  "generated_at": "2026-07-19T11:26:28Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -308,7 +308,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T09:26:51Z",
+      "pushed_at": "2026-07-19T10:53:44Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -1275,7 +1275,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-19T09:43:29Z",
+      "pushed_at": "2026-07-19T11:18:56Z",
       "repository": "StegVerse-Labs/Site",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Site"
@@ -1995,7 +1995,7 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
@@ -2003,11 +2003,10 @@
       "completion_evidence_valid": false,
       "inspection_errors": [],
       "missing_gates": [
-        "completion_evidence_missing",
-        "objective_contract"
+        "completion_evidence_missing"
       ],
-      "next_action": "derive and install an outcome-level objective contract",
-      "objective_contract_valid": false,
+      "next_action": "execute the real user flow and persist strict completion evidence",
+      "objective_contract_valid": true,
       "observed_artifacts": {
         "completion": [],
         "deployment": [
@@ -2017,12 +2016,14 @@
         "handoff": [
           "README.md"
         ],
-        "objective": [],
+        "objective": [
+          "data/autonomy/objective-contract.json"
+        ],
         "workflow": [
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-17T02:22:04Z",
+      "pushed_at": "2026-07-19T10:29:27Z",
       "repository": "StegVerse-org/LLM-adapter",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-org/LLM-adapter"

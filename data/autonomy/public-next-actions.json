@@ -16,6 +16,19 @@
       "status": "READY"
     },
     {
+      "action": "execute the real user flow and persist strict completion evidence",
+      "action_id": "public-remediate:StegVerse-org:LLM-adapter",
+      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "completion_evidence_missing"
+      ],
+      "priority": 1,
+      "repository": "StegVerse-org/LLM-adapter",
+      "status": "READY"
+    },
+    {
       "action": "derive and install an outcome-level objective contract",
       "action_id": "public-remediate:GCAT-BCAT-Engine:Triage",
       "classification": "PARTIAL",
@@ -73,20 +86,6 @@
       ],
       "priority": 2,
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:LLM-adapter",
-      "classification": "PARTIAL",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "objective_contract"
-      ],
-      "priority": 2,
-      "repository": "StegVerse-org/LLM-adapter",
       "status": "READY"
     },
     {
@@ -1145,6 +1144,6 @@
     }
   ],
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T10:16:02Z",
+  "generated_at": "2026-07-19T11:26:28Z",
   "schema_version": "1.0"
 }
