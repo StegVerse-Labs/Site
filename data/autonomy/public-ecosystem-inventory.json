@@ -7,7 +7,7 @@
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T14:08:30Z",
+  "generated_at": "2026-07-19T15:40:50Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -303,7 +303,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T13:54:08Z",
+      "pushed_at": "2026-07-19T15:28:04Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -521,7 +521,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T02:42:58Z",
+      "pushed_at": "2026-07-19T14:38:45Z",
       "repository": "StegVerse-002/stegguardian-wiki",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-002/stegguardian-wiki"
@@ -1269,7 +1269,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-19T13:44:24Z",
+      "pushed_at": "2026-07-19T14:08:34Z",
       "repository": "StegVerse-Labs/Site",
       "successor_eligible": true,
       "url": "https://github.com/StegVerse-Labs/Site"
@@ -1795,7 +1795,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T02:39:35Z",
+      "pushed_at": "2026-07-19T14:36:38Z",
       "repository": "StegVerse-Labs/admissibility-wiki",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/admissibility-wiki"
@@ -1826,7 +1826,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T13:56:39Z",
+      "pushed_at": "2026-07-19T15:17:51Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/continuity-vault-kit"
@@ -2017,7 +2017,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-19T10:29:27Z",
+      "pushed_at": "2026-07-19T15:36:42Z",
       "repository": "StegVerse-org/LLM-adapter",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-org/LLM-adapter"
