@@ -48,25 +48,26 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - Existing adapter live verifier implements the required request/provider/custody/reconstruction checks.
 - Existing Site acquisition, validation, state recomputation, retention, and propagation consumers are implemented.
 - Adapter automation contract assertions are aligned with the heartbeat-corrected activation workflow.
-- The existing activation workflow now persists both the detailed latest live observation and stable semantic status to the adapter repository when they change.
+- The activation workflow persists both the detailed latest observation and stable semantic status when it executes and either changes.
 - The immutable VERIFIED receipt remains separately retained only after zero-blocker verification.
-- Site handoff no longer reports removed CI artifacts as heartbeat blockers.
-- Existing adapter stable pending status remains the current accepted runtime source until the next detailed observation is produced.
+- The adapter repository is public, active, on `main`, and available through an administrative GitHub connection.
+- Repeated qualifying adapter commits exist after the workflow repair.
+- No post-repair workflow run or repository-retained `receipts/ecosystem-chat-live-activation.latest.json` is observable.
 - Site-local autonomy checks do not complete Ecosystem Chat activation.
 
 ## Current blocker
 
-The repaired activation workflow has not yet produced the next repository-retained `receipts/ecosystem-chat-live-activation.latest.json` observation. Therefore the first actual gateway, provider, persistence, custody, reconstruction, or receipt failure is still not observable.
+The code-level trigger, verifier, contract, and evidence-retention paths are present, but repository-level GitHub Actions execution has not been observed after repeated qualifying pushes. The exact repository or organization Actions setting responsible has not yet been proven, so the records must not claim that Actions are disabled.
 
-The stable adapter status remains `PENDING` with `live_activation_observation_not_yet_recorded` until that execution occurs.
+The stable adapter status remains `PENDING` with `live_activation_observation_not_yet_recorded`, and the detailed latest observation is absent.
 
 ## Next executable integration step
 
-Execute the existing adapter live-activation workflow after commits `58e61aef236d847885a3eb3750a8b20697120488` and `06ee40df1370eec398fca29105f0cba8ab0463a9`. Inspect the repository-retained detailed observation and repair only its first reported runtime blocker using existing components.
+Inspect the existing `StegVerse-org/LLM-adapter` repository and organization Actions execution policy/settings for the current `main` branch. Restore execution through configuration if it is disabled or restricted; otherwise capture the first run-level failure. Then read the repository-retained detailed observation and repair only its first gateway, provider, persistence, custody, reconstruction, or receipt blocker.
 
 ## Manual user action requirement
 
-False.
+False unless GitHub requires an organization-owner confirmation that is unavailable through the connected administrative interface.
 
 ## Progress accounting
 
@@ -81,4 +82,4 @@ These measures must not be collapsed into one percentage.
 - Date: 2026-07-19
 - Adapter evidence-retention commits: `a5e0b92ac58d924e77e8cc43f2a0d3d2ee8153ae`, `58e61aef236d847885a3eb3750a8b20697120488`
 - Adapter contract commit: `06ee40df1370eec398fca29105f0cba8ab0463a9`
-- Advancement: repaired the existing live-activation workflow so its already-generated detailed pending or verified observation is durably retained in repository state, eliminating dependence on expiring workflow artifacts for the first actual runtime blocker.
+- Latest finding: workflow and contract content are coherent, but no qualifying push has produced an observable run or retained detailed observation; the next boundary is repository-level Actions execution policy rather than heartbeat or verifier design.
