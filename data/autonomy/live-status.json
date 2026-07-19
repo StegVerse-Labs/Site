@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "generated_at": null,
+  "mode": "NOT_YET_CONNECTED",
+  "truthful_notice": "No autonomous telemetry feed is connected yet. This record must not be represented as live execution evidence.",
+  "active_tasks": [],
+  "recent_steps": [],
+  "corrective_actions": [],
+  "roadmap_path": "autonomy-roadmap.html",
+  "task_source": "StegVerse-Labs/StegOps-Orchestrator/issues/7"
+}
