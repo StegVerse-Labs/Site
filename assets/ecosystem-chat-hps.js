@@ -111,6 +111,11 @@
     .then(render)
     .catch(() => setFailClosed('Fixture could not be loaded; the visualization failed closed.'));
 
+  const liveBinding = document.createElement('script');
+  liveBinding.src = 'assets/ecosystem-chat-live-binding.js';
+  liveBinding.dataset.governedGatewayBinding = 'true';
+  document.body.appendChild(liveBinding);
+
   for (const source of [
     'assets/ecosystem-chat-conversation.js',
     'assets/ecosystem-chat-transition-identity.js',
