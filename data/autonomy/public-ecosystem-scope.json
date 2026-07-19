@@ -1,16 +1,23 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
   "organizations": [
     "StegVerse-Labs",
     "StegVerse-org",
     "StegVerse-002",
     "GCAT-BCAT-Engine",
-    "BCAT-GCAT-Engine",
     "master-records",
     "Data-Continuation",
     "AaCT-E",
     "StegGhost"
+  ],
+  "excluded_organization_aliases": [
+    {
+      "name": "BCAT-GCAT-Engine",
+      "reason": "GitHub organization enumeration returns HTTP 404; canonical organization is GCAT-BCAT-Engine.",
+      "replacement": "GCAT-BCAT-Engine",
+      "excluded_at": "2026-07-19T12:31:50Z"
+    }
   ],
   "unknown_is_complete": false,
   "private_coverage_claimed": false
