@@ -1,10 +1,12 @@
-name: Public Autonomy Telemetry
+name: Public Autonomy Telemetry and Bounded Dispatch
 
 on:
   push:
     paths:
       - 'data/autonomy/public-ecosystem-scope.json'
+      - 'data/autonomy/mutation-authority-policy.json'
       - 'scripts/run_public_autonomy_telemetry.py'
+      - 'scripts/run_bounded_autonomy_dispatcher.py'
       - '.github/workflows/autonomy-telemetry.yml'
   schedule:
     - cron: '31 * * * *'
@@ -20,7 +22,7 @@ concurrency:
 jobs:
   run-public-autonomy-cycle:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,10 +34,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/run_public_autonomy_telemetry.py
-      - name: Persist public inventory, actions, and live tree
+      - name: Execute bounded Site-owned remediations
+        run: python scripts/run_bounded_autonomy_dispatcher.py
+      - name: Reinspect after bounded remediation
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/run_public_autonomy_telemetry.py
+      - name: Reapply execution telemetry after reinspection
+        run: python scripts/run_bounded_autonomy_dispatcher.py
+      - name: Persist inventory, actions, execution records, and live tree
         run: |
           if git diff --quiet -- data/autonomy; then
-            echo "No autonomy telemetry changes to persist."
+            echo "No autonomy state changes to persist."
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -43,7 +53,10 @@ jobs:
           git add \
             data/autonomy/public-ecosystem-inventory.json \
             data/autonomy/public-next-actions.json \
-            data/autonomy/live-status.json
-          git commit -m "chore: persist public autonomy telemetry"
+            data/autonomy/live-status.json \
+            data/autonomy/action-executions.json \
+            data/autonomy/objective-contract.json \
+            data/autonomy/runtime-checks.json
+          git commit -m "chore: persist bounded public autonomy cycle"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
