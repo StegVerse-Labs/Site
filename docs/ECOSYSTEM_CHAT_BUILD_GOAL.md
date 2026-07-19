@@ -63,15 +63,16 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - Draft PR `StegVerse-org/LLM-adapter#8` produced observable validation runs through the existing pull-request trigger.
 - The stale no-manual-task checker was repaired at adapter commit `beab2903df8468925006a2b5b4d84215be368340`; its validation step now passes.
 - The stale capability-manifest verifier was repaired at adapter commit `3f35b6b0e645f631af837a191f3e2152815a3480`; manifest verification and all earlier provider, usage, and Master-Records custody tests now pass.
-- The overbroad live-activation contract assertion was bounded at adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006` so YAML comments are ignored only by the generic heartbeat-term scan while explicit prohibited monitor phrases remain checked against the complete workflow.
+- The overbroad live-activation contract assertion was bounded at adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`; the contract test now passes while explicit prohibited monitor phrases remain checked.
+- Workflow parity then failed because the canonical validation workflow carried the branch-probe comment and its required iOS-safe mirror did not. The mirror was restored to exact parity at adapter commit `5a6dbafe6db960ef8afab892684ba46d8af24324` without changing workflow behavior.
 
 ## Current blocker
 
-A new validation run for adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006` has not yet been observed. The contract repair is committed, but no live provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion is yet retained.
+Validation run `29706109903` for adapter commit `5a6dbafe6db960ef8afab892684ba46d8af24324` is in progress. No current live provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion has yet been retained.
 
 ## Next executable integration step
 
-Observe the validation run produced by adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`. If validation passes, inspect the existing live-activation execution and repair only its first concrete runtime blocker. If another validation assertion fails, repair only that exact assertion without altering heartbeat architecture.
+Observe validation run `29706109903`. If validation passes, inspect the existing live-activation execution and repair only its first concrete runtime blocker. If another validation check fails, repair only that exact boundary without changing heartbeat architecture or authority.
 
 ## Manual user action requirement
 
@@ -91,4 +92,6 @@ False for routine application use. Draft PR execution and repository validation 
 - No-manual-task repair: `beab2903df8468925006a2b5b4d84215be368340`
 - Capability-manifest compatibility repair: `3f35b6b0e645f631af837a191f3e2152815a3480`
 - Live-activation contract repair: `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`
-- Runtime gate delta: none yet; the exact blocking assertion was repaired without deleting the retained comment or weakening the heartbeat boundary.
+- Workflow parity repair: `5a6dbafe6db960ef8afab892684ba46d8af24324`
+- Active validation run: `29706109903`
+- Runtime gate delta: none yet; validation advanced past the live-activation contract and is rerunning after exact mirror parity was restored.
