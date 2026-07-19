@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "repository": "StegVerse-Labs/Site",
+  "requirement_id": "site-runtime-verification-freshness",
+  "implemented_at": "2026-07-19T16:30:00Z",
+  "state": "IMPLEMENTED_PENDING_AUTOMATIC_RUNTIME_VERIFICATION",
+  "problem": {
+    "failed_check_id": "freshness",
+    "observed_public_generated_at": "2026-07-19T14:08:33.615834Z",
+    "verification_generated_at": "2026-07-19T15:40:53.678439Z",
+    "observed_age_minutes": 92.29,
+    "classification": "PUBLIC_PROJECTION_CACHE_STALENESS_OR_DEPLOYMENT_LAG"
+  },
+  "mutation": {
+    "path": "scripts/run_autonomy_runtime_verification.py",
+    "commit": "5d6c475a2c8dd86721062785b59b4b1efe67f81f",
+    "changes": [
+      "Adds a unique runtime_verifier_nonce query parameter to every HTTP verification request",
+      "Adds Cache-Control and Pragma request headers that prohibit cached verifier responses",
+      "Records effective_url and cache_bypass in generated evidence",
+      "Applies the same cache bypass to browser-based runtime checks",
+      "Preserves the existing fail-closed freshness threshold and authority boundaries"
+    ]
+  },
+  "verification": {
+    "owner": ".github/workflows/autonomy-telemetry.yml",
+    "trigger": "push affecting scripts/run_autonomy_runtime_verification.py",
+    "expected_evidence_path": "data/autonomy/runtime-verification-evidence.json",
+    "success_condition": "freshness passes without changing max_age_minutes",
+    "automatic": true,
+    "manual_user_action_required": false
+  },
+  "authority": {
+    "implementation_is_completion_authority": false,
+    "runtime_pass_is_release_authority": false,
+    "runtime_pass_is_admissibility_authority": false
+  }
+}
