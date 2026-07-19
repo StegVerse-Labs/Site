@@ -1,19 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>StegVerse Autonomy Roadmap</title>
-<style>body{font-family:system-ui,-apple-system,sans-serif;max-width:900px;margin:auto;padding:20px;line-height:1.5}nav{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}.card{border:1px solid #aaa;border-radius:12px;padding:16px;margin:12px 0}.done{font-weight:700}.status{font-size:1.15rem}code{overflow-wrap:anywhere}a{color:inherit}</style>
+<style>
+:root{color-scheme:light dark;--bg:#0f1115;--panel:#171a20;--card:#1d2128;--border:#3d4450;--text:#f3f5f7;--muted:#aab2bd;--ok:#65d28a;--wait:#e4b85d;--block:#ed7777;--link:#b9d8ff}
+*{box-sizing:border-box;min-width:0}html{background:var(--bg);font-size:16px}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;max-width:1100px;margin:0 auto;padding:24px;color:var(--text);background:var(--bg);line-height:1.48}nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}nav a{display:inline-flex;align-items:center;min-height:40px;padding:8px 13px;border:1px solid var(--border);border-radius:10px;text-decoration:none;background:var(--panel);color:var(--link)}h1{font-size:2.1rem;margin:0 0 10px}h2{font-size:1.28rem;margin:0}.notice{color:var(--muted);max-width:880px}.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:18px 0}.metric,.phase{border:1px solid var(--border);border-radius:14px;background:var(--panel)}.metric{padding:13px}.metric strong{display:block;font-size:1.25rem}.metric span{font-size:.8rem;color:var(--muted)}.phase{padding:18px;margin:14px 0}.phase-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.progress{font-weight:800;font-size:1.15rem}.states{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin:14px 0}.state{padding:10px;border:1px solid var(--border);border-radius:10px;background:var(--card)}.state span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}.state strong{font-size:.9rem;overflow-wrap:anywhere}.ok{color:var(--ok)}.waiting{color:var(--wait)}.blocked{color:var(--block)}.columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}.columns h3{font-size:.95rem;margin:8px 0}.columns ul{margin:0;padding-left:1.2rem}.columns li{margin:.35rem 0;font-size:.9rem}.blockers{margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}.blockers strong{color:var(--block)}.footer{margin-top:24px;padding:16px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.empty{color:var(--muted)}@media(max-width:700px){body{padding:14px}.columns{grid-template-columns:1fr}.phase{padding:14px}h1{font-size:1.7rem}}
+</style>
 </head>
 <body>
 <nav><a href="autonomy-live.html">Live autonomy activity</a><a href="index.html">Site home</a></nav>
 <h1>Roadmap to Autonomy</h1>
-<p>This page is the durable roadmap. A phase receives ✅ only after machine-verifiable exit evidence exists. Documentation, issues, workflows, receipts, or simulated output alone do not satisfy completion.</p>
-<div class="card"><h2>Phase 1 — Truth layer</h2><p>Build the ecosystem inventory, objective contracts, dual implementation/operational statuses, evidence registry, completion gate, and successor freeze.</p><p class="status">❌ Incomplete</p></div>
-<div class="card"><h2>Phase 2 — Execution layer</h2><p>Build the next-action planner, repository action runners, dependency resolution, failure classification, retry/remediation loop, and persistent execution state.</p><p class="status">❌ Incomplete</p></div>
-<div class="card"><h2>Phase 3 — Runtime verification layer</h2><p>Build endpoint checks, browser/user-flow tests, integration-call verification, deployment verification, and evidence-freshness rules.</p><p class="status">❌ Incomplete</p></div>
-<div class="card"><h2>Phase 4 — Governance layer</h2><p>Enforce authority checks, completion-claim restrictions, successor eligibility, audit downgrades, and cross-repository admissibility.</p><p class="status">❌ Incomplete</p></div>
-<div class="card"><h2>Phase 5 — Continuity layer</h2><p>Build the human-readable ecosystem map, operational inheritance packet, debt/service inventory, transfer procedures, shutdown procedures, and durable master record.</p><p class="status">❌ Incomplete</p></div>
-<h2>Current governing task</h2>
-<p><a href="https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7">StegOps-Orchestrator issue #7 — ecosystem-wide outcome-level completion integrity audit</a></p>
-</body></html>
+<p class="notice">A phase receives a complete exit gate only after machine-verifiable evidence exists. Implementation, operation, evidence, and phase completion are reported separately so installed work is visible without overstating authority or readiness.</p>
+<div id="summary" class="summary"></div>
+<main id="phases"><p class="empty">Loading machine-readable roadmap state…</p></main>
+<div class="footer"><strong>Current governing task:</strong> <a id="task-link" href="https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7">StegOps-Orchestrator issue #7</a><p id="boundary" class="notice"></p></div>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const tone=value=>{const s=String(value||'').toUpperCase();if(['COMPLETE','VALID','OPERATIONAL','ADVANCED'].includes(s))return'ok';if(s.includes('MISSING')||s.includes('BLOCK')||s==='INSUFFICIENT'||s==='INCOMPLETE'||s==='NOT_OBSERVED')return'blocked';return'waiting'};
+const list=(title,items)=>`<section><h3>${esc(title)}</h3>${items?.length?`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="empty">None reported.</p>'}</section>`;
+function render(d){
+ const phases=d.phases||[];
+ const avg=phases.length?Math.round(phases.reduce((n,p)=>n+Number(p.progress_percent||0),0)/phases.length):0;
+ const complete=phases.filter(p=>String(p.exit_gate).toUpperCase()==='COMPLETE').length;
+ document.getElementById('summary').innerHTML=[['Overall',d.overall_state],['Roadmap progress',avg+'%'],['Exit gates complete',complete+' / '+phases.length],['Manual action',d.manual_user_action_required?'Required':'Not required']].map(([l,v])=>`<div class="metric"><strong>${esc(v)}</strong><span>${esc(l)}</span></div>`).join('');
+ document.getElementById('phases').innerHTML=phases.map(p=>`<article class="phase"><div class="phase-head"><h2>${esc(p.title)}</h2><div class="progress">${esc(p.progress_percent)}%</div></div><div class="states">${[['Implementation',p.implementation],['Operation',p.operation],['Evidence',p.evidence],['Exit gate',p.exit_gate]].map(([l,v])=>`<div class="state"><span>${esc(l)}</span><strong class="${tone(v)}">${esc(v)}</strong></div>`).join('')}</div><div class="columns">${list('Completed or installed',p.completed)}${list('Remaining',p.remaining)}</div><div class="blockers"><strong>Current blockers</strong>${p.blockers?.length?`<ul>${p.blockers.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="empty">None reported.</p>'}</div></article>`).join('')||'<p class="empty">No roadmap phases were reported.</p>';
+ if(d.governing_task)document.getElementById('task-link').href='https://github.com/'+d.governing_task;
+ const b=d.authority_boundary||{};document.getElementById('boundary').textContent=`Authority boundary: roadmap display is not execution authority; implementation is not operational completion; evidence is not release authority; exit gates require machine-verifiable evidence (${b.exit_gate_requires_machine_verifiable_evidence===true?'enforced':'not confirmed'}).`;
+}
+fetch('data/autonomy/roadmap-status.json?ts='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('roadmap status returned '+r.status);return r.json()}).then(render).catch(e=>{document.getElementById('phases').innerHTML=`<p class="blocked">ROADMAP_TELEMETRY_UNAVAILABLE: ${esc(e.message)}</p>`});
+</script>
+</body>
+</html>
