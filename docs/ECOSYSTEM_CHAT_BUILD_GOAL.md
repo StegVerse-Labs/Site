@@ -36,7 +36,7 @@ Portable-node expansion remains out of scope until this hosted vertical slice is
 - High-level goal progression: `autonomy-roadmap.html`
 - Prompt-level task tree: `autonomy-live.html`
 
-These existing pages are reused and read the Ecosystem Chat goal state from `data/autonomy/roadmap-status.json` and `data/autonomy/live-status.json`. Green checks require completed or integrated evidence states; red Xs identify unpassed runtime gates. The pages do not grant execution, completion, custody, release, or heartbeat authority.
+These pages report evidence state only. They do not grant execution, completion, custody, release, deployment, publication, or heartbeat authority.
 
 ## What counts as real progress
 
@@ -52,30 +52,29 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 
 ## Proven state
 
-- The existing adapter gateway code defines `/health`, `/api/ecosystem-chat`, and transition-status routes and preserves the established provider, persistence, custody, reconstruction, receipt, and authority boundaries.
-- The production blueprint configures the combined gateway application, durable storage, provider integration, Master-Records connection, CORS, and `/health` health check.
-- The existing Site classifier, fail-closed local fallback, and bounded gateway binding remain installed.
-- Adapter evidence retention, immutable receipt retention, Site activation consumers, and downstream consumers remain implemented.
-- Draft PR `StegVerse-org/LLM-adapter#8` passes the installed validation suite and Architecture Guard.
-- The no-manual-task, capability-manifest, live-activation-contract, and iOS workflow-parity blockers were repaired without removing existing runtime architecture.
-- Validation run `29706109903` and Architecture Guard run `29706109924` completed successfully.
-- An observable deployed probe was added to the existing PR validation path at adapter commits `025ca539f1d110675572d9e924a009a836d8f898` and `8bf65c85acb7c76b3cc98b219e59530fb4baae6d`.
-- Validation run `29706857317` executed the real deployed verifier and uploaded artifact `8448172403`.
-- The retained receipt proves the configured host resolves and responds, but `/health`, `/api/ecosystem-chat`, and `/api/transitions/{id}` each returned HTTP 404.
-- The receipt remains `PENDING`; all authority and repository-mutation flags remain false.
-- The existing production blueprint was bounded on the probe branch at adapter commit `33d652229a80246ab0b0384409b13b2c6c285a11` with `renderSubdomainPolicy: enabled` for the already-intended public gateway URL.
+- The existing adapter code defines `/health`, `/api/ecosystem-chat`, and transition-status routes.
+- The combined gateway preserves provider, persistence, custody, reconstruction, receipt, and authority boundaries.
+- The existing Site classifier, fail-closed fallback, gateway binding, activation consumers, and downstream consumers remain installed.
+- PR #8 was merged as `ce9027d0d3bf79f93b92bc764880a21cd848afda` after full validation and Architecture Guard success.
+- Deployed probe run `29706857317` retained artifact `8448172403`; the configured host resolved but all required routes returned HTTP 404.
+- `render-production.yaml` was not the consumed default Blueprint path.
+- Post-merge probe run `29708519759` retained artifact `8448551905` and confirmed the same HTTP 404 result after the non-consumed production-file repair.
+- The consumed `render.yaml` retained the existing free plan, provider-disabled posture, non-durable storage, and external Master-Records settings, but omitted an explicit public subdomain policy.
+- PR #9 added only `renderSubdomainPolicy: enabled` to that existing service.
+- Validation run `29708558752` and Architecture Guard run `29708558778` passed.
+- PR #9 was merged as `1393a06c35a9727b1734a4b7a40ccd62e43e75e5` through the existing repository path.
 
 ## Current blocker
 
-The deployed `onrender.com` gateway hostname is reachable but serves 404 for every required gateway route. Repository code and the production blueprint define those routes, so the current boundary is deployment/service exposure rather than DNS, transport, provider logic, or Master-Records logic. The bounded Render subdomain-policy repair is validated only on the probe branch and is not yet deployed.
+The consumed Render Blueprint repair is merged, but a post-merge deployed observation has not yet proved that `/health` or the API routes are exposed. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Complete validation for adapter commit `33d652229a80246ab0b0384409b13b2c6c285a11`, integrate the bounded production-blueprint repair through the established repository path, allow the existing `checksPass` deployment policy to operate, then rerun the same deployed verifier. Repair only the first remaining concrete runtime blocker.
+Allow the existing `autoDeploy: true` Render binding to process merge commit `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`, then execute the same retained verifier. If `/health` becomes available, repair only the next exact provider, durability, Master-Records, custody, or reconstruction blocker. If HTTP 404 remains, inspect the existing Render service-to-Blueprint binding rather than creating another gateway.
 
 ## Manual user action requirement
 
-False for routine repository work. The remaining deployment action must use the already-established Render Blueprint and `checksPass` authority; no new deployment, release, custody, execution, or governance authority is being granted.
+False for routine repository work. No new deployment, release, custody, execution, publication, or governance authority was granted.
 
 ## Progress accounting
 
@@ -87,12 +86,12 @@ False for routine repository work. The remaining deployment action must use the 
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
-- Draft execution probe: `StegVerse-org/LLM-adapter#8`
-- Green validation run: `29706109903`
-- Green Architecture Guard run: `29706109924`
-- Observable deployed-probe commits: `025ca539f1d110675572d9e924a009a836d8f898`, `8bf65c85acb7c76b3cc98b219e59530fb4baae6d`
-- Deployed-probe validation run: `29706857317`
-- Deployed receipt artifact: `8448172403`
-- Exact runtime failure: HTTP 404 at health, chat, and transition routes
-- Bounded Render exposure repair: `33d652229a80246ab0b0384409b13b2c6c285a11`
-- Runtime gate delta: the real deployed path is now EXECUTED and its first concrete failure is retained; provider, custody, reconstruction, receipt verification, Site activation, and propagation remain unproven.
+- Initial merged integration: `ce9027d0d3bf79f93b92bc764880a21cd848afda`
+- Post-merge deployed probe run: `29708519759`
+- Post-merge deployed receipt artifact: `8448551905`
+- Exact retained failure: HTTP 404 at health, chat, and transition routes
+- Consumed Blueprint repair: `3a885095fd3f695da3c852ced0543969de295493`
+- Repair validation: `29708558752` SUCCESS
+- Repair Architecture Guard: `29708558778` SUCCESS
+- Merged repair: `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`
+- Runtime gate delta: the deployment-binding mismatch is repaired in the consumed Blueprint and merged; live route exposure remains pending post-deployment execution evidence.
