@@ -1,169 +1,284 @@
 {
-  "schema_version": "3.0",
-  "generated_at": "2026-07-19T19:00:00Z",
-  "mode": "ECOSYSTEM_CHAT_GOAL_TRACKING",
-  "truthful_notice": "Repository-integrated task state only. A green check marks completed repository work; live provider, custody, reconstruction, receipt, activation, and propagation remain unverified until current runtime evidence exists.",
-  "summary": {
-    "goal": "Hosted Ecosystem Chat vertical slice",
-    "active_tasks": 4,
-    "complete_tasks": 5,
-    "blocked_gates": 5,
-    "next_task": "Execute deployed browser request"
-  },
-  "task_graph": {
-    "graph_id": "ecosystem-chat-prompt-tree-2026-07-19",
-    "root_task_ids": ["goal-root"],
-    "nodes": [
-      {
-        "id": "goal-root",
-        "prompt_ref": "Declared goal",
-        "title": "Complete the hosted Ecosystem Chat vertical slice",
-        "status": "IN_PROGRESS",
-        "current_step": "Request entry is integrated. The next gate is current deployed execution evidence.",
-        "owner": "StegVerse-Labs/Site + StegVerse-org/LLM-adapter",
-        "updated_at": "2026-07-19T19:00:00Z",
-        "depends_on": []
-      },
-      {
-        "id": "locate-monitor-pages",
-        "prompt_ref": "Prompt: identify the two Site progress pages",
-        "title": "Recover the existing goal and prompt-level monitoring pages",
-        "status": "COMPLETE",
-        "result": "Reused autonomy-roadmap.html and autonomy-live.html rather than creating duplicate pages.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-19T18:45:00Z",
-        "depends_on": ["goal-root"]
-      },
-      {
-        "id": "rebind-goal-page",
-        "prompt_ref": "Prompt task 1",
-        "title": "Bind the high-level page to Ecosystem Chat goal gates",
-        "status": "COMPLETE",
-        "result": "The existing roadmap renderer now shows request, provider, persistence, custody, reconstruction, receipt, Site activation, and propagation with explicit status marks.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-19T18:50:00Z",
-        "depends_on": ["locate-monitor-pages"]
-      },
-      {
-        "id": "rebind-task-tree",
-        "prompt_ref": "Prompt task 2",
-        "title": "Bind the tree page to prompt-level Ecosystem Chat tasks",
-        "status": "COMPLETE",
-        "result": "The existing dependency renderer now displays prompt references, check/X markers, newest-first history, and current Ecosystem Chat tasks.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-19T18:52:00Z",
-        "depends_on": ["locate-monitor-pages"]
-      },
-      {
-        "id": "repair-card-fit",
-        "prompt_ref": "Prompt task 3",
-        "title": "Keep tree and status text inside cards on mobile",
-        "status": "COMPLETE",
-        "result": "Grid minimums, overflow wrapping, word breaking, responsive stacking, and narrow-screen typography were bounded to card width.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-19T18:54:00Z",
-        "depends_on": ["rebind-goal-page", "rebind-task-tree"]
-      },
-      {
-        "id": "browser-gateway-binding",
-        "prompt_ref": "Previous build prompt",
-        "title": "Connect public chat form to existing governed gateway",
-        "status": "INTEGRATED",
-        "result": "Non-restricted requests receive transition identity and use the established gateway; restricted requests and gateway failures remain fail closed.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-19T18:13:28Z",
-        "depends_on": ["goal-root"]
-      },
-      {
-        "id": "deployed-browser-execution",
-        "prompt_ref": "Next prompt-level runtime task",
-        "title": "Execute one deployed non-restricted Ecosystem Chat request",
-        "status": "NOT_OBSERVED",
-        "current_step": "Run the existing public page through its existing gateway binding and capture the returned transition and receipt fields.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-19T19:00:00Z",
-        "depends_on": ["browser-gateway-binding", "repair-card-fit"]
-      },
-      {
-        "id": "provider-persistence-gate",
-        "prompt_ref": "Runtime branch after deployed request",
-        "title": "Verify provider response and local usage persistence",
-        "status": "BLOCKED_BY_RUNTIME_EVIDENCE",
-        "current_step": "Requires provider.used=true and a durable local usage record from the same request identity.",
-        "owner": "StegVerse-org/LLM-adapter",
-        "updated_at": "2026-07-19T19:00:00Z",
-        "depends_on": ["deployed-browser-execution"]
-      },
-      {
-        "id": "custody-reconstruction-gate",
-        "prompt_ref": "Runtime convergence task",
-        "title": "Verify both custody and reconstruction chains",
-        "status": "BLOCKED_BY_RUNTIME_EVIDENCE",
-        "current_step": "Provider-usage and transition custody must both be RECORDED and reconstruct with PASS.",
-        "owner": "Master-Records + StegVerse-org/LLM-adapter",
-        "updated_at": "2026-07-19T19:00:00Z",
-        "depends_on": ["provider-persistence-gate"]
-      },
-      {
-        "id": "verified-receipt-gate",
-        "prompt_ref": "Receipt task",
-        "title": "Retain immutable zero-blocker VERIFIED receipt",
-        "status": "BLOCKED_BY_RUNTIME_EVIDENCE",
-        "current_step": "Requires all verifier blockers cleared with all authority flags false.",
-        "owner": "StegVerse-org/LLM-adapter",
-        "updated_at": "2026-07-19T19:00:00Z",
-        "depends_on": ["custody-reconstruction-gate"]
-      },
-      {
-        "id": "activation-propagation-gate",
-        "prompt_ref": "Final convergence task",
-        "title": "Complete Site activation and downstream ingestion",
-        "status": "BLOCKED_BY_UPSTREAM_RECEIPT",
-        "current_step": "Site must import the immutable receipt, compute ACTIVATION_COMPLETE, and propagate verified state to all three consumers.",
-        "owner": "StegVerse-Labs/Site + downstream consumers",
-        "updated_at": "2026-07-19T19:00:00Z",
-        "depends_on": ["verified-receipt-gate"]
-      }
-    ],
-    "edges": [
-      {"from": "goal-root", "to": "locate-monitor-pages", "type": "split"},
-      {"from": "locate-monitor-pages", "to": "rebind-goal-page", "type": "split"},
-      {"from": "locate-monitor-pages", "to": "rebind-task-tree", "type": "split"},
-      {"from": "rebind-goal-page", "to": "repair-card-fit", "type": "converge"},
-      {"from": "rebind-task-tree", "to": "repair-card-fit", "type": "converge"},
-      {"from": "goal-root", "to": "browser-gateway-binding", "type": "split"},
-      {"from": "browser-gateway-binding", "to": "deployed-browser-execution", "type": "converge"},
-      {"from": "repair-card-fit", "to": "deployed-browser-execution", "type": "converge"},
-      {"from": "deployed-browser-execution", "to": "provider-persistence-gate", "type": "sequence"},
-      {"from": "provider-persistence-gate", "to": "custody-reconstruction-gate", "type": "sequence"},
-      {"from": "custody-reconstruction-gate", "to": "verified-receipt-gate", "type": "sequence"},
-      {"from": "verified-receipt-gate", "to": "activation-propagation-gate", "type": "sequence"}
-    ]
-  },
-  "corrective_actions": [
-    {
-      "id": "execute-current-browser-path",
-      "action": "Execute the existing deployed browser-to-gateway path",
-      "status": "REQUIRED",
-      "reason": "No current runtime evidence exists for provider use, persistence, custody, reconstruction, or immutable receipt generation."
-    }
-  ],
   "completed_history": [
     {
-      "id": "monitor-pages-rebound",
-      "title": "Goal and prompt-level monitoring pages rebound",
+      "branch_ids": [
+        "public-enumeration",
+        "public-evidence-inspection",
+        "public-classification",
+        "public-action-planner"
+      ],
+      "completed_at": "2026-07-19T19:51:47Z",
+      "id": "public-integrity-cycle:2026-07-19T19:51:47Z",
+      "result": "Processed 72 public repositories and generated 71 actions.",
       "status": "COMPLETE",
-      "result": "Existing monitoring pages were reused, retitled, connected to the current Ecosystem Chat goal, and repaired for bounded card layout.",
-      "completed_at": "2026-07-19T18:54:00Z",
-      "branch_ids": ["locate-monitor-pages", "rebind-goal-page", "rebind-task-tree", "repair-card-fit"]
+      "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+      "title": "Public completion-integrity cycle"
+    }
+  ],
+  "corrective_actions": [
+    {
+      "action": "Install repository-owned bounded runners for queued external remediations",
+      "id": "authorized-repository-runners",
+      "reason": "25 queued actions cannot be mutated by Site's repository-scoped token.",
+      "status": "MACHINE_ACTION_REQUIRED"
     },
     {
-      "id": "gateway-binding-installed",
-      "title": "Governed browser gateway binding installed",
-      "status": "COMPLETE",
-      "result": "The public chat source can construct required transition identity and call the existing governed gateway while preserving local refusal and fallback.",
-      "completed_at": "2026-07-19T18:13:28Z",
-      "branch_ids": ["browser-gateway-binding"]
+      "action": "Repair failed public autonomy runtime checks and rerun automatically",
+      "evidence_path": "data/autonomy/runtime-verification-evidence.json",
+      "id": "site-runtime-verification-failure",
+      "reason": "Failed required checks: machine-mode",
+      "status": "AUTOMATIC_REPAIR_REQUIRED"
+    },
+    {
+      "action": "Repair failed public Site runtime checks",
+      "evidence_path": "data/autonomy/runtime-verification-evidence.json",
+      "id": "runtime-verification-failure",
+      "reason": "6 of 7 required runtime checks passed; failed checks: machine-mode.",
+      "status": "MACHINE_ACTION_REQUIRED"
     }
-  ]
+  ],
+  "generated_at": "2026-07-19T19:51:50.552707Z",
+  "inventory_path": "data/autonomy/public-ecosystem-inventory.json",
+  "mode": "PUBLIC_MACHINE_GENERATED_AUTONOMY_TELEMETRY",
+  "next_actions_path": "data/autonomy/public-next-actions.json",
+  "runtime_verification": {
+    "admissibility_authority": false,
+    "completion_authority": false,
+    "evidence_generated_at": "2026-07-19T19:51:50.552707Z",
+    "evidence_path": "data/autonomy/runtime-verification-evidence.json",
+    "failed_required_check_ids": [
+      "machine-mode"
+    ],
+    "passed_required_checks": 6,
+    "release_authority": false,
+    "required_checks": 7,
+    "state": "FAIL"
+  },
+  "schema_version": "2.3",
+  "summary": {
+    "coverage": "PUBLIC_REPOSITORIES_ONLY",
+    "next_actions": 71,
+    "operationally_complete": 1,
+    "organizations": 8,
+    "repositories": 72,
+    "valid_completion_evidence": 1
+  },
+  "task_graph": {
+    "edges": [
+      {
+        "from": "public-truth-root",
+        "to": "public-enumeration",
+        "type": "split"
+      },
+      {
+        "from": "public-truth-root",
+        "to": "public-evidence-inspection",
+        "type": "split"
+      },
+      {
+        "from": "public-enumeration",
+        "to": "public-classification",
+        "type": "converge"
+      },
+      {
+        "from": "public-evidence-inspection",
+        "to": "public-classification",
+        "type": "converge"
+      },
+      {
+        "from": "public-classification",
+        "to": "public-action-planner",
+        "type": "sequence"
+      },
+      {
+        "from": "public-classification",
+        "to": "public-completion-gate",
+        "type": "split"
+      },
+      {
+        "from": "public-action-planner",
+        "to": "public-completion-gate",
+        "type": "converge"
+      },
+      {
+        "from": "public-action-planner",
+        "to": "public-execution-runners",
+        "type": "resplit"
+      },
+      {
+        "from": "next-action-planning",
+        "to": "bounded-dispatch",
+        "type": "resplit"
+      },
+      {
+        "from": "bounded-dispatch",
+        "to": "site-objective-contract",
+        "type": "split"
+      },
+      {
+        "from": "bounded-dispatch",
+        "to": "site-runtime-check-spec",
+        "type": "split"
+      },
+      {
+        "from": "bounded-dispatch",
+        "to": "cross-repo-authority-gate",
+        "type": "split"
+      },
+      {
+        "from": "site-runtime-check-spec",
+        "to": "site-runtime-verification",
+        "type": "sequence"
+      }
+    ],
+    "graph_id": "public-autonomy-cycle",
+    "nodes": [
+      {
+        "current_step": "Public inventory, evidence inspection, classification, and action planning execute on a schedule.",
+        "depends_on": [],
+        "id": "public-truth-root",
+        "owner": "StegVerse-Labs/Site",
+        "status": "IN_PROGRESS",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Public ecosystem truth cycle",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "public-truth-root"
+        ],
+        "id": "public-enumeration",
+        "owner": "StegVerse-Labs/Site",
+        "result": "Enumerated 72 public repositories across 8 configured organizations.",
+        "status": "COMPLETE",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Enumerate public ecosystem repositories",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "public-truth-root"
+        ],
+        "id": "public-evidence-inspection",
+        "owner": "StegVerse-Labs/Site",
+        "result": "Strict completion evidence is valid for 1 public repositories.",
+        "status": "COMPLETE",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Inspect public objective and runtime evidence",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "public-enumeration",
+          "public-evidence-inspection"
+        ],
+        "id": "public-classification",
+        "owner": "StegVerse-Labs/Site",
+        "result": "Applied fail-closed outcome classifications; unknown evidence does not count as complete.",
+        "status": "COMPLETE",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Classify public repository integrity",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "public-classification"
+        ],
+        "id": "public-action-planner",
+        "owner": "StegVerse-Labs/Site",
+        "result": "Generated 71 machine-owned public repository actions.",
+        "status": "COMPLETE",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Generate public remediation queue",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "current_step": "1 of 72 public repositories satisfy strict operational completion evidence.",
+        "depends_on": [
+          "public-classification",
+          "public-action-planner"
+        ],
+        "id": "public-completion-gate",
+        "owner": "StegVerse-Labs/Site",
+        "status": "BLOCKED_BY_EVIDENCE_COLLECTION",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Apply public ecosystem completion gate",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "current_step": "Bounded repository-owned execution runners remain the next autonomy layer.",
+        "depends_on": [
+          "public-action-planner"
+        ],
+        "id": "public-execution-runners",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "status": "READY",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Dispatch repository remediation branches",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "next-action-planning"
+        ],
+        "id": "bounded-dispatch",
+        "owner": "StegVerse-Labs/Site",
+        "result": "Applied or verified 2 Site-owned controls and evaluated 25 cross-repository actions under deny-by-default authority.",
+        "status": "COMPLETE",
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
+        "title": "Execute bounded remediation actions",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "bounded-dispatch"
+        ],
+        "id": "site-objective-contract",
+        "owner": "StegVerse-Labs/Site",
+        "result": "A machine-readable outcome contract now defines the required public observability capability and disallowed substitutes.",
+        "status": "COMPLETE",
+        "title": "Bind Site autonomy objective",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "bounded-dispatch"
+        ],
+        "id": "site-runtime-check-spec",
+        "owner": "StegVerse-Labs/Site",
+        "result": "Endpoint, freshness, machine-mode, live-page mobile, and roadmap mobile checks are specified; execution evidence is produced later in this cycle.",
+        "status": "COMPLETE",
+        "title": "Define Site runtime verification checks",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "current_step": "25 actions require repository-owned runners; none were falsely executed by Site.",
+        "depends_on": [
+          "bounded-dispatch"
+        ],
+        "id": "cross-repo-authority-gate",
+        "owner": "StegVerse-Labs/Site",
+        "status": "BLOCKED_BY_REPOSITORY_AUTHORITY",
+        "title": "Route external repository remediation",
+        "updated_at": "2026-07-19T19:51:47Z"
+      },
+      {
+        "depends_on": [
+          "site-runtime-check-spec"
+        ],
+        "evidence_path": "data/autonomy/runtime-verification-evidence.json",
+        "id": "site-runtime-verification",
+        "owner": "StegVerse-Labs/Site",
+        "result": "6 of 7 required runtime checks passed; failed checks: machine-mode.",
+        "status": "BLOCKED_BY_RUNTIME_EVIDENCE",
+        "title": "Verify public Site runtime",
+        "updated_at": "2026-07-19T19:51:50.552707Z"
+      }
+    ],
+    "root_task_ids": [
+      "public-truth-root"
+    ]
+  },
+  "task_source": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
+  "truthful_notice": "Generated by Site's scheduled workflow from public GitHub evidence. Private repositories are not represented; files and workflows do not prove operational completion."
 }
