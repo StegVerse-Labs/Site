@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "repository": "StegVerse-Labs/Site",
+  "generated_at": "2026-07-19T12:31:50Z",
+  "requirement_id": "public-enumeration",
+  "previous_state": "PARTIAL",
+  "target_state": "COMPLETE",
+  "mutation": {
+    "file": "data/autonomy/public-ecosystem-scope.json",
+    "removed_entry": "BCAT-GCAT-Engine",
+    "canonical_entry": "GCAT-BCAT-Engine",
+    "reason": "The removed organization alias returned HTTP 404 during scheduled public enumeration while the canonical organization was already present."
+  },
+  "expected_verification": {
+    "corrective_action_absent": "public-enumeration-errors",
+    "task_node": "public-enumeration",
+    "task_status": "COMPLETE",
+    "next_scheduled_cycle_required": true
+  },
+  "authority": {
+    "scope_normalization_is_completion_authority": false,
+    "scheduled_reenumeration_is_required": true,
+    "manual_user_action_required": false
+  }
+}
