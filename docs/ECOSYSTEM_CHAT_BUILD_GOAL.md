@@ -49,18 +49,21 @@ Documentation, status files, monitors, CI schedules, installed workflows, pendin
 
 ## Current blocker
 
-The adapter has not yet published an immutable VERIFIED receipt proving real provider use, custody, reconstruction, and zero blockers.
+The adapter activation automation contract test still requires the removed heartbeat writer, heartbeat report, monitor hash, and heartbeat workflow steps. The adapter activation workflow is configured to run after successful `validate`; therefore this stale contract is the first identified executable validation boundary before a clean runtime activation cycle can be proven.
+
+The adapter also has not yet published an immutable VERIFIED receipt proving real provider use, custody, reconstruction, and zero blockers.
 
 ## Next executable integration step
 
-Execute the existing adapter activation-verification path and retain its exact runtime result. Repair only the first observed failing runtime boundary using existing provider, custody, reconstruction, and governance components.
+After approval of the listed non-destructive removal proposal, remove only the obsolete heartbeat assertions from `StegVerse-org/LLM-adapter/tests/test_live_activation_automation_contract.py`, preserve the request/provider/custody/reconstruction and immutable-receipt assertions, run validation, and then execute the existing activation-verification path.
 
 ## Manual user action requirement
 
-False.
+False for routine execution. Explicit approval is required only for removal of the obsolete test assertions under the standing no-unilateral-removal boundary.
 
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
 - Site commits: `427f9c6709a7c6a889e07d5a85a1b2226973fd90`, `bbdc5852221bf032a494f20109e70258e4f9f998`
 - Advancement: repaired Site’s stale dependency on removed CI-derived heartbeat/scheduler artifacts while preserving the established activation evidence path.
+- Latest blocker finding: adapter test `tests/test_live_activation_automation_contract.py` remains inconsistent with the current heartbeat-corrected workflow and requires an approved bounded assertion cleanup before validation can be proven.
