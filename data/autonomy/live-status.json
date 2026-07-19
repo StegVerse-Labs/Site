@@ -1,105 +1,107 @@
 {
-  "schema_version": "2.0",
-  "generated_at": "2026-07-19T04:45:00Z",
-  "mode": "VERIFIED_REPOSITORY_ACTIVITY",
-  "truthful_notice": "This tree contains verified repository writes from the truth-layer bootstrap. The scheduled validator is installed, but no workflow-run result has yet been ingested automatically into this telemetry record.",
+  "schema_version": "2.3",
+  "generated_at": "2026-07-19T05:20:00Z",
+  "mode": "PUBLIC_AUTONOMY_CYCLE_INSTALLED_AWAITING_FIRST_RUN",
+  "truthful_notice": "The public Site-owned inventory, evidence inspection, classification, next-action, and telemetry workflow is installed. No bot-authored cycle result has yet been observed, so repository counts and completion results are not claimed here.",
+  "summary": {
+    "coverage": "PUBLIC_REPOSITORIES_ONLY",
+    "organizations": 9,
+    "repositories": null,
+    "operationally_complete": null,
+    "valid_completion_evidence": null,
+    "next_actions": null
+  },
   "task_graph": {
-    "graph_id": "truth-layer-bootstrap-2026-07-19",
-    "root_task_ids": ["truth-layer-root"],
+    "graph_id": "public-autonomy-cycle-installation",
+    "root_task_ids": ["public-truth-root"],
     "nodes": [
       {
-        "id": "truth-layer-root",
-        "title": "Phase 1 truth-layer bootstrap",
+        "id": "public-truth-root",
+        "title": "Public ecosystem truth cycle",
         "status": "IN_PROGRESS",
-        "current_step": "Three foundational controls completed in parallel; convergence validation awaits observed workflow execution.",
-        "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "updated_at": "2026-07-19T04:45:00Z",
+        "current_step": "Repository-owned scheduled cycle installed in Site; first machine execution remains unobserved.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-19T05:20:00Z",
         "depends_on": [],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
       {
-        "id": "objective-contract",
-        "title": "Define objective contracts",
+        "id": "public-scope",
+        "title": "Define public ecosystem scope",
         "status": "COMPLETE",
-        "result": "Objective schema now requires the requested capability, user-visible outcome, live runtime evidence, disallowed substitutes, and fail-closed completion policy. Commit 681828fe84e10e25bcaf7730d5c9dcd47211db2b.",
-        "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "updated_at": "2026-07-19T04:40:00Z",
-        "depends_on": ["truth-layer-root"],
+        "result": "Nine organizations are configured. Private repository coverage is explicitly excluded from the public claim.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-19T05:12:00Z",
+        "depends_on": ["public-truth-root"],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
       {
-        "id": "dual-status",
-        "title": "Separate implementation and operational status",
+        "id": "public-runner",
+        "title": "Install public inventory and evidence runner",
         "status": "COMPLETE",
-        "result": "Repository status schema prevents completion unless implementation is installed, operation is verified, and evidence is fresh. Commit 0cf7addb181d5f0e6b41f0350e9618c913ee3edd.",
-        "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "updated_at": "2026-07-19T04:41:00Z",
-        "depends_on": ["truth-layer-root"],
+        "result": "Runner can enumerate public repositories, inspect objective/runtime evidence, classify fail-closed, generate next actions, and write live telemetry.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-19T05:15:00Z",
+        "depends_on": ["public-truth-root"],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
       {
-        "id": "successor-freeze",
-        "title": "Install fail-closed successor freeze",
+        "id": "public-workflow",
+        "title": "Install hourly public telemetry workflow",
         "status": "COMPLETE",
-        "result": "Successor selection defaults to DENY unless operational verification, fresh evidence, zero critical blockers, and no manual completion dependency are proven. Commit a95b6541b83da1809da62c8d562c986af9e7c371.",
-        "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "updated_at": "2026-07-19T04:42:00Z",
-        "depends_on": ["truth-layer-root"],
+        "result": "GitHub Actions workflow is configured to persist inventory, next actions, and the visible task tree without cross-repository secrets.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-19T05:17:00Z",
+        "depends_on": ["public-truth-root"],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
       {
-        "id": "truth-layer-convergence",
-        "title": "Converge and validate truth-layer controls",
+        "id": "public-first-run",
+        "title": "Observe first machine-authored public cycle",
         "status": "AWAITING_OBSERVED_RUN",
-        "current_step": "Dependency-free validator and hourly GitHub Actions workflow are installed. Awaiting an observed run result before this convergence gate can pass.",
-        "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "updated_at": "2026-07-19T04:45:00Z",
-        "depends_on": ["objective-contract", "dual-status", "successor-freeze"],
+        "current_step": "Waiting for a GitHub Actions bot commit that persists actual public repository counts, classifications, evidence results, and actions.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-19T05:20:00Z",
+        "depends_on": ["public-scope", "public-runner", "public-workflow"],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
       {
-        "id": "ecosystem-inventory",
-        "title": "Enumerate accessible organizations and repositories",
-        "status": "BLOCKED_BY_CONVERGENCE_GATE",
-        "current_step": "Will begin only after the truth-layer convergence validator produces verified PASS evidence.",
+        "id": "public-execution-runners",
+        "title": "Dispatch repository remediation branches",
+        "status": "BLOCKED_BY_FIRST_MACHINE_CYCLE",
+        "current_step": "Requires the persisted next-action queue from the first machine-authored public cycle.",
         "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "updated_at": "2026-07-19T04:45:00Z",
-        "depends_on": ["truth-layer-convergence"],
+        "updated_at": "2026-07-19T05:20:00Z",
+        "depends_on": ["public-first-run"],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       }
     ],
     "edges": [
-      {"from": "truth-layer-root", "to": "objective-contract", "type": "split"},
-      {"from": "truth-layer-root", "to": "dual-status", "type": "split"},
-      {"from": "truth-layer-root", "to": "successor-freeze", "type": "split"},
-      {"from": "objective-contract", "to": "truth-layer-convergence", "type": "converge"},
-      {"from": "dual-status", "to": "truth-layer-convergence", "type": "converge"},
-      {"from": "successor-freeze", "to": "truth-layer-convergence", "type": "converge"},
-      {"from": "truth-layer-convergence", "to": "ecosystem-inventory", "type": "resplit"}
-    ],
-    "semantics": {
-      "split": "One completed or active node may feed multiple concurrent child nodes.",
-      "converge": "A node with multiple dependencies cannot begin until its required parent branches satisfy their declared gates.",
-      "resplit": "A convergence node may generate new child branches after its own gate passes.",
-      "history_order": "Completed task groups are prepended newest-first and never removed merely because later work begins."
-    }
+      {"from": "public-truth-root", "to": "public-scope", "type": "split"},
+      {"from": "public-truth-root", "to": "public-runner", "type": "split"},
+      {"from": "public-truth-root", "to": "public-workflow", "type": "split"},
+      {"from": "public-scope", "to": "public-first-run", "type": "converge"},
+      {"from": "public-runner", "to": "public-first-run", "type": "converge"},
+      {"from": "public-workflow", "to": "public-first-run", "type": "converge"},
+      {"from": "public-first-run", "to": "public-execution-runners", "type": "resplit"}
+    ]
   },
   "corrective_actions": [
     {
-      "id": "telemetry-producer-gap",
-      "action": "Connect workflow-run results to live-status.json",
-      "status": "REQUIRED",
-      "reason": "The tree currently records verified repository writes, but workflow results are not yet automatically ingested."
+      "id": "first-run-not-observed",
+      "action": "Observe and verify the first Site-owned public autonomy workflow run",
+      "status": "AUTOMATIC_WAIT",
+      "reason": "Installation is verified, but no bot-authored output commit has appeared yet."
     }
   ],
   "completed_history": [
     {
-      "id": "truth-layer-parallel-controls",
-      "title": "First parallel truth-layer controls",
+      "id": "public-cycle-installation",
+      "title": "Public autonomy cycle installation",
       "status": "COMPLETE",
-      "result": "Objective contracts, dual implementation/operational status, and fail-closed successor eligibility were installed as three parallel branches.",
-      "completed_at": "2026-07-19T04:42:00Z",
-      "branch_ids": ["objective-contract", "dual-status", "successor-freeze"],
+      "result": "Public scope, autonomous runner, hourly persistence workflow, and local Site telemetry source are installed.",
+      "completed_at": "2026-07-19T05:20:00Z",
+      "branch_ids": ["public-scope", "public-runner", "public-workflow"],
       "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
     }
   ],
