@@ -36,7 +36,7 @@ Portable-node expansion remains out of scope until this hosted vertical slice is
 - High-level goal progression: `autonomy-roadmap.html`
 - Prompt-level task tree: `autonomy-live.html`
 
-These existing pages are reused and now read the Ecosystem Chat goal state from `data/autonomy/roadmap-status.json` and `data/autonomy/live-status.json`. Green checks require completed or integrated evidence states; red Xs identify unpassed runtime gates. The pages do not grant execution, completion, custody, release, or heartbeat authority.
+These existing pages are reused and read the Ecosystem Chat goal state from `data/autonomy/roadmap-status.json` and `data/autonomy/live-status.json`. Green checks require completed or integrated evidence states; red Xs identify unpassed runtime gates. The pages do not grant execution, completion, custody, release, or heartbeat authority.
 
 ## What counts as real progress
 
@@ -59,18 +59,18 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - Restricted requests remain local and require separate review. Provider output is not authority.
 - The binding is loaded through the existing Ecosystem Chat page loader.
 - The existing roadmap and live-tree pages are rebound to the current Ecosystem Chat goal rather than duplicated.
-- Both monitoring pages now use explicit status marks and bounded responsive card layouts.
 - Adapter evidence retention, immutable receipt retention, Site activation consumers, and downstream consumers remain implemented.
+- The existing adapter live-verification workflow was deliberately retriggered through a bounded additive comment-only update at commit `356e99de77e520a520260ba811a54c26a6f2892e`; no verifier logic, authority, heartbeat architecture, deployment configuration, or consumer contract was changed.
 
 ## Current blocker
 
-The browser-to-gateway binding is IMPLEMENTED and INTEGRATED in repository state but has not yet been EXECUTED or VERIFIED from a deployed public Site origin. No real browser request, provider response, usage persistence, custody, reconstruction, or receipt evidence was produced during this cycle.
+The live-verification trigger has been committed, but the stable adapter result still reports `PENDING` with blocker `live_activation_observation_not_yet_recorded`. No new real provider response, persistence, custody, reconstruction, immutable receipt, activation, or propagation evidence has yet been retained from that trigger.
 
-The goal and prompt-level monitoring pages accurately expose this boundary but do not advance the runtime gate by themselves.
+The goal and prompt-level monitoring pages report this boundary but do not advance the runtime gate by themselves.
 
 ## Next executable integration step
 
-Execute one non-restricted request through the deployed `ecosystem-chat.html` surface. Inspect the returned gateway receipt line for provider use, local persistence, provider-usage custody and reconstruction, and transition custody and reconstruction. Repair only the first concrete failure. If the public Site has not deployed the binding, use the existing Site deployment path rather than creating another chat surface or gateway.
+Inspect the first retained result produced from adapter commit `356e99de77e520a520260ba811a54c26a6f2892e`. Repair only the first concrete gateway, provider, persistence, custody, reconstruction, or receipt failure. If the result becomes zero-blocker `VERIFIED`, allow the existing Site acquisition, activation-state, and downstream propagation consumers to proceed without creating replacement machinery.
 
 ## Manual user action requirement
 
@@ -86,8 +86,8 @@ False for routine application use. A platform-owner action is required only if t
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
-- Goal-page integration: `7c1020e4f83c2ba43a4e1a17c288ea25e905ab9a`
-- Prompt-tree integration: `b56bd49a6adf8b5053282ffb158ce5882c18dbd8`
-- Goal data update: `310d0873143faceae61fc35fafd06bb89a232353`
-- Prompt-tree data update: `2371b90b0f00c161b382fd8a852da03ba542cb7b`
-- Advancement: reused the existing monitoring pages, rebound them to the current Ecosystem Chat vertical slice, and repaired narrow-screen card containment without creating replacement pages or changing the declared goal.
+- Adapter live-verifier trigger: `356e99de77e520a520260ba811a54c26a6f2892e`
+- Action: reused and triggered the existing end-to-end verifier after source-of-truth review; no new gateway, provider adapter, custody path, receipt system, scheduler, monitor, schema, or heartbeat component was created.
+- Runtime gate delta: none yet; the retained stable status remains `PENDING` until the triggered execution writes exact evidence.
+- Prior goal-page integration: `7c1020e4f83c2ba43a4e1a17c288ea25e905ab9a`
+- Prior prompt-tree integration: `b56bd49a6adf8b5053282ffb158ce5882c18dbd8`
