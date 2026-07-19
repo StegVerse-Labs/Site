@@ -81,7 +81,7 @@ jobs:
           assert len(roadmap['phases']) == 5
           assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in roadmap['phases'])
           assert all(0 <= int(p['progress_percent']) <= 100 for p in roadmap['phases'])
-          assert runtime['schema_version'] == '1.1'
+          assert runtime['schema_version'] == '1.2'
           assert runtime['state'] in {'PASS', 'FAIL'}
           assert runtime['required_checks'] == 7
           assert runtime['required_checks'] == len([c for c in runtime['checks'] if c['required']])
