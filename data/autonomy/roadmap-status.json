@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
-  "source_generated_at": "2026-07-19T11:43:55.196219Z",
+  "source_generated_at": "2026-07-19T12:39:07.874330Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -35,7 +35,6 @@
         "successor freeze evidence"
       ],
       "blockers": [
-        "BCAT-GCAT-Engine: HTTP 404",
         "0 of 72 repositories satisfy strict completion evidence"
       ]
     },
@@ -58,7 +57,7 @@
         "dependency-complete external execution"
       ],
       "blockers": [
-        "25 queued actions cannot be mutated by Site's repository-scoped token."
+        "24 queued actions cannot be mutated by Site's repository-scoped token."
       ]
     },
     {
