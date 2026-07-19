@@ -6,11 +6,11 @@
 
 ## Work performed
 
-- Aligned the adapter’s existing activation automation contract test with the current heartbeat-corrected workflow.
-- Preserved all real request, provider, custody, reconstruction, hashing, fail-closed, and immutable-receipt assertions.
-- Added negative contract assertions preventing CI heartbeat artifacts from returning to the activation workflow.
-- Rewrote the authoritative Site handoff so it no longer reports deleted CI monitor or scheduler artifacts as heartbeat blockers.
-- Separated implementation coverage, runtime gate completion, and evidence state in the durable Site records.
+- Re-read the authoritative Site handoff, build-goal record, and active-building record.
+- Inspected adapter commit `7c26041eeeb7f165583308efaedd59e1d17a8c92` and confirmed the approved heartbeat-contract repair is present on `main`.
+- Queried available commit-status and workflow-run evidence for the repair commit.
+- Attempted the existing deployed gateway health boundary directly from the current execution environment.
+- Preserved the existing vertical-slice implementation and recorded the exact evidence limitation without creating replacement automation.
 
 ## Existing ecosystem components reused
 
@@ -19,23 +19,18 @@
 - Adapter stable status writer: `scripts/write_live_activation_status.py`
 - Adapter stable status: `reports/ecosystem-chat-live-activation-status.json`
 - Adapter latest and immutable receipt paths
-- Existing provider integration
+- Existing deployed gateway and provider integration
 - Existing Master-Records custody and reconstruction path
 - Site activation evidence watcher
 - Site acquisition, validation, activation-state recomputation, retention, and propagation scripts
 
 ## Components modified
 
-- `StegVerse-org/LLM-adapter/tests/test_live_activation_automation_contract.py`
-  - Removed approved obsolete expectations for the deleted CI-derived heartbeat writer, report, hash, and workflow steps.
-  - Preserved real activation-path requirements.
-  - Added explicit prohibitions against CI heartbeat terminology and artifacts in the workflow.
-- `StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md`
-  - Corrected the heartbeat boundary.
-  - Replaced stale heartbeat/scheduler blockers with the actual pending runtime-evidence blocker.
-  - Added separate implementation, runtime-gate, and evidence-state accounting.
-- Site build-goal and active-building records
-  - Updated to match the current repository state.
+- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_BUILD_GOAL.md`
+  - Updated the current blocker from structural heartbeat/test drift to missing observable post-repair execution evidence.
+  - Recorded the direct DNS-resolution limitation without treating it as gateway failure.
+- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md`
+  - Updated this cycle record to distinguish attempted execution from verified runtime execution.
 
 ## Adapters added
 
@@ -43,32 +38,40 @@ None.
 
 ## New components and rationale
 
-None. The existing verifier, workflow, provider integration, custody path, receipt path, Site importer, and propagation consumers remain the correct implementation.
+None. The existing verifier and workflow remain the correct execution path. No new monitor, scheduler, heartbeat, status schema, adapter, service, or repository is justified.
 
 ## Runtime tests actually executed
 
-The adapter test-contract update was committed to `main`, which is configured to trigger existing validation. No completed workflow result was yet available at the time this record was written.
-
-No new live provider/custody/reconstruction observation has yet been retained after the repair.
+- Queried commit status for adapter commit `7c26041eeeb7f165583308efaedd59e1d17a8c92`; no status contexts were returned.
+- Queried workflow runs associated with the commit through the available connector; no runs were returned by that commit-scoped interface.
+- Attempted `GET https://stegverse-ecosystem-chat-gateway.onrender.com/health` using the existing deployed hostname. The local execution environment returned `URLError: Temporary failure in name resolution` before reaching the service.
 
 ## Observed results
 
-- The adapter contract and activation workflow now describe the same architecture.
-- The activation workflow is explicitly prevented from treating GitHub Actions as runtime heartbeat.
-- The Site handoff now identifies `live_activation_observation_not_yet_recorded` as a runtime-evidence blocker rather than a heartbeat blocker.
-- No duplicate heartbeat, scheduler, monitor, service, schema, adapter, or repository was created.
+- The heartbeat-contract repair is durably present in the adapter repository.
+- No retained post-repair live activation observation is currently visible in repository state.
+- The current local transport failure cannot establish whether the deployed gateway is healthy or unhealthy.
+- The stable semantic blocker remains the only durable runtime source: `live_activation_observation_not_yet_recorded`.
+- No duplicate infrastructure or speculative runtime machinery was created.
 
 ## Exact failures
 
-- Current adapter stable status remains `PENDING` with `live_activation_observation_not_yet_recorded`.
-- Current real gateway, provider, persistence, custody, and reconstruction gates remain unverified until the existing live verifier runs and retains a result.
-- Immutable VERIFIED receipt, Site activation, and downstream ingestion remain unobserved.
+- Post-repair validation execution: NOT OBSERVED.
+- Post-repair live-activation execution: NOT OBSERVED.
+- Direct gateway health request from current environment: DNS RESOLUTION FAILED BEFORE CONNECTION.
+- Real provider request/response: UNPROVEN.
+- Provider-usage custody and reconstruction: UNPROVEN.
+- Transition custody and reconstruction: UNPROVEN.
+- Immutable VERIFIED receipt: UNPROVEN.
+- Site activation: UNPROVEN.
+- Downstream ingestion: UNPROVEN.
 
 ## Durable evidence produced
 
 - Adapter contract repair commit: `7c26041eeeb7f165583308efaedd59e1d17a8c92`
 - Site authoritative handoff correction: `95be2549e7576d742fe0c687da44e3b5ba33b400`
-- Site build-goal update: `26448fe57a80f3ecaedf46f9036a9f52046ca9f4`
+- Previous Site active-building correction: `3372e17de496e404f783f596cf55a060b47221f6`
+- Current build-goal update: `dcc8f0b9b75427ceaea25691bfb01c10fed4abfa`
 
 ## State classification
 
@@ -76,7 +79,9 @@ No new live provider/custody/reconstruction observation has yet been retained af
 - Adapter automation contract alignment: INTEGRATED
 - Site activation evidence consumer repair: INTEGRATED
 - Authoritative handoff correction: VERIFIED BY REPOSITORY CONTENT
-- Adapter validation after contract repair: EXECUTION PENDING
+- Adapter validation after contract repair: NOT OBSERVED
+- Adapter live verifier after contract repair: NOT OBSERVED
+- Deployed gateway reachability from current environment: INCONCLUSIVE
 - Real provider request/response: UNPROVEN
 - Provider-usage custody and reconstruction: UNPROVEN
 - Transition custody and reconstruction: UNPROVEN
@@ -84,31 +89,33 @@ No new live provider/custody/reconstruction observation has yet been retained af
 - Site activation: UNPROVEN
 - Downstream ingestion: UNPROVEN
 
-## Removals performed under approval
+## Removals proposed but not performed
 
-Only obsolete assertions in `StegVerse-org/LLM-adapter/tests/test_live_activation_automation_contract.py` were removed. These assertions required already-deleted CI-derived heartbeat artifacts and conflicted with the current workflow.
+None.
 
-No runtime component, workflow, provider integration, custody path, receipt path, Site consumer, or downstream consumer was removed, disabled, renamed, superseded, or replaced.
+No runtime component, workflow, provider integration, custody path, receipt path, Site consumer, or downstream consumer was removed, disabled, renamed, superseded, or replaced during this cycle.
 
 ## Current next step
 
-Inspect the existing validation and activation workflow execution caused by adapter commit `7c26041eeeb7f165583308efaedd59e1d17a8c92`. Then repair only the first actual runtime failure reported by the existing live verifier.
+Obtain the next result from the existing adapter live-activation workflow and inspect its retained `receipts/ecosystem-chat-live-activation.latest.json` evidence. Repair only the first actual runtime blocker reported there.
 
 ## Goal delta
 
-The adapter’s validation contract and activation workflow are coherent again, and the authoritative Site handoff no longer creates a false heartbeat blocker.
+No runtime gate advanced. The exact current boundary is now stated correctly: structural heartbeat/test drift is resolved, while post-repair runtime execution evidence is still absent.
 
 ## Reuse delta
 
-The existing verifier, workflow, provider integration, stable status, custody checks, reconstruction checks, immutable receipt path, Site importer, and propagation consumers eliminated the need for any new core construction.
+The existing verifier, workflow, deployed gateway, provider integration, custody checks, reconstruction checks, stable status, immutable receipt path, Site importer, and propagation consumers avoided all new core construction.
 
 ## Runtime evidence
 
-No new provider/custody/reconstruction receipt was produced during this cycle. Runtime completion remains unchanged until the existing verifier executes successfully.
+No new provider, custody, reconstruction, or immutable activation receipt was produced. The direct health attempt failed locally before connecting and is therefore inconclusive.
 
 ## Non-progress
 
-Handoff and accounting corrections improve continuity and prevent false blockers but do not increase runtime gate completion.
+- Commit-status inspection did not prove workflow execution.
+- The local DNS failure did not test the deployed gateway.
+- Documentation updates retain the blocker accurately but do not increase runtime completion.
 
 ## Manual user action requirement
 
