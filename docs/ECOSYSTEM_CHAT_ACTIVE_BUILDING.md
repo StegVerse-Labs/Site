@@ -250,3 +250,90 @@ The adapter’s existing verifier and workflow replaced the need for any new exe
 ### Next executable step
 
 Inspect the first retained receipt and semantic blocker status produced from adapter commit `356e99de77e520a520260ba811a54c26a6f2892e`, then repair only the first concrete failing runtime boundary.
+
+---
+
+## Validation-contract repair cycle — 2026-07-19
+
+### Work performed during this cycle
+
+- Inspected the exact failing live-activation automation contract.
+- Confirmed the generic `heartbeat` prohibition scanned the entire YAML source, including comments.
+- Reused the existing test and workflow rather than removing the retained comment or creating a replacement workflow.
+- Bounded the generic scan to executable YAML lines by excluding full-line comments.
+- Preserved all explicit prohibited monitor/heartbeat phrase checks against the complete source.
+
+### Existing ecosystem components reused
+
+- `tests/test_live_activation_automation_contract.py`
+- `.github/workflows/ecosystem-chat-live-activation.yml`
+- Draft PR `StegVerse-org/LLM-adapter#8`
+- Existing validation trigger and live-activation path
+
+### Components modified
+
+- `StegVerse-org/LLM-adapter/tests/test_live_activation_automation_contract.py`
+  - Added comment filtering only for the generic heartbeat-term assertion.
+  - Did not alter required workflow fields, prohibited monitor phrases, permissions, cadence, runtime behavior, provider integration, custody, reconstruction, receipt retention, or authority flags.
+- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_BUILD_GOAL.md`
+  - Recorded the bounded repair and new observation boundary.
+- `StegVerse-Labs/Site/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md`
+  - Appended this cycle.
+
+### Adapters or new components added
+
+None.
+
+### Runtime tests actually executed
+
+- The repaired test was committed to PR #8 at `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`.
+- A new Actions run was queried immediately after commit; no run had yet appeared at the time of observation.
+
+### Observed result
+
+- The prior deletion/approval deadlock is removed without deleting anything.
+- The contract now distinguishes executable workflow content from historical YAML comments.
+- The heartbeat boundary remains fail-closed for executable content and explicit prohibited monitor phrases.
+
+### Exact failures
+
+- Validation result for `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`: NOT YET OBSERVED.
+- Live gateway execution: NOT YET OBSERVED.
+- Provider response, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation: UNPROVEN.
+
+### Durable evidence produced
+
+- Adapter contract repair commit: `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`
+- Site build-goal update: `77616445762d2180998503fb5150c7b06f7f19c7`
+
+### State classification
+
+- Live-activation workflow: IMPLEMENTED
+- Validation contract repair: IMPLEMENTED
+- Validation rerun: TRIGGERED/NOT YET OBSERVED
+- Live activation execution: UNPROVEN
+- Provider/custody/reconstruction/receipt path: UNPROVEN
+- Site activation: UNPROVEN
+- Downstream propagation: UNPROVEN
+
+### Removals proposed but not performed
+
+- The earlier proposal to remove the historical trigger comment was not performed.
+- It is no longer required by the selected bounded repair.
+
+### Goal delta
+
+The validation path is no longer blocked by a historical comment. This is a measurable integration advance, but no runtime gate is upgraded until the new validation and live execution evidence are observed.
+
+### Reuse delta
+
+The existing contract and workflow were retained. A two-line bounded parsing adjustment replaced both deletion and construction of a new workflow or test harness.
+
+### Non-progress
+
+- Site record updates do not complete a runtime gate.
+- The contract repair does not itself prove provider execution, custody, reconstruction, activation, or propagation.
+
+### Next executable step
+
+Observe the new validation run for adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`; if green, inspect the existing live-activation workflow result and repair only its first concrete runtime blocker.
