@@ -6,6 +6,13 @@ on:
       - Site Task Runner
     types:
       - completed
+  schedule:
+    - cron: "11 * * * *"
+  push:
+    paths:
+      - 'scripts/watch_ecosystem_chat_adapter_monitor.py'
+      - '.github/workflows/ecosystem-chat-activation-retention.yml'
+  workflow_dispatch:
 
 permissions:
   actions: read
@@ -29,7 +36,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Watch adapter activation monitor
+        run: python scripts/watch_ecosystem_chat_adapter_monitor.py
+
       - name: Download Site task diagnostic when available
+        if: github.event_name == 'workflow_run'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
@@ -40,6 +51,7 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Download live verification receipt when available
+        if: github.event_name == 'workflow_run'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
@@ -50,6 +62,7 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Download activation evidence when available
+        if: github.event_name == 'workflow_run'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
@@ -76,17 +89,25 @@ jobs:
       - name: Validate activation-state and propagation consistency
         run: |
           python - <<'PY'
+          import hashlib
           import json
           from pathlib import Path
 
           state = json.loads(Path('data/ecosystem-chat-activation-state.json').read_text())
           propagation = json.loads(Path('data/ecosystem-chat-activation-propagation.json').read_text())
           imported = json.loads(Path('data/ecosystem-chat-destination-activation-import-status.json').read_text())
+          watch = json.loads(Path('data/ecosystem-chat-adapter-monitor-watch.json').read_text())
 
           assert state['manual_user_action_required'] is False
           assert propagation['source_state_sha256'] == state['state_sha256']
           assert state['gates']['destination_state_imported'] is True
           assert state['gates']['external_import_status_recorded'] is True
+          assert watch['schema'] == 'stegverse.ecosystem_chat.adapter_monitor_watch.v1'
+          assert watch['manual_user_action_required'] is False
+          material = dict(watch)
+          expected = material.pop('watch_sha256')
+          actual = hashlib.sha256(json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
+          assert expected == actual
 
           if imported['state'] == 'VERIFIED_SOURCE_RECEIPT_IMPORTED':
               assert imported['receipt_present'] is True
@@ -99,7 +120,7 @@ jobs:
               assert state['state'] == 'ACTIVATION_PENDING_EVIDENCE'
               assert propagation['state'] == 'PENDING_ACTIVATION_EVIDENCE'
 
-          print('activation retention state is internally consistent')
+          print('activation retention and adapter monitor watch are internally consistent')
           PY
 
       - name: Persist retained evidence and continuation state
@@ -107,6 +128,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            data/ecosystem-chat-adapter-monitor-watch.json \
             data/ecosystem-chat-activation-state.json \
             data/ecosystem-chat-activation-propagation.json \
             data/ecosystem-chat-destination-activation-import-status.json \
@@ -131,8 +153,16 @@ jobs:
         if: always()
         run: |
           echo "## Ecosystem Chat Activation Retention" >> "$GITHUB_STEP_SUMMARY"
-          echo "Source Site Task Runner: ${{ github.event.workflow_run.id }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Source conclusion: ${{ github.event.workflow_run.conclusion }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Trigger: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f data/ecosystem-chat-adapter-monitor-watch.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          watch = json.loads(Path('data/ecosystem-chat-adapter-monitor-watch.json').read_text())
+          print(f"Adapter monitor watch: {watch.get('state')}")
+          print(f"Adapter monitor blockers: {', '.join(watch.get('blockers', [])) or 'none'}")
+          PY
+          fi
           if [ -f data/ecosystem-chat-activation-state.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
