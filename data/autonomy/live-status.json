@@ -1,11 +1,22 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "generated_at": null,
   "mode": "NOT_YET_CONNECTED",
-  "truthful_notice": "No autonomous telemetry feed is connected yet. This record must not be represented as live execution evidence.",
-  "active_tasks": [],
-  "recent_steps": [],
+  "truthful_notice": "The task-graph renderer is installed, but no autonomous telemetry producer is connected. Empty graph data must not be represented as live execution evidence.",
+  "task_graph": {
+    "graph_id": null,
+    "root_task_ids": [],
+    "nodes": [],
+    "edges": [],
+    "semantics": {
+      "split": "One completed or active node may feed multiple concurrent child nodes.",
+      "converge": "A node with multiple dependencies cannot begin until its required parent branches satisfy their declared gates.",
+      "resplit": "A convergence node may generate new child branches after its own gate passes.",
+      "history_order": "Completed task groups are prepended newest-first and never removed merely because later work begins."
+    }
+  },
   "corrective_actions": [],
+  "completed_history": [],
   "roadmap_path": "autonomy-roadmap.html",
   "task_source": "StegVerse-Labs/StegOps-Orchestrator/issues/7"
 }
