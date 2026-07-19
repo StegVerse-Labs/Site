@@ -63,14 +63,16 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - PR #9 added only `renderSubdomainPolicy: enabled` to that existing service.
 - Validation run `29708558752` and Architecture Guard run `29708558778` passed.
 - PR #9 was merged as `1393a06c35a9727b1734a4b7a40ccd62e43e75e5` through the existing repository path.
+- Immediate post-merge probe run `29708684759` retained artifact `8448582241` and still observed plain-text HTTP 404 at `/health`, `/api/ecosystem-chat`, and `/api/transitions/{id}`.
+- The immediate probe validation and Architecture Guard both passed; all authority flags remained false.
 
 ## Current blocker
 
-The consumed Render Blueprint repair is merged, but a post-merge deployed observation has not yet proved that `/health` or the API routes are exposed. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The consumed Blueprint repair is merged, but the live service still returned HTTP 404 in an observation taken approximately one minute after merge. That timing does not distinguish an incomplete Render deployment from an unbound existing service. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Allow the existing `autoDeploy: true` Render binding to process merge commit `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`, then execute the same retained verifier. If `/health` becomes available, repair only the next exact provider, durability, Master-Records, custody, or reconstruction blocker. If HTTP 404 remains, inspect the existing Render service-to-Blueprint binding rather than creating another gateway.
+Allow the existing Render deployment window to complete, then execute the same retained verifier again. If `/health` becomes available, repair only the next exact provider, durability, Master-Records, custody, or reconstruction blocker. If HTTP 404 remains after a completed deployment window, inspect the existing Render service-to-repository and Blueprint binding rather than creating another gateway.
 
 ## Manual user action requirement
 
@@ -89,9 +91,11 @@ False for routine repository work. No new deployment, release, custody, executio
 - Initial merged integration: `ce9027d0d3bf79f93b92bc764880a21cd848afda`
 - Post-merge deployed probe run: `29708519759`
 - Post-merge deployed receipt artifact: `8448551905`
-- Exact retained failure: HTTP 404 at health, chat, and transition routes
 - Consumed Blueprint repair: `3a885095fd3f695da3c852ced0543969de295493`
 - Repair validation: `29708558752` SUCCESS
 - Repair Architecture Guard: `29708558778` SUCCESS
 - Merged repair: `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`
-- Runtime gate delta: the deployment-binding mismatch is repaired in the consumed Blueprint and merged; live route exposure remains pending post-deployment execution evidence.
+- Immediate post-merge probe run: `29708684759`
+- Immediate post-merge probe artifact: `8448582241`
+- Immediate observed result: unchanged HTTP 404 at health, chat, and transition routes
+- Runtime gate delta: the deployment-binding mismatch is repaired in the consumed Blueprint and merged; deployment completion and live route exposure remain unproven.
