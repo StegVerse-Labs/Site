@@ -1,11 +1,12 @@
 {
   "classification_counts": {
-    "PARTIAL": 8,
+    "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED": 1,
+    "PARTIAL": 7,
     "SCAFFOLD_ONLY": 63,
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T05:19:00Z",
+  "generated_at": "2026-07-19T07:46:08Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -307,7 +308,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T04:46:13Z",
+      "pushed_at": "2026-07-19T07:25:49Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -1246,7 +1247,7 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
@@ -1255,11 +1256,10 @@
       "inspection_errors": [],
       "missing_gates": [
         "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+        "deployment_or_runtime_configuration"
       ],
-      "next_action": "derive and install an outcome-level objective contract",
-      "objective_contract_valid": false,
+      "next_action": "execute the real user flow and persist strict completion evidence",
+      "objective_contract_valid": true,
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
@@ -1267,13 +1267,15 @@
           "SITE_MIRROR_HANDOFF.md",
           "README.md"
         ],
-        "objective": [],
+        "objective": [
+          "data/autonomy/objective-contract.json"
+        ],
         "workflow": [
           ".github/workflows/validate.yml",
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-19T05:11:44Z",
+      "pushed_at": "2026-07-19T07:30:18Z",
       "repository": "StegVerse-Labs/Site",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Site"
@@ -1830,7 +1832,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T03:59:36Z",
+      "pushed_at": "2026-07-19T06:44:49Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/continuity-vault-kit"

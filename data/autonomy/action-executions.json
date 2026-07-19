@@ -4,7 +4,7 @@
     {
       "action": "ENSURE_SITE_OBJECTIVE_CONTRACT",
       "path": "data/autonomy/objective-contract.json",
-      "status": "APPLIED"
+      "status": "SATISFIED"
     },
     {
       "action": "ENSURE_SITE_RUNTIME_CHECK_SPEC",
@@ -207,7 +207,7 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     }
   ],
-  "generated_at": "2026-07-19T05:19:00Z",
+  "generated_at": "2026-07-19T07:46:08Z",
   "manual_user_action_required": false,
   "policy_id": "site-public-autonomy-dispatch-v1",
   "schema_version": "1.0"
