@@ -63,14 +63,15 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - Draft PR `StegVerse-org/LLM-adapter#8` produced observable validation runs through the existing pull-request trigger.
 - The stale no-manual-task checker was repaired at adapter commit `beab2903df8468925006a2b5b4d84215be368340`; its validation step now passes.
 - The stale capability-manifest verifier was repaired at adapter commit `3f35b6b0e645f631af837a191f3e2152815a3480`; manifest verification and all earlier provider, usage, and Master-Records custody tests now pass.
+- The overbroad live-activation contract assertion was bounded at adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006` so YAML comments are ignored only by the generic heartbeat-term scan while explicit prohibited monitor phrases remain checked against the complete workflow.
 
 ## Current blocker
 
-Validation now reaches `Test live activation automation contract` and fails there. This is the first remaining concrete blocker in the existing validation-to-live-activation path. No current real provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion has yet been retained.
+A new validation run for adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006` has not yet been observed. The contract repair is committed, but no live provider response, runtime custody/reconstruction evidence, immutable VERIFIED receipt, Site activation, or downstream ingestion is yet retained.
 
 ## Next executable integration step
 
-Inspect the failing assertions in `tests/test_live_activation_automation_contract.py`, compare them with the current live-activation workflow and heartbeat boundary, repair only the stale or conflicting contract assertion, rerun validation, and allow the existing live verifier to execute only after validation succeeds.
+Observe the validation run produced by adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`. If validation passes, inspect the existing live-activation execution and repair only its first concrete runtime blocker. If another validation assertion fails, repair only that exact assertion without altering heartbeat architecture.
 
 ## Manual user action requirement
 
@@ -89,5 +90,5 @@ False for routine application use. Draft PR execution and repository validation 
 - Draft execution probe: `StegVerse-org/LLM-adapter#8`
 - No-manual-task repair: `beab2903df8468925006a2b5b4d84215be368340`
 - Capability-manifest compatibility repair: `3f35b6b0e645f631af837a191f3e2152815a3480`
-- Validation evidence: run `29704731997` passed setup, provider boundary, backend, endpoint, no-manual-task wiring, free-tier verification, transition verification, provider usage tests, and Master-Records usage custody before failing at the live-activation automation contract.
-- Runtime gate delta: none yet; the build moved measurably closer by clearing two validation blockers and exposing the next exact failure.
+- Live-activation contract repair: `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`
+- Runtime gate delta: none yet; the exact blocking assertion was repaired without deleting the retained comment or weakening the heartbeat boundary.
