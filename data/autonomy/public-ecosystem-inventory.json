@@ -1,12 +1,13 @@
 {
   "classification_counts": {
-    "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED": 2,
+    "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED": 1,
+    "OPERATIONALLY_COMPLETE": 1,
     "PARTIAL": 6,
     "SCAFFOLD_ONLY": 63,
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T12:39:04Z",
+  "generated_at": "2026-07-19T13:44:19Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -302,7 +303,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T11:56:49Z",
+      "pushed_at": "2026-07-19T13:23:07Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -1241,21 +1242,20 @@
     },
     {
       "archived": false,
-      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
+      "classification": "OPERATIONALLY_COMPLETE",
+      "completion": true,
+      "completion_evidence_failures": [],
+      "completion_evidence_valid": true,
       "inspection_errors": [],
       "missing_gates": [
-        "completion_evidence_missing",
         "deployment_or_runtime_configuration"
       ],
-      "next_action": "execute the real user flow and persist strict completion evidence",
+      "next_action": "continue scheduled freshness verification and downgrade on expiry",
       "objective_contract_valid": true,
       "observed_artifacts": {
-        "completion": [],
+        "completion": [
+          "data/autonomy/completion-evidence.json"
+        ],
         "deployment": [],
         "handoff": [
           "SITE_MIRROR_HANDOFF.md",
@@ -1269,9 +1269,9 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-19T12:35:12Z",
+      "pushed_at": "2026-07-19T13:38:20Z",
       "repository": "StegVerse-Labs/Site",
-      "successor_eligible": false,
+      "successor_eligible": true,
       "url": "https://github.com/StegVerse-Labs/Site"
     },
     {

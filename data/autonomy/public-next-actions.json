@@ -1,20 +1,6 @@
 {
-  "action_count": 72,
+  "action_count": 71,
   "actions": [
-    {
-      "action": "execute the real user flow and persist strict completion evidence",
-      "action_id": "public-remediate:StegVerse-Labs:Site",
-      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration"
-      ],
-      "priority": 1,
-      "repository": "StegVerse-Labs/Site",
-      "status": "READY"
-    },
     {
       "action": "execute the real user flow and persist strict completion evidence",
       "action_id": "public-remediate:StegVerse-org:LLM-adapter",
@@ -1144,6 +1130,6 @@
     }
   ],
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T12:39:04Z",
+  "generated_at": "2026-07-19T13:44:19Z",
   "schema_version": "1.0"
 }

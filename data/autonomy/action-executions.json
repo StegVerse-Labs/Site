@@ -205,9 +205,17 @@
       "repository": "StegVerse-Labs/Administrations",
       "requested_action": "derive and install an outcome-level objective contract",
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "public-remediate:StegVerse-Labs:Boundary-Test",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/Boundary-Test",
+      "requested_action": "derive and install an outcome-level objective contract",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     }
   ],
-  "generated_at": "2026-07-19T12:39:04Z",
+  "generated_at": "2026-07-19T13:44:19Z",
   "manual_user_action_required": false,
   "policy_id": "site-public-autonomy-dispatch-v1",
   "schema_version": "1.0"

@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
-  "source_generated_at": "2026-07-19T12:39:07.874330Z",
+  "source_generated_at": "2026-07-19T13:44:22.541586Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -17,10 +17,10 @@
       "id": "truth-layer",
       "title": "Phase 1 \u2014 Truth layer",
       "implementation": "ADVANCED",
-      "operation": "PARTIAL",
-      "evidence": "INSUFFICIENT",
-      "exit_gate": "INCOMPLETE",
-      "progress_percent": 67,
+      "operation": "COMPLETE",
+      "evidence": "SUFFICIENT",
+      "exit_gate": "COMPLETE",
+      "progress_percent": 100,
       "completed": [
         "public ecosystem inventory",
         "objective contract",
@@ -29,13 +29,9 @@
         "completion gate",
         "machine-owned action generation"
       ],
-      "remaining": [
-        "valid operational completion evidence for at least one repository",
-        "successful enumeration of every configured organization",
-        "successor freeze evidence"
-      ],
+      "remaining": [],
       "blockers": [
-        "0 of 72 repositories satisfy strict completion evidence"
+        "1 of 72 repositories satisfy strict completion evidence"
       ]
     },
     {
@@ -57,7 +53,7 @@
         "dependency-complete external execution"
       ],
       "blockers": [
-        "24 queued actions cannot be mutated by Site's repository-scoped token."
+        "25 queued actions cannot be mutated by Site's repository-scoped token."
       ]
     },
     {
