@@ -12,7 +12,7 @@ Primary surface: ecosystem-chat.html
 Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
-Result: SITE_AUTOMATED_PENDING_AND_VERIFIED_ACTIVATION_CONSUMPTION_INSTALLED
+Result: SITE_STABLE_BLOCKER_PROPAGATION_OBSERVED_ACTIVATION_PENDING
 Manual user action required: false
 ```
 
@@ -77,6 +77,8 @@ https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/reports/ecosyst
 ```
 
 The pending status is accepted only when its repository identity, schema, canonical hash, blocker list, manual-action boundary, and all authority flags validate. Pending status cannot activate Site.
+
+The first stable blocker status has now been observed and imported by Site. The accepted source state is `PENDING`, its canonical status hash is `9a3cbb86725b3fefbe028f548abeb7ed1af865e2759e45f1a1c4a817f6fee14a`, and the exact blocker is `live_activation_observation_not_yet_recorded`.
 
 This removes the need to inspect expiring workflow artifacts merely to determine why activation remains pending.
 
@@ -159,7 +161,9 @@ Destination gate computation: INSTALLED
 Downstream propagation packet writer: INSTALLED
 Canonical Site validation binding: INSTALLED
 Scheduled import path: INSTALLED
-Adapter first stable blocker state: NOT YET OBSERVED
+Adapter first stable blocker state: OBSERVED_AND_VALIDATED
+Adapter pending source state: PENDING
+Adapter exact blocker: live_activation_observation_not_yet_recorded
 Adapter immutable VERIFIED activation receipt: NOT YET OBSERVED
 Site ACTIVATION_COMPLETE: NOT YET OBSERVED
 Downstream verified ingestion: NOT YET OBSERVED
@@ -168,10 +172,10 @@ Downstream verified ingestion: NOT YET OBSERVED
 ## Machine-owned continuation
 
 ```text
-1. Adapter scheduled verification writes a stable semantic blocker state when pending.
-2. Site scheduled acquisition imports and validates that pending state automatically.
-3. Exact blockers propagate through Site state without granting activation.
-4. Adapter retains the first immutable VERIFIED receipt after all live gates pass.
+1. Adapter scheduled verification has written a stable semantic blocker state while pending.
+2. Site scheduled acquisition has imported and validated that pending state automatically.
+3. Exact blockers now propagate through Site state without granting activation.
+4. Adapter must execute and record the live activation observation, then retain the first immutable VERIFIED receipt after every live gate passes.
 5. Site imports and validates that receipt automatically.
 6. Site recomputes local and destination activation gates.
 7. Site publishes ACTIVATION_COMPLETE only when every gate passes.
@@ -180,6 +184,17 @@ Downstream verified ingestion: NOT YET OBSERVED
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, manually executed verifier, or manual blocker transcription is required.
+
+## Exact remaining blocker and owner
+
+```text
+Blocker: live_activation_observation_not_yet_recorded
+Owner: StegVerse-org/LLM-adapter
+Required durable evidence: reports/ecosystem-chat-live-activation-status.json must advance from PENDING only after gateway health, durable storage, governed provider use, provider-usage custody and reconstruction, transition custody and reconstruction, and all fail-closed authority checks pass.
+Completion artifact: receipts/ecosystem-chat-live-activation.verified.json
+Site action after publication: automatic acquisition, canonical-hash validation, gate recomputation, and propagation packet update.
+Manual user action required: false
+```
 
 ## Authority boundary
 
@@ -198,8 +213,8 @@ reconstruction PASS != execution authority
 
 ## Release posture
 
-Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, and propagation packaging is installed. Live deployment evidence, Site completion, and downstream verified ingestion remain pending. No tag or release is authorized.
+Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, and propagation packaging is installed. The first stable pending blocker has been observed and validated. Live activation observation, immutable verified receipt publication, Site completion, and downstream verified ingestion remain pending. No tag or release is authorized.
 
 ## Archive readiness
 
-This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and Master-Records handoffs, generated machine-readable state, workflows, and repository history preserve all continuation state. This workstream should remain active until the first stable pending blocker state or immutable verified receipt has propagated through Site and any exact repository-owned failure has been repaired.
+This handoff, `docs/ECOSYSTEM_CHAT_ACTIVATION_MIRROR_HANDOFF.md`, the adapter and Master-Records handoffs, generated machine-readable state, workflows, and repository history preserve all continuation state. This workstream should remain active until the adapter records live activation evidence or publishes the immutable verified receipt, Site recomputes its activation state, and any exact repository-owned failure is repaired.
