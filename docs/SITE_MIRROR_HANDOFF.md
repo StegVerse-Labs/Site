@@ -82,6 +82,21 @@ The first stable blocker status has now been observed and imported by Site. The 
 
 This removes the need to inspect expiring workflow artifacts merely to determine why activation remains pending.
 
+## Retention self-healing path
+
+The retention workflow now independently reacquires and validates the immutable receipt or stable blocker status before every activation-state rebuild. Artifact downloads are supplemental rather than a prerequisite for destination-state continuity.
+
+The workflow must persist and cross-check:
+
+```text
+data/ecosystem-chat-destination-activation-import-status.json
+data/ecosystem-chat-destination-activation-receipt.json when present
+data/ecosystem-chat-activation-state.json
+data/ecosystem-chat-activation-propagation.json
+```
+
+The consistency gate requires the imported destination state to be reflected in the rebuilt Site gates, requires the propagation packet to bind the current state hash, and refuses a pending source that lacks an exact blocker. This repairs the previously observed stale projection in which the validated pending import existed while `data/ecosystem-chat-activation-state.json` still reported that no destination state had been imported.
+
 ## Verified receipt gates
 
 The immutable verified receipt remains the only destination activation input. Acceptance requires:
@@ -161,6 +176,8 @@ Destination gate computation: INSTALLED
 Downstream propagation packet writer: INSTALLED
 Canonical Site validation binding: INSTALLED
 Scheduled import path: INSTALLED
+Retention independent source reacquisition: INSTALLED
+Retention cross-artifact consistency gate: INSTALLED
 Adapter first stable blocker state: OBSERVED_AND_VALIDATED
 Adapter pending source state: PENDING
 Adapter exact blocker: live_activation_observation_not_yet_recorded
@@ -174,13 +191,14 @@ Downstream verified ingestion: NOT YET OBSERVED
 ```text
 1. Adapter scheduled verification has written a stable semantic blocker state while pending.
 2. Site scheduled acquisition has imported and validated that pending state automatically.
-3. Exact blockers now propagate through Site state without granting activation.
-4. Adapter must execute and record the live activation observation, then retain the first immutable VERIFIED receipt after every live gate passes.
-5. Site imports and validates that receipt automatically.
-6. Site recomputes local and destination activation gates.
-7. Site publishes ACTIVATION_COMPLETE only when every gate passes.
-8. Publisher and both wiki consumers ingest the ready propagation packet automatically.
-9. Release readiness remains fail-closed until downstream public evidence is observed.
+3. Site retention independently reacquires source evidence and rebuilds a hash-bound activation projection.
+4. Exact blockers propagate through Site state without granting activation.
+5. Adapter must execute and record the live activation observation, then retain the first immutable VERIFIED receipt after every live gate passes.
+6. Site imports and validates that receipt automatically.
+7. Site recomputes local and destination activation gates.
+8. Site publishes ACTIVATION_COMPLETE only when every gate passes.
+9. Publisher and both wiki consumers ingest the ready propagation packet automatically.
+10. Release readiness remains fail-closed until downstream public evidence is observed.
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, manually executed verifier, or manual blocker transcription is required.
@@ -213,7 +231,7 @@ reconstruction PASS != execution authority
 
 ## Release posture
 
-Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, and propagation packaging is installed. The first stable pending blocker has been observed and validated. Live activation observation, immutable verified receipt publication, Site completion, and downstream verified ingestion remain pending. No tag or release is authorized.
+Repository-local automation for pending-status acquisition, verified-receipt acquisition, validation, activation-state computation, propagation packaging, independent retention reacquisition, and cross-artifact consistency validation is installed. The first stable pending blocker has been observed and validated. Live activation observation, immutable verified receipt publication, Site completion, and downstream verified ingestion remain pending. No tag or release is authorized.
 
 ## Archive readiness
 
