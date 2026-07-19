@@ -1,7 +1,8 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "generated_from": "data/autonomy/live-status.json",
-  "source_generated_at": "2026-07-19T11:26:28Z",
+  "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
+  "source_generated_at": "2026-07-19T11:43:55.196219Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -57,29 +58,24 @@
         "dependency-complete external execution"
       ],
       "blockers": [
-        "24 queued actions cannot be mutated by Site's repository-scoped token."
+        "25 queued actions cannot be mutated by Site's repository-scoped token."
       ]
     },
     {
       "id": "runtime-verification-layer",
       "title": "Phase 3 \u2014 Runtime verification layer",
-      "implementation": "SPECIFIED",
-      "operation": "NOT_OBSERVED",
-      "evidence": "MISSING",
-      "exit_gate": "INCOMPLETE",
-      "progress_percent": 25,
+      "implementation": "COMPLETE",
+      "operation": "COMPLETE",
+      "evidence": "SUFFICIENT",
+      "exit_gate": "COMPLETE",
+      "progress_percent": 100,
       "completed": [
-        "endpoint, freshness, machine-mode, and mobile-browser check specification"
+        "endpoint, freshness, machine-mode, and mobile-browser check specification",
+        "executed endpoint and mobile browser verification",
+        "durable runtime evidence"
       ],
-      "remaining": [
-        "execute endpoint checks",
-        "execute browser user-flow tests",
-        "record integration and deployment verification",
-        "enforce evidence freshness"
-      ],
-      "blockers": [
-        "runtime execution evidence has not been recorded"
-      ]
+      "remaining": [],
+      "blockers": []
     },
     {
       "id": "governance-layer",
@@ -132,6 +128,7 @@
     "roadmap_display_is_execution_authority": false,
     "implementation_is_operational_completion": false,
     "evidence_is_release_authority": false,
+    "runtime_check_pass_is_overall_completion": false,
     "exit_gate_requires_machine_verifiable_evidence": true
   }
 }

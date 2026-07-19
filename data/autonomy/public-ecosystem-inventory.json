@@ -1,34 +1,32 @@
 {
   "classification_counts": {
-    "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED": 2,
-    "PARTIAL": 6,
-    "SCAFFOLD_ONLY": 63,
-    "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
+    "SCAFFOLD_ONLY": 11,
+    "UNKNOWN_INSUFFICIENT_EVIDENCE": 61
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T11:26:28Z",
+  "generated_at": "2026-07-19T11:43:51Z",
   "organizations": [
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 46,
       "organization": "StegVerse-Labs",
       "repository_count": 46
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 10,
       "organization": "StegVerse-org",
       "repository_count": 10
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 2,
       "organization": "StegVerse-002",
       "repository_count": 2
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 7,
       "organization": "GCAT-BCAT-Engine",
       "repository_count": 7
     },
@@ -40,19 +38,19 @@
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 1,
       "organization": "master-records",
       "repository_count": 1
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 3,
       "organization": "Data-Continuation",
       "repository_count": 3
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 3,
       "organization": "AaCT-E",
       "repository_count": 3
     },
@@ -67,14 +65,29 @@
   "repositories": [
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -85,9 +98,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -98,14 +109,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -116,9 +143,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -129,14 +154,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -147,9 +187,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -160,14 +198,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -178,9 +231,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -191,14 +242,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -209,9 +276,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -222,14 +287,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -240,9 +320,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -253,14 +331,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -271,9 +365,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -290,8 +382,22 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -308,21 +414,37 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T10:53:44Z",
+      "pushed_at": "2026-07-19T11:30:41Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -333,9 +455,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -346,46 +466,29 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
       ],
-      "next_action": "derive and install an outcome-level objective contract",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": [
-          ".github/workflows/ci.yml"
-        ]
-      },
-      "pushed_at": "2026-04-27T02:55:02Z",
-      "repository": "GCAT-BCAT-Engine/Triage",
-      "successor_eligible": false,
-      "url": "https://github.com/GCAT-BCAT-Engine/Triage"
-    },
-    {
-      "archived": false,
-      "classification": "SCAFFOLD_ONLY",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -396,9 +499,51 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-04-27T02:55:02Z",
+      "repository": "GCAT-BCAT-Engine/Triage",
+      "successor_eligible": false,
+      "url": "https://github.com/GCAT-BCAT-Engine/Triage"
+    },
+    {
+      "archived": false,
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
+      "missing_gates": [
+        "complete_repository_inspection",
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -409,14 +554,28 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -427,9 +586,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -446,8 +603,24 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -471,14 +644,28 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -489,9 +676,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -502,14 +687,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -520,9 +721,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -533,14 +732,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -551,9 +765,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -564,14 +776,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -582,9 +809,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -595,14 +820,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -613,9 +854,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -626,14 +865,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -644,9 +898,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -663,8 +915,23 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -688,15 +955,32 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
         "machine_validation_workflow",
         "objective_contract"
       ],
@@ -704,12 +988,8 @@
       "objective_contract_valid": false,
       "observed_artifacts": {
         "completion": [],
-        "deployment": [
-          "Dockerfile"
-        ],
-        "handoff": [
-          "README.md"
-        ],
+        "deployment": [],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -720,14 +1000,31 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -738,9 +1035,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -751,14 +1046,31 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -769,9 +1081,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -782,14 +1092,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -800,9 +1125,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -813,14 +1136,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -831,9 +1169,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -844,14 +1180,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -862,27 +1214,40 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-18T11:33:10Z",
+      "pushed_at": "2026-07-19T11:39:31Z",
       "repository": "StegVerse-Labs/FREE-DOM",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/FREE-DOM"
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -893,9 +1258,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -906,14 +1269,27 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -924,9 +1300,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -937,14 +1311,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -955,9 +1345,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -968,14 +1356,31 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -986,9 +1391,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -999,14 +1402,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1017,9 +1436,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1036,8 +1453,24 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1061,14 +1494,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1079,9 +1527,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1092,14 +1538,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1110,9 +1571,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1123,14 +1582,31 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1141,9 +1617,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1154,14 +1628,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1172,9 +1661,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1185,14 +1672,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1203,9 +1705,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1216,14 +1716,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1234,9 +1750,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1247,49 +1761,29 @@
     },
     {
       "archived": false,
-      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration"
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
       ],
-      "next_action": "execute the real user flow and persist strict completion evidence",
-      "objective_contract_valid": true,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "SITE_MIRROR_HANDOFF.md",
-          "README.md"
-        ],
-        "objective": [
-          "data/autonomy/objective-contract.json"
-        ],
-        "workflow": [
-          ".github/workflows/validate.yml",
-          ".github/workflows/autonomy-telemetry.yml"
-        ]
-      },
-      "pushed_at": "2026-07-19T11:18:56Z",
-      "repository": "StegVerse-Labs/Site",
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-Labs/Site"
-    },
-    {
-      "archived": false,
-      "classification": "SCAFFOLD_ONLY",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1300,9 +1794,53 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-19T11:33:16Z",
+      "repository": "StegVerse-Labs/Site",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Site"
+    },
+    {
+      "archived": false,
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
+      "missing_gates": [
+        "complete_repository_inspection",
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1313,14 +1851,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1331,9 +1884,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1344,14 +1895,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1362,9 +1929,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1381,8 +1946,23 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1412,8 +1992,24 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1437,14 +2033,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1455,9 +2067,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1468,14 +2078,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1486,9 +2112,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1499,14 +2123,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1517,9 +2157,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1530,14 +2168,31 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1548,9 +2203,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1561,14 +2214,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1579,9 +2247,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1592,16 +2258,32 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
         "objective_contract"
       ],
       "next_action": "derive and install an outcome-level objective contract",
@@ -1609,13 +2291,9 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
-        "workflow": [
-          ".github/workflows/ci.yml"
-        ]
+        "workflow": []
       },
       "pushed_at": "2026-07-17T05:40:24Z",
       "repository": "StegVerse-Labs/StegTalk",
@@ -1630,8 +2308,23 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1659,8 +2352,22 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1684,14 +2391,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1702,9 +2425,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1715,14 +2436,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1733,9 +2469,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1746,14 +2480,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1764,9 +2514,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1777,14 +2525,31 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1795,9 +2560,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1808,14 +2571,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1826,13 +2605,11 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T09:20:02Z",
+      "pushed_at": "2026-07-19T11:33:10Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/continuity-vault-kit"
@@ -1845,8 +2622,22 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1870,46 +2661,30 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
       ],
-      "next_action": "derive and install an outcome-level objective contract",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": [
-          ".github/workflows/ci.yml"
-        ]
-      },
-      "pushed_at": "2026-07-14T11:58:52Z",
-      "repository": "StegVerse-Labs/hybrid-collab-bridge",
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-Labs/hybrid-collab-bridge"
-    },
-    {
-      "archived": false,
-      "classification": "SCAFFOLD_ONLY",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1920,9 +2695,51 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-14T11:58:52Z",
+      "repository": "StegVerse-Labs/hybrid-collab-bridge",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/hybrid-collab-bridge"
+    },
+    {
+      "archived": false,
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "README.md: HTTP 403"
+      ],
+      "missing_gates": [
+        "complete_repository_inspection",
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1933,14 +2750,28 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1951,9 +2782,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1964,14 +2793,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1982,9 +2827,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1995,33 +2838,43 @@
     },
     {
       "archived": false,
-      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing"
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
       ],
-      "next_action": "execute the real user flow and persist strict completion evidence",
+      "missing_gates": [
+        "complete_repository_inspection",
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow"
+      ],
+      "next_action": "install repository-owned runtime verification",
       "objective_contract_valid": true,
       "observed_artifacts": {
         "completion": [],
-        "deployment": [
-          "render.yaml",
-          "Dockerfile"
-        ],
-        "handoff": [
-          "README.md"
-        ],
+        "deployment": [],
+        "handoff": [],
         "objective": [
           "data/autonomy/objective-contract.json"
         ],
-        "workflow": [
-          ".github/workflows/validate.yml"
-        ]
+        "workflow": []
       },
       "pushed_at": "2026-07-19T10:29:27Z",
       "repository": "StegVerse-org/LLM-adapter",
@@ -2030,16 +2883,33 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
         "objective_contract"
       ],
       "next_action": "derive and install an outcome-level objective contract",
@@ -2047,13 +2917,9 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
-        "workflow": [
-          ".github/workflows/validate.yml"
-        ]
+        "workflow": []
       },
       "pushed_at": "2026-07-18T19:42:54Z",
       "repository": "StegVerse-org/StegVerse-SDK",
@@ -2068,8 +2934,23 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2093,46 +2974,29 @@
     },
     {
       "archived": false,
-      "classification": "PARTIAL",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
-      ],
-      "next_action": "derive and install an outcome-level objective contract",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": [
-          ".github/workflows/ci.yml"
-        ]
-      },
-      "pushed_at": "2026-06-21T23:36:32Z",
-      "repository": "StegVerse-org/demo-suite-runner",
-      "successor_eligible": false,
-      "url": "https://github.com/StegVerse-org/demo-suite-runner"
-    },
-    {
-      "archived": false,
       "classification": "SCAFFOLD_ONLY",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2146,6 +3010,49 @@
         "handoff": [
           "README.md"
         ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-06-21T23:36:32Z",
+      "repository": "StegVerse-org/demo-suite-runner",
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-org/demo-suite-runner"
+    },
+    {
+      "archived": false,
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
+      "missing_gates": [
+        "complete_repository_inspection",
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "derive and install an outcome-level objective contract",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -2156,14 +3063,30 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2174,9 +3097,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -2187,14 +3108,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2205,9 +3141,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -2218,14 +3152,28 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2236,9 +3184,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -2255,8 +3201,22 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2280,14 +3240,29 @@
     },
     {
       "archived": false,
-      "classification": "SCAFFOLD_ONLY",
+      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
       "completion": false,
       "completion_evidence_failures": [
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2298,9 +3273,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
