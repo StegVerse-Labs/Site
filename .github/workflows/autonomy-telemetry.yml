@@ -66,6 +66,10 @@ jobs:
           from pathlib import Path
           roadmap = json.loads(Path('data/autonomy/roadmap-status.json').read_text())
           runtime = json.loads(Path('data/autonomy/runtime-verification-evidence.json').read_text())
+          expected_ids = {
+              'telemetry-file', 'live-page', 'roadmap-page', 'freshness',
+              'machine-mode', 'live-mobile-flow', 'roadmap-mobile-flow'
+          }
           assert roadmap['schema_version'] == '1.2'
           assert roadmap['generated_from'] == 'data/autonomy/live-status.json'
           assert roadmap['runtime_evidence_source'] == 'data/autonomy/runtime-verification-evidence.json'
@@ -73,10 +77,17 @@ jobs:
           assert len(roadmap['phases']) == 5
           assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in roadmap['phases'])
           assert all(0 <= int(p['progress_percent']) <= 100 for p in roadmap['phases'])
+          assert runtime['schema_version'] == '1.1'
           assert runtime['state'] in {'PASS', 'FAIL'}
+          assert runtime['required_checks'] == 7
           assert runtime['required_checks'] == len([c for c in runtime['checks'] if c['required']])
+          assert {c['id'] for c in runtime['checks']} == expected_ids
+          assert runtime['passed_required_checks'] + len(runtime['failed_required_check_ids']) == runtime['required_checks']
           assert runtime['authority']['runtime_check_pass_is_completion'] is False
-          print('roadmap and runtime evidence valid')
+          assert runtime['authority']['runtime_check_pass_is_release_authority'] is False
+          assert runtime['authority']['runtime_check_pass_is_admissibility_authority'] is False
+          assert runtime['authority']['manual_user_action_required'] is False
+          print('roadmap and expanded runtime evidence valid')
           PY
       - name: Persist inventory, actions, execution records, runtime evidence, roadmap, and live tree
         run: |
