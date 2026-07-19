@@ -41,7 +41,7 @@ Documentation, status files, handoffs, monitors, CI schedules, installed workflo
 
 ## Heartbeat boundary
 
-GitHub Actions and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. The adapter and Site do not require CI-derived heartbeat or scheduler-status artifacts. Runtime heartbeat architecture was not modified.
+GitHub Actions and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. Runtime heartbeat architecture was not modified.
 
 ## Proven state
 
@@ -52,34 +52,34 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - The immutable VERIFIED receipt remains separately retained only after zero-blocker verification.
 - The adapter repository is public, active, on `main`, and available through an administrative GitHub connection.
 - Repeated qualifying adapter commits exist after the workflow repair.
-- No post-repair workflow run or repository-retained `receipts/ecosystem-chat-live-activation.latest.json` is observable.
-- Site-local autonomy checks do not complete Ecosystem Chat activation.
+- No post-repair workflow-generated commit or repository-retained `receipts/ecosystem-chat-live-activation.latest.json` is observable.
 
 ## Current blocker
 
-The code-level trigger, verifier, contract, and evidence-retention paths are present, but repository-level GitHub Actions execution has not been observed after repeated qualifying pushes. The exact repository or organization Actions setting responsible has not yet been proven, so the records must not claim that Actions are disabled.
+The code-level trigger, verifier, contract, and evidence-retention paths are present, but repository-level GitHub Actions execution has not been observed after repeated qualifying pushes.
 
-The stable adapter status remains `PENDING` with `live_activation_observation_not_yet_recorded`, and the detailed latest observation is absent.
+The connected GitHub application does not expose repository or organization Actions policy settings or workflow dispatch. The prescribed GitHub CLI fallback cannot be used in the current execution environment because `gh` is not installed. Therefore the exact Actions setting or run-level failure cannot currently be inspected or corrected through the available interfaces.
+
+This is not evidence that Actions are disabled and is not a heartbeat failure. The stable adapter status remains `PENDING` with `live_activation_observation_not_yet_recorded`.
 
 ## Next executable integration step
 
-Inspect the existing `StegVerse-org/LLM-adapter` repository and organization Actions execution policy/settings for the current `main` branch. Restore execution through configuration if it is disabled or restricted; otherwise capture the first run-level failure. Then read the repository-retained detailed observation and repair only its first gateway, provider, persistence, custody, reconstruction, or receipt blocker.
+Use an authorized interface that exposes GitHub Actions settings or workflow dispatch for `StegVerse-org/LLM-adapter`. Confirm repository and organization Actions execution policy, execute the existing `Ecosystem Chat Live Activation` workflow, and inspect its repository-retained detailed observation. Repair only the first actual gateway, provider, persistence, custody, reconstruction, or receipt blocker.
 
 ## Manual user action requirement
 
-False unless GitHub requires an organization-owner confirmation that is unavailable through the connected administrative interface.
+No routine Ecosystem Chat action is required. Progress is currently blocked by the absence of an authorized Actions settings/dispatch interface in this session.
 
 ## Progress accounting
 
 - Implementation coverage describes code and integrations that exist.
 - Runtime gate completion describes current gates passed by real execution.
 - Evidence state uses DESIGNED, IMPLEMENTED, INTEGRATED, EXECUTED, VERIFIED, DEPLOYED, LIVE, and PROPAGATED.
-
-These measures must not be collapsed into one percentage.
+- These measures must not be collapsed into one percentage.
 
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-19
 - Adapter evidence-retention commits: `a5e0b92ac58d924e77e8cc43f2a0d3d2ee8153ae`, `58e61aef236d847885a3eb3750a8b20697120488`
 - Adapter contract commit: `06ee40df1370eec398fca29105f0cba8ab0463a9`
-- Latest finding: workflow and contract content are coherent, but no qualifying push has produced an observable run or retained detailed observation; the next boundary is repository-level Actions execution policy rather than heartbeat or verifier design.
+- Latest finding: repository history confirms no workflow-generated evidence commit after the qualifying repair commits; connector settings/dispatch are unavailable and the CLI fallback is not installed.
