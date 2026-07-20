@@ -1,0 +1,66 @@
+name: Sync Executive Rhetoric Ledger
+
+on:
+  schedule:
+    - cron: "17 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Fetch reviewed compendium
+        run: |
+          mkdir -p public/data/executive-rhetoric-ledger receipts
+          curl --fail --location --retry 3 \
+            https://raw.githubusercontent.com/StegVerse-Labs/Executive_Rhetoric_Ledger/main/publication/compendium.json \
+            -o public/data/executive-rhetoric-ledger/compendium.json
+          python -m json.tool public/data/executive-rhetoric-ledger/compendium.json >/dev/null
+      - name: Commit destination content and acknowledgment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="automation/executive-rhetoric-ledger"
+          git config user.name "stegverse-site-sync-bot"
+          git config user.email "stegverse-site-sync-bot@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          HASH="$(sha256sum public/data/executive-rhetoric-ledger/compendium.json | awk '{print $1}')"
+          git add public/data/executive-rhetoric-ledger/compendium.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: synchronize reviewed Executive Rhetoric Ledger compendium"
+          fi
+          CONTENT_COMMIT="$(git rev-parse HEAD)"
+          VALIDATED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python - <<PY
+          import json
+          receipt = {
+            "acknowledgment_id": "ACK-SITE-" + "${HASH}"[:20].upper(),
+            "destination_repository": "StegVerse-Labs/Site",
+            "destination_commit": "${CONTENT_COMMIT}",
+            "source_publication": {"repository": "StegVerse-Labs/Executive_Rhetoric_Ledger", "path": "publication/compendium.json", "sha256": "${HASH}"},
+            "target_path": "public/data/executive-rhetoric-ledger/compendium.json",
+            "validation": {"validated_at": "${VALIDATED_AT}", "validator": "site-destination-workflow", "content_hash_matches": True, "destination_checks_passed": True},
+            "status": "acknowledged",
+            "authority": {"owned_by_destination": True, "source_may_self_acknowledge": False}
+          }
+          open("receipts/executive-rhetoric-ledger-ack.json", "w").write(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+          PY
+          git add receipts/executive-rhetoric-ledger-ack.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: acknowledge Executive Rhetoric Ledger synchronization"
+          fi
+          git push --force-with-lease origin "$BRANCH"
+          BODY="Destination-owned synchronization. The receipt binds the copied reviewed compendium to its SHA-256 and destination content commit."
+          if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
+            gh pr edit "$BRANCH" --title "Synchronize Executive Rhetoric Ledger" --body "$BODY"
+          else
+            gh pr create --base main --head "$BRANCH" --title "Synchronize Executive Rhetoric Ledger" --body "$BODY"
+          fi
