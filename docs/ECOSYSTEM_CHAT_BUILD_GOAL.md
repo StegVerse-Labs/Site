@@ -59,26 +59,25 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - Deployed probe run `29706857317` retained artifact `8448172403`; the configured host resolved but all required routes returned HTTP 404.
 - `render-production.yaml` was not the consumed default Blueprint path.
 - Post-merge probe run `29708519759` retained artifact `8448551905` and confirmed the same HTTP 404 result after the non-consumed production-file repair.
-- The consumed `render.yaml` retained the existing free plan, provider-disabled posture, non-durable storage, and external Master-Records settings, but omitted an explicit public subdomain policy.
-- PR #9 added only `renderSubdomainPolicy: enabled` to that existing service.
-- Validation run `29708558752` and Architecture Guard run `29708558778` passed.
-- PR #9 was merged as `1393a06c35a9727b1734a4b7a40ccd62e43e75e5` through the existing repository path.
-- Immediate post-merge probe run `29708684759` retained artifact `8448582241` and still observed plain-text HTTP 404 at `/health`, `/api/ecosystem-chat`, and `/api/transitions/{id}`.
-- The existing validation job was rerun directly after the deployment window without another repository change.
-- Delayed attempt 2 retained artifact `8448604301`, digest `sha256:80a9b91723eeed13712d71ab75163c93c039e36f1f2b1ba50ca834c97e2de404`, and again observed plain-text HTTP 404 at all three required routes at `2026-07-20T00:00:03Z`.
-- The delayed result confirms a persistent Render service-binding problem rather than DNS failure, transient transport failure, or an observation taken before deployment had time to complete.
+- PR #9 added `renderSubdomainPolicy: enabled` to the consumed `render.yaml` and merged as `1393a06c35a9727b1734a4b7a40ccd62e43e75e5` after validation and Architecture Guard success.
+- Immediate and delayed probes continued to return plain-text HTTP 404 at all required routes.
+- PR #11 bounded the existing verifier to retain final URLs and a narrow non-secret response-header allowlist.
+- Validation run `29709832124` and Architecture Guard run `29709832126` passed.
+- Probe artifact `8448772066`, digest `sha256:bd129d6e1c46473e56cf40f0b2ab1255cc4912b6fa669299e40aa6ca9fbc1f77`, retained `server: cloudflare`, `content-type: text/plain; charset=utf-8`, and `x-render-routing: no-server` for health, chat, and transition requests.
+- PR #11 merged as `efb7c4e49a2773c976e4494d5aa84618554a768d`.
+- The verified blocker is therefore before the FastAPI application: the Render hostname exists at the edge, but no Render server is attached behind it.
 
 ## Current blocker
 
-The repository-side route implementation and consumed Blueprint have been inspected and repaired, but the live hostname still serves plain-text HTTP 404 for every required route after a delayed verifier rerun. The unresolved boundary is the existing Render control-plane binding: which Render service owns `stegverse-ecosystem-chat-gateway.onrender.com`, which repository and branch it follows, and whether it is actually managed from this Blueprint. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+Render returns `x-render-routing: no-server` for every required route. The unresolved boundary is the existing Render control-plane resource: restore or attach the existing `stegverse-ecosystem-chat-gateway` service behind `stegverse-ecosystem-chat-gateway.onrender.com`, with source repository `StegVerse-org/LLM-adapter`, branch `main`, and the existing start command. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Inspect the existing Render service-to-repository, branch, and Blueprint binding for `stegverse-ecosystem-chat-gateway.onrender.com`. Bind that existing service to `StegVerse-org/LLM-adapter` main and the consumed `render.yaml` if it is currently detached or pointed elsewhere, then rerun the same verifier. Do not create a replacement gateway unless the existing Render service cannot be recovered through its current control plane.
+In the existing Render control plane, locate the service or hostname record for `stegverse-ecosystem-chat-gateway.onrender.com`. Restore or attach the existing service to `StegVerse-org/LLM-adapter` branch `main`, confirm the start command `python -m llm_adapter.custody_worker && uvicorn llm_adapter.combined_gateway:app --host 0.0.0.0 --port $PORT`, deploy, and rerun the existing verifier. Do not create a replacement gateway unless the existing Render resource is proven unrecoverable and a replacement decision is explicitly approved.
 
 ## Manual user action requirement
 
-False for routine repository work. The current blocker requires access to the existing Render control plane; no new deployment, release, custody, execution, publication, or governance authority is granted by this record.
+A Render account owner action is currently required because no connected Render control-plane tool is available in this session. No new deployment, release, custody, execution, publication, or governance authority is granted by this record.
 
 ## Progress accounting
 
@@ -89,17 +88,12 @@ False for routine repository work. The current blocker requires access to the ex
 
 ## Latest meaningful goal advancement
 
-- Date: 2026-07-19
-- Initial merged integration: `ce9027d0d3bf79f93b92bc764880a21cd848afda`
-- Post-merge deployed probe run: `29708519759`
-- Post-merge deployed receipt artifact: `8448551905`
-- Consumed Blueprint repair: `3a885095fd3f695da3c852ced0543969de295493`
-- Repair validation: `29708558752` SUCCESS
-- Repair Architecture Guard: `29708558778` SUCCESS
-- Merged repair: `1393a06c35a9727b1734a4b7a40ccd62e43e75e5`
-- Immediate post-merge probe run: `29708684759`
-- Immediate post-merge probe artifact: `8448582241`
-- Delayed verifier rerun job: `88249881505`
-- Delayed verifier artifact: `8448604301`
-- Delayed observed result: unchanged HTTP 404 at health, chat, and transition routes
-- Runtime gate delta: the persistent live failure is now classified at the existing Render control-plane service binding; no provider or custody gate is upgraded.
+- Date: 2026-07-20
+- Diagnostic verifier commit: `5814efd7657a832f55138998b6e3eadad7200d59`
+- Validation: `29709832124` SUCCESS
+- Architecture Guard: `29709832126` SUCCESS
+- Runtime artifact: `8448772066`
+- Artifact digest: `sha256:bd129d6e1c46473e56cf40f0b2ab1255cc4912b6fa669299e40aa6ca9fbc1f77`
+- Exact edge evidence: `x-render-routing: no-server`
+- Merged verifier enhancement: `efb7c4e49a2773c976e4494d5aa84618554a768d`
+- Runtime gate delta: the failure is now verified at the Render edge before application execution; no provider or custody gate is upgraded.
