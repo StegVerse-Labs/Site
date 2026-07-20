@@ -1,0 +1,20 @@
+{
+  "authority": {
+    "may_include_candidates": false,
+    "may_promote": false,
+    "reviewed_only": true
+  },
+  "entries": [
+    {
+      "entry_id": "310B79CD1FBE8D2148EC",
+      "receipt_path": "ledger_receipts/reviewed/PIT-MODERN-2025-AI-EO-14179__action-record.reviewed.md",
+      "receipt_sha256": "f418b6dd5e010abcc4a93c3c590f76daded1c6bc81050aa7eb0576873a4a1161",
+      "review_status": "reviewed",
+      "search_text": "# Reviewed Ledger Receipt: EO 14179 Action Record ## Receipt Status ```yaml receipt_id: \"ERL-REVIEWED-EO14179-ACTION-001\" review_status: \"reviewed-promoted\" ledger_topic_id: \"PIT-MODERN-2025-AI-EO-14179\" object_class: \"action_record\" admissibility_class: \"admissible-for-action-record\" promotion_date: \"2026-07-20\" validation_run: \"29719771475\" validated_commit: \"f0d8010630a89298580c667614102d64823c3932\" source_intake: \"ingestion/reviewed-producer-export-intake-eo14179.md\" example_export: \"producer_exports/example/PIT-MODERN-2025-AI-EO-14179__action_record__2025-01-23__SRC-2025-EO14179-FR-001.json\" producer_exports: - producer_repo: \"StegVerse-Labs/Trumpality\" producer_commit: \"fc032e774ec05b611c114a0549895ac225e6764b\" - producer_repo: \"StegVerse-Labs/Administrations\" producer_commit: \"840fa595cc921d223be0a30132c27855b28aba2f\" ``` ## Reviewed Finding The existence and operative text of Executive Order 14179 are admitted as an action record for the ledger topic `PIT-MODERN-2025-AI-EO-14179`. The reviewed promotion is supported by the direct-origin Federal Register source receipt and by successful repository validation of the producer-export, source-posture, validation-result, activation-state, governance, assessment, intake, and combined activation layers. ## Accepted Scope This receipt supports: - the existence of Executive Order 14179; - the order's stated federal AI-leadership framing; - its direction to review actions taken under Executive Order 14110; - the producer-to-ledger handoff from `Trumpality` and `Administrations`; - placement in the action-conversion branch of the related Political Influence Tree. ## Excluded Scope This receipt does not independently establish: - that prior federal AI policies actually created barriers to innovation; - that the order's policy justification is factually correct; - a completed control comparison; - downstream outcomes or causal consequences; - endorsement of the order by the ledger or its producers. ## Evidence Boundary ```text Source proves action text != source proves policy justification. Validated producer export != producer controls final ledger classification. Reviewed action-record promotion != completed outcome assessment. ``` ## Promotion Decision The candidate is promoted from intake-reviewed status to a reviewed ledger receipt strictly for the `action_record` class. Contradictions, controls, later institutional responses, and measurable outcomes remain separately reviewable and supersedable.",
+      "title": "Reviewed Ledger Receipt: EO 14179 Action Record"
+    }
+  ],
+  "generated_at": "2026-07-20T07:11:46Z",
+  "publication_id": "COMPENDIUM-05405C50139CED5FD45B",
+  "publication_status": "reviewed-only-compendium"
+}
