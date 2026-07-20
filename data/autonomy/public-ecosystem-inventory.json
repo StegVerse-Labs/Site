@@ -7,7 +7,7 @@
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-20T15:35:28Z",
+  "generated_at": "2026-07-20T18:36:06Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -303,7 +303,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-20T14:37:46Z",
+      "pushed_at": "2026-07-20T18:28:26Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -832,7 +832,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-20T15:33:22Z",
+      "pushed_at": "2026-07-20T15:40:22Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Executive_Rhetoric_Ledger"
@@ -1269,7 +1269,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-20T13:34:49Z",
+      "pushed_at": "2026-07-20T16:01:05Z",
       "repository": "StegVerse-Labs/Site",
       "successor_eligible": true,
       "url": "https://github.com/StegVerse-Labs/Site"
@@ -1362,7 +1362,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-20T14:03:24Z",
+      "pushed_at": "2026-07-20T15:39:40Z",
       "repository": "StegVerse-Labs/StegCore",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/StegCore"
@@ -1795,7 +1795,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-20T07:21:46Z",
+      "pushed_at": "2026-07-20T16:10:55Z",
       "repository": "StegVerse-Labs/admissibility-wiki",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/admissibility-wiki"
@@ -1826,7 +1826,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-20T13:20:55Z",
+      "pushed_at": "2026-07-20T18:22:57Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/continuity-vault-kit"
