@@ -7,7 +7,7 @@
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-19T23:37:01Z",
+  "generated_at": "2026-07-20T04:27:15Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -303,7 +303,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T23:12:20Z",
+      "pushed_at": "2026-07-20T04:06:13Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -832,7 +832,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-16T18:38:49Z",
+      "pushed_at": "2026-07-20T02:54:43Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Executive_Rhetoric_Ledger"
@@ -1269,7 +1269,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-19T22:54:52Z",
+      "pushed_at": "2026-07-20T00:44:11Z",
       "repository": "StegVerse-Labs/Site",
       "successor_eligible": true,
       "url": "https://github.com/StegVerse-Labs/Site"
@@ -1826,7 +1826,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-19T23:14:22Z",
+      "pushed_at": "2026-07-20T04:11:08Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/continuity-vault-kit"
@@ -2017,7 +2017,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-19T22:54:08Z",
+      "pushed_at": "2026-07-20T03:11:14Z",
       "repository": "StegVerse-org/LLM-adapter",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-org/LLM-adapter"
