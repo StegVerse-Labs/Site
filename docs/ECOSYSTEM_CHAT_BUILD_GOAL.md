@@ -20,8 +20,10 @@ The existing portable-node Ecosystem Chat runtime is an active deployment-recove
 - Authoritative Site mirror handoff: https://github.com/StegVerse-Labs/Site/blob/main/docs/SITE_MIRROR_HANDOFF.md
 - Build-goal record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_BUILD_GOAL.md
 - Active-building record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md
+- Latest bounded deployment cycle: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_RENDER_ALIGNMENT_BUILD.md
 - Runtime gateway and canonical StegDeploy implementation: https://github.com/StegVerse-org/LLM-adapter
 - Persistent deployment recovery issue: https://github.com/StegVerse-org/LLM-adapter/issues/18
+- Render alignment draft PR: https://github.com/StegVerse-org/LLM-adapter/pull/23
 - Machine-execution compatibility runtime: https://github.com/StegVerse-org/core-node-runtime-demo
 - Machine-execution issue: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
 - Master-Records custody implementation: https://github.com/master-records/core-lite
@@ -68,13 +70,13 @@ Execution, repair of an observed runtime failure, verification, custody, reconst
 
 ## What does not count as completion
 
-Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, browser code existence, goal-page check marks, task-tree entries, container-image existence, or propagation packets without verified runtime evidence.
+Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, browser code existence, goal-page check marks, task-tree entries, container-image existence, Blueprint source existence, draft pull requests, or propagation packets without verified runtime evidence.
 
 Provider-replacement, billing, export, migration-gate, or retirement scaffolding does not advance this declared goal unless it directly enables the current Ecosystem Chat runtime path.
 
 ## Heartbeat boundary
 
-GitHub Actions, portable-node process supervision, OCI image publication, and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. Runtime heartbeat architecture was not modified.
+GitHub Actions, portable-node process supervision, OCI image publication, Render Blueprint source, and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. Runtime heartbeat architecture was not modified.
 
 ## Proven state
 
@@ -113,26 +115,25 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - Machine-owned continuation is tracked by https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 and https://github.com/StegVerse-org/LLM-adapter/issues/18.
 - An adjacent persistent-host search evaluated `StegVerse-002/micro-node-runtime`, `StegVerse-Labs/media-runtime`, `StegVerse-org/HPS-runtime`, and `StegVerse-Labs/broadcast-runtime`; no already-authorized persistent host, self-hosted runner, deployment agent, or public-service contract was found.
 - `StegVerse-002/micro-node-runtime` remains reusable as a deterministic governance, receipt, return-path, and reconstruction pattern, but it explicitly does not claim external deployment or host authority.
+- Default-branch tests now verify the retained production Render contract and preserve the current fail-closed consumed Blueprint at commit `10f1a7809a2aa111edf619c63cd8526bee13a6ab`.
+- Branch `reuse/render-production-alignment` applies the retained production contract to the consumed `render.yaml` path at commit `b6c7ab2aaf8abe2d4ea991b54e21be809d2d6776`.
+- Draft PR https://github.com/StegVerse-org/LLM-adapter/pull/23 contains the bounded Render alignment. It is unmerged and has not been applied to Render.
 
 ## Current blocker
 
-The first missing runtime boundary is the actual result from the existing `StegVerse-org/core-node-runtime-demo/.github/workflows/validate.yml` push path. The canonical intake is integrated on `main`, but the expected repository-authored compatibility receipt has not appeared and the push-run outcome was not retrievable through the connected evidence path used in this cycle.
+The production-capable consumed Render Blueprint is IMPLEMENTED on draft PR #23 but is not merged, validated by an observed CI result, or applied to Render. Provider-side application may create paid starter services and persistent disks and requires explicit deployment authority. Provider secrets and Master-Records secret authority are not granted by repository code.
 
-This must not be overstated as proven non-execution. No duplicate executor, workflow, monitor, scheduler, manual dispatch task, or heartbeat-like automation is justified.
-
-The persistent hosted path remains separately blocked because the configured Render endpoint returns `x-render-routing: no-server`, and no already-authorized persistent host was found in the connected StegVerse repositories. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The existing core-node compatibility receipt also remains unobserved. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Continue through the existing repository-owned validation path tracked at https://github.com/StegVerse-org/core-node-runtime-demo/issues/5. Obtain the actual push-run result or the first repository-authored `receipts/stegdeploy-runtime-intake.latest.json`. If a real job or step failure is obtained, repair only the first concrete failure.
-
-For persistent hosting, resolve https://github.com/StegVerse-Labs/Site/issues/24 with one explicit authority state: `AUTHORIZE_EXISTING_HOST`, `AUTHORIZE_RENDER_ALIGNMENT`, or `NO_DEPLOYMENT_AUTHORITY`. After authorization, reuse canonical StegDeploy unchanged or apply only the approved bounded Render alignment, then allow the existing verifier, custody, reconstruction, receipt, Site activation, and downstream paths to proceed.
+Validate draft PR https://github.com/StegVerse-org/LLM-adapter/pull/23. After explicit authorization for potential paid Render services, merge and apply the bounded existing Blueprint alignment, supply provider configuration through Render's secret boundary, observe `/health`, execute one governed request, retain the existing verifier result, and repair only the first concrete runtime failure.
 
 Do not create another executor, deployment package, gateway, receipt schema, workflow scheduler, or heartbeat mechanism.
 
 ## Manual user action requirement
 
-An explicit deployment-authority decision is required. The user is not assigned workflow dispatch, credential copying, image pull, node start, health testing, receipt construction, or evidence transcription.
+False for routine repository work. The user is not assigned file editing, workflow dispatch, credential copying into GitHub, receipt construction, or evidence transcription. Explicit platform-owner authorization remains required before merge/application that may create paid Render services or persistent disks and before supplying provider credentials.
 
 ## Progress accounting
 
@@ -140,7 +141,7 @@ An explicit deployment-authority decision is required. The user is not assigned 
 - Runtime gate completion describes gates passed by a current real execution.
 - Evidence state uses DESIGNED, IMPLEMENTED, INTEGRATED, EXECUTED, VERIFIED, DEPLOYED, LIVE, and PROPAGATED.
 - These measures must not be collapsed into one percentage.
-- This cycle does not increase runtime completion because no compatibility receipt, step-level push-run result, persistent deployment, provider response, custody result, reconstruction result, or immutable receipt was observed.
+- This cycle increases deployment implementation coverage but does not increase runtime completion because the PR is unmerged and no deployment or live execution was observed.
 
 ## Latest meaningful goal advancement
 
@@ -158,6 +159,10 @@ An explicit deployment-authority decision is required. The user is not assigned 
 - Explicit main-branch trigger binding: `abd8fc8858d3ec46a8d24d5b649ee3cb520c68c4`
 - Evidence-correction record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_ACTIONS_EVIDENCE_CORRECTION.md
 - Adjacent persistent-host search commit: https://github.com/StegVerse-Labs/Site/commit/5e0e7f2653014dba3d096ef10616a4ee77836cd9
+- Safe Render contract test: https://github.com/StegVerse-org/LLM-adapter/commit/10f1a7809a2aa111edf619c63cd8526bee13a6ab
+- Render alignment branch commit: https://github.com/StegVerse-org/LLM-adapter/commit/b6c7ab2aaf8abe2d4ea991b54e21be809d2d6776
+- Render alignment draft PR: https://github.com/StegVerse-org/LLM-adapter/pull/23
+- Render alignment build cycle: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_RENDER_ALIGNMENT_BUILD.md
 - Persistent-host authority decision: https://github.com/StegVerse-Labs/Site/issues/24
 - Machine-execution task: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
 - Persistent deployment task: https://github.com/StegVerse-org/LLM-adapter/issues/18
