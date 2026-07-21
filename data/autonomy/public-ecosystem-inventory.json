@@ -7,7 +7,7 @@
     "UNKNOWN_INSUFFICIENT_EVIDENCE": 1
   },
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-21T12:13:59Z",
+  "generated_at": "2026-07-21T14:18:45Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -303,7 +303,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-21T12:00:56Z",
+      "pushed_at": "2026-07-21T12:52:13Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "successor_eligible": false,
       "url": "https://github.com/GCAT-BCAT-Engine/Publisher"
@@ -832,7 +832,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-21T08:43:06Z",
+      "pushed_at": "2026-07-21T13:36:39Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Executive_Rhetoric_Ledger"
@@ -1269,7 +1269,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-21T10:10:08Z",
+      "pushed_at": "2026-07-21T14:15:14Z",
       "repository": "StegVerse-Labs/Site",
       "successor_eligible": true,
       "url": "https://github.com/StegVerse-Labs/Site"
@@ -1362,7 +1362,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-21T05:29:38Z",
+      "pushed_at": "2026-07-21T13:25:24Z",
       "repository": "StegVerse-Labs/StegCore",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/StegCore"
@@ -1992,17 +1992,23 @@
       "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
       "completion": false,
       "completion_evidence_failures": [
-        "completion_evidence_missing"
+        "runtime_observed",
+        "user_outcome_verified",
+        "critical_blockers_zero"
       ],
       "completion_evidence_valid": false,
       "inspection_errors": [],
       "missing_gates": [
-        "completion_evidence_missing"
+        "critical_blockers_zero",
+        "runtime_observed",
+        "user_outcome_verified"
       ],
-      "next_action": "execute the real user flow and persist strict completion evidence",
+      "next_action": "repair stale or invalid completion evidence and rerun verification",
       "objective_contract_valid": true,
       "observed_artifacts": {
-        "completion": [],
+        "completion": [
+          "data/autonomy/completion-evidence.json"
+        ],
         "deployment": [
           "render.yaml",
           "Dockerfile"
@@ -2017,7 +2023,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-21T09:18:28Z",
+      "pushed_at": "2026-07-21T14:16:36Z",
       "repository": "StegVerse-org/LLM-adapter",
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-org/LLM-adapter"

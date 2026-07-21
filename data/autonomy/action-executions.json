@@ -19,7 +19,7 @@
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
       "repository": "StegVerse-org/LLM-adapter",
-      "requested_action": "execute the real user flow and persist strict completion evidence",
+      "requested_action": "repair stale or invalid completion evidence and rerun verification",
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     },
     {
@@ -215,7 +215,7 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     }
   ],
-  "generated_at": "2026-07-21T12:13:59Z",
+  "generated_at": "2026-07-21T14:18:45Z",
   "manual_user_action_required": false,
   "policy_id": "site-public-autonomy-dispatch-v1",
   "schema_version": "1.0"
