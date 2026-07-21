@@ -20,7 +20,9 @@ The existing portable-node Ecosystem Chat runtime is an active deployment-recove
 - Authoritative Site mirror handoff: https://github.com/StegVerse-Labs/Site/blob/main/docs/SITE_MIRROR_HANDOFF.md
 - Build-goal record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_BUILD_GOAL.md
 - Active-building record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md
+- Latest singleton-repair cycle: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_SINGLETON_REPAIR.md
 - Runtime gateway and canonical StegDeploy implementation: https://github.com/StegVerse-org/LLM-adapter
+- Portable-node singleton repair: https://github.com/StegVerse-org/LLM-adapter/pull/20
 - Persistent deployment recovery issue: https://github.com/StegVerse-org/LLM-adapter/issues/18
 - Machine-execution compatibility runtime: https://github.com/StegVerse-org/core-node-runtime-demo
 - Machine-execution issue: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
@@ -83,6 +85,8 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - PR #15 merged zero-touch portable-node bootstrap.
 - PR #16 merged autonomous portable-node service lifecycle and reconstruction.
 - PR #17 merged user-level automatic startup registration across Linux, macOS, and Windows.
+- PR #19 merged atomic state writes, lifecycle receipts, active health verification, bounded reconstruction backoff, and graceful termination as `9fa80338840e81b3fdd24ad4ed2d11800232dcbf`.
+- PR #20 merged atomic singleton ownership, duplicate-daemon refusal receipts, and automatic stale-lock repair as `3d10487535c0005fd398214b7ef04cc5d89ef2ab` after Architecture Guard, validation, and the full cross-platform capability-runtime matrix succeeded.
 - PR #8 was merged as `ce9027d0d3bf79f93b92bc764880a21cd848afda` after full validation and Architecture Guard success.
 - Deployed probe run `29706857317` retained artifact `8448172403`; the configured host resolved but all required routes returned HTTP 404.
 - `render-production.yaml` was not the consumed default Blueprint path.
@@ -111,11 +115,11 @@ The configured hosted endpoint still returns `x-render-routing: no-server`, so n
 
 ## Next executable integration step
 
-Use https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 to produce the first repository-authored machine-execution compatibility receipt. In parallel, use https://github.com/StegVerse-org/LLM-adapter/issues/18 to bind the same canonical StegDeploy runtime to an already-authorized persistent host or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Do not create another deployment package or replacement gateway.
+Use https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 to produce the first repository-authored machine-execution compatibility receipt. In parallel, use https://github.com/StegVerse-org/LLM-adapter/issues/18 to bind the same canonical StegDeploy runtime to an already-authorized persistent host or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Do not create another deployment package, replacement gateway, supervisor, lock service, heartbeat mechanism, or status-only workflow.
 
 ## Manual user action requirement
 
-False. The deployment and machine-execution tasks are repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, image-pull, node-start, health testing, comparison execution, or evidence-transcription work.
+False. The deployment and machine-execution tasks are repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, image-pull, node-start, health testing, comparison execution, evidence-transcription, singleton recovery, or stale-lock repair work.
 
 ## Progress accounting
 
@@ -131,11 +135,14 @@ False. The deployment and machine-execution tasks are repository-owned. The user
 - Zero-touch bootstrap: merged PR #15
 - Autonomous node lifecycle: merged PR #16
 - Automatic user-level startup: merged PR #17
+- Runtime health and reconstruction hardening: merged PR #19, `9fa80338840e81b3fdd24ad4ed2d11800232dcbf`
+- Singleton ownership and stale-lock repair: merged PR #20, `3d10487535c0005fd398214b7ef04cc5d89ef2ab`
 - Portable-node binding repair: `042faaaca4d1c1babc8d7d7bc8c8e408356cc337`
 - Authorized environment preservation: `3f8165686b86419cadfdd093a1e5a3876915801f`
 - Portable-node runtime tests: `97bef70d3683cfae7029cb9bc368f0b17d955c9c`
 - Existing-validation contract binding: `398a4a39523d2a21b2331866593a92c2eba4dc81`
 - Core-node machine executor: `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2`
+- Latest cycle record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_SINGLETON_REPAIR.md
 - Core-node machine-owned task: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
 - Persistent deployment task: https://github.com/StegVerse-org/LLM-adapter/issues/18
-- Runtime gate delta: machine startup, local live health testing, governed comparison execution, and compatibility receipt construction are repository-owned; persistent public provider/custody execution remains the exact blocker.
+- Runtime gate delta: portable-node ownership races and stale-lock recovery are now repository-owned and verified; persistent public provider/custody execution remains the exact blocker.
