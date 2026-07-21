@@ -8,7 +8,8 @@
     if (!nav) return;
     const links = [
       ['ecosystem-usage.html', 'Usage Ledger'],
-      ['ecosystem-comparison.html', 'Route Comparison']
+      ['ecosystem-comparison.html', 'Route Comparison'],
+      ['chat-session-launcher.html', 'Session Launcher']
     ];
     for (const [href, label] of links) {
       if (nav.querySelector(`a[href="${href}"]`)) continue;
