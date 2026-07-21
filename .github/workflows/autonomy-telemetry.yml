@@ -8,10 +8,12 @@ on:
       - 'data/autonomy/mutation-authority-policy.json'
       - 'data/autonomy/generated-stegpay-integration-status.json'
       - 'data/autonomy/runtime-checks.json'
+      - 'data/autonomy/freshness-policy.json'
       - 'data/autonomy/completion-evidence.json'
       - 'scripts/run_public_autonomy_telemetry.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
       - 'scripts/run_autonomy_runtime_verification.py'
+      - 'scripts/record_runtime_retry_state.py'
       - 'scripts/bind_runtime_evidence_to_live_status.py'
       - 'scripts/generate_autonomy_roadmap_status.py'
       - 'scripts/validate_generated_stegpay_integration_status.py'
@@ -62,6 +64,25 @@ jobs:
           assert evidence['authority']['manual_user_action_required'] is False
           print('canonical public organization scope valid')
           PY
+      - name: Validate cadence-aware freshness policy
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          policy = json.loads(Path('data/autonomy/freshness-policy.json').read_text())
+          checks = json.loads(Path('data/autonomy/runtime-checks.json').read_text())
+          freshness = next(item for item in checks['checks'] if item['id'] == 'freshness')
+          assert policy['schema_version'] == '1.0'
+          assert policy['scheduled_interval_minutes'] == 60
+          assert policy['maximum_age_minutes'] == 180
+          assert freshness['max_age_minutes'] == policy['maximum_age_minutes']
+          assert freshness['policy_path'] == 'data/autonomy/freshness-policy.json'
+          assert policy['failure_behavior']['failure_creates_retry_evidence'] is True
+          assert policy['failure_behavior']['failure_downgrades_runtime_phase'] is True
+          assert policy['authority']['freshness_pass_is_overall_completion'] is False
+          assert policy['authority']['manual_user_action_required'] is False
+          print('cadence-aware freshness policy valid')
+          PY
       - name: Validate strict Site completion evidence
         run: |
           python - <<'PY'
@@ -107,17 +128,20 @@ jobs:
         id: runtime
         continue-on-error: true
         run: python scripts/run_autonomy_runtime_verification.py
+      - name: Record bounded runtime retry state
+        run: python scripts/record_runtime_retry_state.py
       - name: Bind runtime evidence into live telemetry
         run: python scripts/bind_runtime_evidence_to_live_status.py
       - name: Generate autonomy roadmap state
         run: python scripts/generate_autonomy_roadmap_status.py
-      - name: Validate generated roadmap, runtime evidence, and live projection
+      - name: Validate generated roadmap, runtime evidence, retry state, and live projection
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           roadmap = json.loads(Path('data/autonomy/roadmap-status.json').read_text())
           runtime = json.loads(Path('data/autonomy/runtime-verification-evidence.json').read_text())
+          retry = json.loads(Path('data/autonomy/runtime-retry-state.json').read_text())
           live = json.loads(Path('data/autonomy/live-status.json').read_text())
           expected_ids = {
               'telemetry-file', 'live-page', 'roadmap-page', 'freshness',
@@ -140,6 +164,12 @@ jobs:
           assert runtime['authority']['runtime_check_pass_is_release_authority'] is False
           assert runtime['authority']['runtime_check_pass_is_admissibility_authority'] is False
           assert runtime['authority']['manual_user_action_required'] is False
+          assert retry['schema_version'] == '1.0'
+          assert retry['latest_runtime_state'] == runtime['state']
+          assert retry['automatic_retry_required'] == (runtime['state'] != 'PASS')
+          assert retry['maximum_age_minutes'] == 180
+          assert retry['authority']['retry_record_is_completion'] is False
+          assert retry['authority']['manual_user_action_required'] is False
           projection = live['runtime_verification']
           assert projection['state'] == runtime['state']
           assert projection['required_checks'] == runtime['required_checks']
@@ -148,9 +178,9 @@ jobs:
           assert projection['completion_authority'] is False
           node = next(n for n in live['task_graph']['nodes'] if n['id'] == 'site-runtime-verification')
           assert node['status'] == ('COMPLETE' if runtime['state'] == 'PASS' else 'BLOCKED_BY_RUNTIME_EVIDENCE')
-          print('roadmap, expanded runtime evidence, and live projection valid')
+          print('roadmap, runtime evidence, retry state, and live projection valid')
           PY
-      - name: Persist inventory, actions, execution records, runtime evidence, roadmap, and live tree
+      - name: Persist inventory, actions, execution records, runtime evidence, retry state, roadmap, and live tree
         run: |
           if git diff --quiet -- data/autonomy; then
             echo "No autonomy state changes to persist."
@@ -166,7 +196,9 @@ jobs:
             data/autonomy/objective-contract.json \
             data/autonomy/completion-evidence.json \
             data/autonomy/runtime-checks.json \
+            data/autonomy/freshness-policy.json \
             data/autonomy/runtime-verification-evidence.json \
+            data/autonomy/runtime-retry-state.json \
             data/autonomy/generated-stegpay-integration-validation.json \
             data/autonomy/roadmap-status.json
           git commit -m "chore: persist bounded public autonomy cycle"
@@ -175,5 +207,5 @@ jobs:
       - name: Fail workflow when required runtime checks fail
         if: steps.runtime.outcome == 'failure'
         run: |
-          echo "Required runtime verification failed; evidence was persisted and projected for repair."
+          echo "Required runtime verification failed; evidence and retry state were persisted and projected for automatic repair."
           exit 1
