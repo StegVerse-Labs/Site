@@ -24,8 +24,9 @@
     },
     {
       "id": "freshness",
-      "max_age_minutes": 90,
+      "max_age_minutes": 180,
       "path": "generated_at",
+      "policy_path": "data/autonomy/freshness-policy.json",
       "required": true,
       "type": "json-field"
     },
