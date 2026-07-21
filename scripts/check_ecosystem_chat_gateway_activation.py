@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "data" / "ecosystem-chat-gateway.json"
@@ -15,6 +16,17 @@ LOADER = ROOT / "assets" / "ecosystem-chat-hps.js"
 def fail(message: str) -> int:
     print(f"ECOSYSTEM CHAT GATEWAY ACTIVATION: FAIL - {message}")
     return 1
+
+
+def valid_advertisement_endpoint(value: object) -> bool:
+    if not isinstance(value, str):
+        return False
+    parsed = urlparse(value)
+    if not parsed.path.endswith("/api/stegverse-node"):
+        return False
+    if parsed.scheme == "https":
+        return bool(parsed.netloc)
+    return parsed.scheme == "http" and parsed.hostname in {"127.0.0.1", "localhost"}
 
 
 def main() -> int:
@@ -36,9 +48,9 @@ def main() -> int:
     health_endpoint = config.get("health_endpoint", "")
     if config.get("enabled") is True:
         if not endpoint.startswith("https://") or not endpoint.endswith("/api/ecosystem-chat"):
-            return fail("enabled endpoint must be HTTPS and end with /api/ecosystem-chat")
+            return fail("enabled static endpoint must be HTTPS and end with /api/ecosystem-chat")
         if not health_endpoint.startswith("https://") or not health_endpoint.endswith("/health"):
-            return fail("enabled health endpoint must be HTTPS and end with /health")
+            return fail("enabled static health endpoint must be HTTPS and end with /health")
     discovery = config.get("discovery", {})
     if discovery.get("enabled") is not True:
         return fail("node discovery must be enabled")
@@ -48,8 +60,14 @@ def main() -> int:
     if not isinstance(advertisement_endpoints, list) or not advertisement_endpoints:
         return fail("node advertisement endpoints missing")
     for value in advertisement_endpoints:
-        if not value.startswith("https://") or not value.endswith("/api/stegverse-node"):
-            return fail("node advertisement endpoint must be HTTPS and end with /api/stegverse-node")
+        if not valid_advertisement_endpoint(value):
+            return fail(f"invalid node advertisement endpoint: {value}")
+    required_loopback = {
+        "http://127.0.0.1:8000/api/stegverse-node",
+        "http://localhost:8000/api/stegverse-node",
+    }
+    if not required_loopback.issubset(set(advertisement_endpoints)):
+        return fail("verified loopback node candidates missing")
     if discovery.get("fallback") != "STATIC_GATEWAY_CONFIG":
         return fail("discovery fallback must remain STATIC_GATEWAY_CONFIG")
     boundary = config.get("authority_boundary", {})
@@ -91,6 +109,11 @@ def main() -> int:
         "ecosystem-chat-portable-node",
         "advertisement_sha256",
         "crypto.subtle.digest",
+        "validGovernedEndpoint",
+        "127.0.0.1",
+        "localhost",
+        "advertisementOrigin",
+        "VERIFIED_LOOPBACK_NODE_ADVERTISEMENT",
         "HEALTH_BOUND_NODE_ADVERTISEMENT",
         "STATIC_CONFIG_FALLBACK",
         "authority_granted !== false",
