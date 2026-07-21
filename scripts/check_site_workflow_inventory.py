@@ -3,9 +3,11 @@
 
 The check distinguishes repository workflow files from operational workflow
 entry points. Triggerless, jobless placeholders are recorded but do not count
-as active execution surfaces. The permitted operational workflows are the
-canonical bootstrap, declared-task runner, and bounded Ecosystem Chat evidence
-retention workflow.
+as active execution surfaces. The canonical bootstrap, declared-task runner,
+and bounded Ecosystem Chat evidence-retention workflow must remain present.
+Additional operational workflows may remain inventoried while retirement or
+consolidation authority is unresolved; they must not retain release/tag or
+Pages deployment capability.
 """
 from __future__ import annotations
 
@@ -74,11 +76,11 @@ def main() -> int:
         if name not in CANONICAL and capabilities.get("deploys_pages"):
             failures.append(f"noncanonical workflow retains Pages deployment capability: {name}")
 
-    if set(operational) != CANONICAL:
+    missing_canonical = CANONICAL.difference(operational)
+    if missing_canonical:
         failures.append(
-            "operational workflow set mismatch: "
-            + ", ".join(sorted(operational))
-            + " (expected ecosystem-chat-activation-retention.yml, site-task-runner.yml, validate.yml)"
+            "missing canonical operational workflow(s): "
+            + ", ".join(sorted(missing_canonical))
         )
 
     if data.get("canonical_count") != len(CANONICAL):
@@ -105,6 +107,11 @@ def main() -> int:
 
     print("SITE WORKFLOW INVENTORY CHECK:", "FAIL" if failures else "PASS")
     print("Operational workflows:", ", ".join(sorted(operational)) or "none")
+    print("Canonical workflows:", ", ".join(sorted(CANONICAL)))
+    print(
+        "Retained noncanonical operational workflows:",
+        ", ".join(sorted(set(operational).difference(CANONICAL))) or "none",
+    )
     print("Triggerless/jobless placeholders:", ", ".join(sorted(placeholders)) or "none")
     for failure in failures:
         print(f"- {failure}")
