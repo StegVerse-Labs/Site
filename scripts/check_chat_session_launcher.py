@@ -2,12 +2,13 @@
 """Validate the browser-local ChatGPT session launcher contract."""
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "chat-session-launcher.html"
 DOC = ROOT / "docs" / "CHATGPT_SESSION_LAUNCHER.md"
+NAVIGATION = ROOT / "assets" / "ecosystem-chat-hps.js"
+HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 
 REQUIRED_PAGE_SNIPPETS = (
     "stegverse.chatgpt.session-launcher.v1",
@@ -50,13 +51,14 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    if not PAGE.is_file():
-        return fail(f"missing {PAGE.relative_to(ROOT)}")
-    if not DOC.is_file():
-        return fail(f"missing {DOC.relative_to(ROOT)}")
+    for path in (PAGE, DOC, NAVIGATION, HANDOFF):
+        if not path.is_file():
+            return fail(f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
     doc = DOC.read_text(encoding="utf-8")
+    navigation = NAVIGATION.read_text(encoding="utf-8")
+    handoff = HANDOFF.read_text(encoding="utf-8")
 
     for snippet in REQUIRED_PAGE_SNIPPETS:
         if snippet not in page:
@@ -69,6 +71,17 @@ def main() -> int:
     for snippet in REQUIRED_DOC_SNIPPETS:
         if snippet not in doc:
             return fail(f"launcher contract missing required boundary: {snippet}")
+
+    if "['chat-session-launcher.html', 'Session Launcher']" not in navigation:
+        return fail("Ecosystem Chat primary navigation does not expose the launcher")
+
+    for snippet in (
+        "## Browser-local ChatGPT session continuation",
+        "prompt injection or submission = false",
+        "activation evidence = none",
+    ):
+        if snippet not in handoff:
+            return fail(f"Site handoff missing launcher continuation boundary: {snippet}")
 
     if "https://chatgpt.com/c/YOUR-" in page or "https://chatgpt.com/c/000" in page:
         return fail("launcher page appears to contain a committed conversation identifier")
