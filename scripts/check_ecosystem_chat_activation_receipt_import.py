@@ -47,7 +47,7 @@ def main() -> int:
             "VERIFIED_SOURCE_RECEIPT_IMPORTED",
             '"master_records_custody"',
             '"reconstructability_pass"',
-            '"destination_activation"',
+            '"legacy_destination_activation"',
         ),
     )
     if failures:
