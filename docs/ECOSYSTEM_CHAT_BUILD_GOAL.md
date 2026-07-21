@@ -6,7 +6,7 @@ A real governed Ecosystem Chat request completes this path:
 
 request → governed provider response → usage persistence → authenticated custody → reconstruction → immutable VERIFIED receipt → Site activation → downstream propagation.
 
-The existing portable-node Ecosystem Chat runtime is now an active deployment-recovery path for this same vertical slice. It is not a separate replacement gateway.
+The existing portable-node Ecosystem Chat runtime is an active deployment-recovery path for this same vertical slice. It is not a separate replacement gateway.
 
 ## Completion criteria
 
@@ -20,12 +20,12 @@ The existing portable-node Ecosystem Chat runtime is now an active deployment-re
 
 ## Current required runtime path
 
-`StegVerse-Labs/Site/ecosystem-chat.html` → existing browser classifier → bounded live gateway binding → existing `StegVerse-org/LLM-adapter` governed gateway, hosted either by the restored Render service or the existing sovereign portable-node runtime → existing provider integration → existing persistence and Master-Records custody/reconstruction → immutable adapter receipt → Site acquisition and validation → downstream consumers.
+`StegVerse-Labs/Site/ecosystem-chat.html` → existing browser classifier → bounded live gateway binding → existing `StegVerse-org/LLM-adapter` governed gateway, hosted either by the restored Render service or the canonical provider-neutral StegDeploy/portable-node runtime → existing provider integration → existing persistence and Master-Records custody/reconstruction → immutable adapter receipt → Site acquisition and validation → downstream consumers.
 
 ## Authoritative repositories and owners
 
 - Public request surface and Site activation projection: `StegVerse-Labs/Site`
-- Runtime gateway, portable-node runtime, packaged OCI image, and activation evidence: `StegVerse-org/LLM-adapter`
+- Runtime gateway, canonical StegDeploy runtime, portable-node supervision, and activation evidence: `StegVerse-org/LLM-adapter`
 - Custody and reconstruction: existing Master-Records implementation referenced by adapter evidence
 - Downstream publication projection: `GCAT-BCAT-Engine/Publisher`
 - Downstream admissibility projection: `StegVerse-Labs/admissibility-wiki`
@@ -55,6 +55,10 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - The existing adapter code defines `/health`, `/api/ecosystem-chat`, and transition-status routes.
 - The combined gateway preserves provider, persistence, custody, reconstruction, receipt, and authority boundaries.
 - The existing Site classifier, fail-closed fallback, gateway binding, activation consumers, and downstream consumers remain installed.
+- PR #14 merged the canonical provider-neutral StegDeploy runtime: `Dockerfile`, `compose.stegdeploy.yaml`, `scripts/container-entrypoint.sh`, `scripts/stegdeploy_bootstrap.py`, `.github/workflows/stegdeploy-image.yml`, persistent storage, health verification, image provenance, and a deployment receipt.
+- PR #15 merged zero-touch portable-node bootstrap.
+- PR #16 merged autonomous portable-node service lifecycle and reconstruction.
+- PR #17 merged user-level automatic startup registration across Linux, macOS, and Windows.
 - PR #8 was merged as `ce9027d0d3bf79f93b92bc764880a21cd848afda` after full validation and Architecture Guard success.
 - Deployed probe run `29706857317` retained artifact `8448172403`; the configured host resolved but all required routes returned HTTP 404.
 - `render-production.yaml` was not the consumed default Blueprint path.
@@ -69,21 +73,18 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - The normal adapter `validate` workflow already executes the live vertical-slice verifier.
 - Commit `4c0216bb9cbcfc0912d5f44317cd843738b1247b` writes stable semantic status and retains the current observation directly from that normal validation path.
 - Commit `80dbf169faaea7193728efdbe3ff959a50fe56ed` enforces that direct retention contract.
-- The existing `stegnode-bootstrap` and `stegnode` commands already materialize and supervise the portable Ecosystem Chat gateway with automatic reconstruction and no manual capability selection.
 - Commit `042faaaca4d1c1babc8d7d7bc8c8e408356cc337` made the existing portable-node host binding configurable while preserving loopback as the fail-closed default.
 - Commit `3f8165686b86419cadfdd093a1e5a3876915801f` corrected the node daemon so authorized provider, custody, host, and port settings are preserved instead of overwritten by defaults.
 - Commits `97bef70d3683cfae7029cb9bc368f0b17d955c9c` and `398a4a39523d2a21b2331866593a92c2eba4dc81` added and bound portable-node runtime contract checks to the existing validation path.
-- Commit `0eaac3abc6c3691dae73916b1bd6f135e0a9955f` packaged the existing portable-node runtime as a non-root, health-checked OCI image with durable node-state volume support.
-- Commit `ea9efe1c621552f609e1a6d929964135b52476e8` added repository-owned GHCR publication for `linux/amd64` and `linux/arm64` with provenance and SBOM.
-- Commit `4f2e56913462a74944d67c0e91afb484fe0df643` enforces image ownership, fail-closed configuration, multi-architecture publication, and absence of embedded secrets.
+- Commits `0eaac3abc6c3691dae73916b1bd6f135e0a9955f`, `ea9efe1c621552f609e1a6d929964135b52476e8`, and `4f2e56913462a74944d67c0e91afb484fe0df643` added overlapping portable-node image packaging after the canonical StegDeploy path already existed. These files are retained but are not designated canonical pending explicit consolidation or removal approval.
 
 ## Current blocker
 
-The configured hosted endpoint still returns `x-render-routing: no-server`, so no application process receives that request. The sovereign portable-node runtime is now technically capable of authorized external binding, authorized provider and Master-Records configuration inheritance, automatic supervision, and repository-owned OCI distribution. No currently connected machine-owned host has yet scheduled the published image and produced a live endpoint. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The configured hosted endpoint still returns `x-render-routing: no-server`, so no application process receives that request. The canonical StegDeploy runtime already supports autonomous build, launch, persistent storage, health verification, and deployment receipts, and the portable-node runtime now preserves authorized host/provider/custody configuration. No currently connected machine-owned executor has yet run the canonical deployment on an authorized host and exposed a live endpoint. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Use the existing machine-owned task `StegVerse-org/LLM-adapter#18` to schedule the repository-owned portable-node image onto an already-authorized sovereign machine runtime or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Reuse the current gateway, custody worker, provider integration, receipt path, Site consumers, and downstream consumers; do not create a replacement gateway.
+Use the existing machine-owned task `StegVerse-org/LLM-adapter#18` to execute the canonical `python scripts/stegdeploy_bootstrap.py deploy` path on an already-authorized machine runtime or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Do not create another deployment package or replacement gateway.
 
 ## Manual user action requirement
 
@@ -99,12 +100,13 @@ False. The deployment recovery task is repository-owned. The user is not assigne
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-21
+- Canonical provider-neutral runtime: merged PR #14
+- Zero-touch bootstrap: merged PR #15
+- Autonomous node lifecycle: merged PR #16
+- Automatic user-level startup: merged PR #17
 - Portable-node binding repair: `042faaaca4d1c1babc8d7d7bc8c8e408356cc337`
 - Authorized environment preservation: `3f8165686b86419cadfdd093a1e5a3876915801f`
 - Portable-node runtime tests: `97bef70d3683cfae7029cb9bc368f0b17d955c9c`
 - Existing-validation contract binding: `398a4a39523d2a21b2331866593a92c2eba4dc81`
-- Portable-node OCI package: `0eaac3abc6c3691dae73916b1bd6f135e0a9955f`
-- Repository-owned GHCR publication: `ea9efe1c621552f609e1a6d929964135b52476e8`
-- Image publication contract: `4f2e56913462a74944d67c0e91afb484fe0df643`
 - Machine-owned deployment task: `https://github.com/StegVerse-org/LLM-adapter/issues/18`
-- Runtime gate delta: no provider or custody gate is upgraded; platform-specific installation and manual image construction are removed from the deployment path.
+- Runtime gate delta: no provider or custody gate is upgraded; the canonical deployment path is confirmed and the remaining blocker is execution on an authorized machine host.
