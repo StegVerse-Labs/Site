@@ -63,7 +63,7 @@ jobs:
   bootstrap-validate:
     needs: st017-sandbox
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -75,13 +75,41 @@ jobs:
         run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
+      - name: Check out canonical adapter source for bounded runtime verification
+        uses: actions/checkout@v4
+        with:
+          repository: StegVerse-org/LLM-adapter
+          ref: main
+          path: adapter-source
+          persist-credentials: false
+      - name: Install canonical adapter service dependencies
+        run: python -m pip install -e './adapter-source[service]'
+      - name: Start canonical portable-node gateway fail-closed
+        env:
+          STEGVERSE_PROVIDER_ENABLED: "false"
+          STEGVERSE_EXTERNAL_MUTATION_ENABLED: "false"
+          STEGVERSE_STORAGE_DURABLE_ACROSS_RESTARTS: "true"
+          STEGVERSE_TRANSITION_DB: ${{ runner.temp }}/stegverse-site-runtime.db
+          STEGVERSE_EXTERNAL_REVIEW_DB: ${{ runner.temp }}/stegverse-site-review.db
+          STEGVERSE_USAGE_SESSION_DB: ${{ runner.temp }}/stegverse-site-usage.db
+        run: |
+          python -m uvicorn llm_adapter.combined_gateway:app --app-dir adapter-source --host 127.0.0.1 --port 8000 > portable-node-runtime.log 2>&1 &
+          echo $! > portable-node-runtime.pid
+      - name: Execute Site-to-portable-node runtime slice
+        run: python scripts/verify_portable_node_site_runtime.py
+      - name: Stop portable-node runtime
+        if: always()
+        run: |
+          if [ -f portable-node-runtime.pid ]; then
+            kill "$(cat portable-node-runtime.pid)" 2>/dev/null || true
+          fi
       - name: Write bound current-main validation receipt
         run: python scripts/write_site_current_main_validation_receipt.py
       - name: Write validation artifact manifest
         run: python scripts/write_site_validation_artifact_manifest.py
       - name: Verify validation artifact bundle
         run: python scripts/verify_site_validation_artifact_bundle.py .
-      - name: Upload application validation result, receipt, and manifest
+      - name: Upload application validation result, receipt, manifest, and portable-node runtime evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -90,6 +118,8 @@ jobs:
             site_application_validation.result.json
             site_current_main_validation.receipt.json
             site_current_main_validation.manifest.json
+            reports/portable-node-site-runtime.json
+            portable-node-runtime.log
           if-no-files-found: error
       - name: Record live mirror verification status
         id: live_verification
