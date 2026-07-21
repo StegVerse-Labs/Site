@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute bounded Site-owned autonomy actions and persist truthful results."""
+"""Execute Site autonomy actions within an explicit repository authority boundary."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "autonomy"
 POLICY_PATH = DATA / "mutation-authority-policy.json"
+FRESHNESS_POLICY_PATH = DATA / "runtime-freshness-policy.json"
 ACTIONS_PATH = DATA / "public-next-actions.json"
 INVENTORY_PATH = DATA / "public-ecosystem-inventory.json"
 STATUS_PATH = DATA / "live-status.json"
@@ -55,60 +56,103 @@ def ensure_site_objective(policy: dict[str, Any], now: str) -> dict[str, Any]:
             "machine_persisted_public_inventory",
             "machine_persisted_action_execution_log",
             "live_page_loads_current_repository_owned_telemetry",
-            "mobile_user_flow_verified"
+            "mobile_user_flow_verified",
         ],
         "disallowed_substitutes": [
             "workflow file exists",
             "issue exists",
             "conversation says complete",
             "local placeholder telemetry",
-            "repository write without observed runtime"
+            "repository write without observed runtime",
         ],
         "completion_policy": {
             "require_live_execution": True,
             "require_user_visible_outcome": True,
-            "unknown_is_complete": False
+            "unknown_is_complete": False,
         },
         "generated_by": "bounded-autonomy-dispatcher",
-        "generated_at": now
+        "generated_at": now,
     }
     changed = not OBJECTIVE_PATH.exists() or load(OBJECTIVE_PATH, {}) != payload
     if changed:
         write(OBJECTIVE_PATH, payload)
-    return {"action": "ENSURE_SITE_OBJECTIVE_CONTRACT", "status": "APPLIED" if changed else "NO_CHANGE", "path": OBJECTIVE_PATH.relative_to(ROOT).as_posix()}
+    return {
+        "action": "ENSURE_SITE_OBJECTIVE_CONTRACT",
+        "status": "APPLIED" if changed else "NO_CHANGE",
+        "path": OBJECTIVE_PATH.relative_to(ROOT).as_posix(),
+    }
+
+
+def load_freshness_policy() -> dict[str, Any]:
+    freshness = load(FRESHNESS_POLICY_PATH, {})
+    if freshness.get("schema_version") != "1.0":
+        raise RuntimeError("DENY invalid runtime freshness policy schema")
+    max_age = freshness.get("max_age_minutes")
+    cadence = freshness.get("scheduled_cadence_minutes")
+    if not isinstance(max_age, int) or not isinstance(cadence, int) or max_age < cadence:
+        raise RuntimeError("DENY invalid runtime freshness policy values")
+    if freshness.get("authority", {}).get("freshness_pass_is_completion") is not False:
+        raise RuntimeError("DENY freshness policy grants completion authority")
+    return freshness
 
 
 def ensure_runtime_checks(policy: dict[str, Any], now: str) -> dict[str, Any]:
     ensure_allowed(policy, "ENSURE_SITE_RUNTIME_CHECK_SPEC", RUNTIME_CHECKS_PATH)
+    freshness = load_freshness_policy()
     payload = {
         "schema_version": "1.1",
         "repository": SITE,
         "objective_id": "site-public-autonomy-observability",
         "generated_at": now,
+        "freshness_policy_path": FRESHNESS_POLICY_PATH.relative_to(ROOT).as_posix(),
         "checks": [
             {"id": "telemetry-file", "type": "http-json", "url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json", "required": True},
             {"id": "live-page", "type": "http-html", "url": "https://stegverse-labs.github.io/Site/autonomy-live.html", "required": True},
             {"id": "roadmap-page", "type": "http-html", "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html", "required": True},
-            {"id": "freshness", "type": "json-field", "path": "generated_at", "max_age_minutes": 90, "required": True},
+            {
+                "id": "freshness",
+                "type": "json-field",
+                "path": "generated_at",
+                "max_age_minutes": freshness["max_age_minutes"],
+                "policy_path": FRESHNESS_POLICY_PATH.relative_to(ROOT).as_posix(),
+                "required": True,
+            },
             {"id": "machine-mode", "type": "json-field", "path": "mode", "allowed": ["PUBLIC_MACHINE_GENERATED_AUTONOMY_TELEMETRY"], "required": True},
             {
-                "id": "live-mobile-flow", "type": "browser", "url": "https://stegverse-labs.github.io/Site/autonomy-live.html",
-                "ready_selector": "#graph", "minimum_text_characters": 40,
-                "viewport": {"width": 390, "height": 844}, "required": True
+                "id": "live-mobile-flow",
+                "type": "browser",
+                "url": "https://stegverse-labs.github.io/Site/autonomy-live.html",
+                "ready_selector": "#graph",
+                "minimum_text_characters": 40,
+                "viewport": {"width": 390, "height": 844},
+                "required": True,
             },
             {
-                "id": "roadmap-mobile-flow", "type": "browser", "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
-                "ready_selector": "#phases", "minimum_text_characters": 120,
-                "viewport": {"width": 390, "height": 844}, "required": True
-            }
+                "id": "roadmap-mobile-flow",
+                "type": "browser",
+                "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
+                "ready_selector": "#phases",
+                "minimum_text_characters": 120,
+                "viewport": {"width": 390, "height": 844},
+                "required": True,
+            },
         ],
         "completion_effect": "NONE_UNTIL_EXECUTED",
-        "authority": {"runtime_check_pass_is_completion": False, "all_objective_evidence_required": True}
+        "authority": {
+            "runtime_check_pass_is_completion": False,
+            "all_objective_evidence_required": True,
+        },
     }
     changed = not RUNTIME_CHECKS_PATH.exists() or load(RUNTIME_CHECKS_PATH, {}) != payload
     if changed:
         write(RUNTIME_CHECKS_PATH, payload)
-    return {"action": "ENSURE_SITE_RUNTIME_CHECK_SPEC", "status": "APPLIED" if changed else "NO_CHANGE", "path": RUNTIME_CHECKS_PATH.relative_to(ROOT).as_posix()}
+    return {
+        "action": "ENSURE_SITE_RUNTIME_CHECK_SPEC",
+        "status": "APPLIED" if changed else "NO_CHANGE",
+        "path": RUNTIME_CHECKS_PATH.relative_to(ROOT).as_posix(),
+        "freshness_policy_path": FRESHNESS_POLICY_PATH.relative_to(ROOT).as_posix(),
+        "max_age_minutes": freshness["max_age_minutes"],
+    }
 
 
 def main() -> None:
@@ -125,7 +169,11 @@ def main() -> None:
     if site_entry is None or "objective_contract" in site_entry.get("missing_gates", []):
         records.append(ensure_site_objective(policy, now))
     else:
-        records.append({"action": "ENSURE_SITE_OBJECTIVE_CONTRACT", "status": "SATISFIED", "path": OBJECTIVE_PATH.relative_to(ROOT).as_posix()})
+        records.append({
+            "action": "ENSURE_SITE_OBJECTIVE_CONTRACT",
+            "status": "SATISFIED",
+            "path": OBJECTIVE_PATH.relative_to(ROOT).as_posix(),
+        })
 
     records.append(ensure_runtime_checks(policy, now))
 
@@ -139,7 +187,7 @@ def main() -> None:
                 "requested_action": action.get("action"),
                 "status": "DENIED_CROSS_REPOSITORY_AUTHORITY",
                 "reason": "Site workflow token is not authorized to mutate another repository.",
-                "machine_owned_next_action": "retain in queue for an authorized repository-owned runner"
+                "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
             })
 
     execution = {
@@ -150,7 +198,7 @@ def main() -> None:
         "applied": records,
         "denied": denied,
         "manual_user_action_required": False,
-        "completion_claimed": False
+        "completion_claimed": False,
     }
     ensure_allowed(policy, "PERSIST_EXECUTION_RECORD", EXECUTIONS_PATH)
     write(EXECUTIONS_PATH, execution)
@@ -161,27 +209,42 @@ def main() -> None:
     nodes = [n for n in nodes if n.get("id") not in {"bounded-dispatch", "site-objective-contract", "site-runtime-check-spec", "cross-repo-authority-gate"}]
     nodes.extend([
         {
-            "id": "bounded-dispatch", "title": "Execute bounded remediation actions", "status": "COMPLETE",
+            "id": "bounded-dispatch",
+            "title": "Execute bounded remediation actions",
+            "status": "COMPLETE",
             "result": f"Applied or verified {len(records)} Site-owned controls and evaluated {len(denied)} cross-repository actions under deny-by-default authority.",
-            "owner": SITE, "updated_at": now, "depends_on": ["next-action-planning"],
-            "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+            "owner": SITE,
+            "updated_at": now,
+            "depends_on": ["next-action-planning"],
+            "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
         },
         {
-            "id": "site-objective-contract", "title": "Bind Site autonomy objective", "status": "COMPLETE",
-            "result": "A machine-readable outcome contract now defines the required public observability capability and disallowed substitutes.",
-            "owner": SITE, "updated_at": now, "depends_on": ["bounded-dispatch"]
+            "id": "site-objective-contract",
+            "title": "Bind Site autonomy objective",
+            "status": "COMPLETE",
+            "result": "A machine-readable outcome contract defines the required public observability capability and disallowed substitutes.",
+            "owner": SITE,
+            "updated_at": now,
+            "depends_on": ["bounded-dispatch"],
         },
         {
-            "id": "site-runtime-check-spec", "title": "Define Site runtime verification checks", "status": "COMPLETE",
-            "result": "Endpoint, freshness, machine-mode, live-page mobile, and roadmap mobile checks are specified; execution evidence is produced later in this cycle.",
-            "owner": SITE, "updated_at": now, "depends_on": ["bounded-dispatch"]
+            "id": "site-runtime-check-spec",
+            "title": "Define Site runtime verification checks",
+            "status": "COMPLETE",
+            "result": f"Endpoint, cadence-aware freshness ({records[-1].get('max_age_minutes')} minutes), machine-mode, and mobile checks are bound to a single policy source.",
+            "owner": SITE,
+            "updated_at": now,
+            "depends_on": ["bounded-dispatch"],
         },
         {
-            "id": "cross-repo-authority-gate", "title": "Route external repository remediation",
+            "id": "cross-repo-authority-gate",
+            "title": "Route external repository remediation",
             "status": "BLOCKED_BY_REPOSITORY_AUTHORITY" if denied else "COMPLETE",
             "current_step": f"{len(denied)} actions require repository-owned runners; none were falsely executed by Site.",
-            "owner": SITE, "updated_at": now, "depends_on": ["bounded-dispatch"]
-        }
+            "owner": SITE,
+            "updated_at": now,
+            "depends_on": ["bounded-dispatch"],
+        },
     ])
     graph["nodes"] = nodes
     edges = graph.setdefault("edges", [])
@@ -189,7 +252,7 @@ def main() -> None:
         {"from": "next-action-planning", "to": "bounded-dispatch", "type": "resplit"},
         {"from": "bounded-dispatch", "to": "site-objective-contract", "type": "split"},
         {"from": "bounded-dispatch", "to": "site-runtime-check-spec", "type": "split"},
-        {"from": "bounded-dispatch", "to": "cross-repo-authority-gate", "type": "split"}
+        {"from": "bounded-dispatch", "to": "cross-repo-authority-gate", "type": "split"},
     ]
     existing = {(e.get("from"), e.get("to"), e.get("type")) for e in edges}
     edges.extend(e for e in wanted if (e["from"], e["to"], e["type"]) not in existing)
@@ -201,7 +264,7 @@ def main() -> None:
             "id": "authorized-repository-runners",
             "action": "Install repository-owned bounded runners for queued external remediations",
             "status": "MACHINE_ACTION_REQUIRED",
-            "reason": f"{len(denied)} queued actions cannot be mutated by Site's repository-scoped token."
+            "reason": f"{len(denied)} queued actions cannot be mutated by Site's repository-scoped token.",
         })
     write(STATUS_PATH, status)
     print(f"BOUNDED AUTONOMY DISPATCH: COMPLETE applied={len(records)} denied={len(denied)}")
