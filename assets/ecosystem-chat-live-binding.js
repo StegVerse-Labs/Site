@@ -1,6 +1,10 @@
 (() => {
-  const GATEWAY_BASE_URL = 'https://stegverse-ecosystem-chat-gateway.onrender.com';
-  const GATEWAY_URL = `${GATEWAY_BASE_URL}/api/ecosystem-chat`;
+  const NODE_CANDIDATES = [
+    'http://127.0.0.1:8000',
+    'http://localhost:8000'
+  ];
+  const ADVERTISEMENT_PATH = '/api/stegverse-node';
+  let discoveredNode = null;
 
   function uniqueId(prefix) {
     const value = globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function'
@@ -20,10 +24,63 @@
     };
   }
 
-  async function sendGovernedGatewayRequest(message, posture) {
+  function canonicalAdvertisement(payload) {
+    const material = { ...payload };
+    delete material.advertisement_sha256;
+    const ordered = {};
+    Object.keys(material).sort().forEach((key) => { ordered[key] = material[key]; });
+    return JSON.stringify(ordered);
+  }
+
+  async function sha256Hex(value) {
+    const encoded = new TextEncoder().encode(value);
+    const digest = await globalThis.crypto.subtle.digest('SHA-256', encoded);
+    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function validateAdvertisement(payload, candidate) {
+    if (!payload || payload.schema !== 'stegverse.node.endpoint-advertisement.v1') return false;
+    if (payload.capability_id !== 'ecosystem-chat-gateway') return false;
+    if (payload.health_bound !== true) return false;
+    if (payload.authority_granted !== false || payload.publication_authority !== false) return false;
+    if (payload.execution_authority !== false) return false;
+    if (typeof payload.endpoint !== 'string' || !payload.endpoint.startsWith(candidate)) return false;
+    if (typeof payload.health_endpoint !== 'string' || !payload.health_endpoint.startsWith(candidate)) return false;
+    if (!/^[a-f0-9]{64}$/.test(payload.advertisement_sha256 || '')) return false;
+    return (await sha256Hex(canonicalAdvertisement(payload))) === payload.advertisement_sha256;
+  }
+
+  async function discoverStegVerseNode() {
+    if (discoveredNode) return discoveredNode;
+    for (const candidate of NODE_CANDIDATES) {
+      try {
+        const advertisementResponse = await fetch(`${candidate}${ADVERTISEMENT_PATH}`, {
+          method: 'GET',
+          cache: 'no-store',
+          signal: AbortSignal.timeout(1800)
+        });
+        if (!advertisementResponse.ok) continue;
+        const advertisement = await advertisementResponse.json();
+        if (!(await validateAdvertisement(advertisement, candidate))) continue;
+        const healthResponse = await fetch(advertisement.health_endpoint, {
+          method: 'GET',
+          cache: 'no-store',
+          signal: AbortSignal.timeout(1800)
+        });
+        if (!healthResponse.ok) continue;
+        discoveredNode = Object.freeze({ base_url: candidate, advertisement });
+        return discoveredNode;
+      } catch (_) {
+        // A missing or invalid local node is a normal fail-closed condition.
+      }
+    }
+    return null;
+  }
+
+  async function sendGovernedGatewayRequest(message, posture, node) {
     const sessionId = getSessionId();
     const transitionIdentity = buildTransitionIdentity();
-    const response = await fetch(GATEWAY_URL, {
+    const response = await fetch(node.advertisement.endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,6 +117,8 @@
     const custody = data.master_records_usage_submission || {};
     const authority = data.authority || {};
     const receiptParts = [
+      `node_id=${node.advertisement.node_id}`,
+      `node_advertisement_sha256=${node.advertisement.advertisement_sha256}`,
       `receipt_id=${data.receipt_id || 'not-issued'}`,
       `final_receipt_id=${data.final_receipt_id || 'pending'}`,
       `transition_id=${data.transition_id || transitionIdentity.transition_id}`,
@@ -71,12 +130,12 @@
       `transition_custody=${data.master_record_status || 'PENDING'}`,
       `transition_reconstruction=${data.reconstruction_status || 'PENDING'}`,
       `authority_granted=${authority.provider_usage_grants_authority === true ? 'true' : 'false'}`,
-      'source=governed_gateway',
+      'source=stegverse_local_node',
       'shell=disabled'
     ];
 
     return {
-      response: data.response || 'The governed gateway returned no response text.',
+      response: data.response || 'The governed StegVerse node returned no response text.',
       receipt_line: receiptParts.join(' · '),
       interaction_profile: interactionProfile,
       intent: posture.intent,
@@ -95,19 +154,25 @@
     }
 
     try {
-      return await sendGovernedGatewayRequest(message, posture);
+      const node = await discoverStegVerseNode();
+      if (!node) throw new Error('verified_local_stegverse_node_not_found');
+      return await sendGovernedGatewayRequest(message, posture, node);
     } catch (error) {
+      discoveredNode = null;
       const reason = error instanceof Error ? error.message : 'unknown_gateway_error';
       return localRouteResult(
         message,
-        `Governed gateway unavailable or rejected the request (${reason}); fail-closed to local classification.`,
+        `Verified StegVerse node unavailable or rejected the request (${reason}); fail-closed to local classification.`,
         posture
       );
     }
   };
 
   globalThis.STEGVERSE_ECOSYSTEM_CHAT_LIVE_BINDING = Object.freeze({
-    gateway_base_url: GATEWAY_BASE_URL,
+    discovery: 'verified_loopback_stegverse_node',
+    candidate_base_urls: [...NODE_CANDIDATES],
+    advertisement_path: ADVERTISEMENT_PATH,
+    external_host_dependency: false,
     live_gateway_enabled: true,
     restricted_requests_execute: false,
     local_fallback_enabled: true,
