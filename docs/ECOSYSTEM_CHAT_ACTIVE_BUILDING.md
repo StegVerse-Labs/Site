@@ -413,3 +413,66 @@ Provider execution remained disabled, so provider-usage custody, immutable activ
 
 Bind an already-authorized real provider to the existing broker and execute the same path through provider usage persistence and custody.
 
+---
+
+## Authorized provider runtime integration update — 2026-07-21
+
+### Work performed
+
+- Extended the existing live-activation workflow instead of creating a provider executor.
+- Reused the provider broker, usage ledger, provider-usage custody client, transition custody client, combined gateway, receipt retention, and activation verifier.
+- Added a fail-closed verifier that rejects provider fallback, missing provider receipts, missing usage persistence, missing usage custody, failed transition custody or reconstruction, and any authority escalation.
+- Rebound stale StegDeploy validation contracts to the already-installed image-publication v2 contract.
+
+### Components modified
+
+- `StegVerse-org/LLM-adapter/.github/workflows/ecosystem-chat-live-activation.yml`
+- `StegVerse-org/LLM-adapter/scripts/verify_stegdeploy_runtime.py`
+- `StegVerse-org/LLM-adapter/scripts/check_stegdeploy_image_receipt_retention.py`
+- `StegVerse-org/LLM-adapter/tests/test_live_activation_automation_contract.py`
+
+### Bounded verifier added
+
+- `StegVerse-org/LLM-adapter/scripts/verify_authorized_provider_activation.py`
+- `StegVerse-org/LLM-adapter/tests/test_authorized_provider_activation_verifier.py`
+
+The verifier is an adapter to existing runtime outputs, not a new provider, gateway, custody service, receipt authority, or scheduler.
+
+### Runtime evidence
+
+- Merge: `2d1533644d9e589fd441ba37a1bc4095ae5f4100`
+- Original green validation: `29867306026`
+- Current-mainline validation: `29867888624`
+- Architecture Guard: `29867888688`
+
+### State classification
+
+- Authorized provider runtime binding: INTEGRATED
+- Configuration-presence evaluation: IMPLEMENTED
+- Fail-closed provider/custody verifier: VERIFIED BY TESTS
+- Real governed provider response: UNPROVEN
+- Provider-usage persistence and custody: UNPROVEN IN REAL EXECUTION
+- Immutable activation receipt: UNPROVEN
+- Site activation: UNPROVEN
+- Downstream propagation: UNPROVEN
+
+### Removals proposed but not performed
+
+None. LLM-adapter PR #27 remains retained and open after its branch-history conflict; no implementation was deleted or closed.
+
+### Goal delta
+
+The existing runtime can now execute the full authorized provider path automatically when established configuration exists. Before this cycle, no repository-owned workflow could bind that configuration to the canonical gateway.
+
+### Reuse delta
+
+Existing provider, usage, custody, reconstruction, workflow, receipt, and activation components eliminated the need for a new provider executor, deployment service, or receipt family.
+
+### Non-progress
+
+No real provider call or provider-usage custody event is counted complete because no main-branch execution receipt has yet been retained.
+
+### Next executable step
+
+Inspect the first repository-retained authorized-provider activation receipt and repair its first exact blocker.
+

@@ -239,3 +239,30 @@ Run the existing provider broker with an already-authorized provider configurati
 
 False for routine repository work. A real-provider credential/execution boundary must already be authorized before it can be activated.
 
+---
+
+## Authorized provider runtime integration update — 2026-07-21
+
+This section supersedes only the earlier statement that no repository-owned runtime could bind an authorized provider configuration.
+
+- LLM-adapter PR #29 merged as `2d1533644d9e589fd441ba37a1bc4095ae5f4100`.
+- The existing Ecosystem Chat Live Activation workflow now consumes only the canonical authorized provider and Master-Records configuration fields.
+- A real execution must prove provider `USED`, provider receipt issuance, provider-usage persistence, provider-usage custody, transition custody `RECORDED`, reconstruction `PASS`, and false authority flags.
+- Missing configuration produces a hash-bound `CONFIGURATION_REQUIRED` receipt without exposing secret values.
+- Fallback text cannot satisfy the provider verifier.
+- Validation run `29867306026` and current-mainline validation run `29867888624` exercised the integration; Architecture Guard run `29867888688` passed.
+- No main-branch authorized-provider execution receipt had been retained at the latest observation. Real provider execution therefore remains UNPROVEN.
+- Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_AUTHORIZED_PROVIDER_RUNTIME.md`.
+
+### Current blocker
+
+The repository has not yet retained evidence that an authorized provider endpoint, token, model, Master-Records endpoint, and Master-Records token were simultaneously available to the canonical runtime.
+
+### Next executable integration step
+
+Allow the existing live-activation workflow to consume already-authorized configuration and inspect its first retained receipt. Repair only the first provider transport, response-contract, usage-persistence, provider-usage custody, transition-custody, reconstruction, or activation failure.
+
+### Manual user action requirement
+
+False for routine repository work. No credential value is requested through chat or committed to a repository. Provider and custody authorization must originate through the established secret-owning boundary.
+
