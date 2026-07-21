@@ -26,6 +26,7 @@ The existing portable-node Ecosystem Chat runtime is an active deployment-recove
 
 - Public request surface and Site activation projection: `StegVerse-Labs/Site`
 - Runtime gateway, canonical StegDeploy runtime, portable-node supervision, and activation evidence: `StegVerse-org/LLM-adapter`
+- Machine-execution compatibility and governed runtime comparison: `StegVerse-org/core-node-runtime-demo`
 - Custody and reconstruction: existing Master-Records implementation referenced by adapter evidence
 - Downstream publication projection: `GCAT-BCAT-Engine/Publisher`
 - Downstream admissibility projection: `StegVerse-Labs/admissibility-wiki`
@@ -77,18 +78,21 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - Commit `3f8165686b86419cadfdd093a1e5a3876915801f` corrected the node daemon so authorized provider, custody, host, and port settings are preserved instead of overwritten by defaults.
 - Commits `97bef70d3683cfae7029cb9bc368f0b17d955c9c` and `398a4a39523d2a21b2331866593a92c2eba4dc81` added and bound portable-node runtime contract checks to the existing validation path.
 - Commits `0eaac3abc6c3691dae73916b1bd6f135e0a9955f`, `ea9efe1c621552f609e1a6d929964135b52476e8`, and `4f2e56913462a74944d67c0e91afb484fe0df643` added overlapping portable-node image packaging after the canonical StegDeploy path already existed. These files are retained but are not designated canonical pending explicit consolidation or removal approval.
+- `StegVerse-org/core-node-runtime-demo` is an existing private governed runtime comparison boundary with Master-Records witness-ready outputs and comparable path reports.
+- Commit `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2` added a repository-owned StegDeploy runtime intake workflow that pulls the canonical image, launches it fail-closed on a GitHub machine runner, verifies live health, executes the existing core-node comparison pipeline, and persists a hashed compatibility receipt.
+- Machine-owned continuation is tracked by `StegVerse-org/core-node-runtime-demo#5` and `StegVerse-org/LLM-adapter#18`.
 
 ## Current blocker
 
-The configured hosted endpoint still returns `x-render-routing: no-server`, so no application process receives that request. The canonical StegDeploy runtime already supports autonomous build, launch, persistent storage, health verification, and deployment receipts, and the portable-node runtime now preserves authorized host/provider/custody configuration. No currently connected machine-owned executor has yet run the canonical deployment on an authorized host and exposed a live endpoint. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The configured hosted endpoint still returns `x-render-routing: no-server`, so no persistent public application process receives that request. A repository-owned machine executor now exists for canonical-image startup, live health verification, and core-node compatibility evidence, but it is intentionally ephemeral and fail-closed. No authorized persistent host has yet exposed the gateway with governed provider and Master-Records configuration. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Use the existing machine-owned task `StegVerse-org/LLM-adapter#18` to execute the canonical `python scripts/stegdeploy_bootstrap.py deploy` path on an already-authorized machine runtime or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Do not create another deployment package or replacement gateway.
+Allow `StegVerse-org/core-node-runtime-demo#5` to produce the first repository-authored machine-execution compatibility receipt. In parallel, use `StegVerse-org/LLM-adapter#18` to bind the same canonical StegDeploy runtime to an already-authorized persistent host or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Do not create another deployment package or replacement gateway.
 
 ## Manual user action requirement
 
-False. The deployment recovery task is repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, image-pull, node-start, or evidence-transcription work.
+False. The deployment and machine-execution tasks are repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, image-pull, node-start, health testing, comparison execution, or evidence-transcription work.
 
 ## Progress accounting
 
@@ -108,5 +112,7 @@ False. The deployment recovery task is repository-owned. The user is not assigne
 - Authorized environment preservation: `3f8165686b86419cadfdd093a1e5a3876915801f`
 - Portable-node runtime tests: `97bef70d3683cfae7029cb9bc368f0b17d955c9c`
 - Existing-validation contract binding: `398a4a39523d2a21b2331866593a92c2eba4dc81`
-- Machine-owned deployment task: `https://github.com/StegVerse-org/LLM-adapter/issues/18`
-- Runtime gate delta: no provider or custody gate is upgraded; the canonical deployment path is confirmed and the remaining blocker is execution on an authorized machine host.
+- Core-node machine executor: `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2`
+- Core-node machine-owned task: `https://github.com/StegVerse-org/core-node-runtime-demo/issues/5`
+- Persistent deployment task: `https://github.com/StegVerse-org/LLM-adapter/issues/18`
+- Runtime gate delta: machine startup, local live health testing, governed comparison execution, and compatibility receipt construction are now repository-owned; persistent public provider/custody execution remains the exact blocker.
