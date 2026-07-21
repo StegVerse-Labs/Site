@@ -119,6 +119,7 @@
 
   for (const source of [
     'assets/ecosystem-chat-conversation.js',
+    'assets/ecosystem-chat-node-discovery.js',
     'assets/ecosystem-chat-transition-identity.js',
     'assets/ecosystem-chat-gateway-health.js',
     'assets/ecosystem-chat-traversal.js',
