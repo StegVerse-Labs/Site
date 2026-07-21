@@ -3,9 +3,10 @@
 
 The check distinguishes repository workflow files from operational workflow
 entry points. Triggerless, jobless placeholders are recorded but do not count
-as active execution surfaces. The permitted operational workflows are the
-canonical bootstrap, declared-task runner, and bounded Ecosystem Chat evidence
-retention workflow.
+as active execution surfaces. The canonical bootstrap, declared-task runner,
+and bounded Ecosystem Chat evidence-retention workflow must remain operational.
+Additional operational workflows remain inventoried as migration-required and
+are not treated as authorized for retirement or as canonical by this check.
 """
 from __future__ import annotations
 
@@ -74,11 +75,12 @@ def main() -> int:
         if name not in CANONICAL and capabilities.get("deploys_pages"):
             failures.append(f"noncanonical workflow retains Pages deployment capability: {name}")
 
-    if set(operational) != CANONICAL:
+    operational_set = set(operational)
+    missing_canonical = CANONICAL - operational_set
+    if missing_canonical:
         failures.append(
-            "operational workflow set mismatch: "
-            + ", ".join(sorted(operational))
-            + " (expected ecosystem-chat-activation-retention.yml, site-task-runner.yml, validate.yml)"
+            "canonical operational workflow missing: "
+            + ", ".join(sorted(missing_canonical))
         )
 
     if data.get("canonical_count") != len(CANONICAL):
