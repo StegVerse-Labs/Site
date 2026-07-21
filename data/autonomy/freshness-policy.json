@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "site-public-autonomy-freshness-v1",
+  "repository": "StegVerse-Labs/Site",
+  "source": "data/autonomy/live-status.json",
+  "scheduled_interval_minutes": 60,
+  "maximum_age_minutes": 180,
+  "grace_components_minutes": {
+    "actions_queue_and_execution": 45,
+    "commit_and_pages_deployment": 45,
+    "cache_propagation_and_clock_skew": 30
+  },
+  "failure_behavior": {
+    "older_than_maximum_is_failure": true,
+    "failure_creates_retry_evidence": true,
+    "failure_downgrades_runtime_phase": true,
+    "failure_grants_completion_authority": false
+  },
+  "authority": {
+    "freshness_pass_is_overall_completion": false,
+    "freshness_pass_is_release_authority": false,
+    "manual_user_action_required": false
+  }
+}
