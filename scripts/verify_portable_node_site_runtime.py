@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute the smallest Site-to-portable-node runtime slice on loopback."""
+"""Execute the Site-to-portable-node runtime slice with authenticated custody."""
 from __future__ import annotations
 
 import hashlib
@@ -24,7 +24,7 @@ def canonical_sha256(payload: dict) -> str:
 def fetch_json(url: str, *, data: dict | None = None, headers: dict[str, str] | None = None) -> dict:
     body = None if data is None else json.dumps(data).encode("utf-8")
     request = Request(url, data=body, headers=headers or {}, method="POST" if body is not None else "GET")
-    with urlopen(request, timeout=5) as response:
+    with urlopen(request, timeout=10) as response:
         if response.status < 200 or response.status >= 300:
             raise RuntimeError(f"HTTP {response.status} from {url}")
         value = json.loads(response.read().decode("utf-8"))
@@ -57,6 +57,8 @@ def main() -> int:
             blockers.append("provider_not_fail_closed")
         if health.get("storage_durable_across_restarts") is not True:
             blockers.append("durability_not_declared")
+        if health.get("master_records_submission_enabled") is not True:
+            blockers.append("master_records_submission_not_enabled")
 
         advertisement = fetch_json(f"{BASE_URL}/api/stegverse-node")
         evidence["advertisement"] = advertisement
@@ -95,7 +97,7 @@ def main() -> int:
             "requested_route": "Site",
             "transition_intent": "explain",
             "transition_destination": "ecosystem-chat.html#how-it-works",
-            "goal": "verify the existing Site-to-portable-node path",
+            "goal": "verify the existing Site-to-portable-node custody path",
             "execution_model": "allowlisted_task_request_only",
             "raw_shell_allowed": False,
             "authority_required": True,
@@ -125,12 +127,34 @@ def main() -> int:
             blockers.append("transition_not_persisted")
         if response.get("storage_durable_across_restarts") is not True:
             blockers.append("response_durability_not_declared")
+        custody = response.get("custody_submission") or {}
+        if custody.get("submitted") is not True or custody.get("state") != "RECORDED":
+            blockers.append("authenticated_custody_not_recorded")
+        if response.get("master_record_status") != "RECORDED":
+            blockers.append("master_record_status_not_recorded")
+        if not response.get("master_record_ref"):
+            blockers.append("master_record_reference_missing")
+        if response.get("reconstruction_status") != "PASS":
+            blockers.append("transition_reconstruction_not_pass")
+        if authority.get("master_records_installed") is not True:
+            blockers.append("master_records_authority_not_observed")
+
+        status = fetch_json(f"{BASE_URL}/api/transitions/{identity['transition_id']}")
+        evidence["transition_status"] = status
+        if status.get("master_record_status") != "RECORDED":
+            blockers.append("status_master_record_not_recorded")
+        if status.get("reconstruction_status") != "PASS":
+            blockers.append("status_reconstruction_not_pass")
+        if status.get("master_record_ref") != response.get("master_record_ref"):
+            blockers.append("master_record_reference_mismatch")
+        if status.get("final_receipt_id") != response.get("final_receipt_id"):
+            blockers.append("final_receipt_identity_mismatch")
     except Exception as exc:
         blockers.append(f"runtime_exception:{type(exc).__name__}:{exc}")
 
     payload = {
-        "schema": "stegverse.site.portable_node_runtime_verification.v1",
-        "state": "VERIFIED_FAIL_CLOSED_SLICE" if not blockers else "BLOCKED",
+        "schema": "stegverse.site.portable_node_runtime_verification.v2",
+        "state": "VERIFIED_CUSTODY_SLICE" if not blockers else "BLOCKED",
         "observed_at": datetime.now(timezone.utc).isoformat(),
         "node_base_url": BASE_URL,
         "runtime_path": [
@@ -139,12 +163,14 @@ def main() -> int:
             "site_governed_request",
             "bounded_response",
             "local_transition_persistence",
+            "authenticated_master_records_custody",
+            "transition_reconstruction",
         ],
         "blockers": blockers,
         "evidence": evidence,
         "provider_execution": "DISABLED_FAIL_CLOSED",
-        "custody_verified": False,
-        "reconstruction_verified": False,
+        "custody_verified": not blockers,
+        "reconstruction_verified": not blockers,
         "activation_verified": False,
         "authority_granted": False,
         "manual_user_action_required": False,
