@@ -10,9 +10,11 @@
     "enabled": true,
     "required_node_id": "ecosystem-chat-portable-node",
     "advertisement_endpoints": [
+      "http://127.0.0.1:8000/api/stegverse-node",
+      "http://localhost:8000/api/stegverse-node",
       "https://stegverse-ecosystem-chat-gateway.onrender.com/api/stegverse-node"
     ],
-    "timeout_ms": 4000,
+    "timeout_ms": 1800,
     "fallback": "STATIC_GATEWAY_CONFIG"
   },
   "authority_boundary": {
