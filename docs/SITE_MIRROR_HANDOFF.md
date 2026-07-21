@@ -13,8 +13,11 @@ Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
 Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT
+Compatibility Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION
 Manual user action required for routine repository work: false
 ```
+
+`ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION` is retained as the stable compatibility class consumed by existing Site validators. The more specific current blocker is the absent authorized real-provider configuration and persistent endpoint; neither marker grants activation authority.
 
 ## Required vertical slice
 
