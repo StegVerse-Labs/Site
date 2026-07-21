@@ -12,7 +12,7 @@ Primary surface: ecosystem-chat.html
 Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
-Result: ACTIVATION_PENDING_RUNTIME_EVIDENCE
+Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION
 Manual user action required: false
 ```
 
@@ -35,7 +35,7 @@ real request
 ## Authoritative owners
 
 ```text
-Runtime gateway and activation evidence: StegVerse-org/LLM-adapter
+Runtime gateway, canonical StegDeploy runtime, portable-node runtime, and activation evidence: StegVerse-org/LLM-adapter
 Custody and reconstruction: existing Master-Records implementation referenced by adapter evidence
 Site activation projection: StegVerse-Labs/Site
 Publication projection: GCAT-BCAT-Engine/Publisher
@@ -43,12 +43,20 @@ Admissibility projection: StegVerse-Labs/admissibility-wiki
 Guardian projection: StegVerse-002/stegguardian-wiki
 ```
 
-## Existing components reused
+## Canonical existing components reused
 
-Adapter:
+Adapter runtime and evidence:
 
 ```text
+Dockerfile
+compose.stegdeploy.yaml
+scripts/container-entrypoint.sh
+scripts/stegdeploy_bootstrap.py
+.github/workflows/stegdeploy-image.yml
+llm_adapter/node_bootstrap.py
+llm_adapter/node_service.py
 .github/workflows/ecosystem-chat-live-activation.yml
+.github/workflows/validate.yml
 scripts/verify_live_ecosystem_chat_activation.py
 scripts/write_live_activation_status.py
 reports/ecosystem-chat-live-activation-status.json
@@ -56,7 +64,7 @@ receipts/ecosystem-chat-live-activation.latest.json
 receipts/ecosystem-chat-live-activation.verified.json when VERIFIED
 ```
 
-Site:
+Site activation consumers:
 
 ```text
 .github/workflows/ecosystem-chat-activation-retention.yml
@@ -77,49 +85,61 @@ data/ecosystem-chat-activation-state.json
 data/ecosystem-chat-activation-propagation.json
 ```
 
+## Non-canonical overlapping packaging retained pending approval
+
+```text
+Dockerfile.portable-node
+.github/workflows/publish-portable-node-image.yml
+```
+
+These files overlap the canonical StegDeploy packaging from merged adapter PR #14. They are not designated canonical and must not be removed, replaced, or consolidated without an explicit removal proposal and approval.
+
 ## Heartbeat boundary
 
-The StegVerse runtime heartbeat is not defined, generated, scheduled, or authorized by GitHub Actions.
+The StegVerse runtime heartbeat is not defined, generated, scheduled, or authorized by GitHub Actions, container publication, portable-node process supervision, or Site evidence consumers.
 
 ```text
 GitHub Actions cron != runtime heartbeat
 workflow execution record != runtime heartbeat
-CI status file != runtime heartbeat
+container image publication != runtime heartbeat
+portable-node supervisor != runtime heartbeat
 repository commit frequency != runtime heartbeat
 Site evidence watcher != runtime heartbeat watchdog
 ```
 
-The adapter intentionally removed the former CI-derived activation heartbeat writer, report, scheduler-status report, and related workflow steps. Site does not fetch or require those removed artifacts.
-
-`scripts/watch_ecosystem_chat_adapter_monitor.py` observes only:
-
-```text
-reports/ecosystem-chat-live-activation-status.json
-receipts/ecosystem-chat-live-activation.verified.json when present
-```
-
-This watcher is an activation-evidence consumer. It does not determine heartbeat cadence, continuity, authority, or existence.
+The adapter's live verifier and Site watcher consume activation evidence only. They do not determine heartbeat cadence, continuity, authority, or existence.
 
 ## Current exact evidence posture
 
 ```text
-Site acquisition and activation-state consumers: IMPLEMENTED
-Site heartbeat-boundary repair: INTEGRATED
+Canonical provider-neutral StegDeploy runtime: IMPLEMENTED and MERGED
+Portable-node zero-touch bootstrap: IMPLEMENTED and MERGED
+Portable-node autonomous lifecycle: IMPLEMENTED and MERGED
+Portable-node autostart: IMPLEMENTED and MERGED
+Portable-node authorized external binding: IMPLEMENTED
+Portable-node authorized environment preservation: IMPLEMENTED
 Adapter live verifier: IMPLEMENTED
-Adapter automation contract heartbeat alignment: IMPLEMENTED on main
-Adapter validation after contract repair: EXECUTION PENDING
-Current real provider request/response: NOT YET VERIFIED
-Provider-usage custody: NOT YET VERIFIED
-Provider-usage reconstruction: NOT YET VERIFIED
-Transition custody: NOT YET VERIFIED
-Transition reconstruction: NOT YET VERIFIED
-Adapter immutable VERIFIED receipt: NOT YET OBSERVED
-Site ACTIVATION_COMPLETE: NOT YET OBSERVED
-Downstream verified ingestion: NOT YET OBSERVED
+Validation-owned evidence retention: IMPLEMENTED
+Current real provider request/response: NOT VERIFIED
+Provider-usage custody: NOT VERIFIED
+Provider-usage reconstruction: NOT VERIFIED
+Transition custody: NOT VERIFIED
+Transition reconstruction: NOT VERIFIED
+Adapter immutable VERIFIED receipt: NOT OBSERVED
+Site ACTIVATION_COMPLETE: NOT OBSERVED
+Downstream verified ingestion: NOT OBSERVED
 Manual user action required: false
 ```
 
-Current stable adapter status remains `PENDING` with blocker `live_activation_observation_not_yet_recorded`. This is a runtime-evidence blocker, not a heartbeat blocker.
+The retained stable adapter status remains `PENDING` with blocker `live_activation_observation_not_yet_recorded`. The last deployed endpoint evidence remains HTTP 404 with `x-render-routing: no-server`, confirming that the configured Render hostname has no attached application server.
+
+The repository now has a canonical Render-independent deployment contract, but no connected authorized machine executor has run:
+
+```text
+python scripts/stegdeploy_bootstrap.py deploy
+```
+
+with authorized provider and Master-Records environment and exposed the resulting endpoint for verification.
 
 ## Verified receipt gates
 
@@ -168,34 +188,23 @@ StegVerse-002/stegguardian-wiki
 
 A propagation packet is not custody, activation authority, publication authority, execution authority, admissibility, or release authority.
 
-## Progress accounting
-
-Three measures must remain separate:
-
-```text
-Implementation coverage: required code and integrations exist
-Runtime gate completion: gates passed by a current real execution
-Evidence state: DESIGNED / IMPLEMENTED / INTEGRATED / EXECUTED / VERIFIED / DEPLOYED / LIVE / PROPAGATED
-```
-
-Documentation, handoffs, status files, CI schedules, installed workflows, pending imports, and monitors do not increase runtime gate completion.
-
-The Site repository may have high implementation coverage while the end-to-end activation slice remains unverified. Percentages must describe which measure they represent and must not imply verified runtime completion.
-
 ## Machine-owned continuation
 
 ```text
-1. Adapter validation runs with the heartbeat-corrected automation contract.
-2. The existing live verifier executes gateway, provider, persistence, custody, identity, and reconstruction checks.
-3. The exact runtime blockers are written to stable semantic status.
-4. The first zero-blocker VERIFIED result is retained immutably.
-5. Site imports and validates pending or VERIFIED evidence automatically.
-6. Site recomputes activation and propagation state.
-7. Publisher and both wiki consumers ingest the Site projection automatically.
-8. Release readiness remains fail-closed until downstream verified evidence exists.
+1. StegVerse-org/LLM-adapter issue #18 owns deployment recovery.
+2. Reuse the canonical StegDeploy runtime before any new deployment architecture.
+3. Connect an already-authorized machine executor to scripts/stegdeploy_bootstrap.py deploy.
+4. Supply provider and Master-Records configuration only through the authorized runtime environment.
+5. Expose the resulting gateway endpoint.
+6. Point the existing live verifier at that endpoint.
+7. Retain the exact semantic blocker or first zero-blocker VERIFIED receipt automatically.
+8. Site imports and validates the receipt automatically.
+9. Site recomputes activation and propagation state.
+10. Publisher and both wiki consumers ingest the Site projection automatically.
+11. Release readiness remains fail-closed until downstream verified evidence exists.
 ```
 
-No browser credential, copy/paste, workflow dispatch, artifact download, screenshot confirmation, receipt construction, blocker transcription, credential copying, or manual publication task is required.
+No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, credential copying, or manual publication task is assigned to the user.
 
 ## Authority boundary
 
@@ -208,7 +217,8 @@ local persistence != custody
 submission != custody
 pending status != activation
 CI execution != runtime heartbeat
-CI evidence watcher != heartbeat authority
+container publication != live deployment
+portable-node supervision != heartbeat authority
 imported verified receipt != deployment authority
 propagation packet != publication authority
 reconstruction PASS != execution authority
@@ -219,16 +229,16 @@ Site autonomy completion evidence != release authority
 ## Current blocker and next executable step
 
 ```text
-Blocker: current live activation result has not yet been executed and retained after automation-contract alignment
-Owner: StegVerse-org/LLM-adapter
-Next step: allow the existing validate and live-activation workflows to execute from commit 7c26041eeeb7f165583308efaedd59e1d17a8c92, inspect the first exact runtime result, and repair only that failing boundary
+Blocker: no connected authorized machine executor has launched the canonical StegDeploy runtime and exposed a live endpoint; the configured Render hostname still returns x-render-routing: no-server
+Owner: StegVerse-org/LLM-adapter issue #18
+Next step: execute the canonical StegDeploy bootstrap on an already-authorized machine runtime, supply authorized provider and Master-Records environment, expose the endpoint, and allow the existing verifier and retention path to proceed automatically
 Manual user action required: false
 ```
 
 ## Release posture
 
-No tag or release is authorized. Existing acquisition, validation, activation-state computation, propagation packaging, retention, custody checks, reconstruction checks, and downstream consumers are retained. Remaining conditions are a current real runtime execution, immutable VERIFIED receipt publication, Site activation completion, and verified downstream ingestion.
+No tag or release is authorized. Existing deployment packaging, acquisition, validation, activation-state computation, propagation packaging, retention, custody checks, reconstruction checks, and downstream consumers are retained. Remaining conditions are live machine execution, a current real runtime result, immutable VERIFIED receipt publication, Site activation completion, and verified downstream ingestion.
 
 ## Archive readiness
 
-This handoff, the paired build-goal and active-building records, adapter stable status, immutable receipt path, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
+This handoff, the paired build-goal and active-building records, adapter issue #18, stable adapter status, immutable receipt path, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
