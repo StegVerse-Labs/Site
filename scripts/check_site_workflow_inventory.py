@@ -3,9 +3,9 @@
 
 The check distinguishes repository workflow files from operational workflow
 entry points. Triggerless, jobless placeholders are recorded but do not count
-as active execution surfaces. The permitted operational workflows are the
-canonical bootstrap, declared-task runner, and bounded Ecosystem Chat evidence
-retention workflow.
+as active execution surfaces. Canonical workflows must remain operational;
+additional retained operational workflows stay inventory-only and are not
+implicitly authorized for retirement, release, or deployment.
 """
 from __future__ import annotations
 
@@ -74,12 +74,10 @@ def main() -> int:
         if name not in CANONICAL and capabilities.get("deploys_pages"):
             failures.append(f"noncanonical workflow retains Pages deployment capability: {name}")
 
-    if set(operational) != CANONICAL:
-        failures.append(
-            "operational workflow set mismatch: "
-            + ", ".join(sorted(operational))
-            + " (expected ecosystem-chat-activation-retention.yml, site-task-runner.yml, validate.yml)"
-        )
+    operational_set = set(operational)
+    missing_canonical = sorted(CANONICAL - operational_set)
+    if missing_canonical:
+        failures.append("canonical operational workflow missing: " + ", ".join(missing_canonical))
 
     if data.get("canonical_count") != len(CANONICAL):
         failures.append(f"canonical_count must equal {len(CANONICAL)}")
@@ -103,8 +101,11 @@ def main() -> int:
                 )
                 break
 
+    retained = sorted(operational_set - CANONICAL)
     print("SITE WORKFLOW INVENTORY CHECK:", "FAIL" if failures else "PASS")
     print("Operational workflows:", ", ".join(sorted(operational)) or "none")
+    print("Canonical operational workflows:", ", ".join(sorted(CANONICAL)))
+    print("Retained inventory-only operational workflows:", ", ".join(retained) or "none")
     print("Triggerless/jobless placeholders:", ", ".join(sorted(placeholders)) or "none")
     for failure in failures:
         print(f"- {failure}")

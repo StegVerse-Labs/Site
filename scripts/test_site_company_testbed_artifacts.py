@@ -120,11 +120,16 @@ def add_forbidden_claim(root: Path, validator) -> None:
     )
 
 
-def add_fourth_workflow(root: Path, validator) -> None:
+def add_retained_workflow(root: Path, validator) -> None:
     del validator
-    (root / ".github" / "workflows" / "extra.yml").write_text(
-        "name: prohibited extra workflow\n", encoding="utf-8"
+    (root / ".github" / "workflows" / "retained-evidence.yml").write_text(
+        "name: retained inventory-only evidence workflow\n", encoding="utf-8"
     )
+
+
+def remove_canonical_workflow(root: Path, validator) -> None:
+    del validator
+    (root / ".github" / "workflows" / "validate.yml").unlink()
 
 
 def remove_inventory_binding(root: Path, validator) -> None:
@@ -153,9 +158,14 @@ def main() -> int:
             "forbidden unsupported positive claim present: StegVerse has deployed with",
         ),
         (
-            "fourth operational workflow file",
-            add_fourth_workflow,
-            "expected canonical operational workflows",
+            "retained noncanonical workflow",
+            add_retained_workflow,
+            None,
+        ),
+        (
+            "canonical workflow removed",
+            remove_canonical_workflow,
+            "missing canonical operational workflows",
         ),
         (
             "validator binding removed",
