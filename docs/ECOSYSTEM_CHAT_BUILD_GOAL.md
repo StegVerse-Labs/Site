@@ -103,19 +103,24 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - Commits `0eaac3abc6c3691dae73916b1bd6f135e0a9955f`, `ea9efe1c621552f609e1a6d929964135b52476e8`, and `4f2e56913462a74944d67c0e91afb484fe0df643` added overlapping portable-node image packaging after the canonical StegDeploy path already existed. These files are retained but are not designated canonical pending explicit consolidation or removal approval.
 - https://github.com/StegVerse-org/core-node-runtime-demo is an existing private governed runtime comparison boundary with Master-Records witness-ready outputs and comparable path reports.
 - Commit `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2` added a repository-owned StegDeploy runtime intake workflow that pulls the canonical image, launches it fail-closed on a GitHub machine runner, verifies live health, executes the existing core-node comparison pipeline, and persists a hashed compatibility receipt.
+- Commit `62b87d6918977f6bcbc909955b4a765460e04238` integrated that intake into the established `.github/workflows/validate.yml` path on `main`.
+- The expected `receipts/stegdeploy-runtime-intake.latest.json` does not yet exist.
+- GitHub currently records no workflow run and no commit status for commit `62b87d6918977f6bcbc909955b4a765460e04238`.
 - Machine-owned continuation is tracked by https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 and https://github.com/StegVerse-org/LLM-adapter/issues/18.
 
 ## Current blocker
 
-The configured hosted endpoint still returns `x-render-routing: no-server`, so no persistent public application process receives that request. A repository-owned machine executor now exists for canonical-image startup, live health verification, and core-node compatibility evidence, but it is intentionally ephemeral and fail-closed. No authorized persistent host has yet exposed the gateway with governed provider and Master-Records configuration. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The first missing runtime boundary is execution recognition for the existing `StegVerse-org/core-node-runtime-demo/.github/workflows/validate.yml` path. The canonical intake implementation is integrated on `main`, but GitHub has recorded no run or status for commit `62b87d6918977f6bcbc909955b4a765460e04238`, and no repository-authored compatibility receipt exists. No duplicate executor, workflow, monitor, or scheduler is justified until that existing path executes and produces a concrete step-level result.
+
+The persistent hosted path remains separately blocked because the configured Render endpoint returns `x-render-routing: no-server`. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Use https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 to produce the first repository-authored machine-execution compatibility receipt. In parallel, use https://github.com/StegVerse-org/LLM-adapter/issues/18 to bind the same canonical StegDeploy runtime to an already-authorized persistent host or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Do not create another deployment package or replacement gateway.
+Use the existing repository-owned validation path tracked at https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 to obtain the first machine-execution result and `receipts/stegdeploy-runtime-intake.latest.json`. Repair only the first concrete workflow or runtime failure if one appears. Then use https://github.com/StegVerse-org/LLM-adapter/issues/18 to bind the same canonical runtime to an already-authorized persistent host and allow the existing verifier, custody, reconstruction, receipt, Site activation, and downstream paths to proceed. Do not create another executor, deployment package, gateway, receipt schema, or heartbeat mechanism.
 
 ## Manual user action requirement
 
-False. The deployment and machine-execution tasks are repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, image-pull, node-start, health testing, comparison execution, or evidence-transcription work.
+False. Both tasks remain repository-owned. The user is not assigned workflow dispatch, credential copying, image pull, node start, deployment, health testing, receipt construction, or evidence transcription.
 
 ## Progress accounting
 
@@ -123,6 +128,7 @@ False. The deployment and machine-execution tasks are repository-owned. The user
 - Runtime gate completion describes gates passed by a current real execution.
 - Evidence state uses DESIGNED, IMPLEMENTED, INTEGRATED, EXECUTED, VERIFIED, DEPLOYED, LIVE, and PROPAGATED.
 - These measures must not be collapsed into one percentage.
+- This cycle does not increase runtime completion because no workflow execution or receipt was observed.
 
 ## Latest meaningful goal advancement
 
@@ -136,6 +142,7 @@ False. The deployment and machine-execution tasks are repository-owned. The user
 - Portable-node runtime tests: `97bef70d3683cfae7029cb9bc368f0b17d955c9c`
 - Existing-validation contract binding: `398a4a39523d2a21b2331866593a92c2eba4dc81`
 - Core-node machine executor: `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2`
-- Core-node machine-owned task: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
+- Established-workflow integration: `62b87d6918977f6bcbc909955b4a765460e04238`
+- Machine-execution task: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
 - Persistent deployment task: https://github.com/StegVerse-org/LLM-adapter/issues/18
-- Runtime gate delta: machine startup, local live health testing, governed comparison execution, and compatibility receipt construction are repository-owned; persistent public provider/custody execution remains the exact blocker.
+- Latest Site goal-record advancement: this commit records the exact non-execution boundary and direct URLs; runtime gate delta remains zero.
