@@ -226,6 +226,42 @@ Site autonomy runtime PASS != Ecosystem Chat activation
 Site autonomy completion evidence != release authority
 ```
 
+## Browser-local ChatGPT session continuation
+
+The Site now includes an operator-local convenience surface for reopening one specific existing web ChatGPT conversation:
+
+```text
+chat-session-launcher.html
+ docs/CHATGPT_SESSION_LAUNCHER.md
+ scripts/check_chat_session_launcher.py
+```
+
+Implementation commits:
+
+```text
+9d01610a54960fcefb74e2c98a6f252c7b6bfc53 launcher page
+81f3e739cd3db58e67d8c0310dfa5e9b61443a8a launcher contract
+5f782e2bed3d6d1f865b3936aa925302ffaddb1d launcher static validator
+449a277a915d2fabca6a86091a21e5ac6c971942 canonical application-validator integration
+```
+
+Launcher boundary:
+
+```text
+private conversation URL storage = browser localStorage only
+accepted target = https://chatgpt.com/c/<conversation-id>
+query and fragment retention = false
+repository persistence = false
+StegVerse transmission = false
+prompt injection or submission = false
+ChatGPT authentication authority = false
+Site execution authority = false
+custody = none
+activation evidence = none
+```
+
+This launcher does not replace, advance, or satisfy the governed Ecosystem Chat provider, persistence, custody, reconstruction, immutable receipt, activation, or downstream propagation gates. It is independently useful operator continuation scaffolding with a complete page, contract, and static validator.
+
 ## Current blocker and next executable step
 
 ```text
@@ -237,8 +273,8 @@ Manual user action required: false
 
 ## Release posture
 
-No tag or release is authorized. Existing deployment packaging, acquisition, validation, activation-state computation, propagation packaging, retention, custody checks, reconstruction checks, and downstream consumers are retained. Remaining conditions are live machine execution, a current real runtime result, immutable VERIFIED receipt publication, Site activation completion, and verified downstream ingestion.
+No tag or release is authorized. Existing deployment packaging, acquisition, validation, activation-state computation, propagation packaging, retention, custody checks, reconstruction checks, downstream consumers, and browser-local session continuation are retained. Remaining conditions are live machine execution, a current real runtime result, immutable VERIFIED receipt publication, Site activation completion, and verified downstream ingestion.
 
 ## Archive readiness
 
-This handoff, the paired build-goal and active-building records, adapter issue #18, stable adapter status, immutable receipt path, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
+This handoff, the paired build-goal and active-building records, adapter issue #18, stable adapter status, immutable receipt path, Site machine-readable state, launcher implementation contract, canonical launcher validation, and repository history preserve all continuation state without requiring conversation context.
