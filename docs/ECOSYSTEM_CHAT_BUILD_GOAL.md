@@ -209,3 +209,33 @@ False for routine repository work. A platform-owner decision remains required be
 - Machine-execution merge: `6f40cb7110823c48527efadd90c13d87b5cf2455`
 - Verified machine run: `29853848999`
 - Runtime gate delta: machine execution and fail-closed health advanced to VERIFIED; all later end-to-end gates remain unproven.
+
+---
+
+## Authoritative custody and reconstruction update — 2026-07-21
+
+This section supersedes only earlier statements that authenticated transition custody and reconstruction were unproven.
+
+- Master-Records PR #3 merged as `421da84784888e3dc9bb98a7b2b47a1518f0eee0`.
+- Runtime Evidence Validation run `29865690620` passed the real canonical gateway-to-custody round trip.
+- Authenticated transition custody is VERIFIED with `RECORDED` status and an issued Master-Records reference.
+- Transition reconstruction is VERIFIED with `PASS` status.
+- Runtime artifact `8509093886` has digest `sha256:3ceabaf70a454d3192fab1c0b6200700c132ec19bcf32345ad688e66d9b175fd`.
+- Custody-stack artifact `8509097445` has digest `sha256:2c8292476adaa15e9bb02d107cc8dcf10e6cd3c7caa252b9b828e844d94414b6`.
+- Custody activation-state artifact `8509100922` has digest `sha256:e41451646435c964bc0dc8b02fc543cbebed7b61ea7526ff6cd9ed7179447ae5`.
+- Provider execution remained `DISABLED_FAIL_CLOSED`; real provider response and provider-usage custody/reconstruction remain UNPROVEN.
+- Immutable zero-blocker activation receipt, Site `ACTIVATION_COMPLETE`, and downstream propagation remain UNPROVEN.
+- Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md`.
+
+### Current blocker
+
+No repository-owned runtime currently binds an authorized real-provider HTTPS endpoint, allowlisted hostname, credential, and model into the canonical portable-node path. The existing live-activation workflow only probes an already-running gateway and does not own provider credentials.
+
+### Next executable integration step
+
+Run the existing provider broker with an already-authorized provider configuration, execute one governed request through the same verified custody path, and repair only the first exact provider, usage-persistence, provider-usage custody, reconstruction, or activation-receipt failure.
+
+### Manual user action requirement
+
+False for routine repository work. A real-provider credential/execution boundary must already be authorized before it can be activated.
+

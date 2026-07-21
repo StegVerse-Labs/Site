@@ -355,3 +355,61 @@ Current state:
 - real provider, persistence, custody, reconstruction, immutable activation receipt, Site activation, and downstream propagation: UNPROVEN.
 
 This section supersedes only earlier statements that the core-node machine result was unobserved. No historical content above is removed or reclassified.
+
+---
+
+## Authoritative custody and reconstruction update — 2026-07-21
+
+### Work performed
+
+- Reused the canonical LLM-adapter gateway and the owned Master-Records custody service.
+- Extended the existing Master-Records Runtime Evidence Validation workflow; no workflow was added.
+- Executed one real governed transition round trip with run-scoped custody credentials.
+- Verified authenticated custody `RECORDED`, Master-Records reference issuance, transition reconstruction `PASS`, identity continuity, and false authority fields.
+
+### Existing capabilities reused
+
+- `StegVerse-org/LLM-adapter/llm_adapter/combined_gateway.py`
+- `StegVerse-org/LLM-adapter/llm_adapter/master_records_client.py`
+- `master-records/orchestration/services/master_records_custody_api.py`
+- Existing transition store, final receipt, custody-stack verifier, reconstruction response, tests, export receipt, and activation-state writer
+
+### Runtime evidence
+
+- Merge: `421da84784888e3dc9bb98a7b2b47a1518f0eee0`
+- Run: `29865690620`
+- Runtime artifact: `8509093886`, digest `sha256:3ceabaf70a454d3192fab1c0b6200700c132ec19bcf32345ad688e66d9b175fd`
+- Custody-stack artifact: `8509097445`, digest `sha256:2c8292476adaa15e9bb02d107cc8dcf10e6cd3c7caa252b9b828e844d94414b6`
+- Activation-state artifact: `8509100922`, digest `sha256:e41451646435c964bc0dc8b02fc543cbebed7b61ea7526ff6cd9ed7179447ae5`
+- Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md`
+
+### State classification
+
+- Authenticated transition custody: VERIFIED
+- Transition reconstruction: VERIFIED
+- Real governed provider response: UNPROVEN
+- Provider-usage persistence, custody, and reconstruction: UNPROVEN
+- Immutable activation receipt: UNPROVEN
+- Site activation: UNPROVEN
+- Downstream propagation: UNPROVEN
+
+### Removals proposed but not performed
+
+None. Site PR #34 remains open and unmerged after proving a private cross-repository checkout boundary. No branch, file, workflow, or implementation was closed or removed.
+
+### Goal delta
+
+Authenticated transition custody and reconstruction advanced from implemented/unproven to executed and verified.
+
+### Reuse delta
+
+Existing custody, gateway, receipt, reconstruction, workflow, and test capabilities eliminated the need for a new custody service, adapter, workflow, or host.
+
+### Non-progress
+
+Provider execution remained disabled, so provider-usage custody, immutable activation, Site activation, and propagation are not counted complete.
+
+### Next executable step
+
+Bind an already-authorized real provider to the existing broker and execute the same path through provider usage persistence and custody.
+
