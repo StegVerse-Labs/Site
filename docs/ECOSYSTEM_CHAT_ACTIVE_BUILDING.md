@@ -476,3 +476,41 @@ No real provider call or provider-usage custody event is counted complete becaus
 
 Inspect the first repository-retained authorized-provider activation receipt and repair its first exact blocker.
 
+---
+
+## StegVerse-owned provider-node update — 2026-07-21
+
+### Work performed
+
+- Reused the existing `LLM-adapter` provider broker and canonical gateway.
+- Implemented local GGUF inference in the existing empty `StegVerse-Labs/governed-llm` repository.
+- Added authenticated HTTPS generation, identity echoes, usage metadata, SHA-256 receipts, non-authority enforcement, container packaging, and integrated composition.
+- Reused standard `REQUESTS_CA_BUNDLE` trust behavior rather than modifying or weakening the broker.
+
+### State classification
+
+- StegVerse provider service: IMPLEMENTED
+- Gateway/provider composition: INTEGRATED in source and configuration
+- Repository CI: UNPROVEN because the observed validation run exposed no job steps or logs
+- Real model execution: UNPROVEN
+- Provider-usage persistence/custody/reconstruction: UNPROVEN
+- Immutable activation, Site activation, and propagation: UNPROVEN
+
+### Durable evidence
+
+- Repository: https://github.com/StegVerse-Labs/governed-llm
+- Validation PR: https://github.com/StegVerse-Labs/governed-llm/pull/1
+- Cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md`
+
+### Removals proposed but not performed
+
+None.
+
+### Goal delta
+
+A StegVerse-owned provider endpoint implementation and canonical gateway composition now exist.
+
+### Non-progress
+
+No real model response or provider-usage custody evidence was produced, so runtime completion does not increase.
+
