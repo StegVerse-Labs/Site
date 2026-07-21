@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "data" / "ecosystem-chat-gateway.json"
 CLIENT = ROOT / "assets" / "ecosystem-chat-transition-identity.js"
+DISCOVERY = ROOT / "assets" / "ecosystem-chat-node-discovery.js"
 HEALTH = ROOT / "assets" / "ecosystem-chat-gateway-health.js"
 LOADER = ROOT / "assets" / "ecosystem-chat-hps.js"
 
@@ -17,14 +18,15 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in [CONFIG, CLIENT, HEALTH, LOADER]:
+    for path in [CONFIG, CLIENT, DISCOVERY, HEALTH, LOADER]:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     client = CLIENT.read_text(encoding="utf-8")
+    discovery_source = DISCOVERY.read_text(encoding="utf-8")
     health = HEALTH.read_text(encoding="utf-8")
     loader = LOADER.read_text(encoding="utf-8")
-    if config.get("schema_version") != "1.0.0":
+    if config.get("schema_version") != "1.1.0":
         return fail("schema_version mismatch")
     if config.get("mode") != "GOVERNED_GATEWAY_WITH_LOCAL_FALLBACK":
         return fail("gateway mode mismatch")
@@ -37,12 +39,27 @@ def main() -> int:
             return fail("enabled endpoint must be HTTPS and end with /api/ecosystem-chat")
         if not health_endpoint.startswith("https://") or not health_endpoint.endswith("/health"):
             return fail("enabled health endpoint must be HTTPS and end with /health")
+    discovery = config.get("discovery", {})
+    if discovery.get("enabled") is not True:
+        return fail("node discovery must be enabled")
+    if discovery.get("required_node_id") != "ecosystem-chat-portable-node":
+        return fail("portable-node identity binding mismatch")
+    advertisement_endpoints = discovery.get("advertisement_endpoints")
+    if not isinstance(advertisement_endpoints, list) or not advertisement_endpoints:
+        return fail("node advertisement endpoints missing")
+    for value in advertisement_endpoints:
+        if not value.startswith("https://") or not value.endswith("/api/stegverse-node"):
+            return fail("node advertisement endpoint must be HTTPS and end with /api/stegverse-node")
+    if discovery.get("fallback") != "STATIC_GATEWAY_CONFIG":
+        return fail("discovery fallback must remain STATIC_GATEWAY_CONFIG")
     boundary = config.get("authority_boundary", {})
     for key in [
         "site_execution_authority",
         "gateway_execution_authority",
         "gateway_receipt_is_final",
         "master_records_authority",
+        "node_discovery_grants_authority",
+        "node_advertisement_is_publication_authority",
     ]:
         if boundary.get(key) is not False:
             return fail(f"authority boundary must be false: {key}")
@@ -70,6 +87,20 @@ def main() -> int:
         if marker not in client:
             return fail(f"client missing marker: {marker}")
     for marker in [
+        "stegverse.node.endpoint-advertisement.v1",
+        "ecosystem-chat-portable-node",
+        "advertisement_sha256",
+        "crypto.subtle.digest",
+        "HEALTH_BOUND_NODE_ADVERTISEMENT",
+        "STATIC_CONFIG_FALLBACK",
+        "authority_granted !== false",
+        "publication_authority !== false",
+        "execution_authority !== false",
+        "nativeFetch",
+    ]:
+        if marker not in discovery_source:
+            return fail(f"node discovery binding missing marker: {marker}")
+    for marker in [
         "Governed gateway",
         "LOCAL FALLBACK",
         "UNAVAILABLE",
@@ -85,6 +116,12 @@ def main() -> int:
     ]:
         if marker not in health:
             return fail(f"health indicator missing marker: {marker}")
+    discovery_loader = "assets/ecosystem-chat-node-discovery.js"
+    transition_loader = "assets/ecosystem-chat-transition-identity.js"
+    if discovery_loader not in loader or transition_loader not in loader:
+        return fail("discovery or transition client is not loaded by Ecosystem Chat")
+    if loader.index(discovery_loader) > loader.index(transition_loader):
+        return fail("node discovery must load before transition client")
     if "assets/ecosystem-chat-gateway-health.js" not in loader:
         return fail("health indicator is not loaded by Ecosystem Chat")
     print("ECOSYSTEM CHAT GATEWAY ACTIVATION: PASS")
