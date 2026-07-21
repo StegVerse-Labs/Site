@@ -337,3 +337,21 @@ The existing contract and workflow were retained. A two-line bounded parsing adj
 ### Next executable step
 
 Observe the new validation run for adapter commit `fcb1b7d8b6bafa7991ad1ce53917a66cec9ee006`; if green, inspect the existing live-activation workflow result and repair only its first concrete runtime blocker.
+
+---
+
+## Current machine-execution cycle — 2026-07-21
+
+The current authoritative cycle is recorded at:
+
+https://github.com/StegVerse-Labs/Site/blob/agent/ecosystem-chat-machine-execution-state/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_MACHINE_EXECUTION.md
+
+Current state:
+
+- authoritative-source runtime compatibility: VERIFIED;
+- canonical Dockerfile build, gateway start, and machine-runner health: VERIFIED;
+- published package compatibility: BLOCKED / UNPROVEN;
+- persistent public deployment: NOT DEPLOYED;
+- real provider, persistence, custody, reconstruction, immutable activation receipt, Site activation, and downstream propagation: UNPROVEN.
+
+This section supersedes only earlier statements that the core-node machine result was unobserved. No historical content above is removed or reclassified.
