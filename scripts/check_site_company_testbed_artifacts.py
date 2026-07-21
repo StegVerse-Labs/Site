@@ -78,11 +78,11 @@ FORBIDDEN_POSITIVE_CLAIMS = (
     "release tagging is authorized",
 )
 
-CANONICAL_WORKFLOWS = [
+CANONICAL_WORKFLOWS = {
     "ecosystem-chat-activation-retention.yml",
     "site-task-runner.yml",
     "validate.yml",
-]
+}
 
 
 def fail(message: str) -> None:
@@ -111,9 +111,10 @@ def main() -> None:
             fail(f"forbidden unsupported positive claim present: {claim}")
 
     workflow_dir = ROOT / ".github" / "workflows"
-    workflows = sorted(path.name for path in workflow_dir.glob("*.yml"))
-    if workflows != CANONICAL_WORKFLOWS:
-        fail(f"expected canonical operational workflows {CANONICAL_WORKFLOWS}, found: {workflows}")
+    workflows = {path.name for path in workflow_dir.glob("*.yml")}
+    missing_canonical = sorted(CANONICAL_WORKFLOWS - workflows)
+    if missing_canonical:
+        fail(f"missing canonical operational workflows: {missing_canonical}")
 
     inventory_check = (ROOT / "scripts" / "check_site_workflow_inventory.py").read_text(encoding="utf-8")
     binding = 'COMPANY_TESTBED_VALIDATOR = ROOT / "scripts" / "check_site_company_testbed_artifacts.py"'
@@ -123,7 +124,7 @@ def main() -> None:
     print("COMPANY TESTBED ARTIFACT VALIDATION PASSED")
     for label, path in REQUIRED_FILES.items():
         print(f"- {label}: {path.relative_to(ROOT)}")
-    print("- workflow inventory: canonical three operational workflows")
+    print("- workflow inventory: all canonical workflows present; additional workflows remain governed by inventory validation")
     print("- authority effect: NONE")
     print("- release authority: NOT GRANTED")
 
