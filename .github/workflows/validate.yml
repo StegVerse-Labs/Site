@@ -63,7 +63,7 @@ jobs:
   bootstrap-validate:
     needs: st017-sandbox
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -82,9 +82,28 @@ jobs:
           ref: main
           path: adapter-source
           persist-credentials: false
-      - name: Install canonical adapter service dependencies
-        run: python -m pip install -e './adapter-source[service]'
-      - name: Start canonical portable-node gateway fail-closed
+      - name: Check out existing Master-Records custody service
+        uses: actions/checkout@v4
+        with:
+          repository: master-records/orchestration
+          ref: main
+          path: master-records-source
+          persist-credentials: false
+      - name: Install existing adapter and custody service dependencies
+        run: |
+          python -m pip install -e './adapter-source[service]'
+          python -m pip install -r master-records-source/requirements-service.txt
+      - name: Prepare run-scoped custody credentials
+        run: |
+          echo "MASTER_RECORDS_AUTH_TOKEN=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          echo "MASTER_RECORDS_RECEIPT_KEY=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+      - name: Start existing authenticated Master-Records custody service
+        run: |
+          export MASTER_RECORDS_DB='${{ runner.temp }}/master-records-custody.db'
+          export MASTER_RECORDS_STORAGE_DURABLE_ACROSS_RESTARTS=true
+          python -m uvicorn services.master_records_custody_api:app --app-dir master-records-source --host 127.0.0.1 --port 8021 > master-records-runtime.log 2>&1 &
+          echo $! > master-records-runtime.pid
+      - name: Start canonical portable-node gateway with existing custody binding
         env:
           STEGVERSE_PROVIDER_ENABLED: "false"
           STEGVERSE_EXTERNAL_MUTATION_ENABLED: "false"
@@ -92,16 +111,23 @@ jobs:
           STEGVERSE_TRANSITION_DB: ${{ runner.temp }}/stegverse-site-runtime.db
           STEGVERSE_EXTERNAL_REVIEW_DB: ${{ runner.temp }}/stegverse-site-review.db
           STEGVERSE_USAGE_SESSION_DB: ${{ runner.temp }}/stegverse-site-usage.db
+          STEGVERSE_MASTER_RECORDS_HOSTPORT: 127.0.0.1:8021
+          STEGVERSE_ALLOW_PRIVATE_MASTER_RECORDS_HTTP: "true"
+          STEGVERSE_MASTER_RECORDS_ALLOWED_HOSTS: 127.0.0.1
         run: |
+          export STEGVERSE_MASTER_RECORDS_TOKEN="$MASTER_RECORDS_AUTH_TOKEN"
           python -m uvicorn llm_adapter.combined_gateway:app --app-dir adapter-source --host 127.0.0.1 --port 8000 > portable-node-runtime.log 2>&1 &
           echo $! > portable-node-runtime.pid
-      - name: Execute Site-to-portable-node runtime slice
+      - name: Execute Site-to-portable-node custody and reconstruction slice
         run: python scripts/verify_portable_node_site_runtime.py
-      - name: Stop portable-node runtime
+      - name: Stop portable-node and custody runtimes
         if: always()
         run: |
           if [ -f portable-node-runtime.pid ]; then
             kill "$(cat portable-node-runtime.pid)" 2>/dev/null || true
+          fi
+          if [ -f master-records-runtime.pid ]; then
+            kill "$(cat master-records-runtime.pid)" 2>/dev/null || true
           fi
       - name: Write bound current-main validation receipt
         run: python scripts/write_site_current_main_validation_receipt.py
@@ -120,6 +146,7 @@ jobs:
             site_current_main_validation.manifest.json
             reports/portable-node-site-runtime.json
             portable-node-runtime.log
+            master-records-runtime.log
           if-no-files-found: error
       - name: Record live mirror verification status
         id: live_verification
