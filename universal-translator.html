@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegVerse Universal Translator: governed multilingual translation with local-first processing, preserved originals, and non-authorizing receipts.">
+  <title>StegVerse — Universal Translator</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .translator-shell{display:grid;gap:16px}.translator-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.translator-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end}.translator-grid label{display:grid;gap:7px;color:var(--muted);font:12px var(--mono)}.translator-select,.translator-text{width:100%;border:1px solid var(--border2);border-radius:var(--radius);background:#080d16;color:var(--text);font:13px/1.55 var(--mono);padding:12px}.translator-panes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.translator-pane{display:grid;gap:8px}.translator-pane textarea{min-height:260px;resize:vertical}.translator-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.translator-status{color:var(--muted);font:12px var(--mono);margin-left:auto}.translator-status[data-state="ok"]{color:var(--green)}.translator-status[data-state="error"]{color:#f0b7b7}.translator-receipt{margin-top:14px;border-top:1px solid var(--border);padding-top:12px;color:var(--green);font:11px var(--mono);overflow-wrap:anywhere}.translator-boundary{border:1px solid #3a2a12;border-radius:var(--radius);background:rgba(63,44,13,.28);color:#f0d9a0;padding:12px 14px;font-size:13px}.language-scope{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.language-scope div{border:1px solid var(--border);border-radius:var(--radius);padding:12px}.language-scope strong,.language-scope span{display:block}.language-scope span{color:var(--muted);font-size:12px;margin-top:4px}@media(max-width:760px){.translator-grid{grid-template-columns:1fr}.translator-grid button{width:100%}.translator-panes{grid-template-columns:1fr}.translator-status{width:100%;margin-left:0}}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="universal-translator.html" class="active">Universal Translator</a><a href="demo.html">Demo</a><a href="governed-ecosystem.html">Governed Ecosystem</a><a href="Papers.html">Papers</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Local-first · multilingual · governed fallback · no execution authority</div>
+    <h1>StegVerse Universal Translator<br><em>one ecosystem, every language.</em></h1>
+    <p>Translate ecosystem requests, responses, documentation, and public communications without changing their authority, custody, or admissibility posture.</p>
+  </div>
+
+  <div class="translator-boundary"><strong>Boundary:</strong> Translation changes language, not meaning or authority. The original text is preserved. A translated statement is not a new authorization, consent record, custody event, admissibility decision, or execution instruction.</div>
+
+  <section class="translator-card" aria-labelledby="translatorHeading">
+    <h2 class="sv-h2" id="translatorHeading">Translate</h2>
+    <form id="translatorForm">
+      <div class="translator-grid">
+        <label>Source language<select class="translator-select" id="translatorSourceLanguage" aria-label="Source language"></select></label>
+        <button class="sv-btn sv-btn-secondary" id="translatorSwap" type="button" aria-label="Swap source and target languages">Swap</button>
+        <label>Target language<select class="translator-select" id="translatorTargetLanguage" aria-label="Target language"></select></label>
+      </div>
+      <div class="translator-panes">
+        <label class="translator-pane"><span class="muted">Original text</span><textarea class="translator-text" id="translatorInput" maxlength="12000" required placeholder="Enter text in any supported language."></textarea></label>
+        <label class="translator-pane"><span class="muted">Translation</span><textarea class="translator-text" id="translatorOutput" readonly placeholder="The translation will appear here."></textarea></label>
+      </div>
+      <div class="translator-actions">
+        <button class="sv-btn sv-btn-primary" type="submit">Translate</button>
+        <button class="sv-btn sv-btn-secondary" id="translatorCopy" type="button">Copy translation</button>
+        <button class="sv-btn sv-btn-secondary" id="translatorClear" type="button">Clear</button>
+        <span class="translator-status" id="translatorStatus" aria-live="polite">Ready.</span>
+      </div>
+      <div class="translator-receipt" id="translatorReceipt" aria-live="polite">translation_state=idle · authority=none · original_preserved=true</div>
+    </form>
+  </section>
+
+  <section class="translator-card">
+    <h2 class="sv-h2">Initial language coverage</h2>
+    <div class="language-scope">
+      <div><strong>English + Spanish</strong><span>Initial North American, Latin American, and global public communications.</span></div>
+      <div><strong>Simplified Chinese</strong><span>Separate locale and terminology path: zh-Hans.</span></div>
+      <div><strong>Traditional Chinese</strong><span>Separate locale and terminology path: zh-Hant.</span></div>
+      <div><strong>Global expansion</strong><span>Arabic, Hindi, Portuguese, French, German, Japanese, Korean, and additional configured languages.</span></div>
+    </div>
+  </section>
+
+  <section class="translator-card">
+    <h2 class="sv-h2">Translation path</h2>
+    <p class="muted">The runtime first attempts private browser-native translation. When unavailable, it calls the governed <code>/api/universal-translator</code> gateway. Failure preserves the original and emits no false success receipt.</p>
+    <p class="muted">Contract: <a href="docs/UNIVERSAL_TRANSLATOR_CONTRACT.md">Universal Translator Contract</a></p>
+  </section>
+</div>
+<footer class="sv-footer"><span>StegVerse · Universal Translator · Original preserved · No execution authority</span><span><a href="index.html">Home</a> · <a href="ecosystem-chat.html">Ecosystem Chat</a></span></footer>
+<script src="assets/universal-translator.js"></script>
+</body>
+</html>
