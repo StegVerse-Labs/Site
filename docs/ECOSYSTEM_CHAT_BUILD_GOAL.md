@@ -25,7 +25,7 @@ The existing portable-node Ecosystem Chat runtime is now an active deployment-re
 ## Authoritative repositories and owners
 
 - Public request surface and Site activation projection: `StegVerse-Labs/Site`
-- Runtime gateway, portable-node runtime, and activation evidence: `StegVerse-org/LLM-adapter`
+- Runtime gateway, portable-node runtime, packaged OCI image, and activation evidence: `StegVerse-org/LLM-adapter`
 - Custody and reconstruction: existing Master-Records implementation referenced by adapter evidence
 - Downstream publication projection: `GCAT-BCAT-Engine/Publisher`
 - Downstream admissibility projection: `StegVerse-Labs/admissibility-wiki`
@@ -44,11 +44,11 @@ Execution, repair of an observed runtime failure, verification, custody, reconst
 
 ## What does not count as completion
 
-Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, browser code existence, goal-page check marks, task-tree entries, or propagation packets without verified runtime evidence.
+Documentation, status files, handoffs, monitors, CI schedules, installed workflows, pending imports, local persistence, browser code existence, goal-page check marks, task-tree entries, container-image existence, or propagation packets without verified runtime evidence.
 
 ## Heartbeat boundary
 
-GitHub Actions, portable-node process supervision, and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. Runtime heartbeat architecture was not modified.
+GitHub Actions, portable-node process supervision, OCI image publication, and Site evidence-retention workflows do not define the StegVerse runtime heartbeat. Runtime heartbeat architecture was not modified.
 
 ## Proven state
 
@@ -73,18 +73,21 @@ GitHub Actions, portable-node process supervision, and Site evidence-retention w
 - Commit `042faaaca4d1c1babc8d7d7bc8c8e408356cc337` made the existing portable-node host binding configurable while preserving loopback as the fail-closed default.
 - Commit `3f8165686b86419cadfdd093a1e5a3876915801f` corrected the node daemon so authorized provider, custody, host, and port settings are preserved instead of overwritten by defaults.
 - Commits `97bef70d3683cfae7029cb9bc368f0b17d955c9c` and `398a4a39523d2a21b2331866593a92c2eba4dc81` added and bound portable-node runtime contract checks to the existing validation path.
+- Commit `0eaac3abc6c3691dae73916b1bd6f135e0a9955f` packaged the existing portable-node runtime as a non-root, health-checked OCI image with durable node-state volume support.
+- Commit `ea9efe1c621552f609e1a6d929964135b52476e8` added repository-owned GHCR publication for `linux/amd64` and `linux/arm64` with provenance and SBOM.
+- Commit `4f2e56913462a74944d67c0e91afb484fe0df643` enforces image ownership, fail-closed configuration, multi-architecture publication, and absence of embedded secrets.
 
 ## Current blocker
 
-The configured hosted endpoint still returns `x-render-routing: no-server`, so no application process receives that request. The existing sovereign portable-node runtime is now technically capable of accepting an authorized external binding and preserving authorized provider and Master-Records configuration, but no currently connected machine-owned host has yet executed it and produced a live endpoint. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The configured hosted endpoint still returns `x-render-routing: no-server`, so no application process receives that request. The sovereign portable-node runtime is now technically capable of authorized external binding, authorized provider and Master-Records configuration inheritance, automatic supervision, and repository-owned OCI distribution. No currently connected machine-owned host has yet scheduled the published image and produced a live endpoint. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Use the existing machine-owned task `StegVerse-org/LLM-adapter#18` to bind the repaired `stegnode` runtime to an already-authorized sovereign host or restore the existing Render service. Then point the existing verifier at that endpoint and allow the normal validation workflow to retain the first exact result automatically. Reuse the current gateway, custody worker, provider integration, receipt path, Site consumers, and downstream consumers; do not create a replacement gateway.
+Use the existing machine-owned task `StegVerse-org/LLM-adapter#18` to schedule the repository-owned portable-node image onto an already-authorized sovereign machine runtime or restore the existing Render service. Supply provider and custody environment only through that authorized runtime, point the existing verifier at the resulting endpoint, and allow the normal validation workflow to retain the first exact result automatically. Reuse the current gateway, custody worker, provider integration, receipt path, Site consumers, and downstream consumers; do not create a replacement gateway.
 
 ## Manual user action requirement
 
-False. The deployment recovery task is repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, node-start, or evidence-transcription work.
+False. The deployment recovery task is repository-owned. The user is not assigned deployment, credential-copying, workflow-dispatch, image-pull, node-start, or evidence-transcription work.
 
 ## Progress accounting
 
@@ -100,5 +103,8 @@ False. The deployment recovery task is repository-owned. The user is not assigne
 - Authorized environment preservation: `3f8165686b86419cadfdd093a1e5a3876915801f`
 - Portable-node runtime tests: `97bef70d3683cfae7029cb9bc368f0b17d955c9c`
 - Existing-validation contract binding: `398a4a39523d2a21b2331866593a92c2eba4dc81`
+- Portable-node OCI package: `0eaac3abc6c3691dae73916b1bd6f135e0a9955f`
+- Repository-owned GHCR publication: `ea9efe1c621552f609e1a6d929964135b52476e8`
+- Image publication contract: `4f2e56913462a74944d67c0e91afb484fe0df643`
 - Machine-owned deployment task: `https://github.com/StegVerse-org/LLM-adapter/issues/18`
-- Runtime gate delta: no provider or custody gate is upgraded; the existing sovereign node runtime is no longer blocked from authorized host binding or production environment inheritance.
+- Runtime gate delta: no provider or custody gate is upgraded; platform-specific installation and manual image construction are removed from the deployment path.
