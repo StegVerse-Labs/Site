@@ -28,6 +28,8 @@ The existing portable-node Ecosystem Chat runtime is an active deployment-recove
 - Downstream Publisher: https://github.com/GCAT-BCAT-Engine/Publisher
 - Downstream admissibility projection: https://github.com/StegVerse-Labs/admissibility-wiki
 - Downstream guardian projection: https://github.com/StegVerse-002/stegguardian-wiki
+- Persistent-host authority decision: https://github.com/StegVerse-Labs/Site/issues/24
+- Adjacent-host search record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_ADJACENT_HOST_SEARCH.md
 
 ## Completion criteria
 
@@ -109,6 +111,8 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - The available commit-workflow lookup is limited to pull-request-triggered runs; its empty result does not prove that no push-triggered run occurred.
 - No step-level push-run logs were available through the connected path, and empty commit-status results are not equivalent to absence of GitHub Actions check runs.
 - Machine-owned continuation is tracked by https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 and https://github.com/StegVerse-org/LLM-adapter/issues/18.
+- An adjacent persistent-host search evaluated `StegVerse-002/micro-node-runtime`, `StegVerse-Labs/media-runtime`, `StegVerse-org/HPS-runtime`, and `StegVerse-Labs/broadcast-runtime`; no already-authorized persistent host, self-hosted runner, deployment agent, or public-service contract was found.
+- `StegVerse-002/micro-node-runtime` remains reusable as a deterministic governance, receipt, return-path, and reconstruction pattern, but it explicitly does not claim external deployment or host authority.
 
 ## Current blocker
 
@@ -116,17 +120,19 @@ The first missing runtime boundary is the actual result from the existing `StegV
 
 This must not be overstated as proven non-execution. No duplicate executor, workflow, monitor, scheduler, manual dispatch task, or heartbeat-like automation is justified.
 
-The persistent hosted path remains separately blocked because the configured Render endpoint returns `x-render-routing: no-server`. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The persistent hosted path remains separately blocked because the configured Render endpoint returns `x-render-routing: no-server`, and no already-authorized persistent host was found in the connected StegVerse repositories. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Continue through the existing repository-owned validation path tracked at https://github.com/StegVerse-org/core-node-runtime-demo/issues/5. Obtain the actual push-run result or the first repository-authored `receipts/stegdeploy-runtime-intake.latest.json`. If a real job or step failure is obtained, repair only the first concrete failure. If the compatibility receipt appears, continue through https://github.com/StegVerse-org/LLM-adapter/issues/18 for the persistent provider, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation path.
+Continue through the existing repository-owned validation path tracked at https://github.com/StegVerse-org/core-node-runtime-demo/issues/5. Obtain the actual push-run result or the first repository-authored `receipts/stegdeploy-runtime-intake.latest.json`. If a real job or step failure is obtained, repair only the first concrete failure.
+
+For persistent hosting, resolve https://github.com/StegVerse-Labs/Site/issues/24 with one explicit authority state: `AUTHORIZE_EXISTING_HOST`, `AUTHORIZE_RENDER_ALIGNMENT`, or `NO_DEPLOYMENT_AUTHORITY`. After authorization, reuse canonical StegDeploy unchanged or apply only the approved bounded Render alignment, then allow the existing verifier, custody, reconstruction, receipt, Site activation, and downstream paths to proceed.
 
 Do not create another executor, deployment package, gateway, receipt schema, workflow scheduler, or heartbeat mechanism.
 
 ## Manual user action requirement
 
-False. Both tasks remain repository-owned. The user is not assigned workflow dispatch, credential copying, image pull, node start, deployment, health testing, receipt construction, or evidence transcription.
+An explicit deployment-authority decision is required. The user is not assigned workflow dispatch, credential copying, image pull, node start, health testing, receipt construction, or evidence transcription.
 
 ## Progress accounting
 
@@ -134,7 +140,7 @@ False. Both tasks remain repository-owned. The user is not assigned workflow dis
 - Runtime gate completion describes gates passed by a current real execution.
 - Evidence state uses DESIGNED, IMPLEMENTED, INTEGRATED, EXECUTED, VERIFIED, DEPLOYED, LIVE, and PROPAGATED.
 - These measures must not be collapsed into one percentage.
-- This cycle does not increase runtime completion because no compatibility receipt or step-level push-run result was observed.
+- This cycle does not increase runtime completion because no compatibility receipt, step-level push-run result, persistent deployment, provider response, custody result, reconstruction result, or immutable receipt was observed.
 
 ## Latest meaningful goal advancement
 
@@ -151,6 +157,8 @@ False. Both tasks remain repository-owned. The user is not assigned workflow dis
 - Established-workflow integration: `62b87d6918977f6bcbc909955b4a765460e04238`
 - Explicit main-branch trigger binding: `abd8fc8858d3ec46a8d24d5b649ee3cb520c68c4`
 - Evidence-correction record: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_ACTIONS_EVIDENCE_CORRECTION.md
+- Adjacent persistent-host search commit: https://github.com/StegVerse-Labs/Site/commit/5e0e7f2653014dba3d096ef10616a4ee77836cd9
+- Persistent-host authority decision: https://github.com/StegVerse-Labs/Site/issues/24
 - Machine-execution task: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
 - Persistent deployment task: https://github.com/StegVerse-org/LLM-adapter/issues/18
-- Latest Site goal-record advancement: this commit corrects the Actions evidence boundary; runtime gate delta remains zero.
+- Runtime gate delta remains zero.
