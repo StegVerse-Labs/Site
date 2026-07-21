@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browser-local launcher for reopening a specific authenticated ChatGPT conversation without exposing its private URL in the Site repository.">
+  <title>StegVerse — Chat Session Launcher</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .launcher-shell{display:grid;gap:18px;max-width:860px}.launcher-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}.launcher-grid{display:grid;gap:12px}.launcher-field{width:100%;border:1px solid var(--border2);border-radius:var(--radius);background:#080d16;color:var(--text);font:13px/1.55 var(--mono);padding:12px}.launcher-actions{display:flex;gap:10px;flex-wrap:wrap}.launcher-status{border:1px solid var(--border);border-radius:var(--radius);padding:12px;color:var(--muted);font:12px/1.55 var(--mono);overflow-wrap:anywhere}.launcher-status.ready{border-color:#245c34;color:#bce9c5}.launcher-status.error{border-color:#6a2b2b;color:#ffc4c4}.boundary-list{margin:0;padding-left:20px;color:var(--muted)}.boundary-list li{margin:7px 0}.session-preview{font:12px/1.55 var(--mono);color:var(--green);overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="chat-session-launcher.html" class="active">Session Launcher</a><a href="governed-ecosystem.html">Governed Ecosystem</a><a href="Papers.html">Papers</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Operator-local continuation · authenticated browser session · no prompt injection</div>
+    <h1>Open a specific ChatGPT session<br><em>without publishing its private URL.</em></h1>
+    <p>This Site surface stores one ChatGPT conversation link in this browser only. It can reopen that authenticated conversation in web ChatGPT. It cannot submit a message, control the ChatGPT page, transfer account access, or grant StegVerse execution authority.</p>
+  </div>
+
+  <div class="sv-boundary"><strong>Boundary:</strong> the conversation URL is never sent to StegVerse, committed to GitHub, embedded in page source, or included in a Site receipt. Browser-local storage is convenience state, not custody, authentication, authority, or durable ecosystem persistence.</div>
+
+  <main class="launcher-shell">
+    <section class="launcher-card">
+      <h2 class="sv-h2">Configure this browser</h2>
+      <form id="sessionLauncherForm" class="launcher-grid" autocomplete="off">
+        <label for="sessionLabel">Session label</label>
+        <input class="launcher-field" id="sessionLabel" maxlength="80" placeholder="Site build session">
+        <label for="sessionUrl">Private ChatGPT conversation URL</label>
+        <input class="launcher-field" id="sessionUrl" type="url" inputmode="url" placeholder="https://chatgpt.com/c/..." required>
+        <div class="launcher-actions">
+          <button class="sv-btn sv-btn-primary" type="submit">Save locally</button>
+          <button class="sv-btn sv-btn-secondary" id="clearSession" type="button">Clear local link</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="launcher-card">
+      <h2 class="sv-h2">Configured continuation</h2>
+      <p class="session-preview" id="sessionPreview">No session is configured in this browser.</p>
+      <div class="launcher-actions">
+        <button class="sv-btn sv-btn-primary" id="openSession" type="button" disabled>Open configured ChatGPT session</button>
+        <a class="sv-btn sv-btn-secondary" href="ecosystem-chat.html">Return to Ecosystem Chat</a>
+      </div>
+      <p class="launcher-status" id="launcherStatus" aria-live="polite">Configuration remains browser-local.</p>
+    </section>
+
+    <section class="launcher-card">
+      <h2 class="sv-h2">What this does and does not do</h2>
+      <ul class="boundary-list">
+        <li>Opens only an HTTPS URL on <code>chatgpt.com</code> whose path begins with <code>/c/</code>.</li>
+        <li>Requires the operator to already be authenticated to the ChatGPT account that owns the conversation.</li>
+        <li>Does not place the private conversation identifier in repository code, query parameters, analytics, or Site-generated records.</li>
+        <li>Does not inject, prefill, or submit a prompt into the conversation.</li>
+        <li>Does not treat opening a browser tab as execution, continuity, custody, admissibility, or activation evidence.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+<footer class="sv-footer"><span>StegVerse · Browser-local session continuation · No execution authority</span><span><a href="docs/CHATGPT_SESSION_LAUNCHER.md">Implementation contract</a> · <a href="docs/SITE_MIRROR_HANDOFF.md">Site handoff</a></span></footer>
+<script>
+(() => {
+  'use strict';
+  const STORAGE_KEY = 'stegverse.chatgpt.session-launcher.v1';
+  const form = document.getElementById('sessionLauncherForm');
+  const labelInput = document.getElementById('sessionLabel');
+  const urlInput = document.getElementById('sessionUrl');
+  const preview = document.getElementById('sessionPreview');
+  const status = document.getElementById('launcherStatus');
+  const openButton = document.getElementById('openSession');
+  const clearButton = document.getElementById('clearSession');
+
+  function validateSessionUrl(value) {
+    let parsed;
+    try { parsed = new URL(value); } catch (_) { return { ok: false, error: 'Enter a valid absolute URL.' }; }
+    if (parsed.protocol !== 'https:') return { ok: false, error: 'The session URL must use HTTPS.' };
+    if (parsed.hostname !== 'chatgpt.com' && parsed.hostname !== 'www.chatgpt.com') return { ok: false, error: 'Only chatgpt.com conversation URLs are accepted.' };
+    if (!/^\/c\/[A-Za-z0-9_-]+\/?$/.test(parsed.pathname)) return { ok: false, error: 'The URL must identify a ChatGPT conversation path beginning with /c/.' };
+    parsed.search = '';
+    parsed.hash = '';
+    return { ok: true, url: parsed.toString() };
+  }
+
+  function readConfiguration() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      const checked = validateSessionUrl(data.url || '');
+      if (!checked.ok) return null;
+      return { label: String(data.label || 'Configured ChatGPT session').slice(0, 80), url: checked.url };
+    } catch (_) { return null; }
+  }
+
+  function writeConfiguration(configuration) {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(configuration));
+  }
+
+  function render(configuration, message, state) {
+    if (configuration) {
+      preview.textContent = `${configuration.label} · ${configuration.url.replace(/\/c\/.+$/, '/c/[private-session-id]')}`;
+      openButton.disabled = false;
+    } else {
+      preview.textContent = 'No session is configured in this browser.';
+      openButton.disabled = true;
+    }
+    status.textContent = message || 'Configuration remains browser-local.';
+    status.className = `launcher-status${state ? ` ${state}` : ''}`;
+  }
+
+  let configuration = readConfiguration();
+  if (configuration) {
+    labelInput.value = configuration.label;
+    urlInput.value = configuration.url;
+    render(configuration, 'A browser-local session link is configured. Opening it still requires the owning ChatGPT account.', 'ready');
+  } else {
+    render(null);
+  }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const checked = validateSessionUrl(urlInput.value.trim());
+    if (!checked.ok) {
+      render(configuration, checked.error, 'error');
+      return;
+    }
+    configuration = { label: labelInput.value.trim() || 'Configured ChatGPT session', url: checked.url };
+    writeConfiguration(configuration);
+    render(configuration, 'Saved only in this browser. The private conversation identifier was not transmitted or committed.', 'ready');
+  });
+
+  openButton.addEventListener('click', () => {
+    const current = readConfiguration();
+    if (!current) {
+      configuration = null;
+      render(null, 'No valid browser-local session link is available.', 'error');
+      return;
+    }
+    window.open(current.url, '_blank', 'noopener,noreferrer');
+    render(current, 'The configured conversation was opened in a separate tab. No prompt was injected or submitted.', 'ready');
+  });
+
+  clearButton.addEventListener('click', () => {
+    window.localStorage.removeItem(STORAGE_KEY);
+    configuration = null;
+    labelInput.value = '';
+    urlInput.value = '';
+    render(null, 'The browser-local session link was cleared.', 'ready');
+  });
+})();
+</script>
+</body>
+</html>
