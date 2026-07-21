@@ -75,6 +75,8 @@ jobs:
         run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
+      - name: Synchronize verified custody state into authoritative Site records
+        run: python scripts/sync_ecosystem_chat_custody_state.py
       - name: Check out canonical adapter source for bounded runtime verification
         uses: actions/checkout@v4
         with:
@@ -120,7 +122,24 @@ jobs:
             site_current_main_validation.manifest.json
             reports/portable-node-site-runtime.json
             portable-node-runtime.log
+            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md
           if-no-files-found: error
+      - name: Persist authoritative Ecosystem Chat custody state
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/ECOSYSTEM_CHAT_BUILD_GOAL.md \
+            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md \
+            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md
+          if git diff --cached --quiet; then
+            echo "Authoritative Ecosystem Chat custody state unchanged."
+          else
+            git commit -m "docs: retain verified Ecosystem Chat custody state [skip ci]"
+            git pull --rebase
+            git push
+          fi
       - name: Record live mirror verification status
         id: live_verification
         run: |
