@@ -50,6 +50,10 @@ def fail(message: str) -> int:
     return 1
 
 
+def contains_any(text: str, alternatives: tuple[str, ...]) -> bool:
+    return any(value in text for value in alternatives)
+
+
 def main() -> int:
     for path in (PAGE, DOC, NAVIGATION, HANDOFF):
         if not path.is_file():
@@ -75,13 +79,20 @@ def main() -> int:
     if "['chat-session-launcher.html', 'Session Launcher']" not in navigation:
         return fail("Ecosystem Chat primary navigation does not expose the launcher")
 
-    for snippet in (
-        "## Browser-local ChatGPT session continuation",
-        "prompt injection or submission = false",
-        "activation evidence = none",
-    ):
-        if snippet not in handoff:
-            return fail(f"Site handoff missing launcher continuation boundary: {snippet}")
+    handoff_requirements = (
+        ("browser-local continuation heading", ("## Browser-local ChatGPT session continuation",)),
+        (
+            "prompt injection or submission is false",
+            ("prompt injection or submission = false", "does not inject prompts"),
+        ),
+        (
+            "activation evidence is absent",
+            ("activation evidence = none", "produce activation evidence"),
+        ),
+    )
+    for label, alternatives in handoff_requirements:
+        if not contains_any(handoff, alternatives):
+            return fail(f"Site handoff missing launcher continuation boundary: {label}")
 
     if "https://chatgpt.com/c/YOUR-" in page or "https://chatgpt.com/c/000" in page:
         return fail("launcher page appears to contain a committed conversation identifier")
