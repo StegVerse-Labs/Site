@@ -28,11 +28,13 @@
     }
   }
 
-  function validHttpsEndpoint(value, suffix) {
+  function validGovernedEndpoint(value, suffix) {
     if (typeof value !== 'string') return false;
     try {
       const url = new URL(value);
-      return url.protocol === 'https:' && url.pathname.endsWith(suffix);
+      const loopbackHttp = url.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(url.hostname);
+      const publicHttps = url.protocol === 'https:';
+      return (loopbackHttp || publicHttps) && url.pathname.endsWith(suffix);
     } catch (_) {
       return false;
     }
@@ -42,9 +44,9 @@
     const discovery = config.discovery || {};
     if (discovery.enabled !== true || !Array.isArray(discovery.advertisement_endpoints)) return config;
 
-    const timeoutMs = Number(discovery.timeout_ms || 4000);
+    const timeoutMs = Number(discovery.timeout_ms || 1800);
     for (const endpoint of discovery.advertisement_endpoints) {
-      if (!validHttpsEndpoint(endpoint, '/api/stegverse-node')) continue;
+      if (!validGovernedEndpoint(endpoint, '/api/stegverse-node')) continue;
       const controller = new AbortController();
       const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
       try {
@@ -56,8 +58,12 @@
         if (advertisement.capability_id !== 'ecosystem-chat-gateway') continue;
         if (advertisement.health_bound !== true) continue;
         if (advertisement.authority_granted !== false || advertisement.publication_authority !== false || advertisement.execution_authority !== false) continue;
-        if (!validHttpsEndpoint(advertisement.endpoint, '/api/ecosystem-chat')) continue;
-        if (!validHttpsEndpoint(advertisement.health_endpoint, '/health')) continue;
+        if (!validGovernedEndpoint(advertisement.endpoint, '/api/ecosystem-chat')) continue;
+        if (!validGovernedEndpoint(advertisement.health_endpoint, '/health')) continue;
+
+        const advertisementOrigin = new URL(endpoint).origin;
+        if (new URL(advertisement.endpoint).origin !== advertisementOrigin) continue;
+        if (new URL(advertisement.health_endpoint).origin !== advertisementOrigin) continue;
 
         const claimed = advertisement.advertisement_sha256;
         const binding = { ...advertisement };
@@ -70,7 +76,9 @@
           health_endpoint: advertisement.health_endpoint,
           resolved_node_id: advertisement.node_id,
           resolved_advertisement_sha256: claimed,
-          endpoint_resolution: 'HEALTH_BOUND_NODE_ADVERTISEMENT'
+          endpoint_resolution: advertisementOrigin.startsWith('http://')
+            ? 'VERIFIED_LOOPBACK_NODE_ADVERTISEMENT'
+            : 'HEALTH_BOUND_NODE_ADVERTISEMENT'
         };
       } catch (_) {
         // Discovery is fail-closed. The existing static endpoint and local classifier remain available.
@@ -98,7 +106,7 @@
   };
 
   window.StegVerseNodeDiscovery = {
-    contract_version: '1.0.0',
+    contract_version: '1.1.0',
     authority_granted: false,
     publication_authority: false,
     resolveAdvertisement
