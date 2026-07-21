@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Validate StegVerse local-node binding
+        run: python scripts/check_ecosystem_chat_local_node_binding.py
       - name: Inventory workflow entry points
         run: python scripts/write_site_workflow_inventory.py
       - name: Enforce two operational workflows
