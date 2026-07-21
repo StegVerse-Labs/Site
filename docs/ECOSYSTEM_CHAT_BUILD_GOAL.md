@@ -65,19 +65,22 @@ GitHub Actions and Site evidence-retention workflows do not define the StegVerse
 - Validation run `29709832124` and Architecture Guard run `29709832126` passed.
 - Probe artifact `8448772066`, digest `sha256:bd129d6e1c46473e56cf40f0b2ab1255cc4912b6fa669299e40aa6ca9fbc1f77`, retained `server: cloudflare`, `content-type: text/plain; charset=utf-8`, and `x-render-routing: no-server` for health, chat, and transition requests.
 - PR #11 merged as `efb7c4e49a2773c976e4494d5aa84618554a768d`.
-- The verified blocker is therefore before the FastAPI application: the Render hostname exists at the edge, but no Render server is attached behind it.
+- The verified runtime blocker is before the FastAPI application: the Render hostname exists at the edge, but no Render server is attached behind it.
+- The normal adapter `validate` workflow already executes the live vertical-slice verifier.
+- Commit `4c0216bb9cbcfc0912d5f44317cd843738b1247b` now writes stable semantic status and retains the current observation directly from that normal validation path.
+- Commit `80dbf169faaea7193728efdbe3ff959a50fe56ed` enforces that direct retention contract, removing dependency on a second workflow for durable activation evidence.
 
 ## Current blocker
 
-Render returns `x-render-routing: no-server` for every required route. The unresolved boundary is the existing Render control-plane resource: restore or attach the existing `stegverse-ecosystem-chat-gateway` service behind `stegverse-ecosystem-chat-gateway.onrender.com`, with source repository `StegVerse-org/LLM-adapter`, branch `main`, and the existing start command. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
+The configured hostname `stegverse-ecosystem-chat-gateway.onrender.com` still returns `x-render-routing: no-server`, so no application process receives the request. The consumed `render.yaml` also remains a fail-closed non-production profile with provider execution disabled, non-durable `/tmp` storage, and no reachable Master-Records service. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion therefore remain unproven.
 
 ## Next executable integration step
 
-In the existing Render control plane, locate the service or hostname record for `stegverse-ecosystem-chat-gateway.onrender.com`. Restore or attach the existing service to `StegVerse-org/LLM-adapter` branch `main`, confirm the start command `python -m llm_adapter.custody_worker && uvicorn llm_adapter.combined_gateway:app --host 0.0.0.0 --port $PORT`, deploy, and rerun the existing verifier. Do not create a replacement gateway unless the existing Render resource is proven unrecoverable and a replacement decision is explicitly approved.
+Use an already-authorized deployment control plane or existing sovereign node runtime to attach the current `StegVerse-org/LLM-adapter` application and the existing production configuration to a live endpoint, then allow the normal validation workflow to retain the first exact result automatically. Do not create a replacement gateway or remove the existing Render configuration without the required options and removal review.
 
 ## Manual user action requirement
 
-A Render account owner action is currently required because no connected Render control-plane tool is available in this session. No new deployment, release, custody, execution, publication, or governance authority is granted by this record.
+False. The remaining boundary is machine-owned deployment capability: no connected tool in the current run can mutate the existing Render control plane, and no already-authorized alternative live host was found. The user is not assigned a deployment, credential-copying, workflow-dispatch, or evidence-transcription task.
 
 ## Progress accounting
 
@@ -89,11 +92,11 @@ A Render account owner action is currently required because no connected Render 
 ## Latest meaningful goal advancement
 
 - Date: 2026-07-20
-- Diagnostic verifier commit: `5814efd7657a832f55138998b6e3eadad7200d59`
-- Validation: `29709832124` SUCCESS
-- Architecture Guard: `29709832126` SUCCESS
-- Runtime artifact: `8448772066`
-- Artifact digest: `sha256:bd129d6e1c46473e56cf40f0b2ab1255cc4912b6fa669299e40aa6ca9fbc1f77`
-- Exact edge evidence: `x-render-routing: no-server`
-- Merged verifier enhancement: `efb7c4e49a2773c976e4494d5aa84618554a768d`
-- Runtime gate delta: the failure is now verified at the Render edge before application execution; no provider or custody gate is upgraded.
+- Validation-owned evidence retention: `4c0216bb9cbcfc0912d5f44317cd843738b1247b`
+- Retention contract enforcement: `80dbf169faaea7193728efdbe3ff959a50fe56ed`
+- Prior diagnostic validation: `29709832124` SUCCESS
+- Prior Architecture Guard: `29709832126` SUCCESS
+- Prior runtime artifact: `8448772066`
+- Prior artifact digest: `sha256:bd129d6e1c46473e56cf40f0b2ab1255cc4912b6fa669299e40aa6ca9fbc1f77`
+- Exact deployed edge evidence: `x-render-routing: no-server`
+- Runtime gate delta: no provider or custody gate is upgraded; a normal validation run can now retain current evidence without depending on a secondary workflow.
