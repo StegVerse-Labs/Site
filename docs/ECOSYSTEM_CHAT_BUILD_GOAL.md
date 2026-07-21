@@ -104,19 +104,24 @@ GitHub Actions, portable-node process supervision, OCI image publication, and Si
 - https://github.com/StegVerse-org/core-node-runtime-demo is an existing private governed runtime comparison boundary with Master-Records witness-ready outputs and comparable path reports.
 - Commit `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2` added a repository-owned StegDeploy runtime intake workflow that pulls the canonical image, launches it fail-closed on a GitHub machine runner, verifies live health, executes the existing core-node comparison pipeline, and persists a hashed compatibility receipt.
 - Commit `62b87d6918977f6bcbc909955b4a765460e04238` integrated that intake into the established `.github/workflows/validate.yml` path on `main`.
+- Commit `abd8fc8858d3ec46a8d24d5b649ee3cb520c68c4` explicitly bound the existing `push` trigger to `main` without changing runtime steps, permissions, receipt construction, or authority boundaries.
 - The expected `receipts/stegdeploy-runtime-intake.latest.json` does not yet exist.
-- GitHub currently records no workflow run and no commit status for commit `62b87d6918977f6bcbc909955b4a765460e04238`.
+- GitHub currently records no workflow run and no commit status for either `62b87d6918977f6bcbc909955b4a765460e04238` or `abd8fc8858d3ec46a8d24d5b649ee3cb520c68c4`.
 - Machine-owned continuation is tracked by https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 and https://github.com/StegVerse-org/LLM-adapter/issues/18.
 
 ## Current blocker
 
-The first missing runtime boundary is execution recognition for the existing `StegVerse-org/core-node-runtime-demo/.github/workflows/validate.yml` path. The canonical intake implementation is integrated on `main`, but GitHub has recorded no run or status for commit `62b87d6918977f6bcbc909955b4a765460e04238`, and no repository-authored compatibility receipt exists. No duplicate executor, workflow, monitor, or scheduler is justified until that existing path executes and produces a concrete step-level result.
+The first missing runtime boundary is repository-level Actions execution recognition for the existing `StegVerse-org/core-node-runtime-demo/.github/workflows/validate.yml` path. The canonical intake implementation is integrated on `main`, and the existing trigger is now explicitly bound to `main`, but GitHub has recorded no run or status for either integration commit and no repository-authored compatibility receipt exists.
+
+No duplicate executor, workflow, monitor, scheduler, manual dispatch task, or heartbeat-like automation is justified. The connected environment also lacks a direct workflow-dispatch capability, and no existing run exists to rerun.
 
 The persistent hosted path remains separately blocked because the configured Render endpoint returns `x-render-routing: no-server`. Provider execution, persistence, custody, reconstruction, immutable VERIFIED receipt, Site activation, and downstream ingestion remain unproven.
 
 ## Next executable integration step
 
-Use the existing repository-owned validation path tracked at https://github.com/StegVerse-org/core-node-runtime-demo/issues/5 to obtain the first machine-execution result and `receipts/stegdeploy-runtime-intake.latest.json`. Repair only the first concrete workflow or runtime failure if one appears. Then use https://github.com/StegVerse-org/LLM-adapter/issues/18 to bind the same canonical runtime to an already-authorized persistent host and allow the existing verifier, custody, reconstruction, receipt, Site activation, and downstream paths to proceed. Do not create another executor, deployment package, gateway, receipt schema, or heartbeat mechanism.
+Continue through the existing repository-owned validation path tracked at https://github.com/StegVerse-org/core-node-runtime-demo/issues/5. The next admissible action is the first GitHub-recognized execution of `.github/workflows/validate.yml`; after a real step-level result exists, repair only its first concrete workflow or runtime failure. Then use https://github.com/StegVerse-org/LLM-adapter/issues/18 to bind the same canonical runtime to an already-authorized persistent host and allow the existing verifier, custody, reconstruction, receipt, Site activation, and downstream paths to proceed.
+
+Do not create another executor, deployment package, gateway, receipt schema, workflow scheduler, or heartbeat mechanism.
 
 ## Manual user action requirement
 
@@ -143,6 +148,7 @@ False. Both tasks remain repository-owned. The user is not assigned workflow dis
 - Existing-validation contract binding: `398a4a39523d2a21b2331866593a92c2eba4dc81`
 - Core-node machine executor: `9eb2893cffd2fc4e8c7dfc8ae9dfb2b4d96344c2`
 - Established-workflow integration: `62b87d6918977f6bcbc909955b4a765460e04238`
+- Explicit main-branch trigger binding: `abd8fc8858d3ec46a8d24d5b649ee3cb520c68c4`
 - Machine-execution task: https://github.com/StegVerse-org/core-node-runtime-demo/issues/5
 - Persistent deployment task: https://github.com/StegVerse-org/LLM-adapter/issues/18
-- Latest Site goal-record advancement: this commit records the exact non-execution boundary and direct URLs; runtime gate delta remains zero.
+- Latest Site goal-record advancement: this commit records the bounded trigger repair and the remaining repository-level non-execution boundary; runtime gate delta remains zero.
