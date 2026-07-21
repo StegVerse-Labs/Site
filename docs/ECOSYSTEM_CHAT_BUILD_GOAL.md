@@ -175,3 +175,37 @@ No routine manual repository or evidence task is assigned to the user. No Render
 - Active-building cycle: https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_LOCAL_NODE_DISCOVERY.md
 - Corrected active-path issue: https://github.com/StegVerse-Labs/Site/issues/24
 - Runtime gate delta remains zero.
+
+---
+
+## Current authoritative machine-execution update — 2026-07-21
+
+This section supersedes only the earlier statements that the core-node machine result and compatibility receipt were unobserved.
+
+- Current cycle record: https://github.com/StegVerse-Labs/Site/blob/agent/ecosystem-chat-machine-execution-state/docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_MACHINE_EXECUTION.md
+- Core-node PR #6 merged as `d8a4f82bfaa596b26463d3ea2ff11fd923477b08`.
+- Core-node PR #8 merged as `6f40cb7110823c48527efadd90c13d87b5cf2455`.
+- Machine-execution run `29853848999` passed the existing pipeline, canonical source checkout, canonical Dockerfile build, fail-closed gateway start, live `/health`, compatibility enforcement, and evidence upload.
+- Canonical authoritative-source runtime compatibility is VERIFIED.
+- Published GHCR package compatibility remains BLOCKED / UNPROVEN.
+- Persistent public deployment is NOT DEPLOYED and the public gateway is NOT LIVE.
+- Real provider response, usage persistence, custody, reconstruction, immutable activation receipt, Site activation, and downstream ingestion remain UNPROVEN.
+
+### Current blocker
+
+No already-authorized persistent host is connected to the existing canonical StegDeploy runtime. The existing Render alignment remains a candidate subject to the recorded platform-owner decision. Package publication or access also remains unresolved, but it no longer blocks machine verification of the authoritative source runtime.
+
+### Next executable integration step
+
+Run the verified existing canonical runtime on an already-authorized persistent host, execute one governed request, and pass the result through the existing adapter verifier. Repair only the first concrete provider, persistence, custody, reconstruction, or receipt failure.
+
+### Manual user action requirement
+
+False for routine repository work. A platform-owner decision remains required before applying hosted infrastructure that may incur charges or enabling real provider and custody configuration.
+
+### Latest meaningful goal advancement
+
+- Date: 2026-07-21
+- Machine-execution merge: `6f40cb7110823c48527efadd90c13d87b5cf2455`
+- Verified machine run: `29853848999`
+- Runtime gate delta: machine execution and fail-closed health advanced to VERIFIED; all later end-to-end gates remain unproven.

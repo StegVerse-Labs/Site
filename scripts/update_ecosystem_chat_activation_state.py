@@ -214,11 +214,16 @@ def main() -> int:
         for gate, passed in gates.items()
         if not passed
     ]
+    destination_activation_receipt = {
+        "present": destination is not None,
+        "sha256": canonical_sha256(destination),
+    }
     source_receipts = {
         "site_task_diagnostic": {"present": local is not None, "sha256": canonical_sha256(local)},
         "live_verification": {"present": live is not None, "sha256": canonical_sha256(live)},
         "activation_evidence": {"present": evidence is not None, "sha256": canonical_sha256(evidence)},
-        "legacy_destination_activation": {"present": destination is not None, "sha256": canonical_sha256(destination)},
+        "destination_activation": destination_activation_receipt,
+        "legacy_destination_activation": destination_activation_receipt,
         "legacy_destination_import_status": {"present": destination_import is not None, "sha256": canonical_sha256(destination_import)},
         "external_destination_activation_state": {"present": external_destination is not None, "sha256": canonical_sha256(external_destination)},
         "external_custody_activation_state": {"present": external_custody is not None, "sha256": canonical_sha256(external_custody)},

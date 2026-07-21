@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from pathlib import Path
 import sys
 
@@ -24,20 +23,19 @@ REQUIRED_PAGE_MARKERS = [
     "public broad" + "cast",
 ]
 
-# Validate stable Site handoff obligations rather than one transient phase label.
+# Validate current durable Site handoff obligations rather than retired workflow counts.
 REQUIRED_HANDOFF_MARKERS = [
     "# Site Mirror Handoff",
     "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
-    "Goal: fully functional governed Ecosystem Chat request-response, provider, custody, comparison, and cross-entry usage path",
-    "Result: Site preparation complete; live activation and external custody evidence pending",
-    "Workflow target: exactly two operational workflows",
+    "Goal: fully functional governed Ecosystem Chat request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation path",
+    "Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
     ".github/workflows/validate.yml",
-    ".github/workflows/site-task-runner.yml",
-    "Site does not execute or mutate external repositories.",
-    "Usage retrieval != authority.",
-    "Validation receipt != deployment evidence.",
-    "RECORDED requires authenticated custody evidence and reconstructability PASS.",
-    "No release tag is authorized.",
+    ".github/workflows/ecosystem-chat-activation-retention.yml",
+    "Site display != execution",
+    "usage retrieval != authority",
+    "imported verified receipt != deployment authority",
+    "provider-usage custody RECORDED",
+    "No tag or release is authorized.",
 ]
 
 

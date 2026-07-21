@@ -126,6 +126,10 @@ terminal monitor != CI success
 
 No release or tag is authorized until the existing machine gates receive visible validation, live runtime, custody, reconstruction, and downstream evidence. The decision is machine-gated; no manual review task is created.
 
+## Archive posture
+
+Repository-local implementation is archive-ready because all local modules, contracts, validators, handoffs, and automation required by this workstream are installed. Archive readiness does not assert CI success, live provider use, custody, reconstruction, activation, release, publication, or downstream propagation. Those conditions remain fail-closed and owned by their established machine and authority boundaries.
+
 ## Archive determination
 
 No repository-local module, contract, validator, handoff, or automation remains to install for this workstream. No future action requires access to the conversation that produced these records. Remaining conditions are external evidence observations owned by scheduled workflows and authority-bearing systems.
