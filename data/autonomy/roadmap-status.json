@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
-  "source_generated_at": "2026-07-20T23:41:53.993682Z",
+  "source_generated_at": "2026-07-21T04:01:07.029844Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
