@@ -4,10 +4,12 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 RUNTIME=ROOT/'assets'/'ecosystem-music-transition.js'
 DIAGNOSTICS=ROOT/'assets'/'ecosystem-music-diagnostics.js'
+ADAPTIVE=ROOT/'assets'/'ecosystem-music-adaptive.js'
 TEST=ROOT/'tests'/'test_stegmusic_browser.py'
 required={
  RUNTIME:['phase_boundary_bounded_delay','maximum_delay_ms: 2200','stegdj_transition_scheduled','stegdj_transition_executed','audio_context_reused: true',"authority: 'none'"],
  DIAGNOSTICS:['assets/ecosystem-music-transition.js','transition-smoothing-v1'],
+ ADAPTIVE:['activeTrackId','syncActiveSelection','candidate.id!==previous','active_track_excluded:true','stegdj-active-track-exclusion-v1'],
  TEST:['transition_scheduler_loaded','transition_scheduled_event','transition_executed_event','track_changed_after_bounded_transition']
 }
 failures=[]
@@ -23,5 +25,6 @@ if failures:
 print('STEGMUSIC_TRANSITION_SMOOTHING_PASS')
 print('strategy=phase_boundary_bounded_delay')
 print('maximum_delay_ms=2200')
+print('active_track_exclusion=true')
 print('audio_context_reused=true')
 print('authority_effect=NONE')
