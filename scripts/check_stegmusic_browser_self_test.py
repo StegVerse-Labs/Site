@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "ecosystem-music.html"
 RUNTIME = ROOT / "assets" / "ecosystem-music-diagnostics.js"
+MEDIA_TRANSPORT = ROOT / "assets" / "ecosystem-music-media-transport.js"
 
 
 def fail(message: str) -> int:
@@ -14,12 +15,13 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in (PAGE, RUNTIME):
+    for path in (PAGE, RUNTIME, MEDIA_TRANSPORT):
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
     runtime = RUNTIME.read_text(encoding="utf-8")
+    transport = MEDIA_TRANSPORT.read_text(encoding="utf-8")
 
     page_markers = (
         'id="audioSelfTest"',
@@ -36,7 +38,25 @@ def main() -> int:
         "playback_event_observed",
         "audible_output_confirmed: false",
         "browser_runtime_execution_confirmed: true",
+        "generated_media_transport_confirmed",
+        "assets/ecosystem-music-media-transport.js",
         "window.dispatchEvent(new CustomEvent('stegmusic:emit'",
+    )
+    transport_markers = (
+        "OfflineAudioContext",
+        "encodeWav",
+        "generatedMediaPlayer",
+        "html_audio_blob_wav",
+        "navigator.mediaSession",
+        "visibilitychange",
+        "pagehide",
+        "pageshow",
+        "iphonePlaybackVerification",
+        "I hear audio",
+        "iphone_playback_${kind}_confirmed",
+        "human_audibility_confirmed: kind === 'audible'",
+        "source_bytes_uploaded: false",
+        "window.StegMusicMediaTransport",
     )
 
     for marker in page_markers:
@@ -45,15 +65,21 @@ def main() -> int:
     for marker in runtime_markers:
         if marker not in runtime:
             return fail(f"runtime missing marker: {marker}")
+    for marker in transport_markers:
+        if marker not in transport:
+            return fail(f"media transport missing marker: {marker}")
 
     if page.index("assets/ecosystem-music-diagnostics.js") < page.index("assets/ecosystem-music.js"):
         return fail("diagnostics runtime must load after the base music runtime")
     if "audible_output_confirmed: true" in runtime:
-        return fail("self-test must not claim audible output")
+        return fail("automated self-test must not claim audible output")
+    if "source_audio_upload" not in transport and "source_bytes_uploaded: false" not in transport:
+        return fail("media transport must retain the no-upload boundary")
 
     print("STEGMUSIC_BROWSER_SELF_TEST_PASS")
     print("authority_effect=NONE")
-    print("audibility_claim=false")
+    print("audibility_claim=human_confirmation_only")
+    print("generated_media_transport=offline_render_to_html_audio_wav")
     return 0
 
 
