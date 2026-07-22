@@ -12,6 +12,19 @@ REPORT = ROOT / "reports" / "stegmusic-browser-execution.json"
 BASE_URL = os.environ.get("STEGMUSIC_TEST_BASE_URL", "http://127.0.0.1:8000")
 
 
+def snapshot(page, stage: str) -> dict:
+    return {
+        "stage": stage,
+        "audio_notice": page.locator("#audioNotice").text_content() or "",
+        "play_button": page.locator("#playPause").text_content() or "",
+        "progress": float(page.locator("#progress").input_value()),
+        "composition_phase": page.locator("#compositionPhase").text_content() or "",
+        "raw_events": (page.locator("#rawEvents").text_content() or "")[-4000:],
+        "runtime_loaded": page.evaluate("typeof window.StegMusicRuntime === 'object'"),
+        "diagnostics_loaded": page.evaluate("typeof window.StegMusicDiagnostics === 'object'"),
+    }
+
+
 def main() -> int:
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     result = {
@@ -25,54 +38,59 @@ def main() -> int:
         "custody_verified_by_this_check": False,
         "activation_authority_granted": False,
         "checks": {},
+        "stages": [],
+        "console": [],
+        "page_errors": [],
     }
 
     try:
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(
                 headless=True,
-                args=["--autoplay-policy=no-user-gesture-required"],
+                args=[
+                    "--autoplay-policy=no-user-gesture-required",
+                    "--use-fake-ui-for-media-stream",
+                ],
             )
             page = browser.new_page()
+            page.on("console", lambda message: result["console"].append({"type": message.type, "text": message.text}))
+            page.on("pageerror", lambda error: result["page_errors"].append(str(error)))
             page.goto(result["page"], wait_until="networkidle")
+            result["stages"].append(snapshot(page, "loaded"))
 
             page.locator("#resetButton").click()
             page.locator("#playPause").click()
-            page.wait_for_function(
-                "document.querySelector('#audioNotice').textContent.includes('running locally')",
-                timeout=10_000,
-            )
-            page.wait_for_function(
-                "Number(document.querySelector('#progress').value) > 0",
-                timeout=10_000,
-            )
+            page.wait_for_timeout(3500)
+            playing = snapshot(page, "after_play")
+            result["stages"].append(playing)
 
-            raw_before = page.locator("#rawEvents").text_content() or ""
             page.locator("#adaptiveNext").click()
-            page.wait_for_function(
-                "document.querySelector('#rawEvents').textContent.includes('adaptive_selection_decision')",
-                timeout=10_000,
-            )
-            page.locator("#playPause").click()
-            page.wait_for_function(
-                "document.querySelector('#audioNotice').textContent.includes('paused')",
-                timeout=10_000,
-            )
+            page.wait_for_timeout(2500)
+            adaptive = snapshot(page, "after_adaptive_next")
+            result["stages"].append(adaptive)
 
-            raw_after = page.locator("#rawEvents").text_content() or ""
+            if (page.locator("#playPause").text_content().strip().lower() == "pause":
+                page.locator("#playPause").click()
+                page.wait_for_timeout(500)
+            paused = snapshot(page, "after_pause")
+            result["stages"].append(paused)
+
+            combined_events = "\n".join(stage["raw_events"] for stage in result["stages"])
             checks = {
                 "page_loaded": page.locator("#playPause").count() == 1,
-                "audio_context_running_marker": "running locally" in (page.locator("#audioNotice").text_content() or "" ) or "paused" in (page.locator("#audioNotice").text_content() or ""),
-                "composition_advanced": float(page.locator("#progress").input_value()) > 0,
-                "playback_started_event": "playback_started" in raw_before or "playback_started" in raw_after,
-                "adaptive_decision_event": "adaptive_selection_decision" in raw_after,
-                "playback_paused_event": "playback_paused" in raw_after,
-                "diagnostic_runtime_loaded": page.evaluate("typeof window.StegMusicRuntime === 'object'"),
+                "base_runtime_loaded": playing["runtime_loaded"],
+                "diagnostic_runtime_loaded": playing["diagnostics_loaded"],
+                "audio_context_running_marker": "running locally" in playing["audio_notice"].lower(),
+                "composition_advanced": playing["progress"] > 0,
+                "playback_started_event": "playback_started" in combined_events,
+                "adaptive_decision_event": "adaptive_selection_decision" in combined_events,
+                "playback_paused_event": "playback_paused" in combined_events,
+                "pause_returned_control": paused["play_button"].strip().lower() == "play",
+                "no_page_errors": not result["page_errors"],
             }
             result["checks"] = checks
             result["passed"] = all(checks.values())
             result["browser_audio_execution_verified"] = result["passed"]
-            result["event_stream_excerpt"] = raw_after[-4000:]
             browser.close()
     except Exception as error:
         result["error"] = str(error)
