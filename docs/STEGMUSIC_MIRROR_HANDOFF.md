@@ -14,7 +14,7 @@ Issue: StegVerse-Labs/Site#39
 Authority: construction and fixture testing only
 ```
 
-## Implemented first slice
+## Implemented playable slice
 
 ```text
 partial Ecosystem Chat-style music window
@@ -26,11 +26,18 @@ energy, brightness, bass-texture, and exploration controls
 fine-grained feedback controls and free-text refinement
 always-visible playback, preference, projection, and royalty indicators
 Conversation / Governed music play / Split / Raw JSONL tabs
+stable event selection and cross-pane correlation highlighting
 visible rights and source posture
 local persistence of governed session events and prototype contribution estimate
 expandable contribution-value panel
-JSON session export
-explicit fixture, authority, rights, and financial boundaries
+captured-versus-derived event inspection
+bounded downstream projection inspection
+downstream projection permission toggles
+future-reuse revocation control
+browser-local reset control
+persistent named listening profile
+JSON session export including profile and permission state
+explicit fixture, authority, rights, privacy, and financial boundaries
 ```
 
 ## Rights/source classes
@@ -48,11 +55,12 @@ No commercial catalog license, streaming entitlement, royalty payment, or compos
 
 ## Governed projections
 
-Every search, selection, playback, pause, stop, and preference refinement emits a local canonical-style event containing:
+Every search, selection, playback, pause, stop, preference refinement, profile save, permission change, and revocation emits a local canonical-style event containing:
 
 ```text
 event identity and parent relationship
 service and medium
+profile-bound actor projection
 human projection
 governed projection
 rights/source status
@@ -62,25 +70,55 @@ permitted and prohibited reuse
 downstream service projection
 contribution eligibility
 royalty state
+reuse-revocation state
 policy, artifact, and continuity references
 preview-only hash and authority boundary
 ```
 
-## Clarifications resolved from the design session
+## Clarifications implemented
 
 ### Captured versus derived records
 
-Captured records are direct observations such as the selected track, search query, playback action, position, and explicit feedback.
+Captured records are direct observations such as the selected track, search query, playback action, position, explicit feedback, profile name, permission selection, and current trait controls.
 
-Derived records are interpretations created from those observations, such as decreasing brightness, retaining bass texture, reducing transition distance, or classifying an interaction as a candidate contribution.
+Derived records are interpretations created from those observations, such as decreasing brightness, retaining bass texture, reducing transition distance, classifying an interaction as a candidate contribution, or recomputing a bounded projection scope.
+
+The selected-event panel displays these records separately.
 
 ### Downstream projections
 
-A downstream projection is a bounded record that another service may use without receiving the private raw listening history. The current prototype permits selected refinement events to project only to StegDJ and identifies broader aggregate reuse as requiring separate authorization.
+A downstream projection is a bounded record that another service may use without receiving the private raw listening history.
+
+Current browser-local controls permit the listener to authorize or deny:
+
+```text
+selected preference refinements to StegDJ
+aggregate reusable music rules
+bounded alertness preference to a future Wellness service
+```
+
+Raw listening history is prohibited from cross-user reuse. Revocation disables future downstream projections but does not erase historical occurrence receipts already retained in the local session.
 
 ### Contribution and financial display
 
-The expandable contribution-value panel shows candidate event count, a prototype estimate, realized royalty, and payable status. The prototype estimate is intentionally non-payable and cannot be represented as a balance, security, royalty statement, or entitlement.
+The expandable contribution-value panel shows candidate event count, a prototype estimate, realized royalty, payable status, and current listening profile. The prototype estimate is intentionally non-payable and cannot be represented as a balance, security, royalty statement, or entitlement.
+
+## Verification status
+
+```text
+static playable-slice verifier: UPDATED FOR INSPECTION, PERMISSIONS, PROFILE, RESET, AND REVOCATION MARKERS
+browser audio execution: NOT YET OBSERVED IN DEPLOYED PREVIEW
+iPhone/Safari audio execution: NOT YET OBSERVED
+browser interaction tests: NOT YET IMPLEMENTED
+accessibility tests: NOT YET IMPLEMENTED
+cross-pane correlation source implementation: IMPLEMENTED
+captured-versus-derived inspection: IMPLEMENTED
+downstream permission toggles: IMPLEMENTED
+future reuse revocation: IMPLEMENTED
+browser-local reset: IMPLEMENTED
+named profile persistence: IMPLEMENTED
+invited tester isolation: NOT YET VERIFIED
+```
 
 ## Next executable steps
 
@@ -88,14 +126,12 @@ Destination `StegVerse-Labs/Site`:
 
 ```text
 add a direct StegMusic service launcher inside ecosystem-chat.html
-add static application validation for required StegMusic markers
-add browser interaction and accessibility tests
-add correlation highlighting across Conversation, Governed, and Split panes
-add user-controlled clear/revoke/reset actions
-add explicit captured-versus-derived inspection panel
-add downstream projection permission toggles
-add persistent named listening profiles
-add invited-tester isolation tests
+bind scripts/check_stegmusic_playable_slice.py into canonical application validation
+observe the restored CI run
+add browser interaction tests for playback, tabs, correlation, inspection, permissions, profile save, reset, revocation, and export
+add accessibility tests
+add invited-tester profile-isolation tests
+add visible audio startup/failure status for iPhone autoplay and AudioContext restrictions
 ```
 
 Destination lawful source integration:
@@ -155,8 +191,10 @@ candidate contribution != realized value
 prototype estimate != payable balance
 fixture event != activation evidence
 StegDJ generation != unrestricted composition right
+permission toggle != universal consent
+revocation record != deletion of historical occurrence
 ```
 
 ## Archive readiness
 
-This handoff, Site issue #39, `ecosystem-music.html`, `assets/ecosystem-music.js`, and repository history preserve the current music-service continuation state without requiring the originating conversation.
+This handoff, Site issue #39, `ecosystem-music.html`, `assets/ecosystem-music.js`, `scripts/check_stegmusic_playable_slice.py`, and repository history preserve the current music-service continuation state without requiring the originating conversation.
