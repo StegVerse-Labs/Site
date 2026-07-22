@@ -6,14 +6,14 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 PAGE = ROOT / "gp10-workspace.html"
 SCRIPT = ROOT / "assets" / "gp10-workspace.js"
+IMPORT_SCRIPT = ROOT / "assets" / "gp10-evidence-import.js"
 
 
 def main() -> int:
     errors = []
-    if not PAGE.exists():
-        errors.append("gp10-workspace.html is missing")
-    if not SCRIPT.exists():
-        errors.append("assets/gp10-workspace.js is missing")
+    for path, label in [(PAGE, "gp10-workspace.html"), (SCRIPT, "assets/gp10-workspace.js"), (IMPORT_SCRIPT, "assets/gp10-evidence-import.js")]:
+        if not path.exists():
+            errors.append(f"{label} is missing")
     if errors:
         print("FAIL-CLOSED:")
         for error in errors:
@@ -22,29 +22,33 @@ def main() -> int:
 
     page = PAGE.read_text(encoding="utf-8")
     script = SCRIPT.read_text(encoding="utf-8")
+    importer = IMPORT_SCRIPT.read_text(encoding="utf-8")
     required_page = [
         'name="robots" content="noindex,nofollow,noarchive"',
         'assets/gp10-workspace.js',
+        'assets/gp10-evidence-import.js',
         'No execution authority',
+        'Import authorized external evidence',
     ]
     required_script = [
-        "BROWSER_LOCAL_UNCUSTODIED",
-        "execution_authority: false",
-        "DISCOVERY_ONLY",
-        "COST_PLUS",
-        "RE_SCOPE",
-        "REJECT",
-        "PROCEED",
-        "localStorage",
+        "BROWSER_LOCAL_UNCUSTODIED", "execution_authority: false", "DISCOVERY_ONLY",
+        "COST_PLUS", "RE_SCOPE", "REJECT", "PROCEED", "localStorage",
+    ]
+    required_importer = [
+        "crypto.subtle.digest", "original_sha256", "QUALIFIED_REVIEW_REQUIRED",
+        "BROWSER_LOCAL_UNCUSTODIED", "execution_authority:false", "localStorage",
     ]
     for marker in required_page:
         if marker not in page:
             errors.append(f"page missing marker: {marker}")
     for marker in required_script:
         if marker not in script:
-            errors.append(f"script missing marker: {marker}")
+            errors.append(f"workspace script missing marker: {marker}")
+    for marker in required_importer:
+        if marker not in importer:
+            errors.append(f"evidence importer missing marker: {marker}")
 
-    excluded = {PAGE.resolve(), SCRIPT.resolve(), Path(__file__).resolve()}
+    excluded = {PAGE.resolve(), SCRIPT.resolve(), IMPORT_SCRIPT.resolve(), Path(__file__).resolve()}
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.resolve() in excluded:
             continue
@@ -64,7 +68,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print("OK: GP10 workspace exists, preserves authority boundaries, and is not linked by Site pages or XML indexes")
+    print("OK: GP10 workspace and evidence importer preserve authority boundaries and remain unlinked")
     return 0
 
 
