@@ -11,49 +11,18 @@
   "self_declaration": {
     "claim_id": "ta14-self-public-001",
     "source": "SELF",
-    "scope": [
-      "Reality",
-      "Record",
-      "Continuity",
-      "Admissibility",
-      "Binding",
-      "Commit",
-      "Execution",
-      "Outcome"
-    ],
-    "functions": [
-      "govern consequence-bearing route",
-      "preserve governed records",
-      "support replay",
-      "evaluate admissibility",
-      "bind decisions before execution"
-    ],
-    "dependencies": [
-      "publicly declared architecture",
-      "evidence and authority inputs",
-      "compatible framework handoff or test submission"
-    ],
+    "scope": ["Reality", "Record", "Continuity", "Admissibility", "Binding", "Commit", "Execution", "Outcome"],
+    "functions": ["govern consequence-bearing route", "preserve governed records", "support replay", "evaluate admissibility", "bind decisions before execution"],
+    "dependencies": ["publicly declared architecture", "evidence and authority inputs", "compatible framework handoff or test submission"],
     "limitations": [
       "publicly accessible materials reviewed do not yet expose a complete canonical JSON or JSONL event stream",
       "publicly accessible materials reviewed do not yet expose a frozen reciprocal test package",
       "publicly accessible materials reviewed do not yet independently establish parentage over external frameworks"
     ],
-    "exclusions": [
-      "no independent certification inferred",
-      "no external-framework consent inferred",
-      "no universal superiority inferred"
-    ],
-    "evidence_refs": [
-      "ta14-public-site-root",
-      "ta14-eight-stages-page",
-      "ta14-public-linkedin-statements"
-    ],
+    "exclusions": ["no independent certification inferred", "no external-framework consent inferred", "no universal superiority inferred"],
+    "evidence_refs": ["ta14-public-site-root", "ta14-eight-stages-page", "ta14-public-linkedin-statements"],
     "confidence": 0.72,
-    "uncertainty": [
-      "private implementation details are not included",
-      "public site may contain additional pages not yet reconstructed",
-      "claims are separated from independently observed execution"
-    ]
+    "uncertainty": ["private implementation details are not included", "public site may contain additional pages not yet reconstructed", "claims are separated from independently observed execution"]
   },
   "determinations": [
     {
@@ -62,60 +31,44 @@
       "evaluator_id": "stegverse",
       "source": "EVALUATOR",
       "observation_class": "RECONSTRUCTED",
-      "scope": [
-        "end-to-end consequence-bearing route declaration",
-        "governed record and replay posture",
-        "admissibility and binding before execution",
-        "external framework registry and testing posture"
-      ],
-      "functions": [
-        "declare and test route stages",
-        "preserve evidence-bearing records",
-        "evaluate claimed architecture boundaries",
-        "publish test results"
-      ],
-      "dependencies": [
-        "declared framework boundaries",
-        "test case and evidence submission",
-        "TA-14-controlled or mutually agreed execution environment"
-      ],
-      "limitations": [
-        "full machine-readable public implementation not yet observed",
-        "cross-framework reconstruction output not yet observed",
-        "complete eight-stage public live execution not yet observed"
-      ],
-      "exclusions": [
-        "parentage is not presumed",
-        "historical priority is not treated as containment",
-        "successful bounded execution would not alone prove completeness"
-      ],
-      "evidence_refs": [
-        "ta14-public-site-root",
-        "ta14-eight-stages-page",
-        "ta14-public-linkedin-statements"
-      ],
+      "scope": ["end-to-end consequence-bearing route declaration", "governed record and replay posture", "admissibility and binding before execution", "external framework registry and testing posture"],
+      "functions": ["declare and test route stages", "preserve evidence-bearing records", "evaluate claimed architecture boundaries", "publish test results"],
+      "dependencies": ["declared framework boundaries", "test case and evidence submission", "TA-14-controlled or mutually agreed execution environment"],
+      "limitations": ["full machine-readable public implementation not yet observed", "cross-framework reconstruction output not yet observed", "complete eight-stage public live execution not yet observed"],
+      "exclusions": ["parentage is not presumed", "historical priority is not treated as containment", "successful bounded execution would not alone prove completeness"],
+      "evidence_refs": ["ta14-public-site-root", "ta14-eight-stages-page", "ta14-public-linkedin-statements"],
       "confidence": 0.7,
-      "uncertainty": [
-        "evaluation is limited to public materials",
-        "no reciprocal live run has occurred"
-      ],
+      "uncertainty": ["evaluation is limited to public materials", "no reciprocal live run has occurred"],
       "parentage_claim": "INCONCLUSIVE"
     }
   ],
-  "test_runs": [],
+  "test_runs": [
+    {
+      "run_id": "run-ta14-public-reconstruction-v1",
+      "test_case_id": "reciprocal-boundary-reconstruction-v1",
+      "executor_id": "stegverse",
+      "started_at": "2026-07-22T12:30:00Z",
+      "completed_at": "2026-07-22T12:30:04Z",
+      "result": "PARTIAL",
+      "input_hash": "PENDING_CANONICAL_HASH",
+      "output_hash": "PENDING_CANONICAL_HASH",
+      "event_refs": ["evt-ta14-recon-001", "evt-ta14-recon-002", "evt-ta14-recon-003", "evt-ta14-recon-004", "evt-ta14-recon-005"],
+      "evidence_refs": ["ta14-public-site-root", "ta14-eight-stages-page", "ta14-public-linkedin-statements"],
+      "artifact_refs": ["data/framework-evaluations/runs/run-ta14-public-reconstruction-v1.jsonl"],
+      "receipt_refs": [],
+      "replay_status": "PASS",
+      "reconstruction_status": "PARTIAL",
+      "confidence": 0.7,
+      "uncertainty": ["public-source reconstruction only", "no TA-14-executed reciprocal live run observed"]
+    }
+  ],
   "disputes": [
     {
       "dispute_id": "dispute-ta14-parentage-001",
-      "claim_refs": [
-        "ta14-self-public-001",
-        "stegverse-map-ta14-001"
-      ],
+      "claim_refs": ["ta14-self-public-001", "stegverse-map-ta14-001"],
       "status": "OPEN",
       "summary": "TA-14 publicly claims parent or complete-route status; StegVerse records the claim but does not treat scope, chronology, or vocabulary as independent proof of containment.",
-      "evidence_refs": [
-        "ta14-public-site-root",
-        "ta14-public-linkedin-statements"
-      ]
+      "evidence_refs": ["ta14-public-site-root", "ta14-public-linkedin-statements"]
     }
   ],
   "publication": {
