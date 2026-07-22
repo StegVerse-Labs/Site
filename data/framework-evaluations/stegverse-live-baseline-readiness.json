@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "readiness_id": "stegverse-live-baseline-readiness-v1",
+  "framework_id": "stegverse",
+  "test_case_id": "stegverse-public-baseline-v1",
+  "phase": "STEGVERSE_LIVE_BASELINE_EXECUTION",
+  "state": "BLOCKED",
+  "required_inputs": {
+    "frozen_test_case": true,
+    "self_declaration_record": true,
+    "public_baseline_jsonl": true,
+    "artifact_receipt_generator": true,
+    "artifact_receipt_verifier": true,
+    "authorized_real_provider": false,
+    "persistent_endpoint": false,
+    "provider_usage_persistence": false,
+    "master_records_custody": false,
+    "transition_custody": false,
+    "immutable_adapter_receipt": false,
+    "post_execution_reconstruction": false,
+    "public_endpoint_verification": false
+  },
+  "blocking_conditions": [
+    "authorized real-provider configuration not observed",
+    "persistent governed endpoint not observed",
+    "provider usage persistence not observed",
+    "Master-Records custody receipt not observed",
+    "transition custody receipt not observed",
+    "immutable adapter VERIFIED receipt not observed",
+    "post-execution reconstruction PASS not observed",
+    "public endpoint verification not observed"
+  ],
+  "execution_authorized": false,
+  "promotion_authorized": false,
+  "publication_authorized": false,
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  },
+  "next_transition": {
+    "name": "RUN_STEGVERSE_LIVE_BASELINE",
+    "allowed_when": [
+      "authorized_real_provider == true",
+      "persistent_endpoint == true",
+      "provider_usage_persistence == true",
+      "master_records_custody == true",
+      "transition_custody == true",
+      "immutable_adapter_receipt == true"
+    ],
+    "resulting_state": "EXECUTION_PENDING_OBSERVATION"
+  },
+  "updated_at": "2026-07-22T14:00:00Z"
+}
