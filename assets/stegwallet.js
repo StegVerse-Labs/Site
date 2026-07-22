@@ -37,6 +37,14 @@ function setStatus(element, message, kind = '') {
   if (kind) element.classList.add(kind);
 }
 
+function parseAddressAllowlist(value) {
+  const addresses = [...new Set(String(value || '').split(',').map((item) => item.trim().toLowerCase()).filter(Boolean))];
+  if (!addresses.length) throw new Error('At least one verified router address is required.');
+  const invalid = addresses.find((address) => !/^0x[a-f0-9]{40}$/.test(address));
+  if (invalid) throw new Error(`Invalid EVM router address: ${invalid}`);
+  return addresses;
+}
+
 async function refreshWallet() {
   const p = provider();
   const [accounts, chainId] = await Promise.all([
@@ -85,6 +93,7 @@ async function buildGoal() {
   const delegationRef = $('delegation-ref').value.trim() || null;
   if (mode === 'delegated_bounded' && !delegationRef) throw new Error('Delegated mode requires a delegation reference.');
   if (mode === 'user_signature_required' && delegationRef) throw new Error('Remove the delegation reference for user-signature mode.');
+  const routers = parseAddressAllowlist($('router-allowlist').value);
   const goalId = `goal:crypto:${crypto.randomUUID()}`;
   const mandate = {
     schema: 'stegwallet.goal_mandate.v1',
@@ -94,7 +103,7 @@ async function buildGoal() {
     execution_mode: mode,
     allowed_chain_ids: [BASE_CHAIN_ID],
     allowed_assets: ['USDC', 'WETH'],
-    allowed_router_addresses: [],
+    allowed_router_addresses: routers,
     capital_limit_usd: Number($('capital-limit').value),
     max_position_usd: Number($('position-limit').value),
     max_realized_loss_usd: Number($('loss-limit').value),
