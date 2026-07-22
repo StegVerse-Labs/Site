@@ -15,15 +15,19 @@ advance claims only through evidence-bound stages,
 and keep all prototype estimates visibly non-payable until authorized distribution and settlement exist.
 ```
 
-## Implemented in this cycle
+## Implemented
 
 ```text
 docs/ECOSYSTEM_CHAT_VALUE_CLAIM_CONTRACT.md
 data/ecosystem-chat-value-claims.fixture.json
 scripts/check_ecosystem_chat_value_claims.py
+ecosystem-chat-value.html
+assets/ecosystem-chat-value-claims.js
+scripts/check_ecosystem_chat_value_renderer.py
+scripts/check_ecosystem_chat_application.py value-claim validator binding
 ```
 
-The contract now distinguishes:
+The contract and renderer distinguish:
 
 ```text
 submitted
@@ -34,12 +38,26 @@ distributable
 settled
 ```
 
-It also distinguishes:
+They also distinguish:
 
 ```text
 request for intelligence
 from
 contribution of intelligence
+```
+
+The synchronized renderer provides:
+
+```text
+Conversation projection
+Governed-record projection
+Split projection
+Stable claim_id and submission_event_id correlation
+Formatted governed inspection
+Raw JSONL inspection
+JSON export
+Source, consent/reuse, materiality, uncertainty, reward-class, and dispute display
+Visible non-payable expectation boundary
 ```
 
 The fixture includes:
@@ -75,25 +93,42 @@ distributable value != payment
 prototype estimate != royalty
 browser fixture != custody
 validator PASS != settlement authority
+renderer correlation != causal proof
+JSON export != authenticated custody
 ```
 
 No token count, prompt length, message count, model cost, or self-reported importance can independently advance a claim.
 
 Personal or private information is not presumed more valuable merely because it is sensitive. Originality, relevance, causal influence, lawful consent, bounded reuse, measurable improvement, scarcity, and avoided cost or harm require evidence.
 
+## Verification posture
+
+```text
+Value-claim contract: IMPLEMENTED
+Fixture: IMPLEMENTED
+Stage validator: IMPLEMENTED AND BOUND INTO CANONICAL APPLICATION VALIDATION
+Synchronized renderer: IMPLEMENTED ON FEATURE BRANCH
+Renderer static validator: IMPLEMENTED, NOT YET BOUND INTO CANONICAL APPLICATION VALIDATION
+Browser execution: NOT YET OBSERVED IN CI OR DEPLOYED PREVIEW
+Gateway-origin value-claim events: NOT YET IMPLEMENTED
+Value-claim custody and reconstruction: NOT YET IMPLEMENTED
+Authorized distribution: NOT YET IMPLEMENTED
+Settlement: NOT YET IMPLEMENTED
+Authority effect: NONE
+```
+
 ## Remaining Site work
 
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Bind the validator into canonical application validation.
-Add a governed value-claim panel to ecosystem-chat.html.
-Render claim stage, source posture, consent/reuse scope, materiality, uncertainty, reward class, dispute status, and non-payable boundary.
-Link claims to canonical event_id values rather than rendered text.
-Add captured-versus-derived inspection.
-Add stage-history JSON/JSONL export.
-Add browser tests for stage ordering, competing claims, consent narrowing, revocation, dispute, and non-payable status.
+Bind scripts/check_ecosystem_chat_value_renderer.py into canonical application validation.
+Integrate the value-claim panel directly into ecosystem-chat.html while preserving the standalone inspection route.
+Bind claims to live canonical event_id values rather than fixture-only submission identifiers.
+Add captured-versus-derived inspection and stage-history JSON/JSONL export.
+Add browser tests for view switching, bidirectional selection, stage ordering, competing claims, consent narrowing, revocation, dispute, and non-payable status.
 Add multilingual expectation text for English, Spanish, Simplified Chinese, and Traditional Chinese.
+Observe the renderer on a deployed Site preview.
 ```
 
 Destination `StegVerse-org/LLM-adapter`:
@@ -125,22 +160,19 @@ StegVerse-002/stegguardian-wiki
 ## Next machine action
 
 ```text
-1. Bind scripts/check_ecosystem_chat_value_claims.py into the Site validation chain.
-2. Add the first human/governed synchronized claim renderer to ecosystem-chat.html.
-3. Keep claim advancement preview-only until canonical gateway events, custody, reconstruction, and authorized settlement are verified.
-4. Propagate the completed contract and expectation boundary to Publisher and both wiki projections only after Site validation passes.
+1. Bind scripts/check_ecosystem_chat_value_renderer.py into the Site validation chain.
+2. Integrate the synchronized value panel into ecosystem-chat.html without creating a second authoritative record.
+3. Add stage-history and consent/revocation fixtures plus browser behavior checks.
+4. Keep all claim advancement preview-only until canonical gateway events, custody, reconstruction, and authorized settlement are verified.
+5. Propagate the completed contract and expectation boundary to Publisher and both wiki projections only after Site validation passes.
 ```
 
 ## Release posture
 
 ```text
-Contract: IMPLEMENTED
-Fixture: IMPLEMENTED
-Static validator: IMPLEMENTED, NOT YET OBSERVED IN CI
-Browser renderer: NOT YET IMPLEMENTED
-Gateway-origin claim events: NOT YET IMPLEMENTED
-Custody and reconstruction: NOT YET IMPLEMENTED FOR VALUE CLAIMS
-Authorized distribution: NOT YET IMPLEMENTED
-Settlement: NOT YET IMPLEMENTED
-Authority effect: NONE
+Standalone value-claim inspection slice: FEATURE-COMPLETE FOR STATIC PREVIEW
+Direct Ecosystem Node integration: PENDING
+CI observation: PENDING
+Deployment observation: PENDING
+Release/tag readiness: NOT YET REACHED
 ```
