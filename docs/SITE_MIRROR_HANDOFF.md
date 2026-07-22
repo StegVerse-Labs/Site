@@ -7,11 +7,12 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 ## Current goal
 
 ```text
-Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, and downstream propagation path
+Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, downstream propagation, and playable governed service surfaces
 Primary surface: ecosystem-chat.html
 Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
+Playable service surface: ecosystem-music.html
 Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT
 Manual user action required for routine repository work: false
 ```
@@ -85,7 +86,7 @@ Minimum canonical event:
 }
 ```
 
-Sensitive fields remain subject to role-based disclosure and redaction policies. Human-readable, formatted governed, and raw machine-readable output resolve to the same canonical records. Raw records are exportable and replayable. The design remains extensible to technical, legal, executive, audit, and multilingual renderers.
+Sensitive fields remain subject to role-based disclosure and redaction policies. Human-readable, formatted governed, and raw machine-readable output resolve to the same canonical records. Raw records are exportable and replayable. The design remains extensible to technical, legal, executive, audit, multilingual, music, video, and sensory renderers.
 
 ## Files changed
 
@@ -97,6 +98,10 @@ data/ecosystem-node-canonical-events.fixture.json
 scripts/check_ecosystem_node_dual_view.py
 scripts/check_ecosystem_node_replay_and_disclosure.py
 scripts/check_ecosystem_chat_application.py
+ecosystem-music.html
+assets/ecosystem-music.js
+docs/STEGMUSIC_MIRROR_HANDOFF.md
+scripts/check_stegmusic_playable_slice.py
 docs/SITE_MIRROR_HANDOFF.md
 ```
 
@@ -117,6 +122,14 @@ Replay fixture preserving order and canonical IDs across JSON and JSONL
 Role-based disclosure fixture with fail-closed public redaction
 Canonical application-validation binding
 Explicit preview-only authority boundary
+Playable StegMusic partial Ecosystem Chat surface
+Three locally generated StegDJ tracks
+Normal audio controls and trait refinement
+Always-visible playback, preference, projection, and royalty indicators
+Conversation / Governed music play / Split / Raw JSONL music projections
+Visible rights/source posture
+Persistent local music event stream and prototype contribution-value panel
+StegMusic JSON session export
 ```
 
 ## Verification status
@@ -131,9 +144,11 @@ Replay validator against canonical JSON/JSONL fixture: IMPLEMENTED AND BOUND INT
 Duplicate event ID rejection fixture behavior: IMPLEMENTED
 Unresolved parent/evidence/continuity reference rejection: IMPLEMENTED
 Role-based public redaction fixture: IMPLEMENTED
+StegMusic static playable-slice verifier: IMPLEMENTED
+StegMusic browser audio execution: NOT YET OBSERVED IN CI OR DEPLOYED PREVIEW
 Browser execution test: NOT YET OBSERVED IN CI
 Accessibility interaction test: NOT YET OBSERVED IN CI
-Cryptographic canonical hash: NOT YET IMPLEMENTED; browser fixture uses non-cryptographic fnv1a32 marker
+Cryptographic canonical hash: NOT YET IMPLEMENTED; browser fixtures use preview-only markers
 Gateway-origin canonical events: NOT YET IMPLEMENTED
 Authority effect: NONE
 ```
@@ -158,6 +173,9 @@ Provider-usage reconstruction: NOT VERIFIED
 Adapter immutable zero-blocker VERIFIED receipt: NOT OBSERVED
 Site ACTIVATION_COMPLETE: NOT OBSERVED
 Downstream verified ingestion: NOT OBSERVED
+Playable StegMusic generated-audio source: IMPLEMENTED ON FEATURE BRANCH; DEPLOYMENT NOT YET OBSERVED
+Commercial music source: NOT IMPLEMENTED
+Public-domain verified source: NOT IMPLEMENTED
 ```
 
 Custody and reconstruction were previously verified through `master-records/orchestration` Runtime Evidence Validation run `29865690620`, merge `421da84784888e3dc9bb98a7b2b47a1518f0eee0`, with authenticated custody `RECORDED` and reconstruction `PASS`. Provider execution remained disabled during that run.
@@ -173,6 +191,10 @@ Implement runtime role selection and emitted redaction receipts
 Accept canonical events from the governed gateway instead of constructing them from DOM messages
 Render attachments and generated artifacts from canonical artifact_refs
 Add locale-aware multilingual renderer selection
+Add direct StegMusic service launcher inside ecosystem-chat.html
+Observe StegMusic browser audio on deployed preview
+Add StegMusic interaction, persistence, accessibility, reset, revocation, and tester-isolation tests
+Add captured-versus-derived inspection and downstream projection permission controls
 ```
 
 Destination `StegVerse-org/LLM-adapter`:
@@ -192,6 +214,7 @@ Destination `master-records/orchestration`:
 Custody canonical event streams and exports
 Validate chain references, signatures, duplicate IDs, and replay reconstruction
 Return reconstruction and disclosure-policy verification receipts
+Custody music interaction, derivation, reuse, rights, and value-lineage records after authorization
 ```
 
 Downstream destinations after verified Site activation:
@@ -201,6 +224,32 @@ GCAT-BCAT-Engine/Publisher
 StegVerse-Labs/admissibility-wiki
 StegVerse-002/stegguardian-wiki
 ```
+
+## StegMusic / StegDJ governed service slice
+
+The detailed music-service continuation record is `docs/STEGMUSIC_MIRROR_HANDOFF.md`, owned by Site issue #39.
+
+The first playable source is locally generated browser audio. This permits immediate UI and governed-record testing without asserting a commercial catalog license. The next lawful source sequence is:
+
+```text
+verified public-domain source
+-> user-owned or purchased local-file source
+-> connected licensed provider
+-> rights-aware regular catalog brokerage
+-> premium adaptive StegDJ sequencing
+-> authorized composition/remix/generative sources
+```
+
+The music surface keeps these statuses visible whether active or inactive:
+
+```text
+playback
+preference refinement
+cross-service projection
+contribution / royalty candidacy
+```
+
+Captured records are direct observations. Derived records are interpretations created from them. A downstream projection is a bounded record admitted to another service without disclosing the private raw listening history. Contribution estimates remain non-payable until an authorized financial contract, value derivation, custody, and settlement path exist.
 
 ## Provider readiness boundary
 
@@ -271,6 +320,8 @@ A propagation packet is not custody, activation authority, publication authority
 8. Site recomputes activation and propagation state.
 9. Publisher and both wiki consumers ingest the Site projection automatically.
 10. Release readiness remains fail-closed until downstream verified evidence exists.
+11. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
+12. Add one verified lawful non-generated source before invited external testing.
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, or manual publication task is assigned to the user.
@@ -297,6 +348,9 @@ portable-node supervision != heartbeat authority
 imported verified receipt != deployment authority
 propagation packet != publication authority
 reconstruction PASS != execution authority
+browser-generated audio != licensed catalog
+prototype contribution estimate != payable royalty
+music rights label != license grant
 ```
 
 ## Browser-local ChatGPT session continuation
@@ -317,14 +371,15 @@ It stores a validated `https://chatgpt.com/c/<conversation-id>` URL in browser l
 Blocker: no repository evidence establishes an authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy in a persistent authorized runtime environment
 Owner: StegVerse-org/LLM-adapter issue #18
 Next Site step: observe the restored ST-017 run, then add runtime gateway canonical-event envelope consumption and browser correlation tests
+Parallel playable step: deploy and browser-test ecosystem-music.html, then add the direct Ecosystem Chat launcher and one verified lawful source
 Next adapter step: produce the secret-free provider readiness status; when READY, execute one real governed provider request through the verified transition custody and reconstruction path
 Manual user action required for routine repository work: false
 ```
 
 ## Release posture
 
-No tag or release is authorized. Remaining conditions are passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, and verified downstream ingestion.
+No tag or release is authorized. Remaining conditions are passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
 
 ## Archive readiness
 
-This handoff, the feature branch, canonical mapping contract, replay/disclosure fixture and verifier, adapter issue #18, prior custody evidence, activation receipt paths, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
+This handoff, the feature branch, canonical mapping contract, replay/disclosure fixture and verifier, Site issue #39, StegMusic handoff and playable files, adapter issue #18, prior custody evidence, activation receipt paths, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
