@@ -21,7 +21,11 @@ required = {
         'local_only:true', "authority:'none'",
     ],
     MAIN: ['window.StegMusicRuntime', 'selectGeneratedTrack', 'stegmusic:emit'],
-    PROFILE: ['stegmusic.profile.', 'scopedKey', 'cross_profile_read: false'],
+    PROFILE: [
+        'stegmusic.profile.', 'scopedKey', 'cross_profile_read: false',
+        'modelDefaults', 'validObject', 'fail_safe_model_initialization: true',
+        "'stegmusic.trait-model.v1'", "'stegmusic.transition-model.v1'",
+    ],
 }
 
 failures = []
@@ -42,6 +46,7 @@ if failures:
 
 print("STEGMUSIC_ADAPTIVE_MODEL_PASS")
 print("model_storage=browser_local_profile_scoped")
+print("model_initialization=fail_safe_non_null")
 print("aggregate_authority=none")
 print("adaptive_selection=governed_deterministic_scoring")
 print("transition_scoring=present")
