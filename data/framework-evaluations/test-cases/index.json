@@ -10,6 +10,16 @@
       "participants": ["stegverse", "ta-14"],
       "live_execution_required": false,
       "next_phase": "RECIPROCAL_LIVE_EXECUTION"
+    },
+    {
+      "test_case_id": "stegverse-public-baseline-v1",
+      "path": "stegverse-public-baseline-v1.json",
+      "phase": "PUBLIC_BASELINE",
+      "status": "FROZEN_DESIGN_BASELINE",
+      "participants": ["stegverse"],
+      "live_execution_required": false,
+      "independent_validation": false,
+      "next_phase": "STEGVERSE_LIVE_BASELINE_EXECUTION"
     }
   ],
   "authority": {
@@ -20,5 +30,5 @@
     "custody": false,
     "parentage": false
   },
-  "updated_at": "2026-07-22T13:05:00Z"
+  "updated_at": "2026-07-22T15:00:00Z"
 }
