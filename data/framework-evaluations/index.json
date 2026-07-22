@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "status": "DESIGN_BASELINE",
+  "test_models": ["NEUTRAL_PUBLIC", "RECIPROCAL_ARCHITECTURAL"],
+  "frameworks": [
+    {
+      "framework_id": "stegverse",
+      "name": "StegVerse",
+      "evaluation_path": "stegverse.json",
+      "self_declaration_status": "PENDING_FREEZE",
+      "stegverse_determination_status": "SELF_DECLARATION_ONLY",
+      "ta14_determination_status": "PENDING_EXTERNAL_SUBMISSION",
+      "live_test_status": "NOT_TESTED"
+    },
+    {
+      "framework_id": "ta-14",
+      "name": "TA-14",
+      "evaluation_path": "ta-14.json",
+      "self_declaration_status": "PENDING_EXTERNAL_SUBMISSION",
+      "stegverse_determination_status": "PENDING",
+      "ta14_determination_status": "SELF_DECLARATION_PENDING",
+      "live_test_status": "NOT_TESTED"
+    }
+  ],
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false
+  },
+  "updated_at": "2026-07-22T00:00:00Z"
+}
