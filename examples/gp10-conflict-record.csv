@@ -1,0 +1,2 @@
+candidate_id,source_system,source_record_id,source_owner,authority_class,observed_at,reporting_mark,unit_number,donor_lineage,inspection_status
+CAND-DEMO-001,DEMO_SHOP_EXPORT,SHOP-8841,MAINTENANCE_PROVIDER,EXPORTED_OPERATIONAL_RECORD,2026-07-22T13:00:00Z,DEMO,1201,GP7,INSPECTION_REQUIRED
