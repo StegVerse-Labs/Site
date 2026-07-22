@@ -9,6 +9,7 @@ EXAMPLES = ROOT / "gp10-workspace-examples.html"
 SCRIPT = ROOT / "assets" / "gp10-workspace.js"
 INTEGRATION = ROOT / "assets" / "gp10-evidence-integration.js"
 WIZARD = ROOT / "assets" / "gp10-workspace-wizard.js"
+EXAMPLES_SCRIPT = ROOT / "assets" / "gp10-examples-adaptive.js"
 
 
 def main() -> int:
@@ -19,6 +20,7 @@ def main() -> int:
         (SCRIPT, "assets/gp10-workspace.js"),
         (INTEGRATION, "assets/gp10-evidence-integration.js"),
         (WIZARD, "assets/gp10-workspace-wizard.js"),
+        (EXAMPLES_SCRIPT, "assets/gp10-examples-adaptive.js"),
     ]
     for path, label in required_files:
         if not path.exists():
@@ -34,6 +36,7 @@ def main() -> int:
     script = SCRIPT.read_text(encoding="utf-8")
     integration = INTEGRATION.read_text(encoding="utf-8")
     wizard = WIZARD.read_text(encoding="utf-8")
+    examples_script = EXAMPLES_SCRIPT.read_text(encoding="utf-8")
 
     required_page = [
         'name="robots" content="noindex,nofollow,noarchive"',
@@ -47,6 +50,7 @@ def main() -> int:
     required_examples = [
         'name="robots" content="noindex,nofollow,noarchive"',
         'gp10-workspace.html',
+        'assets/gp10-examples-adaptive.js',
         'What the fields mean',
         'DISCOVERY_ONLY', 'COST_PLUS', 'RE_SCOPE', 'REJECT', 'PROCEED',
         'No execution authority',
@@ -61,7 +65,16 @@ def main() -> int:
         "evidenceReviewQueue", "exportValidationBundle", "owner_role", "authority_class",
         "created_at", "asset:", "observations:", "conflicts:",
     ]
-    required_wizard = ["data-gp10-step", "data-next-step", "data-prev-step", "Step ${current + 1}"]
+    required_wizard = [
+        "data-gp10-step", "data-next-step", "data-prev-step", "activePath()",
+        "hasEvidence", "hasEconomics", "hasThresholdProfile", "hardStop()",
+        "Commercial-detail steps skipped", "gp10.workspace.guided.draft.v1",
+    ]
+    required_examples_script = [
+        "How the guided pages narrow the search", "very little is known",
+        "uncertain but potentially workable", "a hard stop is already known",
+        "Hard stop present",
+    ]
 
     for marker in required_page:
         if marker not in page:
@@ -78,8 +91,14 @@ def main() -> int:
     for marker in required_wizard:
         if marker not in wizard:
             errors.append(f"wizard missing marker: {marker}")
+    for marker in required_examples_script:
+        if marker not in examples_script:
+            errors.append(f"examples script missing marker: {marker}")
 
-    allowed = {PAGE.resolve(), EXAMPLES.resolve(), SCRIPT.resolve(), INTEGRATION.resolve(), WIZARD.resolve(), Path(__file__).resolve()}
+    allowed = {
+        PAGE.resolve(), EXAMPLES.resolve(), SCRIPT.resolve(), INTEGRATION.resolve(),
+        WIZARD.resolve(), EXAMPLES_SCRIPT.resolve(), Path(__file__).resolve()
+    }
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.resolve() in allowed:
             continue
@@ -99,7 +118,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print("OK: guided GP10 workspace and examples page preserve authority boundaries and remain isolated from public Site navigation")
+    print("OK: adaptive GP10 workspace and examples page preserve logical narrowing, authority boundaries, and public-navigation isolation")
     return 0
 
 
