@@ -30,6 +30,15 @@
     localStorage.setItem(MODEL_KEY,JSON.stringify(model));
     localStorage.setItem(TRANSITION_KEY,JSON.stringify(transitionModel));
   }
+  function activeTrackId(){
+    const active=window.StegMusicRuntime&&window.StegMusicRuntime.getCurrentTrack?window.StegMusicRuntime.getCurrentTrack():null;
+    return active&&active.id?active.id:model.last_selection;
+  }
+  function syncActiveSelection(){
+    const activeId=activeTrackId();
+    if(activeId&&model.last_selection!==activeId){model.last_selection=activeId;persist();}
+    return activeId;
+  }
   function updateModel(reason){
     const observed=observedControls(),intent=INTENT_TARGETS[$('sessionIntent').value]||INTENT_TARGETS.fine_tune,weight=model.observations?.28:.55;
     for(const key of Object.keys(observed)){
@@ -56,7 +65,7 @@
     return Math.max(0,100-(bpmDistance*1.15+energyDistance*.65+brightnessDistance*.45));
   }
   function score(track){
-    const preference=preferenceFit(track),transition=transitionFit(track),outcomeAdjustment=transitionOutcomeAdjustment(track),samePenalty=model.last_selection===track.id?18:0;
+    const preference=preferenceFit(track),transition=transitionFit(track),outcomeAdjustment=transitionOutcomeAdjustment(track),samePenalty=model.last_selection===track.id?1000:0;
     const total=preference*.68+transition*.24+outcomeAdjustment-samePenalty;
     return{total:Math.max(0,total),preference,transition,outcomeAdjustment,samePenalty};
   }
@@ -72,10 +81,12 @@
     renderTransitionModel();
   }
   function chooseAdaptive(){
-    updateModel('adaptive_next_requested');const ranked=rank(),next=ranked[0];if(!next)return;
-    const previous=model.last_selection,decision={from_track_id:previous,to_track_id:next.id,total_score:Number(next.total.toFixed(2)),preference_fit:Number(next.preference.toFixed(2)),transition_fit:Number(next.transition.toFixed(2)),learned_outcome_adjustment:next.outcomeAdjustment,repeat_penalty:next.samePenalty,model_version:model.version,transition_model_version:transitionModel.version,session_intent:$('sessionIntent').value,authority:'none'};
+    const previous=syncActiveSelection();
+    updateModel('adaptive_next_requested');
+    const ranked=rank(),next=ranked.find(candidate=>candidate.id!==previous);if(!next)return;
+    const decision={from_track_id:previous,to_track_id:next.id,total_score:Number(next.total.toFixed(2)),preference_fit:Number(next.preference.toFixed(2)),transition_fit:Number(next.transition.toFixed(2)),learned_outcome_adjustment:next.outcomeAdjustment,repeat_penalty:next.samePenalty,active_track_excluded:true,model_version:model.version,transition_model_version:transitionModel.version,session_intent:$('sessionIntent').value,authority:'none'};
     model.last_selection=next.id;model.last_transition=decision;persist();
-    emit('adaptive_selection_decision',`StegDJ recommended “${next.title}” as the adaptive next track.`,{rights_status:'stegdj_generated_local_prototype',source_class:'adaptive_local_model',captured_records:[{requested_action:'adaptive_next',current_controls:observedControls(),session_intent:$('sessionIntent').value,previous_track_id:previous}],derived_records:[decision,...ranked.slice(1).map(x=>({rejected_candidate:x.id,total_score:Number(x.total.toFixed(2))}))],contribution_eligibility:'candidate',royalty_state:'not_realized',artifact_refs:[next.id],policy_refs:['stegdj-adaptive-selection-v2','stegdj-transition-outcome-learning-v1','governed-service-envelope-v0']});
+    emit('adaptive_selection_decision',`StegDJ recommended “${next.title}” as the adaptive next track.`,{rights_status:'stegdj_generated_local_prototype',source_class:'adaptive_local_model',captured_records:[{requested_action:'adaptive_next',current_controls:observedControls(),session_intent:$('sessionIntent').value,previous_track_id:previous}],derived_records:[decision,...ranked.filter(x=>x.id!==next.id).map(x=>({rejected_candidate:x.id,total_score:Number(x.total.toFixed(2))}))],contribution_eligibility:'candidate',royalty_state:'not_realized',artifact_refs:[next.id],policy_refs:['stegdj-adaptive-selection-v2','stegdj-active-track-exclusion-v1','stegdj-transition-outcome-learning-v1','governed-service-envelope-v0']});
     if(window.StegMusicRuntime)window.StegMusicRuntime.selectGeneratedTrack(next.index,{reason:'adaptive_selection',details:{adaptive_decision:decision}});
     $('adaptiveRecommendation').textContent=`Selected ${next.title}: preference ${next.preference.toFixed(1)}%, transition ${next.transition.toFixed(1)}%, learned adjustment ${next.outcomeAdjustment>=0?'+':''}${next.outcomeAdjustment}.`;renderModel();
   }
@@ -106,6 +117,6 @@
   $('applyFeedback').addEventListener('click',()=>window.setTimeout(()=>updateModel('free_text_feedback'),0));
   ['energy','brightness','bass','exploration'].forEach(id=>$(id).addEventListener('change',()=>updateModel(`control:${id}`)));
   $('resetAdaptiveModel').addEventListener('click',()=>{model={version:3,observations:0,targets:{energy:58,brightness:38,bass:72,exploration:32},last_selection:null,last_transition:null,reset_at:new Date().toISOString()};transitionModel={version:1,observations:0,pairs:{},last_outcome:null};persist();emit('adaptive_model_reset','Reset the browser-local StegDJ adaptive and transition models.',{rights_status:'not_applicable',source_class:'browser_local_model',captured_records:[{reset_at:model.reset_at}],derived_records:[{future_ranking_state:'default_targets',transition_outcomes_cleared:true,historical_governed_events_preserved:true}],contribution_eligibility:'not_evaluated'});renderModel();});
-  installTransitionControls();renderModel();
-  window.StegDJTransitionLearning=Object.freeze({recordTransitionOutcome,storage_key:TRANSITION_KEY,profile_scoped:true,authority:'none'});
+  syncActiveSelection();installTransitionControls();renderModel();
+  window.StegDJTransitionLearning=Object.freeze({recordTransitionOutcome,storage_key:TRANSITION_KEY,profile_scoped:true,active_track_exclusion:true,authority:'none'});
 })();
