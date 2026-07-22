@@ -7,9 +7,9 @@ This file is the current implementation handoff for the Site-hosted StegMusic / 
 ## Current goal
 
 ```text
-Goal: playable governed music service inside the Ecosystem Node that supports immediate listening, visible rights posture, preference refinement, synchronized governed projections, persistent session records, contribution-value inspection, adaptive StegDJ selection, user-owned local playback, and later licensed catalog/provider integration.
+Goal: playable governed music service inside the Ecosystem Node that supports immediate listening, visible rights posture, preference refinement, synchronized governed projections, persistent session records, contribution-value inspection, adaptive StegDJ selection, user-owned local playback, isolated invited-tester profiles, and later licensed catalog/provider integration.
 Primary surface: ecosystem-music.html
-Runtime: assets/ecosystem-music.js + assets/ecosystem-music-adaptive.js + assets/ecosystem-music-local-source.js
+Runtime: assets/ecosystem-music-profile-scope.js + assets/ecosystem-music.js + assets/ecosystem-music-adaptive.js + assets/ecosystem-music-local-source.js + assets/ecosystem-music-diagnostics.js
 Issue: StegVerse-Labs/Site#39
 Authority: construction and fixture testing only
 ```
@@ -50,14 +50,38 @@ downstream projection permission toggles
 future-reuse revocation control
 browser-local reset control
 persistent named listening profile
+browser-local isolated profile namespaces for separate testers
 JSON session export including profile and permission state
-explicit fixture, authority, rights, privacy, source-retention, and financial boundaries
+explicit fixture, authority, rights, privacy, source-retention, financial, and profile-isolation boundaries
 unique DOM identifiers enforced by static validation
+accessibility labels, landmarks, live regions, tab roles, and keyboard-focusable record panels
 ```
+
+## Profile isolation boundary
+
+`assets/ecosystem-music-profile-scope.js` loads before every music runtime and namespaces StegMusic browser storage under the active profile ID.
+
+```text
+active profile pointer: stegmusic.active-profile.v1
+profile registry: stegmusic.profile-registry.v1
+scoped runtime key: stegmusic.profile.<profile_id>.<original_stegmusic_key>
+```
+
+This separates each tester's local events, prototype value, permissions, display profile, and adaptive model in the same browser. Switching profile IDs reloads the page into the selected namespace.
+
+```text
+browser-local namespace isolation != authenticated account isolation
+separate local profile != server-side tenant boundary
+profile ID != verified identity
+cross-profile read is disabled through the profile-scope runtime
+profile registry metadata != listening-history disclosure
+```
+
+The isolation is sufficient for controlled same-device prototype testing when testers use distinct profile IDs. It is not sufficient for production multi-user service, shared-device adversarial isolation, or authenticated custody.
 
 ## Adaptive model boundary
 
-The adaptive model is stored under `stegmusic.trait-model.v1` in browser-local storage. It updates from explicit controls, session intent, and listener refinements. It ranks only the local StegDJ generated catalog using preference distance, transition distance, and a repeat penalty.
+The adaptive model updates from explicit controls, session intent, and listener refinements. It ranks only the local StegDJ generated catalog using preference distance, transition distance, and a repeat penalty.
 
 ```text
 browser-local learned target != aggregate ecosystem rule
@@ -68,7 +92,7 @@ model reset != deletion of historical governed events
 transition score != guaranteed transition quality
 ```
 
-Every adaptive-next request now emits `adaptive_selection_decision` before selection. The record includes current controls, intent, prior track, selected candidate, rejected candidate scores, preference fit, transition fit, repeat penalty, model version, and authority=`none`.
+Every adaptive-next request emits `adaptive_selection_decision` before selection. The record includes current controls, intent, prior track, selected candidate, rejected candidate scores, preference fit, transition fit, repeat penalty, model version, and authority=`none`.
 
 ## Rights/source classes
 
@@ -87,7 +111,7 @@ No commercial catalog license, streaming entitlement, royalty payment, public-di
 
 ## Governed projections
 
-Generated and local-source events enter the same browser-local canonical projection runtime. Event types now include:
+Generated and local-source events enter the same browser-local canonical projection runtime. Event types include:
 
 ```text
 music_selection
@@ -99,6 +123,7 @@ local_playback_started / local_playback_paused / local_playback_completed / loca
 profile_saved
 projection_permissions_changed
 future_reuse_revoked
+audio_self_test_passed / audio_self_test_failed
 ```
 
 Local-source records retain metadata and rights assertions but explicitly prohibit source-audio upload, retention, external training, and public distribution.
@@ -108,6 +133,9 @@ Local-source records retain metadata and rights assertions but explicitly prohib
 ```text
 static playable-slice verifier: IMPLEMENTED AND ENFORCES UNIQUE DOM IDS
 adaptive-model verifier: IMPLEMENTED FOR GOVERNED DECISION AND TRANSITION SCORING
+browser self-test contract: IMPLEMENTED
+live verification contract: IMPLEMENTED
+profile-isolation and accessibility verifier: IMPLEMENTED
 canonical Site application validation binding: IMPLEMENTED
 Ecosystem Chat service launcher: IMPLEMENTED
 browser audio failure visibility: IMPLEMENTED
@@ -119,11 +147,13 @@ transition scoring: IMPLEMENTED
 canonical adaptive decision event: IMPLEMENTED
 user-owned local-file path without upload: IMPLEMENTED
 source object-URL revocation: IMPLEMENTED
+browser-local profile namespaces: IMPLEMENTED
+accessibility semantics contract: IMPLEMENTED
 browser audio execution: NOT YET OBSERVED IN DEPLOYED PREVIEW
 iPhone/Safari audio execution: NOT YET OBSERVED
-browser interaction tests: NOT YET IMPLEMENTED
-accessibility tests: NOT YET IMPLEMENTED
-invited tester isolation: NOT YET VERIFIED
+full browser interaction automation: NOT YET IMPLEMENTED
+invited tester same-device namespace isolation: IMPLEMENTED BUT NOT YET BROWSER-OBSERVED
+authenticated multi-user isolation: NOT IMPLEMENTED
 verified public-domain source: NOT YET IMPLEMENTED
 connected licensed provider: NOT YET IMPLEMENTED
 ```
@@ -133,11 +163,11 @@ connected licensed provider: NOT YET IMPLEMENTED
 Destination `StegVerse-Labs/Site`:
 
 ```text
-observe canonical application validation in CI
-add browser interaction tests for generated and local playback, adaptive decision, refusal, tabs, correlation, inspection, permissions, profile save, reset, revocation, and export
-add accessibility tests
-add invited-tester profile-isolation tests
-add a deployed preview link and confirm iPhone/Safari AudioContext and local-file behavior
+merge the green Site validation-phase repair
+validate this profile-isolation branch in CI
+add deployed browser interaction evidence for generated playback, local playback, adaptive decision, profile switching, tabs, correlation, inspection, permissions, reset, revocation, and export
+confirm iPhone/Safari AudioContext and local-file behavior
+verify VoiceOver labels and tab navigation on iPhone
 record browser evidence without converting fixture or local assertions into authority
 ```
 
@@ -166,20 +196,22 @@ Adjacent destinations remain the financial contract, ecosystem invariants, Maste
 
 ## Internal-test viability
 
-The prototype is internally usable when deployed through the Site branch preview and browser audio is permitted. The user can already test generated composition, adaptive selection, trait refinement, governed records, financial-candidate display, and locally owned audio without uploading it.
+The prototype is internally usable when deployed through the Site branch preview and browser audio is permitted. The user can test generated composition, adaptive selection, trait refinement, governed records, financial-candidate display, locally owned audio without uploading it, and separate browser-local tester profiles.
 
 Invited testing additionally requires:
 
 ```text
-profile isolation
 clear fixture and user-assertion labeling
+one distinct isolated profile ID per tester
 export and reset/revocation controls
-no cross-user raw-history exposure
+no cross-profile raw-history exposure
 visible failures
 rights evidence for every non-generated shared source
 confidentiality and contribution terms for patent-sensitive testing
 browser evidence on the target devices
 ```
+
+Production viability still requires authenticated identity, server-side tenant isolation, durable custody boundaries, lawful sourced catalog access, provider entitlement resolution, and non-prototype financial accounting.
 
 ## Authority boundary
 
@@ -189,6 +221,7 @@ user authorization assertion != independent proof of ownership
 local object URL != uploaded or retained source artifact
 prototype rights label != license grant
 local session persistence != Master Records custody
+browser-local profile namespace != authenticated tenant isolation
 candidate contribution != realized value
 prototype estimate != payable balance
 fixture event != activation evidence
@@ -198,8 +231,9 @@ revocation record != deletion of historical occurrence
 structured browser composition != production music generator
 adaptive ranking != autonomous execution authority
 transition score != verified listener satisfaction
+browser self-test != audible-output confirmation
 ```
 
 ## Archive readiness
 
-This handoff, Site issue #39, `ecosystem-music.html`, all three music runtime files, both music validation scripts, the canonical Site application validator, and repository history preserve the current music-service continuation state without requiring the originating conversation.
+This handoff, Site issue #39, `ecosystem-music.html`, all music runtime files, music validation scripts, the canonical Site application validator, and repository history preserve the current music-service continuation state without requiring the originating conversation. Deployment and target-device observations remain external obligations.
