@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "handoff_id": "stegverse-live-baseline-handoff-v1",
+  "source_repository": "StegVerse-Labs/Site",
+  "source_request_id": "stegverse-live-baseline-execution-request-v1",
+  "destination_repository": "StegVerse-org/LLM-adapter",
+  "destination_path": "intake/stegverse-live-baseline-execution-request-v1.json",
+  "destination_commit": "5a13886b16b850a276276a6241d696d7cfcc7e6a",
+  "handoff_state": "RECEIVED_PENDING_PREREQUISITES",
+  "dispatch_state": "NOT_DISPATCHED",
+  "destination_execution_authorized": false,
+  "source_execution_authorized": false,
+  "source_custody_authorized": false,
+  "required_next_evidence": [
+    "authorized provider configuration receipt",
+    "persistent endpoint activation receipt",
+    "provider usage persistence contract",
+    "Master-Records custody acceptance",
+    "transition custody acceptance",
+    "immutable adapter receipt contract"
+  ],
+  "prohibited_inferences": [
+    "cross-repository receipt does not authorize execution",
+    "destination acceptance does not satisfy runtime prerequisites",
+    "handoff completion does not establish provider readiness",
+    "intake receipt is not custody acceptance"
+  ],
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  },
+  "recorded_at": "2026-07-22T14:42:00Z"
+}
