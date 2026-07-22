@@ -79,6 +79,8 @@ jobs:
         run: python scripts/sync_ecosystem_chat_custody_state.py
       - name: Synchronize StegVerse provider-node state into authoritative Site records
         run: python scripts/sync_ecosystem_chat_provider_node_state.py
+      - name: Synchronize provider TLS and ledger state into authoritative Site records
+        run: python scripts/sync_ecosystem_chat_provider_transport_state.py
       - name: Check out canonical adapter source for bounded runtime verification
         uses: actions/checkout@v4
         with:
@@ -126,6 +128,7 @@ jobs:
             portable-node-runtime.log
             docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md
             docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md
+            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_TLS_LEDGER.md
           if-no-files-found: error
       - name: Persist authoritative Ecosystem Chat custody state
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -151,7 +154,8 @@ jobs:
           git add \
             docs/ECOSYSTEM_CHAT_BUILD_GOAL.md \
             docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md \
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md
+            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md \
+            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_TLS_LEDGER.md
           if git diff --cached --quiet; then
             echo "Authoritative StegVerse provider-node state unchanged."
           else
