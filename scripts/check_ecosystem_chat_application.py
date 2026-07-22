@@ -15,6 +15,7 @@ from typing import Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULT = ROOT / "site_application_validation.result.json"
+LIVE_ROUTE_VERIFICATION_PHASE = "POST_DEPLOYMENT"
 
 COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ecosystem_chat_navigation.py"),
@@ -89,11 +90,27 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_media_pipeline_downstream_publication.py"),
 )
 
+
 def execute(command: Sequence[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(list(command), cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False)
 
+
 def write_result(payload: dict) -> None:
     RESULT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
+def result_payload(*, passed: bool, failed_command: str | None, returncode: int, output: str, passed_commands: list[str]) -> dict:
+    return {
+        "schema_version": "1.0.0",
+        "status_type": "site_application_validation_result",
+        "passed": passed,
+        "failed_command": failed_command,
+        "returncode": returncode,
+        "output": output,
+        "passed_commands": passed_commands,
+        "live_route_verification_phase": LIVE_ROUTE_VERIFICATION_PHASE,
+    }
+
 
 def main() -> int:
     passed: list[str] = []
@@ -101,16 +118,28 @@ def main() -> int:
         label = " ".join(command)
         completed = execute(command)
         if completed.returncode != 0:
-            payload = {"schema_version":"1.0.0","status_type":"site_application_validation_result","passed":False,"failed_command":label,"returncode":completed.returncode,"output":completed.stdout.rstrip(),"passed_commands":passed,"live_route_verification_phase":"POST_DEPLOYMENT"}
-            write_result(payload)
+            write_result(result_payload(
+                passed=False,
+                failed_command=label,
+                returncode=completed.returncode,
+                output=completed.stdout.rstrip(),
+                passed_commands=passed,
+            ))
             print(f"SITE_APPLICATION_CHECK_FAIL: {label}")
             print(completed.stdout.rstrip())
             return completed.returncode
         passed.append(label)
         print(f"SITE_APPLICATION_CHECK_PASS: {label}")
-    write_result({"schema_version":"1.0.0","status_type":"site_application_validation_result","passed":True,"failed_command":None,"returncode":0,"output":"ECOSYSTEM_CHAT_APPLICATION_PASS","passed_commands":passed,"live_route_verification_phase":"POST_DEPLOYMENT"})
+    write_result(result_payload(
+        passed=True,
+        failed_command=None,
+        returncode=0,
+        output="ECOSYSTEM_CHAT_APPLICATION_PASS",
+        passed_commands=passed,
+    ))
     print("ECOSYSTEM_CHAT_APPLICATION_PASS")
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
