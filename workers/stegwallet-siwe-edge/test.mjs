@@ -28,6 +28,7 @@ async function testProxy() {
       'cf-connecting-ip': '203.0.113.10',
     },
     body: '{"wallet_address":"0x1111111111111111111111111111111111111111"}',
+    duplex: 'half',
   }), ENV));
 
   assert.equal(response.status, 200);
