@@ -1,0 +1,13 @@
+{
+  "candidate_id": "CAND-DEMO-001",
+  "source_system": "DEMO_OWNER_EXPORT",
+  "source_record_id": "OWNER-UNIT-1201",
+  "source_owner": "ASSET_OWNER",
+  "authority_class": "SYSTEM_OF_RECORD",
+  "observed_at": "2026-07-22T12:00:00Z",
+  "reporting_mark": "DEMO",
+  "unit_number": "1201",
+  "donor_lineage": "GP9",
+  "engine_model": "645",
+  "inspection_status": "INSPECTION_REQUIRED"
+}
