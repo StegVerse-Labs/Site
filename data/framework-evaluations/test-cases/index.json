@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "state": "DESIGN_BASELINE",
+  "test_cases": [
+    {
+      "test_case_id": "reciprocal-boundary-reconstruction-v1",
+      "path": "reciprocal-boundary-reconstruction-v1.json",
+      "phase": "PUBLIC_RECONSTRUCTION",
+      "status": "FROZEN_DESIGN_BASELINE",
+      "participants": ["stegverse", "ta-14"],
+      "live_execution_required": false,
+      "next_phase": "RECIPROCAL_LIVE_EXECUTION"
+    }
+  ],
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  },
+  "updated_at": "2026-07-22T13:05:00Z"
+}
