@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Public reciprocal architectural evaluations for StegVerse, TA-14, and participating external frameworks.">
+  <title>StegVerse — Reciprocal Framework Evaluations</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .boundary,.model,.framework{border:1px solid var(--border);border-radius:var(--radius);padding:16px;background:var(--surface)}
+    .boundary{border-color:#3a2a12;background:rgba(63,44,13,.25);color:#f0d9a0}.models,.frameworks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.model h3,.framework h3{margin-top:0}.status{font:11px var(--mono);color:var(--green)}.matrix{width:100%;border-collapse:collapse;font:11px var(--mono)}.matrix th,.matrix td{padding:9px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}.machine{overflow-wrap:anywhere}.tag{display:inline-block;border:1px solid var(--border2);border-radius:999px;padding:3px 8px;margin:2px;font:10px var(--mono)}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="ecosystem-comparison.html">Route Comparison</a><a href="framework-evaluations.html" class="active">Framework Evaluations</a><a href="governed-transitions.html">Transitions</a></nav>
+<div class="sv-wrap">
+  <div class="sv-hero"><div class="sv-eyebrow">Public · reciprocal · machine-readable</div><h1>Framework evaluations<br><em>test the claim, not the hierarchy.</em></h1><p>Each framework retains its own declaration while every evaluator publishes an independent boundary determination, live execution result, evidence record, and unresolved disagreement.</p></div>
+  <div class="boundary"><strong>Authority boundary:</strong> this page is a public projection. Comparison is not authority, admissibility, certification, custody, release, or proof of universal superiority.</div>
+  <section><h2 class="sv-h2">Valid test models</h2><div class="models"><article class="model"><h3>Neutral public test</h3><p>Participants declare their own scope, receive identical normalized inputs, execute under criteria frozen before the run, and publish complete results.</p></article><article class="model"><h3>Reciprocal architectural evaluation</h3><p>Each evaluator maps every other framework, runs the same live test, and publishes its independent determination on the evaluated framework's page.</p></article></div></section>
+  <section><h2 class="sv-h2">Evaluation registry</h2><p class="status" id="registryStatus" aria-live="polite">Loading machine-readable registry…</p><div class="frameworks" id="frameworkRegistry"></div></section>
+  <section class="model"><h2 class="sv-h2">Required deliverables for every framework</h2><table class="matrix"><thead><tr><th>Deliverable</th><th>Required content</th></tr></thead><tbody><tr><td>Self-declared boundary</td><td>Scope, functions, dependencies, limitations, exclusions, evidence references.</td></tr><tr><td>Evaluator determinations</td><td>Independent StegVerse, TA-14, and additional evaluator maps with confidence and uncertainty.</td></tr><tr><td>Live execution</td><td>Shared test case, stable run and event identifiers, input/output hashes, result class.</td></tr><tr><td>Evidence package</td><td>Evidence, artifacts, receipts, refusals, errors, policy and continuity references.</td></tr><tr><td>Replay and reconstruction</td><td>Machine-readable JSON or JSONL, replay status, reconstruction status, custody reference.</td></tr><tr><td>Disagreement record</td><td>Preserved conflicts among self-declaration and evaluator determinations; no forced ontology collapse.</td></tr></tbody></table></section>
+  <section class="model machine"><h2 class="sv-h2">Machine-readable contract</h2><p><a href="data/schemas/framework-evaluation.schema.json">JSON Schema</a> · <a href="data/framework-evaluations/index.json">Evaluation registry JSON</a> · <a href="docs/RECIPROCAL_ARCHITECTURAL_EVALUATION.md">Human-readable contract</a></p></section>
+</div>
+<footer class="sv-footer"><span>StegVerse · Reciprocal architectural evaluation</span><span>Public projection · no inherited parent status</span></footer>
+<script>
+(async()=>{const status=document.getElementById('registryStatus'),root=document.getElementById('frameworkRegistry');try{const r=await fetch('data/framework-evaluations/index.json',{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);const d=await r.json();root.innerHTML=d.frameworks.map(f=>`<article class="framework"><div class="status">${f.live_test_status}</div><h3>${f.name}</h3><p><span class="tag">self: ${f.self_declaration_status}</span><span class="tag">StegVerse: ${f.stegverse_determination_status}</span><span class="tag">TA-14: ${f.ta14_determination_status}</span></p><p><a href="data/framework-evaluations/${f.evaluation_path}">Machine-readable record</a></p></article>`).join('');status.textContent=`${d.status} · ${d.frameworks.length} framework records registered`; }catch(e){status.textContent=`Registry unavailable: ${e.message}`;root.innerHTML='<article class="framework"><h3>Fail-closed</h3><p>No evaluation result is inferred while the machine-readable registry is unavailable.</p></article>';}})();
+</script>
+</body>
+</html>
