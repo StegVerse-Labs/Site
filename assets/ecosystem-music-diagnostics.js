@@ -69,7 +69,8 @@
         audio_active: audioActive,
         playback_event_observed: playbackEvent,
         composition_progress_advanced: advanced,
-        media_transport_ready: Boolean(window.StegMusicMediaTransport)
+        media_transport_ready: Boolean(window.StegMusicMediaTransport),
+        transition_scheduler_ready: Boolean(window.StegMusicTransitionScheduler)
       };
 
       if (!passed) {
@@ -89,7 +90,8 @@
         authority: 'none',
         audible_output_confirmed: false,
         browser_runtime_execution_confirmed: true,
-        generated_media_transport_confirmed: Boolean(window.StegMusicMediaTransport)
+        generated_media_transport_confirmed: Boolean(window.StegMusicMediaTransport),
+        transition_smoothing_loaded: Boolean(window.StegMusicTransitionScheduler)
       });
     } catch (error) {
       if (play.textContent.trim().toLowerCase() === 'pause') play.click();
@@ -109,18 +111,19 @@
     }
   }
 
-  function loadMediaTransport() {
-    if (window.StegMusicMediaTransport || document.querySelector('script[data-stegmusic-media-transport]')) return;
+  function loadScript(src, dataName, onErrorText) {
+    if (document.querySelector(`script[data-${dataName}]`)) return;
     const script = document.createElement('script');
-    script.src = 'assets/ecosystem-music-media-transport.js';
+    script.src = src;
     script.async = false;
-    script.dataset.stegmusicMediaTransport = 'true';
-    script.addEventListener('error', () => setResult('MEDIA TRANSPORT · FAILED TO LOAD', 'failed'));
+    script.dataset[dataName.replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = 'true';
+    script.addEventListener('error', () => setResult(onErrorText, 'failed'));
     document.body.appendChild(script);
   }
 
   const button = $('audioSelfTest');
   if (button) button.addEventListener('click', runSelfTest);
-  window.StegMusicDiagnostics = Object.freeze({ runSelfTest });
-  loadMediaTransport();
+  window.StegMusicDiagnostics = Object.freeze({runSelfTest});
+  if (!window.StegMusicMediaTransport) loadScript('assets/ecosystem-music-media-transport.js','stegmusic-media-transport','MEDIA TRANSPORT · FAILED TO LOAD');
+  if (!window.StegMusicTransitionScheduler) loadScript('assets/ecosystem-music-transition.js','stegmusic-transition','TRANSITION SCHEDULER · FAILED TO LOAD');
 })();
