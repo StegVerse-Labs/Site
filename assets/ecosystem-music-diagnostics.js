@@ -110,4 +110,10 @@
   const button = $('audioSelfTest');
   if (button) button.addEventListener('click', runSelfTest);
   window.StegMusicDiagnostics = Object.freeze({ runSelfTest });
+
+  const transitionRuntime = document.createElement('script');
+  transitionRuntime.src = 'assets/ecosystem-music-transition.js';
+  transitionRuntime.async = false;
+  transitionRuntime.dataset.stegmusicRuntime = 'transition-smoothing-v1';
+  document.head.appendChild(transitionRuntime);
 })();
