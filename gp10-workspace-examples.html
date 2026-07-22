@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="Plain-language examples for the GP10 guided workspace.">
+  <title>GP10 Examples and Plain-Language Guide</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    :root{color-scheme:dark}.guide{display:grid;gap:18px;max-width:900px;margin-inline:auto}.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}.example{border-left:4px solid var(--green);background:#0b1420;padding:14px;margin:12px 0}.warning{border-left-color:#f1c75b}.stop{border-left-color:#ff6b6b}.term{font-weight:700;color:var(--text)}code{white-space:normal}.mini-table{display:grid;gap:8px}.mini-row{display:grid;grid-template-columns:minmax(150px,.7fr) 1fr;gap:14px;padding:10px;border-bottom:1px solid var(--border)}@media(max-width:650px){.mini-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="sv-wrap guide">
+    <header class="sv-hero">
+      <div class="sv-eyebrow">GP10 guided workspace · examples</div>
+      <h1>What the fields mean<br><em>without the governance vocabulary.</em></h1>
+      <p>This page is for someone who has never searched rail records, compared conflicting sources, or used a governed decision tool.</p>
+      <a class="sv-btn sv-btn-primary" href="gp10-workspace.html">Return to guided workspace</a>
+    </header>
+
+    <section class="panel">
+      <h2 class="sv-h2">The basic idea</h2>
+      <p>You are not trying to prove everything at once. You are collecting enough reliable information to decide the safest next commercial step.</p>
+      <div class="example"><strong>Simple example:</strong> A seller says a locomotive is a GP10 in good condition. The workspace does not accept that statement as proof. It records the claim, asks what source supports it, compares it with other records, and recommends whether to investigate, price cautiously, re-scope, reject, or advance for formal review.</div>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">Step 1: identifying the unit</h2>
+      <div class="mini-table">
+        <div class="mini-row"><span class="term">Candidate ID</span><span>Your own tracking name. Example: <code>CAND-2026-001</code>.</span></div>
+        <div class="mini-row"><span class="term">Unit or road number</span><span>The number painted on or assigned to the locomotive. It may not uniquely identify its entire rebuild history.</span></div>
+        <div class="mini-row"><span class="term">Donor lineage</span><span>The original locomotive family before rebuilding, such as GP7 or GP9. Choose UNKNOWN when the record is uncertain.</span></div>
+      </div>
+      <div class="example warning"><strong>Why this matters:</strong> Two locomotives both called “GP10” may have different original frames, electrical systems, modifications, and repair histories.</div>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">Step 2: describing what is known</h2>
+      <div class="example"><strong>Grade A:</strong> The unit appears suitable for a bounded standard build, based on meaningful evidence.</div>
+      <div class="example warning"><strong>Grade B:</strong> The unit may still work, but uncertainty requires discovery work, allowances, contingencies, or cost-plus pricing.</div>
+      <div class="example stop"><strong>Grade C:</strong> The unit is outside ordinary acceptance. It may be donor material, a research/custom project, or a rejection.</div>
+      <p><span class="term">Evidence state</span> means how much support exists for the current numbers and claims:</p>
+      <div class="mini-table">
+        <div class="mini-row"><span>ASSUMPTION_ONLY</span><span>Someone believes it, but no dependable source has been preserved.</span></div>
+        <div class="mini-row"><span>PARTIALLY_SOURCED</span><span>Some values have sources; important gaps remain.</span></div>
+        <div class="mini-row"><span>EVIDENCE_BACKED</span><span>The important claims have supporting records.</span></div>
+        <div class="mini-row"><span>VERIFIED_ACTUAL</span><span>The value has been confirmed as an actual result, not merely a forecast or quote.</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">Step 3: finding and importing records</h2>
+      <p>Useful searches often begin with the unit number, reporting mark, serial number, owner, prior operator, shop, and approximate rebuild date.</p>
+      <div class="example"><strong>Example search path:</strong><br>1. Search the road number and reporting mark.<br>2. Look for roster pages, sale listings, inspection records, repair invoices, shop records, owner exports, or registry records.<br>3. Save the record or export it as JSON/CSV when authorized.<br>4. Record where it came from and who controls it.</div>
+      <p><span class="term">Source owner role</span> asks who controls the original record. <span class="term">Authority class</span> asks how much weight that record should normally carry.</p>
+      <div class="mini-table">
+        <div class="mini-row"><span>AUTHORITATIVE_REGISTRY</span><span>An industry registry responsible for that record class.</span></div>
+        <div class="mini-row"><span>SYSTEM_OF_RECORD</span><span>The owner or operator system officially used to maintain that information.</span></div>
+        <div class="mini-row"><span>SIGNED_INSPECTION</span><span>A named inspection record signed or attributable to a qualified reviewer.</span></div>
+        <div class="mini-row"><span>SUPPLIER_RECORD</span><span>A supplier quote, part record, or delivery statement.</span></div>
+        <div class="mini-row"><span>EXPORTED_OPERATIONAL_RECORD</span><span>An authorized export from a maintenance or operating system.</span></div>
+        <div class="mini-row"><span>MANUAL_ASSERTION</span><span>A person entered the claim without a stronger preserved source.</span></div>
+        <div class="mini-row"><span>ASSUMPTION</span><span>A planning placeholder that must not be treated as fact.</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">What happens when records disagree?</h2>
+      <div class="example stop"><strong>Example conflict:</strong> A seller spreadsheet says the donor lineage is GP9, while a registry or historical record says GP7. The workspace keeps both values and creates a review item. It does not silently choose one.</div>
+      <p>A conflict does not automatically mean fraud or error. It means the difference must be resolved before relying on the field.</p>
+      <p><strong>Identity conflicts</strong>—such as unit number, serial number, reporting mark, or donor lineage—receive the strongest warning because the wrong identity can contaminate every later decision.</p>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">Step 4: project numbers</h2>
+      <div class="mini-table">
+        <div class="mini-row"><span>Total cost</span><span>Expected full project cost.</span></div>
+        <div class="mini-row"><span>Quote price</span><span>The amount proposed to the customer.</span></div>
+        <div class="mini-row"><span>Contingency</span><span>Money reserved for foreseeable uncertainty.</span></div>
+        <div class="mini-row"><span>Warranty reserve</span><span>Money reserved for expected warranty exposure.</span></div>
+        <div class="mini-row"><span>Contribution cost</span><span>Cost used to determine whether the project contributes positively before all allocated overhead.</span></div>
+        <div class="mini-row"><span>Stop-loss exposure</span><span>The maximum loss presently exposed if the project goes badly.</span></div>
+      </div>
+      <div class="example warning"><strong>Important:</strong> Missing numbers should remain missing. The workspace is designed to reveal uncertainty, not hide it behind automatic guesses.</div>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">What the final posture means</h2>
+      <div class="mini-table">
+        <div class="mini-row"><span>DISCOVERY_ONLY</span><span>Learn more before making an ordinary commercial commitment.</span></div>
+        <div class="mini-row"><span>COST_PLUS</span><span>Proceed only with pricing that protects against uncertain actual costs.</span></div>
+        <div class="mini-row"><span>RE_SCOPE</span><span>Change the work, price, assumptions, or exclusions before advancing.</span></div>
+        <div class="mini-row"><span>REJECT</span><span>Do not accept the project through the ordinary path.</span></div>
+        <div class="mini-row"><span>PROCEED</span><span>The record may advance to named governed review. It is not approval to execute.</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="sv-h2">Governance in one paragraph</h2>
+      <p>Governance means the system keeps track of who supplied information, what authority the source actually has, what conflicts remain, what decision was produced, and what the decision does <em>not</em> authorize. The workspace may recommend a next step, but a recommendation is never silently converted into approval or execution authority.</p>
+      <div class="example"><strong>Plain-language rule:</strong> A record can be organized, validated, stored, and reviewed without becoming permission to spend money, order parts, sign a customer agreement, or begin work.</div>
+    </section>
+  </div>
+  <footer class="sv-footer"><span>GP10 examples · Unlisted</span><span>Educational guidance only · No execution authority</span></footer>
+</body>
+</html>
