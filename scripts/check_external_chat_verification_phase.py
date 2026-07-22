@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 APPLICATION = ROOT / "scripts" / "check_ecosystem_chat_application.py"
 WORKFLOW = ROOT / ".github" / "workflows" / "site-task-runner.yml"
 LIVE_CHECK = "scripts/check_external_chat_live_routes.py"
+PHASE_NAME = "LIVE_ROUTE_VERIFICATION_PHASE"
+PHASE_VALUE = "POST_DEPLOYMENT"
 
 
 def fail(message: str) -> int:
@@ -15,22 +17,46 @@ def fail(message: str) -> int:
     return 1
 
 
+def module_string_constants(tree: ast.AST) -> dict[str, str]:
+    constants: dict[str, str] = {}
+    for node in getattr(tree, "body", []):
+        if not isinstance(node, (ast.Assign, ast.AnnAssign)):
+            continue
+        value = node.value
+        if not isinstance(value, ast.Constant) or not isinstance(value.value, str):
+            continue
+        targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+        for target in targets:
+            if isinstance(target, ast.Name):
+                constants[target.id] = value.value
+    return constants
+
+
+def resolved_string(node: ast.AST, constants: dict[str, str]) -> str | None:
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    if isinstance(node, ast.Name):
+        return constants.get(node.id)
+    return None
+
+
 def declares_post_deployment(application: str) -> bool:
-    """Confirm the application result declares POST_DEPLOYMENT independent of formatting."""
+    """Confirm the result payload resolves live-route verification to POST_DEPLOYMENT."""
     try:
         tree = ast.parse(application)
     except SyntaxError:
         return False
+    constants = module_string_constants(tree)
+    if constants.get(PHASE_NAME) != PHASE_VALUE:
+        return False
     for node in ast.walk(tree):
         if not isinstance(node, ast.Dict):
             continue
-        pairs = {}
         for key, value in zip(node.keys, node.values):
-            if isinstance(key, ast.Constant) and isinstance(key.value, str):
-                if isinstance(value, ast.Constant):
-                    pairs[key.value] = value.value
-        if pairs.get("live_route_verification_phase") == "POST_DEPLOYMENT":
-            return True
+            if resolved_string(key, constants) != "live_route_verification_phase":
+                continue
+            if resolved_string(value, constants) == PHASE_VALUE:
+                return True
     return False
 
 
@@ -46,7 +72,7 @@ def main() -> int:
     if LIVE_CHECK in command_section:
         return fail("live-route check must not run in pre-deployment application COMMANDS")
     if not declares_post_deployment(application):
-        return fail("application result must declare POST_DEPLOYMENT live verification")
+        return fail("application result must resolve POST_DEPLOYMENT live verification")
 
     required_workflow_markers = [
         "Deploy Pages",
