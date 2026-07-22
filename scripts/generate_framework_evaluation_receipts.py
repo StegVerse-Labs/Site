@@ -17,6 +17,8 @@ ARTIFACTS = (
     "evidence/index.json",
     "test-cases/index.json",
     "test-cases/reciprocal-boundary-reconstruction-v1.json",
+    "test-cases/stegverse-public-baseline-v1.json",
+    "runs/run-stegverse-public-baseline-v1.jsonl",
     "runs/run-ta14-public-reconstruction-v1.jsonl",
 )
 
