@@ -6,17 +6,24 @@
   "challenge_endpoint": null,
   "verify_endpoint": null,
   "session_endpoint": null,
+  "logout_endpoint": null,
   "https_required": true,
   "same_origin_required": true,
   "wallet_authentication_enabled": false,
+  "activation_receipt_sha256": null,
+  "service_manifest_sha256": null,
+  "proxy_manifest_sha256": null,
+  "health_readiness_sha256": null,
   "transaction_authority": false,
   "execution_authority": false,
   "delegation_authority": false,
   "custody_recorded": false,
   "blockers": [
     "authenticated_siwe_service_not_deployed",
+    "activation_receipt_not_imported",
     "challenge_endpoint_not_configured",
     "verification_endpoint_not_configured",
-    "session_endpoint_not_configured"
+    "session_endpoint_not_configured",
+    "logout_endpoint_not_configured"
   ]
 }

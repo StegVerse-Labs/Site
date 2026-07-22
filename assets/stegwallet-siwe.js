@@ -23,6 +23,11 @@ function validateEndpoint(value, canonicalOrigin) {
   return url.href;
 }
 
+function requireHash(value, label) {
+  if (!/^sha256:[a-f0-9]{64}$/.test(String(value || ''))) throw new Error(`${label} commitment is missing.`);
+  return value;
+}
+
 function validateConfig(config) {
   if (config.schema !== 'stegwallet.siwe_runtime_configuration.v1') throw new Error('Unsupported SIWE runtime configuration.');
   if (config.chain_id !== 8453) throw new Error('SIWE runtime must be bound to Base chain 8453.');
@@ -35,6 +40,12 @@ function validateConfig(config) {
   config.challenge_endpoint = validateEndpoint(config.challenge_endpoint, config.canonical_origin);
   config.verify_endpoint = validateEndpoint(config.verify_endpoint, config.canonical_origin);
   config.session_endpoint = validateEndpoint(config.session_endpoint, config.canonical_origin);
+  config.logout_endpoint = validateEndpoint(config.logout_endpoint, config.canonical_origin);
+  requireHash(config.activation_receipt_sha256, 'Activation receipt');
+  requireHash(config.service_manifest_sha256, 'Service manifest');
+  requireHash(config.proxy_manifest_sha256, 'Proxy manifest');
+  requireHash(config.health_readiness_sha256, 'Health readiness');
+  if (!Array.isArray(config.blockers) || config.blockers.length !== 0) throw new Error('READY SIWE configuration cannot retain blockers.');
   return true;
 }
 
@@ -49,7 +60,7 @@ async function loadConfig() {
     setStatus(`CONFIGURATION_REQUIRED\n${(config.blockers || []).join('\n')}\n\nNo signature can be requested.`, 'bad');
     return;
   }
-  setStatus('READY\nSIWE authentication endpoint configured. No transaction authority is granted.', 'ok');
+  setStatus('READY\nSIWE authentication endpoint configured from a verified activation receipt. No transaction authority is granted.', 'ok');
 }
 
 async function accountAndChain() {
@@ -64,16 +75,19 @@ async function accountAndChain() {
   return {account, chainId: 8453};
 }
 
-async function postJson(url, body) {
+async function requestJson(url, options = {}) {
   const response = await fetch(url, {
-    method: 'POST',
     credentials: 'include',
     headers: {'content-type': 'application/json', 'accept': 'application/json'},
-    body: JSON.stringify(body)
+    ...options
   });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(payload.error || `SIWE endpoint failed (${response.status}).`);
   return payload;
+}
+
+async function postJson(url, body) {
+  return requestJson(url, {method: 'POST', body: JSON.stringify(body)});
 }
 
 function validateChallenge(challenge, account) {
@@ -127,10 +141,19 @@ async function signIn() {
   setStatus(`AUTHENTICATED\nWallet: ${account}\nSession: ${receipt.session_id}\nExpires: ${receipt.expires_at}\nTransaction authority: false`, 'ok');
 }
 
-function clearSession() {
+async function clearSession() {
+  if (!state.config || !validateConfig(state.config)) throw new Error('SIWE runtime is not ready.');
+  const result = await postJson(state.config.logout_endpoint, {
+    schema: 'stegwallet.siwe_logout_request.v1',
+    transaction_authority: false,
+    execution_authority: false
+  });
+  if (result.status !== 'REVOKED' || result.transaction_authority !== false || result.execution_authority !== false) {
+    throw new Error('SIWE logout receipt is invalid.');
+  }
   state.session = null;
-  $('siwe-output').value = '';
-  setStatus(state.config?.wallet_authentication_enabled ? 'LOCAL SESSION CLEARED\nServer revocation remains a separate authenticated operation.' : 'CONFIGURATION_REQUIRED\nNo active SIWE runtime.', '');
+  $('siwe-output').value = JSON.stringify(result, null, 2);
+  setStatus('SESSION REVOKED\nThe server session and secure cookie were invalidated. Transaction authority: false.', 'ok');
 }
 
 function downloadSession() {
@@ -150,6 +173,6 @@ function guard(action) {
 }
 
 $('siwe-sign-in').addEventListener('click', guard(signIn));
-$('siwe-clear').addEventListener('click', clearSession);
+$('siwe-clear').addEventListener('click', guard(clearSession));
 $('download-siwe').addEventListener('click', guard(downloadSession));
 loadConfig().catch((error) => setStatus(`FAIL_CLOSED\n${error.message}`, 'bad'));
