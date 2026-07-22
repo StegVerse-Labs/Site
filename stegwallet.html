@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegWallet governed crypto goals, user-approved signing, and settlement receipts.">
+  <meta name="description" content="StegWallet governed crypto goals, Base App and injected-wallet signing, and settlement receipts.">
   <title>StegWallet — Governed Crypto Goals</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
@@ -19,22 +19,24 @@
 </nav>
 <div class="sv-wrap">
   <div class="sv-hero">
-    <div class="sv-eyebrow">StegWallet · keys remain in the wallet · execution fails closed</div>
+    <div class="sv-eyebrow">StegWallet · Base App and injected wallets · keys remain in the wallet</div>
     <h1>Govern the goal before<br><em>the transaction reaches signature.</em></h1>
-    <p>This surface supports two bounded modes: construct a goal and approve each admitted trade in your wallet, or export a delegated mandate for a separately authorized capped execution wallet. This page never requests a seed phrase or private key.</p>
+    <p>Operate from an ordinary mobile browser, MetaMask, or the Base App browser. A Basename may identify the account for people, but the wallet address and hash-bound records remain canonical.</p>
   </div>
 
-  <div class="risk"><strong>Runtime boundary:</strong> connecting a wallet grants account visibility only. A transaction reaches MetaMask only after an imported StegWallet signature request passes schema, account, chain, commitment, and authority checks. Review the wallet prompt before approving.</div>
+  <div class="risk"><strong>Runtime boundary:</strong> connecting a wallet grants account visibility only. A transaction reaches the wallet prompt only after an imported StegWallet signature request passes schema, account, chain, commitment, and authority checks. A Basename, browser environment, or domain never grants execution authority.</div>
 
   <div class="wallet-grid">
     <section class="wallet-card">
       <h2>1. Connect signing wallet</h2>
-      <p class="muted">Use an injected EIP-1193 wallet such as MetaMask. Base mainnet is the first supported chain.</p>
+      <p class="muted">Uses the injected EIP-1193 provider supplied by Base App, MetaMask, or another compatible wallet. Base mainnet is the first supported chain.</p>
       <div class="actions">
         <button class="sv-btn sv-btn-primary" id="connect-wallet">Connect wallet</button>
         <button class="sv-btn sv-btn-secondary" id="switch-base">Switch to Base</button>
       </div>
       <div id="wallet-status" class="status">Not connected.</div>
+      <div class="field"><label>Optional Basename display alias</label><input id="basename-alias" placeholder="stegverse.base.eth"></div>
+      <div id="environment-status" class="status">Environment not evaluated.</div>
     </section>
 
     <section class="wallet-card">
@@ -65,7 +67,7 @@
       <textarea id="signature-input" placeholder='{"schema":"stegwallet.signature_request.v1", ...}'></textarea>
       <div class="actions">
         <button class="sv-btn sv-btn-secondary" id="verify-request">Verify request</button>
-        <button class="sv-btn sv-btn-primary" id="send-request" disabled>Open MetaMask approval</button>
+        <button class="sv-btn sv-btn-primary" id="send-request" disabled>Open wallet approval</button>
       </div>
       <div id="request-status" class="status">No request loaded.</div>
     </section>
@@ -77,15 +79,16 @@
     </section>
   </div>
 
-  <h2 class="sv-h2">Authority boundary</h2>
-  <pre>Site display                 != execution authority
+  <h2 class="sv-h2">Domain and authority boundary</h2>
+  <pre>stegverse.org HTTPS origin   = durable public application origin
+Basename display alias       = onchain identity and payment alias
+Base App browser             = distribution and wallet surface
+wallet address               = canonical account identity
 StegWallet ALLOW             = may reach wallet prompt
-MetaMask user approval       = Mode 1 execution authority
+wallet user approval         = Mode 1 execution authority
 HPS delegation receipt       = prerequisite for Mode 2 signer submission
-Agent Wallet submission      != settlement
-transaction receipt          != objective success
-settlement verification      != custody
-private key / seed phrase     = never requested</pre>
+domain / Basename / profile  != execution authority
+private key / seed phrase    = never requested</pre>
 </div>
 <script type="module" src="assets/stegwallet.js"></script>
 </body>
