@@ -28,7 +28,7 @@ required = {
         'local_only:true', "authority:'none'",
     ],
     MAIN: ['window.StegMusicRuntime', 'selectGeneratedTrack', 'stegmusic:emit'],
-    REGISTRY: ['StegMusicSixTrackRegistry', 'getTrackCount', 'getTracks', 'track_count:TRACKS.length'],
+    REGISTRY: ['StegMusicSixTrackRegistry', 'getTrackCount', 'getTracks', 'track_count:tracks.length'],
     PROFILE: [
         'stegmusic.profile.', 'scopedKey', 'cross_profile_read: false',
         'modelDefaults', 'validObject', 'fail_safe_model_initialization: true',
