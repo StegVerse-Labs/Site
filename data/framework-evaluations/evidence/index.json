@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "evidence": [
+    {
+      "evidence_id": "ta14-public-site-root",
+      "framework_id": "ta-14",
+      "source_class": "FIRST_PARTY_PUBLIC_SITE",
+      "url": "https://sites.google.com/view/ta-14-admissible-execution-arc/",
+      "observation_class": "DECLARED",
+      "availability": "PUBLIC",
+      "supports": [
+        "ta14-self-public-001",
+        "stegverse-map-ta14-001"
+      ],
+      "limitations": [
+        "public presentation is not an independently reconstructed execution record",
+        "absence of an artifact from this page does not prove nonexistence"
+      ]
+    },
+    {
+      "evidence_id": "ta14-eight-stages-page",
+      "framework_id": "ta-14",
+      "source_class": "FIRST_PARTY_PUBLIC_DOCTRINE",
+      "url": "https://sites.google.com/view/ta-14-admissible-execution-arc/the-eight-stages-of-ta-14",
+      "observation_class": "DECLARED",
+      "availability": "PUBLIC",
+      "supports": [
+        "ta14-self-public-001",
+        "stegverse-map-ta14-001"
+      ],
+      "limitations": [
+        "stage declaration does not independently establish implementation completeness",
+        "scope overlap does not establish parentage"
+      ]
+    },
+    {
+      "evidence_id": "ta14-public-linkedin-statements",
+      "framework_id": "ta-14",
+      "source_class": "FIRST_PARTY_PUBLIC_STATEMENTS",
+      "url": null,
+      "observation_class": "DECLARED",
+      "availability": "CONVERSATION_CAPTURE_ONLY",
+      "supports": [
+        "ta14-self-public-001",
+        "stegverse-map-ta14-001",
+        "dispute-ta14-parentage-001"
+      ],
+      "limitations": [
+        "no canonical public permalink is retained in this record",
+        "statement capture is evidence of the claim, not proof that the claim is correct"
+      ]
+    }
+  ],
+  "authority": {
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  }
+}
