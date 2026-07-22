@@ -7,7 +7,7 @@ const BASE_CHAIN = {
   blockExplorerUrls: ['https://basescan.org']
 };
 
-const state = {account: null, chainId: null, verifiedRequest: null};
+const state = {account: null, chainId: null, verifiedRequest: null, environment: null};
 const $ = (id) => document.getElementById(id);
 
 function canonicalize(value) {
@@ -26,7 +26,7 @@ async function sha256(value) {
 
 function provider() {
   if (!globalThis.ethereum || typeof globalThis.ethereum.request !== 'function') {
-    throw new Error('No injected EIP-1193 wallet found. Open this page inside MetaMask or install a compatible wallet.');
+    throw new Error('No injected EIP-1193 wallet found. Open this page inside Base App, MetaMask, or another compatible wallet.');
   }
   return globalThis.ethereum;
 }
@@ -35,6 +35,40 @@ function setStatus(element, message, kind = '') {
   element.textContent = message;
   element.classList.remove('ok', 'bad');
   if (kind) element.classList.add(kind);
+}
+
+function environmentRecord() {
+  const injected = Boolean(globalThis.ethereum?.request);
+  const ua = String(navigator.userAgent || '');
+  const hints = [];
+  if (/CoinbaseWallet|Base/i.test(ua)) hints.push('base_or_coinbase_browser_hint');
+  if (/MetaMask/i.test(ua) || globalThis.ethereum?.isMetaMask) hints.push('metamask_hint');
+  return {
+    schema: 'stegwallet.browser_environment.v1',
+    origin: location.origin,
+    secure_context: globalThis.isSecureContext === true,
+    injected_eip1193: injected,
+    environment_hints: hints,
+    environment_trusted_for_authority: false,
+    observed_at: new Date().toISOString()
+  };
+}
+
+async function refreshEnvironment() {
+  state.environment = environmentRecord();
+  state.environment.environment_sha256 = await sha256(state.environment);
+  setStatus(
+    $('environment-status'),
+    `Origin: ${state.environment.origin}\nSecure context: ${state.environment.secure_context}\nInjected wallet: ${state.environment.injected_eip1193}\nHints: ${state.environment.environment_hints.join(', ') || 'none'}\nEnvironment grants authority: false`,
+    state.environment.secure_context ? 'ok' : 'bad'
+  );
+}
+
+function parseBasename(value) {
+  const name = String(value || '').trim().toLowerCase();
+  if (!name) return null;
+  if (!/^[a-z0-9-]+\.base\.eth$/.test(name)) throw new Error('Basename alias must use the form name.base.eth.');
+  return name;
 }
 
 function parseAddressAllowlist(value) {
@@ -56,10 +90,11 @@ async function refreshWallet() {
   let balance = null;
   if (state.account) balance = await p.request({method: 'eth_getBalance', params: [state.account, 'latest']});
   const eth = balance ? Number(BigInt(balance)) / 1e18 : null;
+  const alias = parseBasename($('basename-alias').value);
   setStatus(
     $('wallet-status'),
     state.account
-      ? `Account: ${state.account}\nChain: ${state.chainId}\nNative balance: ${eth?.toFixed(6) ?? 'unknown'} ETH`
+      ? `Account: ${state.account}\nDisplay alias: ${alias || 'none'}\nChain: ${state.chainId}\nNative balance: ${eth?.toFixed(6) ?? 'unknown'} ETH\nCanonical identity: wallet address`
       : `Wallet available, but no account is connected.\nChain: ${state.chainId}`,
     state.account ? 'ok' : ''
   );
@@ -89,6 +124,7 @@ function isoFromLocal(value) {
 
 async function buildGoal() {
   if (!state.account) throw new Error('Connect a wallet before creating the mandate.');
+  if (!state.environment?.secure_context) throw new Error('A secure HTTPS context is required.');
   const mode = $('execution-mode').value;
   const delegationRef = $('delegation-ref').value.trim() || null;
   if (mode === 'delegated_bounded' && !delegationRef) throw new Error('Delegated mode requires a delegation reference.');
@@ -100,6 +136,9 @@ async function buildGoal() {
     goal_id: goalId,
     owner_id: `wallet:${state.account}`,
     wallet_address: state.account,
+    basename_display_alias: parseBasename($('basename-alias').value),
+    canonical_web_origin: location.origin,
+    browser_environment_sha256: state.environment.environment_sha256,
     execution_mode: mode,
     allowed_chain_ids: [BASE_CHAIN_ID],
     allowed_assets: ['USDC', 'WETH'],
@@ -114,13 +153,14 @@ async function buildGoal() {
     expires_at: isoFromLocal($('goal-expiry').value),
     signature_required_per_trade: mode === 'user_signature_required',
     delegation_ref: delegationRef,
+    domain_grants_authority: false,
+    basename_grants_authority: false,
     authority_granted: false,
     raw_private_key_allowed: false,
     created_at: new Date().toISOString()
   };
   if (mandate.max_position_usd > mandate.capital_limit_usd) throw new Error('Maximum position cannot exceed the capital ceiling.');
-  const material = {...mandate};
-  mandate.mandate_sha256 = await sha256(material);
+  mandate.mandate_sha256 = await sha256({...mandate});
   $('goal-output').value = JSON.stringify(mandate, null, 2);
 }
 
@@ -153,7 +193,7 @@ async function verifySignatureRequest() {
   $('send-request').disabled = false;
   setStatus(
     $('request-status'),
-    `VERIFIED FOR WALLET PROMPT\nGoal: ${payload.goal_id}\nProposal: ${payload.proposal_id}\nDecision: ${payload.decision_id}\nTransaction: ${payload.transaction_sha256}\n\nMetaMask remains the final execution authority.`,
+    `VERIFIED FOR WALLET PROMPT\nGoal: ${payload.goal_id}\nProposal: ${payload.proposal_id}\nDecision: ${payload.decision_id}\nTransaction: ${payload.transaction_sha256}\n\nThe connected wallet remains the final execution authority.`,
     'ok'
   );
 }
@@ -185,10 +225,14 @@ async function sendVerifiedRequest() {
     transaction_hash: txHash,
     chain_id: state.chainId,
     wallet_address: state.account,
+    basename_display_alias: parseBasename($('basename-alias').value),
+    canonical_web_origin: location.origin,
+    browser_environment_sha256: state.environment.environment_sha256,
     observed_at: new Date().toISOString(),
     settled: Boolean(receipt),
     receipt: receipt || null,
     execution_authority: 'wallet_user_signature',
+    domain_granted_authority: false,
     custody_recorded: false,
     objective_verified: false
   };
@@ -221,7 +265,9 @@ $('send-request').addEventListener('click', guard(sendVerifiedRequest));
 $('download-goal').addEventListener('click', () => download('goal-output', 'stegwallet-goal-mandate.json'));
 $('download-settlement').addEventListener('click', () => download('settlement-output', 'stegwallet-settlement-observation.json'));
 $('copy-goal').addEventListener('click', guard(async () => navigator.clipboard.writeText($('goal-output').value)));
+$('basename-alias').addEventListener('change', () => refreshWallet().catch(() => {}));
 
+refreshEnvironment().catch(() => {});
 if (globalThis.ethereum?.on) {
   globalThis.ethereum.on('accountsChanged', () => refreshWallet().catch(() => {}));
   globalThis.ethereum.on('chainChanged', () => refreshWallet().catch(() => {}));
