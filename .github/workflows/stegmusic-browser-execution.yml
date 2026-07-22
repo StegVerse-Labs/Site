@@ -1,0 +1,60 @@
+name: StegMusic Browser Execution
+on:
+  pull_request:
+    paths:
+      - 'ecosystem-music.html'
+      - 'assets/ecosystem-music*.js'
+      - 'tests/test_stegmusic_browser.py'
+      - '.github/workflows/stegmusic-browser-execution.yml'
+      - 'scripts/check_stegmusic_browser_automation_contract.py'
+  push:
+    branches: [main]
+    paths:
+      - 'ecosystem-music.html'
+      - 'assets/ecosystem-music*.js'
+      - 'tests/test_stegmusic_browser.py'
+      - '.github/workflows/stegmusic-browser-execution.yml'
+      - 'scripts/check_stegmusic_browser_automation_contract.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-execution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Start static Site server
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 > /tmp/stegmusic-http.log 2>&1 &
+          echo $! > /tmp/stegmusic-http.pid
+          for attempt in $(seq 1 20); do
+            curl --fail --silent http://127.0.0.1:8000/ecosystem-music.html >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/stegmusic-http.log
+          exit 1
+      - name: Execute StegMusic browser runtime
+        run: python tests/test_stegmusic_browser.py
+      - name: Stop static Site server
+        if: always()
+        run: |
+          test ! -f /tmp/stegmusic-http.pid || kill "$(cat /tmp/stegmusic-http.pid)" || true
+      - name: Upload browser execution receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stegmusic-browser-execution-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/stegmusic-browser-execution.json
+          if-no-files-found: error
+          retention-days: 30
