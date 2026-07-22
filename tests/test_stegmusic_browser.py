@@ -16,10 +16,10 @@ def event_types(page):
     return out
 def snapshot(page,stage):
     raw=page.locator('#rawEvents').text_content() or ''
-    return {'stage':stage,'audio_notice':page.locator('#audioNotice').text_content() or '','play_button':page.locator('#playPause').text_content() or '','progress':float(page.locator('#progress').input_value()),'composition_phase':page.locator('#compositionPhase').text_content() or '','event_types':event_types(page),'raw_events_excerpt':raw[-4000:],'runtime_loaded':page.evaluate("typeof window.StegMusicRuntime === 'object'"),'diagnostics_loaded':page.evaluate("typeof window.StegMusicDiagnostics === 'object'")}
+    return {'stage':stage,'audio_notice':page.locator('#audioNotice').text_content() or '','play_button':page.locator('#playPause').text_content() or '','progress':float(page.locator('#progress').input_value()),'composition_phase':page.locator('#compositionPhase').text_content() or '','event_types':event_types(page),'raw_events_excerpt':raw[-4000:],'runtime_loaded':page.evaluate("typeof window.StegMusicRuntime === 'object'"),'diagnostics_loaded':page.evaluate("typeof window.StegMusicDiagnostics === 'object'"),'media_transport_loaded':page.evaluate("typeof window.StegMusicMediaTransport === 'object'")}
 def main():
     REPORT.parent.mkdir(parents=True,exist_ok=True)
-    result={'schema_version':'1.0.0','status_type':'stegmusic_browser_execution','page':f'{BASE_URL}/ecosystem-music.html','passed':False,'browser_audio_execution_verified':False,'audible_output_confirmed':False,'catalog_license_verified':False,'custody_verified_by_this_check':False,'activation_authority_granted':False,'checks':{},'stages':[],'console':[],'page_errors':[]}
+    result={'schema_version':'1.1.0','status_type':'stegmusic_browser_execution','page':f'{BASE_URL}/ecosystem-music.html','passed':False,'browser_audio_execution_verified':False,'audible_output_confirmed':False,'catalog_license_verified':False,'custody_verified_by_this_check':False,'activation_authority_granted':False,'checks':{},'stages':[],'console':[],'page_errors':[]}
     try:
         with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,args=['--autoplay-policy=no-user-gesture-required','--use-fake-ui-for-media-stream'])
@@ -29,7 +29,10 @@ def main():
             page.locator('#adaptiveNext').click(); page.wait_for_timeout(2500); adaptive=snapshot(page,'after_adaptive_next'); result['stages'].append(adaptive)
             if page.locator('#playPause').text_content().strip().lower()=='pause': page.locator('#playPause').click(); page.wait_for_timeout(500)
             paused=snapshot(page,'after_pause'); result['stages'].append(paused); observed=set(paused['event_types'])
-            checks={'page_loaded':page.locator('#playPause').count()==1,'base_runtime_loaded':playing['runtime_loaded'],'diagnostic_runtime_loaded':playing['diagnostics_loaded'],'audio_context_running_marker':'running locally' in playing['audio_notice'].lower(),'composition_advanced':playing['progress']>0,'playback_started_event':'playback_started' in observed,'adaptive_decision_event':'adaptive_selection_decision' in observed,'playback_paused_event':'playback_paused' in observed,'pause_returned_control':paused['play_button'].strip().lower()=='play','no_page_errors':not result['page_errors']}
+            audio_active_marker=any(marker in playing['audio_notice'].lower() for marker in ('running locally','generated media playing','audio · active'))
+            playback_started=bool({'playback_started','generated_media_playback_started'} & observed)
+            playback_paused=bool({'playback_paused','generated_media_playback_paused'} & observed)
+            checks={'page_loaded':page.locator('#playPause').count()==1,'base_runtime_loaded':playing['runtime_loaded'],'diagnostic_runtime_loaded':playing['diagnostics_loaded'],'media_transport_loaded':playing['media_transport_loaded'],'browser_audio_active_marker':audio_active_marker,'composition_advanced':playing['progress']>0,'playback_started_event':playback_started,'adaptive_decision_event':'adaptive_selection_decision' in observed,'playback_paused_event':playback_paused,'pause_returned_control':paused['play_button'].strip().lower()=='play','no_page_errors':not result['page_errors']}
             result['checks']=checks; result['observed_event_types']=sorted(observed); result['passed']=all(checks.values()); result['browser_audio_execution_verified']=result['passed']; browser.close()
     except Exception as error: result['error']=str(error)
     REPORT.write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8'); print(json.dumps(result,indent=2)); return 0 if result['passed'] else 1
