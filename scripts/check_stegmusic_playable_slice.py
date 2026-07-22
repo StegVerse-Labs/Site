@@ -17,6 +17,15 @@ required = {
         'data-view="governed"',
         'data-view="split"',
         'data-view="raw"',
+        'id="capturedInspection"',
+        'id="derivedInspection"',
+        'id="projectionInspection"',
+        'id="permitStegDJ"',
+        'id="permitAggregate"',
+        'id="permitWellness"',
+        'id="revokeButton"',
+        'id="resetButton"',
+        'id="profileName"',
         "Generated audio only",
     ],
     JS: [
@@ -24,8 +33,14 @@ required = {
         "music_selection",
         "playback_started",
         "preference_refinement",
+        "projection_permission_changed",
+        "future_reuse_revoked",
+        "listening_profile_saved",
         "contribution_eligibility",
         "royalty_state",
+        "cross_user_raw_history",
+        "inspectEvent",
+        "permissionSnapshot",
         "localStorage",
         "exportSession",
     ],
@@ -59,3 +74,6 @@ print("STEGMUSIC_PLAYABLE_SLICE_PASS")
 print("authority=none")
 print("commercial_catalog_license=not_claimed")
 print("prototype_financial_value=non_payable")
+print("captured_derived_inspection=present")
+print("downstream_permission_controls=present")
+print("future_reuse_revocation=present")
