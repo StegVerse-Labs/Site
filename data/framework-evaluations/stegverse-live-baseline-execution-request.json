@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "request_id": "stegverse-live-baseline-execution-request-v1",
+  "framework_id": "stegverse",
+  "test_case_id": "stegverse-public-baseline-v1",
+  "requested_transition": "RUN_STEGVERSE_LIVE_BASELINE",
+  "request_state": "PENDING_PREREQUISITES",
+  "requested_by": {
+    "entity_id": "stegverse-labs-site",
+    "role": "PUBLIC_PROJECTION_COORDINATOR",
+    "execution_authority": false,
+    "custody_authority": false
+  },
+  "execution_target": {
+    "runtime_owner": "StegVerse-org/LLM-adapter",
+    "provider_mode": "AUTHORIZED_REAL_PROVIDER_REQUIRED",
+    "endpoint_mode": "PERSISTENT_GOVERNED_ENDPOINT_REQUIRED",
+    "site_is_execution_target": false
+  },
+  "required_precommit_inputs": [
+    "authorized provider configuration receipt",
+    "persistent endpoint activation receipt",
+    "provider usage persistence contract",
+    "Master-Records custody acceptance",
+    "transition custody acceptance",
+    "immutable adapter receipt contract"
+  ],
+  "required_execution_outputs": [
+    "canonical governed event stream",
+    "provider response event",
+    "provider usage persistence receipt",
+    "Master-Records custody receipt",
+    "transition custody receipt",
+    "immutable adapter VERIFIED receipt",
+    "post-execution reconstruction report",
+    "public endpoint verification receipt"
+  ],
+  "prohibited_inferences": [
+    "request publication does not authorize execution",
+    "Site validation does not authorize provider use",
+    "provider success does not establish independent validation",
+    "execution success does not establish architectural completeness",
+    "publication does not establish custody"
+  ],
+  "dispatch": {
+    "authorized": false,
+    "dispatch_id": null,
+    "dispatched_at": null,
+    "authorization_receipt_ref": null,
+    "blocked_by_readiness_id": "stegverse-live-baseline-readiness-v1"
+  },
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  },
+  "updated_at": "2026-07-22T14:20:00Z"
+}
