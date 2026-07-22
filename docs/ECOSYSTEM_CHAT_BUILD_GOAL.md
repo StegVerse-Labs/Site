@@ -345,3 +345,26 @@ After explicit authority approval, bind the existing live-activation workflow to
 
 False for routine repository work. A provider-execution permission and model-selection decision is required before the GitHub Models candidate can be activated.
 
+---
+
+## Provider TLS and ledger verification update — 2026-07-22
+
+- LLM-adapter PR #33 merged as `08e06a7b39ce8bf80d9de9b296e973debbe121ba`.
+- Validation run `29882127078` and Architecture Guard run `29882127069` passed.
+- The canonical broker completed trusted HTTPS transport to the exact StegVerse provider JSON contract using a test fixture.
+- Explicit hostname allowlisting, bearer authentication, transition/run identity continuity, broker provider status `USED`, provider receipt construction, and SQLite provider-ledger persistence are VERIFIED with the test fixture.
+- The focused test executed through the existing `tests/test_provider_usage.py` suite and existing validation workflow.
+- Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_TLS_LEDGER.md`.
+
+### Current blocker
+
+No provenance-approved GGUF model has yet been loaded and executed through this verified TLS/broker path. Real local model generation, provider-usage Master-Records custody and reconstruction, immutable activation, Site activation, and downstream propagation remain UNPROVEN.
+
+### Next executable integration step
+
+Install one approved GGUF through the existing bounded model intake, launch the existing StegVerse provider composition with machine-owned TLS and runtime authentication, and execute the same broker path with real local model generation. Retain the first exact inference, usage, custody, reconstruction, or activation failure.
+
+### Manual user action requirement
+
+False for routine repository work. Model provenance and machine execution authority remain separate runtime boundaries.
+

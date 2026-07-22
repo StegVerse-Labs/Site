@@ -599,3 +599,43 @@ No model-execution permission was granted, no model was selected, and no real pr
 
 Present and resolve the bounded provider-execution decision, then run the existing activation path and retain the first exact failure.
 
+---
+
+## Provider TLS and ledger verification update — 2026-07-22
+
+### Work performed
+
+- Reused the canonical governed provider broker and existing provider-usage validation surface.
+- Added one focused TLS provider fixture test and bound it through the existing test suite.
+- Verified HTTPS trust, authentication, identity continuity, broker receipt creation, and provider-ledger persistence.
+
+### Runtime evidence
+
+- Merge: `08e06a7b39ce8bf80d9de9b296e973debbe121ba`
+- Validation: `29882127078` — SUCCESS
+- Architecture Guard: `29882127069` — SUCCESS
+- Cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_TLS_LEDGER.md`
+
+### State classification
+
+- HTTPS provider transport: VERIFIED with test fixture
+- Provider authentication: VERIFIED with test fixture
+- Broker provider status `USED`: VERIFIED with test fixture
+- Provider receipt creation: VERIFIED with test fixture
+- Provider usage ledger persistence: VERIFIED with test fixture
+- Real GGUF inference: UNPROVEN
+- Provider-usage custody/reconstruction: UNPROVEN
+- Immutable activation, Site activation, propagation: UNPROVEN
+
+### Non-progress
+
+The deterministic fixture does not prove model loading or token generation and is not counted as a real provider response.
+
+### Removals proposed but not performed
+
+None. `StegVerse-Labs/governed-llm` PR #3 remains retained and unmerged.
+
+### Goal delta
+
+TLS transport and local provider-ledger persistence advanced to VERIFIED with a test fixture. No live provider or activation gate advanced.
+
