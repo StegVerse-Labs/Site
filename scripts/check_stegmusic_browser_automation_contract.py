@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import py_compile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,11 @@ def main() -> int:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
+    try:
+        py_compile.compile(str(TEST), doraise=True)
+    except py_compile.PyCompileError as error:
+        return fail(f"browser test does not compile: {error.msg}")
+
     test = TEST.read_text(encoding="utf-8")
     workflow = WORKFLOW.read_text(encoding="utf-8")
 
@@ -32,6 +38,8 @@ def main() -> int:
         '"audible_output_confirmed": False',
         '"activation_authority_granted": False',
         "reports/stegmusic-browser-execution.json",
+        '"stages": []',
+        '"page_errors": []',
     ]
     for marker in test_markers:
         if marker not in test:
