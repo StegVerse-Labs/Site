@@ -1,0 +1,22 @@
+{
+  "schema": "stegwallet.siwe_runtime_configuration.v1",
+  "state": "CONFIGURATION_REQUIRED",
+  "canonical_origin": "https://stegverse.org",
+  "chain_id": 8453,
+  "challenge_endpoint": null,
+  "verify_endpoint": null,
+  "session_endpoint": null,
+  "https_required": true,
+  "same_origin_required": true,
+  "wallet_authentication_enabled": false,
+  "transaction_authority": false,
+  "execution_authority": false,
+  "delegation_authority": false,
+  "custody_recorded": false,
+  "blockers": [
+    "authenticated_siwe_service_not_deployed",
+    "challenge_endpoint_not_configured",
+    "verification_endpoint_not_configured",
+    "session_endpoint_not_configured"
+  ]
+}
