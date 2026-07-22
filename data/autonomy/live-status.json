@@ -1,284 +1,209 @@
 {
-  "completed_history": [
-    {
-      "branch_ids": [
-        "public-enumeration",
-        "public-evidence-inspection",
-        "public-classification",
-        "public-action-planner"
-      ],
-      "completed_at": "2026-07-21T14:18:45Z",
-      "id": "public-integrity-cycle:2026-07-21T14:18:45Z",
-      "result": "Processed 72 public repositories and generated 71 actions.",
-      "status": "COMPLETE",
-      "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
-      "title": "Public completion-integrity cycle"
-    }
-  ],
-  "corrective_actions": [
-    {
-      "action": "Install repository-owned bounded runners for queued external remediations",
-      "id": "authorized-repository-runners",
-      "reason": "25 queued actions cannot be mutated by Site's repository-scoped token.",
-      "status": "MACHINE_ACTION_REQUIRED"
-    },
-    {
-      "action": "Repair failed public autonomy runtime checks and rerun automatically",
-      "evidence_path": "data/autonomy/runtime-verification-evidence.json",
-      "id": "site-runtime-verification-failure",
-      "reason": "Failed required checks: freshness",
-      "status": "AUTOMATIC_REPAIR_REQUIRED"
-    },
-    {
-      "action": "Repair failed public Site runtime checks",
-      "evidence_path": "data/autonomy/runtime-verification-evidence.json",
-      "id": "runtime-verification-failure",
-      "reason": "6 of 7 required runtime checks passed; failed checks: freshness.",
-      "status": "MACHINE_ACTION_REQUIRED"
-    }
-  ],
-  "generated_at": "2026-07-21T14:18:48.122573Z",
-  "inventory_path": "data/autonomy/public-ecosystem-inventory.json",
-  "mode": "PUBLIC_MACHINE_GENERATED_AUTONOMY_TELEMETRY",
-  "next_actions_path": "data/autonomy/public-next-actions.json",
-  "runtime_verification": {
-    "admissibility_authority": false,
-    "completion_authority": false,
-    "evidence_generated_at": "2026-07-21T14:18:48.122573Z",
-    "evidence_path": "data/autonomy/runtime-verification-evidence.json",
-    "failed_required_check_ids": [
-      "freshness"
-    ],
-    "passed_required_checks": 6,
-    "release_authority": false,
-    "required_checks": 7,
-    "state": "FAIL"
-  },
-  "schema_version": "2.3",
+  "schema_version": "2.4",
+  "generated_at": "2026-07-22T03:53:49Z",
+  "mode": "VERIFIED_REPOSITORY_ACTIVITY_WITH_MACHINE_EVIDENCE",
+  "truthful_notice": "This projection combines the latest persisted Site runtime evidence with verified destination-owned evidence records. Site runtime remains blocked until a new cadence-policy-aware PASS is persisted; LLM-adapter and Triage outcomes are machine-produced and fail closed.",
   "summary": {
     "coverage": "PUBLIC_REPOSITORIES_ONLY",
-    "next_actions": 71,
-    "operationally_complete": 1,
     "organizations": 8,
     "repositories": 72,
-    "valid_completion_evidence": 1
+    "operationally_complete": 1,
+    "valid_completion_evidence": 1,
+    "destination_owned_runners_executed": 2,
+    "next_actions": 71
+  },
+  "runtime_verification": {
+    "state": "FAIL",
+    "evidence_generated_at": "2026-07-21T14:18:48.122573Z",
+    "required_checks": 7,
+    "passed_required_checks": 6,
+    "failed_required_check_ids": ["freshness"],
+    "repair_installed": true,
+    "repair_result_observed": false,
+    "evidence_path": "data/autonomy/runtime-verification-evidence.json",
+    "completion_authority": false,
+    "release_authority": false,
+    "admissibility_authority": false
   },
   "task_graph": {
-    "edges": [
-      {
-        "from": "public-truth-root",
-        "to": "public-enumeration",
-        "type": "split"
-      },
-      {
-        "from": "public-truth-root",
-        "to": "public-evidence-inspection",
-        "type": "split"
-      },
-      {
-        "from": "public-enumeration",
-        "to": "public-classification",
-        "type": "converge"
-      },
-      {
-        "from": "public-evidence-inspection",
-        "to": "public-classification",
-        "type": "converge"
-      },
-      {
-        "from": "public-classification",
-        "to": "public-action-planner",
-        "type": "sequence"
-      },
-      {
-        "from": "public-classification",
-        "to": "public-completion-gate",
-        "type": "split"
-      },
-      {
-        "from": "public-action-planner",
-        "to": "public-completion-gate",
-        "type": "converge"
-      },
-      {
-        "from": "public-action-planner",
-        "to": "public-execution-runners",
-        "type": "resplit"
-      },
-      {
-        "from": "next-action-planning",
-        "to": "bounded-dispatch",
-        "type": "resplit"
-      },
-      {
-        "from": "bounded-dispatch",
-        "to": "site-objective-contract",
-        "type": "split"
-      },
-      {
-        "from": "bounded-dispatch",
-        "to": "site-runtime-check-spec",
-        "type": "split"
-      },
-      {
-        "from": "bounded-dispatch",
-        "to": "cross-repo-authority-gate",
-        "type": "split"
-      },
-      {
-        "from": "site-runtime-check-spec",
-        "to": "site-runtime-verification",
-        "type": "sequence"
-      }
-    ],
     "graph_id": "public-autonomy-cycle",
+    "root_task_ids": ["public-truth-root"],
     "nodes": [
       {
-        "current_step": "Public inventory, evidence inspection, classification, and action planning execute on a schedule.",
-        "depends_on": [],
         "id": "public-truth-root",
-        "owner": "StegVerse-Labs/Site",
-        "status": "IN_PROGRESS",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
         "title": "Public ecosystem truth cycle",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "status": "IN_PROGRESS",
+        "current_step": "Inventory, evidence inspection, classification, remediation planning, and destination-owned evidence projection continue on scheduled repository workflows.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-22T03:53:49Z",
+        "depends_on": [],
+        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
       {
-        "depends_on": [
-          "public-truth-root"
-        ],
         "id": "public-enumeration",
-        "owner": "StegVerse-Labs/Site",
-        "result": "Enumerated 72 public repositories across 8 configured organizations.",
-        "status": "COMPLETE",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
         "title": "Enumerate public ecosystem repositories",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "status": "COMPLETE",
+        "result": "Latest persisted cycle enumerated 72 public repositories across 8 configured organizations.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-21T14:18:45Z",
+        "depends_on": ["public-truth-root"]
       },
       {
-        "depends_on": [
-          "public-truth-root"
-        ],
         "id": "public-evidence-inspection",
-        "owner": "StegVerse-Labs/Site",
-        "result": "Strict completion evidence is valid for 1 public repositories.",
-        "status": "COMPLETE",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
         "title": "Inspect public objective and runtime evidence",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "status": "COMPLETE",
+        "result": "Strict evidence inspection is active; one repository currently satisfies strict operational completion evidence.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-21T14:18:45Z",
+        "depends_on": ["public-truth-root"]
       },
       {
-        "depends_on": [
-          "public-enumeration",
-          "public-evidence-inspection"
-        ],
         "id": "public-classification",
-        "owner": "StegVerse-Labs/Site",
-        "result": "Applied fail-closed outcome classifications; unknown evidence does not count as complete.",
-        "status": "COMPLETE",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
         "title": "Classify public repository integrity",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "status": "COMPLETE",
+        "result": "Fail-closed outcome classifications are applied; unknown, pending, workflow-only, and unit-test-only evidence do not count as operational completion.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-22T03:53:49Z",
+        "depends_on": ["public-enumeration", "public-evidence-inspection"]
       },
       {
-        "depends_on": [
-          "public-classification"
-        ],
         "id": "public-action-planner",
-        "owner": "StegVerse-Labs/Site",
-        "result": "Generated 71 machine-owned public repository actions.",
-        "status": "COMPLETE",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
         "title": "Generate public remediation queue",
-        "updated_at": "2026-07-21T14:18:45Z"
-      },
-      {
-        "current_step": "1 of 72 public repositories satisfy strict operational completion evidence.",
-        "depends_on": [
-          "public-classification",
-          "public-action-planner"
-        ],
-        "id": "public-completion-gate",
+        "status": "COMPLETE",
+        "result": "Latest persisted inventory generated 71 machine-owned repository actions.",
         "owner": "StegVerse-Labs/Site",
-        "status": "BLOCKED_BY_EVIDENCE_COLLECTION",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
-        "title": "Apply public ecosystem completion gate",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "updated_at": "2026-07-21T14:18:45Z",
+        "depends_on": ["public-classification"]
       },
       {
-        "current_step": "Bounded repository-owned execution runners remain the next autonomy layer.",
-        "depends_on": [
-          "public-action-planner"
-        ],
-        "id": "public-execution-runners",
-        "owner": "StegVerse-Labs/StegOps-Orchestrator",
-        "status": "READY",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
-        "title": "Dispatch repository remediation branches",
-        "updated_at": "2026-07-21T14:18:45Z"
-      },
-      {
-        "depends_on": [
-          "next-action-planning"
-        ],
         "id": "bounded-dispatch",
-        "owner": "StegVerse-Labs/Site",
-        "result": "Applied or verified 2 Site-owned controls and evaluated 25 cross-repository actions under deny-by-default authority.",
+        "title": "Execute bounded Site remediation",
         "status": "COMPLETE",
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7",
-        "title": "Execute bounded remediation actions",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "result": "Site-owned controls execute under deny-by-default mutation authority; cross-repository mutations remain destination-owned.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-22T03:53:49Z",
+        "depends_on": ["public-action-planner"]
       },
       {
-        "depends_on": [
-          "bounded-dispatch"
-        ],
-        "id": "site-objective-contract",
-        "owner": "StegVerse-Labs/Site",
-        "result": "A machine-readable outcome contract now defines the required public observability capability and disallowed substitutes.",
+        "id": "freshness-policy-repair",
+        "title": "Unify runtime freshness source of truth",
         "status": "COMPLETE",
-        "title": "Bind Site autonomy objective",
-        "updated_at": "2026-07-21T14:18:45Z"
-      },
-      {
-        "depends_on": [
-          "bounded-dispatch"
-        ],
-        "id": "site-runtime-check-spec",
+        "result": "The bounded dispatcher now reads canonical data/autonomy/freshness-policy.json and can no longer restore the obsolete hard-coded 90-minute threshold.",
         "owner": "StegVerse-Labs/Site",
-        "result": "Endpoint, freshness, machine-mode, live-page mobile, and roadmap mobile checks are specified; execution evidence is produced later in this cycle.",
-        "status": "COMPLETE",
-        "title": "Define Site runtime verification checks",
-        "updated_at": "2026-07-21T14:18:45Z"
+        "updated_at": "2026-07-21T20:37:00Z",
+        "depends_on": ["bounded-dispatch"]
       },
       {
-        "current_step": "25 actions require repository-owned runners; none were falsely executed by Site.",
-        "depends_on": [
-          "bounded-dispatch"
-        ],
-        "id": "cross-repo-authority-gate",
-        "owner": "StegVerse-Labs/Site",
-        "status": "BLOCKED_BY_REPOSITORY_AUTHORITY",
-        "title": "Route external repository remediation",
-        "updated_at": "2026-07-21T14:18:45Z"
-      },
-      {
-        "depends_on": [
-          "site-runtime-check-spec"
-        ],
-        "evidence_path": "data/autonomy/runtime-verification-evidence.json",
         "id": "site-runtime-verification",
+        "title": "Verify public Site runtime after repair",
+        "status": "AWAITING_MACHINE_RESULT",
+        "current_step": "The repair is installed, but the latest persisted runtime receipt still reports 6 of 7 checks passing with freshness failed. Awaiting a new workflow-produced cadence-policy-aware result.",
         "owner": "StegVerse-Labs/Site",
-        "result": "6 of 7 required runtime checks passed; failed checks: freshness.",
+        "updated_at": "2026-07-22T03:53:49Z",
+        "depends_on": ["freshness-policy-repair"],
+        "evidence_path": "data/autonomy/runtime-verification-evidence.json"
+      },
+      {
+        "id": "external-runner-split",
+        "title": "Dispatch destination-owned repository runners",
+        "status": "IN_PROGRESS",
+        "current_step": "Two destination-owned runners have executed; remaining repositories require their own bounded workflows and evidence projections.",
+        "owner": "StegVerse-Labs/StegOps-Orchestrator",
+        "updated_at": "2026-07-22T03:53:49Z",
+        "depends_on": ["public-action-planner"]
+      },
+      {
+        "id": "llm-adapter-runner",
+        "title": "Project LLM-adapter operational evidence",
         "status": "BLOCKED_BY_RUNTIME_EVIDENCE",
-        "title": "Verify public Site runtime",
-        "updated_at": "2026-07-21T14:18:48.122573Z"
+        "result": "Destination-owned projection executed and persisted BLOCKED with 11 unmet gates, including gateway health, provider use, durable storage, custody, reconstructability, immutable verified receipt, and destination activation state.",
+        "owner": "StegVerse-org/LLM-adapter",
+        "updated_at": "2026-07-21T20:30:39Z",
+        "depends_on": ["external-runner-split"],
+        "task_url": "https://github.com/StegVerse-org/LLM-adapter/blob/main/data/autonomy/completion-evidence.json"
+      },
+      {
+        "id": "triage-runner",
+        "title": "Project Triage implementation evidence",
+        "status": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
+        "result": "Destination-owned workflow passed implementation checks and persisted fail-closed evidence. Remaining gates are observed user-facing execution, runtime observation, and user-visible outcome verification.",
+        "owner": "GCAT-BCAT-Engine/Triage",
+        "updated_at": "2026-07-21T20:36:12Z",
+        "depends_on": ["external-runner-split"],
+        "task_url": "https://github.com/GCAT-BCAT-Engine/Triage/blob/main/autonomy/completion-evidence.json"
+      },
+      {
+        "id": "public-completion-gate",
+        "title": "Apply public ecosystem completion gate",
+        "status": "BLOCKED_BY_EVIDENCE_COLLECTION",
+        "current_step": "One of 72 public repositories satisfies strict operational completion evidence; two additional repositories now provide truthful destination-owned blocked or implementation-only projections.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-22T03:53:49Z",
+        "depends_on": ["site-runtime-verification", "llm-adapter-runner", "triage-runner"]
       }
     ],
-    "root_task_ids": [
-      "public-truth-root"
+    "edges": [
+      {"from": "public-truth-root", "to": "public-enumeration", "type": "split"},
+      {"from": "public-truth-root", "to": "public-evidence-inspection", "type": "split"},
+      {"from": "public-enumeration", "to": "public-classification", "type": "converge"},
+      {"from": "public-evidence-inspection", "to": "public-classification", "type": "converge"},
+      {"from": "public-classification", "to": "public-action-planner", "type": "sequence"},
+      {"from": "public-action-planner", "to": "bounded-dispatch", "type": "split"},
+      {"from": "bounded-dispatch", "to": "freshness-policy-repair", "type": "sequence"},
+      {"from": "freshness-policy-repair", "to": "site-runtime-verification", "type": "sequence"},
+      {"from": "public-action-planner", "to": "external-runner-split", "type": "split"},
+      {"from": "external-runner-split", "to": "llm-adapter-runner", "type": "split"},
+      {"from": "external-runner-split", "to": "triage-runner", "type": "split"},
+      {"from": "site-runtime-verification", "to": "public-completion-gate", "type": "converge"},
+      {"from": "llm-adapter-runner", "to": "public-completion-gate", "type": "converge"},
+      {"from": "triage-runner", "to": "public-completion-gate", "type": "converge"}
     ]
   },
-  "task_source": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
-  "truthful_notice": "Generated by Site's scheduled workflow from public GitHub evidence. Private repositories are not represented; files and workflows do not prove operational completion."
+  "corrective_actions": [
+    {
+      "id": "site-runtime-pass-pending",
+      "action": "Run and persist the corrected cadence-policy-aware Site runtime verification",
+      "status": "AUTOMATIC_RETRY_PENDING",
+      "reason": "The code repair is installed, but no newer machine-produced PASS receipt has replaced the prior freshness failure."
+    },
+    {
+      "id": "llm-adapter-live-gates",
+      "action": "Satisfy LLM-adapter live provider, storage, custody, reconstructability, receipt, and destination-state gates through its repository-owned workflow",
+      "status": "MACHINE_ACTION_REQUIRED",
+      "reason": "The destination-owned projection truthfully reports 11 critical blockers."
+    },
+    {
+      "id": "triage-runtime-surface",
+      "action": "Build and verify a bounded user-facing Triage execution surface",
+      "status": "MACHINE_ACTION_REQUIRED",
+      "reason": "Implementation evidence passes, but user-facing runtime and outcome evidence do not yet exist."
+    },
+    {
+      "id": "remaining-repository-runners",
+      "action": "Install destination-owned bounded runners for remaining queued repositories",
+      "status": "IN_PROGRESS",
+      "reason": "Two destination-owned runners have executed; the remainder are not yet covered."
+    }
+  ],
+  "completed_history": [
+    {
+      "id": "destination-runner-cycle-1",
+      "title": "First destination-owned evidence cycle",
+      "status": "COMPLETE",
+      "result": "LLM-adapter and Triage each executed repository-owned evidence projections without converting incomplete evidence into completion.",
+      "completed_at": "2026-07-21T20:36:12Z",
+      "branch_ids": ["llm-adapter-runner", "triage-runner"]
+    },
+    {
+      "id": "public-integrity-cycle:2026-07-21T14:18:45Z",
+      "title": "Public completion-integrity cycle",
+      "status": "COMPLETE",
+      "result": "Processed 72 public repositories and generated 71 actions.",
+      "completed_at": "2026-07-21T14:18:45Z",
+      "branch_ids": ["public-enumeration", "public-evidence-inspection", "public-classification", "public-action-planner"]
+    }
+  ],
+  "inventory_path": "data/autonomy/public-ecosystem-inventory.json",
+  "next_actions_path": "data/autonomy/public-next-actions.json",
+  "task_source": "StegVerse-Labs/StegOps-Orchestrator/issues/7"
 }
