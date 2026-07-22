@@ -22,6 +22,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_stegverse_local_node_binding.py"),
     (sys.executable, "scripts/check_ecosystem_node_dual_view.py"),
     (sys.executable, "scripts/check_ecosystem_node_replay_and_disclosure.py"),
+    (sys.executable, "scripts/check_ecosystem_chat_value_claims.py"),
     (sys.executable, "scripts/check_stegmusic_playable_slice.py"),
     (sys.executable, "scripts/check_stegmusic_adaptive_model.py"),
     (sys.executable, "scripts/check_chat_session_launcher.py"),
