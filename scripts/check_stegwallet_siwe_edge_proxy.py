@@ -2,12 +2,15 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKER = ROOT / "workers" / "stegwallet-siwe-edge" / "src" / "index.js"
-WRANGLER = ROOT / "workers" / "stegwallet-siwe-edge" / "wrangler.siwe.candidate.jsonc"
-PACKAGE = ROOT / "workers" / "stegwallet-siwe-edge" / "package.json"
+WORKER_DIR = ROOT / "workers" / "stegwallet-siwe-edge"
+WORKER = WORKER_DIR / "src" / "index.js"
+TEST = WORKER_DIR / "test.mjs"
+WRANGLER = WORKER_DIR / "wrangler.siwe.candidate.jsonc"
+PACKAGE = WORKER_DIR / "package.json"
 STATE = ROOT / "data" / "stegwallet-siwe-edge-deployment.json"
 
 
@@ -23,6 +26,7 @@ def prohibit(text: str, marker: str, source: str) -> None:
 
 def main() -> int:
     worker = WORKER.read_text(encoding="utf-8")
+    test = TEST.read_text(encoding="utf-8")
     wrangler = WRANGLER.read_text(encoding="utf-8")
     package = json.loads(PACKAGE.read_text(encoding="utf-8"))
     state = json.loads(STATE.read_text(encoding="utf-8"))
@@ -56,6 +60,18 @@ def main() -> int:
         require(worker, marker, WORKER.name)
 
     for marker in (
+        "client-forgery",
+        "x-stegwallet-edge-token",
+        "wrongHost.status, 403",
+        "unknown.status, 404",
+        "method.status, 405",
+        "query.status, 400",
+        "transaction_authority, false",
+        "execution_authority, false",
+    ):
+        require(test, marker, TEST.name)
+
+    for marker in (
         '"workers_dev": false',
         '"pattern": "stegverse.org/api/stegwallet/siwe/*"',
         '"zone_name": "stegverse.org"',
@@ -63,7 +79,7 @@ def main() -> int:
     ):
         require(wrangler, marker, WRANGLER.name)
 
-    combined = worker + "\n" + wrangler + "\n" + json.dumps(package)
+    combined = worker + "\n" + test + "\n" + wrangler + "\n" + json.dumps(package)
     for marker in (
         "private_key",
         "seed_phrase",
@@ -98,6 +114,17 @@ def main() -> int:
             raise SystemExit(f"STEGWALLET_SIWE_EDGE_FAIL: {field} must be false")
     if not state.get("activation_blockers"):
         raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: activation blockers required")
+
+    completed = subprocess.run(
+        ["node", str(TEST)],
+        cwd=WORKER_DIR,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if completed.returncode != 0 or "STEGWALLET_SIWE_EDGE_BEHAVIOR_PASS" not in completed.stdout:
+        raise SystemExit(f"STEGWALLET_SIWE_EDGE_FAIL: behavior test failed\n{completed.stdout}")
 
     print("STEGWALLET_SIWE_EDGE_PROXY_PASS")
     print("worker_deployed=false")
