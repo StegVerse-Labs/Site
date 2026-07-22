@@ -38,6 +38,7 @@ REQUIRED_HANDOFF_ALTERNATIVES = [
     (
         "Goal: fully functional governed Ecosystem Chat request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation path",
         "Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, and downstream propagation path",
+        "Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, downstream propagation, and playable governed service surfaces",
     ),
     (
         "Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
