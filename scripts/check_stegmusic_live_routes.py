@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -27,11 +26,12 @@ ROUTES: dict[str, tuple[str, ...]] = {
     "ecosystem-music.html": (
         "StegMusic / StegDJ",
         "StegDJ surprise me",
-        "id=\"playPause\"",
-        "id=\"adaptiveNext\"",
+        'id="playPause"',
+        'id="adaptiveNext"',
         "assets/ecosystem-music.js",
         "assets/ecosystem-music-adaptive.js",
         "assets/ecosystem-music-local-source.js",
+        "assets/ecosystem-music-diagnostics.js",
         "Generated and user-owned local audio",
     ),
     "assets/ecosystem-music.js": (
@@ -50,6 +50,20 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "local_source_loaded",
         "local_playback_started",
         "URL.revokeObjectURL",
+    ),
+    "assets/ecosystem-music-diagnostics.js": (
+        "assets/ecosystem-music-media-transport.js",
+        "StegMusicMediaTransport",
+        "audio_self_test_passed",
+        "audible_output_confirmed: false",
+    ),
+    "assets/ecosystem-music-media-transport.js": (
+        "OfflineAudioContext",
+        "encodeWav",
+        "generated_media_playback_started",
+        "navigator.mediaSession",
+        "human_audibility_confirmed",
+        "screen_lock_continuity_confirmed",
     ),
     "ecosystem-chat.html": (
         "Ecosystem Node",
@@ -116,7 +130,7 @@ def main() -> int:
             print(f"STEGMUSIC_LIVE_ROUTE_FAIL: {url} error={error!r}")
 
     payload = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "status_type": "stegmusic_live_verification",
         "checked_at": datetime.now(timezone.utc).isoformat(),
         "base_url": BASE_URL,
@@ -125,7 +139,11 @@ def main() -> int:
         "authority_effect": "NONE",
         "claims": {
             "public_files_present": passed,
+            "generated_media_transport_published": passed,
             "browser_audio_execution_verified": False,
+            "human_audibility_verified": False,
+            "iphone_safari_compatibility_verified": False,
+            "screen_lock_continuity_verified": False,
             "catalog_license_verified": False,
             "custody_verified_by_this_check": False,
             "activation_authority_granted": False,

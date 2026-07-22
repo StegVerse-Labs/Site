@@ -2,6 +2,14 @@ name: StegMusic Live Verification
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ecosystem-music.html
+      - assets/ecosystem-music*.js
+      - scripts/check_stegmusic_live_routes.py
+      - .github/workflows/stegmusic-live-verification.yml
   workflow_run:
     workflows:
       - Site Task Runner
@@ -19,6 +27,7 @@ jobs:
   verify-live-music:
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
       (github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
