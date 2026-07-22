@@ -52,7 +52,6 @@ def main() -> int:
     ):
         require(script, marker, SCRIPT.name)
 
-    # The browser surface must never contain secret intake or autonomous signer material.
     for marker in (
         "mnemonic",
         "seed input",
@@ -64,10 +63,13 @@ def main() -> int:
         prohibit(page + "\n" + script, marker, "StegWallet Site surface")
 
     # Only a verified imported signature request may enable the wallet-send control.
-    require(script, "sendButton.disabled = true", SCRIPT.name)
-    require(script, "sendButton.disabled = false", SCRIPT.name)
-    require(script, "verifiedRequest", SCRIPT.name)
-    require(script, "canonicalHash", SCRIPT.name)
+    require(script, "state.verifiedRequest = null", SCRIPT.name)
+    require(script, "$('send-request').disabled = true", SCRIPT.name)
+    require(script, "state.verifiedRequest = payload", SCRIPT.name)
+    require(script, "$('send-request').disabled = false", SCRIPT.name)
+    require(script, "if (!request) throw new Error('Verify an admitted signature request first.')", SCRIPT.name)
+    require(script, "const currentHash = await sha256(request.transaction)", SCRIPT.name)
+    require(script, "if (currentHash !== request.transaction_sha256)", SCRIPT.name)
 
     print("STEGWALLET_CRYPTO_GOALS_PASS")
     return 0
