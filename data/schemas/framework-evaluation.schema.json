@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/data/schemas/framework-evaluation.schema.json",
+  "title": "StegVerse Reciprocal Framework Evaluation",
+  "type": "object",
+  "required": ["schema_version", "evaluation_id", "framework", "self_declaration", "determinations", "test_runs", "publication"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "evaluation_id": {"type": "string", "minLength": 1},
+    "framework": {
+      "type": "object",
+      "required": ["framework_id", "name", "canonical_url"],
+      "properties": {
+        "framework_id": {"type": "string"},
+        "name": {"type": "string"},
+        "canonical_url": {"type": "string", "format": "uri"},
+        "version": {"type": ["string", "null"]},
+        "owner": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "self_declaration": {"$ref": "#/$defs/boundaryDeclaration"},
+    "determinations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/determination"}
+    },
+    "test_runs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/testRun"}
+    },
+    "disputes": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/dispute"},
+      "default": []
+    },
+    "publication": {
+      "type": "object",
+      "required": ["published_at", "record_hash", "projection_authority"],
+      "properties": {
+        "published_at": {"type": "string", "format": "date-time"},
+        "record_hash": {"type": "string"},
+        "projection_authority": {"type": "string", "const": "NONE"},
+        "custody_ref": {"type": ["string", "null"]},
+        "reconstruction_status": {"enum": ["PASS", "PARTIAL", "FAIL", "NOT_TESTED"]}
+      }
+    }
+  },
+  "$defs": {
+    "boundaryDeclaration": {
+      "type": "object",
+      "required": ["claim_id", "source", "scope", "functions", "limitations", "evidence_refs"],
+      "properties": {
+        "claim_id": {"type": "string"},
+        "source": {"enum": ["SELF", "EVALUATOR"]},
+        "scope": {"type": "array", "items": {"type": "string"}},
+        "functions": {"type": "array", "items": {"type": "string"}},
+        "dependencies": {"type": "array", "items": {"type": "string"}},
+        "limitations": {"type": "array", "items": {"type": "string"}},
+        "exclusions": {"type": "array", "items": {"type": "string"}},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "uncertainty": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "determination": {
+      "allOf": [
+        {"$ref": "#/$defs/boundaryDeclaration"},
+        {
+          "type": "object",
+          "required": ["determination_id", "evaluator_id", "observation_class"],
+          "properties": {
+            "determination_id": {"type": "string"},
+            "evaluator_id": {"type": "string"},
+            "observation_class": {"enum": ["DECLARED", "OBSERVED", "DERIVED", "RECONSTRUCTED", "DISPUTED"]},
+            "parentage_claim": {"enum": ["SUPPORTED", "PARTIAL", "UNSUPPORTED", "NOT_CLAIMED", "INCONCLUSIVE"]}
+          }
+        }
+      ]
+    },
+    "testRun": {
+      "type": "object",
+      "required": ["run_id", "test_case_id", "executor_id", "started_at", "result", "event_refs", "evidence_refs"],
+      "properties": {
+        "run_id": {"type": "string"},
+        "test_case_id": {"type": "string"},
+        "executor_id": {"type": "string"},
+        "started_at": {"type": "string", "format": "date-time"},
+        "completed_at": {"type": ["string", "null"], "format": "date-time"},
+        "result": {"enum": ["PASS", "PARTIAL", "FAIL", "ERROR", "REFUSE", "NOT_TESTED", "INCONCLUSIVE", "DISPUTED"]},
+        "input_hash": {"type": "string"},
+        "output_hash": {"type": ["string", "null"]},
+        "event_refs": {"type": "array", "items": {"type": "string"}},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "artifact_refs": {"type": "array", "items": {"type": "string"}},
+        "receipt_refs": {"type": "array", "items": {"type": "string"}},
+        "replay_status": {"enum": ["PASS", "PARTIAL", "FAIL", "NOT_TESTED"]},
+        "reconstruction_status": {"enum": ["PASS", "PARTIAL", "FAIL", "NOT_TESTED"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "uncertainty": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "dispute": {
+      "type": "object",
+      "required": ["dispute_id", "claim_refs", "status", "summary"],
+      "properties": {
+        "dispute_id": {"type": "string"},
+        "claim_refs": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+        "status": {"enum": ["OPEN", "RESOLVED", "INCONCLUSIVE"]},
+        "summary": {"type": "string"},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "additionalProperties": false
+}
