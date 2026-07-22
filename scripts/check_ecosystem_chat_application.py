@@ -23,6 +23,7 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_ecosystem_node_replay_and_disclosure.py"),
     (sys.executable, "scripts/check_stegmusic_playable_slice.py"),
     (sys.executable, "scripts/check_stegmusic_adaptive_model.py"),
+    (sys.executable, "scripts/check_stegmusic_live_verification_contract.py"),
     (sys.executable, "scripts/check_chat_session_launcher.py"),
     (sys.executable, "scripts/check_ecosystem_usage_auth_contract.py"),
     (sys.executable, "scripts/check_ecosystem_usage_ledger.py"),
@@ -89,11 +90,14 @@ COMMANDS: tuple[tuple[str, ...], ...] = (
     (sys.executable, "scripts/check_media_pipeline_downstream_publication.py"),
 )
 
+
 def execute(command: Sequence[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(list(command), cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False)
 
+
 def write_result(payload: dict) -> None:
     RESULT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
 
 def main() -> int:
     passed: list[str] = []
@@ -111,6 +115,7 @@ def main() -> int:
     write_result({"schema_version":"1.0.0","status_type":"site_application_validation_result","passed":True,"failed_command":None,"returncode":0,"output":"ECOSYSTEM_CHAT_APPLICATION_PASS","passed_commands":passed,"live_route_verification_phase":"POST_DEPLOYMENT"})
     print("ECOSYSTEM_CHAT_APPLICATION_PASS")
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
