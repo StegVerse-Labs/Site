@@ -8,6 +8,7 @@ PAGE = ROOT / "ecosystem-music.html"
 RUNTIME = ROOT / "assets" / "ecosystem-music-diagnostics.js"
 MEDIA_TRANSPORT = ROOT / "assets" / "ecosystem-music-media-transport.js"
 IPHONE_VERIFICATION = ROOT / "assets" / "ecosystem-music-iphone-verification.js"
+ENHANCEMENT = ROOT / "assets" / "ecosystem-music-enhancement.js"
 
 
 def fail(message: str) -> int:
@@ -16,7 +17,7 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in (PAGE, RUNTIME, MEDIA_TRANSPORT, IPHONE_VERIFICATION):
+    for path in (PAGE, RUNTIME, MEDIA_TRANSPORT, IPHONE_VERIFICATION, ENHANCEMENT):
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
@@ -24,6 +25,7 @@ def main() -> int:
     runtime = RUNTIME.read_text(encoding="utf-8")
     transport = MEDIA_TRANSPORT.read_text(encoding="utf-8")
     guided = IPHONE_VERIFICATION.read_text(encoding="utf-8")
+    enhancement = ENHANCEMENT.read_text(encoding="utf-8")
 
     page_markers = (
         'id="audioSelfTest"',
@@ -42,8 +44,10 @@ def main() -> int:
         "browser_runtime_execution_confirmed: true",
         "generated_media_transport_confirmed",
         "guided_verification_runtime_confirmed",
+        "loudness_harmony_enhancement_confirmed",
         "assets/ecosystem-music-media-transport.js",
         "assets/ecosystem-music-iphone-verification.js",
+        "assets/ecosystem-music-enhancement.js",
         "window.dispatchEvent(new CustomEvent('stegmusic:emit'",
     )
     transport_markers = (
@@ -74,6 +78,20 @@ def main() -> int:
         "iphone_guided_verification_step_completed",
         "window.StegMusicIphoneVerification",
     )
+    enhancement_markers = (
+        "createDynamicsCompressor",
+        "compressor.threshold.value = -20",
+        "output.gain.value = 1.28",
+        "normalize(rendered, 0.94)",
+        "audio.volume = 1",
+        "chordProgressions",
+        "harmony_voice_count",
+        "complexity_level",
+        "progressive_chord_pad_bass_countermelody",
+        "double_attenuation_removed: true",
+        "source_bytes_uploaded: false",
+        "window.StegMusicEnhancement",
+    )
 
     for marker in page_markers:
         if marker not in page:
@@ -87,6 +105,9 @@ def main() -> int:
     for marker in guided_markers:
         if marker not in guided:
             return fail(f"guided verification missing marker: {marker}")
+    for marker in enhancement_markers:
+        if marker not in enhancement:
+            return fail(f"enhancement missing marker: {marker}")
 
     if page.index("assets/ecosystem-music-diagnostics.js") < page.index("assets/ecosystem-music.js"):
         return fail("diagnostics runtime must load after the base music runtime")
@@ -94,12 +115,16 @@ def main() -> int:
         return fail("automated self-test must not claim audible output")
     if "source_audio_upload" not in transport and "source_bytes_uploaded: false" not in transport:
         return fail("media transport must retain the no-upload boundary")
+    if "source_bytes_uploaded: false" not in enhancement:
+        return fail("enhancement must retain the no-upload boundary")
 
     print("STEGMUSIC_BROWSER_SELF_TEST_PASS")
     print("authority_effect=NONE")
     print("audibility_claim=human_confirmation_only")
     print("generated_media_transport=offline_render_to_html_audio_wav")
     print("guided_iphone_verification=enabled")
+    print("loudness_strategy=compression_plus_peak_normalization")
+    print("harmony_strategy=chord_pad_bass_countermelody")
     return 0
 
 
