@@ -45,6 +45,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_framework_evaluations.py'),
 (sys.executable,'scripts/check_framework_evaluation_replay.py'),
 (sys.executable,'scripts/check_stegverse_live_baseline_readiness.py'),
+(sys.executable,'scripts/check_stegverse_live_baseline_execution_request.py'),
 (sys.executable,'scripts/generate_framework_evaluation_receipts.py'),
 (sys.executable,'scripts/check_framework_evaluation_receipts.py'),
 (sys.executable,'scripts/check_ecosystem_chat_ai_entry_full.py'),
