@@ -12,14 +12,33 @@ REPORT = ROOT / "reports" / "stegmusic-browser-execution.json"
 BASE_URL = os.environ.get("STEGMUSIC_TEST_BASE_URL", "http://127.0.0.1:8000")
 
 
+def event_types(page) -> list[str]:
+    raw = page.locator("#rawEvents").text_content() or ""
+    types: list[str] = []
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        event_type = payload.get("event_type")
+        if isinstance(event_type, str):
+            types.append(event_type)
+    return types
+
+
 def snapshot(page, stage: str) -> dict:
+    raw = page.locator("#rawEvents").text_content() or ""
     return {
         "stage": stage,
         "audio_notice": page.locator("#audioNotice").text_content() or "",
         "play_button": page.locator("#playPause").text_content() or "",
         "progress": float(page.locator("#progress").input_value()),
         "composition_phase": page.locator("#compositionPhase").text_content() or "",
-        "raw_events": (page.locator("#rawEvents").text_content() or "")[-4000:],
+        "event_types": event_types(page),
+        "raw_events_excerpt": raw[-4000:],
         "runtime_loaded": page.evaluate("typeof window.StegMusicRuntime === 'object'"),
         "diagnostics_loaded": page.evaluate("typeof window.StegMusicDiagnostics === 'object'"),
     }
@@ -75,20 +94,21 @@ def main() -> int:
             paused = snapshot(page, "after_pause")
             result["stages"].append(paused)
 
-            combined_events = "\n".join(stage["raw_events"] for stage in result["stages"])
+            observed_types = set(paused["event_types"])
             checks = {
                 "page_loaded": page.locator("#playPause").count() == 1,
                 "base_runtime_loaded": playing["runtime_loaded"],
                 "diagnostic_runtime_loaded": playing["diagnostics_loaded"],
                 "audio_context_running_marker": "running locally" in playing["audio_notice"].lower(),
                 "composition_advanced": playing["progress"] > 0,
-                "playback_started_event": "playback_started" in combined_events,
-                "adaptive_decision_event": "adaptive_selection_decision" in combined_events,
-                "playback_paused_event": "playback_paused" in combined_events,
+                "playback_started_event": "playback_started" in observed_types,
+                "adaptive_decision_event": "adaptive_selection_decision" in observed_types,
+                "playback_paused_event": "playback_paused" in observed_types,
                 "pause_returned_control": paused["play_button"].strip().lower() == "play",
                 "no_page_errors": not result["page_errors"],
             }
             result["checks"] = checks
+            result["observed_event_types"] = sorted(observed_types)
             result["passed"] = all(checks.values())
             result["browser_audio_execution_verified"] = result["passed"]
             browser.close()
