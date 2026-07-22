@@ -107,7 +107,17 @@
     }
   }
 
+  function loadIntentCompositionController() {
+    if (window.StegMusicIntentComposition || document.querySelector('script[data-stegmusic-intent-composition]')) return;
+    const script = document.createElement('script');
+    script.src = 'assets/ecosystem-music-intent-composition.js';
+    script.async = false;
+    script.dataset.stegmusicIntentComposition = 'v1';
+    document.body.appendChild(script);
+  }
+
   const button = $('audioSelfTest');
   if (button) button.addEventListener('click', runSelfTest);
-  window.StegMusicDiagnostics = Object.freeze({ runSelfTest });
+  loadIntentCompositionController();
+  window.StegMusicDiagnostics = Object.freeze({ runSelfTest, loadIntentCompositionController });
 })();
