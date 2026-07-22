@@ -1,0 +1,135 @@
+{
+  "contract": "docs/ECOSYSTEM_CHAT_VALUE_CLAIM_CONTRACT.md",
+  "authority_effect": "NONE",
+  "claims": [
+    {
+      "claim_id": "vc-001",
+      "submission_event_id": "evt-user-observation-001",
+      "claimant_refs": ["actor:user-001"],
+      "stage": "submitted",
+      "information_posture": {
+        "source_type": "user_observation",
+        "ownership_asserted": true,
+        "consent_refs": ["consent:interaction-only-001"],
+        "reuse_scope": "interaction_only",
+        "sensitivity": "private"
+      },
+      "influence": {
+        "target_event_refs": [],
+        "mechanism": "context",
+        "materiality": "unassessed",
+        "confidence": 0.0,
+        "uncertainty": "No downstream influence has been evaluated."
+      },
+      "value": {
+        "category": "unassessed",
+        "measurement_method": "",
+        "baseline_refs": [],
+        "observed_amount": null,
+        "unit": null,
+        "externalized_cost_refs": []
+      },
+      "distribution": {
+        "reward_class": "none",
+        "policy_refs": [],
+        "contract_refs": [],
+        "allocation": null,
+        "settlement_receipt_refs": []
+      },
+      "evidence_refs": ["evidence:submission-hash-001"],
+      "competing_claim_refs": [],
+      "dispute_status": "none",
+      "created_at": "2026-07-22T16:00:00Z",
+      "updated_at": "2026-07-22T16:00:00Z",
+      "hash": "preview-only:vc-001"
+    },
+    {
+      "claim_id": "vc-002",
+      "submission_event_id": "evt-user-correction-002",
+      "claimant_refs": ["actor:user-002"],
+      "stage": "recognized",
+      "information_posture": {
+        "source_type": "user_correction",
+        "ownership_asserted": false,
+        "consent_refs": ["consent:bounded-downstream-002"],
+        "reuse_scope": "bounded_downstream",
+        "sensitivity": "confidential"
+      },
+      "influence": {
+        "target_event_refs": ["evt-artifact-revision-009"],
+        "mechanism": "correction",
+        "materiality": "high",
+        "confidence": 0.86,
+        "uncertainty": "Attribution among the correction, prior source material, and model transformation remains unresolved."
+      },
+      "value": {
+        "category": "evidentiary",
+        "measurement_method": "",
+        "baseline_refs": [],
+        "observed_amount": null,
+        "unit": null,
+        "externalized_cost_refs": []
+      },
+      "distribution": {
+        "reward_class": "credit",
+        "policy_refs": ["policy:recognition-credit-v1"],
+        "contract_refs": [],
+        "allocation": null,
+        "settlement_receipt_refs": []
+      },
+      "evidence_refs": ["evidence:diff-009", "evidence:causal-review-009"],
+      "competing_claim_refs": ["claim:source-author-004"],
+      "dispute_status": "open",
+      "created_at": "2026-07-22T16:05:00Z",
+      "updated_at": "2026-07-22T16:12:00Z",
+      "hash": "preview-only:vc-002"
+    },
+    {
+      "claim_id": "vc-003",
+      "submission_event_id": "evt-user-record-003",
+      "claimant_refs": ["actor:user-003", "actor:collaborator-007"],
+      "stage": "distributable",
+      "information_posture": {
+        "source_type": "user_record",
+        "ownership_asserted": true,
+        "consent_refs": ["consent:licensed-reuse-003"],
+        "reuse_scope": "licensed_reuse",
+        "sensitivity": "restricted"
+      },
+      "influence": {
+        "target_event_refs": ["evt-decision-044", "evt-artifact-045"],
+        "mechanism": "evidence",
+        "materiality": "decisive",
+        "confidence": 0.93,
+        "uncertainty": "Allocation remains bounded by unresolved infrastructure and prior-work shares."
+      },
+      "value": {
+        "category": "mixed",
+        "measurement_method": "Avoided-cost comparison against approved baseline v2 over 30 days.",
+        "baseline_refs": ["baseline:workflow-v2", "measurement:run-030"],
+        "observed_amount": 12500,
+        "unit": "USD-avoided-cost",
+        "externalized_cost_refs": ["assessment:externalities-003"]
+      },
+      "distribution": {
+        "reward_class": "royalty_candidate",
+        "policy_refs": ["policy:value-distribution-v1"],
+        "contract_refs": ["contract:licensed-contribution-003"],
+        "allocation": {
+          "status": "provisional",
+          "claimant_share": 0.42,
+          "infrastructure_share": 0.18,
+          "prior_work_share": 0.25,
+          "unresolved_share": 0.15
+        },
+        "settlement_receipt_refs": []
+      },
+      "evidence_refs": ["evidence:decision-lineage-044", "evidence:measurement-030", "evidence:admissibility-044"],
+      "competing_claim_refs": ["claim:prior-work-011"],
+      "dispute_status": "none",
+      "created_at": "2026-07-22T16:20:00Z",
+      "updated_at": "2026-07-22T16:45:00Z",
+      "hash": "preview-only:vc-003"
+    }
+  ]
+}
