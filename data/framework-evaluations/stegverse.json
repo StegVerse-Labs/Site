@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "evaluation_id": "eval-stegverse-self-declaration-v1",
+  "framework": {
+    "framework_id": "stegverse",
+    "name": "StegVerse",
+    "canonical_url": "https://stegverse-labs.github.io/Site/",
+    "version": null,
+    "owner": "StegVerse-Labs"
+  },
+  "self_declaration": {
+    "claim_id": "stegverse-self-001",
+    "source": "SELF",
+    "scope": [
+      "canonical governed event streams",
+      "transition admissibility",
+      "commit-time authority validation",
+      "continuity and reconstruction",
+      "evidence, artifact, and receipt correlation",
+      "provider and execution boundaries",
+      "public human and machine-readable projections"
+    ],
+    "functions": [
+      "normalize compatible incoming records",
+      "evaluate governed transitions",
+      "permit, deny, refuse, quarantine, or fail closed before consequence",
+      "preserve stable event and transition identifiers",
+      "emit replayable JSON or JSONL records",
+      "separate display, custody, admissibility, execution, and publication authority"
+    ],
+    "dependencies": [
+      "compatible handoff or canonical event input",
+      "declared policy and delegation references",
+      "evidence and artifact references",
+      "authorized execution provider when execution is requested",
+      "custody and reconstruction destinations when authoritative retention is required"
+    ],
+    "limitations": [
+      "public Site is a projection and not custody or execution authority",
+      "real-provider activation remains separately gated",
+      "framework comparison does not itself establish admissibility, certification, or superiority",
+      "reciprocal live testing has not yet occurred"
+    ],
+    "exclusions": [
+      "does not claim ownership of every upstream or downstream architecture",
+      "does not infer parentage from scope overlap",
+      "does not treat publication as execution authority"
+    ],
+    "evidence_refs": [
+      "site-mirror-handoff",
+      "ecosystem-node-canonical-event-contract",
+      "governed-transition-observatory",
+      "reciprocal-architectural-evaluation-contract"
+    ],
+    "confidence": 0.92,
+    "uncertainty": [
+      "some runtime integrations remain activation-pending",
+      "external evaluator determinations remain pending"
+    ]
+  },
+  "determinations": [],
+  "test_runs": [],
+  "disputes": [],
+  "publication": {
+    "published_at": "2026-07-22T12:35:00Z",
+    "record_hash": "PENDING_CANONICAL_HASH",
+    "projection_authority": "NONE",
+    "custody_ref": null,
+    "reconstruction_status": "PARTIAL"
+  }
+}
