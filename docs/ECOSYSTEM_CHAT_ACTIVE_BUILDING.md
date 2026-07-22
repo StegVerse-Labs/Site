@@ -514,3 +514,39 @@ A StegVerse-owned provider endpoint implementation and canonical gateway composi
 
 No real model response or provider-usage custody evidence was produced, so runtime completion does not increase.
 
+---
+
+## Provider contract and model-intake update — 2026-07-22
+
+### Work performed
+
+- Independently executed and retained the committed provider contract tests.
+- Merged provider validation PR #1.
+- Added and verified provenance-bound, atomic GGUF model intake.
+- Merged model-intake PR #2.
+
+### State classification
+
+- Provider API/authentication/identity/non-authority contract: VERIFIED in isolated execution
+- Model manifest, SHA-256, and atomic intake contract: VERIFIED
+- Real GGUF installation and generation: UNPROVEN
+- Gateway-to-provider HTTPS execution: UNPROVEN
+- Provider-usage persistence/custody/reconstruction: UNPROVEN
+- Immutable activation, Site activation, propagation: UNPROVEN
+
+### Durable evidence
+
+- Provider merge: `e0f58b7a93d702bf8ace048dabf23c1c9f867be0`
+- Model-intake merge: `c0e88681ca69310b8c6e11461a1e8bc3cfb0e933`
+- Provider receipt SHA-256: `066fdc2bd44a3ad909431b9b37784a6283471d1baef06becab4f0f3b09dbfc51`
+- Model-intake receipt SHA-256: `35097ab0a58377f686cacfb1e04136baff62851488d889815b47ba29eb6b8cf0`
+- Cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_CONTRACT_AND_MODEL_INTAKE.md`
+
+### Goal delta
+
+Provider and model-intake contracts advanced to verified. No live provider or activation gate advanced.
+
+### Removals proposed but not performed
+
+None.
+

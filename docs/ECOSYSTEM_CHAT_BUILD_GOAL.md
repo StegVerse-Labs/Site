@@ -294,3 +294,28 @@ Run the existing `compose.stegverse-provider.yaml` composition on an authorized 
 
 False for routine repository work. Model provenance and machine execution authority remain separate runtime boundaries; no credential, model weight, or private key is requested through chat or committed to GitHub.
 
+---
+
+## Provider contract and model-intake update — 2026-07-22
+
+- Governed provider validation PR #1 merged as `e0f58b7a93d702bf8ace048dabf23c1c9f867be0`.
+- The committed provider API contract passed 2/2 isolated tests for authenticated generation, identity preservation, SHA-256 receipts, and false authority fields.
+- GitHub Actions run `29876624303` failed before exposing steps or logs and remains a separate runner failure.
+- Provenance-bound model-intake PR #2 merged as `c0e88681ca69310b8c6e11461a1e8bc3cfb0e933`.
+- Model intake passed 2/2 isolated tests for exact manifest/digest installation and fail-closed mismatch handling.
+- Provider validation receipt SHA-256: `066fdc2bd44a3ad909431b9b37784a6283471d1baef06becab4f0f3b09dbfc51`.
+- Model-intake receipt SHA-256: `35097ab0a58377f686cacfb1e04136baff62851488d889815b47ba29eb6b8cf0`.
+- Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_CONTRACT_AND_MODEL_INTAKE.md`.
+
+### Current blocker
+
+No provenance-approved real GGUF model and trusted local TLS material have been executed on an authorized StegVerse-controlled machine. Real provider generation, provider-usage persistence/custody/reconstruction, immutable activation, Site activation, and downstream propagation remain unproven.
+
+### Next executable integration step
+
+Install one approved GGUF through the merged bounded intake, start the existing StegVerse provider composition with machine-owned TLS and runtime authentication, and execute one governed request through the canonical gateway and Master-Records path.
+
+### Manual user action requirement
+
+False for routine repository work. Model provenance and machine execution authority remain separate runtime boundaries.
+
