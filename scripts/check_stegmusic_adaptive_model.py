@@ -13,7 +13,8 @@ required = {
         'stegmusic.trait-model.v1', 'INTENT_TARGETS', 'learned_targets', 'ranked_candidates',
         'adaptive_next_requested', 'adaptive_selection_decision', 'preference_fit',
         'transition_fit', 'repeat_penalty', 'stegdj-adaptive-selection-v1',
-        'local_only:true', "authority:'none'",
+        'local_only:true', "authority:'none'", 'defaultModel', 'parseModel',
+        'ensureModel', "if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))",
     ],
     MAIN: ['window.StegMusicRuntime', 'selectGeneratedTrack', 'stegmusic:emit'],
 }
@@ -36,6 +37,7 @@ if failures:
 
 print("STEGMUSIC_ADAPTIVE_MODEL_PASS")
 print("model_storage=browser_local")
+print("model_initialization=fail_safe_default")
 print("aggregate_authority=none")
 print("adaptive_selection=governed_deterministic_scoring")
 print("transition_scoring=present")
