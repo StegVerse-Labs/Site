@@ -8,14 +8,8 @@
       "url": "https://sites.google.com/view/ta-14-admissible-execution-arc/",
       "observation_class": "DECLARED",
       "availability": "PUBLIC",
-      "supports": [
-        "ta14-self-public-001",
-        "stegverse-map-ta14-001"
-      ],
-      "limitations": [
-        "public presentation is not an independently reconstructed execution record",
-        "absence of an artifact from this page does not prove nonexistence"
-      ]
+      "supports": ["ta14-self-public-001", "stegverse-map-ta14-001"],
+      "limitations": ["public presentation is not an independently reconstructed execution record", "absence of an artifact from this page does not prove nonexistence"]
     },
     {
       "evidence_id": "ta14-eight-stages-page",
@@ -24,14 +18,8 @@
       "url": "https://sites.google.com/view/ta-14-admissible-execution-arc/the-eight-stages-of-ta-14",
       "observation_class": "DECLARED",
       "availability": "PUBLIC",
-      "supports": [
-        "ta14-self-public-001",
-        "stegverse-map-ta14-001"
-      ],
-      "limitations": [
-        "stage declaration does not independently establish implementation completeness",
-        "scope overlap does not establish parentage"
-      ]
+      "supports": ["ta14-self-public-001", "stegverse-map-ta14-001"],
+      "limitations": ["stage declaration does not independently establish implementation completeness", "scope overlap does not establish parentage"]
     },
     {
       "evidence_id": "ta14-public-linkedin-statements",
@@ -40,15 +28,48 @@
       "url": null,
       "observation_class": "DECLARED",
       "availability": "CONVERSATION_CAPTURE_ONLY",
-      "supports": [
-        "ta14-self-public-001",
-        "stegverse-map-ta14-001",
-        "dispute-ta14-parentage-001"
-      ],
-      "limitations": [
-        "no canonical public permalink is retained in this record",
-        "statement capture is evidence of the claim, not proof that the claim is correct"
-      ]
+      "supports": ["ta14-self-public-001", "stegverse-map-ta14-001", "dispute-ta14-parentage-001"],
+      "limitations": ["no canonical public permalink is retained in this record", "statement capture is evidence of the claim, not proof that the claim is correct"]
+    },
+    {
+      "evidence_id": "site-mirror-handoff",
+      "framework_id": "stegverse",
+      "source_class": "FIRST_PARTY_REPOSITORY_HANDOFF",
+      "url": "https://github.com/StegVerse-Labs/Site/blob/main/docs/SITE_MIRROR_HANDOFF.md",
+      "observation_class": "DECLARED",
+      "availability": "PUBLIC",
+      "supports": ["stegverse-self-001"],
+      "limitations": ["handoff declares current boundaries and blockers but does not grant execution authority"]
+    },
+    {
+      "evidence_id": "ecosystem-node-canonical-event-contract",
+      "framework_id": "stegverse",
+      "source_class": "FIRST_PARTY_MACHINE_CONTRACT",
+      "url": "https://github.com/StegVerse-Labs/Site/blob/main/docs/ECOSYSTEM_NODE_CANONICAL_EVENT_CONTRACT.md",
+      "observation_class": "DECLARED",
+      "availability": "PUBLIC",
+      "supports": ["stegverse-self-001"],
+      "limitations": ["contract validation does not independently prove live provider activation"]
+    },
+    {
+      "evidence_id": "governed-transition-observatory",
+      "framework_id": "stegverse",
+      "source_class": "FIRST_PARTY_PUBLIC_PROJECTION",
+      "url": "https://stegverse-labs.github.io/Site/governed-transitions.html",
+      "observation_class": "OBSERVED",
+      "availability": "PUBLIC",
+      "supports": ["stegverse-self-001"],
+      "limitations": ["public projection is not custody, admissibility, or execution authority"]
+    },
+    {
+      "evidence_id": "reciprocal-architectural-evaluation-contract",
+      "framework_id": "stegverse",
+      "source_class": "FIRST_PARTY_EVALUATION_CONTRACT",
+      "url": "https://github.com/StegVerse-Labs/Site/blob/main/docs/RECIPROCAL_ARCHITECTURAL_EVALUATION.md",
+      "observation_class": "DECLARED",
+      "availability": "PUBLIC",
+      "supports": ["stegverse-self-001"],
+      "limitations": ["evaluation contract does not constitute independent validation or reciprocity"]
     }
   ],
   "authority": {
