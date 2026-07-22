@@ -8,8 +8,10 @@ GOAL = ROOT / "docs" / "ECOSYSTEM_CHAT_BUILD_GOAL.md"
 ACTIVE = ROOT / "docs" / "ECOSYSTEM_CHAT_ACTIVE_BUILDING.md"
 MARKER = "## StegVerse-owned provider-node update — 2026-07-21"
 VALIDATION_MARKER = "## Provider contract and model-intake update — 2026-07-22"
+OPENAI_MARKER = "## OpenAI-compatible provider profile update — 2026-07-22"
 CYCLE = "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md"
 VALIDATION_CYCLE = "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_CONTRACT_AND_MODEL_INTAKE.md"
+OPENAI_CYCLE = "docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_OPENAI_PROVIDER_PROFILE.md"
 
 GOAL_SECTION = f"""
 
@@ -150,6 +152,87 @@ Provider and model-intake contracts advanced to verified. No live provider or ac
 None.
 """
 
+OPENAI_GOAL_SECTION = f"""
+
+---
+
+{OPENAI_MARKER}
+
+This section supersedes only the statement that the existing governed provider broker could not communicate with an OpenAI-compatible chat-completions endpoint.
+
+- LLM-adapter PR #30 merged as `190bd1fc5b3b4b956887abf24cb866f4a778032d`.
+- `stegverse-v1` remains the default provider protocol.
+- The bounded `openai-chat-completions-v1` profile translates the existing governed request into the OpenAI-compatible chat-completions wire format and maps the response back into the existing provider result and receipt path.
+- Unknown protocol profiles fail closed.
+- Existing endpoint allowlisting, HTTPS enforcement, quota, cost, local usage persistence, custody, reconstruction, receipt, and false-authority boundaries remain in force.
+- Complete validation run `29880129933` and Architecture Guard run `29880129953` passed.
+- Detailed cycle record: `{OPENAI_CYCLE}`.
+
+### Current blocker
+
+No OpenAI-compatible provider has been authorized for execution. The GitHub Models candidate requires `models: read` permission and an explicit model selection. The authorized-provider receipt also reports that Master-Records endpoint and token bindings are absent.
+
+### Next executable integration step
+
+After explicit authority approval, bind the existing live-activation workflow to an authorized OpenAI-compatible provider and execute one governed request. For the GitHub Models candidate, the bounded decision is whether to grant `models: read` and which model to select. Retain the first exact provider, usage, custody, reconstruction, or activation failure.
+
+### Manual user action requirement
+
+False for routine repository work. A provider-execution permission and model-selection decision is required before the GitHub Models candidate can be activated.
+"""
+
+OPENAI_ACTIVE_SECTION = f"""
+
+---
+
+{OPENAI_MARKER}
+
+### Work performed
+
+- Reused and extended the existing governed provider broker instead of creating a provider service or executor.
+- Added a bounded OpenAI-compatible request/response profile.
+- Preserved the default StegVerse provider contract and all existing runtime controls.
+- Added fail-closed tests for missing choices and unsupported protocols.
+
+### Components modified
+
+- `StegVerse-org/LLM-adapter/llm_adapter/governed_provider.py`
+- `StegVerse-org/LLM-adapter/tests/test_governed_provider.py`
+
+### Runtime evidence
+
+- Merge: `190bd1fc5b3b4b956887abf24cb866f4a778032d`
+- Complete validation: `29880129933`
+- Architecture Guard: `29880129953`
+
+### State classification
+
+- OpenAI-compatible provider profile: IMPLEMENTED, INTEGRATED, VERIFIED BY TESTS
+- Real OpenAI-compatible provider call: UNPROVEN
+- Provider usage persistence/custody/reconstruction from real use: UNPROVEN
+- Immutable activation, Site activation, and propagation: UNPROVEN
+
+### Removals proposed but not performed
+
+The accidental root-level `StegVerse-org/LLM-adapter/noop` file is proposed for deletion only after explicit approval. It contains only `noop`, has no dependencies or runtime effect, and can be restored by recreating the file or reverting the future deletion commit. No removal was performed.
+
+### Goal delta
+
+The canonical broker can now consume an OpenAI-compatible provider protocol without duplicating provider, usage, custody, or receipt systems.
+
+### Reuse delta
+
+Existing broker, quota/cost enforcement, provider receipt, usage ledger, custody clients, activation workflow, and validation suite replaced the need for a separate adapter service.
+
+### Non-progress
+
+No model-execution permission was granted, no model was selected, and no real provider call occurred.
+
+### Next executable step
+
+Present and resolve the bounded provider-execution decision, then run the existing activation path and retain the first exact failure.
+"""
+
 
 def append_once(path: Path, marker: str, section: str) -> bool:
     text = path.read_text(encoding="utf-8")
@@ -165,6 +248,8 @@ def main() -> int:
         append_once(ACTIVE, MARKER, ACTIVE_SECTION),
         append_once(GOAL, VALIDATION_MARKER, VALIDATION_GOAL_SECTION),
         append_once(ACTIVE, VALIDATION_MARKER, VALIDATION_ACTIVE_SECTION),
+        append_once(GOAL, OPENAI_MARKER, OPENAI_GOAL_SECTION),
+        append_once(ACTIVE, OPENAI_MARKER, OPENAI_ACTIVE_SECTION),
     ]
     print(f"ECOSYSTEM CHAT PROVIDER NODE STATE SYNC: {'UPDATED' if any(changed) else 'UNCHANGED'}")
     return 0
