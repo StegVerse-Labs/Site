@@ -1,0 +1,147 @@
+{
+  "schema": "stegverse.governed-value-claim-history.v0.1",
+  "authority_effect": "NONE",
+  "histories": [
+    {
+      "claim_id": "vc-history-001",
+      "submission_event_id": "evt-user-record-history-001",
+      "current_stage": "recognized",
+      "events": [
+        {
+          "history_event_id": "vch-001-submitted",
+          "event_type": "stage_transition",
+          "from_stage": null,
+          "to_stage": "submitted",
+          "timestamp": "2026-07-22T17:00:00Z",
+          "actor_ref": "actor:user-101",
+          "consent_refs": ["consent:bounded-downstream-101"],
+          "reuse_scope": "bounded_downstream",
+          "evidence_refs": ["evidence:submission-hash-101"],
+          "policy_refs": ["policy:value-claim-intake-v1"],
+          "authority_effect": "NONE"
+        },
+        {
+          "history_event_id": "vch-001-recognized",
+          "event_type": "stage_transition",
+          "from_stage": "submitted",
+          "to_stage": "recognized",
+          "timestamp": "2026-07-22T17:10:00Z",
+          "actor_ref": "actor:reviewer-201",
+          "consent_refs": ["consent:bounded-downstream-101"],
+          "reuse_scope": "bounded_downstream",
+          "evidence_refs": ["evidence:causal-link-101", "event:artifact-revision-101"],
+          "policy_refs": ["policy:value-recognition-v1"],
+          "authority_effect": "NONE"
+        }
+      ]
+    },
+    {
+      "claim_id": "vc-history-002",
+      "submission_event_id": "evt-user-observation-history-002",
+      "current_stage": "submitted",
+      "events": [
+        {
+          "history_event_id": "vch-002-submitted",
+          "event_type": "stage_transition",
+          "from_stage": null,
+          "to_stage": "submitted",
+          "timestamp": "2026-07-22T17:20:00Z",
+          "actor_ref": "actor:user-102",
+          "consent_refs": ["consent:interaction-only-102"],
+          "reuse_scope": "interaction_only",
+          "evidence_refs": ["evidence:submission-hash-102"],
+          "policy_refs": ["policy:value-claim-intake-v1"],
+          "authority_effect": "NONE"
+        },
+        {
+          "history_event_id": "vch-002-consent-narrowed",
+          "event_type": "consent_change",
+          "from_stage": "submitted",
+          "to_stage": "submitted",
+          "timestamp": "2026-07-22T17:25:00Z",
+          "actor_ref": "actor:user-102",
+          "consent_refs": ["consent:interaction-only-102-rev1"],
+          "reuse_scope": "interaction_only",
+          "evidence_refs": ["evidence:consent-change-102"],
+          "policy_refs": ["policy:consent-revision-v1"],
+          "authority_effect": "NONE"
+        },
+        {
+          "history_event_id": "vch-002-revoked",
+          "event_type": "revocation",
+          "from_stage": "submitted",
+          "to_stage": "submitted",
+          "timestamp": "2026-07-22T17:30:00Z",
+          "actor_ref": "actor:user-102",
+          "consent_refs": ["consent:revoked-102"],
+          "reuse_scope": "interaction_only",
+          "evidence_refs": ["evidence:revocation-request-102"],
+          "policy_refs": ["policy:revocation-v1"],
+          "authority_effect": "NONE"
+        }
+      ]
+    },
+    {
+      "claim_id": "vc-history-003",
+      "submission_event_id": "evt-user-correction-history-003",
+      "current_stage": "attributed",
+      "events": [
+        {
+          "history_event_id": "vch-003-submitted",
+          "event_type": "stage_transition",
+          "from_stage": null,
+          "to_stage": "submitted",
+          "timestamp": "2026-07-22T17:40:00Z",
+          "actor_ref": "actor:user-103",
+          "consent_refs": ["consent:licensed-reuse-103"],
+          "reuse_scope": "licensed_reuse",
+          "evidence_refs": ["evidence:submission-hash-103"],
+          "policy_refs": ["policy:value-claim-intake-v1"],
+          "authority_effect": "NONE"
+        },
+        {
+          "history_event_id": "vch-003-recognized",
+          "event_type": "stage_transition",
+          "from_stage": "submitted",
+          "to_stage": "recognized",
+          "timestamp": "2026-07-22T17:45:00Z",
+          "actor_ref": "actor:reviewer-203",
+          "consent_refs": ["consent:licensed-reuse-103"],
+          "reuse_scope": "licensed_reuse",
+          "evidence_refs": ["evidence:causal-link-103"],
+          "policy_refs": ["policy:value-recognition-v1"],
+          "authority_effect": "NONE"
+        },
+        {
+          "history_event_id": "vch-003-attributed",
+          "event_type": "stage_transition",
+          "from_stage": "recognized",
+          "to_stage": "attributed",
+          "timestamp": "2026-07-22T17:55:00Z",
+          "actor_ref": "actor:attribution-service-301",
+          "consent_refs": ["consent:licensed-reuse-103"],
+          "reuse_scope": "licensed_reuse",
+          "evidence_refs": ["evidence:attribution-analysis-103"],
+          "policy_refs": ["policy:attribution-v1"],
+          "competing_claim_refs": ["claim:prior-work-901"],
+          "uncertainty": "Infrastructure and prior-work shares remain unresolved.",
+          "authority_effect": "NONE"
+        },
+        {
+          "history_event_id": "vch-003-dispute-opened",
+          "event_type": "dispute",
+          "from_stage": "attributed",
+          "to_stage": "attributed",
+          "timestamp": "2026-07-22T18:00:00Z",
+          "actor_ref": "actor:claimant-901",
+          "consent_refs": ["consent:licensed-reuse-103"],
+          "reuse_scope": "licensed_reuse",
+          "evidence_refs": ["evidence:competing-claim-901"],
+          "policy_refs": ["policy:value-dispute-v1"],
+          "competing_claim_refs": ["claim:prior-work-901"],
+          "authority_effect": "NONE"
+        }
+      ]
+    }
+  ]
+}
