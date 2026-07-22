@@ -21,7 +21,8 @@
     <section class="card player">
       <div class="now-playing"><span class="license" id="rightsBadge">STEGDJ GENERATED · LOCAL PROTOTYPE</span><h2 id="trackTitle">Choose a track</h2><p class="muted" id="trackInfo">Select one of the generated tracks below.</p></div>
       <div class="audio-notice" id="audioNotice" role="status" aria-live="polite">AUDIO · waiting for a user-initiated Play action</div>
-      <div class="player-actions"><button class="sv-btn sv-btn-primary" id="playPause" type="button">Play</button><button class="sv-btn sv-btn-secondary" id="stopButton" type="button">Stop</button><button class="sv-btn sv-btn-secondary" id="previousButton" type="button">Previous</button><button class="sv-btn sv-btn-secondary" id="nextButton" type="button">Next</button><button class="sv-btn sv-btn-primary" id="adaptiveNext" type="button">Adaptive next</button></div>
+      <div class="player-actions"><button class="sv-btn sv-btn-primary" id="playPause" type="button">Play</button><button class="sv-btn sv-btn-secondary" id="stopButton" type="button">Stop</button><button class="sv-btn sv-btn-secondary" id="previousButton" type="button">Previous</button><button class="sv-btn sv-btn-secondary" id="nextButton" type="button">Next</button><button class="sv-btn sv-btn-primary" id="adaptiveNext" type="button">Adaptive next</button><button class="sv-btn sv-btn-secondary" id="audioSelfTest" type="button">Run audio self-test</button></div>
+      <div class="status pending" id="audioSelfTestResult" role="status" aria-live="polite">SELF-TEST · NOT RUN · confirms browser execution, not audibility</div>
       <label class="muted">Session position <input class="progress" id="progress" type="range" min="0" max="100" value="0"></label>
       <label class="muted">Volume <input class="progress" id="volume" type="range" min="0" max="100" value="32"></label>
       <div class="intent-row"><label>Session intent <select class="field" id="sessionIntent"><option value="fine_tune">Fine-tune StegDJ</option><option value="stay_alert">Stay alert</option><option value="focus">Focus</option><option value="settle">Settle</option><option value="explore">Explore genre boundaries</option></select></label><span class="license" id="compositionPhase">COMPOSITION · INTRO</span></div>
@@ -40,5 +41,6 @@
 <script src="assets/ecosystem-music.js"></script>
 <script src="assets/ecosystem-music-adaptive.js"></script>
 <script src="assets/ecosystem-music-local-source.js"></script>
+<script src="assets/ecosystem-music-diagnostics.js"></script>
 </body>
 </html>
