@@ -37,6 +37,9 @@ def main() -> int:
     required_importer = [
         "crypto.subtle.digest", "original_sha256", "QUALIFIED_REVIEW_REQUIRED",
         "BROWSER_LOCAL_UNCUSTODIED", "execution_authority:false", "localStorage",
+        "gp10.workspace.evidence.packets.v1", "gp10.workspace.evidence.reviews.v1",
+        "Evidence review queue", "Export complete validation bundle",
+        "detectCrossPacketConflicts", "never silently overwrite",
     ]
     for marker in required_page:
         if marker not in page:
@@ -68,7 +71,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print("OK: GP10 workspace and evidence importer preserve authority boundaries and remain unlinked")
+    print("OK: GP10 workspace, evidence review queue, and bundle export preserve authority boundaries and remain unlinked")
     return 0
 
 
