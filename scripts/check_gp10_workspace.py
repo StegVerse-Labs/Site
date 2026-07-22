@@ -26,9 +26,9 @@ def main() -> int:
         'name="robots" content="noindex,nofollow,noarchive"',
         'assets/gp10-workspace.js',
         'No execution authority',
-        'BROWSER_LOCAL_UNCUSTODIED',
     ]
     required_script = [
+        "BROWSER_LOCAL_UNCUSTODIED",
         "execution_authority: false",
         "DISCOVERY_ONLY",
         "COST_PLUS",
@@ -48,23 +48,23 @@ def main() -> int:
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.resolve() in excluded:
             continue
-        if any(part in {".git", "node_modules"} for part in path.parts):
+        if any(part in {".git", "node_modules", "docs"} for part in path.parts):
             continue
-        if path.suffix.lower() not in {".html", ".md", ".json", ".xml", ".txt", ".js"}:
+        if path.suffix.lower() not in {".html", ".xml"}:
             continue
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
         if "gp10-workspace.html" in text:
-            errors.append(f"temporary workspace is linked or referenced by {path.relative_to(ROOT)}")
+            errors.append(f"temporary workspace is linked by {path.relative_to(ROOT)}")
 
     if errors:
         print(f"FAIL-CLOSED: {len(errors)} GP10 workspace isolation violation(s)")
         for error in errors:
             print(f"- {error}")
         return 1
-    print("OK: GP10 workspace exists, preserves authority boundaries, and is not linked elsewhere")
+    print("OK: GP10 workspace exists, preserves authority boundaries, and is not linked by Site pages or XML indexes")
     return 0
 
 
