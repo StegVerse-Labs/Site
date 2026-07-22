@@ -69,7 +69,7 @@ def main() -> int:
             adaptive = snapshot(page, "after_adaptive_next")
             result["stages"].append(adaptive)
 
-            if (page.locator("#playPause").text_content().strip().lower() == "pause":
+            if page.locator("#playPause").text_content().strip().lower() == "pause":
                 page.locator("#playPause").click()
                 page.wait_for_timeout(500)
             paused = snapshot(page, "after_pause")
