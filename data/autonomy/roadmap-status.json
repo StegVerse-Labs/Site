@@ -1,21 +1,16 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
-  "source_generated_at": "2026-07-21T14:18:48.122573Z",
+  "source_generated_at": "2026-07-22T03:53:49Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
-  "status_model": [
-    "implementation",
-    "operation",
-    "evidence",
-    "exit_gate"
-  ],
+  "status_model": ["implementation", "operation", "evidence", "exit_gate"],
   "phases": [
     {
       "id": "truth-layer",
-      "title": "Phase 1 \u2014 Truth layer",
+      "title": "Phase 1 — Truth layer",
       "implementation": "ADVANCED",
       "operation": "COMPLETE",
       "evidence": "SUFFICIENT",
@@ -23,93 +18,112 @@
       "progress_percent": 100,
       "completed": [
         "public ecosystem inventory",
-        "objective contract",
+        "objective contracts",
         "implementation and operational classification",
         "strict evidence inspection",
-        "completion gate",
-        "machine-owned action generation"
+        "completion-gate machinery",
+        "machine-owned action generation",
+        "destination-owned strict evidence projection for LLM-adapter",
+        "destination-owned strict evidence projection for Triage"
       ],
       "remaining": [],
       "blockers": [
-        "1 of 72 repositories satisfy strict completion evidence"
+        "only 1 of 72 public repositories currently satisfies strict operational completion evidence"
       ]
     },
     {
       "id": "execution-layer",
-      "title": "Phase 2 \u2014 Execution layer",
+      "title": "Phase 2 — Execution layer",
       "implementation": "ADVANCED",
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
-      "progress_percent": 46,
+      "progress_percent": 58,
       "completed": [
         "next-action planning",
         "bounded Site-owned dispatch",
-        "deny-by-default cross-repository routing"
+        "deny-by-default cross-repository routing",
+        "canonical freshness-policy binding",
+        "LLM-adapter destination-owned runner execution",
+        "Triage destination-owned runner execution"
       ],
       "remaining": [
-        "repository-owned bounded runners",
-        "persistent retry and remediation evidence",
-        "dependency-complete external execution"
+        "remaining repository-owned bounded runners",
+        "dependency-complete external remediation",
+        "automatic convergence after destination evidence changes"
       ],
       "blockers": [
-        "25 queued actions cannot be mutated by Site's repository-scoped token."
+        "two destination-owned runners have executed; remaining queued repositories are not yet covered"
       ]
     },
     {
       "id": "runtime-verification-layer",
-      "title": "Phase 3 \u2014 Runtime verification layer",
+      "title": "Phase 3 — Runtime verification layer",
       "implementation": "COMPLETE",
-      "operation": "FAILED_OR_NOT_OBSERVED",
-      "evidence": "RECORDED_FAILURE",
+      "operation": "REPAIR_INSTALLED_RESULT_PENDING",
+      "evidence": "RECORDED_FAILURE_AND_REPAIR",
       "exit_gate": "INCOMPLETE",
-      "progress_percent": 55,
+      "progress_percent": 68,
       "completed": [
-        "endpoint, freshness, machine-mode, and mobile-browser check specification",
-        "executed endpoint and mobile browser verification",
-        "durable runtime evidence"
+        "endpoint, machine-mode, and mobile-browser checks",
+        "durable runtime evidence",
+        "cadence-aware freshness policy",
+        "persistent retry-state mechanism",
+        "dispatcher overwrite defect repaired",
+        "LLM-adapter blocked runtime evidence persisted",
+        "Triage implementation-only runtime posture persisted"
       ],
       "remaining": [
-        "repair failed runtime checks and obtain a complete PASS receipt"
+        "observe a new Site runtime PASS receipt after the canonical policy repair",
+        "satisfy LLM-adapter live provider, storage, custody, reconstructability, and receipt gates",
+        "build and verify a user-facing Triage runtime surface"
       ],
       "blockers": [
-        "runtime verification state: FAIL; 6 of 7 required checks passed"
+        "latest persisted Site runtime evidence still reports 6 of 7 checks passed with freshness failed",
+        "LLM-adapter has 11 critical live-evidence blockers",
+        "Triage lacks observed user-facing execution and outcome evidence"
       ]
     },
     {
       "id": "governance-layer",
-      "title": "Phase 4 \u2014 Governance layer",
+      "title": "Phase 4 — Governance layer",
       "implementation": "ADVANCED",
+      "operation": "PARTIAL",
+      "evidence": "PARTIAL",
+      "exit_gate": "INCOMPLETE",
+      "progress_percent": 55,
+      "completed": [
+        "authority checks",
+        "fail-closed completion classification",
+        "cross-repository mutation refusal",
+        "destination-owned mutation boundary",
+        "pending-status-is-not-completion enforcement",
+        "workflow-success-is-not-completion enforcement",
+        "unit-tests-are-not-runtime enforcement"
+      ],
+      "remaining": [
+        "successor eligibility across repositories",
+        "automatic audit downgrade execution",
+        "cross-repository admissibility completion"
+      ],
+      "blockers": [
+        "destination-owned evidence remains incomplete for most repositories"
+      ]
+    },
+    {
+      "id": "continuity-layer",
+      "title": "Phase 5 — Continuity layer",
+      "implementation": "PARTIAL",
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 42,
       "completed": [
-        "authority checks",
-        "fail-closed completion classification",
-        "cross-repository mutation refusal"
-      ],
-      "remaining": [
-        "successor eligibility",
-        "audit downgrade evidence",
-        "cross-repository admissibility completion"
-      ],
-      "blockers": [
-        "destination-owned admissibility evidence remains incomplete"
-      ]
-    },
-    {
-      "id": "continuity-layer",
-      "title": "Phase 5 \u2014 Continuity layer",
-      "implementation": "PARTIAL",
-      "operation": "PARTIAL",
-      "evidence": "PARTIAL",
-      "exit_gate": "INCOMPLETE",
-      "progress_percent": 34,
-      "completed": [
         "Site mirror handoff",
         "machine-owned continuation sequence",
-        "repository history and generated state preservation"
+        "repository history and generated-state preservation",
+        "destination-owned evidence persistence for LLM-adapter",
+        "destination-owned evidence persistence for Triage"
       ],
       "remaining": [
         "human-readable ecosystem map",
@@ -128,6 +142,8 @@
     "implementation_is_operational_completion": false,
     "evidence_is_release_authority": false,
     "runtime_check_pass_is_overall_completion": false,
+    "destination_projection_is_execution_authority": false,
+    "unit_tests_are_runtime_evidence": false,
     "exit_gate_requires_machine_verifiable_evidence": true
   }
 }
