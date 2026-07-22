@@ -7,7 +7,7 @@
   <title>StegVerse — StegMusic / StegDJ</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
-    .music-shell{display:grid;gap:16px}.music-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:16px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.search-row,.player-actions,.feedback-row,.view-tabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.search-row input{flex:1;min-width:220px}.field{border:1px solid var(--border2);border-radius:var(--radius);background:#080d16;color:var(--text);font:13px/1.5 var(--mono);padding:10px}.catalog{display:grid;gap:10px;margin-top:14px}.track{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:#080d16}.track.active{outline:2px solid #66ff99}.track strong,.track span{display:block}.track span{font-size:11px;color:var(--muted);margin-top:4px}.license{font:10px var(--mono);color:#bce9c5}.player{display:grid;gap:14px}.now-playing{padding:14px;border:1px solid #245c34;border-radius:var(--radius);background:rgba(18,49,27,.18)}.now-playing h2{margin:0 0 6px}.progress{width:100%}.trait-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.trait-grid label{font:11px var(--mono);color:var(--muted)}.trait-grid input{width:100%}.view-tab{border:1px solid var(--border2);border-radius:999px;background:#080d16;color:var(--muted);padding:8px 12px;font:11px var(--mono);cursor:pointer}.view-tab.active{border-color:#66ff99;color:#bce9c5}.projection{display:none}.projection.active{display:block}.event-list{display:grid;gap:8px;max-height:410px;overflow:auto}.event{padding:10px;border:1px solid var(--border);border-radius:var(--radius);font:10px/1.5 var(--mono);background:#080d16}.event strong{color:#bce9c5}.finance-total{font-size:28px;color:#bce9c5;margin:8px 0}.status-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.status{padding:10px;border:1px solid var(--border);border-radius:var(--radius);font:10px var(--mono)}.status.pending{color:#ffd479}.status.active{color:#bce9c5;border-color:#245c34}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.muted{color:var(--muted);font-size:12px}@media(max-width:900px){.music-grid,.split{grid-template-columns:1fr}.trait-grid{grid-template-columns:1fr}}
+    .music-shell{display:grid;gap:16px}.music-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:16px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.search-row,.player-actions,.feedback-row,.view-tabs,.permission-row,.profile-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.search-row input{flex:1;min-width:220px}.field{border:1px solid var(--border2);border-radius:var(--radius);background:#080d16;color:var(--text);font:13px/1.5 var(--mono);padding:10px}.catalog{display:grid;gap:10px;margin-top:14px}.track{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:#080d16}.track.active{outline:2px solid #66ff99}.track strong,.track span{display:block}.track span{font-size:11px;color:var(--muted);margin-top:4px}.license{font:10px var(--mono);color:#bce9c5}.player{display:grid;gap:14px}.now-playing{padding:14px;border:1px solid #245c34;border-radius:var(--radius);background:rgba(18,49,27,.18)}.now-playing h2{margin:0 0 6px}.progress{width:100%}.trait-grid,.inspection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.trait-grid label,.permission-row label{font:11px var(--mono);color:var(--muted)}.trait-grid input{width:100%}.view-tab{border:1px solid var(--border2);border-radius:999px;background:#080d16;color:var(--muted);padding:8px 12px;font:11px var(--mono);cursor:pointer}.view-tab.active{border-color:#66ff99;color:#bce9c5}.projection{display:none}.projection.active{display:block}.event-list{display:grid;gap:8px;max-height:410px;overflow:auto}.event{padding:10px;border:1px solid var(--border);border-radius:var(--radius);font:10px/1.5 var(--mono);background:#080d16;cursor:pointer}.event strong{color:#bce9c5}.event.correlated-active{outline:2px solid #66ff99}.finance-total{font-size:28px;color:#bce9c5;margin:8px 0}.status-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.status{padding:10px;border:1px solid var(--border);border-radius:var(--radius);font:10px var(--mono)}.status.pending{color:#ffd479}.status.active{color:#bce9c5;border-color:#245c34}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.inspection{border:1px solid var(--border);border-radius:var(--radius);padding:12px;background:#080d16}.inspection h3{margin-top:0}.inspection pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10px/1.5 var(--mono);color:#c8d4e8}.muted{color:var(--muted);font-size:12px}@media(max-width:900px){.music-grid,.split,.inspection-grid{grid-template-columns:1fr}.trait-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -46,20 +46,40 @@
         <div class="status pending" id="statusRoyalty">ROYALTY · WAITING</div>
       </div>
       <p class="muted">These indicators remain visible at all times. They activate only when the corresponding governed event occurs.</p>
+      <div class="profile-row"><input class="field" id="profileName" value="Default listener" aria-label="Listening profile name"><button class="sv-btn sv-btn-secondary" id="saveProfile" type="button">Save profile</button></div>
       <button class="sv-btn sv-btn-secondary" id="financeButton" type="button">Open contribution value</button>
       <div id="financePanel" hidden><div class="finance-total" id="financeTotal">$0.0000</div><p class="muted">Prototype estimated contribution value only. It is not a payable balance, security, royalty statement, or financial entitlement.</p><div id="financeBreakdown"></div></div>
     </aside>
   </div>
 
   <section class="card">
-    <div class="view-tabs"><button class="view-tab active" data-view="conversation">Conversation</button><button class="view-tab" data-view="governed">Governed music play</button><button class="view-tab" data-view="split">Split</button><button class="view-tab" data-view="raw">Raw JSONL</button><button class="sv-btn sv-btn-secondary" id="exportButton" type="button">Export session</button></div>
+    <h2 class="sv-h2">Cross-service projection permissions</h2>
+    <div class="permission-row">
+      <label><input id="permitStegDJ" type="checkbox" checked> StegDJ may use selected preference refinements</label>
+      <label><input id="permitAggregate" type="checkbox"> Aggregate reusable music rules</label>
+      <label><input id="permitWellness" type="checkbox"> Wellness service may receive bounded alertness preference</label>
+    </div>
+    <p class="muted">Raw listening history remains private to StegMusic. These toggles control only bounded derived projections.</p>
+  </section>
+
+  <section class="card">
+    <div class="view-tabs"><button class="view-tab active" data-view="conversation">Conversation</button><button class="view-tab" data-view="governed">Governed music play</button><button class="view-tab" data-view="split">Split</button><button class="view-tab" data-view="raw">Raw JSONL</button><button class="sv-btn sv-btn-secondary" id="exportButton" type="button">Export session</button><button class="sv-btn sv-btn-secondary" id="revokeButton" type="button">Revoke future reuse</button><button class="sv-btn sv-btn-secondary" id="resetButton" type="button">Reset local session</button></div>
     <div class="projection active" id="conversationView"><div class="event-list" id="conversationEvents"></div></div>
     <div class="projection" id="governedView"><div class="event-list" id="governedEvents"></div></div>
     <div class="projection" id="splitView"><div class="split"><div class="event-list" id="splitConversation"></div><div class="event-list" id="splitGoverned"></div></div></div>
     <div class="projection" id="rawView"><pre class="event-list" id="rawEvents"></pre></div>
   </section>
+
+  <section class="card">
+    <h2 class="sv-h2">Selected event inspection</h2>
+    <div class="inspection-grid">
+      <div class="inspection"><h3>Captured records</h3><pre id="capturedInspection">Select any event to inspect direct observations.</pre></div>
+      <div class="inspection"><h3>Derived records</h3><pre id="derivedInspection">Select any event to inspect StegDJ interpretations.</pre></div>
+    </div>
+    <div class="inspection"><h3>Permitted downstream projection</h3><pre id="projectionInspection">No event selected.</pre></div>
+  </section>
 </div>
-<footer class="sv-footer"><span>StegVerse · StegMusic / StegDJ prototype · Generated audio only</span><span><a href="ecosystem-chat.html">Ecosystem Node</a> · <a href="docs/SITE_MIRROR_HANDOFF.md">Mirror handoff</a></span></footer>
+<footer class="sv-footer"><span>StegVerse · StegMusic / StegDJ prototype · Generated audio only</span><span><a href="ecosystem-chat.html">Ecosystem Node</a> · <a href="docs/STEGMUSIC_MIRROR_HANDOFF.md">Music handoff</a></span></footer>
 <script src="assets/ecosystem-music.js"></script>
 </body>
 </html>
