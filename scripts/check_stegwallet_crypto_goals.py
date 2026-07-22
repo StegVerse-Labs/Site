@@ -28,9 +28,10 @@ def main() -> int:
         "Approve every trade",
         "Bounded delegated goal",
         "stegwallet.signature_request.v1",
-        "Open MetaMask approval",
+        "Open wallet approval",
         "HPS delegation receipt",
-        "private key / seed phrase     = never requested",
+        "private key / seed phrase",
+        "domain / Basename / profile  != execution authority",
     ):
         require(page, marker, PAGE.name)
 
@@ -43,11 +44,15 @@ def main() -> int:
         "eth_getTransactionReceipt",
         "stegwallet.goal_mandate.v1",
         "stegwallet.signature_request.v1",
+        "stegwallet.browser_environment.v1",
         "transaction_sha256",
         "decision_sha256",
         "requires_user_signature",
         "private_key_requested",
         "delegated_bounded",
+        "canonical_web_origin: location.origin",
+        "environment_trusted_for_authority: false",
+        "basename_grants_authority: false",
         "0x2105",
     ):
         require(script, marker, SCRIPT.name)
@@ -59,6 +64,8 @@ def main() -> int:
         "STEGVERSE_PROVIDER_TOKEN",
         "exec(",
         "child_process",
+        "basename_grants_authority: true",
+        "domain_grants_authority: true",
     ):
         prohibit(page + "\n" + script, marker, "StegWallet Site surface")
 
