@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "stegwallet-siwe-edge",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-22",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "stegverse.org/api/stegwallet/siwe/*",
+      "zone_name": "stegverse.org"
+    }
+  ],
+  "vars": {
+    "SIWE_UPSTREAM_ORIGIN": "https://siwe-origin.invalid"
+  }
+}
