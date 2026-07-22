@@ -17,6 +17,13 @@
       <div class="mini-row"><span class="term">No project numbers</span><span>The economics fields stay hidden and the missing values remain explicit.</span></div>
       <div class="mini-row"><span class="term">No approved threshold</span><span>The threshold fields stay hidden. Do not create a profile merely to complete the form.</span></div>
       <div class="mini-row"><span class="term">Hard stop present</span><span>Commercial-detail pages are skipped because they cannot override the stop.</span></div>
-    </div>`;
+    </div>
+    <h3>Safe practice files</h3>
+    <p>These files are synthetic and exist only to test the import and conflict workflow.</p>
+    <div class="actions">
+      <a class="sv-btn sv-btn-secondary" href="examples/gp10-clean-record.json" download>Download clean JSON sample</a>
+      <a class="sv-btn sv-btn-secondary" href="examples/gp10-conflict-record.csv" download>Download conflicting CSV sample</a>
+    </div>
+    <div class="example warning"><strong>Practice sequence:</strong> Use candidate ID <code>CAND-DEMO-001</code>. Import the clean JSON first, then import the CSV. Both describe unit 1201, but they disagree about donor lineage. The second import should create an identity-conflict review item.</div>`;
   first.parentNode.insertBefore(section, first.nextSibling);
 })();
