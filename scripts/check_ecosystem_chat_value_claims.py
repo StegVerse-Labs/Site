@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Validate the non-authoritative Ecosystem Chat value-claim fixture."""
+"""Validate governed Ecosystem Chat value claims and their Site renderer."""
 
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "data" / "ecosystem-chat-value-claims.fixture.json"
+RENDERER_CHECK = ROOT / "scripts" / "check_ecosystem_chat_value_renderer.py"
 
 STAGES = ["submitted", "recognized", "attributed", "realized", "distributable", "settled"]
 SOURCE_TYPES = {
@@ -97,13 +100,25 @@ def validate_claim(claim: dict[str, Any], seen: set[str]) -> None:
     if stage == "settled":
         require(nonempty_list(distribution.get("settlement_receipt_refs")), f"{claim_id}: settled requires receipt")
 
-    # Fail closed against activity-only payment claims.
     if stage == "submitted":
         require(distribution.get("reward_class") in {"none", "credit"}, f"{claim_id}: submitted claim cannot assert payable reward")
         require(not distribution.get("settlement_receipt_refs"), f"{claim_id}: submitted claim cannot have settlement receipt")
 
     if posture.get("reuse_scope") == "interaction_only":
         require(stage_index < STAGES.index("distributable"), f"{claim_id}: interaction-only data cannot be distributable")
+
+
+def validate_renderer() -> None:
+    completed = subprocess.run(
+        [sys.executable, str(RENDERER_CHECK)],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    require(completed.returncode == 0, f"value renderer validation failed:\n{completed.stdout.rstrip()}")
+    print(completed.stdout.rstrip())
 
 
 def main() -> int:
@@ -117,7 +132,8 @@ def main() -> int:
         require(isinstance(claim, dict), "each claim must be an object")
         validate_claim(claim, seen)
 
-    print(f"PASS: validated {len(claims)} governed value claims")
+    validate_renderer()
+    print(f"PASS: validated {len(claims)} governed value claims and synchronized renderer")
     return 0
 
 
