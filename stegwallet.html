@@ -24,7 +24,7 @@
     <p>Operate from an ordinary mobile browser, MetaMask, or the Base App browser. A Basename may identify the account for people, but the wallet address and hash-bound records remain canonical.</p>
   </div>
 
-  <div class="risk"><strong>Runtime boundary:</strong> connecting a wallet grants account visibility only. A transaction reaches the wallet prompt only after an imported StegWallet signature request passes schema, account, chain, commitment, and authority checks. A Basename, browser environment, or domain never grants execution authority.</div>
+  <div class="risk"><strong>Runtime boundary:</strong> connecting a wallet grants account visibility only. SIWE authentication proves wallet control for the browser session only. A transaction reaches the wallet prompt only after an imported StegWallet signature request passes schema, account, chain, commitment, and authority checks.</div>
 
   <div class="wallet-grid">
     <section class="wallet-card">
@@ -41,7 +41,17 @@
     </section>
 
     <section class="wallet-card">
-      <h2>2. Define the goal</h2>
+      <h2>2. Authenticate browser session</h2>
+      <p class="muted">A server-issued EIP-4361 message may be signed only when the configured StegVerse SIWE endpoint is HTTPS and matches this Site origin policy.</p>
+      <div class="actions">
+        <button class="sv-btn sv-btn-primary" id="siwe-sign-in" disabled>Sign in with wallet</button>
+        <button class="sv-btn sv-btn-secondary" id="siwe-clear">Clear local session</button>
+      </div>
+      <div id="siwe-status" class="status">SIWE runtime configuration not loaded.</div>
+    </section>
+
+    <section class="wallet-card">
+      <h2>3. Define the goal</h2>
       <div class="field"><label>Mode</label><select id="execution-mode"><option value="user_signature_required">Approve every trade</option><option value="delegated_bounded">Bounded delegated goal</option></select></div>
       <div class="field"><label>Capital ceiling (USD)</label><input id="capital-limit" type="number" min="1" step="1" value="500"></div>
       <div class="field"><label>Maximum position (USD)</label><input id="position-limit" type="number" min="1" step="1" value="100"></div>
@@ -63,13 +73,19 @@
     </section>
 
     <section class="wallet-card full">
+      <h2>SIWE session receipt</h2>
+      <textarea id="siwe-output" readonly placeholder="A verified server session receipt will appear here. Authentication never grants trade or transaction authority."></textarea>
+      <div class="actions"><button class="sv-btn sv-btn-secondary" id="download-siwe">Download SIWE session receipt</button></div>
+    </section>
+
+    <section class="wallet-card full">
       <h2>Goal mandate</h2>
       <textarea id="goal-output" readonly placeholder="Connect a wallet and build a goal."></textarea>
       <div class="actions"><button class="sv-btn sv-btn-secondary" id="download-goal">Download mandate</button><button class="sv-btn sv-btn-secondary" id="copy-goal">Copy mandate</button></div>
     </section>
 
     <section class="wallet-card full">
-      <h2>3. Review an admitted transaction</h2>
+      <h2>4. Review an admitted transaction</h2>
       <p class="muted">Paste the exact <code>stegwallet.signature_request.v1</code> produced by the StegWallet runtime. Raw route suggestions or ordinary transaction JSON are rejected.</p>
       <textarea id="signature-input" placeholder='{"schema":"stegwallet.signature_request.v1", ...}'></textarea>
       <div class="actions">
@@ -80,7 +96,7 @@
     </section>
 
     <section class="wallet-card full">
-      <h2>4. Settlement observation</h2>
+      <h2>5. Settlement observation</h2>
       <textarea id="settlement-output" readonly placeholder="The transaction hash and observed receipt will appear here after wallet approval and chain settlement."></textarea>
       <div class="actions"><button class="sv-btn sv-btn-secondary" id="download-settlement">Download settlement observation</button></div>
     </section>
@@ -92,6 +108,8 @@ Basename display alias       = onchain identity and payment alias
 Base App browser             = distribution and wallet surface
 wallet address               = canonical account identity
 readiness receipt            != wallet authentication or authority
+SIWE session                 = off-chain wallet authentication only
+SIWE session                 != trade admissibility or transaction authority
 StegWallet ALLOW             = may reach wallet prompt
 wallet user approval         = Mode 1 execution authority
 HPS delegation receipt       = prerequisite for Mode 2 signer submission
@@ -100,5 +118,6 @@ private key / seed phrase    = never requested</pre>
 </div>
 <script type="module" src="assets/stegwallet.js"></script>
 <script type="module" src="assets/stegwallet-readiness.js"></script>
+<script type="module" src="assets/stegwallet-siwe.js"></script>
 </body>
 </html>
