@@ -3,6 +3,8 @@
 
   const $ = id => document.getElementById(id);
   const delay = ms => new Promise(resolve => window.setTimeout(resolve, ms));
+  const BUILD_VERSION = '2026.07.22-loudness-harmony.1';
+  const versioned = path => `${path}?v=${encodeURIComponent(BUILD_VERSION)}`;
 
   function setResult(text, mode) {
     const el = $('audioSelfTestResult');
@@ -28,6 +30,32 @@
         }
       }
     }));
+  }
+
+  function markEnhancedBuildReady() {
+    const status = $('statusAudio');
+    if (status) {
+      status.textContent = `ENHANCED MIX · READY · ${BUILD_VERSION}`;
+      status.classList.remove('pending', 'failed');
+      status.classList.add('active');
+    }
+    const notice = $('audioNotice');
+    if (notice && /waiting for a user-initiated play action/i.test(notice.textContent)) {
+      notice.textContent = 'AUDIO · louder harmonic engine ready · tap Play';
+    }
+    record('stegmusic_enhanced_build_ready', 'Versioned StegMusic loudness and harmony build is ready.', {
+      build_version: BUILD_VERSION,
+      media_transport_ready: Boolean(window.StegMusicMediaTransport),
+      guided_verification_ready: Boolean(window.StegMusicIphoneVerification),
+      loudness_harmony_enhancement_ready: Boolean(window.StegMusicEnhancement),
+      loaded_at: new Date().toISOString(),
+      user_agent: navigator.userAgent
+    }, {
+      cache_ambiguity_reduced: true,
+      perceived_loudness_verified: false,
+      human_audibility_confirmed: false,
+      authority: 'none'
+    });
   }
 
   async function runSelfTest() {
@@ -62,6 +90,7 @@
       const captured = {
         started_at: startedAt,
         completed_at: new Date().toISOString(),
+        build_version: BUILD_VERSION,
         user_agent: navigator.userAgent,
         progress_before: before,
         progress_after: after,
@@ -85,7 +114,7 @@
         return;
       }
 
-      setResult('SELF-TEST · PASS · media active, progress advanced, event emitted', 'active');
+      setResult(`SELF-TEST · PASS · ENHANCED BUILD ${BUILD_VERSION}`, 'active');
       record('audio_self_test_passed', 'Browser audio self-test passed.', captured, {
         result: 'PASS',
         authority: 'none',
@@ -101,6 +130,7 @@
       record('audio_self_test_failed', `Browser audio self-test failed: ${error.message}`, {
         started_at: startedAt,
         completed_at: new Date().toISOString(),
+        build_version: BUILD_VERSION,
         user_agent: navigator.userAgent,
         error: error.message
       }, {
@@ -114,11 +144,17 @@
   }
 
   function loadLoudnessHarmonyEnhancement() {
-    if (window.StegMusicEnhancement || document.querySelector('script[data-stegmusic-enhancement]')) return;
+    if (window.StegMusicEnhancement) {
+      markEnhancedBuildReady();
+      return;
+    }
+    if (document.querySelector('script[data-stegmusic-enhancement]')) return;
     const script = document.createElement('script');
-    script.src = 'assets/ecosystem-music-enhancement.js';
+    script.src = versioned('assets/ecosystem-music-enhancement.js');
     script.async = false;
     script.dataset.stegmusicEnhancement = 'true';
+    script.dataset.buildVersion = BUILD_VERSION;
+    script.addEventListener('load', markEnhancedBuildReady);
     script.addEventListener('error', () => setResult('LOUDNESS / HARMONY · FAILED TO LOAD', 'failed'));
     document.body.appendChild(script);
   }
@@ -126,9 +162,10 @@
   function loadGuidedVerification() {
     if (!window.StegMusicIphoneVerification && !document.querySelector('script[data-stegmusic-iphone-verification]')) {
       const script = document.createElement('script');
-      script.src = 'assets/ecosystem-music-iphone-verification.js';
+      script.src = versioned('assets/ecosystem-music-iphone-verification.js');
       script.async = false;
       script.dataset.stegmusicIphoneVerification = 'true';
+      script.dataset.buildVersion = BUILD_VERSION;
       script.addEventListener('error', () => setResult('IPHONE VERIFICATION · FAILED TO LOAD', 'failed'));
       document.body.appendChild(script);
     }
@@ -141,9 +178,10 @@
       return;
     }
     const script = document.createElement('script');
-    script.src = 'assets/ecosystem-music-media-transport.js';
+    script.src = versioned('assets/ecosystem-music-media-transport.js');
     script.async = false;
     script.dataset.stegmusicMediaTransport = 'true';
+    script.dataset.buildVersion = BUILD_VERSION;
     script.addEventListener('load', loadGuidedVerification);
     script.addEventListener('error', () => setResult('MEDIA TRANSPORT · FAILED TO LOAD', 'failed'));
     document.body.appendChild(script);
@@ -151,6 +189,6 @@
 
   const button = $('audioSelfTest');
   if (button) button.addEventListener('click', runSelfTest);
-  window.StegMusicDiagnostics = Object.freeze({ runSelfTest });
+  window.StegMusicDiagnostics = Object.freeze({ runSelfTest, buildVersion: BUILD_VERSION });
   loadMediaTransport();
 })();
