@@ -1,0 +1,51 @@
+{
+  "schema": "stegverse.base_dev_publication_candidate.v1",
+  "candidate_id": "base-dev:stegwallet:2026-07-22",
+  "application": {
+    "name": "StegWallet",
+    "tagline": "Govern the goal before the transaction reaches signature.",
+    "description": "StegWallet is the StegVerse governed crypto interface for user-approved trades and separately authorized bounded goals. It verifies wallet identity, chain state, transaction commitments, policy decisions, allowance boundaries, and settlement observations before producing custody-ready records. Keys remain in the user's wallet.",
+    "category": "Finance",
+    "primary_url": "https://stegverse.org/stegwallet.html",
+    "canonical_origin": "https://stegverse.org",
+    "supported_chain_ids": [8453],
+    "wallet_interfaces": ["injected-eip1193", "base-account", "compatible-wallet"],
+    "authentication": "wallet-address-canonical; SIWE backend session not yet implemented",
+    "candidate_basename": "stegverse.base.eth",
+    "basename_role": "display-routing-alias-only",
+    "icon_url": null,
+    "screenshots": [],
+    "builder_code": null
+  },
+  "security_posture": {
+    "private_key_requested": false,
+    "seed_phrase_requested": false,
+    "wallet_connection_grants_authority": false,
+    "basename_grants_authority": false,
+    "site_display_grants_authority": false,
+    "imported_signature_request_required": true,
+    "user_signature_required_for_mode_1": true,
+    "hps_delegation_required_for_mode_2": true
+  },
+  "publication_gates": {
+    "primary_url_https": true,
+    "primary_url_deployed_and_observed": false,
+    "wallet_browser_execution_observed": false,
+    "icon_asset_deployed": false,
+    "screenshots_deployed": false,
+    "base_dev_project_created": false,
+    "builder_code_assigned": false,
+    "builder_code_integrated_outside_base_app": false,
+    "ownership_verified": false,
+    "publication_receipt_recorded": false
+  },
+  "missing_fields": [
+    "application.icon_url",
+    "application.screenshots",
+    "application.builder_code"
+  ],
+  "state": "PENDING_DEPLOYMENT_AND_BASE_DEV_REGISTRATION",
+  "published": false,
+  "authority_granted": false,
+  "custody_recorded": false
+}
