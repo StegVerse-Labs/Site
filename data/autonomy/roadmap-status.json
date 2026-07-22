@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
-  "source_generated_at": "2026-07-22T03:53:49Z",
+  "source_generated_at": "2026-07-22T07:31:05Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -12,12 +12,12 @@
       "id": "truth-layer",
       "title": "Phase 1 — Truth layer",
       "implementation": "ADVANCED",
-      "operation": "COMPLETE",
-      "evidence": "SUFFICIENT",
-      "exit_gate": "COMPLETE",
-      "progress_percent": 100,
+      "operation": "STALE_RESCAN_REQUIRED",
+      "evidence": "LAST_OBSERVED_NOT_CURRENT",
+      "exit_gate": "INCOMPLETE",
+      "progress_percent": 88,
       "completed": [
-        "public ecosystem inventory",
+        "public ecosystem inventory machinery",
         "objective contracts",
         "implementation and operational classification",
         "strict evidence inspection",
@@ -26,9 +26,13 @@
         "destination-owned strict evidence projection for LLM-adapter",
         "destination-owned strict evidence projection for Triage"
       ],
-      "remaining": [],
+      "remaining": [
+        "persist a new ecosystem inventory after newer repository activity",
+        "reclassify current repository evidence",
+        "regenerate the remediation queue from current state"
+      ],
       "blockers": [
-        "only 1 of 72 public repositories currently satisfies strict operational completion evidence"
+        "the last observed 72-repository inventory predates newer Site commits and cannot be treated as current"
       ]
     },
     {
@@ -48,12 +52,14 @@
         "Triage destination-owned runner execution"
       ],
       "remaining": [
+        "regenerate the queue after the inventory rescan",
         "remaining repository-owned bounded runners",
         "dependency-complete external remediation",
         "automatic convergence after destination evidence changes"
       ],
       "blockers": [
-        "two destination-owned runners have executed; remaining queued repositories are not yet covered"
+        "the current queue is derived from the older inventory cycle",
+        "most repositories still lack destination-owned bounded runners"
       ]
     },
     {
@@ -99,7 +105,8 @@
         "destination-owned mutation boundary",
         "pending-status-is-not-completion enforcement",
         "workflow-success-is-not-completion enforcement",
-        "unit-tests-are-not-runtime enforcement"
+        "unit-tests-are-not-runtime enforcement",
+        "stale inventory no longer presented as current"
       ],
       "remaining": [
         "successor eligibility across repositories",
@@ -144,6 +151,7 @@
     "runtime_check_pass_is_overall_completion": false,
     "destination_projection_is_execution_authority": false,
     "unit_tests_are_runtime_evidence": false,
+    "stale_inventory_is_current_truth": false,
     "exit_gate_requires_machine_verifiable_evidence": true
   }
 }
