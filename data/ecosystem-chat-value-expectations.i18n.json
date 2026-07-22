@@ -1,0 +1,50 @@
+{
+  "schema": "stegverse.value-expectations.i18n.v0.1",
+  "authority_effect": "NONE",
+  "locales": {
+    "en": {
+      "label": "English",
+      "title": "Governed contribution value",
+      "summary": "A submission may request intelligence and contribute intelligence. StegVerse preserves the claim before value is proven.",
+      "preserved": "Claim preserved does not mean value proven.",
+      "recognized": "Influence recognized does not prove ownership or exclusivity.",
+      "distributable": "Distributable value does not mean payment.",
+      "privacy": "Personal or sensitive information is not automatically more valuable.",
+      "consent": "Consent and reuse scope remain binding governance conditions.",
+      "button": "Inspect governed value claims"
+    },
+    "es": {
+      "label": "Español",
+      "title": "Valor gobernado de la contribución",
+      "summary": "Un envío puede solicitar inteligencia y también aportar inteligencia. StegVerse conserva la reclamación antes de que el valor sea demostrado.",
+      "preserved": "Conservar una reclamación no significa que el valor esté demostrado.",
+      "recognized": "Reconocer influencia no demuestra propiedad ni exclusividad.",
+      "distributable": "El valor distribuible no significa que exista un pago.",
+      "privacy": "La información personal o sensible no adquiere mayor valor automáticamente.",
+      "consent": "El consentimiento y el alcance de reutilización siguen siendo condiciones vinculantes de gobernanza.",
+      "button": "Examinar reclamaciones de valor gobernadas"
+    },
+    "zh-Hans": {
+      "label": "简体中文",
+      "title": "受治理的贡献价值",
+      "summary": "一次提交既可以请求智能，也可以贡献智能。StegVerse 会先保留价值主张，再等待证据证明其价值。",
+      "preserved": "保留价值主张不等于价值已经得到证明。",
+      "recognized": "确认影响不等于证明所有权或排他权。",
+      "distributable": "可分配价值不等于已经付款。",
+      "privacy": "个人信息或敏感信息不会仅因其敏感性而自动具有更高价值。",
+      "consent": "同意范围和再利用范围始终是具有约束力的治理条件。",
+      "button": "查看受治理的价值主张"
+    },
+    "zh-Hant": {
+      "label": "繁體中文",
+      "title": "受治理的貢獻價值",
+      "summary": "一次提交既可以請求智慧，也可以貢獻智慧。StegVerse 會先保留價值主張，再等待證據證明其價值。",
+      "preserved": "保留價值主張不等於價值已經獲得證明。",
+      "recognized": "確認影響不等於證明所有權或排他權。",
+      "distributable": "可分配價值不等於已經付款。",
+      "privacy": "個人資訊或敏感資訊不會僅因其敏感性而自動具有更高價值。",
+      "consent": "同意範圍和再利用範圍始終是具有約束力的治理條件。",
+      "button": "查看受治理的價值主張"
+    }
+  }
+}
