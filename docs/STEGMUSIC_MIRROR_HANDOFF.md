@@ -18,13 +18,17 @@ Authority: construction and fixture testing only
 
 ```text
 partial Ecosystem Chat-style music window
+direct launcher from ecosystem-chat.html
 local catalog search
 three locally generated StegDJ tracks
-normal play/pause/stop/previous/next controls
+normal play/pause/stop/previous/next and volume controls
+visible browser-audio startup, running, pause, and refusal status
 session progress display
+four-phase INTRO / BUILD / LIFT / RESOLVE generated composition form
+session-intent selection
 energy, brightness, bass-texture, and exploration controls
 fine-grained feedback controls and free-text refinement
-always-visible playback, preference, projection, and royalty indicators
+always-visible playback, audio, composition, preference, projection, and royalty indicators
 Conversation / Governed music play / Split / Raw JSONL tabs
 stable event selection and cross-pane correlation highlighting
 visible rights and source posture
@@ -55,7 +59,7 @@ No commercial catalog license, streaming entitlement, royalty payment, or compos
 
 ## Governed projections
 
-Every search, selection, playback, pause, stop, preference refinement, profile save, permission change, and revocation emits a local canonical-style event containing:
+Every search, selection, playback start, playback refusal, pause, stop, preference refinement, profile save, permission change, and revocation emits a local canonical-style event containing:
 
 ```text
 event identity and parent relationship
@@ -79,9 +83,9 @@ preview-only hash and authority boundary
 
 ### Captured versus derived records
 
-Captured records are direct observations such as the selected track, search query, playback action, position, explicit feedback, profile name, permission selection, and current trait controls.
+Captured records are direct observations such as the selected track, search query, playback action, browser failure, position, composition phase, session intent, explicit feedback, profile name, permission selection, and current trait controls.
 
-Derived records are interpretations created from those observations, such as decreasing brightness, retaining bass texture, reducing transition distance, classifying an interaction as a candidate contribution, or recomputing a bounded projection scope.
+Derived records are interpretations created from those observations, such as decreasing brightness, retaining bass texture, reducing transition distance, classifying a browser-audio failure, identifying the four-phase composition form, classifying an interaction as a candidate contribution, or recomputing a bounded projection scope.
 
 The selected-event panel displays these records separately.
 
@@ -101,12 +105,17 @@ Raw listening history is prohibited from cross-user reuse. Revocation disables f
 
 ### Contribution and financial display
 
-The expandable contribution-value panel shows candidate event count, a prototype estimate, realized royalty, payable status, and current listening profile. The prototype estimate is intentionally non-payable and cannot be represented as a balance, security, royalty statement, or entitlement.
+The expandable contribution-value panel shows candidate event count, a prototype estimate, realized royalty, and payable status. The prototype estimate is intentionally non-payable and cannot be represented as a balance, security, royalty statement, or entitlement.
 
 ## Verification status
 
 ```text
-static playable-slice verifier: UPDATED FOR INSPECTION, PERMISSIONS, PROFILE, RESET, AND REVOCATION MARKERS
+static playable-slice verifier: UPDATED FOR LAUNCHER, AUDIO STATUS, AND STRUCTURED COMPOSITION MARKERS
+canonical Site application validation binding: IMPLEMENTED
+Ecosystem Chat service launcher: IMPLEMENTED
+browser audio failure visibility: IMPLEMENTED
+structured composition phases: IMPLEMENTED
+session intent and volume controls: IMPLEMENTED
 browser audio execution: NOT YET OBSERVED IN DEPLOYED PREVIEW
 iPhone/Safari audio execution: NOT YET OBSERVED
 browser interaction tests: NOT YET IMPLEMENTED
@@ -125,13 +134,11 @@ invited tester isolation: NOT YET VERIFIED
 Destination `StegVerse-Labs/Site`:
 
 ```text
-add a direct StegMusic service launcher inside ecosystem-chat.html
-bind scripts/check_stegmusic_playable_slice.py into canonical application validation
-observe the restored CI run
-add browser interaction tests for playback, tabs, correlation, inspection, permissions, profile save, reset, revocation, and export
+observe the restored canonical application validation in CI
+add browser interaction tests for playback success and refusal, tabs, correlation, inspection, permissions, profile save, reset, revocation, and export
 add accessibility tests
 add invited-tester profile-isolation tests
-add visible audio startup/failure status for iPhone autoplay and AudioContext restrictions
+add a deployed preview link and confirm iPhone/Safari audio behavior
 ```
 
 Destination lawful source integration:
@@ -147,12 +154,12 @@ retain source and rights receipts without claiming ownership of source audio
 Destination `StegDJ`:
 
 ```text
-improve generated audio from fixed patterns to structured compositions
 persist musical trait and sequence models
-add transition scoring and next-track selection
-add context-specific profiles and session intents
+add transition scoring and adaptive next-track selection
+make session intent alter selection and composition structure
 separate user-private learning from aggregate reusable rules
 add rights-aware composition inputs and output licensing classes
+expand generated compositions beyond one 64-step form
 ```
 
 Adjacent destinations:
@@ -193,8 +200,9 @@ fixture event != activation evidence
 StegDJ generation != unrestricted composition right
 permission toggle != universal consent
 revocation record != deletion of historical occurrence
+structured browser composition != production music generator
 ```
 
 ## Archive readiness
 
-This handoff, Site issue #39, `ecosystem-music.html`, `assets/ecosystem-music.js`, `scripts/check_stegmusic_playable_slice.py`, and repository history preserve the current music-service continuation state without requiring the originating conversation.
+This handoff, Site issue #39, `ecosystem-music.html`, `assets/ecosystem-music.js`, `scripts/check_stegmusic_playable_slice.py`, the canonical Site application validator, and repository history preserve the current music-service continuation state without requiring the originating conversation.
