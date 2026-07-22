@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "test_case_id": "stegverse-public-baseline-v1",
+  "title": "StegVerse public self-declaration and record baseline",
+  "status": "FROZEN_DESIGN_BASELINE",
+  "purpose": "Establish a public StegVerse baseline that separates self-declaration, publicly inspectable artifacts, replayable record structure, and capabilities that remain untested by live or independent execution.",
+  "framework_under_test": "stegverse",
+  "evaluator": "stegverse",
+  "independent_validation": false,
+  "reciprocal_review": false,
+  "frozen_inputs": {
+    "source_policy": "StegVerse first-party public repository artifacts only",
+    "required_evidence_refs": [
+      "site-mirror-handoff",
+      "ecosystem-node-canonical-event-contract",
+      "governed-transition-observatory",
+      "reciprocal-architectural-evaluation-contract"
+    ],
+    "questions": [
+      "What boundary does StegVerse declare?",
+      "Which functions are represented by public artifacts?",
+      "Which authority classes are explicitly excluded from the public projection?",
+      "Can the baseline record be replayed in stable event order?",
+      "Which capabilities remain untested by live provider execution or an external evaluator?"
+    ]
+  },
+  "required_outputs": [
+    "self-declaration reference",
+    "public evidence references",
+    "ordered JSONL event stream",
+    "declared versus observed classification",
+    "confidence and uncertainty",
+    "authority boundary",
+    "independent-validation status",
+    "live-execution status"
+  ],
+  "result_rules": {
+    "self_declaration_may_count_as_independent_validation": false,
+    "public_artifact_presence_may_count_as_live_execution": false,
+    "replay_pass_may_count_as_admissibility": false,
+    "publication_may_count_as_custody": false,
+    "missing_external_determination_may_be_inferred": false
+  },
+  "execution": {
+    "phase": "PUBLIC_BASELINE",
+    "live_provider_execution": "NOT_TESTED",
+    "external_evaluator_execution": "NOT_TESTED",
+    "next_phase": "STEGVERSE_LIVE_BASELINE_EXECUTION"
+  },
+  "authority": {
+    "comparison": false,
+    "admissibility": false,
+    "certification": false,
+    "execution": false,
+    "custody": false,
+    "parentage": false
+  },
+  "frozen_at": "2026-07-22T15:00:00Z"
+}
