@@ -23,6 +23,7 @@ def main() -> int:
 
     page = PAGE.read_text(encoding="utf-8")
     runtime = RUNTIME.read_text(encoding="utf-8")
+    runtime_compact = "".join(runtime.split())
     transport = MEDIA_TRANSPORT.read_text(encoding="utf-8")
     guided = IPHONE_VERIFICATION.read_text(encoding="utf-8")
     enhancement = ENHANCEMENT.read_text(encoding="utf-8")
@@ -40,8 +41,6 @@ def main() -> int:
         "audio_self_test_failed",
         "composition_progress_advanced",
         "playback_event_observed",
-        "audible_output_confirmed: false",
-        "browser_runtime_execution_confirmed: true",
         "generated_media_transport_confirmed",
         "guided_verification_runtime_confirmed",
         "loudness_harmony_enhancement_confirmed",
@@ -99,6 +98,10 @@ def main() -> int:
     for marker in runtime_markers:
         if marker not in runtime:
             return fail(f"runtime missing marker: {marker}")
+    if "audible_output_confirmed:false" not in runtime_compact:
+        return fail("runtime missing false automated audibility boundary")
+    if "browser_runtime_execution_confirmed:true" not in runtime_compact:
+        return fail("runtime missing true browser execution result")
     for marker in transport_markers:
         if marker not in transport:
             return fail(f"media transport missing marker: {marker}")
@@ -111,7 +114,7 @@ def main() -> int:
 
     if page.index("assets/ecosystem-music-diagnostics.js") < page.index("assets/ecosystem-music.js"):
         return fail("diagnostics runtime must load after the base music runtime")
-    if "audible_output_confirmed: true" in runtime:
+    if "audible_output_confirmed:true" in runtime_compact:
         return fail("automated self-test must not claim audible output")
     if "source_audio_upload" not in transport and "source_bytes_uploaded: false" not in transport:
         return fail("media transport must retain the no-upload boundary")
