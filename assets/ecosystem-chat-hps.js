@@ -9,6 +9,7 @@
     const links = [
       ['ecosystem-usage.html', 'Usage Ledger'],
       ['ecosystem-comparison.html', 'Route Comparison'],
+      ['ecosystem-chat-value.html', 'Value Claims'],
       ['chat-session-launcher.html', 'Session Launcher']
     ];
     for (const [href, label] of links) {
@@ -124,7 +125,8 @@
     'assets/ecosystem-chat-gateway-health.js',
     'assets/ecosystem-chat-traversal.js',
     'assets/ecosystem-chat-provider.js',
-    'assets/ecosystem-chat-solver.js'
+    'assets/ecosystem-chat-solver.js',
+    'assets/ecosystem-chat-value-integration.js'
   ]) {
     const script = document.createElement('script');
     script.src = source;
