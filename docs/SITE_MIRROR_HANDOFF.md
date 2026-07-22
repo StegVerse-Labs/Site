@@ -7,11 +7,12 @@ This file is the current handoff and task source of truth for `StegVerse-Labs/Si
 ## Current goal
 
 ```text
-Goal: fully functional governed Ecosystem Chat request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation path
+Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, downstream propagation, and playable governed service surfaces
 Primary surface: ecosystem-chat.html
 Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
+Playable service surface: ecosystem-music.html
 Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT
 Compatibility Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION
 Manual user action required for routine repository work: false
@@ -23,6 +24,8 @@ Manual user action required for routine repository work: false
 
 ```text
 real request
+-> canonical governed event stream
+-> synchronized conversation / governed-record / split renderers
 -> governed real-provider response
 -> provider usage persistence
 -> authenticated provider-usage Master-Records custody
@@ -38,49 +41,119 @@ real request
 ## Authoritative owners
 
 ```text
-Runtime gateway, canonical StegDeploy runtime, provider broker, portable-node runtime, and activation evidence: StegVerse-org/LLM-adapter
+Runtime gateway, canonical event creation, canonical StegDeploy runtime, provider broker, portable-node runtime, and activation evidence: StegVerse-org/LLM-adapter
 Custody and reconstruction: master-records/orchestration
-Site activation projection: StegVerse-Labs/Site
+Site activation and renderer projection: StegVerse-Labs/Site
 Publication projection: GCAT-BCAT-Engine/Publisher
 Admissibility projection: StegVerse-Labs/admissibility-wiki
 Guardian projection: StegVerse-002/stegguardian-wiki
 ```
 
-## Canonical components
+## Ecosystem Node synchronized dual-view requirement
 
-Adapter runtime and evidence:
+The Ecosystem Node exposes three modes:
 
 ```text
-Dockerfile
-compose.stegdeploy.yaml
-scripts/container-entrypoint.sh
-scripts/stegdeploy_bootstrap.py
-.github/workflows/stegdeploy-image.yml
-.github/workflows/ecosystem-chat-live-activation.yml
-.github/workflows/validate.yml
-llm_adapter/combined_gateway.py
-llm_adapter/governed_provider.py
-llm_adapter/master_records_client.py
-llm_adapter/transition_store.py
-scripts/verify_live_ecosystem_chat_activation.py
-scripts/write_live_activation_status.py
-scripts/check_stegdeploy_image_receipt_retention.py
-scripts/write_provider_readiness_status.py
-receipts/stegdeploy-image-publication.json
-receipts/ecosystem-chat-live-activation.latest.json
-receipts/ecosystem-chat-live-activation.verified.json when VERIFIED
+conversation
+governed
+split
 ```
 
-Site activation consumers:
+All modes are synchronized projections of one authoritative structure:
 
 ```text
-.github/workflows/ecosystem-chat-activation-retention.yml
-scripts/watch_ecosystem_chat_adapter_monitor.py
-scripts/acquire_ecosystem_chat_live_activation_receipt.py
-scripts/check_ecosystem_chat_activation_receipt_import.py
-scripts/import_ecosystem_chat_external_activation_states.py
-scripts/update_ecosystem_chat_activation_state.py
-scripts/sync_ecosystem_chat_custody_state.py
+Canonical governed event stream
+├── Conversation renderer
+├── Governed-record renderer
+└── Split-view correlation layer
+```
+
+Neither visible pane is the source of truth. View switching must not create, remove, reorder, or mutate events. Governance may be hidden from the human-facing projection without being disabled. Correlation must use stable `event_id` values, never text matching.
+
+Minimum canonical event:
+
+```json
+{
+  "event_id": "stable-unique-id",
+  "parent_event_id": null,
+  "timestamp": "RFC3339",
+  "actor": {},
+  "event_type": "message|decision|execution|receipt|policy|evidence",
+  "human_projection": {},
+  "governed_projection": {},
+  "policy_refs": [],
+  "evidence_refs": [],
+  "artifact_refs": [],
+  "continuity_refs": [],
+  "hash": ""
+}
+```
+
+Sensitive fields remain subject to role-based disclosure and redaction policies. Human-readable, formatted governed, and raw machine-readable output resolve to the same canonical records. Raw records are exportable and replayable. The design remains extensible to technical, legal, executive, audit, multilingual, music, video, and sensory renderers.
+
+## Files changed
+
+```text
+ecosystem-chat.html
+assets/ecosystem-node-views.js
+docs/ECOSYSTEM_NODE_CANONICAL_EVENT_CONTRACT.md
+data/ecosystem-node-canonical-events.fixture.json
+scripts/check_ecosystem_node_dual_view.py
+scripts/check_ecosystem_node_replay_and_disclosure.py
+scripts/check_ecosystem_chat_application.py
+ecosystem-music.html
+assets/ecosystem-music.js
+docs/STEGMUSIC_MIRROR_HANDOFF.md
+scripts/check_stegmusic_playable_slice.py
+docs/SITE_MIRROR_HANDOFF.md
+```
+
+## Implemented behavior
+
+```text
+Conversation, Governed record, and Split controls
+One in-memory canonical event stream used by all renderers
+Stable event_id correlation across panes
+Governance-only decision records without conversation entries
+Formatted governed inspection
+Raw JSONL inspection
+JSON export
+JSONL export
+Immutable browser event objects
+Parent, evidence, artifact, policy, and continuity reference fields
+Replay fixture preserving order and canonical IDs across JSON and JSONL
+Role-based disclosure fixture with fail-closed public redaction
+Canonical application-validation binding
+Explicit preview-only authority boundary
+Playable StegMusic partial Ecosystem Chat surface
+Three locally generated StegDJ tracks
+Normal audio controls and trait refinement
+Always-visible playback, preference, projection, and royalty indicators
+Conversation / Governed music play / Split / Raw JSONL music projections
+Visible rights/source posture
+Persistent local music event stream and prototype contribution-value panel
+StegMusic JSON session export
+```
+
+## Verification status
+
+```text
+Static contract verifier: BOUND INTO CANONICAL APPLICATION VALIDATION
+Required mode markers: VERIFIED BY SOURCE INSPECTION
+Required canonical fields: VERIFIED BY SOURCE INSPECTION
+Stable-ID correlation implementation: VERIFIED BY SOURCE INSPECTION
+JSON and JSONL export implementation: VERIFIED BY SOURCE INSPECTION
+Replay validator against canonical JSON/JSONL fixture: IMPLEMENTED AND BOUND INTO APPLICATION VALIDATION
+Duplicate event ID rejection fixture behavior: IMPLEMENTED
+Unresolved parent/evidence/continuity reference rejection: IMPLEMENTED
+Role-based public redaction fixture: IMPLEMENTED
+StegMusic static playable-slice verifier: IMPLEMENTED
+StegMusic browser audio execution: NOT YET OBSERVED IN CI OR DEPLOYED PREVIEW
+Browser execution test: NOT YET OBSERVED IN CI
+Accessibility interaction test: NOT YET OBSERVED IN CI
+Cryptographic canonical hash: NOT YET IMPLEMENTED; browser fixtures use preview-only markers
+Gateway-origin canonical events: NOT YET IMPLEMENTED
+Authority effect: NONE
 ```
 
 ## Current verified evidence posture
@@ -88,7 +161,6 @@ scripts/sync_ecosystem_chat_custody_state.py
 ```text
 Canonical provider-neutral StegDeploy runtime: IMPLEMENTED and MERGED
 Canonical image build and publication: VERIFIED
-Repository-retained image publication receipt: VERIFIED
 Published image digest: sha256:71a77c2b10762fa070f01ad2f2314b9f7989f62821e972f75f2a0991b237936e
 Canonical package anonymous pull compatibility: NOT VERIFIED
 Portable-node health-bound advertisement: IMPLEMENTED and MERGED
@@ -104,34 +176,87 @@ Provider-usage reconstruction: NOT VERIFIED
 Adapter immutable zero-blocker VERIFIED receipt: NOT OBSERVED
 Site ACTIVATION_COMPLETE: NOT OBSERVED
 Downstream verified ingestion: NOT OBSERVED
+Playable StegMusic generated-audio source: IMPLEMENTED ON FEATURE BRANCH; DEPLOYMENT NOT YET OBSERVED
+Commercial music source: NOT IMPLEMENTED
+Public-domain verified source: NOT IMPLEMENTED
 ```
 
-Custody and reconstruction were verified through `master-records/orchestration` Runtime Evidence Validation run `29865690620`, merge `421da84784888e3dc9bb98a7b2b47a1518f0eee0`, with authenticated custody `RECORDED` and reconstruction `PASS`. Provider execution remained disabled during that run.
+Custody and reconstruction were previously verified through `master-records/orchestration` Runtime Evidence Validation run `29865690620`, merge `421da84784888e3dc9bb98a7b2b47a1518f0eee0`, with authenticated custody `RECORDED` and reconstruction `PASS`. Provider execution remained disabled during that run.
 
-## Canonical image publication evidence
+## Remaining work
 
-The canonical image workflow successfully retained:
+Destination `StegVerse-Labs/Site`:
 
 ```text
-receipt: receipts/stegdeploy-image-publication.json
-source commit: e1628dcd5635b1e3f0d7f7fabed3ba616b4951f5
-retention commit: fdaf8568c18c4546a76cf08462f53a551b1d1fc4
-publication run: 29859044640
-image: ghcr.io/stegverse-org/llm-adapter
-digest: sha256:71a77c2b10762fa070f01ad2f2314b9f7989f62821e972f75f2a0991b237936e
-package visibility asserted: false
-authority effect: IMAGE_PUBLICATION_ONLY
+Observe the restored canonical application validation in CI
+Add browser behavior tests for all three modes and bidirectional selection
+Implement runtime role selection and emitted redaction receipts
+Accept canonical events from the governed gateway instead of constructing them from DOM messages
+Render attachments and generated artifacts from canonical artifact_refs
+Add locale-aware multilingual renderer selection
+Add direct StegMusic service launcher inside ecosystem-chat.html
+Observe StegMusic browser audio on deployed preview
+Add StegMusic interaction, persistence, accessibility, reset, revocation, and tester-isolation tests
+Add captured-versus-derived inspection and downstream projection permission controls
 ```
 
+Destination `StegVerse-org/LLM-adapter`:
+
 ```text
-publication receipt retention != package visibility
-package visibility != deployment authority
-container publication != live deployment
+Create canonical governed events before rendering
+Provide stable event and transition identifiers
+Populate model/provider, delegation, policy, evidence, artifact, continuity, receipt, signature, quarantine, refusal, override, and recovery fields
+Sign and hash canonical records
+Expose replayable JSON or JSONL stream through the governed endpoint
+Complete authorized real-provider and persistent endpoint activation path owned by issue #18
 ```
+
+Destination `master-records/orchestration`:
+
+```text
+Custody canonical event streams and exports
+Validate chain references, signatures, duplicate IDs, and replay reconstruction
+Return reconstruction and disclosure-policy verification receipts
+Custody music interaction, derivation, reuse, rights, and value-lineage records after authorization
+```
+
+Downstream destinations after verified Site activation:
+
+```text
+GCAT-BCAT-Engine/Publisher
+StegVerse-Labs/admissibility-wiki
+StegVerse-002/stegguardian-wiki
+```
+
+## StegMusic / StegDJ governed service slice
+
+The detailed music-service continuation record is `docs/STEGMUSIC_MIRROR_HANDOFF.md`, owned by Site issue #39.
+
+The first playable source is locally generated browser audio. This permits immediate UI and governed-record testing without asserting a commercial catalog license. The next lawful source sequence is:
+
+```text
+verified public-domain source
+-> user-owned or purchased local-file source
+-> connected licensed provider
+-> rights-aware regular catalog brokerage
+-> premium adaptive StegDJ sequencing
+-> authorized composition/remix/generative sources
+```
+
+The music surface keeps these statuses visible whether active or inactive:
+
+```text
+playback
+preference refinement
+cross-service projection
+contribution / royalty candidacy
+```
+
+Captured records are direct observations. Derived records are interpretations created from them. A downstream projection is a bounded record admitted to another service without disclosing the private raw listening history. Contribution estimates remain non-payable until an authorized financial contract, value derivation, custody, and settlement path exist.
 
 ## Provider readiness boundary
 
-The governed provider now requires every configuration gate to pass before any network call:
+The governed provider requires every configuration gate to pass before any network call:
 
 ```text
 STEGVERSE_PROVIDER_ENABLED=true
@@ -144,28 +269,7 @@ STEGVERSE_PROVIDER_MODEL is configured
 cost, quota, input, and output limits pass
 ```
 
-An empty hostname allowlist is fail-closed. Earlier behavior that allowed any HTTPS hostname when the allowlist was empty has been removed.
-
-Provider readiness implementation:
-
-```text
-StegVerse-org/LLM-adapter@15172dc2e69a604a4b419b8098911a97ab38488b explicit allowlist and readiness contract
-StegVerse-org/LLM-adapter@7999fbfe3824cee63d6db13e493314f1133d44c5 provider readiness and fail-closed tests
-StegVerse-org/LLM-adapter@be94e104e8ae44953c2044a7b84dbdfabe82f45a secret-free readiness status writer
-StegVerse-org/LLM-adapter@091e0789140ce7c1376f1a911382c252a0dd310b canonical provider-boundary verification
-```
-
-Readiness status is configuration evidence only:
-
-```text
-credential value retained = false
-provider contact attempted = false
-provider response verified = false
-custody verified by readiness status = false
-authority granted = false
-execution authority = false
-activation authority = false
-```
+An empty hostname allowlist is fail-closed. Readiness status is configuration evidence only and grants no execution or activation authority.
 
 ## Verified activation receipt gates
 
@@ -204,14 +308,6 @@ After machine-verified completion:
 state: READY_FOR_DOWNSTREAM_INGESTION
 ```
 
-Canonical destinations:
-
-```text
-GCAT-BCAT-Engine/Publisher
-StegVerse-Labs/admissibility-wiki
-StegVerse-002/stegguardian-wiki
-```
-
 A propagation packet is not custody, activation authority, publication authority, execution authority, admissibility, or release authority.
 
 ## Machine-owned continuation
@@ -219,15 +315,16 @@ A propagation packet is not custody, activation authority, publication authority
 ```text
 1. StegVerse-org/LLM-adapter issue #18 owns the remaining live-provider and persistent-endpoint path.
 2. Reuse the canonical StegDeploy runtime and governed provider broker.
-3. Supply an already-authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy only through an authorized runtime environment.
-4. Run scripts/write_provider_readiness_status.py and retain the exact secret-free blocker set.
-5. When readiness is READY, execute one governed request through the existing gateway and verified custody path.
-6. Retain the first exact provider, usage-persistence, provider-usage custody, reconstruction, or activation-receipt failure.
-7. Expose a persistent authorized endpoint and point the existing live verifier at it.
-8. Site imports and validates the first zero-blocker immutable VERIFIED receipt automatically.
-9. Site recomputes activation and propagation state.
-10. Publisher and both wiki consumers ingest the Site projection automatically.
-11. Release readiness remains fail-closed until downstream verified evidence exists.
+3. Supply authorized provider configuration only through an authorized runtime environment.
+4. Produce the secret-free provider readiness status.
+5. When readiness is READY, execute one governed request through the verified gateway and custody path.
+6. Retain the first exact provider, persistence, custody, reconstruction, or activation-receipt failure.
+7. Site imports and validates the first zero-blocker immutable VERIFIED receipt automatically.
+8. Site recomputes activation and propagation state.
+9. Publisher and both wiki consumers ingest the Site projection automatically.
+10. Release readiness remains fail-closed until downstream verified evidence exists.
+11. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
+12. Add one verified lawful non-generated source before invited external testing.
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, or manual publication task is assigned to the user.
@@ -236,6 +333,11 @@ No browser credential, copy/paste, workflow dispatch, artifact download, image b
 
 ```text
 Site display != execution
+view switching != event mutation
+human projection != canonical record
+formatted record != separate record
+raw export != custody
+browser hash marker != cryptographic proof
 provider readiness != provider authorization
 provider output != authority
 usage retrieval != authority
@@ -249,10 +351,9 @@ portable-node supervision != heartbeat authority
 imported verified receipt != deployment authority
 propagation packet != publication authority
 reconstruction PASS != execution authority
-Site autonomy runtime PASS != Ecosystem Chat activation
-Site autonomy completion evidence != release authority
-publication receipt retention != package visibility
-package visibility != deployment authority
+browser-generated audio != licensed catalog
+prototype contribution estimate != payable royalty
+music rights label != license grant
 ```
 
 ## Browser-local ChatGPT session continuation
@@ -272,14 +373,16 @@ It stores a validated `https://chatgpt.com/c/<conversation-id>` URL in browser l
 ```text
 Blocker: no repository evidence establishes an authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy in a persistent authorized runtime environment
 Owner: StegVerse-org/LLM-adapter issue #18
-Next step: produce the secret-free provider readiness status from the authorized runtime; when READY, execute one real governed provider request through the already-verified transition custody and reconstruction path and retain the first exact downstream failure
+Next Site step: observe the restored ST-017 run, then add runtime gateway canonical-event envelope consumption and browser correlation tests
+Parallel playable step: deploy and browser-test ecosystem-music.html, then add the direct Ecosystem Chat launcher and one verified lawful source
+Next adapter step: produce the secret-free provider readiness status; when READY, execute one real governed provider request through the verified transition custody and reconstruction path
 Manual user action required for routine repository work: false
 ```
 
 ## Release posture
 
-No tag or release is authorized. Remaining conditions are authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, and verified downstream ingestion.
+No tag or release is authorized. Remaining conditions are passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
 
 ## Archive readiness
 
-This handoff, the active build-goal records, custody cycle record, adapter issue #18, canonical image publication receipt, provider readiness contract, immutable activation receipt paths, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
+This handoff, the feature branch, canonical mapping contract, replay/disclosure fixture and verifier, Site issue #39, StegMusic handoff and playable files, adapter issue #18, prior custody evidence, activation receipt paths, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.

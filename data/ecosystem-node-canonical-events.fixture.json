@@ -1,0 +1,54 @@
+{
+  "schema": "stegverse.canonical-event-stream.v0.1",
+  "viewer_roles": ["public", "operator", "technical", "legal", "executive", "auditor"],
+  "events": [
+    {
+      "event_id": "evt-fixture-user-001",
+      "parent_event_id": null,
+      "timestamp": "2026-07-21T21:36:22Z",
+      "actor": {"actor_type": "human", "identity_ref": "identity:fixture-user"},
+      "event_type": "message",
+      "human_projection": {"label": "User", "body": "Build the synchronized Ecosystem Node.", "visible_in_conversation": true},
+      "governed_projection": {"classification": "user_input", "disclosure": {"public": ["classification"], "operator": ["classification"]}},
+      "policy_refs": ["policy:site-preview-boundary"],
+      "evidence_refs": [],
+      "artifact_refs": [],
+      "continuity_refs": [],
+      "hash": "fixture:evt-fixture-user-001"
+    },
+    {
+      "event_id": "evt-fixture-decision-001",
+      "parent_event_id": "evt-fixture-user-001",
+      "timestamp": "2026-07-21T21:36:23Z",
+      "actor": {"actor_type": "system", "identity_ref": "identity:site-local-classifier"},
+      "event_type": "decision",
+      "human_projection": {"summary": "Request classified for preview.", "visible_in_conversation": false},
+      "governed_projection": {
+        "decision": "PREVIEW_ONLY",
+        "admissibility": "NOT_EVALUATED",
+        "execution_requested": false,
+        "execution_result": "NOT_ATTEMPTED",
+        "provider_token_reference": "secret-ref:fixture-provider-token",
+        "disclosure": {
+          "public": ["decision", "admissibility", "execution_requested", "execution_result"],
+          "operator": ["decision", "admissibility", "execution_requested", "execution_result"],
+          "technical": ["decision", "admissibility", "execution_requested", "execution_result", "provider_token_reference"],
+          "auditor": ["decision", "admissibility", "execution_requested", "execution_result"]
+        }
+      },
+      "policy_refs": ["policy:site-preview-boundary", "policy:role-based-disclosure-v0.1"],
+      "evidence_refs": ["evt-fixture-user-001"],
+      "artifact_refs": [],
+      "continuity_refs": ["evt-fixture-user-001"],
+      "hash": "fixture:evt-fixture-decision-001"
+    }
+  ],
+  "expected": {
+    "event_count": 2,
+    "conversation_event_ids": ["evt-fixture-user-001"],
+    "governance_only_event_ids": ["evt-fixture-decision-001"],
+    "public_redactions": [{"event_id": "evt-fixture-decision-001", "fields": ["provider_token_reference"]}],
+    "replay_status": "PASS"
+  },
+  "authority_effect": "NONE"
+}

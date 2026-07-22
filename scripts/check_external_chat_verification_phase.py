@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import ast
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,6 +15,25 @@ def fail(message: str) -> int:
     return 1
 
 
+def declares_post_deployment(application: str) -> bool:
+    """Confirm the application result declares POST_DEPLOYMENT independent of formatting."""
+    try:
+        tree = ast.parse(application)
+    except SyntaxError:
+        return False
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Dict):
+            continue
+        pairs = {}
+        for key, value in zip(node.keys, node.values):
+            if isinstance(key, ast.Constant) and isinstance(key.value, str):
+                if isinstance(value, ast.Constant):
+                    pairs[key.value] = value.value
+        if pairs.get("live_route_verification_phase") == "POST_DEPLOYMENT":
+            return True
+    return False
+
+
 def main() -> int:
     for path in (APPLICATION, WORKFLOW):
         if not path.exists():
@@ -25,7 +45,7 @@ def main() -> int:
     command_section = application.split("COMMANDS:", 1)[-1].split("def execute", 1)[0]
     if LIVE_CHECK in command_section:
         return fail("live-route check must not run in pre-deployment application COMMANDS")
-    if 'live_route_verification_phase": "POST_DEPLOYMENT"' not in application:
+    if not declares_post_deployment(application):
         return fail("application result must declare POST_DEPLOYMENT live verification")
 
     required_workflow_markers = [

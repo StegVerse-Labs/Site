@@ -23,19 +23,35 @@ REQUIRED_PAGE_MARKERS = [
     "public broad" + "cast",
 ]
 
-# Validate current durable Site handoff obligations rather than retired workflow counts.
+# Validate durable Site handoff obligations while allowing the canonical goal and
+# activation wording to evolve as additional governed projections are installed.
 REQUIRED_HANDOFF_MARKERS = [
     "# Site Mirror Handoff",
     "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
-    "Goal: fully functional governed Ecosystem Chat request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation path",
-    "Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
-    ".github/workflows/validate.yml",
-    ".github/workflows/ecosystem-chat-activation-retention.yml",
     "Site display != execution",
     "usage retrieval != authority",
     "imported verified receipt != deployment authority",
     "provider-usage custody RECORDED",
     "No tag or release is authorized.",
+]
+REQUIRED_HANDOFF_ALTERNATIVES = [
+    (
+        "Goal: fully functional governed Ecosystem Chat request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, and downstream propagation path",
+        "Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, and downstream propagation path",
+        "Goal: fully functional governed Ecosystem Chat / Ecosystem Node request-response, provider, persistence, custody, reconstruction, immutable receipt, Site activation, synchronized human/governed projections, downstream propagation, and playable governed service surfaces",
+    ),
+    (
+        "Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION",
+        "Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+    ),
+    (
+        ".github/workflows/validate.yml",
+        "scripts/check_ecosystem_chat_application.py",
+    ),
+    (
+        ".github/workflows/ecosystem-chat-activation-retention.yml",
+        "scripts/check_ecosystem_node_replay_and_disclosure.py",
+    ),
 ]
 
 
@@ -55,10 +71,25 @@ def check(path, markers):
     return failed
 
 
+def check_alternatives(path, marker_groups):
+    text = path.read_text(encoding="utf-8")
+    failed = False
+    for group in marker_groups:
+        matches = [marker for marker in group if marker in text]
+        if matches:
+            print(f"PASS {path.relative_to(ROOT)} contains accepted marker {matches[0]}")
+        else:
+            failed = True
+            print(f"FAIL {path.relative_to(ROOT)} missing accepted alternatives: {' OR '.join(group)}")
+    return failed
+
+
 def main():
     failed = False
     failed |= check(PAGE, REQUIRED_PAGE_MARKERS)
     failed |= check(HANDOFF, REQUIRED_HANDOFF_MARKERS)
+    if HANDOFF.exists():
+        failed |= check_alternatives(HANDOFF, REQUIRED_HANDOFF_ALTERNATIVES)
     if failed:
         return 1
     print("PASS site media pipeline mirror")
