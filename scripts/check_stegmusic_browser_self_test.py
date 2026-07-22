@@ -23,6 +23,7 @@ def main() -> int:
 
     page = PAGE.read_text(encoding="utf-8")
     runtime = RUNTIME.read_text(encoding="utf-8")
+    runtime_compact = "".join(runtime.split())
     transport = MEDIA_TRANSPORT.read_text(encoding="utf-8")
     guided = IPHONE_VERIFICATION.read_text(encoding="utf-8")
     enhancement = ENHANCEMENT.read_text(encoding="utf-8")
@@ -40,15 +41,14 @@ def main() -> int:
         "audio_self_test_failed",
         "composition_progress_advanced",
         "playback_event_observed",
-        "audible_output_confirmed: false",
-        "browser_runtime_execution_confirmed: true",
+        "browser_runtime_execution_confirmed:true",
         "generated_media_transport_confirmed",
         "guided_verification_runtime_confirmed",
         "loudness_harmony_enhancement_confirmed",
         "assets/ecosystem-music-media-transport.js",
         "assets/ecosystem-music-iphone-verification.js",
         "assets/ecosystem-music-enhancement.js",
-        "window.dispatchEvent(new CustomEvent('stegmusic:emit'",
+        "window.dispatchEvent(newCustomEvent('stegmusic:emit'",
     )
     transport_markers = (
         "OfflineAudioContext",
@@ -96,8 +96,10 @@ def main() -> int:
     for marker in page_markers:
         if marker not in page:
             return fail(f"page missing marker: {marker}")
+    if "audible_output_confirmed:false" not in runtime_compact:
+        return fail("runtime missing false audible-output non-claim")
     for marker in runtime_markers:
-        if marker not in runtime:
+        if marker not in runtime_compact:
             return fail(f"runtime missing marker: {marker}")
     for marker in transport_markers:
         if marker not in transport:
@@ -111,7 +113,7 @@ def main() -> int:
 
     if page.index("assets/ecosystem-music-diagnostics.js") < page.index("assets/ecosystem-music.js"):
         return fail("diagnostics runtime must load after the base music runtime")
-    if "audible_output_confirmed: true" in runtime:
+    if "audible_output_confirmed:true" in runtime_compact:
         return fail("automated self-test must not claim audible output")
     if "source_audio_upload" not in transport and "source_bytes_uploaded: false" not in transport:
         return fail("media transport must retain the no-upload boundary")
