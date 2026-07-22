@@ -3,8 +3,9 @@
 
 This is a publication check only. It verifies that the public Site serves the
 playable prototype files and expected boundary markers; it does not assert that
-a browser successfully rendered audio, that a catalog license exists, or that
-any governance/custody activation gate has passed.
+a browser successfully rendered audio, that perceived loudness improved on a
+target device, that a catalog license exists, or that any governance/custody
+activation gate has passed.
 """
 from __future__ import annotations
 
@@ -53,7 +54,9 @@ ROUTES: dict[str, tuple[str, ...]] = {
     ),
     "assets/ecosystem-music-diagnostics.js": (
         "assets/ecosystem-music-media-transport.js",
+        "assets/ecosystem-music-enhancement.js",
         "StegMusicMediaTransport",
+        "StegMusicEnhancement",
         "audio_self_test_passed",
         "audible_output_confirmed: false",
     ),
@@ -64,6 +67,16 @@ ROUTES: dict[str, tuple[str, ...]] = {
         "navigator.mediaSession",
         "human_audibility_confirmed",
         "screen_lock_continuity_confirmed",
+    ),
+    "assets/ecosystem-music-enhancement.js": (
+        "createDynamicsCompressor",
+        "normalize(rendered, 0.94)",
+        "audio.volume = 1",
+        "chordProgressions",
+        "harmony_strategy: 'progressive_chord_pad_bass_countermelody'",
+        "perceived_loudness_strategy: 'compression_output_gain_peak_normalization'",
+        "source_bytes_uploaded: false",
+        "StegMusicEnhancement",
     ),
     "ecosystem-chat.html": (
         "Ecosystem Node",
@@ -130,7 +143,7 @@ def main() -> int:
             print(f"STEGMUSIC_LIVE_ROUTE_FAIL: {url} error={error!r}")
 
     payload = {
-        "schema_version": "1.1.0",
+        "schema_version": "1.2.0",
         "status_type": "stegmusic_live_verification",
         "checked_at": datetime.now(timezone.utc).isoformat(),
         "base_url": BASE_URL,
@@ -140,7 +153,9 @@ def main() -> int:
         "claims": {
             "public_files_present": passed,
             "generated_media_transport_published": passed,
+            "loudness_harmony_enhancement_published": passed,
             "browser_audio_execution_verified": False,
+            "perceived_loudness_improvement_verified": False,
             "human_audibility_verified": False,
             "iphone_safari_compatibility_verified": False,
             "screen_lock_continuity_verified": False,
