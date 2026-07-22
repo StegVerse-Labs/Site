@@ -59,10 +59,44 @@
     ]
   },
   "determinations": [],
-  "test_runs": [],
+  "test_runs": [
+    {
+      "run_id": "run-stegverse-public-baseline-v1",
+      "test_case_id": "stegverse-public-baseline-v1",
+      "executor_id": "stegverse",
+      "started_at": "2026-07-22T15:00:00Z",
+      "completed_at": "2026-07-22T15:00:04Z",
+      "result": "PARTIAL",
+      "input_hash": "PENDING_CANONICAL_HASH",
+      "output_hash": "PENDING_CANONICAL_HASH",
+      "event_refs": [
+        "evt-stegverse-baseline-001",
+        "evt-stegverse-baseline-002",
+        "evt-stegverse-baseline-003",
+        "evt-stegverse-baseline-004",
+        "evt-stegverse-baseline-005"
+      ],
+      "evidence_refs": [
+        "site-mirror-handoff",
+        "ecosystem-node-canonical-event-contract",
+        "governed-transition-observatory",
+        "reciprocal-architectural-evaluation-contract"
+      ],
+      "artifact_refs": ["data/framework-evaluations/runs/run-stegverse-public-baseline-v1.jsonl"],
+      "receipt_refs": [],
+      "replay_status": "PASS",
+      "reconstruction_status": "PARTIAL",
+      "confidence": 0.92,
+      "uncertainty": [
+        "self-evaluated public baseline only",
+        "live provider execution not tested",
+        "external evaluator execution not tested"
+      ]
+    }
+  ],
   "disputes": [],
   "publication": {
-    "published_at": "2026-07-22T12:35:00Z",
+    "published_at": "2026-07-22T15:00:00Z",
     "record_hash": "PENDING_CANONICAL_HASH",
     "projection_authority": "NONE",
     "custody_ref": null,
