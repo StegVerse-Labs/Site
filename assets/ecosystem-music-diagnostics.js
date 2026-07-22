@@ -69,7 +69,8 @@
         audio_active: audioActive,
         playback_event_observed: playbackEvent,
         composition_progress_advanced: advanced,
-        media_transport_ready: Boolean(window.StegMusicMediaTransport)
+        media_transport_ready: Boolean(window.StegMusicMediaTransport),
+        guided_verification_ready: Boolean(window.StegMusicIphoneVerification)
       };
 
       if (!passed) {
@@ -89,7 +90,8 @@
         authority: 'none',
         audible_output_confirmed: false,
         browser_runtime_execution_confirmed: true,
-        generated_media_transport_confirmed: Boolean(window.StegMusicMediaTransport)
+        generated_media_transport_confirmed: Boolean(window.StegMusicMediaTransport),
+        guided_verification_runtime_confirmed: Boolean(window.StegMusicIphoneVerification)
       });
     } catch (error) {
       if (play.textContent.trim().toLowerCase() === 'pause') play.click();
@@ -109,12 +111,26 @@
     }
   }
 
+  function loadGuidedVerification() {
+    if (window.StegMusicIphoneVerification || document.querySelector('script[data-stegmusic-iphone-verification]')) return;
+    const script = document.createElement('script');
+    script.src = 'assets/ecosystem-music-iphone-verification.js';
+    script.async = false;
+    script.dataset.stegmusicIphoneVerification = 'true';
+    script.addEventListener('error', () => setResult('IPHONE VERIFICATION · FAILED TO LOAD', 'failed'));
+    document.body.appendChild(script);
+  }
+
   function loadMediaTransport() {
-    if (window.StegMusicMediaTransport || document.querySelector('script[data-stegmusic-media-transport]')) return;
+    if (window.StegMusicMediaTransport || document.querySelector('script[data-stegmusic-media-transport]')) {
+      loadGuidedVerification();
+      return;
+    }
     const script = document.createElement('script');
     script.src = 'assets/ecosystem-music-media-transport.js';
     script.async = false;
     script.dataset.stegmusicMediaTransport = 'true';
+    script.addEventListener('load', loadGuidedVerification);
     script.addEventListener('error', () => setResult('MEDIA TRANSPORT · FAILED TO LOAD', 'failed'));
     document.body.appendChild(script);
   }
