@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""Validate the non-authorizing cross-repository live baseline handoff."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+STATUS = ROOT / "data/framework-evaluations/stegverse-live-baseline-handoff-status.json"
+REQUEST = ROOT / "data/framework-evaluations/stegverse-live-baseline-execution-request.json"
+NO_AUTHORITY = {
+    "comparison": False,
+    "admissibility": False,
+    "certification": False,
+    "execution": False,
+    "custody": False,
+    "parentage": False,
+}
+
+
+def require(value: object, message: str) -> None:
+    if not value:
+        raise AssertionError(message)
+
+
+def main() -> int:
+    require(STATUS.is_file(), "missing live baseline handoff status")
+    require(REQUEST.is_file(), "missing live baseline execution request")
+    status = json.loads(STATUS.read_text(encoding="utf-8"))
+    request = json.loads(REQUEST.read_text(encoding="utf-8"))
+
+    require(status.get("schema_version") == "1.0.0", "unsupported schema_version")
+    require(status.get("source_request_id") == request.get("request_id"), "source request mismatch")
+    require(status.get("source_repository") == "StegVerse-Labs/Site", "source repository mismatch")
+    require(status.get("destination_repository") == "StegVerse-org/LLM-adapter", "destination repository mismatch")
+    require(status.get("destination_path") == "intake/stegverse-live-baseline-execution-request-v1.json", "destination path mismatch")
+    commit = status.get("destination_commit")
+    require(isinstance(commit, str) and len(commit) == 40 and all(c in "0123456789abcdef" for c in commit), "invalid destination commit")
+    require(status.get("handoff_state") == "RECEIVED_PENDING_PREREQUISITES", "unexpected handoff state")
+    require(status.get("dispatch_state") == "NOT_DISPATCHED", "handoff cannot claim dispatch")
+    require(status.get("destination_execution_authorized") is False, "destination execution authority escalated")
+    require(status.get("source_execution_authorized") is False, "source execution authority escalated")
+    require(status.get("source_custody_authorized") is False, "source custody authority escalated")
+    require(len(status.get("required_next_evidence") or []) >= 6, "required next evidence incomplete")
+    require(status.get("prohibited_inferences"), "missing prohibited inferences")
+    require(status.get("authority") == NO_AUTHORITY, "handoff authority boundary changed")
+    require(request.get("dispatch", {}).get("authorized") is False, "source request cannot be dispatched while handoff is pending prerequisites")
+
+    print("STEGVERSE LIVE BASELINE HANDOFF: RECEIVED_PENDING_PREREQUISITES")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
