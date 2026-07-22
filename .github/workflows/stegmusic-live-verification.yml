@@ -1,0 +1,58 @@
+name: StegMusic Live Verification
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Site Task Runner
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stegmusic-live-verification
+  cancel-in-progress: true
+
+jobs:
+  verify-live-music:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout deployed source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify StegMusic public files
+        env:
+          STEGVERSE_PAGES_BASE_URL: https://stegverse-labs.github.io/Site
+        run: |
+          for attempt in $(seq 1 18); do
+            if python scripts/check_stegmusic_live_routes.py; then
+              exit 0
+            fi
+            echo "StegMusic live verification attempt ${attempt}/18 did not pass; waiting for Pages propagation."
+            sleep 10
+          done
+          echo "StegMusic public files did not verify after deployment retries."
+          exit 1
+
+      - name: Upload StegMusic live verification receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stegmusic-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/stegmusic-live-verification.json
+          if-no-files-found: error
+          retention-days: 30
