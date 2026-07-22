@@ -33,6 +33,7 @@
       <div class="actions">
         <button class="sv-btn sv-btn-primary" id="connect-wallet">Connect wallet</button>
         <button class="sv-btn sv-btn-secondary" id="switch-base">Switch to Base</button>
+        <button class="sv-btn sv-btn-secondary" id="run-readiness">Run readiness self-test</button>
       </div>
       <div id="wallet-status" class="status">Not connected.</div>
       <div class="field"><label>Optional Basename display alias</label><input id="basename-alias" placeholder="stegverse.base.eth"></div>
@@ -53,6 +54,12 @@
       <div class="field"><label>Expires</label><input id="goal-expiry" type="datetime-local"></div>
       <div class="field"><label>Delegation reference (Mode 2 only)</label><input id="delegation-ref" placeholder="delegation:crypto:..."></div>
       <button class="sv-btn sv-btn-primary" id="build-goal">Build goal mandate</button>
+    </section>
+
+    <section class="wallet-card full">
+      <h2>Wallet-browser readiness receipt</h2>
+      <textarea id="readiness-output" readonly placeholder="Run the readiness self-test. No signature or transaction will be requested."></textarea>
+      <div class="actions"><button class="sv-btn sv-btn-secondary" id="download-readiness">Download readiness receipt</button></div>
     </section>
 
     <section class="wallet-card full">
@@ -84,6 +91,7 @@
 Basename display alias       = onchain identity and payment alias
 Base App browser             = distribution and wallet surface
 wallet address               = canonical account identity
+readiness receipt            != wallet authentication or authority
 StegWallet ALLOW             = may reach wallet prompt
 wallet user approval         = Mode 1 execution authority
 HPS delegation receipt       = prerequisite for Mode 2 signer submission
@@ -91,5 +99,6 @@ domain / Basename / profile  != execution authority
 private key / seed phrase    = never requested</pre>
 </div>
 <script type="module" src="assets/stegwallet.js"></script>
+<script type="module" src="assets/stegwallet-readiness.js"></script>
 </body>
 </html>
