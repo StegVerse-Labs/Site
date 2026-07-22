@@ -41,7 +41,7 @@
     });
   }
   function schedule(index, selection={}) {
-    if (!isPlaying() || selection.reason === 'explicit_user_selection' || selection.reason === 'transition_replay') return originalSelect(index, selection);
+    if (!isPlaying() || selection.reason === 'explicit_user_selection' || selection.reason === 'transition_replay' || selection.reason === 'library_selection') return originalSelect(index, selection);
     const delayMs = boundedDelayMs();
     pending = {index,selection,delayMs};
     window.clearTimeout(timer);
@@ -54,6 +54,15 @@
     });
     return {scheduled:true,delay_ms:delayMs};
   }
+  function loadLibrary() {
+    if (window.StegMusicLibrary || document.querySelector('script[data-stegmusic-library]')) return;
+    const script = document.createElement('script');
+    script.src = 'assets/ecosystem-music-library.js';
+    script.async = false;
+    script.dataset.stegmusicLibrary = 'true';
+    document.body.appendChild(script);
+  }
   window.StegMusicRuntime.selectGeneratedTrack = schedule;
   window.StegMusicTransitionScheduler = Object.freeze({strategy:'phase_boundary_bounded_delay',maximum_delay_ms:2200,audio_context_reused:true,authority:'none'});
+  loadLibrary();
 })();
