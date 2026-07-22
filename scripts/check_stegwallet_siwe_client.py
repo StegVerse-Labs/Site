@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "stegwallet.html"
 SCRIPT = ROOT / "assets" / "stegwallet-siwe.js"
 CONFIG = ROOT / "data" / "stegwallet-siwe-runtime.json"
+PROMOTER = ROOT / "scripts" / "promote_stegwallet_siwe_runtime.py"
 
 
 def require(text: str, marker: str, source: str) -> None:
@@ -23,6 +24,7 @@ def prohibit(text: str, marker: str, source: str) -> None:
 def main() -> int:
     page = PAGE.read_text(encoding="utf-8")
     script = SCRIPT.read_text(encoding="utf-8")
+    promoter = PROMOTER.read_text(encoding="utf-8")
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
 
     for marker in (
@@ -39,6 +41,7 @@ def main() -> int:
         "stegwallet.siwe_runtime_configuration.v1",
         "stegwallet.siwe_challenge.v1",
         "stegwallet.siwe_session_receipt.v1",
+        "stegwallet.siwe_logout_request.v1",
         "personal_sign",
         "eth_accounts",
         "eth_chainId",
@@ -48,6 +51,12 @@ def main() -> int:
         "execution_authority !== false",
         "delegation_authority !== false",
         "location.origin !== config.canonical_origin",
+        "config.logout_endpoint",
+        "activation_receipt_sha256",
+        "service_manifest_sha256",
+        "proxy_manifest_sha256",
+        "health_readiness_sha256",
+        "SESSION REVOKED",
     ):
         require(script, marker, SCRIPT.name)
 
@@ -64,7 +73,7 @@ def main() -> int:
     ):
         prohibit(script, marker, SCRIPT.name)
 
-    if config != {
+    expected = {
         "schema": "stegwallet.siwe_runtime_configuration.v1",
         "state": "CONFIGURATION_REQUIRED",
         "canonical_origin": "https://stegverse.org",
@@ -72,21 +81,40 @@ def main() -> int:
         "challenge_endpoint": None,
         "verify_endpoint": None,
         "session_endpoint": None,
+        "logout_endpoint": None,
         "https_required": True,
         "same_origin_required": True,
         "wallet_authentication_enabled": False,
+        "activation_receipt_sha256": None,
+        "service_manifest_sha256": None,
+        "proxy_manifest_sha256": None,
+        "health_readiness_sha256": None,
         "transaction_authority": False,
         "execution_authority": False,
         "delegation_authority": False,
         "custody_recorded": False,
         "blockers": [
             "authenticated_siwe_service_not_deployed",
+            "activation_receipt_not_imported",
             "challenge_endpoint_not_configured",
             "verification_endpoint_not_configured",
             "session_endpoint_not_configured",
+            "logout_endpoint_not_configured",
         ],
-    }:
+    }
+    if config != expected:
         raise SystemExit("STEGWALLET_SIWE_CHECK_FAIL: runtime configuration is not the expected fail-closed record")
+
+    for marker in (
+        "stegwallet.siwe_activation_receipt.v1",
+        "READY_FOR_SITE_PROMOTION",
+        "siwe_activation_receipt_tampered",
+        "site_configuration_promoted",
+        "wallet_authentication_enabled\": True",
+        "logout_endpoint",
+        "--apply",
+    ):
+        require(promoter, marker, PROMOTER.name)
 
     require(script, "$('siwe-sign-in').disabled = !enabled", SCRIPT.name)
     require(script, "if (config.wallet_authentication_enabled !== true) return false", SCRIPT.name)
