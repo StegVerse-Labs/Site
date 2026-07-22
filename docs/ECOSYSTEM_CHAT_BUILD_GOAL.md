@@ -319,3 +319,29 @@ Install one approved GGUF through the merged bounded intake, start the existing 
 
 False for routine repository work. Model provenance and machine execution authority remain separate runtime boundaries.
 
+---
+
+## OpenAI-compatible provider profile update — 2026-07-22
+
+This section supersedes only the statement that the existing governed provider broker could not communicate with an OpenAI-compatible chat-completions endpoint.
+
+- LLM-adapter PR #30 merged as `190bd1fc5b3b4b956887abf24cb866f4a778032d`.
+- `stegverse-v1` remains the default provider protocol.
+- The bounded `openai-chat-completions-v1` profile translates the existing governed request into the OpenAI-compatible chat-completions wire format and maps the response back into the existing provider result and receipt path.
+- Unknown protocol profiles fail closed.
+- Existing endpoint allowlisting, HTTPS enforcement, quota, cost, local usage persistence, custody, reconstruction, receipt, and false-authority boundaries remain in force.
+- Complete validation run `29880129933` and Architecture Guard run `29880129953` passed.
+- Detailed cycle record: `docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_OPENAI_PROVIDER_PROFILE.md`.
+
+### Current blocker
+
+No OpenAI-compatible provider has been authorized for execution. The GitHub Models candidate requires `models: read` permission and an explicit model selection. The authorized-provider receipt also reports that Master-Records endpoint and token bindings are absent.
+
+### Next executable integration step
+
+After explicit authority approval, bind the existing live-activation workflow to an authorized OpenAI-compatible provider and execute one governed request. For the GitHub Models candidate, the bounded decision is whether to grant `models: read` and which model to select. Retain the first exact provider, usage, custody, reconstruction, or activation failure.
+
+### Manual user action requirement
+
+False for routine repository work. A provider-execution permission and model-selection decision is required before the GitHub Models candidate can be activated.
+

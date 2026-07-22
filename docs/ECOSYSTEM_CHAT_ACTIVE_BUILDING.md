@@ -550,3 +550,52 @@ Provider and model-intake contracts advanced to verified. No live provider or ac
 
 None.
 
+---
+
+## OpenAI-compatible provider profile update — 2026-07-22
+
+### Work performed
+
+- Reused and extended the existing governed provider broker instead of creating a provider service or executor.
+- Added a bounded OpenAI-compatible request/response profile.
+- Preserved the default StegVerse provider contract and all existing runtime controls.
+- Added fail-closed tests for missing choices and unsupported protocols.
+
+### Components modified
+
+- `StegVerse-org/LLM-adapter/llm_adapter/governed_provider.py`
+- `StegVerse-org/LLM-adapter/tests/test_governed_provider.py`
+
+### Runtime evidence
+
+- Merge: `190bd1fc5b3b4b956887abf24cb866f4a778032d`
+- Complete validation: `29880129933`
+- Architecture Guard: `29880129953`
+
+### State classification
+
+- OpenAI-compatible provider profile: IMPLEMENTED, INTEGRATED, VERIFIED BY TESTS
+- Real OpenAI-compatible provider call: UNPROVEN
+- Provider usage persistence/custody/reconstruction from real use: UNPROVEN
+- Immutable activation, Site activation, and propagation: UNPROVEN
+
+### Removals proposed but not performed
+
+The accidental root-level `StegVerse-org/LLM-adapter/noop` file is proposed for deletion only after explicit approval. It contains only `noop`, has no dependencies or runtime effect, and can be restored by recreating the file or reverting the future deletion commit. No removal was performed.
+
+### Goal delta
+
+The canonical broker can now consume an OpenAI-compatible provider protocol without duplicating provider, usage, custody, or receipt systems.
+
+### Reuse delta
+
+Existing broker, quota/cost enforcement, provider receipt, usage ledger, custody clients, activation workflow, and validation suite replaced the need for a separate adapter service.
+
+### Non-progress
+
+No model-execution permission was granted, no model was selected, and no real provider call occurred.
+
+### Next executable step
+
+Present and resolve the bounded provider-execution decision, then run the existing activation path and retain the first exact failure.
+
