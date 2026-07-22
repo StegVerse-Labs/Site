@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "ecosystem-music.html"
 RUNTIME = ROOT / "assets" / "ecosystem-music-diagnostics.js"
 MEDIA_TRANSPORT = ROOT / "assets" / "ecosystem-music-media-transport.js"
+IPHONE_VERIFICATION = ROOT / "assets" / "ecosystem-music-iphone-verification.js"
 
 
 def fail(message: str) -> int:
@@ -15,13 +16,14 @@ def fail(message: str) -> int:
 
 
 def main() -> int:
-    for path in (PAGE, RUNTIME, MEDIA_TRANSPORT):
+    for path in (PAGE, RUNTIME, MEDIA_TRANSPORT, IPHONE_VERIFICATION):
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
     runtime = RUNTIME.read_text(encoding="utf-8")
     transport = MEDIA_TRANSPORT.read_text(encoding="utf-8")
+    guided = IPHONE_VERIFICATION.read_text(encoding="utf-8")
 
     page_markers = (
         'id="audioSelfTest"',
@@ -39,7 +41,9 @@ def main() -> int:
         "audible_output_confirmed: false",
         "browser_runtime_execution_confirmed: true",
         "generated_media_transport_confirmed",
+        "guided_verification_runtime_confirmed",
         "assets/ecosystem-music-media-transport.js",
+        "assets/ecosystem-music-iphone-verification.js",
         "window.dispatchEvent(new CustomEvent('stegmusic:emit'",
     )
     transport_markers = (
@@ -58,6 +62,18 @@ def main() -> int:
         "source_bytes_uploaded: false",
         "window.StegMusicMediaTransport",
     )
+    guided_markers = (
+        "stegmusic.iphone-verification.v1",
+        "GUIDED TEST",
+        "Export verification receipt",
+        "stegmusic-iphone-verification-receipt-v1",
+        "local_file_playback_verified",
+        "screen_dim_continuity_verified",
+        "screen_lock_continuity_verified",
+        "return_resume_verified",
+        "iphone_guided_verification_step_completed",
+        "window.StegMusicIphoneVerification",
+    )
 
     for marker in page_markers:
         if marker not in page:
@@ -68,6 +84,9 @@ def main() -> int:
     for marker in transport_markers:
         if marker not in transport:
             return fail(f"media transport missing marker: {marker}")
+    for marker in guided_markers:
+        if marker not in guided:
+            return fail(f"guided verification missing marker: {marker}")
 
     if page.index("assets/ecosystem-music-diagnostics.js") < page.index("assets/ecosystem-music.js"):
         return fail("diagnostics runtime must load after the base music runtime")
@@ -80,6 +99,7 @@ def main() -> int:
     print("authority_effect=NONE")
     print("audibility_claim=human_confirmation_only")
     print("generated_media_transport=offline_render_to_html_audio_wav")
+    print("guided_iphone_verification=enabled")
     return 0
 
 
