@@ -32,7 +32,22 @@ FILES = {
 }
 FIXTURE = ROOT / "data" / "ecosystem-chat-value-claims.fixture.json"
 HISTORY_FIXTURE = ROOT / "data" / "ecosystem-chat-value-claim-history.fixture.json"
-HISTORY_CHECK = ROOT / "scripts" / "check_ecosystem_chat_value_claim_history.py"
+CHECKS = (
+    ROOT / "scripts" / "check_ecosystem_chat_value_claim_history.py",
+    ROOT / "scripts" / "check_ecosystem_chat_value_integration.py",
+)
+
+
+def run_check(path: Path) -> tuple[int, str]:
+    completed = subprocess.run(
+        [sys.executable, str(path)],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    return completed.returncode, completed.stdout.rstrip()
 
 
 def main() -> int:
@@ -46,29 +61,28 @@ def main() -> int:
     for fixture in (FIXTURE, HISTORY_FIXTURE):
         if not fixture.exists():
             errors.append(f"missing file: {fixture.relative_to(ROOT)}")
+    for check in CHECKS:
+        if not check.exists():
+            errors.append(f"missing file: {check.relative_to(ROOT)}")
     if errors:
         print("ECOSYSTEM_CHAT_VALUE_RENDERER_CHECK=FAIL")
         for error in errors:
             print(f"- {error}")
         return 1
 
-    completed = subprocess.run(
-        [sys.executable, str(HISTORY_CHECK)],
-        cwd=ROOT,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        check=False,
-    )
-    if completed.returncode != 0:
-        print("ECOSYSTEM_CHAT_VALUE_RENDERER_CHECK=FAIL")
-        print(completed.stdout.rstrip())
-        return completed.returncode
+    for check in CHECKS:
+        returncode, output = run_check(check)
+        if returncode != 0:
+            print("ECOSYSTEM_CHAT_VALUE_RENDERER_CHECK=FAIL")
+            print(output)
+            return returncode
+        print(output)
 
-    print(completed.stdout.rstrip())
     print("ECOSYSTEM_CHAT_VALUE_RENDERER_CHECK=PASS")
     print("views=conversation,governed,split")
-    print("correlation=stable_claim_id_and_submission_event_id")
+    print("integration=ecosystem-chat.html")
+    print("locales=en,es,zh-Hans,zh-Hant")
+    print("correlation=stable_claim_id,submission_event_id,history_event_id")
     print("stage_history=reconstructed")
     print("authority_effect=none")
     return 0
