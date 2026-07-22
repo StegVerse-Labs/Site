@@ -7,9 +7,9 @@ This file is the current implementation handoff for the Site-hosted StegMusic / 
 ## Current goal
 
 ```text
-Goal: playable governed music service inside the Ecosystem Node that supports immediate listening, visible rights posture, preference refinement, synchronized governed projections, persistent session records, contribution-value inspection, adaptive StegDJ selection, transition-outcome learning, user-owned local playback, isolated invited-tester profiles, and later licensed catalog/provider integration.
+Goal: playable governed music service inside the Ecosystem Node supporting immediate listening, visible rights posture, preference refinement, synchronized governed projections, contribution-value inspection, adaptive selection, transition-outcome learning, intent-shaped composition, user-owned local playback, isolated invited-tester profiles, and later licensed catalog/provider integration.
 Primary surface: ecosystem-music.html
-Runtime: assets/ecosystem-music-profile-scope.js + assets/ecosystem-music.js + assets/ecosystem-music-adaptive.js + assets/ecosystem-music-local-source.js + assets/ecosystem-music-diagnostics.js
+Runtime: assets/ecosystem-music-profile-scope.js + assets/ecosystem-music.js + assets/ecosystem-music-adaptive.js + assets/ecosystem-music-local-source.js + assets/ecosystem-music-diagnostics.js + assets/ecosystem-music-intent-composition.js
 Issue: StegVerse-Labs/Site#39
 Authority: construction and fixture testing only
 ```
@@ -17,76 +17,69 @@ Authority: construction and fixture testing only
 ## Implemented playable slice
 
 ```text
-partial Ecosystem Chat-style music window and direct service launcher
-three locally generated StegDJ tracks with INTRO / BUILD / LIFT / RESOLVE form
+partial Ecosystem Chat-style music window and direct launcher
+three locally generated StegDJ tracks
 normal playback, adaptive-next, volume, progress, and local-file controls
-session intent plus energy, brightness, bass-texture, and exploration controls
+INTRO / BUILD / LIFT / RESOLVE generated form
+session-intent controls that now alter selection targets and phase-specific composition structure
+energy, brightness, bass-texture, and exploration controls
 quick and free-text preference refinement
-browser-local trait model and deterministic candidate scoring
+browser-local trait model and deterministic ranking
 preference fit, transition fit, repeat penalty, and learned outcome adjustment
 canonical adaptive_selection_decision event
-profile-scoped transition outcomes: accepted, skipped, replayed, completed
+profile-scoped accepted / skipped / replayed / completed transition outcomes
 canonical transition_outcome_recorded event
 user-owned or purchased local audio without upload
-rights assertion, refusal, object-URL creation, and object-URL revocation
+rights assertion, refusal, object-URL creation, and revocation
 Conversation / Governed music play / Split / Raw JSONL projections
 stable event correlation and captured-versus-derived inspection
 projection permissions, future-reuse revocation, reset, and JSON export
 prototype contribution-value inspection with non-payable boundary
-browser-local isolated profile namespaces for separate testers
-browser audio self-test and explicit non-audibility claim
+browser-local isolated profile namespaces
+browser audio self-test with explicit non-audibility claim
 accessibility labels, landmarks, live regions, tab roles, and keyboard-focusable records
 ```
 
 ## Profile isolation boundary
 
-`assets/ecosystem-music-profile-scope.js` loads before every music runtime and namespaces StegMusic browser storage under the active profile ID.
+All StegMusic storage keys are namespaced under the active browser-local profile:
 
 ```text
-active profile pointer: stegmusic.active-profile.v1
-profile registry: stegmusic.profile-registry.v1
-scoped runtime key: stegmusic.profile.<profile_id>.<original_stegmusic_key>
+stegmusic.profile.<profile_id>.<original_stegmusic_key>
 ```
 
-This separates each tester's local events, prototype value, permissions, display profile, adaptive model, and transition model in the same browser.
+This separates each tester's events, permissions, prototype value, display profile, adaptive model, and transition model.
 
 ```text
 browser-local namespace isolation != authenticated account isolation
-separate local profile != server-side tenant boundary
 profile ID != verified identity
 cross-profile read is disabled through the profile-scope runtime
 ```
 
-## Adaptive and transition-learning boundary
+## Adaptive, transition, and intent-composition boundary
 
-The adaptive trait model is stored under `stegmusic.trait-model.v1`. Transition outcomes are stored under `stegmusic.transition-model.v1`. Both keys are automatically scoped to the active isolated profile.
+Adaptive ranking combines preference distance, transition distance, repeat penalty, and bounded prior-outcome adjustment. Transition outcomes are explicit listener evidence and not verified preference truth.
 
-The ranking combines:
+`assets/ecosystem-music-intent-composition.js` adds phase-specific structural profiles:
 
 ```text
-preference distance
-transition distance
-repeat penalty
-bounded prior-outcome adjustment
+fine_tune -> BALANCED LAB
+stay_alert -> ALERTNESS ARC
+focus -> FOCUS PLATEAU
+settle -> DESCENDING SETTLE
+explore -> BOUNDARY EXPLORATION
 ```
 
-The listener may rate the most recent Adaptive next transition as:
+Each profile changes energy, brightness, bass texture, and exploration differently during INTRO, BUILD, LIFT, and RESOLVE. The underlying generated-audio runtime reads those live controls, so session intent now changes the produced phase structure rather than only the recommendation target.
+
+Each newly applied phase profile emits `composition_intent_profile_applied` with the session intent, composition phase, base controls, applied controls, profile label, active profile scope, and authority=`none`.
 
 ```text
-accepted
-skipped
-replayed
-completed
-```
-
-Each rating emits `transition_outcome_recorded` before the persistent pair statistics alter later ranking. A skip records the poor fit before requesting another adaptive candidate. Replay records the outcome before replaying the selected generated track.
-
-```text
-explicit transition outcome != verified preference truth
-learned pair adjustment != autonomous execution authority
-profile-local model != aggregate ecosystem rule
-transition score != guaranteed transition quality
-model reset != deletion of historical governed events
+intent-shaped structure != proof of therapeutic effect
+phase modulation != production composition engine
+profile-local learning != aggregate ecosystem rule
+adaptive ranking != autonomous execution authority
+transition outcome != verified listener truth
 ```
 
 ## Rights/source classes
@@ -100,7 +93,7 @@ bundled_catalog_entitlement: planned
 authorized_per_track_source: planned
 ```
 
-The local-source path uses `URL.createObjectURL`; source bytes are not uploaded, copied into repository storage, entered into Master Records, or persisted by the Site. The authorization checkbox is a governed assertion and is not independent evidence of ownership.
+Local source bytes are not uploaded, entered into Master Records, or retained by the Site. User authorization is a governed assertion, not independent proof of ownership.
 
 No commercial catalog license, streaming entitlement, royalty payment, public-distribution right, or unrestricted composition right is asserted.
 
@@ -112,6 +105,7 @@ playback_started / playback_paused / playback_stopped / playback_refused
 preference_refinement
 adaptive_selection_decision / adaptive_model_reset
 transition_outcome_recorded
+composition_intent_profile_applied
 local_source_loaded / local_source_refused / local_source_cleared
 local_playback_started / local_playback_paused / local_playback_completed / local_playback_refused
 profile_saved
@@ -120,22 +114,19 @@ future_reuse_revoked
 audio_self_test_passed / audio_self_test_failed
 ```
 
-Local-source records retain metadata and rights assertions but prohibit source-audio upload, retention, external training, and public distribution.
-
 ## Verification status
 
 ```text
-Site Bootstrap Validate for profile isolation PR #46: PASS
-static playable-slice verifier: IMPLEMENTED AND ENFORCES UNIQUE DOM IDS
-adaptive-model verifier: IMPLEMENTED FOR DECISIONS, TRANSITION SCORING, AND OUTCOME LEARNING
+Site Bootstrap Validate for transition-learning PR #47: PASS
+transition-learning PR #47: MERGED
+static playable-slice verifier: IMPLEMENTED
+adaptive-model verifier: IMPLEMENTED
+intent-composition verifier: IMPLEMENTED
 browser self-test contract: IMPLEMENTED
 live verification contract: IMPLEMENTED
 profile-isolation and accessibility verifier: IMPLEMENTED
 canonical Site application validation binding: IMPLEMENTED
-Ecosystem Chat service launcher: IMPLEMENTED
-browser-local profile namespaces: IMPLEMENTED
-profile-scoped transition learning: IMPLEMENTED
-browser audio execution: NOT YET OBSERVED IN DEPLOYED PREVIEW
+browser audio execution in deployed preview: NOT YET OBSERVED
 iPhone/Safari audible output: NOT YET OBSERVED
 full browser interaction automation: NOT YET IMPLEMENTED
 same-device tester isolation: IMPLEMENTED BUT NOT YET BROWSER-OBSERVED
@@ -149,14 +140,14 @@ connected licensed provider: NOT IMPLEMENTED
 Destination `StegVerse-Labs/Site`:
 
 ```text
-validate transition-learning branch in CI
+validate intent-composition branch in CI
 merge after green validation
 observe deployed music route and browser self-test
 confirm generated audio and local-file playback on iPhone/Safari
 confirm isolated profile switching and no cross-profile history display
-confirm transition acceptance, skip, replay, and completion affect only the active profile
+confirm intent forms audibly differ across session intents
+confirm transition outcomes affect only the active profile
 add automated browser interaction coverage
-record target-device evidence without converting browser observations into authority
 ```
 
 Destination lawful source integration:
@@ -172,7 +163,6 @@ keep ordinary playback cost comparable to the sourced service
 Destination `StegDJ`:
 
 ```text
-make session intent alter composition structure as well as selection target
 learn from automatic playback completion and explicit skip timing
 separate user-private learning from aggregate reusable rules
 add rights-aware composition inputs and output licensing classes
@@ -184,22 +174,11 @@ Adjacent destinations remain the ecosystem session contract, financial contract,
 
 ## Internal-test viability
 
-After deployment and target-browser confirmation, the prototype supports controlled testing of generated music, adaptive selection, explicit transition learning, trait refinement, governed records, contribution-candidate display, local authorized audio, and separate same-device tester profiles.
+After deployment and target-browser confirmation, the prototype supports controlled testing of generated music, adaptive selection, transition learning, intent-shaped phase structure, governed records, contribution-candidate display, local authorized audio, and separate same-device tester profiles.
 
-Invited testing additionally requires:
+Invited testing additionally requires clear fixture and rights labeling, one isolated profile ID per tester, no cross-profile raw-history exposure, visible failures, target-device evidence, and confidentiality/contribution terms for patent-sensitive testing.
 
-```text
-clear fixture and rights-assertion labeling
-one distinct isolated profile ID per tester
-export and reset/revocation controls
-no cross-profile raw-history exposure
-visible failures
-rights evidence for every non-generated shared source
-confidentiality and contribution terms for patent-sensitive testing
-target-device browser evidence
-```
-
-Production viability still requires authenticated identity, server-side tenant isolation, durable custody boundaries, lawful catalog access, provider entitlement resolution, and non-prototype financial accounting.
+Production viability still requires authenticated identity, server-side tenant isolation, durable custody, lawful catalog access, provider entitlement resolution, and non-prototype financial accounting.
 
 ## Authority boundary
 
@@ -212,8 +191,7 @@ candidate contribution != realized value
 prototype estimate != payable balance
 fixture event != activation evidence
 StegDJ generation != unrestricted composition right
-adaptive ranking != autonomous execution authority
-transition outcome != verified listener truth
+intent-shaped composition != medical or therapeutic claim
 browser self-test != audible-output confirmation
 ```
 
