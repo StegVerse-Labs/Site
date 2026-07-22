@@ -6,12 +6,12 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 PAGE = ROOT / "gp10-workspace.html"
 SCRIPT = ROOT / "assets" / "gp10-workspace.js"
-IMPORT_SCRIPT = ROOT / "assets" / "gp10-evidence-import.js"
+INTEGRATION = ROOT / "assets" / "gp10-evidence-integration.js"
 
 
 def main() -> int:
     errors = []
-    for path, label in [(PAGE, "gp10-workspace.html"), (SCRIPT, "assets/gp10-workspace.js"), (IMPORT_SCRIPT, "assets/gp10-evidence-import.js")]:
+    for path, label in [(PAGE, "gp10-workspace.html"), (SCRIPT, "assets/gp10-workspace.js"), (INTEGRATION, "assets/gp10-evidence-integration.js")]:
         if not path.exists():
             errors.append(f"{label} is missing")
     if errors:
@@ -22,11 +22,11 @@ def main() -> int:
 
     page = PAGE.read_text(encoding="utf-8")
     script = SCRIPT.read_text(encoding="utf-8")
-    importer = IMPORT_SCRIPT.read_text(encoding="utf-8")
+    integration = INTEGRATION.read_text(encoding="utf-8")
     required_page = [
         'name="robots" content="noindex,nofollow,noarchive"',
         'assets/gp10-workspace.js',
-        'assets/gp10-evidence-import.js',
+        'assets/gp10-evidence-integration.js',
         'No execution authority',
         'Import authorized external evidence',
     ]
@@ -34,12 +34,11 @@ def main() -> int:
         "BROWSER_LOCAL_UNCUSTODIED", "execution_authority: false", "DISCOVERY_ONLY",
         "COST_PLUS", "RE_SCOPE", "REJECT", "PROCEED", "localStorage",
     ]
-    required_importer = [
+    required_integration = [
         "crypto.subtle.digest", "original_sha256", "QUALIFIED_REVIEW_REQUIRED",
-        "BROWSER_LOCAL_UNCUSTODIED", "execution_authority:false", "localStorage",
-        "gp10.workspace.evidence.packets.v1", "gp10.workspace.evidence.reviews.v1",
-        "Evidence review queue", "Export complete validation bundle",
-        "detectCrossPacketConflicts", "never silently overwrite",
+        "BROWSER_LOCAL_UNCUSTODIED", "execution_authority: false", "localStorage",
+        "evidenceReviewQueue", "exportValidationBundle", "owner_role", "authority_class",
+        "created_at", "asset:", "observations:", "conflicts:",
     ]
     for marker in required_page:
         if marker not in page:
@@ -47,11 +46,11 @@ def main() -> int:
     for marker in required_script:
         if marker not in script:
             errors.append(f"workspace script missing marker: {marker}")
-    for marker in required_importer:
-        if marker not in importer:
-            errors.append(f"evidence importer missing marker: {marker}")
+    for marker in required_integration:
+        if marker not in integration:
+            errors.append(f"evidence integration missing marker: {marker}")
 
-    excluded = {PAGE.resolve(), SCRIPT.resolve(), IMPORT_SCRIPT.resolve(), Path(__file__).resolve()}
+    excluded = {PAGE.resolve(), SCRIPT.resolve(), INTEGRATION.resolve(), Path(__file__).resolve()}
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.resolve() in excluded:
             continue
@@ -67,11 +66,11 @@ def main() -> int:
             errors.append(f"temporary workspace is linked by {path.relative_to(ROOT)}")
 
     if errors:
-        print(f"FAIL-CLOSED: {len(errors)} GP10 workspace isolation violation(s)")
+        print(f"FAIL-CLOSED: {len(errors)} GP10 workspace isolation or contract violation(s)")
         for error in errors:
             print(f"- {error}")
         return 1
-    print("OK: GP10 workspace, evidence review queue, and bundle export preserve authority boundaries and remain unlinked")
+    print("OK: GP10 workspace, canonical evidence integration, review queue, and bundle export preserve authority boundaries and remain unlinked")
     return 0
 
 
