@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StegWallet governed crypto goals, user-approved signing, and settlement receipts.">
+  <title>StegWallet — Governed Crypto Goals</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .wallet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin:18px 0}.wallet-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.wallet-card h2{margin-top:0}.status{padding:10px;border:1px solid var(--border);border-radius:8px;background:rgba(17,24,39,.7);font-size:13px;white-space:pre-wrap}.field{display:grid;gap:5px;margin:10px 0}.field label{font-size:12px;color:var(--muted)}input,select,textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;background:#0d1421;color:var(--text);padding:10px}textarea{min-height:180px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}.risk{border:1px solid #59450c;background:rgba(89,69,12,.2);padding:12px;border-radius:8px;color:#f3d98b}.ok{border-color:#245c36;color:#bce9c5}.bad{border-color:#7f2b2b;color:#ffc7c7}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}.actions{display:flex;flex-wrap:wrap;gap:8px}.actions button{cursor:pointer}.full{grid-column:1/-1}
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="ecosystem-chat.html">Ecosystem Chat</a>
+  <a href="stegwallet.html" class="active">StegWallet</a>
+  <a href="governed-ecosystem.html">Governed Ecosystem</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">StegWallet · keys remain in the wallet · execution fails closed</div>
+    <h1>Govern the goal before<br><em>the transaction reaches signature.</em></h1>
+    <p>This surface supports two bounded modes: construct a goal and approve each admitted trade in your wallet, or export a delegated mandate for a separately authorized capped execution wallet. This page never requests a seed phrase or private key.</p>
+  </div>
+
+  <div class="risk"><strong>Runtime boundary:</strong> connecting a wallet grants account visibility only. A transaction reaches MetaMask only after an imported StegWallet signature request passes schema, account, chain, commitment, and authority checks. Review the wallet prompt before approving.</div>
+
+  <div class="wallet-grid">
+    <section class="wallet-card">
+      <h2>1. Connect signing wallet</h2>
+      <p class="muted">Use an injected EIP-1193 wallet such as MetaMask. Base mainnet is the first supported chain.</p>
+      <div class="actions">
+        <button class="sv-btn sv-btn-primary" id="connect-wallet">Connect wallet</button>
+        <button class="sv-btn sv-btn-secondary" id="switch-base">Switch to Base</button>
+      </div>
+      <div id="wallet-status" class="status">Not connected.</div>
+    </section>
+
+    <section class="wallet-card">
+      <h2>2. Define the goal</h2>
+      <div class="field"><label>Mode</label><select id="execution-mode"><option value="user_signature_required">Approve every trade</option><option value="delegated_bounded">Bounded delegated goal</option></select></div>
+      <div class="field"><label>Capital ceiling (USD)</label><input id="capital-limit" type="number" min="1" step="1" value="500"></div>
+      <div class="field"><label>Maximum position (USD)</label><input id="position-limit" type="number" min="1" step="1" value="100"></div>
+      <div class="field"><label>Maximum realized loss (USD)</label><input id="loss-limit" type="number" min="0" step="1" value="35"></div>
+      <div class="field"><label>Maximum drawdown (USD)</label><input id="drawdown-limit" type="number" min="0" step="1" value="50"></div>
+      <div class="field"><label>Maximum slippage (basis points)</label><input id="slippage-limit" type="number" min="0" max="10000" value="75"></div>
+      <div class="field"><label>Maximum gas (USD)</label><input id="gas-limit" type="number" min="0" step="0.01" value="3"></div>
+      <div class="field"><label>Maximum open positions</label><input id="position-count-limit" type="number" min="1" value="2"></div>
+      <div class="field"><label>Expires</label><input id="goal-expiry" type="datetime-local"></div>
+      <div class="field"><label>Delegation reference (Mode 2 only)</label><input id="delegation-ref" placeholder="delegation:crypto:..."></div>
+      <button class="sv-btn sv-btn-primary" id="build-goal">Build goal mandate</button>
+    </section>
+
+    <section class="wallet-card full">
+      <h2>Goal mandate</h2>
+      <textarea id="goal-output" readonly placeholder="Connect a wallet and build a goal."></textarea>
+      <div class="actions"><button class="sv-btn sv-btn-secondary" id="download-goal">Download mandate</button><button class="sv-btn sv-btn-secondary" id="copy-goal">Copy mandate</button></div>
+    </section>
+
+    <section class="wallet-card full">
+      <h2>3. Review an admitted transaction</h2>
+      <p class="muted">Paste the exact <code>stegwallet.signature_request.v1</code> produced by the StegWallet runtime. Raw route suggestions or ordinary transaction JSON are rejected.</p>
+      <textarea id="signature-input" placeholder='{"schema":"stegwallet.signature_request.v1", ...}'></textarea>
+      <div class="actions">
+        <button class="sv-btn sv-btn-secondary" id="verify-request">Verify request</button>
+        <button class="sv-btn sv-btn-primary" id="send-request" disabled>Open MetaMask approval</button>
+      </div>
+      <div id="request-status" class="status">No request loaded.</div>
+    </section>
+
+    <section class="wallet-card full">
+      <h2>4. Settlement observation</h2>
+      <textarea id="settlement-output" readonly placeholder="The transaction hash and observed receipt will appear here after wallet approval and chain settlement."></textarea>
+      <div class="actions"><button class="sv-btn sv-btn-secondary" id="download-settlement">Download settlement observation</button></div>
+    </section>
+  </div>
+
+  <h2 class="sv-h2">Authority boundary</h2>
+  <pre>Site display                 != execution authority
+StegWallet ALLOW             = may reach wallet prompt
+MetaMask user approval       = Mode 1 execution authority
+HPS delegation receipt       = prerequisite for Mode 2 signer submission
+Agent Wallet submission      != settlement
+transaction receipt          != objective success
+settlement verification      != custody
+private key / seed phrase     = never requested</pre>
+</div>
+<script type="module" src="assets/stegwallet.js"></script>
+</body>
+</html>
