@@ -52,8 +52,8 @@
       await delay(1800);
 
       const after = Number(progress.value);
-      const audioActive = /playing through|running locally|active/i.test(notice.textContent);
-      const playbackEvent = raw.textContent.includes('"event_type":"generated_media_playback_started"') || raw.textContent.includes('"event_type":"playback_started"');
+      const audioActive = /normalized harmonic mix|playing through|running locally|active/i.test(notice.textContent);
+      const playbackEvent = raw.textContent.includes('"event_type":"enhanced_media_playback_started"') || raw.textContent.includes('"event_type":"generated_media_playback_started"') || raw.textContent.includes('"event_type":"playback_started"');
       const advanced = after !== before;
       const passed = audioActive && playbackEvent && advanced;
 
@@ -70,7 +70,8 @@
         playback_event_observed: playbackEvent,
         composition_progress_advanced: advanced,
         media_transport_ready: Boolean(window.StegMusicMediaTransport),
-        guided_verification_ready: Boolean(window.StegMusicIphoneVerification)
+        guided_verification_ready: Boolean(window.StegMusicIphoneVerification),
+        loudness_harmony_enhancement_ready: Boolean(window.StegMusicEnhancement)
       };
 
       if (!passed) {
@@ -91,7 +92,8 @@
         audible_output_confirmed: false,
         browser_runtime_execution_confirmed: true,
         generated_media_transport_confirmed: Boolean(window.StegMusicMediaTransport),
-        guided_verification_runtime_confirmed: Boolean(window.StegMusicIphoneVerification)
+        guided_verification_runtime_confirmed: Boolean(window.StegMusicIphoneVerification),
+        loudness_harmony_enhancement_confirmed: Boolean(window.StegMusicEnhancement)
       });
     } catch (error) {
       if (play.textContent.trim().toLowerCase() === 'pause') play.click();
@@ -111,14 +113,26 @@
     }
   }
 
-  function loadGuidedVerification() {
-    if (window.StegMusicIphoneVerification || document.querySelector('script[data-stegmusic-iphone-verification]')) return;
+  function loadLoudnessHarmonyEnhancement() {
+    if (window.StegMusicEnhancement || document.querySelector('script[data-stegmusic-enhancement]')) return;
     const script = document.createElement('script');
-    script.src = 'assets/ecosystem-music-iphone-verification.js';
+    script.src = 'assets/ecosystem-music-enhancement.js';
     script.async = false;
-    script.dataset.stegmusicIphoneVerification = 'true';
-    script.addEventListener('error', () => setResult('IPHONE VERIFICATION · FAILED TO LOAD', 'failed'));
+    script.dataset.stegmusicEnhancement = 'true';
+    script.addEventListener('error', () => setResult('LOUDNESS / HARMONY · FAILED TO LOAD', 'failed'));
     document.body.appendChild(script);
+  }
+
+  function loadGuidedVerification() {
+    if (!window.StegMusicIphoneVerification && !document.querySelector('script[data-stegmusic-iphone-verification]')) {
+      const script = document.createElement('script');
+      script.src = 'assets/ecosystem-music-iphone-verification.js';
+      script.async = false;
+      script.dataset.stegmusicIphoneVerification = 'true';
+      script.addEventListener('error', () => setResult('IPHONE VERIFICATION · FAILED TO LOAD', 'failed'));
+      document.body.appendChild(script);
+    }
+    loadLoudnessHarmonyEnhancement();
   }
 
   function loadMediaTransport() {
