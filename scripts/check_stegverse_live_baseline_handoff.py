@@ -43,6 +43,12 @@ def main() -> int:
     require(valid_commit(status.get("destination_readiness_commit")), "invalid destination readiness commit")
     require(status.get("destination_validator_path") == "scripts/check_stegverse_live_baseline_runtime_readiness.py", "destination validator path mismatch")
     require(valid_commit(status.get("destination_validator_commit")), "invalid destination validator commit")
+    require(status.get("destination_provider_authority_binding_path") == "status/stegverse-live-baseline-provider-authority-binding.json", "provider authority binding path mismatch")
+    require(valid_commit(status.get("destination_provider_authority_binding_commit")), "invalid provider authority binding commit")
+    require(status.get("destination_provider_authority_validator_path") == "scripts/check_stegverse_live_baseline_provider_authority_binding.py", "provider authority validator path mismatch")
+    require(valid_commit(status.get("destination_provider_authority_validator_commit")), "invalid provider authority validator commit")
+    require(status.get("provider_authority_state") == "REQUESTED_NOT_APPROVED", "provider authority cannot be inferred as approved")
+    require(status.get("provider_authority_reuse_first") is True, "provider path must preserve reuse-first binding")
     require(status.get("handoff_state") == "RECEIVED_PENDING_PREREQUISITES", "unexpected handoff state")
     require(status.get("destination_readiness_state") == "BLOCKED", "pending prerequisites require BLOCKED destination readiness")
     require(status.get("dispatch_state") == "NOT_DISPATCHED", "handoff cannot claim dispatch")
@@ -50,11 +56,11 @@ def main() -> int:
     require(status.get("source_execution_authorized") is False, "source execution authority escalated")
     require(status.get("source_custody_authorized") is False, "source custody authority escalated")
     require(len(status.get("required_next_evidence") or []) >= 6, "required next evidence incomplete")
-    require(len(status.get("prohibited_inferences") or []) >= 5, "missing bounded prohibited inferences")
+    require(len(status.get("prohibited_inferences") or []) >= 7, "missing bounded prohibited inferences")
     require(status.get("authority") == NO_AUTHORITY, "handoff authority boundary changed")
     require(request.get("dispatch", {}).get("authorized") is False, "source request cannot be dispatched while handoff is pending prerequisites")
 
-    print("STEGVERSE LIVE BASELINE HANDOFF: RECEIVED_PENDING_PREREQUISITES / DESTINATION BLOCKED")
+    print("STEGVERSE LIVE BASELINE HANDOFF: PROVIDER AUTHORITY REQUESTED_NOT_APPROVED / DESTINATION BLOCKED")
     return 0
 
 
