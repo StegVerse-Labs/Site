@@ -21,12 +21,16 @@ and keep all prototype estimates visibly non-payable until authorized distributi
 docs/ECOSYSTEM_CHAT_VALUE_CLAIM_CONTRACT.md
 data/ecosystem-chat-value-claims.fixture.json
 data/ecosystem-chat-value-claim-history.fixture.json
+data/ecosystem-chat-value-expectations.i18n.json
 scripts/check_ecosystem_chat_value_claims.py
 scripts/check_ecosystem_chat_value_claim_history.py
+scripts/check_ecosystem_chat_value_renderer.py
+scripts/check_ecosystem_chat_value_integration.py
 ecosystem-chat-value.html
 assets/ecosystem-chat-value-claims.js
-scripts/check_ecosystem_chat_value_renderer.py
-scripts/check_ecosystem_chat_application.py value-claim validation binding
+assets/ecosystem-chat-value-integration.js
+assets/ecosystem-chat-hps.js direct loader and navigation integration
+scripts/check_ecosystem_chat_application.py transitive value-validation binding
 ```
 
 The contract and renderer distinguish:
@@ -48,21 +52,44 @@ from
 contribution of intelligence
 ```
 
-The synchronized renderer provides:
+The standalone and directly integrated renderers provide:
 
 ```text
 Conversation projection
 Governed-record projection
 Split projection
-Stable claim_id and submission_event_id correlation
+Direct governed value panel inside ecosystem-chat.html
+Stable claim_id, submission_event_id, and history_event_id correlation
 Formatted governed inspection
-Raw JSONL inspection
-JSON export
+Raw JSON/JSONL inspection
+Claim and stage-history export
 Source, consent/reuse, materiality, uncertainty, reward-class, and dispute display
+Consent-change, revocation, and dispute history rendering
 Visible non-payable expectation boundary
+Locale-aware English, Spanish, Simplified Chinese, and Traditional Chinese projection
+Fail-closed original governed records when localized display is unavailable
 ```
 
-The stage-history fixture and validator now cover:
+The multilingual expectation fixture includes native governed wording for:
+
+```text
+en
+es
+zh-Hans
+zh-Hant
+```
+
+It preserves the distinctions:
+
+```text
+claim preserved != value proven
+recognized influence != ownership or exclusivity
+value distributable != payment
+sensitive information != automatic value multiplier
+consent and reuse scope remain binding
+```
+
+The stage-history fixture and validator cover:
 
 ```text
 ordered one-stage-at-a-time progression
@@ -75,13 +102,14 @@ stable history_event_id uniqueness
 evidence, consent, policy, and reuse references
 ```
 
-The canonical Site application validation chain now reaches the complete value slice transitively:
+The canonical Site application validation chain reaches the complete value slice transitively:
 
 ```text
 check_ecosystem_chat_application.py
 -> check_ecosystem_chat_value_claims.py
 -> check_ecosystem_chat_value_renderer.py
--> check_ecosystem_chat_value_claim_history.py
+   -> check_ecosystem_chat_value_claim_history.py
+   -> check_ecosystem_chat_value_integration.py
 ```
 
 The validators fail closed when:
@@ -100,6 +128,9 @@ settlement lacks a settlement receipt
 interaction-only information is advanced to distributable
 revoked claims attempt later-stage advancement
 activity-only submitted claims assert payable reward
+direct integration assets are not loaded by ecosystem-chat.html
+required multilingual governed wording is absent
+any fixture attempts to assert authority
 ```
 
 ## Authority boundary
@@ -117,6 +148,8 @@ renderer correlation != causal proof
 JSON export != authenticated custody
 revocation event != historical erasure
 dispute event != claim resolution
+localized projection != rewritten canonical record
+direct Site integration != gateway-origin value event
 ```
 
 No token count, prompt length, message count, model cost, or self-reported importance can independently advance a claim.
@@ -129,12 +162,15 @@ Personal or private information is not presumed more valuable merely because it 
 Value-claim contract: IMPLEMENTED
 Claim fixture: IMPLEMENTED
 Stage-history, consent, revocation, and dispute fixture: IMPLEMENTED
+Multilingual expectation fixture: IMPLEMENTED FOR en, es, zh-Hans, zh-Hant
 Claim validator: IMPLEMENTED AND BOUND INTO CANONICAL APPLICATION VALIDATION
 Stage-history reconstruction validator: IMPLEMENTED AND TRANSITIVELY BOUND
-Synchronized renderer: IMPLEMENTED ON FEATURE BRANCH
-Renderer static validator: IMPLEMENTED AND TRANSITIVELY BOUND
+Standalone synchronized renderer: IMPLEMENTED ON FEATURE BRANCH
+Direct ecosystem-chat.html value panel integration: IMPLEMENTED THROUGH EXISTING HPS LOADER
+Stage-history rendering and export: IMPLEMENTED
+Locale-aware expectation selection: IMPLEMENTED
+Direct integration validator: IMPLEMENTED AND TRANSITIVELY BOUND
 Browser execution: NOT YET OBSERVED IN CI OR DEPLOYED PREVIEW
-Direct ecosystem-chat.html panel integration: NOT YET IMPLEMENTED
 Gateway-origin value-claim events: NOT YET IMPLEMENTED
 Value-claim custody and reconstruction: NOT YET IMPLEMENTED
 Authorized distribution: NOT YET IMPLEMENTED
@@ -147,13 +183,11 @@ Authority effect: NONE
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Integrate the value-claim panel directly into ecosystem-chat.html while preserving the standalone inspection route and one canonical source.
 Bind fixture claims to live canonical event_id values after gateway-origin events exist.
-Render stage history, captured-versus-derived posture, consent changes, revocation, and dispute events.
-Add stage-history JSON/JSONL export.
-Add browser behavior tests for view switching, bidirectional selection, stage ordering, competing claims, consent narrowing, revocation, dispute, and non-payable status.
-Add multilingual expectation text for English, Spanish, Simplified Chinese, and Traditional Chinese.
-Observe the complete validation chain and renderer on CI and a deployed Site preview.
+Add captured-versus-derived posture and downstream projection permission controls to value records.
+Add browser behavior tests for direct panel loading, locale switching, bidirectional selection, stage ordering, consent narrowing, revocation, dispute, raw-mode switching, exports, and non-payable status.
+Observe the complete validation chain and direct panel on CI and a deployed Site preview.
+Retain the first exact browser, localization, fixture, or validation failure.
 ```
 
 Destination `StegVerse-org/LLM-adapter`:
@@ -162,7 +196,7 @@ Destination `StegVerse-org/LLM-adapter`:
 Create canonical value-claim events upstream.
 Produce stable claim_id, history_event_id, and event_id bindings.
 Hash and sign claim-stage transitions.
-Evaluate consent, policy, admissibility, and reuse scope before downstream projection.
+Evaluate consent, policy, admissibility, reuse scope, captured-versus-derived posture, and downstream projection permission before projection.
 Emit recognition, attribution, realization, distribution, consent-change, revocation, dispute, and settlement events.
 ```
 
@@ -185,21 +219,21 @@ StegVerse-002/stegguardian-wiki
 ## Next machine action
 
 ```text
-1. Integrate the synchronized value panel into ecosystem-chat.html without creating a second authoritative record.
-2. Render and export the new stage-history fixture from the Site value surface.
-3. Add multilingual expectation fixtures and browser/static checks.
-4. Observe the transitively bound validation chain in CI and retain the first exact failure.
-5. Keep all claim advancement preview-only until canonical gateway events, custody, reconstruction, and authorized settlement are verified.
-6. Propagate the completed contract and expectation boundary to Publisher and both wiki projections only after Site validation passes.
+1. Add captured-versus-derived and downstream projection permission fields, fixtures, rendering, and fail-closed validation.
+2. Add direct-panel browser behavior fixtures or tests without creating a second authoritative record.
+3. Observe the transitively bound validation chain in CI and retain the first exact failure.
+4. Keep all claim advancement preview-only until canonical gateway events, custody, reconstruction, and authorized settlement are verified.
+5. Propagate the completed contract and expectation boundary to Publisher and both wiki projections only after Site validation passes.
 ```
 
 ## Release posture
 
 ```text
 Standalone value-claim inspection slice: FEATURE-COMPLETE FOR STATIC PREVIEW
+Direct Ecosystem Node integration: IMPLEMENTED ON FEATURE BRANCH
+Multilingual expectation projection: IMPLEMENTED ON FEATURE BRANCH
 Claim and renderer validation-chain binding: COMPLETE
 Stage-history/consent/revocation/dispute validation: COMPLETE
-Direct Ecosystem Node integration: PENDING
 CI observation: PENDING
 Deployment observation: PENDING
 Release/tag readiness: NOT YET REACHED
