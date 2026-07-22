@@ -52,8 +52,8 @@
       await delay(1800);
 
       const after = Number(progress.value);
-      const audioActive = /running locally|active/i.test(notice.textContent);
-      const playbackEvent = raw.textContent.includes('"event_type":"playback_started"');
+      const audioActive = /playing through|running locally|active/i.test(notice.textContent);
+      const playbackEvent = raw.textContent.includes('"event_type":"generated_media_playback_started"') || raw.textContent.includes('"event_type":"playback_started"');
       const advanced = after !== before;
       const passed = audioActive && playbackEvent && advanced;
 
@@ -68,7 +68,8 @@
         audio_notice: notice.textContent,
         audio_active: audioActive,
         playback_event_observed: playbackEvent,
-        composition_progress_advanced: advanced
+        composition_progress_advanced: advanced,
+        media_transport_ready: Boolean(window.StegMusicMediaTransport)
       };
 
       if (!passed) {
@@ -77,17 +78,18 @@
           result: 'FAIL',
           authority: 'none',
           audible_output_confirmed: false,
-          reason: !audioActive ? 'audio_context_not_active' : !playbackEvent ? 'playback_event_missing' : 'composition_did_not_advance'
+          reason: !audioActive ? 'audio_transport_not_active' : !playbackEvent ? 'playback_event_missing' : 'composition_did_not_advance'
         });
         return;
       }
 
-      setResult('SELF-TEST · PASS · engine active, composition advanced, event emitted', 'active');
+      setResult('SELF-TEST · PASS · media active, progress advanced, event emitted', 'active');
       record('audio_self_test_passed', 'Browser audio self-test passed.', captured, {
         result: 'PASS',
         authority: 'none',
         audible_output_confirmed: false,
-        browser_runtime_execution_confirmed: true
+        browser_runtime_execution_confirmed: true,
+        generated_media_transport_confirmed: Boolean(window.StegMusicMediaTransport)
       });
     } catch (error) {
       if (play.textContent.trim().toLowerCase() === 'pause') play.click();
@@ -107,7 +109,18 @@
     }
   }
 
+  function loadMediaTransport() {
+    if (window.StegMusicMediaTransport || document.querySelector('script[data-stegmusic-media-transport]')) return;
+    const script = document.createElement('script');
+    script.src = 'assets/ecosystem-music-media-transport.js';
+    script.async = false;
+    script.dataset.stegmusicMediaTransport = 'true';
+    script.addEventListener('error', () => setResult('MEDIA TRANSPORT · FAILED TO LOAD', 'failed'));
+    document.body.appendChild(script);
+  }
+
   const button = $('audioSelfTest');
   if (button) button.addEventListener('click', runSelfTest);
   window.StegMusicDiagnostics = Object.freeze({ runSelfTest });
+  loadMediaTransport();
 })();
