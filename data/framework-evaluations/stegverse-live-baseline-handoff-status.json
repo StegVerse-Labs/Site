@@ -6,7 +6,12 @@
   "destination_repository": "StegVerse-org/LLM-adapter",
   "destination_path": "intake/stegverse-live-baseline-execution-request-v1.json",
   "destination_commit": "5a13886b16b850a276276a6241d696d7cfcc7e6a",
+  "destination_readiness_path": "status/stegverse-live-baseline-runtime-readiness.json",
+  "destination_readiness_commit": "928ee98380750b8ebcb0f89516fb69645611f4f1",
+  "destination_validator_path": "scripts/check_stegverse_live_baseline_runtime_readiness.py",
+  "destination_validator_commit": "802c5cbda6cb7f5704329300f53be7d05c1b7616",
   "handoff_state": "RECEIVED_PENDING_PREREQUISITES",
+  "destination_readiness_state": "BLOCKED",
   "dispatch_state": "NOT_DISPATCHED",
   "destination_execution_authorized": false,
   "source_execution_authorized": false,
@@ -23,7 +28,8 @@
     "cross-repository receipt does not authorize execution",
     "destination acceptance does not satisfy runtime prerequisites",
     "handoff completion does not establish provider readiness",
-    "intake receipt is not custody acceptance"
+    "intake receipt is not custody acceptance",
+    "destination validator presence does not establish a passing runtime execution"
   ],
   "authority": {
     "comparison": false,
@@ -33,5 +39,5 @@
     "custody": false,
     "parentage": false
   },
-  "recorded_at": "2026-07-22T14:42:00Z"
+  "recorded_at": "2026-07-22T15:05:00Z"
 }
