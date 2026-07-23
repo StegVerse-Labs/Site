@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "stegmusic_string_component_standard",
+  "scope": "all_tensioned_musical_strings_and_string_like_linear_elements",
+  "canonical_attributes": {
+    "identity": ["component_id", "instrument_id", "position", "course_id", "role"],
+    "construction": ["material_family", "material_detail", "core_type", "winding_type", "winding_material", "coating", "manufacturing_method"],
+    "geometry": ["speaking_length_mm", "total_length_mm", "diameter_mm", "linear_density_kg_m", "cross_section_shape"],
+    "mechanical_state": ["nominal_tension_n", "current_tension_n", "breaking_load_n", "elastic_modulus_pa", "plastic_deformation_ratio", "creep_ratio"],
+    "tuning_state": ["target_frequency_hz", "current_frequency_hz", "pitch_drift_cents", "tuning_stability", "temperament_reference"],
+    "attachment": ["anchor_a_type", "anchor_b_type", "break_angle_degrees", "bearing_points", "termination_condition"],
+    "environment": ["temperature_c", "relative_humidity", "contamination", "corrosion_level", "moisture_exposure"],
+    "usage": ["age_hours", "cycles_estimate", "attack_rate_hz", "average_excitation_force_n", "peak_excitation_force_n", "bend_distance_mm", "bow_pressure_n", "pick_contact", "strike_contact"],
+    "condition": ["wear_ratio", "fatigue_ratio", "notch_severity", "fray_ratio", "flattening_ratio", "prior_repairs", "damage_sites"],
+    "acoustics": ["inharmonicity", "damping_ratio", "attack_profile", "decay_profile", "noise_components", "sympathetic_coupling"],
+    "failure": ["hazard_score", "failure_mode_candidates", "failure_location_distribution", "failure_time_seed", "break_transient_profile", "post_break_motion"],
+    "repair": ["repairability", "repair_method_candidates", "replacement_required", "temporary_fix_allowed", "retension_profile", "reentry_stability"]
+  },
+  "instrument_adapters": {
+    "plucked": ["guitar", "banjo", "mandolin", "harp", "dulcimer", "bass", "ukulele", "sitar", "zither"],
+    "bowed": ["violin", "fiddle", "viola", "cello", "double_bass", "erhu", "hardanger_fiddle"],
+    "struck": ["piano", "hammered_dulcimer", "cimbalom"],
+    "resonant_or_sympathetic": ["sitar_sympathetic", "hardanger_sympathetic", "piano_undamped"],
+    "performance_tools": ["bow_hair_bundle", "mechanical_string_driver", "test_rig_string", "repair_jig_tension_line"]
+  },
+  "required_boundaries": [
+    "standard attributes do not imply identical values across instruments",
+    "shared schema does not erase instrument-specific construction or technique",
+    "failure probability is derived from state and remains stochastic",
+    "simulated break event is not evidence of a historical occurrence",
+    "repair state must affect subsequent tuning and sound",
+    "instrument adapter may extend but must not redefine canonical fields"
+  ],
+  "authority": {
+    "execution": false,
+    "custody": false,
+    "admissibility": false,
+    "certification": false
+  }
+}
