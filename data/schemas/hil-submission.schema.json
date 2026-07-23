@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-submission-v1.json",
+  "title": "Humans as the Interoperability Layer submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "submission_id",
+    "state",
+    "received_at",
+    "primary",
+    "response_artifact",
+    "participant",
+    "validation",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "HIL-SUBMISSION-v1" },
+    "submission_id": { "type": "string", "pattern": "^HIL-(INTAKE|RESP)-[A-Z0-9-]+$" },
+    "state": {
+      "enum": [
+        "BROWSER_LOCAL_PREPARED_NOT_SUBMITTED",
+        "RECEIVED_PENDING_VALIDATION",
+        "INCOMPLETE",
+        "QUARANTINED",
+        "ACCEPTED_PRIVATE",
+        "ACCEPTED_FOR_PUBLICATION",
+        "PUBLISHED",
+        "WITHDRAWN"
+      ]
+    },
+    "received_at": { "type": ["string", "null"], "format": "date-time" },
+    "primary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "version", "sha256", "protocol_version", "prompt_version"],
+      "properties": {
+        "title": { "const": "Humans as the Interoperability Layer" },
+        "version": { "type": "string", "pattern": "^v[0-9]+\\.[0-9]+$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "protocol_version": { "type": "string" },
+        "prompt_version": { "type": "string" }
+      }
+    },
+    "response_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["original_filename", "media_type", "size_bytes", "browser_verified_sha256"],
+      "properties": {
+        "original_filename": { "type": "string", "minLength": 1 },
+        "media_type": { "const": "application/pdf" },
+        "size_bytes": { "type": "integer", "minimum": 1, "maximum": 10485760 },
+        "browser_verified_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "receiver_verified_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "public_artifact_path": { "type": ["string", "null"] }
+      }
+    },
+    "participant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "publication_consent",
+        "model_response_declared_unedited",
+        "participant_consent_authority_acknowledged"
+      ],
+      "properties": {
+        "identifier": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "contact": { "type": ["string", "null"], "maxLength": 200 },
+        "publication_consent": { "enum": ["public", "anonymous", "private"] },
+        "model_response_declared_unedited": { "const": true },
+        "participant_consent_authority_acknowledged": { "const": true }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pdf_signature", "primary_reference", "prompt_integrity", "active_content", "malware_scan"],
+      "properties": {
+        "pdf_signature": { "enum": ["PASS", "FAIL", "UNKNOWN"] },
+        "primary_reference": { "enum": ["MATCH", "MISMATCH", "UNKNOWN"] },
+        "prompt_integrity": { "enum": ["EXACT", "MODIFIED", "UNKNOWN"] },
+        "active_content": { "enum": ["ABSENT", "PRESENT", "UNKNOWN"] },
+        "malware_scan": { "enum": ["PASS", "FAIL", "NOT_RUN", "UNKNOWN"] },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transmitted", "custodied", "accepted", "published", "master_record_appended"],
+      "properties": {
+        "transmitted": { "type": "boolean" },
+        "custodied": { "type": "boolean" },
+        "accepted": { "type": "boolean" },
+        "published": { "type": "boolean" },
+        "master_record_appended": { "type": "boolean" }
+      }
+    },
+    "previous_record_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "record_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+  }
+}
