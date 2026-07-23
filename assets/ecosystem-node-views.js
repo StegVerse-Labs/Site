@@ -39,5 +39,6 @@
   function deepFreeze(value){Object.values(value).forEach(child=>{if(child&&typeof child==='object'&&!Object.isFrozen(child))deepFreeze(child);});return Object.freeze(value);}
   function escapeHtml(value){return String(value).replace(/[&<>"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[character]));}
   function cssEscape(value){return window.CSS?.escape?CSS.escape(value):value.replace(/["\\]/g,'\\$&');}
-  window.StegVerseCanonicalEventStream=Object.freeze({version:'0.3',getEvents:()=>stream.slice(),getEvent:eventId=>eventIndex.get(eventId)||null,getLocale:()=>activeLocale,setLocale,supportedLocales:SUPPORTED_LOCALES.slice(),selectEvent,importCanonicalEvents});
+  window.StegVerseCanonicalEventStream=Object.freeze({version:'0.4',getEvents:()=>stream.slice(),getEvent:eventId=>eventIndex.get(eventId)||null,getLocale:()=>activeLocale,setLocale,supportedLocales:SUPPORTED_LOCALES.slice(),selectEvent,importCanonicalEvents});
+  const interopScript=document.createElement('script');interopScript.src='assets/conectrr-interop.js';interopScript.dataset.loader='conectrr-interop';interopScript.defer=true;document.body.appendChild(interopScript);
 })();
