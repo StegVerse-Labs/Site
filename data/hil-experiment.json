@@ -2,13 +2,14 @@
   "schema_version": "HIL-EXPERIMENT-v1",
   "experiment_id": "HIL-2026",
   "title": "Humans as the Interoperability Layer",
-  "status": "BROWSER_LOCAL_INTAKE_PREVIEW",
+  "status": "PREPUBLICATION_REVIEW",
   "primary_document": {
-    "filename": "Humans_as_the_Interoperability_Layer_Canonical_Input_v0_4.pdf",
-    "version": "v0.4",
-    "sha256": "97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d",
-    "artifact_path": "data/hil-primary-v0.4.pdf.b64",
-    "artifact_state": "PENDING_INSTALLATION"
+    "filename": "Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf",
+    "version": "v0.5",
+    "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+    "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
+    "artifact_state": "PENDING_INSTALLATION",
+    "canonical_state": "REVIEW_CANDIDATE_NOT_YET_CANONICAL"
   },
   "protocol": {
     "version": "HIL-PROTOCOL-v1.0",
@@ -19,13 +20,15 @@
   "submission": {
     "accepted_media_type": "application/pdf",
     "maximum_size_bytes": 10485760,
-    "current_transport": "LINKEDIN_DM_FALLBACK",
+    "current_transport": "REVIEW_ONLY_NO_PUBLIC_ACQUISITION",
     "intended_transport": "SITE_GOVERNED_UPLOAD_THEN_ECOSYSTEM_CHAT",
     "browser_local_hashing": true,
     "server_custody": false
   },
   "public_record": {
     "initiating_trace_id": "HIL-TRACE-0001",
+    "initiating_trace_path": "data/hil-traces/HIL-TRACE-0001.json",
+    "initiating_trace_review_state": "AWAITING_PARTICIPANT_REVIEW",
     "responses_index": "data/hil-responses.json",
     "published_response_count": 0,
     "master_record_state": "NOT_STARTED"
