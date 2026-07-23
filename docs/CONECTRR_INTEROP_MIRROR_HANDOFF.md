@@ -11,7 +11,7 @@ Goal: prove the smallest interoperable discovery-to-governance handoff
 Source role: Conectrr intent-first discovery and recommendation
 Destination role: StegVerse independent governance evaluation
 Authority effect: NONE
-Status: CONTRACT_FIXTURE_VALIDATOR_AND_IMMUTABLE_DISAGREEMENT_TEST_IMPLEMENTED; LIVE_CONECTRR_OUTPUT_PENDING
+Status: CONTRACT_FIXTURE_VALIDATORS_BOUNDARY_MATRIX_AND_IMMUTABLE_DISAGREEMENT_TEST_IMPLEMENTED; LIVE_CONECTRR_OUTPUT_PENDING
 ```
 
 ## Accepted architectural principle
@@ -34,6 +34,8 @@ Both weaken the architecture and both must fail validation.
 docs/CONECTRR_MINIMUM_INTEROPERABLE_HANDOFF.md
 data/conectrr-minimum-handoff.fixture.json
 scripts/check_conectrr_minimum_handoff.py
+data/conectrr-boundary-failure-matrix.fixture.json
+scripts/check_conectrr_boundary_failure_matrix.py
 data/conectrr-independent-evaluation.fixture.json
 scripts/check_conectrr_independent_evaluation.py
 docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
@@ -42,13 +44,23 @@ docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
 ## Implemented test cases
 
 ```text
-valid-minimum            -> PASS
-invalid-overreach        -> FAIL / OVERREACH_EXECUTION
-invalid-under-specified  -> FAIL / UNDER_SPECIFIED_REASONING
-independent-disagreement -> PASS / SOURCE_UNCHANGED
+valid-minimum                  -> PASS
+invalid-overreach              -> FAIL / OVERREACH_EXECUTION
+invalid-under-specified        -> FAIL / UNDER_SPECIFIED_REASONING
+independent-disagreement       -> PASS / SOURCE_UNCHANGED
+boundary matrix: consent       -> FAIL / OVERREACH_CONSENT
+boundary matrix: authority     -> FAIL / OVERREACH_AUTHORITY
+boundary matrix: admissibility -> FAIL / OVERREACH_ADMISSIBILITY
+boundary matrix: commitment    -> FAIL / OVERREACH_COMMITMENT
+boundary matrix: execution     -> FAIL / OVERREACH_EXECUTION
+boundary matrix: intent        -> FAIL / UNDER_SPECIFIED_INTENT
+boundary matrix: reasoning     -> FAIL / UNDER_SPECIFIED_REASONING
+boundary matrix: uncertainty   -> FAIL / UNDER_SPECIFIED_UNCERTAINTY
+boundary matrix: dependency    -> FAIL / UNRESOLVED_DEPENDENCY_HIDDEN
+boundary matrix: identifier    -> FAIL / UNSTABLE_HANDOFF_ID
 ```
 
-The minimum-handoff validator is bound into `scripts/check_ecosystem_chat_application.py` and therefore participates in canonical Site application validation.
+The minimum-handoff, boundary-failure-matrix, and independent-evaluation validators are bound into `scripts/check_ecosystem_chat_application.py` and therefore participate in canonical Site application validation.
 
 The independent-evaluation test proves:
 
@@ -62,18 +74,19 @@ source and decision survive JSON and JSONL export as distinct records
 authority effect remains none
 ```
 
+The boundary matrix proves every currently declared overreach and under-specification class is reachable from the same passing minimum record without duplicating independent validation logic.
+
 ## Required next work
 
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Bind check_conectrr_independent_evaluation.py into canonical application validation
-Add fixtures for consent, authority, admissibility, and commitment overreach
-Add omission fixtures for intent, evidence, uncertainty, and hidden dependency
 Render the imported Conectrr evidence event in Ecosystem Node Governed Record View
 Render the downstream independent evaluation as a correlated decision event
 Add browser selection tests across the source and downstream records
 Expose an import adapter for a real Conectrr output without normalization that mutates source semantics
+Add source-byte/hash preservation checks at import boundary
+Add reconstruction receipt fixture covering source record plus downstream decision
 ```
 
 Destination `Conectrr` or its authorized adapter:
@@ -124,6 +137,8 @@ downstream agreement != source correctness
 downstream disagreement != source mutation
 source import != semantic normalization
 record correlation != record merger
+fixture coverage != live interoperability
+canonical validation PASS != execution authority
 ```
 
 ## Archival readiness
