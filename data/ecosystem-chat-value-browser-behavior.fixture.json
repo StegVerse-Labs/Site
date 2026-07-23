@@ -1,0 +1,15 @@
+{
+  "schema": "stegverse.value-browser-behavior.v0.1",
+  "authority_effect": "NONE",
+  "surface": "ecosystem-chat.html",
+  "behaviors": [
+    {"id":"panel-load","required":true,"markers":["ecosystemValueClaimPanel","ecosystemValueClaims","ecosystemValueHistory","ecosystemValuePermission"]},
+    {"id":"locale-switch","required":true,"markers":["ecosystemValueLocale","renderLocale","zh-Hans","zh-Hant","es"]},
+    {"id":"stable-selection","required":true,"markers":["data-claim-id","submission_event_id","StegVerseCanonicalEventStream","selectClaim"]},
+    {"id":"stage-history","required":true,"markers":["history_event_id","renderHistory","consent_change","revocation","dispute"]},
+    {"id":"projection-permission","required":true,"markers":["information_class","allowed_destinations","denied_destinations","redaction_required","minimum_disclosure"]},
+    {"id":"raw-mode","required":true,"markers":["ecosystemValueRawToggle","toggleRaw","Raw JSONL","Formatted claims"]},
+    {"id":"export","required":true,"markers":["ecosystemValueExport","exportHistory","projection_permissions","stegverse-value-claim-history.json"]},
+    {"id":"fail-closed","required":true,"markers":["failClosed","No value, ownership, distribution, projection, payment, custody, or authority claim is inferred"]}
+  ]
+}
