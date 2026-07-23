@@ -83,6 +83,8 @@ component failure mid-gesture
 -> affected instrument or tool re-enters imperfectly
 ```
 
+This sequence is the required ensemble recovery behavior: disruption must propagate through performer, role, instrument, tool, ensemble, repair, recalibration, and re-entry state rather than being hidden by a perfect restart.
+
 The tune proves itself by continuing through disruption.
 
 ```text
