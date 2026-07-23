@@ -7,7 +7,7 @@ This document owns continuation for the public `Humans as the Interoperability L
 ## Current goal
 
 ```text
-Goal: finish the artifact-submission path with fail-closed Primary -> protocol -> exact prompt -> response hash -> optional producer-signature validation, preserve exact bytes and the provenance manifest, issue a receiver receipt, and open public acquisition only after one controlled live chain passes.
+Goal: activate a provenance-bound artifact-submission path from verified Primary and prompt references through exact response bytes, receiver receipt, authenticated private review, and later append-only publication.
 Primary surface: humans-as-interoperability-layer.html
 Response detail surface: humans-as-interoperability-response.html?id=HIL-RESP-...
 Client: assets/hil-experiment.js
@@ -15,12 +15,14 @@ Experiment manifest: data/hil-experiment.json
 Review state: data/hil-review-state.json
 Initiating trace: data/hil-traces/HIL-TRACE-0001.json
 Provenance schema: data/schemas/hil-response-provenance.schema.json
+Private review schema: data/schemas/hil-private-review-receipt.schema.json
+Private review contract: docs/HIL_PRIVATE_REVIEW_CONTRACT.md
 Receiver gateway: StegVerse-org/LLM-adapter PR #37
-Result: APPROVED_CHAIN_INTAKE_STAGING
+Result: APPROVED_CHAIN_AND_PRIVATE_REVIEW_STAGING
 Authority: NONE
 ```
 
-## Participant review state
+## Participant approval
 
 ```text
 Participant: Sara Katpar
@@ -32,10 +34,10 @@ Primary PDF review: APPROVED
 Site presentation review: APPROVED
 Final presentation approval: APPROVED
 Approval evidence: LinkedIn direct-message screenshots, 2026-07-23
-Technical activation: NOT YET APPROVED BY MACHINE EVIDENCE
+Technical activation: NOT YET PROVEN BY LIVE MACHINE EVIDENCE
 ```
 
-Sara stated that the updated Primary Review Candidate and Site presentation looked good and that everything looked good to proceed. Participant presentation approval is now recorded separately from technical activation and publication authority.
+Participant approval is complete and remains separate from technical activation, private review, public acceptance, and publication authority.
 
 ## Primary and prompt chain
 
@@ -53,7 +55,7 @@ Prompt SHA-256: 0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922
 
 ## Implemented artifact-submission chain
 
-The Site now builds `HIL-RESPONSE-PROVENANCE-v1` for every selected response PDF. The manifest binds:
+The Site builds `HIL-RESPONSE-PROVENANCE-v1` for every selected response PDF. It binds:
 
 ```text
 primary_version
@@ -72,16 +74,7 @@ producer_signature.value
 producer_signature.key_id
 ```
 
-The browser computes the exact response PDF SHA-256 and creates the provenance manifest. It submits the PDF and manifest only when gateway readiness reports:
-
-```text
-state = READY
-primary_sha256 = current Site Primary hash
-prompt_sha256 = current Site prompt hash
-provenance_manifest_required = true
-```
-
-Otherwise the Site permits local provenance-manifest download but fails closed on transmission.
+The browser computes the exact response PDF SHA-256 and submits the PDF plus provenance manifest only when gateway readiness reports matching Primary and prompt hashes and requires the provenance manifest. Otherwise the Site permits local manifest download but fails closed on transmission.
 
 ## Gateway implementation
 
@@ -94,7 +87,7 @@ rejects active-content markers
 checks Primary version and SHA-256
 checks protocol and prompt versions
 checks exact prompt SHA-256
-checks provenance response_sha256 against exact uploaded bytes
+checks response_sha256 against exact uploaded bytes
 requires model and provider declarations
 records optional producer-signature state without inventing verification
 preserves exact PDF bytes and normalized provenance JSON separately
@@ -103,16 +96,32 @@ issues HIL-RECEIVER-RECEIPT-v2
 keeps acceptance, publication, execution, and Master Record authority false
 ```
 
-Chain states:
+Updated tests now cover exact-byte and manifest persistence, receipt v2, response-hash mismatch, wrong-Primary rejection, and active-content rejection. PR #37 returned to mergeable state after the tests were aligned with the provenance-bound API.
+
+## Private review transition
+
+The gateway now also provides authenticated private review endpoints:
 
 ```text
-PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED
-PRIMARY_PROMPT_RESPONSE_SIGNATURE_CHAIN_VERIFIED
+GET  /api/hil/submissions/{submission_id}/review-state
+POST /api/hil/submissions/{submission_id}/review-decisions
 ```
 
-A verified producer signature strengthens the chain but does not grant consent, acceptance, publication, or execution authority.
+They require `X-SteGVerse-HIL-Review-Token`, sourced only from server-side `STEGVERSE_HIL_REVIEW_TOKEN`.
 
-## Current participant flow
+Allowed decisions:
+
+```text
+ACCEPT_PRIVATE
+QUARANTINE
+REJECT
+```
+
+The review-state endpoint exposes hashes and validation metadata but not stored artifact bytes or storage paths. A decision produces `HIL-PRIVATE-REVIEW-RECEIPT-v1`. Review records are write-once for each submission; later attempts fail with conflict rather than overwrite the first decision.
+
+`ACCEPT_PRIVATE` does not authorize public acceptance, publication, execution, or Master Record append.
+
+## Current participant path
 
 ```text
 Site downloads and verifies Primary PDF
@@ -126,46 +135,49 @@ Site downloads and verifies Primary PDF
 -> gateway recomputes and validates the chain
 -> gateway preserves both artifacts
 -> gateway issues HIL-RECEIVER-RECEIPT-v2
--> private review / quarantine / acceptance remains separate
--> accepted record receives stable HIL-RESP identifier
--> public response projection and Master Record linkage remain separate authorized transitions
+-> authenticated private reviewer records ACCEPT_PRIVATE, QUARANTINE, or REJECT
+-> gateway issues HIL-PRIVATE-REVIEW-RECEIPT-v1
+-> separate authorized publication transition may allocate HIL-RESP and append the public index
 ```
 
 ## Required next vertical slice
 
 ```text
 1. Install data/hil-primary-v0.5-review.pdf.b64.
-2. Change artifact_state only after repository verifier confirms exact bytes and hash.
-3. Merge PR #37 after CI and review.
+2. Change artifact_state only after repository verification of exact bytes and hash.
+3. Observe CI for PR #37 and merge after checks pass.
 4. Deploy gateway with durable HIL storage.
-5. Enable STEGVERSE_HIL_INTAKE_ENABLED=true only with durable storage declared.
-6. Observe gateway readiness matching Primary and prompt hashes.
+5. Configure STEGVERSE_HIL_INTAKE_ENABLED=true and STEGVERSE_HIL_REVIEW_TOKEN only in the authorized runtime.
+6. Observe readiness matching Primary and prompt hashes.
 7. Run one controlled PDF plus provenance-manifest submission.
 8. Verify exact-byte persistence, manifest persistence, receiver receipt, and restart persistence.
-9. Add private review/quarantine transition and append-only accepted-response publication.
-10. Open public acquisition only after the controlled chain passes.
+9. Record one authenticated private review decision and verify write-once behavior.
+10. Build the separately authorized append-only publication transition.
+11. Open public acquisition only after the controlled chain and private review cycle pass.
 ```
 
 ## Authority boundaries
 
 ```text
-participant review approval != technical activation
+participant approval != technical activation
 Primary hash match != proof the LLM read the Primary
 prompt hash match != proof of complete instruction following
 response hash match != producer identity verification
 producer signature != participant publication consent
 browser validation != receiver validation
-receiver receipt != acceptance
+receiver receipt != private review decision
+private acceptance != public acceptance
+private acceptance != publication
+review receipt != Master Record append
 submission != publication
 publication != endorsement
 Master Record inclusion != scientific proof
-live observation != activation authority
 ```
 
 ## Release posture
 
-No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent from the repository, PR #37 is unmerged or undeployed, and no controlled live provenance-chain submission has produced a persisted receiver receipt.
+No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent from the repository, PR #37 is unmerged or undeployed, and no controlled live provenance-chain submission plus authenticated private review has produced persisted receipts.
 
 ## Archive readiness
 
-This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, provenance schema, client chain builder, gateway validator, manifests, validators, and repository history preserve complete continuation state. No additional conversation context is required.
+This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, provenance and private-review schemas, client chain builder, gateway validator, review transition, manifests, validators, and repository history preserve complete continuation state. No additional conversation context is required.
