@@ -29,66 +29,40 @@ def main() -> int:
     enhancement = ENHANCEMENT.read_text(encoding="utf-8")
 
     page_markers = (
-        'id="audioSelfTest"',
-        'id="audioSelfTestResult"',
-        'Run audio self-test',
-        'assets/ecosystem-music-diagnostics.js',
-        'confirms browser execution, not audibility',
+        'id="audioSelfTest"', 'id="audioSelfTestResult"', 'Run audio self-test',
+        'assets/ecosystem-music-diagnostics.js', 'confirms browser execution, not audibility',
     )
     runtime_markers = (
-        "StegMusicDiagnostics",
-        "audio_self_test_passed",
-        "audio_self_test_failed",
-        "composition_progress_advanced",
-        "playback_event_observed",
-        "generated_media_transport_confirmed",
-        "guided_verification_runtime_confirmed",
-        "loudness_harmony_enhancement_confirmed",
-        "assets/ecosystem-music-media-transport.js",
-        "assets/ecosystem-music-iphone-verification.js",
-        "assets/ecosystem-music-enhancement.js",
+        "StegMusicDiagnostics", "audio_self_test_passed", "audio_self_test_failed",
+        "composition_progress_advanced", "playback_event_observed",
+        "generated_media_transport_confirmed", "guided_verification_runtime_confirmed",
+        "loudness_harmony_enhancement_confirmed", "assets/ecosystem-music-media-transport.js",
+        "assets/ecosystem-music-iphone-verification.js", "assets/ecosystem-music-enhancement.js",
         "window.dispatchEvent(new CustomEvent('stegmusic:emit'",
     )
     transport_markers = (
-        "OfflineAudioContext",
-        "encodeWav",
-        "generatedMediaPlayer",
-        "html_audio_blob_wav",
-        "navigator.mediaSession",
-        "visibilitychange",
-        "pagehide",
-        "pageshow",
-        "iphonePlaybackVerification",
-        "I hear audio",
-        "iphone_playback_${kind}_confirmed",
-        "human_audibility_confirmed: kind === 'audible'",
-        "source_bytes_uploaded: false",
+        "OfflineAudioContext", "encodeWav", "generatedMediaPlayer", "html_audio_blob_wav",
+        "navigator.mediaSession", "visibilitychange", "pagehide", "pageshow",
+        "iphonePlaybackVerification", "I hear audio", "iphone_playback_${kind}_confirmed",
+        "human_audibility_confirmed: kind === 'audible'", "source_bytes_uploaded: false",
         "window.StegMusicMediaTransport",
     )
     guided_markers = (
-        "stegmusic.iphone-verification.v1",
-        "GUIDED TEST",
-        "Export verification receipt",
-        "stegmusic-iphone-verification-receipt-v1",
-        "local_file_playback_verified",
-        "screen_dim_continuity_verified",
-        "screen_lock_continuity_verified",
-        "return_resume_verified",
-        "iphone_guided_verification_step_completed",
+        "stegmusic.iphone-verification.v1", "GUIDED TEST", "Export verification receipt",
+        "stegmusic-iphone-verification-receipt-v1", "local_file_playback_verified",
+        "screen_dim_continuity_verified", "screen_lock_continuity_verified",
+        "return_resume_verified", "iphone_guided_verification_step_completed",
         "window.StegMusicIphoneVerification",
     )
     enhancement_markers = (
-        "createDynamicsCompressor",
-        "compressor.threshold.value = -20",
-        "output.gain.value = 1.28",
-        "normalize(rendered, 0.94)",
-        "audio.volume = 1",
-        "chordProgressions",
-        "harmony_voice_count",
-        "complexity_level",
-        "progressive_chord_pad_bass_countermelody",
-        "double_attenuation_removed: true",
-        "source_bytes_uploaded: false",
+        "createDynamicsCompressor", "compressor.threshold.value = -20",
+        "output.gain.value = 1.28", "normalize(rendered, 0.94)", "audio.volume = 1",
+        "chordProgressions", "arrangementPhases", "intro_build_peak_breakdown_return",
+        "sustained_sub_bass_plus_harmonic_pulses", "sustained_sub_bass: true",
+        "harmonic_bass_pulses: true", "total_bars", "arrangement_phases",
+        "harmony_voice_count", "complexity_level", "progressive_chord_pad_bass_countermelody",
+        "double_attenuation_removed: true", "long_form_arrangement_enabled: true",
+        "sustained_bass_enabled: true", "source_bytes_uploaded: false",
         "window.StegMusicEnhancement",
     )
 
@@ -128,6 +102,8 @@ def main() -> int:
     print("guided_iphone_verification=enabled")
     print("loudness_strategy=compression_plus_peak_normalization")
     print("harmony_strategy=chord_pad_bass_countermelody")
+    print("arrangement_strategy=intro_build_peak_breakdown_return")
+    print("bass_strategy=sustained_sub_bass_plus_harmonic_pulses")
     return 0
 
 
