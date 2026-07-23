@@ -36,6 +36,8 @@ function validateConfig(config) {
   }
   if (config.wallet_authentication_enabled !== true) return false;
   if (config.state !== 'READY') throw new Error('Enabled SIWE configuration must be READY.');
+  if (config.edge_to_origin_authentication_required !== true) throw new Error('SIWE edge-to-origin authentication is not required.');
+  if (config.direct_origin_authentication_allowed !== false) throw new Error('Direct-origin SIWE authentication must remain prohibited.');
   if (location.origin !== config.canonical_origin) throw new Error('Current Site origin does not match the SIWE canonical origin.');
   config.challenge_endpoint = validateEndpoint(config.challenge_endpoint, config.canonical_origin);
   config.verify_endpoint = validateEndpoint(config.verify_endpoint, config.canonical_origin);
@@ -60,7 +62,7 @@ async function loadConfig() {
     setStatus(`CONFIGURATION_REQUIRED\n${(config.blockers || []).join('\n')}\n\nNo signature can be requested.`, 'bad');
     return;
   }
-  setStatus('READY\nSIWE authentication endpoint configured from a verified activation receipt. No transaction authority is granted.', 'ok');
+  setStatus('READY\nSIWE authentication endpoint configured from a verified activation and edge receipt. No transaction authority is granted.', 'ok');
 }
 
 async function accountAndChain() {
@@ -148,7 +150,7 @@ async function clearSession() {
     transaction_authority: false,
     execution_authority: false
   });
-  if (result.status !== 'REVOKED' || result.transaction_authority !== false || result.execution_authority !== false) {
+  if (result.status !== 'LOGGED_OUT' || result.transaction_authority !== false || result.execution_authority !== false) {
     throw new Error('SIWE logout receipt is invalid.');
   }
   state.session = null;
