@@ -9,10 +9,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "humans-as-interoperability-layer.html"
+REVIEW_PAGE = ROOT / "humans-as-interoperability-review.html"
 DETAIL_PAGE = ROOT / "humans-as-interoperability-response.html"
 SCRIPT = ROOT / "assets" / "hil-experiment.js"
 DETAIL_SCRIPT = ROOT / "assets" / "hil-response.js"
 MANIFEST = ROOT / "data" / "hil-experiment.json"
+REVIEW_STATE = ROOT / "data" / "hil-review-state.json"
 RESPONSES = ROOT / "data" / "hil-responses.json"
 TRACE = ROOT / "data" / "hil-traces" / "HIL-TRACE-0001.json"
 SUBMISSION_SCHEMA = ROOT / "data" / "schemas" / "hil-submission.schema.json"
@@ -66,10 +68,12 @@ def validate_response_index(responses: dict) -> int:
 
 def main() -> None:
     page = read(PAGE)
+    review_page = read(REVIEW_PAGE)
     detail_page = read(DETAIL_PAGE)
     script = read(SCRIPT)
     detail_script = read(DETAIL_SCRIPT)
     manifest = json.loads(read(MANIFEST))
+    review_state = json.loads(read(REVIEW_STATE))
     responses = json.loads(read(RESPONSES))
     trace = json.loads(read(TRACE))
     submission_schema = json.loads(read(SUBMISSION_SCHEMA))
@@ -83,10 +87,22 @@ def main() -> None:
         "Exact invocation prompt",
         "Submission preview",
         "Public intake paused for review",
+        "Focused review checklist",
+        "the v0.5 PDF and this main presentation are sufficient",
         "review permission          != final presentation approval",
         "Primary review PDF         != canonical public input",
     ):
         require(marker in page, f"page missing marker: {marker}")
+
+    for marker in (
+        "Focused review checklist",
+        "No separate message is required",
+        "Granted permissions",
+        "Items awaiting review",
+        "Final presentation approval",
+        "approval of HIL-TRACE-0001   != endorsement of the paper's full thesis",
+    ):
+        require(marker in review_page, f"focused review page missing marker: {marker}")
 
     for marker in (
         "Published response projection",
@@ -129,6 +145,17 @@ def main() -> None:
         "master_record_append": False,
     }, "manifest authority must remain fail-closed")
 
+    require(review_state["schema_version"] == "HIL-REVIEW-STATE-v1", "review state schema mismatch")
+    require(review_state["trace_id"] == "HIL-TRACE-0001", "review state trace mismatch")
+    require(review_state["reviewer"] == "Sara Katpar", "reviewer mismatch")
+    require(review_state["review_candidate"]["sha256"] == EXPECTED_HASH, "review state hash mismatch")
+    require(all(value == "GRANTED" for value in review_state["permissions"].values()), "review permissions incomplete")
+    require(all(value == "PENDING" for value in review_state["requested_review"].values()), "review decisions must remain pending")
+    require(review_state["final_presentation_approval"] == "PENDING", "final presentation approval must remain pending")
+    require(review_state["canonical_publication"] == "BLOCKED_PENDING_REVIEW", "canonical publication must remain blocked")
+    require(review_state["public_response_acquisition"] == "PAUSED", "public acquisition must remain paused")
+    require(all(value is False for value in review_state["authority"].values()), "review state authority must remain fail-closed")
+
     require(trace["trace_id"] == "HIL-TRACE-0001", "trace ID mismatch")
     require(trace["participant"]["name"] == "Sara Katpar", "trace participant mismatch")
     require(all(trace["permissions"][field] is True for field in (
@@ -158,6 +185,7 @@ def main() -> None:
     print(f"HIL_PRIMARY_ARTIFACT={artifact_state}")
     print(f"HIL_REVIEW_SHA256={EXPECTED_HASH}")
     print("HIL_TRACE_0001=ATTRIBUTED_PERMISSION_GRANTED_REVIEW_PENDING")
+    print("HIL_FOCUSED_REVIEW_PAGE=OPTIONAL_CHECKLIST")
     print(f"HIL_PUBLIC_RESPONSE_COUNT={response_count}")
     print("HIL_PUBLIC_INTAKE=PAUSED")
     print("HIL_AUTHORITY=NONE")
