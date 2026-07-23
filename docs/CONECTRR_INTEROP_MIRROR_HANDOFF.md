@@ -11,7 +11,7 @@ Goal: prove the smallest interoperable discovery-to-governance handoff
 Source role: Conectrr intent-first discovery and recommendation
 Destination role: StegVerse independent governance evaluation
 Authority effect: NONE
-Status: CONTRACT_AND_FIXTURE_IMPLEMENTED; LIVE_CONECTRR_OUTPUT_PENDING
+Status: CONTRACT_FIXTURE_VALIDATOR_AND_IMMUTABLE_DISAGREEMENT_TEST_IMPLEMENTED; LIVE_CONECTRR_OUTPUT_PENDING
 ```
 
 ## Accepted architectural principle
@@ -34,6 +34,8 @@ Both weaken the architecture and both must fail validation.
 docs/CONECTRR_MINIMUM_INTEROPERABLE_HANDOFF.md
 data/conectrr-minimum-handoff.fixture.json
 scripts/check_conectrr_minimum_handoff.py
+data/conectrr-independent-evaluation.fixture.json
+scripts/check_conectrr_independent_evaluation.py
 docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
 ```
 
@@ -43,6 +45,21 @@ docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
 valid-minimum            -> PASS
 invalid-overreach        -> FAIL / OVERREACH_EXECUTION
 invalid-under-specified  -> FAIL / UNDER_SPECIFIED_REASONING
+independent-disagreement -> PASS / SOURCE_UNCHANGED
+```
+
+The minimum-handoff validator is bound into `scripts/check_ecosystem_chat_application.py` and therefore participates in canonical Site application validation.
+
+The independent-evaluation test proves:
+
+```text
+Conectrr handoff is represented as an evidence event
+StegVerse evaluation is represented as a separate decision event
+downstream decision cites the source event by stable event_id
+downstream disagreement is preserved explicitly
+source mutation is fail-closed
+source and decision survive JSON and JSONL export as distinct records
+authority effect remains none
 ```
 
 ## Required next work
@@ -50,13 +67,13 @@ invalid-under-specified  -> FAIL / UNDER_SPECIFIED_REASONING
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Bind check_conectrr_minimum_handoff.py into canonical application validation
+Bind check_conectrr_independent_evaluation.py into canonical application validation
 Add fixtures for consent, authority, admissibility, and commitment overreach
 Add omission fixtures for intent, evidence, uncertainty, and hidden dependency
-Render an imported Conectrr handoff as a governed evidence event
-Render the downstream independent evaluation as a separate decision event
-Prove disagreement does not mutate the imported source record
-Expose raw JSON/JSONL export for both source and downstream events
+Render the imported Conectrr evidence event in Ecosystem Node Governed Record View
+Render the downstream independent evaluation as a correlated decision event
+Add browser selection tests across the source and downstream records
+Expose an import adapter for a real Conectrr output without normalization that mutates source semantics
 ```
 
 Destination `Conectrr` or its authorized adapter:
@@ -105,8 +122,10 @@ recommendation != execution
 reconstruction != approval
 downstream agreement != source correctness
 downstream disagreement != source mutation
+source import != semantic normalization
+record correlation != record merger
 ```
 
 ## Archival readiness
 
-This handoff, the contract, fixture, and validator preserve the current session's durable continuation state. Future work does not require access to the conversation screenshots.
+This handoff and its referenced executable artifacts preserve the current continuation state. Future work does not require access to the conversation screenshots.
