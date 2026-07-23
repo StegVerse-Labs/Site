@@ -29,6 +29,12 @@ REQUIRED_JS = [
     "Export JSON",
     "Export JSONL",
     "StegVerseCanonicalEventStream",
+    "SUPPORTED_LOCALES",
+    "zh-Hans",
+    "zh-Hant",
+    "Español",
+    "setLocale",
+    "stegverse-node-locale",
 ]
 REQUIRED_CONTRACT = [
     "Neither visible pane is authoritative",
@@ -59,6 +65,8 @@ def main() -> int:
     print("modes=conversation,governed,split")
     print("correlation=stable_event_id")
     print("exports=json,jsonl")
+    print("locales=en,es,zh-Hans,zh-Hant")
+    print("locale_selection=persistent_browser_preference")
     print("authority_effect=none")
     return 0
 
