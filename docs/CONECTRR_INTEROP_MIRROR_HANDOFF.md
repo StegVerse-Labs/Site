@@ -11,24 +11,14 @@ Goal: prove the smallest interoperable discovery-to-governance handoff
 Source role: Conectrr intent-first discovery and recommendation
 Destination role: StegVerse independent governance evaluation
 Authority effect: NONE
-Status: CONTRACT_FIXTURE_VALIDATORS_BOUNDARY_MATRIX_AND_IMMUTABLE_DISAGREEMENT_TEST_IMPLEMENTED; LIVE_CONECTRR_OUTPUT_PENDING
+Status: RUNTIME_IMPORT_API_AND_PROJECTION_LOADER_IMPLEMENTED; PAGE_BINDING_AND_LIVE_CONECTRR_OUTPUT_PENDING
 ```
 
-## Accepted architectural principle
+## Accepted principle
 
-The handoff must preserve the minimum structured context required for a downstream system to independently understand, evaluate, reconstruct, and build upon a recommendation.
+The handoff preserves only the structured context required for a downstream system to independently understand, evaluate, reconstruct, and build upon a recommendation. Overreach and under-specification both fail.
 
-Boundary failure is bidirectional:
-
-```text
-overreach into consent, authority, admissibility, commitment, or execution
-OR
-under-specification that prevents downstream reconstruction
-```
-
-Both weaken the architecture and both must fail validation.
-
-## Implemented files
+## Implemented artifacts
 
 ```text
 docs/CONECTRR_MINIMUM_INTEROPERABLE_HANDOFF.md
@@ -38,64 +28,59 @@ data/conectrr-boundary-failure-matrix.fixture.json
 scripts/check_conectrr_boundary_failure_matrix.py
 data/conectrr-independent-evaluation.fixture.json
 scripts/check_conectrr_independent_evaluation.py
+assets/ecosystem-node-views.js
+assets/conectrr-interop.js
+scripts/check_conectrr_runtime_projection.py
 docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
 ```
 
-## Implemented test cases
+## Verified behavior
 
 ```text
-valid-minimum                  -> PASS
-invalid-overreach              -> FAIL / OVERREACH_EXECUTION
-invalid-under-specified        -> FAIL / UNDER_SPECIFIED_REASONING
-independent-disagreement       -> PASS / SOURCE_UNCHANGED
-boundary matrix: consent       -> FAIL / OVERREACH_CONSENT
-boundary matrix: authority     -> FAIL / OVERREACH_AUTHORITY
-boundary matrix: admissibility -> FAIL / OVERREACH_ADMISSIBILITY
-boundary matrix: commitment    -> FAIL / OVERREACH_COMMITMENT
-boundary matrix: execution     -> FAIL / OVERREACH_EXECUTION
-boundary matrix: intent        -> FAIL / UNDER_SPECIFIED_INTENT
-boundary matrix: reasoning     -> FAIL / UNDER_SPECIFIED_REASONING
-boundary matrix: uncertainty   -> FAIL / UNDER_SPECIFIED_UNCERTAINTY
-boundary matrix: dependency    -> FAIL / UNRESOLVED_DEPENDENCY_HIDDEN
-boundary matrix: identifier    -> FAIL / UNSTABLE_HANDOFF_ID
+minimum valid handoff -> PASS
+all declared boundary-overreach classes -> FAIL
+all declared under-specification classes -> FAIL
+Conectrr source -> evidence event
+StegVerse result -> separate decision event
+downstream disagreement -> preserved
+source mutation -> fail-closed
+JSON and JSONL -> distinct source and decision records
+canonical import -> clone, validate references, deep-freeze
+runtime loader -> imports source and decision without semantic normalization
+authority effect -> none
 ```
 
-The minimum-handoff, boundary-failure-matrix, and independent-evaluation validators are bound into `scripts/check_ecosystem_chat_application.py` and therefore participate in canonical Site application validation.
+`assets/ecosystem-node-views.js` now exposes `importCanonicalEvents(events)`. Imported events are cloned before admission, duplicate identifiers are rejected, unresolved parent references are rejected, and admitted records are frozen. `assets/conectrr-interop.js` loads the independent-evaluation fixture and imports the Conectrr evidence event and StegVerse decision event together while checking that the source object remains unchanged.
 
-The independent-evaluation test proves:
+## User action
 
 ```text
-Conectrr handoff is represented as an evidence event
-StegVerse evaluation is represented as a separate decision event
-downstream decision cites the source event by stable event_id
-downstream disagreement is preserved explicitly
-source mutation is fail-closed
-source and decision survive JSON and JSONL export as distinct records
-authority effect remains none
+Required now: NONE
+Do not manually construct, normalize, copy, or approve a Conectrr record.
 ```
 
-The boundary matrix proves every currently declared overreach and under-specification class is reachable from the same passing minimum record without duplicating independent validation logic.
+A real Conectrr output will eventually be needed from Conectrr or an authorized adapter, but that is an interoperability input requirement rather than a current manual repository task for the user.
 
 ## Required next work
 
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Render the imported Conectrr evidence event in Ecosystem Node Governed Record View
-Render the downstream independent evaluation as a correlated decision event
-Add browser selection tests across the source and downstream records
-Expose an import adapter for a real Conectrr output without normalization that mutates source semantics
-Add source-byte/hash preservation checks at import boundary
-Add reconstruction receipt fixture covering source record plus downstream decision
+Bind assets/conectrr-interop.js into ecosystem-chat.html after ecosystem-node-views.js
+Bind check_conectrr_runtime_projection.py into canonical Site application validation
+Add browser execution test proving both imported records render
+Add browser selection test proving source/decision correlation in both directions
+Add source-byte and source-hash preservation at the import boundary
+Add reconstruction receipt fixture covering source plus downstream decision
 ```
 
-Destination `Conectrr` or its authorized adapter:
+Destination `Conectrr` or authorized adapter:
 
 ```text
-Emit the minimum handoff schema directly from the discovery layer
+Emit the minimum handoff schema directly
 Provide stable handoff and source-record identifiers
-Populate intent, criteria, constraints, reasoning, evidence references, alternatives, confidence, uncertainty, and unresolved dependencies
-Keep all later-stage boundary flags false
+Populate intent, criteria, constraints, reasoning, evidence, alternatives, confidence, uncertainty, and unresolved dependencies
+Keep consent, authority, admissibility, commitment, and execution flags false
 Provide one real output fixture for reciprocal evaluation
 ```
 
@@ -103,26 +88,14 @@ Destination `master-records/orchestration` after live output exists:
 
 ```text
 Custody the unmodified source handoff
-Custody the independent StegVerse evaluation
+Custody the independent StegVerse decision
 Verify hashes, references, ordering, and reconstruction
-Issue a receipt showing source recommendation and downstream decision remain distinct
+Issue a receipt proving source and downstream records remain distinct
 ```
 
 ## Pass condition
 
-The interoperability test passes when StegVerse can independently determine:
-
-```text
-what Conectrr recommended
-why it recommended it
-what evidence and uncertainty were preserved
-what remained unresolved at handoff
-what Conectrr did not have standing to decide
-what downstream decision was reached
-whether the downstream decision agreed or disagreed
-```
-
-The original Conectrr record must remain unchanged regardless of the downstream result.
+StegVerse must independently determine what Conectrr recommended, why, from what evidence, with what uncertainty, what remained unresolved, what Conectrr lacked standing to decide, what downstream decision was reached, and whether it agreed or disagreed. The original Conectrr record must remain unchanged.
 
 ## Authority boundary
 
@@ -132,15 +105,13 @@ recommendation != authority
 recommendation != admissibility
 recommendation != commitment
 recommendation != execution
-reconstruction != approval
-downstream agreement != source correctness
-downstream disagreement != source mutation
 source import != semantic normalization
 record correlation != record merger
+downstream disagreement != source mutation
+runtime projection != custody
 fixture coverage != live interoperability
-canonical validation PASS != execution authority
 ```
 
 ## Archival readiness
 
-This handoff and its referenced executable artifacts preserve the current continuation state. Future work does not require access to the conversation screenshots.
+This handoff and its referenced executable artifacts preserve the complete continuation state. No additional part of the conversation is required to continue the work.
