@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "stegmusic-source-study-priority-v1",
+  "authority": "none",
+  "sources": [
+    {
+      "priority": 1,
+      "name": "Global Jukebox",
+      "primary_role": "cultural and social performance grammar",
+      "distinct_gaps": ["current catalog identity", "dense modern audio features", "physical component state", "rights posture", "continuous current coverage"],
+      "secondary_sources": ["MusicBrainz", "Dunya/CompMusic", "AcousticBrainz or StegDJ extraction", "Library of Congress National Jukebox", "StegMusic component standards"]
+    },
+    {
+      "priority": 2,
+      "name": "Dunya / CompMusic",
+      "primary_role": "culture-specific computational musicology",
+      "distinct_gaps": ["global genre coverage", "target StegDJ traditions", "broad audience modeling", "physical degradation and repair", "unrestricted source audio"],
+      "secondary_sources": ["Global Jukebox", "MusicBrainz", "Library of Congress and tradition-specific archives", "StegDJ-built corpora"]
+    },
+    {
+      "priority": 3,
+      "name": "MusicBrainz",
+      "primary_role": "canonical identity and relationship backbone",
+      "distinct_gaps": ["signal analysis", "cultural grammar", "audience response", "microtiming", "physical component state", "synthesis permission"],
+      "secondary_sources": ["AcousticBrainz or StegDJ extraction", "Global Jukebox", "Dunya/CompMusic", "DOREMUS", "rights evidence services"]
+    },
+    {
+      "priority": 4,
+      "name": "AcousticBrainz",
+      "primary_role": "recording-level acoustic feature precedent",
+      "distinct_gaps": ["new submissions", "current catalog completeness", "cultural context", "role circulation", "audience function", "physical causality"],
+      "secondary_sources": ["StegDJ extraction", "MusicBrainz", "Global Jukebox", "Dunya/CompMusic", "song and corpus records"]
+    },
+    {
+      "priority": 5,
+      "name": "Library of Congress National Jukebox",
+      "primary_role": "historical recordings, audience, place, market, and technology",
+      "distinct_gaps": ["fine genre vocabulary", "mathematical performance maps", "role and microtiming annotation", "broad noncommercial coverage", "automatic reuse permission"],
+      "secondary_sources": ["Global Jukebox", "StegDJ extraction", "MusicBrainz", "RISM", "source-specific rights review"]
+    },
+    {
+      "priority": 6,
+      "name": "DOREMUS",
+      "primary_role": "semantic work-performance-publication ontology",
+      "distinct_gaps": ["low-level audio", "gesture and microtiming", "oral transmission", "audience behavior", "physical component state", "runtime composition constraints"],
+      "secondary_sources": ["MusicBrainz", "Dunya/CompMusic", "Global Jukebox", "RISM", "StegMusic schemas"]
+    },
+    {
+      "priority": 7,
+      "name": "RISM",
+      "primary_role": "historical source provenance and incipit relationships",
+      "distinct_gaps": ["realized sound", "audience response", "microtiming", "improvisation", "recording acoustics", "modern vernacular coverage"],
+      "secondary_sources": ["DOREMUS", "MusicBrainz", "Library of Congress", "Dunya/CompMusic or StegDJ analysis"]
+    },
+    {
+      "priority": 8,
+      "name": "Million Song Dataset",
+      "primary_role": "large-scale MIR methods and statistical baselines",
+      "distinct_gaps": ["source audio", "current maintenance", "deep cultural context", "physical component state", "social-performance grammar", "dependable legacy access"],
+      "secondary_sources": ["AcousticBrainz", "StegDJ extraction", "MusicBrainz", "Global Jukebox", "Dunya/CompMusic", "Library of Congress", "RISM"]
+    }
+  ],
+  "availability_states": ["AVAILABLE", "ABSENT", "UNKNOWN", "RESTRICTED", "CONFLICTED"],
+  "fallback_rule": [
+    "preserve primary-source state",
+    "query approved secondary source when primary is not AVAILABLE",
+    "mark adopted replacement SECONDARY_DERIVED",
+    "retain both provenance paths",
+    "freeze every composition-affecting result"
+  ],
+  "storage_postures": ["STORE", "QUERY", "FREEZE_AFTER_QUERY"],
+  "governing_distinction": [
+    "songs and performances are evidence units",
+    "corpora are derived statistical maps",
+    "genres are navigational summaries",
+    "external sources are evidence providers",
+    "StegDJ is the governed synthesis and reconstruction layer"
+  ]
+}
