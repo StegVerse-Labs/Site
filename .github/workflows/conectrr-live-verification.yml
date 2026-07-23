@@ -1,0 +1,67 @@
+name: Conectrr Live Verification
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_run:
+    workflows:
+      - Site Task Runner
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  verify-conectrr-publication:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify deployed Conectrr assets
+        run: |
+          for attempt in $(seq 1 12); do
+            if python scripts/check_conectrr_live_routes.py; then
+              exit 0
+            fi
+            echo "Conectrr deployed publication verification attempt ${attempt}/12 did not pass; waiting for Pages propagation."
+            sleep 10
+          done
+          exit 1
+
+      - name: Upload Conectrr live verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conectrr-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/conectrr-live-verification.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Write verification summary
+        if: always()
+        run: |
+          echo "## Conectrr Live Verification" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f reports/conectrr-live-verification.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          report = json.loads(Path('reports/conectrr-live-verification.json').read_text())
+          print(f"Public assets present: {report.get('passed')}")
+          print(f"Runtime observation contract published: {report['claims'].get('runtime_observation_contract_published')}")
+          print(f"Remote browser execution observed: {report['claims'].get('remote_browser_execution_observed')}")
+          print(f"Authority effect: {report['claims'].get('authority_effect')}")
+          PY
+          fi
+          echo "Boundary: this workflow verifies deployed publication markers; it does not convert fixture execution into live external interoperability, custody, admissibility, or authority." >> "$GITHUB_STEP_SUMMARY"
