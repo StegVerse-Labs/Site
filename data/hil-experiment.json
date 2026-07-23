@@ -2,25 +2,38 @@
   "schema_version": "HIL-EXPERIMENT-v1",
   "experiment_id": "HIL-2026",
   "title": "Humans as the Interoperability Layer",
-  "status": "PREPUBLICATION_REVIEW",
+  "status": "APPROVED_PENDING_TECHNICAL_ACTIVATION",
   "primary_document": {
     "filename": "Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf",
     "version": "v0.5",
     "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
     "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
     "artifact_state": "PENDING_INSTALLATION",
-    "canonical_state": "REVIEW_CANDIDATE_NOT_YET_CANONICAL"
+    "canonical_state": "APPROVED_CONTENT_PENDING_ARTIFACT_FREEZE"
   },
   "protocol": {
     "version": "HIL-PROTOCOL-v1.0",
     "prompt_version": "HIL-PROMPT-v1.0",
+    "prompt_sha256": "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922",
     "instruction_section": "Section 8: Independent Response Protocol",
     "invocation_prompt": "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol."
   },
   "submission": {
     "accepted_media_type": "application/pdf",
     "maximum_size_bytes": 10485760,
-    "current_transport": "REVIEW_ONLY_NO_PUBLIC_ACQUISITION",
+    "provenance_manifest_required": true,
+    "provenance_schema": "data/schemas/hil-response-provenance.schema.json",
+    "required_chain": [
+      "primary_sha256",
+      "protocol_version",
+      "prompt_version",
+      "prompt_sha256",
+      "response_sha256",
+      "model",
+      "provider",
+      "producer_signature_state"
+    ],
+    "current_transport": "GATEWAY_FAIL_CLOSED_UNTIL_READY",
     "intended_transport": "SITE_GOVERNED_UPLOAD_THEN_ECOSYSTEM_CHAT",
     "browser_local_hashing": true,
     "server_custody": false
@@ -28,7 +41,7 @@
   "public_record": {
     "initiating_trace_id": "HIL-TRACE-0001",
     "initiating_trace_path": "data/hil-traces/HIL-TRACE-0001.json",
-    "initiating_trace_review_state": "AWAITING_PARTICIPANT_REVIEW",
+    "initiating_trace_review_state": "PARTICIPANT_REVIEW_APPROVED",
     "responses_index": "data/hil-responses.json",
     "published_response_count": 0,
     "master_record_state": "NOT_STARTED"
