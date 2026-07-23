@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Download the canonical Humans as the Interoperability Layer paper, submit it to an LLM, and return the response PDF through governed Site intake.">
+  <meta name="description" content="Prepublication review presentation for Humans as the Interoperability Layer, including HIL-TRACE-0001 with Sara Katpar.">
   <title>Humans as the Interoperability Layer — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
@@ -16,7 +16,7 @@
     .hil-upload input[type=file] { width:100%; margin:12px 0 16px; color:var(--muted); }
     .hil-field { margin:12px 0; }
     .hil-field label { display:block; font-size:12px; color:var(--muted); margin-bottom:5px; }
-    .hil-field input, .hil-field select, .hil-field textarea { width:100%; background:#090e18; color:var(--text); border:1px solid var(--border2); border-radius:6px; padding:10px; }
+    .hil-field input, .hil-field select { width:100%; background:#090e18; color:var(--text); border:1px solid var(--border2); border-radius:6px; padding:10px; }
     .hil-check { display:flex; gap:9px; align-items:flex-start; margin:10px 0; color:#c8d4e8; font-size:13px; }
     .hil-status { margin-top:16px; padding:14px; border-radius:var(--radius); border:1px solid var(--border); background:#0b1220; }
     .hil-status[data-state="ok"] { border-color:var(--green-bd); background:var(--green-bg); color:#bce9c5; }
@@ -24,6 +24,7 @@
     .hil-status[data-state="error"] { border-color:#512020; background:#210d0d; color:#f4b4b4; }
     .hil-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
     .hil-note { border-left:3px solid var(--accent); padding:12px 14px; background:#071828; color:#bfdcf2; margin:18px 0; }
+    .hil-review { border-left:3px solid #d8b84f; padding:14px 16px; background:#1c1808; color:#f7dc85; margin:18px 0; }
     .hil-empty { color:var(--muted); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
     code { color:var(--accent2); }
     @media (max-width:600px) { .sv-hero { padding-top:38px; } .hil-actions .sv-btn { width:100%; text-align:center; } }
@@ -40,93 +41,93 @@
 
 <main class="sv-wrap">
   <header class="sv-hero">
-    <div class="sv-eyebrow">Open research protocol · canonical input · response-only artifacts</div>
+    <div class="sv-eyebrow">Prepublication review · v0.5 · initiating trace</div>
     <h1>Humans as the<br><em>Interoperability Layer</em></h1>
-    <p>Download one canonical paper, submit it unchanged to an LLM of your choice, and return only the resulting response PDF. Disagreement, refusal, uncertainty, and incomplete processing remain valid observations.</p>
+    <p>This review presentation records the canonical-paper candidate, the independent-response protocol, and the initiating observational trace that made the proposed process directly observable.</p>
     <div class="sv-btn-row">
-      <button id="download-primary" class="sv-btn sv-btn-primary" type="button">Download Primary PDF</button>
-      <a class="sv-btn sv-btn-secondary" href="#participate">Participate</a>
-      <a class="sv-btn sv-btn-secondary" href="#responses">View responses</a>
+      <button id="download-primary" class="sv-btn sv-btn-primary" type="button">Download v0.5 Review PDF</button>
+      <a class="sv-btn sv-btn-secondary" href="#trace">Review HIL-TRACE-0001</a>
+      <a class="sv-btn sv-btn-secondary" href="#protocol">Review protocol</a>
     </div>
   </header>
 
-  <section class="sv-evidence" aria-label="Canonical document status">
-    <div class="sv-evidence-label">Canonical experiment input</div>
-    <div class="sv-evidence-row"><span class="k">Paper version</span><span class="v" id="paper-version">v0.4</span></div>
+  <div class="hil-review"><strong>Review state:</strong> Sara Katpar granted permission to be identified by name, to reproduce the relevant exchange, to describe her model's response, and to include the episode as <code>HIL-TRACE-0001</code>. Public canonical publication remains pending her requested review of this section, the Primary PDF, and this Site presentation.</div>
+
+  <section class="sv-evidence" aria-label="Primary review document status">
+    <div class="sv-evidence-label">Primary review candidate</div>
+    <div class="sv-evidence-row"><span class="k">Paper version</span><span class="v" id="paper-version">v0.5</span></div>
     <div class="sv-evidence-row"><span class="k">Protocol</span><span class="v">HIL-PROTOCOL-v1.0</span></div>
     <div class="sv-evidence-row"><span class="k">Prompt</span><span class="v">HIL-PROMPT-v1.0</span></div>
-    <div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v" id="primary-hash">97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d</span></div>
-    <div class="sv-evidence-row"><span class="k">Submission state</span><span class="v">GOVERNED INTAKE WHEN READY · LOCAL FALLBACK</span></div>
+    <div class="sv-evidence-row"><span class="k">Review PDF SHA-256</span><span class="v" id="primary-hash">52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946</span></div>
+    <div class="sv-evidence-row"><span class="k">Publication state</span><span class="v">REVIEW CANDIDATE · NOT YET CANONICAL</span></div>
+    <div class="sv-evidence-row"><span class="k">Public acquisition</span><span class="v">PAUSED PENDING REVIEW AND LIVE INTAKE PROOF</span></div>
   </section>
 
-  <div class="hil-note">This page checks the governed HIL intake gateway automatically. When the gateway reports READY, the selected Response PDF is transmitted, preserved byte-for-byte, receiver-hashed, and returned with a pending-validation receipt. When unavailable, the page fails over to a browser-local receipt without claiming submission or custody.</div>
+  <section id="trace">
+    <h2 class="sv-h2">HIL-TRACE-0001</h2>
+    <div class="sv-card">
+      <h3 class="sv-h3">The thread in which the experiment became observable</h3>
+      <p>During a public discussion of this thought experiment, Sara Katpar submitted the argument to her own language model. Her model described the human–LLM relationship as a reciprocal feedback loop: people shape prompts, models shape outputs, and those outputs influence later conversations.</p>
+      <p>Sara compared that response with an independently generated response from another person's model and observed that the same apparent task produced different interpretations reflecting different context, prompt history, and writing style. Her conclusion was that the thought experiment might not be hypothetical: the process was occurring inside the discussion itself.</p>
+      <p><strong>Classification:</strong> initiating pre-protocol observational trace. It is not represented as a standardized protocol submission.</p>
+      <p><strong>Permission state:</strong> named attribution, exchange reproduction, model-response description, paper inclusion, and public Site inclusion granted.</p>
+      <p><strong>Review state:</strong> awaiting Sara Katpar's prepublication review and any requested correction of context, wording, attribution, or presentation.</p>
+    </div>
+  </section>
 
-  <h2 class="sv-h2">What this experiment does</h2>
+  <h2 class="sv-h2">What the experiment tests</h2>
   <div class="sv-prose">
-    <p>The paper proposes that people carry information, context, authority, and action between otherwise bounded machine processes. This protocol observes how separately chosen LLMs interpret, criticize, transform, or reject the same canonical artifact.</p>
-    <p>Responses are preserved independently. They are not edited into agreement and are not treated as proof of consciousness, hidden intent, or autonomous coordination.</p>
+    <p>The paper proposes that people carry information, context, authority, verification, and action between otherwise bounded machine processes. The protocol observes how independently selected LLMs interpret, criticize, transform, refuse, or extend the same canonical input.</p>
+    <p>Responses remain independent records. Recurrence is not treated as proof of consciousness, hidden intent, autonomous coordination, or scientific validation.</p>
   </div>
 
-  <h2 class="sv-h2">Participant path</h2>
-  <div class="hil-grid">
-    <div class="hil-step"><b>1 · Download</b>Download the Primary PDF from this page. Use it unchanged.</div>
-    <div class="hil-step"><b>2 · Submit</b>Upload the PDF to an LLM of your choice in a new conversation where practical.</div>
-    <div class="hil-step"><b>3 · Prompt</b>Paste the exact one-line instruction shown below.</div>
-    <div class="hil-step"><b>4 · Receive</b>Download the response-only PDF produced by the LLM.</div>
-    <div class="hil-step"><b>5 · Return</b>Select the Response PDF below and grant your own publication-consent state.</div>
-    <div class="hil-step"><b>6 · Retain receipt</b>Download the receiver receipt and keep it with your original response file.</div>
-  </div>
+  <section id="protocol">
+    <h2 class="sv-h2">Standardized participant path after approval</h2>
+    <div class="hil-grid">
+      <div class="hil-step"><b>1 · Download</b>Download the approved canonical Primary PDF and verify its published SHA-256.</div>
+      <div class="hil-step"><b>2 · Submit</b>Upload the unchanged PDF to an LLM of the participant's choice.</div>
+      <div class="hil-step"><b>3 · Prompt</b>Use the exact one-line instruction supplied with that paper version.</div>
+      <div class="hil-step"><b>4 · Receive</b>Download the response-only PDF produced by the LLM.</div>
+      <div class="hil-step"><b>5 · Return</b>Upload the Response PDF and separately provide participant-controlled consent.</div>
+      <div class="hil-step"><b>6 · Retain receipt</b>Keep the receiver receipt with the original response artifact.</div>
+    </div>
 
-  <section id="participate">
     <h2 class="sv-h2">Exact invocation prompt</h2>
     <div id="canonical-prompt" class="hil-prompt">Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol.</div>
     <div class="hil-actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy prompt</button></div>
 
-    <h2 class="sv-h2">Return your Response PDF</h2>
+    <h2 class="sv-h2">Submission preview</h2>
     <div class="hil-upload">
-      <p>Select the response-only PDF generated by your LLM. The browser validates and hashes it first. It uploads only when the governed intake reports READY; otherwise it prepares a clearly marked local fallback receipt.</p>
-      <input id="response-file" type="file" accept="application/pdf,.pdf">
-      <div class="hil-field"><label for="participant-id">Name, pseudonym, or “anonymous”</label><input id="participant-id" type="text" maxlength="120" placeholder="anonymous"></div>
-      <div class="hil-field"><label for="contact">Optional receipt contact</label><input id="contact" type="text" maxlength="200" placeholder="LinkedIn profile, email, or other return contact"></div>
-      <div class="hil-field">
-        <label for="publication-consent">Permission to publish the model response</label>
-        <select id="publication-consent">
-          <option value="">Select</option>
-          <option value="public">Yes — publish the response</option>
-          <option value="anonymous">Yes — publish anonymously</option>
-          <option value="private">No — retain for private analysis only</option>
-        </select>
-      </div>
-      <label class="hil-check"><input id="unedited-confirmation" type="checkbox"> <span>I confirm that I did not edit the model-response portion of the PDF after generation.</span></label>
-      <label class="hil-check"><input id="participant-authority" type="checkbox"> <span>I understand that an LLM cannot grant publication or attribution consent on my behalf.</span></label>
+      <p>This control demonstrates the intended response-return surface. Public acquisition remains paused while v0.5 is under review and until the governed upload gateway completes one controlled live intake proof.</p>
+      <input id="response-file" type="file" accept="application/pdf,.pdf" disabled>
+      <div class="hil-field"><label for="participant-id">Name, pseudonym, or “anonymous”</label><input id="participant-id" type="text" maxlength="120" placeholder="Disabled during review" disabled></div>
+      <div class="hil-field"><label for="contact">Optional receipt contact</label><input id="contact" type="text" maxlength="200" placeholder="Disabled during review" disabled></div>
+      <div class="hil-field"><label for="publication-consent">Permission to publish the model response</label><select id="publication-consent" disabled><option value="">Disabled during review</option></select></div>
+      <label class="hil-check"><input id="unedited-confirmation" type="checkbox" disabled> <span>Participant confirms the model-response portion remained unedited.</span></label>
+      <label class="hil-check"><input id="participant-authority" type="checkbox" disabled> <span>Participant consent remains separate from LLM output.</span></label>
       <div class="hil-actions">
-        <button id="prepare-receipt" class="sv-btn sv-btn-primary" type="button">Checking governed intake…</button>
+        <button id="prepare-receipt" class="sv-btn sv-btn-primary" type="button" disabled>Public intake paused for review</button>
         <button id="download-receipt" class="sv-btn sv-btn-secondary" type="button" disabled>Download receipt JSON</button>
       </div>
-      <div id="intake-status" class="hil-status" data-state="warn" role="status">Checking governed intake readiness…</div>
-    </div>
-
-    <h3 class="sv-h3">Fallback return channel</h3>
-    <div class="sv-card">
-      <p>When the governed gateway is unavailable, the page creates a browser-local receipt that is explicitly marked not submitted. Send the original Response PDF and that receipt to Rigel Randolph through LinkedIn direct message.</p>
-      <p class="muted">A local receipt is not custody. A gateway receiver receipt confirms exact-byte intake but does not itself authorize publication or Master Record inclusion.</p>
+      <div id="intake-status" class="hil-status" data-state="warn" role="status">Review presentation only. No response file is transmitted or accepted from this page while v0.5 review is pending.</div>
     </div>
   </section>
 
   <section id="responses">
     <h2 class="sv-h2">Published response record</h2>
-    <div id="response-index" class="hil-empty">No protocol-compliant public responses have been published yet. The initiating observational trace will remain separately identified as <code>HIL-TRACE-0001</code>.</div>
+    <div id="response-index" class="hil-empty">No standardized public responses have been published. <code>HIL-TRACE-0001</code> remains a separately classified pre-protocol observation awaiting final presentation review.</div>
   </section>
 
   <h2 class="sv-h2">Authority boundary</h2>
-  <pre>Primary PDF download      != verified participant execution
-LLM-generated PDF         != participant consent
-browser-local hash        != server custody
-receiver receipt          != publication approval
-submission                != publication
-publication               != endorsement
-response recurrence       != shared machine intent
-master-record inclusion   != scientific proof</pre>
+  <pre>review permission          != final presentation approval
+Primary review PDF         != canonical public input
+LLM-generated PDF          != participant consent
+browser-local hash         != server custody
+receiver receipt           != publication approval
+submission                 != publication
+publication                != endorsement
+response recurrence        != shared machine intent
+master-record inclusion    != scientific proof</pre>
 </main>
 <script src="assets/hil-experiment.js"></script>
 </body>
