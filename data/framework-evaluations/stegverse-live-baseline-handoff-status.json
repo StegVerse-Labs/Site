@@ -8,7 +8,7 @@
   "destination_commit": "5a13886b16b850a276276a6241d696d7cfcc7e6a",
   "destination_readiness_path": "status/stegverse-live-baseline-runtime-readiness.json",
   "destination_readiness_commit": "928ee98380750b8ebcb0f89516fb69645611f4f1",
-  "destination_validator_path": "scripts/check_stegverse_live-baseline-runtime-readiness.py",
+  "destination_validator_path": "scripts/check_stegverse_live_baseline_runtime_readiness.py",
   "destination_validator_commit": "802c5cbda6cb7f5704329300f53be7d05c1b7616",
   "destination_provider_authority_binding_path": "status/stegverse-live-baseline-provider-authority-binding.json",
   "destination_provider_authority_binding_commit": "8b118faa7c8f373dbbc379955dbba716e6d0a4ed",
