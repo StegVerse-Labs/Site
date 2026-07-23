@@ -1,8 +1,8 @@
 {
-  "schema_version": "2.5",
-  "generated_at": "2026-07-22T07:31:05Z",
+  "schema_version": "2.6",
+  "generated_at": "2026-07-23T02:31:26Z",
   "mode": "VERIFIED_REPOSITORY_ACTIVITY_WITH_RESCAN_REQUIRED",
-  "truthful_notice": "This projection combines persisted machine evidence with verified repository activity. The last public inventory predates newer Site commits, so repository totals and action counts are retained as the last observed cycle—not asserted as current—until the scheduled auditor persists a rescan.",
+  "truthful_notice": "This projection combines persisted machine evidence with verified repository activity. The last public inventory predates newer Site commits, including HIL public experiment surfaces and adapter aggregate binding work, so repository totals and action counts remain last-observed values until the scheduled auditor persists a rescan.",
   "summary": {
     "coverage": "PUBLIC_REPOSITORIES_ONLY",
     "last_observed_organizations": 8,
@@ -10,7 +10,8 @@
     "last_observed_operationally_complete": 1,
     "destination_owned_runners_executed": 2,
     "last_observed_next_actions": 71,
-    "inventory_rescan_required": true
+    "inventory_rescan_required": true,
+    "verified_new_activity_examples": 6
   },
   "runtime_verification": {
     "state": "FAIL",
@@ -29,10 +30,18 @@
     "observed": true,
     "requires_reclassification": true,
     "examples": [
-      {"repository": "StegVerse-Labs/Site", "commit": "ab5fdf17686b74939f601c0cd1bd1b002d666043", "message": "Align GP10 browser evidence and bundle exports with canonical schemas"},
-      {"repository": "StegVerse-Labs/Site", "commit": "acf5e42712cdf98d8b1f06b165f9d6d1ff3f51f6", "message": "Verify GP10 evidence review and bundle export"},
-      {"repository": "StegVerse-Labs/Site", "commit": "894a4cdafee881c6cb56e9624a949ec52b797c4b", "message": "Add isolated StegMusic tester profiles and accessibility contract"}
-    ]
+      {"repository": "StegVerse-Labs/Site", "commit": "72aec7706d2236702825795b11a6c9a0b2c1417f", "message": "Validate destination aggregate binding without inferring test success"},
+      {"repository": "StegVerse-Labs/Site", "commit": "8bbe2abd8bfdaf7a52fed7ae4ff60cd6f22ae7d4", "message": "Record adapter aggregate binding and unobserved test status"},
+      {"repository": "StegVerse-Labs/Site", "commit": "036def6b9be0159718691dc219d40422371bc26a", "message": "Advance HIL handoff with response detail and validation binding"},
+      {"repository": "StegVerse-Labs/Site", "commit": "9ab1d551e56978a60cbbeeed00ede1bbabf12409", "message": "Validate HIL public experiment paths"},
+      {"repository": "StegVerse-Labs/Site", "commit": "80ac00dcaab287cd343741b4de0a5c5912a486cd", "message": "Add HIL public response detail surface"},
+      {"repository": "StegVerse-Labs/Site", "commit": "d1d8d6308b85c4a31a3f6ea9c089c7a50110ccf5", "message": "Add HIL receiver receipt schema"}
+    ],
+    "authority_boundary": {
+      "repository_activity_is_audited_completion": false,
+      "validation_binding_is_test_success": false,
+      "public_surface_is_user_outcome_verification": false
+    }
   },
   "task_graph": {
     "graph_id": "public-autonomy-cycle",
@@ -42,9 +51,9 @@
         "id": "public-truth-root",
         "title": "Public ecosystem truth cycle",
         "status": "IN_PROGRESS",
-        "current_step": "Rescan public repositories, reclassify evidence, and regenerate the action queue from current repository state.",
+        "current_step": "Rescan public repositories, inspect the newer HIL and adapter-binding evidence, reclassify outcomes, and regenerate the action queue.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
+        "updated_at": "2026-07-23T02:31:26Z",
         "depends_on": [],
         "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
       },
@@ -52,18 +61,18 @@
         "id": "public-enumeration",
         "title": "Enumerate public ecosystem repositories",
         "status": "STALE_RESCAN_REQUIRED",
-        "result": "The last persisted cycle enumerated 72 repositories across 8 organizations, but newer repository activity exists and has not yet been incorporated.",
+        "result": "The last persisted cycle enumerated 72 repositories across 8 organizations, but newer repository activity has not yet been incorporated.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
+        "updated_at": "2026-07-23T02:31:26Z",
         "depends_on": ["public-truth-root"]
       },
       {
         "id": "public-evidence-inspection",
         "title": "Inspect objective and runtime evidence",
         "status": "STALE_RESCAN_REQUIRED",
-        "result": "Strict inspection remains installed, but its latest ecosystem-wide result predates newer repository evidence.",
+        "result": "Strict inspection remains installed, but its latest ecosystem-wide result predates newer HIL surfaces, receiver-receipt schema, and adapter aggregate binding evidence.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
+        "updated_at": "2026-07-23T02:31:26Z",
         "depends_on": ["public-truth-root"]
       },
       {
@@ -72,7 +81,7 @@
         "status": "BLOCKED_BY_RESCAN",
         "current_step": "Await a new machine-generated inventory and evidence pass before changing repository completion classifications.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
+        "updated_at": "2026-07-23T02:31:26Z",
         "depends_on": ["public-enumeration", "public-evidence-inspection"]
       },
       {
@@ -81,8 +90,17 @@
         "status": "BLOCKED_BY_RECLASSIFICATION",
         "current_step": "The last observed queue contained 71 actions; a new queue must be derived from the rescan.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
+        "updated_at": "2026-07-23T02:31:26Z",
         "depends_on": ["public-classification"]
+      },
+      {
+        "id": "new-site-evidence",
+        "title": "Inspect newer Site evidence surfaces",
+        "status": "AWAITING_AUDITOR_CLASSIFICATION",
+        "current_step": "HIL response detail, receiver receipt, public experiment paths, handoff validation, and adapter aggregate binding exist, but their tests and user outcomes have not been inferred as successful.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-23T02:31:26Z",
+        "depends_on": ["public-evidence-inspection"]
       },
       {
         "id": "freshness-policy-repair",
@@ -99,7 +117,7 @@
         "status": "AWAITING_MACHINE_RESULT",
         "current_step": "The latest persisted receipt still reports 6 of 7 checks passing with freshness failed; no newer cadence-policy-aware PASS has been observed.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
+        "updated_at": "2026-07-23T02:31:26Z",
         "depends_on": ["freshness-policy-repair"],
         "evidence_path": "data/autonomy/runtime-verification-evidence.json"
       },
@@ -127,10 +145,10 @@
         "id": "public-completion-gate",
         "title": "Apply public ecosystem completion gate",
         "status": "BLOCKED_BY_RESCAN_AND_EVIDENCE",
-        "current_step": "No ecosystem-wide completion decision may be refreshed until the inventory rescan completes; existing destination projections remain fail-closed.",
+        "current_step": "No ecosystem-wide completion decision may be refreshed until the rescan classifies the newer Site evidence and the existing runtime blockers are resolved.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-22T07:31:05Z",
-        "depends_on": ["public-action-planner", "site-runtime-verification", "llm-adapter-runner", "triage-runner"]
+        "updated_at": "2026-07-23T02:31:26Z",
+        "depends_on": ["public-action-planner", "new-site-evidence", "site-runtime-verification", "llm-adapter-runner", "triage-runner"]
       }
     ],
     "edges": [
@@ -138,10 +156,12 @@
       {"from": "public-truth-root", "to": "public-evidence-inspection", "type": "split"},
       {"from": "public-enumeration", "to": "public-classification", "type": "converge"},
       {"from": "public-evidence-inspection", "to": "public-classification", "type": "converge"},
+      {"from": "public-evidence-inspection", "to": "new-site-evidence", "type": "split"},
       {"from": "public-classification", "to": "public-action-planner", "type": "sequence"},
       {"from": "public-truth-root", "to": "freshness-policy-repair", "type": "split"},
       {"from": "freshness-policy-repair", "to": "site-runtime-verification", "type": "sequence"},
       {"from": "public-action-planner", "to": "public-completion-gate", "type": "converge"},
+      {"from": "new-site-evidence", "to": "public-completion-gate", "type": "converge"},
       {"from": "site-runtime-verification", "to": "public-completion-gate", "type": "converge"},
       {"from": "llm-adapter-runner", "to": "public-completion-gate", "type": "converge"},
       {"from": "triage-runner", "to": "public-completion-gate", "type": "converge"}
@@ -152,7 +172,13 @@
       "id": "ecosystem-rescan",
       "action": "Execute and persist a new public repository inventory, evidence inspection, classification, and action-planning cycle",
       "status": "AUTOMATIC_RESCAN_REQUIRED",
-      "reason": "Verified Site activity occurred after the last persisted ecosystem inventory."
+      "reason": "Verified Site activity, including HIL and adapter-binding work, occurred after the last persisted ecosystem inventory."
+    },
+    {
+      "id": "new-site-evidence-classification",
+      "action": "Classify HIL public surfaces, receiver receipts, handoff validation, and adapter aggregate binding without inferring test or user-outcome success",
+      "status": "MACHINE_ACTION_REQUIRED",
+      "reason": "Repository activity is verified, but its operational and user-visible outcomes have not been established by the ecosystem auditor."
     },
     {
       "id": "site-runtime-pass-pending",
