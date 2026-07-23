@@ -24,6 +24,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_ecosystem_node_replay_and_disclosure.py'),
 (sys.executable,'scripts/check_stegmusic_playable_slice.py'),
 (sys.executable,'scripts/check_stegmusic_adaptive_model.py'),
+(sys.executable,'scripts/check_stegmusic_cultural_performance_model.py'),
 (sys.executable,'scripts/check_stegmusic_live_verification_contract.py'),
 (sys.executable,'scripts/check_stegmusic_browser_self_test.py'),
 (sys.executable,'scripts/check_stegmusic_browser_automation_contract.py'),
