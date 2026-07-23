@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Inspect one published response in the Humans as the Interoperability Layer public record.">
+  <title>HIL Response — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .hil-detail-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:18px 0; }
+    .hil-detail-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px; }
+    .hil-detail-item b { display:block; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:5px; }
+    .hil-detail-item span { overflow-wrap:anywhere; }
+    .hil-chain { font-family:var(--mono); font-size:11px; overflow-wrap:anywhere; }
+    .hil-message { border:1px solid var(--border); border-radius:var(--radius); padding:18px; background:var(--surface); }
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="humans-as-interoperability-layer.html">Interoperability Study</a>
+  <a class="active" href="humans-as-interoperability-response.html">Response Record</a>
+</nav>
+<main class="sv-wrap">
+  <header class="sv-hero">
+    <div class="sv-eyebrow">Published response projection · no independent authority</div>
+    <h1 id="response-title">Independent Model Response</h1>
+    <p id="response-summary">Loading response record…</p>
+  </header>
+
+  <section id="response-state" class="hil-message" aria-live="polite">Loading machine-readable response index.</section>
+
+  <section id="response-content" hidden>
+    <div class="hil-detail-grid" id="response-metadata"></div>
+
+    <h2 class="sv-h2">Artifact</h2>
+    <div class="sv-card">
+      <p>The published PDF is preserved as a separate artifact. Site display does not alter the original model-response content.</p>
+      <div class="sv-btn-row">
+        <a id="response-pdf" class="sv-btn sv-btn-primary" href="#">Open Response PDF</a>
+        <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html#responses">Return to response index</a>
+      </div>
+    </div>
+
+    <h2 class="sv-h2">Hash and chain references</h2>
+    <div class="sv-card hil-chain" id="response-chain"></div>
+
+    <h2 class="sv-h2">Authority boundary</h2>
+    <pre>response publication       != endorsement
+response artifact          != participant identity proof
+receiver hash              != scientific validation
+master-record inclusion    != shared model intent
+public display             != execution authority</pre>
+  </section>
+</main>
+<script src="assets/hil-response.js"></script>
+</body>
+</html>
