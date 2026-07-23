@@ -1,0 +1,41 @@
+name: Validate SV-CONTINUITY-109 Site Receipt
+
+on:
+  pull_request:
+    paths:
+      - "receipts/sv-continuity-109-site-verification.json"
+      - "scripts/check_sv_continuity_109_site_receipt.py"
+      - ".github/workflows/validate-sv-continuity-109-site.yml"
+  push:
+    paths:
+      - "receipts/sv-continuity-109-site-verification.json"
+      - "scripts/check_sv_continuity_109_site_receipt.py"
+      - ".github/workflows/validate-sv-continuity-109-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate current BLOCK receipt
+        run: python scripts/check_sv_continuity_109_site_receipt.py receipts/sv-continuity-109-site-verification.json
+      - name: Prove premature PASS fails closed
+        run: |
+          python - <<'PY'
+          import json
+          p='receipts/sv-continuity-109-site-verification.json'
+          r=json.load(open(p))
+          r['decision']='PASS'
+          json.dump(r,open('/tmp/premature-pass.json','w'),indent=2)
+          PY
+          if python scripts/check_sv_continuity_109_site_receipt.py /tmp/premature-pass.json; then
+            echo "Premature PASS was incorrectly accepted" >&2
+            exit 1
+          fi
