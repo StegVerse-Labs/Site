@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-receiver-receipt-v1.json",
+  "title": "HIL receiver receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "submission_id",
+    "issued_at",
+    "receiver",
+    "primary_sha256",
+    "submitted_file_sha256",
+    "validation_state",
+    "custody_state",
+    "publication_state",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "HIL-RECEIVER-RECEIPT-v1" },
+    "receipt_id": { "type": "string", "pattern": "^HIL-RECEIPT-[A-Z0-9-]+$" },
+    "submission_id": { "type": "string", "pattern": "^HIL-(INTAKE|RESP)-[A-Z0-9-]+$" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "receiver": { "const": "StegVerse-Labs/Site" },
+    "primary_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "submitted_file_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "validation_state": {
+      "enum": ["PENDING", "PASS", "INCOMPLETE", "QUARANTINED", "FAIL"]
+    },
+    "custody_state": {
+      "enum": ["NOT_CUSTODIED", "SITE_TEMPORARY", "MASTER_RECORDS_RECORDED", "FAILED"]
+    },
+    "publication_state": {
+      "enum": ["NOT_AUTHORIZED", "PRIVATE", "APPROVED", "PUBLISHED", "WITHDRAWN"]
+    },
+    "response_id": { "type": ["string", "null"], "pattern": "^HIL-RESP-[A-Z0-9-]+$" },
+    "master_record_release": { "type": ["string", "null"] },
+    "previous_receipt_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "receipt_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "acceptance", "publication", "master_record_append"],
+      "properties": {
+        "execution": { "const": false },
+        "acceptance": { "type": "boolean" },
+        "publication": { "type": "boolean" },
+        "master_record_append": { "type": "boolean" }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}
