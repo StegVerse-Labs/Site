@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Fail-closed static checks for the HIL public experiment surface."""
-
 from __future__ import annotations
 
 import hashlib
@@ -18,12 +17,8 @@ RESPONSES = ROOT / "data" / "hil-responses.json"
 SUBMISSION_SCHEMA = ROOT / "data" / "schemas" / "hil-submission.schema.json"
 RECEIVER_SCHEMA = ROOT / "data" / "schemas" / "hil-receiver-receipt.schema.json"
 PRIMARY_B64 = ROOT / "data" / "hil-primary-v0.4.pdf.b64"
-
 EXPECTED_HASH = "97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d"
-EXPECTED_PROMPT = (
-    "Read this Primary PDF in full and follow every instruction in "
-    "Section 8: Independent Response Protocol."
-)
+EXPECTED_PROMPT = "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol."
 
 
 def require(condition: bool, message: str) -> None:
@@ -39,15 +34,12 @@ def read(path: Path) -> str:
 def verify_primary_artifact() -> str:
     if not PRIMARY_B64.exists():
         return "PENDING_INSTALLATION"
-
     import base64
-
     encoded = "".join(PRIMARY_B64.read_text(encoding="ascii").split())
     try:
         payload = base64.b64decode(encoded, validate=True)
-    except Exception as exc:  # pragma: no cover
+    except Exception as exc:
         raise SystemExit(f"HIL verification failed: invalid primary base64: {exc}") from exc
-
     require(payload.startswith(b"%PDF-"), "canonical artifact lacks PDF signature")
     actual = hashlib.sha256(payload).hexdigest()
     require(actual == EXPECTED_HASH, f"canonical artifact hash mismatch: {actual}")
@@ -61,20 +53,14 @@ def validate_response_index(responses: dict) -> int:
     for record in records:
         require(isinstance(record, dict), "response record must be an object")
         response_id = record.get("response_id")
-        require(
-            isinstance(response_id, str) and re.fullmatch(r"HIL-RESP-[A-Z0-9-]+", response_id),
-            "invalid response_id",
-        )
+        require(isinstance(response_id, str) and re.fullmatch(r"HIL-RESP-[A-Z0-9-]+", response_id), "invalid response_id")
         require(response_id not in seen, f"duplicate response_id: {response_id}")
         seen.add(response_id)
         require(record.get("primary_sha256") == EXPECTED_HASH, f"primary hash mismatch for {response_id}")
         artifact_path = record.get("artifact_path")
         require(isinstance(artifact_path, str) and artifact_path.endswith(".pdf"), f"invalid artifact path for {response_id}")
         receiver_hash = record.get("receiver_verified_file_sha256")
-        require(
-            isinstance(receiver_hash, str) and re.fullmatch(r"[a-f0-9]{64}", receiver_hash),
-            f"invalid receiver hash for {response_id}",
-        )
+        require(isinstance(receiver_hash, str) and re.fullmatch(r"[a-f0-9]{64}", receiver_hash), f"invalid receiver hash for {response_id}")
     return len(records)
 
 
@@ -92,10 +78,12 @@ def main() -> None:
         "Humans as the Interoperability Layer",
         "Download Primary PDF",
         "Exact invocation prompt",
-        "Prepare your Response PDF submission",
+        "Return your Response PDF",
         "Published response record",
         "browser-local hash        != server custody",
+        "receiver receipt          != publication approval",
         "submission                != publication",
+        "GOVERNED INTAKE WHEN READY · LOCAL FALLBACK",
     ):
         require(marker in page, f"page missing marker: {marker}")
 
@@ -121,6 +109,11 @@ def main() -> None:
         "crypto.subtle.digest('SHA-256'",
         "header !== '%PDF-'",
         "data/hil-responses.json",
+        "https://stegverse-ecosystem-chat-gateway.onrender.com",
+        "/api/hil/readiness",
+        "/api/hil/submissions",
+        "payload.state === 'READY'",
+        "new FormData()",
     ):
         require(marker in script, f"client script missing marker: {marker}")
 
@@ -146,35 +139,21 @@ def main() -> None:
     require(responses["initiating_trace"]["trace_id"] == "HIL-TRACE-0001", "initiating trace ID mismatch")
     response_count = validate_response_index(responses)
 
-    require(
-        submission_schema["$id"] == "https://stegverse.org/schemas/hil-submission-v1.json",
-        "submission schema ID mismatch",
-    )
+    require(submission_schema["$id"] == "https://stegverse.org/schemas/hil-submission-v1.json", "submission schema ID mismatch")
     state_values = submission_schema["properties"]["state"]["enum"]
     require("QUARANTINED" in state_values and "PUBLISHED" in state_values, "submission schema lacks required states")
-
-    require(
-        receiver_schema["$id"] == "https://stegverse.org/schemas/hil-receiver-receipt-v1.json",
-        "receiver schema ID mismatch",
-    )
-    require(
-        receiver_schema["properties"]["authority"]["properties"]["execution"]["const"] is False,
-        "receiver receipt must not grant execution authority",
-    )
+    require(receiver_schema["$id"] == "https://stegverse.org/schemas/hil-receiver-receipt-v1.json", "receiver schema ID mismatch")
+    require(receiver_schema["properties"]["authority"]["properties"]["execution"]["const"] is False, "receiver receipt must not grant execution authority")
 
     artifact_state = verify_primary_artifact()
-    declared_state = manifest["primary_document"]["artifact_state"]
-    require(
-        declared_state == artifact_state,
-        f"manifest artifact_state={declared_state} but observed state={artifact_state}",
-    )
-
+    require(manifest["primary_document"]["artifact_state"] == artifact_state, "manifest artifact state disagrees with observed artifact")
     require(not re.search(r"authority\s*[:=]\s*true", page, re.IGNORECASE), "page appears to claim authority")
 
     print("HIL_EXPERIMENT_STATIC_VERIFICATION=PASS")
     print(f"HIL_PRIMARY_ARTIFACT={artifact_state}")
     print(f"HIL_PRIMARY_SHA256={EXPECTED_HASH}")
     print(f"HIL_PUBLIC_RESPONSE_COUNT={response_count}")
+    print("HIL_GATEWAY_WIRING=BOUND_FAIL_CLOSED")
     print("HIL_AUTHORITY=NONE")
 
 
