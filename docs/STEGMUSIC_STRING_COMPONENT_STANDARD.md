@@ -11,6 +11,8 @@ one string standard
 = instrument-specific behavior
 ```
 
+This string standard is a specialized dependency of the broader `docs/STEGMUSIC_INSTRUMENT_COMPONENT_STANDARD.md` architecture.
+
 ## Canonical scope
 
 The standard applies across plucked, bowed, struck, resonant, sympathetic, experimental, and repair/test contexts, including guitar, banjo, mandolin, fiddle, violin, cello, bass, harp, piano, hammered dulcimer, sitar, zither, bow-hair bundles, mechanical string drivers, test-rig strings, and repair-jig tension lines.
@@ -83,3 +85,5 @@ Site runtime != production synthesis activation
 Primary machine-readable record: `data/stegmusic/string-component-standard.v1.json`
 
 Prototype runtime: `assets/stegmusic-string-physics.js`
+
+Parent component standard: `data/stegmusic/instrument-component-standard.v1.json`
