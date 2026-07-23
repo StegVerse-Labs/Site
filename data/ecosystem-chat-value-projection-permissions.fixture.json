@@ -1,0 +1,74 @@
+{
+  "schema": "stegverse.value-projection-permissions.v0.1",
+  "authority_effect": "NONE",
+  "records": [
+    {
+      "claim_id": "vc-001",
+      "submission_event_id": "evt-user-observation-001",
+      "information_class": "captured",
+      "derivation_refs": [],
+      "captured_source_refs": ["evidence:submission-hash-001"],
+      "projection": {
+        "default": "deny",
+        "allowed_destinations": [],
+        "denied_destinations": [
+          "GCAT-BCAT-Engine/Publisher",
+          "StegVerse-Labs/admissibility-wiki",
+          "StegVerse-002/stegguardian-wiki"
+        ],
+        "purpose_refs": [],
+        "policy_refs": ["policy:interaction-only-no-downstream-v1"],
+        "consent_refs": ["consent:interaction-only-001"],
+        "redaction_required": true,
+        "minimum_disclosure": true,
+        "expires_at": null
+      },
+      "reason": "Private interaction-only captured information is not authorized for downstream projection.",
+      "hash": "preview-only:projection-vc-001"
+    },
+    {
+      "claim_id": "vc-002",
+      "submission_event_id": "evt-user-correction-002",
+      "information_class": "captured",
+      "derivation_refs": [],
+      "captured_source_refs": ["evidence:diff-009", "evidence:causal-review-009"],
+      "projection": {
+        "default": "deny",
+        "allowed_destinations": ["StegVerse-Labs/admissibility-wiki"],
+        "denied_destinations": ["GCAT-BCAT-Engine/Publisher", "StegVerse-002/stegguardian-wiki"],
+        "purpose_refs": ["purpose:bounded-admissibility-example"],
+        "policy_refs": ["policy:bounded-downstream-redacted-v1"],
+        "consent_refs": ["consent:bounded-downstream-002"],
+        "redaction_required": true,
+        "minimum_disclosure": true,
+        "expires_at": "2026-12-31T23:59:59Z"
+      },
+      "reason": "A redacted bounded projection is permitted only for the named admissibility purpose.",
+      "hash": "preview-only:projection-vc-002"
+    },
+    {
+      "claim_id": "vc-003",
+      "submission_event_id": "evt-user-record-003",
+      "information_class": "derived",
+      "derivation_refs": ["evidence:decision-lineage-044", "evidence:measurement-030"],
+      "captured_source_refs": ["evidence:admissibility-044"],
+      "projection": {
+        "default": "deny",
+        "allowed_destinations": [
+          "GCAT-BCAT-Engine/Publisher",
+          "StegVerse-Labs/admissibility-wiki",
+          "StegVerse-002/stegguardian-wiki"
+        ],
+        "denied_destinations": [],
+        "purpose_refs": ["purpose:licensed-value-lineage-publication", "purpose:admissibility-review", "purpose:guardian-review"],
+        "policy_refs": ["policy:licensed-derived-projection-v1"],
+        "consent_refs": ["consent:licensed-reuse-003"],
+        "redaction_required": true,
+        "minimum_disclosure": true,
+        "expires_at": null
+      },
+      "reason": "Only the derived, redacted, minimum-disclosure value-lineage record is eligible for named downstream review.",
+      "hash": "preview-only:projection-vc-003"
+    }
+  ]
+}
