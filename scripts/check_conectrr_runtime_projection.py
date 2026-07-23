@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Verify the Conectrr runtime projection and immutable import boundary."""
 from pathlib import Path
+import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 NODE = ROOT / "assets" / "ecosystem-node-views.js"
 LOADER = ROOT / "assets" / "conectrr-interop.js"
 FIXTURE = ROOT / "data" / "conectrr-independent-evaluation.fixture.json"
+BROWSER_CHECK = ROOT / "scripts" / "check_conectrr_browser_projection.py"
 
 REQUIRED_NODE = [
     "importCanonicalEvents",
@@ -13,6 +16,7 @@ REQUIRED_NODE = [
     "unresolved parent_event_id",
     "JSON.parse(JSON.stringify(event))",
     "eventIndex.has(event.event_id)",
+    "assets/conectrr-interop.js",
 ]
 REQUIRED_LOADER = [
     "conectrr-independent-evaluation.fixture.json",
@@ -22,6 +26,7 @@ REQUIRED_LOADER = [
     "source mutated during import",
     "api.importCanonicalEvents([source, decision])",
     "conectrrInterop",
+    "conectrrBrowserTest",
 ]
 
 
@@ -38,6 +43,19 @@ def main() -> int:
     errors.extend(missing(LOADER, REQUIRED_LOADER))
     if not FIXTURE.exists():
         errors.append("missing independent evaluation fixture")
+    if not BROWSER_CHECK.exists():
+        errors.append("missing browser projection validator")
+    else:
+        completed = subprocess.run(
+            [sys.executable, str(BROWSER_CHECK)],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+        if completed.returncode != 0:
+            errors.append(completed.stdout.rstrip())
     if errors:
         print("CONECTRR_RUNTIME_PROJECTION_CHECK=FAIL")
         for error in errors:
@@ -47,7 +65,8 @@ def main() -> int:
     print("source_event=evidence")
     print("downstream_event=decision")
     print("import_semantics=clone_then_freeze")
-    print("correlation=stable_event_id")
+    print("rendering=source_and_decision")
+    print("correlation=bidirectional_stable_event_id")
     print("authority_effect=none")
     return 0
 
