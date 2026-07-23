@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/stegmusic/corpus-reference.v1.json",
+  "title": "StegMusic Corpus Reference",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "corpus_reference_id",
+    "scope",
+    "membership",
+    "distributions",
+    "variant_clusters",
+    "outliers",
+    "historical_period_models",
+    "regional_models",
+    "composition_constraints",
+    "provenance",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "corpus_reference_id": {"type": "string", "minLength": 1},
+    "scope": {
+      "type": "object",
+      "required": ["tradition_or_domain"],
+      "properties": {
+        "tradition_or_domain": {"type": "string"},
+        "historical_range": {"type": ["string", "null"]},
+        "regions": {"type": "array", "items": {"type": "string"}},
+        "audiences": {"type": "array", "items": {"type": "string"}},
+        "performance_settings": {"type": "array", "items": {"type": "string"}},
+        "inclusion_rule": {"type": "string"},
+        "exclusion_rule": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "membership": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["song_reference_id", "weight", "membership_reason"],
+        "properties": {
+          "song_reference_id": {"type": "string"},
+          "weight": {"type": "number", "minimum": 0},
+          "membership_reason": {"type": "string"},
+          "period_cluster": {"type": ["string", "null"]},
+          "regional_cluster": {"type": ["string", "null"]},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "distributions": {
+      "type": "object",
+      "properties": {
+        "tempo": {"type": "object"},
+        "meter": {"type": "object"},
+        "pitch_and_tuning": {"type": "object"},
+        "intervals": {"type": "object"},
+        "harmony": {"type": "object"},
+        "rhythm": {"type": "object"},
+        "cadence_transitions": {"type": "object"},
+        "phrase_lengths": {"type": "object"},
+        "section_sequences": {"type": "object"},
+        "microtiming": {"type": "object"},
+        "dynamics": {"type": "object"},
+        "timbre": {"type": "object"},
+        "role_transitions": {"type": "object"},
+        "instrument_interactions": {"type": "object"},
+        "failure_and_recovery": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "variant_clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_id", "basis", "members", "distinguishing_features"],
+        "properties": {
+          "cluster_id": {"type": "string"},
+          "basis": {"enum": ["REGIONAL", "HISTORICAL", "AUDIENCE", "SETTING", "TECHNOLOGY", "PERFORMER", "INSTRUMENTATION", "TRANSITIONAL", "OTHER"]},
+          "members": {"type": "array", "items": {"type": "string"}},
+          "distinguishing_features": {"type": "array", "items": {"type": "string"}},
+          "validity_confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "outliers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["song_reference_id", "classification", "reason"],
+        "properties": {
+          "song_reference_id": {"type": "string"},
+          "classification": {"enum": ["RARE_VALID", "TRANSITIONAL", "SOURCE_ERROR_CANDIDATE", "PERFORMER_SPECIFIC", "RECORDING_SPECIFIC", "EXCLUDED"]},
+          "reason": {"type": "string"},
+          "retain_for_generation": {"type": "boolean"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "historical_period_models": {"type": "array", "items": {"type": "object"}},
+    "regional_models": {"type": "array", "items": {"type": "object"}},
+    "composition_constraints": {
+      "type": "object",
+      "properties": {
+        "invariants": {"type": "array", "items": {"type": "object"}},
+        "variable_ranges": {"type": "array", "items": {"type": "object"}},
+        "rare_but_valid": {"type": "array", "items": {"type": "object"}},
+        "prohibited_copying_patterns": {"type": "array", "items": {"type": "object"}},
+        "rights_constraints": {"type": "array", "items": {"type": "object"}},
+        "uncertainty_constraints": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["created_at", "song_reference_hashes", "aggregation_version"],
+      "properties": {
+        "created_at": {"type": "string"},
+        "song_reference_hashes": {"type": "array", "items": {"type": "string"}},
+        "aggregation_version": {"type": "string"},
+        "random_seed": {"type": ["string", "integer", "null"]},
+        "source_conflicts": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "authority": {"const": "none"}
+  },
+  "additionalProperties": true
+}
