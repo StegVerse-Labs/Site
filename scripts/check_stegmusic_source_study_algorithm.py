@@ -17,7 +17,7 @@ required_study = [
     "RISM",
     "Million Song Dataset",
     "SECONDARY_DERIVED",
-    "FREEZE_AFTER_QUERY",
+    "freeze the result if it influences composition",
 ]
 required_algorithm = [
     "AVAILABLE",
@@ -29,6 +29,7 @@ required_algorithm = [
     "Song-level mathematical mapping",
     "Corpus derivation",
     "Store versus query decision",
+    "FREEZE_AFTER_QUERY",
     "Composition receipt",
     "Site fixture != production activation",
 ]
