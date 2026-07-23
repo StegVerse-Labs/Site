@@ -2,16 +2,22 @@
   "schema_version": "HIL-RESPONSES-INDEX-v1",
   "experiment_id": "HIL-2026",
   "primary_document": {
-    "version": "v0.4",
-    "sha256": "97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d"
+    "version": "v0.5",
+    "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+    "state": "REVIEW_CANDIDATE_NOT_YET_CANONICAL"
   },
   "initiating_trace": {
     "trace_id": "HIL-TRACE-0001",
     "classification": "PRE_PROTOCOL_OBSERVATIONAL_TRACE",
-    "publication_state": "PENDING_ATTRIBUTION_CONSENT"
+    "participant": "Sara Katpar",
+    "attribution_state": "NAMED_WITH_PERMISSION",
+    "permission_state": "GRANTED",
+    "review_state": "AWAITING_PARTICIPANT_REVIEW",
+    "publication_state": "REVIEW_CANDIDATE_NOT_YET_PUBLISHED",
+    "record_path": "data/hil-traces/HIL-TRACE-0001.json"
   },
   "responses": [],
-  "last_updated": "2026-07-22T00:00:00Z",
+  "last_updated": "2026-07-23T10:38:00Z",
   "authority": {
     "public_index_is_custody": false,
     "public_index_is_endorsement": false,
