@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0.0",
+  "crosswalk_id": "stegmusic-source-field-crosswalk-v1",
+  "authority": "none",
+  "canonical_fields": [
+    "work_identity",
+    "recording_identity",
+    "release_or_source_identity",
+    "performer_identity",
+    "instrument_identity",
+    "place",
+    "date_or_period",
+    "audience",
+    "social_function",
+    "musical_structure",
+    "pitch_and_tuning",
+    "rhythm_and_microtiming",
+    "timbre_and_acoustics",
+    "ensemble_and_role_grammar",
+    "historical_lineage",
+    "physical_component_state",
+    "rights_and_access"
+  ],
+  "sources": {
+    "Global Jukebox": {
+      "priority": 1,
+      "direct": ["place", "date_or_period", "social_function", "ensemble_and_role_grammar", "historical_lineage"],
+      "partial": ["performer_identity", "instrument_identity", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming"],
+      "absent_or_insufficient": ["work_identity", "recording_identity", "timbre_and_acoustics", "physical_component_state", "rights_and_access"],
+      "secondary_by_field": {
+        "work_identity": "MusicBrainz",
+        "recording_identity": "MusicBrainz",
+        "timbre_and_acoustics": "AcousticBrainz or StegDJ extraction",
+        "physical_component_state": "StegMusic component standards",
+        "rights_and_access": "source-specific rights evidence"
+      }
+    },
+    "Dunya / CompMusic": {
+      "priority": 2,
+      "direct": ["recording_identity", "performer_identity", "instrument_identity", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "timbre_and_acoustics"],
+      "partial": ["work_identity", "date_or_period", "place", "historical_lineage", "rights_and_access"],
+      "absent_or_insufficient": ["audience", "social_function", "physical_component_state"],
+      "secondary_by_field": {
+        "audience": "Library of Congress National Jukebox or tradition-specific archive",
+        "social_function": "Global Jukebox",
+        "physical_component_state": "StegMusic component standards"
+      }
+    },
+    "MusicBrainz": {
+      "priority": 3,
+      "direct": ["work_identity", "recording_identity", "release_or_source_identity", "performer_identity", "instrument_identity", "place", "date_or_period"],
+      "partial": ["historical_lineage", "rights_and_access"],
+      "absent_or_insufficient": ["audience", "social_function", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "timbre_and_acoustics", "ensemble_and_role_grammar", "physical_component_state"],
+      "secondary_by_field": {
+        "audience": "Library of Congress National Jukebox",
+        "social_function": "Global Jukebox",
+        "musical_structure": "Dunya / CompMusic or StegDJ extraction",
+        "timbre_and_acoustics": "AcousticBrainz or StegDJ extraction",
+        "ensemble_and_role_grammar": "Global Jukebox or Dunya / CompMusic",
+        "physical_component_state": "StegMusic component standards"
+      }
+    },
+    "AcousticBrainz": {
+      "priority": 4,
+      "direct": ["recording_identity", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "timbre_and_acoustics"],
+      "partial": ["date_or_period"],
+      "absent_or_insufficient": ["work_identity", "performer_identity", "audience", "social_function", "ensemble_and_role_grammar", "historical_lineage", "physical_component_state", "rights_and_access"],
+      "secondary_by_field": {
+        "work_identity": "MusicBrainz",
+        "performer_identity": "MusicBrainz",
+        "audience": "Library of Congress National Jukebox",
+        "social_function": "Global Jukebox",
+        "ensemble_and_role_grammar": "Global Jukebox or Dunya / CompMusic",
+        "historical_lineage": "RISM, DOREMUS, MusicBrainz, or Global Jukebox",
+        "physical_component_state": "StegMusic component standards",
+        "rights_and_access": "source-specific rights evidence"
+      }
+    },
+    "Library of Congress National Jukebox": {
+      "priority": 5,
+      "direct": ["recording_identity", "release_or_source_identity", "performer_identity", "place", "date_or_period", "audience", "historical_lineage", "rights_and_access"],
+      "partial": ["work_identity", "instrument_identity", "social_function", "timbre_and_acoustics"],
+      "absent_or_insufficient": ["musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "ensemble_and_role_grammar", "physical_component_state"],
+      "secondary_by_field": {
+        "musical_structure": "StegDJ extraction or Dunya / CompMusic",
+        "pitch_and_tuning": "StegDJ extraction",
+        "rhythm_and_microtiming": "StegDJ extraction",
+        "ensemble_and_role_grammar": "Global Jukebox",
+        "physical_component_state": "StegMusic component standards"
+      }
+    },
+    "DOREMUS": {
+      "priority": 6,
+      "direct": ["work_identity", "recording_identity", "release_or_source_identity", "performer_identity", "instrument_identity", "date_or_period", "historical_lineage", "musical_structure"],
+      "partial": ["place", "rights_and_access"],
+      "absent_or_insufficient": ["audience", "social_function", "rhythm_and_microtiming", "timbre_and_acoustics", "ensemble_and_role_grammar", "physical_component_state"],
+      "secondary_by_field": {
+        "audience": "Library of Congress National Jukebox",
+        "social_function": "Global Jukebox",
+        "rhythm_and_microtiming": "Dunya / CompMusic or StegDJ extraction",
+        "timbre_and_acoustics": "AcousticBrainz or StegDJ extraction",
+        "ensemble_and_role_grammar": "Global Jukebox or Dunya / CompMusic",
+        "physical_component_state": "StegMusic component standards"
+      }
+    },
+    "RISM": {
+      "priority": 7,
+      "direct": ["work_identity", "release_or_source_identity", "performer_identity", "instrument_identity", "place", "date_or_period", "historical_lineage"],
+      "partial": ["musical_structure", "pitch_and_tuning", "rights_and_access"],
+      "absent_or_insufficient": ["recording_identity", "audience", "social_function", "rhythm_and_microtiming", "timbre_and_acoustics", "ensemble_and_role_grammar", "physical_component_state"],
+      "secondary_by_field": {
+        "recording_identity": "MusicBrainz or Library of Congress National Jukebox",
+        "audience": "Library of Congress National Jukebox",
+        "social_function": "Global Jukebox",
+        "rhythm_and_microtiming": "realized-performance analysis",
+        "timbre_and_acoustics": "realized-performance analysis",
+        "ensemble_and_role_grammar": "Global Jukebox or realized-performance analysis",
+        "physical_component_state": "StegMusic component standards"
+      }
+    },
+    "Million Song Dataset": {
+      "priority": 8,
+      "direct": ["recording_identity", "date_or_period", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "timbre_and_acoustics"],
+      "partial": ["work_identity", "performer_identity", "historical_lineage"],
+      "absent_or_insufficient": ["place", "audience", "social_function", "ensemble_and_role_grammar", "physical_component_state", "rights_and_access"],
+      "secondary_by_field": {
+        "work_identity": "MusicBrainz",
+        "place": "MusicBrainz or Library of Congress National Jukebox",
+        "audience": "Library of Congress National Jukebox",
+        "social_function": "Global Jukebox",
+        "ensemble_and_role_grammar": "Global Jukebox or Dunya / CompMusic",
+        "physical_component_state": "StegMusic component standards",
+        "rights_and_access": "source-specific rights evidence"
+      }
+    }
+  },
+  "normalization_rule": [
+    "do not equate similarly named fields without semantic review",
+    "preserve source-native value and normalized value",
+    "record mapping confidence and uncertainty",
+    "preserve ABSENT, UNKNOWN, RESTRICTED, and CONFLICTED states",
+    "mark fallback values SECONDARY_DERIVED",
+    "freeze every composition-affecting adopted value"
+  ]
+}

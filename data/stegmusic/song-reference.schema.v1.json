@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/stegmusic/song-reference.v1.json",
+  "title": "StegMusic Song Reference",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "song_reference_id",
+    "identity",
+    "source_records",
+    "historical_context",
+    "audience_and_place",
+    "musical_map",
+    "performance_map",
+    "rights_and_access",
+    "provenance",
+    "confidence",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "song_reference_id": {"type": "string", "minLength": 1},
+    "identity": {
+      "type": "object",
+      "required": ["work_identity", "recording_identity"],
+      "properties": {
+        "work_identity": {"type": ["string", "null"]},
+        "recording_identity": {"type": ["string", "null"]},
+        "release_identity": {"type": ["string", "null"]},
+        "external_ids": {"type": "object", "additionalProperties": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "source_records": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/sourceRecord"}
+    },
+    "historical_context": {
+      "type": "object",
+      "properties": {
+        "composition_period": {"type": ["string", "null"]},
+        "performance_period": {"type": ["string", "null"]},
+        "recording_date": {"type": ["string", "null"]},
+        "arrangement_date": {"type": ["string", "null"]},
+        "technology_period": {"type": ["string", "null"]},
+        "transmission_period": {"type": ["string", "null"]},
+        "revival_or_reinterpretation_period": {"type": ["string", "null"]},
+        "lineage_edges": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "audience_and_place": {
+      "type": "object",
+      "properties": {
+        "place": {"type": ["string", "null"]},
+        "region": {"type": ["string", "null"]},
+        "community_or_scene": {"type": ["string", "null"]},
+        "audience": {"type": "array", "items": {"type": "string"}},
+        "social_function": {"type": "array", "items": {"type": "string"}},
+        "performance_setting": {"type": ["string", "null"]},
+        "room_or_environment": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "musical_map": {
+      "type": "object",
+      "properties": {
+        "tempo": {"type": "object"},
+        "meter": {"type": "object"},
+        "pitch_and_tuning": {"type": "object"},
+        "harmony": {"type": "object"},
+        "rhythm": {"type": "object"},
+        "melodic_contour": {"type": "object"},
+        "cadences": {"type": "array", "items": {"type": "object"}},
+        "phrases": {"type": "array", "items": {"type": "object"}},
+        "sections": {"type": "array", "items": {"type": "object"}},
+        "microtiming": {"type": "object"},
+        "dynamics": {"type": "object"},
+        "timbre_and_spectrum": {"type": "object"},
+        "variation_events": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "performance_map": {
+      "type": "object",
+      "properties": {
+        "performers": {"type": "array", "items": {"type": "object"}},
+        "instruments_and_tools": {"type": "array", "items": {"type": "object"}},
+        "role_events": {"type": "array", "items": {"type": "object"}},
+        "interaction_graph": {"type": "object"},
+        "handoffs": {"type": "array", "items": {"type": "object"}},
+        "interruptions": {"type": "array", "items": {"type": "object"}},
+        "failures_repairs_and_recovery": {"type": "array", "items": {"type": "object"}},
+        "room_and_proximity": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "rights_and_access": {
+      "type": "object",
+      "required": ["source_access_posture", "composition_use_posture"],
+      "properties": {
+        "source_access_posture": {"enum": ["OPEN", "RESTRICTED", "LICENSED", "UNKNOWN", "UNAVAILABLE"]},
+        "composition_use_posture": {"enum": ["ALLOW_DERIVED_ANALYSIS", "ALLOW_REFERENCE_ONLY", "REQUIRES_REVIEW", "PROHIBITED", "UNKNOWN"]},
+        "audio_custody_authorized": {"type": "boolean"},
+        "restrictions": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["created_at", "extractor_versions", "source_hashes"],
+      "properties": {
+        "created_at": {"type": "string"},
+        "extractor_versions": {"type": "object"},
+        "source_hashes": {"type": "array", "items": {"type": "string"}},
+        "normalization_version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "confidence": {
+      "type": "object",
+      "properties": {
+        "overall": {"type": "number", "minimum": 0, "maximum": 1},
+        "uncertainties": {"type": "array", "items": {"type": "string"}},
+        "conflicts": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "authority": {"const": "none"}
+  },
+  "$defs": {
+    "sourceRecord": {
+      "type": "object",
+      "required": ["source_id", "priority", "field_status", "retrieved_at", "provenance_path"],
+      "properties": {
+        "source_id": {"type": "string"},
+        "priority": {"type": "integer", "minimum": 1},
+        "field_status": {"enum": ["AVAILABLE", "ABSENT", "UNKNOWN", "RESTRICTED", "CONFLICTED", "SECONDARY_DERIVED"]},
+        "retrieved_at": {"type": "string"},
+        "response_hash": {"type": ["string", "null"]},
+        "provenance_path": {"type": "array", "items": {"type": "string"}},
+        "adopted_fields": {"type": "array", "items": {"type": "string"}},
+        "missing_fields": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

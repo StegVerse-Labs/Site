@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/stegmusic/frozen-composition-evidence.v1.json",
+  "title": "StegMusic Frozen Composition Evidence",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "evidence_packet_id",
+    "composition_request_id",
+    "retrievals",
+    "adopted_values",
+    "source_gaps",
+    "conflicts",
+    "hashes",
+    "freeze_state",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "evidence_packet_id": {"type": "string", "minLength": 1},
+    "composition_request_id": {"type": "string", "minLength": 1},
+    "retrievals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "priority", "requested_fields", "retrieved_at", "status", "response_hash", "storage_posture"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "priority": {"type": "integer", "minimum": 1},
+          "requested_fields": {"type": "array", "items": {"type": "string"}},
+          "retrieved_at": {"type": "string"},
+          "status": {"enum": ["AVAILABLE", "ABSENT", "UNKNOWN", "RESTRICTED", "CONFLICTED", "FAILED"]},
+          "response_hash": {"type": "string"},
+          "storage_posture": {"enum": ["STORE", "QUERY", "FREEZE_AFTER_QUERY"]},
+          "license_or_access_posture": {"type": ["string", "null"]},
+          "raw_response_reference": {"type": ["string", "null"]},
+          "normalized_result_reference": {"type": ["string", "null"]},
+          "failure_or_absence_reason": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "adopted_values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "value_hash", "source_status", "provenance_path", "composition_effect"],
+        "properties": {
+          "field": {"type": "string"},
+          "value_hash": {"type": "string"},
+          "source_status": {"enum": ["PRIMARY_AVAILABLE", "SECONDARY_DERIVED", "CONFLICT_RESOLVED", "OPERATOR_SUPPLIED", "MODEL_DERIVED"]},
+          "provenance_path": {"type": "array", "items": {"type": "string"}},
+          "composition_effect": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "uncertainty": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    },
+    "source_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "field", "status", "preserved"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "field": {"type": "string"},
+          "status": {"enum": ["ABSENT", "UNKNOWN", "RESTRICTED", "CONFLICTED", "FAILED"]},
+          "preserved": {"const": true},
+          "secondary_source_used": {"type": ["string", "null"]},
+          "secondary_value_status": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "claims", "resolution_status"],
+        "properties": {
+          "field": {"type": "string"},
+          "claims": {"type": "array", "items": {"type": "object"}},
+          "resolution_status": {"enum": ["UNRESOLVED", "RESOLVED_BY_PRIORITY", "RESOLVED_BY_EVIDENCE", "DEFERRED", "QUARANTINED"]},
+          "adopted_claim_hash": {"type": ["string", "null"]},
+          "reason": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "required": ["request_hash", "retrieval_set_hash", "normalized_evidence_hash", "packet_hash"],
+      "properties": {
+        "request_hash": {"type": "string"},
+        "retrieval_set_hash": {"type": "string"},
+        "normalized_evidence_hash": {"type": "string"},
+        "packet_hash": {"type": "string"}
+      }
+    },
+    "freeze_state": {
+      "type": "object",
+      "required": ["frozen", "frozen_at", "mutable_after_freeze", "composition_may_execute"],
+      "properties": {
+        "frozen": {"const": true},
+        "frozen_at": {"type": "string"},
+        "mutable_after_freeze": {"const": false},
+        "composition_may_execute": {"type": "boolean"},
+        "blocking_reasons": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "authority": {"const": "none"}
+  },
+  "additionalProperties": true
+}
