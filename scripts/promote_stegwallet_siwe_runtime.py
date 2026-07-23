@@ -50,6 +50,10 @@ def verify_activation(receipt: Mapping[str, Any]) -> None:
         raise ValueError("siwe_activation_has_blockers")
     if receipt.get("site_configuration_promoted") is not False:
         raise ValueError("siwe_activation_preclaims_promotion")
+    if receipt.get("edge_to_origin_authentication_required") is not True:
+        raise ValueError("siwe_activation_edge_authentication_missing")
+    if receipt.get("direct_origin_authentication_allowed") is not False:
+        raise ValueError("siwe_activation_direct_origin_allowed")
     for field in (
         "wallet_authenticated",
         "transaction_authority",
@@ -79,6 +83,8 @@ def build_runtime(receipt: Mapping[str, Any]) -> dict[str, Any]:
         **ROUTES,
         "https_required": True,
         "same_origin_required": True,
+        "edge_to_origin_authentication_required": True,
+        "direct_origin_authentication_allowed": False,
         "wallet_authentication_enabled": True,
         "activation_receipt_sha256": receipt["activation_receipt_sha256"],
         "service_manifest_sha256": receipt["service_manifest_sha256"],
@@ -101,6 +107,8 @@ def promote(receipt: Mapping[str, Any], *, apply: bool) -> tuple[dict[str, Any],
         "canonical_origin": ORIGIN,
         "activation_receipt_sha256": receipt["activation_receipt_sha256"],
         "runtime_configuration_sha256": digest(runtime),
+        "edge_to_origin_authentication_required": True,
+        "direct_origin_authentication_allowed": False,
         "site_configuration_promoted": bool(apply),
         "wallet_authenticated": False,
         "transaction_authority": False,

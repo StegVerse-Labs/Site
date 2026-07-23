@@ -1,0 +1,29 @@
+{
+  "schema": "stegwallet.siwe_edge_deployment.v1",
+  "status": "AUTHORIZATION_REQUIRED",
+  "worker_name": "stegwallet-siwe-edge",
+  "canonical_origin": "https://stegverse.org",
+  "route_pattern": "stegverse.org/api/stegwallet/siwe/*",
+  "upstream_origin": null,
+  "upstream_origin_verified": false,
+  "edge_secret_provisioned": false,
+  "edge_secret_matches_origin": false,
+  "cloudflare_account_authorized": false,
+  "worker_deployed": false,
+  "route_observed": false,
+  "site_configuration_promoted": false,
+  "wallet_authenticated": false,
+  "transaction_authority": false,
+  "execution_authority": false,
+  "delegation_authority": false,
+  "custody_recorded": false,
+  "activation_blockers": [
+    "Cloudflare deployment authority not granted",
+    "SIWE upstream origin not deployed or verified",
+    "edge secret not provisioned to Cloudflare Worker",
+    "matching edge secret not provisioned to SIWE origin",
+    "Worker route not deployed",
+    "same-origin health route not observed",
+    "live activation receipt not produced"
+  ]
+}

@@ -26,6 +26,8 @@ def receipt() -> dict:
         "service_manifest_sha256": "sha256:" + "1" * 64,
         "proxy_manifest_sha256": "sha256:" + "2" * 64,
         "health_readiness_sha256": "sha256:" + "3" * 64,
+        "edge_to_origin_authentication_required": True,
+        "direct_origin_authentication_allowed": False,
         "blockers": [],
         "site_configuration_promoted": False,
         "wallet_authenticated": False,
@@ -37,6 +39,12 @@ def receipt() -> dict:
     }
     value["activation_receipt_sha256"] = promoter.digest(value)
     return value
+
+
+def rehash(value: dict) -> None:
+    value["activation_receipt_sha256"] = promoter.digest(
+        {key: item for key, item in value.items() if key != "activation_receipt_sha256"}
+    )
 
 
 def expect_error(value: dict, expected: str) -> None:
@@ -56,6 +64,10 @@ def main() -> int:
         raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: valid receipt did not create READY runtime")
     if runtime["logout_endpoint"] != "https://stegverse.org/api/stegwallet/siwe/logout":
         raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: logout endpoint missing")
+    if runtime["edge_to_origin_authentication_required"] is not True:
+        raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: edge authentication requirement missing")
+    if runtime["direct_origin_authentication_allowed"] is not False:
+        raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: direct-origin authentication enabled")
     if promotion["status"] != "PROMOTION_READY" or promotion["site_configuration_promoted"] is not False:
         raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: dry run preclaimed promotion")
     for field in ("transaction_authority", "execution_authority", "delegation_authority", "custody_recorded"):
@@ -68,13 +80,23 @@ def main() -> int:
 
     changed = copy.deepcopy(source)
     changed["transaction_authority"] = True
-    changed["activation_receipt_sha256"] = promoter.digest({k: v for k, v in changed.items() if k != "activation_receipt_sha256"})
+    rehash(changed)
     expect_error(changed, "siwe_activation_transaction_authority_violation")
 
     changed = copy.deepcopy(source)
     changed["status"] = "CONFIGURATION_REQUIRED"
-    changed["activation_receipt_sha256"] = promoter.digest({k: v for k, v in changed.items() if k != "activation_receipt_sha256"})
+    rehash(changed)
     expect_error(changed, "siwe_activation_not_ready")
+
+    changed = copy.deepcopy(source)
+    changed["edge_to_origin_authentication_required"] = False
+    rehash(changed)
+    expect_error(changed, "siwe_activation_edge_authentication_missing")
+
+    changed = copy.deepcopy(source)
+    changed["direct_origin_authentication_allowed"] = True
+    rehash(changed)
+    expect_error(changed, "siwe_activation_direct_origin_allowed")
 
     with tempfile.TemporaryDirectory() as directory:
         output = Path(directory) / "promotion.json"
@@ -86,6 +108,10 @@ def main() -> int:
     committed = json.loads((ROOT / "data" / "stegwallet-siwe-runtime.json").read_text(encoding="utf-8"))
     if committed["state"] != "CONFIGURATION_REQUIRED" or committed["wallet_authentication_enabled"] is not False:
         raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: repository configuration activated without live receipt")
+    if committed["edge_to_origin_authentication_required"] is not True:
+        raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: disabled runtime lost edge requirement")
+    if committed["direct_origin_authentication_allowed"] is not False:
+        raise SystemExit("STEGWALLET_SIWE_PROMOTION_CHECK_FAIL: disabled runtime allows direct origin")
 
     print("STEGWALLET_SIWE_PROMOTION_GATE_PASS")
     return 0

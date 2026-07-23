@@ -56,6 +56,9 @@ def main() -> int:
         "service_manifest_sha256",
         "proxy_manifest_sha256",
         "health_readiness_sha256",
+        "edge_to_origin_authentication_required !== true",
+        "direct_origin_authentication_allowed !== false",
+        "result.status !== 'LOGGED_OUT'",
         "SESSION REVOKED",
     ):
         require(script, marker, SCRIPT.name)
@@ -84,6 +87,8 @@ def main() -> int:
         "logout_endpoint": None,
         "https_required": True,
         "same_origin_required": True,
+        "edge_to_origin_authentication_required": True,
+        "direct_origin_authentication_allowed": False,
         "wallet_authentication_enabled": False,
         "activation_receipt_sha256": None,
         "service_manifest_sha256": None,
@@ -95,6 +100,8 @@ def main() -> int:
         "custody_recorded": False,
         "blockers": [
             "authenticated_siwe_service_not_deployed",
+            "edge_proxy_not_deployed",
+            "edge_secret_not_provisioned",
             "activation_receipt_not_imported",
             "challenge_endpoint_not_configured",
             "verification_endpoint_not_configured",
@@ -110,7 +117,9 @@ def main() -> int:
         "READY_FOR_SITE_PROMOTION",
         "siwe_activation_receipt_tampered",
         "site_configuration_promoted",
-        "wallet_authentication_enabled\": True",
+        'wallet_authentication_enabled": True',
+        "edge_to_origin_authentication_required",
+        "direct_origin_authentication_allowed",
         "logout_endpoint",
         "--apply",
     ):

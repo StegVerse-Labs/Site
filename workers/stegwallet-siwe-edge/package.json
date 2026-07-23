@@ -1,0 +1,14 @@
+{
+  "name": "stegwallet-siwe-edge",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/index.js",
+    "test": "node test.mjs",
+    "deploy:candidate": "wrangler deploy --config wrangler.siwe.candidate.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
