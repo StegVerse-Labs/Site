@@ -1,0 +1,117 @@
+{
+  "schema": "stegverse.conectrr.minimum-handoff.fixture.v0.1",
+  "cases": [
+    {
+      "case_id": "valid-minimum",
+      "expected": "PASS",
+      "record": {
+        "handoff_id": "conectrr:handoff:001",
+        "schema": "stegverse.conectrr.minimum-handoff.v0.1",
+        "source": {
+          "system": "Conectrr",
+          "recorded_at": "2026-07-23T11:35:00Z",
+          "source_record_refs": ["conectrr:discovery:001"]
+        },
+        "intent": {
+          "summary": "Identify a suitable governed coordination opportunity.",
+          "criteria": ["intent alignment", "declared constraints"],
+          "constraints": ["no commitment at discovery time"]
+        },
+        "recommendation": {
+          "summary": "Surface candidate opportunity A for downstream evaluation.",
+          "reasoning": ["Candidate A satisfies the declared discovery criteria."],
+          "evidence_refs": ["evidence:criteria-match:001"],
+          "alternatives_considered": ["candidate B"],
+          "confidence": 0.72,
+          "uncertainties": ["counterparty consent has not been established"]
+        },
+        "unresolved_dependencies": [
+          "identity verification",
+          "counterparty consent",
+          "delegated authority",
+          "policy admissibility"
+        ],
+        "boundary": {
+          "consent_established": false,
+          "authority_established": false,
+          "admissibility_determined": false,
+          "commitment_created": false,
+          "execution_authorized": false,
+          "recommendation_only": true
+        }
+      }
+    },
+    {
+      "case_id": "invalid-overreach",
+      "expected": "FAIL",
+      "expected_failure": "OVERREACH_EXECUTION",
+      "record": {
+        "handoff_id": "conectrr:handoff:002",
+        "schema": "stegverse.conectrr.minimum-handoff.v0.1",
+        "source": {
+          "system": "Conectrr",
+          "recorded_at": "2026-07-23T11:36:00Z",
+          "source_record_refs": ["conectrr:discovery:002"]
+        },
+        "intent": {
+          "summary": "Identify a suitable governed coordination opportunity.",
+          "criteria": ["intent alignment"],
+          "constraints": []
+        },
+        "recommendation": {
+          "summary": "Execute candidate opportunity A.",
+          "reasoning": ["Candidate A scored highest."],
+          "evidence_refs": ["evidence:score:002"],
+          "alternatives_considered": [],
+          "confidence": 0.91,
+          "uncertainties": []
+        },
+        "unresolved_dependencies": [],
+        "boundary": {
+          "consent_established": false,
+          "authority_established": false,
+          "admissibility_determined": false,
+          "commitment_created": false,
+          "execution_authorized": true,
+          "recommendation_only": false
+        }
+      }
+    },
+    {
+      "case_id": "invalid-under-specified",
+      "expected": "FAIL",
+      "expected_failure": "UNDER_SPECIFIED_REASONING",
+      "record": {
+        "handoff_id": "conectrr:handoff:003",
+        "schema": "stegverse.conectrr.minimum-handoff.v0.1",
+        "source": {
+          "system": "Conectrr",
+          "recorded_at": "2026-07-23T11:37:00Z",
+          "source_record_refs": []
+        },
+        "intent": {
+          "summary": "Find an opportunity.",
+          "criteria": [],
+          "constraints": []
+        },
+        "recommendation": {
+          "summary": "Candidate A.",
+          "reasoning": [],
+          "evidence_refs": [],
+          "alternatives_considered": [],
+          "confidence": null,
+          "uncertainties": []
+        },
+        "unresolved_dependencies": [],
+        "boundary": {
+          "consent_established": false,
+          "authority_established": false,
+          "admissibility_determined": false,
+          "commitment_created": false,
+          "execution_authorized": false,
+          "recommendation_only": true
+        }
+      }
+    }
+  ]
+}
