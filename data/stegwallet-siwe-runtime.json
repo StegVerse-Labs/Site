@@ -9,6 +9,8 @@
   "logout_endpoint": null,
   "https_required": true,
   "same_origin_required": true,
+  "edge_to_origin_authentication_required": true,
+  "direct_origin_authentication_allowed": false,
   "wallet_authentication_enabled": false,
   "activation_receipt_sha256": null,
   "service_manifest_sha256": null,
@@ -20,6 +22,8 @@
   "custody_recorded": false,
   "blockers": [
     "authenticated_siwe_service_not_deployed",
+    "edge_proxy_not_deployed",
+    "edge_secret_not_provisioned",
     "activation_receipt_not_imported",
     "challenge_endpoint_not_configured",
     "verification_endpoint_not_configured",
