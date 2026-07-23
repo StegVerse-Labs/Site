@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-private-review-state-v1.json",
+  "title": "HIL Private Review State v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "submission", "review", "artifact_bytes_exposed", "storage_paths_exposed", "authority"],
+  "properties": {
+    "schema_version": { "const": "HIL-PRIVATE-REVIEW-STATE-v1" },
+    "submission": {
+      "type": "object",
+      "required": ["submission_id", "received_at", "participant_identifier", "publication_consent", "primary_sha256", "submitted_file_sha256", "provenance_manifest_sha256", "chain_validation_state", "size_bytes", "validation_state", "active_content_state"],
+      "properties": {
+        "submission_id": { "type": "string", "pattern": "^HIL-INTAKE-[A-Z0-9-]+$" },
+        "received_at": { "type": "string", "format": "date-time" },
+        "participant_identifier": { "type": "string" },
+        "publication_consent": { "enum": ["public", "anonymous", "private"] },
+        "primary_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "submitted_file_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "provenance_manifest_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "chain_validation_state": { "enum": ["PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED", "PRIMARY_PROMPT_RESPONSE_SIGNATURE_CHAIN_VERIFIED"] },
+        "size_bytes": { "type": "integer", "minimum": 1 },
+        "validation_state": { "enum": ["RECEIVED_PENDING_REVIEW", "ACCEPT_PRIVATE", "QUARANTINE", "REJECT"] },
+        "active_content_state": { "enum": ["ABSENT"] }
+      }
+    },
+    "review": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["review_id", "reviewed_at", "reviewer", "decision", "notes", "review_receipt_sha256"],
+          "properties": {
+            "review_id": { "type": "string", "pattern": "^HIL-REVIEW-[A-Z0-9]+$" },
+            "reviewed_at": { "type": "string", "format": "date-time" },
+            "reviewer": { "type": "string", "minLength": 1 },
+            "decision": { "enum": ["ACCEPT_PRIVATE", "QUARANTINE", "REJECT"] },
+            "notes": { "type": "string" },
+            "review_receipt_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          }
+        }
+      ]
+    },
+    "artifact_bytes_exposed": { "const": false },
+    "storage_paths_exposed": { "const": false },
+    "authority": {
+      "type": "object",
+      "required": ["execution", "publication", "master_record_append"],
+      "properties": {
+        "execution": { "const": false },
+        "publication": { "const": false },
+        "master_record_append": { "const": false }
+      }
+    }
+  }
+}
