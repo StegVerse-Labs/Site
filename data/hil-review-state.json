@@ -18,15 +18,16 @@
     "public_record_inclusion": "GRANTED"
   },
   "requested_review": {
-    "paper_section": "PENDING",
-    "primary_pdf": "PENDING",
-    "site_presentation": "PENDING"
+    "paper_section": "APPROVED",
+    "primary_pdf": "APPROVED",
+    "site_presentation": "APPROVED"
   },
-  "final_presentation_approval": "PENDING",
-  "canonical_publication": "BLOCKED_PENDING_REVIEW",
-  "public_response_acquisition": "PAUSED",
+  "final_presentation_approval": "APPROVED",
+  "approved_at": "2026-07-23T21:17:00Z",
+  "canonical_publication": "PENDING_ARTIFACT_AND_TECHNICAL_ACTIVATION",
+  "public_response_acquisition": "PAUSED_PENDING_CONTROLLED_CHAIN_VALIDATION",
   "authority": {
-    "permission_is_final_approval": false,
+    "permission_is_final_approval": true,
     "review_candidate_is_canonical": false,
     "site_preview_is_publication_authority": false,
     "response_intake_authorized": false
