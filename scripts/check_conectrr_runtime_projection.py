@@ -10,6 +10,7 @@ LOADER = ROOT / "assets" / "conectrr-interop.js"
 FIXTURE = ROOT / "data" / "conectrr-independent-evaluation.fixture.json"
 BROWSER_CHECK = ROOT / "scripts" / "check_conectrr_browser_projection.py"
 EXPORT_CHECK = ROOT / "scripts" / "check_conectrr_export_replay.py"
+ADAPTER_CHECK = ROOT / "scripts" / "check_conectrr_adapter_conformance.py"
 LIVE_CHECK = ROOT / "scripts" / "check_conectrr_live_routes.py"
 LIVE_WORKFLOW = ROOT / ".github" / "workflows" / "conectrr-live-verification.yml"
 
@@ -62,7 +63,7 @@ def main() -> int:
     errors.extend(missing(LOADER, REQUIRED_LOADER))
     if not FIXTURE.exists():
         errors.append("missing independent evaluation fixture")
-    for check in (BROWSER_CHECK, EXPORT_CHECK):
+    for check in (BROWSER_CHECK, EXPORT_CHECK, ADAPTER_CHECK):
         failure = run_check(check)
         if failure:
             errors.append(failure)
@@ -82,6 +83,7 @@ def main() -> int:
     print("rendering=source_and_decision")
     print("correlation=bidirectional_stable_event_id")
     print("export_replay=json_and_jsonl")
+    print("adapter_conformance=fixture_only_preservation")
     print("deployed_publication_verification=declared")
     print("authority_effect=none")
     return 0
