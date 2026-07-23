@@ -27,6 +27,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_stegmusic_cultural_performance_model.py'),
 (sys.executable,'scripts/check_stegmusic_string_component_standard.py'),
 (sys.executable,'scripts/check_stegmusic_instrument_component_standard.py'),
+(sys.executable,'scripts/check_stegmusic_source_study_algorithm.py'),
 (sys.executable,'scripts/check_stegmusic_live_verification_contract.py'),
 (sys.executable,'scripts/check_stegmusic_browser_self_test.py'),
 (sys.executable,'scripts/check_stegmusic_browser_automation_contract.py'),
