@@ -118,9 +118,12 @@
       const intakeId = `HIL-INTAKE-${createdAt.slice(0, 10).replaceAll('-', '')}-${uuid().slice(0, 8).toUpperCase()}`;
       const receiptCore = {
         schema: 'https://stegverse.org/schemas/hil-intake-receipt-v1.json',
+        schema_version: 'HIL-SUBMISSION-v1',
+        submission_id: intakeId,
         intake_id: intakeId,
         state: 'BROWSER_LOCAL_PREPARED_NOT_SUBMITTED',
         created_at: createdAt,
+        received_at: null,
         primary: {
           title: PRIMARY.title,
           version: PRIMARY.version,
@@ -132,7 +135,9 @@
           original_filename: file.name,
           media_type: 'application/pdf',
           size_bytes: file.size,
-          browser_verified_sha256: responseHash
+          browser_verified_sha256: responseHash,
+          receiver_verified_sha256: null,
+          public_artifact_path: null
         },
         participant: {
           identifier: participantId,
@@ -141,12 +146,23 @@
           model_response_declared_unedited: unedited,
           participant_consent_authority_acknowledged: authority
         },
+        validation: {
+          pdf_signature: 'PASS',
+          primary_reference: 'UNKNOWN',
+          prompt_integrity: 'UNKNOWN',
+          active_content: 'UNKNOWN',
+          malware_scan: 'NOT_RUN',
+          notes: ['Browser-local preview only; receiver validation has not occurred.']
+        },
         authority: {
           transmitted: false,
           custodied: false,
+          accepted: false,
           published: false,
           master_record_appended: false
-        }
+        },
+        previous_record_sha256: null,
+        record_sha256: null
       };
       const canonicalCore = JSON.stringify(receiptCore);
       currentReceipt = {
@@ -166,8 +182,61 @@
     saveBlob(new Blob([`${JSON.stringify(currentReceipt, null, 2)}\n`], { type: 'application/json' }), filename);
   }
 
+  function text(value) {
+    return document.createTextNode(value == null ? 'unknown' : String(value));
+  }
+
+  function responseCard(record) {
+    const article = document.createElement('article');
+    article.className = 'sv-card';
+
+    const heading = document.createElement('h3');
+    heading.className = 'sv-h3';
+    heading.appendChild(text(record.response_id));
+    article.appendChild(heading);
+
+    const summary = document.createElement('p');
+    summary.appendChild(text(`${record.model || 'Unknown model'} · ${record.provider || 'Unknown provider'} · ${record.publication_state || 'unknown state'}`));
+    article.appendChild(summary);
+
+    if (record.artifact_path) {
+      const actions = document.createElement('div');
+      actions.className = 'hil-actions';
+      const link = document.createElement('a');
+      link.className = 'sv-btn sv-btn-secondary';
+      link.href = record.artifact_path;
+      link.textContent = 'Open Response PDF';
+      actions.appendChild(link);
+      article.appendChild(actions);
+    }
+    return article;
+  }
+
+  async function loadResponseIndex() {
+    const target = byId('response-index');
+    try {
+      const response = await fetch('data/hil-responses.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`response index unavailable (${response.status})`);
+      const index = await response.json();
+      if (!Array.isArray(index.responses)) throw new Error('response index has invalid shape');
+      target.replaceChildren();
+      if (index.responses.length === 0) {
+        target.className = 'hil-empty';
+        target.appendChild(text(`No protocol-compliant public responses have been published yet. The initiating observational trace remains separately identified as ${index.initiating_trace.trace_id}.`));
+        return;
+      }
+      target.className = '';
+      index.responses.forEach((record) => target.appendChild(responseCard(record)));
+    } catch (error) {
+      target.className = 'hil-status';
+      target.dataset.state = 'warn';
+      target.textContent = `Public response index could not be loaded: ${error.message}`;
+    }
+  }
+
   byId('download-primary').addEventListener('click', downloadPrimary);
   byId('copy-prompt').addEventListener('click', copyPrompt);
   byId('prepare-receipt').addEventListener('click', prepareReceipt);
   downloadReceiptButton.addEventListener('click', downloadReceipt);
+  loadResponseIndex();
 })();
