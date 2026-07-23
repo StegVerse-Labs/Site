@@ -1,0 +1,33 @@
+{
+  "receipt_id": "sv-continuity-109-site-verification-001",
+  "protocol_id": "SV-CONTINUITY-109",
+  "destination": "StegVerse-Labs/Site",
+  "source_merges": {
+    "continuity": "d3c24a774b1638fed26990ebf916babfeb2fc699",
+    "stegcore": "8378cbbc6f9d80ee94c69af312835d118ac46bfa"
+  },
+  "governance_commit_observed": "c07b7c6146e0abac7db6fa15a5a0aa7bf23811f6",
+  "checks": {
+    "authoritative_vs_effective_database_distinguished": true,
+    "external_ai_returns_non_authoritative": true,
+    "unknown_retention_preserved": true,
+    "renderer_grants_no_authority": true,
+    "propagation_packet_grants_no_authority": true,
+    "site_activation_complete": false,
+    "downstream_verified_ingestion_complete": false
+  },
+  "decision": "BLOCK",
+  "reasons": [
+    "Site projection boundary is verified.",
+    "Site activation is not complete.",
+    "Downstream verified ingestion is not complete."
+  ],
+  "authority": {
+    "execution": false,
+    "custody": false,
+    "admissibility": false,
+    "release": false,
+    "publication": false,
+    "receipt_minting": false
+  }
+}
