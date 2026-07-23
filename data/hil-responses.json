@@ -1,0 +1,20 @@
+{
+  "schema_version": "HIL-RESPONSES-INDEX-v1",
+  "experiment_id": "HIL-2026",
+  "primary_document": {
+    "version": "v0.4",
+    "sha256": "97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d"
+  },
+  "initiating_trace": {
+    "trace_id": "HIL-TRACE-0001",
+    "classification": "PRE_PROTOCOL_OBSERVATIONAL_TRACE",
+    "publication_state": "PENDING_ATTRIBUTION_CONSENT"
+  },
+  "responses": [],
+  "last_updated": "2026-07-22T00:00:00Z",
+  "authority": {
+    "public_index_is_custody": false,
+    "public_index_is_endorsement": false,
+    "public_index_is_scientific_proof": false
+  }
+}
