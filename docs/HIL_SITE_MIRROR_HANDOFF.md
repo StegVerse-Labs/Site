@@ -9,10 +9,13 @@ This document owns continuation for the public `Humans as the Interoperability L
 ```text
 Goal: publish one authoritative participant-facing surface that distributes the canonical Primary PDF, supplies the exact LLM invocation prompt, verifies a returned response-only PDF locally, records participant-controlled consent, prepares a hash-bound receipt, and publishes accepted results through an append-only response index and Master Record.
 Primary surface: humans-as-interoperability-layer.html
+Response detail surface: humans-as-interoperability-response.html?id=HIL-RESP-...
 Client behavior: assets/hil-experiment.js
+Response renderer: assets/hil-response.js
 Experiment manifest: data/hil-experiment.json
 Response projection: data/hil-responses.json
 Submission schema: data/schemas/hil-submission.schema.json
+Receiver receipt schema: data/schemas/hil-receiver-receipt.schema.json
 Static verifier: scripts/check_hil_experiment.py
 Result: BROWSER_LOCAL_INTAKE_PREVIEW
 Authority: NONE
@@ -35,11 +38,14 @@ Downloadable JSON receipt aligned to HIL-SUBMISSION-v1
 Explicit validation posture fields for PDF signature, primary reference, prompt integrity, active content, and malware scan
 Fail-closed authority flags for transmission, custody, acceptance, publication, and Master Record append
 Machine-readable experiment manifest
-Machine-readable empty public response index
+Machine-readable public response index
 Dynamic response-index rendering from data/hil-responses.json
+Generic public response detail surface resolved by stable HIL-RESP ID
 Submission metadata JSON Schema
-Static source verifier for page, prompt, hash, schema, manifest, response index, and authority boundaries
-Empty public response-index state
+Receiver receipt JSON Schema
+Static verifier for page, detail page, prompt, hashes, schemas, manifest, response records, duplicate IDs, and authority boundaries
+HIL verifier bound into Site validate and public-guard tasks
+HIL public paths registered in docs/SITE_PUBLIC_PATHS.md and check_site_public_paths.py
 Initiating observation reserved as HIL-TRACE-0001
 Home-page transition card and proof-status entry
 Mobile-responsive layout
@@ -53,16 +59,17 @@ Paper version: v0.4
 Protocol version: HIL-PROTOCOL-v1.0
 Prompt version: HIL-PROMPT-v1.0
 Declared SHA-256: 97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d
+Verified source size: 107675 bytes
 Repository artifact state: PENDING INSTALLATION
 ```
 
-The page expects the canonical artifact as base64 text at:
+Expected repository path:
 
 ```text
 data/hil-primary-v0.4.pdf.b64
 ```
 
-The download path decodes the artifact in-browser, recomputes SHA-256, and blocks download if the bytes do not match the declared canonical hash. The source artifact available to the build session was independently verified at 106 KiB with the declared SHA-256. The artifact is not yet installed because the repository write connector accepts UTF-8 text and the binary-to-base64 transfer remains pending.
+The page decodes the artifact in-browser, recomputes SHA-256, and blocks download if the bytes do not match the declared canonical hash. The source PDF was independently rechecked before continuation and matched the declared hash. Binary-to-repository installation remains pending.
 
 ## Current participant flow
 
@@ -76,47 +83,37 @@ Site page
 -> browser validates and hashes file locally
 -> participant supplies consent fields
 -> browser generates schema-aligned receipt JSON
--> participant returns original Response PDF plus receipt through LinkedIn DM
+-> participant returns original Response PDF plus receipt through interim transport
 ```
 
 The file does not leave the participant device during browser-local intake preview.
 
-## Machine-readable state
-
-### `data/hil-experiment.json`
-
-Owns the canonical paper identity, prompt, protocol, artifact state, transport posture, public-record state, and fail-closed authority flags.
-
-### `data/hil-responses.json`
-
-Owns the public response projection. It begins empty and retains `HIL-TRACE-0001` separately as a pre-protocol observational trace pending attribution consent.
-
-### `data/schemas/hil-submission.schema.json`
-
-Defines the submission lifecycle:
+## Response publication flow
 
 ```text
-BROWSER_LOCAL_PREPARED_NOT_SUBMITTED
-RECEIVED_PENDING_VALIDATION
-INCOMPLETE
-QUARANTINED
-ACCEPTED_PRIVATE
-ACCEPTED_FOR_PUBLICATION
-PUBLISHED
-WITHDRAWN
+received response bytes
+-> receiver SHA-256
+-> HIL-RECEIVER-RECEIPT-v1
+-> validation / quarantine / acceptance decision
+-> stable HIL-RESP identifier
+-> data/hil-responses.json append
+-> humans-as-interoperability-response.html?id=<HIL-RESP-ID>
+-> Master Record release linkage
 ```
 
-It separates browser-declared, participant-controlled, receiver-verified, and publication-authority fields.
+The public detail surface is a projection. It is not custody and does not edit the response artifact.
 
 ## Verification
 
-Run:
+Canonical command:
 
 ```text
-python scripts/check_hil_experiment.py
+python scripts/run_site_task.py validate
 ```
 
-Expected while the Primary artifact remains absent:
+The Site task runner invokes `scripts/check_hil_experiment.py` during both `validate` and `public-guard`.
+
+Expected current HIL output:
 
 ```text
 HIL_EXPERIMENT_STATIC_VERIFICATION=PASS
@@ -126,23 +123,24 @@ HIL_PUBLIC_RESPONSE_COUNT=0
 HIL_AUTHORITY=NONE
 ```
 
-After `data/hil-primary-v0.4.pdf.b64` is installed and the manifest artifact state is changed to `VERIFIED`, the same verifier decodes the PDF, checks the `%PDF-` signature, recomputes SHA-256, and fails closed on mismatch.
+After `data/hil-primary-v0.4.pdf.b64` is installed and `data/hil-experiment.json` is changed to `VERIFIED`, the verifier decodes the PDF, checks `%PDF-`, recomputes SHA-256, and fails closed on mismatch.
 
 ## Required next vertical slice
 
 ```text
-Install canonical Primary PDF artifact at the expected path
-Change data/hil-experiment.json primary_document.artifact_state to VERIFIED
-Bind scripts/check_hil_experiment.py into the canonical Site validation workflow
-Deploy page and observe Primary PDF hash-verified download
-Add server upload endpoint with PDF validation, isolated storage, malware scanning, rate limiting, and receipt issuance
-Preserve exact uploaded bytes and calculate receiver-verified SHA-256
+Install canonical Primary PDF artifact
+Change manifest artifact_state to VERIFIED
+Observe Site validation workflow after artifact installation
+Deploy and browser-test hash-verified Primary PDF download
+Build server-side upload adapter
+Preserve exact uploaded bytes and receiver SHA-256
+Inspect active PDF content and malware state
+Issue HIL-RECEIVER-RECEIPT-v1
 Create private review queue
-Create receiver receipt schema
-Create stable HIL-RESP identifiers
-Publish accepted response artifact pages
-Generate append-only Master Record editions with previous-release hash
-Route the same endpoint into Ecosystem Chat when governed intake becomes available
+Append accepted records without ID reuse or overwrite
+Publish first response detail page from machine-readable index
+Build versioned Master Record assembly workflow
+Route the same intake contract into Ecosystem Chat
 ```
 
 ## Authority boundaries
@@ -154,7 +152,7 @@ LLM-generated PDF != participant consent
 browser-local validation != server validation
 browser-local hash != custody
 receipt preparation != submission
-LinkedIn transport != authoritative archive
+transport != authoritative archive
 submission != acceptance
 acceptance != publication
 publication != endorsement
@@ -168,12 +166,10 @@ Destination `StegVerse-Labs/Site`:
 
 ```text
 data/hil-primary-v0.4.pdf.b64
-canonical Site validation workflow binding
-server-side upload and storage adapter
+server-side upload and isolated storage adapter
 malware and active-content inspection
-receiver receipt schema
-review queue
-public response detail route
+private review queue
+append-only response-index mutation workflow
 Master Record assembly and release workflow
 browser and accessibility tests
 ```
@@ -197,8 +193,8 @@ StegVerse-002/stegguardian-wiki
 
 ## Release posture
 
-No release tag is authorized for the HIL experiment surface while the canonical Primary artifact is absent and no deployed browser execution has verified the hash-bound download and receipt path. The page may remain merged as a fail-closed preview because it explicitly disclaims transmission, custody, publication, and activation.
+No HIL release tag is authorized while the canonical Primary artifact is absent and no deployed browser execution has verified the hash-bound download and receipt path. The fail-closed preview may remain deployed because it claims no transmission, custody, acceptance, publication, or activation authority.
 
 ## Archive readiness
 
-This handoff, `humans-as-interoperability-layer.html`, `assets/hil-experiment.js`, `data/hil-experiment.json`, `data/hil-responses.json`, `data/schemas/hil-submission.schema.json`, `scripts/check_hil_experiment.py`, the canonical artifact metadata, and repository commits preserve the complete continuation state. No additional conversation context is required.
+This handoff and the checked-in HIL page, response page, client renderers, manifests, schemas, validators, public-path register, and repository history preserve all continuation state. No additional conversation context is required.
