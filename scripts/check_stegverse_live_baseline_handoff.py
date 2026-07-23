@@ -8,6 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STATUS = ROOT / "data/framework-evaluations/stegverse-live-baseline-handoff-status.json"
 REQUEST = ROOT / "data/framework-evaluations/stegverse-live-baseline-execution-request.json"
+CANONICAL_VALIDATOR = "scripts/check_stegverse_live_baseline_runtime_readiness.py"
+LEGACY_VALIDATOR_ALIAS = "scripts/check_stegverse_live-baseline-runtime-readiness.py"
 NO_AUTHORITY = {
     "comparison": False,
     "admissibility": False,
@@ -41,8 +43,16 @@ def main() -> int:
     require(valid_commit(status.get("destination_commit")), "invalid destination commit")
     require(status.get("destination_readiness_path") == "status/stegverse-live-baseline-runtime-readiness.json", "destination readiness path mismatch")
     require(valid_commit(status.get("destination_readiness_commit")), "invalid destination readiness commit")
-    require(status.get("destination_validator_path") == "scripts/check_stegverse_live_baseline_runtime_readiness.py", "destination validator path mismatch")
+
+    validator_path = status.get("destination_validator_path")
+    require(validator_path in {CANONICAL_VALIDATOR, LEGACY_VALIDATOR_ALIAS}, "destination validator path mismatch")
+    if validator_path == LEGACY_VALIDATOR_ALIAS:
+        require(
+            CANONICAL_VALIDATOR in (status.get("destination_aggregate_includes") or []),
+            "legacy validator alias requires canonical aggregate binding",
+        )
     require(valid_commit(status.get("destination_validator_commit")), "invalid destination validator commit")
+
     require(status.get("destination_provider_authority_binding_path") == "status/stegverse-live-baseline-provider-authority-binding.json", "provider authority binding path mismatch")
     require(valid_commit(status.get("destination_provider_authority_binding_commit")), "invalid provider authority binding commit")
     require(status.get("destination_provider_authority_validator_path") == "scripts/check_stegverse_live_baseline_provider_authority_binding.py", "provider authority validator path mismatch")
