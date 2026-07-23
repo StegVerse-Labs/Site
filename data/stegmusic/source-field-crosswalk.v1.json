@@ -26,7 +26,7 @@
       "priority": 1,
       "direct": ["place", "date_or_period", "social_function", "ensemble_and_role_grammar", "historical_lineage"],
       "partial": ["performer_identity", "instrument_identity", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming"],
-      "absent_or_insufficient": ["current work_identity", "current recording_identity", "dense timbre_and_acoustics", "physical_component_state", "rights_and_access"],
+      "absent_or_insufficient": ["work_identity", "recording_identity", "timbre_and_acoustics", "physical_component_state", "rights_and_access"],
       "secondary_by_field": {
         "work_identity": "MusicBrainz",
         "recording_identity": "MusicBrainz",
@@ -39,7 +39,7 @@
       "priority": 2,
       "direct": ["recording_identity", "performer_identity", "instrument_identity", "musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "timbre_and_acoustics"],
       "partial": ["work_identity", "date_or_period", "place", "historical_lineage", "rights_and_access"],
-      "absent_or_insufficient": ["broad audience", "broad social_function", "physical_component_state"],
+      "absent_or_insufficient": ["audience", "social_function", "physical_component_state"],
       "secondary_by_field": {
         "audience": "Library of Congress National Jukebox or tradition-specific archive",
         "social_function": "Global Jukebox",
@@ -80,7 +80,7 @@
       "priority": 5,
       "direct": ["recording_identity", "release_or_source_identity", "performer_identity", "place", "date_or_period", "audience", "historical_lineage", "rights_and_access"],
       "partial": ["work_identity", "instrument_identity", "social_function", "timbre_and_acoustics"],
-      "absent_or_insufficient": ["detailed musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "ensemble_and_role_grammar", "physical_component_state"],
+      "absent_or_insufficient": ["musical_structure", "pitch_and_tuning", "rhythm_and_microtiming", "ensemble_and_role_grammar", "physical_component_state"],
       "secondary_by_field": {
         "musical_structure": "StegDJ extraction or Dunya / CompMusic",
         "pitch_and_tuning": "StegDJ extraction",
