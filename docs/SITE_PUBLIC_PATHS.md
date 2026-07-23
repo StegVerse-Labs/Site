@@ -21,6 +21,8 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 |---|---|---|
 | `/` | Site repository landing surface and public entry point. | `StegVerse-Labs/Site` checked-in content. |
 | `/ecosystem-chat.html` | Public governed chat interface with bounded gateway and local fallback. | Gateway lifecycle and receipts remain external to Site authority. |
+| `/humans-as-interoperability-layer.html` | Participant-facing research protocol, canonical-input metadata, browser-local response verification, and public response index. | `docs/HIL_SITE_MIRROR_HANDOFF.md` owns Site continuation; the immutable Primary PDF and receiver receipts remain the evidence references. |
+| `/humans-as-interoperability-response.html?id=HIL-RESP-...` | Public projection of one accepted HIL response record and its artifact/hash references. | `data/hil-responses.json` is the checked-in public projection; original bytes and custody receipts remain separate. |
 | `/external-chat.html` | Public external-framework compatibility intake and comparison surface. | `StegVerse-Labs/admissibility-wiki/docs/external-frameworks` remains source of truth for published framework findings; Site performs bounded intake only. |
 | `/external-review.html` | Delegated reviewer console for package lookup and correction receipt requests. | Reviewer identity, delegation, and receipt authority remain in the governed review service; Site stores no reviewer credential. |
 | `/governed-transitions.html` | Public projection of governed transition, executor, custody, and reconstruction state. | Orchestration and Master-Records remain source authorities. |
@@ -37,6 +39,8 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 ```text
 /
 /ecosystem-chat.html
+/humans-as-interoperability-layer.html
+/humans-as-interoperability-response.html?id=HIL-RESP-...
 /external-chat.html
 /external-review.html
 /governed-transitions.html
@@ -47,6 +51,27 @@ Source of truth for mirror activation: docs/SITE_MIRROR_HANDOFF.md
 /papers
 /docs
 ```
+
+## Humans as the Interoperability Layer Boundary
+
+The HIL experiment page distributes one canonical paper identity and prompt, prepares browser-local response receipts, and projects accepted public results. The response-detail page resolves only records already present in `data/hil-responses.json`.
+
+Companion references:
+
+```text
+humans-as-interoperability-layer.html
+humans-as-interoperability-response.html
+assets/hil-experiment.js
+assets/hil-response.js
+data/hil-experiment.json
+data/hil-responses.json
+data/schemas/hil-submission.schema.json
+data/schemas/hil-receiver-receipt.schema.json
+docs/HIL_SITE_MIRROR_HANDOFF.md
+scripts/check_hil_experiment.py
+```
+
+Browser-local hashing is not server custody. A generated receipt is not submission. Inclusion in the public response index requires receiver validation and publication authority. Publication is not endorsement, and recurrence among responses is not evidence of shared machine intent.
 
 ## External Chat Boundary
 
