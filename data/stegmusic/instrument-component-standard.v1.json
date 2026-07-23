@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "standard_id": "stegmusic-instrument-component-standard-v1",
+  "scope": "all musical instruments, sounding components, excitation tools, maintenance tools, repair fixtures, and test rigs",
+  "authority": "none",
+  "canonical_groups": [
+    "identity",
+    "component_class",
+    "construction",
+    "geometry",
+    "material_state",
+    "mechanical_state",
+    "acoustic_state",
+    "attachment_and_coupling",
+    "environment",
+    "usage_and_excitation",
+    "condition_and_damage",
+    "control_surface_state",
+    "failure",
+    "repair",
+    "recalibration",
+    "re-entry"
+  ],
+  "component_classes": {
+    "tensioned_linear": {
+      "examples": ["string", "sympathetic_string", "bow_hair_bundle", "wire", "test_tension_line"],
+      "canonical_dependency": "data/stegmusic/string-component-standard.v1.json"
+    },
+    "air_path": {
+      "examples": ["flute_bore", "whistle_duct", "organ_pipe", "brass_tubing", "woodwind_bore", "bell", "mouthpiece", "leadpipe", "tone_hole", "vent", "slide", "valve", "pad"],
+      "required_state": ["effective_length", "bore_profile", "cross_section", "opening_state", "pressure", "flow", "impedance", "leakage", "condensation", "resonance_modes", "radiation_geometry"]
+    },
+    "reed": {
+      "examples": ["single_reed", "double_reed", "free_reed", "reed_plate", "tongue", "ligature", "staple"],
+      "required_state": ["stiffness", "thickness_profile", "curvature", "opening", "moisture", "fatigue", "edge_damage", "clamping", "response_threshold", "beating_state"]
+    },
+    "lip_reed_interface": {
+      "examples": ["player_lips", "mouthpiece_interface", "embouchure_contact"],
+      "required_state": ["lip_tension", "aperture", "contact", "pressure", "airflow", "stability", "mouthpiece_geometry", "acoustic_loading"]
+    },
+    "membrane": {
+      "examples": ["drumhead", "resonant_head", "frame_drum_skin", "synthetic_membrane"],
+      "required_state": ["material", "thickness", "radius", "tension_map", "anisotropy", "humidity", "temperature", "edge_seating", "lug_distribution", "impact_location", "damping", "fatigue", "denting", "tearing", "delamination"]
+    },
+    "idiophone": {
+      "examples": ["bar", "plate", "bell", "cymbal", "gong", "triangle", "clave", "shaker", "rattle", "lamella", "tongue"],
+      "required_state": ["geometry", "material", "stiffness", "mass_distribution", "suspension", "strike_point", "striker_hardness", "residual_stress", "cracks", "deformation", "damping", "modal_response"]
+    },
+    "resonator": {
+      "examples": ["soundboard", "body", "shell", "cavity", "bridge", "bell", "speaker_enclosure"],
+      "required_state": ["geometry", "material", "boundary_conditions", "coupling_points", "modal_response", "damping", "damage"]
+    },
+    "electroacoustic": {
+      "examples": ["pickup", "microphone", "transducer", "preamp", "amplifier", "filter", "oscillator", "speaker", "exciter", "controller", "cable", "pedal"],
+      "required_state": ["transfer_function", "gain", "noise", "nonlinearity", "clipping", "latency", "phase", "bandwidth", "impedance", "control_position", "thermal_state", "drift", "damage", "calibration"]
+    },
+    "excitation_tool": {
+      "examples": ["bow", "pick", "finger", "hammer", "mallet", "beater", "brush", "stick", "pedal", "breath_controller", "mute", "mechanical_driver"],
+      "required_state": ["geometry", "material", "mass", "hardness", "surface_condition", "alignment", "velocity", "force", "contact_time", "wear", "damage"]
+    },
+    "maintenance_and_test_tool": {
+      "examples": ["tuning_device", "drum_key", "valve_tool", "reed_tool", "repair_jig", "gauge", "tension_fixture", "measurement_driver"],
+      "required_state": ["geometry", "calibration", "alignment", "contact_state", "force_state", "wear", "damage", "measurement_uncertainty"]
+    }
+  },
+  "interaction_record": [
+    "source_component_state",
+    "excitation_source",
+    "gesture",
+    "contact_or_coupling",
+    "resonator_response",
+    "radiation_or_room_path",
+    "transient",
+    "sustained_behavior"
+  ],
+  "failure_pattern": [
+    "baseline_limits",
+    "accumulated_use_and_fatigue",
+    "current_excitation_load",
+    "environment",
+    "existing_defects",
+    "bounded_stochastic_hazard"
+  ],
+  "failure_examples": [
+    "string_rupture",
+    "reed_split",
+    "reed_collapse",
+    "pad_leak",
+    "valve_sticking",
+    "slide_misalignment",
+    "lip_oscillation_loss",
+    "membrane_tear",
+    "lug_shift",
+    "hoop_shift",
+    "cymbal_crack_growth",
+    "bar_fracture",
+    "mallet_head_separation",
+    "bow_hair_loss",
+    "electrical_intermittence",
+    "amplifier_clipping",
+    "thermal_protection"
+  ],
+  "continuity_sequence": [
+    "component_state_change",
+    "audible_consequence",
+    "performer_or_ensemble_detection",
+    "compensation_or_role_change",
+    "repair_replacement_recalibration_or_substitution",
+    "residual_instability_at_reentry"
+  ],
+  "boundaries": [
+    "shared schema does not imply identical sound",
+    "component realism does not establish cultural authenticity",
+    "instrument class is not genre",
+    "historical construction is not historical identity",
+    "adapter availability is not a rights grant",
+    "Site fixture is not production synthesis activation"
+  ]
+}
