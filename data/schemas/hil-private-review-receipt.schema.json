@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-private-review-receipt-v1.json",
+  "title": "HIL Private Review Receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "review_id",
+    "submission_id",
+    "reviewed_at",
+    "reviewer",
+    "decision",
+    "notes",
+    "authority",
+    "review_receipt_sha256"
+  ],
+  "properties": {
+    "schema_version": { "const": "HIL-PRIVATE-REVIEW-RECEIPT-v1" },
+    "review_id": { "type": "string", "pattern": "^HIL-REVIEW-[A-Z0-9]+$" },
+    "submission_id": { "type": "string", "pattern": "^HIL-INTAKE-[A-Z0-9-]+$" },
+    "reviewed_at": { "type": "string", "format": "date-time" },
+    "reviewer": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "decision": {
+      "enum": ["ACCEPT_PRIVATE", "QUARANTINE", "REJECT"]
+    },
+    "notes": { "type": "string", "maxLength": 10000 },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "public_acceptance", "publication", "master_record_append"],
+      "properties": {
+        "execution": { "const": false },
+        "public_acceptance": { "const": false },
+        "publication": { "const": false },
+        "master_record_append": { "const": false }
+      }
+    },
+    "review_receipt_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
