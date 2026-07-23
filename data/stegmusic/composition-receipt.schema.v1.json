@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/stegmusic/composition-receipt.v1.json",
+  "title": "StegMusic Composition Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "composition_id",
+    "composition_request_id",
+    "created_at",
+    "frozen_evidence_packet_id",
+    "song_references",
+    "corpus_references",
+    "selected_conditions",
+    "generation_state",
+    "performer_role_graph",
+    "instrument_and_tool_states",
+    "continuity_events",
+    "rights_and_originality_decision",
+    "evaluation_results",
+    "artifacts",
+    "provenance_disclosure",
+    "confidence_and_uncertainty",
+    "receipt_hash",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "composition_id": {"type": "string", "minLength": 1},
+    "composition_request_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "frozen_evidence_packet_id": {"type": "string", "minLength": 1},
+    "song_references": {"type": "array", "items": {"type": "string"}},
+    "corpus_references": {"type": "array", "items": {"type": "string"}},
+    "selected_conditions": {
+      "type": "object",
+      "required": ["cultural", "historical", "audience", "place", "intent"],
+      "properties": {
+        "cultural": {"type": "array", "items": {"type": "string"}},
+        "historical": {"type": "array", "items": {"type": "string"}},
+        "audience": {"type": "array", "items": {"type": "string"}},
+        "place": {"type": "array", "items": {"type": "string"}},
+        "intent": {"type": "string"}
+      }
+    },
+    "generation_state": {
+      "type": "object",
+      "required": ["model_versions", "extractor_versions", "random_seeds", "selected_distributions", "composition_plan_hash"],
+      "properties": {
+        "model_versions": {"type": "array", "items": {"type": "string"}},
+        "extractor_versions": {"type": "array", "items": {"type": "string"}},
+        "random_seeds": {"type": "array", "items": {"type": ["integer", "string"]}},
+        "selected_distributions": {"type": "array", "items": {"type": "string"}},
+        "composition_plan_hash": {"type": "string"}
+      }
+    },
+    "performer_role_graph": {
+      "type": "object",
+      "required": ["performers", "roles", "assignments", "handoffs"],
+      "properties": {
+        "performers": {"type": "array", "items": {"type": "object"}},
+        "roles": {"type": "array", "items": {"type": "object"}},
+        "assignments": {"type": "array", "items": {"type": "object"}},
+        "handoffs": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "instrument_and_tool_states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["assembly_id", "initial_state_hash", "final_state_hash"],
+        "properties": {
+          "assembly_id": {"type": "string"},
+          "initial_state_hash": {"type": "string"},
+          "final_state_hash": {"type": "string"},
+          "component_event_refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "continuity_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event_id", "event_type", "timestamp", "result"],
+        "properties": {
+          "event_id": {"type": "string"},
+          "event_type": {"enum": ["FAILURE", "ROLE_SUBSTITUTION", "REPAIR", "RECALIBRATION", "REENTRY", "RECOVERY"]},
+          "timestamp": {"type": "number", "minimum": 0},
+          "result": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "rights_and_originality_decision": {
+      "type": "object",
+      "required": ["decision", "protected_expression_risk", "artist_voice_risk", "evidence_refs", "blockers"],
+      "properties": {
+        "decision": {"enum": ["ALLOW", "DENY", "ESCALATE"]},
+        "protected_expression_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "artist_voice_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "blockers": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "evaluation_results": {
+      "type": "object",
+      "required": ["cultural_credibility", "instrument_realism", "ensemble_interaction", "mechanical_artifact_risk"],
+      "properties": {
+        "cultural_credibility": {"type": "number", "minimum": 0, "maximum": 1},
+        "instrument_realism": {"type": "number", "minimum": 0, "maximum": 1},
+        "ensemble_interaction": {"type": "number", "minimum": 0, "maximum": 1},
+        "mechanical_artifact_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "blind_test_ref": {"type": ["string", "null"]}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "artifact_type", "hash", "storage_ref"],
+        "properties": {
+          "artifact_id": {"type": "string"},
+          "artifact_type": {"enum": ["AUDIO", "MIDI", "STEM", "SCORE", "ANALYSIS", "RECEIPT"]},
+          "hash": {"type": "string"},
+          "storage_ref": {"type": "string"}
+        }
+      }
+    },
+    "provenance_disclosure": {
+      "type": "object",
+      "required": ["generated_origin_disclosed", "disclosure_text", "disclosed_at"],
+      "properties": {
+        "generated_origin_disclosed": {"const": true},
+        "disclosure_text": {"type": "string"},
+        "disclosed_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "confidence_and_uncertainty": {
+      "type": "object",
+      "required": ["overall_confidence", "uncertainties", "conflicts"],
+      "properties": {
+        "overall_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "uncertainties": {"type": "array", "items": {"type": "string"}},
+        "conflicts": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "receipt_hash": {"type": "string", "minLength": 1},
+    "authority": {"const": "none"}
+  }
+}
