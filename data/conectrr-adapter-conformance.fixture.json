@@ -1,0 +1,64 @@
+{
+  "schema": "stegverse.conectrr.adapter-conformance.fixture.v0.1",
+  "adapter": {
+    "adapter_id": "adapter:conectrr:authorized-preview:001",
+    "authorized": false,
+    "mode": "fixture_only",
+    "semantic_normalization_permitted": false
+  },
+  "raw_source_payload": {
+    "source_system": "Conectrr",
+    "source_record_id": "conectrr:discovery:live-placeholder:001",
+    "intent": "Identify a governed coordination opportunity.",
+    "recommendation": "Surface candidate opportunity A for downstream evaluation.",
+    "reasoning": ["Candidate A matches declared discovery criteria."],
+    "evidence_refs": ["conectrr:evidence:placeholder:001"],
+    "alternatives": ["candidate B"],
+    "confidence": 0.72,
+    "uncertainties": ["counterparty consent is unresolved"],
+    "unresolved_dependencies": ["identity verification", "delegated authority", "policy admissibility"],
+    "boundary": {
+      "consent_established": false,
+      "authority_established": false,
+      "admissibility_determined": false,
+      "commitment_created": false,
+      "execution_authorized": false
+    }
+  },
+  "adapter_output": {
+    "handoff_id": "conectrr:handoff:live-placeholder:001",
+    "schema": "stegverse.conectrr.minimum-handoff.v0.1",
+    "source_payload_ref": "conectrr:discovery:live-placeholder:001",
+    "source_payload_embedded_unmodified": true,
+    "source_payload": {
+      "source_system": "Conectrr",
+      "source_record_id": "conectrr:discovery:live-placeholder:001",
+      "intent": "Identify a governed coordination opportunity.",
+      "recommendation": "Surface candidate opportunity A for downstream evaluation.",
+      "reasoning": ["Candidate A matches declared discovery criteria."],
+      "evidence_refs": ["conectrr:evidence:placeholder:001"],
+      "alternatives": ["candidate B"],
+      "confidence": 0.72,
+      "uncertainties": ["counterparty consent is unresolved"],
+      "unresolved_dependencies": ["identity verification", "delegated authority", "policy admissibility"],
+      "boundary": {
+        "consent_established": false,
+        "authority_established": false,
+        "admissibility_determined": false,
+        "commitment_created": false,
+        "execution_authorized": false
+      }
+    },
+    "adapter_assertions": {
+      "source_bytes_preserved": true,
+      "source_semantics_preserved": true,
+      "authority_effect": "none",
+      "live_output_verified": false
+    }
+  },
+  "expected": {
+    "fixture_conformance": true,
+    "live_interoperability": false,
+    "manual_user_action_required": false
+  }
+}
