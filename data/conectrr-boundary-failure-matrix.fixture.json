@@ -1,0 +1,15 @@
+{
+  "schema": "stegverse.conectrr.boundary-failure-matrix.v0.1",
+  "cases": [
+    {"case_id":"overreach-consent","expected_failure":"OVERREACH_CONSENT","mutation":{"boundary.consent_established":true}},
+    {"case_id":"overreach-authority","expected_failure":"OVERREACH_AUTHORITY","mutation":{"boundary.authority_established":true}},
+    {"case_id":"overreach-admissibility","expected_failure":"OVERREACH_ADMISSIBILITY","mutation":{"boundary.admissibility_determined":true}},
+    {"case_id":"overreach-commitment","expected_failure":"OVERREACH_COMMITMENT","mutation":{"boundary.commitment_created":true}},
+    {"case_id":"overreach-execution","expected_failure":"OVERREACH_EXECUTION","mutation":{"boundary.execution_authorized":true}},
+    {"case_id":"under-intent","expected_failure":"UNDER_SPECIFIED_INTENT","mutation":{"intent.summary":""}},
+    {"case_id":"under-evidence-and-reasoning","expected_failure":"UNDER_SPECIFIED_REASONING","mutation":{"recommendation.reasoning":[],"recommendation.evidence_refs":[]}},
+    {"case_id":"under-uncertainty","expected_failure":"UNDER_SPECIFIED_UNCERTAINTY","mutation":{"recommendation.uncertainties":[],"unresolved_dependencies":[]}},
+    {"case_id":"hidden-dependency","expected_failure":"UNRESOLVED_DEPENDENCY_HIDDEN","mutation":{"unresolved_dependencies":null}},
+    {"case_id":"unstable-id","expected_failure":"UNSTABLE_HANDOFF_ID","mutation":{"handoff_id":"temporary"}}
+  ]
+}
