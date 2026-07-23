@@ -23,14 +23,18 @@
       "Primary PDF",
       "draft Site presentation"
     ],
-    "state": "AWAITING_PARTICIPANT_REVIEW"
+    "state": "PARTICIPANT_REVIEW_APPROVED",
+    "approved_at": "2026-07-23T21:17:00Z",
+    "approval_summary": "Primary Review Candidate and Site presentation reviewed; participant stated everything looks good to proceed.",
+    "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT"
   },
-  "publication_state": "REVIEW_CANDIDATE_NOT_YET_PUBLISHED",
+  "publication_state": "APPROVED_PRESENTATION_PENDING_TECHNICAL_ACTIVATION",
   "standardized_submission": false,
   "response_id": null,
   "authority": {
     "participant_permission_recorded": true,
-    "publication_approved": false,
+    "publication_approved": true,
+    "technical_activation_approved": false,
     "master_record_appended": false
   }
 }
