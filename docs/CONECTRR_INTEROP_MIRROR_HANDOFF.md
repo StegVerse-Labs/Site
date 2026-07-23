@@ -11,7 +11,7 @@ Goal: prove the smallest interoperable discovery-to-governance handoff
 Source role: Conectrr intent-first discovery and recommendation
 Destination role: StegVerse independent governance evaluation
 Authority effect: NONE
-Status: RUNTIME_IMPORT_API_AND_PROJECTION_LOADER_IMPLEMENTED; PAGE_BINDING_AND_LIVE_CONECTRR_OUTPUT_PENDING
+Status: RUNTIME_IMPORT_SOURCE_PRESERVATION_AND_RECONSTRUCTION_FIXTURES_IMPLEMENTED; PAGE_BINDING_AND_LIVE_CONECTRR_OUTPUT_PENDING
 ```
 
 ## Accepted principle
@@ -31,6 +31,9 @@ scripts/check_conectrr_independent_evaluation.py
 assets/ecosystem-node-views.js
 assets/conectrr-interop.js
 scripts/check_conectrr_runtime_projection.py
+scripts/check_conectrr_source_preservation.py
+data/conectrr-reconstruction-receipt.fixture.json
+scripts/check_conectrr_reconstruction_receipt.py
 docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
 ```
 
@@ -47,19 +50,26 @@ source mutation -> fail-closed
 JSON and JSONL -> distinct source and decision records
 canonical import -> clone, validate references, deep-freeze
 runtime loader -> imports source and decision without semantic normalization
+canonical source bytes -> stable across import serialization
+canonical source SHA-256 -> stable across import serialization
+reconstruction receipt -> source and downstream decision reconstructed distinctly
 authority effect -> none
 ```
 
-`assets/ecosystem-node-views.js` now exposes `importCanonicalEvents(events)`. Imported events are cloned before admission, duplicate identifiers are rejected, unresolved parent references are rejected, and admitted records are frozen. `assets/conectrr-interop.js` loads the independent-evaluation fixture and imports the Conectrr evidence event and StegVerse decision event together while checking that the source object remains unchanged.
+`assets/ecosystem-node-views.js` exposes `importCanonicalEvents(events)`. Imported events are cloned before admission, duplicate identifiers are rejected, unresolved parent references are rejected, and admitted records are frozen. `assets/conectrr-interop.js` loads the independent-evaluation fixture and imports the Conectrr evidence event and StegVerse decision event together while checking that the source object remains unchanged.
+
+`check_conectrr_source_preservation.py` independently canonicalizes the source record before and after import serialization and requires byte equality, SHA-256 equality, semantic equality, and retention of the source-declared hash marker.
+
+`check_conectrr_reconstruction_receipt.py` verifies source-before-decision ordering, stable reference resolution, distinct identities, preserved disagreement, matching source hash, source-byte hash presence, and zero authority effect.
 
 ## User action
 
 ```text
 Required now: NONE
-Do not manually construct, normalize, copy, or approve a Conectrr record.
+Do not manually construct, normalize, copy, approve, or hash a Conectrr record.
 ```
 
-A real Conectrr output will eventually be needed from Conectrr or an authorized adapter, but that is an interoperability input requirement rather than a current manual repository task for the user.
+A real Conectrr output will eventually be needed from Conectrr or an authorized adapter. That is an interoperability input requirement rather than a current manual repository task for the user.
 
 ## Required next work
 
@@ -68,10 +78,11 @@ Destination `StegVerse-Labs/Site`:
 ```text
 Bind assets/conectrr-interop.js into ecosystem-chat.html after ecosystem-node-views.js
 Bind check_conectrr_runtime_projection.py into canonical Site application validation
+Bind check_conectrr_source_preservation.py into canonical Site application validation
+Bind check_conectrr_reconstruction_receipt.py into canonical Site application validation
 Add browser execution test proving both imported records render
 Add browser selection test proving source/decision correlation in both directions
-Add source-byte and source-hash preservation at the import boundary
-Add reconstruction receipt fixture covering source plus downstream decision
+Replace fixture source_bytes_hash marker with the exact real-source digest when live output exists
 ```
 
 Destination `Conectrr` or authorized adapter:
@@ -109,6 +120,8 @@ source import != semantic normalization
 record correlation != record merger
 downstream disagreement != source mutation
 runtime projection != custody
+reconstruction receipt != approval
+fixture hash marker != live cryptographic evidence
 fixture coverage != live interoperability
 ```
 
