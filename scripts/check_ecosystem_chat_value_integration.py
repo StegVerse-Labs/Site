@@ -13,12 +13,28 @@ HPS = ROOT / "assets" / "ecosystem-chat-hps.js"
 INTEGRATION = ROOT / "assets" / "ecosystem-chat-value-integration.js"
 I18N = ROOT / "data" / "ecosystem-chat-value-expectations.i18n.json"
 PERMISSIONS = ROOT / "data" / "ecosystem-chat-value-projection-permissions.fixture.json"
-PERMISSION_CHECK = ROOT / "scripts" / "check_ecosystem_chat_value_projection_permissions.py"
+BROWSER_BEHAVIOR = ROOT / "data" / "ecosystem-chat-value-browser-behavior.fixture.json"
+CHECKS = (
+    ROOT / "scripts" / "check_ecosystem_chat_value_projection_permissions.py",
+    ROOT / "scripts" / "check_ecosystem_chat_value_browser_behavior.py",
+)
 
 
 def require(condition: bool, message: str, errors: list[str]) -> None:
     if not condition:
         errors.append(message)
+
+
+def run_check(path: Path) -> tuple[int, str]:
+    completed = subprocess.run(
+        [sys.executable, str(path)],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    return completed.returncode, completed.stdout.rstrip()
 
 
 def main() -> int:
@@ -28,9 +44,11 @@ def main() -> int:
         (INTEGRATION, "missing assets/ecosystem-chat-value-integration.js"),
         (I18N, "missing multilingual value expectation fixture"),
         (PERMISSIONS, "missing captured-derived projection permission fixture"),
-        (PERMISSION_CHECK, "missing projection permission validator"),
+        (BROWSER_BEHAVIOR, "missing direct-panel browser behavior fixture"),
     ]:
         require(path.exists(), message, errors)
+    for check in CHECKS:
+        require(check.exists(), f"missing {check.relative_to(ROOT)}", errors)
 
     if HPS.exists():
         text = HPS.read_text(encoding="utf-8")
@@ -77,26 +95,21 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    completed = subprocess.run(
-        [sys.executable, str(PERMISSION_CHECK)],
-        cwd=ROOT,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        check=False,
-    )
-    if completed.returncode != 0:
-        print("ECOSYSTEM_CHAT_VALUE_INTEGRATION_CHECK=FAIL")
-        print(completed.stdout.rstrip())
-        return completed.returncode
+    for check in CHECKS:
+        returncode, output = run_check(check)
+        if returncode != 0:
+            print("ECOSYSTEM_CHAT_VALUE_INTEGRATION_CHECK=FAIL")
+            print(output)
+            return returncode
+        print(output)
 
-    print(completed.stdout.rstrip())
     print("ECOSYSTEM_CHAT_VALUE_INTEGRATION_CHECK=PASS")
     print("surface=ecosystem-chat.html")
     print("source=claim,history,projection_permission")
     print("locales=en,es,zh-Hans,zh-Hant")
     print("correlation=claim_id,submission_event_id,history_event_id")
     print("projection_default=DENY")
+    print("browser_behavior=STATIC_CONTRACT_VERIFIED_EXECUTION_NOT_OBSERVED")
     print("authority_effect=NONE")
     return 0
 
