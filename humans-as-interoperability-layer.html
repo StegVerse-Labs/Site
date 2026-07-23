@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Download the canonical Humans as the Interoperability Layer paper, submit it to an LLM, verify the response PDF locally, and prepare a governed submission packet.">
+  <title>Humans as the Interoperability Layer — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .hil-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; }
+    .hil-step { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+    .hil-step b { display:block; color:var(--accent2); margin-bottom:7px; }
+    .hil-meta { font-family:var(--mono); font-size:11px; overflow-wrap:anywhere; }
+    .hil-prompt { background:#070b13; border:1px solid var(--border2); border-radius:var(--radius); padding:18px; font-family:var(--mono); font-size:13px; color:#dce8ff; }
+    .hil-upload { border:1px dashed var(--border2); border-radius:var(--radius); padding:22px; background:rgba(17,24,39,.72); }
+    .hil-upload input[type=file] { width:100%; margin:12px 0 16px; color:var(--muted); }
+    .hil-field { margin:12px 0; }
+    .hil-field label { display:block; font-size:12px; color:var(--muted); margin-bottom:5px; }
+    .hil-field input, .hil-field select, .hil-field textarea { width:100%; background:#090e18; color:var(--text); border:1px solid var(--border2); border-radius:6px; padding:10px; }
+    .hil-check { display:flex; gap:9px; align-items:flex-start; margin:10px 0; color:#c8d4e8; font-size:13px; }
+    .hil-status { margin-top:16px; padding:14px; border-radius:var(--radius); border:1px solid var(--border); background:#0b1220; }
+    .hil-status[data-state="ok"] { border-color:var(--green-bd); background:var(--green-bg); color:#bce9c5; }
+    .hil-status[data-state="warn"] { border-color:#3a3000; background:var(--yellow-bg); color:#f7dc85; }
+    .hil-status[data-state="error"] { border-color:#512020; background:#210d0d; color:#f4b4b4; }
+    .hil-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .hil-note { border-left:3px solid var(--accent); padding:12px 14px; background:#071828; color:#bfdcf2; margin:18px 0; }
+    .hil-empty { color:var(--muted); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+    code { color:var(--accent2); }
+    @media (max-width:600px) { .sv-hero { padding-top:38px; } .hil-actions .sv-btn { width:100%; text-align:center; } }
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="ecosystem-chat.html">Ecosystem Chat</a>
+  <a href="Papers.html">Papers</a>
+  <a class="active" href="humans-as-interoperability-layer.html">Interoperability Study</a>
+</nav>
+
+<main class="sv-wrap">
+  <header class="sv-hero">
+    <div class="sv-eyebrow">Open research protocol · canonical input · response-only artifacts</div>
+    <h1>Humans as the<br><em>Interoperability Layer</em></h1>
+    <p>Download one canonical paper, submit it unchanged to an LLM of your choice, and return only the resulting response PDF. Disagreement, refusal, uncertainty, and incomplete processing remain valid observations.</p>
+    <div class="sv-btn-row">
+      <button id="download-primary" class="sv-btn sv-btn-primary" type="button">Download Primary PDF</button>
+      <a class="sv-btn sv-btn-secondary" href="#participate">Participate</a>
+      <a class="sv-btn sv-btn-secondary" href="#responses">View responses</a>
+    </div>
+  </header>
+
+  <section class="sv-evidence" aria-label="Canonical document status">
+    <div class="sv-evidence-label">Canonical experiment input</div>
+    <div class="sv-evidence-row"><span class="k">Paper version</span><span class="v" id="paper-version">v0.4</span></div>
+    <div class="sv-evidence-row"><span class="k">Protocol</span><span class="v">HIL-PROTOCOL-v1.0</span></div>
+    <div class="sv-evidence-row"><span class="k">Prompt</span><span class="v">HIL-PROMPT-v1.0</span></div>
+    <div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v" id="primary-hash">97df3006c8d96212560c5fa970dc7bceac66bde23a8b23373491c030ccc0049d</span></div>
+    <div class="sv-evidence-row"><span class="k">Submission state</span><span class="v">BROWSER-LOCAL INTAKE PREVIEW</span></div>
+  </section>
+
+  <div class="hil-note">The current Site intake validates and hashes a selected PDF in your browser and generates a receipt packet. It does not yet transmit or custody the file. Until the governed upload endpoint or Ecosystem Chat is activated, send the original Response PDF and generated receipt through the listed return channel.</div>
+
+  <h2 class="sv-h2">What this experiment does</h2>
+  <div class="sv-prose">
+    <p>The paper proposes that people carry information, context, authority, and action between otherwise bounded machine processes. This protocol observes how separately chosen LLMs interpret, criticize, transform, or reject the same canonical artifact.</p>
+    <p>Responses are preserved independently. They are not edited into agreement and are not treated as proof of consciousness, hidden intent, or autonomous coordination.</p>
+  </div>
+
+  <h2 class="sv-h2">Participant path</h2>
+  <div class="hil-grid">
+    <div class="hil-step"><b>1 · Download</b>Download the Primary PDF from this page. Use it unchanged.</div>
+    <div class="hil-step"><b>2 · Submit</b>Upload the PDF to an LLM of your choice in a new conversation where practical.</div>
+    <div class="hil-step"><b>3 · Prompt</b>Paste the exact one-line instruction shown below.</div>
+    <div class="hil-step"><b>4 · Receive</b>Download the response-only PDF produced by the LLM.</div>
+    <div class="hil-step"><b>5 · Verify</b>Select that PDF below. This page calculates its SHA-256 locally.</div>
+    <div class="hil-step"><b>6 · Return</b>Send the Response PDF and receipt through the current return channel.</div>
+  </div>
+
+  <section id="participate">
+    <h2 class="sv-h2">Exact invocation prompt</h2>
+    <div id="canonical-prompt" class="hil-prompt">Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol.</div>
+    <div class="hil-actions">
+      <button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy prompt</button>
+    </div>
+
+    <h2 class="sv-h2">Prepare your Response PDF submission</h2>
+    <div class="hil-upload">
+      <p>Select the response-only PDF generated by your LLM. The file remains on your device during this preview. The browser calculates its hash and prepares a local receipt record.</p>
+      <input id="response-file" type="file" accept="application/pdf,.pdf">
+
+      <div class="hil-field">
+        <label for="participant-id">Name, pseudonym, or “anonymous”</label>
+        <input id="participant-id" type="text" maxlength="120" placeholder="anonymous">
+      </div>
+      <div class="hil-field">
+        <label for="contact">Optional receipt contact</label>
+        <input id="contact" type="text" maxlength="200" placeholder="LinkedIn profile, email, or other return contact">
+      </div>
+      <div class="hil-field">
+        <label for="publication-consent">Permission to publish the model response</label>
+        <select id="publication-consent">
+          <option value="">Select</option>
+          <option value="public">Yes — publish the response</option>
+          <option value="anonymous">Yes — publish anonymously</option>
+          <option value="private">No — retain for private analysis only</option>
+        </select>
+      </div>
+      <label class="hil-check"><input id="unedited-confirmation" type="checkbox"> <span>I confirm that I did not edit the model-response portion of the PDF after generation.</span></label>
+      <label class="hil-check"><input id="participant-authority" type="checkbox"> <span>I understand that an LLM cannot grant publication or attribution consent on my behalf.</span></label>
+
+      <div class="hil-actions">
+        <button id="prepare-receipt" class="sv-btn sv-btn-primary" type="button">Verify PDF and prepare receipt</button>
+        <button id="download-receipt" class="sv-btn sv-btn-secondary" type="button" disabled>Download receipt JSON</button>
+      </div>
+      <div id="intake-status" class="hil-status" data-state="warn" role="status">No Response PDF selected.</div>
+    </div>
+
+    <h3 class="sv-h3">Current return channel</h3>
+    <div class="sv-card">
+      <p>Send the original Response PDF together with the generated receipt JSON to Rigel Randolph through LinkedIn direct message. If LinkedIn does not permit both files in one message, send the PDF first and paste the temporary intake ID and hash from the receipt in the message body.</p>
+      <p class="muted">This transport step will be replaced by direct governed Site upload and then Ecosystem Chat intake. The response artifact format will not need to change.</p>
+    </div>
+  </section>
+
+  <section id="responses">
+    <h2 class="sv-h2">Published response record</h2>
+    <div id="response-index" class="hil-empty">No protocol-compliant public responses have been published yet. The initiating observational trace will remain separately identified as <code>HIL-TRACE-0001</code>.</div>
+  </section>
+
+  <h2 class="sv-h2">Authority boundary</h2>
+  <pre>Primary PDF download      != verified participant execution
+LLM-generated PDF         != participant consent
+browser-local hash        != server custody
+receipt preparation       != submission
+submission                != publication
+publication               != endorsement
+response recurrence       != shared machine intent
+master-record inclusion   != scientific proof</pre>
+</main>
+<script src="assets/hil-experiment.js"></script>
+</body>
+</html>
