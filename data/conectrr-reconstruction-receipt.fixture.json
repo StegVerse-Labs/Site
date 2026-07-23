@@ -1,0 +1,20 @@
+{
+  "schema": "stegverse.conectrr.reconstruction-receipt.fixture.v0.1",
+  "receipt_id": "receipt:conectrr:reconstruction:001",
+  "source_event_id": "event:conectrr:handoff:001",
+  "downstream_event_id": "event:stegverse:evaluation:001",
+  "source_hash": "sha256:fixture-source-record-001",
+  "source_bytes_hash": "sha256:fixture-source-bytes-001",
+  "downstream_hash": "sha256:fixture-downstream-decision-001",
+  "ordering": ["event:conectrr:handoff:001", "event:stegverse:evaluation:001"],
+  "reconstruction": {
+    "source_record_reconstructed": true,
+    "downstream_record_reconstructed": true,
+    "references_resolved": true,
+    "source_unchanged": true,
+    "records_distinct": true,
+    "agreement_with_source": false
+  },
+  "authority_effect": "none",
+  "expected_result": "PASS"
+}
