@@ -14,6 +14,13 @@
   "destination_provider_authority_binding_commit": "8b118faa7c8f373dbbc379955dbba716e6d0a4ed",
   "destination_provider_authority_validator_path": "scripts/check_stegverse_live_baseline_provider_authority_binding.py",
   "destination_provider_authority_validator_commit": "3aec38a83a9e41e266b899162ad4a0466cd1e8d8",
+  "destination_aggregate_path": "scripts/verify_goal4_full.py",
+  "destination_aggregate_commit": "1c1292db3e710b0e8f6cd86d142578f19ad13cfe",
+  "destination_aggregate_includes": [
+    "scripts/check_stegverse_live_baseline_runtime_readiness.py",
+    "scripts/check_stegverse_live_baseline_provider_authority_binding.py"
+  ],
+  "destination_aggregate_execution_status": "NOT_OBSERVED",
   "provider_authority_state": "REQUESTED_NOT_APPROVED",
   "provider_authority_reuse_first": true,
   "handoff_state": "RECEIVED_PENDING_PREREQUISITES",
@@ -23,6 +30,7 @@
   "source_execution_authorized": false,
   "source_custody_authorized": false,
   "required_next_evidence": [
+    "observed passing destination aggregate",
     "valid unexpired provider approval receipt",
     "persistent endpoint activation receipt",
     "provider usage persistence contract",
@@ -36,6 +44,7 @@
     "handoff completion does not establish provider readiness",
     "intake receipt is not custody acceptance",
     "destination validator presence does not establish a passing runtime execution",
+    "aggregate binding does not establish an observed passing run",
     "provider authority request is not provider authorization",
     "permission-bearing workflow existence is not dispatch authorization"
   ],
@@ -47,5 +56,5 @@
     "custody": false,
     "parentage": false
   },
-  "recorded_at": "2026-07-22T15:15:00Z"
+  "recorded_at": "2026-07-22T15:30:00Z"
 }
