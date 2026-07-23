@@ -8,11 +8,11 @@ DOC = ROOT / "docs" / "STEGMUSIC_CULTURAL_PERFORMANCE_MODEL.md"
 required = [
     "lyrics-free Appalachian circle performance",
     "musical role != instrument != performer",
-    "Universal string-component dependency",
-    "uncertain exact failure time",
+    "STEGMUSIC_INSTRUMENT_COMPONENT_STANDARD.md",
+    "component failure mid-gesture",
     "ensemble recovery behavior",
     "instrument_handoff_started",
-    "string_failure_occurred",
+    "component_failure_occurred",
     "blind_origin_classification_recorded",
     "provenance_disclosed",
     "chance-level origin classification",
@@ -38,8 +38,8 @@ if failures:
 print("STEGMUSIC_CULTURAL_PERFORMANCE_MODEL_PASS")
 print("primary_scope=lyrics_free_instrumental")
 print("first_domain=appalachian_circle_performance")
-print("string_state=universal_component_standard")
+print("component_scope=all_instrument_and_tool_classes")
 print("failure_timing=stochastic_not_fixed_bar")
-print("continuity=recoverable_role_substitution")
+print("continuity=recoverable_role_substitution_repair_recalibration")
 print("benchmark=blind_sensory_fidelity_with_post_test_disclosure")
 print("authority=none")
