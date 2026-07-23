@@ -1,0 +1,57 @@
+name: Check HIL Live Readiness
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'humans-as-interoperability-layer.html'
+      - 'assets/hil-experiment.js'
+      - 'data/hil-experiment.json'
+      - 'data/hil-responses.json'
+      - 'data/hil-traces/**'
+      - 'scripts/check_hil_live_readiness.py'
+      - '.github/workflows/check-hil-live-readiness.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-hil-live-readiness
+  cancel-in-progress: true
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out Site
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Observe deployed HIL review and intake surfaces
+        run: python scripts/check_hil_live_readiness.py
+
+      - name: Preserve non-authorizing observation
+        if: always()
+        run: |
+          mkdir -p reports
+          python scripts/check_hil_live_readiness.py > reports/hil-live-readiness.latest.json 2>&1 || true
+
+      - name: Upload observation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-live-readiness-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/hil-live-readiness.latest.json
+          if-no-files-found: error
+          retention-days: 30
