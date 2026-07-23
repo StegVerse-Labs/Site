@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import worker from './src/index.js';
 
 const TOKEN = `edge-${'a'.repeat(40)}`;
-const ENV = {SIWE_UPSTREAM_ORIGIN: 'https://stegwallet-siwe.onrender.com/', SIWE_EDGE_TOKEN: TOKEN};
+const ENV = {SIWE_UPSTREAM_ORIGIN: 'https://siwe-origin.example/', SIWE_EDGE_TOKEN: TOKEN};
 
 async function withFetch(handler, action) {
   const previous = globalThis.fetch;
@@ -32,7 +32,7 @@ async function testProxy() {
   }), ENV));
 
   assert.equal(response.status, 200);
-  assert.equal(observed.url, 'https://stegwallet-siwe.onrender.com/api/stegwallet/siwe/challenge');
+  assert.equal(observed.url, 'https://siwe-origin.example/api/stegwallet/siwe/challenge');
   assert.equal(observed.init.method, 'POST');
   assert.equal(observed.init.headers.get('x-stegwallet-edge-token'), TOKEN);
   assert.equal(observed.init.headers.get('x-forwarded-host'), 'stegverse.org');

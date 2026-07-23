@@ -60,6 +60,7 @@ def main() -> int:
         require(worker, marker, WORKER.name)
 
     for marker in (
+        "https://siwe-origin.example/",
         "client-forgery",
         "x-stegwallet-edge-token",
         "wrongHost.status, 403",
@@ -71,6 +72,7 @@ def main() -> int:
     ):
         require(test, marker, TEST.name)
 
+    # Wrangler remains one optional adapter candidate, not the canonical edge requirement.
     for marker in (
         '"workers_dev": false',
         '"pattern": "stegverse.org/api/stegwallet/siwe/*"',
@@ -90,18 +92,38 @@ def main() -> int:
         "eth_requestAccounts",
         "SIWE_EDGE_TOKEN\":",
         "CLOUDFLARE_API_TOKEN\":",
+        "onrender.com",
     ):
         prohibit(combined, marker, "SIWE edge package")
 
+    if state["schema"] != "stegwallet.siwe_edge_deployment.v2":
+        raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: platform-agnostic edge schema required")
     if state["status"] != "AUTHORIZATION_REQUIRED":
         raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: deployment must remain authorization-required")
+    if state["edge_model"] != "platform-agnostic-same-origin-proxy":
+        raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: edge model must remain platform agnostic")
+    if state["provider_specific_adapter_required"] is not False:
+        raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: provider-specific adapter cannot be required")
+    if state["selected_adapter"] is not None:
+        raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: edge adapter may not be preselected")
     if state["upstream_origin"] is not None or state["upstream_origin_verified"] is not False:
         raise SystemExit("STEGWALLET_SIWE_EDGE_FAIL: no upstream may be preclaimed")
+    required = set(state.get("required_capabilities") or [])
+    for capability in (
+        "exact route and method enforcement",
+        "HTTPS termination",
+        "client edge-token stripping",
+        "edge-to-origin secret injection",
+        "cookie and Set-Cookie preservation",
+        "direct-origin authentication rejection",
+    ):
+        if capability not in required:
+            raise SystemExit(f"STEGWALLET_SIWE_EDGE_FAIL: missing capability {capability}")
     for field in (
         "edge_secret_provisioned",
         "edge_secret_matches_origin",
-        "cloudflare_account_authorized",
-        "worker_deployed",
+        "edge_runtime_authorized",
+        "edge_adapter_deployed",
         "route_observed",
         "site_configuration_promoted",
         "wallet_authenticated",
@@ -127,7 +149,8 @@ def main() -> int:
         raise SystemExit(f"STEGWALLET_SIWE_EDGE_FAIL: behavior test failed\n{completed.stdout}")
 
     print("STEGWALLET_SIWE_EDGE_PROXY_PASS")
-    print("worker_deployed=false")
+    print("edge_model=PLATFORM_AGNOSTIC_SAME_ORIGIN_PROXY")
+    print("optional_cloudflare_adapter_deployed=false")
     print("edge_secret_embedded=false")
     print("financial_authority=NONE")
     return 0
