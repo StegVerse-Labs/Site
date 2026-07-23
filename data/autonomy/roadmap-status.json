@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.4",
+  "schema_version": "1.5",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
-  "source_generated_at": "2026-07-22T07:31:05Z",
+  "source_generated_at": "2026-07-23T02:31:26Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
@@ -13,7 +13,7 @@
       "title": "Phase 1 — Truth layer",
       "implementation": "ADVANCED",
       "operation": "STALE_RESCAN_REQUIRED",
-      "evidence": "LAST_OBSERVED_NOT_CURRENT",
+      "evidence": "NEW_ACTIVITY_AWAITING_CLASSIFICATION",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 88,
       "completed": [
@@ -24,15 +24,18 @@
         "completion-gate machinery",
         "machine-owned action generation",
         "destination-owned strict evidence projection for LLM-adapter",
-        "destination-owned strict evidence projection for Triage"
+        "destination-owned strict evidence projection for Triage",
+        "verified observation of newer HIL and adapter-binding repository activity"
       ],
       "remaining": [
         "persist a new ecosystem inventory after newer repository activity",
+        "classify HIL public surfaces, receiver receipts, handoff validation, and adapter aggregate binding",
         "reclassify current repository evidence",
         "regenerate the remediation queue from current state"
       ],
       "blockers": [
-        "the last observed 72-repository inventory predates newer Site commits and cannot be treated as current"
+        "the last observed 72-repository inventory predates newer Site commits and cannot be treated as current",
+        "new repository activity has not yet been converted into machine-audited operational or user-outcome evidence"
       ]
     },
     {
@@ -53,6 +56,7 @@
       ],
       "remaining": [
         "regenerate the queue after the inventory rescan",
+        "derive actions for the newer HIL and adapter-binding evidence",
         "remaining repository-owned bounded runners",
         "dependency-complete external remediation",
         "automatic convergence after destination evidence changes"
@@ -77,15 +81,18 @@
         "persistent retry-state mechanism",
         "dispatcher overwrite defect repaired",
         "LLM-adapter blocked runtime evidence persisted",
-        "Triage implementation-only runtime posture persisted"
+        "Triage implementation-only runtime posture persisted",
+        "HIL public paths and response-detail implementation observed without inferring runtime success"
       ],
       "remaining": [
         "observe a new Site runtime PASS receipt after the canonical policy repair",
+        "obtain auditor-classified HIL execution and receiver-receipt evidence",
         "satisfy LLM-adapter live provider, storage, custody, reconstructability, and receipt gates",
         "build and verify a user-facing Triage runtime surface"
       ],
       "blockers": [
         "latest persisted Site runtime evidence still reports 6 of 7 checks passed with freshness failed",
+        "new HIL surfaces exist but their runtime and user outcomes have not been machine-audited",
         "LLM-adapter has 11 critical live-evidence blockers",
         "Triage lacks observed user-facing execution and outcome evidence"
       ]
@@ -97,7 +104,7 @@
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
-      "progress_percent": 55,
+      "progress_percent": 57,
       "completed": [
         "authority checks",
         "fail-closed completion classification",
@@ -106,15 +113,19 @@
         "pending-status-is-not-completion enforcement",
         "workflow-success-is-not-completion enforcement",
         "unit-tests-are-not-runtime enforcement",
-        "stale inventory no longer presented as current"
+        "stale inventory no longer presented as current",
+        "adapter aggregate binding recorded without inferring test success",
+        "public surface existence separated from user-outcome verification"
       ],
       "remaining": [
         "successor eligibility across repositories",
         "automatic audit downgrade execution",
+        "machine classification of newer HIL and adapter-binding evidence",
         "cross-repository admissibility completion"
       ],
       "blockers": [
-        "destination-owned evidence remains incomplete for most repositories"
+        "destination-owned evidence remains incomplete for most repositories",
+        "new repository activity requires auditor classification before it may affect completion or successor standing"
       ]
     },
     {
@@ -124,15 +135,17 @@
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
-      "progress_percent": 42,
+      "progress_percent": 43,
       "completed": [
         "Site mirror handoff",
         "machine-owned continuation sequence",
         "repository history and generated-state preservation",
         "destination-owned evidence persistence for LLM-adapter",
-        "destination-owned evidence persistence for Triage"
+        "destination-owned evidence persistence for Triage",
+        "HIL handoff and receiver-receipt structures observed"
       ],
       "remaining": [
+        "machine-audited HIL handoff outcome",
         "human-readable ecosystem map",
         "operational inheritance packet",
         "debt and service inventory",
@@ -140,7 +153,8 @@
         "durable ecosystem master record"
       ],
       "blockers": [
-        "ecosystem-wide continuity packet is not yet complete"
+        "ecosystem-wide continuity packet is not yet complete",
+        "HIL handoff structures have not yet been incorporated into the current ecosystem audit"
       ]
     }
   ],
@@ -152,6 +166,9 @@
     "destination_projection_is_execution_authority": false,
     "unit_tests_are_runtime_evidence": false,
     "stale_inventory_is_current_truth": false,
+    "repository_activity_is_audited_completion": false,
+    "validation_binding_is_test_success": false,
+    "public_surface_is_user_outcome_verification": false,
     "exit_gate_requires_machine_verifiable_evidence": true
   }
 }
