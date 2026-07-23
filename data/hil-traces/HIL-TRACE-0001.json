@@ -1,0 +1,36 @@
+{
+  "schema_version": "HIL-TRACE-v1",
+  "trace_id": "HIL-TRACE-0001",
+  "classification": "PRE_PROTOCOL_OBSERVATIONAL_TRACE",
+  "title": "The thread in which the experiment became observable",
+  "participant": {
+    "name": "Sara Katpar",
+    "attribution_state": "NAMED_WITH_PERMISSION"
+  },
+  "permissions": {
+    "identify_by_name": true,
+    "reproduce_relevant_exchange": true,
+    "describe_model_response": true,
+    "include_in_paper": true,
+    "include_in_public_site_record": true,
+    "granted_at": "2026-07-23T10:38:00Z",
+    "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT"
+  },
+  "review": {
+    "required_before_publication": true,
+    "requested_materials": [
+      "relevant paper section",
+      "Primary PDF",
+      "draft Site presentation"
+    ],
+    "state": "AWAITING_PARTICIPANT_REVIEW"
+  },
+  "publication_state": "REVIEW_CANDIDATE_NOT_YET_PUBLISHED",
+  "standardized_submission": false,
+  "response_id": null,
+  "authority": {
+    "participant_permission_recorded": true,
+    "publication_approved": false,
+    "master_record_appended": false
+  }
+}
