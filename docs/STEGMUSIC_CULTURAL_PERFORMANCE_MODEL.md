@@ -2,9 +2,9 @@
 
 ## Purpose
 
-StegDJ must learn historically grounded instrumental traditions as living social performance systems, not as flat genre labels or collections of instrument samples.
+StegDJ must learn historically grounded instrumental traditions as living social performance systems, not as flat genre labels or sample collections.
 
-The first scoped implementation domain is lyrics-free Appalachian circle performance. Broader genre competence should be derived from deeply modeled subcultures, instruments, techniques, histories, social structures, and performance recovery patterns.
+The first scoped implementation domain is lyrics-free Appalachian circle performance. Broader genre competence should be derived from deeply modeled subcultures, instruments, tools, techniques, histories, social structures, and recovery patterns.
 
 ## Core principle
 
@@ -13,100 +13,92 @@ learn culture deeply enough to understand the sound
 rather than learning the sound superficially and assigning it a culture
 ```
 
-A generated performance is not culturally credible merely because it contains a banjo, fiddle, mandolin, guitar, dulcimer, or modal melody. Credibility depends on how performers share, transfer, preserve, repair, and recover the tune.
+A generated performance is not culturally credible merely because it contains a banjo, fiddle, mandolin, guitar, dulcimer, horn, reed, drum, percussion sample, or modal melody. Credibility depends on how performers share, transfer, preserve, repair, and recover the tune through the physical capabilities and limitations of their instruments and tools.
 
 ## Appalachian circle model
 
 The canonical performance unit is a family or neighborhood circle in which several participants of different ages and skill levels sustain one tune together.
 
-The model must represent:
-
-```text
-shared tune memory
-rotating performers
-instrument handoff
-role handoff
-skill and age variation
-instrument wear and repair
-continuous performance through interruption
-leader mobility
-collective recovery
-```
+The model includes shared tune memory, rotating performers, instrument handoff, role handoff, skill and age variation, instrument wear and repair, continuous performance through interruption, leader mobility, and collective recovery.
 
 The tune belongs to the circle rather than to one permanent lead performer.
 
 ## Role separation
 
-StegDJ must treat these as separate state dimensions:
-
 ```text
 musical role != instrument != performer
 ```
 
-A performer may move among melody, rhythm, drone, counterline, percussive emphasis, rest, repair, and re-entry. A musical role may transfer among available instruments without resetting the tune.
+A performer may move among melody, rhythm, drone, counterline, percussive emphasis, rest, repair, and re-entry. A role may transfer among strings, horns, winds, reeds, percussion, electroacoustic instruments, and available tools without resetting the tune.
 
 ## Ensemble state
 
-Each simulated circle maintains participants, age and experience profiles, available instruments, instrument condition, role assignments, shared phrase familiarity, rhythmic anchor, current leader, handoff readiness, and repair state.
+Each simulated circle maintains participants, age and experience profiles, available instruments and tools, component condition, role assignments, shared phrase familiarity, rhythmic anchor, current leader, handoff readiness, repair state, calibration state, and re-entry confidence.
 
-Differences in skill should create coherent variation rather than random error. A less experienced player may simplify a phrase, enter late, follow another player, or inherit only part of a role.
+Differences in skill should create coherent variation rather than random error.
 
-## Universal string-component dependency
+## Universal instrument and tool dependency
 
-All tensioned strings and string-like musical elements use `data/stegmusic/string-component-standard.v1.json` and `assets/stegmusic-string-physics.js`.
+All instrument classes and performance tools use:
 
 ```text
-one canonical string state
-+ instrument-specific adapter
+docs/STEGMUSIC_INSTRUMENT_COMPONENT_STANDARD.md
+data/stegmusic/instrument-component-standard.v1.json
+assets/stegmusic-instrument-physics.js
+```
+
+Strings remain a specialized canonical family through:
+
+```text
+data/stegmusic/string-component-standard.v1.json
+assets/stegmusic-string-physics.js
+```
+
+The shared model covers tensioned strings, horns and air columns, reeds, lip-reed interfaces, membranes, bars, plates, bells, cymbals, resonators, electroacoustic components, bows, picks, hammers, mallets, beaters, brushes, pedals, mutes, repair tools, and test fixtures.
+
+```text
+shared component state
++ class-specific excitation adapter
++ resonator and coupling model
 + performer or tool interaction
-= instrument-specific sound and failure behavior
+= instrument-specific behavior
 ```
 
-The shared attributes include construction, geometry, tension, tuning, attachment, environment, use, wear, fatigue, damage, acoustics, failure, repair, retension, and re-entry. Instrument adapters may extend this state but may not redefine canonical fields.
+The standard does not make components acoustically identical. It standardizes physical state, wear, damage, excitation, environment, failure, repair, recalibration, and re-entry across classes.
 
-This applies across plucked, bowed, struck, sympathetic, experimental, and repair/test contexts. Shared attributes do not mean that a fiddle string, piano string, banjo string, bow-hair bundle, and test-rig line sound or behave identically.
+## Failure and continuity
 
-## Physical instrument model
+Examples include string rupture, reed split, pad leak, valve sticking, slide misalignment, loss of lip oscillation, membrane tear, lug shift, cymbal crack growth, mallet-head separation, bow-hair loss, electrical intermittence, clipping, and thermal protection.
 
-Each instrument retains its own adapter and body state while consuming the standard string-component state. Physical state influences timbre, tuning drift, attack, decay, resonance, and failure probability.
-
-## String-failure model
-
-A string break under high stress and quick play is not a fixed sound effect. The event may include a sharp crack, brief pitch instability, loss of the intended note, loose-string motion, contact noise, the next attack landing on absence, and sympathetic ringing.
-
-Failure probability rises from physical state while the exact bar, measure, beat, gesture, and failure site remain stochastic.
+The failure sequence is:
 
 ```text
-predictable pressure envelope
-+ uncertain exact failure time
-+ instrument-specific break acoustics
-+ ensemble recovery behavior
-```
-
-## Continuity after failure
-
-```text
-string failure mid-gesture
--> expected note fractures
--> player adapts or drops out
+component failure mid-gesture
+-> intended sound fractures, changes, or disappears
+-> performer adapts or drops out
 -> nearby roles widen
 -> rhythm and tune identity continue
 -> another performer absorbs part of the missing function
--> repair or substitution occurs during performance
--> repaired instrument re-enters imperfectly
+-> repair, substitution, or recalibration occurs
+-> affected instrument or tool re-enters imperfectly
 ```
 
 The tune proves itself by continuing through disruption.
 
+```text
+continuity is demonstrated by successful role recovery,
+not by pretending disruption never occurred
+```
+
 ## Composition engine requirements
 
-The synthesis engine requires an ensemble role graph, performer-role assignments, standardized component condition state, instrument adapters, handoff rules, dropout recovery, phrase memory, rhythmic anchor, variation inheritance, repair and re-entry, and room/proximity modeling.
+The engine requires an ensemble role graph, performer-role assignments, standardized component state, class-specific excitation adapters, resonator and coupling state, handoff rules, dropout recovery, phrase memory, rhythmic anchor, variation inheritance, repair, recalibration, re-entry, and room/proximity modeling.
 
 A phrase must be represented as something several performers partially know and can preserve, not as a permanent clip owned by one track.
 
 ## Cultural lineage model
 
-Subcultures are modeled as linked nodes rather than flat tags. Nodes may represent regional traditions, instruments, techniques, rhythmic patterns, cadences, production methods, historical influences, and community functions.
+Subcultures are linked nodes rather than flat tags. Nodes may represent regional traditions, instruments, tools, techniques, rhythmic patterns, cadences, production methods, historical influences, and community functions.
 
 Edges may include originated_from, influenced_by, shares_instrument_with, shares_cadence_with, adapted_technique_from, regional_variant_of, merged_with, reacted_against, and commercialized_as.
 
@@ -124,7 +116,7 @@ Jamaican ska, rocksteady, reggae, and dub lineages
 alternative rock and grunge production structures
 ```
 
-Each domain must produce instrument, technique, rhythm, cadence, form, production, lineage, uncertainty, and permitted-synthesis records.
+Each domain must produce instrument, tool, technique, rhythm, cadence, form, production, lineage, uncertainty, and permitted-synthesis records.
 
 ## Instrumental-first boundary
 
@@ -162,7 +154,7 @@ blind sensory exposure
 -> method and evidence inspection
 ```
 
-Qualified musicians familiar with the selected tradition evaluate instrument realism, ensemble interaction, role circulation, handoff credibility, historical plausibility, timing variation, failure and recovery, room interaction, cultural authenticity, emotional credibility, and mechanical-generation artifacts.
+Qualified musicians evaluate instrument realism, ensemble interaction, role circulation, handoff credibility, historical plausibility, timing variation, failure and recovery behavior, room interaction, cultural authenticity, emotional credibility, and mechanical-generation artifacts.
 
 A successful result approaches chance-level origin classification while maintaining high cultural-authenticity ratings.
 
@@ -170,7 +162,7 @@ A successful result approaches chance-level origin classification while maintain
 
 ## Governed event model
 
-Candidate event types include cultural_profile_selected, ensemble_circle_created, performer_role_assigned, instrument_handoff_started, instrument_handoff_completed, role_substitution_started, instrument_condition_changed, string_failure_occurred, ensemble_recovery_started, repair_started, repair_completed, instrument_reentry_started, instrument_reentry_completed, cultural_fidelity_evaluated, blind_origin_classification_recorded, and provenance_disclosed.
+Candidate event types include cultural_profile_selected, ensemble_circle_created, performer_role_assigned, instrument_handoff_started, instrument_handoff_completed, role_substitution_started, instrument_component_state_changed, instrument_condition_changed, component_failure_occurred, string_failure_occurred, ensemble_recovery_started, repair_started, repair_completed, recalibration_started, recalibration_completed, instrument_reentry_started, instrument_reentry_completed, cultural_fidelity_evaluated, blind_origin_classification_recorded, and provenance_disclosed.
 
 Each event preserves observations, derived interpretation, confidence, uncertainty, profile scope, evidence references, and authority=`none` for Site fixtures.
 
@@ -179,7 +171,7 @@ Each event preserves observations, derived interpretation, confidence, uncertain
 ```text
 cultural profile != cultural ownership
 instrument sample != authentic performance
-shared string schema != identical instrument behavior
+component realism != cultural authenticity
 historical influence != unrestricted reproduction right
 blind sensory test != permission to misrepresent provenance after disclosure
 perceptual indistinguishability != factual identity
@@ -189,7 +181,7 @@ Site fixture != production activation
 
 ## Internal testing gate
 
-The slice is not internally complete until testers can select a cultural profile; inspect performers, roles, instruments, adapters, and component condition; hear role circulation; observe stochastic failure; hear ensemble compensation; observe repair and imperfect re-entry; compare human and StegDJ examples blindly; inspect provenance after classification; and verify profile and rights boundaries.
+The slice is not internally complete until testers can select a cultural profile; inspect performers, roles, instruments, tools, adapters, and component condition; hear role circulation; observe stochastic failure; hear ensemble compensation; observe repair, recalibration, and imperfect re-entry; compare human and StegDJ examples blindly; inspect provenance after classification; and verify profile and rights boundaries.
 
 ## Destination
 
