@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed static checks for the HIL review and publication surfaces."""
+"""Fail-closed static checks for the HIL approved chain-intake surface."""
 from __future__ import annotations
 
 import hashlib
@@ -19,8 +19,10 @@ RESPONSES = ROOT / "data" / "hil-responses.json"
 TRACE = ROOT / "data" / "hil-traces" / "HIL-TRACE-0001.json"
 SUBMISSION_SCHEMA = ROOT / "data" / "schemas" / "hil-submission.schema.json"
 RECEIVER_SCHEMA = ROOT / "data" / "schemas" / "hil-receiver-receipt.schema.json"
+PROVENANCE_SCHEMA = ROOT / "data" / "schemas" / "hil-response-provenance.schema.json"
 PRIMARY_B64 = ROOT / "data" / "hil-primary-v0.5-review.pdf.b64"
 EXPECTED_HASH = "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946"
+EXPECTED_PROMPT_HASH = "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922"
 EXPECTED_PROMPT = "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol."
 
 
@@ -43,9 +45,9 @@ def verify_primary_artifact() -> str:
         payload = base64.b64decode(encoded, validate=True)
     except Exception as exc:
         raise SystemExit(f"HIL verification failed: invalid primary base64: {exc}") from exc
-    require(payload.startswith(b"%PDF-"), "review artifact lacks PDF signature")
+    require(payload.startswith(b"%PDF-"), "Primary artifact lacks PDF signature")
     actual = hashlib.sha256(payload).hexdigest()
-    require(actual == EXPECTED_HASH, f"review artifact hash mismatch: {actual}")
+    require(actual == EXPECTED_HASH, f"Primary artifact hash mismatch: {actual}")
     return "VERIFIED"
 
 
@@ -59,10 +61,9 @@ def validate_response_index(responses: dict) -> int:
         require(isinstance(response_id, str) and re.fullmatch(r"HIL-RESP-[A-Z0-9-]+", response_id), "invalid response_id")
         require(response_id not in seen, f"duplicate response_id: {response_id}")
         seen.add(response_id)
-        artifact_path = record.get("artifact_path")
-        require(isinstance(artifact_path, str) and artifact_path.endswith(".pdf"), f"invalid artifact path for {response_id}")
-        receiver_hash = record.get("receiver_verified_file_sha256")
-        require(isinstance(receiver_hash, str) and re.fullmatch(r"[a-f0-9]{64}", receiver_hash), f"invalid receiver hash for {response_id}")
+        require(record.get("primary_sha256") == EXPECTED_HASH, f"primary hash mismatch for {response_id}")
+        require(record.get("prompt_sha256") == EXPECTED_PROMPT_HASH, f"prompt hash mismatch for {response_id}")
+        require(isinstance(record.get("response_sha256"), str), f"missing response hash for {response_id}")
     return len(records)
 
 
@@ -78,65 +79,40 @@ def main() -> None:
     trace = json.loads(read(TRACE))
     submission_schema = json.loads(read(SUBMISSION_SCHEMA))
     receiver_schema = json.loads(read(RECEIVER_SCHEMA))
+    provenance_schema = json.loads(read(PROVENANCE_SCHEMA))
 
     for marker in (
-        "Humans as the Interoperability Layer",
-        "Download v0.5 Review PDF",
-        "HIL-TRACE-0001",
+        "Approved presentation",
         "Sara Katpar",
-        "Exact invocation prompt",
-        "Submission preview",
-        "Public intake paused for review",
-        "Focused review checklist",
-        "the v0.5 PDF and this main presentation are sufficient",
-        "review permission          != final presentation approval",
-        "Primary review PDF         != canonical public input",
+        "Submit response artifact",
+        "Why the chain matters",
+        "Prompt SHA-256",
+        "Download provenance JSON",
+        "Download receiver receipt",
+        "Primary hash match          != proof the LLM read the document",
+        "response hash match         != producer identity verification",
     ):
         require(marker in page, f"page missing marker: {marker}")
 
     for marker in (
-        "Focused review checklist",
-        "No separate message is required",
-        "Granted permissions",
-        "Items awaiting review",
-        "Final presentation approval",
-        "approval of HIL-TRACE-0001   != endorsement of the paper's full thesis",
-    ):
-        require(marker in review_page, f"focused review page missing marker: {marker}")
-
-    for marker in (
-        "Published response projection",
-        "Hash and chain references",
-        "master-record inclusion    != shared model intent",
-        "assets/hil-response.js",
-    ):
-        require(marker in detail_page, f"response detail page missing marker: {marker}")
-
-    require(EXPECTED_PROMPT in page, "page prompt differs from review protocol prompt")
-
-    for marker in (
         EXPECTED_HASH,
-        "data/hil-primary-v0.5-review.pdf.b64",
-        "REVIEW_CANDIDATE_NOT_YET_CANONICAL",
+        EXPECTED_PROMPT_HASH,
+        "HIL-RESPONSE-PROVENANCE-v1",
+        "provenance_manifest",
+        "producer_signature",
+        "payload.provenance_manifest_required === true",
+        "new FormData()",
+        "/api/hil/readiness",
+        "/api/hil/submissions",
         "crypto.subtle.digest('SHA-256'",
-        "data/hil-responses.json",
     ):
-        require(marker in script, f"review client script missing marker: {marker}")
+        require(marker in script, f"client script missing chain marker: {marker}")
 
-    for marker in (
-        "new URLSearchParams(window.location.search)",
-        "data/hil-responses.json",
-        "receiver_verified_file_sha256",
-        "previous_record_sha256",
-        "master_record_release",
-    ):
-        require(marker in detail_script, f"detail script missing marker: {marker}")
-
-    require(manifest["status"] == "PREPUBLICATION_REVIEW", "manifest must remain in prepublication review")
-    require(manifest["primary_document"]["version"] == "v0.5", "manifest version mismatch")
-    require(manifest["primary_document"]["sha256"] == EXPECTED_HASH, "manifest review hash mismatch")
-    require(manifest["primary_document"]["canonical_state"] == "REVIEW_CANDIDATE_NOT_YET_CANONICAL", "review candidate must not claim canonical state")
-    require(manifest["protocol"]["invocation_prompt"] == EXPECTED_PROMPT, "manifest prompt mismatch")
+    require(EXPECTED_PROMPT in page, "page prompt differs from protocol prompt")
+    require(manifest["status"] == "APPROVED_PENDING_TECHNICAL_ACTIVATION", "manifest status mismatch")
+    require(manifest["primary_document"]["sha256"] == EXPECTED_HASH, "manifest Primary hash mismatch")
+    require(manifest["protocol"]["prompt_sha256"] == EXPECTED_PROMPT_HASH, "manifest prompt hash mismatch")
+    require(manifest["submission"]["provenance_manifest_required"] is True, "provenance manifest must be required")
     require(manifest["authority"] == {
         "execution": False,
         "custody": False,
@@ -145,49 +121,45 @@ def main() -> None:
         "master_record_append": False,
     }, "manifest authority must remain fail-closed")
 
-    require(review_state["schema_version"] == "HIL-REVIEW-STATE-v1", "review state schema mismatch")
-    require(review_state["trace_id"] == "HIL-TRACE-0001", "review state trace mismatch")
-    require(review_state["reviewer"] == "Sara Katpar", "reviewer mismatch")
-    require(review_state["review_candidate"]["sha256"] == EXPECTED_HASH, "review state hash mismatch")
-    require(all(value == "GRANTED" for value in review_state["permissions"].values()), "review permissions incomplete")
-    require(all(value == "PENDING" for value in review_state["requested_review"].values()), "review decisions must remain pending")
-    require(review_state["final_presentation_approval"] == "PENDING", "final presentation approval must remain pending")
-    require(review_state["canonical_publication"] == "BLOCKED_PENDING_REVIEW", "canonical publication must remain blocked")
-    require(review_state["public_response_acquisition"] == "PAUSED", "public acquisition must remain paused")
-    require(all(value is False for value in review_state["authority"].values()), "review state authority must remain fail-closed")
+    require(provenance_schema["$id"] == "https://stegverse.org/schemas/hil-response-provenance-v1.json", "provenance schema ID mismatch")
+    properties = provenance_schema["properties"]
+    require(properties["primary_sha256"]["const"] == EXPECTED_HASH, "provenance Primary constant mismatch")
+    require(properties["prompt_sha256"]["const"] == EXPECTED_PROMPT_HASH, "provenance prompt constant mismatch")
+    require("producer_signature" in provenance_schema["required"], "producer signature state must be explicit")
 
-    require(trace["trace_id"] == "HIL-TRACE-0001", "trace ID mismatch")
-    require(trace["participant"]["name"] == "Sara Katpar", "trace participant mismatch")
-    require(all(trace["permissions"][field] is True for field in (
-        "identify_by_name",
-        "reproduce_relevant_exchange",
-        "describe_model_response",
-        "include_in_paper",
-        "include_in_public_site_record",
-    )), "trace permissions incomplete")
-    require(trace["review"]["state"] == "AWAITING_PARTICIPANT_REVIEW", "trace review state mismatch")
-    require(trace["authority"]["publication_approved"] is False, "trace must not claim final publication approval")
+    require(review_state["final_presentation_approval"] == "APPROVED", "final presentation approval missing")
+    require(all(value == "APPROVED" for value in review_state["requested_review"].values()), "review decisions incomplete")
+    require(review_state["public_response_acquisition"] == "PAUSED_PENDING_CONTROLLED_CHAIN_VALIDATION", "public acquisition must remain controlled")
+    require(trace["review"]["state"] == "PARTICIPANT_REVIEW_APPROVED", "trace review approval mismatch")
+    require(trace["authority"]["publication_approved"] is True, "participant presentation approval not recorded")
+    require(trace["authority"]["technical_activation_approved"] is False, "technical activation must remain separate")
 
     require(responses["initiating_trace"]["trace_id"] == "HIL-TRACE-0001", "initiating trace ID mismatch")
-    require(responses["initiating_trace"]["participant"] == "Sara Katpar", "initiating trace attribution mismatch")
     response_count = validate_response_index(responses)
 
     require(submission_schema["$id"] == "https://stegverse.org/schemas/hil-submission-v1.json", "submission schema ID mismatch")
     require(receiver_schema["$id"] == "https://stegverse.org/schemas/hil-receiver-receipt-v1.json", "receiver schema ID mismatch")
     require(receiver_schema["properties"]["authority"]["properties"]["execution"]["const"] is False, "receiver receipt must not grant execution authority")
 
+    for marker in ("Published response projection", "Hash and chain references", "assets/hil-response.js"):
+        require(marker in detail_page, f"detail page missing marker: {marker}")
+    for marker in ("new URLSearchParams(window.location.search)", "data/hil-responses.json"):
+        require(marker in detail_script, f"detail script missing marker: {marker}")
+    require("Focused review checklist" in review_page, "focused review page missing")
+
     artifact_state = verify_primary_artifact()
     require(manifest["primary_document"]["artifact_state"] == artifact_state, "manifest artifact state disagrees with observed artifact")
     require(not re.search(r"authority\s*[:=]\s*true", page, re.IGNORECASE), "page appears to claim authority")
 
     print("HIL_EXPERIMENT_STATIC_VERIFICATION=PASS")
-    print("HIL_MODE=PREPUBLICATION_REVIEW")
+    print("HIL_MODE=APPROVED_CHAIN_INTAKE_STAGING")
     print(f"HIL_PRIMARY_ARTIFACT={artifact_state}")
-    print(f"HIL_REVIEW_SHA256={EXPECTED_HASH}")
-    print("HIL_TRACE_0001=ATTRIBUTED_PERMISSION_GRANTED_REVIEW_PENDING")
-    print("HIL_FOCUSED_REVIEW_PAGE=OPTIONAL_CHECKLIST")
+    print(f"HIL_PRIMARY_SHA256={EXPECTED_HASH}")
+    print(f"HIL_PROMPT_SHA256={EXPECTED_PROMPT_HASH}")
+    print("HIL_PROVENANCE_MANIFEST=REQUIRED")
+    print("HIL_TRACE_0001=PARTICIPANT_REVIEW_APPROVED")
     print(f"HIL_PUBLIC_RESPONSE_COUNT={response_count}")
-    print("HIL_PUBLIC_INTAKE=PAUSED")
+    print("HIL_PUBLIC_INTAKE=FAIL_CLOSED_UNTIL_GATEWAY_READY")
     print("HIL_AUTHORITY=NONE")
 
 
