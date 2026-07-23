@@ -7,220 +7,165 @@ This document owns continuation for the public `Humans as the Interoperability L
 ## Current goal
 
 ```text
-Goal: complete Sara Katpar's prepublication review, install the verified v0.5 Primary artifact, prove the live Site and bounded intake path, and then open serious public data acquisition without collapsing review, custody, acceptance, publication, or Master Record authority.
+Goal: finish the artifact-submission path with fail-closed Primary -> protocol -> exact prompt -> response hash -> optional producer-signature validation, preserve exact bytes and the provenance manifest, issue a receiver receipt, and open public acquisition only after one controlled live chain passes.
 Primary surface: humans-as-interoperability-layer.html
 Response detail surface: humans-as-interoperability-response.html?id=HIL-RESP-...
-Client behavior: assets/hil-experiment.js
-Response renderer: assets/hil-response.js
+Client: assets/hil-experiment.js
 Experiment manifest: data/hil-experiment.json
+Review state: data/hil-review-state.json
 Initiating trace: data/hil-traces/HIL-TRACE-0001.json
-Response projection: data/hil-responses.json
-Submission schema: data/schemas/hil-submission.schema.json
-Receiver receipt schema: data/schemas/hil-receiver-receipt.schema.json
-Static verifier: scripts/check_hil_experiment.py
-Live observer: scripts/check_hil_live_readiness.py
-Live workflow: .github/workflows/check-hil-live-readiness.yml
-Result: PREPUBLICATION_REVIEW
+Provenance schema: data/schemas/hil-response-provenance.schema.json
+Receiver gateway: StegVerse-org/LLM-adapter PR #37
+Result: APPROVED_CHAIN_INTAKE_STAGING
 Authority: NONE
 ```
 
-## Implemented
-
-```text
-Dedicated public experiment page
-Named HIL-TRACE-0001 presentation for Sara Katpar
-Recorded attribution, reproduction, model-response description, and public-record inclusion permission
-Explicit prepublication review requirement and presentation-approval boundary
-v0.5 review-candidate metadata and SHA-256 display
-Exact one-line invocation prompt
-Response-only PDF selection
-Browser-local PDF signature, size, and SHA-256 validation
-Participant identifier and publication-consent fields
-Browser-local fallback receipt
-Bounded gateway readiness and multipart submission wiring
-Receiver-receipt display and download path
-Machine-readable experiment manifest
-Machine-readable initiating-trace record
-Machine-readable public response index
-Generic public response detail surface resolved by stable HIL-RESP ID
-Submission and receiver-receipt JSON Schemas
-Static verifier bound into Site validate and public-guard tasks
-Public-path registration
-Scheduled live Site and gateway readiness observation
-Mobile-responsive layout
-Durable Site issue #67
-Bounded gateway implementation in StegVerse-org/LLM-adapter PR #37
-```
-
-## v0.5 review artifact
-
-```text
-Filename: Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf
-Paper version: v0.5
-Protocol version: HIL-PROTOCOL-v1.0
-Prompt version: HIL-PROMPT-v1.0
-SHA-256: 52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946
-Verified size: 109210 bytes
-Repository artifact state: PENDING INSTALLATION
-Review state: SARA_REVIEW_PENDING
-Canonical-public state: NOT YET CANONICAL
-```
-
-Expected repository path:
-
-```text
-data/hil-primary-v0.5-review.pdf.b64
-```
-
-The Site must decode the artifact, check `%PDF-`, recompute SHA-256, and fail closed if the bytes do not match. The locally generated source has been independently checked against the hash above. Repository transfer remains the immediate artifact blocker.
-
-## HIL-TRACE-0001 consent state
+## Participant review state
 
 ```text
 Participant: Sara Katpar
-Classification: PRE_PROTOCOL_OBSERVATIONAL_TRACE
-Attribution permission: GRANTED
-Exchange reproduction permission: GRANTED
-Model-response description permission: GRANTED
-Public-record inclusion permission: GRANTED
-Prepublication review requested: YES
-Final presentation approval: PENDING
-Publication state: REVIEW_PENDING
+Named attribution: GRANTED
+Exchange reproduction: GRANTED
+Model-response description: GRANTED
+Public record inclusion: GRANTED
+Primary PDF review: APPROVED
+Site presentation review: APPROVED
+Final presentation approval: APPROVED
+Approval evidence: LinkedIn direct-message screenshots, 2026-07-23
+Technical activation: NOT YET APPROVED BY MACHINE EVIDENCE
 ```
 
-Permission does not substitute for the requested review. The public Site may show the review-gated presentation, but final canonical publication remains blocked until Sara has reviewed the relevant section, Primary PDF, and Site presentation.
+Sara stated that the updated Primary Review Candidate and Site presentation looked good and that everything looked good to proceed. Participant presentation approval is now recorded separately from technical activation and publication authority.
 
-## Current review flow
+## Primary and prompt chain
 
 ```text
-Sara receives v0.5 review PDF
--> Sara reviews HIL-TRACE-0001 wording and broader presentation
--> corrections are recorded without rewriting the original exchange
--> final presentation approval is recorded
--> approved v0.5 canonical PDF is generated
--> canonical hash is frozen
--> Site artifact is installed and verified
--> controlled end-to-end response submission is performed
--> public acquisition may open only after observed success
+Primary version: v0.5
+Primary filename: Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf
+Primary SHA-256: 52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946
+Primary size: 109210 bytes
+Primary repository path: data/hil-primary-v0.5-review.pdf.b64
+Primary artifact state: PENDING_INSTALLATION
+Protocol: HIL-PROTOCOL-v1.0
+Prompt: HIL-PROMPT-v1.0
+Prompt SHA-256: 0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922
 ```
 
-## Future participant flow
+## Implemented artifact-submission chain
+
+The Site now builds `HIL-RESPONSE-PROVENANCE-v1` for every selected response PDF. The manifest binds:
 
 ```text
-Site page
--> hash-verified Primary PDF download
--> unchanged PDF submitted to participant-selected LLM
--> exact prompt supplied
--> response-only PDF returned
--> browser validates locally
--> governed gateway receives exact bytes when READY
--> receiver SHA-256 and HIL-RECEIVER-RECEIPT-v1 issued
--> private review / quarantine / acceptance decision
--> stable HIL-RESP identifier assigned
--> public response projection
--> versioned Master Record linkage
+primary_version
+primary_sha256
+protocol_version
+prompt_version
+prompt_sha256
+response_sha256
+model
+provider
+generated_at
+conversation_reference
+producer_signature.state
+producer_signature.scheme
+producer_signature.value
+producer_signature.key_id
 ```
 
-## Live verification
-
-Static repository validation:
+The browser computes the exact response PDF SHA-256 and creates the provenance manifest. It submits the PDF and manifest only when gateway readiness reports:
 
 ```text
-python scripts/run_site_task.py validate
+state = READY
+primary_sha256 = current Site Primary hash
+prompt_sha256 = current Site prompt hash
+provenance_manifest_required = true
 ```
 
-Direct live observation:
+Otherwise the Site permits local provenance-manifest download but fails closed on transmission.
+
+## Gateway implementation
+
+`StegVerse-org/LLM-adapter` branch `build/hil-intake-gateway`, PR #37 now:
 
 ```text
-python scripts/check_hil_live_readiness.py
+requires response_pdf and provenance_manifest
+checks PDF MIME and %PDF- signature
+rejects active-content markers
+checks Primary version and SHA-256
+checks protocol and prompt versions
+checks exact prompt SHA-256
+checks provenance response_sha256 against exact uploaded bytes
+requires model and provider declarations
+records optional producer-signature state without inventing verification
+preserves exact PDF bytes and normalized provenance JSON separately
+stores chain-validation state in SQLite
+issues HIL-RECEIVER-RECEIPT-v2
+keeps acceptance, publication, execution, and Master Record authority false
 ```
 
-The live observer checks:
+Chain states:
 
 ```text
-GitHub Pages HIL URL is reachable
-v0.5 prepublication review markers are deployed
-Sara Katpar and HIL-TRACE-0001 are visible
-review permission remains distinct from final presentation approval
-gateway readiness endpoint is reachable
-gateway Primary hash matches the current review artifact before upload can be considered ready
-publication and activation authority remain false
+PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED
+PRIMARY_PROMPT_RESPONSE_SIGNATURE_CHAIN_VERIFIED
 ```
 
-The scheduled workflow runs every six hours and on relevant Site changes. Its observation is evidence only; it cannot activate intake or authorize publication.
+A verified producer signature strengthens the chain but does not grant consent, acceptance, publication, or execution authority.
+
+## Current participant flow
+
+```text
+Site downloads and verifies Primary PDF
+-> participant submits unchanged Primary to selected LLM
+-> participant uses exact prompt
+-> participant receives response-only PDF
+-> browser validates PDF and computes response hash
+-> browser builds HIL-RESPONSE-PROVENANCE-v1
+-> gateway readiness must match Primary and prompt hashes
+-> gateway receives exact PDF bytes plus provenance manifest
+-> gateway recomputes and validates the chain
+-> gateway preserves both artifacts
+-> gateway issues HIL-RECEIVER-RECEIPT-v2
+-> private review / quarantine / acceptance remains separate
+-> accepted record receives stable HIL-RESP identifier
+-> public response projection and Master Record linkage remain separate authorized transitions
+```
 
 ## Required next vertical slice
 
 ```text
-Install data/hil-primary-v0.5-review.pdf.b64
-Change artifact_state only after repository verifier confirms the exact hash
-Observe live GitHub Pages deployment of the review presentation
-Merge and deploy LLM-adapter PR #37
-Configure durable HIL storage and enable bounded intake
-Update gateway Primary hash from v0.4 to the approved v0.5 hash
-Run one controlled exact-byte upload and receiver-receipt cycle
-Verify persistence across gateway restart
-Provide Sara the deployed review URL and review PDF
-Record corrections and final presentation approval
-Generate final canonical v0.5 artifact and hash
-Open serious public acquisition only after the controlled cycle passes
+1. Install data/hil-primary-v0.5-review.pdf.b64.
+2. Change artifact_state only after repository verifier confirms exact bytes and hash.
+3. Merge PR #37 after CI and review.
+4. Deploy gateway with durable HIL storage.
+5. Enable STEGVERSE_HIL_INTAKE_ENABLED=true only with durable storage declared.
+6. Observe gateway readiness matching Primary and prompt hashes.
+7. Run one controlled PDF plus provenance-manifest submission.
+8. Verify exact-byte persistence, manifest persistence, receiver receipt, and restart persistence.
+9. Add private review/quarantine transition and append-only accepted-response publication.
+10. Open public acquisition only after the controlled chain passes.
 ```
 
 ## Authority boundaries
 
 ```text
-permission granted != final presentation approval
-review PDF != canonical public input
-Primary metadata display != artifact availability
-Primary download != participant execution
-LLM-generated PDF != participant consent
-browser-local validation != receiver validation
-browser-local hash != custody
+participant review approval != technical activation
+Primary hash match != proof the LLM read the Primary
+prompt hash match != proof of complete instruction following
+response hash match != producer identity verification
+producer signature != participant publication consent
+browser validation != receiver validation
 receiver receipt != acceptance
 submission != publication
 publication != endorsement
-response recurrence != shared intent
 Master Record inclusion != scientific proof
 live observation != activation authority
 ```
 
-## Remaining destination work
-
-Destination `StegVerse-Labs/Site`:
-
-```text
-data/hil-primary-v0.5-review.pdf.b64
-review artifact hash verification
-live workflow evidence review
-browser and accessibility tests
-append-only response-index mutation workflow
-Master Record assembly and release workflow
-```
-
-Destination `StegVerse-org/LLM-adapter`:
-
-```text
-merge PR #37
-deploy HIL readiness and submission routes
-durable exact-byte storage
-active-content and malware posture
-receiver receipt persistence
-restart proof
-```
-
-Destination `master-records/orchestration` after server-side authorization:
-
-```text
-custody original response bytes
-validate Primary and response-chain references
-retain receiver receipts and reconstruction evidence
-return custody status without granting publication authority
-```
-
 ## Release posture
 
-No HIL canonical release tag or public data-acquisition activation is authorized while Sara's presentation review is pending, the v0.5 artifact is absent from the repository, the gateway remains unmerged or undeployed, and no controlled live upload has produced a verified receiver receipt.
+No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent from the repository, PR #37 is unmerged or undeployed, and no controlled live provenance-chain submission has produced a persisted receiver receipt.
 
 ## Archive readiness
 
-This handoff, Site issue #67, LLM-adapter PR #37, the HIL public pages, trace record, manifests, schemas, validators, live observer, workflow, and generated v0.5 artifact metadata preserve the complete continuation state. No additional conversation context is required.
+This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, provenance schema, client chain builder, gateway validator, manifests, validators, and repository history preserve complete continuation state. No additional conversation context is required.
