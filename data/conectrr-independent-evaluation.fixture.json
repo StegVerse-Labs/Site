@@ -1,0 +1,37 @@
+{
+  "schema": "stegverse.conectrr.independent-evaluation.fixture.v0.1",
+  "source_event": {
+    "event_id": "event:conectrr:handoff:001",
+    "event_type": "evidence",
+    "actor": {"actor_type": "external_system", "display_name": "Conectrr"},
+    "artifact_refs": ["conectrr:handoff:001"],
+    "governed_projection": {
+      "record_class": "discovery_recommendation",
+      "recommendation": "Surface candidate opportunity A for downstream evaluation.",
+      "recommendation_only": true,
+      "source_hash": "sha256:fixture-source-record-001"
+    }
+  },
+  "downstream_event": {
+    "event_id": "event:stegverse:evaluation:001",
+    "parent_event_id": "event:conectrr:handoff:001",
+    "event_type": "decision",
+    "actor": {"actor_type": "governance_system", "display_name": "StegVerse"},
+    "evidence_refs": ["event:conectrr:handoff:001"],
+    "governed_projection": {
+      "decision": "DEFER",
+      "agreement_with_source": false,
+      "reason": "Consent, delegated authority, and admissibility remain unresolved.",
+      "source_mutation_permitted": false,
+      "authority_effect": "none"
+    }
+  },
+  "expected": {
+    "source_unchanged": true,
+    "events_distinct": true,
+    "reference_resolved": true,
+    "disagreement_preserved": true,
+    "json_exportable": true,
+    "jsonl_exportable": true
+  }
+}
