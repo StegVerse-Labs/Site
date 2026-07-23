@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-response-provenance-v1.json",
+  "title": "HIL Response Provenance Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "primary_version",
+    "primary_sha256",
+    "protocol_version",
+    "prompt_version",
+    "prompt_sha256",
+    "response_sha256",
+    "model",
+    "provider",
+    "generated_at",
+    "producer_signature"
+  ],
+  "properties": {
+    "schema_version": { "const": "HIL-RESPONSE-PROVENANCE-v1" },
+    "primary_version": { "const": "v0.5" },
+    "primary_sha256": {
+      "const": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946"
+    },
+    "protocol_version": { "const": "HIL-PROTOCOL-v1.0" },
+    "prompt_version": { "const": "HIL-PROMPT-v1.0" },
+    "prompt_sha256": {
+      "const": "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922"
+    },
+    "response_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "model": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "provider": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "conversation_reference": { "type": ["string", "null"], "maxLength": 500 },
+    "producer_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "scheme", "value", "key_id"],
+      "properties": {
+        "state": { "enum": ["UNAVAILABLE", "DECLARED", "VERIFIED"] },
+        "scheme": { "type": ["string", "null"], "maxLength": 100 },
+        "value": { "type": ["string", "null"], "maxLength": 8192 },
+        "key_id": { "type": ["string", "null"], "maxLength": 500 }
+      }
+    }
+  }
+}
