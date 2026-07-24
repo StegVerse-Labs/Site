@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "stegmusic-style-characteristics-v1",
+  "description": "Governed, machine-readable style profiles that translate genre and listener language into bounded composition characteristics. Genre labels remain descriptive references; rendering decisions use explicit characteristics.",
+  "external_vocabularies": [
+    {
+      "name": "MusicBrainz Genres",
+      "purpose": "Canonical genre-name reference",
+      "url": "https://musicbrainz.org/genres",
+      "authority_effect": "reference_only"
+    },
+    {
+      "name": "Beatport Genres",
+      "purpose": "Electronic-music genre and subgenre reference",
+      "url": "https://greenroomsupport.beatport.com/hc/en-us/articles/41043520429076-Beatport-Genres-Including-NEW-Open-Format-Genres",
+      "authority_effect": "reference_only"
+    }
+  ],
+  "characteristic_dimensions": {
+    "energy": { "range": [0, 100], "meaning": "Perceived intensity, density, drive, and dynamic activity." },
+    "bass_weight": { "range": [0, 100], "meaning": "Relative prominence and continuity of sub-bass and low-frequency material." },
+    "drop_prominence": { "range": [0, 100], "meaning": "Strength, contrast, and structural importance of release sections after buildup." },
+    "danceability": { "range": [0, 100], "meaning": "Rhythmic regularity, pulse clarity, and movement orientation." },
+    "harmonic_complexity": { "range": [0, 100], "meaning": "Chord extension, inversion, modulation, and counterpoint density." },
+    "melodic_activity": { "range": [0, 100], "meaning": "Frequency and prominence of melodic events." },
+    "percussion_density": { "range": [0, 100], "meaning": "Rhythmic event density and transient activity." },
+    "brightness": { "range": [0, 100], "meaning": "Relative high-frequency presence and timbral sharpness." },
+    "tension_release": { "range": [0, 100], "meaning": "Degree of buildup, withholding, contrast, and subsequent release." },
+    "tempo_bpm": { "range": [40, 220], "meaning": "Preferred tempo or bounded tempo range." },
+    "arrangement": { "type": "ordered_sections", "meaning": "Expected large-scale structural phases." }
+  },
+  "profiles": {
+    "edm_high_energy_bass_drop": {
+      "display_name": "EDM — High Energy with Bass Drops",
+      "genre_family": "electronic_dance_music",
+      "genre_aliases": ["EDM", "mainstage", "festival EDM", "bass-forward dance"],
+      "preferred_subgenres": ["bass house", "dubstep", "drum and bass", "trap / future bass", "mainstage"],
+      "characteristics": {
+        "energy": 92,
+        "bass_weight": 94,
+        "drop_prominence": 96,
+        "danceability": 90,
+        "harmonic_complexity": 58,
+        "melodic_activity": 72,
+        "percussion_density": 88,
+        "brightness": 68,
+        "tension_release": 96,
+        "tempo_bpm": { "preferred": 128, "acceptable_ranges": [[124, 132], [140, 150], [170, 176]] },
+        "arrangement": ["intro", "buildup", "pre_drop_tension", "bass_drop", "development", "breakdown", "second_buildup", "larger_drop", "return_or_outro"]
+      },
+      "required_events": [
+        "clear_buildup",
+        "audible_pre_drop_contrast",
+        "sub_bass_entry_at_drop",
+        "rhythmic_density_increase_at_drop",
+        "post_drop_sustain",
+        "at_least_one_secondary_release"
+      ],
+      "preferred_sound_design": [
+        "sustained_sub_bass",
+        "sidechain_like_pumping_envelope",
+        "layered_kick_and_bass",
+        "riser_or_tension_sweep",
+        "impact_transient",
+        "stereo_countermelody",
+        "bright_high_energy_lead"
+      ],
+      "avoid": [
+        "flat_energy_curve",
+        "drop_without_low_frequency_change",
+        "continuous_full_density_without_buildup",
+        "weak_transient_contrast",
+        "short_loop_without_development"
+      ],
+      "resolver_defaults": {
+        "minimum_bars": 32,
+        "minimum_drop_count": 2,
+        "target_peak": 0.94,
+        "html_audio_volume": 1,
+        "human_audibility_confirmed": false,
+        "source_bytes_uploaded": false
+      }
+    }
+  },
+  "governance": {
+    "genre_label_is_not_render_authority": true,
+    "characteristics_must_be_explicit": true,
+    "user_override_allowed": true,
+    "profile_changes_require_event_receipt": true,
+    "external_vocabularies_are_reference_only": true,
+    "human_listening_claims_require_human_confirmation": true
+  }
+}
