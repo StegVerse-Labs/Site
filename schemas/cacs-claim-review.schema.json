@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/cacs-claim-review.schema.json",
+  "title": "CACS Claim Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_id",
+    "claim_id",
+    "reviewer",
+    "review_scope",
+    "artifact_refs",
+    "dimension_findings",
+    "correspondence_status",
+    "required_qualifications",
+    "disposition",
+    "timestamp",
+    "hash"
+  ],
+  "properties": {
+    "review_id": {"type": "string", "minLength": 1},
+    "claim_id": {"type": "string", "minLength": 1},
+    "reviewer": {"type": "object", "minProperties": 1},
+    "review_scope": {"type": "object", "minProperties": 1},
+    "artifact_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "dimension_findings": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "enum": ["CONFIRMED", "PARTIAL", "NOT_CONFIRMED", "DISPUTED", "NOT_REVIEWED"]
+      }
+    },
+    "correspondence_status": {
+      "enum": ["supported", "partially_supported", "unsupported", "overstated", "superseded", "withdrawn"]
+    },
+    "required_qualifications": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "disposition": {
+      "enum": ["publish", "publish_with_qualification", "quarantine", "withdraw", "supersede"]
+    },
+    "supersedes_review_id": {"type": ["string", "null"]},
+    "authority_effect": {"const": "NONE"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "hash": {"type": "string"}
+  }
+}
