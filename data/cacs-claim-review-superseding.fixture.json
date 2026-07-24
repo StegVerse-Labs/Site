@@ -1,0 +1,35 @@
+{
+  "review_id": "cacs-review-superseding-001",
+  "claim_id": "cacs-claim-stegverse-refusal-002",
+  "reviewer": {
+    "organization": "StegVerse-Labs",
+    "role": "correspondence-review"
+  },
+  "review_scope": {
+    "standard": "CACS-0.1.0",
+    "purpose": "supersession-chain-validation"
+  },
+  "artifact_refs": [
+    "artifact:formal-specification-v2",
+    "artifact:test-vector-policy-drift",
+    "artifact:execution-receipt-v2",
+    "artifact:replay-log-v2"
+  ],
+  "dimension_findings": {
+    "scope_correspondent": "CONFIRMED",
+    "replay_supported": "CONFIRMED",
+    "reconstructable": "PARTIAL",
+    "independently_reproduced": "NOT_REVIEWED",
+    "production_observed": "NOT_REVIEWED"
+  },
+  "correspondence_status": "supported",
+  "required_qualifications": [
+    "Publication must remain limited to the declared test vectors and implementation version.",
+    "The superseded claim remains historical evidence and must not be displayed as the active version."
+  ],
+  "disposition": "supersede",
+  "timestamp": "2026-07-24T12:15:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "supersedes_review_id": "cacs-review-supported-001",
+  "authority_effect": "NONE"
+}
