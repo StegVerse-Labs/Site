@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "data" / "hil-responses.json"
 EXPECTED_PRIMARY = "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946"
+EXPECTED_PROMPT = "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922"
 HEX64 = re.compile(r"^[a-f0-9]{64}$")
 RESPONSE_ID = re.compile(r"^HIL-RESP-[A-Z0-9-]+$")
 
@@ -79,6 +80,7 @@ def to_projection(record: dict) -> dict:
         "publication_consent": record["publication_consent"],
         "primary_document_version": "v0.5",
         "primary_sha256": record["primary_sha256"],
+        "prompt_sha256": EXPECTED_PROMPT,
         "response_sha256": record["response_sha256"],
         "receiver_verified_file_sha256": record["response_sha256"],
         "provenance_manifest_sha256": record["provenance_manifest_sha256"],
