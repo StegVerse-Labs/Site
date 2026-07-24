@@ -1,0 +1,58 @@
+{
+  "claim_id": "cacs-claim-overstated-001",
+  "claim_text": "The system guarantees refusal under every policy, authority model, deployment, and production condition.",
+  "claimant": {
+    "organization": "StegVerse-Labs",
+    "repository": "Site"
+  },
+  "scope": {
+    "standard": "CACS-0.1.0",
+    "implementation": "declared-test-build",
+    "tested_conditions": [
+      "expired-delegation",
+      "revoked-standing"
+    ]
+  },
+  "assumptions": [
+    "The two declared refusal vectors are representative of all possible operating conditions."
+  ],
+  "supporting_artifact_refs": [
+    "artifact:test-vector-expired-delegation",
+    "artifact:test-vector-revoked-standing",
+    "artifact:execution-receipt"
+  ],
+  "evidence_dimensions": {
+    "formalized": "PARTIAL",
+    "mechanized": "ESTABLISHED",
+    "demonstrated": "ESTABLISHED",
+    "refusal_integrity": "ESTABLISHED",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "PARTIAL",
+    "reconstructable": "NOT_ESTABLISHED",
+    "publicly_inspectable": "PARTIAL",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "pilot_observed": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "NOT_ESTABLISHED"
+  },
+  "test_refs": [
+    "test:expired-delegation-refusal",
+    "test:revoked-standing-refusal"
+  ],
+  "authority_refs": [],
+  "falsification_conditions": [
+    "Execution occurs after invalid standing in any claimed condition.",
+    "An untested policy or authority model permits execution."
+  ],
+  "not_established": [
+    "Refusal invariance beyond the two declared test vectors.",
+    "Independent reconstruction or reproduction.",
+    "Pilot or production assurance."
+  ],
+  "correspondence_status": "overstated",
+  "review_refs": [
+    "review:cacs-review-overstated-001"
+  ],
+  "timestamp": "2026-07-24T00:00:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
