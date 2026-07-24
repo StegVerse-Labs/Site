@@ -11,6 +11,7 @@ on:
       - 'humans-as-interoperability-layer.html'
       - 'assets/hil-experiment.js'
       - 'data/hil-experiment.json'
+      - 'data/hil-primary-v0.5-review.pdf.b64'
       - 'data/hil-responses.json'
       - 'data/hil-traces/**'
       - 'scripts/check_hil_live_readiness.py'
@@ -38,14 +39,25 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Observe deployed HIL review and intake surfaces
-        run: python scripts/check_hil_live_readiness.py
+      - name: Observe deployed HIL Site, artifact, intake, review, and publication surfaces
+        id: observe
+        continue-on-error: true
+        run: python scripts/check_hil_live_readiness.py --output reports/hil-live-readiness.latest.json
 
-      - name: Preserve non-authorizing observation
+      - name: Write workflow summary
         if: always()
         run: |
-          mkdir -p reports
-          python scripts/check_hil_live_readiness.py > reports/hil-live-readiness.latest.json 2>&1 || true
+          echo '## HIL live readiness observation' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo 'This workflow observes deployed state only and grants no activation, publication, execution, or Master Record authority.' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          if [ -f reports/hil-live-readiness.latest.json ]; then
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat reports/hil-live-readiness.latest.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Observation JSON was not produced.' >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Upload observation evidence
         if: always()
@@ -55,3 +67,9 @@ jobs:
           path: reports/hil-live-readiness.latest.json
           if-no-files-found: error
           retention-days: 30
+
+      - name: Enforce approved Site surface
+        if: steps.observe.outcome == 'failure'
+        run: |
+          echo 'The deployed approved HIL Site surface was not observed.' >&2
+          exit 1
