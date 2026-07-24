@@ -4,7 +4,7 @@
   "primary_document": {
     "version": "v0.5",
     "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
-    "state": "REVIEW_CANDIDATE_NOT_YET_CANONICAL"
+    "state": "APPROVED_PENDING_TECHNICAL_ACTIVATION"
   },
   "initiating_trace": {
     "trace_id": "HIL-TRACE-0001",
@@ -12,12 +12,12 @@
     "participant": "Sara Katpar",
     "attribution_state": "NAMED_WITH_PERMISSION",
     "permission_state": "GRANTED",
-    "review_state": "AWAITING_PARTICIPANT_REVIEW",
-    "publication_state": "REVIEW_CANDIDATE_NOT_YET_PUBLISHED",
+    "review_state": "APPROVED",
+    "publication_state": "APPROVED_PENDING_CANONICAL_ACTIVATION",
     "record_path": "data/hil-traces/HIL-TRACE-0001.json"
   },
   "responses": [],
-  "last_updated": "2026-07-23T10:38:00Z",
+  "last_updated": "2026-07-23T16:17:00Z",
   "authority": {
     "public_index_is_custody": false,
     "public_index_is_endorsement": false,
