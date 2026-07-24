@@ -18,7 +18,7 @@ Live observer: scripts/check_hil_live_readiness.py
 Live workflow: .github/workflows/check-hil-live-readiness.yml
 Receiver gateway: StegVerse-org/LLM-adapter PR #37
 Controlled-cycle workflow: StegVerse-org/LLM-adapter/.github/workflows/hil-controlled-cycle.yml
-Result: APPROVED_CONTROLLED_CYCLE_PASS_LIVE_STAGING
+Result: APPROVED_CLEAN_REBASE_AND_CONTROLLED_CYCLE_STAGING
 Authority: NONE
 ```
 
@@ -57,13 +57,29 @@ Site verifies Primary identity and exact prompt
 
 ## Controlled-cycle CI evidence
 
-The dedicated `HIL Controlled Cycle` workflow completed successfully on LLM-adapter PR #37 head `bc25376938db2fcfca84ac75d6fc9fc8a4f1f80d`, run `30113301291`. Architecture Guard and capability-runtime also completed successfully on that head. The general `validate` workflow was still in progress when this record was updated.
+The dedicated `HIL Controlled Cycle` workflow completed successfully on the earlier LLM-adapter PR #37 head `bc25376938db2fcfca84ac75d6fc9fc8a4f1f80d`, run `30113301291`. Architecture Guard and capability-runtime also completed successfully on that head. This is CI evidence, not deployed-service restart evidence and not activation authority.
 
-The controlled test exercises intake readiness, exact response and provenance persistence, receiver receipt v2, separate application clients over the same durable directory, authenticated `ACCEPT_PRIVATE`, private-review receipt, append-only publication, public lookup, and SQLite submission/review/publication records. This is CI evidence, not deployed-service restart evidence and not activation authority.
+The controlled test exercises intake readiness, exact response and provenance persistence, receiver receipt v2, separate application clients over the same durable directory, authenticated `ACCEPT_PRIVATE`, private-review receipt, append-only publication, public lookup, and SQLite submission/review/publication records.
+
+## Clean rebase onto current gateway main
+
+PR #37 had fallen 91 commits behind `main` and became non-mergeable. The HIL changes were rebuilt as a single commit on the current `main` tree while preserving all current gateway files and reconciling the two shared files:
+
+```text
+base main: 47cfad18eb75746410e6d3d58516515aaae26be5
+rebased HIL head: 336433dff29758d9581b0541daaac53b54126f30
+status: ahead by 1, behind by 0
+PR mergeable: true
+changed files: 9
+```
+
+The reconciled `combined_gateway.py` keeps the current provider-usage custody middleware and adds HIL intake/publication routers, HIL endpoint advertisement, and the two server-only HIL authorization headers. `pyproject.toml` keeps current dependencies and adds `python-multipart` to both development and service sets.
+
+Fresh Architecture Guard, capability-runtime, validate, and HIL Controlled Cycle runs were started automatically for the rebased head. They must complete before merge; the earlier passing run is not substituted for the new-head checks.
 
 ## Live readiness observer v2
 
-The deployed-state observer now checks:
+The deployed-state observer checks:
 
 ```text
 approved Site markers
@@ -88,19 +104,20 @@ The Site Master Record builder validates the ordered publication chain, binds re
 ## Required next vertical slice
 
 ```text
-1. Observe completion of the remaining PR #37 validate workflow; retain any failure evidence and merge only after all required checks pass.
-2. Install data/hil-primary-v0.5-review.pdf.b64 and verify exact bytes and SHA-256.
-3. Deploy the merged gateway with durable HIL storage.
-4. Configure intake, review, and publication credentials only in the authorized runtime.
-5. Observe HIL-LIVE-READINESS-OBSERVATION-v2 reaching CONTROLLED_CYCLE_READY.
-6. Run one controlled deployed PDF plus provenance-manifest submission.
-7. Verify exact-byte and manifest persistence across an actual gateway restart.
-8. Record one authenticated ACCEPT_PRIVATE decision and verify write-once behavior.
-9. Record one authenticated publication decision and verify identifier uniqueness.
-10. Import the first HIL-PUBLICATION-RECORD-v1 into the Site projection.
-11. Build the first HIL-MASTER-RECORD-RELEASE-v1 and validate its release chain.
-12. Submit the release and supporting evidence to master-records/orchestration only after authorization.
-13. Open public acquisition only after the deployed controlled cycle passes.
+1. Observe all fresh PR #37 checks for head 336433dff29758d9581b0541daaac53b54126f30.
+2. Retain and repair the first failing job if any; merge only after required checks pass.
+3. Install data/hil-primary-v0.5-review.pdf.b64 and verify exact bytes and SHA-256.
+4. Deploy the merged gateway with durable HIL storage.
+5. Configure intake, review, and publication credentials only in the authorized runtime.
+6. Observe HIL-LIVE-READINESS-OBSERVATION-v2 reaching CONTROLLED_CYCLE_READY.
+7. Run one controlled deployed PDF plus provenance-manifest submission.
+8. Verify exact-byte and manifest persistence across an actual gateway restart.
+9. Record one authenticated ACCEPT_PRIVATE decision and verify write-once behavior.
+10. Record one authenticated publication decision and verify identifier uniqueness.
+11. Import the first HIL-PUBLICATION-RECORD-v1 into the Site projection.
+12. Build the first HIL-MASTER-RECORD-RELEASE-v1 and validate its release chain.
+13. Submit the release and supporting evidence to master-records/orchestration only after authorization.
+14. Open public acquisition only after the deployed controlled cycle passes.
 ```
 
 ## Authority boundaries
@@ -112,6 +129,7 @@ prompt hash match != proof of complete instruction following
 response hash match != producer identity verification
 producer signature != participant publication consent
 CI controlled-cycle success != live deployment
+clean rebase != merge authorization
 new TestClient != actual service restart
 live readiness observation != activation authority
 receiver receipt != private review decision
@@ -124,8 +142,8 @@ Site index != master-records/orchestration
 
 ## Release posture
 
-No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent, PR #37 is unmerged or undeployed, and no controlled deployed submission, restart, private-review, publication, Site-import, and Master Record release cycle has produced persisted evidence.
+No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent, PR #37 is unmerged or undeployed, fresh rebased-head checks are incomplete, and no controlled deployed submission, restart, private-review, publication, Site-import, and Master Record release cycle has produced persisted evidence.
 
 ## Archive readiness
 
-This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, schemas, client chain builder, gateway transitions, successful controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. No additional conversation context is required.
+This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, schemas, client chain builder, gateway transitions, clean rebase record, successful earlier controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. No additional conversation context is required.
