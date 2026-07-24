@@ -1,0 +1,48 @@
+{
+  "projection_id": "cacs-public-projection-001",
+  "standard": "CACS-0.1.0",
+  "generated_at": "2026-07-24T12:00:00Z",
+  "active_claim": {
+    "claim_id": "cacs-claim-superseding-001",
+    "review_id": "cacs-review-superseding-001",
+    "public_label": "CURRENT_BOUNDED_CLAIM",
+    "claim_text": "The identified build refuses execution when standing is invalid at commit time for the declared test vectors and successor implementation scope.",
+    "correspondence_status": "supported",
+    "lifecycle_state": "active",
+    "evidence_dimensions": {
+      "formalized": "ESTABLISHED",
+      "mechanized": "ESTABLISHED",
+      "demonstrated": "ESTABLISHED",
+      "replay_supported": "ESTABLISHED",
+      "reconstructable": "NOT_ESTABLISHED",
+      "independently_reproduced": "NOT_ESTABLISHED",
+      "production_observed": "NOT_ESTABLISHED",
+      "scope_correspondent": "ESTABLISHED"
+    },
+    "not_established": [
+      "Independent reconstruction of the authoritative state.",
+      "Independent implementation reproduction.",
+      "Pilot or production assurance."
+    ],
+    "qualification": [
+      "Current only for the declared successor implementation and test vectors.",
+      "No execution, publication, custody, admissibility, or release authority is granted."
+    ]
+  },
+  "historical_claims": [
+    {"claim_id":"cacs-claim-stegverse-refusal-001","public_label":"SUPERSEDED_HISTORY","reason":"Replaced by cacs-claim-superseding-001; retained for inspectable succession history."},
+    {"claim_id":"cacs-claim-stale-evidence-001","public_label":"STALE_HISTORY","reason":"Evidence validity expired; not usable as current assurance."}
+  ],
+  "suppressed_claims": [
+    {"claim_id":"cacs-claim-withdrawn-001","public_label":"WITHDRAWN_SUPPRESSED","reason":"Withdrawn from active publication; historical inspection must expose the withdrawal reason."},
+    {"claim_id":"cacs-claim-overstated-001","public_label":"OVERSTATED_QUARANTINED","reason":"Claim exceeds established evidence and remains quarantined."}
+  ],
+  "qualification_rules": [
+    "Only an active, scope-correspondent Claim with a matching review may be labeled current.",
+    "Superseded and stale Claims remain historical and visibly qualified.",
+    "Withdrawn, unsupported, and overstated Claims are excluded from active publication.",
+    "Raw and human-readable projections must resolve to this same packet."
+  ],
+  "authority_effect": "NONE",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
