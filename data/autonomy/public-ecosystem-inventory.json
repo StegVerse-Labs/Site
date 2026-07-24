@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-24T01:10:09Z",
+  "generated_at": "2026-07-24T05:02:03Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-24T00:12:55Z",
+      "pushed_at": "2026-07-24T03:45:47Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -491,7 +491,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-07-23T19:48:53Z",
+      "pushed_at": "2026-07-24T03:47:27Z",
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -1141,7 +1141,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-23T19:43:38Z",
+      "pushed_at": "2026-07-24T03:40:28Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1704,7 +1704,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-24T01:02:46Z",
+      "pushed_at": "2026-07-24T01:10:14Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2439,7 +2439,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-24T00:13:28Z",
+      "pushed_at": "2026-07-24T03:49:07Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2526,7 +2526,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-07-24T01:01:21Z",
+      "pushed_at": "2026-07-24T03:26:03Z",
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: bridge",
@@ -2711,7 +2711,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-24T01:06:02Z",
+      "pushed_at": "2026-07-24T04:29:20Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
