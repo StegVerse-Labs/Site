@@ -13,6 +13,7 @@ REVIEW_PAGE = ROOT / "humans-as-interoperability-review.html"
 DETAIL_PAGE = ROOT / "humans-as-interoperability-response.html"
 SCRIPT = ROOT / "assets" / "hil-experiment.js"
 DETAIL_SCRIPT = ROOT / "assets" / "hil-response.js"
+IMPORTER = ROOT / "scripts" / "import_hil_publication.py"
 MANIFEST = ROOT / "data" / "hil-experiment.json"
 REVIEW_STATE = ROOT / "data" / "hil-review-state.json"
 RESPONSES = ROOT / "data" / "hil-responses.json"
@@ -20,6 +21,7 @@ TRACE = ROOT / "data" / "hil-traces" / "HIL-TRACE-0001.json"
 SUBMISSION_SCHEMA = ROOT / "data" / "schemas" / "hil-submission.schema.json"
 RECEIVER_SCHEMA = ROOT / "data" / "schemas" / "hil-receiver-receipt.schema.json"
 PROVENANCE_SCHEMA = ROOT / "data" / "schemas" / "hil-response-provenance.schema.json"
+PUBLICATION_SCHEMA = ROOT / "data" / "schemas" / "hil-publication-record.schema.json"
 PRIMARY_B64 = ROOT / "data" / "hil-primary-v0.5-review.pdf.b64"
 EXPECTED_HASH = "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946"
 EXPECTED_PROMPT_HASH = "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922"
@@ -54,16 +56,30 @@ def verify_primary_artifact() -> str:
 def validate_response_index(responses: dict) -> int:
     records = responses.get("responses")
     require(isinstance(records, list), "responses index must contain an array")
-    seen: set[str] = set()
+    seen_ids: set[str] = set()
+    seen_submissions: set[str] = set()
+    expected_previous = None
     for record in records:
         require(isinstance(record, dict), "response record must be an object")
         response_id = record.get("response_id")
+        submission_id = record.get("submission_id")
         require(isinstance(response_id, str) and re.fullmatch(r"HIL-RESP-[A-Z0-9-]+", response_id), "invalid response_id")
-        require(response_id not in seen, f"duplicate response_id: {response_id}")
-        seen.add(response_id)
+        require(response_id not in seen_ids, f"duplicate response_id: {response_id}")
+        require(isinstance(submission_id, str) and submission_id not in seen_submissions, f"duplicate or missing submission_id: {submission_id}")
+        seen_ids.add(response_id)
+        seen_submissions.add(submission_id)
         require(record.get("primary_sha256") == EXPECTED_HASH, f"primary hash mismatch for {response_id}")
         require(record.get("prompt_sha256") == EXPECTED_PROMPT_HASH, f"prompt hash mismatch for {response_id}")
-        require(isinstance(record.get("response_sha256"), str), f"missing response hash for {response_id}")
+        for field in ("response_sha256", "provenance_manifest_sha256", "private_review_receipt_sha256", "publication_record_sha256"):
+            value = record.get(field)
+            require(isinstance(value, str) and re.fullmatch(r"[a-f0-9]{64}", value), f"invalid {field} for {response_id}")
+        require(record.get("previous_record_sha256") == expected_previous, f"publication chain break at {response_id}")
+        require(record.get("publication_state") == "PUBLISHED", f"invalid publication state for {response_id}")
+        artifact_path = record.get("artifact_path")
+        require(isinstance(artifact_path, str) and artifact_path.endswith(".pdf") and not artifact_path.startswith(("/", "http://", "https://")), f"invalid artifact path for {response_id}")
+        if record.get("publication_consent") == "anonymous":
+            require(record.get("participant_display_name") is None, f"anonymous response exposes participant name: {response_id}")
+        expected_previous = record["publication_record_sha256"]
     return len(records)
 
 
@@ -73,6 +89,7 @@ def main() -> None:
     detail_page = read(DETAIL_PAGE)
     script = read(SCRIPT)
     detail_script = read(DETAIL_SCRIPT)
+    importer = read(IMPORTER)
     manifest = json.loads(read(MANIFEST))
     review_state = json.loads(read(REVIEW_STATE))
     responses = json.loads(read(RESPONSES))
@@ -80,6 +97,7 @@ def main() -> None:
     submission_schema = json.loads(read(SUBMISSION_SCHEMA))
     receiver_schema = json.loads(read(RECEIVER_SCHEMA))
     provenance_schema = json.loads(read(PROVENANCE_SCHEMA))
+    publication_schema = json.loads(read(PUBLICATION_SCHEMA))
 
     for marker in (
         "Approved presentation",
@@ -108,6 +126,16 @@ def main() -> None:
     ):
         require(marker in script, f"client script missing chain marker: {marker}")
 
+    for marker in (
+        "HIL-PUBLICATION-RECORD-v1",
+        "publication_record_sha256",
+        "response_id already exists in Site index",
+        "submission_id already exists in Site index",
+        "previous publication hash does not match Site append position",
+        "--apply",
+    ):
+        require(marker in importer, f"publication importer missing marker: {marker}")
+
     require(EXPECTED_PROMPT in page, "page prompt differs from protocol prompt")
     require(manifest["status"] == "APPROVED_PENDING_TECHNICAL_ACTIVATION", "manifest status mismatch")
     require(manifest["primary_document"]["sha256"] == EXPECTED_HASH, "manifest Primary hash mismatch")
@@ -127,6 +155,12 @@ def main() -> None:
     require(properties["prompt_sha256"]["const"] == EXPECTED_PROMPT_HASH, "provenance prompt constant mismatch")
     require("producer_signature" in provenance_schema["required"], "producer signature state must be explicit")
 
+    require(publication_schema["$id"] == "https://stegverse.org/schemas/hil-publication-record-v1.json", "publication schema ID mismatch")
+    pub_authority = publication_schema["properties"]["authority"]["properties"]
+    require(pub_authority["public_projection_authorized"]["const"] is True, "publication schema must explicitly authorize only public projection")
+    require(pub_authority["execution"]["const"] is False, "publication schema must not grant execution")
+    require(pub_authority["master_record_append"]["const"] is False, "publication schema must not grant Master Record append")
+
     require(review_state["final_presentation_approval"] == "APPROVED", "final presentation approval missing")
     require(all(value == "APPROVED" for value in review_state["requested_review"].values()), "review decisions incomplete")
     require(review_state["public_response_acquisition"] == "PAUSED_PENDING_CONTROLLED_CHAIN_VALIDATION", "public acquisition must remain controlled")
@@ -135,6 +169,7 @@ def main() -> None:
     require(trace["authority"]["technical_activation_approved"] is False, "technical activation must remain separate")
 
     require(responses["initiating_trace"]["trace_id"] == "HIL-TRACE-0001", "initiating trace ID mismatch")
+    require(responses["initiating_trace"]["review_state"] == "APPROVED", "initiating trace review state stale")
     response_count = validate_response_index(responses)
 
     require(submission_schema["$id"] == "https://stegverse.org/schemas/hil-submission-v1.json", "submission schema ID mismatch")
@@ -152,14 +187,16 @@ def main() -> None:
     require(not re.search(r"authority\s*[:=]\s*true", page, re.IGNORECASE), "page appears to claim authority")
 
     print("HIL_EXPERIMENT_STATIC_VERIFICATION=PASS")
-    print("HIL_MODE=APPROVED_CHAIN_INTAKE_STAGING")
+    print("HIL_MODE=APPROVED_END_TO_END_STAGING")
     print(f"HIL_PRIMARY_ARTIFACT={artifact_state}")
     print(f"HIL_PRIMARY_SHA256={EXPECTED_HASH}")
     print(f"HIL_PROMPT_SHA256={EXPECTED_PROMPT_HASH}")
     print("HIL_PROVENANCE_MANIFEST=REQUIRED")
+    print("HIL_PRIVATE_REVIEW=WRITE_ONCE")
+    print("HIL_PUBLICATION=APPEND_ONLY")
     print("HIL_TRACE_0001=PARTICIPANT_REVIEW_APPROVED")
     print(f"HIL_PUBLIC_RESPONSE_COUNT={response_count}")
-    print("HIL_PUBLIC_INTAKE=FAIL_CLOSED_UNTIL_GATEWAY_READY")
+    print("HIL_PUBLIC_INTAKE=FAIL_CLOSED_UNTIL_CONTROLLED_CYCLE_PASSES")
     print("HIL_AUTHORITY=NONE")
 
 
