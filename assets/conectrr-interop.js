@@ -63,7 +63,7 @@
   load().catch((error) => {
     document.documentElement.dataset.conectrrInterop = 'fail';
     document.documentElement.dataset.conectrrBrowserTest = 'fail';
-    document.documentElement.dataset.conectrrExportReplay = 'fail';
+    document.documentElement.dataset.conectrrExportReplay = 'failed';
     console.error(error);
   });
 })();
