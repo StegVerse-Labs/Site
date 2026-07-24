@@ -24,6 +24,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_ecosystem_node_dual_view.py'),
 (sys.executable,'scripts/check_ecosystem_node_replay_and_disclosure.py'),
 (sys.executable,'scripts/check_cacs_claims.py'),
+(sys.executable,'scripts/check_cacs_public_projection.py'),
 (sys.executable,'scripts/check_conectrr_minimum_handoff.py'),
 (sys.executable,'scripts/check_conectrr_boundary_failure_matrix.py'),
 (sys.executable,'scripts/check_conectrr_independent_evaluation.py'),
