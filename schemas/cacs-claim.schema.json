@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/cacs-claim.schema.json",
+  "title": "CACS Claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "claim_text",
+    "claimant",
+    "scope",
+    "assumptions",
+    "supporting_artifact_refs",
+    "evidence_dimensions",
+    "test_refs",
+    "authority_refs",
+    "falsification_conditions",
+    "not_established",
+    "correspondence_status",
+    "review_refs",
+    "timestamp",
+    "hash"
+  ],
+  "properties": {
+    "claim_id": {"type": "string", "minLength": 1},
+    "claim_text": {"type": "string", "minLength": 1},
+    "claimant": {"type": "object"},
+    "scope": {"type": "object", "minProperties": 1},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "supporting_artifact_refs": {"type": "array", "items": {"type": "string"}},
+    "evidence_dimensions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "enum": [
+          "ESTABLISHED",
+          "PARTIAL",
+          "NOT_ESTABLISHED",
+          "NOT_APPLICABLE",
+          "DISPUTED",
+          "SUPERSEDED"
+        ]
+      }
+    },
+    "test_refs": {"type": "array", "items": {"type": "string"}},
+    "authority_refs": {"type": "array", "items": {"type": "string"}},
+    "falsification_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "not_established": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "correspondence_status": {
+      "enum": [
+        "supported",
+        "partially_supported",
+        "unsupported",
+        "overstated",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "review_refs": {"type": "array", "items": {"type": "string"}},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "hash": {"type": "string"}
+  }
+}
