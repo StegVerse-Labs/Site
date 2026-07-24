@@ -1,0 +1,27 @@
+{
+  "projection_id": "cacs-public-projection-partial-001",
+  "standard": "CACS-0.1.0",
+  "generated_at": "2026-07-24T13:20:00Z",
+  "active_claim": {
+    "claim_id": "cacs-claim-partially-supported-001",
+    "review_id": "cacs-review-partially-supported-001",
+    "public_label": "CURRENT_BOUNDED_CLAIM",
+    "claim_text": "The declared implementation demonstrates refusal for the tested expired-delegation vector, while receipt integrity and reconstruction remain incomplete.",
+    "correspondence_status": "partially_supported",
+    "lifecycle_state": "active",
+    "evidence_dimensions": {"demonstrated":"ESTABLISHED","receipt_integrity":"PARTIAL","replay_supported":"PARTIAL","reconstructable":"NOT_ESTABLISHED","scope_correspondent":"ESTABLISHED"},
+    "not_established": ["Complete receipt integrity.","Replay invariance.","Independent reconstruction.","Pilot or production assurance."],
+    "qualification": ["PARTIALLY SUPPORTED: limited to the declared vector.","Incomplete receipt, replay, reconstruction, and production evidence must remain visible."]
+  },
+  "historical_claims": [
+    {"claim_id":"cacs-claim-stegverse-refusal-001","public_label":"SUPERSEDED_HISTORY","reason":"Retained as inspectable history."},
+    {"claim_id":"cacs-claim-stale-evidence-001","public_label":"STALE_HISTORY","reason":"Stale historical evidence; not current assurance."}
+  ],
+  "suppressed_claims": [
+    {"claim_id":"cacs-claim-withdrawn-001","public_label":"WITHDRAWN_SUPPRESSED","reason":"Withdrawn from active publication."},
+    {"claim_id":"cacs-claim-overstated-001","public_label":"OVERSTATED_QUARANTINED","reason":"Exceeds established evidence."}
+  ],
+  "qualification_rules": ["Partially supported Claims must never be rendered as fully supported.","All partial and unestablished dimensions remain visible."],
+  "authority_effect": "NONE",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
