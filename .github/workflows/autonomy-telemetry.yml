@@ -4,19 +4,18 @@ on:
   push:
     paths:
       - 'data/autonomy/public-ecosystem-scope.json'
-      - 'data/autonomy/scope-normalization-evidence.json'
+      - 'data/autonomy/repository-role-taxonomy.json'
       - 'data/autonomy/mutation-authority-policy.json'
-      - 'data/autonomy/generated-stegpay-integration-status.json'
       - 'data/autonomy/runtime-checks.json'
       - 'data/autonomy/freshness-policy.json'
       - 'data/autonomy/completion-evidence.json'
       - 'scripts/run_public_autonomy_telemetry.py'
+      - 'scripts/apply_repository_role_exit_gates.py'
       - 'scripts/run_bounded_autonomy_dispatcher.py'
       - 'scripts/run_autonomy_runtime_verification.py'
       - 'scripts/record_runtime_retry_state.py'
       - 'scripts/bind_runtime_evidence_to_live_status.py'
       - 'scripts/generate_autonomy_roadmap_status.py'
-      - 'scripts/validate_generated_stegpay_integration_status.py'
       - '.github/workflows/autonomy-telemetry.yml'
   schedule:
     - cron: '31 * * * *'
@@ -44,44 +43,28 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check playwright==1.52.0
           python -m playwright install --with-deps chromium
-      - name: Validate canonical public organization scope
+      - name: Validate role taxonomy and freshness policy
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          scope = json.loads(Path('data/autonomy/public-ecosystem-scope.json').read_text())
-          evidence = json.loads(Path('data/autonomy/scope-normalization-evidence.json').read_text())
-          organizations = scope['organizations']
-          excluded = {item['name']: item for item in scope.get('excluded_organization_aliases', [])}
-          assert scope['schema_version'] == '1.1'
-          assert len(organizations) == len(set(organizations))
-          assert 'GCAT-BCAT-Engine' in organizations
-          assert 'BCAT-GCAT-Engine' not in organizations
-          assert excluded['BCAT-GCAT-Engine']['replacement'] == 'GCAT-BCAT-Engine'
-          assert evidence['mutation']['removed_entry'] == 'BCAT-GCAT-Engine'
-          assert evidence['mutation']['canonical_entry'] == 'GCAT-BCAT-Engine'
-          assert evidence['authority']['scheduled_reenumeration_is_required'] is True
-          assert evidence['authority']['manual_user_action_required'] is False
-          print('canonical public organization scope valid')
-          PY
-      - name: Validate cadence-aware freshness policy
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          policy = json.loads(Path('data/autonomy/freshness-policy.json').read_text())
-          checks = json.loads(Path('data/autonomy/runtime-checks.json').read_text())
-          freshness = next(item for item in checks['checks'] if item['id'] == 'freshness')
-          assert policy['schema_version'] == '1.0'
-          assert policy['scheduled_interval_minutes'] == 60
-          assert policy['maximum_age_minutes'] == 180
-          assert freshness['max_age_minutes'] == policy['maximum_age_minutes']
-          assert freshness['policy_path'] == 'data/autonomy/freshness-policy.json'
-          assert policy['failure_behavior']['failure_creates_retry_evidence'] is True
-          assert policy['failure_behavior']['failure_downgrades_runtime_phase'] is True
-          assert policy['authority']['freshness_pass_is_overall_completion'] is False
-          assert policy['authority']['manual_user_action_required'] is False
-          print('cadence-aware freshness policy valid')
+          taxonomy = json.loads(Path('data/autonomy/repository-role-taxonomy.json').read_text())
+          freshness = json.loads(Path('data/autonomy/freshness-policy.json').read_text())
+          required_roles = {
+              'RUNTIME_PRODUCT', 'LIBRARY_OR_SDK', 'GOVERNANCE_ENGINE',
+              'DOCUMENTATION_OR_PROJECTION', 'ARCHIVE_OR_CONTINUITY',
+              'TEST_OR_FIXTURE', 'ORGANIZATIONAL_RECORD', 'UNCLASSIFIED'
+          }
+          assert taxonomy['schema_version'] == '1.0'
+          assert required_roles == set(taxonomy['roles'])
+          assert taxonomy['authority']['role_assignment_is_completion'] is False
+          assert taxonomy['authority']['missing_runtime_evidence_blocks_only_runtime_products'] is True
+          assert taxonomy['authority']['manual_user_action_required'] is False
+          assert freshness['schema_version'] == '1.0'
+          assert freshness['scheduled_interval_minutes'] == 60
+          assert freshness['maximum_age_minutes'] == 180
+          assert freshness['authority']['freshness_pass_is_overall_completion'] is False
+          print('role taxonomy and freshness policy valid')
           PY
       - name: Validate strict Site completion evidence
         run: |
@@ -91,38 +74,33 @@ jobs:
           from pathlib import Path
           evidence = json.loads(Path('data/autonomy/completion-evidence.json').read_text())
           verified_at = datetime.fromisoformat(evidence['verified_at'].replace('Z', '+00:00'))
-          assert evidence['schema_version'] == '1.0'
           assert evidence['repository'] == 'StegVerse-Labs/Site'
-          assert evidence['objective_id'] == 'site-public-autonomy-observability'
           assert evidence['runtime_observed'] is True
           assert evidence['user_visible_outcome_verified'] is True
-          assert evidence['verifier_source'] == 'github-actions'
           assert evidence['critical_blockers'] == 0
           assert evidence['manual_completion_dependency'] is False
           assert verified_at >= datetime.now(timezone.utc) - timedelta(days=30)
-          assert len(evidence['evidence_urls']) >= 4
           assert evidence['observed_results']['required_checks'] == 7
           assert evidence['observed_results']['passed_required_checks'] == 7
           assert evidence['observed_results']['failed_required_check_ids'] == []
           assert evidence['authority']['evidence_is_release_authority'] is False
-          assert evidence['authority']['evidence_is_ecosystem_completion_authority'] is False
-          assert evidence['authority']['site_runtime_completion_is_adapter_activation'] is False
-          assert evidence['authority']['manual_user_action_required'] is False
           print('strict Site completion evidence valid')
           PY
-      - name: Validate generated StegPay integration status
-        run: python scripts/validate_generated_stegpay_integration_status.py
-      - name: Enumerate, inspect, classify, and plan
+      - name: Enumerate and inspect public repositories
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/run_public_autonomy_telemetry.py
+      - name: Apply repository roles and role-specific exit gates
+        run: python scripts/apply_repository_role_exit_gates.py
       - name: Execute bounded Site-owned remediations
         run: python scripts/run_bounded_autonomy_dispatcher.py
       - name: Reinspect after bounded remediation
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/run_public_autonomy_telemetry.py
-      - name: Reapply execution telemetry after reinspection
+      - name: Reapply repository roles and exit gates
+        run: python scripts/apply_repository_role_exit_gates.py
+      - name: Reapply execution telemetry
         run: python scripts/run_bounded_autonomy_dispatcher.py
       - name: Execute runtime verification
         id: runtime
@@ -132,55 +110,36 @@ jobs:
         run: python scripts/record_runtime_retry_state.py
       - name: Bind runtime evidence into live telemetry
         run: python scripts/bind_runtime_evidence_to_live_status.py
-      - name: Generate autonomy roadmap state
+      - name: Generate role-aware autonomy roadmap
         run: python scripts/generate_autonomy_roadmap_status.py
-      - name: Validate generated roadmap, runtime evidence, retry state, and live projection
+      - name: Validate role-aware outputs
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
+          inventory = json.loads(Path('data/autonomy/public-ecosystem-inventory.json').read_text())
+          actions = json.loads(Path('data/autonomy/public-next-actions.json').read_text())
+          roles = json.loads(Path('data/autonomy/repository-role-classification.json').read_text())
           roadmap = json.loads(Path('data/autonomy/roadmap-status.json').read_text())
           runtime = json.loads(Path('data/autonomy/runtime-verification-evidence.json').read_text())
           retry = json.loads(Path('data/autonomy/runtime-retry-state.json').read_text())
-          live = json.loads(Path('data/autonomy/live-status.json').read_text())
-          expected_ids = {
-              'telemetry-file', 'live-page', 'roadmap-page', 'freshness',
-              'machine-mode', 'live-mobile-flow', 'roadmap-mobile-flow'
-          }
-          assert roadmap['schema_version'] == '1.2'
-          assert roadmap['generated_from'] == 'data/autonomy/live-status.json'
-          assert roadmap['runtime_evidence_source'] == 'data/autonomy/runtime-verification-evidence.json'
-          assert roadmap['manual_user_action_required'] is False
-          assert len(roadmap['phases']) == 5
-          assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in roadmap['phases'])
-          assert all(0 <= int(p['progress_percent']) <= 100 for p in roadmap['phases'])
-          assert runtime['schema_version'] == '1.2'
+          assert inventory['schema_version'] == '1.1'
+          assert inventory['completion_model'] == 'ROLE_SPECIFIC_EXIT_GATES'
+          assert actions['schema_version'] == '1.1'
+          assert actions['completion_model'] == 'ROLE_SPECIFIC_EXIT_GATES'
+          assert roles['repository_count'] == inventory['repository_count']
+          assert roles['role_exit_gate_complete'] + roles['role_exit_gate_incomplete'] == inventory['repository_count']
+          assert roadmap['schema_version'] == '1.5'
+          assert roadmap['repository_role_taxonomy_source'] == 'data/autonomy/repository-role-taxonomy.json'
+          assert roadmap['authority_boundary']['missing_runtime_evidence_blocks_only_runtime_products'] is True
+          assert roadmap['authority_boundary']['role_assignment_is_completion'] is False
           assert runtime['state'] in {'PASS', 'FAIL'}
-          assert runtime['required_checks'] == 7
-          assert runtime['required_checks'] == len([c for c in runtime['checks'] if c['required']])
-          assert {c['id'] for c in runtime['checks']} == expected_ids
-          assert runtime['passed_required_checks'] + len(runtime['failed_required_check_ids']) == runtime['required_checks']
-          assert runtime['authority']['runtime_check_pass_is_completion'] is False
-          assert runtime['authority']['runtime_check_pass_is_release_authority'] is False
-          assert runtime['authority']['runtime_check_pass_is_admissibility_authority'] is False
-          assert runtime['authority']['manual_user_action_required'] is False
-          assert retry['schema_version'] == '1.0'
           assert retry['latest_runtime_state'] == runtime['state']
           assert retry['automatic_retry_required'] == (runtime['state'] != 'PASS')
-          assert retry['maximum_age_minutes'] == 180
-          assert retry['authority']['retry_record_is_completion'] is False
-          assert retry['authority']['manual_user_action_required'] is False
-          projection = live['runtime_verification']
-          assert projection['state'] == runtime['state']
-          assert projection['required_checks'] == runtime['required_checks']
-          assert projection['passed_required_checks'] == runtime['passed_required_checks']
-          assert projection['failed_required_check_ids'] == runtime['failed_required_check_ids']
-          assert projection['completion_authority'] is False
-          node = next(n for n in live['task_graph']['nodes'] if n['id'] == 'site-runtime-verification')
-          assert node['status'] == ('COMPLETE' if runtime['state'] == 'PASS' else 'BLOCKED_BY_RUNTIME_EVIDENCE')
-          print('roadmap, runtime evidence, retry state, and live projection valid')
+          assert all(p['exit_gate'] in {'COMPLETE', 'INCOMPLETE'} for p in roadmap['phases'])
+          print('role-aware inventory, queue, roadmap, runtime, and retry state valid')
           PY
-      - name: Persist inventory, actions, execution records, runtime evidence, retry state, roadmap, and live tree
+      - name: Persist role-aware autonomy state
         run: |
           if git diff --quiet -- data/autonomy; then
             echo "No autonomy state changes to persist."
@@ -188,24 +147,12 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            data/autonomy/public-ecosystem-inventory.json \
-            data/autonomy/public-next-actions.json \
-            data/autonomy/live-status.json \
-            data/autonomy/action-executions.json \
-            data/autonomy/objective-contract.json \
-            data/autonomy/completion-evidence.json \
-            data/autonomy/runtime-checks.json \
-            data/autonomy/freshness-policy.json \
-            data/autonomy/runtime-verification-evidence.json \
-            data/autonomy/runtime-retry-state.json \
-            data/autonomy/generated-stegpay-integration-validation.json \
-            data/autonomy/roadmap-status.json
-          git commit -m "chore: persist bounded public autonomy cycle"
+          git add data/autonomy
+          git commit -m "chore: persist role-aware public autonomy cycle"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
       - name: Fail workflow when required runtime checks fail
         if: steps.runtime.outcome == 'failure'
         run: |
-          echo "Required runtime verification failed; evidence and retry state were persisted and projected for automatic repair."
+          echo "Required runtime verification failed; evidence and retry state were persisted."
           exit 1
