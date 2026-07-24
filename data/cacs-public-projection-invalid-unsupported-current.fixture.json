@@ -1,0 +1,27 @@
+{
+  "projection_id": "cacs-public-projection-invalid-unsupported-current-001",
+  "standard": "CACS-0.1.0",
+  "generated_at": "2026-07-24T12:00:00Z",
+  "active_claim": {
+    "claim_id": "cacs-claim-unsupported-001",
+    "review_id": "cacs-review-unsupported-001",
+    "public_label": "CURRENT_BOUNDED_CLAIM",
+    "claim_text": "Unsupported claim incorrectly selected as current.",
+    "correspondence_status": "unsupported",
+    "lifecycle_state": "active",
+    "evidence_dimensions": {"scope_correspondent": "NOT_ESTABLISHED"},
+    "not_established": ["Scope correspondence."],
+    "qualification": ["Unsupported claims cannot be current."]
+  },
+  "historical_claims": [
+    {"claim_id":"cacs-claim-stegverse-refusal-001","public_label":"SUPERSEDED_HISTORY","reason":"Superseded."},
+    {"claim_id":"cacs-claim-stale-evidence-001","public_label":"STALE_HISTORY","reason":"Expired evidence."}
+  ],
+  "suppressed_claims": [
+    {"claim_id":"cacs-claim-withdrawn-001","public_label":"WITHDRAWN_SUPPRESSED","reason":"Withdrawn."},
+    {"claim_id":"cacs-claim-overstated-001","public_label":"OVERSTATED_QUARANTINED","reason":"Overstated."}
+  ],
+  "qualification_rules": ["Unsupported claims are quarantined."],
+  "authority_effect": "NONE",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
