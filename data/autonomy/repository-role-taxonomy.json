@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "taxonomy_id": "stegverse-public-repository-role-taxonomy-v1",
+  "default_role": "UNCLASSIFIED",
+  "roles": {
+    "RUNTIME_PRODUCT": {
+      "description": "User-facing or service-facing executable product.",
+      "required_exit_gates": ["objective_contract", "deployment_or_runtime_configuration", "machine_validation_workflow", "runtime_observed", "user_visible_outcome_verified", "fresh_completion_evidence"]
+    },
+    "LIBRARY_OR_SDK": {
+      "description": "Reusable package, protocol library, adapter, SDK, or integration component.",
+      "required_exit_gates": ["objective_contract", "machine_validation_workflow", "package_or_integration_evidence", "downstream_use_or_compatibility_evidence", "fresh_completion_evidence"]
+    },
+    "GOVERNANCE_ENGINE": {
+      "description": "Policy, admissibility, authority, audit, or decision-governance component.",
+      "required_exit_gates": ["objective_contract", "machine_validation_workflow", "executed_policy_evidence", "fail_closed_authority_evidence", "fresh_completion_evidence"]
+    },
+    "DOCUMENTATION_OR_PROJECTION": {
+      "description": "Documentation, public projection, mirror, wiki, or non-authorizing presentation surface.",
+      "required_exit_gates": ["source_binding", "freshness_evidence", "non_authorizing_projection", "publication_accuracy_evidence"]
+    },
+    "ARCHIVE_OR_CONTINUITY": {
+      "description": "Archive, custody, master-record, reconstruction, retention, or transfer repository.",
+      "required_exit_gates": ["custody_evidence", "reconstruction_evidence", "retention_or_transfer_evidence", "fresh_completion_evidence"]
+    },
+    "TEST_OR_FIXTURE": {
+      "description": "Test harness, demo suite, fixture repository, sandbox, or validation-only implementation.",
+      "required_exit_gates": ["objective_contract", "machine_validation_workflow", "reproducible_test_evidence", "declared_non_production_boundary"]
+    },
+    "ORGANIZATIONAL_RECORD": {
+      "description": "Organization profile, policy record, administrative metadata, or coordination-only repository.",
+      "required_exit_gates": ["declared_scope", "source_binding", "freshness_evidence", "non_execution_boundary"]
+    },
+    "UNCLASSIFIED": {
+      "description": "Role has not yet been determined from sufficient evidence.",
+      "required_exit_gates": ["repository_role_determination"]
+    }
+  },
+  "inference_rules": [
+    {"role": "ARCHIVE_OR_CONTINUITY", "name_terms": ["archive", "continuity", "master-record", "vault", "records"]},
+    {"role": "DOCUMENTATION_OR_PROJECTION", "name_terms": ["wiki", "docs", "site", "publisher", ".github"]},
+    {"role": "TEST_OR_FIXTURE", "name_terms": ["test", "fixture", "demo", "sandbox", "runner"]},
+    {"role": "LIBRARY_OR_SDK", "name_terms": ["sdk", "adapter", "library", "protocol", "bridge"]},
+    {"role": "GOVERNANCE_ENGINE", "name_terms": ["gcat", "bcat", "admissibility", "triage", "governance", "policy"]},
+    {"role": "RUNTIME_PRODUCT", "name_terms": ["stegtalk", "runtime", "app", "node", "chat", "wallet"]}
+  ],
+  "authority": {
+    "role_assignment_is_completion": false,
+    "missing_runtime_evidence_blocks_only_runtime_products": true,
+    "role_specific_exit_gate_required": true,
+    "manual_user_action_required": false
+  }
+}
