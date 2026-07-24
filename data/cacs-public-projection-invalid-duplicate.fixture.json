@@ -1,0 +1,27 @@
+{
+  "projection_id": "cacs-public-projection-invalid-duplicate-001",
+  "standard": "CACS-0.1.0",
+  "generated_at": "2026-07-24T12:00:00Z",
+  "active_claim": {
+    "claim_id": "cacs-claim-superseding-001",
+    "review_id": "cacs-review-superseding-001",
+    "public_label": "CURRENT_BOUNDED_CLAIM",
+    "claim_text": "Bounded successor implementation claim.",
+    "correspondence_status": "supported",
+    "lifecycle_state": "active",
+    "evidence_dimensions": {"scope_correspondent": "ESTABLISHED"},
+    "not_established": ["Independent reproduction."],
+    "qualification": ["Limited to declared scope."]
+  },
+  "historical_claims": [
+    {"claim_id":"cacs-claim-superseding-001","public_label":"SUPERSEDED_HISTORY","reason":"Invalid duplicate classification."},
+    {"claim_id":"cacs-claim-stale-evidence-001","public_label":"STALE_HISTORY","reason":"Expired evidence."}
+  ],
+  "suppressed_claims": [
+    {"claim_id":"cacs-claim-withdrawn-001","public_label":"WITHDRAWN_SUPPRESSED","reason":"Withdrawn."},
+    {"claim_id":"cacs-claim-overstated-001","public_label":"OVERSTATED_QUARANTINED","reason":"Overstated."}
+  ],
+  "qualification_rules": ["Classification must be unique."],
+  "authority_effect": "NONE",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
