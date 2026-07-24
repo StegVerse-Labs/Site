@@ -26,11 +26,16 @@ data/cacs-claim-review-superseding.fixture.json
 data/cacs-claim-review-withdrawn.fixture.json
 data/cacs-claim-review-stale-evidence.fixture.json
 data/cacs-public-projection.fixture.json
+data/cacs-public-projection-invalid-duplicate.fixture.json
+data/cacs-public-projection-invalid-withdrawn-current.fixture.json
+data/cacs-public-projection-invalid-stale-unqualified.fixture.json
+data/cacs-public-projection-invalid-unsupported-current.fixture.json
 scripts/check_cacs_claims.py
 scripts/check_cacs_public_projection.py
 cacs-claims.html
 assets/cacs-claims.js
 scripts/check_ecosystem_chat_application.py
+docs/CACS_PUBLISHER_PROJECTION_HANDOFF.md
 docs/CACS_MIRROR_HANDOFF.md
 ```
 
@@ -53,7 +58,12 @@ Stable Claim and Review identifiers
 Synchronized human-readable and raw governed views
 Fail-closed browser behavior when the projection packet is unavailable
 Dependency-free structural, semantic, lifecycle, and projection validators
+Deterministic rejection of duplicate classification
+Deterministic rejection of withdrawn-current selection
+Deterministic rejection of unsupported-current selection
+Deterministic rejection of unqualified stale publication
 Both CACS validators bound into canonical Site application validation
+Publisher-bound outbound handoff prepared without destination mutation
 ```
 
 ## Current posture
@@ -67,11 +77,14 @@ Public projection schema: IMPLEMENTED
 Lifecycle fixtures: IMPLEMENTED
 Claim lifecycle validator: IMPLEMENTED
 Public projection validator: IMPLEMENTED
+Invalid public-projection regression vectors: IMPLEMENTED
 Human/raw synchronized projection: IMPLEMENTED
 Canonical application validation binding: IMPLEMENTED; CI OBSERVATION PENDING
 Public browser execution: NOT YET OBSERVED
 Independent correspondence reproduction: NOT YET OBSERVED
 Cryptographic hash/signature contract: NOT YET IMPLEMENTED
+Publisher outbound handoff: IMPLEMENTED
+Publisher destination-owned mirror handoff: NOT FOUND BY REPOSITORY SEARCH
 Publisher projection: NOT YET IMPLEMENTED
 Admissibility projection: NOT YET IMPLEMENTED
 Guardian projection: NOT YET IMPLEMENTED
@@ -120,11 +133,43 @@ mandatory non-claims and qualifications
 required superseded and stale historical classes
 required withdrawn and overstated suppression classes
 no Claim appearing in multiple projection classes
+explicit stale, expired, or historical qualification for stale evidence
 presence of synchronized human/raw Site surfaces
 renderer consumption of active, historical, and suppressed packet sections
+expected rejection reason for every invalid regression packet
+```
+
+Invalid regression corpus:
+
+```text
+cacs-public-projection-invalid-duplicate.fixture.json
+  -> reject duplicate projection classification
+cacs-public-projection-invalid-withdrawn-current.fixture.json
+  -> reject non-active current Claim
+cacs-public-projection-invalid-stale-unqualified.fixture.json
+  -> reject stale history without explicit stale/expired qualification
+cacs-public-projection-invalid-unsupported-current.fixture.json
+  -> reject unsupported current Claim
 ```
 
 Local implementation and aggregate binding do not constitute observed CI passage, public deployment, independent reproduction, custody, downstream ingestion, or release authority.
+
+## Publisher-bound preparation
+
+`GCAT-BCAT-Engine/Publisher` was verified accessible. Repository search did not locate a destination-owned `*_MIRROR_HANDOFF.md`. Therefore no Publisher mutation was performed.
+
+`docs/CACS_PUBLISHER_PROJECTION_HANDOFF.md` preserves:
+
+```text
+source packet paths
+required Publisher rendering and suppression behavior
+required downstream rejection behavior
+stable identifier requirements
+destination preconditions
+non-claims and authority boundaries
+```
+
+The outbound handoff is preparation only. It is not Publisher ingestion, deployment, validation, or publication authorization.
 
 ## Remaining work by destination
 
@@ -133,7 +178,6 @@ Destination `StegVerse-Labs/Site`:
 ```text
 Observe both CACS validators in canonical application CI
 Observe cacs-claims.html browser execution after deployment
-Add invalid public-projection regression fixtures
 Add disputed and partially-supported projection vectors
 Add cryptographic canonicalization, hash, and signature contract
 Add navigation from the primary governed Site surfaces
@@ -143,13 +187,15 @@ Update docs/SITE_MIRROR_HANDOFF.md after machine verification
 Destination `GCAT-BCAT-Engine/Publisher`:
 
 ```text
-Create or verify *_MIRROR_HANDOFF.md before mutation
+Create or identify a destination-owned *_MIRROR_HANDOFF.md before mutation
+Verify CACS does not displace the active Publisher goal
 Consume only machine-validated CACS Site projection packets
 Render evidence dimensions and not_established boundaries
 Publish only the active bounded Claim as current
 Preserve superseded and stale history with visible qualification
 Suppress or quarantine withdrawn, unsupported, and overstated Claims
 Preserve stable Claim, Review, and projection identifiers
+Emit a bounded publication projection receipt with authority_effect = NONE
 ```
 
 Destination `StegVerse-Labs/admissibility-wiki`:
@@ -179,12 +225,12 @@ Return reconstruction receipts without granting claim validity or execution auth
 
 ## Next executable step
 
-Add invalid projection regression vectors for duplicate classification, withdrawn-current selection, unqualified stale publication, and unsupported-current selection. Extend `scripts/check_cacs_public_projection.py` so each invalid packet is deterministically rejected. Then create the Publisher-bound projection handoff only after checking the Publisher repository handoff source of truth.
+Add disputed and partially-supported Claim, Review, and public-projection vectors, including explicit public qualification and dispute visibility. Extend both CACS validators so those vectors cannot be mislabeled as fully supported. In parallel, create or identify a destination-owned Publisher mirror handoff before any Publisher mutation.
 
 ## Release posture
 
-No tag or release is authorized. Draft adoption remains blocked on observed CI and deployed-browser verification, invalid-vector rejection, independent reproduction, downstream projections, and cryptographic custody integration.
+No tag or release is authorized. Draft adoption remains blocked on observed CI and deployed-browser verification, disputed and partially-supported vectors, independent reproduction, downstream projections, and cryptographic custody integration.
 
 ## Archive readiness
 
-This handoff, normative standard, schemas, lifecycle and projection fixtures, validators, synchronized Site view, canonical validation binding, and repository history preserve all continuation state without requiring this conversation.
+This handoff, normative standard, schemas, lifecycle and projection fixtures, invalid regression corpus, validators, synchronized Site view, Publisher outbound handoff, canonical validation binding, and repository history preserve all continuation state without requiring this conversation.
