@@ -1,0 +1,33 @@
+{
+  "review_id": "cacs-review-stale-evidence-001",
+  "claim_id": "cacs-claim-stale-evidence-001",
+  "reviewer": {
+    "organization": "StegVerse-Labs",
+    "role": "correspondence-review"
+  },
+  "review_scope": {
+    "standard": "CACS-0.1.0",
+    "purpose": "stale-evidence-validation"
+  },
+  "artifact_refs": [
+    "artifact:historical-test-vector",
+    "artifact:historical-execution-receipt",
+    "artifact:historical-replay-log"
+  ],
+  "dimension_findings": {
+    "scope_correspondent": "CONFIRMED",
+    "replay_supported": "CONFIRMED",
+    "reconstructable": "PARTIAL",
+    "current_applicability": "NOT_CONFIRMED"
+  },
+  "correspondence_status": "partially_supported",
+  "required_qualifications": [
+    "Evidence is historical and expired for current-state claims.",
+    "Publication must identify the historical implementation, policy set, and validity interval.",
+    "The claim must not be represented as current operational assurance."
+  ],
+  "disposition": "publish_with_qualification",
+  "timestamp": "2026-07-24T12:25:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "authority_effect": "NONE"
+}
