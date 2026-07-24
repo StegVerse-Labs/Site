@@ -1,0 +1,50 @@
+{
+  "claim_id": "cacs-claim-withdrawn-001",
+  "claim_text": "The retired preview receipt establishes cryptographic custody for the declared transition.",
+  "claimant": {
+    "organization": "StegVerse-Labs",
+    "repository": "Site"
+  },
+  "scope": {
+    "standard": "CACS-0.1.0",
+    "implementation": "preview-browser-fixture",
+    "receipt_class": "preview-only-marker"
+  },
+  "assumptions": [
+    "The preview marker was originally described before the cryptographic boundary was clarified."
+  ],
+  "supporting_artifact_refs": [
+    "artifact:retired-preview-receipt"
+  ],
+  "evidence_dimensions": {
+    "formalized": "PARTIAL",
+    "mechanized": "PARTIAL",
+    "demonstrated": "PARTIAL",
+    "receipt_integrity": "NOT_ESTABLISHED",
+    "reconstructable": "NOT_ESTABLISHED",
+    "publicly_inspectable": "ESTABLISHED",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "NOT_ESTABLISHED"
+  },
+  "test_refs": [],
+  "authority_refs": [],
+  "falsification_conditions": [
+    "The marker cannot be verified as a cryptographic hash or signature.",
+    "No authenticated custody record can be reconstructed from the cited artifact."
+  ],
+  "not_established": [
+    "Cryptographic receipt integrity.",
+    "Authenticated custody.",
+    "Transition reconstruction.",
+    "Execution, publication, or release authority."
+  ],
+  "correspondence_status": "withdrawn",
+  "review_refs": [
+    "review:cacs-review-withdrawn-001"
+  ],
+  "timestamp": "2026-07-24T12:05:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "lifecycle_state": "withdrawn",
+  "withdrawal_reason": "The cited preview marker is not cryptographic proof and cannot support the published custody claim."
+}
