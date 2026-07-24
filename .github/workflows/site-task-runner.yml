@@ -22,11 +22,6 @@ on:
           - autonomous-continuation
           - universal-ingest
           - import-governed-transition-index
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: '17 */6 * * *'
   workflow_run:
     workflows:
       - Site Bootstrap Validate
@@ -38,18 +33,19 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: site-task-runner
-  cancel-in-progress: false
-
 env:
   STEGVERSE_REPO_SYNC_TOKEN: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
+
+concurrency:
+  group: site-orchestrated-transition-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
 
 jobs:
   run-site-task:
     if: >-
-      github.event_name != 'workflow_run' ||
-      (github.event.workflow_run.conclusion == 'success' &&
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -57,6 +53,20 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Resolve authoritative transition
+        id: transition
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+            echo "run_id=${{ github.event.workflow_run.id }}" >> "$GITHUB_OUTPUT"
+            echo "source=site-bootstrap-validate" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            echo "run_id=${{ github.run_id }}" >> "$GITHUB_OUTPUT"
+            echo "source=manual-authorized-dispatch" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Resolve task
         id: task
         run: |
@@ -66,10 +76,11 @@ jobs:
             echo "name=all-local" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Checkout Site
+      - name: Checkout Site at authoritative commit
         uses: actions/checkout@v4
         with:
           path: site
+          ref: ${{ steps.transition.outputs.sha }}
           persist-credentials: true
 
       - name: Resolve TT checkout mode
@@ -129,7 +140,7 @@ jobs:
         run: python scripts/acquire_external_framework_catalog.py
 
       - name: Persist activation import state before downstream validation
-        if: steps.task.outputs.name == 'all-local' && github.ref == 'refs/heads/main'
+        if: steps.task.outputs.name == 'all-local' && github.event_name == 'workflow_run'
         working-directory: site
         run: |
           git config user.name "github-actions[bot]"
@@ -160,7 +171,7 @@ jobs:
           retention-days: 14
 
       - name: Commit generated Site state
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'workflow_run'
         working-directory: site
         run: |
           git config user.name "github-actions[bot]"
@@ -174,27 +185,27 @@ jobs:
             git push
           fi
 
-      - name: Skip generated state commit on non-main refs
-        if: github.ref != 'refs/heads/main'
-        run: echo "Validation-only ref; generated state commit is restricted to main."
+      - name: Skip generated state commit outside orchestrated main transition
+        if: github.event_name != 'workflow_run'
+        run: echo "Manual dispatch is validation-only; generated state mutation requires a successful Site Bootstrap Validate run on main."
 
       - name: Configure Pages
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'workflow_run'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'workflow_run'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
       - name: Deploy Pages
         id: deployment
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_run'
         uses: actions/deploy-pages@v4
 
       - name: Verify governed transition public surfaces
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_run'
         working-directory: site
         run: |
           for attempt in $(seq 1 12); do
@@ -208,7 +219,7 @@ jobs:
           exit 1
 
       - name: Verify External Chat public surfaces
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_run'
         working-directory: site
         run: |
           for attempt in $(seq 1 12); do
@@ -255,6 +266,9 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
           echo "Trigger: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Authoritative transition SHA: ${{ steps.transition.outputs.sha }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Authoritative source run: ${{ steps.transition.outputs.run_id }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Transition source: ${{ steps.transition.outputs.source }}" >> "$GITHUB_STEP_SUMMARY"
           if [ -f data/governed-transition-index-import-status.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
@@ -316,5 +330,5 @@ jobs:
           print(f"External Chat evidence authority: none")
           PY
           fi
-          echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on main." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: generated Site state is committed and deployed only from main after task validation succeeds; activation import status is retained earlier as non-authorizing continuation evidence." >> "$GITHUB_STEP_SUMMARY"
+          echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on the exact validated commit." >> "$GITHUB_STEP_SUMMARY"
+          echo "Boundary: push and schedule triggers are disabled for this worker; only a successful bootstrap run on main may mutate generated state or deploy Pages." >> "$GITHUB_STEP_SUMMARY"
