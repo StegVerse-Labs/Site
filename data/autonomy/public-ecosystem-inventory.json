@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-24T20:55:18Z",
+  "generated_at": "2026-07-24T21:27:43Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-24T19:54:35Z",
+      "pushed_at": "2026-07-24T21:01:28Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1704,7 +1704,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-24T19:07:49Z",
+      "pushed_at": "2026-07-24T21:24:43Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2528,7 +2528,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-07-24T17:36:42Z",
+      "pushed_at": "2026-07-24T21:23:57Z",
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: bridge",
@@ -2713,7 +2713,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-24T20:40:23Z",
+      "pushed_at": "2026-07-24T21:24:13Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
