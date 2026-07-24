@@ -38,6 +38,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_stegmusic_reference_schemas.py'),
 (sys.executable,'scripts/check_stegmusic_source_field_crosswalk.py'),
 (sys.executable,'scripts/check_stegmusic_source_evidence_runtime.py'),
+(sys.executable,'scripts/check_stegmusic_source_adapters.py'),
 (sys.executable,'scripts/check_stegmusic_composition_request_receipt.py'),
 (sys.executable,'scripts/check_stegmusic_composition_records_runtime.py'),
 (sys.executable,'scripts/check_stegmusic_song_corpus_builders.py'),
