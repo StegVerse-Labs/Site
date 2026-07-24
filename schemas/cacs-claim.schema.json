@@ -66,6 +66,12 @@
     },
     "review_refs": {"type": "array", "items": {"type": "string"}},
     "timestamp": {"type": "string", "format": "date-time"},
-    "hash": {"type": "string"}
+    "hash": {"type": "string"},
+    "lifecycle_state": {
+      "enum": ["active", "superseded", "withdrawn", "stale"]
+    },
+    "supersedes_claim_id": {"type": ["string", "null"]},
+    "evidence_valid_through": {"type": ["string", "null"], "format": "date-time"},
+    "withdrawal_reason": {"type": ["string", "null"], "minLength": 1}
   }
 }
