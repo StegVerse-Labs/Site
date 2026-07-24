@@ -1,17 +1,18 @@
 {
-  "schema_version": "2.6",
-  "generated_at": "2026-07-23T02:31:26Z",
-  "mode": "VERIFIED_REPOSITORY_ACTIVITY_WITH_RESCAN_REQUIRED",
-  "truthful_notice": "This projection combines persisted machine evidence with verified repository activity. The last public inventory predates newer Site commits, including HIL public experiment surfaces and adapter aggregate binding work, so repository totals and action counts remain last-observed values until the scheduled auditor persists a rescan.",
+  "schema_version": "2.7",
+  "generated_at": "2026-07-23T18:00:00Z",
+  "mode": "ROLE_SPECIFIC_COMPLETION_MODEL_INSTALLED_RESCAN_PENDING",
+  "truthful_notice": "The autonomy model now assigns repository roles and applies role-specific exit gates. The prior 72-repository inventory used a role-neutral runtime-heavy model and remains historical until the scheduled role-aware cycle persists a new inventory, role report, and action queue.",
   "summary": {
     "coverage": "PUBLIC_REPOSITORIES_ONLY",
+    "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
+    "role_taxonomy_installed": true,
+    "role_classifier_installed": true,
+    "role_aware_workflow_installed": true,
+    "first_role_aware_rescan_observed": false,
     "last_observed_organizations": 8,
     "last_observed_repositories": 72,
-    "last_observed_operationally_complete": 1,
-    "destination_owned_runners_executed": 2,
-    "last_observed_next_actions": 71,
-    "inventory_rescan_required": true,
-    "verified_new_activity_examples": 6
+    "last_observed_next_actions": 71
   },
   "runtime_verification": {
     "state": "FAIL",
@@ -21,26 +22,26 @@
     "failed_required_check_ids": ["freshness"],
     "repair_installed": true,
     "repair_result_observed": false,
-    "evidence_path": "data/autonomy/runtime-verification-evidence.json",
-    "completion_authority": false,
-    "release_authority": false,
-    "admissibility_authority": false
+    "completion_authority": false
   },
-  "repository_activity_since_inventory": {
-    "observed": true,
-    "requires_reclassification": true,
-    "examples": [
-      {"repository": "StegVerse-Labs/Site", "commit": "72aec7706d2236702825795b11a6c9a0b2c1417f", "message": "Validate destination aggregate binding without inferring test success"},
-      {"repository": "StegVerse-Labs/Site", "commit": "8bbe2abd8bfdaf7a52fed7ae4ff60cd6f22ae7d4", "message": "Record adapter aggregate binding and unobserved test status"},
-      {"repository": "StegVerse-Labs/Site", "commit": "036def6b9be0159718691dc219d40422371bc26a", "message": "Advance HIL handoff with response detail and validation binding"},
-      {"repository": "StegVerse-Labs/Site", "commit": "9ab1d551e56978a60cbbeeed00ede1bbabf12409", "message": "Validate HIL public experiment paths"},
-      {"repository": "StegVerse-Labs/Site", "commit": "80ac00dcaab287cd343741b4de0a5c5912a486cd", "message": "Add HIL public response detail surface"},
-      {"repository": "StegVerse-Labs/Site", "commit": "d1d8d6308b85c4a31a3f6ea9c089c7a50110ccf5", "message": "Add HIL receiver receipt schema"}
+  "repository_role_model": {
+    "taxonomy_path": "data/autonomy/repository-role-taxonomy.json",
+    "classifier_path": "scripts/apply_repository_role_exit_gates.py",
+    "report_path": "data/autonomy/repository-role-classification.json",
+    "roles": [
+      "RUNTIME_PRODUCT",
+      "LIBRARY_OR_SDK",
+      "GOVERNANCE_ENGINE",
+      "DOCUMENTATION_OR_PROJECTION",
+      "ARCHIVE_OR_CONTINUITY",
+      "TEST_OR_FIXTURE",
+      "ORGANIZATIONAL_RECORD",
+      "UNCLASSIFIED"
     ],
-    "authority_boundary": {
-      "repository_activity_is_audited_completion": false,
-      "validation_binding_is_test_success": false,
-      "public_surface_is_user_outcome_verification": false
+    "authority": {
+      "role_assignment_is_completion": false,
+      "missing_runtime_evidence_blocks_only_runtime_products": true,
+      "role_exit_gate_completion_is_release_authority": false
     }
   },
   "task_graph": {
@@ -51,162 +52,97 @@
         "id": "public-truth-root",
         "title": "Public ecosystem truth cycle",
         "status": "IN_PROGRESS",
-        "current_step": "Rescan public repositories, inspect the newer HIL and adapter-binding evidence, reclassify outcomes, and regenerate the action queue.",
+        "current_step": "Execute the first role-aware ecosystem rescan and replace the role-neutral queue.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": [],
-        "task_url": "https://github.com/StegVerse-Labs/StegOps-Orchestrator/issues/7"
+        "updated_at": "2026-07-23T18:00:00Z",
+        "depends_on": []
       },
       {
-        "id": "public-enumeration",
-        "title": "Enumerate public ecosystem repositories",
-        "status": "STALE_RESCAN_REQUIRED",
-        "result": "The last persisted cycle enumerated 72 repositories across 8 organizations, but newer repository activity has not yet been incorporated.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["public-truth-root"]
-      },
-      {
-        "id": "public-evidence-inspection",
-        "title": "Inspect objective and runtime evidence",
-        "status": "STALE_RESCAN_REQUIRED",
-        "result": "Strict inspection remains installed, but its latest ecosystem-wide result predates newer HIL surfaces, receiver-receipt schema, and adapter aggregate binding evidence.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["public-truth-root"]
-      },
-      {
-        "id": "public-classification",
-        "title": "Reclassify public repository integrity",
-        "status": "BLOCKED_BY_RESCAN",
-        "current_step": "Await a new machine-generated inventory and evidence pass before changing repository completion classifications.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["public-enumeration", "public-evidence-inspection"]
-      },
-      {
-        "id": "public-action-planner",
-        "title": "Regenerate public remediation queue",
-        "status": "BLOCKED_BY_RECLASSIFICATION",
-        "current_step": "The last observed queue contained 71 actions; a new queue must be derived from the rescan.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["public-classification"]
-      },
-      {
-        "id": "new-site-evidence",
-        "title": "Inspect newer Site evidence surfaces",
-        "status": "AWAITING_AUDITOR_CLASSIFICATION",
-        "current_step": "HIL response detail, receiver receipt, public experiment paths, handoff validation, and adapter aggregate binding exist, but their tests and user outcomes have not been inferred as successful.",
-        "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["public-evidence-inspection"]
-      },
-      {
-        "id": "freshness-policy-repair",
-        "title": "Unify runtime freshness source of truth",
+        "id": "repository-role-taxonomy",
+        "title": "Define repository-role taxonomy",
         "status": "COMPLETE",
-        "result": "The dispatcher reads canonical data/autonomy/freshness-policy.json and no longer restores the obsolete hard-coded threshold.",
+        "result": "Eight repository roles now have distinct machine-readable exit gates.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-21T20:37:00Z",
+        "updated_at": "2026-07-23T18:00:00Z",
         "depends_on": ["public-truth-root"]
+      },
+      {
+        "id": "role-specific-classifier",
+        "title": "Classify repositories by role and exit gate",
+        "status": "IMPLEMENTED_AWAITING_MACHINE_EXECUTION",
+        "current_step": "The classifier is installed and wired into the scheduled cycle; its first persisted ecosystem result is pending.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-23T18:00:00Z",
+        "depends_on": ["repository-role-taxonomy"]
+      },
+      {
+        "id": "role-aware-rescan",
+        "title": "Run role-aware ecosystem rescan",
+        "status": "AWAITING_MACHINE_RESULT",
+        "current_step": "Regenerate inventory, role assignments, exit-gate results, and remediation actions from current repository evidence.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-23T18:00:00Z",
+        "depends_on": ["role-specific-classifier"]
+      },
+      {
+        "id": "role-aware-action-queue",
+        "title": "Generate role-specific remediation queue",
+        "status": "BLOCKED_BY_ROLE_AWARE_RESCAN",
+        "current_step": "Do not preserve runtime-only remediation tasks for libraries, documentation, archives, fixtures, or organizational records unless their role requires them.",
+        "owner": "StegVerse-Labs/Site",
+        "updated_at": "2026-07-23T18:00:00Z",
+        "depends_on": ["role-aware-rescan"]
       },
       {
         "id": "site-runtime-verification",
-        "title": "Verify public Site runtime after repair",
+        "title": "Verify public Site runtime",
         "status": "AWAITING_MACHINE_RESULT",
-        "current_step": "The latest persisted receipt still reports 6 of 7 checks passing with freshness failed; no newer cadence-policy-aware PASS has been observed.",
+        "current_step": "The corrected freshness-policy-aware PASS receipt remains unobserved.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["freshness-policy-repair"],
-        "evidence_path": "data/autonomy/runtime-verification-evidence.json"
-      },
-      {
-        "id": "llm-adapter-runner",
-        "title": "Project LLM-adapter operational evidence",
-        "status": "BLOCKED_BY_RUNTIME_EVIDENCE",
-        "result": "The destination-owned projection executed and persisted BLOCKED with 11 unmet live, provider, storage, custody, reconstructability, receipt, and destination-state gates.",
-        "owner": "StegVerse-org/LLM-adapter",
-        "updated_at": "2026-07-21T20:30:39Z",
-        "depends_on": ["public-truth-root"],
-        "task_url": "https://github.com/StegVerse-org/LLM-adapter/blob/main/data/autonomy/completion-evidence.json"
-      },
-      {
-        "id": "triage-runner",
-        "title": "Project Triage implementation evidence",
-        "status": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
-        "result": "The destination-owned workflow passed implementation checks. User-facing execution, runtime observation, and outcome verification remain absent.",
-        "owner": "GCAT-BCAT-Engine/Triage",
-        "updated_at": "2026-07-21T20:36:12Z",
-        "depends_on": ["public-truth-root"],
-        "task_url": "https://github.com/GCAT-BCAT-Engine/Triage/blob/main/autonomy/completion-evidence.json"
+        "updated_at": "2026-07-23T18:00:00Z",
+        "depends_on": ["public-truth-root"]
       },
       {
         "id": "public-completion-gate",
-        "title": "Apply public ecosystem completion gate",
-        "status": "BLOCKED_BY_RESCAN_AND_EVIDENCE",
-        "current_step": "No ecosystem-wide completion decision may be refreshed until the rescan classifies the newer Site evidence and the existing runtime blockers are resolved.",
+        "title": "Apply role-specific ecosystem completion gate",
+        "status": "BLOCKED_BY_ROLE_AWARE_RESCAN",
+        "current_step": "Completion will be recalculated against each repository's actual role rather than a universal runtime-product standard.",
         "owner": "StegVerse-Labs/Site",
-        "updated_at": "2026-07-23T02:31:26Z",
-        "depends_on": ["public-action-planner", "new-site-evidence", "site-runtime-verification", "llm-adapter-runner", "triage-runner"]
+        "updated_at": "2026-07-23T18:00:00Z",
+        "depends_on": ["role-aware-action-queue", "site-runtime-verification"]
       }
     ],
     "edges": [
-      {"from": "public-truth-root", "to": "public-enumeration", "type": "split"},
-      {"from": "public-truth-root", "to": "public-evidence-inspection", "type": "split"},
-      {"from": "public-enumeration", "to": "public-classification", "type": "converge"},
-      {"from": "public-evidence-inspection", "to": "public-classification", "type": "converge"},
-      {"from": "public-evidence-inspection", "to": "new-site-evidence", "type": "split"},
-      {"from": "public-classification", "to": "public-action-planner", "type": "sequence"},
-      {"from": "public-truth-root", "to": "freshness-policy-repair", "type": "split"},
-      {"from": "freshness-policy-repair", "to": "site-runtime-verification", "type": "sequence"},
-      {"from": "public-action-planner", "to": "public-completion-gate", "type": "converge"},
-      {"from": "new-site-evidence", "to": "public-completion-gate", "type": "converge"},
-      {"from": "site-runtime-verification", "to": "public-completion-gate", "type": "converge"},
-      {"from": "llm-adapter-runner", "to": "public-completion-gate", "type": "converge"},
-      {"from": "triage-runner", "to": "public-completion-gate", "type": "converge"}
+      {"from": "public-truth-root", "to": "repository-role-taxonomy", "type": "sequence"},
+      {"from": "repository-role-taxonomy", "to": "role-specific-classifier", "type": "sequence"},
+      {"from": "role-specific-classifier", "to": "role-aware-rescan", "type": "sequence"},
+      {"from": "role-aware-rescan", "to": "role-aware-action-queue", "type": "sequence"},
+      {"from": "role-aware-action-queue", "to": "public-completion-gate", "type": "converge"},
+      {"from": "site-runtime-verification", "to": "public-completion-gate", "type": "converge"}
     ]
   },
   "corrective_actions": [
     {
-      "id": "ecosystem-rescan",
-      "action": "Execute and persist a new public repository inventory, evidence inspection, classification, and action-planning cycle",
+      "id": "role-aware-rescan",
+      "action": "Execute and persist the first role-aware public inventory and exit-gate cycle",
       "status": "AUTOMATIC_RESCAN_REQUIRED",
-      "reason": "Verified Site activity, including HIL and adapter-binding work, occurred after the last persisted ecosystem inventory."
-    },
-    {
-      "id": "new-site-evidence-classification",
-      "action": "Classify HIL public surfaces, receiver receipts, handoff validation, and adapter aggregate binding without inferring test or user-outcome success",
-      "status": "MACHINE_ACTION_REQUIRED",
-      "reason": "Repository activity is verified, but its operational and user-visible outcomes have not been established by the ecosystem auditor."
+      "reason": "The older 71-action queue was generated under a role-neutral completion model and likely overstates unfinished work."
     },
     {
       "id": "site-runtime-pass-pending",
-      "action": "Persist the corrected cadence-policy-aware Site runtime verification",
+      "action": "Persist the corrected Site runtime verification result",
       "status": "AUTOMATIC_RETRY_PENDING",
-      "reason": "No newer machine-produced PASS receipt has replaced the prior freshness failure."
-    },
-    {
-      "id": "llm-adapter-live-gates",
-      "action": "Satisfy LLM-adapter live provider, storage, custody, reconstructability, receipt, and destination-state gates through its repository-owned workflow",
-      "status": "MACHINE_ACTION_REQUIRED",
-      "reason": "Its destination-owned projection reports 11 critical blockers."
-    },
-    {
-      "id": "triage-runtime-surface",
-      "action": "Build and verify a bounded user-facing Triage execution surface",
-      "status": "MACHINE_ACTION_REQUIRED",
-      "reason": "Implementation evidence passes, but runtime and user-visible outcome evidence do not exist."
+      "reason": "The latest stored receipt still reports the pre-repair freshness failure."
     }
   ],
   "completed_history": [
     {
-      "id": "destination-runner-cycle-1",
-      "title": "First destination-owned evidence cycle",
+      "id": "role-specific-model-installation",
+      "title": "Install role-specific completion model",
       "status": "COMPLETE",
-      "result": "LLM-adapter and Triage executed repository-owned evidence projections without converting incomplete evidence into completion.",
-      "completed_at": "2026-07-21T20:36:12Z",
-      "branch_ids": ["llm-adapter-runner", "triage-runner"]
+      "result": "Repository taxonomy, exit-gate classifier, role-aware roadmap generator, and scheduled workflow integration were installed.",
+      "completed_at": "2026-07-23T18:00:00Z",
+      "branch_ids": ["repository-role-taxonomy", "role-specific-classifier"]
     }
   ],
   "inventory_path": "data/autonomy/public-ecosystem-inventory.json",
