@@ -1,0 +1,63 @@
+{
+  "claim_id": "cacs-claim-stegverse-refusal-001",
+  "claim_text": "The identified build refuses execution when standing is invalid at commit time for the declared test vectors.",
+  "claimant": {
+    "organization": "StegVerse-Labs",
+    "repository": "Site"
+  },
+  "scope": {
+    "standard": "CACS-0.1.0",
+    "implementation": "declared-test-build",
+    "policy_set": "policy-bundle-7",
+    "authority_model": "delegation-model-3",
+    "tested_conditions": [
+      "expired-delegation",
+      "revoked-standing"
+    ]
+  },
+  "assumptions": [
+    "Canonical test inputs are supplied without mutation.",
+    "The declared policy and delegation artifacts are the ones evaluated by the test build."
+  ],
+  "supporting_artifact_refs": [
+    "artifact:formal-specification",
+    "artifact:test-vector-expired-delegation",
+    "artifact:test-vector-revoked-standing",
+    "artifact:execution-receipt",
+    "artifact:replay-log"
+  ],
+  "evidence_dimensions": {
+    "formalized": "ESTABLISHED",
+    "mechanized": "ESTABLISHED",
+    "demonstrated": "ESTABLISHED",
+    "refusal_integrity": "ESTABLISHED",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "ESTABLISHED",
+    "reconstructable": "NOT_ESTABLISHED",
+    "publicly_inspectable": "PARTIAL",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "pilot_observed": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "ESTABLISHED"
+  },
+  "test_refs": [
+    "test:expired-delegation-refusal",
+    "test:revoked-standing-refusal"
+  ],
+  "authority_refs": [],
+  "falsification_conditions": [
+    "Execution occurs after standing is invalid at commit time for either declared test vector.",
+    "Replay using the declared canonical state produces a materially different decision.",
+    "The refusal receipt cannot be linked to the tested transition."
+  ],
+  "not_established": [
+    "Refusal invariance for untested policies or authority models.",
+    "Independent reconstruction of the original authoritative state.",
+    "Independent implementation reproduction.",
+    "Pilot or production assurance."
+  ],
+  "correspondence_status": "supported",
+  "review_refs": [],
+  "timestamp": "2026-07-24T00:00:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
