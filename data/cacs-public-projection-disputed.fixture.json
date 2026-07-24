@@ -1,0 +1,27 @@
+{
+  "projection_id": "cacs-public-projection-disputed-001",
+  "standard": "CACS-0.1.0",
+  "generated_at": "2026-07-24T13:25:00Z",
+  "active_claim": {
+    "claim_id": "cacs-claim-superseding-001",
+    "review_id": "cacs-review-superseding-001",
+    "public_label": "CURRENT_BOUNDED_CLAIM",
+    "claim_text": "The identified build refuses execution when standing is invalid at commit time for the declared test vectors and successor implementation scope.",
+    "correspondence_status": "supported",
+    "lifecycle_state": "active",
+    "evidence_dimensions": {"demonstrated":"ESTABLISHED","reconstructable":"NOT_ESTABLISHED","scope_correspondent":"ESTABLISHED"},
+    "not_established": ["Independent reconstruction.","Independent reproduction.","Pilot or production assurance."],
+    "qualification": ["Current only for the declared successor implementation and test vectors."]
+  },
+  "historical_claims": [
+    {"claim_id":"cacs-claim-disputed-001","public_label":"DISPUTED_HISTORY","reason":"DISPUTED: receipt-to-transition linkage and scope correspondence are not confirmed; this record is not current assurance."},
+    {"claim_id":"cacs-claim-stale-evidence-001","public_label":"STALE_HISTORY","reason":"Stale historical evidence; not current assurance."}
+  ],
+  "suppressed_claims": [
+    {"claim_id":"cacs-claim-withdrawn-001","public_label":"WITHDRAWN_SUPPRESSED","reason":"Withdrawn from active publication."},
+    {"claim_id":"cacs-claim-overstated-001","public_label":"OVERSTATED_QUARANTINED","reason":"Exceeds established evidence."}
+  ],
+  "qualification_rules": ["Disputed evidence remains visibly disputed and cannot be rendered as supported, confirmed, verified, or current assurance.","Raw and human-readable projections preserve the dispute label."],
+  "authority_effect": "NONE",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
