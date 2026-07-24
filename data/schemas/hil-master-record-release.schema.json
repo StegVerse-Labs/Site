@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-master-record-release-v1.json",
+  "title": "HIL Master Record Release",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "experiment_id",
+    "created_at",
+    "primary_version",
+    "primary_sha256",
+    "response_count",
+    "response_records",
+    "previous_release_sha256",
+    "release_sha256",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-MASTER-RECORD-RELEASE-v1"},
+    "release_id": {"type": "string", "pattern": "^HIL-MR-[A-Z0-9-]+$"},
+    "experiment_id": {"const": "HIL-2026"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "primary_version": {"const": "v0.5"},
+    "primary_sha256": {"const": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946"},
+    "response_count": {"type": "integer", "minimum": 0},
+    "response_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "response_id",
+          "submission_id",
+          "response_sha256",
+          "provenance_manifest_sha256",
+          "private_review_receipt_sha256",
+          "publication_record_sha256",
+          "previous_record_sha256",
+          "artifact_path",
+          "published_at"
+        ],
+        "properties": {
+          "response_id": {"type": "string", "pattern": "^HIL-RESP-[A-Z0-9-]+$"},
+          "submission_id": {"type": "string", "minLength": 1},
+          "response_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "provenance_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "private_review_receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "publication_record_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "previous_record_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+          "artifact_path": {"type": "string", "pattern": "^[^/].*\\.pdf$"},
+          "published_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "previous_release_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "release_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["custody_claimed", "execution", "endorsement", "publication_mutation"],
+      "properties": {
+        "custody_claimed": {"const": false},
+        "execution": {"const": false},
+        "endorsement": {"const": false},
+        "publication_mutation": {"const": false}
+      }
+    }
+  }
+}
