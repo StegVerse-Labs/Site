@@ -40,6 +40,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_stegmusic_source_evidence_runtime.py'),
 (sys.executable,'scripts/check_stegmusic_composition_request_receipt.py'),
 (sys.executable,'scripts/check_stegmusic_composition_records_runtime.py'),
+(sys.executable,'scripts/check_stegmusic_song_corpus_builders.py'),
 (sys.executable,'scripts/check_stegmusic_live_verification_contract.py'),
 (sys.executable,'scripts/check_stegmusic_browser_self_test.py'),
 (sys.executable,'scripts/check_stegmusic_browser_automation_contract.py'),
