@@ -1,0 +1,56 @@
+{
+  "claim_id": "cacs-claim-stale-evidence-001",
+  "claim_text": "The identified historical build demonstrated bounded refusal behavior under the declared 2025 policy and authority artifacts.",
+  "claimant": {
+    "organization": "StegVerse-Labs",
+    "repository": "Site"
+  },
+  "scope": {
+    "standard": "CACS-0.1.0",
+    "implementation": "historical-test-build-2025",
+    "policy_set": "policy-bundle-2025",
+    "authority_model": "delegation-model-2025"
+  },
+  "assumptions": [
+    "The historical evidence remains intact but does not represent the current implementation or policy state."
+  ],
+  "supporting_artifact_refs": [
+    "artifact:historical-test-vector",
+    "artifact:historical-execution-receipt",
+    "artifact:historical-replay-log"
+  ],
+  "evidence_dimensions": {
+    "formalized": "ESTABLISHED",
+    "mechanized": "ESTABLISHED",
+    "demonstrated": "ESTABLISHED",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "ESTABLISHED",
+    "reconstructable": "PARTIAL",
+    "publicly_inspectable": "ESTABLISHED",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "ESTABLISHED"
+  },
+  "test_refs": [
+    "test:historical-bounded-refusal"
+  ],
+  "authority_refs": [],
+  "falsification_conditions": [
+    "The historical replay fails against its declared canonical artifacts.",
+    "The claim is presented as evidence for the current build or current policy state."
+  ],
+  "not_established": [
+    "Current implementation behavior.",
+    "Current policy or delegation validity.",
+    "Independent reproduction.",
+    "Pilot or production assurance."
+  ],
+  "correspondence_status": "partially_supported",
+  "review_refs": [
+    "review:cacs-review-stale-evidence-001"
+  ],
+  "timestamp": "2025-01-24T12:10:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "lifecycle_state": "stale",
+  "evidence_valid_through": "2026-01-24T12:10:00Z"
+}
