@@ -1,0 +1,41 @@
+{
+  "review_id": "cacs-review-supported-001",
+  "claim_id": "cacs-claim-stegverse-refusal-001",
+  "reviewer": {
+    "organization": "StegVerse-Labs",
+    "role": "correspondence-reviewer"
+  },
+  "review_scope": {
+    "standard": "CACS-0.1.0",
+    "reviewed_claim_version": "fixture-1",
+    "independent_reproduction": false
+  },
+  "artifact_refs": [
+    "artifact:formal-specification",
+    "artifact:test-vector-expired-delegation",
+    "artifact:test-vector-revoked-standing",
+    "artifact:execution-receipt",
+    "artifact:replay-log"
+  ],
+  "dimension_findings": {
+    "formalized": "CONFIRMED",
+    "mechanized": "CONFIRMED",
+    "demonstrated": "CONFIRMED",
+    "refusal_integrity": "CONFIRMED",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "CONFIRMED",
+    "reconstructable": "NOT_CONFIRMED",
+    "independently_reproduced": "NOT_REVIEWED",
+    "scope_correspondent": "CONFIRMED"
+  },
+  "correspondence_status": "supported",
+  "required_qualifications": [
+    "Limit publication to the declared test vectors and implementation.",
+    "State that reconstruction, independent reproduction, pilot, and production assurance are not established."
+  ],
+  "disposition": "publish_with_qualification",
+  "supersedes_review_id": null,
+  "authority_effect": "NONE",
+  "timestamp": "2026-07-24T00:00:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
