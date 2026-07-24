@@ -1,0 +1,32 @@
+{
+  "claim_id": "cacs-claim-partially-supported-001",
+  "claim_text": "The declared implementation demonstrates refusal for the tested expired-delegation vector, while receipt integrity and reconstruction remain incomplete.",
+  "claimant": {"organization": "StegVerse-Labs", "repository": "Site"},
+  "scope": {"standard": "CACS-0.1.0", "implementation": "partial-evidence-build", "tested_conditions": ["expired-delegation"]},
+  "assumptions": ["The declared test input and implementation are unchanged."],
+  "supporting_artifact_refs": ["artifact:partial-test-vector", "artifact:partial-execution-receipt"],
+  "evidence_dimensions": {
+    "formalized": "ESTABLISHED",
+    "mechanized": "ESTABLISHED",
+    "demonstrated": "ESTABLISHED",
+    "refusal_integrity": "PARTIAL",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "PARTIAL",
+    "reconstructable": "NOT_ESTABLISHED",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "ESTABLISHED"
+  },
+  "test_refs": ["test:partial-expired-delegation-refusal"],
+  "authority_refs": [],
+  "falsification_conditions": ["The declared vector executes despite invalid standing.", "The visible qualification omits incomplete receipt or reconstruction evidence."],
+  "not_established": ["Complete receipt integrity.", "Replay invariance.", "Independent reconstruction.", "Independent reproduction.", "Pilot or production assurance."],
+  "correspondence_status": "partially_supported",
+  "review_refs": ["review:cacs-review-partially-supported-001"],
+  "timestamp": "2026-07-24T13:00:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "lifecycle_state": "active",
+  "supersedes_claim_id": null,
+  "evidence_valid_through": null,
+  "withdrawal_reason": null
+}
