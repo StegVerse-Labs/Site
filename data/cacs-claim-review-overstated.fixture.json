@@ -1,0 +1,40 @@
+{
+  "review_id": "cacs-review-overstated-001",
+  "claim_id": "cacs-claim-overstated-001",
+  "reviewer": {
+    "organization": "StegVerse-Labs",
+    "role": "correspondence-reviewer"
+  },
+  "review_scope": {
+    "standard": "CACS-0.1.0",
+    "reviewed_claim_version": "fixture-1",
+    "independent_reproduction": false
+  },
+  "artifact_refs": [
+    "artifact:test-vector-expired-delegation",
+    "artifact:test-vector-revoked-standing",
+    "artifact:execution-receipt"
+  ],
+  "dimension_findings": {
+    "formalized": "PARTIAL",
+    "mechanized": "CONFIRMED",
+    "demonstrated": "CONFIRMED",
+    "refusal_integrity": "CONFIRMED",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "PARTIAL",
+    "reconstructable": "NOT_CONFIRMED",
+    "independently_reproduced": "NOT_REVIEWED",
+    "production_observed": "NOT_CONFIRMED",
+    "scope_correspondent": "NOT_CONFIRMED"
+  },
+  "correspondence_status": "overstated",
+  "required_qualifications": [
+    "Replace the universal guarantee with a claim limited to the two declared test vectors.",
+    "Disclose that independent reconstruction, reproduction, and production assurance are not established."
+  ],
+  "disposition": "quarantine",
+  "supersedes_review_id": null,
+  "authority_effect": "NONE",
+  "timestamp": "2026-07-24T00:00:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
