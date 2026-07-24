@@ -1,0 +1,28 @@
+{
+  "review_id": "cacs-review-partially-supported-001",
+  "claim_id": "cacs-claim-partially-supported-001",
+  "reviewer": {"organization": "StegVerse-Labs", "role": "correspondence-reviewer"},
+  "review_scope": {"standard": "CACS-0.1.0", "reviewed_claim_version": "partial-1", "independent_reproduction": false},
+  "artifact_refs": ["artifact:partial-test-vector", "artifact:partial-execution-receipt"],
+  "dimension_findings": {
+    "formalized": "CONFIRMED",
+    "mechanized": "CONFIRMED",
+    "demonstrated": "CONFIRMED",
+    "refusal_integrity": "PARTIAL",
+    "receipt_integrity": "PARTIAL",
+    "replay_supported": "PARTIAL",
+    "reconstructable": "NOT_CONFIRMED",
+    "independently_reproduced": "NOT_REVIEWED",
+    "scope_correspondent": "CONFIRMED"
+  },
+  "correspondence_status": "partially_supported",
+  "required_qualifications": [
+    "Label the Claim partially supported, never fully supported.",
+    "State that receipt integrity, replay support, reconstruction, independent reproduction, pilot, and production assurance remain incomplete or unestablished."
+  ],
+  "disposition": "publish_with_qualification",
+  "supersedes_review_id": null,
+  "authority_effect": "NONE",
+  "timestamp": "2026-07-24T13:05:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
+}
