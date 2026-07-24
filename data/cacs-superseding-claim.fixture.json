@@ -1,0 +1,71 @@
+{
+  "claim_id": "cacs-claim-stegverse-refusal-002",
+  "claim_text": "The identified build refuses execution when standing is invalid at commit time for the expanded declared test vectors.",
+  "claimant": {
+    "organization": "StegVerse-Labs",
+    "repository": "Site"
+  },
+  "scope": {
+    "standard": "CACS-0.1.0",
+    "implementation": "declared-test-build-v2",
+    "policy_set": "policy-bundle-8",
+    "authority_model": "delegation-model-3",
+    "tested_conditions": [
+      "expired-delegation",
+      "revoked-standing",
+      "policy-drift-at-commit"
+    ]
+  },
+  "assumptions": [
+    "Canonical test inputs are supplied without mutation.",
+    "The declared policy and delegation artifacts are authoritative for the bounded test execution."
+  ],
+  "supporting_artifact_refs": [
+    "artifact:formal-specification-v2",
+    "artifact:test-vector-expired-delegation",
+    "artifact:test-vector-revoked-standing",
+    "artifact:test-vector-policy-drift",
+    "artifact:execution-receipt-v2",
+    "artifact:replay-log-v2"
+  ],
+  "evidence_dimensions": {
+    "formalized": "ESTABLISHED",
+    "mechanized": "ESTABLISHED",
+    "demonstrated": "ESTABLISHED",
+    "refusal_integrity": "ESTABLISHED",
+    "receipt_integrity": "ESTABLISHED",
+    "replay_supported": "ESTABLISHED",
+    "reconstructable": "PARTIAL",
+    "publicly_inspectable": "ESTABLISHED",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "pilot_observed": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "ESTABLISHED"
+  },
+  "test_refs": [
+    "test:expired-delegation-refusal-v2",
+    "test:revoked-standing-refusal-v2",
+    "test:policy-drift-refusal-v2"
+  ],
+  "authority_refs": [],
+  "falsification_conditions": [
+    "Execution occurs after standing is invalid at commit time for any declared test vector.",
+    "Replay using the declared canonical state produces a materially different decision.",
+    "The refusal receipt cannot be linked to the tested transition."
+  ],
+  "not_established": [
+    "Refusal invariance for untested policies or authority models.",
+    "Complete independent reconstruction of authoritative state.",
+    "Independent implementation reproduction.",
+    "Pilot or production assurance."
+  ],
+  "correspondence_status": "supported",
+  "review_refs": [
+    "review:cacs-review-superseding-001"
+  ],
+  "timestamp": "2026-07-24T12:00:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "lifecycle_state": "active",
+  "supersedes_claim_id": "cacs-claim-stegverse-refusal-001",
+  "evidence_valid_through": "2027-01-24T12:00:00Z"
+}
