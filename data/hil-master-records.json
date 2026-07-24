@@ -1,0 +1,12 @@
+{
+  "schema_version": "HIL-MASTER-RECORD-INDEX-v1",
+  "experiment_id": "HIL-2026",
+  "releases": [],
+  "latest_release_sha256": null,
+  "authority": {
+    "site_index_is_custody": false,
+    "site_index_is_execution_authority": false,
+    "site_index_is_endorsement": false,
+    "site_index_is_publication_mutation_authority": false
+  }
+}
