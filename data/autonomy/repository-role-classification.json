@@ -1,0 +1,1052 @@
+{
+  "assignments": [
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: .github",
+      "repository": "AaCT-E/.github",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: demo",
+      "repository": "AaCT-E/demo",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "AaCT-E/telemetry",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: test",
+      "repository": "Data-Continuation/RTG-Tests",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "Data-Continuation/core-lite",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: test",
+      "repository": "Data-Continuation/formalism-tests",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: gcat",
+      "repository": "GCAT-BCAT-Engine/Documentation",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "GOVERNANCE_ENGINE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: publisher",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: gcat",
+      "repository": "GCAT-BCAT-Engine/StegSim",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "GOVERNANCE_ENGINE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: gcat",
+      "repository": "GCAT-BCAT-Engine/Triage",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "GOVERNANCE_ENGINE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: gcat",
+      "repository": "GCAT-BCAT-Engine/core-lite",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "GOVERNANCE_ENGINE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: gcat",
+      "repository": "GCAT-BCAT-Engine/core-lite-prod",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "GOVERNANCE_ENGINE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: gcat",
+      "repository": "GCAT-BCAT-Engine/workflows",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "GOVERNANCE_ENGINE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-002/core-lite",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: wiki",
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: .github",
+      "repository": "StegVerse-Labs/.github",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/3I-Atlas",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Administrations",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: test",
+      "repository": "StegVerse-Labs/Boundary-Test",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: continuity",
+      "repository": "StegVerse-Labs/Continuity",
+      "required_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "ARCHIVE_OR_CONTINUITY",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/CosDen",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/CrystalWorks",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/DiamondOps-Core",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Epsteinality",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/FREE-DOM",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/FREE-DOM_Books",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Fin-Co-Lab",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Giuffre-ality",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/HEE-Showcase",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/HouseHold",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/HydraSafe",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/JRRZ",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Maxwellality",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Patents",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Randolph_Geneaology_Hub",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/ReactorOps",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/SDE",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "non_authorizing_projection"
+      ],
+      "reason": "repository name matched term: site",
+      "repository": "StegVerse-Labs/Site",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Standing-Proof-Engine",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegBiography",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegCore",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegCustody",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegDJ",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegEntity",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegLearn",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegScholar",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegSocials",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegSports-CFP",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "deployment_or_runtime_configuration",
+        "runtime_observed",
+        "user_visible_outcome_verified",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: stegtalk",
+      "repository": "StegVerse-Labs/StegTalk",
+      "required_exit_gates": [
+        "objective_contract",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "runtime_observed",
+        "user_visible_outcome_verified",
+        "fresh_completion_evidence"
+      ],
+      "role": "RUNTIME_PRODUCT",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/StegVerse-Healer",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Talarico",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Trumpality",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/Value",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/YieldOS",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: wiki",
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: continuity",
+      "repository": "StegVerse-Labs/continuity-vault-kit",
+      "required_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "ARCHIVE_OR_CONTINUITY",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/footprint-auditor",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: bridge",
+      "repository": "StegVerse-Labs/hybrid-collab-bridge",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "LIBRARY_OR_SDK",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-Labs/stegseed",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: wiki",
+      "repository": "StegVerse-Labs/stegtalk-wiki",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: .github",
+      "repository": "StegVerse-org/.github",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: adapter",
+      "repository": "StegVerse-org/LLM-adapter",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "LIBRARY_OR_SDK",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: sdk",
+      "repository": "StegVerse-org/StegVerse-SDK",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "LIBRARY_OR_SDK",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: demo",
+      "repository": "StegVerse-org/demo-sandbox",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: demo",
+      "repository": "StegVerse-org/demo-suite-runner",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: demo",
+      "repository": "StegVerse-org/demo_ingest_engine",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-org/discovery",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-org/manifests",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: demo",
+      "repository": "StegVerse-org/stegverse-demo-suite",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "StegVerse-org/stegverse-gsl",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: master-record",
+      "repository": "master-records/monitoring",
+      "required_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "ARCHIVE_OR_CONTINUITY",
+      "role_exit_gate_complete": false
+    }
+  ],
+  "authority": {
+    "manual_user_action_required": false,
+    "role_assignment_is_completion": false,
+    "role_exit_gate_completion_is_release_authority": false
+  },
+  "inventory_generated_at": "2026-07-24T01:10:09Z",
+  "repository_count": 72,
+  "role_complete_counts": {},
+  "role_counts": {
+    "ARCHIVE_OR_CONTINUITY": 3,
+    "DOCUMENTATION_OR_PROJECTION": 8,
+    "GOVERNANCE_ENGINE": 6,
+    "LIBRARY_OR_SDK": 3,
+    "RUNTIME_PRODUCT": 1,
+    "TEST_OR_FIXTURE": 8,
+    "UNCLASSIFIED": 43
+  },
+  "role_exit_gate_complete": 0,
+  "role_exit_gate_incomplete": 72,
+  "schema_version": "1.0",
+  "taxonomy_path": "data/autonomy/repository-role-taxonomy.json"
+}

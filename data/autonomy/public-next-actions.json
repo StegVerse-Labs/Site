@@ -1,1137 +1,1010 @@
 {
-  "action_count": 71,
+  "action_count": 72,
   "actions": [
     {
-      "action": "repair stale or invalid completion evidence and rerun verification",
-      "action_id": "public-remediate:StegVerse-org:LLM-adapter",
-      "classification": "IMPLEMENTATION_INSTALLED_ACTIVATION_UNVERIFIED",
+      "action": "satisfy role-specific exit gates: objective_contract, deployment_or_runtime_configuration, runtime_observed, user_visible_outcome_verified, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:StegTalk",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "critical_blockers_zero",
+        "objective_contract",
+        "deployment_or_runtime_configuration",
         "runtime_observed",
-        "user_outcome_verified"
+        "user_visible_outcome_verified",
+        "fresh_completion_evidence"
       ],
       "priority": 1,
-      "repository": "StegVerse-org/LLM-adapter",
+      "repository": "StegVerse-Labs/StegTalk",
+      "repository_role": "RUNTIME_PRODUCT",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:Triage",
-      "classification": "PARTIAL",
+      "action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:Continuity",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Continuity",
+      "repository_role": "ARCHIVE_OR_CONTINUITY",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:continuity-vault-kit",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/continuity-vault-kit",
+      "repository_role": "ARCHIVE_OR_CONTINUITY",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:master-records:monitoring",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "master-records/monitoring",
+      "repository_role": "ARCHIVE_OR_CONTINUITY",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:AaCT-E:.github",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "AaCT-E/.github",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:Publisher",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:StegVerse-002:stegguardian-wiki",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:.github",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/.github",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: non_authorizing_projection",
+      "action_id": "role-remediate:StegVerse-Labs:Site",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "non_authorizing_projection"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Site",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:admissibility-wiki",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:stegtalk-wiki",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/stegtalk-wiki",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
+      "action_id": "role-remediate:StegVerse-org:.github",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-org/.github",
+      "repository_role": "DOCUMENTATION_OR_PROJECTION",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:Documentation",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "GCAT-BCAT-Engine/Documentation",
+      "repository_role": "GOVERNANCE_ENGINE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:StegSim",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "GCAT-BCAT-Engine/StegSim",
+      "repository_role": "GOVERNANCE_ENGINE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:Triage",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
       ],
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/Triage",
+      "repository_role": "GOVERNANCE_ENGINE",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:CosDen",
-      "classification": "PARTIAL",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:core-lite",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
+        "objective_contract",
         "machine_validation_workflow",
-        "objective_contract"
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
       ],
       "priority": 2,
-      "repository": "StegVerse-Labs/CosDen",
+      "repository": "GCAT-BCAT-Engine/core-lite",
+      "repository_role": "GOVERNANCE_ENGINE",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegTalk",
-      "classification": "PARTIAL",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:core-lite-prod",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
       ],
       "priority": 2,
-      "repository": "StegVerse-Labs/StegTalk",
+      "repository": "GCAT-BCAT-Engine/core-lite-prod",
+      "repository_role": "GOVERNANCE_ENGINE",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:hybrid-collab-bridge",
-      "classification": "PARTIAL",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:GCAT-BCAT-Engine:workflows",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "GCAT-BCAT-Engine/workflows",
+      "repository_role": "GOVERNANCE_ENGINE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:hybrid-collab-bridge",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
       ],
       "priority": 2,
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
+      "repository_role": "LIBRARY_OR_SDK",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:StegVerse-SDK",
-      "classification": "PARTIAL",
+      "action": "satisfy role-specific exit gates: package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-org:LLM-adapter",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-org/LLM-adapter",
+      "repository_role": "LIBRARY_OR_SDK",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, package_or_integration_evidence, downstream_use_or_compatibility_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-org:StegVerse-SDK",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "package_or_integration_evidence",
+        "downstream_use_or_compatibility_evidence",
+        "fresh_completion_evidence"
       ],
       "priority": 2,
       "repository": "StegVerse-org/StegVerse-SDK",
+      "repository_role": "LIBRARY_OR_SDK",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:demo-suite-runner",
-      "classification": "PARTIAL",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:AaCT-E:demo",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "objective_contract"
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "priority": 2,
+      "repository": "AaCT-E/demo",
+      "repository_role": "TEST_OR_FIXTURE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:Data-Continuation:RTG-Tests",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "priority": 2,
+      "repository": "Data-Continuation/RTG-Tests",
+      "repository_role": "TEST_OR_FIXTURE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:Data-Continuation:formalism-tests",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "priority": 2,
+      "repository": "Data-Continuation/formalism-tests",
+      "repository_role": "TEST_OR_FIXTURE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:Boundary-Test",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Boundary-Test",
+      "repository_role": "TEST_OR_FIXTURE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:StegVerse-org:demo-sandbox",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-org/demo-sandbox",
+      "repository_role": "TEST_OR_FIXTURE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, reproducible_test_evidence",
+      "action_id": "role-remediate:StegVerse-org:demo-suite-runner",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "reproducible_test_evidence"
       ],
       "priority": 2,
       "repository": "StegVerse-org/demo-suite-runner",
+      "repository_role": "TEST_OR_FIXTURE",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:AaCT-E:.github",
-      "classification": "SCAFFOLD_ONLY",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:StegVerse-org:demo_ingest_engine",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
+        "objective_contract",
         "machine_validation_workflow",
-        "objective_contract"
+        "reproducible_test_evidence"
       ],
-      "priority": 3,
-      "repository": "AaCT-E/.github",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:AaCT-E:demo",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "AaCT-E/demo",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:AaCT-E:telemetry",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "AaCT-E/telemetry",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:Data-Continuation:RTG-Tests",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "Data-Continuation/RTG-Tests",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:Data-Continuation:core-lite",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "Data-Continuation/core-lite",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:Data-Continuation:formalism-tests",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "Data-Continuation/formalism-tests",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:Documentation",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "GCAT-BCAT-Engine/Documentation",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:Publisher",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "GCAT-BCAT-Engine/Publisher",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:StegSim",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "GCAT-BCAT-Engine/StegSim",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:core-lite",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "GCAT-BCAT-Engine/core-lite",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:core-lite-prod",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "GCAT-BCAT-Engine/core-lite-prod",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:GCAT-BCAT-Engine:workflows",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "GCAT-BCAT-Engine/workflows",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-002:core-lite",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-002/core-lite",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-002:stegguardian-wiki",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-002/stegguardian-wiki",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:.github",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/.github",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:3I-Atlas",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/3I-Atlas",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Administrations",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Administrations",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Boundary-Test",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Boundary-Test",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Continuity",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Continuity",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:CrystalWorks",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/CrystalWorks",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:DiamondOps-Core",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/DiamondOps-Core",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Epsteinality",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Epsteinality",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Executive_Rhetoric_Ledger",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:FREE-DOM",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/FREE-DOM",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:FREE-DOM_Books",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/FREE-DOM_Books",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Fin-Co-Lab",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Fin-Co-Lab",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Giuffre-ality",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Giuffre-ality",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:HEE-Showcase",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/HEE-Showcase",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:HouseHold",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/HouseHold",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:HydraSafe",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/HydraSafe",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:JRRZ",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/JRRZ",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Maxwellality",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Maxwellality",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Patents",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Patents",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Randolph_Geneaology_Hub",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Randolph_Geneaology_Hub",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:ReactorOps",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/ReactorOps",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:SDE",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/SDE",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Standing-Proof-Engine",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Standing-Proof-Engine",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegBiography",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegBiography",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegCore",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegCore",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegCustody",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegCustody",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegDJ",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegDJ",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegEntity",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegEntity",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegLearn",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegLearn",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegScholar",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegScholar",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegSocials",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegSocials",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegSports-CFP",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/StegSports-CFP",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Talarico",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Talarico",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Trumpality",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Trumpality",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:Value",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/Value",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:YieldOS",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/YieldOS",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:admissibility-wiki",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/admissibility-wiki",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:continuity-vault-kit",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/continuity-vault-kit",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:footprint-auditor",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/footprint-auditor",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:stegseed",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/stegseed",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:stegtalk-wiki",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-Labs/stegtalk-wiki",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:.github",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-org/.github",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:demo-sandbox",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-org/demo-sandbox",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:demo_ingest_engine",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
+      "priority": 2,
       "repository": "StegVerse-org/demo_ingest_engine",
+      "repository_role": "TEST_OR_FIXTURE",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:discovery",
-      "classification": "SCAFFOLD_ONLY",
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "action_id": "role-remediate:StegVerse-org:stegverse-demo-suite",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
+        "objective_contract",
         "machine_validation_workflow",
-        "objective_contract"
+        "reproducible_test_evidence"
       ],
-      "priority": 3,
-      "repository": "StegVerse-org/discovery",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:manifests",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
-      "repository": "StegVerse-org/manifests",
-      "status": "READY"
-    },
-    {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:stegverse-demo-suite",
-      "classification": "SCAFFOLD_ONLY",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "priority": 3,
+      "priority": 2,
       "repository": "StegVerse-org/stegverse-demo-suite",
+      "repository_role": "TEST_OR_FIXTURE",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-org:stegverse-gsl",
-      "classification": "SCAFFOLD_ONLY",
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:AaCT-E:telemetry",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
+        "repository_role_determination"
       ],
-      "priority": 3,
-      "repository": "StegVerse-org/stegverse-gsl",
+      "priority": 2,
+      "repository": "AaCT-E/telemetry",
+      "repository_role": "UNCLASSIFIED",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:master-records:monitoring",
-      "classification": "SCAFFOLD_ONLY",
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:Data-Continuation:core-lite",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
+        "repository_role_determination"
       ],
-      "priority": 3,
-      "repository": "master-records/monitoring",
+      "priority": 2,
+      "repository": "Data-Continuation/core-lite",
+      "repository_role": "UNCLASSIFIED",
       "status": "READY"
     },
     {
-      "action": "derive and install an outcome-level objective contract",
-      "action_id": "public-remediate:StegVerse-Labs:StegVerse-Healer",
-      "classification": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-002:core-lite",
       "machine_owned": true,
       "manual_user_action_required": false,
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
+        "repository_role_determination"
       ],
-      "priority": 4,
+      "priority": 2,
+      "repository": "StegVerse-002/core-lite",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:3I-Atlas",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/3I-Atlas",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Administrations",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Administrations",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:CosDen",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/CosDen",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:CrystalWorks",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/CrystalWorks",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:DiamondOps-Core",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/DiamondOps-Core",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Epsteinality",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Epsteinality",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Executive_Rhetoric_Ledger",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:FREE-DOM",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/FREE-DOM",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:FREE-DOM_Books",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/FREE-DOM_Books",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Fin-Co-Lab",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Fin-Co-Lab",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Giuffre-ality",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Giuffre-ality",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:HEE-Showcase",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/HEE-Showcase",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:HouseHold",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/HouseHold",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:HydraSafe",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/HydraSafe",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:JRRZ",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/JRRZ",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Maxwellality",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Maxwellality",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Patents",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Patents",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Randolph_Geneaology_Hub",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Randolph_Geneaology_Hub",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:ReactorOps",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/ReactorOps",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:SDE",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/SDE",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Standing-Proof-Engine",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Standing-Proof-Engine",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegBiography",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegBiography",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegCore",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegCore",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegCustody",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegCustody",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegDJ",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegDJ",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegEntity",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegEntity",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegLearn",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegLearn",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegScholar",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegScholar",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegSocials",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegSocials",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegSports-CFP",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/StegSports-CFP",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:StegVerse-Healer",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
       "repository": "StegVerse-Labs/StegVerse-Healer",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Talarico",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Talarico",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Trumpality",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Trumpality",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:Value",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/Value",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:YieldOS",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/YieldOS",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:footprint-auditor",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/footprint-auditor",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-Labs:stegseed",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/stegseed",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-org:discovery",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-org/discovery",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-org:manifests",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-org/manifests",
+      "repository_role": "UNCLASSIFIED",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: repository_role_determination",
+      "action_id": "role-remediate:StegVerse-org:stegverse-gsl",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "repository_role_determination"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-org/stegverse-gsl",
+      "repository_role": "UNCLASSIFIED",
       "status": "READY"
     }
   ],
+  "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-21T14:18:45Z",
-  "schema_version": "1.0"
+  "generated_at": "2026-07-24T01:10:09Z",
+  "schema_version": "1.1"
 }

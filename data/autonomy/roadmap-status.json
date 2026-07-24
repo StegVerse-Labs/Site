@@ -1,101 +1,101 @@
 {
-  "schema_version": "1.6",
+  "schema_version": "1.5",
   "generated_from": "data/autonomy/live-status.json",
   "runtime_evidence_source": "data/autonomy/runtime-verification-evidence.json",
   "repository_role_taxonomy_source": "data/autonomy/repository-role-taxonomy.json",
   "repository_role_report_source": "data/autonomy/repository-role-classification.json",
-  "source_generated_at": "2026-07-23T18:00:00Z",
+  "source_generated_at": "2026-07-24T01:10:13.211285Z",
   "overall_state": "IN_PROGRESS",
   "governing_task": "StegVerse-Labs/StegOps-Orchestrator/issues/7",
   "manual_user_action_required": false,
-  "status_model": ["implementation", "operation", "evidence", "exit_gate"],
+  "status_model": [
+    "implementation",
+    "operation",
+    "evidence",
+    "exit_gate"
+  ],
   "repository_role_summary": {
     "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
-    "taxonomy_installed": true,
-    "classifier_installed": true,
-    "workflow_integration_installed": true,
-    "first_role_aware_cycle_observed": false,
-    "last_observed_repositories_under_old_model": 72,
-    "last_observed_actions_under_old_model": 71
+    "repositories": 72,
+    "role_exit_gate_complete": 0,
+    "role_exit_gate_incomplete": 72,
+    "role_counts": {
+      "ARCHIVE_OR_CONTINUITY": 3,
+      "DOCUMENTATION_OR_PROJECTION": 8,
+      "GOVERNANCE_ENGINE": 6,
+      "LIBRARY_OR_SDK": 3,
+      "RUNTIME_PRODUCT": 1,
+      "TEST_OR_FIXTURE": 8,
+      "UNCLASSIFIED": 43
+    }
   },
   "phases": [
     {
       "id": "truth-layer",
-      "title": "Phase 1 — Truth layer",
+      "title": "Phase 1 \u2014 Truth layer",
       "implementation": "COMPLETE",
-      "operation": "ROLE_AWARE_RESCAN_PENDING",
-      "evidence": "ROLE_MODEL_INSTALLED",
-      "exit_gate": "INCOMPLETE",
-      "progress_percent": 94,
+      "operation": "COMPLETE",
+      "evidence": "ROLE_SPECIFIC",
+      "exit_gate": "COMPLETE",
+      "progress_percent": 100,
       "completed": [
         "public inventory machinery",
         "objective and evidence inspection",
         "repository-role taxonomy",
-        "role-specific exit-gate definitions",
-        "role-aware classifier",
-        "role-aware roadmap generator",
-        "scheduled role-aware cycle integration"
+        "role-specific exit-gate model",
+        "role-aware action generation"
       ],
-      "remaining": [
-        "execute and persist the first role-aware ecosystem rescan",
-        "persist repository role assignments and role-specific exit-gate results",
-        "replace the older role-neutral remediation queue"
-      ],
-      "blockers": [
-        "the last observed 72-repository inventory and 71-action queue were generated before the role-specific model was active"
-      ]
+      "remaining": [],
+      "blockers": []
     },
     {
       "id": "execution-layer",
-      "title": "Phase 2 — Execution layer",
+      "title": "Phase 2 \u2014 Execution layer",
       "implementation": "ADVANCED",
       "operation": "PARTIAL",
-      "evidence": "ROLE_AWARE_PLANNER_INSTALLED",
+      "evidence": "ROLE_AWARE",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 66,
       "completed": [
-        "bounded Site-owned dispatch",
-        "deny-by-default cross-repository routing",
-        "role-aware remediation planner",
-        "destination-owned LLM-adapter runner",
-        "destination-owned Triage runner"
+        "bounded Site dispatch",
+        "deny-by-default external routing",
+        "role-aware remediation planning"
       ],
       "remaining": [
-        "regenerate the queue under role-specific exit gates",
+        "execute the regenerated role-specific action queue",
         "install only the destination runners required by each repository role",
-        "execute role-specific remediations",
         "automatic convergence after destination evidence changes"
       ],
       "blockers": [
-        "the old queue likely contains runtime-only tasks that do not apply to documentation, archive, fixture, library, or organizational repositories"
+        "71 actions remain in the last persisted queue; the next role-aware cycle may materially reduce this count"
       ]
     },
     {
       "id": "runtime-verification-layer",
-      "title": "Phase 3 — Runtime verification layer",
+      "title": "Phase 3 \u2014 Runtime verification layer",
       "implementation": "COMPLETE",
       "operation": "REPAIR_INSTALLED_RESULT_PENDING",
       "evidence": "RECORDED_FAILURE_AND_REPAIR",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 68,
       "completed": [
-        "Site endpoint checks",
+        "endpoint checks",
         "mobile-browser checks",
-        "machine-mode verification",
+        "machine-mode checks",
         "cadence-aware freshness policy",
         "role-scoped runtime requirement"
       ],
       "remaining": [
-        "observe a corrected Site runtime PASS receipt",
-        "require user-facing runtime evidence only for runtime-bearing repository roles"
+        "observe a new Site runtime PASS receipt",
+        "verify runtime only for repositories assigned a runtime-bearing role"
       ],
       "blockers": [
-        "the latest persisted Site receipt still reports 6 of 7 checks passing with freshness failed"
+        "latest Site runtime evidence: 5 of 7 required checks passed"
       ]
     },
     {
       "id": "governance-layer",
-      "title": "Phase 4 — Governance layer",
+      "title": "Phase 4 \u2014 Governance layer",
       "implementation": "ADVANCED",
       "operation": "PARTIAL",
       "evidence": "ROLE_SPECIFIC",
@@ -105,30 +105,29 @@
         "fail-closed classification",
         "repository-scoped mutation authority",
         "role-specific admissibility boundaries",
-        "non-runtime repositories no longer fail runtime-product-only gates",
-        "role assignment separated from completion and release authority"
+        "non-runtime repositories no longer fail runtime-only gates"
       ],
       "remaining": [
-        "automatic downgrade when role evidence changes",
+        "automatic role-assignment downgrade when evidence changes",
         "successor eligibility by repository role",
         "cross-repository admissibility completion"
       ],
       "blockers": [
-        "the first machine-produced role assignment and exit-gate report has not yet been persisted"
+        "72 repositories remain incomplete against their own role-specific exit gates"
       ]
     },
     {
       "id": "continuity-layer",
-      "title": "Phase 5 — Continuity layer",
+      "title": "Phase 5 \u2014 Continuity layer",
       "implementation": "PARTIAL",
       "operation": "PARTIAL",
       "evidence": "PARTIAL",
       "exit_gate": "INCOMPLETE",
       "progress_percent": 46,
       "completed": [
-        "Site mirror handoff",
+        "Site handoff",
         "generated-state preservation",
-        "distinct archive and continuity repository exit model"
+        "continuity repositories now have a distinct custody and reconstruction exit model"
       ],
       "remaining": [
         "human-readable ecosystem map",
@@ -138,7 +137,7 @@
         "durable ecosystem master record"
       ],
       "blockers": [
-        "ecosystem-wide continuity records remain incomplete"
+        "ecosystem-wide continuity packet remains incomplete"
       ]
     }
   ],
@@ -149,7 +148,6 @@
     "missing_runtime_evidence_blocks_only_runtime_products": true,
     "role_exit_gate_completion_is_release_authority": false,
     "runtime_check_pass_is_overall_completion": false,
-    "stale_role_neutral_queue_is_current_truth": false,
     "exit_gate_requires_machine_verifiable_role_specific_evidence": true
   }
 }

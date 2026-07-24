@@ -24,8 +24,9 @@
     },
     {
       "id": "freshness",
-      "max_age_minutes": 90,
+      "max_age_minutes": 180,
       "path": "generated_at",
+      "policy_path": "data/autonomy/freshness-policy.json",
       "required": true,
       "type": "json-field"
     },
@@ -64,7 +65,8 @@
     }
   ],
   "completion_effect": "NONE_UNTIL_EXECUTED",
-  "generated_at": "2026-07-21T14:18:45Z",
+  "freshness_policy_path": "data/autonomy/freshness-policy.json",
+  "generated_at": "2026-07-24T01:10:09Z",
   "objective_id": "site-public-autonomy-observability",
   "repository": "StegVerse-Labs/Site",
   "schema_version": "1.1"
