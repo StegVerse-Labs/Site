@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/cacs-public-projection.schema.json",
+  "title": "CACS Public Projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["projection_id","standard","generated_at","active_claim","historical_claims","suppressed_claims","qualification_rules","authority_effect","hash"],
+  "properties": {
+    "projection_id": {"type":"string","minLength":1},
+    "standard": {"const":"CACS-0.1.0"},
+    "generated_at": {"type":"string","format":"date-time"},
+    "active_claim": {
+      "type":"object","additionalProperties":false,
+      "required":["claim_id","review_id","public_label","claim_text","correspondence_status","lifecycle_state","evidence_dimensions","not_established","qualification"],
+      "properties": {
+        "claim_id":{"type":"string"},"review_id":{"type":"string"},"public_label":{"const":"CURRENT_BOUNDED_CLAIM"},
+        "claim_text":{"type":"string"},"correspondence_status":{"enum":["supported","partially_supported"]},
+        "lifecycle_state":{"const":"active"},"evidence_dimensions":{"type":"object"},
+        "not_established":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "qualification":{"type":"array","minItems":1,"items":{"type":"string"}}
+      }
+    },
+    "historical_claims":{"type":"array","items":{"type":"object","required":["claim_id","public_label","reason"],"properties":{"claim_id":{"type":"string"},"public_label":{"enum":["SUPERSEDED_HISTORY","STALE_HISTORY","DISPUTED_HISTORY"]},"reason":{"type":"string"}}}},
+    "suppressed_claims":{"type":"array","items":{"type":"object","required":["claim_id","public_label","reason"],"properties":{"claim_id":{"type":"string"},"public_label":{"enum":["WITHDRAWN_SUPPRESSED","OVERSTATED_QUARANTINED","UNSUPPORTED_QUARANTINED"]},"reason":{"type":"string"}}}},
+    "qualification_rules":{"type":"array","minItems":1,"items":{"type":"string"}},
+    "authority_effect":{"const":"NONE"},
+    "hash":{"type":"string","minLength":1}
+  }
+}
