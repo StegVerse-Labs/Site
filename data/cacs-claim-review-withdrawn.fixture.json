@@ -1,0 +1,29 @@
+{
+  "review_id": "cacs-review-withdrawn-001",
+  "claim_id": "cacs-claim-withdrawn-001",
+  "reviewer": {
+    "organization": "StegVerse-Labs",
+    "role": "correspondence-review"
+  },
+  "review_scope": {
+    "standard": "CACS-0.1.0",
+    "purpose": "withdrawal-validation"
+  },
+  "artifact_refs": [
+    "artifact:retired-preview-receipt"
+  ],
+  "dimension_findings": {
+    "scope_correspondent": "NOT_CONFIRMED",
+    "receipt_integrity": "NOT_CONFIRMED",
+    "reconstructable": "NOT_CONFIRMED"
+  },
+  "correspondence_status": "withdrawn",
+  "required_qualifications": [
+    "The withdrawn claim must not be presented as active or supported.",
+    "Historical display must include the withdrawal reason and authority-effect boundary."
+  ],
+  "disposition": "withdraw",
+  "timestamp": "2026-07-24T12:20:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "authority_effect": "NONE"
+}
