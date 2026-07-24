@@ -2,11 +2,11 @@
 
 ## Source of truth
 
-This file is the current continuation record for the Claim–Artifact Correspondence Standard work in `StegVerse-Labs/Site`. It is subordinate to `docs/SITE_MIRROR_HANDOFF.md` for the Site activation goal and must not alter that goal's authority or release posture.
+This file is the current continuation record for the Claim–Artifact Correspondence Standard work in `StegVerse-Labs/Site`. It is subordinate to `docs/SITE_MIRROR_HANDOFF.md` and does not alter Site activation, execution, publication, custody, admissibility, or release authority.
 
 ## Goal
 
-Create a normative and machine-readable standard that prevents claims from exceeding the evidence actually produced at a declared scope.
+Create a normative, machine-readable, lifecycle-aware standard that prevents public claims from exceeding the evidence actually produced at a declared scope.
 
 ## Implemented files
 
@@ -14,6 +14,7 @@ Create a normative and machine-readable standard that prevents claims from excee
 docs/CLAIM_ARTIFACT_CORRESPONDENCE_STANDARD.md
 schemas/cacs-claim.schema.json
 schemas/cacs-claim-review.schema.json
+schemas/cacs-public-projection.schema.json
 data/cacs-claim.fixture.json
 data/cacs-overstated-claim.fixture.json
 data/cacs-superseding-claim.fixture.json
@@ -24,7 +25,11 @@ data/cacs-claim-review-overstated.fixture.json
 data/cacs-claim-review-superseding.fixture.json
 data/cacs-claim-review-withdrawn.fixture.json
 data/cacs-claim-review-stale-evidence.fixture.json
+data/cacs-public-projection.fixture.json
 scripts/check_cacs_claims.py
+scripts/check_cacs_public_projection.py
+cacs-claims.html
+assets/cacs-claims.js
 scripts/check_ecosystem_chat_application.py
 docs/CACS_MIRROR_HANDOFF.md
 ```
@@ -32,33 +37,23 @@ docs/CACS_MIRROR_HANDOFF.md
 ## Implemented behavior
 
 ```text
-Normative claim-artifact correspondence rule
-Governed Claim object definition
-Governed Claim Review object definition
+Normative Claim–Artifact correspondence rule
+Governed Claim and Claim Review objects
 Mandatory not_established boundary
 Multidimensional evidence profile
-Artifact-class permitted-conclusion boundaries
-Scope declaration requirements
-Falsification obligations
-Correspondence review outcomes
-Fail-closed public labeling rule
-StegVerse authority-boundary integration
-Draft JSON Schema for Claim objects
-Draft JSON Schema for Claim Review objects
-Bounded supported Claim fixture
-Overstated Claim negative fixture
-Superseding Claim lifecycle fixture
-Withdrawn Claim lifecycle fixture
-Stale-evidence Claim lifecycle fixture
-Supported, overstated, superseding, withdrawn, and stale Claim Review fixtures
-Dependency-free structural, semantic, and lifecycle validator
-Stable Claim-to-Claim-Review linkage validation
-Overstated-claim quarantine validation
-Closed supersession-reference validation
-Withdrawal reason and withdrawal disposition validation
-Evidence-valid-through expiration validation
-Stale-evidence qualified-publication validation
-CACS validator bound into canonical Site application validation
+Scope and falsification obligations
+Supported, overstated, superseding, withdrawn, and stale lifecycle vectors
+Closed succession-chain and withdrawal validation
+Stale-evidence qualification validation
+Fail-closed public projection schema and fixture
+Exactly one current bounded Claim projection
+Superseded and stale historical projection
+Withdrawn and overstated active-publication suppression
+Stable Claim and Review identifiers
+Synchronized human-readable and raw governed views
+Fail-closed browser behavior when the projection packet is unavailable
+Dependency-free structural, semantic, lifecycle, and projection validators
+Both CACS validators bound into canonical Site application validation
 ```
 
 ## Current posture
@@ -66,128 +61,130 @@ CACS validator bound into canonical Site application validation
 ```text
 Standard status: DRAFT
 Version: 0.1.0
-Machine-readable Claim schema: IMPLEMENTED
-Machine-readable Claim Review schema: IMPLEMENTED
-Supported fixture: IMPLEMENTED
-Overstated fixture: IMPLEMENTED
-Supersession vector: IMPLEMENTED
-Withdrawal vector: IMPLEMENTED
-Stale-evidence vector: IMPLEMENTED
-Dependency-free validator: IMPLEMENTED
+Claim schema: IMPLEMENTED
+Claim Review schema: IMPLEMENTED
+Public projection schema: IMPLEMENTED
+Lifecycle fixtures: IMPLEMENTED
+Claim lifecycle validator: IMPLEMENTED
+Public projection validator: IMPLEMENTED
+Human/raw synchronized projection: IMPLEMENTED
 Canonical application validation binding: IMPLEMENTED; CI OBSERVATION PENDING
+Public browser execution: NOT YET OBSERVED
 Independent correspondence reproduction: NOT YET OBSERVED
-Human/raw claim projection: NOT YET IMPLEMENTED
-Public qualification renderer: NOT YET IMPLEMENTED
 Cryptographic hash/signature contract: NOT YET IMPLEMENTED
 Publisher projection: NOT YET IMPLEMENTED
 Admissibility projection: NOT YET IMPLEMENTED
 Guardian projection: NOT YET IMPLEMENTED
+Master-Records custody: NOT YET IMPLEMENTED
 Authority effect: NONE
 Release authorization: NONE
 ```
 
+## Public projection contract
+
+The canonical packet is `data/cacs-public-projection.fixture.json`. Human-readable and raw governed views resolve to this same packet through `cacs-claims.html` and `assets/cacs-claims.js`.
+
+```text
+CURRENT_BOUNDED_CLAIM
+- active lifecycle only
+- supported or partially supported only
+- scope_correspondent = ESTABLISHED
+- mandatory not_established boundaries
+- mandatory visible qualifications
+
+HISTORICAL
+- SUPERSEDED_HISTORY
+- STALE_HISTORY
+- DISPUTED_HISTORY
+
+SUPPRESSED FROM ACTIVE PUBLICATION
+- WITHDRAWN_SUPPRESSED
+- OVERSTATED_QUARANTINED
+- UNSUPPORTED_QUARANTINED
+```
+
+A projection selection is not publication authorization. A browser render is not custody. A public label is not proof. A preview hash is not cryptographic verification. A review disposition grants no execution, publication, custody, admissibility, or release authority.
+
 ## Validation contract
 
-`scripts/check_cacs_claims.py` verifies:
+`scripts/check_cacs_claims.py` validates Claim and Review structure, evidence vocabularies, bounded support, negative overstatement, stable references, succession chains, withdrawal handling, stale evidence, and lifecycle dispositions.
+
+`scripts/check_cacs_public_projection.py` validates:
 
 ```text
-required Claim and Claim Review fields
-closed governed fixture shapes
-allowed correspondence, lifecycle, finding, and disposition vocabularies
-mandatory scope_correspondent dimension
-mandatory falsification conditions
-mandatory not_established boundaries
-bounded supported-claim correspondence
-universal or overbroad assertion detection for the negative vector
-overstated status and quarantine disposition
-stable Claim-to-Claim-Review references
-unique claim_id and review_id values
-authority_effect = NONE for reviews
-known and non-self-referential supersession targets
-newer timestamps for superseding Claims and Reviews
-single active successor per superseded Claim
-active lifecycle for successor Claims
-withdrawn status, reason, and review disposition
-expired evidence_valid_through for stale Claims
-qualified-publication disposition for stale evidence
-visible historical, stale, or expired qualification language
-required positive, negative, supersession, withdrawal, and stale vectors
+closed public packet shape
+authority_effect = NONE
+one current active bounded Claim
+scope correspondence for current publication
+mandatory non-claims and qualifications
+required superseded and stale historical classes
+required withdrawn and overstated suppression classes
+no Claim appearing in multiple projection classes
+presence of synchronized human/raw Site surfaces
+renderer consumption of active, historical, and suppressed packet sections
 ```
 
-The validator uses a fixed validation instant for deterministic stale-evidence fixtures. This test clock is a fixture mechanism and is not runtime time authority. Local implementation and aggregate binding do not constitute observed CI execution, independent reproduction, publication approval, custody, or release authority.
-
-## Public lifecycle rules established
-
-```text
-A superseded Claim remains historical evidence but is not the active public Claim.
-A successor must identify the exact Claim it supersedes.
-A Claim cannot supersede itself or an unknown Claim.
-Two active successors cannot silently claim the same predecessor.
-A withdrawn Claim cannot be actively published as supported.
-Historical display of a withdrawn Claim must expose the withdrawal reason.
-Expired evidence may remain inspectable only with explicit stale or historical qualification.
-Stale historical evidence cannot establish current implementation, policy, delegation, pilot, or production assurance.
-A review disposition does not grant execution, publication, custody, admissibility, or release authority.
-```
+Local implementation and aggregate binding do not constitute observed CI passage, public deployment, independent reproduction, custody, downstream ingestion, or release authority.
 
 ## Remaining work by destination
 
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Observe CACS validation in canonical application CI
-Add machine-readable public projection packet and fail-closed renderer rules
-Expose synchronized human-readable and raw governed Claim projections
-Add dispute and supersession-chain display behavior
-Add cryptographic hash and signature contract without treating preview markers as proof
-Add invalid lifecycle vectors for regression rejection
+Observe both CACS validators in canonical application CI
+Observe cacs-claims.html browser execution after deployment
+Add invalid public-projection regression fixtures
+Add disputed and partially-supported projection vectors
+Add cryptographic canonicalization, hash, and signature contract
+Add navigation from the primary governed Site surfaces
 Update docs/SITE_MIRROR_HANDOFF.md after machine verification
 ```
 
 Destination `GCAT-BCAT-Engine/Publisher`:
 
 ```text
-Add claim publication projection
+Create or verify *_MIRROR_HANDOFF.md before mutation
+Consume only machine-validated CACS Site projection packets
 Render evidence dimensions and not_established boundaries
-Reject or visibly qualify unsupported, overstated, stale, withdrawn, or disputed Claims
-Render only the active Claim as current while preserving superseded history
-Preserve stable Claim and Review identifiers
-Consume only machine-validated Site projection packets
+Publish only the active bounded Claim as current
+Preserve superseded and stale history with visible qualification
+Suppress or quarantine withdrawn, unsupported, and overstated Claims
+Preserve stable Claim, Review, and projection identifiers
 ```
 
 Destination `StegVerse-Labs/admissibility-wiki`:
 
 ```text
-Document claim admissibility separately from execution admissibility
-Define correspondence and lifecycle status interpretation
-Preserve review authority boundaries
-Document that Claim review does not grant execution authority
+Create or verify *_MIRROR_HANDOFF.md before mutation
+Document Claim admissibility separately from execution admissibility
+Define correspondence and lifecycle interpretations
+Preserve review and publication authority boundaries
 ```
 
 Destination `StegVerse-002/stegguardian-wiki`:
 
 ```text
-Document guardian review and dispute roles
-Define Claim quarantine, withdrawal, stale-evidence, and supersession handling
-Prevent review status from granting execution or publication authority
+Create or verify *_MIRROR_HANDOFF.md before mutation
+Document reviewer, dispute, quarantine, withdrawal, stale-evidence, and supersession roles
+Prevent review state from granting execution or publication authority
 ```
 
 Potential later destination `master-records/orchestration`:
 
 ```text
-Custody canonical Claim and Claim Review objects
-Validate hashes, signatures, references, and supersession chains
+Custody canonical Claim, Claim Review, and public projection objects
+Validate canonical hashes, signatures, references, and succession chains
 Return reconstruction receipts without granting claim validity or execution authority
 ```
 
 ## Next executable step
 
-Create a machine-readable CACS public projection fixture and validator contract that selects the active Claim, preserves superseded history, suppresses active publication of withdrawn Claims, and visibly qualifies stale, partially supported, disputed, or overstated records. Then expose the same packet through synchronized human-readable and raw governed Site views.
+Add invalid projection regression vectors for duplicate classification, withdrawn-current selection, unqualified stale publication, and unsupported-current selection. Extend `scripts/check_cacs_public_projection.py` so each invalid packet is deterministically rejected. Then create the Publisher-bound projection handoff only after checking the Publisher repository handoff source of truth.
 
 ## Release posture
 
-No tag or release is authorized. Draft adoption criteria remain incomplete: observed machine validation, independent reproduction, governed public projections, downstream projections, and cryptographic custody integration.
+No tag or release is authorized. Draft adoption remains blocked on observed CI and deployed-browser verification, invalid-vector rejection, independent reproduction, downstream projections, and cryptographic custody integration.
 
 ## Archive readiness
 
-This handoff, the normative standard, schemas, lifecycle fixtures, validator, canonical application binding, and repository commit history preserve the current CACS continuation state without requiring conversation context.
+This handoff, normative standard, schemas, lifecycle and projection fixtures, validators, synchronized Site view, canonical validation binding, and repository history preserve all continuation state without requiring this conversation.
