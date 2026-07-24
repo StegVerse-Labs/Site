@@ -1,0 +1,32 @@
+{
+  "claim_id": "cacs-claim-disputed-001",
+  "claim_text": "The declared receipt is asserted to correspond to the tested refusal transition, but the receipt-to-transition linkage is disputed and cannot be presented as confirmed.",
+  "claimant": {"organization": "StegVerse-Labs", "repository": "Site"},
+  "scope": {"standard": "CACS-0.1.0", "implementation": "disputed-linkage-build", "tested_conditions": ["receipt-transition-linkage"]},
+  "assumptions": ["The receipt and transition artifacts are the exact submitted review artifacts."],
+  "supporting_artifact_refs": ["artifact:disputed-execution-receipt", "artifact:disputed-transition-log"],
+  "evidence_dimensions": {
+    "formalized": "ESTABLISHED",
+    "mechanized": "PARTIAL",
+    "demonstrated": "PARTIAL",
+    "refusal_integrity": "PARTIAL",
+    "receipt_integrity": "DISPUTED",
+    "replay_supported": "NOT_ESTABLISHED",
+    "reconstructable": "NOT_ESTABLISHED",
+    "independently_reproduced": "NOT_ESTABLISHED",
+    "production_observed": "NOT_ESTABLISHED",
+    "scope_correspondent": "DISPUTED"
+  },
+  "test_refs": ["test:receipt-transition-linkage-review"],
+  "authority_refs": [],
+  "falsification_conditions": ["Independent evidence proves the receipt cannot correspond to the declared transition.", "A public projection labels the disputed linkage as established or fully supported."],
+  "not_established": ["Confirmed receipt-to-transition linkage.", "Replay support.", "Independent reconstruction.", "Independent reproduction.", "Pilot or production assurance."],
+  "correspondence_status": "partially_supported",
+  "review_refs": ["review:cacs-review-disputed-001"],
+  "timestamp": "2026-07-24T13:10:00Z",
+  "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC",
+  "lifecycle_state": "active",
+  "supersedes_claim_id": null,
+  "evidence_valid_through": null,
+  "withdrawal_reason": null
+}
