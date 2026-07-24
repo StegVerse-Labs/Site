@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: Declared Site task to run
+        description: Declared Site validation task
         required: true
         default: all-local
         type: choice
@@ -83,24 +83,6 @@ jobs:
           ref: ${{ steps.transition.outputs.sha }}
           persist-credentials: true
 
-      - name: Resolve TT checkout mode
-        id: tt_mode
-        run: |
-          if [ -n "${STEGVERSE_REPO_SYNC_TOKEN:-}" ]; then
-            echo "use_private_checkout=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "use_private_checkout=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Checkout canonical TT
-        if: steps.tt_mode.outputs.use_private_checkout == 'true'
-        uses: actions/checkout@v4
-        with:
-          repository: Admissible-Existence/TT
-          ref: main
-          path: tt
-          token: ${{ secrets.STEGVERSE_REPO_SYNC_TOKEN }}
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -112,65 +94,19 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install requests beautifulsoup4
 
-      - name: Build TT propagation bundle
-        if: steps.tt_mode.outputs.use_private_checkout == 'true' && (steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'tt-status' || steps.task.outputs.name == 'autonomous-continuation')
-        working-directory: tt
-        run: python scripts/build_transition_element_propagation_bundle.py
-
-      - name: Copy TT bundle into Site
-        if: steps.tt_mode.outputs.use_private_checkout == 'true' && (steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'tt-status' || steps.task.outputs.name == 'autonomous-continuation')
-        run: |
-          mkdir -p site/data/tt
-          cp tt/dist/transition-element-propagation-bundle.manifest.json site/data/tt/transition-element-propagation-bundle.manifest.json
-
-      - name: Confirm checked-in TT fallback
-        if: steps.tt_mode.outputs.use_private_checkout != 'true' && (steps.task.outputs.name == 'all-local' || steps.task.outputs.name == 'tt-status' || steps.task.outputs.name == 'autonomous-continuation')
-        run: |
-          test -f site/data/tt/transition-element-propagation-bundle.manifest.json
-          echo "Using checked-in Site TT bundle fallback because STEGVERSE_REPO_SYNC_TOKEN is not available."
-
-      - name: Acquire governed transition projection
+      - name: Acquire governed transition and activation evidence
         if: steps.task.outputs.name == 'all-local'
         working-directory: site
-        run: python scripts/acquire_governed_transition_index.py
-
-      - name: Acquire external framework catalog and Ecosystem Chat activation evidence
-        if: steps.task.outputs.name == 'all-local'
-        working-directory: site
-        run: python scripts/acquire_external_framework_catalog.py
-
-      - name: Persist activation import state before downstream validation
-        if: steps.task.outputs.name == 'all-local' && github.event_name == 'workflow_run'
-        working-directory: site
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ecosystem-chat-destination-activation-import-status.json || true
-          if [ -f data/ecosystem-chat-destination-activation-receipt.json ]; then
-            git add data/ecosystem-chat-destination-activation-receipt.json
-          fi
-          if git diff --cached --quiet; then
-            echo "Activation import state unchanged."
-          else
-            git commit -m "chore: retain Ecosystem Chat activation import state [skip ci]"
-            git pull --rebase
-            git push
-          fi
+          python scripts/acquire_governed_transition_index.py
+          python scripts/acquire_external_framework_catalog.py
 
       - name: Run declared Site task
         working-directory: site
         run: python scripts/run_site_task.py "${{ steps.task.outputs.name }}"
 
-      - name: Upload Site task diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-task-diagnostic-${{ github.run_id }}-${{ github.run_attempt }}
-          path: site/reports/site-task-diagnostic.json
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Commit generated Site state
+      - name: Persist generated Site state
+        id: mutation
         if: github.event_name == 'workflow_run'
         working-directory: site
         run: |
@@ -178,16 +114,18 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ docs/ || true
           if git diff --cached --quiet; then
-            echo "No generated Site state changes to commit."
+            echo "result=UNCHANGED" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Update Site generated state [skip ci]"
             git pull --rebase
             git push
+            echo "result=COMMITTED" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Skip generated state commit outside orchestrated main transition
+      - name: Record validation-only mutation boundary
+        id: manual_mutation
         if: github.event_name != 'workflow_run'
-        run: echo "Manual dispatch is validation-only; generated state mutation requires a successful Site Bootstrap Validate run on main."
+        run: echo "result=NOT_AUTHORIZED" >> "$GITHUB_OUTPUT"
 
       - name: Configure Pages
         if: github.event_name == 'workflow_run'
@@ -204,32 +142,17 @@ jobs:
         if: github.event_name == 'workflow_run'
         uses: actions/deploy-pages@v4
 
-      - name: Verify governed transition public surfaces
+      - name: Verify governed public surfaces
+        id: live_verification
         if: github.event_name == 'workflow_run'
         working-directory: site
         run: |
           for attempt in $(seq 1 12); do
-            if python scripts/check_governed_transition_live_urls.py; then
+            if python scripts/check_governed_transition_live_urls.py && python scripts/check_external_chat_live_routes.py; then
               exit 0
             fi
-            echo "Public observatory verification attempt ${attempt}/12 did not pass; waiting for Pages propagation."
             sleep 10
           done
-          echo "Governed transition public surfaces did not verify after deployment retries."
-          exit 1
-
-      - name: Verify External Chat public surfaces
-        if: github.event_name == 'workflow_run'
-        working-directory: site
-        run: |
-          for attempt in $(seq 1 12); do
-            if python scripts/check_external_chat_live_routes.py; then
-              exit 0
-            fi
-            echo "External Chat verification attempt ${attempt}/12 did not pass; waiting for Pages or gateway propagation."
-            sleep 10
-          done
-          echo "External Chat public surfaces did not verify after deployment retries."
           exit 1
 
       - name: Build External Chat activation evidence
@@ -240,95 +163,48 @@ jobs:
           STEGVERSE_GATEWAY_BASE_URL: https://stegverse-ecosystem-chat-gateway.onrender.com
         run: python scripts/build_external_chat_activation_evidence.py
 
-      - name: Upload External Chat live verification receipt
+      - name: Write terminal orchestration receipt
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: external-chat-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
-          path: site/reports/external-chat-live-verification.json
-          if-no-files-found: warn
-          retention-days: 30
+        working-directory: site
+        env:
+          STEGVERSE_ORCHESTRATION_SOURCE: ${{ steps.transition.outputs.source }}
+          STEGVERSE_ORCHESTRATION_SOURCE_RUN_ID: ${{ steps.transition.outputs.run_id }}
+          STEGVERSE_ORCHESTRATION_SHA: ${{ steps.transition.outputs.sha }}
+          STEGVERSE_GENERATED_STATE_RESULT: ${{ steps.mutation.outputs.result || steps.manual_mutation.outputs.result }}
+          STEGVERSE_PAGES_DEPLOYMENT_RESULT: ${{ steps.deployment.outcome }}
+          STEGVERSE_TRANSITION_SUPERSEDED: 'false'
+        run: python scripts/write_site_orchestration_terminal_receipt.py
 
-      - name: Upload External Chat activation evidence
+      - name: Upload orchestration evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: external-chat-activation-evidence-${{ github.run_id }}-${{ github.run_attempt }}
-          path: site/reports/external-chat-activation-evidence.json
-          if-no-files-found: error
+          name: site-orchestration-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            site/reports/site-task-diagnostic.json
+            site/reports/external-chat-live-verification.json
+            site/reports/external-chat-activation-evidence.json
+            site/reports/site-orchestration-terminal-receipt.json
+          if-no-files-found: warn
           retention-days: 30
 
       - name: Write summary
         if: always()
         working-directory: site
         run: |
-          echo "## Site Task Runner" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Site Orchestrated Transition" >> "$GITHUB_STEP_SUMMARY"
           echo "Task: ${{ steps.task.outputs.name }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Trigger: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Authoritative transition SHA: ${{ steps.transition.outputs.sha }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Authoritative source run: ${{ steps.transition.outputs.run_id }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Transition source: ${{ steps.transition.outputs.source }}" >> "$GITHUB_STEP_SUMMARY"
-          if [ -f data/governed-transition-index-import-status.json ]; then
+          echo "Validated SHA: ${{ steps.transition.outputs.sha }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source run: ${{ steps.transition.outputs.run_id }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source: ${{ steps.transition.outputs.source }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f reports/site-orchestration-terminal-receipt.json ]; then
             python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
           from pathlib import Path
-          status = json.loads(Path('data/governed-transition-index-import-status.json').read_text())
-          print(f"Transition projection state: {status['state']}")
-          print(f"Transition projection source: {status.get('source')}")
-          print(f"Transition projection hash verified: {status.get('hash_verified')}")
-          print(f"Transition projection live feed: {status.get('live_orchestration_feed')}")
+          receipt = json.loads(Path('reports/site-orchestration-terminal-receipt.json').read_text())
+          print(f"Terminal state: {receipt['terminal_state']}")
+          print(f"Receipt SHA-256: {receipt['receipt_sha256']}")
+          print("Authority effect: NONE")
           PY
           fi
-          if [ -f data/external-framework-catalog-import-status.json ]; then
-            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          from pathlib import Path
-          status = json.loads(Path('data/external-framework-catalog-import-status.json').read_text())
-          print(f"External framework catalog state: {status['state']}")
-          print(f"External framework catalog hash verified: {status.get('hash_verified')}")
-          print(f"External framework count: {status.get('framework_count')}")
-          PY
-          fi
-          if [ -f data/ecosystem-chat-destination-activation-import-status.json ]; then
-            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          from pathlib import Path
-          status = json.loads(Path('data/ecosystem-chat-destination-activation-import-status.json').read_text())
-          print(f"Ecosystem Chat activation import: {status.get('state')}")
-          print(f"Ecosystem Chat source blockers: {', '.join(status.get('source_blockers', [])) or 'none'}")
-          PY
-          fi
-          if [ -f reports/site-task-diagnostic.json ]; then
-            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          from pathlib import Path
-          receipt = json.loads(Path('reports/site-task-diagnostic.json').read_text())
-          print(f"Status: {receipt['status']}")
-          print(f"Failed validator: {receipt.get('failed_validator') or 'none'}")
-          print(f"Exit code: {receipt['exit_code']}")
-          print(f"Authority effect: {receipt['authority_effect']}")
-          PY
-          fi
-          if [ -f reports/external-chat-live-verification.json ]; then
-            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          from pathlib import Path
-          receipt = json.loads(Path('reports/external-chat-live-verification.json').read_text())
-          print(f"External Chat live verification: {receipt.get('result')}")
-          print(f"External Chat failure class: {receipt.get('failure_class') or 'none'}")
-          print(f"Mutation required disabled: {receipt.get('mutation_required_disabled')}")
-          PY
-          fi
-          if [ -f reports/external-chat-activation-evidence.json ]; then
-            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          from pathlib import Path
-          evidence = json.loads(Path('reports/external-chat-activation-evidence.json').read_text())
-          print(f"External Chat activation evidence: {evidence.get('result')}")
-          print(f"External Chat evidence SHA-256: {evidence.get('evidence_sha256')}")
-          print(f"External Chat evidence authority: none")
-          PY
-          fi
-          echo "Canonical progression: Site Bootstrap Validate -> Site Task Runner all-local on the exact validated commit." >> "$GITHUB_STEP_SUMMARY"
-          echo "Boundary: push and schedule triggers are disabled for this worker; only a successful bootstrap run on main may mutate generated state or deploy Pages." >> "$GITHUB_STEP_SUMMARY"
+          echo "Canonical progression: Site Bootstrap Validate -> exact-SHA Site Task Runner -> terminal receipt." >> "$GITHUB_STEP_SUMMARY"
