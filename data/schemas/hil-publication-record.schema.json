@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-publication-record-v1.json",
+  "title": "HIL Publication Record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "publication_id",
+    "response_id",
+    "submission_id",
+    "published_at",
+    "publisher",
+    "publication_consent",
+    "artifact_path",
+    "primary_sha256",
+    "response_sha256",
+    "provenance_manifest_sha256",
+    "chain_validation_state",
+    "private_review_id",
+    "private_review_receipt_sha256",
+    "previous_publication_sha256",
+    "publication_record_sha256",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-PUBLICATION-RECORD-v1"},
+    "publication_id": {"type": "string", "pattern": "^HIL-PUBLICATION-[A-Z0-9-]+$"},
+    "response_id": {"type": "string", "pattern": "^HIL-RESP-[A-Z0-9-]+$"},
+    "submission_id": {"type": "string", "pattern": "^HIL-INTAKE-[A-Z0-9-]+$"},
+    "published_at": {"type": "string", "format": "date-time"},
+    "publisher": {"type": "string", "minLength": 1},
+    "participant_display_name": {"type": ["string", "null"]},
+    "publication_consent": {"enum": ["public", "anonymous"]},
+    "artifact_path": {"type": "string", "pattern": "^[^/].*\\.pdf$"},
+    "primary_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "response_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "provenance_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "chain_validation_state": {
+      "enum": [
+        "PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED",
+        "PRIMARY_PROMPT_RESPONSE_SIGNATURE_CHAIN_VERIFIED"
+      ]
+    },
+    "private_review_id": {"type": "string", "pattern": "^HIL-REVIEW-[A-Z0-9-]+$"},
+    "private_review_receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "previous_publication_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "master_record_release": {"type": ["string", "null"]},
+    "publication_record_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["public_projection_authorized", "execution", "endorsement", "master_record_append"],
+      "properties": {
+        "public_projection_authorized": {"const": true},
+        "execution": {"const": false},
+        "endorsement": {"const": false},
+        "master_record_append": {"const": false}
+      }
+    }
+  }
+}
