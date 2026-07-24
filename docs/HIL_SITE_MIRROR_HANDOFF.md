@@ -7,7 +7,7 @@ This document owns continuation for the public `Humans as the Interoperability L
 ## Current goal
 
 ```text
-Goal: activate a provenance-bound artifact-submission path from verified Primary and prompt references through exact response bytes, receiver receipt, authenticated private review, and later append-only publication.
+Goal: activate the complete provenance-bound path from verified Primary and prompt references through exact response bytes, receiver receipt, authenticated private review, append-only public publication, and later Master Record linkage.
 Primary surface: humans-as-interoperability-layer.html
 Response detail surface: humans-as-interoperability-response.html?id=HIL-RESP-...
 Client: assets/hil-experiment.js
@@ -15,10 +15,12 @@ Experiment manifest: data/hil-experiment.json
 Review state: data/hil-review-state.json
 Initiating trace: data/hil-traces/HIL-TRACE-0001.json
 Provenance schema: data/schemas/hil-response-provenance.schema.json
-Private review schema: data/schemas/hil-private-review-receipt.schema.json
+Private review schemas: data/schemas/hil-private-review-state.schema.json and hil-private-review-receipt.schema.json
+Publication schema: data/schemas/hil-publication-record.schema.json
 Private review contract: docs/HIL_PRIVATE_REVIEW_CONTRACT.md
+Publication contract: docs/HIL_APPEND_ONLY_PUBLICATION_CONTRACT.md
 Receiver gateway: StegVerse-org/LLM-adapter PR #37
-Result: APPROVED_CHAIN_AND_PRIVATE_REVIEW_STAGING
+Result: APPROVED_END_TO_END_STAGING
 Authority: NONE
 ```
 
@@ -37,7 +39,7 @@ Approval evidence: LinkedIn direct-message screenshots, 2026-07-23
 Technical activation: NOT YET PROVEN BY LIVE MACHINE EVIDENCE
 ```
 
-Participant approval is complete and remains separate from technical activation, private review, public acceptance, and publication authority.
+Participant approval is complete and remains separate from technical activation, private review, public acceptance, publication authority, and Master Record authority.
 
 ## Primary and prompt chain
 
@@ -55,30 +57,13 @@ Prompt SHA-256: 0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922
 
 ## Implemented artifact-submission chain
 
-The Site builds `HIL-RESPONSE-PROVENANCE-v1` for every selected response PDF. It binds:
-
-```text
-primary_version
-primary_sha256
-protocol_version
-prompt_version
-prompt_sha256
-response_sha256
-model
-provider
-generated_at
-conversation_reference
-producer_signature.state
-producer_signature.scheme
-producer_signature.value
-producer_signature.key_id
-```
+The Site builds `HIL-RESPONSE-PROVENANCE-v1` for every selected response PDF. It binds Primary, protocol, exact prompt, exact response bytes, model/provider declaration, generation metadata, conversation reference, and optional producer-signature state.
 
 The browser computes the exact response PDF SHA-256 and submits the PDF plus provenance manifest only when gateway readiness reports matching Primary and prompt hashes and requires the provenance manifest. Otherwise the Site permits local manifest download but fails closed on transmission.
 
-## Gateway implementation
+## Gateway intake implementation
 
-`StegVerse-org/LLM-adapter` branch `build/hil-intake-gateway`, PR #37 now:
+`StegVerse-org/LLM-adapter` branch `build/hil-intake-gateway`, PR #37:
 
 ```text
 requires response_pdf and provenance_manifest
@@ -96,30 +81,50 @@ issues HIL-RECEIVER-RECEIPT-v2
 keeps acceptance, publication, execution, and Master Record authority false
 ```
 
-Updated tests now cover exact-byte and manifest persistence, receipt v2, response-hash mismatch, wrong-Primary rejection, and active-content rejection. PR #37 returned to mergeable state after the tests were aligned with the provenance-bound API.
+Tests cover exact-byte and manifest persistence, receipt v2, response-hash mismatch, wrong-Primary rejection, and active-content rejection.
 
 ## Private review transition
 
-The gateway now also provides authenticated private review endpoints:
+Authenticated endpoints:
 
 ```text
 GET  /api/hil/submissions/{submission_id}/review-state
 POST /api/hil/submissions/{submission_id}/review-decisions
+Header: X-SteGVerse-HIL-Review-Token
+Runtime secret: STEGVERSE_HIL_REVIEW_TOKEN
 ```
 
-They require `X-SteGVerse-HIL-Review-Token`, sourced only from server-side `STEGVERSE_HIL_REVIEW_TOKEN`.
+Allowed decisions are `ACCEPT_PRIVATE`, `QUARANTINE`, and `REJECT`. Review records are write-once. A decision produces `HIL-PRIVATE-REVIEW-RECEIPT-v1`. `ACCEPT_PRIVATE` does not authorize public publication.
 
-Allowed decisions:
+## Append-only publication transition
+
+Separately authenticated endpoints:
 
 ```text
-ACCEPT_PRIVATE
-QUARANTINE
-REJECT
+GET  /api/hil/publication-readiness
+GET  /api/hil/publications/{response_id}
+POST /api/hil/submissions/{submission_id}/publication-decisions
+Header: X-SteGVerse-HIL-Publication-Token
+Runtime secret: STEGVERSE_HIL_PUBLICATION_TOKEN
 ```
 
-The review-state endpoint exposes hashes and validation metadata but not stored artifact bytes or storage paths. A decision produces `HIL-PRIVATE-REVIEW-RECEIPT-v1`. Review records are write-once for each submission; later attempts fail with conflict rather than overwrite the first decision.
+Publication requires:
 
-`ACCEPT_PRIVATE` does not authorize public acceptance, publication, execution, or Master Record append.
+```text
+private review decision = ACCEPT_PRIVATE
+participant publication consent = public or anonymous
+unique submission_id
+unique HIL-RESP response_id
+repository-relative .pdf artifact path
+configured publication token
+durable storage declared
+```
+
+The gateway creates `HIL-PUBLICATION-RECORD-v1`. Each accepted publication binds the Primary, response, provenance manifest, private-review receipt, public artifact path, and previous publication-record hash. Submission IDs and response IDs cannot be reused. No update or delete route exists.
+
+Anonymous consent suppresses the public participant display name. Public projection authorization remains distinct from execution, endorsement, custody, and Master Record append.
+
+Tests cover missing private acceptance, private-only consent rejection, successful public projection, public lookup, anonymous-name suppression, duplicate submission rejection, and response-ID reuse rejection.
 
 ## Current participant path
 
@@ -135,9 +140,12 @@ Site downloads and verifies Primary PDF
 -> gateway recomputes and validates the chain
 -> gateway preserves both artifacts
 -> gateway issues HIL-RECEIVER-RECEIPT-v2
--> authenticated private reviewer records ACCEPT_PRIVATE, QUARANTINE, or REJECT
+-> authenticated reviewer records ACCEPT_PRIVATE, QUARANTINE, or REJECT
 -> gateway issues HIL-PRIVATE-REVIEW-RECEIPT-v1
--> separate authorized publication transition may allocate HIL-RESP and append the public index
+-> separately authenticated publication transition allocates one stable HIL-RESP ID
+-> gateway emits append-only HIL-PUBLICATION-RECORD-v1
+-> Site public response index and detail projection consume that record
+-> Master Record linkage remains a later separately authorized transition
 ```
 
 ## Required next vertical slice
@@ -145,15 +153,16 @@ Site downloads and verifies Primary PDF
 ```text
 1. Install data/hil-primary-v0.5-review.pdf.b64.
 2. Change artifact_state only after repository verification of exact bytes and hash.
-3. Observe CI for PR #37 and merge after checks pass.
+3. Observe CI for PR #37 and merge only after checks pass.
 4. Deploy gateway with durable HIL storage.
-5. Configure STEGVERSE_HIL_INTAKE_ENABLED=true and STEGVERSE_HIL_REVIEW_TOKEN only in the authorized runtime.
+5. Configure intake, review, and publication tokens only in the authorized runtime.
 6. Observe readiness matching Primary and prompt hashes.
 7. Run one controlled PDF plus provenance-manifest submission.
 8. Verify exact-byte persistence, manifest persistence, receiver receipt, and restart persistence.
-9. Record one authenticated private review decision and verify write-once behavior.
-10. Build the separately authorized append-only publication transition.
-11. Open public acquisition only after the controlled chain and private review cycle pass.
+9. Record one authenticated ACCEPT_PRIVATE decision and verify write-once behavior.
+10. Record one authenticated publication decision and verify response-ID/submission-ID uniqueness.
+11. Project the first HIL-PUBLICATION-RECORD-v1 into data/hil-responses.json and the response detail page.
+12. Open public acquisition only after the controlled end-to-end chain passes.
 ```
 
 ## Authority boundaries
@@ -166,18 +175,18 @@ response hash match != producer identity verification
 producer signature != participant publication consent
 browser validation != receiver validation
 receiver receipt != private review decision
-private acceptance != public acceptance
-private acceptance != publication
-review receipt != Master Record append
-submission != publication
-publication != endorsement
+private acceptance != public publication
+publication consent != publication mutation authority
+publication record != custody
+public projection authorization != endorsement
+public projection authorization != Master Record append
 Master Record inclusion != scientific proof
 ```
 
 ## Release posture
 
-No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent from the repository, PR #37 is unmerged or undeployed, and no controlled live provenance-chain submission plus authenticated private review has produced persisted receipts.
+No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent from the repository, PR #37 is unmerged or undeployed, and no controlled live submission, private-review, and append-only publication cycle has produced persisted receipts and a stable public projection.
 
 ## Archive readiness
 
-This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, provenance and private-review schemas, client chain builder, gateway validator, review transition, manifests, validators, and repository history preserve complete continuation state. No additional conversation context is required.
+This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, provenance/private-review/publication schemas, client chain builder, gateway intake/review/publication transitions, tests, validators, and repository history preserve complete continuation state. No additional conversation context is required.
