@@ -1,0 +1,57 @@
+{
+  "schema_version": "HIL-TV-TVC-RUNTIME-CONTRACT-v1",
+  "experiment_id": "HIL-2026",
+  "platform_dependency": "NONE",
+  "hosting_platform_required": false,
+  "external_service_provider_required": false,
+  "mounted_volume_required": false,
+  "vendor_secret_store_required": false,
+  "configuration_owner": "TV_TVC",
+  "runtime_owner": "TV_TVC",
+  "gateway_owner": "StegVerse-org/LLM-adapter",
+  "activation_state_owner": "StegVerse-Labs/Site",
+  "compatibility_inputs": {
+    "STEGVERSE_HIL_INTAKE_ENABLED": "controlled_cycle_intake_gate",
+    "STEGVERSE_HIL_DATA_DIR": "governed_state_namespace_projection",
+    "STEGVERSE_STORAGE_DURABLE_ACROSS_RESTARTS": "durability_attestation_projection",
+    "STEGVERSE_HIL_REVIEW_TOKEN": "private_review_capability_projection",
+    "STEGVERSE_HIL_PUBLICATION_TOKEN": "publication_capability_projection"
+  },
+  "required_tv_tvc_transitions": [
+    "resolve_gateway_commit",
+    "bind_governed_state_namespace",
+    "issue_distinct_review_and_publication_capabilities",
+    "start_runtime_instance",
+    "observe_readiness",
+    "accept_controlled_submission",
+    "terminate_runtime_instance",
+    "start_successor_runtime_instance",
+    "verify_exact_byte_and_provenance_persistence",
+    "record_private_review",
+    "record_append_only_publication",
+    "return_governed_evidence_to_site"
+  ],
+  "required_evidence": [
+    "tv_tvc_cycle_id",
+    "resolved_gateway_commit_sha",
+    "prior_runtime_instance_id",
+    "successor_runtime_instance_id",
+    "termination_transition_id",
+    "start_transition_id",
+    "governed_storage_state_reference",
+    "distinct_capability_binding_fingerprints",
+    "readiness_before",
+    "readiness_after",
+    "receiver_receipt",
+    "private_review_receipt",
+    "publication_record",
+    "stable_lookup_result"
+  ],
+  "authority": {
+    "public_acquisition": false,
+    "master_record_append": false,
+    "orchestration_submission": false,
+    "release": false
+  },
+  "authority_effect": "NONE"
+}
