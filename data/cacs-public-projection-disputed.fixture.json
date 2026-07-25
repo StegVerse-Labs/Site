@@ -14,7 +14,7 @@
     "qualification": ["Current only for the declared successor implementation and test vectors."]
   },
   "historical_claims": [
-    {"claim_id":"cacs-claim-disputed-001","public_label":"DISPUTED_HISTORY","reason":"DISPUTED: receipt-to-transition linkage and scope correspondence are not confirmed; this record is not current assurance."},
+    {"claim_id":"cacs-claim-disputed-001","public_label":"DISPUTED_HISTORY","reason":"DISPUTED: receipt-to-transition linkage and scope correspondence remain unresolved; this record is historical only."},
     {"claim_id":"cacs-claim-stale-evidence-001","public_label":"STALE_HISTORY","reason":"Stale historical evidence; not current assurance."}
   ],
   "suppressed_claims": [
