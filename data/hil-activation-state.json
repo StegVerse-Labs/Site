@@ -1,7 +1,7 @@
 {
   "schema_version": "HIL-ACTIVATION-STATE-v1",
   "experiment_id": "HIL-2026",
-  "observed_at": "2026-07-25T19:17:30.651605+00:00",
+  "observed_at": "2026-07-25T20:13:42.813925+00:00",
   "primary": {
     "state": "VERIFIED_INSTALLED",
     "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
@@ -12,32 +12,39 @@
   "gateway": {
     "implementation_state": "MERGED",
     "repository": "StegVerse-org/LLM-adapter",
-    "minimum_merge_commit": "b2e612dd74d311e0cbe66cd1c1d4758bff129fd4",
-    "deployed_state": "NOT_ESTABLISHED",
-    "durable_storage_state": "NOT_ESTABLISHED"
+    "automation_merge_commit": "86428f9e09332605dfd7a513d7a7e2a5aadc62a7",
+    "bounded_observation_commit": "65bfafab02c17fa4f55470270a6d9c7ade370562",
+    "deployed_state": "GITHUB_HOSTED_EPHEMERAL_PROOF_ESTABLISHED",
+    "durable_storage_state": "PATH_REUSE_ACROSS_PROCESS_RESTART_ESTABLISHED",
+    "external_production_deployment_state": "NOT_ESTABLISHED"
   },
   "credentials": {
-    "intake": "NOT_ESTABLISHED",
-    "private_review": "NOT_ESTABLISHED",
-    "publication": "NOT_ESTABLISHED",
-    "separation_verified": false
+    "intake": "NO_SEPARATE_CREDENTIAL_REQUIRED_BY_BOUNDED_INTAKE",
+    "private_review": "RUNTIME_GENERATED_AND_CONFIGURED",
+    "publication": "RUNTIME_GENERATED_AND_CONFIGURED",
+    "separation_verified": true,
+    "values_retained": false
   },
   "live_readiness": {
     "required_receipt": "HIL-LIVE-READINESS-OBSERVATION-v2",
+    "receipt_path": "data/hil-readiness/HIL-LIVE-READINESS-OBSERVATION-v2-run-30173147748.json",
+    "receipt_sha256": "d320ea8d0f9f293fb19a1cf04ec3239b2d13d4836e99637cfed496d3c07eba36",
     "required_state": "CONTROLLED_CYCLE_READY",
-    "observed_state": "NOT_ESTABLISHED"
+    "observed_state": "CONTROLLED_CYCLE_READY",
+    "observation_scope": "GITHUB_HOSTED_EPHEMERAL_DEPLOYMENT_PROOF",
+    "external_production_deployment_claimed": false
   },
   "controlled_cycle": {
     "deployed_submission": "NOT_ESTABLISHED",
     "receiver_receipt": "NOT_ESTABLISHED",
-    "actual_restart": "NOT_ESTABLISHED",
+    "actual_restart": "ESTABLISHED_FOR_BOUNDED_GATEWAY_PROCESS",
     "exact_byte_persistence": "NOT_ESTABLISHED",
     "provenance_manifest_persistence": "NOT_ESTABLISHED",
     "accept_private": "NOT_ESTABLISHED",
     "private_review_receipt": "NOT_ESTABLISHED",
-    "append_only_publication": "NOT_ESTABLISHED",
+    "append_only_publication": "READINESS_ESTABLISHED_EXECUTION_NOT_ESTABLISHED",
     "stable_public_lookup": "NOT_ESTABLISHED",
-    "site_import": "NOT_ESTABLISHED",
+    "site_import": "BOUNDED_READINESS_RECEIPT_IMPORTED",
     "master_record_release": "NOT_ESTABLISHED",
     "orchestration_submission": "NOT_AUTHORIZED"
   },
@@ -49,21 +56,23 @@
     "primary_repository_installation",
     "primary_hash_verification",
     "gateway_implementation_merge",
-    "controlled_cycle_ci"
+    "controlled_cycle_ci",
+    "automated_runtime_credential_separation",
+    "bounded_gateway_process_restart",
+    "bounded_live_readiness_controlled_cycle_ready",
+    "bounded_readiness_receipt_import"
   ],
   "remaining_gates": [
-    "merged_gateway_deployed_with_durable_storage",
-    "separate_intake_review_and_publication_credentials",
-    "live_readiness_controlled_cycle_ready",
+    "external_production_gateway_deployed_with_durable_storage",
     "deployed_submission_and_receiver_receipt",
-    "actual_restart_persistence_proof",
+    "exact_response_byte_and_provenance_persistence_across_restart",
     "authenticated_accept_private",
-    "append_only_publication",
-    "site_import",
+    "append_only_publication_execution",
+    "stable_public_lookup",
     "first_chained_master_record_release",
     "authorized_orchestration_submission"
   ],
-  "activation_state": "PRIMARY_COMPLETE_DEPLOYED_CONTROLLED_CYCLE_PENDING",
+  "activation_state": "BOUNDED_CONTROLLED_CYCLE_READY_EXTERNAL_DEPLOYMENT_AND_EXECUTION_PENDING",
   "public_acquisition_authorized": false,
   "release_authorized": false,
   "authority_effect": "NONE"
