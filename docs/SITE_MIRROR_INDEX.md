@@ -48,6 +48,18 @@ next_task: produce Publisher receipt artifact and closure record
 verification_surface: Publisher repository validators
 ```
 
+```text
+mirror_id: tidc-open-research-handoff
+repository: StegVerse-Labs/Site
+mirror_path: docs/TIDC_OPEN_RESEARCH_HANDOFF.md
+source_type: progressive_open_research_handoff
+status: active_pilot
+priority_class: P2
+blocked_by: independent second coding pass and archival event reconstruction
+next_task: expand pilot evidence tranches and publish coding agreement before exploratory analysis
+verification_surface: scripts/check_tidc_publication.py
+```
+
 ## Inclusion Rule
 
 Any repository that contains a mirror handoff, mirror ledger, mirror task tracker, mirror queue, or mirror activation-status file should be added to this index when it enters the same task scope.
