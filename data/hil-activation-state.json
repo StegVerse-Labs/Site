@@ -1,0 +1,70 @@
+{
+  "schema_version": "HIL-ACTIVATION-STATE-v1",
+  "experiment_id": "HIL-2026",
+  "observed_at": "2026-07-25T19:17:30.651605+00:00",
+  "primary": {
+    "state": "VERIFIED_INSTALLED",
+    "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
+    "size_bytes": 109210,
+    "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+    "custody_recovery_complete": true
+  },
+  "gateway": {
+    "implementation_state": "MERGED",
+    "repository": "StegVerse-org/LLM-adapter",
+    "minimum_merge_commit": "b2e612dd74d311e0cbe66cd1c1d4758bff129fd4",
+    "deployed_state": "NOT_ESTABLISHED",
+    "durable_storage_state": "NOT_ESTABLISHED"
+  },
+  "credentials": {
+    "intake": "NOT_ESTABLISHED",
+    "private_review": "NOT_ESTABLISHED",
+    "publication": "NOT_ESTABLISHED",
+    "separation_verified": false
+  },
+  "live_readiness": {
+    "required_receipt": "HIL-LIVE-READINESS-OBSERVATION-v2",
+    "required_state": "CONTROLLED_CYCLE_READY",
+    "observed_state": "NOT_ESTABLISHED"
+  },
+  "controlled_cycle": {
+    "deployed_submission": "NOT_ESTABLISHED",
+    "receiver_receipt": "NOT_ESTABLISHED",
+    "actual_restart": "NOT_ESTABLISHED",
+    "exact_byte_persistence": "NOT_ESTABLISHED",
+    "provenance_manifest_persistence": "NOT_ESTABLISHED",
+    "accept_private": "NOT_ESTABLISHED",
+    "private_review_receipt": "NOT_ESTABLISHED",
+    "append_only_publication": "NOT_ESTABLISHED",
+    "stable_public_lookup": "NOT_ESTABLISHED",
+    "site_import": "NOT_ESTABLISHED",
+    "master_record_release": "NOT_ESTABLISHED",
+    "orchestration_submission": "NOT_AUTHORIZED"
+  },
+  "completed_gates": [
+    "participant_submission_evidence",
+    "participant_review",
+    "participant_approval",
+    "primary_exact_byte_recovery",
+    "primary_repository_installation",
+    "primary_hash_verification",
+    "gateway_implementation_merge",
+    "controlled_cycle_ci"
+  ],
+  "remaining_gates": [
+    "merged_gateway_deployed_with_durable_storage",
+    "separate_intake_review_and_publication_credentials",
+    "live_readiness_controlled_cycle_ready",
+    "deployed_submission_and_receiver_receipt",
+    "actual_restart_persistence_proof",
+    "authenticated_accept_private",
+    "append_only_publication",
+    "site_import",
+    "first_chained_master_record_release",
+    "authorized_orchestration_submission"
+  ],
+  "activation_state": "PRIMARY_COMPLETE_DEPLOYED_CONTROLLED_CYCLE_PENDING",
+  "public_acquisition_authorized": false,
+  "release_authorized": false,
+  "authority_effect": "NONE"
+}
