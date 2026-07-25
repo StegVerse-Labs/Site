@@ -1,0 +1,113 @@
+{
+  "schema_version": "HIL-DEPLOYED-CONTROLLED-CYCLE-EVIDENCE-v1",
+  "experiment_id": "HIL-2026",
+  "cycle_id": "HIL-CYCLE-0001",
+  "packet_state": "INCOMPLETE",
+  "created_at": "2026-07-25T00:00:00Z",
+  "deployment": {
+    "state": "NOT_ESTABLISHED",
+    "repository": "StegVerse-org/LLM-adapter",
+    "minimum_commit": "b2e612dd74d311e0cbe66cd1c1d4758bff129fd4",
+    "deployed_commit": null,
+    "provider": null,
+    "service_identifier": null,
+    "base_url": null,
+    "deployed_at": null,
+    "evidence_refs": []
+  },
+  "durable_storage": {
+    "state": "NOT_ESTABLISHED",
+    "storage_class": null,
+    "locator_fingerprint": null,
+    "persistence_declaration_ref": null
+  },
+  "credential_separation": {
+    "state": "NOT_ESTABLISHED",
+    "intake_fingerprint": null,
+    "private_review_fingerprint": null,
+    "publication_fingerprint": null,
+    "distinct": false,
+    "secret_material_recorded": false
+  },
+  "readiness": {
+    "state": "NOT_ESTABLISHED",
+    "receipt_type": "HIL-LIVE-READINESS-OBSERVATION-v2",
+    "observed_state": null,
+    "primary_sha256": null,
+    "prompt_sha256": null,
+    "observed_at": null,
+    "receipt_sha256": null,
+    "evidence_ref": null
+  },
+  "submission": {
+    "state": "NOT_ESTABLISHED",
+    "submission_id": null,
+    "response_sha256": null,
+    "provenance_manifest_sha256": null,
+    "receiver_receipt_type": "HIL-RECEIVER-RECEIPT-v2",
+    "receiver_receipt_sha256": null,
+    "submitted_at": null,
+    "evidence_refs": []
+  },
+  "restart": {
+    "state": "NOT_ESTABLISHED",
+    "pre_restart_instance": null,
+    "post_restart_instance": null,
+    "restart_requested_at": null,
+    "restart_completed_at": null,
+    "evidence_refs": []
+  },
+  "post_restart_persistence": {
+    "state": "NOT_ESTABLISHED",
+    "submission_id_unchanged": false,
+    "response_hash_matches": false,
+    "provenance_hash_matches": false,
+    "verified_at": null,
+    "evidence_refs": []
+  },
+  "private_review": {
+    "state": "NOT_ESTABLISHED",
+    "decision": null,
+    "write_once_verified": false,
+    "receipt_type": "HIL-PRIVATE-REVIEW-RECEIPT-v1",
+    "receipt_sha256": null,
+    "decided_at": null,
+    "evidence_refs": []
+  },
+  "publication": {
+    "state": "NOT_ESTABLISHED",
+    "response_id": null,
+    "publication_record_type": "HIL-PUBLICATION-RECORD-v1",
+    "publication_record_sha256": null,
+    "stable_lookup_url": null,
+    "append_only_verified": false,
+    "published_at": null,
+    "evidence_refs": []
+  },
+  "site_import": {
+    "state": "NOT_ESTABLISHED",
+    "site_commit": null,
+    "response_index_path": "data/hil-responses.json",
+    "imported_at": null,
+    "evidence_refs": []
+  },
+  "master_record": {
+    "state": "NOT_ESTABLISHED",
+    "release_type": "HIL-MASTER-RECORD-RELEASE-v1",
+    "release_id": null,
+    "release_sha256": null,
+    "previous_release_sha256": null,
+    "built_at": null,
+    "evidence_refs": []
+  },
+  "orchestration": {
+    "state": "NOT_AUTHORIZED",
+    "authorization_ref": null,
+    "submission_ref": null
+  },
+  "public_acquisition": {
+    "authorized": false,
+    "authorization_ref": null
+  },
+  "authority_effect": "NONE"
+}
