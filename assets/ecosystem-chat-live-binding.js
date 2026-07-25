@@ -1,9 +1,10 @@
 (() => {
-  const NODE_CANDIDATES = [
-    'http://127.0.0.1:8000',
-    'http://localhost:8000'
-  ];
+  'use strict';
+
   const ADVERTISEMENT_PATH = '/api/stegverse-node';
+  const STORAGE_KEY = 'stegverse_ecosystem_gateway_base_url';
+  const ORIGIN_MANIFEST_ID = 'StegVerse-Labs/Site:ecosystem-chat.html';
+  const LOOPBACK_CANDIDATES = ['http://127.0.0.1:8000', 'http://localhost:8000'];
   let discoveredNode = null;
 
   function uniqueId(prefix) {
@@ -18,10 +19,38 @@
       transition_id: uniqueId('site-transition'),
       run_id: uniqueId('site-run'),
       event_id: uniqueId('site-event'),
-      origin_manifest_id: uniqueId('site-origin'),
+      origin_manifest_id: ORIGIN_MANIFEST_ID,
       parent_transition_id: null,
       previous_receipt_id: null
     };
+  }
+
+  function normalizeBaseUrl(value) {
+    if (!value) return '';
+    try {
+      const url = new URL(String(value), globalThis.location.href);
+      if (!['http:', 'https:'].includes(url.protocol)) return '';
+      return url.href.replace(/\/$/, '');
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function configuredCandidates() {
+    const query = new URLSearchParams(globalThis.location.search).get('gateway');
+    const injected = globalThis.STEGVERSE_ECOSYSTEM_GATEWAY_URL;
+    const stored = globalThis.localStorage.getItem(STORAGE_KEY);
+    const sameOrigin = ['http:', 'https:'].includes(globalThis.location.protocol)
+      ? globalThis.location.origin
+      : '';
+    const candidates = [query, injected, stored, sameOrigin, ...LOOPBACK_CANDIDATES]
+      .map(normalizeBaseUrl)
+      .filter(Boolean);
+    if (query) {
+      const normalized = normalizeBaseUrl(query);
+      if (normalized) globalThis.localStorage.setItem(STORAGE_KEY, normalized);
+    }
+    return [...new Set(candidates)];
   }
 
   function canonicalAdvertisement(payload) {
@@ -34,7 +63,7 @@
 
   async function sha256Hex(value) {
     const encoded = new TextEncoder().encode(value);
-    const digest = await globalThis.crypto.subtle.digest('SHA-256', encoded);
+    const digest = await crypto.subtle.digest('SHA-256', encoded);
     return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
   }
 
@@ -50,28 +79,36 @@
     return (await sha256Hex(canonicalAdvertisement(payload))) === payload.advertisement_sha256;
   }
 
+  async function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
+    const controller = new AbortController();
+    const timer = globalThis.setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      globalThis.clearTimeout(timer);
+    }
+  }
+
   async function discoverStegVerseNode() {
     if (discoveredNode) return discoveredNode;
-    for (const candidate of NODE_CANDIDATES) {
+    for (const candidate of configuredCandidates()) {
       try {
-        const advertisementResponse = await fetch(`${candidate}${ADVERTISEMENT_PATH}`, {
-          method: 'GET',
-          cache: 'no-store',
-          signal: AbortSignal.timeout(1800)
+        const advertisementResponse = await fetchWithTimeout(`${candidate}${ADVERTISEMENT_PATH}`, {
+          method: 'GET', cache: 'no-store', mode: 'cors', headers: { Accept: 'application/json' }
         });
         if (!advertisementResponse.ok) continue;
         const advertisement = await advertisementResponse.json();
         if (!(await validateAdvertisement(advertisement, candidate))) continue;
-        const healthResponse = await fetch(advertisement.health_endpoint, {
-          method: 'GET',
-          cache: 'no-store',
-          signal: AbortSignal.timeout(1800)
+        const healthResponse = await fetchWithTimeout(advertisement.health_endpoint, {
+          method: 'GET', cache: 'no-store', mode: 'cors', headers: { Accept: 'application/json' }
         });
         if (!healthResponse.ok) continue;
-        discoveredNode = Object.freeze({ base_url: candidate, advertisement });
+        const health = await healthResponse.json().catch(() => ({}));
+        if (health.status !== 'ok') continue;
+        discoveredNode = Object.freeze({ base_url: candidate, advertisement, health });
         return discoveredNode;
       } catch (_) {
-        // A missing or invalid local node is a normal fail-closed condition.
+        // Missing, unreachable, or invalid candidates are normal fail-closed conditions.
       }
     }
     return null;
@@ -80,10 +117,12 @@
   async function sendGovernedGatewayRequest(message, posture, node) {
     const sessionId = getSessionId();
     const transitionIdentity = buildTransitionIdentity();
-    const response = await fetch(node.advertisement.endpoint, {
+    const response = await fetchWithTimeout(node.advertisement.endpoint, {
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         'X-SteGVerse-Session': sessionId
       },
       body: JSON.stringify({
@@ -103,7 +142,7 @@
         math_solver_supported: true,
         transition_identity: transitionIdentity
       })
-    });
+    }, 15000);
 
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
@@ -123,6 +162,7 @@
       `final_receipt_id=${data.final_receipt_id || 'pending'}`,
       `transition_id=${data.transition_id || transitionIdentity.transition_id}`,
       `run_id=${data.run_id || transitionIdentity.run_id}`,
+      `lifecycle=${data.lifecycle_state || 'unknown'}`,
       `provider_used=${provider.used === true}`,
       `local_usage_persisted=${Boolean(localUsage.status || localUsage.record_id || localUsage.usage_event_id)}`,
       `usage_custody_recorded=${custody.custody_recorded === true}`,
@@ -130,6 +170,7 @@
       `transition_custody=${data.master_record_status || 'PENDING'}`,
       `transition_reconstruction=${data.reconstruction_status || 'PENDING'}`,
       `authority_granted=${authority.provider_usage_grants_authority === true ? 'true' : 'false'}`,
+      'source=llm-adapter',
       'source=stegverse_local_node',
       'shell=disabled'
     ];
@@ -139,20 +180,23 @@
       receipt_line: receiptParts.join(' · '),
       interaction_profile: interactionProfile,
       intent: posture.intent,
-      route: data.routed_module || posture.route
+      route: data.routed_module || posture.route,
+      transition_identity: {
+        transition_id: data.transition_id || transitionIdentity.transition_id,
+        run_id: data.run_id || transitionIdentity.run_id,
+        event_id: data.event_id || transitionIdentity.event_id,
+        origin_manifest_id: data.origin_manifest_id || transitionIdentity.origin_manifest_id
+      },
+      governed_transition: data.transition_candidate || null,
+      source: 'llm-adapter'
     };
   }
 
   routeEcosystemRequest = async function routeEcosystemRequestLive(message) {
     const posture = classifyRequestPosture(message);
     if (posture.restricted) {
-      return localRouteResult(
-        message,
-        'Restricted request detected; no public execution occurred and separate authority review is required.',
-        posture
-      );
+      return localRouteResult(message, 'Restricted request detected; no public execution occurred and separate authority review is required.', posture);
     }
-
     try {
       const node = await discoverStegVerseNode();
       if (!node) throw new Error('verified_local_stegverse_node_not_found');
@@ -160,19 +204,17 @@
     } catch (error) {
       discoveredNode = null;
       const reason = error instanceof Error ? error.message : 'unknown_gateway_error';
-      return localRouteResult(
-        message,
-        `Verified StegVerse node unavailable or rejected the request (${reason}); fail-closed to local classification.`,
-        posture
-      );
+      return localRouteResult(message, `Verified StegVerse node unavailable or rejected the request (${reason}); fail-closed to local classification.`, posture);
     }
   };
 
   globalThis.STEGVERSE_ECOSYSTEM_CHAT_LIVE_BINDING = Object.freeze({
-    discovery: 'verified_loopback_stegverse_node',
-    candidate_base_urls: [...NODE_CANDIDATES],
+    discovery: 'verified_provider_neutral_stegverse_node',
+    candidate_base_urls: configuredCandidates(),
     advertisement_path: ADVERTISEMENT_PATH,
+    configuration_sources: ['query:gateway', 'window.STEGVERSE_ECOSYSTEM_GATEWAY_URL', 'localStorage', 'same-origin', 'loopback'],
     external_host_dependency: false,
+    hosting_provider_required: false,
     live_gateway_enabled: true,
     restricted_requests_execute: false,
     local_fallback_enabled: true,
