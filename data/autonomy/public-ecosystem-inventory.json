@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-25T21:34:46Z",
+  "generated_at": "2026-07-25T22:37:52Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-25T21:24:31Z",
+      "pushed_at": "2026-07-25T22:26:14Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -633,7 +633,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-06-18T05:45:47Z",
+      "pushed_at": "2026-07-25T22:36:34Z",
       "repository": "GCAT-BCAT-Engine/workflows",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -1704,7 +1704,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-25T21:16:01Z",
+      "pushed_at": "2026-07-25T21:58:05Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1827,7 +1827,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-22T05:27:40Z",
+      "pushed_at": "2026-07-25T22:30:48Z",
       "repository": "StegVerse-Labs/StegCore",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2197,7 +2197,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-25T21:27:57Z",
+      "pushed_at": "2026-07-25T22:29:40Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2397,7 +2397,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-25T21:13:00Z",
+      "pushed_at": "2026-07-25T22:29:56Z",
       "repository": "StegVerse-Labs/admissibility-wiki",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: wiki",
@@ -2441,7 +2441,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-25T21:11:19Z",
+      "pushed_at": "2026-07-25T22:12:21Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2528,7 +2528,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-07-25T14:04:01Z",
+      "pushed_at": "2026-07-25T22:29:24Z",
       "repository": "StegVerse-Labs/hybrid-collab-bridge",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: bridge",
@@ -2713,7 +2713,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-25T21:33:34Z",
+      "pushed_at": "2026-07-25T22:36:31Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
