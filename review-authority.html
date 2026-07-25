@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StegVerse Review Authority Projection</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.5; }
+    .authority-summary { display: grid; grid-template-columns: minmax(14rem, 1fr) 2fr; gap: .5rem 1rem; }
+    dt { font-weight: 700; }
+    dd { margin: 0; }
+    .authority-boundary { border-left: .35rem solid currentColor; padding: .75rem 1rem; font-weight: 650; }
+    .authority-raw { overflow: auto; padding: 1rem; background: rgba(127,127,127,.12); }
+    .error { color: #a00; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Governed review artifact</h1>
+    <p>This page renders visibility and authority as separate state dimensions from one machine-readable envelope.</p>
+    <section id="authority-projection" aria-live="polite"></section>
+  </main>
+  <script src="assets/review-authority-projection.js"></script>
+  <script>
+    fetch('data/review-authority-projection.fixture.json', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`fixture request failed: ${response.status}`);
+        return response.json();
+      })
+      .then((envelope) => {
+        window.StegVerseReviewAuthorityProjection.renderAuthorityProjection(
+          document.getElementById('authority-projection'),
+          envelope
+        );
+      })
+      .catch((error) => {
+        const root = document.getElementById('authority-projection');
+        root.className = 'error';
+        root.textContent = `Projection unavailable: ${error.message}`;
+      });
+  </script>
+</body>
+</html>
