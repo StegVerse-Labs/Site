@@ -28,7 +28,7 @@ Sara Katpar granted named attribution, exchange reproduction, model-response des
 
 ## Participant-originated continuation
 
-Sara Katpar independently proposed publishing a LinkedIn reflection about the exchange, the research, and the value of curiosity, and requested permission to mention and tag Rigel Randolph. The available screenshot does not show a sent response from Rigel. Reciprocal permission therefore remains pending and must not be represented as granted until evidence of the sent response exists. This event is preserved as `data/hil-traces/HIL-CONTINUATION-0001.json` and linked from `HIL-TRACE-0001`.
+Sara Katpar independently proposed publishing a LinkedIn reflection about the exchange, the research, and the value of curiosity, and requested permission to mention and tag Rigel Randolph. Rigel sent affirmative permission on 2026-07-25 at 8:37 a.m. as shown in the supplied LinkedIn screenshot. The sent-message transcript and evidentiary conclusion are preserved in `data/hil-traces/HIL-CONTINUATION-0001-PERMISSION-EVIDENCE.md`; the governed continuation state is preserved in `data/hil-traces/HIL-CONTINUATION-0001.json` and linked from `HIL-TRACE-0001`.
 
 ```text
 Continuation ID: HIL-CONTINUATION-0001
@@ -36,20 +36,15 @@ Parent: HIL-TRACE-0001
 Type: INDEPENDENT_PARTICIPANT_PUBLIC_REFLECTION
 Authorship: participant-controlled
 Publication: participant-controlled
-Reciprocal permission: AWAITING_RIGEL_RESPONSE
+Reciprocal permission: APPROVED_SENT_AND_EVIDENCED
+Permission sent: 2026-07-25 08:37 local / 2026-07-25T13:37:00Z
 Protocol submission: false
 Directed testimonial: false
 Site ingestion authority: false
 Master Record authority: false
 ```
 
-The prepared response is:
-
-```text
-Absolutely. You are welcome to mention me, tag me, and discuss our exchange and the research. Please write it in your own voice and present it as you believe is accurate.
-```
-
-After the response is actually sent, capture evidence of the sent message and update the reciprocal-permission state. The eventual public post, URL, and captured artifact hash remain pending participant publication and may be appended only after the public artifact exists and is independently captured.
+The permission allows Sara Katpar to mention and tag Rigel Randolph and discuss the exchange and research. It does not impose prepublication review or editorial control. The eventual public post, URL, and captured artifact hash remain pending participant publication and may be appended only after the public artifact exists and is independently captured.
 
 ## Participant continuation outreach trace
 
@@ -163,8 +158,7 @@ The Site Master Record builder validates the ordered publication chain, binds re
 12. Build the first HIL-MASTER-RECORD-RELEASE-v1 and validate its release chain.
 13. Submit the release and supporting evidence to master-records/orchestration only after authorization.
 14. Open public acquisition only after the deployed controlled cycle passes.
-15. Send the prepared reciprocal-permission response to Sara Katpar and preserve evidence of the sent message.
-16. After Sara Katpar publishes her independent reflection, capture its public URL and artifact hash and append them to HIL-CONTINUATION-0001 without changing the parent trace.
+15. After Sara Katpar publishes her independent reflection, capture its public URL and artifact hash and append them to HIL-CONTINUATION-0001 without changing the parent trace.
 ```
 
 ## Authority boundaries
@@ -173,10 +167,11 @@ The Site Master Record builder validates the ordered publication chain, binds re
 participant approval != technical activation
 participant request != reciprocal permission
 prepared response != sent response
+sent reciprocal permission != editorial control
 continuation outreach != acknowledgment
 continuation outreach != new consent
 participant-authored continuation != protocol-generated submission
-reciprocal mention permission != editorial control
+reciprocal mention permission != Site publication authority
 Primary hash match != proof the LLM read the Primary
 prompt hash match != proof of complete instruction following
 response hash match != producer identity verification
@@ -199,4 +194,4 @@ No HIL canonical release tag or public data-acquisition activation is authorized
 
 ## Archive readiness
 
-This handoff, Site issues #67, #80, and #81, LLM-adapter PR #37, the HIL pages, approved review records, `HIL-TRACE-0001`, `HIL-CONTINUATION-0001`, `HIL-PARTICIPANT-TRACE-SARA-002`, schemas, client chain builder, gateway transitions, clean rebase record, successful earlier controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. The remaining non-repository and deployment actions are explicitly listed above; no additional conversation context is required.
+This handoff, Site issues #67, #80, and #81, LLM-adapter PR #37, the HIL pages, approved review records, `HIL-TRACE-0001`, `HIL-CONTINUATION-0001`, `HIL-CONTINUATION-0001-PERMISSION-EVIDENCE.md`, `HIL-PARTICIPANT-TRACE-SARA-002`, schemas, client chain builder, gateway transitions, clean rebase record, successful earlier controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. The remaining non-repository and deployment actions are explicitly listed above; no additional conversation context is required.
