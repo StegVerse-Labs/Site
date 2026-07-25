@@ -1,0 +1,29 @@
+{
+  "schema_version": "HIL-FIRST-RELEASE-READINESS-v1",
+  "experiment_id": "HIL-2026",
+  "state": "WAITING_FOR_AUTHORIZED_EXTERNAL_CYCLE",
+  "required_inputs": {
+    "authorized_external_deployment_observation": "NOT_ESTABLISHED",
+    "site_imported_publication_record": "NOT_ESTABLISHED",
+    "stable_response_identifier": "NOT_ESTABLISHED",
+    "response_pdf_hash": "NOT_ESTABLISHED",
+    "provenance_hash": "NOT_ESTABLISHED",
+    "receiver_receipt_hash_or_reference": "NOT_ESTABLISHED",
+    "private_review_receipt_hash": "NOT_ESTABLISHED",
+    "publication_record_hash": "NOT_ESTABLISHED",
+    "previous_release_hash": null
+  },
+  "candidate_generation": {
+    "dry_run_available": true,
+    "candidate_generated": false,
+    "candidate_path": null,
+    "candidate_sha256": null
+  },
+  "authorization": {
+    "site_import": false,
+    "master_record_release": false,
+    "orchestration_submission": false,
+    "public_acquisition": false
+  },
+  "authority_effect": "NONE"
+}
