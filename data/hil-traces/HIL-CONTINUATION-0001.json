@@ -15,15 +15,16 @@
     "requested_at": "2026-07-23T21:19:00Z"
   },
   "reciprocal_permission": {
-    "mention_rigel_randolph": null,
-    "tag_rigel_randolph": null,
-    "discuss_exchange": null,
-    "discuss_research": null,
-    "keep_anonymous_if_preferred": null,
-    "state": "AWAITING_RIGEL_RESPONSE",
-    "proposed_response_text": "Absolutely. You are welcome to mention me, tag me, and discuss our exchange and the research. Please write it in your own voice and present it as you believe is accurate.",
+    "mention_rigel_randolph": true,
+    "tag_rigel_randolph": true,
+    "discuss_exchange": true,
+    "discuss_research": true,
+    "keep_anonymous_if_preferred": false,
+    "state": "APPROVED_SENT_AND_EVIDENCED",
+    "sent_at": "2026-07-25T13:37:00Z",
+    "sent_text": "Absolutely. You’re welcome to mention me, tag me, and discuss our exchange and the research. I appreciate that you asked, and I’m especially interested in seeing how you describe the experience from your perspective. Your post would also become a meaningful continuation of the original observational trace—not as something directed or standardized by me, but as your own independent reflection on what occurred. Please write it in your own voice and present it however you believe is accurate. I’d be glad to read it when it’s published.",
     "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT",
-    "evidence_limitation": "The available screenshot shows Sara Katpar's request and LinkedIn suggested replies, but does not show a sent response from Rigel Randolph. Permission must not be treated as granted until a sent response is evidenced."
+    "evidence_record": "data/hil-traces/HIL-CONTINUATION-0001-PERMISSION-EVIDENCE.md"
   },
   "editorial_independence": {
     "participant_authored": true,
@@ -37,7 +38,7 @@
     "future_post_url": null,
     "future_capture_hash": null
   },
-  "publication_state": "AWAITING_RECIPROCAL_PERMISSION_RESPONSE",
+  "publication_state": "PARTICIPANT_AUTHORIZED_TO_PUBLISH",
   "authority": {
     "participant_controls_authorship": true,
     "participant_controls_publication": true,
