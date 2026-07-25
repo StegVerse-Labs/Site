@@ -198,7 +198,9 @@
     }
     try {
       const node = await discoverStegVerseNode();
-      if (!node) throw new Error('verified_stegverse_node_not_found');
+      // Retain the established diagnostic identifier while discovery now supports
+      // provider-neutral configured, same-origin, and loopback candidates.
+      if (!node) throw new Error('verified_local_stegverse_node_not_found');
       return await sendGovernedGatewayRequest(message, posture, node);
     } catch (error) {
       discoveredNode = null;
