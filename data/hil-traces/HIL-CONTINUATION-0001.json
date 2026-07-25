@@ -1,0 +1,46 @@
+{
+  "schema_version": "HIL-CONTINUATION-v1",
+  "continuation_id": "HIL-CONTINUATION-0001",
+  "parent_trace_id": "HIL-TRACE-0001",
+  "classification": "INDEPENDENT_PARTICIPANT_PUBLIC_REFLECTION",
+  "title": "Participant-originated continuation of the initiating observational trace",
+  "participant": {
+    "name": "Sara Katpar",
+    "attribution_state": "NAMED_WITH_PERMISSION"
+  },
+  "origin": {
+    "channel": "LINKEDIN_DIRECT_MESSAGE",
+    "participant_initiated": true,
+    "requested_action": "Publish an independently authored LinkedIn reflection discussing the exchange and research, mentioning and tagging Rigel Randolph.",
+    "requested_at": "2026-07-23T21:19:00Z"
+  },
+  "reciprocal_permission": {
+    "mention_rigel_randolph": true,
+    "tag_rigel_randolph": true,
+    "discuss_exchange": true,
+    "discuss_research": true,
+    "keep_anonymous_if_preferred": false,
+    "state": "APPROVED",
+    "approval_text": "Absolutely. You are welcome to mention me, tag me, and discuss our exchange and the research. Please write it in your own voice and present it as you believe is accurate.",
+    "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT"
+  },
+  "editorial_independence": {
+    "participant_authored": true,
+    "prepublication_approval_required_by_rigel": false,
+    "standardized_protocol_submission": false,
+    "directed_testimonial": false
+  },
+  "record_relationship": {
+    "relationship_to_parent": "PUBLIC_CONTINUATION",
+    "does_not_replace_parent_trace": true,
+    "future_post_url": null,
+    "future_capture_hash": null
+  },
+  "publication_state": "PARTICIPANT_AUTHORIZED_TO_PUBLISH",
+  "authority": {
+    "participant_controls_authorship": true,
+    "participant_controls_publication": true,
+    "site_ingestion_authority": false,
+    "master_record_append_authority": false
+  }
+}
