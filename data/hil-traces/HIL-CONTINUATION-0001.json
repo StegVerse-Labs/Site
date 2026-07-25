@@ -15,14 +15,15 @@
     "requested_at": "2026-07-23T21:19:00Z"
   },
   "reciprocal_permission": {
-    "mention_rigel_randolph": true,
-    "tag_rigel_randolph": true,
-    "discuss_exchange": true,
-    "discuss_research": true,
-    "keep_anonymous_if_preferred": false,
-    "state": "APPROVED",
-    "approval_text": "Absolutely. You are welcome to mention me, tag me, and discuss our exchange and the research. Please write it in your own voice and present it as you believe is accurate.",
-    "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT"
+    "mention_rigel_randolph": null,
+    "tag_rigel_randolph": null,
+    "discuss_exchange": null,
+    "discuss_research": null,
+    "keep_anonymous_if_preferred": null,
+    "state": "AWAITING_RIGEL_RESPONSE",
+    "proposed_response_text": "Absolutely. You are welcome to mention me, tag me, and discuss our exchange and the research. Please write it in your own voice and present it as you believe is accurate.",
+    "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT",
+    "evidence_limitation": "The available screenshot shows Sara Katpar's request and LinkedIn suggested replies, but does not show a sent response from Rigel Randolph. Permission must not be treated as granted until a sent response is evidenced."
   },
   "editorial_independence": {
     "participant_authored": true,
@@ -36,7 +37,7 @@
     "future_post_url": null,
     "future_capture_hash": null
   },
-  "publication_state": "PARTICIPANT_AUTHORIZED_TO_PUBLISH",
+  "publication_state": "AWAITING_RECIPROCAL_PERMISSION_RESPONSE",
   "authority": {
     "participant_controls_authorship": true,
     "participant_controls_publication": true,
