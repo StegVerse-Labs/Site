@@ -1,0 +1,39 @@
+name: Validate Review Authority Projection
+
+on:
+  push:
+    branches:
+      - goal/review-authority-projection
+      - main
+    paths:
+      - 'review-authority.html'
+      - 'assets/review-authority-projection.js'
+      - 'data/review-authority-projection.fixture.json'
+      - 'scripts/check_review_authority_projection.py'
+      - '.github/workflows/validate-review-authority-projection.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'review-authority.html'
+      - 'assets/review-authority-projection.js'
+      - 'data/review-authority-projection.fixture.json'
+      - 'scripts/check_review_authority_projection.py'
+      - '.github/workflows/validate-review-authority-projection.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile validator
+        run: python -m compileall -q scripts/check_review_authority_projection.py
+      - name: Validate Site projection
+        run: python scripts/check_review_authority_projection.py
