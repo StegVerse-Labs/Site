@@ -49,11 +49,11 @@
 
     api.selectEvent(source.event_id, 'governed');
     if (!sourceRecord.classList.contains('correlated-active') || !decisionRecord.classList.contains('correlated-active')) {
-      throw new Error('Conectrr source-to-decision selection correlation failed');
+      throw new Error('Source-to-decision correlation failed');
     }
     api.selectEvent(decision.event_id, 'governed');
     if (!sourceRecord.classList.contains('correlated-active') || !decisionRecord.classList.contains('correlated-active')) {
-      throw new Error('Conectrr decision-to-source selection correlation failed');
+      throw new Error('Decision-to-source correlation failed');
     }
 
     verifyExportReplay(api, source.event_id, decision.event_id);
@@ -61,8 +61,8 @@
   }
 
   load().catch((error) => {
-    document.documentElement.dataset.conectrrInterop = 'failed';
-    document.documentElement.dataset.conectrrBrowserTest = 'failed';
+    document.documentElement.dataset.conectrrInterop = 'fail';
+    document.documentElement.dataset.conectrrBrowserTest = 'fail';
     document.documentElement.dataset.conectrrExportReplay = 'failed';
     console.error(error);
   });
