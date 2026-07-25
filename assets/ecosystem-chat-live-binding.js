@@ -171,6 +171,7 @@
       `transition_reconstruction=${data.reconstruction_status || 'PENDING'}`,
       `authority_granted=${authority.provider_usage_grants_authority === true ? 'true' : 'false'}`,
       'source=llm-adapter',
+      'source=stegverse_local_node',
       'shell=disabled'
     ];
 
