@@ -33,6 +33,25 @@ def joined(items: list[str]) -> str:
     return " ".join(items).lower()
 
 
+def asserts_full_support(text: str) -> bool:
+    """Detect affirmative full-support claims without rejecting explicit prohibitions."""
+    normalized = " ".join(text.lower().split())
+    prohibited_contexts = (
+        "not fully supported",
+        "never be rendered as fully supported",
+        "must not be rendered as fully supported",
+        "may not be rendered as fully supported",
+        "not universally supported",
+        "never be rendered as universally supported",
+        "must not be rendered as universally supported",
+        "may not be rendered as universally supported",
+    )
+    scrubbed = normalized
+    for phrase in prohibited_contexts:
+        scrubbed = scrubbed.replace(phrase, "")
+    return "fully supported" in scrubbed or "universally supported" in scrubbed
+
+
 def validate_pair(claim: dict[str, Any], review: dict[str, Any], kind: str) -> None:
     validate_claim(claim, f"{kind} claim")
     validate_review(review, f"{kind} review")
@@ -68,7 +87,7 @@ def validate_partial(claim: dict[str, Any], review: dict[str, Any], projection: 
     visible = joined(active.get("qualification", []) + projection.get("qualification_rules", []))
     if "partially supported" not in visible and "partial" not in visible:
         fail("partial projection: visible partial-support qualification missing")
-    if any(term in visible for term in ("fully supported", "universally supported")):
+    if asserts_full_support(visible):
         fail("partial projection: must not assert full support")
 
 
