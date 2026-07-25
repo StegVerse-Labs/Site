@@ -1,0 +1,31 @@
+{
+  "schema_version": "HIL-PROCESS-CYCLE-PROMOTION-POLICY-v1",
+  "experiment_id": "HIL-2026",
+  "accepted_evidence_schema": "HIL-PROCESS-RESTART-CONTROLLED-CYCLE-v1",
+  "accepted_scope": "GITHUB_HOSTED_REAL_PROCESS_CONTROLLED_CYCLE",
+  "may_establish": [
+    "gateway_real_process_restart_observed",
+    "credential_separation_observed",
+    "readiness_before_and_after_restart_observed",
+    "deployed_submission_contract_observed",
+    "receiver_receipt_contract_observed",
+    "exact_byte_persistence_observed",
+    "provenance_persistence_observed",
+    "write_once_private_review_contract_observed",
+    "append_only_publication_contract_observed",
+    "stable_public_lookup_contract_observed"
+  ],
+  "may_not_establish": [
+    "external_production_deployment",
+    "production_durable_storage",
+    "participant_publication_consent_for_real_acquisition",
+    "site_publication_import_authority",
+    "public_acquisition_authority",
+    "master_record_append_authority",
+    "orchestration_submission_authority"
+  ],
+  "required_primary_sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+  "required_prompt_sha256": "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922",
+  "promotion_is_append_only": true,
+  "authority_effect": "NONE"
+}
