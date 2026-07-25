@@ -1,0 +1,17 @@
+{
+  "schema_version": "HIL-PRIMARY-INSTALLATION-RECEIPT-v1",
+  "experiment_id": "HIL-2026",
+  "primary_version": "v0.5",
+  "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
+  "encoded_size_bytes": 147532,
+  "decoded_size_bytes": 109210,
+  "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+  "git_blob_sha1": "5db09a3819ca68192071810e11c80ef0382f4ad4",
+  "verified_at": "2026-07-25T19:17:30.651605+00:00",
+  "artifact_state": "VERIFIED",
+  "content_substitution": false,
+  "repository_installation_complete": true,
+  "deployment_authority": false,
+  "publication_authority": false,
+  "master_record_append_authority": false
+}
