@@ -9,7 +9,9 @@
     "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
     "size_bytes": 109210,
     "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
-    "artifact_state": "PENDING_REPOSITORY_INSTALLATION"
+    "artifact_state": "SUBMISSION_REVIEW_AND_APPROVAL_ESTABLISHED_EXACT_BYTES_PENDING_RECOVERY",
+    "custody_recovery_record": "data/hil-primary-custody-recovery.json",
+    "custody_recovery_issue": 82
   },
   "permissions": {
     "named_attribution": "GRANTED",
@@ -22,14 +24,23 @@
     "primary_pdf": "APPROVED",
     "site_presentation": "APPROVED"
   },
+  "evidence_state": {
+    "document_identity": "ESTABLISHED",
+    "review_submission": "ESTABLISHED",
+    "participant_receipt_and_review": "ESTABLISHED",
+    "participant_approval": "ESTABLISHED",
+    "exact_pdf_bytes_in_repository": "NOT_ESTABLISHED"
+  },
   "final_presentation_approval": "APPROVED",
   "approved_at": "2026-07-23T21:17:00Z",
-  "canonical_publication": "PENDING_ARTIFACT_AND_TECHNICAL_ACTIVATION",
+  "canonical_publication": "PENDING_EXACT_BYTE_CUSTODY_AND_TECHNICAL_ACTIVATION",
   "public_response_acquisition": "PAUSED_PENDING_CONTROLLED_CHAIN_VALIDATION",
   "authority": {
     "permission_is_final_approval": true,
     "review_candidate_is_canonical": false,
     "site_preview_is_publication_authority": false,
-    "response_intake_authorized": false
+    "response_intake_authorized": false,
+    "submission_or_approval_may_be_reclassified_as_missing": false,
+    "artifact_installation_requires_exact_hash_match": true
   }
 }
