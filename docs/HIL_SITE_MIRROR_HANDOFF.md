@@ -51,6 +51,26 @@ Absolutely. You are welcome to mention me, tag me, and discuss our exchange and 
 
 After the response is actually sent, capture evidence of the sent message and update the reciprocal-permission state. The eventual public post, URL, and captured artifact hash remain pending participant publication and may be appended only after the public artifact exists and is independently captured.
 
+## Participant continuation outreach trace
+
+`data/hil-participant-traces/HIL-PARTICIPANT-TRACE-SARA-002.json` records Rigel Randolph's later message informing Sara Katpar that the prior exchange had been formalized into the paper and public replication protocol and that the dedicated Site surfaces, response schema, hash verification, receipt structure, and bounded upload gateway had been built while final public intake deployment remained incomplete.
+
+```text
+Trace ID: HIL-PARTICIPANT-TRACE-SARA-002
+State: CONTACTED_AWAITING_RESPONSE
+Outreach sent: ESTABLISHED
+Acknowledgment received: NOT_ESTABLISHED
+Prior approved scope: PRESERVED
+New consent inferred: false
+Technical activation authority: false
+Publication authority: false
+Custody authority: false
+Execution authority: false
+Commit: 1e307e5c8bf8c31bdfa70454d63eaff896db2852
+```
+
+This outreach does not enlarge the earlier participant approval and does not authorize activation, intake, review, publication, custody, execution, or Master Record mutation.
+
 ## Primary and prompt chain
 
 ```text
@@ -153,6 +173,8 @@ The Site Master Record builder validates the ordered publication chain, binds re
 participant approval != technical activation
 participant request != reciprocal permission
 prepared response != sent response
+continuation outreach != acknowledgment
+continuation outreach != new consent
 participant-authored continuation != protocol-generated submission
 reciprocal mention permission != editorial control
 Primary hash match != proof the LLM read the Primary
@@ -177,4 +199,4 @@ No HIL canonical release tag or public data-acquisition activation is authorized
 
 ## Archive readiness
 
-This handoff, Site issue #67, LLM-adapter PR #37, the HIL pages, approved review records, `HIL-TRACE-0001`, `HIL-CONTINUATION-0001`, schemas, client chain builder, gateway transitions, clean rebase record, successful earlier controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. The sole non-repository action is sending the prepared LinkedIn response; no additional conversation context is required.
+This handoff, Site issues #67, #80, and #81, LLM-adapter PR #37, the HIL pages, approved review records, `HIL-TRACE-0001`, `HIL-CONTINUATION-0001`, `HIL-PARTICIPANT-TRACE-SARA-002`, schemas, client chain builder, gateway transitions, clean rebase record, successful earlier controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. The remaining non-repository and deployment actions are explicitly listed above; no additional conversation context is required.
