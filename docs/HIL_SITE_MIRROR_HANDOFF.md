@@ -16,9 +16,10 @@ Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
 Live observer: scripts/check_hil_live_readiness.py
 Live workflow: .github/workflows/check-hil-live-readiness.yml
-Receiver gateway: StegVerse-org/LLM-adapter main @ b2e612dd74d311e0cbe66cd1c1d4758bff129fd4
+Receiver gateway: StegVerse-org/LLM-adapter main @ c50d9148aa91a8e04eb7e5b3c6a2da4e9a1293ed
 Controlled-cycle workflow: StegVerse-org/LLM-adapter/.github/workflows/hil-controlled-cycle.yml
-Result: GATEWAY_MERGED_PRIMARY_INSTALLATION_AND_LIVE_DEPLOYMENT_PENDING
+Portable-runtime workflow: StegVerse-org/LLM-adapter/.github/workflows/platform-agnostic-runtime.yml
+Result: PRIMARY_INSTALLED_GATEWAY_MERGED_PORTABLE_RUNTIME_STAGED_LIVE_ACTIVATION_PENDING
 Authority: NONE
 ```
 
@@ -72,7 +73,10 @@ This outreach does not enlarge the earlier participant approval and does not aut
 Primary version: v0.5
 Primary SHA-256: 52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946
 Primary repository path: data/hil-primary-v0.5-review.pdf.b64
-Primary artifact state: PENDING_INSTALLATION_CONFIRMED_ABSENT_2026-07-25
+Primary artifact state: VERIFIED_INSTALLED
+Primary Git blob SHA: 5db09a3819ca68192071810e11c80ef0382f4ad4
+Installation manifest commit: b150b813cce5d019172d75688aa3ac67bf7637ed
+Installation receipt commit: d1a4a18fccf8c125cfb167469f1bcaccc62634d1
 Protocol: HIL-PROTOCOL-v1.0
 Prompt: HIL-PROMPT-v1.0
 Prompt SHA-256: 0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922
@@ -120,7 +124,22 @@ merged: true
 merge method: squash
 ```
 
-The merged `combined_gateway.py` retains current provider-usage custody middleware while adding HIL intake/publication routers, HIL endpoint advertisement, and the two server-only HIL authorization headers. `pyproject.toml` retains current dependencies and adds `python-multipart` to both development and service sets.
+## Platform-agnostic runtime package
+
+The gateway now has a provider-neutral runtime tranche:
+
+```text
+Dockerfile: existing OCI image contract
+entrypoint persistence correction: 68dcc4cb318cd77eeb859e94aa80cc46687abea3
+compose.yaml: 5ad890b97cc6ef60cf67f47e2f532c0392bfb34f
+example environment: 721013a131005bc98957d8152524c2f751d422ce
+runtime specification: d85fca64cac34b8c763a0d21562812d61e514811
+OCI portability workflow: c50d9148aa91a8e04eb7e5b3c6a2da4e9a1293ed
+```
+
+The entrypoint now maps `STEGVERSE_HIL_DATA_DIR` beneath the common durable volume. The compose contract provides a named durable volume, configurable port, separated review and publication secrets, health checks, and no provider-specific application dependency. The workflow builds the OCI image, verifies readiness and canonical hashes, replaces the container, and checks mounted-state persistence. Workflow execution evidence remains pending observation.
+
+Render is not an architectural dependency, default target, or accepted deployment assumption. Historical Render-specific records are historical evidence only.
 
 ## Live readiness observer v2
 
@@ -149,19 +168,21 @@ The Site Master Record builder validates the ordered publication chain, binds re
 ## Required next vertical slice
 
 ```text
-1. Install data/hil-primary-v0.5-review.pdf.b64 from the approved v0.5 Primary bytes and verify decoded SHA-256 52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946.
-2. Deploy LLM-adapter main at or after merge commit b2e612dd74d311e0cbe66cd1c1d4758bff129fd4 with durable HIL storage.
-3. Configure intake, review, and publication credentials only in the authorized runtime.
-4. Observe HIL-LIVE-READINESS-OBSERVATION-v2 reaching CONTROLLED_CYCLE_READY.
-5. Run one controlled deployed PDF plus provenance-manifest submission.
-6. Verify exact-byte and manifest persistence across an actual gateway restart.
-7. Record one authenticated ACCEPT_PRIVATE decision and verify write-once behavior.
-8. Record one authenticated publication decision and verify identifier uniqueness.
-9. Import the first HIL-PUBLICATION-RECORD-v1 into the Site projection.
-10. Build the first HIL-MASTER-RECORD-RELEASE-v1 and validate its release chain.
-11. Submit the release and supporting evidence to master-records/orchestration only after authorization.
-12. Open public acquisition only after the deployed controlled cycle passes.
-13. After Sara Katpar publishes her independent reflection, capture its public URL and artifact hash and append them to HIL-CONTINUATION-0001 without changing the parent trace.
+1. Observe the Platform-Agnostic Runtime workflow for c50d9148aa91a8e04eb7e5b3c6a2da4e9a1293ed and repair any failing job.
+2. Select or provision any conforming OCI/process runtime without changing application code.
+3. Deploy LLM-adapter main at or after c50d9148aa91a8e04eb7e5b3c6a2da4e9a1293ed with a durable mounted volume.
+4. Inject distinct private-review and publication credentials only through the runtime secret boundary.
+5. Provide HTTPS termination or a documented reverse-proxy boundary.
+6. Observe HIL-LIVE-READINESS-OBSERVATION-v2 reaching CONTROLLED_CYCLE_READY.
+7. Run one controlled deployed PDF plus provenance-manifest submission.
+8. Replace or restart the service and verify exact-byte and manifest persistence.
+9. Record one authenticated ACCEPT_PRIVATE decision and verify write-once behavior.
+10. Record one authenticated publication decision and verify identifier uniqueness.
+11. Import the first HIL-PUBLICATION-RECORD-v1 into the Site projection.
+12. Build the first HIL-MASTER-RECORD-RELEASE-v1 and validate its release chain.
+13. Submit the release and supporting evidence to master-records/orchestration only after authorization.
+14. Open public acquisition only after the deployed controlled cycle passes.
+15. After Sara Katpar publishes her independent reflection, capture its public URL and artifact hash and append them to HIL-CONTINUATION-0001 without changing the parent trace.
 ```
 
 ## Authority boundaries
@@ -180,6 +201,8 @@ prompt hash match != proof of complete instruction following
 response hash match != producer identity verification
 producer signature != participant publication consent
 CI controlled-cycle success != live deployment
+OCI image build != live deployment
+mounted-volume test != production custody
 merged gateway != deployed gateway
 new TestClient != actual service restart
 live readiness observation != activation authority
@@ -193,8 +216,8 @@ Site index != master-records/orchestration
 
 ## Release posture
 
-No HIL canonical release tag or public data-acquisition activation is authorized while the Primary artifact is absent, the merged gateway is not evidenced as deployed with durable HIL storage, credentials are not configured in the authorized runtime, and no controlled deployed submission, restart, private-review, publication, Site-import, and Master Record release cycle has produced persisted evidence.
+No HIL canonical release tag or public data-acquisition activation is authorized while the portable-runtime workflow is unobserved, the gateway is not evidenced as deployed through the provider-neutral contract with durable storage, credentials are not configured in an authorized runtime, and no controlled deployed submission, restart, private-review, publication, Site-import, and Master Record release cycle has produced persisted evidence.
 
 ## Archive readiness
 
-This handoff, Site issues #67, #80, and #81, merged LLM-adapter PR #37, merge commit `b2e612dd74d311e0cbe66cd1c1d4758bff129fd4`, the HIL pages, approved review records, `HIL-TRACE-0001`, `HIL-CONTINUATION-0001`, `HIL-CONTINUATION-0001-PERMISSION-EVIDENCE.md`, `HIL-PARTICIPANT-TRACE-SARA-002`, schemas, client chain builder, gateway transitions, fresh passing controlled-cycle CI evidence, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. The remaining installation, deployment, credential, controlled-cycle, publication, and Master Record actions are explicitly listed above; no additional conversation context is required.
+This handoff, Site issues #67, #80, and #81, LLM-adapter issue #41, merged PR #37, the installed Primary artifact and receipt, the HIL pages, approved review records, participant traces, schemas, client chain builder, gateway transitions, controlled-cycle evidence, provider-neutral Docker/Compose/runtime specification, portability workflow, Site importers/builders, live observer v2, validators, and repository history preserve complete continuation state. The remaining workflow observation, runtime deployment, credential, controlled-cycle, publication, and Master Record actions are explicitly listed above; no additional conversation context is required.
