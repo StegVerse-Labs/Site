@@ -1,0 +1,33 @@
+{
+  "schema_version": "HIL-V1-RELEASE-STATE-v1",
+  "release_id": "HIL-v1.0",
+  "primary": {
+    "version": "v0.5",
+    "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
+    "decoded_size_bytes": 109210,
+    "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+    "state": "VERIFIED_INSTALLED"
+  },
+  "document_ownership": {
+    "canonical_paper": ["claims", "boundaries", "canonical_input", "canonical_prompt"],
+    "experiment_protocol": ["participant_instructions", "response_format", "metadata", "consent", "submission"],
+    "governance_specification": ["custody", "provenance", "receipts", "review", "publication", "continuity", "master_record"],
+    "site_handoff": ["deployment_state", "remaining_gates", "continuation_ownership"]
+  },
+  "supersedes": [
+    {
+      "artifact": "HIL Independent Response Packet v0.4",
+      "scope": "active_experiment_path_documentation",
+      "retention": "historical_evidence"
+    }
+  ],
+  "automated_deployment_proof": {
+    "repository": "StegVerse-org/LLM-adapter",
+    "workflow": ".github/workflows/hil-automated-deployment-proof.yml",
+    "required_receipt": "HIL-LIVE-READINESS-OBSERVATION-v2",
+    "required_state": "CONTROLLED_CYCLE_READY",
+    "external_production_deployment_claimed": false
+  },
+  "authority_effect": "NONE",
+  "release_authorized": false
+}
