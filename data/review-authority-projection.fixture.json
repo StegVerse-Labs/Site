@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "manifest-receipt-boundary",
+  "artifact_version": "0.3",
+  "visibility_state": "PUBLICLY_VISIBLE",
+  "process_state": "REVIEW_ONLY",
+  "claim_authority": false,
+  "publication_authority": false,
+  "attribution_authority": false,
+  "public_association_authority": false,
+  "endorsement": "NONE",
+  "compatibility": "NONE",
+  "interoperability": "NONE",
+  "external_references": [
+    {"name": "GLM", "association_status": "REFERENCE_ONLY"},
+    {"name": "EVIDE", "association_status": "REFERENCE_ONLY"}
+  ]
+}
