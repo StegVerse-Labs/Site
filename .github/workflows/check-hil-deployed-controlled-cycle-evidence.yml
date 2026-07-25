@@ -1,0 +1,32 @@
+name: Check HIL Deployed Controlled-Cycle Evidence
+
+on:
+  push:
+    paths:
+      - 'data/hil-deployed-controlled-cycle-evidence.json'
+      - 'data/hil-activation-state.json'
+      - 'docs/HIL_DEPLOYED_CONTROLLED_CYCLE_RUNBOOK.md'
+      - 'scripts/check_hil_deployed_controlled_cycle_evidence.py'
+      - '.github/workflows/check-hil-deployed-controlled-cycle-evidence.yml'
+  pull_request:
+    paths:
+      - 'data/hil-deployed-controlled-cycle-evidence.json'
+      - 'data/hil-activation-state.json'
+      - 'docs/HIL_DEPLOYED_CONTROLLED_CYCLE_RUNBOOK.md'
+      - 'scripts/check_hil_deployed_controlled_cycle_evidence.py'
+      - '.github/workflows/check-hil-deployed-controlled-cycle-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate evidence ledger and runbook
+        run: python scripts/check_hil_deployed_controlled_cycle_evidence.py
