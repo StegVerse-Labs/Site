@@ -1,7 +1,7 @@
 {
   "schema_version": "HIL-ACTIVATION-STATE-v1",
   "experiment_id": "HIL-2026",
-  "observed_at": "2026-07-25T19:17:30.651605+00:00",
+  "observed_at": "2026-07-25T22:42:24+00:00",
   "primary": {
     "state": "VERIFIED_INSTALLED",
     "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
@@ -13,6 +13,12 @@
     "implementation_state": "MERGED",
     "repository": "StegVerse-org/LLM-adapter",
     "minimum_merge_commit": "b2e612dd74d311e0cbe66cd1c1d4758bff129fd4",
+    "validated_runtime_commit": "18badc0fd19933c9cd2a70c684f7f8226f3cb5c3",
+    "runtime_contract": "PLATFORM_AGNOSTIC_VALIDATED",
+    "architecture_guard": "PASS",
+    "oci_portability_validation": "PASS",
+    "full_validation_suite": "PASS",
+    "provider_dependency": "NONE",
     "deployed_state": "NOT_ESTABLISHED",
     "durable_storage_state": "NOT_ESTABLISHED"
   },
@@ -49,10 +55,14 @@
     "primary_repository_installation",
     "primary_hash_verification",
     "gateway_implementation_merge",
-    "controlled_cycle_ci"
+    "controlled_cycle_ci",
+    "platform_agnostic_runtime_contract",
+    "architecture_guard_validation",
+    "oci_portability_validation",
+    "full_runtime_validation_suite"
   ],
   "remaining_gates": [
-    "merged_gateway_deployed_with_durable_storage",
+    "validated_gateway_deployed_with_durable_storage",
     "separate_intake_review_and_publication_credentials",
     "live_readiness_controlled_cycle_ready",
     "deployed_submission_and_receiver_receipt",
@@ -63,7 +73,7 @@
     "first_chained_master_record_release",
     "authorized_orchestration_submission"
   ],
-  "activation_state": "PRIMARY_COMPLETE_DEPLOYED_CONTROLLED_CYCLE_PENDING",
+  "activation_state": "PORTABLE_RUNTIME_VALIDATED_DEPLOYED_CONTROLLED_CYCLE_PENDING",
   "public_acquisition_authorized": false,
   "release_authorized": false,
   "authority_effect": "NONE"
