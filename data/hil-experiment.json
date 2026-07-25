@@ -9,14 +9,25 @@
     "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
     "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
     "artifact_state": "PENDING_INSTALLATION",
-    "canonical_state": "APPROVED_CONTENT_PENDING_ARTIFACT_FREEZE"
+    "canonical_state": "APPROVED_CONTENT_PENDING_ARTIFACT_FREEZE",
+    "scope": "RESEARCH_THESIS_AND_MODEL_FACING_INDEPENDENT_RESPONSE_PROTOCOL",
+    "sole_technical_specification": false
   },
   "protocol": {
     "version": "HIL-PROTOCOL-v1.0",
     "prompt_version": "HIL-PROMPT-v1.0",
     "prompt_sha256": "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922",
     "instruction_section": "Section 8: Independent Response Protocol",
-    "invocation_prompt": "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol."
+    "invocation_prompt": "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol.",
+    "end_to_end_spec_version": "HIL-END-TO-END-PROTOCOL-v1.0",
+    "end_to_end_spec_path": "docs/HIL_END_TO_END_PROTOCOL.md",
+    "documentation_model": {
+      "primary_owns": "research thesis and model-facing procedure",
+      "manifest_and_schemas_own": "machine-readable submission contract",
+      "gateway_owns": "validation, custody, receipts, review, and append-only publication",
+      "end_to_end_spec_owns": "complete operational and governance lifecycle",
+      "handoff_owns": "implementation continuity and current activation state"
+    }
   },
   "submission": {
     "accepted_media_type": "application/pdf",
@@ -46,6 +57,18 @@
     "published_response_count": 0,
     "master_record_state": "NOT_STARTED"
   },
+  "activation_requirements": [
+    "exact_primary_installed_and_hash_verified",
+    "merged_gateway_deployed_with_durable_storage",
+    "separate_intake_review_and_publication_credentials",
+    "live_readiness_controlled_cycle_ready",
+    "deployed_submission_and_receiver_receipt",
+    "actual_restart_persistence_proof",
+    "authenticated_accept_private",
+    "append_only_publication",
+    "site_import",
+    "first_chained_master_record_release"
+  ],
   "authority": {
     "execution": false,
     "custody": false,
