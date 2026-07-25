@@ -33,23 +33,43 @@ def joined(items: list[str]) -> str:
     return " ".join(items).lower()
 
 
-def asserts_full_support(text: str) -> bool:
-    """Detect affirmative full-support claims without rejecting explicit prohibitions."""
-    normalized = " ".join(text.lower().split())
-    prohibited_contexts = (
-        "not fully supported",
-        "never be rendered as fully supported",
-        "must not be rendered as fully supported",
-        "may not be rendered as fully supported",
-        "not universally supported",
-        "never be rendered as universally supported",
-        "must not be rendered as universally supported",
-        "may not be rendered as universally supported",
-    )
-    scrubbed = normalized
-    for phrase in prohibited_contexts:
+def contains_affirmative_claim(text: str, terms: tuple[str, ...], negated_phrases: tuple[str, ...]) -> bool:
+    """Detect affirmative claims without rejecting explicit denial or prohibition language."""
+    scrubbed = " ".join(text.lower().split())
+    for phrase in negated_phrases:
         scrubbed = scrubbed.replace(phrase, "")
-    return "fully supported" in scrubbed or "universally supported" in scrubbed
+    return any(term in scrubbed for term in terms)
+
+
+def asserts_full_support(text: str) -> bool:
+    return contains_affirmative_claim(
+        text,
+        ("fully supported", "universally supported"),
+        (
+            "not fully supported",
+            "never be rendered as fully supported",
+            "must not be rendered as fully supported",
+            "may not be rendered as fully supported",
+            "not universally supported",
+            "never be rendered as universally supported",
+            "must not be rendered as universally supported",
+            "may not be rendered as universally supported",
+        ),
+    )
+
+
+def mislabels_disputed_history(text: str) -> bool:
+    return contains_affirmative_claim(
+        text,
+        ("confirmed linkage", "verified linkage", "fully supported", "current assurance"),
+        (
+            "not confirmed",
+            "cannot be rendered as supported, confirmed, verified, or current assurance",
+            "not current assurance",
+            "no current assurance",
+            "not fully supported",
+        ),
+    )
 
 
 def validate_pair(claim: dict[str, Any], review: dict[str, Any], kind: str) -> None:
@@ -105,8 +125,7 @@ def validate_disputed(claim: dict[str, Any], review: dict[str, Any], projection:
     visible = (history[0].get("reason", "") + " " + joined(projection.get("qualification_rules", []))).lower()
     if "disputed" not in visible:
         fail("disputed projection: dispute visibility missing")
-    prohibited = ("confirmed linkage", "verified linkage", "fully supported", "current assurance")
-    if any(term in history[0].get("reason", "").lower() for term in prohibited):
+    if mislabels_disputed_history(history[0].get("reason", "")):
         fail("disputed projection: dispute may not be mislabeled as confirmed or current")
     if projection["active_claim"].get("claim_id") == claim["claim_id"]:
         fail("disputed projection: scope-disputed Claim cannot be selected as current")
