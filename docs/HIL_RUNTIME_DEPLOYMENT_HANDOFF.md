@@ -1,8 +1,8 @@
-# HIL Runtime Deployment Handoff
+# HIL TV/TVC Runtime Handoff
 
-## Upstream deployment contract
+## Upstream runtime contract
 
-The gateway repository now owns a fail-closed deployment profile at:
+The gateway repository owns the platform-agnostic runtime profile at:
 
 ```text
 StegVerse-org/LLM-adapter/docs/HIL_DEPLOYMENT_PROFILE.md
@@ -10,48 +10,68 @@ StegVerse-org/LLM-adapter/docs/HIL_DEPLOYMENT_PROFILE.md
 
 It defines:
 
-- minimum merged gateway commit;
-- service entry point;
+- minimum gateway implementation commit;
+- application entry boundary;
 - required HIL endpoints;
-- durable-storage requirements;
-- separate review and publication credentials;
+- abstract governed persistence requirements;
+- separate private-review and publication capabilities;
 - readiness acceptance values;
-- redacted credential fingerprint evidence;
-- actual restart-proof requirements;
+- redacted capability-binding evidence;
+- TV/TVC-governed runtime replacement proof;
 - Site evidence handoff paths.
 
-The matching upstream files are:
+## Architectural correction
+
+HIL does not require a hosting platform, deployment provider, persistent mounted disk, vendor secret store, container service, or public service URL.
+
+TV/TVC owns:
 
 ```text
-deploy/hil.env.example
-scripts/verify_hil_deployment_profile.py
-.github/workflows/hil-deployment-profile.yml
+runtime construction
+configuration resolution
+compatibility-value injection
+capability issuance
+storage binding
+process lifecycle
+runtime replacement
+transition receipts
+evidence return
 ```
+
+Environment-variable names used by the adapter are compatibility inputs only. They do not assign configuration ownership to a shell, operator, `.env` file, host, or platform.
 
 ## Current boundary
 
-This handoff does not establish that the gateway is deployed. It establishes that the deployment configuration is now explicit, versioned, fail-closed, and CI-verifiable before runtime secrets or infrastructure are applied.
+The runtime contract and automated process-cycle proof exist. The next ecosystem action is a TV/TVC-controlled cycle using a governed state namespace and separately bound review and publication capabilities.
 
-The next external/runtime action is to deploy `StegVerse-org/LLM-adapter` main at or after commit `b2e612dd74d311e0cbe66cd1c1d4758bff129fd4` using durable mounted storage and distinct secret-store credentials.
+This is an internal ecosystem orchestration action, not a request for the user to select or configure external infrastructure.
 
 ## Required return evidence
 
-The deployment operator must return only governed, redacted evidence:
+TV/TVC must return governed, redacted evidence:
 
 ```text
-deployment URL or service identifier
-resolved deployed commit
-persistent volume or storage-class reference
-intake credential fingerprint
-private-review credential fingerprint
-publication credential fingerprint
-readiness JSON
+TV/TVC cycle identifier
+resolved gateway commit
+prior runtime-instance identifier
+successor runtime-instance identifier
+termination transition identifier
+start transition identifier
+governed storage-state reference
+intake capability-binding fingerprint
+private-review capability-binding fingerprint
+publication capability-binding fingerprint
+readiness JSON before replacement
+readiness JSON after replacement
 publication-readiness JSON
-restart timestamps and deployment identifiers
 post-restart response and provenance hashes
+receiver receipt
+private-review receipt
+publication record
+stable lookup result
 ```
 
-Raw credentials must not be returned or committed.
+Raw credentials and capability material must not be returned or committed.
 
 ## Site continuation
 
@@ -62,4 +82,4 @@ data/hil-activation-state.json
 data/hil-deployed-controlled-cycle-evidence.json
 ```
 
-No public acquisition, publication, release, or Master Record append becomes authorized merely because the deployment profile exists or passes CI.
+No public acquisition, publication, release, orchestration, or Master Record append becomes authorized merely because TV/TVC completes runtime construction or produces a controlled-cycle receipt.
