@@ -1,0 +1,48 @@
+name: Import HIL Live Readiness Observation
+
+on:
+  workflow_dispatch:
+    inputs:
+      observation_path:
+        description: Repository-relative path to a HIL-LIVE-READINESS-OBSERVATION-v2 JSON file
+        required: true
+        default: incoming/hil-live-readiness-observation-v2.json
+      apply:
+        description: Apply append-only promotion after validation
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  import-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate observation
+        run: python scripts/import_hil_live_readiness_observation.py "${{ inputs.observation_path }}"
+      - name: Apply append-only promotion
+        if: inputs.apply
+        run: python scripts/import_hil_live_readiness_observation.py "${{ inputs.observation_path }}" --apply
+      - name: Validate HIL state contracts
+        run: |
+          python scripts/check_hil_deployed_controlled_cycle_evidence.py
+          python scripts/check_hil_activation_state.py
+      - name: Commit promoted observation
+        if: inputs.apply
+        run: |
+          if git diff --quiet; then
+            echo "No new observation to commit"
+            exit 0
+          fi
+          git config user.name "stegverse-hil-observation-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/hil-observations/
+          git commit -m "Import governed HIL readiness observation"
+          git push
