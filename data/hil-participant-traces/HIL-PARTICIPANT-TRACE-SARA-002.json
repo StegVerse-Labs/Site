@@ -1,0 +1,32 @@
+{
+  "schema_version": "HIL-PARTICIPANT-TRACE-v1",
+  "trace_id": "HIL-PARTICIPANT-TRACE-SARA-002",
+  "participant": {
+    "display_name": "Sara Katpar",
+    "participant_reference": "HIL-TRACE-0001"
+  },
+  "event_type": "CONTINUATION_OUTREACH_SENT",
+  "state": "CONTACTED_AWAITING_RESPONSE",
+  "observed_at": "2026-07-24T05:20:00-05:00",
+  "channel": "LinkedIn direct message",
+  "outreach_summary": "Participant was informed that the prior exchange had been formalized into the Humans as the Interoperability Layer paper and public replication protocol, and that the protocol, Site surfaces, response schema, hash verification, receipt structure, and bounded upload gateway had been built while final public intake deployment remained incomplete.",
+  "evidence_source": "Screenshot supplied by Rigel Randolph",
+  "states": {
+    "outreach_sent": "ESTABLISHED",
+    "acknowledgment_received": "NOT_ESTABLISHED",
+    "consent_to_attribution": "PRESERVE_PRIOR_APPROVED_SCOPE",
+    "exchange_reproduction_permission": "PRESERVE_PRIOR_APPROVED_SCOPE",
+    "model_response_description_permission": "PRESERVE_PRIOR_APPROVED_SCOPE",
+    "public_record_inclusion_permission": "PRESERVE_PRIOR_APPROVED_SCOPE",
+    "final_presentation_approval": "PRESERVE_PRIOR_APPROVED_SCOPE",
+    "technical_activation": "NOT_AUTHORIZED_BY_THIS_EVENT",
+    "publication_authority": "NOT_AUTHORIZED_BY_THIS_EVENT",
+    "custody_authority": "NOT_AUTHORIZED_BY_THIS_EVENT",
+    "execution_authority": "NOT_AUTHORIZED_BY_THIS_EVENT"
+  },
+  "new_consent_inferred": false,
+  "authority_transferred": false,
+  "publication_authority": false,
+  "activation_authority": false,
+  "status": "RECORDED"
+}
