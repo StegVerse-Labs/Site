@@ -58,7 +58,7 @@
   ],
   "correspondence_status": "supported",
   "review_refs": [
-    "cacs-review-supported-001"
+    "review:cacs-review-supported-001"
   ],
   "timestamp": "2026-07-24T00:00:00Z",
   "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
