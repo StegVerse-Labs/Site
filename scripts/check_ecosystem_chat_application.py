@@ -23,6 +23,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_stegverse_local_node_binding.py'),
 (sys.executable,'scripts/check_ecosystem_node_dual_view.py'),
 (sys.executable,'scripts/check_ecosystem_node_replay_and_disclosure.py'),
+(sys.executable,'scripts/check_ecosystem_node_interaction_contract.py'),
 (sys.executable,'scripts/check_cacs_claims.py'),
 (sys.executable,'scripts/check_cacs_public_projection.py'),
 (sys.executable,'scripts/check_cacs_dispute_partial.py'),
