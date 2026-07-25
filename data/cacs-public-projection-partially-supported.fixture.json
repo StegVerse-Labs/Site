@@ -21,7 +21,7 @@
     {"claim_id":"cacs-claim-withdrawn-001","public_label":"WITHDRAWN_SUPPRESSED","reason":"Withdrawn from active publication."},
     {"claim_id":"cacs-claim-overstated-001","public_label":"OVERSTATED_QUARANTINED","reason":"Exceeds established evidence."}
   ],
-  "qualification_rules": ["Partially supported Claims must never be rendered as fully supported.","All partial and unestablished dimensions remain visible."],
+  "qualification_rules": ["Claims with partial support must retain explicit partial-support labeling.","All partial and unestablished dimensions remain visible."],
   "authority_effect": "NONE",
   "hash": "PREVIEW_ONLY_NOT_CRYPTOGRAPHIC"
 }
