@@ -1,0 +1,46 @@
+{
+  "schema_version": "HIL-OBSERVATION-PROMOTION-POLICY-v1",
+  "experiment_id": "HIL-2026",
+  "accepted_observation_schema": "HIL-LIVE-READINESS-OBSERVATION-v2",
+  "accepted_scopes": {
+    "GITHUB_HOSTED_EPHEMERAL_DEPLOYMENT_PROOF": {
+      "may_establish": [
+        "gateway_process_restart_observed",
+        "credential_separation_observed",
+        "readiness_contract_observed"
+      ],
+      "may_not_establish": [
+        "external_production_deployment",
+        "production_durable_storage",
+        "public_acquisition_authority",
+        "publication_authority",
+        "master_record_append_authority"
+      ]
+    },
+    "AUTHORIZED_EXTERNAL_DEPLOYMENT": {
+      "may_establish": [
+        "external_production_deployment",
+        "production_durable_storage",
+        "credential_separation_observed",
+        "readiness_contract_observed"
+      ],
+      "requires": [
+        "environment_identifier",
+        "service_identifier",
+        "persistent_storage_reference",
+        "operator_or_automation_identity",
+        "deployment_commit_sha"
+      ],
+      "may_not_establish": [
+        "public_acquisition_authority",
+        "publication_authority",
+        "master_record_append_authority"
+      ]
+    }
+  },
+  "required_gateway_commit_ancestor": "b2e612dd74d311e0cbe66cd1c1d4758bff129fd4",
+  "required_primary_sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
+  "required_prompt_sha256": "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922",
+  "promotion_is_append_only": true,
+  "authority_effect": "NONE"
+}
