@@ -28,6 +28,15 @@
     "approval_summary": "Primary Review Candidate and Site presentation reviewed; participant stated everything looks good to proceed.",
     "evidence_type": "LINKEDIN_DIRECT_MESSAGE_SCREENSHOT"
   },
+  "participant_continuation": {
+    "continuation_id": "HIL-CONTINUATION-0001",
+    "state": "PARTICIPANT_AUTHORIZED_TO_PUBLISH",
+    "classification": "INDEPENDENT_PARTICIPANT_PUBLIC_REFLECTION",
+    "participant_initiated": true,
+    "reciprocal_mention_permission": true,
+    "reciprocal_tag_permission": true,
+    "editorial_independence_preserved": true
+  },
   "publication_state": "APPROVED_PRESENTATION_PENDING_TECHNICAL_ACTIVATION",
   "standardized_submission": false,
   "response_id": null,
