@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -11,18 +11,47 @@
     "duplicate_workloads_fail_closed": true,
     "superseded_work_must_be_closed": true,
     "merged_or_superseded_branches_must_be_reclaimed": true,
-    "handoff_update_required_before_task_closure": true
+    "handoff_update_required_before_task_closure": true,
+    "incoming_request_is_candidate_workload": true,
+    "orchestrator_selects_next_admissible_work": true,
+    "parallel_safe_work_may_join_active_sequence": true,
+    "exclusive_work_requires_idle_sequence_barrier": true,
+    "heartbeat_is_transition_driven": true,
+    "heartbeat_interpretation_is_health_relative": true,
+    "time_is_watchdog_only": true,
+    "hil_vertical_slice_has_highest_exclusive_priority": true,
+    "heartbeat_must_not_delay_hil_vertical_slice": true
   },
   "priority_order": [
+    "FIRST_SEAMLESS_HIL_USER_EXPERIENCE",
     "BLOCKED_INTEGRATION",
     "ACTIVE_HANDOFF_WORKLOAD",
     "READY_TO_MERGE",
     "VALIDATION_REPAIR",
     "NEW_WORKLOAD"
   ],
+  "active_sequence": {
+    "task_sequence": 1,
+    "label": "current work task sequence 0001",
+    "parallel_safe_tasks": [
+      "SITE-0001-UPLOAD",
+      "SITE-0001-HEARTBEAT"
+    ],
+    "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
+  },
+  "ownership": {
+    "hil_upload_surface": "external-active-session",
+    "heartbeat_orchestration": "goal/hil-heartbeat-orchestration",
+    "canonical_upstream_browser_binding": "pull/95",
+    "stegverse_owned_endpoint_activation": "issue/24",
+    "superseded_activation_tracker": "issue/16"
+  },
   "activation": {
     "workflow": ".github/workflows/site-handoff-orchestrator.yml",
     "controller": "scripts/site_handoff_orchestrator.py",
-    "report": "site_handoff_orchestration.report.json"
+    "report": "site_handoff_orchestration.report.json",
+    "heartbeat_state": "data/ecosystem-heartbeat-state.json",
+    "heartbeat_contract": "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
+    "heartbeat_validator": "scripts/check_ecosystem_heartbeat_orchestration.py"
   }
 }

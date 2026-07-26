@@ -4,6 +4,24 @@
 
 This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.
 
+## Mandatory orchestration entry
+
+Every ChatGPT session or automation touching this repository must invoke the repository orchestration files before beginning new work. The incoming request is a candidate workload, not automatic execution authority.
+
+Required entry sequence:
+
+```text
+1. Read data/site-orchestration-state.json.
+2. Read data/ecosystem-heartbeat-state.json.
+3. Run scripts/site_handoff_orchestrator.py.
+4. Run scripts/check_ecosystem_heartbeat_orchestration.py.
+5. Continue only the workload admitted by the orchestration result.
+6. Preserve active ownership and claimed paths.
+7. Update orchestration state and this handoff before task closure.
+```
+
+Sessions must not independently reinterpret this handoff while bypassing the repository orchestrator.
+
 ## Current goal
 
 ```text
@@ -13,12 +31,34 @@ Usage surface: ecosystem-usage.html
 Comparison surface: ecosystem-comparison.html
 Operational projection: governed-transitions.html
 Playable service surface: ecosystem-music.html
+Participant-facing HIL surface: humans-as-interoperability-layer.html
 Result: ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT
 Compatibility Result: ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION
 Manual user action required for routine repository work: false
 ```
 
 `ACTIVATION_PENDING_LIVE_MACHINE_EXECUTION` is retained as the stable compatibility class consumed by existing Site validators. The more specific current blocker is the absent authorized real-provider configuration and persistent endpoint; neither marker grants activation authority.
+
+## Current live task sequence
+
+```text
+current work task sequence 0001
+state: RUNNING
+priority: FIRST_SEAMLESS_HIL_USER_EXPERIENCE
+heartbeat model: transition-driven and health-relative
+parallel work admitted: HIL upload surface; heartbeat/orchestration integration
+exclusive barrier: no non-parallel HIL activation task begins until all active parallel tasks close
+```
+
+The live working state is carried by `data/ecosystem-heartbeat-state.json`. Time-based watchdogs detect silence only; they do not claim progress. Meaningful governed orchestration transitions advance repository and ecosystem heartbeat counters.
+
+When the active sequence closes, the state must read:
+
+```text
+end of current work task sequence 0001, no tasks running
+```
+
+Only then may a queued exclusive task begin.
 
 ## Required vertical slice
 
@@ -48,6 +88,18 @@ Publication projection: GCAT-BCAT-Engine/Publisher
 Admissibility projection: StegVerse-Labs/admissibility-wiki
 Guardian projection: StegVerse-002/stegguardian-wiki
 ```
+
+## Active workload ownership
+
+```text
+HIL upload surface: owned by separate active session; parallel-safe with heartbeat/orchestration work
+Heartbeat/orchestration contract: PR #98, branch goal/hil-heartbeat-orchestration
+Canonical upstream browser binding: PR #95
+StegVerse-owned endpoint publication and activation path: Site issue #24
+Superseded broad activation tracker: Site issue #16 closed in favor of issue #24 and this handoff
+```
+
+No new branch may claim an active workload unless the existing owner is completed, explicitly superseded, or declared stale by the orchestrator.
 
 ## Ecosystem Node synchronized dual-view requirement
 
@@ -89,24 +141,7 @@ Minimum canonical event:
 }
 ```
 
-Sensitive fields remain subject to role-based disclosure and redaction policies. Human-readable, formatted governed, and raw machine-readable output resolve to the same canonical records. Raw records are exportable and replayable. The design remains extensible to technical, legal, executive, audit, multilingual, music, video, and sensory renderers.
-
-## Files changed
-
-```text
-ecosystem-chat.html
-assets/ecosystem-node-views.js
-docs/ECOSYSTEM_NODE_CANONICAL_EVENT_CONTRACT.md
-data/ecosystem-node-canonical-events.fixture.json
-scripts/check_ecosystem_node_dual_view.py
-scripts/check_ecosystem_node_replay_and_disclosure.py
-scripts/check_ecosystem_chat_application.py
-ecosystem-music.html
-assets/ecosystem-music.js
-docs/STEGMUSIC_MIRROR_HANDOFF.md
-scripts/check_stegmusic_playable_slice.py
-docs/SITE_MIRROR_HANDOFF.md
-```
+Sensitive fields remain subject to role-based disclosure and redaction policies. Human-readable, formatted governed, and raw machine-readable output resolve to the same canonical records. Raw records are exportable and replayable.
 
 ## Implemented behavior
 
@@ -133,6 +168,9 @@ Conversation / Governed music play / Split / Raw JSONL music projections
 Visible rights/source posture
 Persistent local music event stream and prototype contribution-value panel
 StegMusic JSON session export
+Health-relative heartbeat orchestration contract
+Repository and ecosystem heartbeat state
+Parallel-safe / exclusive / dependency-blocked workload classification
 ```
 
 ## Verification status
@@ -147,6 +185,9 @@ Replay validator against canonical JSON/JSONL fixture: IMPLEMENTED AND BOUND INT
 Duplicate event ID rejection fixture behavior: IMPLEMENTED
 Unresolved parent/evidence/continuity reference rejection: IMPLEMENTED
 Role-based public redaction fixture: IMPLEMENTED
+Heartbeat orchestration validator: PASS observed on PR #98 run 30213685708
+Site Bootstrap Validate: PASS observed on PR #98 run 30213685712
+Site handoff orchestrator: duplicate ownership repair in progress
 StegMusic static playable-slice verifier: IMPLEMENTED
 StegMusic browser audio execution: NOT YET OBSERVED IN CI OR DEPLOYED PREVIEW
 Browser execution test: NOT YET OBSERVED IN CI
@@ -181,14 +222,13 @@ Commercial music source: NOT IMPLEMENTED
 Public-domain verified source: NOT IMPLEMENTED
 ```
 
-Custody and reconstruction were previously verified through `master-records/orchestration` Runtime Evidence Validation run `29865690620`, merge `421da84784888e3dc9bb98a7b2b47a1518f0eee0`, with authenticated custody `RECORDED` and reconstruction `PASS`. Provider execution remained disabled during that run.
-
 ## Remaining work
 
 Destination `StegVerse-Labs/Site`:
 
 ```text
-Observe the restored canonical application validation in CI
+Observe and preserve passing heartbeat orchestration and canonical Site validation
+Complete HIL upload surface without conflicting with PR #98 paths
 Add browser behavior tests for all three modes and bidirectional selection
 Implement runtime role selection and emitted redaction receipts
 Accept canonical events from the governed gateway instead of constructing them from DOM messages
@@ -227,32 +267,6 @@ GCAT-BCAT-Engine/Publisher
 StegVerse-Labs/admissibility-wiki
 StegVerse-002/stegguardian-wiki
 ```
-
-## StegMusic / StegDJ governed service slice
-
-The detailed music-service continuation record is `docs/STEGMUSIC_MIRROR_HANDOFF.md`, owned by Site issue #39.
-
-The first playable source is locally generated browser audio. This permits immediate UI and governed-record testing without asserting a commercial catalog license. The next lawful source sequence is:
-
-```text
-verified public-domain source
--> user-owned or purchased local-file source
--> connected licensed provider
--> rights-aware regular catalog brokerage
--> premium adaptive StegDJ sequencing
--> authorized composition/remix/generative sources
-```
-
-The music surface keeps these statuses visible whether active or inactive:
-
-```text
-playback
-preference refinement
-cross-service projection
-contribution / royalty candidacy
-```
-
-Captured records are direct observations. Derived records are interpretations created from them. A downstream projection is a bounded record admitted to another service without disclosing the private raw listening history. Contribution estimates remain non-payable until an authorized financial contract, value derivation, custody, and settlement path exist.
 
 ## Provider readiness boundary
 
@@ -293,38 +307,23 @@ all authority flags false
 
 Invalid, conflicting, stale, simulated, or authority-escalating evidence is rejected.
 
-## Site-local completion and downstream propagation
-
-Until all activation gates pass:
-
-```text
-data/ecosystem-chat-activation-propagation.json
-state: PENDING_ACTIVATION_EVIDENCE
-```
-
-After machine-verified completion:
-
-```text
-state: READY_FOR_DOWNSTREAM_INGESTION
-```
-
-A propagation packet is not custody, activation authority, publication authority, execution authority, admissibility, or release authority.
-
 ## Machine-owned continuation
 
 ```text
-1. StegVerse-org/LLM-adapter issue #18 owns the remaining live-provider and persistent-endpoint path.
-2. Reuse the canonical StegDeploy runtime and governed provider broker.
-3. Supply authorized provider configuration only through an authorized runtime environment.
-4. Produce the secret-free provider readiness status.
-5. When readiness is READY, execute one governed request through the verified gateway and custody path.
-6. Retain the first exact provider, persistence, custody, reconstruction, or activation-receipt failure.
-7. Site imports and validates the first zero-blocker immutable VERIFIED receipt automatically.
-8. Site recomputes activation and propagation state.
-9. Publisher and both wiki consumers ingest the Site projection automatically.
-10. Release readiness remains fail-closed until downstream verified evidence exists.
-11. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
-12. Add one verified lawful non-generated source before invited external testing.
+1. Keep PR #98 limited to heartbeat/orchestration files and parallel-safe with the upload session.
+2. Close or supersede duplicate workload owners before admitting new work.
+3. StegVerse-org/LLM-adapter issue #18 owns the remaining live-provider and persistent-endpoint path.
+4. Reuse the canonical StegDeploy runtime and governed provider broker.
+5. Supply authorized provider configuration only through an authorized runtime environment.
+6. Produce the secret-free provider readiness status.
+7. When readiness is READY, execute one governed request through the verified gateway and custody path.
+8. Retain the first exact provider, persistence, custody, reconstruction, or activation-receipt failure.
+9. Site imports and validates the first zero-blocker immutable VERIFIED receipt automatically.
+10. Site recomputes activation and propagation state.
+11. Publisher and both wiki consumers ingest the Site projection automatically.
+12. Release readiness remains fail-closed until downstream verified evidence exists.
+13. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
+14. Add one verified lawful non-generated source before invited external testing.
 ```
 
 No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, or manual publication task is assigned to the user.
@@ -356,25 +355,12 @@ prototype contribution estimate != payable royalty
 music rights label != license grant
 ```
 
-## Browser-local ChatGPT session continuation
-
-The Site includes an operator-local convenience surface:
-
-```text
-chat-session-launcher.html
-docs/CHATGPT_SESSION_LAUNCHER.md
-scripts/check_chat_session_launcher.py
-```
-
-It stores a validated `https://chatgpt.com/c/<conversation-id>` URL in browser local storage only and does not inject prompts, transmit the private identifier, authenticate ChatGPT, grant Site execution authority, create custody, or produce activation evidence.
-
 ## Current blocker and next executable step
 
 ```text
 Blocker: no repository evidence establishes an authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy in a persistent authorized runtime environment
 Owner: StegVerse-org/LLM-adapter issue #18
-Next Site step: observe the restored ST-017 run, then add runtime gateway canonical-event envelope consumption and browser correlation tests
-Parallel playable step: deploy and browser-test ecosystem-music.html, then add the direct Ecosystem Chat launcher and one verified lawful source
+Next Site step: finish parallel HIL upload and heartbeat/orchestration integration, then add runtime gateway canonical-event envelope consumption and browser correlation tests
 Next adapter step: produce the secret-free provider readiness status; when READY, execute one real governed provider request through the verified transition custody and reconstruction path
 Manual user action required for routine repository work: false
 ```
@@ -385,4 +371,4 @@ No tag or release is authorized. Remaining conditions are passing CI/browser ver
 
 ## Archive readiness
 
-This handoff, the feature branch, canonical mapping contract, replay/disclosure fixture and verifier, Site issue #39, StegMusic handoff and playable files, adapter issue #18, prior custody evidence, activation receipt paths, Site machine-readable state, and repository history preserve all continuation state without requiring conversation context.
+This handoff, repository orchestration state, heartbeat state, active PRs, issues, validators, workflows, receipts, and repository history preserve all continuation state without requiring conversation context.

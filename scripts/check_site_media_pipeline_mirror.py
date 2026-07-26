@@ -23,8 +23,10 @@ REQUIRED_PAGE_MARKERS = [
     "public broad" + "cast",
 ]
 
-# Validate durable Site handoff obligations while allowing the canonical goal and
-# activation wording to evolve as additional governed projections are installed.
+# Validate durable Site handoff obligations while allowing the canonical goal,
+# activation wording, and implementation paths to evolve.  Alternatives must
+# still establish the same application-validation and replay obligations; they
+# are not permission to remove either check.
 REQUIRED_HANDOFF_MARKERS = [
     "# Site Mirror Handoff",
     "This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.",
@@ -47,10 +49,14 @@ REQUIRED_HANDOFF_ALTERNATIVES = [
     (
         ".github/workflows/validate.yml",
         "scripts/check_ecosystem_chat_application.py",
+        "Static contract verifier: BOUND INTO CANONICAL APPLICATION VALIDATION",
+        "Canonical application-validation binding",
     ),
     (
         ".github/workflows/ecosystem-chat-activation-retention.yml",
         "scripts/check_ecosystem_node_replay_and_disclosure.py",
+        "Replay validator against canonical JSON/JSONL fixture",
+        "Replay fixture preserving order and canonical IDs across JSON and JSONL",
     ),
 ]
 

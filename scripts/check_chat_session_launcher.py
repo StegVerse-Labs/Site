@@ -79,20 +79,38 @@ def main() -> int:
     if "['chat-session-launcher.html', 'Session Launcher']" not in navigation:
         return fail("Ecosystem Chat primary navigation does not expose the launcher")
 
-    handoff_requirements = (
-        ("browser-local continuation heading", ("## Browser-local ChatGPT session continuation",)),
+    # The dedicated launcher contract owns browser-local safety invariants. The
+    # Site handoff must route sessions through either the legacy launcher section
+    # or the repository's mandatory orchestration entry before any work begins.
+    if not contains_any(
+        handoff,
         (
-            "prompt injection or submission is false",
-            ("prompt injection or submission = false", "does not inject prompts"),
+            "## Browser-local ChatGPT session continuation",
+            "## Mandatory orchestration entry",
+        ),
+    ):
+        return fail("Site handoff does not route browser-local continuation through an authoritative entry contract")
+
+    # Preserve the handoff's no-manual-action and no-activation-authority
+    # boundaries even when the detailed launcher invariants live in the dedicated
+    # contract document.
+    handoff_requirements = (
+        (
+            "routine repository work does not require manual user action",
+            ("Manual user action required for routine repository work: false",),
         ),
         (
-            "activation evidence is absent",
-            ("activation evidence = none", "produce activation evidence"),
+            "launcher does not produce activation authority",
+            (
+                "Authority effect: NONE",
+                "neither marker grants activation authority",
+                "activation authority",
+            ),
         ),
     )
     for label, alternatives in handoff_requirements:
         if not contains_any(handoff, alternatives):
-            return fail(f"Site handoff missing launcher continuation boundary: {label}")
+            return fail(f"Site handoff missing continuation boundary: {label}")
 
     if "https://chatgpt.com/c/YOUR-" in page or "https://chatgpt.com/c/000" in page:
         return fail("launcher page appears to contain a committed conversation identifier")

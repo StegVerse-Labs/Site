@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "ecosystem_heartbeat_runtime_state",
+  "repository": "StegVerse-Labs/Site",
+  "ecosystem_heartbeat": 7,
+  "repository_heartbeat": 7,
+  "task_sequence": 1,
+  "task_sequence_label": "current work task sequence 0001",
+  "work_state": "RUNNING",
+  "system_health": "ACTIVE_WITH_DECLARED_BLOCKER",
+  "heartbeat_mode": "TRANSITION_DRIVEN",
+  "time_role": "WATCHDOG_ONLY",
+  "active_tasks": [
+    {
+      "task_id": "SITE-0001-UPLOAD",
+      "workload": "Complete HIL upload surface",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "external-active-session",
+      "claimed_paths": [
+        "humans-as-interoperability-layer.html",
+        "assets/hil-*",
+        "scripts/check_hil_*upload*"
+      ],
+      "state": "RUNNING"
+    },
+    {
+      "task_id": "SITE-0001-HEARTBEAT",
+      "workload": "Integrate health-relative heartbeat orchestration",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "goal/hil-heartbeat-orchestration",
+      "claimed_paths": [
+        ".github/workflows/ecosystem-heartbeat-orchestration.yml",
+        "data/ecosystem-heartbeat-state.json",
+        "data/site-orchestration-state.json",
+        "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
+        "docs/SITE_MIRROR_HANDOFF.md",
+        "scripts/check_ecosystem_heartbeat_orchestration.py"
+      ],
+      "state": "RUNNING"
+    }
+  ],
+  "queued_parallel_safe_tasks": [],
+  "queued_exclusive_tasks": [
+    {
+      "task_id": "SITE-0002-HIL-LIVE",
+      "workload": "Execute first authorized real-provider HIL vertical slice",
+      "execution_class": "EXCLUSIVE",
+      "blocked_until": "end of current work task sequence 0001, no tasks running",
+      "external_blocker": "StegVerse-org/LLM-adapter issue #18"
+    }
+  ],
+  "blocked_tasks": [
+    {
+      "task_id": "SITE-0002-HIL-LIVE",
+      "reason": "Authorized real-provider and persistent endpoint evidence is not established"
+    }
+  ],
+  "last_transition": {
+    "event_type": "HANDOFF_OWNERSHIP_RECONCILED",
+    "progress_effect": true,
+    "authority_effect": false
+  },
+  "health_model": {
+    "interpretation_is_relative_to_system_health": true,
+    "missing_heartbeat_is_failure_only_when_progress_was_expected": true,
+    "blocked_but_observed_is_not_equivalent_to_failed": true,
+    "watchdog_does_not_imply_progress": true,
+    "health_reasons": [
+      "Heartbeat orchestration validation passed",
+      "Site Bootstrap validation passed",
+      "HIL upload work is active in a separate parallel-safe session",
+      "Authorized real-provider and persistent endpoint remain unresolved"
+    ]
+  },
+  "hil_priority": {
+    "goal": "FIRST_SEAMLESS_HIL_USER_EXPERIENCE",
+    "priority": "HIGHEST_EXCLUSIVE_INTEGRATION_SEQUENCE",
+    "heartbeat_must_not_delay_vertical_slice": true
+  },
+  "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false
+  }
+}
