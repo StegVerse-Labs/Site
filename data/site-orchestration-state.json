@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -39,7 +39,8 @@
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
       "SITE-0001-CANONICAL-BROWSER-BINDING",
-      "SITE-0001-ENDPOINT-ACTIVATION-READINESS"
+      "SITE-0001-ENDPOINT-ACTIVATION-READINESS",
+      "SITE-0001-HIL-HTTPS-PROBE-IMPORT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -50,6 +51,8 @@
     "superseded_canonical_browser_binding": "closed/pr-95",
     "stegverse_owned_endpoint_activation": "issue/24",
     "endpoint_activation_readiness": "data/stegverse-endpoint-activation-readiness.json",
+    "https_receiver_probe_execution": "StegVerse-org/LLM-adapter:machine-owned-session",
+    "https_receiver_probe_import": "data/hil-https-receiver-probes/",
     "superseded_activation_tracker": "issue/16"
   },
   "activation_readiness": {
@@ -57,7 +60,17 @@
     "record_commit": "9092e8860c02f5556bf2ad236ae7f11848820094",
     "validator_commit": "a432a70a1fdb5218b84ad24c49f4cfc387f6a0fa",
     "workflow_commit": "9b8e8ec005e1acb49376e1bd469bbd9147b855c6",
-    "latest_external_result_sha256": "27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d",
+    "latest_external_result_sha256": "9e2d2df789ebe53fb9604daf9bf2376c85936a5ed8c9b219238263b3e4b3d9da",
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "https_receiver_probe_import": {
+    "state": "READY_FOR_VERIFIED_UPSTREAM_EVIDENCE",
+    "schema_commit": "c618cda4e9622a24851e347727ef6f7e8e623d78",
+    "validator_commit": "18aa18e11bb3b06535aafe034ebaa147aad2e651",
+    "workflow_commit": "5070f8c5c54489a9b8aef78c1ac736bb19652097",
+    "source_probe_commit": "960feb0071f67830e223a3680f0e4d8b53b49802",
+    "imports_observed": 0,
     "authority_effect": false,
     "activation_effect": false
   },
