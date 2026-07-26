@@ -3,53 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Submit response artifacts to Humans as the Interoperability Layer through a Primary, prompt, response-hash, and optional signature chain.">
+  <meta name="description" content="Download the canonical HIL v1.0 Primary and submit response artifacts through a provenance-bound governed chain.">
   <title>Humans as the Interoperability Layer — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
-    .hil-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.hil-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}.hil-step b{display:block;color:var(--accent2);margin-bottom:7px}.hil-prompt{background:#070b13;border:1px solid var(--border2);border-radius:var(--radius);padding:18px;font-family:var(--mono);font-size:13px;color:#dce8ff}.hil-upload{border:1px dashed var(--border2);border-radius:var(--radius);padding:22px;background:rgba(17,24,39,.72)}.hil-upload input[type=file]{width:100%;margin:12px 0 16px;color:var(--muted)}.hil-field{margin:12px 0}.hil-field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.hil-field input,.hil-field select{width:100%;background:#090e18;color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:10px}.hil-check{display:flex;gap:9px;align-items:flex-start;margin:10px 0;color:#c8d4e8;font-size:13px}.hil-status{margin-top:16px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:#0b1220}.hil-status[data-state="ok"]{border-color:var(--green-bd);background:var(--green-bg);color:#bce9c5}.hil-status[data-state="warn"]{border-color:#3a3000;background:var(--yellow-bg);color:#f7dc85}.hil-status[data-state="error"]{border-color:#512020;background:#210d0d;color:#f4b4b4}.hil-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.hil-approved{border-left:3px solid #58b06a;padding:14px 16px;background:#0c1d11;color:#bce9c5;margin:18px 0}.hil-empty{color:var(--muted);border:1px solid var(--border);border-radius:var(--radius);padding:18px}code{color:var(--accent2)}@media(max-width:600px){.sv-hero{padding-top:38px}.hil-actions .sv-btn{width:100%;text-align:center}}
+    .hil-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.hil-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}.hil-step b{display:block;color:var(--accent2);margin-bottom:7px}.hil-prompt{background:#070b13;border:1px solid var(--border2);border-radius:var(--radius);padding:18px;font-family:var(--mono);font-size:13px;color:#dce8ff;white-space:pre-wrap}.hil-upload{border:1px dashed var(--border2);border-radius:var(--radius);padding:22px;background:rgba(17,24,39,.72)}.hil-upload input[type=file]{width:100%;margin:12px 0 16px;color:var(--muted)}.hil-field{margin:12px 0}.hil-field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.hil-field input,.hil-field select{width:100%;background:#090e18;color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:10px}.hil-check{display:flex;gap:9px;align-items:flex-start;margin:10px 0;color:#c8d4e8;font-size:13px}.hil-status{margin-top:16px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:#0b1220}.hil-status[data-state="ok"]{border-color:var(--green-bd);background:var(--green-bg);color:#bce9c5}.hil-status[data-state="warn"]{border-color:#3a3000;background:var(--yellow-bg);color:#f7dc85}.hil-status[data-state="error"]{border-color:#512020;background:#210d0d;color:#f4b4b4}.hil-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.hil-approved{border-left:3px solid #58b06a;padding:14px 16px;background:#0c1d11;color:#bce9c5;margin:18px 0}.hil-empty{color:var(--muted);border:1px solid var(--border);border-radius:var(--radius);padding:18px}code{color:var(--accent2)}@media(max-width:600px){.sv-hero{padding-top:38px}.hil-actions .sv-btn{width:100%;text-align:center}}
   </style>
 </head>
 <body>
 <nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="Papers.html">Papers</a><a class="active" href="humans-as-interoperability-layer.html">Interoperability Study</a></nav>
 <main class="sv-wrap">
   <header class="sv-hero">
-    <div class="sv-eyebrow">Approved presentation · v0.5 · provenance-bound artifact intake</div>
+    <div class="sv-eyebrow">Canonical experiment input · v1.0 · provenance-bound artifact intake</div>
     <h1>Humans as the<br><em>Interoperability Layer</em></h1>
-    <p>Download the Primary PDF, submit it unchanged to an LLM, and return the response-only PDF through a chain that binds the Primary hash, protocol, exact prompt hash, response hash, model, provider, and optional producer signature.</p>
-    <div class="sv-btn-row"><button id="download-primary" class="sv-btn sv-btn-primary" type="button">Download v0.5 Primary PDF</button><a class="sv-btn sv-btn-secondary" href="#submit">Submit response artifact</a><a class="sv-btn sv-btn-secondary" href="#responses">View responses</a></div>
+    <p>Download the exact Canonical v1.0 Primary PDF, submit it unchanged to an LLM with the complete canonical prompt, and return the response-only PDF through the governed provenance, receipt, review, publication, and Master Record chain.</p>
+    <div class="sv-btn-row"><button id="download-primary" class="sv-btn sv-btn-primary" type="button">Download Canonical v1.0 Primary PDF</button><a class="sv-btn sv-btn-secondary" href="#submit">Submit response artifact</a><a class="sv-btn sv-btn-secondary" href="#responses">View responses</a></div>
   </header>
-  <div class="hil-approved"><strong>Review approved:</strong> Sara Katpar reviewed the Primary Review Candidate and Site presentation and stated that everything looks good to proceed. Public acquisition remains fail-closed until the artifact and gateway complete controlled live verification.</div>
+  <div class="hil-approved"><strong>Canonical publication approved:</strong> participant attribution, reproduction, Primary review, and Site presentation approval are complete. Response acquisition remains fail-closed unless the exact v1.0 Primary, prompt, response bytes, provenance manifest, and gateway receipt chain validate.</div>
   <section class="sv-evidence" aria-label="Primary and chain status">
-    <div class="sv-evidence-label">Primary and provenance chain</div>
-    <div class="sv-evidence-row"><span class="k">Primary version</span><span class="v">v0.5</span></div>
-    <div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v" id="primary-hash">52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946</span></div>
+    <div class="sv-evidence-label">Canonical Primary and provenance chain</div>
+    <div class="sv-evidence-row"><span class="k">Primary version</span><span class="v">v1.0</span></div>
+    <div class="sv-evidence-row"><span class="k">Primary filename</span><span class="v">HIL_Canonical_Paper_v1_0.pdf</span></div>
+    <div class="sv-evidence-row"><span class="k">Primary size</span><span class="v">85,084 bytes</span></div>
+    <div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v" id="primary-hash">e7a86cf05323d8352cfa188e0bff1c35fdb15f9fac6af91ca62b6a126ac4e68f</span></div>
     <div class="sv-evidence-row"><span class="k">Protocol</span><span class="v">HIL-PROTOCOL-v1.0</span></div>
     <div class="sv-evidence-row"><span class="k">Prompt</span><span class="v">HIL-PROMPT-v1.0</span></div>
-    <div class="sv-evidence-row"><span class="k">Prompt SHA-256</span><span class="v">0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922</span></div>
-    <div class="sv-evidence-row"><span class="k">Submission state</span><span class="v">GATEWAY-CONTROLLED · FAIL CLOSED UNTIL READY</span></div>
+    <div class="sv-evidence-row"><span class="k">Prompt SHA-256</span><span class="v">bbb2db652a10ef404d565e561bb0a2f7b078bbe95105400faec14be9a6d5642a</span></div>
+    <div class="sv-evidence-row"><span class="k">Submission state</span><span class="v">GATEWAY-CONTROLLED · FAIL CLOSED UNTIL EXACT v1.0 CHAIN READY</span></div>
   </section>
   <h2 class="sv-h2">Why the chain matters</h2>
-  <div class="sv-prose"><p>A valid PDF header is not enough. Each submission must include a provenance manifest whose response hash matches the exact uploaded bytes and whose Primary, protocol, and prompt references match the current experiment version.</p><p>An optional model or provider signature may strengthen the chain. Absence of a producer signature is recorded explicitly and does not silently become verification.</p></div>
+  <div class="sv-prose"><p>A valid PDF header is not enough. The Site verifies the exact Canonical v1.0 PDF hash before download. Each response submission must include a provenance manifest whose response hash matches the exact uploaded bytes and whose Primary, protocol, and prompt references match this v1.0 experiment.</p><p>Artifact generation is not submission. Submission is not review, publication, endorsement, or Master Record release.</p></div>
   <h2 class="sv-h2">Participant path</h2>
-  <div class="hil-grid"><div class="hil-step"><b>1 · Download</b>Download the Primary PDF and verify its published SHA-256.</div><div class="hil-step"><b>2 · Submit</b>Upload the unchanged PDF to an LLM of your choice.</div><div class="hil-step"><b>3 · Prompt</b>Use the exact invocation prompt below.</div><div class="hil-step"><b>4 · Receive</b>Download the response-only PDF.</div><div class="hil-step"><b>5 · Bind</b>The Site computes the response hash and creates the provenance manifest.</div><div class="hil-step"><b>6 · Submit</b>The gateway validates and preserves both files before issuing a receiver receipt.</div></div>
+  <div class="hil-grid"><div class="hil-step"><b>1 · Download</b>Download the Canonical v1.0 Primary PDF and verify its published SHA-256.</div><div class="hil-step"><b>2 · Submit</b>Upload the unchanged PDF to an LLM of your choice.</div><div class="hil-step"><b>3 · Prompt</b>Use the complete exact canonical prompt below.</div><div class="hil-step"><b>4 · Receive</b>Download the complete unedited response-only PDF.</div><div class="hil-step"><b>5 · Bind</b>The Site computes the response hash and creates the provenance manifest.</div><div class="hil-step"><b>6 · Submit</b>The gateway validates and preserves both exact artifacts before issuing a receiver receipt.</div></div>
   <section id="submit">
-    <h2 class="sv-h2">Exact invocation prompt</h2>
-    <div id="canonical-prompt" class="hil-prompt">Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol.</div>
-    <div class="hil-actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy prompt</button></div>
+    <h2 class="sv-h2">Exact canonical invocation prompt</h2>
+    <div id="canonical-prompt" class="hil-prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
+
+1. State the paper’s central claim in your own words.
+2. Separate what the paper structurally demonstrates from what remains a testable hypothesis and what remains speculative.
+3. Determine whether the paper adequately supports the claim that humans function as an interoperability layer between otherwise bounded language-model processes.
+4. Identify the strongest argument or observation.
+5. Identify the weakest, least-supported, or most ambiguous argument.
+6. Describe any relevant mechanism, counterexample, limitation, alternative explanation, or implication not addressed.
+7. State whether producing this response participates in the process described by the paper. Explain precisely why or why not.
+8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
+9. End with the completed submission record. Use “unknown” where information is unavailable.</div>
+    <div class="hil-actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy complete canonical prompt</button></div>
     <h2 class="sv-h2">Submit your Response PDF</h2>
     <div class="hil-upload">
-      <p>The browser validates and hashes the PDF, creates a provenance manifest, and submits both only when the gateway reports the same Primary and prompt chain.</p>
+      <p>Upload the complete, unedited response-only PDF. The browser validates and hashes it, creates the v1.0 provenance manifest, and submits both only when the gateway reports the identical Canonical Primary and prompt chain.</p>
       <input id="response-file" type="file" accept="application/pdf,.pdf">
-      <div class="hil-field"><label for="model">Model name</label><input id="model" type="text" maxlength="200" placeholder="Example: GPT-5.6 Thinking"></div>
+      <div class="hil-field"><label for="model">Model name and version</label><input id="model" type="text" maxlength="200" placeholder="Example: GPT-5.6 Thinking"></div>
       <div class="hil-field"><label for="provider">Provider</label><input id="provider" type="text" maxlength="200" placeholder="Example: OpenAI"></div>
       <div class="hil-field"><label for="conversation-reference">Optional conversation reference</label><input id="conversation-reference" type="text" maxlength="500" placeholder="Public URL, local identifier, or leave blank"></div>
       <div class="hil-field"><label for="participant-id">Name, pseudonym, or anonymous</label><input id="participant-id" type="text" maxlength="120" placeholder="anonymous"></div>
       <div class="hil-field"><label for="publication-consent">Permission to publish the model response</label><select id="publication-consent"><option value="">Select</option><option value="public">Yes — publish with attribution</option><option value="anonymous">Yes — publish anonymously</option><option value="private">No — retain for private analysis</option></select></div>
       <label class="hil-check"><input id="unedited-confirmation" type="checkbox"> <span>I confirm that I did not edit the model-response portion of the PDF after generation.</span></label>
       <label class="hil-check"><input id="participant-authority" type="checkbox"> <span>I understand that an LLM cannot grant publication or attribution consent on my behalf.</span></label>
-      <div class="hil-actions"><button id="prepare-receipt" class="sv-btn sv-btn-primary" type="button">Checking chain intake…</button><button id="download-provenance" class="sv-btn sv-btn-secondary" type="button" disabled>Download provenance JSON</button><button id="download-receipt" class="sv-btn sv-btn-secondary" type="button" disabled>Download receiver receipt</button></div>
-      <div id="intake-status" class="hil-status" data-state="warn" role="status">Checking gateway chain requirements…</div>
+      <div class="hil-actions"><button id="prepare-receipt" class="sv-btn sv-btn-primary" type="button">Checking v1.0 chain intake…</button><button id="download-provenance" class="sv-btn sv-btn-secondary" type="button" disabled>Download provenance JSON</button><button id="download-receipt" class="sv-btn sv-btn-secondary" type="button" disabled>Download receiver receipt</button></div>
+      <div id="intake-status" class="hil-status" data-state="warn" role="status">Checking canonical v1.0 gateway chain requirements…</div>
     </div>
   </section>
   <section id="responses"><h2 class="sv-h2">Published response record</h2><div id="response-index" class="hil-empty">No standardized public responses have been published. HIL-TRACE-0001 remains the approved initiating pre-protocol observation.</div></section>
