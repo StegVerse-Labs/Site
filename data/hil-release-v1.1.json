@@ -1,0 +1,25 @@
+{
+  "release": "HIL-v1.1-single-artifact-response-contract",
+  "canonical_primary": {
+    "filename": "HIL_Canonical_Paper_v1_1.pdf",
+    "size_bytes": 87271,
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
+  },
+  "protocol": {
+    "filename": "HIL_Experiment_Protocol_v1_1.pdf",
+    "size_bytes": 89142,
+    "sha256": "11a582fd6feb5e74698990b4da77e66a6974d3a36ab6c5e1870e4a7e1ae21b3c"
+  },
+  "prompt": {
+    "version": "HIL-PROMPT-v1.1",
+    "sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
+  },
+  "delivery_contract": {
+    "single_downloadable_pdf": true,
+    "visible_chat_summary": true,
+    "participant_copy_paste_required": false,
+    "participant_conversion_required": false,
+    "return_paths": ["governed_site_intake", "direct_message_to_rigel_randolph"]
+  },
+  "unknown_value_classes": ["analytical", "execution_environment", "custody", "consent", "downstream_pending"]
+}
