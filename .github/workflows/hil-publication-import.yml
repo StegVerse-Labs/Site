@@ -1,0 +1,30 @@
+name: HIL Publication Import Contract
+
+on:
+  push:
+    paths:
+      - "data/hil-responses.json"
+      - "data/hil-master-records.json"
+      - "scripts/verify_hil_publication_import.py"
+      - ".github/workflows/hil-publication-import.yml"
+  pull_request:
+    paths:
+      - "data/hil-responses.json"
+      - "data/hil-master-records.json"
+      - "scripts/verify_hil_publication_import.py"
+      - ".github/workflows/hil-publication-import.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify published response imports and Master Record chain
+        run: python scripts/verify_hil_publication_import.py
