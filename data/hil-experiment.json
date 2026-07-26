@@ -2,31 +2,31 @@
   "schema_version": "HIL-EXPERIMENT-v1",
   "experiment_id": "HIL-2026",
   "title": "Humans as the Interoperability Layer",
-  "status": "APPROVED_PENDING_DEPLOYED_CONTROLLED_CYCLE",
+  "status": "CANONICAL_V1_ACTIVE_DEPLOYED_CONTROLLED_CYCLE_PENDING",
   "primary_document": {
-    "filename": "Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf",
-    "version": "v0.5",
-    "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
-    "artifact_path": "data/hil-primary-v0.5-review.pdf.b64",
+    "filename": "HIL_Canonical_Paper_v1_0.pdf",
+    "version": "v1.0",
+    "sha256": "e7a86cf05323d8352cfa188e0bff1c35fdb15f9fac6af91ca62b6a126ac4e68f",
+    "artifact_path": "data/hil-primary-v1.0.pdf.b64",
     "artifact_state": "VERIFIED",
-    "canonical_state": "APPROVED_CONTENT_ARTIFACT_FROZEN",
-    "size_bytes": 109210,
-    "verified_at": "2026-07-25T19:17:30.651605+00:00",
+    "canonical_state": "CANONICAL_EXPERIMENT_INPUT_ACTIVE",
+    "size_bytes": 85084,
+    "verified_at": "2026-07-26T00:00:00Z",
     "scope": "RESEARCH_THESIS_AND_MODEL_FACING_INDEPENDENT_RESPONSE_PROTOCOL",
     "sole_technical_specification": false
   },
   "protocol": {
     "version": "HIL-PROTOCOL-v1.0",
     "prompt_version": "HIL-PROMPT-v1.0",
-    "prompt_sha256": "0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922",
-    "instruction_section": "Section 8: Independent Response Protocol",
-    "invocation_prompt": "Read this Primary PDF in full and follow every instruction in Section 8: Independent Response Protocol.",
+    "prompt_sha256": "bbb2db652a10ef404d565e561bb0a2f7b078bbe95105400faec14be9a6d5642a",
+    "instruction_section": "Canonical invocation prompt published on the Site experiment surface",
+    "invocation_prompt_path": "humans-as-interoperability-layer.html#submit",
     "end_to_end_spec_version": "HIL-END-TO-END-PROTOCOL-v1.0",
     "end_to_end_spec_path": "docs/HIL_END_TO_END_PROTOCOL.md",
     "documentation_model": {
       "primary_owns": "research thesis and model-facing procedure",
       "manifest_and_schemas_own": "machine-readable submission contract",
-      "gateway_owns": "validation, custody, receipts, review, and append-only publication",
+      "gateway_owns": "validation, exact-byte persistence, receipts, review, and append-only publication",
       "end_to_end_spec_owns": "complete operational and governance lifecycle",
       "handoff_owns": "implementation continuity and current activation state"
     }
@@ -46,7 +46,7 @@
       "provider",
       "producer_signature_state"
     ],
-    "current_transport": "GATEWAY_FAIL_CLOSED_UNTIL_READY",
+    "current_transport": "SITE_DISCOVERS_CONFORMING_GATEWAY_FAIL_CLOSED",
     "intended_transport": "SITE_GOVERNED_UPLOAD_THEN_ECOSYSTEM_CHAT",
     "browser_local_hashing": true,
     "server_custody": false
