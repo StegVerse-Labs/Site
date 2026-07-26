@@ -2,8 +2,8 @@
   "schema_version": "1.0.0",
   "state_type": "ecosystem_heartbeat_runtime_state",
   "repository": "StegVerse-Labs/Site",
-  "ecosystem_heartbeat": 7,
-  "repository_heartbeat": 7,
+  "ecosystem_heartbeat": 8,
+  "repository_heartbeat": 8,
   "task_sequence": 1,
   "task_sequence_label": "current work task sequence 0001",
   "work_state": "RUNNING",
@@ -22,21 +22,22 @@
         "scripts/check_hil_*upload*"
       ],
       "state": "RUNNING"
-    },
+    }
+  ],
+  "completed_tasks": [
     {
       "task_id": "SITE-0001-HEARTBEAT",
       "workload": "Integrate health-relative heartbeat orchestration",
       "execution_class": "PARALLEL_SAFE",
       "owner": "goal/hil-heartbeat-orchestration",
-      "claimed_paths": [
-        ".github/workflows/ecosystem-heartbeat-orchestration.yml",
-        "data/ecosystem-heartbeat-state.json",
-        "data/site-orchestration-state.json",
-        "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
-        "docs/SITE_MIRROR_HANDOFF.md",
-        "scripts/check_ecosystem_heartbeat_orchestration.py"
-      ],
-      "state": "RUNNING"
+      "state": "COMPLETED",
+      "completion_evidence": {
+        "pull_request": 98,
+        "merge_commit": "f87f09739d67c05ca5b134e7418f15034b822189",
+        "heartbeat_validation": "PASS",
+        "handoff_orchestrator": "PASS",
+        "site_bootstrap_validation": "PASS"
+      }
     }
   ],
   "queued_parallel_safe_tasks": [],
@@ -56,9 +57,10 @@
     }
   ],
   "last_transition": {
-    "event_type": "HANDOFF_OWNERSHIP_RECONCILED",
+    "event_type": "HEARTBEAT_ORCHESTRATION_MERGED",
     "progress_effect": true,
-    "authority_effect": false
+    "authority_effect": false,
+    "evidence_ref": "StegVerse-Labs/Site#98"
   },
   "health_model": {
     "interpretation_is_relative_to_system_health": true,
@@ -66,9 +68,8 @@
     "blocked_but_observed_is_not_equivalent_to_failed": true,
     "watchdog_does_not_imply_progress": true,
     "health_reasons": [
-      "Heartbeat orchestration validation passed",
-      "Site Bootstrap validation passed",
-      "HIL upload work is active in a separate parallel-safe session",
+      "Heartbeat orchestration is merged and validated",
+      "HIL upload work remains active in a separate parallel-safe session",
       "Authorized real-provider and persistent endpoint remain unresolved"
     ]
   },
