@@ -12,12 +12,11 @@
     artifactPath: 'data/HIL_Canonical_Paper_v1_1.pdf'
   });
 
-  const GATEWAY_CANDIDATES = Object.freeze([
-    '',
-    'https://stegverse-ecosystem-chat-gateway.onrender.com'
-  ]);
-  const READINESS_PATH = '/api/hil/readiness';
-  const SUBMISSION_PATH = '/api/hil/submissions';
+  const RECEIVER_CONFIG_PATH = 'data/hil-receiver-config.json';
+  const DEFAULT_READINESS_PATH = '/api/hil/readiness';
+  const DEFAULT_SUBMISSION_PATH = '/api/hil/submissions';
+  const READY_MESSAGE = 'Response-packet intake is ready. Choose the unchanged PDF and tap Upload Response Packet.';
+  const NOT_READY_MESSAGE = 'The governed receiver is not currently ready. Your packet has not been uploaded. Please try again later.';
 
   const byId = (id) => document.getElementById(id);
   const status = byId('intake-status');
@@ -25,7 +24,7 @@
   const prepareButton = byId('prepare-provenance');
   const provenanceButton = byId('download-provenance');
   const receiptButton = byId('download-receipt');
-  let activeGatewayBase = null;
+  let receiver = null;
   let currentManifest = null;
   let currentReceipt = null;
 
@@ -50,7 +49,7 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
-  async function fetchWithTimeout(url, options = {}, timeoutMs = 12000) {
+  async function fetchWithTimeout(url, options = {}, timeoutMs = 20000) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
     try {
@@ -60,31 +59,68 @@
     }
   }
 
+  function normalizeBaseUrl(value) {
+    if (typeof value !== 'string' || !value.trim()) return null;
+    try {
+      const url = new URL(value.trim(), window.location.href);
+      if (!['https:', 'http:'].includes(url.protocol)) return null;
+      return url.href.replace(/\/$/, '');
+    } catch {
+      return null;
+    }
+  }
+
+  async function loadReceiverConfig() {
+    const response = await fetchWithTimeout(RECEIVER_CONFIG_PATH, { cache: 'no-store' }, 10000);
+    if (!response.ok) throw new Error('receiver_config_unavailable');
+    const config = await response.json();
+    const baseUrl = normalizeBaseUrl(config.receiver_base_url);
+    if (!baseUrl) throw new Error('receiver_config_invalid');
+    return {
+      baseUrl,
+      readinessPath: config.readiness_path || DEFAULT_READINESS_PATH,
+      submissionPath: config.submission_path || DEFAULT_SUBMISSION_PATH
+    };
+  }
+
+  async function readinessAttempt(candidate, timeoutMs) {
+    const response = await fetchWithTimeout(
+      `${candidate.baseUrl}${candidate.readinessPath}`,
+      { cache: 'no-store' },
+      timeoutMs
+    );
+    if (!response.ok) return false;
+    const payload = await response.json();
+    return payload.state === 'READY'
+      && payload.primary_sha256 === PRIMARY.sha256
+      && payload.prompt_sha256 === PRIMARY.promptSha256
+      && payload.provenance_manifest_required === true;
+  }
+
   async function checkGatewayReadiness() {
-    activeGatewayBase = null;
-    const failures = [];
-    for (const base of GATEWAY_CANDIDATES) {
-      try {
-        const response = await fetchWithTimeout(`${base}${READINESS_PATH}`, { cache: 'no-store' }, 7000);
-        if (!response.ok) throw new Error(`readiness ${response.status}`);
-        const payload = await response.json();
-        const ready = payload.state === 'READY'
-          && payload.primary_sha256 === PRIMARY.sha256
-          && payload.prompt_sha256 === PRIMARY.promptSha256
-          && payload.provenance_manifest_required === true;
-        if (ready) {
-          activeGatewayBase = base;
-          uploadButton.disabled = false;
-          setStatus('ok', 'Response-packet intake is ready. Choose the unchanged PDF and tap Upload Response Packet.');
-          return;
+    receiver = null;
+    uploadButton.disabled = true;
+    setStatus('warn', 'Checking governed receiver availability…');
+    try {
+      const candidate = await loadReceiverConfig();
+      const attempts = [12000, 30000];
+      for (const timeoutMs of attempts) {
+        try {
+          if (await readinessAttempt(candidate, timeoutMs)) {
+            receiver = candidate;
+            setStatus('ok', READY_MESSAGE);
+            uploadButton.disabled = false;
+            return;
+          }
+        } catch {
+          // A sleeping or restarting receiver may miss the first attempt.
         }
-        failures.push(`${base || 'same-origin'}: ${(payload.blockers || []).join(', ') || payload.state}`);
-      } catch (error) {
-        failures.push(`${base || 'same-origin'}: ${error.message}`);
       }
+    } catch {
+      // Participant-facing output intentionally omits provider and network details.
     }
     uploadButton.disabled = false;
-    setStatus('warn', `The upload control is available, but the governed receiver is not currently ready. An upload attempt will fail closed rather than pretend the packet was received. ${failures.join(' | ')}`);
+    setStatus('warn', NOT_READY_MESSAGE);
   }
 
   async function downloadPrimary() {
@@ -174,11 +210,11 @@
     const bytes = new Uint8Array(buffer);
     const validationError = validatePdf(file, bytes);
     if (validationError) throw new Error(validationError);
-    return { file, buffer, responseHash: await sha256Hex(buffer) };
+    return { file, responseHash: await sha256Hex(buffer) };
   }
 
   async function submitArtifacts(file, manifest) {
-    if (activeGatewayBase === null) throw new Error('The governed HIL v1.1 receiver is not currently ready. The packet was not uploaded and no receipt was issued.');
+    if (!receiver) throw new Error(NOT_READY_MESSAGE);
     const form = new FormData();
     form.append('response_pdf', file, file.name);
     form.append('provenance_manifest', new Blob([`${JSON.stringify(manifest, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
@@ -188,9 +224,16 @@
     form.append('prompt_sha256', PRIMARY.promptSha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
-    const response = await fetchWithTimeout(`${activeGatewayBase}${SUBMISSION_PATH}`, { method: 'POST', body: form }, 30000);
+    const response = await fetchWithTimeout(
+      `${receiver.baseUrl}${receiver.submissionPath}`,
+      { method: 'POST', body: form },
+      60000
+    );
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(typeof payload.detail === 'string' ? payload.detail : `gateway submission ${response.status}`);
+    if (!response.ok) {
+      console.warn('HIL upload rejected', { status: response.status, detail: payload.detail || null });
+      throw new Error('The governed receiver did not accept the packet. Nothing was recorded. Please try again later.');
+    }
     return payload;
   }
 
@@ -203,11 +246,13 @@
       const { file, responseHash } = await readAndValidateSelectedPdf();
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
+      if (!receiver) await checkGatewayReadiness();
       currentReceipt = await submitArtifacts(file, currentManifest);
       receiptButton.disabled = false;
-      setStatus('ok', `${currentReceipt.submission_id} received. ${currentReceipt.chain_validation_state}. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Review and publication remain pending.`);
+      setStatus('ok', `${currentReceipt.submission_id} received. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Review and publication remain pending.`);
     } catch (error) {
-      setStatus('error', error.message || 'The response packet could not be uploaded.');
+      const message = error && error.message ? error.message : 'The response packet could not be uploaded.';
+      setStatus('error', message);
     } finally {
       uploadButton.disabled = false;
     }
