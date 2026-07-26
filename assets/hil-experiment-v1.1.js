@@ -9,21 +9,22 @@
     promptSha256: 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c',
     sha256: 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',
     filename: 'HIL_Canonical_Paper_v1_1.pdf',
-    artifactPath: 'HIL_Canonical_Paper_v1_1.pdf'
+    artifactPath: 'data/HIL_Canonical_Paper_v1_1.pdf'
   });
 
-  const GATEWAY = Object.freeze({
-    baseUrl: 'https://stegverse-ecosystem-chat-gateway.onrender.com',
-    readinessPath: '/api/hil/readiness',
-    submissionPath: '/api/hil/submissions'
-  });
+  const GATEWAY_CANDIDATES = Object.freeze([
+    '',
+    'https://stegverse-ecosystem-chat-gateway.onrender.com'
+  ]);
+  const READINESS_PATH = '/api/hil/readiness';
+  const SUBMISSION_PATH = '/api/hil/submissions';
 
   const byId = (id) => document.getElementById(id);
   const status = byId('intake-status');
   const submitButton = byId('prepare-receipt');
   const provenanceButton = byId('download-provenance');
   const receiptButton = byId('download-receipt');
-  let gatewayReady = false;
+  let activeGatewayBase = null;
   let currentManifest = null;
   let currentReceipt = null;
 
@@ -45,41 +46,57 @@
     document.body.appendChild(link);
     link.click();
     link.remove();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  async function fetchWithTimeout(url, options = {}, timeoutMs = 12000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   async function checkGatewayReadiness() {
-    try {
-      const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.readinessPath}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`readiness ${response.status}`);
-      const payload = await response.json();
-      gatewayReady = payload.state === 'READY'
-        && payload.primary_sha256 === PRIMARY.sha256
-        && payload.prompt_sha256 === PRIMARY.promptSha256
-        && payload.provenance_manifest_required === true;
-      submitButton.textContent = gatewayReady ? 'Validate chain and submit artifact' : 'Prepare provenance locally';
-      if (gatewayReady) {
-        setStatus('ok', 'Gateway intake is READY for the exact HIL v1.1 Primary and prompt chain.');
-      } else {
-        setStatus('warn', `Gateway is not ready for the exact HIL v1.1 chain (${(payload.blockers || []).join(', ') || payload.state}). Local provenance preparation remains available, but no submission will occur.`);
+    activeGatewayBase = null;
+    const failures = [];
+    for (const base of GATEWAY_CANDIDATES) {
+      try {
+        const response = await fetchWithTimeout(`${base}${READINESS_PATH}`, { cache: 'no-store' }, 7000);
+        if (!response.ok) throw new Error(`readiness ${response.status}`);
+        const payload = await response.json();
+        const ready = payload.state === 'READY'
+          && payload.primary_sha256 === PRIMARY.sha256
+          && payload.prompt_sha256 === PRIMARY.promptSha256
+          && payload.provenance_manifest_required === true;
+        if (ready) {
+          activeGatewayBase = base;
+          submitButton.textContent = 'Validate chain and submit artifact';
+          setStatus('ok', 'Gateway intake is READY for the exact HIL v1.1 Primary and prompt chain.');
+          return;
+        }
+        failures.push(`${base || 'same-origin'}: ${(payload.blockers || []).join(', ') || payload.state}`);
+      } catch (error) {
+        failures.push(`${base || 'same-origin'}: ${error.message}`);
       }
-    } catch (error) {
-      gatewayReady = false;
-      submitButton.textContent = 'Prepare provenance locally';
-      setStatus('warn', `Gateway could not be reached. Local provenance preparation remains available: ${error.message}`);
     }
+    submitButton.textContent = 'Prepare provenance locally';
+    setStatus('warn', `No conforming HIL v1.1 gateway is currently ready. Local provenance preparation remains available. ${failures.join(' | ')}`);
   }
 
   async function downloadPrimary() {
     const button = byId('download-primary');
     const previous = button.textContent;
     button.disabled = true;
-    button.textContent = 'Verifying Canonical v1.1 PDF...';
+    button.textContent = 'Verifying Canonical v1.1 PDF…';
     try {
-      const response = await fetch(PRIMARY.artifactPath, { cache: 'no-store' });
+      const response = await fetchWithTimeout(PRIMARY.artifactPath, { cache: 'no-store' }, 15000);
       if (!response.ok) throw new Error(`Canonical Primary unavailable (${response.status})`);
       const buffer = await response.arrayBuffer();
       const bytes = new Uint8Array(buffer);
+      if (bytes.byteLength !== 87271) throw new Error(`Canonical Primary size mismatch; expected 87271 bytes, received ${bytes.byteLength}.`);
       if (new TextDecoder('ascii').decode(bytes.slice(0, 5)) !== '%PDF-') throw new Error('Canonical Primary does not have a valid PDF signature; download blocked fail-closed.');
       const actualHash = await sha256Hex(buffer);
       if (actualHash !== PRIMARY.sha256) throw new Error(`Canonical Primary hash mismatch; expected ${PRIMARY.sha256}, received ${actualHash}. Download blocked fail-closed.`);
@@ -139,6 +156,7 @@
   }
 
   async function submitArtifacts(file, manifest) {
+    if (activeGatewayBase === null) throw new Error('No conforming HIL v1.1 gateway is ready.');
     const form = new FormData();
     form.append('response_pdf', file, file.name);
     form.append('provenance_manifest', new Blob([`${JSON.stringify(manifest, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
@@ -148,7 +166,7 @@
     form.append('prompt_sha256', PRIMARY.promptSha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
-    const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.submissionPath}`, { method: 'POST', body: form });
+    const response = await fetchWithTimeout(`${activeGatewayBase}${SUBMISSION_PATH}`, { method: 'POST', body: form }, 30000);
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(typeof payload.detail === 'string' ? payload.detail : `gateway submission ${response.status}`);
     return payload;
@@ -171,7 +189,7 @@
 
     submitButton.disabled = true;
     try {
-      setStatus('warn', 'Validating the single PDF and building the HIL v1.1 Primary -> prompt -> response chain...');
+      setStatus('warn', 'Validating the single PDF and building the HIL v1.1 Primary → prompt → response chain…');
       const buffer = await file.arrayBuffer();
       const bytes = new Uint8Array(buffer);
       const error = validatePdf(file, bytes);
@@ -179,11 +197,11 @@
       const responseHash = await sha256Hex(buffer);
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
-      if (!gatewayReady) {
+      if (activeGatewayBase === null) {
         setStatus('warn', `HIL v1.1 provenance manifest prepared locally. Response SHA-256: ${responseHash}. Gateway submission remains blocked until the exact v1.1 chain is READY.`);
         return;
       }
-      setStatus('warn', 'HIL v1.1 chain matches locally. Uploading the exact single PDF and provenance manifest...');
+      setStatus('warn', 'HIL v1.1 chain matches locally. Uploading the exact single PDF and provenance manifest…');
       currentReceipt = await submitArtifacts(file, currentManifest);
       receiptButton.disabled = false;
       setStatus('ok', `${currentReceipt.submission_id} received. ${currentReceipt.chain_validation_state}. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Review and publication remain pending.`);
@@ -204,8 +222,6 @@
     saveBlob(new Blob([`${JSON.stringify(currentReceipt, null, 2)}\n`], { type: 'application/json' }), `${currentReceipt.receipt_id || currentReceipt.submission_id}.json`);
   }
 
-  function text(value) { return document.createTextNode(value == null ? 'unknown' : String(value)); }
-
   async function loadResponseIndex() {
     const target = byId('response-index');
     try {
@@ -215,25 +231,21 @@
       if (!Array.isArray(index.responses)) throw new Error('response index has invalid shape');
       target.replaceChildren();
       if (index.responses.length === 0) {
-        target.className = 'hil-empty';
-        target.appendChild(text('No standardized public responses have been published. HIL-TRACE-0001 remains the approved initiating pre-protocol observation.'));
+        target.textContent = 'No standardized public responses have been published. HIL-TRACE-0001 remains the approved initiating pre-protocol observation.';
         return;
       }
-      target.className = '';
       index.responses.forEach((record) => {
         const article = document.createElement('article');
         article.className = 'sv-card';
         const heading = document.createElement('h3');
         heading.className = 'sv-h3';
-        heading.appendChild(text(record.response_id));
-        article.appendChild(heading);
+        heading.textContent = record.response_id || 'unknown response';
         const summary = document.createElement('p');
-        summary.appendChild(text(`${record.model || 'Unknown model'} · ${record.provider || 'Unknown provider'} · ${record.chain_validation_state || record.publication_state || 'unknown state'}`));
-        article.appendChild(summary);
+        summary.textContent = `${record.model || 'Unknown model'} · ${record.provider || 'Unknown provider'} · ${record.chain_validation_state || record.publication_state || 'unknown state'}`;
+        article.append(heading, summary);
         target.appendChild(article);
       });
     } catch (error) {
-      target.className = 'hil-status';
       target.dataset.state = 'warn';
       target.textContent = `Public response index could not be loaded: ${error.message}`;
     }
