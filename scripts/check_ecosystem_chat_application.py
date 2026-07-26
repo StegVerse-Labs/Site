@@ -12,6 +12,7 @@ from typing import Sequence
 ROOT=Path(__file__).resolve().parents[1]
 RESULT=ROOT/'site_application_validation.result.json'
 COMMANDS: tuple[tuple[str,...],...]=(
+(sys.executable,'scripts/site_handoff_orchestrator.py'),
 (sys.executable,'scripts/check_ecosystem_chat_navigation.py'),
 (sys.executable,'scripts/check_stegwallet_crypto_goals.py'),
 (sys.executable,'scripts/check_stegwallet_base_app_surface.py'),
