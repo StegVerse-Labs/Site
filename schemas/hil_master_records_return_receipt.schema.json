@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil_master_records_return_receipt.schema.json",
+  "title": "HIL Master Records Return Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "source_repository",
+    "source_commit",
+    "source_path",
+    "source_sha256",
+    "transfer_id",
+    "site_release_sha256",
+    "custody_receipt",
+    "reconstruction_receipt",
+    "authority"
+  ],
+  "properties": {
+    "schema": {"const": "HIL-MASTER-RECORDS-RETURN-RECEIPT-v1"},
+    "source_repository": {"const": "master-records/orchestration"},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "source_path": {"type": "string", "pattern": "^(data|reports)/[A-Za-z0-9._/-]+\\.json$"},
+    "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "transfer_id": {"type": "string", "minLength": 1},
+    "site_release_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "custody_receipt": {"$ref": "#/$defs/verifiedReceipt"},
+    "reconstruction_receipt": {"$ref": "#/$defs/verifiedReceipt"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "publication", "release", "custody", "reconstruction"],
+      "properties": {
+        "execution": {"const": false},
+        "publication": {"const": false},
+        "release": {"const": false},
+        "custody": {"const": false},
+        "reconstruction": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "verifiedReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["receipt_id", "receipt_sha256", "verified", "authority_effect"],
+      "properties": {
+        "receipt_id": {"type": "string", "minLength": 1},
+        "receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "verified": {"const": true},
+        "authority_effect": {"const": "NONE"}
+      }
+    }
+  }
+}
