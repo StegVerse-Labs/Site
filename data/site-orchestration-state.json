@@ -34,15 +34,19 @@
     "task_sequence": 1,
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
-      "SITE-0001-UPLOAD",
-      "SITE-0001-HEARTBEAT"
+      "SITE-0001-UPLOAD"
+    ],
+    "completed_parallel_safe_tasks": [
+      "SITE-0001-HEARTBEAT",
+      "SITE-0001-CANONICAL-BROWSER-BINDING"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
   "ownership": {
     "hil_upload_surface": "external-active-session",
-    "heartbeat_orchestration": "goal/hil-heartbeat-orchestration",
-    "canonical_upstream_browser_binding": "pull/95",
+    "heartbeat_orchestration": "merged/pr-98",
+    "canonical_upstream_browser_binding": "merged/pr-99",
+    "superseded_canonical_browser_binding": "closed/pr-95",
     "stegverse_owned_endpoint_activation": "issue/24",
     "superseded_activation_tracker": "issue/16"
   },
