@@ -17,6 +17,8 @@ Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
 Receiver runtime: StegVerse-org/LLM-adapter
 Runtime handoff: StegVerse-org/LLM-adapter/docs/HIL_RUNTIME_MIRROR_HANDOFF.md
+Site contract guard: scripts/verify_hil_site_contract.py
+Site contract workflow: .github/workflows/hil-site-contract.yml
 Result: V1_1_CLIENT_AND_PORTABLE_RECEIVER_IMPLEMENTED_PUBLIC_ACTIVATION_PENDING
 Authority: NONE
 ```
@@ -37,9 +39,9 @@ Receipt schema: HIL-RECEIVER-RECEIPT-v2
 
 The browser client is implemented and fail-closed. It validates the selected PDF, computes the response hash, builds v1.1 provenance, discovers a Site-configured receiver, verifies exact readiness hashes, uploads only to a ready receiver, verifies the returned receipt and its hash continuity, stores verified receipts locally by response hash, and prevents accidental duplicate submission.
 
-The experiment manifest now matches the receiver contract: the exact Primary, protocol, prompt, and response chain is mandatory; model, provider, conversation reference, producer signature detail, participant identity, consent, and participant declarations remain optional. Missing optional values grant no consent, attribution, publication, custody, execution, acceptance, or Master Record authority. Contract reconciliation commit: `7ab0413d30becec01840cc4e990d7a1af9de72a7`.
-
 `data/hil-receiver-config.json` is intentionally unconfigured. It must remain so until a provider-neutral HTTPS receiver proves the exact v1.1 readiness contract. No provider hostname is an architectural dependency or participant-facing requirement.
+
+The Site contract guard now fails closed when the receiver discovery schema, canonical v1.1 hashes, protocol and provenance versions, client receipt verification, optional-participant-metadata posture, or HTTPS receiver requirement drifts. A configured public receiver URL must use HTTPS, contain a host, contain no embedded credentials, query, or fragment, and declare `CONFORMING_HTTPS_RECEIVER_CONFIGURED`.
 
 ## Provider-neutral runtime
 
@@ -63,7 +65,7 @@ The runtime consumes only a configurable port, durable data directory, runtime-i
 2. Confirm `READY` with the exact v1.1 Primary and prompt hashes.
 3. Deploy the unchanged OCI runtime behind any conforming HTTPS endpoint with durable mounted storage.
 4. Verify public `/api/hil/readiness` and `/api/hil/publication-readiness`.
-5. Set `data/hil-receiver-config.json` to the proven receiver base URL.
+5. Set `data/hil-receiver-config.json` to the proven receiver base URL and `CONFORMING_HTTPS_RECEIVER_CONFIGURED`.
 6. Upload one controlled PDF and preserve the verified receiver receipt.
 7. Restart or replace the receiver while retaining storage and prove exact-byte and manifest persistence.
 8. Record one authenticated, write-once `ACCEPT_PRIVATE` decision.
@@ -115,6 +117,7 @@ publication record != original-byte custody
 Site projection != endorsement
 Master Record release != custody
 participant interest != role assignment
+CI success != live activation
 ```
 
 ## Release posture
