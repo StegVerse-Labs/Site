@@ -1,0 +1,29 @@
+{
+  "schema_version": "HIL-GATEWAY-CONFIG-v1",
+  "experiment_id": "HIL-2026",
+  "gateway_candidates": [
+    {
+      "id": "same-origin",
+      "base_url": "",
+      "readiness_path": "/api/hil/readiness",
+      "submission_path": "/api/hil/submissions",
+      "priority": 1
+    },
+    {
+      "id": "ecosystem-chat-gateway",
+      "base_url": "https://stegverse-ecosystem-chat-gateway.onrender.com",
+      "readiness_path": "/api/hil/readiness",
+      "submission_path": "/api/hil/submissions",
+      "priority": 2,
+      "status": "compatibility_fallback_not_architectural_dependency"
+    }
+  ],
+  "selection_policy": "first_exact_ready_chain",
+  "fail_closed": true,
+  "authority": {
+    "execution": false,
+    "custody": false,
+    "publication": false,
+    "master_record_append": false
+  }
+}
