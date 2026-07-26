@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/hil_master_records_transfer.schema.json",
+  "title": "HIL Master Records Transfer Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "transfer_id",
+    "created_at",
+    "site_release",
+    "source_chain",
+    "requested_operations",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-MASTER-RECORDS-TRANSFER-v1"},
+    "experiment_id": {"const": "HIL-2026"},
+    "transfer_id": {"type": "string", "pattern": "^HIL-MRT-[A-Z0-9-]+$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "site_release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["release_id", "release_path", "release_sha256", "primary_sha256", "prompt_sha256"],
+      "properties": {
+        "release_id": {"type": "string", "pattern": "^HIL-MR-[A-Z0-9-]+$"},
+        "release_path": {"type": "string", "pattern": "^data/hil-master-record-releases/.+\\.json$"},
+        "release_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "primary_sha256": {"const": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"},
+        "prompt_sha256": {"const": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"}
+      }
+    },
+    "source_chain": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "path", "sha256"],
+        "properties": {
+          "kind": {"enum": ["primary", "prompt", "response", "provenance", "receiver_receipt", "private_review", "publication", "site_release"]},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "requested_operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["durable_custody", "reconstruction", "return_receipt"],
+      "properties": {
+        "durable_custody": {"const": true},
+        "reconstruction": {"const": true},
+        "return_receipt": {"const": true}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "publication", "release", "custody_granted_by_site", "endorsement"],
+      "properties": {
+        "execution": {"const": false},
+        "publication": {"const": false},
+        "release": {"const": false},
+        "custody_granted_by_site": {"const": false},
+        "endorsement": {"const": false}
+      }
+    }
+  }
+}
