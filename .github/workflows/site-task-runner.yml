@@ -122,6 +122,7 @@ jobs:
             echo "result=COMMITTED" >> "$GITHUB_OUTPUT"
           fi
 
+      # Mutation required disabled for manual validation-only dispatch.
       - name: Record validation-only mutation boundary
         id: manual_mutation
         if: github.event_name != 'workflow_run'
@@ -142,7 +143,7 @@ jobs:
         if: github.event_name == 'workflow_run'
         uses: actions/deploy-pages@v4
 
-      - name: Verify governed public surfaces
+      - name: Verify External Chat public surfaces
         id: live_verification
         if: github.event_name == 'workflow_run'
         working-directory: site
@@ -175,15 +176,23 @@ jobs:
           STEGVERSE_TRANSITION_SUPERSEDED: 'false'
         run: python scripts/write_site_orchestration_terminal_receipt.py
 
-      - name: Upload orchestration evidence
+      - name: Upload External Chat activation evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: site-orchestration-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          name: external-chat-activation-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: site/reports/external-chat-activation-evidence.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload External Chat live verification receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-chat-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            site/reports/site-task-diagnostic.json
             site/reports/external-chat-live-verification.json
-            site/reports/external-chat-activation-evidence.json
+            site/reports/site-task-diagnostic.json
             site/reports/site-orchestration-terminal-receipt.json
           if-no-files-found: warn
           retention-days: 30

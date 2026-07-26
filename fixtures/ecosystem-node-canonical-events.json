@@ -1,0 +1,54 @@
+{
+  "schema": "stegverse.canonical-event-stream.v1",
+  "events": [
+    {
+      "event_id": "evt-goal9-message-001",
+      "parent_event_id": null,
+      "timestamp": "2026-07-26T00:40:00Z",
+      "actor": {
+        "actor_type": "human",
+        "identity_ref": "identity:fixture-user",
+        "display_name": "Fixture user"
+      },
+      "event_type": "message",
+      "human_projection": {
+        "body": "Validate stable event correlation.",
+        "visible_in_conversation": true
+      },
+      "governed_projection": {
+        "classification": "user_input",
+        "authority": "none"
+      },
+      "policy_refs": ["policy:site-renderer-boundary"],
+      "evidence_refs": [],
+      "artifact_refs": [],
+      "continuity_refs": [],
+      "hash": "sha256:f6a77fe4465450d1b35618106a14a5e61ddbb4584adacaf99430245101770d47"
+    },
+    {
+      "event_id": "evt-goal9-decision-002",
+      "parent_event_id": "evt-goal9-message-001",
+      "timestamp": "2026-07-26T00:40:01Z",
+      "actor": {
+        "actor_type": "system",
+        "identity_ref": "identity:site-validator",
+        "display_name": "Site canonical validator"
+      },
+      "event_type": "decision",
+      "human_projection": {
+        "summary": "Canonical event integrity verified.",
+        "visible_in_conversation": false
+      },
+      "governed_projection": {
+        "decision": "VALIDATED_FOR_RENDERING",
+        "execution_authority": false,
+        "admissibility": "NOT_DETERMINED"
+      },
+      "policy_refs": ["policy:site-renderer-boundary"],
+      "evidence_refs": ["event:evt-goal9-message-001"],
+      "artifact_refs": ["schema:ecosystem-node-canonical-event.v1"],
+      "continuity_refs": ["event:evt-goal9-message-001"],
+      "hash": "sha256:7c679a2c2152796aad535dc6109e50645eb709a3622d614036124ddc0dedf48d"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/ecosystem-node-canonical-event.schema.json",
+  "title": "StegVerse Ecosystem Node Canonical Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "parent_event_id",
+    "timestamp",
+    "actor",
+    "event_type",
+    "human_projection",
+    "governed_projection",
+    "policy_refs",
+    "evidence_refs",
+    "artifact_refs",
+    "continuity_refs",
+    "hash"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 8, "maxLength": 256},
+    "parent_event_id": {"type": ["string", "null"], "minLength": 8, "maxLength": 256},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "actor": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["actor_type", "identity_ref"],
+      "properties": {
+        "actor_type": {"type": "string", "minLength": 1},
+        "identity_ref": {"type": "string", "minLength": 1},
+        "display_name": {"type": "string"}
+      }
+    },
+    "event_type": {
+      "enum": ["message", "decision", "execution", "receipt", "policy", "evidence", "artifact", "refusal", "quarantine", "override", "recovery"]
+    },
+    "human_projection": {"type": "object"},
+    "governed_projection": {"type": "object"},
+    "policy_refs": {"$ref": "#/$defs/uniqueRefs"},
+    "evidence_refs": {"$ref": "#/$defs/uniqueRefs"},
+    "artifact_refs": {"$ref": "#/$defs/uniqueRefs"},
+    "continuity_refs": {"$ref": "#/$defs/uniqueRefs"},
+    "hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "uniqueRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 512}
+    }
+  }
+}
