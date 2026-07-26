@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "state_type": "ecosystem_heartbeat_runtime_state",
   "repository": "StegVerse-Labs/Site",
-  "ecosystem_heartbeat": 8,
-  "repository_heartbeat": 8,
+  "ecosystem_heartbeat": 14,
+  "repository_heartbeat": 9,
   "task_sequence": 1,
   "task_sequence_label": "current work task sequence 0001",
   "work_state": "RUNNING",
@@ -38,9 +38,64 @@
         "handoff_orchestrator": "PASS",
         "site_bootstrap_validation": "PASS"
       }
+    },
+    {
+      "task_id": "ECOSYSTEM-0001-HIL-ORCHESTRATION-ROLLOUT",
+      "workload": "Install health-relative HIL succession state across all authoritative repositories",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "ecosystem-orchestration-rollout",
+      "state": "COMPLETED",
+      "completion_evidence": {
+        "repositories": [
+          {
+            "repository": "StegVerse-org/LLM-adapter",
+            "commits": [
+              "b0f11ce43abfd210329dfc4cee0e72c0bb6c1b43",
+              "459e4d5743212bb1932e2f5b846f7d32dea1f932"
+            ]
+          },
+          {
+            "repository": "master-records/orchestration",
+            "commits": [
+              "b7c44715269a7181d7ff2b279e5f509f2b805cf9",
+              "ab5e935295ad4e7e7225cc58335f470e77680716"
+            ]
+          },
+          {
+            "repository": "GCAT-BCAT-Engine/Publisher",
+            "commits": [
+              "02012a7aed8ed439272593af99eebc3f47df48a1",
+              "b62ccdcf7412c92ab885e773b7365dc8a1418384"
+            ]
+          },
+          {
+            "repository": "StegVerse-Labs/admissibility-wiki",
+            "commits": [
+              "3f04be415cb6ae44cd924221cd85ac3e40c15391",
+              "b9cc26201480ab340ca4a751ce888db7e9ba81fc"
+            ]
+          },
+          {
+            "repository": "StegVerse-002/stegguardian-wiki",
+            "commits": [
+              "52fad579386fdebb04c18997e9f586b18b5786f1",
+              "cfa827bdea14503ddac72bc7192da4e977864bf5"
+            ]
+          }
+        ],
+        "authority_effect": false,
+        "activation_effect": false
+      }
     }
   ],
-  "queued_parallel_safe_tasks": [],
+  "queued_parallel_safe_tasks": [
+    {
+      "task_id": "SITE-0001-PR-RECONCILIATION",
+      "workload": "Reconcile open HIL and Ecosystem Node pull requests against current main without touching upload-owned paths",
+      "execution_class": "PARALLEL_SAFE",
+      "admission_state": "READY_FOR_EVIDENCE_REVIEW"
+    }
+  ],
   "queued_exclusive_tasks": [
     {
       "task_id": "SITE-0002-HIL-LIVE",
@@ -57,10 +112,16 @@
     }
   ],
   "last_transition": {
-    "event_type": "HEARTBEAT_ORCHESTRATION_MERGED",
+    "event_type": "HIL_ORCHESTRATION_ROLLOUT_RECORDED",
     "progress_effect": true,
     "authority_effect": false,
-    "evidence_ref": "StegVerse-Labs/Site#98"
+    "evidence_refs": [
+      "StegVerse-org/LLM-adapter@459e4d5743212bb1932e2f5b846f7d32dea1f932",
+      "master-records/orchestration@ab5e935295ad4e7e7225cc58335f470e77680716",
+      "GCAT-BCAT-Engine/Publisher@b62ccdcf7412c92ab885e773b7365dc8a1418384",
+      "StegVerse-Labs/admissibility-wiki@b9cc26201480ab340ca4a751ce888db7e9ba81fc",
+      "StegVerse-002/stegguardian-wiki@cfa827bdea14503ddac72bc7192da4e977864bf5"
+    ]
   },
   "health_model": {
     "interpretation_is_relative_to_system_health": true,
@@ -69,6 +130,7 @@
     "watchdog_does_not_imply_progress": true,
     "health_reasons": [
       "Heartbeat orchestration is merged and validated",
+      "HIL succession state is installed across all six authoritative repositories",
       "HIL upload work remains active in a separate parallel-safe session",
       "Authorized real-provider and persistent endpoint remain unresolved"
     ]
