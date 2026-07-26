@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "site_handoff_orchestration_state",
+  "repository": "StegVerse-Labs/Site",
+  "handoff": "docs/SITE_MIRROR_HANDOFF.md",
+  "status": "ACTIVE",
+  "policy": {
+    "handoff_is_source_of_truth": true,
+    "resume_unfinished_work_before_new_work": true,
+    "one_active_owner_per_goal": true,
+    "duplicate_workloads_fail_closed": true,
+    "superseded_work_must_be_closed": true,
+    "merged_or_superseded_branches_must_be_reclaimed": true,
+    "handoff_update_required_before_task_closure": true
+  },
+  "priority_order": [
+    "BLOCKED_INTEGRATION",
+    "ACTIVE_HANDOFF_WORKLOAD",
+    "READY_TO_MERGE",
+    "VALIDATION_REPAIR",
+    "NEW_WORKLOAD"
+  ],
+  "activation": {
+    "workflow": ".github/workflows/site-handoff-orchestrator.yml",
+    "controller": "scripts/site_handoff_orchestrator.py",
+    "report": "site_handoff_orchestration.report.json"
+  }
+}
