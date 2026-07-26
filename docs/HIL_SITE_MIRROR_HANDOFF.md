@@ -2,223 +2,119 @@
 
 ## Source of truth
 
-This document owns continuation for the public `Humans as the Interoperability Layer` experiment surface within `StegVerse-Labs/Site`. It remains subordinate to `docs/SITE_MIRROR_HANDOFF.md` for ecosystem-wide Site authority and activation posture.
+This document owns continuation for the public HIL experiment surface in `StegVerse-Labs/Site`. It remains subordinate to `docs/SITE_MIRROR_HANDOFF.md` for ecosystem-wide activation authority.
 
 ## Current goal
 
+Activate the complete v1.1 provenance-bound path from verified Primary and prompt references through exact response bytes, receiver receipt, authenticated private review, append-only publication, Site projection, hash-chained Master Record release, and machine-observed deployed readiness.
+
 ```text
-Goal: activate the complete provenance-bound path from verified Primary and prompt references through exact response bytes, receiver receipt, authenticated private review, append-only public publication, Site projection, hash-chained Master Record release, and machine-observed deployed readiness.
 Primary surface: humans-as-interoperability-layer.html
-Response detail: humans-as-interoperability-response.html?id=HIL-RESP-...
-Client: assets/hil-experiment.js
-Experiment manifest: data/hil-experiment.json
+Client: assets/hil-experiment-v1.1.js
+Receiver discovery: data/hil-receiver-config.json
+Experiment manifest: data/hil-experiment-v1.1.json
 Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
-Live observer: scripts/check_hil_live_readiness.py
-Live workflow: .github/workflows/check-hil-live-readiness.yml
-Receiver gateway: StegVerse-org/LLM-adapter main @ 18badc0fd19933c9cd2a70c684f7f8226f3cb5c3
-Controlled-cycle workflow: StegVerse-org/LLM-adapter/.github/workflows/hil-controlled-cycle.yml
-Portable-runtime workflow: StegVerse-org/LLM-adapter/.github/workflows/platform-agnostic-runtime.yml
-Result: PRIMARY_INSTALLED_GATEWAY_MERGED_PORTABLE_RUNTIME_VALIDATED_LIVE_ACTIVATION_PENDING
+Receiver runtime: StegVerse-org/LLM-adapter
+Runtime handoff: StegVerse-org/LLM-adapter/docs/HIL_RUNTIME_MIRROR_HANDOFF.md
+Result: V1_1_CLIENT_AND_PORTABLE_RECEIVER_IMPLEMENTED_PUBLIC_ACTIVATION_PENDING
 Authority: NONE
 ```
 
-## Participant approval
-
-Sara Katpar granted named attribution, exchange reproduction, model-response description, and public-record inclusion permission. She reviewed the v0.5 Primary candidate and Site presentation and stated that everything looked good to proceed. Participant approval is complete and remains separate from technical activation, private review, publication mutation, custody, and Master Record authority.
-
-## Participant-originated continuation
-
-Sara Katpar independently proposed publishing a LinkedIn reflection about the exchange, the research, and the value of curiosity, and requested permission to mention and tag Rigel Randolph. Rigel sent affirmative permission on 2026-07-25 at 8:37 a.m. as shown in the supplied LinkedIn screenshot. The sent-message transcript and evidentiary conclusion are preserved in `data/hil-traces/HIL-CONTINUATION-0001-PERMISSION-EVIDENCE.md`; the governed continuation state is preserved in `data/hil-traces/HIL-CONTINUATION-0001.json` and linked from `HIL-TRACE-0001`.
+## Canonical v1.1 chain
 
 ```text
-Continuation ID: HIL-CONTINUATION-0001
-Parent: HIL-TRACE-0001
-Type: INDEPENDENT_PARTICIPANT_PUBLIC_REFLECTION
-Authorship: participant-controlled
-Publication: participant-controlled
-Reciprocal permission: APPROVED_SENT_AND_EVIDENCED
-Permission sent: 2026-07-25 08:37 local / 2026-07-25T13:37:00Z
-Protocol submission: false
-Directed testimonial: false
-Site ingestion authority: false
-Master Record authority: false
+Primary version: v1.1
+Primary SHA-256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
+Protocol: HIL-PROTOCOL-v1.1
+Prompt: HIL-PROMPT-v1.1
+Prompt SHA-256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+Provenance schema: HIL-RESPONSE-PROVENANCE-v1.1
+Receipt schema: HIL-RECEIVER-RECEIPT-v2
 ```
 
-The permission allows Sara Katpar to mention and tag Rigel Randolph and discuss the exchange and research. It does not impose prepublication review or editorial control. The eventual public post, URL, and captured artifact hash remain pending participant publication and may be appended only after the public artifact exists and is independently captured.
+## Current upload state
 
-## Participant continuation outreach trace
+The browser client is implemented and fail-closed. It validates the selected PDF, computes the response hash, builds v1.1 provenance, discovers a Site-configured receiver, verifies exact readiness hashes, uploads only to a ready receiver, verifies the returned receipt and its hash continuity, stores verified receipts locally by response hash, and prevents accidental duplicate submission.
 
-`data/hil-participant-traces/HIL-PARTICIPANT-TRACE-SARA-002.json` records Rigel Randolph's later message informing Sara Katpar that the prior exchange had been formalized into the paper and public replication protocol and that the dedicated Site surfaces, response schema, hash verification, receipt structure, and bounded upload gateway had been built while final public intake deployment remained incomplete.
+`data/hil-receiver-config.json` is intentionally unconfigured. It must remain so until a provider-neutral HTTPS receiver proves the exact v1.1 readiness contract. No provider hostname is an architectural dependency or participant-facing requirement.
+
+## Provider-neutral runtime
+
+The canonical receiver package is owned by `StegVerse-org/LLM-adapter`:
 
 ```text
-Trace ID: HIL-PARTICIPANT-TRACE-SARA-002
-State: CONTACTED_AWAITING_RESPONSE
-Outreach sent: ESTABLISHED
-Acknowledgment received: NOT_ESTABLISHED
-Prior approved scope: PRESERVED
-New consent inferred: false
-Technical activation authority: false
-Publication authority: false
-Custody authority: false
-Execution authority: false
-Commit: 1e307e5c8bf8c31bdfa70454d63eaff896db2852
+Dockerfile
+compose.yaml
+scripts/container-entrypoint.sh
+scripts/start-hil-runtime.sh
+docs/PLATFORM_AGNOSTIC_RUNTIME.md
+docs/HIL_RUNTIME_QUICKSTART.md
+docs/HIL_RUNTIME_MIRROR_HANDOFF.md
 ```
 
-This outreach does not enlarge the earlier participant approval and does not authorize activation, intake, review, publication, custody, execution, or Master Record mutation.
-
-## Primary and prompt chain
-
-```text
-Primary version: v0.5
-Primary SHA-256: 52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946
-Primary repository path: data/hil-primary-v0.5-review.pdf.b64
-Primary artifact state: VERIFIED_INSTALLED
-Primary Git blob SHA: 5db09a3819ca68192071810e11c80ef0382f4ad4
-Installation manifest commit: b150b813cce5d019172d75688aa3ac67bf7637ed
-Installation receipt commit: d1a4a18fccf8c125cfb167469f1bcaccc62634d1
-Protocol: HIL-PROTOCOL-v1.0
-Prompt: HIL-PROMPT-v1.0
-Prompt SHA-256: 0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922
-```
-
-## Implemented application path
-
-```text
-Site verifies Primary identity and exact prompt
--> browser hashes response PDF
--> browser creates HIL-RESPONSE-PROVENANCE-v1
--> gateway verifies Primary, prompt, response, and optional signature state
--> gateway preserves exact PDF bytes and normalized provenance manifest
--> gateway issues HIL-RECEIVER-RECEIPT-v2
--> authenticated reviewer records ACCEPT_PRIVATE, QUARANTINE, or REJECT
--> gateway issues HIL-PRIVATE-REVIEW-RECEIPT-v1
--> separately authenticated publisher allocates one stable HIL-RESP ID
--> gateway emits HIL-PUBLICATION-RECORD-v1
--> Site importer validates hash continuity and appends the public projection
--> deterministic builder emits HIL-MASTER-RECORD-RELEASE-v1
-```
-
-## Controlled-cycle CI evidence
-
-All fresh rebased-head checks completed successfully for `336433dff29758d9581b0541daaac53b54126f30` before merge:
-
-```text
-Architecture Guard: success — run 30127608884
-HIL Controlled Cycle: success — run 30127608787
-capability-runtime: success — run 30127609107
-validate: success — run 30127608720
-```
-
-The controlled test exercises intake readiness, exact response and provenance persistence, receiver receipt v2, separate application clients over the same durable directory, authenticated `ACCEPT_PRIVATE`, private-review receipt, append-only publication, public lookup, and SQLite submission/review/publication records. This is CI evidence, not deployed-service restart evidence and not activation authority.
-
-## Gateway merge
-
-PR #37 was squash-merged after all fresh checks passed.
-
-```text
-PR: StegVerse-org/LLM-adapter#37
-rebased head: 336433dff29758d9581b0541daaac53b54126f30
-merge commit: b2e612dd74d311e0cbe66cd1c1d4758bff129fd4
-merged: true
-merge method: squash
-```
-
-## Platform-agnostic runtime package
-
-The clean provider-neutral runtime tranche was validated and squash-merged through PR #45.
-
-```text
-PR: StegVerse-org/LLM-adapter#45
-validated head: 5b6e97d3599e883adcd939852d18c9683cf1da93
-merge commit: 18badc0fd19933c9cd2a70c684f7f8226f3cb5c3
-Architecture Guard: success — run 30177109540
-Platform-Agnostic Runtime: success — run 30177109552
-validate: success — run 30177109558
-Dockerfile: OCI image contract
-entrypoint persistence correction: 68dcc4cb318cd77eeb859e94aa80cc46687abea3
-compose.yaml: 5ad890b97cc6ef60cf67f47e2f532c0392bfb34f
-runtime environment example: docs/runtime-environment.example
-runtime specification: docs/PLATFORM_AGNOSTIC_RUNTIME.md
-OCI portability workflow: .github/workflows/platform-agnostic-runtime.yml
-```
-
-The entrypoint maps `STEGVERSE_HIL_DATA_DIR` beneath the common durable volume. The compose contract provides a named durable volume, configurable port, separated review and publication secrets, health checks, and no provider-specific application dependency. The successful workflow built the OCI image, verified readiness and canonical hashes, replaced the container, and proved mounted-state persistence.
-
-Render is not an architectural dependency, default target, or accepted deployment assumption. Historical Render-specific records are historical evidence only. Repository issue `StegVerse-org/LLM-adapter#41` is closed as completed; live deployment remains separately governed by Site issue #81.
-
-## Live readiness observer v2
-
-The deployed-state observer checks:
-
-```text
-approved Site markers
-Primary base64 artifact availability and exact decoded SHA-256
-gateway intake readiness
-gateway Primary and prompt hashes
-required provenance manifest
-private-review configuration presence
-publication readiness
-append-only publication declaration
-execution/publication/Master Record authority boundaries
-```
-
-It emits `HIL-LIVE-READINESS-OBSERVATION-v2` and reports `CONTROLLED_CYCLE_READY` only when all deployed prerequisites match. The scheduled workflow stores structured JSON as an artifact and workflow summary. Observation grants no activation, publication, execution, or Master Record authority.
-
-## Append-only publication and Master Record staging
-
-Publication requires `ACCEPT_PRIVATE`, public or anonymous participant consent, unique submission and response identifiers, a repository-relative PDF artifact path, durable storage, and a separate publication credential. No update or delete route exists.
-
-The Site Master Record builder validates the ordered publication chain, binds response/provenance/private-review/publication hashes, binds the previous release hash, and computes a canonical release SHA-256. Default operation is dry-run; mutation requires explicit `--apply`. The Site index does not claim original-byte custody and does not replace `master-records/orchestration`.
+The runtime consumes only a configurable port, durable data directory, runtime-injected secrets, HTTPS termination, and standard health/readiness paths. Render and all other provider manifests are optional examples and grant no activation status.
 
 ## Required next vertical slice
 
+1. Start the receiver locally with `sh scripts/start-hil-runtime.sh`.
+2. Confirm `READY` with the exact v1.1 Primary and prompt hashes.
+3. Deploy the unchanged OCI runtime behind any conforming HTTPS endpoint with durable mounted storage.
+4. Verify public `/api/hil/readiness` and `/api/hil/publication-readiness`.
+5. Set `data/hil-receiver-config.json` to the proven receiver base URL.
+6. Upload one controlled PDF and preserve the verified receiver receipt.
+7. Restart or replace the receiver while retaining storage and prove exact-byte and manifest persistence.
+8. Record one authenticated, write-once `ACCEPT_PRIVATE` decision.
+9. Record one separately authenticated append-only publication.
+10. Import the first public record into `data/hil-responses.json`.
+11. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
+12. Submit to `master-records/orchestration` only under separate authorization.
+13. Open public acquisition only after all evidence is preserved.
+
+## Participant continuation
+
+Sara Katpar's initiating trace, granted attribution/reproduction permission, participant-controlled continuation, and later outreach remain preserved. These records do not grant technical activation, intake, review, publication, custody, execution, or Master Record authority. Her response packet may be submitted only after the governed receiver is ready; her potential ecosystem-node beta participation remains a separate role and consent track.
+
+## Known remaining files and destinations
+
 ```text
-1. Select or provision any conforming OCI/process runtime without changing application code.
-2. Deploy LLM-adapter main at or after 18badc0fd19933c9cd2a70c684f7f8226f3cb5c3 with a durable mounted volume.
-3. Inject distinct intake, private-review, and publication credentials only through the runtime secret boundary.
-4. Provide HTTPS termination or a documented reverse-proxy boundary.
-5. Observe HIL-LIVE-READINESS-OBSERVATION-v2 reaching CONTROLLED_CYCLE_READY.
-6. Run one controlled deployed PDF plus provenance-manifest submission.
-7. Replace or restart the service and verify exact-byte and manifest persistence.
-8. Record one authenticated ACCEPT_PRIVATE decision and verify write-once behavior.
-9. Record one authenticated publication decision and verify identifier uniqueness.
-10. Import the first HIL-PUBLICATION-RECORD-v1 into the Site projection.
-11. Build the first HIL-MASTER-RECORD-RELEASE-v1 and validate its release chain.
-12. Submit the release and supporting evidence to master-records/orchestration only after authorization.
-13. Open public acquisition only after the deployed controlled cycle passes.
-14. After Sara Katpar publishes her independent reflection, capture its public URL and artifact hash and append them to HIL-CONTINUATION-0001 without changing the parent trace.
+StegVerse-Labs/Site
+- data/hil-receiver-config.json: add proven HTTPS receiver after readiness
+- data/hil-responses.json: first publication pending
+- data/hil-master-records.json: first release pending
+- issue #81: active controlled-cycle tracker
+
+StegVerse-org/LLM-adapter
+- public runtime deployment evidence: pending
+- controlled upload and receipt evidence: pending
+- actual restart persistence evidence: pending
+- authenticated private-review evidence: pending
+- append-only publication evidence: pending
+
+GCAT-BCAT-Engine/Publisher
+- release verification task: create at authorized release/tag stage
+
+admissibility-wiki
+- release verification task: create at authorized release/tag stage
+
+stegguardian-wiki
+- release verification task: create at authorized release/tag stage
 ```
 
 ## Authority boundaries
 
 ```text
-participant approval != technical activation
-participant request != reciprocal permission
-prepared response != sent response
-sent reciprocal permission != editorial control
-continuation outreach != acknowledgment
-continuation outreach != new consent
-participant-authored continuation != protocol-generated submission
-reciprocal mention permission != Site publication authority
-Primary hash match != proof the LLM read the Primary
-prompt hash match != proof of complete instruction following
-response hash match != producer identity verification
-producer signature != participant publication consent
-CI controlled-cycle success != live deployment
-OCI image build != live deployment
-mounted-volume test != production custody
-merged gateway != deployed gateway
-new TestClient != actual service restart
-live readiness observation != activation authority
-receiver receipt != private review decision
-private acceptance != public publication
+client implementation != live receiver
+OCI image build != deployment
+readiness declaration != durable-state proof
+receiver receipt != private acceptance
+private acceptance != publication
 publication record != original-byte custody
-public projection != endorsement
+Site projection != endorsement
 Master Record release != custody
-Site index != master-records/orchestration
+participant interest != role assignment
 ```
 
 ## Release posture
 
-No HIL canonical release tag or public data-acquisition activation is authorized while the validated provider-neutral gateway is not evidenced as deployed with durable storage, credentials are not configured in an authorized runtime, and no controlled deployed submission, actual restart, private-review, publication, Site-import, and Master Record release cycle has produced persisted evidence.
+No release tag or public data-acquisition activation is authorized until one deployed controlled cycle produces a verified receipt, survives an actual restart or replacement, completes authenticated private review and append-only publication, updates the Site projection, and produces a validated Master Record release.
