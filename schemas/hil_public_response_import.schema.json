@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse-labs.github.io/Site/schemas/hil_public_response_import.schema.json",
+  "title": "HIL Public Response Import v1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "response_id",
+    "primary_sha256",
+    "prompt_sha256",
+    "response_sha256",
+    "receiver_receipt",
+    "private_acceptance",
+    "publication_receipt",
+    "public_record",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-PUBLIC-RESPONSE-IMPORT-v1.1"},
+    "response_id": {"type": "string", "pattern": "^HIL-RESP-[A-Z0-9-]+$"},
+    "primary_sha256": {"const": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"},
+    "prompt_sha256": {"const": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"},
+    "response_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "receiver_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["receipt_id", "submitted_file_sha256", "chain_validation_state"],
+      "properties": {
+        "receipt_id": {"type": "string", "minLength": 1},
+        "submitted_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "chain_validation_state": {"const": "VERIFIED"}
+      }
+    },
+    "private_acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "decision_id", "authenticated"],
+      "properties": {
+        "decision": {"const": "ACCEPT_PRIVATE"},
+        "decision_id": {"type": "string", "minLength": 1},
+        "authenticated": {"const": true}
+      }
+    },
+    "publication_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publication_id", "append_only", "authenticated"],
+      "properties": {
+        "publication_id": {"type": "string", "minLength": 1},
+        "append_only": {"const": true},
+        "authenticated": {"const": true}
+      }
+    },
+    "public_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model", "provider", "publication_state", "artifact_path"],
+      "properties": {
+        "model": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "publication_state": {"const": "PUBLISHED"},
+        "artifact_path": {"type": "string", "minLength": 1},
+        "participant_identifier": {"type": ["string", "null"]}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["custody", "endorsement", "scientific_proof", "master_record_append"],
+      "properties": {
+        "custody": {"const": false},
+        "endorsement": {"const": false},
+        "scientific_proof": {"const": false},
+        "master_record_append": {"const": false}
+      }
+    }
+  }
+}
