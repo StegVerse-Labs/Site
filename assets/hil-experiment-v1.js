@@ -12,24 +12,35 @@
     base64Path: 'data/hil-primary-v1.0.pdf.b64'
   });
 
-  const GATEWAY = Object.freeze({
-    baseUrl: 'https://stegverse-ecosystem-chat-gateway.onrender.com',
-    readinessPath: '/api/hil/readiness',
-    submissionPath: '/api/hil/submissions'
-  });
-
+  const CONFIG_PATH = 'data/hil-gateway-config.json';
   const byId = (id) => document.getElementById(id);
   const status = byId('intake-status');
   const submitButton = byId('prepare-receipt');
   const provenanceButton = byId('download-provenance');
   const receiptButton = byId('download-receipt');
-  let gatewayReady = false;
+  const fileInput = byId('response-file');
+  const uploadBox = document.querySelector('.hil-upload');
+  let selectedGateway = null;
   let currentManifest = null;
   let currentReceipt = null;
 
   function setStatus(state, message) {
     status.dataset.state = state;
     status.textContent = message;
+  }
+
+  function normalizeBaseUrl(value) {
+    return String(value || '').replace(/\/$/, '');
+  }
+
+  async function fetchWithTimeout(url, options = {}, timeoutMs = 12000) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   async function sha256Hex(buffer) {
@@ -60,25 +71,57 @@
     return bytes;
   }
 
-  async function checkGatewayReadiness() {
+  async function loadGatewayCandidates() {
     try {
-      const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.readinessPath}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`readiness ${response.status}`);
-      const payload = await response.json();
-      gatewayReady = payload.state === 'READY'
-        && payload.primary_sha256 === PRIMARY.sha256
-        && payload.prompt_sha256 === PRIMARY.promptSha256
-        && payload.provenance_manifest_required === true;
-      submitButton.textContent = gatewayReady ? 'Validate chain and submit artifacts' : 'Prepare provenance locally';
-      if (gatewayReady) {
-        setStatus('ok', 'Gateway chain intake is READY for canonical HIL v1.0. Primary and prompt hashes match.');
-      } else {
-        setStatus('warn', `Canonical v1.0 is active on Site, but gateway submission is not ready for this exact chain (${(payload.blockers || []).join(', ') || payload.state}). Local provenance preparation remains available.`);
-      }
+      const response = await fetch(CONFIG_PATH, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`gateway config ${response.status}`);
+      const config = await response.json();
+      if (!Array.isArray(config.gateway_candidates) || config.gateway_candidates.length === 0) throw new Error('gateway candidate list is empty');
+      return [...config.gateway_candidates].sort((a, b) => Number(a.priority || 999) - Number(b.priority || 999));
     } catch (error) {
-      gatewayReady = false;
+      setStatus('warn', `Gateway configuration could not be loaded. Local provenance preparation remains available: ${error.message}`);
+      return [];
+    }
+  }
+
+  async function probeGateway(candidate) {
+    const baseUrl = normalizeBaseUrl(candidate.base_url);
+    const readinessUrl = `${baseUrl}${candidate.readiness_path}`;
+    const response = await fetchWithTimeout(readinessUrl, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`readiness ${response.status}`);
+    const payload = await response.json();
+    const exactReady = payload.state === 'READY'
+      && payload.primary_sha256 === PRIMARY.sha256
+      && payload.prompt_sha256 === PRIMARY.promptSha256
+      && payload.provenance_manifest_required === true;
+    if (!exactReady) throw new Error((payload.blockers || []).join(', ') || payload.state || 'chain mismatch');
+    return {
+      id: candidate.id,
+      baseUrl,
+      submissionPath: candidate.submission_path,
+      readiness: payload
+    };
+  }
+
+  async function checkGatewayReadiness() {
+    selectedGateway = null;
+    submitButton.textContent = 'Checking exact v1.0 intake…';
+    const candidates = await loadGatewayCandidates();
+    const failures = [];
+    for (const candidate of candidates) {
+      try {
+        selectedGateway = await probeGateway(candidate);
+        break;
+      } catch (error) {
+        failures.push(`${candidate.id}: ${error.message}`);
+      }
+    }
+    if (selectedGateway) {
+      submitButton.textContent = 'Submit response PDF';
+      setStatus('ok', `Upload intake is ready through ${selectedGateway.id}. Select the response PDF, complete the required fields, and submit once.`);
+    } else {
       submitButton.textContent = 'Prepare provenance locally';
-      setStatus('warn', `Canonical v1.0 is active on Site. Gateway could not be reached; local provenance preparation remains available: ${error.message}`);
+      setStatus('warn', `No exact canonical v1.0 gateway is ready. Local provenance preparation remains available.${failures.length ? ` Checked: ${failures.join(' · ')}` : ''}`);
     }
   }
 
@@ -139,6 +182,7 @@
   }
 
   async function submitArtifacts(file, manifest) {
+    if (!selectedGateway) throw new Error('No exact canonical v1.0 gateway is ready.');
     const form = new FormData();
     form.append('response_pdf', file, file.name);
     form.append('provenance_manifest', new Blob([`${JSON.stringify(manifest, null, 2)}\n`], { type: 'application/json' }), `${file.name}.provenance.json`);
@@ -147,7 +191,7 @@
     form.append('primary_sha256', PRIMARY.sha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
-    const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.submissionPath}`, { method: 'POST', body: form });
+    const response = await fetchWithTimeout(`${selectedGateway.baseUrl}${selectedGateway.submissionPath}`, { method: 'POST', body: form }, 45000);
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(typeof payload.detail === 'string' ? payload.detail : `gateway submission ${response.status}`);
     return payload;
@@ -158,11 +202,11 @@
     currentReceipt = null;
     provenanceButton.disabled = true;
     receiptButton.disabled = true;
-    const file = byId('response-file').files[0];
+    const file = fileInput.files[0];
     const model = byId('model').value.trim();
     const provider = byId('provider').value.trim();
     const consent = byId('publication-consent').value;
-    if (!file) return setStatus('error', 'Select the response-only PDF generated by the LLM.');
+    if (!file) return setStatus('error', 'Select or drop the response-only PDF generated by the LLM.');
     if (!model || !provider) return setStatus('error', 'Model name and provider are required for the provenance chain.');
     if (!consent) return setStatus('error', 'Select a publication-consent state.');
     if (!byId('unedited-confirmation').checked) return setStatus('error', 'Confirm that the model-response portion remained unedited.');
@@ -170,7 +214,7 @@
 
     submitButton.disabled = true;
     try {
-      setStatus('warn', 'Validating response PDF and building canonical v1.0 → prompt → response chain…');
+      setStatus('warn', 'Hashing and validating the exact response PDF…');
       const buffer = await file.arrayBuffer();
       const bytes = new Uint8Array(buffer);
       const error = validatePdf(file, bytes);
@@ -178,16 +222,17 @@
       const responseHash = await sha256Hex(buffer);
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
-      if (!gatewayReady) {
-        setStatus('warn', `Provenance manifest prepared locally. Response SHA-256: ${responseHash}. Generation and local provenance do not equal submission; gateway receipt remains pending.`);
+      if (!selectedGateway) {
+        setStatus('warn', `Provenance prepared locally. Response SHA-256: ${responseHash}. The PDF has not been submitted because no exact v1.0 gateway is ready.`);
         return;
       }
-      setStatus('warn', 'Chain matches locally. Uploading exact response PDF bytes and provenance manifest…');
+      setStatus('warn', 'Uploading the exact PDF and provenance record. Keep this page open until the receiver receipt appears…');
       currentReceipt = await submitArtifacts(file, currentManifest);
       receiptButton.disabled = false;
-      setStatus('ok', `${currentReceipt.submission_id} received. ${currentReceipt.chain_validation_state}. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Review and publication remain pending.`);
+      setStatus('ok', `${currentReceipt.submission_id} received and preserved. ${currentReceipt.chain_validation_state}. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Download the receipt for your records; review and publication remain separate.`);
     } catch (error) {
-      setStatus('error', error.message || 'The artifact chain could not be processed.');
+      const timeout = error.name === 'AbortError' ? 'The gateway timed out before issuing a receipt. No successful submission is being claimed.' : error.message;
+      setStatus('error', timeout || 'The artifact chain could not be processed.');
     } finally {
       submitButton.disabled = false;
     }
@@ -201,6 +246,28 @@
   function downloadReceipt() {
     if (!currentReceipt) return;
     saveBlob(new Blob([`${JSON.stringify(currentReceipt, null, 2)}\n`], { type: 'application/json' }), `${currentReceipt.receipt_id || currentReceipt.submission_id}.json`);
+  }
+
+  function handleSelectedFile(file) {
+    if (!file) return;
+    const transfer = new DataTransfer();
+    transfer.items.add(file);
+    fileInput.files = transfer.files;
+    setStatus('warn', `${file.name} selected (${file.size.toLocaleString()} bytes). Complete the required fields and submit once.`);
+    uploadBox.classList.remove('is-dragging');
+  }
+
+  function bindDropZone() {
+    ['dragenter', 'dragover'].forEach((eventName) => uploadBox.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      uploadBox.classList.add('is-dragging');
+    }));
+    ['dragleave', 'drop'].forEach((eventName) => uploadBox.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      uploadBox.classList.remove('is-dragging');
+    }));
+    uploadBox.addEventListener('drop', (event) => handleSelectedFile(event.dataTransfer.files[0]));
+    fileInput.addEventListener('change', () => handleSelectedFile(fileInput.files[0]));
   }
 
   async function loadResponseIndex() {
@@ -237,6 +304,7 @@
   submitButton.addEventListener('click', prepareAndSubmit);
   provenanceButton.addEventListener('click', downloadProvenance);
   receiptButton.addEventListener('click', downloadReceipt);
+  bindDropZone();
   checkGatewayReadiness();
   loadResponseIndex();
 })();
