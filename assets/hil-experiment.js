@@ -3,14 +3,15 @@
 
   const PRIMARY = Object.freeze({
     title: 'Humans as the Interoperability Layer',
-    version: 'v0.5',
+    version: 'v1.0',
     protocolVersion: 'HIL-PROTOCOL-v1.0',
     promptVersion: 'HIL-PROMPT-v1.0',
-    promptSha256: '0ebe215318b4eeeb8ed6422e0954372c314fadc8fac9254e452bc7670a1b9922',
-    sha256: '52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946',
-    filename: 'Humans_as_the_Interoperability_Layer_Primary_Review_Candidate_v0_5.pdf',
-    base64Path: 'data/hil-primary-v0.5-review.pdf.b64'
+    promptSha256: 'bbb2db652a10ef404d565e561bb0a2f7b078bbe95105400faec14be9a6d5642a',
+    sha256: 'e7a86cf05323d8352cfa188e0bff1c35fdb15f9fac6af91ca62b6a126ac4e68f',
+    filename: 'HIL_Canonical_Paper_v1_0.pdf',
+    artifactPath: 'HIL_Canonical_Paper_v1_0.pdf'
   });
+
   const GATEWAY = Object.freeze({
     baseUrl: 'https://stegverse-ecosystem-chat-gateway.onrender.com',
     readinessPath: '/api/hil/readiness',
@@ -58,9 +59,9 @@
         && payload.provenance_manifest_required === true;
       submitButton.textContent = gatewayReady ? 'Validate chain and submit artifacts' : 'Prepare provenance locally';
       if (gatewayReady) {
-        setStatus('ok', 'Gateway chain intake is READY. Primary and prompt hashes match this Site version.');
+        setStatus('ok', 'Gateway chain intake is READY. Canonical v1.0 Primary and prompt hashes match.');
       } else {
-        setStatus('warn', `Gateway is not ready for this chain (${(payload.blockers || []).join(', ') || payload.state}). You may prepare and download the provenance manifest locally, but no submission will occur.`);
+        setStatus('warn', `Gateway is not ready for the canonical v1.0 chain (${(payload.blockers || []).join(', ') || payload.state}). You may prepare and download the provenance manifest locally, but no submission will occur.`);
       }
     } catch (error) {
       gatewayReady = false;
@@ -73,19 +74,23 @@
     const button = byId('download-primary');
     const previous = button.textContent;
     button.disabled = true;
-    button.textContent = 'Preparing Primary PDF…';
+    button.textContent = 'Verifying Canonical v1.0 PDF…';
     try {
-      const response = await fetch(PRIMARY.base64Path, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Primary artifact unavailable (${response.status})`);
-      const encoded = (await response.text()).replace(/\s+/g, '');
-      const binary = atob(encoded);
-      const bytes = new Uint8Array(binary.length);
-      for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
-      const actualHash = await sha256Hex(bytes.buffer);
-      if (actualHash !== PRIMARY.sha256) throw new Error('Primary artifact hash mismatch; download blocked fail-closed.');
-      saveBlob(new Blob([bytes], { type: 'application/pdf' }), PRIMARY.filename);
+      const response = await fetch(PRIMARY.artifactPath, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Canonical Primary unavailable (${response.status})`);
+      const buffer = await response.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      if (new TextDecoder('ascii').decode(bytes.slice(0, 5)) !== '%PDF-') {
+        throw new Error('Canonical Primary does not have a valid PDF signature; download blocked fail-closed.');
+      }
+      const actualHash = await sha256Hex(buffer);
+      if (actualHash !== PRIMARY.sha256) {
+        throw new Error(`Canonical Primary hash mismatch; expected ${PRIMARY.sha256}, received ${actualHash}. Download blocked fail-closed.`);
+      }
+      saveBlob(new Blob([buffer], { type: 'application/pdf' }), PRIMARY.filename);
+      setStatus('ok', `Canonical v1.0 Primary verified and downloaded. SHA-256: ${actualHash}`);
     } catch (error) {
-      setStatus('error', error.message || 'Unable to prepare the Primary PDF.');
+      setStatus('error', error.message || 'Unable to download the Canonical v1.0 Primary.');
     } finally {
       button.disabled = false;
       button.textContent = previous;
@@ -118,6 +123,7 @@
     return {
       schema_version: 'HIL-RESPONSE-PROVENANCE-v1',
       primary_version: PRIMARY.version,
+      primary_filename: PRIMARY.filename,
       primary_sha256: PRIMARY.sha256,
       protocol_version: PRIMARY.protocolVersion,
       prompt_version: PRIMARY.promptVersion,
@@ -127,12 +133,7 @@
       provider: byId('provider').value.trim(),
       generated_at: new Date().toISOString(),
       conversation_reference: byId('conversation-reference').value.trim() || null,
-      producer_signature: {
-        state: 'UNAVAILABLE',
-        scheme: null,
-        value: null,
-        key_id: null
-      }
+      producer_signature: { state: 'UNAVAILABLE', scheme: null, value: null, key_id: null }
     };
   }
 
@@ -143,6 +144,7 @@
     form.append('participant_identifier', byId('participant-id').value.trim() || 'anonymous');
     form.append('publication_consent', byId('publication-consent').value);
     form.append('primary_sha256', PRIMARY.sha256);
+    form.append('prompt_sha256', PRIMARY.promptSha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
     const response = await fetch(`${GATEWAY.baseUrl}${GATEWAY.submissionPath}`, { method: 'POST', body: form });
@@ -168,7 +170,7 @@
 
     submitButton.disabled = true;
     try {
-      setStatus('warn', 'Validating PDF and building Primary → prompt → response chain…');
+      setStatus('warn', 'Validating PDF and building Canonical v1.0 Primary → prompt → response chain…');
       const buffer = await file.arrayBuffer();
       const bytes = new Uint8Array(buffer);
       const error = validatePdf(file, bytes);
@@ -177,10 +179,10 @@
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
       if (!gatewayReady) {
-        setStatus('warn', `Provenance manifest prepared locally. Response SHA-256: ${responseHash}. Gateway submission remains blocked until the exact Primary and prompt chain is READY.`);
+        setStatus('warn', `Canonical v1.0 provenance manifest prepared locally. Response SHA-256: ${responseHash}. Gateway submission remains blocked until the v1.0 Primary and prompt chain is READY.`);
         return;
       }
-      setStatus('warn', 'Chain matches locally. Uploading exact PDF bytes and provenance manifest…');
+      setStatus('warn', 'Canonical v1.0 chain matches locally. Uploading exact PDF bytes and provenance manifest…');
       currentReceipt = await submitArtifacts(file, currentManifest);
       receiptButton.disabled = false;
       setStatus('ok', `${currentReceipt.submission_id} received. ${currentReceipt.chain_validation_state}. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Review and publication remain pending.`);
