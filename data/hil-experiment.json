@@ -51,16 +51,28 @@
     "provenance_manifest_required": true,
     "provenance_schema_version": "HIL-RESPONSE-PROVENANCE-v1.1",
     "required_chain": [
+      "schema_version",
+      "primary_version",
       "primary_sha256",
       "protocol_version",
       "prompt_version",
       "prompt_sha256",
-      "response_sha256",
+      "response_sha256"
+    ],
+    "normalized_optional_provenance": [
       "model",
       "provider",
-      "participant_delivery_contract",
-      "producer_signature_state"
+      "conversation_reference",
+      "producer_signature"
     ],
+    "participant_metadata_required": false,
+    "optional_participant_metadata": [
+      "participant_identifier",
+      "publication_consent",
+      "model_response_declared_unedited",
+      "participant_consent_authority_acknowledged"
+    ],
+    "missing_optional_metadata_effect": "NO_CONSENT_ATTRIBUTION_PUBLICATION_OR_AUTHORITY_INFERENCE",
     "current_transport": "SITE_DISCOVERS_CONFORMING_GATEWAY_FAIL_CLOSED",
     "browser_local_hashing": true,
     "server_custody": false
