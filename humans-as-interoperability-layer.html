@@ -34,7 +34,7 @@
   <h2 class="sv-h2">Why the chain matters</h2>
   <div class="sv-prose"><p>A valid PDF header is not enough. The Site verifies the exact Canonical v1.0 PDF hash before download. Each response submission must include a provenance manifest whose response hash matches the exact uploaded bytes and whose Primary, protocol, and prompt references match this v1.0 experiment.</p><p>Artifact generation is not submission. Submission is not review, publication, endorsement, or Master Record release.</p></div>
   <h2 class="sv-h2">Participant path</h2>
-  <div class="hil-grid"><div class="hil-step"><b>1 · Download</b>Download the Canonical v1.0 Primary PDF and verify its published SHA-256.</div><div class="hil-step"><b>2 · Submit</b>Upload the unchanged PDF to an LLM of your choice.</div><div class="hil-step"><b>3 · Prompt</b>Use the complete exact canonical prompt below.</div><div class="hil-step"><b>4 · Receive</b>Download the complete unedited response-only PDF.</div><div class="hil-step"><b>5 · Bind</b>The Site computes the response hash and creates the provenance manifest.</div><div class="hil-step"><b>6 · Submit</b>The gateway validates and preserves both exact artifacts before issuing a receiver receipt.</div></div>
+  <div class="hil-grid"><div class="hil-step"><b>1 · Download</b>Download the Canonical v1.0 Primary PDF and verify its published SHA-256.</div><div class="hil-step"><b>2 · Submit</b>Upload the unchanged PDF to an LLM of your choice.</div><div class="hil-step"><b>3 · Prompt</b>Use the complete exact canonical prompt below.</div><div class="hil-step"><b>4 · Receive</b>Download the complete unedited response-only PDF.</div><div class="hil-step"><b>5 · Return</b>Return to this page and select the response PDF below. Generation alone is not submission.</div><div class="hil-step"><b>6 · Submit</b>The gateway validates and preserves both exact artifacts before issuing a receiver receipt.</div></div>
   <section id="submit">
     <h2 class="sv-h2">Exact canonical invocation prompt</h2>
     <div id="canonical-prompt" class="hil-prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
@@ -69,12 +69,13 @@
   <pre>Primary hash match          != proof the LLM read the document
 prompt hash match           != proof of complete instruction following
 response hash match         != producer identity verification
+response generation         != submission
 producer signature          != publication consent
 receiver receipt            != acceptance or publication approval
 submission                  != publication
 publication                 != endorsement
 Master Record inclusion     != scientific proof</pre>
 </main>
-<script src="assets/hil-experiment.js"></script>
+<script src="assets/hil-experiment-v1.js"></script>
 </body>
 </html>
