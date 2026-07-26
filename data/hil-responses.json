@@ -1,10 +1,13 @@
 {
-  "schema_version": "HIL-RESPONSES-INDEX-v1",
+  "schema_version": "HIL-RESPONSES-INDEX-v1.1",
   "experiment_id": "HIL-2026",
   "primary_document": {
-    "version": "v0.5",
-    "sha256": "52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946",
-    "state": "APPROVED_PENDING_TECHNICAL_ACTIVATION"
+    "filename": "HIL_Canonical_Paper_v1_1.pdf",
+    "version": "v1.1",
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+    "prompt_version": "HIL-PROMPT-v1.1",
+    "prompt_sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+    "state": "CANONICAL_PUBLIC_RESEARCH_SURFACE_ACTIVE_RESPONSE_ACQUISITION_CLOSED"
   },
   "initiating_trace": {
     "trace_id": "HIL-TRACE-0001",
@@ -13,14 +16,24 @@
     "attribution_state": "NAMED_WITH_PERMISSION",
     "permission_state": "GRANTED",
     "review_state": "APPROVED",
-    "publication_state": "APPROVED_PENDING_CANONICAL_ACTIVATION",
+    "publication_state": "APPROVED_PENDING_GOVERNED_V1_1_PUBLICATION_IMPORT",
     "record_path": "data/hil-traces/HIL-TRACE-0001.json"
   },
   "responses": [],
-  "last_updated": "2026-07-23T16:17:00Z",
+  "acquisition_state": "CLOSED_PENDING_PROVEN_RECEIVER_AND_CONTROLLED_CYCLE",
+  "required_import_evidence": [
+    "receiver_receipt",
+    "exact_response_sha256",
+    "provenance_manifest",
+    "authenticated_private_acceptance",
+    "append_only_publication_receipt"
+  ],
+  "last_updated": "2026-07-26T18:56:00Z",
   "authority": {
     "public_index_is_custody": false,
     "public_index_is_endorsement": false,
-    "public_index_is_scientific_proof": false
+    "public_index_is_scientific_proof": false,
+    "index_update_grants_publication_authority": false,
+    "empty_index_implies_no_responses_exist": false
   }
 }
