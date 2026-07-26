@@ -1,0 +1,61 @@
+{
+  "schema": {
+    "name": "stegverse.site.ecosystem_service_marketplace_policy",
+    "version": "1.0.0"
+  },
+  "scope": "ecosystem-wide",
+  "provider_neutral": true,
+  "platform_agnostic": true,
+  "required_views": {
+    "conversation_view": [
+      "provider_name",
+      "service_name",
+      "status",
+      "estimated_cost_summary",
+      "actual_cost_summary",
+      "receipt_available"
+    ],
+    "governed_record_view": [
+      "request_id",
+      "request_sha256",
+      "provider_id",
+      "service_id",
+      "estimate",
+      "authority_evidence",
+      "admissibility_decision",
+      "execution_result_or_refusal",
+      "service_receipt",
+      "actual_invoice_line",
+      "ledger_append_receipt",
+      "requester_return_receipt",
+      "settlement_receipt"
+    ],
+    "split_view_linkage": "stable_event_identifiers"
+  },
+  "accounting_scopes": [
+    "interaction",
+    "conversation",
+    "session",
+    "project",
+    "entity",
+    "organization",
+    "ecosystem"
+  ],
+  "visibility_rules": {
+    "valuation_pending_visible": true,
+    "refused_service_visible": true,
+    "no_charge_service_visible": true,
+    "zero_value_requires_reason": true,
+    "estimate_is_not_authorization": true,
+    "receipt_is_not_master_record_authority": true,
+    "settlement_is_not_admissibility": true
+  },
+  "initial_registered_providers": ["tv", "tvc"],
+  "future_provider_registration": {
+    "requires_registry_entry": true,
+    "requires_service_catalog": true,
+    "requires_receipt_contract": true,
+    "requires_accounting_contract": true,
+    "requires_cge_admissibility_integration": true
+  }
+}
