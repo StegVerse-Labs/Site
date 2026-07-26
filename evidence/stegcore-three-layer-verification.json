@@ -1,0 +1,29 @@
+{
+  "artifact_type": "stegcore.downstream_verification",
+  "schema_version": "1.0",
+  "repository": "StegVerse-Labs/Site",
+  "issue_number": 14,
+  "status": "pass",
+  "observed_runtime_evidence_hash": "3657e5c64eb54e2c928fba81d3c8d35587d2b87747b9b225102b70339d942730",
+  "observed_release_readiness_hash": "ae139c63635e57d9d6239bd3b232404a5f162e9a551350357245a6f0254e7b6e",
+  "stegcore_commit": "b2290a006cb23e0595388d0ddaa55e7874c16222",
+  "governance_commit": "c07b7c6146e0abac7db6fa15a5a0aa7bf23811f6",
+  "checks": {
+    "runtime_status_pass": true,
+    "readiness_validated_not_released": true,
+    "evidence_hash_valid": true,
+    "commit_references_present": true,
+    "continuity_receipt_minted": false,
+    "authority_nonclaims_preserved": true
+  },
+  "repository_state_preserved": "ACTIVATION_PENDING_AUTHORIZED_REAL_PROVIDER_AND_PERSISTENT_ENDPOINT",
+  "authority_boundary": {
+    "deployment_authorized": false,
+    "execution_authorized": false,
+    "release_authorized": false,
+    "continuity_authority_claimed": false,
+    "receipt_minting_authority_claimed": false,
+    "cross_repository_mutation_authorized": false
+  },
+  "completion": "evidence_observed_without_site_activation_change"
+}
