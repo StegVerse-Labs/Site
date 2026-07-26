@@ -2,7 +2,6 @@
   'use strict';
 
   const PRIMARY = Object.freeze({
-    title: 'Humans as the Interoperability Layer',
     version: 'v1.1',
     protocolVersion: 'HIL-PROTOCOL-v1.1',
     promptVersion: 'HIL-PROMPT-v1.1',
@@ -13,29 +12,47 @@
   });
 
   const RECEIVER_CONFIG_PATH = 'data/hil-receiver-config.json';
-  const DEFAULT_READINESS_PATH = '/api/hil/readiness';
-  const DEFAULT_SUBMISSION_PATH = '/api/hil/submissions';
   const READY_MESSAGE = 'Response-packet intake is ready. Choose the unchanged PDF and tap Upload Response Packet.';
   const NOT_READY_MESSAGE = 'The governed receiver is not currently ready. Your packet has not been uploaded. Please try again later.';
+  const RECEIPT_PREFIX = 'stegverse.hil.receipt.';
+  const MAX_BYTES = 10 * 1024 * 1024;
 
   const byId = (id) => document.getElementById(id);
   const status = byId('intake-status');
+  const fileInput = byId('response-file');
   const uploadButton = byId('upload-response');
   const prepareButton = byId('prepare-provenance');
   const provenanceButton = byId('download-provenance');
   const receiptButton = byId('download-receipt');
+
   let receiver = null;
   let currentManifest = null;
   let currentReceipt = null;
+  let readinessCheck = null;
 
   function setStatus(state, message) {
     status.dataset.state = state;
     status.textContent = message;
   }
 
+  function setUploadState(enabled, label = 'Upload Response Packet') {
+    uploadButton.disabled = !enabled;
+    uploadButton.textContent = label;
+  }
+
   async function sha256Hex(buffer) {
     const digest = await crypto.subtle.digest('SHA-256', buffer);
     return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  }
+
+  function canonicalJson(value) {
+    if (value === null || typeof value !== 'object') return JSON.stringify(value);
+    if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(',')}}`;
+  }
+
+  async function canonicalHash(value) {
+    return sha256Hex(new TextEncoder().encode(canonicalJson(value)).buffer);
   }
 
   function saveBlob(blob, filename) {
@@ -78,12 +95,12 @@
     if (!baseUrl) throw new Error('receiver_config_invalid');
     return {
       baseUrl,
-      readinessPath: config.readiness_path || DEFAULT_READINESS_PATH,
-      submissionPath: config.submission_path || DEFAULT_SUBMISSION_PATH
+      readinessPath: config.readiness_path || '/api/hil/readiness',
+      submissionPath: config.submission_path || '/api/hil/submissions'
     };
   }
 
-  async function readinessAttempt(candidate, timeoutMs) {
+  async function receiverIsReady(candidate, timeoutMs) {
     const response = await fetchWithTimeout(
       `${candidate.baseUrl}${candidate.readinessPath}`,
       { cache: 'no-store' },
@@ -92,69 +109,82 @@
     if (!response.ok) return false;
     const payload = await response.json();
     return payload.state === 'READY'
+      && payload.primary_version === PRIMARY.version
       && payload.primary_sha256 === PRIMARY.sha256
+      && payload.protocol_version === PRIMARY.protocolVersion
+      && payload.prompt_version === PRIMARY.promptVersion
       && payload.prompt_sha256 === PRIMARY.promptSha256
-      && payload.provenance_manifest_required === true;
+      && payload.provenance_manifest_required === true
+      && payload.provenance_manifest_schema === 'HIL-RESPONSE-PROVENANCE-v1.1'
+      && payload.participant_metadata_required === false;
   }
 
-  async function checkGatewayReadiness() {
-    receiver = null;
-    uploadButton.disabled = true;
-    setStatus('warn', 'Checking governed receiver availability…');
-    try {
-      const candidate = await loadReceiverConfig();
-      const attempts = [12000, 30000];
-      for (const timeoutMs of attempts) {
-        try {
-          if (await readinessAttempt(candidate, timeoutMs)) {
-            receiver = candidate;
-            setStatus('ok', READY_MESSAGE);
-            uploadButton.disabled = false;
-            return;
+  async function checkGatewayReadiness({ quiet = false } = {}) {
+    if (readinessCheck) return readinessCheck;
+    readinessCheck = (async () => {
+      receiver = null;
+      setUploadState(false, 'Checking intake…');
+      if (!quiet) setStatus('warn', 'Checking governed receiver availability…');
+      try {
+        const candidate = await loadReceiverConfig();
+        for (const timeoutMs of [12000, 30000]) {
+          try {
+            if (await receiverIsReady(candidate, timeoutMs)) {
+              receiver = candidate;
+              setUploadState(true);
+              if (!quiet) setStatus('ok', READY_MESSAGE);
+              return true;
+            }
+          } catch (error) {
+            console.debug('HIL readiness attempt failed', error);
           }
-        } catch {
-          // A sleeping or restarting receiver may miss the first attempt.
         }
+      } catch (error) {
+        console.debug('HIL receiver discovery failed', error);
       }
-    } catch {
-      // Participant-facing output intentionally omits provider and network details.
+      setUploadState(false, 'Upload unavailable');
+      if (!quiet) setStatus('warn', NOT_READY_MESSAGE);
+      return false;
+    })();
+    try {
+      return await readinessCheck;
+    } finally {
+      readinessCheck = null;
     }
-    uploadButton.disabled = false;
-    setStatus('warn', NOT_READY_MESSAGE);
   }
 
   async function downloadPrimary() {
     const button = byId('download-primary');
-    const previous = button.textContent;
+    const prior = button.textContent;
     button.disabled = true;
     button.textContent = 'Verifying Canonical v1.1 PDF…';
     try {
       const response = await fetchWithTimeout(PRIMARY.artifactPath, { cache: 'no-store' }, 15000);
-      if (!response.ok) throw new Error(`Canonical Primary unavailable (${response.status})`);
+      if (!response.ok) throw new Error('The Canonical Primary is temporarily unavailable.');
       const buffer = await response.arrayBuffer();
       const bytes = new Uint8Array(buffer);
-      if (bytes.byteLength !== 87271) throw new Error(`Canonical Primary size mismatch; expected 87271 bytes, received ${bytes.byteLength}.`);
-      if (new TextDecoder('ascii').decode(bytes.slice(0, 5)) !== '%PDF-') throw new Error('Canonical Primary does not have a valid PDF signature; download blocked fail-closed.');
-      const actualHash = await sha256Hex(buffer);
-      if (actualHash !== PRIMARY.sha256) throw new Error(`Canonical Primary hash mismatch; expected ${PRIMARY.sha256}, received ${actualHash}. Download blocked fail-closed.`);
+      if (bytes.byteLength !== 87271 || new TextDecoder('ascii').decode(bytes.slice(0, 5)) !== '%PDF-') {
+        throw new Error('Canonical Primary verification failed. Download was blocked.');
+      }
+      const hash = await sha256Hex(buffer);
+      if (hash !== PRIMARY.sha256) throw new Error('Canonical Primary verification failed. Download was blocked.');
       saveBlob(new Blob([buffer], { type: 'application/pdf' }), PRIMARY.filename);
-      setStatus('ok', `Canonical v1.1 Primary verified and downloaded. SHA-256: ${actualHash}`);
+      setStatus('ok', 'Canonical v1.1 Primary verified and downloaded.');
     } catch (error) {
       setStatus('error', error.message || 'Unable to download the Canonical v1.1 Primary.');
     } finally {
       button.disabled = false;
-      button.textContent = previous;
+      button.textContent = prior;
     }
   }
 
   async function copyPrompt() {
-    const prompt = byId('canonical-prompt').textContent.trim();
     try {
-      await navigator.clipboard.writeText(prompt);
+      await navigator.clipboard.writeText(byId('canonical-prompt').textContent.trim());
       const button = byId('copy-prompt');
-      const old = button.textContent;
+      const prior = button.textContent;
       button.textContent = 'Copied';
-      setTimeout(() => { button.textContent = old; }, 1500);
+      setTimeout(() => { button.textContent = prior; }, 1500);
     } catch {
       setStatus('warn', 'Copy was blocked by the browser. Select and copy the prompt manually.');
     }
@@ -163,7 +193,7 @@
   function validatePdf(file, bytes) {
     if (!file) return 'Choose the single Response PDF generated by the LLM.';
     if (file.size === 0) return 'The selected file is empty.';
-    if (file.size > 10 * 1024 * 1024) return 'The selected file exceeds the 10 MB limit.';
+    if (file.size > MAX_BYTES) return 'The selected file exceeds the 10 MB limit.';
     if (!file.name.toLowerCase().endsWith('.pdf')) return 'The selected artifact must use the .pdf extension.';
     if (new TextDecoder('ascii').decode(bytes.slice(0, 5)) !== '%PDF-') return 'The selected artifact does not have a valid PDF signature.';
     return null;
@@ -203,14 +233,49 @@
     };
   }
 
-  async function readAndValidateSelectedPdf() {
-    const file = byId('response-file').files[0];
+  async function readSelectedPdf() {
+    const file = fileInput.files[0];
     if (!file) throw new Error('Choose the single downloadable Response PDF generated by the LLM.');
     const buffer = await file.arrayBuffer();
     const bytes = new Uint8Array(buffer);
-    const validationError = validatePdf(file, bytes);
-    if (validationError) throw new Error(validationError);
+    const problem = validatePdf(file, bytes);
+    if (problem) throw new Error(problem);
     return { file, responseHash: await sha256Hex(buffer) };
+  }
+
+  function receiptStorageKey(responseHash) {
+    return `${RECEIPT_PREFIX}${responseHash}`;
+  }
+
+  function restoreReceipt(responseHash) {
+    try {
+      const stored = localStorage.getItem(receiptStorageKey(responseHash));
+      if (!stored) return null;
+      const receipt = JSON.parse(stored);
+      return receipt.submitted_file_sha256 === responseHash ? receipt : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function preserveReceipt(receipt) {
+    try {
+      localStorage.setItem(receiptStorageKey(receipt.submitted_file_sha256), JSON.stringify(receipt));
+    } catch {
+      // Receipt remains downloadable in the current page session.
+    }
+  }
+
+  async function validateReceipt(receipt, responseHash) {
+    if (!receipt || receipt.schema_version !== 'HIL-RECEIVER-RECEIPT-v2') return false;
+    if (!receipt.receipt_id || !receipt.submission_id) return false;
+    if (receipt.primary_sha256 !== PRIMARY.sha256 || receipt.prompt_sha256 !== PRIMARY.promptSha256) return false;
+    if (receipt.submitted_file_sha256 !== responseHash) return false;
+    if (!['PRIMARY_PROMPT_RESPONSE_CHAIN_VERIFIED', 'PRIMARY_PROMPT_RESPONSE_SIGNATURE_CHAIN_VERIFIED'].includes(receipt.chain_validation_state)) return false;
+    if (typeof receipt.receipt_sha256 !== 'string') return false;
+    const unsigned = { ...receipt };
+    delete unsigned.receipt_sha256;
+    return await canonicalHash(unsigned) === receipt.receipt_sha256;
   }
 
   async function submitArtifacts(file, manifest) {
@@ -224,14 +289,15 @@
     form.append('prompt_sha256', PRIMARY.promptSha256);
     form.append('model_response_declared_unedited', String(byId('unedited-confirmation').checked));
     form.append('participant_consent_authority_acknowledged', String(byId('participant-authority').checked));
-    const response = await fetchWithTimeout(
-      `${receiver.baseUrl}${receiver.submissionPath}`,
-      { method: 'POST', body: form },
-      60000
-    );
-    const payload = await response.json().catch(() => ({}));
+
+    const response = await fetchWithTimeout(`${receiver.baseUrl}${receiver.submissionPath}`, {
+      method: 'POST',
+      body: form,
+      headers: { Accept: 'application/json' }
+    }, 90000);
+    const payload = await response.json().catch(() => null);
     if (!response.ok) {
-      console.warn('HIL upload rejected', { status: response.status, detail: payload.detail || null });
+      console.warn('HIL upload rejected', { status: response.status, detail: payload && payload.detail });
       throw new Error('The governed receiver did not accept the packet. Nothing was recorded. Please try again later.');
     }
     return payload;
@@ -240,21 +306,37 @@
   async function uploadResponsePacket() {
     currentReceipt = null;
     receiptButton.disabled = true;
-    uploadButton.disabled = true;
+    setUploadState(false, 'Uploading…');
     try {
-      setStatus('warn', 'Validating and uploading the unchanged response packet…');
-      const { file, responseHash } = await readAndValidateSelectedPdf();
+      setStatus('warn', 'Validating the unchanged response packet…');
+      const { file, responseHash } = await readSelectedPdf();
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
-      if (!receiver) await checkGatewayReadiness();
-      currentReceipt = await submitArtifacts(file, currentManifest);
+
+      const priorReceipt = restoreReceipt(responseHash);
+      if (priorReceipt && await validateReceipt(priorReceipt, responseHash)) {
+        currentReceipt = priorReceipt;
+        receiptButton.disabled = false;
+        setStatus('ok', `${priorReceipt.submission_id} was already received. The saved receiver receipt is available below.`);
+        return;
+      }
+
+      if (!receiver && !(await checkGatewayReadiness({ quiet: true }))) throw new Error(NOT_READY_MESSAGE);
+      setStatus('warn', 'Uploading the response packet. Keep this page open until a receiver receipt appears…');
+      const receipt = await submitArtifacts(file, currentManifest);
+      if (!(await validateReceipt(receipt, responseHash))) {
+        console.warn('HIL receiver returned an invalid receipt', receipt);
+        throw new Error('The receiver response could not be verified. Do not assume the packet was recorded.');
+      }
+
+      currentReceipt = receipt;
+      preserveReceipt(receipt);
       receiptButton.disabled = false;
-      setStatus('ok', `${currentReceipt.submission_id} received. Receiver SHA-256: ${currentReceipt.submitted_file_sha256}. Review and publication remain pending.`);
+      setStatus('ok', `${receipt.submission_id} received and receipt verified. Review and publication remain pending.`);
     } catch (error) {
-      const message = error && error.message ? error.message : 'The response packet could not be uploaded.';
-      setStatus('error', message);
+      setStatus('error', error && error.message ? error.message : 'The response packet could not be uploaded.');
     } finally {
-      uploadButton.disabled = false;
+      setUploadState(Boolean(receiver));
     }
   }
 
@@ -264,7 +346,7 @@
     prepareButton.disabled = true;
     try {
       setStatus('warn', 'Validating the selected PDF and preparing optional provenance locally…');
-      const { responseHash } = await readAndValidateSelectedPdf();
+      const { responseHash } = await readSelectedPdf();
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
       setStatus('ok', `Optional provenance prepared locally. Response SHA-256: ${responseHash}. No upload occurred.`);
@@ -285,13 +367,35 @@
     saveBlob(new Blob([`${JSON.stringify(currentReceipt, null, 2)}\n`], { type: 'application/json' }), `${currentReceipt.receipt_id || currentReceipt.submission_id}.json`);
   }
 
+  async function handleFileSelection() {
+    currentManifest = null;
+    currentReceipt = null;
+    provenanceButton.disabled = true;
+    receiptButton.disabled = true;
+    if (!fileInput.files[0]) return;
+    try {
+      const { responseHash } = await readSelectedPdf();
+      const priorReceipt = restoreReceipt(responseHash);
+      if (priorReceipt && await validateReceipt(priorReceipt, responseHash)) {
+        currentReceipt = priorReceipt;
+        receiptButton.disabled = false;
+        setStatus('ok', `${priorReceipt.submission_id} was already received. You may download the saved receipt.`);
+        return;
+      }
+      if (receiver) setStatus('ok', READY_MESSAGE);
+      else setStatus('warn', NOT_READY_MESSAGE);
+    } catch (error) {
+      setStatus('error', error.message);
+    }
+  }
+
   async function loadResponseIndex() {
     const target = byId('response-index');
     try {
       const response = await fetch('data/hil-responses.json', { cache: 'no-store' });
-      if (!response.ok) throw new Error(`response index unavailable (${response.status})`);
+      if (!response.ok) throw new Error('response index unavailable');
       const index = await response.json();
-      if (!Array.isArray(index.responses)) throw new Error('response index has invalid shape');
+      if (!Array.isArray(index.responses)) throw new Error('response index invalid');
       target.replaceChildren();
       if (index.responses.length === 0) {
         target.textContent = 'No standardized public responses have been published. HIL-TRACE-0001 remains the approved initiating pre-protocol observation.';
@@ -308,18 +412,22 @@
         article.append(heading, summary);
         target.appendChild(article);
       });
-    } catch (error) {
+    } catch {
       target.dataset.state = 'warn';
-      target.textContent = `Public response index could not be loaded: ${error.message}`;
+      target.textContent = 'The public response index is temporarily unavailable.';
     }
   }
 
   byId('download-primary').addEventListener('click', downloadPrimary);
   byId('copy-prompt').addEventListener('click', copyPrompt);
+  fileInput.addEventListener('change', handleFileSelection);
   uploadButton.addEventListener('click', uploadResponsePacket);
   prepareButton.addEventListener('click', prepareProvenanceLocally);
   provenanceButton.addEventListener('click', downloadProvenance);
   receiptButton.addEventListener('click', downloadReceipt);
+
+  setUploadState(false, 'Checking intake…');
   checkGatewayReadiness();
+  setInterval(() => checkGatewayReadiness({ quiet: true }), 60000);
   loadResponseIndex();
 })();
