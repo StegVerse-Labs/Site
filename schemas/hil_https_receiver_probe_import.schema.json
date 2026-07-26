@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil_https_receiver_probe_import.schema.json",
+  "title": "HIL HTTPS Receiver Probe Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_repository",
+    "source_commit",
+    "source_evidence_path",
+    "source_evidence_sha256",
+    "receiver_origin",
+    "contract_state",
+    "tls_verified",
+    "http_status",
+    "primary_sha256",
+    "prompt_sha256",
+    "protocol_version",
+    "prompt_version",
+    "provenance_manifest_schema",
+    "mutation_performed",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-HTTPS-RECEIVER-PROBE-IMPORT-v1"},
+    "source_repository": {"const": "StegVerse-org/LLM-adapter"},
+    "source_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "source_evidence_path": {"const": "reports/hil-https-receiver-probe.json"},
+    "source_evidence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "receiver_origin": {"type": "string", "pattern": "^https://[^/?#]+$"},
+    "contract_state": {"const": "CONFORMING_V1_1_READINESS_OBSERVED"},
+    "tls_verified": {"const": true},
+    "http_status": {"const": 200},
+    "primary_sha256": {"const": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"},
+    "prompt_sha256": {"const": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"},
+    "protocol_version": {"const": "HIL-PROTOCOL-v1.1"},
+    "prompt_version": {"const": "HIL-PROMPT-v1.1"},
+    "provenance_manifest_schema": {"const": "HIL-RESPONSE-PROVENANCE-v1.1"},
+    "mutation_performed": {"const": false},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "activation", "publication", "release", "custody", "master_record_append"],
+      "properties": {
+        "execution": {"const": false},
+        "activation": {"const": false},
+        "publication": {"const": false},
+        "release": {"const": false},
+        "custody": {"const": false},
+        "master_record_append": {"const": false}
+      }
+    }
+  }
+}
