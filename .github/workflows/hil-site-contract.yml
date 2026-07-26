@@ -1,0 +1,33 @@
+name: HIL Site Contract
+
+on:
+  push:
+    paths:
+      - "assets/hil-experiment-v1.1.js"
+      - "data/hil-experiment.json"
+      - "data/hil-receiver-config.json"
+      - "scripts/verify_hil_site_contract.py"
+      - ".github/workflows/hil-site-contract.yml"
+  pull_request:
+    paths:
+      - "assets/hil-experiment-v1.1.js"
+      - "data/hil-experiment.json"
+      - "data/hil-receiver-config.json"
+      - "scripts/verify_hil_site_contract.py"
+      - ".github/workflows/hil-site-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify fail-closed HIL v1.1 Site contract
+        run: python scripts/verify_hil_site_contract.py
