@@ -64,7 +64,7 @@
   "activation": {
     "workflow": ".github/workflows/site-handoff-orchestrator.yml",
     "controller": "scripts/site_handoff_orchestrator.py",
-    "report": "site_handoff-orchestration.report.json",
+    "report": "site_handoff_orchestration.report.json",
     "heartbeat_state": "data/ecosystem-heartbeat-state.json",
     "heartbeat_contract": "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
     "heartbeat_validator": "scripts/check_ecosystem_heartbeat_orchestration.py"
