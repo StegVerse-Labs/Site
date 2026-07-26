@@ -1,41 +1,55 @@
 {
-  "schema_version": "HIL-EXPERIMENT-v1",
+  "schema_version": "HIL-EXPERIMENT-v1.1",
   "experiment_id": "HIL-2026",
   "title": "Humans as the Interoperability Layer",
-  "status": "CANONICAL_V1_ACTIVE_DEPLOYED_CONTROLLED_CYCLE_PENDING",
+  "status": "CANONICAL_V1_1_PUBLIC_URL_ACTIVE_BINARY_AND_GATEWAY_VERIFICATION_PENDING",
   "primary_document": {
-    "filename": "HIL_Canonical_Paper_v1_0.pdf",
-    "version": "v1.0",
-    "sha256": "e7a86cf05323d8352cfa188e0bff1c35fdb15f9fac6af91ca62b6a126ac4e68f",
-    "artifact_path": "data/hil-primary-v1.0.pdf.b64",
-    "artifact_state": "VERIFIED",
-    "canonical_state": "CANONICAL_EXPERIMENT_INPUT_ACTIVE",
-    "size_bytes": 85084,
-    "verified_at": "2026-07-26T00:00:00Z",
+    "filename": "HIL_Canonical_Paper_v1_1.pdf",
+    "version": "v1.1",
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+    "artifact_path": "HIL_Canonical_Paper_v1_1.pdf",
+    "artifact_state": "PENDING_REPOSITORY_BINARY_VERIFICATION",
+    "canonical_state": "CANONICAL_EXPERIMENT_INPUT_V1_1",
+    "size_bytes": 87271,
+    "verified_source_location": "operator-held exact artifact",
     "scope": "RESEARCH_THESIS_AND_MODEL_FACING_INDEPENDENT_RESPONSE_PROTOCOL",
     "sole_technical_specification": false
   },
   "protocol": {
-    "version": "HIL-PROTOCOL-v1.0",
-    "prompt_version": "HIL-PROMPT-v1.0",
-    "prompt_sha256": "bbb2db652a10ef404d565e561bb0a2f7b078bbe95105400faec14be9a6d5642a",
-    "instruction_section": "Canonical invocation prompt published on the Site experiment surface",
+    "version": "HIL-PROTOCOL-v1.1",
+    "prompt_version": "HIL-PROMPT-v1.1",
+    "prompt_sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+    "instruction_section": "Canonical invocation prompt published on the canonical Site experiment URL",
     "invocation_prompt_path": "humans-as-interoperability-layer.html#submit",
-    "end_to_end_spec_version": "HIL-END-TO-END-PROTOCOL-v1.0",
-    "end_to_end_spec_path": "docs/HIL_END_TO_END_PROTOCOL.md",
+    "participant_delivery_contract": {
+      "single_downloadable_pdf": true,
+      "visible_validation_summary": true,
+      "chat_only_response_valid": false,
+      "docx_substitute_valid": false,
+      "participant_copy_paste_required": false,
+      "participant_conversion_required": false,
+      "return_paths": ["approved_site_intake", "linkedin_direct_message_to_rigel_randolph"]
+    },
+    "unknown_value_classification": [
+      "analytical",
+      "execution",
+      "custody",
+      "governance",
+      "future_stage"
+    ],
     "documentation_model": {
       "primary_owns": "research thesis and model-facing procedure",
       "manifest_and_schemas_own": "machine-readable submission contract",
       "gateway_owns": "validation, exact-byte persistence, receipts, review, and append-only publication",
-      "end_to_end_spec_owns": "complete operational and governance lifecycle",
       "handoff_owns": "implementation continuity and current activation state"
     }
   },
   "submission": {
     "accepted_media_type": "application/pdf",
+    "required_artifact_count": 1,
     "maximum_size_bytes": 10485760,
     "provenance_manifest_required": true,
-    "provenance_schema": "data/schemas/hil-response-provenance.schema.json",
+    "provenance_schema_version": "HIL-RESPONSE-PROVENANCE-v1.1",
     "required_chain": [
       "primary_sha256",
       "protocol_version",
@@ -44,10 +58,10 @@
       "response_sha256",
       "model",
       "provider",
+      "participant_delivery_contract",
       "producer_signature_state"
     ],
     "current_transport": "SITE_DISCOVERS_CONFORMING_GATEWAY_FAIL_CLOSED",
-    "intended_transport": "SITE_GOVERNED_UPLOAD_THEN_ECOSYSTEM_CHAT",
     "browser_local_hashing": true,
     "server_custody": false
   },
@@ -60,12 +74,12 @@
     "master_record_state": "NOT_STARTED"
   },
   "activation_requirements": [
-    "merged_gateway_deployed_with_durable_storage",
+    "exact_v1_1_pdf_installed_and_hash_verified",
+    "gateway_v1_1_primary_and_prompt_hashes_deployed",
     "separate_intake_review_and_publication_credentials",
-    "live_readiness_controlled_cycle_ready",
     "deployed_submission_and_receiver_receipt",
-    "actual_restart_persistence_proof",
-    "authenticated_accept_private",
+    "restart_persistence_proof",
+    "authenticated_private_review",
     "append_only_publication",
     "site_import",
     "first_chained_master_record_release"
