@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -38,7 +38,8 @@
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
-      "SITE-0001-CANONICAL-BROWSER-BINDING"
+      "SITE-0001-CANONICAL-BROWSER-BINDING",
+      "SITE-0001-ENDPOINT-ACTIVATION-READINESS"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -48,12 +49,22 @@
     "canonical_upstream_browser_binding": "merged/pr-99",
     "superseded_canonical_browser_binding": "closed/pr-95",
     "stegverse_owned_endpoint_activation": "issue/24",
+    "endpoint_activation_readiness": "data/stegverse-endpoint-activation-readiness.json",
     "superseded_activation_tracker": "issue/16"
+  },
+  "activation_readiness": {
+    "state": "CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED",
+    "record_commit": "9092e8860c02f5556bf2ad236ae7f11848820094",
+    "validator_commit": "a432a70a1fdb5218b84ad24c49f4cfc387f6a0fa",
+    "workflow_commit": "9b8e8ec005e1acb49376e1bd469bbd9147b855c6",
+    "latest_external_result_sha256": "27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d",
+    "authority_effect": false,
+    "activation_effect": false
   },
   "activation": {
     "workflow": ".github/workflows/site-handoff-orchestrator.yml",
     "controller": "scripts/site_handoff_orchestrator.py",
-    "report": "site_handoff_orchestration.report.json",
+    "report": "site_handoff-orchestration.report.json",
     "heartbeat_state": "data/ecosystem-heartbeat-state.json",
     "heartbeat_contract": "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
     "heartbeat_validator": "scripts/check_ecosystem_heartbeat_orchestration.py"
