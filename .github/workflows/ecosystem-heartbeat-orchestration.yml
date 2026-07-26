@@ -1,0 +1,39 @@
+name: Ecosystem Heartbeat Orchestration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/ecosystem-heartbeat-state.json'
+      - 'data/site-orchestration-state.json'
+      - 'docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md'
+      - 'docs/SITE_MIRROR_HANDOFF.md'
+      - 'scripts/check_ecosystem_heartbeat_orchestration.py'
+      - '.github/workflows/ecosystem-heartbeat-orchestration.yml'
+  pull_request:
+    paths:
+      - 'data/ecosystem-heartbeat-state.json'
+      - 'data/site-orchestration-state.json'
+      - 'docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md'
+      - 'docs/SITE_MIRROR_HANDOFF.md'
+      - 'scripts/check_ecosystem_heartbeat_orchestration.py'
+      - '.github/workflows/ecosystem-heartbeat-orchestration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-heartbeat-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate heartbeat orchestration
+        run: python scripts/check_ecosystem_heartbeat_orchestration.py
+      - name: Reconcile handoff workload ownership
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/site_handoff_orchestrator.py
