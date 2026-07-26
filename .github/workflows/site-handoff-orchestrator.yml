@@ -1,0 +1,49 @@
+name: Site Handoff Orchestrator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+  issues:
+    types: [opened, edited, reopened, closed, labeled, unlabeled]
+  pull_request:
+    types: [opened, edited, reopened, synchronize, closed, ready_for_review]
+  push:
+    branches: [main]
+    paths:
+      - "docs/SITE_MIRROR_HANDOFF.md"
+      - "data/site-orchestration-state.json"
+      - "scripts/site_handoff_orchestrator.py"
+      - ".github/workflows/site-handoff-orchestrator.yml"
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+concurrency:
+  group: site-handoff-orchestrator
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reconcile handoff workloads before new work
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/site_handoff_orchestrator.py
+      - name: Publish orchestration report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-handoff-orchestration-report
+          path: site_handoff_orchestration.report.json
+          if-no-files-found: error
