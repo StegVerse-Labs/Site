@@ -3,13 +3,11 @@
   "repository": "StegVerse-Labs/Site",
   "objective_id": "site-public-autonomy-observability",
   "specification_path": "data/autonomy/runtime-checks.json",
-  "generated_at": "2026-07-26T07:22:23.331933Z",
-  "state": "FAIL",
+  "generated_at": "2026-07-26T09:40:10.971013Z",
+  "state": "PASS",
   "required_checks": 7,
-  "passed_required_checks": 6,
-  "failed_required_check_ids": [
-    "freshness"
-  ],
+  "passed_required_checks": 7,
+  "failed_required_check_ids": [],
   "checks": [
     {
       "id": "telemetry-file",
@@ -17,7 +15,7 @@
       "required": true,
       "passed": true,
       "url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json",
-      "effective_url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json?runtime_verifier_nonce=1785050539738653867-1",
+      "effective_url": "https://stegverse-labs.github.io/Site/data/autonomy/live-status.json?runtime_verifier_nonce=1785058808239353509-1",
       "cache_bypass": true,
       "status_code": 200,
       "content_type": "application/json; charset=utf-8",
@@ -29,7 +27,7 @@
       "required": true,
       "passed": true,
       "url": "https://stegverse-labs.github.io/Site/autonomy-live.html",
-      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-live.html?runtime_verifier_nonce=1785050539948224131-1",
+      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-live.html?runtime_verifier_nonce=1785058808399865900-1",
       "cache_bypass": true,
       "status_code": 200,
       "content_type": "text/html; charset=utf-8",
@@ -42,7 +40,7 @@
       "required": true,
       "passed": true,
       "url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html",
-      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html?runtime_verifier_nonce=1785050540433050169-1",
+      "effective_url": "https://stegverse-labs.github.io/Site/autonomy-roadmap.html?runtime_verifier_nonce=1785058808611337616-1",
       "cache_bypass": true,
       "status_code": 200,
       "content_type": "text/html; charset=utf-8",
@@ -53,9 +51,9 @@
       "id": "freshness",
       "type": "json-field",
       "required": true,
-      "passed": false,
-      "value": "2026-07-26T04:18:02.805522Z",
-      "age_minutes": 184.3
+      "passed": true,
+      "value": "2026-07-26T07:22:23.331933Z",
+      "age_minutes": 137.76
     },
     {
       "id": "machine-mode",
