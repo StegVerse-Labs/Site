@@ -83,9 +83,9 @@
 
   async function importValidatedStream(payload) {
     const api = globalThis.StegVerseCanonicalEventStream;
-    if (!api || typeof api.importEvents !== 'function') throw new Error('canonical event renderer is unavailable');
+    if (!api || typeof api.importCanonicalEvents !== 'function') throw new Error('canonical event renderer is unavailable');
     const events = await validateStream(payload);
-    const imported = api.importEvents(events);
+    const imported = api.importCanonicalEvents(events);
     events.forEach(event => upstreamIds.add(event.event_id));
     return Object.freeze({ imported_event_ids: imported, authority_effect: 'NONE', source_class: 'upstream_governed' });
   }
@@ -106,14 +106,9 @@
   }
 
   globalThis.StegVerseCanonicalGatewayBinding = Object.freeze({
-    version: '1.0',
-    validateStream,
-    importValidatedStream,
-    fetchAndImport,
+    version: '1.0', validateStream, importValidatedStream, fetchAndImport,
     source_separation: 'preview_local_vs_upstream_governed',
-    silent_repair_allowed: false,
-    rehash_allowed: false,
-    reorder_allowed: false,
+    silent_repair_allowed: false, rehash_allowed: false, reorder_allowed: false,
     authority_effect: 'NONE'
   });
 })();
