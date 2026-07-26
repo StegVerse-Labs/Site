@@ -2,8 +2,8 @@
   "schema_version": "1.1.0",
   "state_type": "ecosystem_heartbeat_runtime_state",
   "repository": "StegVerse-Labs/Site",
-  "ecosystem_heartbeat": 15,
-  "repository_heartbeat": 10,
+  "ecosystem_heartbeat": 16,
+  "repository_heartbeat": 11,
   "task_sequence": 1,
   "task_sequence_label": "current work task sequence 0001",
   "work_state": "RUNNING",
@@ -117,20 +117,31 @@
   "blocked_tasks": [
     {
       "task_id": "SITE-0002-HIL-LIVE",
-      "reason": "Authorized real-provider and persistent endpoint evidence is not established"
+      "reason": "Authorized machine runtime has not supplied the required provider and Master Records configuration bindings",
+      "evidence": {
+        "repository": "StegVerse-org/LLM-adapter",
+        "receipt": "receipts/ecosystem-chat-authorized-provider-activation.latest.json",
+        "state": "CONFIGURATION_REQUIRED",
+        "observed_at": "2026-07-26T20:35:03.629365+00:00",
+        "result_sha256": "27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d",
+        "missing_bindings": [
+          "STEGVERSE_PROVIDER_ENDPOINT",
+          "STEGVERSE_PROVIDER_MODEL",
+          "STEGVERSE_PROVIDER_TOKEN",
+          "STEGVERSE_MASTER_RECORDS_ENDPOINT",
+          "STEGVERSE_MASTER_RECORDS_TOKEN"
+        ]
+      }
     }
   ],
   "last_transition": {
-    "event_type": "SITE_PR_RECONCILIATION_COMPLETED",
+    "event_type": "HIL_AUTHORIZED_CONFIGURATION_BLOCKER_OBSERVED",
     "progress_effect": true,
     "authority_effect": false,
     "evidence_refs": [
-      "StegVerse-Labs/Site@e9e2becce9632fae3022c86be1084ba10d49be48",
-      "StegVerse-Labs/Site@450a34c6d7c94885be1b381a5a77b5b194c35b45",
-      "StegVerse-Labs/Site@a4b67f7ef7744fde7b3eeda9337719c692bb7477",
-      "StegVerse-Labs/Site#29:CLOSED_SUPERSEDED",
-      "StegVerse-Labs/Site#87:CLOSED_STALE_V0_5",
-      "StegVerse-Labs/Site#92:CLOSED_TRANSPLANTED"
+      "StegVerse-org/LLM-adapter@a6ffc2e0f7d8abfecff848e276ada311ad218fce",
+      "StegVerse-org/LLM-adapter#18:issuecomment-5085368571",
+      "sha256:27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d"
     ]
   },
   "health_model": {
@@ -143,7 +154,8 @@
       "HIL succession state is installed across all six authoritative repositories",
       "Provider-neutral Ecosystem Node discovery is installed and CI-bound",
       "HIL upload work remains active in a separate parallel-safe session",
-      "Authorized real-provider and persistent endpoint remain unresolved"
+      "Authorized provider activation observer is running and reports exact missing configuration bindings",
+      "No provider, custody, reconstruction, publication, release, or activation authority is inferred from configuration-required evidence"
     ]
   },
   "hil_priority": {
