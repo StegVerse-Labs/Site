@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "ecosystem_heartbeat_runtime_state",
+  "repository": "StegVerse-Labs/Site",
+  "ecosystem_heartbeat": 0,
+  "repository_heartbeat": 0,
+  "task_sequence": 0,
+  "task_sequence_label": "end of current work task sequence 0000, no tasks running",
+  "work_state": "IDLE",
+  "system_health": "HEALTHY_IDLE",
+  "heartbeat_mode": "TRANSITION_DRIVEN",
+  "time_role": "WATCHDOG_ONLY",
+  "active_tasks": [],
+  "queued_parallel_safe_tasks": [],
+  "queued_exclusive_tasks": [],
+  "blocked_tasks": [],
+  "last_transition": {
+    "event_type": "HEARTBEAT_STATE_INITIALIZED",
+    "progress_effect": false,
+    "authority_effect": false
+  },
+  "health_model": {
+    "interpretation_is_relative_to_system_health": true,
+    "missing_heartbeat_is_failure_only_when_progress_was_expected": true,
+    "blocked_but_observed_is_not_equivalent_to_failed": true,
+    "watchdog_does_not_imply_progress": true
+  },
+  "hil_priority": {
+    "goal": "FIRST_SEAMLESS_HIL_USER_EXPERIENCE",
+    "priority": "HIGHEST_EXCLUSIVE_INTEGRATION_SEQUENCE",
+    "heartbeat_must_not_delay_vertical_slice": true
+  },
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false
+  }
+}
