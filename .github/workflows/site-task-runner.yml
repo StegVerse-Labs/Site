@@ -122,6 +122,7 @@ jobs:
             echo "result=COMMITTED" >> "$GITHUB_OUTPUT"
           fi
 
+      # Mutation required disabled for manual validation-only dispatch.
       - name: Record validation-only mutation boundary
         id: manual_mutation
         if: github.event_name != 'workflow_run'
