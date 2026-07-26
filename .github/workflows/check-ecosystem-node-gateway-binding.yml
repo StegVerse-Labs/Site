@@ -1,0 +1,39 @@
+name: Check Ecosystem Node Gateway Binding
+
+on:
+  push:
+    paths:
+      - 'assets/ecosystem-node-gateway-binding.js'
+      - 'assets/ecosystem-node-views.js'
+      - 'scripts/check_ecosystem_node_gateway_binding.py'
+      - 'scripts/validate_ecosystem_node_canonical_events.py'
+      - '.github/workflows/check-ecosystem-node-gateway-binding.yml'
+      - 'docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md'
+  pull_request:
+    paths:
+      - 'assets/ecosystem-node-gateway-binding.js'
+      - 'assets/ecosystem-node-views.js'
+      - 'scripts/check_ecosystem_node_gateway_binding.py'
+      - 'scripts/validate_ecosystem_node_canonical_events.py'
+      - '.github/workflows/check-ecosystem-node-gateway-binding.yml'
+      - 'docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.11', '3.12']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Validate browser gateway binding contract
+        run: python scripts/check_ecosystem_node_gateway_binding.py
+      - name: Revalidate canonical event integrity fixture
+        run: python scripts/validate_ecosystem_node_canonical_events.py fixtures/ecosystem-node-canonical-events.json
