@@ -12,7 +12,7 @@ Activate the complete v1.1 provenance-bound path from verified Primary and promp
 Primary surface: humans-as-interoperability-layer.html
 Client: assets/hil-experiment-v1.1.js
 Receiver discovery: data/hil-receiver-config.json
-Experiment manifest: data/hil-experiment-v1.1.json
+Experiment manifest: data/hil-experiment.json
 Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
 Receiver runtime: StegVerse-org/LLM-adapter
@@ -36,6 +36,8 @@ Receipt schema: HIL-RECEIVER-RECEIPT-v2
 ## Current upload state
 
 The browser client is implemented and fail-closed. It validates the selected PDF, computes the response hash, builds v1.1 provenance, discovers a Site-configured receiver, verifies exact readiness hashes, uploads only to a ready receiver, verifies the returned receipt and its hash continuity, stores verified receipts locally by response hash, and prevents accidental duplicate submission.
+
+The experiment manifest now matches the receiver contract: the exact Primary, protocol, prompt, and response chain is mandatory; model, provider, conversation reference, producer signature detail, participant identity, consent, and participant declarations remain optional. Missing optional values grant no consent, attribution, publication, custody, execution, acceptance, or Master Record authority. Contract reconciliation commit: `7ab0413d30becec01840cc4e990d7a1af9de72a7`.
 
 `data/hil-receiver-config.json` is intentionally unconfigured. It must remain so until a provider-neutral HTTPS receiver proves the exact v1.1 readiness contract. No provider hostname is an architectural dependency or participant-facing requirement.
 
