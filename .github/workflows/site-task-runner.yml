@@ -142,7 +142,7 @@ jobs:
         if: github.event_name == 'workflow_run'
         uses: actions/deploy-pages@v4
 
-      - name: Verify governed public surfaces
+      - name: Verify External Chat public surfaces
         id: live_verification
         if: github.event_name == 'workflow_run'
         working-directory: site
@@ -175,7 +175,7 @@ jobs:
           STEGVERSE_TRANSITION_SUPERSEDED: 'false'
         run: python scripts/write_site_orchestration_terminal_receipt.py
 
-      - name: Upload orchestration evidence
+      - name: Upload External Chat live verification receipt
         if: always()
         uses: actions/upload-artifact@v4
         with:
