@@ -1,0 +1,51 @@
+{
+  "schema_version": "HIL-LINKEDIN-LAUNCH-READINESS-v1",
+  "experiment_version": "v1.1",
+  "public_url": "https://stegverse-labs.github.io/Site/humans-as-interoperability-layer.html",
+  "canonical_primary": {
+    "path": "data/HIL_Canonical_Paper_v1_1.pdf",
+    "filename": "HIL_Canonical_Paper_v1_1.pdf",
+    "size_bytes": 87271,
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
+  },
+  "canonical_prompt": {
+    "version": "HIL-PROMPT-v1.1",
+    "sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
+  },
+  "launch_claims": {
+    "canonical_paper_public": true,
+    "canonical_prompt_public": true,
+    "response_upload_client_implemented": true,
+    "public_receiver_configured": false,
+    "live_receiver_receipt_observed": false,
+    "restart_persistence_observed": false,
+    "private_review_observed": false,
+    "append_only_publication_observed": false,
+    "master_record_release_observed": false
+  },
+  "allowed_linkedin_wording": {
+    "research_surface_public": true,
+    "canonical_download_available": true,
+    "governed_response_intake_live": false,
+    "public_response_acquisition_open": false
+  },
+  "required_before_intake_live_claim": [
+    "public_receiver_configured",
+    "live_receiver_receipt_observed",
+    "restart_persistence_observed"
+  ],
+  "required_before_public_acquisition_open": [
+    "public_receiver_configured",
+    "live_receiver_receipt_observed",
+    "restart_persistence_observed",
+    "private_review_observed",
+    "append_only_publication_observed",
+    "master_record_release_observed"
+  ],
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false
+  }
+}
