@@ -75,7 +75,12 @@
     "missing_optional_metadata_effect": "NO_CONSENT_ATTRIBUTION_PUBLICATION_OR_AUTHORITY_INFERENCE",
     "current_transport": "SITE_DISCOVERS_CONFORMING_GATEWAY_FAIL_CLOSED",
     "browser_local_hashing": true,
-    "server_custody": false
+    "server_custody": false,
+    "site_contract_guard": {
+      "script": "scripts/verify_hil_site_contract.py",
+      "workflow": ".github/workflows/hil-site-contract.yml",
+      "state": "ENFORCED"
+    }
   },
   "public_record": {
     "initiating_trace_id": "HIL-TRACE-0001",
