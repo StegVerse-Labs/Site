@@ -1,0 +1,12 @@
+{
+  "schema_version": "HIL-RECEIVER-DISCOVERY-v1",
+  "receiver_base_url": "https://stegverse-ecosystem-chat-gateway.onrender.com",
+  "readiness_path": "/api/hil/readiness",
+  "submission_path": "/api/hil/submissions",
+  "participant_visible_provider": false,
+  "authority": {
+    "execution": false,
+    "publication": false,
+    "master_record_append": false
+  }
+}
