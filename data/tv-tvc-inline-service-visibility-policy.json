@@ -1,0 +1,53 @@
+{
+  "schema": "stegverse.site.tv_tvc_inline_service_visibility.v1",
+  "status": "active_policy",
+  "required_views": [
+    "conversation",
+    "governed_record",
+    "split_view",
+    "session_invoice",
+    "project_invoice",
+    "entity_invoice",
+    "organization_invoice",
+    "ecosystem_invoice"
+  ],
+  "conversation_view": {
+    "default_summary_fields": [
+      "service_label",
+      "provider",
+      "request_status",
+      "valuation_state",
+      "estimated_amount",
+      "actual_amount"
+    ],
+    "hide_raw_governance_by_default": true,
+    "receipt_expandable": true
+  },
+  "governed_record_view": {
+    "required_fields": [
+      "request_id",
+      "service_id",
+      "canonical_request_sha256",
+      "estimate_line",
+      "authority_evidence",
+      "admissibility_result",
+      "service_receipt_sha256",
+      "actual_invoice_line",
+      "ledger_append_receipt_sha256",
+      "requester_return_status"
+    ]
+  },
+  "display_rules": {
+    "valuation_pending_visible": true,
+    "missing_amount_not_rendered_as_zero": true,
+    "no_charge_requires_reason": true,
+    "refused_service_visible": true,
+    "estimate_and_actual_distinct": true,
+    "provider_service_nested_under_parent_action": true
+  },
+  "authority_boundaries": {
+    "display_does_not_authorize_payment": true,
+    "display_does_not_authorize_execution": true,
+    "display_does_not_establish_master_record_custody": true
+  }
+}
