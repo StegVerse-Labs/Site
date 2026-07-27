@@ -1,0 +1,28 @@
+name: Test deployed HIL controlled-cycle origins
+
+on:
+  push:
+    paths:
+      - "scripts/check_hil_deployed_controlled_cycle_evidence.py"
+      - "tests/test_hil_deployed_controlled_cycle_origin.py"
+      - ".github/workflows/test-hil-deployed-controlled-cycle-origin.yml"
+  pull_request:
+    paths:
+      - "scripts/check_hil_deployed_controlled_cycle_evidence.py"
+      - "tests/test_hil_deployed_controlled_cycle_origin.py"
+      - ".github/workflows/test-hil-deployed-controlled-cycle-origin.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test globally routable deployed origins
+        run: python -m unittest tests/test_hil_deployed_controlled_cycle_origin.py
