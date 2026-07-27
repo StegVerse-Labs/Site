@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/user_llm_bounded_capability_import.schema.json",
+  "title": "Bounded User-LLM Capability Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_repository",
+    "source_commit",
+    "capability_state",
+    "routes",
+    "routing_semantics",
+    "execution_evidence_observed",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "USER-LLM-BOUNDED-CAPABILITY-IMPORT-v1"},
+    "source_repository": {"const": "StegVerse-org/LLM-adapter"},
+    "source_commit": {"const": "64183d1ddad9bbbe9f063e2d3a83d06e162017d7"},
+    "capability_state": {"const": "DECLARED_AND_TESTED_NOT_EXECUTION_PROVEN"},
+    "routes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["demo_test_suite", "entity_sandbox_runner", "hil_response_packet"],
+      "properties": {
+        "demo_test_suite": {"const": ["list", "inspect", "configure", "submit"]},
+        "entity_sandbox_runner": {"const": ["submit", "status", "retrieve_result"]},
+        "hil_response_packet": {"const": ["submit_pdf_metadata"]}
+      }
+    },
+    "routing_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["missing_transport", "invalid_scope", "successful_transport", "authority_attached"],
+      "properties": {
+        "missing_transport": {"const": "DEFER"},
+        "invalid_scope": {"const": "DENY"},
+        "successful_transport": {"const": "RETURNED"},
+        "authority_attached": {"const": false}
+      }
+    },
+    "execution_evidence_observed": {"const": false},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_execution", "publication", "continuity", "custody", "site_activation"],
+      "properties": {
+        "production_execution": {"const": false},
+        "publication": {"const": false},
+        "continuity": {"const": false},
+        "custody": {"const": false},
+        "site_activation": {"const": false}
+      }
+    }
+  }
+}
