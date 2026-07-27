@@ -5,6 +5,7 @@
   const OPT_IN_ID = 'submission-notification-opt-in';
   const DELIVERY_STATUS_ID = 'submission-notification-delivery-status';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const TERMINAL_DELIVERY_STATES = new Set(['DELIVERED', 'PARTIAL_EXPIRED', 'DELIVERY_EXPIRED']);
 
   function byId(id) {
     return document.getElementById(id);
@@ -35,7 +36,7 @@
         <label for="${EMAIL_FIELD_ID}">Email a copy of the submission notification <span>(optional)</span></label>
         <input id="${EMAIL_FIELD_ID}" name="${EMAIL_FIELD_ID}" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" disabled>
         <label><input id="${OPT_IN_ID}" type="checkbox"> Send this attempt's privacy-minimized submission notification to this address.</label>
-        <p class="optional-note">The address is used only to deliver this attempt's notification. It is not published, added to the public response record, or treated as publication consent.</p>`;
+        <p class="optional-note">The address is retained only while this attempt's bounded delivery authority remains active. It is removed after delivery or retry expiry and is not treated as publication or continuing-contact consent.</p>`;
       participantField.parentElement.insertAdjacentElement('afterend', field);
     }
     bindField();
@@ -79,7 +80,10 @@
     const participant = status.participant_copy_requested
       ? `Your optional copy is ${stateLabel(status.participant_copy_delivery_state)}.`
       : 'No participant email copy was requested.';
-    node.textContent = `Submission accepted. StegVerse notification is ${stateLabel(status.required_recipient_delivery_state)} ${participant} Notification delivery does not change the submission outcome.`;
+    const retry = status.notification_retry_authority_state === 'TERMINATED'
+      ? ' Notification retry authority has ended and terminal recipient addresses are no longer retained.'
+      : '';
+    node.textContent = `Submission accepted. StegVerse notification is ${stateLabel(status.required_recipient_delivery_state)}. ${participant}${retry} Notification delivery does not change the submission outcome.`;
     node.dataset.state = status.notification_delivery_state === 'DELIVERED' ? 'ok' : 'warn';
   }
 
@@ -96,7 +100,7 @@
         const status = await response.json();
         if (status.schema_version !== 'HIL-SUBMISSION-STATUS-v1') continue;
         renderDeliveryStatus(status);
-        if (status.notification_delivery_state === 'DELIVERED') return;
+        if (TERMINAL_DELIVERY_STATES.has(status.notification_delivery_state)) return;
       } catch (error) {
         console.debug('HIL delivery-status check failed', error);
       }
