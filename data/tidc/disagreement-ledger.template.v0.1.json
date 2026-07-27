@@ -1,0 +1,39 @@
+{
+  "schema": "stegverse.site.tidc.disagreement_ledger.v0.1",
+  "research_state": "PILOT_NOT_CONFIRMATORY",
+  "posture": "RELIABILITY_OUTPUT_NOT_CONFIRMATION",
+  "comparison": {
+    "first_pass_id": "pilot-events-v0.1",
+    "second_pass_id": "",
+    "generated_at": null
+  },
+  "summary": {
+    "records_compared": 0,
+    "fields_compared": 0,
+    "exact_agreements": 0,
+    "disagreements": 0,
+    "unresolved": 0,
+    "percent_agreement": null
+  },
+  "field_metrics": [],
+  "record_disagreements": [
+    {
+      "record_id": "",
+      "field": "",
+      "first_pass_value": null,
+      "second_pass_value": null,
+      "resolution_status": "Unresolved",
+      "resolution_rationale": null,
+      "source_locations": [],
+      "codebook_revision_required": false
+    }
+  ],
+  "allowed_resolution_statuses": [
+    "Unresolved",
+    "First pass retained",
+    "Second pass retained",
+    "Both superseded",
+    "Excluded from reliability calculation"
+  ],
+  "boundary": "Disagreement is retained as evidence about coding reliability and must not be silently removed."
+}
