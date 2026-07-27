@@ -1,6 +1,6 @@
 # HIL Deployed Controlled-Cycle Runbook
 
-Version: `HIL-DEPLOYED-CONTROLLED-CYCLE-RUNBOOK-v1.0`
+Version: `HIL-DEPLOYED-CONTROLLED-CYCLE-RUNBOOK-v1.1`
 
 ## Purpose
 
@@ -8,48 +8,38 @@ This runbook governs the first live `Humans as the Interoperability Layer` contr
 
 ## Preconditions
 
-- Canonical Primary is installed and verified at `data/hil-primary-v0.5-review.pdf.b64`.
-- Decoded Primary size is `109210` bytes.
-- Primary SHA-256 is `52102cccb9ba9016c76434a64e22031b6a8c3edd3b8806e7b664e609216b2946`.
-- Gateway source is `StegVerse-org/LLM-adapter` at or after merge commit `b2e612dd74d311e0cbe66cd1c1d4758bff129fd4`.
-- Controlled-cycle CI has passed.
+- Canonical Primary is installed at `data/HIL_Canonical_Paper_v1_1.pdf`.
+- Installed Primary size is `87271` bytes.
+- Primary version is `v1.1`.
+- Primary SHA-256 is `a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462`.
+- Prompt SHA-256 is `cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c`.
+- Protocol is `HIL-PROTOCOL-v1.1`.
+- Prompt contract is `HIL-PROMPT-v1.1`.
+- Provenance schema is `HIL-RESPONSE-PROVENANCE-v1.1`.
+- Receiver receipt schema is `HIL-RECEIVER-RECEIPT-v2`.
+- Gateway source is `StegVerse-org/LLM-adapter` and the deployed commit must be recorded exactly.
+- The bounded repository-local persisted cycle has passed, but that result is not external deployment evidence.
 - Public acquisition remains disabled.
 
 ## Required runtime separation
 
-The authorized runtime must configure distinct credentials for:
-
-1. intake;
-2. private review;
-3. publication.
-
-No credential may silently satisfy another role. Credential values must never be committed to this repository. Evidence may record only redacted identifiers or irreversible fingerprints.
+The authorized runtime must configure distinct credentials for intake, private review, and publication. No credential may silently satisfy another role. Credential values must never be committed to this repository. Evidence may record only redacted identifiers or irreversible fingerprints.
 
 ## Evidence packet
 
-All observations for the first cycle must be assembled in:
+All observations for the first cycle must be assembled in `data/hil-deployed-controlled-cycle-evidence.json`.
 
-`data/hil-deployed-controlled-cycle-evidence.json`
-
-The packet must conform to `HIL-DEPLOYED-CONTROLLED-CYCLE-EVIDENCE-v1` and remain `INCOMPLETE` until every required observation is independently supported.
+The packet must conform to `HIL-DEPLOYED-CONTROLLED-CYCLE-EVIDENCE-v1`, bind the exact HIL v1.1 contract, and remain `INCOMPLETE` until every required observation is independently supported.
 
 ## Ordered procedure
 
-### 1. Deploy the merged gateway
+### 1. Deploy the unchanged OCI runtime
 
-Record:
-
-- deployment provider and service identifier;
-- deployed source commit;
-- deployment time;
-- gateway base URL;
-- evidence reference proving the running revision.
-
-The deployed source commit must be equal to or descend from the minimum merged HIL commit.
+Record the provider, service identifier, exact deployed source commit, deployment time, conforming public HTTPS base URL, and evidence proving the running revision. The deployment must use durable external storage. A GitHub-hosted ephemeral cycle does not satisfy this gate.
 
 ### 2. Establish durable storage
 
-Record the configured storage class and a non-secret storage locator fingerprint. Ephemeral filesystem-only storage is inadmissible.
+Record storage class `EXTERNAL_DURABLE_SERVICE`, a non-secret storage locator fingerprint, and the provider declaration or configuration evidence. Ephemeral filesystem-only storage is inadmissible.
 
 ### 3. Establish credential separation
 
@@ -57,59 +47,35 @@ Record three distinct redacted credential references or fingerprints. Do not rec
 
 ### 4. Observe live readiness
 
-Run the live observer and preserve `HIL-LIVE-READINESS-OBSERVATION-v2`.
+Run the origin-bound HTTPS probe and preserve `HIL-HTTPS-RECEIVER-PROBE-v1`.
 
-Required state:
+Required state: `READY`.
 
-`CONTROLLED_CYCLE_READY`
-
-Readiness must bind the canonical Primary hash, prompt hash, durable-storage declaration, provenance requirement, private-review configuration, and append-only publication posture.
+Readiness must bind the exact HIL v1.1 Primary hash, prompt hash, protocol, prompt version, provenance schema, PDF-only intake, size limit, optional participant metadata, and all non-authority declarations.
 
 ### 5. Submit one controlled response
 
 Submit one response PDF and its provenance manifest through `/api/hil/submissions`.
 
-Preserve:
+Preserve the exact response SHA-256, provenance-manifest SHA-256, submission identifier, `HIL-RECEIVER-RECEIPT-v2`, receiver receipt SHA-256, and gateway-recorded storage references.
 
-- exact submitted response SHA-256;
-- provenance-manifest SHA-256;
-- submission identifier;
-- `HIL-RECEIVER-RECEIPT-v2`;
-- receiver receipt SHA-256;
-- gateway-recorded storage references.
-
-### 6. Perform an actual service restart
+### 6. Perform an actual service restart or replacement
 
 Record the pre-restart service instance identifier, restart request evidence, post-restart instance identifier, and restart completion time.
 
-A new in-process client, test process, or redeploy without persistence verification does not satisfy this gate.
+A new in-process client, test process, or CI-only restart does not satisfy this gate.
 
 ### 7. Prove persistence after restart
 
-Retrieve the submission after restart and independently verify:
-
-- response bytes still hash to the original response SHA-256;
-- the stored provenance manifest still hashes to the original manifest SHA-256;
-- submission identity is unchanged;
-- no record was rewritten into a new success state.
+Retrieve the submission after restart and independently verify that the response bytes and provenance manifest retain their original hashes, the submission identity is unchanged, and no record was rewritten into a new success state.
 
 ### 8. Record private review
 
-Using only the private-review credential, record one write-once `ACCEPT_PRIVATE` decision.
-
-Preserve `HIL-PRIVATE-REVIEW-RECEIPT-v1` and its SHA-256. A second terminal decision attempt must fail closed or return the immutable existing decision.
+Using only the private-review credential, record one write-once `ACCEPT_PRIVATE` decision. Preserve `HIL-PRIVATE-REVIEW-RECEIPT-v1` and its SHA-256. A second terminal decision attempt must fail closed or return the immutable existing decision.
 
 ### 9. Record append-only publication
 
-Using only the publication credential, publish the accepted submission.
-
-Preserve:
-
-- `HIL-PUBLICATION-RECORD-v1`;
-- stable unique `HIL-RESP` identifier;
-- publication-record SHA-256;
-- public lookup URL;
-- evidence that no update or delete mutation route is available.
+Using only the publication credential, publish the accepted submission. Preserve `HIL-PUBLICATION-RECORD-v1`, a stable unique `HIL-RESP` identifier, publication-record SHA-256, public lookup URL, and evidence that no update or delete mutation route is available.
 
 ### 10. Import the public projection
 
@@ -125,18 +91,11 @@ Submission to `master-records/orchestration` is not implied by successful releas
 
 ### 13. Activation decision
 
-Public acquisition may open only when:
-
-- the evidence packet is `COMPLETE`;
-- the activation-state validator passes;
-- restart persistence is established;
-- review and publication separation are established;
-- Site import and Master Record release are established;
-- release authority is separately granted where required.
+Public acquisition may open only when the evidence packet is `COMPLETE`, activation-state validation passes, restart persistence is established, review and publication separation are established, Site import and Master Record release are established, and release authority is separately granted where required.
 
 ## Failure posture
 
-Any mismatch, missing observation, duplicate identity, credential-role overlap, restart-persistence failure, or hash discontinuity leaves the packet incomplete and public acquisition disabled. Failed evidence must be retained rather than rewritten or omitted.
+Any mismatch, missing observation, duplicate identity, credential-role overlap, restart-persistence failure, stale contract version, ephemeral deployment scope, or hash discontinuity leaves the packet incomplete and public acquisition disabled. Failed evidence must be retained rather than rewritten or omitted.
 
 ## Authority boundaries
 
