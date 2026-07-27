@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Real-time Relational Transition Geometry for governed HIL response-packet submission.">
+  <title>RTG Response Submission Process — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .rtg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+    .rtg-card{border:1px solid var(--border);border-radius:10px;padding:18px}
+    .rtg-flow{white-space:pre-wrap;background:#070b13;border:1px solid var(--border2);padding:18px;border-radius:10px;overflow:auto}
+    .rtg-state{border-left:4px solid var(--border2);padding:10px 14px;margin:12px 0}
+    .rtg-note{padding:16px;border:1px dashed var(--border2);border-radius:10px}
+    code{overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="ecosystem-chat.html">Ecosystem Chat</a>
+  <a href="Papers.html">Papers</a>
+  <a href="humans-as-interoperability-layer.html">Interoperability Study</a>
+  <a class="active" href="hil-rtg-transition-process.html">RTG Intake Process</a>
+</nav>
+<main class="sv-wrap">
+<header class="sv-hero">
+  <div class="sv-eyebrow">Relational Transition Geometry · real-time application</div>
+  <h1>Response submission as an <em>event-induced transition topology</em></h1>
+  <p>The response receiver is not required to remain alive. The participant action induces the short-lived Transition Elements needed to validate, transfer, commit, receipt, notify, and then expire.</p>
+  <div class="sv-btn-row">
+    <a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html#submit">Open response submission</a>
+    <a class="sv-btn sv-btn-secondary" href="#states">View state record</a>
+  </div>
+</header>
+
+<section class="sv-evidence">
+  <div class="sv-evidence-row"><span class="k">Execution model</span><span class="v">EPHEMERAL TRANSITION ELEMENTS</span></div>
+  <div class="sv-evidence-row"><span class="k">Durable requirement</span><span class="v">ADDRESSABILITY + CUSTODY + EVIDENCE + CONTINUITY</span></div>
+  <div class="sv-evidence-row"><span class="k">Notification authority</span><span class="v">Rigel@stegverse.org</span></div>
+  <div class="sv-evidence-row"><span class="k">User-data boundary</span><span class="v">NO USER DATA OUTSIDE THE RESPONSE SUBMISSION CONTRACT</span></div>
+  <div class="sv-evidence-row"><span class="k">Optional continuity components</span><span class="v">ECOSYSTEM CHAT NODE · KNOWLEDGEVAULT · CONTINUITY VAULT KIT</span></div>
+</section>
+
+<h2 class="sv-h2">Core transition geometry</h2>
+<pre class="rtg-flow">Site page opened
+  → local preparation element exists
+  → no response bytes leave the participant device
+
+Response PDF attached
+  → attachment-candidate element
+  → local type, size, and PDF-signature checks
+  → local SHA-256 calculation
+  → provenance candidate assembled
+
+Upload committed
+  → attempt identifier assigned
+  → admissibility and intake lease requested
+  → ephemeral ingress element instantiated
+  → packet transferred across the StegVerse submission boundary
+  → canonical primary, prompt, response, and provenance chain checked
+  → durable custody commit attempted
+  → receipt or refusal/failure record emitted
+  → notification addressed to Rigel@stegverse.org
+  → continuity checkpoint written when required
+  → ephemeral elements expire</pre>
+
+<h2 class="sv-h2">Why the action induces the runtime</h2>
+<p>The transition does not justify an idle receiver. It justifies a stable, wakeable initiation address. The participant's commit action supplies the event that creates the minimum topology needed for that one attempted state change. Compute lifetime should remain proportional to the transition lifetime.</p>
+
+<div class="rtg-grid">
+  <section class="rtg-card"><h3>Stable before execution</h3><p>Site route, service identity, canonical hashes, policy references, transition schema, notification destination, and an addressable wake mechanism.</p></section>
+  <section class="rtg-card"><h3>Ephemeral during execution</h3><p>Upload lease, ingress handler, temporary authority, buffers, validators, signing context, queue workers, and temporary files.</p></section>
+  <section class="rtg-card"><h3>Durable after execution</h3><p>Only custody, evidence, result, notification, retry, reconciliation, and reconstruction state required by the outcome.</p></section>
+</div>
+
+<h2 id="states" class="sv-h2">State changes recorded per attempted submit</h2>
+<div class="rtg-state"><strong>ATTEMPT_CREATED</strong><br>Attempt ID, originating Site contract version, timestamp, and local-preparation declaration. No response bytes are required at this stage.</div>
+<div class="rtg-state"><strong>PACKET_TRANSFER_STARTED</strong><br>Attempt ID, expected response hash when available, lease or capability reference, and transfer start time.</div>
+<div class="rtg-state"><strong>PACKET_RECEIVED</strong><br>Submitted-file hash, byte count, provenance-manifest hash, and temporary custody state.</div>
+<div class="rtg-state"><strong>CHAIN_VALIDATED or CHAIN_REFUSED</strong><br>Canonical primary hash, prompt hash, response hash, applicable policy hash, validation result, and bounded reason codes.</div>
+<div class="rtg-state"><strong>CUSTODY_COMMITTED or CUSTODY_FAILED</strong><br>Durable pointer or custody reference, commit timestamp, cleanup result, retry eligibility, and last completed transition.</div>
+<div class="rtg-state"><strong>RECEIPT_EMITTED</strong><br>Submission ID, receipt ID, chain-validation state, receipt hash, signature, review state, and publication state.</div>
+<div class="rtg-state"><strong>NOTIFICATION_RECORDED</strong><br>A privacy-minimized state-change notification addressed to <code>Rigel@stegverse.org</code>, with delivery state recorded separately from submission outcome.</div>
+<div class="rtg-state"><strong>TRANSITION_ELEMENTS_EXPIRED</strong><br>Lease revocation, temporary-state cleanup, final continuity head, and unresolved reconciliation state if any.</div>
+
+<h2 class="sv-h2">Success persistence</h2>
+<p>Persist the submission and receipt identifiers; submitted-file, provenance, primary, prompt, policy, and receipt hashes; custody pointer; authority decision reference; timestamps; chain-validation result; notification record; review/publication state; and continuity-chain head. Process memory, temporary authority, upload buffers, and the executing node expire.</p>
+
+<h2 class="sv-h2">Refusal persistence</h2>
+<p>Persist the attempt ID, refusal stage, bounded reason code, policy reference, timestamp, retry eligibility, whether bytes were retained, cleanup result, and notification record. Rejected response bytes should not remain unless an explicit quarantine rule admits retention.</p>
+
+<h2 class="sv-h2">Infrastructure-failure persistence</h2>
+<p>Persist the attempt ID, last completed transition, failure class, available hashes, temporary custody state, retry/reconciliation state, lease expiration, cleanup status, and notification record. A failure after custody commit must resume from custody rather than silently creating a second submission.</p>
+
+<h2 class="sv-h2">Abandonment before commit</h2>
+<p>Opening the page and attaching a file create local preparation state only. Closing the page before upload commitment requires no server-side submission record. Optional browser-local draft state may expire without a receipt.</p>
+
+<h2 class="sv-h2">Optional continuity components</h2>
+<div class="rtg-grid">
+  <section class="rtg-card"><h3>Ecosystem Chat Node</h3><p>May reconstruct and execute the transition topology, but is not the sole permissible runtime and is not required for basic intake.</p></section>
+  <section class="rtg-card"><h3>KnowledgeVault</h3><p>May preserve research meaning, objectives, adjudication, and publication context. It should not receive participant data beyond the governed response-submission contract.</p></section>
+  <section class="rtg-card"><h3>Continuity Vault Kit</h3><p>May preserve transition heads, unresolved work, replay inputs, and reconstruction instructions. It is a continuity method, not a mandatory transport host.</p></section>
+</div>
+
+<div class="rtg-note"><strong>Boundary rule:</strong> these optional components strengthen reconstruction and controlled continuation but do not expand collection authority. Zero user data crosses the StegVerse boundary outside of the response packet, its participant-authorized metadata, and the minimum evidence required to validate and receipt that submission.</div>
+
+<h2 class="sv-h2">Notification contract</h2>
+<p>Every committed upload attempt must produce one attempt-level notification addressed to <code>Rigel@stegverse.org</code>. The notification may summarize multiple internal state changes but must identify the terminal state and any unresolved transition. Notification delivery failure must not rewrite an accepted submission as refused; it creates a separately recoverable <code>NOTIFICATION_DELIVERY_PENDING</code> state.</p>
+<pre class="rtg-flow">Required notification fields
+  attempt_id
+  submission_id, when assigned
+  receipt_id, when assigned
+  attempted_at
+  terminal_state
+  last_completed_transition
+  submitted_file_sha256, when available
+  provenance_manifest_sha256, when available
+  chain_validation_state
+  custody_state
+  retry_or_reconciliation_state
+  notification_delivery_state
+
+Excluded by default
+  response PDF contents
+  prompt or response prose
+  participant identity unless explicitly supplied and admitted
+  unrelated browser, device, account, or behavioral data</pre>
+
+<h2 class="sv-h2">Authority distinctions</h2>
+<pre class="rtg-flow">page open                  != external execution allocation
+attachment                 != submission commitment
+submission attempt         != acceptance
+packet receipt             != chain validation
+chain validation           != review approval
+review approval            != publication authority
+notification delivery      != submission outcome
+optional continuity tooling != expanded data authority</pre>
+</main>
+</body>
+</html>
