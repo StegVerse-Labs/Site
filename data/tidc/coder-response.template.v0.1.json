@@ -1,0 +1,39 @@
+{
+  "schema": "stegverse.site.tidc.coder_response.v0.1",
+  "packet_schema": "stegverse.site.tidc.second_coding_packet.v0.1",
+  "research_state": "PILOT_NOT_CONFIRMATORY",
+  "coder": {
+    "coder_id": "",
+    "independence_attestation": false,
+    "completed_at": null,
+    "source_access_limitations": []
+  },
+  "records": [
+    {
+      "record_id": "",
+      "record_kind": "",
+      "technology_wave": "",
+      "mechanism": null,
+      "field": null,
+      "candidate_generation_date": null,
+      "verification_date": null,
+      "public_disclosure_date": null,
+      "publication_date": null,
+      "acceptance_date": null,
+      "recognition_date": null,
+      "dependency_class": "Unresolved",
+      "orientation": "Unresolved",
+      "problem_origin_type": "Unresolved",
+      "effective_access": "Unresolved",
+      "constraint_posture": "Not measured",
+      "efficiency_claim": "Unresolved",
+      "acceptance_posture": "Unresolved",
+      "coding_confidence": "Low",
+      "evidence_quotes_or_locations": [],
+      "uncertainty_notes": [],
+      "exclusion_recommended": false,
+      "exclusion_reason": null
+    }
+  ],
+  "submission_boundary": "A completed response is an independent coding artifact, not a validated research result."
+}
