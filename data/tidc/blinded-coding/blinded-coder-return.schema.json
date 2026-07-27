@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/data/tidc/blinded-coding/blinded-coder-return.schema.json",
+  "title": "TIDC blinded second-coder return",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packet_id", "coder_independence_statement", "records", "cross_record_notes"],
+  "properties": {
+    "packet_id": {"const": "BCP-2026-07-27-01"},
+    "coder_independence_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["did_not_inspect_existing_tidc_material", "used_only_supplied_evidence", "notes"],
+      "properties": {
+        "did_not_inspect_existing_tidc_material": {"const": true},
+        "used_only_supplied_evidence": {"const": true},
+        "notes": {"type": "string"}
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "blind_event_id", "technology_dependency", "orientation",
+          "problem_origin_type", "candidate_generation_date", "verification_date",
+          "publication_date", "acceptance_date", "recognition_date",
+          "coding_confidence", "evidence_rationale", "uncertainties",
+          "needs_source_expansion"
+        ],
+        "properties": {
+          "blind_event_id": {"type": "string", "pattern": "^BCP-E(0[1-9]|10)$"},
+          "technology_dependency": {"enum": ["Necessary", "Material", "Supportive", "Incidental", "Unresolved"]},
+          "orientation": {"enum": ["Self-capability", "External", "Mixed", "Unresolved"]},
+          "problem_origin_type": {"enum": ["Inherited problem", "Newly formulated by technology", "Mixed", "Unresolved"]},
+          "candidate_generation_date": {"type": ["string", "null"]},
+          "verification_date": {"type": ["string", "null"]},
+          "publication_date": {"type": ["string", "null"]},
+          "acceptance_date": {"type": ["string", "null"]},
+          "recognition_date": {"type": ["string", "null"]},
+          "coding_confidence": {"enum": ["High", "Medium", "Low", "Insufficient"]},
+          "evidence_rationale": {"type": "string", "minLength": 1},
+          "uncertainties": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "needs_source_expansion": {"type": "boolean"}
+        }
+      }
+    },
+    "cross_record_notes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ambiguous_definitions", "records_that_should_be_split", "possible_systematic_biases_in_packet", "other_notes"],
+      "properties": {
+        "ambiguous_definitions": {"type": "array", "items": {"type": "string"}},
+        "records_that_should_be_split": {"type": "array", "items": {"type": "string"}},
+        "possible_systematic_biases_in_packet": {"type": "array", "items": {"type": "string"}},
+        "other_notes": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
