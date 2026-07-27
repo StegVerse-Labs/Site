@@ -1,0 +1,41 @@
+{
+  "schema": "stegverse.site.tidc.reliability_manifest.v0.1",
+  "generated": "2026-07-27",
+  "research_state": "PILOT_NOT_CONFIRMATORY",
+  "release_target": "TIDC_RELEASE_2_RELIABILITY",
+  "release_state": "BLOCKED_PENDING_INDEPENDENT_CODING",
+  "authority_boundary": "Reliability artifacts test coding reproducibility. They do not confirm the TIDC hypothesis and do not make Site proof authority.",
+  "assets": [
+    {"path":"data/tidc/second-coding-packet-v0.1.json","role":"blinded candidate packet","state":"COMPLETE"},
+    {"path":"data/tidc/coder-response.first-pass.v0.1.json","role":"governed first-pass comparison snapshot","state":"COMPLETE"},
+    {"path":"data/tidc/coder-response.independent-01.blank.v0.1.json","role":"complete blank independent return","state":"COMPLETE"},
+    {"path":"data/tidc/coder-response.independent-01.v0.1.json","role":"genuine independent response","state":"PENDING"},
+    {"path":"data/tidc/disagreement-ledger.template.v0.1.json","role":"disagreement output schema","state":"COMPLETE"},
+    {"path":"data/tidc/disagreement-ledger.v0.1.json","role":"real comparison and disagreement output","state":"PENDING"},
+    {"path":"data/tidc/release-2-gate.v0.1.json","role":"machine-readable release gate","state":"COMPLETE"},
+    {"path":"scripts/calculate_tidc_agreement.py","role":"agreement and disagreement generator","state":"COMPLETE"},
+    {"path":"scripts/check_tidc_reliability.py","role":"fail-closed reliability validator","state":"COMPLETE"},
+    {"path":"tests/tidc/test_agreement_calculator.py","role":"synthetic calculator tests","state":"COMPLETE"},
+    {"path":"docs/TIDC_INDEPENDENT_CODER_INSTRUCTIONS.md","role":"blinded coder instructions","state":"COMPLETE"},
+    {"path":"docs/TIDC_RELIABILITY_EXECUTION_STATUS.md","role":"execution status and blockers","state":"COMPLETE"},
+    {"path":"docs/TIDC_PUBLIC_RELIABILITY_REPORT_TEMPLATE.md","role":"public result template","state":"COMPLETE"},
+    {"path":"tidc-reliability.html","role":"public reliability workflow surface","state":"COMPLETE"}
+  ],
+  "external_execution": {
+    "github_issue": 102,
+    "title": "TIDC Release 2: independent blinded coding pass",
+    "state": "OPEN",
+    "completion_condition": "A genuinely independent eleven-record response is committed and passes validation without exposure to the first-pass snapshot."
+  },
+  "counts": {
+    "assets": 14,
+    "complete": 12,
+    "pending": 2
+  },
+  "prohibited_substitutions": [
+    "first-pass snapshot for an independent response",
+    "synthetic test fixtures for reliability evidence",
+    "silent disagreement reconciliation",
+    "percent agreement for hypothesis confirmation"
+  ]
+}
