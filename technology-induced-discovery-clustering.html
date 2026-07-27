@@ -7,7 +7,7 @@
   <title>Technology-Induced Discovery Clustering — Open Research Ledger</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
-    .tidc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}.tidc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.tidc-card h3{margin-top:0}.status{display:inline-block;border:1px solid #8a6d1f;background:rgba(138,109,31,.18);color:#f5dda0;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700}.notice{border:1px solid #315b7a;background:rgba(49,91,122,.16);padding:15px;border-radius:var(--radius);margin:16px 0}.metric{font-size:28px;font-weight:800}.ledger{width:100%;border-collapse:collapse;font-size:13px}.ledger th,.ledger td{border:1px solid var(--border);padding:8px;text-align:left;vertical-align:top}.ledger th{background:rgba(47,102,138,.2)}.flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.flow span{border:1px solid var(--border);border-radius:999px;padding:7px 10px;background:var(--surface);font-size:12px}.tag{font-size:11px;padding:3px 7px;border-radius:999px;border:1px solid var(--border);white-space:nowrap}.small{font-size:12px}.toc a{display:block;margin:5px 0}
+    .tidc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}.tidc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.tidc-card h3{margin-top:0}.status{display:inline-block;border:1px solid #8a6d1f;background:rgba(138,109,31,.18);color:#f5dda0;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700}.notice{border:1px solid #315b7a;background:rgba(49,91,122,.16);padding:15px;border-radius:var(--radius);margin:16px 0}.metric{font-size:28px;font-weight:800}.ledger{width:100%;border-collapse:collapse;font-size:13px}.ledger th,.ledger td{border:1px solid var(--border);padding:8px;text-align:left;vertical-align:top}.ledger th{background:rgba(47,102,138,.2)}.flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.flow span{border:1px solid var(--border);border-radius:999px;padding:7px 10px;background:var(--surface);font-size:12px}.tag{font-size:11px;padding:3px 7px;border-radius:999px;border:1px solid var(--border);white-space:nowrap}.small{font-size:12px}.toc a{display:block;margin:5px 0}.equation{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;overflow-x:auto}
   </style>
 </head>
 <body>
@@ -26,6 +26,7 @@
     <div class="sv-btn-row">
       <a class="sv-btn sv-btn-primary" href="#pilot">Inspect pilot ledger</a>
       <a class="sv-btn sv-btn-secondary" href="data/tidc/pilot-events-v0.1.json">Open machine-readable events</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md">Constraint-pressure hypothesis</a>
       <a class="sv-btn sv-btn-secondary" href="docs/TIDC_OPEN_RESEARCH_HANDOFF.md">Read research handoff</a>
     </div>
   </div>
@@ -47,11 +48,21 @@
   </section>
 
   <section>
+    <h2 class="sv-h2">Constraint-pressure extension</h2>
+    <p>The compute-versus-architecture binary stops one layer too early. Compute affects the reachable capability space; architecture affects how efficiently that space is searched and used; governance affects whether resulting capability can be authorized, executed, reconstructed, challenged, and recovered reliably.</p>
+    <div class="flow"><span>resource constraint</span><span>architectural search pressure</span><span>efficiency innovation</span><span>competitive diffusion</span><span>new industry baseline</span></div>
+    <p>The proposed relationship is an inverted U rather than a claim that constraint always improves innovation. Low pressure can favor brute-force scaling. Moderate pressure may intensify architectural, algorithmic, data, and infrastructure innovation. Extreme pressure may suppress experimentation and verification.</p>
+    <div class="equation">I<sub>a</sub> = β<sub>0</sub> + β<sub>1</sub>C<sub>r</sub> + β<sub>2</sub>C<sub>r</sub><sup>2</sup> + controls + ε<br><br>Predicted initial specification: β<sub>1</sub> &gt; 0 and β<sub>2</sub> &lt; 0</div>
+    <p>This is a candidate explanatory mechanism for variation in learning lags, native-method formation, self-capability research, discovery-wave intensity, tapering, and overlap. It remains untested and must distinguish original research from transferred, licensed, open-weight, imitated, or distilled capability.</p>
+    <p><a href="docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md">Read the full hypothesis, measurement candidates, confounders, falsification conditions, and governance boundary.</a></p>
+  </section>
+
+  <section>
     <h2 class="sv-h2">Publication maturity</h2>
     <div class="tidc-grid">
       <article class="tidc-card"><h3>Current: Pilot</h3><p>Initial events and sources are being coded. Aggregate rows may be split as evidence improves.</p></article>
       <article class="tidc-card"><h3>Next: Reliability</h3><p>An independent second coding pass will test whether dates, dependency, exposure, and acceptance categories can be applied consistently.</p></article>
-      <article class="tidc-card"><h3>Later: Exploratory</h3><p>Timelines, lags, conversion rates, inventory balance, field comparisons, and placebo tests.</p></article>
+      <article class="tidc-card"><h3>Later: Exploratory</h3><p>Timelines, lags, conversion rates, inventory balance, field comparisons, constraint-pressure models, and placebo tests.</p></article>
       <article class="tidc-card"><h3>Confirmatory</h3><p>Only after protocol freeze, preregistration, negative controls, and held-out validation.</p></article>
     </div>
   </section>
@@ -63,7 +74,9 @@
       <article class="tidc-card"><h3>Multiple event dates</h3><p>Generation, verification, disclosure, publication, acceptance, and recognition are distinct timestamps.</p></article>
       <article class="tidc-card"><h3>Problem inventory</h3><p>Inflow separates inherited problems becoming tractable from entirely new problems becoming formulable.</p></article>
       <article class="tidc-card"><h3>Technology exposure</h3><p>Availability alone is insufficient; field compatibility, adoption, and effective capability determine exposure.</p></article>
+      <article class="tidc-card"><h3>Constraint pressure</h3><p>Moderate resource pressure may accelerate efficiency-oriented method formation, while extreme pressure may suppress experimentation.</p></article>
       <article class="tidc-card"><h3>Causal structure</h3><p>Learning and method maturity may mediate technology effects, while recognition and funding create feedback.</p></article>
+      <article class="tidc-card"><h3>Governance boundary</h3><p>Capability per unit of compute is distinct from authority, evidence persistence, commit-time admissibility, and recoverable execution.</p></article>
       <article class="tidc-card"><h3>Negative controls</h3><p>Placebo dates, weakly compatible fields, shuffled exposure, and simulated null data test whether the method manufactures clusters.</p></article>
     </div>
   </section>
@@ -96,13 +109,14 @@
       <li>The evidence already separates exhaustive proof/search, networked collaboration, and candidate-generation-plus-verification mechanisms.</li>
       <li>Publication dates are comparatively easy to establish; generation, verification, acceptance, and recognition dates are frequently missing.</li>
       <li>Several aggregate events must be split before confirmatory analysis, including Polymath8, AlphaTensor's multiple tensor improvements, and FunSearch's separate domains.</li>
+      <li>Constraint pressure is now registered as a candidate moderator, not as an established explanation for any national or laboratory-level difference.</li>
       <li>The next valid step is archival reconstruction and independent double coding—not statistical confirmation.</li>
     </ul>
   </section>
 
   <section>
     <h2 class="sv-h2">Falsification posture</h2>
-    <p>The framework is weakened if reproducible clustering disappears after controlling for research growth; peaks precede effective availability; method maturity adds little; exposure does not predict field response; inventory balance does not predict tapering or overlap; negative controls produce comparable effects; or process tracing shows that supposedly necessary technology was incidental.</p>
+    <p>The framework is weakened if reproducible clustering disappears after controlling for research growth; peaks precede effective availability; method maturity adds little; exposure does not predict field response; inventory balance does not predict tapering or overlap; moderate constraint does not increase efficiency-oriented method formation; apparent constraint effects disappear after transferred knowledge is controlled; negative controls produce comparable effects; or process tracing shows that supposedly necessary technology or constraint was incidental.</p>
   </section>
 
   <section>
@@ -112,6 +126,7 @@
       <li>Split Polymath8 into dated subevents.</li>
       <li>Add AlphaProof/AlphaGeometry and post-2024 AI-assisted research events from primary sources.</li>
       <li>Add physical-to-logical quantum error-correction experiments.</li>
+      <li>Define laboratory-level resource-constraint and efficiency measures, including transferred and distilled capability.</li>
       <li>Run a blinded independent coding pass and publish agreement and disagreement records.</li>
     </ol>
   </section>
@@ -119,11 +134,12 @@
   <section class="sv-evidence">
     <div class="sv-evidence-label">Governed publication record</div>
     <div class="sv-evidence-row"><span class="k">Public posture</span><span class="v">RESEARCH_NOTE</span></div>
-    <div class="sv-evidence-row"><span class="k">Research version</span><span class="v">Framework v0.4 · pilot ledger v0.1</span></div>
+    <div class="sv-evidence-row"><span class="k">Research version</span><span class="v">Framework v0.4 + constraint-pressure extension · pilot ledger v0.1</span></div>
     <div class="sv-evidence-row"><span class="k">Dataset state</span><span class="v">seed-coded · revisable · not confirmatory</span></div>
     <div class="sv-evidence-row"><span class="k">Machine-readable source</span><span class="v"><a href="data/tidc/pilot-events-v0.1.json">pilot-events-v0.1.json</a></span></div>
+    <div class="sv-evidence-row"><span class="k">Conceptual extension</span><span class="v"><a href="docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md">TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md</a></span></div>
     <div class="sv-evidence-row"><span class="k">Continuation record</span><span class="v"><a href="docs/TIDC_OPEN_RESEARCH_HANDOFF.md">TIDC_OPEN_RESEARCH_HANDOFF.md</a></span></div>
-    <div class="sv-evidence-row"><span class="k">Authority boundary</span><span class="v">Site publication does not convert the hypothesis or pilot coding into proof.</span></div>
+    <div class="sv-evidence-row"><span class="k">Authority boundary</span><span class="v">Site publication does not convert the hypothesis, conceptual mechanism, or pilot coding into proof.</span></div>
   </section>
 </div>
 </body>
