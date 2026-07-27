@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.9.0",
+  "schema_version": "2.0.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -46,7 +46,8 @@
       "SITE-0001-HIL-FULL-CYCLE-VERIFICATION-IMPORT",
       "SITE-0001-USER-LLM-BOUNDED-CAPABILITY-IMPORT",
       "SITE-0001-USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT",
-      "SITE-0001-HIL-DEPLOYED-CYCLE-ORIGIN-HARDENING"
+      "SITE-0001-HIL-DEPLOYED-CYCLE-ORIGIN-HARDENING",
+      "SITE-0001-MASTER-RECORDS-PERSISTENT-SERVICE-EVIDENCE-IMPORT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -67,6 +68,8 @@
     "user_llm_bounded_capability_import": "data/user-llm-bounded-capabilities/",
     "user_llm_bounded_execution_receipt_import": "data/user-llm-bounded-execution-receipts/",
     "master_records_custody_intake": "master-records/orchestration:data/hil-site-transfer-intake.json",
+    "master_records_persistent_service_evidence": "master-records/orchestration:data/master-records-persistent-service-evidence.json",
+    "master_records_persistent_service_evidence_import": "data/master-records-persistent-service-evidence/",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
     "superseded_activation_tracker": "issue/16"
   },
@@ -75,7 +78,7 @@
     "record_commit": "9092e8860c02f5556bf2ad236ae7f11848820094",
     "validator_commit": "a432a70a1fdb5218b84ad24c49f4cfc387f6a0fa",
     "workflow_commit": "9b8e8ec005e1acb49376e1bd469bbd9147b855c6",
-    "latest_external_result_sha256": "b670b0a0a2e53c8a666dc9395138702fe4a13d04bd2ff0e98507eada988e334a",
+    "latest_external_result_sha256": "2a238b001c4232e4a2065c6e29da4c659d5c9faf7bd0f08159fa763c12d0445d",
     "authority_effect": false,
     "activation_effect": false
   },
@@ -157,6 +160,23 @@
     "continuity_authorized": false,
     "custody_authorized": false,
     "master_record_release_authorized": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "master_records_persistent_service_evidence_import": {
+    "state": "READY_FOR_PENDING_OR_VERIFIED_PERSISTENT_SERVICE_EVIDENCE",
+    "schema_commit": "22d191992fedb9c1937dba9d354b9acf342b2a20",
+    "validator_commit": "079087c0bcf696bdcd6885f610472ac5006654a4",
+    "workflow_commit": "bae71c9ef1dac831098cc3fc36064a807d70619e",
+    "source_packet_commit": "1bec30ae7af4c7b02e77cb5ba96e680f2e40dfcf",
+    "source_validator_commit": "f97923db52cd7ac6ebbdc3eb5969db24ce5ef923",
+    "source_workflow_commit": "f728e49a2dcecb68246e2932d9bad4a4c89c42e5",
+    "source_validation_projection_commit": "ca0127574eb2413d62bd3a46b348114dba43a19e",
+    "imports_observed": 0,
+    "configuration_is_custody_evidence": false,
+    "health_is_custody_authority": false,
+    "reconstruction_is_release_authority": false,
+    "packet_is_site_activation_authority": false,
     "authority_effect": false,
     "activation_effect": false
   },
