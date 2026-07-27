@@ -1,5 +1,5 @@
 {
-  "action_count": 72,
+  "action_count": 73,
   "actions": [
     {
       "action": "satisfy role-specific exit gates: objective_contract, deployment_or_runtime_configuration, runtime_observed, user_visible_outcome_verified, fresh_completion_evidence",
@@ -274,6 +274,23 @@
       ],
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/workflows",
+      "repository_role": "GOVERNANCE_ENGINE",
+      "status": "READY"
+    },
+    {
+      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
+      "action_id": "role-remediate:StegVerse-Labs:ara-admissibility-interop",
+      "machine_owned": true,
+      "manual_user_action_required": false,
+      "missing_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "executed_policy_evidence",
+        "fail_closed_authority_evidence",
+        "fresh_completion_evidence"
+      ],
+      "priority": 2,
+      "repository": "StegVerse-Labs/ara-admissibility-interop",
       "repository_role": "GOVERNANCE_ENGINE",
       "status": "READY"
     },
@@ -1005,6 +1022,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-27T18:15:54Z",
+  "generated_at": "2026-07-27T20:14:02Z",
   "schema_version": "1.1"
 }
