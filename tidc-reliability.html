@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Public reliability workflow for the Technology-Induced Discovery Clustering research ledger.">
+  <title>TIDC Reliability Workflow — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}.status{display:inline-block;border:1px solid #8a6d1f;background:rgba(138,109,31,.18);color:#f5dda0;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700}.flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.flow span{border:1px solid var(--border);border-radius:999px;padding:7px 10px;background:var(--surface);font-size:12px}.gate{width:100%;border-collapse:collapse;font-size:13px}.gate th,.gate td{border:1px solid var(--border);padding:8px;text-align:left;vertical-align:top}.gate th{background:rgba(47,102,138,.2)}
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="technology-induced-discovery-clustering.html">TIDC Research</a>
+  <a class="active" href="tidc-reliability.html">Reliability</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Release 2 workflow · reliability, not confirmation</div>
+    <h1>TIDC Reliability Workflow</h1>
+    <p>This page publishes the independent-coding and disagreement-preservation process for Technology-Induced Discovery Clustering. Reliability asks whether independent coders can reproduce classifications from the evidence. It does not ask whether the hypothesis appears supported.</p>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-primary" href="data/tidc/second-coding-packet-v0.1.json">Open blinded coding packet</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/TIDC_INDEPENDENT_CODER_INSTRUCTIONS.md">Coder instructions</a>
+      <a class="sv-btn sv-btn-secondary" href="data/tidc/coder-response.independent-01.blank.v0.1.json">Blank 11-record return</a>
+      <a class="sv-btn sv-btn-secondary" href="docs/TIDC_RELIABILITY_EXECUTION_STATUS.md">Execution status</a>
+    </div>
+  </div>
+
+  <div class="notice"><span class="status">RELEASE 2 BLOCKED</span><p><strong>Current boundary:</strong> workflow infrastructure is available, but no genuine independent coder response, real agreement output, or adjudicated disagreement ledger has been published. Synthetic tests and the first-pass snapshot are not reliability evidence.</p></div>
+
+  <section class="grid">
+    <article class="card"><h3>11 candidate records</h3><p>Ten discovery-event records and one separate access-precursor record are included in the blinded packet.</p></article>
+    <article class="card"><h3>First pass preserved</h3><p>The comparison baseline is a governed snapshot with independence explicitly set to false.</p></article>
+    <article class="card"><h3>Second pass pending</h3><p>The required independent response must be returned as one raw JSON object with explicit attestation.</p></article>
+    <article class="card"><h3>Disagreement retained</h3><p>Every field-level disagreement remains visible until source adjudication or a versioned codebook revision.</p></article>
+  </section>
+
+  <section>
+    <h2 class="sv-h2">Execution path</h2>
+    <div class="flow"><span>blinded packet</span><span>independent coding</span><span>schema validation</span><span>agreement calculation</span><span>disagreement ledger</span><span>source adjudication</span><span>public reliability report</span><span>gate review</span></div>
+  </section>
+
+  <section>
+    <h2 class="sv-h2">Release 2 gate</h2>
+    <div style="overflow-x:auto">
+      <table class="gate">
+        <thead><tr><th>Requirement</th><th>Status</th><th>Evidence path</th></tr></thead>
+        <tbody>
+          <tr><td>Blinded packet exists</td><td>Complete</td><td><a href="data/tidc/second-coding-packet-v0.1.json">second-coding-packet-v0.1.json</a></td></tr>
+          <tr><td>Independent return format exists</td><td>Complete</td><td><a href="data/tidc/coder-response.independent-01.blank.v0.1.json">independent-01.blank.v0.1.json</a></td></tr>
+          <tr><td>Independent response received</td><td>Pending</td><td>No qualifying artifact published</td></tr>
+          <tr><td>Agreement output generated</td><td>Pending</td><td>Blocked by independent response</td></tr>
+          <tr><td>Disagreements preserved</td><td>Pending</td><td>Template exists; real ledger absent</td></tr>
+          <tr><td>Source adjudication complete</td><td>Pending</td><td>Archival gaps remain open</td></tr>
+          <tr><td>Public reliability report published</td><td>Pending</td><td>Release 2 remains blocked</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sv-h2">Authority boundaries</h2>
+    <div class="grid">
+      <article class="card"><h3>Snapshot ≠ independent coding</h3><p>The first-pass snapshot records prior classifications for comparison only.</p></article>
+      <article class="card"><h3>Agreement ≠ confirmation</h3><p>High agreement would indicate coding reproducibility, not proof of clustering.</p></article>
+      <article class="card"><h3>Resolution ≠ erasure</h3><p>Resolved disagreements remain in the historical record with rationale and sources.</p></article>
+      <article class="card"><h3>Site ≠ proof authority</h3><p>This page is a public research mirror and workflow surface.</p></article>
+    </div>
+  </section>
+
+  <section class="sv-evidence">
+    <div class="sv-evidence-label">Reliability publication record</div>
+    <div class="sv-evidence-row"><span class="k">Posture</span><span class="v">RELIABILITY_WORKFLOW_NOT_CONFIRMATION</span></div>
+    <div class="sv-evidence-row"><span class="k">Release state</span><span class="v">Release 2 blocked pending independent evidence</span></div>
+    <div class="sv-evidence-row"><span class="k">Validator</span><span class="v"><a href="scripts/check_tidc_reliability.py">check_tidc_reliability.py</a></span></div>
+    <div class="sv-evidence-row"><span class="k">Source index</span><span class="v"><a href="docs/TIDC_SOURCE_PACKET_INDEX.md">TIDC_SOURCE_PACKET_INDEX.md</a></span></div>
+    <div class="sv-evidence-row"><span class="k">Codebook</span><span class="v"><a href="docs/TIDC_CODEBOOK_REVISIONS.md">TIDC_CODEBOOK_REVISIONS.md</a></span></div>
+  </section>
+</div>
+</body>
+</html>
