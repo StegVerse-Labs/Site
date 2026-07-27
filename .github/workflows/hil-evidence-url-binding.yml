@@ -1,0 +1,35 @@
+name: HIL Evidence URL Binding
+
+on:
+  push:
+    paths:
+      - 'data/hil-deployed-controlled-cycle-evidence.json'
+      - 'scripts/check_hil_evidence_url_binding.py'
+      - 'tests/test_hil_evidence_url_binding.py'
+      - '.github/workflows/hil-evidence-url-binding.yml'
+  pull_request:
+    paths:
+      - 'data/hil-deployed-controlled-cycle-evidence.json'
+      - 'scripts/check_hil_evidence_url_binding.py'
+      - 'tests/test_hil_evidence_url_binding.py'
+      - '.github/workflows/hil-evidence-url-binding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependency
+        run: python -m pip install pytest
+      - name: Validate current evidence URL posture
+        run: python scripts/check_hil_evidence_url_binding.py
+      - name: Prove public HTTPS and origin-binding behavior
+        run: python -m pytest tests/test_hil_evidence_url_binding.py -v
