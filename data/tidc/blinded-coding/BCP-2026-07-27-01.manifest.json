@@ -1,0 +1,11 @@
+{
+  "schema": "stegverse.site.tidc.blinded_coding_packet_manifest.v1",
+  "packet_id": "BCP-2026-07-27-01",
+  "packet_path": "data/tidc/blinded-coding/BCP-2026-07-27-01.md",
+  "sha256": "eb393cc621c532951e1712c744a739ea202a7b003fd66d71a7d5155a282299cc",
+  "created": "2026-07-27",
+  "event_count": 10,
+  "independence_rule": "Coder must not inspect existing TIDC materials or prior classifications.",
+  "expected_return_format": "single JSON object",
+  "status": "ISSUED_FOR_BLINDED_SECOND_CODING"
+}
