@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Calculate transparent field-level agreement for two TIDC coder responses."""
+"""Calculate transparent field-level agreement for TIDC coding artifacts."""
 from __future__ import annotations
 
 import argparse
@@ -10,6 +10,7 @@ from typing import Any
 
 SCHEMA = "stegverse.site.tidc.coder_response.v0.1"
 OUTPUT_SCHEMA = "stegverse.site.tidc.disagreement_ledger.v0.1"
+FIRST_PASS_ROLE = "FIRST_PASS_SNAPSHOT"
 EXCLUDED_FIELDS = {
     "evidence_quotes_or_locations",
     "uncertainty_notes",
@@ -17,12 +18,27 @@ EXCLUDED_FIELDS = {
 }
 
 
-def load(path: Path) -> dict[str, Any]:
+def load(path: Path, role: str) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if data.get("schema") != SCHEMA:
         raise SystemExit(f"TIDC_AGREEMENT_INVALID: {path} has unexpected schema")
-    if not data.get("coder", {}).get("independence_attestation"):
+
+    coder = data.get("coder", {})
+    if role == "first":
+        is_snapshot = data.get("coding_role") == FIRST_PASS_ROLE
+        is_independent = coder.get("independence_attestation") is True
+        if not (is_snapshot or is_independent):
+            raise SystemExit(
+                f"TIDC_AGREEMENT_INVALID: {path} must be an attested coding response "
+                f"or a governed {FIRST_PASS_ROLE}"
+            )
+        if is_snapshot and coder.get("independence_attestation") is not False:
+            raise SystemExit(
+                f"TIDC_AGREEMENT_INVALID: {path} first-pass snapshot must not claim independence"
+            )
+    elif not coder.get("independence_attestation"):
         raise SystemExit(f"TIDC_AGREEMENT_INVALID: {path} lacks independence attestation")
+
     records = data.get("records")
     if not isinstance(records, list) or not records:
         raise SystemExit(f"TIDC_AGREEMENT_INVALID: {path} has no records")
@@ -47,8 +63,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
-    first = load(args.first)
-    second = load(args.second)
+    first = load(args.first, "first")
+    second = load(args.second, "second")
     first_records = by_id(first)
     second_records = by_id(second)
     shared_ids = sorted(set(first_records) & set(second_records))
@@ -101,7 +117,9 @@ def main() -> None:
         "posture": "RELIABILITY_OUTPUT_NOT_CONFIRMATION",
         "comparison": {
             "first_pass_id": first["coder"]["coder_id"],
+            "first_pass_role": first.get("coding_role", "INDEPENDENT_CODER_RESPONSE"),
             "second_pass_id": second["coder"]["coder_id"],
+            "second_pass_independence_attested": True,
             "generated_at": None,
         },
         "summary": {
