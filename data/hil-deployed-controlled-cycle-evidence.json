@@ -4,10 +4,19 @@
   "cycle_id": "HIL-CYCLE-0001",
   "packet_state": "INCOMPLETE",
   "created_at": "2026-07-25T00:00:00Z",
+  "contract": {
+    "primary_version": "v1.1",
+    "primary_sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+    "protocol_version": "HIL-PROTOCOL-v1.1",
+    "prompt_version": "HIL-PROMPT-v1.1",
+    "prompt_sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+    "provenance_schema": "HIL-RESPONSE-PROVENANCE-v1.1",
+    "receiver_receipt_schema": "HIL-RECEIVER-RECEIPT-v2"
+  },
   "deployment": {
     "state": "NOT_ESTABLISHED",
     "repository": "StegVerse-org/LLM-adapter",
-    "minimum_commit": "b2e612dd74d311e0cbe66cd1c1d4758bff129fd4",
+    "minimum_commit": null,
     "deployed_commit": null,
     "provider": null,
     "service_identifier": null,
@@ -31,10 +40,14 @@
   },
   "readiness": {
     "state": "NOT_ESTABLISHED",
-    "receipt_type": "HIL-LIVE-READINESS-OBSERVATION-v2",
+    "receipt_type": "HIL-HTTPS-RECEIVER-PROBE-v1",
     "observed_state": null,
+    "primary_version": null,
     "primary_sha256": null,
+    "protocol_version": null,
+    "prompt_version": null,
     "prompt_sha256": null,
+    "provenance_schema": null,
     "observed_at": null,
     "receipt_sha256": null,
     "evidence_ref": null
