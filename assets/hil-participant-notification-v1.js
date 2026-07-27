@@ -119,10 +119,13 @@
     if (isSubmission && response.ok) {
       try {
         const receipt = await response.clone().json();
-        if (receipt && receipt.submission_id) {
+        if (receipt && receipt.submission_id && receipt.receipt_id) {
           const submissionUrl = new URL(url, window.location.href);
-          const statusUrl = `${submissionUrl.origin}${submissionUrl.pathname}/${encodeURIComponent(receipt.submission_id)}/status`;
-          pollStatus(statusUrl);
+          const statusUrl = new URL(
+            `${submissionUrl.origin}${submissionUrl.pathname}/${encodeURIComponent(receipt.submission_id)}/status`
+          );
+          statusUrl.searchParams.set('receipt_id', receipt.receipt_id);
+          pollStatus(statusUrl.href);
         }
       } catch (error) {
         console.debug('HIL receipt status initialization failed', error);
