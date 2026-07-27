@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/user_llm_bounded_execution_receipt_import.schema.json",
+  "title": "Bounded User-LLM Execution Receipt Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_repository",
+    "source_commit",
+    "source_evidence_path",
+    "source_evidence_sha256",
+    "route",
+    "action",
+    "required_scope",
+    "request_hash",
+    "result_hash",
+    "status",
+    "transport_configured",
+    "execution_observed",
+    "authority_attached",
+    "claims"
+  ],
+  "properties": {
+    "schema_version": {"const": "USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT-v1"},
+    "source_repository": {"const": "StegVerse-org/LLM-adapter"},
+    "source_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "source_evidence_path": {"type": "string", "pattern": "^receipts/user-llm-bounded-execution/.+\\.json$"},
+    "source_evidence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "route": {"enum": ["demo_test_suite", "entity_sandbox_runner", "hil_response_packet"]},
+    "action": {"type": "string", "minLength": 1},
+    "required_scope": {"enum": ["demo:read", "demo:submit", "sandbox:submit", "sandbox:read", "hil:submit"]},
+    "request_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "result_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "status": {"const": "RETURNED"},
+    "transport_configured": {"const": true},
+    "execution_observed": {"const": true},
+    "authority_attached": {"const": false},
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_execution",
+        "publication",
+        "continuity",
+        "custody",
+        "master_record_release",
+        "site_activation"
+      ],
+      "properties": {
+        "production_execution": {"const": false},
+        "publication": {"const": false},
+        "continuity": {"const": false},
+        "custody": {"const": false},
+        "master_record_release": {"const": false},
+        "site_activation": {"const": false}
+      }
+    }
+  }
+}
