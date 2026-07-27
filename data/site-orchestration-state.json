@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.7.0",
+  "schema_version": "1.8.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -44,7 +44,8 @@
       "SITE-0001-MASTER-RECORDS-RETURN-IMPORT",
       "SITE-0001-HIL-HTTPS-PROBE-IMPORT-HARDENING",
       "SITE-0001-HIL-FULL-CYCLE-VERIFICATION-IMPORT",
-      "SITE-0001-USER-LLM-BOUNDED-CAPABILITY-IMPORT"
+      "SITE-0001-USER-LLM-BOUNDED-CAPABILITY-IMPORT",
+      "SITE-0001-USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -61,6 +62,7 @@
     "full_cycle_artifact_verification_import": "data/hil-full-cycle-artifact-verifications/",
     "user_llm_bounded_runtime": "StegVerse-org/LLM-adapter:commit/64183d1ddad9bbbe9f063e2d3a83d06e162017d7",
     "user_llm_bounded_capability_import": "data/user-llm-bounded-capabilities/",
+    "user_llm_bounded_execution_receipt_import": "data/user-llm-bounded-execution-receipts/",
     "master_records_custody_intake": "master-records/orchestration:data/hil-site-transfer-intake.json",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
     "superseded_activation_tracker": "issue/16"
@@ -70,7 +72,7 @@
     "record_commit": "9092e8860c02f5556bf2ad236ae7f11848820094",
     "validator_commit": "a432a70a1fdb5218b84ad24c49f4cfc387f6a0fa",
     "workflow_commit": "9b8e8ec005e1acb49376e1bd469bbd9147b855c6",
-    "latest_external_result_sha256": "9e2d2df789ebe53fb9604daf9bf2376c85936a5ed8c9b219238263b3e4b3d9da",
+    "latest_external_result_sha256": "a147f4be37d18a6dfda7defaa150f5da642e64104a11ae802c5c03112d32529d",
     "authority_effect": false,
     "activation_effect": false
   },
@@ -118,6 +120,24 @@
     "publication_authorized": false,
     "continuity_authorized": false,
     "custody_authorized": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "user_llm_bounded_execution_receipt_import": {
+    "state": "READY_FOR_RETURNED_EXECUTION_EVIDENCE",
+    "schema_commit": "a36223b5e17bf55ac59891d7693dd13d45707d40",
+    "validator_commit": "b005bbb6c947b8341802fc443938c190fb01e334",
+    "workflow_commit": "087fac7313fb162815638762ea65aa988c35d155",
+    "source_runtime_commit": "64183d1ddad9bbbe9f063e2d3a83d06e162017d7",
+    "imports_observed": 0,
+    "defer_is_execution_evidence": false,
+    "deny_is_execution_evidence": false,
+    "returned_without_hashes_is_execution_evidence": false,
+    "production_execution_authorized": false,
+    "publication_authorized": false,
+    "continuity_authorized": false,
+    "custody_authorized": false,
+    "master_record_release_authorized": false,
     "authority_effect": false,
     "activation_effect": false
   },
