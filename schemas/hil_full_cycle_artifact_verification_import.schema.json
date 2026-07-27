@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil_full_cycle_artifact_verification_import.schema.json",
+  "title": "HIL Full-Cycle Artifact Verification Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_repository",
+    "source_commit",
+    "source_verifier_path",
+    "source_verification_sha256",
+    "receipt_sha256",
+    "artifact_purity_state",
+    "provider_specific_files_present",
+    "observation_scope",
+    "files",
+    "authority_effect",
+    "claims"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-FULL-CYCLE-ARTIFACT-VERIFICATION-IMPORT-v1"},
+    "source_repository": {"const": "StegVerse-org/LLM-adapter"},
+    "source_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "source_verifier_path": {"const": "scripts/verify_hil_full_cycle_artifact.py"},
+    "source_verification_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "receipt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "artifact_purity_state": {"const": "PURE_BOUNDED_HIL_EVIDENCE"},
+    "provider_specific_files_present": {"const": false},
+    "observation_scope": {"const": "GITHUB_HOSTED_EPHEMERAL_FULL_CYCLE_PROOF"},
+    "files": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "gateway-first.log",
+          "gateway-restart.log",
+          "hil-automated-full-cycle-receipt-v1.json"
+        ]
+      }
+    },
+    "authority_effect": {"const": "NONE"},
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ephemeral_full_cycle_verified",
+        "persistent_public_receiver_verified",
+        "external_production_deployment_verified",
+        "master_record_release_verified",
+        "site_activation_authorized"
+      ],
+      "properties": {
+        "ephemeral_full_cycle_verified": {"const": true},
+        "persistent_public_receiver_verified": {"const": false},
+        "external_production_deployment_verified": {"const": false},
+        "master_record_release_verified": {"const": false},
+        "site_activation_authorized": {"const": false}
+      }
+    }
+  }
+}
