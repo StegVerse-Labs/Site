@@ -1,0 +1,67 @@
+# TIDC Independent-Coding Source Packet Index
+
+## Status
+
+```text
+posture: SOURCE_PACKET_INDEX
+research_state: PILOT_NOT_CONFIRMATORY
+packet_version: v0.1
+records: 11
+source_records: 13
+archival_completeness: PARTIAL
+```
+
+This index defines the source set that an independent coder is permitted to use for the first reliability pass. A citation entry is not equivalent to a complete archival packet. Missing or inaccessible material must be reported rather than inferred.
+
+## Discovery-event sources
+
+| Record | Source ID | Primary source posture | Known limitation |
+|---|---|---|---|
+| COMP-001 | SRC-001 | Appel and Haken authoritative exposition | Original 1976–1977 papers and computation records still required. |
+| COMP-002 | SRC-002 | Lam primary author account | Exact run dates and independent verification remain incomplete. |
+| COMP-003 | SRC-003 | McCune author archive and published proof record | Exact publication chronology requires completion. |
+| NET-001 | SRC-004 | Published Polymath paper | Collaboration start and participant trace require archive reconstruction. |
+| NET-002 | SRC-005 | Published Polymath8 paper | Aggregate event must be split into dated subevents. |
+| AI-001 | SRC-006 | Primary Nature paper | Individual tensor improvements and independent reproductions remain to be separated. |
+| AI-002 | SRC-007 | Primary Nature paper | Discovery and LLVM integration dates must be separated. |
+| AI-003 | SRC-008 | Primary Nature paper | Cap-set and bin-packing results require separate records and exact generation dates. |
+| QNT-001 | SRC-009 | Primary Quantum paper | Adoption and downstream use remain unmeasured. |
+| QNT-002 | SRC-010 | Primary published paper | Theoretical infrastructure versus empirical capability status remains unresolved. |
+
+## Access-precursor sources
+
+| Record | Source ID | Primary source posture | Known limitation |
+|---|---|---|---|
+| QAI-2025-JP-OSAKA | QAI-SRC-001 | University of Osaka institutional announcement | Does not establish sustained access or downstream clustering. |
+| QAI-2025-JP-OSAKA | QAI-SRC-002 | RIKEN institutional announcement | Independent usage evidence remains required. |
+| QAI-2025-JP-OSAKA | QAI-SRC-003 | University of Osaka OQTOPUS release announcement | Open-source release does not establish practical external usability. |
+
+## Packet admissibility rules
+
+1. Coders may use the cited primary or authoritative records and clearly identified supplements.
+2. Search snippets, social-media summaries, and unattributed reposts are not source evidence.
+3. Missing dates remain null or Unresolved.
+4. A publication date must not be substituted for candidate generation without explicit proxy labeling.
+5. Institutional announcements may support launch posture but not downstream impact.
+6. Source disagreement must be retained in the coder response.
+7. Sources added after packet freeze require a new packet version.
+
+## Archival retrieval queue
+
+```text
+COMP-001 original proof papers and computation logs
+COMP-002 original computational reports and later certificate verification
+COMP-003 exact journal chronology and simplified-proof sequence
+NET-001 public collaboration archive and contribution trace
+NET-002 Polymath8 phase chronology and bound-change records
+AI-001 per-result tensor chronology and reproduction records
+AI-002 LLVM review and merge chronology
+AI-003 separate cap-set and bin-packing generation records
+QNT-001 benchmark adoption and downstream-use records
+QNT-002 later experimental use records
+QAI-2025-JP-OSAKA sustained-access, eligibility, usage, and downstream-output records
+```
+
+## Completion boundary
+
+The source packet is sufficient to open a pilot reliability exercise but not sufficient for confirmatory historical analysis. Archival incompleteness must remain visible in both confidence coding and disagreement records.
