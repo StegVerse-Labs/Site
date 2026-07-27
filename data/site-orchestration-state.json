@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -42,7 +42,8 @@
       "SITE-0001-ENDPOINT-ACTIVATION-READINESS",
       "SITE-0001-HIL-HTTPS-PROBE-IMPORT",
       "SITE-0001-MASTER-RECORDS-RETURN-IMPORT",
-      "SITE-0001-HIL-HTTPS-PROBE-IMPORT-HARDENING"
+      "SITE-0001-HIL-HTTPS-PROBE-IMPORT-HARDENING",
+      "SITE-0001-HIL-FULL-CYCLE-VERIFICATION-IMPORT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -55,6 +56,8 @@
     "endpoint_activation_readiness": "data/stegverse-endpoint-activation-readiness.json",
     "https_receiver_probe_execution": "StegVerse-org/LLM-adapter:machine-owned-session",
     "https_receiver_probe_import": "data/hil-https-receiver-probes/",
+    "full_cycle_artifact_verification": "StegVerse-org/LLM-adapter:machine-owned-session",
+    "full_cycle_artifact_verification_import": "data/hil-full-cycle-artifact-verifications/",
     "master_records_custody_intake": "master-records/orchestration:data/hil-site-transfer-intake.json",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
     "superseded_activation_tracker": "issue/16"
@@ -83,6 +86,20 @@
       "non_mutating_probe"
     ],
     "imports_observed": 0,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "full_cycle_artifact_verification_import": {
+    "state": "READY_FOR_BOUNDED_EPHEMERAL_FULL_CYCLE_EVIDENCE",
+    "schema_commit": "86b92d275a4932d47682dd16e96b7c110528f1d0",
+    "validator_commit": "9e331e460f749d2ff8ff14fa3350b150f70a3706",
+    "workflow_commit": "53d72a479c68b4eca22903b192a6c9946e2cf30c",
+    "source_verifier_commit": "7b24941df8e42fe3b276c0a335b594fe1c043990",
+    "source_continuous_verification_commit": "788b0f0884c3754fec39c2d1ec6b34eccd94acb4",
+    "imports_observed": 0,
+    "ephemeral_proof_is_persistent_receiver_evidence": false,
+    "ephemeral_proof_is_production_deployment_evidence": false,
+    "ephemeral_proof_is_master_record_release_evidence": false,
     "authority_effect": false,
     "activation_effect": false
   },
