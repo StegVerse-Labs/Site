@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "technology-induced-discovery-clustering.html"
 LEDGER = ROOT / "data" / "tidc" / "pilot-events-v0.1.json"
 HANDOFF = ROOT / "docs" / "TIDC_OPEN_RESEARCH_HANDOFF.md"
+CONSTRAINT_NOTE = ROOT / "docs" / "TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md"
 REGISTRY = ROOT / "public-registry.json"
 
 
@@ -18,7 +19,7 @@ def require(condition: bool, message: str) -> None:
 
 
 def main() -> None:
-    for path in (PAGE, LEDGER, HANDOFF, REGISTRY):
+    for path in (PAGE, LEDGER, HANDOFF, CONSTRAINT_NOTE, REGISTRY):
         require(path.exists(), f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
@@ -28,6 +29,9 @@ def main() -> None:
         "Site is the public mirror, not proof authority",
         "data/tidc/pilot-events-v0.1.json",
         "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+        "docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md",
+        "Constraint-pressure extension",
+        "architectural efficiency != governed execution",
         "Falsification posture",
     ):
         require(marker in page, f"page missing marker: {marker}")
@@ -61,14 +65,39 @@ def main() -> None:
     claim = claims.get("TIDC-OPEN-RESEARCH-001")
     require(claim is not None, "public registry claim missing")
     require(claim.get("posture") == "RESEARCH_NOTE", "registry posture must remain RESEARCH_NOTE")
-    require("technology-induced-discovery-clustering.html" in claim.get("public_pages", []), "public page absent from registry")
+    public_pages = claim.get("public_pages", [])
+    for path in (
+        "technology-induced-discovery-clustering.html",
+        "data/tidc/pilot-events-v0.1.json",
+        "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
+        "docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md",
+    ):
+        require(path in public_pages, f"registry missing TIDC surface: {path}")
+    require("constraint-pressure" in claim.get("source_stage", ""), "registry source stage missing conceptual extension")
 
     handoff = HANDOFF.read_text(encoding="utf-8")
     require("Release 0: research opening and seed ledger        COMPLETE" in handoff, "handoff release state missing")
     require("The gate is not whether the hypothesis appears supported." in handoff, "coding-reliability gate missing")
+    require("event_ledger_changed: false" in handoff, "conceptual-only ledger boundary missing")
+    require("architectural efficiency != governed execution" in handoff, "governance boundary missing")
+
+    note = CONSTRAINT_NOTE.read_text(encoding="utf-8")
+    for marker in (
+        "research_state: CONCEPTUAL_HYPOTHESIS",
+        "confirmatory_status: NOT_TESTED",
+        "β1 > 0",
+        "β2 < 0",
+        "National labels must not be used as substitutes for laboratory-level evidence.",
+        "Efficiency changes the economics of capability. It does not by itself establish trustworthy execution.",
+    ):
+        require(marker in note, f"constraint note missing marker: {marker}")
 
     print("TIDC_PUBLICATION_VALID")
-    print(f"events={len(events)} sources={len(sources)} posture=RESEARCH_NOTE state=PILOT_NOT_CONFIRMATORY")
+    print(
+        f"events={len(events)} sources={len(sources)} "
+        "posture=RESEARCH_NOTE state=PILOT_NOT_CONFIRMATORY "
+        "constraint_pressure=CONCEPTUAL_HYPOTHESIS"
+    )
 
 
 if __name__ == "__main__":
