@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -41,7 +41,8 @@
       "SITE-0001-CANONICAL-BROWSER-BINDING",
       "SITE-0001-ENDPOINT-ACTIVATION-READINESS",
       "SITE-0001-HIL-HTTPS-PROBE-IMPORT",
-      "SITE-0001-MASTER-RECORDS-RETURN-IMPORT"
+      "SITE-0001-MASTER-RECORDS-RETURN-IMPORT",
+      "SITE-0001-HIL-HTTPS-PROBE-IMPORT-HARDENING"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -68,11 +69,19 @@
     "activation_effect": false
   },
   "https_receiver_probe_import": {
-    "state": "READY_FOR_VERIFIED_UPSTREAM_EVIDENCE",
-    "schema_commit": "c618cda4e9622a24851e347727ef6f7e8e623d78",
-    "validator_commit": "18aa18e11bb3b06535aafe034ebaa147aad2e651",
+    "state": "READY_FOR_HARDENED_VERIFIED_UPSTREAM_EVIDENCE",
+    "schema_commit": "032f72e0a41e2f5e185f91be5acc93c6a8bed13c",
+    "validator_commit": "3685de13c81bd7e1fa85183571054b68f4935460",
     "workflow_commit": "5070f8c5c54489a9b8aef78c1ac736bb19652097",
-    "source_probe_commit": "960feb0071f67830e223a3680f0e4d8b53b49802",
+    "source_probe_commit": "1f5293e7b22a6b8847a2f85f3707cbeb780e3a64",
+    "required_network_evidence": [
+      "public_resolved_addresses",
+      "redirects_followed_false",
+      "response_size_at_most_65536",
+      "verified_tls",
+      "http_200",
+      "non_mutating_probe"
+    ],
     "imports_observed": 0,
     "authority_effect": false,
     "activation_effect": false
