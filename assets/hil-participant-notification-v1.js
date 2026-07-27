@@ -9,27 +9,35 @@
     return document.getElementById(id);
   }
 
-  function installField() {
-    if (byId(EMAIL_FIELD_ID)) return;
-    const participantField = byId('participant-id');
-    if (!participantField || !participantField.parentElement) return;
-
-    const field = document.createElement('div');
-    field.className = 'field';
-    field.innerHTML = `
-      <label for="${EMAIL_FIELD_ID}">Email a copy of the submission notification <span>(optional)</span></label>
-      <input id="${EMAIL_FIELD_ID}" name="${EMAIL_FIELD_ID}" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" disabled>
-      <label><input id="${OPT_IN_ID}" type="checkbox"> Send this attempt's privacy-minimized submission notification to this address.</label>
-      <p class="optional-note">The address is used only to deliver this attempt's notification. It is not published, added to the public response record, or treated as publication consent.</p>`;
-    participantField.parentElement.insertAdjacentElement('afterend', field);
-
+  function bindField() {
     const optIn = byId(OPT_IN_ID);
     const email = byId(EMAIL_FIELD_ID);
+    if (!optIn || !email || optIn.dataset.bound === 'true') return;
+    optIn.dataset.bound = 'true';
+    email.disabled = !optIn.checked;
     optIn.addEventListener('change', () => {
       email.disabled = !optIn.checked;
+      email.setCustomValidity('');
       if (optIn.checked) email.focus();
       else email.value = '';
     });
+  }
+
+  function installField() {
+    if (!byId(EMAIL_FIELD_ID)) {
+      const participantField = byId('participant-id');
+      if (!participantField || !participantField.parentElement) return;
+
+      const field = document.createElement('div');
+      field.className = 'field';
+      field.innerHTML = `
+        <label for="${EMAIL_FIELD_ID}">Email a copy of the submission notification <span>(optional)</span></label>
+        <input id="${EMAIL_FIELD_ID}" name="${EMAIL_FIELD_ID}" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" disabled>
+        <label><input id="${OPT_IN_ID}" type="checkbox"> Send this attempt's privacy-minimized submission notification to this address.</label>
+        <p class="optional-note">The address is used only to deliver this attempt's notification. It is not published, added to the public response record, or treated as publication consent.</p>`;
+      participantField.parentElement.insertAdjacentElement('afterend', field);
+    }
+    bindField();
   }
 
   function selectedEmail() {
