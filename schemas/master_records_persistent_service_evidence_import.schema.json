@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/master_records_persistent_service_evidence_import.schema.json",
+  "title": "Master Records Persistent Service Evidence Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_repository",
+    "source_commit",
+    "source_path",
+    "source_sha256",
+    "source_validation_commit",
+    "state",
+    "configuration_observation",
+    "service",
+    "custody_cycle",
+    "reconstruction",
+    "evidence_refs",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "MASTER-RECORDS-PERSISTENT-SERVICE-EVIDENCE-IMPORT-v1"},
+    "source_repository": {"const": "master-records/orchestration"},
+    "source_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "source_path": {"const": "data/master-records-persistent-service-evidence.json"},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_validation_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "state": {"enum": ["AWAITING_VERIFIED_EXTERNAL_SERVICE_EVIDENCE", "VERIFIED_PERSISTENT_CUSTODY_AND_RECONSTRUCTION"]},
+    "configuration_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["endpoint_configured", "endpoint_public_https_verified", "token_configured", "observation_sha256"],
+      "properties": {
+        "endpoint_configured": {"type": "boolean"},
+        "endpoint_public_https_verified": {"type": "boolean"},
+        "token_configured": {"type": "boolean"},
+        "observation_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["persistent_service_observed", "health_verified", "health_receipt_sha256", "service_instance_before_restart", "service_instance_after_restart", "restart_observed", "restart_receipt_sha256"],
+      "properties": {
+        "persistent_service_observed": {"type": "boolean"},
+        "health_verified": {"type": "boolean"},
+        "health_receipt_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "service_instance_before_restart": {"type": ["string", "null"], "minLength": 1},
+        "service_instance_after_restart": {"type": ["string", "null"], "minLength": 1},
+        "restart_observed": {"type": "boolean"},
+        "restart_receipt_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "custody_cycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "source_payload_sha256", "write_receipt_sha256", "readback_payload_sha256", "readback_receipt_sha256", "write_verified", "readback_verified", "payload_hash_matches", "post_restart_readback_verified"],
+      "properties": {
+        "record_id": {"type": ["string", "null"], "minLength": 1},
+        "source_payload_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "write_receipt_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "readback_payload_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "readback_receipt_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "write_verified": {"type": "boolean"},
+        "readback_verified": {"type": "boolean"},
+        "payload_hash_matches": {"type": "boolean"},
+        "post_restart_readback_verified": {"type": "boolean"}
+      }
+    },
+    "reconstruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reconstruction_receipt_sha256", "reconstruction_verified", "reconstructed_payload_sha256", "reconstructed_payload_matches_source"],
+      "properties": {
+        "reconstruction_receipt_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "reconstruction_verified": {"type": "boolean"},
+        "reconstructed_payload_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "reconstructed_payload_matches_source": {"type": "boolean"}
+      }
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["configuration_is_custody_evidence", "health_is_custody_authority", "write_receipt_is_publication_authority", "reconstruction_is_release_authority", "execution_authorized", "publication_authorized", "release_authorized", "site_activation_authorized", "authority_effect"],
+      "properties": {
+        "configuration_is_custody_evidence": {"const": false},
+        "health_is_custody_authority": {"const": false},
+        "write_receipt_is_publication_authority": {"const": false},
+        "reconstruction_is_release_authority": {"const": false},
+        "execution_authorized": {"const": false},
+        "publication_authorized": {"const": false},
+        "release_authorized": {"const": false},
+        "site_activation_authorized": {"const": false},
+        "authority_effect": {"const": "NONE"}
+      }
+    }
+  }
+}
