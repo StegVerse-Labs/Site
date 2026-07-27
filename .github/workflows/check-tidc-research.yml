@@ -1,0 +1,87 @@
+name: Check TIDC Research Surface
+
+on:
+  push:
+    paths:
+      - 'technology-induced-discovery-clustering.html'
+      - 'public-registry.json'
+      - 'docs/TIDC_*.md'
+      - 'data/tidc/**'
+      - 'scripts/check_tidc_publication.py'
+      - 'scripts/validate_tidc_blinded_return.py'
+      - 'scripts/compare_tidc_blinded_coding.py'
+      - '.github/workflows/check-tidc-research.yml'
+  pull_request:
+    paths:
+      - 'technology-induced-discovery-clustering.html'
+      - 'public-registry.json'
+      - 'docs/TIDC_*.md'
+      - 'data/tidc/**'
+      - 'scripts/check_tidc_publication.py'
+      - 'scripts/validate_tidc_blinded_return.py'
+      - 'scripts/compare_tidc_blinded_coding.py'
+      - '.github/workflows/check-tidc-research.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-publication:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile TIDC validators
+        run: |
+          python -m py_compile \
+            scripts/check_tidc_publication.py \
+            scripts/validate_tidc_blinded_return.py \
+            scripts/compare_tidc_blinded_coding.py
+      - name: Validate public research publication
+        run: python scripts/check_tidc_publication.py
+      - name: Validate issued blinded packet markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          packet='data/tidc/blinded-coding/BCP-2026-07-27-01.md'
+          manifest='data/tidc/blinded-coding/BCP-2026-07-27-01.manifest.json'
+          schema='data/tidc/blinded-coding/blinded-coder-return.schema.json'
+          test -s "$packet"
+          test -s "$manifest"
+          test -s "$schema"
+          grep -F 'BCP-2026-07-27-01' "$packet"
+          grep -F 'ISSUED_FOR_BLINDED_SECOND_CODING' "$manifest"
+          grep -F 'exactly 10 records' "$packet"
+      - name: Validate any committed blinded returns
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          returns=(data/tidc/blinded-coding/returns/*.json)
+          if [ ${#returns[@]} -eq 0 ]; then
+            echo 'No blinded return committed; external evidence remains pending.'
+            exit 0
+          fi
+          for return_file in "${returns[@]}"; do
+            python scripts/validate_tidc_blinded_return.py "$return_file"
+          done
+
+  authority-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce non-confirmatory and disagreement-preservation markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -F 'PILOT · NOT CONFIRMATORY' technology-induced-discovery-clustering.html
+          grep -F 'Site is the public mirror, not proof authority' technology-induced-discovery-clustering.html
+          grep -F 'DESCRIPTIVE_NOT_VALIDATION' scripts/compare_tidc_blinded_coding.py
+          grep -F 'Disagreements must be retained' scripts/compare_tidc_blinded_coding.py
+          grep -F 'human_replication: not established' scripts/compare_tidc_blinded_coding.py
