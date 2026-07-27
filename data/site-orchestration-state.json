@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -43,7 +43,8 @@
       "SITE-0001-HIL-HTTPS-PROBE-IMPORT",
       "SITE-0001-MASTER-RECORDS-RETURN-IMPORT",
       "SITE-0001-HIL-HTTPS-PROBE-IMPORT-HARDENING",
-      "SITE-0001-HIL-FULL-CYCLE-VERIFICATION-IMPORT"
+      "SITE-0001-HIL-FULL-CYCLE-VERIFICATION-IMPORT",
+      "SITE-0001-USER-LLM-BOUNDED-CAPABILITY-IMPORT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -58,6 +59,8 @@
     "https_receiver_probe_import": "data/hil-https-receiver-probes/",
     "full_cycle_artifact_verification": "StegVerse-org/LLM-adapter:machine-owned-session",
     "full_cycle_artifact_verification_import": "data/hil-full-cycle-artifact-verifications/",
+    "user_llm_bounded_runtime": "StegVerse-org/LLM-adapter:commit/64183d1ddad9bbbe9f063e2d3a83d06e162017d7",
+    "user_llm_bounded_capability_import": "data/user-llm-bounded-capabilities/",
     "master_records_custody_intake": "master-records/orchestration:data/hil-site-transfer-intake.json",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
     "superseded_activation_tracker": "issue/16"
@@ -100,6 +103,21 @@
     "ephemeral_proof_is_persistent_receiver_evidence": false,
     "ephemeral_proof_is_production_deployment_evidence": false,
     "ephemeral_proof_is_master_record_release_evidence": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "user_llm_bounded_capability_import": {
+    "state": "READY_FOR_DECLARATION_NOT_EXECUTION_EVIDENCE",
+    "schema_commit": "591620827ebfe0fa8db5e79f8cc2a70533d18926",
+    "validator_commit": "fc20f49f52a3de9e75b7c35d755f8a70649226de",
+    "workflow_commit": "430332bed4826049ea591ff699174ad1be6f5893",
+    "source_runtime_commit": "64183d1ddad9bbbe9f063e2d3a83d06e162017d7",
+    "imports_observed": 0,
+    "execution_evidence_observed": false,
+    "production_execution_authorized": false,
+    "publication_authorized": false,
+    "continuity_authorized": false,
+    "custody_authorized": false,
     "authority_effect": false,
     "activation_effect": false
   },
