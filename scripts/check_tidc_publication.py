@@ -9,6 +9,10 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "technology-induced-discovery-clustering.html"
 LEDGER = ROOT / "data" / "tidc" / "pilot-events-v0.1.json"
 PRECURSORS = ROOT / "data" / "tidc" / "access-precursors-v0.1.json"
+SECOND_PACKET = ROOT / "data" / "tidc" / "second-coding-packet-v0.1.json"
+CODER_TEMPLATE = ROOT / "data" / "tidc" / "coder-response.template.v0.1.json"
+DISAGREEMENT_TEMPLATE = ROOT / "data" / "tidc" / "disagreement-ledger.template.v0.1.json"
+AGREEMENT_SCRIPT = ROOT / "scripts" / "calculate_tidc_agreement.py"
 HANDOFF = ROOT / "docs" / "TIDC_OPEN_RESEARCH_HANDOFF.md"
 CONSTRAINT_NOTE = ROOT / "docs" / "TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md"
 ACCESS_NOTE = ROOT / "docs" / "TIDC_QUANTUM_ACCESS_INFLECTION_TRACKING.md"
@@ -20,8 +24,20 @@ def require(condition: bool, message: str) -> None:
         raise SystemExit(f"TIDC_PUBLICATION_INVALID: {message}")
 
 
+def read_json(path: Path) -> dict:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"TIDC_PUBLICATION_INVALID: unreadable {path.relative_to(ROOT)}: {exc}") from exc
+
+
 def main() -> None:
-    for path in (PAGE, LEDGER, PRECURSORS, HANDOFF, CONSTRAINT_NOTE, ACCESS_NOTE, REGISTRY):
+    required = (
+        PAGE, LEDGER, PRECURSORS, SECOND_PACKET, CODER_TEMPLATE,
+        DISAGREEMENT_TEMPLATE, AGREEMENT_SCRIPT, HANDOFF,
+        CONSTRAINT_NOTE, ACCESS_NOTE, REGISTRY,
+    )
+    for path in required:
         require(path.exists(), f"missing {path.relative_to(ROOT)}")
 
     page = PAGE.read_text(encoding="utf-8")
@@ -39,7 +55,7 @@ def main() -> None:
     ):
         require(marker in page, f"page missing marker: {marker}")
 
-    ledger = json.loads(LEDGER.read_text(encoding="utf-8"))
+    ledger = read_json(LEDGER)
     require(ledger.get("schema") == "stegverse.site.tidc.pilot_events.v0.1", "wrong ledger schema")
     require(ledger.get("research_state") == "PILOT_NOT_CONFIRMATORY", "research state is not fail-closed")
     events = ledger.get("events", [])
@@ -63,7 +79,7 @@ def main() -> None:
         require(event.get("source_id") in source_id_set, f"unresolved source for {event.get('event_id')}")
         require(isinstance(event.get("open_questions"), list) and event["open_questions"], f"missing uncertainty for {event.get('event_id')}")
 
-    precursor_ledger = json.loads(PRECURSORS.read_text(encoding="utf-8"))
+    precursor_ledger = read_json(PRECURSORS)
     require(precursor_ledger.get("schema") == "stegverse.site.tidc.access_precursors.v0.1", "wrong precursor schema")
     require(precursor_ledger.get("research_state") == "PILOT_NOT_CONFIRMATORY", "precursor state is not fail-closed")
     precursors = precursor_ledger.get("precursors", [])
@@ -91,7 +107,35 @@ def main() -> None:
         require(isinstance(case.get("longitudinal_measures"), list) and case["longitudinal_measures"], f"missing longitudinal measures for {case.get('case_id')}")
         require(isinstance(case.get("open_questions"), list) and case["open_questions"], f"missing precursor uncertainty for {case.get('case_id')}")
 
-    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    packet = read_json(SECOND_PACKET)
+    require(packet.get("schema") == "stegverse.site.tidc.second_coding_packet.v0.1", "wrong second-coding packet schema")
+    require(packet.get("posture") == "BLINDED_RELIABILITY_PACKET", "second-coding packet posture invalid")
+    candidates = packet.get("candidate_records", [])
+    candidate_ids = [record.get("record_id") for record in candidates]
+    require(len(candidates) == 11, "second-coding packet must contain 11 candidate records")
+    require(set(candidate_ids) == set(event_ids + case_ids), "second-coding packet does not match pilot and precursor records")
+    require("Disagreement is a research output" in packet.get("instructions", {}).get("disagreement", ""), "packet disagreement rule missing")
+
+    coder_template = read_json(CODER_TEMPLATE)
+    require(coder_template.get("schema") == "stegverse.site.tidc.coder_response.v0.1", "wrong coder response schema")
+    require(coder_template.get("coder", {}).get("independence_attestation") is False, "template must require explicit independence attestation")
+    require(coder_template.get("research_state") == "PILOT_NOT_CONFIRMATORY", "coder template state invalid")
+
+    disagreement = read_json(DISAGREEMENT_TEMPLATE)
+    require(disagreement.get("schema") == "stegverse.site.tidc.disagreement_ledger.v0.1", "wrong disagreement schema")
+    require(disagreement.get("posture") == "RELIABILITY_OUTPUT_NOT_CONFIRMATION", "disagreement posture invalid")
+    require("must not be silently removed" in disagreement.get("boundary", ""), "disagreement retention boundary missing")
+
+    agreement_source = AGREEMENT_SCRIPT.read_text(encoding="utf-8")
+    for marker in (
+        "TIDC_AGREEMENT_INVALID",
+        "independence_attestation",
+        "RELIABILITY_OUTPUT_NOT_CONFIRMATION",
+        "does not confirm the TIDC hypothesis",
+    ):
+        require(marker in agreement_source, f"agreement calculator missing marker: {marker}")
+
+    registry = read_json(REGISTRY)
     claims = {claim.get("id"): claim for claim in registry.get("claims", [])}
     claim = claims.get("TIDC-OPEN-RESEARCH-001")
     require(claim is not None, "public registry claim missing")
@@ -141,8 +185,8 @@ def main() -> None:
     print(
         f"events={len(events)} sources={len(sources)} "
         f"precursors={len(precursors)} precursor_sources={len(precursor_sources)} "
-        "posture=RESEARCH_NOTE state=PILOT_NOT_CONFIRMATORY "
-        "constraint_pressure=CONCEPTUAL_HYPOTHESIS"
+        f"coding_candidates={len(candidates)} reliability_assets=4 "
+        "posture=RESEARCH_NOTE state=PILOT_NOT_CONFIRMATORY"
     )
 
 
