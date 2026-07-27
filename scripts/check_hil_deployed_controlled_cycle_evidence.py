@@ -2,8 +2,10 @@
 """Fail-closed validation for the HIL deployed controlled-cycle evidence packet."""
 from __future__ import annotations
 
+import ipaddress
 import json
 import re
+import socket
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -43,11 +45,19 @@ def valid_hash(value: object) -> bool:
     return isinstance(value, str) and bool(SHA256.fullmatch(value))
 
 
+def globally_routable(address: str) -> bool:
+    try:
+        parsed = ipaddress.ip_address(address)
+    except ValueError:
+        return False
+    return parsed.is_global
+
+
 def valid_https_origin(value: object) -> bool:
     if not isinstance(value, str):
         return False
     parsed = urlparse(value)
-    return bool(
+    if not (
         parsed.scheme == "https"
         and parsed.hostname
         and not parsed.username
@@ -55,7 +65,25 @@ def valid_https_origin(value: object) -> bool:
         and parsed.path in {"", "/"}
         and not parsed.query
         and not parsed.fragment
-    )
+    ):
+        return False
+
+    hostname = parsed.hostname.lower().rstrip(".")
+    if hostname == "localhost" or hostname.endswith(".localhost"):
+        return False
+
+    try:
+        literal = ipaddress.ip_address(hostname)
+    except ValueError:
+        try:
+            resolved = {
+                item[4][0]
+                for item in socket.getaddrinfo(hostname, parsed.port or 443, type=socket.SOCK_STREAM)
+            }
+        except socket.gaierror:
+            return False
+        return bool(resolved) and all(globally_routable(address) for address in resolved)
+    return literal.is_global
 
 
 def main() -> None:
@@ -88,7 +116,7 @@ def main() -> None:
     require(deployment.get("minimum_commit") is None, "retired minimum-commit gate must remain removed")
     if established(deployment):
         require(bool(COMMIT.fullmatch(str(deployment.get("deployed_commit", "")))), "invalid deployed commit")
-        require(valid_https_origin(deployment.get("base_url")), "deployment base URL must be a clean HTTPS origin")
+        require(valid_https_origin(deployment.get("base_url")), "deployment base URL must be a globally routable HTTPS origin")
         require(deployment.get("evidence_refs"), "deployment evidence references missing")
 
     credentials = packet["credential_separation"]
@@ -173,7 +201,7 @@ def main() -> None:
         require(isinstance(publication.get("response_id"), str) and re.fullmatch(r"HIL-RESP-[A-Z0-9-]+", publication["response_id"]), "invalid response ID")
         require(valid_hash(publication.get("publication_record_sha256")), "invalid publication record hash")
         require(publication.get("append_only_verified") is True, "append-only publication not verified")
-        require(valid_https_origin(publication.get("stable_lookup_url")) or str(publication.get("stable_lookup_url", "")).startswith("https://"), "stable lookup must use HTTPS")
+        require(valid_https_origin(publication.get("stable_lookup_url")), "stable lookup must use a globally routable HTTPS origin")
 
     if established(master):
         require(valid_hash(master.get("release_sha256")), "invalid Master Record release hash")
