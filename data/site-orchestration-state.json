@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8.0",
+  "schema_version": "1.9.0",
   "state_type": "site_handoff_orchestration_state",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -45,7 +45,8 @@
       "SITE-0001-HIL-HTTPS-PROBE-IMPORT-HARDENING",
       "SITE-0001-HIL-FULL-CYCLE-VERIFICATION-IMPORT",
       "SITE-0001-USER-LLM-BOUNDED-CAPABILITY-IMPORT",
-      "SITE-0001-USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT"
+      "SITE-0001-USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT",
+      "SITE-0001-HIL-DEPLOYED-CYCLE-ORIGIN-HARDENING"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -60,6 +61,8 @@
     "https_receiver_probe_import": "data/hil-https-receiver-probes/",
     "full_cycle_artifact_verification": "StegVerse-org/LLM-adapter:machine-owned-session",
     "full_cycle_artifact_verification_import": "data/hil-full-cycle-artifact-verifications/",
+    "deployed_controlled_cycle_packet": "data/hil-deployed-controlled-cycle-evidence.json",
+    "deployed_controlled_cycle_verifier": "scripts/check_hil_deployed_controlled_cycle_evidence.py",
     "user_llm_bounded_runtime": "StegVerse-org/LLM-adapter:commit/64183d1ddad9bbbe9f063e2d3a83d06e162017d7",
     "user_llm_bounded_capability_import": "data/user-llm-bounded-capabilities/",
     "user_llm_bounded_execution_receipt_import": "data/user-llm-bounded-execution-receipts/",
@@ -72,7 +75,7 @@
     "record_commit": "9092e8860c02f5556bf2ad236ae7f11848820094",
     "validator_commit": "a432a70a1fdb5218b84ad24c49f4cfc387f6a0fa",
     "workflow_commit": "9b8e8ec005e1acb49376e1bd469bbd9147b855c6",
-    "latest_external_result_sha256": "a147f4be37d18a6dfda7defaa150f5da642e64104a11ae802c5c03112d32529d",
+    "latest_external_result_sha256": "b670b0a0a2e53c8a666dc9395138702fe4a13d04bd2ff0e98507eada988e334a",
     "authority_effect": false,
     "activation_effect": false
   },
@@ -91,6 +94,22 @@
       "non_mutating_probe"
     ],
     "imports_observed": 0,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "deployed_controlled_cycle": {
+    "state": "INCOMPLETE_EXTERNAL_EVIDENCE_REQUIRED",
+    "packet_reconciliation_commit": "b29f2194416e8229938fb8029f7d1e64afb91f30",
+    "public_origin_hardening_commit": "a02f319849e146a9e1f021afbacd5a8f78aa8d19",
+    "origin_regression_test_commit": "4112623a3607682e48d1c42b5b443da534f752cc",
+    "origin_regression_workflow_commit": "4790d30d90c77bcd0e347f314ca8cf1c8b5e8409",
+    "upstream_evidence_verifier_commit": "bde14b377214be3ae89219aa50657ff21c09b99a",
+    "upstream_continuous_verification_commit": "ed8379eca72a6393c16b4b74af5a0ca2315886a7",
+    "deployment_established": false,
+    "readiness_established": false,
+    "external_durable_storage_established": false,
+    "private_or_local_origin_is_deployment_evidence": false,
+    "packet_completion_is_activation_authority": false,
     "authority_effect": false,
     "activation_effect": false
   },
