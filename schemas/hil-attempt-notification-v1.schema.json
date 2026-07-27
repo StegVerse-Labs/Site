@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-attempt-notification-v1.schema.json",
+  "title": "HIL Attempt Notification v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "attempt_id",
+    "attempted_at",
+    "terminal_state",
+    "last_completed_transition",
+    "chain_validation_state",
+    "custody_state",
+    "retry_or_reconciliation_state",
+    "notification_delivery_state",
+    "required_recipient_role",
+    "participant_copy_requested",
+    "participant_address_retained_in_public_record",
+    "content_included"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-ATTEMPT-NOTIFICATION-v1"},
+    "attempt_id": {"type": "string", "pattern": "^HIL-ATTEMPT-[A-F0-9]+$"},
+    "submission_id": {"type": ["string", "null"]},
+    "receipt_id": {"type": ["string", "null"]},
+    "attempted_at": {"type": "string", "format": "date-time"},
+    "terminal_state": {
+      "enum": [
+        "SUBMISSION_ACCEPTED",
+        "SUBMISSION_REFUSED",
+        "INFRASTRUCTURE_FAILURE",
+        "DUPLICATE_RECEIPT_RESTORED"
+      ]
+    },
+    "last_completed_transition": {"type": "string", "minLength": 1},
+    "submitted_file_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "provenance_manifest_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "chain_validation_state": {"type": "string", "minLength": 1},
+    "custody_state": {"type": "string", "minLength": 1},
+    "reason_code": {"type": ["string", "null"]},
+    "retry_or_reconciliation_state": {"type": "string", "minLength": 1},
+    "notification_delivery_state": {
+      "enum": ["PENDING", "PARTIAL", "DELIVERED", "DELIVERY_FAILED"]
+    },
+    "required_recipient_role": {"const": "STEGVERSE_STUDY_AUTHORITY"},
+    "participant_copy_requested": {"type": "boolean"},
+    "participant_address_retained_in_public_record": {"const": false},
+    "content_included": {"const": false}
+  },
+  "$comment": "The participant email address belongs only in the restricted delivery envelope. It must not appear in this notification artifact, response receipt, public index, publication metadata, or provenance record. Delivery failure is independent of the submission outcome."
+}
