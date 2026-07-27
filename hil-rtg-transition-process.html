@@ -38,7 +38,8 @@
 <section class="sv-evidence">
   <div class="sv-evidence-row"><span class="k">Execution model</span><span class="v">EPHEMERAL TRANSITION ELEMENTS</span></div>
   <div class="sv-evidence-row"><span class="k">Durable requirement</span><span class="v">ADDRESSABILITY + CUSTODY + EVIDENCE + CONTINUITY</span></div>
-  <div class="sv-evidence-row"><span class="k">Notification authority</span><span class="v">Rigel@stegverse.org</span></div>
+  <div class="sv-evidence-row"><span class="k">Required notification</span><span class="v">Rigel@stegverse.org</span></div>
+  <div class="sv-evidence-row"><span class="k">Optional participant copy</span><span class="v">EXPLICIT OPT-IN · ATTEMPT NOTIFICATION ONLY</span></div>
   <div class="sv-evidence-row"><span class="k">User-data boundary</span><span class="v">NO USER DATA OUTSIDE THE RESPONSE SUBMISSION CONTRACT</span></div>
   <div class="sv-evidence-row"><span class="k">Optional continuity components</span><span class="v">ECOSYSTEM CHAT NODE · KNOWLEDGEVAULT · CONTINUITY VAULT KIT</span></div>
 </section>
@@ -53,6 +54,7 @@ Response PDF attached
   → local type, size, and PDF-signature checks
   → local SHA-256 calculation
   → provenance candidate assembled
+  → optional notification email remains local unless explicitly enabled
 
 Upload committed
   → attempt identifier assigned
@@ -63,6 +65,7 @@ Upload committed
   → durable custody commit attempted
   → receipt or refusal/failure record emitted
   → notification addressed to Rigel@stegverse.org
+  → optional privacy-minimized copy queued for the participant
   → continuity checkpoint written when required
   → ephemeral elements expire</pre>
 
@@ -70,9 +73,9 @@ Upload committed
 <p>The transition does not justify an idle receiver. It justifies a stable, wakeable initiation address. The participant's commit action supplies the event that creates the minimum topology needed for that one attempted state change. Compute lifetime should remain proportional to the transition lifetime.</p>
 
 <div class="rtg-grid">
-  <section class="rtg-card"><h3>Stable before execution</h3><p>Site route, service identity, canonical hashes, policy references, transition schema, notification destination, and an addressable wake mechanism.</p></section>
-  <section class="rtg-card"><h3>Ephemeral during execution</h3><p>Upload lease, ingress handler, temporary authority, buffers, validators, signing context, queue workers, and temporary files.</p></section>
-  <section class="rtg-card"><h3>Durable after execution</h3><p>Only custody, evidence, result, notification, retry, reconciliation, and reconstruction state required by the outcome.</p></section>
+  <section class="rtg-card"><h3>Stable before execution</h3><p>Site route, service identity, canonical hashes, policy references, transition schema, required notification destination, and an addressable wake mechanism.</p></section>
+  <section class="rtg-card"><h3>Ephemeral during execution</h3><p>Upload lease, ingress handler, temporary authority, buffers, validators, signing context, queue workers, temporary files, and restricted delivery context.</p></section>
+  <section class="rtg-card"><h3>Durable after execution</h3><p>Only custody, evidence, result, notification, retry, reconciliation, and reconstruction state required by the outcome. A participant address persists only as long as required by the governed delivery and retention rule.</p></section>
 </div>
 
 <h2 id="states" class="sv-h2">State changes recorded per attempted submit</h2>
@@ -82,7 +85,8 @@ Upload committed
 <div class="rtg-state"><strong>CHAIN_VALIDATED or CHAIN_REFUSED</strong><br>Canonical primary hash, prompt hash, response hash, applicable policy hash, validation result, and bounded reason codes.</div>
 <div class="rtg-state"><strong>CUSTODY_COMMITTED or CUSTODY_FAILED</strong><br>Durable pointer or custody reference, commit timestamp, cleanup result, retry eligibility, and last completed transition.</div>
 <div class="rtg-state"><strong>RECEIPT_EMITTED</strong><br>Submission ID, receipt ID, chain-validation state, receipt hash, signature, review state, and publication state.</div>
-<div class="rtg-state"><strong>NOTIFICATION_RECORDED</strong><br>A privacy-minimized state-change notification addressed to <code>Rigel@stegverse.org</code>, with delivery state recorded separately from submission outcome.</div>
+<div class="rtg-state"><strong>NOTIFICATION_RECORDED</strong><br>A privacy-minimized state-change notification addressed to <code>Rigel@stegverse.org</code>. When the participant explicitly opts in, the same attempt notification is separately queued for their supplied address.</div>
+<div class="rtg-state"><strong>NOTIFICATION_DELIVERY_RECONCILED</strong><br>Required-recipient and optional-recipient delivery states are recorded independently. Partial or failed email delivery cannot change the accepted, refused, or failed submission outcome.</div>
 <div class="rtg-state"><strong>TRANSITION_ELEMENTS_EXPIRED</strong><br>Lease revocation, temporary-state cleanup, final continuity head, and unresolved reconciliation state if any.</div>
 
 <h2 class="sv-h2">Success persistence</h2>
@@ -95,7 +99,7 @@ Upload committed
 <p>Persist the attempt ID, last completed transition, failure class, available hashes, temporary custody state, retry/reconciliation state, lease expiration, cleanup status, and notification record. A failure after custody commit must resume from custody rather than silently creating a second submission.</p>
 
 <h2 class="sv-h2">Abandonment before commit</h2>
-<p>Opening the page and attaching a file create local preparation state only. Closing the page before upload commitment requires no server-side submission record. Optional browser-local draft state may expire without a receipt.</p>
+<p>Opening the page and attaching a file create local preparation state only. Closing the page before upload commitment requires no server-side submission record. An optional email address entered before commitment remains local and may expire with the page.</p>
 
 <h2 class="sv-h2">Optional continuity components</h2>
 <div class="rtg-grid">
@@ -104,10 +108,11 @@ Upload committed
   <section class="rtg-card"><h3>Continuity Vault Kit</h3><p>May preserve transition heads, unresolved work, replay inputs, and reconstruction instructions. It is a continuity method, not a mandatory transport host.</p></section>
 </div>
 
-<div class="rtg-note"><strong>Boundary rule:</strong> these optional components strengthen reconstruction and controlled continuation but do not expand collection authority. Zero user data crosses the StegVerse boundary outside of the response packet, its participant-authorized metadata, and the minimum evidence required to validate and receipt that submission.</div>
+<div class="rtg-note"><strong>Boundary rule:</strong> these optional components strengthen reconstruction and controlled continuation but do not expand collection authority. Zero user data crosses the StegVerse boundary outside of the response packet, its participant-authorized metadata, the optional attempt-notification address, and the minimum evidence required to validate, receipt, and notify that submission.</div>
 
 <h2 class="sv-h2">Notification contract</h2>
-<p>Every committed upload attempt must produce one attempt-level notification addressed to <code>Rigel@stegverse.org</code>. The notification may summarize multiple internal state changes but must identify the terminal state and any unresolved transition. Notification delivery failure must not rewrite an accepted submission as refused; it creates a separately recoverable <code>NOTIFICATION_DELIVERY_PENDING</code> state.</p>
+<p>Every committed upload attempt must produce one attempt-level notification addressed to <code>Rigel@stegverse.org</code>. The participant may explicitly request a copy by supplying an email address. That address authorizes delivery of this attempt notification only; it does not grant publication consent, attribution authority, marketing permission, account creation, or broader contact authority.</p>
+<p>The privacy-minimized notification artifact and receiver receipt must not expose the participant address. The address belongs only in a restricted delivery envelope. Notification delivery failure must not rewrite an accepted submission as refused; it creates a separately recoverable delivery state.</p>
 <pre class="rtg-flow">Required notification fields
   attempt_id
   submission_id, when assigned
@@ -120,23 +125,30 @@ Upload committed
   chain_validation_state
   custody_state
   retry_or_reconciliation_state
-  notification_delivery_state
+  required_recipient_delivery_state
+  optional_recipient_delivery_state, when requested
 
-Excluded by default
+Restricted delivery-envelope field
+  participant_notification_email, only after explicit opt-in
+
+Excluded from receipt and public notification artifact
+  participant_notification_email
   response PDF contents
   prompt or response prose
   participant identity unless explicitly supplied and admitted
   unrelated browser, device, account, or behavioral data</pre>
 
 <h2 class="sv-h2">Authority distinctions</h2>
-<pre class="rtg-flow">page open                  != external execution allocation
-attachment                 != submission commitment
-submission attempt         != acceptance
-packet receipt             != chain validation
-chain validation           != review approval
-review approval            != publication authority
-notification delivery      != submission outcome
-optional continuity tooling != expanded data authority</pre>
+<pre class="rtg-flow">page open                    != external execution allocation
+attachment                   != submission commitment
+email entered                != notification opt-in
+notification opt-in          != publication or contact consent
+submission attempt           != acceptance
+packet receipt               != chain validation
+chain validation             != review approval
+review approval              != publication authority
+notification delivery        != submission outcome
+optional continuity tooling  != expanded data authority</pre>
 </main>
 </body>
 </html>
