@@ -21,6 +21,7 @@ Publication does not establish the clustering hypothesis as a historical law. Se
 page: technology-induced-discovery-clustering.html
 machine_readable_ledger: data/tidc/pilot-events-v0.1.json
 constraint_pressure_note: docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md
+quantum_access_tracking_note: docs/TIDC_QUANTUM_ACCESS_INFLECTION_TRACKING.md
 validator: scripts/check_tidc_publication.py
 registry_claim: TIDC-OPEN-RESEARCH-001
 ```
@@ -60,6 +61,45 @@ availability
 -> rapid discovery
 -> saturation or overlap
 ```
+
+## Access-inflection extension
+
+A tracked precursor class has been added for infrastructure changes that may alter effective technology exposure without themselves constituting discoveries.
+
+The first registered case is:
+
+```text
+case_id: QAI-2025-JP-OSAKA
+date: 2025-07-28
+class: access_infrastructure_inflection
+wave: Quantum computing
+posture: tracked precursor, not pilot discovery event
+```
+
+The relevant transition is:
+
+```text
+specialized device construction
+-> remote access
+-> wider experimentation
+-> self-capability research
+-> technology-native methods
+-> external application discovery
+```
+
+The Osaka case combines domestically integrated hardware, cloud execution, browser-facing public interaction, and the open-source OQTOPUS operational stack. It is tracked because these conditions may jointly reduce access, learning, inspection, and experimentation barriers.
+
+No discovery cluster is inferred from the launch. The event ledger remains unchanged until downstream mathematical, scientific, or independently verifiable capability results can be coded.
+
+The provisional directional expression is:
+
+```text
+potential discovery-cluster intensity
+~ (effective capability * accessibility * inspectability)
+  / (learning cost * experimental cost)
+```
+
+This is a research expression, not an estimated law.
 
 ## Constraint-pressure extension
 
@@ -102,6 +142,8 @@ compute scale != architectural efficiency
 architectural efficiency != governed execution
 benchmark capability != commit-time admissibility
 low inference cost != reconstructable authority
+accessibility != admissibility
+open source != execution provenance
 ```
 
 ## Pilot Tranche 01
@@ -113,6 +155,7 @@ high_confidence: 7
 medium_confidence: 3
 external_events: 8
 self_capability_events: 2
+tracked_access_precursors: 1
 ```
 
 Mechanisms represented:
@@ -130,8 +173,9 @@ quantum self-capability benchmarking and characterization
 2. Publication dates are comparatively easy to establish; candidate-generation, verification, acceptance, and recognition dates are frequently missing or different.
 3. Aggregate events must be split before confirmatory analysis, including Polymath8, AlphaTensor's multiple tensor improvements, and FunSearch's separate domains.
 4. The selected quantum events are presently self-capability events, not broad external-application events.
-5. Constraint pressure is registered as a candidate moderator, not an established explanation for national, institutional, or laboratory-level differences.
-6. The next valid step is archival reconstruction and independent double coding, not statistical confirmation.
+5. The Osaka system is tracked as an access-layer precursor rather than coded as a discovery event.
+6. Constraint pressure is registered as a candidate moderator, not an established explanation for national, institutional, or laboratory-level differences.
+7. The next valid step is archival reconstruction and independent double coding, not statistical confirmation.
 
 ## Progressive release sequence
 
@@ -151,13 +195,33 @@ Release 5: confirmatory results and replication     PENDING
 2. Split Polymath8 into dated subevents.
 3. Add AlphaProof / AlphaGeometry and post-2024 AI-assisted research events from primary sources.
 4. Add physical-to-logical quantum error-correction experiments.
-5. Define laboratory-level resource-constraint and efficiency measures.
-6. Separate original research from transferred, licensed, open-weight, imitated, and distilled capability.
-7. Add constraint-exposure fields to future event tranches.
-8. Test quadratic, threshold, spline, and regime-switching specifications.
-9. Create a blinded second-coding packet.
-10. Publish agreement, disagreements, and codebook revisions.
-11. Add negative-control events, fields, and placebo dates.
+5. Collect downstream adoption and output evidence for QAI-2025-JP-OSAKA.
+6. Define laboratory-level resource-constraint and efficiency measures.
+7. Separate original research from transferred, licensed, open-weight, imitated, and distilled capability.
+8. Add access-exposure and constraint-exposure fields to future event tranches.
+9. Test quadratic, threshold, spline, and regime-switching specifications.
+10. Create a blinded second-coding packet.
+11. Publish agreement, disagreements, and codebook revisions.
+12. Add negative-control events, fields, and placebo dates.
+```
+
+## QAI-2025-JP-OSAKA longitudinal fields
+
+Future evidence collection should attempt to establish:
+
+```text
+operational access date
+public access date
+hardware architecture and qubit count
+user eligibility restrictions
+browser, API, notebook, and local access modes
+software source availability and component coverage
+documentation and educational-material availability
+registered users and institutions
+executed jobs where available
+external repositories, papers, patents, experiments, and applications
+time to independently verifiable downstream results
+self-capability versus external-application share over time
 ```
 
 ## Release gate
@@ -190,6 +254,7 @@ The framework must be weakened or rejected where reasonable specifications show:
 - no generation-versus-acceptance divergence under verification constraints;
 - no decline in self-capability share as external applications mature;
 - no field response to measured technology exposure;
+- access-layer changes producing no measurable change in participation, experimentation, or downstream output;
 - no relationship between problem-inventory balance and tapering or overlap;
 - no increase in efficiency-oriented method formation under moderate resource pressure;
 - innovation declining monotonically as constraint rises;
@@ -197,18 +262,21 @@ The framework must be weakened or rejected where reasonable specifications show:
 - nominally constrained laboratories having equivalent effective compute access;
 - no relationship between constraint exposure and TIDC learning lags, wave intensity, tapering, or overlap;
 - negative controls producing effects comparable to confirmatory estimates;
-- process tracing showing supposedly necessary technology or constraint was incidental.
+- process tracing showing supposedly necessary technology, access change, or constraint was incidental.
 
 ## Authority boundary
 
 ```text
 research hypothesis != historical law
 seed-coded event != validated event
+tracked precursor != discovery event
+public access claim != effective research access
 publication date != candidate-generation date
 citation count != discovery significance
 model output != accepted knowledge
 resource constraint != innovation proof
 architectural efficiency != governed execution
+open source != execution provenance
 national label != laboratory-level evidence
 Site display != proof
 progressive publication != confirmation
@@ -227,13 +295,16 @@ Every future event tranche must:
 
 Conceptual extensions that do not add or recode events must update the public page, this handoff, and a dedicated versioned research note. They must state explicitly that the event ledger is unchanged.
 
+Tracked precursors must remain separate from discovery events until evidence establishes a codable result. Their downstream adoption and output measures should be collected longitudinally and negative findings retained.
+
 ## Latest change
 
 ```text
-date: 2026-07-26
-change: added constraint-pressure and inverted-U hypothesis
-new_file: docs/TIDC_CONSTRAINT_PRESSURE_HYPOTHESIS.md
+date: 2026-07-27
+change: added quantum access-layer inflection tracking
+new_file: docs/TIDC_QUANTUM_ACCESS_INFLECTION_TRACKING.md
+tracked_case: QAI-2025-JP-OSAKA
 public_page_updated: true
 event_ledger_changed: false
-reason: conceptual mechanism addition; no event added or recoded
+reason: infrastructure and exposure precursor; no discovery event added or recoded
 ```
