@@ -6,6 +6,8 @@
   const DELIVERY_STATUS_ID = 'submission-notification-delivery-status';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const TERMINAL_DELIVERY_STATES = new Set(['DELIVERED', 'PARTIAL_EXPIRED', 'DELIVERY_EXPIRED']);
+  const STATUS_SCHEMA = 'HIL-SUBMISSION-STATUS-v1';
+  const NOTIFICATION_SCHEMA = 'HIL-ATTEMPT-NOTIFICATION-v1';
 
   function byId(id) {
     return document.getElementById(id);
@@ -56,6 +58,34 @@
     return value;
   }
 
+  function discoveryCompatible(payload) {
+    const advertisedTerminal = new Set(payload.terminal_notification_delivery_states || []);
+    return payload.participant_notification_supported === true
+      && payload.participant_notification_scope === 'ATTEMPT_NOTIFICATION_ONLY'
+      && payload.attempt_notification_schema === NOTIFICATION_SCHEMA
+      && payload.submission_status_supported === true
+      && payload.submission_status_schema === STATUS_SCHEMA
+      && payload.submission_status_authorization === 'SUBMISSION_ID_PLUS_RECEIPT_ID'
+      && Number.isInteger(payload.notification_max_attempts)
+      && payload.notification_max_attempts >= 1
+      && payload.notification_max_attempts <= 20
+      && [...TERMINAL_DELIVERY_STATES].every((state) => advertisedTerminal.has(state))
+      && payload.completed_recipient_addresses_retained === false
+      && payload.expired_recipient_addresses_retained === false
+      && payload.notification_delivery_changes_submission_outcome === false;
+  }
+
+  function incompatibleReadinessResponse(payload) {
+    return new Response(JSON.stringify({
+      ...payload,
+      state: 'INCOMPATIBLE',
+      incompatibility_reason: 'HIL_RTG_DISCOVERY_CONTRACT_MISMATCH'
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   function deliveryStatusNode() {
     let node = byId(DELIVERY_STATUS_ID);
     if (node) return node;
@@ -98,7 +128,7 @@
         });
         if (!response.ok) continue;
         const status = await response.json();
-        if (status.schema_version !== 'HIL-SUBMISSION-STATUS-v1') continue;
+        if (status.schema_version !== STATUS_SCHEMA) continue;
         renderDeliveryStatus(status);
         if (TERMINAL_DELIVERY_STATES.has(status.notification_delivery_state)) return;
       } catch (error) {
@@ -110,6 +140,7 @@
   const originalFetch = window.fetch.bind(window);
   window.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : input && input.url;
+    const isReadiness = Boolean(url && url.includes('/api/hil/readiness'));
     const isSubmission = Boolean(
       url && url.includes('/api/hil/submissions') && init.body instanceof FormData
     );
@@ -120,6 +151,15 @@
       init.body.set('participant_notification_scope', email ? 'ATTEMPT_NOTIFICATION_ONLY' : 'NONE');
     }
     const response = await originalFetch(input, init);
+    if (isReadiness && response.ok) {
+      try {
+        const payload = await response.clone().json();
+        if (!discoveryCompatible(payload)) return incompatibleReadinessResponse(payload);
+      } catch (error) {
+        console.debug('HIL discovery contract validation failed', error);
+        return incompatibleReadinessResponse({});
+      }
+    }
     if (isSubmission && response.ok) {
       try {
         const receipt = await response.clone().json();
