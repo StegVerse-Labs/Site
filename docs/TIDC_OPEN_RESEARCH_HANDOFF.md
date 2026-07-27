@@ -4,10 +4,6 @@
 
 This file is the durable continuation and publication record for the Technology-Induced Discovery Clustering (TIDC) research surface.
 
-## Purpose
-
-This file is the durable continuation and publication record for the Technology-Induced Discovery Clustering (TIDC) research surface.
-
 ## Public posture
 
 ```text
