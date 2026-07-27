@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/data/tidc/blinded-coding/blinded-return-receipt.schema.json",
+  "title": "TIDC blinded return receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "packet_id",
+    "receipt_posture",
+    "coder_type",
+    "human_replication",
+    "received_at",
+    "source_file",
+    "packet_sha256",
+    "return_raw_sha256",
+    "return_canonical_sha256",
+    "record_count",
+    "independence_statement",
+    "authority_effect",
+    "adjudication_status",
+    "interpretation_boundary",
+    "receipt_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "stegverse.site.tidc.blinded_return_receipt.v0.1"},
+    "packet_id": {"const": "BCP-2026-07-27-01"},
+    "receipt_posture": {"const": "RECEIVED_NOT_ADJUDICATED"},
+    "coder_type": {"const": "blinded AI"},
+    "human_replication": {"const": false},
+    "received_at": {"type": "string", "minLength": 1},
+    "source_file": {"type": "string", "minLength": 1},
+    "packet_sha256": {"const": "eb393cc621c532951e1712c744a739ea202a7b003fd66d71a7d5155a282299cc"},
+    "return_raw_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "return_canonical_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "record_count": {"const": 10},
+    "independence_statement": {"type": "object"},
+    "authority_effect": {"const": "NONE"},
+    "adjudication_status": {"const": "PENDING"},
+    "interpretation_boundary": {
+      "type": "array",
+      "minItems": 4,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
