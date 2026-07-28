@@ -6,8 +6,12 @@
   const DELIVERY_STATUS_ID = 'submission-notification-delivery-status';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const TERMINAL_DELIVERY_STATES = new Set(['DELIVERED', 'PARTIAL_EXPIRED', 'DELIVERY_EXPIRED']);
+  const READINESS_SCHEMA = 'HIL-READINESS-v1';
+  const READINESS_SCHEMA_PATH = '/schemas/hil-readiness-v1.schema.json';
   const STATUS_SCHEMA = 'HIL-SUBMISSION-STATUS-v1';
+  const STATUS_SCHEMA_PATH = '/schemas/hil-submission-status-v1.schema.json';
   const NOTIFICATION_SCHEMA = 'HIL-ATTEMPT-NOTIFICATION-v1';
+  const NOTIFICATION_SCHEMA_PATH = '/schemas/hil-attempt-notification-v1.schema.json';
 
   function byId(id) {
     return document.getElementById(id);
@@ -60,15 +64,20 @@
 
   function discoveryCompatible(payload) {
     const advertisedTerminal = new Set(payload.terminal_notification_delivery_states || []);
-    return payload.participant_notification_supported === true
+    return payload.schema_version === READINESS_SCHEMA
+      && payload.readiness_schema_path === READINESS_SCHEMA_PATH
+      && payload.participant_notification_supported === true
       && payload.participant_notification_scope === 'ATTEMPT_NOTIFICATION_ONLY'
       && payload.attempt_notification_schema === NOTIFICATION_SCHEMA
+      && payload.attempt_notification_schema_path === NOTIFICATION_SCHEMA_PATH
       && payload.submission_status_supported === true
       && payload.submission_status_schema === STATUS_SCHEMA
+      && payload.submission_status_schema_path === STATUS_SCHEMA_PATH
       && payload.submission_status_authorization === 'SUBMISSION_ID_PLUS_RECEIPT_ID'
       && Number.isInteger(payload.notification_max_attempts)
       && payload.notification_max_attempts >= 1
       && payload.notification_max_attempts <= 20
+      && advertisedTerminal.size === TERMINAL_DELIVERY_STATES.size
       && [...TERMINAL_DELIVERY_STATES].every((state) => advertisedTerminal.has(state))
       && payload.completed_recipient_addresses_retained === false
       && payload.expired_recipient_addresses_retained === false
