@@ -14,6 +14,7 @@
   const NOTIFICATION_SCHEMA = 'HIL-ATTEMPT-NOTIFICATION-v1';
   const NOTIFICATION_SCHEMA_PATH = '/schemas/hil-attempt-notification-v1.schema.json';
   const AUTHORITY_EVIDENCE_SCHEMA = 'HIL-TVC-AUTHORITY-EVIDENCE-v1';
+  const AUTHORITY_EVIDENCE_SCHEMA_PATH = '/schemas/hil-tvc-authority-evidence-v1.schema.json';
   const AUTHORITY_EVIDENCE_PATH = '/api/hil/authority-evidence';
 
   function byId(id) { return document.getElementById(id); }
@@ -69,10 +70,7 @@
   async function fetchBoundArtifact(readinessUrl, path, expectedDigest, acceptedType) {
     if (!SHA256_RE.test(String(expectedDigest || ''))) return null;
     const artifactUrl = new URL(path, readinessUrl);
-    const response = await originalFetch(artifactUrl.href, {
-      cache: 'no-store',
-      headers: { Accept: acceptedType }
-    });
+    const response = await originalFetch(artifactUrl.href, { cache: 'no-store', headers: { Accept: acceptedType } });
     if (!response.ok) return null;
     const contentType = String(response.headers.get('content-type') || '').toLowerCase();
     if (!contentType.includes('json')) return null;
@@ -101,6 +99,8 @@
       && payload.tvc_admissible === true
       && payload.tvc_binding_matched === true
       && payload.authority_evidence_schema === AUTHORITY_EVIDENCE_SCHEMA
+      && payload.authority_evidence_schema_path === AUTHORITY_EVIDENCE_SCHEMA_PATH
+      && SHA256_RE.test(String(payload.authority_evidence_schema_sha256 || ''))
       && payload.authority_evidence_path === AUTHORITY_EVIDENCE_PATH
       && SHA256_RE.test(String(payload.authority_evidence_sha256 || ''))
       && Number.isInteger(payload.notification_max_attempts)
@@ -115,37 +115,38 @@
     const schemaBindings = [
       [payload.readiness_schema_path, payload.readiness_schema_sha256],
       [payload.attempt_notification_schema_path, payload.attempt_notification_schema_sha256],
-      [payload.submission_status_schema_path, payload.submission_status_schema_sha256]
+      [payload.submission_status_schema_path, payload.submission_status_schema_sha256],
+      [payload.authority_evidence_schema_path, payload.authority_evidence_schema_sha256]
     ];
     const schemas = await Promise.all(schemaBindings.map(([path, digest]) =>
       fetchBoundArtifact(readinessUrl, path, digest, 'application/schema+json, application/json')));
     if (!schemas.every(Boolean)) return false;
 
-    const authority = await fetchBoundArtifact(
-      readinessUrl,
-      payload.authority_evidence_path,
-      payload.authority_evidence_sha256,
-      'application/json'
-    );
+    const authority = await fetchBoundArtifact(readinessUrl, payload.authority_evidence_path, payload.authority_evidence_sha256, 'application/json');
     if (!authority) return false;
     const evidence = authority.json;
-    return evidence.schema_version === AUTHORITY_EVIDENCE_SCHEMA
+    const declaredEvidenceFields = new Set([
+      'schema_version', 'runtime_contract_version', 'authority_role', 'decision_id', 'policy_hash',
+      'admissible', 'binding_matched', 'allowed_keys_sha256', 'denied_keys_sha256',
+      'allowed_key_count', 'denied_key_count', 'restricted_fields_exposed'
+    ]);
+    return Object.keys(evidence).every((field) => declaredEvidenceFields.has(field))
+      && evidence.schema_version === AUTHORITY_EVIDENCE_SCHEMA
       && evidence.runtime_contract_version === payload.runtime_contract_version
       && evidence.authority_role === payload.tvc_authority_role
       && evidence.decision_id === payload.tvc_decision_id
       && evidence.policy_hash === payload.tvc_policy_hash
       && evidence.admissible === true
       && evidence.binding_matched === true
-      && evidence.restricted_fields_exposed === false
-      && evidence.denied_key_count === 0;
+      && SHA256_RE.test(String(evidence.allowed_keys_sha256 || ''))
+      && SHA256_RE.test(String(evidence.denied_keys_sha256 || ''))
+      && evidence.allowed_key_count === 2
+      && evidence.denied_key_count === 0
+      && evidence.restricted_fields_exposed === false;
   }
 
   function incompatibleReadinessResponse(payload) {
-    return new Response(JSON.stringify({
-      ...payload,
-      state: 'INCOMPATIBLE',
-      incompatibility_reason: 'HIL_RTG_DISCOVERY_CONTRACT_MISMATCH'
-    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ ...payload, state: 'INCOMPATIBLE', incompatibility_reason: 'HIL_RTG_DISCOVERY_CONTRACT_MISMATCH' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 
   function deliveryStatusNode() {
@@ -167,11 +168,8 @@
     const node = deliveryStatusNode();
     if (!node) return;
     node.hidden = false;
-    const participant = status.participant_copy_requested
-      ? `Your optional copy is ${stateLabel(status.participant_copy_delivery_state)}.`
-      : 'No participant email copy was requested.';
-    const retry = status.notification_retry_authority_state === 'TERMINATED'
-      ? ' Notification retry authority has ended and terminal recipient addresses are no longer retained.' : '';
+    const participant = status.participant_copy_requested ? `Your optional copy is ${stateLabel(status.participant_copy_delivery_state)}.` : 'No participant email copy was requested.';
+    const retry = status.notification_retry_authority_state === 'TERMINATED' ? ' Notification retry authority has ended and terminal recipient addresses are no longer retained.' : '';
     node.textContent = `Submission accepted. StegVerse notification is ${stateLabel(status.required_recipient_delivery_state)}. ${participant}${retry} Notification delivery does not change the submission outcome.`;
     node.dataset.state = status.notification_delivery_state === 'DELIVERED' ? 'ok' : 'warn';
   }
