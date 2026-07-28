@@ -1,0 +1,24 @@
+{
+  "action": "list",
+  "authority_attached": false,
+  "claims": {
+    "continuity": false,
+    "custody": false,
+    "master_record_release": false,
+    "production_execution": false,
+    "publication": false,
+    "site_activation": false
+  },
+  "execution_observed": true,
+  "request_hash": "5630529533b0ac64c1bf507062ad8084d71c5b18c4c22a50234fea47ffc6d7c7",
+  "required_scope": "demo:read",
+  "result_hash": "d41f4038314a7b3425976bee44a46ae04b2aad8add5f8076ce0dd32dcfa01952",
+  "route": "demo_test_suite",
+  "schema_version": "USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT-v1",
+  "source_commit": "668ace00da5e1e3544c6a2a2166ab1435025e39b",
+  "source_evidence_path": "receipts/user-llm-bounded-execution/demo_test_suite-list.json",
+  "source_evidence_sha256": "5499efb7b3110d166accdd6d445647d3ad0b1c5bb8d9e7c94d2355faaf0706dc",
+  "source_repository": "StegVerse-org/LLM-adapter",
+  "status": "RETURNED",
+  "transport_configured": true
+}
