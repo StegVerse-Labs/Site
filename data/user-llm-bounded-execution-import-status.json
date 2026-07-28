@@ -1,0 +1,31 @@
+{
+  "schema_version": "USER-LLM-BOUNDED-EXECUTION-IMPORT-STATUS-v1",
+  "repository": "StegVerse-Labs/Site",
+  "state": "BOUNDED_RETURNED_EXECUTION_EVIDENCE_OBSERVED",
+  "imports_observed": 3,
+  "routes": [
+    "demo_test_suite:list",
+    "entity_sandbox_runner:submit",
+    "hil_response_packet:submit_pdf_metadata"
+  ],
+  "source_repository": "StegVerse-org/LLM-adapter",
+  "source_commit": "668ace00da5e1e3544c6a2a2166ab1435025e39b",
+  "source_workflow_run_id": 30358280344,
+  "source_merge_commit": "82fc47fcb938240af5257e55fa04da4a23f47c16",
+  "site_import_merge_commit": "0d2811757b4c1b987190e41f276ac40b79d0d724",
+  "production_execution_authorized": false,
+  "publication_authorized": false,
+  "continuity_authorized": false,
+  "custody_authorized": false,
+  "master_record_release_authorized": false,
+  "site_activation_complete": false,
+  "activation_effect": false,
+  "authority_effect": false,
+  "remaining_blockers": [
+    "authorized_provider_configuration",
+    "persistent_provider_execution",
+    "master_records_custody",
+    "transition_reconstruction",
+    "zero_blocker_activation_receipt"
+  ]
+}
