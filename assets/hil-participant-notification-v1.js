@@ -6,20 +6,17 @@
   const DELIVERY_STATUS_ID = 'submission-notification-delivery-status';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const SHA256_RE = /^[a-f0-9]{64}$/;
-  const POLICY_HASH_RE = /^(sha256:)?[a-fA-F0-9]{64}$/;
   const TERMINAL_DELIVERY_STATES = new Set(['DELIVERED', 'PARTIAL_EXPIRED', 'DELIVERY_EXPIRED']);
   const READINESS_SCHEMA = 'HIL-READINESS-v1';
   const READINESS_SCHEMA_PATH = '/schemas/hil-readiness-v1.schema.json';
-  const RUNTIME_CONTRACT_VERSION = 'HIL-RTG-RUNTIME-v1';
-  const TVC_AUTHORITY_ROLE = 'service_gateway_intake';
   const STATUS_SCHEMA = 'HIL-SUBMISSION-STATUS-v1';
   const STATUS_SCHEMA_PATH = '/schemas/hil-submission-status-v1.schema.json';
   const NOTIFICATION_SCHEMA = 'HIL-ATTEMPT-NOTIFICATION-v1';
   const NOTIFICATION_SCHEMA_PATH = '/schemas/hil-attempt-notification-v1.schema.json';
+  const AUTHORITY_EVIDENCE_SCHEMA = 'HIL-TVC-AUTHORITY-EVIDENCE-v1';
+  const AUTHORITY_EVIDENCE_PATH = '/api/hil/authority-evidence';
 
-  function byId(id) {
-    return document.getElementById(id);
-  }
+  function byId(id) { return document.getElementById(id); }
 
   function bindField() {
     const optIn = byId(OPT_IN_ID);
@@ -30,8 +27,7 @@
     optIn.addEventListener('change', () => {
       email.disabled = !optIn.checked;
       email.setCustomValidity('');
-      if (optIn.checked) email.focus();
-      else email.value = '';
+      if (optIn.checked) email.focus(); else email.value = '';
     });
   }
 
@@ -39,7 +35,6 @@
     if (!byId(EMAIL_FIELD_ID)) {
       const participantField = byId('participant-id');
       if (!participantField || !participantField.parentElement) return;
-
       const field = document.createElement('div');
       field.className = 'field';
       field.innerHTML = `
@@ -71,25 +66,25 @@
     return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
   }
 
-  async function verifySchemaBinding(readinessUrl, path, expectedDigest) {
-    if (!SHA256_RE.test(String(expectedDigest || ''))) return false;
-    const schemaUrl = new URL(path, readinessUrl);
-    const response = await originalFetch(schemaUrl.href, {
+  async function fetchBoundArtifact(readinessUrl, path, expectedDigest, acceptedType) {
+    if (!SHA256_RE.test(String(expectedDigest || ''))) return null;
+    const artifactUrl = new URL(path, readinessUrl);
+    const response = await originalFetch(artifactUrl.href, {
       cache: 'no-store',
-      headers: { Accept: 'application/schema+json, application/json' }
+      headers: { Accept: acceptedType }
     });
-    if (!response.ok) return false;
+    if (!response.ok) return null;
     const contentType = String(response.headers.get('content-type') || '').toLowerCase();
-    if (!contentType.includes('json')) return false;
+    if (!contentType.includes('json')) return null;
     const body = await response.arrayBuffer();
-    return await sha256Hex(body) === expectedDigest;
+    if (await sha256Hex(body) !== expectedDigest) return null;
+    return { body, json: JSON.parse(new TextDecoder().decode(body)) };
   }
 
   async function discoveryCompatible(payload, readinessUrl) {
     const advertisedTerminal = new Set(payload.terminal_notification_delivery_states || []);
     const structureMatches = payload.schema_version === READINESS_SCHEMA
       && payload.readiness_schema_path === READINESS_SCHEMA_PATH
-      && payload.runtime_contract_version === RUNTIME_CONTRACT_VERSION
       && payload.participant_notification_supported === true
       && payload.participant_notification_scope === 'ATTEMPT_NOTIFICATION_ONLY'
       && payload.attempt_notification_schema === NOTIFICATION_SCHEMA
@@ -98,32 +93,51 @@
       && payload.submission_status_schema === STATUS_SCHEMA
       && payload.submission_status_schema_path === STATUS_SCHEMA_PATH
       && payload.submission_status_authorization === 'SUBMISSION_ID_PLUS_RECEIPT_ID'
+      && payload.runtime_contract_version === 'HIL-RTG-RUNTIME-v1'
+      && payload.tvc_authority_role === 'service_gateway_intake'
+      && typeof payload.tvc_decision_id === 'string' && payload.tvc_decision_id.length > 0
+      && /^(sha256:)?[a-fA-F0-9]{64}$/.test(String(payload.tvc_policy_hash || ''))
+      && SHA256_RE.test(String(payload.tvc_decision_receipt_sha256 || ''))
+      && payload.tvc_admissible === true
+      && payload.tvc_binding_matched === true
+      && payload.authority_evidence_schema === AUTHORITY_EVIDENCE_SCHEMA
+      && payload.authority_evidence_path === AUTHORITY_EVIDENCE_PATH
+      && SHA256_RE.test(String(payload.authority_evidence_sha256 || ''))
       && Number.isInteger(payload.notification_max_attempts)
-      && payload.notification_max_attempts >= 1
-      && payload.notification_max_attempts <= 20
+      && payload.notification_max_attempts >= 1 && payload.notification_max_attempts <= 20
       && advertisedTerminal.size === TERMINAL_DELIVERY_STATES.size
       && [...TERMINAL_DELIVERY_STATES].every((state) => advertisedTerminal.has(state))
       && payload.completed_recipient_addresses_retained === false
       && payload.expired_recipient_addresses_retained === false
-      && payload.notification_delivery_changes_submission_outcome === false
-      && payload.tvc_authority_role === TVC_AUTHORITY_ROLE
-      && typeof payload.tvc_decision_id === 'string'
-      && payload.tvc_decision_id.length > 0
-      && POLICY_HASH_RE.test(String(payload.tvc_policy_hash || ''))
-      && SHA256_RE.test(String(payload.tvc_decision_receipt_sha256 || ''))
-      && payload.tvc_admissible === true
-      && payload.tvc_binding_matched === true;
+      && payload.notification_delivery_changes_submission_outcome === false;
     if (!structureMatches) return false;
 
-    const bindings = [
+    const schemaBindings = [
       [payload.readiness_schema_path, payload.readiness_schema_sha256],
       [payload.attempt_notification_schema_path, payload.attempt_notification_schema_sha256],
       [payload.submission_status_schema_path, payload.submission_status_schema_sha256]
     ];
-    const results = await Promise.all(
-      bindings.map(([path, digest]) => verifySchemaBinding(readinessUrl, path, digest))
+    const schemas = await Promise.all(schemaBindings.map(([path, digest]) =>
+      fetchBoundArtifact(readinessUrl, path, digest, 'application/schema+json, application/json')));
+    if (!schemas.every(Boolean)) return false;
+
+    const authority = await fetchBoundArtifact(
+      readinessUrl,
+      payload.authority_evidence_path,
+      payload.authority_evidence_sha256,
+      'application/json'
     );
-    return results.every(Boolean);
+    if (!authority) return false;
+    const evidence = authority.json;
+    return evidence.schema_version === AUTHORITY_EVIDENCE_SCHEMA
+      && evidence.runtime_contract_version === payload.runtime_contract_version
+      && evidence.authority_role === payload.tvc_authority_role
+      && evidence.decision_id === payload.tvc_decision_id
+      && evidence.policy_hash === payload.tvc_policy_hash
+      && evidence.admissible === true
+      && evidence.binding_matched === true
+      && evidence.restricted_fields_exposed === false
+      && evidence.denied_key_count === 0;
   }
 
   function incompatibleReadinessResponse(payload) {
@@ -131,10 +145,7 @@
       ...payload,
       state: 'INCOMPATIBLE',
       incompatibility_reason: 'HIL_RTG_DISCOVERY_CONTRACT_MISMATCH'
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
 
   function deliveryStatusNode() {
@@ -150,9 +161,7 @@
     return node;
   }
 
-  function stateLabel(value) {
-    return String(value || 'UNKNOWN').replaceAll('_', ' ').toLowerCase();
-  }
+  function stateLabel(value) { return String(value || 'UNKNOWN').replaceAll('_', ' ').toLowerCase(); }
 
   function renderDeliveryStatus(status) {
     const node = deliveryStatusNode();
@@ -162,29 +171,22 @@
       ? `Your optional copy is ${stateLabel(status.participant_copy_delivery_state)}.`
       : 'No participant email copy was requested.';
     const retry = status.notification_retry_authority_state === 'TERMINATED'
-      ? ' Notification retry authority has ended and terminal recipient addresses are no longer retained.'
-      : '';
+      ? ' Notification retry authority has ended and terminal recipient addresses are no longer retained.' : '';
     node.textContent = `Submission accepted. StegVerse notification is ${stateLabel(status.required_recipient_delivery_state)}. ${participant}${retry} Notification delivery does not change the submission outcome.`;
     node.dataset.state = status.notification_delivery_state === 'DELIVERED' ? 'ok' : 'warn';
   }
 
   async function pollStatus(statusUrl) {
-    const delays = [1500, 4000, 9000, 18000, 35000];
-    for (const delay of delays) {
+    for (const delay of [1500, 4000, 9000, 18000, 35000]) {
       await new Promise((resolve) => setTimeout(resolve, delay));
       try {
-        const response = await originalFetch(statusUrl, {
-          cache: 'no-store',
-          headers: { Accept: 'application/json' }
-        });
+        const response = await originalFetch(statusUrl, { cache: 'no-store', headers: { Accept: 'application/json' } });
         if (!response.ok) continue;
         const status = await response.json();
         if (status.schema_version !== STATUS_SCHEMA) continue;
         renderDeliveryStatus(status);
         if (TERMINAL_DELIVERY_STATES.has(status.notification_delivery_state)) return;
-      } catch (error) {
-        console.debug('HIL delivery-status check failed', error);
-      }
+      } catch (error) { console.debug('HIL delivery-status check failed', error); }
     }
   }
 
@@ -192,9 +194,7 @@
   window.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : input && input.url;
     const isReadiness = Boolean(url && url.includes('/api/hil/readiness'));
-    const isSubmission = Boolean(
-      url && url.includes('/api/hil/submissions') && init.body instanceof FormData
-    );
+    const isSubmission = Boolean(url && url.includes('/api/hil/submissions') && init.body instanceof FormData);
     if (isSubmission) {
       const email = selectedEmail();
       init.body.set('participant_notification_requested', String(Boolean(email)));
@@ -216,22 +216,15 @@
         const receipt = await response.clone().json();
         if (receipt && receipt.submission_id && receipt.receipt_id) {
           const submissionUrl = new URL(url, window.location.href);
-          const statusUrl = new URL(
-            `${submissionUrl.origin}${submissionUrl.pathname}/${encodeURIComponent(receipt.submission_id)}/status`
-          );
+          const statusUrl = new URL(`${submissionUrl.origin}${submissionUrl.pathname}/${encodeURIComponent(receipt.submission_id)}/status`);
           statusUrl.searchParams.set('receipt_id', receipt.receipt_id);
           pollStatus(statusUrl.href);
         }
-      } catch (error) {
-        console.debug('HIL receipt status initialization failed', error);
-      }
+      } catch (error) { console.debug('HIL receipt status initialization failed', error); }
     }
     return response;
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', installField, { once: true });
-  } else {
-    installField();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', installField, { once: true });
+  else installField();
 })();
