@@ -5,6 +5,7 @@
   const OPT_IN_ID = 'submission-notification-opt-in';
   const DELIVERY_STATUS_ID = 'submission-notification-delivery-status';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const SHA256_RE = /^[a-f0-9]{64}$/;
   const TERMINAL_DELIVERY_STATES = new Set(['DELIVERED', 'PARTIAL_EXPIRED', 'DELIVERY_EXPIRED']);
   const READINESS_SCHEMA = 'HIL-READINESS-v1';
   const READINESS_SCHEMA_PATH = '/schemas/hil-readiness-v1.schema.json';
@@ -62,9 +63,28 @@
     return value;
   }
 
-  function discoveryCompatible(payload) {
+  async function sha256Hex(buffer) {
+    const digest = await crypto.subtle.digest('SHA-256', buffer);
+    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function verifySchemaBinding(readinessUrl, path, expectedDigest) {
+    if (!SHA256_RE.test(String(expectedDigest || ''))) return false;
+    const schemaUrl = new URL(path, readinessUrl);
+    const response = await originalFetch(schemaUrl.href, {
+      cache: 'no-store',
+      headers: { Accept: 'application/schema+json, application/json' }
+    });
+    if (!response.ok) return false;
+    const contentType = String(response.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.includes('json')) return false;
+    const body = await response.arrayBuffer();
+    return await sha256Hex(body) === expectedDigest;
+  }
+
+  async function discoveryCompatible(payload, readinessUrl) {
     const advertisedTerminal = new Set(payload.terminal_notification_delivery_states || []);
-    return payload.schema_version === READINESS_SCHEMA
+    const structureMatches = payload.schema_version === READINESS_SCHEMA
       && payload.readiness_schema_path === READINESS_SCHEMA_PATH
       && payload.participant_notification_supported === true
       && payload.participant_notification_scope === 'ATTEMPT_NOTIFICATION_ONLY'
@@ -82,6 +102,17 @@
       && payload.completed_recipient_addresses_retained === false
       && payload.expired_recipient_addresses_retained === false
       && payload.notification_delivery_changes_submission_outcome === false;
+    if (!structureMatches) return false;
+
+    const bindings = [
+      [payload.readiness_schema_path, payload.readiness_schema_sha256],
+      [payload.attempt_notification_schema_path, payload.attempt_notification_schema_sha256],
+      [payload.submission_status_schema_path, payload.submission_status_schema_sha256]
+    ];
+    const results = await Promise.all(
+      bindings.map(([path, digest]) => verifySchemaBinding(readinessUrl, path, digest))
+    );
+    return results.every(Boolean);
   }
 
   function incompatibleReadinessResponse(payload) {
@@ -163,7 +194,7 @@
     if (isReadiness && response.ok) {
       try {
         const payload = await response.clone().json();
-        if (!discoveryCompatible(payload)) return incompatibleReadinessResponse(payload);
+        if (!await discoveryCompatible(payload, url)) return incompatibleReadinessResponse(payload);
       } catch (error) {
         console.debug('HIL discovery contract validation failed', error);
         return incompatibleReadinessResponse({});
