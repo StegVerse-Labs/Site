@@ -1,0 +1,24 @@
+{
+  "action": "submit_pdf_metadata",
+  "authority_attached": false,
+  "claims": {
+    "continuity": false,
+    "custody": false,
+    "master_record_release": false,
+    "production_execution": false,
+    "publication": false,
+    "site_activation": false
+  },
+  "execution_observed": true,
+  "request_hash": "8c2b404c0b2de7cc5cd7097d8218375eff0329ee10fa027bd15a9200a188028c",
+  "required_scope": "hil:submit",
+  "result_hash": "059032a9ce55cafa45c0be19d8b66efb1b0dc664e58140c4226020e4affb1372",
+  "route": "hil_response_packet",
+  "schema_version": "USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT-v1",
+  "source_commit": "668ace00da5e1e3544c6a2a2166ab1435025e39b",
+  "source_evidence_path": "receipts/user-llm-bounded-execution/hil_response_packet-submit_pdf_metadata.json",
+  "source_evidence_sha256": "90938c23e80ff5502169f6f30d33622c14a7ca56d80cdbf177861351f53d454d",
+  "source_repository": "StegVerse-org/LLM-adapter",
+  "status": "RETURNED",
+  "transport_configured": true
+}
