@@ -6,9 +6,12 @@
   const DELIVERY_STATUS_ID = 'submission-notification-delivery-status';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const SHA256_RE = /^[a-f0-9]{64}$/;
+  const POLICY_HASH_RE = /^(sha256:)?[a-fA-F0-9]{64}$/;
   const TERMINAL_DELIVERY_STATES = new Set(['DELIVERED', 'PARTIAL_EXPIRED', 'DELIVERY_EXPIRED']);
   const READINESS_SCHEMA = 'HIL-READINESS-v1';
   const READINESS_SCHEMA_PATH = '/schemas/hil-readiness-v1.schema.json';
+  const RUNTIME_CONTRACT_VERSION = 'HIL-RTG-RUNTIME-v1';
+  const TVC_AUTHORITY_ROLE = 'service_gateway_intake';
   const STATUS_SCHEMA = 'HIL-SUBMISSION-STATUS-v1';
   const STATUS_SCHEMA_PATH = '/schemas/hil-submission-status-v1.schema.json';
   const NOTIFICATION_SCHEMA = 'HIL-ATTEMPT-NOTIFICATION-v1';
@@ -86,6 +89,7 @@
     const advertisedTerminal = new Set(payload.terminal_notification_delivery_states || []);
     const structureMatches = payload.schema_version === READINESS_SCHEMA
       && payload.readiness_schema_path === READINESS_SCHEMA_PATH
+      && payload.runtime_contract_version === RUNTIME_CONTRACT_VERSION
       && payload.participant_notification_supported === true
       && payload.participant_notification_scope === 'ATTEMPT_NOTIFICATION_ONLY'
       && payload.attempt_notification_schema === NOTIFICATION_SCHEMA
@@ -101,7 +105,14 @@
       && [...TERMINAL_DELIVERY_STATES].every((state) => advertisedTerminal.has(state))
       && payload.completed_recipient_addresses_retained === false
       && payload.expired_recipient_addresses_retained === false
-      && payload.notification_delivery_changes_submission_outcome === false;
+      && payload.notification_delivery_changes_submission_outcome === false
+      && payload.tvc_authority_role === TVC_AUTHORITY_ROLE
+      && typeof payload.tvc_decision_id === 'string'
+      && payload.tvc_decision_id.length > 0
+      && POLICY_HASH_RE.test(String(payload.tvc_policy_hash || ''))
+      && SHA256_RE.test(String(payload.tvc_decision_receipt_sha256 || ''))
+      && payload.tvc_admissible === true
+      && payload.tvc_binding_matched === true;
     if (!structureMatches) return false;
 
     const bindings = [
