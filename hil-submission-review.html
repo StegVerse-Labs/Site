@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Review an accepted Humans as the Interoperability Layer submission and its verified receipt.">
+  <title>Accepted HIL Submission Review — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .review-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .review-card{border:1px solid var(--border);border-radius:10px;padding:16px}
+    .notice{border:1px solid var(--border2);border-radius:10px;padding:18px;margin:16px 0}
+    .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
+    .pdf-frame{width:100%;min-height:70vh;border:1px solid var(--border2);border-radius:8px;background:#fff}
+    .state{font-weight:800}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-submission-review.html">Submission Review</a></nav>
+<main class="sv-wrap">
+  <header class="sv-hero">
+    <div class="sv-eyebrow">Accepted submission · participant review</div>
+    <h1>Review your accepted <em>response and receipt</em></h1>
+    <p>This page shows the exact locally preserved response PDF and the verified receiver receipt associated with the accepted submission.</p>
+  </header>
+
+  <section id="review-state" class="notice" aria-live="polite">Loading accepted submission…</section>
+  <section id="privacy-notice" class="notice" hidden></section>
+
+  <section class="review-grid">
+    <div class="review-card"><strong>Submission accepted</strong><div id="accepted-state" class="state">Checking…</div></div>
+    <div class="review-card"><strong>Publicly visible now</strong><div id="public-state" class="state">NO</div></div>
+    <div class="review-card"><strong>Publication preference</strong><div id="publication-preference" class="state">Checking…</div></div>
+    <div class="review-card"><strong>Final publication disposition</strong><div id="publication-disposition" class="state">PENDING REVIEW</div></div>
+  </section>
+
+  <h2 class="sv-h2">Accepted response</h2>
+  <iframe id="response-pdf" class="pdf-frame" title="Accepted response PDF"></iframe>
+
+  <h2 class="sv-h2">Verified receiver receipt</h2>
+  <pre id="receipt-body" class="receipt">Loading receipt…</pre>
+
+  <div class="sv-btn-row">
+    <button id="download-review-receipt" class="sv-btn sv-btn-primary" disabled>Download Receipt</button>
+    <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html">Return to Study</a>
+  </div>
+</main>
+<script>
+(() => {
+  'use strict';
+  const DB_NAME='stegverse-hil-review-v1';
+  const STORE='accepted-submissions';
+  const RECEIPT_PREFIX='stegverse.hil.receipt.';
+  const params=new URLSearchParams(location.search);
+  const responseHash=params.get('response_sha256');
+  const expectedSubmissionId=params.get('submission_id');
+  const byId=(id)=>document.getElementById(id);
+  let receipt=null;
+
+  function openDb(){return new Promise((resolve,reject)=>{const request=indexedDB.open(DB_NAME,1);request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains(STORE))db.createObjectStore(STORE,{keyPath:'response_sha256'});};request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
+  async function loadRecord(){const db=await openDb();const value=await new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readonly');const req=tx.objectStore(STORE).get(responseHash);req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);});db.close();return value;}
+  function loadReceipt(){try{const raw=localStorage.getItem(`${RECEIPT_PREFIX}${responseHash}`);return raw?JSON.parse(raw):null;}catch{return null;}}
+  function saveBlob(blob,filename){const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+  function privacyCopy(record){
+    const preference=record.publication_consent||'not_provided';
+    if(preference==='private') return '<strong>Private submission:</strong> This response will not be displayed publicly. Its receipt, chain-proof record, review history, and final disposition remain governed records.';
+    if(preference==='anonymous') return '<strong>Anonymous publication:</strong> This response may be displayed publicly after review, but the participant identity will not be shown. The public record will use an anonymous participant identifier.';
+    if(preference==='public') return `<strong>Attributed publication:</strong> This response may be displayed publicly after review with the participant name or identifier shown${record.participant_identifier?`: ${record.participant_identifier}`:'.'}`;
+    return '<strong>Publication preference not provided:</strong> Acceptance does not authorize publication or attribution. The submission remains pending review.';
+  }
+
+  async function init(){
+    if(!responseHash){byId('review-state').textContent='No accepted response identifier was provided.';return;}
+    const record=await loadRecord().catch(()=>null);
+    receipt=loadReceipt();
+    if(!record||!receipt||receipt.submitted_file_sha256!==responseHash||!receipt.submission_id||receipt.submission_id!==expectedSubmissionId){
+      byId('review-state').dataset.state='error';
+      byId('review-state').textContent='The accepted response or its receipt is unavailable in this browser. Return to the study page and select the same PDF to recover a saved receipt.';
+      byId('accepted-state').textContent='UNVERIFIED';
+      return;
+    }
+    const preference=(record.publication_consent||'not_provided').toUpperCase();
+    byId('accepted-state').textContent='YES';
+    byId('publication-preference').textContent=preference;
+    byId('review-state').dataset.state='ok';
+    byId('review-state').textContent=`${receipt.submission_id} was accepted and the receiver receipt is available for review.`;
+    const privacy=byId('privacy-notice');privacy.hidden=false;privacy.innerHTML=privacyCopy(record);
+    const url=URL.createObjectURL(record.pdf_blob);byId('response-pdf').src=url;
+    byId('receipt-body').textContent=JSON.stringify(receipt,null,2);
+    const button=byId('download-review-receipt');button.disabled=false;button.addEventListener('click',()=>saveBlob(new Blob([`${JSON.stringify(receipt,null,2)}\n`],{type:'application/json'}),`${receipt.receipt_id||receipt.submission_id}.json`));
+  }
+  init();
+})();
+</script>
+</body>
+</html>
