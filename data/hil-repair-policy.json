@@ -1,0 +1,52 @@
+{
+  "schema_version": "HIL-REPAIR-POLICY-v1",
+  "policy_id": "stegverse.hil.repair-and-continuation.v1",
+  "default_authority": "OBSERVE_ONLY",
+  "classes": {
+    "NO_ACTION": {
+      "authority": "OBSERVE_ONLY",
+      "action": "NONE",
+      "post_action_probe_required": false
+    },
+    "DNS_REPAIR_PLAN": {
+      "authority": "PLAN_ONLY",
+      "action": "GENERATE_DNS_REPAIR_PLAN",
+      "post_action_probe_required": true
+    },
+    "VERIFY_ROUTE": {
+      "authority": "PLAN_ONLY",
+      "action": "GENERATE_ROUTE_VERIFICATION_PLAN",
+      "post_action_probe_required": true
+    },
+    "REDEPLOY_WORKER": {
+      "authority": "HUMAN_APPROVAL_REQUIRED",
+      "action": "REQUEST_BOUNDED_REDEPLOYMENT",
+      "post_action_probe_required": true
+    },
+    "RECHECK_D1": {
+      "authority": "PREAUTHORIZED_BOUNDED_REPAIR",
+      "action": "RUN_NONMUTATING_D1_RECHECK",
+      "post_action_probe_required": true
+    },
+    "ACTIVATE_DIAGNOSTIC_MODE": {
+      "authority": "FALLBACK_AUTHORIZED",
+      "action": "PRESERVE_NONCUSTODIAL_VALIDATION_PATH",
+      "post_action_probe_required": true
+    },
+    "ACTIVATE_GITHUB_CUSTODY": {
+      "authority": "HUMAN_APPROVAL_REQUIRED",
+      "action": "REQUEST_GITHUB_CUSTODY_FALLBACK",
+      "post_action_probe_required": true
+    },
+    "ESCALATE_BINDING_CONFIGURATION": {
+      "authority": "HUMAN_APPROVAL_REQUIRED",
+      "action": "GENERATE_BINDING_CONFIGURATION_HANDOFF",
+      "post_action_probe_required": true
+    },
+    "UNCLASSIFIED": {
+      "authority": "OBSERVE_ONLY",
+      "action": "PRESERVE_EVIDENCE_AND_ESCALATE",
+      "post_action_probe_required": false
+    }
+  }
+}
