@@ -1,0 +1,43 @@
+{
+  "schema_version": "HIL-ANNOUNCEMENT-STATUS-v1",
+  "study": "Humans as the Interoperability Layer",
+  "announcement_state": "ANNOUNCEMENT_READY_WITH_MANAGED_RETURN",
+  "participant_intake_state": "OPEN_MANAGED_RETURN",
+  "canonical_primary": {
+    "version": "v1.1",
+    "filename": "HIL_Canonical_Paper_v1_1.pdf",
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
+  },
+  "available_now": [
+    "canonical paper download",
+    "exact prompt",
+    "local PDF signature validation",
+    "SHA-256 response binding",
+    "participant metadata capture",
+    "publication-consent capture",
+    "downloadable return package",
+    "downloadable local preparation receipt"
+  ],
+  "temporary_return_mode": {
+    "mode": "PARTICIPANT_MANAGED_DIRECT_RETURN",
+    "instructions": "Preserve the response PDF unchanged and return it together with the generated package JSON through the direct channel identified in the experiment announcement.",
+    "server_custody_established": false,
+    "registry_commit_established": false,
+    "publication_established": false
+  },
+  "pending_capabilities": [
+    "persistent governed HTTPS receiver",
+    "automatic durable custody",
+    "automatic registry commit",
+    "automatic reconstruction",
+    "automatic publication disposition"
+  ],
+  "claims_withheld": [
+    "SERVER_SUBMISSION_COMPLETE",
+    "DURABLE_CUSTODY_COMPLETE",
+    "REGISTRY_COMMIT_COMPLETE",
+    "PUBLICATION_COMPLETE"
+  ],
+  "announcement_permitted": true,
+  "participant_warning_required": true
+}
