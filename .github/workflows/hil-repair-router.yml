@@ -1,0 +1,197 @@
+name: HIL Repair and Continuation Router
+
+on:
+  workflow_run:
+    workflows: ["HIL Live Transition Probe"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Optional HIL Live Transition Probe run ID
+        required: false
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      repair_class: ${{ steps.classify.outputs.repair_class }}
+      authority: ${{ steps.classify.outputs.authority }}
+      action: ${{ steps.classify.outputs.action }}
+    steps:
+      - name: Check out policy
+        uses: actions/checkout@v4
+
+      - name: Resolve source run
+        id: source
+        shell: bash
+        env:
+          EVENT_RUN_ID: ${{ github.event.workflow_run.id }}
+          INPUT_RUN_ID: ${{ inputs.source_run_id }}
+        run: |
+          run_id="${INPUT_RUN_ID:-${EVENT_RUN_ID:-}}"
+          if [ -z "$run_id" ]; then
+            echo "A source probe run ID is required." >&2
+            exit 1
+          fi
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+
+      - name: Download probe evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: hil-live-probe-${{ steps.source.outputs.run_id }}
+          path: probe-input
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run_id }}
+
+      - name: Classify repair and continuation path
+        id: classify
+        shell: bash
+        run: |
+          mkdir -p router-evidence repair-evidence fallback-evidence
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          evidence_path = Path('probe-input/live-probe.json')
+          policy_path = Path('data/hil-repair-policy.json')
+          evidence = json.loads(evidence_path.read_text(encoding='utf-8'))
+          policy = json.loads(policy_path.read_text(encoding='utf-8'))
+
+          summary = evidence.get('summary', {})
+          dns_state = summary.get('dns_state')
+          routing_state = summary.get('routing_state')
+          readiness_state = summary.get('readiness_state')
+          probes = evidence.get('endpoints', {}).get('probes', {})
+          probe_json = probes.get('json') if isinstance(probes.get('json'), dict) else {}
+
+          d1_state = (
+              probe_json.get('probes', {}).get('registry', {}).get('state')
+              if isinstance(probe_json.get('probes'), dict)
+              else None
+          )
+          r2_state = (
+              probe_json.get('probes', {}).get('custody', {}).get('state')
+              if isinstance(probe_json.get('probes'), dict)
+              else None
+          )
+
+          reasons = []
+          if dns_state != 'RESOLVED':
+              repair_class = 'DNS_REPAIR_PLAN'
+              reasons.append('receiver DNS did not resolve')
+          elif routing_state != 'PASS':
+              if probes.get('http_status') == 404:
+                  repair_class = 'VERIFY_ROUTE'
+                  reasons.append('probe route returned 404')
+              else:
+                  repair_class = 'REDEPLOY_WORKER'
+                  reasons.append('probe endpoint did not return HTTP 200')
+          elif d1_state in {'ABSENT', 'UNAVAILABLE', 'ERROR', 'BLOCKED'}:
+              repair_class = 'RECHECK_D1'
+              reasons.append(f'D1 registry state is {d1_state}')
+          elif r2_state in {'ABSENT', 'UNAVAILABLE', 'ERROR', 'BLOCKED'}:
+              repair_class = 'ACTIVATE_DIAGNOSTIC_MODE'
+              reasons.append(f'R2 custody state is {r2_state}')
+          elif readiness_state == 'READY':
+              repair_class = 'NO_ACTION'
+              reasons.append('receiver reports READY')
+          elif readiness_state == 'DEGRADED':
+              repair_class = 'ACTIVATE_DIAGNOSTIC_MODE'
+              reasons.append('receiver reports DEGRADED with routing intact')
+          else:
+              repair_class = 'UNCLASSIFIED'
+              reasons.append('observed state did not match a governed rule')
+
+          rule = policy['classes'][repair_class]
+          classification = {
+              'schema_version': 'HIL-REPAIR-CLASSIFICATION-v1',
+              'classified_at': datetime.now(timezone.utc).isoformat(),
+              'source_probe': {
+                  'observed_at': evidence.get('observed_at'),
+                  'receiver_base_url': evidence.get('receiver_base_url'),
+                  'summary': summary,
+                  'd1_state': d1_state,
+                  'r2_state': r2_state,
+              },
+              'repair_class': repair_class,
+              'authority': rule['authority'],
+              'action': rule['action'],
+              'post_action_probe_required': rule['post_action_probe_required'],
+              'reasons': reasons,
+              'execution_performed': False,
+          }
+
+          continuation = {
+              'schema_version': 'HIL-CONTINUATION-PLAN-v1',
+              'repair_class': repair_class,
+              'authority': rule['authority'],
+              'permitted_next_step': rule['action'],
+              'automatic_mutation_allowed': rule['authority'] in {
+                  'PREAUTHORIZED_BOUNDED_REPAIR',
+                  'FALLBACK_AUTHORIZED',
+              },
+              'requires_human_approval': rule['authority'] == 'HUMAN_APPROVAL_REQUIRED',
+              'post_action_probe_required': rule['post_action_probe_required'],
+              'rollback_required': repair_class not in {'NO_ACTION', 'UNCLASSIFIED'},
+          }
+
+          Path('router-evidence/repair-classification.json').write_text(
+              json.dumps(classification, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+          )
+          Path('router-evidence/continuation-plan.json').write_text(
+              json.dumps(continuation, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+          )
+
+          if rule['authority'] == 'HUMAN_APPROVAL_REQUIRED':
+              Path('repair-evidence/repair-request.json').write_text(
+                  json.dumps(classification, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+              )
+          elif repair_class == 'ACTIVATE_DIAGNOSTIC_MODE':
+              receipt = {
+                  'schema_version': 'HIL-FALLBACK-RECEIPT-v1',
+                  'fallback': 'NONCUSTODIAL_DIAGNOSTIC_VALIDATION',
+                  'state': 'AUTHORIZED_AVAILABLE_NOT_EXECUTED',
+                  'source_classification': repair_class,
+                  'authority': rule['authority'],
+                  'claims_withheld': ['DURABLE_CUSTODY', 'REGISTRY_COMMIT', 'PUBLICATION'],
+              }
+              Path('fallback-evidence/fallback-receipt.json').write_text(
+                  json.dumps(receipt, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+              )
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              out.write(f"repair_class={repair_class}\n")
+              out.write(f"authority={rule['authority']}\n")
+              out.write(f"action={rule['action']}\n")
+          PY
+
+      - name: Publish router summary
+        shell: bash
+        run: |
+          {
+            echo '# HIL Repair and Continuation Router'
+            echo
+            echo "- Repair class: \`${{ steps.classify.outputs.repair_class }}\`"
+            echo "- Authority: \`${{ steps.classify.outputs.authority }}\`"
+            echo "- Permitted action: \`${{ steps.classify.outputs.action }}\`"
+            echo '- Mutation performed: `false`'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload router evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-repair-router-${{ github.run_id }}
+          path: |
+            router-evidence/
+            repair-evidence/
+            fallback-evidence/
+          if-no-files-found: error
+          retention-days: 30
