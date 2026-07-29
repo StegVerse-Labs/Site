@@ -12,6 +12,7 @@
   });
 
   const RECEIVER_CONFIG_PATH = 'data/hil-receiver-config.json';
+  const GATEWAY_CANDIDATES = Object.freeze([RECEIVER_CONFIG_PATH]);
   const READY_MESSAGE = 'Response-packet intake is ready. Choose the unchanged PDF and tap Upload Response Packet.';
   const NOT_READY_MESSAGE = 'The governed receiver is not currently ready. Your packet has not been uploaded. Please try again later.';
   const RECEIPT_PREFIX = 'stegverse.hil.receipt.';
@@ -88,7 +89,7 @@
   }
 
   async function loadReceiverConfig() {
-    const response = await fetchWithTimeout(RECEIVER_CONFIG_PATH, { cache: 'no-store' }, 10000);
+    const response = await fetchWithTimeout(GATEWAY_CANDIDATES[0], { cache: 'no-store' }, 10000);
     if (!response.ok) throw new Error('receiver_config_unavailable');
     const config = await response.json();
     const baseUrl = normalizeBaseUrl(config.receiver_base_url);
@@ -317,117 +318,62 @@
       if (priorReceipt && await validateReceipt(priorReceipt, responseHash)) {
         currentReceipt = priorReceipt;
         receiptButton.disabled = false;
-        setStatus('ok', `${priorReceipt.submission_id} was already received. The saved receiver receipt is available below.`);
+        setStatus('ok', `${priorReceipt.submission_id} was already accepted. Opening the verified review…`);
+        window.location.assign(`hil-accepted.html?submission_id=${encodeURIComponent(priorReceipt.submission_id)}`);
         return;
       }
 
-      if (!receiver && !(await checkGatewayReadiness({ quiet: true }))) throw new Error(NOT_READY_MESSAGE);
-      setStatus('warn', 'Uploading the response packet. Keep this page open until a receiver receipt appears…');
+      if (!receiver && !(await checkGatewayReadiness())) throw new Error(NOT_READY_MESSAGE);
+      setStatus('warn', 'Uploading the response packet to the governed receiver…');
       const receipt = await submitArtifacts(file, currentManifest);
-      if (!(await validateReceipt(receipt, responseHash))) {
-        console.warn('HIL receiver returned an invalid receipt', receipt);
-        throw new Error('The receiver response could not be verified. Do not assume the packet was recorded.');
-      }
-
+      if (!(await validateReceipt(receipt, responseHash))) throw new Error('The receiver returned an invalid receipt. The submission cannot be represented as accepted.');
       currentReceipt = receipt;
       preserveReceipt(receipt);
       receiptButton.disabled = false;
-      setStatus('ok', `${receipt.submission_id} received and receipt verified. Review and publication remain pending.`);
+      setStatus('ok', `${receipt.submission_id} accepted. Opening the exact response and verified receipt…`);
+      window.location.assign(`hil-accepted.html?submission_id=${encodeURIComponent(receipt.submission_id)}`);
     } catch (error) {
-      setStatus('error', error && error.message ? error.message : 'The response packet could not be uploaded.');
+      console.error(error);
+      setStatus('error', error.message || 'The response packet was not accepted.');
     } finally {
       setUploadState(Boolean(receiver));
     }
   }
 
-  async function prepareProvenanceLocally() {
-    currentManifest = null;
-    provenanceButton.disabled = true;
-    prepareButton.disabled = true;
+  async function prepareProvenance() {
     try {
-      setStatus('warn', 'Validating the selected PDF and preparing optional provenance locally…');
       const { responseHash } = await readSelectedPdf();
       currentManifest = buildManifest(responseHash);
       provenanceButton.disabled = false;
-      setStatus('ok', `Optional provenance prepared locally. Response SHA-256: ${responseHash}. No upload occurred.`);
+      setStatus('ok', `Local provenance prepared. Response SHA-256: ${responseHash}`);
     } catch (error) {
-      setStatus('error', error.message || 'Optional provenance could not be prepared.');
-    } finally {
-      prepareButton.disabled = false;
+      setStatus('error', error.message || 'Unable to prepare provenance.');
     }
   }
 
   function downloadProvenance() {
     if (!currentManifest) return;
-    saveBlob(new Blob([`${JSON.stringify(currentManifest, null, 2)}\n`], { type: 'application/json' }), `HIL-${currentManifest.response_sha256.slice(0, 12)}.provenance.json`);
+    saveBlob(new Blob([`${JSON.stringify(currentManifest, null, 2)}\n`], { type: 'application/json' }), 'HIL_Response_Provenance_v1_1.json');
   }
 
   function downloadReceipt() {
     if (!currentReceipt) return;
-    saveBlob(new Blob([`${JSON.stringify(currentReceipt, null, 2)}\n`], { type: 'application/json' }), `${currentReceipt.receipt_id || currentReceipt.submission_id}.json`);
-  }
-
-  async function handleFileSelection() {
-    currentManifest = null;
-    currentReceipt = null;
-    provenanceButton.disabled = true;
-    receiptButton.disabled = true;
-    if (!fileInput.files[0]) return;
-    try {
-      const { responseHash } = await readSelectedPdf();
-      const priorReceipt = restoreReceipt(responseHash);
-      if (priorReceipt && await validateReceipt(priorReceipt, responseHash)) {
-        currentReceipt = priorReceipt;
-        receiptButton.disabled = false;
-        setStatus('ok', `${priorReceipt.submission_id} was already received. You may download the saved receipt.`);
-        return;
-      }
-      if (receiver) setStatus('ok', READY_MESSAGE);
-      else setStatus('warn', NOT_READY_MESSAGE);
-    } catch (error) {
-      setStatus('error', error.message);
-    }
-  }
-
-  async function loadResponseIndex() {
-    const target = byId('response-index');
-    try {
-      const response = await fetch('data/hil-responses.json', { cache: 'no-store' });
-      if (!response.ok) throw new Error('response index unavailable');
-      const index = await response.json();
-      if (!Array.isArray(index.responses)) throw new Error('response index invalid');
-      target.replaceChildren();
-      if (index.responses.length === 0) {
-        target.textContent = 'No standardized public responses have been published. HIL-TRACE-0001 remains the approved initiating pre-protocol observation.';
-        return;
-      }
-      index.responses.forEach((record) => {
-        const article = document.createElement('article');
-        article.className = 'sv-card';
-        const heading = document.createElement('h3');
-        heading.className = 'sv-h3';
-        heading.textContent = record.response_id || 'unknown response';
-        const summary = document.createElement('p');
-        summary.textContent = `${record.model || 'Unknown model'} · ${record.provider || 'Unknown provider'} · ${record.chain_validation_state || record.publication_state || 'unknown state'}`;
-        article.append(heading, summary);
-        target.appendChild(article);
-      });
-    } catch {
-      target.dataset.state = 'warn';
-      target.textContent = 'The public response index is temporarily unavailable.';
-    }
+    saveBlob(new Blob([`${JSON.stringify(currentReceipt, null, 2)}\n`], { type: 'application/json' }), `${currentReceipt.submission_id}.receiver-receipt.json`);
   }
 
   byId('download-primary').addEventListener('click', downloadPrimary);
   byId('copy-prompt').addEventListener('click', copyPrompt);
-  fileInput.addEventListener('change', handleFileSelection);
   uploadButton.addEventListener('click', uploadResponsePacket);
-  prepareButton.addEventListener('click', prepareProvenanceLocally);
+  prepareButton.addEventListener('click', prepareProvenance);
   provenanceButton.addEventListener('click', downloadProvenance);
   receiptButton.addEventListener('click', downloadReceipt);
+  fileInput.addEventListener('change', () => {
+    currentManifest = null;
+    currentReceipt = null;
+    provenanceButton.disabled = true;
+    receiptButton.disabled = true;
+  });
 
   setUploadState(false, 'Checking intake…');
   checkGatewayReadiness();
-  setInterval(() => checkGatewayReadiness({ quiet: true }), 60000);
-  loadResponseIndex();
 })();
