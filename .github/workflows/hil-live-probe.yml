@@ -121,6 +121,7 @@ jobs:
         run: |
           python - <<'PY'
           import json
+          import os
           with open('probe-evidence/live-probe.json', encoding='utf-8') as handle:
               evidence = json.load(handle)
           summary = evidence['summary']
