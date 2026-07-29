@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-29T21:35:53Z",
+  "generated_at": "2026-07-29T22:43:30Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-29T21:13:00Z",
+      "pushed_at": "2026-07-29T22:14:22Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1541,7 +1541,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-29T21:04:09Z",
+      "pushed_at": "2026-07-29T22:02:47Z",
       "repository": "StegVerse-Labs/Patents",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1704,7 +1704,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-29T21:01:34Z",
+      "pushed_at": "2026-07-29T22:25:39Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2197,7 +2197,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-29T21:28:45Z",
+      "pushed_at": "2026-07-29T22:31:11Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2489,7 +2489,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-29T21:14:30Z",
+      "pushed_at": "2026-07-29T22:16:27Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2762,7 +2762,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-29T20:52:18Z",
+      "pushed_at": "2026-07-29T21:48:31Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
