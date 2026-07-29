@@ -7,15 +7,5 @@
     "directory": ".",
     "binding": "ASSETS",
     "run_worker_first": ["/api/hil/*"]
-  },
-  "r2_buckets": [
-    {
-      "binding": "HIL_SUBMISSIONS"
-    }
-  ],
-  "d1_databases": [
-    {
-      "binding": "HIL_REGISTRY"
-    }
-  ]
+  }
 }
