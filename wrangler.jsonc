@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "site",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-07-29",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/hil/*"]
+  },
+  "r2_buckets": [
+    {
+      "binding": "HIL_SUBMISSIONS"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "HIL_REGISTRY"
+    }
+  ]
+}
