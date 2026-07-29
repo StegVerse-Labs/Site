@@ -1,0 +1,31 @@
+{
+  "schema_version": "HIL-OPERATIONAL-MODEL-v1",
+  "capabilities": {
+    "deployment": {"required_for": ["routing", "validation", "custody", "registry"]},
+    "routing": {"required_for": ["validation", "submission", "status"]},
+    "validation": {"required_for": ["diagnostic_receipt", "durable_submission"]},
+    "registry": {"required_for": ["durable_submission", "status", "reconstruction"]},
+    "custody": {"required_for": ["durable_submission", "reconstruction"]},
+    "diagnostic_receipt": {"required_for": []},
+    "durable_submission": {"required_for": ["publication_review"]},
+    "reconstruction": {"required_for": ["publication_review"]},
+    "publication_review": {"required_for": []}
+  },
+  "state_values": ["PASS", "DEGRADED", "BLOCKED", "UNCONFIRMED", "NOT_APPLICABLE"],
+  "fallbacks": {
+    "NONCUSTODIAL_DIAGNOSTIC_VALIDATION": {
+      "provides": ["routing", "validation", "diagnostic_receipt"],
+      "withholds": ["custody", "registry", "durable_submission", "reconstruction", "publication_review"]
+    },
+    "GITHUB_CUSTODY": {
+      "provides": ["custody"],
+      "withholds": ["registry", "durable_submission", "publication_review"],
+      "authority": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  "simulation": {
+    "required_before_execution": true,
+    "required_after_execution": true,
+    "comparison_fields": ["capability_matrix", "repair_class", "authority", "claims_withheld"]
+  }
+}
