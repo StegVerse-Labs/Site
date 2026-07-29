@@ -46,7 +46,7 @@ current work task sequence 0001
 state: RUNNING
 priority: FIRST_SEAMLESS_HIL_USER_EXPERIENCE
 heartbeat model: transition-driven and health-relative
-parallel work admitted: HIL upload surface; heartbeat/orchestration integration
+parallel work admitted: HIL upload surface; heartbeat/orchestration integration; Cloudflare deployment verification
 exclusive barrier: no non-parallel HIL activation task begins until all active parallel tasks close
 ```
 
@@ -96,6 +96,7 @@ HIL upload surface: owned by separate active session; parallel-safe with heartbe
 Heartbeat/orchestration contract: PR #98, branch goal/hil-heartbeat-orchestration
 Canonical upstream browser binding: PR #95
 StegVerse-owned endpoint publication and activation path: Site issue #24
+Cloudflare Workers deployment verification: current session; parallel-safe, evidence-only, no activation authority
 Superseded broad activation tracker: Site issue #16 closed in favor of issue #24 and this handoff
 ```
 
@@ -171,6 +172,7 @@ StegMusic JSON session export
 Health-relative heartbeat orchestration contract
 Repository and ecosystem heartbeat state
 Parallel-safe / exclusive / dependency-blocked workload classification
+Cloudflare Workers GitHub deployment path established for the Site repository
 ```
 
 ## Verification status
@@ -194,8 +196,38 @@ Browser execution test: NOT YET OBSERVED IN CI
 Accessibility interaction test: NOT YET OBSERVED IN CI
 Cryptographic canonical hash: NOT YET IMPLEMENTED; browser fixtures use preview-only markers
 Gateway-origin canonical events: NOT YET IMPLEMENTED
+Cloudflare repository clone: OBSERVED SUCCESS
+Cloudflare Wrangler deployment: OBSERVED SUCCESS
+Cloudflare workers.dev trigger: OBSERVED at https://site.rigelrandolph.workers.dev
+Cloudflare deployment version: cb589190-bb71-46fb-84ea-bf767902ba89
+Cloudflare live route content and HIL behavior: NOT YET VERIFIED
+Cloudflare deployment is hosting evidence only; authority effect: NONE
 Authority effect: NONE
 ```
+
+## Cloudflare deployment observation — 2026-07-29
+
+```text
+Provider: Cloudflare Workers & Pages
+Source repository: StegVerse-Labs/Site
+Deployment command: npx wrangler deploy
+Root directory: /
+Observed result: SUCCESS
+Observed workers.dev route: https://site.rigelrandolph.workers.dev
+Observed version ID: cb589190-bb71-46fb-84ea-bf767902ba89
+workers_dev: enabled by default
+preview_urls: enabled by default
+Live browser verification: PENDING
+HIL upload verification: PENDING
+Custom domain binding: NOT OBSERVED
+R2/D1/KV/Queue/Durable Object bindings: NOT OBSERVED
+MCP endpoint: NOT OBSERVED
+Activation authority: false
+Publication authority: false
+Custody authority: false
+```
+
+The Cloudflare deployment establishes that the repository can be cloned and deployed through Wrangler. It does not establish that the expected Site content is served, that the HIL page is reachable, that uploads complete, that evidence is durably stored, that an MCP endpoint exists, or that any activation gate has passed.
 
 ## Current verified evidence posture
 
@@ -210,6 +242,8 @@ Governed gateway request with deterministic provider fallback: VERIFIED
 Local transition persistence: VERIFIED
 Authenticated transition custody: VERIFIED
 Transition reconstruction: VERIFIED
+Cloudflare Workers repository deployment: VERIFIED AS DEPLOYMENT EVENT ONLY
+Cloudflare live content and route behavior: NOT VERIFIED
 Real governed provider response: NOT VERIFIED
 Provider-usage persistence from real provider use: NOT VERIFIED
 Provider-usage custody: NOT VERIFIED
@@ -227,6 +261,14 @@ Public-domain verified source: NOT IMPLEMENTED
 Destination `StegVerse-Labs/Site`:
 
 ```text
+Open and verify the Cloudflare workers.dev route
+Identify the exact deployed landing page and HIL route
+Verify static assets, navigation, and expected Site content
+Capture the first exact HIL upload request/response failure through Cloudflare Observability
+Determine whether Site should remain a Worker deployment or use a distinct static/full-stack deployment contract
+Explicitly configure workers_dev and preview_urls posture
+Define custom-domain route only after live content verification
+Keep Cloudflare as a replaceable execution-substrate adapter rather than the StegVerse authority layer
 Observe and preserve passing heartbeat orchestration and canonical Site validation
 Complete HIL upload surface without conflicting with PR #98 paths
 Add browser behavior tests for all three modes and bidirectional selection
@@ -310,23 +352,25 @@ Invalid, conflicting, stale, simulated, or authority-escalating evidence is reje
 ## Machine-owned continuation
 
 ```text
-1. Keep PR #98 limited to heartbeat/orchestration files and parallel-safe with the upload session.
-2. Close or supersede duplicate workload owners before admitting new work.
-3. StegVerse-org/LLM-adapter issue #18 owns the remaining live-provider and persistent-endpoint path.
-4. Reuse the canonical StegDeploy runtime and governed provider broker.
-5. Supply authorized provider configuration only through an authorized runtime environment.
-6. Produce the secret-free provider readiness status.
-7. When readiness is READY, execute one governed request through the verified gateway and custody path.
-8. Retain the first exact provider, persistence, custody, reconstruction, or activation-receipt failure.
-9. Site imports and validates the first zero-blocker immutable VERIFIED receipt automatically.
-10. Site recomputes activation and propagation state.
-11. Publisher and both wiki consumers ingest the Site projection automatically.
-12. Release readiness remains fail-closed until downstream verified evidence exists.
-13. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
-14. Add one verified lawful non-generated source before invited external testing.
+1. Verify the Cloudflare workers.dev route and identify the correct HIL URL.
+2. Record live content, route, and upload observations without treating deployment as activation.
+3. Keep PR #98 limited to heartbeat/orchestration files and parallel-safe with the upload session.
+4. Close or supersede duplicate workload owners before admitting new work.
+5. StegVerse-org/LLM-adapter issue #18 owns the remaining live-provider and persistent-endpoint path.
+6. Reuse the canonical StegDeploy runtime and governed provider broker.
+7. Supply authorized provider configuration only through an authorized runtime environment.
+8. Produce the secret-free provider readiness status.
+9. When readiness is READY, execute one governed request through the verified gateway and custody path.
+10. Retain the first exact provider, persistence, custody, reconstruction, or activation-receipt failure.
+11. Site imports and validates the first zero-blocker immutable VERIFIED receipt automatically.
+12. Site recomputes activation and propagation state.
+13. Publisher and both wiki consumers ingest the Site projection automatically.
+14. Release readiness remains fail-closed until downstream verified evidence exists.
+15. In parallel, deploy and browser-test the generated-audio StegMusic service slice.
+16. Add one verified lawful non-generated source before invited external testing.
 ```
 
-No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, or manual publication task is assigned to the user.
+No browser credential, copy/paste, workflow dispatch, artifact download, image build, node installation, node start, screenshot confirmation, receipt construction, blocker transcription, or manual publication task is assigned to the user. Opening the newly deployed route for live verification is the current explicit user-performed observation already in progress and does not grant activation authority.
 
 ## Authority boundary
 
@@ -346,6 +390,9 @@ submission != custody
 pending status != activation
 CI execution != runtime heartbeat
 container publication != live deployment
+Cloudflare deployment success != live content verification
+workers.dev route != custom production domain
+hosting provider availability != StegVerse authority
 portable-node supervision != heartbeat authority
 imported verified receipt != deployment authority
 propagation packet != publication authority
@@ -358,17 +405,19 @@ music rights label != license grant
 ## Current blocker and next executable step
 
 ```text
-Blocker: no repository evidence establishes an authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy in a persistent authorized runtime environment
-Owner: StegVerse-org/LLM-adapter issue #18
-Next Site step: finish parallel HIL upload and heartbeat/orchestration integration, then add runtime gateway canonical-event envelope consumption and browser correlation tests
+Immediate observation blocker: the deployed workers.dev route has not yet been opened and mapped to the expected Site/HIL path
+Primary activation blocker: no repository evidence establishes an authorized real-provider HTTPS endpoint, explicit hostname allowlist, credential, model, and bounded cost policy in a persistent authorized runtime environment
+Owner of Cloudflare live verification: current Site deployment session
+Owner of activation blocker: StegVerse-org/LLM-adapter issue #18
+Next Site step: verify the deployed route, identify the HIL URL, record the first exact upload behavior, finish parallel HIL upload and heartbeat/orchestration integration, then add runtime gateway canonical-event envelope consumption and browser correlation tests
 Next adapter step: produce the secret-free provider readiness status; when READY, execute one real governed provider request through the verified transition custody and reconstruction path
 Manual user action required for routine repository work: false
 ```
 
 ## Release posture
 
-No tag or release is authorized. Remaining conditions are passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
+No tag or release is authorized. Remaining conditions are verified live Cloudflare route content, passing CI/browser verification, gateway-origin canonical records, runtime redaction receipts, authorized real-provider execution, provider-usage persistence and custody, provider-usage reconstruction, persistent endpoint verification, immutable zero-blocker activation receipt publication, Site activation completion, verified downstream ingestion, StegMusic browser verification, and at least one verified lawful non-generated music source for invited testing.
 
 ## Archive readiness
 
-This handoff, repository orchestration state, heartbeat state, active PRs, issues, validators, workflows, receipts, and repository history preserve all continuation state without requiring conversation context.
+This handoff, repository orchestration state, heartbeat state, active PRs, issues, validators, workflows, receipts, Cloudflare deployment observations, and repository history preserve all continuation state without requiring conversation context.
