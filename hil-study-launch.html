@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Participate in the Humans as the Interoperability Layer study and prepare a verifiable response return package.">
+<title>HIL Study — Participant Launch</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.panel{padding:20px;border:1px solid var(--border2);border-radius:10px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{padding:16px;border:1px solid var(--border);border-radius:8px}.field{margin:14px 0}.field label{display:block;font-weight:700;margin-bottom:6px}.field input,.field select{width:100%;padding:10px}.status{padding:14px;border:1px solid var(--border2);border-radius:8px;margin-top:12px;white-space:pre-wrap}.prompt{white-space:pre-wrap;background:#070b13;border:1px solid var(--border2);padding:18px;border-radius:8px}.small{opacity:.82}.ok{border-color:#4fbf8f}.warn{border-color:#d9a441}.actions{display:flex;gap:10px;flex-wrap:wrap}.receipt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}</style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Canonical HIL page</a><a class="active" href="hil-study-launch.html">Study Launch</a></nav>
+<main class="sv-wrap">
+<header class="sv-hero"><div class="sv-eyebrow">Participant intake · launch phase</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>The study is open. Download the canonical paper, obtain one complete response PDF from an LLM, then prepare a hash-bound return package here.</p><div class="sv-btn-row"><button id="download-primary" class="sv-btn sv-btn-primary">Download canonical paper</button><a class="sv-btn sv-btn-secondary" href="#return">Prepare return package</a></div></header>
+<section class="panel ok"><strong>Launch status:</strong> participant intake is open through a participant-managed return package. The persistent governed receiver remains fail-closed until its HTTPS endpoint is verified. This page does not falsely claim server custody, publication, or reconstruction.</section>
+<h2 class="sv-h2">Participant path</h2>
+<div class="grid"><div class="card">1. Download the canonical v1.1 paper.</div><div class="card">2. Upload it unchanged to an LLM.</div><div class="card">3. Use the exact prompt.</div><div class="card">4. Save the single complete response PDF.</div><div class="card">5. Select that PDF below.</div><div class="card">6. Download the return package and send both unchanged files to Rigel Randolph.</div></div>
+<h2 class="sv-h2">Exact prompt</h2>
+<div id="prompt" class="prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
+
+Produce exactly one participant-managed response artifact: a single downloadable PDF containing the complete, unedited response to every numbered item and the completed submission record.
+
+1. State the paper’s central claim in your own words.
+2. Separate what the paper structurally demonstrates from what remains a testable hypothesis and what remains speculative.
+3. Determine whether the paper adequately supports the claim that humans function as an interoperability layer between otherwise bounded language-model processes.
+4. Identify the strongest argument or observation.
+5. Identify the weakest, least-supported, or most ambiguous argument.
+6. Describe any relevant mechanism, counterexample, limitation, alternative explanation, or implication not addressed.
+7. State whether producing this response participates in the process described by the paper. Explain precisely why or why not.
+8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
+9. End with the completed submission record. Use “unknown” only where genuinely unavailable.</div>
+<div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline">Copy prompt</button></div>
+<section id="return" class="panel">
+<h2 class="sv-h2">Prepare the participant return package</h2>
+<div class="field"><label for="response-file">Unchanged LLM response PDF</label><input id="response-file" type="file" accept="application/pdf,.pdf"></div>
+<div class="field"><label for="participant">Name, pseudonym, or anonymous</label><input id="participant" placeholder="anonymous"></div>
+<div class="field"><label for="model">Model and version, when known</label><input id="model" placeholder="unknown"></div>
+<div class="field"><label for="provider">Provider, when known</label><input id="provider" placeholder="unknown"></div>
+<div class="field"><label for="consent">Publication permission</label><select id="consent"><option value="private">Private analysis only</option><option value="anonymous">Publish anonymously</option><option value="public">Publish with attribution</option></select></div>
+<label><input id="unchanged" type="checkbox"> I confirm that this is the single response PDF supplied by the LLM and I have not edited, converted, combined, or re-exported it.</label><br><br>
+<label><input id="authority" type="checkbox"> I understand that my consent is separate from the LLM output and that preparing this package does not itself establish server custody or publication.</label>
+<div class="actions" style="margin-top:16px"><button id="prepare" class="sv-btn sv-btn-primary">Generate return package</button><button id="download-package" class="sv-btn sv-btn-secondary" disabled>Download package JSON</button><button id="download-receipt" class="sv-btn sv-btn-secondary" disabled>Download local receipt</button></div>
+<div id="status" class="status warn" aria-live="polite">No response PDF has been processed.</div>
+</section>
+<h2 class="sv-h2">What this proves</h2><p>The package binds the exact PDF bytes to SHA-256, the canonical paper and prompt versions, participant-provided metadata, consent posture, and a locally generated package identifier. It creates a reproducible return artifact without pretending that local preparation equals governed submission, custody, reconstruction, or publication.</p>
+</main>
+<script>
+(() => {
+'use strict';
+const PRIMARY={version:'v1.1',filename:'HIL_Canonical_Paper_v1_1.pdf',path:'data/HIL_Canonical_Paper_v1_1.pdf',sha256:'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',promptVersion:'HIL-PROMPT-v1.1',promptSha256:'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c'};
+const $=id=>document.getElementById(id);let packet=null,receipt=null;
+const hex=buf=>Array.from(new Uint8Array(buf),b=>b.toString(16).padStart(2,'0')).join('');
+async function hash(buf){return hex(await crypto.subtle.digest('SHA-256',buf));}
+function canonical(v){if(v===null||typeof v!=='object')return JSON.stringify(v);if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';return '{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
+function save(obj,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)+'\n'],{type:'application/json'}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+function value(id,fallback='unknown'){return $(id).value.trim()||fallback;}
+$('copy-prompt').onclick=async()=>{await navigator.clipboard.writeText($('prompt').textContent.trim());$('copy-prompt').textContent='Copied';setTimeout(()=>$('copy-prompt').textContent='Copy prompt',1500);};
+$('download-primary').onclick=async()=>{const r=await fetch(PRIMARY.path,{cache:'no-store'});if(!r.ok)throw new Error('Canonical paper unavailable');const b=await r.arrayBuffer();if(await hash(b)!==PRIMARY.sha256)throw new Error('Canonical paper verification failed');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([b],{type:'application/pdf'}));a.download=PRIMARY.filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+$('prepare').onclick=async()=>{try{const f=$('response-file').files[0];if(!f)throw new Error('Choose the unchanged response PDF.');if(!f.name.toLowerCase().endsWith('.pdf'))throw new Error('The selected file must be a PDF.');if(!$('unchanged').checked||!$('authority').checked)throw new Error('Both acknowledgments are required.');const b=await f.arrayBuffer();if(new TextDecoder('ascii').decode(new Uint8Array(b).slice(0,5))!=='%PDF-')throw new Error('The file does not have a valid PDF signature.');const responseSha=await hash(b);const created=new Date().toISOString();const packageId='HIL-LOCAL-'+crypto.randomUUID();packet={schema_version:'HIL-PARTICIPANT-RETURN-v1.1',package_id:packageId,created_at:created,canonical_primary:{version:PRIMARY.version,filename:PRIMARY.filename,sha256:PRIMARY.sha256},canonical_prompt:{version:PRIMARY.promptVersion,sha256:PRIMARY.promptSha256},response_pdf:{filename:f.name,size_bytes:f.size,sha256:responseSha,declared_unchanged:true},participant:{identifier:value('participant','anonymous'),model:value('model'),provider:value('provider'),publication_consent:$('consent').value,consent_authority_acknowledged:true},state:'PREPARED_FOR_MANAGED_RETURN',authority_effect:false,custody_effect:false,publication_effect:false};packet.package_sha256=await hash(new TextEncoder().encode(canonical(packet)).buffer);receipt={schema_version:'HIL-LOCAL-PREPARATION-RECEIPT-v1',receipt_id:'HIL-RECEIPT-'+crypto.randomUUID(),package_id:packageId,created_at:created,response_pdf_sha256:responseSha,package_sha256:packet.package_sha256,state:'LOCAL_PREPARATION_COMPLETE',next_action:'Send the unchanged response PDF and package JSON to Rigel Randolph through the approved direct return channel.',submission_established:false,custody_established:false,publication_established:false};receipt.receipt_sha256=await hash(new TextEncoder().encode(canonical(receipt)).buffer);$('download-package').disabled=false;$('download-receipt').disabled=false;$('status').className='status ok receipt';$('status').textContent='Return package prepared.\nPackage ID: '+packageId+'\nPDF SHA-256: '+responseSha+'\nPackage SHA-256: '+packet.package_sha256+'\n\nDownload both JSON files, preserve the PDF unchanged, and send the PDF plus package JSON to Rigel Randolph.';}catch(e){$('status').className='status warn';$('status').textContent=e.message;}};
+$('download-package').onclick=()=>packet&&save(packet,packet.package_id+'.json');
+$('download-receipt').onclick=()=>receipt&&save(receipt,receipt.receipt_id+'.json');
+})();
+</script>
+</body>
+</html>
