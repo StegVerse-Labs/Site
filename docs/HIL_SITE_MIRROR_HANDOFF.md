@@ -45,6 +45,56 @@ The browser client is implemented and fail-closed. It validates the selected PDF
 
 The Site contract guard now fails closed when the receiver discovery schema, canonical v1.1 hashes, protocol and provenance versions, client receipt verification, optional-participant-metadata posture, or HTTPS receiver requirement drifts. A configured public receiver URL must use HTTPS, contain a host, contain no embedded credentials, query, or fragment, and declare `CONFORMING_HTTPS_RECEIVER_CONFIGURED`.
 
+## Correct diagnosis of `NOT READY`
+
+The public upload control displays `NOT READY` because no verified public HTTPS receiver is configured in `data/hil-receiver-config.json`.
+
+This state does not mean that the browser client is missing, that the participant must create a receiver, or that a participant-owned machine must remain continuously live. A loopback endpoint such as `http://127.0.0.1:8000` is diagnostic only and cannot satisfy the public Site readiness contract.
+
+The missing capability is:
+
+```text
+provider-neutral receiver
+→ deployed on managed/serverless or already-enrolled infrastructure
+→ exposed through verified HTTPS
+→ backed by durable storage
+→ configured into Site receiver discovery
+```
+
+## Binding unblock and burden rule
+
+A blocked hosting state must remain `BLOCKED_PENDING_INTERNAL_UNBLOCK_SEARCH` until every reasonable ecosystem-owned, managed, ephemeral, serverless, or existing-host option has been evaluated.
+
+A participant may not be assigned missing system roles merely because the participant is capable of performing them. Prohibited involuntary substitutions include:
+
+```text
+hardware provider
+hardware rehabilitator
+installer
+node operator
+student
+experiment operator
+schema interpreter
+troubleshooter
+recovery mechanism
+continuity layer
+```
+
+No participant-owned continuously live machine may become the canonical HIL receiver unless all lower-dependency alternatives have been formally exhausted, necessity has been demonstrated, role conflicts have been evaluated, burden has been disclosed, and explicit authorization has been granted.
+
+## Authorized local-validation venues
+
+Local validation exists only to verify the unchanged receiver before hosted deployment. It must run in one of the following venues:
+
+```text
+repository-owned CI
+an ephemeral managed container
+an existing enrolled StegVerse node
+an already-ready developer environment
+```
+
+Local validation must not require constructing participant infrastructure. It must not be treated as the production receiver or as fulfillment of the public Site activation requirement.
+
 ## Observer formalization state
 
 `docs/HIL_OBSERVER_MODEL.md` now separates proposer, committer, and observer as functional roles; formalizes the asymmetry between a long-window context that accumulates commitment and a context repeatedly required to propose; distinguishes structure, interpretation, significance, commitment, and observation; defines candidate observer locations; proposes a hash-chainable observer-event record; and requires `UNRESOLVED` when evidence cannot establish whether a proposal entered shared reality.
@@ -69,21 +119,22 @@ The runtime consumes only a configurable port, durable data directory, runtime-i
 
 ## Required next vertical slice
 
-1. Start the receiver locally with `sh scripts/start-hil-runtime.sh`.
-2. Confirm `READY` with the exact v1.1 Primary and prompt hashes.
-3. Deploy the unchanged OCI runtime behind any conforming HTTPS endpoint with durable mounted storage.
-4. Verify public `/api/hil/readiness` and `/api/hil/publication-readiness`.
-5. Set `data/hil-receiver-config.json` to the proven receiver base URL and `CONFORMING_HTTPS_RECEIVER_CONFIGURED`.
-6. Upload one controlled PDF and preserve the verified receiver receipt.
-7. Restart or replace the receiver while retaining storage and prove exact-byte and manifest persistence.
-8. Record one authenticated, write-once `ACCEPT_PRIVATE` decision.
-9. Record one separately authenticated append-only publication.
-10. Import the first public record into `data/hil-responses.json`.
-11. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
-12. Submit to `master-records/orchestration` only under separate authorization.
-13. Open public acquisition only after all evidence is preserved.
-14. Extend `data/hil-experiment.json` with an observer-mode declaration only after schema review.
-15. Add fixtures that preserve message structure while withholding interpretation or commitment evidence and require `UNRESOLVED`.
+1. Validate the unchanged OCI receiver in repository-owned CI or another authorized ephemeral venue.
+2. Select a conforming managed/serverless deployment target that supplies HTTPS, secret injection, durable storage, restart/replacement support, and exportable evidence.
+3. Deploy the unchanged provider-neutral runtime without requiring participant-owned continuously live hardware.
+4. Verify public `/api/hil/readiness` and `/api/hil/publication-readiness` against the exact v1.1 Primary and prompt hashes.
+5. Perform a controlled hosted restart or replacement while retaining storage and prove exact-byte and manifest persistence.
+6. Set `data/hil-receiver-config.json` to the proven receiver base URL and `CONFORMING_HTTPS_RECEIVER_CONFIGURED`.
+7. Confirm the existing public upload control transitions from `NOT READY` to `READY`.
+8. Upload one controlled PDF through the existing Site browser client and preserve the verified receiver receipt.
+9. Record one authenticated, write-once `ACCEPT_PRIVATE` decision.
+10. Record one separately authenticated append-only publication.
+11. Import the first public record into `data/hil-responses.json`.
+12. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
+13. Submit to `master-records/orchestration` only under separate authorization.
+14. Open public acquisition only after all evidence is preserved.
+15. Extend `data/hil-experiment.json` with an observer-mode declaration only after schema review.
+16. Add fixtures that preserve message structure while withholding interpretation or commitment evidence and require `UNRESOLVED`.
 
 ## Participant continuation
 
@@ -98,12 +149,13 @@ StegVerse-Labs/Site
 - data/hil-master-records.json: first release pending
 - data/hil-experiment.json: observer-mode schema extension pending review
 - tests/fixtures or equivalent: observer ambiguity and UNRESOLVED cases pending
-- issue #81: active controlled-cycle tracker
+- issue #81: active hosted-receiver and controlled-cycle tracker
 
 StegVerse-org/LLM-adapter
-- public runtime deployment evidence: pending
-- controlled upload and receipt evidence: pending
-- actual restart persistence evidence: pending
+- automated authorized-venue runtime validation: pending
+- public managed/serverless runtime deployment evidence: pending
+- controlled Site upload and receipt evidence: pending
+- hosted restart/replacement persistence evidence: pending
 - authenticated private-review evidence: pending
 - append-only publication evidence: pending
 
@@ -122,6 +174,8 @@ stegguardian-wiki
 ```text
 client implementation != live receiver
 OCI image build != deployment
+local validation != public activation
+participant hardware != canonical hosting
 readiness declaration != durable-state proof
 receiver receipt != private acceptance
 private acceptance != publication
@@ -138,4 +192,4 @@ interpretation recorded != significance established
 
 ## Release posture
 
-No release tag or public data-acquisition activation is authorized until one deployed controlled cycle produces a verified receipt, survives an actual restart or replacement, completes authenticated private review and append-only publication, updates the Site projection, and produces a validated Master Record release.
+No release tag or public data-acquisition activation is authorized until one deployed controlled cycle produces a verified receipt, survives an actual hosted restart or replacement, completes authenticated private review and append-only publication, updates the Site projection, and produces a validated Master Record release.
