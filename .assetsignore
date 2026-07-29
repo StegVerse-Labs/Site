@@ -1,0 +1,7 @@
+src/
+wrangler.jsonc
+.github/
+.git/
+node_modules/
+docs/
+*.md
