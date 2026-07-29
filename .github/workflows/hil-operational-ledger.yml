@@ -1,0 +1,180 @@
+name: HIL Operational Ledger
+
+on:
+  workflow_run:
+    workflows: ["HIL Repair and Continuation Router"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Optional HIL Repair and Continuation Router run ID
+        required: false
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out operational model
+        uses: actions/checkout@v4
+
+      - name: Resolve source run
+        id: source
+        shell: bash
+        env:
+          EVENT_RUN_ID: ${{ github.event.workflow_run.id }}
+          INPUT_RUN_ID: ${{ inputs.source_run_id }}
+        run: |
+          run_id="${INPUT_RUN_ID:-${EVENT_RUN_ID:-}}"
+          if [ -z "$run_id" ]; then
+            echo "A source router run ID is required." >&2
+            exit 1
+          fi
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+
+      - name: Download router evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: hil-repair-router-${{ steps.source.outputs.run_id }}
+          path: router-input
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run_id }}
+
+      - name: Build transition node, capability matrix, and simulation
+        shell: bash
+        env:
+          SOURCE_RUN_ID: ${{ steps.source.outputs.run_id }}
+        run: |
+          mkdir -p operational-ledger
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          classification = json.loads(Path('router-input/router-evidence/repair-classification.json').read_text())
+          continuation = json.loads(Path('router-input/router-evidence/continuation-plan.json').read_text())
+          model = json.loads(Path('data/hil-operational-model.json').read_text())
+
+          source = classification.get('source_probe', {})
+          summary = source.get('summary', {})
+          d1 = source.get('d1_state')
+          r2 = source.get('r2_state')
+          repair_class = classification.get('repair_class')
+          authority = classification.get('authority')
+
+          capabilities = {
+            'deployment': 'PASS' if summary.get('dns_state') == 'RESOLVED' else 'UNCONFIRMED',
+            'routing': 'PASS' if summary.get('routing_state') == 'PASS' else 'BLOCKED',
+            'validation': 'PASS' if summary.get('routing_state') == 'PASS' else 'BLOCKED',
+            'registry': 'PASS' if d1 in {'PASS', 'READY', 'AVAILABLE'} else 'BLOCKED',
+            'custody': 'PASS' if r2 in {'PASS', 'READY', 'AVAILABLE'} else 'BLOCKED',
+            'diagnostic_receipt': 'PASS' if summary.get('routing_state') == 'PASS' else 'BLOCKED',
+          }
+          capabilities['durable_submission'] = (
+            'PASS' if capabilities['validation'] == capabilities['registry'] == capabilities['custody'] == 'PASS'
+            else 'BLOCKED'
+          )
+          capabilities['reconstruction'] = (
+            'PASS' if capabilities['registry'] == capabilities['custody'] == 'PASS' else 'BLOCKED'
+          )
+          capabilities['publication_review'] = (
+            'PASS' if capabilities['durable_submission'] == capabilities['reconstruction'] == 'PASS'
+            else 'BLOCKED'
+          )
+
+          claims_withheld = [name.upper() for name, state in capabilities.items() if state == 'BLOCKED']
+
+          predicted = dict(capabilities)
+          predicted_effect = 'NO_CHANGE'
+          if repair_class == 'ACTIVATE_DIAGNOSTIC_MODE':
+            predicted['diagnostic_receipt'] = 'PASS'
+            predicted_effect = 'DEGRADED_CONTINUATION_AVAILABLE'
+          elif repair_class == 'REDEPLOY_WORKER':
+            predicted['deployment'] = 'PASS'
+            predicted['routing'] = 'PASS'
+            predicted_effect = 'ROUTING_RECOVERY_EXPECTED'
+          elif repair_class == 'RECHECK_D1':
+            predicted['registry'] = 'UNCONFIRMED'
+            predicted_effect = 'REGISTRY_STATE_REEVALUATION_REQUIRED'
+          elif repair_class == 'NO_ACTION':
+            predicted_effect = 'STATE_STABLE'
+
+          observed_at = datetime.now(timezone.utc).isoformat()
+          transition_payload = {
+            'schema_version': 'HIL-OPERATIONAL-TRANSITION-NODE-v1',
+            'recorded_at': observed_at,
+            'source_router_run_id': os.environ['SOURCE_RUN_ID'],
+            'source_probe_observed_at': source.get('observed_at'),
+            'repair_class': repair_class,
+            'authority': authority,
+            'action': classification.get('action'),
+            'execution_performed': classification.get('execution_performed', False),
+            'capability_matrix': capabilities,
+            'claims_withheld': claims_withheld,
+          }
+          canonical = json.dumps(transition_payload, sort_keys=True, separators=(',', ':')).encode()
+          transition_payload['transition_hash'] = hashlib.sha256(canonical).hexdigest()
+
+          simulation = {
+            'schema_version': 'HIL-REPAIR-SIMULATION-v1',
+            'simulated_at': observed_at,
+            'source_transition_hash': transition_payload['transition_hash'],
+            'repair_class': repair_class,
+            'authority': authority,
+            'pre_state': capabilities,
+            'predicted_post_state': predicted,
+            'predicted_effect': predicted_effect,
+            'execution_admissible': authority in {'PREAUTHORIZED_BOUNDED_REPAIR', 'FALLBACK_AUTHORIZED'},
+            'human_approval_required': authority == 'HUMAN_APPROVAL_REQUIRED',
+            'post_action_probe_required': continuation.get('post_action_probe_required', False),
+            'claims_withheld': claims_withheld,
+          }
+
+          graph_edge = {
+            'schema_version': 'HIL-OPERATIONAL-GRAPH-EDGE-v1',
+            'from': f"probe:{source.get('observed_at') or 'unknown'}",
+            'through': f"router:{os.environ['SOURCE_RUN_ID']}",
+            'to': f"transition:{transition_payload['transition_hash']}",
+            'relation': 'OBSERVED_CLASSIFIED_RECORDED',
+            'repair_class': repair_class,
+          }
+
+          Path('operational-ledger/transition-node.json').write_text(json.dumps(transition_payload, indent=2, sort_keys=True) + '\n')
+          Path('operational-ledger/capability-matrix.json').write_text(json.dumps({'schema_version': 'HIL-CAPABILITY-MATRIX-v1', 'capabilities': capabilities}, indent=2, sort_keys=True) + '\n')
+          Path('operational-ledger/repair-simulation.json').write_text(json.dumps(simulation, indent=2, sort_keys=True) + '\n')
+          Path('operational-ledger/graph-edge.json').write_text(json.dumps(graph_edge, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Publish operational summary
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          node = json.loads(Path('operational-ledger/transition-node.json').read_text())
+          sim = json.loads(Path('operational-ledger/repair-simulation.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('# HIL Operational Ledger\n\n')
+              out.write(f"- Transition hash: `{node['transition_hash']}`\n")
+              out.write(f"- Repair class: `{node['repair_class']}`\n")
+              out.write(f"- Authority: `{node['authority']}`\n")
+              out.write(f"- Predicted effect: `{sim['predicted_effect']}`\n")
+              out.write(f"- Execution admissible: `{str(sim['execution_admissible']).lower()}`\n")
+              out.write(f"- Human approval required: `{str(sim['human_approval_required']).lower()}`\n")
+          PY
+
+      - name: Upload operational ledger
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-operational-ledger-${{ github.run_id }}
+          path: operational-ledger/
+          if-no-files-found: error
+          retention-days: 90
