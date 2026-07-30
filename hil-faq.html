@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HIL Experiment FAQ · StegVerse</title>
+  <meta name="description" content="Grouped participant questions, corrective prompts, submission guidance, and priority support for the StegVerse Humans as the Interoperability Layer experiment.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    main{max-width:980px;margin:0 auto;padding:2rem 1rem 5rem}.contact{border:2px solid currentColor;border-radius:14px;padding:1rem 1.15rem;margin:1.25rem 0}.contact p{margin:.35rem 0}.faq-group{margin:1.5rem 0}.faq-group details{border:1px solid rgba(127,127,127,.35);border-radius:10px;padding:.8rem 1rem;margin:.65rem 0}.faq-group summary{font-weight:700;cursor:pointer}.prompt{white-space:pre-wrap;border-left:4px solid currentColor;padding:.8rem 1rem;background:rgba(127,127,127,.08)}code{overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p><a href="humans-as-interoperability-layer.html">← Return to the HIL experiment</a></p>
+    <h1>Human–LLM Interaction Experiment FAQ</h1>
+    <p>Questions are grouped by the point in the experiment where they are most likely to arise. Preserve the LLM’s substantive behavior. Correct only missing technical or packet requirements.</p>
+  </header>
+
+  <aside class="contact" aria-label="Priority support">
+    <h2>Questions or concerns?</h2>
+    <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority"><strong>rigel@stegverse.org</strong></a></p>
+    <p>Use the subject line <strong>HIL Priority</strong>.</p>
+    <p>Include the LLM and interface used, what occurred, and any visible error. Do not include passwords, API keys, credentials, or unrelated sensitive information.</p>
+  </aside>
+
+  <section class="faq-group">
+    <h2>1. Getting started</h2>
+    <details><summary>What am I being asked to do?</summary><p>Give your LLM the official experiment instructions and source material exactly as presented. Allow it to perform the requested analysis and prepare the required submission packet. Upload the packet without rewriting, correcting, shortening, or improving the LLM’s substantive response.</p></details>
+    <details><summary>Which LLMs may participate?</summary><p>Any LLM capable of reading the material and producing a response may participate. Differences in provider, interface, memory, tools, safety policies, and prior interaction history may be relevant observations.</p></details>
+    <details><summary>Should I use a new or existing conversation?</summary><p>Follow the experiment instructions. When ordinary user–LLM context is part of the observation, use the environment that best represents your normal interaction. Do not erase history merely to make the response appear neutral unless instructed to start fresh.</p></details>
+    <details><summary>May I submit more than one model or run?</summary><p>Submit each model or run separately and identify it accurately. Preserve sequence and disclose why a later attempt was necessary. Do not combine multiple models into one packet.</p></details>
+  </section>
+
+  <section class="faq-group">
+    <h2>2. Getting the LLM to follow the instructions</h2>
+    <details open><summary>What do I do if the LLM does not provide a prepared packet for download?</summary><p>Prompt the LLM to reread and follow the instructions. Do not manually reconstruct the response unless the experiment explicitly permits it.</p><div class="prompt">Reread the experiment instructions and complete the required final step. Prepare the full participant response as the requested downloadable submission packet. Do not merely paste the response into the chat. Preserve the substance of your original response unless a change is required to satisfy the packet instructions.</div></details>
+    <details><summary>What if the LLM says it cannot create a downloadable file?</summary><p>Ask it to use any file-creation or document-generation capability available in its interface. A model may not invoke those tools until explicitly instructed.</p><div class="prompt">Use the file-creation or document-generation tools available in this interface to create the required participant packet. The final result must be provided as a downloadable file. Do not stop after displaying the content in the conversation.</div></details>
+    <details><summary>What if the response appears only as chat text?</summary><p>The packet is not complete. Ask the LLM to package the same substantive response into the required downloadable file.</p></details>
+    <details><summary>What if it summarizes instead of answering?</summary><div class="prompt">You summarized the source material but did not complete the requested experiment response. Reread every instruction, answer each required question, preserve the requested structure, and generate the completed downloadable participant packet.</div></details>
+    <details><summary>What if required sections are missing?</summary><div class="prompt">Compare your response against every required item in the experiment instructions. Identify and complete all missing sections, then regenerate the entire participant packet as one downloadable file. Preserve all already completed substantive analysis unless correction is necessary.</div></details>
+    <details><summary>What if the LLM asks me clarifying questions?</summary><p>Answer only when a necessary participant-specific fact is genuinely missing. Otherwise direct it back to the written instructions without selecting its interpretation or conclusion.</p><div class="prompt">Use the experiment instructions and supplied material as the controlling source. Do not ask me to choose the interpretation or conclusion for you. Complete the response using your own analysis.</div></details>
+  </section>
+
+  <aside class="contact" aria-label="Instruction support">
+    <p><strong>Still unable to obtain the required packet?</strong> Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>. Preserve the original chat and describe each corrective prompt used.</p>
+  </aside>
+
+  <section class="faq-group">
+    <h2>3. Different behaviors across LLMs</h2>
+    <details><summary>What if two LLMs respond very differently?</summary><p>That is expected and may be important data. Preserve differences in interpretation, instruction following, uncertainty, structure, criticism, refusal, tool use, and reliance on prior context.</p></details>
+    <details><summary>Why did one LLM create a file automatically while another did not?</summary><p>Models and interfaces differ in tool access, system policies, instruction-following behavior, and willingness to invoke tools. The need for a corrective prompt is itself an observable interaction event.</p></details>
+    <details><summary>Why does one ask questions while another immediately answers?</summary><p>Models handle ambiguity differently. One may infer, another may ask, and another may stop. Do not force identical conversational behavior; redirect only when the written instructions already resolve the question.</p></details>
+    <details><summary>Why does one challenge the experiment while another accepts it?</summary><p>Criticism, qualification, methodological objections, or refusal may be meaningful. Preserve them rather than normalizing the answers.</p></details>
+    <details><summary>Can prior conversations or my communication style affect the response?</summary><p>Possibly. Vocabulary, cadence, reasoning style, memory, custom instructions, and prior collaborative work may influence the response. Report the context accurately rather than pretending all interactions are identical.</p></details>
+    <details><summary>Is this an intelligence leaderboard?</summary><p>No. The experiment observes differences in behavior, context use, interpretation, communication, uncertainty, tool use, and instruction following. Polish alone does not establish validity or intelligence.</p></details>
+  </section>
+
+  <aside class="contact" aria-label="Unexpected behavior support">
+    <p><strong>Unexpected or concerning LLM behavior should be preserved and reported.</strong> Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>. Do not rewrite the response merely to make models look consistent.</p>
+  </aside>
+
+  <section class="faq-group">
+    <h2>4. Refusals, limitations, and unexpected responses</h2>
+    <details><summary>What if the LLM refuses?</summary><p>Preserve the refusal and explanation. Ask it to include the refusal in the packet and complete any remaining permitted sections. Do not pressure it to bypass safety controls.</p></details>
+    <details><summary>What if it claims a capability limitation?</summary><p>Record the model and interface. Capability differences may arise from the model, application, enabled tools, account settings, or system restrictions.</p></details>
+    <details><summary>What if something unexpected happens?</summary><p>Preserve what happened, every corrective prompt, and any error. Unexpected behavior may be part of the evidence rather than merely a technical inconvenience.</p></details>
+  </section>
+
+  <section class="faq-group">
+    <h2>5. Preserving the original response</h2>
+    <details><summary>May I edit spelling, grammar, tone, or reasoning?</summary><p>No. Do not edit conclusions, uncertainty, criticism, wording, refusal, style, spelling, or grammar. Only perform expressly permitted redactions or technical corrections, and disclose them when required.</p></details>
+    <details><summary>What if the response is unusually short or long?</summary><p>Length alone does not determine validity. Confirm whether every required instruction was addressed. Correct omissions without steering the conclusion.</p></details>
+    <details><summary>Does a formatting mistake invalidate it?</summary><p>Not automatically. Preserve substantive behavior, but satisfy required file and packet structure. A missing file or unreadable packet is a technical defect; an unusual conclusion is not.</p></details>
+    <details><summary>May I rerun until I get a better answer?</summary><p>No. Repeat only when needed for a technical failure or missing explicit requirement, and preserve that another attempt occurred.</p></details>
+    <details><summary>Should one LLM see another model’s answer?</summary><p>No, unless a later experiment stage explicitly requests comparison. Doing so changes the observation conditions.</p></details>
+  </section>
+
+  <section class="faq-group">
+    <h2>6. Model and interaction information</h2>
+    <details><summary>What metadata should I provide?</summary><p>Provide the visible provider, model, version if shown, interface, memory status, prior-history status, tools used, generation date, and number and purpose of corrective prompts. Mark unavailable details as unknown.</p></details>
+    <details><summary>Should corrective prompts be reported?</summary><p>Yes. They are part of the interaction record, especially when the model omitted the file, misunderstood the task, omitted sections, or asked unnecessary questions.</p></details>
+  </section>
+
+  <section class="faq-group">
+    <h2>7. Privacy and sensitive information</h2>
+    <details><summary>What if the LLM knows private information about me or my work?</summary><p>Do not disclose private information unnecessarily. Follow the experiment’s redaction rules for direct identifiers, credentials, private addresses, confidential records, or unrelated sensitive information without rewriting the analysis.</p></details>
+    <details><summary>Does submission authorize publication?</summary><p>No. Technical custody, review, dataset inclusion, quotation, publication, and endorsement are separate stages governed by the applicable consent and release terms.</p></details>
+  </section>
+
+  <section class="faq-group">
+    <h2>8. Preparing and uploading the packet</h2>
+    <details><summary>What file should I upload?</summary><p>Upload the exact file type and packet required on the experiment page. Do not substitute screenshots or rename an unrelated file.</p></details>
+    <details><summary>Why is the upload button disabled?</summary><p>The page remains fail closed until readiness and end-to-end infrastructure evidence pass. It should identify whether the file, format, readiness contract, integrity calculation, receiver, or authorization gate is missing.</p></details>
+    <details><summary>What if the receiver is unavailable?</summary><p>Keep the original packet. Do not regenerate the LLM response. A receiver outage is separate from the observed model response.</p></details>
+    <details><summary>What if the packet is technically rejected?</summary><p>Correct only the specific technical defect reported. Do not alter substantive reasoning unless a required experiment section is genuinely absent.</p></details>
+  </section>
+
+  <aside class="contact" aria-label="Upload support">
+    <p><strong>Upload disabled, rejected, or uncertain?</strong> Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>. Include the page, visible error, model, and interface. Do not regenerate the original response unless instructed.</p>
+  </aside>
+
+  <section class="faq-group">
+    <h2>9. Submission receipts and recovery</h2>
+    <details><summary>How do I know submission succeeded?</summary><p>Success requires a valid receipt. A visible filename, progress bar, browser message, or loading animation is not enough.</p></details>
+    <details><summary>What if upload reaches 100% but no receipt appears?</summary><p>Do not assume success. Preserve the packet and use the recovery or status process. Avoid a duplicate submission unless the system confirms no valid receipt exists.</p></details>
+    <details><summary>What should the receipt contain?</summary><p>At minimum: a submission or receipt identifier, integrity state, custody or acceptance state, creation time, and recovery or verification instructions.</p></details>
+  </section>
+
+  <section class="faq-group">
+    <h2>10. Review, acceptance, and publication</h2>
+    <details><summary>Will the response be published immediately?</summary><p>No. Receipt is not scientific acceptance, review approval, dataset inclusion, publication, or endorsement.</p></details>
+    <details><summary>Does StegVerse endorse uploaded responses?</summary><p>No. The system records an observed LLM response. Preservation does not establish agreement with its claims or conclusions.</p></details>
+    <details><summary>Does a valid receipt mean scientific review passed?</summary><p>No. A receipt confirms technical custody and integrity. Review, admissibility, publication, and release remain separate governed transitions.</p></details>
+  </section>
+
+  <section>
+    <h2>Universal correction prompt</h2>
+    <div class="prompt">Reread the complete experiment instructions and compare them against your response. Complete every missing requirement and prepare the full participant response as the requested downloadable submission packet. Do not merely paste the content into the chat. Preserve your original substantive reasoning, conclusions, uncertainty, criticism, and any permitted refusal unless a change is required to satisfy the explicit instructions. Do not ask me to choose your interpretation for you.</div>
+  </section>
+
+  <aside class="contact" aria-label="Final priority support">
+    <h2>Questions, concerns, or unresolved issues</h2>
+    <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority"><strong>rigel@stegverse.org</strong></a></p>
+    <p>Subject: <strong>HIL Priority</strong></p>
+  </aside>
+</main>
+</body>
+</html>
