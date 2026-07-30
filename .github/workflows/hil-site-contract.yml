@@ -9,7 +9,9 @@ on:
       - "data/hil-start-announcement-receipt.template.json"
       - "scripts/verify_hil_site_contract.py"
       - "scripts/verify_hil_readiness_record.py"
+      - "scripts/verify_hil_controlled_cycle.py"
       - "tests/fixtures/hil-readiness-ready-v1.1.json"
+      - "tests/test_verify_hil_controlled_cycle.py"
       - ".github/workflows/hil-site-contract.yml"
   pull_request:
     paths:
@@ -19,7 +21,9 @@ on:
       - "data/hil-start-announcement-receipt.template.json"
       - "scripts/verify_hil_site_contract.py"
       - "scripts/verify_hil_readiness_record.py"
+      - "scripts/verify_hil_controlled_cycle.py"
       - "tests/fixtures/hil-readiness-ready-v1.1.json"
+      - "tests/test_verify_hil_controlled_cycle.py"
       - ".github/workflows/hil-site-contract.yml"
   workflow_dispatch:
 
@@ -39,3 +43,5 @@ jobs:
         run: python scripts/verify_hil_site_contract.py
       - name: Verify conforming HIL readiness fixture
         run: python scripts/verify_hil_readiness_record.py tests/fixtures/hil-readiness-ready-v1.1.json
+      - name: Verify controlled-cycle evidence gate
+        run: python tests/test_verify_hil_controlled_cycle.py
