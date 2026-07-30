@@ -11,25 +11,23 @@ Activate and publicly announce the complete v1.1 provenance-bound participant pa
 ```text
 Primary surface: humans-as-interoperability-layer.html
 Canonical service: https://stegverse.org/hil/upload/
-Client: assets/hil-experiment-v1.1.js
-Receiver discovery: data/hil-receiver-config.json
 Operational receiver: https://stegverse.org
+Receiver discovery: data/hil-receiver-config.json
+Receiver runtime: src/worker.js
+Custody backend: portable-sqlite-chunks-v1 through HIL_REGISTRY
 Announcement packet: docs/HIL_START_ANNOUNCEMENT.md
 Announcement receipt template: data/hil-start-announcement-receipt.template.json
 Experiment manifest: data/hil-experiment.json
 Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
 Observer formalization: docs/HIL_OBSERVER_MODEL.md
-Receiver runtime: src/worker.js
-Custody backend: portable-sqlite-chunks-v1 through HIL_REGISTRY
-D1 binding posture: dashboard-managed existing binding; no provider UUID committed to the portable repository
 Site contract guard: scripts/verify_hil_site_contract.py
-Readiness record guard: scripts/verify_hil_readiness_record.py
-Conforming readiness fixture: tests/fixtures/hil-readiness-ready-v1.1.json
+Readiness guard: scripts/verify_hil_readiness_record.py
+Controlled-cycle guard: scripts/verify_hil_controlled_cycle.py
+Controlled-cycle tests: tests/test_verify_hil_controlled_cycle.py
 Site contract workflow: .github/workflows/hil-site-contract.yml
 Live probe workflow: .github/workflows/hil-live-probe.yml
-Live probe evidence hardening commit: cba0a104fb7e08622450b664d4461334cea72830
-Result: RECEIVER_IMPLEMENTED_FAIL_CLOSED_PENDING_LIVE_READY_AND_CONTROLLED_RECEIPT
+Result: RECEIVER_IMPLEMENTED_PENDING_LIVE_READY_AND_VERIFIED_CONTROLLED_CYCLE
 Authority: NONE
 ```
 
@@ -47,93 +45,82 @@ Announcement receipt schema: HIL-START-ANNOUNCEMENT-RECEIPT-v1
 Observer model: HIL-OBSERVER-MODEL-v0.1
 ```
 
-## Current public service state
+## Current implementation state
 
-The canonical participant-facing service is published under `https://stegverse.org/hil/upload/`, and receiver discovery resolves to the same-origin receiver at `https://stegverse.org`.
+The canonical participant-facing service is published under `https://stegverse.org/hil/upload/`. Receiver discovery resolves to the same-origin receiver at `https://stegverse.org`.
 
-The browser remains fail-closed. It validates the configured HTTPS receiver and enables submission only after the receiver returns a conforming readiness record bound to the exact v1.1 protocol, Primary hash, prompt hash, provenance schema, and participant-metadata contract.
+The browser remains fail-closed. It enables submission only after `/api/hil/readiness` returns a conforming HTTP 200 `READY` record bound to the exact v1.1 protocol, Primary hash, prompt hash, provenance schema, and participant-metadata contract.
 
-The receiver no longer requires Cloudflare R2. Exact PDF bytes are split into ordered, individually hashed chunks and persisted through the existing `HIL_REGISTRY` D1 binding. The receipt is issued only after reconstruction verifies byte length and SHA-256. The repository intentionally does not commit the account-specific D1 UUID because the existing production binding is managed in the deployment environment; portability is preserved by the binding contract rather than a provider account identifier.
+The receiver stores exact PDF bytes as ordered, individually hashed chunks through the `HIL_REGISTRY` D1 binding. A receipt is issued only after reconstruction confirms byte length and SHA-256. The provider-specific D1 UUID remains deployment-managed and is not committed to the portable repository.
 
-The repository also contains an offline independent validator for a preserved readiness response. `scripts/verify_hil_readiness_record.py` validates the readiness contract without granting custody, publication, or execution authority. CI evaluates it against `tests/fixtures/hil-readiness-ready-v1.1.json`.
+The live probe preserves DNS state, endpoint status, final URL, response headers, capped response bytes, readiness JSON, and independent validation output. A fixture or configured binding is not a live readiness observation.
 
-The live probe now checks out the repository, disables redirect following, caps preserved response bodies at 65,536 bytes, records DNS addresses, headers, status, final URL, TLS posture, and exact readiness bytes, then runs the offline readiness validator against the preserved body. The probe remains evidence-only and does not fail closed merely because the public receiver is not yet READY; it records `PASS`, `FAIL`, or `NOT_OBSERVED` as an artifact for review.
+The controlled-cycle verifier consumes the original PDF, provenance manifest, receiver receipt, later status response, and retrieved PDF. It verifies:
+
+- original and retrieved PDF signatures;
+- exact-byte equality and SHA-256 continuity;
+- Primary, prompt, and response hashes in provenance;
+- `HIL-RECEIVER-RECEIPT-v2` fields and canonical receipt hash;
+- exact-byte custody and registry states;
+- `PENDING` review and `NOT_AUTHORIZED` publication boundaries;
+- status-to-receipt consistency;
+- accepted state, size, chunk count, and custody backend.
+
+CI includes positive and tampered-retrieval tests. Passing this verifier proves continuity only within the supplied evidence package. It grants no review, publication, endorsement, execution, or Master Record authority.
 
 ```text
 service_page_published: true
 receiver_discoverable: true
 receiver_runtime_implemented: true
-r2_required: false
-d1_binding_reported_configured: true
+custody_backend_implemented: true
 receiver_ready_observed: false
+live_probe_installed: true
 independent_readiness_validator_installed: true
-conforming_readiness_fixture_ci_bound: true
-live_readiness_transport_capture_installed: true
-live_readiness_independent_validation_installed: true
+controlled_cycle_validator_installed: true
+controlled_cycle_tests_ci_bound: true
 upload_enabled_without_ready: false
 announcement_packet_installed: true
 announcement_published: false
 first_controlled_submission_observed: false
 ```
 
-A configured receiver address is not a readiness receipt. A configured binding is not a live readiness observation. A conforming fixture is not a live receiver observation. A published service page is not evidence of durable custody, review approval, publication, Master Records reconstruction, or Site activation.
-
-## Announcement state
-
-`docs/HIL_START_ANNOUNCEMENT.md` is the canonical announcement packet. It contains the public launch statement, compact LinkedIn version, first-comment explanation, required claim boundaries, announcement receipt template, and next governed transition sequence.
-
-The machine-usable receipt template is installed at `data/hil-start-announcement-receipt.template.json`. It remains incomplete until the public post supplies an RFC3339 timestamp, channel, and public reference.
-
-Do not claim that the receiver is currently READY until a live conforming readiness response has been independently observed and preserved.
-
-## Participant path
-
-```text
-1. Open https://stegverse.org/hil/upload/
-2. Download the canonical v1.1 Primary PDF.
-3. Provide the unchanged Primary and exact prompt to an AI system.
-4. Preserve the one complete response PDF unchanged.
-5. Select the response PDF on the HIL service page.
-6. Upload only when the governed receiver reports READY.
-7. Verify the receiver receipt and accepted-submission review transition.
-8. Preserve participant publication preference separately from final disposition.
-```
-
-## Observer formalization state
-
-`docs/HIL_OBSERVER_MODEL.md` separates proposer, committer, and observer as functional roles; formalizes the asymmetry between a long-window context that accumulates commitment and a context repeatedly required to propose; distinguishes structure, interpretation, significance, commitment, and observation; and requires `UNRESOLVED` when evidence cannot establish whether a proposal entered shared reality.
-
-This work grants no intake, review, publication, custody, execution, or Master Record authority. Exact-byte continuity does not by itself establish that participant meaning changed or that a proposal became a committed shared state.
-
 ## Required next vertical slice
 
-1. Allow the current Site deployment to publish the provider-neutral D1 receiver build and hardened live-probe workflow.
-2. Retrieve the next `hil-live-probe-*` artifact and inspect `live-probe.json`, `readiness-body.json`, `readiness-headers.json`, and `readiness-validation.txt`.
-3. Accept receiver readiness only when the public response is HTTP 200, the body reports `READY`, and the independent validator reports `HIL_READINESS_RECORD=PASS`.
+1. Retrieve the next `hil-live-probe-*` artifact.
+2. Inspect `live-probe.json`, `readiness-body.json`, `readiness-headers.json`, and `readiness-validation.txt`.
+3. Accept readiness only when the response is HTTP 200, the body reports `READY`, and independent validation reports `HIL_READINESS_RECORD=PASS`.
 4. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
-5. Preserve the verified receiver receipt and exact-byte retrieval result.
-6. Prove receiver storage persistence through an actual hosted restart or replacement.
-7. Record one authenticated private-review disposition.
-8. Record one separately authenticated append-only publication.
-9. Import the first public record into `data/hil-responses.json`.
-10. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
-11. Submit to `master-records/orchestration` only under separate authorization.
-12. Propagate release verification to Publisher and the public wikis only after the release gate passes.
-13. Publish the public announcement only after the live receiver and controlled cycle evidence support the announcement claims.
+5. Preserve the original PDF, provenance manifest, `HIL-RECEIVER-RECEIPT-v2`, submission-status response, and retrieved PDF.
+6. Run:
+
+```text
+python scripts/verify_hil_controlled_cycle.py \
+  ORIGINAL.pdf provenance.json receipt.json status.json RETRIEVED.pdf
+```
+
+7. Require `HIL_CONTROLLED_CYCLE=PASS` before claiming exact-byte controlled-cycle completion.
+8. Prove persistence through an actual hosted restart or replacement and repeat status/retrieval verification.
+9. Record one authenticated private-review disposition.
+10. Record one separately authenticated append-only publication.
+11. Import the first public record into `data/hil-responses.json`.
+12. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
+13. Submit to `master-records/orchestration` only under separate authorization.
+14. Propagate release verification to Publisher and public wikis only after the release gate passes.
+15. Publish the public announcement only when the live evidence supports every announcement claim.
 
 ## Known remaining files and destinations
 
 ```text
 StegVerse-Labs/Site
-- live readiness observation record: pending capture from hil-live-probe artifact
-- controlled upload receipt fixture/evidence: pending capture
-- restart/replacement durability record: pending capture
+- live readiness observation record: pending workflow artifact capture
+- controlled upload evidence package: pending deployed cycle
+- restart/replacement durability record: pending deployed restart evidence
 - docs/HIL_START_ANNOUNCEMENT.md: installed; publication pending activation evidence
 - data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
 - data/hil-responses.json: first publication pending
 - data/hil-master-records.json: first release pending
 - data/hil-experiment.json: observer-mode schema extension pending review
-- tests/fixtures or equivalent: observer ambiguity and UNRESOLVED cases pending
+- observer ambiguity and UNRESOLVED fixtures: pending
 
 master-records/orchestration
 - exact-byte custody import: pending
@@ -154,12 +141,13 @@ StegVerse-002/stegguardian-wiki
 
 ```text
 announcement ready != announcement published
-announcement receipt template != completed announcement receipt
 service page published != receiver ready
 configured receiver != conforming readiness
 configured D1 binding != live D1 query evidence
 conforming fixture != live readiness observation
 receiver readiness != durable-state proof
+receiver receipt != controlled-cycle verification
+controlled-cycle verification != restart persistence
 receiver receipt != private acceptance
 private acceptance != publication
 publication record != original-byte custody
@@ -177,4 +165,4 @@ No release tag or unrestricted public data-acquisition activation is authorized 
 
 ## Archive readiness
 
-This handoff, the canonical service route, same-origin receiver discovery contract, provider-neutral D1 custody implementation, validators, fixtures, CI workflows, and repository history preserve the complete continuation state without requiring this conversation thread.
+This handoff, the canonical service route, same-origin receiver, D1 custody implementation, live probe, validators, tests, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
