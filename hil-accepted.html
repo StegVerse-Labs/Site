@@ -11,10 +11,11 @@
     .pass{font-size:1.15rem;font-weight:900;border:2px solid currentColor}
     .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
     .pdf-frame{width:100%;min-height:70vh;border:1px solid var(--border2);border-radius:8px;background:#fff}
+    .hil-support{margin:18px 0;padding:16px 18px;border:2px solid var(--border2);border-radius:10px}.hil-support p{margin:.35rem 0}
   </style>
 </head>
 <body>
-<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-accepted.html">Received Packet</a></nav>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a href="hil-faq.html">HIL FAQ</a><a class="active" href="hil-accepted.html">Received Packet</a></nav>
 <main class="sv-wrap">
   <header class="sv-hero">
     <div class="sv-eyebrow">Governed receiver · exact-byte verification</div>
@@ -25,6 +26,12 @@
   <section id="received-state" class="notice" aria-live="polite">Loading received packet…</section>
   <section id="test-pass" class="notice pass" hidden>Test Participant Packet Passed</section>
 
+  <aside class="hil-support" aria-label="Receipt verification support">
+    <p><strong>Unsure whether the submission succeeded, missing a receipt, or seeing a verification error?</strong></p>
+    <p>Preserve the original response packet and do not regenerate or alter it.</p>
+    <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>. Include the visible error, page address, LLM, and interface used. Do not include passwords, API keys, or credentials.</p>
+  </aside>
+
   <h2 class="sv-h2">Received response packet</h2>
   <iframe id="response-pdf" class="pdf-frame" title="Received response PDF"></iframe>
 
@@ -34,6 +41,7 @@
   <div class="sv-btn-row">
     <button id="download-receipt" class="sv-btn sv-btn-primary" disabled>Download Receipt</button>
     <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html">Return to Study</a>
+    <a class="sv-btn sv-btn-secondary" href="hil-faq.html">Read HIL FAQ</a>
   </div>
 
   <h2 class="sv-h2">Authority boundary</h2>
@@ -41,6 +49,10 @@
 receiver receipt            != publication authority
 test participant pass       != participant research result
 exact-byte verification     != scientific endorsement</pre>
+
+  <aside class="hil-support" aria-label="Final receipt support">
+    <p><strong>Any remaining question or concern:</strong> email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>.</p>
+  </aside>
 </main>
 <script>
 (() => {
