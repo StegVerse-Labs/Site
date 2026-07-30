@@ -18,17 +18,24 @@
     .upload-panel input[type=file]{display:block;margin:12px 0 16px;width:100%}
     .optional-station{margin-top:24px;padding:16px;border:1px dashed var(--border2);border-radius:10px}
     .optional-station summary{cursor:pointer;font-weight:700}.optional-note{opacity:.85}.primary-upload{font-size:1.05rem}
+    .hil-support{margin:18px 0;padding:16px 18px;border:2px solid var(--border2);border-radius:10px}
+    .hil-support p{margin:.35rem 0}.hil-support strong{letter-spacing:.01em}
   </style>
 </head>
 <body>
-<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="Papers.html">Papers</a><a class="active" href="humans-as-interoperability-layer.html">Interoperability Study</a></nav>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="Papers.html">Papers</a><a class="active" href="humans-as-interoperability-layer.html">Interoperability Study</a><a href="hil-faq.html">HIL FAQ</a></nav>
 <main class="sv-wrap">
 <header class="sv-hero">
   <div class="sv-eyebrow">Canonical experiment input · v1.1 · single-artifact response contract</div>
   <h1>Humans as the <em>Interoperability Layer</em></h1>
   <p>Receive one complete downloadable response PDF plus a concise visible-chat summary that allows participant validation before return.</p>
-  <div class="sv-btn-row"><button id="download-primary" class="sv-btn sv-btn-primary">Download Canonical v1.1 Primary PDF</button><a class="sv-btn sv-btn-secondary" href="#submit">Submit response PDF</a><a class="sv-btn sv-btn-secondary" href="#responses">View responses</a></div>
+  <div class="sv-btn-row"><button id="download-primary" class="sv-btn sv-btn-primary">Download Canonical v1.1 Primary PDF</button><a class="sv-btn sv-btn-secondary" href="#submit">Submit response PDF</a><a class="sv-btn sv-btn-secondary" href="hil-faq.html">Read grouped FAQ</a><a class="sv-btn sv-btn-secondary" href="#responses">View responses</a></div>
 </header>
+<aside class="hil-support" aria-label="HIL priority support">
+  <p><strong>Questions, concerns, unexpected LLM behavior, or technical problems?</strong></p>
+  <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with the subject line <strong>HIL Priority</strong>.</p>
+  <p>Include the LLM and interface used, what occurred, and any visible error. Do not include passwords, API keys, credentials, or unrelated sensitive information.</p>
+</aside>
 <section class="sv-evidence">
   <div class="sv-evidence-row"><span class="k">Canonical service page</span><span class="v">https://stegverse.org/hil/upload/</span></div>
   <div class="sv-evidence-row"><span class="k">Protocol authority</span><span class="v">StegVerse.org</span></div>
@@ -67,7 +74,12 @@ The visible summary is a participant-facing validation aid. It is not the govern
 7. State whether producing this response participates in the process described by the paper. Explain precisely why or why not.
 8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
 9. End with the completed submission record. Use “unknown” only where genuinely unavailable. Distinguish generation-time unknowns, participant-supplied fields, and downstream identifiers assigned only by authorized stages.</div>
-<div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline">Copy prompt</button></div>
+<div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline">Copy prompt</button><a class="sv-btn sv-btn-secondary" href="hil-faq.html#llm-instructions">LLM did not create the packet?</a></div>
+<aside class="hil-support" aria-label="LLM instruction support">
+  <p><strong>If the LLM does not provide the required downloadable PDF, prompt it to reread and follow the instructions.</strong></p>
+  <p>The grouped FAQ includes correction prompts for missing files, chat-only responses, omitted sections, unnecessary clarification, refusals, and differing model behavior.</p>
+  <p>For unresolved concerns, email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>.</p>
+</aside>
 <h2 class="sv-h2">Submit the single Response PDF</h2>
 <div class="upload-panel">
   <p><strong>Choose the unchanged response PDF and upload it.</strong> The page checks both the live receiver and the published end-to-end test receipt before enabling submission. Until the canonical test participant packet has been uploaded, receipted, retrieved, and verified byte-for-byte, intake remains fail closed.</p>
@@ -75,6 +87,11 @@ The visible summary is a participant-facing validation aid. It is not the govern
   <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload">Upload Response Packet</button></div>
   <div id="intake-status" class="status" aria-live="polite">Checking intake availability…</div>
 </div>
+<aside class="hil-support" aria-label="Upload support">
+  <p><strong>Upload disabled, rejected, interrupted, or missing a receipt?</strong></p>
+  <p>Preserve the original packet. Do not regenerate or alter the LLM response merely because the receiver is unavailable.</p>
+  <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong> and include the visible error, page, LLM, and interface.</p>
+</aside>
 <details class="optional-station">
 <summary>Optional provenance and publication settings</summary>
 <p class="optional-note">Private and anonymous selections are stated prominently in the accepted-submission review body. Acceptance does not itself authorize publication.</p>
@@ -98,6 +115,9 @@ receiver receipt            != review approval
 review approval              != publication authority
 publication                 != endorsement
 Master Record inclusion     != scientific proof</pre>
+<aside class="hil-support" aria-label="Final HIL support">
+  <p><strong>Any remaining question or concern:</strong> email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>.</p>
+</aside>
 </main>
 <script src="assets/hil-participant-notification-v1.js"></script>
 <script src="assets/hil-experiment-v1.1.js"></script>
