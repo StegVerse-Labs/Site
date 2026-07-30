@@ -68,6 +68,7 @@ Required runtime binding:
 - `data/hil-receiver-deployment-latest.json`: latest deployment observation.
 - `data/hil-participant-readiness.json`: public machine-readable readiness state.
 - `docs/HIL_SITE_MIRROR_HANDOFF.md`: detailed HIL state and terminal criteria.
+- `controls/DEPLOY_HIL_RECEIVER.txt`: push-trigger control used to request deployment verification.
 
 ## Prior work completed
 
@@ -121,7 +122,9 @@ Latest recorded deployment observation:
 
 - GitHub Actions controlled-cycle run `30569491378`.
 - Cloudflare deployment workflow executed previously and produced commit `e6f06765df79d5915096cc47ed88ed07f0475025`.
-- Relevant workflow trigger files are documented in `docs/HIL_SITE_MIRROR_HANDOFF.md`.
+- Fresh deployment trigger committed to `main`: `d5d1598a8c523e8665e4550ee5c272df09256379` at approximately `2026-07-30T19:04Z`.
+- The connected GitHub action surface did not expose a list-runs operation for push-triggered workflows, and `fetch_commit_workflow_runs` returned no run because that wrapper is limited to pull-request-associated runs.
+- As of the last repository check in this session, no new deployment-observation commit had appeared after the trigger; the persisted result remained `deployment_step_failed_before_live_probe`.
 
 ## Acceptance tests
 
@@ -139,7 +142,7 @@ Latest recorded deployment observation:
 ## Rollback and recovery
 
 - Preserve unrelated `stegverse.org` routes; only bind `stegverse.org/api/hil/*`.
-- Revert the deployment-trigger commit to stop repeated push-trigger deployment if the workflow causes regressions.
+- Revert deployment trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` if push-trigger deployment creates regressions.
 - Restore the previous Worker version using Cloudflare deployment rollback when direct provider controls are available.
 - Remove only the HIL custom route if it conflicts with an existing service; retain Worker code and D1 data.
 - Never delete the D1 database during rollback. Preserve controlled packet evidence for reconstruction.
@@ -157,8 +160,8 @@ Latest recorded deployment observation:
 
 ## Remaining tasks in dependency order
 
-1. Trigger and inspect a fresh Cloudflare deployment workflow run.
-2. Identify the exact failed step and provider error from job logs.
+1. Obtain the fresh deployment workflow run ID and inspect its failed job logs, or use direct Cloudflare controls in a session where they are exposed.
+2. Identify the exact failed step and provider error.
 3. Repair only the proven configuration/code defect.
 4. Deploy the Worker with route `stegverse.org/api/hil/*` and D1 binding `HIL_REGISTRY`.
 5. Verify probes and readiness live.
@@ -183,4 +186,7 @@ Changes that may require downstream updates after activation:
 - Direct Cloudflare action surface was not exposed in this session.
 - GitHub repository read/write and Actions inspection/retry controls were available.
 - The controlled-cycle failure was independently confirmed from job logs: HTTP 404 at `/api/hil/readiness`.
-- A fresh deployment trigger is the next executable action through the connected GitHub account.
+- Created this canonical handoff in commit `6980ee06ccb9e565e85785b6ceab7799e3682093`.
+- Created deployment trigger `controls/DEPLOY_HIL_RECEIVER.txt` in commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
+- Exact remaining external-authority block: this session has no direct Cloudflare operations and no GitHub Actions list-runs/dispatch operation capable of returning the newly triggered push run ID. Therefore the resulting provider job logs cannot yet be retrieved through the exposed connector actions.
+- No acceptance condition was promoted without live evidence.
