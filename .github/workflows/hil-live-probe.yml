@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      RECEIVER_BASE_URL: https://receiver.stegverse.com
+      RECEIVER_BASE_URL: https://stegverse.org
     steps:
       - name: Initialize evidence directory
         run: mkdir -p probe-evidence
@@ -30,8 +30,8 @@ jobs:
           set +e
           {
             echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo "host=receiver.stegverse.com"
-            getent ahosts receiver.stegverse.com
+            echo "host=stegverse.org"
+            getent ahosts stegverse.org
           } | tee probe-evidence/dns.txt
           exit 0
 
@@ -48,6 +48,7 @@ jobs:
           from datetime import datetime, timezone
 
           base = os.environ['RECEIVER_BASE_URL'].rstrip('/')
+          host = urllib.request.urlparse(base).hostname or 'stegverse.org'
           endpoints = [
               ('probes', '/api/hil/probes'),
               ('readiness', '/api/hil/readiness'),
@@ -63,10 +64,11 @@ jobs:
           try:
               evidence['dns'] = {
                   'state': 'RESOLVED',
-                  'addresses': sorted({item[4][0] for item in socket.getaddrinfo('receiver.stegverse.com', 443)}),
+                  'host': host,
+                  'addresses': sorted({item[4][0] for item in socket.getaddrinfo(host, 443)}),
               }
           except Exception as exc:
-              evidence['dns'] = {'state': 'UNRESOLVED', 'error': repr(exc)}
+              evidence['dns'] = {'state': 'UNRESOLVED', 'host': host, 'error': repr(exc)}
 
           for name, path in endpoints:
               url = base + path
@@ -128,6 +130,7 @@ jobs:
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as out:
               out.write('# HIL Live Transition Probe\n\n')
               out.write(f"- Observed at: `{evidence['observed_at']}`\n")
+              out.write(f"- Receiver: `{evidence['receiver_base_url']}`\n")
               out.write(f"- DNS: `{summary['dns_state']}`\n")
               out.write(f"- Routing: `{summary['routing_state']}`\n")
               out.write(f"- Receiver readiness: `{summary['readiness_state']}`\n")
