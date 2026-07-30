@@ -1,10 +1,10 @@
 {
   "schema_version": "HIL-RECEIVER-DISCOVERY-v1",
-  "receiver_base_url": "https://site.rigelrandolph.workers.dev",
+  "receiver_base_url": "https://stegverse.org",
   "readiness_path": "/api/hil/readiness",
   "submission_path": "/api/hil/submissions",
   "participant_visible_provider": true,
-  "service_page_url": "https://site.rigelrandolph.workers.dev/hil/upload/",
+  "service_page_url": "https://stegverse.org/hil/upload/",
   "protocol_authority": "StegVerse.org",
   "service_operator": "StegVerse Cloudflare Worker",
   "transport_requirements": {
