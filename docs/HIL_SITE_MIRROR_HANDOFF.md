@@ -28,6 +28,7 @@ Readiness record guard: scripts/verify_hil_readiness_record.py
 Conforming readiness fixture: tests/fixtures/hil-readiness-ready-v1.1.json
 Site contract workflow: .github/workflows/hil-site-contract.yml
 Live probe workflow: .github/workflows/hil-live-probe.yml
+Live probe evidence hardening commit: cba0a104fb7e08622450b664d4461334cea72830
 Result: RECEIVER_IMPLEMENTED_FAIL_CLOSED_PENDING_LIVE_READY_AND_CONTROLLED_RECEIPT
 Authority: NONE
 ```
@@ -56,6 +57,8 @@ The receiver no longer requires Cloudflare R2. Exact PDF bytes are split into or
 
 The repository also contains an offline independent validator for a preserved readiness response. `scripts/verify_hil_readiness_record.py` validates the readiness contract without granting custody, publication, or execution authority. CI evaluates it against `tests/fixtures/hil-readiness-ready-v1.1.json`.
 
+The live probe now checks out the repository, disables redirect following, caps preserved response bodies at 65,536 bytes, records DNS addresses, headers, status, final URL, TLS posture, and exact readiness bytes, then runs the offline readiness validator against the preserved body. The probe remains evidence-only and does not fail closed merely because the public receiver is not yet READY; it records `PASS`, `FAIL`, or `NOT_OBSERVED` as an artifact for review.
+
 ```text
 service_page_published: true
 receiver_discoverable: true
@@ -65,6 +68,8 @@ d1_binding_reported_configured: true
 receiver_ready_observed: false
 independent_readiness_validator_installed: true
 conforming_readiness_fixture_ci_bound: true
+live_readiness_transport_capture_installed: true
+live_readiness_independent_validation_installed: true
 upload_enabled_without_ready: false
 announcement_packet_installed: true
 announcement_published: false
@@ -102,9 +107,9 @@ This work grants no intake, review, publication, custody, execution, or Master R
 
 ## Required next vertical slice
 
-1. Allow the current Site deployment to publish the provider-neutral D1 receiver build.
-2. Fetch and preserve the public response body from `https://stegverse.org/api/hil/readiness` together with observation timestamp, response headers, status code, and transport endpoint.
-3. Run `python scripts/verify_hil_readiness_record.py <preserved-readiness-body.json>` and preserve its result as independent readiness evidence.
+1. Allow the current Site deployment to publish the provider-neutral D1 receiver build and hardened live-probe workflow.
+2. Retrieve the next `hil-live-probe-*` artifact and inspect `live-probe.json`, `readiness-body.json`, `readiness-headers.json`, and `readiness-validation.txt`.
+3. Accept receiver readiness only when the public response is HTTP 200, the body reports `READY`, and the independent validator reports `HIL_READINESS_RECORD=PASS`.
 4. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
 5. Preserve the verified receiver receipt and exact-byte retrieval result.
 6. Prove receiver storage persistence through an actual hosted restart or replacement.
@@ -120,7 +125,7 @@ This work grants no intake, review, publication, custody, execution, or Master R
 
 ```text
 StegVerse-Labs/Site
-- live readiness observation record: pending capture
+- live readiness observation record: pending capture from hil-live-probe artifact
 - controlled upload receipt fixture/evidence: pending capture
 - restart/replacement durability record: pending capture
 - docs/HIL_START_ANNOUNCEMENT.md: installed; publication pending activation evidence
