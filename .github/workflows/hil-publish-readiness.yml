@@ -9,12 +9,20 @@ permissions:
   actions: read
   contents: write
 
+concurrency:
+  group: hil-publish-participant-readiness
+  cancel-in-progress: false
+
 jobs:
   publish:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
 
       - name: Download readiness evidence
         uses: actions/download-artifact@v4
@@ -27,10 +35,16 @@ jobs:
 
       - name: Publish stable verification record
         shell: bash
+        env:
+          SOURCE_WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+          SOURCE_WORKFLOW_RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+          SOURCE_WORKFLOW_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          SOURCE_WORKFLOW_URL: ${{ github.event.workflow_run.html_url }}
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
+          import os
           from pathlib import Path
 
           root = Path('readiness-artifact')
@@ -56,15 +70,18 @@ jobs:
           if not passed:
               raise SystemExit('refusing_to_publish_unverified_readiness')
 
+          source_run_id = os.environ['SOURCE_WORKFLOW_RUN_ID']
           public = {
               'schema_version': 'HIL-PUBLIC-PARTICIPANT-READINESS-v1',
               'state': 'TEST_PARTICIPANT_PACKET_PASSED',
               'participant_ready': True,
               'test_case_id': 'HIL-E2E-001',
               'verified_at': manifest.get('recorded_at'),
-              'workflow_run_id': manifest.get('workflow_run_id'),
-              'workflow_run_attempt': manifest.get('workflow_run_attempt'),
-              'tested_repository_commit': manifest.get('repository_commit'),
+              'workflow_run_id': int(source_run_id),
+              'workflow_run_attempt': int(os.environ['SOURCE_WORKFLOW_RUN_ATTEMPT']),
+              'tested_repository_commit': manifest.get('repository_commit') or os.environ['SOURCE_WORKFLOW_HEAD_SHA'],
+              'source_workflow_head_sha': os.environ['SOURCE_WORKFLOW_HEAD_SHA'],
+              'source_workflow_url': os.environ['SOURCE_WORKFLOW_URL'],
               'submission_id': receipt['submission_id'],
               'receipt_id': receipt['receipt_id'],
               'response_sha256': receipt['submitted_file_sha256'],
@@ -85,6 +102,8 @@ jobs:
 
       - name: Commit public readiness record
         shell: bash
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
           git config user.name "stegverse-readiness-bot"
@@ -95,4 +114,18 @@ jobs:
             exit 0
           fi
           git commit -m "chore(hil): publish passed participant packet receipt"
-          git push
+
+          # Site work may land while the controlled cycle is running. Rebase the
+          # evidence commit onto the latest default branch rather than losing a
+          # successful production-path proof to a non-fast-forward push.
+          for attempt in 1 2 3; do
+            git fetch origin "$DEFAULT_BRANCH"
+            git rebase "origin/$DEFAULT_BRANCH"
+            if git push origin "HEAD:$DEFAULT_BRANCH"; then
+              exit 0
+            fi
+            echo "Readiness publication push attempt $attempt failed; retrying."
+            sleep $((attempt * 3))
+          done
+          echo "Unable to publish verified readiness after three attempts." >&2
+          exit 1
