@@ -70,7 +70,7 @@ The visible summary is a participant-facing validation aid. It is not the govern
 <div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline">Copy prompt</button></div>
 <h2 class="sv-h2">Submit the single Response PDF</h2>
 <div class="upload-panel">
-  <p><strong>Choose the unchanged response PDF and upload it.</strong> The page checks the canonical same-origin receiver at <code>stegverse.org</code> before enabling submission. Until the receiver returns a conforming READY record, intake remains fail closed and nothing is uploaded.</p>
+  <p><strong>Choose the unchanged response PDF and upload it.</strong> The page checks both the live receiver and the published end-to-end test receipt before enabling submission. Until the canonical test participant packet has been uploaded, receipted, retrieved, and verified byte-for-byte, intake remains fail closed.</p>
   <input id="response-file" type="file" accept="application/pdf,.pdf">
   <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload">Upload Response Packet</button></div>
   <div id="intake-status" class="status" aria-live="polite">Checking intake availability…</div>
@@ -101,6 +101,7 @@ Master Record inclusion     != scientific proof</pre>
 </main>
 <script src="assets/hil-participant-notification-v1.js"></script>
 <script src="assets/hil-experiment-v1.1.js"></script>
+<script src="assets/hil-participant-readiness-gate-v1.js"></script>
 <script src="assets/hil-accepted-review-v1.js"></script>
 </body>
 </html>
