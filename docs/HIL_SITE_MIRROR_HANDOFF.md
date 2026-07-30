@@ -15,6 +15,7 @@ Client: assets/hil-experiment-v1.1.js
 Receiver discovery: data/hil-receiver-config.json
 Operational receiver candidate: https://receiver.stegverse.com
 Announcement packet: docs/HIL_START_ANNOUNCEMENT.md
+Announcement receipt template: data/hil-start-announcement-receipt.template.json
 Experiment manifest: data/hil-experiment.json
 Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
@@ -22,6 +23,8 @@ Observer formalization: docs/HIL_OBSERVER_MODEL.md
 Receiver runtime: StegVerse-org/LLM-adapter
 Runtime handoff: StegVerse-org/LLM-adapter/docs/HIL_RUNTIME_MIRROR_HANDOFF.md
 Site contract guard: scripts/verify_hil_site_contract.py
+Readiness record guard: scripts/verify_hil_readiness_record.py
+Conforming readiness fixture: tests/fixtures/hil-readiness-ready-v1.1.json
 Site contract workflow: .github/workflows/hil-site-contract.yml
 Result: ANNOUNCEMENT_READY_RECEIVER_FAIL_CLOSED_PENDING_LIVE_READY
 Authority: NONE
@@ -37,6 +40,7 @@ Prompt: HIL-PROMPT-v1.1
 Prompt SHA-256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
 Provenance schema: HIL-RESPONSE-PROVENANCE-v1.1
 Receipt schema: HIL-RECEIVER-RECEIPT-v2
+Announcement receipt schema: HIL-START-ANNOUNCEMENT-RECEIPT-v1
 Observer model: HIL-OBSERVER-MODEL-v0.1
 ```
 
@@ -46,17 +50,22 @@ Merged Site PR #107 publishes the canonical participant-facing service under `ht
 
 The browser remains fail-closed. It validates the configured HTTPS receiver and enables submission only after the receiver returns a conforming readiness record bound to the exact v1.1 protocol, Primary hash, prompt hash, provenance schema, and participant-metadata contract.
 
+The repository now also contains an offline independent validator for a preserved readiness response. `scripts/verify_hil_readiness_record.py` validates the exact nine-field readiness contract without granting custody, publication, or execution authority. CI evaluates it against `tests/fixtures/hil-readiness-ready-v1.1.json`.
+
 ```text
 service_page_published: true
 receiver_discoverable: true
 receiver_ready_observed: false
+independent_readiness_validator_installed: true
+conforming_readiness_fixture_ci_bound: true
 upload_enabled_without_ready: false
 announcement_ready: true
+announcement_receipt_template_installed: true
 announcement_published: false
 first_controlled_submission_observed: false
 ```
 
-A configured receiver address is not a readiness receipt. A published service page is not evidence of durable custody, review approval, publication, Master Records reconstruction, or Site activation.
+A configured receiver address is not a readiness receipt. A conforming fixture is not a live receiver observation. A published service page is not evidence of durable custody, review approval, publication, Master Records reconstruction, or Site activation.
 
 ## Announcement state
 
@@ -68,6 +77,8 @@ A configured receiver address is not a readiness receipt. A published service pa
 - required claim boundaries;
 - an announcement receipt template;
 - the next governed transition sequence.
+
+The machine-usable receipt template is installed at `data/hil-start-announcement-receipt.template.json`. It remains incomplete until the public post supplies an RFC3339 timestamp, channel, and public reference.
 
 The announcement may be published now because it truthfully states that the experiment is beginning while preserving the receiver's fail-closed state. It must not claim that the receiver is currently READY unless a live conforming readiness response has been independently observed.
 
@@ -93,25 +104,29 @@ This work grants no intake, review, publication, custody, execution, or Master R
 ## Required next vertical slice
 
 1. Publish the public announcement from `docs/HIL_START_ANNOUNCEMENT.md`.
-2. Preserve an `HIL-START-ANNOUNCEMENT-RECEIPT-v1` record containing the public post reference.
-3. Independently verify public `https://receiver.stegverse.com/api/hil/readiness` against the exact v1.1 contract.
-4. Verify public publication-readiness separately.
-5. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
-6. Preserve the verified receiver receipt and participant review transition.
-7. Prove receiver storage persistence through an actual hosted restart or replacement.
-8. Record one authenticated private-review disposition.
-9. Record one separately authenticated append-only publication.
-10. Import the first public record into `data/hil-responses.json`.
-11. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
-12. Submit to `master-records/orchestration` only under separate authorization.
-13. Propagate release verification to Publisher and the public wikis only after the release gate passes.
+2. Complete and preserve `data/hil-start-announcement-receipt.template.json` as an `HIL-START-ANNOUNCEMENT-RECEIPT-v1` record containing the public post reference.
+3. Fetch and preserve the public response body from `https://receiver.stegverse.com/api/hil/readiness` together with observation timestamp, response headers, status code, and transport endpoint.
+4. Run `python scripts/verify_hil_readiness_record.py <preserved-readiness-body.json>` and preserve its result as independent readiness evidence.
+5. Verify public publication-readiness separately.
+6. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
+7. Preserve the verified receiver receipt and participant review transition.
+8. Prove receiver storage persistence through an actual hosted restart or replacement.
+9. Record one authenticated private-review disposition.
+10. Record one separately authenticated append-only publication.
+11. Import the first public record into `data/hil-responses.json`.
+12. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
+13. Submit to `master-records/orchestration` only under separate authorization.
+14. Propagate release verification to Publisher and the public wikis only after the release gate passes.
 
 ## Known remaining files and destinations
 
 ```text
 StegVerse-Labs/Site
-- docs/HIL_START_ANNOUNCEMENT.md: installed; public post and receipt pending
-- data/hil-receiver-config.json: configured; live READY verification pending
+- docs/HIL_START_ANNOUNCEMENT.md: installed; public post pending
+- data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
+- scripts/verify_hil_readiness_record.py: installed
+- tests/fixtures/hil-readiness-ready-v1.1.json: installed and CI-bound
+- live readiness observation record: pending capture
 - data/hil-responses.json: first publication pending
 - data/hil-master-records.json: first release pending
 - data/hil-experiment.json: observer-mode schema extension pending review
@@ -143,8 +158,10 @@ StegVerse-002/stegguardian-wiki
 
 ```text
 announcement ready != announcement published
+announcement receipt template != completed announcement receipt
 service page published != receiver ready
 configured receiver != conforming readiness
+conforming fixture != live readiness observation
 receiver readiness != durable-state proof
 receiver receipt != private acceptance
 private acceptance != publication
@@ -163,4 +180,4 @@ No release tag or unrestricted public data-acquisition activation is authorized 
 
 ## Archive readiness
 
-This handoff, `docs/HIL_START_ANNOUNCEMENT.md`, merged PRs #105 through #107, the canonical service route, receiver discovery contract, runtime handoff, validators, and repository history preserve the complete continuation state without requiring this conversation thread.
+This handoff, `docs/HIL_START_ANNOUNCEMENT.md`, the announcement receipt template, merged PRs #105 through #107, the canonical service route, receiver discovery contract, runtime handoff, validators, fixtures, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
