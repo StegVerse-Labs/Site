@@ -1,0 +1,9 @@
+{
+  "schema_version": "HIL-PUBLIC-PARTICIPANT-READINESS-v1",
+  "state": "NOT_YET_VERIFIED",
+  "participant_ready": false,
+  "test_case_id": "HIL-E2E-001",
+  "upload_button_authorized": false,
+  "authority_effect": false,
+  "research_data": false
+}
