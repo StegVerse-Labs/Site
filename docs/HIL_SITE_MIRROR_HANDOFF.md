@@ -181,3 +181,13 @@ announcement ready != announcement published
 ## Required update before every session ends
 
 Record latest commit SHAs, run IDs and conclusions, exact failing step and error, live endpoint responses, provider resources, connector availability, shortest execution path, and remaining terminal criteria. Then append a ready-to-paste next-session prompt naming every applicable handoff.
+
+## Session inspection — 2026-07-30T22:59Z
+
+- Re-read the ten user-designated authority and machine-state files at authority-inspection commit `19be2bc6859b97f1cbe654083af064b3a0a8d4ed` before attempting activation.
+- The connector control plane returned `status: not_installed` for the named `Cloudflare` plugin in this session.
+- The session tool inventory exposes GitHub repository operations but no Cloudflare namespace or action for account state, Workers, routes, D1 databases, bindings, deployments, custom domains, logs, or restarts.
+- Therefore the exact unavailable control is the Cloudflare connector itself, not a guessed token scope or D1 permission inside an accessible account.
+- Direct deployment, D1 creation/inspection, `HIL_REGISTRY` binding, route mutation, restart, and provider-side verification could not lawfully be attempted.
+- Repository evidence remains fail-closed: controlled cycle `30569491378` failed, deployment state remains `deployment_step_failed_before_live_probe`, participant readiness remains `NOT_YET_VERIFIED`, and no submission ID or receipt ID exists.
+- No readiness, research, authority, activation, publication, or release state was promoted.
