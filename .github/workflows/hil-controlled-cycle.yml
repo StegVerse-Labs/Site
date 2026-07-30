@@ -1,10 +1,10 @@
-name: HIL Controlled Custody Cycle
+name: HIL Participant Readiness Gate
 
 on:
   workflow_dispatch:
     inputs:
       authorization_phrase:
-        description: "Type RUN CONTROLLED HIL CYCLE to authorize one synthetic custody test"
+        description: "Type RUN CONTROLLED HIL CYCLE to authorize one synthetic production-path test"
         required: true
         type: string
 
@@ -12,18 +12,19 @@ permissions:
   contents: read
 
 concurrency:
-  group: hil-controlled-custody-cycle
+  group: hil-participant-readiness-gate
   cancel-in-progress: false
 
 jobs:
-  controlled-cycle:
+  participant-readiness-gate:
     if: ${{ inputs.authorization_phrase == 'RUN CONTROLLED HIL CYCLE' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     env:
       RECEIVER_BASE_URL: https://stegverse.org
       PRIMARY_SHA256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
       PROMPT_SHA256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+      TEST_CASE_ID: HIL-E2E-001
     steps:
       - uses: actions/checkout@v4
 
@@ -32,9 +33,9 @@ jobs:
           python-version: "3.11"
 
       - name: Initialize evidence directory
-        run: mkdir -p controlled-cycle-evidence
+        run: mkdir -p controlled-cycle-evidence/negative-cases
 
-      - name: Capture and validate live readiness
+      - name: Capture and validate live runtime readiness
         shell: bash
         run: |
           set -euo pipefail
@@ -48,24 +49,24 @@ jobs:
             controlled-cycle-evidence/readiness.json \
             | tee controlled-cycle-evidence/readiness-validation.txt
 
-      - name: Generate labeled synthetic PDF and provenance
+      - name: Generate canonical synthetic response packet
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           import hashlib
           import json
-          from datetime import datetime, timezone
           from pathlib import Path
 
           out = Path('controlled-cycle-evidence')
-          now = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+          generated_at = '2000-01-01T00:00:00Z'
+          test_case_id = 'HIL-E2E-001'
           text = (
-              'StegVerse HIL controlled infrastructure cycle. '
-              'Synthetic artifact only; not participant research data; '
-              f'generated {now}.'
+              'StegVerse HIL-E2E-001 synthetic receiver validation packet. '
+              'Not participant research; not a review determination; not a publication candidate; '
+              'not a Master Record; no authority effect.'
           )
-          stream = f"BT /F1 12 Tf 72 720 Td ({text.replace('(', '[').replace(')', ']')}) Tj ET".encode()
+          stream = f"BT /F1 11 Tf 48 720 Td ({text.replace('(', '[').replace(')', ']')}) Tj ET".encode()
           objects = [
               b'1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n',
               b'2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n',
@@ -89,6 +90,9 @@ jobs:
           response_hash = hashlib.sha256(pdf).hexdigest()
           provenance = {
               'schema_version': 'HIL-RESPONSE-PROVENANCE-v1.1',
+              'test_case_id': test_case_id,
+              'artifact_type': 'HIL_TEST_RESPONSE_PACKET',
+              'participant_type': 'SYNTHETIC_VALIDATION_ACTOR',
               'primary_version': 'v1.1',
               'primary_sha256': 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',
               'protocol_version': 'HIL-PROTOCOL-v1.1',
@@ -97,15 +101,18 @@ jobs:
               'response_sha256': response_hash,
               'model': 'SYNTHETIC-INFRASTRUCTURE-FIXTURE',
               'provider': 'StegVerse-Labs/Site GitHub Actions',
-              'generated_at': now,
+              'generated_at': generated_at,
               'participant_identifier': 'CONTROLLED-INFRASTRUCTURE-CYCLE',
               'publication_consent': 'NOT_APPLICABLE_SYNTHETIC',
               'research_data': False,
+              'authority_effect': False,
           }
           (out / 'provenance.json').write_text(json.dumps(provenance, indent=2, sort_keys=True) + '\n')
+          (out / 'canonical-fixture-sha256.txt').write_text(response_hash + '\n')
+          (out / 'canonical-fixture-size.txt').write_text(str(len(pdf)) + '\n')
           PY
 
-      - name: Submit synthetic response packet
+      - name: Submit canonical packet through production endpoint
         shell: bash
         run: |
           set -euo pipefail
@@ -123,12 +130,14 @@ jobs:
           printf '%s\n' "$http_status" > controlled-cycle-evidence/submission-http-status.txt
           test "$http_status" = '201' || test "$http_status" = '200'
 
-      - name: Retrieve status and exact bytes
+      - name: Retrieve status and exact stored bytes
         shell: bash
         run: |
           set -euo pipefail
           submission_id=$(python -c "import json; print(json.load(open('controlled-cycle-evidence/receipt.json'))['submission_id'])")
+          receipt_id=$(python -c "import json; print(json.load(open('controlled-cycle-evidence/receipt.json'))['receipt_id'])")
           printf '%s\n' "$submission_id" > controlled-cycle-evidence/submission-id.txt
+          printf '%s\n' "$receipt_id" > controlled-cycle-evidence/receipt-id.txt
           curl --fail --silent --show-error --max-time 30 \
             --output controlled-cycle-evidence/status.json \
             "$RECEIVER_BASE_URL/api/hil/submissions/$submission_id"
@@ -137,7 +146,7 @@ jobs:
             --dump-header controlled-cycle-evidence/retrieval-headers.txt \
             "$RECEIVER_BASE_URL/api/hil/submissions/$submission_id/content"
 
-      - name: Verify controlled cycle
+      - name: Verify production upload, receipt, custody, and authority boundaries
         shell: bash
         run: |
           set -euo pipefail
@@ -149,38 +158,143 @@ jobs:
             controlled-cycle-evidence/RETRIEVED.pdf \
             | tee controlled-cycle-evidence/controlled-cycle-validation.txt
 
-      - name: Record evidence manifest
+      - name: Verify deterministic rejection cases
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path('controlled-cycle-evidence')
+          provenance = json.loads((root / 'provenance.json').read_text())
+          cases = root / 'negative-cases'
+          cases.mkdir(exist_ok=True)
+          (cases / 'invalid-signature.pdf').write_bytes(b'NOT-A-PDF')
+          (cases / 'wrong-extension.txt').write_bytes((root / 'ORIGINAL.pdf').read_bytes())
+          wrong_response = dict(provenance)
+          wrong_response['response_sha256'] = '0' * 64
+          (cases / 'wrong-response-hash.json').write_text(json.dumps(wrong_response))
+          wrong_primary = dict(provenance)
+          wrong_primary['primary_sha256'] = '1' * 64
+          (cases / 'wrong-primary-hash.json').write_text(json.dumps(wrong_primary))
+          wrong_prompt = dict(provenance)
+          wrong_prompt['prompt_sha256'] = '2' * 64
+          (cases / 'wrong-prompt-hash.json').write_text(json.dumps(wrong_prompt))
+          PY
+
+          run_case() {
+            name="$1"; expected="$2"; shift 2
+            status=$(curl --silent --show-error --max-time 60 \
+              --output "controlled-cycle-evidence/negative-cases/${name}.json" \
+              --write-out '%{http_code}' "$@")
+            printf '%s\n' "$status" > "controlled-cycle-evidence/negative-cases/${name}.status"
+            test "$status" = "$expected"
+          }
+
+          run_case missing-provenance 400 \
+            --form 'response_pdf=@controlled-cycle-evidence/ORIGINAL.pdf;type=application/pdf' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            "$RECEIVER_BASE_URL/api/hil/submissions"
+
+          run_case wrong-extension 400 \
+            --form 'response_pdf=@controlled-cycle-evidence/negative-cases/wrong-extension.txt;type=application/pdf' \
+            --form 'provenance_manifest=@controlled-cycle-evidence/provenance.json;type=application/json' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            "$RECEIVER_BASE_URL/api/hil/submissions"
+
+          run_case invalid-signature 400 \
+            --form 'response_pdf=@controlled-cycle-evidence/negative-cases/invalid-signature.pdf;type=application/pdf' \
+            --form 'provenance_manifest=@controlled-cycle-evidence/provenance.json;type=application/json' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            "$RECEIVER_BASE_URL/api/hil/submissions"
+
+          run_case wrong-response-hash 422 \
+            --form 'response_pdf=@controlled-cycle-evidence/ORIGINAL.pdf;type=application/pdf' \
+            --form 'provenance_manifest=@controlled-cycle-evidence/negative-cases/wrong-response-hash.json;type=application/json' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            "$RECEIVER_BASE_URL/api/hil/submissions"
+
+          run_case wrong-primary-hash 422 \
+            --form 'response_pdf=@controlled-cycle-evidence/ORIGINAL.pdf;type=application/pdf' \
+            --form 'provenance_manifest=@controlled-cycle-evidence/negative-cases/wrong-primary-hash.json;type=application/json' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            "$RECEIVER_BASE_URL/api/hil/submissions"
+
+          run_case wrong-prompt-hash 422 \
+            --form 'response_pdf=@controlled-cycle-evidence/ORIGINAL.pdf;type=application/pdf' \
+            --form 'provenance_manifest=@controlled-cycle-evidence/negative-cases/wrong-prompt-hash.json;type=application/json' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            "$RECEIVER_BASE_URL/api/hil/submissions"
+
+          printf 'HIL_NEGATIVE_CASES=PASS\n' | tee controlled-cycle-evidence/negative-cases-validation.txt
+
+      - name: Record participant-readiness evidence manifest
         if: always()
         shell: bash
         run: |
           python - <<'PY'
           import hashlib
           import json
+          import os
           from datetime import datetime, timezone
           from pathlib import Path
+
           root = Path('controlled-cycle-evidence')
           files = {}
-          for path in sorted(root.glob('*')):
+          for path in sorted(root.rglob('*')):
               if path.is_file():
                   data = path.read_bytes()
-                  files[path.name] = {'size_bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+                  files[str(path.relative_to(root))] = {
+                      'size_bytes': len(data),
+                      'sha256': hashlib.sha256(data).hexdigest(),
+                  }
+          positive_pass = (root / 'controlled-cycle-validation.txt').exists() and 'HIL_CONTROLLED_CYCLE=PASS' in (root / 'controlled-cycle-validation.txt').read_text()
+          negative_pass = (root / 'negative-cases-validation.txt').exists() and 'HIL_NEGATIVE_CASES=PASS' in (root / 'negative-cases-validation.txt').read_text()
           manifest = {
-              'schema_version': 'HIL-CONTROLLED-CYCLE-EVIDENCE-MANIFEST-v1',
+              'schema_version': 'HIL-PARTICIPANT-READINESS-EVIDENCE-v1',
+              'test_case_id': 'HIL-E2E-001',
               'recorded_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
               'receiver_base_url': 'https://stegverse.org',
+              'repository_commit': os.environ.get('GITHUB_SHA'),
+              'workflow_run_id': os.environ.get('GITHUB_RUN_ID'),
+              'workflow_run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
               'synthetic_infrastructure_fixture': True,
               'research_data': False,
               'authority_effect': False,
+              'positive_cycle_passed': positive_pass,
+              'negative_cases_passed': negative_pass,
+              'participant_ready': positive_pass and negative_pass,
               'files': files,
           }
           (root / 'evidence-manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Enforce participant-ready result
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          data = json.load(open('controlled-cycle-evidence/evidence-manifest.json'))
+          if data.get('participant_ready') is not True:
+              raise SystemExit('HIL_PARTICIPANT_READY=FAIL')
+          print('HIL_PARTICIPANT_READY=PASS')
+          print('test_case_id=HIL-E2E-001')
           PY
 
       - name: Upload complete evidence package
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: hil-controlled-cycle-${{ github.run_id }}-${{ github.run_attempt }}
+          name: hil-participant-readiness-${{ github.run_id }}-${{ github.run_attempt }}
           path: controlled-cycle-evidence/
           if-no-files-found: error
           retention-days: 90
