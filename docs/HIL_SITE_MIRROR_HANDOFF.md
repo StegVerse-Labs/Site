@@ -2,12 +2,13 @@
 
 ## Source of truth
 
-This document owns continuation for the public HIL experiment surface in `StegVerse-Labs/Site`. It remains subordinate to `docs/SITE_MIRROR_HANDOFF.md` for ecosystem-wide activation authority and must be used together with:
+This document owns continuation for the public HIL experiment surface in `StegVerse-Labs/Site`. It remains subordinate to `docs/SITE_MIRROR_HANDOFF.md` for ecosystem-wide activation authority and must be read with:
 
-- `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
-- `docs/HIL_EXECUTION_SESSION_PROMPT.md`
+1. `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
+2. `docs/HIL_EXECUTION_SESSION_PROMPT.md`
+3. `docs/HIL_MIRROR_HANDOFF.md`
 
-Every session that materially changes HIL state must update this file before responding.
+Every session that materially changes or inspects HIL activation state must update this file before responding.
 
 ## Current goal
 
@@ -47,6 +48,7 @@ Participant readiness: data/hil-participant-readiness.json
 Latest controlled-cycle result: data/hil-controlled-cycle-latest.json
 Latest receiver deployment result: data/hil-receiver-deployment-latest.json
 Execution prompt: docs/HIL_EXECUTION_SESSION_PROMPT.md
+Deployment handoff: docs/HIL_MIRROR_HANDOFF.md
 Cross-session protocol: docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md
 Announcement packet: docs/HIL_START_ANNOUNCEMENT.md
 ```
@@ -65,55 +67,30 @@ Public readiness schema: HIL-PUBLIC-PARTICIPANT-READINESS-v1
 Controlled test case: HIL-E2E-001
 ```
 
-## Verified current state — 2026-07-30
+## Verified implementation state
 
-### Participant surfaces
+The participant submission page, received page, grouped FAQ, and repeated `rigel@stegverse.org` / `HIL Priority` recovery path are implemented and fail-closed. `src/worker.js` implements `/api/hil/probes`, `/api/hil/readiness`, production submission intake, receipt generation, submission status, exact-byte chunk persistence through `HIL_REGISTRY`, reconstruction, retrieval, and diagnostic validation. `wrangler.jsonc` identifies `src/worker.js` as the Worker entrypoint and requests Worker-first routing for `/api/hil/*`.
 
-- Submission page implemented and fail-closed.
-- Received page implemented with exact-byte and receipt verification.
-- Grouped participant FAQ implemented.
-- Repeated `rigel@stegverse.org` / `HIL Priority` recovery path implemented.
-- Public readiness remains `NOT_YET_VERIFIED`; uploads remain disabled.
+Public readiness remains `NOT_YET_VERIFIED`; uploads remain disabled.
 
-### Receiver code
-
-`src/worker.js` implements:
-
-- `/api/hil/probes`
-- `/api/hil/readiness`
-- production submission intake
-- receipt generation
-- submission status
-- exact-byte chunk persistence through `HIL_REGISTRY`
-- exact-byte reconstruction and content retrieval
-- diagnostic validation
-
-`wrangler.jsonc` identifies `src/worker.js` as the Worker entrypoint and requests Worker-first routing for `/api/hil/*`.
-
-### Controlled-cycle execution
-
-The controlled-cycle supervisor successfully removed the prior silent-failure condition.
-
-Latest verified controlled run:
+## Latest verified controlled-cycle result
 
 ```text
 Run ID: 30569491378
+Job ID: 90962296249
 Dispatched: 2026-07-30T18:13:48Z
 Completed: 2026-07-30T18:14:04Z
 Conclusion: failure
 First failed step: Capture and validate live runtime readiness
 Failure: https://stegverse.org/api/hil/readiness returned HTTP 404
+curl exit code: 22
 ```
 
 Machine-readable result: `data/hil-controlled-cycle-latest.json`.
 
 This proves the controlled workflow executes and reports, but the production Worker route is not serving the HIL API.
 
-### Cloudflare deployment attempt
-
-A deployment workflow was added at `.github/workflows/hil-cloudflare-deploy.yml` and executed.
-
-Latest machine-readable deployment result:
+## Latest recorded deployment result
 
 ```json
 {"schema_version":"HIL-RECEIVER-DEPLOYMENT-RESULT-v1","deployed":false,"ready":false,"failure":"deployment_step_failed_before_live_probe","authority_effect":false}
@@ -121,42 +98,45 @@ Latest machine-readable deployment result:
 
 Commit recording that result: `e6f06765df79d5915096cc47ed88ed07f0475025`.
 
-The workflow requires:
+The deployment workflow requires GitHub Actions secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID`, plus a live D1 binding named `HIL_REGISTRY`. Secret names in the workflow do not prove that values, permissions, or provider resources exist.
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `HIL_REGISTRY_DATABASE_ID`
+## Connector and authority state — 2026-07-30T22:29Z
 
-The run failed before the live probe, but the current repository result does not identify which credential or provider action failed. A future session must inspect the deployment run/job logs or use direct Cloudflare controls. It must not assume all three values are missing.
+- Current repository head inspected: `4d9559b7e99a94ca1d8d6ab61f3d8efe05f066c2` (`docs(hil): record final-activation authority inspection`).
+- Direct GitHub repository read/write controls are available.
+- GitHub Actions job, step, artifact, log, and rerun controls are available only after a run ID or job ID is known.
+- No action in the current GitHub connector can enumerate push-triggered workflow runs or dispatch the HIL deployment workflow.
+- `fetch_commit_workflow_runs` is limited to pull-request-associated runs and cannot identify the push-triggered deployment run.
+- No direct Cloudflare, Workers, D1, route, binding, deployment, or provider-control connector is exposed in this session.
+- Fresh deployment trigger commit remains `d5d1598a8c523e8665e4550ee5c272df09256379`.
+- The trigger commit exposes no combined status/check entries through the available connector.
+- No newer receiver deployment observation exists after the trigger.
+- `data/hil-receiver-deployment-latest.json` remains unchanged with `deployment_step_failed_before_live_probe`.
+- `data/hil-participant-readiness.json` remains `NOT_YET_VERIFIED`, `participant_ready: false`, and `upload_button_authorized: false`.
+- No live submission ID, receipt ID, controlled-cycle PASS, or restart-persistence PASS exists.
 
-## Why a new session may still be blocked
+## Exact proven external-authority block
 
-A session prompt transfers knowledge, not authority. Cloudflare being connected in another chat or visible in the product does not guarantee that the current session exposes Cloudflare actions. Likewise, GitHub repository access does not grant Cloudflare deployment access or reveal GitHub secret values.
+The current session cannot enumerate the push-triggered `HIL Cloudflare Receiver Deploy` workflow run and cannot inspect or mutate Cloudflare Worker, route, D1 database, `HIL_REGISTRY` binding, deployment, or custom-domain state directly. Because the fresh run ID is unavailable, the available GitHub job/log actions cannot inspect the failed deployment command or provider error. Guessing which secret, permission, account resource, route, or binding failed would violate the fail-closed activation rules.
 
-Every continuation session must first discover its actual connectors and then choose the shortest available route:
+The next session must expose at least one of:
 
-### Environment A — direct Cloudflare controls available
+1. GitHub Actions workflow-run listing or dispatch for `.github/workflows/hil-cloudflare-deploy.yml`; or
+2. Direct Cloudflare Workers and D1 controls for the account serving `stegverse.org`.
 
-1. Inspect Workers, routes, D1 databases, bindings, and deployment state directly.
-2. Create or identify the HIL D1 database.
-3. Bind it as `HIL_REGISTRY`.
-4. Deploy `src/worker.js` on `stegverse.org/api/hil/*`.
-5. Verify live probes/readiness.
-6. Continue through controlled cycle, readiness publication, restart persistence, and public-page verification.
+## Required execution path when authority becomes available
 
-### Environment B — GitHub Actions write access but no Cloudflare connector
-
-1. Inspect the exact deployment workflow run and failed job logs.
-2. Determine one exact missing secret, permission, account resource, or invalid configuration.
-3. Repair repository code/workflow defects directly.
-4. Rerun when possible.
-5. Only request user action when one proven provider credential/resource cannot be supplied through connected tools.
-
-### Environment C — repository read/write only, no Actions execution and no Cloudflare controls
-
-1. Improve documentation or code only when it directly reduces the external block.
-2. Do not create more orchestration layers.
-3. Leave one precise next-session prompt naming this handoff and the exact unavailable authority.
+1. Enumerate the newest `HIL Cloudflare Receiver Deploy` run and inspect its exact failed job step and logs, or inspect Cloudflare state directly.
+2. Repair only the proven credential, permission, resource, route, binding, or configuration defect.
+3. Create or identify the HIL D1 database and bind it as `HIL_REGISTRY`.
+4. Deploy `src/worker.js` only on `stegverse.org/api/hil/*`, preserving unrelated routes.
+5. Require `/api/hil/probes` HTTP 200 and `/api/hil/readiness` HTTP 200 with `state: READY`.
+6. Run `RUN CONTROLLED HIL CYCLE` until PASS.
+7. Verify readiness publication contains the live submission ID, receipt ID, response SHA-256, size, chunk count, custody backend, exact-byte retrieval, positive-cycle PASS, negative-case PASS, and upload authorization.
+8. Cause a real hosted deployment/restart and run `VERIFY HIL RESTART PERSISTENCE` until PASS.
+9. Verify the public upload and received pages end-to-end with live production data.
+10. Determine announcement and release/tag readiness only after every terminal criterion passes.
+11. Propagate verified activation evidence to `GCAT-BCAT-Engine/Publisher`, `StegVerse-Labs/admissibility-wiki`, and `StegVerse-002/stegguardian-wiki` only after activation proof exists.
 
 ## Relevant workflows and controls
 
@@ -171,29 +151,6 @@ Every continuation session must first discover its actual connectors and then ch
 controls/DEPLOY_HIL_RECEIVER.txt
 controls/RUN_CONTROLLED_HIL_CYCLE.txt
 ```
-
-## Prior attempted solutions and outcomes
-
-1. Manual-dispatch controlled cycle: installed but difficult to initiate from the connected GitHub interface.
-2. Push-triggered autostart: created; did not provide sufficient run visibility.
-3. Controlled-cycle supervisor: created; succeeded in dispatching and persisting the actual run result.
-4. Controlled production cycle: executed; failed immediately because `/api/hil/readiness` returned 404.
-5. Cloudflare deployment workflow: created and executed; failed before live probe.
-6. No-stop execution prompt: created; new sessions remained blocked when their actual tool set lacked Cloudflare actions.
-7. Cross-session protocol: created to prevent connector assumptions and repeated rediscovery.
-
-## Shortest known path to activation
-
-1. Inspect the exact failed Cloudflare deployment job logs.
-2. Use direct Cloudflare controls when present; otherwise repair the one exact GitHub secret/configuration failure.
-3. Deploy the Worker with `HIL_REGISTRY` bound and the API route active.
-4. Require live readiness HTTP 200/READY.
-5. Execute `RUN CONTROLLED HIL CYCLE` until PASS.
-6. Verify readiness publication commit.
-7. Cause a real deployment transition.
-8. Execute `VERIFY HIL RESTART PERSISTENCE` until PASS.
-9. Verify submission and received pages end-to-end.
-10. Announce only after all criteria pass.
 
 ## False completion conditions
 
@@ -223,18 +180,4 @@ announcement ready != announcement published
 
 ## Required update before every session ends
 
-Update this file with:
-
-- latest commit SHAs;
-- latest run IDs and conclusions;
-- exact failing step and error;
-- current live endpoint responses;
-- any created or removed provider resources;
-- current shortest execution path;
-- remaining terminal criteria.
-
-Then append a ready-to-paste next-session prompt to the user response that points to:
-
-- `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
-- `docs/HIL_SITE_MIRROR_HANDOFF.md`
-- `docs/HIL_EXECUTION_SESSION_PROMPT.md`
+Record latest commit SHAs, run IDs and conclusions, exact failing step and error, live endpoint responses, provider resources, connector availability, shortest execution path, and remaining terminal criteria. Then append a ready-to-paste next-session prompt naming every applicable handoff.
