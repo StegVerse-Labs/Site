@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Verify a received HIL response packet and its governed receiver receipt.">
+  <title>HIL Response Packet Received — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .notice{border:1px solid var(--border2);border-radius:10px;padding:18px;margin:16px 0}
+    .pass{font-size:1.15rem;font-weight:900;border:2px solid currentColor}
+    .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
+    .pdf-frame{width:100%;min-height:70vh;border:1px solid var(--border2);border-radius:8px;background:#fff}
+  </style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-accepted.html">Received Packet</a></nav>
+<main class="sv-wrap">
+  <header class="sv-hero">
+    <div class="sv-eyebrow">Governed receiver · exact-byte verification</div>
+    <h1>Response Packet <em>Received</em></h1>
+    <p>The receiver record and stored artifact are being independently re-read before this page reports acceptance.</p>
+  </header>
+
+  <section id="received-state" class="notice" aria-live="polite">Loading received packet…</section>
+  <section id="test-pass" class="notice pass" hidden>Test Participant Packet Passed</section>
+
+  <h2 class="sv-h2">Received response packet</h2>
+  <iframe id="response-pdf" class="pdf-frame" title="Received response PDF"></iframe>
+
+  <h2 class="sv-h2">Verified receiver receipt</h2>
+  <pre id="receipt-body" class="receipt">Loading receipt…</pre>
+
+  <div class="sv-btn-row">
+    <button id="download-receipt" class="sv-btn sv-btn-primary" disabled>Download Receipt</button>
+    <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html">Return to Study</a>
+  </div>
+
+  <h2 class="sv-h2">Authority boundary</h2>
+  <pre>packet received             != review approval
+receiver receipt            != publication authority
+test participant pass       != participant research result
+exact-byte verification     != scientific endorsement</pre>
+</main>
+<script>
+(() => {
+  'use strict';
+  const params = new URLSearchParams(location.search);
+  const submissionId = params.get('submission_id');
+  const byId = (id) => document.getElementById(id);
+  let receipt = null;
+
+  async function sha256Hex(buffer) {
+    const digest = await crypto.subtle.digest('SHA-256', buffer);
+    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  }
+
+  function saveBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function isCanonicalTestPacket(bytes) {
+    const text = new TextDecoder('latin1').decode(bytes);
+    return text.includes('StegVerse HIL controlled infrastructure cycle')
+      && text.includes('Synthetic artifact only')
+      && text.includes('not participant research data');
+  }
+
+  async function init() {
+    const state = byId('received-state');
+    if (!submissionId) {
+      state.dataset.state = 'error';
+      state.textContent = 'No received submission identifier was provided.';
+      return;
+    }
+
+    try {
+      const statusResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}`, { cache: 'no-store' });
+      if (!statusResponse.ok) throw new Error('submission_status_unavailable');
+      const status = await statusResponse.json();
+      receipt = status.receipt;
+      if (!receipt || receipt.submission_id !== submissionId || status.state !== 'ACCEPTED') throw new Error('accepted_receipt_invalid');
+
+      const contentResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}/content`, { cache: 'no-store' });
+      if (!contentResponse.ok) throw new Error('stored_packet_unavailable');
+      const buffer = await contentResponse.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      const retrievedHash = await sha256Hex(buffer);
+      if (retrievedHash !== receipt.submitted_file_sha256) throw new Error('retrieved_packet_hash_mismatch');
+      if (Number(status.size_bytes) !== bytes.byteLength) throw new Error('retrieved_packet_size_mismatch');
+
+      const blob = new Blob([buffer], { type: 'application/pdf' });
+      byId('response-pdf').src = URL.createObjectURL(blob);
+      byId('receipt-body').textContent = JSON.stringify(receipt, null, 2);
+      state.dataset.state = 'ok';
+      state.textContent = `${submissionId} received. Receipt, stored-byte count, and SHA-256 were verified against the exact retrieved PDF.`;
+
+      if (isCanonicalTestPacket(bytes)) {
+        byId('test-pass').hidden = false;
+        state.append(document.createTextNode(' Test Participant Packet Passed.'));
+      }
+
+      const button = byId('download-receipt');
+      button.disabled = false;
+      button.addEventListener('click', () => saveBlob(
+        new Blob([`${JSON.stringify(receipt, null, 2)}\n`], { type: 'application/json' }),
+        `${receipt.receipt_id || submissionId}.json`
+      ));
+    } catch (error) {
+      console.error(error);
+      state.dataset.state = 'error';
+      state.textContent = `The received packet could not be verified: ${error.message || 'unknown_error'}.`;
+    }
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
