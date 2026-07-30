@@ -1,0 +1,111 @@
+name: HIL Controlled Cycle Supervisor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'controls/RUN_CONTROLLED_HIL_CYCLE.txt'
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: hil-controlled-cycle-supervisor
+  cancel-in-progress: false
+
+jobs:
+  supervise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify authorization marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          first_line="$(head -n 1 controls/RUN_CONTROLLED_HIL_CYCLE.txt | tr -d '\r\n')"
+          test "$first_line" = "RUN CONTROLLED HIL CYCLE"
+
+      - name: Dispatch controlled cycle and capture run
+        id: cycle
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          dispatched_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          gh workflow run hil-controlled-cycle.yml \
+            --repo "$REPOSITORY" \
+            --ref main \
+            -f authorization_phrase='RUN CONTROLLED HIL CYCLE'
+
+          run_id=""
+          for attempt in $(seq 1 30); do
+            run_id="$(gh run list --repo "$REPOSITORY" --workflow hil-controlled-cycle.yml --event workflow_dispatch --limit 20 --json databaseId,createdAt --jq '.[] | select(.createdAt >= "'"$dispatched_at"'") | .databaseId' | head -n 1)"
+            [ -n "$run_id" ] && break
+            sleep 2
+          done
+          test -n "$run_id"
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+          echo "dispatched_at=$dispatched_at" >> "$GITHUB_OUTPUT"
+
+          set +e
+          gh run watch "$run_id" --repo "$REPOSITORY" --exit-status
+          watch_status=$?
+          set -e
+
+          conclusion="$(gh run view "$run_id" --repo "$REPOSITORY" --json conclusion --jq '.conclusion')"
+          run_url="$(gh run view "$run_id" --repo "$REPOSITORY" --json url --jq '.url')"
+          completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          mkdir -p data
+          python - "$run_id" "$run_url" "$conclusion" "$dispatched_at" "$completed_at" "$watch_status" <<'PY'
+          import json, sys
+          from pathlib import Path
+          run_id, run_url, conclusion, dispatched_at, completed_at, watch_status = sys.argv[1:]
+          record = {
+              "schema_version": "HIL-CONTROLLED-CYCLE-ATTEMPT-v1",
+              "authorization_phrase_verified": True,
+              "workflow": "hil-controlled-cycle.yml",
+              "run_id": int(run_id),
+              "run_url": run_url,
+              "dispatched_at": dispatched_at,
+              "completed_at": completed_at,
+              "conclusion": conclusion,
+              "passed": conclusion == "success" and watch_status == "0",
+              "authority_effect": False,
+              "research_data": False
+          }
+          Path("data/hil-controlled-cycle-latest.json").write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+          PY
+
+      - name: Commit observable cycle outcome
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'stegverse-hil-supervisor'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/hil-controlled-cycle-latest.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'chore(hil): record controlled-cycle outcome'
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Enforce successful cycle
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          record = json.load(open('data/hil-controlled-cycle-latest.json'))
+          if record.get('passed') is not True:
+              raise SystemExit(f"HIL_CONTROLLED_CYCLE_FAILED:{record.get('conclusion')}")
+          print('HIL_CONTROLLED_CYCLE_SUPERVISED=PASS')
+          PY
