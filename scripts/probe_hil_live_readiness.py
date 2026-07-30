@@ -19,7 +19,7 @@ from pathlib import Path
 
 RECEIVER_URL = os.environ.get(
     "HIL_READINESS_URL",
-    "https://receiver.stegverse.com/api/hil/readiness",
+    "https://stegverse.org/api/hil/readiness",
 )
 OUT = Path(os.environ.get("HIL_EVIDENCE_DIR", "artifacts/hil-readiness-live"))
 EXPECTED = {
@@ -45,15 +45,13 @@ def canonical_json(value: object) -> bytes:
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
-    observed_at = now()
     evidence: dict[str, object] = {
         "schema_version": "HIL-LIVE-READINESS-EVIDENCE-v1",
-        "observed_at": observed_at,
+        "observed_at": now(),
         "url": RECEIVER_URL,
         "authority_effect": False,
         "ready_validated": False,
     }
-
     request = urllib.request.Request(
         RECEIVER_URL,
         headers={"Accept": "application/json", "User-Agent": "StegVerse-HIL-readiness-probe/1.0"},
@@ -61,16 +59,15 @@ def main() -> int:
     )
 
     try:
-        context = ssl.create_default_context()
-        with urllib.request.urlopen(request, timeout=30, context=context) as response:
+        with urllib.request.urlopen(request, timeout=30, context=ssl.create_default_context()) as response:
             raw = response.read()
             evidence["http_status"] = response.status
             evidence["content_type"] = response.headers.get("Content-Type")
+            evidence["response_headers"] = dict(response.headers.items())
             evidence["response_sha256"] = hashlib.sha256(raw).hexdigest()
             (OUT / "response.raw").write_bytes(raw)
             payload = json.loads(raw.decode("utf-8"))
             (OUT / "response.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-
             mismatches = {
                 key: {"expected": expected, "actual": payload.get(key)}
                 for key, expected in EXPECTED.items()
@@ -88,11 +85,10 @@ def main() -> int:
             "response_sha256": hashlib.sha256(raw).hexdigest(),
         })
         (OUT / "response.raw").write_bytes(raw)
-    except Exception as error:  # fail-closed evidence, including DNS/TLS/JSON errors
+    except Exception as error:
         evidence.update({"failure_class": type(error).__name__, "failure": str(error)})
 
-    evidence_bytes = canonical_json(evidence)
-    evidence["evidence_sha256"] = hashlib.sha256(evidence_bytes).hexdigest()
+    evidence["evidence_sha256"] = hashlib.sha256(canonical_json(evidence)).hexdigest()
     (OUT / "evidence.json").write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(evidence, indent=2, sort_keys=True))
     return 0 if evidence.get("ready_validated") is True else 1
