@@ -7,6 +7,7 @@ on:
     paths:
       - 'src/worker.js'
       - 'wrangler.jsonc'
+      - 'scripts/verify_hil_readiness_record.py'
       - '.github/workflows/hil-live-probe.yml'
   schedule:
     - cron: '17 * * * *'
@@ -21,6 +22,9 @@ jobs:
     env:
       RECEIVER_BASE_URL: https://stegverse.org
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Initialize evidence directory
         run: mkdir -p probe-evidence
 
@@ -47,7 +51,9 @@ jobs:
           import urllib.parse
           import urllib.request
           from datetime import datetime, timezone
+          from pathlib import Path
 
+          evidence_dir = Path('probe-evidence')
           base = os.environ['RECEIVER_BASE_URL'].rstrip('/')
           host = urllib.parse.urlparse(base).hostname or 'stegverse.org'
           endpoints = [
@@ -55,9 +61,11 @@ jobs:
               ('readiness', '/api/hil/readiness'),
           ]
           evidence = {
-              'schema_version': 'HIL-LIVE-PROBE-EVIDENCE-v1',
+              'schema_version': 'HIL-LIVE-PROBE-EVIDENCE-v2',
               'observed_at': datetime.now(timezone.utc).isoformat(),
               'receiver_base_url': base,
+              'redirects_followed': False,
+              'maximum_response_bytes': 65536,
               'dns': {},
               'endpoints': {},
           }
@@ -71,31 +79,66 @@ jobs:
           except Exception as exc:
               evidence['dns'] = {'state': 'UNRESOLVED', 'host': host, 'error': repr(exc)}
 
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  return None
+
+          opener = urllib.request.build_opener(NoRedirect)
+
           for name, path in endpoints:
               url = base + path
-              record = {'url': url}
+              record = {'url': url, 'method': 'GET'}
+              body_bytes = b''
+              headers = {}
               try:
-                  request = urllib.request.Request(url, headers={'User-Agent': 'StegVerse-HIL-Live-Probe/1.0'})
-                  with urllib.request.urlopen(request, timeout=20) as response:
-                      body = response.read().decode('utf-8', errors='replace')
+                  request = urllib.request.Request(url, headers={'User-Agent': 'StegVerse-HIL-Live-Probe/2.0'})
+                  with opener.open(request, timeout=20) as response:
+                      body_bytes = response.read(65537)
+                      headers = dict(response.headers.items())
                       record.update({
                           'transport_state': 'RESPONSE_RECEIVED',
                           'http_status': response.status,
+                          'final_url': response.geturl(),
                           'content_type': response.headers.get('content-type'),
-                          'body': body,
+                          'response_bytes': len(body_bytes),
+                          'verified_tls': urllib.parse.urlparse(response.geturl()).scheme == 'https',
                       })
-                      try:
-                          record['json'] = json.loads(body)
-                      except json.JSONDecodeError:
-                          record['json_state'] = 'INVALID_OR_NON_JSON'
               except urllib.error.HTTPError as exc:
+                  body_bytes = exc.read(65537)
+                  headers = dict(exc.headers.items()) if exc.headers else {}
                   record.update({
                       'transport_state': 'HTTP_ERROR',
                       'http_status': exc.code,
-                      'body': exc.read().decode('utf-8', errors='replace'),
+                      'final_url': exc.geturl(),
+                      'content_type': headers.get('Content-Type') or headers.get('content-type'),
+                      'response_bytes': len(body_bytes),
+                      'verified_tls': urllib.parse.urlparse(exc.geturl()).scheme == 'https',
                   })
               except Exception as exc:
                   record.update({'transport_state': 'NO_RESPONSE', 'error': repr(exc)})
+
+              if len(body_bytes) > 65536:
+                  record['body_state'] = 'REJECTED_OVERSIZE'
+                  body_bytes = body_bytes[:65536]
+              else:
+                  record['body_state'] = 'PRESERVED'
+
+              body_text = body_bytes.decode('utf-8', errors='replace')
+              record['body'] = body_text
+              record['headers'] = headers
+              try:
+                  record['json'] = json.loads(body_text)
+              except json.JSONDecodeError:
+                  record['json_state'] = 'INVALID_OR_NON_JSON'
+
+              (evidence_dir / f'{name}-body.txt').write_bytes(body_bytes)
+              (evidence_dir / f'{name}-headers.json').write_text(
+                  json.dumps(headers, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+              )
+              if name == 'readiness' and isinstance(record.get('json'), dict):
+                  (evidence_dir / 'readiness-body.json').write_text(
+                      json.dumps(record['json'], indent=2, sort_keys=True) + '\n', encoding='utf-8'
+                  )
               evidence['endpoints'][name] = record
 
           probes = evidence['endpoints'].get('probes', {})
@@ -110,17 +153,47 @@ jobs:
               ),
               'probe_http_status': probes.get('http_status'),
               'readiness_http_status': readiness.get('http_status'),
+              'readiness_body_preserved': (evidence_dir / 'readiness-body.json').is_file(),
           }
 
-          with open('probe-evidence/live-probe.json', 'w', encoding='utf-8') as handle:
+          with open(evidence_dir / 'live-probe.json', 'w', encoding='utf-8') as handle:
               json.dump(evidence, handle, indent=2, sort_keys=True)
               handle.write('\n')
           print(json.dumps(evidence, indent=2, sort_keys=True))
           PY
           exit 0
 
+      - name: Independently validate preserved readiness body
+        id: readiness_validation
+        shell: bash
+        run: |
+          set +e
+          if [ ! -f probe-evidence/readiness-body.json ]; then
+            printf '%s\n' \
+              'HIL_READINESS_RECORD=NOT_OBSERVED' \
+              'authority_granted=false' \
+              'durable_custody_proven=false' \
+              'publication_ready_proven=false' \
+              | tee probe-evidence/readiness-validation.txt
+            echo 'result=NOT_OBSERVED' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          python scripts/verify_hil_readiness_record.py probe-evidence/readiness-body.json \
+            > probe-evidence/readiness-validation.txt 2>&1
+          status=$?
+          cat probe-evidence/readiness-validation.txt
+          if [ "$status" -eq 0 ]; then
+            echo 'result=PASS' >> "$GITHUB_OUTPUT"
+          else
+            echo 'result=FAIL' >> "$GITHUB_OUTPUT"
+          fi
+          exit 0
+
       - name: Publish probe summary
         shell: bash
+        env:
+          READINESS_VALIDATION: ${{ steps.readiness_validation.outputs.result }}
         run: |
           python - <<'PY'
           import json
@@ -135,8 +208,11 @@ jobs:
               out.write(f"- DNS: `{summary['dns_state']}`\n")
               out.write(f"- Routing: `{summary['routing_state']}`\n")
               out.write(f"- Receiver readiness: `{summary['readiness_state']}`\n")
+              out.write(f"- Independent readiness validation: `{os.environ.get('READINESS_VALIDATION', 'UNKNOWN')}`\n")
               out.write(f"- Probe HTTP status: `{summary['probe_http_status']}`\n")
               out.write(f"- Readiness HTTP status: `{summary['readiness_http_status']}`\n")
+              out.write('- Authority effect: `NONE`\n')
+              out.write('- Activation effect: `NONE`\n')
           PY
 
       - name: Upload probe evidence
