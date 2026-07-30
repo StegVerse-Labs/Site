@@ -190,3 +190,16 @@ Changes that may require downstream updates after activation:
 - Created deployment trigger `controls/DEPLOY_HIL_RECEIVER.txt` in commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
 - Exact remaining external-authority block: this session has no direct Cloudflare operations and no GitHub Actions list-runs/dispatch operation capable of returning the newly triggered push run ID. Therefore the resulting provider job logs cannot yet be retrieved through the exposed connector actions.
 - No acceptance condition was promoted without live evidence.
+
+## Session update — 2026-07-30T22:24Z
+
+- Re-read all required handoffs in full before acting.
+- Verified the repository head had advanced to `6d12c240adb901d016e31d50cf5d0613c4d914a6`, whose message is unrelated to HIL deployment observation.
+- Verified no newer commit named `chore(hil): record receiver deployment observation` exists after trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
+- Verified `data/hil-receiver-deployment-latest.json` remains unchanged with `failure: deployment_step_failed_before_live_probe`.
+- Verified the trigger commit has no combined status/check entries exposed by the connected GitHub action.
+- Verified the current GitHub connector can retrieve jobs and logs only after a run ID or job ID is known, but exposes no workflow-run listing operation for push runs.
+- Verified no direct Cloudflare action surface is exposed in this session.
+- Exact external-authority blocker: the current connected action set cannot enumerate the push-triggered `HIL Cloudflare Receiver Deploy` run and cannot inspect Cloudflare Worker, route, D1, binding, or deployment state directly. Consequently no exact failed step or provider error is accessible, and repairing a guessed secret, permission, binding, route, or resource would violate the fail-closed execution rules.
+- Required next authority: a session exposing either GitHub Actions workflow-run listing for `hil-cloudflare-deploy.yml` or direct Cloudflare Workers/D1 controls.
+- Public readiness remains fail-closed; no submission ID or receipt ID exists; no release/tag is authorized.
