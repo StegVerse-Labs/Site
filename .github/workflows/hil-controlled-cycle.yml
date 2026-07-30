@@ -1,0 +1,186 @@
+name: HIL Controlled Custody Cycle
+
+on:
+  workflow_dispatch:
+    inputs:
+      authorization_phrase:
+        description: "Type RUN CONTROLLED HIL CYCLE to authorize one synthetic custody test"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hil-controlled-custody-cycle
+  cancel-in-progress: false
+
+jobs:
+  controlled-cycle:
+    if: ${{ inputs.authorization_phrase == 'RUN CONTROLLED HIL CYCLE' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RECEIVER_BASE_URL: https://stegverse.org
+      PRIMARY_SHA256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
+      PROMPT_SHA256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Initialize evidence directory
+        run: mkdir -p controlled-cycle-evidence
+
+      - name: Capture and validate live readiness
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error \
+            --max-time 30 \
+            --header 'Accept: application/json' \
+            --output controlled-cycle-evidence/readiness.json \
+            --dump-header controlled-cycle-evidence/readiness-headers.txt \
+            "$RECEIVER_BASE_URL/api/hil/readiness"
+          python scripts/verify_hil_readiness_record.py \
+            controlled-cycle-evidence/readiness.json \
+            | tee controlled-cycle-evidence/readiness-validation.txt
+
+      - name: Generate labeled synthetic PDF and provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          out = Path('controlled-cycle-evidence')
+          now = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+          text = (
+              'StegVerse HIL controlled infrastructure cycle. '
+              'Synthetic artifact only; not participant research data; '
+              f'generated {now}.'
+          )
+          stream = f"BT /F1 12 Tf 72 720 Td ({text.replace('(', '[').replace(')', ']')}) Tj ET".encode()
+          objects = [
+              b'1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n',
+              b'2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n',
+              b'3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >> endobj\n',
+              b'4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj\n',
+              b'5 0 obj << /Length ' + str(len(stream)).encode() + b' >> stream\n' + stream + b'\nendstream endobj\n',
+          ]
+          pdf = bytearray(b'%PDF-1.4\n')
+          offsets = [0]
+          for obj in objects:
+              offsets.append(len(pdf))
+              pdf.extend(obj)
+          xref = len(pdf)
+          pdf.extend(f'xref\n0 {len(objects)+1}\n'.encode())
+          pdf.extend(b'0000000000 65535 f \n')
+          for offset in offsets[1:]:
+              pdf.extend(f'{offset:010d} 00000 n \n'.encode())
+          pdf.extend(f'trailer << /Size {len(objects)+1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n'.encode())
+          pdf_path = out / 'ORIGINAL.pdf'
+          pdf_path.write_bytes(pdf)
+          response_hash = hashlib.sha256(pdf).hexdigest()
+          provenance = {
+              'schema_version': 'HIL-RESPONSE-PROVENANCE-v1.1',
+              'primary_version': 'v1.1',
+              'primary_sha256': 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',
+              'protocol_version': 'HIL-PROTOCOL-v1.1',
+              'prompt_version': 'HIL-PROMPT-v1.1',
+              'prompt_sha256': 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c',
+              'response_sha256': response_hash,
+              'model': 'SYNTHETIC-INFRASTRUCTURE-FIXTURE',
+              'provider': 'StegVerse-Labs/Site GitHub Actions',
+              'generated_at': now,
+              'participant_identifier': 'CONTROLLED-INFRASTRUCTURE-CYCLE',
+              'publication_consent': 'NOT_APPLICABLE_SYNTHETIC',
+              'research_data': False,
+          }
+          (out / 'provenance.json').write_text(json.dumps(provenance, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Submit synthetic response packet
+        shell: bash
+        run: |
+          set -euo pipefail
+          http_status=$(curl --silent --show-error \
+            --max-time 60 \
+            --output controlled-cycle-evidence/receipt.json \
+            --write-out '%{http_code}' \
+            --form 'response_pdf=@controlled-cycle-evidence/ORIGINAL.pdf;type=application/pdf' \
+            --form 'provenance_manifest=@controlled-cycle-evidence/provenance.json;type=application/json' \
+            --form "primary_sha256=$PRIMARY_SHA256" \
+            --form "prompt_sha256=$PROMPT_SHA256" \
+            --form 'participant_identifier=CONTROLLED-INFRASTRUCTURE-CYCLE' \
+            --form 'publication_consent=NOT_APPLICABLE_SYNTHETIC' \
+            "$RECEIVER_BASE_URL/api/hil/submissions")
+          printf '%s\n' "$http_status" > controlled-cycle-evidence/submission-http-status.txt
+          test "$http_status" = '201' || test "$http_status" = '200'
+
+      - name: Retrieve status and exact bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          submission_id=$(python -c "import json; print(json.load(open('controlled-cycle-evidence/receipt.json'))['submission_id'])")
+          printf '%s\n' "$submission_id" > controlled-cycle-evidence/submission-id.txt
+          curl --fail --silent --show-error --max-time 30 \
+            --output controlled-cycle-evidence/status.json \
+            "$RECEIVER_BASE_URL/api/hil/submissions/$submission_id"
+          curl --fail --silent --show-error --max-time 60 \
+            --output controlled-cycle-evidence/RETRIEVED.pdf \
+            --dump-header controlled-cycle-evidence/retrieval-headers.txt \
+            "$RECEIVER_BASE_URL/api/hil/submissions/$submission_id/content"
+
+      - name: Verify controlled cycle
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_hil_controlled_cycle.py \
+            controlled-cycle-evidence/ORIGINAL.pdf \
+            controlled-cycle-evidence/provenance.json \
+            controlled-cycle-evidence/receipt.json \
+            controlled-cycle-evidence/status.json \
+            controlled-cycle-evidence/RETRIEVED.pdf \
+            | tee controlled-cycle-evidence/controlled-cycle-validation.txt
+
+      - name: Record evidence manifest
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          root = Path('controlled-cycle-evidence')
+          files = {}
+          for path in sorted(root.glob('*')):
+              if path.is_file():
+                  data = path.read_bytes()
+                  files[path.name] = {'size_bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+          manifest = {
+              'schema_version': 'HIL-CONTROLLED-CYCLE-EVIDENCE-MANIFEST-v1',
+              'recorded_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'receiver_base_url': 'https://stegverse.org',
+              'synthetic_infrastructure_fixture': True,
+              'research_data': False,
+              'authority_effect': False,
+              'files': files,
+          }
+          (root / 'evidence-manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Upload complete evidence package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-controlled-cycle-${{ github.run_id }}-${{ github.run_attempt }}
+          path: controlled-cycle-evidence/
+          if-no-files-found: error
+          retention-days: 90
