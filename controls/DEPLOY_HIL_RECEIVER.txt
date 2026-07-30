@@ -1,0 +1,4 @@
+DEPLOY_HIL_RECEIVER
+requested_at=2026-07-30T19:04:00Z
+purpose=final-activation-live-route-and-d1-verification
+authority_effect=false
