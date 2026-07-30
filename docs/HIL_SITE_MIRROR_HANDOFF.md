@@ -13,20 +13,22 @@ Primary surface: humans-as-interoperability-layer.html
 Canonical service: https://stegverse.org/hil/upload/
 Client: assets/hil-experiment-v1.1.js
 Receiver discovery: data/hil-receiver-config.json
-Operational receiver candidate: https://receiver.stegverse.com
+Operational receiver: https://stegverse.org
 Announcement packet: docs/HIL_START_ANNOUNCEMENT.md
 Announcement receipt template: data/hil-start-announcement-receipt.template.json
 Experiment manifest: data/hil-experiment.json
 Public response index: data/hil-responses.json
 Master Record index: data/hil-master-records.json
 Observer formalization: docs/HIL_OBSERVER_MODEL.md
-Receiver runtime: StegVerse-org/LLM-adapter
-Runtime handoff: StegVerse-org/LLM-adapter/docs/HIL_RUNTIME_MIRROR_HANDOFF.md
+Receiver runtime: src/worker.js
+Custody backend: portable-sqlite-chunks-v1 through HIL_REGISTRY
+D1 binding posture: dashboard-managed existing binding; no provider UUID committed to the portable repository
 Site contract guard: scripts/verify_hil_site_contract.py
 Readiness record guard: scripts/verify_hil_readiness_record.py
 Conforming readiness fixture: tests/fixtures/hil-readiness-ready-v1.1.json
 Site contract workflow: .github/workflows/hil-site-contract.yml
-Result: ANNOUNCEMENT_READY_RECEIVER_FAIL_CLOSED_PENDING_LIVE_READY
+Live probe workflow: .github/workflows/hil-live-probe.yml
+Result: RECEIVER_IMPLEMENTED_FAIL_CLOSED_PENDING_LIVE_READY_AND_CONTROLLED_RECEIPT
 Authority: NONE
 ```
 
@@ -46,41 +48,38 @@ Observer model: HIL-OBSERVER-MODEL-v0.1
 
 ## Current public service state
 
-Merged Site PR #107 publishes the canonical participant-facing service under `https://stegverse.org/hil/upload/` and configures receiver discovery for `https://receiver.stegverse.com`.
+The canonical participant-facing service is published under `https://stegverse.org/hil/upload/`, and receiver discovery resolves to the same-origin receiver at `https://stegverse.org`.
 
 The browser remains fail-closed. It validates the configured HTTPS receiver and enables submission only after the receiver returns a conforming readiness record bound to the exact v1.1 protocol, Primary hash, prompt hash, provenance schema, and participant-metadata contract.
 
-The repository now also contains an offline independent validator for a preserved readiness response. `scripts/verify_hil_readiness_record.py` validates the exact nine-field readiness contract without granting custody, publication, or execution authority. CI evaluates it against `tests/fixtures/hil-readiness-ready-v1.1.json`.
+The receiver no longer requires Cloudflare R2. Exact PDF bytes are split into ordered, individually hashed chunks and persisted through the existing `HIL_REGISTRY` D1 binding. The receipt is issued only after reconstruction verifies byte length and SHA-256. The repository intentionally does not commit the account-specific D1 UUID because the existing production binding is managed in the deployment environment; portability is preserved by the binding contract rather than a provider account identifier.
+
+The repository also contains an offline independent validator for a preserved readiness response. `scripts/verify_hil_readiness_record.py` validates the readiness contract without granting custody, publication, or execution authority. CI evaluates it against `tests/fixtures/hil-readiness-ready-v1.1.json`.
 
 ```text
 service_page_published: true
 receiver_discoverable: true
+receiver_runtime_implemented: true
+r2_required: false
+d1_binding_reported_configured: true
 receiver_ready_observed: false
 independent_readiness_validator_installed: true
 conforming_readiness_fixture_ci_bound: true
 upload_enabled_without_ready: false
-announcement_ready: true
-announcement_receipt_template_installed: true
+announcement_packet_installed: true
 announcement_published: false
 first_controlled_submission_observed: false
 ```
 
-A configured receiver address is not a readiness receipt. A conforming fixture is not a live receiver observation. A published service page is not evidence of durable custody, review approval, publication, Master Records reconstruction, or Site activation.
+A configured receiver address is not a readiness receipt. A configured binding is not a live readiness observation. A conforming fixture is not a live receiver observation. A published service page is not evidence of durable custody, review approval, publication, Master Records reconstruction, or Site activation.
 
 ## Announcement state
 
-`docs/HIL_START_ANNOUNCEMENT.md` is the canonical announcement packet. It contains:
-
-- the full public launch statement;
-- a compact LinkedIn version;
-- a first-comment explanation;
-- required claim boundaries;
-- an announcement receipt template;
-- the next governed transition sequence.
+`docs/HIL_START_ANNOUNCEMENT.md` is the canonical announcement packet. It contains the public launch statement, compact LinkedIn version, first-comment explanation, required claim boundaries, announcement receipt template, and next governed transition sequence.
 
 The machine-usable receipt template is installed at `data/hil-start-announcement-receipt.template.json`. It remains incomplete until the public post supplies an RFC3339 timestamp, channel, and public reference.
 
-The announcement may be published now because it truthfully states that the experiment is beginning while preserving the receiver's fail-closed state. It must not claim that the receiver is currently READY unless a live conforming readiness response has been independently observed.
+Do not claim that the receiver is currently READY until a live conforming readiness response has been independently observed and preserved.
 
 ## Participant path
 
@@ -103,41 +102,33 @@ This work grants no intake, review, publication, custody, execution, or Master R
 
 ## Required next vertical slice
 
-1. Publish the public announcement from `docs/HIL_START_ANNOUNCEMENT.md`.
-2. Complete and preserve `data/hil-start-announcement-receipt.template.json` as an `HIL-START-ANNOUNCEMENT-RECEIPT-v1` record containing the public post reference.
-3. Fetch and preserve the public response body from `https://receiver.stegverse.com/api/hil/readiness` together with observation timestamp, response headers, status code, and transport endpoint.
-4. Run `python scripts/verify_hil_readiness_record.py <preserved-readiness-body.json>` and preserve its result as independent readiness evidence.
-5. Verify public publication-readiness separately.
-6. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
-7. Preserve the verified receiver receipt and participant review transition.
-8. Prove receiver storage persistence through an actual hosted restart or replacement.
-9. Record one authenticated private-review disposition.
-10. Record one separately authenticated append-only publication.
-11. Import the first public record into `data/hil-responses.json`.
-12. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
-13. Submit to `master-records/orchestration` only under separate authorization.
-14. Propagate release verification to Publisher and the public wikis only after the release gate passes.
+1. Allow the current Site deployment to publish the provider-neutral D1 receiver build.
+2. Fetch and preserve the public response body from `https://stegverse.org/api/hil/readiness` together with observation timestamp, response headers, status code, and transport endpoint.
+3. Run `python scripts/verify_hil_readiness_record.py <preserved-readiness-body.json>` and preserve its result as independent readiness evidence.
+4. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
+5. Preserve the verified receiver receipt and exact-byte retrieval result.
+6. Prove receiver storage persistence through an actual hosted restart or replacement.
+7. Record one authenticated private-review disposition.
+8. Record one separately authenticated append-only publication.
+9. Import the first public record into `data/hil-responses.json`.
+10. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
+11. Submit to `master-records/orchestration` only under separate authorization.
+12. Propagate release verification to Publisher and the public wikis only after the release gate passes.
+13. Publish the public announcement only after the live receiver and controlled cycle evidence support the announcement claims.
 
 ## Known remaining files and destinations
 
 ```text
 StegVerse-Labs/Site
-- docs/HIL_START_ANNOUNCEMENT.md: installed; public post pending
-- data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
-- scripts/verify_hil_readiness_record.py: installed
-- tests/fixtures/hil-readiness-ready-v1.1.json: installed and CI-bound
 - live readiness observation record: pending capture
+- controlled upload receipt fixture/evidence: pending capture
+- restart/replacement durability record: pending capture
+- docs/HIL_START_ANNOUNCEMENT.md: installed; publication pending activation evidence
+- data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
 - data/hil-responses.json: first publication pending
 - data/hil-master-records.json: first release pending
 - data/hil-experiment.json: observer-mode schema extension pending review
 - tests/fixtures or equivalent: observer ambiguity and UNRESOLVED cases pending
-
-StegVerse-org/LLM-adapter
-- public receiver readiness evidence: pending
-- controlled Site upload and receipt evidence: pending
-- hosted restart/replacement persistence evidence: pending
-- authenticated private-review evidence: pending
-- append-only publication evidence: pending
 
 master-records/orchestration
 - exact-byte custody import: pending
@@ -161,6 +152,7 @@ announcement ready != announcement published
 announcement receipt template != completed announcement receipt
 service page published != receiver ready
 configured receiver != conforming readiness
+configured D1 binding != live D1 query evidence
 conforming fixture != live readiness observation
 receiver readiness != durable-state proof
 receiver receipt != private acceptance
@@ -180,4 +172,4 @@ No release tag or unrestricted public data-acquisition activation is authorized 
 
 ## Archive readiness
 
-This handoff, `docs/HIL_START_ANNOUNCEMENT.md`, the announcement receipt template, merged PRs #105 through #107, the canonical service route, receiver discovery contract, runtime handoff, validators, fixtures, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
+This handoff, the canonical service route, same-origin receiver discovery contract, provider-neutral D1 custody implementation, validators, fixtures, CI workflows, and repository history preserve the complete continuation state without requiring this conversation thread.
