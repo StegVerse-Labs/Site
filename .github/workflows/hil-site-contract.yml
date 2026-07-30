@@ -10,9 +10,12 @@ on:
       - "scripts/verify_hil_site_contract.py"
       - "scripts/verify_hil_readiness_record.py"
       - "scripts/verify_hil_controlled_cycle.py"
+      - "scripts/verify_hil_restart_persistence.py"
       - "tests/fixtures/hil-readiness-ready-v1.1.json"
       - "tests/test_verify_hil_controlled_cycle.py"
+      - "tests/test_verify_hil_restart_persistence.py"
       - ".github/workflows/hil-site-contract.yml"
+      - ".github/workflows/hil-restart-persistence.yml"
   pull_request:
     paths:
       - "assets/hil-experiment-v1.1.js"
@@ -22,9 +25,12 @@ on:
       - "scripts/verify_hil_site_contract.py"
       - "scripts/verify_hil_readiness_record.py"
       - "scripts/verify_hil_controlled_cycle.py"
+      - "scripts/verify_hil_restart_persistence.py"
       - "tests/fixtures/hil-readiness-ready-v1.1.json"
       - "tests/test_verify_hil_controlled_cycle.py"
+      - "tests/test_verify_hil_restart_persistence.py"
       - ".github/workflows/hil-site-contract.yml"
+      - ".github/workflows/hil-restart-persistence.yml"
   workflow_dispatch:
 
 permissions:
@@ -45,3 +51,5 @@ jobs:
         run: python scripts/verify_hil_readiness_record.py tests/fixtures/hil-readiness-ready-v1.1.json
       - name: Verify controlled-cycle evidence gate
         run: python tests/test_verify_hil_controlled_cycle.py
+      - name: Verify restart-persistence evidence gate
+        run: python tests/test_verify_hil_restart_persistence.py
