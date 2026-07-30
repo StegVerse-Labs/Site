@@ -1,0 +1,13 @@
+{
+  "authority_effect": false,
+  "authorization_phrase_verified": true,
+  "completed_at": "2026-07-30T18:14:04Z",
+  "conclusion": "failure",
+  "dispatched_at": "2026-07-30T18:13:48Z",
+  "passed": false,
+  "research_data": false,
+  "run_id": 30569491378,
+  "run_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30569491378",
+  "schema_version": "HIL-CONTROLLED-CYCLE-ATTEMPT-v1",
+  "workflow": "hil-controlled-cycle.yml"
+}
