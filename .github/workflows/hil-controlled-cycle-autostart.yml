@@ -1,0 +1,55 @@
+name: HIL Controlled Cycle Autostart
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'controls/RUN_CONTROLLED_HIL_CYCLE.txt'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: hil-controlled-cycle-autostart
+  cancel-in-progress: false
+
+jobs:
+  authorize-and-dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify exact authorization marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(tr -d '\r\n' < controls/RUN_CONTROLLED_HIL_CYCLE.txt)" = "RUN CONTROLLED HIL CYCLE"
+
+      - name: Dispatch governed controlled cycle
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api \
+            --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "/repos/${REPOSITORY}/actions/workflows/hil-controlled-cycle.yml/dispatches" \
+            -f ref='main' \
+            -f inputs[authorization_phrase]='RUN CONTROLLED HIL CYCLE'
+
+      - name: Record boundary
+        run: |
+          {
+            echo '### HIL controlled-cycle dispatch'
+            echo '- Authorization phrase: exact match'
+            echo '- Target workflow: hil-controlled-cycle.yml'
+            echo '- Artifact type: synthetic infrastructure fixture'
+            echo '- Research data: false'
+            echo '- Authority effect: none'
+          } >> "$GITHUB_STEP_SUMMARY"
