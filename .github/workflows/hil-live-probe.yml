@@ -44,11 +44,12 @@ jobs:
           import os
           import socket
           import urllib.error
+          import urllib.parse
           import urllib.request
           from datetime import datetime, timezone
 
           base = os.environ['RECEIVER_BASE_URL'].rstrip('/')
-          host = urllib.request.urlparse(base).hostname or 'stegverse.org'
+          host = urllib.parse.urlparse(base).hostname or 'stegverse.org'
           endpoints = [
               ('probes', '/api/hil/probes'),
               ('readiness', '/api/hil/readiness'),
