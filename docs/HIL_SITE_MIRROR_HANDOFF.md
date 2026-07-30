@@ -2,37 +2,53 @@
 
 ## Source of truth
 
-This document owns continuation for the public HIL experiment surface in `StegVerse-Labs/Site`. It remains subordinate to `docs/SITE_MIRROR_HANDOFF.md` for ecosystem-wide activation authority.
+This document owns continuation for the public HIL experiment surface in `StegVerse-Labs/Site`. It remains subordinate to `docs/SITE_MIRROR_HANDOFF.md` for ecosystem-wide activation authority and must be used together with:
+
+- `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
+- `docs/HIL_EXECUTION_SESSION_PROMPT.md`
+
+Every session that materially changes HIL state must update this file before responding.
 
 ## Current goal
 
-Activate and publicly announce the complete v1.1 provenance-bound participant path from the verified Primary and exact prompt through unchanged response bytes, receiver readiness, verified submission receipt, participant review, append-only publication, Site projection, Master Record release, and machine-observed deployed evidence.
+Make the HIL v1.1 experiment publicly usable and announcement-ready: participants must be able to download the canonical Primary, obtain one unchanged LLM response PDF, submit it through the governed Site intake, receive a durable receipt, reload the exact stored bytes, and review the received packet without manual intervention.
+
+## Terminal success criteria
+
+The experiment is ready for announcement only when all of the following are verified live:
+
+1. `https://stegverse.org/api/hil/probes` returns HTTP 200.
+2. `https://stegverse.org/api/hil/readiness` returns HTTP 200 with `state: READY` and the exact v1.1 contract.
+3. The controlled synthetic packet is accepted through the production endpoint.
+4. A production receipt is issued.
+5. Status and exact PDF bytes are retrieved.
+6. SHA-256, size, chunk count, provenance, custody, and authority boundaries pass.
+7. All deterministic negative cases pass.
+8. `data/hil-participant-readiness.json` is published with `state: TEST_PARTICIPANT_PACKET_PASSED` and `upload_button_authorized: true`.
+9. The same synthetic packet survives a real hosted deployment/restart or replacement and passes restart-persistence verification.
+10. `https://stegverse.org/hil/upload/` enables submission only when live and published readiness both pass.
+11. `hil-accepted.html` reloads the stored packet and receipt and displays success only after exact-byte verification.
+12. A genuine participant can reliably submit an unchanged PDF and receive a usable received page.
+
+## Canonical surfaces and files
 
 ```text
-Primary surface: humans-as-interoperability-layer.html
+Repository: StegVerse-Labs/Site
 Canonical service: https://stegverse.org/hil/upload/
-Operational receiver: https://stegverse.org
-Receiver discovery: data/hil-receiver-config.json
+Operational receiver base: https://stegverse.org
+Primary page source: humans-as-interoperability-layer.html
+Received page: hil-accepted.html
+FAQ: hil-faq.html
 Receiver runtime: src/worker.js
-Custody backend: portable-sqlite-chunks-v1 through HIL_REGISTRY
+Base Wrangler config: wrangler.jsonc
+Custody binding: HIL_REGISTRY
+Custody backend: portable-sqlite-chunks-v1
+Participant readiness: data/hil-participant-readiness.json
+Latest controlled-cycle result: data/hil-controlled-cycle-latest.json
+Latest receiver deployment result: data/hil-receiver-deployment-latest.json
+Execution prompt: docs/HIL_EXECUTION_SESSION_PROMPT.md
+Cross-session protocol: docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md
 Announcement packet: docs/HIL_START_ANNOUNCEMENT.md
-Announcement receipt template: data/hil-start-announcement-receipt.template.json
-Experiment manifest: data/hil-experiment.json
-Public response index: data/hil-responses.json
-Master Record index: data/hil-master-records.json
-Observer formalization: docs/HIL_OBSERVER_MODEL.md
-Site contract guard: scripts/verify_hil_site_contract.py
-Readiness guard: scripts/verify_hil_readiness_record.py
-Controlled-cycle guard: scripts/verify_hil_controlled_cycle.py
-Controlled-cycle tests: tests/test_verify_hil_controlled_cycle.py
-Restart-persistence guard: scripts/verify_hil_restart_persistence.py
-Restart-persistence tests: tests/test_verify_hil_restart_persistence.py
-Site contract workflow: .github/workflows/hil-site-contract.yml
-Live probe workflow: .github/workflows/hil-live-probe.yml
-Manual custody-cycle workflow: .github/workflows/hil-controlled-cycle.yml
-Manual restart-persistence workflow: .github/workflows/hil-restart-persistence.yml
-Result: RECEIVER_IMPLEMENTED_CONTROLLED_AND_RESTART_GATES_AUTOMATED_PENDING_LIVE_EVIDENCE
-Authority: NONE
 ```
 
 ## Canonical v1.1 chain
@@ -45,130 +61,180 @@ Prompt: HIL-PROMPT-v1.1
 Prompt SHA-256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
 Provenance schema: HIL-RESPONSE-PROVENANCE-v1.1
 Receipt schema: HIL-RECEIVER-RECEIPT-v2
-Announcement receipt schema: HIL-START-ANNOUNCEMENT-RECEIPT-v1
-Observer model: HIL-OBSERVER-MODEL-v0.1
-Controlled evidence manifest: HIL-CONTROLLED-CYCLE-EVIDENCE-MANIFEST-v1
-Restart evidence manifest: HIL-RESTART-PERSISTENCE-EVIDENCE-MANIFEST-v1
+Public readiness schema: HIL-PUBLIC-PARTICIPANT-READINESS-v1
+Controlled test case: HIL-E2E-001
 ```
 
-## Current implementation state
+## Verified current state — 2026-07-30
 
-The canonical participant-facing service is published under `https://stegverse.org/hil/upload/`. Receiver discovery resolves to the same-origin receiver at `https://stegverse.org`.
+### Participant surfaces
 
-The browser remains fail-closed. It enables submission only after `/api/hil/readiness` returns a conforming HTTP 200 `READY` record bound to the exact v1.1 protocol, Primary hash, prompt hash, provenance schema, and participant-metadata contract.
+- Submission page implemented and fail-closed.
+- Received page implemented with exact-byte and receipt verification.
+- Grouped participant FAQ implemented.
+- Repeated `rigel@stegverse.org` / `HIL Priority` recovery path implemented.
+- Public readiness remains `NOT_YET_VERIFIED`; uploads remain disabled.
 
-The receiver stores exact PDF bytes as ordered, individually hashed chunks through the `HIL_REGISTRY` D1 binding. A receipt is issued only after reconstruction confirms byte length and SHA-256. The provider-specific D1 UUID remains deployment-managed and is not committed to the portable repository.
+### Receiver code
 
-The live probe preserves DNS state, endpoint status, final URL, response headers, capped response bytes, readiness JSON, and independent validation output. A fixture or configured binding is not a live readiness observation.
+`src/worker.js` implements:
 
-The controlled-cycle verifier consumes the original PDF, provenance manifest, receiver receipt, later status response, and retrieved PDF. It verifies original and retrieved PDF signatures, exact-byte equality, SHA-256 continuity, provenance hashes, canonical receipt integrity, custody and registry states, review and publication boundaries, status consistency, accepted state, byte count, chunk count, and custody backend.
+- `/api/hil/probes`
+- `/api/hil/readiness`
+- production submission intake
+- receipt generation
+- submission status
+- exact-byte chunk persistence through `HIL_REGISTRY`
+- exact-byte reconstruction and content retrieval
+- diagnostic validation
 
-`.github/workflows/hil-controlled-cycle.yml` automates one manual synthetic infrastructure cycle. It requires the exact dispatch phrase `RUN CONTROLLED HIL CYCLE`, validates live readiness before transmission, generates a labeled synthetic PDF that is not research data, submits only through the durable endpoint, retrieves status and exact bytes, runs the controlled-cycle verifier, and preserves a hashed 90-day evidence artifact.
+`wrangler.jsonc` identifies `src/worker.js` as the Worker entrypoint and requests Worker-first routing for `/api/hil/*`.
 
-The restart-persistence verifier consumes the original receipt, status observed after a real hosted redeployment or replacement, and the PDF retrieved after that transition. It independently validates receipt integrity, submission identity, accepted state, custody backend, chunk presence, response hash, byte length, exact reconstructed bytes, and continuing `PENDING` review / `NOT_AUTHORIZED` publication boundaries.
+### Controlled-cycle execution
 
-`.github/workflows/hil-restart-persistence.yml` makes that durability gate executable. It requires the exact dispatch phrase `VERIFY HIL RESTART PERSISTENCE`, the original synthetic submission ID, expected response SHA-256, and original receipt JSON. It revalidates receiver readiness, fetches the same status and bytes after redeployment, runs the restart verifier, and preserves `HIL-RESTART-PERSISTENCE-EVIDENCE-MANIFEST-v1` for 90 days.
+The controlled-cycle supervisor successfully removed the prior silent-failure condition.
+
+Latest verified controlled run:
 
 ```text
-service_page_published: true
-receiver_discoverable: true
-receiver_runtime_implemented: true
-custody_backend_implemented: true
-receiver_ready_observed: false
-live_probe_installed: true
-independent_readiness_validator_installed: true
-controlled_cycle_validator_installed: true
-controlled_cycle_tests_ci_bound: true
-manual_controlled_cycle_workflow_installed: true
-manual_controlled_cycle_executed: false
-restart_persistence_validator_installed: true
-restart_persistence_tests_ci_bound: true
-manual_restart_persistence_workflow_installed: true
-restart_persistence_observed: false
-upload_enabled_without_ready: false
-announcement_packet_installed: true
-announcement_published: false
-first_participant_submission_observed: false
+Run ID: 30569491378
+Dispatched: 2026-07-30T18:13:48Z
+Completed: 2026-07-30T18:14:04Z
+Conclusion: failure
+First failed step: Capture and validate live runtime readiness
+Failure: https://stegverse.org/api/hil/readiness returned HTTP 404
 ```
 
-## Required next vertical slice
+Machine-readable result: `data/hil-controlled-cycle-latest.json`.
 
-1. Retrieve the next `hil-live-probe-*` artifact.
-2. Accept readiness only when the response is HTTP 200, the body reports `READY`, and independent validation reports `HIL_READINESS_RECORD=PASS`.
-3. Manually dispatch `HIL Controlled Custody Cycle` with `RUN CONTROLLED HIL CYCLE`.
-4. Preserve the resulting `hil-controlled-cycle-*` artifact.
-5. Require `HIL_CONTROLLED_CYCLE=PASS` and verify `evidence-manifest.json`.
-6. Treat the synthetic cycle as infrastructure evidence only; it is not a participant response or experimental result.
-7. Cause or independently observe an actual hosted restart, redeployment, or receiver replacement after the accepted synthetic submission.
-8. Manually dispatch `HIL Restart Persistence Verification` using the original submission ID, response SHA-256, and original receipt JSON.
-9. Require `HIL_RESTART_PERSISTENCE=PASS` and verify the restart evidence manifest before claiming durable custody across deployment transition.
-10. Perform the first genuine participant response submission only after both infrastructure gates pass.
-11. Record one authenticated private-review disposition.
-12. Record one separately authenticated append-only publication.
-13. Import the first authorized public record into `data/hil-responses.json`.
-14. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
-15. Submit to `master-records/orchestration` only under separate authorization.
-16. Propagate release verification to Publisher and public wikis only after the release gate passes.
-17. Publish the public announcement only when live evidence supports every announcement claim.
+This proves the controlled workflow executes and reports, but the production Worker route is not serving the HIL API.
 
-## Known remaining files and destinations
+### Cloudflare deployment attempt
+
+A deployment workflow was added at `.github/workflows/hil-cloudflare-deploy.yml` and executed.
+
+Latest machine-readable deployment result:
+
+```json
+{"schema_version":"HIL-RECEIVER-DEPLOYMENT-RESULT-v1","deployed":false,"ready":false,"failure":"deployment_step_failed_before_live_probe","authority_effect":false}
+```
+
+Commit recording that result: `e6f06765df79d5915096cc47ed88ed07f0475025`.
+
+The workflow requires:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `HIL_REGISTRY_DATABASE_ID`
+
+The run failed before the live probe, but the current repository result does not identify which credential or provider action failed. A future session must inspect the deployment run/job logs or use direct Cloudflare controls. It must not assume all three values are missing.
+
+## Why a new session may still be blocked
+
+A session prompt transfers knowledge, not authority. Cloudflare being connected in another chat or visible in the product does not guarantee that the current session exposes Cloudflare actions. Likewise, GitHub repository access does not grant Cloudflare deployment access or reveal GitHub secret values.
+
+Every continuation session must first discover its actual connectors and then choose the shortest available route:
+
+### Environment A — direct Cloudflare controls available
+
+1. Inspect Workers, routes, D1 databases, bindings, and deployment state directly.
+2. Create or identify the HIL D1 database.
+3. Bind it as `HIL_REGISTRY`.
+4. Deploy `src/worker.js` on `stegverse.org/api/hil/*`.
+5. Verify live probes/readiness.
+6. Continue through controlled cycle, readiness publication, restart persistence, and public-page verification.
+
+### Environment B — GitHub Actions write access but no Cloudflare connector
+
+1. Inspect the exact deployment workflow run and failed job logs.
+2. Determine one exact missing secret, permission, account resource, or invalid configuration.
+3. Repair repository code/workflow defects directly.
+4. Rerun when possible.
+5. Only request user action when one proven provider credential/resource cannot be supplied through connected tools.
+
+### Environment C — repository read/write only, no Actions execution and no Cloudflare controls
+
+1. Improve documentation or code only when it directly reduces the external block.
+2. Do not create more orchestration layers.
+3. Leave one precise next-session prompt naming this handoff and the exact unavailable authority.
+
+## Relevant workflows and controls
 
 ```text
-StegVerse-Labs/Site
-- live readiness observation record: pending workflow artifact capture
-- synthetic controlled-cycle evidence package: workflow installed; execution pending
-- restart/replacement durability evidence: verifier and workflow installed; real deployment transition and execution pending
-- first participant response evidence: pending after both infrastructure gates
-- docs/HIL_START_ANNOUNCEMENT.md: installed; publication pending activation evidence
-- data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
-- data/hil-responses.json: first authorized publication pending
-- data/hil-master-records.json: first release pending
-- data/hil-experiment.json: observer-mode schema extension pending review
-- observer ambiguity and UNRESOLVED fixtures: pending
+.github/workflows/hil-cloudflare-deploy.yml
+.github/workflows/hil-controlled-cycle.yml
+.github/workflows/hil-controlled-cycle-autostart.yml
+.github/workflows/hil-controlled-cycle-supervisor.yml
+.github/workflows/hil-publish-readiness.yml
+.github/workflows/hil-live-probe.yml
+.github/workflows/hil-restart-persistence.yml
+controls/DEPLOY_HIL_RECEIVER.txt
+controls/RUN_CONTROLLED_HIL_CYCLE.txt
+```
 
-master-records/orchestration
-- exact-byte custody import: pending
-- transition and publication reconstruction: pending
-- first HIL Master Record release validation: pending
+## Prior attempted solutions and outcomes
 
-GCAT-BCAT-Engine/Publisher
-- release verification task: create at authorized release/tag stage
+1. Manual-dispatch controlled cycle: installed but difficult to initiate from the connected GitHub interface.
+2. Push-triggered autostart: created; did not provide sufficient run visibility.
+3. Controlled-cycle supervisor: created; succeeded in dispatching and persisting the actual run result.
+4. Controlled production cycle: executed; failed immediately because `/api/hil/readiness` returned 404.
+5. Cloudflare deployment workflow: created and executed; failed before live probe.
+6. No-stop execution prompt: created; new sessions remained blocked when their actual tool set lacked Cloudflare actions.
+7. Cross-session protocol: created to prevent connector assumptions and repeated rediscovery.
 
-StegVerse-Labs/admissibility-wiki
-- release verification task: create at authorized release/tag stage
+## Shortest known path to activation
 
-StegVerse-002/stegguardian-wiki
-- release verification task: create at authorized release/tag stage
+1. Inspect the exact failed Cloudflare deployment job logs.
+2. Use direct Cloudflare controls when present; otherwise repair the one exact GitHub secret/configuration failure.
+3. Deploy the Worker with `HIL_REGISTRY` bound and the API route active.
+4. Require live readiness HTTP 200/READY.
+5. Execute `RUN CONTROLLED HIL CYCLE` until PASS.
+6. Verify readiness publication commit.
+7. Cause a real deployment transition.
+8. Execute `VERIFY HIL RESTART PERSISTENCE` until PASS.
+9. Verify submission and received pages end-to-end.
+10. Announce only after all criteria pass.
+
+## False completion conditions
+
+```text
+code implemented != deployed
+workflow installed != executed
+workflow executed != passed
+credential variable named != credential available
+Cloudflare connected elsewhere != Cloudflare actions available here
+readiness file manually edited != readiness proven
+controlled cycle passed != restart persistence passed
+pages published != participant submission reliable
 ```
 
 ## Authority boundaries
 
 ```text
+visible summary != governed response packet
+response generation != submission
+submission != receiver receipt
+receiver receipt != review approval
+review approval != publication authority
+synthetic infrastructure fixture != participant research data
+participant readiness != scientific endorsement
 announcement ready != announcement published
-service page published != receiver ready
-configured receiver != conforming readiness
-configured D1 binding != live D1 query evidence
-conforming fixture != live readiness observation
-receiver readiness != durable-state proof
-synthetic controlled cycle != participant experiment
-receiver receipt != controlled-cycle verification
-controlled-cycle verification != restart persistence
-restart persistence != private acceptance
-receiver receipt != private acceptance
-private acceptance != publication
-publication record != original-byte custody
-Site projection != endorsement
-Master Record release != custody
-proposal generated != committed transition
-observer visibility != commit authority
-structure preserved != meaning reconstructed
-interpretation recorded != significance established
 ```
 
-## Release posture
+## Required update before every session ends
 
-No release tag or unrestricted public data-acquisition activation is authorized until one deployed controlled cycle produces a verified receipt, survives an actual hosted restart or replacement, completes authenticated private review and append-only publication, updates the Site projection, and produces a validated Master Record release.
+Update this file with:
 
-## Archive readiness
+- latest commit SHAs;
+- latest run IDs and conclusions;
+- exact failing step and error;
+- current live endpoint responses;
+- any created or removed provider resources;
+- current shortest execution path;
+- remaining terminal criteria.
 
-This handoff, the canonical service route, same-origin receiver, D1 custody implementation, live probe, controlled-cycle and restart-persistence workflows, validators, tests, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
+Then append a ready-to-paste next-session prompt to the user response that points to:
+
+- `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
+- `docs/HIL_SITE_MIRROR_HANDOFF.md`
+- `docs/HIL_EXECUTION_SESSION_PROMPT.md`
