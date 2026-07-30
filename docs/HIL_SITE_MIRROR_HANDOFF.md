@@ -25,10 +25,13 @@ Site contract guard: scripts/verify_hil_site_contract.py
 Readiness guard: scripts/verify_hil_readiness_record.py
 Controlled-cycle guard: scripts/verify_hil_controlled_cycle.py
 Controlled-cycle tests: tests/test_verify_hil_controlled_cycle.py
+Restart-persistence guard: scripts/verify_hil_restart_persistence.py
+Restart-persistence tests: tests/test_verify_hil_restart_persistence.py
 Site contract workflow: .github/workflows/hil-site-contract.yml
 Live probe workflow: .github/workflows/hil-live-probe.yml
 Manual custody-cycle workflow: .github/workflows/hil-controlled-cycle.yml
-Result: RECEIVER_IMPLEMENTED_CONTROLLED_CYCLE_AUTOMATION_INSTALLED_PENDING_LIVE_EVIDENCE
+Manual restart-persistence workflow: .github/workflows/hil-restart-persistence.yml
+Result: RECEIVER_IMPLEMENTED_CONTROLLED_AND_RESTART_GATES_AUTOMATED_PENDING_LIVE_EVIDENCE
 Authority: NONE
 ```
 
@@ -45,6 +48,7 @@ Receipt schema: HIL-RECEIVER-RECEIPT-v2
 Announcement receipt schema: HIL-START-ANNOUNCEMENT-RECEIPT-v1
 Observer model: HIL-OBSERVER-MODEL-v0.1
 Controlled evidence manifest: HIL-CONTROLLED-CYCLE-EVIDENCE-MANIFEST-v1
+Restart evidence manifest: HIL-RESTART-PERSISTENCE-EVIDENCE-MANIFEST-v1
 ```
 
 ## Current implementation state
@@ -59,17 +63,11 @@ The live probe preserves DNS state, endpoint status, final URL, response headers
 
 The controlled-cycle verifier consumes the original PDF, provenance manifest, receiver receipt, later status response, and retrieved PDF. It verifies original and retrieved PDF signatures, exact-byte equality, SHA-256 continuity, provenance hashes, canonical receipt integrity, custody and registry states, review and publication boundaries, status consistency, accepted state, byte count, chunk count, and custody backend.
 
-`.github/workflows/hil-controlled-cycle.yml` automates one manual synthetic infrastructure cycle. It:
+`.github/workflows/hil-controlled-cycle.yml` automates one manual synthetic infrastructure cycle. It requires the exact dispatch phrase `RUN CONTROLLED HIL CYCLE`, validates live readiness before transmission, generates a labeled synthetic PDF that is not research data, submits only through the durable endpoint, retrieves status and exact bytes, runs the controlled-cycle verifier, and preserves a hashed 90-day evidence artifact.
 
-- requires the exact workflow-dispatch phrase `RUN CONTROLLED HIL CYCLE`;
-- validates live readiness before creating or transmitting a packet;
-- generates a labeled synthetic PDF that is explicitly not participant research data;
-- creates a conforming provenance manifest;
-- submits the packet only through the durable receiver endpoint;
-- preserves the receipt, status response, retrieved bytes, headers, and validation output;
-- runs `verify_hil_controlled_cycle.py` over the deployed evidence;
-- produces a SHA-256 evidence manifest and uploads the complete package for 90 days;
-- grants no review, publication, endorsement, execution, or Master Record authority.
+The restart-persistence verifier consumes the original receipt, status observed after a real hosted redeployment or replacement, and the PDF retrieved after that transition. It independently validates receipt integrity, submission identity, accepted state, custody backend, chunk presence, response hash, byte length, exact reconstructed bytes, and continuing `PENDING` review / `NOT_AUTHORIZED` publication boundaries.
+
+`.github/workflows/hil-restart-persistence.yml` makes that durability gate executable. It requires the exact dispatch phrase `VERIFY HIL RESTART PERSISTENCE`, the original synthetic submission ID, expected response SHA-256, and original receipt JSON. It revalidates receiver readiness, fetches the same status and bytes after redeployment, runs the restart verifier, and preserves `HIL-RESTART-PERSISTENCE-EVIDENCE-MANIFEST-v1` for 90 days.
 
 ```text
 service_page_published: true
@@ -83,6 +81,10 @@ controlled_cycle_validator_installed: true
 controlled_cycle_tests_ci_bound: true
 manual_controlled_cycle_workflow_installed: true
 manual_controlled_cycle_executed: false
+restart_persistence_validator_installed: true
+restart_persistence_tests_ci_bound: true
+manual_restart_persistence_workflow_installed: true
+restart_persistence_observed: false
 upload_enabled_without_ready: false
 announcement_packet_installed: true
 announcement_published: false
@@ -93,19 +95,21 @@ first_participant_submission_observed: false
 
 1. Retrieve the next `hil-live-probe-*` artifact.
 2. Accept readiness only when the response is HTTP 200, the body reports `READY`, and independent validation reports `HIL_READINESS_RECORD=PASS`.
-3. Manually dispatch `HIL Controlled Custody Cycle` with the exact phrase `RUN CONTROLLED HIL CYCLE`.
+3. Manually dispatch `HIL Controlled Custody Cycle` with `RUN CONTROLLED HIL CYCLE`.
 4. Preserve the resulting `hil-controlled-cycle-*` artifact.
-5. Require `HIL_CONTROLLED_CYCLE=PASS` and verify `evidence-manifest.json` before claiming infrastructure controlled-cycle completion.
-6. Treat the synthetic cycle as infrastructure evidence only; it is not a participant response and not an experimental result.
-7. Prove persistence through an actual hosted restart or replacement and repeat status/retrieval verification for the same submission ID.
-8. Perform the first genuine participant response submission only after the infrastructure cycle passes.
-9. Record one authenticated private-review disposition.
-10. Record one separately authenticated append-only publication.
-11. Import the first authorized public record into `data/hil-responses.json`.
-12. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
-13. Submit to `master-records/orchestration` only under separate authorization.
-14. Propagate release verification to Publisher and public wikis only after the release gate passes.
-15. Publish the public announcement only when the live evidence supports every announcement claim.
+5. Require `HIL_CONTROLLED_CYCLE=PASS` and verify `evidence-manifest.json`.
+6. Treat the synthetic cycle as infrastructure evidence only; it is not a participant response or experimental result.
+7. Cause or independently observe an actual hosted restart, redeployment, or receiver replacement after the accepted synthetic submission.
+8. Manually dispatch `HIL Restart Persistence Verification` using the original submission ID, response SHA-256, and original receipt JSON.
+9. Require `HIL_RESTART_PERSISTENCE=PASS` and verify the restart evidence manifest before claiming durable custody across deployment transition.
+10. Perform the first genuine participant response submission only after both infrastructure gates pass.
+11. Record one authenticated private-review disposition.
+12. Record one separately authenticated append-only publication.
+13. Import the first authorized public record into `data/hil-responses.json`.
+14. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
+15. Submit to `master-records/orchestration` only under separate authorization.
+16. Propagate release verification to Publisher and public wikis only after the release gate passes.
+17. Publish the public announcement only when live evidence supports every announcement claim.
 
 ## Known remaining files and destinations
 
@@ -113,8 +117,8 @@ first_participant_submission_observed: false
 StegVerse-Labs/Site
 - live readiness observation record: pending workflow artifact capture
 - synthetic controlled-cycle evidence package: workflow installed; execution pending
-- restart/replacement durability record: pending deployed restart evidence
-- first participant response evidence: pending after infrastructure gate
+- restart/replacement durability evidence: verifier and workflow installed; real deployment transition and execution pending
+- first participant response evidence: pending after both infrastructure gates
 - docs/HIL_START_ANNOUNCEMENT.md: installed; publication pending activation evidence
 - data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
 - data/hil-responses.json: first authorized publication pending
@@ -149,6 +153,7 @@ receiver readiness != durable-state proof
 synthetic controlled cycle != participant experiment
 receiver receipt != controlled-cycle verification
 controlled-cycle verification != restart persistence
+restart persistence != private acceptance
 receiver receipt != private acceptance
 private acceptance != publication
 publication record != original-byte custody
@@ -166,4 +171,4 @@ No release tag or unrestricted public data-acquisition activation is authorized 
 
 ## Archive readiness
 
-This handoff, the canonical service route, same-origin receiver, D1 custody implementation, live probe, manual controlled-cycle workflow, validators, tests, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
+This handoff, the canonical service route, same-origin receiver, D1 custody implementation, live probe, controlled-cycle and restart-persistence workflows, validators, tests, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
