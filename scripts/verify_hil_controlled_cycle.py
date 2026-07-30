@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
-"""Verify one preserved HIL controlled submission cycle.
+"""Verify one preserved HIL production-path participant-readiness cycle.
 
-The verifier consumes:
-  1. the original response PDF;
-  2. the provenance manifest sent with it;
-  3. the HIL-RECEIVER-RECEIPT-v2 response;
-  4. the later submission-status response; and
-  5. the retrieved response PDF.
-
-Passing proves continuity within the supplied evidence package. It does not grant
-review, publication, endorsement, execution, or Master Record authority.
+Passing proves upload, receipt, exact-byte custody, retrieval, and authority-boundary
+continuity within the supplied evidence package. It does not grant review,
+publication, endorsement, execution, or Master Record authority.
 """
 from __future__ import annotations
 
@@ -23,6 +17,7 @@ PROMPT = "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
 PROVENANCE_SCHEMA = "HIL-RESPONSE-PROVENANCE-v1.1"
 RECEIPT_SCHEMA = "HIL-RECEIVER-RECEIPT-v2"
 CUSTODY_BACKEND = "portable-sqlite-chunks-v1"
+TEST_CASE_ID = "HIL-E2E-001"
 
 
 def fail(message: str) -> None:
@@ -75,12 +70,25 @@ def main(argv: list[str]) -> int:
 
     require(original.startswith(b"%PDF-"), "original_pdf_signature_invalid")
     require(retrieved.startswith(b"%PDF-"), "retrieved_pdf_signature_invalid")
+    require(b"HIL-E2E-001" in original, "canonical_test_case_marker_missing")
+    require(b"not a publication candidate" in original.lower(), "publication_boundary_marker_missing")
+    require(b"no authority effect" in original.lower(), "authority_boundary_marker_missing")
+
     original_hash = sha256_bytes(original)
     retrieved_hash = sha256_bytes(retrieved)
     require(original == retrieved, "retrieved_bytes_not_identical")
+    require(len(original) == len(retrieved), "retrieved_size_mismatch")
     require(original_hash == retrieved_hash, "retrieved_hash_mismatch")
 
     require(provenance.get("schema_version") == PROVENANCE_SCHEMA, "provenance_schema_mismatch")
+    require(provenance.get("test_case_id") == TEST_CASE_ID, "test_case_id_mismatch")
+    require(provenance.get("artifact_type") == "HIL_TEST_RESPONSE_PACKET", "artifact_type_mismatch")
+    require(provenance.get("participant_type") == "SYNTHETIC_VALIDATION_ACTOR", "participant_type_mismatch")
+    require(provenance.get("participant_identifier") == "CONTROLLED-INFRASTRUCTURE-CYCLE", "participant_identifier_mismatch")
+    require(provenance.get("model") == "SYNTHETIC-INFRASTRUCTURE-FIXTURE", "synthetic_model_marker_mismatch")
+    require(provenance.get("research_data") is False, "research_data_must_be_false")
+    require(provenance.get("authority_effect") is False, "authority_effect_must_be_false")
+    require(provenance.get("publication_consent") == "NOT_APPLICABLE_SYNTHETIC", "publication_consent_boundary_invalid")
     require(provenance.get("primary_sha256") == PRIMARY, "provenance_primary_hash_mismatch")
     require(provenance.get("prompt_sha256") == PROMPT, "provenance_prompt_hash_mismatch")
     require(provenance.get("response_sha256") == original_hash, "provenance_response_hash_mismatch")
@@ -111,9 +119,11 @@ def main(argv: list[str]) -> int:
     require(status.get("receipt") == receipt, "status_embedded_receipt_mismatch")
 
     print("HIL_CONTROLLED_CYCLE=PASS")
+    print(f"test_case_id={TEST_CASE_ID}")
     print(f"submission_id={receipt['submission_id']}")
     print(f"receipt_id={receipt['receipt_id']}")
     print(f"response_sha256={original_hash}")
+    print(f"retrieved_sha256={retrieved_hash}")
     print(f"size_bytes={len(original)}")
     print(f"chunk_count={status['chunk_count']}")
     print("exact_bytes_retrieved=true")
