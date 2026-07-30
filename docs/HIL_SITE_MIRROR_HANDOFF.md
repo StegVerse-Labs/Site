@@ -27,7 +27,8 @@ Controlled-cycle guard: scripts/verify_hil_controlled_cycle.py
 Controlled-cycle tests: tests/test_verify_hil_controlled_cycle.py
 Site contract workflow: .github/workflows/hil-site-contract.yml
 Live probe workflow: .github/workflows/hil-live-probe.yml
-Result: RECEIVER_IMPLEMENTED_PENDING_LIVE_READY_AND_VERIFIED_CONTROLLED_CYCLE
+Manual custody-cycle workflow: .github/workflows/hil-controlled-cycle.yml
+Result: RECEIVER_IMPLEMENTED_CONTROLLED_CYCLE_AUTOMATION_INSTALLED_PENDING_LIVE_EVIDENCE
 Authority: NONE
 ```
 
@@ -43,6 +44,7 @@ Provenance schema: HIL-RESPONSE-PROVENANCE-v1.1
 Receipt schema: HIL-RECEIVER-RECEIPT-v2
 Announcement receipt schema: HIL-START-ANNOUNCEMENT-RECEIPT-v1
 Observer model: HIL-OBSERVER-MODEL-v0.1
+Controlled evidence manifest: HIL-CONTROLLED-CYCLE-EVIDENCE-MANIFEST-v1
 ```
 
 ## Current implementation state
@@ -55,18 +57,19 @@ The receiver stores exact PDF bytes as ordered, individually hashed chunks throu
 
 The live probe preserves DNS state, endpoint status, final URL, response headers, capped response bytes, readiness JSON, and independent validation output. A fixture or configured binding is not a live readiness observation.
 
-The controlled-cycle verifier consumes the original PDF, provenance manifest, receiver receipt, later status response, and retrieved PDF. It verifies:
+The controlled-cycle verifier consumes the original PDF, provenance manifest, receiver receipt, later status response, and retrieved PDF. It verifies original and retrieved PDF signatures, exact-byte equality, SHA-256 continuity, provenance hashes, canonical receipt integrity, custody and registry states, review and publication boundaries, status consistency, accepted state, byte count, chunk count, and custody backend.
 
-- original and retrieved PDF signatures;
-- exact-byte equality and SHA-256 continuity;
-- Primary, prompt, and response hashes in provenance;
-- `HIL-RECEIVER-RECEIPT-v2` fields and canonical receipt hash;
-- exact-byte custody and registry states;
-- `PENDING` review and `NOT_AUTHORIZED` publication boundaries;
-- status-to-receipt consistency;
-- accepted state, size, chunk count, and custody backend.
+`.github/workflows/hil-controlled-cycle.yml` automates one manual synthetic infrastructure cycle. It:
 
-CI includes positive and tampered-retrieval tests. Passing this verifier proves continuity only within the supplied evidence package. It grants no review, publication, endorsement, execution, or Master Record authority.
+- requires the exact workflow-dispatch phrase `RUN CONTROLLED HIL CYCLE`;
+- validates live readiness before creating or transmitting a packet;
+- generates a labeled synthetic PDF that is explicitly not participant research data;
+- creates a conforming provenance manifest;
+- submits the packet only through the durable receiver endpoint;
+- preserves the receipt, status response, retrieved bytes, headers, and validation output;
+- runs `verify_hil_controlled_cycle.py` over the deployed evidence;
+- produces a SHA-256 evidence manifest and uploads the complete package for 90 days;
+- grants no review, publication, endorsement, execution, or Master Record authority.
 
 ```text
 service_page_published: true
@@ -78,31 +81,27 @@ live_probe_installed: true
 independent_readiness_validator_installed: true
 controlled_cycle_validator_installed: true
 controlled_cycle_tests_ci_bound: true
+manual_controlled_cycle_workflow_installed: true
+manual_controlled_cycle_executed: false
 upload_enabled_without_ready: false
 announcement_packet_installed: true
 announcement_published: false
-first_controlled_submission_observed: false
+first_participant_submission_observed: false
 ```
 
 ## Required next vertical slice
 
 1. Retrieve the next `hil-live-probe-*` artifact.
-2. Inspect `live-probe.json`, `readiness-body.json`, `readiness-headers.json`, and `readiness-validation.txt`.
-3. Accept readiness only when the response is HTTP 200, the body reports `READY`, and independent validation reports `HIL_READINESS_RECORD=PASS`.
-4. Perform one controlled response-PDF upload through `https://stegverse.org/hil/upload/`.
-5. Preserve the original PDF, provenance manifest, `HIL-RECEIVER-RECEIPT-v2`, submission-status response, and retrieved PDF.
-6. Run:
-
-```text
-python scripts/verify_hil_controlled_cycle.py \
-  ORIGINAL.pdf provenance.json receipt.json status.json RETRIEVED.pdf
-```
-
-7. Require `HIL_CONTROLLED_CYCLE=PASS` before claiming exact-byte controlled-cycle completion.
-8. Prove persistence through an actual hosted restart or replacement and repeat status/retrieval verification.
+2. Accept readiness only when the response is HTTP 200, the body reports `READY`, and independent validation reports `HIL_READINESS_RECORD=PASS`.
+3. Manually dispatch `HIL Controlled Custody Cycle` with the exact phrase `RUN CONTROLLED HIL CYCLE`.
+4. Preserve the resulting `hil-controlled-cycle-*` artifact.
+5. Require `HIL_CONTROLLED_CYCLE=PASS` and verify `evidence-manifest.json` before claiming infrastructure controlled-cycle completion.
+6. Treat the synthetic cycle as infrastructure evidence only; it is not a participant response and not an experimental result.
+7. Prove persistence through an actual hosted restart or replacement and repeat status/retrieval verification for the same submission ID.
+8. Perform the first genuine participant response submission only after the infrastructure cycle passes.
 9. Record one authenticated private-review disposition.
 10. Record one separately authenticated append-only publication.
-11. Import the first public record into `data/hil-responses.json`.
+11. Import the first authorized public record into `data/hil-responses.json`.
 12. Build and validate the first `HIL-MASTER-RECORD-RELEASE-v1` chain.
 13. Submit to `master-records/orchestration` only under separate authorization.
 14. Propagate release verification to Publisher and public wikis only after the release gate passes.
@@ -113,11 +112,12 @@ python scripts/verify_hil_controlled_cycle.py \
 ```text
 StegVerse-Labs/Site
 - live readiness observation record: pending workflow artifact capture
-- controlled upload evidence package: pending deployed cycle
+- synthetic controlled-cycle evidence package: workflow installed; execution pending
 - restart/replacement durability record: pending deployed restart evidence
+- first participant response evidence: pending after infrastructure gate
 - docs/HIL_START_ANNOUNCEMENT.md: installed; publication pending activation evidence
 - data/hil-start-announcement-receipt.template.json: installed; public reference and timestamp pending
-- data/hil-responses.json: first publication pending
+- data/hil-responses.json: first authorized publication pending
 - data/hil-master-records.json: first release pending
 - data/hil-experiment.json: observer-mode schema extension pending review
 - observer ambiguity and UNRESOLVED fixtures: pending
@@ -146,6 +146,7 @@ configured receiver != conforming readiness
 configured D1 binding != live D1 query evidence
 conforming fixture != live readiness observation
 receiver readiness != durable-state proof
+synthetic controlled cycle != participant experiment
 receiver receipt != controlled-cycle verification
 controlled-cycle verification != restart persistence
 receiver receipt != private acceptance
@@ -165,4 +166,4 @@ No release tag or unrestricted public data-acquisition activation is authorized 
 
 ## Archive readiness
 
-This handoff, the canonical service route, same-origin receiver, D1 custody implementation, live probe, validators, tests, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
+This handoff, the canonical service route, same-origin receiver, D1 custody implementation, live probe, manual controlled-cycle workflow, validators, tests, CI workflow, and repository history preserve the complete continuation state without requiring this conversation thread.
