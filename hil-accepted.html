@@ -19,7 +19,7 @@
   <header class="sv-hero">
     <div class="sv-eyebrow">Governed receiver · exact-byte verification</div>
     <h1>Response Packet <em>Received</em></h1>
-    <p>The receiver record and stored artifact are being independently re-read before this page reports acceptance.</p>
+    <p>This page reports success only after the same production packet used to authorize the upload button is reloaded from custody and verified against its receipt.</p>
   </header>
 
   <section id="received-state" class="notice" aria-live="polite">Loading received packet…</section>
@@ -46,7 +46,6 @@ exact-byte verification     != scientific endorsement</pre>
 (() => {
   'use strict';
   const params = new URLSearchParams(location.search);
-  const submissionId = params.get('submission_id');
   const byId = (id) => document.getElementById(id);
   let receipt = null;
 
@@ -68,20 +67,34 @@ exact-byte verification     != scientific endorsement</pre>
 
   function isCanonicalTestPacket(bytes) {
     const text = new TextDecoder('latin1').decode(bytes);
-    return text.includes('StegVerse HIL controlled infrastructure cycle')
-      && text.includes('Synthetic artifact only')
-      && text.includes('not participant research data');
+    return text.includes('StegVerse HIL-E2E-001 synthetic receiver validation packet')
+      && text.includes('Not participant research')
+      && text.includes('no authority effect');
+  }
+
+  async function resolveSubmissionId() {
+    const explicit = params.get('submission_id');
+    if (explicit) return { submissionId: explicit, publicRecord: null };
+
+    const response = await fetch(`data/hil-participant-readiness.json?t=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) throw new Error('public_readiness_record_unavailable');
+    const record = await response.json();
+    const passed = record.schema_version === 'HIL-PUBLIC-PARTICIPANT-READINESS-v1'
+      && record.state === 'TEST_PARTICIPANT_PACKET_PASSED'
+      && record.participant_ready === true
+      && record.upload_button_authorized === true
+      && record.exact_bytes_retrieved === true
+      && record.positive_cycle_passed === true
+      && record.negative_cases_passed === true
+      && typeof record.submission_id === 'string';
+    if (!passed) throw new Error('test_participant_packet_not_yet_passed');
+    return { submissionId: record.submission_id, publicRecord: record };
   }
 
   async function init() {
     const state = byId('received-state');
-    if (!submissionId) {
-      state.dataset.state = 'error';
-      state.textContent = 'No received submission identifier was provided.';
-      return;
-    }
-
     try {
+      const { submissionId, publicRecord } = await resolveSubmissionId();
       const statusResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}`, { cache: 'no-store' });
       if (!statusResponse.ok) throw new Error('submission_status_unavailable');
       const status = await statusResponse.json();
@@ -95,14 +108,17 @@ exact-byte verification     != scientific endorsement</pre>
       const retrievedHash = await sha256Hex(buffer);
       if (retrievedHash !== receipt.submitted_file_sha256) throw new Error('retrieved_packet_hash_mismatch');
       if (Number(status.size_bytes) !== bytes.byteLength) throw new Error('retrieved_packet_size_mismatch');
+      if (publicRecord && publicRecord.response_sha256 !== retrievedHash) throw new Error('public_readiness_hash_mismatch');
+      if (publicRecord && publicRecord.receipt_id !== receipt.receipt_id) throw new Error('public_readiness_receipt_mismatch');
+      if (publicRecord && !isCanonicalTestPacket(bytes)) throw new Error('canonical_test_packet_marker_missing');
 
       const blob = new Blob([buffer], { type: 'application/pdf' });
       byId('response-pdf').src = URL.createObjectURL(blob);
       byId('receipt-body').textContent = JSON.stringify(receipt, null, 2);
       state.dataset.state = 'ok';
-      state.textContent = `${submissionId} received. Receipt, stored-byte count, and SHA-256 were verified against the exact retrieved PDF.`;
+      state.textContent = `${submissionId} received. Upload, receipt, stored-byte count, retrieval, and SHA-256 verification passed.`;
 
-      if (isCanonicalTestPacket(bytes)) {
+      if (publicRecord || isCanonicalTestPacket(bytes)) {
         byId('test-pass').hidden = false;
         state.append(document.createTextNode(' Test Participant Packet Passed.'));
       }
@@ -116,7 +132,10 @@ exact-byte verification     != scientific endorsement</pre>
     } catch (error) {
       console.error(error);
       state.dataset.state = 'error';
-      state.textContent = `The received packet could not be verified: ${error.message || 'unknown_error'}.`;
+      state.textContent = `End-to-end packet verification has not passed: ${error.message || 'unknown_error'}. The upload button must remain unavailable.`;
+      byId('response-pdf').removeAttribute('src');
+      byId('receipt-body').textContent = 'No verified receiver receipt is available.';
+      byId('download-receipt').disabled = true;
     }
   }
 
