@@ -1,0 +1,133 @@
+name: HIL Restart Persistence Verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      authorization_phrase:
+        description: "Type VERIFY HIL RESTART PERSISTENCE"
+        required: true
+        type: string
+      submission_id:
+        description: "Submission ID from a passing synthetic controlled cycle"
+        required: true
+        type: string
+      expected_response_sha256:
+        description: "Accepted response SHA-256 from the original receipt"
+        required: true
+        type: string
+      original_receipt_json:
+        description: "Single-line original HIL-RECEIVER-RECEIPT-v2 JSON"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hil-restart-persistence-${{ inputs.submission_id }}
+  cancel-in-progress: false
+
+jobs:
+  verify-after-redeployment:
+    if: ${{ inputs.authorization_phrase == 'VERIFY HIL RESTART PERSISTENCE' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RECEIVER_BASE_URL: https://stegverse.org
+      SUBMISSION_ID: ${{ inputs.submission_id }}
+      EXPECTED_RESPONSE_SHA256: ${{ inputs.expected_response_sha256 }}
+      ORIGINAL_RECEIPT_JSON: ${{ inputs.original_receipt_json }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Initialize durability evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p restart-persistence-evidence
+          printf '%s' "$ORIGINAL_RECEIPT_JSON" > restart-persistence-evidence/receipt.json
+          printf '%s\n' "$SUBMISSION_ID" > restart-persistence-evidence/submission-id.txt
+          printf '%s\n' "$EXPECTED_RESPONSE_SHA256" > restart-persistence-evidence/expected-response-sha256.txt
+          python - <<'PY'
+          import json, os
+          receipt = json.load(open('restart-persistence-evidence/receipt.json', encoding='utf-8'))
+          assert receipt['submission_id'] == os.environ['SUBMISSION_ID'], 'receipt submission_id mismatch'
+          assert receipt['submitted_file_sha256'] == os.environ['EXPECTED_RESPONSE_SHA256'], 'receipt response hash mismatch'
+          PY
+
+      - name: Confirm receiver readiness after redeployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --max-time 30 \
+            --header 'Accept: application/json' \
+            --output restart-persistence-evidence/readiness-after-restart.json \
+            --dump-header restart-persistence-evidence/readiness-after-restart-headers.txt \
+            "$RECEIVER_BASE_URL/api/hil/readiness"
+          python scripts/verify_hil_readiness_record.py \
+            restart-persistence-evidence/readiness-after-restart.json \
+            | tee restart-persistence-evidence/readiness-after-restart-validation.txt
+
+      - name: Retrieve status and exact bytes after redeployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --max-time 30 \
+            --output restart-persistence-evidence/status-after-restart.json \
+            --dump-header restart-persistence-evidence/status-after-restart-headers.txt \
+            "$RECEIVER_BASE_URL/api/hil/submissions/$SUBMISSION_ID"
+          curl --fail --silent --show-error --max-time 60 \
+            --output restart-persistence-evidence/retrieved-after-restart.pdf \
+            --dump-header restart-persistence-evidence/retrieval-after-restart-headers.txt \
+            "$RECEIVER_BASE_URL/api/hil/submissions/$SUBMISSION_ID/content"
+
+      - name: Verify post-redeployment persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_hil_restart_persistence.py \
+            restart-persistence-evidence/receipt.json \
+            restart-persistence-evidence/status-after-restart.json \
+            restart-persistence-evidence/retrieved-after-restart.pdf \
+            | tee restart-persistence-evidence/restart-persistence-validation.txt
+
+      - name: Record durability evidence manifest
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          root = Path('restart-persistence-evidence')
+          files = {}
+          for path in sorted(root.glob('*')):
+              if path.is_file():
+                  data = path.read_bytes()
+                  files[path.name] = {'size_bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+          manifest = {
+              'schema_version': 'HIL-RESTART-PERSISTENCE-EVIDENCE-MANIFEST-v1',
+              'recorded_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'receiver_base_url': 'https://stegverse.org',
+              'submission_id': Path(root / 'submission-id.txt').read_text().strip() if (root / 'submission-id.txt').exists() else None,
+              'synthetic_infrastructure_fixture': True,
+              'research_data': False,
+              'authority_effect': False,
+              'files': files,
+          }
+          (root / 'evidence-manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Upload durability evidence package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-restart-persistence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: restart-persistence-evidence/
+          if-no-files-found: error
+          retention-days: 90
