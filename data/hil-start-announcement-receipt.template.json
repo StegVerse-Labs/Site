@@ -1,0 +1,14 @@
+{
+  "schema_version": "HIL-START-ANNOUNCEMENT-RECEIPT-v1",
+  "announced_at": null,
+  "channel": null,
+  "public_reference": null,
+  "canonical_service": "https://stegverse.org/hil/upload/",
+  "protocol": "HIL-PROTOCOL-v1.1",
+  "announcement_text_version": "docs/HIL_START_ANNOUNCEMENT.md",
+  "announcement_text_commit": "118484ce790ff2f5caf535b51d5cbf4bdcbc7c54",
+  "receiver_ready_observed_at_announcement": false,
+  "submission_received_by_announcement": false,
+  "publication_authority_effect": false,
+  "completion_state": "AWAITING_PUBLIC_REFERENCE"
+}
