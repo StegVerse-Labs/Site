@@ -1,0 +1,98 @@
+name: Publish HIL Participant Readiness
+
+on:
+  workflow_run:
+    workflows: ["HIL Participant Readiness Gate"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download readiness evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: hil-participant-readiness-*
+          path: readiness-artifact
+          merge-multiple: true
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish stable verification record
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('readiness-artifact')
+          manifest_path = next(root.rglob('evidence-manifest.json'))
+          receipt_path = next(root.rglob('receipt.json'))
+          status_path = next(root.rglob('status.json'))
+          validation_path = next(root.rglob('controlled-cycle-validation.txt'))
+
+          manifest = json.loads(manifest_path.read_text())
+          receipt = json.loads(receipt_path.read_text())
+          status = json.loads(status_path.read_text())
+          validation = validation_path.read_text()
+
+          passed = (
+              manifest.get('participant_ready') is True
+              and manifest.get('positive_cycle_passed') is True
+              and manifest.get('negative_cases_passed') is True
+              and 'HIL_CONTROLLED_CYCLE=PASS' in validation
+              and status.get('state') == 'ACCEPTED'
+              and receipt.get('submission_id') == status.get('submission_id')
+              and receipt.get('submitted_file_sha256') == status.get('submitted_file_sha256')
+          )
+          if not passed:
+              raise SystemExit('refusing_to_publish_unverified_readiness')
+
+          public = {
+              'schema_version': 'HIL-PUBLIC-PARTICIPANT-READINESS-v1',
+              'state': 'TEST_PARTICIPANT_PACKET_PASSED',
+              'participant_ready': True,
+              'test_case_id': 'HIL-E2E-001',
+              'verified_at': manifest.get('recorded_at'),
+              'workflow_run_id': manifest.get('workflow_run_id'),
+              'workflow_run_attempt': manifest.get('workflow_run_attempt'),
+              'tested_repository_commit': manifest.get('repository_commit'),
+              'submission_id': receipt['submission_id'],
+              'receipt_id': receipt['receipt_id'],
+              'response_sha256': receipt['submitted_file_sha256'],
+              'size_bytes': status['size_bytes'],
+              'chunk_count': status['chunk_count'],
+              'custody_backend': status['custody_backend'],
+              'exact_bytes_retrieved': True,
+              'positive_cycle_passed': True,
+              'negative_cases_passed': True,
+              'upload_button_authorized': True,
+              'received_page_url': f"https://stegverse.org/hil-accepted.html?submission_id={receipt['submission_id']}",
+              'authority_effect': False,
+              'research_data': False
+          }
+          Path('data').mkdir(exist_ok=True)
+          Path('data/hil-participant-readiness.json').write_text(json.dumps(public, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Commit public readiness record
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-readiness-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/hil-participant-readiness.json
+          if git diff --cached --quiet; then
+            echo "Public readiness record unchanged."
+            exit 0
+          fi
+          git commit -m "chore(hil): publish passed participant packet receipt"
+          git push
