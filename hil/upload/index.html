@@ -3,28 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="StegVerse HIL governed response-packet upload service.">
-  <meta http-equiv="refresh" content="0; url=../../humans-as-interoperability-layer.html#submit">
+  <meta name="description" content="Upload a governed HIL response packet through authenticated GitHub attachment transport.">
   <link rel="canonical" href="https://stegverse.org/hil/upload/">
-  <title>HIL Upload Service — StegVerse</title>
+  <title>Upload HIL Response Packet — StegVerse</title>
   <link rel="stylesheet" href="../../sv-shared.css">
+  <style>
+    .upload-card{max-width:760px;margin:2rem auto;padding:1.5rem;border:1px solid #d8dce3;border-radius:14px;background:#fff}
+    .upload-card ol{line-height:1.65}.status{padding:1rem;border-radius:10px;background:#eef5ff;margin:1rem 0}
+  </style>
 </head>
 <body>
   <main class="sv-wrap">
     <header class="sv-hero">
-      <div class="sv-eyebrow">HIL-PROTOCOL-v1.1 · governed intake</div>
-      <h1>HIL Response-Packet Upload</h1>
-      <p>This is the canonical StegVerse.org service address for participant submission. The upload interface is opening now.</p>
-      <div class="sv-btn-row">
-        <a class="sv-btn sv-btn-primary" href="../../humans-as-interoperability-layer.html#submit">Open Upload Interface</a>
-      </div>
+      <div class="sv-eyebrow">HIL-PROTOCOL-v1.1 · authenticated source-object intake</div>
+      <h1>Upload Your Response Packet</h1>
+      <p>The upload path is active. GitHub provides authenticated attachment transport and a durable intake record. The uploaded source object can then be verified, reconstructed, reviewed, and processed by order-scoped workers.</p>
     </header>
+
+    <section class="upload-card">
+      <div class="status"><strong>Available now:</strong> users can open the governed intake form, attach the response PDF or packet, and submit it for processing.</div>
+      <ol>
+        <li>Sign in to GitHub when prompted.</li>
+        <li>Enter the participant reference and consent posture.</li>
+        <li>Drag the response PDF or packet into the attachment field.</li>
+        <li>Wait until GitHub finishes uploading the attachment.</li>
+        <li>Submit the intake record.</li>
+      </ol>
+      <div class="sv-btn-row">
+        <a class="sv-btn sv-btn-primary" href="https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml">Upload Response Packet</a>
+      </div>
+      <p><small>Do not upload secrets, credentials, medical records, or unrelated personal data. Submission does not itself authorize publication or endorsement.</small></p>
+    </section>
+
     <section class="sv-evidence">
-      <div class="sv-evidence-row"><span class="k">Protocol authority</span><span class="v">StegVerse.org</span></div>
-      <div class="sv-evidence-row"><span class="k">Operational receiver</span><span class="v">stegverse.org</span></div>
-      <div class="sv-evidence-row"><span class="k">Readiness behavior</span><span class="v">Fail closed until the receiver returns a conforming READY record</span></div>
+      <div class="sv-evidence-row"><span class="k">Transport</span><span class="v">Authenticated GitHub attachment/source-object transport</span></div>
+      <div class="sv-evidence-row"><span class="k">Durable intake record</span><span class="v">GitHub issue plus attachment reference</span></div>
+      <div class="sv-evidence-row"><span class="k">Worker authority</span><span class="v">Separate admitted orders only</span></div>
+      <div class="sv-evidence-row"><span class="k">Publication authority</span><span class="v">Not granted by upload</span></div>
     </section>
   </main>
-  <script>window.location.replace('../../humans-as-interoperability-layer.html#submit');</script>
 </body>
 </html>
