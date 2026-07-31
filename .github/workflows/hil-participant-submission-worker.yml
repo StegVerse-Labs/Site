@@ -1,0 +1,88 @@
+name: HIL Participant Submission Worker
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+# Every participant submission receives its own concurrency group. Runs for the
+# same issue cannot overlap, while different issue numbers execute in parallel.
+concurrency:
+  group: hil-submission-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  process-submission:
+    if: startsWith(github.event.issue.title, '[HIL RESPONSE PACKET]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out immutable trigger revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Process exact participant source object
+        id: process
+        run: python tools/process_hil_issue_submission.py
+
+      - name: Create isolated submission branch
+        env:
+          BRANCH: ${{ steps.process.outputs.branch }}
+          OUTPUT_DIR: ${{ steps.process.outputs.output_dir }}
+          SUBMISSION_ID: ${{ steps.process.outputs.submission_id }}
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-hil-worker[bot]"
+          git config user.email "stegverse-hil-worker[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          mkdir -p "data/hil-submissions/$SUBMISSION_ID"
+          cp -a "$OUTPUT_DIR/." "data/hil-submissions/$SUBMISSION_ID/"
+          git add "data/hil-submissions/$SUBMISSION_ID"
+          git commit -m "Record HIL submission $SUBMISSION_ID"
+          git push origin "HEAD:$BRANCH"
+
+      - name: Open isolated review pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.process.outputs.branch }}
+          SUBMISSION_ID: ${{ steps.process.outputs.submission_id }}
+          RECEIPT_ID: ${{ steps.process.outputs.receipt_id }}
+          RESPONSE_SHA256: ${{ steps.process.outputs.response_sha256 }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          url=$(gh pr create \
+            --base "${{ github.event.repository.default_branch }}" \
+            --head "$BRANCH" \
+            --title "[HIL SUBMISSION] $SUBMISSION_ID" \
+            --body "Automated isolated intake for issue #$ISSUE_NUMBER.\n\nSubmission: \`$SUBMISSION_ID\`\nReceipt: \`$RECEIPT_ID\`\nPDF SHA-256: \`$RESPONSE_SHA256\`\n\nThis pull request is participant-specific. It does not share a branch or mutable output path with any other submission run.")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Publish worker receipt to intake issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          SUBMISSION_ID: ${{ steps.process.outputs.submission_id }}
+          RECEIPT_ID: ${{ steps.process.outputs.receipt_id }}
+          RESPONSE_SHA256: ${{ steps.process.outputs.response_sha256 }}
+          PR_URL: ${{ steps.pr.outputs.url }}
+        run: |
+          set -euo pipefail
+          gh issue comment "$ISSUE_NUMBER" --body "Submission worker accepted this packet.\n\n- Submission ID: \`$SUBMISSION_ID\`\n- Receipt ID: \`$RECEIPT_ID\`\n- PDF SHA-256: \`$RESPONSE_SHA256\`\n- Isolated review record: $PR_URL\n- Workflow run: \`${{ github.run_id }}\`\n\nProcessing for this issue is isolated from all other participant submissions."
+
+      - name: Upload run-scoped evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-submission-${{ github.event.issue.number }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ steps.process.outputs.output_dir }}
+          if-no-files-found: error
+          retention-days: 90
