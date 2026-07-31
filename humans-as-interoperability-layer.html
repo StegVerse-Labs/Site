@@ -11,7 +11,7 @@
     .prompt{white-space:pre-wrap;background:#070b13;border:1px solid var(--border2);padding:18px;border-radius:8px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{padding:16px;border:1px solid var(--border);border-radius:8px}
     .upload-panel{padding:20px;border:1px solid var(--border2);border-radius:10px}.field{margin:16px 0}.field label{display:block;font-weight:800;margin-bottom:7px}.field input[type=text]{width:100%;box-sizing:border-box;padding:12px;border-radius:7px;border:1px solid var(--border2)}
-    .choice{display:flex;gap:10px;align-items:flex-start;margin:14px 0;line-height:1.45}.choice input{margin-top:5px;transform:scale(1.2)}.actions{display:flex;gap:10px;flex-wrap:wrap}.status{padding:14px;border:1px solid var(--border);margin-top:14px}.primary-upload{font-size:1.05rem}
+    .choice{display:flex;gap:10px;align-items:flex-start;margin:14px 0;line-height:1.45}.choice input{margin-top:5px;transform:scale(1.2)}.actions{display:flex;gap:10px;flex-wrap:wrap}.status{padding:14px;border:1px solid var(--border);margin-top:14px}.primary-upload{font-size:1.05rem}.status a{color:#62c4ff;font-weight:800}
   </style>
 </head>
 <body>
@@ -50,6 +50,6 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
 <script>
 (() => { const copy=document.getElementById('copy-prompt'); const status=document.getElementById('intake-status'); copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy prompt',1200);}catch{status.textContent='Select and copy the prompt manually.';}}); })();
 </script>
-<script src="assets/hil-direct-upload-v1.js?v=20260731-2"></script>
+<script src="assets/hil-direct-upload-v1.js?v=20260731-1720"></script>
 </body>
 </html>
