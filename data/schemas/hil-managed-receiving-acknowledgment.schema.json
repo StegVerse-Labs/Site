@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://stegverse.org/schemas/hil-managed-receiving-acknowledgment.schema.json",
+  "title":"HIL Managed Receiving Acknowledgment",
+  "type":"object","additionalProperties":false,
+  "required":["schema_version","acknowledgment_id","acknowledged_at","return_mode","response_pdf","package","canonical_primary","canonical_prompt","verification","custody_status","registry_status","review_status","publication_status","claims_withheld","authority_effect"],
+  "properties":{
+    "schema_version":{"const":"HIL-MANAGED-RECEIVING-ACKNOWLEDGMENT-v1"},
+    "acknowledgment_id":{"type":"string","pattern":"^HIL-MRA-[A-Z0-9-]+$"},
+    "acknowledged_at":{"type":"string","format":"date-time"},
+    "return_mode":{"const":"PARTICIPANT_MANAGED_DIRECT_RETURN"},
+    "response_pdf":{"$ref":"#/$defs/artifact"},"package":{"$ref":"#/$defs/artifact"},
+    "canonical_primary":{"$ref":"#/$defs/identity"},"canonical_prompt":{"$ref":"#/$defs/identity"},
+    "verification":{"type":"object","additionalProperties":false,"required":["pdf_signature_valid","pdf_sha256_valid","pdf_size_valid","package_canonical_hash_valid","paper_identity_valid","prompt_identity_valid"],"properties":{"pdf_signature_valid":{"const":true},"pdf_sha256_valid":{"const":true},"pdf_size_valid":{"const":true},"package_canonical_hash_valid":{"const":true},"paper_identity_valid":{"const":true},"prompt_identity_valid":{"const":true}}},
+    "custody_status":{"const":"MANAGED_RETURN_PRESERVED_NO_GOVERNED_CUSTODY"},
+    "registry_status":{"const":"NOT_REGISTERED"},"review_status":{"const":"NOT_REVIEWED"},"publication_status":{"const":"NOT_PUBLISHED"},
+    "claims_withheld":{"type":"array","contains":{"const":"governed_receiver_custody"},"minItems":5,"uniqueItems":true,"items":{"type":"string"}},
+    "authority_effect":{"const":false}
+  },
+  "$defs":{
+    "sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "artifact":{"type":"object","additionalProperties":false,"required":["filename","sha256","size_bytes"],"properties":{"filename":{"type":"string","minLength":1},"sha256":{"$ref":"#/$defs/sha256"},"size_bytes":{"type":"integer","minimum":1}}},
+    "identity":{"type":"object","additionalProperties":false,"required":["version","sha256"],"properties":{"version":{"type":"string","minLength":1},"sha256":{"$ref":"#/$defs/sha256"}}}
+  }
+}
