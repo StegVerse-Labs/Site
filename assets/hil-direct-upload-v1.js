@@ -29,21 +29,10 @@
     return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  function downloadJson(filename, value) {
-    const blob = new Blob([JSON.stringify(value, null, 2) + '\n'], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
-
   function githubFallback(file, payload) {
     const submissionId = `HIL-${Date.now()}-${payload.response_sha256.slice(0, 12)}`;
     const receiptId = `HIL-LOCAL-${payload.response_sha256.slice(0, 16)}`;
+    const manifestName = `${submissionId}-provenance.json`;
     const provenance = {
       schema_version: 'HIL-GITHUB-RETURN-v1',
       submission_id: submissionId,
@@ -64,9 +53,6 @@
       exact_byte_retrieval: false,
       publication_authorized: false
     };
-    remember(provenance);
-    const manifestName = `${submissionId}-provenance.json`;
-    downloadJson(manifestName, provenance);
     const body = [
       '## HIL participant return',
       '',
@@ -83,10 +69,16 @@
       '',
       'The response PDF must remain unchanged.'
     ].join('\n');
-    const url = `${ISSUE_URL}?title=${encodeURIComponent(`HIL participant return ${submissionId}`)}&body=${encodeURIComponent(body)}`;
-    status.dataset.state = 'warn';
-    status.innerHTML = 'Direct ingress was unavailable. Your provenance manifest was downloaded. <a href="' + url + '" target="_blank" rel="noopener">Open the authenticated GitHub return and attach the PDF plus manifest.</a>';
-    button.disabled = false;
+    const githubReturnUrl = `${ISSUE_URL}?title=${encodeURIComponent(`HIL participant return ${submissionId}`)}&body=${encodeURIComponent(body)}`;
+    const appendedRecord = {
+      ...provenance,
+      manifest_filename: manifestName,
+      provenance_manifest: provenance,
+      github_return_url: githubReturnUrl,
+      participant_action_required: true
+    };
+    remember(appendedRecord);
+    location.assign(`hil-receipt.html?submission_id=${encodeURIComponent(submissionId)}`);
   }
 
   form.addEventListener('submit', async (event) => {
