@@ -5,7 +5,7 @@
   const fileInput = document.getElementById('response-file');
   const status = document.getElementById('intake-status');
   const button = document.getElementById('upload-response');
-  const INGRESS = 'https://site-rigel-randolphs-projects.vercel.app/api/hil/upload';
+  const INGRESS = 'https://site-gnz5w6cue-rigel-randolphs-projects.vercel.app/api/hil/upload?_vercel_share=EHLFxAsoOguM37bZvB8yVkcJuAznUOjF';
 
   function remember(record) {
     const key = 'stegverse.hil.submissions.v1';
@@ -42,10 +42,7 @@
       display_name: payload.display_name,
       display_name_authorized: payload.display_name_authorized,
       publication_consent: payload.display_name_authorized ? 'DISPLAY_NAME_IF_APPROVED' : 'ANONYMOUS_IF_APPROVED',
-      participant_confirmations: {
-        authorized: true,
-        unchanged: true
-      },
+      participant_confirmations: { authorized: true, unchanged: true },
       durable_submission: false,
       exact_byte_retrieval: false,
       publication_authorized: false
@@ -84,6 +81,8 @@
     try {
       const response = await fetch(INGRESS, {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'omit',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
@@ -113,10 +112,7 @@
     }
 
     record.manifest_filename = `${record.submission_id}-record.json`;
-    record.appended_record = {
-      ...record,
-      appended_record: undefined
-    };
+    record.appended_record = { ...record, appended_record: undefined };
     remember(record);
     location.assign(`hil-receipt.html?submission_id=${encodeURIComponent(record.submission_id)}`);
   }, true);
