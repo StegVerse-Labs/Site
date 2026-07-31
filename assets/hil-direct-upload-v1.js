@@ -5,7 +5,6 @@
   const fileInput = document.getElementById('response-file');
   const status = document.getElementById('intake-status');
   const button = document.getElementById('upload-response');
-  const INGRESS = 'https://site-gnz5w6cue-rigel-randolphs-projects.vercel.app/api/hil/upload?_vercel_share=EHLFxAsoOguM37bZvB8yVkcJuAznUOjF';
 
   function remember(record) {
     const key = 'stegverse.hil.submissions.v1';
@@ -17,36 +16,32 @@
     localStorage.setItem(`stegverse.hil.receipt.${record.submission_id}`, JSON.stringify(record));
   }
 
-  function bytesToBase64(bytes) {
-    let binary = '';
-    const step = 0x8000;
-    for (let i = 0; i < bytes.length; i += step) binary += String.fromCharCode(...bytes.subarray(i, i + step));
-    return btoa(binary);
+  function openDb() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open('stegverse-hil-v1', 1);
+      request.onupgradeneeded = () => {
+        const db = request.result;
+        if (!db.objectStoreNames.contains('response_files')) db.createObjectStore('response_files');
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error || new Error('indexeddb_open_failed'));
+    });
+  }
+
+  async function storeResponse(key, file) {
+    const db = await openDb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('response_files', 'readwrite');
+      tx.objectStore('response_files').put(file, key);
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error || new Error('indexeddb_write_failed'));
+      tx.onabort = () => reject(tx.error || new Error('indexeddb_write_aborted'));
+    });
+    db.close();
   }
 
   function hex(buffer) {
     return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  function baseRecord(file, payload, submissionId) {
-    return {
-      schema_version: 'HIL-APPENDED-RECORD-v1',
-      submission_id: submissionId,
-      recorded_at: new Date().toISOString(),
-      response_filename: file.name,
-      response_size: file.size,
-      response_sha256: payload.response_sha256,
-      primary_sha256: 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',
-      prompt_sha256: 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c',
-      protocol: 'HIL-PROTOCOL-v1.1',
-      display_name: payload.display_name,
-      display_name_authorized: payload.display_name_authorized,
-      publication_consent: payload.display_name_authorized ? 'DISPLAY_NAME_IF_APPROVED' : 'ANONYMOUS_IF_APPROVED',
-      participant_confirmations: { authorized: true, unchanged: true },
-      durable_submission: false,
-      exact_byte_retrieval: false,
-      publication_authorized: false
-    };
   }
 
   form.addEventListener('submit', async (event) => {
@@ -61,52 +56,56 @@
 
     button.disabled = true;
     status.dataset.state = 'warn';
-    status.textContent = 'Hashing and submitting the response PDF…';
+    status.textContent = 'Hashing and appending the response PDF…';
 
-    const bytes = new Uint8Array(await file.arrayBuffer());
+    const bytes = await file.arrayBuffer();
     const digest = hex(await crypto.subtle.digest('SHA-256', bytes));
     const submissionId = `HIL-${Date.now()}-${digest.slice(0, 12)}`;
-    const payload = {
-      filename: file.name,
-      pdf_base64: bytesToBase64(bytes),
+    const objectKey = `response:${submissionId}`;
+    const base = {
+      schema_version: 'HIL-APPENDED-RECORD-v1',
+      submission_id: submissionId,
+      receipt_id: `HIL-LOCAL-${digest.slice(0, 16)}`,
+      recorded_at: new Date().toISOString(),
+      response_filename: file.name,
+      response_size: file.size,
+      response_type: file.type || 'application/pdf',
       response_sha256: digest,
+      response_object_key: objectKey,
+      primary_sha256: 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',
+      prompt_sha256: 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c',
+      protocol: 'HIL-PROTOCOL-v1.1',
       display_name: (document.getElementById('display-name').value || '').trim() || 'Anonymous',
       display_name_authorized: document.getElementById('show-name').checked,
-      authorized: true,
-      unchanged: true
+      publication_consent: document.getElementById('show-name').checked ? 'DISPLAY_NAME_IF_APPROVED' : 'ANONYMOUS_IF_APPROVED',
+      participant_confirmations: { authorized: true, unchanged: true },
+      custody_scope: 'PARTICIPANT_DEVICE',
+      durable_submission: false,
+      exact_byte_retrieval: true,
+      publication_authorized: false
     };
 
-    let record = baseRecord(file, payload, submissionId);
-
+    let record;
     try {
-      const response = await fetch(INGRESS, {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'omit',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const result = await response.json().catch(() => ({ detail: 'invalid_ingress_response' }));
-      if (!response.ok || !result.submission_id || !result.receipt_id) {
-        throw new Error(result.message || result.detail || `HTTP_${response.status}`);
-      }
+      await storeResponse(objectKey, file);
       record = {
-        ...record,
-        ...result,
-        submission_id: result.submission_id,
-        upload_state: 'UPLOAD_ACCEPTED',
+        ...base,
+        upload_state: 'APPENDED_RECORD_CREATED',
         upload_succeeded: true,
+        accepted: true,
         failure: null
       };
     } catch (error) {
       record = {
-        ...record,
-        receipt_id: `HIL-LOCAL-${digest.slice(0, 16)}`,
-        upload_state: 'UPLOAD_FAILED',
+        ...base,
+        response_object_key: null,
+        exact_byte_retrieval: false,
+        upload_state: 'APPENDED_RECORD_FAILED',
         upload_succeeded: false,
+        accepted: false,
         failure: {
-          code: 'INGRESS_UNAVAILABLE_OR_REJECTED',
-          detail: error && error.message ? error.message : 'unknown_upload_failure'
+          code: 'LOCAL_RECORD_WRITE_FAILED',
+          detail: error && error.message ? error.message : 'unknown_local_record_failure'
         }
       };
     }
