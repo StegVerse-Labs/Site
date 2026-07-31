@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-pilot-ledger.schema.json",
+  "title": "HIL Pilot Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","experiment","canonical_primary","canonical_prompt","counts","entries","authority_effect","custody_effect","publication_effect","last_updated"],
+  "properties": {
+    "schema_version": {"const": "HIL-PILOT-LEDGER-v1"},
+    "experiment": {"const": "Humans as the Interoperability Layer"},
+    "canonical_primary": {"$ref": "#/$defs/identity"},
+    "canonical_prompt": {"$ref": "#/$defs/identity"},
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["model_requests_initiated","completed_response_pdfs_confirmed","verified_return_packages","managed_receiving_acknowledgments","governed_receiver_receipts"],
+      "properties": {
+        "model_requests_initiated": {"type":"integer","minimum":0},
+        "completed_response_pdfs_confirmed": {"type":"integer","minimum":0},
+        "verified_return_packages": {"type":"integer","minimum":0},
+        "managed_receiving_acknowledgments": {"type":"integer","minimum":0},
+        "governed_receiver_receipts": {"type":"integer","minimum":0}
+      }
+    },
+    "entries": {"type":"array","items":{"$ref":"#/$defs/entry"}},
+    "authority_effect": {"const": false},
+    "custody_effect": {"const": false},
+    "publication_effect": {"const": false},
+    "last_updated": {"type":"string","format":"date-time"}
+  },
+  "$defs": {
+    "sha256": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "identity": {
+      "type":"object","additionalProperties":false,"required":["version","sha256"],
+      "properties":{"version":{"type":"string","minLength":1},"sha256":{"$ref":"#/$defs/sha256"}}
+    },
+    "entry": {
+      "type":"object","additionalProperties":false,
+      "required":["submission_id","participant_or_operator_identifier","model","provider","model_version","canonical_paper_version","canonical_paper_sha256","prompt_version","prompt_sha256","response_pdf_filename","response_pdf_sha256","response_pdf_size","package_id","package_sha256","local_receipt_id","return_mode","received_timestamp","verification_status","publication_consent_posture","custody_status","registry_status","review_status","claims_withheld"],
+      "properties": {
+        "submission_id":{"type":"string","pattern":"^HIL-PILOT-[A-Z0-9-]+$"},
+        "participant_or_operator_identifier":{"type":"string","minLength":1},
+        "model":{"type":"string","minLength":1},"provider":{"type":"string","minLength":1},"model_version":{"type":"string","minLength":1},
+        "canonical_paper_version":{"type":"string","minLength":1},"canonical_paper_sha256":{"$ref":"#/$defs/sha256"},
+        "prompt_version":{"type":"string","minLength":1},"prompt_sha256":{"$ref":"#/$defs/sha256"},
+        "response_pdf_filename":{"type":["string","null"]},"response_pdf_sha256":{"anyOf":[{"$ref":"#/$defs/sha256"},{"type":"null"}]},"response_pdf_size":{"type":["integer","null"],"minimum":1},
+        "package_id":{"type":["string","null"]},"package_sha256":{"anyOf":[{"$ref":"#/$defs/sha256"},{"type":"null"}]},"local_receipt_id":{"type":["string","null"]},
+        "return_mode":{"enum":["not_yet_returned","participant_managed_direct_return","production_receiver"]},
+        "received_timestamp":{"type":["string","null"],"format":"date-time"},
+        "verification_status":{"enum":["MODEL_REQUEST_INITIATED_RESPONSE_NOT_RECEIVED","RESPONSE_RECEIVED_UNVERIFIED","RETURN_PACKAGE_VERIFIED","MANAGED_RECEIVING_ACKNOWLEDGED","GOVERNED_RECEIVER_RECEIPT_VERIFIED"]},
+        "publication_consent_posture":{"type":"string","minLength":1},
+        "custody_status":{"enum":["NO_CUSTODY","MANAGED_RETURN_PRESERVED_NO_GOVERNED_CUSTODY","GOVERNED_RECEIVER_CUSTODY"]},
+        "registry_status":{"enum":["NOT_REGISTERED","REGISTERED"]},"review_status":{"enum":["NOT_REVIEWED","ACCEPT_PRIVATE","QUARANTINE","REJECT"]},
+        "claims_withheld":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}}
+      }
+    }
+  }
+}
