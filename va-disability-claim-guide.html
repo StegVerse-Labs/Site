@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A linear, evidence-grounded guide for using the VA app, VA.gov, and ChatGPT to prepare and file a VA disability compensation claim.">
+  <title>VA Disability Compensation Claim Guide — StegVerse</title>
+  <link rel="stylesheet" href="sv-shared.css">
+  <style>
+    .guide-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:24px;align-items:start}.guide-shot{position:sticky;top:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px}.guide-shot img{display:block;width:100%;height:auto;border-radius:10px}.step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:0 0 14px}.step h3{margin:0 0 8px;color:var(--text)}.step-number{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#d71920;color:white;font-weight:800;margin-right:8px}.warning{border:1px solid #775f16;background:rgba(119,95,22,.18);border-radius:var(--radius);padding:16px;margin:18px 0}.privacy{border:1px solid #7b2430;background:rgba(123,36,48,.18);border-radius:var(--radius);padding:16px;margin:18px 0}.prompt{white-space:pre-wrap;background:#0b1220;border:1px solid var(--border);border-radius:var(--radius);padding:16px;overflow:auto}.checklist li{margin-bottom:8px}.phase{margin-top:34px}.source-list a{overflow-wrap:anywhere}@media(max-width:820px){.guide-grid{grid-template-columns:1fr}.guide-shot{position:static;max-width:430px;margin:auto}}
+  </style>
+</head>
+<body>
+<nav class="sv-nav">
+  <a class="sv-nav-brand" href="index.html">StegVerse</a>
+  <a href="index.html">Home</a>
+  <a href="ecosystem-chat.html">Ecosystem Chat</a>
+  <a href="va-disability-claim-guide.html" class="active">VA Claim Guide</a>
+  <a href="Papers.html">Papers</a>
+</nav>
+<div class="sv-wrap">
+  <div class="sv-hero">
+    <div class="sv-eyebrow">Public service workflow · evidence organization · no rating guarantee</div>
+    <h1>Create a VA disability compensation claim<br><em>with the VA app, VA.gov, and ChatGPT.</em></h1>
+    <p>This page gives a linear process for downloading your VA medical record, organizing claim evidence, drafting truthful statements, and filing through VA.gov. ChatGPT is used as an evidence organizer and drafting assistant—not as a clinician, accredited representative, or VA decision-maker.</p>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="#phase-1">Begin the guide</a><a class="sv-btn sv-btn-secondary" href="https://www.va.gov/disability/file-disability-claim-form-21-526ez/start" rel="noopener">Open the official VA application</a></div>
+  </div>
+
+  <div class="warning"><strong>Important:</strong> Never submit invented facts, altered dates, unsupported diagnoses, or a medical nexus that no qualified clinician provided. A diagnosis by itself does not prove service connection.</div>
+  <div class="privacy"><strong>Protect your information:</strong> A Blue Button report can contain your Social Security number, address, diagnoses, medications, and other sensitive records. Use a private device, trusted network, secure storage, and a private ChatGPT conversation. Keep an untouched original of every downloaded record.</div>
+
+  <section id="phase-1" class="phase">
+    <h2 class="sv-h2">Phase 1 — Download your complete VA medical record</h2>
+    <div class="guide-grid">
+      <div>
+        <div class="step"><h3><span class="step-number">1</span>Open the official VA app</h3><p>Sign in. On the Home screen, tap <strong>Health</strong>. The annotated image shows the first navigation target.</p></div>
+        <div class="step"><h3><span class="step-number">2</span>Open Medical records</h3><p>From the Health screen, tap <strong>Medical records</strong>.</p></div>
+        <div class="step"><h3><span class="step-number">3</span>Continue to VA.gov</h3><p>Tap <strong>Review medical records on VA.gov</strong>. Sign in through ID.me or Login.gov when prompted and authorize VA.gov to receive the identity information needed for the session.</p></div>
+        <div class="step"><h3><span class="step-number">4</span>Open the download-report workflow</h3><p>On the Medical records page, find <strong>Download your medical records</strong>, then choose <strong>Go to download your medical records reports</strong>.</p></div>
+        <div class="step"><h3><span class="step-number">5</span>Start a Blue Button report</h3><p>Under <strong>Download your VA Blue Button report</strong>, choose <strong>Select records and download report</strong>.</p></div>
+        <div class="step"><h3><span class="step-number">6</span>Select the date range</h3><p>Choose <strong>All time</strong> unless you have a specific reason to limit the record. Continue to the record-type screen.</p></div>
+        <div class="step"><h3><span class="step-number">7</span>Select the available record categories</h3><p>Choose <strong>Select all VA records</strong>. Confirm that labs and tests, care summaries and notes, vaccines, allergies and reactions, health conditions, vitals, medications, and any other displayed categories remain checked.</p></div>
+        <div class="step"><h3><span class="step-number">8</span>Choose PDF and download</h3><p>Choose <strong>PDF</strong> for a readable report. Tap <strong>Download report</strong>. When your browser displays a second download prompt, tap <strong>Download</strong> again. VA.gov's green “download has started” message does not necessarily mean the browser prompt was completed.</p></div>
+        <div class="step"><h3><span class="step-number">9</span>Find and preserve the file</h3><p>Open the iPhone Files app. Check <strong>Recents</strong> first, then <strong>Browse</strong>. Some browsers save the file in a browser-named folder rather than the folder labeled Downloads. Rename the file clearly, such as <code>VA-Blue-Button-All-Time-2026-07-31.pdf</code>.</p></div>
+      </div>
+      <figure class="guide-shot"><img src="assets/va-claim-guide/01-open-va-app.svg" alt="Annotated VA app screenshot showing the Health navigation target"><figcaption class="muted">Image 1 — Start in the VA app and tap Health.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="phase">
+    <h2 class="sv-h2">Phase 2 — Upload the report to ChatGPT</h2>
+    <div class="step"><h3><span class="step-number">10</span>Attach the PDF</h3><p>Open a new private ChatGPT conversation. Tap the <strong>+</strong> button, choose the file option, and select the Blue Button PDF from Files.</p></div>
+    <div class="step"><h3><span class="step-number">11</span>Run a bounded evidence review</h3><p>Use the following prompt. Require page or section references, separation of facts from inference, and explicit identification of missing evidence.</p>
+<pre class="prompt">Review the attached VA Blue Button report as an evidence organizer, not as a decision-maker. Create a table with one row per potentially claim-relevant condition. For each condition list: exact documented diagnosis or symptom wording; earliest documented date; later treatment dates; medications or procedures; objective tests; functional limitations recorded by clinicians; any statement connecting the condition to military service or another condition; and the exact page or section supporting each entry. Separate facts stated in the record from inferences. Do not invent a diagnosis, service event, onset date, nexus, or severity. Mark missing evidence clearly.</pre></div>
+  </section>
+
+  <section class="phase">
+    <h2 class="sv-h2">Phase 3 — Build one claim theory at a time</h2>
+    <div class="transition-grid">
+      <div class="transition-card"><strong>Direct service connection</strong><span>Current disability or persistent symptoms, an in-service event/injury/disease, and evidence connecting the two.</span></div>
+      <div class="transition-card"><strong>Secondary service connection</strong><span>A new condition caused or aggravated by an already service-connected disability or its treatment.</span></div>
+      <div class="transition-card"><strong>Increase</strong><span>An already service-connected disability that has worsened, supported by current medical or lay evidence.</span></div>
+      <div class="transition-card"><strong>Presumptive or exposure-based</strong><span>A condition and service circumstance covered by current VA eligibility rules. Verify the official rule before relying on this path.</span></div>
+      <div class="transition-card"><strong>Aggravation</strong><span>Evidence that service or a service-connected condition measurably worsened another condition beyond its expected course.</span></div>
+    </div>
+    <h3>Run a gap analysis</h3>
+<pre class="prompt">Using only the attached report and the worksheet you created, classify every proposed condition as:
+A. Ready for factual drafting;
+B. Needs service-event documentation;
+C. Needs current diagnosis or updated severity evidence;
+D. Needs a qualified medical nexus or aggravation opinion;
+E. Needs lay or witness evidence;
+F. Appears duplicative, speculative, or unsupported.
+For each classification, explain the missing item and the safest next action. Do not state that a claim is fully verified merely because a diagnosis exists.</pre>
+  </section>
+
+  <section class="phase">
+    <h2 class="sv-h2">Phase 4 — Draft the personal statement</h2>
+<pre class="prompt">Draft a first-person Statement in Support of Claim for [CONDITION]. Use only facts I confirm. Organize it as:
+1. Condition claimed;
+2. In-service event, injury, illness, or exposure;
+3. When symptoms began;
+4. Continuity and treatment history;
+5. Current symptoms and frequency;
+6. Functional effects on work, sleep, mobility, concentration, relationships, and daily activities;
+7. Evidence attached.
+Use plain language. Do not add medical conclusions or claim that a clinician gave a nexus opinion unless the record says so. Put [VERIFY] beside every date or fact that requires my confirmation.</pre>
+    <ul class="checklist">
+      <li>Confirm the exact condition name and whether it is left, right, or bilateral.</li>
+      <li>Confirm dates, locations, units, deployments, injuries, exposures, and witnesses.</li>
+      <li>Describe frequency, duration, severity, flare-ups, and functional effects truthfully.</li>
+      <li>Do not convert your belief into a clinician's medical opinion.</li>
+      <li>Attach service records, private records, orders, incident records, buddy statements, and prior decisions that support the theory.</li>
+    </ul>
+  </section>
+
+  <section class="phase">
+    <h2 class="sv-h2">Phase 5 — Organize and quality-check the packet</h2>
+    <ol class="checklist">
+      <li>Create a separate folder for each claimed condition.</li>
+      <li>Keep the untouched Blue Button report in a source-records folder.</li>
+      <li>Create an evidence index listing each file, date range, source, and condition supported.</li>
+      <li>Use descriptive names such as <code>01-Personal-Statement-Right-Hip.pdf</code> and <code>02-Service-Treatment-Record-Hip-Injury.pdf</code>.</li>
+      <li>Compare every drafted sentence against the original record and your personal knowledge.</li>
+      <li>Remove unsupported conclusions, duplicate material, and contradictory dates.</li>
+      <li>Have a clinician address diagnosis, causation, aggravation, and severity when medical expertise is required.</li>
+    </ol>
+  </section>
+
+  <section class="phase">
+    <h2 class="sv-h2">Phase 6 — File on VA.gov</h2>
+    <ol class="checklist">
+      <li>Open the official online disability compensation application, VA Form 21-526EZ.</li>
+      <li>Starting the verified online disability application automatically notifies VA of an intent to file for that application; VA says a separate intent-to-file form is not needed for an online disability claim.</li>
+      <li>Confirm personal, contact, banking, and service information.</li>
+      <li>Add each disability using a precise condition name.</li>
+      <li>Identify VA and private treatment sources completely.</li>
+      <li>Upload the organized supporting files and use your evidence index to check completeness.</li>
+      <li>Review every answer before certification, then sign and submit.</li>
+      <li>Save the confirmation number and submitted-claim summary.</li>
+      <li>Monitor claim status and evidence requests through VA.gov or the VA app and preserve proof of each response.</li>
+    </ol>
+    <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="https://www.va.gov/disability/file-disability-claim-form-21-526ez/start" rel="noopener">Start VA Form 21-526EZ</a><a class="sv-btn sv-btn-secondary" href="https://www.va.gov/claim-or-appeal-status/" rel="noopener">Check claim status</a></div>
+  </section>
+
+  <section class="phase">
+    <h2 class="sv-h2">When to use accredited assistance</h2>
+    <p>Use an accredited Veterans Service Organization representative, claims agent, or attorney when records are missing, a prior claim was denied, the effective date matters, service events are disputed, conditions overlap, or the theory depends on complex secondary causation or aggravation.</p>
+  </section>
+
+  <section class="phase source-list">
+    <h2 class="sv-h2">Official sources</h2>
+    <ul>
+      <li><a href="https://www.va.gov/forms/21-526ez/" rel="noopener">VA Form 21-526EZ</a></li>
+      <li><a href="https://www.va.gov/disability/how-to-file-claim/" rel="noopener">How to file a VA disability claim</a></li>
+      <li><a href="https://www.benefits.va.gov/compensation/evidence.asp" rel="noopener">Evidence needed for a disability claim</a></li>
+      <li><a href="https://www.va.gov/resources/your-intent-to-file-a-va-claim/" rel="noopener">Intent to file guidance</a></li>
+      <li><a href="https://www.va.gov/get-help-from-accredited-representative/" rel="noopener">Get help from an accredited representative</a></li>
+      <li><a href="https://help.openai.com/en/articles/8555545-file-uploads-faq" rel="noopener">ChatGPT file uploads</a></li>
+      <li><a href="https://help.openai.com/en/articles/7730893-data-controls-faq" rel="noopener">ChatGPT Data Controls</a></li>
+    </ul>
+  </section>
+
+  <div class="warning"><strong>Boundary:</strong> This educational workflow does not determine eligibility, service connection, effective date, diagnostic code, or percentage evaluation. VA decides claims under the governing law and evidence of record.</div>
+</div>
+</body>
+</html>
