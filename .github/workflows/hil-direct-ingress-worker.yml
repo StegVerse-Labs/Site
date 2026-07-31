@@ -1,0 +1,147 @@
+name: HIL Direct Ingress Worker
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: hil-direct-ingress-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  process:
+    if: startsWith(github.event.issue.title, '[HIL RESPONSE PACKET] HIL-SUBMISSION-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Parse isolated source record
+        id: parse
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+          value() { printf '%s\n' "$BODY" | sed -n "s/^$1: \`\(.*\)\`$/\1/p" | head -n1; }
+          submission_id=$(value 'Submission ID')
+          receipt_id=$(value 'Receipt ID')
+          source_branch=$(value 'Source branch')
+          response_path=$(value 'Response path')
+          metadata_path=$(value 'Metadata path')
+          expected_sha=$(value 'PDF SHA-256')
+          test -n "$submission_id" && test -n "$receipt_id" && test -n "$source_branch" && test -n "$response_path" && test -n "$metadata_path" && test -n "$expected_sha"
+          echo "submission_id=$submission_id" >> "$GITHUB_OUTPUT"
+          echo "receipt_id=$receipt_id" >> "$GITHUB_OUTPUT"
+          echo "source_branch=$source_branch" >> "$GITHUB_OUTPUT"
+          echo "response_path=$response_path" >> "$GITHUB_OUTPUT"
+          echo "metadata_path=$metadata_path" >> "$GITHUB_OUTPUT"
+          echo "expected_sha=$expected_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Check out submission source branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.parse.outputs.source_branch }}
+          fetch-depth: 0
+
+      - name: Verify exact source bytes and create receipt
+        id: verify
+        env:
+          SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
+          RECEIPT_ID: ${{ steps.parse.outputs.receipt_id }}
+          RESPONSE_PATH: ${{ steps.parse.outputs.response_path }}
+          METADATA_PATH: ${{ steps.parse.outputs.metadata_path }}
+          EXPECTED_SHA: ${{ steps.parse.outputs.expected_sha }}
+        run: |
+          set -euo pipefail
+          test -f "$RESPONSE_PATH"
+          test -f "$METADATA_PATH"
+          actual_sha=$(sha256sum "$RESPONSE_PATH" | awk '{print $1}')
+          test "$actual_sha" = "$EXPECTED_SHA"
+          size=$(wc -c < "$RESPONSE_PATH" | tr -d ' ')
+          out="worker-output/$SUBMISSION_ID"
+          mkdir -p "$out"
+          cp "$RESPONSE_PATH" "$out/response.pdf"
+          cp "$METADATA_PATH" "$out/intake.json"
+          python - <<'PY'
+          import json, os, pathlib, datetime
+          out = pathlib.Path('worker-output') / os.environ['SUBMISSION_ID']
+          receipt = {
+            'schema_version':'HIL-GITHUB-WORKER-RECEIPT-v1',
+            'submission_id':os.environ['SUBMISSION_ID'],
+            'receipt_id':os.environ['RECEIPT_ID'],
+            'processed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'response_sha256':os.environ['EXPECTED_SHA'],
+            'size_bytes':int(os.environ['SIZE_BYTES']),
+            'state':'WORKER_VERIFIED',
+            'issue_number':int(os.environ['ISSUE_NUMBER']),
+            'workflow_run_id':int(os.environ['RUN_ID']),
+            'workflow_run_attempt':int(os.environ['RUN_ATTEMPT'])
+          }
+          (out/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8')
+          PY
+          echo "output_dir=$out" >> "$GITHUB_OUTPUT"
+        env:
+          SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
+          RECEIPT_ID: ${{ steps.parse.outputs.receipt_id }}
+          RESPONSE_PATH: ${{ steps.parse.outputs.response_path }}
+          METADATA_PATH: ${{ steps.parse.outputs.metadata_path }}
+          EXPECTED_SHA: ${{ steps.parse.outputs.expected_sha }}
+          SIZE_BYTES: ${{ github.event.issue.id }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+
+      - name: Correct receipt size and prepare isolated review branch
+        env:
+          SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
+          OUTPUT_DIR: ${{ steps.verify.outputs.output_dir }}
+          REVIEW_BRANCH: hil-review/${{ steps.parse.outputs.submission_id }}-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          size=$(wc -c < "$OUTPUT_DIR/response.pdf" | tr -d ' ')
+          python - "$OUTPUT_DIR/receipt.json" "$size" <<'PY'
+          import json, pathlib, sys
+          p=pathlib.Path(sys.argv[1]); d=json.loads(p.read_text()); d['size_bytes']=int(sys.argv[2]); p.write_text(json.dumps(d, indent=2)+'\n')
+          PY
+          git config user.name "stegverse-hil-worker[bot]"
+          git config user.email "stegverse-hil-worker[bot]@users.noreply.github.com"
+          git switch -c "$REVIEW_BRANCH"
+          mkdir -p "data/hil-submissions/$SUBMISSION_ID"
+          cp -a "$OUTPUT_DIR/." "data/hil-submissions/$SUBMISSION_ID/"
+          git add "data/hil-submissions/$SUBMISSION_ID"
+          git commit -m "Record HIL submission $SUBMISSION_ID"
+          git push origin "HEAD:$REVIEW_BRANCH"
+          echo "REVIEW_BRANCH=$REVIEW_BRANCH" >> "$GITHUB_ENV"
+
+      - name: Open isolated review pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
+          RECEIPT_ID: ${{ steps.parse.outputs.receipt_id }}
+          RESPONSE_SHA: ${{ steps.parse.outputs.expected_sha }}
+        run: |
+          set -euo pipefail
+          url=$(gh pr create --base "${{ github.event.repository.default_branch }}" --head "$REVIEW_BRANCH" --title "[HIL SUBMISSION] $SUBMISSION_ID" --body "Automated isolated HIL intake.\n\nSubmission: \`$SUBMISSION_ID\`\nReceipt: \`$RECEIPT_ID\`\nPDF SHA-256: \`$RESPONSE_SHA\`\nIssue: #${{ github.event.issue.number }}\nWorkflow run: \`${{ github.run_id }}\`.\n\nThis branch and PR are unique to this submission and can process concurrently with other participant submissions.")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Publish worker completion to issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
+          RECEIPT_ID: ${{ steps.parse.outputs.receipt_id }}
+          RESPONSE_SHA: ${{ steps.parse.outputs.expected_sha }}
+          PR_URL: ${{ steps.pr.outputs.url }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --body "WORKER_VERIFIED\n\nSubmission ID: \`$SUBMISSION_ID\`\nReceipt ID: \`$RECEIPT_ID\`\nPDF SHA-256: \`$RESPONSE_SHA\`\nReview record: $PR_URL\nWorkflow run: \`${{ github.run_id }}\`"
+
+      - name: Upload isolated evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-direct-${{ github.event.issue.number }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ steps.verify.outputs.output_dir }}
+          if-no-files-found: error
+          retention-days: 90
