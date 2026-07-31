@@ -47,7 +47,8 @@
       "SITE-0001-USER-LLM-BOUNDED-CAPABILITY-IMPORT",
       "SITE-0001-USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT",
       "SITE-0001-HIL-DEPLOYED-CYCLE-ORIGIN-HARDENING",
-      "SITE-0001-MASTER-RECORDS-PERSISTENT-SERVICE-EVIDENCE-IMPORT"
+      "SITE-0001-MASTER-RECORDS-PERSISTENT-SERVICE-EVIDENCE-IMPORT",
+      "SITE-0001-HIL-ANNOUNCEMENT-DERIVATION"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
@@ -71,7 +72,8 @@
     "master_records_persistent_service_evidence": "master-records/orchestration:data/master-records-persistent-service-evidence.json",
     "master_records_persistent_service_evidence_import": "data/master-records-persistent-service-evidence/",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
-    "superseded_activation_tracker": "issue/16"
+    "superseded_activation_tracker": "issue/16",
+    "hil_announcement_derivation": "StegVerse-Labs/Site:main@02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a"
   },
   "activation_readiness": {
     "state": "CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED",
@@ -197,5 +199,18 @@
     "heartbeat_state": "data/ecosystem-heartbeat-state.json",
     "heartbeat_contract": "docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md",
     "heartbeat_validator": "scripts/check_ecosystem_heartbeat_orchestration.py"
+  },
+  "hil_announcement_derivation": {
+    "state": "MACHINE_DERIVED_MANAGED_RETURN_READY",
+    "generator_commit": "035949885f185f45756c8b0b5a8947e5231d7171",
+    "test_commit": "3f8077e0bc989334280d194a738455ae73094767",
+    "schema_commit": "9ae0802f89f29d55853e5235a103cde961673246",
+    "status_commit": "fcf87a376a8628572411286507e7a8dd706365e3",
+    "announcement_workflow_commit": "bb36d1f7b761bff694729f2674caeeb5ff9e30da",
+    "canonical_validation_commit": "02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a",
+    "announcement_state": "ANNOUNCEMENT_READY_WITH_MANAGED_RETURN",
+    "production_receiver_ready": false,
+    "authority_effect": false,
+    "activation_effect": false
   }
 }
