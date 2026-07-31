@@ -1,0 +1,164 @@
+{
+  "activation_effect": false,
+  "artifacts": [],
+  "authority_effect": false,
+  "collected_at": "2026-07-31T14:42:05.764315Z",
+  "collector_run_attempt": 1,
+  "collector_run_id": 30639696925,
+  "complete_log_refs": [
+    "evidence/hil-cloudflare-deployment-d5d1598a8c52/job-90976121829.log"
+  ],
+  "deployment_run": {
+    "conclusion": "failure",
+    "created_at": "2026-07-30T19:09:04Z",
+    "display_title": "ops(hil): trigger receiver deployment verification",
+    "event": "push",
+    "head_branch": "main",
+    "head_sha": "d5d1598a8c523e8665e4550ee5c272df09256379",
+    "html_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30573565667",
+    "id": 30573565667,
+    "name": "HIL Cloudflare Receiver Deploy",
+    "run_attempt": 1,
+    "run_number": 2,
+    "run_started_at": "2026-07-30T19:09:04Z",
+    "status": "completed",
+    "updated_at": "2026-07-30T19:09:19Z"
+  },
+  "first_failed_step": {
+    "completed_at": "2026-07-30T19:09:15Z",
+    "conclusion": "failure",
+    "job_id": 90976121829,
+    "job_name": "deploy",
+    "name": "Validate deployment credentials",
+    "number": 4,
+    "started_at": "2026-07-30T19:09:15Z",
+    "status": "completed"
+  },
+  "jobs": [
+    {
+      "complete_log_ref": "evidence/hil-cloudflare-deployment-d5d1598a8c52/job-90976121829.log",
+      "completed_at": "2026-07-30T19:09:19Z",
+      "conclusion": "failure",
+      "id": 90976121829,
+      "name": "deploy",
+      "runner_name": "GitHub Actions 1000101345",
+      "started_at": "2026-07-30T19:09:07Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completed_at": "2026-07-30T19:09:10Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "started_at": "2026-07-30T19:09:08Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:12Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "started_at": "2026-07-30T19:09:10Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "started_at": "2026-07-30T19:09:12Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "failure",
+          "name": "Validate deployment credentials",
+          "number": 4,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "skipped",
+          "name": "Build production Wrangler configuration",
+          "number": 5,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "skipped",
+          "name": "Deploy receiver Worker",
+          "number": 6,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "skipped",
+          "name": "Verify production readiness route",
+          "number": 7,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "success",
+          "name": "Commit deployment observation",
+          "number": 8,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "skipped",
+          "name": "Enforce live READY receiver",
+          "number": 9,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "success",
+          "name": "Upload deployment evidence",
+          "number": 10,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:15Z",
+          "conclusion": "skipped",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 19,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:16Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "started_at": "2026-07-30T19:09:15Z",
+          "status": "completed"
+        },
+        {
+          "completed_at": "2026-07-30T19:09:16Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "started_at": "2026-07-30T19:09:16Z",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "matching_run_count": 1,
+  "provider_error_lines": [
+    "LOG_RETRIEVAL_ERROR: HTTPError: HTTP Error 401: Server failed to authenticate the request. Please refer to the information in the www-authenticate header."
+  ],
+  "repository": "StegVerse-Labs/Site",
+  "schema_version": "HIL-CLOUDFLARE-DEPLOYMENT-INVESTIGATION-v1",
+  "state": "ORIGINAL_RUN_RETRIEVED",
+  "target_workflow": "hil-cloudflare-deploy.yml",
+  "triggering_commit": "d5d1598a8c523e8665e4550ee5c272df09256379"
+}
