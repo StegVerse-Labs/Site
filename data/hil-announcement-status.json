@@ -1,13 +1,7 @@
 {
-  "schema_version": "HIL-ANNOUNCEMENT-STATUS-v1",
-  "study": "Humans as the Interoperability Layer",
+  "announcement_permitted": true,
   "announcement_state": "ANNOUNCEMENT_READY_WITH_MANAGED_RETURN",
-  "participant_intake_state": "OPEN_MANAGED_RETURN",
-  "canonical_primary": {
-    "version": "v1.1",
-    "filename": "HIL_Canonical_Paper_v1_1.pdf",
-    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
-  },
+  "authority_effect": false,
   "available_now": [
     "canonical paper download",
     "exact prompt",
@@ -18,13 +12,96 @@
     "downloadable return package",
     "downloadable local preparation receipt"
   ],
-  "temporary_return_mode": {
-    "mode": "PARTICIPANT_MANAGED_DIRECT_RETURN",
-    "instructions": "Preserve the response PDF unchanged and return it together with the generated package JSON through the direct channel identified in the experiment announcement.",
-    "server_custody_established": false,
-    "registry_commit_established": false,
-    "publication_established": false
+  "canonical_primary": {
+    "filename": "HIL_Canonical_Paper_v1_1.pdf",
+    "observed_sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+    "path": "data/HIL_Canonical_Paper_v1_1.pdf",
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+    "size_bytes": 87271,
+    "version": "v1.1"
   },
+  "canonical_prompt": {
+    "sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+    "version": "HIL-PROMPT-v1.1"
+  },
+  "claims_withheld": [
+    "SERVER_SUBMISSION_COMPLETE",
+    "DURABLE_CUSTODY_COMPLETE",
+    "REGISTRY_COMMIT_COMPLETE",
+    "PUBLICATION_COMPLETE"
+  ],
+  "derivation": {
+    "checks": {
+      "canonical_ledger_identity_valid": true,
+      "canonical_pdf_sha256_valid": true,
+      "canonical_pdf_signature_valid": true,
+      "canonical_pdf_size_valid": true,
+      "managed_return_components_present": true,
+      "pilot_ledger_authority_boundary_valid": true
+    },
+    "managed_components": {
+      "data/schemas/hil-managed-receiving-acknowledgment.schema.json": true,
+      "hil-managed-return.html": true,
+      "hil-study-announcement.html": true,
+      "hil-study-launch.html": true,
+      "scripts/ingest_hil_pilot_return.py": true,
+      "scripts/validate_hil_pilot_ledger.py": true
+    },
+    "managed_return_ready": true,
+    "mode": "MACHINE_DERIVED_FAIL_CLOSED",
+    "sources": [
+      {
+        "path": "data/HIL_Canonical_Paper_v1_1.pdf",
+        "present": true
+      },
+      {
+        "path": "data/hil-controlled-cycle-latest.json",
+        "present": true
+      },
+      {
+        "path": "data/hil-linkedin-launch-readiness.json",
+        "present": true
+      },
+      {
+        "path": "data/hil-participant-readiness.json",
+        "present": true
+      },
+      {
+        "path": "data/hil-pilot-ledger.json",
+        "present": true
+      },
+      {
+        "path": "data/hil-receiver-deployment-latest.json",
+        "present": true
+      },
+      {
+        "path": "data/schemas/hil-managed-receiving-acknowledgment.schema.json",
+        "present": true
+      },
+      {
+        "path": "hil-managed-return.html",
+        "present": true
+      },
+      {
+        "path": "hil-study-announcement.html",
+        "present": true
+      },
+      {
+        "path": "hil-study-launch.html",
+        "present": true
+      },
+      {
+        "path": "scripts/ingest_hil_pilot_return.py",
+        "present": true
+      },
+      {
+        "path": "scripts/validate_hil_pilot_ledger.py",
+        "present": true
+      }
+    ]
+  },
+  "participant_intake_state": "OPEN_MANAGED_RETURN",
+  "participant_warning_required": true,
   "pending_capabilities": [
     "persistent governed HTTPS receiver",
     "automatic durable custody",
@@ -32,12 +109,20 @@
     "automatic reconstruction",
     "automatic publication disposition"
   ],
-  "claims_withheld": [
-    "SERVER_SUBMISSION_COMPLETE",
-    "DURABLE_CUSTODY_COMPLETE",
-    "REGISTRY_COMMIT_COMPLETE",
-    "PUBLICATION_COMPLETE"
-  ],
-  "announcement_permitted": true,
-  "participant_warning_required": true
+  "production_receiver": {
+    "controlled_cycle_passed": false,
+    "deployment_ready": false,
+    "participant_readiness_passed": false,
+    "ready": false,
+    "restart_persistence_passed": false
+  },
+  "schema_version": "HIL-ANNOUNCEMENT-STATUS-v2",
+  "study": "Humans as the Interoperability Layer",
+  "temporary_return_mode": {
+    "instructions": "Preserve the response PDF unchanged and return it together with the generated package JSON through the direct channel identified in the experiment announcement.",
+    "mode": "PARTICIPANT_MANAGED_DIRECT_RETURN",
+    "publication_established": false,
+    "registry_commit_established": false,
+    "server_custody_established": false
+  }
 }
