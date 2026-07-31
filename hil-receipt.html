@@ -2,37 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>HIL Submission Receipt — StegVerse</title><link rel="stylesheet" href="sv-shared.css">
+  <title>HIL Submission Record — StegVerse</title><link rel="stylesheet" href="sv-shared.css">
   <style>
     .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
     .history{display:grid;gap:12px}.entry{border:1px solid var(--border2);border-radius:8px;padding:14px}
     .record-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.hidden{display:none}
   </style>
 </head>
-<body><nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-receipt.html">Receipt</a></nav>
-<main class="sv-wrap"><header class="sv-hero"><div class="sv-eyebrow">Participant receipt</div><h1>Response Packet <em>Record</em></h1><p>Your receipt and any appended provenance record are preserved in this browser for review. Download is optional.</p></header>
-<section id="state" class="sv-evidence">Loading receipt…</section>
-<h2 class="sv-h2">Current receipt</h2><pre id="receipt" class="receipt">Loading…</pre>
-<section id="appended-section" class="hidden"><h2 class="sv-h2">Appended provenance record</h2><p>This manifest is part of the participant record. Review it here and download it only when needed for the authenticated return.</p><div class="record-actions"><button id="toggle-manifest" class="sv-btn sv-btn-secondary" type="button">View manifest</button><button id="download-manifest" class="sv-btn sv-btn-outline" type="button">Download manifest</button><a id="github-return" class="sv-btn sv-btn-primary" target="_blank" rel="noopener">Open authenticated return</a></div><pre id="manifest" class="receipt hidden"></pre></section>
-<h2 class="sv-h2">Your submissions on this device</h2><div id="history" class="history"></div><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html">Submit another response</a></div></main>
+<body><nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-receipt.html">Record</a></nav>
+<main class="sv-wrap"><header class="sv-hero"><div class="sv-eyebrow">Participant appended record</div><h1>Response Packet <em>Record</em></h1><p>Every submission attempt is documented here. Accepted and failed uploads use the same JSON record format. You may review the record in place and choose whether to download it.</p></header>
+<section id="state" class="sv-evidence">Loading record…</section>
+<h2 class="sv-h2">Submission summary</h2><pre id="receipt" class="receipt">Loading…</pre>
+<section id="appended-section" class="hidden"><h2 class="sv-h2">Appended JSON record</h2><p>This JSON is the appended record for this submission attempt, including its hashes, participant confirmations, and accepted or failed upload state.</p><div class="record-actions"><button id="toggle-record" class="sv-btn sv-btn-secondary" type="button">View JSON record</button><button id="download-record" class="sv-btn sv-btn-outline" type="button">Download JSON record</button></div><pre id="appended-record" class="receipt hidden"></pre></section>
+<h2 class="sv-h2">Submission attempts on this device</h2><div id="history" class="history"></div><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html">Submit another response</a></div></main>
 <script>
 (() => {
   const params=new URLSearchParams(location.search);const id=params.get('submission_id');const state=document.getElementById('state');const receiptBody=document.getElementById('receipt');const history=document.getElementById('history');
-  const appendedSection=document.getElementById('appended-section');const manifestBody=document.getElementById('manifest');const toggle=document.getElementById('toggle-manifest');const download=document.getElementById('download-manifest');const githubReturn=document.getElementById('github-return');
+  const appendedSection=document.getElementById('appended-section');const recordBody=document.getElementById('appended-record');const toggle=document.getElementById('toggle-record');const download=document.getElementById('download-record');
   const key='stegverse.hil.submissions.v1';let rows=[];try{rows=JSON.parse(localStorage.getItem(key)||'[]');}catch{}
   const current=rows.find(r=>r&&r.submission_id===id)||null;
   function downloadJson(filename,value){const blob=new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
   if(current){
-    state.innerHTML=`<div class="sv-evidence-row"><span class="k">Submission</span><span class="v">${current.submission_id}</span></div><div class="sv-evidence-row"><span class="k">State</span><span class="v">${current.state||'QUEUED_FOR_GITHUB_WORKER'}</span></div>`;
-    receiptBody.textContent=JSON.stringify(current,null,2);
-    if(current.provenance_manifest){
-      appendedSection.classList.remove('hidden');
-      manifestBody.textContent=JSON.stringify(current.provenance_manifest,null,2);
-      toggle.addEventListener('click',()=>{const hidden=manifestBody.classList.toggle('hidden');toggle.textContent=hidden?'View manifest':'Hide manifest';});
-      download.addEventListener('click',()=>downloadJson(current.manifest_filename||`${current.submission_id}-provenance.json`,current.provenance_manifest));
-      if(current.github_return_url){githubReturn.href=current.github_return_url;}else{githubReturn.classList.add('hidden');}
-    }
-  }else{state.textContent='This browser does not contain the requested receipt.';receiptBody.textContent='No local receipt found.';}
-  history.replaceChildren();if(!rows.length){history.textContent='No submissions are recorded on this device.';}else rows.forEach(row=>{const el=document.createElement('article');el.className='entry';el.textContent=`${row.submission_id} · ${row.state||'QUEUED'} · ${row.received_at||''}`;history.appendChild(el);});
+    const uploadState=current.upload_state||current.state||'UNKNOWN';
+    state.innerHTML=`<div class="sv-evidence-row"><span class="k">Submission</span><span class="v">${current.submission_id}</span></div><div class="sv-evidence-row"><span class="k">Upload state</span><span class="v">${uploadState}</span></div><div class="sv-evidence-row"><span class="k">Accepted</span><span class="v">${current.upload_succeeded===true?'true':'false'}</span></div>`;
+    const summary={submission_id:current.submission_id,receipt_id:current.receipt_id||null,upload_state:uploadState,upload_succeeded:current.upload_succeeded===true,response_filename:current.response_filename||current.filename||null,response_sha256:current.response_sha256||null,failure:current.failure||null};
+    receiptBody.textContent=JSON.stringify(summary,null,2);
+    const appended=current.appended_record||current;
+    appendedSection.classList.remove('hidden');
+    recordBody.textContent=JSON.stringify(appended,null,2);
+    toggle.addEventListener('click',()=>{const hidden=recordBody.classList.toggle('hidden');toggle.textContent=hidden?'View JSON record':'Hide JSON record';});
+    download.addEventListener('click',()=>downloadJson(current.manifest_filename||`${current.submission_id}-record.json`,appended));
+  }else{state.textContent='This browser does not contain the requested record.';receiptBody.textContent='No local record found.';}
+  history.replaceChildren();if(!rows.length){history.textContent='No submission attempts are recorded on this device.';}else rows.forEach(row=>{const el=document.createElement('article');el.className='entry';el.textContent=`${row.submission_id} · ${row.upload_state||row.state||'UNKNOWN'} · ${row.recorded_at||row.received_at||''}`;history.appendChild(el);});
 })();
 </script></body></html>
