@@ -58,7 +58,7 @@ Synthetic boundaries: research_data=false; authority_effect=false
 ## Current verified state
 
 ```text
-Latest repository head inspected: d036a797bacfe22c5905ff3b661673dbd1034207
+Latest repository head inspected: 20da57673f3bdd42507e47980b34896e54cd1e86
 Deployment trigger commit: d5d1598a8c523e8665e4550ee5c272df09256379
 Latest controlled-cycle run: 30569491378
 Latest controlled-cycle job: 90962296249
@@ -86,6 +86,15 @@ Release/tag authority: false
 - Current retrieval against trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` returned `workflow_runs: []`; combined commit status also returned `statuses: []`. Therefore no deployment run ID or job ID is exposed for the push-triggered workflow.
 - No direct Cloudflare Worker, deployment, route, D1 database, binding, or log controls are exposed in this session.
 - Because neither execution surface required by the user is available, the exact deployment step and complete provider error cannot be retrieved. No provider defect was guessed and no repository or provider mutation was made beyond these handoff updates.
+
+## Session update — 2026-07-31T00:52Z
+
+- Re-read the five user-required handoffs in full and in the requested order.
+- Verified latest `main` head `20da57673f3bdd42507e47980b34896e54cd1e86`; requested handoff commits `b38224de52ad64222937097ca42c3d31aa878e8d` and `b9f2892a962ac11e3e7caa51d827058c109a1486` are ancestors by eight and seven commits respectively.
+- Re-ran the only commit-to-workflow lookup exposed by this GitHub connector against trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`; it returned `workflow_runs: []` and is explicitly limited to pull-request-triggered runs.
+- The connector exposes job, step, artifact, log, and rerun controls only after a run or job ID is known. It exposes no general workflow-run listing and no workflow dispatch action for `.github/workflows/hil-cloudflare-deploy.yml`.
+- No Cloudflare Workers, deployments, routes, D1, bindings, or runtime-log connector is present in this session.
+- Consequently the deployment run ID, job ID, exact failed step, and complete provider error remain inaccessible. No defect was guessed, no readiness state was promoted, and no deployment/release/downstream mutation was attempted.
 
 ## Exact external-authority block
 
