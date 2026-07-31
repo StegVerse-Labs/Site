@@ -58,7 +58,7 @@ Synthetic boundaries: research_data=false; authority_effect=false
 ## Current verified state
 
 ```text
-Pre-update repository head: 0d873e6ad980ab781d5d35ce6c5eaca0d54d4895
+Latest repository head inspected: f518d5235e191c480e1c69bb01e7036ee825736d
 Latest controlled-cycle run: 30569491378
 Latest controlled-cycle job: 90962296249
 Controlled-cycle result: failure
@@ -75,26 +75,27 @@ Restart persistence: unproven
 Release/tag authority: false
 ```
 
-## Session update — 2026-07-30T23:10Z
+## Session update — 2026-07-31T00:24Z
 
-- Read the ten designated source-of-truth files in order and inspected current repository commits.
-- GitHub repository read/write and commit controls are available.
-- GitHub Actions job, step, artifact, log, and rerun controls are available only when a run ID or job ID is known.
-- No workflow-run listing or workflow-dispatch action is exposed for `.github/workflows/hil-cloudflare-deploy.yml`.
-- `fetch_commit_workflow_runs` was called for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`; it returned no runs and therefore did not expose the push-triggered deployment execution.
-- Plugin discovery returned no Cloudflare plugin. The session exposes no Cloudflare account, Worker, route, D1 database, binding, deployment, custom-domain, log, rollback, or restart operation.
-- No exact Cloudflare token, account permission, database, binding, or route defect is proven because the provider control plane and deployment run logs are inaccessible.
-- No readiness, activation, publication, custody, research, or release state was promoted manually.
-- `docs/HIL_SITE_MIRROR_HANDOFF.md` was updated in commit `a6213b25e97c1128c769cbde9e753434c12ecf52`.
+- Read the required cross-session protocol, HIL Site handoff, HIL deployment handoff, execution prompt, and Site handoff in the requested order.
+- Inspected handoff commit `19be2bc6859b97f1cbe654083af064b3a0a8d4ed` and the ten newest repository commits; current head at inspection was `f518d5235e191c480e1c69bb01e7036ee825736d`.
+- Re-read `data/hil-controlled-cycle-latest.json`, `data/hil-receiver-deployment-latest.json`, and `data/hil-participant-readiness.json`; none contains newer live activation evidence.
+- Re-read `.github/workflows/hil-cloudflare-deploy.yml`, `.github/workflows/hil-controlled-cycle.yml`, and `.github/workflows/hil-restart-persistence.yml`.
+- The current GitHub connector exposes repository contents/commits plus known-run job, step, artifact, log, and rerun actions. It does not expose general workflow-run listing or workflow dispatch.
+- `fetch_commit_workflow_runs` was tested against trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` and returned an empty run set because the available action is limited to pull-request-associated runs; it did not reveal the push-triggered deploy run.
+- Cloudflare plugin discovery returned no Cloudflare Workers/D1 plugin or direct provider controls. No Worker, route, D1, binding, deployment, version, log, restart, or custom-domain action is exposed.
+- Re-inspected known controlled-cycle job `90962296249` and its complete logs. The exact failed command was `curl --fail --silent --show-error --max-time 30 --header 'Accept: application/json' ... https://stegverse.org/api/hil/readiness`; it returned HTTP 404 and curl exit code 22 at `2026-07-30T18:13:57Z`.
+- Steps for packet generation, production submission, status/content retrieval, positive verification, deterministic negative cases, and participant-ready enforcement were skipped. Failure evidence artifact `hil-participant-readiness-30569491378-1` was uploaded as artifact ID `8770179722`; it is not activation evidence.
+- No provider defect was guessed, no readiness was manually promoted, and no release/tag or downstream propagation was authorized.
 
 ## Exact external-authority block
 
-The exact blocked operation is inspection and mutation of the Cloudflare Worker/D1 deployment serving `stegverse.org/api/hil/*`. Direct Cloudflare controls are absent, while the GitHub connector cannot list or dispatch the push-triggered deployment workflow to obtain the run ID required for job-log inspection. Therefore the exact failed provider command and resource-level error cannot be retrieved in this session.
+The exact blocked operation is discovery and inspection of the push-triggered `HIL Cloudflare Receiver Deploy` run, or direct inspection/mutation of the Cloudflare Worker and D1 control plane serving `stegverse.org/api/hil/*`. This session has neither general Actions run enumeration/dispatch nor Cloudflare Worker/D1 controls. Therefore the deployment job ID, failed deploy command, provider error, relevant D1 resource, binding state, route state, and deployment version cannot be retrieved or repaired through any action currently exposed.
 
-The next session requires one of:
+The next execution environment requires one of:
 
-1. Cloudflare Workers and D1 controls for the account serving `stegverse.org`; or
-2. GitHub Actions workflow-run listing or dispatch plus job logs for `.github/workflows/hil-cloudflare-deploy.yml`.
+1. GitHub Actions workflow-run listing or dispatch for `.github/workflows/hil-cloudflare-deploy.yml`, followed by job/log inspection and rerun authority; or
+2. direct Cloudflare Workers, routes, deployments, D1 databases, and bindings controls for the account serving `stegverse.org`.
 
 ## Required execution path
 
@@ -121,6 +122,7 @@ The next session requires one of:
 
 ```text
 StegVerse-Labs/Site:
+- deployment workflow run/job/log evidence
 - live Worker route and D1 binding
 - controlled production cycle
 - machine-derived participant readiness
@@ -135,4 +137,4 @@ After verified activation only:
 
 ## Archive readiness
 
-The complete continuation state is preserved in repository handoffs, machine-state records, workflows, receipts, and commit history. This conversation can be archived without retaining any additional thread content.
+The complete continuation state is preserved in repository handoffs, machine-state records, workflows, receipts, connector inspection results, and commit history. This conversation can be archived without retaining any additional thread content.
