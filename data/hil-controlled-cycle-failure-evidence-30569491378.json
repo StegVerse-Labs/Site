@@ -1,0 +1,54 @@
+{
+  "schema_version": "HIL-CONTROLLED-CYCLE-FAILURE-EVIDENCE-v1",
+  "repository": "StegVerse-Labs/Site",
+  "workflow": "hil-controlled-cycle.yml",
+  "run": {
+    "id": 30569491378,
+    "head_branch": "main",
+    "head_sha": "04116dd23e6797406b603a06d30f24666e8778a3",
+    "conclusion": "failure"
+  },
+  "job": {
+    "id": 90962296249,
+    "name": "participant-readiness-gate",
+    "conclusion": "failure"
+  },
+  "first_failed_step": {
+    "number": 5,
+    "name": "Capture and validate live runtime readiness",
+    "command": "curl --fail --silent --show-error --max-time 30 --header 'Accept: application/json' --output controlled-cycle-evidence/readiness.json --dump-header controlled-cycle-evidence/readiness-headers.txt https://stegverse.org/api/hil/readiness",
+    "endpoint": "https://stegverse.org/api/hil/readiness",
+    "http_status": 404,
+    "curl_exit_code": 22,
+    "provider_message": "The requested URL returned error: 404"
+  },
+  "skipped_after_failure": [
+    "Generate canonical synthetic response packet",
+    "Submit canonical packet through production endpoint",
+    "Retrieve status and exact stored bytes",
+    "Verify production upload, receipt, custody, and authority boundaries",
+    "Verify deterministic rejection cases",
+    "Enforce participant-ready result"
+  ],
+  "artifact": {
+    "id": 8770179722,
+    "name": "hil-participant-readiness-30569491378-1",
+    "size_in_bytes": 1155,
+    "digest": "sha256:b202bf1fb6341a6d5fde36c72a347b544284981a1b42c1f8b8e4bc1f3c2d0edd",
+    "created_at": "2026-07-30T18:13:57Z",
+    "expires_at": "2026-10-28T18:13:52Z",
+    "expired": false
+  },
+  "classification": "RUNTIME",
+  "proven_blocker": "The production domain does not serve the HIL readiness endpoint at /api/hil/readiness.",
+  "not_proven": [
+    "the exact Cloudflare deployment-workflow failure",
+    "the existence or absence of HIL_REGISTRY",
+    "the configured Worker route",
+    "the Cloudflare account resource or permission causing deployment failure"
+  ],
+  "next_required_evidence": "Retrieve the push-triggered HIL Cloudflare deployment run/job/logs for trigger commit d5d1598a8c523e8665e4550ee5c272df09256379 or inspect the serving Cloudflare Worker, route, deployment, and D1 binding directly.",
+  "research_data": false,
+  "authority_effect": false,
+  "activation_effect": false
+}
