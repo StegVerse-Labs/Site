@@ -89,3 +89,54 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, { once: true });
   else install();
 })();
+
+(() => {
+  'use strict';
+
+  const INTAKE_URL = 'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml';
+  const MAX_BYTES = 10 * 1024 * 1024;
+
+  async function installAuthenticatedIntakeBridge() {
+    const oldButton = document.getElementById('upload-response');
+    const fileInput = document.getElementById('response-file');
+    const status = document.getElementById('intake-status');
+    if (!oldButton || !fileInput || !status) return;
+
+    const button = oldButton.cloneNode(true);
+    oldButton.replaceWith(button);
+    button.disabled = false;
+    button.textContent = 'Upload Response Packet';
+    status.dataset.state = 'ok';
+    status.textContent = 'Response-packet intake is available. Choose the unchanged PDF, then tap Upload Response Packet. The authenticated intake form will open; attach the same PDF there and submit it.';
+
+    button.addEventListener('click', async () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) {
+        status.dataset.state = 'error';
+        status.textContent = 'Choose the single Response PDF before opening the governed intake form.';
+        return;
+      }
+      if (!file.name.toLowerCase().endsWith('.pdf') || file.size < 1 || file.size > MAX_BYTES) {
+        status.dataset.state = 'error';
+        status.textContent = 'The selected artifact must be a non-empty PDF no larger than 10 MB.';
+        return;
+      }
+      const bytes = new Uint8Array(await file.slice(0, 5).arrayBuffer());
+      if (new TextDecoder('ascii').decode(bytes) !== '%PDF-') {
+        status.dataset.state = 'error';
+        status.textContent = 'The selected artifact does not have a valid PDF signature.';
+        return;
+      }
+      await stageSelectedSubmission().catch(() => null);
+      status.dataset.state = 'ok';
+      status.textContent = 'PDF validated locally. Opening the authenticated intake form now. Attach this same unchanged PDF in the Response packet attachment field.';
+      window.location.assign(INTAKE_URL);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', installAuthenticatedIntakeBridge, { once: true });
+  } else {
+    installAuthenticatedIntakeBridge();
+  }
+})();
