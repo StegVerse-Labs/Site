@@ -54,6 +54,9 @@ jobs:
           RESPONSE_PATH: ${{ steps.parse.outputs.response_path }}
           METADATA_PATH: ${{ steps.parse.outputs.metadata_path }}
           EXPECTED_SHA: ${{ steps.parse.outputs.expected_sha }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
           set -euo pipefail
           test -f "$RESPONSE_PATH"
@@ -65,9 +68,9 @@ jobs:
           mkdir -p "$out"
           cp "$RESPONSE_PATH" "$out/response.pdf"
           cp "$METADATA_PATH" "$out/intake.json"
-          python - <<'PY'
+          SIZE_BYTES="$size" OUTPUT_DIR="$out" python - <<'PY'
           import json, os, pathlib, datetime
-          out = pathlib.Path('worker-output') / os.environ['SUBMISSION_ID']
+          out = pathlib.Path(os.environ['OUTPUT_DIR'])
           receipt = {
             'schema_version':'HIL-GITHUB-WORKER-RECEIPT-v1',
             'submission_id':os.environ['SUBMISSION_ID'],
@@ -83,29 +86,14 @@ jobs:
           (out/'receipt.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8')
           PY
           echo "output_dir=$out" >> "$GITHUB_OUTPUT"
-        env:
-          SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
-          RECEIPT_ID: ${{ steps.parse.outputs.receipt_id }}
-          RESPONSE_PATH: ${{ steps.parse.outputs.response_path }}
-          METADATA_PATH: ${{ steps.parse.outputs.metadata_path }}
-          EXPECTED_SHA: ${{ steps.parse.outputs.expected_sha }}
-          SIZE_BYTES: ${{ github.event.issue.id }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          RUN_ID: ${{ github.run_id }}
-          RUN_ATTEMPT: ${{ github.run_attempt }}
 
-      - name: Correct receipt size and prepare isolated review branch
+      - name: Create isolated review branch
         env:
           SUBMISSION_ID: ${{ steps.parse.outputs.submission_id }}
           OUTPUT_DIR: ${{ steps.verify.outputs.output_dir }}
           REVIEW_BRANCH: hil-review/${{ steps.parse.outputs.submission_id }}-${{ github.run_id }}-${{ github.run_attempt }}
         run: |
           set -euo pipefail
-          size=$(wc -c < "$OUTPUT_DIR/response.pdf" | tr -d ' ')
-          python - "$OUTPUT_DIR/receipt.json" "$size" <<'PY'
-          import json, pathlib, sys
-          p=pathlib.Path(sys.argv[1]); d=json.loads(p.read_text()); d['size_bytes']=int(sys.argv[2]); p.write_text(json.dumps(d, indent=2)+'\n')
-          PY
           git config user.name "stegverse-hil-worker[bot]"
           git config user.email "stegverse-hil-worker[bot]@users.noreply.github.com"
           git switch -c "$REVIEW_BRANCH"
