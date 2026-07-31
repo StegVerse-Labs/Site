@@ -1,0 +1,88 @@
+{
+  "schema_version": "HIL-CLOUDFLARE-DEPLOYMENT-FAILURE-EVIDENCE-v1",
+  "repository": "StegVerse-Labs/Site",
+  "workflow": {
+    "name": "HIL Cloudflare Receiver Deploy",
+    "path": ".github/workflows/hil-cloudflare-deploy.yml",
+    "run_id": 30573565667,
+    "run_number": 2,
+    "run_attempt": 1,
+    "event": "push",
+    "head_branch": "main",
+    "head_sha": "d5d1598a8c523e8665e4550ee5c272df09256379",
+    "status": "completed",
+    "conclusion": "failure",
+    "created_at": "2026-07-30T19:09:04Z",
+    "run_started_at": "2026-07-30T19:09:04Z",
+    "updated_at": "2026-07-30T19:09:19Z"
+  },
+  "job": {
+    "id": 90976121829,
+    "name": "deploy",
+    "status": "completed",
+    "conclusion": "failure",
+    "started_at": "2026-07-30T19:09:07Z",
+    "completed_at": "2026-07-30T19:09:19Z",
+    "steps": [
+      {"number": 1, "name": "Set up job", "conclusion": "success"},
+      {"number": 2, "name": "Run actions/checkout@v4", "conclusion": "success"},
+      {"number": 3, "name": "Run actions/setup-node@v4", "conclusion": "success"},
+      {"number": 4, "name": "Validate deployment credentials", "conclusion": "failure"},
+      {"number": 5, "name": "Build production Wrangler configuration", "conclusion": "skipped"},
+      {"number": 6, "name": "Deploy receiver Worker", "conclusion": "skipped"},
+      {"number": 7, "name": "Verify production readiness route", "conclusion": "skipped"},
+      {"number": 8, "name": "Commit deployment observation", "conclusion": "success"},
+      {"number": 9, "name": "Enforce live READY receiver", "conclusion": "skipped"},
+      {"number": 10, "name": "Upload deployment evidence", "conclusion": "success"},
+      {"number": 19, "name": "Post Run actions/setup-node@v4", "conclusion": "skipped"},
+      {"number": 20, "name": "Post Run actions/checkout@v4", "conclusion": "success"},
+      {"number": 21, "name": "Complete job", "conclusion": "success"}
+    ]
+  },
+  "first_failed_step": {
+    "number": 4,
+    "name": "Validate deployment credentials",
+    "command": "set -euo pipefail; test -n \"$CLOUDFLARE_API_TOKEN\"; test -n \"$CLOUDFLARE_ACCOUNT_ID\"; test -n \"$HIL_REGISTRY_DATABASE_ID\"",
+    "started_at": "2026-07-30T19:09:15Z",
+    "completed_at": "2026-07-30T19:09:15Z",
+    "exit_code": 1,
+    "error": "Process completed with exit code 1."
+  },
+  "observed_secret_presence": {
+    "CLOUDFLARE_API_TOKEN": "EMPTY",
+    "CLOUDFLARE_ACCOUNT_ID": "EMPTY",
+    "HIL_REGISTRY_DATABASE_ID": "EMPTY"
+  },
+  "provider_execution": {
+    "cloudflare_invoked": false,
+    "wrangler_invoked": false,
+    "production_configuration_built": false,
+    "worker_deployed": false,
+    "route_inspected_or_changed": false,
+    "d1_inspected_or_changed": false,
+    "provider_error": null,
+    "classification": "GITHUB_ACTIONS_SECRET_BOUNDARY"
+  },
+  "artifact": {
+    "expected_name": "hil-receiver-deployment-30573565667",
+    "created": false,
+    "reason": "No files were found with the provided path: deployment-evidence/."
+  },
+  "proven_defect": "All three required GitHub Actions deployment secrets resolved to empty values before the Cloudflare deployment step.",
+  "repair_applied": false,
+  "repair_not_applied_reason": "The connected GitHub capability exposes repository contents and Actions evidence but no Actions-secret write operation, and this session exposes no authenticated Cloudflare control plane. Secret values, account identity, and D1 database identity cannot be invented or committed.",
+  "exact_remaining_blocker": "At the authorized secret boundary for StegVerse-Labs/Site, populate CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, and HIL_REGISTRY_DATABASE_ID with values scoped to the account, zone, Worker, route, and preserved HIL D1 database; then rerun HIL Cloudflare Receiver Deploy.",
+  "live_verification": {
+    "probes_http_200": false,
+    "readiness_http_200": false,
+    "readiness_state_ready": false,
+    "canonical_primary_v1_1_verified": false,
+    "canonical_prompt_v1_1_verified": false,
+    "hil_registry_bound_and_reachable": false,
+    "reason": "Deployment did not reach Cloudflare and the production readiness endpoint remains unserved."
+  },
+  "research_data": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "release_effect": false
+}
