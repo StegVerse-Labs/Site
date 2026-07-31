@@ -1,0 +1,75 @@
+{
+  "schema_version": "HIL-PILOT-LEDGER-v1",
+  "experiment": "Humans as the Interoperability Layer",
+  "canonical_primary": {
+    "version": "v1.1",
+    "sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
+  },
+  "canonical_prompt": {
+    "version": "HIL-PROMPT-v1.1",
+    "sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
+  },
+  "counts": {
+    "model_requests_initiated": 2,
+    "completed_response_pdfs_confirmed": 0,
+    "verified_return_packages": 0,
+    "managed_receiving_acknowledgments": 0,
+    "governed_receiver_receipts": 0
+  },
+  "entries": [
+    {
+      "submission_id": "HIL-PILOT-PENDING-CLAUDE-OPUS-5",
+      "participant_or_operator_identifier": "operator:Rigel-Randolph",
+      "model": "Claude Opus 5",
+      "provider": "Anthropic",
+      "model_version": "unknown",
+      "canonical_paper_version": "v1.1",
+      "canonical_paper_sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+      "prompt_version": "HIL-PROMPT-v1.1",
+      "prompt_sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+      "response_pdf_filename": null,
+      "response_pdf_sha256": null,
+      "response_pdf_size": null,
+      "package_id": null,
+      "package_sha256": null,
+      "local_receipt_id": null,
+      "return_mode": "not_yet_returned",
+      "received_timestamp": null,
+      "verification_status": "MODEL_REQUEST_INITIATED_RESPONSE_NOT_RECEIVED",
+      "publication_consent_posture": "not_recorded",
+      "custody_status": "NO_CUSTODY",
+      "registry_status": "NOT_REGISTERED",
+      "review_status": "NOT_REVIEWED",
+      "claims_withheld": ["response_completed", "managed_receipt", "governed_receiver_custody", "registry_commit", "publication_acceptance"]
+    },
+    {
+      "submission_id": "HIL-PILOT-PENDING-CHATGPT-MEDIUM-5-6",
+      "participant_or_operator_identifier": "operator:Rigel-Randolph",
+      "model": "ChatGPT Medium 5.6",
+      "provider": "OpenAI",
+      "model_version": "5.6 Medium",
+      "canonical_paper_version": "v1.1",
+      "canonical_paper_sha256": "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462",
+      "prompt_version": "HIL-PROMPT-v1.1",
+      "prompt_sha256": "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+      "response_pdf_filename": null,
+      "response_pdf_sha256": null,
+      "response_pdf_size": null,
+      "package_id": null,
+      "package_sha256": null,
+      "local_receipt_id": null,
+      "return_mode": "not_yet_returned",
+      "received_timestamp": null,
+      "verification_status": "MODEL_REQUEST_INITIATED_RESPONSE_NOT_RECEIVED",
+      "publication_consent_posture": "not_recorded",
+      "custody_status": "NO_CUSTODY",
+      "registry_status": "NOT_REGISTERED",
+      "review_status": "NOT_REVIEWED",
+      "claims_withheld": ["response_completed", "managed_receipt", "governed_receiver_custody", "registry_commit", "publication_acceptance"]
+    }
+  ],
+  "authority_effect": false,
+  "custody_effect": false,
+  "publication_effect": false,
+  "last_updated": "2026-07-31T00:22:00Z"
+}
