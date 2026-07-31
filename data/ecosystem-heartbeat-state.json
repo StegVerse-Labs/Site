@@ -2,8 +2,8 @@
   "schema_version": "1.1.0",
   "state_type": "ecosystem_heartbeat_runtime_state",
   "repository": "StegVerse-Labs/Site",
-  "ecosystem_heartbeat": 16,
-  "repository_heartbeat": 11,
+  "ecosystem_heartbeat": 17,
+  "repository_heartbeat": 12,
   "task_sequence": 1,
   "task_sequence_label": "current work task sequence 0001",
   "work_state": "RUNNING",
@@ -102,6 +102,25 @@
         "authority_effect": false,
         "activation_effect": false
       }
+    },
+    {
+      "task_id": "SITE-0001-HIL-ANNOUNCEMENT-DERIVATION",
+      "workload": "Derive HIL announcement posture from machine evidence",
+      "execution_class": "PARALLEL_SAFE",
+      "owner": "site-hil-announcement-derivation",
+      "state": "COMPLETED",
+      "completion_evidence": {
+        "generator_commit": "035949885f185f45756c8b0b5a8947e5231d7171",
+        "test_commit": "3f8077e0bc989334280d194a738455ae73094767",
+        "schema_commit": "9ae0802f89f29d55853e5235a103cde961673246",
+        "status_commit": "fcf87a376a8628572411286507e7a8dd706365e3",
+        "announcement_workflow_commit": "bb36d1f7b761bff694729f2674caeeb5ff9e30da",
+        "canonical_validation_commit": "02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a",
+        "announcement_state": "ANNOUNCEMENT_READY_WITH_MANAGED_RETURN",
+        "production_receiver_ready": false,
+        "authority_effect": false,
+        "activation_effect": false
+      }
     }
   ],
   "queued_parallel_safe_tasks": [],
@@ -135,13 +154,17 @@
     }
   ],
   "last_transition": {
-    "event_type": "HIL_AUTHORIZED_CONFIGURATION_BLOCKER_OBSERVED",
+    "event_type": "HIL_ANNOUNCEMENT_MACHINE_DERIVATION_COMPLETED",
     "progress_effect": true,
     "authority_effect": false,
     "evidence_refs": [
-      "StegVerse-org/LLM-adapter@a6ffc2e0f7d8abfecff848e276ada311ad218fce",
-      "StegVerse-org/LLM-adapter#18:issuecomment-5085368571",
-      "sha256:27dbe3f846913e0cd66221e377f6e5adcbcb6e7842a3b4565b160c310063745d"
+      "StegVerse-Labs/Site@035949885f185f45756c8b0b5a8947e5231d7171",
+      "StegVerse-Labs/Site@3f8077e0bc989334280d194a738455ae73094767",
+      "StegVerse-Labs/Site@9ae0802f89f29d55853e5235a103cde961673246",
+      "StegVerse-Labs/Site@fcf87a376a8628572411286507e7a8dd706365e3",
+      "StegVerse-Labs/Site@bb36d1f7b761bff694729f2674caeeb5ff9e30da",
+      "StegVerse-Labs/Site@02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a",
+      "data/hil-announcement-status.json"
     ]
   },
   "health_model": {
@@ -154,6 +177,7 @@
       "HIL succession state is installed across all six authoritative repositories",
       "Provider-neutral Ecosystem Node discovery is installed and CI-bound",
       "HIL upload work remains active in a separate parallel-safe session",
+      "HIL managed-return announcement status is machine-derived and CI-bound; production receiver readiness remains fail-closed",
       "Authorized provider activation observer is running and reports exact missing configuration bindings",
       "No provider, custody, reconstruction, publication, release, or activation authority is inferred from configuration-required evidence"
     ]
