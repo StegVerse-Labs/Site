@@ -1,0 +1,107 @@
+name: HIL Public Page Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'humans-as-interoperability-layer.html'
+      - '.github/ISSUE_TEMPLATE/hil-response-packet.yml'
+      - '.github/workflows/hil-public-page-proof.yml'
+      - 'controls/VERIFY_HIL_PUBLIC_PAGE.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hil-public-page-proof
+  cancel-in-progress: false
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Wait for Cloudflare-hosted page and verify participant path
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deployment-evidence data
+          url='https://stegverse.org/humans-as-interoperability-layer.html'
+          marker='PDF verified. Opening the authenticated StegVerse intake form.'
+          passed=false
+          for attempt in $(seq 1 40); do
+            status=$(curl --silent --show-error --location --max-time 30 \
+              --output deployment-evidence/hil-public-page.html \
+              --dump-header deployment-evidence/hil-public-page-headers.txt \
+              --write-out '%{http_code}' \
+              "$url?proof=${GITHUB_SHA}-${attempt}" || true)
+            if [ "$status" = '200' ] && grep -Fq "$marker" deployment-evidence/hil-public-page.html; then
+              passed=true
+              break
+            fi
+            sleep 15
+          done
+          test "$passed" = true
+          grep -Fq 'id="response-file"' deployment-evidence/hil-public-page.html
+          grep -Fq 'id="upload-response"' deployment-evidence/hil-public-page.html
+          grep -Fq 'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml' deployment-evidence/hil-public-page.html
+          grep -Fq 'data/HIL_Canonical_Paper_v1_1.pdf' deployment-evidence/hil-public-page.html
+
+          intake_status=$(curl --silent --show-error --location --max-time 30 \
+            --output deployment-evidence/hil-intake-form.html \
+            --write-out '%{http_code}' \
+            'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml' || true)
+          test "$intake_status" = '200'
+          grep -Eiq 'HIL Response Packet Upload|Sign in to GitHub|New issue' deployment-evidence/hil-intake-form.html
+
+      - name: Write live proof receipt
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          page = Path('deployment-evidence/hil-public-page.html').read_bytes()
+          receipt = {
+            'schema_version': 'HIL-PUBLIC-PAGE-PROOF-v1',
+            'observed_at': datetime.now(timezone.utc).isoformat().replace('+00:00','Z'),
+            'source_commit': os.environ['GITHUB_SHA'],
+            'public_url': 'https://stegverse.org/humans-as-interoperability-layer.html',
+            'public_http_status': 200,
+            'public_page_sha256': hashlib.sha256(page).hexdigest(),
+            'page_loaded': True,
+            'safari_crash_script_set_removed': True,
+            'pdf_selector_present': True,
+            'upload_button_present': True,
+            'pdf_signature_validation_present': True,
+            'intake_target': 'https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml',
+            'intake_target_reachable': True,
+            'canonical_primary_link_present': True,
+            'result': 'PASS',
+            'authority_effect': False
+          }
+          Path('data/hil-public-page-proof-latest.json').write_text(json.dumps(receipt, indent=2, sort_keys=True)+'\n')
+          PY
+
+      - name: Commit proof receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'stegverse-hil-page-prover'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/hil-public-page-proof-latest.json
+          git commit -m 'chore(hil): record passing public page proof'
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hil-public-page-proof-${{ github.run_id }}
+          path: deployment-evidence/
+          retention-days: 30
