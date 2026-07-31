@@ -2,9 +2,20 @@
 
 ## Source of truth
 
-This document owns HIL continuation in `StegVerse-Labs/Site` and is subordinate to `docs/SITE_MIRROR_HANDOFF.md`.
+This document owns participant-facing HIL continuation in `StegVerse-Labs/Site` and is subordinate to `docs/SITE_MIRROR_HANDOFF.md`. `docs/HIL_MIRROR_HANDOFF.md` owns detailed production deployment and controlled-cycle continuation.
 
-Read with `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/HIL_MIRROR_HANDOFF.md`, and all HIL machine-state and failure-evidence records.
+Read with:
+
+1. `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
+2. `docs/SITE_MIRROR_HANDOFF.md`
+3. `docs/HIL_MIRROR_HANDOFF.md`
+4. `docs/HIL_EXECUTION_SESSION_PROMPT.md`
+5. `data/hil-cloudflare-deployment-failure-evidence-30573565667.json`
+6. `data/hil-public-runtime-probe-latest.json`
+7. `data/hil-receiver-deployment-latest.json`
+8. `data/hil-controlled-cycle-failure-evidence-30569491378.json`
+
+Repository state, committed evidence, exact workflow logs, and direct provider observations are authoritative. This handoff grants no execution, custody, publication, activation, or release authority.
 
 ## Objective
 
@@ -25,7 +36,8 @@ Participant launch: https://stegverse.org/hil-study-launch.html
 Managed return: https://stegverse.org/hil-managed-return.html
 Production upload: https://stegverse.org/hil/upload/
 Receiver route: stegverse.org/api/hil/*
-Worker: src/worker.js
+Configured Worker name: site
+Worker source: src/worker.js
 Binding: HIL_REGISTRY
 Backend: portable-sqlite-chunks-v1
 Primary: v1.1 / a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
@@ -34,32 +46,123 @@ Test case: HIL-E2E-001
 Synthetic boundaries: research_data=false; authority_effect=false
 ```
 
-## Newest repository state inspected
+## Exact deployment-authority investigation result
+
+The push-triggered HIL deployment run is now identified and preserved:
 
 ```text
-b7678f1e2a16dae771077021002e17a8c7caa8ab docs(hil): record current Site production authority block
+Workflow: HIL Cloudflare Receiver Deploy
+Workflow path: .github/workflows/hil-cloudflare-deploy.yml
+Run ID: 30573565667
+Run number: 2
+Run attempt: 1
+Event: push
+Triggering commit: d5d1598a8c523e8665e4550ee5c272df09256379
+Run conclusion: failure
+Deployment job ID: 90976121829
+Deployment job: deploy
+Job conclusion: failure
+First failed step: 4 — Validate deployment credentials
+Step exit code: 1
+Exact error: Process completed with exit code 1.
 ```
 
-The current machine-state records remain fail-closed:
+All workflow steps:
 
 ```text
-data/hil-controlled-cycle-latest.json:
-  run_id: 30569491378
-  conclusion: failure
-  passed: false
-
-data/hil-receiver-deployment-latest.json:
-  deployed: false
-  ready: false
-  failure: deployment_step_failed_before_live_probe
-
-data/hil-participant-readiness.json:
-  state: NOT_YET_VERIFIED
-  participant_ready: false
-  upload_button_authorized: false
+1  Set up job                                      success
+2  Run actions/checkout@v4                         success
+3  Run actions/setup-node@v4                       success
+4  Validate deployment credentials                 failure
+5  Build production Wrangler configuration         skipped
+6  Deploy receiver Worker                          skipped
+7  Verify production readiness route               skipped
+8  Commit deployment observation                   success
+9  Enforce live READY receiver                     skipped
+10 Upload deployment evidence                      success
+19 Post Run actions/setup-node@v4                   skipped
+20 Post Run actions/checkout@v4                     success
+21 Complete job                                    success
 ```
 
-## Exact production failure evidence
+The exact job log proves:
+
+```text
+CLOUDFLARE_API_TOKEN: EMPTY
+CLOUDFLARE_ACCOUNT_ID: EMPTY
+HIL_REGISTRY_DATABASE_ID: EMPTY
+```
+
+The credential gate executed:
+
+```text
+set -euo pipefail
+test -n "$CLOUDFLARE_API_TOKEN"
+test -n "$CLOUDFLARE_ACCOUNT_ID"
+test -n "$HIL_REGISTRY_DATABASE_ID"
+```
+
+Provider boundary:
+
+```text
+production Wrangler configuration built: false
+Wrangler invoked: false
+Cloudflare invoked: false
+Worker inspected or changed: false
+route inspected or changed: false
+D1 database inspected or changed: false
+HIL_REGISTRY inspected or changed: false
+Cloudflare provider error: none; provider execution never began
+failure class: GITHUB_ACTIONS_SECRET_BOUNDARY
+```
+
+No deployment artifact was created because no `deployment-evidence/` directory existed after the pre-provider failure.
+
+Preserved evidence:
+
+```text
+data/hil-cloudflare-deployment-investigation-d5d1598a.json
+data/hil-cloudflare-deployment-failure-evidence-30573565667.json
+evidence/hil-cloudflare-deployment-d5d1598a8c52/job-90976121829-credential-gate-failure.log
+data/hil-receiver-deployment-latest.json
+```
+
+## Fresh production-domain evidence
+
+A non-mutating public probe completed successfully as Actions run `30640006721`, job `91187220992`, and was preserved at commit `c2e479ee829bcc259b146669acbdfb5fc0b3c1c2`.
+
+```text
+/api/hil/probes:
+  HTTP 404
+  server: GitHub.com
+  body: GitHub Pages file-not-found HTML
+
+/api/hil/readiness:
+  HTTP 404
+  server: GitHub.com
+  body: GitHub Pages file-not-found HTML
+```
+
+Verification:
+
+```text
+probes_http_200: false
+readiness_http_200: false
+readiness_state_ready: false
+canonical Primary v1.1 verified: false
+canonical prompt v1.1 verified: false
+HIL_REGISTRY bound and reachable: false
+```
+
+Public-probe evidence:
+
+```text
+data/hil-public-runtime-probe-latest.json
+data/hil-public-runtime-probe-run-investigation.json
+evidence/hil-public-runtime-probe/
+```
+
+## Exact controlled-cycle evidence
 
 ```text
 Workflow: hil-controlled-cycle.yml
@@ -84,9 +187,15 @@ All packet submission, receipt, retrieval, custody, negative-case, readiness-pub
 
 ```text
 Deployment trigger commit: d5d1598a8c523e8665e4550ee5c272df09256379
+Deployment run: 30573565667
+Deployment job: 90976121829
+Deployment conclusion: failure
+Deployment failure: required_github_actions_deployment_secrets_empty
+Cloudflare invoked: false
 Deployment state: deployed=false
 Deployment readiness: ready=false
-Failure marker: deployment_step_failed_before_live_probe
+/api/hil/probes: HTTP 404 from GitHub Pages
+/api/hil/readiness: HTTP 404 from GitHub Pages
 Controlled-cycle result: failure
 Participant readiness: NOT_YET_VERIFIED
 participant_ready: false
@@ -95,43 +204,30 @@ production submission ID: absent
 production receipt ID: absent
 exact-byte custody: unproven
 hosted restart persistence: unproven
+Deployed HIL Worker version: not established
+Scoped Cloudflare route: not established
+HIL D1 database identifier: not retrieved
+HIL_REGISTRY binding: not verified
 release/tag authority: false
 ```
 
-The known evidence proves only that the production domain returned HTTP 404 for `/api/hil/readiness`. It does not prove why the deployment failed or whether `HIL_REGISTRY`, the Worker route, or required Cloudflare permissions/resources exist.
+The configured Worker name is `site`, but no HIL deployment version, scoped route, D1 identity, or binding was established because the provider was never invoked. Previously observed Worker deployment information is not proof of this HIL production deployment.
 
-## Session capability verification — 2026-07-31T09:41-05:00
+## Exact remaining external-authority block
 
-This session independently discovered all exposed GitHub workflow actions. Available controls include only:
+The deployment-run discovery block is resolved. The only proven deployment blocker is that `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` are absent or unavailable to the `StegVerse-Labs/Site` Actions secret context.
 
-- commit-associated workflow lookup restricted to pull-request-triggered runs;
-- known run-ID job and artifact retrieval;
-- known job-ID step and complete-log retrieval;
-- known run/job rerun controls.
+This session exposes no GitHub Actions-secret write operation and no authenticated Cloudflare control plane. Secret values, account identity, and D1 database identity cannot be invented or committed.
 
-A fresh lookup for deployment trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` returned exactly:
+Repair requires an authorized secret boundary to populate the three proven-empty values using the existing Cloudflare account and preserved HIL D1 database identity. The D1 database must not be deleted or replaced. After repair, rerun `HIL Cloudflare Receiver Deploy` and preserve the first Wrangler/provider result before making any further change.
 
-```json
-{"workflow_runs":[]}
-```
-
-No general workflow-run listing or workflow dispatch action is exposed, so the push-triggered deployment run ID and deployment job ID cannot be discovered. The known-ID job/log/artifact/rerun actions cannot be used without those identifiers.
-
-No Cloudflare Worker, deployment, route, custom-domain, D1, binding, restart, or runtime-log controls are exposed.
-
-No deployment cause was guessed, no speculative repair was made, no readiness state was manually promoted, and no release, tag, or downstream propagation was attempted.
-
-## Exact external-authority block
-
-The blocked operation is retrieval of the push-triggered `HIL Cloudflare Receiver Deploy` run for commit `d5d1598a8c523e8665e4550ee5c272df09256379`, including its run ID, deployment job, failed step, exact command, complete provider response, artifacts, and deployment resource identifiers; alternatively, direct inspection and mutation of the Cloudflare control plane serving `stegverse.org/api/hil/*`.
-
-The next environment must expose either general GitHub Actions workflow-run listing/dispatch or direct Cloudflare Workers/D1 controls.
+No source file, Worker route, unrelated `stegverse.org` route, D1 resource, or binding was modified. No secret value was guessed, exposed, or committed.
 
 ## Required production path
 
-1. Retrieve the deployment run/job/logs or inspect Cloudflare directly.
-2. Preserve the exact provider failure and repair only the proven defect.
-3. Identify or create the durable HIL D1 database and bind it as `HIL_REGISTRY`.
+1. At an authorized Actions secret boundary, populate `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` while preserving the existing Cloudflare account and HIL D1 database identity.
+2. Rerun `HIL Cloudflare Receiver Deploy`; preserve the first Wrangler/provider result and repair only any newly proven defect.
+3. Confirm the durable HIL D1 database identity and bind it as `HIL_REGISTRY` without deleting or replacing it.
 4. Route only `stegverse.org/api/hil/*` to `src/worker.js`, preserving unrelated routes.
 5. Require `/api/hil/probes` HTTP 200.
 6. Require `/api/hil/readiness` HTTP 200 with `state: READY` and exact v1.1 identities.
@@ -145,8 +241,10 @@ The next environment must expose either general GitHub Actions workflow-run list
 
 ```text
 StegVerse-Labs/Site:
-- exact deployment run/job/provider evidence
-- live scoped Worker route and HIL_REGISTRY
+- authorized Cloudflare Actions secret values and deployment rerun evidence
+- first Wrangler/provider result after credential repair
+- live scoped Worker route and preserved HIL_REGISTRY database binding
+- /api/hil/probes and /api/hil/readiness HTTP 200
 - controlled-cycle PASS
 - machine-derived participant readiness
 - hosted restart-persistence PASS
@@ -159,6 +257,7 @@ After verified activation and release only:
 - GCAT-BCAT-Engine/Publisher
 - StegVerse-Labs/admissibility-wiki
 - StegVerse-002/stegguardian-wiki
+- StegVerse-Labs/Sit only after repository identity and role are independently verified
 ```
 
 ## Release posture
@@ -167,8 +266,8 @@ No tag or release is authorized. Production receiver activation, restart persist
 
 ## Next-session prompt
 
-Continue HIL production activation directly in `StegVerse-Labs/Site` on `main`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/SITE_MIRROR_HANDOFF.md`, and all HIL machine-state and failure-evidence records. Discover actual connector actions. First retrieve the push-triggered `HIL Cloudflare Receiver Deploy` run for commit `d5d1598a8c523e8665e4550ee5c272df09256379` using general Actions listing/dispatch, or inspect the serving Cloudflare Worker/D1 control plane directly. Preserve the exact deployment failure and repair only the proven defect. Continue through scoped routing, `HIL_REGISTRY`, probes/readiness, exact-byte controlled-cycle PASS, negative cases, machine-derived production readiness, hosted restart persistence, genuine participant receipt, private review, authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification. Update both HIL handoffs before responding. Stop only at live success or one exact newly proven external-authority block.
+Continue HIL production activation directly in `StegVerse-Labs/Site` on `main`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `data/hil-cloudflare-deployment-failure-evidence-30573565667.json`, `data/hil-public-runtime-probe-latest.json`, and `data/hil-receiver-deployment-latest.json`. The original deployment run is proven as run `30573565667`, job `90976121829`, triggered by `d5d1598a8c523e8665e4550ee5c272df09256379`; it failed at `Validate deployment credentials` because `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` were all empty, before Wrangler or Cloudflare executed. Use an environment exposing authorized GitHub Actions-secret management or direct Cloudflare control-plane access. Preserve the existing account and D1 database identity; do not delete or replace the database and do not alter unrelated routes. Populate only the proven missing values, rerun the deployment, preserve the first Wrangler/provider result, and continue through the scoped `stegverse.org/api/hil/*` route, `HIL_REGISTRY`, `/api/hil/probes` HTTP 200, `/api/hil/readiness` HTTP 200 with `state: READY` and exact v1.1 identities, controlled-cycle exact-byte custody, negative cases, machine-derived production readiness, hosted restart persistence, genuine participant receipt, private review, authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification. Update both HIL handoffs and machine-state records before responding. Stop only at live success or one exact newly proven provider/authority blocker.
 
 ## Archive readiness
 
-The implementation state, exact failure evidence, current connector capability findings, authority boundaries, remaining modules, and continuation instructions are preserved here. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
+The exact deployment run, job, steps, credential-gate failure, fresh production-domain responses, participant state, authority boundary, remaining modules, and continuation instructions are preserved in repository evidence. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
