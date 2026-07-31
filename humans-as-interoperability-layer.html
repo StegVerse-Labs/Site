@@ -50,6 +50,6 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
 <script>
 (() => { const copy=document.getElementById('copy-prompt'); const status=document.getElementById('intake-status'); copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy prompt',1200);}catch{status.textContent='Select and copy the prompt manually.';}}); })();
 </script>
-<script src="assets/hil-direct-upload-v1.js?v=20260731-1724"></script>
+<script src="assets/hil-direct-upload-v1.js?v=20260731-1734"></script>
 </body>
 </html>
