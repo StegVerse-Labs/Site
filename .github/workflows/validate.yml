@@ -71,10 +71,27 @@ jobs:
           python-version: '3.12'
       - name: Install validation dependencies
         run: python -m pip install jsonschema
-      - name: Validate HIL pilot ledger and deterministic fixtures
+      - name: Validate HIL pilot ledger, announcement status, and deterministic fixtures
         run: |
           python scripts/validate_hil_pilot_ledger.py
           python scripts/test_hil_pilot_validation.py
+          python scripts/derive_hil_announcement_status.py --check
+          python scripts/test_hil_announcement_status.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          status = json.loads(Path('data/hil-announcement-status.json').read_text(encoding='utf-8'))
+          schema = json.loads(Path('data/schemas/hil-announcement-status.schema.json').read_text(encoding='utf-8'))
+          errors = sorted(
+              Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(status),
+              key=lambda error: list(error.path),
+          )
+          if errors:
+              raise SystemExit('\n'.join(error.message for error in errors))
+          print('HIL_ANNOUNCEMENT_STATUS_SCHEMA=PASS')
+          PY
       - name: Inventory workflow entry points
         run: python scripts/write_site_workflow_inventory.py
       - name: Enforce two operational workflows
