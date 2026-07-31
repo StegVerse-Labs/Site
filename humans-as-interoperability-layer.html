@@ -4,22 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Download the canonical HIL v1.1 Primary and submit one complete response PDF through the governed Site intake.">
-  <link rel="canonical" href="https://stegverse.org/hil/upload/">
+  <link rel="canonical" href="https://stegverse.org/humans-as-interoperability-layer.html">
   <title>Humans as the Interoperability Layer — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
     .prompt{white-space:pre-wrap;background:#070b13;border:1px solid var(--border2);padding:18px;border-radius:8px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .card{padding:16px;border:1px solid var(--border);border-radius:8px}
-    .field{margin:12px 0}.field label{display:block}.field input,.field select{width:100%;padding:10px}
-    .status{padding:14px;border:1px solid var(--border);margin-top:12px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
     .upload-panel{padding:20px;border:1px solid var(--border2);border-radius:10px}
     .upload-panel input[type=file]{display:block;margin:12px 0 16px;width:100%}
-    .optional-station{margin-top:24px;padding:16px;border:1px dashed var(--border2);border-radius:10px}
-    .optional-station summary{cursor:pointer;font-weight:700}.optional-note{opacity:.85}.primary-upload{font-size:1.05rem}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .status{padding:14px;border:1px solid var(--border);margin-top:12px}
     .hil-support{margin:18px 0;padding:16px 18px;border:2px solid var(--border2);border-radius:10px}
-    .hil-support p{margin:.35rem 0}.hil-support strong{letter-spacing:.01em}
   </style>
 </head>
 <body>
@@ -28,42 +24,24 @@
 <header class="sv-hero">
   <div class="sv-eyebrow">Canonical experiment input · v1.1 · single-artifact response contract</div>
   <h1>Humans as the <em>Interoperability Layer</em></h1>
-  <p>Receive one complete downloadable response PDF plus a concise visible-chat summary that allows participant validation before return.</p>
-  <div class="sv-btn-row"><button id="download-primary" class="sv-btn sv-btn-primary">Download Canonical v1.1 Primary PDF</button><a class="sv-btn sv-btn-secondary" href="#submit">Submit response PDF</a><a class="sv-btn sv-btn-secondary" href="hil-faq.html">Read grouped FAQ</a><a class="sv-btn sv-btn-secondary" href="#responses">View responses</a></div>
+  <p>Download the canonical paper, obtain one complete response PDF from an LLM, then return that unchanged PDF through the governed intake below.</p>
+  <div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" download>Download Canonical v1.1 Primary PDF</a><a class="sv-btn sv-btn-secondary" href="#submit">Submit response PDF</a><a class="sv-btn sv-btn-secondary" href="hil-faq.html">Read grouped FAQ</a></div>
 </header>
-<aside class="hil-support" aria-label="HIL priority support">
-  <p><strong>Questions, concerns, unexpected LLM behavior, or technical problems?</strong></p>
-  <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with the subject line <strong>HIL Priority</strong>.</p>
-  <p>Include the LLM and interface used, what occurred, and any visible error. Do not include passwords, API keys, credentials, or unrelated sensitive information.</p>
-</aside>
 <section class="sv-evidence">
-  <div class="sv-evidence-row"><span class="k">Canonical service page</span><span class="v">https://stegverse.org/hil/upload/</span></div>
   <div class="sv-evidence-row"><span class="k">Protocol authority</span><span class="v">StegVerse.org</span></div>
-  <div class="sv-evidence-row"><span class="k">Operational receiver</span><span class="v">https://stegverse.org</span></div>
   <div class="sv-evidence-row"><span class="k">Primary version</span><span class="v">v1.1</span></div>
-  <div class="sv-evidence-row"><span class="k">Primary</span><span class="v">HIL_Canonical_Paper_v1_1.pdf</span></div>
-  <div class="sv-evidence-row"><span class="k">Primary size</span><span class="v">87,271 bytes</span></div>
   <div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v">a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462</span></div>
-  <div class="sv-evidence-row"><span class="k">Protocol</span><span class="v">HIL-PROTOCOL-v1.1</span></div>
-  <div class="sv-evidence-row"><span class="k">Prompt</span><span class="v">HIL-PROMPT-v1.1</span></div>
   <div class="sv-evidence-row"><span class="k">Prompt SHA-256</span><span class="v">cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c</span></div>
-  <div class="sv-evidence-row"><span class="k">Accepted result</span><span class="v">Redirects to participant review of the exact response and verified receipt</span></div>
 </section>
 <h2 class="sv-h2">Participant path</h2>
-<div class="grid"><div class="card">1. Download the canonical v1.1 PDF.</div><div class="card">2. Upload it unchanged to an LLM.</div><div class="card">3. Use the exact prompt below.</div><div class="card">4. Validate the visible summary.</div><div class="card">5. Download the one complete response PDF.</div><div class="card">6. Upload that unchanged PDF here.</div><div class="card">7. Review the accepted response and receipt on the next page.</div></div>
+<div class="grid"><div class="card">1. Download the canonical v1.1 PDF.</div><div class="card">2. Upload it unchanged to an LLM.</div><div class="card">3. Use the exact prompt below.</div><div class="card">4. Download the single complete response PDF.</div><div class="card">5. Return that unchanged PDF through the intake form.</div></div>
 <section id="submit">
 <h2 class="sv-h2">Exact canonical prompt</h2>
 <div id="canonical-prompt" class="prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
 
 Produce exactly one participant-managed response artifact: a single downloadable PDF containing the complete, unedited response to every numbered item and the completed submission record. Do not substitute a DOCX, Markdown file, chat-only response, multiple files, or any output that requires the participant to copy, paste, convert, combine, reformat, or re-export the response.
 
-In the visible chat reply, provide:
-- a concise summary of the PDF’s central conclusion, strongest criticism, principal uncertainty, and answer to Item 7;
-- a statement that the summary is provided so the participant can confirm that the artifact appears to match the requested work;
-- the single downloadable PDF artifact; and
-- instructions to preserve the PDF unchanged and return it through the approved HIL Site intake or by direct message to Rigel Randolph.
-
-The visible summary is a participant-facing validation aid. It is not the governed response packet and must not replace or alter the PDF.
+In the visible chat reply, provide a concise summary, the single downloadable PDF artifact, and instructions to preserve the PDF unchanged and return it through the approved HIL Site intake.
 
 1. State the paper’s central claim in your own words.
 2. Separate what the paper structurally demonstrates from what remains a testable hypothesis and what remains speculative.
@@ -73,55 +51,43 @@ The visible summary is a participant-facing validation aid. It is not the govern
 6. Describe any relevant mechanism, counterexample, limitation, alternative explanation, or implication not addressed.
 7. State whether producing this response participates in the process described by the paper. Explain precisely why or why not.
 8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
-9. End with the completed submission record. Use “unknown” only where genuinely unavailable. Distinguish generation-time unknowns, participant-supplied fields, and downstream identifiers assigned only by authorized stages.</div>
-<div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline">Copy prompt</button><a class="sv-btn sv-btn-secondary" href="hil-faq.html#llm-instructions">LLM did not create the packet?</a></div>
-<aside class="hil-support" aria-label="LLM instruction support">
-  <p><strong>If the LLM does not provide the required downloadable PDF, prompt it to reread and follow the instructions.</strong></p>
-  <p>The grouped FAQ includes correction prompts for missing files, chat-only responses, omitted sections, unnecessary clarification, refusals, and differing model behavior.</p>
-  <p>For unresolved concerns, email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>.</p>
-</aside>
+9. End with the completed submission record.</div>
+<div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy prompt</button></div>
 <h2 class="sv-h2">Submit the single Response PDF</h2>
 <div class="upload-panel">
-  <p><strong>Choose the unchanged response PDF and upload it.</strong> The page checks both the live receiver and the published end-to-end test receipt before enabling submission. Until the canonical test participant packet has been uploaded, receipted, retrieved, and verified byte-for-byte, intake remains fail closed.</p>
+  <p><strong>Choose the unchanged response PDF.</strong> The page verifies that a non-empty PDF was selected, then opens the authenticated StegVerse intake form where the same file can be attached and submitted.</p>
   <input id="response-file" type="file" accept="application/pdf,.pdf">
-  <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload">Upload Response Packet</button></div>
-  <div id="intake-status" class="status" aria-live="polite">Checking intake availability…</div>
+  <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary" type="button">Upload Response Packet</button></div>
+  <div id="intake-status" class="status" aria-live="polite">Choose the response PDF to begin.</div>
 </div>
-<aside class="hil-support" aria-label="Upload support">
-  <p><strong>Upload disabled, rejected, interrupted, or missing a receipt?</strong></p>
-  <p>Preserve the original packet. Do not regenerate or alter the LLM response merely because the receiver is unavailable.</p>
-  <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong> and include the visible error, page, LLM, and interface.</p>
-</aside>
-<details class="optional-station">
-<summary>Optional provenance and publication settings</summary>
-<p class="optional-note">Private and anonymous selections are stated prominently in the accepted-submission review body. Acceptance does not itself authorize publication.</p>
-<div class="field"><label for="model">Model name and version <span>(optional)</span></label><input id="model"></div>
-<div class="field"><label for="provider">Provider <span>(optional)</span></label><input id="provider"></div>
-<div class="field"><label for="conversation-reference">Conversation reference <span>(optional)</span></label><input id="conversation-reference"></div>
-<div class="field"><label for="participant-id">Name, pseudonym, or anonymous <span>(optional)</span></label><input id="participant-id"></div>
-<div class="field"><label for="submission-notification-email">Email a copy of the submission notification <span>(optional)</span></label><input id="submission-notification-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" disabled><label><input id="submission-notification-opt-in" type="checkbox"> Send this attempt's privacy-minimized submission notification to this address.</label></div>
-<div class="field"><label for="publication-consent">Publication permission <span>(optional)</span></label><select id="publication-consent"><option value="">Not provided</option><option value="public">Publish with attribution</option><option value="anonymous">Publish anonymously</option><option value="private">Private analysis only</option></select></div>
-<label><input id="unedited-confirmation" type="checkbox"> Optional declaration: this is the single PDF supplied by the LLM and was not edited, converted, combined, or re-exported.</label><br>
-<label><input id="participant-authority" type="checkbox"> Optional acknowledgment: participant consent is separate from LLM output.</label>
-<div class="actions"><button id="prepare-provenance" class="sv-btn sv-btn-secondary">Prepare provenance locally</button><button id="download-provenance" class="sv-btn sv-btn-secondary" disabled>Download provenance JSON</button><button id="download-receipt" class="sv-btn sv-btn-secondary" disabled>Download receiver receipt</button></div>
-</details>
+<aside class="hil-support"><p><strong>Important:</strong> Preserve the original PDF unchanged. Upload does not authorize publication.</p></aside>
 </section>
-<section id="responses"><h2 class="sv-h2">Published response record</h2><div id="response-index"></div></section>
-<h2 class="sv-h2">Authority boundary</h2>
-<pre>visible summary             != governed response packet
-response generation         != submission
-submission                  != receiver receipt
-receiver receipt            != review approval
-review approval              != publication authority
-publication                 != endorsement
-Master Record inclusion     != scientific proof</pre>
-<aside class="hil-support" aria-label="Final HIL support">
-  <p><strong>Any remaining question or concern:</strong> email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>.</p>
-</aside>
 </main>
-<script src="assets/hil-participant-notification-v1.js"></script>
-<script src="assets/hil-experiment-v1.1.js"></script>
-<script src="assets/hil-participant-readiness-gate-v1.js"></script>
-<script src="assets/hil-accepted-review-v1.js"></script>
+<script>
+(function(){
+  'use strict';
+  var input=document.getElementById('response-file');
+  var button=document.getElementById('upload-response');
+  var status=document.getElementById('intake-status');
+  var copy=document.getElementById('copy-prompt');
+  var intake='https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml';
+  copy.addEventListener('click',function(){
+    var text=document.getElementById('canonical-prompt').textContent.trim();
+    navigator.clipboard.writeText(text).then(function(){copy.textContent='Copied';setTimeout(function(){copy.textContent='Copy prompt';},1200);}).catch(function(){status.textContent='Select and copy the prompt manually.';});
+  });
+  button.addEventListener('click',function(){
+    var file=input.files&&input.files[0];
+    if(!file){status.textContent='Choose the response PDF first.';return;}
+    if(file.size<5){status.textContent='The selected file is empty or incomplete.';return;}
+    if(!/\.pdf$/i.test(file.name)){status.textContent='The response packet must be a PDF.';return;}
+    file.slice(0,5).arrayBuffer().then(function(buffer){
+      var bytes=new Uint8Array(buffer);var sig=String.fromCharCode.apply(null,bytes);
+      if(sig!=='%PDF-'){status.textContent='The selected file does not have a valid PDF signature.';return;}
+      status.textContent='PDF verified. Opening the authenticated StegVerse intake form. Attach this same file there and submit.';
+      window.location.href=intake;
+    }).catch(function(){status.textContent='The browser could not read the selected PDF. Choose it again.';});
+  });
+})();
+</script>
 </body>
 </html>
