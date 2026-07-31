@@ -58,7 +58,8 @@ Synthetic boundaries: research_data=false; authority_effect=false
 ## Current verified state
 
 ```text
-Latest repository head inspected: f518d5235e191c480e1c69bb01e7036ee825736d
+Latest repository head inspected: d036a797bacfe22c5905ff3b661673dbd1034207
+Deployment trigger commit: d5d1598a8c523e8665e4550ee5c272df09256379
 Latest controlled-cycle run: 30569491378
 Latest controlled-cycle job: 90962296249
 Controlled-cycle result: failure
@@ -75,31 +76,31 @@ Restart persistence: unproven
 Release/tag authority: false
 ```
 
-## Session update — 2026-07-31T00:24Z
+## Session update — 2026-07-31T00:27Z
 
-- Read the required cross-session protocol, HIL Site handoff, HIL deployment handoff, execution prompt, and Site handoff in the requested order.
-- Inspected handoff commit `19be2bc6859b97f1cbe654083af064b3a0a8d4ed` and the ten newest repository commits; current head at inspection was `f518d5235e191c480e1c69bb01e7036ee825736d`.
-- Re-read `data/hil-controlled-cycle-latest.json`, `data/hil-receiver-deployment-latest.json`, and `data/hil-participant-readiness.json`; none contains newer live activation evidence.
-- Re-read `.github/workflows/hil-cloudflare-deploy.yml`, `.github/workflows/hil-controlled-cycle.yml`, and `.github/workflows/hil-restart-persistence.yml`.
-- The current GitHub connector exposes repository contents/commits plus known-run job, step, artifact, log, and rerun actions. It does not expose general workflow-run listing or workflow dispatch.
-- `fetch_commit_workflow_runs` was tested against trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` and returned an empty run set because the available action is limited to pull-request-associated runs; it did not reveal the push-triggered deploy run.
-- Cloudflare plugin discovery returned no Cloudflare Workers/D1 plugin or direct provider controls. No Worker, route, D1, binding, deployment, version, log, restart, or custom-domain action is exposed.
-- Re-inspected known controlled-cycle job `90962296249` and its complete logs. The exact failed command was `curl --fail --silent --show-error --max-time 30 --header 'Accept: application/json' ... https://stegverse.org/api/hil/readiness`; it returned HTTP 404 and curl exit code 22 at `2026-07-30T18:13:57Z`.
-- Steps for packet generation, production submission, status/content retrieval, positive verification, deterministic negative cases, and participant-ready enforcement were skipped. Failure evidence artifact `hil-participant-readiness-30569491378-1` was uploaded as artifact ID `8770179722`; it is not activation evidence.
-- No provider defect was guessed, no readiness was manually promoted, and no release/tag or downstream propagation was authorized.
+- Read the required cross-session protocol and all four requested HIL/Site handoffs in order.
+- Inspected current head `d036a797bacfe22c5905ff3b661673dbd1034207`, requested reference commit `5907fe983c77c36b1305234df3c44e28bdde87de`, and trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
+- Re-read `data/hil-receiver-deployment-latest.json`, `data/hil-controlled-cycle-latest.json`, `data/hil-participant-readiness.json`, `.github/workflows/hil-cloudflare-deploy.yml`, and `controls/DEPLOY_HIL_RECEIVER.txt`.
+- The deployment state remains `deployed=false`, `ready=false`, `failure=deployment_step_failed_before_live_probe`; participant readiness remains fail-closed.
+- The current GitHub connector exposes known-run job, step, artifact, log, and rerun actions, but its only commit-run retrieval action is explicitly limited to pull-request-associated runs.
+- Current retrieval against trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` returned `workflow_runs: []`; combined commit status also returned `statuses: []`. Therefore no deployment run ID or job ID is exposed for the push-triggered workflow.
+- No direct Cloudflare Worker, deployment, route, D1 database, binding, or log controls are exposed in this session.
+- Because neither execution surface required by the user is available, the exact deployment step and complete provider error cannot be retrieved. No provider defect was guessed and no repository or provider mutation was made beyond these handoff updates.
 
 ## Exact external-authority block
 
-The exact blocked operation is discovery and inspection of the push-triggered `HIL Cloudflare Receiver Deploy` run, or direct inspection/mutation of the Cloudflare Worker and D1 control plane serving `stegverse.org/api/hil/*`. This session has neither general Actions run enumeration/dispatch nor Cloudflare Worker/D1 controls. Therefore the deployment job ID, failed deploy command, provider error, relevant D1 resource, binding state, route state, and deployment version cannot be retrieved or repaired through any action currently exposed.
+The exact blocked operation is retrieval of the push-triggered `HIL Cloudflare Receiver Deploy` workflow run associated with commit `d5d1598a8c523e8665e4550ee5c272df09256379`, including its run ID, deployment job ID, failed step, and complete logs; alternatively, direct inspection of the Cloudflare Worker/D1 control plane serving `stegverse.org/api/hil/*`.
+
+The current GitHub connector cannot enumerate push-triggered workflow runs or dispatch this workflow, and current Cloudflare controls are absent. Known-run job/log actions cannot be used without a run or job ID. This is the single newly re-proven external-authority blocker.
 
 The next execution environment requires one of:
 
-1. GitHub Actions workflow-run listing or dispatch for `.github/workflows/hil-cloudflare-deploy.yml`, followed by job/log inspection and rerun authority; or
-2. direct Cloudflare Workers, routes, deployments, D1 databases, and bindings controls for the account serving `stegverse.org`.
+1. GitHub Actions general workflow-run listing or workflow dispatch for `.github/workflows/hil-cloudflare-deploy.yml`, followed by job/log inspection and rerun authority; or
+2. direct Cloudflare Workers, routes, deployments, D1 databases, bindings, and logs for the account serving `stegverse.org`.
 
 ## Required execution path
 
-1. Inspect the newest deployment run and exact failed command/log, or inspect Cloudflare state directly.
+1. Retrieve the deployment run and job for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`, then inspect the exact failed command and provider error; or inspect Cloudflare state directly.
 2. Repair only the proven defect.
 3. Identify or create the HIL D1 database and bind it as `HIL_REGISTRY`.
 4. Deploy `src/worker.js` only to `stegverse.org/api/hil/*`, preserving unrelated routes.
