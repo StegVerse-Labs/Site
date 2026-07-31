@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-announcement-status.schema.json",
+  "title": "HIL Announcement Status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "study",
+    "announcement_state",
+    "participant_intake_state",
+    "canonical_primary",
+    "canonical_prompt",
+    "available_now",
+    "temporary_return_mode",
+    "production_receiver",
+    "pending_capabilities",
+    "claims_withheld",
+    "announcement_permitted",
+    "participant_warning_required",
+    "derivation",
+    "authority_effect"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-ANNOUNCEMENT-STATUS-v2"},
+    "study": {"const": "Humans as the Interoperability Layer"},
+    "announcement_state": {
+      "enum": [
+        "ANNOUNCEMENT_NOT_READY",
+        "ANNOUNCEMENT_READY_WITH_MANAGED_RETURN",
+        "ANNOUNCEMENT_READY_WITH_PRODUCTION_RECEIVER"
+      ]
+    },
+    "participant_intake_state": {
+      "enum": ["CLOSED", "OPEN_MANAGED_RETURN", "OPEN_GOVERNED_RECEIVER"]
+    },
+    "canonical_primary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "path", "filename", "size_bytes", "sha256", "observed_sha256"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "filename": {"type": "string", "minLength": 1},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "observed_sha256": {
+          "anyOf": [
+            {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "canonical_prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "sha256"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "available_now": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "temporary_return_mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "instructions",
+        "server_custody_established",
+        "registry_commit_established",
+        "publication_established"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "PARTICIPANT_MANAGED_DIRECT_RETURN",
+            "PARTICIPANT_MANAGED_DIRECT_RETURN_FALLBACK"
+          ]
+        },
+        "instructions": {"type": "string", "minLength": 1},
+        "server_custody_established": {"type": "boolean"},
+        "registry_commit_established": {"type": "boolean"},
+        "publication_established": {"type": "boolean"}
+      }
+    },
+    "production_receiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ready",
+        "deployment_ready",
+        "controlled_cycle_passed",
+        "participant_readiness_passed",
+        "restart_persistence_passed"
+      ],
+      "properties": {
+        "ready": {"type": "boolean"},
+        "deployment_ready": {"type": "boolean"},
+        "controlled_cycle_passed": {"type": "boolean"},
+        "participant_readiness_passed": {"type": "boolean"},
+        "restart_persistence_passed": {"type": "boolean"}
+      }
+    },
+    "pending_capabilities": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "claims_withheld": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "announcement_permitted": {"type": "boolean"},
+    "participant_warning_required": {"type": "boolean"},
+    "derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "managed_return_ready", "checks", "managed_components", "sources"],
+      "properties": {
+        "mode": {"const": "MACHINE_DERIVED_FAIL_CLOSED"},
+        "managed_return_ready": {"type": "boolean"},
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "canonical_pdf_signature_valid",
+            "canonical_pdf_size_valid",
+            "canonical_pdf_sha256_valid",
+            "canonical_ledger_identity_valid",
+            "pilot_ledger_authority_boundary_valid",
+            "managed_return_components_present"
+          ],
+          "properties": {
+            "canonical_pdf_signature_valid": {"type": "boolean"},
+            "canonical_pdf_size_valid": {"type": "boolean"},
+            "canonical_pdf_sha256_valid": {"type": "boolean"},
+            "canonical_ledger_identity_valid": {"type": "boolean"},
+            "pilot_ledger_authority_boundary_valid": {"type": "boolean"},
+            "managed_return_components_present": {"type": "boolean"}
+          }
+        },
+        "managed_components": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "boolean"}
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "present"],
+            "properties": {
+              "path": {"type": "string", "minLength": 1},
+              "present": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "authority_effect": {"const": false}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "announcement_state": {"const": "ANNOUNCEMENT_NOT_READY"}
+        }
+      },
+      "then": {
+        "properties": {
+          "participant_intake_state": {"const": "CLOSED"},
+          "announcement_permitted": {"const": false}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "announcement_state": {"const": "ANNOUNCEMENT_READY_WITH_MANAGED_RETURN"}
+        }
+      },
+      "then": {
+        "properties": {
+          "participant_intake_state": {"const": "OPEN_MANAGED_RETURN"},
+          "announcement_permitted": {"const": true},
+          "participant_warning_required": {"const": true}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "announcement_state": {"const": "ANNOUNCEMENT_READY_WITH_PRODUCTION_RECEIVER"}
+        }
+      },
+      "then": {
+        "properties": {
+          "participant_intake_state": {"const": "OPEN_GOVERNED_RECEIVER"},
+          "announcement_permitted": {"const": true},
+          "participant_warning_required": {"const": false},
+          "production_receiver": {
+            "properties": {
+              "ready": {"const": true}
+            }
+          }
+        }
+      }
+    }
+  ]
+}
