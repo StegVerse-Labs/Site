@@ -96,6 +96,14 @@ Release/tag authority: false
 - No Cloudflare Workers, deployments, routes, D1, bindings, or runtime-log connector is present in this session.
 - Consequently the deployment run ID, job ID, exact failed step, and complete provider error remain inaccessible. No defect was guessed, no readiness state was promoted, and no deployment/release/downstream mutation was attempted.
 
+## Session update — 2026-07-31T00:56Z
+
+- Discovered the current GitHub connector independently. It exposes repository file reads/writes, known-run job/step/log/artifact inspection, artifact download, and rerun controls for a known run or job.
+- It does not expose general Actions workflow-run enumeration or workflow dispatch. Its only commit-run lookup remains explicitly pull-request-triggered and returned `workflow_runs: []` for deployment trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
+- No Cloudflare connector or direct Worker, route, deployment, D1, binding, custom-domain, restart, or runtime-log action is exposed.
+- Reverified `data/hil-receiver-deployment-latest.json`: `deployed=false`, `ready=false`, `failure=deployment_step_failed_before_live_probe`, `authority_effect=false`.
+- The exact push-triggered deployment run ID and provider failure therefore remain inaccessible. No defect was inferred, no workflow was rerun without evidence, and readiness remains fail-closed.
+
 ## Exact external-authority block
 
 The exact blocked operation is retrieval of the push-triggered `HIL Cloudflare Receiver Deploy` workflow run associated with commit `d5d1598a8c523e8665e4550ee5c272df09256379`, including its run ID, deployment job ID, failed step, and complete logs; alternatively, direct inspection of the Cloudflare Worker/D1 control plane serving `stegverse.org/api/hil/*`.
