@@ -7,11 +7,11 @@
 - Branch: `main`
 - Purpose: canonical operational continuation record for HIL production activation.
 
-Read with `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/HIL_PILOT_VALIDATION_MIRROR_HANDOFF.md`, `docs/HIL_ANNOUNCEMENT_DERIVATION_MIRROR_HANDOFF.md`, and all HIL machine-state and failure-evidence records.
+Read with `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, and all HIL machine-state and failure-evidence records.
 
 ## Final goal
 
-Activate the HIL v1.1 receiver and participant lifecycle end-to-end on the live Cloudflare-backed environment, including scoped routing, durable exact-byte custody, valid receipt, retrieval, negative cases, machine-published readiness, hosted restart persistence, genuine participant completion, private review, separately authenticated publication, Site projection, HIL Master Record release, and verified downstream ingestion.
+Activate the HIL v1.1 receiver and participant lifecycle end-to-end on the live Cloudflare-backed environment, including scoped routing, durable exact-byte custody, valid receipt, retrieval, negative cases, machine-published readiness, hosted restart persistence, public upload and received-page verification, genuine participant completion, private review, separately authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and verified downstream ingestion.
 
 ## Canonical production contract
 
@@ -35,15 +35,30 @@ Synthetic boundaries: research_data=false; authority_effect=false
 
 Required Actions secret names are `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID`. Names and configuration files do not prove values, permissions, resources, bindings, routes, or deployment success.
 
-## Current repository state
-
-Newest head observed before this update:
+## Newest repository state inspected
 
 ```text
-e21f28122aa6015dc3a96795cd2a98ff74990d76 docs(hil): correct pilot workflow commit receipt
+b7678f1e2a16dae771077021002e17a8c7caa8ab docs(hil): record current Site production authority block
 ```
 
-The repository includes deterministic pilot validation, machine-derived announcement status, canonical Site validation binding, orchestration continuity, and exact controlled-cycle failure evidence. Managed-return announcement readiness remains a separate bounded class and does not establish production receiver activation.
+The machine-state records remain fail-closed:
+
+```text
+data/hil-controlled-cycle-latest.json:
+  run_id: 30569491378
+  conclusion: failure
+  passed: false
+
+data/hil-receiver-deployment-latest.json:
+  deployed: false
+  ready: false
+  failure: deployment_step_failed_before_live_probe
+
+data/hil-participant-readiness.json:
+  state: NOT_YET_VERIFIED
+  participant_ready: false
+  upload_button_authorized: false
+```
 
 ## Exact controlled-cycle evidence
 
@@ -62,12 +77,6 @@ Provider message: The requested URL returned error: 404
 Artifact ID: 8770179722
 Artifact: hil-participant-readiness-30569491378-1
 Artifact digest: sha256:b202bf1fb6341a6d5fde36c72a347b544284981a1b42c1f8b8e4bc1f3c2d0edd
-```
-
-Exact command:
-
-```text
-curl --fail --silent --show-error --max-time 30 --header 'Accept: application/json' --output controlled-cycle-evidence/readiness.json --dump-header controlled-cycle-evidence/readiness-headers.txt https://stegverse.org/api/hil/readiness
 ```
 
 Submission, retrieval, custody, negative-case, readiness-publication, and restart-persistence stages did not execute after readiness failed.
@@ -93,19 +102,22 @@ Release/tag authority: false
 
 The evidence proves only that the production domain did not serve `/api/hil/readiness` during the controlled cycle. It does not prove the cause of the deployment failure, whether `HIL_REGISTRY` exists, which route is configured, or which Cloudflare permission/resource failed.
 
-## Session capability verification — 2026-07-31T09:38-05:00
+## Session capability verification — 2026-07-31T09:40-05:00
 
-The current session independently discovered the exposed GitHub connector actions before choosing an execution path.
+This session independently discovered the exposed GitHub Actions controls. Available actions are limited to:
 
-Available actions include repository reads/writes, recent commit search, commit-associated workflow lookup, and known-ID workflow job, step, log, artifact, artifact-download, and rerun controls.
+- commit-associated workflow lookup that explicitly filters to pull-request-triggered runs;
+- known run-ID job and artifact retrieval;
+- known job-ID step and complete-log retrieval;
+- known run/job rerun controls.
 
-The only commit-associated workflow lookup is explicitly restricted to pull-request-triggered runs. A fresh lookup for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` returned:
+A fresh lookup for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` returned exactly:
 
 ```json
 {"workflow_runs":[]}
 ```
 
-No general workflow-run listing or workflow dispatch action is exposed. Therefore the push-triggered deployment run ID and deployment job ID cannot be discovered through this connector. Known-ID job/log/rerun actions cannot be invoked without those identifiers.
+No general workflow-run listing or workflow dispatch action is exposed. Therefore the push-triggered `HIL Cloudflare Receiver Deploy` run ID and deployment job ID cannot be discovered, and the known-ID log/artifact/rerun actions cannot be invoked.
 
 No Cloudflare Workers, deployments, routes, custom domains, D1 databases, bindings, restart controls, or runtime logs are exposed in this session.
 
@@ -160,7 +172,7 @@ No tag or release is authorized. Downstream propagation remains prohibited until
 
 ## Next-session prompt
 
-Continue HIL production activation directly in `StegVerse-Labs/Site` on `main`. Read the cross-session protocol, Site handoff, both HIL handoffs, execution prompt, pilot-validation handoff, announcement-derivation handoff, and all HIL machine-state and failure-evidence records. Inspect the newest head and discover the actual connector actions. First retrieve the push-triggered `HIL Cloudflare Receiver Deploy` run for commit `d5d1598a8c523e8665e4550ee5c272df09256379` using general Actions run listing/dispatch, or inspect the serving Cloudflare Worker/D1 control plane directly. Preserve the exact deployment failure and repair only the proven defect. Continue through scoped routing, `HIL_REGISTRY`, probes/readiness, controlled-cycle exact-byte custody, negative cases, machine-derived production readiness, hosted restart persistence, genuine participant receipt, private review, authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification. Update both HIL handoffs before responding. Stop only at live success or one exact newly proven external-authority block.
+Continue HIL production activation directly in `StegVerse-Labs/Site` on `main`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/SITE_MIRROR_HANDOFF.md`, and all HIL machine-state and failure-evidence records. Inspect the newest head and discover the actual connector actions. First retrieve the push-triggered `HIL Cloudflare Receiver Deploy` run for commit `d5d1598a8c523e8665e4550ee5c272df09256379` using general Actions run listing/dispatch, or inspect the serving Cloudflare Worker/D1 control plane directly. Preserve the exact deployment failure and repair only the proven defect. Continue through scoped routing, `HIL_REGISTRY`, probes/readiness, controlled-cycle exact-byte custody, negative cases, machine-derived production readiness, hosted restart persistence, genuine participant receipt, private review, authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification. Update both HIL handoffs before responding. Stop only at live success or one exact newly proven external-authority block.
 
 ## Archive readiness
 
