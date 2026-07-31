@@ -1,0 +1,52 @@
+name: HIL Response Packet Upload
+description: Upload a governed HIL response packet for exact-byte intake and downstream verification.
+title: "[HIL RESPONSE PACKET] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Attach the response PDF or packet below. GitHub stores the attachment as a source object and this issue becomes the durable intake record.
+
+        Do not include secrets, private credentials, medical records, or unrelated personal data.
+  - type: input
+    id: participant_reference
+    attributes:
+      label: Participant reference
+      description: Use a pseudonymous reference when appropriate.
+      placeholder: HIL-PARTICIPANT-...
+    validations:
+      required: true
+  - type: dropdown
+    id: publication_consent
+    attributes:
+      label: Publication consent
+      options:
+        - Not provided
+        - Private review only
+        - Anonymous publication permitted
+        - Public attribution permitted
+    validations:
+      required: true
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Declarations
+      options:
+        - label: I am authorized to submit this response packet.
+          required: true
+        - label: The attached response is unedited, or all edits are explicitly described below.
+          required: true
+  - type: textarea
+    id: attachment
+    attributes:
+      label: Response packet attachment
+      description: Drag the PDF or packet into this field and wait for the upload to finish before submitting the issue.
+      placeholder: Drag and drop the response PDF or packet here.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes or edit disclosure
+      description: Optional context, including any declared edits or transport details.
