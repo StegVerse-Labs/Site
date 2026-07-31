@@ -3,17 +3,36 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>HIL Submission Receipt — StegVerse</title><link rel="stylesheet" href="sv-shared.css">
-  <style>.receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}.history{display:grid;gap:12px}.entry{border:1px solid var(--border2);border-radius:8px;padding:14px}</style>
+  <style>
+    .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
+    .history{display:grid;gap:12px}.entry{border:1px solid var(--border2);border-radius:8px;padding:14px}
+    .record-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.hidden{display:none}
+  </style>
 </head>
 <body><nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-receipt.html">Receipt</a></nav>
-<main class="sv-wrap"><header class="sv-hero"><div class="sv-eyebrow">Participant receipt</div><h1>Response Packet <em>Submitted</em></h1><p>Your packet has been assigned an independent submission and queued for the GitHub worker. You do not need to visit GitHub.</p></header>
-<section id="state" class="sv-evidence">Loading receipt…</section><h2 class="sv-h2">Current receipt</h2><pre id="receipt" class="receipt">Loading…</pre><h2 class="sv-h2">Your submissions on this device</h2><div id="history" class="history"></div><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html">Submit another response</a></div></main>
+<main class="sv-wrap"><header class="sv-hero"><div class="sv-eyebrow">Participant receipt</div><h1>Response Packet <em>Record</em></h1><p>Your receipt and any appended provenance record are preserved in this browser for review. Download is optional.</p></header>
+<section id="state" class="sv-evidence">Loading receipt…</section>
+<h2 class="sv-h2">Current receipt</h2><pre id="receipt" class="receipt">Loading…</pre>
+<section id="appended-section" class="hidden"><h2 class="sv-h2">Appended provenance record</h2><p>This manifest is part of the participant record. Review it here and download it only when needed for the authenticated return.</p><div class="record-actions"><button id="toggle-manifest" class="sv-btn sv-btn-secondary" type="button">View manifest</button><button id="download-manifest" class="sv-btn sv-btn-outline" type="button">Download manifest</button><a id="github-return" class="sv-btn sv-btn-primary" target="_blank" rel="noopener">Open authenticated return</a></div><pre id="manifest" class="receipt hidden"></pre></section>
+<h2 class="sv-h2">Your submissions on this device</h2><div id="history" class="history"></div><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="humans-as-interoperability-layer.html">Submit another response</a></div></main>
 <script>
 (() => {
   const params=new URLSearchParams(location.search);const id=params.get('submission_id');const state=document.getElementById('state');const receiptBody=document.getElementById('receipt');const history=document.getElementById('history');
+  const appendedSection=document.getElementById('appended-section');const manifestBody=document.getElementById('manifest');const toggle=document.getElementById('toggle-manifest');const download=document.getElementById('download-manifest');const githubReturn=document.getElementById('github-return');
   const key='stegverse.hil.submissions.v1';let rows=[];try{rows=JSON.parse(localStorage.getItem(key)||'[]');}catch{}
   const current=rows.find(r=>r&&r.submission_id===id)||null;
-  if(current){state.innerHTML=`<div class="sv-evidence-row"><span class="k">Submission</span><span class="v">${current.submission_id}</span></div><div class="sv-evidence-row"><span class="k">State</span><span class="v">${current.state||'QUEUED_FOR_GITHUB_WORKER'}</span></div>`;receiptBody.textContent=JSON.stringify(current,null,2);}else{state.textContent='This browser does not contain the requested receipt.';receiptBody.textContent='No local receipt found.';}
+  function downloadJson(filename,value){const blob=new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+  if(current){
+    state.innerHTML=`<div class="sv-evidence-row"><span class="k">Submission</span><span class="v">${current.submission_id}</span></div><div class="sv-evidence-row"><span class="k">State</span><span class="v">${current.state||'QUEUED_FOR_GITHUB_WORKER'}</span></div>`;
+    receiptBody.textContent=JSON.stringify(current,null,2);
+    if(current.provenance_manifest){
+      appendedSection.classList.remove('hidden');
+      manifestBody.textContent=JSON.stringify(current.provenance_manifest,null,2);
+      toggle.addEventListener('click',()=>{const hidden=manifestBody.classList.toggle('hidden');toggle.textContent=hidden?'View manifest':'Hide manifest';});
+      download.addEventListener('click',()=>downloadJson(current.manifest_filename||`${current.submission_id}-provenance.json`,current.provenance_manifest));
+      if(current.github_return_url){githubReturn.href=current.github_return_url;}else{githubReturn.classList.add('hidden');}
+    }
+  }else{state.textContent='This browser does not contain the requested receipt.';receiptBody.textContent='No local receipt found.';}
   history.replaceChildren();if(!rows.length){history.textContent='No submissions are recorded on this device.';}else rows.forEach(row=>{const el=document.createElement('article');el.className='entry';el.textContent=`${row.submission_id} · ${row.state||'QUEUED'} · ${row.received_at||''}`;history.appendChild(el);});
 })();
 </script></body></html>
