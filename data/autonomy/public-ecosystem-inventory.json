@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-31T07:33:55Z",
+  "generated_at": "2026-07-31T10:12:43Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-31T07:14:14Z",
+      "pushed_at": "2026-07-31T10:00:07Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -491,7 +491,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-07-31T03:54:04Z",
+      "pushed_at": "2026-07-31T09:19:22Z",
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -1141,7 +1141,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-31T03:47:43Z",
+      "pushed_at": "2026-07-31T09:14:56Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1704,7 +1704,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-31T04:13:57Z",
+      "pushed_at": "2026-07-31T07:34:01Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2197,7 +2197,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-31T05:04:35Z",
+      "pushed_at": "2026-07-31T08:18:22Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2762,7 +2762,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-31T06:36:43Z",
+      "pushed_at": "2026-07-31T09:30:57Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
