@@ -3,34 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Verify a received HIL response packet and its governed receiver receipt.">
+  <meta name="description" content="Verify a received HIL response packet and review this browser's HIL submissions.">
   <title>HIL Response Packet Received — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
     .notice{border:1px solid var(--border2);border-radius:10px;padding:18px;margin:16px 0}
-    .pass{font-size:1.15rem;font-weight:900;border:2px solid currentColor}
     .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
-    .pdf-frame{width:100%;min-height:70vh;border:1px solid var(--border2);border-radius:8px;background:#fff}
-    .hil-support{margin:18px 0;padding:16px 18px;border:2px solid var(--border2);border-radius:10px}.hil-support p{margin:.35rem 0}
+    .pdf-frame{width:100%;min-height:62vh;border:1px solid var(--border2);border-radius:8px;background:#fff}
+    .history{display:grid;gap:12px}.history-item{border:1px solid var(--border2);border-radius:9px;padding:14px}.history-item a{font-weight:800}.muted{opacity:.8}
   </style>
 </head>
 <body>
-<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a href="hil-faq.html">HIL FAQ</a><a class="active" href="hil-accepted.html">Received Packet</a></nav>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-accepted.html">Receipt</a></nav>
 <main class="sv-wrap">
   <header class="sv-hero">
     <div class="sv-eyebrow">Governed receiver · exact-byte verification</div>
     <h1>Response Packet <em>Received</em></h1>
-    <p>This page reports success only after the same production packet used to authorize the upload button is reloaded from custody and verified against its receipt.</p>
+    <p>Your receipt and all HIL submissions recorded by this browser appear below.</p>
   </header>
 
-  <section id="received-state" class="notice" aria-live="polite">Loading received packet…</section>
-  <section id="test-pass" class="notice pass" hidden>Test Participant Packet Passed</section>
-
-  <aside class="hil-support" aria-label="Receipt verification support">
-    <p><strong>Unsure whether the submission succeeded, missing a receipt, or seeing a verification error?</strong></p>
-    <p>Preserve the original response packet and do not regenerate or alter it.</p>
-    <p>Email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>. Include the visible error, page address, LLM, and interface used. Do not include passwords, API keys, or credentials.</p>
-  </aside>
+  <section id="received-state" class="notice" aria-live="polite">Loading receipt…</section>
 
   <h2 class="sv-h2">Received response packet</h2>
   <iframe id="response-pdf" class="pdf-frame" title="Received response PDF"></iframe>
@@ -40,117 +32,65 @@
 
   <div class="sv-btn-row">
     <button id="download-receipt" class="sv-btn sv-btn-primary" disabled>Download Receipt</button>
-    <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html">Return to Study</a>
-    <a class="sv-btn sv-btn-secondary" href="hil-faq.html">Read HIL FAQ</a>
+    <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html#submit">Submit Another Response</a>
   </div>
 
-  <h2 class="sv-h2">Authority boundary</h2>
-  <pre>packet received             != review approval
-receiver receipt            != publication authority
-test participant pass       != participant research result
-exact-byte verification     != scientific endorsement</pre>
-
-  <aside class="hil-support" aria-label="Final receipt support">
-    <p><strong>Any remaining question or concern:</strong> email <a href="mailto:rigel@stegverse.org?subject=HIL%20Priority">rigel@stegverse.org</a> with subject <strong>HIL Priority</strong>.</p>
-  </aside>
+  <h2 class="sv-h2">Your HIL submissions</h2>
+  <p class="muted">This list is stored in this browser. Each entry links back to its verified receipt.</p>
+  <div id="submission-history" class="history"></div>
 </main>
 <script>
 (() => {
   'use strict';
-  const params = new URLSearchParams(location.search);
-  const byId = (id) => document.getElementById(id);
-  let receipt = null;
+  const params=new URLSearchParams(location.search);
+  const submissionId=params.get('submission_id');
+  const byId=id=>document.getElementById(id);
+  let receipt=null;
 
-  async function sha256Hex(buffer) {
-    const digest = await crypto.subtle.digest('SHA-256', buffer);
-    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  function receiverBase(){
+    const host=location.hostname.toLowerCase();
+    if(host==='localhost'||host==='127.0.0.1') return '';
+    return 'https://receiver.stegverse.com';
   }
-
-  function saveBlob(blob, filename) {
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  async function sha256Hex(buffer){
+    const digest=await crypto.subtle.digest('SHA-256',buffer);
+    return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
   }
-
-  function isCanonicalTestPacket(bytes) {
-    const text = new TextDecoder('latin1').decode(bytes);
-    return text.includes('StegVerse HIL-E2E-001 synthetic receiver validation packet')
-      && text.includes('Not participant research')
-      && text.includes('no authority effect');
+  function saveBlob(blob,filename){
+    const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
-
-  async function resolveSubmissionId() {
-    const explicit = params.get('submission_id');
-    if (explicit) return { submissionId: explicit, publicRecord: null };
-
-    const response = await fetch(`data/hil-participant-readiness.json?t=${Date.now()}`, { cache: 'no-store' });
-    if (!response.ok) throw new Error('public_readiness_record_unavailable');
-    const record = await response.json();
-    const passed = record.schema_version === 'HIL-PUBLIC-PARTICIPANT-READINESS-v1'
-      && record.state === 'TEST_PARTICIPANT_PACKET_PASSED'
-      && record.participant_ready === true
-      && record.upload_button_authorized === true
-      && record.exact_bytes_retrieved === true
-      && record.positive_cycle_passed === true
-      && record.negative_cases_passed === true
-      && typeof record.submission_id === 'string';
-    if (!passed) throw new Error('test_participant_packet_not_yet_passed');
-    return { submissionId: record.submission_id, publicRecord: record };
+  function historyRows(){try{return JSON.parse(localStorage.getItem('stegverse.hil.submissions.v1')||'[]');}catch{return [];}}
+  function renderHistory(){
+    const target=byId('submission-history');
+    const rows=historyRows();
+    if(!rows.length){target.textContent='No submissions are recorded in this browser yet.';return;}
+    target.replaceChildren();
+    rows.forEach(row=>{
+      const article=document.createElement('article');article.className='history-item';
+      const link=document.createElement('a');link.href=`hil-accepted.html?submission_id=${encodeURIComponent(row.submission_id)}`;link.textContent=row.submission_id;
+      const details=document.createElement('div');details.className='muted';details.textContent=`${row.received_at||'time unavailable'} · ${row.submitted_file_sha256||'hash unavailable'}`;
+      article.append(link,details);target.appendChild(article);
+    });
   }
-
-  async function init() {
-    const state = byId('received-state');
-    try {
-      const { submissionId, publicRecord } = await resolveSubmissionId();
-      const statusResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}`, { cache: 'no-store' });
-      if (!statusResponse.ok) throw new Error('submission_status_unavailable');
-      const status = await statusResponse.json();
-      receipt = status.receipt;
-      if (!receipt || receipt.submission_id !== submissionId || status.state !== 'ACCEPTED') throw new Error('accepted_receipt_invalid');
-
-      const contentResponse = await fetch(`/api/hil/submissions/${encodeURIComponent(submissionId)}/content`, { cache: 'no-store' });
-      if (!contentResponse.ok) throw new Error('stored_packet_unavailable');
-      const buffer = await contentResponse.arrayBuffer();
-      const bytes = new Uint8Array(buffer);
-      const retrievedHash = await sha256Hex(buffer);
-      if (retrievedHash !== receipt.submitted_file_sha256) throw new Error('retrieved_packet_hash_mismatch');
-      if (Number(status.size_bytes) !== bytes.byteLength) throw new Error('retrieved_packet_size_mismatch');
-      if (publicRecord && publicRecord.response_sha256 !== retrievedHash) throw new Error('public_readiness_hash_mismatch');
-      if (publicRecord && publicRecord.receipt_id !== receipt.receipt_id) throw new Error('public_readiness_receipt_mismatch');
-      if (publicRecord && !isCanonicalTestPacket(bytes)) throw new Error('canonical_test_packet_marker_missing');
-
-      const blob = new Blob([buffer], { type: 'application/pdf' });
-      byId('response-pdf').src = URL.createObjectURL(blob);
-      byId('receipt-body').textContent = JSON.stringify(receipt, null, 2);
-      state.dataset.state = 'ok';
-      state.textContent = `${submissionId} received. Upload, receipt, stored-byte count, retrieval, and SHA-256 verification passed.`;
-
-      if (publicRecord || isCanonicalTestPacket(bytes)) {
-        byId('test-pass').hidden = false;
-        state.append(document.createTextNode(' Test Participant Packet Passed.'));
-      }
-
-      const button = byId('download-receipt');
-      button.disabled = false;
-      button.addEventListener('click', () => saveBlob(
-        new Blob([`${JSON.stringify(receipt, null, 2)}\n`], { type: 'application/json' }),
-        `${receipt.receipt_id || submissionId}.json`
-      ));
-    } catch (error) {
-      console.error(error);
-      state.dataset.state = 'error';
-      state.textContent = `End-to-end packet verification has not passed: ${error.message || 'unknown_error'}. The upload button must remain unavailable.`;
-      byId('response-pdf').removeAttribute('src');
-      byId('receipt-body').textContent = 'No verified receiver receipt is available.';
-      byId('download-receipt').disabled = true;
-    }
+  async function init(){
+    const state=byId('received-state');renderHistory();
+    if(!submissionId){state.dataset.state='error';state.textContent='No submission ID was supplied.';return;}
+    try{
+      const statusResponse=await fetch(`${receiverBase()}/api/hil/submissions/${encodeURIComponent(submissionId)}`,{cache:'no-store'});
+      if(!statusResponse.ok) throw new Error('submission_status_unavailable');
+      const status=await statusResponse.json();receipt=status.receipt;
+      if(!receipt||receipt.submission_id!==submissionId||status.state!=='ACCEPTED') throw new Error('accepted_receipt_invalid');
+      const contentResponse=await fetch(`${receiverBase()}/api/hil/submissions/${encodeURIComponent(submissionId)}/content`,{cache:'no-store'});
+      if(!contentResponse.ok) throw new Error('stored_packet_unavailable');
+      const buffer=await contentResponse.arrayBuffer();
+      const retrievedHash=await sha256Hex(buffer);
+      if(retrievedHash!==receipt.submitted_file_sha256) throw new Error('retrieved_packet_hash_mismatch');
+      byId('response-pdf').src=URL.createObjectURL(new Blob([buffer],{type:'application/pdf'}));
+      byId('receipt-body').textContent=JSON.stringify(receipt,null,2);
+      state.dataset.state='ok';state.textContent=`${submissionId} received. Exact-byte retrieval and SHA-256 verification passed.`;
+      const button=byId('download-receipt');button.disabled=false;button.addEventListener('click',()=>saveBlob(new Blob([`${JSON.stringify(receipt,null,2)}\n`],{type:'application/json'}),`${receipt.receipt_id||submissionId}.json`));
+    }catch(error){state.dataset.state='error';state.textContent=`Receipt verification could not be completed: ${error.message||'unknown_error'}.`;byId('response-pdf').removeAttribute('src');byId('receipt-body').textContent='No verified receiver receipt is available.';}
   }
-
   init();
 })();
 </script>
