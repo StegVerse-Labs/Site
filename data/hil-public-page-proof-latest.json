@@ -3,7 +3,7 @@
   "canonical_primary_link_present": true,
   "intake_target": "https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml",
   "intake_target_reachable": true,
-  "observed_at": "2026-07-31T19:57:54.176682Z",
+  "observed_at": "2026-07-31T20:29:29.291173Z",
   "page_loaded": true,
   "pdf_selector_present": true,
   "pdf_signature_validation_present": true,
@@ -13,6 +13,6 @@
   "result": "PASS",
   "safari_crash_script_set_removed": true,
   "schema_version": "HIL-PUBLIC-PAGE-PROOF-v1",
-  "source_commit": "eced33970c5b86b4e79e2b33cbd2841068f79703",
+  "source_commit": "54c6fd0c8f92548436ce9097fee2082c77de93e4",
   "upload_button_present": true
 }
