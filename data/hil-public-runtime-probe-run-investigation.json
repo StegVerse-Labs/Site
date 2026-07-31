@@ -1,0 +1,79 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "collected_at": "2026-07-31T14:47:29.287007Z",
+  "collector_run_id": 30640086372,
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 91187220992,
+      "name": "probe",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Capture public HIL runtime responses",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Commit public probe evidence",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Upload public probe evidence",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "matching_run_count": 1,
+  "repository": "StegVerse-Labs/Site",
+  "run": {
+    "conclusion": "success",
+    "created_at": "2026-07-31T14:46:09Z",
+    "display_title": "ci(hil): capture current public receiver responses",
+    "event": "push",
+    "head_branch": "main",
+    "head_sha": "39324174ed22fded3368d8475b0ad084d62c20fd",
+    "html_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30640006721",
+    "id": 30640006721,
+    "name": "HIL Public Runtime Probe Investigation",
+    "run_attempt": 1,
+    "run_number": 1,
+    "run_started_at": "2026-07-31T14:46:09Z",
+    "status": "completed",
+    "updated_at": "2026-07-31T14:46:28Z"
+  },
+  "schema_version": "HIL-PUBLIC-RUNTIME-PROBE-RUN-INVESTIGATION-v1",
+  "target_sha": "39324174ed22fded3368d8475b0ad084d62c20fd",
+  "target_workflow": "hil-public-runtime-probe-investigation.yml"
+}
