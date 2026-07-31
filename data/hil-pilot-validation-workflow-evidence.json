@@ -1,0 +1,1795 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "collected_at": "2026-07-31T14:49:11.051464Z",
+  "collector_run_attempt": 1,
+  "collector_run_id": 30640207074,
+  "model_state_mutated": false,
+  "release_effect": false,
+  "repository": "StegVerse-Labs/Site",
+  "schema_version": "HIL-PILOT-VALIDATION-WORKFLOW-EVIDENCE-v1",
+  "targets": [
+    {
+      "artifacts": [
+        {
+          "created_at": "2026-07-31T00:55:59Z",
+          "digest": "sha256:ca671f76ccc3437cd1084e549293fbc0b2d843bca004594b3a742de0f72d0a2f",
+          "expired": false,
+          "expires_at": "2026-10-29T00:55:15Z",
+          "id": 8779738330,
+          "name": "site-mirror-live-verification-result",
+          "size_in_bytes": 353
+        },
+        {
+          "created_at": "2026-07-31T00:55:58Z",
+          "digest": "sha256:1ab01cf3c3596ff6f4a006ef2862880facca001fdbf8db23ad9e897c11b2a139",
+          "expired": false,
+          "expires_at": "2026-10-29T00:55:15Z",
+          "id": 8779738092,
+          "name": "site-application-validation-result",
+          "size_in_bytes": 12911
+        },
+        {
+          "created_at": "2026-07-31T00:55:27Z",
+          "digest": "sha256:516fe1b0a53878ac42cff0c66ec0a74fe7032b06199968ceefabcbe4d07d81bd",
+          "expired": false,
+          "expires_at": "2026-08-30T00:55:26Z",
+          "id": 8779729251,
+          "name": "site-st017-sandbox-report",
+          "size_in_bytes": 3351
+        },
+        {
+          "created_at": "2026-07-31T00:55:24Z",
+          "digest": "sha256:9115d8dc1d6738d960f4bc46de7c1c222c2d977c2687a6d7f6f5fa7ac037d729",
+          "expired": false,
+          "expires_at": "2026-10-29T00:55:15Z",
+          "id": 8779728250,
+          "name": "site-adjacent-construction-receipt",
+          "size_in_bytes": 1286
+        }
+      ],
+      "first_failed_step": null,
+      "jobs": [
+        {
+          "completed_at": "2026-07-31T00:55:30Z",
+          "conclusion": "success",
+          "id": 91045091242,
+          "name": "ST-017 isolated validation",
+          "started_at": "2026-07-31T00:55:18Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:55:20Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:55:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:21Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:55:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:21Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:55:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:26Z",
+              "conclusion": "success",
+              "name": "Execute Site sandbox",
+              "number": 4,
+              "started_at": "2026-07-31T00:55:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:27Z",
+              "conclusion": "success",
+              "name": "Upload Site sandbox report",
+              "number": 5,
+              "started_at": "2026-07-31T00:55:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:27Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 9,
+              "started_at": "2026-07-31T00:55:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:28Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 10,
+              "started_at": "2026-07-31T00:55:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:28Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "started_at": "2026-07-31T00:55:28Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T00:55:27Z",
+          "conclusion": "success",
+          "id": 91045091253,
+          "name": "adjacent-construction-receipt",
+          "started_at": "2026-07-31T00:55:18Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:55:20Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:55:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:22Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:55:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:23Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:55:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:23Z",
+              "conclusion": "success",
+              "name": "Validate authoritative adjacent-construction packet",
+              "number": 4,
+              "started_at": "2026-07-31T00:55:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:23Z",
+              "conclusion": "success",
+              "name": "Persist Site-owned adjacent-construction receipt",
+              "number": 5,
+              "started_at": "2026-07-31T00:55:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:24Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 6,
+              "started_at": "2026-07-31T00:55:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:24Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 11,
+              "started_at": "2026-07-31T00:55:24Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:24Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 12,
+              "started_at": "2026-07-31T00:55:24Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:24Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "started_at": "2026-07-31T00:55:24Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T00:56:01Z",
+          "conclusion": "success",
+          "id": 91045129405,
+          "name": "bootstrap-validate",
+          "started_at": "2026-07-31T00:55:39Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:55:40Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:55:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:41Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:55:40Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:41Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:55:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:42Z",
+              "conclusion": "success",
+              "name": "Inventory workflow entry points",
+              "number": 4,
+              "started_at": "2026-07-31T00:55:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:42Z",
+              "conclusion": "success",
+              "name": "Enforce two operational workflows",
+              "number": 5,
+              "started_at": "2026-07-31T00:55:42Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:47Z",
+              "conclusion": "success",
+              "name": "Validate application",
+              "number": 6,
+              "started_at": "2026-07-31T00:55:42Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:47Z",
+              "conclusion": "success",
+              "name": "Synchronize verified custody state into authoritative Site records",
+              "number": 7,
+              "started_at": "2026-07-31T00:55:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:47Z",
+              "conclusion": "success",
+              "name": "Synchronize StegVerse provider-node state into authoritative Site records",
+              "number": 8,
+              "started_at": "2026-07-31T00:55:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:47Z",
+              "conclusion": "success",
+              "name": "Synchronize provider TLS and ledger state into authoritative Site records",
+              "number": 9,
+              "started_at": "2026-07-31T00:55:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:48Z",
+              "conclusion": "success",
+              "name": "Check out canonical adapter source for bounded runtime verification",
+              "number": 10,
+              "started_at": "2026-07-31T00:55:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:55Z",
+              "conclusion": "success",
+              "name": "Install canonical adapter service dependencies",
+              "number": 11,
+              "started_at": "2026-07-31T00:55:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:55Z",
+              "conclusion": "success",
+              "name": "Start canonical portable-node gateway fail-closed",
+              "number": 12,
+              "started_at": "2026-07-31T00:55:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:57Z",
+              "conclusion": "success",
+              "name": "Execute Site-to-portable-node runtime slice",
+              "number": 13,
+              "started_at": "2026-07-31T00:55:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:57Z",
+              "conclusion": "success",
+              "name": "Stop portable-node runtime",
+              "number": 14,
+              "started_at": "2026-07-31T00:55:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:57Z",
+              "conclusion": "success",
+              "name": "Write bound current-main validation receipt",
+              "number": 15,
+              "started_at": "2026-07-31T00:55:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:57Z",
+              "conclusion": "success",
+              "name": "Write validation artifact manifest",
+              "number": 16,
+              "started_at": "2026-07-31T00:55:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:57Z",
+              "conclusion": "success",
+              "name": "Verify validation artifact bundle",
+              "number": 17,
+              "started_at": "2026-07-31T00:55:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:58Z",
+              "conclusion": "success",
+              "name": "Upload application validation result, receipt, manifest, and portable-node runtime evidence",
+              "number": 18,
+              "started_at": "2026-07-31T00:55:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:58Z",
+              "conclusion": "success",
+              "name": "Persist authoritative Ecosystem Chat custody state",
+              "number": 19,
+              "started_at": "2026-07-31T00:55:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:58Z",
+              "conclusion": "success",
+              "name": "Persist authoritative StegVerse provider-node state",
+              "number": 20,
+              "started_at": "2026-07-31T00:55:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:58Z",
+              "conclusion": "success",
+              "name": "Record live mirror verification status",
+              "number": 21,
+              "started_at": "2026-07-31T00:55:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:59Z",
+              "conclusion": "success",
+              "name": "Upload live mirror verification result",
+              "number": 22,
+              "started_at": "2026-07-31T00:55:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:59Z",
+              "conclusion": "success",
+              "name": "Post Check out canonical adapter source for bounded runtime verification",
+              "number": 42,
+              "started_at": "2026-07-31T00:55:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:59Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 43,
+              "started_at": "2026-07-31T00:55:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:59Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 44,
+              "started_at": "2026-07-31T00:55:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:55:59Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 45,
+              "started_at": "2026-07-31T00:55:59Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "matching_run_count": 1,
+      "run": {
+        "conclusion": "success",
+        "created_at": "2026-07-31T00:55:15Z",
+        "display_title": "test(hil): make pilot ledger validator fixture-addressable",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "e8e39115b245258964939c5b4583dd46b22c623b",
+        "html_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30594916573",
+        "id": 30594916573,
+        "name": "Site Bootstrap Validate",
+        "run_attempt": 1,
+        "run_number": 2585,
+        "run_started_at": "2026-07-31T00:55:15Z",
+        "status": "completed",
+        "updated_at": "2026-07-31T00:56:02Z"
+      },
+      "selection_preference": "latest push run when present, otherwise latest exact-head run",
+      "state": "ASSOCIATED_RUN_RETRIEVED",
+      "target_sha": "e8e39115b245258964939c5b4583dd46b22c623b"
+    },
+    {
+      "artifacts": [
+        {
+          "created_at": "2026-07-31T00:56:49Z",
+          "digest": "sha256:97a4344c4acef4232d8db289589b55138711365bef2d999480b19dd4a3de4036",
+          "expired": false,
+          "expires_at": "2026-10-29T00:56:15Z",
+          "id": 8779753385,
+          "name": "site-mirror-live-verification-result",
+          "size_in_bytes": 353
+        },
+        {
+          "created_at": "2026-07-31T00:56:48Z",
+          "digest": "sha256:ac78c5815656d15395ba1523b37f803fa1739fa53506cf599189f651e10d63da",
+          "expired": false,
+          "expires_at": "2026-10-29T00:56:15Z",
+          "id": 8779753093,
+          "name": "site-application-validation-result",
+          "size_in_bytes": 12911
+        },
+        {
+          "created_at": "2026-07-31T00:56:30Z",
+          "digest": "sha256:b0bc0b3f2b10d750b428c1070c47887224152c25cf54b38d65aa1b54fc17e294",
+          "expired": false,
+          "expires_at": "2026-10-29T00:56:15Z",
+          "id": 8779747647,
+          "name": "site-adjacent-construction-receipt",
+          "size_in_bytes": 1287
+        },
+        {
+          "created_at": "2026-07-31T00:56:27Z",
+          "digest": "sha256:01ed309e900460db207791106233deff40645a0792158fe2f17d290c7236addb",
+          "expired": false,
+          "expires_at": "2026-08-30T00:56:26Z",
+          "id": 8779746775,
+          "name": "site-st017-sandbox-report",
+          "size_in_bytes": 3346
+        }
+      ],
+      "first_failed_step": null,
+      "jobs": [
+        {
+          "completed_at": "2026-07-31T00:56:29Z",
+          "conclusion": "success",
+          "id": 91045238799,
+          "name": "ST-017 isolated validation",
+          "started_at": "2026-07-31T00:56:18Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:56:19Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:56:18Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:21Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:56:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:21Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:56:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:26Z",
+              "conclusion": "success",
+              "name": "Execute Site sandbox",
+              "number": 4,
+              "started_at": "2026-07-31T00:56:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:27Z",
+              "conclusion": "success",
+              "name": "Upload Site sandbox report",
+              "number": 5,
+              "started_at": "2026-07-31T00:56:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:27Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 9,
+              "started_at": "2026-07-31T00:56:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:27Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 10,
+              "started_at": "2026-07-31T00:56:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:27Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "started_at": "2026-07-31T00:56:27Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T00:56:33Z",
+          "conclusion": "success",
+          "id": 91045238882,
+          "name": "adjacent-construction-receipt",
+          "started_at": "2026-07-31T00:56:24Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:56:27Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:56:25Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:28Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:56:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:29Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:56:28Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:29Z",
+              "conclusion": "success",
+              "name": "Validate authoritative adjacent-construction packet",
+              "number": 4,
+              "started_at": "2026-07-31T00:56:29Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:29Z",
+              "conclusion": "success",
+              "name": "Persist Site-owned adjacent-construction receipt",
+              "number": 5,
+              "started_at": "2026-07-31T00:56:29Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:30Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 6,
+              "started_at": "2026-07-31T00:56:29Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:30Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 11,
+              "started_at": "2026-07-31T00:56:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:30Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 12,
+              "started_at": "2026-07-31T00:56:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:30Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "started_at": "2026-07-31T00:56:30Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T00:56:52Z",
+          "conclusion": "success",
+          "id": 91045270787,
+          "name": "bootstrap-validate",
+          "started_at": "2026-07-31T00:56:31Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:56:33Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:56:32Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:34Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:56:33Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:34Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:56:34Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:34Z",
+              "conclusion": "success",
+              "name": "Inventory workflow entry points",
+              "number": 4,
+              "started_at": "2026-07-31T00:56:34Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:35Z",
+              "conclusion": "success",
+              "name": "Enforce two operational workflows",
+              "number": 5,
+              "started_at": "2026-07-31T00:56:34Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:38Z",
+              "conclusion": "success",
+              "name": "Validate application",
+              "number": 6,
+              "started_at": "2026-07-31T00:56:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:38Z",
+              "conclusion": "success",
+              "name": "Synchronize verified custody state into authoritative Site records",
+              "number": 7,
+              "started_at": "2026-07-31T00:56:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:38Z",
+              "conclusion": "success",
+              "name": "Synchronize StegVerse provider-node state into authoritative Site records",
+              "number": 8,
+              "started_at": "2026-07-31T00:56:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:38Z",
+              "conclusion": "success",
+              "name": "Synchronize provider TLS and ledger state into authoritative Site records",
+              "number": 9,
+              "started_at": "2026-07-31T00:56:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:39Z",
+              "conclusion": "success",
+              "name": "Check out canonical adapter source for bounded runtime verification",
+              "number": 10,
+              "started_at": "2026-07-31T00:56:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:46Z",
+              "conclusion": "success",
+              "name": "Install canonical adapter service dependencies",
+              "number": 11,
+              "started_at": "2026-07-31T00:56:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:46Z",
+              "conclusion": "success",
+              "name": "Start canonical portable-node gateway fail-closed",
+              "number": 12,
+              "started_at": "2026-07-31T00:56:46Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:47Z",
+              "conclusion": "success",
+              "name": "Execute Site-to-portable-node runtime slice",
+              "number": 13,
+              "started_at": "2026-07-31T00:56:46Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:47Z",
+              "conclusion": "success",
+              "name": "Stop portable-node runtime",
+              "number": 14,
+              "started_at": "2026-07-31T00:56:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:47Z",
+              "conclusion": "success",
+              "name": "Write bound current-main validation receipt",
+              "number": 15,
+              "started_at": "2026-07-31T00:56:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:47Z",
+              "conclusion": "success",
+              "name": "Write validation artifact manifest",
+              "number": 16,
+              "started_at": "2026-07-31T00:56:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:48Z",
+              "conclusion": "success",
+              "name": "Verify validation artifact bundle",
+              "number": 17,
+              "started_at": "2026-07-31T00:56:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:48Z",
+              "conclusion": "success",
+              "name": "Upload application validation result, receipt, manifest, and portable-node runtime evidence",
+              "number": 18,
+              "started_at": "2026-07-31T00:56:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:48Z",
+              "conclusion": "success",
+              "name": "Persist authoritative Ecosystem Chat custody state",
+              "number": 19,
+              "started_at": "2026-07-31T00:56:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:48Z",
+              "conclusion": "success",
+              "name": "Persist authoritative StegVerse provider-node state",
+              "number": 20,
+              "started_at": "2026-07-31T00:56:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:48Z",
+              "conclusion": "success",
+              "name": "Record live mirror verification status",
+              "number": 21,
+              "started_at": "2026-07-31T00:56:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:49Z",
+              "conclusion": "success",
+              "name": "Upload live mirror verification result",
+              "number": 22,
+              "started_at": "2026-07-31T00:56:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:49Z",
+              "conclusion": "success",
+              "name": "Post Check out canonical adapter source for bounded runtime verification",
+              "number": 42,
+              "started_at": "2026-07-31T00:56:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:49Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 43,
+              "started_at": "2026-07-31T00:56:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:50Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 44,
+              "started_at": "2026-07-31T00:56:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:50Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 45,
+              "started_at": "2026-07-31T00:56:50Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "matching_run_count": 1,
+      "run": {
+        "conclusion": "success",
+        "created_at": "2026-07-31T00:56:15Z",
+        "display_title": "test(hil): add deterministic pilot validation fixtures",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "aa95c1267a8cf889a53b1e869be78ade18764679",
+        "html_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30594963448",
+        "id": 30594963448,
+        "name": "Site Bootstrap Validate",
+        "run_attempt": 1,
+        "run_number": 2587,
+        "run_started_at": "2026-07-31T00:56:15Z",
+        "status": "completed",
+        "updated_at": "2026-07-31T00:56:53Z"
+      },
+      "selection_preference": "latest push run when present, otherwise latest exact-head run",
+      "state": "ASSOCIATED_RUN_RETRIEVED",
+      "target_sha": "aa95c1267a8cf889a53b1e869be78ade18764679"
+    },
+    {
+      "artifacts": [
+        {
+          "created_at": "2026-07-31T00:57:39Z",
+          "digest": "sha256:0840b26d3db49a0a28f5e759cadb039f1915aee17bd76b7cb312137709afe6c2",
+          "expired": false,
+          "expires_at": "2026-10-29T00:56:54Z",
+          "id": 8779767920,
+          "name": "site-mirror-live-verification-result",
+          "size_in_bytes": 353
+        },
+        {
+          "created_at": "2026-07-31T00:57:37Z",
+          "digest": "sha256:d8bf18e3b3091305539777bff4015bfdbea20392f0e2d4a08c4e0096c67e14ac",
+          "expired": false,
+          "expires_at": "2026-10-29T00:56:54Z",
+          "id": 8779767557,
+          "name": "site-application-validation-result",
+          "size_in_bytes": 12916
+        },
+        {
+          "created_at": "2026-07-31T00:57:05Z",
+          "digest": "sha256:ea7e61bed0948903b8ae7157abc51b8c60259140a255d5aeca16e0c743120b47",
+          "expired": false,
+          "expires_at": "2026-08-30T00:57:05Z",
+          "id": 8779758265,
+          "name": "site-st017-sandbox-report",
+          "size_in_bytes": 3352
+        },
+        {
+          "created_at": "2026-07-31T00:56:59Z",
+          "digest": "sha256:28551c1ed0e354889a6cd9f408a5c9073371c3f2cb77887d03d313e7dfff25e6",
+          "expired": false,
+          "expires_at": "2026-10-29T00:56:54Z",
+          "id": 8779756521,
+          "name": "site-adjacent-construction-receipt",
+          "size_in_bytes": 1287
+        }
+      ],
+      "first_failed_step": null,
+      "jobs": [
+        {
+          "completed_at": "2026-07-31T00:57:01Z",
+          "conclusion": "success",
+          "id": 91045333014,
+          "name": "adjacent-construction-receipt",
+          "started_at": "2026-07-31T00:56:56Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:56:58Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:56:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:59Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:56:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:59Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:56:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:59Z",
+              "conclusion": "success",
+              "name": "Validate authoritative adjacent-construction packet",
+              "number": 4,
+              "started_at": "2026-07-31T00:56:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:59Z",
+              "conclusion": "success",
+              "name": "Persist Site-owned adjacent-construction receipt",
+              "number": 5,
+              "started_at": "2026-07-31T00:56:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:00Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 6,
+              "started_at": "2026-07-31T00:56:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:00Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 11,
+              "started_at": "2026-07-31T00:57:00Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:00Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 12,
+              "started_at": "2026-07-31T00:57:00Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:00Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "started_at": "2026-07-31T00:57:00Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T00:57:08Z",
+          "conclusion": "success",
+          "id": 91045333025,
+          "name": "ST-017 isolated validation",
+          "started_at": "2026-07-31T00:56:56Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:56:58Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:56:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:59Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:56:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:56:59Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:56:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:05Z",
+              "conclusion": "success",
+              "name": "Execute Site sandbox",
+              "number": 4,
+              "started_at": "2026-07-31T00:56:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:05Z",
+              "conclusion": "success",
+              "name": "Upload Site sandbox report",
+              "number": 5,
+              "started_at": "2026-07-31T00:57:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 9,
+              "started_at": "2026-07-31T00:57:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 10,
+              "started_at": "2026-07-31T00:57:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:06Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "started_at": "2026-07-31T00:57:06Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T00:57:45Z",
+          "conclusion": "success",
+          "id": 91045364488,
+          "name": "bootstrap-validate",
+          "started_at": "2026-07-31T00:57:15Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T00:57:17Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T00:57:16Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:18Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T00:57:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:19Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T00:57:18Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:23Z",
+              "conclusion": "success",
+              "name": "Install validation dependencies",
+              "number": 4,
+              "started_at": "2026-07-31T00:57:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:24Z",
+              "conclusion": "success",
+              "name": "Validate HIL pilot ledger and deterministic fixtures",
+              "number": 5,
+              "started_at": "2026-07-31T00:57:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:24Z",
+              "conclusion": "success",
+              "name": "Inventory workflow entry points",
+              "number": 6,
+              "started_at": "2026-07-31T00:57:24Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:24Z",
+              "conclusion": "success",
+              "name": "Enforce two operational workflows",
+              "number": 7,
+              "started_at": "2026-07-31T00:57:24Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:28Z",
+              "conclusion": "success",
+              "name": "Validate application",
+              "number": 8,
+              "started_at": "2026-07-31T00:57:24Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:28Z",
+              "conclusion": "success",
+              "name": "Synchronize verified custody state into authoritative Site records",
+              "number": 9,
+              "started_at": "2026-07-31T00:57:28Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:28Z",
+              "conclusion": "success",
+              "name": "Synchronize StegVerse provider-node state into authoritative Site records",
+              "number": 10,
+              "started_at": "2026-07-31T00:57:28Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:28Z",
+              "conclusion": "success",
+              "name": "Synchronize provider TLS and ledger state into authoritative Site records",
+              "number": 11,
+              "started_at": "2026-07-31T00:57:28Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:29Z",
+              "conclusion": "success",
+              "name": "Check out canonical adapter source for bounded runtime verification",
+              "number": 12,
+              "started_at": "2026-07-31T00:57:28Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:35Z",
+              "conclusion": "success",
+              "name": "Install canonical adapter service dependencies",
+              "number": 13,
+              "started_at": "2026-07-31T00:57:29Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:35Z",
+              "conclusion": "success",
+              "name": "Start canonical portable-node gateway fail-closed",
+              "number": 14,
+              "started_at": "2026-07-31T00:57:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:36Z",
+              "conclusion": "success",
+              "name": "Execute Site-to-portable-node runtime slice",
+              "number": 15,
+              "started_at": "2026-07-31T00:57:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:36Z",
+              "conclusion": "success",
+              "name": "Stop portable-node runtime",
+              "number": 16,
+              "started_at": "2026-07-31T00:57:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:36Z",
+              "conclusion": "success",
+              "name": "Write bound current-main validation receipt",
+              "number": 17,
+              "started_at": "2026-07-31T00:57:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:36Z",
+              "conclusion": "success",
+              "name": "Write validation artifact manifest",
+              "number": 18,
+              "started_at": "2026-07-31T00:57:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:36Z",
+              "conclusion": "success",
+              "name": "Verify validation artifact bundle",
+              "number": 19,
+              "started_at": "2026-07-31T00:57:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:38Z",
+              "conclusion": "success",
+              "name": "Upload application validation result, receipt, manifest, and portable-node runtime evidence",
+              "number": 20,
+              "started_at": "2026-07-31T00:57:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:38Z",
+              "conclusion": "success",
+              "name": "Persist authoritative Ecosystem Chat custody state",
+              "number": 21,
+              "started_at": "2026-07-31T00:57:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:38Z",
+              "conclusion": "success",
+              "name": "Persist authoritative StegVerse provider-node state",
+              "number": 22,
+              "started_at": "2026-07-31T00:57:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:38Z",
+              "conclusion": "success",
+              "name": "Record live mirror verification status",
+              "number": 23,
+              "started_at": "2026-07-31T00:57:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:39Z",
+              "conclusion": "success",
+              "name": "Upload live mirror verification result",
+              "number": 24,
+              "started_at": "2026-07-31T00:57:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:39Z",
+              "conclusion": "success",
+              "name": "Post Check out canonical adapter source for bounded runtime verification",
+              "number": 46,
+              "started_at": "2026-07-31T00:57:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:39Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 47,
+              "started_at": "2026-07-31T00:57:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:39Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 48,
+              "started_at": "2026-07-31T00:57:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T00:57:39Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 49,
+              "started_at": "2026-07-31T00:57:39Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "matching_run_count": 1,
+      "run": {
+        "conclusion": "success",
+        "created_at": "2026-07-31T00:56:54Z",
+        "display_title": "ci(hil): bind pilot validators and deterministic fixtures",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "3f69a06176de49cab523c280e2028bd3cc85df04",
+        "html_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30594992569",
+        "id": 30594992569,
+        "name": "Site Bootstrap Validate",
+        "run_attempt": 1,
+        "run_number": 2588,
+        "run_started_at": "2026-07-31T00:56:54Z",
+        "status": "completed",
+        "updated_at": "2026-07-31T00:57:45Z"
+      },
+      "selection_preference": "latest push run when present, otherwise latest exact-head run",
+      "state": "ASSOCIATED_RUN_RETRIEVED",
+      "target_sha": "3f69a06176de49cab523c280e2028bd3cc85df04"
+    },
+    {
+      "artifacts": [
+        {
+          "created_at": "2026-07-31T01:01:40Z",
+          "digest": "sha256:a1f131a23168b74bfd88eec17b0b4fbd2875a707ae5ba858ffde0c67836db4e4",
+          "expired": false,
+          "expires_at": "2026-10-29T01:00:59Z",
+          "id": 8779836300,
+          "name": "site-mirror-live-verification-result",
+          "size_in_bytes": 353
+        },
+        {
+          "created_at": "2026-07-31T01:01:39Z",
+          "digest": "sha256:04ec3fe2e5f929f9bb578d7c57bdd268c974d023f252cb8877beb1817bab452d",
+          "expired": false,
+          "expires_at": "2026-10-29T01:00:59Z",
+          "id": 8779835906,
+          "name": "site-application-validation-result",
+          "size_in_bytes": 12913
+        },
+        {
+          "created_at": "2026-07-31T01:01:10Z",
+          "digest": "sha256:f5849176b2ce1846e421ddd3a22319e0d06a919443e6daabb498a8b086fc58ed",
+          "expired": false,
+          "expires_at": "2026-08-30T01:01:10Z",
+          "id": 8779827437,
+          "name": "site-st017-sandbox-report",
+          "size_in_bytes": 3354
+        },
+        {
+          "created_at": "2026-07-31T01:01:07Z",
+          "digest": "sha256:47254c664179dbdfd4ca0d32a0f65e93b5b9370968b3c22bd8e0bef82b805817",
+          "expired": false,
+          "expires_at": "2026-10-29T01:00:59Z",
+          "id": 8779826424,
+          "name": "site-adjacent-construction-receipt",
+          "size_in_bytes": 1285
+        }
+      ],
+      "first_failed_step": null,
+      "jobs": [
+        {
+          "completed_at": "2026-07-31T01:01:09Z",
+          "conclusion": "success",
+          "id": 91045929728,
+          "name": "adjacent-construction-receipt",
+          "started_at": "2026-07-31T01:01:02Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T01:01:04Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T01:01:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:05Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T01:01:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:06Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T01:01:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:06Z",
+              "conclusion": "success",
+              "name": "Validate authoritative adjacent-construction packet",
+              "number": 4,
+              "started_at": "2026-07-31T01:01:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:06Z",
+              "conclusion": "success",
+              "name": "Persist Site-owned adjacent-construction receipt",
+              "number": 5,
+              "started_at": "2026-07-31T01:01:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:07Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 6,
+              "started_at": "2026-07-31T01:01:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:07Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 11,
+              "started_at": "2026-07-31T01:01:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:07Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 12,
+              "started_at": "2026-07-31T01:01:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:07Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "started_at": "2026-07-31T01:01:07Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T01:01:13Z",
+          "conclusion": "success",
+          "id": 91045929748,
+          "name": "ST-017 isolated validation",
+          "started_at": "2026-07-31T01:01:01Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T01:01:03Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T01:01:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:04Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T01:01:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:04Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T01:01:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:10Z",
+              "conclusion": "success",
+              "name": "Execute Site sandbox",
+              "number": 4,
+              "started_at": "2026-07-31T01:01:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:10Z",
+              "conclusion": "success",
+              "name": "Upload Site sandbox report",
+              "number": 5,
+              "started_at": "2026-07-31T01:01:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:10Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 9,
+              "started_at": "2026-07-31T01:01:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 10,
+              "started_at": "2026-07-31T01:01:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:11Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 11,
+              "started_at": "2026-07-31T01:01:11Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-07-31T01:01:44Z",
+          "conclusion": "success",
+          "id": 91045964669,
+          "name": "bootstrap-validate",
+          "started_at": "2026-07-31T01:01:15Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-07-31T01:01:17Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "started_at": "2026-07-31T01:01:16Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:19Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "started_at": "2026-07-31T01:01:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:19Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "started_at": "2026-07-31T01:01:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:22Z",
+              "conclusion": "success",
+              "name": "Install validation dependencies",
+              "number": 4,
+              "started_at": "2026-07-31T01:01:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:22Z",
+              "conclusion": "success",
+              "name": "Validate HIL pilot ledger and deterministic fixtures",
+              "number": 5,
+              "started_at": "2026-07-31T01:01:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:22Z",
+              "conclusion": "success",
+              "name": "Inventory workflow entry points",
+              "number": 6,
+              "started_at": "2026-07-31T01:01:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:23Z",
+              "conclusion": "success",
+              "name": "Enforce two operational workflows",
+              "number": 7,
+              "started_at": "2026-07-31T01:01:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:26Z",
+              "conclusion": "success",
+              "name": "Validate application",
+              "number": 8,
+              "started_at": "2026-07-31T01:01:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:26Z",
+              "conclusion": "success",
+              "name": "Synchronize verified custody state into authoritative Site records",
+              "number": 9,
+              "started_at": "2026-07-31T01:01:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:26Z",
+              "conclusion": "success",
+              "name": "Synchronize StegVerse provider-node state into authoritative Site records",
+              "number": 10,
+              "started_at": "2026-07-31T01:01:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:26Z",
+              "conclusion": "success",
+              "name": "Synchronize provider TLS and ledger state into authoritative Site records",
+              "number": 11,
+              "started_at": "2026-07-31T01:01:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:27Z",
+              "conclusion": "success",
+              "name": "Check out canonical adapter source for bounded runtime verification",
+              "number": 12,
+              "started_at": "2026-07-31T01:01:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:35Z",
+              "conclusion": "success",
+              "name": "Install canonical adapter service dependencies",
+              "number": 13,
+              "started_at": "2026-07-31T01:01:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:35Z",
+              "conclusion": "success",
+              "name": "Start canonical portable-node gateway fail-closed",
+              "number": 14,
+              "started_at": "2026-07-31T01:01:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:38Z",
+              "conclusion": "success",
+              "name": "Execute Site-to-portable-node runtime slice",
+              "number": 15,
+              "started_at": "2026-07-31T01:01:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:38Z",
+              "conclusion": "success",
+              "name": "Stop portable-node runtime",
+              "number": 16,
+              "started_at": "2026-07-31T01:01:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:38Z",
+              "conclusion": "success",
+              "name": "Write bound current-main validation receipt",
+              "number": 17,
+              "started_at": "2026-07-31T01:01:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:38Z",
+              "conclusion": "success",
+              "name": "Write validation artifact manifest",
+              "number": 18,
+              "started_at": "2026-07-31T01:01:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:38Z",
+              "conclusion": "success",
+              "name": "Verify validation artifact bundle",
+              "number": 19,
+              "started_at": "2026-07-31T01:01:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:39Z",
+              "conclusion": "success",
+              "name": "Upload application validation result, receipt, manifest, and portable-node runtime evidence",
+              "number": 20,
+              "started_at": "2026-07-31T01:01:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:39Z",
+              "conclusion": "success",
+              "name": "Persist authoritative Ecosystem Chat custody state",
+              "number": 21,
+              "started_at": "2026-07-31T01:01:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:39Z",
+              "conclusion": "success",
+              "name": "Persist authoritative StegVerse provider-node state",
+              "number": 22,
+              "started_at": "2026-07-31T01:01:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:39Z",
+              "conclusion": "success",
+              "name": "Record live mirror verification status",
+              "number": 23,
+              "started_at": "2026-07-31T01:01:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:40Z",
+              "conclusion": "success",
+              "name": "Upload live mirror verification result",
+              "number": 24,
+              "started_at": "2026-07-31T01:01:39Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:40Z",
+              "conclusion": "success",
+              "name": "Post Check out canonical adapter source for bounded runtime verification",
+              "number": 46,
+              "started_at": "2026-07-31T01:01:40Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:40Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 47,
+              "started_at": "2026-07-31T01:01:40Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:41Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 48,
+              "started_at": "2026-07-31T01:01:40Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-07-31T01:01:41Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 49,
+              "started_at": "2026-07-31T01:01:41Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "matching_run_count": 1,
+      "run": {
+        "conclusion": "success",
+        "created_at": "2026-07-31T01:00:59Z",
+        "display_title": "docs(hil): add pilot validation mirror handoff",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "3391e30ca7894f4364d4a23c3ee7de3c169148b4",
+        "html_url": "https://github.com/StegVerse-Labs/Site/actions/runs/30595185389",
+        "id": 30595185389,
+        "name": "Site Bootstrap Validate",
+        "run_attempt": 1,
+        "run_number": 2591,
+        "run_started_at": "2026-07-31T01:00:59Z",
+        "status": "completed",
+        "updated_at": "2026-07-31T01:01:45Z"
+      },
+      "selection_preference": "latest push run when present, otherwise latest exact-head run",
+      "state": "ASSOCIATED_RUN_RETRIEVED",
+      "target_sha": "3391e30ca7894f4364d4a23c3ee7de3c169148b4"
+    }
+  ],
+  "workflow_name": "Site Bootstrap Validate",
+  "workflow_path": ".github/workflows/validate.yml"
+}
