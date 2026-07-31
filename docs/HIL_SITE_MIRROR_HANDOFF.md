@@ -129,11 +129,25 @@ Implemented:
 - strict v1.1 package schema, PDF hash, and size verification;
 - explicit statement that share-sheet completion does not prove delivery or custody.
 
+## Activation authority inspection — 2026-07-31T00:24Z
+
+- Read the five documents specified by the continuation request in order.
+- Inspected handoff commit `19be2bc6859b97f1cbe654083af064b3a0a8d4ed`, the newest repository commits, all three machine-state records, and the deploy, controlled-cycle, and restart-persistence workflows.
+- The GitHub connector exposes repository reads/writes and known-run job, step, artifact, log, and rerun actions. It exposes neither general workflow-run listing nor workflow dispatch.
+- `fetch_commit_workflow_runs` was tested for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`; the PR-only action returned no runs and did not reveal the push-triggered deployment execution.
+- Cloudflare Workers/D1 plugin discovery returned no available plugin or provider-control action.
+- Re-inspected controlled-cycle job `90962296249` and complete logs. The exact readiness command against `https://stegverse.org/api/hil/readiness` returned HTTP 404 and curl exit code 22 at `2026-07-30T18:13:57Z`.
+- All packet generation, production submission, status/content retrieval, exact-byte verification, deterministic negative-case, and participant-ready enforcement steps were skipped.
+- Failure evidence artifact `hil-participant-readiness-30569491378-1`, artifact ID `8770179722`, was uploaded; it grants no activation authority.
+- Updated `docs/HIL_MIRROR_HANDOFF.md` in commit `5907fe983c77c36b1305234df3c44e28bdde87de`.
+- A concurrent update to this file was detected and preserved before applying this inspection record.
+- No production state, readiness, receipt, custody, restart proof, release, or downstream propagation was promoted.
+
 ## Production blocker
 
-The production blocker remains deployment observability and provider authority. The available GitHub connector exposes repository read/write plus known-run job/artifact/log and rerun operations, but it does not expose general push-run listing or workflow dispatch for the unknown HIL deployment run. No Cloudflare Worker, route, D1, binding, deployment, log, restart, or replacement controls are available in this session.
+The production blocker remains deployment observability and provider authority. The current session cannot enumerate or dispatch the push-triggered `HIL Cloudflare Receiver Deploy` workflow and cannot inspect or mutate the Cloudflare Worker, route, D1 database, `HIL_REGISTRY` binding, deployment version, logs, restart, or custom-domain state.
 
-The exact provider-level defect therefore remains unproven. No speculative token, permission, database, binding, or route repair is authorized.
+Because both the deployment run ID and provider control plane are unavailable, the exact failed deployment command and provider error remain inaccessible. No speculative token, permission, database, binding, route, or workflow repair is authorized.
 
 ## Next executable production path
 
@@ -146,7 +160,7 @@ The exact provider-level defect therefore remains unproven. No speculative token
 7. Verify receipt, status, exact bytes, hash, size, chunks, provenance, custody, and negative cases.
 8. Machine-publish participant readiness only from the successful source run.
 9. Prove real hosted replacement/restart persistence.
-10. Continue through genuine participant submission, private review, separately authenticated publication, Site projection, Master Record release, and authorized downstream verification.
+10. Continue through genuine participant submission, private review, separately authenticated publication, Site projection, Master Record release, release/tag evaluation, and authorized downstream verification.
 
 ## Next pilot path
 
@@ -206,4 +220,4 @@ No tag or release is authorized. Production receiver activation, restart persist
 
 ## Archive readiness
 
-This handoff, the pilot ledger, commit history, machine-state records, and public-page contracts preserve the complete continuation state. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
+This handoff, the pilot ledger, commit history, machine-state records, connector inspection results, and public-page contracts preserve the complete continuation state. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
