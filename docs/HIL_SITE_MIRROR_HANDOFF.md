@@ -41,6 +41,8 @@ c4c86010a2cf73cab3e435b34bf65595506bfb32  data/schemas/hil-managed-receiving-ack
 0e5ee803c57a46803f9ab4f9fa0a27508ee77667  scripts/generate_hil_pilot_comparison.py
 ```
 
+Latest production-authority inspection head before this handoff update: `20da57673f3bdd42507e47980b34896e54cd1e86`.
+
 ## Pilot state and semantics
 
 `data/hil-pilot-ledger.json` remains unchanged and fail-closed:
@@ -89,6 +91,16 @@ production submission: absent
 production receiver receipt: absent
 restart persistence: unproven
 ```
+
+## Current-session production authority inspection — 2026-07-31T00:52Z
+
+- Read the five required handoffs in full and in order.
+- Verified `main` at `20da57673f3bdd42507e47980b34896e54cd1e86` before handoff mutation.
+- Verified requested handoff commits `b38224de52ad64222937097ca42c3d31aa878e8d` and `b9f2892a962ac11e3e7caa51d827058c109a1486` are ancestors of current `main` by eight and seven commits respectively.
+- Queried the only available commit-associated workflow-run action for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`; it returned `workflow_runs: []` and is explicitly restricted to pull-request-triggered runs.
+- The GitHub connector provides job, step, log, artifact, and rerun actions only for already-known run/job IDs. It does not provide general workflow-run enumeration or workflow dispatch for `.github/workflows/hil-cloudflare-deploy.yml`.
+- No direct Cloudflare Worker, deployment, route, D1, binding, or runtime-log controls are exposed.
+- Therefore the exact deployment run ID, job ID, failed step, and complete provider error cannot be retrieved in this environment. No provider defect was guessed, readiness remains fail-closed, and no release or downstream propagation was attempted.
 
 ## Exact production authority block
 
@@ -147,7 +159,7 @@ No tag or release is authorized. Production receiver activation, restart persist
 
 ## Next-session prompt
 
-Use the connected GitHub repository directly and continue HIL activation in `StegVerse-Labs/Site`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_END_TO_END_PROTOCOL.md`, `docs/HIL_V1_UPLOAD_MIRROR_HANDOFF.md`, and all HIL machine-state files. Inspect the newest head and reconcile concurrent commits before mutation. First bind and test the pilot ledger, managed acknowledgment, ingestion, and comparison validators without promoting the two pending model entries. For production, retrieve the newest push-triggered HIL Cloudflare deploy run/job/logs or inspect Cloudflare directly; repair only the proven defect; verify `HIL_REGISTRY`, the scoped route, probes/readiness, the complete controlled cycle, exact-byte custody, negative cases, machine-published readiness, and restart persistence. Continue through genuine participant submission, private review, separately authenticated publication, Site projection, Master Record release, and authorized downstream verification. Update every materially affected handoff before responding and do not invent receipt, custody, registry, review, publication, or release.
+Use the connected GitHub repository directly and continue HIL activation in `StegVerse-Labs/Site`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, and `docs/SITE_MIRROR_HANDOFF.md` in that order, then inspect the newest repository head and HIL machine-state files. First retrieve the push-triggered `HIL Cloudflare Receiver Deploy` run and job associated with trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` using general GitHub Actions workflow-run listing/dispatch, or inspect the corresponding Cloudflare Worker/D1 deployment directly. Retrieve the exact failed step and complete provider error, repair only the proven defect, then continue through scoped Worker deployment, `HIL_REGISTRY`, probes/readiness, exact v1.1 controlled-cycle PASS, exact-byte custody and retrieval, negative cases, machine-derived readiness, restart persistence, public upload/received verification, release/tag evaluation, and authorized downstream verification. Do not repeat connector discovery already preserved except to verify this session's actual actions. Update both HIL handoffs before responding and stop only at complete live success or one exact newly proven external-authority blocker.
 
 ## Archive readiness
 
