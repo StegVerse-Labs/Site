@@ -100,7 +100,7 @@ release/tag authority: false
 
 The known evidence proves only that the production domain returned HTTP 404 for `/api/hil/readiness`. It does not prove why the deployment failed or whether `HIL_REGISTRY`, the Worker route, or required Cloudflare permissions/resources exist.
 
-## Session capability verification — 2026-07-31T09:40-05:00
+## Session capability verification — 2026-07-31T09:41-05:00
 
 This session independently discovered all exposed GitHub workflow actions. Available controls include only:
 
