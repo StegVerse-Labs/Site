@@ -6,8 +6,21 @@ on:
     paths:
       - 'hil-study-announcement.html'
       - 'hil-study-launch.html'
+      - 'hil-managed-return.html'
       - 'data/hil-announcement-status.json'
+      - 'data/hil-pilot-ledger.json'
+      - 'data/hil-linkedin-launch-readiness.json'
+      - 'data/hil-participant-readiness.json'
+      - 'data/hil-receiver-deployment-latest.json'
+      - 'data/hil-controlled-cycle-latest.json'
+      - 'data/hil-restart-persistence-latest.json'
       - 'data/HIL_Canonical_Paper_v1_1.pdf'
+      - 'data/schemas/hil-announcement-status.schema.json'
+      - 'data/schemas/hil-managed-receiving-acknowledgment.schema.json'
+      - 'scripts/derive_hil_announcement_status.py'
+      - 'scripts/test_hil_announcement_status.py'
+      - 'scripts/ingest_hil_pilot_return.py'
+      - 'scripts/validate_hil_pilot_ledger.py'
       - '.github/workflows/hil-announcement-contract.yml'
   workflow_dispatch:
 
@@ -20,6 +33,30 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install announcement validation dependency
+        run: python -m pip install jsonschema
+      - name: Verify machine-derived announcement status
+        run: |
+          python scripts/derive_hil_announcement_status.py --check
+          python scripts/test_hil_announcement_status.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+
+          status = json.loads(Path('data/hil-announcement-status.json').read_text(encoding='utf-8'))
+          schema = json.loads(Path('data/schemas/hil-announcement-status.schema.json').read_text(encoding='utf-8'))
+          errors = sorted(
+              Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(status),
+              key=lambda error: list(error.path),
+          )
+          if errors:
+              raise SystemExit('\n'.join(error.message for error in errors))
+          print('HIL_ANNOUNCEMENT_STATUS_SCHEMA=PASS')
+          PY
       - name: Verify announcement launch contract
         run: |
           python - <<'PY'
@@ -39,29 +76,46 @@ jobs:
               errors.append(f'canonical paper hash mismatch: {actual}')
           if status.get('announcement_permitted') is not True:
               errors.append('announcement_permitted must be true')
-          if status.get('participant_intake_state') != 'OPEN_MANAGED_RETURN':
-              errors.append('participant intake must be OPEN_MANAGED_RETURN')
-          required_claims = {
-              'SERVER_SUBMISSION_COMPLETE',
-              'DURABLE_CUSTODY_COMPLETE',
-              'REGISTRY_COMMIT_COMPLETE',
-              'PUBLICATION_COMPLETE',
-          }
-          if not required_claims.issubset(set(status.get('claims_withheld', []))):
-              errors.append('required unavailable claims are not withheld')
+          intake = status.get('participant_intake_state')
+          if intake not in {'OPEN_MANAGED_RETURN', 'OPEN_GOVERNED_RECEIVER'}:
+              errors.append(f'participant intake is not open: {intake}')
+          state = status.get('announcement_state')
+          claims = set(status.get('claims_withheld', []))
+          if state == 'ANNOUNCEMENT_READY_WITH_MANAGED_RETURN':
+              required_claims = {
+                  'SERVER_SUBMISSION_COMPLETE',
+                  'DURABLE_CUSTODY_COMPLETE',
+                  'REGISTRY_COMMIT_COMPLETE',
+                  'PUBLICATION_COMPLETE',
+              }
+              if not required_claims.issubset(claims):
+                  errors.append('managed-return unavailable claims are not withheld')
+          elif state == 'ANNOUNCEMENT_READY_WITH_PRODUCTION_RECEIVER':
+              if status.get('production_receiver', {}).get('ready') is not True:
+                  errors.append('production announcement lacks production_receiver.ready')
+              if 'PUBLICATION_COMPLETE' not in claims:
+                  errors.append('publication claim must remain withheld')
+          else:
+              errors.append(f'unsupported announcement state: {state}')
+          if status.get('derivation', {}).get('mode') != 'MACHINE_DERIVED_FAIL_CLOSED':
+              errors.append('announcement status is not machine-derived fail-closed')
           for phrase in ['participant-managed return', 'does not falsely claim server custody']:
               if phrase not in launch:
                   errors.append(f'launch page missing boundary phrase: {phrase}')
-          for phrase in ['The study may be announced now', 'Persistent server custody and automated publication remain intentionally unclaimed']:
+          for phrase in [
+              'The study may be announced now',
+              'Persistent server custody and automated publication remain intentionally unclaimed',
+          ]:
               if phrase not in announcement:
                   errors.append(f'announcement page missing phrase: {phrase}')
           if errors:
               raise SystemExit('\n'.join(errors))
           print(json.dumps({
               'state': 'PASS',
-              'announcement_state': status['announcement_state'],
-              'participant_intake_state': status['participant_intake_state'],
+              'announcement_state': state,
+              'participant_intake_state': intake,
               'canonical_paper_sha256': actual,
               'claims_withheld': status['claims_withheld'],
+              'derivation_mode': status['derivation']['mode'],
           }, indent=2))
           PY
