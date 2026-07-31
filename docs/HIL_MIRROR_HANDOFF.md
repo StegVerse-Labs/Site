@@ -102,7 +102,7 @@ Release/tag authority: false
 
 The evidence proves only that the production domain did not serve `/api/hil/readiness` during the controlled cycle. It does not prove the cause of the deployment failure, whether `HIL_REGISTRY` exists, which route is configured, or which Cloudflare permission/resource failed.
 
-## Session capability verification — 2026-07-31T09:40-05:00
+## Session capability verification — 2026-07-31T09:41-05:00
 
 This session independently discovered the exposed GitHub Actions controls. Available actions are limited to:
 
