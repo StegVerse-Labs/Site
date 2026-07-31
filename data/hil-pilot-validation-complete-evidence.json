@@ -1,0 +1,117 @@
+{
+  "schema_version": "HIL-PILOT-VALIDATION-COMPLETE-EVIDENCE-v1",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "workflow_name": "Site Bootstrap Validate",
+  "workflow_path": ".github/workflows/validate.yml",
+  "collection_method": "connected GitHub Actions run, job, step, complete-log, and artifact retrieval",
+  "targets": [
+    {
+      "commit_sha": "e8e39115b245258964939c5b4583dd46b22c623b",
+      "run_id": 30594916573,
+      "run_number": 2585,
+      "event": "push",
+      "conclusion": "success",
+      "jobs": [
+        {"id": 91045091242, "name": "ST-017 isolated validation", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045091253, "name": "adjacent-construction-receipt", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045129405, "name": "bootstrap-validate", "conclusion": "success", "complete_log_retrieved": true}
+      ],
+      "first_failed_step": null,
+      "artifacts": [
+        {"id": 8779738330, "name": "site-mirror-live-verification-result", "size_in_bytes": 353, "digest": "sha256:ca671f76ccc3437cd1084e549293fbc0b2d843bca004594b3a742de0f72d0a2f", "expired": false},
+        {"id": 8779738092, "name": "site-application-validation-result", "size_in_bytes": 12911, "digest": "sha256:1ab01cf3c3596ff6f4a006ef2862880facca001fdbf8db23ad9e897c11b2a139", "expired": false},
+        {"id": 8779729251, "name": "site-st017-sandbox-report", "size_in_bytes": 3351, "digest": "sha256:516fe1b0a53878ac42cff0c66ec0a74fe7032b06199968ceefabcbe4d07d81bd", "expired": false},
+        {"id": 8779728250, "name": "site-adjacent-construction-receipt", "size_in_bytes": 1286, "digest": "sha256:9115d8dc1d6738d960f4bc46de7c1c222c2d977c2687a6d7f6f5fa7ac037d729", "expired": false}
+      ]
+    },
+    {
+      "commit_sha": "aa95c1267a8cf889a53b1e869be78ade18764679",
+      "run_id": 30594963448,
+      "run_number": 2587,
+      "event": "push",
+      "conclusion": "success",
+      "jobs": [
+        {"id": 91045238799, "name": "ST-017 isolated validation", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045238882, "name": "adjacent-construction-receipt", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045270787, "name": "bootstrap-validate", "conclusion": "success", "complete_log_retrieved": true}
+      ],
+      "first_failed_step": null,
+      "artifacts": [
+        {"id": 8779753385, "name": "site-mirror-live-verification-result", "size_in_bytes": 353, "digest": "sha256:97a4344c4acef4232d8db289589b55138711365bef2d999480b19dd4a3de4036", "expired": false},
+        {"id": 8779753093, "name": "site-application-validation-result", "size_in_bytes": 12911, "digest": "sha256:ac78c5815656d15395ba1523b37f803fa1739fa53506cf599189f651e10d63da", "expired": false},
+        {"id": 8779747647, "name": "site-adjacent-construction-receipt", "size_in_bytes": 1287, "digest": "sha256:b0bc0b3f2b10d750b428c1070c47887224152c25cf54b38d65aa1b54fc17e294", "expired": false},
+        {"id": 8779746775, "name": "site-st017-sandbox-report", "size_in_bytes": 3346, "digest": "sha256:01ed309e900460db207791106233deff40645a0792158fe2f17d290c7236addb", "expired": false}
+      ]
+    },
+    {
+      "commit_sha": "3f69a06176de49cab523c280e2028bd3cc85df04",
+      "run_id": 30594992569,
+      "run_number": 2588,
+      "event": "push",
+      "conclusion": "success",
+      "jobs": [
+        {"id": 91045333014, "name": "adjacent-construction-receipt", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045333025, "name": "ST-017 isolated validation", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045364488, "name": "bootstrap-validate", "conclusion": "success", "complete_log_retrieved": true}
+      ],
+      "first_failed_step": null,
+      "pilot_validation_step": {
+        "name": "Validate HIL pilot ledger and deterministic fixtures",
+        "conclusion": "success",
+        "log_results": [
+          "PASS: data/hil-pilot-ledger.json (2 entries, fail-closed semantics verified)",
+          "PASS: 16 deterministic HIL pilot positive/negative fixture cases"
+        ]
+      },
+      "artifacts": [
+        {"id": 8779767920, "name": "site-mirror-live-verification-result", "size_in_bytes": 353, "digest": "sha256:0840b26d3db49a0a28f5e759cadb039f1915aee17bd76b7cb312137709afe6c2", "expired": false},
+        {"id": 8779767557, "name": "site-application-validation-result", "size_in_bytes": 12916, "digest": "sha256:d8bf18e3b3091305539777bff4015bfdbea20392f0e2d4a08c4e0096c67e14ac", "expired": false},
+        {"id": 8779758265, "name": "site-st017-sandbox-report", "size_in_bytes": 3352, "digest": "sha256:ea7e61bed0948903b8ae7157abc51b8c60259140a255d5aeca16e0c743120b47", "expired": false},
+        {"id": 8779756521, "name": "site-adjacent-construction-receipt", "size_in_bytes": 1287, "digest": "sha256:28551c1ed0e354889a6cd9f408a5c9073371c3f2cb77887d03d313e7dfff25e6", "expired": false}
+      ]
+    },
+    {
+      "commit_sha": "3391e30ca7894f4364d4a23c3ee7de3c169148b4",
+      "run_id": 30595185389,
+      "run_number": 2591,
+      "event": "push",
+      "conclusion": "success",
+      "jobs": [
+        {"id": 91045929728, "name": "adjacent-construction-receipt", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045929748, "name": "ST-017 isolated validation", "conclusion": "success", "complete_log_retrieved": true},
+        {"id": 91045964669, "name": "bootstrap-validate", "conclusion": "success", "complete_log_retrieved": true}
+      ],
+      "first_failed_step": null,
+      "pilot_validation_step": {
+        "name": "Validate HIL pilot ledger and deterministic fixtures",
+        "conclusion": "success",
+        "log_results": [
+          "PASS: data/hil-pilot-ledger.json (2 entries, fail-closed semantics verified)",
+          "PASS: 16 deterministic HIL pilot positive/negative fixture cases"
+        ]
+      },
+      "artifacts": [
+        {"id": 8779836300, "name": "site-mirror-live-verification-result", "size_in_bytes": 353, "digest": "sha256:a1f131a23168b74bfd88eec17b0b4fbd2875a707ae5ba858ffde0c67836db4e4", "expired": false},
+        {"id": 8779835906, "name": "site-application-validation-result", "size_in_bytes": 12913, "digest": "sha256:04ec3fe2e5f929f9bb578d7c57bdd268c974d023f252cb8877beb1817bab452d", "expired": false},
+        {"id": 8779827437, "name": "site-st017-sandbox-report", "size_in_bytes": 3354, "digest": "sha256:f5849176b2ce1846e421ddd3a22319e0d06a919443e6daabb498a8b086fc58ed", "expired": false},
+        {"id": 8779826424, "name": "site-adjacent-construction-receipt", "size_in_bytes": 1285, "digest": "sha256:47254c664179dbdfd4ca0d32a0f65e93b5b9370968b3c22bd8e0bef82b805817", "expired": false}
+      ]
+    }
+  ],
+  "summary": {
+    "runs_retrieved": 4,
+    "jobs_retrieved": 12,
+    "complete_job_logs_retrieved": 12,
+    "artifacts_retrieved": 16,
+    "successful_runs": 4,
+    "failed_runs": 0,
+    "first_failed_steps": 0,
+    "proven_fixture_defects": 0,
+    "proven_workflow_defects": 0
+  },
+  "model_state_mutated": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "release_effect": false
+}
