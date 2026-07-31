@@ -2,14 +2,36 @@
 
 ## Source of truth
 
-This document owns HIL continuation in `StegVerse-Labs/Site` and is subordinate to `docs/SITE_MIRROR_HANDOFF.md`. Read in order with `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_END_TO_END_PROTOCOL.md`, `docs/HIL_V1_UPLOAD_MIRROR_HANDOFF.md`, `docs/HIL_START_ANNOUNCEMENT.md`, and the HIL machine-state records.
+This document owns HIL continuation in `StegVerse-Labs/Site` and is subordinate to `docs/SITE_MIRROR_HANDOFF.md`.
 
-## Current goal
+Read in order with:
 
-Operate two explicitly separate readiness classes:
+1. `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
+2. `docs/SITE_MIRROR_HANDOFF.md`
+3. `docs/HIL_SITE_MIRROR_HANDOFF.md`
+4. `docs/HIL_EXECUTION_SESSION_PROMPT.md`
+5. `docs/HIL_MIRROR_HANDOFF.md`
+6. `docs/HIL_PILOT_VALIDATION_MIRROR_HANDOFF.md`
+7. `docs/HIL_ANNOUNCEMENT_DERIVATION_MIRROR_HANDOFF.md`
+8. `docs/HIL_END_TO_END_PROTOCOL.md`
+9. `docs/HIL_V1_UPLOAD_MIRROR_HANDOFF.md`
+10. `docs/HIL_START_ANNOUNCEMENT.md`
+11. all HIL machine-state and failure-evidence records.
 
-1. `ANNOUNCEMENT_READY_WITH_MANAGED_RETURN`: exact v1.1 paper and prompt, unchanged response PDF, verified package, optional local receipt, and managed receiving acknowledgment that claims no governed custody.
-2. Production receiver activation: live route and D1 binding, exact-byte custody, controlled-cycle PASS, machine-published readiness, restart persistence, genuine participant receipt, private review, separately authenticated publication, Site projection, Master Record release, and downstream verification.
+## Primary objective
+
+Start the HIL experiment and complete the first full governed participant lifecycle as soon as possible.
+
+Success requires a real participant to complete the end-to-end workflow with preserved exact bytes, valid receipts, durable custody, reconstruction, governed review, separately authenticated publication, Site projection, HIL Master Record release, and downstream verification.
+
+## Readiness classes
+
+The repository operates two explicitly separate readiness classes:
+
+1. `ANNOUNCEMENT_READY_WITH_MANAGED_RETURN`: exact v1.1 paper and prompt, unchanged response PDF, verified package, optional local receipt, and a managed receiving acknowledgment that claims no governed custody.
+2. Production receiver activation: live route and D1 binding, exact-byte custody, controlled-cycle PASS, machine-published readiness, hosted restart persistence, genuine participant receipt, private review, separately authenticated publication, Site projection, Master Record release, and downstream verification.
+
+Managed-return readiness is not production activation.
 
 ## Canonical contract
 
@@ -24,43 +46,41 @@ Binding: HIL_REGISTRY
 Backend: portable-sqlite-chunks-v1
 Primary: v1.1 / a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
 Prompt: HIL-PROMPT-v1.1 / cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+Test case: HIL-E2E-001
+Synthetic boundaries: research_data=false; authority_effect=false
 ```
 
-## Reconciled repository state
+## Current pilot state
 
-The session began from head `b38224de52ad64222937097ca42c3d31aa878e8d`, which is newer than `89f51b293804439739bda2746017d311e41e7038` and preserves concurrent authority-inspection work from `5907fe983c77c36b1305234df3c44e28bdde87de`, `d036a797bacfe22c5905ff3b661673dbd1034207`, and `b38224de52ad64222937097ca42c3d31aa878e8d`.
-
-Newest pilot implementation commits in this session:
-
-```text
-96e5e91649c22d02191c874d08911baf52666072  data/schemas/hil-pilot-ledger.schema.json
-e3eeddccc3153851d0631e5aad43c4c77d118175  scripts/validate_hil_pilot_ledger.py
-c4c86010a2cf73cab3e435b34bf65595506bfb32  data/schemas/hil-managed-receiving-acknowledgment.schema.json
-616056e210db4a6d9c98aa10255c9dac90c96f40  scripts/ingest_hil_pilot_return.py
-192b7cdac1b7a3c6b4267f260e8411a57f3f783a  data/schemas/hil-pilot-comparison.schema.json
-0e5ee803c57a46803f9ab4f9fa0a27508ee77667  scripts/generate_hil_pilot_comparison.py
-```
-
-Latest production-authority inspection head before this handoff update: `20da57673f3bdd42507e47980b34896e54cd1e86`.
-
-## Pilot state and semantics
-
-`data/hil-pilot-ledger.json` remains unchanged and fail-closed:
+`data/hil-pilot-ledger.json` remains fail-closed:
 
 ```text
 Claude Opus 5: MODEL_REQUEST_INITIATED_RESPONSE_NOT_RECEIVED
 ChatGPT Medium 5.6: MODEL_REQUEST_INITIATED_RESPONSE_NOT_RECEIVED
+model requests initiated: 2
 completed response PDFs: 0
 verified return packages: 0
 managed receiving acknowledgments: 0
 governed receiver receipts: 0
 ```
 
-No response completion, receipt, custody, registry, review, publication, or Master Record status was invented.
+No response completion, receipt, governed custody, registry commitment, private review, publication, endorsement, or Master Record release is established.
 
-The new ledger validator enforces JSON Schema, unique submission IDs, canonical paper/prompt identities, count reconciliation, complete response identity before non-pending status, and no registry claim without custody.
+The pilot toolchain now includes:
 
-The managed acknowledgment schema requires successful PDF signature/hash/size, package canonical hash, paper identity, and prompt identity verification while fixing these boundaries:
+```text
+data/schemas/hil-pilot-ledger.schema.json
+scripts/validate_hil_pilot_ledger.py
+data/schemas/hil-managed-receiving-acknowledgment.schema.json
+scripts/ingest_hil_pilot_return.py
+data/schemas/hil-pilot-comparison.schema.json
+scripts/generate_hil_pilot_comparison.py
+scripts/test_hil_pilot_validation.py
+```
+
+The deterministic pilot suite contains 16 positive and negative cases and is bound into canonical Site validation.
+
+## Managed acknowledgment boundary
 
 ```text
 custody_status: MANAGED_RETURN_PRESERVED_NO_GOVERNED_CUSTODY
@@ -70,65 +90,149 @@ publication_status: NOT_PUBLISHED
 authority_effect: false
 ```
 
-The ingestion utility accepts an unchanged PDF, package JSON, and optional local receipt; verifies `%PDF-`, SHA-256, byte size, package canonical hash, paper identity, prompt identity, and optional receipt bindings; then emits only the managed acknowledgment above.
+The acknowledgment proves only receipt and verification of a participant-managed artifact. It does not establish server custody, registry commitment, reconstruction, review acceptance, publication, endorsement, or authority.
 
-The comparison generator is fail-closed until at least two verified response packages exist. It creates an explicit rubric skeleton and preserves agreement, disagreement, uncertainty, limitations, and withheld claims without inferring response content.
+## Machine-derived announcement status
+
+The manually maintained announcement posture has been replaced by deterministic fail-closed derivation.
+
+Verified implementation commits:
+
+```text
+035949885f185f45756c8b0b5a8947e5231d7171  derivation generator
+3f8077e0bc989334280d194a738455ae73094767  deterministic tests
+9ae0802f89f29d55853e5235a103cde961673246  strict status schema
+fcf87a376a8628572411286507e7a8dd706365e3  machine-derived status v2
+bb36d1f7b761bff694729f2674caeeb5ff9e30da  announcement workflow binding
+02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a  canonical Site validation binding
+```
+
+Current derived status:
+
+```text
+schema_version: HIL-ANNOUNCEMENT-STATUS-v2
+announcement_state: ANNOUNCEMENT_READY_WITH_MANAGED_RETURN
+participant_intake_state: OPEN_MANAGED_RETURN
+announcement_permitted: true
+participant_warning_required: true
+production_receiver.ready: false
+authority_effect: false
+```
+
+The derivation verifies canonical PDF signature, byte size, SHA-256, prompt identity, ledger identity and authority boundaries, required managed-return components, deployment state, controlled-cycle state, participant readiness, and optional restart-persistence evidence.
+
+It supports only:
+
+```text
+ANNOUNCEMENT_NOT_READY
+ANNOUNCEMENT_READY_WITH_MANAGED_RETURN
+ANNOUNCEMENT_READY_WITH_PRODUCTION_RECEIVER
+```
+
+Production promotion requires deployment readiness, controlled-cycle PASS, participant readiness PASS, upload authorization, and restart-persistence PASS. No static artifact or configuration can promote the state.
+
+## Orchestration state
+
+`SITE-0001-HIL-ANNOUNCEMENT-DERIVATION` is recorded as a completed parallel-safe task in both Site orchestration and the transition-driven heartbeat.
+
+Continuity commits:
+
+```text
+0dfd93e3cf46cf5d6915283a124c727349752e4a  Site orchestration completion record
+a549cd7665578782bb28b6b043f062f6e00f5fc1  heartbeat advancement
+74d8c47b65a1c71a076be50cba6a5c3d3af4101f  dedicated derivation mirror handoff
+1828b3ad8c835361a523ecbfdf6550a001c2a5e6  pilot handoff reconciliation
+```
+
+The active upload task remains separate:
+
+```text
+Task: SITE-0001-UPLOAD
+Owner: external-active-session
+Claimed paths:
+- humans-as-interoperability-layer.html
+- assets/hil-*
+- scripts/check_hil_*upload*
+State: RUNNING
+```
+
+This completed tranche did not modify those paths. The current work sequence remains running and the exclusive production slice is still queued behind the canonical idle barrier.
+
+## Exact production failure evidence
+
+The known controlled-cycle run, job, complete logs, and artifact were retrieved directly and preserved in `data/hil-controlled-cycle-failure-evidence-30569491378.json` at commit `aa93ec509eaf8dd5c14f4f5ada72cda542e9cc07`.
+
+```text
+Workflow: hil-controlled-cycle.yml
+Run ID: 30569491378
+Run head: 04116dd23e6797406b603a06d30f24666e8778a3
+Run conclusion: failure
+Job ID: 90962296249
+Job: participant-readiness-gate
+First failed step: Capture and validate live runtime readiness
+Endpoint: https://stegverse.org/api/hil/readiness
+HTTP status: 404
+curl exit: 22
+Provider message: The requested URL returned error: 404
+```
+
+Failure artifact:
+
+```text
+Artifact ID: 8770179722
+Name: hil-participant-readiness-30569491378-1
+Size: 1155 bytes
+Digest: sha256:b202bf1fb6341a6d5fde36c72a347b544284981a1b42c1f8b8e4bc1f3c2d0edd
+Created: 2026-07-30T18:13:57Z
+Expires: 2026-10-28T18:13:52Z
+Expired: false
+```
+
+All packet generation, submission, retrieval, custody verification, negative-case verification, and participant-readiness enforcement steps were skipped after readiness failed.
 
 ## Current verified production state
 
 ```text
-Controlled-cycle run: 30569491378
-Controlled-cycle job: 90962296249
-Conclusion: failure
-First failed step: Capture and validate live runtime readiness
-Exact live result: https://stegverse.org/api/hil/readiness returned HTTP 404; curl exit 22
-Deployment state: deployed=false, ready=false
-Deployment failure: deployment_step_failed_before_live_probe
+Deployment trigger commit: d5d1598a8c523e8665e4550ee5c272df09256379
+Deployment state: deployed=false
+Deployment readiness: ready=false
+Deployment failure marker: deployment_step_failed_before_live_probe
+Controlled-cycle result: failure
 Participant readiness: NOT_YET_VERIFIED
 participant_ready: false
 upload_button_authorized: false
 production submission: absent
 production receiver receipt: absent
-restart persistence: unproven
+exact-byte custody: unproven
+negative cases: not executed after readiness failure
+hosted restart persistence: unproven
+release/tag authority: false
 ```
 
-## Current-session production authority inspection — 2026-07-31T00:52Z
+The logs prove only that the production domain did not serve `/api/hil/readiness` during the controlled cycle. They do not prove the cause of the deployment failure, the existence or absence of `HIL_REGISTRY`, the configured Worker route, or the exact Cloudflare permission/resource defect.
 
-- Read the five required handoffs in full and in order.
-- Verified `main` at `20da57673f3bdd42507e47980b34896e54cd1e86` before handoff mutation.
-- Verified requested handoff commits `b38224de52ad64222937097ca42c3d31aa878e8d` and `b9f2892a962ac11e3e7caa51d827058c109a1486` are ancestors of current `main` by eight and seven commits respectively.
-- Queried the only available commit-associated workflow-run action for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`; it returned `workflow_runs: []` and is explicitly restricted to pull-request-triggered runs.
-- The GitHub connector provides job, step, log, artifact, and rerun actions only for already-known run/job IDs. It does not provide general workflow-run enumeration or workflow dispatch for `.github/workflows/hil-cloudflare-deploy.yml`.
-- No direct Cloudflare Worker, deployment, route, D1, binding, or runtime-log controls are exposed.
-- Therefore the exact deployment run ID, job ID, failed step, and complete provider error cannot be retrieved in this environment. No provider defect was guessed, readiness remains fail-closed, and no release or downstream propagation was attempted.
+## Exact external-authority block
 
-## Current-session production authority inspection — 2026-07-31T00:56Z
+The current GitHub connector can inspect jobs, steps, complete logs, artifacts, and rerun controls only for already-known identifiers. It cannot enumerate or dispatch the push-triggered `HIL Cloudflare Receiver Deploy` workflow. No direct Cloudflare Worker, route, deployment, D1, binding, custom-domain, or runtime-log controls are exposed.
 
-- Independently discovered the current connector actions rather than inheriting the prior session conclusion.
-- Available GitHub actions include repository file inspection and mutation; known-run job, step, complete job-log, and artifact inspection; artifact download; and rerun controls for already-known run or job IDs.
-- No general workflow-run listing and no workflow-dispatch action are exposed. The commit-associated lookup is explicitly limited to pull-request-triggered runs and returned `workflow_runs: []` for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
-- No direct Cloudflare Workers, deployments, routes, D1 databases, bindings, custom domains, restart controls, or runtime logs are exposed.
-- Reverified the persisted deployment result exactly: `deployed=false`, `ready=false`, `failure=deployment_step_failed_before_live_probe`, `authority_effect=false`.
-- Because the deployment run/job identifier cannot be discovered, the known-run log and rerun actions cannot be applied. No defect was guessed, no manual readiness or announcement promotion occurred, and no release/downstream propagation was authorized.
-- Handoff commits created by this authority inspection: `fd9f7bf20c4a18a8eff61a094e52f947a55ad967` for `docs/HIL_MIRROR_HANDOFF.md`; this file's resulting commit is recorded by the repository update response.
+The blocked operation is retrieval of the deployment run associated with trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`, including its run ID, deployment job, failed step, and full provider logs; alternatively, direct inspection of the serving Cloudflare Worker/D1 control plane.
 
-## Exact production authority block
-
-The available GitHub connector can inspect known run/job IDs but cannot enumerate or dispatch the push-triggered `HIL Cloudflare Receiver Deploy` workflow. It exposes no direct Cloudflare Worker, route, deployment, D1, binding, log, restart, or custom-domain controls. Therefore the newest deploy run ID, deploy job ID, exact failed deployment step, and provider error cannot be retrieved in this session. No deployment defect was guessed or repaired.
-
-The next execution environment requires either general GitHub Actions workflow-run listing/dispatch for `.github/workflows/hil-cloudflare-deploy.yml`, or direct Cloudflare Workers/D1 control-plane access.
+No deployment defect was guessed and no speculative repair was applied.
 
 ## Next production path
 
-1. Retrieve the newest deployment run/job/logs or inspect Cloudflare directly.
-2. Repair only the proven defect.
-3. Verify `HIL_REGISTRY` and route only `stegverse.org/api/hil/*` to `src/worker.js`.
-4. Require `/api/hil/probes` HTTP 200.
-5. Require `/api/hil/readiness` HTTP 200, `READY`, and exact v1.1 identities.
-6. Run the complete controlled cycle and verify receipt, status, exact bytes, hash, size, chunks, provenance, custody, and deterministic negative cases.
-7. Publish readiness only from the successful source run.
-8. Prove real hosted restart/replacement persistence.
-9. Continue through genuine participant submission, private review, separately authenticated publication, Site projection, Master Record release, release/tag evaluation, and authorized downstream verification.
+1. Retrieve the deployment run/job/logs for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`, or inspect Cloudflare directly.
+2. Preserve the exact failed provider operation.
+3. Repair only the proven defect.
+4. Verify or create `HIL_REGISTRY` and bind it to `src/worker.js`.
+5. Route only `stegverse.org/api/hil/*`, preserving unrelated routes.
+6. Require `/api/hil/probes` HTTP 200.
+7. Require `/api/hil/readiness` HTTP 200, `state: READY`, and exact v1.1 identities.
+8. Run the controlled cycle and verify receipt, status, exact bytes, hash, size, chunks, provenance, custody, and deterministic negative cases.
+9. Publish participant readiness only from successful evidence.
+10. Prove a real hosted redeployment/restart persistence cycle.
+11. Verify the public upload and received pages end-to-end.
+12. Complete a genuine participant submission, private review, separately authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification.
 
 ## Next pilot path
 
@@ -139,28 +243,27 @@ python scripts/ingest_hil_pilot_return.py RESPONSE.pdf PACKAGE.json [--local-rec
 python scripts/validate_hil_pilot_ledger.py
 ```
 
-Only after two entries have verified return packages may `scripts/generate_hil_pilot_comparison.py` create a comparison skeleton for governed content review.
+Only after at least two verified return packages exist may `scripts/generate_hil_pilot_comparison.py` create a governed comparison skeleton.
 
 ## Remaining modules and destinations
 
 ```text
 StegVerse-Labs/Site:
-- bind the new validators into canonical application validation/CI
-- add fixtures for valid and invalid ledger, package, acknowledgment, and comparison records
-- derive announcement status from machine evidence
-- obtain exact deployment run/job/log evidence
+- observe workflow conclusions for the new derivation and validation commits
+- finish the separately owned HIL upload surface
+- retrieve exact deployment run/job/provider evidence
 - prove live Worker route and HIL_REGISTRY operation
 - controlled-cycle PASS and restart-persistence PASS
 - genuine participant submission and receiver receipt
 - authenticated private review and append-only publication
 - Site projection and HIL Master Record release
 
-Authorized only after verified release:
+Authorized only after verified activation and release:
 - master-records/orchestration
 - GCAT-BCAT-Engine/Publisher
 - StegVerse-Labs/admissibility-wiki
 - StegVerse-002/stegguardian-wiki
-- StegVerse-Labs/Sit only after repository identity is independently verified
+- StegVerse-Labs/Sit only after repository identity and role are independently verified
 ```
 
 ## Release posture
@@ -169,8 +272,8 @@ No tag or release is authorized. Production receiver activation, restart persist
 
 ## Next-session prompt
 
-Use the connected GitHub repository directly and continue HIL activation in `StegVerse-Labs/Site`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, and `docs/SITE_MIRROR_HANDOFF.md` in that order, then inspect the newest repository head and HIL machine-state files. First retrieve the push-triggered `HIL Cloudflare Receiver Deploy` run and job associated with trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379` using general GitHub Actions workflow-run listing/dispatch, or inspect the corresponding Cloudflare Worker/D1 deployment directly. Retrieve the exact failed step and complete provider error, repair only the proven defect, then continue through scoped Worker deployment, `HIL_REGISTRY`, probes/readiness, exact v1.1 controlled-cycle PASS, exact-byte custody and retrieval, negative cases, machine-derived readiness, restart persistence, public upload/received verification, release/tag evaluation, and authorized downstream verification. Do not repeat connector discovery already preserved except to verify this session's actual actions. Update both HIL handoffs before responding and stop only at complete live success or one exact newly proven external-authority blocker.
+Use the connected GitHub repository directly and continue HIL activation in `StegVerse-Labs/Site`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `docs/HIL_EXECUTION_SESSION_PROMPT.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_PILOT_VALIDATION_MIRROR_HANDOFF.md`, and `docs/HIL_ANNOUNCEMENT_DERIVATION_MIRROR_HANDOFF.md` in that order, then inspect the newest repository head, orchestration state, heartbeat, and all HIL machine-state and failure-evidence records. Preserve the active upload owner and claimed paths. When general Actions listing is available, inspect workflow conclusions for the announcement derivation tranche and repair only proven defects. For production, retrieve the push-triggered `HIL Cloudflare Receiver Deploy` run associated with commit `d5d1598a8c523e8665e4550ee5c272df09256379`, or inspect the corresponding Cloudflare Worker/D1 deployment directly. Preserve the exact failed step and provider error, repair only the proven defect, then continue through scoped routing, `HIL_REGISTRY`, probes/readiness, exact-byte controlled-cycle PASS, negative cases, machine-derived production readiness, hosted restart persistence, genuine participant receipt, private review, authenticated publication, Site projection, Master Record release, release/tag evaluation, and authorized downstream verification. Update every applicable handoff and machine-state record before responding. Stop only at live success or one exact newly proven external-authority blocker.
 
 ## Archive readiness
 
-The complete continuation state is preserved in repository handoffs, machine-state records, schemas, utilities, commit history, and the prompt above. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
+The current implementation, exact controlled-cycle logs and artifact identity, machine-derived announcement state, orchestration continuity, remaining modules, authority boundaries, and continuation prompt are preserved in repository evidence. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
