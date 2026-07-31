@@ -1,0 +1,18 @@
+{
+  "authority_effect": false,
+  "canonical_primary_link_present": true,
+  "intake_target": "https://github.com/StegVerse-Labs/Site/issues/new?template=hil-response-packet.yml",
+  "intake_target_reachable": true,
+  "observed_at": "2026-07-31T19:57:54.176682Z",
+  "page_loaded": true,
+  "pdf_selector_present": true,
+  "pdf_signature_validation_present": true,
+  "public_http_status": 200,
+  "public_page_sha256": "df7698c9f3b46ee66b27931cca4437ff46595b881777726d688e26a1a031b403",
+  "public_url": "https://stegverse.org/humans-as-interoperability-layer.html",
+  "result": "PASS",
+  "safari_crash_script_set_removed": true,
+  "schema_version": "HIL-PUBLIC-PAGE-PROOF-v1",
+  "source_commit": "eced33970c5b86b4e79e2b33cbd2841068f79703",
+  "upload_button_present": true
+}
