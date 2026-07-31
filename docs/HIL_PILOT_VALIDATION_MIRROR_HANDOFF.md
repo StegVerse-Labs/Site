@@ -9,7 +9,7 @@ This is the most specific handoff for the HIL pilot-ledger, managed-return ackno
 ```text
 e8e39115b245258964939c5b4583dd46b22c623b  fixture-addressable pilot ledger validator
 aa95c1267a8cf889a53b1e869be78ade18764679  deterministic pilot validation fixtures
-3f69a06176de49cab3e435b34bf65595506bfb32  canonical workflow binding
+3f69a06176de49cab523c280e2028bd3cc85df04  canonical workflow binding
 ```
 
 ## Verified announcement-derivation commits
