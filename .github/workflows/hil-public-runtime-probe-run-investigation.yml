@@ -1,0 +1,111 @@
+name: HIL Public Runtime Probe Run Investigation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hil-public-runtime-probe-run-investigation.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  trace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TARGET_SHA: 39324174ed22fded3368d8475b0ad084d62c20fd
+      TARGET_WORKFLOW: hil-public-runtime-probe-investigation.yml
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Retrieve target probe run and logs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, time, urllib.parse, urllib.request
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          repo = os.environ['GITHUB_REPOSITORY']
+          token = os.environ['GH_TOKEN']
+          sha = os.environ['TARGET_SHA']
+          workflow = os.environ['TARGET_WORKFLOW']
+          api = f'https://api.github.com/repos/{repo}'
+          headers = {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': f'Bearer {token}',
+              'X-GitHub-Api-Version': '2022-11-28',
+              'User-Agent': 'stegverse-hil-probe-run-investigator',
+          }
+
+          def get_json(url):
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  return json.loads(r.read().decode())
+
+          runs = []
+          for _ in range(18):
+              query = urllib.parse.urlencode({'head_sha': sha, 'event': 'push', 'per_page': 20})
+              payload = get_json(f'{api}/actions/workflows/{workflow}/runs?{query}')
+              runs = [r for r in payload.get('workflow_runs', []) if r.get('head_sha') == sha]
+              if runs and runs[-1].get('status') == 'completed':
+                  break
+              time.sleep(5)
+
+          receipt = {
+              'schema_version': 'HIL-PUBLIC-RUNTIME-PROBE-RUN-INVESTIGATION-v1',
+              'repository': repo,
+              'target_workflow': workflow,
+              'target_sha': sha,
+              'collected_at': datetime.now(timezone.utc).isoformat().replace('+00:00','Z'),
+              'collector_run_id': int(os.environ['GITHUB_RUN_ID']),
+              'matching_run_count': len(runs),
+              'authority_effect': False,
+              'activation_effect': False,
+          }
+          evidence = Path('evidence/hil-public-runtime-probe-run')
+          evidence.mkdir(parents=True, exist_ok=True)
+
+          if runs:
+              run = sorted(runs, key=lambda r: r.get('created_at') or '')[-1]
+              receipt['run'] = {k: run.get(k) for k in (
+                  'id','run_number','run_attempt','name','display_title','event','head_branch','head_sha',
+                  'status','conclusion','created_at','updated_at','run_started_at','html_url')}
+              jobs = get_json(f"{api}/actions/runs/{run['id']}/jobs?filter=all&per_page=100").get('jobs', [])
+              receipt['jobs'] = []
+              for job in jobs:
+                  receipt['jobs'].append({
+                      'id': job.get('id'),
+                      'name': job.get('name'),
+                      'status': job.get('status'),
+                      'conclusion': job.get('conclusion'),
+                      'steps': [{
+                          'number': s.get('number'), 'name': s.get('name'),
+                          'status': s.get('status'), 'conclusion': s.get('conclusion')
+                      } for s in (job.get('steps') or [])],
+                  })
+          else:
+              receipt['exact_remaining_blocker'] = 'No target probe run was returned by GitHub Actions API.'
+
+          Path('data/hil-public-runtime-probe-run-investigation.json').write_text(
+              json.dumps(receipt, indent=2, sort_keys=True) + '\n'
+          )
+          PY
+
+      - name: Commit probe-run evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'stegverse-hil-probe-investigator'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/hil-public-runtime-probe-run-investigation.json
+          git commit -m 'evidence(hil): preserve public probe run result'
+          git pull --rebase origin main
+          git push origin HEAD:main
