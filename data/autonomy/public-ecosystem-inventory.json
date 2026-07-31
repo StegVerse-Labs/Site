@@ -1,17 +1,17 @@
 {
   "classification_counts": {
     "ROLE_EXIT_GATE_COMPLETE": 0,
-    "ROLE_EXIT_GATE_INCOMPLETE": 73
+    "ROLE_EXIT_GATE_INCOMPLETE": 74
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-07-31T17:15:46Z",
+  "generated_at": "2026-07-31T18:59:58Z",
   "organizations": [
     {
       "enumeration_error": null,
       "inspection_error_count": 0,
       "organization": "StegVerse-Labs",
-      "repository_count": 47
+      "repository_count": 48
     },
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-31T17:04:02Z",
+      "pushed_at": "2026-07-31T18:52:46Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -907,6 +907,46 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-Labs/Boundary-Test"
+    },
+    {
+      "archived": false,
+      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
+      "completion": false,
+      "completion_evidence_failures": [
+        "completion_evidence_missing"
+      ],
+      "completion_evidence_valid": false,
+      "inspection_errors": [],
+      "missing_gates": [
+        "completion_evidence_missing",
+        "deployment_or_runtime_configuration",
+        "machine_validation_workflow",
+        "objective_contract"
+      ],
+      "next_action": "satisfy role-specific exit gates: repository_role_determination",
+      "objective_contract_valid": false,
+      "observed_artifacts": {
+        "completion": [],
+        "deployment": [],
+        "handoff": [
+          "README.md"
+        ],
+        "objective": [],
+        "workflow": []
+      },
+      "pushed_at": "2026-07-31T17:21:28Z",
+      "repository": "StegVerse-Labs/Consumer-Redress-Ledger",
+      "repository_role": "UNCLASSIFIED",
+      "role_assignment_reason": "no deterministic role rule matched",
+      "role_exit_gate_complete": false,
+      "role_missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role_required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "successor_eligible": false,
+      "url": "https://github.com/StegVerse-Labs/Consumer-Redress-Ledger"
     },
     {
       "archived": false,
@@ -1704,7 +1744,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-07-31T16:10:26Z",
+      "pushed_at": "2026-07-31T18:51:23Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2197,7 +2237,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-31T15:38:44Z",
+      "pushed_at": "2026-07-31T18:06:23Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2489,7 +2529,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-07-31T15:31:15Z",
+      "pushed_at": "2026-07-31T17:55:49Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2762,7 +2802,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-07-31T15:47:48Z",
+      "pushed_at": "2026-07-31T18:49:40Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
@@ -3177,7 +3217,7 @@
       "url": "https://github.com/master-records/monitoring"
     }
   ],
-  "repository_count": 73,
+  "repository_count": 74,
   "repository_role_taxonomy_path": "data/autonomy/repository-role-taxonomy.json",
   "role_complete_counts": {},
   "role_counts": {
@@ -3187,7 +3227,7 @@
     "LIBRARY_OR_SDK": 3,
     "RUNTIME_PRODUCT": 1,
     "TEST_OR_FIXTURE": 8,
-    "UNCLASSIFIED": 43
+    "UNCLASSIFIED": 44
   },
   "schema_version": "1.1"
 }
