@@ -1,0 +1,111 @@
+name: HIL Public Runtime Probe Investigation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hil-public-runtime-probe-investigation.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hil-public-runtime-probe-investigation
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Capture public HIL runtime responses
+        shell: bash
+        run: |
+          set -u
+          mkdir -p evidence/hil-public-runtime-probe
+          for endpoint in probes readiness; do
+            curl --silent --show-error --max-time 30 \
+              --header 'Accept: application/json' \
+              --output "evidence/hil-public-runtime-probe/${endpoint}.body" \
+              --dump-header "evidence/hil-public-runtime-probe/${endpoint}.headers" \
+              --write-out '%{http_code}' \
+              "https://stegverse.org/api/hil/${endpoint}" \
+              > "evidence/hil-public-runtime-probe/${endpoint}.status" 2> "evidence/hil-public-runtime-probe/${endpoint}.stderr"
+            printf '%s\n' "$?" > "evidence/hil-public-runtime-probe/${endpoint}.curl-exit"
+          done
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          root = Path('evidence/hil-public-runtime-probe')
+          responses = {}
+          for endpoint in ('probes', 'readiness'):
+              status_text = (root / f'{endpoint}.status').read_text().strip()
+              body_text = (root / f'{endpoint}.body').read_text(errors='replace') if (root / f'{endpoint}.body').exists() else ''
+              headers_text = (root / f'{endpoint}.headers').read_text(errors='replace') if (root / f'{endpoint}.headers').exists() else ''
+              stderr_text = (root / f'{endpoint}.stderr').read_text(errors='replace') if (root / f'{endpoint}.stderr').exists() else ''
+              curl_exit_text = (root / f'{endpoint}.curl-exit').read_text().strip()
+              parsed = None
+              try:
+                  parsed = json.loads(body_text)
+              except Exception:
+                  pass
+              responses[endpoint] = {
+                  'url': f'https://stegverse.org/api/hil/{endpoint}',
+                  'http_status': int(status_text) if status_text.isdigit() else None,
+                  'curl_exit_code': int(curl_exit_text) if curl_exit_text.isdigit() else None,
+                  'headers': headers_text,
+                  'body_text': body_text,
+                  'body_json': parsed,
+                  'stderr': stderr_text,
+              }
+
+          readiness = responses['readiness'].get('body_json')
+          receipt = {
+              'schema_version': 'HIL-PUBLIC-RUNTIME-PROBE-v1',
+              'repository': os.environ['GITHUB_REPOSITORY'],
+              'recorded_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'collector_run_id': int(os.environ['GITHUB_RUN_ID']),
+              'responses': responses,
+              'verification': {
+                  'probes_http_200': responses['probes']['http_status'] == 200,
+                  'readiness_http_200': responses['readiness']['http_status'] == 200,
+                  'readiness_state_ready': isinstance(readiness, dict) and readiness.get('state') == 'READY',
+                  'canonical_primary_v1_1': isinstance(readiness, dict) and readiness.get('primary', {}).get('version') == 'v1.1' and readiness.get('primary', {}).get('sha256') == 'a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462',
+                  'canonical_prompt_v1_1': isinstance(readiness, dict) and readiness.get('prompt', {}).get('version') == 'HIL-PROMPT-v1.1' and readiness.get('prompt', {}).get('sha256') == 'cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c',
+                  'hil_registry_bound_and_reachable': isinstance(readiness, dict) and readiness.get('storage', {}).get('binding') == 'HIL_REGISTRY' and readiness.get('storage', {}).get('reachable') is True,
+              },
+              'research_data': False,
+              'authority_effect': False,
+              'activation_effect': False,
+          }
+          Path('data/hil-public-runtime-probe-latest.json').write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Commit public probe evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'stegverse-hil-public-prober'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/hil-public-runtime-probe-latest.json evidence/hil-public-runtime-probe/
+          git commit -m 'evidence(hil): capture current public receiver responses'
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Upload public probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hil-public-runtime-probe-${{ github.run_id }}
+          path: |
+            data/hil-public-runtime-probe-latest.json
+            evidence/hil-public-runtime-probe/
+          retention-days: 90
