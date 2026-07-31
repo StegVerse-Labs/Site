@@ -102,6 +102,16 @@ restart persistence: unproven
 - No direct Cloudflare Worker, deployment, route, D1, binding, or runtime-log controls are exposed.
 - Therefore the exact deployment run ID, job ID, failed step, and complete provider error cannot be retrieved in this environment. No provider defect was guessed, readiness remains fail-closed, and no release or downstream propagation was attempted.
 
+## Current-session production authority inspection — 2026-07-31T00:56Z
+
+- Independently discovered the current connector actions rather than inheriting the prior session conclusion.
+- Available GitHub actions include repository file inspection and mutation; known-run job, step, complete job-log, and artifact inspection; artifact download; and rerun controls for already-known run or job IDs.
+- No general workflow-run listing and no workflow-dispatch action are exposed. The commit-associated lookup is explicitly limited to pull-request-triggered runs and returned `workflow_runs: []` for trigger commit `d5d1598a8c523e8665e4550ee5c272df09256379`.
+- No direct Cloudflare Workers, deployments, routes, D1 databases, bindings, custom domains, restart controls, or runtime logs are exposed.
+- Reverified the persisted deployment result exactly: `deployed=false`, `ready=false`, `failure=deployment_step_failed_before_live_probe`, `authority_effect=false`.
+- Because the deployment run/job identifier cannot be discovered, the known-run log and rerun actions cannot be applied. No defect was guessed, no manual readiness or announcement promotion occurred, and no release/downstream propagation was authorized.
+- Handoff commits created by this authority inspection: `fd9f7bf20c4a18a8eff61a094e52f947a55ad967` for `docs/HIL_MIRROR_HANDOFF.md`; this file's resulting commit is recorded by the repository update response.
+
 ## Exact production authority block
 
 The available GitHub connector can inspect known run/job IDs but cannot enumerate or dispatch the push-triggered `HIL Cloudflare Receiver Deploy` workflow. It exposes no direct Cloudflare Worker, route, deployment, D1, binding, log, restart, or custom-domain controls. Therefore the newest deploy run ID, deploy job ID, exact failed deployment step, and provider error cannot be retrieved in this session. No deployment defect was guessed or repaired.
