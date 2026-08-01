@@ -1,0 +1,70 @@
+{
+  "activation_ready": true,
+  "continuation_policy": {
+    "controller_reexecutes_until_terminal": true,
+    "pending_status_must_map_to_repository_task": true,
+    "terminal_failure": "REJECTED_WITH_EXACT_REPOSITORY_FAILURE",
+    "terminal_success": "ACCESSIBLE",
+    "unnamed_external_tasks_forbidden": true
+  },
+  "controller": "scripts/continue_marketplace_coinbase_first_accessibility.py",
+  "controller_workflow": ".github/workflows/continue-marketplace-coinbase-first-accessibility.yml",
+  "custody_authority": "NOT_GRANTED",
+  "execution_authority": "NOT_GRANTED",
+  "external_tasks": [],
+  "generated_at": "2026-08-01T16:58:55.223973Z",
+  "importer_exit_code": 0,
+  "importer_stderr_tail": "",
+  "importer_stdout_tail": "",
+  "issue": "StegVerse-Labs/Site#130",
+  "live_authority": "NOT_GRANTED",
+  "publication_authority": "NOT_GRANTED",
+  "release_authority": "NOT_GRANTED",
+  "schema": "stegverse.site.marketplace_coinbase_first_accessibility_task_state.v1",
+  "state": "ACTIVE",
+  "status": "ACCESSIBLE",
+  "status_digest": "sha256:b1bd61b03299bded6af5bd76dfbd3bc9442effb34c053f23c6228fb4c8f7e2c8",
+  "task_state_digest": "sha256:88dbe963db967e7f6b4c4b8220818affa6b6e309de2e309f163fb903dde88886",
+  "tasks": [
+    {
+      "evidence": [
+        "StegVerse-Labs/crypto-bot run 30681165495",
+        "StegVerse-Labs/crypto-bot job 91318313997",
+        "StegVerse-Labs/crypto-bot artifact 8812256423"
+      ],
+      "location": "StegVerse-Labs/Site/data/marketplace-coinbase-first-accessibility-source-observation.json",
+      "state": "COMPLETED",
+      "stop_condition": "immutable observed source validates",
+      "task_id": "SITE-MCFA-001"
+    },
+    {
+      "evidence": [
+        "StegVerse-Labs/Site/data/marketplace-coinbase-first-accessibility-status.json"
+      ],
+      "location": "StegVerse-Labs/Site/scripts/import_marketplace_coinbase_first_accessibility.py",
+      "state": "COMPLETED",
+      "stop_condition": "status is ACCESSIBLE with valid status_digest",
+      "task_id": "SITE-MCFA-002"
+    },
+    {
+      "evidence": [
+        "Site workflow run, job, logs, and artifact"
+      ],
+      "location": "StegVerse-Labs/Site/.github/workflows/import-marketplace-coinbase-first-accessibility.yml",
+      "state": "COMPLETED",
+      "stop_condition": "authoritative workflow conclusion is success",
+      "task_id": "SITE-MCFA-003"
+    },
+    {
+      "evidence": [
+        "data/marketplace-coinbase-first-accessibility-task-state.json"
+      ],
+      "location": "StegVerse-Labs/Site#130",
+      "state": "COMPLETED",
+      "stop_condition": "issue closes only after SITE-MCFA-001 through SITE-MCFA-003 are completed",
+      "task_id": "SITE-MCFA-004"
+    }
+  ],
+  "validation_failures": [],
+  "withdrawal_authority": "NOT_GRANTED"
+}
