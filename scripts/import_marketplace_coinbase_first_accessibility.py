@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Import the public crypto-bot first-accessibility receipt into a bounded Site projection.
+"""Import crypto-bot first-accessibility evidence into a bounded Site projection.
 
-This importer verifies receipt integrity and authority boundaries. It does not grant
-publication, release, funded execution, custody, withdrawal, or live Coinbase authority.
+The importer first attempts the canonical upstream record. When cross-repository raw
+access is unavailable, it verifies the repository-retained immutable observation that
+is bound to the exact observed workflow, job, artifacts, source commit, and receipt.
+Neither path grants publication, release, funded execution, custody, withdrawal, or
+live Coinbase authority.
 """
 from __future__ import annotations
 
@@ -15,6 +18,7 @@ from urllib import error, request
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "marketplace-coinbase-first-accessibility-status.json"
+OBSERVATION = ROOT / "data" / "marketplace-coinbase-first-accessibility-source-observation.json"
 SOURCE_URL = (
     "https://raw.githubusercontent.com/StegVerse-Labs/crypto-bot/main/"
     "data/first-accessibility-mark-status.json"
@@ -29,8 +33,15 @@ def digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(canonical(value)).hexdigest()
 
 
-def write(status: str, reason: str, source: dict[str, Any] | None = None, failures: list[str] | None = None) -> None:
+def write(
+    status: str,
+    reason: str,
+    source: dict[str, Any] | None = None,
+    failures: list[str] | None = None,
+    observation: dict[str, Any] | None = None,
+) -> None:
     source = source or {}
+    observation = observation or {}
     body = {
         "schema": "stegverse.site.marketplace_coinbase_first_accessibility.v1",
         "status": status,
@@ -42,6 +53,14 @@ def write(status: str, reason: str, source: dict[str, Any] | None = None, failur
         "source_workflow_run_id": source.get("workflow_run_id"),
         "source_receipt_digest": source.get("receipt_digest"),
         "outbound_manifest_digest": source.get("outbound_manifest_digest"),
+        "source_observation_path": (
+            "data/marketplace-coinbase-first-accessibility-source-observation.json"
+            if observation
+            else None
+        ),
+        "source_observation_workflow_job_id": observation.get("workflow_job_id"),
+        "source_observation_outbound_artifact_id": observation.get("outbound_artifact_id"),
+        "source_observation_outbound_artifact_digest": observation.get("outbound_artifact_digest"),
         "paper_trading_accessible": status == "ACCESSIBLE",
         "failures": sorted(failures or []),
         "projection_only": True,
@@ -84,23 +103,74 @@ def validate(source: dict[str, Any]) -> list[str]:
     return failures
 
 
-def main() -> int:
-    try:
-        req = request.Request(SOURCE_URL, headers={"User-Agent": "StegVerse-Site-Accessibility-Importer/1.0"})
-        with request.urlopen(req, timeout=30) as response:
-            source = json.loads(response.read().decode("utf-8"))
-        if not isinstance(source, dict):
-            raise ValueError("source_not_object")
-    except (error.HTTPError, error.URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as exc:
-        write("PENDING_SOURCE", f"source_fetch_failed:{type(exc).__name__}")
-        return 0
+def validate_observation(observation: dict[str, Any], source: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    if observation.get("schema") != "stegverse.site.marketplace_coinbase_first_accessibility_source_observation.v1":
+        failures.append("unsupported_observation_schema")
+    if observation.get("observed_source") != source:
+        failures.append("observation_source_binding_mismatch")
+    if observation.get("workflow_job_conclusion") != "success":
+        failures.append("observed_workflow_job_not_success")
+    if not isinstance(observation.get("workflow_job_id"), int):
+        failures.append("invalid_observed_workflow_job_id")
+    for field in ("accessibility_artifact_digest", "outbound_artifact_digest"):
+        if not str(observation.get(field, "")).startswith("sha256:"):
+            failures.append(f"invalid_{field}")
+    if not isinstance(observation.get("outbound_artifact_id"), int):
+        failures.append("invalid_outbound_artifact_id")
+    if observation.get("observation_is_authority") is not False:
+        failures.append("observation_asserted_authority")
+    for field in (
+        "publication_authority",
+        "release_authority",
+        "execution_authority",
+        "live_authority",
+        "custody_authority",
+        "withdrawal_authority",
+    ):
+        if observation.get(field) != "NOT_GRANTED":
+            failures.append(f"observation_{field}_boundary_invalid")
+    return failures
 
+
+def load_observation() -> tuple[dict[str, Any], dict[str, Any]]:
+    observation = json.loads(OBSERVATION.read_text(encoding="utf-8"))
+    if not isinstance(observation, dict):
+        raise ValueError("observation_not_object")
+    source = observation.get("observed_source")
+    if not isinstance(source, dict):
+        raise ValueError("observed_source_not_object")
+    return observation, source
+
+
+def main() -> int:
+    observation: dict[str, Any] | None = None
+    source: dict[str, Any] | None = None
+    source_reason = "verified_direct_source"
+    try:
+        req = request.Request(SOURCE_URL, headers={"User-Agent": "StegVerse-Site-Accessibility-Importer/1.1"})
+        with request.urlopen(req, timeout=30) as response:
+            value = json.loads(response.read().decode("utf-8"))
+        if not isinstance(value, dict):
+            raise ValueError("source_not_object")
+        source = value
+    except (error.HTTPError, error.URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError):
+        try:
+            observation, source = load_observation()
+            source_reason = "verified_immutable_source_observation"
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            write("PENDING_SOURCE", f"source_and_observation_unavailable:{type(exc).__name__}")
+            return 1
+
+    assert source is not None
     failures = validate(source)
+    if observation is not None:
+        failures.extend(validate_observation(observation, source))
     if failures:
-        write("REJECTED", "source_validation_failed", source, failures)
+        write("REJECTED", "source_validation_failed", source, failures, observation)
         return 1
 
-    write("ACCESSIBLE", "verified_paper_trading_accessibility_projection", source)
+    write("ACCESSIBLE", source_reason, source, observation=observation)
     return 0
 
 
