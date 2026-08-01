@@ -100,8 +100,8 @@ def main() -> int:
             if site_state == "READY_TO_BUILD_IMPORT_SCHEMA"
             else "continue scheduled source observation and preserve exact blockers"
         ),
-        "authority_effect": false,
-        "activation_effect": false
+        "authority_effect": False,
+        "activation_effect": False,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
