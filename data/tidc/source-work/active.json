@@ -1,14 +1,14 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-01T19:38:42.006176+00:00",
-  "work_id": "SRC-001",
+  "generated_at": "2026-08-01T20:52:26.705101+00:00",
+  "work_id": "SRC-002",
   "record_ids": [
-    "COMP-001"
+    "COMP-002"
   ],
-  "task": "Retrieve or preserve original four-color theorem papers and computation records",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-001",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-001.json",
-  "receipt_path": "data/tidc/source-receipts/COMP-001.json",
+  "task": "Retrieve projective-plane order-10 computational reports",
+  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-002",
+  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-002.json",
+  "receipt_path": "data/tidc/source-receipts/COMP-002.json",
   "status": "ACTIVE",
   "allowed_terminal_states": [
     "COMPLETE",
@@ -22,7 +22,9 @@
     "After the receipt is committed, the coordinator advances automatically to the next READY item."
   ],
   "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
-  "completed_work_ids": [],
-  "remaining_count": 9,
+  "completed_work_ids": [
+    "SRC-001"
+  ],
+  "remaining_count": 8,
   "development_halted": false
 }

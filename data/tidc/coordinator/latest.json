@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-01T19:38:42.011457+00:00",
+  "generated_at": "2026-08-01T20:52:26.710571+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -17,7 +17,7 @@
     "waiting_build": 0,
     "failed": 0,
     "activation_state": "BLOCKED_CONTINUING",
-    "active_source_work_id": "SRC-001",
+    "active_source_work_id": "SRC-002",
     "development_halted": false
   },
   "tasks": {
@@ -82,10 +82,10 @@
     "TIDC-R2-006A": {
       "status": "IN_PROGRESS",
       "active_status": "ACTIVE",
-      "active_work_id": "SRC-001",
-      "active_task": "Retrieve or preserve original four-color theorem papers and computation records",
-      "receipt_path": "data/tidc/source-receipts/COMP-001.json",
-      "remaining_count": 9,
+      "active_work_id": "SRC-002",
+      "active_task": "Retrieve projective-plane order-10 computational reports",
+      "receipt_path": "data/tidc/source-receipts/COMP-002.json",
+      "remaining_count": 8,
       "development_halted": false,
       "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
       "command_result": {
@@ -96,7 +96,7 @@
           "data/tidc/source-work/active.json"
         ],
         "exit_status": 0,
-        "stdout": "{\"completed\": 0, \"development_halted\": false, \"remaining\": 9, \"status\": \"ACTIVE\", \"work_id\": \"SRC-001\"}\n",
+        "stdout": "{\"completed\": 1, \"development_halted\": false, \"remaining\": 8, \"status\": \"ACTIVE\", \"work_id\": \"SRC-002\"}\n",
         "stderr": "",
         "status": "COMPLETE"
       },
