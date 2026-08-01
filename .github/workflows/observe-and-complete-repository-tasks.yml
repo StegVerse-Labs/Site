@@ -6,7 +6,12 @@ on:
     paths:
       - 'data/tasks/**'
       - 'data/site-orchestration-state.json'
+      - 'data/personal-data-control-runtime.json'
+      - 'docs/PERSONAL_DATA_CONTROL_RUNTIME_MIRROR_HANDOFF.md'
+      - 'personal-data-control.html'
+      - 'scripts/admit_repository_tasks.py'
       - 'scripts/observe_and_complete_repository_tasks.py'
+      - 'scripts/check_personal_data_control_runtime.py'
       - 'scripts/check_hil_v1_upload_surface.py'
       - 'scripts/check_hil_v1_1_release.py'
       - 'scripts/verify_hil_site_contract.py'
@@ -36,6 +41,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Admit eligible repository-local tasks
+        run: python scripts/admit_repository_tasks.py
 
       - name: Observe and apply validated task transitions
         run: python scripts/observe_and_complete_repository_tasks.py --apply
