@@ -1,0 +1,58 @@
+name: VA Private Document Runtime
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/va-claim-assistant/private-document-intake.schema.json'
+      - 'data/va-claim-assistant/fixtures/private-document-intake.json'
+      - 'scripts/process_va_private_document_fixture.py'
+      - '.github/workflows/va-private-document-runtime.yml'
+  schedule:
+    - cron: '41 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-private-document-runtime
+  cancel-in-progress: false
+
+jobs:
+  validate-private-intake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute bounded private-document fixture
+        run: |
+          python scripts/process_va_private_document_fixture.py \
+            data/va-claim-assistant/fixtures/private-document-intake.json \
+            data/va-claim-assistant/private-document-runtime-receipt.json
+      - name: Enforce privacy and authority boundaries
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('data/va-claim-assistant/private-document-runtime-receipt.json').read_text())
+          assert r['privacy']['public_upload_enabled'] is False
+          assert r['privacy']['raw_documents_published'] is False
+          assert not any(r['authority_flags'].values())
+          assert len(r['assessment_hash']) == 64
+          assert r['missing_evidence']
+          print('private-document runtime boundaries: PASS')
+          PY
+      - name: Persist runtime receipt
+        run: |
+          if git diff --quiet -- data/va-claim-assistant/private-document-runtime-receipt.json; then
+            echo 'Runtime receipt unchanged.'
+            exit 0
+          fi
+          git config user.name 'va-private-document-runtime[bot]'
+          git config user.email 'va-private-document-runtime[bot]@users.noreply.github.com'
+          git add data/va-claim-assistant/private-document-runtime-receipt.json
+          git commit -m 'receipt: persist VA private document runtime validation'
+          git push
