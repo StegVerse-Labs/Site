@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
+  "source_repository": "Admissible-Existence/RTG",
+  "source_branch": "main",
+  "site_state": "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS",
+  "source_lanes": {
+    "3": {
+      "state": "BLOCKED_WITH_EVIDENCE",
+      "lane_id": "hosted-deterministic-rendering",
+      "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-3.json",
+      "remaining_blockers": [
+        "No accepted terminal hosted renderer run, job, logs, image digest, output hashes, or artifact metadata exists."
+      ]
+    },
+    "4": {
+      "state": "IN_PROGRESS",
+      "lane_id": "predecessor-and-statement-integration",
+      "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-4.json",
+      "remaining_blockers": [
+        "All 131 predecessor fields and counterpart determinations require accepted hosted integration evidence."
+      ]
+    },
+    "5": {
+      "state": "IN_PROGRESS",
+      "lane_id": "corpus-proof-and-artifact-closure",
+      "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-5.json",
+      "remaining_blockers": [
+        "Independent proof review and seven referenced artifact-class closures remain incomplete."
+      ]
+    }
+  },
+  "observations": {
+    "manifest_state": "ACTIVE_ACKNOWLEDGED",
+    "activation_eligible": false,
+    "authority_effect": "NONE",
+    "observation_basis": "direct repository handbacks on Admissible-Existence/RTG main"
+  },
+  "blockers": [
+    "RTG issue 3 is BLOCKED_WITH_EVIDENCE.",
+    "RTG issue 4 is IN_PROGRESS.",
+    "RTG issue 5 is IN_PROGRESS.",
+    "Central formalism acceptance has not been recorded."
+  ],
+  "manual_external_tasks": [],
+  "next_machine_action": "Continue source observation while validating the Site import contract and review-only projection scaffold.",
+  "authority_effect": false,
+  "activation_effect": false
+}
