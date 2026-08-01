@@ -1,0 +1,25 @@
+{
+  "schema": "stegverse.site.tidc.coordinator_bootstrap.v0.1",
+  "generated_at": "2026-08-01T16:55:00Z",
+  "repository": "StegVerse-Labs/Site",
+  "activation": {
+    "coordinator_layer": "BUILT_AND_ACTIVATED",
+    "runtime_receipt": "PENDING_FIRST_SUCCESSFUL_WORKFLOW_RUN",
+    "development_halted": false
+  },
+  "observation_surfaces": [
+    ".github/workflows/tidc-task-coordinator.yml",
+    "data/tidc/task-graph.v0.1.json",
+    "data/tidc/source-work-queue.v0.1.json",
+    "data/tidc/blinded-coding/returns/",
+    "data/tidc/release-2-gate.v0.1.json",
+    "data/tidc/coordinator/latest.json"
+  ],
+  "next_internal_actions": [
+    {"priority":1,"task":"Run repository validators and agreement tests","exists_at":"scripts/check_tidc_publication.py; scripts/check_tidc_reliability.py; tests/tidc/test_agreement_calculator.py"},
+    {"priority":2,"task":"Advance first READY source work item","exists_at":"data/tidc/source-work-queue.v0.1.json"},
+    {"priority":3,"task":"Observe and process any committed blinded return","exists_at":"data/tidc/blinded-coding/returns/; scripts/validate_tidc_blinded_return.py; scripts/create_tidc_blinded_return_receipt.py; scripts/compare_tidc_blinded_coding.py"},
+    {"priority":4,"task":"Re-evaluate Release 2 activation","exists_at":"data/tidc/release-2-gate.v0.1.json"}
+  ],
+  "boundary": "No pending item is external. Missing evidence blocks only dependent activation and automatically routes execution to the next internal READY task."
+}
