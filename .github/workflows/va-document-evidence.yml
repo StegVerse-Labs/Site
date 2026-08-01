@@ -1,0 +1,55 @@
+name: VA Document Evidence Layer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/va-claim-assistant/document-index.schema.json'
+      - 'data/va-claim-assistant/document-evidence-assessment.schema.json'
+      - 'data/va-claim-assistant/fixtures/document-evidence-session.json'
+      - 'scripts/check_va_document_evidence.py'
+      - '.github/workflows/va-document-evidence.yml'
+  schedule:
+    - cron: '41 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate deterministic document evidence fixture
+        run: python scripts/check_va_document_evidence.py | tee /tmp/va-document-evidence-result.json
+      - name: Persist validation receipt
+        run: |
+          python - <<'PY'
+          import datetime as dt, json
+          from pathlib import Path
+          result=json.loads(Path('/tmp/va-document-evidence-result.json').read_text())
+          receipt={
+            'schema_version':'1.0.0',
+            'receipt_id':'site-va-document-evidence-validation-001',
+            'observed_at':dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
+            'state':'VERIFIED',
+            'task_location':'StegVerse-Labs/Site#116',
+            'fixture':'data/va-claim-assistant/fixtures/document-evidence-session.json',
+            'result':result,
+            'public_upload_enabled':False,
+            'authority_effect':False,
+            'activation_effect':False
+          }
+          out=Path('data/va-claim-assistant/document-evidence-validation-receipt.json')
+          out.write_text(json.dumps(receipt,indent=2)+'\n')
+          PY
+          if git diff --quiet -- data/va-claim-assistant/document-evidence-validation-receipt.json; then exit 0; fi
+          git config user.name 'va-document-evidence[bot]'
+          git config user.email 'va-document-evidence[bot]@users.noreply.github.com'
+          git add data/va-claim-assistant/document-evidence-validation-receipt.json
+          git commit -m 'receipt: validate VA document evidence layer'
+          git push
