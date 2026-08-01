@@ -1,0 +1,50 @@
+{
+  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v1",
+  "controller_issue": "StegVerse-Labs/Site#131",
+  "development_halt": false,
+  "continuation_mode": "ADJACENT_WORK_AND_RETRY",
+  "tasks": [
+    {
+      "task_id": "MC-01-CRYPTO-ACCESSIBILITY",
+      "repository": "StegVerse-Labs/crypto-bot",
+      "issue": "StegVerse-Labs/crypto-bot#7",
+      "workflow": ".github/workflows/first-accessibility-mark.yml",
+      "evidence_path": "data/first-accessibility-mark-status.json",
+      "state": "OBSERVE",
+      "stop_condition": "status=PASS and paper_trading_accessible=true with valid receipt_digest"
+    },
+    {
+      "task_id": "MC-02-MARKETPLACE-COLLECTION",
+      "repository": "GCAT-BCAT-Engine/Marketplace",
+      "issue": "GCAT-BCAT-Engine/Marketplace#1",
+      "workflow": ".github/workflows/import-marketplace-coinbase-settlements.yml",
+      "evidence_path": "data/marketplace-coinbase-outbound-collection-status.json",
+      "state": "OBSERVE_AND_RETRY",
+      "stop_condition": "status=COLLECTED and acknowledgement in [ACCEPTED,DUPLICATE] and sequence_2_transport present"
+    },
+    {
+      "task_id": "MC-03-PUBLISHER-VERIFY",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "issue": "GCAT-BCAT-Engine/Publisher#19",
+      "workflow": ".github/workflows/collect-marketplace-coinbase-release-evidence.yml",
+      "evidence_path": "data/marketplace-coinbase-release-evidence-status.json",
+      "state": "OBSERVE_AND_RETRY",
+      "stop_condition": "status=VERIFIED and paper_release_verified=true with valid status_digest"
+    },
+    {
+      "task_id": "MC-04-SITE-PROJECTION",
+      "repository": "StegVerse-Labs/Site",
+      "issue": "StegVerse-Labs/Site#131",
+      "workflow": ".github/workflows/import-marketplace-coinbase-accessibility.yml",
+      "evidence_path": "data/marketplace-coinbase-accessibility-status.json",
+      "state": "OBSERVE_AND_RETRY",
+      "stop_condition": "state=PAPER_ACCESSIBLE and live_trading_accessible=false"
+    }
+  ],
+  "authority": {
+    "publication": false,
+    "release": false,
+    "execution": false,
+    "live": false
+  }
+}
