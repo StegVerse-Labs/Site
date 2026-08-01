@@ -9,6 +9,7 @@ on:
       - 'data/tidc/**'
       - 'scripts/check_tidc_publication.py'
       - 'scripts/validate_tidc_blinded_return.py'
+      - 'scripts/create_tidc_blinded_return_receipt.py'
       - 'scripts/compare_tidc_blinded_coding.py'
       - '.github/workflows/check-tidc-research.yml'
   pull_request:
@@ -19,6 +20,7 @@ on:
       - 'data/tidc/**'
       - 'scripts/check_tidc_publication.py'
       - 'scripts/validate_tidc_blinded_return.py'
+      - 'scripts/create_tidc_blinded_return_receipt.py'
       - 'scripts/compare_tidc_blinded_coding.py'
       - '.github/workflows/check-tidc-research.yml'
   workflow_dispatch:
@@ -42,6 +44,7 @@ jobs:
           python -m py_compile \
             scripts/check_tidc_publication.py \
             scripts/validate_tidc_blinded_return.py \
+            scripts/create_tidc_blinded_return_receipt.py \
             scripts/compare_tidc_blinded_coding.py
       - name: Validate public research publication
         run: python scripts/check_tidc_publication.py
@@ -51,26 +54,57 @@ jobs:
           set -euo pipefail
           packet='data/tidc/blinded-coding/BCP-2026-07-27-01.md'
           manifest='data/tidc/blinded-coding/BCP-2026-07-27-01.manifest.json'
-          schema='data/tidc/blinded-coding/blinded-coder-return.schema.json'
+          return_schema='data/tidc/blinded-coding/blinded-coder-return.schema.json'
+          receipt_schema='data/tidc/blinded-coding/blinded-return-receipt.schema.json'
           test -s "$packet"
           test -s "$manifest"
-          test -s "$schema"
+          test -s "$return_schema"
+          test -s "$receipt_schema"
           grep -F 'BCP-2026-07-27-01' "$packet"
           grep -F 'ISSUED_FOR_BLINDED_SECOND_CODING' "$manifest"
           grep -F 'exactly 10 records' "$packet"
-      - name: Validate any committed blinded returns
+          grep -F 'RECEIVED_NOT_ADJUDICATED' "$receipt_schema"
+
+  process-blinded-returns:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate and process committed blinded returns
+        id: process
         shell: bash
         run: |
           set -euo pipefail
           shopt -s nullglob
           returns=(data/tidc/blinded-coding/returns/*.json)
+          mkdir -p generated/tidc-blinded-results
           if [ ${#returns[@]} -eq 0 ]; then
             echo 'No blinded return committed; external evidence remains pending.'
+            echo 'processed=false' >> "$GITHUB_OUTPUT"
             exit 0
           fi
           for return_file in "${returns[@]}"; do
+            base="$(basename "$return_file" .json)"
             python scripts/validate_tidc_blinded_return.py "$return_file"
+            python scripts/create_tidc_blinded_return_receipt.py \
+              "$return_file" \
+              --out "generated/tidc-blinded-results/${base}.receipt.json"
+            python scripts/compare_tidc_blinded_coding.py \
+              "$return_file" \
+              --json-out "generated/tidc-blinded-results/${base}.comparison.json" \
+              --md-out "generated/tidc-blinded-results/${base}.comparison.md"
           done
+          echo 'processed=true' >> "$GITHUB_OUTPUT"
+      - name: Upload generated receipt and comparison artifacts
+        if: steps.process.outputs.processed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tidc-blinded-coding-results
+          path: generated/tidc-blinded-results/
+          if-no-files-found: error
+          retention-days: 90
 
   authority-boundary:
     runs-on: ubuntu-latest
@@ -85,3 +119,4 @@ jobs:
           grep -F 'DESCRIPTIVE_NOT_VALIDATION' scripts/compare_tidc_blinded_coding.py
           grep -F 'Disagreements must be retained' scripts/compare_tidc_blinded_coding.py
           grep -F 'human_replication: not established' scripts/compare_tidc_blinded_coding.py
+          grep -F 'receipt != reliability' docs/TIDC_BLINDED_CODING_ADJUDICATION_PROTOCOL.md
