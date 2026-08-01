@@ -6,11 +6,13 @@ on:
     paths:
       - "papers/development-without-domination/**"
       - "scripts/observe_development_without_domination_publication.py"
+      - "scripts/reconstruct_development_without_domination_pdf.py"
       - ".github/workflows/development-without-domination-publication.yml"
   pull_request:
     paths:
       - "papers/development-without-domination/**"
       - "scripts/observe_development_without_domination_publication.py"
+      - "scripts/reconstruct_development_without_domination_pdf.py"
       - ".github/workflows/development-without-domination-publication.yml"
   schedule:
     - cron: "17 * * * *"
@@ -33,6 +35,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Attempt exact PDF reconstruction
+        run: |
+          if [ -f papers/development-without-domination/.pdf-parts/part-0001.b64 ] && \
+             [ -f papers/development-without-domination/.pdf-parts/part-0002.b64 ] && \
+             [ -f papers/development-without-domination/.pdf-parts/part-0003.b64 ] && \
+             [ -f papers/development-without-domination/.pdf-parts/part-0004.b64 ]; then
+            python scripts/reconstruct_development_without_domination_pdf.py
+          else
+            echo "Exact PDF reconstruction remains pending; observer will emit repository-owned missing-part tasks."
+          fi
       - name: Observe and advance repository-owned publication state
         run: python scripts/observe_development_without_domination_publication.py
       - name: Validate machine records
