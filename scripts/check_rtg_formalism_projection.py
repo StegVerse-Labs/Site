@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Observe RTG formalism-publication readiness without external/manual tasks."""
+"""Observe and advance RTG formalism-publication readiness without external tasks."""
 from __future__ import annotations
 
 import argparse
@@ -64,6 +64,29 @@ def main() -> int:
 
     if not schema_path.exists():
         blockers.append(f"missing source handback schema: {source['handback_schema_path']}")
+
+    convergence_path = rtg_root / MACHINE_BASE / "formalism-convergence-state.json"
+    refresh_path = rtg_root / MACHINE_BASE / "site-projection-refresh-signal.json"
+    if convergence_path.exists():
+        convergence = load(convergence_path)
+    else:
+        convergence = {
+            "state": "NOT_YET_PERSISTED",
+            "next_machine_action": "RTG convergence workflow must create formalism-convergence-state.json",
+            "manual_external_tasks": [],
+        }
+        blockers.append(f"missing RTG convergence state: {MACHINE_BASE / 'formalism-convergence-state.json'}")
+    if refresh_path.exists():
+        refresh = load(refresh_path)
+    else:
+        refresh = {
+            "refresh_required": True,
+            "source_state": convergence.get("state"),
+            "manual_external_tasks": [],
+        }
+        blockers.append(f"missing RTG Site refresh signal: {MACHINE_BASE / 'site-projection-refresh-signal.json'}")
+    observations["rtg_convergence"] = convergence
+    observations["rtg_site_refresh_signal"] = refresh
 
     machine_receipts: dict[str, Any] = {}
     for issue in EXPECTED_LANES:
@@ -136,7 +159,10 @@ def main() -> int:
         next_action = "record central formalism acceptance from durable repository evidence"
     else:
         site_state = "ACTIVE_REVIEW_ONLY_WITH_MACHINE_EXECUTION"
-        next_action = readiness.get("next_machine_action", "continue RTG machine lane execution and recompute")
+        next_action = convergence.get(
+            "next_machine_action",
+            readiness.get("next_machine_action", "continue RTG machine lane execution and recompute"),
+        )
 
     result = {
         "schema_version": "1.1.0",
