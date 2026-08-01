@@ -6,6 +6,7 @@ on:
       - 'docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md'
       - 'docs/hil-semantic-continuity/**'
       - 'data/hil-semantic-continuity-task-state.json'
+      - 'data/hil-semantic-continuity-projection-manifest.json'
       - 'data/schemas/hil-semantic-transformation.schema.json'
       - 'data/fixtures/hil-semantic-transformation/**'
       - 'scripts/check_hil_semantic_continuity_tasks.py'
@@ -16,6 +17,7 @@ on:
       - 'docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md'
       - 'docs/hil-semantic-continuity/**'
       - 'data/hil-semantic-continuity-task-state.json'
+      - 'data/hil-semantic-continuity-projection-manifest.json'
       - 'data/schemas/hil-semantic-transformation.schema.json'
       - 'data/fixtures/hil-semantic-transformation/**'
       - 'scripts/check_hil_semantic_continuity_tasks.py'
@@ -27,7 +29,7 @@ permissions:
   contents: read
 
 jobs:
-  observe-and-select:
+  observe-validate-and-activate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,3 +38,16 @@ jobs:
           python-version: '3.12'
       - name: Validate task graph and select next task
         run: python scripts/check_hil_semantic_continuity_tasks.py
+      - name: Validate bounded semantic transformation
+        run: python scripts/validate_hil_semantic_transformation.py
+      - name: Validate JSON artifacts
+        run: |
+          python -m json.tool data/hil-semantic-continuity-task-state.json >/dev/null
+          python -m json.tool data/schemas/hil-semantic-transformation.schema.json >/dev/null
+          python -m json.tool data/fixtures/hil-semantic-transformation/bounded-conversation.json >/dev/null
+          python -m json.tool data/fixtures/hil-semantic-transformation/calibration-cases.json >/dev/null
+          python -m json.tool data/hil-semantic-continuity-projection-manifest.json >/dev/null
+      - name: Declare activation eligibility
+        run: |
+          echo 'HIL semantic-continuity foundational implementation is activation-eligible.'
+          echo 'Scientific, publication, custody, and authority effects remain false.'
