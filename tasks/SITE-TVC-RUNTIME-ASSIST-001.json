@@ -1,0 +1,25 @@
+{
+  "schema_version": "STEGVERSE-TASK-v1",
+  "task_id": "SITE-TVC-RUNTIME-ASSIST-001",
+  "title": "Prepare Site for TVC-governed HIL intake projection",
+  "state": "READY",
+  "execution_class": "PARALLEL_SAFE",
+  "owner": "StegVerse-Labs/Site",
+  "assists": [
+    "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-002.json",
+    "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-004.json"
+  ],
+  "required_actions": [
+    "Verify hil-direct-ingress-worker.yml exists and remains the exact bound workflow",
+    "Verify incoming/hil source-object handling is fail-closed",
+    "Prepare sanitized intake receipt import without accepting protected values",
+    "Preserve unrelated Site routes and deployments"
+  ],
+  "acceptance_criteria": [
+    "Site holds no TV or TVC protected value",
+    "worker activation remains bound to authenticated internal intake evidence",
+    "receipt projection contains hashes, identities, states, and timestamps only",
+    "no public readiness claim occurs before authentic TVC execution evidence"
+  ],
+  "authority_effect": "none"
+}
