@@ -48,7 +48,9 @@ def extract_remaining_work(text: str) -> list[dict[str, str]]:
         if line.startswith("Downstream destinations"):
             destination = "DOWNSTREAM_AFTER_SITE_ACTIVATION"
             continue
-        if line == "```":
+        # Markdown fences may declare a language, e.g. ```text. Treat every
+        # opening or closing triple-backtick line as a fence boundary.
+        if line.startswith("```"):
             in_fence = not in_fence
             continue
         if in_fence and line:

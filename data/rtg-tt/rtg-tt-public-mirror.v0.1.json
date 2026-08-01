@@ -1,0 +1,85 @@
+{
+  "schema_version": "0.1.0",
+  "package_id": "rtg-tt-public-mirror-v0.1",
+  "contract_version": "rtg-tt-v0.1",
+  "status": "CANDIDATE_PARALLEL_SAFE",
+  "site_issue": 122,
+  "canonical_sources": {
+    "rtg_tests": {
+      "repository": "Data-Continuation/RTG-Tests",
+      "commit": "2fd7099bb3b6d2d7aa8ce7d72f7f71f6dfd4566a"
+    },
+    "transition_table": {
+      "repository": "Admissible-Existence/TT",
+      "commit": "19720bae935ef9881ce5b239e0b66423fcd8bfab"
+    },
+    "validation_factory": {
+      "repository": "Admissible-Existence/ae-validation-factory",
+      "commit": "5ca6ac0442809c5902f9765d2f865e5fa03d9c60",
+      "report_hash": "sha256:a11eea46242f3df6faa64c2c4174779abea08be9ca7ea93342317cdbcdf7aa56"
+    },
+    "ae_public_index": {
+      "repository": "Admissible-Existence/AE",
+      "pull_request": 5,
+      "head_commit": "e0fe6e8d878ea4030ae8c41fcbfaee7b9b72c58a"
+    }
+  },
+  "ownership": {
+    "rtg_ae": [
+      "relational state field",
+      "candidate significance",
+      "transition block and constellation geometry",
+      "geometric minimum-node declaration"
+    ],
+    "tt": [
+      "bounded request consumption",
+      "local discrete allocation",
+      "ALLOW DENY DEFER result",
+      "deterministic result receipt"
+    ],
+    "validation_factory": [
+      "request-result correlation",
+      "authority and evidence closure",
+      "consistency validation",
+      "deterministic validation receipt"
+    ],
+    "site": [
+      "validated public projection only"
+    ]
+  },
+  "mapping": {
+    "RESOLUTION_SATISFIED": "ALLOW",
+    "FAIL_CLOSED": "DENY",
+    "QUARANTINE": "DEFER"
+  },
+  "authority": {
+    "commitment": false,
+    "execution": false,
+    "publication": false,
+    "release": false,
+    "custody": false
+  },
+  "activation_gates": {
+    "site_orchestrator_admitted": false,
+    "mirror_validator_passed": false,
+    "site_package_merged": false,
+    "downstream_exact_ingestion_verified": false
+  },
+  "downstream_targets": [
+    "StegVerse-Labs/admissibility-wiki",
+    "StegVerse-002/stegguardian-wiki",
+    "GCAT-BCAT-Engine/Publisher"
+  ],
+  "claimed_paths": [
+    "data/rtg-tt/",
+    "docs/RTG_TT_PUBLIC_MIRROR.md",
+    "scripts/check_rtg_tt_public_mirror.py"
+  ],
+  "non_claims": [
+    "Mathematical completeness is not established.",
+    "TT does not prove RTG geometry.",
+    "Schema or validation success does not create authority.",
+    "ALLOW does not independently authorize execution.",
+    "Public display does not replace executable evidence."
+  ]
+}
