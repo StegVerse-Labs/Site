@@ -19,13 +19,13 @@
     "activation_effect"
   ],
   "properties": {
-    "schema_version": {"const": "1.0.0"},
+    "schema_version": {"const": "1.1.0"},
     "task_id": {"const": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE"},
     "source_repository": {"const": "Admissible-Existence/RTG"},
     "source_branch": {"const": "main"},
     "site_state": {
       "enum": [
-        "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS",
+        "ACTIVE_REVIEW_ONLY_WITH_MACHINE_EXECUTION",
         "READY_FOR_CENTRAL_ACCEPTANCE_REVIEW",
         "ACTIVATION_ELIGIBLE",
         "ACTIVATED_REVIEW_ONLY"
@@ -52,7 +52,7 @@
     "lane": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["state", "lane_id", "path", "remaining_blockers"],
+      "required": ["state", "lane_id", "path", "machine_receipt", "remaining_blockers"],
       "properties": {
         "state": {
           "enum": [
@@ -65,6 +65,7 @@
         },
         "lane_id": {"type": "string"},
         "path": {"type": "string"},
+        "machine_receipt": {"type": "object"},
         "remaining_blockers": {"type": "array", "items": {"type": "string"}}
       }
     }
