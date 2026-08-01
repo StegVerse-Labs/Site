@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "program": "VA Claim Assistant governed session layer",
+  "state": "BUILDING",
+  "activation_target": "GOVERNED_CLAIM_SESSION",
+  "gates": [
+    {"id":"VCA-GATE-01","name":"source_registry_validated","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-02","name":"answer_provenance_validated","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-03","name":"tvc_capability_ready","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-04","name":"governed_retrieval_deployed","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-05","name":"document_evidence_layer_validated","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-06","name":"custody_recorded","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-07","name":"reconstruction_pass","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-08","name":"public_status_receipt_derived","state":"PENDING","evidence":[]},
+    {"id":"VCA-GATE-09","name":"deployed_end_to_end_session_verified","state":"PENDING","evidence":[]}
+  ],
+  "activation_rule": "all gates must be VERIFIED",
+  "activation_authorized": false,
+  "authority_effect": false
+}
