@@ -1,0 +1,52 @@
+name: Development Without Domination Publication
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "papers/development-without-domination/**"
+      - "scripts/observe_development_without_domination_publication.py"
+      - ".github/workflows/development-without-domination-publication.yml"
+  pull_request:
+    paths:
+      - "papers/development-without-domination/**"
+      - "scripts/observe_development_without_domination_publication.py"
+      - ".github/workflows/development-without-domination-publication.yml"
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: development-without-domination-publication-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  observe-and-advance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Observe and advance repository-owned publication state
+        run: python scripts/observe_development_without_domination_publication.py
+      - name: Validate machine records
+        run: |
+          python -m json.tool papers/development-without-domination/site-publication-status.json >/dev/null
+          if [ -f papers/development-without-domination/site-mirror-receipt.json ]; then
+            python -m json.tool papers/development-without-domination/site-mirror-receipt.json >/dev/null
+          fi
+      - name: Commit evidence-backed transitions
+        if: github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/development-without-domination/
+          git commit -m "Advance Development Without Domination publication state [skip ci]"
+          git push
