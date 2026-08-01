@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
+  "issue": 127,
+  "repository": "StegVerse-Labs/Site",
+  "execution_class": "PARALLEL_SAFE",
+  "owner": "StegVerse-Labs/Site:.github/workflows/observe-rtg-formalism-projection.yml",
+  "state": "ACTIVE_OBSERVATION_AND_IMPORT_PREPARATION",
+  "manual_external_tasks": [],
+  "source": {
+    "repository": "Admissible-Existence/RTG",
+    "branch": "main",
+    "coordination_issue": 2,
+    "manifest_path": "review/volume-I-integrated-v0.9.0/coordination-execution-manifest.json",
+    "handback_schema_path": "review/volume-I-integrated-v0.9.0/coordination-handback.schema.json",
+    "lane_handbacks": {
+      "3": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-3.json",
+      "4": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-4.json",
+      "5": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-5.json"
+    }
+  },
+  "tasks": [
+    {
+      "task": "Observe and validate RTG coordination state",
+      "exists_at": "StegVerse-Labs/Site/scripts/check_rtg_formalism_projection.py",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "task": "Run observation automatically on source or observer changes and daily",
+      "exists_at": "StegVerse-Labs/Site/.github/workflows/observe-rtg-formalism-projection.yml",
+      "status": "IMPLEMENTED"
+    },
+    {
+      "task": "Record machine-readable Site projection status",
+      "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-projection-observation.json",
+      "status": "GENERATED_BY_WORKFLOW"
+    },
+    {
+      "task": "Define Site import schema after source handbacks become complete-awaiting-acceptance",
+      "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-publication-readiness.schema.json",
+      "status": "NEXT_AUTOMATED_BUILD_STEP"
+    },
+    {
+      "task": "Build review-only Site projection after accepted readiness",
+      "exists_at": "StegVerse-Labs/Site/formalisms/rtg/index.html",
+      "status": "BLOCKED_BY_RECORDED_SOURCE_EVIDENCE"
+    }
+  ],
+  "progress_policy": {
+    "missing_or_incomplete_source_evidence": "record blocker and continue observing",
+    "observer_failure": "fail closed and preserve report",
+    "source_state_change": "recompute projection automatically",
+    "no_external_wait_state": true,
+    "authority_effect": false,
+    "activation_effect": false
+  }
+}
