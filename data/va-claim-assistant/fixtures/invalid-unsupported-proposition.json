@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "VA-CLAIM-ASSISTANT-FIXTURE-NEG-002",
+  "question": "What evidence supports this claim?",
+  "route": "evidence_requirement",
+  "capability_state": "SOURCE_GROUNDED_ASSISTANT",
+  "propositions": [
+    {
+      "proposition_id": "P-NEG-002",
+      "text": "The submitted evidence proves service connection.",
+      "kind": "SOURCE_FACT",
+      "support": []
+    }
+  ],
+  "contradictions": [],
+  "uncertainties": [],
+  "referral_triggers": [],
+  "authority_flags": {
+    "adjudication": false,
+    "representation": false,
+    "medical_opinion": false,
+    "rating": false,
+    "execution": false,
+    "publication": false
+  },
+  "receipt_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+}
