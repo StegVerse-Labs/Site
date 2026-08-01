@@ -1,0 +1,11 @@
+{
+  "schema_version": "HIL-SC-CALIBRATION-v1",
+  "cases": [
+    {"id":"preserved-hypothesis","source":{"claim_class":"hypothesis","confidence":0.6,"boundary":["A","B"],"constraints":["provisional"]},"output":{"claim_class":"hypothesis","confidence":0.6,"boundary":["A","B"],"constraints":["provisional"]},"expected":[]},
+    {"id":"confidence-inflation","source":{"claim_class":"hypothesis","confidence":0.55,"boundary":["campaign"],"constraints":["not certain"]},"output":{"claim_class":"conclusion","confidence":1.0,"boundary":["actor"],"constraints":[]},"expected":["hypothesis_to_conclusion","confidence_inflation","constraint_removal","boundary_change"]},
+    {"id":"confidence-dampening","source":{"claim_class":"hypothesis","confidence":0.8,"boundary":["multi-state campaign"],"constraints":["provisional attribution"]},"output":{"claim_class":"belief","confidence":0.2,"boundary":["single incident"],"constraints":["unverified"]},"expected":["claim_class_change","confidence_dampening","boundary_change","constraint_change"]},
+    {"id":"adversarial-wording-preserved-structure","source":{"claim_class":"hypothesis","confidence":0.7,"boundary":["systemic"],"constraints":["requires investigation"]},"output":{"claim_class":"hypothesis","confidence":0.7,"boundary":["systemic"],"constraints":["requires investigation"]},"expected":[]}
+  ],
+  "numeric_scores_authorized": false,
+  "authority_effect": false
+}
