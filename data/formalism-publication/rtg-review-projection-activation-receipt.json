@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
+  "repository": "StegVerse-Labs/Site",
+  "layer": "rtg-review-only-observation-projection",
+  "state": "ACTIVE_REVIEW_ONLY",
+  "activated_at": "2026-08-01T14:34:00-05:00",
+  "activated_paths": [
+    "formalisms/rtg/index.html",
+    "data/formalism-publication/rtg-projection-observation.json",
+    "data/formalism-publication/rtg-publication-readiness.schema.json",
+    "scripts/check_rtg_formalism_projection.py",
+    ".github/workflows/observe-rtg-formalism-projection.yml"
+  ],
+  "source_repository": "Admissible-Existence/RTG",
+  "source_branch": "main",
+  "source_lane_states": {
+    "3": "BLOCKED_WITH_EVIDENCE",
+    "4": "IN_PROGRESS",
+    "5": "IN_PROGRESS"
+  },
+  "capabilities": {
+    "observe_source": true,
+    "validate_import_contract": true,
+    "render_review_status": true,
+    "record_blockers": true,
+    "advance_machine_state": true
+  },
+  "authority": {
+    "canonicality": false,
+    "publication": false,
+    "release": false,
+    "routing": false,
+    "custody": false,
+    "execution": false,
+    "admissibility": false,
+    "final_commit_time_owner": "Admissible-Existence/AE"
+  },
+  "manual_external_tasks": [],
+  "next_machine_tasks": [
+    {
+      "task": "Continue RTG source observation and recompute lane state",
+      "exists_at": "StegVerse-Labs/Site/scripts/check_rtg_formalism_projection.py"
+    },
+    {
+      "task": "Validate and preserve each observation run",
+      "exists_at": "StegVerse-Labs/Site/.github/workflows/observe-rtg-formalism-projection.yml"
+    },
+    {
+      "task": "Transition from review-only active to publication-eligible only after accepted source and central evidence",
+      "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-projection-observation.json"
+    }
+  ],
+  "authority_effect": false,
+  "publication_effect": false
+}
