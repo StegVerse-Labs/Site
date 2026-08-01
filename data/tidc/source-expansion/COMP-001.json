@@ -1,0 +1,113 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "COMP-001",
+  "event_name": "Four-Color Theorem computer-assisted proof",
+  "source_id": "SRC-001",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+  "retrieved_on": "2026-08-01",
+  "sources": [
+    {
+      "source_role": "original_proof_part_i",
+      "title": "Every planar map is four colorable. Part I: Discharging",
+      "authors": ["Kenneth Appel", "Wolfgang Haken"],
+      "journal": "Illinois Journal of Mathematics",
+      "volume": "21",
+      "issue": "3",
+      "pages": "429-490",
+      "publication_date": "1977-09-01",
+      "doi": "10.1215/ijm/1256049011",
+      "stable_url": "https://doi.org/10.1215/ijm/1256049011",
+      "evidence_supported": [
+        "The proof was published in 1977.",
+        "The proof architecture included a discharging component.",
+        "The result was presented as a computer-assisted proof rather than a conventional unaided proof."
+      ]
+    },
+    {
+      "source_role": "original_proof_part_ii",
+      "title": "Every planar map is four colorable. Part II: Reducibility",
+      "authors": ["Kenneth Appel", "Wolfgang Haken", "John Koch"],
+      "journal": "Illinois Journal of Mathematics",
+      "volume": "21",
+      "issue": "3",
+      "pages": "491-567",
+      "publication_date": "1977-09-01",
+      "doi": "10.1215/ijm/1256049012",
+      "stable_url": "https://doi.org/10.1215/ijm/1256049012",
+      "evidence_supported": [
+        "The proof was published in two linked parts.",
+        "Reducibility checking was a distinct proof component.",
+        "The published record identifies Appel, Haken, and Koch for Part II."
+      ]
+    },
+    {
+      "source_role": "contemporaneous_announcement",
+      "title": "A proof of the four color theorem",
+      "authors": ["Kenneth Appel", "Wolfgang Haken"],
+      "journal": "Discrete Mathematics",
+      "volume": "16",
+      "issue": "2",
+      "pages": "179-180",
+      "publication_date": "1976-10",
+      "doi": "10.1016/0012-365X(76)90147-3",
+      "stable_url": "https://doi.org/10.1016/0012-365X(76)90147-3",
+      "evidence_supported": [
+        "A proof announcement appeared in 1976 before the full 1977 articles.",
+        "The candidate-generation or proof-completion year 1976 is supported as distinct from full publication in 1977."
+      ]
+    },
+    {
+      "source_role": "later_independent_reproof",
+      "title": "The Four-Colour Theorem",
+      "authors": ["Neil Robertson", "Daniel Sanders", "Paul Seymour", "Robin Thomas"],
+      "journal": "Journal of Combinatorial Theory, Series B",
+      "volume": "70",
+      "issue": "1",
+      "pages": "2-44",
+      "publication_date": "1997-05",
+      "doi": "10.1006/jctb.1997.1750",
+      "stable_url": "https://doi.org/10.1006/jctb.1997.1750",
+      "evidence_supported": [
+        "A later computer-assisted proof was published in 1997.",
+        "Later reproof must remain separate from the original proof-completion and publication dates."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "value": "1976",
+      "status": "SUPPORTED_BY_CONTEMPORANEOUS_ANNOUNCEMENT",
+      "source_roles": ["contemporaneous_announcement"]
+    },
+    "publication_date": {
+      "value": "1977-09-01",
+      "status": "SUPPORTED_FOR_FULL_TWO_PART_PUBLICATION",
+      "source_roles": ["original_proof_part_i", "original_proof_part_ii"]
+    },
+    "verification_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED_AS_DISTINCT_DATE"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Necessary",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The published proof method depended on extensive finite-case computer checking, but this source-expansion record does not itself adjudicate the controlled classification."
+    }
+  },
+  "remaining_questions": [
+    "Retrieve and preserve the original microfiche computation supplement or an authoritative archival surrogate.",
+    "Establish a distinct verification chronology rather than treating publication as verification.",
+    "Establish disciplinary acceptance and later recognition dates from explicit historical evidence."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
