@@ -4,16 +4,75 @@
   "state": "BUILDING",
   "activation_target": "GOVERNED_CLAIM_SESSION",
   "gates": [
-    {"id":"VCA-GATE-01","name":"source_registry_validated","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-02","name":"answer_provenance_validated","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-03","name":"tvc_capability_ready","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-04","name":"governed_retrieval_deployed","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-05","name":"document_evidence_layer_validated","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-06","name":"custody_recorded","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-07","name":"reconstruction_pass","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-08","name":"public_status_receipt_derived","state":"PENDING","evidence":[]},
-    {"id":"VCA-GATE-09","name":"deployed_end_to_end_session_verified","state":"PENDING","evidence":[]}
+    {
+      "id": "VCA-GATE-01",
+      "name": "source_registry_validated",
+      "state": "IMPLEMENTED_PENDING_EXECUTED_WORKFLOW_RECEIPT",
+      "evidence": [
+        "data/va-claim-assistant/source-registry.json",
+        "data/va-claim-assistant/source-registry.schema.json",
+        "scripts/check_va_claim_assistant_governance.py"
+      ]
+    },
+    {
+      "id": "VCA-GATE-02",
+      "name": "answer_provenance_validated",
+      "state": "IMPLEMENTED_PENDING_EXECUTED_WORKFLOW_RECEIPT",
+      "evidence": [
+        "data/va-claim-assistant/answer-record.schema.json",
+        "data/va-claim-assistant/fixtures/valid-answer-record.json",
+        "data/va-claim-assistant/fixtures/invalid-authority-escalation.json",
+        "data/va-claim-assistant/fixtures/invalid-unsupported-proposition.json",
+        "scripts/check_va_claim_assistant_governance.py"
+      ]
+    },
+    {
+      "id": "VCA-GATE-03",
+      "name": "tvc_capability_ready",
+      "state": "BUILDING",
+      "evidence": ["StegVerse-Labs/TVC#9"]
+    },
+    {
+      "id": "VCA-GATE-04",
+      "name": "governed_retrieval_deployed",
+      "state": "BUILDING",
+      "evidence": ["StegVerse-org/LLM-adapter#90"]
+    },
+    {
+      "id": "VCA-GATE-05",
+      "name": "document_evidence_layer_validated",
+      "state": "ASSIGNED",
+      "evidence": ["StegVerse-Labs/Site#116"]
+    },
+    {
+      "id": "VCA-GATE-06",
+      "name": "custody_recorded",
+      "state": "ASSIGNED",
+      "evidence": ["master-records/orchestration#12"]
+    },
+    {
+      "id": "VCA-GATE-07",
+      "name": "reconstruction_pass",
+      "state": "ASSIGNED",
+      "evidence": ["master-records/orchestration#12"]
+    },
+    {
+      "id": "VCA-GATE-08",
+      "name": "public_status_receipt_derived",
+      "state": "PENDING_DEPENDENCIES",
+      "evidence": []
+    },
+    {
+      "id": "VCA-GATE-09",
+      "name": "deployed_end_to_end_session_verified",
+      "state": "PENDING_DEPENDENCIES",
+      "evidence": []
+    }
   ],
+  "workflow_enforcement": {
+    "state": "IMPLEMENTED_PENDING_RUN_OBSERVATION",
+    "path": ".github/workflows/va-claim-guide-workers.yml"
+  },
   "activation_rule": "all gates must be VERIFIED",
   "activation_authorized": false,
   "authority_effect": false
