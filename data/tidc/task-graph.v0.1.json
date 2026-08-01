@@ -1,5 +1,5 @@
 {
-  "schema": "stegverse.site.tidc.task_graph.v0.1",
+  "schema": "stegverse.site.tidc.task_graph.v0.2",
   "generated": "2026-08-01",
   "scope": "StegVerse-Labs/Site",
   "authority": "This repository task graph is authoritative for TIDC Release 2 coordination. GitHub issues are visible work records, not external dependencies.",
@@ -7,7 +7,8 @@
     "no_external_task_handoff": true,
     "continue_when_waiting": true,
     "fail_closed_activation": true,
-    "pending_evidence_does_not_halt_other_tasks": true
+    "pending_evidence_does_not_halt_other_tasks": true,
+    "activate_next_ready_internal_task": true
   },
   "tasks": [
     {
@@ -53,23 +54,31 @@
     {
       "task_id": "TIDC-R2-006",
       "name": "Maintain archival source sufficiency record",
-      "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; GitHub issue #120",
+      "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work-queue.v0.1.json",
       "handler": "observe_source_packet",
       "mode": "REPOSITORY_RESEARCH",
       "depends_on": []
     },
     {
+      "task_id": "TIDC-R2-006A",
+      "name": "Activate and advance the next internal source task",
+      "exists_at": "scripts/advance_tidc_source_queue.py; data/tidc/source-work/active.json; data/tidc/source-receipts/",
+      "handler": "advance_source_queue",
+      "mode": "CONDITIONAL_AUTOMATION",
+      "depends_on": ["TIDC-R2-006"]
+    },
+    {
       "task_id": "TIDC-R2-007",
       "name": "Evaluate Release 2 activation gate",
-      "exists_at": "data/tidc/release-2-gate.v0.1.json; GitHub issue #121",
+      "exists_at": "data/tidc/release-2-gate.v0.1.json",
       "handler": "evaluate_activation_gate",
       "mode": "FAIL_CLOSED_ACTIVATION",
-      "depends_on": ["TIDC-R2-001", "TIDC-R2-002", "TIDC-R2-003", "TIDC-R2-005", "TIDC-R2-006"]
+      "depends_on": ["TIDC-R2-001", "TIDC-R2-002", "TIDC-R2-003", "TIDC-R2-005", "TIDC-R2-006", "TIDC-R2-006A"]
     },
     {
       "task_id": "TIDC-R2-008",
       "name": "Preserve final validator receipt",
-      "exists_at": "data/tidc/coordinator/latest.json; GitHub issue #124",
+      "exists_at": "data/tidc/coordinator/latest.json",
       "handler": "write_coordinator_receipt",
       "mode": "AUTOMATABLE",
       "depends_on": ["TIDC-R2-001", "TIDC-R2-002", "TIDC-R2-003"]
