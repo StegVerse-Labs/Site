@@ -1,0 +1,42 @@
+name: Observe RTG formalism projection
+
+on:
+  push:
+    paths:
+      - "data/formalism-publication/rtg-projection-task-state.json"
+      - "scripts/check_rtg_formalism_projection.py"
+      - ".github/workflows/observe-rtg-formalism-projection.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 8 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Site
+        uses: actions/checkout@v4
+        with:
+          path: Site
+
+      - name: Check out RTG source
+        uses: actions/checkout@v4
+        with:
+          repository: Admissible-Existence/RTG
+          ref: main
+          path: RTG
+
+      - name: Observe formalism projection state
+        working-directory: Site
+        run: python scripts/check_rtg_formalism_projection.py --rtg-root ../RTG
+
+      - name: Upload observation record
+        uses: actions/upload-artifact@v4
+        with:
+          name: rtg-formalism-projection-observation
+          path: Site/data/formalism-publication/rtg-projection-observation.json
+          if-no-files-found: error
+          retention-days: 30
