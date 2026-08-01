@@ -1,94 +1,221 @@
 # Development Without Domination — Site Mirror Handoff
 
-## Purpose
+## Source of truth
 
-This is the paper-specific mirror handoff for the StegVerse public Site projection of:
+This file is the paper-specific handoff for the StegVerse public Site projection of:
 
-`Development Without Domination: Reciprocal Developmental Sovereignty as a Foundation for Human-AI Relations`
+> **Development Without Domination: Reciprocal Developmental Sovereignty as a Foundation for Human-AI Relations**
 
-Author: Rigel Randolph  
-Publisher source owner: `GCAT-BCAT-Engine/Publisher`  
-Site projection owner: `StegVerse-Labs/Site`
+Repository: `StegVerse-Labs/Site`
 
-## Current state
+Branch: `publication/development-without-domination-v1`
+
+Issue: `StegVerse-Labs/Site#128`
+
+Pull request: `StegVerse-Labs/Site#129`
+
+## Current determination
 
 ```text
-state: BUILDING
+layer_exists: true
+layer_state: BUILDING
+activation_state: NOT_ACTIVATED
 execution_class: PARALLEL_SAFE
-site_publication_activated: false
-publisher_verified_source_observed: false
-exact_pdf_bytes_present: false
-public_landing_page_present: false
-public_url_verified: false
-manual_user_action_required_for_repository_work: false
+external_tasks: none
+repository_owned_observer: scripts/observe_development_without_domination_publication.py
+repository_owned_registration: scripts/register_development_without_domination_workstream.py
+repository_owned_workflow: .github/workflows/development-without-domination-publication.yml
 ```
 
-## Upstream source
+The paper layer is being built inside StegVerse. It is not waiting on an unnamed external actor. Every incomplete gate must resolve to a repository, path, issue, and executable action.
+
+## Orchestration admission
+
+Task ID:
 
 ```text
-Publisher issue: GCAT-BCAT-Engine/Publisher#21
-Publisher pull request: GCAT-BCAT-Engine/Publisher#22
-Publisher branch: publication/development-without-domination-v1
-Expected PDF SHA-256: c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d
-Expected DOCX SHA-256: fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab
+SITE-0001-DEVELOPMENT-WITHOUT-DOMINATION-PUBLICATION
 ```
 
-The expected hashes identify the finalized local artifacts. They do not establish Publisher custody or Site custody until the exact committed bytes are independently verified.
-
-## Required activation sequence
+Registration location:
 
 ```text
-1. Publisher commits and verifies the exact PDF bytes.
-2. Publisher writes a publication receipt without falsely claiming LinkedIn publication.
-3. Site acquires the Publisher-verified artifact and manifest.
-4. Site recomputes and verifies the PDF hash.
-5. Site installs the paper under this directory.
-6. Site creates a public landing/index projection.
-7. Site produces a mirror receipt binding Publisher commit, Site commit, file hash, and public route.
-8. Deployed route is verified against the expected content and hash identity.
-9. Only then may site_publication_activated become true.
-10. Wiki projections remain downstream awareness records, not source or admissibility authority.
+data/site-orchestration-state.json
 ```
 
-## Coordination boundary
-
-This workload does not own or modify the active HIL upload surface. It does not supersede Site issue #24, HIL activation work, heartbeat orchestration, or any existing active branch.
+Registration controller:
 
 ```text
-paper preparation != publication
-Publisher PR != Publisher verification
-Site file presence != deployed public availability
-public route != LinkedIn publication
+scripts/register_development_without_domination_workstream.py
+```
+
+The task is `PARALLEL_SAFE` and does not supersede the HIL upload surface or Site issue #24.
+
+## Artifact identity
+
+Expected PDF path:
+
+```text
+papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf
+```
+
+Expected SHA-256:
+
+```text
+c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d
+```
+
+Expected editable source identity:
+
+```text
+Development_Without_Domination_Rigel_Randolph_Final.docx
+fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab
+```
+
+A declared hash is not repository custody. The exact bytes must be committed and independently hashed by the observer.
+
+## Autonomous observation and completion
+
+Observer:
+
+```text
+scripts/observe_development_without_domination_publication.py
+```
+
+Workflow:
+
+```text
+.github/workflows/development-without-domination-publication.yml
+```
+
+Machine-readable state:
+
+```text
+papers/development-without-domination/site-publication-status.json
+```
+
+Activation receipt:
+
+```text
+papers/development-without-domination/site-mirror-receipt.json
+```
+
+The observer advances only through evidence-backed states:
+
+```text
+BUILDING
+-> SOURCE_OBSERVED
+-> SITE_BYTES_VERIFIED
+-> ROUTE_READY
+-> ACTIVATED
+```
+
+Every incomplete gate is written into `remaining_tasks` with these required fields:
+
+```text
+repository
+path
+issue
+action
+```
+
+No `external blocker`, `external task`, or ownerless waiting state is valid.
+
+## Concrete remaining task locations
+
+### Exact PDF custody
+
+Repository: `StegVerse-Labs/Site`
+
+Path:
+
+```text
+papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf
+```
+
+Owner record:
+
+```text
+StegVerse-Labs/Site#128
+StegVerse-Labs/Site#129
+```
+
+### Public landing route
+
+Repository: `StegVerse-Labs/Site`
+
+Path:
+
+```text
+papers/development-without-domination/index.html
+```
+
+Owner record:
+
+```text
+StegVerse-Labs/Site#128
+StegVerse-Labs/Site#129
+```
+
+### Site mirror receipt
+
+Repository: `StegVerse-Labs/Site`
+
+Path:
+
+```text
+papers/development-without-domination/site-mirror-receipt.json
+```
+
+Generator:
+
+```text
+scripts/observe_development_without_domination_publication.py
+```
+
+### Publisher observation
+
+Repository: `GCAT-BCAT-Engine/Publisher`
+
+Paths:
+
+```text
+papers/development-without-domination/publication-manifest.json
+papers/development-without-domination/publication-receipt.json
+```
+
+Owner record:
+
+```text
+GCAT-BCAT-Engine/Publisher#21
+GCAT-BCAT-Engine/Publisher#22
+```
+
+Publisher is an ecosystem repository, not an external task. The Site observer reads its repository evidence directly.
+
+## Activation gate
+
+The Site paper layer becomes `ACTIVATED` only when:
+
+```text
+exact PDF exists at the declared Site path
+computed PDF SHA-256 equals the expected identity
+public_route is recorded
+route verification is recorded
+site-mirror-receipt.json is generated
+```
+
+## Authority boundary
+
+```text
+preparation != publication
+repository presence != deployed availability
+Publisher manifest != Site custody
+Site custody != route verification
 publication != admissibility
-mirror receipt != source authority
+LinkedIn distribution != StegVerse source authority
 ```
 
-## Remaining tasks
+## Continuation instruction
 
-Destination `GCAT-BCAT-Engine/Publisher`:
-
-- Commit exact finalized PDF bytes.
-- Verify the committed PDF SHA-256.
-- Produce the Publisher publication receipt.
-- Merge Publisher PR #22 after checks pass.
-
-Destination `StegVerse-Labs/Site`:
-
-- Import only Publisher-verified bytes.
-- Create the public paper landing page and paper index entry.
-- Add exact-byte verifier and mirror receipt.
-- Verify the deployed route.
-- Update this handoff to `ACTIVATED` only after the receipt and public verification exist.
-
-Downstream after Site verification:
-
-- `StegVerse-Labs/admissibility-wiki`: reference projection without claiming admissibility.
-- `StegVerse-002/stegguardian-wiki`: reciprocal-sovereignty governance reference.
-- `GCAT-BCAT-Engine/Publisher`: record the verified Site mirror receipt.
-
-## Archive readiness
-
-```text
-thread_archive_ready: true
-archive_reason: The StegVerse Site construction state, ownership, artifact identities, exact activation sequence, and downstream coordination tasks are repository-resident. No additional chat context is required to continue.
-```
+Run or allow the repository workflow to run. The workflow first registers the task, then observes repository evidence, updates the status, and commits evidence-backed state transitions. Repair any failing repository-local gate at the exact path recorded in `remaining_tasks`; do not convert it into an external waiting state.
