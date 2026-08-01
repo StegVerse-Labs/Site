@@ -1,0 +1,59 @@
+{
+  "schema": "stegverse.site.marketplace_coinbase_first_accessibility_source_observation.v1",
+  "observed_source": {
+    "schema": "stegverse.crypto_bot.first_accessibility_mark.v1",
+    "repository": "StegVerse-Labs/crypto-bot",
+    "commit_sha": "73a0543ddb27a88fd4913e7dcfa2127132299baa",
+    "workflow_run_id": "30681165495",
+    "workflow_run_attempt": "1",
+    "status": "PASS",
+    "paper_trading_accessible": true,
+    "outbound_manifest_digest": "sha256:854bd485bb93a50a086778d21a33da33299ef3abc36552547a5bf41d9e797333",
+    "publication_authority": "NOT_GRANTED",
+    "release_authority": "NOT_GRANTED",
+    "execution_authority": "PAPER_ONLY",
+    "live_authority": "NOT_GRANTED",
+    "generated_at": "2026-08-01T03:02:00.440515Z",
+    "checks": [
+      {
+        "command": [
+          "python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/test_production_adapters.py",
+          "tests/test_governed_execution.py",
+          "tests/test_coinbase_adapter.py",
+          "tests/test_paper_orchestrator.py",
+          "tests/test_marketplace_release_outbound.py"
+        ],
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "..........................                                               [100%]\n26 passed in 0.22s\n"
+      },
+      {
+        "command": [
+          "python",
+          "scripts/build_marketplace_release_outbound.py"
+        ],
+        "exit_code": 0,
+        "stderr_tail": "",
+        "stdout_tail": "{\"commit_sha\": \"73a0543ddb27a88fd4913e7dcfa2127132299baa\", \"execution_authorized\": false, \"files\": [\"intent-marketplace-release-73a0543ddb27.settlement.json\", \"intent-marketplace-release-73a0543ddb27.transport.json\"], \"intent_id\": \"intent-marketplace-release-73a0543ddb27\", \"live_authority_granted\": false, \"manifest_digest\": \"sha256:854bd485bb93a50a086778d21a33da33299ef3abc36552547a5bf41d9e797333\", \"manifest_version\": \"marketplace-coinbase-outbound-v1\", \"packet_digest\": \"sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b\", \"publication_authorized\": false, \"release_authorized\": false, \"repository\": \"StegVerse-Labs/crypto-bot\", \"transport_digest\": \"sha256:f6f41875a5e066fc348cac68691c1d4fb77f3559282eb4ede26a398c87ee7e64\", \"workflow_run_id\": \"30681165495\"}\n"
+      }
+    ],
+    "receipt_digest": "sha256:5f6cc484c74f5795973cd2e6c52cc349e1cc464064841a29c3d28ed863e98758"
+  },
+  "workflow_job_id": 91318313997,
+  "workflow_job_conclusion": "success",
+  "accessibility_artifact_id": 8812256538,
+  "accessibility_artifact_digest": "sha256:fa051f49f259c54f491dc1395568447393e6ea83dbd9c8535e3cbdfe03e2ada7",
+  "outbound_artifact_id": 8812256423,
+  "outbound_artifact_digest": "sha256:a7c83022971359ac000addcfea5cb3b1ca12b26502dfc67edd159b50e1e8a90f",
+  "observation_is_authority": false,
+  "publication_authority": "NOT_GRANTED",
+  "release_authority": "NOT_GRANTED",
+  "execution_authority": "NOT_GRANTED",
+  "live_authority": "NOT_GRANTED",
+  "custody_authority": "NOT_GRANTED",
+  "withdrawal_authority": "NOT_GRANTED"
+}
