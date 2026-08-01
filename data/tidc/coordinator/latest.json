@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-01T22:13:54.281860+00:00",
+  "generated_at": "2026-08-01T22:27:43.836160+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -17,7 +17,7 @@
     "waiting_build": 0,
     "failed": 0,
     "activation_state": "BLOCKED_CONTINUING",
-    "active_source_work_id": "SRC-002",
+    "active_source_work_id": "SRC-003",
     "development_halted": false
   },
   "tasks": {
@@ -82,10 +82,10 @@
     "TIDC-R2-006A": {
       "status": "IN_PROGRESS",
       "active_status": "ACTIVE",
-      "active_work_id": "SRC-002",
-      "active_task": "Retrieve projective-plane order-10 computational reports",
-      "receipt_path": "data/tidc/source-receipts/COMP-002.json",
-      "remaining_count": 8,
+      "active_work_id": "SRC-003",
+      "active_task": "Preserve Robbins proof publication and simplification chronology",
+      "receipt_path": "data/tidc/source-receipts/COMP-003.json",
+      "remaining_count": 7,
       "development_halted": false,
       "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
       "command_result": {
@@ -96,7 +96,7 @@
           "data/tidc/source-work/active.json"
         ],
         "exit_status": 0,
-        "stdout": "{\"completed\": 1, \"development_halted\": false, \"remaining\": 8, \"status\": \"ACTIVE\", \"work_id\": \"SRC-002\"}\n",
+        "stdout": "{\"completed\": 2, \"development_halted\": false, \"remaining\": 7, \"status\": \"ACTIVE\", \"work_id\": \"SRC-003\"}\n",
         "stderr": "",
         "status": "COMPLETE"
       },
