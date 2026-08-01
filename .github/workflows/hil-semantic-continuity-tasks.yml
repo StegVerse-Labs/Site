@@ -1,0 +1,38 @@
+name: HIL Semantic Continuity Tasks
+
+on:
+  push:
+    paths:
+      - 'docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md'
+      - 'docs/hil-semantic-continuity/**'
+      - 'data/hil-semantic-continuity-task-state.json'
+      - 'data/schemas/hil-semantic-transformation.schema.json'
+      - 'data/fixtures/hil-semantic-transformation/**'
+      - 'scripts/check_hil_semantic_continuity_tasks.py'
+      - 'scripts/validate_hil_semantic_transformation.py'
+      - '.github/workflows/hil-semantic-continuity-tasks.yml'
+  pull_request:
+    paths:
+      - 'docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md'
+      - 'docs/hil-semantic-continuity/**'
+      - 'data/hil-semantic-continuity-task-state.json'
+      - 'data/schemas/hil-semantic-transformation.schema.json'
+      - 'data/fixtures/hil-semantic-transformation/**'
+      - 'scripts/check_hil_semantic_continuity_tasks.py'
+      - 'scripts/validate_hil_semantic_transformation.py'
+      - '.github/workflows/hil-semantic-continuity-tasks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  observe-and-select:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate task graph and select next task
+        run: python scripts/check_hil_semantic_continuity_tasks.py
