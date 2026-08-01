@@ -16,14 +16,14 @@
       "session_id": "session-orchestration-design-2026-07-31",
       "repository": "StegVerse-Labs/Site",
       "task_id": "SESSION-ORCHESTRATION-0001",
-      "posture": "ARCHIVABLE",
+      "posture": "SUPERSEDED",
       "authority_checked": [
         "docs/SITE_MIRROR_HANDOFF.md",
         "data/site-orchestration-state.json",
         "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
       ],
-      "current_commit": "0eaf2c4feb9afb06b325e71ed33cdfbe31581d47",
-      "handoff_revision": "0003064079351e0d2c522ba4a5a7fcdd014d9151",
+      "current_commit": "0bda46c5b5099af0e3cbc87b9b2129c09c14f9e3",
+      "handoff_revision": "0bda46c5b5099af0e3cbc87b9b2129c09c14f9e3",
       "active_task_ownership": false,
       "unique_unmerged_state": false,
       "safe_to_archive": true,
@@ -34,10 +34,40 @@
         "schemas/session-retirement.schema.json",
         "data/session-orchestration-registry.json",
         "prompts/SESSION_SELF_AUDIT.md",
-        "scripts/check_session_retirement.py"
+        "scripts/check_session_retirement.py",
+        ".github/workflows/session-retirement-validate.yml"
       ],
       "required_before_archive": [],
-      "reason": "The protocol, archive gate, continuation source, registry, schema, reusable audit prompt, and validator are represented in repository authority."
+      "reason": "The original design session has been superseded by the active activation coordination tracked in issue #114; its unique state is preserved in repository authority."
+    },
+    {
+      "session_id": "session-orchestration-activation-coordination-2026-07-31",
+      "repository": "StegVerse-Labs/Site",
+      "task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
+      "posture": "CURRENT",
+      "authority_checked": [
+        "docs/SITE_MIRROR_HANDOFF.md",
+        "data/site-orchestration-state.json",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "issues/114"
+      ],
+      "current_commit": "0bda46c5b5099af0e3cbc87b9b2129c09c14f9e3",
+      "handoff_revision": "0bda46c5b5099af0e3cbc87b9b2129c09c14f9e3",
+      "active_task_ownership": true,
+      "unique_unmerged_state": false,
+      "safe_to_archive": false,
+      "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "conflicting_active_owner": false,
+      "material_state_locations": [
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "data/session-orchestration-registry.json",
+        "issues/114"
+      ],
+      "required_before_archive": [
+        "transfer or complete issue #114 coordination ownership",
+        "record validator PASS and activation evidence or successor ownership"
+      ],
+      "reason": "This session currently coordinates the active BUILD_IN_PROGRESS task sequence SOR-0001 through SOR-0008 under issue #114."
     }
   ]
 }
