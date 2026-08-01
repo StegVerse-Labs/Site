@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "issue": 127,
   "repository": "StegVerse-Labs/Site",
   "execution_class": "PARALLEL_SAFE",
   "owner": "StegVerse-Labs/Site:.github/workflows/observe-rtg-formalism-projection.yml",
-  "state": "ACTIVE_OBSERVATION_AND_IMPORT_PREPARATION",
+  "state": "ACTIVE_BUILD_AND_OBSERVATION",
   "manual_external_tasks": [],
   "source": {
     "repository": "Admissible-Existence/RTG",
@@ -26,30 +26,42 @@
       "status": "IMPLEMENTED"
     },
     {
-      "task": "Run observation automatically on source or observer changes and daily",
+      "task": "Run observation automatically and validate outputs",
       "exists_at": "StegVerse-Labs/Site/.github/workflows/observe-rtg-formalism-projection.yml",
       "status": "IMPLEMENTED"
     },
     {
       "task": "Record machine-readable Site projection status",
       "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-projection-observation.json",
-      "status": "GENERATED_BY_WORKFLOW"
+      "status": "IMPLEMENTED_AND_REGENERATED_BY_WORKFLOW"
     },
     {
-      "task": "Define Site import schema after source handbacks become complete-awaiting-acceptance",
+      "task": "Define fail-closed Site import contract",
       "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-publication-readiness.schema.json",
-      "status": "NEXT_AUTOMATED_BUILD_STEP"
+      "status": "IMPLEMENTED"
     },
     {
-      "task": "Build review-only Site projection after accepted readiness",
+      "task": "Build review-only Site projection scaffold",
       "exists_at": "StegVerse-Labs/Site/formalisms/rtg/index.html",
-      "status": "BLOCKED_BY_RECORDED_SOURCE_EVIDENCE"
+      "status": "IMPLEMENTED_NOT_ACTIVATED"
+    },
+    {
+      "task": "Record central formalism acceptance when all source lanes are terminal",
+      "exists_at": "Admissible-Existence/.github/FORMALISM_MIRROR_HANDOFF.md",
+      "status": "SOURCE_REPOSITORY_MACHINE_EVIDENCE_REQUIRED"
+    },
+    {
+      "task": "Activate review-only projection after accepted source evidence",
+      "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-projection-observation.json",
+      "status": "GOVERNED_STATE_TRANSITION_PENDING"
     }
   ],
   "progress_policy": {
-    "missing_or_incomplete_source_evidence": "record blocker and continue observing",
+    "missing_or_incomplete_source_evidence": "record blocker and continue building non-authoritative projection assets",
     "observer_failure": "fail closed and preserve report",
     "source_state_change": "recompute projection automatically",
+    "source_terminal_without_acceptance": "advance to central acceptance review",
+    "all_source_lanes_accepted": "advance to activation eligibility",
     "no_external_wait_state": true,
     "authority_effect": false,
     "activation_effect": false
