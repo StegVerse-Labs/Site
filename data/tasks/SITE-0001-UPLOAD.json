@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "task_id": "SITE-0001-UPLOAD",
   "repository": "StegVerse-Labs/Site",
-  "goal": "Provide and continuously verify the governed HIL v1 upload surface.",
+  "goal": "Provide and continuously verify the governed HIL v1.1 upload and canonical experiment surface.",
   "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
   "owner": {
     "type": "repository_controller",
@@ -10,19 +10,21 @@
   },
   "implementation_locations": [
     "humans-as-interoperability-layer.html",
-    "assets/hil-experiment-v1.js",
+    "assets/hil-experiment-v1.1.js",
+    "assets/hil-direct-upload-v1.js",
     "data/hil-experiment.json",
     "data/hil-gateway-config.json",
-    "data/hil-primary-v1.0.pdf.b64"
+    "data/HIL_Canonical_Paper_v1_1.pdf"
   ],
   "verification_locations": [
-    "scripts/check_hil_v1_upload_surface.py",
-    ".github/workflows/check-hil-v1-upload-surface.yml"
+    "scripts/check_hil_v1_1_release.py",
+    "scripts/verify_hil_site_contract.py",
+    ".github/workflows/hil-site-contract.yml"
   ],
   "acceptance": {
     "required_files_exist": true,
-    "validator_command": "python scripts/check_hil_v1_upload_surface.py",
-    "success_marker": "HIL_V1_UPLOAD_SURFACE=PASS"
+    "validator_command": "python scripts/check_hil_v1_1_release.py",
+    "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS"
   },
   "completion_effect": {
     "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
