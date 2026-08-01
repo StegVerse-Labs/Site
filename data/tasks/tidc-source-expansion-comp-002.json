@@ -1,0 +1,26 @@
+{
+  "task_id": "TIDC-SRC-COMP-002",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Reconstruct primary-source evidence for COMP-002 without silently recoding the seed ledger.",
+  "task_location": "data/tidc/source-expansion/COMP-002.json",
+  "verification_paths": [
+    "data/tidc/source-expansion/COMP-002.json",
+    "data/tidc/source-expansion/seed-source-expansion-plan.json",
+    "data/tidc/pilot-events-v0.1.json"
+  ],
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "COMPLETED_PENDING_MACHINE_VERIFICATION",
+  "completion_evidence": {
+    "commit": "b2e86f7d8b4b559a5a1ea0178a0260d5db309490",
+    "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+    "seed_ledger_changed": false,
+    "seed_discrepancy_recorded": true
+  },
+  "next_task": {
+    "task_id": "TIDC-SRC-COMP-003",
+    "location": "data/tidc/source-expansion/COMP-003.json"
+  },
+  "authority_effect": "NONE"
+}
