@@ -7,6 +7,12 @@ on:
     paths:
       - 'src/worker.js'
       - 'wrangler.jsonc'
+      - 'va-disability-claim-guide.html'
+      - 'assets/va-claim-guide/**'
+      - 'sv-shared.css'
+      - 'index.html'
+      - 'scripts/check_va_claim_guide.py'
+      - '.github/workflows/va-claim-guide-workers.yml'
       - '.github/workflows/hil-cloudflare-deploy.yml'
       - 'controls/DEPLOY_HIL_RECEIVER.txt'
 
@@ -33,6 +39,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate VA claim guide before deployment
+        run: python scripts/check_va_claim_guide.py
 
       - name: Validate deployment credentials
         shell: bash
@@ -62,7 +75,7 @@ jobs:
           Path('wrangler.production.json').write_text(json.dumps(config, indent=2) + '\n')
           PY
 
-      - name: Deploy receiver Worker
+      - name: Deploy receiver Worker and static Site
         shell: bash
         run: |
           set -euo pipefail
@@ -108,7 +121,51 @@ jobs:
           PY
           exit 0
 
-      - name: Commit deployment observation
+      - name: Verify deployed VA claim guide and mobile asset
+        shell: bash
+        run: |
+          set +e
+          page_url='https://site.rigelrandolph.workers.dev/va-disability-claim-guide.html'
+          asset_url='https://site.rigelrandolph.workers.dev/assets/va-claim-guide/01-open-va-app-v2.svg'
+          page_status=$(curl --silent --show-error --max-time 30 --output deployment-evidence/va-claim-guide.html --write-out '%{http_code}' "$page_url")
+          page_curl=$?
+          asset_status=$(curl --silent --show-error --max-time 30 --output deployment-evidence/va-claim-guide-image.svg --write-out '%{http_code}' "$asset_url")
+          asset_curl=$?
+          python - "$page_status" "$page_curl" "$asset_status" "$asset_curl" <<'PY'
+          import json, sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+          page_status, page_curl, asset_status, asset_curl = sys.argv[1:]
+          page = Path('deployment-evidence/va-claim-guide.html').read_text(errors='replace') if Path('deployment-evidence/va-claim-guide.html').exists() else ''
+          asset = Path('deployment-evidence/va-claim-guide-image.svg').read_text(errors='replace') if Path('deployment-evidence/va-claim-guide-image.svg').exists() else ''
+          markers = [
+              'Purpose: accurate claims, not inflated claims.',
+              'Submit all claim-relevant documents to ChatGPT for organization',
+              'Watch this box for messages describing the assistant',
+              'VA Form 21-526EZ',
+              'Official sources'
+          ]
+          record = {
+              'schema_version': 'VA-CLAIM-GUIDE-DEPLOYMENT-RESULT-v1',
+              'recorded_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'page_url': 'https://site.rigelrandolph.workers.dev/va-disability-claim-guide.html',
+              'asset_url': 'https://site.rigelrandolph.workers.dev/assets/va-claim-guide/01-open-va-app-v2.svg',
+              'page_http_status': int(page_status) if page_status.isdigit() else None,
+              'page_curl_status': int(page_curl),
+              'asset_http_status': int(asset_status) if asset_status.isdigit() else None,
+              'asset_curl_status': int(asset_curl),
+              'required_markers': {m: (m in page) for m in markers},
+              'asset_is_svg': '<svg' in asset,
+              'verified': page_status == '200' and asset_status == '200' and all(m in page for m in markers) and '<svg' in asset,
+              'live_llm_active': False,
+              'private_document_analysis_active': False,
+              'authority_effect': False
+          }
+          Path('data/va-claim-guide-deployment-latest.json').write_text(json.dumps(record, indent=2, sort_keys=True) + '\n')
+          PY
+          exit 0
+
+      - name: Commit deployment observations
         if: always()
         shell: bash
         run: |
@@ -117,32 +174,40 @@ jobs:
             mkdir -p data
             printf '%s\n' '{"schema_version":"HIL-RECEIVER-DEPLOYMENT-RESULT-v1","deployed":false,"ready":false,"failure":"deployment_step_failed_before_live_probe","authority_effect":false}' > data/hil-receiver-deployment-latest.json
           fi
-          git config user.name 'stegverse-hil-deployer'
+          if [ ! -f data/va-claim-guide-deployment-latest.json ]; then
+            mkdir -p data
+            printf '%s\n' '{"schema_version":"VA-CLAIM-GUIDE-DEPLOYMENT-RESULT-v1","verified":false,"failure":"deployment_step_failed_before_live_probe","authority_effect":false}' > data/va-claim-guide-deployment-latest.json
+          fi
+          git config user.name 'stegverse-site-deployer'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/hil-receiver-deployment-latest.json
+          git add data/hil-receiver-deployment-latest.json data/va-claim-guide-deployment-latest.json
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m 'chore(hil): record receiver deployment observation'
+          git commit -m 'chore(site): record deployment observations'
           git pull --rebase origin main
           git push origin HEAD:main
 
-      - name: Enforce live READY receiver
+      - name: Enforce live READY receiver and VA guide
         shell: bash
         run: |
           python - <<'PY'
           import json
-          record = json.load(open('data/hil-receiver-deployment-latest.json'))
-          if record.get('ready') is not True:
-              raise SystemExit(f"HIL_RECEIVER_NOT_READY:{record}")
+          receiver = json.load(open('data/hil-receiver-deployment-latest.json'))
+          guide = json.load(open('data/va-claim-guide-deployment-latest.json'))
+          if receiver.get('ready') is not True:
+              raise SystemExit(f"HIL_RECEIVER_NOT_READY:{receiver}")
+          if guide.get('verified') is not True:
+              raise SystemExit(f"VA_CLAIM_GUIDE_NOT_VERIFIED:{guide}")
           print('HIL_RECEIVER_DEPLOYMENT=PASS')
+          print('VA_CLAIM_GUIDE_DEPLOYMENT=PASS')
           PY
 
       - name: Upload deployment evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: hil-receiver-deployment-${{ github.run_id }}
+          name: site-deployment-${{ github.run_id }}
           path: deployment-evidence/
           if-no-files-found: warn
           retention-days: 30
