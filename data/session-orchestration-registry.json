@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "registry_type": "stegverse_session_orchestration_registry",
+  "repository": "StegVerse-Labs/Site",
+  "handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+  "policy": {
+    "age_is_not_archive_authority": true,
+    "compare_to_live_repository_state": true,
+    "merge_unique_state_before_retirement": true,
+    "one_active_owner_per_task": true,
+    "archive_gate_fails_closed": true,
+    "ui_archive_action_is_separate": true
+  },
+  "sessions": [
+    {
+      "session_id": "session-orchestration-design-2026-07-31",
+      "repository": "StegVerse-Labs/Site",
+      "task_id": "SESSION-ORCHESTRATION-0001",
+      "posture": "ARCHIVABLE",
+      "authority_checked": [
+        "docs/SITE_MIRROR_HANDOFF.md",
+        "data/site-orchestration-state.json",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+      ],
+      "current_commit": "0eaf2c4feb9afb06b325e71ed33cdfbe31581d47",
+      "handoff_revision": "0003064079351e0d2c522ba4a5a7fcdd014d9151",
+      "active_task_ownership": false,
+      "unique_unmerged_state": false,
+      "safe_to_archive": true,
+      "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "conflicting_active_owner": false,
+      "material_state_locations": [
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "schemas/session-retirement.schema.json",
+        "data/session-orchestration-registry.json",
+        "prompts/SESSION_SELF_AUDIT.md",
+        "scripts/check_session_retirement.py"
+      ],
+      "required_before_archive": [],
+      "reason": "The protocol, archive gate, continuation source, registry, schema, reusable audit prompt, and validator are represented in repository authority."
+    }
+  ]
+}
