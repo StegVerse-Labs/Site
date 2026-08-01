@@ -1,0 +1,63 @@
+{
+  "schema": "stegverse.site.tidc.source_receipt.v0.1",
+  "generated": "2026-08-01",
+  "work_id": "SRC-001",
+  "record_ids": ["COMP-001"],
+  "status": "LIMITATION_RETAINED",
+  "task": "Retrieve or preserve original four-color theorem papers and computation records",
+  "source_findings": [
+    {
+      "source_type": "primary_paper",
+      "title": "Every planar map is four colorable. Part I: Discharging",
+      "authors": ["Kenneth Appel", "Wolfgang Haken"],
+      "publication": "Illinois Journal of Mathematics 21(3), 429-490",
+      "publication_date": "1977-09-01",
+      "doi": "10.1215/ijm/1256049011",
+      "posture": "IDENTIFIED_PRIMARY"
+    },
+    {
+      "source_type": "primary_paper",
+      "title": "Every planar map is four colorable. Part II: Reducibility",
+      "authors": ["Kenneth Appel", "Wolfgang Haken", "John Koch"],
+      "publication": "Illinois Journal of Mathematics 21(3), 491-567",
+      "publication_date": "1977-09-01",
+      "doi": "10.1215/ijm/1256049012",
+      "posture": "IDENTIFIED_PRIMARY"
+    },
+    {
+      "source_type": "published_supplement",
+      "title": "Class check lists corresponding to the supplement to Every planar map is four colorable, Parts I and II",
+      "publication": "Illinois Journal of Mathematics 21(3), C1-C210, microfiche supplement",
+      "publication_date": "1977",
+      "posture": "IDENTIFIED_PRIMARY_SUPPLEMENT"
+    },
+    {
+      "source_type": "institutional_archive",
+      "title": "Kenneth Appel Papers, 1971-2004",
+      "repository": "University of Illinois Archives",
+      "collection_id": "15/14/41",
+      "holdings": ["correspondence", "research notes", "drafts", "computer punch cards", "data printouts relating to the Four Color Theorem"],
+      "access_posture": "OFFSITE_24_HOURS_NOTICE",
+      "posture": "ARCHIVAL_HOLDINGS_LOCATED_NOT_DIGITALLY_RETRIEVED"
+    }
+  ],
+  "chronology": {
+    "research_start": "1974",
+    "proof_completion": "1976",
+    "announcement_publication": "1976",
+    "detailed_publication": "1977-09-01"
+  },
+  "retained_limitations": [
+    "The original computation punch cards and complete data printouts are located in a physical University of Illinois archival collection but were not digitally retrieved in this repository review.",
+    "The microfiche class-check supplement was identified bibliographically but its complete bytes were not preserved in the repository.",
+    "Exact machine-run dates, hardware logs, program versions, and complete execution transcripts remain unresolved and must not be inferred from the publication date.",
+    "The record may support proof completion in 1976 and detailed publication in 1977, but candidate-generation, verification, public-disclosure, publication, acceptance, and recognition dates remain distinct fields."
+  ],
+  "coding_effect": {
+    "source_packet_improved": true,
+    "first_pass_recode_permitted": false,
+    "independent_coder_may_use": "Only after a versioned packet update that preserves the retained limitations.",
+    "confidence_effect": "Primary-paper and archive provenance improved; complete computational reconstructability remains unestablished."
+  },
+  "completion_boundary": "SRC-001 is terminal as LIMITATION_RETAINED. This receipt does not claim that the historic computation has been independently reconstructed or that the TIDC hypothesis is confirmed."
+}
