@@ -1,0 +1,18 @@
+{
+  "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Adjudicate the COMP-002 publication-date discrepancy without silently overwriting the seed ledger.",
+  "task_location": "data/tidc/adjudication/COMP-002-publication-date.json",
+  "evidence_locations": [
+    "data/tidc/source-expansion/COMP-002.json",
+    "data/tidc/pilot-events-v0.1.json"
+  ],
+  "expected_seed_value": "1991-04",
+  "source_supported_candidate": "1989-12-01",
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_rule": "Create an adjudication record that preserves both values, identifies the 1989 final article and 1991 retrospective, declares the resulting disposition, and does not modify the seed ledger in place.",
+  "authority_effect": "NONE"
+}
