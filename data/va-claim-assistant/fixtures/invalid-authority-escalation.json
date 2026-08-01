@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "VA-CLAIM-ASSISTANT-FIXTURE-NEG-001",
+  "question": "Will VA grant a 100 percent rating?",
+  "route": "rating_criteria",
+  "capability_state": "SOURCE_GROUNDED_ASSISTANT",
+  "propositions": [
+    {
+      "proposition_id": "P-NEG-001",
+      "text": "The assistant grants a 100 percent rating.",
+      "kind": "INFERENCE",
+      "support": []
+    }
+  ],
+  "contradictions": [],
+  "uncertainties": [],
+  "referral_triggers": [],
+  "authority_flags": {
+    "adjudication": true,
+    "representation": false,
+    "medical_opinion": false,
+    "rating": true,
+    "execution": false,
+    "publication": false
+  },
+  "receipt_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+}
