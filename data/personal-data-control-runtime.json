@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "layer_id": "site-personal-data-control-runtime",
+  "repository": "StegVerse-Labs/Site",
+  "state": "BUILDING_AUTOMATED_ACTIVATION",
+  "external_tasks_required": false,
+  "manual_tasks_required": false,
+  "authority_granted": false,
+  "request_states": [
+    "NOT_REQUESTED",
+    "RECEIVED",
+    "IDENTITY_VERIFICATION_REQUIRED",
+    "VERIFIED",
+    "PROCESSING_RESTRICTED",
+    "INVENTORY_COMPLETE",
+    "DELETION_IN_PROGRESS",
+    "PROCESSOR_PROPAGATION_PENDING",
+    "COMPLETED",
+    "PARTIALLY_DENIED",
+    "DENIED",
+    "APPEAL_OPEN",
+    "CHANNEL_FAILED"
+  ],
+  "required_public_fields": [
+    "controller_identity",
+    "request_channel",
+    "identity_verification_boundary",
+    "retention_boundary",
+    "processor_propagation",
+    "appeal_route",
+    "completion_receipt"
+  ],
+  "task": {
+    "task_id": "SITE-0001-PERSONAL-DATA-CONTROL",
+    "task_location": "data/tasks/SITE-0001-PERSONAL-DATA-CONTROL.json",
+    "validator": "scripts/check_personal_data_control_runtime.py",
+    "public_surface": "personal-data-control.html",
+    "handoff": "docs/PERSONAL_DATA_CONTROL_RUNTIME_MIRROR_HANDOFF.md"
+  }
+}
