@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-01T20:52:26.710571+00:00",
+  "generated_at": "2026-08-01T21:12:19.132234+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
@@ -75,7 +75,7 @@
     "TIDC-R2-006": {
       "status": "IN_PROGRESS",
       "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work-queue.v0.1.json",
-      "unresolved_marker_count": 5,
+      "unresolved_marker_count": 6,
       "continuation": "Repository research sessions may resolve one source record at a time without waiting for the independent return.",
       "name": "Maintain archival source sufficiency record"
     },
