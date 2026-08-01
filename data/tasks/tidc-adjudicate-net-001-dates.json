@@ -1,0 +1,21 @@
+{
+  "task_id": "TIDC-ADJ-NET-001-DATES",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Adjudicate NET-001 candidate-generation and verification dates using the preserved source reconstruction without silently overwriting tranche 01.",
+  "task_location": "data/tidc/source-expansion/NET-001.json",
+  "required_outputs": [
+    "data/tidc/adjudication/NET-001-candidate-generation-date.json",
+    "data/tidc/adjudication/NET-001-verification-date.json"
+  ],
+  "evidence_paths": [
+    "data/tidc/source-expansion/NET-001.json",
+    "data/tidc/pilot-events-v0.1.json",
+    "docs/TIDC_BLINDED_CODING_ADJUDICATION_PROTOCOL.md"
+  ],
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_rule": "Preserve seed values, source-supported values, disposition, rationale, and authority_effect NONE. Do not mutate tranche 01 in place.",
+  "authority_effect": "NONE"
+}
