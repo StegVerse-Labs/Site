@@ -1,5 +1,5 @@
 {
-  "schema_version": "STEGVERSE-TASK-v1.1",
+  "schema_version": "STEGVERSE-TASK-v1.2",
   "task_id": "SITE-TVC-RUNTIME-ASSIST-001",
   "title": "Prepare Site for TVC-governed HIL intake projection",
   "state": "ACTIVE_COORDINATED",
@@ -16,6 +16,24 @@
     "StegVerse-Labs/TVC:tasks/TVC-EXECUTION-GRANT-PROOF-SUITE"
   ],
   "site_activation_commit": "804e768bb3cfd6665fe31cc163ee05718daad7ad",
+  "upstream_milestones": {
+    "capability_lease_contract_defined": "920a026ef3c73c0181bc45de14c4a458ef2f6ce1",
+    "capability_lease_issuer_implemented": "30475ab1be6cc185de3c2e0ce48f2c9a6d2867f5",
+    "capability_lease_workflow_added": "ad1966c7e469ff698997c3bcb26888e2ce8ae5e0",
+    "capability_lease_issuance_layer_activated": "ed3ccd0d0f85c3b46aa9ba9729416ba1722965c1",
+    "execution_grant_schema_started": "8ffb66479300d17b91b5b10aed68418a15cb737c",
+    "execution_grant_revocation_schema_added": "a1eddccc403ea37956559c39a418202a5e44a3b7",
+    "execution_grant_consumption_schema_added": "e7a576861ea67ee0353d200ca8e3fc04b48b7e35"
+  },
+  "remaining_upstream_crossings": [
+    "TVC-owned runtime deployment evidence",
+    "TVC-owned api/hil/ingress response evidence",
+    "protected-value consumption evidence without value disclosure",
+    "execution-grant issuance and independent validation receipt",
+    "grant consumption receipt",
+    "grant revocation or retirement receipt",
+    "complete execution proof-suite result"
+  ],
   "required_actions": [
     "Verify hil-direct-ingress-worker.yml exists and remains the exact bound workflow",
     "Verify incoming/hil source-object handling is fail-closed",
