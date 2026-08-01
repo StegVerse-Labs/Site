@@ -1,0 +1,70 @@
+name: Development Without Domination Publication
+
+on:
+  push:
+    branches:
+      - main
+      - publication/development-without-domination-v1
+    paths:
+      - "papers/development-without-domination/**"
+      - "scripts/register_development_without_domination_workstream.py"
+      - "scripts/observe_development_without_domination_publication.py"
+      - ".github/workflows/development-without-domination-publication.yml"
+  pull_request:
+    paths:
+      - "papers/development-without-domination/**"
+      - "scripts/register_development_without_domination_workstream.py"
+      - "scripts/observe_development_without_domination_publication.py"
+      - ".github/workflows/development-without-domination-publication.yml"
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: development-without-domination-publication-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  observe-and-advance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Admit repository-owned publication task
+        run: python scripts/register_development_without_domination_workstream.py
+
+      - name: Observe and advance publication state
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/observe_development_without_domination_publication.py
+
+      - name: Validate JSON outputs
+        run: |
+          python -m json.tool data/site-orchestration-state.json >/dev/null
+          python -m json.tool papers/development-without-domination/site-publication-status.json >/dev/null
+          if [ -f papers/development-without-domination/site-mirror-receipt.json ]; then
+            python -m json.tool papers/development-without-domination/site-mirror-receipt.json >/dev/null
+          fi
+
+      - name: Commit repository-owned state transitions
+        if: github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet; then
+            echo "No state transition to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/site-orchestration-state.json papers/development-without-domination/
+          git commit -m "Advance Development Without Domination publication state"
+          git push
