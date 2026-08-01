@@ -1,0 +1,64 @@
+name: TIDC Repository Task Coordinator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+  push:
+    paths:
+      - 'data/tidc/task-graph.v0.1.json'
+      - 'data/tidc/release-2-gate.v0.1.json'
+      - 'data/tidc/blinded-coding/returns/**'
+      - 'docs/TIDC_SOURCE_PACKET_INDEX.md'
+      - 'scripts/run_tidc_task_coordinator.py'
+      - 'scripts/check_tidc_publication.py'
+      - 'scripts/check_tidc_reliability.py'
+      - 'scripts/validate_tidc_blinded_return.py'
+      - 'scripts/create_tidc_blinded_return_receipt.py'
+      - 'scripts/compare_tidc_blinded_coding.py'
+      - 'tests/tidc/test_agreement_calculator.py'
+      - '.github/workflows/tidc-task-coordinator.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tidc-repository-task-coordinator
+  cancel-in-progress: false
+
+jobs:
+  coordinate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile coordinator
+        run: python -m py_compile scripts/run_tidc_task_coordinator.py
+      - name: Observe and execute repository-native tasks
+        run: python scripts/run_tidc_task_coordinator.py --out data/tidc/coordinator/latest.json
+      - name: Preserve coordinator receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/tidc/coordinator/latest.json; then
+            echo 'Coordinator state unchanged.'
+            exit 0
+          fi
+          git config user.name 'stegverse-task-coordinator[bot]'
+          git config user.email 'stegverse-task-coordinator[bot]@users.noreply.github.com'
+          git add data/tidc/coordinator/latest.json
+          git commit -m 'chore(tidc): preserve coordinator receipt [skip ci]'
+          git push
+      - name: Publish run artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tidc-coordinator-receipt
+          path: |
+            data/tidc/coordinator/latest.json
+            generated/tidc-blinded-results/
+          if-no-files-found: warn
+          retention-days: 90
