@@ -15,13 +15,13 @@
       "repository": "StegVerse-Labs/Site",
       "path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
       "issue": "StegVerse-Labs/Site#128",
-      "action": "Commit and verify the exact finalized PDF bytes."
+      "action": "Commit exact PDF bytes matching the declared SHA-256."
     },
     {
       "repository": "StegVerse-Labs/Site",
       "path": "papers/development-without-domination/site-mirror-receipt.json",
       "issue": "StegVerse-Labs/Site#128",
-      "action": "Verify the deployed route and generate the activation receipt."
+      "action": "Verify the deployed route and record content identity."
     }
   ],
   "authority": {
@@ -29,5 +29,6 @@
     "admissibility": false,
     "execution": false,
     "release": false
-  }
+  },
+  "observed_at": "2026-08-01T23:10:23.997507+00:00"
 }
