@@ -12,6 +12,7 @@ TASK_STATE = SITE_ROOT / "data/formalism-publication/rtg-projection-task-state.j
 OUTPUT = SITE_ROOT / "data/formalism-publication/rtg-projection-observation.json"
 IMPORT_SCHEMA = SITE_ROOT / "data/formalism-publication/rtg-publication-readiness.schema.json"
 PROJECTION = SITE_ROOT / "formalisms/rtg/index.html"
+MACHINE_BASE = Path("review/volume-I-integrated-v0.9.0/machine-execution")
 EXPECTED_LANES = {
     3: "hosted-deterministic-rendering",
     4: "predecessor-and-statement-integration",
@@ -64,6 +65,31 @@ def main() -> int:
     if not schema_path.exists():
         blockers.append(f"missing source handback schema: {source['handback_schema_path']}")
 
+    machine_receipts: dict[str, Any] = {}
+    for issue in EXPECTED_LANES:
+        relative = MACHINE_BASE / f"lane-{issue}-observation.json"
+        path = rtg_root / relative
+        if path.exists():
+            machine_receipts[str(issue)] = load(path)
+        else:
+            machine_receipts[str(issue)] = {
+                "state": "NOT_YET_PERSISTED",
+                "path": str(relative),
+                "next_machine_action": "RTG workflow must generate and commit this receipt",
+            }
+            blockers.append(f"missing RTG machine receipt: {relative}")
+
+    readiness_path = rtg_root / MACHINE_BASE / "readiness-observation.json"
+    if readiness_path.exists():
+        readiness = load(readiness_path)
+    else:
+        readiness = {
+            "state": "NOT_YET_PERSISTED",
+            "next_machine_action": "RTG workflow must generate and commit readiness-observation.json",
+        }
+        blockers.append(f"missing RTG readiness receipt: {MACHINE_BASE / 'readiness-observation.json'}")
+    observations["rtg_machine_readiness"] = readiness
+
     lane_results: dict[str, Any] = {}
     all_terminal = True
     all_accepted = True
@@ -75,6 +101,7 @@ def main() -> int:
                 "state": "MISSING",
                 "lane_id": expected_lane,
                 "path": relative,
+                "machine_receipt": machine_receipts[str(issue)],
                 "remaining_blockers": ["source handback is missing"],
             }
             blockers.append(f"missing issue {issue} handback: {relative}")
@@ -89,6 +116,7 @@ def main() -> int:
             "state": state,
             "lane_id": lane_id,
             "path": relative,
+            "machine_receipt": machine_receipts[str(issue)],
             "remaining_blockers": lane_blockers,
         }
         if handback.get("issue") != issue or lane_id != expected_lane:
@@ -100,18 +128,18 @@ def main() -> int:
         if state != "ACCEPTED":
             all_accepted = False
 
-    if all_accepted and not blockers:
+    if all_accepted and readiness.get("state") == "READY_FOR_CENTRAL_ACCEPTANCE" and not blockers:
         site_state = "ACTIVATION_ELIGIBLE"
-        next_action = "perform governed review-only activation and record the activation receipt"
+        next_action = "perform governed publication-eligibility transition and record receipt"
     elif all_terminal and not blockers:
         site_state = "READY_FOR_CENTRAL_ACCEPTANCE_REVIEW"
-        next_action = "obtain and record central formalism acceptance from repository evidence"
+        next_action = "record central formalism acceptance from durable repository evidence"
     else:
-        site_state = "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS"
-        next_action = "continue machine observation while developing and validating non-authoritative projection assets"
+        site_state = "ACTIVE_REVIEW_ONLY_WITH_MACHINE_EXECUTION"
+        next_action = readiness.get("next_machine_action", "continue RTG machine lane execution and recompute")
 
     result = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "task_id": task["task_id"],
         "source_repository": source["repository"],
         "source_branch": source["branch"],
@@ -122,7 +150,7 @@ def main() -> int:
         "manual_external_tasks": [],
         "next_machine_action": next_action,
         "authority_effect": False,
-        "activation_effect": False,
+        "activation_effect": site_state == "ACTIVE_REVIEW_ONLY_WITH_MACHINE_EXECUTION",
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
