@@ -1,0 +1,55 @@
+name: Reconcile TIDC Source Expansion
+
+on:
+  push:
+    paths:
+      - 'data/tidc/source-expansion/**'
+      - 'data/tidc/work-queue.json'
+      - 'scripts/reconcile_tidc_source_expansion.py'
+      - '.github/workflows/reconcile-tidc-source-expansion.yml'
+  schedule:
+    - cron: '11 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tidc-source-expansion-reconciliation
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile committed source records
+        run: python scripts/reconcile_tidc_source_expansion.py
+      - name: Validate reconciliation receipt
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('brain_reports/tidc_source_expansion_reconciliation.json')
+          d = json.loads(p.read_text())
+          assert d['development_halted'] is False
+          assert d['authority_effect'] == 'NONE'
+          assert d['completed_record_count'] + d['remaining_record_count'] == 10
+          if d['remaining_record_count']:
+              assert d['next_repository_owned_task']['location']
+          print('TIDC_SOURCE_RECONCILIATION_VALID')
+          PY
+      - name: Commit semantic task-state changes
+        run: |
+          if git diff --quiet -- data/tidc/source-expansion/seed-source-expansion-plan.json data/tidc/work-queue.json brain_reports/tidc_source_expansion_reconciliation.json; then
+            echo 'No semantic source-expansion state changes.'
+            exit 0
+          fi
+          git config user.name 'stegverse-tidc-reconciler'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/tidc/source-expansion/seed-source-expansion-plan.json data/tidc/work-queue.json brain_reports/tidc_source_expansion_reconciliation.json
+          git commit -m 'chore: reconcile TIDC source-expansion task state [skip ci]'
+          git push
