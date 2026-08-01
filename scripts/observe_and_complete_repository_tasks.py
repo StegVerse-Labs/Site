@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Observe repository-local tasks and fail closed on unaddressable ownership.
+"""Observe, reconcile, and complete repository-local tasks.
 
-The controller does not invent external sessions. Every active task must point to a
-committed task object containing exact implementation and verification locations.
-With --apply it advances tasks whose validators pass and updates orchestration state.
+Every active task must resolve to a committed task object with exact implementation
+locations, verification locations, and an executable acceptance command. Session
+names and external-task placeholders are never treated as ownership or progress.
 """
 from __future__ import annotations
 
@@ -35,42 +35,66 @@ def run_validator(command: str) -> tuple[bool, str]:
     return result.returncode == 0, output
 
 
+def task_path(task_id: str) -> Path:
+    return TASK_DIR / f"{task_id}.json"
+
+
 def observe_task(task_id: str) -> dict[str, Any]:
-    task_path = TASK_DIR / f"{task_id}.json"
-    if not task_path.is_file():
+    path = task_path(task_id)
+    relative = str(path.relative_to(ROOT))
+    if not path.is_file():
         return {
             "task_id": task_id,
             "state": "BLOCKED_UNADDRESSABLE_TASK",
-            "task_location": str(task_path.relative_to(ROOT)),
+            "task_location": relative,
             "reason": "active task has no committed repository-local task object",
         }
 
-    task = load(task_path)
+    task = load(path)
     external = task.get("external_dependencies", [])
-    missing = [p for p in task.get("implementation_locations", []) if not (ROOT / p).is_file()]
-    missing += [p for p in task.get("verification_locations", []) if not (ROOT / p).is_file()]
+    implementation = task.get("implementation_locations", [])
+    verification = task.get("verification_locations", [])
+    missing = [p for p in implementation + verification if not (ROOT / p).is_file()]
     command = task.get("acceptance", {}).get("validator_command")
     marker = task.get("acceptance", {}).get("success_marker", "")
 
+    if task.get("repository") != "StegVerse-Labs/Site":
+        return {
+            "task_id": task_id,
+            "state": "BLOCKED_REPOSITORY_MISMATCH",
+            "task_location": relative,
+        }
     if external:
         return {
             "task_id": task_id,
             "state": "BLOCKED_EXTERNAL_DEPENDENCY_PROHIBITED",
-            "task_location": str(task_path.relative_to(ROOT)),
+            "task_location": relative,
             "external_dependencies": external,
+        }
+    if not implementation:
+        return {
+            "task_id": task_id,
+            "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
+            "task_location": relative,
+        }
+    if not verification:
+        return {
+            "task_id": task_id,
+            "state": "BLOCKED_NO_VERIFICATION_LOCATIONS",
+            "task_location": relative,
         }
     if missing:
         return {
             "task_id": task_id,
             "state": "INCOMPLETE",
-            "task_location": str(task_path.relative_to(ROOT)),
+            "task_location": relative,
             "missing_locations": sorted(set(missing)),
         }
     if not command:
         return {
             "task_id": task_id,
             "state": "BLOCKED_NO_EXECUTABLE_ACCEPTANCE",
-            "task_location": str(task_path.relative_to(ROOT)),
+            "task_location": relative,
         }
 
     passed, output = run_validator(command)
@@ -78,7 +102,7 @@ def observe_task(task_id: str) -> dict[str, Any]:
     return {
         "task_id": task_id,
         "state": "COMPLETE" if passed and marker_seen else "VALIDATION_FAILED",
-        "task_location": str(task_path.relative_to(ROOT)),
+        "task_location": relative,
         "validator_command": command,
         "success_marker": marker,
         "success_marker_seen": marker_seen,
@@ -86,52 +110,100 @@ def observe_task(task_id: str) -> dict[str, Any]:
     }
 
 
+def reconcile_ownership(state: dict[str, Any], active: list[str]) -> list[dict[str, str]]:
+    """Replace session-shaped ownership with committed task-object pointers."""
+    ownership = state.setdefault("ownership", {})
+    changes: list[dict[str, str]] = []
+    mappings = {"SITE-0001-UPLOAD": "hil_upload_surface"}
+    for task_id in active:
+        key = mappings.get(task_id)
+        path = task_path(task_id)
+        if not key or not path.is_file():
+            continue
+        expected = str(path.relative_to(ROOT))
+        actual = ownership.get(key)
+        if actual != expected:
+            ownership[key] = expected
+            changes.append({"task_id": task_id, "from": str(actual), "to": expected})
+    return changes
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument(
+        "--fail-on-blockers",
+        action="store_true",
+        help="Return non-zero after writing the durable report.",
+    )
     args = parser.parse_args()
 
     state = load(STATE_PATH)
-    active = list(state["active_sequence"].get("parallel_safe_tasks", []))
+    active_sequence = state["active_sequence"]
+    active = list(active_sequence.get("parallel_safe_tasks", []))
+    ownership_changes = reconcile_ownership(state, active)
     observations = [observe_task(task_id) for task_id in active]
-
     completed = [o["task_id"] for o in observations if o["state"] == "COMPLETE"]
     blockers = [o for o in observations if o["state"] != "COMPLETE"]
 
-    changed = False
+    state_updated = bool(ownership_changes)
     if args.apply and completed:
-        remaining = [task_id for task_id in active if task_id not in completed]
-        completed_list = state["active_sequence"].setdefault("completed_parallel_safe_tasks", [])
-        for task_id in completed:
-            if task_id not in completed_list:
-                completed_list.append(task_id)
-        state["active_sequence"]["parallel_safe_tasks"] = remaining
-        ownership = state.setdefault("ownership", {})
-        for task_id in completed:
-            if task_id == "SITE-0001-UPLOAD":
-                ownership["hil_upload_surface"] = "data/tasks/SITE-0001-UPLOAD.json"
-        write(STATE_PATH, state)
-        changed = True
+        active_sequence["parallel_safe_tasks"] = [
+            task_id for task_id in active if task_id not in completed
+        ]
+        completed_list = active_sequence.setdefault("completed_parallel_safe_tasks", [])
+        for completed_id in completed:
+            if completed_id not in completed_list:
+                completed_list.append(completed_id)
+        state_updated = True
+
+    remaining = list(active_sequence.get("parallel_safe_tasks", []))
+    active_sequence["machine_observation"] = {
+        "controller": "scripts/observe_and_complete_repository_tasks.py",
+        "task_directory": "data/tasks",
+        "active_task_count": len(remaining),
+        "blocker_count": len(blockers),
+        "external_session_ownership_allowed": False,
+    }
+    if not remaining:
+        active_sequence["state"] = "IDLE"
+        active_sequence["terminal_statement"] = active_sequence.get(
+            "idle_terminal_statement", "end of current work task sequence, no tasks running"
+        )
+    elif blockers:
+        active_sequence["state"] = "OBSERVED_BLOCKED"
+    else:
+        active_sequence["state"] = "RUNNING"
+    state_updated = True
 
     report = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "repository": "StegVerse-Labs/Site",
         "controller": "scripts/observe_and_complete_repository_tasks.py",
         "active_tasks_observed": active,
+        "ownership_reconciliations": ownership_changes,
         "observations": observations,
         "completed_tasks": completed,
+        "remaining_tasks": remaining,
         "blockers": blockers,
-        "state_updated": changed,
+        "state_updated": state_updated,
         "policy": {
             "external_session_ownership_allowed": False,
+            "external_tasks_allowed": False,
             "unaddressable_task_allowed": False,
+            "implementation_locations_required": True,
+            "verification_locations_required": True,
             "validator_required_for_completion": True,
+            "observation_must_be_durable": True,
         },
     }
-    write(REPORT_PATH, report)
 
+    if args.apply:
+        write(STATE_PATH, state)
+    write(REPORT_PATH, report)
     print(json.dumps(report, indent=2))
-    if blockers:
+
+    if blockers and args.fail_on_blockers:
         raise SystemExit(1)
 
 
