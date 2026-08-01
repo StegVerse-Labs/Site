@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/answer-record.schema.json",
+  "title": "VA Claim Assistant Governed Answer Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "question",
+    "route",
+    "capability_state",
+    "propositions",
+    "contradictions",
+    "uncertainties",
+    "referral_triggers",
+    "authority_flags",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "minLength": 1},
+    "question": {"type": "string", "minLength": 1},
+    "route": {
+      "enum": [
+        "claim_type",
+        "evidence_requirement",
+        "service_connection",
+        "rating_criteria",
+        "effective_date",
+        "appeal_or_supplemental_claim",
+        "cp_examination",
+        "document_organization",
+        "lay_statement",
+        "private_record_collection",
+        "procedural_filing",
+        "representation_referral",
+        "urgent_safety"
+      ]
+    },
+    "claim_stage": {"type": "string"},
+    "claim_theory": {"type": "string"},
+    "capability_state": {
+      "enum": [
+        "BOUNDED_PROCEDURAL_ASSISTANT",
+        "SOURCE_GROUNDED_ASSISTANT",
+        "DOCUMENT_AWARE_ASSISTANT",
+        "GOVERNED_CLAIM_SESSION"
+      ]
+    },
+    "propositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["proposition_id", "text", "kind", "support"],
+        "properties": {
+          "proposition_id": {"type": "string", "minLength": 1},
+          "text": {"type": "string", "minLength": 1},
+          "kind": {"enum": ["SOURCE_FACT", "USER_RECORD_FACT", "INFERENCE", "PROCEDURAL_GUIDANCE"]},
+          "support": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source_id", "authority_class", "locator", "retrieved_at"],
+              "properties": {
+                "source_id": {"type": "string", "minLength": 1},
+                "authority_class": {"enum": ["CONTROLLING", "OFFICIAL_OPERATIONAL", "PROFESSIONAL_SUPPORT", "EXPERIENTIAL", "USER_RECORD"]},
+                "locator": {"type": "string", "minLength": 1},
+                "retrieved_at": {"type": "string", "format": "date-time"},
+                "effective_date": {"type": "string", "format": "date"},
+                "document_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+                "page_anchor": {"type": "string", "minLength": 1}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"kind": {"const": "INFERENCE"}}},
+            "then": {"properties": {"support": {"minItems": 1}}}
+          },
+          {
+            "if": {"properties": {"kind": {"enum": ["SOURCE_FACT", "PROCEDURAL_GUIDANCE"]}}},
+            "then": {"properties": {"support": {"minItems": 1}}}
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["contradiction_id", "description", "status", "related_proposition_ids"],
+        "properties": {
+          "contradiction_id": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "status": {"enum": ["UNRESOLVED", "RESOLVED", "REQUIRES_HUMAN_REVIEW"]},
+          "related_proposition_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["uncertainty_id", "description", "material"],
+        "properties": {
+          "uncertainty_id": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "material": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "referral_triggers": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "PRIOR_DENIAL",
+          "EFFECTIVE_DATE_DISPUTE",
+          "POSSIBLE_CUE",
+          "SEVERANCE_OR_REDUCTION",
+          "COMPLEX_SECONDARY_CAUSATION",
+          "AGGRAVATION",
+          "TDIU",
+          "SMC",
+          "CHARACTER_OF_DISCHARGE",
+          "CONFLICTING_MEDICAL_OPINIONS",
+          "APPEAL_DEADLINE",
+          "URGENT_SAFETY"
+        ]
+      }
+    },
+    "authority_flags": {
+      "type": "object",
+      "required": ["adjudication", "representation", "medical_opinion", "rating", "execution", "publication"],
+      "properties": {
+        "adjudication": {"const": false},
+        "representation": {"const": false},
+        "medical_opinion": {"const": false},
+        "rating": {"const": false},
+        "execution": {"const": false},
+        "publication": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "receipt_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}
