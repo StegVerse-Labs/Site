@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VA Claim Assistant — Source-Grounded StegVerse</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+main{max-width:900px;margin:0 auto;padding:32px 18px}.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin:18px 0}.badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--border);font-weight:700}.sources li{margin:10px 0}.flag{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem}.muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="va-disability-claim-guide.html">VA Claim Guide</a></nav>
+<main>
+<p class="badge">SOURCE_GROUNDED_ASSISTANT · bounded public-source route</p>
+<h1>VA Claim Assistant</h1>
+<p>This public StegVerse layer answers one bounded question class: general evidence requirements for a VA disability claim. It uses admitted public sources, proposition-level citations, explicit uncertainty, and no adjudication, representation, medical-opinion, rating, execution, or publication authority.</p>
+<section class="panel" id="result"><h2>Loading governed response…</h2></section>
+<section class="panel"><h2>Boundary</h2><p>This layer does not determine eligibility, service connection, effective date, diagnostic code, percentage evaluation, or the sufficiency of a particular veteran’s evidence. Private-document analysis remains a separate later capability.</p></section>
+<p class="muted">Machine-readable response: <a href="api/va-claim-assistant/evidence-requirement.json">api/va-claim-assistant/evidence-requirement.json</a></p>
+</main>
+<script>
+(async()=>{
+ const box=document.getElementById('result');
+ try{
+  const r=await fetch('api/va-claim-assistant/evidence-requirement.json',{cache:'no-store'});
+  if(!r.ok)throw new Error(`HTTP ${r.status}`);
+  const d=await r.json();
+  const props=d.answer.propositions.map(p=>`<li><strong>${p.text}</strong><ul>${p.support.map(s=>`<li><a href="${s.locator}" rel="noopener">${s.source_id}</a> · ${s.authority_class}</li>`).join('')}</ul></li>`).join('');
+  const flags=Object.entries(d.authority_flags).map(([k,v])=>`${k}=${v}`).join(' · ');
+  box.innerHTML=`<h2>${d.question}</h2><p>${d.answer.summary}</p><h3>Supported propositions</h3><ol class="sources">${props}</ol><h3>Uncertainty</h3><p>${d.answer.uncertainties[0].description}</p><p class="flag">${flags}</p>`;
+ }catch(e){box.innerHTML=`<h2>Governed response unavailable</h2><p>The public response failed closed: ${String(e)}</p>`}
+})();
+</script>
+</body>
+</html>
