@@ -3,50 +3,72 @@
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "source_repository": "Admissible-Existence/RTG",
   "source_branch": "main",
-  "site_state": "ACTIVE_REVIEW_ONLY_PROJECTION_WITH_RECORDED_BLOCKERS",
+  "site_state": "ACTIVE_REVIEW_ONLY_WITH_MACHINE_EXECUTION",
   "source_lanes": {
     "3": {
       "state": "BLOCKED_WITH_EVIDENCE",
       "lane_id": "hosted-deterministic-rendering",
       "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-3.json",
+      "machine_receipt": {
+        "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json",
+        "deposit_commit": "16e86b60fd35e6163ba03151e14dd40bffb9f506",
+        "state": "BLOCKED_WITH_EVIDENCE"
+      },
       "remaining_blockers": [
-        "No accepted terminal hosted renderer run, job, logs, image digest, output hashes, or artifact metadata exists."
+        "No accepted terminal hosted renderer run is deposited.",
+        "No second byte-identical digest-pinned run exists.",
+        "Review-only structural and visual QA remains gated by repeatability evidence."
       ]
     },
     "4": {
       "state": "IN_PROGRESS",
       "lane_id": "predecessor-and-statement-integration",
       "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-4.json",
+      "machine_receipt": {
+        "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-4-observation.json",
+        "deposit_commit": "5128fb504ea4c05b0c23f950559cd8cda5755412",
+        "state": "IN_PROGRESS"
+      },
       "remaining_blockers": [
-        "All 131 predecessor fields and counterpart determinations require accepted hosted integration evidence."
+        "The hash-bound comparison must be integrated into all 131 generated predecessor fields.",
+        "All 131 exact-counterpart or evidence-supported no-counterpart determinations remain unaccepted.",
+        "A durable hosted validation receipt has not yet been deposited."
       ]
     },
     "5": {
       "state": "IN_PROGRESS",
       "lane_id": "corpus-proof-and-artifact-closure",
       "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-5.json",
+      "machine_receipt": {
+        "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json",
+        "deposit_commit": "b671921fdd58c353d8496fda6333020737d339e7",
+        "state": "IN_PROGRESS"
+      },
       "remaining_blockers": [
-        "Independent proof review and seven referenced artifact-class closures remain incomplete."
+        "Thirteen ledger classes remain partial or unrecovered.",
+        "Durable independent theorem proof-review receipts do not yet exist.",
+        "Readiness remains dependent on accepted outputs from lanes 3 and 4."
       ]
     }
   },
   "observations": {
     "manifest_state": "ACTIVE_ACKNOWLEDGED",
-    "activation_eligible": false,
-    "authority_effect": "NONE",
-    "observation_basis": "direct repository handbacks on Admissible-Existence/RTG main",
+    "source_readiness_state": "NOT_READY",
+    "source_readiness_receipt": "review/volume-I-integrated-v0.9.0/machine-execution/readiness-observation.json",
+    "source_readiness_deposit_commit": "7c9006e3cbc237aec41a121451e0bcd5f1fc6818",
     "review_projection_active": true,
-    "activation_receipt": "data/formalism-publication/rtg-review-projection-activation-receipt.json"
+    "activation_receipt": "data/formalism-publication/rtg-review-projection-activation-receipt.json",
+    "durable_machine_receipts_present": true,
+    "authority_effect": "NONE"
   },
   "blockers": [
-    "RTG issue 3 is BLOCKED_WITH_EVIDENCE.",
-    "RTG issue 4 is IN_PROGRESS.",
-    "RTG issue 5 is IN_PROGRESS.",
+    "RTG lane 3 remains BLOCKED_WITH_EVIDENCE.",
+    "RTG lane 4 remains IN_PROGRESS.",
+    "RTG lane 5 remains IN_PROGRESS.",
     "Central formalism acceptance has not been recorded."
   ],
   "manual_external_tasks": [],
-  "next_machine_action": "Continue active source observation and automatically advance to central acceptance review when all source lanes are terminal.",
+  "next_machine_action": "Execute the next_machine_action recorded in each durable RTG lane receipt, persist changed evidence to main, and recompute readiness and Site projection state after every transition.",
   "authority_effect": false,
-  "review_projection_activation_effect": true,
-  "canonical_publication_effect": false
+  "activation_effect": true
 }
