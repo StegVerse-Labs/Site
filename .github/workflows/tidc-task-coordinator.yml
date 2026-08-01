@@ -8,9 +8,13 @@ on:
     paths:
       - 'data/tidc/task-graph.v0.1.json'
       - 'data/tidc/release-2-gate.v0.1.json'
+      - 'data/tidc/source-work-queue.v0.1.json'
+      - 'data/tidc/source-work/**'
+      - 'data/tidc/source-receipts/**'
       - 'data/tidc/blinded-coding/returns/**'
       - 'docs/TIDC_SOURCE_PACKET_INDEX.md'
       - 'scripts/run_tidc_task_coordinator.py'
+      - 'scripts/advance_tidc_source_queue.py'
       - 'scripts/check_tidc_publication.py'
       - 'scripts/check_tidc_reliability.py'
       - 'scripts/validate_tidc_blinded_return.py'
@@ -36,22 +40,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Compile coordinator
-        run: python -m py_compile scripts/run_tidc_task_coordinator.py
+      - name: Compile coordinator and queue advancer
+        run: |
+          python -m py_compile \
+            scripts/run_tidc_task_coordinator.py \
+            scripts/advance_tidc_source_queue.py
+      - name: Advance internal source-completion queue
+        run: python scripts/advance_tidc_source_queue.py --out data/tidc/source-work/active.json
       - name: Observe and execute repository-native tasks
         run: python scripts/run_tidc_task_coordinator.py --out data/tidc/coordinator/latest.json
-      - name: Preserve coordinator receipt
+      - name: Preserve coordinator and active-task receipts
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/tidc/coordinator/latest.json; then
-            echo 'Coordinator state unchanged.'
+          if git diff --quiet -- data/tidc/coordinator/latest.json data/tidc/source-work/active.json; then
+            echo 'Coordinator and active task state unchanged.'
             exit 0
           fi
           git config user.name 'stegverse-task-coordinator[bot]'
           git config user.email 'stegverse-task-coordinator[bot]@users.noreply.github.com'
-          git add data/tidc/coordinator/latest.json
-          git commit -m 'chore(tidc): preserve coordinator receipt [skip ci]'
+          git add data/tidc/coordinator/latest.json data/tidc/source-work/active.json
+          git commit -m 'chore(tidc): advance repository-native task state [skip ci]'
           git push
       - name: Publish run artifact
         uses: actions/upload-artifact@v4
@@ -59,6 +68,7 @@ jobs:
           name: tidc-coordinator-receipt
           path: |
             data/tidc/coordinator/latest.json
+            data/tidc/source-work/active.json
             generated/tidc-blinded-results/
           if-no-files-found: warn
           retention-days: 90
