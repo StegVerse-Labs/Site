@@ -2,7 +2,7 @@
   "schema_version": "1.2.0",
   "paper_id": "development-without-domination-v1",
   "repository": "StegVerse-Labs/Site",
-  "state": "SOURCE_OBSERVED",
+  "state": "TRANSPORT_1_OF_4",
   "publisher_manifest_observed": true,
   "pdf_path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
   "expected_pdf_sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
@@ -13,9 +13,21 @@
   "remaining_tasks": [
     {
       "repository": "StegVerse-Labs/Site",
-      "path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+      "path": "papers/development-without-domination/.pdf-parts/part-0002.b64",
       "issue": "StegVerse-Labs/Site#128",
-      "action": "Commit exact PDF bytes matching the declared SHA-256."
+      "action": "Commit the exact base64 transport segment for deterministic PDF reconstruction."
+    },
+    {
+      "repository": "StegVerse-Labs/Site",
+      "path": "papers/development-without-domination/.pdf-parts/part-0003.b64",
+      "issue": "StegVerse-Labs/Site#128",
+      "action": "Commit the exact base64 transport segment for deterministic PDF reconstruction."
+    },
+    {
+      "repository": "StegVerse-Labs/Site",
+      "path": "papers/development-without-domination/.pdf-parts/part-0004.b64",
+      "issue": "StegVerse-Labs/Site#128",
+      "action": "Commit the exact base64 transport segment for deterministic PDF reconstruction."
     },
     {
       "repository": "StegVerse-Labs/Site",
@@ -30,5 +42,7 @@
     "execution": false,
     "release": false
   },
-  "observed_at": "2026-08-01T23:12:43.045722+00:00"
+  "observed_at": "2026-08-01T23:13:24.349377+00:00",
+  "transport_parts_expected": 4,
+  "transport_parts_present": 1
 }
