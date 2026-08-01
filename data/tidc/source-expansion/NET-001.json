@@ -1,0 +1,115 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "NET-001",
+  "event_name": "Density Hales-Jewett Polymath proof",
+  "source_id": "SRC-004",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+  "retrieved_on": "2026-08-01",
+  "sources": [
+    {
+      "source_role": "project_launch_post",
+      "title": "A combinatorial approach to density Hales-Jewett",
+      "author": "W. Timothy Gowers",
+      "publication_date": "2009-02-01",
+      "stable_url": "https://gowers.wordpress.com/2009/02/01/a-combinatorial-approach-to-density-hales-jewett/",
+      "evidence_supported": [
+        "The open collaborative attack on density Hales-Jewett was explicitly launched on 2009-02-01.",
+        "The project was framed as a genuine mathematical research collaboration conducted through public blog discussion."
+      ]
+    },
+    {
+      "source_role": "first_public_preprint",
+      "title": "A new proof of the density Hales-Jewett theorem",
+      "author": "D. H. J. Polymath",
+      "publication_date": "2009-10-20",
+      "repository": "arXiv",
+      "identifier": "arXiv:0910.3926",
+      "stable_url": "https://arxiv.org/abs/0910.3926",
+      "evidence_supported": [
+        "A complete public preprint existed by 2009-10-20.",
+        "The preprint claimed the first elementary proof and the first quantitative bound for density Hales-Jewett."
+      ]
+    },
+    {
+      "source_role": "peer_reviewed_article",
+      "title": "A new proof of the density Hales-Jewett theorem",
+      "author": "D. H. J. Polymath",
+      "journal": "Annals of Mathematics",
+      "volume": "175",
+      "issue": "3",
+      "pages": "1283-1327",
+      "received_date": "2010-02-18",
+      "revised_date": "2011-07-02",
+      "accepted_date": "2011-08-29",
+      "publication_date": "2012-05-01",
+      "doi": "10.4007/annals.2012.175.3.6",
+      "stable_url": "https://doi.org/10.4007/annals.2012.175.3.6",
+      "evidence_supported": [
+        "The journal received the manuscript on 2010-02-18.",
+        "The manuscript was revised on 2011-07-02 and accepted on 2011-08-29.",
+        "The article was published online on 2012-05-01.",
+        "The result was published under the collective author name D. H. J. Polymath."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "2010-02-18",
+      "source_supported_value": "2009-02-01",
+      "status": "SEED_VALUE_APPEARS_TO_BE_SUBMISSION_DATE_PROXY",
+      "source_roles": ["project_launch_post", "peer_reviewed_article"]
+    },
+    "verification_date": {
+      "seed_value": "2011-07-02",
+      "source_supported_value": null,
+      "status": "REVISION_DATE_CONFIRMED_BUT_DISTINCT_VERIFICATION_EVENT_NOT_ESTABLISHED",
+      "source_roles": ["peer_reviewed_article"]
+    },
+    "publication_date": {
+      "value": "2012-05-01",
+      "status": "SUPPORTED_BY_JOURNAL_MILESTONE_RECORD",
+      "source_roles": ["peer_reviewed_article"]
+    },
+    "acceptance_date": {
+      "value": "2011-08-29",
+      "status": "SUPPORTED_BY_JOURNAL_MILESTONE_RECORD",
+      "source_roles": ["peer_reviewed_article"]
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Material",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The internet-mediated public discussion was materially constitutive of the collaboration, but this record does not independently adjudicate whether the proof could have arisen through another organizational form."
+    },
+    "orientation": {
+      "seed_value": "External",
+      "status": "SUPPORTED_BUT_NOT_RECODED"
+    }
+  },
+  "discrepancies": [
+    {
+      "field": "candidate_generation_date",
+      "seed_value": "2010-02-18",
+      "source_supported_value": "2009-02-01",
+      "interpretation": "The seed value is the journal receipt date, while the public project launch occurred more than one year earlier."
+    },
+    {
+      "field": "verification_date",
+      "seed_value": "2011-07-02",
+      "source_supported_value": null,
+      "interpretation": "The journal records 2011-07-02 as the revision date; treating it as verification requires an explicit coding decision."
+    }
+  ],
+  "remaining_questions": [
+    "Reconstruct the contribution chronology from the original blog threads and project wiki.",
+    "Identify the earliest date on which the elementary proof was regarded by participants as complete.",
+    "Separate public preprint availability, journal submission, revision, acceptance, and publication.",
+    "Establish a defensible disciplinary-recognition date rather than using citation counts as a proxy."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
