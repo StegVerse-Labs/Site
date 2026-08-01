@@ -1,0 +1,34 @@
+{
+  "receipt_type": "HIL_SEMANTIC_CONTINUITY_FOUNDATIONAL_ACTIVATION",
+  "schema_version": "v1",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "activation_class": "FOUNDATIONAL_LAYER_ACTIVE",
+  "source_task_state": "data/hil-semantic-continuity-task-state.json",
+  "observer": "scripts/check_hil_semantic_continuity_tasks.py",
+  "validator": "scripts/validate_hil_semantic_transformation.py",
+  "bounded_fixture": "data/fixtures/hil-semantic-transformation/bounded-conversation.json",
+  "validated_transformations": [
+    "hypothesis_to_conclusion",
+    "confidence_inflation",
+    "constraint_removal",
+    "campaign_boundary_reduction"
+  ],
+  "expected_transformations_match": true,
+  "all_declared_task_artifacts_present": true,
+  "external_tasks": false,
+  "halt_on_external_status": false,
+  "scientific_claim_authority": false,
+  "custody_authority": false,
+  "publication_authority": false,
+  "release_authority": false,
+  "authority_effect": false,
+  "result": "PASS",
+  "next_integration_goal": {
+    "goal_id": "HIL-SC-NEXT-001",
+    "title": "Integrate semantic transformation receipts into canonical HIL participant records",
+    "owner_repository": "StegVerse-Labs/Site",
+    "task_location": "docs/hil-semantic-continuity/participant-record-integration.md",
+    "external": false
+  }
+}
