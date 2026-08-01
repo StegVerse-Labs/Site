@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/StegVerse-Labs/Site/data/formalism-publication/rtg-publication-readiness.schema.json",
+  "title": "StegVerse RTG formalism publication-readiness projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "source_repository",
+    "source_branch",
+    "site_state",
+    "source_lanes",
+    "observations",
+    "blockers",
+    "manual_external_tasks",
+    "next_machine_action",
+    "authority_effect",
+    "activation_effect"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "task_id": {"const": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE"},
+    "source_repository": {"const": "Admissible-Existence/RTG"},
+    "source_branch": {"const": "main"},
+    "site_state": {
+      "enum": [
+        "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS",
+        "READY_FOR_CENTRAL_ACCEPTANCE_REVIEW",
+        "ACTIVATION_ELIGIBLE",
+        "ACTIVATED_REVIEW_ONLY"
+      ]
+    },
+    "source_lanes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["3", "4", "5"],
+      "properties": {
+        "3": {"$ref": "#/$defs/lane"},
+        "4": {"$ref": "#/$defs/lane"},
+        "5": {"$ref": "#/$defs/lane"}
+      }
+    },
+    "observations": {"type": "object"},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "manual_external_tasks": {"type": "array", "maxItems": 0},
+    "next_machine_action": {"type": "string", "minLength": 1},
+    "authority_effect": {"const": false},
+    "activation_effect": {"type": "boolean"}
+  },
+  "$defs": {
+    "lane": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["state", "lane_id", "path", "remaining_blockers"],
+      "properties": {
+        "state": {
+          "enum": [
+            "MISSING",
+            "IN_PROGRESS",
+            "BLOCKED_WITH_EVIDENCE",
+            "COMPLETE_AWAITING_ACCEPTANCE",
+            "ACCEPTED"
+          ]
+        },
+        "lane_id": {"type": "string"},
+        "path": {"type": "string"},
+        "remaining_blockers": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"site_state": {"const": "ACTIVATION_ELIGIBLE"}},
+        "required": ["site_state"]
+      },
+      "then": {
+        "properties": {
+          "blockers": {"maxItems": 0},
+          "activation_effect": {"const": false}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"site_state": {"const": "ACTIVATED_REVIEW_ONLY"}},
+        "required": ["site_state"]
+      },
+      "then": {
+        "properties": {
+          "blockers": {"maxItems": 0},
+          "activation_effect": {"const": true}
+        }
+      }
+    }
+  ]
+}
