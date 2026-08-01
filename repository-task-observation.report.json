@@ -2,12 +2,30 @@
   "schema_version": "2.0.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
-  "active_tasks_observed": [],
+  "active_tasks_observed": [
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
+  ],
   "ownership_reconciliations": [],
-  "observations": [],
+  "observations": [
+    {
+      "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-ADJ-COMP-002-PUBLICATION-DATE.json",
+      "reason": "active task has no committed repository-local task object"
+    }
+  ],
   "completed_tasks": [],
-  "remaining_tasks": [],
-  "blockers": [],
+  "remaining_tasks": [
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
+  ],
+  "blockers": [
+    {
+      "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-ADJ-COMP-002-PUBLICATION-DATE.json",
+      "reason": "active task has no committed repository-local task object"
+    }
+  ],
   "state_updated": true,
   "policy": {
     "external_session_ownership_allowed": false,
