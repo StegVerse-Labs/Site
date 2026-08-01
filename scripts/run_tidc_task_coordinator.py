@@ -15,6 +15,7 @@ GRAPH = ROOT / "data" / "tidc" / "task-graph.v0.1.json"
 DEFAULT_OUT = ROOT / "data" / "tidc" / "coordinator" / "latest.json"
 RETURNS = ROOT / "data" / "tidc" / "blinded-coding" / "returns"
 GENERATED = ROOT / "generated" / "tidc-blinded-results"
+ACTIVE_SOURCE = ROOT / "data" / "tidc" / "source-work" / "active.json"
 
 
 def run_command(command: list[str]) -> dict[str, Any]:
@@ -100,8 +101,38 @@ def observe_source_packet() -> dict[str, Any]:
     }
 
 
+def advance_source_queue() -> dict[str, Any]:
+    script = ROOT / "scripts" / "advance_tidc_source_queue.py"
+    if not script.exists():
+        return {"status": "WAITING_BUILD", "reason": "scripts/advance_tidc_source_queue.py is absent"}
+    result = run_command([
+        sys.executable,
+        str(script.relative_to(ROOT)),
+        "--out",
+        str(ACTIVE_SOURCE.relative_to(ROOT)),
+    ])
+    if result["status"] != "COMPLETE":
+        return result
+    active = json.loads(ACTIVE_SOURCE.read_text(encoding="utf-8"))
+    active_status = active.get("status")
+    return {
+        "status": "COMPLETE" if active_status == "QUEUE_EXHAUSTED" else "IN_PROGRESS",
+        "active_status": active_status,
+        "active_work_id": active.get("work_id"),
+        "active_task": active.get("task"),
+        "receipt_path": active.get("receipt_path"),
+        "remaining_count": active.get("remaining_count", 0),
+        "development_halted": False,
+        "continuation": active.get("continuation"),
+        "command_result": result,
+    }
+
+
 def evaluate_activation_gate(results: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    required = ["TIDC-R2-001", "TIDC-R2-002", "TIDC-R2-003", "TIDC-R2-005", "TIDC-R2-006"]
+    required = [
+        "TIDC-R2-001", "TIDC-R2-002", "TIDC-R2-003",
+        "TIDC-R2-005", "TIDC-R2-006", "TIDC-R2-006A",
+    ]
     incomplete = [task_id for task_id in required if results.get(task_id, {}).get("status") != "COMPLETE"]
     gate_path = ROOT / "data" / "tidc" / "release-2-gate.v0.1.json"
     declared_state = None
@@ -129,6 +160,7 @@ def main() -> None:
         "observe_blinded_returns": observe_blinded_returns,
         "process_blinded_returns": process_blinded_returns,
         "observe_source_packet": observe_source_packet,
+        "advance_source_queue": advance_source_queue,
     }
 
     results: dict[str, dict[str, Any]] = {}
@@ -146,7 +178,7 @@ def main() -> None:
 
     statuses = [result["status"] for result in results.values()]
     receipt = {
-        "schema": "stegverse.site.tidc.coordinator_receipt.v0.1",
+        "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "repository": graph["scope"],
         "policy": graph["policy"],
@@ -158,6 +190,7 @@ def main() -> None:
             "waiting_build": statuses.count("WAITING_BUILD"),
             "failed": statuses.count("FAILED"),
             "activation_state": results["TIDC-R2-007"]["status"],
+            "active_source_work_id": results.get("TIDC-R2-006A", {}).get("active_work_id"),
             "development_halted": False,
         },
         "tasks": results,
