@@ -9,11 +9,11 @@
   "controller_access": {
     "access_failure_is_not_task_failure": true,
     "access_failure_owner": "StegVerse-Labs/Site#131",
-    "cross_repo_token_configured": false
+    "cross_repo_token_configured": true
   },
   "controller_issue": "StegVerse-Labs/Site#131",
   "development_halt": false,
-  "generated_at": "2026-08-01T20:48:48.462419Z",
+  "generated_at": "2026-08-01T21:29:43.197285Z",
   "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v2",
   "state": "ACTIVE_AUTONOMOUS_CONTINUATION",
   "tasks": [
