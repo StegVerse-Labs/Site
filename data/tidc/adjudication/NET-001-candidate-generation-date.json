@@ -1,0 +1,17 @@
+{
+  "schema": "stegverse.site.tidc.field_adjudication.v0.1",
+  "task_id": "TIDC-ADJ-NET-001-CANDIDATE-DATE",
+  "event_id": "NET-001",
+  "field": "candidate_generation_date",
+  "seed_value": "2010-02-18",
+  "source_supported_value": "2009-02-01",
+  "disposition": "SUPERSEDE_IN_FUTURE_VERSION",
+  "rationale": "The 2010-02-18 value is the journal receipt date. The public Polymath research project was explicitly launched on 2009-02-01, which is the earliest preserved event-specific start date currently supported by the source record.",
+  "preservation_rule": "Retain the tranche-01 seed value and publish the revised value only through a versioned successor ledger or coding-delta artifact.",
+  "evidence_paths": [
+    "data/tidc/source-expansion/NET-001.json",
+    "data/tidc/pilot-events-v0.1.json"
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
