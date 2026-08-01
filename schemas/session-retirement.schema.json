@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/session-retirement.schema.json",
+  "title": "StegVerse Session Retirement Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "repository",
+    "task_id",
+    "posture",
+    "authority_checked",
+    "active_task_ownership",
+    "unique_unmerged_state",
+    "safe_to_archive",
+    "successor_execution_source",
+    "reason"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "session_id": {"type": "string", "minLength": 1},
+    "repository": {"type": "string", "pattern": "^[^/]+/[^/]+$"},
+    "task_id": {"type": "string", "minLength": 1},
+    "posture": {"enum": ["CURRENT", "SUPERSEDED", "MERGE_REQUIRED", "ARCHIVABLE"]},
+    "authority_checked": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "current_commit": {"type": ["string", "null"]},
+    "handoff_revision": {"type": ["string", "null"]},
+    "active_task_ownership": {"type": "boolean"},
+    "unique_unmerged_state": {"type": "boolean"},
+    "safe_to_archive": {"type": "boolean"},
+    "successor_execution_source": {"type": ["string", "null"]},
+    "conflicting_active_owner": {"type": "boolean", "default": false},
+    "material_state_locations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "required_before_archive": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "reason": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"safe_to_archive": {"const": true}}},
+      "then": {
+        "properties": {
+          "posture": {"const": "ARCHIVABLE"},
+          "active_task_ownership": {"const": false},
+          "unique_unmerged_state": {"const": false},
+          "conflicting_active_owner": {"const": false},
+          "required_before_archive": {"maxItems": 0}
+        },
+        "required": ["material_state_locations"]
+      }
+    },
+    {
+      "if": {"properties": {"posture": {"const": "MERGE_REQUIRED"}}},
+      "then": {
+        "properties": {
+          "unique_unmerged_state": {"const": true},
+          "safe_to_archive": {"const": false}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"posture": {"const": "CURRENT"}}},
+      "then": {
+        "properties": {
+          "active_task_ownership": {"const": true},
+          "safe_to_archive": {"const": false}
+        }
+      }
+    }
+  ]
+}
