@@ -1,0 +1,35 @@
+{
+  "schema": "stegverse.site.tidc.adjudication_record.v0.1",
+  "adjudication_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+  "event_id": "COMP-002",
+  "field": "publication_date",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "seed_value": "1991-04",
+  "source_supported_value": "1989-12-01",
+  "disposition": "SUPERSEDE_IN_FUTURE_VERSION_PRESERVE_SEED_HISTORY",
+  "reason": "The 1989 Canadian Journal of Mathematics article is the final nonexistence publication. The April 1991 American Mathematical Monthly article is a later retrospective account of the computational search and should not serve as the original result's publication date.",
+  "evidence": [
+    {
+      "role": "final_nonexistence_article",
+      "title": "The nonexistence of a projective plane of order 10",
+      "publication_date": "1989-12-01",
+      "journal": "Canadian Journal of Mathematics",
+      "stable_url": "https://doi.org/10.4153/CJM-1989-049-4"
+    },
+    {
+      "role": "later_retrospective_account",
+      "title": "The search for a finite projective plane of order 10",
+      "publication_date": "1991-04",
+      "journal": "American Mathematical Monthly",
+      "stable_url": "https://doi.org/10.2307/2323790"
+    }
+  ],
+  "future_version_instruction": {
+    "publication_date": "1989-12-01",
+    "retain_1991_record_as": "retrospective_publication_date",
+    "apply_only_through_versioned_ledger_change": true
+  },
+  "seed_ledger_changed": false,
+  "development_halted": false,
+  "authority_effect": "NONE"
+}
