@@ -24,12 +24,15 @@ concurrency:
 jobs:
   advance:
     runs-on: ubuntu-latest
+    env:
+      STEGVERSE_CROSS_REPO_READ_TOKEN: ${{ secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Observe all repository-owned tasks
+      - name: Observe and advance repository-owned tasks
         run: python scripts/advance_marketplace_coinbase_activation.py
       - name: Commit updated task state
         run: |
