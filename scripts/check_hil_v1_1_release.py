@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the public HIL v1.1 paper, page, client, and manifest as one chain."""
+"""Verify the public HIL v1.1 paper, page, direct-upload client, and manifest."""
 from __future__ import annotations
 
 import hashlib
@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PDF = ROOT / "data" / "HIL_Canonical_Paper_v1_1.pdf"
 PAGE = ROOT / "humans-as-interoperability-layer.html"
-CLIENT = ROOT / "assets" / "hil-experiment-v1.1.js"
+CLIENT = ROOT / "assets" / "hil-direct-upload-v1.js"
 MANIFEST = ROOT / "data" / "hil-experiment.json"
 
 EXPECTED_SIZE = 87271
@@ -37,31 +37,33 @@ def main() -> None:
     client = CLIENT.read_text(encoding="utf-8")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
 
-    # The public page must expose the human-facing canonical artifact contract.
     for marker in (
         "Canonical experiment input · v1.1",
         "Download Canonical v1.1 Primary PDF",
         "HIL_Canonical_Paper_v1_1.pdf",
         EXPECTED_SHA256,
-        EXPECTED_PROMPT_SHA256,
-        "assets/hil-experiment-v1.1.js",
+        "assets/hil-direct-upload-v1.js",
+        "id=\"upload-form\"",
+        "id=\"response-file\"",
+        "id=\"upload-response\"",
+        "aria-live=\"polite\"",
     ):
         require(marker in page, f"public page missing marker: {marker}")
 
-    # The client must bind exact bytes, hashes, and upload behavior.
     for marker in (
-        EXPECTED_PATH,
+        "const INGRESS = '/api/hil/upload'",
+        "new FormData()",
+        "crypto.subtle.digest('SHA-256'",
+        "response_pdf",
+        "redirect: 'error'",
+        "INDEXED_DB",
+        "local_fallback_hash_verification_failed",
         EXPECTED_SHA256,
         EXPECTED_PROMPT_SHA256,
-        "bytes.byteLength !== 87271",
-        "crypto.subtle.digest('SHA-256'",
-        "GATEWAY_CANDIDATES",
-        "new FormData()",
+        EXPECTED_PROTOCOL,
     ):
-        require(marker in client, f"client missing marker: {marker}")
+        require(marker in client, f"direct-upload client missing marker: {marker}")
 
-    # Protocol identifiers are authoritative machine-readable manifest fields;
-    # they need not be rendered as visible page text.
     primary = manifest["primary_document"]
     protocol = manifest["protocol"]
     require(manifest["schema_version"] == "HIL-EXPERIMENT-v1.1", "manifest schema mismatch")
@@ -72,6 +74,7 @@ def main() -> None:
     require(protocol["version"] == EXPECTED_PROTOCOL, "manifest protocol version mismatch")
     require(protocol["prompt_version"] == EXPECTED_PROMPT, "manifest prompt version mismatch")
     require(protocol["prompt_sha256"] == EXPECTED_PROMPT_SHA256, "manifest prompt hash mismatch")
+    require(manifest["submission"]["provenance_manifest_required"] is True, "provenance must remain required")
     require(all(value is False for value in manifest["authority"].values()), "authority must remain fail-closed")
 
     print("HIL_V1_1_RELEASE_VERIFICATION=PASS")
@@ -80,7 +83,8 @@ def main() -> None:
     print(f"HIL_V1_1_ARTIFACT_PATH={EXPECTED_PATH}")
     print(f"HIL_V1_1_PROTOCOL={EXPECTED_PROTOCOL}")
     print(f"HIL_V1_1_PROMPT={EXPECTED_PROMPT}")
-    print("HIL_V1_1_DOWNLOAD_CLIENT=BOUND")
+    print("HIL_V1_1_DIRECT_UPLOAD_CLIENT=BOUND")
+    print("HIL_V1_1_LOCAL_FALLBACK=HASH_VERIFIED")
     print("HIL_V1_1_AUTHORITY=NONE")
 
 
