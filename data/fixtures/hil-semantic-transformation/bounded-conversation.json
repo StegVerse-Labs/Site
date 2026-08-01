@@ -1,0 +1,28 @@
+{
+  "fixture_id": "HIL-SC-BOUND-001",
+  "purpose": "Measure semantic transformation without attributing motive.",
+  "source": {
+    "record_id": "source-001",
+    "claim_class": "hypothesis",
+    "text": "There is a high likelihood that the United States experienced a coordinated cyberattack, with Iran as a leading hypothesis.",
+    "confidence": 0.75,
+    "boundary": ["United States", "coordinated campaign"],
+    "constraints": ["not a claim of certainty", "attribution remains provisional"]
+  },
+  "output": {
+    "record_id": "output-001",
+    "claim_class": "conclusion",
+    "text": "The user says Iran attacked the United States.",
+    "confidence": 1.0,
+    "boundary": ["Iran", "United States"],
+    "constraints": []
+  },
+  "expected_transformations": [
+    "hypothesis_to_conclusion",
+    "confidence_inflation",
+    "constraint_removal",
+    "campaign_boundary_reduction"
+  ],
+  "motive_asserted": false,
+  "authority_effect": false
+}
