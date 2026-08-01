@@ -1,0 +1,51 @@
+{
+  "schema_version": "2.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "controller": "scripts/observe_and_complete_repository_tasks.py",
+  "active_tasks_observed": [
+    "SITE-0001-UPLOAD"
+  ],
+  "ownership_reconciliations": [
+    {
+      "task_id": "SITE-0001-UPLOAD",
+      "from": "external-active-session",
+      "to": "data/tasks/SITE-0001-UPLOAD.json"
+    }
+  ],
+  "observations": [
+    {
+      "task_id": "SITE-0001-UPLOAD",
+      "state": "VALIDATION_FAILED",
+      "task_location": "data/tasks/SITE-0001-UPLOAD.json",
+      "validator_command": "python scripts/check_hil_v1_upload_surface.py",
+      "success_marker": "HIL_V1_UPLOAD_SURFACE=PASS",
+      "success_marker_seen": false,
+      "output": "HIL v1 upload verification failed: manifest is not v1.0"
+    }
+  ],
+  "completed_tasks": [],
+  "remaining_tasks": [
+    "SITE-0001-UPLOAD"
+  ],
+  "blockers": [
+    {
+      "task_id": "SITE-0001-UPLOAD",
+      "state": "VALIDATION_FAILED",
+      "task_location": "data/tasks/SITE-0001-UPLOAD.json",
+      "validator_command": "python scripts/check_hil_v1_upload_surface.py",
+      "success_marker": "HIL_V1_UPLOAD_SURFACE=PASS",
+      "success_marker_seen": false,
+      "output": "HIL v1 upload verification failed: manifest is not v1.0"
+    }
+  ],
+  "state_updated": true,
+  "policy": {
+    "external_session_ownership_allowed": false,
+    "external_tasks_allowed": false,
+    "unaddressable_task_allowed": false,
+    "implementation_locations_required": true,
+    "verification_locations_required": true,
+    "validator_required_for_completion": true,
+    "observation_must_be_durable": true
+  }
+}
