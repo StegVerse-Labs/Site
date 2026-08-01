@@ -1,0 +1,65 @@
+name: Advance TIDC Internal Work
+
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/tidc/pilot-events-v0.1.json'
+      - 'data/tidc/work-queue.json'
+      - 'data/tidc/source-expansion/**'
+      - 'data/tidc/negative-controls/**'
+      - 'data/tidc/tranche-02/**'
+      - 'scripts/advance_tidc_internal_work.py'
+      - '.github/workflows/advance-tidc-internal-work.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tidc-internal-work-advancement
+  cancel-in-progress: false
+
+jobs:
+  advance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Advance repository-owned TIDC work
+        run: python scripts/advance_tidc_internal_work.py
+      - name: Validate non-halting outputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q = json.loads(Path('data/tidc/work-queue.json').read_text())
+          assert q['development_halted'] is False
+          assert q['authority_effect'] == 'NONE'
+          assert len(q['tasks']) >= 4
+          for task in q['tasks']:
+              assert task['owner_repo']
+              assert task['location']
+          for path in [
+              'data/tidc/source-expansion/seed-source-expansion-plan.json',
+              'data/tidc/negative-controls/negative-control-design-v0.1.json',
+              'data/tidc/tranche-02/aggregate-event-split-plan.json',
+              'brain_reports/tidc_internal_advancement_receipt.json',
+          ]:
+              assert Path(path).is_file(), path
+          print('TIDC_INTERNAL_WORK_OUTPUT_VALID')
+          PY
+      - name: Commit semantic advancement changes
+        run: |
+          if git diff --quiet -- data/tidc brain_reports/tidc_internal_advancement_receipt.json; then
+            echo 'No semantic TIDC advancement changes.'
+            exit 0
+          fi
+          git config user.name 'stegverse-tidc-worker'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/tidc brain_reports/tidc_internal_advancement_receipt.json
+          git commit -m 'chore: advance TIDC internal work queue'
+          git push
