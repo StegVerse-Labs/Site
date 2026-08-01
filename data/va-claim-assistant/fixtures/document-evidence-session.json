@@ -1,0 +1,71 @@
+{
+  "document_index": {
+    "schema_version": "1.0.0",
+    "session_id": "va-document-fixture-001",
+    "documents": [
+      {
+        "document_id": "DOC-VA-001",
+        "source_identity": {"kind": "VA_RECORD", "label": "VA treatment summary"},
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "page_count": 3,
+        "page_anchors": [
+          {"anchor_id": "A-VA-1", "page": 2, "section": "Assessment"}
+        ],
+        "privacy_class": "SENSITIVE_HEALTH",
+        "condition_associations": ["sleep-disorder"],
+        "extraction_status": "COMPLETE",
+        "retention_status": "CUSTODY_RECORDED",
+        "custody_reference": "fixture://custody/DOC-VA-001"
+      },
+      {
+        "document_id": "DOC-LAY-001",
+        "source_identity": {"kind": "LAY_STATEMENT", "label": "Veteran statement"},
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "page_count": 2,
+        "page_anchors": [
+          {"anchor_id": "A-LAY-1", "page": 1, "section": "Symptom onset"}
+        ],
+        "privacy_class": "PERSONAL",
+        "condition_associations": ["sleep-disorder"],
+        "extraction_status": "COMPLETE",
+        "retention_status": "RETAINED_BY_USER",
+        "custody_reference": null
+      }
+    ],
+    "authority_flags": {
+      "adjudication": false,
+      "representation": false,
+      "medical_opinion": false,
+      "rating": false,
+      "execution": false,
+      "publication": false
+    }
+  },
+  "assessment": {
+    "schema_version": "1.0.0",
+    "session_id": "va-document-fixture-001",
+    "facts": [
+      {"fact_id": "F1", "text": "The VA record documents current sleep-related symptoms.", "posture": "FAVORABLE", "document_id": "DOC-VA-001", "page": 2, "anchor_id": "A-VA-1"},
+      {"fact_id": "F2", "text": "The veteran statement reports symptoms beginning during service.", "posture": "FAVORABLE", "document_id": "DOC-LAY-001", "page": 1, "anchor_id": "A-LAY-1"},
+      {"fact_id": "F3", "text": "The supplied medical record does not independently establish the reported in-service onset date.", "posture": "UNFAVORABLE", "document_id": "DOC-VA-001", "page": 2, "anchor_id": "A-VA-1"}
+    ],
+    "inferences": [
+      {"inference_id": "I1", "text": "The records may support current symptoms but do not independently establish nexus.", "supported_by": ["F1", "F2", "F3"], "confidence": "MEDIUM", "requires_verification": true}
+    ],
+    "contradictions": [
+      {"contradiction_id": "C1", "fact_ids": ["F2", "F3"], "description": "Lay-reported onset is not independently corroborated by the supplied medical record.", "resolution_state": "UNRESOLVED"}
+    ],
+    "missing_evidence": [
+      {"missing_id": "M1", "category": "NEXUS", "description": "No qualified medical opinion connecting the current condition to service was supplied.", "materiality": "HIGH", "next_action": "Obtain or identify competent nexus evidence when required by the claim theory."}
+    ],
+    "authority_flags": {
+      "adjudication": false,
+      "representation": false,
+      "medical_opinion": false,
+      "rating": false,
+      "execution": false,
+      "publication": false
+    },
+    "assessment_hash": "PLACEHOLDER"
+  }
+}
