@@ -1,0 +1,18 @@
+{
+  "schema": "stegverse.site.marketplace_coinbase_accessibility.v1",
+  "state": "PENDING_UPSTREAM",
+  "reason": "publisher_verified_status_not_yet_observed",
+  "source_repository": "GCAT-BCAT-Engine/Publisher",
+  "source_path": "data/marketplace-coinbase-release-evidence-status.json",
+  "publisher_status": null,
+  "publisher_status_digest": null,
+  "publisher_sources": {},
+  "evidence_bindings": {},
+  "paper_trading_accessible": false,
+  "live_trading_accessible": false,
+  "findings": [],
+  "publication_authority": "NOT_GRANTED",
+  "release_authority": "NOT_GRANTED",
+  "execution_authority": "NOT_GRANTED",
+  "live_authority": "NOT_GRANTED"
+}
