@@ -1,0 +1,97 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "COMP-003",
+  "event_name": "Solution of the Robbins problem by EQP",
+  "source_id": "SRC-003",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+  "retrieved_on": "2026-08-01",
+  "sources": [
+    {
+      "source_role": "author_primary_web_record",
+      "title": "Robbins Algebras Are Boolean",
+      "authors": ["William McCune"],
+      "publisher_or_host": "University of New Mexico mirror of William McCune's Argonne research materials",
+      "publication_date": "1996-10",
+      "stable_url": "https://www.cs.unm.edu/~mccune/papers/robbins/",
+      "evidence_supported": [
+        "EQP found the proof that solved the Robbins problem on 1996-10-10.",
+        "The successful search took about eight days on an RS/6000 processor and used about 30 megabytes of memory.",
+        "The EQP proof was used to guide Otter to a proof object that was checked by a separate proof checker.",
+        "Input, proof, proof-object, prover, and checker materials were publicly preserved."
+      ]
+    },
+    {
+      "source_role": "peer_reviewed_primary_article",
+      "title": "Solution of the Robbins Problem",
+      "authors": ["William McCune"],
+      "journal": "Journal of Automated Reasoning",
+      "volume": "19",
+      "issue": "3",
+      "pages": "263-276",
+      "publication_date": "1997-12",
+      "doi": "10.1023/A:1005843212881",
+      "stable_url": "https://doi.org/10.1023/A:1005843212881",
+      "evidence_supported": [
+        "The peer-reviewed article presents the automated solution and the search strategies that enabled EQP to find it.",
+        "The article appeared in volume 19, issue 3 of the Journal of Automated Reasoning in 1997.",
+        "Publication followed the October 1996 machine-discovery event."
+      ]
+    },
+    {
+      "source_role": "proof_material_record",
+      "title": "Solution of the Robbins Problem — associated proof materials",
+      "authors": ["William McCune"],
+      "publisher_or_host": "University of New Mexico",
+      "stable_url": "https://www.cs.unm.edu/~mccune/papers/robbins/jar.html",
+      "evidence_supported": [
+        "EQP and Otter inputs, proofs, and proof objects corresponding to the journal article were preserved.",
+        "The preserved materials distinguish proof discovery from later proof-object checking and journal publication."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "1996-10",
+      "refined_value": "1996-10-10",
+      "status": "SUPPORTED_AND_REFINED_BY_AUTHOR_PRIMARY_RECORD",
+      "source_roles": ["author_primary_web_record"]
+    },
+    "publication_date": {
+      "seed_value": "1997",
+      "refined_value": "1997-12",
+      "status": "SUPPORTED_AND_REFINED_BY_JOURNAL_METADATA",
+      "source_roles": ["peer_reviewed_primary_article"]
+    },
+    "verification_date": {
+      "value": null,
+      "status": "PROOF_CHECKING_METHOD_SUPPORTED_BUT_DISTINCT_DATE_NOT_ESTABLISHED",
+      "source_roles": ["author_primary_web_record", "proof_material_record"]
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Necessary",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The decisive proof was found automatically by EQP; this source-expansion record preserves that dependency evidence without adjudicating the controlled seed classification."
+    },
+    "verification_method": {
+      "seed_value": "Automated theorem prover generated a proof; simplified proofs followed",
+      "status": "SUPPORTED_AND_CLARIFIED",
+      "clarification": "EQP discovered the proof; Otter generated a proof object guided by the EQP result; a separate checker checked that proof object."
+    }
+  },
+  "remaining_questions": [
+    "Establish the exact date on which the Otter proof object and separate checker completed verification.",
+    "Reconstruct disciplinary acceptance and later recognition from explicit historical sources.",
+    "Preserve immutable hashes or archival snapshots of the original EQP, Otter, proof-object, and checker files."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
