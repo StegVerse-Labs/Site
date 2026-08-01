@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "capability": "SOURCE_GROUNDED_ASSISTANT",
+  "route": "evidence_requirement",
+  "question": "What evidence is generally needed for a VA disability claim?",
+  "answer": {
+    "summary": "Evidence requirements depend on the type and procedural posture of the claim. A claimant should identify evidence of a current disability or persistent symptoms, the relevant in-service event, injury, illness, or exposure, and evidence connecting the two when the claim theory requires a nexus.",
+    "propositions": [
+      {
+        "proposition_id": "P1",
+        "text": "Evidence requirements depend on the type and procedural posture of the disability claim.",
+        "support": [
+          {
+            "source_id": "VA-EVIDENCE-NEEDED",
+            "authority_class": "OFFICIAL_OPERATIONAL",
+            "locator": "https://www.va.gov/disability/how-to-file-claim/evidence-needed/"
+          }
+        ]
+      },
+      {
+        "proposition_id": "P2",
+        "text": "A claimant should identify current disability or symptoms, the relevant in-service event or exposure, and evidence connecting the two when that theory requires a nexus.",
+        "support": [
+          {
+            "source_id": "VA-COMPENSATION-EVIDENCE",
+            "authority_class": "OFFICIAL_OPERATIONAL",
+            "locator": "https://www.benefits.va.gov/compensation/evidence.asp"
+          }
+        ]
+      }
+    ],
+    "uncertainties": [
+      {
+        "uncertainty_id": "U1",
+        "description": "No veteran-specific records were supplied, so this response cannot determine which evidence is present or missing in an individual claim."
+      }
+    ]
+  },
+  "authority_flags": {
+    "adjudication": false,
+    "representation": false,
+    "medical_opinion": false,
+    "rating": false,
+    "execution": false,
+    "publication": false
+  },
+  "source_registry": "data/va-claim-assistant/source-registry.json",
+  "answer_schema": "data/va-claim-assistant/answer-record.schema.json",
+  "tvc_receipt": "StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43:receipts/va-claim-assistant-governed-retrieval-readiness.json",
+  "custody_receipt": "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json",
+  "activation_effect": false
+}
