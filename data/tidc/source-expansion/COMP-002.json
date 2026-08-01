@@ -1,0 +1,123 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "COMP-002",
+  "event_name": "Nonexistence of a finite projective plane of order 10",
+  "source_id": "SRC-002",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+  "retrieved_on": "2026-08-01",
+  "sources": [
+    {
+      "source_role": "final_nonexistence_article",
+      "title": "The Non-Existence of Finite Projective Planes of Order 10",
+      "authors": ["C. W. H. Lam", "L. Thiel", "S. Swiercz"],
+      "journal": "Canadian Journal of Mathematics",
+      "volume": "41",
+      "issue": "6",
+      "pages": "1117-1123",
+      "publication_date": "1989-12-01",
+      "doi": "10.4153/CJM-1989-049-4",
+      "stable_url": "https://doi.org/10.4153/CJM-1989-049-4",
+      "evidence_supported": [
+        "The final nonexistence result was published in 1989.",
+        "The result is attributed to Lam, Thiel, and Swiercz.",
+        "The publication presents the finite projective-plane order-10 problem as resolved by the completed search."
+      ]
+    },
+    {
+      "source_role": "search_method_chapter",
+      "title": "A Computer Search for a Projective Plane of Order 10",
+      "authors": ["C. W. H. Lam", "L. H. Thiel", "S. Swiercz"],
+      "container_title": "Algebraic, Extremal and Metric Combinatorics 1986",
+      "series": "London Mathematical Society Lecture Note Series 131",
+      "pages": "155-165",
+      "publication_date": "1988",
+      "doi": "10.1017/CBO9780511758881.010",
+      "stable_url": "https://doi.org/10.1017/CBO9780511758881.010",
+      "evidence_supported": [
+        "The computational search program and problem representation were documented before the final 1989 nonexistence article.",
+        "The 1988 publication supports a distinct search-in-progress chronology rather than a final-proof publication date."
+      ]
+    },
+    {
+      "source_role": "earlier_configuration_elimination",
+      "title": "The nonexistence of ovals in a projective plane of order 10",
+      "authors": ["C. W. H. Lam", "L. Thiel", "S. Swiercz", "J. McKay"],
+      "journal": "Discrete Mathematics",
+      "volume": "45",
+      "issue": "2-3",
+      "pages": "319-321",
+      "publication_date": "1983",
+      "doi": "10.1016/0012-365X(83)90049-3",
+      "stable_url": "https://doi.org/10.1016/0012-365X(83)90049-3",
+      "evidence_supported": [
+        "A computer search had already eliminated the oval configuration by 1983.",
+        "This intermediate result must not be collapsed into the later complete nonexistence determination."
+      ]
+    },
+    {
+      "source_role": "retrospective_search_account",
+      "title": "The Search for a Finite Projective Plane of Order 10",
+      "authors": ["C. W. H. Lam"],
+      "journal": "The American Mathematical Monthly",
+      "volume": "98",
+      "issue": "4",
+      "pages": "305-318",
+      "publication_date": "1991-04",
+      "doi": "10.1080/00029890.1991.12000759",
+      "stable_url": "https://doi.org/10.1080/00029890.1991.12000759",
+      "evidence_supported": [
+        "A 1991 retrospective account explains the search after the final 1989 result.",
+        "The seed ledger's 1991-04 date appears to correspond to this retrospective publication rather than the original final nonexistence article."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "1988",
+      "supported_value": null,
+      "status": "SEARCH_ACTIVITY_DOCUMENTED_BY_1988_BUT_FINAL_COMPLETION_DATE_NOT_YET_ISOLATED",
+      "source_roles": ["search_method_chapter", "final_nonexistence_article"]
+    },
+    "publication_date": {
+      "seed_value": "1991-04",
+      "supported_value": "1989-12-01",
+      "status": "SEED_DATE_APPEARS_TO_REFERENCE_RETROSPECTIVE_NOT_FINAL_RESULT",
+      "source_roles": ["final_nonexistence_article", "retrospective_search_account"]
+    },
+    "verification_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED_AS_DISTINCT_DATE"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Necessary",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The published record identifies a computer search as the operative method, but this source-expansion record does not adjudicate the controlled classification."
+    }
+  },
+  "seed_discrepancies": [
+    {
+      "field": "publication_date",
+      "seed_value": "1991-04",
+      "source_supported_value": "1989-12-01",
+      "disposition": "PRESERVE_SEED_AND_ROUTE_TO_ADJUDICATION",
+      "reason": "The final Canadian Journal of Mathematics article predates the 1991 Monthly retrospective."
+    }
+  ],
+  "remaining_questions": [
+    "Locate a first-party completion announcement or dated computation log establishing the exact search-completion date.",
+    "Preserve machine, runtime, case-count, and independent-check records from the original computation where available.",
+    "Establish a distinct verification chronology and identify any later certificate-based re-verification as a separate event.",
+    "Establish disciplinary acceptance and recognition dates from explicit evidence rather than publication proxies."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
