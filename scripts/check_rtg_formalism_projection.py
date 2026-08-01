@@ -10,6 +10,8 @@ from typing import Any
 SITE_ROOT = Path(__file__).resolve().parents[1]
 TASK_STATE = SITE_ROOT / "data/formalism-publication/rtg-projection-task-state.json"
 OUTPUT = SITE_ROOT / "data/formalism-publication/rtg-projection-observation.json"
+IMPORT_SCHEMA = SITE_ROOT / "data/formalism-publication/rtg-publication-readiness.schema.json"
+PROJECTION = SITE_ROOT / "formalisms/rtg/index.html"
 EXPECTED_LANES = {
     3: "hosted-deterministic-rendering",
     4: "predecessor-and-statement-integration",
@@ -34,7 +36,15 @@ def main() -> int:
     task = load(TASK_STATE)
     source = task["source"]
     blockers: list[str] = []
-    observations: dict[str, Any] = {}
+    observations: dict[str, Any] = {
+        "site_import_schema_present": IMPORT_SCHEMA.exists(),
+        "review_only_projection_present": PROJECTION.exists(),
+    }
+
+    if not IMPORT_SCHEMA.exists():
+        blockers.append("missing Site import schema: data/formalism-publication/rtg-publication-readiness.schema.json")
+    if not PROJECTION.exists():
+        blockers.append("missing review-only Site projection: formalisms/rtg/index.html")
 
     manifest_path = rtg_root / source["manifest_path"]
     schema_path = rtg_root / source["handback_schema_path"]
@@ -52,26 +62,34 @@ def main() -> int:
             blockers.append("source authority_effect must remain NONE")
 
     if not schema_path.exists():
-        blockers.append(f"missing handback schema: {source['handback_schema_path']}")
+        blockers.append(f"missing source handback schema: {source['handback_schema_path']}")
 
     lane_results: dict[str, Any] = {}
     all_terminal = True
+    all_accepted = True
     for issue, expected_lane in EXPECTED_LANES.items():
         relative = source["lane_handbacks"][str(issue)]
         path = rtg_root / relative
         if not path.exists():
-            lane_results[str(issue)] = {"state": "MISSING", "path": relative}
+            lane_results[str(issue)] = {
+                "state": "MISSING",
+                "lane_id": expected_lane,
+                "path": relative,
+                "remaining_blockers": ["source handback is missing"],
+            }
             blockers.append(f"missing issue {issue} handback: {relative}")
             all_terminal = False
+            all_accepted = False
             continue
         handback = load(path)
         state = handback.get("state")
         lane_id = handback.get("lane_id")
+        lane_blockers = handback.get("remaining_blockers", [])
         lane_results[str(issue)] = {
             "state": state,
             "lane_id": lane_id,
             "path": relative,
-            "remaining_blockers": handback.get("remaining_blockers", []),
+            "remaining_blockers": lane_blockers,
         }
         if handback.get("issue") != issue or lane_id != expected_lane:
             blockers.append(f"issue {issue} handback identity mismatch")
@@ -79,12 +97,19 @@ def main() -> int:
             blockers.append(f"issue {issue} handback authority_effect must be NONE")
         if state not in TERMINAL_SOURCE_STATES:
             all_terminal = False
+        if state != "ACCEPTED":
+            all_accepted = False
 
-    site_state = (
-        "READY_TO_BUILD_IMPORT_SCHEMA"
-        if all_terminal and not blockers
-        else "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS"
-    )
+    if all_accepted and not blockers:
+        site_state = "ACTIVATION_ELIGIBLE"
+        next_action = "perform governed review-only activation and record the activation receipt"
+    elif all_terminal and not blockers:
+        site_state = "READY_FOR_CENTRAL_ACCEPTANCE_REVIEW"
+        next_action = "obtain and record central formalism acceptance from repository evidence"
+    else:
+        site_state = "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS"
+        next_action = "continue machine observation while developing and validating non-authoritative projection assets"
+
     result = {
         "schema_version": "1.0.0",
         "task_id": task["task_id"],
@@ -95,11 +120,7 @@ def main() -> int:
         "observations": observations,
         "blockers": blockers,
         "manual_external_tasks": [],
-        "next_machine_action": (
-            "build and validate the Site import schema"
-            if site_state == "READY_TO_BUILD_IMPORT_SCHEMA"
-            else "continue scheduled source observation and preserve exact blockers"
-        ),
+        "next_machine_action": next_action,
         "authority_effect": False,
         "activation_effect": False,
     }
