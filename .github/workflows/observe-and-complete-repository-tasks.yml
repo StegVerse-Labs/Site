@@ -8,11 +8,16 @@ on:
       - 'data/site-orchestration-state.json'
       - 'scripts/observe_and_complete_repository_tasks.py'
       - 'scripts/check_hil_v1_upload_surface.py'
+      - 'scripts/check_hil_v1_1_release.py'
+      - 'scripts/verify_hil_site_contract.py'
       - 'humans-as-interoperability-layer.html'
       - 'assets/hil-experiment-v1.js'
+      - 'assets/hil-experiment-v1.1.js'
+      - 'assets/hil-direct-upload-v1.js'
       - 'data/hil-experiment.json'
       - 'data/hil-gateway-config.json'
       - 'data/hil-primary-v1.0.pdf.b64'
+      - 'data/HIL_Canonical_Paper_v1_1.pdf'
   workflow_dispatch:
   schedule:
     - cron: '17 * * * *'
@@ -52,3 +57,6 @@ jobs:
         with:
           name: repository-task-observation
           path: repository-task-observation.report.json
+
+      - name: Fail after preserving durable blockers
+        run: python scripts/observe_and_complete_repository_tasks.py --fail-on-blockers
