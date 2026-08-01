@@ -1,0 +1,61 @@
+name: VA Claim Assistant Activation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'api/va-claim-assistant/**'
+      - 'va-claim-assistant-source-grounded.html'
+      - 'data/va-claim-assistant/**'
+      - 'scripts/reconcile_va_claim_assistant_activation.py'
+      - '.github/workflows/va-claim-assistant-activation.yml'
+  schedule:
+    - cron: '23 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-claim-assistant-activation
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Site governance contracts
+        run: python scripts/check_va_claim_assistant_governance.py
+      - name: Reconcile repository and deployed evidence
+        run: python scripts/reconcile_va_claim_assistant_activation.py
+      - name: Enforce anti-stall state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          gates=json.loads(Path('data/va-claim-assistant/activation-gates.json').read_text())
+          receipt=json.loads(Path('data/va-claim-assistant/source-grounded-activation-receipt.json').read_text())
+          for gate in gates['gates']:
+              if gate['state'] != 'VERIFIED':
+                  assert gate.get('task_location'), f"missing task location for {gate['id']}"
+                  assert gate.get('next_action') or gate['id'] == 'VCA-GATE-05', f"missing next action for {gate['id']}"
+          if receipt['state'] != 'VERIFIED':
+              assert receipt['next_action']
+          assert gates['anti_stall']['external_tasks_allowed'] is False
+          print('VA anti-stall invariants: PASS')
+          PY
+      - name: Persist reconciliation state
+        run: |
+          if git diff --quiet -- data/va-claim-assistant/activation-gates.json data/va-claim-assistant/source-grounded-activation-receipt.json; then
+            echo 'No reconciliation change.'
+            exit 0
+          fi
+          git config user.name 'va-claim-assistant-activation[bot]'
+          git config user.email 'va-claim-assistant-activation[bot]@users.noreply.github.com'
+          git add data/va-claim-assistant/activation-gates.json data/va-claim-assistant/source-grounded-activation-receipt.json
+          git commit -m 'receipt: reconcile VA source-grounded activation'
+          git push
