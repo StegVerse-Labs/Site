@@ -5,22 +5,16 @@
   "active_tasks_observed": [
     "SITE-0001-UPLOAD"
   ],
-  "ownership_reconciliations": [
-    {
-      "task_id": "SITE-0001-UPLOAD",
-      "from": "external-active-session",
-      "to": "data/tasks/SITE-0001-UPLOAD.json"
-    }
-  ],
+  "ownership_reconciliations": [],
   "observations": [
     {
       "task_id": "SITE-0001-UPLOAD",
       "state": "VALIDATION_FAILED",
       "task_location": "data/tasks/SITE-0001-UPLOAD.json",
-      "validator_command": "python scripts/check_hil_v1_upload_surface.py",
-      "success_marker": "HIL_V1_UPLOAD_SURFACE=PASS",
+      "validator_command": "python scripts/check_hil_v1_1_release.py",
+      "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS",
       "success_marker_seen": false,
-      "output": "HIL v1 upload verification failed: manifest is not v1.0"
+      "output": "HIL v1.1 release verification failed: public page missing marker: HIL-PROTOCOL-v1.1"
     }
   ],
   "completed_tasks": [],
@@ -32,10 +26,10 @@
       "task_id": "SITE-0001-UPLOAD",
       "state": "VALIDATION_FAILED",
       "task_location": "data/tasks/SITE-0001-UPLOAD.json",
-      "validator_command": "python scripts/check_hil_v1_upload_surface.py",
-      "success_marker": "HIL_V1_UPLOAD_SURFACE=PASS",
+      "validator_command": "python scripts/check_hil_v1_1_release.py",
+      "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS",
       "success_marker_seen": false,
-      "output": "HIL v1 upload verification failed: manifest is not v1.0"
+      "output": "HIL v1.1 release verification failed: public page missing marker: HIL-PROTOCOL-v1.1"
     }
   ],
   "state_updated": true,
