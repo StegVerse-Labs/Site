@@ -1,0 +1,48 @@
+name: VA Claim Guide Workers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'va-disability-claim-guide.html'
+      - 'assets/va-claim-guide/**'
+      - 'scripts/check_va_claim_guide.py'
+      - '.github/workflows/va-claim-guide-workers.yml'
+  pull_request:
+    paths:
+      - 'va-disability-claim-guide.html'
+      - 'assets/va-claim-guide/**'
+      - 'scripts/check_va_claim_guide.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-page:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Site
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate VA claim guide
+        run: python scripts/check_va_claim_guide.py
+      - name: Check internal page references
+        run: |
+          test -f va-disability-claim-guide.html
+          test -f assets/va-claim-guide/01-open-va-app-safe.svg
+          test -f assets/va-claim-guide/va-guide-assistant.js
+      - name: Publish worker summary
+        run: |
+          {
+            echo '## VA Claim Guide Worker Result'
+            echo '- Static guide: validated'
+            echo '- Mobile-safe image: validated'
+            echo '- Bounded procedural assistant: validated'
+            echo '- Live source-grounded LLM: in development'
+            echo '- Private document analysis: not active'
+            echo '- The page status box is the public source for current assistant abilities and completeness.'
+          } >> "$GITHUB_STEP_SUMMARY"
