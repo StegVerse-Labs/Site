@@ -1,0 +1,27 @@
+{
+  "schema_version": "HIL-SEMANTIC-CONTINUITY-PROJECTION-v1",
+  "source_repository": "StegVerse-Labs/Site",
+  "source_handoff": "docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md",
+  "source_task_state": "data/hil-semantic-continuity-task-state.json",
+  "required_source_artifacts": [
+    "docs/hil-semantic-continuity/canonical-terminology.md",
+    "data/schemas/hil-semantic-transformation.schema.json",
+    "docs/hil-semantic-continuity/state-pair-isolated-trajectory.md",
+    "data/fixtures/hil-semantic-transformation/bounded-conversation.json",
+    "scripts/validate_hil_semantic_transformation.py",
+    "data/fixtures/hil-semantic-transformation/calibration-cases.json",
+    "docs/hil-semantic-continuity/rtg-mapping-package.md"
+  ],
+  "destinations": [
+    {"repository":"master-records/orchestration","purpose":"custody source records, transformation receipts, and reconstruction evidence","admission":"read destination mirror handoff before mutation"},
+    {"repository":"GCAT-BCAT-Engine/Publisher","purpose":"authenticated publication projection","admission":"only after validated receipt and publication authority"},
+    {"repository":"StegVerse-Labs/admissibility-wiki","purpose":"public formalism and evidence projection","admission":"only after formal review"},
+    {"repository":"StegVerse-002/stegguardian-wiki","purpose":"guardian, dispute, and reconstruction projection","admission":"only after governed ingestion"},
+    {"repository":"StegVerse-Labs/Sit","purpose":"ecosystem integration projection","admission":"only after repository identity and role verification"}
+  ],
+  "external_tasks": [],
+  "halt_on_unavailable_destination": false,
+  "unavailable_destination_behavior": "retain validated source package and continue all independent repository-owned work",
+  "authority_effect": false,
+  "release_authority": false
+}
