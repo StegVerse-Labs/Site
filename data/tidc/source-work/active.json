@@ -1,14 +1,19 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-01T19:35:00Z",
+  "generated_at": "2026-08-01T19:38:42.006176+00:00",
   "work_id": "SRC-001",
-  "record_ids": ["COMP-001"],
+  "record_ids": [
+    "COMP-001"
+  ],
   "task": "Retrieve or preserve original four-color theorem papers and computation records",
   "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-001",
   "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-001.json",
   "receipt_path": "data/tidc/source-receipts/COMP-001.json",
   "status": "ACTIVE",
-  "allowed_terminal_states": ["COMPLETE", "LIMITATION_RETAINED"],
+  "allowed_terminal_states": [
+    "COMPLETE",
+    "LIMITATION_RETAINED"
+  ],
   "instructions": [
     "Use the strongest available primary sources.",
     "Preserve inaccessible or unresolved evidence explicitly.",
@@ -16,8 +21,8 @@
     "Write the completion receipt at receipt_path.",
     "After the receipt is committed, the coordinator advances automatically to the next READY item."
   ],
+  "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
   "completed_work_ids": [],
   "remaining_count": 9,
-  "development_halted": false,
-  "continuation": "This active task does not block validators, return processing, or unrelated source work preparation."
+  "development_halted": false
 }

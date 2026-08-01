@@ -1,0 +1,126 @@
+{
+  "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
+  "generated_at": "2026-08-01T19:38:42.011457+00:00",
+  "repository": "StegVerse-Labs/Site",
+  "policy": {
+    "no_external_task_handoff": true,
+    "continue_when_waiting": true,
+    "fail_closed_activation": true,
+    "pending_evidence_does_not_halt_other_tasks": true,
+    "activate_next_ready_internal_task": true
+  },
+  "summary": {
+    "tasks": 9,
+    "complete": 4,
+    "in_progress": 2,
+    "waiting_evidence": 2,
+    "waiting_build": 0,
+    "failed": 0,
+    "activation_state": "BLOCKED_CONTINUING",
+    "active_source_work_id": "SRC-001",
+    "development_halted": false
+  },
+  "tasks": {
+    "TIDC-R2-001": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+        "scripts/check_tidc_publication.py"
+      ],
+      "exit_status": 0,
+      "stdout": "TIDC_PUBLICATION_VALID\nevents=10 sources=10 precursors=1 precursor_sources=3 coding_candidates=11 reliability_assets=4 posture=RESEARCH_NOTE state=PILOT_NOT_CONFIRMATORY\n",
+      "stderr": "",
+      "status": "COMPLETE",
+      "name": "Validate public research surface",
+      "exists_at": "scripts/check_tidc_publication.py"
+    },
+    "TIDC-R2-002": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+        "scripts/check_tidc_reliability.py"
+      ],
+      "exit_status": 0,
+      "stdout": "TIDC_RELIABILITY_VALID\nrecords=11 first_pass=governed_snapshot independent_response=pending release_2=blocked\n",
+      "stderr": "",
+      "status": "COMPLETE",
+      "name": "Validate reliability infrastructure",
+      "exists_at": "scripts/check_tidc_reliability.py"
+    },
+    "TIDC-R2-003": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+        "tests/tidc/test_agreement_calculator.py"
+      ],
+      "exit_status": 0,
+      "stdout": "TIDC_AGREEMENT_TESTS_VALID\n",
+      "stderr": "",
+      "status": "COMPLETE",
+      "name": "Test agreement calculator",
+      "exists_at": "tests/tidc/test_agreement_calculator.py"
+    },
+    "TIDC-R2-004": {
+      "status": "WAITING_EVIDENCE",
+      "count": 0,
+      "paths": [],
+      "continuation": "Other repository tasks continue while no return is present.",
+      "name": "Observe committed blinded coder returns",
+      "exists_at": "data/tidc/blinded-coding/returns/"
+    },
+    "TIDC-R2-005": {
+      "status": "WAITING_EVIDENCE",
+      "reason": "No committed blinded return exists at data/tidc/blinded-coding/returns/.",
+      "continuation": "Coordinator does not halt; validators, source audit, and gate observation continue.",
+      "name": "Process every committed blinded return",
+      "exists_at": "scripts/validate_tidc_blinded_return.py; scripts/create_tidc_blinded_return_receipt.py; scripts/compare_tidc_blinded_coding.py"
+    },
+    "TIDC-R2-006": {
+      "status": "IN_PROGRESS",
+      "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-work-queue.v0.1.json",
+      "unresolved_marker_count": 5,
+      "continuation": "Repository research sessions may resolve one source record at a time without waiting for the independent return.",
+      "name": "Maintain archival source sufficiency record"
+    },
+    "TIDC-R2-006A": {
+      "status": "IN_PROGRESS",
+      "active_status": "ACTIVE",
+      "active_work_id": "SRC-001",
+      "active_task": "Retrieve or preserve original four-color theorem papers and computation records",
+      "receipt_path": "data/tidc/source-receipts/COMP-001.json",
+      "remaining_count": 9,
+      "development_halted": false,
+      "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
+      "command_result": {
+        "command": [
+          "/opt/hostedtoolcache/Python/3.11.15/x64/bin/python",
+          "scripts/advance_tidc_source_queue.py",
+          "--out",
+          "data/tidc/source-work/active.json"
+        ],
+        "exit_status": 0,
+        "stdout": "{\"completed\": 0, \"development_halted\": false, \"remaining\": 9, \"status\": \"ACTIVE\", \"work_id\": \"SRC-001\"}\n",
+        "stderr": "",
+        "status": "COMPLETE"
+      },
+      "name": "Activate and advance the next internal source task",
+      "exists_at": "scripts/advance_tidc_source_queue.py; data/tidc/source-work/active.json; data/tidc/source-receipts/"
+    },
+    "TIDC-R2-007": {
+      "status": "BLOCKED_CONTINUING",
+      "declared_gate_state": "BLOCKED",
+      "incomplete_tasks": [
+        "TIDC-R2-005",
+        "TIDC-R2-006",
+        "TIDC-R2-006A"
+      ],
+      "activation_permitted": false,
+      "continuation": "BLOCKED_CONTINUING means activation is blocked, not development.",
+      "name": "Evaluate Release 2 activation gate",
+      "exists_at": "data/tidc/release-2-gate.v0.1.json"
+    },
+    "TIDC-R2-008": {
+      "status": "COMPLETE",
+      "exists_at": "data/tidc/coordinator/latest.json",
+      "name": "Preserve final validator receipt"
+    }
+  },
+  "boundary": "Pending evidence blocks only dependent activation. It does not halt repository development or unrelated executable tasks."
+}
