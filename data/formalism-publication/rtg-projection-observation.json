@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "source_repository": "Admissible-Existence/RTG",
   "source_branch": "main",
-  "site_state": "OBSERVING_SOURCE_WITH_RECORDED_BLOCKERS",
+  "site_state": "ACTIVE_REVIEW_ONLY_PROJECTION_WITH_RECORDED_BLOCKERS",
   "source_lanes": {
     "3": {
       "state": "BLOCKED_WITH_EVIDENCE",
@@ -34,9 +34,9 @@
     "manifest_state": "ACTIVE_ACKNOWLEDGED",
     "activation_eligible": false,
     "authority_effect": "NONE",
-    "site_import_schema_present": true,
-    "review_only_projection_present": true,
-    "observation_basis": "direct repository handbacks on Admissible-Existence/RTG main"
+    "observation_basis": "direct repository handbacks on Admissible-Existence/RTG main",
+    "review_projection_active": true,
+    "activation_receipt": "data/formalism-publication/rtg-review-projection-activation-receipt.json"
   },
   "blockers": [
     "RTG issue 3 is BLOCKED_WITH_EVIDENCE.",
@@ -45,7 +45,8 @@
     "Central formalism acceptance has not been recorded."
   ],
   "manual_external_tasks": [],
-  "next_machine_action": "Continue machine observation while developing and validating non-authoritative projection assets.",
+  "next_machine_action": "Continue active source observation and automatically advance to central acceptance review when all source lanes are terminal.",
   "authority_effect": false,
-  "activation_effect": false
+  "review_projection_activation_effect": true,
+  "canonical_publication_effect": false
 }
