@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>StegVerse Personal Data Control</title>
+  <meta name="description" content="Public personal-data request, restriction, deletion, appeal, and completion-receipt contract for StegVerse account-bearing services.">
+</head>
+<body>
+  <main>
+    <h1>Personal Data Control</h1>
+    <p><strong>Status:</strong> governed runtime contract under machine-observed activation.</p>
+
+    <h2>Controller identity</h2>
+    <p>Every StegVerse account-bearing service must identify the repository, operator, and service responsible for account-linked processing before collecting personal data.</p>
+
+    <h2>Request channel</h2>
+    <p>A functioning, reply-capable request channel must exist for access, restriction, correction, deletion, processor propagation, and appeal. A no-reply authentication address does not satisfy this requirement.</p>
+
+    <h2>Identity verification boundary</h2>
+    <p>Verification must be proportionate, purpose-limited, and must not require unnecessary additional personal data.</p>
+
+    <h2>Retention boundary</h2>
+    <p>The service must disclose retention periods or the criteria used to determine them. Undocumented retention remains fail-closed for governance standing.</p>
+
+    <h2>Processor propagation</h2>
+    <p>Deletion completion requires recorded propagation to applicable processors and service providers, subject to specifically identified legal retention duties.</p>
+
+    <h2>Appeal route</h2>
+    <p>Partial denial or denial must include a reason, the retained-data category, the retention basis, and a functioning appeal route.</p>
+
+    <h2>Completion receipt</h2>
+    <p>Completion requires a receipt identifying request state, affected systems, retained exceptions, processor propagation state, and completion time.</p>
+
+    <h2>Observable states</h2>
+    <pre>NOT_REQUESTED
+RECEIVED
+IDENTITY_VERIFICATION_REQUIRED
+VERIFIED
+PROCESSING_RESTRICTED
+INVENTORY_COMPLETE
+DELETION_IN_PROGRESS
+PROCESSOR_PROPAGATION_PENDING
+COMPLETED
+PARTIALLY_DENIED
+DENIED
+APPEAL_OPEN
+CHANNEL_FAILED</pre>
+
+    <p><strong>Authority boundary:</strong> publication of this page does not itself prove deletion, processor propagation, legal compliance, or account closure.</p>
+  </main>
+</body>
+</html>
