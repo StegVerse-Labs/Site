@@ -1,0 +1,33 @@
+name: RTG-TT Public Mirror
+
+on:
+  pull_request:
+    paths:
+      - 'data/rtg-tt/**'
+      - 'docs/RTG_TT_PUBLIC_MIRROR.md'
+      - 'scripts/check_rtg_tt_public_mirror.py'
+      - '.github/workflows/rtg-tt-public-mirror.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/rtg-tt/**'
+      - 'docs/RTG_TT_PUBLIC_MIRROR.md'
+      - 'scripts/check_rtg_tt_public_mirror.py'
+      - '.github/workflows/rtg-tt-public-mirror.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-rtg-tt-public-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate bounded public mirror
+        run: python scripts/check_rtg_tt_public_mirror.py
