@@ -34,7 +34,9 @@
     "task_sequence": 1,
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
-      "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
+      "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+      "TIDC-ADJ-NET-001-DATES",
+      "TIDC-SPLIT-NET-002"
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
@@ -56,15 +58,18 @@
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 1,
-      "blocker_count": 1,
+      "active_task_count": 3,
+      "blocker_count": 3,
       "external_session_ownership_allowed": false
     },
     "state": "OBSERVED_BLOCKED",
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "TIDC-ADJ-NET-001-DATES",
+        "TIDC-SPLIT-NET-002"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },

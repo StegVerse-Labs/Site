@@ -3,7 +3,9 @@
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "active_tasks_observed": [
-    "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+    "TIDC-ADJ-NET-001-DATES",
+    "TIDC-SPLIT-NET-002"
   ],
   "ownership_reconciliations": [],
   "observations": [
@@ -12,17 +14,43 @@
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-ADJ-COMP-002-PUBLICATION-DATE.json",
       "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "TIDC-ADJ-NET-001-DATES",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-ADJ-NET-001-DATES.json",
+      "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "TIDC-SPLIT-NET-002",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
+      "reason": "active task has no committed repository-local task object"
     }
   ],
   "completed_tasks": [],
   "remaining_tasks": [
-    "TIDC-ADJ-COMP-002-PUBLICATION-DATE"
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+    "TIDC-ADJ-NET-001-DATES",
+    "TIDC-SPLIT-NET-002"
   ],
   "blockers": [
     {
       "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-ADJ-COMP-002-PUBLICATION-DATE.json",
+      "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "TIDC-ADJ-NET-001-DATES",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-ADJ-NET-001-DATES.json",
+      "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "TIDC-SPLIT-NET-002",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
       "reason": "active task has no committed repository-local task object"
     }
   ],
