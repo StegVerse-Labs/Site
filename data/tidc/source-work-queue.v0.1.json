@@ -1,0 +1,24 @@
+{
+  "schema": "stegverse.site.tidc.source_work_queue.v0.1",
+  "generated": "2026-08-01",
+  "scope": "StegVerse-Labs/Site",
+  "authority": "All source-completion work is internal repository work. No external task handoff is permitted.",
+  "policy": {
+    "continue_until_exhausted": true,
+    "one_record_at_a_time": true,
+    "retain_unresolved_limitations": true,
+    "never_recode_to_force_agreement": true
+  },
+  "queue": [
+    {"work_id":"SRC-001","record_ids":["COMP-001"],"task":"Retrieve or preserve original four-color theorem papers and computation records","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-001","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-001.json"},
+    {"work_id":"SRC-002","record_ids":["COMP-002"],"task":"Retrieve projective-plane order-10 computational reports","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-002","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-002.json"},
+    {"work_id":"SRC-003","record_ids":["COMP-003"],"task":"Preserve Robbins proof publication and simplification chronology","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-003","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-003.json"},
+    {"work_id":"SRC-004","record_ids":["NET-001","NET-002"],"task":"Reconstruct Polymath start, phase, and publication chronology","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#NET-001","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/NET-POLYMATH.json"},
+    {"work_id":"SRC-005","record_ids":["AI-001"],"task":"Split AlphaTensor subevents and preserve independent reproduction evidence","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#AI-001","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/AI-001.json"},
+    {"work_id":"SRC-006","record_ids":["AI-002"],"task":"Reconstruct AlphaDev discovery-to-LLVM integration chronology","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#AI-002","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/AI-002.json"},
+    {"work_id":"SRC-007","record_ids":["AI-003"],"task":"Separate FunSearch domains and preserve generation dates","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#AI-003","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/AI-003.json"},
+    {"work_id":"SRC-008","record_ids":["QNT-001","QNT-002"],"task":"Collect quantum benchmark adoption and downstream-use evidence","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#QNT-001","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/QNT.json"},
+    {"work_id":"SRC-009","record_ids":["QAI-2025-JP-OSAKA"],"task":"Collect sustained-access, usage, and downstream-output evidence","exists_at":"docs/TIDC_SOURCE_PACKET_INDEX.md#QAI-2025-JP-OSAKA","status":"READY","completion_target":"docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/QAI-2025-JP-OSAKA.json"}
+  ],
+  "selection_rule": "Select the first READY item, complete or explicitly retain its limitation, commit the receipt, then continue to the next READY item without waiting for independent coding."
+}
