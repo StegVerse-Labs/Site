@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.2.0",
+  "paper_id": "development-without-domination-v1",
+  "repository": "StegVerse-Labs/Site",
+  "state": "SOURCE_OBSERVED",
+  "publisher_manifest_observed": true,
+  "pdf_path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+  "expected_pdf_sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
+  "observed_pdf_sha256": null,
+  "pdf_verified": false,
+  "public_route": "/papers/development-without-domination/",
+  "deployed_route_verified": false,
+  "remaining_tasks": [
+    {
+      "repository": "StegVerse-Labs/Site",
+      "path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+      "issue": "StegVerse-Labs/Site#128",
+      "action": "Commit and verify the exact finalized PDF bytes."
+    },
+    {
+      "repository": "StegVerse-Labs/Site",
+      "path": "papers/development-without-domination/site-mirror-receipt.json",
+      "issue": "StegVerse-Labs/Site#128",
+      "action": "Verify the deployed route and generate the activation receipt."
+    }
+  ],
+  "authority": {
+    "publication": false,
+    "admissibility": false,
+    "execution": false,
+    "release": false
+  }
+}
