@@ -3,35 +3,36 @@
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
   "active_tasks_observed": [
-    "SITE-0001-UPLOAD"
+    "SITE-0001-UPLOAD",
+    "SITE-0001-PERSONAL-DATA-CONTROL"
   ],
   "ownership_reconciliations": [],
   "observations": [
     {
       "task_id": "SITE-0001-UPLOAD",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0001-UPLOAD.json",
       "validator_command": "python scripts/check_hil_v1_1_release.py",
       "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS",
-      "success_marker_seen": false,
-      "output": "HIL v1.1 release verification failed: public page missing marker: HIL-PROTOCOL-v1.1"
-    }
-  ],
-  "completed_tasks": [],
-  "remaining_tasks": [
-    "SITE-0001-UPLOAD"
-  ],
-  "blockers": [
+      "success_marker_seen": true,
+      "output": "HIL_V1_1_RELEASE_VERIFICATION=PASS\nHIL_V1_1_PDF_SIZE=87271\nHIL_V1_1_PDF_SHA256=a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462\nHIL_V1_1_ARTIFACT_PATH=data/HIL_Canonical_Paper_v1_1.pdf\nHIL_V1_1_PROTOCOL=HIL-PROTOCOL-v1.1\nHIL_V1_1_PROMPT=HIL-PROMPT-v1.1\nHIL_V1_1_DIRECT_UPLOAD_CLIENT=BOUND\nHIL_V1_1_LOCAL_FALLBACK=HASH_VERIFIED\nHIL_V1_1_AUTHORITY=NONE"
+    },
     {
-      "task_id": "SITE-0001-UPLOAD",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0001-UPLOAD.json",
-      "validator_command": "python scripts/check_hil_v1_1_release.py",
-      "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS",
-      "success_marker_seen": false,
-      "output": "HIL v1.1 release verification failed: public page missing marker: HIL-PROTOCOL-v1.1"
+      "task_id": "SITE-0001-PERSONAL-DATA-CONTROL",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0001-PERSONAL-DATA-CONTROL.json",
+      "validator_command": "python scripts/check_personal_data_control_runtime.py",
+      "success_marker": "PERSONAL_DATA_CONTROL_RUNTIME=PASS",
+      "success_marker_seen": true,
+      "output": "PERSONAL_DATA_CONTROL_RUNTIME=PASS\nEXTERNAL_TASKS_REQUIRED=false\nMANUAL_TASKS_REQUIRED=false\nAUTHORITY_GRANTED=false"
     }
   ],
+  "completed_tasks": [
+    "SITE-0001-UPLOAD",
+    "SITE-0001-PERSONAL-DATA-CONTROL"
+  ],
+  "remaining_tasks": [],
+  "blockers": [],
   "state_updated": true,
   "policy": {
     "external_session_ownership_allowed": false,

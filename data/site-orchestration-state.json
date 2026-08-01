@@ -33,9 +33,7 @@
   "active_sequence": {
     "task_sequence": 1,
     "label": "current work task sequence 0001",
-    "parallel_safe_tasks": [
-      "SITE-0001-UPLOAD"
-    ],
+    "parallel_safe_tasks": [],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
       "SITE-0001-CANONICAL-BROWSER-BINDING",
@@ -48,17 +46,29 @@
       "SITE-0001-USER-LLM-BOUNDED-EXECUTION-RECEIPT-IMPORT",
       "SITE-0001-HIL-DEPLOYED-CYCLE-ORIGIN-HARDENING",
       "SITE-0001-MASTER-RECORDS-PERSISTENT-SERVICE-EVIDENCE-IMPORT",
-      "SITE-0001-HIL-ANNOUNCEMENT-DERIVATION"
+      "SITE-0001-HIL-ANNOUNCEMENT-DERIVATION",
+      "SITE-0001-UPLOAD",
+      "SITE-0001-PERSONAL-DATA-CONTROL"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 1,
-      "blocker_count": 1,
+      "active_task_count": 0,
+      "blocker_count": 0,
       "external_session_ownership_allowed": false
     },
-    "state": "OBSERVED_BLOCKED"
+    "state": "IDLE",
+    "machine_admission": {
+      "controller": "scripts/admit_repository_tasks.py",
+      "task_directory": "data/tasks",
+      "admitted_tasks": [
+        "SITE-0001-PERSONAL-DATA-CONTROL"
+      ],
+      "external_tasks_allowed": false,
+      "external_session_ownership_allowed": false
+    },
+    "terminal_statement": "end of current work task sequence 0001, no tasks running"
   },
   "ownership": {
     "hil_upload_surface": "data/tasks/SITE-0001-UPLOAD.json",
