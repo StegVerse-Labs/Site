@@ -1,0 +1,80 @@
+{
+  "schema": "stegverse.site.tidc.source_receipt.v0.1",
+  "generated": "2026-08-01",
+  "work_id": "SRC-002",
+  "record_ids": ["COMP-002"],
+  "status": "LIMITATION_RETAINED",
+  "task": "Retrieve projective-plane order-10 computational reports",
+  "source_findings": [
+    {
+      "source_type": "primary_paper",
+      "title": "On the existence of a projective plane of order 10",
+      "authors": ["F. J. MacWilliams", "N. J. A. Sloane", "J. G. Thompson"],
+      "publication": "Journal of Combinatorial Theory, Series A 14(1), 66-78",
+      "publication_date": "1973-01",
+      "doi": "10.1016/0097-3165(73)90064-2",
+      "finding": "Reports the computer-assisted elimination of weight-15 codewords as a precursor restriction.",
+      "posture": "IDENTIFIED_PRIMARY"
+    },
+    {
+      "source_type": "primary_paper",
+      "title": "The nonexistence of ovals in a projective plane of order 10",
+      "authors": ["C. W. H. Lam", "L. Thiel", "S. Swiercz", "J. McKay"],
+      "publication": "Discrete Mathematics 45(2-3), 319-321",
+      "publication_date": "1983",
+      "doi": "10.1016/0012-365X(83)90049-3",
+      "finding": "Reports an exhaustive negative computer search for ovals.",
+      "posture": "IDENTIFIED_PRIMARY"
+    },
+    {
+      "source_type": "primary_report",
+      "title": "A Computer Search for a Projective Plane of Order 10",
+      "authors": ["C. W. H. Lam", "L. H. Thiel", "S. Swiercz"],
+      "publication": "Algebraic, Extremal and Metric Combinatorics 1986, 155-165",
+      "publication_date": "1988",
+      "doi": "10.1017/CBO9780511758881.010",
+      "finding": "Documents the search architecture before the final nonexistence publication.",
+      "posture": "IDENTIFIED_PRIMARY_REPORT"
+    },
+    {
+      "source_type": "primary_paper",
+      "title": "The Non-Existence of Finite Projective Planes of Order 10",
+      "authors": ["C. W. H. Lam", "L. Thiel", "S. Swiercz"],
+      "publication": "Canadian Journal of Mathematics 41(6), 1117-1123",
+      "publication_date": "1989-12-01",
+      "doi": "10.4153/CJM-1989-049-4",
+      "finding": "Final published nonexistence result for projective planes of order 10.",
+      "posture": "IDENTIFIED_PRIMARY"
+    },
+    {
+      "source_type": "independent_verification_archive",
+      "title": "Projective plane proofs",
+      "repository": "University of Waterloo MathCheck",
+      "publication_date": "2020-present archive",
+      "holdings": ["DRAT certificates for weight-15 case", "DRAT certificates for weight-16 case", "DRAT certificates and generation scripts for weight-19 cases"],
+      "finding": "Provides modern machine-checkable certificates for major cases used in the historical proof, with some complete weight-19 certificates too large for direct download but reproducible from published scripts.",
+      "posture": "INDEPENDENT_CERTIFICATE_ARCHIVE_IDENTIFIED"
+    }
+  ],
+  "chronology": {
+    "weight_15_restriction_publication": "1973-01",
+    "oval_search_publication": "1983",
+    "search_architecture_report": "1988",
+    "final_nonexistence_publication": "1989-12-01",
+    "modern_certificate_publications": "2019-2020"
+  },
+  "retained_limitations": [
+    "Exact dates and complete execution logs for every historical search run were not recovered and must not be inferred from publication dates.",
+    "The original historical source code, machine environment, intermediate files, and all raw search outputs were not preserved in this repository review.",
+    "Modern SAT/DRAT work independently verifies major proof cases, but the largest complete weight-19 certificate corpus is not directly downloadable because of its size and instead depends on published generation and verification scripts.",
+    "The historical proof result, later independent verification, publication, disciplinary acceptance, and modern certificate availability are distinct events and must remain separately coded.",
+    "This receipt improves provenance but does not establish full byte-level reconstruction of the complete 1980s computation."
+  ],
+  "coding_effect": {
+    "source_packet_improved": true,
+    "first_pass_recode_permitted": false,
+    "independent_coder_may_use": "Only after a versioned packet update that preserves the retained limitations and distinguishes historical computation from modern certificate verification.",
+    "confidence_effect": "Primary publication chronology and independent-verification posture improved; exact historical run chronology remains incomplete."
+  },
+  "completion_boundary": "SRC-002 is terminal as LIMITATION_RETAINED. This receipt does not claim complete reconstruction of the original computation, erase the verification gap, or confirm the TIDC hypothesis."
+}
