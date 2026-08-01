@@ -34,6 +34,8 @@
     "manifest_state": "ACTIVE_ACKNOWLEDGED",
     "activation_eligible": false,
     "authority_effect": "NONE",
+    "site_import_schema_present": true,
+    "review_only_projection_present": true,
     "observation_basis": "direct repository handbacks on Admissible-Existence/RTG main"
   },
   "blockers": [
@@ -43,7 +45,7 @@
     "Central formalism acceptance has not been recorded."
   ],
   "manual_external_tasks": [],
-  "next_machine_action": "Continue source observation while validating the Site import contract and review-only projection scaffold.",
+  "next_machine_action": "Continue machine observation while developing and validating non-authoritative projection assets.",
   "authority_effect": false,
   "activation_effect": false
 }
