@@ -1,0 +1,20 @@
+{
+  "schema": "stegverse.site.tidc.internal_advancement_receipt.v0.1",
+  "executor": "scripts/advance_tidc_internal_work.py",
+  "source_ledger_sha256": "d0071f83178d722d92d9355ce76b2f0d3e24cb497169c180a1640f1c6d12526b",
+  "outputs": {
+    "data/tidc/source-expansion/seed-source-expansion-plan.json": "26b8f6f7bd69ea69e37f8c949ed7abc241eb65113e267646c4c6b756d500ba07",
+    "data/tidc/negative-controls/negative-control-design-v0.1.json": "65415affbf7fa9f77f49263942593fdc923edea2331002edaf1b70448c8208a4",
+    "data/tidc/tranche-02/aggregate-event-split-plan.json": "8865eae912b3a5cb698c2fe91924552f7f0543c3e52b8f2882fbc8a800b2a966",
+    "data/tidc/work-queue.json": "a005c975f2bbde0acba12f0d6d28f4a2f0dac00895c8bd26ab56c8b580c2d5bc"
+  },
+  "tasks_activated": [
+    "TIDC-IW-001",
+    "TIDC-IW-002",
+    "TIDC-IW-003",
+    "TIDC-IW-004"
+  ],
+  "development_halted": false,
+  "research_claim_effect": "NONE",
+  "authority_effect": "NONE"
+}

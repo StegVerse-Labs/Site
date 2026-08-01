@@ -7,7 +7,12 @@
       "parent_event_name": "Polymath8 bounded-gaps improvements",
       "location": "data/tidc/tranche-02/splits/NET-002/",
       "status": "READY_FOR_SOURCE_BOUND_SPLIT",
-      "required_outputs": ["split-manifest.json", "source-map.json", "date-evidence.json", "coding-delta.json"],
+      "required_outputs": [
+        "split-manifest.json",
+        "source-map.json",
+        "date-evidence.json",
+        "coding-delta.json"
+      ],
       "rule": "Do not alter tranche 01; create child candidate records and identify every inherited or changed field."
     },
     {
@@ -15,7 +20,12 @@
       "parent_event_name": "AlphaTensor matrix-multiplication algorithms",
       "location": "data/tidc/tranche-02/splits/AI-001/",
       "status": "READY_FOR_SOURCE_BOUND_SPLIT",
-      "required_outputs": ["split-manifest.json", "source-map.json", "date-evidence.json", "coding-delta.json"],
+      "required_outputs": [
+        "split-manifest.json",
+        "source-map.json",
+        "date-evidence.json",
+        "coding-delta.json"
+      ],
       "rule": "Do not alter tranche 01; create child candidate records and identify every inherited or changed field."
     },
     {
@@ -23,7 +33,12 @@
       "parent_event_name": "FunSearch cap-set and bin-packing results",
       "location": "data/tidc/tranche-02/splits/AI-003/",
       "status": "READY_FOR_SOURCE_BOUND_SPLIT",
-      "required_outputs": ["split-manifest.json", "source-map.json", "date-evidence.json", "coding-delta.json"],
+      "required_outputs": [
+        "split-manifest.json",
+        "source-map.json",
+        "date-evidence.json",
+        "coding-delta.json"
+      ],
       "rule": "Do not alter tranche 01; create child candidate records and identify every inherited or changed field."
     }
   ],
