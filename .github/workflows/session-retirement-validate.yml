@@ -1,0 +1,38 @@
+name: Session Retirement Validate
+
+on:
+  push:
+    paths:
+      - "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+      - "data/session-orchestration-registry.json"
+      - "schemas/session-retirement.schema.json"
+      - "prompts/SESSION_SELF_AUDIT.md"
+      - "scripts/check_session_retirement.py"
+      - ".github/workflows/session-retirement-validate.yml"
+  pull_request:
+    paths:
+      - "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+      - "data/session-orchestration-registry.json"
+      - "schemas/session-retirement.schema.json"
+      - "prompts/SESSION_SELF_AUDIT.md"
+      - "scripts/check_session_retirement.py"
+      - ".github/workflows/session-retirement-validate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate session retirement dispositions
+        run: python scripts/check_session_retirement.py
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-retirement-report
+          path: session_retirement.report.json
+          if-no-files-found: error
