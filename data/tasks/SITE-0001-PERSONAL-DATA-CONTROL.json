@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0001-PERSONAL-DATA-CONTROL",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Activate a public, observable personal-data access, restriction, deletion, processor-propagation, appeal, and completion-receipt contract for account-bearing Site services.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "implementation_locations": [
+    "personal-data-control.html",
+    "data/personal-data-control-runtime.json",
+    "docs/PERSONAL_DATA_CONTROL_RUNTIME_MIRROR_HANDOFF.md"
+  ],
+  "verification_locations": [
+    "scripts/check_personal_data_control_runtime.py",
+    ".github/workflows/observe-and-complete-repository-tasks.yml"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_personal_data_control_runtime.py",
+    "success_marker": "PERSONAL_DATA_CONTROL_RUNTIME=PASS"
+  },
+  "completion_effect": {
+    "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
+    "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
+    "ownership_pointer": "data/tasks/SITE-0001-PERSONAL-DATA-CONTROL.json"
+  },
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_RUNTIME_CONTRACT_ONLY"
+}
