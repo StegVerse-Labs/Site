@@ -1,8 +1,10 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "program": "VA Claim Assistant governed session layer",
   "state": "BUILDING",
-  "activation_target": "GOVERNED_CLAIM_SESSION",
+  "current_public_capability": "BOUNDED_PROCEDURAL_ASSISTANT",
+  "next_activation_target": "SOURCE_GROUNDED_ASSISTANT",
+  "final_activation_target": "GOVERNED_CLAIM_SESSION",
   "gates": [
     {
       "id": "VCA-GATE-01",
@@ -12,7 +14,8 @@
         "data/va-claim-assistant/source-registry.json",
         "data/va-claim-assistant/source-registry.schema.json",
         "scripts/check_va_claim_assistant_governance.py"
-      ]
+      ],
+      "task_location": "StegVerse-Labs/Site#115"
     },
     {
       "id": "VCA-GATE-02",
@@ -24,56 +27,85 @@
         "data/va-claim-assistant/fixtures/invalid-authority-escalation.json",
         "data/va-claim-assistant/fixtures/invalid-unsupported-proposition.json",
         "scripts/check_va_claim_assistant_governance.py"
-      ]
+      ],
+      "task_location": "StegVerse-Labs/Site#115"
     },
     {
       "id": "VCA-GATE-03",
       "name": "tvc_capability_ready",
-      "state": "BUILDING",
-      "evidence": ["StegVerse-Labs/TVC#9"]
+      "state": "VERIFIED",
+      "evidence": [
+        "StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43:receipts/va-claim-assistant-governed-retrieval-readiness.json",
+        "StegVerse-Labs/TVC@0f0ecf2183e10d27a1d504bdeb30349fe7b3b806:receipts/va-claim-assistant-governed-retrieval-invocation-001.json"
+      ],
+      "task_location": "StegVerse-Labs/TVC#9"
     },
     {
       "id": "VCA-GATE-04",
-      "name": "governed_retrieval_deployed",
-      "state": "BUILDING",
-      "evidence": ["StegVerse-org/LLM-adapter#90"]
+      "name": "governed_retrieval_implemented_and_receipted",
+      "state": "VERIFIED",
+      "evidence": [
+        "StegVerse-org/LLM-adapter@870c1aa08413c5057b110ed56b1382cf0fab4a85:va_claim_assistant/governed_retrieval.py",
+        "StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154:receipts/va-claim-assistant-public-source-fixture.json"
+      ],
+      "task_location": "StegVerse-org/LLM-adapter#90"
     },
     {
       "id": "VCA-GATE-05",
       "name": "document_evidence_layer_validated",
-      "state": "ASSIGNED",
-      "evidence": ["StegVerse-Labs/Site#116"]
+      "state": "ASSIGNED_FINAL_TARGET_ONLY",
+      "evidence": ["StegVerse-Labs/Site#116"],
+      "task_location": "StegVerse-Labs/Site#116",
+      "required_for": "GOVERNED_CLAIM_SESSION",
+      "required_for_source_grounded_activation": false
     },
     {
       "id": "VCA-GATE-06",
       "name": "custody_recorded",
-      "state": "ASSIGNED",
-      "evidence": ["master-records/orchestration#12"]
+      "state": "VERIFIED",
+      "evidence": [
+        "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
+      ],
+      "task_location": "master-records/orchestration#12"
     },
     {
       "id": "VCA-GATE-07",
       "name": "reconstruction_pass",
-      "state": "ASSIGNED",
-      "evidence": ["master-records/orchestration#12"]
+      "state": "VERIFIED",
+      "evidence": [
+        "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
+      ],
+      "task_location": "master-records/orchestration#12"
     },
     {
       "id": "VCA-GATE-08",
       "name": "public_status_receipt_derived",
-      "state": "PENDING_DEPENDENCIES",
-      "evidence": []
+      "state": "READY_FOR_EXECUTION",
+      "evidence": [],
+      "task_location": "StegVerse-Labs/Site#113",
+      "next_action": "Create a Site-owned cross-repository activation receipt after gates 01 and 02 receive executed validator evidence."
     },
     {
       "id": "VCA-GATE-09",
       "name": "deployed_end_to_end_session_verified",
-      "state": "PENDING_DEPENDENCIES",
-      "evidence": []
+      "state": "READY_FOR_EXECUTION",
+      "evidence": [],
+      "task_location": "StegVerse-Labs/Site#113",
+      "next_action": "Expose the bounded evidence_requirement route through the public Site path, verify one response, and preserve its deployed URL and response hash."
     }
   ],
   "workflow_enforcement": {
     "state": "IMPLEMENTED_PENDING_RUN_OBSERVATION",
-    "path": ".github/workflows/va-claim-guide-workers.yml"
+    "path": ".github/workflows/va-claim-guide-workers.yml",
+    "task_location": "StegVerse-Labs/Site#115"
   },
-  "activation_rule": "all gates must be VERIFIED",
+  "source_grounded_activation_rule": "gates 01, 02, 03, 04, 06, 07, 08, and 09 must be VERIFIED",
+  "governed_claim_session_activation_rule": "all gates must be VERIFIED",
   "activation_authorized": false,
-  "authority_effect": false
+  "authority_effect": false,
+  "anti_stall": {
+    "status_without_task_location_allowed": false,
+    "unverified_gate_without_next_action_allowed": false,
+    "external_tasks_allowed": false
+  }
 }
