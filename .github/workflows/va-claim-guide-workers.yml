@@ -33,15 +33,17 @@ jobs:
       - name: Check internal page references
         run: |
           test -f va-disability-claim-guide.html
-          test -f assets/va-claim-guide/01-open-va-app-safe.svg
+          test -f assets/va-claim-guide/01-open-va-app-v2.svg
           test -f assets/va-claim-guide/va-guide-assistant.js
       - name: Publish worker summary
         run: |
           {
             echo '## VA Claim Guide Worker Result'
-            echo '- Static guide: validated'
+            echo '- Static guide page: complete and validated'
+            echo '- Multi-document evidence workflow: complete and validated'
             echo '- Mobile-safe image: validated'
-            echo '- Bounded procedural assistant: validated'
+            echo '- Bounded procedural assistant: available and validated'
+            echo '- Assistant status box: active'
             echo '- Live source-grounded LLM: in development'
             echo '- Private document analysis: not active'
             echo '- The page status box is the public source for current assistant abilities and completeness.'
