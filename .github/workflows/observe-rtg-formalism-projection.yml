@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - "data/formalism-publication/rtg-projection-task-state.json"
+      - "data/formalism-publication/rtg-projection-observation.json"
+      - "data/formalism-publication/rtg-publication-readiness.schema.json"
+      - "formalisms/rtg/index.html"
       - "scripts/check_rtg_formalism_projection.py"
       - ".github/workflows/observe-rtg-formalism-projection.yml"
   workflow_dispatch:
@@ -29,9 +32,42 @@ jobs:
           ref: main
           path: RTG
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install schema validator
+        run: python -m pip install --disable-pip-version-check jsonschema==4.23.0
+
       - name: Observe formalism projection state
         working-directory: Site
         run: python scripts/check_rtg_formalism_projection.py --rtg-root ../RTG
+
+      - name: Validate observation against Site import contract
+        working-directory: Site
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+
+          schema = json.loads(Path("data/formalism-publication/rtg-publication-readiness.schema.json").read_text())
+          observation = json.loads(Path("data/formalism-publication/rtg-projection-observation.json").read_text())
+          errors = sorted(Draft202012Validator(schema).iter_errors(observation), key=lambda e: list(e.path))
+          if errors:
+              for error in errors:
+                  print(f"FAIL {list(error.path)}: {error.message}")
+              raise SystemExit(1)
+          print("PASS: RTG projection observation satisfies Site import contract")
+          PY
+
+      - name: Verify review-only projection markers
+        working-directory: Site
+        run: |
+          grep -q "REVIEW-ONLY PROJECTION" formalisms/rtg/index.html
+          grep -q "ACTIVATION BLOCKED" formalisms/rtg/index.html
+          grep -q "Admissible-Existence/AE" formalisms/rtg/index.html
 
       - name: Upload observation record
         uses: actions/upload-artifact@v4
