@@ -1,0 +1,46 @@
+{
+  "schema": "stegverse.development-task-ledger.v1",
+  "goal_id": "SITE-CANONICAL-GATEWAY-ACTIVATION-001",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "goal/activate-canonical-gateway-and-task-observer",
+  "authority_effect": "NONE",
+  "halt_on_status_only": false,
+  "completion_rule": "all tasks must resolve to COMPLETE from repository-observable evidence",
+  "tasks": [
+    {
+      "task_id": "CG-ACT-001",
+      "description": "Load the canonical gateway binding in the public Ecosystem Node runtime.",
+      "exists_at": "assets/conectrr-interop.js",
+      "evidence": ["assets/ecosystem-node-gateway-binding.js", "ecosystem-chat.html"],
+      "state": "IMPLEMENTED"
+    },
+    {
+      "task_id": "CG-ACT-002",
+      "description": "Verify the loaded binding retains fail-closed authority and repair boundaries.",
+      "exists_at": "scripts/observe_and_complete_canonical_gateway_tasks.py",
+      "evidence": ["assets/ecosystem-node-gateway-binding.js", "assets/conectrr-interop.js"],
+      "state": "IMPLEMENTED"
+    },
+    {
+      "task_id": "CG-ACT-003",
+      "description": "Continuously derive task state from repository evidence and emit a completion receipt.",
+      "exists_at": ".github/workflows/observe-complete-canonical-gateway-tasks.yml",
+      "evidence": ["reports/canonical-gateway-task-status.json"],
+      "state": "IMPLEMENTED"
+    },
+    {
+      "task_id": "CG-ACT-004",
+      "description": "Merge the validated activation branch into main.",
+      "exists_at": "GitHub pull request created from goal/activate-canonical-gateway-and-task-observer",
+      "evidence": ["merge commit on main"],
+      "state": "PENDING_MERGE"
+    },
+    {
+      "task_id": "CG-ACT-005",
+      "description": "Observe public deployment of the activated binding after merge.",
+      "exists_at": ".github/workflows/site-task-runner.yml",
+      "evidence": ["GitHub Pages deployment", "public ecosystem-chat.html runtime"],
+      "state": "PENDING_DEPLOYMENT"
+    }
+  ]
+}

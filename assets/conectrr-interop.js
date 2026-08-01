@@ -2,6 +2,25 @@
   'use strict';
 
   const FIXTURE_URL = 'data/conectrr-independent-evaluation.fixture.json';
+  const GATEWAY_BINDING_URL = 'assets/ecosystem-node-gateway-binding.js';
+
+  function loadGatewayBinding() {
+    if (globalThis.StegVerseCanonicalGatewayBinding) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${GATEWAY_BINDING_URL}"]`);
+      if (existing) {
+        existing.addEventListener('load', resolve, { once: true });
+        existing.addEventListener('error', () => reject(new Error('canonical gateway binding failed to load')), { once: true });
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = GATEWAY_BINDING_URL;
+      script.dataset.loader = 'canonical-gateway-binding';
+      script.addEventListener('load', resolve, { once: true });
+      script.addEventListener('error', () => reject(new Error('canonical gateway binding failed to load')), { once: true });
+      document.body.appendChild(script);
+    });
+  }
 
   function verifyExportReplay(api, sourceId, decisionId) {
     const events = api.getEvents();
@@ -23,6 +42,13 @@
   }
 
   async function load() {
+    await loadGatewayBinding();
+    const binding = globalThis.StegVerseCanonicalGatewayBinding;
+    if (!binding || binding.authority_effect !== 'NONE' || binding.silent_repair_allowed !== false) {
+      throw new Error('canonical gateway binding activation boundary failed');
+    }
+    document.documentElement.dataset.canonicalGatewayBinding = 'active';
+
     const api = window.StegVerseCanonicalEventStream;
     if (!api || typeof api.importCanonicalEvents !== 'function') return;
 
@@ -61,6 +87,7 @@
   }
 
   load().catch((error) => {
+    document.documentElement.dataset.canonicalGatewayBinding = 'failed';
     document.documentElement.dataset.conectrrInterop = 'failed';
     document.documentElement.dataset.conectrrBrowserTest = 'fail';
     document.documentElement.dataset.conectrrExportReplay = 'failed';
