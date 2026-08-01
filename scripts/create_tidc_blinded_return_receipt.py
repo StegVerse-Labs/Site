@@ -36,6 +36,8 @@ def load_json(path: Path) -> dict[str, Any]:
         fail("top-level return must be an object")
     if value.get("packet_id") != PACKET_ID:
         fail("packet_id mismatch")
+    if len(value.get("records", [])) != 10:
+        fail("return must contain exactly 10 records")
     return value
 
 
@@ -62,7 +64,7 @@ def main() -> None:
         "packet_sha256": PACKET_SHA256,
         "return_raw_sha256": sha256_hex(raw),
         "return_canonical_sha256": sha256_hex(canonical),
-        "record_count": len(returned.get("records", [])),
+        "record_count": len(returned["records"]),
         "independence_statement": returned.get("coder_independence_statement"),
         "authority_effect": "NONE",
         "adjudication_status": "PENDING",
@@ -70,8 +72,8 @@ def main() -> None:
             "Receipt generation establishes file integrity and intake chronology only.",
             "The receipt does not establish coder independence beyond the supplied statement.",
             "The receipt does not establish reliability, validity, replication, or confirmation.",
-            "The original return must be preserved without silent repair or normalization.",
-        ],
+            "The original return must be preserved without silent repair or normalization."
+        ]
     }
     receipt["receipt_sha256"] = sha256_hex(canonical_bytes(receipt))
 
