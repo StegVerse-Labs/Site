@@ -1,0 +1,36 @@
+{
+  "schema": "stegverse.site.tidc.internal_work_queue.v0.1",
+  "development_halted": false,
+  "serial_dependency_policy": "A missing serial artifact cannot block repository-owned source, control, split, validation, or publication-preparation work.",
+  "tasks": [
+    {
+      "id": "TIDC-IW-001",
+      "owner_repo": "StegVerse-Labs/Site",
+      "location": "data/tidc/source-expansion/seed-source-expansion-plan.json",
+      "status": "ACTIVE",
+      "task": "Expand seed-event primary-source records."
+    },
+    {
+      "id": "TIDC-IW-002",
+      "owner_repo": "StegVerse-Labs/Site",
+      "location": "data/tidc/negative-controls/negative-control-design-v0.1.json",
+      "status": "ACTIVE",
+      "task": "Collect and code negative controls and placebo candidates."
+    },
+    {
+      "id": "TIDC-IW-003",
+      "owner_repo": "StegVerse-Labs/Site",
+      "location": "data/tidc/tranche-02/aggregate-event-split-plan.json",
+      "status": "ACTIVE",
+      "task": "Split aggregate pilot events into source-bound tranche-02 candidates."
+    },
+    {
+      "id": "TIDC-IW-004",
+      "owner_repo": "StegVerse-Labs/Site",
+      "location": "data/tidc/blinded-coding/returns/",
+      "status": "OBSERVED_NOT_HALTING",
+      "task": "Process any return that appears through the existing validator, receipt, and comparison chain."
+    }
+  ],
+  "authority_effect": "NONE"
+}
