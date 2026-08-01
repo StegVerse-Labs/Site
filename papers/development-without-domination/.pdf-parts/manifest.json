@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "artifact": "Development_Without_Domination_Rigel_Randolph_Final.pdf",
+  "output_path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+  "expected_sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
+  "expected_bytes": 149969,
+  "encoding": "base64",
+  "part_count": 4,
+  "parts": [
+    "papers/development-without-domination/.pdf-parts/part-0001.b64",
+    "papers/development-without-domination/.pdf-parts/part-0002.b64",
+    "papers/development-without-domination/.pdf-parts/part-0003.b64",
+    "papers/development-without-domination/.pdf-parts/part-0004.b64"
+  ],
+  "reconstructor": "scripts/reconstruct_development_without_domination_pdf.py",
+  "tracking_issue": "StegVerse-Labs/Site#128",
+  "state": "PARTIAL_1_OF_4",
+  "external_tasks": []
+}
