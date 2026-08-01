@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/source-registry.schema.json",
+  "title": "VA Claim Assistant Source Registry",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "registry_id",
+    "state",
+    "last_verified",
+    "policy",
+    "authority_classes",
+    "sources",
+    "non_federal_admission_requirements",
+    "activation_effect",
+    "authority_effect"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "minLength": 1},
+    "registry_id": {"const": "va-claim-assistant-source-registry"},
+    "state": {"enum": ["BUILDING", "VALIDATED", "ACTIVE", "SUSPENDED"]},
+    "last_verified": {"type": "string", "format": "date"},
+    "policy": {
+      "type": "object",
+      "required": [
+        "higher_authority_overrides_lower_authority",
+        "non_federal_sources_require_admission_review",
+        "experiential_sources_cannot_establish_law_or_medical_nexus",
+        "stale_or_superseded_controlling_sources_fail_closed",
+        "all_material_answers_require_source_provenance",
+        "missing_local_secrets_require_tvc_resolution_before_blocker"
+      ],
+      "additionalProperties": {"type": "boolean"}
+    },
+    "authority_classes": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "rank", "uses"],
+        "properties": {
+          "id": {"enum": ["CONTROLLING", "OFFICIAL_OPERATIONAL", "PROFESSIONAL_SUPPORT", "EXPERIENTIAL"]},
+          "rank": {"type": "integer", "minimum": 1, "maximum": 4},
+          "uses": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id",
+          "name",
+          "authority_class",
+          "publisher",
+          "url",
+          "precedential_status",
+          "admitted",
+          "freshness_check_required"
+        ],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9-]*$"},
+          "name": {"type": "string", "minLength": 1},
+          "authority_class": {"enum": ["CONTROLLING", "OFFICIAL_OPERATIONAL", "PROFESSIONAL_SUPPORT", "EXPERIENTIAL"]},
+          "publisher": {"type": "string", "minLength": 1},
+          "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+          "precedential_status": {"type": "string", "minLength": 1},
+          "admitted": {"type": "boolean"},
+          "freshness_check_required": {"type": "boolean"},
+          "required_warning": {"type": "string", "minLength": 1},
+          "effective_date": {"type": "string", "format": "date"},
+          "supersession_state": {"enum": ["CURRENT", "SUPERSEDED", "UNKNOWN"]},
+          "content_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"authority_class": {"const": "CONTROLLING"}}},
+            "then": {"properties": {"freshness_check_required": {"const": true}}}
+          },
+          {
+            "if": {"properties": {"source_id": {"const": "BVA-DECISIONS"}}},
+            "then": {"required": ["required_warning"]}
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "non_federal_admission_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "activation_effect": {"const": false},
+    "authority_effect": {"const": false}
+  },
+  "additionalProperties": false
+}
