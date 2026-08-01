@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "program": "VA Claim Assistant governed session layer",
+  "state": "BUILDING",
+  "coordinating_repository": "StegVerse-Labs/Site",
+  "parent_issue": "StegVerse-Labs/Site#113",
+  "current_public_capability": "BOUNDED_PROCEDURAL_ASSISTANT",
+  "next_capability": "SOURCE_GROUNDED_ASSISTANT",
+  "activation_target": "GOVERNED_CLAIM_SESSION",
+  "activation_authorized": false,
+  "workstreams": [
+    {
+      "id": "VCA-SOURCE-PROVENANCE",
+      "owner": "StegVerse-Labs/Site",
+      "issue": 115,
+      "state": "READY",
+      "depends_on": [],
+      "deliverables": [
+        "source registry schema",
+        "source registry validator",
+        "answer record schema",
+        "positive and negative fixtures",
+        "CI binding"
+      ]
+    },
+    {
+      "id": "VCA-GOVERNED-RETRIEVAL",
+      "owner": "StegVerse-org/LLM-adapter",
+      "issue": 90,
+      "state": "READY",
+      "depends_on": ["VCA-SOURCE-PROVENANCE"],
+      "deliverables": [
+        "claim question routing",
+        "admitted source retrieval",
+        "proposition level citations",
+        "uncertainty and contradiction handling",
+        "secret free execution receipt"
+      ]
+    },
+    {
+      "id": "VCA-TVC-CAPABILITY",
+      "owner": "StegVerse-Labs/TVC",
+      "issue": 9,
+      "state": "READY",
+      "depends_on": [],
+      "deliverables": [
+        "commit pinned capability declaration",
+        "allowed caller and source policy",
+        "cost and rate limits",
+        "rotation and revocation policy",
+        "secret free readiness receipt"
+      ]
+    },
+    {
+      "id": "VCA-DOCUMENT-EVIDENCE",
+      "owner": "StegVerse-Labs/Site",
+      "issue": 116,
+      "state": "READY",
+      "depends_on": ["VCA-SOURCE-PROVENANCE"],
+      "deliverables": [
+        "document index schema",
+        "page anchor and hash model",
+        "privacy and retention classes",
+        "contradiction and missing evidence records",
+        "multi document fixture"
+      ]
+    },
+    {
+      "id": "VCA-CUSTODY-RECONSTRUCTION",
+      "owner": "master-records/orchestration",
+      "issue": 12,
+      "state": "READY",
+      "depends_on": ["VCA-GOVERNED-RETRIEVAL", "VCA-DOCUMENT-EVIDENCE"],
+      "deliverables": [
+        "session receipt intake schema",
+        "stable hash validation",
+        "custody RECORDED receipt",
+        "reconstruction PASS receipt",
+        "false authority flags"
+      ]
+    },
+    {
+      "id": "VCA-PUBLIC-ACTIVATION",
+      "owner": "StegVerse-Labs/Site",
+      "issue": 113,
+      "state": "BLOCKED_BY_DEPENDENCIES",
+      "depends_on": [
+        "VCA-SOURCE-PROVENANCE",
+        "VCA-GOVERNED-RETRIEVAL",
+        "VCA-TVC-CAPABILITY",
+        "VCA-DOCUMENT-EVIDENCE",
+        "VCA-CUSTODY-RECONSTRUCTION"
+      ],
+      "deliverables": [
+        "deployed end to end governed session",
+        "verified capability status projection",
+        "stable activation receipt",
+        "public GOVERNED_CLAIM_SESSION state"
+      ]
+    }
+  ],
+  "parallel_now": [
+    "VCA-SOURCE-PROVENANCE",
+    "VCA-TVC-CAPABILITY"
+  ],
+  "next_after_parallel": [
+    "VCA-GOVERNED-RETRIEVAL",
+    "VCA-DOCUMENT-EVIDENCE"
+  ],
+  "final_sequence": [
+    "VCA-CUSTODY-RECONSTRUCTION",
+    "VCA-PUBLIC-ACTIVATION"
+  ],
+  "blocker_policy": {
+    "missing_local_secret_is_blocker": false,
+    "tvc_resolution_required_first": true,
+    "activation_requires_verified_receipts": true,
+    "no_manual_user_action_required_for_routine_repository_work": true
+  },
+  "archive_session": false
+}
