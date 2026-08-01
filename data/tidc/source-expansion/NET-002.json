@@ -1,0 +1,108 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "NET-002",
+  "event_name": "Polymath8 bounded-gaps improvements",
+  "source_id": "SRC-005",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL_AGGREGATE_EVENT",
+  "retrieved_on": "2026-08-01",
+  "sources": [
+    {
+      "source_role": "project_launch_record",
+      "title": "Online reading seminar for Zhang's bounded gaps between primes",
+      "author": "Terence Tao",
+      "publication_date": "2013-06-04",
+      "stable_url": "https://terrytao.wordpress.com/2013/06/04/online-reading-seminar-for-zhangs-bounded-gaps-between-primes/",
+      "evidence_supported": [
+        "Polymath8 was publicly launched on 2013-06-04.",
+        "The project objective was to understand Zhang's proof and lower the bounded-gap constant.",
+        "The project began from Zhang's bound of 70,000,000."
+      ]
+    },
+    {
+      "source_role": "contemporaneous_progress_record",
+      "title": "Bounded gaps between primes (Polymath8) - a progress report",
+      "author": "Terence Tao",
+      "publication_date": "2013-06-30",
+      "stable_url": "https://terrytao.wordpress.com/2013/06/30/bounded-gaps-between-primes-polymath8-a-progress-report/",
+      "evidence_supported": [
+        "By 2013-06-30 the confirmed bound had been reduced to 12,006.",
+        "A provisional lower bound of 6,966 remained subject to checking.",
+        "The project involved multiple refinements to Zhang's argument rather than one indivisible discovery event."
+      ]
+    },
+    {
+      "source_role": "writing_transition_record",
+      "title": "Polymath8: Writing the paper",
+      "author": "Terence Tao",
+      "publication_date": "2013-08-17",
+      "stable_url": "https://terrytao.wordpress.com/2013/08/17/polymath8-writing-the-paper/",
+      "evidence_supported": [
+        "The project had provisionally reduced the bound to 4,680 by the writing phase.",
+        "The initial intensive optimization phase had stabilized by August 2013.",
+        "Distinct outputs included the main paper, admissible-tuple computation, and possible expository work."
+      ]
+    },
+    {
+      "source_role": "retrospective_primary_project_account",
+      "title": "The bounded gaps between primes Polymath project - a retrospective",
+      "collective_author": "D. H. J. Polymath",
+      "first_submission_date": "2014-09-30",
+      "stable_url": "https://arxiv.org/abs/1409.8361",
+      "evidence_supported": [
+        "The first Polymath8 phase improved Zhang's bound from 70,000,000 to 4,680.",
+        "After Maynard's breakthrough, the collaboration continued and ultimately obtained the bound 246.",
+        "The historical label Polymath8 covers more than one methodological and publication phase."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "seed_value": "2013-06",
+      "proposed_future_value": "2013-06-04",
+      "status": "SUPPORTED_AS_PROJECT_LAUNCH_PROXY_NOT_SINGLE_DISCOVERY_DATE",
+      "source_roles": ["project_launch_record"]
+    },
+    "verification_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED_AS_ONE DATE_FOR_AGGREGATE_EVENT"
+    },
+    "publication_date": {
+      "seed_value": "2014-10-17",
+      "proposed_future_value": null,
+      "status": "AGGREGATE_EVENT_REQUIRES_SPLIT_BEFORE_ONE_PUBLICATION_DATE_CAN_BE_ASSIGNED"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Material",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "Open online collaboration materially organized rapid checking, optimization, computation, and synthesis, while the underlying mathematical advances also depended on prior and parallel individual work."
+    }
+  },
+  "aggregate_event_diagnosis": {
+    "aggregate_event": true,
+    "minimum_child_candidates": [
+      "Polymath8a Zhang-method optimization phase",
+      "Polymath8b Maynard-Tao sieve optimization phase",
+      "admissible-tuple computational contribution",
+      "retrospective publication and synthesis"
+    ],
+    "required_split_location": "data/tidc/tranche-02/splits/NET-002/",
+    "rule": "Do not assign one candidate, verification, or publication date to all child phases."
+  },
+  "remaining_questions": [
+    "Preserve exact version and publication chronology for each Polymath8a and Polymath8b paper.",
+    "Reconstruct contribution-level dates from blog, wiki, code, and manuscript history.",
+    "Separate mathematical improvements from computational admissible-tuple improvements.",
+    "Establish explicit independent verification and disciplinary acceptance evidence for each child event."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
