@@ -34,7 +34,8 @@
     "task_sequence": 1,
     "label": "current work task sequence 0001",
     "parallel_safe_tasks": [
-      "SITE-0001-UPLOAD"
+      "SITE-0001-UPLOAD",
+      "SITE-0001-DEVELOPMENT-WITHOUT-DOMINATION-PUBLICATION"
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
@@ -73,7 +74,17 @@
     "master_records_persistent_service_evidence_import": "data/master-records-persistent-service-evidence/",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
     "superseded_activation_tracker": "issue/16",
-    "hil_announcement_derivation": "StegVerse-Labs/Site:main@02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a"
+    "hil_announcement_derivation": "StegVerse-Labs/Site:main@02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a",
+    "development_without_domination_publication": {
+      "task_id": "SITE-0001-DEVELOPMENT-WITHOUT-DOMINATION-PUBLICATION",
+      "owner": "issue/128",
+      "branch": "publication/development-without-domination-v1",
+      "pull_request": "pull/129",
+      "handoff": "papers/development-without-domination/DEVELOPMENT_WITHOUT_DOMINATION_SITE_MIRROR_HANDOFF.md",
+      "execution_class": "PARALLEL_SAFE",
+      "observer": "scripts/observe_development_without_domination_publication.py",
+      "workflow": ".github/workflows/development-without-domination-publication.yml"
+    }
   },
   "activation_readiness": {
     "state": "CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED",

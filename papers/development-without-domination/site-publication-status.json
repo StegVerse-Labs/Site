@@ -1,49 +1,34 @@
 {
-  "schema_version": "1.0.0",
-  "artifact_type": "site_paper_publication_status",
+  "schema_version": "1.1.0",
   "paper_id": "development-without-domination-v1",
-  "title": "Development Without Domination: Reciprocal Developmental Sovereignty as a Foundation for Human-AI Relations",
-  "author": "Rigel Randolph",
-  "source_repository": "GCAT-BCAT-Engine/Publisher",
-  "source_issue": 21,
-  "source_pull_request": 22,
-  "site_repository": "StegVerse-Labs/Site",
-  "state": "BUILDING_AWAITING_PUBLISHER_VERIFIED_BYTES",
-  "execution_class": "PARALLEL_SAFE",
-  "expected_artifacts": {
-    "pdf": {
-      "filename": "Development_Without_Domination_Rigel_Randolph_Final.pdf",
-      "sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
-      "present": false,
-      "verified": false
-    },
-    "docx": {
-      "filename": "Development_Without_Domination_Rigel_Randolph_Final.docx",
-      "sha256": "fa7d9c2069ce17e26f1c7f5f4a6bb983ccd4229c11ebc1fd8c788b8d7d2fc2ab",
-      "present": false,
-      "verified": false,
-      "required_for_activation": false
-    }
-  },
-  "publisher_verified_source_observed": false,
-  "landing_page_present": false,
-  "paper_index_entry_present": false,
-  "mirror_receipt_present": false,
+  "repository": "StegVerse-Labs/Site",
+  "state": "SOURCE_OBSERVED",
+  "observed_at": "2026-08-01T19:37:03.298724+00:00",
+  "publisher_manifest_observed": true,
+  "pdf_path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+  "expected_pdf_sha256": "c2fcb0ce76f5eaba1a6dd4ccdd358fcae29b32b3110767b5f2b5b2ffa347c29d",
+  "observed_pdf_sha256": null,
+  "pdf_verified": false,
+  "public_route": null,
   "deployed_route_verified": false,
-  "site_publication_activated": false,
-  "linkedin_publication_observed": false,
+  "remaining_tasks": [
+    {
+      "repository": "StegVerse-Labs/Site",
+      "path": "papers/development-without-domination/Development_Without_Domination_Rigel_Randolph_Final.pdf",
+      "issue": "StegVerse-Labs/Site#128",
+      "action": "Commit the exact finalized PDF bytes to Site PR #129."
+    },
+    {
+      "repository": "StegVerse-Labs/Site",
+      "path": "papers/development-without-domination/index.html",
+      "issue": "StegVerse-Labs/Site#128",
+      "action": "Create the public paper landing route and bind it to the verified PDF."
+    }
+  ],
   "authority": {
-    "source": false,
     "publication": false,
-    "release": false,
     "admissibility": false,
     "execution": false,
-    "custody": false
-  },
-  "boundaries": {
-    "preparation_is_publication": false,
-    "file_presence_is_deployment": false,
-    "mirror_is_source_authority": false,
-    "publication_is_admissibility": false
+    "release": false
   }
 }
