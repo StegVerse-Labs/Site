@@ -43,8 +43,6 @@ No stage may be skipped merely because the two coders agree.
 
 ## Disagreement classes
 
-Each field-level difference must be assigned one of these classes:
-
 ```text
 DEFINITIONAL
 SOURCE_INSUFFICIENCY
@@ -72,20 +70,7 @@ RETAIN_EXPLICIT_DISAGREEMENT
 DEFER
 ```
 
-Every disposition must include:
-
-- packet ID;
-- blind event ID and canonical event ID;
-- disputed field;
-- seed value;
-- blinded value;
-- disagreement class;
-- evidence references;
-- adjudicator rationale;
-- resulting value, when applicable;
-- whether the codebook changed;
-- whether the historical event record changed;
-- whether the public page or registry must be updated.
+Every disposition must include the packet ID, event IDs, disputed field, both values, disagreement class, evidence references, rationale, resulting value when applicable, and all downstream update effects.
 
 ## Fail-closed adjudication rule
 
@@ -113,29 +98,6 @@ Release 2 may advance from `PENDING` to `ACTIVE` only when:
 7. the public posture remains non-confirmatory.
 
 Release 2 may be marked `COMPLETE` only after at least one additional independent coding pass under a declared replication posture. A human pass is preferred before any claim about inter-rater reliability.
-
-## Adjudication record template
-
-```json
-{
-  "schema": "stegverse.site.tidc.adjudication_record.v0.1",
-  "packet_id": "BCP-2026-07-27-01",
-  "blind_event_id": "BCP-E01",
-  "event_id": "COMP-001",
-  "field": "technology_dependency",
-  "seed_value": "Necessary",
-  "blind_value": "Material",
-  "disagreement_class": "DEPENDENCY_JUDGMENT",
-  "evidence_refs": [],
-  "disposition": "EXPAND_SOURCE_THEN_REVIEW",
-  "resulting_value": null,
-  "rationale": "",
-  "codebook_changed": false,
-  "event_record_changed": false,
-  "public_surface_update_required": false,
-  "status": "PENDING"
-}
-```
 
 ## Governance boundary
 
