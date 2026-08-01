@@ -1,50 +1,68 @@
 {
-  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v1",
+  "authority": {
+    "execution": false,
+    "live": false,
+    "publication": false,
+    "release": false
+  },
+  "continuation_mode": "ADJACENT_WORK_AND_RETRY",
   "controller_issue": "StegVerse-Labs/Site#131",
   "development_halt": false,
-  "continuation_mode": "ADJACENT_WORK_AND_RETRY",
+  "generated_at": "2026-08-01T19:41:45.707265Z",
+  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v1",
+  "state": "ACTIVE_AUTONOMOUS_CONTINUATION",
   "tasks": [
     {
-      "task_id": "MC-01-CRYPTO-ACCESSIBILITY",
-      "repository": "StegVerse-Labs/crypto-bot",
-      "issue": "StegVerse-Labs/crypto-bot#7",
-      "workflow": ".github/workflows/first-accessibility-mark.yml",
+      "development_halt": false,
       "evidence_path": "data/first-accessibility-mark-status.json",
-      "state": "OBSERVE",
-      "stop_condition": "status=PASS and paper_trading_accessible=true with valid receipt_digest"
+      "issue": "StegVerse-Labs/crypto-bot#7",
+      "next_action": "observe scheduled repository workflow and continue adjacent work",
+      "observation": "HTTP_404",
+      "observed_status": null,
+      "repository": "StegVerse-Labs/crypto-bot",
+      "state": "ACTIVE_RETRY",
+      "stop_condition": "status=PASS and paper_trading_accessible=true",
+      "task_id": "MC-01-CRYPTO-ACCESSIBILITY",
+      "workflow": ".github/workflows/first-accessibility-mark.yml"
     },
     {
-      "task_id": "MC-02-MARKETPLACE-COLLECTION",
-      "repository": "GCAT-BCAT-Engine/Marketplace",
-      "issue": "GCAT-BCAT-Engine/Marketplace#1",
-      "workflow": ".github/workflows/import-marketplace-coinbase-settlements.yml",
+      "development_halt": false,
       "evidence_path": "data/marketplace-coinbase-outbound-collection-status.json",
-      "state": "OBSERVE_AND_RETRY",
-      "stop_condition": "status=COLLECTED and acknowledgement in [ACCEPTED,DUPLICATE] and sequence_2_transport present"
+      "issue": "GCAT-BCAT-Engine/Marketplace#1",
+      "next_action": "observe scheduled repository workflow and continue adjacent work",
+      "observation": "HTTP_404",
+      "observed_status": null,
+      "repository": "GCAT-BCAT-Engine/Marketplace",
+      "state": "ACTIVE_RETRY",
+      "stop_condition": "status=COLLECTED; downstream acknowledgement and sequence-2 evidence then become observable",
+      "task_id": "MC-02-MARKETPLACE-COLLECTION",
+      "workflow": ".github/workflows/import-marketplace-coinbase-settlements.yml"
     },
     {
-      "task_id": "MC-03-PUBLISHER-VERIFY",
-      "repository": "GCAT-BCAT-Engine/Publisher",
-      "issue": "GCAT-BCAT-Engine/Publisher#19",
-      "workflow": ".github/workflows/collect-marketplace-coinbase-release-evidence.yml",
+      "development_halt": false,
       "evidence_path": "data/marketplace-coinbase-release-evidence-status.json",
-      "state": "OBSERVE_AND_RETRY",
-      "stop_condition": "status=VERIFIED and paper_release_verified=true with valid status_digest"
+      "issue": "GCAT-BCAT-Engine/Publisher#19",
+      "next_action": "observe scheduled repository workflow and continue adjacent work",
+      "observation": "OBSERVED",
+      "observed_status": "PENDING_CREDENTIAL",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "state": "ACTIVE_RETRY",
+      "stop_condition": "status=VERIFIED and paper_release_verified=true",
+      "task_id": "MC-03-PUBLISHER-VERIFY",
+      "workflow": ".github/workflows/collect-marketplace-coinbase-release-evidence.yml"
     },
     {
-      "task_id": "MC-04-SITE-PROJECTION",
-      "repository": "StegVerse-Labs/Site",
-      "issue": "StegVerse-Labs/Site#131",
-      "workflow": ".github/workflows/import-marketplace-coinbase-accessibility.yml",
+      "development_halt": false,
       "evidence_path": "data/marketplace-coinbase-accessibility-status.json",
-      "state": "OBSERVE_AND_RETRY",
-      "stop_condition": "state=PAPER_ACCESSIBLE and live_trading_accessible=false"
+      "issue": "StegVerse-Labs/Site#131",
+      "next_action": "observe scheduled repository workflow and continue adjacent work",
+      "observation": "OBSERVED",
+      "observed_status": "PENDING_UPSTREAM",
+      "repository": "StegVerse-Labs/Site",
+      "state": "ACTIVE_RETRY",
+      "stop_condition": "state=PAPER_ACCESSIBLE and live_trading_accessible=false",
+      "task_id": "MC-04-SITE-PROJECTION",
+      "workflow": ".github/workflows/import-marketplace-coinbase-accessibility.yml"
     }
-  ],
-  "authority": {
-    "publication": false,
-    "release": false,
-    "execution": false,
-    "live": false
-  }
+  ]
 }
