@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_type": "VA_CLAIM_ASSISTANT_GOVERNANCE_VALIDATION",
+  "repository": "StegVerse-Labs/Site",
+  "commit_sha": null,
+  "workflow_run_id": null,
+  "observed_at": null,
+  "checks": {
+    "source_registry_semantics": "PENDING",
+    "valid_answer_fixture": "PENDING",
+    "authority_escalation_fixture_rejected": "PENDING",
+    "unsupported_proposition_fixture_rejected": "PENDING"
+  },
+  "activation_effect": false,
+  "authority_effect": false,
+  "status": "TEMPLATE_ONLY"
+}
