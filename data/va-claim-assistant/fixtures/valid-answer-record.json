@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "VA-CLAIM-ASSISTANT-FIXTURE-001",
+  "question": "What evidence is generally needed for a direct service-connection claim?",
+  "route": "evidence_requirement",
+  "claim_stage": "PREPARATION",
+  "claim_theory": "DIRECT_SERVICE_CONNECTION",
+  "capability_state": "SOURCE_GROUNDED_ASSISTANT",
+  "propositions": [
+    {
+      "proposition_id": "P-001",
+      "text": "A direct service-connection claim generally requires evidence of a current disability, an in-service event or injury, and a relationship between them.",
+      "kind": "PROCEDURAL_GUIDANCE",
+      "support": [
+        {
+          "source_id": "VA-EVIDENCE-NEEDED",
+          "authority_class": "OFFICIAL_OPERATIONAL",
+          "locator": "direct service-connected claim evidence requirements",
+          "retrieved_at": "2026-08-01T02:55:00Z"
+        }
+      ]
+    }
+  ],
+  "contradictions": [],
+  "uncertainties": [
+    {
+      "uncertainty_id": "U-001",
+      "description": "The user has not supplied condition-specific records, so no claim-specific conclusion is made.",
+      "material": true
+    }
+  ],
+  "referral_triggers": [],
+  "authority_flags": {
+    "adjudication": false,
+    "representation": false,
+    "medical_opinion": false,
+    "rating": false,
+    "execution": false,
+    "publication": false
+  },
+  "receipt_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}
