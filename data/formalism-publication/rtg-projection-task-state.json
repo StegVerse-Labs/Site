@@ -1,12 +1,13 @@
 {
-  "schema_version": "1.1.1",
+  "schema_version": "1.2.0",
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "issue": 127,
   "repository": "StegVerse-Labs/Site",
   "execution_class": "PARALLEL_SAFE",
   "owner": "StegVerse-Labs/Site:.github/workflows/observe-rtg-formalism-projection.yml",
-  "state": "ACTIVE_BUILD_AND_OBSERVATION",
+  "state": "ACTIVE_REVIEW_ONLY_PROJECTION",
   "manual_external_tasks": [],
+  "activation_receipt": "StegVerse-Labs/Site/data/formalism-publication/rtg-review-projection-activation-receipt.json",
   "source": {
     "repository": "Admissible-Existence/RTG",
     "branch": "main",
@@ -23,47 +24,53 @@
     {
       "task": "Observe and validate RTG coordination state",
       "exists_at": "StegVerse-Labs/Site/scripts/check_rtg_formalism_projection.py",
-      "status": "IMPLEMENTED"
+      "status": "ACTIVE"
     },
     {
       "task": "Run observation automatically and validate outputs",
       "exists_at": "StegVerse-Labs/Site/.github/workflows/observe-rtg-formalism-projection.yml",
-      "status": "IMPLEMENTED"
+      "status": "ACTIVE"
     },
     {
       "task": "Record machine-readable Site projection status",
       "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-projection-observation.json",
-      "status": "IMPLEMENTED_AND_REGENERATED_BY_WORKFLOW"
+      "status": "ACTIVE"
     },
     {
-      "task": "Define fail-closed Site import contract",
+      "task": "Validate fail-closed Site import contract",
       "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-publication-readiness.schema.json",
-      "status": "IMPLEMENTED"
+      "status": "ACTIVE"
     },
     {
-      "task": "Build review-only Site projection scaffold",
+      "task": "Serve active review-only Site projection",
       "exists_at": "StegVerse-Labs/Site/formalisms/rtg/index.html",
-      "status": "IMPLEMENTED_NOT_ACTIVATED"
+      "status": "ACTIVE_REVIEW_ONLY"
+    },
+    {
+      "task": "Preserve bounded activation evidence",
+      "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-review-projection-activation-receipt.json",
+      "status": "COMPLETED"
     },
     {
       "task": "Record central formalism acceptance when all source lanes are terminal",
       "exists_at": "Admissible-Existence/.github/FORMALISM_MIRROR_HANDOFF.md",
-      "status": "SOURCE_REPOSITORY_MACHINE_EVIDENCE_REQUIRED"
+      "status": "MACHINE_EVIDENCE_PENDING"
     },
     {
-      "task": "Activate review-only projection after accepted source evidence",
+      "task": "Transition from review-only active to canonical-publication eligible",
       "exists_at": "StegVerse-Labs/Site/data/formalism-publication/rtg-projection-observation.json",
-      "status": "GOVERNED_STATE_TRANSITION_PENDING"
+      "status": "GOVERNED_TRANSITION_PENDING_ACCEPTED_EVIDENCE"
     }
   ],
   "progress_policy": {
-    "missing_or_incomplete_source_evidence": "record blocker and continue building non-authoritative projection assets",
+    "missing_or_incomplete_source_evidence": "record blocker and continue active review-only projection",
     "observer_failure": "fail closed and preserve report",
     "source_state_change": "recompute projection automatically",
     "source_terminal_without_acceptance": "advance to central acceptance review",
-    "all_source_lanes_accepted": "advance to activation eligibility",
+    "all_source_lanes_accepted": "advance to canonical-publication eligibility review",
     "no_external_wait_state": true,
-    "authority_effect": false,
-    "activation_effect": false
+    "review_projection_activation_effect": true,
+    "canonical_publication_effect": false,
+    "authority_effect": false
   }
 }
