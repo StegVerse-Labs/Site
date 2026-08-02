@@ -5,9 +5,11 @@ on:
     paths:
       - 'api/governed-measurement.js'
       - 'assets/governed-site-measurement.js'
+      - 'va-disability-claim-guide.html'
       - 'data/governed-site-measurement-policy.json'
       - 'data/tasks/SITE-0001-GOVERNED-MEASUREMENT.json'
       - 'docs/GOVERNED_SITE_MEASUREMENT.md'
+      - 'docs/GOVERNED_SITE_MEASUREMENT_MIRROR_HANDOFF.md'
       - 'schemas/governed-site-measurement-event.schema.json'
       - 'scripts/check_governed_site_measurement.py'
       - 'scripts/test_governed_site_measurement_fixtures.py'
@@ -18,6 +20,7 @@ on:
     paths:
       - 'api/governed-measurement.js'
       - 'assets/governed-site-measurement.js'
+      - 'va-disability-claim-guide.html'
       - 'data/governed-site-measurement-policy.json'
       - 'schemas/governed-site-measurement-event.schema.json'
       - 'scripts/check_governed_site_measurement.py'
@@ -43,16 +46,19 @@ jobs:
         run: python scripts/test_governed_site_measurement_fixtures.py
       - name: Execute collector adversarial tests
         run: node tests/governed-site-measurement/test-collector.js
-      - name: Verify browser client contains no identity or content capture
+      - name: Verify browser client and page binding
         run: |
           python - <<'PY'
           from pathlib import Path
           source=Path('assets/governed-site-measurement.js').read_text()
+          page=Path('va-disability-claim-guide.html').read_text()
           prohibited=['localStorage','sessionStorage','document.cookie','user_id','email','diagnosis','filename','question:']
           assert 'content_recorded:false' in source
           assert "credentials:'omit'" in source
           assert "policy_version:'1.0.0'" in source
+          assert '<script src="assets/governed-site-measurement.js" defer></script>' in page
+          assert page.count('assets/governed-site-measurement.js') == 1
           for term in prohibited:
               assert term not in source, term
-          print('GOVERNED_MEASUREMENT_BROWSER_CLIENT_PASS')
+          print('GOVERNED_MEASUREMENT_BROWSER_CLIENT_AND_PAGE_BINDING_PASS')
           PY
