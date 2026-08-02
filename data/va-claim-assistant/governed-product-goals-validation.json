@@ -1,0 +1,14 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "automated_filing_active": false,
+  "blockers": [],
+  "goal_count": 4,
+  "goal_set_id": "SV-VA-GOVERNED-PRODUCT-001",
+  "goals_sha256": "06da094b5399316a78bfa91e8534fe68423d0da6c05033b63b936861310ac658",
+  "receipt_sha256": "3dac447a422501e6a9867986658f816311b89a9ac6f279410879a4e989c41724",
+  "required_goals_present": true,
+  "schema_version": "1.0.0",
+  "state": "PASS",
+  "veteran_submission_authority_preserved": true
+}
