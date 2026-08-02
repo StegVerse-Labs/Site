@@ -16,9 +16,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: va-document-evidence-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,10 +31,10 @@ jobs:
           python-version: '3.12'
       - name: Validate deterministic document evidence fixture
         run: python scripts/check_va_document_evidence.py | tee /tmp/va-document-evidence-result.json
-      - name: Persist validation receipt
+      - name: Build validation receipt
         run: |
           python - <<'PY'
-          import datetime as dt, json
+          import datetime as dt, hashlib, json
           from pathlib import Path
           result=json.loads(Path('/tmp/va-document-evidence-result.json').read_text())
           receipt={
@@ -44,12 +49,43 @@ jobs:
             'authority_effect':False,
             'activation_effect':False
           }
+          receipt['receipt_sha256']=hashlib.sha256(json.dumps(receipt,sort_keys=True,separators=(',',':')).encode()).hexdigest()
           out=Path('data/va-claim-assistant/document-evidence-validation-receipt.json')
           out.write_text(json.dumps(receipt,indent=2)+'\n')
           PY
-          if git diff --quiet -- data/va-claim-assistant/document-evidence-validation-receipt.json; then exit 0; fi
+      - name: Verify validation receipt
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          r=json.loads(Path('data/va-claim-assistant/document-evidence-validation-receipt.json').read_text())
+          expected=r.pop('receipt_sha256')
+          actual=hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert expected==actual
+          assert r['state']=='VERIFIED'
+          assert r['result']['result']=='PASS'
+          assert r['public_upload_enabled'] is False
+          assert r['authority_effect'] is False
+          assert r['activation_effect'] is False
+          print('VA document evidence receipt: PASS')
+          PY
+      - name: Persist validation receipt
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- data/va-claim-assistant/document-evidence-validation-receipt.json; then
+            echo 'Validation receipt unchanged.'
+            exit 0
+          fi
           git config user.name 'va-document-evidence[bot]'
           git config user.email 'va-document-evidence[bot]@users.noreply.github.com'
           git add data/va-claim-assistant/document-evidence-validation-receipt.json
-          git commit -m 'receipt: validate VA document evidence layer'
+          git commit -m 'receipt: validate VA document evidence layer [skip ci]'
+          git pull --rebase
           git push
+      - name: Upload document evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: va-document-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/va-claim-assistant/document-evidence-validation-receipt.json
+          if-no-files-found: error
+          retention-days: 30
