@@ -1,0 +1,26 @@
+{
+  "task_id": "TIDC-SRC-AI-001",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Reconstruct primary-source evidence for AI-001 without silently recoding the seed ledger.",
+  "task_location": "data/tidc/source-expansion/AI-001.json",
+  "verification_paths": [
+    "data/tidc/source-expansion/AI-001.json",
+    "data/tidc/source-expansion/seed-source-expansion-plan.json",
+    "data/tidc/pilot-events-v0.1.json"
+  ],
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "COMPLETED_PENDING_MACHINE_VERIFICATION",
+  "completion_evidence": {
+    "commit": "69897833935929f7ba7a9f24b1f870c97d6e8ce6",
+    "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+    "aggregate_event_detected": true,
+    "seed_ledger_changed": false
+  },
+  "next_task": {
+    "task_id": "TIDC-SRC-AI-002",
+    "location": "data/tidc/source-expansion/AI-002.json"
+  },
+  "authority_effect": "NONE"
+}
