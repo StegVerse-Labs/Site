@@ -2,6 +2,8 @@
   "schema_version": "ST-018-MANIFEST-v1",
   "repository": "StegVerse-Labs/Site",
   "default_branch": "main",
+  "goal_id": "ST018-SITE-ADOPTION-001",
+  "task_record": "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
   "validators": [
     {
       "id": "site-current-main-validation-evidence",
@@ -11,6 +13,14 @@
     }
   ],
   "receipt_path": "reports/validation-execution-receipt.json",
+  "native_custody_path": "reports/st018-native-main-custody.receipt.md",
+  "status_contract": [
+    "COMPLETE",
+    "BLOCKED",
+    "RETRY",
+    "REVIEW_REQUIRED",
+    "FAILED"
+  ],
   "authority": {
     "may_publish": false,
     "may_assert_source_completeness": false,
