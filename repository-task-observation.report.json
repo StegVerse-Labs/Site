@@ -5,30 +5,27 @@
   "declared_active_tasks": [
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
-    "TIDC-SPLIT-NET-002"
+    "TIDC-SPLIT-NET-002",
+    "TIDC-SPLIT-AI-001"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
     "SITE-0001-UPLOAD",
     "TIDC-ADJ-NET-001-DATES",
+    "TIDC-SPLIT-AI-001",
     "TIDC-SPLIT-NET-002"
   ],
   "active_tasks_observed": [
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
+    "TIDC-SPLIT-AI-001",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
     "SITE-0001-UPLOAD"
   ],
-  "ownership_reconciliations": [
-    {
-      "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
-      "from": "None",
-      "to": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json"
-    }
-  ],
+  "ownership_reconciliations": [],
   "observations": [
     {
       "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
@@ -46,6 +43,12 @@
       "task_id": "TIDC-SPLIT-NET-002",
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
+      "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "TIDC-SPLIT-AI-001",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
       "reason": "active task has no committed repository-local task object"
     },
     {
@@ -84,7 +87,8 @@
   "remaining_tasks": [
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
-    "TIDC-SPLIT-NET-002"
+    "TIDC-SPLIT-NET-002",
+    "TIDC-SPLIT-AI-001"
   ],
   "blockers": [
     {
@@ -103,6 +107,12 @@
       "task_id": "TIDC-SPLIT-NET-002",
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
+      "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "TIDC-SPLIT-AI-001",
+      "state": "BLOCKED_UNADDRESSABLE_TASK",
+      "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
       "reason": "active task has no committed repository-local task object"
     }
   ],

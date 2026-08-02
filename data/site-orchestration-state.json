@@ -36,7 +36,8 @@
     "parallel_safe_tasks": [
       "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
       "TIDC-ADJ-NET-001-DATES",
-      "TIDC-SPLIT-NET-002"
+      "TIDC-SPLIT-NET-002",
+      "TIDC-SPLIT-AI-001"
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
@@ -59,8 +60,8 @@
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 3,
-      "blocker_count": 3,
+      "active_task_count": 4,
+      "blocker_count": 4,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -72,7 +73,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "TIDC-SPLIT-AI-001"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
