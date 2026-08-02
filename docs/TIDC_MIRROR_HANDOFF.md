@@ -152,7 +152,7 @@ The originating session is archive-safe after PR #157 merges because:
 8. the retained validation artifact was directly inspected and reports PASS;
 9. the validation claim is released in `data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json`.
 
-Active TIDC research remains incomplete, but the conversation owns no unique implementation, validation, integration, propagation, reconciliation, or observation responsibility after merge.
+Active TIDC research may remain incomplete while the conversation becomes archive-safe, provided all continuation state is durable and no unique session responsibility remains. The conversation owns no unique implementation, validation, integration, propagation, reconciliation, or observation responsibility after merge.
 
 ## Progress basis
 
