@@ -7,36 +7,45 @@
   "canonical_handoff": "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
   "canonical_policy": "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md",
   "machine_profile": "data/hil-federal-plus-security-baseline.json",
+  "federal_floor": "data/hil-federal-control-floor.json",
+  "federal_floor_schema": "schemas/hil-federal-control-floor.schema.json",
   "schema": "schemas/hil-federal-plus-security-baseline.schema.json",
   "validator": "scripts/check_hil_federal_plus_security_baseline.py",
   "workflow": ".github/workflows/check-hil-federal-plus-security-baseline.yml",
   "owner": "StegVerse-Labs/Site security integration lane",
   "claim_state": "MACHINE_OWNED",
-  "completion_state": "POLICY_AND_VALIDATION_AUTOMATION_INSTALLED",
+  "completion_state": "VERSIONED_FEDERAL_FLOOR_AND_VALIDATION_AUTOMATION_INSTALLED",
   "validation_state": "HOSTED_WORKFLOW_OBSERVATION_PENDING",
-  "integration_state": "CROSS_REPOSITORY_CONTROL_EVIDENCE_BLOCKED_UNTIL OWNER RECEIPTS EXIST",
+  "integration_state": "CROSS_REPOSITORY_CONTROL_EVIDENCE_BLOCKED_UNTIL_OWNER_RECEIPTS_EXIST",
   "claim_created_at": "2026-08-02T22:03:00Z",
-  "claim_expiration_or_release_condition": "Release chat ownership after the policy, profile, schema, validator, workflow, task record, and canonical handoff are committed; repository-native owners retain control-evidence execution.",
+  "claim_expiration_or_release_condition": "Release chat ownership after policy, profile, versioned federal floor, schemas, validator, workflow, task record, and canonical continuation records are committed; repository-native owners retain operational control-evidence execution.",
+  "completed_commits": [
+    "a0ae964b0932847f070e49dcd3cde0a437a09273",
+    "cafd7919d57a3abaef40b0f00a6c26d29af1d82c",
+    "3b1c3a541db3c75816cce8b9b29620f2fdad35a3",
+    "b5476e4a217edb20c4709d92dc7bea3abd777b15"
+  ],
   "collision_boundaries": [
-    "Site owns the policy and sanitized evidence admission only",
+    "Site owns policy, federal-floor pinning, drift validation, and sanitized evidence admission only",
     "TVC owns runtime and protected-value controls",
     "LLM-adapter owns provider execution evidence",
     "master-records/orchestration owns custody and reconstruction evidence",
-    "no repository may infer certification or activation from this policy alone"
+    "no repository may infer certification or activation from the policy or floor registry alone"
   ],
   "expected_evidence": [
-    "validator PASS receipt",
-    "hosted workflow success and artifact",
+    "validator PASS receipt binding both profile and federal-floor SHA-256 digests",
+    "hosted workflow success and retained artifact",
     "owner-specific evidence for every required control",
     "security activation state PASS only after all required controls are IMPLEMENTED"
   ],
   "blockers": [
+    "hosted workflow receipt for the versioned federal floor not yet observed",
     "software supply-chain provenance evidence absent",
     "recovery authority-preservation evidence absent",
     "deployed dual-control evidence incomplete",
     "protected-value non-disclosure proof suite incomplete"
   ],
-  "machine_observable_release_condition": "data/hil-federal-plus-security-baseline.json activation.state becomes PASS and the hosted validator receipt has validation_state PASS with zero nonimplemented required controls.",
-  "next_executable_action": "Run the hosted validator and assign each non-IMPLEMENTED control to the repository owner named in the profile.",
+  "machine_observable_release_condition": "The hosted workflow validates the exact committed profile and versioned federal floor with validation_state PASS; operational release additionally requires activation.state PASS with zero nonimplemented required controls.",
+  "next_executable_action": "Observe the hosted validator run containing b5476e4a217edb20c4709d92dc7bea3abd777b15 or later, retain its receipt, and repair only the first exact failure without weakening the pinned floor or above-floor controls.",
   "authority_effect": "NONE"
 }
