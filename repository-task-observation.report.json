@@ -1,13 +1,34 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "2.1.0",
   "repository": "StegVerse-Labs/Site",
   "controller": "scripts/observe_and_complete_repository_tasks.py",
-  "active_tasks_observed": [
+  "declared_active_tasks": [
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002"
   ],
-  "ownership_reconciliations": [],
+  "auto_discovered_tasks": [
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+    "SITE-0001-PERSONAL-DATA-CONTROL",
+    "SITE-0001-UPLOAD",
+    "TIDC-ADJ-NET-001-DATES",
+    "TIDC-SPLIT-NET-002"
+  ],
+  "active_tasks_observed": [
+    "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
+    "TIDC-ADJ-NET-001-DATES",
+    "TIDC-SPLIT-NET-002",
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+    "SITE-0001-PERSONAL-DATA-CONTROL",
+    "SITE-0001-UPLOAD"
+  ],
+  "ownership_reconciliations": [
+    {
+      "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+      "from": "None",
+      "to": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json"
+    }
+  ],
   "observations": [
     {
       "task_id": "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
@@ -26,9 +47,40 @@
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-SPLIT-NET-002.json",
       "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json",
+      "validator_command": "python scripts/check_coherent_transition_threshold.py",
+      "success_marker": "COHERENT_TRANSITION_THRESHOLD=PASS",
+      "success_marker_seen": true,
+      "output": "COHERENT_TRANSITION_THRESHOLD=PASS\nTHRESHOLD_STATE=SYNCHRONY_OBSERVED\nTHRESHOLD_ESTABLISHED=false\nEXTERNAL_TASKS_ALLOWED=false\nAUTHORITY_EFFECT=false"
+    },
+    {
+      "task_id": "SITE-0001-PERSONAL-DATA-CONTROL",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0001-PERSONAL-DATA-CONTROL.json",
+      "validator_command": "python scripts/check_personal_data_control_runtime.py",
+      "success_marker": "PERSONAL_DATA_CONTROL_RUNTIME=PASS",
+      "success_marker_seen": true,
+      "output": "PERSONAL_DATA_CONTROL_RUNTIME=PASS\nEXTERNAL_TASKS_REQUIRED=false\nMANUAL_TASKS_REQUIRED=false\nAUTHORITY_GRANTED=false"
+    },
+    {
+      "task_id": "SITE-0001-UPLOAD",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0001-UPLOAD.json",
+      "validator_command": "python scripts/check_hil_v1_1_release.py",
+      "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS",
+      "success_marker_seen": true,
+      "output": "HIL_V1_1_RELEASE_VERIFICATION=PASS\nHIL_V1_1_PDF_SIZE=87271\nHIL_V1_1_PDF_SHA256=a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462\nHIL_V1_1_ARTIFACT_PATH=data/HIL_Canonical_Paper_v1_1.pdf\nHIL_V1_1_PROTOCOL=HIL-PROTOCOL-v1.1\nHIL_V1_1_PROMPT=HIL-PROMPT-v1.1\nHIL_V1_1_DIRECT_UPLOAD_CLIENT=BOUND\nHIL_V1_1_LOCAL_FALLBACK=HASH_VERIFIED\nHIL_V1_1_AUTHORITY=NONE"
     }
   ],
-  "completed_tasks": [],
+  "completed_tasks": [
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+    "SITE-0001-PERSONAL-DATA-CONTROL",
+    "SITE-0001-UPLOAD"
+  ],
   "remaining_tasks": [
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
@@ -62,6 +114,8 @@
     "implementation_locations_required": true,
     "verification_locations_required": true,
     "validator_required_for_completion": true,
-    "observation_must_be_durable": true
+    "observation_must_be_durable": true,
+    "repository_task_auto_discovery": true,
+    "central_status_registration_required": false
   }
 }

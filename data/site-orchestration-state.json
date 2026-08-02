@@ -52,7 +52,8 @@
       "SITE-0001-MASTER-RECORDS-PERSISTENT-SERVICE-EVIDENCE-IMPORT",
       "SITE-0001-HIL-ANNOUNCEMENT-DERIVATION",
       "SITE-0001-UPLOAD",
-      "SITE-0001-PERSONAL-DATA-CONTROL"
+      "SITE-0001-PERSONAL-DATA-CONTROL",
+      "SITE-0001-COHERENT-TRANSITION-THRESHOLD"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -60,6 +61,11 @@
       "task_directory": "data/tasks",
       "active_task_count": 3,
       "blocker_count": 3,
+      "auto_discovery_enabled": true,
+      "discoverable_task_states": [
+        "READY_FOR_MACHINE_COMPLETION_CHECK",
+        "RUNNING"
+      ],
       "external_session_ownership_allowed": false
     },
     "state": "OBSERVED_BLOCKED",
@@ -93,7 +99,8 @@
     "master_records_persistent_service_evidence_import": "data/master-records-persistent-service-evidence/",
     "master_records_return_receipt_import": "data/hil-master-records-return-receipts/",
     "superseded_activation_tracker": "issue/16",
-    "hil_announcement_derivation": "StegVerse-Labs/Site:main@02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a"
+    "hil_announcement_derivation": "StegVerse-Labs/Site:main@02b1108aa6e5a12af7cd2e9d120b0ac4ba03b20a",
+    "coherent_transition_threshold": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json"
   },
   "activation_readiness": {
     "state": "CONFIGURATION_AND_PERSISTENT_EXECUTION_REQUIRED",
