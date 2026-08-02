@@ -135,6 +135,75 @@ unique_unmerged_state: false
 release_condition: observe native-main ST-018 artifact and issue #141 custody receipt, then admit ARCHIVABLE or SUPERSEDED disposition
 ```
 
+## Consolidated continuation-authority stack session
+
+Session inventory and receipt:
+
+```text
+data/session-goal-inventories/CONTINUATION-AUTHORITY-STACK-SESSION-2026-08-02.json
+data/session-consolidation-receipts/CONTINUATION-AUTHORITY-STACK-2026-08-02.json
+session_id: continuation-authority-stack-2026-08-02
+task_id: SESSION-CONTINUATION-CONSOLIDATION-001
+```
+
+Original goal transferred:
+
+```text
+Prevent blocked, waiting, dependency-bound, or apparently external work from halting StegVerse development by reconstructing the next admissible work from durable repository state and continuing until the admitted execution frontier is exhausted.
+```
+
+Adjacent requirements transferred:
+
+```text
+governed continuation and repository self-description
+completion convergence and frontier exhaustion evidence
+recursive improvement observations from repeated blockers and repairs
+cross-repository ecosystem coherence
+selection among admitted, blocked, duplicate, superseded, obsolete, and nonconvergent work
+originating-purpose preservation in successor packets
+reconstructable intent and continuation authority
+repository-grounded session consolidation and elimination
+```
+
+Canonical convergence:
+
+```text
+Issue #117 owns validator, workflow, posture fixtures, and Site-orchestrator integration.
+Issue #118 owns successor packets, cross-repository comparison, execution-frontier and archive-queue projection, duplicate-owner detection, and registry updates.
+Issue #119 owns Master-Records custody and post-activation downstream projection.
+Issue #114 owns activation admission and closure.
+No separate continuation, completion, improvement, coherence, selection, purpose, or intent implementation lane is authorized by this session.
+```
+
+Required issue #118 behavior now preserved:
+
+```text
+A blocked or waiting task is scheduling input, not a terminal success state.
+Successor packets preserve originating goal, repository, branch, task, commit, authority source, claimant, release condition, collision boundaries, expected evidence, completion conditions, and nonclaims.
+Cross-repository comparison detects stale handoffs, conflicting owners, unresolved successor sources, incompatible claims, duplicate work, and missing authority.
+Archive-queue projection distinguishes COMPLETE, BLOCKED, RETRY, REVIEW_REQUIRED, FAILED, CLAIMED, SUPERSEDED, and MERGED and never converts missing evidence into success.
+Frontier output states why no candidate is executable when the admitted frontier is empty.
+Repeated blockers and validator defects remain durable improvement observations in activation receipts.
+```
+
+Transfer evidence:
+
+```text
+Inventory commit: e6cd2e0fb36ef13f52c75c80e901d04287dd0600
+Consolidation receipt commit: d31a2046d90d59d8976a42781ea3e2b792ed2608
+Canonical continuation: StegVerse-Labs/Site issue #118 under parent issue #114
+```
+
+Session posture after handoff and issue linkage:
+
+```text
+MERGED_INTO_CANONICAL_WORKSTREAM
+active_task_ownership: false
+unique_unmerged_state: false
+successor_execution_source: StegVerse-Labs/Site issue #118
+archive authority remains subject to the retirement validator and current registry comparison
+```
+
 ## Activation gate
 
 The layer becomes activated only after all of the following are directly observed and recorded:
@@ -166,6 +235,7 @@ Add successor-session activation packet generation
 Add archive queue projection to the Site UI
 Add tests for CURRENT, SUPERSEDED, MERGE_REQUIRED, ARCHIVABLE, conflicting owner, missing successor, and malformed evidence
 Observe the native-main ST-018 artifact and issue #141 custody receipt for stegmusic-st018-continuation-2026-08-02
+Implement the continuation-authority-stack requirements under issue #118 without creating a competing lane
 ```
 
 Destination `master-records/orchestration`:
@@ -190,8 +260,12 @@ Read this handoff first, then issue #114. Run `python scripts/check_session_reti
 
 For `stegmusic-st018-continuation-2026-08-02`, inspect issue #141 and the native-main artifacts produced by `.github/workflows/capture-validation-evidence.yml`. After direct custody evidence exists, update the registry posture to `SUPERSEDED` or `ARCHIVABLE`; do not reopen StegMusic or ST-018 implementation work in another session.
 
+For `continuation-authority-stack-2026-08-02`, continue through issue #118. Preserve the transferred continuation, convergence, coherence, selection, purpose, and authority requirements as bounded behaviors of successor packet generation, cross-repository comparison, and archive-queue projection. Do not create seven duplicate subsystems merely because the requirements were developed as separate conceptual layers in chat.
+
 ## Archive readiness
 
 The StegMusic and ST-018 session has transferred all unique design and implementation state into repository authority, but remains temporarily non-archivable until the native-main ST-018 custody artifact and issue #141 receipt are directly observed and the registry posture is updated.
+
+The continuation-authority stack session has transferred its complete unique requirement inventory into repository authority and owns no separate implementation lane. Its archive disposition is determined by the retirement validator and current registry comparison after issue linkage is recorded.
 
 The broader coordination session is not safe to archive while it owns unresolved issue #114 coordination or until that ownership is transferred into a successor session and the registry records no unique unmerged state. When no coordination task remains, the response must announce `ARCHIVE THIS SESSION` at both top and bottom.
