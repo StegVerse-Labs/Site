@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0.0",
+  "baseline_id": "SV-VA-FEDERAL-PLUS-SECURITY-001",
+  "scope": [
+    "governed_va_claims_guide",
+    "governed_va_claims_chat",
+    "private_document_workspace",
+    "veteran_approved_filing"
+  ],
+  "policy": {
+    "federal_requirements_are_minimum": true,
+    "stegverse_must_exceed_minimum": true,
+    "compliance_claim_requires_independent_evidence": true,
+    "missing_evidence_state": "BLOCKED",
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "federal_floor": {
+    "nist_sp_800_53": {
+      "revision": "5.2.0",
+      "required_families": ["AC","AT","AU","CA","CM","CP","IA","IR","MA","MP","PE","PL","PM","PS","PT","RA","SA","SC","SI","SR"],
+      "tailoring_required": true
+    },
+    "nist_sp_800_63": {
+      "phishing_resistant_authentication_required_for_privileged_and_filing_actions": true,
+      "reauthentication_required_for_sensitive_state_changes": true
+    },
+    "zero_trust": {
+      "explicit_verification": true,
+      "least_privilege": true,
+      "assume_breach": true,
+      "service_to_service_identity": true
+    },
+    "fedramp_assurance": {
+      "automated_continuous_evidence_required": true,
+      "point_in_time_documentation_insufficient": true,
+      "baseline_selection_requires_impact_analysis": true
+    }
+  },
+  "stegverse_plus_controls": {
+    "identity": [
+      "phishing-resistant MFA for privileged, document, and filing actions",
+      "device binding and attestation where platform support exists",
+      "step-up authentication for export, deletion, authorization, and submission",
+      "short-lived scoped credentials with revocation"
+    ],
+    "data_protection": [
+      "raw veteran documents isolated from public surfaces and LLM adapter",
+      "encryption in transit and at rest with managed key rotation",
+      "field-level protection for identity, health, service, and filing data",
+      "retention minimized by purpose and deletion receipts required",
+      "no training on veteran documents without separate explicit consent"
+    ],
+    "execution": [
+      "deny by default capability admission",
+      "sandboxed document processing",
+      "egress allowlists",
+      "malware and active-content scanning before parsing",
+      "content-type verification and decompression limits",
+      "prompt-injection and data-exfiltration defenses",
+      "raw documents never passed to filing transport"
+    ],
+    "provenance_and_custody": [
+      "hash every source document, derived record, package, authorization, attempt, and confirmation",
+      "append-only custody and reconstruction receipts",
+      "commit-time authorization validity check",
+      "independent reconstruction before retry or resubmission",
+      "all authority flags explicit and false unless separately admitted"
+    ],
+    "filing": [
+      "veteran confirms every material fact",
+      "veteran selects every claimed condition",
+      "exact-package hash authorization",
+      "dual control for transport admission and production activation",
+      "idempotency and duplicate prevention",
+      "revocation until transport commit boundary",
+      "partial failure stops and requires reconstructed review"
+    ],
+    "monitoring_and_response": [
+      "continuous security evidence receipts",
+      "tamper-evident audit trails",
+      "automated secret and dependency scanning",
+      "signed build artifacts and provenance",
+      "incident containment and credential revocation automation",
+      "breach and privacy-event decision records"
+    ],
+    "privacy": [
+      "purpose limitation",
+      "data minimization",
+      "veteran-visible access and export history",
+      "veteran-visible deletion state",
+      "separation of favorable, unfavorable, conflicting, and missing evidence",
+      "no hidden rating optimization"
+    ]
+  },
+  "activation_gates": [
+    "federal control mapping complete",
+    "impact categorization recorded",
+    "threat model approved",
+    "data flow and trust boundaries verified",
+    "identity and access tests pass",
+    "encryption and key-management tests pass",
+    "document isolation and parser abuse tests pass",
+    "audit and custody reconstruction pass",
+    "incident response exercise passes",
+    "independent assessment evidence retained",
+    "continuous monitoring receipt current",
+    "no unresolved high or critical findings"
+  ],
+  "prohibited_claims": [
+    "FedRAMP authorized",
+    "FISMA compliant",
+    "NIST compliant",
+    "VA approved",
+    "federal compliant"
+  ],
+  "canonical_handoff": "docs/VA_FEDERAL_PLUS_SECURITY_MIRROR_HANDOFF.md",
+  "canonical_issue": "StegVerse-Labs/Site#113",
+  "document_workspace_issue": "StegVerse-Labs/Site#116"
+}
