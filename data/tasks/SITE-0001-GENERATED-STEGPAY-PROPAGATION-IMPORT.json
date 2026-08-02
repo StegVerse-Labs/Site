@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.2.0",
+  "task_id": "SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Import and validate the test-only generated StegPay propagation packet without authority escalation.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "implementation_locations": [
+    "data/generated-stegpay-propagations/latest/propagation.json",
+    "data/generated-stegpay-propagations/latest/import_receipt.json"
+  ],
+  "verification_locations": [
+    "scripts/check_generated_stegpay_propagation_import.py",
+    ".github/workflows/generated-stegpay-propagation-import.yml"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_generated_stegpay_propagation_import.py",
+    "success_marker": "GENERATED_STEGPAY_SITE_IMPORT=PASS"
+  },
+  "completion_effect": {
+    "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
+    "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
+    "ownership_pointer": "data/tasks/SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT.json"
+  },
+  "downstream_release_conditions": [
+    {
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "condition": "Site import receipt state is VALIDATED and packet hash matches aecfd09a016e1daaa32b66f0e7aa2bc2681edc70be14f25637fa95df2a1468e3"
+    },
+    {
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "condition": "Publisher or Site supplies the validated bounded-evidence projection"
+    },
+    {
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "condition": "Publisher or Site supplies the validated authority-boundary projection"
+    }
+  ],
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": false,
+  "publication_effect": false,
+  "release_effect": false
+}
