@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "HIL-SEMANTIC-CONTINUITY-CONSOLIDATION",
+  "originating_session_goal": "Document, formalize, activate, automate, integrate, replay, and durably transfer the HIL semantic-continuity and governance-observer layer.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "canonical_handoff": "docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md",
+  "claim_state": "MACHINE_OWNED",
+  "current_owner": "StegVerse-Labs/Site repository automation",
+  "claim_created_at": "2026-08-02T09:13:00Z",
+  "claim_release_condition": "All source-owned artifacts remain valid; downstream consumers either ingest the projection manifest or record a fail-closed rejection receipt.",
+  "collision_boundaries": [
+    "Do not modify active governed measurement PR #146 paths.",
+    "Do not replace canonical HIL participant upload or receiver task ownership.",
+    "Do not represent compatibility hypotheses as physical-theory confirmation."
+  ],
+  "inventory": [
+    {"id":"HIL-SESSION-001","goal":"Canonical ontology and claim classes","location":"docs/hil-semantic-continuity/canonical-terminology.md","state":"COMPLETE","validation":"INSTALLED"},
+    {"id":"HIL-SESSION-002","goal":"State-pair and isolated trajectory formalization","location":"docs/hil-semantic-continuity/state-pair-isolated-trajectory.md","state":"COMPLETE","validation":"INSTALLED"},
+    {"id":"HIL-SESSION-003","goal":"Semantic transformation schema and deterministic fixture","location":"data/schemas/hil-semantic-transformation.schema.json","evidence":"data/fixtures/hil-semantic-transformation/bounded-conversation.json","state":"COMPLETE","validation":"DETERMINISTIC"},
+    {"id":"HIL-SESSION-004","goal":"Participant source/receipt/dispute integration","location":"docs/hil-semantic-continuity/participant-record-integration.md","evidence":"data/hil-participant-semantic-integration-activation-receipt.json","state":"COMPLETE","validation":"DETERMINISTIC"},
+    {"id":"HIL-SESSION-005","goal":"Canonical governed event integration","location":"data/hil-semantic-runtime-integration-task-state.json","evidence":"data/hil-semantic-runtime-integration-activation-receipt.json","state":"COMPLETE","validation":"DETERMINISTIC"},
+    {"id":"HIL-SESSION-006","goal":"Replay and reconstruction","location":"data/hil-semantic-replay-task-state.json","evidence":"data/hil-semantic-replay-activation-receipt.json","state":"COMPLETE","validation":"DETERMINISTIC_REPOSITORY_PATH"},
+    {"id":"HIL-SESSION-007","goal":"RTG mapping transfer","location":"docs/hil-semantic-continuity/rtg-mapping-package.md","destination":"Admissible-Existence/RTG/docs/RTG_MIRROR_HANDOFF.md","state":"MERGED_INTO_CANONICAL_WORKSTREAM","next_action":"Destination consumer validates and records ingestion or rejection using data/hil-semantic-continuity-projection-manifest.json"},
+    {"id":"HIL-SESSION-008","goal":"Downstream projection and custody obligations","location":"data/hil-semantic-continuity-projection-manifest.json","destinations":["master-records/orchestration","GCAT-BCAT-Engine/Publisher","StegVerse-Labs/admissibility-wiki","StegVerse-002/stegguardian-wiki"],"state":"MACHINE_OWNED","next_action":"Each destination records validated ingestion, supersession, or fail-closed rejection; source development does not halt."}
+  ],
+  "automation": [
+    "scripts/check_hil_semantic_continuity_tasks.py",
+    ".github/workflows/hil-semantic-continuity-tasks.yml",
+    "scripts/validate_hil_participant_semantic_receipt.py",
+    ".github/workflows/hil-participant-semantic-integration.yml",
+    "scripts/check_hil_semantic_runtime_tasks.py",
+    ".github/workflows/hil-semantic-runtime-integration.yml",
+    "scripts/check_hil_semantic_replay_tasks.py",
+    ".github/workflows/hil-semantic-replay.yml"
+  ],
+  "session_consolidation_state": "TRANSFERRED_TO_CANONICAL_WORKSTREAM",
+  "archive_condition": "All unique session information exists in the canonical handoff, task record, source artifacts, validators, workflows, activation receipts, and projection manifest; no session-held execution authority remains.",
+  "authority_effect": false
+}
