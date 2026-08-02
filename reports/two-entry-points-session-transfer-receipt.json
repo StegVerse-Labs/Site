@@ -1,0 +1,40 @@
+{
+  "schema": "stegverse.two_entry_points.session_transfer.v1",
+  "originating_session_goal": "Complete Ecosystem Chat and VA Claim Assistant as fully functional, continuously extensible public entry points while preventing false archival and duplicate execution.",
+  "canonical_continuation": {
+    "issue": "StegVerse-Labs/Site#152",
+    "handoff": "docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md",
+    "execution_state": "data/two-entry-points-execution-state.json",
+    "validator": "scripts/validate_two_entry_points_execution_state.py",
+    "workflow": ".github/workflows/two-entry-points-execution-state.yml"
+  },
+  "implementation_lanes": {
+    "ecosystem_chat_runtime": "StegVerse-org/LLM-adapter#18",
+    "ecosystem_chat_site": "StegVerse-Labs/Site#24",
+    "va_claim_assistant": "StegVerse-Labs/Site#113"
+  },
+  "requirements_transferred": [
+    "Neither entry point may be represented as 100 percent intended without end-to-end activation evidence.",
+    "A handoff does not transfer work; transfer requires a bounded accepted claim and observable execution evidence.",
+    "Claims must expire or renew through new evidence and must not remain indefinite.",
+    "Duplicate implementation must be prevented through collision boundaries and canonical task ownership.",
+    "Archival is prohibited while unique active work, unsupported claims, or incomplete archival-dependent tasks remain.",
+    "Ecosystem Chat requires provider use, persistence, custody, reconstruction, Site activation, and downstream propagation.",
+    "VA Claim Assistant requires source grounding, document awareness, provenance, TVC capability, custody, reconstruction, and exact public status."
+  ],
+  "validation_evidence": {
+    "registry_validation_receipt": "reports/two-entry-points-execution-state-validation.json",
+    "validation_result": "PASS",
+    "archive_authorized": false,
+    "stale_claims": [],
+    "receipt_commit": "632589e1d66f652aaa00b2b610869e3fa5dc09ac"
+  },
+  "transfer_state": "DURABLY_PRESERVED_NOT_FULLY_TRANSFERRED",
+  "remaining_session_role": "Observe and reconcile bounded claims until unique validation or consolidation responsibility is completed or actually transferred.",
+  "authority_boundary": {
+    "transfer_receipt_grants_execution_authority": false,
+    "transfer_receipt_grants_deployment_authority": false,
+    "transfer_receipt_grants_release_authority": false,
+    "transfer_receipt_authorizes_archival": false
+  }
+}
