@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "goal_set_id": "SV-VA-GOVERNED-PRODUCT-001",
+  "originating_session_goal": "Govern the VA Claims Guide and VA Claims Chat, add private document loading and analysis comparable to modern conversational document workspaces, and progress toward automated claim filing from veteran-uploaded records.",
+  "canonical_owners": {
+    "coordination": "StegVerse-Labs/Site#113",
+    "document_workspace": "StegVerse-Labs/Site#116",
+    "public_guide": "StegVerse-Labs/Site/va-disability-claim-guide.html",
+    "runtime": "StegVerse-org/LLM-adapter",
+    "capability_custody": "StegVerse-Labs/TVC",
+    "record_custody": "master-records/orchestration"
+  },
+  "product_surfaces": [
+    {
+      "id": "VA-GOAL-01",
+      "name": "GOVERNED_VA_CLAIMS_GUIDE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "purpose": "Provide an evidence-grounded, current, source-cited claim workflow whose displayed guidance and capability status are governed by machine-verifiable receipts.",
+      "required_capabilities": [
+        "official-source precedence and freshness",
+        "claim-stage and claim-theory guidance",
+        "evidence completeness and contradiction checks",
+        "clear separation of educational guidance from legal, medical, representative, adjudicative, and filing authority",
+        "machine-derived public capability status"
+      ],
+      "release_condition": "A guide governance receipt validates source policy, displayed capability claims, authority boundaries, and current activation state with blockers empty."
+    },
+    {
+      "id": "VA-GOAL-02",
+      "name": "GOVERNED_VA_CLAIMS_CHAT",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "purpose": "Provide a conversational VA claim workspace for procedural questions, evidence organization, drafting assistance, document-grounded analysis, uncertainty tracking, and veteran-controlled session continuity.",
+      "required_capabilities": [
+        "governed route classification",
+        "source-grounded answers with proposition-level support",
+        "document upload and multi-document sessions",
+        "page and section citations",
+        "fact inference and uncertainty separation",
+        "contradiction and missing-evidence detection",
+        "draft generation limited to veteran-confirmed facts",
+        "persistent reconstructable session receipts"
+      ],
+      "release_condition": "A deployed governed chat session proves document-grounded execution, custody, reconstruction, privacy boundaries, false authority flags, and an accurate public capability projection."
+    },
+    {
+      "id": "VA-GOAL-03",
+      "name": "PRIVATE_CLAIM_DOCUMENT_WORKSPACE",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "purpose": "Allow veterans to upload claim-related documents and receive organized, source-bound analysis with features and benefits comparable to a capable conversational document workspace while adding StegVerse governance, custody, replay, and authority controls.",
+      "required_capabilities": [
+        "PDF image and text intake",
+        "document identity hashes and page anchors",
+        "multi-file indexing and retrieval",
+        "condition-specific evidence tables",
+        "supportive unfavorable and conflicting evidence",
+        "timeline and treatment-history extraction",
+        "draft statement and evidence-index generation",
+        "privacy classification retention and deletion controls",
+        "downloadable veteran-review packet"
+      ],
+      "release_condition": "Private upload, analysis, retention, deletion, export, custody, and reconstruction paths are directly validated and public upload remains disabled until every required gate is verified."
+    },
+    {
+      "id": "VA-GOAL-04",
+      "name": "VETERAN_APPROVED_AUTOMATED_CLAIM_FILING",
+      "state": "FUTURE_GOVERNED_TARGET",
+      "purpose": "Progress from uploaded records to a proposed claim package and eventually to filing through an authorized channel, without transferring final factual confirmation, consent, signature, or submission authority away from the veteran unless an independently valid delegation exists.",
+      "stages": [
+        "derive candidate conditions and claim theories from admitted records",
+        "build evidence indexes timelines contradiction lists and missing-evidence tasks",
+        "draft forms and supporting statements without inventing facts",
+        "present a complete veteran-review packet and change log",
+        "require explicit veteran confirmation of each material fact and claimed condition",
+        "run pre-submission validation against current official requirements",
+        "obtain a specific unexpired submission authorization receipt",
+        "submit only through an authorized VA or accredited-representative integration",
+        "retain submission confirmation custody reconstruction and revocation evidence"
+      ],
+      "prohibited_shortcuts": [
+        "autonomous filing from unreviewed uploads",
+        "invented diagnoses events nexus severity dates or signatures",
+        "submission without explicit veteran approval",
+        "credential collection or browser automation outside an authorized integration",
+        "claiming representation accreditation adjudication medical opinion or VA authority",
+        "optimizing for a target disability percentage rather than evidentiary accuracy"
+      ],
+      "release_condition": "Automated filing remains unavailable until legal and platform authority, identity, consent, signature, form accuracy, submission-channel authorization, revocation, custody, reconstruction, and post-submission confirmation gates are all VERIFIED."
+    }
+  ],
+  "cross_cutting_governance": {
+    "veteran_controls_facts": true,
+    "veteran_controls_claim_selection": true,
+    "veteran_controls_submission": true,
+    "human_review_required_before_filing": true,
+    "raw_documents_publicly_published": false,
+    "provider_output_is_authority": false,
+    "assistant_is_accredited_representative": false,
+    "assistant_is_clinician": false,
+    "assistant_is_va_adjudicator": false,
+    "target_rating_optimization_allowed": false,
+    "fail_closed_on_missing_authority_or_evidence": true
+  },
+  "next_executable_actions": [
+    {
+      "owner": "StegVerse-Labs/Site#113",
+      "location": "va-disability-claim-guide.html",
+      "action": "Project the governed Guide and Chat roadmap and current verified capability without presenting future upload or filing capabilities as active."
+    },
+    {
+      "owner": "StegVerse-Labs/Site#116",
+      "location": "document-aware implementation paths",
+      "action": "Implement admitted private multi-document sessions, source-bound outputs, privacy controls, export packets, and execution receipts."
+    },
+    {
+      "owner": "StegVerse-org/LLM-adapter",
+      "location": "VA governed chat runtime",
+      "action": "Expand governed routing and answer generation beyond the current bounded public-source route while retaining fail-closed unsupported routes."
+    },
+    {
+      "owner": "StegVerse-Labs/Site#113",
+      "location": "future filing integration contract",
+      "action": "Define identity consent signature preflight submission and confirmation gates before any automated filing implementation is activated."
+    }
+  ],
+  "archive_dependency": true
+}
