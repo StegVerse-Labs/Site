@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "source_repository": "Admissible-Existence/RTG",
   "source_branch": "main",
@@ -10,33 +10,42 @@
       "lane_id": "hosted-deterministic-rendering",
       "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json",
       "remaining_machine_tasks": [
-        {"task":"Produce accepted terminal hosted renderer evidence","location":"Admissible-Existence/RTG/.github/workflows/render-rtg-volume-i.yml"},
-        {"task":"Produce a second byte-identical digest-pinned render","location":"Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json"}
+        {
+          "task": "Produce accepted terminal hosted renderer evidence",
+          "location": "Admissible-Existence/RTG/.github/workflows/render-rtg-volume-i.yml"
+        },
+        {
+          "task": "Produce a second byte-identical digest-pinned render",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json"
+        }
       ]
     },
     "4": {
-      "state": "RECORD_LEVEL_LINEAGE_APPLICATION_ACTIVE",
+      "state": "BOUNDED_LINEAGE_APPLIED",
       "lane_id": "predecessor-and-statement-integration",
       "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-4-observation.json",
-      "regeneration_receipt": "review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-regeneration-receipt.json",
-      "lineage_applicator": "Admissible-Existence/RTG/tools/apply_rtg_predecessor_lineage.py",
-      "application_workflow": "Admissible-Existence/RTG/.github/workflows/apply-rtg-predecessor-lineage.yml",
+      "lineage_receipt": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-regeneration-receipt.json",
       "application_receipt": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-application-receipt.json",
-      "application_attempt_receipt": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-application-attempt.json",
+      "inventory": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/crosswalk/rtg-statement-inventory.json",
       "verified_identifier_counts": {
         "integrated_total": 131,
         "predecessor_identifier_present": 121,
         "new_in_integrated": 10,
         "unresolved_identifier_lineage": 0
       },
+      "crosswalk_validation": "PASS",
       "remaining_machine_tasks": [
-        {"task":"Apply exact identifier lineage assignments to all 131 inventory records","location":"Admissible-Existence/RTG/tools/apply_rtg_predecessor_lineage.py"},
-        {"task":"Persist success or failure evidence for every application run","location":"Admissible-Existence/RTG/.github/workflows/apply-rtg-predecessor-lineage.yml"},
-        {"task":"Validate the updated inventory and crosswalk","location":"Admissible-Existence/RTG/tools/check_manifest_manuscript_crosswalk.py"},
-        {"task":"Recompute lane and consolidated readiness","location":"Admissible-Existence/RTG/tools/converge_formalism_publication.py"}
+        {
+          "task": "Maintain exact-text equivalence as a separately bounded validation field without blocking stable-identifier lineage completion",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/crosswalk/rtg-statement-inventory.json"
+        },
+        {
+          "task": "Recompute consolidated readiness after lane 3 or lane 5 changes",
+          "location": "Admissible-Existence/RTG/tools/advance_formalism_lanes.py"
+        }
       ],
       "bounded_fields": {
-        "exact_text_equivalence": "NOT_ASSERTED",
+        "exact_text_equivalence": "NOT_ESTABLISHED",
         "authority_effect": "NONE"
       }
     },
@@ -45,8 +54,14 @@
       "lane_id": "corpus-proof-and-artifact-closure",
       "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json",
       "remaining_machine_tasks": [
-        {"task":"Close each unresolved evidence-ledger class by recovery or bounded scope","location":"Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/evidence-closure-ledger.json"},
-        {"task":"Generate durable theorem proof-review receipts","location":"Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json"}
+        {
+          "task": "Close each unresolved evidence-ledger class by recovery or bounded scope",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/evidence-closure-ledger.json"
+        },
+        {
+          "task": "Generate durable theorem proof-review receipts",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json"
+        }
       ]
     }
   },
@@ -59,16 +74,16 @@
     "durable_machine_receipts_present": true,
     "corrupt_bundle_dependency_closed": true,
     "record_level_lineage_application_observed": true,
+    "record_level_lineage_application_passed": true,
     "authority_effect": "NONE"
   },
   "blockers": [
     "RTG lane 3 still requires deterministic hosted render evidence.",
-    "RTG lane 4 application workflow has not yet deposited its PASS or attempt receipt.",
     "RTG lane 5 still requires evidence-ledger and theorem-review closure.",
     "Central formalism acceptance has not been recorded."
   ],
   "manual_external_tasks": [],
-  "next_machine_action": "Observe Admissible-Existence/RTG/.github/workflows/apply-rtg-predecessor-lineage.yml through its durable application-attempt receipt, repair any first proven defect, then recompute RTG readiness and this Site projection.",
+  "next_machine_action": "Continue the exact machine tasks under source_lanes. Lane 4 is complete within bounded stable-identifier scope; do not re-enter corrupt bundle recovery or repeat record-level lineage application.",
   "authority_effect": false,
   "activation_effect": true
 }
