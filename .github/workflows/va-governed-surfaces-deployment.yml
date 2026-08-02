@@ -1,0 +1,82 @@
+name: VA Governed Surfaces Deployment Observer
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'va-disability-claim-guide.html'
+      - 'va-claims-chat.html'
+      - 'data/va-claim-assistant/chat-capability-state.json'
+      - 'scripts/observe_va_governed_surfaces.py'
+      - '.github/workflows/va-governed-surfaces-deployment.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-governed-surfaces-deployment
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Observe deployed governed surfaces
+        id: observe
+        continue-on-error: true
+        run: python scripts/observe_va_governed_surfaces.py
+
+      - name: Persist observation receipt
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f data/va-claim-assistant/governed-surfaces-deployment.json ]; then
+            mkdir -p data/va-claim-assistant
+            printf '%s\n' '{"schema_version":"1.0.0","observer_id":"SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001","state":"BLOCKED","blockers":["observer_failed_before_receipt"],"private_document_upload_enabled":false,"automated_filing_enabled":false,"authority_effect":false,"activation_effect":false}' > data/va-claim-assistant/governed-surfaces-deployment.json
+          fi
+          git config user.name 'stegverse-va-surface-observer'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/va-claim-assistant/governed-surfaces-deployment.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'chore(va): record governed surfaces deployment observation [skip ci]'
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Upload observation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: va-governed-surfaces-${{ github.run_id }}
+          path: data/va-claim-assistant/governed-surfaces-deployment.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce verified deployment
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          receipt = json.load(open('data/va-claim-assistant/governed-surfaces-deployment.json'))
+          if receipt.get('state') != 'VERIFIED':
+              raise SystemExit(f"VA_GOVERNED_SURFACES_NOT_VERIFIED:{receipt.get('blockers')}")
+          for name in ('guide', 'chat', 'capability'):
+              surface = receipt.get('surfaces', {}).get(name, {})
+              if surface.get('http_status') != 200 or surface.get('byte_equal') is not True:
+                  raise SystemExit(f"VA_SURFACE_NOT_EQUAL:{name}:{surface}")
+          print('VA_GOVERNED_SURFACES_DEPLOYMENT=VERIFIED')
+          PY
