@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "registry_type": "stegverse_session_orchestration_registry",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
@@ -68,6 +68,77 @@
         "record validator PASS and activation evidence or successor ownership"
       ],
       "reason": "This session currently coordinates the active BUILD_IN_PROGRESS task sequence SOR-0001 through SOR-0008 under issue #114."
+    },
+    {
+      "session_id": "stegmusic-st018-continuation-2026-08-02",
+      "repository": "StegVerse-Labs/Site",
+      "task_id": "STEGMUSIC-ST018-SESSION-CONSOLIDATION-001",
+      "originating_goals": [
+        "publish and validate the six-track StegMusic and StegDJ browser runtime",
+        "extend adaptive ranking across all six tracks with active-track exclusion",
+        "retain target-device audibility and lifecycle evidence without converting it into authority",
+        "replace inaccessible chat-dependent work with repository-native workers",
+        "determine archive readiness from durable repository state"
+      ],
+      "posture": "MERGE_REQUIRED",
+      "claim_state": "CLAIMED_FOR_INTEGRATION",
+      "claimant": "this session",
+      "claim_created_at": "2026-08-02T08:20:00Z",
+      "claim_release_condition": "native-main ST-018 custody evidence is observed and all unique session requirements resolve through the listed canonical locations",
+      "collision_boundaries": [
+        "do not duplicate Site ST-018 implementation",
+        "do not duplicate session-orchestration issue #114 ownership",
+        "do not treat human iPhone audibility as automated evidence"
+      ],
+      "authority_checked": [
+        "docs/STEGMUSIC_LIVE_MIRROR_HANDOFF.md",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+        "issues/39",
+        "issues/114",
+        "issues/141",
+        "pulls/145",
+        "pulls/147",
+        "pulls/148"
+      ],
+      "current_commit": "b4ff66072dba37e18a10776cceb9e6c20478c18f",
+      "active_task_ownership": false,
+      "distinct_support_role": "integration, evidence inspection, and durable session-state transfer",
+      "unique_unmerged_state": false,
+      "safe_to_archive": false,
+      "successor_execution_source": "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+      "canonical_continuation_locations": [
+        "docs/STEGMUSIC_LIVE_MIRROR_HANDOFF.md",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+        "issues/39",
+        "issues/114",
+        "issues/141"
+      ],
+      "material_state_locations": [
+        "assets/ecosystem-music-six-track-registry.js",
+        "assets/ecosystem-music-adaptive.js",
+        "tests/test_stegmusic_browser.py",
+        ".github/workflows/capture-validation-evidence.yml",
+        "validation_manifests/repository-core.json",
+        "schemas/validation-execution-receipt.schema.json",
+        "scripts/capture_validation_manifest.py",
+        "scripts/write_site_current_main_validation_receipt.py",
+        "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json"
+      ],
+      "completed_or_transferred": [
+        "six-track runtime and browser validation merged into Site main",
+        "six-track adaptive ranking and active-track exclusion transferred into Site main",
+        "ST-018 implementation merged through PR #145",
+        "receipt-writer repair merged through PR #147",
+        "worker trigger repair merged through PR #148",
+        "session-specific worker and archival requirements transferred into the ST-018 task record and this registry"
+      ],
+      "required_before_archive": [
+        "observe native-main ST-018 artifact and issue #141 custody receipt",
+        "change this registry entry to SUPERSEDED or ARCHIVABLE after the release condition is met"
+      ],
+      "reason": "Implementation ownership has converged into repository-native Site workflows. This session retains only a distinct evidence-inspection and consolidation role until native-main custody is directly observed."
     }
   ]
 }
