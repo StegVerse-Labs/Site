@@ -1,0 +1,57 @@
+{
+  "schema": "stegverse.task-state.v1",
+  "task_id": "TTU-NVIDIA-COLLAB-001",
+  "originating_goal": "Establish a credible Texas Tech participation path for Rigel Randolph and StegVerse",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "canonical_handoff": "docs/TEXAS_TECH_NVIDIA_COLLABORATION_MIRROR_HANDOFF.md",
+  "canonical_issue": 17,
+  "claim": {
+    "state": "MACHINE_OWNED",
+    "role": "local deterministic validation and receipt generation",
+    "owner": "experiments/sv-ttu-mre-001/verifier/verify.py",
+    "created_at": "2026-08-02T10:00:00Z",
+    "release_condition": "repository-hosted validation passes and committed receipts are recorded, or issue 17 explicitly supersedes this package",
+    "collision_boundary": [
+      "experiments/sv-ttu-mre-001/**",
+      "docs/TEXAS_TECH_NVIDIA_*"
+    ]
+  },
+  "states": {
+    "packet_deliverables": "COMPLETE",
+    "experiment_implementation": "IMPLEMENTED_LOCAL_VALIDATION_OBSERVED",
+    "repository_hosted_validation": "BLOCKED",
+    "independent_reproduction": "UNCLAIMED",
+    "institutional_routing": "BLOCKED"
+  },
+  "next_executable_task": {
+    "owner": "StegVerse-Labs/Site existing validation workflow",
+    "action": "execute verifier and negative tests on current main and retain report and receipts",
+    "commands": [
+      "python experiments/sv-ttu-mre-001/verifier/verify.py --repeat 3 --write",
+      "python experiments/sv-ttu-mre-001/tests/test_negative.py"
+    ]
+  },
+  "blockers": [
+    {
+      "id": "B-REPO-VALIDATION",
+      "owner": "StegVerse-Labs/Site validation lane",
+      "release_condition": "a current-main run executes both commands and retains PASS evidence"
+    },
+    {
+      "id": "B-TTU-SPONSOR",
+      "owner": "Texas Tech designated faculty or staff authority",
+      "release_condition": "written identification of a TTU sponsor or authorized program owner and applicable process"
+    },
+    {
+      "id": "B-PERSONAL-HISTORY",
+      "owner": "Rigel Randolph",
+      "release_condition": "approval of the bounded personal-history sentence or provision of documentary wording"
+    }
+  ],
+  "session_consolidation": {
+    "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "location": "StegVerse-Labs/Site issue 17 and this task-state record",
+    "conversation_required_for_continuation": false
+  }
+}
