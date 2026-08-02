@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0.0",
+  "contract_id": "SV-VA-FILING-INTEGRATION-001",
+  "state": "CONTRACT_READY_TRANSPORT_UNAVAILABLE",
+  "goal": "Prepare a claim package from governed evidence and permit submission only after veteran review, exact-package authorization, and admission of an authorized VA or accredited-representative transport.",
+  "owners": {
+    "public_projection_and_package_contract": "StegVerse-Labs/Site#113",
+    "document_workspace_and_derived_records": "StegVerse-Labs/Site#116",
+    "governed_chat_runtime": "StegVerse-org/LLM-adapter#90",
+    "capability_and_credential_custody": "StegVerse-Labs/TVC",
+    "package_submission_and_confirmation_custody": "master-records/orchestration"
+  },
+  "stages": [
+    "DRAFT_PACKAGE",
+    "VETERAN_REVIEW_REQUIRED",
+    "PREFLIGHT_REQUIRED",
+    "EXACT_PACKAGE_AUTHORIZATION_REQUIRED",
+    "TRANSPORT_ADMISSION_REQUIRED",
+    "READY_FOR_VETERAN_APPROVED_SUBMISSION",
+    "SUBMISSION_IN_PROGRESS",
+    "SUBMITTED_CONFIRMATION_PENDING_CUSTODY",
+    "SUBMITTED_CONFIRMED",
+    "BLOCKED",
+    "REVOKED",
+    "PARTIAL_FAILURE_REVIEW_REQUIRED",
+    "DUPLICATE_PREVENTED"
+  ],
+  "package_requirements": {
+    "package_id": true,
+    "veteran_id_reference": true,
+    "claimed_conditions_selected_by_veteran": true,
+    "material_facts_confirmed_by_veteran": true,
+    "evidence_index": true,
+    "source_document_hashes": true,
+    "page_anchors_for_record_facts": true,
+    "assistant_inferences_separately_labeled": true,
+    "contradictions_and_unfavorable_evidence_preserved": true,
+    "missing_evidence_preserved": true,
+    "forms_and_supporting_statements": true,
+    "current_form_and_rule_versions": true,
+    "package_sha256": true,
+    "change_log": true
+  },
+  "veteran_review": {
+    "required": true,
+    "confirm_each_material_fact": true,
+    "select_each_claimed_condition": true,
+    "review_contradictions_and_missing_evidence": true,
+    "approve_forms_and_supporting_statements": true,
+    "approval_is_package_hash_bound": true,
+    "approval_expires": true,
+    "approval_revocable_before_submission": true
+  },
+  "preflight": {
+    "identity_verified": true,
+    "consent_current": true,
+    "form_versions_current": true,
+    "filing_rules_current": true,
+    "required_fields_complete": true,
+    "attachments_hash_match": true,
+    "no_unreviewed_material_change_after_authorization": true,
+    "duplicate_submission_check": true,
+    "authority_and_transport_admission_check": true
+  },
+  "authorization": {
+    "exact_package_sha256_required": true,
+    "unexpired_authorization_required": true,
+    "signature_or_valid_delegation_required": true,
+    "veteran_submission_authority_preserved": true,
+    "assistant_may_not_sign": true,
+    "assistant_may_not_select_claimed_conditions": true,
+    "assistant_may_not_confirm_material_facts": true
+  },
+  "transport_admission": {
+    "active_transport": null,
+    "allowed_transport_classes": [
+      "AUTHORIZED_VA_INTEGRATION",
+      "AUTHORIZED_ACCREDITED_REPRESENTATIVE_INTEGRATION"
+    ],
+    "browser_automation_without_explicit_admission_allowed": false,
+    "credential_collection_by_site_allowed": false,
+    "repository_local_submission_secrets_allowed": false,
+    "tvc_capability_receipt_required": true,
+    "transport_scope_and_expiration_required": true,
+    "transport_revocation_supported": true
+  },
+  "submission_execution": {
+    "enabled": false,
+    "idempotency_key_required": true,
+    "package_hash_must_match_authorization": true,
+    "authorization_must_be_current_at_commit": true,
+    "partial_failure_must_stop": true,
+    "automatic_retry_without_state_reconstruction_allowed": false,
+    "duplicate_submission_must_be_prevented": true,
+    "confirmation_receipt_required": true
+  },
+  "custody_and_reconstruction": {
+    "package_custody_required": true,
+    "authorization_custody_required": true,
+    "transport_admission_custody_required": true,
+    "submission_attempt_custody_required": true,
+    "confirmation_custody_required": true,
+    "reconstruction_pass_required": true,
+    "raw_private_documents_published": false
+  },
+  "fail_closed_conditions": [
+    "identity_unverified",
+    "consent_missing_expired_or_revoked",
+    "material_fact_unconfirmed",
+    "claimed_condition_not_selected_by_veteran",
+    "form_or_rule_version_stale",
+    "package_hash_missing_or_changed",
+    "authorization_missing_expired_revoked_or_hash_mismatched",
+    "signature_or_delegation_invalid",
+    "authorized_transport_unavailable",
+    "tvc_capability_unavailable_unauthorized_revoked_expired_or_incompatible",
+    "duplicate_submission_detected",
+    "custody_or_reconstruction_unavailable",
+    "partial_failure_state_unreconstructed"
+  ],
+  "authority": {
+    "va_authority": false,
+    "representative_authority": false,
+    "medical_opinion_authority": false,
+    "adjudication_authority": false,
+    "rating_authority": false,
+    "signature_authority": false,
+    "submission_authority": false,
+    "activation_effect": false
+  },
+  "release_condition": "Submission may be enabled only when every package, veteran-review, preflight, authorization, transport-admission, custody, reconstruction, revocation, retry, partial-failure, duplicate-prevention, and confirmation requirement has inspectable passing evidence for the exact package."
+}
