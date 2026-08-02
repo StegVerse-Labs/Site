@@ -1,0 +1,16 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "automated_filing_enabled": false,
+  "capability_state": "SOURCE_GROUNDED_ACTIVE",
+  "current_capability": "SOURCE_GROUNDED_ASSISTANT",
+  "errors": [],
+  "page_sha256": "cbf0df58f6c009399d28d3202b0f60032a7875ae8e320d5a8651c891721b2244",
+  "private_document_upload_enabled": false,
+  "receipt_sha256": "4538ea7cd1a4c1ae6535bb797b47709e5bc18287214c8034fbf47c8937e0a9c0",
+  "schema_version": "1.0.0",
+  "state": "PASS",
+  "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
+  "surface": "va-claims-chat.html",
+  "veteran_submission_authority_preserved": true
+}
