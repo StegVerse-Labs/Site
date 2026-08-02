@@ -1,20 +1,48 @@
 {
-  "evidence_bindings": {},
+  "evidence_bindings": {
+    "intent_id": "intent-marketplace-release-73a0543ddb27",
+    "marketplace_ack_digest": "sha256:c76c0decad6b82f9356a58598ef5e217f92802dc657e9f5ed95cae9b8f77f0a3",
+    "marketplace_transport_digest": "sha256:f6f41875a5e066fc348cac68691c1d4fb77f3559282eb4ede26a398c87ee7e64",
+    "packet_digest": "sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b",
+    "publication_receipt_digest": "sha256:0dc495cf5f7de0b4610d5b4fc7732f3ddb888543fbe6c9a55ef07ad7f175d240",
+    "publisher_projection_digest": "sha256:4ab30925412757058f3f752fad1d7e452e95dcddf3d2e272ecd9605cee97e8d9",
+    "publisher_transport_digest": "sha256:805000ab776b00863f5962514bcb8f843ccaa27ab9e0ac7821b92499b2e347f1"
+  },
   "execution_authority": "NOT_GRANTED",
   "findings": [],
-  "generated_at": "2026-08-02T07:42:47.524258Z",
+  "generated_at": "2026-08-02T08:15:24Z",
   "live_authority": "NOT_GRANTED",
   "live_trading_accessible": false,
-  "paper_trading_accessible": false,
-  "projection_digest": "sha256:648ea22f21d05267e0189ebf36e9d629f81fe34664f56dd3dc3e34111f5baf41",
+  "paper_trading_accessible": true,
+  "projection_digest": "sha256:428a7344d0e92f03a27ecd2c2fb2b9f2bb09ff3b8a7fc5ae509df48a9cb6f951",
   "publication_authority": "NOT_GRANTED",
-  "publisher_sources": {},
-  "publisher_status": "PENDING_CREDENTIAL",
-  "publisher_status_digest": "sha256:b532bd4f089675d2d45f910486357f97761a68109f9583c0b93c337c9e7166c0",
-  "reason": "publisher_pending_credential",
+  "publisher_sources": {
+    "crypto_bot": {
+      "artifact": "first-accessibility-mark-30681165495-1",
+      "artifact_digest": "sha256:fa051f49f259c54f491dc1395568447393e6ea83dbd9c8535e3cbdfe03e2ada7",
+      "artifact_id": 8812256538,
+      "head_sha": "73a0543ddb27a88fd4913e7dcfa2127132299baa",
+      "repository": "StegVerse-Labs/crypto-bot",
+      "source_evidence_kind": "first_accessibility_mark",
+      "source_transport": "actions_artifact",
+      "state": "PASS",
+      "workflow_run_id": 30681165495
+    },
+    "marketplace": {
+      "artifact": "repository-committed-marketplace-evidence",
+      "head_sha": "7bad3827613cfc3e882fb3b121567bfa689c581c",
+      "relay_receipt_digest": "sha256:07aedebdf3bcb32407adec99d5d160ce5be315709d958beb75b0a73fabe5caf2",
+      "repository": "GCAT-BCAT-Engine/Marketplace",
+      "source_transport": "connected_github_repository_relay",
+      "state": "PASS"
+    }
+  },
+  "publisher_status": "VERIFIED",
+  "publisher_status_digest": "sha256:36a2f6da4b5af18375fd798ef954ec703ea719beefbab2d5949954b79ca1e477",
+  "reason": "publisher_verified_paper_accessibility_chain",
   "release_authority": "NOT_GRANTED",
   "schema": "stegverse.site.marketplace_coinbase_accessibility.v1",
   "source_path": "data/marketplace-coinbase-release-evidence-status.json",
   "source_repository": "GCAT-BCAT-Engine/Publisher",
-  "state": "PENDING_UPSTREAM"
+  "state": "PAPER_ACCESSIBLE"
 }
