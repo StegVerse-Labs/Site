@@ -13,6 +13,7 @@ SCHEMA = ROOT / "schemas" / "session-retirement.schema.json"
 PROMPT = ROOT / "prompts" / "SESSION_SELF_AUDIT.md"
 REPORT = ROOT / "session_retirement.report.json"
 POSTURES = {"CURRENT", "SUPERSEDED", "MERGE_REQUIRED", "ARCHIVABLE"}
+REGISTRY_SCHEMA_VERSIONS = {"1.0.0", "1.1.0"}
 
 
 def fail(message: str, failures: list[str]) -> None:
@@ -100,8 +101,12 @@ def main() -> int:
             fail(f"registry JSON invalid: {exc}", failures)
 
     if registry:
-        if registry.get("schema_version") != "1.0.0":
-            fail("registry schema_version must be 1.0.0", failures)
+        if registry.get("schema_version") not in REGISTRY_SCHEMA_VERSIONS:
+            fail(
+                "registry schema_version must be one of: "
+                + ", ".join(sorted(REGISTRY_SCHEMA_VERSIONS)),
+                failures,
+            )
         policy = registry.get("policy", {})
         required_policy = {
             "age_is_not_archive_authority": True,
