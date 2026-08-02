@@ -10,6 +10,7 @@ on:
     paths:
       - 'docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md'
       - 'scripts/import_marketplace_coinbase_accessibility.py'
+      - 'tests/test_marketplace_coinbase_accessibility.py'
       - 'data/marketplace-coinbase-accessibility-status.json'
       - '.github/workflows/import-marketplace-coinbase-accessibility.yml'
 
@@ -28,6 +29,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install test dependency
+        run: pip install pytest
+      - name: Verify bounded projection contract
+        run: pytest -q tests/test_marketplace_coinbase_accessibility.py
       - name: Import bounded Publisher status
         id: import_status
         run: |
