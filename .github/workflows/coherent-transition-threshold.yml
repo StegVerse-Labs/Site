@@ -1,0 +1,37 @@
+name: Coherent Transition Threshold
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md
+      - data/coherent-transition-threshold.schema.json
+      - data/coherent-transition-threshold-state.json
+      - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json
+      - scripts/check_coherent_transition_threshold.py
+      - .github/workflows/coherent-transition-threshold.yml
+  pull_request:
+    paths:
+      - docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md
+      - data/coherent-transition-threshold.schema.json
+      - data/coherent-transition-threshold-state.json
+      - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json
+      - scripts/check_coherent_transition_threshold.py
+      - .github/workflows/coherent-transition-threshold.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate threshold state
+        run: python scripts/check_coherent_transition_threshold.py
+      - name: Observe repository tasks
+        run: python scripts/observe_and_complete_repository_tasks.py
