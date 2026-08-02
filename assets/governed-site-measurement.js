@@ -1,15 +1,16 @@
 (()=>{
   'use strict';
   const PAGE='va-disability-claim-guide';
+  const POLICY_VERSION='1.0.0';
   const ENDPOINT='/api/governed-measurement';
   const allowed={
     guide_opened:[],walkthrough_started:[],assistant_opened:[],assistant_question_submitted:[],
-    quick_question_selected:['choice'],phase_reached:['phase'],official_source_opened:['target'],
-    claim_form_opened:[],status_page_opened:[],guide_completed:[],client_error:['error_code']
+    quick_question_selected:['choice'],phase_reached:['phase'],official_source_opened:['destination_class'],
+    claim_form_opened:[],status_page_opened:[],guide_completed:[],client_error:['error_class']
   };
   function emit(event,detail={}){
     if(!Object.prototype.hasOwnProperty.call(allowed,event)) return false;
-    const payload={event,page:PAGE,content_recorded:false};
+    const payload={event,page:PAGE,policy_version:POLICY_VERSION,content_recorded:false};
     for(const key of allowed[event]) if(Object.prototype.hasOwnProperty.call(detail,key)) payload[key]=detail[key];
     const body=JSON.stringify(payload);
     if(navigator.sendBeacon){
@@ -23,14 +24,21 @@
   document.addEventListener('click',e=>{
     const el=e.target.closest('a,button'); if(!el) return;
     const href=el.getAttribute('href')||'';
-    const text=(el.dataset.q||el.textContent||'').trim().toLowerCase();
     if(href==='#phase-1') emit('walkthrough_started');
     if(href==='#assistant') emit('assistant_opened');
     if(el.id==='va-send') emit('assistant_question_submitted');
-    if(el.dataset.q) emit('quick_question_selected',{choice:(el.textContent||'quick').trim().slice(0,40)});
+    if(el.dataset.q){
+      const label=(el.textContent||'').trim().toLowerCase();
+      const choices={
+        'blue button report':'blue_button','secondary claim':'secondary_claim',
+        'intent to file':'intent_to_file','get human help':'human_help'
+      };
+      if(choices[label]) emit('quick_question_selected',{choice:choices[label]});
+    }
     if(href.includes('file-disability-claim-form-21-526ez')) emit('claim_form_opened');
     else if(href.includes('claim-or-appeal-status')) emit('status_page_opened');
-    else if(href.startsWith('https://www.va.gov')||href.startsWith('https://www.benefits.va.gov')) emit('official_source_opened',{target:new URL(href).pathname.slice(0,80)});
+    else if(href.startsWith('https://www.va.gov')||href.startsWith('https://www.benefits.va.gov')) emit('official_source_opened',{destination_class:'official_va_source'});
+    else if(href.startsWith('https://help.openai.com')) emit('official_source_opened',{destination_class:'openai_help'});
   });
   const seen=new Set();
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
