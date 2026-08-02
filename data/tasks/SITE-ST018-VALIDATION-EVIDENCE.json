@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
   "goal_id": "ST018-SITE-ADOPTION-001",
-  "originating_session_goal": "replace inaccessible chat-dependent work with repository-native execution, validation, custody, and archival determination",
+  "originating_session_goal": "replace inaccessible chat-dependent work with repository-native execution, validation, custody, consolidation, and archival determination",
   "repository": "StegVerse-Labs/Site",
   "owner": "repository-native GitHub Actions",
   "claim_state": "MACHINE_OWNED",
@@ -54,11 +54,16 @@
     "green_pull_request_run": 30739070153,
     "green_pull_request_artifact": 8830646561,
     "green_pull_request_artifact_digest": "sha256:3d96e5a7d6c39a8168dc6e9be3f855b61b90c99e244fa7e927cd4cac9d0470a8",
+    "inspected_st018_receipt_sha256": "sha256:2a013a25895bc55693991d73adbd322d0e04035820d7bc624907d838fd572a6c",
+    "inspected_st018_log_sha256": "sha256:943d7eef88e0c9eb492746b646884f461124099224434473ddaf8a09f1e2c6e7",
     "trigger_repair_pr": 148,
     "trigger_repair_merge_commit": "3c48af9e7e10be6cf509264547373b59b77b09ac",
     "trigger_repair_validation_run": 30739164762,
     "trigger_repair_validation_artifact": 8830679225,
     "trigger_repair_validation_artifact_digest": "sha256:8a29bf3c6859fc7503a54b948e52101a73602c393c62cba97612ac885228533b",
+    "native_main_probe_commit": "d1609e721c82d8938c7d74902e65fc9b829614af",
+    "central_registry_validation_commit": "0111b107d403cfc986d2a9190ea5bf04acda3c0b",
+    "central_registry_state": "validated",
     "native_main_run_observed": false
   },
   "completion_conditions": [
@@ -69,16 +74,31 @@
     "central ST-018 registry is updated with commit, run, artifact, digest, and inspection evidence"
   ],
   "next_executable_task": {
-    "task": "Inspect the native-main ST-018 run triggered by this task-state commit and persist its custody evidence",
+    "task": "Inspect the native-main ST-018 run triggered by d1609e721c82d8938c7d74902e65fc9b829614af and persist its custody evidence",
     "location": "StegVerse-Labs/Site:.github/workflows/capture-validation-evidence.yml"
   },
   "duplicate_key": "StegVerse-Labs/Site::ST018-SITE-ADOPTION-001",
-  "claim_release_condition": "native-main PASS artifact and issue #141 custody receipt are directly observed and the central registry is updated",
+  "claim_release_condition": "native-main PASS artifact and issue #141 custody receipt are directly observed and the central registry moves Site from validated to active",
   "collision_boundaries": [
     "do not create another Site ST-018 implementation lane",
     "validation and registry propagation may proceed as distinct roles",
     "authority remains false"
   ],
+  "session_consolidation": {
+    "classification": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+    "central_registry": "StegVerse-Labs/repo-standards:adoption/st018-validation-evidence.registry.json::StegVerse-Labs/Site",
+    "transferred_requirements": [
+      "repository-native observation and completion",
+      "no unspecified external tasks",
+      "exact repository:path task references",
+      "duplicate-work prevention",
+      "durable PR and native-main evidence custody",
+      "central adoption propagation",
+      "session archival only after native custody and registry activation"
+    ],
+    "unique_chat_dependency_remaining": false
+  },
   "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
   "authority": {
     "execution": false,
