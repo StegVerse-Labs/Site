@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "source_repository": "Admissible-Existence/RTG",
   "source_branch": "main",
@@ -14,26 +14,50 @@
         "deposit_commit": "16e86b60fd35e6163ba03151e14dd40bffb9f506",
         "state": "BLOCKED_WITH_EVIDENCE"
       },
-      "remaining_blockers": [
-        "No accepted terminal hosted renderer run is deposited.",
-        "No second byte-identical digest-pinned run exists.",
-        "Review-only structural and visual QA remains gated by repeatability evidence."
+      "remaining_machine_tasks": [
+        {
+          "task": "Produce accepted terminal hosted renderer evidence",
+          "location": "Admissible-Existence/RTG/.github/workflows/render-rtg-volume-i.yml"
+        },
+        {
+          "task": "Produce a second byte-identical digest-pinned render",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json"
+        }
       ]
     },
     "4": {
-      "state": "IN_PROGRESS",
+      "state": "LINEAGE_REGENERATED_INTEGRATION_ACTIVE",
       "lane_id": "predecessor-and-statement-integration",
-      "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-4.json",
+      "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-4-observation.json",
       "machine_receipt": {
-        "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-4-observation.json",
-        "deposit_commit": "5128fb504ea4c05b0c23f950559cd8cda5755412",
-        "state": "IN_PROGRESS"
+        "path": "review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-regeneration-receipt.json",
+        "deposit_commit": "3322cb8edddae45e72ddb2ce913eba58fdc740e4",
+        "state": "PASS_BOUNDED_STABLE_IDENTIFIER_LINEAGE"
       },
-      "remaining_blockers": [
-        "The hash-bound comparison must be integrated into all 131 generated predecessor fields.",
-        "All 131 exact-counterpart or evidence-supported no-counterpart determinations remain unaccepted.",
-        "A durable hosted validation receipt has not yet been deposited."
-      ]
+      "verified_identifier_counts": {
+        "integrated_total": 131,
+        "predecessor_identifier_present": 121,
+        "new_in_integrated": 10,
+        "unresolved_identifier_lineage": 0
+      },
+      "remaining_machine_tasks": [
+        {
+          "task": "Apply regenerated lineage to all 131 generated inventory records",
+          "location": "Admissible-Existence/RTG/tools/build_rtg_statement_inventory.py"
+        },
+        {
+          "task": "Validate predecessor-present or new-in-integrated resolution for every identifier",
+          "location": "Admissible-Existence/RTG/tools/check_manifest_manuscript_crosswalk.py"
+        },
+        {
+          "task": "Recompute lane and consolidated readiness",
+          "location": "Admissible-Existence/RTG/tools/converge_formalism_publication.py"
+        }
+      ],
+      "bounded_fields": {
+        "exact_text_equivalence": "NOT_ASSERTED",
+        "authority_effect": "NONE"
+      }
     },
     "5": {
       "state": "IN_PROGRESS",
@@ -44,10 +68,15 @@
         "deposit_commit": "b671921fdd58c353d8496fda6333020737d339e7",
         "state": "IN_PROGRESS"
       },
-      "remaining_blockers": [
-        "Thirteen ledger classes remain partial or unrecovered.",
-        "Durable independent theorem proof-review receipts do not yet exist.",
-        "Readiness remains dependent on accepted outputs from lanes 3 and 4."
+      "remaining_machine_tasks": [
+        {
+          "task": "Close each unresolved evidence-ledger class by recovery or bounded scope",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/evidence-closure-ledger.json"
+        },
+        {
+          "task": "Generate durable theorem proof-review receipts",
+          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json"
+        }
       ]
     }
   },
@@ -55,20 +84,20 @@
     "manifest_state": "ACTIVE_ACKNOWLEDGED",
     "source_readiness_state": "NOT_READY",
     "source_readiness_receipt": "review/volume-I-integrated-v0.9.0/machine-execution/readiness-observation.json",
-    "source_readiness_deposit_commit": "7c9006e3cbc237aec41a121451e0bcd5f1fc6818",
     "review_projection_active": true,
     "activation_receipt": "data/formalism-publication/rtg-review-projection-activation-receipt.json",
     "durable_machine_receipts_present": true,
+    "corrupt_bundle_dependency_closed": true,
     "authority_effect": "NONE"
   },
   "blockers": [
-    "RTG lane 3 remains BLOCKED_WITH_EVIDENCE.",
-    "RTG lane 4 remains IN_PROGRESS.",
-    "RTG lane 5 remains IN_PROGRESS.",
+    "RTG lane 3 still requires deterministic hosted render evidence.",
+    "RTG lane 4 must apply regenerated lineage to the generated inventory and validate all 131 identifiers.",
+    "RTG lane 5 still requires evidence-ledger and theorem-review closure.",
     "Central formalism acceptance has not been recorded."
   ],
   "manual_external_tasks": [],
-  "next_machine_action": "Execute the next_machine_action recorded in each durable RTG lane receipt, persist changed evidence to main, and recompute readiness and Site projection state after every transition.",
+  "next_machine_action": "Continue the exact machine tasks and locations recorded under source_lanes; do not re-enter corrupt bundle recovery.",
   "authority_effect": false,
   "activation_effect": true
 }
