@@ -1,0 +1,61 @@
+{
+  "schema": "stegverse.task-receipt.v1",
+  "receipt_id": "SESSION-RETIREMENT-SCHEMA-COMPATIBILITY-2026-08-02",
+  "task_id": "SOR-A-SCHEMA-COMPATIBILITY",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "owner_issue": 117,
+  "parent_issue": 114,
+  "related_registry_issue": 118,
+  "observed_at": "2026-08-02T10:12:00Z",
+  "status": "RETRY",
+  "claim_state": "CLAIMED_FOR_VALIDATION",
+  "claimant": "continuation-authority-stack-2026-08-02",
+  "exact_locations": {
+    "validator": "scripts/check_session_retirement.py",
+    "registry": "data/session-orchestration-registry.json",
+    "workflow": ".github/workflows/session-retirement-validate.yml",
+    "handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+  },
+  "observation": {
+    "registry_schema_version": "1.3.0",
+    "validator_accepted_versions": ["1.0.0", "1.1.0"],
+    "result": "current validator deterministically rejects the current registry before disposition validation"
+  },
+  "write_attempts": [
+    {
+      "path": "scripts/check_session_retirement.py",
+      "result": "FAILED_CONCURRENT_CONTENT_MISMATCH",
+      "http_status": 409,
+      "intended_change": "add 1.3.0 to REGISTRY_SCHEMA_VERSIONS"
+    },
+    {
+      "path": "scripts/check_session_retirement.py",
+      "result": "FAILED_STALE_SHA_RETRY",
+      "http_status": 409,
+      "intended_change": "add 1.3.0 to REGISTRY_SCHEMA_VERSIONS"
+    }
+  ],
+  "fail_closed": true,
+  "next_executable_action": {
+    "owner": "StegVerse-Labs/Site issue #117",
+    "action": "read the latest blob for scripts/check_session_retirement.py, apply the one-line schema compatibility change against that exact blob, then retain the triggered workflow run, job, logs, and session-retirement-report artifact",
+    "release_condition": "the validator accepts registry schema 1.3.0 and .github/workflows/session-retirement-validate.yml produces retained PASS evidence"
+  },
+  "registry_follow_on": {
+    "owner": "StegVerse-Labs/Site issue #118",
+    "action": "admit continuation-authority-stack-2026-08-02 to data/session-orchestration-registry.json as ARCHIVABLE after validating committed inventory and consolidation receipt",
+    "release_condition": "canonical registry entry exists and resolves all material state locations"
+  },
+  "collision_boundaries": [
+    "do not overwrite a concurrently changed validator using stale content",
+    "do not create a competing validator implementation",
+    "do not claim PASS, activation, or archival without hosted evidence"
+  ],
+  "session_state": {
+    "active_task_ownership": false,
+    "unique_unmerged_state": false,
+    "distinct_support_role": "schema compatibility observation and retry coordination",
+    "archive_disposition": "PENDING_VALIDATOR_PASS"
+  }
+}
