@@ -1,0 +1,15 @@
+{
+  "schema_version": "HIL-SITE-LIFECYCLE-PROJECTION-RECEIPT-v1",
+  "projection_receipt_id": "HIL-SITE-PROJECTION-1442c8407e6de8c6-FIXTURE",
+  "submission_id": "HIL-20260731-GPT56-001",
+  "response_sha256": "1442c8407e6de8c66d1aa6d5180779a4c58cb449a46338bc9dae07e5ddf99285",
+  "state": "PRIVATE_REVIEW_ACCEPTED",
+  "review_receipt_id": "HIL-REVIEW-RECEIPT-1442c8407e6de8c6-FIXTURE",
+  "master_record_candidate_id": null,
+  "stegcore_activation_receipt_id": null,
+  "publication_decision_id": null,
+  "release_decision_id": null,
+  "publication_authorized": false,
+  "release_authorized": false,
+  "contract_test_only": true
+}
