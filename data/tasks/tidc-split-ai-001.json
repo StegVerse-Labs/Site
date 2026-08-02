@@ -1,0 +1,25 @@
+{
+  "task_id": "TIDC-SPLIT-AI-001",
+  "repository": "StegVerse-Labs/Site",
+  "workstream": "TIDC",
+  "task": "Split AI-001 into result-level, source-bound child records without altering tranche 01.",
+  "task_location": "data/tidc/tranche-02/splits/AI-001/",
+  "governing_plan": "data/tidc/tranche-02/aggregate-event-split-plan.json",
+  "required_outputs": [
+    "data/tidc/tranche-02/splits/AI-001/split-manifest.json",
+    "data/tidc/tranche-02/splits/AI-001/source-map.json",
+    "data/tidc/tranche-02/splits/AI-001/date-evidence.json",
+    "data/tidc/tranche-02/splits/AI-001/coding-delta.json"
+  ],
+  "minimum_child_classes": [
+    "finite-field tensor-rank improvements",
+    "standard-arithmetic algorithm candidates",
+    "hardware-optimized practical algorithms",
+    "rediscoveries or equivalent known algorithms"
+  ],
+  "auto_admit": true,
+  "external_dependencies": [],
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "completion_rule": "Every child must identify arithmetic domain, matrix dimensions, objective, source support, result-specific dates where evidenced, comparison baseline, and whether it is new, rediscovered, equivalent, or hardware-specific. Tranche 01 must remain unchanged.",
+  "authority_effect": "NONE"
+}
