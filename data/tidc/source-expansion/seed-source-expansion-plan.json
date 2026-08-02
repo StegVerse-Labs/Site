@@ -24,7 +24,7 @@
         "Code later certificate verification as a separate event"
       ],
       "task_location": "data/tidc/source-expansion/COMP-002.json",
-      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
+      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -36,7 +36,7 @@
         "Separate machine proof from later human-readable simplifications"
       ],
       "task_location": "data/tidc/source-expansion/COMP-003.json",
-      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
+      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -48,7 +48,7 @@
         "Record participant and contribution trace"
       ],
       "task_location": "data/tidc/source-expansion/NET-001.json",
-      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
+      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -59,7 +59,7 @@
         "Split Polymath8a bound reductions, Maynard-Tao integration, and final published results into distinct events"
       ],
       "task_location": "data/tidc/source-expansion/NET-002.json",
-      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
+      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -123,11 +123,11 @@
     }
   ],
   "authority_effect": "NONE",
-  "completed_record_count": 1,
-  "remaining_record_count": 9,
+  "completed_record_count": 5,
+  "remaining_record_count": 5,
   "next_repository_owned_task": {
-    "event_id": "COMP-002",
-    "location": "data/tidc/source-expansion/COMP-002.json"
+    "event_id": "AI-001",
+    "location": "data/tidc/source-expansion/AI-001.json"
   },
   "development_halted": false
 }

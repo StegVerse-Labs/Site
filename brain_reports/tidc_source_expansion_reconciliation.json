@@ -1,11 +1,11 @@
 {
   "schema": "stegverse.site.tidc.source_expansion_reconciliation.v0.1",
   "plan": "data/tidc/source-expansion/seed-source-expansion-plan.json",
-  "completed_record_count": 1,
-  "remaining_record_count": 9,
+  "completed_record_count": 5,
+  "remaining_record_count": 5,
   "next_repository_owned_task": {
-    "event_id": "COMP-002",
-    "location": "data/tidc/source-expansion/COMP-002.json"
+    "event_id": "AI-001",
+    "location": "data/tidc/source-expansion/AI-001.json"
   },
   "records": [
     {
@@ -17,34 +17,26 @@
     {
       "event_id": "COMP-002",
       "location": "data/tidc/source-expansion/COMP-002.json",
-      "valid_record_present": false,
-      "problems": [
-        "record_missing"
-      ]
+      "valid_record_present": true,
+      "problems": []
     },
     {
       "event_id": "COMP-003",
       "location": "data/tidc/source-expansion/COMP-003.json",
-      "valid_record_present": false,
-      "problems": [
-        "record_missing"
-      ]
+      "valid_record_present": true,
+      "problems": []
     },
     {
       "event_id": "NET-001",
       "location": "data/tidc/source-expansion/NET-001.json",
-      "valid_record_present": false,
-      "problems": [
-        "record_missing"
-      ]
+      "valid_record_present": true,
+      "problems": []
     },
     {
       "event_id": "NET-002",
       "location": "data/tidc/source-expansion/NET-002.json",
-      "valid_record_present": false,
-      "problems": [
-        "record_missing"
-      ]
+      "valid_record_present": true,
+      "problems": []
     },
     {
       "event_id": "AI-001",
