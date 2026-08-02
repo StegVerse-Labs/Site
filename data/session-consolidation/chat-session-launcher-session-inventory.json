@@ -1,0 +1,239 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "session_goal_inventory_and_consolidation",
+  "recorded_at": "2026-08-02T04:26:00-05:00",
+  "originating_session_goal": "Determine whether Site can open a specific authenticated web ChatGPT conversation, implement the safe launcher boundary, and continue into the canonical governed Ecosystem Chat activation path.",
+  "canonical_continuation": [
+    "StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md",
+    "StegVerse-Labs/Site/data/site-orchestration-state.json",
+    "StegVerse-Labs/Site/data/ecosystem-heartbeat-state.json",
+    "StegVerse-org/LLM-adapter/docs/LLM_ADAPTER_MIRROR_HANDOFF.md",
+    "StegVerse-org/LLM-adapter/data/llm-adapter-orchestration-state.json",
+    "StegVerse-org/LLM-adapter/issues/18"
+  ],
+  "session_role": "CONSOLIDATION_ONLY",
+  "new_implementation_claim_created": false,
+  "collision_assessment": {
+    "site_active_owner": "data/tasks/SITE-0001-UPLOAD.json",
+    "adapter_active_owners": ["pull/44", "goal-8-provider-usage-event"],
+    "exclusive_live_provider_owner": "StegVerse-org/LLM-adapter issue #18",
+    "duplicate_execution_prevented": true
+  },
+  "inventory": [
+    {
+      "task_id": "SESSION-CSL-001",
+      "originating_goal": "Open one specific existing ChatGPT conversation from Site.",
+      "destination_repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "chat-session-launcher.html",
+      "owner": "StegVerse-Labs/Site",
+      "claim_state": "COMPLETE",
+      "completion_state": "complete_and_integrated",
+      "validation_state": "static_contract_validation_installed",
+      "integration_state": "linked_from Ecosystem Chat navigation",
+      "archival_dependency": false,
+      "evidence": [
+        "9d01610a54960fcefb74e2c98a6f252c7b6bfc53",
+        "153658d3775aa30074af4ac180925ecff8454e59",
+        "34654a9be3cd072fa68dd260b59356afd9ab7fcf"
+      ],
+      "next_executable_action": "none"
+    },
+    {
+      "task_id": "SESSION-CSL-002",
+      "originating_goal": "Keep the private ChatGPT conversation URL out of the public repository.",
+      "destination_repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "docs/CHATGPT_SESSION_LAUNCHER.md",
+      "owner": "StegVerse-Labs/Site",
+      "claim_state": "COMPLETE",
+      "completion_state": "browser_local_storage_contract_complete",
+      "validation_state": "validated_by scripts/check_chat_session_launcher.py",
+      "integration_state": "canonical application validation",
+      "archival_dependency": false,
+      "evidence": [
+        "81f3e739cd3db58e67d8c0310dfa5e9b61443a8a",
+        "5f782e2bed3d6d1f865b3936aa925302ffaddb1d",
+        "449a277a915d2fabca6a86091a21e5ac6c971942"
+      ],
+      "next_executable_action": "none"
+    },
+    {
+      "task_id": "SESSION-CSL-003",
+      "originating_goal": "Prevent Site from injecting or submitting prompts into the private ChatGPT page.",
+      "destination_repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "chat-session-launcher.html and docs/CHATGPT_SESSION_LAUNCHER.md",
+      "owner": "StegVerse-Labs/Site",
+      "claim_state": "COMPLETE",
+      "completion_state": "explicit_non_behavior_installed",
+      "validation_state": "forbidden-network-and-credential checks installed",
+      "integration_state": "complete",
+      "archival_dependency": false,
+      "evidence": ["34654a9be3cd072fa68dd260b59356afd9ab7fcf"],
+      "next_executable_action": "none"
+    },
+    {
+      "task_id": "SESSION-ACT-001",
+      "originating_goal": "Advance the governed Ecosystem Chat provider and activation path without creating a competing gateway.",
+      "destination_repository": "StegVerse-org/LLM-adapter",
+      "branch": "main",
+      "location": "llm_adapter/governed_provider.py; issue #18",
+      "owner": "StegVerse-org/LLM-adapter issue #18",
+      "claim_state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "completion_state": "provider_boundary_implemented; live_activation_blocked",
+      "validation_state": "provider boundary tests and verifier installed",
+      "integration_state": "queued exclusive task LLMA-0002-LIVE-PROVIDER",
+      "archival_dependency": false,
+      "evidence": [
+        "15172dc2e69a604a4b419b8098911a97ab38488b",
+        "7999fbfe3824cee63d6db13e493314f1133d44c5",
+        "be94e104e8ae44953c2044a7b84dbdfabe82f45a",
+        "091e0789140ce7c1376f1a911382c252a0dd310b"
+      ],
+      "next_executable_action": "issue #18 executes only after the current adapter sequence reaches the idle barrier and authorized provider plus Master-Records bindings are present"
+    },
+    {
+      "task_id": "SESSION-ACT-002",
+      "originating_goal": "Require an explicit provider hostname allowlist and expose secret-free provider readiness.",
+      "destination_repository": "StegVerse-org/LLM-adapter",
+      "branch": "main",
+      "location": "llm_adapter/governed_provider.py; scripts/write_provider_readiness_status.py",
+      "owner": "StegVerse-org/LLM-adapter",
+      "claim_state": "COMPLETE",
+      "completion_state": "complete_and_merged",
+      "validation_state": "unit_and_static_validation_installed",
+      "integration_state": "canonical provider boundary",
+      "archival_dependency": false,
+      "evidence": [
+        "15172dc2e69a604a4b419b8098911a97ab38488b",
+        "7999fbfe3824cee63d6db13e493314f1133d44c5",
+        "be94e104e8ae44953c2044a7b84dbdfabe82f45a",
+        "091e0789140ce7c1376f1a911382c252a0dd310b"
+      ],
+      "next_executable_action": "none"
+    },
+    {
+      "task_id": "SESSION-DEP-001",
+      "originating_goal": "Retain canonical image publication evidence.",
+      "destination_repository": "StegVerse-org/LLM-adapter",
+      "branch": "main",
+      "location": "receipts/stegdeploy-image-publication.json",
+      "owner": "StegVerse-org/LLM-adapter image workflow",
+      "claim_state": "COMPLETE",
+      "completion_state": "repository_retained_receipt_observed",
+      "validation_state": "digest_and_receipt_contract validated",
+      "integration_state": "canonical workflow",
+      "archival_dependency": false,
+      "evidence": [
+        "fdaf8568c18c4546a76cf08462f53a551b1d1fc4",
+        "sha256:71a77c2b10762fa070f01ad2f2314b9f7989f62821e972f75f2a0991b237936e"
+      ],
+      "next_executable_action": "package consumer access remains separately owned by issue #18"
+    },
+    {
+      "task_id": "SESSION-CUSTODY-001",
+      "originating_goal": "Verify transition custody and reconstruction before activation.",
+      "destination_repository": "master-records/orchestration",
+      "branch": "main",
+      "location": "Runtime Evidence Validation and Site custody synchronization records",
+      "owner": "master-records/orchestration",
+      "claim_state": "COMPLETE",
+      "completion_state": "transition_custody_and_reconstruction_verified",
+      "validation_state": "hosted workflow evidence observed",
+      "integration_state": "synchronized into Site",
+      "archival_dependency": false,
+      "evidence": [
+        "421da84784888e3dc9bb98a7b2b47a1518f0eee0",
+        "workflow_run:29865690620",
+        "StegVerse-Labs/Site@f482cdfb6f1eec8649360f0bda4ece9ba0e2c7b3"
+      ],
+      "next_executable_action": "real-provider usage custody and reconstruction remain issue #18 dependencies"
+    },
+    {
+      "task_id": "SESSION-PROP-001",
+      "originating_goal": "Propagate verified activation to Publisher and both wikis.",
+      "destination_repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "data/ecosystem-chat-activation-propagation.json and repository orchestration",
+      "owner": "Site activation automation",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "blocked_until_activation_complete",
+      "validation_state": "consumer contracts installed; activation evidence absent",
+      "integration_state": "cross-repository succession installed",
+      "archival_dependency": false,
+      "evidence": ["data/ecosystem-heartbeat-state.json"],
+      "next_executable_action": "automatic downstream ingestion only after Site computes ACTIVATION_COMPLETE"
+    },
+    {
+      "task_id": "SESSION-CONSOLIDATION-001",
+      "originating_goal": "Transfer all unique session state into durable control surfaces and eliminate duplicate session ownership.",
+      "destination_repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "data/session-consolidation/chat-session-launcher-session-inventory.json",
+      "owner": "repository history",
+      "claim_state": "COMPLETE",
+      "completion_state": "all_session_specific_requirements_transferred",
+      "validation_state": "directly inspectable committed inventory",
+      "integration_state": "canonical locations enumerated",
+      "archival_dependency": false,
+      "evidence": [],
+      "next_executable_action": "none"
+    }
+  ],
+  "unresolved_dependencies": [
+    {
+      "dependency": "authorized real-provider and Master-Records runtime bindings",
+      "owner": "StegVerse-org/LLM-adapter issue #18",
+      "machine_observable_release_condition": "receipts/ecosystem-chat-authorized-provider-activation.latest.json reports READY and the adapter task sequence reaches its idle barrier",
+      "session_unique_information_required": false
+    },
+    {
+      "dependency": "active HIL upload surface",
+      "owner": "StegVerse-Labs/Site/data/tasks/SITE-0001-UPLOAD.json",
+      "machine_observable_release_condition": "task state becomes COMPLETED or is superseded by the Site orchestrator",
+      "session_unique_information_required": false
+    }
+  ],
+  "merge_record": {
+    "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "transferred": [
+      "specific ChatGPT session launcher requirement",
+      "browser-local private URL requirement",
+      "no prompt injection or automatic submission requirement",
+      "provider explicit allowlist hardening",
+      "secret-free provider readiness diagnostics",
+      "image publication receipt retention",
+      "transition custody and reconstruction evidence",
+      "activation and downstream propagation continuation"
+    ],
+    "already_complete": [
+      "launcher page",
+      "launcher contract",
+      "launcher validation",
+      "navigation integration",
+      "provider readiness boundary",
+      "transition custody and reconstruction"
+    ],
+    "remaining": [
+      "active HIL upload task",
+      "authorized real-provider execution",
+      "provider-usage custody and reconstruction",
+      "persistent endpoint verification",
+      "immutable zero-blocker activation receipt",
+      "Site activation and downstream verified ingestion"
+    ],
+    "continuation_owner": [
+      "StegVerse-Labs/Site repository orchestrator",
+      "StegVerse-org/LLM-adapter issue #18 and adapter orchestrator",
+      "master-records/orchestration custody automation"
+    ],
+    "archive_safe": true
+  },
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false
+  }
+}
