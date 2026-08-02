@@ -10,11 +10,11 @@
   },
   "execution_authority": "NOT_GRANTED",
   "findings": [],
-  "generated_at": "2026-08-02T08:15:24Z",
+  "generated_at": "2026-08-02T08:15:56.172680Z",
   "live_authority": "NOT_GRANTED",
   "live_trading_accessible": false,
   "paper_trading_accessible": true,
-  "projection_digest": "sha256:428a7344d0e92f03a27ecd2c2fb2b9f2bb09ff3b8a7fc5ae509df48a9cb6f951",
+  "projection_digest": "sha256:ce064993487fa872ef79a79ba43fb9991e29cb12cc1b57c6aeeb83c213d0fbd3",
   "publication_authority": "NOT_GRANTED",
   "publisher_sources": {
     "crypto_bot": {
