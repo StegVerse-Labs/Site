@@ -1,0 +1,52 @@
+{
+  "schema": "stegverse.conectrr.security-overlay.v1",
+  "goal_id": "SV-SITE-CONECTRR-SEC-001",
+  "policy": "applicable_federal_security_requirements_are_minimum_floor",
+  "baseline_anchors": [
+    {"id": "NIST-SP-800-53", "version_policy": "current_applicable", "role": "control_catalog_floor"},
+    {"id": "NIST-SP-800-207", "version_policy": "current_applicable", "role": "zero_trust_floor"},
+    {"id": "FIPS-140", "version_policy": "current_applicable", "role": "cryptographic_validation_floor_when_applicable"},
+    {"id": "CISA-SECURE-BY-DESIGN", "version_policy": "current_applicable", "role": "secure_by_design_floor"}
+  ],
+  "required_overlay_controls": {
+    "no_inferred_authority": true,
+    "immutable_source_bytes": true,
+    "source_digest_required": true,
+    "semantic_digest_required": true,
+    "algorithm_agility_required": true,
+    "fail_closed_admission": true,
+    "zero_trust_per_operation": true,
+    "independent_decision_record": true,
+    "separation_of_duties": true,
+    "tamper_evident_receipts": true,
+    "continuous_verification": true,
+    "supply_chain_integrity": true,
+    "data_minimization": true,
+    "recovery_without_authority_escalation": true,
+    "evidence_level_separation": true
+  },
+  "production_gate_required_fields": [
+    "source_bytes_preserved",
+    "source_digest_verified",
+    "semantic_digest_verified",
+    "provenance_verified",
+    "references_resolved",
+    "policy_current",
+    "algorithm_policy_passed",
+    "authority_effect",
+    "independent_decision_distinct",
+    "reconstruction_passed",
+    "publication_gate_passed",
+    "custody_gate_passed"
+  ],
+  "allowed_nonpass_states": ["BLOCKED", "RETRY", "REVIEW_REQUIRED", "FAILED"],
+  "authority_effect": "none",
+  "claims_not_created": [
+    "legal_certification",
+    "authorization_to_operate",
+    "fedramp_authorization",
+    "fisma_compliance",
+    "agency_approval",
+    "third_party_acceptance"
+  ]
+}
