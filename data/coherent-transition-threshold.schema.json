@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/coherent-transition-threshold.schema.json",
+  "title": "Coherent Transition Threshold State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "state_type",
+    "repository",
+    "threshold_state",
+    "conditions",
+    "evidence_refs",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "state_type": {"const": "coherent_transition_threshold_state"},
+    "repository": {"const": "StegVerse-Labs/Site"},
+    "threshold_state": {
+      "enum": [
+        "UNDECLARED",
+        "CLUSTER_DECLARED",
+        "SYNCHRONY_OBSERVED",
+        "THRESHOLD_CANDIDATE",
+        "THRESHOLD_ESTABLISHED",
+        "CONTINUITY_DEGRADED",
+        "FAILED_CLOSED"
+      ]
+    },
+    "conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_cluster_declared",
+        "coherence_reference_observed",
+        "required_transitions_jointly_ready",
+        "continuation_conditions_preserved",
+        "coherence_reference_regenerated_or_maintained",
+        "next_cycle_admissible",
+        "evidence_reconstructable"
+      ],
+      "properties": {
+        "transition_cluster_declared": {"type": "boolean"},
+        "coherence_reference_observed": {"type": "boolean"},
+        "required_transitions_jointly_ready": {"type": "boolean"},
+        "continuation_conditions_preserved": {"type": "boolean"},
+        "coherence_reference_regenerated_or_maintained": {"type": "boolean"},
+        "next_cycle_admissible": {"type": "boolean"},
+        "evidence_reconstructable": {"type": "boolean"}
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "non_manufacture_rule_satisfied": {"type": "boolean"},
+    "notes": {"type": "array", "items": {"type": "string"}},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "activation", "publication", "scientific_claim", "biological_classification"],
+      "properties": {
+        "execution": {"const": false},
+        "activation": {"const": false},
+        "publication": {"const": false},
+        "scientific_claim": {"const": false},
+        "biological_classification": {"const": false}
+      }
+    }
+  }
+}
