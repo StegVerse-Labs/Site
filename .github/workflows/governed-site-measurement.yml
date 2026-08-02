@@ -3,6 +3,7 @@ name: Governed Site Measurement
 on:
   pull_request:
     paths:
+      - 'api/governed-measurement.js'
       - 'assets/governed-site-measurement.js'
       - 'data/governed-site-measurement-policy.json'
       - 'data/tasks/SITE-0001-GOVERNED-MEASUREMENT.json'
@@ -15,6 +16,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'api/governed-measurement.js'
       - 'assets/governed-site-measurement.js'
       - 'data/governed-site-measurement-policy.json'
       - 'schemas/governed-site-measurement-event.schema.json'
@@ -39,15 +41,17 @@ jobs:
         run: python scripts/check_governed_site_measurement.py
       - name: Execute positive and adversarial fixtures
         run: python scripts/test_governed_site_measurement_fixtures.py
+      - name: Execute collector adversarial tests
+        run: node tests/governed-site-measurement/test-collector.js
       - name: Verify browser client contains no identity or content capture
         run: |
           python - <<'PY'
           from pathlib import Path
           source=Path('assets/governed-site-measurement.js').read_text()
-          required=['credentials:\'omit\'','content_recorded:false','additionalProperties']
           prohibited=['localStorage','sessionStorage','document.cookie','user_id','email','diagnosis','filename','question:']
           assert 'content_recorded:false' in source
           assert "credentials:'omit'" in source
+          assert "policy_version:'1.0.0'" in source
           for term in prohibited:
               assert term not in source, term
           print('GOVERNED_MEASUREMENT_BROWSER_CLIENT_PASS')
