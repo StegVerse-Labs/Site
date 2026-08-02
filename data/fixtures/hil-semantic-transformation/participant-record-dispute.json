@@ -1,0 +1,43 @@
+{
+  "fixture_id": "HIL-SC-DISPUTE-001",
+  "participant_record": {
+    "record_id": "participant-source-002",
+    "content": "There is a high likelihood that the United States experienced a coordinated cyberattack, with Iran as a leading hypothesis.",
+    "content_sha256": "fixture-preserved-source-002",
+    "immutable": true,
+    "semantic_continuity": {
+      "source_record_preserved": true,
+      "receipt_refs": ["semantic-receipt-002-a", "semantic-receipt-002-b"],
+      "latest_receipt_state": "DISPUTED",
+      "reconstruction_available": true,
+      "authority_effect": false
+    }
+  },
+  "competing_receipts": [
+    {
+      "receipt_id": "semantic-receipt-002-a",
+      "source_record_id": "participant-source-002",
+      "interpretation": "The statement preserves a provisional campaign-level hypothesis.",
+      "transformation_classes": [],
+      "authority_effect": false
+    },
+    {
+      "receipt_id": "semantic-receipt-002-b",
+      "source_record_id": "participant-source-002",
+      "interpretation": "The statement may over-weight attribution relative to public evidence.",
+      "transformation_classes": ["interpretive_disagreement"],
+      "authority_effect": false
+    }
+  ],
+  "dispute_record": {
+    "record_id": "semantic-dispute-002",
+    "state": "DISPUTED",
+    "source_record_id": "participant-source-002",
+    "receipt_refs": ["semantic-receipt-002-a", "semantic-receipt-002-b"],
+    "resolution": null,
+    "source_mutated": false,
+    "receipt_overwritten": false,
+    "authority_effect": false
+  },
+  "expected_validation": "PASS"
+}
