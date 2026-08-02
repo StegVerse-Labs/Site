@@ -4,6 +4,11 @@
 Every active task must resolve to a committed task object with exact implementation
 locations, verification locations, and an executable acceptance command. Session
 names and external-task placeholders are never treated as ownership or progress.
+
+Repository-local tasks in READY_FOR_MACHINE_COMPLETION_CHECK are discovered
+automatically. This prevents development from halting merely because a new task was
+not copied into a central status array. The committed task object, its implementation
+locations, and its executable acceptance command are the machine-owned work queue.
 """
 from __future__ import annotations
 
@@ -17,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "data" / "site-orchestration-state.json"
 TASK_DIR = ROOT / "data" / "tasks"
 REPORT_PATH = ROOT / "repository-task-observation.report.json"
+DISCOVERABLE_STATES = {"READY_FOR_MACHINE_COMPLETION_CHECK", "RUNNING"}
 
 
 def load(path: Path) -> Any:
@@ -37,6 +43,25 @@ def run_validator(command: str) -> tuple[bool, str]:
 
 def task_path(task_id: str) -> Path:
     return TASK_DIR / f"{task_id}.json"
+
+
+def discover_repository_tasks() -> list[str]:
+    discovered: list[str] = []
+    if not TASK_DIR.is_dir():
+        return discovered
+    for path in sorted(TASK_DIR.glob("*.json")):
+        try:
+            task = load(path)
+        except (OSError, json.JSONDecodeError):
+            continue
+        task_id = task.get("task_id")
+        if (
+            isinstance(task_id, str)
+            and task.get("repository") == "StegVerse-Labs/Site"
+            and task.get("state") in DISCOVERABLE_STATES
+        ):
+            discovered.append(task_id)
+    return discovered
 
 
 def observe_task(task_id: str) -> dict[str, Any]:
@@ -114,7 +139,10 @@ def reconcile_ownership(state: dict[str, Any], active: list[str]) -> list[dict[s
     """Replace session-shaped ownership with committed task-object pointers."""
     ownership = state.setdefault("ownership", {})
     changes: list[dict[str, str]] = []
-    mappings = {"SITE-0001-UPLOAD": "hil_upload_surface"}
+    mappings = {
+        "SITE-0001-UPLOAD": "hil_upload_surface",
+        "SITE-0001-COHERENT-TRANSITION-THRESHOLD": "coherent_transition_threshold",
+    }
     for task_id in active:
         key = mappings.get(task_id)
         path = task_path(task_id)
@@ -126,6 +154,20 @@ def reconcile_ownership(state: dict[str, Any], active: list[str]) -> list[dict[s
             ownership[key] = expected
             changes.append({"task_id": task_id, "from": str(actual), "to": expected})
     return changes
+
+
+def mark_task_complete(task_id: str, observation: dict[str, Any]) -> None:
+    path = task_path(task_id)
+    task = load(path)
+    task["state"] = "COMPLETE"
+    task["completion_observation"] = {
+        "controller": "scripts/observe_and_complete_repository_tasks.py",
+        "validator_command": observation.get("validator_command"),
+        "success_marker": observation.get("success_marker"),
+        "success_marker_seen": observation.get("success_marker_seen", False),
+        "external_dependencies": [],
+    }
+    write(path, task)
 
 
 def main() -> None:
@@ -140,7 +182,9 @@ def main() -> None:
 
     state = load(STATE_PATH)
     active_sequence = state["active_sequence"]
-    active = list(active_sequence.get("parallel_safe_tasks", []))
+    declared_active = list(active_sequence.get("parallel_safe_tasks", []))
+    discovered = discover_repository_tasks()
+    active = list(dict.fromkeys(declared_active + discovered))
     ownership_changes = reconcile_ownership(state, active)
     observations = [observe_task(task_id) for task_id in active]
     completed = [o["task_id"] for o in observations if o["state"] == "COMPLETE"]
@@ -149,20 +193,26 @@ def main() -> None:
     state_updated = bool(ownership_changes)
     if args.apply and completed:
         active_sequence["parallel_safe_tasks"] = [
-            task_id for task_id in active if task_id not in completed
+            task_id for task_id in declared_active if task_id not in completed
         ]
         completed_list = active_sequence.setdefault("completed_parallel_safe_tasks", [])
-        for completed_id in completed:
+        for observation in observations:
+            completed_id = observation["task_id"]
+            if completed_id not in completed:
+                continue
             if completed_id not in completed_list:
                 completed_list.append(completed_id)
+            mark_task_complete(completed_id, observation)
         state_updated = True
 
-    remaining = list(active_sequence.get("parallel_safe_tasks", []))
+    remaining = [task_id for task_id in active if task_id not in completed]
     active_sequence["machine_observation"] = {
         "controller": "scripts/observe_and_complete_repository_tasks.py",
         "task_directory": "data/tasks",
         "active_task_count": len(remaining),
         "blocker_count": len(blockers),
+        "auto_discovery_enabled": True,
+        "discoverable_task_states": sorted(DISCOVERABLE_STATES),
         "external_session_ownership_allowed": False,
     }
     if not remaining:
@@ -177,9 +227,11 @@ def main() -> None:
     state_updated = True
 
     report = {
-        "schema_version": "2.0.0",
+        "schema_version": "2.1.0",
         "repository": "StegVerse-Labs/Site",
         "controller": "scripts/observe_and_complete_repository_tasks.py",
+        "declared_active_tasks": declared_active,
+        "auto_discovered_tasks": discovered,
         "active_tasks_observed": active,
         "ownership_reconciliations": ownership_changes,
         "observations": observations,
@@ -195,6 +247,8 @@ def main() -> None:
             "verification_locations_required": True,
             "validator_required_for_completion": True,
             "observation_must_be_durable": True,
+            "repository_task_auto_discovery": True,
+            "central_status_registration_required": False,
         },
     }
 
