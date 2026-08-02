@@ -19,11 +19,13 @@ ASPECT_EVENTS = ROOT / "data" / "ecosystem-chat-governed-aspect-events.fixture.j
 ASPECT_CONFLICTS = ROOT / "data" / "ecosystem-chat-governed-aspect-conflicts.fixture.json"
 ASPECT_SCHEMA = ROOT / "schemas" / "ecosystem-chat-governed-aspect-event.schema.json"
 ASPECT_MODEL = ROOT / "docs" / "ECOSYSTEM_CHAT_GOVERNED_ASPECT_MODEL.md"
+ASPECT_MATRIX = ROOT / "assets" / "ecosystem-chat-aspect-matrix.js"
 CHECKS = (
     ROOT / "scripts" / "check_ecosystem_chat_value_projection_permissions.py",
     ROOT / "scripts" / "check_ecosystem_chat_value_browser_behavior.py",
     ROOT / "scripts" / "check_ecosystem_chat_governed_aspects.py",
     ROOT / "scripts" / "check_ecosystem_chat_governed_aspect_runtime.py",
+    ROOT / "scripts" / "check_ecosystem_chat_aspect_matrix.py",
 )
 
 
@@ -57,6 +59,7 @@ def main() -> int:
         (ASPECT_CONFLICTS, "missing governed aspect conflict fixture"),
         (ASPECT_SCHEMA, "missing governed aspect event schema"),
         (ASPECT_MODEL, "missing governed aspect model"),
+        (ASPECT_MATRIX, "missing governed aspect matrix renderer"),
     ]:
         require(path.exists(), message, errors)
     for check in CHECKS:
@@ -64,7 +67,7 @@ def main() -> int:
 
     if HPS.exists():
         text = HPS.read_text(encoding="utf-8")
-        for marker in ["ecosystem-chat-value.html", "assets/ecosystem-chat-value-integration.js"]:
+        for marker in ["ecosystem-chat-value.html", "assets/ecosystem-chat-value-integration.js", "assets/ecosystem-chat-aspect-matrix.js"]:
             require(marker in text, f"ecosystem-chat-hps.js missing {marker}", errors)
 
     if INTEGRATION.exists():
@@ -117,12 +120,13 @@ def main() -> int:
 
     print("ECOSYSTEM_CHAT_VALUE_INTEGRATION_CHECK=PASS")
     print("surface=ecosystem-chat.html")
-    print("source=claim,history,projection_permission,governed_aspect_registry,aspect_event_stream")
+    print("source=claim,history,projection_permission,governed_aspect_registry,aspect_event_stream,aspect_matrix")
     print("locales=en,es,zh-Hans,zh-Hant")
-    print("correlation=claim_id,submission_event_id,history_event_id,aspect_event_id")
+    print("correlation=claim_id,submission_event_id,history_event_id,aspect_event_id,event_id,artifact_id,execution_id")
     print("projection_default=DENY")
     print("aspect_default=UNRESOLVED")
     print("cross_aspect_conflicts=FAIL_CLOSED")
+    print("aspect_views=human,governed,split")
     print("browser_behavior=STATIC_CONTRACT_VERIFIED_EXECUTION_NOT_OBSERVED")
     print("authority_effect=NONE")
     return 0
