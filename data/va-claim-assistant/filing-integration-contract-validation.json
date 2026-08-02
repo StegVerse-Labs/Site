@@ -1,0 +1,16 @@
+{
+  "activation_effect": false,
+  "active_transport": null,
+  "authority_effect": false,
+  "contract_id": "SV-VA-FILING-INTEGRATION-001",
+  "contract_sha256": "1e19f8207c95c602c1c1f4e6ee9cd481cad3e4bd95a42c8331d359f9ad432630",
+  "duplicate_prevention_required": true,
+  "errors": [],
+  "exact_package_authorization_required": true,
+  "receipt_sha256": "29444292650f30977aa7083b2e5c2972c592ac2524f232e3429c3afc099f35da",
+  "reconstruction_pass_required": true,
+  "schema_version": "1.0.0",
+  "state": "PASS",
+  "submission_enabled": false,
+  "veteran_submission_authority_preserved": true
+}
