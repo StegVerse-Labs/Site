@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
+  "goal_id": "ST018-SITE-ADOPTION-001",
+  "repository": "StegVerse-Labs/Site",
+  "owner": "repository-native GitHub Actions",
+  "issue": 141,
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "trigger": {
+    "type": "pull_request_or_push",
+    "workflow": ".github/workflows/capture-validation-evidence.yml",
+    "watched_paths": [
+      "validation_manifests/repository-core.json",
+      "schemas/validation-execution-receipt.schema.json",
+      "scripts/capture_validation_manifest.py",
+      ".github/workflows/capture-validation-evidence.yml",
+      "scripts/check_site_current_main_validation_evidence.py"
+    ]
+  },
+  "inputs": [
+    "validation_manifests/repository-core.json",
+    "schemas/validation-execution-receipt.schema.json",
+    "scripts/check_site_current_main_validation_evidence.py"
+  ],
+  "outputs": [
+    "reports/validation-execution-receipt.json",
+    "reports/site-current-main-validation-evidence.log",
+    "reports/st018-native-main-custody.receipt.md"
+  ],
+  "status_contract": [
+    "COMPLETE",
+    "BLOCKED",
+    "RETRY",
+    "REVIEW_REQUIRED",
+    "FAILED"
+  ],
+  "completion_conditions": [
+    "pull-request capture workflow succeeds",
+    "validation evidence artifact is inspected",
+    "native-main capture workflow succeeds",
+    "native-main custody receipt is published to issue 141",
+    "central ST-018 registry is updated with commit, run, artifact, digest, and inspection evidence"
+  ],
+  "next_executable_task": {
+    "task": "Execute ST-018 capture on pull request",
+    "location": "StegVerse-Labs/Site:.github/workflows/capture-validation-evidence.yml"
+  },
+  "duplicate_key": "StegVerse-Labs/Site::ST018-SITE-ADOPTION-001",
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false,
+    "admissibility": false,
+    "downstream_mutation": false
+  }
+}
