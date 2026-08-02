@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-federal-plus-security-baseline-v1.json",
+  "title": "HIL Federal-Plus Security Baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_id",
+    "security_posture",
+    "canonical_policy",
+    "owners",
+    "controls",
+    "activation",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-FEDERAL-PLUS-SECURITY-v1"},
+    "profile_id": {"const": "HIL-SECURITY-BASELINE-2026-08-02"},
+    "security_posture": {"const": "FEDERAL_REQUIREMENTS_ARE_MINIMUMS"},
+    "canonical_policy": {"const": "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md"},
+    "owners": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "runtime", "provider", "custody"],
+      "properties": {
+        "policy": {"const": "StegVerse-Labs/Site"},
+        "runtime": {"const": "StegVerse-Labs/TVC"},
+        "provider": {"const": "StegVerse-org/LLM-adapter"},
+        "custody": {"const": "master-records/orchestration"}
+      }
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["control_id", "name", "required", "state", "owner", "evidence", "freshness_rule", "release_condition"],
+        "properties": {
+          "control_id": {"type": "string", "pattern": "^HIL-SEC-[0-9]{3}$"},
+          "name": {"type": "string", "minLength": 3},
+          "required": {"type": "boolean"},
+          "state": {"enum": ["IMPLEMENTED", "PARTIAL", "BLOCKED", "MISSING", "FAILED", "STALE", "UNVERIFIED", "NOT_APPLICABLE"]},
+          "owner": {"type": "string", "minLength": 3},
+          "evidence": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 3},
+            "uniqueItems": true
+          },
+          "freshness_rule": {"type": "string", "minLength": 3},
+          "release_condition": {"type": "string", "minLength": 3}
+        }
+      }
+    },
+    "activation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "blockers", "next_executable_action"],
+      "properties": {
+        "state": {"enum": ["PASS", "BLOCKED"]},
+        "blockers": {"type": "array", "items": {"type": "string", "minLength": 3}, "uniqueItems": true},
+        "next_executable_action": {"type": "string", "minLength": 3}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "publication", "custody", "master_record_append", "production_activation"],
+      "properties": {
+        "execution": {"const": false},
+        "publication": {"const": false},
+        "custody": {"const": false},
+        "master_record_append": {"const": false},
+        "production_activation": {"const": false}
+      }
+    }
+  }
+}
