@@ -55,12 +55,11 @@
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
-      "state": "COMPLETE",
+      "state": "INCOMPLETE",
       "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json",
-      "validator_command": "python scripts/check_coherent_transition_threshold.py",
-      "success_marker": "COHERENT_TRANSITION_THRESHOLD=PASS",
-      "success_marker_seen": true,
-      "output": "COHERENT_TRANSITION_THRESHOLD=PASS\nTHRESHOLD_STATE=SYNCHRONY_OBSERVED\nTHRESHOLD_ESTABLISHED=false\nEXTERNAL_TASKS_ALLOWED=false\nAUTHORITY_EFFECT=false"
+      "missing_locations": [
+        "docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md"
+      ]
     },
     {
       "task_id": "SITE-0001-PERSONAL-DATA-CONTROL",
@@ -87,7 +86,6 @@
     }
   ],
   "completed_tasks": [
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
     "SITE-0001-UPLOAD"
   ],
@@ -96,6 +94,7 @@
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-ST018-VALIDATION-EVIDENCE"
   ],
   "blockers": [
@@ -122,6 +121,14 @@
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
       "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json",
+      "missing_locations": [
+        "docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md"
+      ]
     },
     {
       "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
