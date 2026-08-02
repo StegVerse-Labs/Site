@@ -1,0 +1,76 @@
+{
+  "schema": "stegverse.site.tidc.source_receipt.v0.1",
+  "generated": "2026-08-02",
+  "work_id": "SRC-003",
+  "record_ids": ["COMP-003"],
+  "status": "LIMITATION_RETAINED",
+  "task": "Preserve Robbins proof publication and simplification chronology",
+  "source_findings": [
+    {
+      "source_type": "author_archive",
+      "title": "Robbins Algebras Are Boolean",
+      "author": "William McCune",
+      "location": "https://www.cs.unm.edu/~mccune/papers/robbins/",
+      "posted": "1996-10",
+      "last_updated": "2006-10",
+      "posture": "PRIMARY_AUTHOR_ARCHIVE",
+      "finding": "The page states that EQP found the solution on 1996-10-10 and preserves input files, proofs, source code, Otter proof objects, and proof-checking material."
+    },
+    {
+      "source_type": "primary_publication",
+      "title": "Solution of the Robbins Problem",
+      "author": "William McCune",
+      "publication": "Journal of Automated Reasoning 19(3), 263-276",
+      "publication_year": 1997,
+      "posture": "IDENTIFIED_PRIMARY_PUBLICATION",
+      "finding": "The journal version presents simpler proofs than the initial web material and records the automated solution and search strategy."
+    },
+    {
+      "source_type": "author_artifact_set",
+      "title": "Solution of the Robbins Problem — proof files",
+      "author": "William McCune",
+      "location": "https://www.cs.unm.edu/~mccune/papers/robbins/jar.html",
+      "posture": "PRIMARY_AUTHOR_ARTIFACTS",
+      "finding": "The page preserves EQP and Otter inputs, proofs, and proof objects for the lemmas and direct Huntington proof associated with the journal paper."
+    },
+    {
+      "source_type": "simplified_presentation",
+      "title": "Robbins algebras are Boolean: A revision of McCune's computer-generated solution of Robbins problem",
+      "author": "B. I. Dahn",
+      "publication": "Journal of Algebra 208(2), 526-532",
+      "publication_year": 1998,
+      "doi": "10.1006/jabr.1998.7467",
+      "posture": "IDENTIFIED_PUBLISHED_SIMPLIFICATION",
+      "finding": "The paper gives a simplified presentation of the EQP-discovered proof."
+    },
+    {
+      "source_type": "later_machine_formalization",
+      "title": "Robbins Algebras vs. Boolean Algebras",
+      "author": "Adam Grabowski",
+      "location": "https://mizar.uwb.edu.pl/JFM/Vol13/robbins1.html",
+      "posture": "IDENTIFIED_LATER_FORMALIZATION",
+      "finding": "The Mizar development records a later restructured formal proof based on McCune and related sources."
+    }
+  ],
+  "chronology": {
+    "automated_discovery_date": "1996-10-10",
+    "web_disclosure": "1996-10",
+    "journal_publication": "1997",
+    "published_simplification": "1998",
+    "later_formalization": "2000s"
+  },
+  "retained_limitations": [
+    "The exact acceptance date, issue publication date, and online-first chronology for the Journal of Automated Reasoning article were not independently reconstructed from publisher metadata in this review.",
+    "The author archive preserves proof artifacts, but repository-local exact-byte copies and hashes of every EQP, Otter, proof-object, and checker file were not created here.",
+    "The 1998 Dahn paper is identified bibliographically as a simplified presentation, but its complete text was not preserved in this repository review.",
+    "Later human-readable, Mizar, Mathematica, and other reformulations represent distinct verification and exposition events and must not be collapsed into the 1996 automated discovery date.",
+    "Candidate generation, successful machine search, proof-object checking, public disclosure, journal publication, simplification, and later formalization remain separate chronology fields."
+  ],
+  "coding_effect": {
+    "source_packet_improved": true,
+    "first_pass_recode_permitted": false,
+    "independent_coder_may_use": "Only through a versioned source-packet update that preserves chronology separation and retained limitations.",
+    "confidence_effect": "The discovery date and primary author artifact chain are strongly supported; full archival byte preservation and complete publication chronology remain incomplete."
+  },
+  "completion_boundary": "SRC-003 is terminal as LIMITATION_RETAINED. This receipt establishes an evidence-backed chronology without claiming complete archival reconstruction, independent rerun of EQP, or confirmation of the TIDC hypothesis."
+}
