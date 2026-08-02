@@ -4,6 +4,7 @@
   "default_branch": "main",
   "goal_id": "ST018-SITE-ADOPTION-001",
   "task_record": "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+  "activation_probe": "native-main-custody-v1",
   "validators": [
     {
       "id": "site-current-main-validation-evidence",
