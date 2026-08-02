@@ -1,0 +1,21 @@
+{
+  "receipt_type": "HIL_SEMANTIC_RUNTIME_INTEGRATION_ACTIVATION",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "activation_state": "SEMANTIC_RUNTIME_INTEGRATION_ACTIVE",
+  "task_state": "data/hil-semantic-runtime-integration-task-state.json",
+  "validated_artifacts": [
+    "data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json",
+    "scripts/validate_hil_semantic_runtime_integration.py",
+    "scripts/check_hil_semantic_runtime_tasks.py",
+    ".github/workflows/hil-semantic-runtime-integration.yml"
+  ],
+  "source_record_mutation": false,
+  "truth_determination": false,
+  "custody_effect": false,
+  "publication_effect": false,
+  "authority_effect": false,
+  "external_tasks": false,
+  "halt_on_external_status": false,
+  "result": "PASS"
+}
