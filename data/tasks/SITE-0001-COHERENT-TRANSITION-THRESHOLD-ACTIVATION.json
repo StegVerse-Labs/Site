@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Advance the coherent-transition layer from SYNCHRONY_OBSERVED to THRESHOLD_ESTABLISHED only when all recursive-continuity predicates are evidenced.",
+  "originating_session_goal": "Activate the layer when built, coordinate work without external tasks, and preserve the session state durably.",
+  "state": "RUNNING",
+  "claim_state": "MACHINE_OWNED",
+  "owner": {
+    "type": "repository_observer",
+    "location": "scripts/derive_coherent_transition_threshold.py"
+  },
+  "implementation_locations": [
+    "data/coherent-transition-threshold-state.json",
+    "data/coherent-transition-threshold-observation.json",
+    "scripts/derive_coherent_transition_threshold.py"
+  ],
+  "verification_locations": [
+    "scripts/check_coherent_transition_threshold.py",
+    ".github/workflows/coherent-transition-threshold.yml"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_coherent_transition_threshold.py --require-established",
+    "success_marker": "THRESHOLD_ESTABLISHED=true"
+  },
+  "machine_observable_release_condition": "All seven threshold predicates are true in the derived state, the non-manufacture rule is satisfied, and every evidence reference resolves to a committed file.",
+  "next_executable_action": "Run scripts/derive_coherent_transition_threshold.py --apply after each relevant heartbeat, orchestration, or repository-task state change, then run the require-established validator.",
+  "collision_boundaries": [
+    "No session or issue may manually set THRESHOLD_ESTABLISHED.",
+    "No activation authority is inferred from file presence or ordinary validator success.",
+    "No external task or external-session owner is permitted."
+  ],
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": false
+}
