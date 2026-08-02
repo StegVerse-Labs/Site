@@ -1,0 +1,24 @@
+{
+  "receipt_type": "HIL_SEMANTIC_REPLAY_ACTIVATION",
+  "schema_version": "v1",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "activation_state": "SEMANTIC_REPLAY_ACTIVE",
+  "task_state": "data/hil-semantic-replay-task-state.json",
+  "artifacts": [
+    "data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json",
+    "scripts/validate_hil_semantic_replay.py",
+    "scripts/check_hil_semantic_replay_tasks.py",
+    ".github/workflows/hil-semantic-replay.yml"
+  ],
+  "reconstruction_chain": ["source","output","semantic_receipt","canonical_event","replay_packet","deterministic_result"],
+  "validation_posture": "DETERMINISTIC_REPOSITORY_VALIDATION_INSTALLED",
+  "hosted_workflow_observed": false,
+  "hosted_workflow_observation_required_for_foundational_activation": false,
+  "authority_effect": false,
+  "scientific_claim_authority": false,
+  "publication_authority": false,
+  "custody_authority": false,
+  "release_authority": false,
+  "halt_on_external_status": false
+}
