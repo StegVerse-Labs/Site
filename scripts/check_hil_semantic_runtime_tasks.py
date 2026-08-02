@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+STATE = ROOT / "data/hil-semantic-runtime-integration-task-state.json"
+
+
+def main() -> int:
+    state = json.loads(STATE.read_text(encoding="utf-8"))
+    tasks = state["tasks"]
+    failures: list[str] = []
+    completed: list[str] = []
+    for task in tasks:
+        if task.get("external") is not False:
+            failures.append(f"{task['id']}: external tasks prohibited")
+        location = task.get("task_location")
+        if not location:
+            failures.append(f"{task['id']}: missing task_location")
+        elif (ROOT / location).exists():
+            completed.append(task["id"])
+    remaining = [task for task in tasks if task["id"] not in completed]
+    report = {
+        "state": "COMPLETE" if not remaining and not failures else "RUNNING",
+        "completed": completed,
+        "remaining": [task["id"] for task in remaining],
+        "next_task": remaining[0] if remaining else None,
+        "failures": failures,
+        "halted": False
+    }
+    print(json.dumps(report, indent=2, sort_keys=True))
+    if failures:
+        return 1
+    if remaining and report["next_task"] is None:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
