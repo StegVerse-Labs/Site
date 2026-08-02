@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/tvc_execution_receipt_import.schema.json",
+  "title": "Sanitized TVC Execution Receipt Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "source_repository",
+    "source_commit",
+    "execution_receipt",
+    "consumption_receipt",
+    "service_actual_receipt",
+    "ledger_append_receipt",
+    "requester_return_receipt",
+    "authority"
+  ],
+  "properties": {
+    "schema": {"const": "stegverse.site.tvc_execution_receipt_import.v1"},
+    "source_repository": {"const": "StegVerse-Labs/TVC"},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "execution_receipt": {"$ref": "#/$defs/execution"},
+    "consumption_receipt": {"$ref": "#/$defs/consumption"},
+    "service_actual_receipt": {"$ref": "#/$defs/actual"},
+    "ledger_append_receipt": {"$ref": "#/$defs/ledger"},
+    "requester_return_receipt": {"$ref": "#/$defs/returned"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["site_activation", "execution", "publication", "release", "custody"],
+      "properties": {
+        "site_activation": {"const": false},
+        "execution": {"const": false},
+        "publication": {"const": false},
+        "release": {"const": false},
+        "custody": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "scope": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "grant_id", "grant_sha256", "validation_decision", "consumer", "scope", "result_status", "result_sha256", "executed_at", "protected_values_observed", "scope_expanded", "execution_receipt_sha256"],
+      "properties": {
+        "schema": {"const": "stegverse.execution_receipt.v1"},
+        "grant_id": {"type": "string", "minLength": 1},
+        "grant_sha256": {"$ref": "#/$defs/sha"},
+        "validation_decision": {"const": "ALLOW"},
+        "consumer": {"type": "string", "minLength": 1},
+        "scope": {"$ref": "#/$defs/scope"},
+        "result_status": {"type": "string", "minLength": 1},
+        "result_sha256": {"$ref": "#/$defs/sha"},
+        "executed_at": {"$ref": "#/$defs/timestamp"},
+        "protected_values_observed": {"const": false},
+        "scope_expanded": {"const": false},
+        "execution_receipt_sha256": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "consumption": {
+      "type": "object",
+      "required": ["grant_id", "result", "consumption_sha256"],
+      "properties": {
+        "grant_id": {"type": "string", "minLength": 1},
+        "result": {"const": "CONSUMED"},
+        "consumption_sha256": {"$ref": "#/$defs/sha"}
+      },
+      "additionalProperties": true
+    },
+    "actual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "grant_id", "execution_receipt_sha256", "result_sha256", "observed_at", "status", "service_actual_sha256"],
+      "properties": {
+        "schema": {"const": "stegverse.service_actual_receipt.v1"},
+        "grant_id": {"type": "string", "minLength": 1},
+        "execution_receipt_sha256": {"$ref": "#/$defs/sha"},
+        "result_sha256": {"$ref": "#/$defs/sha"},
+        "observed_at": {"$ref": "#/$defs/timestamp"},
+        "status": {"type": "string", "minLength": 1},
+        "service_actual_sha256": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "grant_id", "consumption_sha256", "service_actual_sha256", "appended_at", "append_status", "ledger_append_sha256"],
+      "properties": {
+        "schema": {"const": "stegverse.ledger_append_receipt.v1"},
+        "grant_id": {"type": "string", "minLength": 1},
+        "consumption_sha256": {"$ref": "#/$defs/sha"},
+        "service_actual_sha256": {"$ref": "#/$defs/sha"},
+        "appended_at": {"$ref": "#/$defs/timestamp"},
+        "append_status": {"const": "READY_FOR_AUTHORITATIVE_APPEND"},
+        "ledger_append_sha256": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "returned": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "grant_id", "ledger_append_sha256", "returned_at", "return_status", "requester_return_sha256"],
+      "properties": {
+        "schema": {"const": "stegverse.requester_return_receipt.v1"},
+        "grant_id": {"type": "string", "minLength": 1},
+        "ledger_append_sha256": {"$ref": "#/$defs/sha"},
+        "returned_at": {"$ref": "#/$defs/timestamp"},
+        "return_status": {"const": "READY_FOR_REQUESTER_RETURN"},
+        "requester_return_sha256": {"$ref": "#/$defs/sha"}
+      }
+    }
+  }
+}
