@@ -13,7 +13,7 @@ SCHEMA = ROOT / "schemas" / "session-retirement.schema.json"
 PROMPT = ROOT / "prompts" / "SESSION_SELF_AUDIT.md"
 REPORT = ROOT / "session_retirement.report.json"
 POSTURES = {"CURRENT", "SUPERSEDED", "MERGE_REQUIRED", "ARCHIVABLE"}
-REGISTRY_SCHEMA_VERSIONS = {"1.0.0", "1.1.0"}
+REGISTRY_SCHEMA_VERSIONS = {"1.0.0", "1.1.0", "1.3.0"}
 
 
 def fail(message: str, failures: list[str]) -> None:
