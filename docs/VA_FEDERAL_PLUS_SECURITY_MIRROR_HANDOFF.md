@@ -16,15 +16,17 @@ Workflow: .github/workflows/va-federal-plus-security-baseline.yml
 Receipt: data/va-claim-assistant/federal-plus-security-baseline-validation.json
 ```
 
-## Claim
+## Claim state
 
 ```text
 role: SECURITY_BASELINE_AND_CONTINUOUS_ASSURANCE_CONTRACT
-claim state: MACHINE_OWNED_VALIDATION
-claim created: 2026-08-02T21:54:00Z
-release condition: committed PASS receipt and acceptance into Site#113, Site#116, LLM-adapter#90, TVC, and Master Records continuation records
+claim state: RELEASED_COMPLETE
+validation: PASS
+release evidence: federal-plus-security-baseline-validation.json
 collision boundary: no compliance certification claim, no production activation, no credential handling, no document processing, and no filing transport
 ```
+
+The bounded baseline-definition task is complete. Operational implementation, independent assessment, and production authorization remain separate active tasks.
 
 ## Federal floor
 
@@ -48,6 +50,21 @@ The contract adds controls above the floor for:
 - exact-package veteran authorization, dual transport admission, idempotency, duplicate prevention, revocation, and partial-failure reconstruction;
 - continuous security evidence, tamper-evident audit, signed builds, dependency and secret scanning, incident containment, and privacy-event decisions;
 - purpose limitation, data minimization, veteran-visible history and deletion state, and no hidden rating optimization.
+
+## Validation result
+
+```text
+state: PASS
+federal floor required: true
+StegVerse exceeds floor required: true
+NIST control families: 20
+StegVerse-plus domains: 7
+phishing-resistant authentication required: true
+continuous assurance required: true
+independent evidence required for compliance claims: true
+authority effect: false
+activation effect: false
+```
 
 ## Activation gates
 
@@ -82,14 +99,6 @@ master-records/orchestration:
 append-only custody, reconstruction, incident evidence, package and confirmation records
 ```
 
-## Validation
-
-```text
-python scripts/validate_va_federal_plus_security_baseline.py
-```
-
-Success requires the full federal floor, seven StegVerse-plus domains, phishing-resistant authentication, continuous assurance, independent-evidence gating, and no authority or activation effect.
-
 ## Transfer
 
 ```text
@@ -97,8 +106,17 @@ MERGED INTO: StegVerse-Labs/Site#113
 MERGED INTO: StegVerse-Labs/Site#116
 ```
 
-After a PASS receipt and issue acceptance, this bounded baseline task may release. Implementation and operational assessment remain owned by the named repositories and cannot be inferred from the contract.
+The contract, validator, workflow, PASS receipt, handoff, and issue acceptance preserve the session requirement durably. No chat history is required to recover the security baseline.
+
+## Remaining operational work
+
+- map and tailor controls to the final impact categorization;
+- implement controls in Site#116, LLM-adapter#90, TVC, and Master Records;
+- retain control-level test evidence and continuous receipts;
+- complete threat modeling, parser-abuse tests, incident exercises, and custody reconstruction;
+- obtain independent assessment before any federal compliance or authorization claim;
+- keep document upload and filing blocked while high or critical findings or missing evidence remain.
 
 ## Archive condition
 
-This security requirement is durable when the contract, validator, workflow, PASS receipt, handoff, and canonical issue acceptance exist. The broader session remains active while operational controls, independent assessment, document runtime, filing transport, route expansion, and Ecosystem Chat activation remain incomplete.
+This subordinate baseline task is archive-safe. The broader session remains active while operational controls, independent assessment, document runtime, filing transport, route expansion, and Ecosystem Chat activation remain incomplete.
