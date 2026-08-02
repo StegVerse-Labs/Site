@@ -10,7 +10,9 @@
       "id": "VCA-GATE-01",
       "name": "source_registry_validated",
       "state": "VERIFIED",
-      "evidence": ["data/va-claim-assistant/governance-validation-receipt.json"],
+      "evidence": [
+        "data/va-claim-assistant/governance-validation-receipt.json"
+      ],
       "task_location": "StegVerse-Labs/Site#115",
       "next_action": null
     },
@@ -18,7 +20,9 @@
       "id": "VCA-GATE-02",
       "name": "answer_provenance_validated",
       "state": "VERIFIED",
-      "evidence": ["data/va-claim-assistant/governance-validation-receipt.json"],
+      "evidence": [
+        "data/va-claim-assistant/governance-validation-receipt.json"
+      ],
       "task_location": "StegVerse-Labs/Site#115",
       "next_action": null
     },
@@ -64,7 +68,9 @@
       "id": "VCA-GATE-06",
       "name": "custody_recorded",
       "state": "VERIFIED",
-      "evidence": ["master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"],
+      "evidence": [
+        "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
+      ],
       "task_location": "master-records/orchestration#12",
       "next_action": null
     },
@@ -72,7 +78,9 @@
       "id": "VCA-GATE-07",
       "name": "reconstruction_pass",
       "state": "VERIFIED",
-      "evidence": ["master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"],
+      "evidence": [
+        "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
+      ],
       "task_location": "master-records/orchestration#12",
       "next_action": null
     },
@@ -91,7 +99,9 @@
       "id": "VCA-GATE-09",
       "name": "deployed_end_to_end_session_verified",
       "state": "VERIFIED",
-      "evidence": ["data/va-claim-assistant/source-grounded-activation-receipt.json"],
+      "evidence": [
+        "data/va-claim-assistant/source-grounded-activation-receipt.json"
+      ],
       "task_location": "StegVerse-Labs/Site#113",
       "next_action": null
     }
