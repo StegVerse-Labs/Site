@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/ecosystem-chat-governed-aspect-event.schema.json",
+  "title": "StegVerse Governed Aspect Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "aspect_event_id",
+    "interaction_id",
+    "aspect_id",
+    "event_type",
+    "status",
+    "subject_refs",
+    "actor_ref",
+    "timestamp",
+    "evidence_refs",
+    "policy_refs",
+    "authority_effect",
+    "hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "aspect_event_id": {"type": "string", "minLength": 1},
+    "interaction_id": {"type": "string", "minLength": 1},
+    "aspect_id": {"type": "string", "minLength": 1},
+    "event_type": {
+      "enum": [
+        "observation",
+        "determination",
+        "transition",
+        "conflict",
+        "quarantine",
+        "refusal",
+        "override",
+        "revocation",
+        "correction",
+        "supersession",
+        "recovery",
+        "receipt"
+      ]
+    },
+    "status": {"type": "string", "minLength": 1},
+    "previous_status": {"type": ["string", "null"]},
+    "subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "actor_ref": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "effective_at": {"type": ["string", "null"], "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "uncertainty": {"type": "string"},
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "policy_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authority_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "conflict_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "supersedes_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "human_projection": {"type": "object"},
+    "governed_projection": {"type": "object"},
+    "authority_effect": {"enum": ["NONE", "OBSERVE", "REVIEW_REQUIRED", "QUARANTINE", "DENY", "ALLOW"]},
+    "hash": {"type": "string"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"event_type": {"enum": ["determination", "transition", "override", "revocation", "correction", "supersession", "recovery"]}}},
+      "then": {"properties": {"evidence_refs": {"minItems": 1}, "policy_refs": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"authority_effect": {"enum": ["ALLOW", "DENY", "QUARANTINE"]}}},
+      "then": {"properties": {"authority_refs": {"minItems": 1}, "policy_refs": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "conflict"}}},
+      "then": {"properties": {"conflict_refs": {"minItems": 1}, "authority_effect": {"enum": ["REVIEW_REQUIRED", "QUARANTINE", "DENY"]}}}
+    }
+  ]
+}
