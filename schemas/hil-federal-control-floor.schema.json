@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/hil-federal-control-floor-v1.json",
+  "title": "HIL Federal Control Floor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "floor_id",
+    "posture",
+    "review_required_on",
+    "references",
+    "above_floor_requirements",
+    "authority_effect",
+    "certification_claimed",
+    "production_activation_authorized"
+  ],
+  "properties": {
+    "schema_version": {"const": "HIL-FEDERAL-CONTROL-FLOOR-v1"},
+    "floor_id": {"const": "HIL-FEDERAL-FLOOR-2026-08-02"},
+    "posture": {"const": "MINIMUM_NOT_TARGET"},
+    "review_required_on": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "references": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "reference_id",
+          "publisher",
+          "title",
+          "version",
+          "status",
+          "url",
+          "applies_when",
+          "owner",
+          "freshness_rule"
+        ],
+        "properties": {
+          "reference_id": {"type": "string", "minLength": 3},
+          "publisher": {"enum": ["NIST", "CISA", "OMB"]},
+          "title": {"type": "string", "minLength": 3},
+          "version": {"type": "string", "minLength": 2},
+          "status": {"const": "AUTHORITATIVE_FLOOR"},
+          "url": {"type": "string", "pattern": "^https://"},
+          "applies_when": {"type": "string", "minLength": 10},
+          "owner": {"type": "string", "minLength": 3},
+          "freshness_rule": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "above_floor_requirements": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "authority_effect": {"const": "NONE"},
+    "certification_claimed": {"const": false},
+    "production_activation_authorized": {"const": false}
+  }
+}
