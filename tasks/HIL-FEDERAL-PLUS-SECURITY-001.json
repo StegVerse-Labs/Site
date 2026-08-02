@@ -1,0 +1,42 @@
+{
+  "schema_version": "STEGVERSE-TASK-v1",
+  "task_id": "HIL-FEDERAL-PLUS-SECURITY-001",
+  "originating_goal": "Treat every applicable federal security requirement as a minimum and require StegVerse HIL controls to exceed that floor.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "canonical_handoff": "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+  "canonical_policy": "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md",
+  "machine_profile": "data/hil-federal-plus-security-baseline.json",
+  "schema": "schemas/hil-federal-plus-security-baseline.schema.json",
+  "validator": "scripts/check_hil_federal_plus_security_baseline.py",
+  "workflow": ".github/workflows/check-hil-federal-plus-security-baseline.yml",
+  "owner": "StegVerse-Labs/Site security integration lane",
+  "claim_state": "MACHINE_OWNED",
+  "completion_state": "POLICY_AND_VALIDATION_AUTOMATION_INSTALLED",
+  "validation_state": "HOSTED_WORKFLOW_OBSERVATION_PENDING",
+  "integration_state": "CROSS_REPOSITORY_CONTROL_EVIDENCE_BLOCKED_UNTIL OWNER RECEIPTS EXIST",
+  "claim_created_at": "2026-08-02T22:03:00Z",
+  "claim_expiration_or_release_condition": "Release chat ownership after the policy, profile, schema, validator, workflow, task record, and canonical handoff are committed; repository-native owners retain control-evidence execution.",
+  "collision_boundaries": [
+    "Site owns the policy and sanitized evidence admission only",
+    "TVC owns runtime and protected-value controls",
+    "LLM-adapter owns provider execution evidence",
+    "master-records/orchestration owns custody and reconstruction evidence",
+    "no repository may infer certification or activation from this policy alone"
+  ],
+  "expected_evidence": [
+    "validator PASS receipt",
+    "hosted workflow success and artifact",
+    "owner-specific evidence for every required control",
+    "security activation state PASS only after all required controls are IMPLEMENTED"
+  ],
+  "blockers": [
+    "software supply-chain provenance evidence absent",
+    "recovery authority-preservation evidence absent",
+    "deployed dual-control evidence incomplete",
+    "protected-value non-disclosure proof suite incomplete"
+  ],
+  "machine_observable_release_condition": "data/hil-federal-plus-security-baseline.json activation.state becomes PASS and the hosted validator receipt has validation_state PASS with zero nonimplemented required controls.",
+  "next_executable_action": "Run the hosted validator and assign each non-IMPLEMENTED control to the repository owner named in the profile.",
+  "authority_effect": "NONE"
+}
