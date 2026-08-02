@@ -75,6 +75,66 @@ SOR-0007 Master-Records custody and reconstruction
 SOR-0008 Publisher and wiki downstream projection after activation
 ```
 
+## Consolidated StegMusic and ST-018 session
+
+Registry entry:
+
+```text
+data/session-orchestration-registry.json
+session_id: stegmusic-st018-continuation-2026-08-02
+task_id: STEGMUSIC-ST018-SESSION-CONSOLIDATION-001
+```
+
+Original and adjacent goals transferred:
+
+```text
+six-track StegMusic and StegDJ public browser runtime
+six-track adaptive ranking with active-track exclusion
+target-device audibility and lifecycle evidence without authority escalation
+repository-native completion workers for inaccessible work
+repository-grounded session archival determination
+```
+
+Canonical continuation locations:
+
+```text
+docs/STEGMUSIC_LIVE_MIRROR_HANDOFF.md
+StegVerse-Labs/Site issue #39
+data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json
+StegVerse-Labs/Site issue #141
+docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md
+StegVerse-Labs/Site issue #114
+```
+
+Implementation convergence:
+
+```text
+StegMusic implementation and validation are owned by Site main and issue #39.
+ST-018 implementation is machine-owned by .github/workflows/capture-validation-evidence.yml and issue #141.
+Session orchestration activation remains owned by issue #114.
+This session must not create a competing implementation lane.
+```
+
+Observed transfer evidence:
+
+```text
+PR #145 merged ST-018 implementation.
+PR #147 merged execution and receipt-writer repair at 7ab221e63740db495a6864c2ccc3ed401c25d124.
+PR #148 merged worker trigger coverage at 3c48af9e7e10be6cf509264547373b59b77b09ac.
+Task-state trigger commit b4ff66072dba37e18a10776cceb9e6c20478c18f requests native-main completion evidence.
+Session registry commit 2c6d9abd2c2815dd007316e3ddbe89013777760c preserves the complete session inventory and collision boundaries.
+```
+
+Current consolidation posture:
+
+```text
+MERGE_REQUIRED
+active_task_ownership: false
+distinct_support_role: integration and evidence inspection
+unique_unmerged_state: false
+release_condition: observe native-main ST-018 artifact and issue #141 custody receipt, then admit ARCHIVABLE or SUPERSEDED disposition
+```
+
 ## Activation gate
 
 The layer becomes activated only after all of the following are directly observed and recorded:
@@ -105,6 +165,7 @@ Add duplicate session-owner detection across repositories
 Add successor-session activation packet generation
 Add archive queue projection to the Site UI
 Add tests for CURRENT, SUPERSEDED, MERGE_REQUIRED, ARCHIVABLE, conflicting owner, missing successor, and malformed evidence
+Observe the native-main ST-018 artifact and issue #141 custody receipt for stegmusic-st018-continuation-2026-08-02
 ```
 
 Destination `master-records/orchestration`:
@@ -127,6 +188,10 @@ StegVerse-002/stegguardian-wiki
 
 Read this handoff first, then issue #114. Run `python scripts/check_session_retirement.py`. Continue the highest-priority incomplete SOR task without creating duplicate ownership. Do not classify a session as archivable merely because it is old or inactive. Merge unique state before retirement, update the registry, emit the disposition receipt, and preserve the successor execution source.
 
+For `stegmusic-st018-continuation-2026-08-02`, inspect issue #141 and the native-main artifacts produced by `.github/workflows/capture-validation-evidence.yml`. After direct custody evidence exists, update the registry posture to `SUPERSEDED` or `ARCHIVABLE`; do not reopen StegMusic or ST-018 implementation work in another session.
+
 ## Archive readiness
 
-This coordination session is not safe to archive while it owns unresolved issue #114 coordination or until that ownership is transferred into a successor session and the registry records no unique unmerged state. When no coordination task remains, the response must announce `ARCHIVE THIS SESSION` at both top and bottom.
+The StegMusic and ST-018 session has transferred all unique design and implementation state into repository authority, but remains temporarily non-archivable until the native-main ST-018 custody artifact and issue #141 receipt are directly observed and the registry posture is updated.
+
+The broader coordination session is not safe to archive while it owns unresolved issue #114 coordination or until that ownership is transferred into a successor session and the registry records no unique unmerged state. When no coordination task remains, the response must announce `ARCHIVE THIS SESSION` at both top and bottom.
