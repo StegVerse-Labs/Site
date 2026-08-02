@@ -16,8 +16,24 @@ Active pull request: `StegVerse-Labs/Site#142`
 
 Tracking issue: `StegVerse-Labs/Site#128`
 
+Session consolidation record:
+
+`papers/development-without-domination/session-consolidation.json`
+
+## Canonical claim
+
+```text
+task_id: DWD-003-SITE-EXACT-CUSTODY
+claim_state: CLAIMED_FOR_IMPLEMENTATION
+claimant: StegVerse-Labs/Site#142
+claimed_surfaces: .pdf-parts-v2, reconstructor, observer, publication workflow
+claim_release: PR merged, formally superseded, or stale after 72 hours without commit, workflow, issue, or blocked-receipt evidence
+collision_rule: no duplicate exact-byte implementation while this claim remains active
+```
+
 ## Authoritative files
 
+- `papers/development-without-domination/session-consolidation.json`
 - `papers/development-without-domination/site-publication-status.json`
 - `papers/development-without-domination/.pdf-parts-v2/manifest.json`
 - `scripts/reconstruct_development_without_domination_pdf.py`
@@ -62,6 +78,7 @@ Expected SHA-256:
 - Connector-safe exact transport v2 opened in Site PR #142.
 - Exact v2 segment 1 committed at `papers/development-without-domination/.pdf-parts-v2/part-0001.b64`, commit `124cc3358b868ee37df81ab6fe5c757736e16cd3`.
 - Exact v2 checksum registry committed at `papers/development-without-domination/.pdf-parts-v2/manifest.json`, commit `2dd6cad4c5f0a99f7fe2453870f76220f680e973`.
+- Full originating-session goal inventory, claims, blockers, authority boundaries, and archive conditions committed at `papers/development-without-domination/session-consolidation.json`, commit `b54dd89db1e666eb2c9ae313280b82b45e0b43cd`.
 
 ## Incomplete work and exact locations
 
@@ -92,6 +109,8 @@ Canonical publication preparation owner: `GCAT-BCAT-Engine/Publisher#22`.
 
 Publisher may consume the Site receipt only after exact Site bytes and deployed route identity are verified. Site does not grant admissibility, release, execution, or standing authority.
 
+MERGED INTO: `StegVerse-Labs/Site/papers/development-without-domination/DEVELOPMENT_WITHOUT_DOMINATION_SITE_MIRROR_HANDOFF.md` and `GCAT-BCAT-Engine/Publisher/papers/development-without-domination/DEVELOPMENT_WITHOUT_DOMINATION_MIRROR_HANDOFF.md`.
+
 ## Validation commands
 
 ```text
@@ -100,16 +119,23 @@ python scripts/observe_development_without_domination_publication.py
 python -m json.tool papers/development-without-domination/.pdf-parts-v2/manifest.json
 python -m json.tool papers/development-without-domination/site-publication-status.json
 python -m json.tool papers/development-without-domination/site-mirror-receipt.json
+python -m json.tool papers/development-without-domination/session-consolidation.json
 ```
 
 ## Archive conditions
 
-Archive is prohibited until exact repository bytes are verified, PR #142 is merged or formally superseded, the public route is directly observed, the Site receipt exists, Publisher propagation is verified, and no session-unique continuation information remains.
+The originating chat no longer contains unique requirements after commit `b54dd89db1e666eb2c9ae313280b82b45e0b43cd`; continuation is repository-owned. The workstream itself remains open until exact repository bytes are verified, PR #142 is merged or formally superseded, the public route is directly observed, the Site receipt exists, and Publisher propagation is verified.
 
 ## Progress
 
-Developed-files denominator: 27 required paper-specific files: 20 exact segments, v2 manifest, reconstructor, observer, workflow, landing page, final PDF, activation receipt.
+Developed-files denominator: 28 required paper-specific files: 20 exact segments, v2 manifest, reconstructor, observer, workflow, landing page, final PDF, activation receipt, and session-consolidation record.
 
-Developed files: 6/27.
+Developed files: 7/28.
+
+Validation: 4/10 required validation layers.
+
+Integration: 1/4 required integrations.
 
 Goal activation: 35%.
+
+Session consolidation: 8/8 originating and adjacent goals transferred.
