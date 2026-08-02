@@ -1,0 +1,40 @@
+name: HIL Semantic Runtime Integration
+
+on:
+  push:
+    paths:
+      - 'data/hil-semantic-runtime-integration-task-state.json'
+      - 'data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json'
+      - 'scripts/validate_hil_semantic_runtime_integration.py'
+      - 'scripts/check_hil_semantic_runtime_tasks.py'
+      - '.github/workflows/hil-semantic-runtime-integration.yml'
+  pull_request:
+    paths:
+      - 'data/hil-semantic-runtime-integration-task-state.json'
+      - 'data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json'
+      - 'scripts/validate_hil_semantic_runtime_integration.py'
+      - 'scripts/check_hil_semantic_runtime_tasks.py'
+      - '.github/workflows/hil-semantic-runtime-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  observe-validate-activate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Observe internal runtime tasks
+        run: python scripts/check_hil_semantic_runtime_tasks.py
+      - name: Validate canonical semantic event
+        run: python scripts/validate_hil_semantic_runtime_integration.py
+      - name: Validate JSON envelope
+        run: python -m json.tool data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json >/dev/null
+      - name: Declare internal activation eligibility
+        run: |
+          echo 'Canonical semantic receipt event integration is activation-eligible.'
+          echo 'Source mutation, truth determination, custody, publication, and authority effects remain false.'
