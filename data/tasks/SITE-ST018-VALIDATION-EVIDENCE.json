@@ -1,11 +1,11 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
   "goal_id": "ST018-SITE-ADOPTION-001",
   "repository": "StegVerse-Labs/Site",
   "owner": "repository-native GitHub Actions",
   "issue": 141,
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "RETRY",
   "trigger": {
     "type": "pull_request_or_push",
     "workflow": ".github/workflows/capture-validation-evidence.yml",
@@ -13,13 +13,19 @@
       "validation_manifests/repository-core.json",
       "schemas/validation-execution-receipt.schema.json",
       "scripts/capture_validation_manifest.py",
-      ".github/workflows/capture-validation-evidence.yml",
-      "scripts/check_site_current_main_validation_evidence.py"
+      "scripts/write_site_current_main_validation_receipt.py",
+      "scripts/check_site_current_main_validation_receipt_writer.py",
+      "scripts/check_site_current_main_validation_evidence.py",
+      "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+      ".github/workflows/capture-validation-evidence.yml"
     ]
   },
   "inputs": [
     "validation_manifests/repository-core.json",
     "schemas/validation-execution-receipt.schema.json",
+    "scripts/capture_validation_manifest.py",
+    "scripts/write_site_current_main_validation_receipt.py",
+    "scripts/check_site_current_main_validation_receipt_writer.py",
     "scripts/check_site_current_main_validation_evidence.py"
   ],
   "outputs": [
@@ -34,6 +40,15 @@
     "REVIEW_REQUIRED",
     "FAILED"
   ],
+  "observed_evidence": {
+    "pull_request": 147,
+    "merge_commit": "7ab221e63740db495a6864c2ccc3ed401c25d124",
+    "green_pull_request_run": 30739070153,
+    "green_pull_request_artifact": 8830646561,
+    "green_pull_request_artifact_digest": "sha256:3d96e5a7d6c39a8168dc6e9be3f855b61b90c99e244fa7e927cd4cac9d0470a8",
+    "native_main_run_observed": false,
+    "retry_reason": "the merged receipt-writer repair was omitted from the workflow path filters, so the native-main capture did not trigger"
+  },
   "completion_conditions": [
     "pull-request capture workflow succeeds",
     "validation evidence artifact is inspected",
@@ -42,7 +57,7 @@
     "central ST-018 registry is updated with commit, run, artifact, digest, and inspection evidence"
   ],
   "next_executable_task": {
-    "task": "Execute ST-018 capture on pull request",
+    "task": "Merge trigger-coverage repair and inspect the resulting native-main custody run",
     "location": "StegVerse-Labs/Site:.github/workflows/capture-validation-evidence.yml"
   },
   "duplicate_key": "StegVerse-Labs/Site::ST018-SITE-ADOPTION-001",
