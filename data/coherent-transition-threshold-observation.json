@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "observer": "scripts/derive_coherent_transition_threshold.py",
+  "source_paths": [
+    "data/ecosystem-heartbeat-state.json",
+    "data/site-orchestration-state.json"
+  ],
+  "observed": {
+    "heartbeat_mode": "TRANSITION_DRIVEN",
+    "work_state": "RUNNING",
+    "system_health": "ACTIVE_WITH_DECLARED_BLOCKER",
+    "active_task_count": 1,
+    "blocked_task_count": 1,
+    "observer_blocker_count": 0
+  },
+  "derived_state": {
+    "threshold_state": "SYNCHRONY_OBSERVED",
+    "required_transitions_jointly_ready": false,
+    "continuation_conditions_preserved": false,
+    "next_cycle_admissible": false
+  },
+  "next_executable_action": "preserve machine observation until active and blocked task sets are empty",
+  "external_tasks_allowed": false,
+  "authority_effect": false
+}
