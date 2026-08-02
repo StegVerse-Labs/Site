@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "registry_type": "stegverse_session_orchestration_registry",
   "repository": "StegVerse-Labs/Site",
   "handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
@@ -141,6 +141,79 @@
       ],
       "required_before_archive": [],
       "reason": "All unique session state is durably preserved, this session owns no active task, and unresolved ST-018 custody execution has a repository-native owner, watched trigger, durable task record, issue, and machine-observable completion condition."
+    },
+    {
+      "session_id": "hil-runtime-consolidation-2026-08-02",
+      "repository": "StegVerse-Labs/Site",
+      "task_id": "HIL-RUNTIME-SESSION-2026-08-02",
+      "originating_goals": [
+        "establish whether the HIL live execution layer exists",
+        "build missing runtime and custody boundaries",
+        "activate complete layers only from direct evidence",
+        "coordinate active TVC implementation without duplicate ownership",
+        "preserve provider and Master Records authority boundaries",
+        "propagate only after governed activation and release",
+        "durably transfer every primary and adjacent session goal",
+        "eliminate redundant ChatGPT session ownership"
+      ],
+      "posture": "MERGE_REQUIRED",
+      "claim_state": "CLAIMED_FOR_INTEGRATION",
+      "claimant": "this session distinct support lane",
+      "claim_created_at": "2026-08-02T09:25:00Z",
+      "claim_release_condition": "inventory validator passes, repository-specific handoffs resolve, and registry is updated to ARCHIVABLE with no unique unmerged state",
+      "collision_boundaries": [
+        "TVC retains exclusive runtime and protected-value execution authority",
+        "Site performs sanitized integration only",
+        "LLM-adapter remains machine-owned",
+        "Master Records admits custody only from complete persistent-service evidence",
+        "downstream propagation remains blocked before activation and release"
+      ],
+      "authority_checked": [
+        "docs/HIL_SITE_MIRROR_HANDOFF.md",
+        "docs/HIL_MIRROR_HANDOFF.md",
+        "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+        "tasks/SITE-TVC-RUNTIME-ASSIST-001.json",
+        "StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md",
+        "StegVerse-org/LLM-adapter/docs/HIL_LLM_ADAPTER_MIRROR_HANDOFF.md",
+        "master-records/orchestration/docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md"
+      ],
+      "current_commit": "86f0bd3e1f91f09b197c1dff38447b94d74b8f2b",
+      "active_task_ownership": false,
+      "distinct_support_role": "session inventory, integration reconciliation, and archive disposition validation",
+      "unique_unmerged_state": false,
+      "safe_to_archive": false,
+      "conflicting_active_owner": false,
+      "successor_execution_source": "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "canonical_continuation_locations": [
+        "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+        "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+        "tasks/SITE-TVC-RUNTIME-ASSIST-001.json",
+        "StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md",
+        "StegVerse-org/LLM-adapter/docs/HIL_LLM_ADAPTER_MIRROR_HANDOFF.md",
+        "master-records/orchestration/docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md"
+      ],
+      "material_state_locations": [
+        "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+        "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+        "scripts/check_hil_session_consolidation.py",
+        ".github/workflows/check-hil-session-consolidation.yml",
+        "data/session-orchestration-registry.json"
+      ],
+      "completed_or_transferred": [
+        "complete eight-item session goal inventory installed",
+        "canonical Site consolidation handoff installed",
+        "LLM-adapter provider activation handoff installed",
+        "Master Records custody handoff installed",
+        "TVC and Site active ownership preserved without duplicate implementation",
+        "downstream propagation release conditions preserved"
+      ],
+      "required_before_archive": [
+        "observe passing HIL session consolidation validator evidence",
+        "update this registry entry to ARCHIVABLE and safe_to_archive true"
+      ],
+      "reason": "All unique session information is durably transferred, but the new consolidation validator has not yet produced directly inspected passing workflow evidence."
     }
   ]
 }
