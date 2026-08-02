@@ -1,8 +1,8 @@
 {
-  "schema_version": "STEGVERSE-TASK-v1.6",
+  "schema_version": "STEGVERSE-TASK-v1.7",
   "task_id": "SITE-TVC-RUNTIME-ASSIST-001",
   "title": "Prepare Site for TVC-governed HIL intake projection",
-  "state": "CLAIMED_FOR_VALIDATION",
+  "state": "ACTIVE_COORDINATED",
   "execution_class": "PARALLEL_SAFE",
   "owner": "StegVerse-Labs/Site",
   "exclusive_runtime_owner": "StegVerse-Labs/TVC",
@@ -32,19 +32,18 @@
     "sanitized_import_schema": "schemas/tvc_execution_receipt_import.schema.json@43201367b13801f9c2bdf6b0411cbbfa3f5877db",
     "hash_linkage_validator": "scripts/check_tvc_execution_receipt_import.py@eff19b891759dd21371aa293a6514ca58c66a295",
     "regression_tests": "tests/test_tvc_execution_receipt_import.py@0dc499191320b45f975a61244add32c9dd1a620a",
-    "ci_workflow": ".github/workflows/check-tvc-execution-receipt-import.yml@a1f7a40e8b1983ff525d053271a4336d82e77f50"
+    "ci_workflow": ".github/workflows/check-tvc-execution-receipt-import.yml@503d2eec7354b5814dbde0597c84f8e8b03fcdd1",
+    "hosted_validation_receipt": "data/validation-receipts/HIL-TVC-RECEIPT-IMPORT-2026-08-02.json@67c140d9be90258e4aaf20fc7e71bbaaf5baaf55"
   },
-  "validation_claim": {
-    "branch": "validate/hil-tvc-receipt-import-20260802",
-    "role": "CLAIMED_FOR_VALIDATION",
-    "created_at": "2026-08-02T09:49:00Z",
-    "release_condition": "Pull-request workflow completes successfully and its job, steps, and logs are directly inspected.",
-    "expected_evidence": [
-      "Check TVC Execution Receipt Import workflow success",
-      "pytest regression result",
-      "schema JSON validation result"
-    ],
-    "collision_boundary": "This branch changes only this task record and must not modify TVC runtime or HIL upload-owned paths."
+  "validation_result": {
+    "state": "COMPLETE",
+    "pull_request": 159,
+    "workflow_run": 30742591972,
+    "job_id": 91482546185,
+    "compile": "PASS",
+    "tests": "8_PASS_0_FAIL",
+    "schema_json": "PASS",
+    "claim_released": true
   },
   "remaining_upstream_crossings": [
     "successful hosted execution-grant proof run with inspected artifact",
@@ -57,7 +56,6 @@
     "activation gate evaluation against complete runtime evidence"
   ],
   "remaining_site_crossings": [
-    "complete hosted CI for the sanitized receipt import boundary",
     "import an authentic TVC receipt bundle after upstream proof and deployment",
     "retain public readiness false until all activation evidence validates"
   ],
@@ -83,6 +81,6 @@
     "no public readiness claim occurs before authentic TVC deployment and execution evidence",
     "no Site action grants runtime, execution, publication, release, or custody authority"
   ],
-  "claim_release_condition": "The Site import CI passes, one authentic commit-pinned TVC runtime receipt bundle validates, and activation remains separately governed.",
+  "claim_release_condition": "One authentic commit-pinned TVC runtime receipt bundle validates after governed deployment; activation remains separately governed.",
   "authority_effect": "none"
 }
