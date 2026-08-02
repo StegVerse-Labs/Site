@@ -1,0 +1,7 @@
+[
+  {"event":"guide_opened","page":"va-disability-claim-guide","content_recorded":false},
+  {"event":"walkthrough_started","page":"va-disability-claim-guide","content_recorded":false},
+  {"event":"phase_reached","page":"va-disability-claim-guide","phase":2,"content_recorded":false},
+  {"event":"official_source_opened","page":"va-disability-claim-guide","target":"va-form-21-526ez","content_recorded":false},
+  {"event":"client_error","page":"va-disability-claim-guide","error_code":"MEASUREMENT_TRANSPORT_UNAVAILABLE","content_recorded":false}
+]
