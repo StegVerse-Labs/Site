@@ -14,20 +14,27 @@ Every applicable United States federal cybersecurity requirement is treated as a
 
 A declaration, checklist, dependency file, workflow configuration, or vendor claim is not evidence of effective control operation.
 
+The versioned machine-readable floor is `data/hil-federal-control-floor.json`, validated against `schemas/hil-federal-control-floor.schema.json`. A missing, incomplete, unversioned, duplicated, authority-inflating, or inventory-drifted floor causes validation failure. The floor registry is not a certification or authorization to operate.
+
 ## Baseline families
 
-The applicable control floor must be mapped, at minimum, against the current authoritative versions of:
+The applicable control floor must be mapped, at minimum, against current authoritative versions. The pinned floor currently includes:
+
+- NIST SP 800-53 Revision 5, Release 5.2.0 security and privacy controls;
+- NIST SP 800-218 Secure Software Development Framework Version 1.1, until superseded by a final authoritative publication;
+- NIST SP 800-207 Zero Trust Architecture;
+- CISA Zero Trust Maturity Model Version 2.0;
+- OMB Memorandum M-22-09 where federal zero-trust objectives apply.
+
+Applicability review must also cover:
 
 - NIST Cybersecurity Framework;
-- NIST SP 800-53 security and privacy controls;
 - NIST SP 800-171 when controlled unclassified information is in scope;
-- NIST SP 800-218 Secure Software Development Framework;
-- NIST SP 800-207 Zero Trust Architecture;
 - FIPS-validated cryptographic modules when required by deployment or data classification;
 - applicable CISA secure-by-design, vulnerability, logging, incident-response, and zero-trust directives;
 - applicable FedRAMP or agency authorization controls when a federal cloud authorization boundary exists.
 
-The machine-readable profile intentionally records applicability and evidence state rather than claiming universal applicability.
+The machine-readable floor and security profile intentionally record applicability, ownership, version, freshness, and evidence state rather than claiming universal applicability.
 
 ## StegVerse controls above the floor
 
@@ -41,10 +48,10 @@ Production HIL activation additionally requires:
 6. **Dual-control release** — public publication, production activation, and Master Record release require distinct authenticated transitions; no single browser or service credential can perform the complete chain.
 7. **Immutable append-only receipts** — accepted review, publication, activation, and release receipts are write-once and hash chained; replacement requires a superseding record rather than mutation.
 8. **Software supply-chain provenance** — production artifacts require dependency locking, vulnerability analysis, signed or attestable build provenance, and an inspectable software bill of materials.
-9. **Continuous control observation** — repository-native workflows periodically revalidate security profile completeness, evidence freshness, authority boundaries, and unresolved blockers.
+9. **Continuous control observation** — repository-native workflows periodically revalidate security profile completeness, federal-floor version and inventory, evidence freshness, authority boundaries, and unresolved blockers.
 10. **Recovery without authority inflation** — backup, restore, replay, reconstruction, and disaster recovery preserve original authority limits and produce new recovery receipts.
 11. **Cross-repository least disclosure** — downstream repositories receive only the minimum validated fields required for their role.
-12. **Security regression gate** — a previously passing deployment returns to blocked status whenever required evidence expires, a control is removed, cryptographic identity changes unexpectedly, or a validation path fails.
+12. **Security regression gate** — a previously passing deployment returns to blocked status whenever required evidence expires, a control is removed, a pinned floor reference drifts, cryptographic identity changes unexpectedly, or a validation path fails.
 
 ## Activation gates
 
@@ -54,9 +61,10 @@ Production HIL activation additionally requires:
 - each required control has at least one repository, workflow, runtime, or receipt evidence reference;
 - every evidence reference has an owner and freshness rule;
 - no control is `FAILED`, `MISSING`, `STALE`, or `UNVERIFIED`;
-- all authority booleans in the security profile remain false;
+- the exact federal-floor reference inventory and versions validate;
+- all authority booleans in the security profile and floor remain false;
 - deployment and runtime evidence are distinguished from static and CI evidence;
-- the validator passes on the exact committed profile;
+- the validator passes on the exact committed profile and floor;
 - the applicable HIL handoff records the same security state and blockers.
 
 Until then:
@@ -71,6 +79,8 @@ HIL_PUBLIC_ACQUISITION_AUTHORITY=NONE
 
 - `data/hil-federal-plus-security-baseline.json`
 - `schemas/hil-federal-plus-security-baseline.schema.json`
+- `data/hil-federal-control-floor.json`
+- `schemas/hil-federal-control-floor.schema.json`
 - `scripts/check_hil_federal_plus_security_baseline.py`
 - `.github/workflows/check-hil-federal-plus-security-baseline.yml`
 - `docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md`
@@ -88,4 +98,4 @@ Site does not duplicate runtime enforcement owned elsewhere. It admits only sani
 
 ## Release condition
 
-This security requirement is durably transferred when the machine-readable profile, schema, validator, workflow, canonical session inventory, and canonical handoff all resolve and the repository validator passes. Operational security remains blocked until control-specific evidence is supplied by each owner repository.
+This security requirement is durably transferred when the machine-readable profile, versioned federal floor, schemas, validator, workflow, canonical session inventory, and canonical handoff all resolve and the repository validator passes. Operational security remains blocked until control-specific evidence is supplied by each owner repository.
