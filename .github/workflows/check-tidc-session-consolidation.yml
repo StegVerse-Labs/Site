@@ -10,6 +10,7 @@ on:
       - 'data/tidc/source-expansion/**'
       - 'data/tidc/tranche-02/**'
       - 'data/tidc/negative-controls/**'
+      - 'data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json'
       - 'scripts/check_tidc_session_consolidation.py'
       - '.github/workflows/check-tidc-session-consolidation.yml'
   pull_request:
@@ -21,6 +22,7 @@ on:
       - 'data/tidc/source-expansion/**'
       - 'data/tidc/tranche-02/**'
       - 'data/tidc/negative-controls/**'
+      - 'data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json'
       - 'scripts/check_tidc_session_consolidation.py'
       - '.github/workflows/check-tidc-session-consolidation.yml'
   workflow_dispatch:
@@ -59,6 +61,7 @@ jobs:
             echo '  "schema": "stegverse.site.tidc.session_consolidation_validation_receipt.v1",'
             echo '  "inventory": "data/tidc/session-consolidation-inventory.json",'
             echo '  "handoff": "docs/TIDC_MIRROR_HANDOFF.md",'
+            echo '  "claim": "data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json",'
             echo '  "result": "PASS",'
             echo '  "development_halted": false,'
             echo '  "external_tasks": 0,'
