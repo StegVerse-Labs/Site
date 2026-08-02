@@ -1,0 +1,31 @@
+{
+  "receipt_type": "HIL_PARTICIPANT_SEMANTIC_INTEGRATION_ACTIVATION",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "activation_state": "PARTICIPANT_SEMANTIC_INTEGRATION_ACTIVE",
+  "validated_artifacts": [
+    "docs/hil-semantic-continuity/participant-record-integration.md",
+    "data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json",
+    "data/fixtures/hil-semantic-transformation/participant-record-dispute.json",
+    "scripts/validate_hil_participant_semantic_receipt.py",
+    ".github/workflows/hil-participant-semantic-integration.yml"
+  ],
+  "validated_conditions": {
+    "source_record_immutable": true,
+    "source_record_preserved": true,
+    "receipt_linkage_resolvable": true,
+    "output_linkage_resolvable": true,
+    "evidence_refs_resolvable": true,
+    "competing_receipts_preserved": true,
+    "receipt_overwrite_prohibited": true,
+    "dispute_record_required": true,
+    "authority_effect": false
+  },
+  "external_tasks": false,
+  "halt_on_unavailable_destination": false,
+  "source_mutation_authorized": false,
+  "truth_determination_authorized": false,
+  "scientific_claim_authority": false,
+  "publication_authority": false,
+  "activation_result": "PASS"
+}
