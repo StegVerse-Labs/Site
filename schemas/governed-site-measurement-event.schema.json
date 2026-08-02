@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/governed-site-measurement-event.schema.json",
+  "title": "Governed Site Measurement Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event", "page", "policy_version", "content_recorded"],
+  "properties": {
+    "event": {
+      "type": "string",
+      "enum": ["guide_opened", "walkthrough_started", "assistant_opened", "assistant_question_submitted", "quick_question_selected", "phase_reached", "official_source_opened", "claim_form_opened", "status_page_opened", "guide_completed", "client_error"]
+    },
+    "page": {"const": "va-disability-claim-guide"},
+    "policy_version": {"const": "1.0.0"},
+    "content_recorded": {"const": false},
+    "choice": {"type": "string", "enum": ["blue_button", "secondary_claim", "intent_to_file", "human_help"]},
+    "phase": {"type": "integer", "minimum": 1, "maximum": 6},
+    "destination_class": {"type": "string", "enum": ["official_va_source", "va_claim_form", "va_claim_status", "openai_help"]},
+    "error_class": {"type": "string", "enum": ["script_initialization", "event_rejected", "network_unavailable", "collector_unavailable"]}
+  }
+}

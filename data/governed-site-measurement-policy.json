@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "policy_id": "STEGVERSE-GOVERNED-SITE-MEASUREMENT-001",
+  "state": "IMPLEMENTATION_IN_PROGRESS",
+  "purpose": "Measure public surface operation without identifying, profiling, or inferring sensitive facts about visitors.",
+  "allowed_pages": ["va-disability-claim-guide"],
+  "allowed_events": {
+    "guide_opened": [],
+    "walkthrough_started": [],
+    "assistant_opened": [],
+    "assistant_question_submitted": ["content_recorded"],
+    "quick_question_selected": ["choice"],
+    "phase_reached": ["phase"],
+    "official_source_opened": ["destination_class"],
+    "claim_form_opened": ["destination_class"],
+    "status_page_opened": ["destination_class"],
+    "guide_completed": [],
+    "client_error": ["error_class"]
+  },
+  "required_fields": ["event", "page", "policy_version", "content_recorded"],
+  "prohibited_fields": ["name", "email", "phone", "address", "ssn", "ip", "user_id", "session_id", "cookie_id", "fingerprint", "question", "message", "diagnosis", "condition", "claim", "claim_status", "document", "filename", "medical_record", "free_text", "url_query", "referrer_url"],
+  "identity_policy": {
+    "persistent_identity": false,
+    "cross_site_tracking": false,
+    "device_fingerprinting": false,
+    "exact_location": false,
+    "session_replay": false
+  },
+  "retention": {
+    "raw_event_max_seconds": 300,
+    "aggregate_only_after_expiry": true,
+    "minimum_report_group_size": 10
+  },
+  "authority_boundary": {
+    "usage_measurement_is_admissibility": false,
+    "usage_measurement_is_identity": false,
+    "link_open_is_claim_submission": false,
+    "aggregate_count_is_custody": false,
+    "measurement_is_publication_authority": false
+  },
+  "activation": {
+    "collector_deployed": false,
+    "aggregate_projection_deployed": false,
+    "pii_rejection_verified": false,
+    "live_receipt_observed": false
+  }
+}

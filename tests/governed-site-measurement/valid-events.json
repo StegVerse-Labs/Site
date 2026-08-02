@@ -1,0 +1,7 @@
+[
+  {"event":"guide_opened","page":"va-disability-claim-guide","policy_version":"1.0.0","content_recorded":false},
+  {"event":"walkthrough_started","page":"va-disability-claim-guide","policy_version":"1.0.0","content_recorded":false},
+  {"event":"phase_reached","page":"va-disability-claim-guide","policy_version":"1.0.0","phase":2,"content_recorded":false},
+  {"event":"official_source_opened","page":"va-disability-claim-guide","policy_version":"1.0.0","destination_class":"official_va_source","content_recorded":false},
+  {"event":"client_error","page":"va-disability-claim-guide","policy_version":"1.0.0","error_class":"collector_unavailable","content_recorded":false}
+]

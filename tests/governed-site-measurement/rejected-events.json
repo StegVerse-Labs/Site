@@ -1,0 +1,8 @@
+[
+  {"case":"question-content","event":{"event":"assistant_question_submitted","page":"va-disability-claim-guide","question":"What rating will PTSD receive?","content_recorded":false}},
+  {"case":"persistent-identity","event":{"event":"guide_opened","page":"va-disability-claim-guide","user_id":"veteran-123","content_recorded":false}},
+  {"case":"diagnosis","event":{"event":"phase_reached","page":"va-disability-claim-guide","phase":2,"diagnosis":"sleep apnea","content_recorded":false}},
+  {"case":"filename","event":{"event":"guide_opened","page":"va-disability-claim-guide","filename":"blue-button-rigel.pdf","content_recorded":false}},
+  {"case":"content-flag","event":{"event":"guide_opened","page":"va-disability-claim-guide","content_recorded":true}},
+  {"case":"unknown-event","event":{"event":"claim_submitted","page":"va-disability-claim-guide","content_recorded":false}}
+]
