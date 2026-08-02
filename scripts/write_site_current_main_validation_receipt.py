@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 """Bind a successful Site validation result to the current GitHub Actions run.
 
-This writer also executes the repository's ST-018 capture path so the canonical
-Site Bootstrap workflow produces validation-evidence receipts before the
-standalone native-main custody workflow is relied upon.
+This writer invokes the repository's ST-018 capture module in-process so the
+canonical Site Bootstrap workflow receives validation-evidence receipts without
+turning this receipt writer into a general command-execution surface.
 """
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
-import subprocess
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -32,6 +31,18 @@ def require_env(name: str) -> str:
 
 def sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def run_st018_capture() -> int:
+    spec = importlib.util.spec_from_file_location("site_st018_capture", ST018_CAPTURE)
+    if spec is None or spec.loader is None:
+        raise SystemExit("SITE_CURRENT_MAIN_RECEIPT_FAIL: ST-018 capture module could not be loaded")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    capture_main = getattr(module, "main", None)
+    if not callable(capture_main):
+        raise SystemExit("SITE_CURRENT_MAIN_RECEIPT_FAIL: ST-018 capture main is unavailable")
+    return int(capture_main())
 
 
 def main() -> int:
@@ -59,19 +70,9 @@ def main() -> int:
     if not run_id.isdigit() or not run_attempt.isdigit():
         raise SystemExit("SITE_CURRENT_MAIN_RECEIPT_FAIL: invalid workflow run identity")
 
-    capture = subprocess.run(
-        [sys.executable, str(ST018_CAPTURE)],
-        cwd=ROOT,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        check=False,
-    )
-    print(capture.stdout, end="")
-    if capture.returncode != 0:
-        raise SystemExit(
-            f"SITE_CURRENT_MAIN_RECEIPT_FAIL: ST-018 capture exited {capture.returncode}"
-        )
+    capture_exit = run_st018_capture()
+    if capture_exit != 0:
+        raise SystemExit(f"SITE_CURRENT_MAIN_RECEIPT_FAIL: ST-018 capture exited {capture_exit}")
     if not ST018_RECEIPT.is_file() or not ST018_LOG.is_file():
         raise SystemExit("SITE_CURRENT_MAIN_RECEIPT_FAIL: ST-018 evidence files missing")
     st018 = json.loads(ST018_RECEIPT.read_text(encoding="utf-8"))
