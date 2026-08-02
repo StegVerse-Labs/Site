@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "session_id": "hil-v1-1-response-contract-2026-08-02",
+  "archive_state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+  "original_session_goal": "Correct the HIL experiment so a normal participant receives one complete downloadable response PDF, sees a concise visible summary for validation, and returns the unchanged artifact through Site intake or LinkedIn DM.",
+  "adjacent_goals": [
+    "classify unknown values so downstream identifiers do not falsely weaken analytical quality",
+    "install and verify the canonical v1.1 paper, protocol, prompt, public URL, client, release metadata, and exact hashes",
+    "activate the participant-facing generation and local-provenance layer",
+    "deploy and activate the live receiver, durable custody, receipt, review, publication, Site projection, Master Record, and downstream propagation chain",
+    "prevent duplicate cross-session execution and preserve complete continuation state outside chat"
+  ],
+  "canonical_continuation": {
+    "repository": "StegVerse-Labs/Site",
+    "branch": "main",
+    "handoff": "docs/HIL_MIRROR_HANDOFF.md",
+    "task_state": "data/tasks/HIL-V1.1-ACTIVATION-001.json",
+    "issue": 158
+  },
+  "repositories_inspected": [
+    "StegVerse-Labs/Site"
+  ],
+  "authoritative_handoffs_read": [
+    "docs/SITE_MIRROR_HANDOFF.md",
+    "docs/HIL_MIRROR_HANDOFF.md",
+    "docs/HIL_SITE_MIRROR_HANDOFF.md",
+    "docs/HIL_V1_1_URL_FIX_HANDOFF.md",
+    "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+  ],
+  "convergence": {
+    "detected": true,
+    "classification": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "existing_owner": "StegVerse-Labs/Site HIL production activation lane",
+    "duplicate_execution_avoided": true,
+    "transferred_to": [
+      "docs/HIL_MIRROR_HANDOFF.md",
+      "data/tasks/HIL-V1.1-ACTIVATION-001.json",
+      "issues/158"
+    ]
+  },
+  "requirements_transferred": [
+    "exactly one participant-managed downloadable PDF",
+    "visible chat summary containing central conclusion, strongest criticism, principal uncertainty, and Item 7 answer",
+    "summary is validation aid and not governed packet",
+    "no participant copy, paste, conversion, combination, reformatting, or re-export",
+    "unchanged return through governed Site intake or LinkedIn DM",
+    "unknowns separated into analytical, execution, custody, governance/consent, and future-stage classes",
+    "future-stage identifiers do not reduce analytical quality before assignment",
+    "public canonical URL serves v1.1 directly",
+    "download and intake fail closed on identity or readiness mismatch",
+    "receiver activation requires direct provider, runtime, custody, receipt, persistence, review, publication, and downstream evidence"
+  ],
+  "completed_work": [
+    {
+      "capability": "canonical v1.1 artifact identity",
+      "evidence": "docs/HIL_V1_1_URL_FIX_HANDOFF.md and data/HIL_Canonical_Paper_v1_1.pdf"
+    },
+    {
+      "capability": "exact v1.1 prompt and visible summary contract",
+      "evidence": "humans-as-interoperability-layer.html and assets/hil-experiment-v1.1.js"
+    },
+    {
+      "capability": "local PDF validation and provenance preparation",
+      "evidence": "assets/hil-experiment-v1.1.js"
+    },
+    {
+      "capability": "canonical production continuation and exact blocker evidence",
+      "evidence": "docs/HIL_MIRROR_HANDOFF.md, deployment run 30573565667, public probe run 30640006721"
+    },
+    {
+      "capability": "durable unresolved-work ownership",
+      "evidence": "data/tasks/HIL-V1.1-ACTIVATION-001.json and issue #158"
+    }
+  ],
+  "unresolved_work": [
+    {
+      "task": "authorized Actions secret population and deployment rerun",
+      "owner": "StegVerse-Labs/Site production activation lane",
+      "location": "issue #158 and .github/workflows/hil-cloudflare-deploy.yml",
+      "release_condition": "first Cloudflare provider result preserved"
+    },
+    {
+      "task": "live exact v1.1 readiness, controlled cycle, custody, and receipt",
+      "owner": "repository-native HIL workflows",
+      "location": "issue #158 and data/tasks/HIL-V1.1-ACTIVATION-001.json",
+      "release_condition": "/api/hil/readiness HTTP 200 READY and controlled cycle PASS"
+    },
+    {
+      "task": "genuine participant packet, review, publication, Master Record, and propagation",
+      "owner": "HIL governed lifecycle",
+      "location": "docs/HIL_MIRROR_HANDOFF.md and issue #158",
+      "release_condition": "authenticated receipts and authorized release evidence"
+    }
+  ],
+  "session_role": "consolidation and durable transfer",
+  "active_task_ownership": false,
+  "unique_unmerged_state": false,
+  "safe_to_archive": true,
+  "archive_evidence": "All unique requirements, implementation history, exact blockers, continuation actions, claims, and machine-owned workflows are preserved in the canonical handoff, task state, issue, and this consolidation record.",
+  "created_at": "2026-08-02T09:21:15Z"
+}
