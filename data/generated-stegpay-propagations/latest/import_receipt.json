@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "artifact_type": "site_generated_stegpay_import_receipt",
+  "source_repository": "StegVerse-Labs/StegOps-Orchestrator",
+  "destination_repository": "StegVerse-Labs/Site",
+  "source_path": "outbound/generated-stegpay-verification/latest/propagation.json",
+  "destination_path": "data/generated-stegpay-propagations/latest/propagation.json",
+  "propagation_hash_sha256": "aecfd09a016e1daaa32b66f0e7aa2bc2681edc70be14f25637fa95df2a1468e3",
+  "event_id": "09373107-5e4b-483e-85de-9e26c126fc0c",
+  "provider_id": "pi_test_123",
+  "state": "VALIDATED",
+  "test_only": true,
+  "authority_effect": false,
+  "activation_effect": false,
+  "publication_effect": false,
+  "release_effect": false,
+  "next_executable_task": "PUBLISHER_IMPORT_VALIDATED_SITE_STEGPAY_RECEIPT"
+}
