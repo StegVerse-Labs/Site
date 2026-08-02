@@ -126,7 +126,8 @@
     'assets/ecosystem-chat-traversal.js',
     'assets/ecosystem-chat-provider.js',
     'assets/ecosystem-chat-solver.js',
-    'assets/ecosystem-chat-value-integration.js'
+    'assets/ecosystem-chat-value-integration.js',
+    'assets/ecosystem-chat-aspect-matrix.js'
   ]) {
     const script = document.createElement('script');
     script.src = source;
