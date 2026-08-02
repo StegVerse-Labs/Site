@@ -1,0 +1,41 @@
+name: HIL Participant Semantic Integration
+
+on:
+  push:
+    paths:
+      - 'docs/hil-semantic-continuity/participant-record-integration.md'
+      - 'data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json'
+      - 'data/fixtures/hil-semantic-transformation/participant-record-dispute.json'
+      - 'scripts/validate_hil_participant_semantic_receipt.py'
+      - 'data/hil-participant-semantic-integration-activation-receipt.json'
+      - '.github/workflows/hil-participant-semantic-integration.yml'
+  pull_request:
+    paths:
+      - 'docs/hil-semantic-continuity/participant-record-integration.md'
+      - 'data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json'
+      - 'data/fixtures/hil-semantic-transformation/participant-record-dispute.json'
+      - 'scripts/validate_hil_participant_semantic_receipt.py'
+      - '.github/workflows/hil-participant-semantic-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate participant semantic receipt integration
+        run: python scripts/validate_hil_participant_semantic_receipt.py
+      - name: Validate fixture JSON
+        run: |
+          python -m json.tool data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json >/dev/null
+          python -m json.tool data/fixtures/hil-semantic-transformation/participant-record-dispute.json >/dev/null
+      - name: Confirm bounded activation posture
+        run: |
+          echo 'Participant semantic receipt integration is internally valid.'
+          echo 'Source mutation, truth determination, and authority effects remain false.'
