@@ -1,0 +1,23 @@
+{
+  "schema_version": "ST-018-MANIFEST-v1",
+  "repository": "StegVerse-Labs/Site",
+  "default_branch": "main",
+  "validators": [
+    {
+      "id": "site-current-main-validation-evidence",
+      "command": "python scripts/check_site_current_main_validation_evidence.py",
+      "log_path": "reports/site-current-main-validation-evidence.log",
+      "required": true
+    }
+  ],
+  "receipt_path": "reports/validation-execution-receipt.json",
+  "authority": {
+    "may_publish": false,
+    "may_assert_source_completeness": false,
+    "may_change_factual_confidence": false,
+    "may_assert_admissibility": false,
+    "may_deploy": false,
+    "may_release": false,
+    "may_mutate_downstream": false
+  }
+}
