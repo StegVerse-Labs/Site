@@ -3,16 +3,14 @@
   "program": "VA Claim Assistant governed session layer",
   "state": "SOURCE_GROUNDED_ACTIVE",
   "current_public_capability": "SOURCE_GROUNDED_ASSISTANT",
-  "next_activation_target": "SOURCE_GROUNDED_ASSISTANT",
+  "next_activation_target": "DOCUMENT_AWARE_ASSISTANT",
   "final_activation_target": "GOVERNED_CLAIM_SESSION",
   "gates": [
     {
       "id": "VCA-GATE-01",
       "name": "source_registry_validated",
       "state": "VERIFIED",
-      "evidence": [
-        "data/va-claim-assistant/governance-validation-receipt.json"
-      ],
+      "evidence": ["data/va-claim-assistant/governance-validation-receipt.json"],
       "task_location": "StegVerse-Labs/Site#115",
       "next_action": null
     },
@@ -20,9 +18,7 @@
       "id": "VCA-GATE-02",
       "name": "answer_provenance_validated",
       "state": "VERIFIED",
-      "evidence": [
-        "data/va-claim-assistant/governance-validation-receipt.json"
-      ],
+      "evidence": ["data/va-claim-assistant/governance-validation-receipt.json"],
       "task_location": "StegVerse-Labs/Site#115",
       "next_action": null
     },
@@ -34,7 +30,8 @@
         "StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43:receipts/va-claim-assistant-governed-retrieval-readiness.json",
         "StegVerse-Labs/TVC@0f0ecf2183e10d27a1d504bdeb30349fe7b3b806:receipts/va-claim-assistant-governed-retrieval-invocation-001.json"
       ],
-      "task_location": "StegVerse-Labs/TVC#9"
+      "task_location": "StegVerse-Labs/TVC#9",
+      "next_action": null
     },
     {
       "id": "VCA-GATE-04",
@@ -44,36 +41,40 @@
         "StegVerse-org/LLM-adapter@870c1aa08413c5057b110ed56b1382cf0fab4a85:va_claim_assistant/governed_retrieval.py",
         "StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154:receipts/va-claim-assistant-public-source-fixture.json"
       ],
-      "task_location": "StegVerse-org/LLM-adapter#90"
+      "task_location": "StegVerse-org/LLM-adapter#90",
+      "next_action": null
     },
     {
       "id": "VCA-GATE-05",
       "name": "document_evidence_layer_validated",
-      "state": "ASSIGNED_FINAL_TARGET_ONLY",
+      "state": "VERIFIED_BOUNDED_FIXTURE_ONLY",
       "evidence": [
-        "StegVerse-Labs/Site#116"
+        "data/va-claim-assistant/document-evidence-validation-receipt.json",
+        "data/va-claim-assistant/private-document-runtime-receipt.json",
+        "StegVerse-Labs/TVC@835c85cba3f8283632098df7b3891d1bc369d3f3:receipts/va-claim-assistant-document-interpretation-readiness.json",
+        "StegVerse-Labs/TVC@07bbf12b378ee6bdf5abfc929bb7281302f3abd1:receipts/va-claim-assistant-document-interpretation-invocation-001.json",
+        "master-records/orchestration@5f8a4271b1a7cf590de3bcf4b3eaaa8370c2a804:receipts/va-claim-assistant-document-derived-record-custody.json"
       ],
       "task_location": "StegVerse-Labs/Site#116",
       "required_for": "GOVERNED_CLAIM_SESSION",
-      "required_for_source_grounded_activation": false
+      "required_for_source_grounded_activation": false,
+      "next_action": "Execute admitted substantive document interpretation through a governed runtime, verify derived-record custody and reconstruction for that execution, and preserve public upload as disabled until deployed evidence passes."
     },
     {
       "id": "VCA-GATE-06",
       "name": "custody_recorded",
       "state": "VERIFIED",
-      "evidence": [
-        "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
-      ],
-      "task_location": "master-records/orchestration#12"
+      "evidence": ["master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"],
+      "task_location": "master-records/orchestration#12",
+      "next_action": null
     },
     {
       "id": "VCA-GATE-07",
       "name": "reconstruction_pass",
       "state": "VERIFIED",
-      "evidence": [
-        "master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"
-      ],
-      "task_location": "master-records/orchestration#12"
+      "evidence": ["master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977:receipts/va-claim-assistant-public-source-custody.json"],
+      "task_location": "master-records/orchestration#12",
+      "next_action": null
     },
     {
       "id": "VCA-GATE-08",
@@ -90,9 +91,7 @@
       "id": "VCA-GATE-09",
       "name": "deployed_end_to_end_session_verified",
       "state": "VERIFIED",
-      "evidence": [
-        "data/va-claim-assistant/source-grounded-activation-receipt.json"
-      ],
+      "evidence": ["data/va-claim-assistant/source-grounded-activation-receipt.json"],
       "task_location": "StegVerse-Labs/Site#113",
       "next_action": null
     }
@@ -103,6 +102,7 @@
     "task_location": "StegVerse-Labs/Site#115"
   },
   "source_grounded_activation_rule": "gates 01, 02, 03, 04, 06, 07, 08, and 09 must be VERIFIED",
+  "document_aware_activation_rule": "gate 05 must be VERIFIED from admitted substantive runtime evidence; VERIFIED_BOUNDED_FIXTURE_ONLY is insufficient",
   "governed_claim_session_activation_rule": "all gates must be VERIFIED",
   "activation_authorized": true,
   "authority_effect": false,
