@@ -1,0 +1,79 @@
+{
+  "schema": "stegverse.two_entry_points.execution_state.v1",
+  "canonical_issue": "StegVerse-Labs/Site#152",
+  "originating_goal": "Complete Ecosystem Chat and VA Claim Assistant as fully functional, continuously extensible public entry points.",
+  "archive_state": "ACTIVE_UNIQUE_WORK_REMAINS",
+  "updated_at": "2026-08-02T08:35:00Z",
+  "tasks": [
+    {
+      "task_id": "ECP-001",
+      "goal": "Ecosystem Chat governed runtime activation",
+      "repository": "StegVerse-org/LLM-adapter",
+      "branch": "main",
+      "location": "issue #18; .github/workflows/ecosystem-chat-live-activation.yml; reports/ecosystem-chat-live-activation-status.json",
+      "owner": "StegVerse-org/LLM-adapter#18 and repository-native workflows",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "BLOCKED",
+      "validation_state": "LIVE_ACTIVATION_PENDING",
+      "integration_state": "RUNTIME_IMPLEMENTED_ENDPOINT_UNVERIFIED",
+      "evidence": ["StegVerse-org/LLM-adapter#18", "reports/ecosystem-chat-live-activation-status.json"],
+      "blocker": "authorized_persistent_provider_and_master_records_runtime_not_verified",
+      "release_condition": "immutable zero-blocker live activation receipt exists",
+      "next_action": "repository-native activation verifier records exact endpoint/provider/custody/reconstruction result"
+    },
+    {
+      "task_id": "ECP-002",
+      "goal": "Ecosystem Chat Site activation and downstream propagation",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "issue #24; ecosystem-chat.html; Site activation import and propagation records",
+      "owner": "StegVerse-Labs/Site#24",
+      "claim_state": "CLAIMED_FOR_INTEGRATION",
+      "completion_state": "BLOCKED",
+      "validation_state": "UPSTREAM_RECEIPT_NOT_OBSERVED",
+      "integration_state": "PARTIAL",
+      "evidence": ["StegVerse-Labs/Site#24", "docs/SITE_MIRROR_HANDOFF.md"],
+      "blocker": "adapter_verified_receipt_missing",
+      "release_condition": "Site ACTIVATION_COMPLETE and Publisher/wiki ingestion verified",
+      "next_action": "import and validate adapter receipt when machine-observable release condition is met"
+    },
+    {
+      "task_id": "VACP-001",
+      "goal": "VA Claim Assistant governed claim session",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "issue #113; docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md; va-disability-claim-guide.html",
+      "owner": "StegVerse-Labs/Site#113",
+      "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+      "completion_state": "PARTIALLY_IMPLEMENTED",
+      "validation_state": "BOUNDED_PROCEDURAL_ASSISTANT_ONLY",
+      "integration_state": "CROSS_REPOSITORY_DEPENDENCIES_PENDING",
+      "evidence": ["StegVerse-Labs/Site#113", "docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md"],
+      "blocker": "governed_retrieval_document_session_tvc_and_custody_chain_incomplete",
+      "release_condition": "deployed source-grounded document-aware session has reconstructable zero-blocker receipt",
+      "next_action": "implement and validate the next unclaimed dependency without duplicating active Site paths"
+    },
+    {
+      "task_id": "CONS-001",
+      "goal": "Cross-session consolidation and collision control",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "location": "issue #152; docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md; data/two-entry-points-execution-state.json",
+      "owner": "StegVerse-Labs/Site#152",
+      "claim_state": "CLAIMED_FOR_INTEGRATION",
+      "completion_state": "IN_PROGRESS",
+      "validation_state": "DURABLE_STATE_INSTALLED",
+      "integration_state": "CANONICAL_LANES_LINKED",
+      "evidence": ["StegVerse-Labs/Site#152", "commit 98f441b01caf9940f6a5230047b73886a0928a32"],
+      "blocker": "both_entry_points_not_activated",
+      "release_condition": "all unique requirements complete or actually transferred to verified active executors",
+      "next_action": "validate registry invariants and bind scheduled claim-staleness checks"
+    }
+  ],
+  "authority_boundary": {
+    "registry_grants_execution_authority": false,
+    "registry_grants_deployment_authority": false,
+    "registry_grants_adjudication_authority": false,
+    "registry_grants_release_authority": false
+  }
+}
