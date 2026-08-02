@@ -5,18 +5,34 @@ on:
     branches: [main]
     paths:
       - docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md
+      - docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md
+      - data/ecosystem-heartbeat-state.json
+      - data/site-orchestration-state.json
       - data/coherent-transition-threshold.schema.json
       - data/coherent-transition-threshold-state.json
+      - data/coherent-transition-threshold-observation.json
       - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json
+      - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json
+      - scripts/derive_coherent_transition_threshold.py
       - scripts/check_coherent_transition_threshold.py
+      - scripts/check_coherent_transition_threshold_activation.py
+      - scripts/observe_and_complete_repository_tasks.py
       - .github/workflows/coherent-transition-threshold.yml
   pull_request:
     paths:
       - docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md
+      - docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md
+      - data/ecosystem-heartbeat-state.json
+      - data/site-orchestration-state.json
       - data/coherent-transition-threshold.schema.json
       - data/coherent-transition-threshold-state.json
+      - data/coherent-transition-threshold-observation.json
       - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json
+      - data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json
+      - scripts/derive_coherent_transition_threshold.py
       - scripts/check_coherent_transition_threshold.py
+      - scripts/check_coherent_transition_threshold_activation.py
+      - scripts/observe_and_complete_repository_tasks.py
       - .github/workflows/coherent-transition-threshold.yml
   workflow_dispatch:
 
@@ -31,7 +47,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate threshold state
-        run: python scripts/check_coherent_transition_threshold.py
       - name: Observe repository tasks
         run: python scripts/observe_and_complete_repository_tasks.py
+      - name: Derive threshold posture
+        run: python scripts/derive_coherent_transition_threshold.py --apply
+      - name: Validate bounded threshold state
+        run: python scripts/check_coherent_transition_threshold.py
+      - name: Evaluate activation gate without failing bounded validation
+        shell: bash
+        run: |
+          set +e
+          python scripts/check_coherent_transition_threshold_activation.py > coherent-transition-threshold-activation.log 2>&1
+          code=$?
+          cat coherent-transition-threshold-activation.log
+          if [ "$code" -eq 0 ]; then
+            echo "activation_gate=PASS" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "activation_gate=BLOCKED" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit 0
+      - name: Upload threshold observation
+        uses: actions/upload-artifact@v4
+        with:
+          name: coherent-transition-threshold-observation
+          path: |
+            data/coherent-transition-threshold-state.json
+            data/coherent-transition-threshold-observation.json
+            repository-task-observation.report.json
+            coherent-transition-threshold-activation.log
