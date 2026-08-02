@@ -12,7 +12,7 @@
   "disposition": "MERGED_INTO_CANONICAL_WORKSTREAM",
   "active_task_ownership": false,
   "unique_unmerged_state": false,
-  "safe_to_archive_after_handoff_and_issue_linkage": true,
+  "safe_to_archive_after_registry_validation": true,
   "transferred_requirements": [
     "governed continuation and repository self-description",
     "completion convergence and frontier exhaustion evidence",
@@ -49,11 +49,23 @@
     }
   ],
   "validation": {
-    "file_creation": "PASS",
-    "repository_commit": "e6cd2e0fb36ef13f52c75c80e901d04287dd0600",
-    "handoff_linkage": "PENDING",
-    "issue_linkage": "PENDING",
+    "inventory_file_creation": "PASS",
+    "inventory_commit": "e6cd2e0fb36ef13f52c75c80e901d04287dd0600",
+    "receipt_file_creation": "PASS",
+    "initial_receipt_commit": "d31a2046d90d59d8976a42781ea3e2b792ed2608",
+    "handoff_linkage": "PASS",
+    "handoff_commit": "1861e9a2b3d32b6092f0acd34f30456dfc1cf227",
+    "issue_118_linkage": "PASS",
+    "issue_118_comment_id": 5157054634,
+    "issue_114_linkage": "PASS",
+    "issue_114_comment_id": 5157055543,
+    "registry_validation": "PENDING",
     "activation": "NOT_CLAIMED"
+  },
+  "archive_blocker": {
+    "owner": "StegVerse-Labs/Site issue #117 and parent issue #114",
+    "location": "data/session-orchestration-registry.json and scripts/check_session_retirement.py",
+    "release_condition": "A registry entry for this session passes the retirement validator against current repository authority."
   },
   "nonclaims": [
     "This receipt does not establish issue #114 activation.",
