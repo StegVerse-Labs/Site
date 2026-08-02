@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "task_id": "SITE-0001-RTG-FORMALISM-PROJECTION-INTAKE",
   "source_repository": "Admissible-Existence/RTG",
   "source_branch": "main",
@@ -8,32 +8,21 @@
     "3": {
       "state": "BLOCKED_WITH_EVIDENCE",
       "lane_id": "hosted-deterministic-rendering",
-      "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-3.json",
-      "machine_receipt": {
-        "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json",
-        "deposit_commit": "16e86b60fd35e6163ba03151e14dd40bffb9f506",
-        "state": "BLOCKED_WITH_EVIDENCE"
-      },
+      "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json",
       "remaining_machine_tasks": [
-        {
-          "task": "Produce accepted terminal hosted renderer evidence",
-          "location": "Admissible-Existence/RTG/.github/workflows/render-rtg-volume-i.yml"
-        },
-        {
-          "task": "Produce a second byte-identical digest-pinned render",
-          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json"
-        }
+        {"task":"Produce accepted terminal hosted renderer evidence","location":"Admissible-Existence/RTG/.github/workflows/render-rtg-volume-i.yml"},
+        {"task":"Produce a second byte-identical digest-pinned render","location":"Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-3-observation.json"}
       ]
     },
     "4": {
-      "state": "LINEAGE_REGENERATED_INTEGRATION_ACTIVE",
+      "state": "RECORD_LEVEL_LINEAGE_APPLICATION_ACTIVE",
       "lane_id": "predecessor-and-statement-integration",
       "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-4-observation.json",
-      "machine_receipt": {
-        "path": "review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-regeneration-receipt.json",
-        "deposit_commit": "3322cb8edddae45e72ddb2ce913eba58fdc740e4",
-        "state": "PASS_BOUNDED_STABLE_IDENTIFIER_LINEAGE"
-      },
+      "regeneration_receipt": "review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-regeneration-receipt.json",
+      "lineage_applicator": "Admissible-Existence/RTG/tools/apply_rtg_predecessor_lineage.py",
+      "application_workflow": "Admissible-Existence/RTG/.github/workflows/apply-rtg-predecessor-lineage.yml",
+      "application_receipt": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-application-receipt.json",
+      "application_attempt_receipt": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/predecessor-lineage-application-attempt.json",
       "verified_identifier_counts": {
         "integrated_total": 131,
         "predecessor_identifier_present": 121,
@@ -41,18 +30,10 @@
         "unresolved_identifier_lineage": 0
       },
       "remaining_machine_tasks": [
-        {
-          "task": "Apply regenerated lineage to all 131 generated inventory records",
-          "location": "Admissible-Existence/RTG/tools/build_rtg_statement_inventory.py"
-        },
-        {
-          "task": "Validate predecessor-present or new-in-integrated resolution for every identifier",
-          "location": "Admissible-Existence/RTG/tools/check_manifest_manuscript_crosswalk.py"
-        },
-        {
-          "task": "Recompute lane and consolidated readiness",
-          "location": "Admissible-Existence/RTG/tools/converge_formalism_publication.py"
-        }
+        {"task":"Apply exact identifier lineage assignments to all 131 inventory records","location":"Admissible-Existence/RTG/tools/apply_rtg_predecessor_lineage.py"},
+        {"task":"Persist success or failure evidence for every application run","location":"Admissible-Existence/RTG/.github/workflows/apply-rtg-predecessor-lineage.yml"},
+        {"task":"Validate the updated inventory and crosswalk","location":"Admissible-Existence/RTG/tools/check_manifest_manuscript_crosswalk.py"},
+        {"task":"Recompute lane and consolidated readiness","location":"Admissible-Existence/RTG/tools/converge_formalism_publication.py"}
       ],
       "bounded_fields": {
         "exact_text_equivalence": "NOT_ASSERTED",
@@ -62,21 +43,10 @@
     "5": {
       "state": "IN_PROGRESS",
       "lane_id": "corpus-proof-and-artifact-closure",
-      "path": "review/volume-I-integrated-v0.9.0/coordination-handbacks/issue-5.json",
-      "machine_receipt": {
-        "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json",
-        "deposit_commit": "b671921fdd58c353d8496fda6333020737d339e7",
-        "state": "IN_PROGRESS"
-      },
+      "path": "review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json",
       "remaining_machine_tasks": [
-        {
-          "task": "Close each unresolved evidence-ledger class by recovery or bounded scope",
-          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/evidence-closure-ledger.json"
-        },
-        {
-          "task": "Generate durable theorem proof-review receipts",
-          "location": "Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json"
-        }
+        {"task":"Close each unresolved evidence-ledger class by recovery or bounded scope","location":"Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/evidence-closure-ledger.json"},
+        {"task":"Generate durable theorem proof-review receipts","location":"Admissible-Existence/RTG/review/volume-I-integrated-v0.9.0/machine-execution/lane-5-observation.json"}
       ]
     }
   },
@@ -88,16 +58,17 @@
     "activation_receipt": "data/formalism-publication/rtg-review-projection-activation-receipt.json",
     "durable_machine_receipts_present": true,
     "corrupt_bundle_dependency_closed": true,
+    "record_level_lineage_application_observed": true,
     "authority_effect": "NONE"
   },
   "blockers": [
     "RTG lane 3 still requires deterministic hosted render evidence.",
-    "RTG lane 4 must apply regenerated lineage to the generated inventory and validate all 131 identifiers.",
+    "RTG lane 4 application workflow has not yet deposited its PASS or attempt receipt.",
     "RTG lane 5 still requires evidence-ledger and theorem-review closure.",
     "Central formalism acceptance has not been recorded."
   ],
   "manual_external_tasks": [],
-  "next_machine_action": "Continue the exact machine tasks and locations recorded under source_lanes; do not re-enter corrupt bundle recovery.",
+  "next_machine_action": "Observe Admissible-Existence/RTG/.github/workflows/apply-rtg-predecessor-lineage.yml through its durable application-attempt receipt, repair any first proven defect, then recompute RTG readiness and this Site projection.",
   "authority_effect": false,
   "activation_effect": true
 }
