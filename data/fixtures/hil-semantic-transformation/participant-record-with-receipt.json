@@ -1,0 +1,53 @@
+{
+  "fixture_id": "HIL-SC-PARTICIPANT-001",
+  "participant_record": {
+    "record_id": "participant-source-001",
+    "record_type": "HIL_PARTICIPANT_SOURCE",
+    "content": "There is a high likelihood that the United States experienced a coordinated cyberattack, with Iran as a leading hypothesis.",
+    "content_sha256": "fixture-preserved-source-001",
+    "immutable": true,
+    "semantic_continuity": {
+      "source_record_preserved": true,
+      "receipt_refs": ["semantic-receipt-001"],
+      "latest_receipt_state": "PASS",
+      "reconstruction_available": true,
+      "authority_effect": false
+    }
+  },
+  "transformed_record": {
+    "record_id": "participant-output-001",
+    "record_type": "INTEROPERABILITY_OUTPUT",
+    "content": "The participant says Iran attacked the United States."
+  },
+  "semantic_receipt": {
+    "receipt_id": "semantic-receipt-001",
+    "receipt_type": "HIL_SEMANTIC_TRANSFORMATION",
+    "source_record_id": "participant-source-001",
+    "output_record_id": "participant-output-001",
+    "interoperability_layer": {
+      "class": "llm",
+      "identity": "bounded-test-layer",
+      "version": "1"
+    },
+    "source_claim_class": "hypothesis",
+    "output_claim_class": "conclusion",
+    "source_confidence": 0.75,
+    "output_confidence": 1.0,
+    "source_boundary": ["United States", "coordinated campaign"],
+    "output_boundary": ["Iran", "United States"],
+    "identity_refs_preserved": ["United States"],
+    "identity_refs_changed": ["coordinated campaign", "Iran"],
+    "constraints_preserved": [],
+    "constraints_removed": ["not a claim of certainty", "attribution remains provisional"],
+    "constraints_added": [],
+    "transformation_classes": ["hypothesis_to_conclusion", "confidence_inflation", "constraint_removal", "campaign_boundary_reduction"],
+    "semantic_preservation_score": null,
+    "confidence_preservation_score": null,
+    "boundary_preservation_score": null,
+    "identity_preservation_score": null,
+    "reconstruction_fidelity_score": null,
+    "evidence_refs": ["participant-source-001", "participant-output-001"],
+    "authority_effect": false
+  },
+  "expected_validation": "PASS"
+}
