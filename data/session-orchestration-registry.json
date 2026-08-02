@@ -80,11 +80,11 @@
         "replace inaccessible chat-dependent work with repository-native workers",
         "determine archive readiness from durable repository state"
       ],
-      "posture": "MERGE_REQUIRED",
-      "claim_state": "CLAIMED_FOR_INTEGRATION",
-      "claimant": "this session",
+      "posture": "ARCHIVABLE",
+      "claim_state": "MERGED",
+      "claimant": "repository-native continuation",
       "claim_created_at": "2026-08-02T08:20:00Z",
-      "claim_release_condition": "native-main ST-018 custody evidence is observed and all unique session requirements resolve through the listed canonical locations",
+      "claim_release_condition": "satisfied by durable transfer of all unique session state and successor ownership of unresolved ST-018 custody work",
       "collision_boundaries": [
         "do not duplicate Site ST-018 implementation",
         "do not duplicate session-orchestration issue #114 ownership",
@@ -97,15 +97,17 @@
         "issues/39",
         "issues/114",
         "issues/141",
+        "issues/149",
         "pulls/145",
         "pulls/147",
         "pulls/148"
       ],
       "current_commit": "b4ff66072dba37e18a10776cceb9e6c20478c18f",
       "active_task_ownership": false,
-      "distinct_support_role": "integration, evidence inspection, and durable session-state transfer",
+      "distinct_support_role": "released; unresolved execution remains machine-owned",
       "unique_unmerged_state": false,
-      "safe_to_archive": false,
+      "safe_to_archive": true,
+      "conflicting_active_owner": false,
       "successor_execution_source": "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
       "canonical_continuation_locations": [
         "docs/STEGMUSIC_LIVE_MIRROR_HANDOFF.md",
@@ -113,7 +115,8 @@
         "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
         "issues/39",
         "issues/114",
-        "issues/141"
+        "issues/141",
+        "issues/149"
       ],
       "material_state_locations": [
         "assets/ecosystem-music-six-track-registry.js",
@@ -124,7 +127,9 @@
         "schemas/validation-execution-receipt.schema.json",
         "scripts/capture_validation_manifest.py",
         "scripts/write_site_current_main_validation_receipt.py",
-        "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json"
+        "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+        "data/session-orchestration-registry.json",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
       ],
       "completed_or_transferred": [
         "six-track runtime and browser validation merged into Site main",
@@ -132,13 +137,11 @@
         "ST-018 implementation merged through PR #145",
         "receipt-writer repair merged through PR #147",
         "worker trigger repair merged through PR #148",
-        "session-specific worker and archival requirements transferred into the ST-018 task record and this registry"
+        "session-specific worker and archival requirements transferred into the ST-018 task record and this registry",
+        "remaining native-main custody observation assigned to repository-native issue #141 and its watched task record"
       ],
-      "required_before_archive": [
-        "observe native-main ST-018 artifact and issue #141 custody receipt",
-        "change this registry entry to SUPERSEDED or ARCHIVABLE after the release condition is met"
-      ],
-      "reason": "Implementation ownership has converged into repository-native Site workflows. This session retains only a distinct evidence-inspection and consolidation role until native-main custody is directly observed."
+      "required_before_archive": [],
+      "reason": "All unique session state is durably preserved, this session owns no active task, and unresolved ST-018 custody execution has a repository-native owner, watched trigger, durable task record, issue, and machine-observable completion condition."
     }
   ]
 }
