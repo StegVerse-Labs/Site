@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/validation-execution-receipt.schema.json",
+  "title": "ST-018 Validation Execution Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "repository",
+    "commit_sha",
+    "workflow",
+    "run_id",
+    "run_attempt",
+    "status",
+    "validators",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "ST-018-EXECUTION-RECEIPT-v1"},
+    "repository": {"const": "StegVerse-Labs/Site"},
+    "commit_sha": {"type": "string", "minLength": 40},
+    "workflow": {"type": "string", "minLength": 1},
+    "run_id": {"type": "integer", "minimum": 1},
+    "run_attempt": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "validators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "command", "exit_code", "log_path", "sha256", "size_bytes"],
+        "properties": {
+          "id": {"type": "string"},
+          "command": {"type": "string"},
+          "exit_code": {"type": "integer"},
+          "log_path": {"type": "string"},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "size_bytes": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": ["may_publish", "may_assert_source_completeness", "may_change_factual_confidence", "may_assert_admissibility", "may_deploy", "may_release", "may_mutate_downstream"],
+      "properties": {
+        "may_publish": {"const": false},
+        "may_assert_source_completeness": {"const": false},
+        "may_change_factual_confidence": {"const": false},
+        "may_assert_admissibility": {"const": false},
+        "may_deploy": {"const": false},
+        "may_release": {"const": false},
+        "may_mutate_downstream": {"const": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
