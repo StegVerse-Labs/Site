@@ -17,178 +17,132 @@ Activation ledger: data/va-claim-assistant/activation-gates.json
 ```text
 state: SOURCE_GROUNDED_ACTIVE
 current public capability: SOURCE_GROUNDED_ASSISTANT
-verified route: evidence_requirement
+next activation target: DOCUMENT_AWARE_ASSISTANT
 final target: GOVERNED_CLAIM_SESSION
-document-aware capability: NOT ACTIVATED
+document fixture layer: VERIFIED_BOUNDED_FIXTURE_ONLY
+substantive document interpretation: NOT VERIFIED
 public private-document upload: DISABLED
 authority effect: NONE
 ```
 
-The source-grounded milestone is active only for the bounded public-source `evidence_requirement` route. It does not establish document-aware assistance, adjudication, representation, a medical opinion, a rating outcome, filing authority, publication authority, or a complete governed claim session.
+The active public capability remains limited to the bounded public-source `evidence_requirement` route. Fixture validation, metadata-boundary execution, and derived-record custody do not establish substantive private-document interpretation or public document upload.
 
-## Authoritative files
-
-```text
-data/va-claim-assistant/activation-gates.json
-data/va-claim-assistant/governance-validation-receipt.json
-data/va-claim-assistant/source-grounded-evidence-manifest.json
-data/va-claim-assistant/source-grounded-activation-receipt.json
-data/tasks/SITE-0001-VA-SOURCE-GROUNDED-EVIDENCE.json
-api/va-claim-assistant/evidence-requirement.json
-va-claim-assistant-source-grounded.html
-scripts/check_va_claim_assistant_governance.py
-scripts/write_va_governance_validation_receipt.py
-scripts/check_va_source_grounded_evidence_manifest.py
-scripts/reconcile_va_claim_assistant_activation.py
-scripts/apply_va_source_grounded_evidence_manifest.py
-.github/workflows/va-claim-assistant-activation.yml
-
-data/va-claim-assistant/document-index.schema.json
-data/va-claim-assistant/document-evidence-assessment.schema.json
-data/va-claim-assistant/private-document-intake.schema.json
-scripts/check_va_document_evidence.py
-scripts/process_va_private_document_fixture.py
-.github/workflows/va-document-evidence.yml
-.github/workflows/va-private-document-runtime.yml
-```
-
-## Completed activation evidence
+## Completed source-grounded chain
 
 ```text
-LLM-adapter answer receipt:
-StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154
-
-TVC readiness:
-StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43
-
-TVC invocation:
-StegVerse-Labs/TVC@0f0ecf2183e10d27a1d504bdeb30349fe7b3b806
-
-Master Records custody and reconstruction:
-master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977
-custody = RECORDED
-reconstruction = PASS
-answer hash = e68b1740b03bc0a51221cc56222fb7e5794317b26f1684572d1af5080a28aeb3
-
-Site evidence manifest:
-StegVerse-Labs/Site@277a0183f8870766f9810835f7078a123c029163
-
-Site governance/provenance and live activation receipt:
-StegVerse-Labs/Site@314021b480289fe08e0fa0b2ca71254ae0564463
+LLM-adapter answer: StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154
+TVC readiness: StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43
+TVC invocation: StegVerse-Labs/TVC@0f0ecf2183e10d27a1d504bdeb30349fe7b3b806
+Master Records custody/reconstruction: master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977
+Site activation receipt: StegVerse-Labs/Site@314021b480289fe08e0fa0b2ca71254ae0564463
+public page HTTP 200: verified
+public endpoint HTTP 200: verified
+endpoint repository-byte equality: verified
 ```
 
-The repository-owned activation workflow observed:
+## Completed bounded document-fixture chain
 
 ```text
-public page HTTP status: 200
-public endpoint HTTP status: 200
-deployed endpoint hash equals repository endpoint hash: true
-source registry validation: PASS
-valid answer provenance fixture: PASS
-authority escalation fixture: REJECTED AS EXPECTED
-unsupported proposition fixture: REJECTED AS EXPECTED
-all source-grounded activation gates: VERIFIED
+Site document evidence receipt:
+data/va-claim-assistant/document-evidence-validation-receipt.json
+commit afcae5bba26b67da61ed542a58d11e7a2d761135
+state VERIFIED
+
+Site private runtime receipt:
+data/va-claim-assistant/private-document-runtime-receipt.json
+commit 14fcdd15f2916e60f03997ecd0c53f31416fd139
+assessment hash 87d25d28bcc8a3d8ff90d41e818a2fa07fe07b449a9c1eca4415e603b50f99e5
+public upload false
+raw documents published false
+
+TVC document readiness:
+StegVerse-Labs/TVC@835c85cba3f8283632098df7b3891d1bc369d3f3
+state READY
+hosted workflow observed false
+
+TVC metadata-boundary invocation:
+StegVerse-Labs/TVC@07bbf12b378ee6bdf5abfc929bb7281302f3abd1
+state EXECUTED_METADATA_BOUNDARY_ONLY
+raw interpretation observed false
+derived record emitted false
+
+Master Records derived-record custody:
+master-records/orchestration@5f8a4271b1a7cf590de3bcf4b3eaaa8370c2a804
+custody RECORDED
+reconstruction PASS
+raw documents received false
+raw documents retained false
+raw documents published false
 ```
+
+All receipts above distinguish independent deterministic reproduction from hosted workflow observation.
 
 ## Gate state
 
 ```text
 VCA-GATE-01 source registry: VERIFIED
 VCA-GATE-02 answer provenance: VERIFIED
-VCA-GATE-03 TVC capability: VERIFIED
+VCA-GATE-03 TVC public-source capability: VERIFIED
 VCA-GATE-04 governed retrieval: VERIFIED
-VCA-GATE-05 document evidence layer: NOT VERIFIED — final target only
-VCA-GATE-06 custody: VERIFIED
-VCA-GATE-07 reconstruction: VERIFIED
+VCA-GATE-05 document evidence: VERIFIED_BOUNDED_FIXTURE_ONLY
+VCA-GATE-06 public-source custody: VERIFIED
+VCA-GATE-07 public-source reconstruction: VERIFIED
 VCA-GATE-08 public status derivation: VERIFIED
-VCA-GATE-09 deployed bounded session: VERIFIED
+VCA-GATE-09 deployed bounded source-grounded session: VERIFIED
 ```
 
-## Claims
+`VERIFIED_BOUNDED_FIXTURE_ONLY` is deliberately non-terminal. It does not satisfy `DOCUMENT_AWARE_ASSISTANT` or `GOVERNED_CLAIM_SESSION` activation rules.
+
+## Claims and transfer
 
 ```text
-SITE-0001-VA-SOURCE-GROUNDED-EVIDENCE: COMPLETE
-claim release evidence: commit 314021b480289fe08e0fa0b2ca71254ae0564463
-completion task record: data/tasks/SITE-0001-VA-SOURCE-GROUNDED-EVIDENCE.json
-
-Site#116 document-aware implementation: CLAIMED_FOR_IMPLEMENTATION
-collision boundary: document schemas, fixtures, processors, document receipts, and document-aware activation
-release condition: validated document and private-runtime receipts, distinct TVC document capability, derived-record custody/reconstruction, and VCA-GATE-05 VERIFIED
+Source-grounded Site integration: RELEASED_COMPLETE
+TVC document readiness and metadata boundary: RELEASED_COMPLETE
+Master Records fixture-derived custody: RELEASED_COMPLETE
+Site#116 substantive document-aware implementation: CLAIMED_FOR_IMPLEMENTATION
 ```
 
-A handoff is not execution transfer. A claim is transferred only when a named executor has mutation authority, accepts the bounded task, and produces current inspectable execution evidence.
+`MERGED INTO: StegVerse-Labs/Site#116`
 
-## Document-aware work remaining
+Transferred scope:
 
-Owner: `StegVerse-Labs/Site#116`.
+- admitted substantive document-content interpretation;
+- deployed bounded runtime evidence;
+- derived-record custody/reconstruction for that substantive execution;
+- promotion of `VCA-GATE-05` from `VERIFIED_BOUNDED_FIXTURE_ONLY` to `VERIFIED` only after those conditions pass.
+
+## Remaining exact tasks
+
+1. `StegVerse-Labs/Site#116`: execute admitted substantive document content through a governed runtime rather than fixture metadata alone.
+2. `StegVerse-Labs/Site#116`: emit an execution receipt proving page-bound facts, separated inference, contradiction handling, missing-evidence handling, privacy state, and false authority flags.
+3. `master-records/orchestration`: accept only the substantive derived record and produce custody `RECORDED` and reconstruction `PASS`; raw documents must remain absent.
+4. `StegVerse-Labs/Site#116`: promote `VCA-GATE-05` to `VERIFIED` only after the substantive execution and custody chain passes.
+5. `StegVerse-Labs/Site#113`: retain the current public capability as `SOURCE_GROUNDED_ASSISTANT` until document-aware deployment is directly observed.
+6. `StegVerse-org/LLM-adapter#18` and `StegVerse-Labs/Site#24`: complete Ecosystem Chat zero-blocker runtime and public activation.
+
+## Machine-owned continuation
 
 ```text
-1. Persist data/va-claim-assistant/document-evidence-validation-receipt.json.
-2. Persist data/va-claim-assistant/private-document-runtime-receipt.json.
-3. Preserve page-level citations, favorable and unfavorable facts, separated inference, contradictions, and missing-evidence entries.
-4. Keep public upload disabled until a distinct TVC document-interpretation capability is READY/EXECUTED.
-5. Add Master Records custody and reconstruction for derived private-session records without publishing raw documents.
-6. Verify VCA-GATE-05 only after the complete document-aware chain passes.
-7. Do not expose GOVERNED_CLAIM_SESSION until all final gates are verified.
+Source-grounded observer: .github/workflows/va-claim-assistant-activation.yml
+Document evidence workflow: .github/workflows/va-document-evidence.yml
+Private fixture runtime: .github/workflows/va-private-document-runtime.yml
+Cross-repository observer: StegVerse-Labs/StegOps-Orchestrator/.github/workflows/va-claim-assistant-observer.yml
 ```
 
-## Repository-native continuation
+Hosted workflow observation remains supplemental where an independently reproducible deterministic receipt has already been committed; it must not be misrepresented as observed when absent.
 
-```text
-Source-grounded activation observer:
-.github/workflows/va-claim-assistant-activation.yml
+## Authority and archive boundary
 
-Document evidence validator:
-.github/workflows/va-document-evidence.yml
-hardened commit: 05de060345d9f4c39b91b2d8c4f057e4c881a696
+No document receipt grants adjudication, representation, medical opinion, rating, claim submission, publication, or public activation authority. A handoff alone is not transfer. Transfer requires a named executor, mutation authority, exact surfaces, accepted scope, active evidence, and a durable transfer record.
 
-Private document runtime:
-.github/workflows/va-private-document-runtime.yml
-hardened commit: 73feac15d5d95ad86b8cd84787c801d8980834cf
-
-Cross-repository observer:
-StegVerse-Labs/StegOps-Orchestrator/.github/workflows/va-claim-assistant-observer.yml
-```
-
-The two document workflows now self-start on their owned paths, persist receipts with `[skip ci]`, rebase before push, and upload evidence artifacts. Their receipt commits remain required before document-aware completion is claimed.
-
-## Cross-repository owners
-
-```text
-Site source, public projection, and document layer: StegVerse-Labs/Site
-Governed public-source retrieval: StegVerse-org/LLM-adapter
-Scoped capability custody: StegVerse-Labs/TVC
-Session and derived-record custody/reconstruction: master-records/orchestration
-Cross-repository observation: StegVerse-Labs/StegOps-Orchestrator
-```
-
-No Publisher, admissibility-wiki, or stegguardian-wiki propagation is authorized from this VA milestone unless a separate publication contract is installed and validated.
-
-## Validation commands
-
-```bash
-python scripts/check_va_claim_assistant_governance.py
-python scripts/write_va_governance_validation_receipt.py
-python scripts/check_va_source_grounded_evidence_manifest.py
-python scripts/reconcile_va_claim_assistant_activation.py
-python scripts/apply_va_source_grounded_evidence_manifest.py
-python scripts/check_va_document_evidence.py
-python scripts/process_va_private_document_fixture.py
-```
-
-## Session consolidation and archival condition
-
-All unique VA requirements are durable in this handoff, the activation ledger, task records, issues `#113` and `#116`, and repository-native workflows. That preservation alone does not release this session.
-
-Do not declare this session archive-ready while it still owns unique integration or validation work, while document receipt workflows lack inspectable execution evidence, or while Ecosystem Chat remains incomplete. Archive eligibility requires verified completion or an actual proven transfer for every remaining task, including an active executor with mutation authority and current commits, workflow runs, logs, artifacts, or receipts.
+This session remains in a distinct validation/reconciliation role while substantive document-aware execution and Ecosystem Chat activation remain incomplete.
 
 ## Percentages
 
 ```text
-source-grounded milestone developed files: 23/23 = 100%
-source-grounded validation: 11/11 = 100%
-source-grounded integration: 9/9 = 100%
-source-grounded activation: 8/8 required gates = 100%
-full VA governed-session activation: 8/9 gates = 89%
-session consolidation: 6/6 requirements preserved; complete-session execution transfer not yet proven
+source-grounded milestone: 100 percent
+bounded document-fixture chain: 100 percent
+substantive document-aware activation: incomplete
+full VA governed-session activation: 8 verified gates plus 1 bounded-fixture-only gate
+session consolidation: all current requirements durable; remaining execution owned by Site#116 and Ecosystem Chat lanes
 ```
