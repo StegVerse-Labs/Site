@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "va-private-document-fixture-001",
+  "document_index": [
+    {
+      "document_id": "DOC-PRIVATE-001",
+      "filename": "va-treatment-summary.pdf",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "media_type": "application/pdf",
+      "privacy_class": "SENSITIVE_HEALTH",
+      "page_count": 3,
+      "source_kind": "VA_RECORD",
+      "condition_associations": ["sleep-disorder"]
+    },
+    {
+      "document_id": "DOC-PRIVATE-002",
+      "filename": "veteran-statement.txt",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "media_type": "text/plain",
+      "privacy_class": "PERSONAL",
+      "page_count": 1,
+      "source_kind": "LAY_STATEMENT",
+      "condition_associations": ["sleep-disorder"]
+    }
+  ],
+  "page_anchors": [
+    {"anchor_id": "A1", "document_id": "DOC-PRIVATE-001", "page": 1, "section": "fixture-anchor"},
+    {"anchor_id": "A2", "document_id": "DOC-PRIVATE-002", "page": 1, "section": "fixture-anchor"}
+  ],
+  "facts": [
+    {
+      "fact_id": "F1",
+      "text": "Document DOC-PRIVATE-001 was admitted to the bounded fixture with a verified content hash.",
+      "posture": "NEUTRAL",
+      "document_id": "DOC-PRIVATE-001",
+      "page": 1,
+      "anchor_id": "A1"
+    },
+    {
+      "fact_id": "F2",
+      "text": "Document DOC-PRIVATE-002 was admitted to the bounded fixture with a verified content hash.",
+      "posture": "NEUTRAL",
+      "document_id": "DOC-PRIVATE-002",
+      "page": 1,
+      "anchor_id": "A2"
+    }
+  ],
+  "inferences": [],
+  "contradictions": [],
+  "missing_evidence": [
+    {
+      "missing_id": "M1",
+      "category": "SUBSTANTIVE_REVIEW",
+      "description": "This fixture validates intake, hashing, anchoring, privacy, and custody structure only; substantive document interpretation requires a separately verified governed runtime.",
+      "materiality": "HIGH",
+      "next_action": "Run the separately governed document interpretation capability after its TVC and custody receipts are verified."
+    }
+  ],
+  "privacy": {
+    "public_upload_enabled": false,
+    "raw_documents_published": false,
+    "processing_scope": "REPOSITORY_FIXTURE_ONLY"
+  },
+  "authority_flags": {
+    "adjudication": false,
+    "representation": false,
+    "medical_opinion": false,
+    "rating": false,
+    "execution": false,
+    "publication": false
+  },
+  "assessment_hash": "87d25d28bcc8a3d8ff90d41e818a2fa07fe07b449a9c1eca4415e603b50f99e5",
+  "validation_provenance": {
+    "method": "independent_deterministic_execution",
+    "hosted_workflow_observed": false,
+    "processor_blob_sha": "26f3f39ffb80aa2465c94ec59f5a5836be0d03e9",
+    "fixture_blob_sha": "679b2ec3d841dfcd4b6ab0faa2f6ea816823173d"
+  },
+  "receipt_sha256": "258c550bd085034c4757a6a198c0c1ff703828b8c65e4c49c2cf0ccfdabdf449"
+}
