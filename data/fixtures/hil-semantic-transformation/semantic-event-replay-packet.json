@@ -1,0 +1,23 @@
+{
+  "schema_version": "HIL-SEMANTIC-REPLAY-PACKET-v1",
+  "packet_id": "HIL-RP-001",
+  "source_record_id": "participant-source-001",
+  "output_record_id": "participant-output-001",
+  "semantic_receipt_id": "hil-semantic-receipt-001",
+  "canonical_event_id": "hil-semantic-event-001",
+  "ordered_records": [
+    {"kind":"source","id":"participant-source-001","claim_class":"hypothesis","confidence":0.75,"constraints":["not a claim of certainty","attribution remains provisional"]},
+    {"kind":"output","id":"participant-output-001","claim_class":"conclusion","confidence":1.0,"constraints":[]},
+    {"kind":"receipt","id":"hil-semantic-receipt-001","transformations":["hypothesis_to_conclusion","confidence_inflation","constraint_removal","campaign_boundary_reduction"],"authority_effect":false},
+    {"kind":"event","id":"hil-semantic-event-001","event_type":"evidence","source_record_id":"participant-source-001","output_record_id":"participant-output-001","receipt_ref":"hil-semantic-receipt-001","authority_effect":false}
+  ],
+  "expected_reconstruction": {
+    "source_preserved": true,
+    "output_preserved": true,
+    "receipt_resolved": true,
+    "event_resolved": true,
+    "transformations_preserved": true,
+    "authority_effect": false,
+    "result": "PASS"
+  }
+}
