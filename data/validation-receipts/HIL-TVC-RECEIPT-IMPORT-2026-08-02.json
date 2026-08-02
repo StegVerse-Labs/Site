@@ -1,0 +1,43 @@
+{
+  "schema": "stegverse.site.validation_receipt.v1",
+  "receipt_id": "HIL-TVC-RECEIPT-IMPORT-2026-08-02",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "pull_request": 159,
+  "merged_commit": "503d2eec7354b5814dbde0597c84f8e8b03fcdd1",
+  "workflow": {
+    "name": "Check TVC Execution Receipt Import",
+    "run_id": 30742591972,
+    "run_number": 4,
+    "job_id": 91482546185,
+    "job": "validate",
+    "conclusion": "success"
+  },
+  "steps": {
+    "install_test_dependency": "success",
+    "compile_validator": "success",
+    "regression_tests": "success",
+    "schema_json_validation": "success"
+  },
+  "test_result": {
+    "passed": 8,
+    "failed": 0,
+    "duration_seconds": 0.04
+  },
+  "validated_files": [
+    "schemas/tvc_execution_receipt_import.schema.json",
+    "scripts/check_tvc_execution_receipt_import.py",
+    "tests/test_tvc_execution_receipt_import.py",
+    ".github/workflows/check-tvc-execution-receipt-import.yml"
+  ],
+  "authority": {
+    "site_activation": false,
+    "execution": false,
+    "publication": false,
+    "release": false,
+    "custody": false
+  },
+  "result": "PASS",
+  "next_owner": "StegVerse-Labs/TVC runtime lane and StegVerse-Labs/Site task SITE-TVC-RUNTIME-ASSIST-001",
+  "next_release_condition": "An authentic commit-pinned TVC runtime receipt bundle validates after governed deployment and protected runtime binding are proven."
+}
