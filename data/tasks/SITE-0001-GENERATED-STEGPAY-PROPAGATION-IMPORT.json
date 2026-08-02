@@ -3,7 +3,7 @@
   "task_id": "SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT",
   "repository": "StegVerse-Labs/Site",
   "goal": "Import and validate the test-only generated StegPay propagation packet without authority escalation.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": true,
   "owner": {
     "type": "repository_controller",
@@ -45,5 +45,12 @@
   "authority_effect": false,
   "activation_effect": false,
   "publication_effect": false,
-  "release_effect": false
+  "release_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_generated_stegpay_propagation_import.py",
+    "success_marker": "GENERATED_STEGPAY_SITE_IMPORT=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

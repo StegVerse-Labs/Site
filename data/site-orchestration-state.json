@@ -54,14 +54,15 @@
       "SITE-0001-HIL-ANNOUNCEMENT-DERIVATION",
       "SITE-0001-UPLOAD",
       "SITE-0001-PERSONAL-DATA-CONTROL",
-      "SITE-0001-COHERENT-TRANSITION-THRESHOLD"
+      "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+      "SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 4,
-      "blocker_count": 4,
+      "active_task_count": 5,
+      "blocker_count": 5,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -73,7 +74,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
