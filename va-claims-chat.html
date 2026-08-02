@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Governed VA Claims Chat for source-grounded claim guidance, upcoming private document analysis, and veteran-approved claim preparation.">
+<title>Governed VA Claims Chat — StegVerse</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+.chat-shell{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:22px;align-items:start}.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}.state{display:inline-block;border:1px solid #1f6f43;background:rgba(31,111,67,.18);border-radius:999px;padding:7px 11px;font-weight:700}.disabled{opacity:.72}.chat-log{min-height:280px;background:#0b1220;border:1px solid var(--border);border-radius:12px;padding:12px;overflow:auto}.msg{padding:11px 13px;border-radius:10px;margin:8px 0;line-height:1.45}.msg.bot{background:#172033;margin-right:8%}.msg.user{background:#18365f;margin-left:12%}.composer{display:flex;gap:8px;margin-top:10px}.composer input{flex:1;min-width:0;border-radius:10px;border:1px solid var(--border);background:#0b1220;color:var(--text);padding:12px}.composer button,.action{border:1px solid var(--border);border-radius:999px;background:#18365f;color:#fff;padding:9px 13px}.gate{border-left:4px solid #775f16;padding-left:12px}.ok{border-left-color:#1f6f43}.future{border-left-color:#315a8a}.small{font-size:.92rem;color:var(--muted)}@media(max-width:860px){.chat-shell{grid-template-columns:1fr}.composer{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="va-disability-claim-guide.html">VA Claim Guide</a><a class="active" href="va-claims-chat.html">VA Claims Chat</a><a href="Papers.html">Papers</a></nav>
+<div class="sv-wrap">
+<section class="sv-hero">
+<div class="sv-eyebrow">Governed veteran workflow · source-grounded now · private documents next</div>
+<h1>Governed VA Claims Chat</h1>
+<p>Ask claim-process and evidence questions against admitted official sources today. The same governed workspace is being extended toward private multi-document analysis, claim-package preparation, and veteran-approved filing.</p>
+<div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="#chat">Open current chat</a><a class="sv-btn sv-btn-secondary" href="va-disability-claim-guide.html">Open the Claims Guide</a></div>
+</section>
+
+<div class="chat-shell">
+<main>
+<section class="panel" id="chat">
+<p class="state">Current verified capability: SOURCE_GROUNDED_ASSISTANT</p>
+<h2 class="sv-h2">Ask the governed claims assistant</h2>
+<p>The current assistant provides official-source procedural and evidence guidance. Unsupported or ambiguous routes fail closed for review. It does not adjudicate, represent, diagnose, rate, sign, or file a claim.</p>
+<div class="chat-log" id="chat-log" aria-live="polite"><div class="msg bot"><strong>VA Claims Chat:</strong> Ask about evidence requirements, direct or secondary service connection, filing stages, examinations, statements, or when accredited help is appropriate.</div></div>
+<div class="composer"><label class="sr-only" for="question">Question</label><input id="question" type="text" placeholder="Example: What evidence supports a secondary service-connection claim?"><button id="send" type="button">Ask</button></div>
+<p class="small">Every substantive future answer is required to separate source facts, veteran-record facts, assistant inference, contrary evidence, and unresolved uncertainty.</p>
+</section>
+
+<section class="panel disabled" aria-disabled="true">
+<h2 class="sv-h2">Private document workspace — coming next</h2>
+<p>Planned capabilities include secure PDF, image, and text upload; multi-file indexing; page-bound retrieval; evidence tables; timelines; contradiction detection; missing-evidence analysis; and exportable veteran-review packets.</p>
+<button class="action" type="button" disabled>Upload documents — not yet active</button>
+<p class="small">Public upload remains disabled until substantive document execution, privacy controls, custody, reconstruction, deletion, and deployed-runtime receipts are verified.</p>
+</section>
+
+<section class="panel disabled" aria-disabled="true">
+<h2 class="sv-h2">Veteran-approved automated filing — future governed target</h2>
+<p>The intended path is automated preparation followed by explicit veteran review and authorization of the exact package. Filing will not occur from unreviewed uploads or inferred consent.</p>
+<button class="action" type="button" disabled>Prepare or file claim — not yet active</button>
+</section>
+</main>
+
+<aside>
+<section class="panel gate ok"><h3>Available now</h3><ul><li>Official-source procedural guidance</li><li>Evidence-requirement guidance</li><li>Fail-closed route classification</li><li>Source-grounded propositions</li><li>Uncertainty preservation</li></ul></section>
+<section class="panel gate future"><h3>Document workspace gates</h3><ul><li>Private intake and hashing</li><li>Page anchors and provenance</li><li>Contradictions and missing evidence</li><li>Retention, deletion, and export</li><li>Derived-record custody and reconstruction</li></ul></section>
+<section class="panel gate"><h3>Filing authority gates</h3><ul><li>Veteran confirms every material fact</li><li>Veteran selects every claimed condition</li><li>Current-form and rule preflight</li><li>Exact, unexpired package authorization</li><li>Authorized VA or accredited-representative transport</li><li>Submission confirmation and duplicate prevention</li></ul></section>
+<section class="panel"><h3>Non-authority boundary</h3><p class="small">StegVerse is not VA, an accredited representative, an attorney, or a clinician. The system may organize evidence and prepare drafts, but it may not invent facts, manufacture nexus evidence, target a percentage, or submit without explicit authority.</p></section>
+</aside>
+</div>
+</div>
+<script>
+(()=>{const log=document.getElementById('chat-log');const input=document.getElementById('question');const send=document.getElementById('send');function add(cls,text){const d=document.createElement('div');d.className='msg '+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight}function answer(q){const s=q.toLowerCase();if(s.includes('secondary'))return 'A secondary claim generally needs evidence of a current condition and competent evidence that a service-connected condition or its treatment caused or aggravated it. The current assistant can explain evidence categories, but it cannot create a medical nexus or predict a rating.';if(s.includes('upload')||s.includes('document'))return 'Native private document upload is a governed capability under development. It will require hashing, page anchors, privacy controls, contradiction handling, custody, reconstruction, deletion, and deployed-runtime evidence before activation.';if(s.includes('file')||s.includes('submit'))return 'Automated filing is not active. The future workflow requires a complete veteran-review packet, confirmation of every material fact and claimed condition, current-form preflight, and an exact unexpired submission authorization.';if(s.includes('rating')||s.includes('percent'))return 'This assistant does not target or predict a percentage. It helps organize truthful evidence so VA can determine the evaluation supported under current law.';return 'This route is not yet implemented in the current bounded chat. The request is preserved for governed review rather than answered without sufficient source and authority support.'}function run(){const q=input.value.trim();if(!q)return;add('user',q);input.value='';add('bot',answer(q))}send.addEventListener('click',run);input.addEventListener('keydown',e=>{if(e.key==='Enter')run()})})();
+</script>
+</body>
+</html>
