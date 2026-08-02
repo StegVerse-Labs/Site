@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0.0",
+  "inventory_id": "AUTHORITY-ENGINEERING-COMPANY-TESTBED-2026-08-02",
+  "originating_session_goal": "Translate the Prompt Engineering to Authority Engineering discussion into a StegVerse public post, commit-boundary model, company-testbed audit surface, and durable continuation path.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "canonical_handoff": "docs/COMPANY_TESTBED_MIRROR_HANDOFF.md",
+  "canonical_security_handoff": "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+  "canonical_security_policy": "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md",
+  "canonical_security_task": "tasks/HIL-FEDERAL-PLUS-SECURITY-001.json",
+  "canonical_security_workflow": ".github/workflows/check-hil-federal-plus-security-baseline.yml",
+  "session_role": "INTEGRATION_AND_CONSOLIDATION",
+  "claim_state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+  "claim_created_at": "2026-08-02T17:49:00-05:00",
+  "claim_released_at": "2026-08-02T17:49:00-05:00",
+  "claim_release_condition": "All session-specific decisions, artifacts, security requirements, remaining tasks, owners, and validation boundaries are committed in canonical repository records.",
+  "collision_boundary": "Do not create a competing federal-plus security baseline, company-testbed handoff, or execution-boundary authority model. Continue through the canonical files identified in this inventory.",
+  "goals": [
+    {
+      "task_id": "AE-POST-001",
+      "goal": "Create a public LinkedIn post extending authority engineering through commit-time state-transition admissibility.",
+      "destination": "docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md",
+      "owner": "StegVerse-Labs/Site company-testbed workstream",
+      "claim_state": "COMPLETE",
+      "completion_state": "Durably represented as the external-facing thesis and suggested LinkedIn language.",
+      "validation_state": "DOCUMENT_BOUNDARY_VALIDATED",
+      "integration_state": "INTEGRATED",
+      "archival_dependency": false,
+      "evidence": [
+        "docs/COMPANY_TESTBED_MIRROR_HANDOFF.md",
+        "docs/STEGVERSE_EXECUTION_BOUNDARY_TESTBED_README.md"
+      ],
+      "next_executable_action": "Use only as outreach language; external posting and reactions do not create technical validation or partnership evidence."
+    },
+    {
+      "task_id": "AE-MODEL-002",
+      "goal": "Preserve the clarified model that authority engineering evaluates both actor authority and resulting-state admissibility at the governed point of irreversibility.",
+      "destination": "docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md",
+      "owner": "StegVerse-Labs/Site company-testbed workstream",
+      "claim_state": "COMPLETE",
+      "completion_state": "Implemented in the audit template, sample audit, and handoff.",
+      "validation_state": "STATIC_VALIDATOR_INSTALLED",
+      "integration_state": "INTEGRATED",
+      "archival_dependency": false,
+      "evidence": [
+        "docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md",
+        "docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md",
+        "scripts/check_site_company_testbed_artifacts.py"
+      ],
+      "next_executable_action": "Continue current-main validation through the canonical Site validation path."
+    },
+    {
+      "task_id": "AE-VISUAL-003",
+      "goal": "Use symbolic human-AI imagery and a technical commit-gate diagram to explain the governed boundary.",
+      "destination": "External LinkedIn media surface",
+      "owner": "Human publication authority",
+      "claim_state": "COMPLETE_FOR_SESSION",
+      "completion_state": "Image concepts were produced; repository publication is not required for continuation of the technical workstream.",
+      "validation_state": "HUMAN_PUBLICATION_BOUND",
+      "integration_state": "NOT_A_REPOSITORY_RUNTIME_REQUIREMENT",
+      "archival_dependency": false,
+      "evidence": [
+        "docs/COMPANY_TESTBED_MIRROR_HANDOFF.md"
+      ],
+      "next_executable_action": "No repository action. Any reuse remains subject to human publication and attribution review."
+    },
+    {
+      "task_id": "AE-PILOT-004",
+      "goal": "Turn the discussion into an operational non-production Execution Boundary Audit and intake path.",
+      "destination": "StegVerse-Labs/Site",
+      "owner": "StegVerse-Labs/Site company-testbed workstream",
+      "claim_state": "COMPLETE",
+      "completion_state": "Audit template, intake questionnaire, synthetic fail-closed sample, target-list template, validator, and adversarial tests are installed.",
+      "validation_state": "IMPLEMENTED; CURRENT_MAIN_EVIDENCE_OBSERVATION_OWNED_BY_CANONICAL_VALIDATION_PATH",
+      "integration_state": "INTEGRATED",
+      "archival_dependency": false,
+      "evidence": [
+        "docs/STEGVERSE_EXECUTION_BOUNDARY_AUDIT_TEMPLATE.md",
+        "docs/STEGVERSE_EXECUTION_BOUNDARY_INTAKE_QUESTIONNAIRE.md",
+        "docs/STEGVERSE_EXECUTION_BOUNDARY_SAMPLE_AUDIT.md",
+        "docs/STEGVERSE_COMPANY_TESTBED_TARGET_LIST_TEMPLATE.md",
+        "scripts/check_site_company_testbed_artifacts.py",
+        "scripts/test_site_company_testbed_artifacts.py"
+      ],
+      "next_executable_action": "Repository-native validation observes the next current-main run and records exact evidence without retaining this chat session."
+    },
+    {
+      "task_id": "AE-SEC-005",
+      "goal": "Treat every applicable United States federal cybersecurity requirement as a minimum floor and require StegVerse controls to exceed it.",
+      "destination": "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "owner": ".github/workflows/check-hil-federal-plus-security-baseline.yml",
+      "claim_state": "MACHINE_OWNED",
+      "completion_state": "Requirement merged into the existing canonical federal-plus security workstream; no duplicate baseline created.",
+      "validation_state": "POLICY_PROFILE_SCHEMA_VALIDATOR_WORKFLOW_AND_TASK_INSTALLED; OPERATIONAL_EVIDENCE_INCOMPLETE",
+      "integration_state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "archival_dependency": false,
+      "evidence": [
+        "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md",
+        "data/hil-federal-plus-security-baseline.json",
+        "schemas/hil-federal-plus-security-baseline.schema.json",
+        "scripts/check_hil_federal_plus_security_baseline.py",
+        ".github/workflows/check-hil-federal-plus-security-baseline.yml",
+        "tasks/HIL-FEDERAL-PLUS-SECURITY-001.json",
+        "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md"
+      ],
+      "next_executable_action": "Machine-owned workflow validates policy/profile integrity and named repository owners produce operational control evidence."
+    },
+    {
+      "task_id": "AE-PROP-006",
+      "goal": "Preserve propagation obligations for Site, Publisher, admissibility-wiki, stegguardian-wiki, and Master Records after evidence permits release.",
+      "destination": "docs/COMPANY_TESTBED_MIRROR_HANDOFF.md",
+      "owner": "Named destination repositories after release gates",
+      "claim_state": "BLOCKED",
+      "completion_state": "Durably assigned with release conditions; no propagation falsely claimed.",
+      "validation_state": "BLOCKED_UNTIL_ACTIVATION_SECURITY_CUSTODY_AND_RELEASE_EVIDENCE",
+      "integration_state": "OWNERSHIP_REPRESENTED",
+      "archival_dependency": false,
+      "evidence": [
+        "docs/COMPANY_TESTBED_MIRROR_HANDOFF.md",
+        "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md"
+      ],
+      "next_executable_action": "Destination owners import only authenticated, non-authorizing receipts after their release conditions are satisfied."
+    }
+  ],
+  "repositories_inspected": [
+    "StegVerse-Labs/Site"
+  ],
+  "converged_work": [
+    {
+      "requirement": "Federal requirements are a minimum security floor and StegVerse must exceed them.",
+      "classification": "MERGED_INTO_CANONICAL_WORKSTREAM",
+      "canonical_location": "StegVerse-Labs/Site/docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "duplicate_execution_prevented": true
+    }
+  ],
+  "remaining_repository_owned_work": [
+    {
+      "owner": "StegVerse-Labs/Site canonical validation path",
+      "location": "scripts/check_site_workflow_inventory.py",
+      "state": "MACHINE_OWNED",
+      "release_condition": "A current-main run executes the company-testbed validator and adversarial tests successfully and records inspectable evidence."
+    },
+    {
+      "owner": ".github/workflows/check-hil-federal-plus-security-baseline.yml",
+      "location": "tasks/HIL-FEDERAL-PLUS-SECURITY-001.json",
+      "state": "MACHINE_OWNED",
+      "release_condition": "The workflow validates the profile and repository owners supply every operational evidence item required for activation."
+    },
+    {
+      "owner": "GCAT-BCAT-Engine/Publisher, admissibility-wiki, stegguardian-wiki, and master-records/orchestration",
+      "location": "docs/COMPANY_TESTBED_MIRROR_HANDOFF.md",
+      "state": "BLOCKED",
+      "release_condition": "Authenticated activation, security, custody, reconstruction, and release receipts authorize bounded propagation."
+    }
+  ],
+  "security_claim_boundary": {
+    "federal_certification_claimed": false,
+    "authorization_to_operate_claimed": false,
+    "regulatory_approval_claimed": false,
+    "production_activation_claimed": false,
+    "third_party_assurance_claimed": false,
+    "policy_installation_is_operational_compliance": false
+  },
+  "session_consolidation": {
+    "total_session_goals": 6,
+    "transferred_or_complete": 6,
+    "unique_chat_only_requirements_remaining": 0,
+    "active_session_claim": false,
+    "safe_to_archive": true,
+    "canonical_continuation": "StegVerse-Labs/Site/docs/COMPANY_TESTBED_MIRROR_HANDOFF.md"
+  }
+}
