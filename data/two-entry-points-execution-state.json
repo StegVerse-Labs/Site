@@ -3,71 +3,152 @@
   "canonical_issue": "StegVerse-Labs/Site#152",
   "originating_goal": "Complete Ecosystem Chat and VA Claim Assistant as fully functional, continuously extensible public entry points.",
   "archive_state": "ACTIVE_UNIQUE_WORK_REMAINS",
-  "updated_at": "2026-08-02T08:35:00Z",
+  "updated_at": "2026-08-02T08:36:00Z",
+  "claim_policy": {
+    "maximum_claim_hours_without_evidence": 24,
+    "stale_claim_action": "BLOCK_AND_RELEASE_FOR_RECLAIM",
+    "renewal_requires": "new inspectable commit, workflow run, artifact, receipt, deployment observation, or issue-state evidence",
+    "handoff_alone_is_transfer": false
+  },
   "tasks": [
     {
       "task_id": "ECP-001",
+      "originating_session_goal": "Complete Ecosystem Chat as a fully functional governed public entry point.",
       "goal": "Ecosystem Chat governed runtime activation",
       "repository": "StegVerse-org/LLM-adapter",
       "branch": "main",
       "location": "issue #18; .github/workflows/ecosystem-chat-live-activation.yml; reports/ecosystem-chat-live-activation-status.json",
       "owner": "StegVerse-org/LLM-adapter#18 and repository-native workflows",
+      "execution_lane": "repository-native activation verification",
+      "role": "IMPLEMENTATION_AND_VALIDATION",
       "claim_state": "MACHINE_OWNED",
+      "claim_created_at": "2026-08-02T08:35:00Z",
+      "claim_expires_at": "2026-08-03T08:35:00Z",
+      "claim_release_condition": "zero-blocker immutable live activation receipt exists or no new machine evidence is produced before expiration",
+      "expected_evidence": "workflow run, job logs, live activation observation, status receipt, or immutable verified receipt",
+      "collision_boundaries": [
+        "StegVerse-org/LLM-adapter:.github/workflows/ecosystem-chat-live-activation.yml",
+        "StegVerse-org/LLM-adapter:scripts/verify_live_ecosystem_chat_activation.py",
+        "StegVerse-org/LLM-adapter:reports/ecosystem-chat-live-activation-status.json"
+      ],
       "completion_state": "BLOCKED",
       "validation_state": "LIVE_ACTIVATION_PENDING",
       "integration_state": "RUNTIME_IMPLEMENTED_ENDPOINT_UNVERIFIED",
-      "evidence": ["StegVerse-org/LLM-adapter#18", "reports/ecosystem-chat-live-activation-status.json"],
+      "archival_dependency": true,
+      "evidence": [
+        "StegVerse-org/LLM-adapter#18",
+        "StegVerse-org/LLM-adapter/reports/ecosystem-chat-live-activation-status.json"
+      ],
       "blocker": "authorized_persistent_provider_and_master_records_runtime_not_verified",
       "release_condition": "immutable zero-blocker live activation receipt exists",
-      "next_action": "repository-native activation verifier records exact endpoint/provider/custody/reconstruction result"
+      "machine_observable_release_condition": "receipts/ecosystem-chat-live-activation.verified.json has state VERIFIED and blockers []",
+      "next_action": "repository-native activation verifier records exact endpoint/provider/custody/reconstruction result",
+      "next_task_after_release": "ECP-002 imports and validates the immutable adapter receipt"
     },
     {
       "task_id": "ECP-002",
+      "originating_session_goal": "Complete Ecosystem Chat Site activation and verified downstream propagation.",
       "goal": "Ecosystem Chat Site activation and downstream propagation",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "location": "issue #24; ecosystem-chat.html; Site activation import and propagation records",
       "owner": "StegVerse-Labs/Site#24",
+      "execution_lane": "Site integration and propagation",
+      "role": "INTEGRATION",
       "claim_state": "CLAIMED_FOR_INTEGRATION",
+      "claim_created_at": "2026-08-02T08:35:00Z",
+      "claim_expires_at": "2026-08-03T08:35:00Z",
+      "claim_release_condition": "Site ACTIVATION_COMPLETE and downstream ingestion verified, or claim expires without new evidence",
+      "expected_evidence": "adapter receipt import commit, Site activation receipt, Publisher/wiki ingestion receipts",
+      "collision_boundaries": [
+        "StegVerse-Labs/Site:ecosystem-chat.html",
+        "StegVerse-Labs/Site:Site activation import records",
+        "StegVerse-Labs/Site:downstream propagation records"
+      ],
       "completion_state": "BLOCKED",
       "validation_state": "UPSTREAM_RECEIPT_NOT_OBSERVED",
       "integration_state": "PARTIAL",
-      "evidence": ["StegVerse-Labs/Site#24", "docs/SITE_MIRROR_HANDOFF.md"],
+      "archival_dependency": true,
+      "evidence": [
+        "StegVerse-Labs/Site#24",
+        "StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md"
+      ],
       "blocker": "adapter_verified_receipt_missing",
       "release_condition": "Site ACTIVATION_COMPLETE and Publisher/wiki ingestion verified",
-      "next_action": "import and validate adapter receipt when machine-observable release condition is met"
+      "machine_observable_release_condition": "adapter immutable receipt exists and Site activation validator reports ACTIVATION_COMPLETE",
+      "next_action": "import and validate adapter receipt when machine-observable release condition is met",
+      "next_task_after_release": "verify Publisher, admissibility-wiki, and stegguardian-wiki ingestion receipts"
     },
     {
       "task_id": "VACP-001",
+      "originating_session_goal": "Complete VA Claim Assistant as a source-grounded, document-aware governed claim-development entry point.",
       "goal": "VA Claim Assistant governed claim session",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
       "location": "issue #113; docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md; va-disability-claim-guide.html",
       "owner": "StegVerse-Labs/Site#113",
+      "execution_lane": "VA governed session implementation",
+      "role": "IMPLEMENTATION",
       "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+      "claim_created_at": "2026-08-02T08:35:00Z",
+      "claim_expires_at": "2026-08-03T08:35:00Z",
+      "claim_release_condition": "deployed zero-blocker governed claim-session receipt exists, or claim expires without new evidence",
+      "expected_evidence": "implementation commits, validators, governed retrieval receipt, TVC capability receipt, custody and reconstruction receipts",
+      "collision_boundaries": [
+        "StegVerse-Labs/Site:va-disability-claim-guide.html",
+        "StegVerse-Labs/Site:docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md",
+        "StegVerse-Labs/Site:data/va-claim-assistant"
+      ],
       "completion_state": "PARTIALLY_IMPLEMENTED",
       "validation_state": "BOUNDED_PROCEDURAL_ASSISTANT_ONLY",
       "integration_state": "CROSS_REPOSITORY_DEPENDENCIES_PENDING",
-      "evidence": ["StegVerse-Labs/Site#113", "docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md"],
+      "archival_dependency": true,
+      "evidence": [
+        "StegVerse-Labs/Site#113",
+        "StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md"
+      ],
       "blocker": "governed_retrieval_document_session_tvc_and_custody_chain_incomplete",
       "release_condition": "deployed source-grounded document-aware session has reconstructable zero-blocker receipt",
-      "next_action": "implement and validate the next unclaimed dependency without duplicating active Site paths"
+      "machine_observable_release_condition": "VA session activation receipt validates with all ten gates true and blockers []",
+      "next_action": "implement and validate the next unclaimed dependency without duplicating active Site paths",
+      "next_task_after_release": "derive the public capability status from the verified activation receipt"
     },
     {
       "task_id": "CONS-001",
+      "originating_session_goal": "Consolidate session-specific requirements and prevent false archival or duplicate execution.",
       "goal": "Cross-session consolidation and collision control",
       "repository": "StegVerse-Labs/Site",
       "branch": "main",
-      "location": "issue #152; docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md; data/two-entry-points-execution-state.json",
+      "location": "issue #152; docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md; data/two-entry-points-execution-state.json; scripts/validate_two_entry_points_execution_state.py",
       "owner": "StegVerse-Labs/Site#152",
+      "execution_lane": "cross-entry validation and session consolidation",
+      "role": "INTEGRATION_AND_VALIDATION",
       "claim_state": "CLAIMED_FOR_INTEGRATION",
+      "claim_created_at": "2026-08-02T08:35:00Z",
+      "claim_expires_at": "2026-08-03T08:35:00Z",
+      "claim_release_condition": "all unique requirements complete or actually transferred to verified active executors, or claim expires without evidence",
+      "expected_evidence": "registry validation receipt, scheduled workflow run, claim-state updates, and canonical issue evidence",
+      "collision_boundaries": [
+        "StegVerse-Labs/Site:docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md",
+        "StegVerse-Labs/Site:data/two-entry-points-execution-state.json",
+        "StegVerse-Labs/Site:scripts/validate_two_entry_points_execution_state.py",
+        "StegVerse-Labs/Site:.github/workflows/two-entry-points-execution-state.yml"
+      ],
       "completion_state": "IN_PROGRESS",
-      "validation_state": "DURABLE_STATE_INSTALLED",
+      "validation_state": "VALIDATOR_AND_WORKFLOW_INSTALLED_UNOBSERVED",
       "integration_state": "CANONICAL_LANES_LINKED",
-      "evidence": ["StegVerse-Labs/Site#152", "commit 98f441b01caf9940f6a5230047b73886a0928a32"],
-      "blocker": "both_entry_points_not_activated",
-      "release_condition": "all unique requirements complete or actually transferred to verified active executors",
-      "next_action": "validate registry invariants and bind scheduled claim-staleness checks"
+      "archival_dependency": true,
+      "evidence": [
+        "StegVerse-Labs/Site#152",
+        "commit 98f441b01caf9940f6a5230047b73886a0928a32",
+        "commit 3dc00412492ee6fd9ca38a575746fb6e4801242a",
+        "commit fc208fb133359880a9aa8a51e8c4ce2859c68e27"
+      ],
+      "blocker": "validator_workflow_run_and_receipt_not_yet_observed",
+      "release_condition": "registry validator passes in hosted workflow and all unique requirements are complete or transferred",
+      "machine_observable_release_condition": "reports/two-entry-points-execution-state-validation.json reports PASS and workflow evidence exists",
+      "next_action": "execute validator and inspect hosted workflow receipt",
+      "next_task_after_release": "reclassify session as merged or complete only when no unique execution responsibility remains"
     }
   ],
   "authority_boundary": {
