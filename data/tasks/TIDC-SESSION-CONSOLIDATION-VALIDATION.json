@@ -1,0 +1,33 @@
+{
+  "task_id": "TIDC-SESSION-CONSOLIDATION-VALIDATION",
+  "originating_goal": "Validate and durably retire the originating TIDC implementation session after all unique state was transferred into repository authority.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "validation/tidc-session-consolidation-receipt",
+  "role": "CLAIMED_FOR_VALIDATION",
+  "claimant": "repository-native pull-request validation lane",
+  "claim_created_at": "2026-08-02T04:18:00-05:00",
+  "claim_release_condition": "The pull-request workflow completes successfully on Python 3.9, 3.11, and 3.12; the validation artifact is retained and inspected; the canonical handoff records the evidence; no unique session state or conflicting claimant remains.",
+  "expected_evidence": {
+    "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
+    "artifact_name": "tidc-session-consolidation-validation",
+    "artifact_receipt": "reports/tidc-session-consolidation-validation.json",
+    "canonical_handoff": "docs/TIDC_MIRROR_HANDOFF.md",
+    "inventory": "data/tidc/session-consolidation-inventory.json",
+    "coordination_issue": "https://github.com/StegVerse-Labs/Site/issues/126"
+  },
+  "collision_boundaries": [
+    "Do not modify source-expansion evidence or tranche coding in this validation lane.",
+    "Do not create a competing TIDC implementation handoff.",
+    "Do not claim workflow success before run, job, and artifact inspection.",
+    "Do not grant scientific, publication, admissibility, or execution authority from session-retirement validation."
+  ],
+  "next_task_after_release": {
+    "task_id": "TIDC-SRC-AI-002",
+    "location": "data/tidc/source-expansion/AI-002.json",
+    "owner": "Site machine lane"
+  },
+  "state": "CLAIMED",
+  "development_halted": false,
+  "external_tasks": 0,
+  "authority_effect": "NONE"
+}
