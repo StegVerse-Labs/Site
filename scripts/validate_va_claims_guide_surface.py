@@ -19,6 +19,7 @@ def require(condition: bool, message: str, errors: list[str]) -> None:
 def main() -> int:
     page = PAGE.read_text(encoding="utf-8")
     state = json.loads(STATE.read_text(encoding="utf-8"))
+    controls = state.get("controls", {})
     errors: list[str] = []
 
     require("Governed VA Claims Guide" in page, "governed guide title missing", errors)
@@ -35,19 +36,23 @@ def main() -> int:
     require("ChatGPT file uploads" not in page, "legacy ChatGPT upload framing remains", errors)
 
     require(state.get("current_capability") == "SOURCE_GROUNDED_ASSISTANT", "state capability mismatch", errors)
-    require(state.get("private_document_upload_enabled") is False, "private upload unexpectedly enabled", errors)
-    require(state.get("automated_filing_enabled") is False, "automated filing unexpectedly enabled", errors)
-    require(state.get("veteran_submission_authority_preserved") is True, "veteran authority not preserved", errors)
+    require(controls.get("private_document_upload_enabled") is False, "private upload unexpectedly enabled", errors)
+    require(controls.get("automated_filing_enabled") is False, "automated filing unexpectedly enabled", errors)
+    require(controls.get("veteran_submission_authority_preserved") is True, "veteran authority not preserved", errors)
+    require(controls.get("human_review_required_before_filing") is True, "human review before filing not required", errors)
+    require(controls.get("fail_closed_when_evidence_or_authority_missing") is True, "fail-closed control missing", errors)
 
     body = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.0.1",
         "state": "PASS" if not errors else "FAIL",
         "surface": PAGE.name,
         "capability_state": state.get("state"),
         "current_capability": state.get("current_capability"),
-        "private_document_upload_enabled": state.get("private_document_upload_enabled"),
-        "automated_filing_enabled": state.get("automated_filing_enabled"),
-        "veteran_submission_authority_preserved": state.get("veteran_submission_authority_preserved"),
+        "private_document_upload_enabled": controls.get("private_document_upload_enabled"),
+        "automated_filing_enabled": controls.get("automated_filing_enabled"),
+        "veteran_submission_authority_preserved": controls.get("veteran_submission_authority_preserved"),
+        "human_review_required_before_filing": controls.get("human_review_required_before_filing"),
+        "fail_closed_when_evidence_or_authority_missing": controls.get("fail_closed_when_evidence_or_authority_missing"),
         "authority_effect": False,
         "activation_effect": False,
         "page_sha256": hashlib.sha256(PAGE.read_bytes()).hexdigest(),
