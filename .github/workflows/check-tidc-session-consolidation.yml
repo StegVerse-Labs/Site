@@ -1,0 +1,74 @@
+name: Check TIDC Session Consolidation
+
+on:
+  push:
+    paths:
+      - 'docs/TIDC_MIRROR_HANDOFF.md'
+      - 'docs/TIDC_OPEN_RESEARCH_HANDOFF.md'
+      - 'data/tidc/session-consolidation-inventory.json'
+      - 'data/tidc/work-queue.json'
+      - 'data/tidc/source-expansion/**'
+      - 'data/tidc/tranche-02/**'
+      - 'data/tidc/negative-controls/**'
+      - 'scripts/check_tidc_session_consolidation.py'
+      - '.github/workflows/check-tidc-session-consolidation.yml'
+  pull_request:
+    paths:
+      - 'docs/TIDC_MIRROR_HANDOFF.md'
+      - 'docs/TIDC_OPEN_RESEARCH_HANDOFF.md'
+      - 'data/tidc/session-consolidation-inventory.json'
+      - 'data/tidc/work-queue.json'
+      - 'data/tidc/source-expansion/**'
+      - 'data/tidc/tranche-02/**'
+      - 'data/tidc/negative-controls/**'
+      - 'scripts/check_tidc_session_consolidation.py'
+      - '.github/workflows/check-tidc-session-consolidation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tidc-session-consolidation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile consolidation validator
+        run: python -m py_compile scripts/check_tidc_session_consolidation.py
+      - name: Validate canonical session transfer
+        run: python scripts/check_tidc_session_consolidation.py
+      - name: Validate scientific publication boundary
+        run: python scripts/check_tidc_publication.py
+      - name: Emit validation receipt
+        if: ${{ matrix.python-version == '3.12' }}
+        run: |
+          mkdir -p reports
+          {
+            echo '{'
+            echo '  "schema": "stegverse.site.tidc.session_consolidation_validation_receipt.v1",'
+            echo '  "inventory": "data/tidc/session-consolidation-inventory.json",'
+            echo '  "handoff": "docs/TIDC_MIRROR_HANDOFF.md",'
+            echo '  "result": "PASS",'
+            echo '  "development_halted": false,'
+            echo '  "external_tasks": 0,'
+            echo '  "authority_effect": "NONE"'
+            echo '}'
+          } > reports/tidc-session-consolidation-validation.json
+      - name: Upload validation receipt
+        if: ${{ matrix.python-version == '3.12' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: tidc-session-consolidation-validation
+          path: reports/tidc-session-consolidation-validation.json
+          retention-days: 90
