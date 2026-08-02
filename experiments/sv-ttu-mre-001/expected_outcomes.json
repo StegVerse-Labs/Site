@@ -1,0 +1,12 @@
+{
+  "experiment_id": "SV-TTU-MRE-001",
+  "outcomes": {
+    "case_001_valid_allow": {"decision": "ALLOW", "reason_codes": []},
+    "case_002_policy_drift_deny": {"decision": "DENY", "reason_codes": ["POLICY_NOT_VALID_AT_COMMIT"]},
+    "case_003_expired_delegation_deny": {"decision": "DENY", "reason_codes": ["DELEGATION_EXPIRED"]},
+    "case_004_stale_evidence_fail_closed": {"decision": "FAIL_CLOSED", "reason_codes": ["EVIDENCE_FRESHNESS_UNRESOLVED"]},
+    "case_005_identity_mutation_deny": {"decision": "DENY", "reason_codes": ["IDENTITY_BINDING_CHANGED"]},
+    "case_006_boundary_expansion_deny": {"decision": "DENY", "reason_codes": ["EXECUTION_BOUNDARY_EXCEEDED"]}
+  },
+  "schema": "stegverse.governance.experiment.expected-outcomes.v1"
+}
