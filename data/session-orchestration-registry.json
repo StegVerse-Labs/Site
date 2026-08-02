@@ -16,7 +16,7 @@
       "session_id": "session-orchestration-design-2026-07-31",
       "repository": "StegVerse-Labs/Site",
       "task_id": "SESSION-ORCHESTRATION-0001",
-      "posture": "SUPERSEDED",
+      "posture": "ARCHIVABLE",
       "authority_checked": [
         "docs/SITE_MIRROR_HANDOFF.md",
         "data/site-orchestration-state.json",
@@ -60,8 +60,7 @@
       "conflicting_active_owner": false,
       "material_state_locations": [
         "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
-        "data/session-orchestration-registry.json",
-        "issues/114"
+        "data/session-orchestration-registry.json"
       ],
       "required_before_archive": [
         "transfer or complete issue #114 coordination ownership",
