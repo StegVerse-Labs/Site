@@ -1,0 +1,53 @@
+{
+  "schema_version": "HIL-SEMANTIC-RUNTIME-TASK-STATE-v1",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "state": "RUNNING",
+  "goal": "Bind validated semantic-transformation receipts into the canonical HIL governed event stream without mutating source records or granting authority.",
+  "halt_on_external_status": false,
+  "selection_policy": "select_first_ready_task_by_priority_then_id",
+  "tasks": [
+    {
+      "id": "HIL-SR-001",
+      "title": "Canonical semantic receipt event envelope",
+      "status": "READY",
+      "priority": 1,
+      "repository": "StegVerse-Labs/Site",
+      "task_location": "data/fixtures/hil-semantic-transformation/canonical-semantic-receipt-event.json",
+      "validator_location": "scripts/validate_hil_semantic_runtime_integration.py",
+      "dependencies": [],
+      "external": false
+    },
+    {
+      "id": "HIL-SR-002",
+      "title": "Semantic runtime integration validator",
+      "status": "READY",
+      "priority": 2,
+      "repository": "StegVerse-Labs/Site",
+      "task_location": "scripts/validate_hil_semantic_runtime_integration.py",
+      "validator_location": "scripts/check_hil_semantic_runtime_tasks.py",
+      "dependencies": ["HIL-SR-001"],
+      "external": false
+    },
+    {
+      "id": "HIL-SR-003",
+      "title": "Runtime task observer",
+      "status": "READY",
+      "priority": 3,
+      "repository": "StegVerse-Labs/Site",
+      "task_location": "scripts/check_hil_semantic_runtime_tasks.py",
+      "dependencies": [],
+      "external": false
+    },
+    {
+      "id": "HIL-SR-004",
+      "title": "Canonical event stream integration workflow",
+      "status": "READY",
+      "priority": 4,
+      "repository": "StegVerse-Labs/Site",
+      "task_location": ".github/workflows/hil-semantic-runtime-integration.yml",
+      "dependencies": ["HIL-SR-001", "HIL-SR-002", "HIL-SR-003"],
+      "external": false
+    }
+  ]
+}
