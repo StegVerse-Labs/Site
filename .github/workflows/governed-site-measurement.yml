@@ -1,0 +1,54 @@
+name: Governed Site Measurement
+
+on:
+  pull_request:
+    paths:
+      - 'assets/governed-site-measurement.js'
+      - 'data/governed-site-measurement-policy.json'
+      - 'data/tasks/SITE-0001-GOVERNED-MEASUREMENT.json'
+      - 'docs/GOVERNED_SITE_MEASUREMENT.md'
+      - 'schemas/governed-site-measurement-event.schema.json'
+      - 'scripts/check_governed_site_measurement.py'
+      - 'scripts/test_governed_site_measurement_fixtures.py'
+      - 'tests/governed-site-measurement/**'
+      - '.github/workflows/governed-site-measurement.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/governed-site-measurement.js'
+      - 'data/governed-site-measurement-policy.json'
+      - 'schemas/governed-site-measurement-event.schema.json'
+      - 'scripts/check_governed_site_measurement.py'
+      - 'scripts/test_governed_site_measurement_fixtures.py'
+      - 'tests/governed-site-measurement/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install jsonschema
+      - name: Validate policy, schema, and task ownership
+        run: python scripts/check_governed_site_measurement.py
+      - name: Execute positive and adversarial fixtures
+        run: python scripts/test_governed_site_measurement_fixtures.py
+      - name: Verify browser client contains no identity or content capture
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source=Path('assets/governed-site-measurement.js').read_text()
+          required=['credentials:\'omit\'','content_recorded:false','additionalProperties']
+          prohibited=['localStorage','sessionStorage','document.cookie','user_id','email','diagnosis','filename','question:']
+          assert 'content_recorded:false' in source
+          assert "credentials:'omit'" in source
+          for term in prohibited:
+              assert term not in source, term
+          print('GOVERNED_MEASUREMENT_BROWSER_CLIENT_PASS')
+          PY
