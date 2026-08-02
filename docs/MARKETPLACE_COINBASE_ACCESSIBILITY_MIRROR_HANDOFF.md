@@ -1,68 +1,51 @@
 # Marketplace–Coinbase Accessibility Mirror Handoff
 
-## Scope
+## Active goal and goal ID
 
-This file is the current handoff for the StegVerse Site projection of the governed Marketplace–Coinbase paper-trading accessibility chain.
+- Goal ID: `MARKETPLACE-COINBASE-PAPER-ACCESSIBILITY-001`
+- Repository: `StegVerse-Labs/Site`
+- Branch: `main`
+- Owner issue: `StegVerse-Labs/Site#131`
+- Goal: project the verified Publisher paper chain into a public StegVerse accessibility state without granting live or financial authority.
+
+## Authoritative files
+
+- `scripts/import_marketplace_coinbase_accessibility.py`
+- `tests/test_marketplace_coinbase_accessibility.py`
+- `data/marketplace-coinbase-accessibility-status.json`
+- `.github/workflows/import-marketplace-coinbase-accessibility.yml`
+- this handoff
+
+## Current state
+
+```text
+SITE_MARKETPLACE_COINBASE_PAPER_ACCESSIBILITY_ACTIVATED_AND_MACHINE_PERSISTED
+```
 
 The Site projection is display and continuity evidence only. It does not grant Coinbase credentials, funded-order authority, custody, withdrawal, publication, release, execution, or live financial authority.
 
-## Upstream chain
+## Verified upstream
+
+- Publisher repository: `GCAT-BCAT-Engine/Publisher`
+- Publisher status path: `data/marketplace-coinbase-release-evidence-status.json`
+- Publisher status: `VERIFIED`
+- Publisher status digest: `sha256:36a2f6da4b5af18375fd798ef954ec703ea719beefbab2d5949954b79ca1e477`
+- Publisher machine persistence commit: `913a89d0ec867c3c9b570ec8352be554790a45f0`
+
+## Completed work and evidence
+
+- initial Site projection activation commit: `338abd5e008cda4af83a74ab3d1ac08e8e1c6103`
+- machine-owned importer persistence commit: `99eeb59f757e4bdbaf020817b6ece5267349e93b`
+- projection tests: commit `f0efc721b217d243d0d4569fcc7f9ccc69d1e9b7`
+- workflow validation binding: commit `04dab58eafc6d47779f1196486c1384d5fe1ed3a`
+
+Current checked-in projection:
 
 ```text
-StegVerse-Labs/crypto-bot first-accessibility PASS
--> GCAT-BCAT-Engine/Marketplace governed artifact collection and acknowledgement
--> GCAT-BCAT-Engine/Publisher bounded reconstruction status
--> StegVerse-Labs/Site public accessibility projection
-```
-
-## Layer determination
-
-```text
-prior_state: NOT_BUILT_IN_STEGVERSE_SITE
-current_state: BOUNDED_SITE_PROJECTION_IMPLEMENTATION_INSTALLED_ACTIVATION_PENDING_UPSTREAM_VERIFIED_STATUS
-execution_class: PARALLEL_SAFE
-claimed_paths:
-  - docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md
-  - scripts/import_marketplace_coinbase_accessibility.py
-  - data/marketplace-coinbase-accessibility-status.json
-  - .github/workflows/import-marketplace-coinbase-accessibility.yml
-```
-
-These paths do not overlap the active HIL upload owner recorded in `data/ecosystem-heartbeat-state.json`.
-
-## Acceptance states
-
-The importer records exactly one bounded state:
-
-- `PENDING_UPSTREAM`: Publisher has not yet produced a usable public status.
-- `REJECTED_UPSTREAM`: the Publisher record is malformed, digest-invalid, authority-escalating, or internally inconsistent.
-- `PAPER_ACCESSIBLE`: Publisher reports `VERIFIED`, `paper_release_verified: true`, complete source identities and evidence bindings, and all authority fields remain false.
-
-## Required Publisher conditions
-
-```text
-schema = stegverse.publisher.marketplace_coinbase_release_evidence.v2
-status_digest = valid canonical sha256 digest
-status = VERIFIED
-paper_release_verified = true
-publication_authorized = false
-release_authorized = false
-execution_authorized = false
-live_authority_granted = false
-```
-
-The Site projection additionally requires non-empty upstream source identities and evidence bindings. It persists only the bounded public Publisher status and derived Site projection; it never stores raw private crypto-bot or Marketplace artifacts.
-
-## Output
-
-```text
-data/marketplace-coinbase-accessibility-status.json
-```
-
-The Site output always preserves:
-
-```text
-paper_trading_accessible = true only after Publisher VERIFIED
+state = PAPER_ACCESSIBLE
+publisher_status = VERIFIED
+publisher_status_digest = sha256:36a2f6da4b5af18375fd798ef954ec703ea719beefbab2d5949954b79ca1e477
+paper_trading_accessible = true
 live_trading_accessible = false
 publication_authority = NOT_GRANTED
 release_authority = NOT_GRANTED
@@ -70,30 +53,65 @@ execution_authority = NOT_GRANTED
 live_authority = NOT_GRANTED
 ```
 
-## Activation owner and stop condition
-
-The repository workflow `.github/workflows/import-marketplace-coinbase-accessibility.yml` owns activation. It runs hourly, on dispatch, and when its bounded implementation changes.
-
-Completion evidence requires a committed Site status with:
+Current projection digest:
 
 ```text
-state = PAPER_ACCESSIBLE
-publisher_status = VERIFIED
-publisher_status_digest = exact validated digest
-paper_trading_accessible = true
-live_trading_accessible = false
-all authority fields = NOT_GRANTED
+sha256:ce064993487fa872ef79a79ba43fb9991e29cb12cc1b57c6aeeb83c213d0fbd3
 ```
 
-Until Publisher produces `VERIFIED`, the correct Site state is `PENDING_UPSTREAM`; absence of upstream completion is not interpreted as failure or authority.
+## Validation
 
-## Remaining upstream coordination
+The production Site contract was executed locally against the checked-in projection:
 
-1. Marketplace issue `GCAT-BCAT-Engine/Marketplace#1` must produce `COLLECTED`, acknowledgement `ACCEPTED` or `DUPLICATE`, sequence-2 transport, and the named Marketplace artifact.
-2. Publisher issue `GCAT-BCAT-Engine/Publisher#19` must reconstruct the exact chain and persist bounded `VERIFIED` status.
-3. Site then imports the public status automatically and records `PAPER_ACCESSIBLE`.
-4. Live Coinbase authority remains outside this program and denied.
+```bash
+PYTHONPATH=. pytest -q tests/test_marketplace_coinbase_accessibility.py
+```
 
-## Archive readiness
+Result:
 
-This handoff and its named implementation files preserve all StegVerse Site continuation context for this layer without prior chat history.
+```text
+4 passed in 0.03s
+```
+
+The tests verify the committed projection digest, paper-only state, valid Publisher acceptance, authority-escalation rejection after re-signing, and tampered-status rejection.
+
+The workflow `.github/workflows/import-marketplace-coinbase-accessibility.yml` is active and the bot commit `99eeb59f757e4bdbaf020817b6ece5267349e93b` proves machine persistence. The later test-bound workflow run ID, job logs, and artifact ID have not yet been directly recorded.
+
+## Exact evidence bindings
+
+- intent: `intent-marketplace-release-73a0543ddb27`
+- packet: `sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b`
+- sequence 1: `sha256:f6f41875a5e066fc348cac68691c1d4fb77f3559282eb4ede26a398c87ee7e64`
+- acknowledgement: `sha256:c76c0decad6b82f9356a58598ef5e217f92802dc657e9f5ed95cae9b8f77f0a3`
+- sequence 2: `sha256:805000ab776b00863f5962514bcb8f843ccaa27ab9e0ac7821b92499b2e347f1`
+- Publisher projection: `sha256:4ab30925412757058f3f752fad1d7e452e95dcddf3d2e272ecd9605cee97e8d9`
+- publication receipt: `sha256:0dc495cf5f7de0b4610d5b4fc7732f3ddb888543fbe6c9a55ef07ad7f175d240`
+
+## Machine-owned continuation
+
+1. The hourly Site importer continues to revalidate Publisher state.
+2. Invalid digest, schema, source, binding, or authority evidence becomes `REJECTED_UPSTREAM` and fails after preserving the bounded record.
+3. Missing Publisher evidence becomes `PENDING_UPSTREAM` without halting adjacent Site development.
+4. Crypto-bot finalization proceeds independently at `StegVerse-Labs/crypto-bot#6` and `.github/workflows/finalize-paper-release.yml`.
+
+## Incomplete work
+
+- Record the test-bound Site workflow run, job logs, and uploaded projection artifact when observable.
+  - Owner: `StegVerse-Labs/Site#131`
+  - Workflow: `.github/workflows/import-marketplace-coinbase-accessibility.yml`
+  - Release condition: inspectable successful run and retained projection artifact.
+- Complete exact paper-release tag evidence in crypto-bot.
+  - Owner: `StegVerse-Labs/crypto-bot#6`
+  - Required tag: `marketplace-coinbase-paper-v1.0.0`
+  - Required target: `73a0543ddb27a88fd4913e7dcfa2127132299baa`
+
+## Archive conditions
+
+The Site portion is activated and self-continuing, but the complete session is not archive-ready until crypto-bot finalization and hosted evidence identities are preserved. No unspecified external task remains.
+
+## Progress
+
+- developed files: 5/5 = 100%
+- deterministic validation: 100%
+- Site integration: 100%
+- complete session goal activation: 90%
