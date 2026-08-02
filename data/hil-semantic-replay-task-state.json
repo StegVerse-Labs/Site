@@ -1,0 +1,15 @@
+{
+  "schema_version": "HIL-SEMANTIC-REPLAY-TASK-STATE-v1",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "state": "RUNNING",
+  "goal": "Prove replay and reconstruction of semantic-continuity events from preserved source, output, receipt, and canonical event records.",
+  "halt_on_external_status": false,
+  "selection_policy": "select_first_ready_task_by_priority_then_id",
+  "tasks": [
+    {"id":"HIL-RP-001","title":"Semantic event replay packet","status":"READY","priority":1,"repository":"StegVerse-Labs/Site","task_location":"data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json","dependencies":[],"external":false},
+    {"id":"HIL-RP-002","title":"Semantic replay validator","status":"READY","priority":2,"repository":"StegVerse-Labs/Site","task_location":"scripts/validate_hil_semantic_replay.py","dependencies":["HIL-RP-001"],"external":false},
+    {"id":"HIL-RP-003","title":"Semantic replay observer","status":"READY","priority":3,"repository":"StegVerse-Labs/Site","task_location":"scripts/check_hil_semantic_replay_tasks.py","dependencies":[],"external":false},
+    {"id":"HIL-RP-004","title":"Semantic replay workflow","status":"READY","priority":4,"repository":"StegVerse-Labs/Site","task_location":".github/workflows/hil-semantic-replay.yml","dependencies":["HIL-RP-001","HIL-RP-002","HIL-RP-003"],"external":false}
+  ]
+}
