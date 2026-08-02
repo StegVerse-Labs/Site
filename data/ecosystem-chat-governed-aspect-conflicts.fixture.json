@@ -1,0 +1,113 @@
+{
+  "schema": "stegverse.governed-aspect-conflicts.v0.1",
+  "authority_effect": "NONE",
+  "cases": [
+    {
+      "case_id": "conflict-ownership-consent-reuse",
+      "expected_result": "QUARANTINE",
+      "aspects": {
+        "ownership_control": {"status": "verified"},
+        "consent_permission": {"status": "revoked"},
+        "disclosure_projection": {"status": "allow"}
+      },
+      "required_conflict": "ownership_does_not_override_revoked_consent"
+    },
+    {
+      "case_id": "conflict-value-inadmissible-distribution",
+      "expected_result": "DENY",
+      "aspects": {
+        "realized_value": {"status": "verified"},
+        "admissibility": {"status": "deny"},
+        "distribution_allocation": {"status": "authorized"}
+      },
+      "required_conflict": "value_does_not_override_inadmissibility"
+    },
+    {
+      "case_id": "conflict-human-authorship-model-evidence",
+      "expected_result": "REVIEW_REQUIRED",
+      "aspects": {
+        "authorship": {"status": "human"},
+        "source_provenance": {"status": "generated"}
+      },
+      "required_conflict": "human_only_authorship_conflicts_with_model_generation"
+    },
+    {
+      "case_id": "conflict-captured-derived",
+      "expected_result": "REVIEW_REQUIRED",
+      "aspects": {
+        "source_provenance": {"status": "captured"},
+        "derivation_transformation": {"status": "derived"}
+      },
+      "required_conflict": "captured_record_cannot_simultaneously_assert_derivation"
+    },
+    {
+      "case_id": "conflict-public-restricted-no-redaction",
+      "expected_result": "DENY",
+      "aspects": {
+        "privacy_sensitivity": {"status": "restricted"},
+        "disclosure_projection": {"status": "allow", "redaction_required": false}
+      },
+      "required_conflict": "restricted_projection_requires_redaction"
+    },
+    {
+      "case_id": "conflict-settled-no-receipt",
+      "expected_result": "DENY",
+      "aspects": {
+        "settlement": {"status": "settled", "settlement_receipt_refs": []}
+      },
+      "required_conflict": "settlement_requires_receipt"
+    },
+    {
+      "case_id": "conflict-active-authority-expired-delegation",
+      "expected_result": "DENY",
+      "aspects": {
+        "authority_delegation": {"status": "active", "delegation_validity": "expired"}
+      },
+      "required_conflict": "active_authority_requires_current_delegation"
+    },
+    {
+      "case_id": "conflict-standing-implies-execution",
+      "expected_result": "DENY",
+      "aspects": {
+        "standing_capability": {"status": "earned", "execution_permission_inferred": true}
+      },
+      "required_conflict": "standing_does_not_grant_execution"
+    },
+    {
+      "case_id": "conflict-public-novel-no-boundary",
+      "expected_result": "REVIEW_REQUIRED",
+      "aspects": {
+        "originality_novelty": {"status": "publicly_novel", "comparison_boundary_refs": []}
+      },
+      "required_conflict": "public_novelty_requires_comparison_boundary"
+    },
+    {
+      "case_id": "conflict-interaction-only-publication",
+      "expected_result": "DENY",
+      "aspects": {
+        "consent_permission": {"status": "limited", "reuse_scope": "interaction_only"},
+        "disclosure_projection": {"status": "allow", "destination": "GCAT-BCAT-Engine/Publisher"}
+      },
+      "required_conflict": "interaction_only_reuse_blocks_publication"
+    },
+    {
+      "case_id": "conflict-revoked-later-advancement",
+      "expected_result": "DENY",
+      "aspects": {
+        "consent_permission": {"status": "revoked"},
+        "reward_incentive": {"status": "royalty_candidate"},
+        "distribution_allocation": {"status": "provisional"}
+      },
+      "required_conflict": "revoked_claim_cannot_advance"
+    },
+    {
+      "case_id": "conflict-success-externalities-omitted",
+      "expected_result": "REVIEW_REQUIRED",
+      "aspects": {
+        "outcome_utility": {"status": "observed"},
+        "cost_externalities": {"status": "unassessed"}
+      },
+      "required_conflict": "successful_outcome_requires_externality_posture"
+    }
+  ]
+}
