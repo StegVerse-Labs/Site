@@ -5,28 +5,38 @@
   "issue": 113,
   "execution_class": "PARALLEL_SAFE",
   "owner": ".github/workflows/va-claim-assistant-activation.yml",
-  "claim_state": "MACHINE_OWNED",
+  "claim_state": "COMPLETE",
   "claim_created_at": "2026-08-02T09:45:00Z",
-  "claim_release_condition": "The evidence manifest validator passes, VCA-GATE-08 is VERIFIED from the manifest, and VCA-GATE-09 remains owned by deployed observation.",
+  "claim_released_at": "2026-08-02T09:51:24Z",
+  "claim_release_condition": "SATISFIED",
   "claimed_paths": [
     "data/va-claim-assistant/source-grounded-evidence-manifest.json",
+    "data/va-claim-assistant/governance-validation-receipt.json",
+    "data/va-claim-assistant/source-grounded-activation-receipt.json",
     "scripts/check_va_source_grounded_evidence_manifest.py",
+    "scripts/write_va_governance_validation_receipt.py",
+    "scripts/apply_va_source_grounded_evidence_manifest.py",
     ".github/workflows/va-claim-assistant-activation.yml",
     "data/va-claim-assistant/activation-gates.json",
     "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
   ],
+  "completion_evidence": {
+    "workflow_receipt_commit": "314021b480289fe08e0fa0b2ca71254ae0564463",
+    "governance_receipt": "data/va-claim-assistant/governance-validation-receipt.json",
+    "evidence_manifest": "data/va-claim-assistant/source-grounded-evidence-manifest.json",
+    "activation_receipt": "data/va-claim-assistant/source-grounded-activation-receipt.json",
+    "activation_state": "SOURCE_GROUNDED_ACTIVE",
+    "public_capability": "SOURCE_GROUNDED_ASSISTANT",
+    "deployed_surface_http_status": 200,
+    "deployed_endpoint_http_status": 200,
+    "deployed_endpoint_matches_repository": true
+  },
   "collision_boundaries": [
     "Do not mutate HIL upload-owned paths.",
-    "Do not claim VCA-GATE-09 without deployed page and endpoint evidence.",
-    "Do not activate DOCUMENT_AWARE_ASSISTANT or GOVERNED_CLAIM_SESSION."
+    "Do not activate DOCUMENT_AWARE_ASSISTANT or GOVERNED_CLAIM_SESSION from source-grounded evidence."
   ],
-  "expected_evidence": [
-    "data/va-claim-assistant/source-grounded-evidence-manifest.json",
-    "validator PASS in the VA Claim Assistant Activation workflow",
-    "VCA-GATE-08 VERIFIED with VCA-GATE-09 unchanged until deployment observation"
-  ],
-  "state": "CLAIMED",
-  "next_action": "Validate the manifest, bind it to VCA-GATE-08, then allow the existing reconciler to own VCA-GATE-09 deployed observation.",
+  "state": "COMPLETE",
+  "next_action": "Continue only through the distinct document-aware owner in StegVerse-Labs/Site#116 or the canonical two-entry coordination lane.",
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": true
 }
