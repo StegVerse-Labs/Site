@@ -1,0 +1,32 @@
+{
+  "schema_version": "STEGVERSE-SITE-TASK-v1",
+  "task_id": "SITE-0001-VA-SOURCE-GROUNDED-EVIDENCE",
+  "originating_goal": "Complete the VA Claim Assistant source-grounded activation path without overstating document-aware or governed-session capability.",
+  "issue": 113,
+  "execution_class": "PARALLEL_SAFE",
+  "owner": ".github/workflows/va-claim-assistant-activation.yml",
+  "claim_state": "MACHINE_OWNED",
+  "claim_created_at": "2026-08-02T09:45:00Z",
+  "claim_release_condition": "The evidence manifest validator passes, VCA-GATE-08 is VERIFIED from the manifest, and VCA-GATE-09 remains owned by deployed observation.",
+  "claimed_paths": [
+    "data/va-claim-assistant/source-grounded-evidence-manifest.json",
+    "scripts/check_va_source_grounded_evidence_manifest.py",
+    ".github/workflows/va-claim-assistant-activation.yml",
+    "data/va-claim-assistant/activation-gates.json",
+    "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
+  ],
+  "collision_boundaries": [
+    "Do not mutate HIL upload-owned paths.",
+    "Do not claim VCA-GATE-09 without deployed page and endpoint evidence.",
+    "Do not activate DOCUMENT_AWARE_ASSISTANT or GOVERNED_CLAIM_SESSION."
+  ],
+  "expected_evidence": [
+    "data/va-claim-assistant/source-grounded-evidence-manifest.json",
+    "validator PASS in the VA Claim Assistant Activation workflow",
+    "VCA-GATE-08 VERIFIED with VCA-GATE-09 unchanged until deployment observation"
+  ],
+  "state": "CLAIMED",
+  "next_action": "Validate the manifest, bind it to VCA-GATE-08, then allow the existing reconciler to own VCA-GATE-09 deployed observation.",
+  "authority_effect": false,
+  "activation_effect": false
+}
