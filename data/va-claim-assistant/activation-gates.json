@@ -15,7 +15,8 @@
         "data/va-claim-assistant/source-registry.schema.json",
         "scripts/check_va_claim_assistant_governance.py"
       ],
-      "task_location": "StegVerse-Labs/Site#115"
+      "task_location": "StegVerse-Labs/Site#115",
+      "next_action": "Persist an executed governance-validator receipt from the Site activation workflow."
     },
     {
       "id": "VCA-GATE-02",
@@ -28,7 +29,8 @@
         "data/va-claim-assistant/fixtures/invalid-unsupported-proposition.json",
         "scripts/check_va_claim_assistant_governance.py"
       ],
-      "task_location": "StegVerse-Labs/Site#115"
+      "task_location": "StegVerse-Labs/Site#115",
+      "next_action": "Persist an executed answer-provenance validator receipt from the Site activation workflow."
     },
     {
       "id": "VCA-GATE-03",
@@ -80,23 +82,25 @@
     {
       "id": "VCA-GATE-08",
       "name": "public_status_receipt_derived",
-      "state": "READY_FOR_EXECUTION",
-      "evidence": [],
+      "state": "VERIFIED",
+      "evidence": [
+        "data/va-claim-assistant/source-grounded-evidence-manifest.json"
+      ],
       "task_location": "StegVerse-Labs/Site#113",
-      "next_action": "Create a Site-owned cross-repository activation receipt after gates 01 and 02 receive executed validator evidence."
+      "next_action": null
     },
     {
       "id": "VCA-GATE-09",
       "name": "deployed_end_to_end_session_verified",
-      "state": "READY_FOR_EXECUTION",
+      "state": "BUILDING",
       "evidence": [],
       "task_location": "StegVerse-Labs/Site#113",
-      "next_action": "Expose the bounded evidence_requirement route through the public Site path, verify one response, and preserve its deployed URL and response hash."
+      "next_action": "Observe the deployed Site page and endpoint and require HTTP 200 plus repository-byte hash equality."
     }
   ],
   "workflow_enforcement": {
     "state": "IMPLEMENTED_PENDING_RUN_OBSERVATION",
-    "path": ".github/workflows/va-claim-guide-workers.yml",
+    "path": ".github/workflows/va-claim-assistant-activation.yml",
     "task_location": "StegVerse-Labs/Site#115"
   },
   "source_grounded_activation_rule": "gates 01, 02, 03, 04, 06, 07, 08, and 09 must be VERIFIED",
