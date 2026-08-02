@@ -23,8 +23,8 @@ implementation owner: StegVerse-Labs/Site
 validation owner: existing Site validation lane
 institutional-routing owner: Texas Tech designated faculty/staff authority
 personal-history approval owner: Rigel Randolph
-claim state: MACHINE_OWNED for local deterministic validation and receipt generation
-claim release: repository-hosted validation PASS and committed receipts, or issue #17 supersession
+claim state: MACHINE_OWNED for repository validation and receipt generation
+claim release: repository-hosted validation PASS and retained evidence, or issue #17 supersession
 ```
 
 ## Completed deliverables
@@ -95,7 +95,7 @@ owner: Rigel Randolph
 release condition: approval of the bounded sentence in the disclosure and outreach files, or verified replacement wording
 
 B-INDEPENDENT-REPRODUCTION
-owner: unclaimed
+owner: unclaimed independent validation lane
 release condition: separate reviewer or implementation reproduces the package and records evidence
 ```
 
@@ -121,8 +121,8 @@ No propagation to Publisher, admissibility-wiki, stegguardian-wiki, or master-re
 ```text
 primary packet deliverables: 6/6 = 100%
 required developed files: 17/17 = 100%
-validation milestones: 2/5 = 40% (local verifier and negative tests complete; hosted workflow, retained artifact, independent reproduction pending)
-integration milestones: 2/4 = 50% (handoff and issue integrated; workflow execution and external routing pending)
+validation milestones: 2/5 = 40%
+integration milestones: 2/4 = 50%
 goal activation milestones: 4/8 = 50%
 session consolidation goals: 3/3 = 100%
 ```
@@ -133,4 +133,4 @@ MERGED INTO: `StegVerse-Labs/Site/docs/TEXAS_TECH_NVIDIA_COLLABORATION_MIRROR_HA
 
 Transferred: research framing, entry routes, access boundaries, experiment design, packet deliverables, executable implementation, blockers, ownership, claims, release conditions, and next actions.
 
-The originating conversation is not required for continuation. Remaining work is durably owned by repository validation, Rigel Randolph's explicit biographical approval boundary, and Texas Tech's authorized institutional process.
+The originating conversation is not required for continuation. Remaining work is durably owned by repository validation, Rigel Randolph's explicit biographical approval boundary, an independent reproduction lane, and Texas Tech's authorized institutional process.
