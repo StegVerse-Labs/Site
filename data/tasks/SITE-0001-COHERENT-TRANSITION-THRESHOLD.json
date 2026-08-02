@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.2.0",
+  "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Observe and validate the threshold between synchronized transition activity and recursively sustained coherent continuity.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "implementation_locations": [
+    "docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md",
+    "data/coherent-transition-threshold.schema.json",
+    "data/coherent-transition-threshold-state.json",
+    "scripts/check_coherent_transition_threshold.py"
+  ],
+  "verification_locations": [
+    ".github/workflows/coherent-transition-threshold.yml",
+    "scripts/check_coherent_transition_threshold.py",
+    ".github/workflows/observe-and-complete-repository-tasks.yml"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_coherent_transition_threshold.py",
+    "success_marker": "COHERENT_TRANSITION_THRESHOLD=PASS"
+  },
+  "completion_effect": {
+    "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
+    "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
+    "ownership_pointer": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json"
+  },
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": false
+}
