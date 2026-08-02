@@ -1,0 +1,15 @@
+{
+  "canonicalization": "json-sort-compact-utf8-v1",
+  "expected_outcomes": "expected_outcomes.json",
+  "experiment_id": "SV-TTU-MRE-001",
+  "required_cases": [
+    "case_001_valid_allow",
+    "case_002_policy_drift_deny",
+    "case_003_expired_delegation_deny",
+    "case_004_stale_evidence_fail_closed",
+    "case_005_identity_mutation_deny",
+    "case_006_boundary_expansion_deny"
+  ],
+  "schema": "stegverse.governance.experiment.manifest.v1",
+  "verifier": "verifier/verify.py"
+}
