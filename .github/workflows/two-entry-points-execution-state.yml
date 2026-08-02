@@ -1,0 +1,104 @@
+name: Two Entry Points Execution State
+
+on:
+  push:
+    paths:
+      - 'docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md'
+      - 'data/two-entry-points-execution-state.json'
+      - 'scripts/validate_two_entry_points_execution_state.py'
+      - '.github/workflows/two-entry-points-execution-state.yml'
+  pull_request:
+    paths:
+      - 'docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md'
+      - 'data/two-entry-points-execution-state.json'
+      - 'scripts/validate_two_entry_points_execution_state.py'
+      - '.github/workflows/two-entry-points-execution-state.yml'
+  schedule:
+    - cron: '11 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: two-entry-points-execution-state-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-and-reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out Site
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate execution registry
+        run: python scripts/validate_two_entry_points_execution_state.py
+
+      - name: Validate receipt hash and authority boundary
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          path = Path('reports/two-entry-points-execution-state-validation.json')
+          value = json.loads(path.read_text())
+          assert value['schema'] == 'stegverse.two_entry_points.execution_state_validation.v1'
+          assert value['result'] == 'PASS'
+          assert value['authority_granted'] is False
+          assert value['release_authorized'] is False
+          material = dict(value)
+          expected = material.pop('receipt_sha256')
+          actual = hashlib.sha256(
+              json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
+          ).hexdigest()
+          assert expected == actual
+          print(f"validated receipt: {expected}")
+          PY
+
+      - name: Persist validation receipt
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/two-entry-points-execution-state-validation.json
+          if git diff --cached --quiet; then
+            echo "Validation receipt unchanged."
+          else
+            git commit -m "chore: retain two-entry-point execution validation [skip ci]"
+            git pull --rebase
+            git push
+          fi
+
+      - name: Upload execution-state evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: two-entry-points-execution-state-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/two-entry-points-execution-state.json
+            reports/two-entry-points-execution-state-validation.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish summary
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          value = json.loads(Path('reports/two-entry-points-execution-state-validation.json').read_text())
+          print('## Two Entry Points Execution State')
+          print(f"Result: {value['result']}")
+          print(f"Tasks: {value['task_count']}")
+          print(f"Complete or transferred: {value['complete_or_transferred_tasks']}")
+          print(f"Archive state: {value['archive_state']}")
+          print(f"Archive authorized: {value['archive_authorized']}")
+          print(f"Receipt SHA-256: {value['receipt_sha256']}")
+          PY
