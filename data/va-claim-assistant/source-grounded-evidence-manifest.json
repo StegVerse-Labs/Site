@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "site-va-source-grounded-evidence-001",
+  "program": "VA Claim Assistant governed session layer",
+  "capability": "SOURCE_GROUNDED_ASSISTANT",
+  "route": "evidence_requirement",
+  "state": "EVIDENCE_CHAIN_VERIFIED",
+  "records": {
+    "llm_adapter": {
+      "repository": "StegVerse-org/LLM-adapter",
+      "commit": "c643d13e7950d3cb14f8850b2b5b791dedc62154",
+      "path": "receipts/va-claim-assistant-public-source-fixture.json",
+      "answer_hash": "e68b1740b03bc0a51221cc56222fb7e5794317b26f1684572d1af5080a28aeb3"
+    },
+    "tvc_readiness": {
+      "repository": "StegVerse-Labs/TVC",
+      "commit": "f5e4b911ce46d0b3d0e10e114b05def064102d43",
+      "path": "receipts/va-claim-assistant-governed-retrieval-readiness.json",
+      "state": "READY"
+    },
+    "tvc_invocation": {
+      "repository": "StegVerse-Labs/TVC",
+      "commit": "0f0ecf2183e10d27a1d504bdeb30349fe7b3b806",
+      "path": "receipts/va-claim-assistant-governed-retrieval-invocation-001.json",
+      "state": "EXECUTED"
+    },
+    "master_records": {
+      "repository": "master-records/orchestration",
+      "commit": "477a8aee2c68fbb47a25f9ba65f3300319f96977",
+      "path": "receipts/va-claim-assistant-public-source-custody.json",
+      "custody": "RECORDED",
+      "reconstruction": "PASS",
+      "input_receipt_hash": "d6407c839b91d4b23be7a48f4dde78c3474427c2b7f28d0cfdb976505028a7ae",
+      "answer_hash": "e68b1740b03bc0a51221cc56222fb7e5794317b26f1684572d1af5080a28aeb3"
+    }
+  },
+  "checks": {
+    "answer_hash_consistent": true,
+    "tvc_ready_and_executed": true,
+    "custody_recorded": true,
+    "reconstruction_pass": true,
+    "authority_flags_false": true
+  },
+  "activation_effect": false,
+  "publication_effect": false,
+  "gate_effect": {
+    "VCA-GATE-08": "VERIFIED",
+    "VCA-GATE-09": "UNCHANGED_REQUIRES_DEPLOYED_OBSERVATION"
+  },
+  "next_action": "Run the existing Site activation reconciler to observe the deployed page and endpoint; do not activate beyond SOURCE_GROUNDED_ASSISTANT.",
+  "manifest_sha256": "a52b351dc0331789c1a0bdc9a3d4a687a56ab773c5596b5ca09465513c3978f8"
+}
