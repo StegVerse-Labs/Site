@@ -21,15 +21,17 @@ Receipt: data/va-claim-assistant/pii-redaction-credential-realignment-validation
 
 ```text
 role: PRIVACY_BOUNDARY_AND_IDENTITY_LINKAGE_CONTRACT
-claim state: MACHINE_OWNED_VALIDATION
-claim created: 2026-08-02T22:01:00Z
-release condition: committed PASS receipt and acceptance into Site#113, Site#116, LLM-adapter#90, TVC, and Master Records continuation records
+claim state: RELEASED_COMPLETE
+validation: PASS
+validation receipt SHA-256: f249a74bdacdbeb11434130670093cf1c189f29797aaa41974bbe5dc0a3ab319
+contract SHA-256: 7af4c9448ec0bca5165037c0bb9bbf0b34a8e8d9cc8bdb4d57c36ca4356d33e1
+release evidence: committed PASS receipt plus acceptance in Site#113 and Site#116
 collision boundary: no production credentialing, no raw-document processor mutation, no identity proofing, no credential storage, no filing activation
 ```
 
 ## Required architecture
 
-The contract separates four trust zones:
+The validated contract separates four trust zones:
 
 1. `credentialing_vault` — verified veteran identity and credential assurance only;
 2. `document_privacy_zone` — encrypted raw upload, malware scan, PII detection, redaction manifest, pseudonymous token, and redacted working copy;
@@ -55,11 +57,11 @@ encrypted upload
 → hash-bound association of approved record/package to veteran identity reference
 ```
 
-Pseudonymization is not anonymization. The linkage capability remains separately protected, purpose-limited, expiring, and revocable.
+Pseudonymization is not anonymization. Identity is not restored into AI context. The linkage capability remains separately protected, purpose-limited, expiring, and revocable.
 
 ## Federal floor and StegVerse-plus requirement
 
-The applicable NIST security, privacy, and digital-identity controls and VA privacy principles are the minimum floor. StegVerse adds:
+Applicable NIST security, privacy, and digital-identity controls and VA privacy principles are the minimum floor. StegVerse adds:
 
 - raw-document isolation before model processing;
 - cryptographically bound redaction manifests;
@@ -72,6 +74,21 @@ The applicable NIST security, privacy, and digital-identity controls and VA priv
 - no PII restoration into prompts or outputs.
 
 No compliance or VA-approval claim is authorized by this contract.
+
+## Validation result
+
+```text
+state: PASS
+privacy zones: 4
+release gates: 13
+federal floor required: true
+StegVerse must exceed floor: true
+raw PII to adapter prohibited: true
+verified credentialing handoff required: true
+pre-credential re-association prohibited: true
+authority effect: false
+activation effect: false
+```
 
 ## Fail-closed states
 
@@ -105,7 +122,7 @@ master-records/orchestration
 - redaction manifest, credentialing handoff, identity-linkage, deletion, access, custody, and reconstruction receipts
 ```
 
-## Activation conditions
+## Operational activation conditions
 
 Private document upload or filing cannot activate until:
 
@@ -125,10 +142,13 @@ Private document upload or filing cannot activate until:
 ```text
 MERGED INTO: StegVerse-Labs/Site#116
 MERGED INTO: StegVerse-Labs/Site#113
+MERGED INTO: StegVerse-org/LLM-adapter#90
+MERGED INTO: StegVerse-Labs/TVC credentialing and linkage capability lane
+MERGED INTO: master-records/orchestration custody lane
 ```
 
-After a PASS contract receipt and issue acceptance, this bounded design task may release. Operational PII detection, redaction, credentialing, linkage, deletion, and assessment evidence remain incomplete until produced by the named owners.
+The bounded contract-definition and validation task is complete. Operational PII detection, redaction, credentialing, linkage, deletion, custody, and independent assessment remain assigned to the named owners.
 
 ## Archive condition
 
-This requirement is durable when the contract, validator, workflow, PASS receipt, handoff, and issue acceptance exist. The broader session remains active while the operational privacy boundary, credentialing handoff, document runtime, filing transport, route expansion, and Ecosystem Chat activation remain incomplete.
+This requirement is durable and no longer depends on chat history. The broader session remains active while the operational privacy boundary, credentialing handoff, document runtime, filing transport, route expansion, and Ecosystem Chat activation remain incomplete.
