@@ -75,6 +75,10 @@ jobs:
         run: python scripts/check_site_workflow_inventory.py
       - name: Validate application
         run: python scripts/check_ecosystem_chat_application.py
+      - name: Validate canonical session execution inventory
+        run: python scripts/check_ecosystem_chat_session_execution_inventory.py
+      - name: Write canonical session execution receipt
+        run: python scripts/write_ecosystem_chat_session_execution_receipt.py
       - name: Synchronize verified custody state into authoritative Site records
         run: python scripts/sync_ecosystem_chat_custody_state.py
       - name: Check out canonical adapter source for bounded runtime verification
@@ -111,7 +115,7 @@ jobs:
         run: python scripts/write_site_validation_artifact_manifest.py
       - name: Verify validation artifact bundle
         run: python scripts/verify_site_validation_artifact_bundle.py .
-      - name: Upload application validation result, receipt, manifest, and portable-node runtime evidence
+      - name: Upload application validation result, receipt, manifest, portable-node runtime evidence, and session execution receipt
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -120,10 +124,24 @@ jobs:
             site_application_validation.result.json
             site_current_main_validation.receipt.json
             site_current_main_validation.manifest.json
+            evidence/ecosystem-chat/session-execution-receipt.json
             reports/portable-node-site-runtime.json
             portable-node-runtime.log
             docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md
           if-no-files-found: error
+      - name: Persist authoritative session execution receipt
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/feature/ecosystem-node-dual-view'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/ecosystem-chat/session-execution-receipt.json
+          if git diff --cached --quiet; then
+            echo "Session execution receipt unchanged."
+          else
+            git commit -m "chore: persist Ecosystem Chat session execution receipt [skip ci]"
+            git pull --rebase
+            git push
+          fi
       - name: Persist authoritative Ecosystem Chat custody state
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
