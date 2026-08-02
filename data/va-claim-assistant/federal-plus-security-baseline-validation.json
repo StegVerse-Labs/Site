@@ -1,0 +1,17 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "baseline_id": "SV-VA-FEDERAL-PLUS-SECURITY-001",
+  "compliance_claim_requires_independent_evidence": true,
+  "continuous_assurance_required": true,
+  "contract_sha256": "abce430410ce3d42405b7721b1ecaee16168eae003fc897ea80d25c6c1065587",
+  "control_family_count": 20,
+  "errors": [],
+  "exceeds_floor_required": true,
+  "federal_floor_required": true,
+  "phishing_resistant_authentication_required": true,
+  "plus_domain_count": 7,
+  "receipt_sha256": "ff8057ca796d35f5de58e7f30c3b63e813151b95c85b802cc5c4f655466f4236",
+  "schema_version": "1.0.0",
+  "state": "PASS"
+}
