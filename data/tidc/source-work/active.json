@@ -1,14 +1,15 @@
 {
   "schema": "stegverse.site.tidc.active_source_work.v0.1",
-  "generated_at": "2026-08-02T04:42:56.849640+00:00",
-  "work_id": "SRC-003",
+  "generated_at": "2026-08-02T06:41:07.786021+00:00",
+  "work_id": "SRC-004",
   "record_ids": [
-    "COMP-003"
+    "NET-001",
+    "NET-002"
   ],
-  "task": "Preserve Robbins proof publication and simplification chronology",
-  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#COMP-003",
-  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/COMP-003.json",
-  "receipt_path": "data/tidc/source-receipts/COMP-003.json",
+  "task": "Reconstruct Polymath start, phase, and publication chronology",
+  "exists_at": "docs/TIDC_SOURCE_PACKET_INDEX.md#NET-001",
+  "completion_target": "docs/TIDC_SOURCE_PACKET_INDEX.md; data/tidc/source-receipts/NET-POLYMATH.json",
+  "receipt_path": "data/tidc/source-receipts/NET-POLYMATH.json",
   "status": "ACTIVE",
   "allowed_terminal_states": [
     "COMPLETE",
@@ -24,8 +25,9 @@
   "continuation": "This active task does not block validators, return processing, or unrelated source work preparation.",
   "completed_work_ids": [
     "SRC-001",
-    "SRC-002"
+    "SRC-002",
+    "SRC-003"
   ],
-  "remaining_count": 7,
+  "remaining_count": 6,
   "development_halted": false
 }
