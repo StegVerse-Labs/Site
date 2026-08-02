@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "capability_id": "SV-VA-CLAIMS-CHAT-001",
+  "surface": "va-claims-chat.html",
+  "state": "SOURCE_GROUNDED_ACTIVE",
+  "current_capability": "SOURCE_GROUNDED_ASSISTANT",
+  "available_now": [
+    "official-source procedural guidance",
+    "evidence-requirement guidance",
+    "claim-route classification with fail-closed review",
+    "proposition-level source grounding",
+    "uncertainty and contrary-evidence preservation"
+  ],
+  "coming_next": [
+    "private document upload",
+    "multi-document indexing",
+    "page-bound conversational retrieval",
+    "claim evidence tables and timelines",
+    "contradiction and missing-evidence analysis",
+    "veteran review packet export"
+  ],
+  "future_governed_target": [
+    "claim package preparation",
+    "current-form preflight",
+    "veteran approval of every material fact and claimed condition",
+    "exact-package submission authorization",
+    "authorized filing transport",
+    "submission confirmation and custody"
+  ],
+  "controls": {
+    "private_document_upload_enabled": false,
+    "automated_filing_enabled": false,
+    "public_upload_enabled": false,
+    "veteran_submission_authority_preserved": true,
+    "human_review_required_before_filing": true,
+    "fail_closed_when_evidence_or_authority_missing": true
+  },
+  "authority": {
+    "va_authority": false,
+    "representative_authority": false,
+    "medical_opinion_authority": false,
+    "adjudication_authority": false,
+    "rating_authority": false,
+    "signature_authority": false,
+    "submission_authority": false
+  },
+  "canonical_goal_contract": "data/va-claim-assistant/governed-product-goals.json",
+  "canonical_handoff": "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+  "implementation_issue": "StegVerse-Labs/Site#113",
+  "document_workspace_issue": "StegVerse-Labs/Site#116"
+}
