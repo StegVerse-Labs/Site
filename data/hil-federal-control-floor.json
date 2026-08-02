@@ -1,0 +1,84 @@
+{
+  "schema_version": "HIL-FEDERAL-CONTROL-FLOOR-v1",
+  "floor_id": "HIL-FEDERAL-FLOOR-2026-08-02",
+  "posture": "MINIMUM_NOT_TARGET",
+  "review_required_on": [
+    "authoritative publication revision",
+    "deployment boundary change",
+    "data classification change",
+    "federal customer or agency requirement change"
+  ],
+  "references": [
+    {
+      "reference_id": "NIST-SP-800-53-R5-5.2.0",
+      "publisher": "NIST",
+      "title": "Security and Privacy Controls for Information Systems and Organizations",
+      "version": "Revision 5, Release 5.2.0",
+      "status": "AUTHORITATIVE_FLOOR",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "applies_when": "Federal information-system, organization, privacy, or comparable high-assurance control catalog applies.",
+      "owner": "StegVerse-Labs/Site security integration lane",
+      "freshness_rule": "Check NIST release metadata at least monthly and on every production-security review."
+    },
+    {
+      "reference_id": "NIST-SP-800-218-V1.1",
+      "publisher": "NIST",
+      "title": "Secure Software Development Framework",
+      "version": "Version 1.1",
+      "status": "AUTHORITATIVE_FLOOR",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "applies_when": "Software is designed, built, tested, packaged, deployed, or maintained.",
+      "owner": "Each production repository owner",
+      "freshness_rule": "Check for a final superseding NIST publication on every dependency or build-policy change."
+    },
+    {
+      "reference_id": "NIST-SP-800-207",
+      "publisher": "NIST",
+      "title": "Zero Trust Architecture",
+      "version": "Final",
+      "status": "AUTHORITATIVE_FLOOR",
+      "url": "https://csrc.nist.gov/pubs/sp/800/207/final",
+      "applies_when": "Identity, service, device, network, workload, or data access crosses a trust boundary.",
+      "owner": "Runtime, provider, custody, and Site owners",
+      "freshness_rule": "Revalidate on identity, credential, network, or service-boundary change."
+    },
+    {
+      "reference_id": "CISA-ZTMM-2.0",
+      "publisher": "CISA",
+      "title": "Zero Trust Maturity Model",
+      "version": "Version 2.0",
+      "status": "AUTHORITATIVE_FLOOR",
+      "url": "https://www.cisa.gov/resources-tools/resources/zero-trust-maturity-model",
+      "applies_when": "Federal-aligned zero-trust maturity and cross-pillar integration are relevant.",
+      "owner": "Runtime, provider, custody, and Site owners",
+      "freshness_rule": "Check CISA publication status at least quarterly and before production activation."
+    },
+    {
+      "reference_id": "OMB-M-22-09",
+      "publisher": "OMB",
+      "title": "Moving the U.S. Government Toward Zero Trust Cybersecurity Principles",
+      "version": "M-22-09",
+      "status": "AUTHORITATIVE_FLOOR",
+      "url": "https://www.whitehouse.gov/wp-content/uploads/2022/01/M-22-09.pdf",
+      "applies_when": "A federal zero-trust deployment, agency integration, or equivalent control objective is in scope.",
+      "owner": "StegVerse-Labs/Site security integration lane",
+      "freshness_rule": "Revalidate against superseding OMB memoranda before federal deployment or acquisition claims."
+    }
+  ],
+  "above_floor_requirements": [
+    "independent authority planes",
+    "cryptographic chain continuity",
+    "protected-value non-disclosure",
+    "fail-closed evidence admission",
+    "dual-control release",
+    "append-only hash-chained receipts",
+    "supply-chain provenance",
+    "continuous control observation",
+    "authority-preserving recovery",
+    "cross-repository least disclosure",
+    "automatic regression to blocked state"
+  ],
+  "authority_effect": "NONE",
+  "certification_claimed": false,
+  "production_activation_authorized": false
+}
