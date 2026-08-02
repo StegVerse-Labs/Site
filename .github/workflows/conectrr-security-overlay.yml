@@ -1,0 +1,82 @@
+name: Conectrr Security Overlay
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/CONECTRR_SECURITY_EXCEEDS_FEDERAL_BASELINE.md'
+      - 'data/conectrr-security-overlay.json'
+      - 'data/conectrr-session-goal-inventory.json'
+      - 'scripts/check_conectrr_security_overlay.py'
+      - 'scripts/check_conectrr_runtime_projection.py'
+      - 'docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md'
+      - '.github/workflows/conectrr-security-overlay.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '41 5 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: conectrr-security-overlay-main
+  cancel-in-progress: false
+
+jobs:
+  validate-security-overlay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate security-above-baseline overlay
+        run: |
+          mkdir -p reports
+          set -o pipefail
+          python scripts/check_conectrr_security_overlay.py | tee reports/conectrr-security-overlay-validation.txt
+
+      - name: Validate integrated Conectrr runtime gate
+        run: |
+          set -o pipefail
+          python scripts/check_conectrr_runtime_projection.py | tee reports/conectrr-runtime-projection-validation.txt
+
+      - name: Write machine receipt
+        if: always()
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          overlay = Path('data/conectrr-security-overlay.json').read_bytes()
+          receipt = {
+              'schema': 'stegverse.conectrr.security-overlay.receipt.v1',
+              'goal_id': 'SV-SITE-CONECTRR-SEC-001',
+              'checked_at': datetime.now(timezone.utc).isoformat(),
+              'repository': os.environ.get('GITHUB_REPOSITORY'),
+              'commit': os.environ.get('GITHUB_SHA'),
+              'run_id': os.environ.get('GITHUB_RUN_ID'),
+              'overlay_sha256': hashlib.sha256(overlay).hexdigest(),
+              'workflow_conclusion_source': 'github_actions_job',
+              'authority_effect': 'none',
+              'claims_not_created': ['certification', 'authorization_to_operate', 'agency_approval'],
+          }
+          Path('reports/conectrr-security-overlay-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          PY
+
+      - name: Upload validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conectrr-security-overlay-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/conectrr-security-overlay-validation.txt
+            reports/conectrr-runtime-projection-validation.txt
+            reports/conectrr-security-overlay-receipt.json
+          if-no-files-found: error
+          retention-days: 90
