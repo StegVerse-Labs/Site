@@ -1,5 +1,5 @@
 {
-  "schema_version": "STEGVERSE-TASK-v1.4",
+  "schema_version": "STEGVERSE-TASK-v1.5",
   "task_id": "SITE-TVC-RUNTIME-ASSIST-001",
   "title": "Prepare Site for TVC-governed HIL intake projection",
   "state": "ACTIVE_COORDINATED",
@@ -9,64 +9,68 @@
   "coordination_issue": 6,
   "coordination_rule": "TVC retains exclusive deployment, protected-value consumption, execution-grant issuance, revocation, and runtime authority. Site assistance is non-authorizing and limited to sanitized projection, validation, and public-state boundaries.",
   "assists": [
-    "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-001.json@06dd9d7b99dd2d9aaf22f7f62c8cbdce6296941f",
+    "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-001.json",
     "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-002.json",
+    "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-003.json",
     "StegVerse-Labs/TVC:tasks/TVC-CAPABILITY-RUNTIME-004.json",
-    "StegVerse-Labs/TVC:tasks/TVC-EXECUTION-GRANT-001@a10ff11bbde5537f63d8a6a97b19dd8f5cc6f225",
-    "StegVerse-Labs/TVC:tasks/TVC-EXECUTION-GRANT-002@5d33e1a7e229e1fbdebb4f5978f97b62497b9036",
-    "StegVerse-Labs/TVC:tasks/TVC-EXECUTION-GRANT-003",
-    "StegVerse-Labs/TVC:tasks/TVC-EXECUTION-GRANT-004"
+    "StegVerse-Labs/TVC:docs/EXECUTION_GRANT_MIRROR_HANDOFF.md@ec54aa65d2766bea2014c6cfc9fe35d42c63afa8"
   ],
   "site_activation_commit": "804e768bb3cfd6665fe31cc163ee05718daad7ad",
   "upstream_milestones": {
-    "capability_lease_contract_defined": "920a026ef3c73c0181bc45de14c4a458ef2f6ce1",
-    "capability_lease_issuer_implemented": "30475ab1be6cc185de3c2e0ce48f2c9a6d2867f5",
-    "capability_lease_workflow_added": "ad1966c7e469ff698997c3bcb26888e2ce8ae5e0",
     "capability_lease_issuance_layer_activated": "ed3ccd0d0f85c3b46aa9ba9729416ba1722965c1",
-    "execution_grant_schema_started": "8ffb66479300d17b91b5b10aed68418a15cb737c",
-    "execution_grant_revocation_schema_added": "a1eddccc403ea37956559c39a418202a5e44a3b7",
-    "execution_grant_consumption_schema_added": "e7a576861ea67ee0353d200ca8e3fc04b48b7e35",
     "execution_grant_issuer_validator_implemented": "a10ff11bbde5537f63d8a6a97b19dd8f5cc6f225",
     "execution_grant_issuer_validator_tests": "79030fd9a8bc70b93bf772c8affe23d6b798a32a",
     "grant_revocation_atomic_consumption_implemented": "5d33e1a7e229e1fbdebb4f5978f97b62497b9036",
-    "grant_revocation_atomic_consumption_tests": "e36aecf8c64a24f9f51bc9e09fc5165615f58ca4"
+    "grant_revocation_atomic_consumption_tests": "e36aecf8c64a24f9f51bc9e09fc5165615f58ca4",
+    "bounded_executor_receipt_chain_implemented": "afe6d0d6b72850787908c1163caf671f0971a11d",
+    "bounded_executor_receipt_chain_tests": "dc727128028ce8bc02dfa745365ef94b1d202a5e",
+    "execution_grant_proof_workflow": "04ef90ab1d9ac63639cd90d51323e0c7212e03e2",
+    "render_deployment_observation": "39bdbc69082747feebe84109baaf1de11e527441",
+    "runtime_observer_workflow": "3ac64e11854c0ec844fe2a15bed9e8397822386a"
+  },
+  "site_completed_work": {
+    "sanitized_import_schema": "schemas/tvc_execution_receipt_import.schema.json@43201367b13801f9c2bdf6b0411cbbfa3f5877db",
+    "hash_linkage_validator": "scripts/check_tvc_execution_receipt_import.py@eff19b891759dd21371aa293a6514ca58c66a295",
+    "regression_tests": "tests/test_tvc_execution_receipt_import.py@0dc499191320b45f975a61244add32c9dd1a620a",
+    "ci_workflow": ".github/workflows/check-tvc-execution-receipt-import.yml@a1f7a40e8b1983ff525d053271a4336d82e77f50"
   },
   "remaining_upstream_crossings": [
-    "TVC-owned runtime deployment evidence",
-    "TVC-owned api/hil/ingress response evidence",
-    "protected-value consumption evidence without value disclosure",
-    "bounded executor adapter evidence",
-    "authoritative positive and negative proof-suite receipts",
-    "complete runtime receipt chain",
-    "activation gate evaluation against authentic runtime evidence"
+    "successful hosted execution-grant proof run with inspected artifact",
+    "TVC-owned edge or serverless api/hil/ingress deployment",
+    "tvc.stegverse.org/api/hil/ingress route binding",
+    "sanitized fail-closed route probes",
+    "protected-value runtime binding without disclosure",
+    "fresh lease consumption, replay refusal, and retirement evidence",
+    "authentic Site intake receipt",
+    "activation gate evaluation against complete runtime evidence"
+  ],
+  "remaining_site_crossings": [
+    "observe hosted CI for the sanitized receipt import boundary",
+    "import an authentic TVC receipt bundle after upstream proof and deployment",
+    "retain public readiness false until all activation evidence validates"
   ],
   "site_parallel_safe_work": [
-    "Verify hil-direct-ingress-worker.yml exists and remains the exact bound workflow",
-    "Verify incoming/hil source-object handling is fail-closed",
-    "Prepare sanitized execution-grant, consumption, revocation, and runtime receipt import contracts",
-    "Require commit-pinned source objects and exact receipt hashes for every imported TVC result",
-    "Reject disclosed protected values, scope expansion, invalid signatures, expired grants, replayed consumption, and contradictory revocation states",
+    "Verify incoming/hil source-object handling remains fail-closed",
+    "Validate commit-pinned TVC receipt bundles with exact hash and chain linkage",
+    "Reject protected-value disclosure, scope expansion, replay, invalid consumption, broken linkage, and authority escalation",
     "Validate durable ingress receipts separately from participant-device fallback records",
-    "Keep public readiness false until deployment, executor, proof-suite, and runtime-chain evidence all validate",
     "Preserve unrelated Site routes and deployments"
   ],
   "coordination_checkpoints": [
-    "TVC-owned runtime deployment exists",
-    "TVC-owned api/hil/ingress route responds",
-    "bounded executor consumes one valid grant exactly once",
-    "revocation blocks later consumption",
-    "positive and negative proof-suite receipts are retained",
-    "Site receives sanitized intake, execution, revocation, and custody projections",
-    "public readiness remains false until authentic TVC evidence is imported"
+    "TVC execution-grant proof artifact is retained",
+    "TVC-owned api/hil/ingress route responds fail-closed",
+    "one valid grant is consumed exactly once and replay is refused",
+    "Site import validator accepts the authentic sanitized chain",
+    "public readiness remains false until activation gate passes"
   ],
   "acceptance_criteria": [
     "Site holds no TV or TVC protected value",
-    "worker activation remains bound to authenticated internal intake evidence",
     "receipt projection contains hashes, identities, states, timestamps, scopes, and authority booleans only",
     "participant-device fallback cannot be represented as durable submission",
     "consumed, revoked, expired, unvalidated, replayed, or scope-mismatched grants cannot establish readiness",
     "no public readiness claim occurs before authentic TVC deployment and execution evidence",
     "no Site action grants runtime, execution, publication, release, or custody authority"
   ],
+  "claim_release_condition": "The Site import CI passes, one authentic commit-pinned TVC runtime receipt bundle validates, and activation remains separately governed.",
   "authority_effect": "none"
 }
