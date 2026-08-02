@@ -1,0 +1,107 @@
+{
+  "schema": "stegverse.site.tidc.source_expansion_record.v0.1",
+  "event_id": "AI-001",
+  "event_name": "AlphaTensor matrix-multiplication algorithms",
+  "source_id": "SRC-006",
+  "research_posture": "RESEARCH_NOTE_NOT_CONFIRMATORY",
+  "record_status": "PRIMARY_SOURCE_RECONSTRUCTION_PARTIAL",
+  "retrieved_on": "2026-08-02",
+  "sources": [
+    {
+      "source_role": "primary_peer_reviewed_article",
+      "title": "Discovering faster matrix multiplication algorithms with reinforcement learning",
+      "authors": [
+        "Alhussein Fawzi",
+        "Matej Balog",
+        "Aja Huang",
+        "Thomas Hubert",
+        "Bernardino Romera-Paredes",
+        "Mohammadamin Barekatain",
+        "Alexander Novikov",
+        "Francisco J. R. Ruiz",
+        "Julian Schrittwieser",
+        "Grzegorz Swirszcz",
+        "David Silver",
+        "Demis Hassabis",
+        "Pushmeet Kohli"
+      ],
+      "journal": "Nature",
+      "volume": "610",
+      "pages": "47-53",
+      "publication_date": "2022-10-05",
+      "doi": "10.1038/s41586-022-05172-4",
+      "stable_url": "https://doi.org/10.1038/s41586-022-05172-4",
+      "evidence_supported": [
+        "AlphaTensor framed matrix multiplication as a single-player tensor-decomposition game.",
+        "The system discovered multiple algorithms rather than one indivisible result.",
+        "The article reported improvements for finite-field and practical matrix-multiplication settings.",
+        "Publication occurred in October 2022."
+      ]
+    },
+    {
+      "source_role": "first_party_research_announcement",
+      "title": "Discovering novel algorithms with AlphaTensor",
+      "organization": "DeepMind",
+      "publication_date": "2022-10-05",
+      "stable_url": "https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/",
+      "evidence_supported": [
+        "The first-party announcement accompanied the peer-reviewed publication.",
+        "The announcement described the result as discovery of novel matrix-multiplication algorithms.",
+        "The public-disclosure date should not be treated automatically as the internal candidate-generation date."
+      ]
+    }
+  ],
+  "field_evidence": {
+    "candidate_generation_date": {
+      "value": null,
+      "status": "NOT_PUBLICLY_ESTABLISHED_AS_A_SINGLE_DATE",
+      "rationale": "The public record describes a research program and multiple discovered algorithms but does not establish one authoritative internal discovery date for the aggregate event."
+    },
+    "verification_date": {
+      "value": null,
+      "status": "MULTIPLE_BENCHMARK_AND_CORRECTNESS_CHECKS_NOT_REDUCED_TO_ONE_DATE",
+      "rationale": "Algorithm correctness, tensor-rank claims, and hardware timing results require result-specific verification records."
+    },
+    "public_disclosure_date": {
+      "value": "2022-10-05",
+      "status": "SUPPORTED_BY_FIRST_PARTY_ANNOUNCEMENT"
+    },
+    "publication_date": {
+      "value": "2022-10-05",
+      "status": "SUPPORTED_BY_PRIMARY_ARTICLE"
+    },
+    "acceptance_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED_FROM_CURRENT_PUBLIC_RECORD"
+    },
+    "recognition_date": {
+      "value": null,
+      "status": "NOT_ESTABLISHED"
+    },
+    "technology_dependency": {
+      "seed_value": "Necessary",
+      "status": "SUPPORTED_BUT_NOT_RECODED",
+      "rationale": "The candidate algorithms were generated through the AlphaTensor reinforcement-learning system, but dependency classification remains subject to independent coding."
+    }
+  },
+  "aggregate_event_assessment": {
+    "is_aggregate": true,
+    "reason": "The publication reports multiple algorithm discoveries across different matrix sizes, fields, objectives, and implementation contexts.",
+    "required_split_location": "data/tidc/tranche-02/splits/AI-001/",
+    "minimum_child_classes": [
+      "finite-field tensor-rank improvements",
+      "standard-arithmetic algorithm candidates",
+      "hardware-optimized practical algorithms",
+      "rediscoveries or equivalent known algorithms"
+    ]
+  },
+  "remaining_questions": [
+    "Create a result-level inventory of every claimed algorithmic improvement and rediscovery.",
+    "Separate mathematical operation-count improvements from hardware-runtime improvements.",
+    "Preserve benchmark hardware, software, matrix dimensions, arithmetic domain, and comparison baseline for each result.",
+    "Locate independent reproductions, implementations, or critiques for each child result.",
+    "Establish candidate-generation and verification dates only where result-specific evidence supports them."
+  ],
+  "seed_ledger_changed": false,
+  "authority_effect": "NONE"
+}
