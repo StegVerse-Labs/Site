@@ -1,0 +1,33 @@
+{
+  "task_id": "SITE-0001-GOVERNED-MEASUREMENT",
+  "repository": "StegVerse-Labs/Site",
+  "issue": 143,
+  "goal": "Build and activate privacy-preserving aggregate measurement for the VA Claim Guide.",
+  "state": "RUNNING",
+  "execution_owner": "repository-machine-observer",
+  "external_tasks_allowed": false,
+  "external_session_ownership_allowed": false,
+  "parallel_safe": true,
+  "claimed_paths": [
+    "data/tasks/SITE-0001-GOVERNED-MEASUREMENT.json",
+    "data/governed-site-measurement-policy.json",
+    "docs/GOVERNED_SITE_MEASUREMENT.md",
+    "schemas/governed-site-measurement-event.schema.json",
+    "scripts/check_governed_site_measurement.py"
+  ],
+  "completion_checks": [
+    "policy_exists",
+    "schema_rejects_unknown_fields",
+    "prohibited_fields_are_enforced",
+    "validator_passes_positive_fixture",
+    "validator_rejects_pii_fixture",
+    "collector_is_first_party",
+    "aggregate_projection_exists",
+    "deployed_receipt_observed",
+    "site_handoff_updated"
+  ],
+  "completed": ["policy_exists", "task_registered"],
+  "blocked_on": ["schema", "validator", "collector", "aggregate_projection", "deployed_verification"],
+  "authority_effect": false,
+  "activation_effect": false
+}
