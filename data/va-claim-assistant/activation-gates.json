@@ -56,7 +56,9 @@
       "id": "VCA-GATE-05",
       "name": "document_evidence_layer_validated",
       "state": "ASSIGNED_FINAL_TARGET_ONLY",
-      "evidence": ["StegVerse-Labs/Site#116"],
+      "evidence": [
+        "StegVerse-Labs/Site#116"
+      ],
       "task_location": "StegVerse-Labs/Site#116",
       "required_for": "GOVERNED_CLAIM_SESSION",
       "required_for_source_grounded_activation": false
@@ -84,7 +86,8 @@
       "name": "public_status_receipt_derived",
       "state": "VERIFIED",
       "evidence": [
-        "data/va-claim-assistant/source-grounded-evidence-manifest.json"
+        "data/va-claim-assistant/source-grounded-evidence-manifest.json",
+        "data/va-claim-assistant/source-grounded-activation-receipt.json"
       ],
       "task_location": "StegVerse-Labs/Site#113",
       "next_action": null
@@ -92,10 +95,12 @@
     {
       "id": "VCA-GATE-09",
       "name": "deployed_end_to_end_session_verified",
-      "state": "BUILDING",
-      "evidence": [],
+      "state": "VERIFIED",
+      "evidence": [
+        "data/va-claim-assistant/source-grounded-activation-receipt.json"
+      ],
       "task_location": "StegVerse-Labs/Site#113",
-      "next_action": "Observe the deployed Site page and endpoint and require HTTP 200 plus repository-byte hash equality."
+      "next_action": null
     }
   ],
   "workflow_enforcement": {
