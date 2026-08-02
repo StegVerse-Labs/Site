@@ -1,22 +1,35 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
   "repository": "StegVerse-Labs/Site",
   "goal": "Observe and validate the threshold between synchronized transition activity and recursively sustained coherent continuity.",
+  "originating_session_goal": "Determine whether StegVerse contains the coherent-transition threshold layer, build it if absent, activate it when evidenced, and prevent unresolved status from halting development.",
   "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "claim_state": "MACHINE_OWNED",
   "owner": {
     "type": "repository_controller",
     "location": "scripts/observe_and_complete_repository_tasks.py"
   },
+  "claim_release_condition": "The bounded implementation validator passes and the repository controller records completion; threshold activation remains a separate evidence-gated state transition.",
+  "collision_boundaries": [
+    "No session-shaped owner may replace the repository controller.",
+    "No state may claim THRESHOLD_ESTABLISHED without all seven evidenced predicates.",
+    "No translated or resulting state may manufacture its own synchronization medium or evidence."
+  ],
   "implementation_locations": [
     "docs/COHERENT_TRANSITION_THRESHOLD_LAYER.md",
+    "docs/session-consolidation/COHERENT_TRANSITION_THRESHOLD_SESSION_TRANSFER_2026-08-02.md",
     "data/coherent-transition-threshold.schema.json",
     "data/coherent-transition-threshold-state.json",
+    "data/coherent-transition-threshold-observation.json",
+    "scripts/derive_coherent_transition_threshold.py",
     "scripts/check_coherent_transition_threshold.py"
   ],
   "verification_locations": [
     ".github/workflows/coherent-transition-threshold.yml",
+    "scripts/derive_coherent_transition_threshold.py",
     "scripts/check_coherent_transition_threshold.py",
+    "scripts/observe_and_complete_repository_tasks.py",
     ".github/workflows/observe-and-complete-repository-tasks.yml"
   ],
   "acceptance": {
@@ -28,6 +41,10 @@
     "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
     "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
     "ownership_pointer": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD.json"
+  },
+  "next_task_after_release": {
+    "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
+    "location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json"
   },
   "external_dependencies": [],
   "authority_effect": false,
