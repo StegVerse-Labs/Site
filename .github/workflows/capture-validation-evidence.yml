@@ -8,16 +8,22 @@ on:
       - 'validation_manifests/repository-core.json'
       - 'schemas/validation-execution-receipt.schema.json'
       - 'scripts/capture_validation_manifest.py'
-      - '.github/workflows/capture-validation-evidence.yml'
+      - 'scripts/write_site_current_main_validation_receipt.py'
+      - 'scripts/check_site_current_main_validation_receipt_writer.py'
       - 'scripts/check_site_current_main_validation_evidence.py'
+      - 'data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json'
+      - '.github/workflows/capture-validation-evidence.yml'
   push:
     branches: [main]
     paths:
       - 'validation_manifests/repository-core.json'
       - 'schemas/validation-execution-receipt.schema.json'
       - 'scripts/capture_validation_manifest.py'
-      - '.github/workflows/capture-validation-evidence.yml'
+      - 'scripts/write_site_current_main_validation_receipt.py'
+      - 'scripts/check_site_current_main_validation_receipt_writer.py'
       - 'scripts/check_site_current_main_validation_evidence.py'
+      - 'data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json'
+      - '.github/workflows/capture-validation-evidence.yml'
 
 permissions:
   contents: read
