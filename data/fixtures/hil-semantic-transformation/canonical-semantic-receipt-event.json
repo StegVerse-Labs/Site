@@ -1,0 +1,23 @@
+{
+  "event_id": "hil-semantic-event-001",
+  "parent_event_id": "participant-event-001",
+  "timestamp": "2026-08-01T21:03:00-05:00",
+  "actor": {"class": "governed-analysis", "identity": "hil-semantic-continuity"},
+  "event_type": "evidence",
+  "human_projection": {"summary": "A linked semantic transformation receipt was admitted without changing the participant source record."},
+  "governed_projection": {
+    "receipt_type": "HIL_SEMANTIC_TRANSFORMATION",
+    "receipt_ref": "participant-semantic-receipt-001",
+    "source_record_id": "participant-source-001",
+    "output_record_id": "participant-output-001",
+    "validation": "PASS",
+    "authority_effect": false
+  },
+  "policy_refs": ["docs/hil-semantic-continuity/participant-record-integration.md"],
+  "evidence_refs": ["data/fixtures/hil-semantic-transformation/participant-record-with-receipt.json"],
+  "artifact_refs": ["data/hil-participant-semantic-integration-activation-receipt.json"],
+  "continuity_refs": ["participant-event-001"],
+  "hash": "preview-only-not-cryptographic",
+  "source_record_mutated": false,
+  "authority_effect": false
+}
