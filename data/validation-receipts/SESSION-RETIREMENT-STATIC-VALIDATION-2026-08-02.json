@@ -1,0 +1,47 @@
+{
+  "schema": "stegverse.validation-receipt.v1",
+  "receipt_id": "SESSION-RETIREMENT-STATIC-VALIDATION-2026-08-02",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "task": "SOR-A-SCHEMA-COMPATIBILITY",
+  "owner_issue": 117,
+  "related_issue": 118,
+  "validated_at": "2026-08-02T10:41:00Z",
+  "inputs": {
+    "validator_commit": "33500a3205ffb428d9bdc396fe529739cfcb8710",
+    "registry_commit": "91bf8a07d399211c219bead9e48662bc6dec4491",
+    "validator_path": "scripts/check_session_retirement.py",
+    "registry_path": "data/session-orchestration-registry.json",
+    "workflow_path": ".github/workflows/session-retirement-validate.yml"
+  },
+  "checks": [
+    {
+      "check": "authoritative registry schema compatibility",
+      "status": "PASS",
+      "evidence": "validator accepts 1.3.0 and registry declares 1.3.0"
+    },
+    {
+      "check": "session disposition admission",
+      "status": "PASS",
+      "evidence": "continuation-authority-stack-2026-08-02 exists with ARCHIVABLE posture, active_task_ownership=false, unique_unmerged_state=false, safe_to_archive=true"
+    },
+    {
+      "check": "material state references",
+      "status": "PASS",
+      "evidence": "handoff, complete goal inventory, consolidation receipt, and registry are committed repository paths"
+    },
+    {
+      "check": "hosted workflow execution",
+      "status": "PENDING",
+      "evidence": "no retained run, job, logs, or session-retirement-report artifact has yet been directly inspected"
+    }
+  ],
+  "overall_status": "STATIC_PASS_HOSTED_PENDING",
+  "activation_authority": false,
+  "archive_authority": false,
+  "next_action": {
+    "owner": "StegVerse-Labs/Site issue #117",
+    "location": ".github/workflows/session-retirement-validate.yml",
+    "release_condition": "retained hosted PASS with run, job, logs, and report artifact recorded in issue #117 and docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+  }
+}
