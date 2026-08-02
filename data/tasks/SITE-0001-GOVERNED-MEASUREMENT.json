@@ -1,20 +1,34 @@
 {
   "task_id": "SITE-0001-GOVERNED-MEASUREMENT",
+  "originating_session_goal": "Measure VA Claim Guide visits and interactions without weakening StegVerse governance or PII integrity.",
   "repository": "StegVerse-Labs/Site",
+  "branch": "goal/governed-site-measurement",
   "issue": 143,
+  "pull_request": 146,
   "goal": "Build and activate privacy-preserving aggregate measurement for the VA Claim Guide.",
   "state": "RUNNING",
+  "claim_state": "MACHINE_OWNED",
+  "claim_role": "IMPLEMENTATION_VALIDATION_INTEGRATION",
+  "claim_created_at": "2026-08-02T07:04:26Z",
+  "claim_release_condition": "merge PR 146 after hosted validation, page binding, durable aggregate configuration, deployed rejection tests, expiry receipt, and handoff update",
   "execution_owner": "repository-machine-observer",
   "external_tasks_allowed": false,
   "external_session_ownership_allowed": false,
   "parallel_safe": true,
   "claimed_paths": [
+    "api/governed-measurement.js",
+    "assets/governed-site-measurement.js",
     "data/tasks/SITE-0001-GOVERNED-MEASUREMENT.json",
     "data/governed-site-measurement-policy.json",
     "docs/GOVERNED_SITE_MEASUREMENT.md",
     "schemas/governed-site-measurement-event.schema.json",
-    "scripts/check_governed_site_measurement.py"
+    "scripts/check_governed_site_measurement.py",
+    "scripts/test_governed_site_measurement_fixtures.py",
+    "tests/governed-site-measurement/",
+    ".github/workflows/governed-site-measurement.yml",
+    "va-disability-claim-guide.html"
   ],
+  "collision_boundary": "No other lane may modify the listed measurement paths without reconciling through issue 143 and PR 146.",
   "completion_checks": [
     "policy_exists",
     "schema_rejects_unknown_fields",
@@ -22,12 +36,54 @@
     "validator_passes_positive_fixture",
     "validator_rejects_pii_fixture",
     "collector_is_first_party",
+    "collector_fails_closed_without_durable_aggregate",
     "aggregate_projection_exists",
+    "page_loads_browser_client",
     "deployed_receipt_observed",
+    "raw_event_expiry_verified",
     "site_handoff_updated"
   ],
-  "completed": ["policy_exists", "task_registered"],
-  "blocked_on": ["schema", "validator", "collector", "aggregate_projection", "deployed_verification"],
+  "completed": [
+    "policy_exists",
+    "task_registered",
+    "schema_rejects_unknown_fields",
+    "prohibited_fields_are_enforced",
+    "validator_passes_positive_fixture",
+    "validator_rejects_pii_fixture",
+    "collector_is_first_party",
+    "collector_fails_closed_without_durable_aggregate",
+    "aggregate_projection_exists",
+    "browser_client_implemented",
+    "dedicated_ci_workflow_installed"
+  ],
+  "blocked_on": [
+    {
+      "id": "HOSTED_VALIDATION",
+      "owner": ".github/workflows/governed-site-measurement.yml",
+      "release_condition": "latest PR head completes policy, fixture, collector, and browser privacy checks successfully"
+    },
+    {
+      "id": "PAGE_BINDING",
+      "owner": "va-disability-claim-guide.html",
+      "release_condition": "assets/governed-site-measurement.js is loaded by the page and validated"
+    },
+    {
+      "id": "DURABLE_AGGREGATE",
+      "owner": "Site deployment control plane",
+      "release_condition": "GOVERNED_MEASUREMENT_AGGREGATE_URL points to a verified aggregate-only service returning COMPLETE receipts"
+    },
+    {
+      "id": "DEPLOYED_VERIFICATION",
+      "owner": "data/governed-site-measurement/receipts/",
+      "release_condition": "accepted and rejected runtime observations plus raw-event expiry evidence are committed"
+    },
+    {
+      "id": "HANDOFF_SYNC",
+      "owner": "docs/SITE_MIRROR_HANDOFF.md",
+      "release_condition": "current commits, runs, blockers, and canonical continuation are recorded"
+    }
+  ],
+  "next_executable_task": "Bind assets/governed-site-measurement.js in va-disability-claim-guide.html, then validate the latest hosted workflow run.",
   "authority_effect": false,
   "activation_effect": false
 }
