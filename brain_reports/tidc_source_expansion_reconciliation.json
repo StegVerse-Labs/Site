@@ -1,11 +1,11 @@
 {
   "schema": "stegverse.site.tidc.source_expansion_reconciliation.v0.1",
   "plan": "data/tidc/source-expansion/seed-source-expansion-plan.json",
-  "completed_record_count": 5,
-  "remaining_record_count": 5,
+  "completed_record_count": 6,
+  "remaining_record_count": 4,
   "next_repository_owned_task": {
-    "event_id": "AI-001",
-    "location": "data/tidc/source-expansion/AI-001.json"
+    "event_id": "AI-002",
+    "location": "data/tidc/source-expansion/AI-002.json"
   },
   "records": [
     {
@@ -41,10 +41,8 @@
     {
       "event_id": "AI-001",
       "location": "data/tidc/source-expansion/AI-001.json",
-      "valid_record_present": false,
-      "problems": [
-        "record_missing"
-      ]
+      "valid_record_present": true,
+      "problems": []
     },
     {
       "event_id": "AI-002",
