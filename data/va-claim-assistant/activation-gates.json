@@ -1,36 +1,30 @@
 {
   "schema_version": "1.1.0",
   "program": "VA Claim Assistant governed session layer",
-  "state": "BUILDING",
-  "current_public_capability": "BOUNDED_PROCEDURAL_ASSISTANT",
+  "state": "SOURCE_GROUNDED_ACTIVE",
+  "current_public_capability": "SOURCE_GROUNDED_ASSISTANT",
   "next_activation_target": "SOURCE_GROUNDED_ASSISTANT",
   "final_activation_target": "GOVERNED_CLAIM_SESSION",
   "gates": [
     {
       "id": "VCA-GATE-01",
       "name": "source_registry_validated",
-      "state": "IMPLEMENTED_PENDING_EXECUTED_WORKFLOW_RECEIPT",
+      "state": "VERIFIED",
       "evidence": [
-        "data/va-claim-assistant/source-registry.json",
-        "data/va-claim-assistant/source-registry.schema.json",
-        "scripts/check_va_claim_assistant_governance.py"
+        "data/va-claim-assistant/governance-validation-receipt.json"
       ],
       "task_location": "StegVerse-Labs/Site#115",
-      "next_action": "Persist an executed governance-validator receipt from the Site activation workflow."
+      "next_action": null
     },
     {
       "id": "VCA-GATE-02",
       "name": "answer_provenance_validated",
-      "state": "IMPLEMENTED_PENDING_EXECUTED_WORKFLOW_RECEIPT",
+      "state": "VERIFIED",
       "evidence": [
-        "data/va-claim-assistant/answer-record.schema.json",
-        "data/va-claim-assistant/fixtures/valid-answer-record.json",
-        "data/va-claim-assistant/fixtures/invalid-authority-escalation.json",
-        "data/va-claim-assistant/fixtures/invalid-unsupported-proposition.json",
-        "scripts/check_va_claim_assistant_governance.py"
+        "data/va-claim-assistant/governance-validation-receipt.json"
       ],
       "task_location": "StegVerse-Labs/Site#115",
-      "next_action": "Persist an executed answer-provenance validator receipt from the Site activation workflow."
+      "next_action": null
     },
     {
       "id": "VCA-GATE-03",
@@ -104,13 +98,13 @@
     }
   ],
   "workflow_enforcement": {
-    "state": "IMPLEMENTED_PENDING_RUN_OBSERVATION",
+    "state": "VERIFIED",
     "path": ".github/workflows/va-claim-assistant-activation.yml",
     "task_location": "StegVerse-Labs/Site#115"
   },
   "source_grounded_activation_rule": "gates 01, 02, 03, 04, 06, 07, 08, and 09 must be VERIFIED",
   "governed_claim_session_activation_rule": "all gates must be VERIFIED",
-  "activation_authorized": false,
+  "activation_authorized": true,
   "authority_effect": false,
   "anti_stall": {
     "status_without_task_location_allowed": false,
