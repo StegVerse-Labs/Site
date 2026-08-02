@@ -4,12 +4,16 @@
 
 ```text
 Goal ID: SV-VA-CLAIM-ASSISTANT-001
+Product goal set: SV-VA-GOVERNED-PRODUCT-001
 Originating goal: build, activate, observe, complete, and durably transfer a governed VA disability-claim assistance layer
 Repository: StegVerse-Labs/Site
 Branch: main
 Canonical issue: StegVerse-Labs/Site#113
 Document-aware owner: StegVerse-Labs/Site#116
 Activation ledger: data/va-claim-assistant/activation-gates.json
+Product goal contract: data/va-claim-assistant/governed-product-goals.json
+Product goal validator: scripts/validate_va_governed_product_goals.py
+Product goal workflow: .github/workflows/va-governed-product-goals.yml
 ```
 
 ## Current capability
@@ -22,10 +26,30 @@ final target: GOVERNED_CLAIM_SESSION
 document fixture layer: VERIFIED_BOUNDED_FIXTURE_ONLY
 substantive document interpretation: NOT VERIFIED
 public private-document upload: DISABLED
+automated claim filing: NOT ACTIVE
+submission authority: VETERAN RETAINED
 authority effect: NONE
 ```
 
 The active public capability remains limited to the bounded public-source `evidence_requirement` route. Fixture validation, metadata-boundary execution, and derived-record custody do not establish substantive private-document interpretation or public document upload.
+
+## Governing product goals
+
+The session now durably establishes four linked product surfaces:
+
+1. `GOVERNED_VA_CLAIMS_GUIDE` — an evidence-grounded, current, source-cited workflow whose displayed guidance and capability state are governed by receipts.
+2. `GOVERNED_VA_CLAIMS_CHAT` — a conversational claim workspace for source-grounded answers, evidence organization, drafting, uncertainty tracking, and reconstructable sessions.
+3. `PRIVATE_CLAIM_DOCUMENT_WORKSPACE` — multi-file upload, indexing, page-bound retrieval, evidence tables, timelines, contradictions, missing evidence, privacy controls, export, custody, and reconstruction.
+4. `VETERAN_APPROVED_AUTOMATED_CLAIM_FILING` — a future staged path from admitted records to a veteran-reviewed package and authorized submission.
+
+The detailed requirements, stages, prohibited shortcuts, owners, and release conditions are authoritative in:
+
+```text
+data/va-claim-assistant/governed-product-goals.json
+docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md
+```
+
+Automated filing must not mean autonomous filing from unreviewed uploads. The veteran retains control of material facts, claimed conditions, signature, authorization, and submission unless a separately valid delegation exists. Filing may activate only through an authorized VA or accredited-representative integration after exact-package authorization, current-rule preflight, consent, signature, custody, reconstruction, revocation, duplicate-prevention, and confirmation gates all verify.
 
 ## Completed source-grounded chain
 
@@ -100,29 +124,43 @@ Source-grounded Site integration: RELEASED_COMPLETE
 TVC document readiness and metadata boundary: RELEASED_COMPLETE
 Master Records fixture-derived custody: RELEASED_COMPLETE
 Site#116 substantive document-aware implementation: CLAIMED_FOR_IMPLEMENTATION
+Guide and Chat product-goal validation: MACHINE_OWNED
+Automated filing integration contract: CLAIMED_FOR_REQUIREMENTS under Site#113
 ```
 
 `MERGED INTO: StegVerse-Labs/Site#116`
 
-Transferred scope:
+Transferred document scope:
 
 - admitted substantive document-content interpretation;
 - deployed bounded runtime evidence;
 - derived-record custody/reconstruction for that substantive execution;
 - promotion of `VCA-GATE-05` from `VERIFIED_BOUNDED_FIXTURE_ONLY` to `VERIFIED` only after those conditions pass.
 
+`MERGED INTO: StegVerse-Labs/Site#113`
+
+Transferred product scope:
+
+- governed Guide and Chat public capability projection;
+- staged filing integration contract;
+- identity, consent, signature, package preflight, exact-package authorization, submission, confirmation, revocation, retry, and duplicate-prevention gates;
+- machine-derived status that must not present future upload or filing capabilities as active.
+
 ## Remaining exact tasks
 
-1. `StegVerse-Labs/Site#116`: execute admitted substantive document content through a governed runtime rather than fixture metadata alone.
-2. `StegVerse-Labs/Site#116`: emit an execution receipt proving page-bound facts, separated inference, contradiction handling, missing-evidence handling, privacy state, and false authority flags.
-3. `master-records/orchestration`: accept only the substantive derived record and produce custody `RECORDED` and reconstruction `PASS`; raw documents must remain absent.
-4. `StegVerse-Labs/Site#116`: promote `VCA-GATE-05` to `VERIFIED` only after the substantive execution and custody chain passes.
-5. `StegVerse-Labs/Site#113`: retain the current public capability as `SOURCE_GROUNDED_ASSISTANT` until document-aware deployment is directly observed.
-6. `StegVerse-org/LLM-adapter#18` and `StegVerse-Labs/Site#24`: complete Ecosystem Chat zero-blocker runtime and public activation.
+1. `StegVerse-Labs/Site#113`: project the governed Guide and Chat roadmap on `va-disability-claim-guide.html` without representing future upload or filing as active.
+2. `StegVerse-Labs/Site#116`: execute admitted substantive document content through a governed runtime rather than fixture metadata alone.
+3. `StegVerse-Labs/Site#116`: emit an execution receipt proving page-bound facts, separated inference, contradiction handling, missing-evidence handling, privacy state, and false authority flags.
+4. `master-records/orchestration`: accept only the substantive derived record and produce custody `RECORDED` and reconstruction `PASS`; raw documents must remain absent.
+5. `StegVerse-Labs/Site#116`: promote `VCA-GATE-05` to `VERIFIED` only after the substantive execution and custody chain passes.
+6. `StegVerse-org/LLM-adapter`: expand the governed VA Chat beyond the current bounded route while unsupported routes remain fail-closed.
+7. `StegVerse-Labs/Site#113`: define and validate the future filing integration contract before any automated submission implementation is activated.
+8. `StegVerse-org/LLM-adapter#18` and `StegVerse-Labs/Site#24`: complete Ecosystem Chat zero-blocker runtime and public activation.
 
 ## Machine-owned continuation
 
 ```text
+Product goal validator: .github/workflows/va-governed-product-goals.yml
 Source-grounded observer: .github/workflows/va-claim-assistant-activation.yml
 Document evidence workflow: .github/workflows/va-document-evidence.yml
 Private fixture runtime: .github/workflows/va-private-document-runtime.yml
@@ -133,16 +171,19 @@ Hosted workflow observation remains supplemental where an independently reproduc
 
 ## Authority and archive boundary
 
-No document receipt grants adjudication, representation, medical opinion, rating, claim submission, publication, or public activation authority. A handoff alone is not transfer. Transfer requires a named executor, mutation authority, exact surfaces, accepted scope, active evidence, and a durable transfer record.
+No guide, chat, document, drafting, or filing-planning receipt grants adjudication, representation, legal opinion, medical opinion, rating, signature, claim submission, publication, or public activation authority. A handoff alone is not transfer. Transfer requires a named executor, mutation authority, exact surfaces, accepted scope, active evidence, and a durable transfer record.
 
-This session remains in a distinct validation/reconciliation role while substantive document-aware execution and Ecosystem Chat activation remain incomplete.
+The product goal contract and validator preserve the new session requirements. They do not activate private document upload or automated filing.
+
+This session now contains unique active requirements for the governed Guide, governed Chat, and staged automated filing path, and remains non-archivable until those requirements are implemented or fully transferred with active evidence.
 
 ## Percentages
 
 ```text
 source-grounded milestone: 100 percent
 bounded document-fixture chain: 100 percent
+governed product goal contract: implemented, hosted receipt pending
 substantive document-aware activation: incomplete
-full VA governed-session activation: 8 verified gates plus 1 bounded-fixture-only gate
-session consolidation: all current requirements durable; remaining execution owned by Site#116 and Ecosystem Chat lanes
+automated filing activation: future target, inactive
+session consolidation: all current requirements durable; implementation remains with Site#113, Site#116, LLM-adapter, TVC, and Master Records
 ```
