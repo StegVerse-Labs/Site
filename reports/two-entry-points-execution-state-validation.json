@@ -1,0 +1,28 @@
+{
+  "archive_authorized": false,
+  "archive_state": "ACTIVE_UNIQUE_WORK_REMAINS",
+  "authority_granted": false,
+  "complete_or_transferred_tasks": 0,
+  "errors": [],
+  "observed_task_ids": [
+    "CONS-001",
+    "ECP-001",
+    "ECP-002",
+    "VACP-001"
+  ],
+  "receipt_sha256": "448d21523425732bc78d76c480e21883edc9428e45475addbc01d8fca5b5841a",
+  "release_authorized": false,
+  "repository": "StegVerse-Labs/Site",
+  "required_task_ids": [
+    "CONS-001",
+    "ECP-001",
+    "ECP-002",
+    "VACP-001"
+  ],
+  "result": "PASS",
+  "schema": "stegverse.two_entry_points.execution_state_validation.v1",
+  "source": "data/two-entry-points-execution-state.json",
+  "task_count": 4,
+  "validated_at": "2026-08-02T08:37:48.871223+00:00",
+  "warnings": []
+}
