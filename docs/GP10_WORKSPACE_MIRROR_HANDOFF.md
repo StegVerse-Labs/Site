@@ -1,6 +1,6 @@
 # GP10 Workspace Mirror Handoff
 
-Status: ACTIVE PROJECT — CANONICAL SITE CONTINUATION
+Status: ACTIVE PROJECT — SITE WORKSTREAM VALIDATED
 Updated: 2026-08-02
 Goal ID: `GP10-SITE-SECURE-GUIDED-WORKSPACE-001`
 Originating session goal: provide a simplified, logically narrowing GP10 evidence and commercial-posture workspace, a beginner examples surface, and browser security controls that treat applicable federal cybersecurity requirements as a minimum baseline rather than a target ceiling.
@@ -16,7 +16,7 @@ Branch: `main`
 
 MERGED INTO: `StegVerse-Labs/Site/docs/GP10_WORKSPACE_MIRROR_HANDOFF.md`
 
-The originating session has released its Site implementation and observation claims. Remaining runtime observation and service-boundary tasks are repository-owned and do not require the conversation.
+The originating session has released its Site implementation and observation claims. Remaining service-boundary and GP10 commercial tasks are owned outside the conversation.
 
 ## Authoritative files
 
@@ -37,28 +37,29 @@ The originating session has released its Site implementation and observation cla
 - `docs/receipts/gp10-site/`
 - `docs/GP10_WORKSPACE_HANDOFF.md` (legacy redirect)
 
-## Claims and collision controls
+## Claim state
 
-### Released implementation claim
+### `GP10-SITE-SECURITY-HARDENING`
 
-- Task: `GP10-SITE-SECURITY-HARDENING`
-- Claimant: originating-session Site browser-security lane
+- State: `COMPLETE`
 - Role: `RELEASED_IMPLEMENTATION_CLAIM`
-- Created: `2026-08-02T19:30:00-05:00`
 - Released: `2026-08-02T20:00:00-05:00`
-- Release evidence: committed security baseline, security module, page policies, checker enforcement, workflow, task registry, and this handoff
-- Collision boundary preserved: no GP10 repository validator, runtime workflow, receipt, schema, or claimed runtime surface was modified through this Site claim
+- Collision boundary: no GP10 repository validator, workflow, schema, receipt, or claimed runtime surface was modified through this Site claim.
 
-### Machine-owned deployment validation
+### `GP10-SITE-DEPLOYMENT-OBSERVATION`
 
-- Task: `GP10-SITE-DEPLOYMENT-OBSERVATION`
-- Owner: `StegVerse-Labs/Site:.github/workflows/gp10-workspace-security.yml`
-- Role: `MACHINE_OWNED`
-- State: `RETRY` until a committed PASS receipt is inspected
-- Registry: `data/operations/gp10_workspace_tasks.json`
-- Release condition: `docs/receipts/gp10-site/deployment-<tested-commit>.json` records PASS and proves exact hosted-byte equality plus all required markers
-- Failure behavior: FAILED, missing, artifact-only, or stale evidence cannot satisfy the task
-- Claim expiration: PASS completes the task; FAILED renews it only with a deterministic blocker
+- State: `COMPLETE`
+- Role: `RELEASED_MACHINE_VALIDATION_CLAIM`
+- Tested commit: `80fbf35d2a824f689050c7ec69e579c2ddf8f196`
+- Workflow run: `30780334497`
+- Job: `91583581262`
+- Artifact: `8843410533`
+- Artifact digest: `sha256:417f8160a6bf9d7eb211da3da4ef236dbe453d930905c1cb4bf8d128cc42ddb6`
+- Receipt commit: `018a58f5c60434d51ea3762e2bba119a94eaeaac`
+- Durable receipt: `docs/receipts/gp10-site/deployment-80fbf35d2a824f689050c7ec69e579c2ddf8f196.json`
+- Result: `PASS`
+
+The job, steps, logs, artifact, committed receipts, hashes, marker results, receipt persistence, and final enforcement were directly inspected before release.
 
 ## Preserved interaction requirements
 
@@ -87,49 +88,37 @@ The originating session has released its Site implementation and observation cla
 
 The complete control contract and static-host limitations are in `docs/GP10_WORKSPACE_SECURITY_BASELINE.md`. This is not a federal compliance certification.
 
-## Implementation evidence
+## Observed validation evidence
 
-- `c26119235f6a7d2c5d81aaa2f7808611ab8ec948` — canonical Site mirror handoff created.
-- `ced107e0633ba759b7e83850a7e0c87d87b48f68` — security baseline committed.
-- `1cec5f979b2d7dacffc77754a375097097a0d8b1` — browser security module committed.
-- `89f39a7b8d5ce80a04e998bfacac85c546b4ea92` — workspace CSP and security module binding.
-- `ca99c9be6c3afc2d1bff924adb06a718577c4f05` — examples CSP and security module binding.
-- `902d6760a10a0ec8c51f7b25c6f48c083106c5cb` — fail-closed checker extended.
-- `8ddae3a3d82a91294d7bf14df1f49bfa5511ed50` — repository-native security workflow.
-- `68ea949803f72a4cdef9bde0eff53b3da9927ac9` — exact-byte deployment observer.
-- `e7cf9a12183ebad73416c8884cec11e82b9843b8` — hosted observation integrated into workflow.
-- `c6c92a7030423356cc667e57e32373586ab16705` — deployment task assigned to machine ownership.
-- `d5ad115ad4705499343540303b670b49bdf838ba` — deployment observer continuation addendum.
-- `64f9c33a8f5c05ec84b3d7ff80b115eb8780058c` — workflow made self-preserving for PASS and FAILED receipts.
-- `80fbf35d2a824f689050c7ec69e579c2ddf8f196` — canonical task bound to committed receipt evidence.
+Workflow run `30780334497` completed successfully on Ubuntu 24.04 with Python 3.12.13.
 
-## Validation
+- Static checker: `PASS`.
+- Workspace hosted/local SHA-256: `2a151a37ebfa9937f64f67b285151f4895b81e875076226e4fdcba18215b1f48`.
+- Examples hosted/local SHA-256: `502d385f3c534365e5488f10b8011efb988a5634734df5b086177c7d3133701f`.
+- Exact byte equality: `true` for both pages.
+- CSP marker: present on both pages.
+- `no-referrer`: present on both pages.
+- `gp10-security.js`: present on both pages.
+- noindex/noarchive marker: present on both pages.
+- no-execution-authority marker: present on both pages.
+- Attempts used: `1`.
+- Receipt persistence step: `success`.
+- Artifact upload step: `success`.
+- Final enforcement step: `success`.
 
-Static command:
+The artifact contains two receipt files and has digest `sha256:417f8160a6bf9d7eb211da3da4ef236dbe453d930905c1cb4bf8d128cc42ddb6`.
+
+## Validation commands
 
 ```bash
 python3 scripts/check_gp10_workspace.py
-```
-
-Deployment command:
-
-```bash
 python3 scripts/check_gp10_workspace_deployment.py \
   --commit "$(git rev-parse HEAD)" \
   --run-id local \
   --output validation/gp10-workspace-deployment-receipt.json
 ```
 
-Hosted workflow:
-
-- `.github/workflows/gp10-workspace-security.yml`
-- trigger: relevant push, pull request, or manual dispatch
-- transient outputs: `validation/gp10-workspace-security-receipt.txt` and `validation/gp10-workspace-deployment-receipt.json`
-- durable outputs: `docs/receipts/gp10-site/security-<tested-commit>.txt` and `docs/receipts/gp10-site/deployment-<tested-commit>.json`
-- artifact: `gp10-workspace-security-<tested-commit>`
-- result semantics: PASS only after static validation and deployment observation both succeed; receipts are preserved even when either fails
-
-No hosted PASS is asserted until a committed PASS receipt is inspected.
+Future relevant commits continue to run `.github/workflows/gp10-workspace-security.yml` and preserve commit-specific PASS or FAILED receipts under `docs/receipts/gp10-site/`.
 
 ## Cross-repository integration
 
@@ -141,15 +130,14 @@ No hosted PASS is asserted until a committed PASS receipt is inspected.
 
 ## Incomplete work and durable owners
 
-1. Hosted deployment observation — owner and release condition: `data/operations/gp10_workspace_tasks.json#GP10-SITE-DEPLOYMENT-OBSERVATION`.
-2. Authenticated durable service — owner and release condition: `data/operations/gp10_workspace_tasks.json#GP10-SITE-AUTHENTICATED-SERVICE`.
-3. Real field validation and commercial activation — owner: `StegVerse-Labs/GP10/data/operations/continuation_tasks.json`.
+1. Authenticated durable service — `data/operations/gp10_workspace_tasks.json#GP10-SITE-AUTHENTICATED-SERVICE`; blocked until a named service owner, domain, scope, authentication design, privacy terms, and deployment authority exist.
+2. Real field validation and commercial activation — `StegVerse-Labs/GP10/data/operations/continuation_tasks.json`.
 
-There are no unspecified external tasks.
+There are no unspecified external tasks and no remaining Site deployment-observation task for this session.
 
 ## Session consolidation and archive conditions
 
-The unique Site UX and federal-floor security requirements are committed here, in the security baseline, task registry, automated workflow, committed receipt path, GP10 transfer record, and Issue #1. Remaining work has named repository owners, collision boundaries, deterministic evidence, and machine-observable release conditions.
+The unique Site UX and federal-floor security requirements are implemented, deployed, observed, receipt-bound, and transferred. Remaining work has named repository owners and release conditions.
 
 No Site-specific project decision, requirement, owner, blocker, evidence path, or next action depends on the originating conversation. Archiving that session does not impair execution.
 
@@ -157,12 +145,12 @@ No Site-specific project decision, requirement, owner, blocker, evidence path, o
 
 Denominator: 14 required Site repository/control deliverables.
 
-- Task completion: 12/14 = 86%.
+- Task completion: 13/14 = 93%.
 - Developed-file completion: 14/14 = 100%.
-- Validation completion: 9/11 = 82% (hosted execution and committed PASS inspection pending).
+- Validation completion: 11/11 = 100%.
 - Integration completion: 6/6 = 100%.
 - Propagation completion: 1/1 = 100% for transfer into canonical GP10 continuation; release propagation remains GP10-release-bound.
-- Goal activation: 9/11 = 82%.
+- Goal activation: 10/11 = 91%.
 - Session consolidation: 1/1 = 100%.
 - Originating-session archival readiness for this Site goal: 100%.
 - Scaffolding or stubs: 0 in the current static Site security scope.
