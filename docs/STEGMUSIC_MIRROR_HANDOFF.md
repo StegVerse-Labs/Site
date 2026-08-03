@@ -7,7 +7,7 @@ This file is the current implementation handoff for the Site-hosted StegMusic / 
 ## Current goal
 
 ```text
-Goal: playable governed music service inside the Ecosystem Node that supports immediate listening, visible rights posture, preference refinement, synchronized governed projections, persistent session records, contribution-value inspection, adaptive StegDJ selection, transition-outcome learning, user-owned local playback, isolated invited-tester profiles, and later licensed catalog/provider integration.
+Goal: playable governed music service inside the Ecosystem Node that supports immediate listening, visible rights posture, preference refinement, synchronized governed projections, persistent session records, contribution-value inspection, adaptive StegDJ selection, transition-outcome learning, user-owned local playback, isolated invited-tester profiles, explicit machine-readable style profiles, and later licensed catalog/provider integration.
 Primary surface: ecosystem-music.html
 Runtime: assets/ecosystem-music-profile-scope.js + assets/ecosystem-music.js + assets/ecosystem-music-adaptive.js + assets/ecosystem-music-local-source.js + assets/ecosystem-music-diagnostics.js
 Issue: StegVerse-Labs/Site#39
@@ -122,6 +122,56 @@ audio_self_test_passed / audio_self_test_failed
 
 Local-source records retain metadata and rights assertions but prohibit source-audio upload, retention, external training, and public distribution.
 
+## Style-profile continuation transferred from PR #78
+
+PR #78 contains a stale, non-mergeable implementation of a governed style-characteristic registry and a profile-driven EDM renderer. Its unique requirements are preserved here and in `data/tasks/SITE-STEGMUSIC-STYLE-PROFILES.json`; the old branch is not the canonical implementation lane.
+
+Required capability:
+
+```text
+natural-language preferences resolve into explicit, inspectable style characteristics
+genre labels remain descriptive references rather than render authority
+EDM with bass drops and high energy resolves into tempo, energy, bass weight, drop prominence, danceability, percussion density, brightness, tension/release, and arrangement requirements
+active style profile governs composition structure, not only UI sliders
+EDM profile renders at least 32 bars with at least two materially distinct drops
+pre-drop sections withhold or reduce bass and kick energy
+release sections introduce sub-bass, impact transients, increased rhythmic density, and sustained post-drop energy
+second release is structurally larger than the first
+render receipt records profile ID, characteristic contract, required events, total bars, drop count, compression, normalization, no-upload status, and human-audibility boundary
+```
+
+Canonical owner and claim:
+
+```text
+task: data/tasks/SITE-STEGMUSIC-STYLE-PROFILES.json
+owner: repository-native implementation and validation lane
+claim state: CLAIMED_FOR_IMPLEMENTATION
+collision boundary: do not revive or extend PR #78 directly; port requirements onto current main in a fresh implementation branch
+release condition: current-main PR passes static, browser, hosted, and live-route validation and is merged
+```
+
+## Security floor
+
+Applicable United States federal cybersecurity requirements are a minimum floor, not a completion target. StegMusic and adjacent StegVerse services must exceed the applicable baseline through measurable controls and retained evidence.
+
+Required security characteristics include:
+
+```text
+defense in depth and least privilege
+explicit separation of user intent, render authority, publication authority, and execution authority
+cryptographic provenance for build, validation, deployment, and retained receipts
+tamper-evident event and evidence chains
+fail-closed behavior when rights, identity, entitlement, custody, or validation evidence is unavailable
+secure software supply-chain controls and dependency review
+reproducible or independently verifiable build outputs where practical
+no upload or retention of user-owned source audio unless separately authorized
+profile isolation and prevention of cross-profile raw-history disclosure
+bounded retention, revocation, supersession, and deletion semantics
+continuous validation and machine-observable release conditions
+```
+
+A statement that the system exceeds a federal baseline is prohibited until the applicable control mapping, implementation evidence, validation results, and independent assessment are retained.
+
 ## Verification status
 
 ```text
@@ -135,9 +185,11 @@ canonical Site application validation binding: IMPLEMENTED
 Ecosystem Chat service launcher: IMPLEMENTED
 browser-local profile namespaces: IMPLEMENTED
 profile-scoped transition learning: IMPLEMENTED
-browser audio execution: NOT YET OBSERVED IN DEPLOYED PREVIEW
+ST-018 governed validation-evidence workflow: IMPLEMENTED AND MACHINE-OWNED
+style-characteristic registry on current main: NOT IMPLEMENTED
+profile-driven EDM two-drop renderer on current main: NOT IMPLEMENTED
+browser audio execution: REPOSITORY EVIDENCE EXISTS; HUMAN AUDIBILITY REMAINS SEPARATE
 iPhone/Safari audible output: NOT YET OBSERVED
-full browser interaction automation: NOT YET IMPLEMENTED
 same-device tester isolation: IMPLEMENTED BUT NOT YET BROWSER-OBSERVED
 authenticated multi-user isolation: NOT IMPLEMENTED
 verified public-domain source: NOT IMPLEMENTED
@@ -149,13 +201,14 @@ connected licensed provider: NOT IMPLEMENTED
 Destination `StegVerse-Labs/Site`:
 
 ```text
-validate transition-learning branch in CI
-merge after green validation
-observe deployed music route and browser self-test
+execute data/tasks/SITE-STEGMUSIC-STYLE-PROFILES.json on a fresh branch from current main
+port only the governed characteristic registry, resolver, current-runtime integration, and tests required by the task
+preserve existing ST-018 validation-evidence ownership and avoid modifying its canonical files unless the task requires a validator binding
+run static and browser interaction validation
+merge only after hosted workflows pass and artifacts are inspected
+observe deployed music route after merge
 confirm generated audio and local-file playback on iPhone/Safari
 confirm isolated profile switching and no cross-profile history display
-confirm transition acceptance, skip, replay, and completion affect only the active profile
-add automated browser interaction coverage
 record target-device evidence without converting browser observations into authority
 ```
 
@@ -184,9 +237,9 @@ Adjacent destinations remain the ecosystem session contract, financial contract,
 
 ## Internal-test viability
 
-After deployment and target-browser confirmation, the prototype supports controlled testing of generated music, adaptive selection, explicit transition learning, trait refinement, governed records, contribution-candidate display, local authorized audio, and separate same-device tester profiles.
+The current prototype remains viable for controlled internal testing only after the deployed page and target browser are directly observed. The new style-profile task does not itself establish runtime activation.
 
-Invited testing additionally requires:
+Invited testing requires:
 
 ```text
 clear fixture and rights-assertion labeling
@@ -197,9 +250,10 @@ visible failures
 rights evidence for every non-generated shared source
 confidentiality and contribution terms for patent-sensitive testing
 target-device browser evidence
+style-profile results clearly separated from aesthetic-quality claims
 ```
 
-Production viability still requires authenticated identity, server-side tenant isolation, durable custody boundaries, lawful catalog access, provider entitlement resolution, and non-prototype financial accounting.
+Production viability still requires authenticated identity, server-side tenant isolation, durable custody boundaries, lawful catalog access, provider entitlement resolution, non-prototype financial accounting, and security-control evidence sufficient for the applicable deployment context.
 
 ## Authority boundary
 
@@ -215,8 +269,20 @@ StegDJ generation != unrestricted composition right
 adaptive ranking != autonomous execution authority
 transition outcome != verified listener truth
 browser self-test != audible-output confirmation
+style-profile resolution != aesthetic quality proof
+federal-baseline mapping != proof the system exceeds the baseline
+```
+
+## Session consolidation
+
+```text
+MERGED INTO: StegVerse-Labs/Site/docs/STEGMUSIC_MIRROR_HANDOFF.md and data/tasks/SITE-STEGMUSIC-STYLE-PROFILES.json
+Transferred: explicit EDM style characteristics, two-drop structure, profile-governed rendering, render receipts, no-upload and audibility boundaries, and federal-security-floor requirement.
+Superseded lane: PR #78 and branch agent/stegmusic-style-runtime-v3.
+Canonical continuation owner: repository-native task SITE-STEGMUSIC-STYLE-PROFILES.
+Unique chat dependency remaining after merge of this handoff PR: false.
 ```
 
 ## Archive readiness
 
-This handoff, Site issue #39, the music surface, music runtimes, validators, and repository history preserve the current continuation state. Deployment and target-device observations remain unresolved obligations.
+This handoff, Site issue #39, the ST-018 evidence task, the style-profile task, the music surface, music runtimes, validators, and repository history preserve the current continuation state. The implementation and target-device obligations remain repository-owned and do not require this originating chat after this handoff change is merged.

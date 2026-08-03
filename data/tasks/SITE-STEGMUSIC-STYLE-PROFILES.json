@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-STEGMUSIC-STYLE-PROFILES",
+  "goal_id": "STEGMUSIC-STYLE-PROFILES-001",
+  "originating_session_goal": "make explicit style and genre characteristics govern StegMusic composition, beginning with high-energy EDM, bass drops, and a federal-security-floor requirement",
+  "repository": "StegVerse-Labs/Site",
+  "issue": 39,
+  "canonical_handoff": "docs/STEGMUSIC_MIRROR_HANDOFF.md",
+  "owner": "repository-native implementation and validation lane",
+  "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+  "state": "READY",
+  "claim_created_at": "2026-08-02T19:29:00-05:00",
+  "claim_expiration_or_release_condition": "release when a fresh current-main implementation PR is merged after static, browser, hosted, artifact, and live-route validation; otherwise expire after 14 days without a commit or workflow receipt",
+  "source_history": {
+    "superseded_pr": 78,
+    "superseded_branch": "agent/stegmusic-style-runtime-v3",
+    "reason": "stale and non-mergeable; requirements transferred without reviving obsolete integration history"
+  },
+  "required_surfaces": [
+    "assets/stegmusic-style-characteristics.json",
+    "assets/ecosystem-music-style-resolver.js",
+    "assets/ecosystem-music-enhancement.js",
+    "assets/ecosystem-music-diagnostics.js",
+    "scripts/check_stegmusic_browser_self_test.py",
+    "tests/test_stegmusic_browser.py",
+    "docs/STEGMUSIC_MIRROR_HANDOFF.md"
+  ],
+  "requirements": [
+    "resolve natural-language style preferences into explicit inspectable characteristics",
+    "treat genre labels as descriptive references rather than render authority",
+    "support an EDM high-energy bass-drop profile with tempo, energy, bass weight, drop prominence, danceability, percussion density, brightness, harmonic complexity, melodic activity, and tension-release characteristics",
+    "make the active profile govern composition structure rather than only UI controls",
+    "render at least 32 bars and at least two materially distinct drops for the EDM profile",
+    "withhold or reduce bass and kick energy before each drop",
+    "introduce sub-bass, impact transients, increased rhythmic density, and sustained post-drop energy at release",
+    "make the second release structurally larger than the first",
+    "retain compression, peak normalization, no-upload, and human-audibility boundaries",
+    "record profile ID, characteristic contract, required events, total bars, drop count, and render evidence",
+    "treat applicable federal security controls as a minimum floor and prohibit claims of exceeding them without mapped evidence and assessment"
+  ],
+  "security_floor": {
+    "policy": "applicable United States federal cybersecurity requirements are the minimum acceptable baseline, not the target",
+    "required_controls": [
+      "defense in depth",
+      "least privilege",
+      "authority separation",
+      "cryptographic provenance",
+      "tamper-evident receipts",
+      "fail-closed rights and evidence handling",
+      "software supply-chain integrity",
+      "no unauthorized source-audio upload or retention",
+      "profile isolation",
+      "bounded retention, revocation, and supersession",
+      "continuous validation"
+    ],
+    "claim_boundary": "no claim that StegMusic or StegVerse exceeds a federal baseline is permitted without an applicable control mapping, implementation evidence, validation results, and independent assessment"
+  },
+  "validation": {
+    "required": [
+      "static characteristic-registry validation",
+      "resolver threshold and false-positive tests",
+      "profile-to-renderer integration tests",
+      "two-drop arrangement contract tests",
+      "browser execution with event-driven wait",
+      "hosted Site Bootstrap Validate",
+      "hosted StegMusic Browser Execution",
+      "artifact inspection",
+      "post-merge live-route verification"
+    ],
+    "human_only": [
+      "audibility",
+      "aesthetic quality",
+      "iPhone Safari compatibility",
+      "screen-dim continuity",
+      "screen-lock continuity"
+    ]
+  },
+  "collision_boundaries": [
+    "do not revive or extend PR 78",
+    "do not create another ST-018 evidence implementation lane",
+    "do not modify user-owned audio handling to upload source bytes",
+    "do not convert browser or workflow evidence into activation, rights, custody, or publication authority"
+  ],
+  "status_contract": [
+    "COMPLETE",
+    "BLOCKED",
+    "RETRY",
+    "REVIEW_REQUIRED",
+    "FAILED",
+    "CLAIMED",
+    "SUPERSEDED",
+    "MERGED"
+  ],
+  "next_executable_action": {
+    "action": "create a fresh implementation branch from current main and port only the required style registry, resolver, runtime integration, and tests",
+    "location": "StegVerse-Labs/Site",
+    "owner": "repository-native implementation lane"
+  },
+  "machine_observable_release_condition": "a current-main PR containing the required surfaces passes all required hosted checks, its artifacts are inspected, it merges, and the live route receipt observes the deployed files",
+  "session_consolidation": {
+    "classification": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-STEGMUSIC-STYLE-PROFILES.json",
+    "transferred_requirements": [
+      "explicit genre and style characteristics",
+      "high-energy EDM preference",
+      "bass drops and long-form energy arc",
+      "profile-governed composition",
+      "render evidence and authority boundaries",
+      "federal-security-floor requirement",
+      "duplicate execution prevention"
+    ],
+    "unique_chat_dependency_remaining": false
+  },
+  "authority": {
+    "execution": false,
+    "activation": false,
+    "publication": false,
+    "release": false,
+    "admissibility": false,
+    "rights": false,
+    "custody": false
+  }
+}
