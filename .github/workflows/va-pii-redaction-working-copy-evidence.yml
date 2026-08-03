@@ -1,0 +1,51 @@
+name: VA PII Redaction Working-Copy Evidence
+
+on:
+  push:
+    paths:
+      - "data/va-claim-assistant/pii-redaction-working-copy-evidence.json"
+      - "data/va-claim-assistant/pii-redaction-working-copy-evidence.schema.json"
+      - "scripts/observe_va_pii_redaction_working_copy_evidence.py"
+      - ".github/workflows/va-pii-redaction-working-copy-evidence.yml"
+  schedule:
+    - cron: "41 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-pii-redaction-working-copy-evidence
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Observe redaction working-copy evidence
+        run: python scripts/observe_va_pii_redaction_working_copy_evidence.py
+      - name: Retain readiness receipt
+        run: |
+          git config user.name "stegverse-evidence-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore(va): retain redaction working-copy readiness [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - uses: actions/upload-artifact@v4
+        with:
+          name: va-pii-redaction-working-copy-evidence
+          retention-days: 90
+          path: |
+            data/va-claim-assistant/pii-redaction-working-copy-evidence.schema.json
+            data/va-claim-assistant/pii-redaction-working-copy-readiness.json
