@@ -1,0 +1,8 @@
+receipt_type=GP10_SITE_SECURITY_VALIDATION
+commit=80fbf35d2a824f689050c7ec69e579c2ddf8f196
+run_id=30780334497
+run_attempt=1
+started_at=2026-08-03T02:52:30Z
+OK: adaptive GP10 workspace preserves logical narrowing, authority boundaries, browser security controls, and public-navigation isolation
+result=PASS
+completed_at=2026-08-03T02:52:30Z
