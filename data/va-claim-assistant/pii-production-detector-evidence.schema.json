@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va/pii-production-detector-evidence.schema.json",
+  "title": "VA Production PII Detector Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "runtime_class",
+    "processor_path",
+    "processor_commit",
+    "execution_environment",
+    "admitted_runtime",
+    "reference_evaluator_only",
+    "synthetic_only",
+    "case_count",
+    "required_class_recall",
+    "clean_case_false_positive_rate",
+    "uncertain_cases_routed_to_review",
+    "model_processing_before_gate",
+    "raw_pii_in_prompts_outputs_traces_or_logs",
+    "private_document_upload_enabled",
+    "authority_effect",
+    "activation_effect",
+    "evidence_sha256",
+    "state"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "runtime_class": {"const": "ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR"},
+    "processor_path": {"type": "string", "minLength": 1},
+    "processor_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "execution_environment": {"enum": ["CONTROLLED_PRODUCTION_EQUIVALENT", "PRODUCTION"]},
+    "admitted_runtime": {"const": true},
+    "reference_evaluator_only": {"const": false},
+    "synthetic_only": {"type": "boolean"},
+    "case_count": {"type": "integer", "minimum": 1},
+    "required_class_recall": {"type": "number", "minimum": 0, "maximum": 1},
+    "clean_case_false_positive_rate": {"type": "number", "minimum": 0, "maximum": 1},
+    "uncertain_cases_routed_to_review": {"const": true},
+    "model_processing_before_gate": {"const": false},
+    "raw_pii_in_prompts_outputs_traces_or_logs": {"const": false},
+    "private_document_upload_enabled": {"const": false},
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_required_class_recall", "maximum_clean_false_positive_rate"],
+      "properties": {
+        "minimum_required_class_recall": {"type": "number", "minimum": 0, "maximum": 1},
+        "maximum_clean_false_positive_rate": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "custody_reference": {"type": "string", "minLength": 1},
+    "authority_effect": {"const": false},
+    "activation_effect": {"const": false},
+    "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "state": {"enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "FAILED"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"state": {"const": "PASS"}}},
+      "then": {
+        "required": ["thresholds", "custody_reference"],
+        "properties": {
+          "required_class_recall": {"minimum": 0.99},
+          "clean_case_false_positive_rate": {"maximum": 0.05}
+        }
+      }
+    }
+  ]
+}
