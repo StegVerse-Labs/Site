@@ -9,6 +9,7 @@ NODE = ROOT / "assets" / "ecosystem-node-views.js"
 LOADER = ROOT / "assets" / "conectrr-interop.js"
 FIXTURE = ROOT / "data" / "conectrr-independent-evaluation.fixture.json"
 BROWSER_CHECK = ROOT / "scripts" / "check_conectrr_browser_projection.py"
+REMOTE_BROWSER_CHECK = ROOT / "scripts" / "check_conectrr_remote_browser.py"
 EXPORT_CHECK = ROOT / "scripts" / "check_conectrr_export_replay.py"
 ADAPTER_CHECK = ROOT / "scripts" / "check_conectrr_adapter_conformance.py"
 SECURITY_CHECK = ROOT / "scripts" / "check_conectrr_security_overlay.py"
@@ -34,6 +35,20 @@ REQUIRED_LOADER = [
     "conectrrBrowserTest",
     "conectrrExportReplay",
     "verifyExportReplay",
+]
+REQUIRED_REMOTE_BROWSER = [
+    "playwright",
+    "conectrrInterop",
+    "conectrrBrowserTest",
+    "conectrrExportReplay",
+    "source_to_decision",
+    "decision_to_source",
+    "authority_effect",
+]
+REQUIRED_LIVE_WORKFLOW = [
+    "check_conectrr_remote_browser.py",
+    "playwright install --with-deps chromium",
+    "conectrr-remote-browser-verification.json",
 ]
 
 
@@ -62,6 +77,8 @@ def main() -> int:
     errors = []
     errors.extend(missing(NODE, REQUIRED_NODE))
     errors.extend(missing(LOADER, REQUIRED_LOADER))
+    errors.extend(missing(REMOTE_BROWSER_CHECK, REQUIRED_REMOTE_BROWSER))
+    errors.extend(missing(LIVE_WORKFLOW, REQUIRED_LIVE_WORKFLOW))
     if not FIXTURE.exists():
         errors.append("missing independent evaluation fixture")
     for check in (BROWSER_CHECK, EXPORT_CHECK, ADAPTER_CHECK, SECURITY_CHECK):
@@ -70,8 +87,6 @@ def main() -> int:
             errors.append(failure)
     if not LIVE_CHECK.exists():
         errors.append("missing deployed publication verifier")
-    if not LIVE_WORKFLOW.exists():
-        errors.append("missing deployed publication workflow")
     if errors:
         print("CONECTRR_RUNTIME_PROJECTION_CHECK=FAIL")
         for error in errors:
@@ -87,6 +102,7 @@ def main() -> int:
     print("adapter_conformance=fixture_only_preservation")
     print("security_posture=federal_floor_plus_stegverse_overlay")
     print("deployed_publication_verification=declared")
+    print("remote_browser_execution_lane=declared")
     print("authority_effect=none")
     return 0
 
