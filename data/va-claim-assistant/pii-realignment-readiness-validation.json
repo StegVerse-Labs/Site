@@ -1,0 +1,16 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "blocked_count": 9,
+  "complete_count": 0,
+  "errors": [],
+  "first_blocker": "PII-RDY-01",
+  "readiness_state": "BLOCKED",
+  "receipt_sha256": "e35b4f196cc41f939c81682ccf96c2caebb524c6c61f1f0fbd90f0ca78595d16",
+  "registry_sha256": "efdae4ab63fb98b59a1b8047102abf8f2556187d9f6de4a5fc1256132f2c904c",
+  "requirement_count": 9,
+  "review_required_count": 0,
+  "schema_version": "1.0.0",
+  "state": "PASS",
+  "task_id": "VA-PII-REALIGNMENT-READINESS-001"
+}
