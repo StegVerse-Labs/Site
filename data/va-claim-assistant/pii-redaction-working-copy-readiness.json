@@ -1,0 +1,13 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "blockers": [
+    "redaction_working_copy_evidence_missing"
+  ],
+  "private_document_upload_enabled": false,
+  "receipt_sha256": "b6f57275ae9c0bf56d1465b9d7d36c3020f73100dbaaec627973d211ae205b28",
+  "redaction_working_copy_evidence_present": false,
+  "schema_version": "1.0.0",
+  "state": "BLOCKED",
+  "task_id": "PII-RDY-02"
+}
