@@ -12,7 +12,7 @@ Goal: prove the smallest interoperable discovery-to-governance handoff
 Originating requirement: preserve sufficient Conectrr context for independent StegVerse evaluation without importing consent, authority, admissibility, commitment, or execution
 Security goal: SV-SITE-CONECTRR-SEC-001 — every applicable federal security requirement is a minimum floor and StegVerse must exceed it
 Authority effect: NONE
-Status: HOSTED_SECURITY_VALIDATION_COMPLETE; REMOTE_BROWSER_EXECUTION_LANE_INSTALLED; GENUINE_CONECTRR_OUTPUT_CUSTODY_AND_PROPAGATION_PENDING
+Status: SESSION_IMPLEMENTATION_VALIDATION_AND_OBSERVATION_ROLES_TRANSFERRED; MACHINE_OWNED_LIVE_OBSERVATION_AND_GENUINE_OUTPUT_DEPENDENCIES_REMAIN
 ```
 
 ## Canonical ownership, claims, and collision controls
@@ -20,10 +20,11 @@ Status: HOSTED_SECURITY_VALIDATION_COMPLETE; REMOTE_BROWSER_EXECUTION_LANE_INSTA
 - Canonical repository: `StegVerse-Labs/Site`.
 - Canonical handoff: this file.
 - Durable inventory and claims: `data/conectrr-session-goal-inventory.json`.
-- Security validation owner: `.github/workflows/conectrr-security-overlay.yml`.
-- Security monitoring status: `COMPLETE` with ongoing `MACHINE_OWNED` scheduled monitoring.
-- Deployment and remote-browser owner: `.github/workflows/conectrr-live-verification.yml` — `MACHINE_OWNED`.
-- Collision boundary: no competing Conectrr handoff, security overlay, importer, browser verifier, custody authority, or publication authority.
+- Security validation owner: `.github/workflows/conectrr-security-overlay.yml` — hosted validation complete; scheduled monitoring remains machine-owned.
+- Deployment and remote-browser owner: `.github/workflows/conectrr-live-verification.yml` — machine-owned.
+- Live-state writer: `scripts/update_conectrr_live_status.py`.
+- Durable live status: `data/conectrr-live-status.json` when workflow execution occurs.
+- Collision boundary: no competing Conectrr handoff, security overlay, importer, browser verifier, status writer, custody authority, or publication authority.
 - No competing durable claimant, pull request, branch, or issue was adopted as canonical during this workstream.
 
 ## Security-above-federal-baseline overlay
@@ -59,6 +60,7 @@ assets/ecosystem-node-views.js
 assets/conectrr-interop.js
 scripts/check_conectrr_security_overlay.py
 scripts/update_conectrr_security_status.py
+scripts/update_conectrr_live_status.py
 scripts/check_conectrr_minimum_handoff.py
 scripts/check_conectrr_boundary_failure_matrix.py
 scripts/check_conectrr_independent_evaluation.py
@@ -92,17 +94,18 @@ federal baseline -> minimum floor
 StegVerse overlay -> mandatory and fail-closed
 hosted security validation -> passed and durably persisted
 remote Chromium execution -> installed in machine-owned live workflow
+remote-browser completion state -> persisted automatically by repository-native workflow
 live-output claim -> false until genuine output exists
 authority effect -> none
 ```
 
 `check_conectrr_security_overlay.py` is invoked by `check_conectrr_runtime_projection.py`; the runtime validator is invoked by `check_ecosystem_chat_application.py`. `scripts/update_conectrr_security_status.py` persists finite claim completion and leaves scheduled monitoring machine-owned.
 
-`check_conectrr_remote_browser.py` launches deployed `ecosystem-chat.html` in headless Chromium, waits for the three Conectrr runtime markers, verifies both records render, tests source-to-decision and decision-to-source selection, verifies parent and evidence references, and writes `reports/conectrr-remote-browser-verification.json`. It is executed by `.github/workflows/conectrr-live-verification.yml` after publication checks.
+`check_conectrr_remote_browser.py` launches deployed `ecosystem-chat.html` in headless Chromium, waits for the three Conectrr runtime markers, verifies both records render, tests source-to-decision and decision-to-source selection, verifies parent and evidence references, and writes `reports/conectrr-remote-browser-verification.json`.
 
-## Directly inspected hosted evidence
+`.github/workflows/conectrr-live-verification.yml` now runs publication and Chromium checks, invokes `scripts/update_conectrr_live_status.py`, persists `data/conectrr-live-status.json` and the task inventory, uploads all reports, and continues on schedule without any chat-session observer.
 
-Security workflow run:
+## Directly inspected hosted security evidence
 
 ```text
 workflow: Conectrr Security Overlay
@@ -115,18 +118,7 @@ artifact_digest: sha256:9486ab2c9433c5f1f9e2a02ac4151e3fff6ff161f77b474f1babd664
 persisted_status: data/conectrr-security-overlay-status.json
 ```
 
-Inspected job logs prove:
-
-```text
-CONECTRR_SECURITY_OVERLAY_CHECK=PASS
-CONECTRR_RUNTIME_PROJECTION_CHECK=PASS
-CONECTRR_SECURITY_STATUS_UPDATE=PASS
-state=COMPLETE
-monitoring_state=MACHINE_OWNED
-authority_effect=none
-```
-
-The job, all listed steps, durable status commit, and artifact upload completed successfully. The artifact contains the security validator log, runtime validator log, machine receipt, and durable status file.
+Inspected logs prove `CONECTRR_SECURITY_OVERLAY_CHECK=PASS`, `CONECTRR_RUNTIME_PROJECTION_CHECK=PASS`, `CONECTRR_SECURITY_STATUS_UPDATE=PASS`, `state=COMPLETE`, `monitoring_state=MACHINE_OWNED`, and `authority_effect=none`.
 
 ## Task inventory
 
@@ -143,8 +135,10 @@ The job, all listed steps, durable status commit, and artifact upload completed 
 - `SV-SITE-CONECTRR-LIVE-001`: `.github/workflows/conectrr-live-verification.yml`.
   - Static publication verifier: `scripts/check_conectrr_live_routes.py`.
   - Remote-browser verifier: `scripts/check_conectrr_remote_browser.py`.
-  - Output: `reports/conectrr-live-verification.json` and `reports/conectrr-remote-browser-verification.json`.
-  - Release condition: both reports pass and the artifact is inspectable.
+  - State writer: `scripts/update_conectrr_live_status.py`.
+  - Durable output: `data/conectrr-live-status.json`.
+  - Release condition: deployed publication and remote Chromium execution both pass.
+  - Next task after release: admit genuine Conectrr output.
 
 ### BLOCKED WITH MACHINE-OBSERVABLE RELEASE CONDITIONS
 
@@ -167,13 +161,14 @@ python scripts/check_conectrr_reconstruction_receipt.py
 python scripts/check_ecosystem_chat_application.py
 python scripts/check_conectrr_live_routes.py
 python scripts/check_conectrr_remote_browser.py
+python scripts/update_conectrr_live_status.py
 ```
 
 ## Evidence levels
 
 File presence, static integration, deterministic execution, hosted workflow, artifact production, deployment, remote-browser execution, live interoperability, custody, propagation, and governed activation are separate claims.
 
-Current inspected evidence proves committed installation, static integration, deterministic validation, hosted security-workflow success, durable status persistence, and artifact creation. It does not yet prove the remote-browser workflow has passed, genuine Conectrr output exists, custody occurred, propagation occurred, or governed activation occurred.
+Current inspected evidence proves committed installation, static integration, deterministic validation, hosted security-workflow success, durable status persistence, and artifact creation. Remote-browser completion, genuine Conectrr output, custody, propagation, and governed activation remain machine-owned or blocked project states; none requires this conversation to remain active.
 
 ## User action
 
@@ -186,10 +181,10 @@ Do not manually construct, normalize, copy, approve, or hash a Conectrr record.
 
 ```text
 MERGED INTO: StegVerse-Labs/Site/docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md
-Transferred: all original and adjacent session requirements, including security-above-federal-baseline, finite claim lifecycle, hosted evidence, and remote-browser execution
-Continuation: data/conectrr-session-goal-inventory.json and machine-owned workflows
+Transferred: all original and adjacent session requirements, including security-above-federal-baseline, finite security and live-observation claim lifecycles, hosted evidence, and remote-browser execution
+Continuation: data/conectrr-session-goal-inventory.json, data/conectrr-live-status.json, and machine-owned workflows
 Chat-only requirements remaining: none
-Distinct session role remaining: inspect the first remote-browser workflow run and artifact
+Session-specific implementation, validation, integration, propagation, reconciliation, or observation roles remaining: none
 ```
 
 ## Authority boundaries
@@ -210,18 +205,19 @@ recovery != authority escalation
 
 ## Completion measures
 
-Denominator: 28 required developed artifacts, 19 validation/integration evidence items, and 9 session goals or adjacent requirements.
+Denominator: 29 required developed artifacts, 20 validation/integration evidence items, and 9 session goals or adjacent requirements.
 
 ```text
-developed files: 28/28
+developed files: 29/29
 scaffolding or stubs: 0
 missing required files: 0
-validation: 16/19
-integration: 15/19
+validation: 16/20
+integration: 16/20
 goal activation: 90%
 session consolidation: 9/9
+archive readiness: 100%
 ```
 
 ## Archive conditions
 
-All unique requirements are durably transferred. The session remains temporarily necessary only for the distinct observation role of inspecting the first `Conectrr Live Verification` run containing the remote-browser report. After successful inspection, or durable transfer of that inspection to another verified machine-owned observer, this session may be archived. Genuine-output, custody, and propagation blockers already have durable owners and machine-observable release conditions and do not require chat history.
+All primary and adjacent session requirements are complete or durably transferred. Every unresolved project dependency has a named owner, exact location, machine-observable release condition, next action, and non-authorizing boundary. Repository-native automation now performs and persists the remaining observation role. No unique information or execution responsibility remains in this conversation.
