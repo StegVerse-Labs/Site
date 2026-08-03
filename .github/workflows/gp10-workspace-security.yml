@@ -8,6 +8,7 @@ on:
       - 'gp10-workspace-examples.html'
       - 'assets/gp10-*.js'
       - 'scripts/check_gp10_workspace.py'
+      - 'scripts/check_gp10_workspace_deployment.py'
       - 'docs/GP10_WORKSPACE_MIRROR_HANDOFF.md'
       - 'docs/GP10_WORKSPACE_SECURITY_BASELINE.md'
       - 'data/operations/gp10_workspace_tasks.json'
@@ -18,6 +19,7 @@ on:
       - 'gp10-workspace-examples.html'
       - 'assets/gp10-*.js'
       - 'scripts/check_gp10_workspace.py'
+      - 'scripts/check_gp10_workspace_deployment.py'
       - 'docs/GP10_WORKSPACE_MIRROR_HANDOFF.md'
       - 'docs/GP10_WORKSPACE_SECURITY_BASELINE.md'
       - 'data/operations/gp10_workspace_tasks.json'
@@ -48,10 +50,36 @@ jobs:
             echo "result=PASS"
             echo "completed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           } | tee validation/gp10-workspace-security-receipt.txt
-      - name: Upload validation receipt
+      - name: Observe deployed GP10 pages
+        if: github.event_name != 'pull_request'
+        run: |
+          python3 scripts/check_gp10_workspace_deployment.py \
+            --commit "${GITHUB_SHA}" \
+            --run-id "${GITHUB_RUN_ID}" \
+            --attempts 18 \
+            --delay-seconds 20 \
+            --output validation/gp10-workspace-deployment-receipt.json
+      - name: Record pull-request deployment boundary
+        if: github.event_name == 'pull_request'
+        run: |
+          cat > validation/gp10-workspace-deployment-receipt.json <<EOF
+          {
+            "receipt_type": "GP10_SITE_DEPLOYMENT_OBSERVATION",
+            "schema_version": "1.0.0",
+            "tested_commit": "${GITHUB_SHA}",
+            "workflow_run_id": "${GITHUB_RUN_ID}",
+            "result": "BLOCKED",
+            "blocker": "Pull-request source is not the deployed main branch.",
+            "next_action": "Run deployment observation after merge to main.",
+            "execution_authority": false
+          }
+          EOF
+      - name: Upload GP10 validation receipts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: gp10-workspace-security-${{ github.sha }}
-          path: validation/gp10-workspace-security-receipt.txt
+          path: |
+            validation/gp10-workspace-security-receipt.txt
+            validation/gp10-workspace-deployment-receipt.json
           if-no-files-found: error
