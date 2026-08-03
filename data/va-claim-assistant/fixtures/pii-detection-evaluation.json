@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "fixture_id": "SV-VA-PII-EVAL-001",
+  "synthetic_only": true,
+  "contains_real_veteran_data": false,
+  "required_classes": [
+    "PERSON_NAME",
+    "SSN",
+    "VA_FILE_NUMBER",
+    "EMAIL",
+    "PHONE",
+    "STREET_ADDRESS",
+    "DATE_OF_BIRTH"
+  ],
+  "cases": [
+    {
+      "case_id": "direct-identifiers-001",
+      "text": "Synthetic Veteran: Jordan Example. SSN 123-45-6789. VA File 987654321. Email jordan.example@example.invalid. Phone 202-555-0147. Address 100 Example Avenue, Test City, TX 75001. Date of birth 1975-10-01.",
+      "expected_classes": ["PERSON_NAME","SSN","VA_FILE_NUMBER","EMAIL","PHONE","STREET_ADDRESS","DATE_OF_BIRTH"],
+      "expected_state": "REDACTION_REQUIRED"
+    },
+    {
+      "case_id": "clean-clinical-001",
+      "text": "The record reports chronic knee pain, reduced range of motion, and a follow-up appointment in six weeks.",
+      "expected_classes": [],
+      "expected_state": "CLEAN"
+    },
+    {
+      "case_id": "ambiguous-number-001",
+      "text": "Reference number 123456789 appears without a label or surrounding identity context.",
+      "expected_classes": [],
+      "expected_state": "REVIEW_REQUIRED"
+    },
+    {
+      "case_id": "partial-contact-001",
+      "text": "Please contact the claimant at 202-555-0199 regarding the pending evidence request.",
+      "expected_classes": ["PHONE"],
+      "expected_state": "REDACTION_REQUIRED"
+    }
+  ],
+  "acceptance": {
+    "required_class_recall": 1.0,
+    "maximum_clean_case_false_positive_rate": 0.0,
+    "uncertain_cases_must_route_to_review": true,
+    "model_release_requires_all_cases_resolved": true
+  },
+  "authority_effect": false,
+  "activation_effect": false
+}
