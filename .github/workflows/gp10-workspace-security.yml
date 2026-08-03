@@ -1,0 +1,57 @@
+name: GP10 workspace security
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'gp10-workspace.html'
+      - 'gp10-workspace-examples.html'
+      - 'assets/gp10-*.js'
+      - 'scripts/check_gp10_workspace.py'
+      - 'docs/GP10_WORKSPACE_MIRROR_HANDOFF.md'
+      - 'docs/GP10_WORKSPACE_SECURITY_BASELINE.md'
+      - 'data/operations/gp10_workspace_tasks.json'
+      - '.github/workflows/gp10-workspace-security.yml'
+  pull_request:
+    paths:
+      - 'gp10-workspace.html'
+      - 'gp10-workspace-examples.html'
+      - 'assets/gp10-*.js'
+      - 'scripts/check_gp10_workspace.py'
+      - 'docs/GP10_WORKSPACE_MIRROR_HANDOFF.md'
+      - 'docs/GP10_WORKSPACE_SECURITY_BASELINE.md'
+      - 'data/operations/gp10_workspace_tasks.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate GP10 workspace security and isolation
+        run: |
+          set -o pipefail
+          mkdir -p validation
+          {
+            echo "receipt_type=GP10_SITE_SECURITY_VALIDATION"
+            echo "commit=${GITHUB_SHA}"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            python3 scripts/check_gp10_workspace.py
+            echo "result=PASS"
+            echo "completed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } | tee validation/gp10-workspace-security-receipt.txt
+      - name: Upload validation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gp10-workspace-security-${{ github.sha }}
+          path: validation/gp10-workspace-security-receipt.txt
+          if-no-files-found: error
