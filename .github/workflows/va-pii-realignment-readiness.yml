@@ -1,0 +1,57 @@
+name: VA PII Realignment Readiness
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'data/va-claim-assistant/pii-realignment-readiness.json'
+      - 'scripts/validate_va_pii_realignment_readiness.py'
+      - '.github/workflows/va-pii-realignment-readiness.yml'
+      - 'docs/VA_PII_REALIGNMENT_READINESS_MIRROR_HANDOFF.md'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-pii-realignment-readiness
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Evaluate readiness registry
+        run: python scripts/validate_va_pii_realignment_readiness.py
+      - name: Persist readiness receipt
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'stegverse-va-readiness'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/va-claim-assistant/pii-realignment-readiness-validation.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'chore(va): record PII realignment readiness'
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Upload readiness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: va-pii-realignment-readiness-${{ github.run_id }}
+          path: |
+            data/va-claim-assistant/pii-realignment-readiness.json
+            data/va-claim-assistant/pii-realignment-readiness-validation.json
+          retention-days: 90
