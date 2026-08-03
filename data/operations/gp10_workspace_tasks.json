@@ -2,49 +2,56 @@
   "registry_id": "GP10-SITE-WORKSPACE-TASKS-001",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "updated_at": "2026-08-02T19:30:00-05:00",
+  "updated_at": "2026-08-02T20:05:00-05:00",
   "execution_authority": false,
   "tasks": [
     {
       "task_id": "GP10-SITE-SECURITY-HARDENING",
       "originating_goal": "Treat applicable federal cybersecurity requirements as the minimum floor and exceed them where the static browser surface can safely do so.",
       "owner": "StegVerse-Labs/Site browser-security lane",
-      "state": "CLAIMED",
-      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "COMPLETE",
+      "role": "RELEASED_IMPLEMENTATION_CLAIM",
+      "claim_created_at": "2026-08-02T19:30:00-05:00",
+      "claim_released_at": "2026-08-02T20:00:00-05:00",
       "surfaces": [
         "gp10-workspace.html",
         "gp10-workspace-examples.html",
         "assets/gp10-security.js",
         "scripts/check_gp10_workspace.py",
         "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
-        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md"
+        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",
+        ".github/workflows/gp10-workspace-security.yml"
       ],
-      "release_condition": "Static security controls and checker are committed, then a hosted validation run produces an inspectable PASS or FAILED receipt.",
-      "expected_evidence": [
-        "Git commits for the named surfaces",
-        "GitHub Actions run for .github/workflows/gp10-workspace-security.yml",
-        "gp10-workspace-security-<commit> artifact"
+      "release_condition": "Satisfied by committed controls, checker, workflow, task registry, mirror handoff, GP10 transfer record, and Issue #1 continuity update.",
+      "evidence": [
+        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md#Implementation-evidence",
+        "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
+        ".github/workflows/gp10-workspace-security.yml"
       ],
-      "collision_boundary": "Does not authorize changes to StegVerse-Labs/GP10 runtime validation surfaces.",
+      "collision_boundary": "Did not modify StegVerse-Labs/GP10 runtime validation surfaces.",
       "next_task": "GP10-SITE-DEPLOYMENT-OBSERVATION"
     },
     {
       "task_id": "GP10-SITE-DEPLOYMENT-OBSERVATION",
       "originating_goal": "Verify that the hosted unlisted pages correspond to the hardened committed source.",
       "owner": "StegVerse-Labs/Site deployment observation lane",
-      "state": "BLOCKED",
+      "state": "CLAIMED",
       "role": "CLAIMED_FOR_VALIDATION",
+      "claim_created_at": "2026-08-02T20:00:00-05:00",
+      "claim_expiration": "Release on an inspected PASS deployment observation; renew as FAILED or BLOCKED only with a deterministic mismatch or missing deployment record.",
       "surfaces": [
         "https://stegverse-labs.github.io/Site/gp10-workspace.html",
-        "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html"
+        "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html",
+        ".github/workflows/gp10-workspace-security.yml"
       ],
-      "release_condition": "The deployed HTML exposes the current CSP, no-referrer policy, gp10-security.js reference, and expected current commit provenance or deployment receipt.",
+      "release_condition": "The deployed HTML exposes the current CSP, no-referrer policy, gp10-security.js reference, and a Pages deployment record tied to the tested commit.",
       "expected_evidence": [
         "Hosted page source observation",
         "Pages deployment run or deployment record",
+        "GP10 workspace security workflow run and artifact",
         "Recorded tested commit"
       ],
-      "collision_boundary": "Runtime observation may not be inferred from repository file presence.",
+      "collision_boundary": "Runtime observation may not be inferred from repository file presence and does not reopen the released implementation claim.",
       "next_task": "GP10-SITE-CLAIM-RELEASE"
     },
     {
@@ -66,5 +73,15 @@
       "collision_boundary": "The current static Site must not be represented as authenticated, durable, or production-authoritative.",
       "next_task": "Service-specific security implementation"
     }
-  ]
+  ],
+  "session_transfer": {
+    "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "canonical_locations": [
+      "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",
+      "data/operations/gp10_workspace_tasks.json",
+      "StegVerse-Labs/GP10/docs/SESSION_ADJACENT_SITE_SECURITY_TRANSFER_2026-08-02.md",
+      "StegVerse-Labs/GP10 issue #1"
+    ],
+    "unique_chat_owned_work_remaining": false
+  }
 }
