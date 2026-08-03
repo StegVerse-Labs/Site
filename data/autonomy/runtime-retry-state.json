@@ -1,24 +1,18 @@
 {
   "schema_version": "1.0",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-02T23:39:14.838441Z",
-  "latest_runtime_state": "PASS",
-  "latest_failed_required_check_ids": [],
-  "automatic_retry_required": false,
+  "generated_at": "2026-08-03T04:17:44.978530Z",
+  "latest_runtime_state": "FAIL",
+  "latest_failed_required_check_ids": [
+    "freshness"
+  ],
+  "automatic_retry_required": true,
   "next_retry_owner": "StegVerse-Labs/Site/.github/workflows/autonomy-telemetry.yml",
   "next_retry_schedule": "hourly and on relevant autonomy changes",
-  "consecutive_failures": 0,
+  "consecutive_failures": 1,
   "freshness_policy_id": "site-public-autonomy-freshness-v1",
   "maximum_age_minutes": 180,
   "history": [
-    {
-      "observed_at": "2026-07-31T22:44:14.922017Z",
-      "state": "PASS",
-      "passed_required_checks": 7,
-      "required_checks": 7,
-      "failed_required_check_ids": [],
-      "automatic_retry_required": false
-    },
     {
       "observed_at": "2026-08-01T01:13:46.847002Z",
       "state": "PASS",
@@ -208,6 +202,16 @@
       "required_checks": 7,
       "failed_required_check_ids": [],
       "automatic_retry_required": false
+    },
+    {
+      "observed_at": "2026-08-03T04:17:44.907344Z",
+      "state": "FAIL",
+      "passed_required_checks": 6,
+      "required_checks": 7,
+      "failed_required_check_ids": [
+        "freshness"
+      ],
+      "automatic_retry_required": true
     }
   ],
   "authority": {
