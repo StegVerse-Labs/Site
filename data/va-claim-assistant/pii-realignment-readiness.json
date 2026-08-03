@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.0.1",
   "task_id": "VA-PII-REALIGNMENT-READINESS-001",
   "canonical_contract": "data/va-claim-assistant/pii-redaction-credential-realignment-contract.json",
   "canonical_handoff": "docs/VA_PII_REDACTION_CREDENTIAL_REALIGNMENT_MIRROR_HANDOFF.md",
@@ -8,7 +8,21 @@
   "authority_effect": false,
   "activation_effect": false,
   "requirements": [
-    {"id":"PII-RDY-01","owner":"StegVerse-Labs/Site#116","capability":"PII detection and uncertain-result review","state":"BLOCKED","release_condition":"deterministic tests and execution receipt PASS"},
+    {
+      "id": "PII-RDY-01",
+      "owner": "StegVerse-Labs/Site#116",
+      "validation_owner": "StegVerse-Labs/Site#170",
+      "capability": "PII detection and uncertain-result review",
+      "state": "CLAIMED",
+      "evidence_paths": [
+        "data/va-claim-assistant/fixtures/pii-detection-evaluation.json",
+        "scripts/evaluate_va_pii_detection_fixture.py",
+        ".github/workflows/va-pii-detection-evaluation.yml",
+        "data/va-claim-assistant/pii-detection-evaluation-receipt.json"
+      ],
+      "release_condition": "reference corpus PASS plus production detector execution receipt PASS; reference PASS alone cannot complete this requirement",
+      "collision_boundary": "Site#170 validates synthetic fixtures only and must not modify the Site#116 production document processor"
+    },
     {"id":"PII-RDY-02","owner":"StegVerse-Labs/Site#116","capability":"redaction and pseudonymous working-copy generation","state":"BLOCKED","release_condition":"hash-bound redaction receipt PASS"},
     {"id":"PII-RDY-03","owner":"StegVerse-Labs/Site#116","capability":"model-facing leakage verification","state":"BLOCKED","release_condition":"leakage test suite PASS"},
     {"id":"PII-RDY-04","owner":"StegVerse-Labs/TVC","capability":"verified credentialing handoff admission","state":"BLOCKED","release_condition":"scoped, expiring, revocable handoff receipt PASS"},
@@ -26,5 +40,5 @@
     "unresolved_high_or_critical_findings": 0
   },
   "machine_owner": ".github/workflows/va-pii-realignment-readiness.yml",
-  "next_executable_task": "Evaluate durable evidence and retain the first exact blocker without activating private upload, identity linkage, or filing."
+  "next_executable_task": "Observe the Site#170 synthetic evaluation receipt; then Site#116 must bind a production detector execution receipt before PII-RDY-01 can complete."
 }
