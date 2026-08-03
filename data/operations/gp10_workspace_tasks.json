@@ -1,0 +1,70 @@
+{
+  "registry_id": "GP10-SITE-WORKSPACE-TASKS-001",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "updated_at": "2026-08-02T19:30:00-05:00",
+  "execution_authority": false,
+  "tasks": [
+    {
+      "task_id": "GP10-SITE-SECURITY-HARDENING",
+      "originating_goal": "Treat applicable federal cybersecurity requirements as the minimum floor and exceed them where the static browser surface can safely do so.",
+      "owner": "StegVerse-Labs/Site browser-security lane",
+      "state": "CLAIMED",
+      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "surfaces": [
+        "gp10-workspace.html",
+        "gp10-workspace-examples.html",
+        "assets/gp10-security.js",
+        "scripts/check_gp10_workspace.py",
+        "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
+        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md"
+      ],
+      "release_condition": "Static security controls and checker are committed, then a hosted validation run produces an inspectable PASS or FAILED receipt.",
+      "expected_evidence": [
+        "Git commits for the named surfaces",
+        "GitHub Actions run for .github/workflows/gp10-workspace-security.yml",
+        "gp10-workspace-security-<commit> artifact"
+      ],
+      "collision_boundary": "Does not authorize changes to StegVerse-Labs/GP10 runtime validation surfaces.",
+      "next_task": "GP10-SITE-DEPLOYMENT-OBSERVATION"
+    },
+    {
+      "task_id": "GP10-SITE-DEPLOYMENT-OBSERVATION",
+      "originating_goal": "Verify that the hosted unlisted pages correspond to the hardened committed source.",
+      "owner": "StegVerse-Labs/Site deployment observation lane",
+      "state": "BLOCKED",
+      "role": "CLAIMED_FOR_VALIDATION",
+      "surfaces": [
+        "https://stegverse-labs.github.io/Site/gp10-workspace.html",
+        "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html"
+      ],
+      "release_condition": "The deployed HTML exposes the current CSP, no-referrer policy, gp10-security.js reference, and expected current commit provenance or deployment receipt.",
+      "expected_evidence": [
+        "Hosted page source observation",
+        "Pages deployment run or deployment record",
+        "Recorded tested commit"
+      ],
+      "collision_boundary": "Runtime observation may not be inferred from repository file presence.",
+      "next_task": "GP10-SITE-CLAIM-RELEASE"
+    },
+    {
+      "task_id": "GP10-SITE-AUTHENTICATED-SERVICE",
+      "originating_goal": "Provide authentication, durable protected storage, server-side authorization, and managed audit custody only when the service boundary is approved.",
+      "owner": "Future named StegVerse service repository and deployment control plane",
+      "state": "BLOCKED",
+      "role": "BLOCKED",
+      "surfaces": [
+        "Future approved service repository",
+        "Future approved hosting control plane"
+      ],
+      "release_condition": "A named service owner, approved domain and scope, authentication design, deployment authority, privacy terms, and server security-header controls are committed.",
+      "expected_evidence": [
+        "Service mirror handoff",
+        "Deployment configuration",
+        "Security assessment receipt"
+      ],
+      "collision_boundary": "The current static Site must not be represented as authenticated, durable, or production-authoritative.",
+      "next_task": "Service-specific security implementation"
+    }
+  ]
+}
