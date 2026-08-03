@@ -1,0 +1,61 @@
+name: VA PII Model Leakage Evidence
+
+on:
+  push:
+    paths:
+      - data/va-claim-assistant/pii-model-leakage-evidence.json
+      - data/va-claim-assistant/pii-model-leakage-evidence.schema.json
+      - scripts/observe_va_pii_model_leakage_evidence.py
+      - .github/workflows/va-pii-model-leakage-evidence.yml
+  schedule:
+    - cron: '47 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-pii-model-leakage-evidence
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Observe evidence
+        run: python scripts/observe_va_pii_model_leakage_evidence.py
+      - name: Verify fail-closed receipt
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/va-claim-assistant/pii-model-leakage-readiness.json')
+          d=json.loads(p.read_text())
+          assert d['state'] in {'BLOCKED','COMPLETE'}
+          assert d['private_document_upload_enabled'] is False
+          assert d['authority_effect'] is False
+          assert d['activation_effect'] is False
+          PY
+      - name: Retain receipt
+        run: |
+          if git diff --quiet -- data/va-claim-assistant/pii-model-leakage-readiness.json; then exit 0; fi
+          git config user.name 'stegverse-machine'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/va-claim-assistant/pii-model-leakage-readiness.json
+          git commit -m 'chore(va): retain PII model leakage readiness [skip ci]'
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - uses: actions/upload-artifact@v4
+        with:
+          name: va-pii-model-leakage-evidence
+          path: |
+            data/va-claim-assistant/pii-model-leakage-evidence.schema.json
+            data/va-claim-assistant/pii-model-leakage-readiness.json
+          retention-days: 90
