@@ -15,10 +15,14 @@ Registry: data/va-claim-assistant/pii-realignment-readiness.json
 Registry validator: scripts/validate_va_pii_realignment_readiness.py
 Registry workflow: .github/workflows/va-pii-realignment-readiness.yml
 Registry receipt: data/va-claim-assistant/pii-realignment-readiness-validation.json
-Production evidence schema: data/va-claim-assistant/pii-production-detector-evidence.schema.json
-Production evidence observer: scripts/observe_va_pii_production_detector_evidence.py
-Production evidence workflow: .github/workflows/va-pii-production-detector-evidence.yml
-Production readiness receipt: data/va-claim-assistant/pii-production-detector-readiness.json
+Production detector schema: data/va-claim-assistant/pii-production-detector-evidence.schema.json
+Production detector observer: scripts/observe_va_pii_production_detector_evidence.py
+Production detector workflow: .github/workflows/va-pii-production-detector-evidence.yml
+Production detector receipt: data/va-claim-assistant/pii-production-detector-readiness.json
+Redaction evidence schema: data/va-claim-assistant/pii-redaction-working-copy-evidence.schema.json
+Redaction evidence observer: scripts/observe_va_pii_redaction_working_copy_evidence.py
+Redaction evidence workflow: .github/workflows/va-pii-redaction-working-copy-evidence.yml
+Redaction readiness receipt: data/va-claim-assistant/pii-redaction-working-copy-readiness.json
 ```
 
 ## Claim
@@ -44,6 +48,8 @@ PII-RDY-08 Site#113 veteran-visible privacy controls: BLOCKED
 PII-RDY-09 independent privacy and security assessment: BLOCKED
 ```
 
+## PII-RDY-01 evidence state
+
 Reference evidence under `Site#170` is complete only for the synthetic evaluation lane:
 
 ```text
@@ -56,25 +62,18 @@ production_detector_ready: false
 private_document_upload_enabled: false
 ```
 
-The reference receipt cannot complete `PII-RDY-01`.
+The production observer has emitted:
 
-## Production evidence gate
+```text
+data/va-claim-assistant/pii-production-detector-readiness.json
+state: BLOCKED
+blocker: production_detector_evidence_missing
+reference_receipt_is_insufficient: true
+```
 
-A production or controlled-production-equivalent receipt must satisfy:
+A production or controlled-production-equivalent receipt must prove an admitted preprocessing runtime, at least 0.99 required-class recall, no more than 0.05 clean-case false-positive rate, uncertain-case review routing, no model processing before the privacy gate, no raw PII in prompts/outputs/traces/logs, private upload disabled, custody retained, and false authority and activation effects.
 
-- runtime class `ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR`;
-- exact processor path and 40-character commit SHA;
-- admitted runtime true and reference-only false;
-- at least 0.99 required-class recall;
-- no more than 0.05 clean-case false-positive rate;
-- uncertain cases routed to `REVIEW_REQUIRED`;
-- no model processing before the privacy gate;
-- no raw PII in prompts, outputs, traces, or logs;
-- private upload remains disabled;
-- custody reference retained;
-- authority and activation effects false.
-
-Installed evidence controls:
+Installed PII-RDY-01 controls:
 
 ```text
 schema commit: 7f9ed06ed066bc0fb836b76e85550c56730baeb3
@@ -82,13 +81,51 @@ observer commit: 048e8ec454db36566b1a486eb06c86e7e64ba7a8
 workflow commit: dc7d253ca9dbfa399741e55f058bc0ca9bc7edd0
 ```
 
-Until `data/va-claim-assistant/pii-production-detector-evidence.json` exists and passes the observer, the production readiness receipt remains `BLOCKED` with first blocker `production_detector_evidence_missing`.
+## PII-RDY-02 evidence gate
+
+`PII-RDY-02` now has a separate machine-observable release gate. A production or controlled-production-equivalent receipt must prove:
+
+- runtime class `ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR`;
+- exact processor path and immutable commit SHA;
+- distinct original-document and redacted-document SHA-256 values;
+- a redaction-manifest SHA-256 bound to both document hashes;
+- at least one direct-identifier replacement;
+- page and region anchors retained;
+- a purpose-limited, non-global pseudonymous token;
+- raw document did not leave the privacy zone;
+- no raw PII remains in the working copy;
+- model release occurred only for the verified redacted copy;
+- private upload remains disabled;
+- custody reference retained;
+- authority and activation effects false.
+
+Installed PII-RDY-02 controls:
+
+```text
+schema commit: d4a43c68e7ebdb19f762cec5c2b5d270095ae5f1
+observer commit: 7be64a12dd083424810ab5c8e5bdab6050b66f0b
+workflow commit: 7da682c506ff1d232c85314d0661c23c64d5d044
+```
+
+Expected implementation evidence:
+
+```text
+data/va-claim-assistant/pii-redaction-working-copy-evidence.json
+```
+
+Expected machine receipt:
+
+```text
+data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+```
+
+Until implementation evidence exists and passes, `PII-RDY-02` remains `BLOCKED`; a missing initial observer receipt is not interpreted as success.
 
 ## State and ownership
 
-Each owner updates only its own requirement after exact evidence exists. `Site#116` owns production implementation; `Site#170` owns synthetic reference validation. Plans, schemas, fixture-only receipts, or self-attestation cannot complete an operational requirement.
+Each owner updates only its own requirement after exact evidence exists. `Site#116` owns production detector and redaction implementation; `Site#170` owns synthetic detector reference validation. Plans, schemas, fixture-only receipts, or self-attestation cannot complete an operational requirement.
 
-The registry and both observers grant no identity, credential, document-processing, medical, representation, rating, filing, publication, or activation authority. They cannot activate private upload, identity linkage, or filing.
+The registry and evidence observers grant no identity, credential, document-processing, medical, representation, rating, filing, publication, or activation authority. They cannot activate private upload, identity linkage, or filing.
 
 ## Transfer
 
