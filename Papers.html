@@ -6,7 +6,7 @@
 <title>StegVerse Papers</title>
 <meta name="description" content="Mirrored StegVerse papers from GCAT-BCAT-Engine/Publisher papers outputs and bounded Site-native research publications."/>
 <style>
-:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;}
+:root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--accent2:#59f59b;--warn:#ffd166;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
 a{color:inherit}
@@ -22,9 +22,14 @@ h1{font-size:clamp(2.1rem,6vw,3.45rem);line-height:1.08}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:20px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .paper{display:block;border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.04);text-decoration:none}
+.paper.featured{grid-column:1/-1;border-color:var(--accent2);background:linear-gradient(135deg,rgba(89,245,155,.12),rgba(110,231,255,.08));padding:24px;box-shadow:0 18px 60px rgba(0,0,0,.2)}
+.paper.featured .title{font-size:clamp(1.35rem,3vw,2rem)}
+.paper.featured .meta{font-family:inherit;font-size:1rem;max-width:850px;line-height:1.6;margin-top:8px}
 .title{font-weight:900}
 .meta{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);font-size:.82rem;word-break:break-word}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--accent);font-size:.72rem;font-weight:800;margin-top:10px}
+.tag.featured{border-color:var(--accent2);color:var(--accent2)}
+.tag.boundary{border-color:var(--warn);color:var(--warn)}
 pre{white-space:pre-wrap;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:14px;padding:16px;color:#e5f6ff}
 footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px;text-align:center;font-size:.85rem}
 </style>
@@ -38,14 +43,16 @@ footer{padding:30px 0 50px;color:var(--muted);border-top:1px solid var(--line);m
 <section><div class="badge">Public research and mirrored outputs</div><h1>StegVerse Papers</h1>
 <p class="lead">This page presents bounded Site-native research publications and mirrors paper outputs from <strong>GCAT-BCAT-Engine/Publisher/papers</strong>. Publication on Site is a public display surface, not independent validation or execution authority.</p></section>
 <section class="card"><h2>Featured publications</h2><div class="grid">
+<a class="paper featured" href="papers/sv-cost-relational-analysis.html"><div class="title">StegVerse Cost and Capability Analysis</div><div class="meta">A lineage-backed relational program tested historical reproduction, native batch routing, StegVerse-managed context, governed reconstruction, and repeated-trial reliability. Managed context reduced observed input tokens in the locked workload, and governed reconstruction can avoid a new provider call for already admitted work—but successful quality-equivalent savings and net ROI were not established. The bounded decision is not to approve a general StegVerse savings claim from the current evidence.</div><span class="tag featured">FEATURED</span> <span class="tag">RELATIONAL ANALYSIS</span> <span class="tag boundary">BOUNDED FINDINGS</span> <span class="tag">SITE PAPER</span></a>
 <a class="paper" href="minimum-pre-self-management-governance.html"><div class="title">Minimum Pre-Self-Management Governance Boundary</div><div class="meta">The minimal data structure and timing boundary required for governance before machine self-management or machine production begins</div><span class="tag">GOVERNED PRINCIPLE</span> <span class="tag">SITE PAGE</span></a>
 <a class="paper" href="reconstructive-singularity.html"><div class="title">The Reconstructive Singularity</div><div class="meta">A governed framework for reality reconstruction, reachability, cross-domain transformation, and admissible transition</div><span class="tag">SCHOLARLY REVIEW</span> <span class="tag">SITE PAGE</span></a>
 <a class="paper" href="papers/knowledgevault/conversation-continuity.html"><div class="title">What If We Stopped Storing Conversations—and Started Preserving Their Continuity?</div><div class="meta">KnowledgeVault · conversation continuity · Merkle-backed retention and searchable reconstruction</div><span class="tag">HTML PAPER</span> <span class="tag">WORKING PROTOTYPE</span></a>
 </div></section>
-<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/Publisher/papers and bounded canonical research sources
+<section class="card"><h2>Mirror status</h2><pre>Source: GCAT-BCAT-Engine/workflows canonical SV-COST analysis, GCAT-BCAT-Engine/Publisher/papers, and bounded canonical research sources
 Target: StegVerse-Labs/Site
 Index: StegVerse-Labs/Site/Papers.html
-Site-native bounded publications: 3
+Site-native bounded publications: 4
+Featured publication: papers/sv-cost-relational-analysis.html
 Publication authority: not inferred from display</pre></section>
 <section class="card"><h2>LaTeX and references</h2><div class="grid">
 <a class="paper" href="papers/GCAT-BCAT/P0_CommitTime_Synthesis_v1.tex"><div class="title">P0 CommitTime Synthesis v1</div><div class="meta">GCAT-BCAT/P0_CommitTime_Synthesis_v1.tex</div><span class="tag">TEX</span></a>
@@ -69,6 +76,7 @@ Publication authority: not inferred from display</pre></section>
 <a class="paper" href="papers/GCAT-BCAT/README.md"><div class="title">README</div><div class="meta">GCAT-BCAT/README.md</div><span class="tag">MD</span></a>
 </div></section>
 <section class="card"><h2>HTML papers</h2><div class="grid">
+<a class="paper" href="papers/sv-cost-relational-analysis.html"><div class="title">StegVerse Cost and Capability Analysis</div><div class="meta">sv-cost-relational-analysis.html</div><span class="tag featured">FEATURED</span> <span class="tag">HTML</span></a>
 <a class="paper" href="papers/problem_solver/SV/final/sv-cost-reduction-2026-revised.html"><div class="title">SV cost reduction 2026 revised</div><div class="meta">problem_solver/SV/final/sv-cost-reduction-2026-revised.html</div><span class="tag">HTML</span></a>
 <a class="paper" href="papers/problem_solver/SV/raw/sv-cost-reduction-2026.html"><div class="title">SV cost reduction 2026</div><div class="meta">problem_solver/SV/raw/sv-cost-reduction-2026.html</div><span class="tag">HTML</span></a>
 </div></section>
