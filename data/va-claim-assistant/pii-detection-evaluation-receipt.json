@@ -1,0 +1,52 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "case_count": 4,
+  "clean_case_false_positive_rate": 0.0,
+  "errors": [],
+  "fixture_id": "SV-VA-PII-EVAL-001",
+  "fixture_sha256": "166af062dd6029f80f6c00b9a51e444696891dc17fe5bf7939929f6ca0330a4d",
+  "private_document_upload_enabled": false,
+  "production_detector_ready": false,
+  "reference_evaluator_only": true,
+  "required_class_recall": 1.0,
+  "results": [
+    {
+      "case_id": "direct-identifiers-001",
+      "detected_classes": [
+        "DATE_OF_BIRTH",
+        "EMAIL",
+        "PERSON_NAME",
+        "PHONE",
+        "SSN",
+        "STREET_ADDRESS",
+        "VA_FILE_NUMBER"
+      ],
+      "model_release_allowed": false,
+      "state": "REDACTION_REQUIRED"
+    },
+    {
+      "case_id": "clean-clinical-001",
+      "detected_classes": [],
+      "model_release_allowed": true,
+      "state": "CLEAN"
+    },
+    {
+      "case_id": "ambiguous-number-001",
+      "detected_classes": [],
+      "model_release_allowed": false,
+      "state": "REVIEW_REQUIRED"
+    },
+    {
+      "case_id": "partial-contact-001",
+      "detected_classes": [
+        "PHONE"
+      ],
+      "model_release_allowed": false,
+      "state": "REDACTION_REQUIRED"
+    }
+  ],
+  "review_required_count": 1,
+  "schema_version": "1.0.0",
+  "state": "PASS"
+}
