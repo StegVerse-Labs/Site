@@ -2,7 +2,7 @@
   "registry_id": "GP10-SITE-WORKSPACE-TASKS-001",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "updated_at": "2026-08-02T20:05:00-05:00",
+  "updated_at": "2026-08-02T21:15:00-05:00",
   "execution_authority": false,
   "tasks": [
     {
@@ -33,25 +33,37 @@
     },
     {
       "task_id": "GP10-SITE-DEPLOYMENT-OBSERVATION",
-      "originating_goal": "Verify that the hosted unlisted pages correspond to the hardened committed source.",
-      "owner": "StegVerse-Labs/Site deployment observation lane",
-      "state": "CLAIMED",
-      "role": "CLAIMED_FOR_VALIDATION",
+      "originating_goal": "Verify that the hosted unlisted pages correspond exactly to the hardened committed source.",
+      "owner": "StegVerse-Labs/Site:.github/workflows/gp10-workspace-security.yml",
+      "state": "RETRY",
+      "role": "MACHINE_OWNED",
       "claim_created_at": "2026-08-02T20:00:00-05:00",
-      "claim_expiration": "Release on an inspected PASS deployment observation; renew as FAILED or BLOCKED only with a deterministic mismatch or missing deployment record.",
+      "claim_expiration": "Release on an inspected PASS deployment receipt; renew as RETRY or FAILED only when the receipt records a deterministic network, deployment-lag, byte-mismatch, or marker blocker.",
       "surfaces": [
+        "scripts/check_gp10_workspace_deployment.py",
+        ".github/workflows/gp10-workspace-security.yml",
         "https://stegverse-labs.github.io/Site/gp10-workspace.html",
-        "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html",
-        ".github/workflows/gp10-workspace-security.yml"
+        "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html"
       ],
-      "release_condition": "The deployed HTML exposes the current CSP, no-referrer policy, gp10-security.js reference, and a Pages deployment record tied to the tested commit.",
+      "deterministic_inputs": [
+        "Committed gp10-workspace.html bytes",
+        "Committed gp10-workspace-examples.html bytes",
+        "Hosted page responses after bounded cache-busting retries",
+        "GITHUB_SHA and GITHUB_RUN_ID"
+      ],
+      "deterministic_outputs": [
+        "validation/gp10-workspace-deployment-receipt.json",
+        "gp10-workspace-security-<commit> workflow artifact"
+      ],
+      "release_condition": "The receipt result is PASS and both hosted pages exactly equal the checked-out committed bytes while exposing all required security and authority markers.",
       "expected_evidence": [
-        "Hosted page source observation",
-        "Pages deployment run or deployment record",
-        "GP10 workspace security workflow run and artifact",
+        "Workflow run and job identity",
+        "Artifact containing deployment receipt",
+        "Exact local and remote SHA-256 values",
+        "Required-marker results for both pages",
         "Recorded tested commit"
       ],
-      "collision_boundary": "Runtime observation may not be inferred from repository file presence and does not reopen the released implementation claim.",
+      "collision_boundary": "Repository file presence cannot satisfy this task; a failed or missing receipt cannot be treated as deployment success.",
       "next_task": "GP10-SITE-CLAIM-RELEASE"
     },
     {
