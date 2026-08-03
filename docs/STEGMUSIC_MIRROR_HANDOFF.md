@@ -235,6 +235,26 @@ sequence generated and lawfully sourced tracks without treating protected audio 
 
 Adjacent destinations remain the ecosystem session contract, financial contract, invariants, Master Records/orchestration, Publisher, admissibility wiki, Guardian wiki, and internal patent packet.
 
+## Internal-test viability
+
+The current prototype remains viable for controlled internal testing only after the deployed page and target browser are directly observed. The new style-profile task does not itself establish runtime activation.
+
+Invited testing requires:
+
+```text
+clear fixture and rights-assertion labeling
+one distinct isolated profile ID per tester
+export and reset/revocation controls
+no cross-profile raw-history exposure
+visible failures
+rights evidence for every non-generated shared source
+confidentiality and contribution terms for patent-sensitive testing
+target-device browser evidence
+style-profile results clearly separated from aesthetic-quality claims
+```
+
+Production viability still requires authenticated identity, server-side tenant isolation, durable custody boundaries, lawful catalog access, provider entitlement resolution, non-prototype financial accounting, and security-control evidence sufficient for the applicable deployment context.
+
 ## Authority boundary
 
 ```text
