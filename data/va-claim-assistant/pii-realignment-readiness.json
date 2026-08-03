@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "VA-PII-REALIGNMENT-READINESS-001",
+  "canonical_contract": "data/va-claim-assistant/pii-redaction-credential-realignment-contract.json",
+  "canonical_handoff": "docs/VA_PII_REDACTION_CREDENTIAL_REALIGNMENT_MIRROR_HANDOFF.md",
+  "claim_state": "CLAIMED_FOR_INTEGRATION_VALIDATION",
+  "overall_state": "BLOCKED",
+  "authority_effect": false,
+  "activation_effect": false,
+  "requirements": [
+    {"id":"PII-RDY-01","owner":"StegVerse-Labs/Site#116","capability":"PII detection and uncertain-result review","state":"BLOCKED","release_condition":"deterministic tests and execution receipt PASS"},
+    {"id":"PII-RDY-02","owner":"StegVerse-Labs/Site#116","capability":"redaction and pseudonymous working-copy generation","state":"BLOCKED","release_condition":"hash-bound redaction receipt PASS"},
+    {"id":"PII-RDY-03","owner":"StegVerse-Labs/Site#116","capability":"model-facing leakage verification","state":"BLOCKED","release_condition":"leakage test suite PASS"},
+    {"id":"PII-RDY-04","owner":"StegVerse-Labs/TVC","capability":"verified credentialing handoff admission","state":"BLOCKED","release_condition":"scoped, expiring, revocable handoff receipt PASS"},
+    {"id":"PII-RDY-05","owner":"StegVerse-Labs/TVC","capability":"post-credential identity linkage admission","state":"BLOCKED","release_condition":"purpose, scope, expiry, revocation, and hash-binding tests PASS"},
+    {"id":"PII-RDY-06","owner":"StegVerse-org/LLM-adapter#90","capability":"raw PII rejection and sanitized-context enforcement","state":"BLOCKED","release_condition":"negative fixtures and governed runtime receipt PASS"},
+    {"id":"PII-RDY-07","owner":"master-records/orchestration","capability":"privacy-event custody and reconstruction","state":"BLOCKED","release_condition":"custody RECORDED and reconstruction PASS"},
+    {"id":"PII-RDY-08","owner":"StegVerse-Labs/Site#113","capability":"veteran-visible privacy, linkage, export, deletion, and revocation status","state":"BLOCKED","release_condition":"repository and deployed validation PASS"},
+    {"id":"PII-RDY-09","owner":"independent-assessment-lane","capability":"independent privacy and security assessment","state":"BLOCKED","release_condition":"assessment retained and unresolved high or critical findings equal zero"}
+  ],
+  "completion_rule": {
+    "required_state": "COMPLETE",
+    "all_requirements_complete": true,
+    "current_continuous_monitoring_receipt": true,
+    "independent_assessment_retained": true,
+    "unresolved_high_or_critical_findings": 0
+  },
+  "machine_owner": ".github/workflows/va-pii-realignment-readiness.yml",
+  "next_executable_task": "Evaluate durable evidence and retain the first exact blocker without activating private upload, identity linkage, or filing."
+}
