@@ -23,6 +23,10 @@ Redaction evidence schema: data/va-claim-assistant/pii-redaction-working-copy-ev
 Redaction evidence observer: scripts/observe_va_pii_redaction_working_copy_evidence.py
 Redaction evidence workflow: .github/workflows/va-pii-redaction-working-copy-evidence.yml
 Redaction readiness receipt: data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+Leakage evidence schema: data/va-claim-assistant/pii-model-leakage-evidence.schema.json
+Leakage evidence observer: scripts/observe_va_pii_model_leakage_evidence.py
+Leakage evidence workflow: .github/workflows/va-pii-model-leakage-evidence.yml
+Leakage readiness receipt: data/va-claim-assistant/pii-model-leakage-readiness.json
 ```
 
 ## Claim
@@ -83,7 +87,7 @@ workflow commit: dc7d253ca9dbfa399741e55f058bc0ca9bc7edd0
 
 ## PII-RDY-02 evidence gate
 
-`PII-RDY-02` now has a separate machine-observable release gate. A production or controlled-production-equivalent receipt must prove:
+A production or controlled-production-equivalent receipt must prove:
 
 - runtime class `ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR`;
 - exact processor path and immutable commit SHA;
@@ -107,23 +111,65 @@ observer commit: 7be64a12dd083424810ab5c8e5bdab6050b66f0b
 workflow commit: 7da682c506ff1d232c85314d0661c23c64d5d044
 ```
 
+Current receipt:
+
+```text
+data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+state: BLOCKED
+blocker: redaction_working_copy_evidence_missing
+```
+
 Expected implementation evidence:
 
 ```text
 data/va-claim-assistant/pii-redaction-working-copy-evidence.json
 ```
 
+## PII-RDY-03 evidence gate
+
+A production or controlled-production-equivalent receipt must prove:
+
+- admitted runtime class `ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR`;
+- exact processor path and immutable commit SHA;
+- coverage of all required direct-identifier classes;
+- zero direct-identifier leaks into prompts;
+- zero leaks into model inputs;
+- zero leaks into model outputs;
+- zero leaks into traces;
+- zero leaks into analytics;
+- zero leaks into logs;
+- uncertain cases routed to `REVIEW_REQUIRED`;
+- model release denied on uncertainty;
+- raw documents prohibited from model-facing processing;
+- private upload remains disabled;
+- custody reference retained;
+- authority and activation effects false.
+
+Installed PII-RDY-03 controls:
+
+```text
+schema commit: c0b60a3d2d528629c0267c13712e31f8720c6b67
+observer commit: 1052ffb475571c8afce20953df91d282b75a4214
+workflow commit: 619a232040fcbffa0b8e61101addc6a8c0487bf9
+```
+
+Expected implementation evidence:
+
+```text
+data/va-claim-assistant/pii-model-leakage-evidence.json
+```
+
 Expected machine receipt:
 
 ```text
-data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+data/va-claim-assistant/pii-model-leakage-readiness.json
 ```
 
-Until implementation evidence exists and passes, `PII-RDY-02` remains `BLOCKED`; a missing initial observer receipt is not interpreted as success.
+A missing initial receipt or missing implementation evidence is never interpreted as success.
 
 ## State and ownership
 
-Each owner updates only its own requirement after exact evidence exists. `Site#116` owns production detector and redaction implementation; `Site#170` owns synthetic detector reference validation. Plans, schemas, fixture-only receipts, or self-attestation cannot complete an operational requirement.
+Each owner updates only its own requirement after exact evidence exists. `Site#116` owns production detector, redaction, and leakage-control implementation; `Site#170` owns synthetic detector reference validation. Plans, schemas, fixture-only receipts, or self-attestation cannot complete an operational requirement.
 
 The registry and evidence observers grant no identity, credential, document-processing, medical, representation, rating, filing, publication, or activation authority. They cannot activate private upload, identity linkage, or filing.
 
