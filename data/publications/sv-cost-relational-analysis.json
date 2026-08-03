@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "publication_id": "SITE-PAPER-SV-COST-001",
+  "title": "StegVerse Cost and Capability Analysis",
+  "state": "REPOSITORY_PUBLISHED_DEPLOYMENT_OBSERVATION_PENDING",
+  "source_repository": "GCAT-BCAT-Engine/workflows",
+  "source_path": "docs/SV_COST_MAJOR_ANALYSIS.md",
+  "source_program": "SV-COST-MAJOR-GOAL-001",
+  "source_decision": "DO_NOT_APPROVE_A_GENERAL_STEGVERSE_SAVINGS_CLAIM_FROM_CURRENT_EVIDENCE",
+  "target_repository": "StegVerse-Labs/Site",
+  "target_branch": "main",
+  "paper_path": "papers/sv-cost-relational-analysis.html",
+  "index_path": "Papers.html",
+  "placement": "featured_publications_first_card",
+  "labels": [
+    "FEATURED",
+    "RELATIONAL ANALYSIS",
+    "BOUNDED FINDINGS",
+    "SITE PAPER"
+  ],
+  "paper_commit": "82336e8dd4561e2b7162ff5ed59bc5216c9e1859",
+  "index_commit": "d419adc6afc42b386239260f1009b4b8f9cd9ce8",
+  "findings_summary": {
+    "historical_control_envelope_reproduced": true,
+    "native_batch_route_observed": true,
+    "successful_route_savings_established": false,
+    "managed_context_reduced_observed_input_tokens": true,
+    "successful_managed_context_savings_established": false,
+    "external_provider_call_avoidance_for_admitted_reconstruction_established": true,
+    "net_reconstruction_savings_established": false
+  },
+  "publication_boundary": "Site display does not create validation, execution, custody, release, or financial authority. The paper does not support a favorable general StegVerse savings or ROI claim.",
+  "repository_validation": {
+    "paper_file_created": true,
+    "index_featured_card_first": true,
+    "card_links_to_paper": true,
+    "card_summarizes_findings": true,
+    "bounded_decision_preserved": true
+  },
+  "deployment_validation": {
+    "stegverse_org_checked": true,
+    "featured_card_observed_live": false,
+    "paper_observed_live": false,
+    "status": "PENDING_SITE_DEPLOYMENT_OR_CACHE_REFRESH"
+  },
+  "next_machine_observation": "Verify https://stegverse.org/Papers.html contains the featured card and https://stegverse.org/papers/sv-cost-relational-analysis.html returns the committed paper before changing state to LIVE_VERIFIED.",
+  "authority_effect": false
+}
