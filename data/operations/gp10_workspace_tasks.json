@@ -2,7 +2,7 @@
   "registry_id": "GP10-SITE-WORKSPACE-TASKS-001",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "updated_at": "2026-08-02T21:49:00-05:00",
+  "updated_at": "2026-08-02T21:55:00-05:00",
   "execution_authority": false,
   "tasks": [
     {
@@ -35,39 +35,40 @@
       "task_id": "GP10-SITE-DEPLOYMENT-OBSERVATION",
       "originating_goal": "Verify that the hosted unlisted pages correspond exactly to the hardened committed source.",
       "owner": "StegVerse-Labs/Site:.github/workflows/gp10-workspace-security.yml",
-      "state": "RETRY",
-      "role": "MACHINE_OWNED",
+      "state": "COMPLETE",
+      "role": "RELEASED_MACHINE_VALIDATION_CLAIM",
       "claim_created_at": "2026-08-02T20:00:00-05:00",
-      "claim_expiration": "Release on an inspected committed PASS deployment receipt; renew as RETRY or FAILED only when the committed receipt records a deterministic network, deployment-lag, byte-mismatch, marker, or workflow blocker.",
+      "claim_released_at": "2026-08-02T21:55:00-05:00",
+      "tested_commit": "80fbf35d2a824f689050c7ec69e579c2ddf8f196",
+      "workflow_run_id": 30780334497,
+      "workflow_job_id": 91583581262,
+      "artifact_id": 8843410533,
+      "artifact_digest": "sha256:417f8160a6bf9d7eb211da3da4ef236dbe453d930905c1cb4bf8d128cc42ddb6",
+      "receipt_commit": "018a58f5c60434d51ea3762e2bba119a94eaeaac",
       "surfaces": [
         "scripts/check_gp10_workspace_deployment.py",
         ".github/workflows/gp10-workspace-security.yml",
-        "docs/receipts/gp10-site/",
+        "docs/receipts/gp10-site/security-80fbf35d2a824f689050c7ec69e579c2ddf8f196.txt",
+        "docs/receipts/gp10-site/deployment-80fbf35d2a824f689050c7ec69e579c2ddf8f196.json",
         "https://stegverse-labs.github.io/Site/gp10-workspace.html",
         "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html"
       ],
-      "deterministic_inputs": [
-        "Committed gp10-workspace.html bytes",
-        "Committed gp10-workspace-examples.html bytes",
-        "Hosted page responses after bounded cache-busting retries",
-        "GITHUB_SHA, GITHUB_RUN_ID, and GITHUB_RUN_ATTEMPT"
-      ],
-      "deterministic_outputs": [
-        "docs/receipts/gp10-site/security-<tested-commit>.txt",
-        "docs/receipts/gp10-site/deployment-<tested-commit>.json",
-        "gp10-workspace-security-<tested-commit> workflow artifact"
-      ],
-      "release_condition": "A committed deployment receipt has result PASS and proves both hosted pages exactly equal the checked-out committed bytes while exposing all required security and authority markers.",
-      "expected_evidence": [
-        "Committed security receipt",
-        "Committed deployment receipt",
-        "Workflow run and job identity recorded in the receipts",
-        "Exact local and remote SHA-256 values",
-        "Required-marker results for both pages",
-        "Recorded tested commit"
-      ],
-      "collision_boundary": "Repository file presence without a committed runtime receipt cannot satisfy this task; artifact-only, missing, or failed evidence cannot be treated as deployment success.",
-      "next_task": "Set this task COMPLETE only after inspecting a committed PASS receipt; otherwise preserve RETRY or FAILED with the receipt blocker."
+      "result": "PASS",
+      "attempts_used": 1,
+      "evidence": {
+        "workspace_sha256": "2a151a37ebfa9937f64f67b285151f4895b81e875076226e4fdcba18215b1f48",
+        "examples_sha256": "502d385f3c534365e5488f10b8011efb988a5634734df5b086177c7d3133701f",
+        "exact_byte_match": true,
+        "all_required_markers_present": true,
+        "static_validation": "PASS",
+        "deployment_observation": "PASS",
+        "receipt_persistence": "PASS",
+        "artifact_upload": "PASS",
+        "final_enforcement": "PASS"
+      },
+      "release_condition": "SATISFIED: committed PASS receipt, successful run/job, exact local/remote hashes, required markers, persisted receipt, and artifact were directly inspected.",
+      "collision_boundary": "This completion proves only correspondence of the two static pages and named controls. It does not establish authentication, evidence truth, custody, federal certification, commercial approval, or execution authority.",
+      "next_task": "No Site deployment-observation task remains for this session. Future page-changing commits automatically create new commit-specific receipts without reopening this released claim."
     },
     {
       "task_id": "GP10-SITE-AUTHENTICATED-SERVICE",
