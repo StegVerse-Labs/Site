@@ -1,0 +1,10 @@
+receipt_type=GP10_SITE_SECURITY_VALIDATION
+commit=2b3600affd5509cd84d61c0875ae2c79b167fa82
+run_id=30780430915
+run_attempt=1
+started_at=2026-08-03T02:54:46Z
+FAIL-CLOSED: 1 GP10 workspace isolation, security, or contract violation(s)
+- mirror handoff missing marker: CLAIMED_FOR_IMPLEMENTATION
+result=FAILED
+exit_code=1
+completed_at=2026-08-03T02:54:46Z

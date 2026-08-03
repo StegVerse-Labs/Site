@@ -1,0 +1,49 @@
+{
+  "receipt_type": "GP10_SITE_DEPLOYMENT_OBSERVATION",
+  "schema_version": "1.0.0",
+  "tested_commit": "2b3600affd5509cd84d61c0875ae2c79b167fa82",
+  "workflow_run_id": "30780430915",
+  "base_url": "https://stegverse-labs.github.io/Site",
+  "started_at": "2026-08-03T02:54:47.330466+00:00",
+  "completed_at": "2026-08-03T02:54:47.731121+00:00",
+  "attempts_used": 1,
+  "result": "PASS",
+  "comparison": "EXACT_REMOTE_BYTES_EQUAL_COMMITTED_SOURCE",
+  "observations": [
+    {
+      "page": "gp10-workspace.html",
+      "url": "https://stegverse-labs.github.io/Site/gp10-workspace.html?gp10_observation=1785725687",
+      "local_sha256": "2a151a37ebfa9937f64f67b285151f4895b81e875076226e4fdcba18215b1f48",
+      "remote_sha256": "2a151a37ebfa9937f64f67b285151f4895b81e875076226e4fdcba18215b1f48",
+      "exact_match": true,
+      "markers": {
+        "Content-Security-Policy": true,
+        "content=\"no-referrer\"": true,
+        "assets/gp10-security.js": true,
+        "noindex,nofollow,noarchive": true,
+        "No execution authority": true
+      },
+      "error": null
+    },
+    {
+      "page": "gp10-workspace-examples.html",
+      "url": "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html?gp10_observation=1785725687",
+      "local_sha256": "502d385f3c534365e5488f10b8011efb988a5634734df5b086177c7d3133701f",
+      "remote_sha256": "502d385f3c534365e5488f10b8011efb988a5634734df5b086177c7d3133701f",
+      "exact_match": true,
+      "markers": {
+        "Content-Security-Policy": true,
+        "content=\"no-referrer\"": true,
+        "assets/gp10-security.js": true,
+        "noindex,nofollow,noarchive": true,
+        "No execution authority": true
+      },
+      "error": null
+    }
+  ],
+  "execution_authority": false,
+  "limitations": [
+    "A matching deployment does not establish source truth, evidence custody, approval, certification, or execution authority.",
+    "This receipt observes only the named static pages and committed security markers."
+  ]
+}
