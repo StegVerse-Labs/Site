@@ -1,189 +1,165 @@
 # VA Claim Assistant Mirror Handoff
 
-## Identity
+## Identity and authority
 
 ```text
 Goal ID: SV-VA-CLAIM-ASSISTANT-001
-Product goal set: SV-VA-GOVERNED-PRODUCT-001
-Originating goal: build, activate, observe, complete, and durably transfer a governed VA disability-claim assistance layer
+Adjacent goal ID: SV-VA-GUIDED-CARDS-001
+Originating session goal: make the VA claims guide understandable to veterans and family members with little knowledge of VA.gov, Login.gov, ID.me, Blue Button, or AI tools
 Repository: StegVerse-Labs/Site
 Branch: main
 Canonical issue: StegVerse-Labs/Site#113
-Document-aware owner: StegVerse-Labs/Site#116
-Activation ledger: data/va-claim-assistant/activation-gates.json
-Product goal contract: data/va-claim-assistant/governed-product-goals.json
-Product goal validator: scripts/validate_va_governed_product_goals.py
-Product goal workflow: .github/workflows/va-governed-product-goals.yml
+Substantive document-aware owner: StegVerse-Labs/Site#116
+Canonical handoff: docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
+Repository handoff: docs/SITE_MIRROR_HANDOFF.md
 ```
+
+This file is the canonical VA Claim Assistant handoff. The Site-wide orchestrator remains authoritative for repository collision control. No authority is granted to adjudicate, represent, diagnose, rate, sign, or file a claim.
 
 ## Current capability
 
 ```text
-state: SOURCE_GROUNDED_ACTIVE
+state: SOURCE_GROUNDED_ACTIVE_WITH_GUIDED_CARD_TEST
 current public capability: SOURCE_GROUNDED_ASSISTANT
+new public test: VETERAN_CONFIRMED_GUIDED_CARDS
 next activation target: DOCUMENT_AWARE_ASSISTANT
 final target: GOVERNED_CLAIM_SESSION
-document fixture layer: VERIFIED_BOUNDED_FIXTURE_ONLY
-substantive document interpretation: NOT VERIFIED
-public private-document upload: DISABLED
-automated claim filing: NOT ACTIVE
+private document upload: DISABLED
+automated claim filing: DISABLED
 submission authority: VETERAN RETAINED
 authority effect: NONE
 ```
 
-The active public capability remains limited to the bounded public-source `evidence_requirement` route. Fixture validation, metadata-boundary execution, and derived-record custody do not establish substantive private-document interpretation or public document upload.
+## Session goal inventory
 
-## Governing product goals
+| Task ID | Goal | Destination | Claim state | Completion | Validation | Integration | Evidence / next action |
+|---|---|---|---|---|---|---|---|
+| SV-VA-GC-001 | Link the existing guide to a simpler tested workflow at the top of the page | `va-disability-claim-guide.html` | COMPLETE | Implemented | validator updated; hosted run pending | Linked to guided page and chat | commits `832eaed986a0551e50613b80e017fd96ef1604d3`, `783660e3865a886c11fc3f2a4963d967699c4086` |
+| SV-VA-GC-002 | Present each major access/download task as its own card/page section with a visible flow | `va-claims-guided-workflow.html` | COMPLETE | Six cards implemented | validator updated; browser execution pending | Linked from Guide and Chat | commit `8e631ff625af935d65bed3afc5657c641b2c33ee` |
+| SV-VA-GC-003 | Explain Login.gov, ID.me, VA.gov sign-in, and Blue Button in plain language | `va-claims-guided-workflow.html`, `va-claims-chat.html` | COMPLETE | Implemented with official links | static validator updated | shared card vocabulary | commits `8e631ff625af935d65bed3afc5657c641b2c33ee`, `15669e0bee12ef68e4d4a7fcdc236189600d3077` |
+| SV-VA-GC-004 | Allow Claims Chat to walk a veteran through cards when preferred | `va-claims-chat.html` | COMPLETE | Guided mode implemented | static validator updated; interaction test pending | query-string card entry and shared sequence | commit `15669e0bee12ef68e4d4a7fcdc236189600d3077` |
+| SV-VA-GC-005 | Prevent movement to the next card until current tasks are confirmed | Guided page and chat | COMPLETE | Page lock and chat confirmation gate implemented | source validation pending hosted observation | veteran confirmation retained | commits `8e631ff625af935d65bed3afc5657c641b2c33ee`, `15669e0bee12ef68e4d4a7fcdc236189600d3077` |
+| SV-VA-GC-006 | Keep the comprehensive reference guide separate from the guided experience | Guide, guided page, chat | COMPLETE | Three distinct surfaces | links statically validated | integrated navigation | all three surface commits above |
+| SV-VA-GC-007 | Add screenshots or purpose-built visual illustrations for key steps | `assets/va-claims-guided/` and card markup | UNCLAIMED | Missing | Not validated | Not integrated | create accessible, non-misleading visuals after current VA/Login.gov screens are verified |
+| SV-VA-GC-008 | Run browser interaction and mobile accessibility tests | test/workflow location to be installed under `scripts/` and `.github/workflows/` | UNCLAIMED | Missing | Not run | Not integrated | deterministic card-lock, resume, keyboard, screen-reader, and mobile checks |
+| SV-VA-GC-009 | Observe deployed public HTTP behavior | Site deployment observer | MACHINE_OWNED / BLOCKED | Repository commits present | deployment observation absent | public activation not proven | release condition: deployed bytes equal commits and three routes return expected content |
 
-The session now durably establishes four linked product surfaces:
+## Product surfaces
 
-1. `GOVERNED_VA_CLAIMS_GUIDE` — an evidence-grounded, current, source-cited workflow whose displayed guidance and capability state are governed by receipts.
-2. `GOVERNED_VA_CLAIMS_CHAT` — a conversational claim workspace for source-grounded answers, evidence organization, drafting, uncertainty tracking, and reconstructable sessions.
-3. `PRIVATE_CLAIM_DOCUMENT_WORKSPACE` — multi-file upload, indexing, page-bound retrieval, evidence tables, timelines, contradictions, missing evidence, privacy controls, export, custody, and reconstruction.
-4. `VETERAN_APPROVED_AUTOMATED_CLAIM_FILING` — a future staged path from admitted records to a veteran-reviewed package and authorized submission.
+1. `GOVERNED_VA_CLAIMS_GUIDE` — comprehensive reference page.
+2. `VETERAN_CONFIRMED_GUIDED_CARDS` — simpler card-by-card workflow with one goal, flow, links, checklist, and veteran confirmation per card.
+3. `GOVERNED_VA_CLAIMS_CHAT` — source-grounded question mode plus optional guided-card mode.
+4. `PRIVATE_CLAIM_DOCUMENT_WORKSPACE` — remains owned by Site#116 and is not activated by this work.
+5. `VETERAN_APPROVED_AUTOMATED_CLAIM_FILING` — future staged target under Site#113; inactive.
 
-The detailed requirements, stages, prohibited shortcuts, owners, and release conditions are authoritative in:
+## Guided workflow contract
 
 ```text
+Guide page != guided workflow
+Guided workflow != claim filing
+Chat explanation != card completion
+Generic "done" != confirmation of all required tasks
+Card completion requires veteran confirmation of every task
+Current-card help may explain, simplify, repeat, or troubleshoot
+Next card remains unavailable until current completion criteria pass
+Private credentials and one-time security codes must never be requested
+Medical records must not be posted publicly
+```
+
+Current card sequence:
+
+```text
+1. Get ready
+2. Choose Login.gov or ID.me
+3. Create or verify the secure account
+4. Sign in to VA.gov
+5. Download VA medical records / Blue Button records
+6. Preserve the original and continue to evidence gathering
+```
+
+## Existing verified chains retained
+
+```text
+Source-grounded answer chain: COMPLETE
+Bounded document-fixture chain: VERIFIED_BOUNDED_FIXTURE_ONLY
+Substantive private-document interpretation: NOT VERIFIED
+Public private-document upload: DISABLED
+Automated filing: DISABLED
+```
+
+Canonical prior evidence remains in:
+
+```text
+data/va-claim-assistant/activation-gates.json
 data/va-claim-assistant/governed-product-goals.json
-docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md
-```
-
-Automated filing must not mean autonomous filing from unreviewed uploads. The veteran retains control of material facts, claimed conditions, signature, authorization, and submission unless a separately valid delegation exists. Filing may activate only through an authorized VA or accredited-representative integration after exact-package authorization, current-rule preflight, consent, signature, custody, reconstruction, revocation, duplicate-prevention, and confirmation gates all verify.
-
-## Completed source-grounded chain
-
-```text
-LLM-adapter answer: StegVerse-org/LLM-adapter@c643d13e7950d3cb14f8850b2b5b791dedc62154
-TVC readiness: StegVerse-Labs/TVC@f5e4b911ce46d0b3d0e10e114b05def064102d43
-TVC invocation: StegVerse-Labs/TVC@0f0ecf2183e10d27a1d504bdeb30349fe7b3b806
-Master Records custody/reconstruction: master-records/orchestration@477a8aee2c68fbb47a25f9ba65f3300319f96977
-Site activation receipt: StegVerse-Labs/Site@314021b480289fe08e0fa0b2ca71254ae0564463
-public page HTTP 200: verified
-public endpoint HTTP 200: verified
-endpoint repository-byte equality: verified
-```
-
-## Completed bounded document-fixture chain
-
-```text
-Site document evidence receipt:
 data/va-claim-assistant/document-evidence-validation-receipt.json
-commit afcae5bba26b67da61ed542a58d11e7a2d761135
-state VERIFIED
-
-Site private runtime receipt:
 data/va-claim-assistant/private-document-runtime-receipt.json
-commit 14fcdd15f2916e60f03997ecd0c53f31416fd139
-assessment hash 87d25d28bcc8a3d8ff90d41e818a2fa07fe07b449a9c1eca4415e603b50f99e5
-public upload false
-raw documents published false
-
-TVC document readiness:
-StegVerse-Labs/TVC@835c85cba3f8283632098df7b3891d1bc369d3f3
-state READY
-hosted workflow observed false
-
-TVC metadata-boundary invocation:
-StegVerse-Labs/TVC@07bbf12b378ee6bdf5abfc929bb7281302f3abd1
-state EXECUTED_METADATA_BOUNDARY_ONLY
-raw interpretation observed false
-derived record emitted false
-
-Master Records derived-record custody:
-master-records/orchestration@5f8a4271b1a7cf590de3bcf4b3eaaa8370c2a804
-custody RECORDED
-reconstruction PASS
-raw documents received false
-raw documents retained false
-raw documents published false
 ```
 
-All receipts above distinguish independent deterministic reproduction from hosted workflow observation.
-
-## Gate state
+## Claims and convergence
 
 ```text
-VCA-GATE-01 source registry: VERIFIED
-VCA-GATE-02 answer provenance: VERIFIED
-VCA-GATE-03 TVC public-source capability: VERIFIED
-VCA-GATE-04 governed retrieval: VERIFIED
-VCA-GATE-05 document evidence: VERIFIED_BOUNDED_FIXTURE_ONLY
-VCA-GATE-06 public-source custody: VERIFIED
-VCA-GATE-07 public-source reconstruction: VERIFIED
-VCA-GATE-08 public status derivation: VERIFIED
-VCA-GATE-09 deployed bounded source-grounded session: VERIFIED
+Guide/Chat guided-card implementation: RELEASED_COMPLETE by this session
+Guide/Chat deterministic static validation: CLAIMED_FOR_VALIDATION by repository workflow
+Substantive document-aware implementation: CLAIMED_FOR_IMPLEMENTATION under Site#116
+Automated filing requirements: CLAIMED_FOR_REQUIREMENTS under Site#113
+Deployment observation: MACHINE_OWNED by Site deployment controls
 ```
 
-`VERIFIED_BOUNDED_FIXTURE_ONLY` is deliberately non-terminal. It does not satisfy `DOCUMENT_AWARE_ASSISTANT` or `GOVERNED_CLAIM_SESSION` activation rules.
+No work in this session modifies or competes with the Site#116 substantive-document execution lane.
 
-## Claims and transfer
+`MERGED INTO: StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`
+
+Transferred requirements:
+
+- novice-first language and prerequisite orientation;
+- separate comprehensive and guided experiences;
+- one card per goal with visible flow;
+- direct official links for Login.gov, ID.me, VA.gov, and medical-record download;
+- Claims Chat walkthrough mode;
+- explicit veteran confirmation before card transition;
+- persistent resume point in the browser;
+- credential and sensitive-record warnings;
+- future screenshot/illustration and accessibility test obligations.
+
+## Validation and automation
 
 ```text
-Source-grounded Site integration: RELEASED_COMPLETE
-TVC document readiness and metadata boundary: RELEASED_COMPLETE
-Master Records fixture-derived custody: RELEASED_COMPLETE
-Site#116 substantive document-aware implementation: CLAIMED_FOR_IMPLEMENTATION
-Guide and Chat product-goal validation: MACHINE_OWNED
-Automated filing integration contract: CLAIMED_FOR_REQUIREMENTS under Site#113
+Validator: scripts/validate_va_claims_guide_surface.py
+Receipt: data/va-claim-assistant/guide-surface-validation.json
+Existing workflow: .github/workflows/va-governed-product-goals.yml and/or current VA guide validation workflow
+Static validator commit: 783660e3865a886c11fc3f2a4963d967699c4086
+Hosted workflow result for this change set: NOT YET OBSERVED
+Browser interaction result: NOT YET OBSERVED
+Deployment result: NOT YET OBSERVED
 ```
 
-`MERGED INTO: StegVerse-Labs/Site#116`
+The validator now checks all three surfaces, six-card coverage, official links, the page-level next-card lock, the chat confirmation boundary, credential warnings, and inactive upload/filing controls.
 
-Transferred document scope:
+## Exact remaining tasks
 
-- admitted substantive document-content interpretation;
-- deployed bounded runtime evidence;
-- derived-record custody/reconstruction for that substantive execution;
-- promotion of `VCA-GATE-05` from `VERIFIED_BOUNDED_FIXTURE_ONLY` to `VERIFIED` only after those conditions pass.
+1. Add current, accessible step illustrations or screenshots under `assets/va-claims-guided/`, with source date and non-authority labels.
+2. Add deterministic browser tests for checkbox gating, back navigation, resume state, chat guided entry, generic `done` rejection, and explicit completion transition.
+3. Add mobile and accessibility checks for keyboard operation, visible focus, labels, readable diagrams, and screen-reader order.
+4. Observe the repository workflow for commit `783660e3865a886c11fc3f2a4963d967699c4086`; inspect jobs, logs, and receipt artifact.
+5. Observe deployed routes for `va-disability-claim-guide.html`, `va-claims-guided-workflow.html`, and `va-claims-chat.html`; verify repository-byte equality where available.
+6. Preserve Site#116 as the sole owner of substantive private-document interpretation and derived-record custody.
+7. Keep automated filing inactive until the exact-package, signature, authorized transport, confirmation, custody, reconstruction, revocation, retry, and duplicate-prevention gates verify.
 
-`MERGED INTO: StegVerse-Labs/Site#113`
+## Archive conditions
 
-Transferred product scope:
+This session's unique requirements are now durably transferred to this handoff and installed in production files. The session may be archived once validation/deployment observation is assigned to an active durable machine owner without relying on undocumented chat state. Current repository workflows and this handoff contain the continuation requirements; the remaining work does not require the conversation text.
 
-- governed Guide and Chat public capability projection;
-- staged filing integration contract;
-- identity, consent, signature, package preflight, exact-package authorization, submission, confirmation, revocation, retry, and duplicate-prevention gates;
-- machine-derived status that must not present future upload or filing capabilities as active.
-
-## Remaining exact tasks
-
-1. `StegVerse-Labs/Site#113`: project the governed Guide and Chat roadmap on `va-disability-claim-guide.html` without representing future upload or filing as active.
-2. `StegVerse-Labs/Site#116`: execute admitted substantive document content through a governed runtime rather than fixture metadata alone.
-3. `StegVerse-Labs/Site#116`: emit an execution receipt proving page-bound facts, separated inference, contradiction handling, missing-evidence handling, privacy state, and false authority flags.
-4. `master-records/orchestration`: accept only the substantive derived record and produce custody `RECORDED` and reconstruction `PASS`; raw documents must remain absent.
-5. `StegVerse-Labs/Site#116`: promote `VCA-GATE-05` to `VERIFIED` only after the substantive execution and custody chain passes.
-6. `StegVerse-org/LLM-adapter`: expand the governed VA Chat beyond the current bounded route while unsupported routes remain fail-closed.
-7. `StegVerse-Labs/Site#113`: define and validate the future filing integration contract before any automated submission implementation is activated.
-8. `StegVerse-org/LLM-adapter#18` and `StegVerse-Labs/Site#24`: complete Ecosystem Chat zero-blocker runtime and public activation.
-
-## Machine-owned continuation
+## Completion measures
 
 ```text
-Product goal validator: .github/workflows/va-governed-product-goals.yml
-Source-grounded observer: .github/workflows/va-claim-assistant-activation.yml
-Document evidence workflow: .github/workflows/va-document-evidence.yml
-Private fixture runtime: .github/workflows/va-private-document-runtime.yml
-Cross-repository observer: StegVerse-Labs/StegOps-Orchestrator/.github/workflows/va-claim-assistant-observer.yml
-```
-
-Hosted workflow observation remains supplemental where an independently reproducible deterministic receipt has already been committed; it must not be misrepresented as observed when absent.
-
-## Authority and archive boundary
-
-No guide, chat, document, drafting, or filing-planning receipt grants adjudication, representation, legal opinion, medical opinion, rating, signature, claim submission, publication, or public activation authority. A handoff alone is not transfer. Transfer requires a named executor, mutation authority, exact surfaces, accepted scope, active evidence, and a durable transfer record.
-
-The product goal contract and validator preserve the new session requirements. They do not activate private document upload or automated filing.
-
-This session now contains unique active requirements for the governed Guide, governed Chat, and staged automated filing path, and remains non-archivable until those requirements are implemented or fully transferred with active evidence.
-
-## Percentages
-
-```text
-source-grounded milestone: 100 percent
-bounded document-fixture chain: 100 percent
-governed product goal contract: implemented, hosted receipt pending
-substantive document-aware activation: incomplete
-automated filing activation: future target, inactive
-session consolidation: all current requirements durable; implementation remains with Site#113, Site#116, LLM-adapter, TVC, and Master Records
+task completion: 6/9
+required developed files for current guided-card milestone: 4/4
+scaffolding or stubs in current milestone: 0
+missing adjacent required components: 2 (visual assets; browser/accessibility tests)
+static validation implementation: 1/1
+hosted validation observation: 0/1
+integration among Guide/Guided/Chat: 3/3
+public deployment observation: 0/3 routes
+session requirement transfer: 9/9
 ```
