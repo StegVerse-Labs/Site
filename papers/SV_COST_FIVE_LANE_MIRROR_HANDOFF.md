@@ -66,6 +66,8 @@ The result measures one bounded deterministic reconstruction operation. It does 
 
 Provider costs use retained token usage and a versioned declared price card; they are not invoice-reconciled charges. The StegVerse-only value combines measured runtime and output size with declared local runner and storage rates.
 
+The broader SV-COST program is terminal under `GCAT-BCAT-Engine/workflows/SV_COST_MIRROR_HANDOFF.md`. A favorable or general ROI revision is owned only by `GCAT-BCAT-Engine/workflows#13` and requires fully burdened local-cost sources, invoice reconciliation, successful held-out equivalence, and break-even analysis. This bounded publication does not satisfy or bypass those requirements.
+
 ## Completed repository work
 
 - Replaced the methodology-only Site page with the validated five-lane results.
@@ -75,18 +77,33 @@ Provider costs use retained token usage and a versioned declared price card; the
 - Updated `Papers.html` to feature the validated five-lane results.
 - Confirmed repository `CNAME` contains `stegverse.org`.
 - Confirmed the authorized GitHub Pages deployment route is `Site Bootstrap Validate` followed by exact-SHA `Site Task Runner`, which uses `actions/deploy-pages@v4`.
+- Created durable validation issue `StegVerse-Labs/Site#173` for terminal public-body observation and closure.
 
-## Fresh public observation — 2026-08-04 11:13 UTC
+## Fresh public observation — 2026-08-04
 
-The public `https://stegverse.org/Papers.html` response now serves the five-lane featured publication. It contains the title `Five-Lane Cost Results for Reconstructable Governance`, identifies all five compared lanes, states that all five produced the same normalized admissible outcome, reports the observed Anthropic governed-pair reduction of 33.22%, identifies StegVerse-only as the lowest-cost lane for this bounded reconstruction operation, and preserves the boundary against universal provider economics, fresh-inference equivalence, enterprise-wide savings, and company ROI.
+The public `https://stegverse.org/Papers.html` response serves the five-lane featured publication. It contains the title `Five-Lane Cost Results for Reconstructable Governance`, identifies all five compared lanes, states that all five produced the same normalized admissible outcome, reports the observed Anthropic governed-pair reduction of 33.22%, identifies StegVerse-only as the lowest-cost lane for this bounded reconstruction operation, and preserves the boundary against universal provider economics, fresh-inference equivalence, enterprise-wide savings, and company ROI.
 
-The public index links to `https://stegverse.org/papers/sv-cost-relational-analysis.html`. The independent fetch path returned a cache-miss error for the linked paper during this observation, so exact body-marker verification of the paper itself remains pending even though the public index and repository projection now agree.
+The public index links to `https://stegverse.org/papers/sv-cost-relational-analysis.html`. Independent retrieval of the linked body returned a cache-miss response. A second execution environment could not resolve the domain; that environment failure is not evidence that the public page is unavailable. Exact body-marker verification therefore remains fail-closed and pending under issue `#173`.
 
 No result, cost, hash, or claim was altered in this handoff update.
 
+## Active claims
+
+- Task ID: `SV-COST-FIVE-LANE-PUBLIC-BODY-VERIFY-001`
+- Originating goal: complete and consolidate the bounded five-lane publication workflow.
+- Repository/branch: `StegVerse-Labs/Site@main`
+- Surface: `papers/sv-cost-relational-analysis.html`
+- Claimant: Site deployment/public-observation lane
+- Role: `CLAIMED_FOR_VALIDATION`
+- Claim created: `2026-08-04T16:13:13Z`
+- Durable task: `StegVerse-Labs/Site#173`
+- Release condition: direct HTTP 200 public retrieval plus all required marker checks, with the result committed here; alternatively, exact deployed-artifact evidence followed by public accessibility confirmation.
+- Collision boundary: do not alter canonical lane values, hashes, task identity, pricing status, or broaden the claim.
+- Next task after release: close issue `#173`, mark `public_paper_body_verification: PASS`, and release this claim.
+
 ## Required terminal verification
 
-Verify the linked public paper body when an independent fetch succeeds:
+Verify the linked public paper body:
 
 ```text
 https://stegverse.org/papers/sv-cost-relational-analysis.html
@@ -103,6 +120,16 @@ Anthropic governed: $0.007116
 StegVerse-only: $0.000000002885
 ```
 
+Validation owner and receipt location: `StegVerse-Labs/Site#173` and this handoff.
+
+## Session consolidation
+
+Original session goal, adjacent publication requirements, exact results, claim limits, repository locations, deployment route, public-index observation, unresolved public-body verification, owner, release condition, and next executable action are now durably transferred.
+
+MERGED INTO: `StegVerse-Labs/Site/papers/SV_COST_FIVE_LANE_MIRROR_HANDOFF.md` and `StegVerse-Labs/Site#173`.
+
+The chat no longer owns unique implementation authority. Repository-native continuation owns the remaining validation task.
+
 ## Completion state
 
 ```text
@@ -112,7 +139,21 @@ site_source_projection: COMPLETE
 site_source_verification: PASS
 papers_index_update: COMPLETE
 hosting_route_resolution: GITHUB_PAGES
-public_papers_index_verification: PASS_2026-08-04T11:13Z
+public_papers_index_verification: PASS_2026-08-04
 public_paper_link_projection: PRESENT
-public_paper_body_verification: PENDING_INDEPENDENT_FETCH
+public_paper_body_verification: BLOCKED_RETRY_ISSUE_173
+session_specific_state_transfer: COMPLETE
 ```
+
+## Percentages
+
+Denominator: 8 publication deliverables.
+
+- Task completion: 7/8; terminal public-body verification is owned by issue `#173`.
+- Developed files: 4/4.
+- Validation: 5/6.
+- Integration: 4/4.
+- Propagation: 3/4; public index is verified, direct paper body remains unverified.
+- Goal activation: 7/8.
+- Session consolidation: 4/4.
+- Archival readiness: complete for this chat because the sole remaining task has a durable owner, collision boundary, release condition, and repository-native continuation path.
