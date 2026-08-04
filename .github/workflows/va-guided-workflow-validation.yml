@@ -1,0 +1,47 @@
+name: VA Guided Workflow Validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'va-disability-claim-guide.html'
+      - 'va-claims-guided-workflow.html'
+      - 'va-claims-chat.html'
+      - 'scripts/validate_va_claims_guide_surface.py'
+      - 'scripts/test_va_guided_workflow_contract.py'
+      - '.github/workflows/va-guided-workflow-validation.yml'
+  pull_request:
+    paths:
+      - 'va-disability-claim-guide.html'
+      - 'va-claims-guided-workflow.html'
+      - 'va-claims-chat.html'
+      - 'scripts/validate_va_claims_guide_surface.py'
+      - 'scripts/test_va_guided_workflow_contract.py'
+      - '.github/workflows/va-guided-workflow-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate Guide, Guided Workflow, and Claims Chat
+        run: python scripts/validate_va_claims_guide_surface.py
+      - name: Validate interaction and accessibility contract
+        run: python scripts/test_va_guided_workflow_contract.py
+      - name: Upload deterministic receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: va-guided-workflow-validation-receipts
+          path: |
+            data/va-claim-assistant/guide-surface-validation.json
+            data/va-claim-assistant/guided-workflow-contract-validation.json
+          if-no-files-found: error
