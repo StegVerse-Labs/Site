@@ -2,17 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>StegVerse Cost and Capability Analysis</title>
 <meta name="description" content="A lineage-backed relational analysis of historical reproduction, provider routing, managed context, reconstruction economics, and reliability in StegVerse."/>
 <style>
 :root{--bg:#07111f;--panel:#0f1b2d;--text:#edf6ff;--muted:#a8b8cc;--line:rgba(255,255,255,.14);--accent:#6ee7ff;--good:#59f59b;--warn:#ffd166;--bad:#ff8f8f}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}a{color:var(--accent)}
-.wrap{width:min(980px,calc(100% - 32px));margin:0 auto;padding:28px 0}.top{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}.brand{font-weight:900;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--text)}
+*{box-sizing:border-box}
+html{overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-width:0;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+a{color:var(--accent);overflow-wrap:anywhere}
+.wrap{width:min(980px,calc(100% - 32px));max-width:100%;margin:0 auto;padding:28px 0}
+.top{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:18px}
+.brand{font-weight:900;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--text)}
 .badges{display:flex;gap:8px;flex-wrap:wrap}.badge{border:1px solid var(--accent);border-radius:999px;padding:5px 10px;font-size:.75rem;font-weight:850;color:var(--accent)}.badge.featured{border-color:var(--good);color:var(--good)}
-h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1.03;margin:.65em 0 .3em}.lead{font-size:1.2rem;color:var(--muted);max-width:820px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin:20px 0}.decision{border-color:var(--warn)}
-h2{margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.metric{border:1px solid var(--line);border-radius:15px;padding:16px;background:rgba(255,255,255,.035)}.metric strong{display:block;font-size:1.3rem}.muted{color:var(--muted)}
-table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--accent)}code{background:rgba(0,0,0,.3);padding:.12em .35em;border-radius:5px}ul{padding-left:1.2rem}.boundary{border-left:4px solid var(--warn);padding-left:16px}.source{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84rem;word-break:break-word;color:var(--muted)}footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);padding:30px 0 10px;margin-top:30px}
+h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1.03;margin:.65em 0 .3em;overflow-wrap:anywhere}
+.lead{font-size:1.2rem;color:var(--muted);max-width:820px}
+.card{min-width:0;max-width:100%;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin:20px 0}
+.decision{border-color:var(--warn)}
+h2,h3{overflow-wrap:anywhere}.card>h2{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px}
+.metric{min-width:0;border:1px solid var(--line);border-radius:15px;padding:16px;background:rgba(255,255,255,.035)}.metric strong{display:block;font-size:1.3rem}.muted{color:var(--muted)}
+table{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-collapse:collapse;margin:12px 0;white-space:normal;scrollbar-width:thin}
+thead,tbody{display:table;width:100%;min-width:620px;table-layout:auto}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:break-word;word-break:normal}
+th{color:var(--accent)}
+code{display:inline;max-width:100%;background:rgba(0,0,0,.3);padding:.12em .35em;border-radius:5px;white-space:normal;overflow-wrap:anywhere;word-break:break-word}
+ul,ol{padding-left:1.2rem}.boundary{border-left:4px solid var(--warn);padding-left:16px;overflow-wrap:anywhere}.source{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84rem;overflow-wrap:anywhere;word-break:break-word;color:var(--muted)}footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);padding:30px 0 10px;margin-top:30px}
+@media (max-width:640px){
+  .wrap{width:100%;padding:18px 14px calc(24px + env(safe-area-inset-bottom))}
+  .top{gap:12px;padding-bottom:14px}
+  h1{font-size:clamp(2rem,12vw,3rem);line-height:1.08}
+  h2{font-size:clamp(1.45rem,7vw,2rem);line-height:1.22}
+  h3{font-size:1.2rem}
+  .lead{font-size:1.05rem;line-height:1.55}
+  .card{border-radius:16px;padding:18px 16px;margin:16px 0}
+  .grid{grid-template-columns:1fr}
+  .metric{padding:14px}
+  table{margin:10px 0;font-size:.9rem;border:1px solid var(--line);border-radius:10px}
+  thead,tbody{min-width:560px}
+  th,td{padding:9px 10px;line-height:1.42}
+  .boundary{padding-left:12px}
+  .source{font-size:.76rem}
+}
+@media (max-width:390px){
+  .wrap{padding-left:10px;padding-right:10px}
+  .card{padding:16px 12px}
+  h1{font-size:2rem}
+  thead,tbody{min-width:520px}
+}
 </style>
 </head>
 <body>
@@ -20,110 +57,16 @@ table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:10px;borde
 <div class="top"><a class="brand" href="../index.html">StegVerse</a><div class="badges"><span class="badge featured">FEATURED PAPER</span><span class="badge">DECISION READY</span><span class="badge">BOUNDED CLAIMS</span></div></div>
 <h1>StegVerse Cost and Capability Analysis</h1>
 <p class="lead">A lineage-backed relational test program covering historical reproduction, direct versus native batch routing, full versus StegVerse-managed context, fresh generation versus governed reconstruction, and repeated-trial reliability.</p>
-
-<section class="card decision">
-<h2>Decision</h2>
-<p><strong>Do not approve a general StegVerse savings claim from the current evidence.</strong></p>
-<p class="muted">The program is decision-ready because it supports a bounded decision, not because it proves a favorable return on investment.</p>
-</section>
-
-<section class="card">
-<h2>What the evidence establishes</h2>
-<div class="grid">
-<div class="metric"><strong>Historical envelope reproduced</strong><span class="muted">The retained baseline was reproduced within a narrow token and pricing-derived cost range, with an explicit reconstruction boundary.</span></div>
-<div class="metric"><strong>Native batch route observed</strong><span class="muted">A real provider-native batch route was executed, but successful quality-equivalent savings were not established.</span></div>
-<div class="metric"><strong>Managed context reduced input tokens</strong><span class="muted">In the locked R3 workload, managed context reduced mean input tokens substantially, but neither lane produced successful outputs under the complete gate.</span></div>
-<div class="metric"><strong>Reconstruction can avoid a new provider call</strong><span class="muted">For already admitted work, governed reconstruction can avoid fresh external generation. It is a different operation, and net savings remain unproven.</span></div>
-</div>
-</section>
-
-<section class="card">
-<h2>R1 — Historical control-envelope reproduction</h2>
-<table><thead><tr><th>Measure</th><th>Historical BL-001</th><th>Repeat</th><th>Difference</th></tr></thead><tbody>
-<tr><td>Native tokens</td><td>4,169</td><td>4,239</td><td>+70 / +1.68%</td></tr>
-<tr><td>Pricing-derived cost</td><td>$0.061659</td><td>$0.061869</td><td>+$0.000210 / +0.34%</td></tr>
-<tr><td>Latency</td><td>~52.5 s</td><td>59.59 s</td><td>+7.09 s</td></tr>
-</tbody></table>
-<p><strong>Verdict:</strong> <code>OBSERVED_AND_VALIDATED_WITH_RECONSTRUCTION_BOUNDARY</code>.</p>
-<p class="boundary">The exact historical prompt and request payload were not retained. OP-002 remains an accounting replay rather than an observed historical optimized-route execution.</p>
-</section>
-
-<section class="card">
-<h2>R2 — Direct synchronous versus native provider batch</h2>
-<table><thead><tr><th>Measure</th><th>Direct</th><th>Batch</th></tr></thead><tbody>
-<tr><td>Paired trials</td><td>10</td><td>10</td></tr>
-<tr><td>Mean tokens</td><td>4,239</td><td>4,239</td></tr>
-<tr><td>Mean pricing-derived cost</td><td>$0.061869</td><td>$0.0309345</td></tr>
-<tr><td>Mean latency</td><td>64.63 s</td><td>181.95 s</td></tr>
-<tr><td>Completion rate</td><td>0%</td><td>0%</td></tr>
-<tr><td>Verifier pass rate</td><td>0%</td><td>10%</td></tr>
-</tbody></table>
-<p><strong>Verdict:</strong> <code>ROUTE_EFFECT_NOT_ADMISSIBLE_DUE_TO_QUALITY_OR_COMPLETION_DIVERGENCE</code>.</p>
-<p class="boundary">The route-price effect was observed, but the 50% price-card difference is not an admissible successful-output savings claim.</p>
-</section>
-
-<section class="card">
-<h2>R3 — Full context versus StegVerse-managed context</h2>
-<table><thead><tr><th>Measure</th><th>Full context</th><th>Managed context</th></tr></thead><tbody>
-<tr><td>Mean input tokens</td><td>19,238.2</td><td>4,938.4</td></tr>
-<tr><td>Mean output tokens</td><td>7,337.2</td><td>7,707.0</td></tr>
-<tr><td>Mean pricing-derived cost</td><td>$0.167773</td><td>$0.130420</td></tr>
-<tr><td>Mean latency</td><td>122.55 s</td><td>128.29 s</td></tr>
-<tr><td>Full-path completion rate</td><td>40%</td><td>60%</td></tr>
-<tr><td>Successful-output rate</td><td>0%</td><td>0%</td></tr>
-</tbody></table>
-<ul>
-<li>Mean managed-minus-full input-token delta: <strong>-14,299.8</strong>.</li>
-<li>Input-token 95% confidence interval: <strong>[-28,320.89, -278.71]</strong>.</li>
-<li>Mean pricing-derived cost delta: <strong>-$0.037352</strong>.</li>
-<li>Cost 95% confidence interval: <strong>[-$0.135946, $0.061241]</strong>.</li>
-</ul>
-<p><strong>Verdict:</strong> <code>CONTEXT_EFFECT_NOT_ADMISSIBLE_DUE_TO_QUALITY_OR_COMPLETION_DIVERGENCE</code>.</p>
-<p class="boundary">Managed context reduced observed input tokens in this workload, but neither lane produced successful outputs under the complete verifier gate. The cost interval crosses zero, quality diverged, and price-card calculations are not invoices.</p>
-</section>
-
-<section class="card">
-<h2>R4 — Fresh generation versus governed reconstruction</h2>
-<p><strong>Verdict:</strong> <code>EXTERNAL_PROVIDER_GENERATION_CAN_BE_AVOIDED_FOR_ALREADY_ADMITTED_WORK_NET_SAVINGS_UNPROVEN</code>.</p>
-<p>Reconstruction of already admitted work can avoid a new external provider-generation charge. The retained avoidance scenarios were $0.03881 versus the OpenAI generation and $0.02295 versus the Anthropic generation.</p>
-<p class="boundary">Reconstruction is not equivalent fresh inference. Net savings and fully burdened ROI remain unproven because StegVerse compute, storage, verification, engineering, and maintenance costs have not been measured.</p>
-</section>
-
-<section class="card">
-<h2>R5 — Reliability</h2>
-<p>The program retains <strong>15 paired trials</strong> across R2 and R3. These relations estimate different causal effects and are not pooled into one savings percentage. Failures, retries, confidence intervals, and quality gates remain part of the result.</p>
-</section>
-
-<section class="card">
-<h2>CFO findings</h2>
-<ul>
-<li>Historical control envelope reproduced: <strong>yes</strong>.</li>
-<li>Successful route savings established: <strong>no</strong>.</li>
-<li>Successful managed-context savings established: <strong>no</strong>.</li>
-<li>External provider charge avoidance for admitted reconstruction established: <strong>yes</strong>.</li>
-<li>Net reconstruction savings established: <strong>no</strong>.</li>
-</ul>
-<h3>Required before favorable ROI approval</h3>
-<ol>
-<li>Measure StegVerse compute, storage, verification, engineering, and maintenance cost.</li>
-<li>Reconcile pricing-derived provider costs to invoices.</li>
-<li>Execute a successful quality-equivalent held-out context-management test.</li>
-<li>Calculate workload-weighted break-even and sensitivity ranges.</li>
-</ol>
-<p>Durable evidence owner: <a href="https://github.com/GCAT-BCAT-Engine/workflows/issues/13">GCAT-BCAT-Engine/workflows issue #13</a>.</p>
-</section>
-
-<section class="card">
-<h2>Audit and source record</h2>
-<p>This Site paper is a public projection of the canonical analysis in <a href="https://github.com/GCAT-BCAT-Engine/workflows/blob/main/docs/SV_COST_MAJOR_ANALYSIS.md">GCAT-BCAT-Engine/workflows</a>. The canonical repository retains the evidence index, lineage, relation matrix, adjudication receipts, CFO decision, workflow runs, hashes, and immutable artifacts.</p>
-<p class="source">Canonical program: SV-COST-MAJOR-GOAL-001<br/>Terminal issue: GCAT-BCAT-Engine/workflows#12<br/>R3 run: 30829852891<br/>R3 immutable artifact: 8863128197<br/>R3 artifact digest: sha256:8591f70a40d1765d15fb45902d22643f5189d777126ca45d18e941d1b38e7912</p>
-</section>
-
-<section class="card boundary">
-<h2>Publication boundary</h2>
-<p>Publication on Site is a display action. It does not create execution, custody, validation, release, or financial authority. This paper does not support a favorable general StegVerse savings or ROI claim and must not be summarized as one.</p>
-</section>
-
+<section class="card decision"><h2>Decision</h2><p><strong>Do not approve a general StegVerse savings claim from the current evidence.</strong></p><p class="muted">The program is decision-ready because it supports a bounded decision, not because it proves a favorable return on investment.</p></section>
+<section class="card"><h2>What the evidence establishes</h2><div class="grid"><div class="metric"><strong>Historical envelope reproduced</strong><span class="muted">The retained baseline was reproduced within a narrow token and pricing-derived cost range, with an explicit reconstruction boundary.</span></div><div class="metric"><strong>Native batch route observed</strong><span class="muted">A real provider-native batch route was executed, but successful quality-equivalent savings were not established.</span></div><div class="metric"><strong>Managed context reduced input tokens</strong><span class="muted">In the locked R3 workload, managed context reduced mean input tokens substantially, but neither lane produced successful outputs under the complete gate.</span></div><div class="metric"><strong>Reconstruction can avoid a new provider call</strong><span class="muted">For already admitted work, governed reconstruction can avoid fresh external generation. It is a different operation, and net savings remain unproven.</span></div></div></section>
+<section class="card"><h2>R1 — Historical control-envelope reproduction</h2><table><thead><tr><th>Measure</th><th>Historical BL-001</th><th>Repeat</th><th>Difference</th></tr></thead><tbody><tr><td>Native tokens</td><td>4,169</td><td>4,239</td><td>+70 / +1.68%</td></tr><tr><td>Pricing-derived cost</td><td>$0.061659</td><td>$0.061869</td><td>+$0.000210 / +0.34%</td></tr><tr><td>Latency</td><td>~52.5 s</td><td>59.59 s</td><td>+7.09 s</td></tr></tbody></table><p><strong>Verdict:</strong> <code>OBSERVED_AND_VALIDATED_WITH_RECONSTRUCTION_BOUNDARY</code>.</p><p class="boundary">The exact historical prompt and request payload were not retained. OP-002 remains an accounting replay rather than an observed historical optimized-route execution.</p></section>
+<section class="card"><h2>R2 — Direct synchronous versus native provider batch</h2><table><thead><tr><th>Measure</th><th>Direct</th><th>Batch</th></tr></thead><tbody><tr><td>Paired trials</td><td>10</td><td>10</td></tr><tr><td>Mean tokens</td><td>4,239</td><td>4,239</td></tr><tr><td>Mean pricing-derived cost</td><td>$0.061869</td><td>$0.0309345</td></tr><tr><td>Mean latency</td><td>64.63 s</td><td>181.95 s</td></tr><tr><td>Completion rate</td><td>0%</td><td>0%</td></tr><tr><td>Verifier pass rate</td><td>0%</td><td>10%</td></tr></tbody></table><p><strong>Verdict:</strong> <code>ROUTE_EFFECT_NOT_ADMISSIBLE_DUE_TO_QUALITY_OR_COMPLETION_DIVERGENCE</code>.</p><p class="boundary">The route-price effect was observed, but the 50% price-card difference is not an admissible successful-output savings claim.</p></section>
+<section class="card"><h2>R3 — Full context versus StegVerse-managed context</h2><table><thead><tr><th>Measure</th><th>Full context</th><th>Managed context</th></tr></thead><tbody><tr><td>Mean input tokens</td><td>19,238.2</td><td>4,938.4</td></tr><tr><td>Mean output tokens</td><td>7,337.2</td><td>7,707.0</td></tr><tr><td>Mean pricing-derived cost</td><td>$0.167773</td><td>$0.130420</td></tr><tr><td>Mean latency</td><td>122.55 s</td><td>128.29 s</td></tr><tr><td>Full-path completion rate</td><td>40%</td><td>60%</td></tr><tr><td>Successful-output rate</td><td>0%</td><td>0%</td></tr></tbody></table><ul><li>Mean managed-minus-full input-token delta: <strong>-14,299.8</strong>.</li><li>Input-token 95% confidence interval: <strong>[-28,320.89, -278.71]</strong>.</li><li>Mean pricing-derived cost delta: <strong>-$0.037352</strong>.</li><li>Cost 95% confidence interval: <strong>[-$0.135946, $0.061241]</strong>.</li></ul><p><strong>Verdict:</strong> <code>CONTEXT_EFFECT_NOT_ADMISSIBLE_DUE_TO_QUALITY_OR_COMPLETION_DIVERGENCE</code>.</p><p class="boundary">Managed context reduced observed input tokens in this workload, but neither lane produced successful outputs under the complete verifier gate. The cost interval crosses zero, quality diverged, and price-card calculations are not invoices.</p></section>
+<section class="card"><h2>R4 — Fresh generation versus governed reconstruction</h2><p><strong>Verdict:</strong> <code>EXTERNAL_PROVIDER_GENERATION_CAN_BE_AVOIDED_FOR_ALREADY_ADMITTED_WORK_NET_SAVINGS_UNPROVEN</code>.</p><p>Reconstruction of already admitted work can avoid a new external provider-generation charge. The retained avoidance scenarios were $0.03881 versus the OpenAI generation and $0.02295 versus the Anthropic generation.</p><p class="boundary">Reconstruction is not equivalent fresh inference. Net savings and fully burdened ROI remain unproven because StegVerse compute, storage, verification, engineering, and maintenance costs have not been measured.</p></section>
+<section class="card"><h2>R5 — Reliability</h2><p>The program retains <strong>15 paired trials</strong> across R2 and R3. These relations estimate different causal effects and are not pooled into one savings percentage. Failures, retries, confidence intervals, and quality gates remain part of the result.</p></section>
+<section class="card"><h2>CFO findings</h2><ul><li>Historical control envelope reproduced: <strong>yes</strong>.</li><li>Successful route savings established: <strong>no</strong>.</li><li>Successful managed-context savings established: <strong>no</strong>.</li><li>External provider charge avoidance for admitted reconstruction established: <strong>yes</strong>.</li><li>Net reconstruction savings established: <strong>no</strong>.</li></ul><h3>Required before favorable ROI approval</h3><ol><li>Measure StegVerse compute, storage, verification, engineering, and maintenance cost.</li><li>Reconcile pricing-derived provider costs to invoices.</li><li>Execute a successful quality-equivalent held-out context-management test.</li><li>Calculate workload-weighted break-even and sensitivity ranges.</li></ol><p>Durable evidence owner: <a href="https://github.com/GCAT-BCAT-Engine/workflows/issues/13">GCAT-BCAT-Engine/workflows issue #13</a>.</p></section>
+<section class="card"><h2>Audit and source record</h2><p>This Site paper is a public projection of the canonical analysis in <a href="https://github.com/GCAT-BCAT-Engine/workflows/blob/main/docs/SV_COST_MAJOR_ANALYSIS.md">GCAT-BCAT-Engine/workflows</a>. The canonical repository retains the evidence index, lineage, relation matrix, adjudication receipts, CFO decision, workflow runs, hashes, and immutable artifacts.</p><p class="source">Canonical program: SV-COST-MAJOR-GOAL-001<br/>Terminal issue: GCAT-BCAT-Engine/workflows#12<br/>R3 run: 30829852891<br/>R3 immutable artifact: 8863128197<br/>R3 artifact digest: sha256:8591f70a40d1765d15fb45902d22643f5189d777126ca45d18e941d1b38e7912</p></section>
+<section class="card boundary"><h2>Publication boundary</h2><p>Publication on Site is a display action. It does not create execution, custody, validation, release, or financial authority. This paper does not support a favorable general StegVerse savings or ROI claim and must not be summarized as one.</p></section>
 <footer><a href="../Papers.html">Back to StegVerse Papers</a><br/>StegVerse · Featured bounded research publication</footer>
 </main>
 </body>
