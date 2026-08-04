@@ -71,6 +71,27 @@ Provider costs are computed from retained token usage using a versioned declared
 - Preserved mobile-safe tables, long-hash wrapping, and bounded-claim callouts.
 - Verified repository source contains all five exact lane values, the shared outcome hash, and the publication boundary.
 - Preserved links to the canonical machine-readable result and Publisher source.
+- Observed the connected Vercel `site` project production deployment in `READY` state.
+
+## Deployment observation — 2026-08-04
+
+Connected Vercel state:
+
+```text
+team: Rigel Randolph's projects
+project: site
+project_id: prj_xHOgZyCUzb37Zs7gyYVPCMb2OIl8
+latest_production_deployment: dpl_GWWbaGUH8ZxkZ5Nhi1yHWiDn7dTZ
+deployment_url: site-gnz5w6cue-rigel-randolphs-projects.vercel.app
+deployment_state: READY
+project_live_flag: false
+configured_project_domains:
+  - site-rigel-randolphs-projects.vercel.app
+  - site-stegverse-rigel-randolphs-projects.vercel.app
+custom_domain_stegverse_org_attached_to_this_project: false
+```
+
+The deployment endpoint is protected by Vercel authentication. The custom domain `stegverse.org` is not listed among the connected Vercel project domains. Therefore the custom-domain page cannot be treated as verified from the Vercel production state alone.
 
 ## Remaining work
 
@@ -78,11 +99,12 @@ Destination `StegVerse-Labs/Site`:
 
 ```text
 Update Papers.html featured title and description after the active index owner admits the change.
-Observe the custom-domain deployment serving Site commit 9d4205f665956a01ea82e35abd098ecb9e814656.
+Resolve or document which deployment service currently owns stegverse.org.
+Attach or map stegverse.org to the intended current Site production deployment where authorized.
 Verify https://stegverse.org/papers/sv-cost-relational-analysis.html contains the five-lane title and exact results.
 ```
 
-The current environment could not independently retrieve the custom-domain page; public verification therefore remains fail-closed rather than inferred from the committed source.
+Public custom-domain verification remains fail-closed rather than inferred from committed source or a protected Vercel deployment.
 
 ## Completion state
 
@@ -90,6 +112,8 @@ The current environment could not independently retrieve the custom-domain page;
 publisher_source: COMPLETE
 site_source_projection: COMPLETE
 site_source_verification: PASS
+vercel_production_deployment: READY
+vercel_custom_domain_mapping: NOT_PRESENT
 papers_index_update: PENDING_ACTIVE_OWNER_ADMISSION
-public_custom_domain_verification: PENDING_DEPLOYMENT_OBSERVATION
+public_custom_domain_verification: PENDING_DOMAIN_OWNER_RESOLUTION
 ```
