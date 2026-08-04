@@ -4,14 +4,17 @@
   "automated_filing_enabled": false,
   "capability_state": "SOURCE_GROUNDED_ACTIVE",
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
-  "errors": [],
+  "errors": [
+    "veteran authority statement missing",
+    "exact package hash gate missing"
+  ],
   "fail_closed_when_evidence_or_authority_missing": true,
   "human_review_required_before_filing": true,
-  "page_sha256": "1e00b4bfa5aaeea74b0bbea7c778399fb5905f8a78caf1b8d28a9322c9892d98",
+  "page_sha256": "b903c2da4159f43d7e05fab5cacdf938db229760e9585ab4f58139b5612b2b58",
   "private_document_upload_enabled": false,
-  "receipt_sha256": "6b91f10c6a9445a7d8f589dfeb6a7f19f9c62abd3c97084c5195b20704abe34f",
+  "receipt_sha256": "a9dc91730ac72ed7065f31cfef6df167c119300748a8f78c5191881e07fd55d9",
   "schema_version": "1.0.1",
-  "state": "PASS",
+  "state": "FAIL",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
   "surface": "va-disability-claim-guide.html",
   "veteran_submission_authority_preserved": true
