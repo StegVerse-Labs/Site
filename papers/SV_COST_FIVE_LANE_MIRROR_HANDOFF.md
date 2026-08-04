@@ -76,13 +76,13 @@ Provider costs use retained token usage and a versioned declared price card; the
 - Confirmed repository `CNAME` contains `stegverse.org`.
 - Confirmed the authorized GitHub Pages deployment route is `Site Bootstrap Validate` followed by exact-SHA `Site Task Runner`, which uses `actions/deploy-pages@v4`.
 
-## Fresh public observation — 2026-08-04
+## Fresh public observation — 2026-08-04 10:11 UTC
 
-The public `Papers.html` response remained on the superseded methodology-only content even though `main` contains the corrected five-lane index and paper. This proves the public custom-domain deployment was stale at observation time.
+The public `Papers.html` response still serves the superseded three-publication index and does not contain the five-lane featured result. A direct retrieval of `papers/sv-cost-relational-analysis.html` was not available through the independent public fetch path. The custom-domain projection therefore remains stale or otherwise unverified.
 
-The earlier Vercel project observation is not the authoritative custom-domain route. The repository CNAME and Pages deployment workflow identify GitHub Pages as the intended `stegverse.org` publication route.
+The repository source remains publication-ready and admissible. This handoff mutation is a bounded deployment retrigger only; it does not alter results, claims, prices, hashes, or publication authority.
 
-This handoff update is a bounded repository mutation that triggers `Site Bootstrap Validate`; a successful bootstrap run should trigger exact-SHA `Site Task Runner`, upload the repository as a Pages artifact, and deploy it through `actions/deploy-pages@v4`.
+The authoritative route remains GitHub Pages. This commit must trigger `Site Bootstrap Validate`; after a successful bootstrap run, exact-SHA `Site Task Runner` must upload the repository as a Pages artifact and deploy it through `actions/deploy-pages@v4`.
 
 ## Required terminal verification
 
@@ -113,6 +113,6 @@ site_source_projection: COMPLETE
 site_source_verification: PASS
 papers_index_update: COMPLETE
 hosting_route_resolution: GITHUB_PAGES
-pages_deployment_trigger: COMMITTED
+pages_deployment_retrigger: COMMITTED_2026-08-04T10:11Z
 public_custom_domain_verification: PENDING_PAGES_COMPLETION
 ```
