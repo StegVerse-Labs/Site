@@ -8,13 +8,13 @@
   "errors": [],
   "guided_card_count": 6,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "95d1e8922022542ca61f78bd11394332d03551f044fec254e922e7bc30c081bd",
+  "receipt_sha256": "f50c322b83b185e441d9c6c58c3bf96a22dbf3930e4810ffe99a4042b1fe51a2",
   "schema_version": "1.1.0",
   "state": "PASS",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
   "surface_sha256": {
     "va-claims-chat.html": "da1148e5c17ffa681c0c5b4d23ea69fbfaa75425abd5b0b83fb66193d02b0f53",
-    "va-claims-guided-workflow.html": "bdb66f19487894c6a8d03642fdc30405a55edde36c8504271ac2d3cdf2a18d57",
+    "va-claims-guided-workflow.html": "e54e8ae6a4ea5ab156fa9c38c9c64f7f61bb73ff57e684a28157012ffb698b0e",
     "va-disability-claim-guide.html": "b903c2da4159f43d7e05fab5cacdf938db229760e9585ab4f58139b5612b2b58"
   },
   "surfaces": [
