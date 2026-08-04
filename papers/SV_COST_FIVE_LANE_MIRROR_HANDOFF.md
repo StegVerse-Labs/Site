@@ -44,6 +44,7 @@ result_generated_at: 2026-08-04T01:41:10Z
 canonical_result_commit: 3720211a1cfaaf2db697f3e26194d083db21e94f
 canonical_publisher_commit: 0b897f782e72f76c4f7c6beb596c45bbe9d56b11
 site_projection_commit: 9d4205f665956a01ea82e35abd098ecb9e814656
+papers_index_commit: 31876f35ecbaa782780b3bcef673a1fb2055a2a6
 task_contract_hash: sha256:2e9b4a4193669b6d8f1d3fea8639d2adcee6090c58246b8b99920ba2f08dfb6b
 normalized_outcome_hash: sha256:155869baaef4bd023ad95e63c6a81d6ade921e92660cec351680e1aabd4d2597
 price_card_status: VERSIONED_DECLARED_RATE_NOT_INVOICE_RECONCILED
@@ -71,6 +72,7 @@ Provider costs are computed from retained token usage using a versioned declared
 - Preserved mobile-safe tables, long-hash wrapping, and bounded-claim callouts.
 - Verified repository source contains all five exact lane values, the shared outcome hash, and the publication boundary.
 - Preserved links to the canonical machine-readable result and Publisher source.
+- Updated `Papers.html` so the featured card and HTML-paper listing now identify the validated five-lane results rather than the superseded methodology-only analysis.
 - Observed the connected Vercel `site` project production deployment in `READY` state.
 
 ## Deployment observation — 2026-08-04
@@ -79,6 +81,7 @@ Connected Vercel state:
 
 ```text
 team: Rigel Randolph's projects
+team_id: team_tb2tGtHkSFhg5cpTMCvAhQJi
 project: site
 project_id: prj_xHOgZyCUzb37Zs7gyYVPCMb2OIl8
 latest_production_deployment: dpl_GWWbaGUH8ZxkZ5Nhi1yHWiDn7dTZ
@@ -91,17 +94,20 @@ configured_project_domains:
 custom_domain_stegverse_org_attached_to_this_project: false
 ```
 
-The deployment endpoint is protected by Vercel authentication. The custom domain `stegverse.org` is not listed among the connected Vercel project domains. Therefore the custom-domain page cannot be treated as verified from the Vercel production state alone.
+A fresh protected-deployment fetch on 2026-08-04 returned an authentication redirect rather than public paper content. The custom domain `stegverse.org` is not listed among the connected Vercel project domains. Therefore the custom-domain page cannot be treated as verified from repository state, protected-deployment state, or Vercel READY state alone.
+
+The newest connected production deployment still predates the `Papers.html` index commit and does not expose Git metadata linking it to the five-lane Site projection commits. Git-triggered deployment of the latest Site state remains unverified.
 
 ## Remaining work
 
-Destination `StegVerse-Labs/Site`:
+Destination `StegVerse-Labs/Site` / deployment control:
 
 ```text
-Update Papers.html featured title and description after the active index owner admits the change.
 Resolve or document which deployment service currently owns stegverse.org.
 Attach or map stegverse.org to the intended current Site production deployment where authorized.
+Trigger or observe a production deployment containing site_projection_commit 9d4205f665956a01ea82e35abd098ecb9e814656 and papers_index_commit 31876f35ecbaa782780b3bcef673a1fb2055a2a6.
 Verify https://stegverse.org/papers/sv-cost-relational-analysis.html contains the five-lane title and exact results.
+Verify https://stegverse.org/Papers.html presents the updated featured five-lane publication card.
 ```
 
 Public custom-domain verification remains fail-closed rather than inferred from committed source or a protected Vercel deployment.
@@ -112,8 +118,8 @@ Public custom-domain verification remains fail-closed rather than inferred from 
 publisher_source: COMPLETE
 site_source_projection: COMPLETE
 site_source_verification: PASS
-vercel_production_deployment: READY
+papers_index_update: COMPLETE
+vercel_production_deployment: READY_BUT_NOT_COMMIT_ATTESTED
 vercel_custom_domain_mapping: NOT_PRESENT
-papers_index_update: PENDING_ACTIVE_OWNER_ADMISSION
 public_custom_domain_verification: PENDING_DOMAIN_OWNER_RESOLUTION
 ```
