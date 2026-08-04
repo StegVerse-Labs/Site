@@ -76,21 +76,20 @@ Provider costs use retained token usage and a versioned declared price card; the
 - Confirmed repository `CNAME` contains `stegverse.org`.
 - Confirmed the authorized GitHub Pages deployment route is `Site Bootstrap Validate` followed by exact-SHA `Site Task Runner`, which uses `actions/deploy-pages@v4`.
 
-## Fresh public observation — 2026-08-04 10:11 UTC
+## Fresh public observation — 2026-08-04 11:13 UTC
 
-The public `Papers.html` response still serves the superseded three-publication index and does not contain the five-lane featured result. A direct retrieval of `papers/sv-cost-relational-analysis.html` was not available through the independent public fetch path. The custom-domain projection therefore remains stale or otherwise unverified.
+The public `https://stegverse.org/Papers.html` response now serves the five-lane featured publication. It contains the title `Five-Lane Cost Results for Reconstructable Governance`, identifies all five compared lanes, states that all five produced the same normalized admissible outcome, reports the observed Anthropic governed-pair reduction of 33.22%, identifies StegVerse-only as the lowest-cost lane for this bounded reconstruction operation, and preserves the boundary against universal provider economics, fresh-inference equivalence, enterprise-wide savings, and company ROI.
 
-The repository source remains publication-ready and admissible. This handoff mutation is a bounded deployment retrigger only; it does not alter results, claims, prices, hashes, or publication authority.
+The public index links to `https://stegverse.org/papers/sv-cost-relational-analysis.html`. The independent fetch path returned a cache-miss error for the linked paper during this observation, so exact body-marker verification of the paper itself remains pending even though the public index and repository projection now agree.
 
-The authoritative route remains GitHub Pages. This commit must trigger `Site Bootstrap Validate`; after a successful bootstrap run, exact-SHA `Site Task Runner` must upload the repository as a Pages artifact and deploy it through `actions/deploy-pages@v4`.
+No result, cost, hash, or claim was altered in this handoff update.
 
 ## Required terminal verification
 
-Verify both public URLs after the Pages run completes:
+Verify the linked public paper body when an independent fetch succeeds:
 
 ```text
 https://stegverse.org/papers/sv-cost-relational-analysis.html
-https://stegverse.org/Papers.html
 ```
 
 Required public markers:
@@ -113,6 +112,7 @@ site_source_projection: COMPLETE
 site_source_verification: PASS
 papers_index_update: COMPLETE
 hosting_route_resolution: GITHUB_PAGES
-pages_deployment_retrigger: COMMITTED_2026-08-04T10:11Z
-public_custom_domain_verification: PENDING_PAGES_COMPLETION
+public_papers_index_verification: PASS_2026-08-04T11:13Z
+public_paper_link_projection: PRESENT
+public_paper_body_verification: PENDING_INDEPENDENT_FETCH
 ```
