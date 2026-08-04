@@ -94,7 +94,7 @@ No result, cost, hash, or claim was altered in this handoff update.
 - Repository/branch: `StegVerse-Labs/Site@main`
 - Surface: `papers/sv-cost-relational-analysis.html`
 - Claimant: Site deployment/public-observation lane
-- Role: `CLAIMED_FOR_VALIDATION`
+- Role: `COMPLETE — CLAIM RELEASED`
 - Claim created: `2026-08-04T16:13:13Z`
 - Durable task: `StegVerse-Labs/Site#173`
 - Release condition: direct HTTP 200 public retrieval plus all required marker checks, with the result committed here; alternatively, exact deployed-artifact evidence followed by public accessibility confirmation.
@@ -141,7 +141,7 @@ papers_index_update: COMPLETE
 hosting_route_resolution: GITHUB_PAGES
 public_papers_index_verification: PASS_2026-08-04
 public_paper_link_projection: PRESENT
-public_paper_body_verification: BLOCKED_RETRY_ISSUE_173
+public_paper_body_verification: PASS
 session_specific_state_transfer: COMPLETE
 ```
 
@@ -149,11 +149,29 @@ session_specific_state_transfer: COMPLETE
 
 Denominator: 8 publication deliverables.
 
-- Task completion: 7/8; terminal public-body verification is owned by issue `#173`.
+- Task completion: 8/8.
 - Developed files: 4/4.
-- Validation: 5/6.
+- Validation: 6/6.
 - Integration: 4/4.
-- Propagation: 3/4; public index is verified, direct paper body remains unverified.
-- Goal activation: 7/8.
+- Propagation: 4/4.
+- Goal activation: 8/8.
 - Session consolidation: 4/4.
 - Archival readiness: complete for this chat because the sole remaining task has a durable owner, collision boundary, release condition, and repository-native continuation path.
+
+<!-- SV_COST_FIVE_LANE_PUBLIC_RECEIPT:BEGIN -->
+## Terminal public-body verification
+
+```text
+state: COMPLETE
+observed_at: 2026-08-04T16:19:14Z
+http_status: 200
+content_sha256: sha256:085476333d0ff396ce47d888846a43770d94d5a3ec17e7dfb8b46e8b672386d2
+workflow_run_id: 30928531888
+workflow_run_attempt: 1
+all_required_markers_present: true
+claim_released: SV-COST-FIVE-LANE-PUBLIC-BODY-VERIFY-001
+issue_closure: StegVerse-Labs/Site#173
+```
+
+The deployed paper body returned HTTP 200 and contained every required lane value and bounded-claim marker. The validation claim is released. No unique implementation, publication, propagation, or observation work remains in the originating session.
+<!-- SV_COST_FIVE_LANE_PUBLIC_RECEIPT:END -->
