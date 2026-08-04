@@ -43,6 +43,7 @@ comparison_unit: successful equivalent admissible outcome
 result_generated_at: 2026-08-04T01:41:10Z
 canonical_result_commit: 3720211a1cfaaf2db697f3e26194d083db21e94f
 canonical_publisher_commit: 0b897f782e72f76c4f7c6beb596c45bbe9d56b11
+site_projection_commit: 9d4205f665956a01ea82e35abd098ecb9e814656
 task_contract_hash: sha256:2e9b4a4193669b6d8f1d3fea8639d2adcee6090c58246b8b99920ba2f08dfb6b
 normalized_outcome_hash: sha256:155869baaef4bd023ad95e63c6a81d6ade921e92660cec351680e1aabd4d2597
 price_card_status: VERSIONED_DECLARED_RATE_NOT_INVOICE_RECONCILED
@@ -64,18 +65,31 @@ The result measures one bounded deterministic reconstruction operation. It does 
 
 Provider costs are computed from retained token usage using a versioned declared price card and are not invoice-reconciled charges. The StegVerse-only value combines measured runtime and output size with declared local runner and storage rates.
 
-## Mirror work
+## Completed mirror work
 
-- Replace the earlier methodology/relational-analysis public page with the validated five-lane results publication.
-- Update `Papers.html` featured title and description.
-- Preserve mobile-safe tables, long-hash wrapping, and bounded-claim callouts.
-- Verify source content contains the exact five lane values and publication boundary.
-- Verify the public custom-domain page when the deployment becomes observable.
+- Replaced the earlier methodology/relational-analysis Site page with the validated five-lane results publication.
+- Preserved mobile-safe tables, long-hash wrapping, and bounded-claim callouts.
+- Verified repository source contains all five exact lane values, the shared outcome hash, and the publication boundary.
+- Preserved links to the canonical machine-readable result and Publisher source.
+
+## Remaining work
+
+Destination `StegVerse-Labs/Site`:
+
+```text
+Update Papers.html featured title and description after the active index owner admits the change.
+Observe the custom-domain deployment serving Site commit 9d4205f665956a01ea82e35abd098ecb9e814656.
+Verify https://stegverse.org/papers/sv-cost-relational-analysis.html contains the five-lane title and exact results.
+```
+
+The current environment could not independently retrieve the custom-domain page; public verification therefore remains fail-closed rather than inferred from the committed source.
 
 ## Completion state
 
 ```text
 publisher_source: COMPLETE
-site_source_projection: PENDING
-public_custom_domain_verification: PENDING
+site_source_projection: COMPLETE
+site_source_verification: PASS
+papers_index_update: PENDING_ACTIVE_OWNER_ADMISSION
+public_custom_domain_verification: PENDING_DEPLOYMENT_OBSERVATION
 ```
