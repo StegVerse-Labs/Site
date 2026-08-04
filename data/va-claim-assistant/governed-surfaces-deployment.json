@@ -3,13 +3,15 @@
   "authority_effect": false,
   "automated_filing_enabled": false,
   "base_url": "https://site.rigelrandolph.workers.dev",
-  "blockers": [],
+  "blockers": [
+    "guide:deployed_repository_hash_mismatch"
+  ],
   "observer_id": "SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001",
   "private_document_upload_enabled": false,
-  "receipt_sha256": "a2a0ffa5784ba005542041f3cc20c26c46898b2273faf25800a8c76fa5218724",
-  "recorded_at": "2026-08-04T14:57:39.306966Z",
+  "receipt_sha256": "c7ed75bca6ec0b8ca5e1a7854b904108efc0be8511405d423d64666cbf1c0ecb",
+  "recorded_at": "2026-08-04T17:55:33.648367Z",
   "schema_version": "1.0.0",
-  "state": "VERIFIED",
+  "state": "BLOCKED",
   "surfaces": {
     "capability": {
       "byte_equal": true,
@@ -30,12 +32,12 @@
       "url": "https://site.rigelrandolph.workers.dev/va-claims-chat.html"
     },
     "guide": {
-      "byte_equal": true,
+      "byte_equal": false,
       "deployed_sha256": "1e00b4bfa5aaeea74b0bbea7c778399fb5905f8a78caf1b8d28a9322c9892d98",
       "error": null,
       "http_status": 200,
       "repository_path": "va-disability-claim-guide.html",
-      "repository_sha256": "1e00b4bfa5aaeea74b0bbea7c778399fb5905f8a78caf1b8d28a9322c9892d98",
+      "repository_sha256": "b903c2da4159f43d7e05fab5cacdf938db229760e9585ab4f58139b5612b2b58",
       "url": "https://site.rigelrandolph.workers.dev/va-disability-claim-guide.html"
     }
   }
