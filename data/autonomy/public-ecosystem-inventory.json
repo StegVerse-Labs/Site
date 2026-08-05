@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-05T07:25:26Z",
+  "generated_at": "2026-08-05T10:20:32Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-05T07:13:29Z",
+      "pushed_at": "2026-08-05T10:05:52Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -491,7 +491,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-08-05T03:37:24Z",
+      "pushed_at": "2026-08-05T09:09:18Z",
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -1181,7 +1181,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-05T03:29:51Z",
+      "pushed_at": "2026-08-05T08:50:29Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1744,7 +1744,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-05T07:21:15Z",
+      "pushed_at": "2026-08-05T10:14:21Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2529,7 +2529,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-05T06:45:12Z",
+      "pushed_at": "2026-08-05T09:59:10Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2802,7 +2802,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-05T07:20:38Z",
+      "pushed_at": "2026-08-05T10:15:00Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
