@@ -14,18 +14,25 @@
     "material fact review gate missing",
     "condition selection gate missing",
     "authorized transport gate missing",
-    "fail-closed filing language missing"
+    "fail-closed filing language missing",
+    "guided page title missing",
+    "guided card range incomplete",
+    "sign-in services explanation missing",
+    "Blue Button plain-language explanation missing",
+    "card confirmation controls missing",
+    "next-card completion lock missing",
+    "veteran-confirmation rule missing"
   ],
   "guided_card_count": 6,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "f19d2b535e995729f654e938109f9e83d603b091cd817f5ccc8d2a182dba53f3",
+  "receipt_sha256": "c79477d1f7638d690272e7b15c53e1fab45f0161dae872a0c89439b6471799e3",
   "schema_version": "1.1.0",
   "state": "FAIL",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
   "surface_sha256": {
     "va-claims-chat.html": "da1148e5c17ffa681c0c5b4d23ea69fbfaa75425abd5b0b83fb66193d02b0f53",
-    "va-claims-guided-workflow.html": "e54e8ae6a4ea5ab156fa9c38c9c64f7f61bb73ff57e684a28157012ffb698b0e",
-    "va-disability-claim-guide.html": "17c30eb205d3637edd92e777dff52cd136d1a026031e0de23303ee98226efcca"
+    "va-claims-guided-workflow.html": "cb026493cd4d38850b78c9d8ee5acc92a8281572712157add4245a82bc802917",
+    "va-disability-claim-guide.html": "1005a1ce2def58679a3ab85a823c919ca54fbc5d9e0c1b2b27aca5e650e4d633"
   },
   "surfaces": [
     "va-disability-claim-guide.html",
