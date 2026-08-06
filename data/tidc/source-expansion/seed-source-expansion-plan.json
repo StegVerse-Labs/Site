@@ -12,7 +12,7 @@
         "Separate proof completion, publication, acceptance, and later formal verification"
       ],
       "task_location": "data/tidc/source-expansion/COMP-001.json",
-      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
+      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -24,7 +24,7 @@
         "Code later certificate verification as a separate event"
       ],
       "task_location": "data/tidc/source-expansion/COMP-002.json",
-      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
+      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -36,7 +36,7 @@
         "Separate machine proof from later human-readable simplifications"
       ],
       "task_location": "data/tidc/source-expansion/COMP-003.json",
-      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
+      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -48,7 +48,7 @@
         "Record participant and contribution trace"
       ],
       "task_location": "data/tidc/source-expansion/NET-001.json",
-      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
+      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -59,7 +59,7 @@
         "Split Polymath8a bound reductions, Maynard-Tao integration, and final published results into distinct events"
       ],
       "task_location": "data/tidc/source-expansion/NET-002.json",
-      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
+      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -71,7 +71,7 @@
         "Record independent reproductions and superseded bounds"
       ],
       "task_location": "data/tidc/source-expansion/AI-001.json",
-      "status": "PRIMARY_SOURCE_RECORD_PRESENT_PENDING_REVIEW",
+      "status": "READY_FOR_PRIMARY_SOURCE_RECONSTRUCTION",
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     },
     {
@@ -122,12 +122,5 @@
       "completion_rule": "Preserve exact source metadata, retrieval date, immutable URL or archive reference, and field-level evidence without silently recoding the seed ledger."
     }
   ],
-  "authority_effect": "NONE",
-  "completed_record_count": 6,
-  "remaining_record_count": 4,
-  "next_repository_owned_task": {
-    "event_id": "AI-002",
-    "location": "data/tidc/source-expansion/AI-002.json"
-  },
-  "development_halted": false
+  "authority_effect": "NONE"
 }
