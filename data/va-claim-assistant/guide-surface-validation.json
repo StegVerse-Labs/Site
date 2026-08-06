@@ -5,17 +5,27 @@
   "capability_state": "SOURCE_GROUNDED_ACTIVE",
   "card_advance_requires_veteran_confirmation": true,
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
-  "errors": [],
+  "errors": [
+    "governed guide title missing",
+    "top workflow invitation missing",
+    "current capability missing",
+    "upload disabled state missing",
+    "filing disabled state missing",
+    "material fact review gate missing",
+    "condition selection gate missing",
+    "authorized transport gate missing",
+    "fail-closed filing language missing"
+  ],
   "guided_card_count": 6,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "f50c322b83b185e441d9c6c58c3bf96a22dbf3930e4810ffe99a4042b1fe51a2",
+  "receipt_sha256": "f19d2b535e995729f654e938109f9e83d603b091cd817f5ccc8d2a182dba53f3",
   "schema_version": "1.1.0",
-  "state": "PASS",
+  "state": "FAIL",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
   "surface_sha256": {
     "va-claims-chat.html": "da1148e5c17ffa681c0c5b4d23ea69fbfaa75425abd5b0b83fb66193d02b0f53",
     "va-claims-guided-workflow.html": "e54e8ae6a4ea5ab156fa9c38c9c64f7f61bb73ff57e684a28157012ffb698b0e",
-    "va-disability-claim-guide.html": "b903c2da4159f43d7e05fab5cacdf938db229760e9585ab4f58139b5612b2b58"
+    "va-disability-claim-guide.html": "17c30eb205d3637edd92e777dff52cd136d1a026031e0de23303ee98226efcca"
   },
   "surfaces": [
     "va-disability-claim-guide.html",
