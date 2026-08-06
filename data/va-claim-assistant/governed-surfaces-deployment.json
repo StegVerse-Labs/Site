@@ -6,8 +6,8 @@
   "blockers": [],
   "observer_id": "SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001",
   "private_document_upload_enabled": false,
-  "receipt_sha256": "ea6b244f9e4828f843f0d40471c500ca969074a799802b4083442bd2b3dde5fe",
-  "recorded_at": "2026-08-06T14:44:00.785011Z",
+  "receipt_sha256": "697ec240552005d2091e8a06dbf9be4c50415c81f0c6e308541600fc69fc72c8",
+  "recorded_at": "2026-08-06T23:24:37.994333Z",
   "schema_version": "1.0.0",
   "state": "VERIFIED",
   "surfaces": {
@@ -31,11 +31,11 @@
     },
     "guide": {
       "byte_equal": true,
-      "deployed_sha256": "b903c2da4159f43d7e05fab5cacdf938db229760e9585ab4f58139b5612b2b58",
+      "deployed_sha256": "17c30eb205d3637edd92e777dff52cd136d1a026031e0de23303ee98226efcca",
       "error": null,
       "http_status": 200,
       "repository_path": "va-disability-claim-guide.html",
-      "repository_sha256": "b903c2da4159f43d7e05fab5cacdf938db229760e9585ab4f58139b5612b2b58",
+      "repository_sha256": "17c30eb205d3637edd92e777dff52cd136d1a026031e0de23303ee98226efcca",
       "url": "https://site.rigelrandolph.workers.dev/va-disability-claim-guide.html"
     }
   }
