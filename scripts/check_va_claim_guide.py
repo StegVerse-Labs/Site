@@ -1,48 +1,45 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import re
 import sys
 
-PAGE = Path('va-disability-claim-guide.html')
-IMAGE = Path('assets/va-claim-guide/01-open-va-app-v2.svg')
-ASSISTANT = Path('assets/va-claim-guide/va-guide-assistant.js')
-
-required = [
-    'Purpose: accurate claims, not inflated claims.',
-    'Ask the VA process guide',
-    'Current mode:',
-    'Live LLM answers and private document analysis are still in development',
-    'Watch this box for messages describing the assistant',
-    'Phase 1',
-    'Phase 2',
-    'Phase 3',
-    'Phase 4',
-    'Phase 5',
-    'Phase 6',
-    'Gather every document that may affect the claim',
-    'Include unfavorable or conflicting records',
-    'VA Form 21-526EZ',
-    'Official sources',
-    'assets/va-claim-guide/01-open-va-app-v2.svg',
-]
-
+GUIDE = Path('va-disability-claim-guide.html')
+WALK = Path('va-claims-guided-workflow.html')
 errors = []
-if not PAGE.exists():
-    errors.append('missing va-disability-claim-guide.html')
-else:
-    text = PAGE.read_text(encoding='utf-8')
-    for marker in required:
-        if marker not in text:
-            errors.append(f'missing page marker: {marker}')
-    if '<meta name="viewport"' not in text:
-        errors.append('mobile viewport is missing')
-    if 'aria-live="polite"' not in text:
-        errors.append('assistant live-region accessibility marker is missing')
-    if 'does not determine eligibility' not in text:
-        errors.append('authority boundary is missing')
 
-for asset in (IMAGE, ASSISTANT):
-    if not asset.exists():
-        errors.append(f'missing asset: {asset}')
+for path in (GUIDE, WALK):
+    if not path.exists():
+        errors.append(f'missing {path}')
+
+if GUIDE.exists():
+    text = GUIDE.read_text(encoding='utf-8')
+    if '<meta name="viewport"' not in text:
+        errors.append('guide mobile viewport missing')
+    cards = re.findall(r'<section class="step-card" data-step="(\d+)"', text)
+    if cards != ['1','2','3','4','5','6']:
+        errors.append(f'guide requires six ordered steps: {cards}')
+    for marker in ('DONE','Help me with this','vaClaimsStepStateV1','0 of 6 done','Reset'):
+        if marker not in text:
+            errors.append(f'guide missing marker: {marker}')
+    if text.count('class="done-button"') != 6:
+        errors.append('guide requires one DONE button per step')
+    if text.count('class="sv-btn sv-btn-secondary help-link"') != 6:
+        errors.append('guide requires one focused-help link per step')
+    if 'SOURCE_GROUNDED_ASSISTANT' in text or 'Verified capability state' in text:
+        errors.append('internal capability language exposed on guide')
+
+if WALK.exists():
+    text = WALK.read_text(encoding='utf-8')
+    if '<meta name="viewport"' not in text:
+        errors.append('walkthrough mobile viewport missing')
+    cards = re.findall(r'<section class="card(?: active)?" data-card="(\d+)"', text)
+    if cards != ['1','2','3','4','5','6']:
+        errors.append(f'walkthrough requires six ordered steps: {cards}')
+    for marker in ('Return to Instruction Page','Continue with help me complete this','vaClaimsStepStateV1','URLSearchParams'):
+        if marker not in text:
+            errors.append(f'walkthrough missing marker: {marker}')
+    if text.count('Mark step DONE') != 6:
+        errors.append('walkthrough requires one shared completion control per step')
 
 if errors:
     print('VA CLAIM GUIDE: FAIL')
@@ -51,9 +48,7 @@ if errors:
     sys.exit(1)
 
 print('VA CLAIM GUIDE: PASS')
-print('Static guide page: complete')
-print('Multi-document workflow: complete')
-print('Bounded procedural assistant: available')
-print('Assistant capability status box: active')
-print('Live source-grounded LLM: in development')
-print('Private document analysis: not active')
+print('Primary instruction page: six persistent steps')
+print('Focused walkthrough: step-addressable')
+print('Shared completion state: active')
+print('Focused help handoff: active')
