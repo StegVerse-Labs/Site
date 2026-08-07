@@ -1,27 +1,29 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "owner": "StegVerse-Labs/Site issue #234",
   "organization_count": 14,
   "targets": [
-    {"organization":"AaCT-E","repository":"AaCT-E/telemetry","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization telemetry repository is explicitly for cross-org signal monitoring"},
-    {"organization":"Admissible-Existence","repository":"Admissible-Existence/.github","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization-level public control surface"},
-    {"organization":"AdmittedCode","repository":"AdmittedCode/.github","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization-level public control surface"},
-    {"organization":"Data-Continuation","repository":"Data-Continuation/core-lite","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization core processing hub"},
+    {"organization":"AaCT-E","repository":"AaCT-E/telemetry","visibility":"public","state":"BLOCKED_CONNECTOR_WRITE_AUTHORITY","reason":"repository is readable but GitHub App write attempts to AaCT-E/telemetry and AaCT-E/.github returned 403 Resource not accessible by integration","release_condition":"connected GitHub integration gains write authority to an AaCT-E repository or an AaCT-E-owned machine relay is installed"},
+    {"organization":"Admissible-Existence","repository":"Admissible-Existence/.github","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-admissible-existence","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/Admissible-Existence/.github/main/data/heartbeat-response-receipts"},
+    {"organization":"AdmittedCode","repository":"AdmittedCode/.github","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-admittedcode","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/AdmittedCode/.github/main/data/heartbeat-response-receipts"},
+    {"organization":"Data-Continuation","repository":"Data-Continuation/core-lite","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-data-continuation","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/Data-Continuation/core-lite/main/data/heartbeat-response-receipts"},
     {"organization":"ECAT-ICAT-Formal","repository":null,"visibility":null,"state":"BLOCKED_NO_REPOSITORY","release_condition":"GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter"},
-    {"organization":"formalism-tests","repository":"formalism-tests/core-lite","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization core services repository"},
-    {"organization":"GCAT-BCAT-Engine","repository":"GCAT-BCAT-Engine/Publisher","visibility":"public","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat owner"},
+    {"organization":"formalism-tests","repository":"formalism-tests/core-lite","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-formalism-tests","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/formalism-tests/core-lite/main/data/heartbeat-response-receipts"},
+    {"organization":"GCAT-BCAT-Engine","repository":"GCAT-BCAT-Engine/Publisher","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-gcat-bcat-engine","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/GCAT-BCAT-Engine/Publisher/main/data/heartbeat-response-receipts"},
     {"organization":"Infrastructure-Continuity-Ventures","repository":null,"visibility":null,"state":"BLOCKED_NO_REPOSITORY","release_condition":"GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter"},
-    {"organization":"master-records","repository":"master-records/orchestration","visibility":"private_or_token_bound","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat/custody owner"},
-    {"organization":"StegGhost","repository":"StegGhost/telemetry","visibility":"private","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization telemetry repository is explicitly for cross-org signal monitoring"},
-    {"organization":"StegVerse-002","repository":"StegVerse-002/stegguardian-wiki","visibility":"public","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat owner"},
-    {"organization":"StegVerse-Labs","repository":"StegVerse-Labs/Site","visibility":"public","state":"EXISTING_HB_TARGET","reason":"canonical response-network owner and existing heartbeat owner"},
-    {"organization":"StegVerse-org","repository":"StegVerse-org/LLM-adapter","visibility":"public","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat/runtime owner"},
+    {"organization":"master-records","repository":"master-records/orchestration","visibility":"private","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-master-records","receipt_mode":"PRIVATE_RELAY_REQUIRED","release_condition":"authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials"},
+    {"organization":"StegGhost","repository":"StegGhost/telemetry","visibility":"private","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-stegghost","receipt_mode":"PRIVATE_RELAY_REQUIRED","release_condition":"authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility"},
+    {"organization":"StegVerse-002","repository":"StegVerse-002/stegguardian-wiki","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-stegverse-002","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/StegVerse-002/stegguardian-wiki/main/data/heartbeat-response-receipts"},
+    {"organization":"StegVerse-Labs","repository":"StegVerse-Labs/Site","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-stegverse-labs","receipt_mode":"LOCAL"},
+    {"organization":"StegVerse-org","repository":"StegVerse-org/LLM-adapter","visibility":"public","state":"ADAPTER_INSTALLED","exchange_id":"hb-exchange-20260807-stegverse-org","receipt_mode":"PUBLIC_RAW","receipt_base":"https://raw.githubusercontent.com/StegVerse-org/LLM-adapter/main/data/heartbeat-response-receipts"},
     {"organization":"Triad-Test","repository":null,"visibility":null,"state":"BLOCKED_NO_REPOSITORY","release_condition":"GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter"}
   ],
   "counts": {
-    "existing_hb_targets": 5,
-    "ready_for_adapter_install": 6,
-    "blocked_no_repository": 3,
-    "reachable_or_existing": 11
+    "adapter_installed": 10,
+    "public_raw_collectible": 7,
+    "local_collectible": 1,
+    "private_relay_required": 2,
+    "blocked_connector_write_authority": 1,
+    "blocked_no_repository": 3
   }
 }
