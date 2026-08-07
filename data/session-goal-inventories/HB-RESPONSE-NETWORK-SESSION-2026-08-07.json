@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "session_id": "hb-response-network-session-2026-08-07",
   "canonical_continuation": {
     "repository": "StegVerse-Labs/Site",
@@ -118,7 +118,7 @@
       "validation_state": "INITIAL_RECEIPTS_DIRECTLY_FETCHED_AND_HASH_VALIDATED",
       "integration_state": "CURRENT_EXCHANGE_COMPLETE; FUTURE_PRIVATE_EXCHANGE_RELAY_NOT_AUTOMATED",
       "archival_dependency": false,
-      "evidence_location": "Site recovered receipts; destination committed receipts; blocker observer report",
+      "evidence_location": "Site recovered receipts; destination committed receipts; blocker observer run 31192308624 and artifact 8999323014",
       "next_executable_action": "when authenticated Site runner read or an authorized relay becomes available, observer changes to REVIEW_REQUIRED and issue #234 owns relay binding"
     },
     {
@@ -127,14 +127,14 @@
       "destination_organization": "AaCT-E; ECAT-ICAT-Formal; Infrastructure-Continuity-Ventures; Triad-Test",
       "destination_repository": "StegVerse-Labs/Site coordination until destination authority appears",
       "branch": "main",
-      "location": "data/heartbeat-response-adapter-targets.json; scripts/observe_heartbeat_response_blockers.py; .github/workflows/heartbeat-response-blocker-observer.yml",
+      "location": "data/heartbeat-response-adapter-targets.json; data/heartbeat-response-blocker-observation.json; scripts/observe_heartbeat_response_blockers.py; .github/workflows/heartbeat-response-blocker-observer.yml",
       "current_owner": "Site blocker observer; GitHub App/repository creation authority at destination organizations",
       "claim_state": "BLOCKED",
       "completion_state": "BLOCKED_WITH_MACHINE_OBSERVABLE_RELEASE_CONDITIONS",
-      "validation_state": "AaCT-E write attempts returned 403; three organizations returned no repositories",
-      "integration_state": "NOT_INSTALLED",
+      "validation_state": "blocker observer run 31192308624 PASS; AaCT-E push=false; three no-repository organizations repository_count=0",
+      "integration_state": "NOT_INSTALLED_AT_BLOCKED_DESTINATIONS",
       "archival_dependency": false,
-      "evidence_location": "data/heartbeat-response-adapter-targets.json; data/heartbeat-response-blocker-observation.json",
+      "evidence_location": "data/heartbeat-response-blocker-observation.json; run 31192308624; artifact 8999323014",
       "next_executable_action": "observer detects repository or permission availability and changes state to REVIEW_REQUIRED"
     },
     {
@@ -160,14 +160,14 @@
       "destination_repository": "StegVerse-Labs/Site",
       "branch": "main",
       "location": "docs/HEARTBEAT_RESPONSE_MIRROR_HANDOFF.md; data/session-goal-inventories/HB-RESPONSE-NETWORK-SESSION-2026-08-07.json; issue #234",
-      "current_owner": "Site issue #234 after claim release",
-      "claim_state": "CLAIMED_FOR_INTEGRATION",
-      "completion_state": "IN_PROGRESS_UNTIL_HANDOFF_AND_CLAIM_RELEASE_COMMIT",
-      "validation_state": "PENDING_FINAL_HANDOFF_INSPECTION",
-      "integration_state": "CANONICAL_CONTINUATION_SELECTED",
-      "archival_dependency": true,
-      "evidence_location": "this inventory and dedicated handoff",
-      "next_executable_action": "commit handoff, inspect blocker observer, update issue #234, release session claim"
+      "current_owner": "StegVerse-Labs/Site issue #234 and repository-native heartbeat-response workflows",
+      "claim_state": "COMPLETE_RELEASED_TO_MACHINE_OWNED_CONTINUATION",
+      "completion_state": "COMPLETE_DURABLY_TRANSFERRED",
+      "validation_state": "HANDOFF_COMMITTED; BLOCKER_OBSERVER_HOSTED_EVIDENCE_INSPECTED; ISSUE_CLAIM_RELEASED",
+      "integration_state": "CANONICAL_CONTINUATION_ACTIVE",
+      "archival_dependency": false,
+      "evidence_location": "handoff commit a27b29ad20e6a6f7676b8bb897d8659c94fb2df2; blocker observer run 31192308624 job 92911896073 artifact 8999323014; issue #234 claim release comment 5218919931",
+      "next_executable_action": "none for chat; issue #234 and machine-owned workflows continue"
     },
     {
       "task_id": "SESSION-ORCHESTRATION-PREEXISTING",
@@ -196,6 +196,8 @@
       ".github/workflows/heartbeat-response-collector.yml",
       ".github/workflows/heartbeat-response-blocker-observer.yml"
     ],
-    "archive_condition": "dedicated handoff committed, blocker observer hosted evidence inspected, and active session claim released into issue #234"
+    "claim_release_comment": 5218919931,
+    "archive_condition": "SATISFIED",
+    "archive_ready": true
   }
 }
