@@ -4,29 +4,33 @@
 
 ```text
 Goal family: SV-VA
-Originating session goal: replace text-heavy VA claims guidance with IKEA-style veteran instructions
+Originating session goal: replace text-heavy VA claims guidance with a veteran-controlled, stepwise VA Claims Guide plus conversational VA Claims Chat (VACC)
 Repository: StegVerse-Labs/Site
 Branch: main
 Canonical issue: StegVerse-Labs/Site#113
-Final document-module issue: StegVerse-Labs/Site#116
+Secure-document owner: StegVerse-Labs/Site#116
+Claimant/submission binding contract: StegVerse-Labs/Site#180
 Canonical runtime owner: StegVerse-org/LLM-adapter#90
-Custody/reconstruction owner: master-records/orchestration
+Authorized provider task: StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json
+Custody/reconstruction owner: master-records/orchestration#15
 Canonical handoff: docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
+Latest originating-session transfer receipt: docs/receipts/vacc-final-submission-fallback-session-transfer-2026-08-07.md
 ```
 
-No surface, model output, receipt, custody record, deployment, or validator grants authority to adjudicate, diagnose, rate, represent, sign, or file a VA claim. Veteran submission authority remains preserved.
+No Site surface, model output, receipt, deployment, authentication event, or validator grants authority to adjudicate, diagnose, rate, represent, sign, or file a VA claim. The veteran remains claimant, fact confirmer, certifier, and submission authority unless an independently authorized representative acts within an admitted scope.
 
 ## Required goal sequence
 
 ```text
 GOAL 1 — SV-VA-DUAL-FLOW-001 — COMPLETE
-GOAL 2 — SV-VA-COORDINATED-LLM-002 — ACTIVE
-GOAL 3 — SV-VA-SECURE-DOCUMENTS-003 — QUEUED FINAL
+GOAL 2 — SV-VA-COORDINATED-LLM-002 — ACTIVE / BLOCKED AT AUTHORIZED REAL PROVIDER EXECUTION
+GOAL 3 — SV-VA-SECURE-DOCUMENTS-003 — QUEUED PUBLIC ACTIVATION / CONTRACTS AND PRIVACY PREPROCESSOR PARTIALLY COMPLETE
+GOAL 4 — SV-VA-FINAL-SUBMISSION-FALLBACK-004 — COMPLETE
 ```
 
-Goal 2 must activate before Goal 3 becomes the active public implementation target. Goal 3 contracts may advance without exposing upload or retrieval controls.
+Goal 2 must activate before Goal 3 public private-document controls become active. Goal 3 contracts, synthetic fixtures, privacy preprocessing, and validators may advance while public upload/retrieval/filing remain fail-closed.
 
-## Authoritative files and surfaces
+## Authoritative Site files and surfaces
 
 ```text
 va-disability-claim-guide.html
@@ -36,34 +40,55 @@ assets/va-claims-chat-runtime.js
 api/va-claim-assistant/runtime-projection.json
 data/va-claim-assistant/chat-capability-state.json
 data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json
+scripts/check_va_claim_guide.py
+scripts/validate_va_claims_guide_surface.py
+scripts/test_va_guided_workflow_contract.py
 scripts/validate_va_claims_chat_llm_bridge.py
 scripts/validate_va_claims_chat_surface.py
+.github/workflows/va-guided-workflow-validation.yml
 .github/workflows/va-claims-chat-llm-bridge.yml
 .github/workflows/va-claims-chat-surface.yml
 ```
 
-## Goal 1 — completed IKEA-style instruction system
+## Canonical session requirement consolidation
 
-The veteran-facing main path is `SEE -> DO -> CONFIRM`: one visual, a few action words, DONE, and optional focused help. The primary page shows all six steps, persists `vaClaimsStepStateV1`, dims completed cards, and routes Help to the exact selected walkthrough step. The walkthrough shows one selected step, shares completion state, returns to the instruction page, or continues into step-specific help.
+Site issue #177 is closed complete and transferred all earlier originating-session requirements into #113, #116, #178-#184, LLM-adapter#90, and master-records/orchestration#15. Over-decomposed duplicate children #185-#214 were closed into those canonical owners.
 
-Evidence:
+Transferred invariants:
 
 ```text
-primary checklist/shared state: 5f1188287283afa1ce8fac66211610e82ece7604
-focused walkthrough: 1fdf7e52edc8e0d53918411626ed41e2e642ce9d
-dual-flow validation run: 31134444619 — PASS
-validation artifact: 8977344125
-artifact digest: sha256:84cf875ef5028cd1ddfe17d95d37c0184537654c6cec44bc7a3e43bf3dce3481
-GitHub Pages deployment: 5786525421 — success
+Guide = deterministic step-by-step veteran path
+VACC = conversational execution/help layer
+redirect-only authoritative-source retrieval by default
+source authentication and ordinary record download = source -> veteran-controlled device
+separately controlled original/submission artifact retains stable provenance
+model review uses privacy-minimized sanitized/tokenized derivative where feasible
+direct identity mapping stays outside ordinary model context
+evidence facts remain page/source bound and separated from inference/contradiction/unresolved state
+claim language may be generated only from supported facts
+no fabricated diagnosis/nexus/event/onset/severity/limitation facts
+no unsupported percentage targeting or award-size optimization
+veteran retains claim selection, fact confirmation, certification, and submission authority
+appointed accredited representative remains representative of record
+VA-authenticated claimant/claim binding occurs only at an independently authorized submission boundary
+authentication alone != veteran approval
+ID.me/Login.gov branding or decorative stamp != independent document-ownership proof
+VACC/service-organization/commercial use must be machine-verifiable in provenance
+public success metric = administrative workload reduction while preserving evidentiary/legal integrity
+regulatory self-help vs representation classification remains an explicit gate until authoritative evidence resolves it
 ```
 
-Claim state: `RELEASED_COMPLETE`.
+## Goal 1 — veteran-facing deterministic Guide — COMPLETE
 
-## Goal 2 — coordinated VA Resources LLM
+The main path is `SEE -> DO -> CONFIRM`. It exposes six ordered steps, persistent shared completion state (`vaClaimsStepStateV1`), DONE gating, focused help, and mobile-first instructions.
+
+The latest Step 6 contract is no longer merely “open Claims Chat.” It now covers final claim submission as described under Goal 4.
+
+## Goal 2 — coordinated VA Resources LLM — ACTIVE / BLOCKED
 
 ### Canonical runtime owner
 
-`StegVerse-org/LLM-adapter#90` owns the governed VA runtime: route classification, admitted VA-source retrieval, source/citation fields, privacy guard, provider execution, execution receipts, and provider-side runtime behavior.
+`StegVerse-org/LLM-adapter#90` owns route classification, admitted official VA-source retrieval, source/citation fields, privacy guard, provider execution, execution receipts, and runtime behavior.
 
 Canonical runtime records:
 
@@ -74,69 +99,13 @@ StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json
 StegVerse-org/LLM-adapter/receipts/va-claim-assistant-provider-execution-preflight.json
 ```
 
-The adapter rejects raw veteran documents. `document_organization` may later consume only sanitized derived context from Site#116.
+The adapter rejects raw veteran documents. `document_organization` accepts only validated sanitized derived context.
 
-### Provider preflight — COMPLETE / RELEASED
+### Site bridge — COMPLETE / DEPLOYED FAIL-CLOSED
 
-PR `StegVerse-org/LLM-adapter#120` is merged.
+`data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json` is implemented and merged. General questions may cross the browser bridge only after `api/va-claim-assistant/runtime-projection.json` becomes receipt-verified. Guided assistance remains local/deterministic while blocked.
 
-```text
-validator repair: 8864b77d867b5be13fbddb46172be1081b373325
-PR merge: 8fb86f92f70f23c1042d4f2eb782e1a3a6797b65
-focused hosted run: 31135075848 — SUCCESS
-main preflight run: 31136792639 — SUCCESS
-released task commit: acaed090dab900541d65289c8e0daa7e62b645b8
-```
-
-Latest preflight observation is repository-native and fail-closed. Fresh TVC admission works. Provider permission was not requested and provider execution was not observed.
-
-### Authorized provider execution — BLOCKED / UNCLAIMED
-
-Canonical task:
-
-`StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json`
-
-Current release blockers are authoritative:
-
-```text
-protected Master Records allowed-host binding missing
-protected Master Records endpoint binding missing
-protected Master Records token binding missing
-valid unexpired exact-caller VA provider authority missing
-```
-
-The latest hosted preflight already proves `GITHUB_ACTIONS_WORKFLOW` observation and fresh single-use TVC admission. The task may not be claimed or executed until every protected configuration and authority condition is true in the authorized runtime. Credential/configuration presence alone is not authority.
-
-When released, that workflow-dispatch-only lane may request `models: read`, perform at most one provider request with maximum cost USD 0.10, write a privacy-minimized execution receipt, and transfer execution/privacy evidence to Master Records and Site#113.
-
-### Site runtime bridge — COMPLETE / MERGED / DEPLOYED FAIL-CLOSED
-
-Task: `data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json`.
-
-PR `StegVerse-Labs/Site#175` is merged to `main`.
-
-```text
-merge commit: a92fe510602678b54381c2bb34fe0e35e50ad1d9
-bridge implementation head: 430167614417c7fde39709afbb8a9d0ed2a46482
-premerge bridge run: 31137334846 — SUCCESS
-premerge Site orchestrator run: 31137334825 — SUCCESS
-premerge guided workflow run: 31137334893 — SUCCESS
-premerge Site bootstrap run: 31137335003 — SUCCESS
-```
-
-The first merged-main `VA Claims Chat surface` run `31138834894` failed because its legacy validator required retired governance-heavy copy and visible disabled controls. The user-facing page was not reverted. The validator was repaired to enforce the new fail-closed runtime contract:
-
-```text
-validator repair commit: a9cb6487a3e7799b7dfd66ffa4a0cc193ea16408
-VA Claims Chat surface run: 31139914262 — SUCCESS
-Render service: stegverse-va-claim-guide
-Render deploy: dep-d9qjp0j7uimc73fks6t0 — live
-Render deployed commit: a9cb6487a3e7799b7dfd66ffa4a0cc193ea16408
-```
-
-The Site bridge is therefore integrated and deployed, but the coordinated LLM itself remains inactive. Direct canonical-domain runtime observation from the current execution environment was unavailable because DNS resolution failed; deployment evidence must not be misreported as end-to-end runtime activation.
-
-Current projection remains intentionally:
+Current projection must remain:
 
 ```text
 state: BLOCKED
@@ -149,156 +118,276 @@ authority_effect: false
 activation_effect: false
 ```
 
-General questions can cross the browser bridge only after the projection becomes receipt-verified. Guided-card assistance remains local and deterministic while blocked.
+### Authorized provider execution — BLOCKED / CLAIMANT NULL
+
+Canonical task:
+
+`StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json`
+
+Current machine-observable blockers:
+
+```text
+authorized_configuration_missing:STEGVERSE_MASTER_RECORDS_ALLOWED_HOSTS
+authorized_configuration_missing:STEGVERSE_MASTER_RECORDS_ENDPOINT
+authorized_configuration_missing:STEGVERSE_MASTER_RECORDS_TOKEN
+provider_execution_authority_missing_or_invalid
+```
+
+Required release state:
+
+```text
+preflight state: READY_FOR_EXPLICIT_AUTHORIZED_EXECUTION
+observation source: GITHUB_ACTIONS_WORKFLOW
+privacy runtime: PASS
+fresh single-use TVC admission: valid
+protected Master Records configuration: present without secret disclosure
+exact-caller VA provider authority: approved and unexpired
+```
+
+Machine observer:
+
+```text
+workflow: StegVerse-org/LLM-adapter/.github/workflows/va-claim-assistant-provider-preflight.yml
+schedule: every six hours
+claimant while blocked: null
+external session ownership: not permitted
+```
+
+Do not create a competing provider-execution lane. Configuration presence alone is not authority.
 
 ### Goal 2 activation gates
 
-All ten are required:
+All are required:
 
 1. one real provider-backed VA request completes through the governed adapter;
 2. request is classified into a governed VA route;
 3. external factual claims use admitted official VA sources only;
-4. response preserves proposition-level citations, source authority classes, retrieval/effective dates, contradiction/uncertainty labels, and false-authority flags;
+4. response preserves proposition-level citations, authority classes, retrieval/effective dates, contradiction/uncertainty labels, and false-authority flags;
 5. provider execution emits a stable privacy-minimized secret-free receipt;
-6. Master Records custody returns `RECORDED` and reconstruction `PASS` for real execution evidence;
+6. Master Records returns custody `RECORDED` and reconstruction `PASS` for real execution evidence;
 7. a dedicated HTTPS VA runtime endpoint is receipt-verified;
 8. Site projection changes from BLOCKED to VERIFIED only from those receipts;
 9. public `va-claims-chat.html` uses that governed runtime for general questions;
 10. one deployed Site -> adapter -> Site question is directly observed and receipt-correlated.
 
-The generic Ecosystem Chat endpoint is not accepted as VA activation evidence unless it satisfies the VA-specific request, routing, source, receipt, custody, and projection contract.
+The generic Ecosystem Chat endpoint does not satisfy VA activation unless it meets this VA-specific contract.
 
-## Goal 3 — secure document retrieval and upload modules
+## Goal 3 — secure document/evidence lifecycle — QUEUED PUBLIC ACTIVATION
 
-```text
-Goal ID: SV-VA-SECURE-DOCUMENTS-003
-Canonical Site owner: StegVerse-Labs/Site#116
-Runtime privacy/retrieval dependency: StegVerse-org/LLM-adapter
-Custody/reconstruction dependency: master-records/orchestration
-State: QUEUED_FINAL
-Public upload: DISABLED
-Private retrieval: DISABLED
-```
+Canonical owner: Site#116. Child contracts: #178-#184.
 
-Required exit inventory:
+Required lifecycle:
 
 ```text
-consent-bound upload intake
+authoritative-source redirect and retrieval success/failure receipt
+veteran-controlled deliberate upload into governed intake
 malware/type/size validation
-encrypted temporary storage with retention/deletion state
-stable file hash and document index
-page-level extraction and citation anchors
+encrypted temporary storage with retention/deletion/revocation state
+stable original artifact hash and document index
+sanitized/tokenized derivative with original-to-derived hash linkage
+synthetic PII leakage regression
+page-level record facts and citation anchors
 privacy classification and redaction controls
-user-record facts separated from inference and official authority
-favorable, unfavorable, conflicting, and unresolved evidence retention
-session-scoped secure retrieval
-contradiction and missing-evidence views
-custody and reconstruction references
-deterministic fail-closed receipts
-representative multi-document fixture with stable hashes/page citations
-deployed runtime receipt before public upload activation
+record fact vs official-source fact vs inference vs contradiction vs unresolved state
+evidence-to-criteria and claim-language provenance
+evidence completeness/review receipt
+packet manifest and download integrity receipt
+packet-ready state distinct from submission state
+actor/provenance schema and workload-reduction metrics
+VA-authenticated claimant binding only at authorized submission boundary
+final submission-confirmation correlation receipt
+deterministic multi-document fixtures and fail-closed receipts
 ```
+
+Contracts and controlled-production-equivalent privacy preprocessing have advanced through merged PRs #227 and #230. Public private-document upload, retrieval, model review, and filing remain disabled until the applicable Goal 2, privacy, runtime, custody, reconstruction, malware, and authority gates pass.
+
+## Goal 4 — final VA.gov submission fallback — COMPLETE
+
+Until VACC has an independently authorized VA.gov filing connection, the mandatory final fallback is the official VA.gov 21-526EZ flow:
+
+`https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information`
+
+Current veteran-facing completion sequence:
+
+```text
+VACC prepares/reviews the final packet when its governed document path is active
+-> if no authorized connected VA submission exists, open official VA.gov 21-526EZ
+-> veteran signs in to VA.gov
+-> veteran uploads required packet/supporting files as directed
+-> veteran reviews the claim
+-> veteran certifies and submits
+-> Step 6 DONE only when final_claim_packet_ready AND va_submission_confirmed
+```
+
+A future receipt-verified VACC-to-VA.gov filing path may replace this fallback only when it returns an authoritative VA submission confirmation and independently satisfies filing-specific authority/custody requirements.
+
+Implementation evidence:
+
+```text
+canonical PR: StegVerse-Labs/Site#232
+merge commit: 5386e9c7ea570588c75bdeaac6dfa1f39730858d
+superseded PR: #231 — closed unmerged after main divergence
+```
+
+Changed surfaces:
+
+```text
+va-disability-claim-guide.html
+va-claims-guided-workflow.html
+va-claims-chat.html
+```
+
+Changed deterministic validators:
+
+```text
+scripts/check_va_claim_guide.py
+scripts/validate_va_claims_guide_surface.py
+scripts/test_va_guided_workflow_contract.py
+```
+
+Pre-merge evidence:
+
+```text
+VA Guided Workflow Validation run 31156831454 — SUCCESS
+VA Claim Guide Workers run 31156831494 — SUCCESS
+VA Claims Chat LLM Bridge run 31156831516 — SUCCESS
+Site Handoff Orchestrator run 31156831606 — SUCCESS
+VA governed product goals run 31156831533 — SUCCESS
+Site Bootstrap job 92798104498 — SUCCESS
+```
+
+The hosted guided-workflow receipt emitted:
+
+```text
+schema_version: 2.4.0
+state: PASS
+fallback_active_until_authorized_connected_submission: true
+fallback_submission_url: official VA.gov 21-526EZ URL
+step_6_done_requires:
+  - final_claim_packet_ready
+  - va_submission_confirmed
+errors: []
+```
+
+Post-merge evidence:
+
+```text
+VA Claims Guide surface run 31156930390 — SUCCESS
+head_sha: 5386e9c7ea570588c75bdeaac6dfa1f39730858d
+```
+
+Cloudflare Git integration also reported successful deployment during PR #232 validation. Deployment evidence does not itself grant filing authority or prove a connected VA submission runtime.
 
 ## Execution inventory
 
-| Task | Owner / location | Claim state | Completion | Validation | Integration | Next executable action |
+| Task | Canonical owner/location | Claim state | Completion | Validation | Integration | Next executable action |
 |---|---|---|---|---|---|---|
-| IKEA dual-flow instructions | Site public pages | RELEASED_COMPLETE | COMPLETE | PASS | DEPLOYED | machine regression observation |
-| Hosted provider preflight | LLM-adapter preflight task | RELEASED_COMPLETE | COMPLETE | hosted/main PASS | COMPLETE | regression observation |
-| Site coordinated-LLM bridge | Site `SITE-VA-COORDINATED-LLM-BRIDGE-002` | RELEASED_COMPLETE_PENDING_RUNTIME_ACTIVATION | COMPLETE | PASS | MERGED + RENDER DEPLOYED | consume verified runtime evidence when available |
-| Authorized single provider execution | LLM-adapter `VACP-ADAPTER-AUTHORIZED-EXECUTION-005` | BLOCKED / claimant null | NOT EXECUTED | preflight proves remaining blockers | NOT INTEGRATED | protected config + exact provider authority must become true |
-| Runtime projection activation | Site `api/va-claim-assistant/runtime-projection.json` | BLOCKED | NOT ACTIVE | fail-closed PASS | NOT ACTIVE | bind only real execution/custody receipts and HTTPS endpoint |
-| Deployed end-to-end VA chat observation | Site#113 + LLM-adapter#90 | BLOCKED | MISSING | NOT OBSERVED | NOT INTEGRATED | execute after projection VERIFIED |
-| Secure document modules | Site#116 | QUEUED | PARTIAL CONTRACTS ONLY | NOT RELEASED | NOT ACTIVE | becomes active after Goal 2 activation |
+| SV-VA-DUAL-FLOW-001 deterministic Guide | Site#113 / public pages | COMPLETE / RELEASED | COMPLETE | PASS | DEPLOYED | regression observation |
+| SV-VA-COORDINATED-LLM-002 Site bridge | Site#113 / bridge task | COMPLETE_PENDING_RUNTIME | COMPLETE | PASS | MERGED + deployed fail-closed | consume verified runtime evidence when available |
+| VACP-ADAPTER-AUTHORIZED-EXECUTION-005 | LLM-adapter#90 / task JSON | BLOCKED / claimant null | NOT EXECUTED | preflight fail-closed | NOT INTEGRATED | machine observer waits for protected config + exact provider authority |
+| Goal 2 runtime projection activation | Site#113 / runtime-projection.json | BLOCKED | NOT ACTIVE | fail-closed PASS | NOT ACTIVE | bind only real execution/custody receipts + HTTPS endpoint |
+| Goal 2 deployed end-to-end observation | Site#113 + LLM-adapter#90 | BLOCKED | MISSING | NOT OBSERVED | NOT INTEGRATED | execute after projection VERIFIED |
+| SV-VA-SECURE-DOCUMENTS-003 | Site#116 + #178-#184 | QUEUED / canonical | PARTIAL | contract/privacy PASS evidence exists | public activation disabled | continue only through canonical machine/issue lanes |
+| SV-VA-FINAL-SUBMISSION-FALLBACK-004 | Site#113/#116/#180 | COMPLETE / RELEASED | COMPLETE | PASS | MERGED | regression observation |
 
 ## Active claims and collision boundaries
 
 ```text
-Site bridge implementation claim: RELEASED
+Site fallback implementation claim: RELEASED by merged PR #232
+Site bridge implementation claim: RELEASED_COMPLETE_PENDING_RUNTIME_ACTIVATION
 Provider execution task claimant: null while BLOCKED
 Goal 2 runtime owner: StegVerse-org/LLM-adapter#90
 Goal 2 Site projection owner: StegVerse-Labs/Site#113
 Goal 3 owner: StegVerse-Labs/Site#116
+Originating-session consolidation owner: closed Site#177
 ```
 
-Do not create a competing provider-execution lane, infer provider authority, expose secret values, replace Master Records custody with local persistence, enable upload/retrieval early, or treat deployment success as runtime activation.
+Do not infer authority, expose secret values, replace Master Records custody with local persistence, enable upload/retrieval early, treat deployment success as runtime activation, or revive superseded PR #231.
 
 ## Machine-owned continuation
 
 ```text
+Site Guide validation: .github/workflows/va-guided-workflow-validation.yml
+Site Guide workers: repository-owned VA Claim Guide worker workflow
 Site bridge validator: .github/workflows/va-claims-chat-llm-bridge.yml
 Site surface validator: .github/workflows/va-claims-chat-surface.yml
 Root Site ownership guard: scripts/site_handoff_orchestrator.py
 Site canonical validation: Site Bootstrap Validate
 Adapter provider preflight: .github/workflows/va-claim-assistant-provider-preflight.yml
-Adapter authorized execution task: VACP-ADAPTER-AUTHORIZED-EXECUTION-005
+Adapter authorized execution task: tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json
 Runtime owner: StegVerse-org/LLM-adapter#90
 Projection owner: StegVerse-Labs/Site#113
-Final secure-document owner: StegVerse-Labs/Site#116
-Custody/reconstruction owner: master-records/orchestration
+Secure-document owner: StegVerse-Labs/Site#116
+Custody/reconstruction owner: master-records/orchestration#15
 ```
 
-## Validation commands / deterministic checks
+## Validation commands
 
 ```text
+python scripts/check_va_claim_guide.py
+python scripts/validate_va_claims_guide_surface.py
+python scripts/test_va_guided_workflow_contract.py
 python scripts/validate_va_claims_chat_llm_bridge.py
 python scripts/validate_va_claims_chat_surface.py
-python scripts/check_va_claim_guide.py
 python scripts/site_handoff_orchestrator.py
+python scripts/check_ecosystem_heartbeat_orchestration.py
 ```
 
-Hosted workflow/job evidence is authoritative over local claims when available.
+Hosted workflow/job evidence is authoritative over chat claims.
 
 ## Integration and propagation obligations
 
-Goal 2 requires propagation only after real runtime execution evidence exists:
+Goal 2 propagation occurs only after real runtime evidence exists:
 
 ```text
-LLM-adapter execution receipt -> master-records/orchestration custody/reconstruction
-LLM-adapter verified runtime evidence -> StegVerse-Labs/Site#113 runtime projection
-Site verified projection -> deployed VA Claims Chat observation
+LLM-adapter execution/privacy receipt -> master-records/orchestration#15 custody/reconstruction
+Master Records returned receipt + verified runtime evidence -> Site#113 runtime projection
+Site VERIFIED projection -> deployed VA Claims Chat end-to-end observation
 ```
 
-No Publisher, admissibility-wiki, or stegguardian-wiki propagation is required for this VA presentation/runtime milestone unless a live contract later names those consumers.
+No Publisher, admissibility-wiki, or stegguardian-wiki propagation is currently required for the VA Guide/fallback milestone unless a live contract later names those consumers.
 
-## Session-specific requirements transferred
+## Duplicate/convergence disposition
 
 ```text
-IKEA-style main path: see one thing, do one thing, confirm one thing
-few words only on primary instructions
-all steps visible on primary page
-DONE + Help me with this per step
-DONE dims card and brightens completion
-help opens exact walkthrough step
-walkthrough returns to instruction or continues help
-shared completion state
-chat must become coordinated VA Resources LLM, not remain scripted
-coordinated LLM is Goal 2
-secure document retrieval/upload is final Goal 3
-official VA facts require admitted authoritative support
-upload/retrieval remain disabled until their gates pass
-activation must be proven independently from file/test/workflow/deployment presence
+PR #231: SUPERSEDED / closed unmerged
+PR #232: canonical fallback implementation / merged
+Site#177: originating-session requirement consolidation / COMPLETE and closed
+Goal 2 provider execution: MERGED INTO canonical LLM-adapter#90 machine-owned lane
+Goal 3 secure documents: MERGED INTO canonical Site#116 + #178-#184 lanes
 ```
 
-`MERGED INTO: StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md`
+## Session consolidation and archive condition
 
-## Archive conditions
+The broader VACC program is not complete: Goal 2 real-provider activation remains blocked and Goal 3 public document/submission capability remains gated. Those incomplete goals are fully assigned to durable repository-native owners, task records, machine observers, issues, and release conditions.
 
-This session is not archive-ready. Goal 1 is complete, but Goal 2 still requires protected-authority release, real provider execution, custody/reconstruction, verified HTTPS VA runtime projection, and deployed end-to-end observation. Goal 3 remains queued and incomplete.
+The originating conversation that introduced the final VA.gov fallback no longer needs to remain active after the latest transfer receipt and this handoff update are merged and referenced from #113/#116/#180. Archiving that conversation does not mean VACC is complete; it means no unique execution state remains only in chat.
 
-The session may be archived only after Goal 2 and Goal 3 are completed, explicitly superseded, or fully transferred to durable machine-owned workstreams with no unique session execution responsibility remaining.
+Canonical continuation:
+
+```text
+StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
+StegVerse-Labs/Site#113
+StegVerse-Labs/Site#116
+StegVerse-Labs/Site#180
+StegVerse-org/LLM-adapter#90
+StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json
+master-records/orchestration#15
+```
 
 ## Percentages
 
-Denominator for Goal 2: 10 activation gates listed above.
+Goal-2 activation denominator remains the ten explicit activation gates above.
 
 ```text
-task completion: 6/10 = 60%
-developed-file completion: 10/12 = 83%
-validation completion: 8/10 = 80%
-integration completion: 5/7 = 71%
-propagation completion: 2/4 = 50%
-goal activation: 6/10 = 60%
-session requirement transfer: 3/3 = 100%
-archival readiness: false
+Goal 1 deterministic Guide: 100%
+Goal 4 final-submission fallback: 100%
+Goal 2 task/gate completion: 6/10 = 60%
+Goal 2 developed-file completion: 10/12 = 83%
+Goal 2 validation completion: 8/10 = 80%
+Goal 2 integration completion: 5/7 = 71%
+Goal 2 propagation completion: 2/4 = 50%
+Goal 2 activation: 6/10 = 60%
+Originating-session requirement transfer: 4/4 = 100%
+Conversation archival readiness after transfer merge/reference: true
 ```
