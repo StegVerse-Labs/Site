@@ -1,7 +1,15 @@
 # Child Mode Regulatory Governance Matrix
 
-Status: engineering and policy design record; not legal certification.
+Status: live engineering/policy boundary record and law-comparison surface.
 Checked: 2026-08-07.
+
+## Purpose
+
+This record is not a liability waiver. It states the child-safety boundaries as presently configured, compares those boundaries with current and proposed law, and preserves the rationale for later adjustments.
+
+Its public purpose is to demonstrate that child-safety controls can be deterministic at the activity/capability boundary and therefore deserve serious consideration as an alternative to blanket exclusion from social networking.
+
+The governing question is not only whether a child may enter a service. It is also which capabilities the service may exercise for that child.
 
 ## Core product rule
 
@@ -13,9 +21,17 @@ The UI may allow a user to request a mode transition. The runtime decides whethe
 
 ## Regulatory design objective
 
-The objective is not to evade or route around a social-media ban. The objective is to make the child-facing service materially different from the risk-bearing service class that regulators are restricting, and to make those differences inspectable, testable, and enforceable.
+The objective is to make the child-facing service materially different from the risk-bearing service class that regulators are restricting, and to make those differences inspectable, testable, enforceable, and publicly revisable.
 
-No architecture can guarantee that a legislature, regulator, or court will classify the service as exempt from a future law. Classification turns on the governing text, facts, product purpose, implementation, and jurisdiction.
+This creates a technically inspectable third option between unrestricted social media and complete exclusion from networking:
+
+```text
+GENERAL / ADULT-CAPABLE SOCIAL SERVICE
+or
+AGE-GOVERNED CHILD COMMUNICATIONS + COLLABORATION SERVICE
+```
+
+The proposition to test publicly is straightforward: if the risk-bearing capabilities can be made deterministically unavailable while socially valuable communication remains available, that governed boundary is a plausible policy solution that should be evaluated alongside or in lieu of complete bans.
 
 ## Mode architecture
 
@@ -79,7 +95,7 @@ Engineering implications:
 
 The UK government announced an under-16 social-media ban on 15 June 2026. Its public fact sheet also states that harmful features such as livestreaming and strangers contacting children will be restricted for under-18s.
 
-The final implementing law/rules must be tracked before making a compliance certification claim.
+The final implementing law/rules must be tracked as they change.
 
 Engineering implications now:
 
@@ -89,9 +105,9 @@ Engineering implications now:
 - preserve bounded communication/collaboration surfaces separately from public social-media behavior;
 - retain evidence showing what capability existed for which age state and why.
 
-## What would make the toggle defensible to regulators
+## Determinacy standard
 
-A regulator should be able to test the same account and observe that switching into Child Mode materially changes service authority.
+A regulator, policymaker, parent, or user should be able to test the same protected account repeatedly and obtain the same policy result from the same inputs.
 
 Expected evidence:
 
@@ -119,7 +135,7 @@ REQUEST_NORMAL_MODE
 -> retain reason + policy version + evidence reference in receipt
 ```
 
-The control should therefore have three conceptual states even if the visual UI remains a simple two-position switch:
+The control therefore has three conceptual states even if the visual UI remains a simple two-position switch:
 
 ```text
 NORMAL_MODE_ACTIVE
@@ -127,9 +143,9 @@ CHILD_MODE_ACTIVE
 NORMAL_MODE_REQUEST_DENIED_BY_POLICY
 ```
 
-## Measures likely to weaken the argument
+## Measures that would make the boundary non-determinant
 
-The following would make Child Mode look cosmetic and could strengthen a regulator's argument that the service remains ordinary social media for children:
+The following would undermine the proposition that Child Mode is a substantive governance alternative:
 
 - child chooses their own unverified age and immediately unlocks Normal Mode;
 - parent can universally override statutory restrictions;
@@ -144,26 +160,31 @@ The following would make Child Mode look cosmetic and could strengthen a regulat
 - no review path for erroneous age classification;
 - no capability/version receipts for audits.
 
-## Public claim boundary
+## Public comparison posture
 
-Appropriate claim:
-
-> Child Mode is a separately governed capability profile designed around current child-safety regulatory principles. It prevents protected users from self-authorizing adult/social-media capabilities and provides inspectable evidence of each sensitive capability decision.
-
-Do not claim:
-
-> Child Mode guarantees exemption from social-media minimum-age laws.
-
-Do not claim legal certification until the relevant product implementation has been reviewed against the exact operative law in each launch jurisdiction.
-
-## Regulatory posture goal
-
-The strategic aim is to give lawmakers and regulators a technically credible third option between `unrestricted social media` and `exclude children from networking`:
+The public page should show, for each material boundary:
 
 ```text
-adult/general social service
-OR
-age-governed child communications/collaboration service
+CURRENT BOUNDARY
+LEGAL / POLICY RELEVANCE
+DETERMINISTIC TEST
+LATEST CHANGE + RATIONALE
 ```
 
-The second service profile should retain socially valuable capabilities while structurally removing the capabilities and business incentives that motivated minimum-age bans.
+This is a living comparison record. When laws, proposed laws, regulator guidance, or StegVerse policy change, the operative boundary may change as well. Those changes should be appended rather than silently replacing prior rationale.
+
+## Boundary change record
+
+Append-only. New entries go below prior entries.
+
+### 2026-08-07 — Initial bounded-networking profile
+
+Change: established Normal Mode / Child Mode distinction and a protected capability profile that removes stranger contact, public exposure, behavioral profiling, unnecessary precise-location disclosure, public self-livestreaming under the protective minor policy, and engagement-optimized recommendation while preserving bounded communication and collaboration.
+
+Rationale: demonstrate that activity boundaries can be deterministic and testable and therefore constitute a plausible governance alternative that lawmakers should consider alongside or in lieu of complete bans.
+
+### 2026-08-07 — Boundary transparency rule
+
+Change: established an append-only public record of subsequent boundary adjustments and their rationale; reframed the public language as boundary-state disclosure and legal comparison rather than waiver-oriented language.
+
+Rationale: preserve a visible history of what changed, why it changed, and how the governing boundary evolved.
