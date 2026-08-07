@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/claimant-submission-binding.schema.json",
+  "title": "VACC VA-Authenticated Claimant and Submission Binding Contract",
+  "type": "object",
+  "required": ["schema_version", "packet_sha256", "document_hashes", "authenticated_context_ref", "claimant_ref", "claim_ref", "certification", "submission", "production_fields_verified", "authority_effect", "activation_effect"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "packet_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "document_hashes": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "authenticated_context_ref": {"type": "string", "minLength": 1},
+    "claimant_ref": {"type": "string", "minLength": 1},
+    "claim_ref": {"type": ["string", "null"]},
+    "minimum_va_metadata": {"type": "object"},
+    "certification": {
+      "type": "object",
+      "required": ["veteran_affirmative_action", "exact_packet_hash_bound", "certified_at"],
+      "properties": {
+        "veteran_affirmative_action": {"const": true},
+        "exact_packet_hash_bound": {"const": true},
+        "certified_at": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "submission": {
+      "type": "object",
+      "required": ["state", "va_transaction_id", "confirmation_ref"],
+      "properties": {
+        "state": {"enum": ["NOT_AUTHORIZED", "READY_FOR_AUTHORIZED_TRANSPORT", "SUBMITTED", "CONFIRMED", "FAILED"]},
+        "va_transaction_id": {"type": ["string", "null"]},
+        "confirmation_ref": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "decorative_identity_stamp_is_proof": {"const": false},
+    "veteran_submission_authority_preserved": {"const": true},
+    "production_fields_verified": {"const": false},
+    "authority_effect": {"const": false},
+    "activation_effect": {"const": false}
+  },
+  "additionalProperties": false
+}
