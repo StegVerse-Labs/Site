@@ -26,34 +26,32 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     controls = state.get("controls", {})
     errors: list[str] = []
+    key = "vaClaimsStepStateV1"
 
-    # Primary instruction page: all steps visible, persistent status, two actions.
-    require("VA Claims Guide" in guide, "plain-language guide title missing", errors)
+    require("VA Claims Instructions" in guide, "instruction page title missing", errors)
     require(len(re.findall(r'data-step="[1-6]"', guide)) == 6, "primary instruction page must expose six ordered steps", errors)
     require(guide.count("DONE") >= 6, "each primary step requires a DONE control", errors)
     require(guide.count("Help me with this") >= 6, "each primary step requires a Help me with this control", errors)
-    require("va-claims-guided-workflow.html?step=" in guide, "step-addressable walkthrough links missing", errors)
-    require("vaClaimsProgress" in guide, "shared progress storage key missing from primary page", errors)
-    require("classList.toggle('complete'" in guide or "classList.toggle(\"complete\"" in guide, "completed-card dimming state missing", errors)
-    require("Reset progress" in guide, "progress reset control missing", errors)
-    require("Nothing is filed or submitted for you" in guide, "veteran-control boundary missing", errors)
+    require(guide.count("va-claims-guided-workflow.html?step=") >= 6, "step-addressable walkthrough links missing", errors)
+    require(key in guide, "shared progress storage key missing from primary page", errors)
+    require("classList.toggle('done'" in guide, "completed-card dimming state missing", errors)
+    require("reset-progress" in guide, "progress reset control missing", errors)
+    require("0 of 6 done" in guide, "primary completion summary missing", errors)
 
-    # Focused walkthrough: one selected step, return path, and continued help path.
-    require("VA Claims Step-by-Step" in guided, "focused walkthrough title missing", errors)
+    require("VA Claims Walkthrough" in guided, "focused walkthrough title missing", errors)
     require(len(re.findall(r'data-card="[1-6]"', guided)) == 6, "focused walkthrough must contain six addressable step cards", errors)
-    require("URLSearchParams" in guided and "step" in guided, "walkthrough query-step routing missing", errors)
-    require("vaClaimsProgress" in guided, "shared progress storage key missing from walkthrough", errors)
+    require("URLSearchParams" in guided and "params.get('step')" in guided, "walkthrough query-step routing missing", errors)
+    require(key in guided, "shared progress storage key missing from walkthrough", errors)
     require("Return to Instruction Page" in guided, "return-to-instruction control missing", errors)
     require("Continue with help me complete this" in guided, "continued-help control missing", errors)
     require("va-claims-chat.html?guided=1" in guided, "step-specific Claims Chat continuation missing", errors)
     require("https://www.va.gov/my-health/medical-records/download" in guided, "official VA records link missing", errors)
-    require("https://www.login.gov/help/creating-an-account/creating-an-account/" in guided, "official Login.gov help link missing", errors)
+    require("https://secure.login.gov/sign_up/enter_email" in guided, "official Login.gov path missing", errors)
 
-    # Chat remains a separate help surface with credential and authority boundaries.
-    require("guided=1" in chat, "Claims Chat guided query mode missing", errors)
+    require("get('guided')==='1'" in chat, "Claims Chat guided query mode missing", errors)
     require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential boundary missing", errors)
+    require("automated claim filing remain disabled" in chat.lower(), "Claims Chat filing boundary missing", errors)
 
-    # Existing capability controls remain fail-closed even though they are not displayed as user-facing jargon.
     require(state.get("current_capability") == "SOURCE_GROUNDED_ASSISTANT", "state capability mismatch", errors)
     require(controls.get("private_document_upload_enabled") is False, "private upload unexpectedly enabled", errors)
     require(controls.get("automated_filing_enabled") is False, "automated filing unexpectedly enabled", errors)
@@ -63,13 +61,13 @@ def main() -> int:
 
     surfaces = [GUIDE, GUIDED, CHAT]
     body = {
-        "schema_version": "2.0.0",
+        "schema_version": "2.1.0",
         "state": "PASS" if not errors else "FAIL",
         "design_contract": "PRIMARY_CHECKLIST_PLUS_FOCUSED_HELP",
         "surfaces": [path.name for path in surfaces],
         "primary_steps": 6,
         "focused_steps": 6,
-        "shared_progress_key": "vaClaimsProgress",
+        "shared_progress_key": key,
         "capability_state": state.get("state"),
         "current_capability": state.get("current_capability"),
         "private_document_upload_enabled": controls.get("private_document_upload_enabled"),
