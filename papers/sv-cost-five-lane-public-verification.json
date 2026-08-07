@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "task_id": "SV-COST-FIVE-LANE-PUBLIC-BODY-VERIFY-001",
   "originating_goal": "Publish and verify SV-COST-FIVE-LANE-RESULTS-001 with bounded claims",
-  "observed_at": "2026-08-07T18:05:18Z",
+  "observed_at": "2026-08-07T19:18:49Z",
   "target_url": "https://stegverse.org/papers/sv-cost-relational-analysis.html",
-  "final_url": "https://stegverse.org/papers/sv-cost-relational-analysis.html?sv_cost_verify=1786125921",
+  "final_url": "https://stegverse.org/papers/sv-cost-relational-analysis.html?sv_cost_verify=1786130329",
   "http_status": 200,
   "response_bytes": 11069,
   "content_sha256": "sha256:085476333d0ff396ce47d888846a43770d94d5a3ec17e7dfb8b46e8b672386d2",
@@ -28,19 +28,15 @@
   "attempts": [
     {
       "attempt": 1,
-      "error": "HTTPError: HTTP Error 503: Service Unavailable"
-    },
-    {
-      "attempt": 2,
       "http_status": 200,
       "bytes": 11069
     }
   ],
-  "last_error": "HTTPError: HTTP Error 503: Service Unavailable",
+  "last_error": null,
   "state": "COMPLETE",
   "publication_claim_boundary": "One bounded deterministic reconstruction operation; no universal provider economics, enterprise-wide savings, company ROI, or fresh-inference equivalence.",
-  "source_commit": "755ddee0ed670bba0074d75016b1886707e06a90",
-  "workflow_run_id": "31205324097",
+  "source_commit": "f83de77ef3fd186c39e10789b2173f356066cb59",
+  "workflow_run_id": "31210906819",
   "workflow_run_attempt": "1",
   "next_executable_action": "Release claim and close StegVerse-Labs/Site#173"
 }
