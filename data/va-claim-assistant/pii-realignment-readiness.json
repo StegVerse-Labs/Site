@@ -13,18 +13,44 @@
       "owner": "StegVerse-Labs/Site#116",
       "validation_owner": "StegVerse-Labs/Site#170",
       "capability": "PII detection and uncertain-result review",
-      "state": "CLAIMED",
+      "state": "COMPLETE",
       "evidence_paths": [
         "data/va-claim-assistant/fixtures/pii-detection-evaluation.json",
-        "scripts/evaluate_va_pii_detection_fixture.py",
-        ".github/workflows/va-pii-detection-evaluation.yml",
-        "data/va-claim-assistant/pii-detection-evaluation-receipt.json"
+        "data/va-claim-assistant/pii-detection-evaluation-receipt.json",
+        "scripts/process_va_private_document_privacy_preprocessor.py",
+        "data/va-claim-assistant/pii-production-detector-evidence.json",
+        "data/va-claim-assistant/pii-production-detector-readiness.json",
+        ".github/workflows/va-private-document-privacy-preprocessor.yml"
       ],
-      "release_condition": "reference corpus PASS plus production detector execution receipt PASS; reference PASS alone cannot complete this requirement",
-      "collision_boundary": "Site#170 validates synthetic fixtures only and must not modify the Site#116 production document processor"
+      "release_condition": "SATISFIED: reference corpus PASS plus admitted controlled-production-equivalent detector execution receipt COMPLETE on main",
+      "collision_boundary": "Site#170 validates synthetic reference fixtures; Site#116 owns admitted preprocessor execution"
     },
-    {"id":"PII-RDY-02","owner":"StegVerse-Labs/Site#116","capability":"redaction and pseudonymous working-copy generation","state":"BLOCKED","release_condition":"hash-bound redaction receipt PASS"},
-    {"id":"PII-RDY-03","owner":"StegVerse-Labs/Site#116","capability":"model-facing leakage verification","state":"BLOCKED","release_condition":"leakage test suite PASS"},
+    {
+      "id": "PII-RDY-02",
+      "owner": "StegVerse-Labs/Site#116",
+      "capability": "redaction and pseudonymous working-copy generation",
+      "state": "COMPLETE",
+      "evidence_paths": [
+        "scripts/process_va_private_document_privacy_preprocessor.py",
+        "data/va-claim-assistant/pii-redaction-working-copy-evidence.json",
+        "data/va-claim-assistant/pii-redaction-working-copy-readiness.json",
+        "data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"
+      ],
+      "release_condition": "SATISFIED: hash-bound redaction receipt COMPLETE with distinct original/redacted hashes, manifest anchors, purpose-limited pseudonym, and no raw PII in working copy"
+    },
+    {
+      "id": "PII-RDY-03",
+      "owner": "StegVerse-Labs/Site#116",
+      "capability": "model-facing leakage verification",
+      "state": "COMPLETE",
+      "evidence_paths": [
+        "scripts/process_va_private_document_privacy_preprocessor.py",
+        "data/va-claim-assistant/pii-model-leakage-evidence.json",
+        "data/va-claim-assistant/pii-model-leakage-readiness.json",
+        "data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"
+      ],
+      "release_condition": "SATISFIED: admitted controlled-production-equivalent leakage suite COMPLETE with seven identifier classes, zero model-facing leaks, uncertainty release denial, and raw-document-to-model prohibition"
+    },
     {"id":"PII-RDY-04","owner":"StegVerse-Labs/TVC","capability":"verified credentialing handoff admission","state":"BLOCKED","release_condition":"scoped, expiring, revocable handoff receipt PASS"},
     {"id":"PII-RDY-05","owner":"StegVerse-Labs/TVC","capability":"post-credential identity linkage admission","state":"BLOCKED","release_condition":"purpose, scope, expiry, revocation, and hash-binding tests PASS"},
     {"id":"PII-RDY-06","owner":"StegVerse-org/LLM-adapter#90","capability":"raw PII rejection and sanitized-context enforcement","state":"BLOCKED","release_condition":"negative fixtures and governed runtime receipt PASS"},
@@ -40,5 +66,5 @@
     "unresolved_high_or_critical_findings": 0
   },
   "machine_owner": ".github/workflows/va-pii-realignment-readiness.yml",
-  "next_executable_task": "Observe the Site#170 synthetic evaluation receipt; then Site#116 must bind a production detector execution receipt before PII-RDY-01 can complete."
+  "next_executable_task": "PII-RDY-04: StegVerse-Labs/TVC must produce an admitted scoped, expiring, revocable credentialing-handoff execution receipt; PII-RDY-05 follows with post-credential purpose/scope/expiry/revocation/hash-binding evidence."
 }
