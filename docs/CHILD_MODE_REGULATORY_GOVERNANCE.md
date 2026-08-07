@@ -9,13 +9,13 @@ This record is not a liability waiver. It states the child-safety boundaries as 
 
 Its public purpose is to demonstrate that child-safety controls can be deterministic at the activity/capability boundary and therefore deserve serious consideration as an alternative to blanket exclusion from social networking.
 
-The governing question is not only whether a child may enter a service. It is also which capabilities the service may exercise for that child.
+The governing question is not only whether a child may enter a service. It is also which capabilities the service may exercise for that child and how those restrictions are delivered and enforced on the device/account actually in use.
 
 ## Core product rule
 
 The visible `NORMAL MODE / CHILD MODE` toggle is a user-facing declaration of service state. It is not the source of legal authority.
 
-Production mode selection must be derived from an authoritative eligibility state such as privacy-preserving age assurance, jurisdiction, parental/guardian authority where required, and service policy. A protected child must not be able to acquire adult capabilities by changing a client-side toggle, editing local state, changing a birthdate field, using a VPN, or otherwise bypassing policy.
+Production mode selection must be derived from an authoritative eligibility state such as privacy-preserving age assurance, jurisdiction, parental/guardian authority where required, device/account policy, and service policy. A protected child must not be able to acquire adult capabilities by changing a client-side toggle, editing local state, changing a birthdate field, using a VPN, or otherwise bypassing policy.
 
 The UI may allow a user to request a mode transition. The runtime decides whether that transition is admissible.
 
@@ -60,6 +60,79 @@ Minimum baseline:
 - data minimization and purpose limitation for age-assurance evidence;
 - auditable receipts for mode changes and sensitive capability decisions.
 
+## Methods of delivery and operation
+
+The same governed capability boundary can be delivered at several layers. The visible mode switch is only the presentation/control surface. Enforcement should occur at the strongest available trusted layer.
+
+### Child-dedicated device
+
+A device manufactured, provisioned, or enrolled specifically for a child can be device-bound to Child Mode.
+
+```text
+DEVICE_BOOT
+-> DEVICE_CLASS=CHILD_DEDICATED
+-> CHILD_MODE_REQUIRED
+-> protected capability manifest
+-> prohibited capabilities unavailable
+```
+
+The child boundary may be embedded in device policy, managed-device configuration, secure storage, OS policy, trusted execution, or another enforcement layer that ordinary application settings cannot silently override.
+
+Normal Mode should be absent or require an authorized reprovisioning action that is outside the child's authority.
+
+### Shared device / account-bound delivery
+
+A device used by multiple people should derive the effective boundary from the active authenticated account.
+
+```text
+ACCOUNT_LOGIN
+-> verified account identity
+-> age/eligibility state
+-> jurisdiction + policy
+-> effective service mode
+-> account-scoped capability manifest
+```
+
+An age-governed child account should enter Child Mode automatically. An eligible adult account may receive Normal Mode. Switching accounts is itself an authority transition and should not be reducible to changing a local preference.
+
+The protected account state should survive application restart, ordinary sign-out/in flows, and other routine client actions according to policy.
+
+### Guardian-controlled temporary Child Mode
+
+A general-purpose device may also support a guardian-controlled Child Mode for situations where the adult account holder temporarily allows a child to use the device.
+
+Entering or leaving this guardian-controlled mode should require fresh account-holder reauthentication, such as a biometric, passkey, hardware-backed device credential, or comparably strong authentication method.
+
+```text
+REQUEST_MODE_CHANGE
+-> fresh account-holder reauthentication
+-> biometric / passkey / device credential
+-> policy evaluation
+-> ALLOW or DENY
+-> mode-transition receipt
+```
+
+The child-visible toggle may request the transition but should not itself possess authority to disable the boundary.
+
+A timeout, device lock, logout, explicit hand-back action, or guardian policy may restore the owner-defined state when appropriate.
+
+### Enforcement precedence
+
+A mandatory statutory or age-policy floor cannot be overridden by an optional guardian toggle.
+
+The effective capability boundary should be the intersection of all applicable restrictions, with stricter protections allowed but weaker protections unable to undercut mandatory ones:
+
+```text
+LAW / JURISDICTION FLOOR
++ verified age eligibility
++ device policy
++ account policy
++ guardian-selected stricter controls
+-> EFFECTIVE_CAPABILITY_BOUNDARY
+```
+
+This means a guardian can place an otherwise eligible device/account into Child Mode, but cannot use the same control to grant a legally ineligible child unrestricted Normal Mode.
+
 ## Australia — operative law
 
 As of 10 December 2025, covered age-restricted social-media platforms must take reasonable steps to prevent Australians under 16 from creating or keeping accounts.
@@ -80,8 +153,6 @@ Engineering implications:
 COPPA applies to operators of child-directed services under 13 and general-audience services with actual knowledge that they collect personal information from a child under 13.
 
 Production implications for a known under-13 user include notice, verifiable parental consent where required before collection/use/disclosure, data minimization, security, deletion/retention controls, and the updated COPPA requirements concerning third-party disclosure/targeted advertising.
-
-The FTC's 2026 age-verification enforcement policy supports age-verification processing without prior parental consent in specified circumstances when the information is used solely for age determination, retained only as necessary, protected, appropriately disclosed, and handled by suitable providers.
 
 Engineering implications:
 
@@ -135,20 +206,15 @@ REQUEST_NORMAL_MODE
 -> retain reason + policy version + evidence reference in receipt
 ```
 
-The control therefore has three conceptual states even if the visual UI remains a simple two-position switch:
-
-```text
-NORMAL_MODE_ACTIVE
-CHILD_MODE_ACTIVE
-NORMAL_MODE_REQUEST_DENIED_BY_POLICY
-```
-
 ## Measures that would make the boundary non-determinant
 
 The following would undermine the proposition that Child Mode is a substantive governance alternative:
 
 - child chooses their own unverified age and immediately unlocks Normal Mode;
 - parent can universally override statutory restrictions;
+- account switching silently drops an applicable child boundary;
+- shared devices do not bind restrictions to the active authenticated identity;
+- exiting guardian-controlled Child Mode requires no account-holder reauthentication;
 - same public feed remains available with only content filtering changed;
 - same public follower/discovery graph remains enabled;
 - stranger messaging remains available after a warning;
@@ -166,25 +232,38 @@ The public page should show, for each material boundary:
 
 ```text
 CURRENT BOUNDARY
+DELIVERY / ENFORCEMENT METHOD
 LEGAL / POLICY RELEVANCE
 DETERMINISTIC TEST
 LATEST CHANGE + RATIONALE
 ```
 
-This is a living comparison record. When laws, proposed laws, regulator guidance, or StegVerse policy change, the operative boundary may change as well. Those changes should be appended rather than silently replacing prior rationale.
+This is a living comparison record. When laws, proposed laws, regulator guidance, or StegVerse policy change, the operative boundary may change as well. Those changes should be preserved rather than silently replacing prior rationale.
 
 ## Boundary change record
 
-Append-only. New entries go below prior entries.
+Append-only history, rendered newest-first in descending chronological order.
 
-### 2026-08-07 — Initial bounded-networking profile
+### 2026-08-07 — Delivery and device-operation models
 
-Change: established Normal Mode / Child Mode distinction and a protected capability profile that removes stranger contact, public exposure, behavioral profiling, unnecessary precise-location disclosure, public self-livestreaming under the protective minor policy, and engagement-optimized recommendation while preserving bounded communication and collaboration.
+Change: defined child-dedicated device binding, shared-device account-bound enforcement, and guardian-controlled temporary Child Mode with account-holder reauthentication for mode changes.
 
-Rationale: demonstrate that activity boundaries can be deterministic and testable and therefore constitute a plausible governance alternative that lawmakers should consider alongside or in lieu of complete bans.
+Rationale: a determinant safety boundary must explain how it reaches and persists on real devices, how identity changes affect it, and who has authority to relax or impose the boundary.
+
+### 2026-08-07 — Newest-first history ordering
+
+Change: established descending chronological rendering of the public change record.
+
+Rationale: current changes should be visible first while preserving older reasoning beneath them.
 
 ### 2026-08-07 — Boundary transparency rule
 
 Change: established an append-only public record of subsequent boundary adjustments and their rationale; reframed the public language as boundary-state disclosure and legal comparison rather than waiver-oriented language.
 
 Rationale: preserve a visible history of what changed, why it changed, and how the governing boundary evolved.
+
+### 2026-08-07 — Initial bounded-networking profile
+
+Change: established Normal Mode / Child Mode distinction and a protected capability profile that removes stranger contact, public exposure, behavioral profiling, unnecessary precise-location disclosure, public self-livestreaming under the protective minor policy, and engagement-optimized recommendation while preserving bounded communication and collaboration.
+
+Rationale: demonstrate that activity boundaries can be deterministic and testable and therefore constitute a plausible governance alternative that lawmakers should consider alongside or in lieu of complete bans.
