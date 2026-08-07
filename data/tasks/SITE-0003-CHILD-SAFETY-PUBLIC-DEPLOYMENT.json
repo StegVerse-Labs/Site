@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Verify that the governed child-safety interactive demo is publicly reachable over verified HTTPS at the canonical Site domain and serves the exact validated policy surface.",
+  "state": "BLOCKED",
+  "auto_admit": false,
+  "owner": {
+    "type": "repository_native_workflow",
+    "location": ".github/workflows/verify-child-safety-public-deployment.yml"
+  },
+  "implementation_locations": [
+    "child-safety-demo.html",
+    "children-safe-networking.html"
+  ],
+  "verification_locations": [
+    "scripts/check_child_safety_public_deployment.py",
+    ".github/workflows/verify-child-safety-public-deployment.yml",
+    "child-safety-public-deployment.report.json"
+  ],
+  "blocked_by": {
+    "surface": "GitHub Pages for stegverse.org",
+    "observed_state": "errored/building",
+    "release_condition": "https://stegverse.org/child-safety-demo.html returns HTTP 200 over verified HTTPS and contains all canonical demo markers"
+  },
+  "next_executable_action": "Repository-native workflow rechecks the public route after Site deployment changes and on schedule; PASS is the only release condition.",
+  "external_session_ownership_required": false,
+  "manual_user_action_required": false,
+  "authority_effect": false,
+  "activation_effect": false
+}
