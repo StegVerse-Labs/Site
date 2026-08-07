@@ -5,6 +5,8 @@
   "goal": "Publish and machine-validate a privacy-first child-safe networking governance projection, including optional data harvesting, purpose-bound permissions, and the canonical 30-second transcript.",
   "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
   "auto_admit": true,
+  "claim_created_at": "2026-08-07T12:35:00Z",
+  "claim_release_condition": "validator returns CHILD_SAFE_NETWORKING=PASS and repository controller records completion, or task is explicitly superseded",
   "owner": {
     "type": "repository_controller",
     "location": "scripts/observe_and_complete_repository_tasks.py"
