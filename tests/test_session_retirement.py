@@ -70,6 +70,23 @@ class SessionRetirementPostureTests(unittest.TestCase):
         failures = self.validate(receipt(active_task_ownership=True))
         self.assertTrue(any("still owns active work" in item for item in failures))
 
+    def test_duplicate_current_owner_is_rejected(self):
+        first = receipt(
+            session_id="current-a",
+            posture="CURRENT",
+            active_task_ownership=True,
+            safe_to_archive=False,
+        )
+        second = receipt(
+            session_id="current-b",
+            posture="CURRENT",
+            active_task_ownership=True,
+            safe_to_archive=False,
+        )
+        failures = validator.duplicate_current_owner_failures([first, second])
+        self.assertEqual(len(failures), 1)
+        self.assertIn("multiple CURRENT owners", failures[0])
+
 
 if __name__ == "__main__":
     unittest.main()
