@@ -38,10 +38,14 @@ def canonical_hash(value: object) -> str:
     return sha256_bytes(json.dumps(value, sort_keys=True, separators=(",", ":")).encode())
 
 
+def is_redaction_token(value: str) -> bool:
+    return bool(re.fullmatch(r"\[[A-Z_]+:[0-9a-f]{12}\]", value.strip()))
+
+
 def detect(text: str) -> dict[str, list[str]]:
     found: dict[str, list[str]] = {}
     for kind, pattern in IDENTIFIER_PATTERNS.items():
-        values = [match.group(1) for match in pattern.finditer(text)]
+        values = [match.group(1) for match in pattern.finditer(text) if not is_redaction_token(match.group(1))]
         if values:
             found[kind] = values
     return found
@@ -68,6 +72,8 @@ def redact_pages(pages: list[str], original_hash: str) -> tuple[list[str], list[
             matches = list(pattern.finditer(output))
             for match_index, match in enumerate(reversed(matches), start=1):
                 value = match.group(1)
+                if is_redaction_token(value):
+                    continue
                 token = replacement_token(kind, original_hash, value)
                 start, end = match.span(1)
                 output = output[:start] + token + output[end:]
@@ -97,9 +103,9 @@ def evaluate_detection(cases: Iterable[dict], clean_cases: Iterable[str]) -> tup
         observed = set(detect(case["text"]))
         expected_total += len(expected)
         detected_total += len(expected & observed)
-    false_positives = sum(1 for text in clean_cases if detect(text))
-    recall = detected_total / expected_total if expected_total else 1.0
     clean = list(clean_cases)
+    false_positives = sum(1 for text in clean if detect(text))
+    recall = detected_total / expected_total if expected_total else 1.0
     fp_rate = false_positives / len(clean) if clean else 0.0
     return recall, fp_rate, case_count
 
