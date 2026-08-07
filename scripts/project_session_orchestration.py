@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project deterministic successor packets and archive queue from the session registry."""
+"""Project deterministic successor packets and archive queue from governed session state."""
 from __future__ import annotations
 
 import argparse
@@ -9,6 +9,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "data" / "session-orchestration-registry.json"
+CROSS_REPO = ROOT / "data" / "session-orchestration-cross-repository.report.json"
 SUCCESSORS = ROOT / "data" / "session-orchestration-successor-packets.json"
 QUEUE = ROOT / "data" / "session-orchestration-archive-queue.json"
 
@@ -27,12 +28,33 @@ def load_registry(path: Path = REGISTRY) -> dict[str, Any]:
     return value
 
 
+def load_cross_repository(path: Path = CROSS_REPO) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict) or value.get("state_type") != "session_orchestration_cross_repository_report":
+        raise ValueError("cross-repository report is missing or has the wrong state_type")
+    return value
+
+
 def resolve_local_source(value: Any) -> bool:
     return isinstance(value, str) and bool(value) and (ROOT / value).exists()
 
 
-def projection_failures(registry: dict[str, Any]) -> list[str]:
+def projection_failures(registry: dict[str, Any], cross_repository: dict[str, Any] | None = None) -> list[str]:
     failures: list[str] = []
+    if cross_repository is not None:
+        if cross_repository.get("status") != "PASS":
+            failures.append("cross-repository authority comparison is not PASS")
+        summary = cross_repository.get("summary", {})
+        if not isinstance(summary, dict):
+            failures.append("cross-repository comparison summary is malformed")
+        else:
+            if summary.get("owner_collision_count", 0) != 0:
+                failures.append("cross-repository comparison reports owner collisions")
+            if summary.get("stale_handoff_count", 0) != 0:
+                failures.append("cross-repository comparison reports stale handoffs")
+            if summary.get("unresolved_successor_count", 0) != 0:
+                failures.append("cross-repository comparison reports unresolved successors")
+
     seen: set[tuple[str, str]] = set()
     current_owners: dict[tuple[str, str], list[str]] = {}
     for index, session in enumerate(registry.get("sessions", [])):
@@ -64,6 +86,22 @@ def projection_failures(registry: dict[str, Any]) -> list[str]:
                 f"multiple CURRENT owners for {task_key[0]} {task_key[1]}: {', '.join(owners)}"
             )
     return failures
+
+
+def cross_repository_binding(cross_repository: dict[str, Any] | None) -> dict[str, Any]:
+    if cross_repository is None:
+        return {
+            "status": "NOT_EVALUATED",
+            "source": "data/session-orchestration-cross-repository.report.json",
+            "summary": {},
+            "delegated_dependencies": [],
+        }
+    return {
+        "status": cross_repository.get("status"),
+        "source": "data/session-orchestration-cross-repository.report.json",
+        "summary": cross_repository.get("summary", {}),
+        "delegated_dependencies": cross_repository.get("delegated_dependencies", []),
+    }
 
 
 def successor_packet(session: dict[str, Any]) -> dict[str, Any]:
@@ -111,8 +149,11 @@ def archive_row(session: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build(registry: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
-    failures = projection_failures(registry)
+def build(
+    registry: dict[str, Any],
+    cross_repository: dict[str, Any] | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    failures = projection_failures(registry, cross_repository)
     sessions = [row for row in registry.get("sessions", []) if isinstance(row, dict)]
     successor_rows = [successor_packet(row) for row in sessions if row.get("posture") != "ARCHIVABLE"]
     queue_rows = [archive_row(row) for row in sessions]
@@ -121,32 +162,39 @@ def build(registry: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
         for row in successor_rows
         if row.get("posture") == "CURRENT" and row.get("successor_execution_source")
     ]
+    cross_binding = cross_repository_binding(cross_repository)
     successors = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "state_type": "session_orchestration_successor_packets",
         "status": "FAIL" if failures else "PASS",
         "repository": registry.get("repository"),
         "source_registry": "data/session-orchestration-registry.json",
+        "cross_repository_authority": cross_binding,
         "packets": successor_rows,
         "next_executable": next_executable[0] if len(next_executable) == 1 else None,
         "frontier_state": (
-            "READY" if len(next_executable) == 1 else
-            "REVIEW_REQUIRED" if len(next_executable) > 1 else
+            "READY" if len(next_executable) == 1 and not failures else
+            "REVIEW_REQUIRED" if len(next_executable) > 1 or failures else
             "EMPTY"
         ),
         "frontier_reason": (
-            "exactly one CURRENT session owner has a resolvable successor source" if len(next_executable) == 1 else
-            "multiple CURRENT candidates require owner reconciliation" if len(next_executable) > 1 else
+            "exactly one CURRENT session owner has a resolvable successor source and cross-repository authority comparison passes"
+            if len(next_executable) == 1 and not failures else
+            "cross-repository or ownership evidence requires review before continuation"
+            if failures else
+            "multiple CURRENT candidates require owner reconciliation"
+            if len(next_executable) > 1 else
             "no CURRENT session candidate is executable from the registry"
         ),
         "failures": failures,
     }
     queue = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "state_type": "session_orchestration_archive_queue",
         "status": "FAIL" if failures else "PASS",
         "repository": registry.get("repository"),
         "source_registry": "data/session-orchestration-registry.json",
+        "cross_repository_authority": cross_binding,
         "ui_action_supported": False,
         "entries": queue_rows,
         "archive_candidate_count": sum(1 for row in queue_rows if row["archive_candidate"]),
@@ -160,7 +208,17 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="Fail when generated files differ from committed projections")
     args = parser.parse_args()
     registry = load_registry()
-    successors, queue = build(registry)
+    try:
+        cross_repository = load_cross_repository()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        cross_repository = {
+            "state_type": "session_orchestration_cross_repository_report",
+            "status": "FAIL",
+            "summary": {},
+            "delegated_dependencies": [],
+            "failures": [f"cross-repository report unavailable: {exc}"],
+        }
+    successors, queue = build(registry, cross_repository)
     rendered_successors = json.dumps(successors, indent=2) + "\n"
     rendered_queue = json.dumps(queue, indent=2) + "\n"
     if args.check:
