@@ -27,6 +27,7 @@ def main() -> int:
     controls = state.get("controls", {})
     errors: list[str] = []
     key = "vaClaimsStepStateV1"
+    fallback = "https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information"
 
     require("VA Claims Instructions" in guide, "instruction page title missing", errors)
     require(len(re.findall(r'data-step="[1-6]"', guide)) == 6, "primary instruction page must expose six ordered steps", errors)
@@ -45,7 +46,8 @@ def main() -> int:
         'https://www.va.gov/sign-in/','id="step-2-account-created"','id="step-2-va-login-success"','confirming email',
         'https://www.va.gov/my-health/medical-records/download','https://mobile.va.gov/app/va-health-and-benefits',
         'Review medical records on VA.gov','All time','Types of records to include','PDF','TXT','Download report',
-        'Downloads</strong> folder','Submit the file to VA Claims Chat','active secure document-upload control',
+        'Downloads</strong> folder','Use VA Claims Chat, then submit your final claim','active secure document-upload control',
+        fallback,'Final submission fallback:','id="step-6-packet-ready"','id="step-6-submitted"',
         'const requirements={','function ready(step)',
     ):
         require(marker in guide, f"clarified guide marker missing: {marker}", errors)
@@ -60,12 +62,14 @@ def main() -> int:
     require("https://www.va.gov/sign-in/" in guided, "VA.gov sign-in link missing from walkthrough", errors)
     require("https://www.va.gov/my-health/medical-records/download" in guided, "official VA records link missing", errors)
     require("https://mobile.va.gov/app/va-health-and-benefits" in guided, "official VA app page missing", errors)
-    require("Submit the file to VA Claims Chat" in guided, "walkthrough Claims Chat handoff missing", errors)
+    require("Use VA Claims Chat, then submit your final claim" in guided, "walkthrough final claim handoff missing", errors)
+    require(fallback in guided, "walkthrough VA.gov 21-526EZ fallback missing", errors)
 
     require("get('guided')==='1'" in chat, "Claims Chat guided query mode missing", errors)
     require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential boundary missing", errors)
     require("Private document upload and automated claim filing remain disabled" in chat, "Claims Chat upload/filing boundary missing", errors)
-    require("Card 6 — Continue to VA Claims Chat" in chat, "Claims Chat card 6 handoff missing", errors)
+    require("Card 6 — Prepare and submit the final claim" in chat, "Claims Chat card 6 final submission handoff missing", errors)
+    require(fallback in chat, "Claims Chat VA.gov 21-526EZ fallback missing", errors)
 
     require(state.get("current_capability") == "SOURCE_GROUNDED_ASSISTANT", "state capability mismatch", errors)
     require(controls.get("private_document_upload_enabled") is False, "private upload unexpectedly enabled", errors)
@@ -76,9 +80,9 @@ def main() -> int:
 
     surfaces = [GUIDE, GUIDED, CHAT]
     body = {
-        "schema_version": "2.3.0",
+        "schema_version": "2.4.0",
         "state": "PASS" if not errors else "FAIL",
-        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_STEPS",
+        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_AND_CLAIM_SUBMISSION_STEPS",
         "surfaces": [path.name for path in surfaces],
         "primary_steps": 6,
         "focused_steps": 6,
@@ -87,7 +91,9 @@ def main() -> int:
         "step_3_done_requires": ["reached_medical_record_download_page"],
         "step_4_done_requires": ["all_time_all_records_pdf_or_txt_downloaded"],
         "step_5_done_requires": ["downloaded_file_located"],
-        "step_6_done_requires": ["claims_chat_opened_and_instructions_followed"],
+        "step_6_done_requires": ["final_claim_packet_ready", "va_submission_confirmed"],
+        "fallback_submission_url": fallback,
+        "fallback_active_until_authorized_connected_submission": True,
         "shared_progress_key": key,
         "capability_state": state.get("state"),
         "current_capability": state.get("current_capability"),
