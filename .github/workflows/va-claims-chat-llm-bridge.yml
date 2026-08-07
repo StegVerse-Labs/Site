@@ -1,0 +1,74 @@
+name: VA Claims Chat LLM Bridge
+
+on:
+  push:
+    paths:
+      - 'va-claims-chat.html'
+      - 'assets/va-claims-chat-runtime.js'
+      - 'api/va-claim-assistant/runtime-projection.json'
+      - 'scripts/validate_va_claims_chat_llm_bridge.py'
+      - 'data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json'
+      - '.github/workflows/va-claims-chat-llm-bridge.yml'
+      - 'docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md'
+  pull_request:
+    paths:
+      - 'va-claims-chat.html'
+      - 'assets/va-claims-chat-runtime.js'
+      - 'api/va-claim-assistant/runtime-projection.json'
+      - 'scripts/validate_va_claims_chat_llm_bridge.py'
+      - 'data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json'
+      - '.github/workflows/va-claims-chat-llm-bridge.yml'
+      - 'docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: va-claims-chat-llm-bridge-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate fail-closed Site runtime bridge
+        run: python scripts/validate_va_claims_chat_llm_bridge.py
+      - name: Write deterministic validation receipt
+        run: |
+          mkdir -p .validation
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          payload = {
+              'schema': 'stegverse.va_claims_chat.llm_bridge_validation.v1',
+              'state': 'PASS',
+              'runtime_projection_state': 'BLOCKED',
+              'coordinated_llm_active': False,
+              'private_document_upload_active': False,
+              'private_document_retrieval_active': False,
+              'filing_active': False,
+              'authority_effect': False,
+              'activation_effect': False,
+              'repository': os.environ['GITHUB_REPOSITORY'],
+              'commit': os.environ['GITHUB_SHA'],
+              'workflow_run_id': os.environ['GITHUB_RUN_ID'],
+              'workflow_run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+          }
+          material=json.dumps(payload,sort_keys=True,separators=(',',':')).encode()
+          payload['receipt_sha256']=hashlib.sha256(material).hexdigest()
+          Path('.validation/va-claims-chat-llm-bridge-validation.json').write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: va-claims-chat-llm-bridge-validation
+          path: .validation/va-claims-chat-llm-bridge-validation.json
+          if-no-files-found: error
+          retention-days: 90

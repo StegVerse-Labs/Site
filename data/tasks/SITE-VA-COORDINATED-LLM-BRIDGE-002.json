@@ -1,0 +1,93 @@
+{
+  "schema_version": "STEGVERSE-TASK-v1",
+  "task_id": "SITE-VA-COORDINATED-LLM-BRIDGE-002",
+  "title": "Bridge VA Claims Chat to receipt-verified governed runtime",
+  "originating_goal": "Replace the scripted VA Claims Chat answer path with a coordinated VA Resources LLM only after receipt-verified governed runtime activation.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "goal/governed-gateway-va-claims-chat-bridge",
+  "pull_request": "StegVerse-Labs/Site#175",
+  "canonical_issue": "StegVerse-Labs/Site#113",
+  "canonical_handoff": "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+  "root_handoff_workload": "Accept canonical events from the governed gateway instead of constructing them from DOM messages",
+  "runtime_owner": "StegVerse-org/LLM-adapter#90",
+  "state": "COMPLETE",
+  "claim_state": "RELEASED_IMPLEMENTED_PENDING_RUNTIME_ACTIVATION",
+  "claimant": null,
+  "claim_created_at": "2026-08-06T20:06:00-05:00",
+  "claim_released_at": "2026-08-06T20:15:00-05:00",
+  "release_reason": "The Site bridge, fail-closed projection, deterministic validator, and hosted validation are implemented and validated. Runtime activation is separately blocked by the canonical adapter execution authority and custody gates, so no Site implementation claim needs to remain active.",
+  "owned_paths": [
+    "va-claims-chat.html",
+    "assets/va-claims-chat-runtime.js",
+    "api/va-claim-assistant/runtime-projection.json",
+    "scripts/validate_va_claims_chat_llm_bridge.py",
+    ".github/workflows/va-claims-chat-llm-bridge.yml",
+    "data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json",
+    "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
+  ],
+  "completed_implementation": {
+    "runtime_projection_commit": "eafd1cb9e301a74730a8d10d0bf5d41d4807b035",
+    "runtime_bridge_commit": "0267d52259f90bd9587b084a9fe2f38dcb856e9f",
+    "claims_chat_wiring_commit": "216aa43372508781f36d964f43c8270ec5dfcde4",
+    "validator_commit": "0d60c0117a2f70e672665e30dee8f0fd0bf721d9",
+    "workflow_commit": "9f7f378bba6d3a996744b12333ea61eca5c1c225",
+    "orchestration_alignment_commit": "c2f4ed05b6e4b6f290bcaa94efa2696a9340df0b"
+  },
+  "validation_evidence": {
+    "bridge_run": 31137334846,
+    "bridge_state": "SUCCESS",
+    "bridge_artifact_id": 8978452539,
+    "bridge_artifact_digest": "sha256:af2c2dc82a305552aee52d91e626f2165662d11274f464a8be020f56e4084765",
+    "site_handoff_orchestrator_run": 31137334825,
+    "site_handoff_orchestrator_job": 92739572284,
+    "site_handoff_orchestrator_state": "SUCCESS",
+    "guided_workflow_run": 31137334893,
+    "guided_workflow_state": "SUCCESS",
+    "site_bootstrap_run": 31137335003,
+    "st017_job": 92739532937,
+    "st017_state": "SUCCESS",
+    "bootstrap_job": 92739568601,
+    "bootstrap_state": "SUCCESS"
+  },
+  "runtime_projection": {
+    "state": "BLOCKED",
+    "active": false,
+    "endpoint": null,
+    "private_document_upload_active": false,
+    "private_document_retrieval_active": false,
+    "filing_active": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "collision_boundaries": [
+    "Do not modify StegVerse-org/LLM-adapter provider execution files or issue #18 Ecosystem Chat execution lane.",
+    "Do not mark the runtime projection active without a receipt-verified deployed VA runtime and end-to-end evidence.",
+    "Do not expose private document upload or private retrieval during this goal.",
+    "Do not make provider authority, VA authority, filing, signature, submission, adjudication, rating, representation, or medical-opinion claims."
+  ],
+  "remaining_runtime_blockers": [
+    "StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json remains BLOCKED",
+    "protected Master Records endpoint, allowed-hosts, and token bindings not proven ready",
+    "valid unexpired exact-commit VA provider execution authority receipt not present",
+    "real VA provider execution receipt not observed",
+    "real execution custody RECORDED and reconstruction PASS not observed",
+    "receipt-verified VA runtime endpoint not projected to Site",
+    "deployed Site-to-adapter-to-Site observation not complete"
+  ],
+  "machine_observable_release_condition_for_activation": "Site#113 may change api/va-claim-assistant/runtime-projection.json to VERIFIED/active only after LLM-adapter#90 returns an HTTPS VA endpoint plus hash-valid activation and execution receipts, custody RECORDED, reconstruction PASS, official-VA admitted-source evidence, and all authority/document/filing activation flags false; then the deployed Site bridge must be observed end-to-end.",
+  "next_executable_action": "Merge this implementation after updated-head validation remains green. Then continue LLM-adapter#90 through VACP-ADAPTER-AUTHORIZED-EXECUTION-005 only when its machine release conditions become true; Site#113 consumes the resulting verified runtime evidence without rebuilding the bridge.",
+  "next_task_after_release": "Receipt-bind and activate api/va-claim-assistant/runtime-projection.json after the governed VA runtime is verified, then execute one deployed Site-to-adapter-to-Site question.",
+  "session_consolidation": {
+    "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "merged_into": [
+      "StegVerse-Labs/Site#113",
+      "StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+      "StegVerse-org/LLM-adapter#90",
+      "StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json"
+    ],
+    "archive_dependency": "COORDINATED_LLM_AND_SECURE_DOCUMENT_GOALS_REMAIN"
+  },
+  "manual_user_action_required": false,
+  "authority_effect": false,
+  "activation_effect": false
+}
