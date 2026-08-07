@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Publish and machine-validate a privacy-first child-safe networking governance projection, including optional data harvesting, purpose-bound permissions, and the canonical 30-second transcript.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "implementation_locations": [
+    "children-safe-networking.html",
+    "docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md"
+  ],
+  "verification_locations": [
+    "scripts/check_child_safe_networking.py",
+    ".github/workflows/observe-and-complete-repository-tasks.yml"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_child_safe_networking.py",
+    "success_marker": "CHILD_SAFE_NETWORKING=PASS"
+  },
+  "completion_effect": {
+    "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
+    "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
+    "ownership_pointer": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json"
+  },
+  "external_dependencies": [],
+  "collision_boundaries": [
+    "humans-as-interoperability-layer.html",
+    "assets/hil-*",
+    "scripts/check_hil_*upload*"
+  ],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_CONTENT_ONLY"
+}
