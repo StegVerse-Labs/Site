@@ -20,7 +20,8 @@ REQUIRED=(
     'Boundary status, not a liability waiver',
     'Boundary Status and Law Comparison',
     'Boundary Change Record',
-    'This record is append-only',
+    'NEWEST_FIRST_DESCENDING_CHRONOLOGY',
+    'newest changes first, older history below',
     'alternative to a ban'
 )
 REGULATORY_REQUIRED=(
@@ -33,6 +34,11 @@ REGULATORY_REQUIRED=(
     'Boundary change record',
     'Append-only.'
 )
+ORDERED_SEQUENCE=(
+    'data-sequence="2026-08-07-003"',
+    'data-sequence="2026-08-07-002"',
+    'data-sequence="2026-08-07-001"'
+)
 
 def main()->int:
     failures=[]
@@ -42,6 +48,11 @@ def main()->int:
         text=PAGE.read_text(encoding='utf-8')
         for marker in REQUIRED:
             if marker not in text: failures.append(f'missing marker: {marker}')
+        positions=[text.find(marker) for marker in ORDERED_SEQUENCE]
+        if any(p < 0 for p in positions):
+            failures.append('boundary history missing chronology sequence marker')
+        elif positions != sorted(positions):
+            failures.append('boundary history must render newest first in descending chronological order')
         if 'fetch(' in text or 'XMLHttpRequest' in text:
             failures.append('demo must not make network requests')
     if REGULATORY.is_file():
@@ -57,6 +68,7 @@ def main()->int:
     print('MODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION')
     print('BOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON')
     print('BOUNDARY_CHANGE_RECORD=APPEND_ONLY')
+    print('BOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY')
     print('AGE_POLICY=JURISDICTION_AWARE')
     print('NETWORK_REQUESTS=NONE')
     print('PERSONAL_DATA_RETENTION=NONE')
