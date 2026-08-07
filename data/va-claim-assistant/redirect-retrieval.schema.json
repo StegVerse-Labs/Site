@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/redirect-retrieval.schema.json",
+  "title": "VACC Redirect-Only Authoritative Record Retrieval Contract",
+  "type": "object",
+  "required": ["schema_version", "request", "authoritative_source", "retrieval", "privacy", "authority_effect", "activation_effect"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "request": {
+      "type": "object",
+      "required": ["resource_type", "expected_document_type", "expected_date_range"],
+      "properties": {
+        "resource_type": {"enum": ["VA_MEDICAL_RECORDS", "VA_CLAIM_RECORDS", "SERVICE_RECORDS", "OTHER_AUTHORITATIVE_RECORD"]},
+        "expected_document_type": {"type": "string", "minLength": 1},
+        "expected_date_range": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "authoritative_source": {
+      "type": "object",
+      "required": ["source_id", "source_url", "source_class"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "source_url": {"type": "string", "pattern": "^https://"},
+        "source_class": {"enum": ["VA_OFFICIAL", "DOD_OFFICIAL", "NARA_OFFICIAL", "OTHER_GOVERNMENT_AUTHORITY"]}
+      },
+      "additionalProperties": false
+    },
+    "retrieval": {
+      "type": "object",
+      "required": ["transport_path", "status", "veteran_confirmed_result"],
+      "properties": {
+        "transport_path": {"const": "SOURCE_TO_VETERAN_DEVICE"},
+        "status": {"enum": ["REDIRECTED", "SUCCESS_CONFIRMED", "FAILURE_CONFIRMED", "CANCELLED"]},
+        "veteran_confirmed_result": {"type": ["boolean", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["source_credentials_retained", "source_document_bytes_retained", "private_retrieval_control_publicly_active"],
+      "properties": {
+        "source_credentials_retained": {"const": false},
+        "source_document_bytes_retained": {"const": false},
+        "private_retrieval_control_publicly_active": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "authority_effect": {"const": false},
+    "activation_effect": {"const": false}
+  },
+  "additionalProperties": false
+}
