@@ -4,28 +4,41 @@
   "automated_filing_enabled": false,
   "capability_state": "SOURCE_GROUNDED_ACTIVE",
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
-  "design_contract": "PRIMARY_CHECKLIST_PLUS_INLINE_READINESS_AND_FOCUSED_HELP",
+  "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_STEPS",
   "errors": [],
   "focused_steps": 6,
-  "inline_help_steps": [
-    1,
-    2
-  ],
   "primary_steps": 6,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "7348384411d7308411a8e738b110f3a42e7baa946bc5253a86ab6cffbd6b0dc0",
-  "schema_version": "2.2.0",
+  "receipt_sha256": "30d531638089b4309e03e0549b498760bc0f220ea15b1a8969256b1c439b7306",
+  "schema_version": "2.3.0",
   "shared_progress_key": "vaClaimsStepStateV1",
   "state": "PASS",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
+  "step_1_done_requires": [
+    "email",
+    "smartphone_browser",
+    "government_photo_id"
+  ],
   "step_2_done_requires": [
-    "account_created",
+    "account_created_or_confirmed",
     "va_login_success"
   ],
+  "step_3_done_requires": [
+    "reached_medical_record_download_page"
+  ],
+  "step_4_done_requires": [
+    "all_time_all_records_pdf_or_txt_downloaded"
+  ],
+  "step_5_done_requires": [
+    "downloaded_file_located"
+  ],
+  "step_6_done_requires": [
+    "claims_chat_opened_and_instructions_followed"
+  ],
   "surface_sha256": {
-    "va-claims-chat.html": "a48efc812a32b65b3874944a1f94db810e32271c986f93777839a842137c1dc8",
-    "va-claims-guided-workflow.html": "f2278d5ffd2888568af2737d4c0728b23a5b01af0e5e661f207b424f41214408",
-    "va-disability-claim-guide.html": "86aab77abb4a15f334e9744eb399353f487166aaa4ac4d40e1f15e7068b57b45"
+    "va-claims-chat.html": "e65f6109c85d694303bdcb0e0778fc3cfbe8c5d7c2b1ee9739144cb1009e61ca",
+    "va-claims-guided-workflow.html": "8ccb45c2dde491a7782e5ba3400c4b9a26d54e8822cd00ba1f90a354b6a579b4",
+    "va-disability-claim-guide.html": "086605761ad116792906d2254bc6949439eec6f5f0875ab4a31ac7fc4145df75"
   },
   "surfaces": [
     "va-disability-claim-guide.html",
