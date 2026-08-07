@@ -28,41 +28,53 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run disposition tests
-        run: python -m unittest tests.test_real_session_dispositions -v
-      - name: Reconcile real dispositions
-        run: python scripts/reconcile_real_session_dispositions.py --apply
-      - name: Validate retirement registry
-        run: python scripts/check_session_retirement.py
-      - name: Commit registry, hash receipts, and candidate scan against latest main
+      - name: Run disposition and projection tests
+        run: |
+          python -m unittest tests.test_real_session_dispositions -v
+          python -m unittest tests.test_project_session_orchestration -v
+      - name: Reconcile real dispositions and projections
+        run: |
+          python scripts/reconcile_real_session_dispositions.py --apply
+          python scripts/check_session_retirement.py
+          python scripts/project_session_orchestration.py
+      - name: Commit registry, hash receipts, scan, and projections against latest main
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "stegverse-orchestration-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          paths=(data/session-orchestration-registry.json data/session-disposition-receipts data/session-merge-required-candidate-scan.json)
+          paths=(
+            data/session-orchestration-registry.json
+            data/session-disposition-receipts
+            data/session-merge-required-candidate-scan.json
+            data/session-orchestration-successor-packets.json
+            data/session-orchestration-archive-queue.json
+          )
           changed=$(git status --porcelain -- "${paths[@]}")
           if [ -z "$changed" ]; then
-            echo "Real disposition state is current"
+            echo "Real disposition and projection state is current"
             exit 0
           fi
           git add "${paths[@]}"
-          git commit -m "chore(session-orchestration): admit real dispositions and scan merge candidates"
+          git commit -m "chore(session-orchestration): reconcile real dispositions and projections"
           git fetch origin main
           git rebase origin/main
-          # Reconcile again from latest main; never let an older registry overwrite newer authority.
+          # Reconcile again from latest main; never let an older registry or comparison overwrite newer authority.
           python scripts/reconcile_real_session_dispositions.py --apply
           python scripts/check_session_retirement.py
+          python scripts/project_session_orchestration.py
           git add "${paths[@]}"
           if ! git diff --cached --quiet; then
             git commit --amend --no-edit
           fi
           python scripts/reconcile_real_session_dispositions.py --check
+          python scripts/project_session_orchestration.py --check
           git push origin HEAD:main
-      - name: Verify committed disposition state
+      - name: Verify committed disposition and projection state
         run: |
           python scripts/reconcile_real_session_dispositions.py --check
           python scripts/check_session_retirement.py
+          python scripts/project_session_orchestration.py --check
       - name: Upload disposition receipts
         if: always()
         uses: actions/upload-artifact@v4
@@ -76,6 +88,20 @@ jobs:
         with:
           name: session-merge-required-candidate-scan
           path: data/session-merge-required-candidate-scan.json
+          if-no-files-found: error
+      - name: Upload successor projection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-disposition-successor-projection
+          path: data/session-orchestration-successor-packets.json
+          if-no-files-found: error
+      - name: Upload archive projection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-disposition-archive-projection
+          path: data/session-orchestration-archive-queue.json
           if-no-files-found: error
       - name: Upload retirement validation report
         if: always()
