@@ -60,11 +60,12 @@
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
-      "state": "INCOMPLETE",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json",
-      "missing_locations": [
-        "scripts/check_child_safe_networking.py"
-      ]
+      "validator_command": "python scripts/check_child_safe_networking.py",
+      "success_marker": "CHILD_SAFE_NETWORKING=PASS",
+      "success_marker_seen": true,
+      "output": "CHILD_SAFE_NETWORKING=PASS\nDATA_HARVESTING_DEFAULT=OPTIONAL\nCHILD_NETWORKING_POSTURE=PRIVACY_FIRST\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_CONTENT_ONLY"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -109,6 +110,7 @@
     }
   ],
   "completed_tasks": [
+    "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
     "SITE-0001-UPLOAD"
@@ -118,7 +120,6 @@
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
     "SITE-ST018-VALIDATION-EVIDENCE"
   ],
@@ -146,14 +147,6 @@
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
       "reason": "active task has no committed repository-local task object"
-    },
-    {
-      "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json",
-      "missing_locations": [
-        "scripts/check_child_safe_networking.py"
-      ]
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
