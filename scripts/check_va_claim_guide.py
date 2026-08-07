@@ -82,7 +82,7 @@ if WALK.exists():
             errors.append(f'walkthrough missing marker: {marker}')
     if text.count('Mark step DONE') != 6:
         errors.append('walkthrough requires one shared completion control per step')
-    for marker in ('Open VA.gov Sign In','Open VA medical-record download page','All time','Download report','Find the downloaded file','Use VA Claims Chat, then submit your final claim','Open VA.gov 21-526EZ claim form'):
+    for marker in ('Open VA.gov Sign In','Open VA medical-record download page','All time','Download report','Find the downloaded file','Prepare and submit your final claim','Open VA.gov 21-526EZ claim form'):
         if marker not in text:
             errors.append(f'walkthrough clarity marker missing: {marker}')
 
