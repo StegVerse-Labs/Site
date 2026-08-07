@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import re
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -11,6 +10,7 @@ GUIDE = ROOT / "va-disability-claim-guide.html"
 GUIDED = ROOT / "va-claims-guided-workflow.html"
 CHAT = ROOT / "va-claims-chat.html"
 OUT = ROOT / "data/va-claim-assistant/guided-workflow-contract-validation.json"
+KEY = "vaClaimsStepStateV1"
 
 
 class SurfaceParser(HTMLParser):
@@ -27,23 +27,15 @@ class SurfaceParser(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         data = dict(attrs)
-        if tag == "html" and data.get("lang") == "en":
-            self.lang = True
-        if tag == "meta" and data.get("name") == "viewport":
-            self.viewport = True
-        if data.get("data-step"):
-            self.step_ids.append(str(data["data-step"]))
-        if data.get("data-card"):
-            self.card_ids.append(str(data["data-card"]))
-        if tag == "a" and data.get("href"):
-            self.links.append(str(data["href"]))
-        if tag == "button":
-            self._button = True
-            self._button_text = []
+        if tag == "html" and data.get("lang") == "en": self.lang = True
+        if tag == "meta" and data.get("name") == "viewport": self.viewport = True
+        if data.get("data-step"): self.step_ids.append(str(data["data-step"]))
+        if data.get("data-card"): self.card_ids.append(str(data["data-card"]))
+        if tag == "a" and data.get("href"): self.links.append(str(data["href"]))
+        if tag == "button": self._button, self._button_text = True, []
 
     def handle_data(self, data: str) -> None:
-        if self._button:
-            self._button_text.append(data)
+        if self._button: self._button_text.append(data)
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "button" and self._button:
@@ -52,8 +44,7 @@ class SurfaceParser(HTMLParser):
 
 
 def require(condition: bool, message: str, errors: list[str]) -> None:
-    if not condition:
-        errors.append(message)
+    if not condition: errors.append(message)
 
 
 def main() -> int:
@@ -70,21 +61,21 @@ def main() -> int:
     require(wp.card_ids == ["1", "2", "3", "4", "5", "6"], "walkthrough requires six ordered cards", errors)
     require(sum(1 for text in gp.buttons if text.startswith("DONE")) == 6, "primary page requires six DONE buttons", errors)
     require(sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step=")) == 6, "primary page requires six step-specific help links", errors)
-    require("vaClaimsProgress" in guide and "vaClaimsProgress" in guided, "shared completion state missing", errors)
+    require(KEY in guide and KEY in guided, "shared completion state missing", errors)
     require("localStorage.setItem" in guide and "localStorage.setItem" in guided, "completion persistence write missing", errors)
     require("localStorage.getItem" in guide and "localStorage.getItem" in guided, "completion persistence read missing", errors)
-    require("classList.toggle('complete'" in guide or 'classList.toggle("complete"' in guide, "primary completed-card visual state missing", errors)
-    require("URLSearchParams" in guided, "focused step query routing missing", errors)
+    require("classList.toggle('done'" in guide, "primary completed-card visual state missing", errors)
+    require("URLSearchParams" in guided and "params.get('step')" in guided, "focused step query routing missing", errors)
     require("Return to Instruction Page" in guided, "walkthrough return control missing", errors)
     require("Continue with help me complete this" in guided, "walkthrough continued-help control missing", errors)
     require("va-claims-chat.html?guided=1" in guided, "walkthrough must route to Claims Chat help", errors)
     require("https://www.va.gov/my-health/medical-records/download" in wp.links, "official VA records link missing", errors)
-    require("https://www.login.gov/help/creating-an-account/creating-an-account/" in wp.links, "official Login.gov help link missing", errors)
-    require("guided=1" in chat, "Claims Chat guided mode missing", errors)
+    require("https://secure.login.gov/sign_up/enter_email" in wp.links, "official Login.gov path missing", errors)
+    require("get('guided')==='1'" in chat, "Claims Chat guided mode missing", errors)
     require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential warning missing", errors)
 
     receipt = {
-        "schema_version": "2.0.0",
+        "schema_version": "2.1.0",
         "state": "PASS" if not errors else "FAIL",
         "goal_id": "SV-VA-DUAL-FLOW-001",
         "task_id": "SV-VA-DF-VALIDATE-001",
@@ -93,7 +84,7 @@ def main() -> int:
         "walkthrough_steps": wp.card_ids,
         "done_buttons": sum(1 for text in gp.buttons if text.startswith("DONE")),
         "step_help_links": sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step=")),
-        "shared_progress_key": "vaClaimsProgress",
+        "shared_progress_key": KEY,
         "mobile_viewport": gp.viewport and wp.viewport,
         "language_declared": gp.lang and wp.lang,
         "authority_effect": False,
