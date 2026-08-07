@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Provide a regulator-testable temporary pilot model that compares blanket minimum-age account restrictions with deterministic Child Mode capability and zero-optional-data-harvesting enforcement.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_native_validator",
+    "location": "scripts/check_child_safety_regulatory_pilot.py"
+  },
+  "implementation_locations": [
+    "child-safety-regulatory-pilot.html",
+    "docs/CHILD_SAFETY_REGULATORY_PILOT.md"
+  ],
+  "verification_locations": [
+    "scripts/check_child_safety_regulatory_pilot.py"
+  ],
+  "acceptance": {
+    "validator_command": "python scripts/check_child_safety_regulatory_pilot.py",
+    "success_marker": "CHILD_SAFETY_REGULATORY_PILOT=PASS"
+  },
+  "required_properties": [
+    "pilot requires explicit lawful/regulator authority",
+    "Australia operative and UK announced semantics are distinguished",
+    "zero optional data harvesting is the pilot default",
+    "regulator can independently test prohibited and positive capability transitions",
+    "data egress is separately observable",
+    "boundary changes remain public and newest-first",
+    "evidence failure causes fail-closed suspension/review"
+  ],
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_REGULATORY_PILOT_EVIDENCE_MODEL_ONLY"
+}
