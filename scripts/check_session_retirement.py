@@ -87,6 +87,22 @@ def validate_receipt(receipt: dict[str, Any], index: int, failures: list[str]) -
         fail(f"{prefix} successor execution source does not exist: {successor}", failures)
 
 
+def duplicate_current_owner_failures(sessions: list[dict[str, Any]]) -> list[str]:
+    current_owners: dict[tuple[str, str], list[str]] = {}
+    for receipt in sessions:
+        if receipt.get("posture") == "CURRENT" and receipt.get("active_task_ownership"):
+            task_key = (str(receipt.get("repository")), str(receipt.get("task_id")))
+            current_owners.setdefault(task_key, []).append(str(receipt.get("session_id")))
+
+    failures: list[str] = []
+    for task_key, owners in current_owners.items():
+        if len(owners) > 1:
+            failures.append(
+                f"multiple CURRENT owners for {task_key[0]} {task_key[1]}: {', '.join(owners)}"
+            )
+    return failures
+
+
 def main() -> int:
     failures: list[str] = []
     for path in (REGISTRY, HANDOFF, SCHEMA, PROMPT):
@@ -126,26 +142,19 @@ def main() -> int:
             sessions = []
 
         seen_sessions: set[tuple[str, str]] = set()
-        current_owners: dict[tuple[str, str], list[str]] = {}
+        valid_sessions: list[dict[str, Any]] = []
         for index, receipt in enumerate(sessions):
             if not isinstance(receipt, dict):
                 fail(f"sessions[{index}] must be an object", failures)
                 continue
             validate_receipt(receipt, index, failures)
+            valid_sessions.append(receipt)
             key = (str(receipt.get("session_id")), str(receipt.get("task_id")))
             if key in seen_sessions:
                 fail(f"duplicate session/task receipt: {key[0]} / {key[1]}", failures)
             seen_sessions.add(key)
-            if receipt.get("posture") == "CURRENT" and receipt.get("active_task_ownership"):
-                task_key = (str(receipt.get("repository")), str(receipt.get("task_id")))
-                current_owners.setdefault(task_key, []).append(str(receipt.get("session_id")))
 
-        for task_key, owners in current_owners.items():
-            if len(owners) > 1:
-                fail(
-                    f"multiple CURRENT owners for {task_key[0]} {task_key[1]}: {', '.join(owners)}",
-                    failures,
-                )
+        failures.extend(duplicate_current_owner_failures(valid_sessions))
 
     report = {
         "schema_version": "1.0.0",
