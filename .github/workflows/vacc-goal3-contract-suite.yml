@@ -1,0 +1,109 @@
+name: VACC Goal 3 Contract Suite
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'data/va-claim-assistant/provenance-workload.schema.json'
+      - 'data/va-claim-assistant/claimant-submission-binding.schema.json'
+      - 'data/va-claim-assistant/redirect-retrieval.schema.json'
+      - 'data/va-claim-assistant/sanitized-document-derivative.schema.json'
+      - 'data/va-claim-assistant/evidence-criteria-mapping.schema.json'
+      - 'data/va-claim-assistant/fixtures/vacc-goal3-contract-suite.json'
+      - 'scripts/check_vacc_goal3_contract_suite.py'
+      - '.github/workflows/vacc-goal3-contract-suite.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/va-claim-assistant/provenance-workload.schema.json'
+      - 'data/va-claim-assistant/claimant-submission-binding.schema.json'
+      - 'data/va-claim-assistant/redirect-retrieval.schema.json'
+      - 'data/va-claim-assistant/sanitized-document-derivative.schema.json'
+      - 'data/va-claim-assistant/evidence-criteria-mapping.schema.json'
+      - 'data/va-claim-assistant/fixtures/vacc-goal3-contract-suite.json'
+      - 'scripts/check_vacc_goal3_contract_suite.py'
+      - '.github/workflows/vacc-goal3-contract-suite.yml'
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vacc-goal3-contract-suite-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate VACC Goal 3 contracts and fixtures
+        run: python scripts/check_vacc_goal3_contract_suite.py | tee /tmp/vacc-goal3-contract-suite.json
+      - name: Build contract validation receipt
+        run: |
+          python - <<'PY'
+          import datetime as dt, hashlib, json
+          from pathlib import Path
+          result=json.loads(Path('/tmp/vacc-goal3-contract-suite.json').read_text())
+          receipt={
+            'schema_version':'1.0.0',
+            'receipt_id':'site-vacc-goal3-contract-suite-validation-001',
+            'observed_at':dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
+            'state':'VERIFIED',
+            'canonical_owner':'StegVerse-Labs/Site#116',
+            'issues_covered':[179,180,181,182,183,184],
+            'result':result,
+            'public_upload_enabled':False,
+            'private_retrieval_enabled':False,
+            'submission_enabled':False,
+            'authority_effect':False,
+            'activation_effect':False,
+          }
+          canonical=json.dumps(receipt,sort_keys=True,separators=(',',':')).encode()
+          receipt['receipt_sha256']=hashlib.sha256(canonical).hexdigest()
+          out=Path('data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json')
+          out.write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Verify fail-closed receipt
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          r=json.loads(Path('data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json').read_text())
+          expected=r.pop('receipt_sha256')
+          actual=hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+          assert expected == actual
+          assert r['state'] == 'VERIFIED'
+          assert r['result']['state'] == 'PASS'
+          assert r['public_upload_enabled'] is False
+          assert r['private_retrieval_enabled'] is False
+          assert r['submission_enabled'] is False
+          assert r['authority_effect'] is False
+          assert r['activation_effect'] is False
+          print('VACC Goal 3 contract receipt: PASS')
+          PY
+      - name: Persist validation receipt
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json; then
+            echo 'Validation receipt unchanged.'
+            exit 0
+          fi
+          git config user.name 'vacc-goal3-contracts[bot]'
+          git config user.email 'vacc-goal3-contracts[bot]@users.noreply.github.com'
+          git add data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json
+          git commit -m 'receipt: validate VACC Goal 3 contracts [skip ci]'
+          git pull --rebase
+          git push
+      - name: Upload contract evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: vacc-goal3-contract-suite-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json
+          if-no-files-found: error
+          retention-days: 30
