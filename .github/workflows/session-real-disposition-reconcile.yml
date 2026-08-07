@@ -6,6 +6,9 @@ on:
     branches: [main]
     paths:
       - "data/session-disposition-evidence/**"
+      - "data/session-consolidations/**"
+      - "data/session-consolidation-receipts/**"
+      - "data/session-goal-inventories/**"
       - "scripts/reconcile_real_session_dispositions.py"
       - "tests/test_real_session_dispositions.py"
       - ".github/workflows/session-real-disposition-reconcile.yml"
