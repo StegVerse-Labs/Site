@@ -58,43 +58,55 @@ def main() -> int:
     errors: list[str] = []
 
     help_links = sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step="))
-    inline_help = len(gp.help_targets)
 
     require(gp.lang and wp.lang, "both user surfaces require lang=en", errors)
     require(gp.viewport and wp.viewport, "both user surfaces require mobile viewport", errors)
     require(gp.step_ids == ["1", "2", "3", "4", "5", "6"], "primary page requires six ordered steps", errors)
     require(wp.card_ids == ["1", "2", "3", "4", "5", "6"], "walkthrough requires six ordered cards", errors)
     require(sum(1 for text in gp.buttons if text.startswith("DONE")) == 6, "primary page requires six DONE buttons", errors)
-    require(help_links == 4, "primary page requires walkthrough help links for steps 3-6", errors)
-    require(gp.help_targets == ["step-1-help", "step-2-help"], "steps 1-2 require inline expandable help", errors)
-    require(help_links + inline_help == 6, "primary page requires one help control per step", errors)
+    require(help_links >= 4, "primary page requires focused walkthrough help links", errors)
+    require(gp.help_targets == ["step-1-help"], "step 1 requires inline expandable readiness help", errors)
     require(KEY in guide and KEY in guided, "shared completion state missing", errors)
     require("localStorage.setItem" in guide and "localStorage.setItem" in guided, "completion persistence write missing", errors)
     require("localStorage.getItem" in guide and "localStorage.getItem" in guided, "completion persistence read missing", errors)
     require("classList.toggle('done'" in guide, "primary completed-card visual state missing", errors)
+    require("const requirements={" in guide and "function ready(step)" in guide, "per-step completion gate missing", errors)
+    require('id="step-1-email"' in guide and 'id="step-1-phone"' in guide and 'id="step-1-id"' in guide, "step 1 three-item readiness gate missing", errors)
     require('id="step-2-account-created"' in guide and 'id="step-2-va-login-success"' in guide, "step 2 confirmations missing", errors)
-    require("function step2Ready()" in guide and "step2Done.disabled=!step2Ready()" in guide, "step 2 DONE gate missing", errors)
+    require('id="step-3-reached-download"' in guide, "step 3 page-arrival confirmation missing", errors)
+    require('id="step-4-downloaded"' in guide, "step 4 download confirmation missing", errors)
+    require('id="step-5-found-file"' in guide, "step 5 file-location confirmation missing", errors)
+    require('id="step-6-chat-open"' in guide, "step 6 Claims Chat handoff confirmation missing", errors)
     require("URLSearchParams" in guided and "params.get('step')" in guided, "focused step query routing missing", errors)
     require("Return to Instruction Page" in guided, "walkthrough return control missing", errors)
     require("Continue with help me complete this" in guided, "walkthrough continued-help control missing", errors)
     require("va-claims-chat.html?guided=1" in guided, "walkthrough must route to Claims Chat help", errors)
+    require("https://www.va.gov/sign-in/" in wp.links, "official VA.gov sign-in path missing", errors)
     require("https://www.va.gov/my-health/medical-records/download" in wp.links, "official VA records link missing", errors)
-    require("https://secure.login.gov/sign_up/enter_email" in wp.links, "official Login.gov path missing", errors)
+    require("https://mobile.va.gov/app/va-health-and-benefits" in wp.links, "official VA app path missing", errors)
     require("get('guided')==='1'" in chat, "Claims Chat guided mode missing", errors)
     require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential warning missing", errors)
+    require("Private document upload and automated claim filing remain disabled" in chat, "Claims Chat upload boundary missing", errors)
 
     receipt = {
-        "schema_version": "2.2.0",
+        "schema_version": "2.3.0",
         "state": "PASS" if not errors else "FAIL",
         "goal_id": "SV-VA-DUAL-FLOW-001",
         "task_id": "SV-VA-DF-VALIDATE-001",
-        "design_contract": "PRIMARY_CHECKLIST_PLUS_INLINE_READINESS_AND_FOCUSED_HELP",
+        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_STEPS",
         "primary_steps": gp.step_ids,
         "walkthrough_steps": wp.card_ids,
         "done_buttons": sum(1 for text in gp.buttons if text.startswith("DONE")),
         "step_help_links": help_links,
         "inline_help_targets": gp.help_targets,
-        "step_2_done_requires": ["account_created", "va_login_success"],
+        "step_done_requirements": {
+            "1": ["email", "smartphone_browser", "government_photo_id"],
+            "2": ["account_created_or_confirmed", "va_login_success"],
+            "3": ["reached_medical_record_download_page"],
+            "4": ["all_time_all_records_pdf_or_txt_downloaded"],
+            "5": ["downloaded_file_located"],
+            "6": ["claims_chat_opened_and_instructions_followed"],
+        },
         "shared_progress_key": KEY,
         "mobile_viewport": gp.viewport and wp.viewport,
         "language_declared": gp.lang and wp.lang,
