@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Six clear VA medical-record steps that save progress and guide the veteran from account readiness to VA Claims Chat.">
+<meta name="description" content="Six clear VA claim steps that save progress and guide the veteran from account readiness through VA Claims Chat to final VA.gov submission.">
 <title>VA Claims Instructions — StegVerse</title>
 <link rel="stylesheet" href="sv-shared.css">
 <style>
@@ -94,12 +94,18 @@
 </section>
 
 <section class="step-card" data-step="6" id="step-6">
-  <div class="step-head"><span class="step-number">6</span><h2>Submit the file to VA Claims Chat</h2></div>
-  <figure class="visual"><img src="assets/va-claims-guided/card-4-sign-in-va.svg" alt="Continue from the downloaded file to VA Claims Chat." width="960" height="300"></figure>
-  <p class="instruction">Open VA Claims Chat and follow its document instructions.</p>
+  <div class="step-head"><span class="step-number">6</span><h2>Use VA Claims Chat, then submit your final claim</h2></div>
+  <figure class="visual"><img src="assets/va-claims-guided/card-4-sign-in-va.svg" alt="Continue from VA Claims Chat to final VA.gov claim submission." width="960" height="300"></figure>
+  <p class="instruction">Use VA Claims Chat to review your records and prepare the final claim packet.</p>
   <a class="sv-btn sv-btn-primary step-link" href="va-claims-chat.html">Open VA Claims Chat</a>
   <div class="warning"><strong>Current safety gate:</strong> only upload the medical-record file if VA Claims Chat presents an active secure document-upload control. If the page says private document upload is not active, do not paste medical records into the text box. Follow the page’s instructions and stop at that boundary.</div>
-  <div class="checklist"><label class="check-row"><input id="step-6-chat-open" type="checkbox"><span><strong>I opened VA Claims Chat and followed the instructions shown there.</strong></span></label></div>
+  <p><strong>Final submission fallback:</strong> Until VA Claims Chat has an authorized connection that can submit the claim directly to VA.gov, take the completed claim packet to the official VA.gov 21-526EZ claim form below. Sign in, upload the completed packet/supporting files as directed, review the claim, certify it, and submit it through VA.gov.</p>
+  <a class="sv-btn sv-btn-primary step-link" href="https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information" target="_blank" rel="noopener noreferrer">Open VA.gov 21-526EZ claim form</a>
+  <p class="muted">If VA Claims Chat later shows an authorized VA.gov submission connection and returns a VA submission confirmation, that connected path may replace this fallback. Until then, VA.gov is the final submission path.</p>
+  <div class="checklist" aria-label="Step 6 final submission checklist">
+    <label class="check-row"><input id="step-6-packet-ready" type="checkbox"><span><strong>My final claim packet is ready for submission.</strong></span></label>
+    <label class="check-row"><input id="step-6-submitted" type="checkbox"><span><strong>I submitted the final claim through VA.gov, or VA Claims Chat confirmed an authorized VA.gov submission.</strong></span></label>
+  </div>
   <div class="card-actions"><button class="done-button" type="button" disabled>DONE</button><a class="sv-btn sv-btn-secondary help-link" href="va-claims-chat.html?guided=1&amp;card=6">Help me with this</a></div>
   <p class="done-state">Not done</p>
 </section>
@@ -117,7 +123,7 @@
     '3':['step-3-reached-download'],
     '4':['step-4-downloaded'],
     '5':['step-5-found-file'],
-    '6':['step-6-chat-open']
+    '6':['step-6-packet-ready','step-6-submitted']
   };
   function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}
   function save(state){localStorage.setItem(KEY,JSON.stringify(state))}

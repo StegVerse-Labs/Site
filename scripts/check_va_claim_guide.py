@@ -43,8 +43,12 @@ if GUIDE.exists():
         '<strong>PDF</strong> or <strong>TXT</strong>',
         '<strong>Download report</strong>',
         'Downloads</strong> folder',
-        'Submit the file to VA Claims Chat',
+        'Use VA Claims Chat, then submit your final claim',
         'only upload the medical-record file if VA Claims Chat presents an active secure document-upload control',
+        'https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information',
+        'Final submission fallback:',
+        'Until VA Claims Chat has an authorized connection that can submit the claim directly to VA.gov',
+        'I submitted the final claim through VA.gov, or VA Claims Chat confirmed an authorized VA.gov submission.',
     )
     for marker in markers:
         if marker not in text:
@@ -56,7 +60,7 @@ if GUIDE.exists():
         '3': ['step-3-reached-download'],
         '4': ['step-4-downloaded'],
         '5': ['step-5-found-file'],
-        '6': ['step-6-chat-open'],
+        '6': ['step-6-packet-ready','step-6-submitted'],
     }
     for step, ids in required_ids.items():
         for item_id in ids:
@@ -78,17 +82,19 @@ if WALK.exists():
             errors.append(f'walkthrough missing marker: {marker}')
     if text.count('Mark step DONE') != 6:
         errors.append('walkthrough requires one shared completion control per step')
-    for marker in ('Open VA.gov Sign In','Open VA medical-record download page','All time','Download report','Find the downloaded file','Submit the file to VA Claims Chat'):
+    for marker in ('Open VA.gov Sign In','Open VA medical-record download page','All time','Download report','Find the downloaded file','Prepare and submit your final claim','Open VA.gov 21-526EZ claim form'):
         if marker not in text:
             errors.append(f'walkthrough clarity marker missing: {marker}')
 
 if CHAT.exists():
     text = CHAT.read_text(encoding='utf-8')
-    for marker in ('Card 1 — Get ready','Card 2 — Create your VA.gov sign-in account','Card 3 — Open the medical-record download page','Card 4 — Download all available medical records','Card 5 — Find the downloaded file','Card 6 — Continue to VA Claims Chat'):
+    for marker in ('Card 1 — Get ready','Card 2 — Create your VA.gov sign-in account','Card 3 — Open the medical-record download page','Card 4 — Download all available medical records','Card 5 — Find the downloaded file','Card 6 — Prepare and submit the final claim'):
         if marker not in text:
             errors.append(f'Claims Chat guided card missing: {marker}')
     if 'Private document upload and automated claim filing remain disabled' not in text:
         errors.append('Claims Chat secure-upload boundary missing')
+    if 'https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information' not in text:
+        errors.append('Claims Chat VA.gov 21-526EZ fallback missing')
 
 if errors:
     print('VA CLAIM GUIDE: FAIL')
@@ -101,5 +107,5 @@ print('Primary instruction page: six explicit sequential steps')
 print('Step 1: three-item readiness checklist auto-completes')
 print('Step 2: VA.gov -> Login.gov/ID.me -> account confirmation -> VA.gov login')
 print('Steps 3-5: records page -> all-record download -> locate file')
-print('Step 6: VA Claims Chat handoff with secure-upload fail-closed boundary')
+print('Step 6: VA Claims Chat prepares packet; VA.gov 21-526EZ is explicit fallback submission path until authorized connected submission is available')
 print('Focused walkthrough and Claims Chat cards: aligned')
