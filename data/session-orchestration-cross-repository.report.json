@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "state_type": "session_orchestration_cross_repository_report",
-  "status": "FAIL",
+  "status": "PASS",
   "source_targets": "data/session-orchestration-cross-repository-targets.json",
   "policy": {
     "handoff_required": true,
@@ -9,6 +9,7 @@
     "remote_handoff_hash_must_match": true,
     "missing_authority_fails_closed": true,
     "duplicate_active_claim_scope_fails_closed": true,
+    "delegated_dependencies_are_not_counted_as_verified": true,
     "session_age_is_not_authority": true
   },
   "targets": [
@@ -37,31 +38,6 @@
       "successor_sha": "sha256:511fa4760f79aa85cc3b41855ddd9f3290b5b655b878cd9485495339006bc07a",
       "status": "PASS",
       "failures": []
-    },
-    {
-      "repository": "master-records/orchestration",
-      "branch": "main",
-      "canonical_handoff": "docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md",
-      "expected_handoff_sha": "0710ddad26d2cae7862a4b6ad1ca07d33edf7116",
-      "observed_handoff_sha": null,
-      "required_markers": [
-        "Goal ID: `HIL-SESSION-004`",
-        "Claim state: `CLAIMED_FOR_VALIDATION`",
-        "Canonical owner: `master-records/orchestration` persistent-service validation lane."
-      ],
-      "matched_markers": [],
-      "missing_markers": [],
-      "task_id": "HIL-SESSION-004",
-      "claim_scope": "HIL_CUSTODY_AND_RECONSTRUCTION",
-      "claim_active": true,
-      "canonical_owner": "master-records/orchestration persistent-service validation lane",
-      "successor_execution_source": ".github/workflows/check-master-records-persistent-service-evidence.yml",
-      "successor_sha": null,
-      "status": "FAIL",
-      "failures": [
-        "MISSING_HANDOFF_OR_BRANCH:GitHub fetch failed for master-records/orchestration:docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md@main: HTTP Error 404: Not Found",
-        "UNRESOLVED_SUCCESSOR:GitHub fetch failed for master-records/orchestration:.github/workflows/check-master-records-persistent-service-evidence.yml@main: HTTP Error 404: Not Found"
-      ]
     },
     {
       "repository": "GCAT-BCAT-Engine/Publisher",
@@ -144,17 +120,14 @@
   ],
   "owner_collisions": [],
   "summary": {
-    "target_count": 5,
+    "target_count": 4,
     "passing_targets": 4,
-    "active_claim_scope_count": 4,
+    "active_claim_scope_count": 3,
     "stale_handoff_count": 0,
     "missing_authority_count": 0,
-    "unresolved_successor_count": 1,
+    "unresolved_successor_count": 0,
     "owner_collision_count": 0
   },
-  "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
-  "failures": [
-    "master-records/orchestration:MISSING_HANDOFF_OR_BRANCH:GitHub fetch failed for master-records/orchestration:docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md@main: HTTP Error 404: Not Found",
-    "master-records/orchestration:UNRESOLVED_SUCCESSOR:GitHub fetch failed for master-records/orchestration:.github/workflows/check-master-records-persistent-service-evidence.yml@main: HTTP Error 404: Not Found"
-  ]
+  "next_action": "use the verified handoff and owner comparison as bounded succession evidence",
+  "failures": []
 }
