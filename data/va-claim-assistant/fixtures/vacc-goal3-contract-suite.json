@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0.0",
+  "provenance": {
+    "schema_version": "1.0.0",
+    "actor": {
+      "actor_class": "commercial_provider",
+      "organization_context": "ORG-PSEUDONYM-001",
+      "appointed_representative_ref": "REP-PSEUDONYM-001",
+      "accreditation_claimed": true,
+      "accreditation_verified": null,
+      "accreditation_evidence_ref": null,
+      "fee_disclosed": true,
+      "fee_context": "DISCLOSED_TO_VETERAN"
+    },
+    "artifact": {
+      "artifact_id": "ART-001",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "vacc_generation_event_ref": "VACC-EVENT-001",
+      "evidence_refs": ["FACT-001"],
+      "source_hash_refs": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],
+      "human_modification_refs": ["EDIT-001"],
+      "provider_modification_refs": [],
+      "veteran_authorization_ref": "AUTH-001"
+    },
+    "workload": {
+      "human_review_seconds": 900,
+      "machine_processing_seconds": 4.2,
+      "documents_processed": 2,
+      "pages_processed": 42,
+      "relevant_evidence_surfaced": 7,
+      "omissions_detected": 2,
+      "citation_coverage_ratio": 1.0,
+      "corrections_before_packet": 1,
+      "time_to_packet_ready_seconds": 1200,
+      "workflow_completion_state": "PACKET_READY",
+      "paid_intermediary_used": true
+    },
+    "privacy": {
+      "contains_direct_pii": false,
+      "aggregate_reporting_allowed": true,
+      "award_percentage_optimization_allowed": false
+    },
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "claimant_binding": {
+    "schema_version": "1.0.0",
+    "packet_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "document_hashes": ["1111111111111111111111111111111111111111111111111111111111111111"],
+    "authenticated_context_ref": "VA-AUTH-CONTEXT-PSEUDONYM-001",
+    "claimant_ref": "CLAIMANT-PSEUDONYM-001",
+    "claim_ref": null,
+    "minimum_va_metadata": {},
+    "certification": {
+      "veteran_affirmative_action": true,
+      "exact_packet_hash_bound": true,
+      "certified_at": "FIXTURE-NOT-A-REAL-TIMESTAMP"
+    },
+    "submission": {
+      "state": "NOT_AUTHORIZED",
+      "va_transaction_id": null,
+      "confirmation_ref": null
+    },
+    "decorative_identity_stamp_is_proof": false,
+    "veteran_submission_authority_preserved": true,
+    "production_fields_verified": false,
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "redirect_retrieval": {
+    "schema_version": "1.0.0",
+    "request": {
+      "resource_type": "VA_MEDICAL_RECORDS",
+      "expected_document_type": "VA medical record report",
+      "expected_date_range": "ALL_TIME"
+    },
+    "authoritative_source": {
+      "source_id": "VA-MEDICAL-RECORD-DOWNLOAD",
+      "source_url": "https://www.va.gov/my-health/medical-records/download",
+      "source_class": "VA_OFFICIAL"
+    },
+    "retrieval": {
+      "transport_path": "SOURCE_TO_VETERAN_DEVICE",
+      "status": "SUCCESS_CONFIRMED",
+      "veteran_confirmed_result": true
+    },
+    "privacy": {
+      "source_credentials_retained": false,
+      "source_document_bytes_retained": false,
+      "private_retrieval_control_publicly_active": false
+    },
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "sanitized_derivative": {
+    "schema_version": "1.0.0",
+    "original": {
+      "artifact_id": "ORIGINAL-001",
+      "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "control_state": "VETERAN_CONTROLLED_SEPARATE_ARTIFACT",
+      "retention_state": "USER_RETAINED"
+    },
+    "derivative": {
+      "artifact_id": "DERIVED-001",
+      "sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "derived_from_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "analysis_scope": "SANITIZED_DERIVED_CONTEXT_ONLY",
+      "page_anchor_refs": ["DOC-001-P1-A1"],
+      "pseudonymous_refs": ["VET-PSEUDONYM-001"]
+    },
+    "identifier_controls": {
+      "direct_identifiers_detected": 3,
+      "direct_identifiers_removed_or_tokenized": 3,
+      "source_credentials_present": false,
+      "identity_proofing_artifacts_present": false,
+      "leakage_state": "PASS"
+    },
+    "evidence_posture": {
+      "favorable_retained": true,
+      "unfavorable_retained": true,
+      "conflicting_retained": true,
+      "unresolved_retained": true
+    },
+    "authority_effect": false,
+    "activation_effect": false
+  },
+  "evidence_mappings": [
+    {
+      "schema_version": "1.0.0",
+      "scenario_id": "SUPPORTED",
+      "record_facts": [{"fact_id":"F-S1","text":"Synthetic supported fact","posture":"FAVORABLE","document_id":"DOC-S","page":1,"anchor_id":"A-S1"}],
+      "official_criteria": [{"criterion_id":"CRIT-S1","authority_ref":"OFFICIAL-VA-AUTHORITY-FIXTURE","proposition_ref":"PROP-S1","effective_date":"FIXTURE","criterion_text_hash":"5555555555555555555555555555555555555555555555555555555555555555"}],
+      "mapping": {"state":"SUPPORTED","supported_criterion_ids":["CRIT-S1"],"unsupported_criterion_ids":[],"fact_refs":["F-S1"],"contradiction_refs":[],"missing_evidence_refs":[],"highest_supported_level_ref":"CRIT-S1"},
+      "claim_language": {"text":"Synthetic claim language limited to F-S1.","fact_refs":["F-S1"],"unsupported_assertions":[],"requires_veteran_confirmation":true},
+      "optimization": {"desired_percentage_targeting":false,"unsupported_symptom_coaching":false,"unfavorable_evidence_suppression":false},
+      "authority_effect": false,
+      "activation_effect": false
+    },
+    {
+      "schema_version": "1.0.0",
+      "scenario_id": "PARTIALLY_SUPPORTED",
+      "record_facts": [{"fact_id":"F-P1","text":"Synthetic partial fact","posture":"NEUTRAL","document_id":"DOC-P","page":1,"anchor_id":"A-P1"}],
+      "official_criteria": [{"criterion_id":"CRIT-P1","authority_ref":"OFFICIAL-VA-AUTHORITY-FIXTURE","proposition_ref":"PROP-P1","effective_date":"FIXTURE","criterion_text_hash":"6666666666666666666666666666666666666666666666666666666666666666"}],
+      "mapping": {"state":"PARTIALLY_SUPPORTED","supported_criterion_ids":[],"unsupported_criterion_ids":["CRIT-P1"],"fact_refs":["F-P1"],"contradiction_refs":[],"missing_evidence_refs":["M-P1"],"highest_supported_level_ref":null},
+      "claim_language": {"text":"Synthetic language states that additional evidence is required.","fact_refs":["F-P1"],"unsupported_assertions":[],"requires_veteran_confirmation":true},
+      "optimization": {"desired_percentage_targeting":false,"unsupported_symptom_coaching":false,"unfavorable_evidence_suppression":false},
+      "authority_effect": false,
+      "activation_effect": false
+    },
+    {
+      "schema_version": "1.0.0",
+      "scenario_id": "CONFLICTING",
+      "record_facts": [{"fact_id":"F-C1","text":"Synthetic favorable fact","posture":"FAVORABLE","document_id":"DOC-C","page":1,"anchor_id":"A-C1"},{"fact_id":"F-C2","text":"Synthetic conflicting fact","posture":"CONFLICTING","document_id":"DOC-C","page":2,"anchor_id":"A-C2"}],
+      "official_criteria": [{"criterion_id":"CRIT-C1","authority_ref":"OFFICIAL-VA-AUTHORITY-FIXTURE","proposition_ref":"PROP-C1","effective_date":"FIXTURE","criterion_text_hash":"7777777777777777777777777777777777777777777777777777777777777777"}],
+      "mapping": {"state":"CONFLICTING","supported_criterion_ids":[],"unsupported_criterion_ids":[],"fact_refs":["F-C1","F-C2"],"contradiction_refs":["CONTRA-C1"],"missing_evidence_refs":[],"highest_supported_level_ref":null},
+      "claim_language": {"text":"Synthetic language preserves the unresolved conflict.","fact_refs":["F-C1","F-C2"],"unsupported_assertions":[],"requires_veteran_confirmation":true},
+      "optimization": {"desired_percentage_targeting":false,"unsupported_symptom_coaching":false,"unfavorable_evidence_suppression":false},
+      "authority_effect": false,
+      "activation_effect": false
+    },
+    {
+      "schema_version": "1.0.0",
+      "scenario_id": "UNSUPPORTED",
+      "record_facts": [{"fact_id":"F-U1","text":"Synthetic unfavorable fact","posture":"UNFAVORABLE","document_id":"DOC-U","page":1,"anchor_id":"A-U1"}],
+      "official_criteria": [{"criterion_id":"CRIT-U1","authority_ref":"OFFICIAL-VA-AUTHORITY-FIXTURE","proposition_ref":"PROP-U1","effective_date":"FIXTURE","criterion_text_hash":"8888888888888888888888888888888888888888888888888888888888888888"}],
+      "mapping": {"state":"UNSUPPORTED","supported_criterion_ids":[],"unsupported_criterion_ids":["CRIT-U1"],"fact_refs":["F-U1"],"contradiction_refs":[],"missing_evidence_refs":["M-U1"],"highest_supported_level_ref":null},
+      "claim_language": {"text":"Synthetic language does not assert the unsupported criterion.","fact_refs":["F-U1"],"unsupported_assertions":[],"requires_veteran_confirmation":true},
+      "optimization": {"desired_percentage_targeting":false,"unsupported_symptom_coaching":false,"unfavorable_evidence_suppression":false},
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
