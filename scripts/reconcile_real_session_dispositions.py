@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,22 @@ def sha256(value: Any) -> str:
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_registry_at_commit(commit: str) -> dict[str, Any]:
+    if not commit or any(char.isspace() for char in commit):
+        raise ValueError("baseline_registry_commit must be a non-empty git ref without whitespace")
+    result = subprocess.run(
+        ["git", "show", f"{commit}:{REGISTRY.relative_to(ROOT)}"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    value = json.loads(result.stdout)
+    if not isinstance(value, dict) or not isinstance(value.get("sessions"), list):
+        raise ValueError("baseline registry is malformed")
+    return value
 
 
 def find_session(registry: dict[str, Any], session_id: str) -> dict[str, Any]:
@@ -63,9 +80,27 @@ def verify_supersession(registry: dict[str, Any], evidence: dict[str, Any]) -> t
     return source, successor
 
 
-def apply_supersession(registry: dict[str, Any], evidence: dict[str, Any]) -> dict[str, Any]:
+def apply_supersession(
+    registry: dict[str, Any],
+    evidence: dict[str, Any],
+    baseline_registry: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     source, successor = verify_supersession(registry, evidence)
-    before = json.loads(json.dumps(source))
+    if baseline_registry is None:
+        baseline_registry = json.loads(json.dumps(registry))
+    baseline_source = find_session(baseline_registry, str(evidence.get("session_id")))
+    if baseline_source.get("posture") == "SUPERSEDED":
+        raise ValueError("baseline registry must predate supersession admission")
+    conditions = evidence.get("required_source_conditions", {})
+    if baseline_source.get("active_task_ownership") is not conditions.get("source_active_task_ownership"):
+        raise ValueError("baseline source active ownership condition not met")
+    if baseline_source.get("unique_unmerged_state") is not conditions.get("source_unique_unmerged_state"):
+        raise ValueError("baseline source unique state condition not met")
+    needle = conditions.get("source_reason_contains")
+    if not isinstance(needle, str) or needle not in str(baseline_source.get("reason", "")):
+        raise ValueError("baseline source reason does not establish supersession")
+
+    before = json.loads(json.dumps(baseline_source))
     evidence_hash = sha256(evidence)
     source["posture"] = "SUPERSEDED"
     source["safe_to_archive"] = False
@@ -79,8 +114,12 @@ def apply_supersession(registry: dict[str, Any], evidence: dict[str, Any]) -> di
     source["superseded_by_task_id"] = successor.get("task_id")
     source["superseded_by_owner"] = evidence.get("successor_owner")
     after = json.loads(json.dumps(source))
+    before_hash = sha256(before)
+    after_hash = sha256(after)
+    if before_hash == after_hash:
+        raise ValueError("disposition transition must change the source-state hash")
     receipt = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "receipt_type": "hash_bound_session_disposition",
         "evidence_id": evidence.get("evidence_id"),
         "session_id": source.get("session_id"),
@@ -88,10 +127,11 @@ def apply_supersession(registry: dict[str, Any], evidence: dict[str, Any]) -> di
         "disposition": "SUPERSEDED",
         "admission_status": "ADMITTED",
         "source_registry": str(REGISTRY.relative_to(ROOT)),
+        "baseline_registry_commit": evidence.get("baseline_registry_commit"),
         "evidence_path": source["disposition_evidence"],
         "evidence_sha256": evidence_hash,
-        "before_sha256": sha256(before),
-        "after_sha256": sha256(after),
+        "before_sha256": before_hash,
+        "after_sha256": after_hash,
         "successor": {
             "session_id": successor.get("session_id"),
             "task_id": successor.get("task_id"),
@@ -190,7 +230,11 @@ def main() -> int:
     for path in evidence_paths:
         evidence = load_json(path)
         if evidence.get("requested_posture") == "SUPERSEDED":
-            receipt = apply_supersession(registry, evidence)
+            baseline_commit = evidence.get("baseline_registry_commit")
+            if not isinstance(baseline_commit, str) or not baseline_commit:
+                raise SystemExit(f"missing baseline_registry_commit in {path.relative_to(ROOT)}")
+            baseline_registry = load_registry_at_commit(baseline_commit)
+            receipt = apply_supersession(registry, evidence, baseline_registry)
             receipts.append(receipt)
             receipt_path = RECEIPT_DIR / f"{evidence['evidence_id']}.receipt.json"
             if args.check:
