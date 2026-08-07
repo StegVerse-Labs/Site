@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Child Safety Regulatory Pilot — StegVerse</title><meta name="description" content="Public regulator-facing comparison of blanket account restrictions and deterministic child-mode governance."><style>:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;background:#f6f7f8}body{margin:0}.wrap{max-width:980px;margin:auto;padding:24px}.panel{background:#fff;border:1px solid #ddd;border-radius:14px;padding:18px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card{border:1px solid #ddd;border-radius:12px;padding:14px}.flow{white-space:pre-wrap;background:#111;color:#f7f7f7;padding:14px;border-radius:10px;overflow:auto}.good{font-weight:750}.zero{font-size:1.3rem;font-weight:850}.comparison{width:100%;border-collapse:collapse}.comparison th,.comparison td{border:1px solid #ddd;padding:10px;text-align:left;vertical-align:top}.note{background:#eef5ff;border-radius:10px;padding:12px}.warn{background:#fff4d8;border-radius:10px;padding:12px}.change{border-top:1px solid #ddd;padding:12px 0}.change:first-of-type{border-top:0}code{background:#eee;padding:2px 5px;border-radius:5px}</style></head><body><main class="wrap">
+<h1>Child Safety Regulatory Pilot</h1>
+<p><strong>Purpose:</strong> provide a public, regulator-testable way to compare blanket minimum-age account restrictions with deterministic Child Mode governance.</p>
+<div class="note"><strong>This is not a self-exemption from a ban.</strong> Protected users enter a pilot only under an explicit lawful pilot/sandbox/authorization path defined by the relevant authority. Otherwise the ordinary minimum-age rule continues to apply.</div>
+<section class="panel"><h2>Current enforcement problem</h2><p>A ban can be legally clear while still requiring evidence that platforms actually detect protected users, prevent new accounts, resist bypasses, correct errors, and avoid turning age assurance into a new data-harvesting channel.</p><div class="flow">BAN ENFORCEMENT
+→ age assurance
+→ detect existing underage accounts
+→ prevent new underage accounts
+→ prevent workarounds
+→ review/appeal errors
+→ regulator monitoring
+→ enforcement when evidence supports breach</div></section>
+<section class="panel"><h2>Pilot admission</h2><div class="flow">REGULATOR / LAWFUL PILOT AUTHORITY
++ defined jurisdiction
++ defined protected age cohort
++ defined service/capability perimeter
++ defined duration / termination condition
++ approved age-assurance method
++ approved evidence schedule
+→ PILOT_ADMISSIBLE</div></section>
+<section class="panel"><h2>Zero harvesting is the starting point</h2><p class="zero">OPTIONAL_DATA_HARVESTING = DENY_BY_DEFAULT</p><p>Admission to the protected environment does not authorize optional extraction of the child's device or behavioral data. Child Mode treats interaction authority and data authority separately.</p><div class="grid"><div class="card"><strong>Default DENY</strong><p>Contacts, files/photos, precise/background location, clipboard, advertising IDs, cross-app/service IDs, behavioral profiles, inferred interests, nonessential telemetry, and microphone/camera-derived data beyond a bounded foreground function.</p></div><div class="card"><strong>Any exception must be scoped</strong><p>Exact data class + exact purpose + exact recipient + retention window + lawful authority reference + receipt. Guardian authorization cannot become blanket permission.</p></div></div></section>
+<section class="panel"><h2>What a regulator can test directly</h2><table class="comparison"><thead><tr><th>Test</th><th>Expected Child Mode result</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>Protected user requests Normal Mode</td><td>DENY</td><td>Eligibility + policy receipt</td></tr>
+<tr><td>Unknown person attempts DM</td><td>DENY</td><td>Capability-decision receipt</td></tr>
+<tr><td>Public discovery/posting where prohibited</td><td>DENY</td><td>Capability-decision receipt</td></tr>
+<tr><td>Engagement recommender</td><td>DENY</td><td>Capability manifest + receipt</td></tr>
+<tr><td>Behavioral ad profile</td><td>DENY</td><td>Data-authority receipt</td></tr>
+<tr><td>Precise location export</td><td>DENY</td><td>Data-egress receipt with released=0</td></tr>
+<tr><td>Known-contact message</td><td>ALLOW when boundary established</td><td>Purpose/contact-bound receipt</td></tr>
+<tr><td>Approved collaboration</td><td>ALLOW</td><td>Purpose-bound receipt</td></tr>
+<tr><td>Report/block</td><td>ALLOW</td><td>Safety-action receipt</td></tr>
+</tbody></table></section>
+<section class="panel"><h2>Five-layer evidence package</h2><div class="grid"><div class="card"><strong>1. Eligibility</strong><p>Age-assurance result, jurisdiction, age band, policy version, appeal state, evidence-retention status.</p></div><div class="card"><strong>2. Capability denials</strong><p>Reproducible regulator test accounts and deterministic ALLOW/DENY results.</p></div><div class="card"><strong>3. Data egress</strong><p>Requested class, purpose, recipient, authority, decision, released bytes/records, retention, receipt hash.</p></div><div class="card"><strong>4. Boundary history</strong><p>Newest-first public record of every threshold/capability/data-rule change with rationale and implementation version.</p></div><div class="card"><strong>5. Outcomes/incidents</strong><p>Privacy-preserving aggregate metrics for bypass attempts, appeals, denied transitions, allowed positive interactions, data requests, incidents and suspensions.</p></div></div></section>
+<section class="panel"><h2>Fail closed</h2><div class="flow">age assurance unavailable → no new protected-user admission
+policy/receipt chain broken → sensitive transition DENY
+unknown data egress detected → affected data class DENY + incident
+mandatory boundary test fails → affected pilot access SUSPENDED
+regulator termination condition → pilot disabled</div></section>
+<section class="panel"><h2>Ban vs governed pilot — same standard: verifiable enforcement</h2><table class="comparison"><thead><tr><th>Question</th><th>Blanket restriction</th><th>Governed pilot</th></tr></thead><tbody><tr><td>What must be prevented?</td><td>Protected user's covered account/access.</td><td>Prohibited capability and optional data authority.</td></tr><tr><td>How is it proven?</td><td>Platform reasonable-step evidence, age assurance, deactivation/prevention data, regulator investigation.</td><td>Age/mode receipts, deterministic capability tests, data-egress receipts, public boundary history.</td></tr><tr><td>What happens on evidence failure?</td><td>Compliance/enforcement action.</td><td>Fail-closed suspension plus regulator review.</td></tr><tr><td>What remains available?</td><td>Depends on excluded/non-covered services.</td><td>Only predeclared bounded positive communication/collaboration capabilities.</td></tr></tbody></table></section>
+<section class="panel"><h2>Pilot success criteria</h2><div class="flow">AGE_STATE_ENFORCEMENT = PASS
+PROHIBITED_CAPABILITY_TESTS = PASS
+NORMAL_MODE_BYPASS = DENY
+OPTIONAL_DATA_HARVESTING = ZERO_BY_DEFAULT
+UNDECLARED_DATA_EGRESS = NONE
+APPEAL_PATH = OPERATIONAL
+BOUNDARY_HISTORY = COMPLETE
+RECEIPT_RECONSTRUCTION = PASS
+FAIL_CLOSED_BEHAVIOR = PASS</div></section>
+<section class="panel"><h2>Why this changes the policy question</h2><p>The current minimum-age approach treats the covered social network as the regulated risk surface and requires the platform to keep protected users out. This pilot tests whether government can instead require the platform to prove, continuously and independently, that the dangerous interaction and data authorities do not exist for the protected user.</p><p class="good">The goal is not to shift blame away from platforms. It is to make platform responsibility more granular and more observable: prove what the system cannot do, prove what data it cannot take, and prove what happens when those boundaries fail.</p></section>
+<section class="panel" id="pilot-change-record"><h2>Pilot Change Record</h2><p>Newest-first descending chronology.</p><div class="change"><strong>2026-08-07 — Initial regulator-verifiable pilot model</strong><p>Added lawful pilot admission, zero optional harvesting, five-layer evidence package, fail-closed suspension, regulator test accounts, comparative ban/governance metrics and predeclared success criteria.</p><p><strong>Rationale:</strong> enforcement should be verifiable without requiring surveillance of the child, and a governed alternative should be evaluated by the same evidence discipline as a ban.</p></div></section>
+<p><a href="child-safety-demo.html">Open the Child Mode capability demo</a> · <a href="child-mode-data-protection.html">Open the Child Mode data-protection surface</a></p>
+</main></body></html>
