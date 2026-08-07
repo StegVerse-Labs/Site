@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "data/session-orchestration-registry.json"
+      - "data/session-orchestration-cross-repository.report.json"
       - "scripts/project_session_orchestration.py"
       - "tests/test_project_session_orchestration.py"
       - ".github/workflows/session-orchestration-project.yml"
@@ -53,7 +54,7 @@ jobs:
           git fetch origin main
           git rebase origin/main
 
-          # Recompute after rebasing so a concurrently updated registry cannot leave stale projections.
+          # Recompute after rebasing so concurrent registry or cross-repository authority changes cannot leave stale projections.
           python scripts/check_session_retirement.py
           python scripts/project_session_orchestration.py
           git add data/session-orchestration-successor-packets.json data/session-orchestration-archive-queue.json
@@ -77,6 +78,13 @@ jobs:
         with:
           name: session-orchestration-archive-queue
           path: data/session-orchestration-archive-queue.json
+          if-no-files-found: error
+      - name: Upload cross-repository authority state
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-orchestration-cross-repository-binding
+          path: data/session-orchestration-cross-repository.report.json
           if-no-files-found: error
       - name: Upload retirement validation report
         if: always()
