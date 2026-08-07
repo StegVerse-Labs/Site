@@ -1,0 +1,206 @@
+{
+  "action_authority_rule": "ACTION remains candidate work until destination-owned authority and collision checks admit it",
+  "classification_rule": "transport details are classified into memory/action/awareness/capability/evidence without granting execution authority",
+  "organizations": [
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "BLOCKER_RETAINED",
+      "evidence": [],
+      "memory": "NO_NEW_MEMORY",
+      "organization": "AaCT-E",
+      "release_condition": "connected GitHub integration gains write authority to an AaCT-E repository or an AaCT-E-owned machine relay is installed",
+      "state": "BLOCKED_CONNECTOR_WRITE_AUTHORITY"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-admissible-existence.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-admissible-existence.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-admissible-existence.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "Admissible-Existence",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-admittedcode.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-admittedcode.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-admittedcode.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "AdmittedCode",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-data-continuation.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-data-continuation.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-data-continuation.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "Data-Continuation",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "BLOCKER_RETAINED",
+      "evidence": [],
+      "memory": "NO_NEW_MEMORY",
+      "organization": "ECAT-ICAT-Formal",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "state": "BLOCKED_NO_REPOSITORY"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-formalism-tests.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-formalism-tests.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-formalism-tests.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "formalism-tests",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-gcat-bcat-engine.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-gcat-bcat-engine.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-gcat-bcat-engine.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "GCAT-BCAT-Engine",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "BLOCKER_RETAINED",
+      "evidence": [],
+      "memory": "NO_NEW_MEMORY",
+      "organization": "Infrastructure-Continuity-Ventures",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "state": "BLOCKED_NO_REPOSITORY"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "PRIVATE_NODE_RESPONSE_NOT_YET_IMPORTED",
+      "evidence": [],
+      "memory": "REMOTE_ONLY_NOT_CANONICALLY_IMPORTED",
+      "organization": "master-records",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
+      "state": "BLOCKED_PRIVATE_RELAY"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "PRIVATE_NODE_RESPONSE_NOT_YET_IMPORTED",
+      "evidence": [],
+      "memory": "REMOTE_ONLY_NOT_CANONICALLY_IMPORTED",
+      "organization": "StegGhost",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
+      "state": "BLOCKED_PRIVATE_RELAY"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-002.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-002.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-002.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "StegVerse-002",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-labs.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-labs.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-labs.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "StegVerse-Labs",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-org.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-org.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-org.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
+      "organization": "StegVerse-org",
+      "state": "RECOVERED"
+    },
+    {
+      "action": "NO_ACTION_ADMITTED",
+      "awareness": "BLOCKER_RETAINED",
+      "evidence": [],
+      "memory": "NO_NEW_MEMORY",
+      "organization": "Triad-Test",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "state": "BLOCKED_NO_REPOSITORY"
+    }
+  ],
+  "owner": "StegVerse-Labs/Site issue #234",
+  "schema_version": "1.0.0"
+}

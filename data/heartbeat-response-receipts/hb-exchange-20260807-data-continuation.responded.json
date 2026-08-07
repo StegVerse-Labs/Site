@@ -1,0 +1,36 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "node_state": "RESPONSIVE",
+    "primary": "CAPABILITY",
+    "return_to": "StegVerse-Labs",
+    "supported_detail_classes": [
+      "MEMORY",
+      "ACTION",
+      "AWARENESS",
+      "AUTHORITY",
+      "EVIDENCE",
+      "BLOCKER",
+      "CAPABILITY",
+      "CONTEXT"
+    ]
+  },
+  "destination_org": "Data-Continuation",
+  "detail_class": "CAPABILITY",
+  "exchange_id": "hb-exchange-20260807-data-continuation",
+  "message_id": "hb-bootstrap-20260807-data-continuation-responded",
+  "node_org": "Data-Continuation",
+  "observed_at": "2026-08-07T14:46:41.722576Z",
+  "observed_message_sha256": "316edf65ee1443237a3fce91255417ee34c3406a893de8f8aa02894fd25a075c",
+  "parent_receipt_sha256": "6b9ebbc01f472614da100d4018525d8bafa34ced5c9e0955d363112453865458",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RESPONDED"
+}

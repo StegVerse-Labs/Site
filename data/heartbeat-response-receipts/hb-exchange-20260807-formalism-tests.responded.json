@@ -1,0 +1,36 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "node_state": "RESPONSIVE",
+    "primary": "CAPABILITY",
+    "return_to": "StegVerse-Labs",
+    "supported_detail_classes": [
+      "MEMORY",
+      "ACTION",
+      "AWARENESS",
+      "AUTHORITY",
+      "EVIDENCE",
+      "BLOCKER",
+      "CAPABILITY",
+      "CONTEXT"
+    ]
+  },
+  "destination_org": "formalism-tests",
+  "detail_class": "CAPABILITY",
+  "exchange_id": "hb-exchange-20260807-formalism-tests",
+  "message_id": "hb-bootstrap-20260807-formalism-tests-responded",
+  "node_org": "formalism-tests",
+  "observed_at": "2026-08-07T14:47:41.085164Z",
+  "observed_message_sha256": "30d456b20c35f11f7769343ef4db177b6524d73a61d11b87b7c4ac5153fec983",
+  "parent_receipt_sha256": "f3de7a854eac4051fe02fe7000bddf437d190fde2e5a92af8dc9ef308eaba3a8",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RESPONDED"
+}

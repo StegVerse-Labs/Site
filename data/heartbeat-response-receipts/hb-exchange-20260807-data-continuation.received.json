@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "primary": "AWARENESS",
+    "retention": "PROJECT"
+  },
+  "destination_org": "Data-Continuation",
+  "detail_class": "AWARENESS",
+  "exchange_id": "hb-exchange-20260807-data-continuation",
+  "message_id": "hb-bootstrap-20260807-data-continuation-received",
+  "node_org": "Data-Continuation",
+  "observed_at": "2026-08-07T14:46:41.722576Z",
+  "observed_message_sha256": "316edf65ee1443237a3fce91255417ee34c3406a893de8f8aa02894fd25a075c",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECEIVED"
+}

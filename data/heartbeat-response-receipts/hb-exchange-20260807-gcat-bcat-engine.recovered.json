@@ -1,0 +1,28 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "memory_retention": "PROJECT",
+    "primary": "EVIDENCE",
+    "recovered_into": "StegVerse-Labs/Site",
+    "upstream_response_sha256": "5f791375703e3995bd7592887c577b0c0f933f36b09d8626a19fc3d5135da7ab"
+  },
+  "destination_org": "GCAT-BCAT-Engine",
+  "detail_class": "EVIDENCE",
+  "exchange_id": "hb-exchange-20260807-gcat-bcat-engine",
+  "message_id": "hb-exchange-20260807-gcat-bcat-engine-recovered",
+  "node_org": "GCAT-BCAT-Engine",
+  "observed_at": "2026-08-07T15:14:15.174849Z",
+  "observed_message_sha256": "5da40301d4571bc49f36048e1d802edf27471890e246d7534c019df36df7df42",
+  "parent_receipt_sha256": "5f791375703e3995bd7592887c577b0c0f933f36b09d8626a19fc3d5135da7ab",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECOVERED"
+}

@@ -1,0 +1,28 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "memory_retention": "PROJECT",
+    "primary": "EVIDENCE",
+    "recovered_into": "StegVerse-Labs/Site",
+    "upstream_response_sha256": "033ed1b4c000954df196cd27a0cc3f03944aa54d8a71f79e431c78f1924eab8c"
+  },
+  "destination_org": "Admissible-Existence",
+  "detail_class": "EVIDENCE",
+  "exchange_id": "hb-exchange-20260807-admissible-existence",
+  "message_id": "hb-exchange-20260807-admissible-existence-recovered",
+  "node_org": "Admissible-Existence",
+  "observed_at": "2026-08-07T15:14:13.783116Z",
+  "observed_message_sha256": "83067cb8cc0d01cf6cce82b939231b9666d206b15f15ddd50673a61ab759cdba",
+  "parent_receipt_sha256": "033ed1b4c000954df196cd27a0cc3f03944aa54d8a71f79e431c78f1924eab8c",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECOVERED"
+}

@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "primary": "AWARENESS",
+    "retention": "PROJECT"
+  },
+  "destination_org": "AdmittedCode",
+  "detail_class": "AWARENESS",
+  "exchange_id": "hb-exchange-20260807-admittedcode",
+  "message_id": "hb-bootstrap-20260807-admittedcode-received",
+  "node_org": "AdmittedCode",
+  "observed_at": "2026-08-07T14:45:47.066746Z",
+  "observed_message_sha256": "8fc681f34785889a7e4a41e90cdf892fcd7eb2258593f4e1d0c926e9f70562fe",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECEIVED"
+}

@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "primary": "AWARENESS",
+    "retention": "PROJECT"
+  },
+  "destination_org": "formalism-tests",
+  "detail_class": "AWARENESS",
+  "exchange_id": "hb-exchange-20260807-formalism-tests",
+  "message_id": "hb-bootstrap-20260807-formalism-tests-received",
+  "node_org": "formalism-tests",
+  "observed_at": "2026-08-07T14:47:41.085164Z",
+  "observed_message_sha256": "30d456b20c35f11f7769343ef4db177b6524d73a61d11b87b7c4ac5153fec983",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECEIVED"
+}

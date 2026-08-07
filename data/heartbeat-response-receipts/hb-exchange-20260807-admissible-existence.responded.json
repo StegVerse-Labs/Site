@@ -1,0 +1,36 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "node_state": "RESPONSIVE",
+    "primary": "CAPABILITY",
+    "return_to": "StegVerse-Labs",
+    "supported_detail_classes": [
+      "MEMORY",
+      "ACTION",
+      "AWARENESS",
+      "AUTHORITY",
+      "EVIDENCE",
+      "BLOCKER",
+      "CAPABILITY",
+      "CONTEXT"
+    ]
+  },
+  "destination_org": "Admissible-Existence",
+  "detail_class": "CAPABILITY",
+  "exchange_id": "hb-exchange-20260807-admissible-existence",
+  "message_id": "hb-bootstrap-20260807-admissible-existence-responded",
+  "node_org": "Admissible-Existence",
+  "observed_at": "2026-08-07T14:44:45.798384Z",
+  "observed_message_sha256": "83067cb8cc0d01cf6cce82b939231b9666d206b15f15ddd50673a61ab759cdba",
+  "parent_receipt_sha256": "bb1c065563decd1e12ae272dc7c7ee95b12185dc9d7cb80b80ef7dc15dcc8e9b",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RESPONDED"
+}

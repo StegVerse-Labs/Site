@@ -1,0 +1,154 @@
+{
+  "installed_nodes": 10,
+  "next_executable_task": "continue machine retries and private relay observation; do not emit REPEAT absent a new admitted transition",
+  "owner": "StegVerse-Labs/Site issue #234",
+  "rows": [
+    {
+      "organization": "AaCT-E",
+      "receipt_mode": null,
+      "release_condition": "connected GitHub integration gains write authority to an AaCT-E repository or an AaCT-E-owned machine relay is installed",
+      "repository": "AaCT-E/telemetry",
+      "state": "BLOCKED_CONNECTOR_WRITE_AUTHORITY",
+      "target_state": "BLOCKED_CONNECTOR_WRITE_AUTHORITY"
+    },
+    {
+      "organization": "Admissible-Existence",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-admissible-existence.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-admissible-existence.recovered.json",
+      "recovered_sha256": "dbf0aa27b9268cddaadbd08b8a8e9e7c9fef0da17523a0f33c0c88d25f4552e4",
+      "repository": "Admissible-Existence/.github",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-admissible-existence.responded.json",
+      "response_sha256": "033ed1b4c000954df196cd27a0cc3f03944aa54d8a71f79e431c78f1924eab8c",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "AdmittedCode",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-admittedcode.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-admittedcode.recovered.json",
+      "recovered_sha256": "0677f5413313ec85efb930422542a6014ad357623489646ca6b601b5ae6d6e14",
+      "repository": "AdmittedCode/.github",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-admittedcode.responded.json",
+      "response_sha256": "3c2af26509354efa901c494c1af7eb9ccc9f1271d72886b97119d019e3e7f762",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "Data-Continuation",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-data-continuation.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-data-continuation.recovered.json",
+      "recovered_sha256": "cc5906058654802895c48cd7e59a9367a6225b22bebd2a08358a770d511cc28e",
+      "repository": "Data-Continuation/core-lite",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-data-continuation.responded.json",
+      "response_sha256": "555708a707a33eed20373e5af99c93d1f0aac58e14ccea0044252a16da0cad9f",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "ECAT-ICAT-Formal",
+      "receipt_mode": null,
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "repository": null,
+      "state": "BLOCKED_NO_REPOSITORY",
+      "target_state": "BLOCKED_NO_REPOSITORY"
+    },
+    {
+      "organization": "formalism-tests",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-formalism-tests.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-formalism-tests.recovered.json",
+      "recovered_sha256": "42b4929c5de1c288d12ede2b6f22e2d145c4196650b672ed66db5fded5f155db",
+      "repository": "formalism-tests/core-lite",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-formalism-tests.responded.json",
+      "response_sha256": "ec2e3a657ce61444f56b541bad94e93955d2f09462a871cd7fc431dc1195ff66",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "GCAT-BCAT-Engine",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-gcat-bcat-engine.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-gcat-bcat-engine.recovered.json",
+      "recovered_sha256": "f47c5af2128c65f0242e2be055615c31f153ee56364974a92c97d7a7d0c879c0",
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-gcat-bcat-engine.responded.json",
+      "response_sha256": "5f791375703e3995bd7592887c577b0c0f933f36b09d8626a19fc3d5135da7ab",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "Infrastructure-Continuity-Ventures",
+      "receipt_mode": null,
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "repository": null,
+      "state": "BLOCKED_NO_REPOSITORY",
+      "target_state": "BLOCKED_NO_REPOSITORY"
+    },
+    {
+      "organization": "master-records",
+      "receipt_mode": "PRIVATE_RELAY_REQUIRED",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
+      "repository": "master-records/orchestration",
+      "state": "BLOCKED_PRIVATE_RELAY",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "StegGhost",
+      "receipt_mode": "PRIVATE_RELAY_REQUIRED",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
+      "repository": "StegGhost/telemetry",
+      "state": "BLOCKED_PRIVATE_RELAY",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "StegVerse-002",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-002.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-002.recovered.json",
+      "recovered_sha256": "796545f8baff8000c49a86a84e93aa1d5e940927537e0508af8dd4889b7312ea",
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-002.responded.json",
+      "response_sha256": "ed7edca0b7b713f5b7ecaef77c22bd14ba79720a126c452cb5369d9345bc68f1",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "StegVerse-Labs",
+      "receipt_mode": "LOCAL",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-labs.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-labs.recovered.json",
+      "recovered_sha256": "2f1438603233b1e5d40ad71ce3eacbef9d2dbd0084a11870c15a3f62bc9f0881",
+      "repository": "StegVerse-Labs/Site",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-labs.responded.json",
+      "response_sha256": "6ff6f0833d6d7f0fdd1e5f144c0545f84da8b434d355b1866a99cefc5d2bbbd5",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "StegVerse-org",
+      "receipt_mode": "PUBLIC_RAW",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-org.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-org.recovered.json",
+      "recovered_sha256": "551e0dabfad60d40f157866efeab81e85fc19646c0638d21ec471a7df1417a3a",
+      "repository": "StegVerse-org/LLM-adapter",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegverse-org.responded.json",
+      "response_sha256": "f9abd153b56a3b78ec8c5cc62d4c205a7d4441f3f0cf997e3446853770543dc6",
+      "state": "RECOVERED",
+      "target_state": "ADAPTER_INSTALLED"
+    },
+    {
+      "organization": "Triad-Test",
+      "receipt_mode": null,
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "repository": null,
+      "state": "BLOCKED_NO_REPOSITORY",
+      "target_state": "BLOCKED_NO_REPOSITORY"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "state": "COMPLETE_WITH_BLOCKERS",
+  "verified_recovered": 8
+}

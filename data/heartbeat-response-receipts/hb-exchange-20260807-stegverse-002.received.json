@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "primary": "AWARENESS",
+    "retention": "PROJECT"
+  },
+  "destination_org": "StegVerse-002",
+  "detail_class": "AWARENESS",
+  "exchange_id": "hb-exchange-20260807-stegverse-002",
+  "message_id": "hb-bootstrap-20260807-stegverse-002-received",
+  "node_org": "StegVerse-002",
+  "observed_at": "2026-08-07T15:06:10.757636Z",
+  "observed_message_sha256": "122b1cdb719ac8243f9f8f5b05073fc47c07c5f92276fa596f313b4e303746c3",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECEIVED"
+}

@@ -1,0 +1,28 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "memory_retention": "PROJECT",
+    "primary": "EVIDENCE",
+    "recovered_into": "StegVerse-Labs/Site",
+    "upstream_response_sha256": "3c2af26509354efa901c494c1af7eb9ccc9f1271d72886b97119d019e3e7f762"
+  },
+  "destination_org": "AdmittedCode",
+  "detail_class": "EVIDENCE",
+  "exchange_id": "hb-exchange-20260807-admittedcode",
+  "message_id": "hb-exchange-20260807-admittedcode-recovered",
+  "node_org": "AdmittedCode",
+  "observed_at": "2026-08-07T15:14:14.120991Z",
+  "observed_message_sha256": "8fc681f34785889a7e4a41e90cdf892fcd7eb2258593f4e1d0c926e9f70562fe",
+  "parent_receipt_sha256": "3c2af26509354efa901c494c1af7eb9ccc9f1271d72886b97119d019e3e7f762",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECOVERED"
+}

@@ -1,66 +1,200 @@
 {
-  "schema_version": "1.0.0",
-  "state_type": "ecosystem_heartbeat_response_network",
-  "canonical_owner": "StegVerse-Labs/Site issue #234",
-  "protocol_document": "docs/ECOSYSTEM_HEARTBEAT_RESPONSE_NETWORK.md",
-  "heartbeat_model": "TRANSITION_DRIVEN",
-  "time_role": "WATCHDOG_AND_RETRY_ONLY",
   "authority_rule": "heartbeat receipt or response never grants execution, activation, publication, custody, or release authority",
-  "organization_inventory_source": "user-supplied GitHub organization dashboard screenshots, 2026-08-07; StegVerse personal account explicitly excluded from organization denominator",
-  "organization_count": 14,
-  "lifecycle": ["SENT", "RECEIVED", "RESPONDED", "RECOVERED", "REPEAT"],
-  "failure_states": ["BLOCKED", "FAILED", "REVIEW_REQUIRED"],
-  "detail_classes": ["MEMORY", "ACTION", "AWARENESS", "AUTHORITY", "EVIDENCE", "BLOCKER", "CAPABILITY", "CONTEXT"],
-  "interval_policy": {
-    "transition_emit": "IMMEDIATE_ON_ADMITTED_STATE_CHANGE",
-    "receipt_watchdog_seconds": 300,
-    "response_watchdog_seconds": 900,
-    "recovery_watchdog_seconds": 3600,
-    "repeat_minimum_seconds": 3600,
-    "repeat_maximum_seconds": 86400,
-    "backoff": "EXPONENTIAL_CAPPED",
-    "silence_effect": "OBSERVATION_ONLY_UNLESS_PROGRESS_EXPECTED",
-    "progress_rule": "only admitted transitions advance progress"
+  "canonical_owner": "StegVerse-Labs/Site issue #234",
+  "coverage": {
+    "organizations_protocol_installed": 10,
+    "organizations_receive_verified": 8,
+    "organizations_recovery_verified": 8,
+    "organizations_registered": 14,
+    "organizations_respond_verified": 8,
+    "protocol_installed_percent": 71.43,
+    "receive_verified_percent": 57.14,
+    "recovery_verified_percent": 57.14,
+    "registered_percent": 100.0,
+    "respond_verified_percent": 57.14
   },
+  "detail_classes": [
+    "MEMORY",
+    "ACTION",
+    "AWARENESS",
+    "AUTHORITY",
+    "EVIDENCE",
+    "BLOCKER",
+    "CAPABILITY",
+    "CONTEXT"
+  ],
+  "failure_states": [
+    "BLOCKED",
+    "FAILED",
+    "REVIEW_REQUIRED"
+  ],
+  "heartbeat_model": "TRANSITION_DRIVEN",
+  "interval_policy": {
+    "backoff": "EXPONENTIAL_CAPPED",
+    "progress_rule": "only admitted transitions advance progress",
+    "receipt_watchdog_seconds": 300,
+    "recovery_watchdog_seconds": 3600,
+    "repeat_maximum_seconds": 86400,
+    "repeat_minimum_seconds": 3600,
+    "response_watchdog_seconds": 900,
+    "silence_effect": "OBSERVATION_ONLY_UNLESS_PROGRESS_EXPECTED",
+    "transition_emit": "IMMEDIATE_ON_ADMITTED_STATE_CHANGE"
+  },
+  "lifecycle": [
+    "SENT",
+    "RECEIVED",
+    "RESPONDED",
+    "RECOVERED",
+    "REPEAT"
+  ],
+  "next_machine_action": "retry public receipt acquisition; preserve private-relay and no-repository blockers; emit REPEAT only after a new admitted transition requires another exchange",
+  "organization_count": 14,
+  "organization_inventory_source": "user-supplied GitHub organization dashboard screenshots, 2026-08-07; StegVerse personal account explicitly excluded from organization denominator",
+  "organizations": [
+    {
+      "evidence_repository": "AaCT-E/telemetry",
+      "organization": "AaCT-E",
+      "protocol_state": "BLOCKED_CONNECTOR_WRITE_AUTHORITY",
+      "receive_state": "UNVERIFIED",
+      "recovery_state": "UNVERIFIED",
+      "release_condition": "connected GitHub integration gains write authority to an AaCT-E repository or an AaCT-E-owned machine relay is installed",
+      "respond_state": "UNVERIFIED"
+    },
+    {
+      "evidence_repository": "Admissible-Existence/.github",
+      "organization": "Admissible-Existence",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": "AdmittedCode/.github",
+      "organization": "AdmittedCode",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": "Data-Continuation/core-lite",
+      "organization": "Data-Continuation",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": null,
+      "organization": "ECAT-ICAT-Formal",
+      "protocol_state": "BLOCKED_NO_REPOSITORY",
+      "receive_state": "UNVERIFIED",
+      "recovery_state": "UNVERIFIED",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "respond_state": "UNVERIFIED"
+    },
+    {
+      "evidence_repository": "formalism-tests/core-lite",
+      "organization": "formalism-tests",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": "GCAT-BCAT-Engine/Publisher",
+      "organization": "GCAT-BCAT-Engine",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": null,
+      "organization": "Infrastructure-Continuity-Ventures",
+      "protocol_state": "BLOCKED_NO_REPOSITORY",
+      "receive_state": "UNVERIFIED",
+      "recovery_state": "UNVERIFIED",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "respond_state": "UNVERIFIED"
+    },
+    {
+      "evidence_repository": "master-records/orchestration",
+      "organization": "master-records",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "UNVERIFIED",
+      "recovery_state": "UNVERIFIED",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
+      "respond_state": "UNVERIFIED"
+    },
+    {
+      "evidence_repository": "StegGhost/telemetry",
+      "organization": "StegGhost",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "UNVERIFIED",
+      "recovery_state": "UNVERIFIED",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
+      "respond_state": "UNVERIFIED"
+    },
+    {
+      "evidence_repository": "StegVerse-002/stegguardian-wiki",
+      "organization": "StegVerse-002",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repositories": [
+        "StegVerse-Labs/Site",
+        "StegVerse-Labs/admissibility-wiki"
+      ],
+      "evidence_repository": "StegVerse-Labs/Site",
+      "organization": "StegVerse-Labs",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": "StegVerse-org/LLM-adapter",
+      "organization": "StegVerse-org",
+      "protocol_state": "ADAPTER_INSTALLED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
+      "respond_state": "VERIFIED"
+    },
+    {
+      "evidence_repository": null,
+      "organization": "Triad-Test",
+      "protocol_state": "BLOCKED_NO_REPOSITORY",
+      "receive_state": "UNVERIFIED",
+      "recovery_state": "UNVERIFIED",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "respond_state": "UNVERIFIED"
+    }
+  ],
+  "protocol_document": "docs/ECOSYSTEM_HEARTBEAT_RESPONSE_NETWORK.md",
   "routing_policy": {
-    "direction": "BIDIRECTIONAL",
-    "default_fanout": "PERTINENT_ONLY",
-    "broadcast_allowed_for": ["AWARENESS", "BLOCKER", "CAPABILITY"],
-    "targeted_required_for": ["ACTION", "AUTHORITY"],
-    "memory_rule": "persist only when destination declares relevance and retention class",
     "action_rule": "ACTION requires destination-owned authority check before execution",
     "authority_rule": "AUTHORITY is evidence about authority, never authority by transport",
-    "deduplication_key": "message_id",
+    "broadcast_allowed_for": [
+      "AWARENESS",
+      "BLOCKER",
+      "CAPABILITY"
+    ],
+    "causality_key": "parent_message_id",
     "correlation_key": "exchange_id",
-    "causality_key": "parent_message_id"
+    "deduplication_key": "message_id",
+    "default_fanout": "PERTINENT_ONLY",
+    "direction": "BIDIRECTIONAL",
+    "memory_rule": "persist only when destination declares relevance and retention class",
+    "targeted_required_for": [
+      "ACTION",
+      "AUTHORITY"
+    ]
   },
-  "organizations": [
-    {"organization":"AaCT-E","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"Admissible-Existence","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"AdmittedCode","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"Data-Continuation","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"ECAT-ICAT-Formal","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"formalism-tests","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"GCAT-BCAT-Engine","protocol_state":"INSTALLED_EXISTING_HB","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED","evidence_repository":"GCAT-BCAT-Engine/Publisher"},
-    {"organization":"Infrastructure-Continuity-Ventures","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"master-records","protocol_state":"INSTALLED_EXISTING_HB","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED","evidence_repository":"master-records/orchestration"},
-    {"organization":"StegGhost","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
-    {"organization":"StegVerse-002","protocol_state":"INSTALLED_EXISTING_HB","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED","evidence_repository":"StegVerse-002/stegguardian-wiki"},
-    {"organization":"StegVerse-Labs","protocol_state":"INSTALLED_EXISTING_HB","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED","evidence_repositories":["StegVerse-Labs/Site","StegVerse-Labs/admissibility-wiki"]},
-    {"organization":"StegVerse-org","protocol_state":"INSTALLED_EXISTING_HB","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED","evidence_repository":"StegVerse-org/LLM-adapter"},
-    {"organization":"Triad-Test","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"}
-  ],
-  "coverage": {
-    "organizations_registered": 14,
-    "organizations_protocol_installed": 5,
-    "organizations_receive_verified": 0,
-    "organizations_respond_verified": 0,
-    "organizations_recovery_verified": 0,
-    "registered_percent": 100.0,
-    "protocol_installed_percent": 35.71,
-    "receive_verified_percent": 0.0,
-    "respond_verified_percent": 0.0,
-    "recovery_verified_percent": 0.0
-  },
-  "next_machine_action": "install organization-owned adapters and accumulate hash-bound exchange receipts without inferring response from file presence"
+  "schema_version": "1.0.0",
+  "state_type": "ecosystem_heartbeat_response_network",
+  "time_role": "WATCHDOG_AND_RETRY_ONLY"
 }

@@ -1,0 +1,28 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "memory_retention": "PROJECT",
+    "primary": "EVIDENCE",
+    "recovered_into": "StegVerse-Labs/Site",
+    "upstream_response_sha256": "555708a707a33eed20373e5af99c93d1f0aac58e14ccea0044252a16da0cad9f"
+  },
+  "destination_org": "Data-Continuation",
+  "detail_class": "EVIDENCE",
+  "exchange_id": "hb-exchange-20260807-data-continuation",
+  "message_id": "hb-exchange-20260807-data-continuation-recovered",
+  "node_org": "Data-Continuation",
+  "observed_at": "2026-08-07T15:14:14.472650Z",
+  "observed_message_sha256": "316edf65ee1443237a3fce91255417ee34c3406a893de8f8aa02894fd25a075c",
+  "parent_receipt_sha256": "555708a707a33eed20373e5af99c93d1f0aac58e14ccea0044252a16da0cad9f",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECOVERED"
+}

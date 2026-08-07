@@ -1,0 +1,36 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "node_state": "RESPONSIVE",
+    "primary": "CAPABILITY",
+    "return_to": "StegVerse-Labs",
+    "supported_detail_classes": [
+      "MEMORY",
+      "ACTION",
+      "AWARENESS",
+      "AUTHORITY",
+      "EVIDENCE",
+      "BLOCKER",
+      "CAPABILITY",
+      "CONTEXT"
+    ]
+  },
+  "destination_org": "AdmittedCode",
+  "detail_class": "CAPABILITY",
+  "exchange_id": "hb-exchange-20260807-admittedcode",
+  "message_id": "hb-bootstrap-20260807-admittedcode-responded",
+  "node_org": "AdmittedCode",
+  "observed_at": "2026-08-07T14:45:47.066746Z",
+  "observed_message_sha256": "8fc681f34785889a7e4a41e90cdf892fcd7eb2258593f4e1d0c926e9f70562fe",
+  "parent_receipt_sha256": "0eb91dc42537005861c03b3ace8c26160b64084a3064a9ed42fb0e2d4ab9ce16",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RESPONDED"
+}
