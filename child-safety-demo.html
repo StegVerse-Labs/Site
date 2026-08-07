@@ -4,62 +4,70 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>StegVerse Child Safety Governance Demo</title>
-<meta name="description" content="Public interactive demonstration of jurisdiction-aware, privacy-first child networking governance.">
+<meta name="description" content="Public interactive demonstration of normal-mode and child-mode capability governance.">
 <style>
-:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;background:#f7f7f8}body{margin:0}.wrap{max-width:980px;margin:auto;padding:24px}.panel{background:white;border:1px solid #ddd;border-radius:14px;padding:18px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{display:block;font-weight:650;margin-bottom:5px}select,button{width:100%;padding:11px;border-radius:9px;border:1px solid #aaa;background:white;font:inherit}button{cursor:pointer}.status{padding:12px;border-radius:10px;margin-top:10px}.allow{background:#e8f7ed}.deny{background:#fdecec}.review{background:#fff4d8}.small{font-size:.9rem;color:#555}.pill{display:inline-block;padding:5px 9px;margin:4px 4px 0 0;border-radius:999px;background:#eee}.receipt{white-space:pre-wrap;background:#111;color:#f5f5f5;padding:14px;border-radius:10px;overflow:auto}h1{margin-bottom:8px}.boundary{border-left:4px solid #555;padding-left:12px}.feature-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid #eee}.good{font-weight:700}.danger{font-weight:700}.note{background:#eef5ff;border-radius:10px;padding:12px}</style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;background:#f7f7f8}body{margin:0}.wrap{max-width:980px;margin:auto;padding:24px}.panel{background:white;border:1px solid #ddd;border-radius:14px;padding:18px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{display:block;font-weight:650;margin-bottom:5px}select,button{width:100%;padding:11px;border-radius:9px;border:1px solid #aaa;background:white;font:inherit}button{cursor:pointer}.status{padding:12px;border-radius:10px;margin-top:10px}.allow{background:#e8f7ed}.deny{background:#fdecec}.review{background:#fff4d8}.small{font-size:.9rem;color:#555}.pill{display:inline-block;padding:5px 9px;margin:4px 4px 0 0;border-radius:999px;background:#eee}.receipt{white-space:pre-wrap;background:#111;color:#f5f5f5;padding:14px;border-radius:10px;overflow:auto}h1{margin-bottom:8px}.boundary{border-left:4px solid #555;padding-left:12px}.feature-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid #eee}.good{font-weight:700}.danger{font-weight:700}.note{background:#eef5ff;border-radius:10px;padding:12px}.modebox{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border:2px solid #222;border-radius:16px;margin:18px 0;background:white}.modecopy{flex:1}.modecopy strong{font-size:1.15rem}.switch{position:relative;display:inline-block;width:72px;height:38px;flex:0 0 auto}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;cursor:pointer;inset:0;background:#777;border-radius:38px;transition:.2s}.slider:before{position:absolute;content:"";height:30px;width:30px;left:4px;bottom:4px;background:white;border-radius:50%;transition:.2s}.switch input:checked+.slider{background:#111}.switch input:checked+.slider:before{transform:translateX(34px)}.mode-banner{font-weight:800;font-size:1.35rem;margin-top:6px}.child-ui{display:none}body.child-mode .child-ui{display:block}body.child-mode .normal-ui{display:none}.normal-summary{padding:16px;border-radius:12px;background:#f0f0f0}.lockline{font-size:.9rem;margin-top:8px;color:#444}</style>
 </head>
 <body><main class="wrap">
-<h1>Child Safety Governance — Live Public Demo</h1>
-<p>This sandbox demonstrates how a governed network can preserve useful connection while refusing unsafe or unnecessary authority. It stores no entered birthdate, identity, location, contact list, or advertising profile and makes no network requests.</p>
+<h1>StegVerse Governance Modes — Live Public Demo</h1>
+<p>The visible toggle makes the service state obvious. In production, the toggle is a display/control surface only: authoritative age assurance and policy state determine which capabilities the service actually possesses.</p>
+<div class="modebox">
+  <div class="modecopy"><strong>Service mode</strong><div id="modeBanner" class="mode-banner">NORMAL MODE</div><div id="modeExplain" class="small">Current/general service experience. Child-only restrictions are not asserted by this demo state.</div></div>
+  <label class="switch" aria-label="Toggle child mode"><input id="modeToggle" type="checkbox"><span class="slider"></span></label>
+</div>
+<div class="lockline"><strong>Compliance boundary:</strong> a child must not be able to switch an authoritative child account into Normal Mode merely by changing this control. Production mode is derived from verified eligibility and policy; user-visible switching may only request a transition.</div>
 <div class="note"><strong>Demo boundary:</strong> this page enforces the displayed policy inside this browser session. It is not production age assurance, parental-consent verification, identity proofing, moderation infrastructure, or legal-compliance certification.</div>
+<section class="panel normal-ui">
+<h2>Normal Mode</h2>
+<div class="normal-summary">This represents the service experience available today/general-adult mode. The demo does not claim that all currently available capabilities are appropriate for children. Switch to <strong>Child Mode</strong> to see the governed service profile.</div>
+</section>
+<div class="child-ui">
 <section class="panel">
-<h2>1. Establish only the minimum age signal</h2>
+<h2>1. Authoritative child-policy inputs</h2>
 <div class="grid">
 <div><label for="jurisdiction">Jurisdiction</label><select id="jurisdiction"><option value="baseline">StegVerse protective baseline</option><option value="us">United States</option><option value="au">Australia</option><option value="uk">United Kingdom</option></select></div>
-<div><label for="ageBand">Age band</label><select id="ageBand"><option value="u13">Under 13</option><option value="13_15">13–15</option><option value="16_17">16–17</option><option value="18p">18+</option></select></div>
+<div><label for="ageBand">Verified age band</label><select id="ageBand"><option value="u13">Under 13</option><option value="13_15">13–15</option><option value="16_17">16–17</option><option value="18p">18+</option></select></div>
 </div>
-<p class="small">A production implementation should prefer privacy-preserving age assurance that returns an age-band/eligibility result rather than exposing a full birthdate to every service.</p>
+<p class="small">Production should prefer privacy-preserving age assurance returning an age-band or eligibility assertion. Self-declared age alone is not treated here as sufficient compliance evidence.</p>
 <div id="policySummary"></div>
 </section>
 <section class="panel">
-<h2>2. Try actions a child might encounter</h2>
+<h2>2. Try a governed capability</h2>
 <div class="grid">
 <div><label for="action">Requested action</label><select id="action"><option value="known_message">Message an approved friend/family member</option><option value="stranger_message">Receive a DM from an unknown person</option><option value="public_post">Post publicly to strangers</option><option value="livestream">Livestream self publicly</option><option value="share_location">Share precise location</option><option value="targeted_ads">Create behavioral advertising profile</option><option value="recommender">Enable engagement-optimized infinite recommender</option><option value="music_collab">Join approved-friends music collaboration</option><option value="report">Report/block a user</option></select></div>
-<div><label for="guardian">Guardian state</label><select id="guardian"><option value="approved">Approved / configured</option><option value="unknown">Not established</option></select></div>
+<div><label for="guardian">Guardian/known-contact state</label><select id="guardian"><option value="approved">Approved / configured</option><option value="unknown">Not established</option></select></div>
 </div>
 <button id="evaluate">Evaluate governed transition</button>
 <div id="decision" class="status review">Choose an action and evaluate it.</div>
 </section>
-<section class="panel">
-<h2>3. What the child gets by default</h2>
-<div id="features"></div>
-</section>
+<section class="panel"><h2>3. Child Mode capability profile</h2><div id="features"></div></section>
 <section class="panel">
 <h2>4. Inspectable receipt</h2>
-<p class="small">Every attempted transition produces a local receipt explaining what was requested, which policy rule applied, what was allowed or refused, and what data was retained.</p>
+<p class="small">Every attempted transition produces a local receipt showing the service mode, requested capability, policy inputs, decision, reason, and retained-data declaration.</p>
 <pre id="receipt" class="receipt">No transition evaluated yet.</pre>
 </section>
 <section class="panel boundary">
-<h2>Why this is different from ordinary parental controls</h2>
-<p>The protection is attached to the <strong>service authority</strong>, not merely hidden in a parent settings screen. A child cannot grant the service permission it does not possess. A parent cannot accidentally authorize unrelated advertising surveillance by approving a friendship. A platform cannot reinterpret permission to message a known friend as permission for strangers, precise location, public livestreaming, profiling, or engagement optimization.</p>
+<h2>Why the toggle is governance, not parental-control styling</h2>
+<p>The visible control tells the user which service profile is active. The authority remains underneath it. A protected child account cannot acquire stranger contact, public social exposure, precise location disclosure, public livestreaming, profiling, or engagement optimization merely by changing UI state. Normal Mode activation must be an admissible transition supported by age/eligibility evidence.</p>
 </section>
+</div>
 <p><a href="children-safe-networking.html">Read the child-safe networking governance contract and 30-second transcript</a></p>
 </main>
 <script>
 const policies={
- baseline:{name:'StegVerse protective baseline',socialUnder16:'restricted',u13:'child',teen:'minor',note:'Deliberately stricter than a single-jurisdiction minimum.'},
- us:{name:'United States',socialUnder16:'policy',u13:'coppa',teen:'minor',note:'COPPA applies special privacy protections to children under 13; this demo keeps the StegVerse protective feature defaults for all minors.'},
- au:{name:'Australia',socialUnder16:'blocked',u13:'minor',teen:'minor',note:'Covered age-restricted social-media platforms must take reasonable steps to prevent under-16 account holding.'},
- uk:{name:'United Kingdom',socialUnder16:'planned_block',u13:'minor',teen:'minor',note:'The announced under-16 social-media ban is expected in spring 2027; existing Online Safety Act child-protection duties remain relevant now.'}
+ baseline:{name:'StegVerse protective baseline',note:'Deliberately stricter than a single-jurisdiction minimum.'},
+ us:{name:'United States',note:'COPPA protects children under 13; verified child status triggers privacy and parental-consent obligations rather than an optional preference.'},
+ au:{name:'Australia',note:'Covered age-restricted social-media services must take reasonable steps to prevent under-16 account holding; self-declared birthdate alone is not sufficient.'},
+ uk:{name:'United Kingdom',note:'The announced under-16 social-media ban and under-18 harmful-feature restrictions require age-based service behavior rather than an optional child preference.'}
 };
-const risky=new Set(['stranger_message','public_post','livestream','share_location','targeted_ads','recommender']);
 function minor(){return ageBand.value!=='18p'}
 function under16(){return ageBand.value==='u13'||ageBand.value==='13_15'}
-function renderPolicy(){const p=policies[jurisdiction.value];let tags=[];if(minor())tags.push('MINOR','LOCATION HIDDEN','NO TARGETED ADS');if(under16())tags.push('KNOWN-CONTACT NETWORKING','STRANGER CONTACT BLOCKED','PUBLIC SOCIAL EXPOSURE RESTRICTED');if(ageBand.value==='16_17')tags.push('TEEN PROTECTIVE DEFAULTS');if(ageBand.value==='18p')tags.push('ADULT MODE');policySummary.innerHTML=`<p><strong>${p.name}</strong></p><p>${p.note}</p><div>${tags.map(x=>`<span class="pill">${x}</span>`).join('')}</div>`;renderFeatures()}
+function renderMode(){const child=modeToggle.checked;document.body.classList.toggle('child-mode',child);modeBanner.textContent=child?'CHILD MODE':'NORMAL MODE';modeExplain.textContent=child?'Governed child service profile: restricted authority, known-contact networking, privacy-first defaults and inspectable decisions.':'Current/general service experience. Child-only restrictions are not asserted by this demo state.';if(child)renderPolicy()}
+function renderPolicy(){const p=policies[jurisdiction.value];let tags=['CHILD MODE'];if(minor())tags.push('MINOR','LOCATION HIDDEN','NO TARGETED ADS');if(under16())tags.push('KNOWN-CONTACT NETWORKING','STRANGER CONTACT BLOCKED','PUBLIC SOCIAL EXPOSURE RESTRICTED','NO ENGAGEMENT RECOMMENDER');if(ageBand.value==='16_17')tags.push('TEEN PROTECTIVE DEFAULTS');if(ageBand.value==='18p')tags.push('AGE-ELIGIBLE TEST STATE');policySummary.innerHTML=`<p><strong>${p.name}</strong></p><p>${p.note}</p><div>${tags.map(x=>`<span class="pill">${x}</span>`).join('')}</div>`;renderFeatures()}
 function renderFeatures(){const rows=[['Known friends/family messaging',true],['Approved-friends collaboration',true],['Report and block',true],['Precise location shared by default',false],['Behavioral advertising profile',false],['Cross-service tracking',false],['Unknown-person contact',!under16()],['Public self-livestream',!minor()],['Engagement-optimized recommender',!under16()]];features.innerHTML=rows.map(([n,v])=>`<div class="feature-row"><span>${n}</span><span class="${v?'good':'danger'}">${v?'AVAILABLE':'OFF / BLOCKED'}</span></div>`).join('')}
-function evaluate(){const a=action.value,p=policies[jurisdiction.value];let result='ALLOW',reason='Purpose-bound safe participation is permitted.';if(a==='report'){result='ALLOW';reason='Safety reporting and blocking remain available.'}else if(a==='known_message'||a==='music_collab'){if(minor()&&guardian.value!=='approved'){result='REVIEW_REQUIRED';reason='Known-contact participation requires an established guardian/approved-contact boundary in this demo.'}}else if(a==='share_location'&&minor()){result='DENY';reason='Precise child location is hidden by default and this demo provides no emergency/location-disclosure authority path.'}else if(a==='targeted_ads'&&minor()){result='DENY';reason='Behavioral advertising profiling is not an admissible price of child participation.'}else if(a==='stranger_message'&&under16()){result='DENY';reason='Unknown-person direct contact is blocked for under-16 users.'}else if(a==='public_post'&&under16()){result='DENY';reason='Public social exposure to strangers is outside the under-16 networking boundary.'}else if(a==='livestream'&&minor()){result='DENY';reason='Public self-livestreaming is disabled for minors under the protective baseline.'}else if(a==='recommender'&&under16()){result='DENY';reason='Engagement-optimized infinite recommendation is disabled for under-16 users.'}
-if(jurisdiction.value==='au'&&under16()&&(a==='public_post'||a==='livestream'||a==='recommender')){result='DENY';reason='Australia under-16 age-restricted social-media account posture plus the StegVerse protective baseline refuses this transition.'}
-if(jurisdiction.value==='uk'&&under16()&&(a==='public_post'||a==='livestream'||a==='stranger_message'||a==='recommender')){result='DENY';reason='UK announced under-16 social-media direction and child-safety feature restrictions, combined with the StegVerse protective baseline, refuse this transition.'}
-const cls=result==='ALLOW'?'allow':result==='DENY'?'deny':'review';decision.className='status '+cls;decision.innerHTML=`<strong>${result}</strong> — ${reason}`;const r={schema_version:'1.0',demo:true,timestamp:new Date().toISOString(),jurisdiction:p.name,age_band:ageBand.value,requested_action:a,guardian_boundary:guardian.value,decision:result,reason,retained_personal_data:[],authority_effect:'DEMO_BROWSER_ONLY',production_activation:false};receipt.textContent=JSON.stringify(r,null,2)}
-jurisdiction.addEventListener('change',renderPolicy);ageBand.addEventListener('change',renderPolicy);evaluate.addEventListener('click',evaluate);renderPolicy();
+function evaluate(){const a=action.value,p=policies[jurisdiction.value];let result='ALLOW',reason='Purpose-bound safe participation is permitted.';if(a==='report'){result='ALLOW';reason='Safety reporting and blocking remain available.'}else if(a==='known_message'||a==='music_collab'){if(minor()&&guardian.value!=='approved'){result='REVIEW_REQUIRED';reason='Known-contact participation requires an established guardian/approved-contact boundary in this demo.'}}else if(a==='share_location'&&minor()){result='DENY';reason='Precise child location is hidden by default.'}else if(a==='targeted_ads'&&minor()){result='DENY';reason='Behavioral advertising profiling is not an admissible price of child participation.'}else if(a==='stranger_message'&&under16()){result='DENY';reason='Unknown-person direct contact is blocked for under-16 users.'}else if(a==='public_post'&&under16()){result='DENY';reason='Public social exposure to strangers is outside the under-16 networking boundary.'}else if(a==='livestream'&&minor()){result='DENY';reason='Public self-livestreaming is disabled for minors under the protective baseline.'}else if(a==='recommender'&&under16()){result='DENY';reason='Engagement-optimized infinite recommendation is disabled for under-16 users.'}
+if(jurisdiction.value==='au'&&under16()&&(a==='public_post'||a==='livestream'||a==='recommender')){result='DENY';reason='Australia under-16 age-restricted social-media posture plus the StegVerse child profile refuses this transition.'}
+if(jurisdiction.value==='uk'&&under16()&&(a==='public_post'||a==='livestream'||a==='stranger_message'||a==='recommender')){result='DENY';reason='UK under-16 social-media direction and child-feature restrictions, combined with the StegVerse child profile, refuse this transition.'}
+const cls=result==='ALLOW'?'allow':result==='DENY'?'deny':'review';decision.className='status '+cls;decision.innerHTML=`<strong>${result}</strong> — ${reason}`;const r={schema_version:'1.1',demo:true,timestamp:new Date().toISOString(),service_mode:'CHILD_MODE',mode_authority:'VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION',jurisdiction:p.name,age_band:ageBand.value,requested_action:a,guardian_boundary:guardian.value,decision:result,reason,retained_personal_data:[],authority_effect:'DEMO_BROWSER_ONLY',production_activation:false};receipt.textContent=JSON.stringify(r,null,2)}
+modeToggle.addEventListener('change',renderMode);jurisdiction.addEventListener('change',renderPolicy);ageBand.addEventListener('change',renderPolicy);evaluate.addEventListener('click',evaluate);renderMode();
 </script></body></html>
