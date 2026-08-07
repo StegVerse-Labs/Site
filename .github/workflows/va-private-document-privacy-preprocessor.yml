@@ -1,0 +1,117 @@
+name: VA Private Document Privacy Preprocessor
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/process_va_private_document_privacy_preprocessor.py'
+      - 'data/va-claim-assistant/fixtures/private-document-privacy-preprocessor.json'
+      - '.github/workflows/va-private-document-privacy-preprocessor.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/process_va_private_document_privacy_preprocessor.py'
+      - 'data/va-claim-assistant/fixtures/private-document-privacy-preprocessor.json'
+      - '.github/workflows/va-private-document-privacy-preprocessor.yml'
+  schedule:
+    - cron: '23 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: va-private-document-privacy-preprocessor-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  controlled-production-equivalent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve immutable processor commit
+        id: processor
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha="$(git log -1 --format=%H -- scripts/process_va_private_document_privacy_preprocessor.py)"
+          test "${#sha}" -eq 40
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+      - name: Execute admitted privacy preprocessor
+        run: |
+          python scripts/process_va_private_document_privacy_preprocessor.py \
+            data/va-claim-assistant/fixtures/private-document-privacy-preprocessor.json \
+            --processor-commit '${{ steps.processor.outputs.sha }}'
+      - name: Independently observe PII-RDY-01
+        run: python scripts/observe_va_pii_production_detector_evidence.py
+      - name: Independently observe PII-RDY-02
+        run: python scripts/observe_va_pii_redaction_working_copy_evidence.py
+      - name: Independently observe PII-RDY-03
+        run: python scripts/observe_va_pii_model_leakage_evidence.py
+      - name: Enforce completed fail-closed privacy gates
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          names = [
+              'pii-production-detector-readiness.json',
+              'pii-redaction-working-copy-readiness.json',
+              'pii-model-leakage-readiness.json',
+          ]
+          for name in names:
+              value=json.loads((Path('data/va-claim-assistant') / name).read_text())
+              assert value['state'] == 'COMPLETE', (name, value)
+              assert value['private_document_upload_enabled'] is False
+              assert value['authority_effect'] is False
+              assert value['activation_effect'] is False
+          execution=json.loads(Path('data/va-claim-assistant/private-document-privacy-preprocessor-execution.json').read_text())
+          assert execution['state'] == 'PASS'
+          assert execution['model_called'] is False
+          assert execution['public_upload_enabled'] is False
+          assert execution['file_admission']['negative_admission_cases_blocked'] is True
+          assert execution['file_admission']['advanced_malware_scanner_required_before_public_activation'] is True
+          print('VA privacy preprocessor controlled-production-equivalent: PASS')
+          PY
+      - name: Persist execution evidence and readiness receipts
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          paths=(
+            data/va-claim-assistant/pii-production-detector-evidence.json
+            data/va-claim-assistant/pii-production-detector-readiness.json
+            data/va-claim-assistant/pii-redaction-working-copy-evidence.json
+            data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+            data/va-claim-assistant/pii-model-leakage-evidence.json
+            data/va-claim-assistant/pii-model-leakage-readiness.json
+            data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo 'Privacy evidence unchanged.'
+            exit 0
+          fi
+          git config user.name 'va-private-document-privacy[bot]'
+          git config user.email 'actions@users.noreply.github.com'
+          git add "${paths[@]}"
+          git commit -m 'receipt: retain VA privacy preprocessor evidence [skip ci]'
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Upload privacy execution evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: va-private-document-privacy-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            data/va-claim-assistant/pii-production-detector-evidence.json
+            data/va-claim-assistant/pii-production-detector-readiness.json
+            data/va-claim-assistant/pii-redaction-working-copy-evidence.json
+            data/va-claim-assistant/pii-redaction-working-copy-readiness.json
+            data/va-claim-assistant/pii-model-leakage-evidence.json
+            data/va-claim-assistant/pii-model-leakage-readiness.json
+            data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
