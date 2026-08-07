@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Child Mode Data Authority Boundary</title>
+<meta name="description" content="Public specification of the Child Mode device-data harvesting boundary and consent authority model.">
+<style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:980px;margin:auto;padding:24px;color:#111;background:#f7f7f8}.panel{background:#fff;border:1px solid #ddd;border-radius:14px;padding:18px;margin:14px 0}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:10px;text-align:left;vertical-align:top}.deny{font-weight:800}.flow{white-space:pre-wrap;background:#f3f3f3;padding:12px;border-radius:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.change{border-top:1px solid #ddd;padding:12px 0}</style>
+</head>
+<body>
+<h1>Child Mode — Device Data Authority Boundary</h1>
+<p><strong>Present boundary:</strong> Child Mode protects device and account data from optional harvesting by default. A child interaction is not accepted as sufficient authority for optional collection, profiling, advertising, cross-service tracking, or unrelated reuse.</p>
+<section class="panel"><h2>Core rule</h2><div class="flow">CHILD_MODE
+→ OPTIONAL_DATA_HARVESTING = DENY_BY_DEFAULT
+→ CONSENT_DEPENDENT_COLLECTION requires legally authorized consent path
+→ guardian/authorized adult approval is PURPOSE_SCOPED
+→ approval for one purpose does not authorize unrelated collection
+→ all collection decisions produce an inspectable receipt</div><p>This rule is deliberately stricter than simply displaying a consent popup to a child. If the applicable law requires parental or guardian authorization, the child cannot create that authority by tapping “Allow.” Where a jurisdiction permits a sufficiently mature child or older teen to consent for a particular processing purpose, Child Mode may still impose the stricter StegVerse default and require an authorized adult for optional harvesting.</p></section>
+<section class="panel"><h2>Protected device-data classes</h2><table><thead><tr><th>Data/capability</th><th>Child Mode default</th></tr></thead><tbody><tr><td>Contacts / address book</td><td class="deny">NOT HARVESTABLE</td></tr><tr><td>Photos / videos / files</td><td class="deny">NOT HARVESTABLE</td></tr><tr><td>Precise or background location</td><td class="deny">NOT HARVESTABLE</td></tr><tr><td>Microphone / camera-derived data</td><td class="deny">NOT HARVESTABLE except bounded foreground function explicitly authorized</td></tr><tr><td>Clipboard</td><td class="deny">NOT HARVESTABLE</td></tr><tr><td>Browsing / app activity</td><td class="deny">NOT HARVESTABLE for profiling or advertising</td></tr><tr><td>Advertising identifiers</td><td class="deny">DISABLED / NOT DISCLOSED</td></tr><tr><td>Cross-app / cross-service identifiers</td><td class="deny">NOT HARVESTABLE</td></tr><tr><td>Behavioral profile / inferred interests</td><td class="deny">NOT GENERATED for advertising/engagement purposes</td></tr><tr><td>Telemetry not required for core operation or safety</td><td class="deny">DENY unless purpose-scoped authorized path exists</td></tr></tbody></table></section>
+<section class="panel"><h2>Consent and authority</h2><p>The legal age at which a child can provide valid consent is jurisdiction- and context-dependent. Child Mode therefore does not encode the claim that every person under 18 is legally incapable of every form of consent. It encodes a stronger product rule:</p><div class="flow">CHILD OR PROTECTED-AGE ACCOUNT
+→ child tap/click alone does not authorize optional harvesting
+→ determine jurisdiction + age/capacity rule
+→ determine whether consent is legally available and who may give it
+→ require guardian/account-holder authorization when policy or law requires
+→ bind authorization to exact data + exact purpose + exact recipient + retention window
+→ deny everything outside that scope</div></section>
+<section class="panel"><h2>Operational delivery</h2><p><strong>Child-dedicated device:</strong> the data boundary can be hard-bound at the OS, managed-device, secure-storage, or trusted policy layer.</p><p><strong>Shared device:</strong> an age-governed child account activates the protected data boundary automatically; switching to an adult account requires authenticated account transition.</p><p><strong>Guardian-controlled temporary Child Mode:</strong> entering or exiting the protected state requires fresh account-holder reauthentication. Exiting does not retroactively grant access to data collected while Child Mode was active because optional harvesting should not have occurred.</p></section>
+<section class="panel"><h2>Law comparison</h2><p><strong>United States:</strong> COPPA generally requires verifiable parental consent before covered operators collect, use, or disclose personal information from children under 13, subject to limited exceptions.</p><p><strong>United Kingdom:</strong> when consent is the lawful basis for an information-society service, children 13+ can generally consent for themselves; below 13, parental-responsibility authorization is generally required. Child Mode may impose a stricter product default.</p><p><strong>Australia:</strong> privacy law does not set one universal consent age; capacity is assessed, with age and maturity relevant. Child Mode therefore treats optional harvesting as unavailable unless an authorized policy path establishes valid authority.</p></section>
+<section class="panel"><h2>Deterministic test</h2><div class="flow">child app requests contacts for advertising
+→ DENY
+
+child taps “allow tracking”
+→ DENY as harvesting authority
+
+parent authenticates and approves microphone for a live music lesson
+→ ALLOW only microphone + lesson purpose + bounded session
+→ advertising/profile reuse remains DENY
+
+service requests device identifier for cross-service profiling
+→ DENY</div></section>
+<section class="panel" data-order="NEWEST_FIRST_DESCENDING_CHRONOLOGY"><h2>Boundary Change Record</h2><p>Newest changes first; older history remains below.</p><div class="change"><strong>2026-08-07 — Device-data harvesting boundary</strong><p><strong>Change:</strong> Child Mode now explicitly denies optional device-data harvesting by default and rejects child UI interaction as sufficient authority for consent-dependent harvesting.</p><p><strong>Rationale:</strong> child safety must protect not only social interaction capabilities but also the device data plane. Permission to use a device or participate in a network must not silently become permission to harvest the device.</p></div></section>
+</body></html>
