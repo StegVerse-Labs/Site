@@ -90,17 +90,25 @@
     {
       "organization": "master-records",
       "receipt_mode": "PRIVATE_RELAY_REQUIRED",
-      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-master-records.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-master-records.recovered.json",
+      "recovered_sha256": "1bf2c71018efee2c32f8b47f03a85fa8e160c2175758690b693918a6af02cd33",
       "repository": "master-records/orchestration",
-      "state": "BLOCKED_PRIVATE_RELAY",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-master-records.responded.json",
+      "response_sha256": "fa628735256a09dd8b217e10334d82bafc284d9960b86cacae2377b59626b3f5",
+      "state": "RECOVERED",
       "target_state": "ADAPTER_INSTALLED"
     },
     {
       "organization": "StegGhost",
       "receipt_mode": "PRIVATE_RELAY_REQUIRED",
-      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
+      "received_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegghost.received.json",
+      "recovered_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegghost.recovered.json",
+      "recovered_sha256": "29e7421298ab18bf84c986d40992acf4cb998ef8fcc04a295ca2dadadf117fb8",
       "repository": "StegGhost/telemetry",
-      "state": "BLOCKED_PRIVATE_RELAY",
+      "responded_path": "data/heartbeat-response-receipts/hb-exchange-20260807-stegghost.responded.json",
+      "response_sha256": "8ee402834f676f7a816f6def58efa5933b32abf4892e680d4f24e5d82869e2ae",
+      "state": "RECOVERED",
       "target_state": "ADAPTER_INSTALLED"
     },
     {
@@ -149,6 +157,6 @@
     }
   ],
   "schema_version": "1.0.0",
-  "state": "COMPLETE_WITH_BLOCKERS",
-  "verified_recovered": 8
+  "state": "COMPLETE",
+  "verified_recovered": 10
 }

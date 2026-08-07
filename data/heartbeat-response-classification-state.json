@@ -121,21 +121,39 @@
     },
     {
       "action": "NO_ACTION_ADMITTED",
-      "awareness": "PRIVATE_NODE_RESPONSE_NOT_YET_IMPORTED",
-      "evidence": [],
-      "memory": "REMOTE_ONLY_NOT_CANONICALLY_IMPORTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-master-records.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-master-records.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-master-records.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
       "organization": "master-records",
-      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
-      "state": "BLOCKED_PRIVATE_RELAY"
+      "state": "RECOVERED"
     },
     {
       "action": "NO_ACTION_ADMITTED",
-      "awareness": "PRIVATE_NODE_RESPONSE_NOT_YET_IMPORTED",
-      "evidence": [],
-      "memory": "REMOTE_ONLY_NOT_CANONICALLY_IMPORTED",
+      "awareness": "UPDATED",
+      "capability": "RESPONSIVE",
+      "detail_classes_observed": [
+        "AWARENESS",
+        "CAPABILITY",
+        "EVIDENCE"
+      ],
+      "evidence": [
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegghost.received.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegghost.responded.json",
+        "data/heartbeat-response-receipts/hb-exchange-20260807-stegghost.recovered.json"
+      ],
+      "memory": "PROJECT_CONTEXT_RETAINED",
       "organization": "StegGhost",
-      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
-      "state": "BLOCKED_PRIVATE_RELAY"
+      "state": "RECOVERED"
     },
     {
       "action": "NO_ACTION_ADMITTED",

@@ -3,15 +3,15 @@
   "canonical_owner": "StegVerse-Labs/Site issue #234",
   "coverage": {
     "organizations_protocol_installed": 10,
-    "organizations_receive_verified": 8,
-    "organizations_recovery_verified": 8,
+    "organizations_receive_verified": 10,
+    "organizations_recovery_verified": 10,
     "organizations_registered": 14,
-    "organizations_respond_verified": 8,
+    "organizations_respond_verified": 10,
     "protocol_installed_percent": 71.43,
-    "receive_verified_percent": 57.14,
-    "recovery_verified_percent": 57.14,
+    "receive_verified_percent": 71.43,
+    "recovery_verified_percent": 71.43,
     "registered_percent": 100.0,
-    "respond_verified_percent": 57.14
+    "respond_verified_percent": 71.43
   },
   "detail_classes": [
     "MEMORY",
@@ -122,19 +122,19 @@
       "evidence_repository": "master-records/orchestration",
       "organization": "master-records",
       "protocol_state": "ADAPTER_INSTALLED",
-      "receive_state": "UNVERIFIED",
-      "recovery_state": "UNVERIFIED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
       "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
-      "respond_state": "UNVERIFIED"
+      "respond_state": "VERIFIED"
     },
     {
       "evidence_repository": "StegGhost/telemetry",
       "organization": "StegGhost",
       "protocol_state": "ADAPTER_INSTALLED",
-      "receive_state": "UNVERIFIED",
-      "recovery_state": "UNVERIFIED",
+      "receive_state": "VERIFIED",
+      "recovery_state": "VERIFIED",
       "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
-      "respond_state": "UNVERIFIED"
+      "respond_state": "VERIFIED"
     },
     {
       "evidence_repository": "StegVerse-002/stegguardian-wiki",

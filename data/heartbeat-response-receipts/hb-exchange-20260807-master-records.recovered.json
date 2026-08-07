@@ -1,0 +1,28 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "awareness_updated": true,
+    "memory_retention": "PROJECT",
+    "primary": "EVIDENCE",
+    "recovered_into": "StegVerse-Labs/Site",
+    "upstream_response_sha256": "fa628735256a09dd8b217e10334d82bafc284d9960b86cacae2377b59626b3f5"
+  },
+  "destination_org": "master-records",
+  "detail_class": "EVIDENCE",
+  "exchange_id": "hb-exchange-20260807-master-records",
+  "message_id": "hb-exchange-20260807-master-records-recovered",
+  "node_org": "master-records",
+  "observed_at": "2026-08-07T15:19:35.635062Z",
+  "observed_message_sha256": "cd1480c815e60a14dbbbcb402d656319ba334f9d064a0c8b998b002b7c9ce4d2",
+  "parent_receipt_sha256": "fa628735256a09dd8b217e10334d82bafc284d9960b86cacae2377b59626b3f5",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECOVERED"
+}
