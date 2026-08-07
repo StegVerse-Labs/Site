@@ -1,0 +1,83 @@
+{
+  "authority_rule": "observation can release a blocker into REVIEW_REQUIRED but cannot grant repository mutation, execution, activation, publication, custody, or release authority",
+  "blocked": [
+    "AaCT-E",
+    "ECAT-ICAT-Formal",
+    "Infrastructure-Continuity-Ventures",
+    "master-records",
+    "StegGhost",
+    "Triad-Test"
+  ],
+  "observations": [
+    {
+      "configured_state": "BLOCKED_CONNECTOR_WRITE_AUTHORITY",
+      "http_status": 200,
+      "next_action": "GitHub App installation/permission owner must grant repository write scope; observer will detect push=true afterward",
+      "observed_state": "BLOCKED_CONNECTOR_WRITE_AUTHORITY",
+      "organization": "AaCT-E",
+      "permissions_observed": {
+        "admin": false,
+        "maintain": false,
+        "pull": false,
+        "push": false,
+        "triage": false
+      },
+      "release_condition": "connected GitHub integration gains write authority to an AaCT-E repository or an AaCT-E-owned machine relay is installed",
+      "repository": "AaCT-E/telemetry"
+    },
+    {
+      "configured_state": "BLOCKED_NO_REPOSITORY",
+      "http_status": 200,
+      "next_action": "retain blocker",
+      "observed_state": "BLOCKED_NO_REPOSITORY",
+      "organization": "ECAT-ICAT-Formal",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "repository": null,
+      "repository_count_observed": 0
+    },
+    {
+      "configured_state": "BLOCKED_NO_REPOSITORY",
+      "http_status": 200,
+      "next_action": "retain blocker",
+      "observed_state": "BLOCKED_NO_REPOSITORY",
+      "organization": "Infrastructure-Continuity-Ventures",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "repository": null,
+      "repository_count_observed": 0
+    },
+    {
+      "configured_state": "ADAPTER_INSTALLED",
+      "http_status": 404,
+      "next_action": "retain local destination receipts; GitHub integration owner must grant Site collector read authority or install an authorized relay",
+      "observed_state": "BLOCKED_PRIVATE_RELAY_CREDENTIAL",
+      "organization": "master-records",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without exposing custody credentials",
+      "repository": "master-records/orchestration"
+    },
+    {
+      "configured_state": "ADAPTER_INSTALLED",
+      "http_status": 404,
+      "next_action": "retain local destination receipts; GitHub integration owner must grant Site collector read authority or install an authorized relay",
+      "observed_state": "BLOCKED_PRIVATE_RELAY_CREDENTIAL",
+      "organization": "StegGhost",
+      "release_condition": "authorized machine-readable cross-repository receipt relay becomes available to Site without changing repository visibility",
+      "repository": "StegGhost/telemetry"
+    },
+    {
+      "configured_state": "BLOCKED_NO_REPOSITORY",
+      "http_status": 200,
+      "next_action": "retain blocker",
+      "observed_state": "BLOCKED_NO_REPOSITORY",
+      "organization": "Triad-Test",
+      "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
+      "repository": null,
+      "repository_count_observed": 0
+    }
+  ],
+  "observed_at": "2026-08-07T15:23:00.452515Z",
+  "observer": ".github/workflows/heartbeat-response-blocker-observer.yml",
+  "owner": "StegVerse-Labs/Site issue #234",
+  "retry": [],
+  "review_required": [],
+  "schema_version": "1.0.0"
+}
