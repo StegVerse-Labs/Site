@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Protect device and account data from optional harvesting in Child Mode unless a legally authorized, purpose-scoped consent path exists.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_native_validator",
+    "location": "scripts/check_child_mode_data_authority.py"
+  },
+  "implementation_locations": [
+    "child-mode-data-protection.html",
+    "docs/CHILD_MODE_DATA_AUTHORITY.md"
+  ],
+  "verification_locations": [
+    "scripts/check_child_mode_data_authority.py"
+  ],
+  "acceptance": {
+    "validator_command": "python scripts/check_child_mode_data_authority.py",
+    "success_marker": "CHILD_MODE_DATA_AUTHORITY=PASS"
+  },
+  "required_properties": [
+    "optional device-data harvesting denied by default",
+    "child UI interaction not sufficient harvesting authority",
+    "guardian or authorized-adult approval purpose-scoped",
+    "protected data classes include contacts files location sensors identifiers and activity",
+    "jurisdiction-dependent consent capacity accurately represented",
+    "device/account/guardian delivery models preserve the data boundary",
+    "newest-first boundary history"
+  ],
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_DATA_AUTHORITY_BOUNDARY_ONLY"
+}
