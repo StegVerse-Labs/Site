@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/heartbeat-response-envelope.schema.json",
+  "title": "StegVerse Heartbeat Response Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "message_id",
+    "exchange_id",
+    "source_org",
+    "destination_org",
+    "stage",
+    "detail_class",
+    "created_at",
+    "payload",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "message_id": {"type": "string", "minLength": 8},
+    "exchange_id": {"type": "string", "minLength": 8},
+    "parent_message_id": {"type": ["string", "null"]},
+    "source_org": {"type": "string", "minLength": 1},
+    "destination_org": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["SENT", "RECEIVED", "RESPONDED", "RECOVERED", "REPEAT", "BLOCKED", "FAILED", "REVIEW_REQUIRED"]},
+    "detail_class": {"enum": ["MEMORY", "ACTION", "AWARENESS", "AUTHORITY", "EVIDENCE", "BLOCKER", "CAPABILITY", "CONTEXT"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "retention_class": {"enum": ["EPHEMERAL", "SESSION", "PROJECT", "DURABLE", "IMMUTABLE"]},
+    "payload": {
+      "type": "object",
+      "required": ["summary", "evidence_refs"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "action": {"type": ["object", "null"]},
+        "memory": {"type": ["object", "null"]},
+        "awareness": {"type": ["object", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution", "activation", "publication", "custody", "release"],
+      "properties": {
+        "execution": {"type": "boolean", "const": false},
+        "activation": {"type": "boolean", "const": false},
+        "publication": {"type": "boolean", "const": false},
+        "custody": {"type": "boolean", "const": false},
+        "release": {"type": "boolean", "const": false}
+      }
+    },
+    "receipt": {
+      "type": ["object", "null"],
+      "properties": {
+        "received_message_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "response_message_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "recovery_message_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": true
+    }
+  }
+}
