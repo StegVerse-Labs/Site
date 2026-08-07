@@ -8,9 +8,9 @@
   "admission_status": "ADMITTED",
   "source_registry": "data/session-orchestration-registry.json",
   "evidence_path": "data/session-disposition-evidence/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.json",
-  "evidence_sha256": "91a8d26d7ed43d77644c299f9115aedd505c93317dfd4e89bf105617c069aab9",
-  "before_sha256": "401823779f1ff77eb5279b68f3c6b9807394d8bbb88077ba618a3a208c273b78",
-  "after_sha256": "401823779f1ff77eb5279b68f3c6b9807394d8bbb88077ba618a3a208c273b78",
+  "evidence_sha256": "a3fa81dba9ca5ea3b50ab5239657afe3a5a1ec43754ef2d99941079bbf6cdb92",
+  "before_sha256": "295fec6d9f7197020f80b1ed78c07d752d8c9de9b57b900f22a3f11a5bf45aa0",
+  "after_sha256": "295fec6d9f7197020f80b1ed78c07d752d8c9de9b57b900f22a3f11a5bf45aa0",
   "successor": {
     "session_id": "session-orchestration-activation-coordination-2026-07-31",
     "task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
@@ -26,5 +26,5 @@
     "this evidence does not change issue #114 ownership",
     "age is not used as supersession authority"
   ],
-  "receipt_sha256": "40eb22227f52aa33025a9b6233272112b03cceaec49fa09582c8085a3b32de64"
+  "receipt_sha256": "5892c479797de3639470baeec79bfa53d05ffc7a08b711fc59b824e0ea996f1c"
 }

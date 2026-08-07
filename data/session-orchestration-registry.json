@@ -40,7 +40,7 @@
       "required_before_archive": [],
       "reason": "The original design session has been superseded by the active activation coordination tracked in issue #114; its unique state is preserved in repository authority.",
       "disposition_evidence": "data/session-disposition-evidence/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.json",
-      "disposition_evidence_sha256": "91a8d26d7ed43d77644c299f9115aedd505c93317dfd4e89bf105617c069aab9",
+      "disposition_evidence_sha256": "a3fa81dba9ca5ea3b50ab5239657afe3a5a1ec43754ef2d99941079bbf6cdb92",
       "superseded_by_session_id": "session-orchestration-activation-coordination-2026-07-31",
       "superseded_by_task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
       "superseded_by_owner": "StegVerse-Labs/Site issue #114"
