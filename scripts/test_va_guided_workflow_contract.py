@@ -22,6 +22,7 @@ class SurfaceParser(HTMLParser):
         self.card_ids: list[str] = []
         self.buttons: list[str] = []
         self.links: list[str] = []
+        self.help_targets: list[str] = []
         self._button = False
         self._button_text: list[str] = []
 
@@ -31,6 +32,7 @@ class SurfaceParser(HTMLParser):
         if tag == "meta" and data.get("name") == "viewport": self.viewport = True
         if data.get("data-step"): self.step_ids.append(str(data["data-step"]))
         if data.get("data-card"): self.card_ids.append(str(data["data-card"]))
+        if data.get("data-help-target"): self.help_targets.append(str(data["data-help-target"]))
         if tag == "a" and data.get("href"): self.links.append(str(data["href"]))
         if tag == "button": self._button, self._button_text = True, []
 
@@ -55,16 +57,23 @@ def main() -> int:
     wp = SurfaceParser(); wp.feed(guided)
     errors: list[str] = []
 
+    help_links = sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step="))
+    inline_help = len(gp.help_targets)
+
     require(gp.lang and wp.lang, "both user surfaces require lang=en", errors)
     require(gp.viewport and wp.viewport, "both user surfaces require mobile viewport", errors)
     require(gp.step_ids == ["1", "2", "3", "4", "5", "6"], "primary page requires six ordered steps", errors)
     require(wp.card_ids == ["1", "2", "3", "4", "5", "6"], "walkthrough requires six ordered cards", errors)
     require(sum(1 for text in gp.buttons if text.startswith("DONE")) == 6, "primary page requires six DONE buttons", errors)
-    require(sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step=")) == 6, "primary page requires six step-specific help links", errors)
+    require(help_links == 4, "primary page requires walkthrough help links for steps 3-6", errors)
+    require(gp.help_targets == ["step-1-help", "step-2-help"], "steps 1-2 require inline expandable help", errors)
+    require(help_links + inline_help == 6, "primary page requires one help control per step", errors)
     require(KEY in guide and KEY in guided, "shared completion state missing", errors)
     require("localStorage.setItem" in guide and "localStorage.setItem" in guided, "completion persistence write missing", errors)
     require("localStorage.getItem" in guide and "localStorage.getItem" in guided, "completion persistence read missing", errors)
     require("classList.toggle('done'" in guide, "primary completed-card visual state missing", errors)
+    require('id="step-2-account-created"' in guide and 'id="step-2-va-login-success"' in guide, "step 2 confirmations missing", errors)
+    require("function step2Ready()" in guide and "step2Done.disabled=!step2Ready()" in guide, "step 2 DONE gate missing", errors)
     require("URLSearchParams" in guided and "params.get('step')" in guided, "focused step query routing missing", errors)
     require("Return to Instruction Page" in guided, "walkthrough return control missing", errors)
     require("Continue with help me complete this" in guided, "walkthrough continued-help control missing", errors)
@@ -75,15 +84,17 @@ def main() -> int:
     require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential warning missing", errors)
 
     receipt = {
-        "schema_version": "2.1.0",
+        "schema_version": "2.2.0",
         "state": "PASS" if not errors else "FAIL",
         "goal_id": "SV-VA-DUAL-FLOW-001",
         "task_id": "SV-VA-DF-VALIDATE-001",
-        "design_contract": "PRIMARY_CHECKLIST_PLUS_FOCUSED_HELP",
+        "design_contract": "PRIMARY_CHECKLIST_PLUS_INLINE_READINESS_AND_FOCUSED_HELP",
         "primary_steps": gp.step_ids,
         "walkthrough_steps": wp.card_ids,
         "done_buttons": sum(1 for text in gp.buttons if text.startswith("DONE")),
-        "step_help_links": sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step=")),
+        "step_help_links": help_links,
+        "inline_help_targets": gp.help_targets,
+        "step_2_done_requires": ["account_created", "va_login_success"],
         "shared_progress_key": KEY,
         "mobile_viewport": gp.viewport and wp.viewport,
         "language_declared": gp.lang and wp.lang,

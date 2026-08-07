@@ -7,7 +7,7 @@
 <title>VA Claims Instructions — StegVerse</title>
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-.instructions{max-width:820px;margin:0 auto}.summary{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:16px 0 24px}.step-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:16px;margin:0 0 18px;transition:opacity .2s,border-color .2s}.step-card.done{opacity:.48;border-color:#1f6f43}.step-card.done .done-state{opacity:1;color:#75e6a7}.step-head{display:flex;align-items:center;gap:12px}.step-number{display:grid;place-items:center;min-width:42px;height:42px;border-radius:50%;background:#d71920;color:#fff;font-size:1.25rem;font-weight:900}.step-card h2{margin:0;font-size:clamp(1.45rem,5vw,2rem)}.visual{margin:14px 0}.visual img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:14px;background:#0b1220}.instruction{font-size:1.2rem;font-weight:850;margin:12px 0}.card-actions{display:grid;gap:10px}.card-actions button,.card-actions a{width:100%;text-align:center}.done-button{border:1px solid #1f6f43;border-radius:999px;background:#153d2a;color:#fff;padding:13px 16px;font-weight:900}.step-card.done .done-button{background:#1f6f43}.done-state{font-weight:900;opacity:.65}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:680px){.card-actions{grid-template-columns:1fr 1fr}}
+.instructions{max-width:820px;margin:0 auto}.summary{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:16px 0 24px}.step-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:16px;margin:0 0 18px;transition:opacity .2s,border-color .2s}.step-card.done{opacity:.48;border-color:#1f6f43}.step-card.done .done-state{opacity:1;color:#75e6a7}.step-head{display:flex;align-items:center;gap:12px}.step-number{display:grid;place-items:center;min-width:42px;height:42px;border-radius:50%;background:#d71920;color:#fff;font-size:1.25rem;font-weight:900}.step-card h2{margin:0;font-size:clamp(1.45rem,5vw,2rem)}.visual{margin:14px 0}.visual img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:14px;background:#0b1220}.instruction{font-size:1.2rem;font-weight:850;margin:12px 0}.card-actions{display:grid;gap:10px}.card-actions button,.card-actions a{width:100%;text-align:center}.done-button{border:1px solid #1f6f43;border-radius:999px;background:#153d2a;color:#fff;padding:13px 16px;font-weight:900}.done-button:disabled{opacity:.45;cursor:not-allowed;background:#28313a;border-color:#475569}.step-card.done .done-button{background:#1f6f43}.done-state{font-weight:900;opacity:.65}.inline-help{display:none;margin:12px 0 4px;padding:14px;border:1px solid var(--border);border-radius:14px;background:rgba(148,163,184,.08)}.inline-help.open{display:block}.inline-help h3{margin:0 0 10px;font-size:1.05rem}.need-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}.need-item{padding:10px 12px;border-radius:12px;background:rgba(15,23,42,.35)}.need-item strong{display:block;margin-bottom:2px}.checklist{display:grid;gap:12px;margin:14px 0}.check-row{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:12px}.check-row input{width:22px;height:22px;flex:0 0 auto}.step-link{display:block;margin:10px 0;text-align:center}.muted{opacity:.78;font-size:.95rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:680px){.card-actions{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -16,8 +16,44 @@
 <header class="sv-hero"><h1>VA Claims Instructions</h1><p>Do each step. Tap <strong>DONE</strong>. Use <strong>Help me with this</strong> when needed.</p></header>
 <div class="summary"><strong id="summary-text" aria-live="polite">0 of 6 done</strong><button id="reset-progress" class="sv-btn sv-btn-secondary" type="button">Reset</button></div>
 
-<section class="step-card" data-step="1" id="step-1"><div class="step-head"><span class="step-number">1</span><h2>Get these three things</h2></div><figure class="visual"><img src="assets/va-claims-guided/card-1-get-ready.svg" alt="Email, phone, and photo identification." width="960" height="300"></figure><p class="instruction">Email · Phone · Photo ID</p><div class="card-actions"><button class="done-button" type="button">DONE</button><a class="sv-btn sv-btn-secondary help-link" href="va-claims-guided-workflow.html?step=1">Help me with this</a></div><p class="done-state">Not done</p></section>
-<section class="step-card" data-step="2" id="step-2"><div class="step-head"><span class="step-number">2</span><h2>Choose your sign-in</h2></div><figure class="visual"><img src="assets/va-claims-guided/card-2-choose-sign-in.svg" alt="Choose Login.gov or ID.me." width="960" height="300"></figure><p class="instruction">Use Login.gov or ID.me</p><div class="card-actions"><button class="done-button" type="button">DONE</button><a class="sv-btn sv-btn-secondary help-link" href="va-claims-guided-workflow.html?step=2">Help me with this</a></div><p class="done-state">Not done</p></section>
+<section class="step-card" data-step="1" id="step-1">
+  <div class="step-head"><span class="step-number">1</span><h2>Get these three things</h2></div>
+  <figure class="visual"><img src="assets/va-claims-guided/card-1-get-ready.svg" alt="Email, smartphone, and photo identification." width="960" height="300"></figure>
+  <p class="instruction">Email · Smartphone · Photo ID</p>
+  <div class="card-actions"><button class="done-button" type="button">DONE</button><button class="sv-btn sv-btn-secondary help-link" type="button" data-help-target="step-1-help" aria-expanded="false">Help me with this</button></div>
+  <div class="inline-help" id="step-1-help">
+    <h3>Have these ready</h3>
+    <ul class="need-list">
+      <li class="need-item"><strong>1. Your personal email</strong><span>Example: example@example.com. Use an email address you can open now and expect to keep using.</span></li>
+      <li class="need-item"><strong>2. A smartphone</strong><span>Any smartphone that can connect to the internet and open a browser. Keep the phone with you during account setup.</span></li>
+      <li class="need-item"><strong>3. A valid government photo ID</strong><span>Safest common examples for either VA sign-in option: U.S. driver’s license, state-issued photo ID, or U.S. passport book.</span></li>
+    </ul>
+    <p class="muted">The exact verification screens can vary. VA.gov currently accepts either Login.gov or ID.me for sign-in.</p>
+  </div>
+  <p class="done-state">Not done</p>
+</section>
+
+<section class="step-card" data-step="2" id="step-2">
+  <div class="step-head"><span class="step-number">2</span><h2>Create your VA.gov sign-in</h2></div>
+  <figure class="visual"><img src="assets/va-claims-guided/card-2-choose-sign-in.svg" alt="Start at VA.gov Sign In, then use Login.gov or ID.me and return to VA.gov." width="960" height="300"></figure>
+  <p class="instruction">VA.gov → Sign In</p>
+  <a class="sv-btn sv-btn-primary step-link" href="https://www.va.gov/sign-in/" target="_blank" rel="noopener noreferrer">Open VA.gov Sign In</a>
+  <div class="checklist" aria-label="VA.gov sign-in checklist">
+    <label class="check-row"><input id="step-2-account-created" type="checkbox"><span><strong>I created my sign-in account.</strong><br><span class="muted">VA.gov will show both Login.gov and ID.me. Choose either one and finish its account setup.</span></span></label>
+    <div id="step-2-login-stage" hidden>
+      <a id="step-2-login-link" class="sv-btn sv-btn-primary step-link" href="https://www.va.gov/sign-in/" target="_blank" rel="noopener noreferrer">Log in to VA.gov</a>
+      <label class="check-row"><input id="step-2-va-login-success" type="checkbox"><span><strong>I logged in to VA.gov successfully.</strong><br><span class="muted">Check this only after VA.gov opens your signed-in account.</span></span></label>
+    </div>
+  </div>
+  <div class="card-actions"><button class="done-button" type="button" disabled>DONE</button><button class="sv-btn sv-btn-secondary help-link" type="button" data-help-target="step-2-help" aria-expanded="false">Help me with this</button></div>
+  <div class="inline-help" id="step-2-help">
+    <h3>Use one safe starting point: VA.gov</h3>
+    <p>Open <strong>VA.gov Sign In</strong>. VA.gov will present the available Login.gov and ID.me choices. If you need a new account, create it from that VA.gov sign-in path.</p>
+    <p><strong>Login.gov and ID.me are different account providers, but either can be used to sign in to VA.gov.</strong> You do not need to visit either provider first.</p>
+    <p>After you finish creating the account, return to VA.gov and sign in. Once you confirm both checkboxes above, DONE becomes available.</p>
+  </div>
+  <p class="done-state">Not done</p>
+</section>
 <section class="step-card" data-step="3" id="step-3"><div class="step-head"><span class="step-number">3</span><h2>Finish your sign-in</h2></div><figure class="visual"><img src="assets/va-claims-guided/card-3-create-account.svg" alt="Verify email, create password, and finish security setup." width="960" height="300"></figure><p class="instruction">Follow the screen prompts</p><div class="card-actions"><button class="done-button" type="button">DONE</button><a class="sv-btn sv-btn-secondary help-link" href="va-claims-guided-workflow.html?step=3">Help me with this</a></div><p class="done-state">Not done</p></section>
 <section class="step-card" data-step="4" id="step-4"><div class="step-head"><span class="step-number">4</span><h2>Open your VA records</h2></div><figure class="visual"><img src="assets/va-claims-guided/card-4-sign-in-va.svg" alt="Open VA.gov medical records and sign in." width="960" height="300"></figure><p class="instruction">Open VA records</p><div class="card-actions"><button class="done-button" type="button">DONE</button><a class="sv-btn sv-btn-secondary help-link" href="va-claims-guided-workflow.html?step=4">Help me with this</a></div><p class="done-state">Not done</p></section>
 <section class="step-card" data-step="5" id="step-5"><div class="step-head"><span class="step-number">5</span><h2>Download all records</h2></div><figure class="visual"><img src="assets/va-claims-guided/card-5-download-records.svg" alt="Select all dates and records, then download." width="960" height="300"></figure><p class="instruction">All time · Select all · Download</p><div class="card-actions"><button class="done-button" type="button">DONE</button><a class="sv-btn sv-btn-secondary help-link" href="va-claims-guided-workflow.html?step=5">Help me with this</a></div><p class="done-state">Not done</p></section>
@@ -26,7 +62,56 @@
 <div class="sr-only">Simplified illustrations, not exact screenshots. Official pages can change. Do not post sensitive records publicly.</div>
 </div>
 <script>
-(()=>{const KEY='vaClaimsStepStateV1',cards=[...document.querySelectorAll('.step-card')],summary=document.getElementById('summary-text');function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}function save(state){localStorage.setItem(KEY,JSON.stringify(state))}function paint(){const state=load();let count=0;cards.forEach(card=>{const step=card.dataset.step,done=Boolean(state[step]);card.classList.toggle('done',done);card.querySelector('.done-button').textContent=done?'DONE ✓':'DONE';card.querySelector('.done-state').textContent=done?'DONE':'Not done';card.querySelector('.done-button').setAttribute('aria-pressed',String(done));if(done)count++});summary.textContent=count+' of '+cards.length+' done'}cards.forEach(card=>card.querySelector('.done-button').addEventListener('click',()=>{const state=load(),step=card.dataset.step;state[step]=!state[step];save(state);paint()}));document.getElementById('reset-progress').addEventListener('click',()=>{localStorage.removeItem(KEY);paint()});window.addEventListener('storage',paint);paint()})();
+(()=>{
+  const KEY='vaClaimsStepStateV1',cards=[...document.querySelectorAll('.step-card')],summary=document.getElementById('summary-text');
+  const accountCreated=document.getElementById('step-2-account-created');
+  const loginSuccess=document.getElementById('step-2-va-login-success');
+  const loginStage=document.getElementById('step-2-login-stage');
+  const step2=document.getElementById('step-2');
+  const step2Done=step2.querySelector('.done-button');
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}
+  function save(state){localStorage.setItem(KEY,JSON.stringify(state))}
+  function step2Ready(){return Boolean(accountCreated.checked&&loginSuccess.checked)}
+  function syncStep2(){
+    const state=load();
+    state.step2AccountCreated=Boolean(accountCreated.checked);
+    state.step2VaLoginSuccess=Boolean(loginSuccess.checked);
+    loginStage.hidden=!accountCreated.checked;
+    step2Done.disabled=!step2Ready();
+    if(!step2Ready()) state['2']=false;
+    save(state);
+  }
+  function paint(){
+    const state=load();let count=0;
+    accountCreated.checked=Boolean(state.step2AccountCreated);
+    loginSuccess.checked=Boolean(state.step2VaLoginSuccess);
+    loginStage.hidden=!accountCreated.checked;
+    cards.forEach(card=>{
+      const step=card.dataset.step,done=Boolean(state[step]);
+      card.classList.toggle('done',done);
+      const button=card.querySelector('.done-button');
+      button.textContent=done?'DONE ✓':'DONE';
+      if(step==='2') button.disabled=!step2Ready();
+      card.querySelector('.done-state').textContent=done?'DONE':'Not done';
+      button.setAttribute('aria-pressed',String(done));
+      if(done)count++;
+    });
+    summary.textContent=count+' of '+cards.length+' done';
+  }
+  cards.forEach(card=>card.querySelector('.done-button').addEventListener('click',()=>{
+    const state=load(),step=card.dataset.step;
+    if(step==='2'&&!step2Ready())return;
+    state[step]=!state[step];save(state);paint();
+  }));
+  accountCreated.addEventListener('change',()=>{if(!accountCreated.checked)loginSuccess.checked=false;syncStep2();paint()});
+  loginSuccess.addEventListener('change',()=>{syncStep2();paint()});
+  document.querySelectorAll('button.help-link[data-help-target]').forEach(button=>button.addEventListener('click',()=>{
+    const target=document.getElementById(button.dataset.helpTarget),open=!target.classList.contains('open');
+    target.classList.toggle('open',open);button.setAttribute('aria-expanded',String(open));
+  }));
+  document.getElementById('reset-progress').addEventListener('click',()=>{localStorage.removeItem(KEY);paint()});
+  window.addEventListener('storage',paint);paint();
+})();
 </script>
 </body>
 </html>

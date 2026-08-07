@@ -32,11 +32,23 @@ def main() -> int:
     require(len(re.findall(r'data-step="[1-6]"', guide)) == 6, "primary instruction page must expose six ordered steps", errors)
     require(guide.count("DONE") >= 6, "each primary step requires a DONE control", errors)
     require(guide.count("Help me with this") >= 6, "each primary step requires a Help me with this control", errors)
-    require(guide.count("va-claims-guided-workflow.html?step=") >= 6, "step-addressable walkthrough links missing", errors)
+    require(guide.count("va-claims-guided-workflow.html?step=") >= 4, "steps 3-6 require step-addressable walkthrough links", errors)
+    require(guide.count('data-help-target="step-') >= 2, "steps 1-2 require inline expandable help", errors)
+    require('data-help-target="step-1-help"' in guide and 'id="step-1-help"' in guide, "step 1 inline help binding missing", errors)
+    require('data-help-target="step-2-help"' in guide and 'id="step-2-help"' in guide, "step 2 inline help binding missing", errors)
     require(key in guide, "shared progress storage key missing from primary page", errors)
     require("classList.toggle('done'" in guide, "completed-card dimming state missing", errors)
     require("reset-progress" in guide, "progress reset control missing", errors)
     require("0 of 6 done" in guide, "primary completion summary missing", errors)
+
+    require("example@example.com" in guide, "step 1 email example missing", errors)
+    require("U.S. driver’s license" in guide and "state-issued photo ID" in guide and "U.S. passport book" in guide, "step 1 common photo ID examples missing", errors)
+    require("https://www.va.gov/sign-in/" in guide, "step 2 VA.gov sign-in entry point missing", errors)
+    require('id="step-2-account-created"' in guide, "step 2 account-created confirmation missing", errors)
+    require('id="step-2-va-login-success"' in guide, "step 2 VA login confirmation missing", errors)
+    require('id="step-2-login-stage"' in guide, "step 2 staged VA login control missing", errors)
+    require("function step2Ready()" in guide and "step2Done.disabled=!step2Ready()" in guide, "step 2 DONE gate missing", errors)
+    require("if(step==='2'&&!step2Ready())return" in guide, "step 2 DONE bypass guard missing", errors)
 
     require("VA Claims Walkthrough" in guided, "focused walkthrough title missing", errors)
     require(len(re.findall(r'data-card="[1-6]"', guided)) == 6, "focused walkthrough must contain six addressable step cards", errors)
@@ -61,12 +73,14 @@ def main() -> int:
 
     surfaces = [GUIDE, GUIDED, CHAT]
     body = {
-        "schema_version": "2.1.0",
+        "schema_version": "2.2.0",
         "state": "PASS" if not errors else "FAIL",
-        "design_contract": "PRIMARY_CHECKLIST_PLUS_FOCUSED_HELP",
+        "design_contract": "PRIMARY_CHECKLIST_PLUS_INLINE_READINESS_AND_FOCUSED_HELP",
         "surfaces": [path.name for path in surfaces],
         "primary_steps": 6,
         "focused_steps": 6,
+        "inline_help_steps": [1, 2],
+        "step_2_done_requires": ["account_created", "va_login_success"],
         "shared_progress_key": key,
         "capability_state": state.get("state"),
         "current_capability": state.get("current_capability"),
