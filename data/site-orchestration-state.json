@@ -78,9 +78,7 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [
-        "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY"
-      ],
+      "admitted_tasks": [],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
