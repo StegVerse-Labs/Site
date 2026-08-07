@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Document and validate enforceable delivery and operation models for Child Mode across child-dedicated devices, shared devices with age-governed accounts, and guardian-controlled temporary use.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_native_validator",
+    "location": "scripts/check_child_safety_demo.py"
+  },
+  "implementation_locations": [
+    "child-safety-demo.html",
+    "docs/CHILD_MODE_REGULATORY_GOVERNANCE.md"
+  ],
+  "verification_locations": [
+    "scripts/check_child_safety_demo.py"
+  ],
+  "acceptance": {
+    "validator_command": "python scripts/check_child_safety_demo.py",
+    "success_marker": "DELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE"
+  },
+  "required_properties": [
+    "child-dedicated device can be device-bound to Child Mode",
+    "shared device derives effective mode from the active authenticated age-governed account",
+    "guardian-controlled temporary Child Mode requires account-holder security reauthentication to enter or exit",
+    "mandatory age/legal restrictions cannot be weakened by an optional guardian toggle",
+    "mode changes are policy-evaluated and receipt-producing"
+  ],
+  "external_dependencies": [],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_DELIVERY_OPERATION_MODEL_ONLY"
+}
