@@ -1,0 +1,71 @@
+name: Heartbeat Response Collector
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "data/heartbeat-response-adapter-targets.json"
+      - "data/heartbeat-response-node.json"
+      - "data/heartbeat-response-outbox/**"
+      - "scripts/collect_heartbeat_response_receipts.py"
+      - "tests/test_collect_heartbeat_response_receipts.py"
+      - ".github/workflows/heartbeat-response-collector.yml"
+  schedule:
+    - cron: "31 * * * *"
+permissions:
+  contents: write
+concurrency:
+  group: heartbeat-response-collector
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Validate collector semantics
+        run: python -m unittest tests.test_collect_heartbeat_response_receipts -v
+      - name: Collect public and local responses
+        run: python scripts/collect_heartbeat_response_receipts.py --apply
+      - name: Validate resulting network state
+        run: |
+          python -m unittest tests.test_heartbeat_response_network -v
+          python scripts/check_heartbeat_response_network.py
+      - name: Persist canonical imported state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-heartbeat-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ecosystem-heartbeat-response-network.json data/heartbeat-response-receipts data/heartbeat-response-classification-state.json data/heartbeat-response-import-report.json
+          if git diff --cached --quiet; then
+            echo "Heartbeat response collector already current"
+            exit 0
+          fi
+          git commit -m "chore(heartbeat): import classify and recover response receipts"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            python scripts/collect_heartbeat_response_receipts.py --apply
+            python scripts/check_heartbeat_response_network.py
+            git add data/ecosystem-heartbeat-response-network.json data/heartbeat-response-receipts data/heartbeat-response-classification-state.json data/heartbeat-response-import-report.json
+            if ! git diff --cached --quiet; then git commit --amend --no-edit; fi
+          done
+          echo "collector push retry exhausted" >&2
+          exit 1
+      - name: Upload collector evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: heartbeat-response-collector-state
+          path: |
+            data/ecosystem-heartbeat-response-network.json
+            data/heartbeat-response-classification-state.json
+            data/heartbeat-response-import-report.json
+            data/heartbeat-response-receipts/
+          if-no-files-found: error
