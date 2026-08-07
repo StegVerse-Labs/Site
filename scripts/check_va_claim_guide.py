@@ -33,7 +33,7 @@ if GUIDE.exists():
         'id="step-1-email"', 'id="step-1-phone"', 'id="step-1-id"',
         'example@example.com', 'driver’s license', 'state-issued photo ID', 'U.S. passport book',
         'When all 3 boxes are checked, Step 1 is marked DONE automatically.',
-        'https://www.va.gov/sign-in/', 'Login.gov', 'ID.me', 'confirmation email',
+        'https://www.va.gov/sign-in/', 'Login.gov', 'ID.me', 'confirming email',
         'id="step-2-account-created"', 'id="step-2-va-login-success"',
         'https://www.va.gov/my-health/medical-records/download',
         'https://mobile.va.gov/app/va-health-and-benefits',
