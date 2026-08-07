@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/heartbeat-response-receipt.schema.json",
+  "title": "StegVerse Heartbeat Response Receipt",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version","message_id","exchange_id","node_org","source_org","destination_org","stage","detail_class","observed_at","authority"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "message_id": {"type":"string","minLength":8},
+    "exchange_id": {"type":"string","minLength":8},
+    "node_org": {"type":"string","minLength":1},
+    "source_org": {"type":"string","minLength":1},
+    "destination_org": {"type":"string","minLength":1},
+    "stage": {"enum":["RECEIVED","RESPONDED","RECOVERED","REPEAT","BLOCKED","FAILED","REVIEW_REQUIRED"]},
+    "detail_class": {"enum":["MEMORY","ACTION","AWARENESS","AUTHORITY","EVIDENCE","BLOCKER","CAPABILITY","CONTEXT"]},
+    "observed_at": {"type":"string","format":"date-time"},
+    "observed_message_sha256": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "parent_receipt_sha256": {"type":["string","null"],"pattern":"^[0-9a-f]{64}$"},
+    "classification": {"type":"object"},
+    "authority": {
+      "type":"object",
+      "additionalProperties":false,
+      "required":["execution","activation","publication","custody","release"],
+      "properties": {
+        "execution":{"const":false},
+        "activation":{"const":false},
+        "publication":{"const":false},
+        "custody":{"const":false},
+        "release":{"const":false}
+      }
+    }
+  }
+}
