@@ -1,0 +1,14 @@
+{
+  "authority": {"activation": false, "custody": false, "execution": false, "publication": false, "release": false},
+  "classification": {"action_admitted": false, "awareness_updated": true, "primary": "AWARENESS", "retention": "PROJECT"},
+  "destination_org": "StegGhost",
+  "detail_class": "AWARENESS",
+  "exchange_id": "hb-exchange-20260807-stegghost",
+  "message_id": "hb-bootstrap-20260807-stegghost-received",
+  "node_org": "StegGhost",
+  "observed_at": "2026-08-07T14:48:53.035299Z",
+  "observed_message_sha256": "4086278aa5a8ad4879ac682bbb73111a73ec3c659743ff8ec8fad1403a38fcff",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RECEIVED"
+}
