@@ -1,0 +1,36 @@
+{
+  "authority": {
+    "activation": false,
+    "custody": false,
+    "execution": false,
+    "publication": false,
+    "release": false
+  },
+  "classification": {
+    "action_admitted": false,
+    "node_state": "RESPONSIVE",
+    "primary": "CAPABILITY",
+    "return_to": "StegVerse-Labs",
+    "supported_detail_classes": [
+      "MEMORY",
+      "ACTION",
+      "AWARENESS",
+      "AUTHORITY",
+      "EVIDENCE",
+      "BLOCKER",
+      "CAPABILITY",
+      "CONTEXT"
+    ]
+  },
+  "destination_org": "StegVerse-Labs",
+  "detail_class": "CAPABILITY",
+  "exchange_id": "hb-exchange-20260807-stegverse-labs",
+  "message_id": "hb-bootstrap-20260807-stegverse-labs-responded",
+  "node_org": "StegVerse-Labs",
+  "observed_at": "2026-08-07T15:08:31.173561Z",
+  "observed_message_sha256": "930e4d1892ff7e1c02d97940c8d538054c81c1b7b601479a240d4aa896111717",
+  "parent_receipt_sha256": "c0572fef4cb7629677fc212b534c5dbffcc6180809a96f5a1dfdbc736b0eb5df",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RESPONDED"
+}
