@@ -8,6 +8,8 @@ on:
       - "schemas/session-retirement.schema.json"
       - "prompts/SESSION_SELF_AUDIT.md"
       - "scripts/check_session_retirement.py"
+      - "scripts/site_handoff_orchestrator.py"
+      - "tests/test_session_retirement.py"
       - ".github/workflows/session-retirement-validate.yml"
   pull_request:
     paths:
@@ -16,6 +18,8 @@ on:
       - "schemas/session-retirement.schema.json"
       - "prompts/SESSION_SELF_AUDIT.md"
       - "scripts/check_session_retirement.py"
+      - "scripts/site_handoff_orchestrator.py"
+      - "tests/test_session_retirement.py"
       - ".github/workflows/session-retirement-validate.yml"
   workflow_dispatch:
 
@@ -27,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Run deterministic posture tests
+        run: python -m unittest tests.test_session_retirement -v
       - name: Validate session retirement dispositions
         run: python scripts/check_session_retirement.py
       - name: Upload validation report
