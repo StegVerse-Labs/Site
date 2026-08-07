@@ -16,15 +16,22 @@ REQUIRED=(
     'Create behavioral advertising profile','Enable engagement-optimized infinite recommender',
     'Join approved-friends music collaboration','Report/block a user',
     'retained_personal_data:[]','production_activation:false',
-    'DEMO_BROWSER_ONLY','REVIEW_REQUIRED','DENY','ALLOW'
+    'DEMO_BROWSER_ONLY','REVIEW_REQUIRED','DENY','ALLOW',
+    'Boundary status, not a liability waiver',
+    'Boundary Status and Law Comparison',
+    'Boundary Change Record',
+    'This record is append-only',
+    'alternative to a ban'
 )
 REGULATORY_REQUIRED=(
+    'This record is not a liability waiver.',
     'The visible `NORMAL MODE / CHILD MODE` toggle is a user-facing declaration of service state.',
     'A protected child must not be able to acquire adult capabilities by changing a client-side toggle',
-    'The objective is not to evade or route around a social-media ban.',
     'Child Mode is a separate capability profile, not a visual theme.',
     'Self-declared birthdate alone is not a sufficient age-assurance strategy.',
-    'Do not claim legal certification'
+    'deterministic at the activity/capability boundary',
+    'Boundary change record',
+    'Append-only.'
 )
 
 def main()->int:
@@ -48,6 +55,8 @@ def main()->int:
     print('CHILD_SAFETY_DEMO=PASS')
     print('MODE_TOGGLE=NORMAL_MODE_CHILD_MODE')
     print('MODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION')
+    print('BOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON')
+    print('BOUNDARY_CHANGE_RECORD=APPEND_ONLY')
     print('AGE_POLICY=JURISDICTION_AWARE')
     print('NETWORK_REQUESTS=NONE')
     print('PERSONAL_DATA_RETENTION=NONE')
