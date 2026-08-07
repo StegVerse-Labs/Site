@@ -1,48 +1,214 @@
 # Child-Safe Networking Mirror Handoff
 
-This file is the current task source of truth for the governed child-safe networking projection in `StegVerse-Labs/Site`.
+This file is the current task source of truth for governed child-safe networking in `StegVerse-Labs/Site`.
 
-## Active goal and goal ID
+## Active goals
 
 ```text
-Goal ID: SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT
-Goal: make the validated child-safety governance sandbox publicly reachable and continuously verify that the canonical deployed route serves the intended governed behavior.
-Originating adjacent goal: demonstrate in a public-facing and publicly usable interface how governance can protect children from the classes of social-network harm driving under-13 and under-16 regulation while preserving safe connection, learning, creativity, play, music, and known-person communication.
-Repository: StegVerse-Labs/Site
-Branch: main
+SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT
+Goal: make the validated child-safety governance sandbox publicly reachable and continuously verify the canonical deployed route.
+State: deployment verification blocked until canonical public route passes.
+
+SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE
+Goal: expose an obvious NORMAL MODE / CHILD MODE control while ensuring the protected mode is a separately enforced capability profile rather than a cosmetic preference.
+State: implemented; pending repository-native machine observation.
 ```
+
+Repository: `StegVerse-Labs/Site`
+Branch: `main`
 
 ## Authoritative files
 
 ```text
 child-safety-demo.html
 children-safe-networking.html
+docs/CHILD_MODE_REGULATORY_GOVERNANCE.md
 data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json
 data/tasks/SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT.json
+data/tasks/SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE.json
 scripts/check_child_safety_demo.py
 scripts/check_child_safety_public_deployment.py
 .github/workflows/verify-child-safety-public-deployment.yml
 docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md
 repository-task-observation.report.json
 data/site-orchestration-state.json
-child-safety-public-deployment.report.json (workflow artifact/output when executed)
 ```
 
-Previous goal `SITE-0001-CHILD-SAFE-NETWORKING` is complete for the public communications contract and 30-second transcript. `SITE-0002-CHILD-SAFETY-DEMO` is complete for deterministic interactive browser behavior. The current goal is deployment verification only.
-
-## Age-policy grounding — checked 2026-08-07
+## Completed predecessor evidence
 
 ```text
-United States: COPPA special privacy/parental-consent regime applies to children under 13; it is not a general US social-media ban.
-Australia: since 2025-12-10, covered age-restricted social-media platforms must take reasonable steps to prevent Australians under 16 from creating or keeping accounts.
-United Kingdom: government announced an under-16 social-media ban on 2026-06-15, expected in spring 2027; existing Online Safety Act child-protection duties already apply to services likely accessed by children, with announced restrictions also targeting harmful features such as livestreaming and stranger contact for minors.
+SITE-0001-CHILD-SAFE-NETWORKING: COMPLETE
+SITE-0001-PERSONAL-DATA-CONTROL: COMPLETE
+SITE-0002-CHILD-SAFETY-DEMO: COMPLETE
+  CHILD_SAFETY_DEMO=PASS
+  AGE_POLICY=JURISDICTION_AWARE
+  NETWORK_REQUESTS=NONE
+  PERSONAL_DATA_RETENTION=NONE
+  AUTHORITY_GRANTED=false
+  ACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY
 ```
 
-The implementation does not encode a false universal `13 and under` rule. It separates jurisdictional law from the StegVerse protective baseline.
+## Mode contract
+
+The public interface now presents an obvious two-position control:
+
+```text
+NORMAL MODE
+<->
+CHILD MODE
+```
+
+`NORMAL MODE` represents the general/adult-capable service experience.
+
+`CHILD MODE` represents a materially different capability profile. It is not a visual theme and is not merely parental-control styling.
+
+Critical authority rule:
+
+```text
+VISIBLE TOGGLE != AGE AUTHORITY
+VISIBLE TOGGLE != LEGAL ELIGIBILITY
+VISIBLE TOGGLE != PARENTAL CONSENT
+```
+
+In production, a toggle interaction may request a service-mode transition, but the runtime must evaluate verified eligibility, jurisdiction, guardian authority where required, policy version, and applicable law before changing authority.
+
+A legally protected child must not be able to obtain Normal Mode by:
+
+```text
+changing the visible switch
+editing browser/client state
+changing a self-declared birthdate
+using a VPN to change apparent jurisdiction
+replaying an old eligibility token
+using a parent setting to override a statutory prohibition
+```
+
+A denied attempt should create an inspectable transition receipt.
+
+## Child Mode protective baseline
+
+For protected age bands the child-facing capability graph should preserve bounded positive networking while removing social-media risk capabilities:
+
+```text
+ALLOW / preserve when boundary is established:
+- known friend/family messaging
+- approved-friend collaboration
+- learning/creative participation
+- report and block
+
+DENY / remove authority where applicable:
+- unknown-person unsolicited direct contact
+- public social exposure / broad discoverability
+- public self-livestreaming under protective minor policy
+- precise-location disclosure by default
+- behavioral advertising / child profiling
+- cross-service tracking
+- engagement-optimized infinite recommender
+```
+
+The service should not treat parental approval of one bounded purpose as blanket permission for unrelated capabilities.
+
+## Regulatory grounding — checked 2026-08-07
+
+### United States
+
+COPPA applies special privacy/parental-consent obligations for children under 13 on covered services. Current FTC policy supports responsibly deployed age-verification technology while requiring purpose limitation, short retention, security, notice, and suitable providers for age-verification data. The updated COPPA Rule also strengthens limits around targeted advertising/third-party disclosure and retention.
+
+Engineering posture:
+
+```text
+privacy-preserving age assurance
+-> eligibility assertion
+-> COPPA child state where applicable
+-> parental consent for covered collection/use/disclosure where required
+-> no child behavioral-advertising business model
+-> minimize/delete age evidence when no longer necessary
+```
+
+### Australia
+
+Since 2025-12-10, covered age-restricted social-media platforms must take reasonable steps to prevent Australians under 16 from creating or keeping accounts. Current eSafety guidance states that self-declared birthdate alone is insufficient; covered providers should address bypasses and provide error review/appeal. Standalone messaging and online gaming are among excluded service categories, but messaging services can become covered when social-media-style features alter their nature.
+
+Engineering posture:
+
+```text
+Do not present the same covered social-media account to an under-16 user behind a cosmetic child switch.
+Maintain a genuinely bounded child communication/collaboration capability profile.
+Continuously reassess classification as features change.
+```
+
+### United Kingdom
+
+The UK government announced an under-16 social-media ban on 2026-06-15 and states that harmful features including livestreaming and strangers contacting children will be restricted for under-18s. Final implementing details must be tracked before any legal-certification claim.
+
+Engineering posture:
+
+```text
+verified age/eligibility state
+protected user cannot self-enable prohibited capability
+stranger-contact/livestream restrictions represented in capability authority
+auditable policy evidence retained
+```
+
+## Strategic legal/product objective
+
+The objective is not to evade a ban. No product design can guarantee how a legislature, regulator, or court will classify a future service.
+
+The objective is to establish a technically inspectable third category between unrestricted social media and excluding children from networking:
+
+```text
+GENERAL / ADULT-CAPABLE SOCIAL SERVICE
+
+or
+
+AGE-GOVERNED CHILD COMMUNICATIONS + COLLABORATION SERVICE
+```
+
+For the second category to be credible, its significant purpose, feature set, incentives, data practices, contact graph, recommendation behavior, and runtime authority must actually differ from the risk-bearing social-media model.
+
+A regulator should be able to test a protected account and confirm that the service cannot provide prohibited capability even if the user asks for it.
+
+## Regulatory evidence chain target
+
+```text
+privacy-preserving age assurance
+-> jurisdiction + age-band eligibility assertion
+-> CHILD_MODE authority state
+-> guardian authority where required
+-> known-contact graph
+-> capability request
+-> policy evaluation
+-> ALLOW / DENY / REVIEW_REQUIRED
+-> execution only after ALLOW
+-> immutable decision/mode receipt
+-> abuse reporting / escalation
+-> custody / reconstruction
+-> redacted transparency projection
+```
+
+For a protected user requesting Normal Mode:
+
+```text
+REQUEST_NORMAL_MODE
+-> verify eligibility
+-> threshold not met
+-> DENY
+-> receipt(policy version + reason + evidence reference)
+```
+
+## Public claim boundary
+
+Allowed engineering claim:
+
+> Child Mode is a separately governed capability profile designed around current child-safety regulatory principles. It prevents protected users from self-authorizing adult/social-media capabilities and provides inspectable evidence for sensitive capability decisions.
+
+Do not claim:
+
+> Child Mode guarantees exemption from social-media minimum-age laws.
+
+Legal compliance/certification remains jurisdiction- and implementation-specific.
 
 ## Harm model represented by the interface
-
-The public demonstrator addresses the capability classes identified in current child-safety policy debates and regulator guidance rather than merely filtering words after harm occurs:
 
 ```text
 unknown-person direct contact / grooming opportunity
@@ -55,149 +221,88 @@ algorithmic exposure to upsetting, manipulative, sexual, or violent material
 cyberbullying / abuse with no effective report-block path
 ```
 
-The design preserves positive networking by separating private/known-contact communication and approved collaboration from public social-media capabilities.
-
-## Protective baseline demonstrated
-
-For users under 16, the sandbox demonstrates:
-
-- known friend/family messaging and approved-friend collaboration may remain available where the guardian/known-contact boundary is established;
-- stranger direct contact is blocked;
-- public social exposure is restricted;
-- engagement-optimized infinite recommendation is disabled;
-- precise location disclosure is blocked by default;
-- behavioral advertising profiling is blocked;
-- reporting and blocking remain available.
-
-For all minors, the sandbox additionally disables public self-livestreaming under the StegVerse protective baseline. The baseline is deliberately stricter than any single jurisdictional minimum and is presented as StegVerse policy, not as a claim that every jurisdiction legally requires each restriction.
-
-## Data-minimization behavior
+## Data-minimization behavior in current demo
 
 ```text
-Age input: age band only in demo
+Age input: age band only
 Full birthdate retained: no
 Identity retained: no
 Location retained: no
 Contact list retained: no
 Advertising profile retained: no
-Network requests from demo: none
+Network requests: none
 Receipt retention: browser display only
 ```
 
-A production implementation should obtain a privacy-preserving age/eligibility assertion from an authorized age-assurance boundary and should not expose a full birthdate to each relying service merely to decide an age band.
-
-## Public interaction contract
-
-The visitor selects jurisdiction, age band, guardian state, and requested action. The sandbox returns exactly one of:
-
-```text
-ALLOW
-DENY
-REVIEW_REQUIRED
-```
-
-Every evaluated transition produces a local machine-readable receipt containing jurisdiction, age band, requested action, guardian boundary, decision, reason, retained-personal-data declaration, demo authority boundary, and production-activation=false.
-
-The sandbox refuses unsafe/unnecessary transitions for protected age bands while preserving bounded positive capabilities. This is capability governance, not a cosmetic parental-control overlay.
-
-## Completed implementation evidence
-
-```text
-SITE-0001-CHILD-SAFE-NETWORKING: COMPLETE
-  validator: CHILD_SAFE_NETWORKING=PASS
-  machine state advancement: e0d6fbf8c587b141d4518db50b5241f5cb0d2214
-
-SITE-0001-PERSONAL-DATA-CONTROL: COMPLETE
-  validator: PERSONAL_DATA_CONTROL_RUNTIME=PASS
-
-SITE-0002-CHILD-SAFETY-DEMO: COMPLETE
-  validator: CHILD_SAFETY_DEMO=PASS
-  AGE_POLICY=JURISDICTION_AWARE
-  NETWORK_REQUESTS=NONE
-  PERSONAL_DATA_RETENTION=NONE
-  AUTHORITY_GRANTED=false
-  ACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY
-  evidence: repository-task-observation.report.json
-```
-
-## Current deployment claim and blocker
+## Current deployment blocker
 
 ```text
 Task: SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT
-Task record: data/tasks/SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT.json
-Owner: .github/workflows/verify-child-safety-public-deployment.yml
-Verifier: scripts/check_child_safety_public_deployment.py
 Canonical target: https://stegverse.org/child-safety-demo.html
-Observed GitHub Pages repository status: errored
-Latest observed Pages build for demo-era commit: building
-Public route HTTP 200 with canonical markers: NOT YET VERIFIED
+Last directly observed route result: HTTP 404
+GitHub Pages state during observation: errored/building
+Public canonical route PASS: NOT YET ESTABLISHED
 ```
 
-Release condition is machine-observable and fail-closed:
+Release remains fail-closed:
 
 ```text
-HTTPS certificate verifies
-AND final public route is HTTPS
-AND HTTP status = 200
-AND response contains all canonical demo markers
+verified HTTPS
+AND HTTP 200
+AND canonical markers
 => CHILD_SAFETY_PUBLIC_DEPLOYMENT=PASS
 ```
 
-The verification workflow runs after relevant repository changes, on manual dispatch, and hourly. It preserves `child-safety-public-deployment.report.json` as a workflow artifact and fails until the exact public-route evidence exists. No external session ownership or routine user action is required.
+The repository-native workflow owns continued observation.
 
-## Required distinction: demonstrator vs production child-safety enforcement
+## Required distinction
 
 ```text
-Browser decision enforcement in child-safety-demo.html: REAL WITHIN DEMO
-Public accessibility: PENDING SITE-0003 VERIFICATION
-Production age assurance: NOT ESTABLISHED BY DEMO
-Production parental authorization: NOT ESTABLISHED BY DEMO
-Production identity/contact verification: NOT ESTABLISHED BY DEMO
-Production moderation/grooming detection: NOT ESTABLISHED BY DEMO
-Production abuse-report escalation: NOT ESTABLISHED BY DEMO
-Production cryptographic receipts/custody: NOT ESTABLISHED BY DEMO
+Normal/Child visible toggle: IMPLEMENTED IN DEMO
+Child capability enforcement: REAL WITHIN DEMO
+Authoritative production mode switching: NOT YET ESTABLISHED
+Production age assurance: NOT YET ESTABLISHED
+Production parental authorization: NOT YET ESTABLISHED
+Production identity/contact verification: NOT YET ESTABLISHED
+Production moderation/grooming detection: NOT YET ESTABLISHED
+Production abuse escalation: NOT YET ESTABLISHED
+Production cryptographic receipts/custody: NOT YET ESTABLISHED
 Legal-compliance certification: NOT CLAIMED
 ```
 
-This distinction prevents a working public simulator from being falsely represented as a complete production child-safety service.
+## Cross-repository propagation rule
 
-## Production integration sequence after public demo activation
+This Site work remains an implementation/communications projection and does not create canonical legal authority. Once the production mode/eligibility contract becomes normative, pertinent semantics should be evaluated for propagation to:
 
 ```text
-privacy-preserving age assurance
--> age-band / jurisdiction eligibility assertion
--> parent/guardian authority where required
--> verified known-contact graph
--> service capability request
--> child-safety policy evaluation
--> ALLOW / DENY / REVIEW_REQUIRED
--> execution only after ALLOW
--> immutable decision receipt
--> abuse reporting / emergency escalation boundary
--> custody / reconstruction
--> public transparency projection with sensitive fields redacted
+StegVerse-Labs/Sit
+GCAT-BCAT-Engine/Publisher
+StegVerse-Labs/admissibility-wiki
+stegguardian-wiki / canonical guardian repository
 ```
 
-Each step requires its own evidence before production activation is claimed. This is the next integration candidate after the public demo is verified; it must not be started as a competing implementation while a canonical runtime owner already exists for an overlapping capability.
+Do not claim propagation until directly applied and verified in those destinations.
 
-## Cross-repository boundaries
+## Next integration goal candidate
 
-This demo remains a Site implementation and communications projection. It does not create new canonical legal or admissibility authority. Any later normative policy contract should propagate to `StegVerse-Labs/admissibility-wiki` only when the production integration contract requires it; publication projection belongs to `GCAT-BCAT-Engine/Publisher`, and guardian-specific normative semantics belong to the canonical guardian repository identified by the Site handoff. No downstream propagation is claimed from the browser demo alone.
+After `SITE-0003` public deployment and `SITE-0004` mode-toggle validation are complete, the next candidate is:
 
-## Session consolidation and archive condition
+```text
+CHILD-MODE-AUTHORITY-RUNTIME
+privacy-preserving age assertion
++ non-bypassable mode authority
++ capability manifest
++ guardian/known-contact authority
++ immutable mode-transition receipts
+```
 
-All substantive policy reasoning, age-boundary findings, harm classes, demo behavior, completed validation evidence, current deployment blocker, machine observer, release condition, and next integration sequence are durable in this handoff and repository task records.
-
-The session no longer needs to retain undocumented project knowledge. However, the current public-facing usability goal is not complete until `SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT` records PASS. The repository-native workflow owns that observation, so this chat does not need to remain the observer; archival readiness depends on whether the user defines the current session goal as the implemented/validated demo or the verified public deployment. Under the current stated goal, public deployment remains incomplete.
+Do not start a conflicting implementation if another repository/session already owns an overlapping canonical runtime.
 
 ## Completeness
 
 ```text
-SITE-0002 demo developed-files percentage: 100%
-SITE-0002 validation percentage: 100%
-SITE-0002 integration percentage: 100%
-SITE-0002 goal activation: 100% PUBLIC_INTERACTIVE_DEMO_ONLY within repository
-SITE-0003 public deployment developed verifier files: 100%
-SITE-0003 public route verification: 0% until PASS
-SITE-0003 goal activation: 0% until PASS
+SITE-0002 demo: 100% implemented and validated
+SITE-0003 public deployment verifier: 100% developed; public route remains unverified
+SITE-0004 governed mode toggle: implemented; machine observation pending
+Scaffolding/stubs in SITE-0004 slice: none known
 ```
