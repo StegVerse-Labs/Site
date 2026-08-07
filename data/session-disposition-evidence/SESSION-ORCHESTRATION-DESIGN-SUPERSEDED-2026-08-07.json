@@ -6,6 +6,7 @@
   "task_id": "SESSION-ORCHESTRATION-0001",
   "requested_posture": "SUPERSEDED",
   "source_registry": "data/session-orchestration-registry.json",
+  "baseline_registry_commit": "e2c6b9a0098899bc16ea1a62d5182aecfe6ef674",
   "successor_session_id": "session-orchestration-activation-coordination-2026-07-31",
   "successor_task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
   "successor_owner": "StegVerse-Labs/Site issue #114",
