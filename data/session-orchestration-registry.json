@@ -16,7 +16,7 @@
       "session_id": "session-orchestration-design-2026-07-31",
       "repository": "StegVerse-Labs/Site",
       "task_id": "SESSION-ORCHESTRATION-0001",
-      "posture": "ARCHIVABLE",
+      "posture": "SUPERSEDED",
       "authority_checked": [
         "docs/SITE_MIRROR_HANDOFF.md",
         "data/site-orchestration-state.json",
@@ -26,7 +26,7 @@
       "handoff_revision": "0bda46c5b5099af0e3cbc87b9b2129c09c14f9e3",
       "active_task_ownership": false,
       "unique_unmerged_state": false,
-      "safe_to_archive": true,
+      "safe_to_archive": false,
       "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
       "conflicting_active_owner": false,
       "material_state_locations": [
@@ -38,7 +38,12 @@
         ".github/workflows/session-retirement-validate.yml"
       ],
       "required_before_archive": [],
-      "reason": "The original design session has been superseded by the active activation coordination tracked in issue #114; its unique state is preserved in repository authority."
+      "reason": "The original design session has been superseded by the active activation coordination tracked in issue #114; its unique state is preserved in repository authority.",
+      "disposition_evidence": "data/session-disposition-evidence/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.json",
+      "disposition_evidence_sha256": "91a8d26d7ed43d77644c299f9115aedd505c93317dfd4e89bf105617c069aab9",
+      "superseded_by_session_id": "session-orchestration-activation-coordination-2026-07-31",
+      "superseded_by_task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
+      "superseded_by_owner": "StegVerse-Labs/Site issue #114"
     },
     {
       "session_id": "session-orchestration-activation-coordination-2026-07-31",

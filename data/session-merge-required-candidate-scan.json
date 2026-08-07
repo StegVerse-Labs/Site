@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "report_type": "real_merge_required_candidate_scan",
+  "state": "BLOCKED_NO_REAL_CANDIDATE",
+  "registry": "data/session-orchestration-registry.json",
+  "search_directories": [
+    "data/session-consolidations",
+    "data/session-consolidation-receipts",
+    "data/session-goal-inventories"
+  ],
+  "scanned_files": 9,
+  "candidate_count": 0,
+  "candidates": [],
+  "archive_rejection_established": false,
+  "fabricated_state": false,
+  "next_action": "retain this blocker until a repository-grounded session declares unique unmerged state; do not manufacture a candidate",
+  "report_sha256": "b19a41b2c2af261faed67c5bf8f7c165f7e26541c97ef186c33742b0fce0b0f5"
+}
