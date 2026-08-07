@@ -1,0 +1,42 @@
+{
+  "schema_version": "STEGVERSE-TASK-v1",
+  "task_id": "SITE-VA-COORDINATED-LLM-BRIDGE-002",
+  "title": "Bridge VA Claims Chat to receipt-verified governed runtime",
+  "originating_goal": "Replace the scripted VA Claims Chat answer path with a coordinated VA Resources LLM only after receipt-verified governed runtime activation.",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "goal/va-coordinated-llm-bridge",
+  "canonical_issue": "StegVerse-Labs/Site#113",
+  "canonical_handoff": "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+  "runtime_owner": "StegVerse-org/LLM-adapter#90",
+  "state": "CLAIMED",
+  "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+  "claimant": "session-va-coordinated-llm-site-bridge",
+  "claim_created_at": "2026-08-06T20:06:00-05:00",
+  "claim_expires_at": "2026-08-06T22:06:00-05:00",
+  "owned_paths": [
+    "va-claims-chat.html",
+    "assets/va-claims-chat-runtime.js",
+    "api/va-claim-assistant/runtime-projection.json",
+    "scripts/validate_va_claims_chat_llm_bridge.py",
+    ".github/workflows/va-claims-chat-llm-bridge.yml",
+    "data/tasks/SITE-VA-COORDINATED-LLM-BRIDGE-002.json",
+    "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
+  ],
+  "collision_boundaries": [
+    "Do not modify StegVerse-org/LLM-adapter provider execution files or issue #18 Ecosystem Chat execution lane.",
+    "Do not mark the runtime projection active without a receipt-verified deployed VA runtime and end-to-end evidence.",
+    "Do not expose private document upload or private retrieval during this goal.",
+    "Do not make provider authority, VA authority, filing, signature, submission, adjudication, rating, representation, or medical-opinion claims."
+  ],
+  "expected_evidence": [
+    "Browser chat loads a machine-readable runtime projection.",
+    "Inactive or invalid projection cannot call a governed endpoint.",
+    "Active projection requires activation state VERIFIED, an HTTPS endpoint, runtime receipt hash, and evidence references.",
+    "Guided-card help remains local while general claims questions route to the bridge when active.",
+    "Deterministic validator and hosted workflow reject activation regressions."
+  ],
+  "release_condition": "Implementation and hosted validation pass; task then releases as IMPLEMENTED_PENDING_RUNTIME_ACTIVATION until LLM-adapter#90 provides receipt-verified live runtime evidence.",
+  "next_task_after_release": "Site#113 binds the live VA runtime endpoint and receipt evidence, then performs a deployed Site-to-adapter-to-Site observation.",
+  "authority_effect": false,
+  "activation_effect": false
+}
