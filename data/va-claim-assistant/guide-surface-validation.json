@@ -4,20 +4,28 @@
   "automated_filing_enabled": false,
   "capability_state": "SOURCE_GROUNDED_ACTIVE",
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
-  "design_contract": "PRIMARY_CHECKLIST_PLUS_FOCUSED_HELP",
+  "design_contract": "PRIMARY_CHECKLIST_PLUS_INLINE_READINESS_AND_FOCUSED_HELP",
   "errors": [],
   "focused_steps": 6,
+  "inline_help_steps": [
+    1,
+    2
+  ],
   "primary_steps": 6,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "cf9b45d59ce68830b3509a309b8e2804c566c87b271e77fa411e2e8df0b2f7d8",
-  "schema_version": "2.1.0",
+  "receipt_sha256": "7348384411d7308411a8e738b110f3a42e7baa946bc5253a86ab6cffbd6b0dc0",
+  "schema_version": "2.2.0",
   "shared_progress_key": "vaClaimsStepStateV1",
   "state": "PASS",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
+  "step_2_done_requires": [
+    "account_created",
+    "va_login_success"
+  ],
   "surface_sha256": {
-    "va-claims-chat.html": "da1148e5c17ffa681c0c5b4d23ea69fbfaa75425abd5b0b83fb66193d02b0f53",
+    "va-claims-chat.html": "a48efc812a32b65b3874944a1f94db810e32271c986f93777839a842137c1dc8",
     "va-claims-guided-workflow.html": "f2278d5ffd2888568af2737d4c0728b23a5b01af0e5e661f207b424f41214408",
-    "va-disability-claim-guide.html": "1005a1ce2def58679a3ab85a823c919ca54fbc5d9e0c1b2b27aca5e650e4d633"
+    "va-disability-claim-guide.html": "86aab77abb4a15f334e9744eb399353f487166aaa4ac4d40e1f15e7068b57b45"
   },
   "surfaces": [
     "va-disability-claim-guide.html",
