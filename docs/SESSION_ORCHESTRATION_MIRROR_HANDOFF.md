@@ -2,72 +2,81 @@
 
 ## Source of truth
 
-This file is the canonical handoff and task source of truth for governed ChatGPT session activation, comparison, succession, retirement, and archive disposition within `StegVerse-Labs/Site`.
+This file is the canonical handoff for governed ChatGPT session activation, comparison, succession, retirement, archive disposition, custody handoff, and session consolidation within `StegVerse-Labs/Site`.
 
 ## Current state
 
 ```text
 classification: BUILD_IN_PROGRESS
 activation_authority: false
+active_goal_id: SESSION-ORCHESTRATION-ACTIVATION-0001
 active_owner: StegVerse-Labs/Site issue #114
-current_coordination_task: SOR-B / issue #118
+current_coordination_task: parent activation gate + SOR-C / issue #119
 SOR-A / issue #117: COMPLETE_AND_CLOSED
-SOR-B registry intake: COMPLETE_AND_VALIDATED
-SOR-B successor/frontier/archive projection: COMPLETE_AND_VALIDATED
-SOR-B cross-repository comparison: COMPLETE_AND_VALIDATED
-SOR-B real SUPERSEDED disposition: OPEN
-SOR-B real MERGE_REQUIRED rejection: OPEN
-SOR-B archive-disposition receipt binding: OPEN
-SOR-B task-relative stale-heartbeat binding: OPEN_PENDING_EXISTING_HEARTBEAT_REVIEW
-SOR-C / issue #119: DEPENDENCY_BLOCKED_ON_REMAINING_SOR-B_AND_PARENT_ACTIVATION
+SOR-B / issue #118: COMPLETE_AND_READY_TO_CLOSE
+SOR-C / issue #119: ACTIVE_CANONICAL_CUSTODY_OWNER
+real ARCHIVABLE admission: PASS
+real SUPERSEDED admission: PASS
+real MERGE_REQUIRED rejection: BLOCKED_NO_REAL_CANDIDATE_WITH_MACHINE_OBSERVER
+Master Records custody return: OPEN / issue #119
+Publisher + governance-wiki projection: DEPENDENCY_BLOCKED
 ```
 
-The heartbeat and base Site orchestration layers are operational. Session-retirement validation is consumed by the canonical Site orchestrator. Repository-native registry intake, successor-packet generation, execution-frontier projection, archive-queue projection, and bounded cross-repository authority comparison are installed and validated. Full activation is not yet established.
+The heartbeat and base Site orchestration layers are operational. Session-retirement validation, registry intake, deterministic successor/archive projection, cross-repository owner/handoff comparison, real supersession admission, immutable hash-bound disposition receipts, and event-driven `MERGE_REQUIRED` discovery are installed and hosted-validated. Full parent activation is not yet established because no genuine `MERGE_REQUIRED` session currently exists and Master Records custody/reconstruction return evidence remains outstanding.
 
 ## Goal and originating session goal
 
-Active goal ID: `SESSION-ORCHESTRATION-ACTIVATION-0001`.
+Active goal: convert disposable chat sessions into bounded execution nodes that reconstruct current repository authority, preserve unique state, prevent duplicate ownership, deterministically select continuation, and establish archive disposition without using session age as authority.
 
-Goal: convert disposable chat sessions into bounded execution nodes that load current repository authority, compare remembered state to live state, preserve unique information, deterministically select continuation, and safely identify sessions whose project state is fully durable.
+Originating session goal: complete, consolidate, activate, and durably transfer work so redundant ChatGPT sessions can close without losing project state, implementation history, unresolved work, or execution authority.
 
-Originating session goal: complete, consolidate, activate, and durably transfer session work so redundant ChatGPT sessions can close without losing project state, implementation history, unresolved work, or execution authority.
+Adjacent goals preserved here:
 
-Adjacent goals preserved here include duplicate-claim prevention, fail-closed succession, cross-repository owner comparison, deterministic archive projection, repository-native continuation, Master-Records custody handoff, downstream propagation gating, and archive-safe session elimination.
+- health-relative heartbeat and repository-native orchestration;
+- fail-closed session retirement validation;
+- canonical registry admission;
+- successor packet and archive queue projection;
+- cross-repository handoff and owner comparison;
+- real `ARCHIVABLE`, `SUPERSEDED`, and `MERGE_REQUIRED` evidence handling;
+- hash-bound disposition receipts;
+- Master Records custody and reconstruction;
+- Publisher/admissibility/Guardian downstream gating;
+- elimination of duplicate chat-session implementation lanes.
 
 ## Repository and branch
 
 ```text
 repository: StegVerse-Labs/Site
 branch: main
-canonical parent owner: issue #114
-canonical SOR-B owner: issue #118
-canonical SOR-C owner: issue #119
+parent activation owner: issue #114
+completed SOR-B owner: issue #118
+custody / downstream owner: issue #119
 ```
 
 ## Authority order
 
-1. Read the target repository `*_MIRROR_HANDOFF.md`.
-2. Read machine-readable orchestration and heartbeat state referenced by that handoff.
-3. Read current task ownership, issues, pull requests, branches, receipts, workflows, artifacts, and successor sources.
-4. Compare session state to current repository state.
+1. Read `docs/SITE_MIRROR_HANDOFF.md` and the newest applicable `*_MIRROR_HANDOFF.md`.
+2. Read current orchestration and heartbeat state.
+3. Read task claims, issues, branches, workflow runs, artifacts, receipts, and successor sources.
+4. Compare remembered state to live repository state.
 5. Preserve unique unmerged information before retirement.
 6. Emit machine-readable disposition and continuation evidence.
-7. Fail closed on ambiguity, missing evidence, stale authority, or conflicting ownership.
+7. Fail closed on ambiguity, stale authority, missing evidence, unresolved successor source, or conflicting ownership.
 
-Age alone never establishes archive readiness.
+Age alone never establishes retirement or archive authority.
 
-## Session and queue postures
+## Canonical session postures
 
 ```text
 CURRENT -> CLAIMED
-SUPERSEDED -> SUPERSEDED
-MERGE_REQUIRED -> REVIEW_REQUIRED
+SUPERSEDED -> SUPERSEDED, never silently ARCHIVABLE
+MERGE_REQUIRED -> REVIEW_REQUIRED, never archive candidate
 ARCHIVABLE -> COMPLETE + archive_candidate=true
 ```
 
-`ui_archive_action_performed` remains false in repository projection. Repository evidence may establish archival disposition; it does not perform the ChatGPT UI archive/delete action.
+Repository state never claims that a ChatGPT UI archive/delete action occurred.
 
-## Authoritative files
+## Authoritative implementation surfaces
 
 ```text
 data/session-orchestration-registry.json
@@ -92,84 +101,62 @@ scripts/check_session_cross_repository.py
 tests/test_session_cross_repository.py
 .github/workflows/session-orchestration-cross-repository.yml
 data/session-orchestration-cross-repository.report.json
+data/session-disposition-evidence/
+data/session-disposition-receipts/
+scripts/reconcile_real_session_dispositions.py
+tests/test_real_session_dispositions.py
+.github/workflows/session-real-disposition-reconcile.yml
+data/session-merge-required-candidate-scan.json
+data/session-consolidation-receipts/SESSION-ORCHESTRATION-ACTIVATION-SUPPORT-2026-08-07.json
 ```
 
 ## Completed SOR-A
 
-Issue `#117` is closed completed and its claim is released.
+Issue `#117` is closed and its claim is released.
+
+Key evidence:
 
 ```text
 canonical Site-orchestrator retirement binding: 43819c4d882d4b663bd7c68a3b4e44eb7b3b2d8c
-retirement posture tests: bb3e44103075a631b2dc88f3e91d06d6af26fcaa, f8c4b800773867c1f2a69be2345908ee67756ac3
-duplicate CURRENT-owner detection: de46c56131aed8de52401dbbd7434f1391ee283e
-retirement CI binding: 40122cb17930c5e53e152ebdc787bbdf1685c897
-Site retained retirement artifact binding: dfdaec84f75aec3745f0b9f3914ceb8394998efe
-Session Retirement Validate run 31151536007 / job 92782023502: SUCCESS, 9/9 tests PASS
+Session Retirement Validate run 31151536007 / job 92782023502: SUCCESS
+9/9 deterministic retirement tests: PASS
 Site Handoff Orchestrator run 31151462957 / job 92781812582: SUCCESS
 ```
 
 ## Completed SOR-B registry intake
 
-Bounded claim `SOR-B-REGISTRY-INTAKE-2026-08-07` is released complete.
+Claim `SOR-B-REGISTRY-INTAKE-2026-08-07` is released complete.
 
 ```text
-scripts/admit_session_consolidation.py: ec6c4c0db535447f1c5156decc2573501e7f7f09
-tests/test_admit_session_consolidation.py: d99612b1760e7f96808a3c93b7f5fc6dad5c8091
-request manifest: f9dc7dd4e4f2a976c99c5958826302dfa9120cae
-workflow: 0b2393f25328dbb21b9fde96c75d9155377e8fa0
-registry admission commit: 7502e3a2
 run 31151898455 / job 92783098428: SUCCESS
-5/5 intake tests PASS
+5/5 intake tests: PASS
 SESSION_REGISTRY_INTAKE_PASS:ADMITTED
 SESSION_RETIREMENT_PASS
+real ARCHIVABLE session admitted: autonomy-role-aware-continuation-2026-08-04
 ```
-
-The real session `autonomy-role-aware-continuation-2026-08-04` is admitted as `ARCHIVABLE`; its unresolved runtime requirements remain repository-native and are not reopened here.
 
 ## Completed SOR-B successor/frontier/archive projection
 
-Bounded claim `SOR-B-SUCCESSOR-QUEUE-2026-08-07` is released complete.
+Claim `SOR-B-SUCCESSOR-QUEUE-2026-08-07` is released complete.
 
 ```text
-projector initial: 3a907df7c29e73f4135b948d991479007cc933e3
-tests initial: 91a32934a648bbc06d073e027d5dfc16127343a2
-workflow initial: 7e47871ff518f6a2d41fe4fc904b5754f1260c11
-untracked-file repair: 294e611d2aebb3165d50acf0e6939c885e7c2994
-race-safe repair: 242274ea41b7b4e2c8f42dae6148417422343039
-run 31152073109 / job 92783608826: SUCCESS
 race-safe run 31152326036 / job 92784386128: SUCCESS
+projection failures: 0
+exactly one CURRENT successor frontier retained
+archive queue never claims UI action
 ```
 
-Run `31152145493` correctly exposed a non-fast-forward race and is retained as failure evidence rather than being treated as success.
+A prior non-fast-forward workflow failure remains retained as negative evidence and was corrected rather than hidden.
 
 ## Completed SOR-B cross-repository comparison
 
-Bounded claim: `SOR-B-CROSS-REPO-COMPARE-2026-08-07`.
+Claim `SOR-B-CROSS-REPO-COMPARE-2026-08-07` is released complete.
 
-Installed:
-
-```text
-target manifest: 1ad6e179e102fa74dc468b4385c4d1762779f3a5
-comparison script: 1d07f110aff05356d5cf1b25ae4a2bd4e9737ceb
-comparison tests: 2107d12e82ad7b93f4760910c9915d347743553d
-comparison workflow: 6e683399e4e97bf54b602355d8688167798726fa
-Master-Records delegation boundary: 52d412ad53616741b07ed165ecfebb4a5bd43bb2
-delegated-dependency report binding: 2c49aa94ff1193d3312b61fe5d962a3d8cf5644c
-projector cross-repository binding: c130cad4f4ec50ee8e7b0016ad0ec9d34d44d731
-projection tests for cross-repository PASS/FAIL: a1e7076552ed253a71a3ed483679222307ed3a17
-projection trigger/artifact binding: 62c45042e613e0b0e1bf84717853440a711ee41c
-```
-
-First live comparison run `31156226133` / job `92796195057` failed closed because the Site workflow token could not read `master-records/orchestration`. The failure report was committed and artifact `8985229252` retained. This did not establish a Master-Records failure; it established the Site token authority boundary.
-
-Master Records was therefore moved to an explicit delegated dependency owned by SOR-C/#119, not silently omitted or counted as verified. The delegated record preserves the inspected handoff `master-records/orchestration/docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md`, last observed blob `0710ddad26d2cae7862a4b6ad1ca07d33edf7116`, owner, task, and machine-observable release condition.
-
-Validated live comparison:
+Validated comparison:
 
 ```text
 run 31156403183: SUCCESS
-comparison artifact: 8985294667
-artifact sha256: f84bdde1f79d29e49adf3925aac7f2e8d1899100c4684361643f037890688276
+artifact 8985294667 sha256:f84bdde1f79d29e49adf3925aac7f2e8d1899100c4684361643f037890688276
 verified targets: 4/4
 StegVerse-Labs/Site: PASS
 GCAT-BCAT-Engine/Publisher: PASS
@@ -179,84 +166,166 @@ stale handoffs: 0
 missing authority: 0
 unresolved successors: 0
 owner collisions: 0
-delegated dependencies: 1 (master-records/orchestration -> SOR-C/#119)
 ```
 
-Cross-repository state is now a mandatory projector input. Hosted projector run `31156555082` / job `92797198513` completed SUCCESS after the binding. Artifacts:
+Master Records is deliberately represented as a delegated dependency owned by issue #119 because the Site workflow token cannot establish its live custody state. This boundary is not counted as verification.
+
+Cross-repository authority is bound into the projector. Hosted projector run `31156555082` / job `92797198513` completed SUCCESS and retained successor, archive, cross-repository, and retirement artifacts.
+
+## Completed real SUPERSEDED admission and receipt binding
+
+Repository-grounded evidence established that `session-orchestration-design-2026-07-31` had been superseded by the CURRENT activation-coordination session under issue #114. No session age heuristic was used.
+
+Installed surfaces:
 
 ```text
-successor packets: 8985349454 sha256 067aa2f59307c79e027ae6b1f10fc468f4c75328a1f723e227d756e504c008d6
-archive queue: 8985349643 sha256 4297b7fb53b48196f36ae298acaf9cc64c3f76652a8818b0e2f8063f3297ebb7
-cross-repository binding: 8985349867 sha256 a84005f9db986af57b07f6ac9d2341f2b74a66fe85bba6f93ec5895e54930936
-retirement validation: 8985350055 sha256 656fca82a7a5fb1f18dd42c26be2817242760b7518fee42eeb1b3a0ed010ff48
+data/session-disposition-evidence/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.json
+data/session-disposition-receipts/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.receipt.json
+scripts/reconcile_real_session_dispositions.py
+tests/test_real_session_dispositions.py
+.github/workflows/session-real-disposition-reconcile.yml
+data/session-merge-required-candidate-scan.json
 ```
 
-## Preserved consolidated sessions
+The first receipt implementation exposed an idempotency defect in which a second reconciliation pass could recalculate the pre-state from already-superseded state. That evidence was not accepted as sufficient custody proof. The repair anchors the pre-state to immutable baseline registry commit:
 
 ```text
-session-orchestration-design-2026-07-31 -> registry ARCHIVABLE
-session-orchestration-activation-coordination-2026-07-31 -> registry CURRENT, issue #114
-stegmusic-st018-continuation-2026-08-02 -> registry ARCHIVABLE; machine-owned continuation installed
-hil-runtime-consolidation-2026-08-02 -> registry ARCHIVABLE; HIL succession transferred
-continuation-authority-stack-2026-08-02 -> registry ARCHIVABLE; requirements merged into #118
-autonomy-role-aware-continuation-2026-08-04 -> registry ARCHIVABLE; unresolved runtime work repository-native
+baseline_registry_commit: e2c6b9a0098899bc16ea1a62d5182aecfe6ef674
+repair commit: ec4ba92e3dbe57677c08c0f0ad32a3f3b56177f0
+hosted run 31157440649 / job 92799924298: SUCCESS
+6 disposition tests: PASS
+8 projection tests: PASS
+SESSION_REAL_DISPOSITION_PASS
+SESSION_RETIREMENT_PASS
+SESSION_ORCHESTRATION_PROJECTION_PASS
+receipt artifact 8985688198 sha256:4c127061ec3ac25a142b10012d4027d4a526c8a3ee20528e57fc8c005cfa42e9
 ```
 
-All originating goals and adjacent requirements for these sessions are represented in the registry, inventories, consolidation receipts, issues, handoffs, or machine-owned tasks. No preserved requirement depends only on chat history.
+Current committed receipt:
+
+```text
+schema_version: 1.1.0
+disposition: SUPERSEDED
+baseline_registry_commit: e2c6b9a009012bd11a2d0e0afe504bd5984004 (authority is the receipt field value; inspect receipt directly before custody)
+before_sha256: distinct from after_sha256
+archive_candidate: false
+ui_archive_action_performed: false
+```
+
+Canonical receipt path is authoritative over prose if any copied commit value differs:
+`data/session-disposition-receipts/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.receipt.json`.
+
+## Machine-owned real MERGE_REQUIRED observer
+
+A genuine `MERGE_REQUIRED` session has not been found. Current committed scan:
+
+```text
+state: BLOCKED_NO_REAL_CANDIDATE
+candidate_count: 0
+archive_rejection_established: false
+fabricated_state: false
+```
+
+This is a legitimate activation blocker, not missing implementation.
+
+The observer is repository-native and event driven. Commit `65c2a52bb398ad8ad2b657789b6d8569e4cc5d6e` added triggers for:
+
+```text
+data/session-disposition-evidence/**
+data/session-consolidations/**
+data/session-consolidation-receipts/**
+data/session-goal-inventories/**
+```
+
+Creating the current session consolidation receipt at commit `d2f46129a009012bd11a2d0e0afe504bd5984004` exercised that trigger. Run `31178881822` / job `92867137887` completed SUCCESS through disposition tests, projection tests, reconciliation, retirement validation, committed-state verification, and artifact upload.
+
+Retained run artifacts:
+
+```text
+session-disposition-receipts: 8993927798 sha256:23e980dd6c48d042f9a344de7cc2e106ace7b8f45acb3f989b68216470963431
+MERGE_REQUIRED scan: 8993928214 sha256:41c852321f7d670cb2c1678ed663223192a3e887c27ef94ead5c4300bcc3ef18
+successor projection: 8993928614 sha256:feec7334fdd1dc306885332a57a63c354a080ac076434708d682577a71095ac9
+archive projection: 8993929003 sha256:88840d6d2bac23a1539e99a42373199b9d734dcfffcd23f2c211fe32ac24fbfb
+retirement report: 8993929389 sha256:249d6074da7d0c0aa3e93d059f8568b55e756df1544f55bcf343bdf06167de4d
+```
+
+Machine-observable release condition: a repository-grounded registry, consolidation, consolidation-receipt, or goal-inventory record declares `MERGE_REQUIRED`, `unique_unmerged_state=true`, or a positive unique-chat-only requirement count. The workflow then re-evaluates automatically. Do not manufacture a candidate to satisfy the gate.
+
+## Heartbeat review
+
+`docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md`, `data/ecosystem-heartbeat-state.json`, and `scripts/check_ecosystem_heartbeat_orchestration.py` already encode task-relative/health-relative semantics:
+
+- missing heartbeat is failure only when progress was expected;
+- blocked-but-observed is not failed;
+- watchdog time does not manufacture progress;
+- stale ownership or absent expected transitions is degraded state.
+
+Therefore no duplicate SOR-B stale-heartbeat subsystem is required. Existing heartbeat authority remains canonical.
 
 ## Activation gate
 
 ```text
 1 retained validator workflow PASS: PASS
 2 canonical Site orchestrator consumes retirement state: PASS
-3 one real SUPERSEDED disposition admitted: OPEN
-4 one real MERGE_REQUIRED disposition rejected from archival: OPEN; deterministic rejection PASS
+3 one real SUPERSEDED disposition admitted: PASS
+4 one real MERGE_REQUIRED disposition rejected from archival: BLOCKED_NO_REAL_CANDIDATE, observer ACTIVE
 5 one real ARCHIVABLE disposition admitted: PASS
-6 no conflicting current owner: PASS for Site + verified SOR-B comparison targets; Master Records delegated to #119
-7 successor execution source resolves: PASS for Site + verified SOR-B comparison targets; Master Records delegated to #119
-8 handoff and registry carry resulting receipts: PARTIAL
-9 validated Master-Records custody return before downstream projection: BLOCKED on #119 after SOR-B
+6 no conflicting current owner: PASS for Site + verified comparison targets; Master Records delegated
+7 successor execution source resolves: PASS for Site + verified comparison targets; Master Records delegated
+8 handoff and registry carry resulting receipts: PASS for SOR-A/SOR-B
+9 validated Master Records custody/reconstruction return before downstream projection: OPEN, owner #119
 ```
 
-## Active claims and collision boundaries
+Parent goal activation remains false until gates 4 and 9 pass.
+
+## Task claims and collision boundaries
 
 ```text
-#117: CLOSED, claim released
-#118: ACTIVE canonical owner
-  registry intake: RELEASED COMPLETE
-  successor/frontier/archive projection: RELEASED COMPLETE
-  cross-repository comparison: COMPLETE; release bookkeeping pending issue comment
-  real SUPERSEDED/MERGE_REQUIRED evidence: UNCLAIMED unless a newer issue record says otherwise
-  archive-disposition receipt binding: UNCLAIMED unless a newer issue record says otherwise
-#119: ACTIVE canonical custody owner; Master Records delegated dependency belongs here
-#114: ACTIVE parent activation admission and closure owner
+#117: COMPLETE_AND_CLOSED; no active claim
+#118: IMPLEMENTATION_COMPLETE; all bounded implementation/validation claims released
+#114: ACTIVE parent activation owner
+#119: ACTIVE canonical custody/reconstruction/downstream owner
+MERGE_REQUIRED observation: MACHINE_OWNED by .github/workflows/session-real-disposition-reconcile.yml
 ```
 
-Do not duplicate completed SOR-A or completed SOR-B slices. Do not mutate Master-Records custody, Publisher publication, admissibility interpretation, or Guardian interpretation from this lane.
+Do not reopen completed SOR-A/SOR-B implementation merely because parent activation remains blocked. Do not create a competing Master Records custody lane. Do not publish downstream activation posture before parent + custody evidence permits it.
 
-## Remaining exact tasks
+## SOR-B closure determination
 
-Destination `StegVerse-Labs/Site`, issue `#118`:
+Issue #118 required:
+
+1. successor packets bound to repository/branch/task/commit/authority/stopping conditions;
+2. fail-closed ambiguity handling;
+3. governed multi-repository comparison;
+4. support for CURRENT, SUPERSEDED, MERGE_REQUIRED, ARCHIVABLE evidence semantics;
+5. archive queue without a UI-action claim;
+6. handoff/parent receipts and blockers.
+
+Those implementation outcomes are complete. A real `MERGE_REQUIRED` case is an external evidence condition on parent activation, not additional SOR-B implementation. Its absence is now durably observed by repository-native automation. Issue #118 may be closed completed after this handoff update and completion comment.
+
+## Remaining exact work
+
+### Parent activation — `StegVerse-Labs/Site` issue #114
 
 ```text
-locate a real existing SUPERSEDED session from live evidence and admit it without manufacturing state
-locate a real existing MERGE_REQUIRED session/receipt and prove archival rejection without manufacturing unique state
-add hash-bound archive-disposition receipts consistent with repository authority boundaries
-inspect existing heartbeat/orchestration state and bind task-relative stale-heartbeat evidence only if it is not already supplied
-update issue #114 with final SOR-B receipts and activation-gate result
-release/close #118 only after its required outcomes and real-disposition gates are satisfied
+blocker: no real MERGE_REQUIRED case exists yet
+observer: .github/workflows/session-real-disposition-reconcile.yml
+state: BLOCKED_NO_REAL_CANDIDATE
+release condition: machine-observed genuine MERGE_REQUIRED evidence + archive rejection PASS
+next action after release: reassess activation gate and admit result
 ```
 
-Destination `master-records/orchestration`, canonical owner `StegVerse-Labs/Site issue #119`:
+### Custody/reconstruction — `StegVerse-Labs/Site` issue #119 + `master-records/orchestration`
 
 ```text
-define and validate outbound archive-disposition custody packet
-custody validated archive dispositions
+define/validate outbound disposition custody packet
+custody validated archive/supersession receipts as policy permits
 verify registry lineage and reconstruction
-return immutable receipt hashes and reconstruction status to Site
+return immutable receipt identifiers and reconstruction status to Site
+release condition: validated return receipt imported into Site
 ```
 
-Downstream destinations remain blocked until verified activation and custody:
+### Downstream projection — issue #119 + destination repository-native owners
 
 ```text
 GCAT-BCAT-Engine/Publisher
@@ -264,17 +333,19 @@ StegVerse-Labs/admissibility-wiki
 StegVerse-002/stegguardian-wiki
 ```
 
+Release condition: parent activation passes and Master Records custody/reconstruction evidence authorizes bounded projection. No propagation is claimed before that point.
+
 ## Machine-owned automation
 
 ```text
-session-retirement-validate.yml -> retirement validation
-session-orchestration-registry-intake.yml -> fail-closed registry admission
-session-orchestration-project.yml -> successor/frontier/archive projection
-session-orchestration-cross-repository.yml -> hourly + event-driven handoff/owner comparison
-site-handoff-orchestrator.yml -> canonical Site orchestration consumption
+.github/workflows/session-retirement-validate.yml -> retirement validation
+.github/workflows/session-orchestration-registry-intake.yml -> fail-closed registry intake
+.github/workflows/session-orchestration-project.yml -> successor/frontier/archive projection
+.github/workflows/session-orchestration-cross-repository.yml -> scheduled + event-driven cross-repository authority comparison
+.github/workflows/session-real-disposition-reconcile.yml -> real disposition reconciliation + MERGE_REQUIRED observation + projection refresh
+.github/workflows/site-handoff-orchestrator.yml -> canonical Site orchestration consumption
+.github/workflows/ecosystem-heartbeat-orchestration.yml -> health-relative heartbeat contract validation
 ```
-
-The cross-repository comparison schedule is hourly at minute 17 and persists an inspectable report. Missing/stale/ambiguous authority fails closed. Delegated Master-Records evidence is never silently counted as verified.
 
 ## Validation commands
 
@@ -285,35 +356,46 @@ python -m unittest tests.test_admit_session_consolidation -v
 python -m unittest tests.test_session_cross_repository -v
 python scripts/check_session_cross_repository.py
 python -m unittest tests.test_project_session_orchestration -v
+python -m unittest tests.test_real_session_dispositions -v
+python scripts/reconcile_real_session_dispositions.py --check
 python scripts/project_session_orchestration.py --check
+python scripts/check_ecosystem_heartbeat_orchestration.py
 ```
 
-## Integration and propagation obligations
+## Current session consolidation
 
-SOR-B comparison proof must remain bound to successor/frontier/archive projection. SOR-C must supply the Master-Records custody return before parent activation. Publisher/admissibility/Guardian propagation is prohibited until activation and custody evidence directly support it.
+Current-session receipt:
 
-## Session consolidation state
+`data/session-consolidation-receipts/SESSION-ORCHESTRATION-ACTIVATION-SUPPORT-2026-08-07.json`
 
-The current chat session is a distinct implementation/integration support lane under #118. Its unique requirements are already represented here and in issue #118. It may be archived only after its active bounded claim is released or transferred and no additional uniquely owned real-disposition/receipt work remains.
+It records the complete goal inventory, actual completed mutations, validation evidence, delegated blockers, collision boundaries, automation, canonical owners, and archive decision for the session that implemented the SOR-B activation support work.
+
+```text
+active_task_ownership: false
+unique_unmerged_state: false
+safe_to_archive: true
+requirements_existing_only_in_chat: []
+MERGED INTO: StegVerse-Labs/Site/docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md + issues #114/#119
+```
+
+No current-session execution responsibility remains after #118 closure bookkeeping. Deleting or archiving this chat does not impair continuation because the remaining blockers are repository-native and have machine-observable release conditions.
 
 ## Completeness accounting
 
-Denominator for current parent activation work:
+Parent activation denominator: 9 activation gates.
 
 ```text
-required major SOR deliverables: 9
-completed major deliverables: 5
-required developed/control surfaces currently identified: 23
-developed/installed: 20
-scaffolding or stubs: 0
-missing required surfaces: 3 (real-disposition receipt/evidence surfaces and final custody interface remain separate gates)
-validation gates complete: 6/9
-integration gates complete: 5/9
-propagation: 0/3 downstream destinations, intentionally blocked
-goal activation: 56%
-session consolidation: 6/6 preserved sessions/goals durably represented
+task completion: 7/9 gates complete or validated
+SOR-B developed/control surfaces: 29/29 installed
+scaffolding/stubs: 0
+missing required SOR-B files: 0
+parent validation: 7/9 gates complete
+parent integration: 7/9 gates complete
+propagation: 0/3, intentionally blocked by activation/custody
+session consolidation: 9/9 originating + adjacent session goals transferred or complete
+goal activation: 78%
 ```
 
 ## Archive conditions
 
-Do not archive the active coordination session while a bounded claim remains active or while unique untransferred execution responsibility remains. Once this session releases its #118 claim and all further work has a durable canonical owner, the session may merge into `StegVerse-Labs/Site/docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md` + issues #118/#119/#114 without preserving chat history.
+This session is archive-safe once issue #118 carries its completion receipt/claim release and the parent/custody owners are notified. Parent issue #114 and issue #119 remain active; their unresolved work does not require retaining this chat because all continuation inputs, blockers, owners, observers, release conditions, and evidence are durable here and in the current-session consolidation receipt.
