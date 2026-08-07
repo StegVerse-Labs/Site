@@ -6,7 +6,8 @@
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
-    "TIDC-SPLIT-AI-001"
+    "TIDC-SPLIT-AI-001",
+    "SITE-0002-CHILD-SAFETY-DEMO"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-CHILD-SAFE-NETWORKING",
@@ -14,6 +15,7 @@
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
     "SITE-0001-UPLOAD",
+    "SITE-0002-CHILD-SAFETY-DEMO",
     "SITE-ST018-VALIDATION-EVIDENCE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-AI-001",
@@ -24,6 +26,7 @@
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
+    "SITE-0002-CHILD-SAFETY-DEMO",
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
@@ -56,6 +59,15 @@
       "state": "BLOCKED_UNADDRESSABLE_TASK",
       "task_location": "data/tasks/TIDC-SPLIT-AI-001.json",
       "reason": "active task has no committed repository-local task object"
+    },
+    {
+      "task_id": "SITE-0002-CHILD-SAFETY-DEMO",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json",
+      "validator_command": "python scripts/check_child_safety_demo.py",
+      "success_marker": "CHILD_SAFETY_DEMO=PASS",
+      "success_marker_seen": true,
+      "output": "CHILD_SAFETY_DEMO=PASS\nAGE_POLICY=JURISDICTION_AWARE\nNETWORK_REQUESTS=NONE\nPERSONAL_DATA_RETENTION=NONE\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY"
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
@@ -109,6 +121,7 @@
     }
   ],
   "completed_tasks": [
+    "SITE-0002-CHILD-SAFETY-DEMO",
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",

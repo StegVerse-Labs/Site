@@ -56,7 +56,8 @@
       "SITE-0001-PERSONAL-DATA-CONTROL",
       "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
       "SITE-0001-GENERATED-STEGPAY-PROPAGATION-IMPORT",
-      "SITE-0001-CHILD-SAFE-NETWORKING"
+      "SITE-0001-CHILD-SAFE-NETWORKING",
+      "SITE-0002-CHILD-SAFETY-DEMO"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -75,7 +76,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "SITE-0002-CHILD-SAFETY-DEMO"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
