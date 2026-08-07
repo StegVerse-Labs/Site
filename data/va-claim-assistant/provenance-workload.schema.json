@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/provenance-workload.schema.json",
+  "title": "VACC Provenance and Workload Reduction Contract",
+  "type": "object",
+  "required": ["schema_version", "actor", "artifact", "workload", "privacy", "authority_effect", "activation_effect"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "actor": {
+      "type": "object",
+      "required": ["actor_class", "organization_context", "appointed_representative_ref"],
+      "properties": {
+        "actor_class": {"enum": ["veteran_self_service", "accredited_vso", "accredited_agent", "accredited_attorney", "government_service_office", "nonprofit", "commercial_provider", "unknown"]},
+        "organization_context": {"type": ["string", "null"]},
+        "appointed_representative_ref": {"type": ["string", "null"]},
+        "accreditation_claimed": {"type": ["boolean", "null"]},
+        "accreditation_verified": {"type": ["boolean", "null"]},
+        "accreditation_evidence_ref": {"type": ["string", "null"]},
+        "fee_disclosed": {"type": ["boolean", "null"]},
+        "fee_context": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["artifact_id", "sha256", "vacc_generation_event_ref", "evidence_refs", "source_hash_refs", "human_modification_refs", "provider_modification_refs", "veteran_authorization_ref"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "vacc_generation_event_ref": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "source_hash_refs": {"type": "array", "items": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+        "human_modification_refs": {"type": "array", "items": {"type": "string"}},
+        "provider_modification_refs": {"type": "array", "items": {"type": "string"}},
+        "veteran_authorization_ref": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "workload": {
+      "type": "object",
+      "required": ["human_review_seconds", "machine_processing_seconds", "documents_processed", "pages_processed", "relevant_evidence_surfaced", "omissions_detected", "citation_coverage_ratio", "corrections_before_packet", "time_to_packet_ready_seconds", "workflow_completion_state", "paid_intermediary_used"],
+      "properties": {
+        "human_review_seconds": {"type": "integer", "minimum": 0},
+        "machine_processing_seconds": {"type": "number", "minimum": 0},
+        "documents_processed": {"type": "integer", "minimum": 0},
+        "pages_processed": {"type": "integer", "minimum": 0},
+        "relevant_evidence_surfaced": {"type": "integer", "minimum": 0},
+        "omissions_detected": {"type": "integer", "minimum": 0},
+        "citation_coverage_ratio": {"type": "number", "minimum": 0, "maximum": 1},
+        "corrections_before_packet": {"type": "integer", "minimum": 0},
+        "time_to_packet_ready_seconds": {"type": ["integer", "null"], "minimum": 0},
+        "workflow_completion_state": {"enum": ["IN_PROGRESS", "PACKET_READY", "SUBMITTED", "BLOCKED", "ABANDONED"]},
+        "paid_intermediary_used": {"type": ["boolean", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "privacy": {
+      "type": "object",
+      "required": ["contains_direct_pii", "aggregate_reporting_allowed", "award_percentage_optimization_allowed"],
+      "properties": {
+        "contains_direct_pii": {"const": false},
+        "aggregate_reporting_allowed": {"type": "boolean"},
+        "award_percentage_optimization_allowed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "authority_effect": {"const": false},
+    "activation_effect": {"const": false}
+  },
+  "additionalProperties": false
+}
