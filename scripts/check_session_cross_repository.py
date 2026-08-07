@@ -79,8 +79,12 @@ def evaluate(config: dict[str, Any], fetcher: Fetcher = default_fetcher) -> dict
     failures: list[str] = []
     target_rows: list[dict[str, Any]] = []
     targets = config.get("targets", [])
+    delegated_dependencies = config.get("delegated_dependencies", [])
     if len(targets) < 2:
         failures.append("INSUFFICIENT_TARGETS: comparison requires at least two governed repositories")
+    if not isinstance(delegated_dependencies, list):
+        failures.append("INVALID_DELEGATED_DEPENDENCIES: delegated_dependencies must be a list")
+        delegated_dependencies = []
 
     seen_repositories: set[str] = set()
     active_scopes: dict[str, list[tuple[str, str]]] = {}
@@ -221,18 +225,20 @@ def evaluate(config: dict[str, Any], fetcher: Fetcher = default_fetcher) -> dict
         "source_targets": "data/session-orchestration-cross-repository-targets.json",
         "policy": config.get("policy", {}),
         "targets": target_rows,
+        "delegated_dependencies": delegated_dependencies,
         "owner_collisions": collisions,
         "summary": {
             "target_count": len(target_rows),
             "passing_targets": sum(1 for row in target_rows if row.get("status") == "PASS"),
             "active_claim_scope_count": len(active_scopes),
+            "delegated_dependency_count": len(delegated_dependencies),
             "stale_handoff_count": stale_count,
             "missing_authority_count": missing_authority_count,
             "unresolved_successor_count": unresolved_successor_count,
             "owner_collision_count": len(collisions),
         },
         "next_action": (
-            "use the verified handoff and owner comparison as bounded succession evidence"
+            "use the verified handoff and owner comparison as bounded succession evidence while preserving delegated dependency boundaries"
             if not failures
             else "review stale, missing, unresolved, or conflicting authority before succession or archival"
         ),
