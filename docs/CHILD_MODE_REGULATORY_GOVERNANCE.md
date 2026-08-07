@@ -242,7 +242,7 @@ This is a living comparison record. When laws, proposed laws, regulator guidance
 
 ## Boundary change record
 
-Append-only history, rendered newest-first in descending chronological order.
+Append-only. Append-only history is rendered newest-first in descending chronological order.
 
 ### 2026-08-07 — Delivery and device-operation models
 
