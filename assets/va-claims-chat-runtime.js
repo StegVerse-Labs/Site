@@ -2,6 +2,7 @@
   const PROJECTION_URL='api/va-claim-assistant/runtime-projection.json';
   let projection=null;
   let ready=false;
+  let generalMode=false;
 
   function isSha256(value){return typeof value==='string'&&/^[a-f0-9]{64}$/i.test(value)}
   function isHttps(value){try{const u=new URL(value);return u.protocol==='https:'}catch{return false}}
@@ -16,6 +17,14 @@
       p.filing_active===false&&p.authority_effect===false&&p.activation_effect===false;
   }
 
+  function status(){return {ready,projection,mode:ready?'COORDINATED_VA_RESOURCES_LLM':'LOCAL_PROCEDURAL_FALLBACK'}}
+
+  function updateCapabilityLabel(){
+    const el=document.querySelector('#chat .state');
+    if(!el)return;
+    el.textContent=ready?'Current capability: COORDINATED VA RESOURCES LLM':'Current capability: SOURCE-GROUNDED PROCEDURAL HELP';
+  }
+
   async function init(){
     try{
       const res=await fetch(PROJECTION_URL,{cache:'no-store',credentials:'omit'});
@@ -25,11 +34,10 @@
     }catch{
       projection=null;ready=false;
     }
+    updateCapabilityLabel();
     window.dispatchEvent(new CustomEvent('va-claims-runtime-state',{detail:status()}));
     return status();
   }
-
-  function status(){return {ready,projection,mode:ready?'COORDINATED_VA_RESOURCES_LLM':'LOCAL_PROCEDURAL_FALLBACK'}}
 
   function id(prefix){
     if(globalThis.crypto&&crypto.randomUUID)return prefix+crypto.randomUUID();
@@ -62,9 +70,7 @@
     sessionStorage.setItem('vaClaimsRuntimeSession',payload.session_id);
     try{
       const res=await fetch(projection.endpoint,{
-        method:'POST',
-        mode:'cors',
-        credentials:'omit',
+        method:'POST',mode:'cors',credentials:'omit',
         headers:{'Content-Type':'application/json','X-SteGVerse-Session':payload.session_id},
         body:JSON.stringify(payload)
       });
@@ -74,11 +80,40 @@
       const text=body.response||body.answer||body.text;
       if(typeof text!=='string'||!text.trim())return {used:false,reason:'runtime_response_missing'};
       return {used:true,text:text.trim(),record:body};
-    }catch{
-      return {used:false,reason:'runtime_unreachable'};
-    }
+    }catch{return {used:false,reason:'runtime_unreachable'}}
+  }
+
+  function addMessage(kind,text){
+    const log=document.getElementById('log');if(!log)return;
+    const d=document.createElement('div');d.className='msg '+kind;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;
+  }
+
+  async function interceptGeneralQuestion(event){
+    if(!generalMode||!ready)return;
+    const input=document.getElementById('question');
+    if(!input||!input.value.trim())return;
+    event.preventDefault();event.stopImmediatePropagation();
+    const q=input.value.trim();input.value='';addMessage('user',q);addMessage('bot','Checking current admitted VA resources…');
+    const pending=document.querySelector('#log .bot:last-child');
+    const result=await ask(q);
+    if(pending)pending.remove();
+    if(result.used){addMessage('bot',result.text);return}
+    addMessage('bot','The coordinated VA resource service is unavailable right now. No private records were sent. Please use the guided steps or try again later.');
+  }
+
+  function bind(){
+    const questions=document.getElementById('questions');
+    const guided=document.getElementById('guided');
+    const send=document.getElementById('send');
+    const input=document.getElementById('question');
+    if(questions)questions.addEventListener('click',()=>{generalMode=true},true);
+    if(guided)guided.addEventListener('click',()=>{generalMode=false},true);
+    if(send)send.addEventListener('click',interceptGeneralQuestion,true);
+    if(input)input.addEventListener('keydown',e=>{if(e.key==='Enter')interceptGeneralQuestion(e)},true);
+    updateCapabilityLabel();
   }
 
   window.VAClaimsRuntimeBridge={init,status,ask,validActiveProjection};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
   init();
 })();
