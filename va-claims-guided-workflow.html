@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Focused help for one selected VA claims instruction step.">
+<meta name="description" content="Focused help for one selected VA medical-record instruction step.">
 <title>VA Claims Walkthrough — StegVerse</title>
 <link rel="stylesheet" href="sv-shared.css">
 <style>
-.walkthrough{max-width:760px;margin:0 auto}.card{display:none;background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:18px;margin:18px 0}.card.active{display:block}.count{color:var(--muted);font-weight:800}.card h1{font-size:clamp(1.8rem,7vw,3rem);margin:.25rem 0 1rem}.visual{margin:14px 0}.visual img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:14px;background:#0b1220}.visual figcaption{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.do{font-size:1.3rem;font-weight:900;margin:16px 0}.help-box{border-left:4px solid #315a8a;padding:10px 14px;margin:14px 0}.done{display:flex;align-items:center;gap:10px;padding:14px;border:1px solid #1f6f43;border-radius:12px;font-weight:900}.done input{width:26px;height:26px}.actions{display:grid;gap:10px;margin-top:18px}.actions a{width:100%;text-align:center}.status{font-weight:900;color:#75e6a7}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:680px){.actions{grid-template-columns:1fr 1fr}}
+.walkthrough{max-width:760px;margin:0 auto}.card{display:none;background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:18px;margin:18px 0}.card.active{display:block}.count{color:var(--muted);font-weight:800}.card h1{font-size:clamp(1.8rem,7vw,3rem);margin:.25rem 0 1rem}.visual{margin:14px 0}.visual img{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:14px;background:#0b1220}.visual figcaption{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.do{font-size:1.3rem;font-weight:900;margin:16px 0}.help-box{border-left:4px solid #315a8a;padding:10px 14px;margin:14px 0}.warning{border-left-color:#d97706;background:rgba(217,119,6,.08)}.steps{padding-left:1.3rem}.steps li{margin:8px 0;line-height:1.45}.done{display:flex;align-items:center;gap:10px;padding:14px;border:1px solid #1f6f43;border-radius:12px;font-weight:900}.done input{width:26px;height:26px}.actions{display:grid;gap:10px;margin-top:18px}.actions a{width:100%;text-align:center}.status{font-weight:900;color:#75e6a7}.muted{color:var(--muted);font-size:.95rem}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(min-width:680px){.actions{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -15,18 +15,65 @@
 <div class="sv-wrap walkthrough">
 <p id="step-count" class="count" aria-live="polite">Step 1 of 6</p>
 
-<section class="card active" data-card="1"><h1>Get these three things</h1><figure class="visual"><img src="assets/va-claims-guided/card-1-get-ready.svg" alt="Email, phone, and photo identification." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure><p class="do">Email · Phone · Photo ID</p><div class="help-box">Your phone must receive a call, text, or security code. Use a government photo ID.</div><label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p></section>
-<section class="card" data-card="2"><h1>Choose your sign-in</h1><figure class="visual"><img src="assets/va-claims-guided/card-2-choose-sign-in.svg" alt="Choose Login.gov or ID.me." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure><p class="do">Use Login.gov or ID.me</p><div class="help-box">Already have one? Use it. Have neither? Start with Login.gov.</div><div class="actions"><a class="sv-btn sv-btn-secondary" href="https://secure.login.gov/sign_up/enter_email" rel="noopener">Open Login.gov</a><a class="sv-btn sv-btn-secondary" href="https://www.id.me/individuals/group-discounts/va" rel="noopener">Open ID.me</a></div><label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p></section>
-<section class="card" data-card="3"><h1>Finish your sign-in</h1><figure class="visual"><img src="assets/va-claims-guided/card-3-create-account.svg" alt="Verify email, create password, and finish security setup." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure><p class="do">Follow the screen prompts</p><div class="help-box">Do not share your password or security code.</div><label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p></section>
-<section class="card" data-card="4"><h1>Open your VA records</h1><figure class="visual"><img src="assets/va-claims-guided/card-4-sign-in-va.svg" alt="Open VA.gov medical records and sign in." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure><p class="do">Open VA records</p><div class="help-box">Choose the same sign-in service you used before.</div><div class="actions"><a class="sv-btn sv-btn-primary" href="https://www.va.gov/my-health/medical-records/download" rel="noopener">Open VA records</a></div><label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p></section>
-<section class="card" data-card="5"><h1>Download all records</h1><figure class="visual"><img src="assets/va-claims-guided/card-5-download-records.svg" alt="Select all dates and records, then download." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure><p class="do">All time · Select all · Download</p><div class="help-box">Look in Files → Recents. Keep the downloaded original unchanged.</div><label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p></section>
-<section class="card" data-card="6"><h1>Keep the original safe</h1><figure class="visual"><img src="assets/va-claims-guided/card-6-preserve-continue.svg" alt="Keep the original file and make a separate working copy." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure><p class="do">Original stays unchanged</p><div class="help-box">Do not post sensitive records publicly. Use a copy for later work.</div><label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p></section>
+<section class="card active" data-card="1">
+<h1>Get ready</h1>
+<figure class="visual"><img src="assets/va-claims-guided/card-1-get-ready.svg" alt="Email, smartphone, and government photo identification." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure>
+<p class="do">Have all 3 before you continue.</p>
+<ul class="steps"><li>An email address you can open now, such as example@example.com.</li><li>A smartphone that can use Wi-Fi or cellular data and open a browser.</li><li>A government-issued photo ID, such as a driver’s license, state-issued photo ID, or U.S. passport book.</li></ul>
+<div class="help-box">The email is used during Login.gov or ID.me account setup. Keep the phone and ID with you while creating the account.</div>
+<label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p>
+</section>
+
+<section class="card" data-card="2">
+<h1>Create your VA.gov sign-in account</h1>
+<figure class="visual"><img src="assets/va-claims-guided/card-2-choose-sign-in.svg" alt="Start at VA.gov, choose Login.gov or ID.me, create the account, then sign in to VA.gov." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure>
+<ol class="steps"><li>Open the VA.gov sign-in page.</li><li>Choose Login.gov or ID.me.</li><li>If you do not already have that account, choose Create account.</li><li>Use your email address and follow the provider’s instructions.</li><li>Open the confirmation email and follow its link or instructions to finish the account.</li><li>Return to VA.gov and sign in successfully.</li></ol>
+<div class="actions"><a class="sv-btn sv-btn-primary" href="https://www.va.gov/sign-in/" target="_blank" rel="noopener noreferrer">Open VA.gov Sign In</a></div>
+<div class="help-box">Login.gov and ID.me are different sign-in providers. VA.gov accepts either one. Start at VA.gov so you do not have to guess which provider page to visit.</div>
+<label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p>
+</section>
+
+<section class="card" data-card="3">
+<h1>Open the VA medical-record download page</h1>
+<figure class="visual"><img src="assets/va-claims-guided/card-3-create-account.svg" alt="Use a browser or the VA Health and Benefits app to reach the VA medical-record download page." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure>
+<p class="do">Browser is simplest. The app is an alternate path.</p>
+<div class="actions"><a class="sv-btn sv-btn-primary" href="https://www.va.gov/my-health/medical-records/download" target="_blank" rel="noopener noreferrer">Open VA medical-record download page</a><a class="sv-btn sv-btn-secondary" href="https://mobile.va.gov/app/va-health-and-benefits" target="_blank" rel="noopener noreferrer">Get VA Health and Benefits app</a></div>
+<div class="help-box"><strong>Browser:</strong> open the VA.gov link and sign in with Login.gov or ID.me.<br><br><strong>App:</strong> sign in, open <strong>Health</strong>, then <strong>Medical records</strong>. If the app shows <strong>Review medical records on VA.gov</strong>, select it and continue to the option for downloading your medical-record reports. If the wording is different or you cannot find it, use the direct browser link above.</div>
+<label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p>
+</section>
+
+<section class="card" data-card="4">
+<h1>Download all available medical records</h1>
+<figure class="visual"><img src="assets/va-claims-guided/card-5-download-records.svg" alt="Choose all time, all records, PDF or TXT, then download the report." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure>
+<p class="do">At the Blue Button / download page:</p>
+<ol class="steps"><li><strong>Date range:</strong> All time.</li><li><strong>Types of records to include:</strong> All.</li><li><strong>File type:</strong> PDF or TXT.</li><li>Select <strong>Download report</strong>.</li></ol>
+<div class="help-box">PDF and TXT are both acceptable for this workflow. Do not continue until the report has actually downloaded.</div>
+<label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p>
+</section>
+
+<section class="card" data-card="5">
+<h1>Find the downloaded file</h1>
+<figure class="visual"><img src="assets/va-claims-guided/card-6-preserve-continue.svg" alt="Locate the downloaded PDF or TXT file on the device." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure>
+<p class="do">Find the actual PDF or TXT on your phone.</p>
+<div class="help-box">If you used the browser, look in your phone’s <strong>Downloads</strong> folder. On iPhone, open <strong>Files</strong>; on Android, open <strong>Files</strong> or <strong>Downloads</strong>.</div>
+<div class="help-box warning">If you used the VA app and cannot find the file, go back to the direct VA.gov browser link in Step 3 and download the report again through the browser. Do not continue until the file is visible on your device.</div>
+<label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p>
+</section>
+
+<section class="card" data-card="6">
+<h1>Submit the file to VA Claims Chat</h1>
+<figure class="visual"><img src="assets/va-claims-guided/card-4-sign-in-va.svg" alt="Continue from the downloaded file to VA Claims Chat." width="960" height="300"><figcaption>Simplified illustration, not exact screenshot.</figcaption></figure>
+<p class="do">Open VA Claims Chat and follow its document instructions.</p>
+<div class="actions"><a class="sv-btn sv-btn-primary" href="va-claims-chat.html">Open VA Claims Chat</a></div>
+<div class="help-box warning">Upload the medical-record file only if VA Claims Chat presents an active secure file-upload control. If the page says private document upload is not active, do not paste medical records into the text box. Stop at that boundary and follow the instructions shown there.</div>
+<label class="done"><input type="checkbox"> Mark step DONE</label><p class="status"></p>
+</section>
 
 <div class="actions"><a id="return-link" class="sv-btn sv-btn-secondary" href="va-disability-claim-guide.html">Return to Instruction Page</a><a id="continue-help" class="sv-btn sv-btn-primary" href="va-claims-chat.html?guided=1&amp;card=1">Continue with help me complete this</a></div>
-<div class="sr-only">Official pages can change. Do not post sensitive records publicly.</div>
+<div class="sr-only">Official VA pages and app wording can change. Never enter passwords, one-time security codes, or medical records in a normal public text field.</div>
 </div>
 <script>
-(()=>{const KEY='vaClaimsStepStateV1',cards=[...document.querySelectorAll('.card[data-card]')],params=new URLSearchParams(location.search);function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}function save(state){localStorage.setItem(KEY,JSON.stringify(state))}const requested=Number(params.get('step'));const state=load();let current=requested>=1&&requested<=cards.length?requested:Number(Object.keys(state).find(k=>!state[k]))||1;if(current<1||current>cards.length)current=1;function paint(){const live=load();cards.forEach(card=>{const active=Number(card.dataset.card)===current;card.classList.toggle('active',active);if(active){const box=card.querySelector('input[type=checkbox]');box.checked=Boolean(live[current]);card.querySelector('.status').textContent=live[current]?'DONE ✓':'Not done'}});document.getElementById('step-count').textContent='Step '+current+' of '+cards.length;document.getElementById('return-link').href='va-disability-claim-guide.html#step-'+current;document.getElementById('continue-help').href='va-claims-chat.html?guided=1&card='+current}cards.forEach(card=>card.querySelector('input').addEventListener('change',event=>{const live=load();live[card.dataset.card]=event.target.checked;save(live);paint()}));paint()})();
+(()=>{const KEY='vaClaimsStepStateV1',cards=[...document.querySelectorAll('.card[data-card]')],params=new URLSearchParams(location.search);function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return{}}}function save(state){localStorage.setItem(KEY,JSON.stringify(state))}const requested=Number(params.get('step'));const state=load();let current=requested>=1&&requested<=cards.length?requested:Number(Object.keys(state).find(k=>/^[1-6]$/.test(k)&&!state[k]))||1;if(current<1||current>cards.length)current=1;function paint(){const live=load();cards.forEach(card=>{const active=Number(card.dataset.card)===current;card.classList.toggle('active',active);if(active){const box=card.querySelector('input[type=checkbox]');box.checked=Boolean(live[current]);card.querySelector('.status').textContent=live[current]?'DONE ✓':'Not done'}});document.getElementById('step-count').textContent='Step '+current+' of '+cards.length;document.getElementById('return-link').href='va-disability-claim-guide.html#step-'+current;document.getElementById('continue-help').href='va-claims-chat.html?guided=1&card='+current}cards.forEach(card=>card.querySelector('input').addEventListener('change',event=>{const live=load();live[card.dataset.card]=event.target.checked;save(live);paint()}));paint()})();
 </script>
 </body>
 </html>
