@@ -38,7 +38,8 @@
       "TIDC-ADJ-NET-001-DATES",
       "TIDC-SPLIT-NET-002",
       "TIDC-SPLIT-AI-001",
-      "SITE-0006-CHILD-MODE-DELIVERY-OPERATION"
+      "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
+      "SITE-0007-CHILD-MODE-DATA-AUTHORITY"
     ],
     "completed_parallel_safe_tasks": [
       "SITE-0001-HEARTBEAT",
@@ -60,14 +61,15 @@
       "SITE-0001-CHILD-SAFE-NETWORKING",
       "SITE-0002-CHILD-SAFETY-DEMO",
       "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
-      "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY"
+      "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
+      "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 11,
-      "blocker_count": 11,
+      "active_task_count": 12,
+      "blocker_count": 12,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -80,7 +82,8 @@
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
       "admitted_tasks": [
-        "SITE-0006-CHILD-MODE-DELIVERY-OPERATION"
+        "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
+        "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT"
       ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
