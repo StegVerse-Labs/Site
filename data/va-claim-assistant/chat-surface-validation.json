@@ -5,6 +5,7 @@
   "capability_state": "SOURCE_GROUNDED_ACTIVE",
   "current_capability": "SOURCE_GROUNDED_ASSISTANT",
   "errors": [
+    "missing_page_token:SOURCE_GROUNDED_ASSISTANT",
     "missing_page_token:Upload documents \u2014 not yet active",
     "missing_page_token:Prepare or file claim \u2014 not yet active",
     "missing_page_token:Veteran confirms every material fact",
@@ -14,9 +15,9 @@
     "document_upload_control_must_be_disabled",
     "filing_control_must_be_disabled"
   ],
-  "page_sha256": "da1148e5c17ffa681c0c5b4d23ea69fbfaa75425abd5b0b83fb66193d02b0f53",
+  "page_sha256": "a48efc812a32b65b3874944a1f94db810e32271c986f93777839a842137c1dc8",
   "private_document_upload_enabled": false,
-  "receipt_sha256": "1c5a0ed6e2666ed17e26a4e3aaab83de7eff4bea6fef5f0efb6753446a1ebd83",
+  "receipt_sha256": "ea18adb4af2f68898ccf07b36bbad33ec4a89a6b8e2f0c723e24a8ee22d265fd",
   "schema_version": "1.0.0",
   "state": "FAIL",
   "state_sha256": "2d689fbbd2a5f8f2833fbd32427ccd8ca784486e2fce4efd379f3e303bdb7857",
