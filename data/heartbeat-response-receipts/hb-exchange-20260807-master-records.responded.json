@@ -1,0 +1,15 @@
+{
+  "authority": {"activation": false, "custody": false, "execution": false, "publication": false, "release": false},
+  "classification": {"action_admitted": false, "node_state": "RESPONSIVE", "primary": "CAPABILITY", "return_to": "StegVerse-Labs", "supported_detail_classes": ["MEMORY","ACTION","AWARENESS","AUTHORITY","EVIDENCE","BLOCKER","CAPABILITY","CONTEXT"]},
+  "destination_org": "master-records",
+  "detail_class": "CAPABILITY",
+  "exchange_id": "hb-exchange-20260807-master-records",
+  "message_id": "hb-bootstrap-20260807-master-records-responded",
+  "node_org": "master-records",
+  "observed_at": "2026-08-07T15:14:51.055708Z",
+  "observed_message_sha256": "cd1480c815e60a14dbbbcb402d656319ba334f9d064a0c8b998b002b7c9ce4d2",
+  "parent_receipt_sha256": "7da23820a6728fe913914a9393dd2296b7a79ffa49a41cb1c950cad31022d8cb",
+  "schema_version": "1.0.0",
+  "source_org": "StegVerse-Labs",
+  "stage": "RESPONDED"
+}
