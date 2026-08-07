@@ -13,13 +13,14 @@ active_goal_id: SESSION-ORCHESTRATION-ACTIVATION-0001
 active_owner: StegVerse-Labs/Site issue #114
 current_coordination_task: parent activation gate + SOR-C / issue #119
 SOR-A / issue #117: COMPLETE_AND_CLOSED
-SOR-B / issue #118: COMPLETE_AND_READY_TO_CLOSE
+SOR-B / issue #118: COMPLETE_AND_CLOSED
 SOR-C / issue #119: ACTIVE_CANONICAL_CUSTODY_OWNER
 real ARCHIVABLE admission: PASS
 real SUPERSEDED admission: PASS
 real MERGE_REQUIRED rejection: BLOCKED_NO_REAL_CANDIDATE_WITH_MACHINE_OBSERVER
 Master Records custody return: OPEN / issue #119
 Publisher + governance-wiki projection: DEPENDENCY_BLOCKED
+current support session: ARCHIVE_READY
 ```
 
 The heartbeat and base Site orchestration layers are operational. Session-retirement validation, registry intake, deterministic successor/archive projection, cross-repository owner/handoff comparison, real supersession admission, immutable hash-bound disposition receipts, and event-driven `MERGE_REQUIRED` discovery are installed and hosted-validated. Full parent activation is not yet established because no genuine `MERGE_REQUIRED` session currently exists and Master Records custody/reconstruction return evidence remains outstanding.
@@ -49,7 +50,7 @@ Adjacent goals preserved here:
 repository: StegVerse-Labs/Site
 branch: main
 parent activation owner: issue #114
-completed SOR-B owner: issue #118
+completed SOR-B owner record: issue #118
 custody / downstream owner: issue #119
 ```
 
@@ -113,8 +114,6 @@ data/session-consolidation-receipts/SESSION-ORCHESTRATION-ACTIVATION-SUPPORT-202
 ## Completed SOR-A
 
 Issue `#117` is closed and its claim is released.
-
-Key evidence:
 
 ```text
 canonical Site-orchestrator retirement binding: 43819c4d882d4b663bd7c68a3b4e44eb7b3b2d8c
@@ -283,15 +282,16 @@ Parent goal activation remains false until gates 4 and 9 pass.
 
 ```text
 #117: COMPLETE_AND_CLOSED; no active claim
-#118: IMPLEMENTATION_COMPLETE; all bounded implementation/validation claims released
+#118: COMPLETE_AND_CLOSED; all bounded implementation/validation claims released
 #114: ACTIVE parent activation owner
 #119: ACTIVE canonical custody/reconstruction/downstream owner
 MERGE_REQUIRED observation: MACHINE_OWNED by .github/workflows/session-real-disposition-reconcile.yml
+current support session: MERGED_INTO_CANONICAL_WORKSTREAM / no active claim
 ```
 
 Do not reopen completed SOR-A/SOR-B implementation merely because parent activation remains blocked. Do not create a competing Master Records custody lane. Do not publish downstream activation posture before parent + custody evidence permits it.
 
-## SOR-B closure determination
+## SOR-B closure evidence
 
 Issue #118 required:
 
@@ -302,7 +302,7 @@ Issue #118 required:
 5. archive queue without a UI-action claim;
 6. handoff/parent receipts and blockers.
 
-Those implementation outcomes are complete. A real `MERGE_REQUIRED` case is an evidence condition on parent activation, not additional SOR-B implementation. Its absence is now durably observed by repository-native automation. Issue #118 may be closed completed after this handoff update and completion comment.
+Those outcomes are complete. Completion comment: issue #118 comment `5217157089`. Issue #118 closed completed at 2026-08-07T12:39:42Z. A real `MERGE_REQUIRED` case is an evidence condition on parent activation, not additional SOR-B implementation. Its absence is durably observed by repository-native automation.
 
 ## Remaining exact work
 
@@ -316,6 +316,8 @@ release condition: machine-observed genuine MERGE_REQUIRED evidence + archive re
 next action after release: reassess activation gate and admit result
 ```
 
+Parent transfer comment: issue #114 comment `5217161468`.
+
 ### Custody/reconstruction — `StegVerse-Labs/Site` issue #119 + `master-records/orchestration`
 
 ```text
@@ -325,6 +327,8 @@ verify registry lineage and reconstruction
 return immutable receipt identifiers and reconstruction status to Site
 release condition: validated return receipt imported into Site
 ```
+
+SOR-C dependency transfer comment: issue #119 comment `5217163324`.
 
 ### Downstream projection — issue #119 + destination repository-native owners
 
@@ -369,17 +373,17 @@ Current-session receipt:
 
 `data/session-consolidation-receipts/SESSION-ORCHESTRATION-ACTIVATION-SUPPORT-2026-08-07.json`
 
-It records the complete goal inventory, actual completed mutations, validation evidence, delegated blockers, collision boundaries, automation, canonical owners, and archive decision for the session that implemented the SOR-B activation support work.
+It records the complete goal inventory, completed mutations, validation evidence, delegated blockers, collision boundaries, automation, canonical owners, and archive decision for the session that implemented the SOR-B activation support work.
 
 ```text
 active_task_ownership: false
 unique_unmerged_state: false
 safe_to_archive: true
 requirements_existing_only_in_chat: []
-MERGED INTO: StegVerse-Labs/Site/docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md + issues #114/#119
+MERGED INTO: StegVerse-Labs/Site/docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md + issue #114 + issue #119
 ```
 
-No current-session execution responsibility remains after #118 closure bookkeeping. Deleting or archiving this chat does not impair continuation because the remaining blockers are repository-native and have machine-observable release conditions.
+No current-session execution responsibility remains. Deleting or archiving this chat does not impair continuation because the remaining blockers are repository-native and have machine-observable release conditions.
 
 ## Completeness accounting
 
@@ -395,8 +399,9 @@ parent integration: 7/9 gates complete
 propagation: 0/3, intentionally blocked by activation/custody
 session consolidation: 9/9 originating + adjacent session goals transferred or complete
 goal activation: 78%
+current-session archival readiness: 100%
 ```
 
 ## Archive conditions
 
-This session is archive-safe once issue #118 carries its completion receipt/claim release and the parent/custody owners are notified. Parent issue #114 and issue #119 remain active; their unresolved work does not require retaining this chat because all continuation inputs, blockers, owners, observers, release conditions, and evidence are durable here and in the current-session consolidation receipt.
+`session-orchestration-activation-support-2026-08-07` is archive-ready. Its SOR-B claims are released, issue #118 is closed, parent #114 and custody #119 are notified, all unique requirements and evidence are durable, and all unresolved dependencies have named repository-native owners and machine-observable release conditions. This chat is not required for any further implementation, validation, integration, propagation, reconciliation, or observation.
