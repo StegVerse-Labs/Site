@@ -6,8 +6,11 @@ on:
     branches: [main]
     paths:
       - "data/ecosystem-heartbeat-response-network.json"
+      - "data/heartbeat-response-adapter-targets.json"
+      - "data/heartbeat-response-outbox/**"
       - "data/heartbeat-response-receipts/**"
       - "schemas/heartbeat-response-envelope.schema.json"
+      - "schemas/heartbeat-response-receipt.schema.json"
       - "scripts/check_heartbeat_response_network.py"
       - "tests/test_heartbeat_response_network.py"
       - ".github/workflows/heartbeat-response-network.yml"
@@ -39,5 +42,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: heartbeat-response-network-state
-          path: data/ecosystem-heartbeat-response-network.json
+          path: |
+            data/ecosystem-heartbeat-response-network.json
+            data/heartbeat-response-adapter-targets.json
+            data/heartbeat-response-outbox/bootstrap-2026-08-07.json
           if-no-files-found: error
