@@ -6,8 +6,8 @@
   "heartbeat_model": "TRANSITION_DRIVEN",
   "time_role": "WATCHDOG_AND_RETRY_ONLY",
   "authority_rule": "heartbeat receipt or response never grants execution, activation, publication, custody, or release authority",
-  "organization_inventory_source": "user-supplied GitHub organization dashboard screenshots, 2026-08-07",
-  "organization_count": 15,
+  "organization_inventory_source": "user-supplied GitHub organization dashboard screenshots, 2026-08-07; StegVerse personal account explicitly excluded from organization denominator",
+  "organization_count": 14,
   "lifecycle": ["SENT", "RECEIVED", "RESPONDED", "RECOVERED", "REPEAT"],
   "failure_states": ["BLOCKED", "FAILED", "REVIEW_REQUIRED"],
   "detail_classes": ["MEMORY", "ACTION", "AWARENESS", "AUTHORITY", "EVIDENCE", "BLOCKER", "CAPABILITY", "CONTEXT"],
@@ -35,7 +35,6 @@
     "causality_key": "parent_message_id"
   },
   "organizations": [
-    {"organization":"StegVerse","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
     {"organization":"AaCT-E","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
     {"organization":"Admissible-Existence","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
     {"organization":"AdmittedCode","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"},
@@ -52,13 +51,13 @@
     {"organization":"Triad-Test","protocol_state":"PENDING_ADAPTER","receive_state":"UNVERIFIED","respond_state":"UNVERIFIED"}
   ],
   "coverage": {
-    "organizations_registered": 15,
+    "organizations_registered": 14,
     "organizations_protocol_installed": 5,
     "organizations_receive_verified": 0,
     "organizations_respond_verified": 0,
     "organizations_recovery_verified": 0,
     "registered_percent": 100.0,
-    "protocol_installed_percent": 33.33,
+    "protocol_installed_percent": 35.71,
     "receive_verified_percent": 0.0,
     "respond_verified_percent": 0.0,
     "recovery_verified_percent": 0.0
