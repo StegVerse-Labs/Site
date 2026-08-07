@@ -90,7 +90,7 @@ jobs:
       - name: Persist validation receipt
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
-          if git diff --quiet -- data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json; then
+          if [ -z "$(git status --porcelain -- data/va-claim-assistant/vacc-goal3-contract-suite-validation-receipt.json)" ]; then
             echo 'Validation receipt unchanged.'
             exit 0
           fi
