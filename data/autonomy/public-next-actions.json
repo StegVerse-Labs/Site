@@ -900,7 +900,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/StegSports-CFP",
       "repository_role": "UNCLASSIFIED",
-      "status": "AUTOMATIC_RETRY"
+      "status": "READY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -1035,6 +1035,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-07T06:02:33Z",
+  "generated_at": "2026-08-07T07:57:00Z",
   "schema_version": "1.1"
 }
