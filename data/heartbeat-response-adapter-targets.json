@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "owner": "StegVerse-Labs/Site issue #234",
+  "organization_count": 14,
+  "targets": [
+    {"organization":"AaCT-E","repository":"AaCT-E/telemetry","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization telemetry repository is explicitly for cross-org signal monitoring"},
+    {"organization":"Admissible-Existence","repository":"Admissible-Existence/.github","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization-level public control surface"},
+    {"organization":"AdmittedCode","repository":"AdmittedCode/.github","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization-level public control surface"},
+    {"organization":"Data-Continuation","repository":"Data-Continuation/core-lite","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization core processing hub"},
+    {"organization":"ECAT-ICAT-Formal","repository":null,"visibility":null,"state":"BLOCKED_NO_REPOSITORY","release_condition":"GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter"},
+    {"organization":"formalism-tests","repository":"formalism-tests/core-lite","visibility":"public","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization core services repository"},
+    {"organization":"GCAT-BCAT-Engine","repository":"GCAT-BCAT-Engine/Publisher","visibility":"public","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat owner"},
+    {"organization":"Infrastructure-Continuity-Ventures","repository":null,"visibility":null,"state":"BLOCKED_NO_REPOSITORY","release_condition":"GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter"},
+    {"organization":"master-records","repository":"master-records/orchestration","visibility":"private_or_token_bound","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat/custody owner"},
+    {"organization":"StegGhost","repository":"StegGhost/telemetry","visibility":"private","state":"READY_FOR_ADAPTER_INSTALL","reason":"organization telemetry repository is explicitly for cross-org signal monitoring"},
+    {"organization":"StegVerse-002","repository":"StegVerse-002/stegguardian-wiki","visibility":"public","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat owner"},
+    {"organization":"StegVerse-Labs","repository":"StegVerse-Labs/Site","visibility":"public","state":"EXISTING_HB_TARGET","reason":"canonical response-network owner and existing heartbeat owner"},
+    {"organization":"StegVerse-org","repository":"StegVerse-org/LLM-adapter","visibility":"public","state":"EXISTING_HB_TARGET","reason":"existing authoritative heartbeat/runtime owner"},
+    {"organization":"Triad-Test","repository":null,"visibility":null,"state":"BLOCKED_NO_REPOSITORY","release_condition":"GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter"}
+  ],
+  "counts": {
+    "existing_hb_targets": 5,
+    "ready_for_adapter_install": 6,
+    "blocked_no_repository": 3,
+    "reachable_or_existing": 11
+  }
+}
