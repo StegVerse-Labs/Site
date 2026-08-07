@@ -42,7 +42,7 @@ def main() -> int:
     for marker in (
         'id="step-1-email"','id="step-1-phone"','id="step-1-id"','example@example.com',
         'driver’s license','state-issued photo ID','U.S. passport book',
-        'https://www.va.gov/sign-in/','id="step-2-account-created"','id="step-2-va-login-success"','confirmation email',
+        'https://www.va.gov/sign-in/','id="step-2-account-created"','id="step-2-va-login-success"','confirming email',
         'https://www.va.gov/my-health/medical-records/download','https://mobile.va.gov/app/va-health-and-benefits',
         'Review medical records on VA.gov','All time','Types of records to include','PDF','TXT','Download report',
         'Downloads</strong> folder','Submit the file to VA Claims Chat','active secure document-upload control',
