@@ -8,8 +8,7 @@
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
     "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
-    "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
-    "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT"
+    "SITE-0007-CHILD-MODE-DATA-AUTHORITY"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-CHILD-SAFE-NETWORKING",
@@ -35,7 +34,6 @@
     "TIDC-SPLIT-AI-001",
     "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
     "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
-    "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
@@ -44,6 +42,7 @@
     "SITE-0002-CHILD-SAFETY-DEMO",
     "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
     "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
+    "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
     "SITE-ST018-VALIDATION-EVIDENCE"
   ],
   "ownership_reconciliations": [],
@@ -74,39 +73,30 @@
     },
     {
       "task_id": "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0006-CHILD-MODE-DELIVERY-OPERATION.json",
       "validator_command": "python scripts/check_child_safety_demo.py",
       "success_marker": "DELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
+      "success_marker_seen": true,
+      "output": "CHILD_SAFETY_DEMO=PASS\nMODE_TOGGLE=NORMAL_MODE_CHILD_MODE\nMODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION\nDELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE\nGUARDIAN_MODE_CHANGE=ACCOUNT_HOLDER_REAUTH_REQUIRED\nMANDATORY_AGE_FLOOR=NON_OVERRIDABLE_BY_OPTIONAL_TOGGLE\nBOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON\nBOUNDARY_CHANGE_RECORD=APPEND_ONLY\nBOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY\nAGE_POLICY=JURISDICTION_AWARE\nNETWORK_REQUESTS=NONE\nPERSONAL_DATA_RETENTION=NONE\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY"
     },
     {
       "task_id": "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0007-CHILD-MODE-DATA-AUTHORITY.json",
       "validator_command": "python scripts/check_child_mode_data_authority.py",
       "success_marker": "CHILD_MODE_DATA_AUTHORITY=PASS",
-      "success_marker_seen": false,
-      "output": "CHILD_MODE_DATA_AUTHORITY=FAIL\n- child-mode-data-protection.html missing marker: contacts / address book\n- child-mode-data-protection.html missing marker: Child Mode does not encode the claim that every person under 18 is legally incapable of every form of consent\n- child-mode-data-protection.html missing marker: guardian consent only authorizes the exact scoped purpose"
-    },
-    {
-      "task_id": "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/SITE-0008-CHILD-SAFETY-REGULATORY-PILOT.json",
-      "validator_command": "python scripts/check_child_safety_regulatory_pilot.py",
-      "success_marker": "CHILD_SAFETY_REGULATORY_PILOT=PASS",
       "success_marker_seen": true,
-      "output": "CHILD_SAFETY_REGULATORY_PILOT=PASS\nPILOT_AUTHORITY=REGULATOR_OR_LAWFUL_AUTHORIZATION_REQUIRED\nOPTIONAL_DATA_HARVESTING=ZERO_BY_DEFAULT\nENFORCEMENT_EVIDENCE=FIVE_LAYER\nFAIL_CLOSED=true\nREGULATOR_TESTABILITY=REQUIRED\nAUTHORITY_GRANTED=false"
+      "output": "CHILD_MODE_DATA_AUTHORITY=PASS\nOPTIONAL_DATA_HARVESTING=DENY_BY_DEFAULT\nCHILD_UI_CONSENT=NOT_SUFFICIENT_HARVESTING_AUTHORITY\nGUARDIAN_AUTHORIZATION=PURPOSE_SCOPED\nDEVICE_DATA_BOUNDARY=PROTECTED\nAUTHORITY_GRANTED=false"
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json",
       "validator_command": "python scripts/check_child_safe_networking.py",
       "success_marker": "CHILD_SAFE_NETWORKING=PASS",
       "success_marker_seen": true,
-      "output": "CHILD_SAFE_NETWORKING=FAIL\n- handoff missing marker: SITE-0001-CHILD-SAFE-NETWORKING\n- handoff missing marker: MERGED INTO:\n- handoff missing marker: PUBLIC_CONTENT_ONLY\n- handoff missing marker: CHILD_SAFE_NETWORKING=PASS"
+      "output": "CHILD_SAFE_NETWORKING=PASS\nDATA_HARVESTING_DEFAULT=OPTIONAL\nCHILD_NETWORKING_POSTURE=PRIVACY_FIRST\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_CONTENT_ONLY"
     },
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
@@ -146,30 +136,39 @@
     },
     {
       "task_id": "SITE-0002-CHILD-SAFETY-DEMO",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json",
       "validator_command": "python scripts/check_child_safety_demo.py",
       "success_marker": "CHILD_SAFETY_DEMO=PASS",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
+      "success_marker_seen": true,
+      "output": "CHILD_SAFETY_DEMO=PASS\nMODE_TOGGLE=NORMAL_MODE_CHILD_MODE\nMODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION\nDELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE\nGUARDIAN_MODE_CHANGE=ACCOUNT_HOLDER_REAUTH_REQUIRED\nMANDATORY_AGE_FLOOR=NON_OVERRIDABLE_BY_OPTIONAL_TOGGLE\nBOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON\nBOUNDARY_CHANGE_RECORD=APPEND_ONLY\nBOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY\nAGE_POLICY=JURISDICTION_AWARE\nNETWORK_REQUESTS=NONE\nPERSONAL_DATA_RETENTION=NONE\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY"
     },
     {
       "task_id": "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE.json",
       "validator_command": "python scripts/check_child_safety_demo.py",
       "success_marker": "MODE_TOGGLE=NORMAL_MODE_CHILD_MODE",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
+      "success_marker_seen": true,
+      "output": "CHILD_SAFETY_DEMO=PASS\nMODE_TOGGLE=NORMAL_MODE_CHILD_MODE\nMODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION\nDELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE\nGUARDIAN_MODE_CHANGE=ACCOUNT_HOLDER_REAUTH_REQUIRED\nMANDATORY_AGE_FLOOR=NON_OVERRIDABLE_BY_OPTIONAL_TOGGLE\nBOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON\nBOUNDARY_CHANGE_RECORD=APPEND_ONLY\nBOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY\nAGE_POLICY=JURISDICTION_AWARE\nNETWORK_REQUESTS=NONE\nPERSONAL_DATA_RETENTION=NONE\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY"
     },
     {
       "task_id": "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
-      "state": "VALIDATION_FAILED",
+      "state": "COMPLETE",
       "task_location": "data/tasks/SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY.json",
       "validator_command": "python scripts/check_child_safety_demo.py",
       "success_marker": "BOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
+      "success_marker_seen": true,
+      "output": "CHILD_SAFETY_DEMO=PASS\nMODE_TOGGLE=NORMAL_MODE_CHILD_MODE\nMODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION\nDELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE\nGUARDIAN_MODE_CHANGE=ACCOUNT_HOLDER_REAUTH_REQUIRED\nMANDATORY_AGE_FLOOR=NON_OVERRIDABLE_BY_OPTIONAL_TOGGLE\nBOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON\nBOUNDARY_CHANGE_RECORD=APPEND_ONLY\nBOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY\nAGE_POLICY=JURISDICTION_AWARE\nNETWORK_REQUESTS=NONE\nPERSONAL_DATA_RETENTION=NONE\nAUTHORITY_GRANTED=false\nACTIVATION_EFFECT=PUBLIC_INTERACTIVE_DEMO_ONLY"
+    },
+    {
+      "task_id": "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0008-CHILD-SAFETY-REGULATORY-PILOT.json",
+      "validator_command": "python scripts/check_child_safety_regulatory_pilot.py",
+      "success_marker": "CHILD_SAFETY_REGULATORY_PILOT=PASS",
+      "success_marker_seen": true,
+      "output": "CHILD_SAFETY_REGULATORY_PILOT=PASS\nPILOT_AUTHORITY=REGULATOR_OR_LAWFUL_AUTHORIZATION_REQUIRED\nOPTIONAL_DATA_HARVESTING=ZERO_BY_DEFAULT\nENFORCEMENT_EVIDENCE=FIVE_LAYER\nFAIL_CLOSED=true\nREGULATOR_TESTABILITY=REQUIRED\nAUTHORITY_GRANTED=false"
     },
     {
       "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
@@ -178,23 +177,23 @@
     }
   ],
   "completed_tasks": [
-    "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
+    "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
+    "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
+    "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
-    "SITE-0001-UPLOAD"
+    "SITE-0001-UPLOAD",
+    "SITE-0002-CHILD-SAFETY-DEMO",
+    "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
+    "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
+    "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT"
   ],
   "remaining_tasks": [
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
-    "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
-    "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-0002-CHILD-SAFETY-DEMO",
-    "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
-    "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
     "SITE-ST018-VALIDATION-EVIDENCE"
   ],
   "blockers": [
@@ -223,33 +222,6 @@
       "reason": "active task has no committed repository-local task object"
     },
     {
-      "task_id": "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0006-CHILD-MODE-DELIVERY-OPERATION.json",
-      "validator_command": "python scripts/check_child_safety_demo.py",
-      "success_marker": "DELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
-    },
-    {
-      "task_id": "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0007-CHILD-MODE-DATA-AUTHORITY.json",
-      "validator_command": "python scripts/check_child_mode_data_authority.py",
-      "success_marker": "CHILD_MODE_DATA_AUTHORITY=PASS",
-      "success_marker_seen": false,
-      "output": "CHILD_MODE_DATA_AUTHORITY=FAIL\n- child-mode-data-protection.html missing marker: contacts / address book\n- child-mode-data-protection.html missing marker: Child Mode does not encode the claim that every person under 18 is legally incapable of every form of consent\n- child-mode-data-protection.html missing marker: guardian consent only authorizes the exact scoped purpose"
-    },
-    {
-      "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json",
-      "validator_command": "python scripts/check_child_safe_networking.py",
-      "success_marker": "CHILD_SAFE_NETWORKING=PASS",
-      "success_marker_seen": true,
-      "output": "CHILD_SAFE_NETWORKING=FAIL\n- handoff missing marker: SITE-0001-CHILD-SAFE-NETWORKING\n- handoff missing marker: MERGED INTO:\n- handoff missing marker: PUBLIC_CONTENT_ONLY\n- handoff missing marker: CHILD_SAFE_NETWORKING=PASS"
-    },
-    {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
       "state": "VALIDATION_FAILED",
       "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json",
@@ -257,33 +229,6 @@
       "success_marker": "THRESHOLD_ESTABLISHED=true",
       "success_marker_seen": false,
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
-    },
-    {
-      "task_id": "SITE-0002-CHILD-SAFETY-DEMO",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json",
-      "validator_command": "python scripts/check_child_safety_demo.py",
-      "success_marker": "CHILD_SAFETY_DEMO=PASS",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
-    },
-    {
-      "task_id": "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE.json",
-      "validator_command": "python scripts/check_child_safety_demo.py",
-      "success_marker": "MODE_TOGGLE=NORMAL_MODE_CHILD_MODE",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
-    },
-    {
-      "task_id": "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
-      "state": "VALIDATION_FAILED",
-      "task_location": "data/tasks/SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY.json",
-      "validator_command": "python scripts/check_child_safety_demo.py",
-      "success_marker": "BOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY",
-      "success_marker_seen": false,
-      "output": "CHILD_SAFETY_DEMO=FAIL\n- missing regulatory marker: Append-only."
     },
     {
       "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
