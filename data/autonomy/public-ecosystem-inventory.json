@@ -5,11 +5,11 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-07T03:36:17Z",
+  "generated_at": "2026-08-07T06:02:33Z",
   "organizations": [
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 1,
       "organization": "StegVerse-Labs",
       "repository_count": 48
     },
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-07T03:27:17Z",
+      "pushed_at": "2026-08-07T05:50:56Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -1744,7 +1744,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-07T03:34:32Z",
+      "pushed_at": "2026-08-07T05:57:59Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -2129,8 +2129,11 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "objective-contract.json: HTTP 502"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2529,7 +2532,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-07T00:17:54Z",
+      "pushed_at": "2026-08-07T05:52:58Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2802,7 +2805,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-07T03:25:45Z",
+      "pushed_at": "2026-08-07T05:22:16Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
@@ -2849,7 +2852,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-07T00:29:56Z",
+      "pushed_at": "2026-08-07T03:37:44Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
