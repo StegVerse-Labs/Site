@@ -1,0 +1,42 @@
+name: Verify child safety public deployment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'child-safety-demo.html'
+      - 'children-safe-networking.html'
+      - 'scripts/check_child_safety_public_deployment.py'
+      - 'data/tasks/SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT.json'
+      - '.github/workflows/verify-child-safety-public-deployment.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '37 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: child-safety-public-deployment-verification
+  cancel-in-progress: true
+
+jobs:
+  verify-public-route:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify canonical public child-safety route
+        id: verify
+        continue-on-error: true
+        run: python scripts/check_child_safety_public_deployment.py
+      - name: Preserve exact deployment observation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: child-safety-public-deployment-observation
+          path: child-safety-public-deployment.report.json
+      - name: Fail closed until public route is verified
+        if: steps.verify.outcome != 'success'
+        run: |
+          echo 'Public child-safety demo is not yet verified.'
+          exit 1
