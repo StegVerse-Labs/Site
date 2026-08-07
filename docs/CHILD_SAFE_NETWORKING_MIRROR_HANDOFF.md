@@ -1,13 +1,13 @@
 # Child-Safe Networking Mirror Handoff
 
-This file is the current task source of truth for the governed child-safe networking communications projection in `StegVerse-Labs/Site`.
+This file is the current task source of truth for the governed child-safe networking projection in `StegVerse-Labs/Site`.
 
 ## Active goal and goal ID
 
 ```text
-Goal ID: SITE-0001-CHILD-SAFE-NETWORKING
-Goal: durably publish and machine-validate the session requirement that AI governance support privacy-first child networking without making disconnection the default safety model.
-Originating session goal: document positive AI-governance outcomes, especially optional data harvesting, top-tier privacy, and a 30-second child-safe networking video/transcript.
+Goal ID: SITE-0002-CHILD-SAFETY-DEMO
+Goal: expose a public, usable, jurisdiction-aware child-safety governance sandbox that demonstrates useful connection, deterministic refusal, review boundaries, privacy-first age signals, and inspectable receipts without collecting personal data.
+Originating adjacent goal: demonstrate in a public-facing interface how governance can protect children from the classes of social-network harm driving under-13 and under-16 regulation while preserving safe connection, learning, creativity, play, music, and known-person communication.
 Repository: StegVerse-Labs/Site
 Branch: main
 ```
@@ -15,98 +15,166 @@ Branch: main
 ## Authoritative files
 
 ```text
+child-safety-demo.html
 children-safe-networking.html
-data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json
-scripts/check_child_safe_networking.py
+data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json
+scripts/check_child_safety_demo.py
 docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md
 repository-task-observation.report.json
 data/site-orchestration-state.json
 ```
 
+Previous goal `SITE-0001-CHILD-SAFE-NETWORKING` remains complete and canonical for the public communications contract and 30-second transcript.
+
+## Age-policy grounding — checked 2026-08-07
+
+```text
+United States: COPPA special privacy/parental-consent regime applies to children under 13; it is not a general US social-media ban.
+Australia: since 2025-12-10, covered age-restricted social-media platforms must take reasonable steps to prevent Australians under 16 from creating or keeping accounts.
+United Kingdom: government announced an under-16 social-media ban on 2026-06-15, with implementation expected in spring 2027; existing Online Safety Act child-protection duties already apply to services likely accessed by children.
+```
+
+The demo therefore does not encode a false universal `13 and under` rule. It separates jurisdictional law from the StegVerse protective baseline.
+
+## Protective baseline demonstrated
+
+For users under 16, the sandbox demonstrates:
+
+- known friend/family messaging and approved-friend collaboration may remain available;
+- stranger direct contact is blocked;
+- public social exposure is restricted;
+- engagement-optimized infinite recommendation is disabled;
+- precise location disclosure is blocked by default;
+- behavioral advertising profiling is blocked;
+- reporting and blocking remain available.
+
+For all minors, the sandbox additionally disables public self-livestreaming under the StegVerse protective baseline. The baseline is deliberately stricter than any single jurisdictional minimum and is presented as StegVerse policy, not as a claim that every jurisdiction legally requires each restriction.
+
+## Data-minimization behavior
+
+```text
+Age input: age band only in demo
+Full birthdate retained: no
+Identity retained: no
+Location retained: no
+Contact list retained: no
+Advertising profile retained: no
+Network requests from demo: none
+Receipt retention: browser display only
+```
+
+A production implementation should obtain a privacy-preserving age/eligibility assertion from an authorized age-assurance boundary and should not expose a full birthdate to each relying service merely to decide an age band.
+
 ## Canonical ownership and claims
 
 ```text
 Canonical task owner: scripts/observe_and_complete_repository_tasks.py
-Implementation claim: RELEASED — implementation committed
-Validation claim: RELEASED — repository task controller observed PASS and recorded COMPLETE
-Claim creation time: 2026-08-07T12:35:00Z
-Claim release evidence: StegVerse-Labs/Site@e0d6fbf8c587b141d4518db50b5241f5cb0d2214
-Collision boundaries honored: no humans-as-interoperability-layer.html, assets/hil-*, or scripts/check_hil_*upload* files modified by this task.
+Implementation claim: repository-local parallel-safe child-safety demo lane
+Validation claim: repository task controller executes scripts/check_child_safety_demo.py
+Claim creation time: 2026-08-07T14:20:00Z
+Claim release condition: validator returns CHILD_SAFETY_DEMO=PASS and machine controller records COMPLETE, or task is explicitly superseded.
+Collision boundaries: do not modify humans-as-interoperability-layer.html, assets/hil-*, or scripts/check_hil_*upload*.
 ```
 
-## Requirements transferred from the originating session
+## Public interaction contract
 
-1. Data harvesting should be optional rather than an assumed price of participation.
-2. Privacy should be a top-tier architectural property, with minimization, purpose limitation, bounded retention, and hidden location by default.
-3. Child safety should preserve positive networking, learning, music, play, creativity, and friendships rather than defaulting to isolation.
-4. Identity, contacts, camera, microphone, location, files, and cross-service data should have separate purpose-bound authority.
-5. Parent/child protection states should be understandable and observable.
-6. A complete 30-second video transcript must be durably preserved.
-7. Publication must not be represented as proof of runtime age assurance, parental authorization, legal compliance, or production enforcement.
-
-## Completion state
+The user can select jurisdiction, age band, guardian state, and a requested action. The sandbox returns exactly one of:
 
 ```text
-Public content: IMPLEMENTED
-Task record: IMPLEMENTED
-Validator: IMPLEMENTED
-Repository-native observer: EXECUTED
-Repository task state: COMPLETE
-Observed success marker: CHILD_SAFE_NETWORKING=PASS
-Observed data posture: DATA_HARVESTING_DEFAULT=OPTIONAL
-Observed networking posture: CHILD_NETWORKING_POSTURE=PRIVACY_FIRST
-Observed authority posture: AUTHORITY_GRANTED=false
-Observed activation effect: PUBLIC_CONTENT_ONLY
-Runtime child-safety enforcement: NOT CLAIMED BY THIS TASK
-Authority effect: NONE
+ALLOW
+DENY
+REVIEW_REQUIRED
 ```
 
-## Validation evidence
+Every evaluated transition produces a local machine-readable receipt containing jurisdiction, age band, requested action, guardian boundary, decision, reason, retained-personal-data declaration, demo authority boundary, and production-activation=false.
+
+The sandbox is expected to refuse at least these unsafe/unnecessary transitions for protected age bands:
 
 ```text
-Validator command: python scripts/check_child_safe_networking.py
-Workflow: .github/workflows/observe-and-complete-repository-tasks.yml
-Workflow run: 31179059779
-Machine state advancement commit: e0d6fbf8c587b141d4518db50b5241f5cb0d2214
-Observation report: repository-task-observation.report.json
-Central completion record: data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks
+unknown-person direct contact
+public posting to strangers
+public self-livestreaming
+precise-location disclosure
+behavioral advertising profiling
+engagement-optimized infinite recommendation
 ```
 
-The task-specific observation is `COMPLETE` with `success_marker_seen=true`. The workflow's final job conclusion is failure because the controller intentionally fails after preserving unrelated repository-wide blockers; task admission, task observation/apply, machine-owned state advancement, and artifact preservation all completed successfully. That repository-wide failure is not treated as a failure of this task.
-
-## Machine continuation
-
-No machine continuation remains for this task. The repository-native task controller remains the canonical observer for any future revalidation. Other active Site tasks remain independently owned by their task objects and orchestration state.
-
-## Cross-repository propagation determination
-
-This task is a Site communications projection, not a new canonical policy authority. No current live contract or handoff requires this exact communications artifact to propagate to Publisher, admissibility-wiki, or stegguardian-wiki. Personal-data runtime semantics remain canonical in the existing Site personal-data-control workstream, and normative admissibility policy authority remains separate. No unverified propagation is claimed.
-
-## Session consolidation state
+It is expected to preserve at least these positive capabilities where their boundary is established:
 
 ```text
-Personal-data-control overlap: MERGED INTO existing SITE-0001-PERSONAL-DATA-CONTROL for access/restriction/deletion runtime concerns.
-Child-safe networking communications requirement: COMPLETE AND CANONICAL HERE.
-30-second transcript requirement: COMPLETE AND CANONICAL HERE.
-Unique implementation responsibility remaining in originating session: NONE.
-Unique validation responsibility remaining in originating session: NONE.
-Unique integration responsibility remaining in originating session: NONE.
+known friend/family messaging
+approved-friends music collaboration
+report/block capability
 ```
 
-MERGED INTO: `StegVerse-Labs/Site/docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md` for this session-specific child-safe networking requirement, with personal-data runtime semantics remaining canonical in `docs/PERSONAL_DATA_CONTROL_RUNTIME_MIRROR_HANDOFF.md`.
+## Required distinction: demonstrator vs production child-safety enforcement
+
+```text
+Browser decision enforcement in child-safety-demo.html: REAL WITHIN DEMO
+Production age assurance: NOT ESTABLISHED BY DEMO
+Production parental authorization: NOT ESTABLISHED BY DEMO
+Production identity/contact verification: NOT ESTABLISHED BY DEMO
+Production moderation/grooming detection: NOT ESTABLISHED BY DEMO
+Production abuse-report escalation: NOT ESTABLISHED BY DEMO
+Production cryptographic receipts/custody: NOT ESTABLISHED BY DEMO
+Legal-compliance certification: NOT CLAIMED
+```
+
+This distinction prevents a working public simulator from being falsely represented as a complete production child-safety service.
+
+## Production integration sequence after demo completion
+
+```text
+privacy-preserving age assurance
+-> age-band / jurisdiction eligibility assertion
+-> parent/guardian authority where required
+-> verified known-contact graph
+-> service capability request
+-> child-safety policy evaluation
+-> ALLOW / DENY / REVIEW_REQUIRED
+-> execution only after ALLOW
+-> immutable decision receipt
+-> abuse reporting / emergency escalation boundary
+-> custody / reconstruction
+-> public transparency projection with sensitive fields redacted
+```
+
+Each step requires its own evidence before production activation is claimed.
+
+## Previous completed goal evidence
+
+```text
+SITE-0001-CHILD-SAFE-NETWORKING: COMPLETE
+Validator: CHILD_SAFE_NETWORKING=PASS
+Machine state advancement: e0d6fbf8c587b141d4518db50b5241f5cb0d2214
+Personal-data-control overlap: SITE-0001-PERSONAL-DATA-CONTROL COMPLETE
+```
+
+## Validation command
+
+```text
+python scripts/check_child_safety_demo.py
+```
+
+Expected success marker:
+
+```text
+CHILD_SAFETY_DEMO=PASS
+```
+
+## Cross-repository boundaries
+
+This demo remains a Site implementation and communications projection. It does not create new canonical legal or admissibility authority. Any later normative policy contract should be propagated to `StegVerse-Labs/admissibility-wiki` only when the production integration contract requires it; publication projection belongs to `GCAT-BCAT-Engine/Publisher`, and guardian-specific normative semantics belong to the canonical guardian repository identified by the Site handoff. No such propagation is claimed from the browser demo alone.
 
 ## Archive conditions
 
-Archive conditions for the originating session goal are satisfied: the requirements are committed, the public surface is installed, the validator is installed, the repository-native controller observed PASS, machine-owned completion state was committed, and no unique information from the chat is required to continue this goal.
+The current adjacent goal is archive-safe when `SITE-0002-CHILD-SAFETY-DEMO` is machine-observed COMPLETE and this handoff contains that evidence. The repository-native controller then owns future revalidation. Production child-safety runtime remains a distinct next integration goal and must not be inferred from demo completion.
 
 ## Completeness
 
 ```text
-developed-files percentage: 100%
-validation percentage: 100%
-integration percentage: 100%
-goal-activation percentage: 100% for PUBLIC_CONTENT_ONLY
-session-consolidation percentage: 100%
+developed-files percentage: 100% for the four-file demo slice once all files are committed
+validation percentage: pending repository-native observation
+integration percentage: pending repository-native task completion
+current goal-activation percentage: pending PUBLIC_INTERACTIVE_DEMO_ONLY completion
 ```
-
-The complete thread is ready for archiving without any additional part of the thread needed to move this goal forward.
