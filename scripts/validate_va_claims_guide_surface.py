@@ -62,7 +62,7 @@ def main() -> int:
     require("https://www.va.gov/sign-in/" in guided, "VA.gov sign-in link missing from walkthrough", errors)
     require("https://www.va.gov/my-health/medical-records/download" in guided, "official VA records link missing", errors)
     require("https://mobile.va.gov/app/va-health-and-benefits" in guided, "official VA app page missing", errors)
-    require("Use VA Claims Chat, then submit your final claim" in guided, "walkthrough final claim handoff missing", errors)
+    require("Prepare and submit your final claim" in guided, "walkthrough final claim handoff missing", errors)
     require(fallback in guided, "walkthrough VA.gov 21-526EZ fallback missing", errors)
 
     require("get('guided')==='1'" in chat, "Claims Chat guided query mode missing", errors)
