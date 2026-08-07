@@ -2,7 +2,7 @@
   "schema_version": "1.1.0",
   "task_id": "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
   "repository": "StegVerse-Labs/Site",
-  "goal": "Maintain the public child-safety page as a current boundary specification and law-comparison surface with an append-only record of later boundary changes and rationale.",
+  "goal": "Maintain the public child-safety page as a current boundary specification and law-comparison surface with a preserved change record displayed newest-first in descending chronological order.",
   "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
   "auto_admit": true,
   "owner": {
@@ -18,13 +18,14 @@
   ],
   "acceptance": {
     "validator_command": "python scripts/check_child_safety_demo.py",
-    "success_marker": "BOUNDARY_CHANGE_RECORD=APPEND_ONLY"
+    "success_marker": "BOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY"
   },
   "required_properties": [
     "public language states present boundary rather than waiver",
     "law comparison is visible",
     "deterministic boundary alternative to blanket bans is explicit",
-    "later changes are appended with rationale"
+    "later changes preserve rationale and prior history",
+    "most recent change appears first and older changes follow downward in descending chronological order"
   ],
   "external_dependencies": [],
   "authority_effect": false,
