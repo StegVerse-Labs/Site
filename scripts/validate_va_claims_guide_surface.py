@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,34 +27,33 @@ def main() -> int:
     controls = state.get("controls", {})
     errors: list[str] = []
 
-    require("Governed VA Claims Guide" in guide, "governed guide title missing", errors)
-    require('href="va-claims-guided-workflow.html"' in guide, "guided workflow link missing from guide", errors)
-    require("Try the step-by-step workflow" in guide, "top workflow invitation missing", errors)
-    require("SOURCE_GROUNDED_ASSISTANT" in guide, "current capability missing", errors)
-    require("Private document upload disabled" in guide, "upload disabled state missing", errors)
-    require("Automated filing disabled" in guide, "filing disabled state missing", errors)
-    require("Every material fact reviewed and confirmed" in guide, "material fact review gate missing", errors)
-    require("Every claimed condition selected by the veteran" in guide, "condition selection gate missing", errors)
-    require("Authorized VA or accredited-representative transport available" in guide, "authorized transport gate missing", errors)
-    require("must not submit the claim" in guide, "fail-closed filing language missing", errors)
+    # Primary instruction page: all steps visible, persistent status, two actions.
+    require("VA Claims Guide" in guide, "plain-language guide title missing", errors)
+    require(len(re.findall(r'data-step="[1-6]"', guide)) == 6, "primary instruction page must expose six ordered steps", errors)
+    require(guide.count("DONE") >= 6, "each primary step requires a DONE control", errors)
+    require(guide.count("Help me with this") >= 6, "each primary step requires a Help me with this control", errors)
+    require("va-claims-guided-workflow.html?step=" in guide, "step-addressable walkthrough links missing", errors)
+    require("vaClaimsProgress" in guide, "shared progress storage key missing from primary page", errors)
+    require("classList.toggle('complete'" in guide or "classList.toggle(\"complete\"" in guide, "completed-card dimming state missing", errors)
+    require("Reset progress" in guide, "progress reset control missing", errors)
+    require("Nothing is filed or submitted for you" in guide, "veteran-control boundary missing", errors)
 
-    require("Step-by-Step VA Claims Workflow" in guided, "guided page title missing", errors)
-    require("Card 1 of 6" in guided and "Card 6 of 6" in guided, "guided card range incomplete", errors)
-    require("Login.gov and ID.me are secure sign-in services" in guided, "sign-in services explanation missing", errors)
-    require("Blue Button" in guided and "not a physical blue button" in guided, "Blue Button plain-language explanation missing", errors)
-    require("Confirm and continue" in guided, "card confirmation controls missing", errors)
-    require("advance.disabled=!checked(card)" in guided, "next-card completion lock missing", errors)
-    require("The next card stays locked until you confirm" in guided, "veteran-confirmation rule missing", errors)
-    require("https://www.va.gov/my-health/medical-records/download" in guided, "official medical-record link missing", errors)
+    # Focused walkthrough: one selected step, return path, and continued help path.
+    require("VA Claims Step-by-Step" in guided, "focused walkthrough title missing", errors)
+    require(len(re.findall(r'data-card="[1-6]"', guided)) == 6, "focused walkthrough must contain six addressable step cards", errors)
+    require("URLSearchParams" in guided and "step" in guided, "walkthrough query-step routing missing", errors)
+    require("vaClaimsProgress" in guided, "shared progress storage key missing from walkthrough", errors)
+    require("Return to Instruction Page" in guided, "return-to-instruction control missing", errors)
+    require("Continue with help me complete this" in guided, "continued-help control missing", errors)
+    require("va-claims-chat.html?guided=1" in guided, "step-specific Claims Chat continuation missing", errors)
+    require("https://www.va.gov/my-health/medical-records/download" in guided, "official VA records link missing", errors)
     require("https://www.login.gov/help/creating-an-account/creating-an-account/" in guided, "official Login.gov help link missing", errors)
 
-    require("Walk me through the cards" in chat, "guided chat entry missing", errors)
-    require("confirm every task" in chat, "chat confirmation boundary missing", errors)
-    require("A statement such as “done” does not automatically complete a card" in chat, "generic done rejection missing", errors)
-    require("confirm all" in chat, "explicit card completion command missing", errors)
-    require("Private document upload and automated claim filing remain disabled" in chat, "chat inactive capabilities boundary missing", errors)
-    require("passwords, one-time security codes" in chat, "credential disclosure warning missing", errors)
+    # Chat remains a separate help surface with credential and authority boundaries.
+    require("guided=1" in chat, "Claims Chat guided query mode missing", errors)
+    require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential boundary missing", errors)
 
+    # Existing capability controls remain fail-closed even though they are not displayed as user-facing jargon.
     require(state.get("current_capability") == "SOURCE_GROUNDED_ASSISTANT", "state capability mismatch", errors)
     require(controls.get("private_document_upload_enabled") is False, "private upload unexpectedly enabled", errors)
     require(controls.get("automated_filing_enabled") is False, "automated filing unexpectedly enabled", errors)
@@ -63,13 +63,15 @@ def main() -> int:
 
     surfaces = [GUIDE, GUIDED, CHAT]
     body = {
-        "schema_version": "1.1.0",
+        "schema_version": "2.0.0",
         "state": "PASS" if not errors else "FAIL",
+        "design_contract": "PRIMARY_CHECKLIST_PLUS_FOCUSED_HELP",
         "surfaces": [path.name for path in surfaces],
+        "primary_steps": 6,
+        "focused_steps": 6,
+        "shared_progress_key": "vaClaimsProgress",
         "capability_state": state.get("state"),
         "current_capability": state.get("current_capability"),
-        "guided_card_count": 6,
-        "card_advance_requires_veteran_confirmation": True,
         "private_document_upload_enabled": controls.get("private_document_upload_enabled"),
         "automated_filing_enabled": controls.get("automated_filing_enabled"),
         "veteran_submission_authority_preserved": controls.get("veteran_submission_authority_preserved"),
