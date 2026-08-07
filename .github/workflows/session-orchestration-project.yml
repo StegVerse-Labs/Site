@@ -38,15 +38,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/session-orchestration-successor-packets.json data/session-orchestration-archive-queue.json; then
+          changed=$(git status --porcelain -- data/session-orchestration-successor-packets.json data/session-orchestration-archive-queue.json)
+          if [ -z "$changed" ]; then
             echo "Session orchestration projections are current"
             exit 0
           fi
+          printf '%s\n' "$changed"
           git config user.name "stegverse-orchestration-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/session-orchestration-successor-packets.json data/session-orchestration-archive-queue.json
           git commit -m "chore(session-orchestration): refresh successor and archive projections"
           git push origin HEAD:main
+      - name: Verify committed projection content
+        run: python scripts/project_session_orchestration.py --check
       - name: Upload successor packets
         if: always()
         uses: actions/upload-artifact@v4
