@@ -1,0 +1,32 @@
+{
+  "schema": "stegverse.va_claims_chat.runtime_projection.v1",
+  "capability": "COORDINATED_VA_RESOURCES_LLM",
+  "state": "BLOCKED",
+  "active": false,
+  "endpoint": null,
+  "endpoint_method": "POST",
+  "runtime_owner": "StegVerse-org/LLM-adapter#90",
+  "site_owner": "StegVerse-Labs/Site#113",
+  "required_runtime_route": "service_connection",
+  "required_external_source_policy": "ADMITTED_OFFICIAL_VA_ONLY",
+  "activation_receipt_sha256": null,
+  "execution_receipt_sha256": null,
+  "custody_state": "PENDING_REAL_ADAPTER_EXECUTION",
+  "reconstruction_state": "PENDING_REAL_ADAPTER_EXECUTION",
+  "evidence_refs": [
+    "StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json",
+    "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
+    "StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md"
+  ],
+  "blockers": [
+    "provider_execution_authority_missing_or_invalid",
+    "authorized_master_records_configuration_missing",
+    "real_va_provider_execution_not_observed",
+    "site_to_adapter_end_to_end_observation_missing"
+  ],
+  "private_document_upload_active": false,
+  "private_document_retrieval_active": false,
+  "filing_active": false,
+  "authority_effect": false,
+  "activation_effect": false
+}
