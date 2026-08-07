@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "request_type": "session_registry_intake_request",
+  "session_id": "autonomy-role-aware-continuation-2026-08-04",
+  "task_id": "AUTONOMY-ROLE-AWARE-SESSION-CONSOLIDATION-001",
+  "receipt": "data/session-consolidation-receipts/AUTONOMY-ROLE-AWARE-SESSION-2026-08-04.json",
+  "authority": "StegVerse-Labs/Site issue #118 comment 5181768709",
+  "requested_action": "ADMIT_IF_VALIDATED",
+  "fail_closed": true,
+  "release_condition": "canonical registry admission plus retained session-retirement validation PASS"
+}
