@@ -1,0 +1,38 @@
+name: Heartbeat Response Self Node
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["data/heartbeat-response-node.json","scripts/process_heartbeat_response_node.py","tests/test_heartbeat_response_node.py",".github/workflows/heartbeat-response-self-node.yml"]
+  schedule:
+    - cron: "11 * * * *"
+permissions:
+  contents: write
+concurrency:
+  group: heartbeat-response-self-node
+  cancel-in-progress: false
+jobs:
+  respond:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m unittest tests.test_heartbeat_response_node -v
+      - run: |
+          python scripts/process_heartbeat_response_node.py --apply
+          python scripts/process_heartbeat_response_node.py --check
+      - name: Persist new response receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- data/heartbeat-response-receipts)" ]; then exit 0; fi
+          git config user.name "stegverse-heartbeat-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/heartbeat-response-receipts
+          git commit -m "chore(heartbeat): persist Site received and responded receipts"
+          git push
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: heartbeat-response-self-receipts, path: data/heartbeat-response-receipts/, if-no-files-found: error}
