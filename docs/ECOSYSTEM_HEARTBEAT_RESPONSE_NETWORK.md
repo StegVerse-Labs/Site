@@ -10,9 +10,9 @@ This protocol extends the existing transition-driven, health-relative heartbeat.
 
 Every StegVerse organization is a response-network node. A heartbeat exchange may carry pertinent details in both directions so the receiving organization can classify what changed, decide what must be remembered, determine what requires action, update awareness, and return evidence or blockers without requiring a chat session to interpret the exchange.
 
-The initial inventory is the complete organization list shown in the GitHub organization-dashboard screenshots supplied on 2026-08-07:
+The GitHub dashboard screenshots supplied on 2026-08-07 show the `StegVerse` personal account plus fourteen organizations. The personal account is not counted as an organization node. The complete organization inventory is:
 
-`StegVerse`, `AaCT-E`, `Admissible-Existence`, `AdmittedCode`, `Data-Continuation`, `ECAT-ICAT-Formal`, `formalism-tests`, `GCAT-BCAT-Engine`, `Infrastructure-Continuity-Ventures`, `master-records`, `StegGhost`, `StegVerse-002`, `StegVerse-Labs`, `StegVerse-org`, and `Triad-Test`.
+`AaCT-E`, `Admissible-Existence`, `AdmittedCode`, `Data-Continuation`, `ECAT-ICAT-Formal`, `formalism-tests`, `GCAT-BCAT-Engine`, `Infrastructure-Continuity-Ventures`, `master-records`, `StegGhost`, `StegVerse-002`, `StegVerse-Labs`, `StegVerse-org`, and `Triad-Test`.
 
 The durable inventory is `data/ecosystem-heartbeat-response-network.json`.
 
@@ -124,7 +124,7 @@ File presence or an installed workflow is never counted as a live response.
 
 ## Current rollout boundary
 
-The pre-existing heartbeat is installed in six authoritative repositories spanning five organizations: `StegVerse-Labs`, `StegVerse-org`, `master-records`, `GCAT-BCAT-Engine`, and `StegVerse-002`. The response-network registry expands the target population to all 15 organizations, but the remaining ten organization-owned adapters are not yet claimed as installed.
+The pre-existing heartbeat is installed in six authoritative repositories spanning five organizations: `StegVerse-Labs`, `StegVerse-org`, `master-records`, `GCAT-BCAT-Engine`, and `StegVerse-002`. The response-network registry expands the target population to all 14 organizations. Nine organization-owned adapters remain to be installed and validated.
 
 Cross-organization adapter installation must first read each destination repository's applicable `*_MIRROR_HANDOFF.md`, preserve its authority model, and avoid duplicate claims.
 
