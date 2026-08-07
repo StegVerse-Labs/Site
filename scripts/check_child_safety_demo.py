@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 PAGE=ROOT/'child-safety-demo.html'
 TASK=ROOT/'data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json'
 TOGGLE_TASK=ROOT/'data/tasks/SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE.json'
+DELIVERY_TASK=ROOT/'data/tasks/SITE-0006-CHILD-MODE-DELIVERY-OPERATION.json'
 HANDOFF=ROOT/'docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md'
 REGULATORY=ROOT/'docs/CHILD_MODE_REGULATORY_GOVERNANCE.md'
 REQUIRED=(
@@ -19,10 +20,14 @@ REQUIRED=(
     'DEMO_BROWSER_ONLY','REVIEW_REQUIRED','DENY','ALLOW',
     'Boundary status, not a liability waiver',
     'Boundary Status and Law Comparison',
-    'Boundary Change Record',
-    'NEWEST_FIRST_DESCENDING_CHRONOLOGY',
-    'newest changes first, older history below',
-    'alternative to a ban'
+    'Boundary Change Record','NEWEST_FIRST_DESCENDING_CHRONOLOGY',
+    'newest changes first, older history below','alternative to a ban',
+    'Methods of Delivery and Operation','Child-dedicated device',
+    'Shared device with managed accounts','Guardian-controlled temporary Child Mode',
+    'account-holder reauthentication','biometric / passkey / device credential',
+    'mandatory age restrictions cannot be weakened by the optional toggle',
+    'DEVICE_CLASS=CHILD_DEDICATED','ACCOUNT_LOGIN','REQUEST_MODE_CHANGE',
+    'EFFECTIVE_CAPABILITY_BOUNDARY'
 )
 REGULATORY_REQUIRED=(
     'This record is not a liability waiver.',
@@ -31,10 +36,13 @@ REGULATORY_REQUIRED=(
     'Child Mode is a separate capability profile, not a visual theme.',
     'Self-declared birthdate alone is not a sufficient age-assurance strategy.',
     'deterministic at the activity/capability boundary',
-    'Boundary change record',
-    'Append-only.'
+    'Boundary change record','Append-only.',
+    'Child-dedicated device','Shared device / account-bound delivery',
+    'Guardian-controlled temporary Child Mode','fresh account-holder reauthentication',
+    'mandatory statutory or age-policy floor cannot be overridden'
 )
 ORDERED_SEQUENCE=(
+    'data-sequence="2026-08-07-004"',
     'data-sequence="2026-08-07-003"',
     'data-sequence="2026-08-07-002"',
     'data-sequence="2026-08-07-001"'
@@ -42,19 +50,16 @@ ORDERED_SEQUENCE=(
 
 def main()->int:
     failures=[]
-    for path in (PAGE,TASK,TOGGLE_TASK,HANDOFF,REGULATORY):
+    for path in (PAGE,TASK,TOGGLE_TASK,DELIVERY_TASK,HANDOFF,REGULATORY):
         if not path.is_file(): failures.append(f'missing {path.relative_to(ROOT)}')
     if PAGE.is_file():
         text=PAGE.read_text(encoding='utf-8')
         for marker in REQUIRED:
             if marker not in text: failures.append(f'missing marker: {marker}')
         positions=[text.find(marker) for marker in ORDERED_SEQUENCE]
-        if any(p < 0 for p in positions):
-            failures.append('boundary history missing chronology sequence marker')
-        elif positions != sorted(positions):
-            failures.append('boundary history must render newest first in descending chronological order')
-        if 'fetch(' in text or 'XMLHttpRequest' in text:
-            failures.append('demo must not make network requests')
+        if any(p < 0 for p in positions): failures.append('boundary history missing chronology sequence marker')
+        elif positions != sorted(positions): failures.append('boundary history must render newest first in descending chronological order')
+        if 'fetch(' in text or 'XMLHttpRequest' in text: failures.append('demo must not make network requests')
     if REGULATORY.is_file():
         text=REGULATORY.read_text(encoding='utf-8')
         for marker in REGULATORY_REQUIRED:
@@ -66,6 +71,9 @@ def main()->int:
     print('CHILD_SAFETY_DEMO=PASS')
     print('MODE_TOGGLE=NORMAL_MODE_CHILD_MODE')
     print('MODE_AUTHORITY=VERIFIED_POLICY_STATE_REQUIRED_IN_PRODUCTION')
+    print('DELIVERY_MODELS=CHILD_DEVICE_SHARED_ACCOUNT_GUARDIAN_TOGGLE')
+    print('GUARDIAN_MODE_CHANGE=ACCOUNT_HOLDER_REAUTH_REQUIRED')
+    print('MANDATORY_AGE_FLOOR=NON_OVERRIDABLE_BY_OPTIONAL_TOGGLE')
     print('BOUNDARY_POSTURE=DETERMINISTIC_LAW_COMPARISON')
     print('BOUNDARY_CHANGE_RECORD=APPEND_ONLY')
     print('BOUNDARY_HISTORY_ORDER=NEWEST_FIRST_DESCENDING_CHRONOLOGY')
