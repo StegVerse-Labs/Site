@@ -5,7 +5,21 @@ ROOT=Path(__file__).resolve().parents[1]
 PAGE=ROOT/'child-mode-data-protection.html'
 DOC=ROOT/'docs/CHILD_MODE_DATA_AUTHORITY.md'
 TASK=ROOT/'data/tasks/SITE-0007-CHILD-MODE-DATA-AUTHORITY.json'
-REQUIRED=(
+PAGE_REQUIRED=(
+    'OPTIONAL_DATA_HARVESTING = DENY_BY_DEFAULT',
+    'contacts / address book',
+    'Photos / videos / files',
+    'Precise or background location',
+    'Microphone / camera-derived data',
+    'Clipboard',
+    'Advertising identifiers',
+    'Cross-app / cross-service identifiers',
+    'Behavioral profile / inferred interests',
+    'Child Mode does not encode the claim that every person under 18 is legally incapable of every form of consent',
+    'guardian consent only authorizes the exact scoped purpose',
+    'Newest changes first; older history remains below.'
+)
+DOC_REQUIRED=(
     'OPTIONAL_DATA_HARVESTING = DENY_BY_DEFAULT',
     'child-visible click, tap, toggle, or acceptance flow',
     'contacts and address book',
@@ -16,20 +30,24 @@ REQUIRED=(
     'advertising identifiers',
     'cross-app and cross-service identifiers',
     'behavioral profiles and inferred interests',
-    'guardian authorization must not become blanket permission',
-    'Newest-first descending chronology'
+    'Guardian authorization must not become blanket permission.',
+    'Newest-first descending chronology.'
 )
+
+def check(path: Path, markers: tuple[str,...], failures: list[str]) -> None:
+    if not path.is_file():
+        failures.append(f'missing {path.relative_to(ROOT)}')
+        return
+    text=path.read_text(encoding='utf-8')
+    for marker in markers:
+        if marker not in text:
+            failures.append(f'{path.name} missing marker: {marker}')
 
 def main()->int:
     failures=[]
-    for path in (PAGE,DOC,TASK):
-        if not path.is_file(): failures.append(f'missing {path.relative_to(ROOT)}')
-    for path in (PAGE,DOC):
-        if path.is_file():
-            text=path.read_text(encoding='utf-8')
-            for marker in REQUIRED:
-                if marker not in text:
-                    failures.append(f'{path.name} missing marker: {marker}')
+    check(PAGE,PAGE_REQUIRED,failures)
+    check(DOC,DOC_REQUIRED,failures)
+    if not TASK.is_file(): failures.append(f'missing {TASK.relative_to(ROOT)}')
     if failures:
         print('CHILD_MODE_DATA_AUTHORITY=FAIL')
         for f in failures: print('-',f)
