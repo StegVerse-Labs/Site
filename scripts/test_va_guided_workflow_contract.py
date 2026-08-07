@@ -2,26 +2,28 @@
 from __future__ import annotations
 
 import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+GUIDE = ROOT / "va-disability-claim-guide.html"
 GUIDED = ROOT / "va-claims-guided-workflow.html"
 CHAT = ROOT / "va-claims-chat.html"
 OUT = ROOT / "data/va-claim-assistant/guided-workflow-contract-validation.json"
 
 
-class ContractParser(HTMLParser):
+class SurfaceParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
-        self.cards: list[str] = []
-        self.inputs = 0
-        self.labels = 0
-        self.buttons = 0
-        self.links: list[str] = []
-        self.viewport = False
         self.lang = False
-        self._current_card: str | None = None
+        self.viewport = False
+        self.step_ids: list[str] = []
+        self.card_ids: list[str] = []
+        self.buttons: list[str] = []
+        self.links: list[str] = []
+        self._button = False
+        self._button_text: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         data = dict(attrs)
@@ -29,16 +31,24 @@ class ContractParser(HTMLParser):
             self.lang = True
         if tag == "meta" and data.get("name") == "viewport":
             self.viewport = True
-        if tag == "section" and data.get("data-card"):
-            self.cards.append(str(data["data-card"]))
-        if tag == "input" and data.get("type") == "checkbox":
-            self.inputs += 1
-        if tag == "label":
-            self.labels += 1
-        if tag == "button":
-            self.buttons += 1
+        if data.get("data-step"):
+            self.step_ids.append(str(data["data-step"]))
+        if data.get("data-card"):
+            self.card_ids.append(str(data["data-card"]))
         if tag == "a" and data.get("href"):
             self.links.append(str(data["href"]))
+        if tag == "button":
+            self._button = True
+            self._button_text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._button:
+            self._button_text.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "button" and self._button:
+            self.buttons.append(" ".join("".join(self._button_text).split()))
+            self._button = False
 
 
 def require(condition: bool, message: str, errors: list[str]) -> None:
@@ -47,49 +57,45 @@ def require(condition: bool, message: str, errors: list[str]) -> None:
 
 
 def main() -> int:
+    guide = GUIDE.read_text(encoding="utf-8")
     guided = GUIDED.read_text(encoding="utf-8")
     chat = CHAT.read_text(encoding="utf-8")
-    parser = ContractParser()
-    parser.feed(guided)
+    gp = SurfaceParser(); gp.feed(guide)
+    wp = SurfaceParser(); wp.feed(guided)
     errors: list[str] = []
 
-    require(parser.lang, "guided page language declaration missing", errors)
-    require(parser.viewport, "mobile viewport declaration missing", errors)
-    require(parser.cards == ["1", "2", "3", "4", "5", "6"], "six ordered guidance cards required", errors)
-    require(parser.inputs >= 18, "expected completion checkboxes are missing", errors)
-    require(parser.labels >= parser.inputs, "every checkbox must be contained in or associated with a label", errors)
-    require(parser.buttons >= 11, "back, next, and finish controls are incomplete", errors)
-    require("@media(max-width:840px)" in guided, "mobile single-column layout contract missing", errors)
-    require("button[disabled]" in guided, "visible disabled-state styling missing", errors)
-    require("advance.disabled=!checked(card)" in guided, "next-card lock is not bound to all completion checks", errors)
-    require("if(checked(card)&&current<cards.length-1)" in guided, "next transition does not fail closed", errors)
-    require("localStorage.setItem('vaGuidedCard'" in guided, "resume-point persistence missing", errors)
-    require("vaGuidedComplete" in guided, "completion persistence missing", errors)
-    require("Never share your password or one-time security code" in guided, "credential warning missing", errors)
-    require("will not post sensitive medical records publicly" in guided, "public-record warning missing", errors)
-    require("va-claims-chat.html?guided=1&card=" in guided, "card-specific Claims Chat links missing", errors)
-    require("https://www.va.gov/my-health/medical-records/download" in parser.links, "official VA records link missing", errors)
-    require("https://www.login.gov/help/creating-an-account/creating-an-account/" in parser.links, "official Login.gov help link missing", errors)
+    require(gp.lang and wp.lang, "both user surfaces require lang=en", errors)
+    require(gp.viewport and wp.viewport, "both user surfaces require mobile viewport", errors)
+    require(gp.step_ids == ["1", "2", "3", "4", "5", "6"], "primary page requires six ordered steps", errors)
+    require(wp.card_ids == ["1", "2", "3", "4", "5", "6"], "walkthrough requires six ordered cards", errors)
+    require(sum(1 for text in gp.buttons if text.startswith("DONE")) == 6, "primary page requires six DONE buttons", errors)
+    require(sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step=")) == 6, "primary page requires six step-specific help links", errors)
+    require("vaClaimsProgress" in guide and "vaClaimsProgress" in guided, "shared completion state missing", errors)
+    require("localStorage.setItem" in guide and "localStorage.setItem" in guided, "completion persistence write missing", errors)
+    require("localStorage.getItem" in guide and "localStorage.getItem" in guided, "completion persistence read missing", errors)
+    require("classList.toggle('complete'" in guide or 'classList.toggle("complete"' in guide, "primary completed-card visual state missing", errors)
+    require("URLSearchParams" in guided, "focused step query routing missing", errors)
+    require("Return to Instruction Page" in guided, "walkthrough return control missing", errors)
+    require("Continue with help me complete this" in guided, "walkthrough continued-help control missing", errors)
+    require("va-claims-chat.html?guided=1" in guided, "walkthrough must route to Claims Chat help", errors)
+    require("https://www.va.gov/my-health/medical-records/download" in wp.links, "official VA records link missing", errors)
+    require("https://www.login.gov/help/creating-an-account/creating-an-account/" in wp.links, "official Login.gov help link missing", errors)
+    require("guided=1" in chat, "Claims Chat guided mode missing", errors)
+    require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential warning missing", errors)
 
-    require("guided=1" in chat, "Claims Chat guided query mode missing", errors)
-    require("generic" in chat.lower() and "done" in chat.lower(), "generic done rejection language missing", errors)
-    require("current card" in chat.lower(), "current-card context language missing", errors)
-    require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential boundary missing", errors)
-
-    state = "PASS" if not errors else "FAIL"
     receipt = {
-        "schema_version": "1.0.0",
-        "state": state,
-        "goal_id": "SV-VA-GUIDED-CARDS-001",
-        "task_id": "SV-VA-GC-008",
-        "guided_surface": GUIDED.name,
-        "chat_surface": CHAT.name,
-        "cards_observed": parser.cards,
-        "checkboxes_observed": parser.inputs,
-        "labels_observed": parser.labels,
-        "buttons_observed": parser.buttons,
-        "mobile_viewport": parser.viewport,
-        "language_declared": parser.lang,
+        "schema_version": "2.0.0",
+        "state": "PASS" if not errors else "FAIL",
+        "goal_id": "SV-VA-DUAL-FLOW-001",
+        "task_id": "SV-VA-DF-VALIDATE-001",
+        "design_contract": "PRIMARY_CHECKLIST_PLUS_FOCUSED_HELP",
+        "primary_steps": gp.step_ids,
+        "walkthrough_steps": wp.card_ids,
+        "done_buttons": sum(1 for text in gp.buttons if text.startswith("DONE")),
+        "step_help_links": sum(1 for href in gp.links if href.startswith("va-claims-guided-workflow.html?step=")),
+        "shared_progress_key": "vaClaimsProgress",
+        "mobile_viewport": gp.viewport and wp.viewport,
+        "language_declared": gp.lang and wp.lang,
         "authority_effect": False,
         "activation_effect": False,
         "errors": errors,
@@ -97,7 +103,7 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(receipt, indent=2, sort_keys=True))
-    return 0 if state == "PASS" else 1
+    return 0 if not errors else 1
 
 
 if __name__ == "__main__":
