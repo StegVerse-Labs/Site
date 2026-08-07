@@ -2,6 +2,7 @@
   "schema_version": "1.0.0",
   "state_type": "ecosystem_heartbeat_response_network",
   "canonical_owner": "StegVerse-Labs/Site issue #234",
+  "protocol_document": "docs/ECOSYSTEM_HEARTBEAT_RESPONSE_NETWORK.md",
   "heartbeat_model": "TRANSITION_DRIVEN",
   "time_role": "WATCHDOG_AND_RETRY_ONLY",
   "authority_rule": "heartbeat receipt or response never grants execution, activation, publication, custody, or release authority",
