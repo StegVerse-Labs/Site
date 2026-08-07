@@ -10,10 +10,11 @@ This file is the current handoff and task source of truth for governed ChatGPT s
 classification: BUILD_IN_PROGRESS
 activation_authority: false
 active_owner: StegVerse-Labs/Site issue #114
-current_coordination_task: SOR-0001 through SOR-0008
+current_coordination_task: SOR-B / issue #118, then SOR-C / issue #119
+SOR-A: COMPLETE_AND_VALIDATED
 ```
 
-The core layer exists, but activation is not yet established. A workflow definition alone is not execution evidence, and an archive disposition is not valid without a passing validator result and current ownership comparison.
+The retirement validator, deterministic posture suite, and canonical Site-orchestrator retirement-state binding are now installed and validated in hosted GitHub Actions. Full layer activation is not yet established because successor packet generation, cross-repository comparison, archive-queue projection, Master-Records custody, and the remaining real-disposition activation gates are still owned by issues #118, #119, and parent #114.
 
 ## Goal
 
@@ -56,23 +57,57 @@ The validator fails closed when evidence is missing or contradictory.
 - `data/session-orchestration-registry.json`
 - `schemas/session-retirement.schema.json`
 - `scripts/check_session_retirement.py`
+- `tests/test_session_retirement.py`
 - `prompts/SESSION_SELF_AUDIT.md`
 - `docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md`
 - `.github/workflows/session-retirement-validate.yml`
+- `scripts/site_handoff_orchestrator.py` retirement-state binding
+- `.github/workflows/site-handoff-orchestrator.yml` retained retirement report projection
+
+## SOR-A completion evidence
+
+Issue `#117` owns SOR-A and is complete pending issue closure bookkeeping.
+
+```text
+validator schema 1.3.0 compatibility: installed
+canonical Site-orchestrator retirement validation binding: commit 43819c4d882d4b663bd7c68a3b4e44eb7b3b2d8c
+deterministic retirement posture suite installed: commits bb3e44103075a631b2dc88f3e91d06d6af26fcaa and f8c4b800773867c1f2a69be2345908ee67756ac3
+duplicate CURRENT-owner detection exposed and tested: commit de46c56131aed8de52401dbbd7434f1391ee283e
+retirement workflow test binding: commit 40122cb17930c5e53e152ebdc787bbdf1685c897
+Site-orchestrator retained retirement artifact binding: commit dfdaec84f75aec3745f0b9f3914ceb8394998efe
+```
+
+Hosted evidence:
+
+```text
+Session Retirement Validate run: 31151536007
+job: 92782023502
+result: SUCCESS
+posture tests: 9/9 PASS
+validator: SESSION_RETIREMENT_PASS
+artifact: 8983465891
+artifact sha256: 03ccef854fdd4ded015d672b4ca76a2b6db46df485fc91a8e6a50a6cf5560b31
+
+Canonical Site Handoff Orchestrator run: 31151462957
+job: 92781812582
+result: SUCCESS
+orchestration report artifact: 8983440627
+orchestration artifact sha256: 00d6e2990c6a076ac197fbba51a961b20961e1d8b0a30926b1272c70b19c8c9b
+retirement report artifact: 8983440950
+retirement artifact sha256: 286151b1bcc42c30443b2b22cd8265dc53d6c7a91defe9b119e527f380683431
+```
+
+These receipts establish activation-gate items 1 and 2 and deterministic proof that `MERGE_REQUIRED` cannot be archived, `ARCHIVABLE` can be admitted, malformed evidence fails closed, missing successors fail closed, conflicts fail closed, and duplicate CURRENT owners fail closed. Fixture proof does not replace the remaining requirement for real disposition examples where the activation gate explicitly requires them.
 
 ## Active coordinated work
 
 Authoritative tracker: `StegVerse-Labs/Site` issue `#114`.
 
 ```text
-SOR-0001 Validation activation
-SOR-0002 Canonical Site-orchestrator integration
-SOR-0003 Deterministic posture and failure fixtures
-SOR-0004 Successor activation packet generation
-SOR-0005 Cross-repository handoff and ownership comparison
-SOR-0006 Validated archive queue projection
-SOR-0007 Master-Records custody and reconstruction
-SOR-0008 Publisher and wiki downstream projection after activation
+SOR-A / #117 Validation activation, canonical integration, deterministic tests: COMPLETE_AND_VALIDATED
+SOR-B / #118 Successor packets, cross-repository comparison, registry intake, execution frontier, archive queue: ACTIVE_CANONICAL_OWNER
+SOR-C / #119 Master-Records custody and downstream projection: DEPENDENCY_BLOCKED_ON_SOR-B_AND_PARENT_ACTIVATION
+Parent / #114 activation admission and closure: ACTIVE
 ```
 
 ## Consolidated StegMusic and ST-018 session
@@ -83,6 +118,9 @@ Registry entry:
 data/session-orchestration-registry.json
 session_id: stegmusic-st018-continuation-2026-08-02
 task_id: STEGMUSIC-ST018-SESSION-CONSOLIDATION-001
+posture: ARCHIVABLE
+active_task_ownership: false
+unique_unmerged_state: false
 ```
 
 Original and adjacent goals transferred:
@@ -110,29 +148,9 @@ Implementation convergence:
 
 ```text
 StegMusic implementation and validation are owned by Site main and issue #39.
-ST-018 implementation is machine-owned by .github/workflows/capture-validation-evidence.yml and issue #141.
+ST-018 unresolved execution is repository-native through its task/workflow/issue chain.
 Session orchestration activation remains owned by issue #114.
-This session must not create a competing implementation lane.
-```
-
-Observed transfer evidence:
-
-```text
-PR #145 merged ST-018 implementation.
-PR #147 merged execution and receipt-writer repair at 7ab221e63740db495a6864c2ccc3ed401c25d124.
-PR #148 merged worker trigger coverage at 3c48af9e7e10be6cf509264547373b59b77b09ac.
-Task-state trigger commit b4ff66072dba37e18a10776cceb9e6c20478c18f requests native-main completion evidence.
-Session registry commit 2c6d9abd2c2815dd007316e3ddbe89013777760c preserves the complete session inventory and collision boundaries.
-```
-
-Current consolidation posture:
-
-```text
-MERGE_REQUIRED
-active_task_ownership: false
-distinct_support_role: integration and evidence inspection
-unique_unmerged_state: false
-release_condition: observe native-main ST-018 artifact and issue #141 custody receipt, then admit ARCHIVABLE or SUPERSEDED disposition
+No competing implementation lane is authorized.
 ```
 
 ## Consolidated continuation-authority stack session
@@ -143,7 +161,9 @@ Session inventory and receipt:
 data/session-goal-inventories/CONTINUATION-AUTHORITY-STACK-SESSION-2026-08-02.json
 data/session-consolidation-receipts/CONTINUATION-AUTHORITY-STACK-2026-08-02.json
 session_id: continuation-authority-stack-2026-08-02
-task_id: SESSION-CONTINUATION-CONSOLIDATION-001
+posture: ARCHIVABLE
+active_task_ownership: false
+unique_unmerged_state: false
 ```
 
 Original goal transferred:
@@ -152,7 +172,7 @@ Original goal transferred:
 Prevent blocked, waiting, dependency-bound, or apparently external work from halting StegVerse development by reconstructing the next admissible work from durable repository state and continuing until the admitted execution frontier is exhausted.
 ```
 
-Adjacent requirements transferred:
+Adjacent requirements transferred into issue #118:
 
 ```text
 governed continuation and repository self-description
@@ -165,17 +185,7 @@ reconstructable intent and continuation authority
 repository-grounded session consolidation and elimination
 ```
 
-Canonical convergence:
-
-```text
-Issue #117 owns validator, workflow, posture fixtures, and Site-orchestrator integration.
-Issue #118 owns successor packets, cross-repository comparison, execution-frontier and archive-queue projection, duplicate-owner detection, and registry updates.
-Issue #119 owns Master-Records custody and post-activation downstream projection.
-Issue #114 owns activation admission and closure.
-No separate continuation, completion, improvement, coherence, selection, purpose, or intent implementation lane is authorized by this session.
-```
-
-Required issue #118 behavior now preserved:
+Required issue #118 behavior:
 
 ```text
 A blocked or waiting task is scheduling input, not a terminal success state.
@@ -186,36 +196,38 @@ Frontier output states why no candidate is executable when the admitted frontier
 Repeated blockers and validator defects remain durable improvement observations in activation receipts.
 ```
 
-Transfer evidence:
+## Pending #118 registry intake
+
+The following session has complete durable inventory and consolidation receipts and issue #118 explicitly requests canonical registry admission:
 
 ```text
-Inventory commit: e6cd2e0fb36ef13f52c75c80e901d04287dd0600
-Consolidation receipt commit: d31a2046d90d59d8976a42781ea3e2b792ed2608
-Canonical continuation: StegVerse-Labs/Site issue #118 under parent issue #114
-```
-
-Session posture after handoff and issue linkage:
-
-```text
-MERGED_INTO_CANONICAL_WORKSTREAM
+session_id: autonomy-role-aware-continuation-2026-08-04
+task_id: AUTONOMY-ROLE-AWARE-SESSION-CONSOLIDATION-001
+requested posture: ARCHIVABLE
 active_task_ownership: false
 unique_unmerged_state: false
-successor_execution_source: StegVerse-Labs/Site issue #118
-archive authority remains subject to the retirement validator and current registry comparison
+safe_to_archive: true
+successor_execution_source: docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md
+inventory: data/session-goal-inventories/AUTONOMY-ROLE-AWARE-SESSION-2026-08-04.json
+receipt: data/session-consolidation-receipts/AUTONOMY-ROLE-AWARE-SESSION-2026-08-04.json
+owner: issue #118 registry-integration lane
 ```
+
+Its unresolved runtime goals remain machine-owned by the Site autonomy telemetry workflow, `StegVerse-org/LLM-adapter`, `GCAT-BCAT-Engine/Triage`, and issue #114; the chat session itself retains no active implementation authority after registry admission.
 
 ## Activation gate
 
 The layer becomes activated only after all of the following are directly observed and recorded:
 
-1. validator workflow PASS with retained run, job, and report evidence;
-2. `scripts/site_handoff_orchestrator.py` consumes retirement state;
-3. one real `SUPERSEDED` disposition is admitted;
-4. one real `MERGE_REQUIRED` disposition is rejected from archival;
-5. one real `ARCHIVABLE` disposition is admitted;
-6. no conflicting current owner exists;
-7. the successor execution source resolves;
-8. the handoff and registry carry the resulting receipts.
+1. validator workflow PASS with retained run, job, and report evidence — **PASS**;
+2. `scripts/site_handoff_orchestrator.py` consumes retirement state — **PASS**;
+3. one real `SUPERSEDED` disposition is admitted — **OPEN**;
+4. one real `MERGE_REQUIRED` disposition is rejected from archival — **OPEN; deterministic rejection test PASS**;
+5. one real `ARCHIVABLE` disposition is admitted — **PASS for existing registry entries; current pending #118 intake provides an additional real admission path**;
+6. no conflicting current owner exists — **current registry validator PASS; cross-repository comparison still required under #118**;
+7. the successor execution source resolves — **current registry PASS; cross-repository resolution still required under #118**;
+8. the handoff and registry carry the resulting receipts — **PARTIAL; SOR-A receipts recorded here, SOR-B/SOR-C receipts pending**;
+9. validated Master-Records custody return evidence exists before downstream projection — **BLOCKED on #119 after SOR-B**.
 
 ## Authority boundary
 
@@ -223,30 +235,31 @@ Repository evidence may establish that a conversation is safe to archive. It doe
 
 ## Remaining work
 
-Destination `StegVerse-Labs/Site`:
+Destination `StegVerse-Labs/Site`, canonical owner issue `#118`:
 
 ```text
-Execute and retain the session-retirement validator workflow evidence
-Bind scripts/check_session_retirement.py into canonical Site orchestration and validation
-Add signed archive disposition receipts
-Add stale heartbeat comparison against task-relative health
-Add duplicate session-owner detection across repositories
-Add successor-session activation packet generation
-Add archive queue projection to the Site UI
-Add tests for CURRENT, SUPERSEDED, MERGE_REQUIRED, ARCHIVABLE, conflicting owner, missing successor, and malformed evidence
-Observe the native-main ST-018 artifact and issue #141 custody receipt for stegmusic-st018-continuation-2026-08-02
-Implement the continuation-authority-stack requirements under issue #118 without creating a competing lane
+Admit the already-approved autonomy-role-aware-continuation-2026-08-04 registry disposition and retain validator evidence
+Implement or verify successor-session activation packet generation
+Implement or verify governed cross-repository *_MIRROR_HANDOFF.md and task-owner comparison
+Implement or verify execution-frontier projection
+Implement or verify machine-readable archive queue and user-facing projection
+Add signed or hash-bound archive disposition receipts consistent with repository authority boundaries
+Add stale heartbeat comparison against task-relative health where not already supplied by canonical heartbeat state
+Establish one real SUPERSEDED disposition from live repository evidence
+Establish one real MERGE_REQUIRED rejection from live repository evidence without manufacturing unique state
+Update registry, handoff, and issue #114 with exact receipts
 ```
 
-Destination `master-records/orchestration`:
+Destination `master-records/orchestration`, canonical owner issue `#119`:
 
 ```text
-Custody archive disposition receipts
+Define and validate outbound archive-disposition receipt packet
+Custody validated archive disposition receipts
 Verify registry lineage and reconstruction
-Return receipt hashes and reconstruction status
+Return receipt hashes and reconstruction status to Site
 ```
 
-Downstream destinations after verified implementation:
+Downstream destinations only after verified parent activation and custody:
 
 ```text
 GCAT-BCAT-Engine/Publisher
@@ -256,16 +269,10 @@ StegVerse-002/stegguardian-wiki
 
 ## Next execution session prompt
 
-Read this handoff first, then issue #114. Run `python scripts/check_session_retirement.py`. Continue the highest-priority incomplete SOR task without creating duplicate ownership. Do not classify a session as archivable merely because it is old or inactive. Merge unique state before retirement, update the registry, emit the disposition receipt, and preserve the successor execution source.
-
-For `stegmusic-st018-continuation-2026-08-02`, inspect issue #141 and the native-main artifacts produced by `.github/workflows/capture-validation-evidence.yml`. After direct custody evidence exists, update the registry posture to `SUPERSEDED` or `ARCHIVABLE`; do not reopen StegMusic or ST-018 implementation work in another session.
-
-For `continuation-authority-stack-2026-08-02`, continue through issue #118. Preserve the transferred continuation, convergence, coherence, selection, purpose, and authority requirements as bounded behaviors of successor packet generation, cross-repository comparison, and archive-queue projection. Do not create seven duplicate subsystems merely because the requirements were developed as separate conceptual layers in chat.
+Read this handoff first, then issues #114 and #118. Do not reopen SOR-A implementation. Continue the highest-priority incomplete #118 task without creating duplicate ownership. First admit already-approved registry intakes and retain validator evidence. Then inspect existing successor-packet, cross-repository comparison, frontier, and archive-queue implementations before creating new files. Fail closed on missing authority, ambiguous ownership, stale handoffs, unresolved successors, and conflicting claims. Preserve every originating session goal and authority boundary in durable state.
 
 ## Archive readiness
 
-The StegMusic and ST-018 session has transferred all unique design and implementation state into repository authority, but remains temporarily non-archivable until the native-main ST-018 custody artifact and issue #141 receipt are directly observed and the registry posture is updated.
+SOR-A no longer requires a ChatGPT implementation session: its code, tests, hosted workflow evidence, canonical Site-orchestrator integration, and retained artifacts are durable.
 
-The continuation-authority stack session has transferred its complete unique requirement inventory into repository authority and owns no separate implementation lane. Its archive disposition is determined by the retirement validator and current registry comparison after issue linkage is recorded.
-
-The broader coordination session is not safe to archive while it owns unresolved issue #114 coordination or until that ownership is transferred into a successor session and the registry records no unique unmerged state. When no coordination task remains, the response must announce `ARCHIVE THIS SESSION` at both top and bottom.
+The broader session-orchestration goal is not archive-ready because #118 remains an active canonical implementation workstream and #119 remains dependency-blocked on validated SOR-B outputs and parent activation. This conversation currently has a distinct integration role while it installs the already-authorized #118 registry intake and reconciles the canonical handoff; once those mutations and any uniquely claimed support work are durably transferred, this conversation should release its claim rather than remain open solely for history.
