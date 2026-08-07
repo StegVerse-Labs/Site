@@ -90,6 +90,8 @@ def process(intake: dict[str, Any]) -> dict[str, Any]:
             "processing_scope": "REPOSITORY_FIXTURE_ONLY"
         },
         "authority_flags": FALSE_FLAGS,
+        "authority_effect": False,
+        "activation_effect": False,
     }
     assessment["assessment_hash"] = canonical_hash(assessment)
     return assessment
