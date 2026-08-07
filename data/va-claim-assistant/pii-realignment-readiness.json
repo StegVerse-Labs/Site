@@ -14,49 +14,70 @@
       "validation_owner": "StegVerse-Labs/Site#170",
       "capability": "PII detection and uncertain-result review",
       "state": "COMPLETE",
-      "evidence_paths": [
-        "data/va-claim-assistant/fixtures/pii-detection-evaluation.json",
-        "data/va-claim-assistant/pii-detection-evaluation-receipt.json",
-        "scripts/process_va_private_document_privacy_preprocessor.py",
-        "data/va-claim-assistant/pii-production-detector-evidence.json",
-        "data/va-claim-assistant/pii-production-detector-readiness.json",
-        ".github/workflows/va-private-document-privacy-preprocessor.yml"
-      ],
-      "release_condition": "SATISFIED: reference corpus PASS plus admitted controlled-production-equivalent detector execution receipt COMPLETE on main",
-      "collision_boundary": "Site#170 validates synthetic reference fixtures; Site#116 owns admitted preprocessor execution"
+      "evidence_paths": ["data/va-claim-assistant/pii-production-detector-readiness.json","data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"],
+      "release_condition": "SATISFIED: admitted controlled-production-equivalent detector execution COMPLETE on main"
     },
     {
       "id": "PII-RDY-02",
       "owner": "StegVerse-Labs/Site#116",
       "capability": "redaction and pseudonymous working-copy generation",
       "state": "COMPLETE",
-      "evidence_paths": [
-        "scripts/process_va_private_document_privacy_preprocessor.py",
-        "data/va-claim-assistant/pii-redaction-working-copy-evidence.json",
-        "data/va-claim-assistant/pii-redaction-working-copy-readiness.json",
-        "data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"
-      ],
-      "release_condition": "SATISFIED: hash-bound redaction receipt COMPLETE with distinct original/redacted hashes, manifest anchors, purpose-limited pseudonym, and no raw PII in working copy"
+      "evidence_paths": ["data/va-claim-assistant/pii-redaction-working-copy-readiness.json","data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"],
+      "release_condition": "SATISFIED: hash-bound redaction receipt COMPLETE"
     },
     {
       "id": "PII-RDY-03",
       "owner": "StegVerse-Labs/Site#116",
       "capability": "model-facing leakage verification",
       "state": "COMPLETE",
-      "evidence_paths": [
-        "scripts/process_va_private_document_privacy_preprocessor.py",
-        "data/va-claim-assistant/pii-model-leakage-evidence.json",
-        "data/va-claim-assistant/pii-model-leakage-readiness.json",
-        "data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"
-      ],
-      "release_condition": "SATISFIED: admitted controlled-production-equivalent leakage suite COMPLETE with seven identifier classes, zero model-facing leaks, uncertainty release denial, and raw-document-to-model prohibition"
+      "evidence_paths": ["data/va-claim-assistant/pii-model-leakage-readiness.json","data/va-claim-assistant/private-document-privacy-preprocessor-execution.json"],
+      "release_condition": "SATISFIED: seven identifier classes tested with zero model-facing leakage"
     },
-    {"id":"PII-RDY-04","owner":"StegVerse-Labs/TVC","capability":"verified credentialing handoff admission","state":"BLOCKED","release_condition":"scoped, expiring, revocable handoff receipt PASS"},
-    {"id":"PII-RDY-05","owner":"StegVerse-Labs/TVC","capability":"post-credential identity linkage admission","state":"BLOCKED","release_condition":"purpose, scope, expiry, revocation, and hash-binding tests PASS"},
-    {"id":"PII-RDY-06","owner":"StegVerse-org/LLM-adapter#90","capability":"raw PII rejection and sanitized-context enforcement","state":"BLOCKED","release_condition":"negative fixtures and governed runtime receipt PASS"},
-    {"id":"PII-RDY-07","owner":"master-records/orchestration","capability":"privacy-event custody and reconstruction","state":"BLOCKED","release_condition":"custody RECORDED and reconstruction PASS"},
-    {"id":"PII-RDY-08","owner":"StegVerse-Labs/Site#113","capability":"veteran-visible privacy, linkage, export, deletion, and revocation status","state":"BLOCKED","release_condition":"repository and deployed validation PASS"},
-    {"id":"PII-RDY-09","owner":"independent-assessment-lane","capability":"independent privacy and security assessment","state":"BLOCKED","release_condition":"assessment retained and unresolved high or critical findings equal zero"}
+    {
+      "id": "PII-RDY-04",
+      "owner": "StegVerse-Labs/TVC",
+      "capability": "verified credentialing handoff admission",
+      "state": "BLOCKED",
+      "evidence_paths": ["StegVerse-Labs/TVC:receipts/va-credential-linkage-runtime-readiness.json","StegVerse-Labs/TVC:tasks/TVC-VA-CREDENTIAL-LINKAGE-RUNTIME-002.json"],
+      "release_condition": "AUTHENTICATED_VETERAN_IDENTITY_CONTEXT_REQUIRED; TVC controlled mechanics PASS is insufficient without authoritative authenticated identity execution"
+    },
+    {
+      "id": "PII-RDY-05",
+      "owner": "StegVerse-Labs/TVC",
+      "capability": "post-credential identity linkage admission",
+      "state": "BLOCKED",
+      "evidence_paths": ["StegVerse-Labs/TVC:receipts/va-credential-linkage-runtime-readiness.json","StegVerse-Labs/TVC:tasks/TVC-VA-CREDENTIAL-LINKAGE-RUNTIME-002.json"],
+      "release_condition": "PII-RDY-04 authoritative authenticated identity execution plus purpose/scope/expiry/revocation/hash-binding execution and Master Records custody"
+    },
+    {
+      "id": "PII-RDY-06",
+      "owner": "StegVerse-org/LLM-adapter#90",
+      "capability": "raw PII rejection and sanitized-context enforcement",
+      "state": "COMPLETE",
+      "evidence_paths": ["StegVerse-org/LLM-adapter:docs/VA_CLAIM_ASSISTANT_PRIVACY_RUNTIME_MIRROR_HANDOFF.md","StegVerse-org/LLM-adapter:receipts/va-claim-assistant-privacy-runtime-validation.json"],
+      "release_condition": "SATISFIED: implementation and validation claims RELEASED_COMPLETE; hosted privacy runtime receipt PASS"
+    },
+    {
+      "id":"PII-RDY-07",
+      "owner":"master-records/orchestration",
+      "capability":"privacy-event custody and reconstruction",
+      "state":"BLOCKED",
+      "release_condition":"real privacy-minimized Site/adapter/TVC source events imported; custody RECORDED and deterministic reconstruction PASS"
+    },
+    {
+      "id":"PII-RDY-08",
+      "owner":"StegVerse-Labs/Site#113",
+      "capability":"veteran-visible privacy, linkage, export, deletion, and revocation status",
+      "state":"BLOCKED",
+      "release_condition":"repository and deployed validation PASS"
+    },
+    {
+      "id":"PII-RDY-09",
+      "owner":"independent-assessment-lane",
+      "capability":"independent privacy and security assessment",
+      "state":"BLOCKED",
+      "release_condition":"assessment retained and unresolved high or critical findings equal zero"
+    }
   ],
   "completion_rule": {
     "required_state": "COMPLETE",
@@ -66,5 +87,5 @@
     "unresolved_high_or_critical_findings": 0
   },
   "machine_owner": ".github/workflows/va-pii-realignment-readiness.yml",
-  "next_executable_task": "PII-RDY-04: StegVerse-Labs/TVC must produce an admitted scoped, expiring, revocable credentialing-handoff execution receipt; PII-RDY-05 follows with post-credential purpose/scope/expiry/revocation/hash-binding evidence."
+  "next_executable_task": "PII-RDY-07: master-records/orchestration imports the already-real Site PII detector/redaction/leakage receipts and adapter privacy-runtime receipt now; TVC CREDENTIALING_HANDOFF/IDENTITY_LINKAGE events remain deferred until the authenticated identity blocker releases. In parallel Site#113 owns PII-RDY-08 and the independent assessment lane owns PII-RDY-09."
 }
