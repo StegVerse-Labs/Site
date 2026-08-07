@@ -206,13 +206,14 @@ Current committed receipt:
 ```text
 schema_version: 1.1.0
 disposition: SUPERSEDED
-baseline_registry_commit: e2c6b9a009012bd11a2d0e0afe504bd5984004 (authority is the receipt field value; inspect receipt directly before custody)
-before_sha256: distinct from after_sha256
+baseline_registry_commit: e2c6b9a0098899bc16ea1a62d5182aecfe6ef674
+before_sha256: 0a82fce22bce17e3494bb2af2313a96f13550eba08ce4c557cd14bbdf7caced1
+after_sha256: 295fec6d9f7197020f80b1ed78c07d752d8c9de9b57b900f22a3f11a5bf45aa0
 archive_candidate: false
 ui_archive_action_performed: false
 ```
 
-Canonical receipt path is authoritative over prose if any copied commit value differs:
+Canonical receipt path:
 `data/session-disposition-receipts/SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07.receipt.json`.
 
 ## Machine-owned real MERGE_REQUIRED observer
@@ -301,7 +302,7 @@ Issue #118 required:
 5. archive queue without a UI-action claim;
 6. handoff/parent receipts and blockers.
 
-Those implementation outcomes are complete. A real `MERGE_REQUIRED` case is an external evidence condition on parent activation, not additional SOR-B implementation. Its absence is now durably observed by repository-native automation. Issue #118 may be closed completed after this handoff update and completion comment.
+Those implementation outcomes are complete. A real `MERGE_REQUIRED` case is an evidence condition on parent activation, not additional SOR-B implementation. Its absence is now durably observed by repository-native automation. Issue #118 may be closed completed after this handoff update and completion comment.
 
 ## Remaining exact work
 
