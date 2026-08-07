@@ -8,11 +8,11 @@
     "data/session-consolidation-receipts",
     "data/session-goal-inventories"
   ],
-  "scanned_files": 9,
+  "scanned_files": 10,
   "candidate_count": 0,
   "candidates": [],
   "archive_rejection_established": false,
   "fabricated_state": false,
   "next_action": "retain this blocker until a repository-grounded session declares unique unmerged state; do not manufacture a candidate",
-  "report_sha256": "b19a41b2c2af261faed67c5bf8f7c165f7e26541c97ef186c33742b0fce0b0f5"
+  "report_sha256": "1a6fc03be10f67b387b69b00a0f136280fb85fe899a292a224ebacfd4cc5469c"
 }
