@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/evidence-criteria-mapping.schema.json",
+  "title": "VACC Evidence-to-VA-Criteria Mapping Contract",
+  "type": "object",
+  "required": ["schema_version", "scenario_id", "record_facts", "official_criteria", "mapping", "claim_language", "optimization", "authority_effect", "activation_effect"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "record_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fact_id", "text", "posture", "document_id", "page", "anchor_id"],
+        "properties": {
+          "fact_id": {"type": "string"},
+          "text": {"type": "string"},
+          "posture": {"enum": ["FAVORABLE", "UNFAVORABLE", "NEUTRAL", "CONFLICTING"]},
+          "document_id": {"type": "string"},
+          "page": {"type": "integer", "minimum": 1},
+          "anchor_id": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "official_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["criterion_id", "authority_ref", "proposition_ref", "effective_date", "criterion_text_hash"],
+        "properties": {
+          "criterion_id": {"type": "string", "minLength": 1},
+          "authority_ref": {"type": "string", "minLength": 1},
+          "proposition_ref": {"type": "string", "minLength": 1},
+          "effective_date": {"type": "string", "minLength": 1},
+          "criterion_text_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "mapping": {
+      "type": "object",
+      "required": ["state", "supported_criterion_ids", "unsupported_criterion_ids", "fact_refs", "contradiction_refs", "missing_evidence_refs", "highest_supported_level_ref"],
+      "properties": {
+        "state": {"enum": ["SUPPORTED", "PARTIALLY_SUPPORTED", "CONFLICTING", "UNSUPPORTED"]},
+        "supported_criterion_ids": {"type": "array", "items": {"type": "string"}},
+        "unsupported_criterion_ids": {"type": "array", "items": {"type": "string"}},
+        "fact_refs": {"type": "array", "items": {"type": "string"}},
+        "contradiction_refs": {"type": "array", "items": {"type": "string"}},
+        "missing_evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "highest_supported_level_ref": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "claim_language": {
+      "type": "object",
+      "required": ["text", "fact_refs", "unsupported_assertions", "requires_veteran_confirmation"],
+      "properties": {
+        "text": {"type": "string"},
+        "fact_refs": {"type": "array", "items": {"type": "string"}},
+        "unsupported_assertions": {"type": "array", "maxItems": 0},
+        "requires_veteran_confirmation": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "optimization": {
+      "type": "object",
+      "required": ["desired_percentage_targeting", "unsupported_symptom_coaching", "unfavorable_evidence_suppression"],
+      "properties": {
+        "desired_percentage_targeting": {"const": false},
+        "unsupported_symptom_coaching": {"const": false},
+        "unfavorable_evidence_suppression": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "authority_effect": {"const": false},
+    "activation_effect": {"const": false}
+  },
+  "additionalProperties": false
+}
