@@ -12,7 +12,10 @@ on:
     branches: [main]
     paths:
       - "docs/SITE_MIRROR_HANDOFF.md"
+      - "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
       - "data/site-orchestration-state.json"
+      - "data/session-orchestration-registry.json"
+      - "scripts/check_session_retirement.py"
       - "scripts/site_handoff_orchestrator.py"
       - ".github/workflows/site-handoff-orchestrator.yml"
 
@@ -46,4 +49,11 @@ jobs:
         with:
           name: site-handoff-orchestration-report
           path: site_handoff_orchestration.report.json
+          if-no-files-found: error
+      - name: Publish retirement validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-orchestrator-session-retirement-report
+          path: session_retirement.report.json
           if-no-files-found: error
