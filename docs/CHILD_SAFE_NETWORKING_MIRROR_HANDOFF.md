@@ -19,17 +19,19 @@ children-safe-networking.html
 data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json
 scripts/check_child_safe_networking.py
 docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md
+repository-task-observation.report.json
+data/site-orchestration-state.json
 ```
 
 ## Canonical ownership and claims
 
 ```text
 Canonical task owner: scripts/observe_and_complete_repository_tasks.py
-Implementation claim: repository-local parallel-safe content lane
-Validation claim: repository task controller executes scripts/check_child_safe_networking.py
+Implementation claim: RELEASED — implementation committed
+Validation claim: RELEASED — repository task controller observed PASS and recorded COMPLETE
 Claim creation time: 2026-08-07T12:35:00Z
-Claim release condition: validator returns CHILD_SAFE_NETWORKING=PASS and machine controller records COMPLETE, or task is explicitly superseded.
-Collision boundaries: do not modify humans-as-interoperability-layer.html, assets/hil-*, or scripts/check_hil_*upload* while SITE-0001-UPLOAD remains active.
+Claim release evidence: StegVerse-Labs/Site@e0d6fbf8c587b141d4518db50b5241f5cb0d2214
+Collision boundaries honored: no humans-as-interoperability-layer.html, assets/hil-*, or scripts/check_hil_*upload* files modified by this task.
 ```
 
 ## Requirements transferred from the originating session
@@ -48,51 +50,63 @@ Collision boundaries: do not modify humans-as-interoperability-layer.html, asset
 Public content: IMPLEMENTED
 Task record: IMPLEMENTED
 Validator: IMPLEMENTED
-Repository-native observer: EXISTING AND REUSED
+Repository-native observer: EXECUTED
+Repository task state: COMPLETE
+Observed success marker: CHILD_SAFE_NETWORKING=PASS
+Observed data posture: DATA_HARVESTING_DEFAULT=OPTIONAL
+Observed networking posture: CHILD_NETWORKING_POSTURE=PRIVACY_FIRST
+Observed authority posture: AUTHORITY_GRANTED=false
+Observed activation effect: PUBLIC_CONTENT_ONLY
 Runtime child-safety enforcement: NOT CLAIMED BY THIS TASK
 Authority effect: NONE
-Activation effect: PUBLIC_CONTENT_ONLY after validated task completion
 ```
 
-## Validation command
+## Validation evidence
 
 ```text
-python scripts/check_child_safe_networking.py
+Validator command: python scripts/check_child_safe_networking.py
+Workflow: .github/workflows/observe-and-complete-repository-tasks.yml
+Workflow run: 31179059779
+Machine state advancement commit: e0d6fbf8c587b141d4518db50b5241f5cb0d2214
+Observation report: repository-task-observation.report.json
+Central completion record: data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks
 ```
 
-Expected success marker:
-
-```text
-CHILD_SAFE_NETWORKING=PASS
-```
+The task-specific observation is `COMPLETE` with `success_marker_seen=true`. The workflow's final job conclusion is failure because the controller intentionally fails after preserving unrelated repository-wide blockers; task admission, task observation/apply, machine-owned state advancement, and artifact preservation all completed successfully. That repository-wide failure is not treated as a failure of this task.
 
 ## Machine continuation
 
-The repository-native task controller is the continuation path. The task object is auto-admitted and has no external dependency. On a matching push, `.github/workflows/observe-and-complete-repository-tasks.yml` admits eligible tasks, runs the observer, records exact validator results, advances repository state for successful tasks, uploads the observation report, and fails closed when blockers remain.
+No machine continuation remains for this task. The repository-native task controller remains the canonical observer for any future revalidation. Other active Site tasks remain independently owned by their task objects and orchestration state.
 
-## Cross-repository propagation obligation
+## Cross-repository propagation determination
 
-This task is a Site communications projection, not a new canonical policy authority. If policy semantics beyond the published projection are required, transfer only the missing normative contract to `StegVerse-Labs/admissibility-wiki`; do not duplicate its canonical authority. Publisher or guardian propagation is not claimed until a live contract or handoff requires it.
+This task is a Site communications projection, not a new canonical policy authority. No current live contract or handoff requires this exact communications artifact to propagate to Publisher, admissibility-wiki, or stegguardian-wiki. Personal-data runtime semantics remain canonical in the existing Site personal-data-control workstream, and normative admissibility policy authority remains separate. No unverified propagation is claimed.
 
 ## Session consolidation state
 
 ```text
 Personal-data-control overlap: MERGED INTO existing SITE-0001-PERSONAL-DATA-CONTROL for access/restriction/deletion runtime concerns.
-Child-safe networking communications requirement: CANONICAL HERE.
-30-second transcript requirement: CANONICAL HERE.
+Child-safe networking communications requirement: COMPLETE AND CANONICAL HERE.
+30-second transcript requirement: COMPLETE AND CANONICAL HERE.
+Unique implementation responsibility remaining in originating session: NONE.
+Unique validation responsibility remaining in originating session: NONE.
+Unique integration responsibility remaining in originating session: NONE.
 ```
 
 MERGED INTO: `StegVerse-Labs/Site/docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md` for this session-specific child-safe networking requirement, with personal-data runtime semantics remaining canonical in `docs/PERSONAL_DATA_CONTROL_RUNTIME_MIRROR_HANDOFF.md`.
 
 ## Archive conditions
 
-This originating session may be archived for this goal after the task record, public surface, validator, and this handoff are committed and machine-observed validation evidence is available. No additional chat history is required to reconstruct the requirements above.
+Archive conditions for the originating session goal are satisfied: the requirements are committed, the public surface is installed, the validator is installed, the repository-native controller observed PASS, machine-owned completion state was committed, and no unique information from the chat is required to continue this goal.
 
 ## Completeness
 
 ```text
-developed-files percentage: 100% for the four-file content/validation slice once all four files are committed
-validation percentage: 0% until repository-native validator evidence is observed; 100% after PASS
-integration percentage: 100% when the task is admitted/observed by the existing repository controller
-goal-activation percentage: 100% when the task reaches COMPLETE as PUBLIC_CONTENT_ONLY
+developed-files percentage: 100%
+validation percentage: 100%
+integration percentage: 100%
+goal-activation percentage: 100% for PUBLIC_CONTENT_ONLY
+session-consolidation percentage: 100%
 ```
+
+The complete thread is ready for archiving without any additional part of the thread needed to move this goal forward.
