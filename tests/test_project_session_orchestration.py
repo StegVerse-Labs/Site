@@ -31,6 +31,23 @@ def session(session_id: str, posture: str, *, safe: bool, active: bool = False, 
     }
 
 
+def cross_report(status: str = "PASS"):
+    return {
+        "state_type": "session_orchestration_cross_repository_report",
+        "status": status,
+        "summary": {
+            "target_count": 4,
+            "passing_targets": 4 if status == "PASS" else 3,
+            "owner_collision_count": 0,
+            "stale_handoff_count": 0,
+            "unresolved_successor_count": 0,
+        },
+        "delegated_dependencies": [
+            {"repository": "master-records/orchestration", "state": "DEPENDENCY_BLOCKED_NOT_VERIFIED_BY_SITE_TOKEN"}
+        ],
+    }
+
+
 class SessionProjectionTests(unittest.TestCase):
     def test_archive_candidate_is_complete_without_ui_claim(self):
         registry = {"repository": "StegVerse-Labs/Site", "sessions": [session("a", "ARCHIVABLE", safe=True)]}
@@ -76,6 +93,22 @@ class SessionProjectionTests(unittest.TestCase):
         successors, _ = projector.build({"repository": "StegVerse-Labs/Site", "sessions": [row]})
         self.assertEqual(successors["status"], "FAIL")
         self.assertTrue(any("unresolved successor" in value for value in successors["failures"]))
+
+    def test_cross_repository_pass_is_bound_into_projection(self):
+        registry = {"repository": "StegVerse-Labs/Site", "sessions": [session("c", "CURRENT", safe=False, active=True)]}
+        successors, queue = projector.build(registry, cross_report("PASS"))
+        self.assertEqual(successors["status"], "PASS")
+        self.assertEqual(successors["cross_repository_authority"]["status"], "PASS")
+        self.assertEqual(queue["cross_repository_authority"]["summary"]["target_count"], 4)
+        self.assertEqual(len(successors["cross_repository_authority"]["delegated_dependencies"]), 1)
+
+    def test_cross_repository_failure_blocks_frontier_and_queue(self):
+        registry = {"repository": "StegVerse-Labs/Site", "sessions": [session("c", "CURRENT", safe=False, active=True)]}
+        successors, queue = projector.build(registry, cross_report("FAIL"))
+        self.assertEqual(successors["status"], "FAIL")
+        self.assertEqual(queue["status"], "FAIL")
+        self.assertEqual(successors["frontier_state"], "REVIEW_REQUIRED")
+        self.assertTrue(any("cross-repository authority comparison" in value for value in successors["failures"]))
 
 
 if __name__ == "__main__":
