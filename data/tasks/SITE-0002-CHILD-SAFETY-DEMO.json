@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0002-CHILD-SAFETY-DEMO",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Publish and machine-validate a jurisdiction-aware, privacy-first interactive child-safety governance sandbox that demonstrates allowed, denied, and review-required transitions without collecting personal data.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "owner": {
+    "type": "repository_controller",
+    "location": "scripts/observe_and_complete_repository_tasks.py"
+  },
+  "implementation_locations": [
+    "child-safety-demo.html",
+    "children-safe-networking.html",
+    "docs/CHILD_SAFE_NETWORKING_MIRROR_HANDOFF.md"
+  ],
+  "verification_locations": [
+    "scripts/check_child_safety_demo.py",
+    ".github/workflows/observe-and-complete-repository-tasks.yml"
+  ],
+  "acceptance": {
+    "required_files_exist": true,
+    "validator_command": "python scripts/check_child_safety_demo.py",
+    "success_marker": "CHILD_SAFETY_DEMO=PASS"
+  },
+  "completion_effect": {
+    "remove_from": "data/site-orchestration-state.json#/active_sequence/parallel_safe_tasks",
+    "append_to": "data/site-orchestration-state.json#/active_sequence/completed_parallel_safe_tasks",
+    "ownership_pointer": "data/tasks/SITE-0002-CHILD-SAFETY-DEMO.json"
+  },
+  "external_dependencies": [],
+  "collision_boundaries": [
+    "humans-as-interoperability-layer.html",
+    "assets/hil-*",
+    "scripts/check_hil_*upload*"
+  ],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_INTERACTIVE_DEMO_ONLY"
+}
