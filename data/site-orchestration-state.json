@@ -68,8 +68,8 @@
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 6,
-      "blocker_count": 6,
+      "active_task_count": 7,
+      "blocker_count": 7,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
