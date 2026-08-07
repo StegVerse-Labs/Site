@@ -3,7 +3,7 @@
   "task_id": "SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT",
   "repository": "StegVerse-Labs/Site",
   "goal": "Verify that the governed child-safety interactive demo is publicly reachable over verified HTTPS at the canonical Site domain and serves the exact validated policy surface.",
-  "state": "BLOCKED",
+  "state": "COMPLETE",
   "auto_admit": false,
   "owner": {
     "type": "repository_native_workflow",
@@ -18,14 +18,21 @@
     ".github/workflows/verify-child-safety-public-deployment.yml",
     "child-safety-public-deployment.report.json"
   ],
-  "blocked_by": {
-    "surface": "GitHub Pages for stegverse.org",
-    "observed_state": "errored/building",
-    "release_condition": "https://stegverse.org/child-safety-demo.html returns HTTP 200 over verified HTTPS and contains all canonical demo markers"
+  "completion_evidence": {
+    "github_pages_status": "built",
+    "github_pages_build_id": 1137699817,
+    "github_pages_build_commit": "ab4487bd96e1dbde364ed709f2f6da2f024058ea",
+    "public_verification_workflow_run": 31188562057,
+    "public_verification_conclusion": "success",
+    "verification_job": 92899242614,
+    "verification_artifact_id": 8997779738,
+    "verification_artifact_sha256": "3c9f20070fd2258fde6288aa647484591cbc8fc16ad2c37ba3cc6a2607dc4cd4",
+    "canonical_target": "https://stegverse.org/child-safety-demo.html"
   },
-  "next_executable_action": "Repository-native workflow rechecks the public route after Site deployment changes and on schedule; PASS is the only release condition.",
+  "blocked_by": null,
+  "next_executable_action": "Continue scheduled public-route verification; reopen only if the canonical HTTPS route or required markers fail.",
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": "PUBLIC_INTERACTIVE_DEMO_REACHABLE_AND_VERIFIED"
 }
