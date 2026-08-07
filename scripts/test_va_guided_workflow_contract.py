@@ -11,6 +11,7 @@ GUIDED = ROOT / "va-claims-guided-workflow.html"
 CHAT = ROOT / "va-claims-chat.html"
 OUT = ROOT / "data/va-claim-assistant/guided-workflow-contract-validation.json"
 KEY = "vaClaimsStepStateV1"
+FALLBACK = "https://www.va.gov/disability/file-disability-claim-form-21-526ez/veteran-information"
 
 
 class SurfaceParser(HTMLParser):
@@ -76,7 +77,8 @@ def main() -> int:
     require('id="step-3-reached-download"' in guide, "step 3 page-arrival confirmation missing", errors)
     require('id="step-4-downloaded"' in guide, "step 4 download confirmation missing", errors)
     require('id="step-5-found-file"' in guide, "step 5 file-location confirmation missing", errors)
-    require('id="step-6-chat-open"' in guide, "step 6 Claims Chat handoff confirmation missing", errors)
+    require('id="step-6-packet-ready"' in guide and 'id="step-6-submitted"' in guide, "step 6 final packet/submission confirmations missing", errors)
+    require(FALLBACK in gp.links, "primary VA.gov 21-526EZ fallback link missing", errors)
     require("URLSearchParams" in guided and "params.get('step')" in guided, "focused step query routing missing", errors)
     require("Return to Instruction Page" in guided, "walkthrough return control missing", errors)
     require("Continue with help me complete this" in guided, "walkthrough continued-help control missing", errors)
@@ -84,16 +86,18 @@ def main() -> int:
     require("https://www.va.gov/sign-in/" in wp.links, "official VA.gov sign-in path missing", errors)
     require("https://www.va.gov/my-health/medical-records/download" in wp.links, "official VA records link missing", errors)
     require("https://mobile.va.gov/app/va-health-and-benefits" in wp.links, "official VA app path missing", errors)
+    require(FALLBACK in wp.links, "walkthrough VA.gov 21-526EZ fallback link missing", errors)
     require("get('guided')==='1'" in chat, "Claims Chat guided mode missing", errors)
     require("password" in chat.lower() and "one-time" in chat.lower(), "Claims Chat credential warning missing", errors)
     require("Private document upload and automated claim filing remain disabled" in chat, "Claims Chat upload boundary missing", errors)
+    require(FALLBACK in chat, "Claims Chat VA.gov 21-526EZ fallback missing", errors)
 
     receipt = {
-        "schema_version": "2.3.0",
+        "schema_version": "2.4.0",
         "state": "PASS" if not errors else "FAIL",
         "goal_id": "SV-VA-DUAL-FLOW-001",
         "task_id": "SV-VA-DF-VALIDATE-001",
-        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_STEPS",
+        "design_contract": "SIX_EXPLICIT_SEQUENTIAL_RECORD_RETRIEVAL_AND_CLAIM_SUBMISSION_STEPS",
         "primary_steps": gp.step_ids,
         "walkthrough_steps": wp.card_ids,
         "done_buttons": sum(1 for text in gp.buttons if text.startswith("DONE")),
@@ -105,8 +109,10 @@ def main() -> int:
             "3": ["reached_medical_record_download_page"],
             "4": ["all_time_all_records_pdf_or_txt_downloaded"],
             "5": ["downloaded_file_located"],
-            "6": ["claims_chat_opened_and_instructions_followed"],
+            "6": ["final_claim_packet_ready", "va_submission_confirmed"],
         },
+        "fallback_submission_url": FALLBACK,
+        "fallback_active_until_authorized_connected_submission": True,
         "shared_progress_key": KEY,
         "mobile_viewport": gp.viewport and wp.viewport,
         "language_declared": gp.lang and wp.lang,
