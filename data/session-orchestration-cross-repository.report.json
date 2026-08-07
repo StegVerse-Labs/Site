@@ -118,16 +118,32 @@
       "failures": []
     }
   ],
+  "delegated_dependencies": [
+    {
+      "repository": "master-records/orchestration",
+      "branch": "main",
+      "canonical_handoff": "docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md",
+      "last_observed_handoff_sha": "0710ddad26d2cae7862a4b6ad1ca07d33edf7116",
+      "task_id": "HIL-SESSION-004",
+      "claim_scope": "HIL_CUSTODY_AND_RECONSTRUCTION",
+      "canonical_owner": "master-records/orchestration persistent-service validation lane",
+      "delegated_owner": "StegVerse-Labs/Site issue #119 / SOR-C",
+      "state": "DEPENDENCY_BLOCKED_NOT_VERIFIED_BY_SITE_TOKEN",
+      "machine_observable_release_condition": "SOR-C imports a validated Master Records custody and reconstruction return receipt into Site",
+      "nonclaim": "SOR-B cross-repository PASS does not assert live Master Records verification, custody, reconstruction, or activation"
+    }
+  ],
   "owner_collisions": [],
   "summary": {
     "target_count": 4,
     "passing_targets": 4,
     "active_claim_scope_count": 3,
+    "delegated_dependency_count": 1,
     "stale_handoff_count": 0,
     "missing_authority_count": 0,
     "unresolved_successor_count": 0,
     "owner_collision_count": 0
   },
-  "next_action": "use the verified handoff and owner comparison as bounded succession evidence",
+  "next_action": "use the verified handoff and owner comparison as bounded succession evidence while preserving delegated dependency boundaries",
   "failures": []
 }
