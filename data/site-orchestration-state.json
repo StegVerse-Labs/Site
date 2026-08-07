@@ -63,8 +63,8 @@
     "machine_observation": {
       "controller": "scripts/observe_and_complete_repository_tasks.py",
       "task_directory": "data/tasks",
-      "active_task_count": 6,
-      "blocker_count": 6,
+      "active_task_count": 7,
+      "blocker_count": 7,
       "auto_discovery_enabled": true,
       "discoverable_task_states": [
         "READY_FOR_MACHINE_COMPLETION_CHECK",
@@ -76,9 +76,7 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [
-        "SITE-0002-CHILD-SAFETY-DEMO"
-      ],
+      "admitted_tasks": [],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
