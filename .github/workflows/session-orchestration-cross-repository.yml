@@ -1,0 +1,87 @@
+name: Session Orchestration Cross Repository
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "data/session-orchestration-cross-repository-targets.json"
+      - "scripts/check_session_cross_repository.py"
+      - "tests/test_session_cross_repository.py"
+      - ".github/workflows/session-orchestration-cross-repository.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: session-orchestration-cross-repository
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run cross-repository comparison tests
+        run: python -m unittest tests.test_session_cross_repository -v
+      - name: Generate live cross-repository comparison
+        shell: bash
+        run: |
+          set +e
+          python scripts/check_session_cross_repository.py
+          rc=$?
+          echo "initial comparison return code: $rc"
+          exit 0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Commit comparison state against latest main
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-orchestration-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          changed=$(git status --porcelain -- data/session-orchestration-cross-repository.report.json)
+          if [ -z "$changed" ]; then
+            echo "Cross-repository comparison report is current"
+            exit 0
+          fi
+
+          git add data/session-orchestration-cross-repository.report.json
+          git commit -m "chore(session-orchestration): refresh cross-repository comparison"
+
+          git fetch origin main
+          git rebase origin/main
+
+          # Re-read all governed handoffs after rebasing so concurrently changed authority cannot be masked.
+          set +e
+          python scripts/check_session_cross_repository.py
+          compare_rc=$?
+          set -e
+          echo "rebased comparison return code: $compare_rc"
+          git add data/session-orchestration-cross-repository.report.json
+          if ! git diff --cached --quiet; then
+            git commit --amend --no-edit
+          fi
+          git push origin HEAD:main
+      - name: Require committed comparison PASS
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/check_session_cross_repository.py --check
+      - name: Upload cross-repository comparison report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-orchestration-cross-repository-report
+          path: data/session-orchestration-cross-repository.report.json
+          if-no-files-found: error
