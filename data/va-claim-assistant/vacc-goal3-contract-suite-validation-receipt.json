@@ -1,0 +1,60 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "canonical_owner": "StegVerse-Labs/Site#116",
+  "issues_covered": [
+    179,
+    180,
+    181,
+    182,
+    183,
+    184
+  ],
+  "observed_at": "2026-08-07T05:09:25+00:00",
+  "private_retrieval_enabled": false,
+  "public_upload_enabled": false,
+  "receipt_id": "site-vacc-goal3-contract-suite-validation-001",
+  "receipt_sha256": "26311906b7473d10468cbcd008b9b9b467e34a0a3cb0c89e977321794268d8b5",
+  "result": {
+    "activation_effect": false,
+    "authority_effect": false,
+    "contract_count": 5,
+    "contracts": [
+      "provenance-workload.schema.json",
+      "claimant-submission-binding.schema.json",
+      "redirect-retrieval.schema.json",
+      "sanitized-document-derivative.schema.json",
+      "evidence-criteria-mapping.schema.json"
+    ],
+    "fixture_sha256": "c5108cfd649b27738e06dd41a2393445b904b66ec1232143aae061038dc150e0",
+    "issues_covered": [
+      179,
+      180,
+      181,
+      182,
+      183,
+      184
+    ],
+    "mapping_scenarios": [
+      "CONFLICTING",
+      "PARTIALLY_SUPPORTED",
+      "SUPPORTED",
+      "UNSUPPORTED"
+    ],
+    "private_retrieval_enabled": false,
+    "production_va_fields_verified": false,
+    "public_upload_enabled": false,
+    "schema_sha256": {
+      "claimant-submission-binding.schema.json": "33703dae37a20de7ef259b9f99c3c018579a70678d44329eab508e45e60499fb",
+      "evidence-criteria-mapping.schema.json": "0203e61b4e3417626499926425b5dea0c69fcafdc8ad39d92bc52faebbe1417d",
+      "provenance-workload.schema.json": "6ab849df12f7eb6fe19df2b70ee7b7a683df141271e127e15bd76cb6d6aca6b1",
+      "redirect-retrieval.schema.json": "d5eb3d00aef1bc87e3f8eeb83827cb4d916457e491a57b122af0adef231a9cfc",
+      "sanitized-document-derivative.schema.json": "e82ebd120357ae05b95411ca4c54ff183cbb52499df735807f361c5ced4a1047"
+    },
+    "state": "PASS",
+    "submission_enabled": false
+  },
+  "schema_version": "1.0.0",
+  "state": "VERIFIED",
+  "submission_enabled": false
+}
