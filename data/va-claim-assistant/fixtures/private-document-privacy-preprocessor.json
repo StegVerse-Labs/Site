@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "fixture_id": "va-private-document-privacy-preprocessor-001",
+  "execution_class": "CONTROLLED_PRODUCTION_EQUIVALENT",
+  "document": {
+    "document_id": "SYNTHETIC-DOC-001",
+    "filename": "synthetic-va-record.txt",
+    "media_type": "text/plain",
+    "max_bytes": 10485760,
+    "retention_state": "SESSION_ONLY",
+    "pages": [
+      "Name: Ada Veteran\nSSN: 123-45-6789\nVA File Number: C12345678\nEmail: ada.veteran@example.invalid\nPhone: 202-555-0142\nStreet Address: 101 Example Avenue, Testville, TX 75001\nDate of Birth: 01/02/1970\nClinical note: synthetic fixture only; no real veteran information."
+    ]
+  },
+  "required_identifier_classes": [
+    "PERSON_NAME",
+    "SSN",
+    "VA_FILE_NUMBER",
+    "EMAIL",
+    "PHONE",
+    "STREET_ADDRESS",
+    "DATE_OF_BIRTH"
+  ],
+  "detection_cases": [
+    {"case_id":"name","text":"Name: Ada Veteran","expected":["PERSON_NAME"]},
+    {"case_id":"ssn","text":"SSN: 123-45-6789","expected":["SSN"]},
+    {"case_id":"va-file","text":"VA File Number: C12345678","expected":["VA_FILE_NUMBER"]},
+    {"case_id":"email","text":"Email: ada.veteran@example.invalid","expected":["EMAIL"]},
+    {"case_id":"phone","text":"Phone: 202-555-0142","expected":["PHONE"]},
+    {"case_id":"address","text":"Street Address: 101 Example Avenue, Testville, TX 75001","expected":["STREET_ADDRESS"]},
+    {"case_id":"dob","text":"Date of Birth: 01/02/1970","expected":["DATE_OF_BIRTH"]}
+  ],
+  "clean_cases": [
+    "The veteran-controlled fixture contains no direct identifier on this line.",
+    "Symptoms and evidence are not identity credentials.",
+    "The VA rating schedule is an official public authority source."
+  ],
+  "uncertain_cases": [
+    "Possible phone fragment: 202-555",
+    "Possible identifier fragment: 123-45"
+  ],
+  "negative_admission_cases": [
+    {"case_id":"oversize","media_type":"text/plain","declared_bytes":10485761,"contains_active_content":false,"expected":"BLOCK"},
+    {"case_id":"unsupported-type","media_type":"application/x-msdownload","declared_bytes":128,"contains_active_content":false,"expected":"BLOCK"},
+    {"case_id":"active-content","media_type":"text/plain","declared_bytes":64,"contains_active_content":true,"expected":"BLOCK"}
+  ],
+  "custody_reference": "master-records/orchestration:contracts/va-privacy-event-custody.json"
+}
