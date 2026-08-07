@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Expose an obvious Normal Mode / Child Mode control while binding Child Mode to a non-cosmetic, jurisdiction-aware capability-governance contract.",
+  "state": "IMPLEMENTED_PENDING_MACHINE_OBSERVATION",
+  "auto_admit": false,
+  "owner": {
+    "type": "repository_native_validator",
+    "location": "scripts/check_child_safety_demo.py"
+  },
+  "implementation_locations": [
+    "child-safety-demo.html",
+    "docs/CHILD_MODE_REGULATORY_GOVERNANCE.md"
+  ],
+  "verification_locations": [
+    "scripts/check_child_safety_demo.py"
+  ],
+  "required_properties": [
+    "visible NORMAL MODE / CHILD MODE switch",
+    "client toggle is not authoritative age evidence",
+    "protected child cannot self-authorize Normal Mode",
+    "jurisdiction-aware child capability profile",
+    "known-contact communication retained",
+    "stranger contact/public exposure/profiling/recommender/location restrictions",
+    "appeal/review and anti-bypass requirements documented",
+    "regulatory non-certification boundary documented"
+  ],
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_DEMO_UI_AND_POLICY_CONTRACT_ONLY",
+  "legal_certification": false
+}
