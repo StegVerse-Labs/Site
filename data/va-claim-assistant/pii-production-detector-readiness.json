@@ -1,14 +1,13 @@
 {
   "activation_effect": false,
   "authority_effect": false,
-  "blockers": [
-    "production_detector_evidence_missing"
-  ],
+  "blockers": [],
+  "evidence_sha256": "ba19d291b1a1b23e7865f3cbf069ef4ff9bb477f14d6ec5bf5ac347ea9b4a3b6",
   "private_document_upload_enabled": false,
-  "production_detector_evidence_present": false,
-  "receipt_sha256": "f386d7779160bc0b1678f0056900889d8325facd5f41ab4391c92ceef5932b46",
+  "production_detector_evidence_present": true,
+  "receipt_sha256": "a693219714fa47d1a8cf977067fe885c966dbd5c588b1f2d0c5a3060809312b5",
   "reference_receipt_is_insufficient": true,
   "schema_version": "1.0.0",
-  "state": "BLOCKED",
+  "state": "COMPLETE",
   "task_id": "PII-RDY-01"
 }

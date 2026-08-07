@@ -2,10 +2,10 @@
   "activation_effect": false,
   "authority_effect": false,
   "blockers": [],
+  "model_leakage_evidence_present": true,
   "private_document_upload_enabled": false,
-  "receipt_sha256": "a7e2369ae4541e0d97df25b8908b2ad46be72723ff112daf6f695923b38a0b32",
-  "redaction_working_copy_evidence_present": true,
+  "receipt_sha256": "c17808cb510287bca6d6e84e1ad7c78d82dec6a19d3b6cf7236681b43b3939a1",
   "schema_version": "1.0.0",
   "state": "COMPLETE",
-  "task_id": "PII-RDY-02"
+  "task_id": "PII-RDY-03"
 }

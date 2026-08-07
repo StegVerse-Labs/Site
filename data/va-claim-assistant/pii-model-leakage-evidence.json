@@ -1,0 +1,32 @@
+{
+  "activation_effect": false,
+  "admitted_runtime": true,
+  "analytics_leak_count": 0,
+  "authority_effect": false,
+  "custody_reference": "master-records/orchestration:contracts/va-privacy-event-custody.json",
+  "direct_identifier_classes_tested": [
+    "DATE_OF_BIRTH",
+    "EMAIL",
+    "PERSON_NAME",
+    "PHONE",
+    "SSN",
+    "STREET_ADDRESS",
+    "VA_FILE_NUMBER"
+  ],
+  "execution_environment": "CONTROLLED_PRODUCTION_EQUIVALENT",
+  "log_leak_count": 0,
+  "model_input_leak_count": 0,
+  "model_output_leak_count": 0,
+  "model_release_denied_on_uncertainty": true,
+  "private_document_upload_enabled": false,
+  "processor_commit": "e9ed5158eb2584c2a6023902f62da2c7203ef6bb",
+  "processor_path": "scripts/process_va_private_document_privacy_preprocessor.py",
+  "prompt_leak_count": 0,
+  "raw_document_to_model_prohibited": true,
+  "runtime_class": "ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR",
+  "schema_version": "1.0.0",
+  "task_id": "PII-RDY-03",
+  "test_case_count": 9,
+  "trace_leak_count": 0,
+  "uncertain_cases_routed_to_review": true
+}

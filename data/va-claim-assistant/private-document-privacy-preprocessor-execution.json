@@ -1,0 +1,32 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "detector_evidence_sha256": "fbbb9b5c67bfd78f1ee97275dfb01f90c5827c0e81fb00babdbafe9346f4a17b",
+  "execution_environment": "CONTROLLED_PRODUCTION_EQUIVALENT",
+  "execution_sha256": "04f670dd6d5d4452ad7923304d98fa988cb2d551b45069dff77fa2aa933ac92f",
+  "file_admission": {
+    "active_content_signature_scan_pass": true,
+    "advanced_malware_scanner_required_before_public_activation": true,
+    "allowed_media_type": true,
+    "negative_admission_cases_blocked": true,
+    "size_within_limit": true
+  },
+  "fixture_sha256": "b22c76fdc8ab325f6d5dfe557c04abcbc8c4e172c5610bd17fbc2b18620bc661",
+  "leakage_evidence_sha256": "117785141fbef83041b0d2f98f8f7657aee1f63a8c8837b0ffd2374cb94a8807",
+  "model_called": false,
+  "original_document_sha256": "52e32e0ebabf121949bdf77ce6cab473beb2f214e353c45a8ed690aa38e288a6",
+  "processor_commit": "e9ed5158eb2584c2a6023902f62da2c7203ef6bb",
+  "processor_path": "scripts/process_va_private_document_privacy_preprocessor.py",
+  "public_upload_enabled": false,
+  "redacted_document_sha256": "1df3ce2ae98f872d73adede08aa3eb9dafcab0dc584d00bfd3c34dc2150203d3",
+  "redaction_evidence_sha256": "7e1ec3647b5bc901e9083f4860442ad748c718ecd2a0519b9c70e00f97a6986d",
+  "redaction_manifest_sha256": "9eeb2afede9c47e52ebe2d8baf69d308b93146ae8dd29da2663b46423a313d2a",
+  "retention": {
+    "original_state": "SESSION_ONLY",
+    "raw_fixture_published": false,
+    "working_copy_state": "EPHEMERAL_CONTROLLED_RUN"
+  },
+  "runtime_class": "ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR",
+  "schema_version": "1.0.0",
+  "state": "PASS"
+}

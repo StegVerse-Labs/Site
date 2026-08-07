@@ -1,0 +1,27 @@
+{
+  "activation_effect": false,
+  "admitted_runtime": true,
+  "authority_effect": false,
+  "case_count": 12,
+  "clean_case_false_positive_rate": 0.0,
+  "custody_reference": "master-records/orchestration:contracts/va-privacy-event-custody.json",
+  "evidence_sha256": "7dba9cba46fbb2ee366c36ef6b8746871083ea7a3f4d42725eb978178fb51a1e",
+  "execution_environment": "CONTROLLED_PRODUCTION_EQUIVALENT",
+  "model_processing_before_gate": false,
+  "private_document_upload_enabled": false,
+  "processor_commit": "e9ed5158eb2584c2a6023902f62da2c7203ef6bb",
+  "processor_path": "scripts/process_va_private_document_privacy_preprocessor.py",
+  "raw_pii_in_prompts_outputs_traces_or_logs": false,
+  "receipt_id": "site-va-pii-production-detector-001",
+  "reference_evaluator_only": false,
+  "required_class_recall": 1.0,
+  "runtime_class": "ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR",
+  "schema_version": "1.0.0",
+  "state": "PASS",
+  "synthetic_only": true,
+  "thresholds": {
+    "maximum_clean_false_positive_rate": 0.05,
+    "minimum_required_class_recall": 0.99
+  },
+  "uncertain_cases_routed_to_review": true
+}
