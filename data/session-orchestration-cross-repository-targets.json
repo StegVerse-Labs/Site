@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "state_type": "session_orchestration_cross_repository_targets",
+  "policy": {
+    "handoff_required": true,
+    "successor_source_required": true,
+    "remote_handoff_hash_must_match": true,
+    "missing_authority_fails_closed": true,
+    "duplicate_active_claim_scope_fails_closed": true,
+    "session_age_is_not_authority": true
+  },
+  "targets": [
+    {
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "mode": "local",
+      "canonical_handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "expected_handoff_sha": null,
+      "required_markers": [
+        "active_owner: StegVerse-Labs/Site issue #114",
+        "SOR-B / issue #118",
+        "cross-repository comparison"
+      ],
+      "task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
+      "claim_scope": "SESSION_ORCHESTRATION_ACTIVATION",
+      "claim_active": true,
+      "canonical_owner": "StegVerse-Labs/Site issue #114",
+      "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+    },
+    {
+      "repository": "master-records/orchestration",
+      "branch": "main",
+      "mode": "github",
+      "canonical_handoff": "docs/HIL_MASTER_RECORDS_MIRROR_HANDOFF.md",
+      "expected_handoff_sha": "0710ddad26d2cae7862a4b6ad1ca07d33edf7116",
+      "required_markers": [
+        "Goal ID: `HIL-SESSION-004`",
+        "Claim state: `CLAIMED_FOR_VALIDATION`",
+        "Canonical owner: `master-records/orchestration` persistent-service validation lane."
+      ],
+      "task_id": "HIL-SESSION-004",
+      "claim_scope": "HIL_CUSTODY_AND_RECONSTRUCTION",
+      "claim_active": true,
+      "canonical_owner": "master-records/orchestration persistent-service validation lane",
+      "successor_execution_source": ".github/workflows/check-master-records-persistent-service-evidence.yml"
+    },
+    {
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "branch": "main",
+      "mode": "github",
+      "canonical_handoff": "docs/PUBLISHER_MIRROR_HANDOFF.md",
+      "expected_handoff_sha": "eeb57df384b59d300baeaeb480640e0ab3ad5570",
+      "required_markers": [
+        "goal_id: PUBLISHER-ST017-SITE-PROPAGATION-001",
+        "state: BLOCKED_BUT_OBSERVED",
+        "publication_posture: publication_awareness_only"
+      ],
+      "task_id": "PUBLISHER-ST017-SITE-PROPAGATION-001",
+      "claim_scope": "HIL_PUBLICATION_AWARENESS",
+      "claim_active": true,
+      "canonical_owner": "GCAT-BCAT-Engine/Publisher/.github/workflows/validate-governed-ecosystem-awareness.yml",
+      "successor_execution_source": ".github/workflows/validate-governed-ecosystem-awareness.yml"
+    },
+    {
+      "repository": "StegVerse-Labs/admissibility-wiki",
+      "branch": "main",
+      "mode": "github",
+      "canonical_handoff": "ADMISSIBILITY_WIKI_MIRROR_HANDOFF.md",
+      "expected_handoff_sha": "35d797fbddb2be9c0b0712d0a96efbad90ca4882",
+      "required_markers": [
+        "MERGED INTO: StegVerse-Labs/admissibility-wiki issue #50",
+        "role: repository-native canonical validation task mesh",
+        "state: MACHINE_OWNED_DEPENDENCY_BLOCKED"
+      ],
+      "task_id": "issue#50",
+      "claim_scope": "HIL_ADMISSIBILITY_INTERPRETATION",
+      "claim_active": true,
+      "canonical_owner": "StegVerse-Labs/admissibility-wiki issue #50 canonical validation task mesh",
+      "successor_execution_source": ".github/workflows/validate-chain-continuation.yml"
+    },
+    {
+      "repository": "StegVerse-002/stegguardian-wiki",
+      "branch": "main",
+      "mode": "github",
+      "canonical_handoff": "STEGGUARDIAN_WIKI_MIRROR_HANDOFF.md",
+      "expected_handoff_sha": "c7f792867c81a8f8226a1c74c59206f24c765641",
+      "required_markers": [
+        "state: BLOCKED_BUT_OBSERVED",
+        "queued HIL Guardian projection: DEPENDENCY_BLOCKED",
+        "active Guardian implementation tasks: none"
+      ],
+      "task_id": "current work task sequence 0001",
+      "claim_scope": "HIL_GUARDIAN_INTERPRETATION",
+      "claim_active": false,
+      "canonical_owner": "StegVerse-002/stegguardian-wiki repository-native blocked observer",
+      "successor_execution_source": ".github/workflows/pages.yml"
+    }
+  ]
+}
