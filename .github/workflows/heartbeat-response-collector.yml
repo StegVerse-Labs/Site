@@ -7,6 +7,7 @@ on:
       - "data/heartbeat-response-adapter-targets.json"
       - "data/heartbeat-response-node.json"
       - "data/heartbeat-response-outbox/**"
+      - "data/heartbeat-response-receipts/**"
       - "scripts/collect_heartbeat_response_receipts.py"
       - "tests/test_collect_heartbeat_response_receipts.py"
       - ".github/workflows/heartbeat-response-collector.yml"
