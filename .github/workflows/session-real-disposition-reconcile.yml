@@ -1,0 +1,86 @@
+name: Session Real Disposition Reconcile
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "data/session-disposition-evidence/**"
+      - "scripts/reconcile_real_session_dispositions.py"
+      - "tests/test_real_session_dispositions.py"
+      - ".github/workflows/session-real-disposition-reconcile.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: session-real-disposition-reconcile
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run disposition tests
+        run: python -m unittest tests.test_real_session_dispositions -v
+      - name: Reconcile real dispositions
+        run: python scripts/reconcile_real_session_dispositions.py --apply
+      - name: Validate retirement registry
+        run: python scripts/check_session_retirement.py
+      - name: Commit registry, hash receipts, and candidate scan against latest main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "stegverse-orchestration-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          paths=(data/session-orchestration-registry.json data/session-disposition-receipts data/session-merge-required-candidate-scan.json)
+          changed=$(git status --porcelain -- "${paths[@]}")
+          if [ -z "$changed" ]; then
+            echo "Real disposition state is current"
+            exit 0
+          fi
+          git add "${paths[@]}"
+          git commit -m "chore(session-orchestration): admit real dispositions and scan merge candidates"
+          git fetch origin main
+          git rebase origin/main
+          # Reconcile again from latest main; never let an older registry overwrite newer authority.
+          python scripts/reconcile_real_session_dispositions.py --apply
+          python scripts/check_session_retirement.py
+          git add "${paths[@]}"
+          if ! git diff --cached --quiet; then
+            git commit --amend --no-edit
+          fi
+          python scripts/reconcile_real_session_dispositions.py --check
+          git push origin HEAD:main
+      - name: Verify committed disposition state
+        run: |
+          python scripts/reconcile_real_session_dispositions.py --check
+          python scripts/check_session_retirement.py
+      - name: Upload disposition receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-disposition-receipts
+          path: data/session-disposition-receipts/
+          if-no-files-found: error
+      - name: Upload MERGE_REQUIRED candidate scan
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: session-merge-required-candidate-scan
+          path: data/session-merge-required-candidate-scan.json
+          if-no-files-found: error
+      - name: Upload retirement validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-disposition-retirement-report
+          path: session_retirement.report.json
+          if-no-files-found: error
