@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_type": "session_disposition_evidence",
+  "evidence_id": "SESSION-ORCHESTRATION-DESIGN-SUPERSEDED-2026-08-07",
+  "session_id": "session-orchestration-design-2026-07-31",
+  "task_id": "SESSION-ORCHESTRATION-0001",
+  "requested_posture": "SUPERSEDED",
+  "source_registry": "data/session-orchestration-registry.json",
+  "successor_session_id": "session-orchestration-activation-coordination-2026-07-31",
+  "successor_task_id": "SESSION-ORCHESTRATION-ACTIVATION-0001",
+  "successor_owner": "StegVerse-Labs/Site issue #114",
+  "authority_sources": [
+    "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+    "data/session-orchestration-registry.json",
+    "issues/114"
+  ],
+  "required_source_conditions": {
+    "source_active_task_ownership": false,
+    "source_unique_unmerged_state": false,
+    "source_reason_contains": "superseded by the active activation coordination",
+    "successor_posture": "CURRENT",
+    "successor_active_task_ownership": true
+  },
+  "resulting_conditions": {
+    "posture": "SUPERSEDED",
+    "safe_to_archive": false,
+    "active_task_ownership": false,
+    "unique_unmerged_state": false,
+    "required_before_archive": []
+  },
+  "nonclaims": [
+    "SUPERSEDED is not silently converted into ARCHIVABLE",
+    "this evidence does not perform a ChatGPT UI archive action",
+    "this evidence does not change issue #114 ownership",
+    "age is not used as supersession authority"
+  ]
+}
