@@ -35,6 +35,38 @@
   },
   "packets": [
     {
+      "session_id": "session-orchestration-design-2026-07-31",
+      "originating_goal": "The original design session has been superseded by the active activation coordination tracked in issue #114; its unique state is preserved in repository authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "main",
+      "task_id": "SESSION-ORCHESTRATION-0001",
+      "commit": "0bda46c5b5099af0e3cbc87b9b2129c09c14f9e3",
+      "authority_source": [
+        "docs/SITE_MIRROR_HANDOFF.md",
+        "data/site-orchestration-state.json",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+      ],
+      "claimant": "repository registry",
+      "posture": "SUPERSEDED",
+      "release_condition": [],
+      "collision_boundaries": [],
+      "expected_evidence": [
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+        "schemas/session-retirement.schema.json",
+        "data/session-orchestration-registry.json",
+        "prompts/SESSION_SELF_AUDIT.md",
+        "scripts/check_session_retirement.py",
+        ".github/workflows/session-retirement-validate.yml"
+      ],
+      "completion_conditions": [],
+      "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "nonclaims": [
+        "packet does not grant execution authority",
+        "packet does not perform ChatGPT UI archive or deletion",
+        "missing evidence must not be converted to completion"
+      ]
+    },
+    {
       "session_id": "session-orchestration-activation-coordination-2026-07-31",
       "originating_goal": "This session currently coordinates the active BUILD_IN_PROGRESS task sequence SOR-0001 through SOR-0008 under issue #114.",
       "repository": "StegVerse-Labs/Site",

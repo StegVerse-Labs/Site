@@ -39,9 +39,9 @@
       "session_id": "session-orchestration-design-2026-07-31",
       "task_id": "SESSION-ORCHESTRATION-0001",
       "repository": "StegVerse-Labs/Site",
-      "posture": "ARCHIVABLE",
-      "queue_state": "COMPLETE",
-      "archive_candidate": true,
+      "posture": "SUPERSEDED",
+      "queue_state": "SUPERSEDED",
+      "archive_candidate": false,
       "ui_archive_action_performed": false,
       "active_task_ownership": false,
       "unique_unmerged_state": false,
@@ -182,6 +182,6 @@
       "reason": "All unique primary and adjacent goals are now durably inventoried, unresolved work has named repository-native owners and machine-observable release conditions, and this session retains no distinct implementation, validation, integration, propagation, reconciliation, or observation authority."
     }
   ],
-  "archive_candidate_count": 5,
+  "archive_candidate_count": 4,
   "failures": []
 }
