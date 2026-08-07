@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/sanitized-document-derivative.schema.json",
+  "title": "VACC Veteran-Controlled Original and Sanitized Analysis Derivative Contract",
+  "type": "object",
+  "required": ["schema_version", "original", "derivative", "identifier_controls", "evidence_posture", "authority_effect", "activation_effect"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "original": {
+      "type": "object",
+      "required": ["artifact_id", "sha256", "control_state", "retention_state"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "control_state": {"const": "VETERAN_CONTROLLED_SEPARATE_ARTIFACT"},
+        "retention_state": {"enum": ["SESSION_ONLY", "USER_RETAINED", "CUSTODY_RECORDED", "DELETED"]}
+      },
+      "additionalProperties": false
+    },
+    "derivative": {
+      "type": "object",
+      "required": ["artifact_id", "sha256", "derived_from_sha256", "analysis_scope", "page_anchor_refs", "pseudonymous_refs"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "derived_from_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "analysis_scope": {"const": "SANITIZED_DERIVED_CONTEXT_ONLY"},
+        "page_anchor_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "pseudonymous_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "identifier_controls": {
+      "type": "object",
+      "required": ["direct_identifiers_detected", "direct_identifiers_removed_or_tokenized", "source_credentials_present", "identity_proofing_artifacts_present", "leakage_state"],
+      "properties": {
+        "direct_identifiers_detected": {"type": "integer", "minimum": 0},
+        "direct_identifiers_removed_or_tokenized": {"type": "integer", "minimum": 0},
+        "source_credentials_present": {"const": false},
+        "identity_proofing_artifacts_present": {"const": false},
+        "leakage_state": {"enum": ["PASS", "REVIEW_REQUIRED", "BLOCKED"]}
+      },
+      "additionalProperties": false
+    },
+    "evidence_posture": {
+      "type": "object",
+      "required": ["favorable_retained", "unfavorable_retained", "conflicting_retained", "unresolved_retained"],
+      "properties": {
+        "favorable_retained": {"const": true},
+        "unfavorable_retained": {"const": true},
+        "conflicting_retained": {"const": true},
+        "unresolved_retained": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "authority_effect": {"const": false},
+    "activation_effect": {"const": false}
+  },
+  "additionalProperties": false
+}
