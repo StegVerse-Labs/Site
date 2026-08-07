@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -15,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 HANDOFF = ROOT / "docs" / "SITE_MIRROR_HANDOFF.md"
 STATE = ROOT / "data" / "site-orchestration-state.json"
 REPORT = ROOT / "site_handoff_orchestration.report.json"
+RETIREMENT_VALIDATOR = ROOT / "scripts" / "check_session_retirement.py"
+RETIREMENT_REPORT = ROOT / "session_retirement.report.json"
 REPO = os.getenv("GITHUB_REPOSITORY", "StegVerse-Labs/Site")
 API = os.getenv("GITHUB_API_URL", "https://api.github.com")
 TOKEN = os.getenv("GITHUB_TOKEN", "")
@@ -48,8 +51,6 @@ def extract_remaining_work(text: str) -> list[dict[str, str]]:
         if line.startswith("Downstream destinations"):
             destination = "DOWNSTREAM_AFTER_SITE_ACTIVATION"
             continue
-        # Markdown fences may declare a language, e.g. ```text. Treat every
-        # opening or closing triple-backtick line as a fence boundary.
         if line.startswith("```"):
             in_fence = not in_fence
             continue
@@ -69,6 +70,43 @@ def normalized(value: str) -> set[str]:
 def overlaps(title: str, workload: str) -> bool:
     left, right = normalized(title), normalized(workload)
     return len(left & right) >= 2
+
+
+def validate_retirement_state(failures: list[str]) -> dict[str, Any]:
+    """Run the canonical retirement validator and consume its report fail-closed."""
+    if not RETIREMENT_VALIDATOR.exists():
+        failures.append("missing scripts/check_session_retirement.py")
+        return {"status": "FAIL", "failures": ["validator missing"]}
+
+    result = subprocess.run(
+        [sys.executable, str(RETIREMENT_VALIDATOR)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if not RETIREMENT_REPORT.exists():
+        failures.append("session retirement validator produced no report")
+        return {
+            "status": "FAIL",
+            "returncode": result.returncode,
+            "stdout": result.stdout.strip(),
+            "stderr": result.stderr.strip(),
+            "failures": ["report missing"],
+        }
+
+    try:
+        retirement = json.loads(RETIREMENT_REPORT.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        failures.append(f"session retirement report invalid JSON: {exc}")
+        return {"status": "FAIL", "failures": [f"invalid report JSON: {exc}"]}
+
+    retirement["returncode"] = result.returncode
+    retirement["stdout"] = result.stdout.strip()
+    retirement["stderr"] = result.stderr.strip()
+    if result.returncode != 0 or retirement.get("status") != "PASS":
+        failures.append("session retirement validation failed")
+    return retirement
 
 
 def main() -> int:
@@ -94,6 +132,7 @@ def main() -> int:
     if state.get("status") != "ACTIVE":
         failures.append("orchestration state is not ACTIVE")
 
+    retirement_validation = validate_retirement_state(failures)
     workloads = extract_remaining_work(handoff)
     open_issues: list[dict[str, Any]] = []
     open_prs: list[dict[str, Any]] = []
@@ -124,7 +163,6 @@ def main() -> int:
     event = os.getenv("GITHUB_EVENT_NAME", "local")
     ref_name = os.getenv("GITHUB_HEAD_REF") or os.getenv("GITHUB_REF_NAME", "")
     if event == "pull_request" and ref_name and ref_name != "main":
-        # Every PR must either own a declared unfinished workload or explicitly be orchestration maintenance.
         branch_tokens = normalized(ref_name.replace("/", " ").replace("-", " "))
         owns_declared_work = any(branch_tokens & normalized(item["workload"]) for item in workloads)
         if not owns_declared_work and "orchestrat" not in ref_name.lower() and "handoff" not in ref_name.lower():
@@ -134,7 +172,7 @@ def main() -> int:
         failures.append("multiple open work items appear to own the same handoff workload")
 
     report = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "status_type": "site_handoff_orchestration_report",
         "status": "FAIL" if failures else "PASS",
         "repository": REPO,
@@ -144,11 +182,12 @@ def main() -> int:
         "open_issue_count": len(open_issues),
         "open_pr_count": len(open_prs),
         "branch_count_first_page": len(branches),
+        "retirement_validation": retirement_validation,
         "assignments": assignments,
         "duplicate_groups": duplicate_groups,
         "failures": failures,
         "next_action": (
-            "reconcile existing handoff workloads and close/supersede duplicate owners"
+            "repair retirement state or reconcile existing handoff workloads and duplicate owners"
             if failures
             else "continue the highest-priority unfinished handoff workload"
         ),
