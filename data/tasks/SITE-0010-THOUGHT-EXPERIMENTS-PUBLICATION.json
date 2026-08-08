@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.1.0",
+  "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
+  "repository": "StegVerse-Labs/Site",
+  "goal": "Create a public Thought Experiments category and publish Continuity as Reconstructable Manifold Transition as HTML plus a linked PDF artifact.",
+  "originating_session_goal": "Durably publish the manifold continuity thought experiment developed from the governance/admissibility/action discussion.",
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "auto_admit": true,
+  "external_dependencies": [],
+  "execution_class": "PARALLEL_SAFE",
+  "owner": {
+    "type": "repository_native_orchestrator",
+    "location": "scripts/admit_repository_tasks.py"
+  },
+  "issue": 238,
+  "branch": "goal/thought-experiments-publication",
+  "collision_boundaries": [
+    "Do not modify humans-as-interoperability-layer.html or assets/hil-*",
+    "Do not infer activation, proof, validation, or authority from public display",
+    "Do not merge or activate until repository orchestration admits this workload"
+  ],
+  "required_outputs": [
+    "Thought-Experiments.html",
+    "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
+    "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf",
+    "navigation entry from an existing public research or transition surface",
+    "public-route verification receipt"
+  ],
+  "canonical_title": "Continuity as Reconstructable Manifold Transition",
+  "canonical_subtitle": "A thought experiment on admissibility, governance, action, and the uniqueness of an observed state transition",
+  "core_formalism": {
+    "transition": "N --A--> O",
+    "collapse": "Collapse(A_N, G_N, X_A) = lambda_O",
+    "uniqueness_rule": "Once admissibility, governance, and the applied action are sufficiently specified, the collapse resolves to one eigenvalue corresponding to the observed successor manifold O.",
+    "residual_multiplicity_rule": "If more than one eigenvalue remains, the reconstruction is insufficient because some discriminating part of the manifold state, governance matrix, admissibility matrix, or action matrix remains unaccounted for.",
+    "continuity_rule": "Continuity exists when preserved information is sufficient to reconstruct why the action on N, under its governance and admissibility structure, could collapse only to O.",
+    "scale_rule": "As the manifold grows, the concrete matrices become larger and more coupled, but the governing structure remains (Admissibility, Governance, Action) -> one eigenvalue -> successor manifold.",
+    "working_term_boundary": "Eigenvalue is working formalism naming the unique resolved value of the combined transition problem; the exact operator and spectral interpretation remain to be formalized."
+  },
+  "required_sections": [
+    "The thought experiment",
+    "Collapse and the unique solution",
+    "What continuity preserves",
+    "Scaling the manifold",
+    "A reconstruction test",
+    "Compact formulation"
+  ],
+  "compact_formulation": [
+    "Reconstruct manifold state N and its admissibility and governance structures.",
+    "Identify the action matrix actually applied to N.",
+    "Collapse admissibility against governance under that action.",
+    "Require one eigenvalue corresponding to the observed successor O.",
+    "Preserve O and its new admissibility matrix as the next manifold state.",
+    "Treat residual multiplicity as evidence of insufficient reconstruction."
+  ],
+  "publication_posture": {
+    "category": "Thought Experiments",
+    "proof_claim": false,
+    "validation_claim": false,
+    "activation_effect": false,
+    "authority_effect": false
+  },
+  "validation_required": [
+    "HTML source inspection",
+    "repository canonical validation",
+    "GitHub Pages or canonical Site deployment success",
+    "HTTPS 200 verification for category, HTML article, and PDF artifact",
+    "link verification from category to article and PDF"
+  ],
+  "blocked_by": "Repository orchestration admission and binary PDF installation/publication verification.",
+  "release_condition": "Task is admitted by the repository orchestrator, required outputs are merged, canonical validation passes, and all three public HTTPS routes are observed successfully.",
+  "evidence_locations": [
+    "https://github.com/StegVerse-Labs/Site/issues/238",
+    "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json"
+  ],
+  "next_executable_action": "Repository-native admission should claim the task; then implement the category/index/article/PDF outputs, run canonical validation, merge only after passing checks, and verify the public HTTPS routes.",
+  "external_session_ownership_required": false,
+  "manual_user_action_required": false,
+  "authority_effect": false,
+  "activation_effect": false
+}
