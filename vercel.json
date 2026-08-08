@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/steggate/:path*",
+      "destination": "/api/steggate"
+    }
+  ],
+  "functions": {
+    "api/steggate.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{tests/**,__tests__/**,fixtures/**,data/**,docs/**,papers/**,assets/**}"
+    }
+  }
+}
