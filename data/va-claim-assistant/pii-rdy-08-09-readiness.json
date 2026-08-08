@@ -1,0 +1,44 @@
+{
+  "activation_effect": false,
+  "authority_effect": false,
+  "complete_count": 0,
+  "contract_sha256": "6c0654cb4795e08d8237b78bf976f068ff66adcff2aed815c25c9abdc19dd778",
+  "next_executable_action": "StegVerse-Labs/Site#113 must produce the named evidence artifact; the observer will re-evaluate it automatically.",
+  "observation_source": "REPOSITORY_NATIVE_FAIL_CLOSED_OBSERVER",
+  "observed_at": "2026-08-08T13:57:06.456424+00:00",
+  "receipt_sha256": "aa1b1bcb0a1f81a8349783a995fe6cb9d7186a74a9bf976d7610b4bd6f279d85",
+  "required_count": 2,
+  "requirements": [
+    {
+      "activation_effect": false,
+      "authority_effect": false,
+      "blockers": [
+        "required_evidence_missing"
+      ],
+      "capability": "veteran-visible privacy, linkage, export, deletion, and revocation status",
+      "evidence_path": "data/va-claim-assistant/veteran-visible-privacy-controls-evidence.json",
+      "evidence_sha256": null,
+      "next_executable_action": "StegVerse-Labs/Site#113 must produce the named evidence artifact; the observer will re-evaluate it automatically.",
+      "owner": "StegVerse-Labs/Site#113",
+      "requirement_id": "PII-RDY-08",
+      "state": "BLOCKED"
+    },
+    {
+      "activation_effect": false,
+      "authority_effect": false,
+      "blockers": [
+        "required_evidence_missing"
+      ],
+      "capability": "independent privacy and security assessment",
+      "evidence_path": "data/va-claim-assistant/independent-privacy-security-assessment.json",
+      "evidence_sha256": null,
+      "next_executable_action": "independent-assessment-lane must produce the named evidence artifact; the observer will re-evaluate it automatically.",
+      "owner": "independent-assessment-lane",
+      "requirement_id": "PII-RDY-09",
+      "state": "BLOCKED"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "state": "BLOCKED",
+  "task_id": "VA-PII-RDY-08-09-OBSERVER-001"
+}
