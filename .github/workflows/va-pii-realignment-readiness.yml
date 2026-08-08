@@ -8,6 +8,10 @@ on:
     branches: [main]
     paths:
       - 'data/va-claim-assistant/pii-realignment-readiness.json'
+      - 'data/va-claim-assistant/pii-rdy-08-09-observer-contract.json'
+      - 'data/va-claim-assistant/veteran-visible-privacy-controls-evidence.json'
+      - 'data/va-claim-assistant/independent-privacy-security-assessment.json'
+      - 'scripts/observe_va_pii_rdy_08_09.py'
       - 'scripts/validate_va_pii_realignment_readiness.py'
       - '.github/workflows/va-pii-realignment-readiness.yml'
       - 'docs/VA_PII_REALIGNMENT_READINESS_MIRROR_HANDOFF.md'
@@ -30,16 +34,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Observe PII-RDY-08 and PII-RDY-09
+        run: python scripts/observe_va_pii_rdy_08_09.py
       - name: Evaluate readiness registry
         run: python scripts/validate_va_pii_realignment_readiness.py
-      - name: Persist readiness receipt
+      - name: Persist readiness receipts
         if: always()
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'stegverse-va-readiness'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/va-claim-assistant/pii-realignment-readiness-validation.json
+          git add \
+            data/va-claim-assistant/pii-rdy-08-09-readiness.json \
+            data/va-claim-assistant/pii-realignment-readiness-validation.json
           if git diff --cached --quiet; then
             exit 0
           fi
@@ -54,4 +62,6 @@ jobs:
           path: |
             data/va-claim-assistant/pii-realignment-readiness.json
             data/va-claim-assistant/pii-realignment-readiness-validation.json
+            data/va-claim-assistant/pii-rdy-08-09-observer-contract.json
+            data/va-claim-assistant/pii-rdy-08-09-readiness.json
           retention-days: 90
