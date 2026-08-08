@@ -1,0 +1,34 @@
+{
+  "schema": "stegverse.site.marketplace-economic-loop-activation.v1",
+  "goal_id": "MARKETPLACE-ECONOMIC-LOOP-PROPAGATION-001",
+  "source": {
+    "repository": "GCAT-BCAT-Engine/Marketplace",
+    "branch": "main",
+    "handoff": "MARKETPLACE_MIRROR_HANDOFF.md",
+    "handoff_activation_commit": "a97b8a6a93a068978fda3d5635b4d231984b0a01",
+    "heartbeat": "data/marketplace-economic-loop-heartbeat.json",
+    "heartbeat_blob_sha": "14387fc916a858f6929f8b334d71ba036dbd57f5",
+    "heartbeat_run_id": 31265908275,
+    "full_ci_run_id": 31265908259
+  },
+  "verified_source_claims": {
+    "economic_loop_test": "PASS",
+    "required_production_files": 7,
+    "developed_required_files": 7,
+    "required_scaffolds_or_stubs": 0,
+    "missing_required_files": 0,
+    "required_validation_files": 5,
+    "present_validation_files": 5,
+    "redeployment_ready": true
+  },
+  "site_projection": {
+    "state": "SANDBOX_ECONOMIC_LOOP_ACCESSIBLE",
+    "display_eligible": true,
+    "live_trading_accessible": false,
+    "live_financial_authority": false,
+    "publication_authority": false,
+    "release_authority": false,
+    "execution_authority": false
+  },
+  "boundary": "This projection reports a verified sandbox/paper Marketplace capability. It does not grant live trading, custody, transfer, publication, release, or execution authority."
+}
