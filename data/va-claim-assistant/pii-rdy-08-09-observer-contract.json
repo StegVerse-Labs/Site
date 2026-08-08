@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "VA-PII-RDY-08-09-OBSERVER-001",
+  "canonical_parent": "data/va-claim-assistant/pii-realignment-readiness.json",
+  "authority_effect": false,
+  "activation_effect": false,
+  "requirements": {
+    "PII-RDY-08": {
+      "owner": "StegVerse-Labs/Site#113",
+      "capability": "veteran-visible privacy, linkage, export, deletion, and revocation status",
+      "evidence_path": "data/va-claim-assistant/veteran-visible-privacy-controls-evidence.json",
+      "required_evidence": {
+        "state": "PASS",
+        "repository_validation": "PASS",
+        "deployed_validation": "PASS",
+        "access_history_visible": true,
+        "export_control_visible": true,
+        "deletion_control_visible": true,
+        "revocation_status_visible": true,
+        "private_upload_enabled": false,
+        "authority_effect": false,
+        "activation_effect": false
+      }
+    },
+    "PII-RDY-09": {
+      "owner": "independent-assessment-lane",
+      "capability": "independent privacy and security assessment",
+      "evidence_path": "data/va-claim-assistant/independent-privacy-security-assessment.json",
+      "required_evidence": {
+        "state": "PASS",
+        "assessment_retained": true,
+        "independent_assessor": true,
+        "unresolved_high_findings": 0,
+        "unresolved_critical_findings": 0,
+        "authority_effect": false,
+        "activation_effect": false
+      }
+    }
+  },
+  "states": ["COMPLETE", "BLOCKED", "RETRY", "REVIEW_REQUIRED", "FAILED"],
+  "completion_rule": "A requirement becomes COMPLETE only when its named evidence file exists and every required evidence field matches exactly. Missing evidence is BLOCKED; malformed or contradictory evidence is REVIEW_REQUIRED. This observer never grants authority or activation.",
+  "next_after_complete": "The existing VA PII realignment readiness owner may consume these receipts together with PII-RDY-01 through PII-RDY-07 evidence; public private-document or filing activation remains separately gated."
+}
