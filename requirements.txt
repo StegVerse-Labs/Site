@@ -1,0 +1,1 @@
+git+https://github.com/StegVerse-Labs/StegCore.git@19c62b2f078346cf6a7f19b19aaf7d29fa9c7790
