@@ -15,18 +15,9 @@ Registry: data/va-claim-assistant/pii-realignment-readiness.json
 Registry validator: scripts/validate_va_pii_realignment_readiness.py
 Registry workflow: .github/workflows/va-pii-realignment-readiness.yml
 Registry receipt: data/va-claim-assistant/pii-realignment-readiness-validation.json
-Production detector schema: data/va-claim-assistant/pii-production-detector-evidence.schema.json
-Production detector observer: scripts/observe_va_pii_production_detector_evidence.py
-Production detector workflow: .github/workflows/va-pii-production-detector-evidence.yml
-Production detector receipt: data/va-claim-assistant/pii-production-detector-readiness.json
-Redaction evidence schema: data/va-claim-assistant/pii-redaction-working-copy-evidence.schema.json
-Redaction evidence observer: scripts/observe_va_pii_redaction_working_copy_evidence.py
-Redaction evidence workflow: .github/workflows/va-pii-redaction-working-copy-evidence.yml
-Redaction readiness receipt: data/va-claim-assistant/pii-redaction-working-copy-readiness.json
-Leakage evidence schema: data/va-claim-assistant/pii-model-leakage-evidence.schema.json
-Leakage evidence observer: scripts/observe_va_pii_model_leakage_evidence.py
-Leakage evidence workflow: .github/workflows/va-pii-model-leakage-evidence.yml
-Leakage readiness receipt: data/va-claim-assistant/pii-model-leakage-readiness.json
+Final-gates observer contract: data/va-claim-assistant/pii-rdy-08-09-observer-contract.json
+Final-gates observer: scripts/observe_va_pii_rdy_08_09.py
+Final-gates receipt: data/va-claim-assistant/pii-rdy-08-09-readiness.json
 ```
 
 ## Claim
@@ -34,151 +25,169 @@ Leakage readiness receipt: data/va-claim-assistant/pii-model-leakage-readiness.j
 ```text
 role: CROSS_REPOSITORY_INTEGRATION_VALIDATION
 claim state: MACHINE_OWNED
+claim creation: retained from canonical readiness registry
 release condition: all nine readiness requirements COMPLETE, current continuous-monitoring evidence, independent assessment retained, and zero unresolved high or critical findings
-collision boundary: do not modify Site#116 document processors, adapter route implementation, TVC credentialing implementation, or Master Records custody implementation
+collision boundary: do not modify Site#116 document processors, adapter route implementation, TVC credentialing implementation, or Master Records custody implementation from this lane
 ```
 
-## Current readiness
+## Current readiness — 2026-08-08
+
+The machine registry is authoritative:
 
 ```text
-PII-RDY-01 Site#116 production PII detection and uncertain-result review: CLAIMED
-PII-RDY-02 Site#116 redaction and pseudonymous working copy: BLOCKED
-PII-RDY-03 Site#116 model-facing leakage verification: BLOCKED
-PII-RDY-04 TVC credentialing handoff admission: BLOCKED
-PII-RDY-05 TVC post-credential identity-linkage admission: BLOCKED
-PII-RDY-06 LLM-adapter raw PII rejection and sanitized-context enforcement: BLOCKED
-PII-RDY-07 Master Records privacy-event custody and reconstruction: BLOCKED
-PII-RDY-08 Site#113 veteran-visible privacy controls: BLOCKED
-PII-RDY-09 independent privacy and security assessment: BLOCKED
+PII-RDY-01 Site#116 production PII detection and uncertain-result review: COMPLETE
+PII-RDY-02 Site#116 redaction and pseudonymous working copy: COMPLETE
+PII-RDY-03 Site#116 model-facing leakage verification: COMPLETE
+PII-RDY-04 TVC credentialing handoff admission: BLOCKED — authenticated veteran identity context required
+PII-RDY-05 TVC post-credential identity-linkage admission: BLOCKED — PII-RDY-04 plus purpose/scope/expiry/revocation/hash binding and Master Records custody required
+PII-RDY-06 LLM-adapter raw PII rejection and sanitized-context enforcement: COMPLETE
+PII-RDY-07 Master Records privacy-event custody and reconstruction: BLOCKED — real privacy-minimized events must produce custody RECORDED and reconstruction PASS
+PII-RDY-08 Site#113 veteran-visible privacy/linkage/export/delete/revocation controls: BLOCKED — repository + deployed evidence required
+PII-RDY-09 independent privacy and security assessment: BLOCKED — retained independent assessment with zero unresolved high/critical findings required
 ```
 
-## PII-RDY-01 evidence state
+Current completion: `4/9`. Overall state remains `BLOCKED`. No readiness record grants authority or activation.
 
-Reference evidence under `Site#170` is complete only for the synthetic evaluation lane:
+## Completed evidence lanes
 
-```text
-data/va-claim-assistant/pii-detection-evaluation-receipt.json
-state: PASS
-required_class_recall: 1.0
-clean_case_false_positive_rate: 0.0
-review_required_count: 1
-production_detector_ready: false
-private_document_upload_enabled: false
-```
+### PII-RDY-01
 
-The production observer has emitted:
+Production/controlled-production-equivalent detector execution is admitted and complete on main. Canonical evidence:
 
 ```text
 data/va-claim-assistant/pii-production-detector-readiness.json
-state: BLOCKED
-blocker: production_detector_evidence_missing
-reference_receipt_is_insufficient: true
+data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
 ```
 
-A production or controlled-production-equivalent receipt must prove an admitted preprocessing runtime, at least 0.99 required-class recall, no more than 0.05 clean-case false-positive rate, uncertain-case review routing, no model processing before the privacy gate, no raw PII in prompts/outputs/traces/logs, private upload disabled, custody retained, and false authority and activation effects.
+### PII-RDY-02
 
-Installed PII-RDY-01 controls:
-
-```text
-schema commit: 7f9ed06ed066bc0fb836b76e85550c56730baeb3
-observer commit: 048e8ec454db36566b1a486eb06c86e7e64ba7a8
-workflow commit: dc7d253ca9dbfa399741e55f058bc0ca9bc7edd0
-```
-
-## PII-RDY-02 evidence gate
-
-A production or controlled-production-equivalent receipt must prove:
-
-- runtime class `ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR`;
-- exact processor path and immutable commit SHA;
-- distinct original-document and redacted-document SHA-256 values;
-- a redaction-manifest SHA-256 bound to both document hashes;
-- at least one direct-identifier replacement;
-- page and region anchors retained;
-- a purpose-limited, non-global pseudonymous token;
-- raw document did not leave the privacy zone;
-- no raw PII remains in the working copy;
-- model release occurred only for the verified redacted copy;
-- private upload remains disabled;
-- custody reference retained;
-- authority and activation effects false.
-
-Installed PII-RDY-02 controls:
-
-```text
-schema commit: d4a43c68e7ebdb19f762cec5c2b5d270095ae5f1
-observer commit: 7be64a12dd083424810ab5c8e5bdab6050b66f0b
-workflow commit: 7da682c506ff1d232c85314d0661c23c64d5d044
-```
-
-Current receipt:
+Hash-bound redaction and pseudonymous working-copy evidence is complete. Canonical evidence:
 
 ```text
 data/va-claim-assistant/pii-redaction-working-copy-readiness.json
-state: BLOCKED
-blocker: redaction_working_copy_evidence_missing
+data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
 ```
 
-Expected implementation evidence:
+### PII-RDY-03
 
-```text
-data/va-claim-assistant/pii-redaction-working-copy-evidence.json
-```
-
-## PII-RDY-03 evidence gate
-
-A production or controlled-production-equivalent receipt must prove:
-
-- admitted runtime class `ADMITTED_PRIVATE_DOCUMENT_PREPROCESSOR`;
-- exact processor path and immutable commit SHA;
-- coverage of all required direct-identifier classes;
-- zero direct-identifier leaks into prompts;
-- zero leaks into model inputs;
-- zero leaks into model outputs;
-- zero leaks into traces;
-- zero leaks into analytics;
-- zero leaks into logs;
-- uncertain cases routed to `REVIEW_REQUIRED`;
-- model release denied on uncertainty;
-- raw documents prohibited from model-facing processing;
-- private upload remains disabled;
-- custody reference retained;
-- authority and activation effects false.
-
-Installed PII-RDY-03 controls:
-
-```text
-schema commit: c0b60a3d2d528629c0267c13712e31f8720c6b67
-observer commit: 1052ffb475571c8afce20953df91d282b75a4214
-workflow commit: 619a232040fcbffa0b8e61101addc6a8c0487bf9
-```
-
-Expected implementation evidence:
-
-```text
-data/va-claim-assistant/pii-model-leakage-evidence.json
-```
-
-Expected machine receipt:
+Seven required identifier classes are tested with zero model-facing leakage in the admitted controlled-production-equivalent lane. Canonical evidence:
 
 ```text
 data/va-claim-assistant/pii-model-leakage-readiness.json
+data/va-claim-assistant/private-document-privacy-preprocessor-execution.json
 ```
 
-A missing initial receipt or missing implementation evidence is never interpreted as success.
+### PII-RDY-06
 
-## State and ownership
+The adapter privacy runtime rejects raw PII/private documents and admits only validated sanitized derived context. Canonical evidence remains in `StegVerse-org/LLM-adapter`:
 
-Each owner updates only its own requirement after exact evidence exists. `Site#116` owns production detector, redaction, and leakage-control implementation; `Site#170` owns synthetic detector reference validation. Plans, schemas, fixture-only receipts, or self-attestation cannot complete an operational requirement.
+```text
+docs/VA_CLAIM_ASSISTANT_PRIVACY_RUNTIME_MIRROR_HANDOFF.md
+receipts/va-claim-assistant-privacy-runtime-validation.json
+```
 
-The registry and evidence observers grant no identity, credential, document-processing, medical, representation, rating, filing, publication, or activation authority. They cannot activate private upload, identity linkage, or filing.
+## PII-RDY-04 / PII-RDY-05 — TVC machine-owned boundary
 
-## Transfer
+Canonical TVC continuation:
+
+```text
+StegVerse-Labs/TVC/docs/VA_CLAIM_ASSISTANT_EPHEMERAL_ADMISSION_MIRROR_HANDOFF.md
+StegVerse-Labs/TVC/tasks/TVC-VA-CREDENTIAL-LINKAGE-RUNTIME-002.json
+StegVerse-Labs/TVC/receipts/va-credential-linkage-runtime-readiness.json
+```
+
+Controlled mechanics are not sufficient to release these gates. PII-RDY-04 requires an authoritative authenticated veteran identity context. PII-RDY-05 then requires purpose/scope/expiry/revocation/hash-bound linkage execution plus Master Records custody. Synthetic self-attestation cannot satisfy either gate.
+
+## PII-RDY-07 — Master Records machine-owned boundary
+
+Canonical continuation:
+
+```text
+master-records/orchestration/docs/VA_PRIVACY_CUSTODY_MIRROR_HANDOFF.md
+master-records/orchestration/.github/workflows/runtime-evidence-validation.yml
+master-records/orchestration#15
+```
+
+Release condition: real privacy-minimized Site/adapter/TVC events are imported, custody is `RECORDED`, and deterministic reconstruction is `PASS`.
+
+## PII-RDY-08 / PII-RDY-09 — machine observer installed and active
+
+PR #237 was merged as commit `7687365c06efe2720ded491aa8beb631b6f05689` after the exact PR head passed:
+
+```text
+VA PII Realignment Readiness run 31260715370: SUCCESS
+Site Handoff Orchestrator run 31260715358: SUCCESS
+Site Bootstrap Validate run 31260715374: SUCCESS
+```
+
+The main-branch readiness run `31260757501` then executed the observer and persisted its receipt successfully.
+
+Installed automation:
+
+```text
+data/va-claim-assistant/pii-rdy-08-09-observer-contract.json
+scripts/observe_va_pii_rdy_08_09.py
+.github/workflows/va-pii-realignment-readiness.yml
+data/va-claim-assistant/pii-rdy-08-09-readiness.json
+```
+
+Current final-gates receipt:
+
+```text
+state: BLOCKED
+complete_count: 0
+required_count: 2
+PII-RDY-08 blocker: required_evidence_missing
+PII-RDY-08 evidence path: data/va-claim-assistant/veteran-visible-privacy-controls-evidence.json
+PII-RDY-08 owner: StegVerse-Labs/Site#113
+PII-RDY-09 blocker: required_evidence_missing
+PII-RDY-09 evidence path: data/va-claim-assistant/independent-privacy-security-assessment.json
+PII-RDY-09 owner: independent-assessment-lane
+authority_effect: false
+activation_effect: false
+```
+
+The observer runs in the existing six-hour readiness workflow and on relevant repository changes. Missing evidence is `BLOCKED`; malformed or contradictory evidence is `REVIEW_REQUIRED`; only exact required evidence can produce `COMPLETE`. It never creates assessment/privacy-control evidence and never grants authority or activation.
+
+## Machine-owned continuation
+
+```text
+PII-RDY-04/05 owner: StegVerse-Labs/TVC
+PII-RDY-07 owner: master-records/orchestration
+PII-RDY-08 owner: StegVerse-Labs/Site#113
+PII-RDY-09 owner: independent-assessment-lane
+observer owner: .github/workflows/va-pii-realignment-readiness.yml
+observer cadence: every six hours plus relevant main changes
+state persistence: data/va-claim-assistant/pii-rdy-08-09-readiness.json and pii-realignment-readiness-validation.json
+```
+
+The registry and observers distinguish completed and blocked requirements and fail closed when evidence is missing. Public upload, private retrieval, model document analysis, filing, identity-linkage activation, medical authority, representation authority, rating authority, and adjudication authority remain independently gated.
+
+## Integration and propagation
 
 ```text
 MERGED INTO: StegVerse-Labs/Site#116
-MERGED INTO: StegVerse-Labs/Site#170
 MERGED INTO: StegVerse-Labs/Site#113
+MERGED INTO: StegVerse-Labs/TVC#9
+MERGED INTO: master-records/orchestration#15
 ```
 
-The continuation path is durable and machine-owned. This task remains active until all nine requirements complete or are superseded by equivalent inspectable evidence.
+No Publisher, admissibility-wiki, or stegguardian-wiki propagation is required from this bounded readiness milestone unless a newer live contract explicitly names those consumers.
+
+## Session consolidation
+
+The machine-observation gap for PII-RDY-08/09 is closed. Remaining PII readiness work is product work owned by the named repository/assessment lanes and no longer requires a chat session to watch for release conditions.
+
+This handoff, the readiness registry, the final-gates observer contract/script/workflow/receipt, the TVC handoff, the Master Records handoff, and the canonical VACC session inventory preserve sufficient continuation state.
+
+## Metrics
+
+```text
+developed readiness/observer files: complete
+readiness requirements complete: 4/9
+final-gate machine observation: 2/2 installed
+final-gate evidence completion: 0/2
+validation of observer installation: PASS
+public activation authority: false
+session-specific machine-observation dependency: COMPLETE
+```
