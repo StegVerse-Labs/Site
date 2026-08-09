@@ -106,6 +106,40 @@ StegVerse-002/stegguardian-wiki
 
 No browser credential, artifact download, workflow dispatch, file transfer, screenshot confirmation, or manual publication task is required.
 
+## Adjacent StegGate stable-rendezvous lane
+
+Site issue #24 is also the canonical endpoint-publication/fail-closed-routing owner for the StegGate stable rendezvous required by `StegVerse-Labs/StegCore#68`. This is an adjacent integration lane and does not reopen the completed Site application implementation.
+
+Installed surfaces:
+
+```text
+src/steggate-rendezvous-worker.js
+wrangler.steggate.jsonc
+.github/workflows/steggate-rendezvous-deploy.yml
+data/steggate-rendezvous-activation.json
+```
+
+Intended stable origin:
+
+```text
+https://stegverse.org/api/steggate
+```
+
+The Worker contains no StegGate policy engine. It resolves the current verified micro-node, independently verifies canonical health, proxies only the bounded StegGate HTTP evaluation contract, and fails closed when no verified node exists.
+
+Deployment run `31286621905`, job `93176517796`, directly observed both `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as unavailable in the Actions runtime and therefore stopped before Wrangler deployment. No deployment success is claimed.
+
+The deployment workflow is now machine-owned and scheduled hourly at minute 41. Every run emits `deployment-evidence/activation-observation.json`; missing credentials remain an explicit `BLOCKED` result and a failing workflow, not success. When both authorized bindings become available, the same workflow deploys the rendezvous, verifies readiness, canonical health and the exact four-disposition self-test, writes `LIVE_ACCEPTANCE_PASS` to `data/steggate-rendezvous-activation.json`, and comments issue #24. StegCore's independent hourly observer then discovers the stable rendezvous and owns the final complete-matrix evaluation and canonical issue #68 finalization.
+
+Machine-observable release condition:
+
+```text
+CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are both non-empty in the Site Actions runtime,
+OR an already-authorized endpoint-publication plane deploys the same non-authorizing contract.
+```
+
+This lane has no remaining chat-only execution requirement. Its current claimant is repository automation, and the originating session may transfer/merge this lane to `StegVerse-Labs/Site#24 + data/steggate-rendezvous-activation.json + .github/workflows/steggate-rendezvous-deploy.yml`.
+
 ## Authority boundary
 
 ```text
@@ -120,6 +154,8 @@ workflow artifact != live evidence
 pending status != activation
 verified receipt != release authority
 terminal monitor != CI success
+rendezvous routing != StegGate policy authority
+credential availability != deployment authority beyond the declared workflow contract
 ```
 
 ## Release posture
@@ -128,10 +164,10 @@ No release or tag is authorized until the existing machine gates receive visible
 
 ## Archive posture
 
-Repository-local implementation is archive-ready because all local modules, contracts, validators, handoffs, and automation required by this workstream are installed. Archive readiness does not assert CI success, live provider use, custody, reconstruction, activation, release, publication, or downstream propagation. Those conditions remain fail-closed and owned by their established machine and authority boundaries.
+Repository-local implementation is archive-ready because all local modules, contracts, validators, handoffs, and automation required by the original Site workstream are installed. The adjacent StegGate rendezvous lane is also repository-owned and machine-observed: implementation is installed, the precise credential blocker is durable, hourly retry is active, and successful deployment automatically hands final acceptance back to StegCore. Archive readiness does not assert that the stable rendezvous is live.
 
 ## Archive determination
 
-No repository-local module, contract, validator, handoff, or automation remains to install for this workstream. No future action requires access to the conversation that produced these records. Remaining conditions are external evidence observations owned by scheduled workflows and authority-bearing systems.
+No Site-local requirement from the originating conversations needs to remain only in chat. Remaining live-evidence conditions are owned by scheduled workflows and authority-bearing systems, including the StegGate rendezvous credential release condition above.
 
-**ARCHIVE NOW.**
+**ARCHIVE NOW for the Site-local workstream; unresolved StegCore activation remains separately governed by its canonical handoff.**
