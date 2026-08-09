@@ -46,18 +46,8 @@ def render(data: dict) -> str:
     ]
     for key in ("ecosystem_chat", "vacc", "math_solver", "hil"):
         app = data["applications"][key]
-        lines.append(
-            f"{LABELS[key]}: {app['progress_percent']}% "
-            f"({app['completed_gates']}/{app['total_gates']})"
-        )
-    lines.extend(
-        [
-            "```",
-            "",
-            f"Last machine status timestamp: `{data['updated_at']}`",
-            END,
-        ]
-    )
+        lines.append(f"{LABELS[key]}: {app['progress_percent']}% ({app['completed_gates']}/{app['total_gates']})")
+    lines.extend(["```", "", f"Last machine status timestamp: `{data['updated_at']}`", END])
     return "\n".join(lines)
 
 
@@ -84,42 +74,27 @@ def render_integration(data: dict) -> str:
     ]
     for key in ("ecosystem_chat", "vacc", "math_solver", "hil"):
         lines.append(f"- {LABELS[key]}: `{app_bindings.get(key, 'UNRECORDED')}`")
-    lines.extend(
-        [
-            "",
-            f"Public direct bindings: {binding.get('public_direct_bindings', 0)} / {binding.get('required_public_direct_bindings', 4)}.",
-        ]
-    )
+    lines.extend(["", f"Public direct bindings: {binding.get('public_direct_bindings', 0)} / {binding.get('required_public_direct_bindings', 4)}."])
     if core_validation:
-        lines.extend(
-            [
-                "",
-                "Core identity validation:",
-                "",
-                f"- run/job: `{core_validation.get('run_id')}` / `{core_validation.get('job_id')}`",
-                f"- artifact: `{core_validation.get('artifact_id')}`",
-                f"- digest: `{core_validation.get('artifact_digest')}`",
-            ]
-        )
+        lines.extend([
+            "", "Core identity validation:", "",
+            f"- run/job: `{core_validation.get('run_id')}` / `{core_validation.get('job_id')}`",
+            f"- artifact: `{core_validation.get('artifact_id')}`",
+            f"- digest: `{core_validation.get('artifact_digest')}`",
+        ])
     if math_validation:
-        lines.extend(
-            [
-                "",
-                "Math Solver identity-binding validation:",
-                "",
-                f"- run/job: `{math_validation.get('run_id')}` / `{math_validation.get('job_id')}`",
-                f"- artifact: `{math_validation.get('artifact_id')}`",
-                f"- digest: `{math_validation.get('artifact_digest')}`",
-                f"- public deployment proven: `{str(math_validation.get('public_deployment_proven')).lower()}`",
-            ]
-        )
-    lines.extend(
-        [
-            "",
-            "This integration state has no product-activation effect until direct public application evidence satisfies the corresponding execution gates.",
-            INTEGRATION_END,
-        ]
-    )
+        lines.extend([
+            "", "Math Solver identity-binding validation:", "",
+            f"- run/job: `{math_validation.get('run_id')}` / `{math_validation.get('job_id')}`",
+            f"- artifact: `{math_validation.get('artifact_id')}`",
+            f"- digest: `{math_validation.get('artifact_digest')}`",
+            f"- public deployment proven: `{str(math_validation.get('public_deployment_proven')).lower()}`",
+        ])
+    lines.extend([
+        "",
+        "This integration state has no product-activation effect until direct public application evidence satisfies the corresponding execution gates.",
+        INTEGRATION_END,
+    ])
     return "\n".join(lines)
 
 
@@ -127,19 +102,12 @@ def render_application_state(data: dict) -> str:
     lines = [APP_BEGIN, "## Application state", ""]
     for key in ("ecosystem_chat", "vacc", "math_solver", "hil"):
         app = data["applications"][key]
-        issue = app.get("issue")
-        lines.extend(
-            [
-                f"### {LABELS[key]} — {app['progress_percent']}% execution-gate progress",
-                "",
-                f"Issue: `StegVerse-Labs/Site#{issue}`.",
-                f"Surface: `{app.get('surface')}`.",
-                f"Machine state: `{app.get('state')}`.",
-                "",
-                "Verified gates:",
-                "",
-            ]
-        )
+        lines.extend([
+            f"### {LABELS[key]} — {app['progress_percent']}% execution-gate progress", "",
+            f"Issue: `StegVerse-Labs/Site#{app.get('issue')}`.",
+            f"Surface: `{app.get('surface')}`.",
+            f"Machine state: `{app.get('state')}`.", "", "Verified gates:", "",
+        ])
         verified = [name for name, value in app["gates"].items() if value]
         remaining = [name for name, value in app["gates"].items() if not value]
         lines.extend(f"- `{name}` — VERIFIED" for name in verified) if verified else lines.append("- none")
@@ -151,45 +119,33 @@ def render_application_state(data: dict) -> str:
         if key == "math_solver":
             observation = app.get("latest_runtime_observation") or {}
             if observation:
-                lines.extend(
-                    [
-                        "",
-                        "Latest public-runtime observation:",
-                        "",
-                        f"- state: `{observation.get('state')}`",
-                        f"- reason: `{observation.get('reason')}`",
-                        f"- workflow run/job: `{observation.get('workflow_run')}` / `{observation.get('workflow_job')}`",
-                        f"- receipt: `{observation.get('receipt')}`",
-                    ]
-                )
+                lines.extend([
+                    "", "Latest public-runtime observation:", "",
+                    f"- state: `{observation.get('state')}`",
+                    f"- reason: `{observation.get('reason')}`",
+                    f"- workflow run/job: `{observation.get('workflow_run')}` / `{observation.get('workflow_job')}`",
+                    f"- receipt: `{observation.get('receipt')}`",
+                ])
         if key == "hil":
             claim = app.get("active_claim") or {}
             queued = app.get("queued_live_task") or {}
             if claim:
-                lines.extend(
-                    [
-                        "",
-                        "Active collision boundary:",
-                        "",
-                        f"- task: `{claim.get('task_id')}`",
-                        f"- owner: `{claim.get('owner')}`",
-                        f"- state: `{claim.get('state')}`",
-                        f"- policy: {claim.get('collision_policy')}",
-                    ]
-                )
+                lines.extend([
+                    "", "Active collision boundary:", "",
+                    f"- task: `{claim.get('task_id')}`",
+                    f"- owner: `{claim.get('owner')}`",
+                    f"- state: `{claim.get('state')}`",
+                    f"- policy: {claim.get('collision_policy')}",
+                ])
             if queued:
-                lines.extend(
-                    [
-                        "",
-                        "Queued live task:",
-                        "",
-                        f"- task: `{queued.get('task_id')}`",
-                        f"- state: `{queued.get('state')}`",
-                        f"- owner: `{queued.get('owner')}`",
-                        f"- release condition: {queued.get('blocked_until')}",
-                        f"- dependency: {queued.get('external_blocker')}",
-                    ]
-                )
+                lines.extend([
+                    "", "Queued live task:", "",
+                    f"- task: `{queued.get('task_id')}`",
+                    f"- state: `{queued.get('state')}`",
+                    f"- owner: `{queued.get('owner')}`",
+                    f"- release condition: {queued.get('blocked_until')}",
+                    f"- dependency: {queued.get('external_blocker')}",
+                ])
         lines.append("")
     lines.append(APP_END)
     return "\n".join(lines)
@@ -199,27 +155,19 @@ def render_execution_order(data: dict) -> str:
     lines = [ORDER_BEGIN, "## Execution order", "", "Current dependency-aware route:", ""]
     for index, task in enumerate(data.get("next_execution_order") or [], start=1):
         lines.append(f"{index}. {task}")
-    lines.extend(
-        [
-            "",
-            "Nonconflicting application work may run in parallel. No application may manufacture a substitute StegGate authority.",
-            ORDER_END,
-        ]
-    )
+    lines.extend(["", "Nonconflicting application work may run in parallel. No application may manufacture a substitute StegGate authority.", ORDER_END])
     return "\n".join(lines)
 
 
 def _replace_block(text: str, begin: str, end: str, rendered: str) -> str:
-    if begin in text and end in text:
-        prefix, remainder = text.split(begin, 1)
-        _, suffix = remainder.split(end, 1)
-        return prefix + rendered + suffix
-    raise SystemExit(f"handoff block markers missing: {begin} / {end}")
+    if begin not in text or end not in text:
+        raise SystemExit(f"handoff block markers missing: {begin} / {end}")
+    prefix, remainder = text.split(begin, 1)
+    _, suffix = remainder.split(end, 1)
+    return prefix + rendered + suffix
 
 
-def _install_or_replace_section(text: str, begin: str, end: str, section_begin: str, section_end: str, rendered: str) -> str:
-    if begin in text and end in text:
-        return _replace_block(text, begin, end, rendered)
+def _replace_section(text: str, section_begin: str, section_end: str, rendered: str) -> str:
     if section_begin not in text or section_end not in text:
         raise SystemExit(f"handoff section missing: {section_begin} / {section_end}")
     prefix, remainder = text.split(section_begin, 1)
@@ -231,20 +179,21 @@ def synchronized_text() -> str:
     data = json.loads(STATUS.read_text(encoding="utf-8"))
     text = HANDOFF.read_text(encoding="utf-8")
     text = _replace_block(text, BEGIN, END, render(data))
-    text = _install_or_replace_section(
-        text,
-        INTEGRATION_BEGIN,
-        INTEGRATION_END,
-        "## Application state",
-        "## Application state",
-        render_integration(data) + "\n\n## Application state",
-    ) if INTEGRATION_BEGIN not in text else _replace_block(text, INTEGRATION_BEGIN, INTEGRATION_END, render_integration(data))
-    text = _install_or_replace_section(
-        text, APP_BEGIN, APP_END, "## Application state", "## Execution order", render_application_state(data)
-    )
-    text = _install_or_replace_section(
-        text, ORDER_BEGIN, ORDER_END, "## Execution order", "## Heartbeat / worker / task assignment integration", render_execution_order(data)
-    )
+    if INTEGRATION_BEGIN in text and INTEGRATION_END in text:
+        text = _replace_block(text, INTEGRATION_BEGIN, INTEGRATION_END, render_integration(data))
+    else:
+        marker = "## Application state"
+        if marker not in text:
+            raise SystemExit("handoff application-state section missing")
+        text = text.replace(marker, render_integration(data) + "\n\n" + marker, 1)
+    if APP_BEGIN in text and APP_END in text:
+        text = _replace_block(text, APP_BEGIN, APP_END, render_application_state(data))
+    else:
+        text = _replace_section(text, "## Application state", "## Execution order", render_application_state(data))
+    if ORDER_BEGIN in text and ORDER_END in text:
+        text = _replace_block(text, ORDER_BEGIN, ORDER_END, render_execution_order(data))
+    else:
+        text = _replace_section(text, "## Execution order", "## Heartbeat / worker / task assignment integration", render_execution_order(data))
     return text
 
 
