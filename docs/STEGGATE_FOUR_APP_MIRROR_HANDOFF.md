@@ -49,6 +49,27 @@ Last machine status timestamp: `2026-08-08T19:30:00-05:00`
 
 These percentages are execution-gate progress only. They are not estimates of code volume and cannot be increased by scaffolding or documentation alone.
 
+## Orchestration progress
+
+```text
+Four-app status contract: INSTALLED
+Status validator: INSTALLED + PASS OBSERVED
+Handoff synchronizer: INSTALLED
+Progress workflow: INSTALLED + PASS OBSERVED
+Repository task admission: OBSERVED
+Repository worker completion: OBSERVED
+Task object state: COMPLETE
+Product activation effect: NONE
+```
+
+Observed validator output:
+
+```text
+STEGGATE_FOUR_APP_STATUS_PASS completed_gates=7/30 execution_progress_percent=23 functional_apps=0/4 goal_complete=false
+```
+
+The repository worker has now persisted `SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION` as `COMPLETE`. That completion applies only to the progress/worker contract, not to any of the four products.
+
 ## Application state
 
 ### Ecosystem Chat — 25% execution-gate progress
@@ -129,7 +150,7 @@ Ordering among application items 4-7 may change when the heartbeat/task worker a
 
 ## Heartbeat / worker / task assignment integration
 
-The four-app goal must participate in the existing Site machine execution model:
+The four-app goal participates in the existing Site machine execution model:
 
 ```text
 transition-driven heartbeat
@@ -144,17 +165,19 @@ transition-driven heartbeat
 
 Status reporting must read durable execution state rather than infer progress from chat history.
 
-Required task object: `data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json`
+Task object: `data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json` — COMPLETE
 
-Required validator: `scripts/check_steggate_four_app_status.py`
+Validator: `scripts/check_steggate_four_app_status.py` — PASS OBSERVED
 
-Required progress synchronizer: `scripts/sync_steggate_four_app_handoff.py`
+Progress synchronizer: `scripts/sync_steggate_four_app_handoff.py` — INSTALLED
 
 Canonical Site worker: `scripts/observe_and_complete_repository_tasks.py`
 
 Canonical Site admission controller: `scripts/admit_repository_tasks.py`
 
-Progress workflow: `.github/workflows/steggate-four-app-progress.yml`
+Progress workflow: `.github/workflows/steggate-four-app-progress.yml` — PASS OBSERVED
+
+Repository worker persistence was repaired so task-object completion mutations under `data/tasks/` are committed together with orchestration state and the observation report.
 
 ## Status-check contract
 
@@ -168,7 +191,8 @@ Whenever asked for status:
 6. Recompute gate counts from direct evidence.
 7. Update the machine status after material execution transitions.
 8. Run the handoff synchronizer so this handoff carries the same progress snapshot.
-9. Never emit `ARCHIVE THIS SESSION` or equivalent while `goal_complete=false` for an active unique goal.
+9. Report both product execution progress and orchestration/worker progress separately.
+10. Never emit `ARCHIVE THIS SESSION` or equivalent while `goal_complete=false` for an active unique goal.
 
 ## Remaining modules / destinations
 
@@ -181,7 +205,6 @@ Whenever asked for status:
 
 `StegVerse-Labs/Site`:
 
-- observe machine admission/validation of the four-app orchestration task;
 - Ecosystem Chat live integration;
 - VACC canonical StegGate integration;
 - Math Solver real runtime implementation;
