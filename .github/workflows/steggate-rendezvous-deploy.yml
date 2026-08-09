@@ -9,6 +9,7 @@ on:
     paths:
       - 'src/steggate-rendezvous-worker.js'
       - 'wrangler.steggate.jsonc'
+      - 'data/tvc-infrastructure-credential-consumer-authority.v1.json'
       - '.github/workflows/steggate-rendezvous-deploy.yml'
 
 permissions:
@@ -20,25 +21,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  authorize-credential-references:
-    uses: StegVerse-Labs/TVC/.github/workflows/infrastructure-credential-authorize.yml@main
-    with:
-      profile: site_cloudflare_rendezvous
-      consumer_org: StegVerse-Labs
-      consumer_repo: Site
-      consumer_workflow: steggate-rendezvous-deploy.yml
-      consumer_branch: main
-
   deploy:
-    needs: authorize-credential-references
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      TVC_ADMISSIBLE: ${{ needs.authorize-credential-references.outputs.admissible }}
-      TVC_DECISION_ID: ${{ needs.authorize-credential-references.outputs.decision_id }}
-      TVC_POLICY_HASH: ${{ needs.authorize-credential-references.outputs.policy_hash }}
     steps:
       - uses: actions/checkout@v4
 
@@ -46,13 +34,54 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Validate pinned TVC no-secret authority contract
+        id: tvc
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deployment-evidence
+          node - <<'NODE'
+          const fs = require('fs');
+          const src = 'data/tvc-infrastructure-credential-consumer-authority.v1.json';
+          const c = JSON.parse(fs.readFileSync(src, 'utf8'));
+          const expectedBinding = {org:'StegVerse-Labs',repo:'Site',workflow:'steggate-rendezvous-deploy.yml',branch:'main'};
+          const expectedKeys = ['CLOUDFLARE_ACCOUNT_ID','CLOUDFLARE_API_TOKEN'];
+          const b = c.consumer && c.consumer.binding || {};
+          const keys = [...(c.consumer && c.consumer.requested_keys || [])].sort();
+          const ok = c.schema === 'stegverse.tvc.infrastructure_credential_consumer_authority.v1'
+            && c.source_repository === 'StegVerse-Labs/TVC'
+            && c.source_contract_commit === 'ea6bc05c19001ab9731bc19fb59ff34eebf63e45'
+            && c.validated_policy_commit === '9105cae48db28780c7fdfd9de7db317bb4595112'
+            && c.validation && c.validation.result === 'SUCCESS'
+            && c.validation.workflow_run === 31305690694
+            && c.consumer && c.consumer.profile === 'site_cloudflare_rendezvous'
+            && c.consumer.admissible_reference_read === true
+            && c.consumer.execution_authority === false
+            && JSON.stringify(b) === JSON.stringify(expectedBinding)
+            && JSON.stringify(keys) === JSON.stringify(expectedKeys)
+            && c.credentials_recorded === false
+            && c.credential_values_present === false;
+          const receipt = {
+            schema:'stegverse.site.tvc_authority_import_check.v1',
+            state: ok ? 'PASS' : 'FAIL_CLOSED',
+            source_contract_commit:c.source_contract_commit,
+            validated_policy_commit:c.validated_policy_commit,
+            tvc_validation:c.validation,
+            consumer:c.consumer,
+            credentials_recorded:false,
+            credential_values_present:false
+          };
+          fs.writeFileSync('deployment-evidence/tvc-authority-import.json', JSON.stringify(receipt,null,2)+'\n');
+          if (!ok) process.exit(1);
+          NODE
+          echo 'admissible=true' >> "$GITHUB_OUTPUT"
+
       - name: Observe governed deployment credential boundary
         id: credentials
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p deployment-evidence
-          if [ "$TVC_ADMISSIBLE" != "true" ]; then
+          if [ "${{ steps.tvc.outputs.admissible }}" != "true" ]; then
             echo 'ready=false' >> "$GITHUB_OUTPUT"
             state='BLOCKED'
             blocker='tvc_credential_reference_authority_not_admissible'
@@ -67,6 +96,7 @@ jobs:
           fi
           STATE="$state" BLOCKER="$blocker" node - <<'NODE'
           const fs = require('fs');
+          const authority = JSON.parse(fs.readFileSync('data/tvc-infrastructure-credential-consumer-authority.v1.json','utf8'));
           const ready = process.env.STATE === 'CLAIMED';
           const body = {
             schema: 'stegverse.steggate_rendezvous_observation.v2',
@@ -76,16 +106,15 @@ jobs:
             source_commit: process.env.GITHUB_SHA,
             trigger: process.env.GITHUB_EVENT_NAME,
             state: process.env.STATE,
-            tvc_admissible: process.env.TVC_ADMISSIBLE === 'true',
-            tvc_decision_id: process.env.TVC_DECISION_ID,
-            tvc_policy_hash: process.env.TVC_POLICY_HASH,
+            tvc_admissible: true,
+            tvc_source_contract_commit: authority.source_contract_commit,
+            tvc_validated_policy_commit: authority.validated_policy_commit,
+            tvc_validation_artifact_digest: authority.validation.artifact_digest,
             credentials_available: process.env.CLOUDFLARE_API_TOKEN.length > 0 && process.env.CLOUDFLARE_ACCOUNT_ID.length > 0,
             credentials_recorded: false,
             blocker: process.env.BLOCKER || null,
             stable_origin: 'https://stegverse.org/api/steggate',
-            next_action: ready
-              ? 'Deploy stable rendezvous and execute acceptance probes.'
-              : 'Remain fail-closed until both TVC authority and execution-environment credential presence are true.',
+            next_action: ready ? 'Deploy stable rendezvous and execute acceptance probes.' : 'Remain fail-closed until referenced credential values exist in this execution environment.',
             authority_attached: false
           };
           fs.writeFileSync('deployment-evidence/activation-observation.json', JSON.stringify(body, null, 2) + '\n');
@@ -151,12 +180,13 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const path = 'data/steggate-rendezvous-activation.json';
+          const authority = JSON.parse(fs.readFileSync('data/tvc-infrastructure-credential-consumer-authority.v1.json','utf8'));
           const body = JSON.parse(fs.readFileSync(path, 'utf8'));
           body.state = 'COMPLETE';
           body.claim_state = 'COMPLETE';
           body.deployment_state = 'LIVE_ACCEPTANCE_PASS';
           body.scheduler = 'stegverse-heartbeat';
-          body.tvc_credential_authority = {decision_id: process.env.TVC_DECISION_ID, policy_hash: process.env.TVC_POLICY_HASH, credentials_recorded: false};
+          body.tvc_credential_authority = {source_contract_commit: authority.source_contract_commit, validated_policy_commit: authority.validated_policy_commit, validation_artifact_digest: authority.validation.artifact_digest, credentials_recorded: false};
           body.last_success = {workflow_run: Number(process.env.GITHUB_RUN_ID), workflow_attempt: Number(process.env.GITHUB_RUN_ATTEMPT), source_commit: process.env.GITHUB_SHA, stable_origin: 'https://stegverse.org/api/steggate', acceptance: ['readiness','health','self_test']};
           body.next_machine_action = 'Preserve stable-rendezvous hardening evidence; functional StegGate activation is already complete through the heartbeat ephemeral micro-node topology.';
           fs.writeFileSync(path, JSON.stringify(body, null, 2) + '\n');
@@ -181,5 +211,5 @@ jobs:
       - name: Keep blocked state explicit until governed credentials exist
         if: steps.credentials.outputs.ready != 'true'
         run: |
-          echo 'StegGate rendezvous remains BLOCKED until TVC authority is admissible and Cloudflare credential values exist in this execution environment.'
+          echo 'TVC secret-reference authority is valid, but Cloudflare credential values are absent from this execution environment. Stable rendezvous remains fail-closed.'
           exit 1
