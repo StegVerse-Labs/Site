@@ -11,20 +11,24 @@
   "implementation_locations": [
     "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
     "data/steggate-four-app-status.json",
-    "scripts/check_steggate_four_app_status.py"
+    "scripts/check_steggate_four_app_status.py",
+    "scripts/sync_steggate_four_app_handoff.py",
+    ".github/workflows/steggate-four-app-progress.yml"
   ],
   "verification_locations": [
     "scripts/check_steggate_four_app_status.py",
+    "scripts/sync_steggate_four_app_handoff.py",
     "data/steggate-four-app-status.json",
-    "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md"
+    "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
+    ".github/workflows/steggate-four-app-progress.yml"
   ],
   "external_dependencies": [],
   "acceptance": {
     "validator_command": "python scripts/check_steggate_four_app_status.py",
     "success_marker": "STEGGATE_FOUR_APP_STATUS_PASS"
   },
-  "completion_boundary": "Completion of this task proves only that the progress/worker contract is installed and internally consistent. It does not prove any application functional and does not close Site#239.",
-  "next_action": "Machine admission and worker observation should validate this task; subsequent execution transitions must update both data/steggate-four-app-status.json and docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md.",
+  "completion_boundary": "Completion of this task proves only that status, handoff synchronization, validator, workflow, and worker contract are installed and internally consistent. It does not prove any application functional and does not close Site#239.",
+  "next_action": "Machine admission and worker observation validate this orchestration task. Every later material execution transition updates data/steggate-four-app-status.json; steggate-four-app-progress.yml synchronizes the progress block into docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md and validates equality.",
   "authority_effect": false,
   "activation_effect": false
 }
