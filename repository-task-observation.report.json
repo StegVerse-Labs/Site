@@ -56,8 +56,16 @@
     },
     {
       "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
-      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json"
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
+      "missing_locations": [
+        ".github/workflows/verify-thought-experiments-publication.yml",
+        "Thought-Experiments.html",
+        "scripts/check_thought_experiments_publication.py",
+        "thought-experiments-publication.report.json",
+        "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
+        "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf"
+      ]
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
@@ -121,8 +129,16 @@
     },
     {
       "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
-      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json"
+      "state": "INCOMPLETE",
+      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
+      "missing_locations": [
+        ".github/workflows/verify-thought-experiments-publication.yml",
+        "Thought-Experiments.html",
+        "scripts/check_thought_experiments_publication.py",
+        "thought-experiments-publication.report.json",
+        "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
+        "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf"
+      ]
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
