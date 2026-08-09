@@ -10,8 +10,12 @@ STATUS = ROOT / "data" / "steggate-four-app-status.json"
 HANDOFF = ROOT / "docs" / "STEGGATE_FOUR_APP_MIRROR_HANDOFF.md"
 BEGIN = "<!-- STEGGATE_FOUR_APP_PROGRESS_BEGIN -->"
 END = "<!-- STEGGATE_FOUR_APP_PROGRESS_END -->"
+INTEGRATION_BEGIN = "<!-- STEGGATE_FOUR_APP_INTEGRATION_BEGIN -->"
+INTEGRATION_END = "<!-- STEGGATE_FOUR_APP_INTEGRATION_END -->"
 APP_BEGIN = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->"
 APP_END = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->"
+ORDER_BEGIN = "<!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_BEGIN -->"
+ORDER_END = "<!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_END -->"
 LABELS = {
     "ecosystem_chat": "Ecosystem Chat",
     "vacc": "VACC / VA Claims Chat",
@@ -57,8 +61,66 @@ def render(data: dict) -> str:
     return "\n".join(lines)
 
 
-def _gate_label(name: str) -> str:
-    return name.replace("_", " ")
+def render_integration(data: dict) -> str:
+    binding = data.get("common_runtime_binding") or {}
+    app_bindings = binding.get("application_bindings") or {}
+    core_validation = binding.get("core_validation") or {}
+    math_validation = binding.get("math_solver_ci_validation") or {}
+    lines = [
+        INTEGRATION_BEGIN,
+        "## Common runtime identity integration",
+        "",
+        f"Issue: `{binding.get('issue')}`.",
+        f"State: `{binding.get('state')}`.",
+        f"Contract version: `{binding.get('contract_version')}`.",
+        f"Runtime identity: `{binding.get('runtime_identity')}`.",
+        f"Canonical owner: `{binding.get('canonical_owner')}`.",
+        f"Canonical admissibility runtime: `{binding.get('canonical_admissibility_runtime')}`.",
+        f"Transport identity authoritative: `{str(binding.get('transport_identity_authoritative')).lower()}`.",
+        f"Core contract: `{binding.get('core_contract')}`.",
+        "",
+        "Application binding state:",
+        "",
+    ]
+    for key in ("ecosystem_chat", "vacc", "math_solver", "hil"):
+        lines.append(f"- {LABELS[key]}: `{app_bindings.get(key, 'UNRECORDED')}`")
+    lines.extend(
+        [
+            "",
+            f"Public direct bindings: {binding.get('public_direct_bindings', 0)} / {binding.get('required_public_direct_bindings', 4)}.",
+        ]
+    )
+    if core_validation:
+        lines.extend(
+            [
+                "",
+                "Core identity validation:",
+                "",
+                f"- run/job: `{core_validation.get('run_id')}` / `{core_validation.get('job_id')}`",
+                f"- artifact: `{core_validation.get('artifact_id')}`",
+                f"- digest: `{core_validation.get('artifact_digest')}`",
+            ]
+        )
+    if math_validation:
+        lines.extend(
+            [
+                "",
+                "Math Solver identity-binding validation:",
+                "",
+                f"- run/job: `{math_validation.get('run_id')}` / `{math_validation.get('job_id')}`",
+                f"- artifact: `{math_validation.get('artifact_id')}`",
+                f"- digest: `{math_validation.get('artifact_digest')}`",
+                f"- public deployment proven: `{str(math_validation.get('public_deployment_proven')).lower()}`",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "This integration state has no product-activation effect until direct public application evidence satisfies the corresponding execution gates.",
+            INTEGRATION_END,
+        ]
+    )
+    return "\n".join(lines)
 
 
 def render_application_state(data: dict) -> str:
@@ -80,21 +142,12 @@ def render_application_state(data: dict) -> str:
         )
         verified = [name for name, value in app["gates"].items() if value]
         remaining = [name for name, value in app["gates"].items() if not value]
-        if verified:
-            lines.extend(f"- `{name}` — VERIFIED" for name in verified)
-        else:
-            lines.append("- none")
+        lines.extend(f"- `{name}` — VERIFIED" for name in verified) if verified else lines.append("- none")
         lines.extend(["", "Remaining gates:", ""])
-        if remaining:
-            lines.extend(f"- `{name}` — NOT VERIFIED" for name in remaining)
-        else:
-            lines.append("- none")
+        lines.extend(f"- `{name}` — NOT VERIFIED" for name in remaining) if remaining else lines.append("- none")
         lines.extend(["", "Current blockers:", ""])
         blockers = app.get("blockers") or []
-        if blockers:
-            lines.extend(f"- {blocker}" for blocker in blockers)
-        else:
-            lines.append("- none")
+        lines.extend(f"- {blocker}" for blocker in blockers) if blockers else lines.append("- none")
         if key == "math_solver":
             observation = app.get("latest_runtime_observation") or {}
             if observation:
@@ -142,6 +195,20 @@ def render_application_state(data: dict) -> str:
     return "\n".join(lines)
 
 
+def render_execution_order(data: dict) -> str:
+    lines = [ORDER_BEGIN, "## Execution order", "", "Current dependency-aware route:", ""]
+    for index, task in enumerate(data.get("next_execution_order") or [], start=1):
+        lines.append(f"{index}. {task}")
+    lines.extend(
+        [
+            "",
+            "Nonconflicting application work may run in parallel. No application may manufacture a substitute StegGate authority.",
+            ORDER_END,
+        ]
+    )
+    return "\n".join(lines)
+
+
 def _replace_block(text: str, begin: str, end: str, rendered: str) -> str:
     if begin in text and end in text:
         prefix, remainder = text.split(begin, 1)
@@ -150,20 +217,34 @@ def _replace_block(text: str, begin: str, end: str, rendered: str) -> str:
     raise SystemExit(f"handoff block markers missing: {begin} / {end}")
 
 
+def _install_or_replace_section(text: str, begin: str, end: str, section_begin: str, section_end: str, rendered: str) -> str:
+    if begin in text and end in text:
+        return _replace_block(text, begin, end, rendered)
+    if section_begin not in text or section_end not in text:
+        raise SystemExit(f"handoff section missing: {section_begin} / {section_end}")
+    prefix, remainder = text.split(section_begin, 1)
+    _, suffix = remainder.split(section_end, 1)
+    return prefix + rendered + "\n\n" + section_end + suffix
+
+
 def synchronized_text() -> str:
     data = json.loads(STATUS.read_text(encoding="utf-8"))
     text = HANDOFF.read_text(encoding="utf-8")
     text = _replace_block(text, BEGIN, END, render(data))
-    if APP_BEGIN not in text or APP_END not in text:
-        section_begin = "## Application state"
-        section_end = "## Execution order"
-        if section_begin not in text or section_end not in text:
-            raise SystemExit("handoff application-state section missing")
-        prefix, remainder = text.split(section_begin, 1)
-        _, suffix = remainder.split(section_end, 1)
-        text = prefix + render_application_state(data) + "\n\n## Execution order" + suffix
-    else:
-        text = _replace_block(text, APP_BEGIN, APP_END, render_application_state(data))
+    text = _install_or_replace_section(
+        text,
+        INTEGRATION_BEGIN,
+        INTEGRATION_END,
+        "## Application state",
+        "## Application state",
+        render_integration(data) + "\n\n## Application state",
+    ) if INTEGRATION_BEGIN not in text else _replace_block(text, INTEGRATION_BEGIN, INTEGRATION_END, render_integration(data))
+    text = _install_or_replace_section(
+        text, APP_BEGIN, APP_END, "## Application state", "## Execution order", render_application_state(data)
+    )
+    text = _install_or_replace_section(
+        text, ORDER_BEGIN, ORDER_END, "## Execution order", "## Heartbeat / worker / task assignment integration", render_execution_order(data)
+    )
     return text
 
 
