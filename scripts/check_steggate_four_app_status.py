@@ -8,6 +8,12 @@ ROOT = Path(__file__).resolve().parents[1]
 STATUS = ROOT / "data" / "steggate-four-app-status.json"
 HANDOFF = ROOT / "docs" / "STEGGATE_FOUR_APP_MIRROR_HANDOFF.md"
 APPS = {"ecosystem_chat", "vacc", "math_solver", "hil"}
+LABELS = {
+    "ecosystem_chat": "Ecosystem Chat",
+    "vacc": "VACC / VA Claims Chat",
+    "math_solver": "Math Solver",
+    "hil": "HIL experiment",
+}
 
 
 def fail(message: str) -> int:
@@ -34,7 +40,8 @@ def main() -> int:
     completed_sum = 0
     total_sum = 0
     functional = 0
-    for name in sorted(APPS):
+    expected_handoff_lines: list[str] = []
+    for name in ("ecosystem_chat", "vacc", "math_solver", "hil"):
         app = apps[name]
         gates = app.get("gates")
         if not isinstance(gates, dict) or not gates:
@@ -54,6 +61,9 @@ def main() -> int:
             functional += 1
         completed_sum += completed
         total_sum += total
+        expected_handoff_lines.append(
+            f"{LABELS[name]}: {percent}% ({completed}/{total})"
+        )
 
     aggregate = data.get("aggregate", {})
     aggregate_percent = round(completed_sum * 100 / total_sum)
@@ -80,11 +90,17 @@ def main() -> int:
         "Current execution progress",
         "Status-check contract",
         "Archive posture",
-        "0/4" if not goal_complete else "4/4",
+        f"Verified execution gates: {completed_sum} / {total_sum}",
+        f"Aggregate execution progress: {aggregate_percent}%",
+        f"Fully functional public applications: {functional} / 4",
+        f"Goal complete: {str(goal_complete).lower()}",
+        f"Archive ready: {str(goal_complete).lower()}",
+        f"Last machine status timestamp: `{data.get('updated_at')}`",
+        *expected_handoff_lines,
     ]
     for marker in required_markers:
         if marker not in handoff:
-            return fail(f"handoff missing marker: {marker}")
+            return fail(f"handoff missing or stale marker: {marker}")
 
     print(
         "STEGGATE_FOUR_APP_STATUS_PASS "
