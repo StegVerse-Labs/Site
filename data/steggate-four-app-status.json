@@ -87,11 +87,20 @@
         "runtime_ci_artifact_digest": "sha256:e863d4aaa6bf6fbc34746e1f0eb10028a320bf861bf2d2246cd673fdf0de67c1",
         "site_client_commit": "f45fe0ae7e21dd19b20b119ab78956a7c77eb72c",
         "host_service": "Render/srv-d9epkh3rjlhs73csc3qg",
-        "latest_observed_deploy": "dep-d9ru79jbc2fs73av1qsg"
+        "latest_observed_deploy": "dep-d9rvocrbc2fs73avr6a0"
+      },
+      "latest_runtime_observation": {
+        "workflow_run": 31296906541,
+        "workflow_job": 93203396038,
+        "observed_at": "2026-08-09T05:32:29.261339+00:00",
+        "state": "BLOCKED",
+        "reason": "HTTP 404 /api/math-solver/v1/readiness",
+        "receipt": "StegVerse-org/LLM-adapter/receipts/math-solver-public-runtime.latest.json",
+        "activation_effect": false
       },
       "blockers": [
         "Render workspace build-pipeline minutes exhausted before hosted source build",
-        "public readiness/solve routes therefore not directly verified",
+        "latest hourly observer still receives HTTP 404 at public readiness route",
         "public Site solve/replay cycle not yet observed",
         "StegCore#68 resident hosted activation remains incomplete; portable canonical runtime is CI-validated but does not satisfy that separate resident-host gate"
       ]
@@ -113,10 +122,29 @@
         "reconstruction_pass": false,
         "public_end_to_end_observation": false
       },
+      "active_claim": {
+        "task_id": "SITE-0001-UPLOAD",
+        "owner": "external-active-session",
+        "state": "RUNNING",
+        "claimed_paths": [
+          "humans-as-interoperability-layer.html",
+          "assets/hil-*",
+          "scripts/check_hil_*upload*"
+        ],
+        "collision_policy": "do not duplicate upload-owned paths"
+      },
+      "queued_live_task": {
+        "task_id": "SITE-0002-HIL-LIVE",
+        "state": "BLOCKED",
+        "owner": "Site heartbeat orchestration",
+        "blocked_until": "end of current work task sequence 0001, no tasks running",
+        "external_blocker": "StegVerse-org/LLM-adapter#18 authorized provider and Master Records bindings"
+      },
       "blockers": [
         "live HIL receiver/readiness not verified",
         "production participant cycle not completed",
-        "StegCore#68 hosted StegGate activation incomplete"
+        "StegCore#68 hosted StegGate activation incomplete",
+        "authorized provider and Master Records configuration bindings remain unavailable to the machine runtime"
       ]
     }
   },
@@ -129,20 +157,21 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "Observe/activate StegCore#68 canonical resident host when Render build capacity returns",
-    "Observe the LLM-adapter Math Solver hosted route when Render build capacity returns; then verify readiness/solve/replay and activate Site#240 gates",
-    "StegVerse-Labs/StegCore#70: expose/consume common runtime identity binding across reference apps",
-    "StegVerse-Labs/Site#242: complete Ecosystem Chat live activation",
-    "StegVerse-Labs/Site#241: complete VACC governed LLM execution",
-    "StegVerse-Labs/Site#243: complete HIL live participant cycle"
+    "Observe/activate StegCore#68 canonical resident host through its machine-owned rendezvous/observer lanes",
+    "Observe the LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
+    "StegVerse-Labs/StegCore#70: expose/consume common runtime identity binding across reference apps after #68 resident activation",
+    "StegVerse-Labs/Site#242: complete Ecosystem Chat live activation through existing LLM-adapter#18 machine lane",
+    "StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner",
+    "StegVerse-Labs/Site#243: complete HIL upload claim without collision, then admit SITE-0002-HIL-LIVE when heartbeat release conditions pass"
   ],
   "status_check_contract": {
     "read_this_file": true,
     "read_handoff": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
+    "read_heartbeat": "data/ecosystem-heartbeat-state.json",
     "recompute_before_reporting": true,
     "report_orchestration_progress_separately": true,
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-08T21:20:00-05:00"
+  "updated_at": "2026-08-09T00:36:00-05:00"
 }
