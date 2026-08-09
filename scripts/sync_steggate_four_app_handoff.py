@@ -10,6 +10,8 @@ STATUS = ROOT / "data" / "steggate-four-app-status.json"
 HANDOFF = ROOT / "docs" / "STEGGATE_FOUR_APP_MIRROR_HANDOFF.md"
 BEGIN = "<!-- STEGGATE_FOUR_APP_PROGRESS_BEGIN -->"
 END = "<!-- STEGGATE_FOUR_APP_PROGRESS_END -->"
+ORCH_BEGIN = "<!-- STEGGATE_FOUR_APP_ORCHESTRATION_BEGIN -->"
+ORCH_END = "<!-- STEGGATE_FOUR_APP_ORCHESTRATION_END -->"
 INTEGRATION_BEGIN = "<!-- STEGGATE_FOUR_APP_INTEGRATION_BEGIN -->"
 INTEGRATION_END = "<!-- STEGGATE_FOUR_APP_INTEGRATION_END -->"
 APP_BEGIN = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->"
@@ -48,6 +50,39 @@ def render(data: dict) -> str:
         app = data["applications"][key]
         lines.append(f"{LABELS[key]}: {app['progress_percent']}% ({app['completed_gates']}/{app['total_gates']})")
     lines.extend(["```", "", f"Last machine status timestamp: `{data['updated_at']}`", END])
+    return "\n".join(lines)
+
+
+def render_orchestration(data: dict) -> str:
+    orchestration = data["orchestration"]
+    aggregate = data["aggregate"]
+    lines = [
+        ORCH_BEGIN,
+        "## Orchestration progress",
+        "",
+        "```text",
+        f"Four-app status contract: {'INSTALLED' if orchestration.get('state') == 'COMPLETE' else orchestration.get('state')}",
+        f"Status validator: {orchestration.get('validator')}",
+        f"Handoff synchronizer: {orchestration.get('handoff_sync')}",
+        f"Application detail synchronization: {orchestration.get('application_detail_sync', 'UNRECORDED')}",
+        f"Repository worker completion: {orchestration.get('worker_completion')}",
+        f"Task object state: {orchestration.get('state')}",
+        f"Product activation effect: {'NONE' if orchestration.get('product_activation_effect') is False else orchestration.get('product_activation_effect')}",
+        "```",
+        "",
+        "Current validator target/output:",
+        "",
+        "```text",
+        "STEGGATE_FOUR_APP_STATUS_PASS "
+        f"completed_gates={aggregate['completed_gates']}/{aggregate['total_gates']} "
+        f"execution_progress_percent={aggregate['execution_progress_percent']} "
+        f"functional_apps={aggregate['fully_functional_public_apps']}/{aggregate['required_fully_functional_public_apps']} "
+        f"goal_complete={str(aggregate['goal_complete']).lower()}",
+        "```",
+        "",
+        "The repository worker's orchestration completion applies only to the progress/worker contract, not to any of the four products.",
+        ORCH_END,
+    ]
     return "\n".join(lines)
 
 
@@ -179,13 +214,23 @@ def synchronized_text() -> str:
     data = json.loads(STATUS.read_text(encoding="utf-8"))
     text = HANDOFF.read_text(encoding="utf-8")
     text = _replace_block(text, BEGIN, END, render(data))
+
+    if ORCH_BEGIN in text and ORCH_END in text:
+        text = _replace_block(text, ORCH_BEGIN, ORCH_END, render_orchestration(data))
+    else:
+        if "## Orchestration progress" not in text or APP_BEGIN not in text:
+            raise SystemExit("handoff orchestration/application boundary missing")
+        prefix, remainder = text.split("## Orchestration progress", 1)
+        _, suffix = remainder.split(APP_BEGIN, 1)
+        text = prefix + render_orchestration(data) + "\n\n" + render_integration(data) + "\n\n" + APP_BEGIN + suffix
+
     if INTEGRATION_BEGIN in text and INTEGRATION_END in text:
         text = _replace_block(text, INTEGRATION_BEGIN, INTEGRATION_END, render_integration(data))
     else:
-        marker = "## Application state"
-        if marker not in text:
-            raise SystemExit("handoff application-state section missing")
-        text = text.replace(marker, render_integration(data) + "\n\n" + marker, 1)
+        if APP_BEGIN not in text:
+            raise SystemExit("handoff application-state marker missing")
+        text = text.replace(APP_BEGIN, render_integration(data) + "\n\n" + APP_BEGIN, 1)
+
     if APP_BEGIN in text and APP_END in text:
         text = _replace_block(text, APP_BEGIN, APP_END, render_application_state(data))
     else:
