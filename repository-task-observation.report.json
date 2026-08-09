@@ -12,7 +12,6 @@
   "auto_discovered_tasks": [
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
     "SITE-ST018-VALIDATION-EVIDENCE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-AI-001",
@@ -56,16 +55,8 @@
     },
     {
       "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
-      "missing_locations": [
-        ".github/workflows/verify-thought-experiments-publication.yml",
-        "Thought-Experiments.html",
-        "scripts/check_thought_experiments_publication.py",
-        "thought-experiments-publication.report.json",
-        "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
-        "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf"
-      ]
+      "state": "BLOCKED_NO_EXECUTABLE_ACCEPTANCE",
+      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json"
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
@@ -129,16 +120,8 @@
     },
     {
       "task_id": "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
-      "state": "INCOMPLETE",
-      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
-      "missing_locations": [
-        ".github/workflows/verify-thought-experiments-publication.yml",
-        "Thought-Experiments.html",
-        "scripts/check_thought_experiments_publication.py",
-        "thought-experiments-publication.report.json",
-        "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
-        "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf"
-      ]
+      "state": "BLOCKED_NO_EXECUTABLE_ACCEPTANCE",
+      "task_location": "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json"
     },
     {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
