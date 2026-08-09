@@ -6,8 +6,7 @@
     "TIDC-ADJ-COMP-002-PUBLICATION-DATE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
-    "TIDC-SPLIT-AI-001",
-    "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION"
+    "TIDC-SPLIT-AI-001"
   ],
   "auto_discovered_tasks": [
     "SITE-0001-CHILD-SAFE-NETWORKING",
@@ -32,11 +31,11 @@
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-NET-002",
     "TIDC-SPLIT-AI-001",
-    "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
+    "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
     "SITE-0001-UPLOAD",
     "SITE-0002-CHILD-SAFETY-DEMO",
     "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
@@ -73,15 +72,6 @@
       "reason": "active task has no committed repository-local task object"
     },
     {
-      "task_id": "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
-      "state": "COMPLETE",
-      "task_location": "data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json",
-      "validator_command": "python scripts/check_steggate_four_app_status.py",
-      "success_marker": "STEGGATE_FOUR_APP_STATUS_PASS",
-      "success_marker_seen": true,
-      "output": "STEGGATE_FOUR_APP_STATUS_PASS completed_gates=7/30 execution_progress_percent=23 functional_apps=0/4 goal_complete=false"
-    },
-    {
       "task_id": "SITE-0001-CHILD-SAFE-NETWORKING",
       "state": "VALIDATION_FAILED",
       "task_location": "data/tasks/SITE-0001-CHILD-SAFE-NETWORKING.json",
@@ -116,6 +106,15 @@
       "success_marker": "PERSONAL_DATA_CONTROL_RUNTIME=PASS",
       "success_marker_seen": true,
       "output": "PERSONAL_DATA_CONTROL_RUNTIME=PASS\nEXTERNAL_TASKS_REQUIRED=false\nMANUAL_TASKS_REQUIRED=false\nAUTHORITY_GRANTED=false"
+    },
+    {
+      "task_id": "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
+      "state": "COMPLETE",
+      "task_location": "data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json",
+      "validator_command": "python scripts/check_steggate_four_app_status.py",
+      "success_marker": "STEGGATE_FOUR_APP_STATUS_PASS",
+      "success_marker_seen": true,
+      "output": "STEGGATE_FOUR_APP_STATUS_PASS completed_gates=7/30 execution_progress_percent=23 functional_apps=0/4 goal_complete=false"
     },
     {
       "task_id": "SITE-0001-UPLOAD",
@@ -187,9 +186,9 @@
     }
   ],
   "completed_tasks": [
-    "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD",
     "SITE-0001-PERSONAL-DATA-CONTROL",
+    "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
     "SITE-0001-UPLOAD",
     "SITE-0002-CHILD-SAFETY-DEMO",
     "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
