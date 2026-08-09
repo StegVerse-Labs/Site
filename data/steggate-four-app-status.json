@@ -1,0 +1,126 @@
+{
+  "schema_version": "stegverse.steggate.four_app_status.v1",
+  "goal_id": "STEGGATE-FOUR-PUBLIC-APPS-001",
+  "parent_issue": 239,
+  "canonical_steggate_issue": "StegVerse-Labs/StegCore#68",
+  "integration_issue": "StegVerse-Labs/StegCore#70",
+  "state": "ACTIVE_INCOMPLETE",
+  "product_completion_rule": "100_PERCENT_REQUIRES_ALL_PUBLIC_RUNTIME_GATES_VERIFIED",
+  "progress_basis": "verified_execution_gates_only",
+  "applications": {
+    "ecosystem_chat": {
+      "issue": 242,
+      "surface": "ecosystem-chat.html",
+      "state": "ACTIVATION_PENDING_LIVE_PROVIDER_AND_PERSISTENT_ENDPOINT",
+      "completed_gates": 2,
+      "total_gates": 8,
+      "progress_percent": 25,
+      "gates": {
+        "public_surface_present": true,
+        "canonical_event_projection_present": true,
+        "canonical_steggate_live": false,
+        "real_provider_execution": false,
+        "provider_usage_persistence": false,
+        "custody_reconstruction_pass": false,
+        "zero_blocker_activation_receipt": false,
+        "public_end_to_end_observation": false
+      },
+      "blockers": [
+        "StegCore#68 hosted StegGate activation incomplete",
+        "authorized real-provider and persistent endpoint evidence absent",
+        "provider-usage custody/reconstruction and zero-blocker activation receipt absent"
+      ]
+    },
+    "vacc": {
+      "issue": 241,
+      "surface": "va-claims-chat.html",
+      "state": "RELEASED_BOUNDED_SURFACE_GOVERNED_LLM_PENDING",
+      "completed_gates": 2,
+      "total_gates": 7,
+      "progress_percent": 29,
+      "gates": {
+        "public_surface_released": true,
+        "source_grounded_bounded_capability_verified": true,
+        "canonical_steggate_live": false,
+        "real_provider_backed_vacc_execution": false,
+        "va_route_source_constraints_runtime_verified": false,
+        "custody_reconstruction_pass": false,
+        "public_end_to_end_observation": false
+      },
+      "blockers": [
+        "StegCore#68 hosted StegGate activation incomplete",
+        "coordinated provider-backed VACC runtime not yet verified",
+        "custody/reconstruction evidence for real governed execution absent"
+      ]
+    },
+    "math_solver": {
+      "issue": 240,
+      "surface": "math-solver/index.html",
+      "state": "RESEARCH_NOTE_RUNTIME_NOT_IMPLEMENTED",
+      "completed_gates": 1,
+      "total_gates": 7,
+      "progress_percent": 14,
+      "gates": {
+        "public_surface_present": true,
+        "real_request_intake": false,
+        "canonical_steggate_live": false,
+        "steggate_pre_execution_decision": false,
+        "solver_execution_after_allow": false,
+        "result_receipt_binding": false,
+        "public_replay_verification": false
+      },
+      "blockers": [
+        "current canonical posture is RESEARCH_NOTE",
+        "real solver execution route not implemented",
+        "StegCore#68 hosted StegGate activation incomplete"
+      ]
+    },
+    "hil": {
+      "issue": 243,
+      "surface": "humans-as-interoperability-layer.html",
+      "state": "PUBLIC_EXPERIMENT_RUNTIME_ACTIVATION_BLOCKED",
+      "completed_gates": 2,
+      "total_gates": 8,
+      "progress_percent": 25,
+      "gates": {
+        "public_participant_surface_present": true,
+        "browser_client_contract_present": true,
+        "live_receiver_ready": false,
+        "canonical_steggate_live": false,
+        "real_public_participant_cycle": false,
+        "durable_receipt_custody": false,
+        "reconstruction_pass": false,
+        "public_end_to_end_observation": false
+      },
+      "blockers": [
+        "live HIL receiver/readiness not verified",
+        "production participant cycle not completed",
+        "StegCore#68 hosted StegGate activation incomplete"
+      ]
+    }
+  },
+  "aggregate": {
+    "completed_gates": 7,
+    "total_gates": 30,
+    "execution_progress_percent": 23,
+    "fully_functional_public_apps": 0,
+    "required_fully_functional_public_apps": 4,
+    "goal_complete": false
+  },
+  "next_execution_order": [
+    "StegVerse-Labs/StegCore#68: activate canonical hosted StegGate",
+    "StegVerse-Labs/StegCore#70: expose common runtime identity/binding contract",
+    "StegVerse-Labs/Site#242: complete Ecosystem Chat live activation",
+    "StegVerse-Labs/Site#241: complete VACC governed LLM execution",
+    "StegVerse-Labs/Site#240: implement live governed Math Solver",
+    "StegVerse-Labs/Site#243: complete HIL live participant cycle"
+  ],
+  "status_check_contract": {
+    "read_this_file": true,
+    "read_handoff": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
+    "recompute_before_reporting": true,
+    "never_infer_100_from_scaffolding": true,
+    "archive_ready_only_when_goal_complete": true
+  },
+  "updated_at": "2026-08-08T19:30:00-05:00"
+}
