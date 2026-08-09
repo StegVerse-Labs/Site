@@ -23,7 +23,7 @@ canonical_owner: StegVerse-Labs/Site#24 + StegVerse-Labs/StegCore heartbeat tunn
 originating_completed_dependencies:
   - StegVerse-Labs/StegCore#68 — functional StegGate COMPLETE
   - StegVerse-Labs/StegCore#75 — heartbeat/credential integration COMPLETE
-state: TUNNEL_NATIVE_ADOPTED / AWAIT_CURRENT_HEARTBEAT_TUNNEL
+state: CURRENT_HEARTBEAT_TUNNEL_VERIFIED
 scheduler_authority: single StegVerse heartbeat
 wall_clock_scheduler_authority: false
 persistent_third_party_host_required: false
@@ -34,9 +34,12 @@ The active path is the heartbeat-owned StegGate micro-node plus its verified eph
 ## Installed tunnel/discovery surfaces
 
 ```text
+StegVerse-Labs/.github/.github/workflows/steggate-heartbeat-integration.yml
+StegVerse-Labs/.github/management/STEGGATE_HEARTBEAT_CREDENTIAL_INTEGRATION_001.json
 StegVerse-Labs/StegCore/.github/workflows/steggate-heartbeat-worker-reusable.yml
 StegVerse-Labs/StegCore/.github/workflows/steggate-fallback-public-runtime.yml
 StegVerse-Labs/StegCore/src/stegcore/endpoint_discovery.py
+StegVerse-Labs/StegCore/management/steggate-heartbeat-credential-integration.json
 StegVerse-Labs/Site/src/steggate-rendezvous-worker.js
 StegVerse-Labs/Site/data/steggate-rendezvous-activation.json
 ```
@@ -48,37 +51,42 @@ StegVerse-Labs/Site/data/steggate-rendezvous-activation.json
 A tunnel is usable only after independent verification of:
 
 ```text
-/health                 healthy=true; canonical_three_layer_bound=true
+/health                  state=healthy; canonical_three_layer_bound=true
 /v1/self-test            exact ALLOW / DENY / REVIEW / FAIL_CLOSED
 /v1/evaluate             deterministic complete-matrix acceptance
 ```
 
 Historical tunnel success does not assert current liveness. Tunnel endpoints are lease-bound and must be re-resolved and reverified for current use.
 
-Strongest completed tunnel evidence:
+## Current heartbeat tunnel proof
+
+Fresh canonical proof:
 
 ```text
-StegCore workflow run: 31305399735
-public tunnel step: PASS
-full public acceptance step: PASS
-verified runtime registry update: PASS
-observed_at: 2026-08-09T09:14:06.578269Z
+StegVerse-Labs/.github workflow run: 31325104576
+heartbeat job: 93274099310 SUCCESS
+StegGate micro-node job: 93274112655 SUCCESS
+heartbeat id: HB-31325104576-5
+heartbeat epoch: 5
+StegCore commit executed: f0d764b2b5b48987d75ea4efd1da1fafde04b406
+current observed tunnel origin: https://owners-recipes-catherine-laid.trycloudflare.com
+/health: PASS
+/v1/self-test: PASS
+/v1/evaluate: PASS
+heartbeat artifact: 9041292966
+heartbeat digest: sha256:bc0c6d498f0f270f2fa1ec2de29444b4d2cd809d726287fb70f36f2decb9e919
+micro-node artifact: 9041297862
+micro-node digest: sha256:a1222757e3fe0187b58ce2bd26c32600c70087c14c5f9e48f68ee7ffa2473b69
+observed_at: 2026-08-09T16:57:13.142713Z
 ```
 
-The canonical heartbeat-to-Steggate proof also remains valid independently:
+The deterministic evaluation returned canonical `ALLOW` with all required matrix predicates PASS, permission/admissibility separation preserved, no external execution, and no continuity receipt minted by the observer.
 
-```text
-StegVerse-Labs/.github workflow run 31306010854
-heartbeat job 93226408727 SUCCESS
-StegGate micro-node job 93226429725 SUCCESS
-canonical heartbeat epoch advanced to 4
-micro-node artifact 9035963753
-micro-node digest sha256:b496a848c0f2561e1eb3b3dcdc33502f3019252995fa83cbe81e1c13c32651ba
-```
+The older issue-comment registry origin from 09:14 UTC remains historical rotating-endpoint evidence only. Consumers must not equate that declaration with current liveness.
 
 ## Stable-domain / provider-specific lane
 
-The previously tracked Cloudflare Worker deployment remains optional hardening. Its absent credential values are no longer a blocker to functional StegGate or to the tunnel-native rendezvous path.
+The previously tracked Cloudflare Worker deployment remains optional hardening. Its absent credential values are not a blocker to functional StegGate or to the tunnel-native rendezvous path.
 
 ```text
 optional stable origin: https://stegverse.org/api/steggate
@@ -91,16 +99,16 @@ TV/TVC credential-reference contracts remain valid boundaries for any future pro
 
 ## Current execution rule
 
-Machine-observable release condition:
+Machine-observable current-use condition:
 
 ```text
-A current heartbeat-owned StegGate tunnel is discoverable
+A heartbeat-owned StegGate tunnel is freshly discoverable
 AND it independently passes canonical health
 AND it passes exact self-test
 AND deterministic /v1/evaluate passes the acceptance contract.
 ```
 
-When true, consumers may use that verified tunnel for the bounded lease window. If no current tunnel is discoverable, the system remains fail-closed and the next admitted heartbeat worker is the canonical recovery path. Do not wait on Render build minutes or provider-specific hosting credentials.
+This condition is satisfied by heartbeat epoch 5 evidence above. Consumers may use a verified tunnel only within its actual live lease. If no current tunnel is discoverable, the system fails closed and the next admitted heartbeat worker is the canonical recovery path. Do not wait on Render build minutes or provider-specific hosting credentials.
 
 ## Collision and authority boundaries
 
@@ -129,6 +137,6 @@ TVC secret-reference authority: StegVerse-Labs/TVC
 
 ## Completion / archive posture
 
-Primary Site application work remains complete. The StegGate architecture correction is durably installed: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
+Primary Site application work remains complete. The StegGate architecture correction is durably installed and now has fresh epoch-5 hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
 
-Current-liveness verification remains lease-sensitive and must be performed against the current heartbeat tunnel when one exists. That condition is machine-observable and no manual user action is assigned.
+Current-liveness remains lease-sensitive by design. The next admitted heartbeat is the recovery/refresh mechanism when no verified tunnel remains live; no manual user action is assigned.
