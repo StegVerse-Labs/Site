@@ -10,6 +10,7 @@ on:
       - 'src/steggate-rendezvous-worker.js'
       - 'wrangler.steggate.jsonc'
       - 'data/tvc-infrastructure-credential-consumer-authority.v1.json'
+      - 'data/cloudflare-steggate-credential-profile.json'
       - '.github/workflows/steggate-rendezvous-deploy.yml'
 
 permissions:
@@ -76,15 +77,43 @@ jobs:
           NODE
           echo 'admissible=true' >> "$GITHUB_OUTPUT"
 
+      - name: Validate bounded Cloudflare credential profile
+        id: profile
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('fs');
+          const p = JSON.parse(fs.readFileSync('data/cloudflare-steggate-credential-profile.json','utf8'));
+          const ok = p.schema === 'stegverse.site.cloudflare_steggate_credential_profile.v1'
+            && p.authentication.preferred_method === 'account_api_token'
+            && p.authentication.api_token_environment_variable === 'CLOUDFLARE_API_TOKEN'
+            && p.authentication.account_id_environment_variable === 'CLOUDFLARE_ACCOUNT_ID'
+            && p.authentication.legacy_global_api_key_required === false
+            && p.authentication.legacy_email_required === false
+            && p.authentication.raw_credentials_may_be_persisted === false
+            && (p.required_capabilities || []).includes('Workers Scripts Write')
+            && (p.required_capabilities || []).includes('Workers Routes Write');
+          fs.writeFileSync('deployment-evidence/cloudflare-credential-profile-check.json', JSON.stringify({
+            schema:'stegverse.site.cloudflare_credential_profile_check.v1',
+            state:ok?'PASS':'FAIL_CLOSED',
+            preferred_method:p.authentication.preferred_method,
+            required_capabilities:p.required_capabilities,
+            raw_credentials_recorded:false
+          },null,2)+'\n');
+          if (!ok) process.exit(1);
+          NODE
+          echo 'valid=true' >> "$GITHUB_OUTPUT"
+
       - name: Observe governed deployment credential boundary
         id: credentials
         shell: bash
         run: |
           set -euo pipefail
-          if [ "${{ steps.tvc.outputs.admissible }}" != "true" ]; then
+          if [ "${{ steps.tvc.outputs.admissible }}" != "true" ] || [ "${{ steps.profile.outputs.valid }}" != "true" ]; then
             echo 'ready=false' >> "$GITHUB_OUTPUT"
             state='BLOCKED'
-            blocker='tvc_credential_reference_authority_not_admissible'
+            blocker='credential_authority_or_profile_not_admissible'
           elif [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo 'ready=false' >> "$GITHUB_OUTPUT"
             state='BLOCKED'
@@ -99,14 +128,15 @@ jobs:
           const authority = JSON.parse(fs.readFileSync('data/tvc-infrastructure-credential-consumer-authority.v1.json','utf8'));
           const ready = process.env.STATE === 'CLAIMED';
           const body = {
-            schema: 'stegverse.steggate_rendezvous_observation.v2',
-            goal_id: 'STEGGATE-HEARTBEAT-CREDENTIAL-INTEGRATION-001',
+            schema: 'stegverse.steggate_rendezvous_observation.v3',
+            goal_id: 'STEGGATE-STABLE-RENDEZVOUS-HARDENING',
             workflow_run: process.env.GITHUB_RUN_ID,
             workflow_attempt: process.env.GITHUB_RUN_ATTEMPT,
             source_commit: process.env.GITHUB_SHA,
             trigger: process.env.GITHUB_EVENT_NAME,
             state: process.env.STATE,
             tvc_admissible: true,
+            credential_profile_valid: true,
             tvc_source_contract_commit: authority.source_contract_commit,
             tvc_validated_policy_commit: authority.validated_policy_commit,
             tvc_validation_artifact_digest: authority.validation.artifact_digest,
@@ -114,14 +144,46 @@ jobs:
             credentials_recorded: false,
             blocker: process.env.BLOCKER || null,
             stable_origin: 'https://stegverse.org/api/steggate',
-            next_action: ready ? 'Deploy stable rendezvous and execute acceptance probes.' : 'Remain fail-closed until referenced credential values exist in this execution environment.',
+            next_action: ready ? 'Validate token/account capability, then deploy and execute acceptance probes.' : 'Remain fail-closed until referenced credential values exist in this execution environment.',
             authority_attached: false
           };
           fs.writeFileSync('deployment-evidence/activation-observation.json', JSON.stringify(body, null, 2) + '\n');
           NODE
 
-      - name: Build production Wrangler configuration
+      - name: Validate Cloudflare token and account capability
+        id: cloudflare
         if: steps.credentials.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          status=$(curl --silent --show-error --max-time 30 --output deployment-evidence/cloudflare-auth-response.json --write-out '%{http_code}' \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts" || true)
+          HTTP_STATUS="$status" node - <<'NODE'
+          const fs = require('fs');
+          let response = {};
+          try { response = JSON.parse(fs.readFileSync('deployment-evidence/cloudflare-auth-response.json','utf8')); } catch (_) {}
+          const status = Number(process.env.HTTP_STATUS || 0);
+          const ok = status >= 200 && status < 300 && response.success === true;
+          const receipt = {
+            schema:'stegverse.site.cloudflare_credential_capability_check.v1',
+            state:ok?'PASS':'FAIL_CLOSED_CREDENTIAL_INVALID_OR_SCOPE_INSUFFICIENT',
+            http_status:status,
+            cloudflare_success:response.success === true,
+            account_id_present:true,
+            api_token_present:true,
+            credentials_recorded:false,
+            errors:Array.isArray(response.errors) ? response.errors.map(e => ({code:e.code,message:e.message})) : []
+          };
+          fs.writeFileSync('deployment-evidence/cloudflare-credential-capability.json', JSON.stringify(receipt,null,2)+'\n');
+          // Do not retain Cloudflare's account/script listing response in the evidence bundle.
+          fs.rmSync('deployment-evidence/cloudflare-auth-response.json',{force:true});
+          if (!ok) process.exit(1);
+          NODE
+          echo 'ready=true' >> "$GITHUB_OUTPUT"
+
+      - name: Build production Wrangler configuration
+        if: steps.cloudflare.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -134,11 +196,11 @@ jobs:
           NODE
 
       - name: Deploy stable rendezvous Worker
-        if: steps.credentials.outputs.ready == 'true'
+        if: steps.cloudflare.outputs.ready == 'true'
         run: npx --yes wrangler@latest deploy --config wrangler.steggate.production.json
 
       - name: Verify stable readiness and health routes
-        if: steps.credentials.outputs.ready == 'true'
+        if: steps.cloudflare.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -160,7 +222,7 @@ jobs:
           test "$READY" -eq 1
 
       - name: Verify stable self-test route
-        if: steps.credentials.outputs.ready == 'true'
+        if: steps.cloudflare.outputs.ready == 'true'
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --max-time 30 https://stegverse.org/api/steggate/v1/self-test > deployment-evidence/self-test.json
@@ -173,7 +235,7 @@ jobs:
           NODE
 
       - name: Record live acceptance state
-        if: steps.credentials.outputs.ready == 'true' && success()
+        if: steps.cloudflare.outputs.ready == 'true' && success()
         shell: bash
         run: |
           set -euo pipefail
@@ -185,9 +247,10 @@ jobs:
           body.state = 'COMPLETE';
           body.claim_state = 'COMPLETE';
           body.deployment_state = 'LIVE_ACCEPTANCE_PASS';
-          body.scheduler = 'stegverse-heartbeat';
+          body.scheduler = {authority:'single_stegverse_heartbeat',wall_clock_scheduler_authority:false};
           body.tvc_credential_authority = {source_contract_commit: authority.source_contract_commit, validated_policy_commit: authority.validated_policy_commit, validation_artifact_digest: authority.validation.artifact_digest, credentials_recorded: false};
-          body.last_success = {workflow_run: Number(process.env.GITHUB_RUN_ID), workflow_attempt: Number(process.env.GITHUB_RUN_ATTEMPT), source_commit: process.env.GITHUB_SHA, stable_origin: 'https://stegverse.org/api/steggate', acceptance: ['readiness','health','self_test']};
+          body.cloudflare_credential_profile = 'data/cloudflare-steggate-credential-profile.json';
+          body.last_success = {workflow_run: Number(process.env.GITHUB_RUN_ID), workflow_attempt: Number(process.env.GITHUB_RUN_ATTEMPT), source_commit: process.env.GITHUB_SHA, stable_origin: 'https://stegverse.org/api/steggate', acceptance: ['credential_capability','readiness','health','self_test']};
           body.next_machine_action = 'Preserve stable-rendezvous hardening evidence; functional StegGate activation is already complete through the heartbeat ephemeral micro-node topology.';
           fs.writeFileSync(path, JSON.stringify(body, null, 2) + '\n');
           NODE
@@ -196,6 +259,7 @@ jobs:
           git add data/steggate-rendezvous-activation.json
           if ! git diff --cached --quiet; then
             git commit -m 'Record live StegGate rendezvous acceptance'
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
 
@@ -211,5 +275,5 @@ jobs:
       - name: Keep blocked state explicit until governed credentials exist
         if: steps.credentials.outputs.ready != 'true'
         run: |
-          echo 'TVC secret-reference authority is valid, but Cloudflare credential values are absent from this execution environment. Stable rendezvous remains fail-closed.'
+          echo 'TVC secret-reference authority and credential profile are valid, but Cloudflare credential values are absent from this execution environment. Stable rendezvous remains fail-closed.'
           exit 1
