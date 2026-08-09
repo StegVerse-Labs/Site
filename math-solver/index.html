@@ -3,9 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StegVerse math-solver adapter: governed formalism work packets, artifacts, and claim posture.">
-  <title>StegVerse — Math-Solver Adapter</title>
+  <meta name="description" content="StegVerse Math Solver: a deterministic public workload gated by canonical StegGate before execution.">
+  <title>StegVerse — Governed Math Solver</title>
   <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    .ms-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem;margin:1rem 0}.ms-card{border:1px solid var(--sv-line,#d8dee8);border-radius:12px;padding:1rem;background:var(--sv-panel,#fff)}.ms-input{width:100%;box-sizing:border-box;padding:.8rem;border:1px solid #aab3c2;border-radius:8px;font:inherit}.ms-status{font-weight:700}.ms-result{font-size:2rem;font-weight:800;margin:.35rem 0}.ms-code{white-space:pre-wrap;overflow-wrap:anywhere;max-height:24rem;overflow:auto}.ms-small{font-size:.9rem;opacity:.82}.ms-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}.ms-pill{display:inline-block;padding:.2rem .55rem;border:1px solid currentColor;border-radius:999px;font-size:.82rem}@media(max-width:760px){.ms-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 <nav class="sv-nav">
@@ -15,65 +18,189 @@
   <a href="../tests/index.html">Tests</a>
   <a href="../transition-table.html">Transition Table</a>
   <a href="../formalisms/index.html">Formalisms</a>
-  <a href="index.html" class="active">Math-Solver</a>
+  <a href="index.html" class="active">Math Solver</a>
   <a href="../Papers.html">Papers</a>
 </nav>
 
 <div class="sv-wrap">
   <div class="sv-hero">
-    <div class="sv-eyebrow">Math-solver · LLM action governance · Formalism bridge</div>
-    <h1>Math-Solver<br><em>Governance Adapter.</em></h1>
-    <p>This page publishes the public posture for the math-solver bridge: a governed packet structure for asking a solver or model to perform formalism work without granting it free-form authority.</p>
-    <div class="sv-btn-row">
-      <a class="sv-btn sv-btn-primary" href="papers.html">Papers &amp; formalism sources</a>
-      <a class="sv-btn sv-btn-secondary" href="../formalisms/rtg.html">RTG</a>
-      <a class="sv-btn sv-btn-secondary" href="../formalisms/stcm.html">STCM</a>
-      <a class="sv-btn sv-btn-secondary" href="../tests/index.html">Governance tests</a>
-    </div>
+    <div class="sv-eyebrow">Deterministic workload · canonical StegGate · replayable evidence</div>
+    <h1>Governed<br><em>Math Solver.</em></h1>
+    <p>A deliberately narrow public workload for demonstrating that the same StegGate execution boundary can govern a deterministic application. The arithmetic engine is reachable only after an admissible canonical StegGate decision.</p>
   </div>
 
-  <div class="sv-boundary">
-    <strong>Boundary:</strong> this page is a public mirror for the adapter concept. It does not claim solver correctness, mathematical proof, or production authority.
+  <div class="sv-boundary" id="activation-boundary">
+    <strong>Activation boundary:</strong> the public client is installed, but production status remains fail-closed until the hosted runtime answers readiness and a deployed solve/replay cycle is directly verified. Static page availability is not runtime activation.
   </div>
 
-  <h2 class="sv-h2">Adapter purpose</h2>
+  <div class="ms-grid">
+    <section class="ms-card" aria-labelledby="solver-title">
+      <h2 id="solver-title" class="sv-h2">Try the governed solver</h2>
+      <label for="expression"><strong>Arithmetic expression</strong></label>
+      <input id="expression" class="ms-input" type="text" inputmode="text" maxlength="256" value="6 * 7" autocomplete="off" spellcheck="false">
+      <p class="ms-small">Allowed: numeric literals and <code>+ - * / // % **</code>. Arbitrary Python, names, calls, lists, and other syntax are rejected.</p>
+      <div class="ms-row">
+        <button class="sv-btn sv-btn-primary" id="solve" type="button">Evaluate through StegGate</button>
+        <button class="sv-btn sv-btn-secondary" id="replay" type="button" disabled>Replay same request</button>
+      </div>
+      <p>Runtime: <span id="runtime-status" class="ms-status">checking…</span></p>
+      <div id="result-wrap" hidden>
+        <div class="ms-result" id="result"></div>
+        <div class="ms-row">
+          <span class="ms-pill" id="disposition"></span>
+          <span class="ms-pill" id="execution-state"></span>
+        </div>
+      </div>
+      <p id="error" role="alert"></p>
+    </section>
+
+    <section class="ms-card" aria-labelledby="evidence-title">
+      <h2 id="evidence-title" class="sv-h2">Execution evidence</h2>
+      <p class="ms-small">The public response exposes the request/result hashes and canonical StegGate decision identity. This pane is evidence projection, not a second decision authority.</p>
+      <pre id="evidence" class="ms-code">No governed execution observed yet.</pre>
+    </section>
+  </div>
+
+  <h2 class="sv-h2">Execution chain</h2>
+  <pre>public math expression
+→ normalized request hash
+→ canonical portable StegGate package
+→ canonical StegGate + coherence evaluation
+→ deterministic arithmetic executor only after ALLOW
+→ execution observation + decision/hash evidence
+→ result receipt
+→ deterministic replay comparison</pre>
+
+  <h2 class="sv-h2">Why this surface exists</h2>
   <div class="sv-prose">
-    <p>The math-solver adapter governs formalism-development actions. It asks what a solver is allowed to attempt, what artifact it must return, what claim may be made from that artifact, and what receipt or replay posture is required before the next instruction.</p>
+    <p>Math Solver is not a separate StegGate product. It is a low-ambiguity reference workload. Ecosystem Chat, VACC, HIL, and this solver use different attributes and applications; the proof target is that execution remains governed by the same canonical StegGate semantics.</p>
   </div>
 
-  <h2 class="sv-h2">Governed action chain</h2>
-  <pre>formalism state
-→ governed instruction packet
-→ solver or model task
-→ returned artifact
-→ claim/cost confirmation
-→ receipt or replay posture
-→ next admissible instruction</pre>
-
-  <h2 class="sv-h2">Relationship to Site tests</h2>
+  <h2 class="sv-h2">Current public posture</h2>
   <div class="sv-evidence">
-    <div class="sv-evidence-label">Shared governance language</div>
-    <div class="sv-evidence-row"><span class="k">Math-solver adapter</span><span class="v">governs formalism-development work packets</span></div>
-    <div class="sv-evidence-row"><span class="k">Governance Testing Suite</span><span class="v">classifies public output and proposed state movement</span></div>
-    <div class="sv-evidence-row"><span class="k">STCM</span><span class="v">conservation and replay continuity rule</span></div>
-    <div class="sv-evidence-row"><span class="k">RTG</span><span class="v">candidate geometry for relative transition positions</span></div>
-    <div class="sv-evidence-row"><span class="k">CGE</span><span class="v">future decision and enforcement manager</span></div>
+    <div class="sv-evidence-label">MATH-SOLVER-STEGGATE-001</div>
+    <div class="sv-evidence-row"><span class="k">Client</span><span class="v">IMPLEMENTED / FAIL-CLOSED</span></div>
+    <div class="sv-evidence-row"><span class="k">Runtime</span><span class="v" id="runtime-posture">PENDING DIRECT HOSTED VERIFICATION</span></div>
+    <div class="sv-evidence-row"><span class="k">Canonical gate</span><span class="v">StegCore portable StegGate consumer; no parallel evaluator</span></div>
+    <div class="sv-evidence-row"><span class="k">Proof authority</span><span class="v">NONE — successful arithmetic is not mathematical proof authority</span></div>
+    <div class="sv-evidence-row"><span class="k">Production claim</span><span class="v">withheld until hosted readiness + solve + replay are directly observed</span></div>
   </div>
 
-  <h2 class="sv-h2">Public posture</h2>
-  <div class="sv-evidence">
-    <div class="sv-evidence-label">MATH-SOLVER-ADAPTER-001</div>
-    <div class="sv-evidence-row"><span class="k">Posture</span><span class="v">RESEARCH_NOTE</span></div>
-    <div class="sv-evidence-row"><span class="k">Status</span><span class="v">public adapter concept / not proof authority</span></div>
-    <div class="sv-evidence-row"><span class="k">Authority source</span><span class="v">future adapter repo or formalism-tests receipts</span></div>
-    <div class="sv-evidence-row"><span class="k">Allowed public claim</span><span class="v">adapter pattern and governance boundary</span></div>
-    <div class="sv-evidence-row"><span class="k">Not claimed</span><span class="v">solver correctness, completed proof, external verification</span></div>
+  <div class="sv-btn-row">
+    <a class="sv-btn sv-btn-secondary" href="papers.html">Papers &amp; formalism sources</a>
+    <a class="sv-btn sv-btn-secondary" href="../tests/index.html">Governance tests</a>
   </div>
 </div>
 
 <footer class="sv-footer">
-  <span>StegVerse · Math-Solver Adapter · Public posture mirror</span>
+  <span>StegVerse · Governed Math Solver · Public reference workload</span>
   <span><a href="../index.html">Home</a> · <a href="papers.html">Papers</a> · <a href="../tests/index.html">Tests</a></span>
 </footer>
+<script>
+(() => {
+  'use strict';
+  const ORIGIN = 'https://stegverse-ecosystem-chat-gateway.onrender.com';
+  const readinessUrl = ORIGIN + '/api/math-solver/v1/readiness';
+  const solveUrl = ORIGIN + '/api/math-solver/v1/solve';
+  const expression = document.getElementById('expression');
+  const solveButton = document.getElementById('solve');
+  const replayButton = document.getElementById('replay');
+  const runtimeStatus = document.getElementById('runtime-status');
+  const runtimePosture = document.getElementById('runtime-posture');
+  const resultWrap = document.getElementById('result-wrap');
+  const result = document.getElementById('result');
+  const disposition = document.getElementById('disposition');
+  const executionState = document.getElementById('execution-state');
+  const evidence = document.getElementById('evidence');
+  const error = document.getElementById('error');
+  let lastExpression = null;
+  let lastPayload = null;
+
+  function compactEvidence(payload, replayMatch) {
+    return {
+      schema_version: payload.schema_version,
+      request_id: payload.request_id,
+      request_hash: payload.request_hash,
+      solver_id: payload.solver_id,
+      steggate_profile: payload.steggate_profile,
+      steggate_package_hash: payload.steggate_package_hash,
+      disposition: payload.disposition,
+      execution_state: payload.execution_state,
+      executor_invoked: payload.executor_invoked,
+      candidate_hash: payload.candidate_hash,
+      decision_state_hash: payload.decision_state_hash,
+      result_hash: payload.result_hash,
+      response_hash: payload.response_hash,
+      replay_match: replayMatch,
+      matrix: payload.matrix
+    };
+  }
+
+  async function checkReadiness() {
+    try {
+      const response = await fetch(readinessUrl, {cache: 'no-store'});
+      const payload = await response.json();
+      if (!response.ok || payload.state !== 'READY' || payload.canonical_steggate_bound !== true) {
+        throw new Error('runtime readiness gate did not pass');
+      }
+      runtimeStatus.textContent = 'READY — canonical StegGate bound';
+      runtimePosture.textContent = 'HOSTED READINESS OBSERVED BY THIS CLIENT';
+      solveButton.disabled = false;
+      return true;
+    } catch (err) {
+      runtimeStatus.textContent = 'NOT READY — execution withheld';
+      runtimePosture.textContent = 'PENDING DIRECT HOSTED VERIFICATION';
+      solveButton.disabled = true;
+      error.textContent = 'The hosted governed runtime is unavailable. No local fallback or ungated solver is used.';
+      return false;
+    }
+  }
+
+  async function runSolve(value, isReplay) {
+    error.textContent = '';
+    resultWrap.hidden = true;
+    solveButton.disabled = true;
+    replayButton.disabled = true;
+    try {
+      const requestId = 'MATH-WEB-' + crypto.randomUUID();
+      const response = await fetch(solveUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({expression: value, request_id: requestId})
+      });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(typeof payload.detail === 'string' ? payload.detail : JSON.stringify(payload.detail || payload));
+      }
+      if (payload.disposition !== 'ALLOW' || payload.execution_state !== 'EXECUTED' || payload.executor_invoked !== true) {
+        throw new Error('response did not prove an admitted governed execution');
+      }
+      let replayMatch = null;
+      if (isReplay && lastPayload) {
+        replayMatch = payload.request_hash === lastPayload.request_hash && payload.result_hash === lastPayload.result_hash;
+      }
+      result.textContent = String(payload.result);
+      disposition.textContent = 'StegGate: ' + payload.disposition;
+      executionState.textContent = payload.execution_state;
+      evidence.textContent = JSON.stringify(compactEvidence(payload, replayMatch), null, 2);
+      resultWrap.hidden = false;
+      if (!isReplay) {
+        lastExpression = value;
+        lastPayload = payload;
+      }
+      replayButton.disabled = !lastExpression;
+    } catch (err) {
+      error.textContent = 'Execution blocked or unavailable: ' + err.message;
+      evidence.textContent = 'No successful governed execution retained by this page.';
+    } finally {
+      solveButton.disabled = false;
+    }
+  }
+
+  solveButton.addEventListener('click', () => runSolve(expression.value.trim(), false));
+  replayButton.addEventListener('click', () => lastExpression && runSolve(lastExpression, true));
+  checkReadiness();
+})();
+</script>
 </body>
 </html>
