@@ -189,21 +189,19 @@ Queued live task:
 
 <!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->
 
+<!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_BEGIN -->
 ## Execution order
 
 Current dependency-aware route:
 
-1. `StegVerse-Labs/StegCore#68` — canonical resident hosted StegGate activation; machine observer/capacity watch remains active.
-2. Math Solver host route — LLM-adapter observer retries automatically; Site activation consumer automatically consumes COMPLETE evidence and updates canonical Site state.
-3. `StegVerse-Labs/StegCore#70` — common runtime identity and reference-app binding contract.
-4. `Site#242` — Ecosystem Chat live activation.
-5. `Site#241` — VACC governed LLM execution.
-6. `Site#240` — machine-owned Math Solver hosted/public acceptance completion.
-7. `Site#243` — HIL live participant cycle.
-8. Recompute `data/steggate-four-app-status.json` from direct evidence after every material transition.
-9. Close `Site#239` only at 4/4 verified functional public applications.
+1. StegVerse-Labs/StegCore#70: common runtime identity core contract is validated; complete application bindings with direct retained evidence
+2. StegVerse-Labs/Site#242: complete Ecosystem Chat live provider/persistence/custody/reconstruction activation through existing LLM-adapter#18 machine lane and bind runtime identity
+3. StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner and bind runtime identity
+4. Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240
+5. StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and bind runtime identity in the real participant cycle
 
 Nonconflicting application work may run in parallel. No application may manufacture a substitute StegGate authority.
+<!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_END -->
 
 ## Heartbeat / worker / task assignment integration
 
