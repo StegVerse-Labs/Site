@@ -65,7 +65,7 @@
     "math_solver": {
       "issue": 240,
       "surface": "math-solver/index.html",
-      "state": "RESEARCH_NOTE_RUNTIME_NOT_IMPLEMENTED",
+      "state": "PUBLIC_CLIENT_IMPLEMENTED_BACKEND_CI_VALIDATED_HOST_DEPLOYMENT_BLOCKED",
       "completed_gates": 1,
       "total_gates": 7,
       "progress_percent": 14,
@@ -78,10 +78,22 @@
         "result_receipt_binding": false,
         "public_replay_verification": false
       },
+      "implementation_evidence": {
+        "runtime_owner": "StegVerse-org/LLM-adapter#132",
+        "runtime_handoff": "StegVerse-org/LLM-adapter/docs/MATH_SOLVER_RUNTIME_MIRROR_HANDOFF.md",
+        "runtime_ci_run": 31290093572,
+        "runtime_ci_job": 93185673393,
+        "runtime_ci_artifact": 9031088299,
+        "runtime_ci_artifact_digest": "sha256:e863d4aaa6bf6fbc34746e1f0eb10028a320bf861bf2d2246cd673fdf0de67c1",
+        "site_client_commit": "f45fe0ae7e21dd19b20b119ab78956a7c77eb72c",
+        "host_service": "Render/srv-d9epkh3rjlhs73csc3qg",
+        "latest_observed_deploy": "dep-d9ru79jbc2fs73av1qsg"
+      },
       "blockers": [
-        "current canonical posture is RESEARCH_NOTE",
-        "real solver execution route not implemented",
-        "StegCore#68 hosted StegGate activation incomplete"
+        "Render workspace build-pipeline minutes exhausted before hosted source build",
+        "public readiness/solve routes therefore not directly verified",
+        "public Site solve/replay cycle not yet observed",
+        "StegCore#68 resident hosted activation remains incomplete; portable canonical runtime is CI-validated but does not satisfy that separate resident-host gate"
       ]
     },
     "hil": {
@@ -117,11 +129,11 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "StegVerse-Labs/StegCore#68: activate canonical hosted StegGate",
-    "StegVerse-Labs/StegCore#70: expose common runtime identity/binding contract",
+    "Observe/activate StegCore#68 canonical resident host when Render build capacity returns",
+    "Observe the LLM-adapter Math Solver hosted route when Render build capacity returns; then verify readiness/solve/replay and activate Site#240 gates",
+    "StegVerse-Labs/StegCore#70: expose/consume common runtime identity binding across reference apps",
     "StegVerse-Labs/Site#242: complete Ecosystem Chat live activation",
     "StegVerse-Labs/Site#241: complete VACC governed LLM execution",
-    "StegVerse-Labs/Site#240: implement live governed Math Solver",
     "StegVerse-Labs/Site#243: complete HIL live participant cycle"
   ],
   "status_check_contract": {
@@ -132,5 +144,5 @@
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-08T19:39:00-05:00"
+  "updated_at": "2026-08-08T21:20:00-05:00"
 }
