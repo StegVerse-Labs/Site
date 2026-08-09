@@ -1,0 +1,49 @@
+name: StegGate four-app progress
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/steggate-four-app-status.json'
+      - 'docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md'
+      - 'scripts/check_steggate_four_app_status.py'
+      - 'scripts/sync_steggate_four_app_handoff.py'
+      - 'data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json'
+  workflow_dispatch:
+  schedule:
+    - cron: '31 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: steggate-four-app-progress
+  cancel-in-progress: false
+
+jobs:
+  synchronize-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Synchronize handoff progress from machine status
+        run: python scripts/sync_steggate_four_app_handoff.py
+
+      - name: Validate machine status and handoff
+        run: |
+          python scripts/check_steggate_four_app_status.py
+          python scripts/sync_steggate_four_app_handoff.py --check
+
+      - name: Commit synchronized handoff progress
+        run: |
+          if git diff --quiet -- docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md; then
+            echo 'Four-app handoff already synchronized.'
+            exit 0
+          fi
+          git config user.name 'stegverse-progress-controller[bot]'
+          git config user.email 'stegverse-progress-controller[bot]@users.noreply.github.com'
+          git add docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md
+          git commit -m 'Synchronize four-app StegGate handoff progress'
+          git push
