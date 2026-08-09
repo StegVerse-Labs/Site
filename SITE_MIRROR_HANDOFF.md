@@ -86,16 +86,45 @@ The older issue-comment registry origin from 09:14 UTC remains historical rotati
 
 ## Stable-domain / provider-specific lane
 
-The previously tracked Cloudflare Worker deployment remains optional hardening. Its absent credential values are not a blocker to functional StegGate or to the tunnel-native rendezvous path.
+The Cloudflare Worker stable-domain lane remains optional hardening. It is now an **actually activated StegVerse heartbeat worker task**, not merely a documented blocker.
+
+Canonical worker continuation:
+
+```text
+task: STEGGATE-STABLE-RENDEZVOUS-WORKER-001
+registry: StegVerse-Labs/.github/control/worker-registry.json
+handoff: StegVerse-Labs/.github/handoffs/STEGGATE-STABLE-RENDEZVOUS-WORKER-001.json
+authorization: StegVerse-Labs/.github/authorizations/STEGGATE-STABLE-RENDEZVOUS-WORKER-001.json
+worker: steggate-rendezvous-deployment-worker
+adapter: process:steggate-rendezvous-deployment-v1
+claim: SHWP-STEGGATE-STABLE-RENDEZVOUS-WORKER-001-G13
+worker_instance: steggate-rendezvous-deployment-worker-HB7-G13
+heartbeat_epoch: 7
+fencing_token: 13
+state: BLOCKED
+current_transition: CREDENTIAL_VALUES_ABSENT
+expected_next_transition: CREDENTIAL_RECHECK
+checkpoint: checkpoints/workers/STEGGATE-STABLE-RENDEZVOUS-WORKER-001/HB7-G13.json
+worker_receipt: receipts/steggate-rendezvous-worker/STEGGATE-STABLE-RENDEZVOUS-WORKER-001.json
+heartbeat_run: 31325420776
+heartbeat_job: 93274879376 SUCCESS
+heartbeat_artifact: 9041376225
+heartbeat_artifact_digest: sha256:590af345db1d942993345f7d5ecff50998ddc4d6898331d7bcf6d3adabd94756
+```
+
+The canonical heartbeat status projection independently classified this unfinished worker as `archive_eligible=true`, with `executor_binding=BOUND`, heartbeat timing established, authority resolved, a live claim/fence, and a canonical checkpoint. This means the remaining provider-specific hardening is now worker-owned in the precise sense required by the session-consolidation rule; it is not merely durably assigned.
+
+The worker performs no wall-clock polling. On admitted heartbeat execution it re-evaluates the bounded provider credential references. Missing values return `BLOCKED` and remain claimed/checkpointed. When values are present, the same worker validates the exact Cloudflare Workers capability, verifies the pinned canonical Site rendezvous source blob, deploys only the non-authorizing `stegverse-steggate-rendezvous` route, and requires readiness/health/four-disposition live acceptance before returning `COMPLETED`.
 
 ```text
 optional stable origin: https://stegverse.org/api/steggate
 CLOUDFLARE_API_TOKEN value present: NO
 CLOUDFLARE_ACCOUNT_ID value present: NO
 impact on tunnel-native activation: NONE
+release condition for worker transition: both values are present in the authorized heartbeat execution environment
 ```
 
-TV/TVC credential-reference contracts remain valid boundaries for any future provider-specific publication, but they do not manufacture secret values and they do not own StegGate execution.
+TV/TVC credential-reference contracts remain valid boundaries for provider-specific publication. They do not manufacture secret values and they do not own StegGate execution.
 
 ## Current execution rule
 
@@ -131,12 +160,13 @@ Canonical owners:
 single heartbeat: StegVerse-Labs/.github#12
 StegGate runtime/tunnel: StegVerse-Labs/StegCore
 Site tunnel consumption/rendezvous: StegVerse-Labs/Site#24
+stable-domain hardening worker: StegVerse-Labs/.github/control/worker-registry.json#STEGGATE-STABLE-RENDEZVOUS-WORKER-001
 TV credential-reference packaging: StegVerse-Labs/TV
 TVC secret-reference authority: StegVerse-Labs/TVC
 ```
 
 ## Completion / archive posture
 
-Primary Site application work remains complete. The StegGate architecture correction is durably installed and now has fresh epoch-5 hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
+Primary Site application work remains complete. The StegGate architecture correction has hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
 
-Current-liveness remains lease-sensitive by design. The next admitted heartbeat is the recovery/refresh mechanism when no verified tunnel remains live; no manual user action is assigned.
+The optional stable-domain hardening itself is not complete because the Cloudflare credential values are absent, but its continuation is no longer chat-owned or merely documented. It is actively claimed by the single-heartbeat worker registry with a bound executor, heartbeat-relative timing, fencing token, live BLOCKED transition, worker receipt, and canonical checkpoint. Current-liveness remains lease-sensitive by design; the heartbeat remains the recovery/refresh mechanism and no wall-clock scheduler owns the lane.
