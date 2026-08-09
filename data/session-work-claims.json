@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "registry_type": "stegverse_session_work_claim_registry",
+  "repository": "StegVerse-Labs/Site",
+  "policy": {
+    "one_active_owner_per_task": true,
+    "one_active_owner_per_dependency_surface": true,
+    "missing_or_stale_claim_fails_closed": true,
+    "incidental_dependency_cannot_become_governing_objective": true,
+    "distinct_support_roles_require_explicit_non_overlap": true,
+    "collision_redirects_to_next_unclaimed_canonical_task": true
+  },
+  "claims": [
+    {
+      "claim_id": "SITE-259-PREWORK-CLAIM-ENFORCEMENT-20260809",
+      "session_worker_id": "chatgpt-session-render-collision-repair-20260809",
+      "task_id": "SITE-259-PREWORK-CLAIM-ENFORCEMENT",
+      "originating_goal": "Prevent redundant ChatGPT sessions from converging on the same incidental dependency before mutable work begins",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/session-prework-claims-259",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED",
+      "normalized_work_key": "session-prework-claim-enforcement",
+      "dependency_surface_keys": [
+        "site:session-orchestration-entry",
+        "site:heartbeat-worker-task-registry"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        "scripts/check_session_work_claims.py",
+        "tests/test_session_work_claims.py",
+        ".github/workflows/ecosystem-heartbeat-orchestration.yml",
+        "scripts/site_handoff_orchestrator.py",
+        "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",
+      "handoff_revision": "main-before-issue-259-implementation",
+      "claim_created_at": "2026-08-09T14:02:00-05:00",
+      "claim_expires_when": "issue #259 implementation is merged, validated in hosted workflow, and the claim is released or transferred to a machine-owned observer",
+      "expected_evidence": [
+        "unit regression tests including the Render convergence case",
+        "heartbeat workflow success without fail-open orchestration bypass",
+        "updated canonical session orchestration handoff"
+      ],
+      "collision_boundaries": [
+        "Do not modify Site issue #114 parent activation ownership",
+        "Do not modify Site issue #119 custody/reconstruction ownership",
+        "Do not claim Render as a governing dependency",
+        "Do not touch active HIL upload owned paths"
+      ],
+      "next_task_after_release": "Issue #114/#119 remain canonical for parent activation and custody; future sessions must acquire claims before taking mutable work"
+    }
+  ]
+}

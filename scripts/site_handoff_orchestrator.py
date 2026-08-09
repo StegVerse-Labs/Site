@@ -18,6 +18,10 @@ STATE = ROOT / "data" / "site-orchestration-state.json"
 REPORT = ROOT / "site_handoff_orchestration.report.json"
 RETIREMENT_VALIDATOR = ROOT / "scripts" / "check_session_retirement.py"
 RETIREMENT_REPORT = ROOT / "session_retirement.report.json"
+CLAIM_VALIDATOR = ROOT / "scripts" / "check_session_work_claims.py"
+CLAIM_REPORT = ROOT / "session_work_claims.report.json"
+CLAIM_REGISTRY = ROOT / "data" / "session-work-claims.json"
+ACTIVE_CLAIM_STATES = {"CLAIMED", "CLAIMED_FOR_IMPLEMENTATION", "CLAIMED_FOR_VALIDATION", "CLAIMED_FOR_INTEGRATION", "MACHINE_OWNED"}
 REPO = os.getenv("GITHUB_REPOSITORY", "StegVerse-Labs/Site")
 API = os.getenv("GITHUB_API_URL", "https://api.github.com")
 TOKEN = os.getenv("GITHUB_TOKEN", "")
@@ -72,21 +76,20 @@ def overlaps(title: str, workload: str) -> bool:
     return len(left & right) >= 2
 
 
-def validate_retirement_state(failures: list[str]) -> dict[str, Any]:
-    """Run the canonical retirement validator and consume its report fail-closed."""
-    if not RETIREMENT_VALIDATOR.exists():
-        failures.append("missing scripts/check_session_retirement.py")
+def run_validator(path: Path, report_path: Path, label: str, failures: list[str]) -> dict[str, Any]:
+    """Run a repository validator and consume its machine report fail-closed."""
+    if not path.exists():
+        failures.append(f"missing {path.relative_to(ROOT)}")
         return {"status": "FAIL", "failures": ["validator missing"]}
-
     result = subprocess.run(
-        [sys.executable, str(RETIREMENT_VALIDATOR)],
+        [sys.executable, str(path)],
         cwd=ROOT,
         text=True,
         capture_output=True,
         check=False,
     )
-    if not RETIREMENT_REPORT.exists():
-        failures.append("session retirement validator produced no report")
+    if not report_path.exists():
+        failures.append(f"{label} validator produced no report")
         return {
             "status": "FAIL",
             "returncode": result.returncode,
@@ -94,19 +97,24 @@ def validate_retirement_state(failures: list[str]) -> dict[str, Any]:
             "stderr": result.stderr.strip(),
             "failures": ["report missing"],
         }
-
     try:
-        retirement = json.loads(RETIREMENT_REPORT.read_text(encoding="utf-8"))
+        report = json.loads(report_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        failures.append(f"session retirement report invalid JSON: {exc}")
+        failures.append(f"{label} report invalid JSON: {exc}")
         return {"status": "FAIL", "failures": [f"invalid report JSON: {exc}"]}
+    report["returncode"] = result.returncode
+    report["stdout"] = result.stdout.strip()
+    report["stderr"] = result.stderr.strip()
+    if result.returncode != 0 or report.get("status") != "PASS":
+        failures.append(f"{label} validation failed")
+    return report
 
-    retirement["returncode"] = result.returncode
-    retirement["stdout"] = result.stdout.strip()
-    retirement["stderr"] = result.stderr.strip()
-    if result.returncode != 0 or retirement.get("status") != "PASS":
-        failures.append("session retirement validation failed")
-    return retirement
+
+def active_branch_claims() -> list[dict[str, Any]]:
+    if not CLAIM_REGISTRY.exists():
+        return []
+    registry = json.loads(CLAIM_REGISTRY.read_text(encoding="utf-8"))
+    return [claim for claim in registry.get("claims", []) if claim.get("state") in ACTIVE_CLAIM_STATES]
 
 
 def main() -> int:
@@ -132,7 +140,9 @@ def main() -> int:
     if state.get("status") != "ACTIVE":
         failures.append("orchestration state is not ACTIVE")
 
-    retirement_validation = validate_retirement_state(failures)
+    retirement_validation = run_validator(RETIREMENT_VALIDATOR, RETIREMENT_REPORT, "session retirement", failures)
+    claim_validation = run_validator(CLAIM_VALIDATOR, CLAIM_REPORT, "session pre-work claims", failures)
+
     workloads = extract_remaining_work(handoff)
     open_issues: list[dict[str, Any]] = []
     open_prs: list[dict[str, Any]] = []
@@ -149,7 +159,7 @@ def main() -> int:
             failures.append(f"GitHub inventory failed: {exc}")
 
     assignments = []
-    duplicate_groups = []
+    possible_overlap_groups = []
     for workload in workloads:
         matches = [
             {"number": item["number"], "title": item["title"], "url": item["html_url"]}
@@ -158,21 +168,24 @@ def main() -> int:
         ]
         assignments.append({**workload, "matching_open_work": matches})
         if len(matches) > 1:
-            duplicate_groups.append({**workload, "matches": matches})
+            possible_overlap_groups.append({**workload, "matches": matches})
 
     event = os.getenv("GITHUB_EVENT_NAME", "local")
     ref_name = os.getenv("GITHUB_HEAD_REF") or os.getenv("GITHUB_REF_NAME", "")
+    branch_claim = None
     if event == "pull_request" and ref_name and ref_name != "main":
+        branch_claims = [claim for claim in active_branch_claims() if claim.get("branch") == ref_name]
+        if len(branch_claims) != 1:
+            failures.append(f"pull request branch must resolve to exactly one active pre-work claim: {ref_name}")
+        else:
+            branch_claim = branch_claims[0]
         branch_tokens = normalized(ref_name.replace("/", " ").replace("-", " "))
         owns_declared_work = any(branch_tokens & normalized(item["workload"]) for item in workloads)
-        if not owns_declared_work and "orchestrat" not in ref_name.lower() and "handoff" not in ref_name.lower():
+        if not owns_declared_work and "orchestrat" not in ref_name.lower() and "handoff" not in ref_name.lower() and "claim" not in ref_name.lower():
             failures.append("pull request does not map to an unfinished handoff workload")
 
-    if duplicate_groups:
-        failures.append("multiple open work items appear to own the same handoff workload")
-
     report = {
-        "schema_version": "1.1.0",
+        "schema_version": "1.3.0",
         "status_type": "site_handoff_orchestration_report",
         "status": "FAIL" if failures else "PASS",
         "repository": REPO,
@@ -183,17 +196,22 @@ def main() -> int:
         "open_pr_count": len(open_prs),
         "branch_count_first_page": len(branches),
         "retirement_validation": retirement_validation,
+        "prework_claim_validation": claim_validation,
+        "pull_request_branch_claim": branch_claim,
         "assignments": assignments,
-        "duplicate_groups": duplicate_groups,
+        "possible_overlap_groups": possible_overlap_groups,
+        "possible_overlap_policy": "diagnostic only; machine-readable active claims are blocking authority",
         "failures": failures,
         "next_action": (
-            "repair retirement state or reconcile existing handoff workloads and duplicate owners"
+            "repair retirement state or pre-work claim admission before mutable work"
             if failures
-            else "continue the highest-priority unfinished handoff workload"
+            else "continue only the workload admitted by the collision-free pre-work claim registry"
         ),
     }
     REPORT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"SITE_HANDOFF_ORCHESTRATION_{report['status']}")
+    for failure in failures:
+        print(failure)
     return 1 if failures else 0
 
 

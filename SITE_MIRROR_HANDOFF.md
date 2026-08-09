@@ -15,6 +15,25 @@ Recursive repository-local goal expansion: DISABLED
 
 The completed primary Site application implementation remains governed by its existing validation, custody, reconstruction, release, and downstream evidence boundaries. Absent live evidence never becomes success.
 
+## Session pre-work orchestration enforcement
+
+```text
+goal_id: SITE-259-PREWORK-CLAIM-ENFORCEMENT
+canonical_issue: StegVerse-Labs/Site#259
+implementation_branch: fix/session-prework-claims-259
+claim_registry: data/session-work-claims.json
+claim_validator: scripts/check_session_work_claims.py
+claim_tests: tests/test_session_work_claims.py
+orchestrator: scripts/site_handoff_orchestrator.py
+heartbeat_gate: .github/workflows/ecosystem-heartbeat-orchestration.yml
+bounded_handoff: docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md
+state: HOSTED_VALIDATION_IN_PROGRESS
+```
+
+Every mutable Site pull-request execution lane must resolve to exactly one active machine-readable pre-work claim. Task collisions and dependency/work-surface collisions fail closed. Distinct support roles require explicit non-overlap. Fuzzy issue-title overlap is diagnostic only and does not itself mint execution ownership. An incidental dependency, including Render, cannot become a governing objective unless canonical task evidence explicitly marks it critical and unowned.
+
+The heartbeat/orchestration workflow must not suppress `site_handoff_orchestrator.py` failures. Pull requests are gated by the claim registry, and the heartbeat worker revalidates the registry on repository events, explicit dispatch, and scheduled heartbeat observation.
+
 ## Adjacent active goal — StegGate tunnel-native rendezvous
 
 ```text
@@ -165,8 +184,10 @@ TV credential-reference packaging: StegVerse-Labs/TV
 TVC secret-reference authority: StegVerse-Labs/TVC
 ```
 
-## Completion / archive posture
+## Archive posture — completion / continuation
 
 Primary Site application work remains complete. The StegGate architecture correction has hosted proof: tunnel-native heartbeat execution is the active path; persistent third-party hosting is optional hardening rather than a prerequisite.
 
 The optional stable-domain hardening itself is not complete because the Cloudflare credential values are absent, but its continuation is no longer chat-owned or merely documented. It is actively claimed by the single-heartbeat worker registry with a bound executor, heartbeat-relative timing, fencing token, live BLOCKED transition, worker receipt, and canonical checkpoint. Current-liveness remains lease-sensitive by design; the heartbeat remains the recovery/refresh mechanism and no wall-clock scheduler owns the lane.
+
+The issue #259 pre-work-claim goal is not archive-complete until its hosted workflow passes, PR #260 merges, its active claim is released or transferred to the scheduled heartbeat observer, and the resulting main-branch evidence is recorded here or in its bounded sub-handoff.
