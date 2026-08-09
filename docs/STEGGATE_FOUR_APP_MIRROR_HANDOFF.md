@@ -22,6 +22,7 @@ A surface is 100% only after its required public runtime path executes through t
 
 Overall goal completion requires 4/4 public applications at 100% functional state.
 
+<!-- STEGGATE_FOUR_APP_PROGRESS_BEGIN -->
 ## Current execution progress
 
 Machine-derived gate count at handoff update:
@@ -33,6 +34,18 @@ Fully functional public applications: 0 / 4
 Goal complete: false
 Archive ready: false
 ```
+
+Application execution-gate progress:
+
+```text
+Ecosystem Chat: 25% (2/8)
+VACC / VA Claims Chat: 29% (2/7)
+Math Solver: 14% (1/7)
+HIL experiment: 25% (2/8)
+```
+
+Last machine status timestamp: `2026-08-08T19:30:00-05:00`
+<!-- STEGGATE_FOUR_APP_PROGRESS_END -->
 
 These percentages are execution-gate progress only. They are not estimates of code volume and cannot be increased by scaffolding or documentation alone.
 
@@ -135,9 +148,13 @@ Required task object: `data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json
 
 Required validator: `scripts/check_steggate_four_app_status.py`
 
+Required progress synchronizer: `scripts/sync_steggate_four_app_handoff.py`
+
 Canonical Site worker: `scripts/observe_and_complete_repository_tasks.py`
 
 Canonical Site admission controller: `scripts/admit_repository_tasks.py`
+
+Progress workflow: `.github/workflows/steggate-four-app-progress.yml`
 
 ## Status-check contract
 
@@ -149,8 +166,9 @@ Whenever asked for status:
 4. Read the current mirror handoffs for any app whose state may have advanced.
 5. Check `StegCore#68` before claiming any app has canonical live StegGate binding.
 6. Recompute gate counts from direct evidence.
-7. Update the machine status and this handoff when execution progress changes.
-8. Never emit `ARCHIVE THIS SESSION` or equivalent while `goal_complete=false` for an active unique goal.
+7. Update the machine status after material execution transitions.
+8. Run the handoff synchronizer so this handoff carries the same progress snapshot.
+9. Never emit `ARCHIVE THIS SESSION` or equivalent while `goal_complete=false` for an active unique goal.
 
 ## Remaining modules / destinations
 
@@ -163,12 +181,12 @@ Whenever asked for status:
 
 `StegVerse-Labs/Site`:
 
-- four-app machine status validator/task integration;
+- observe machine admission/validation of the four-app orchestration task;
 - Ecosystem Chat live integration;
 - VACC canonical StegGate integration;
 - Math Solver real runtime implementation;
 - HIL canonical StegGate production-cycle integration;
-- handoff/status recomputation after every material transition.
+- machine status recomputation and automatic handoff progress synchronization after every material transition.
 
 Existing downstream destinations remain governed by their canonical activation/release gates and are not updated merely because this coordination layer exists.
 
