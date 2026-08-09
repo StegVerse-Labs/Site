@@ -28,7 +28,7 @@
     "success_marker": "STEGGATE_FOUR_APP_STATUS_PASS"
   },
   "completion_boundary": "Completion of this task proves only that status, handoff synchronization, validator, workflow, and worker contract are installed and internally consistent. It does not prove any application functional and does not close Site#239.",
-  "next_action": "Machine admission and worker observation validate this orchestration task. Every later material execution transition updates data/steggate-four-app-status.json; steggate-four-app-progress.yml synchronizes the progress block into docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md and validates equality.",
+  "next_action": "Machine admission and worker observation validate this orchestration task and now persist completed task-object state. Every later material execution transition updates data/steggate-four-app-status.json; steggate-four-app-progress.yml synchronizes the progress block into docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md and validates equality.",
   "authority_effect": false,
   "activation_effect": false
 }
