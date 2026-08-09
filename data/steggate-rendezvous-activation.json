@@ -1,5 +1,5 @@
 {
-  "schema": "stegverse.steggate_rendezvous_activation.v2",
+  "schema": "stegverse.steggate_rendezvous_activation.v3",
   "goal_id": "STEGGATE-STABLE-RENDEZVOUS-HARDENING",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
@@ -28,22 +28,37 @@
     "reference_read_admissible": true,
     "credentials_recorded": false
   },
-  "required_runtime_bindings": [
-    "CLOUDFLARE_API_TOKEN",
-    "CLOUDFLARE_ACCOUNT_ID"
-  ],
+  "cloudflare_credential_profile": {
+    "path": "data/cloudflare-steggate-credential-profile.json",
+    "preferred_method": "account_api_token",
+    "required_bindings": [
+      "CLOUDFLARE_API_TOKEN",
+      "CLOUDFLARE_ACCOUNT_ID"
+    ],
+    "required_capabilities": [
+      "Workers Scripts Write",
+      "Workers Routes Write"
+    ],
+    "legacy_global_api_key_required": false,
+    "legacy_email_required": false,
+    "raw_credentials_may_be_persisted": false,
+    "runtime_capability_probe": "GET /client/v4/accounts/{account_id}/workers/scripts"
+  },
   "last_attempt": {
-    "workflow_run": 31305845192,
-    "job": 93225990737,
+    "workflow_run": 31316924782,
+    "job": 93253575487,
+    "source_commit": "f3afd66d3324ec4c1491c3da6ab7cd2c890a7b8d",
     "result": "FAIL_CLOSED_CREDENTIAL_ABSENT",
     "tvc_authority_import": "PASS",
+    "credential_profile_validation": "PASS",
     "credential_values_present": false,
+    "credential_capability_probe": "SKIPPED_VALUE_ABSENT",
     "deployment_steps": "SKIPPED",
-    "artifact": 9035908600,
-    "artifact_digest": "sha256:fe1be4cbdb0cd0a87542fe1ee40b2a1dad561c9355b5647cbfdd187c331c2af8"
+    "artifact": 9039012210,
+    "artifact_digest": "sha256:3976a14ec571e01ad745da66d9579f7adae0ba1d0c3527bdef42e0295b012055"
   },
-  "machine_observable_release_condition": "Both CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID exist in the Site execution environment while the pinned TVC authority contract remains valid for the exact Site/workflow/branch binding.",
-  "next_machine_action": "On the next admitted StegVerse heartbeat after the release condition is true, deploy the Worker, verify readiness/health/four-disposition self-test, persist LIVE_ACCEPTANCE_PASS, and retain no-secret evidence.",
+  "machine_observable_release_condition": "Both CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID exist in the Site execution environment while the pinned TVC authority contract and bounded Cloudflare credential profile remain valid for the exact Site/workflow/branch binding.",
+  "next_machine_action": "On the next admitted StegVerse heartbeat after the release condition is true, validate the token/account capability without persisting secret values, deploy the Worker, verify readiness/health/four-disposition self-test, persist LIVE_ACCEPTANCE_PASS, and retain no-secret evidence.",
   "authority": {
     "policy_authority": false,
     "steggate_execution_authority": false,
