@@ -62,7 +62,8 @@
       "SITE-0005-CHILD-SAFETY-BOUNDARY-HISTORY",
       "SITE-0008-CHILD-SAFETY-REGULATORY-PILOT",
       "SITE-0006-CHILD-MODE-DELIVERY-OPERATION",
-      "SITE-0007-CHILD-MODE-DATA-AUTHORITY"
+      "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
+      "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION"
     ],
     "idle_terminal_statement": "end of current work task sequence 0001, no tasks running",
     "machine_observation": {
@@ -81,7 +82,9 @@
     "machine_admission": {
       "controller": "scripts/admit_repository_tasks.py",
       "task_directory": "data/tasks",
-      "admitted_tasks": [],
+      "admitted_tasks": [
+        "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION"
+      ],
       "external_tasks_allowed": false,
       "external_session_ownership_allowed": false
     },
