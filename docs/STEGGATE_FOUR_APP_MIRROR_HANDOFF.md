@@ -21,8 +21,8 @@ No surface is 100% functional merely because pages, schemas, tests, workflows, a
 Machine-derived gate count at handoff update:
 
 ```text
-Verified execution gates: 7 / 30
-Aggregate execution progress: 23%
+Verified execution gates: 11 / 30
+Aggregate execution progress: 37%
 Fully functional public applications: 0 / 4
 Goal complete: false
 Archive ready: false
@@ -31,13 +31,13 @@ Archive ready: false
 Application execution-gate progress:
 
 ```text
-Ecosystem Chat: 25% (2/8)
-VACC / VA Claims Chat: 29% (2/7)
-Math Solver: 14% (1/7)
-HIL experiment: 25% (2/8)
+Ecosystem Chat: 38% (3/8)
+VACC / VA Claims Chat: 43% (3/7)
+Math Solver: 29% (2/7)
+HIL experiment: 38% (3/8)
 ```
 
-Last machine status timestamp: `2026-08-09T00:36:00-05:00`
+Last machine status timestamp: `2026-08-09T15:47:00-05:00`
 <!-- STEGGATE_FOUR_APP_PROGRESS_END -->
 
 These percentages are direct execution-gate progress only. They are not estimates of code volume and cannot be increased by scaffolding, CI-only success, or documentation alone.
