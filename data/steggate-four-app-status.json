@@ -7,6 +7,15 @@
   "state": "ACTIVE_INCOMPLETE",
   "product_completion_rule": "100_PERCENT_REQUIRES_ALL_PUBLIC_RUNTIME_GATES_VERIFIED",
   "progress_basis": "verified_execution_gates_only",
+  "orchestration": {
+    "task_id": "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
+    "state": "COMPLETE",
+    "validator": "PASS_OBSERVED",
+    "handoff_sync": "INSTALLED_AND_WORKFLOW_VERIFIED",
+    "worker_completion": "OBSERVED",
+    "task_state_persistence": "REPAIRED",
+    "product_activation_effect": false
+  },
   "applications": {
     "ecosystem_chat": {
       "issue": 242,
@@ -119,8 +128,9 @@
     "read_this_file": true,
     "read_handoff": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
     "recompute_before_reporting": true,
+    "report_orchestration_progress_separately": true,
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-08T19:30:00-05:00"
+  "updated_at": "2026-08-08T19:36:00-05:00"
 }
