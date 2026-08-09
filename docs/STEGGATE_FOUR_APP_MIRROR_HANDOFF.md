@@ -63,75 +63,131 @@ STEGGATE_FOUR_APP_STATUS_PASS completed_gates=7/30 execution_progress_percent=23
 
 The repository worker persisted `SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION` as `COMPLETE`. That completion applies only to the progress/worker contract, not to any of the four products.
 
+<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->
 ## Application state
 
-### Ecosystem Chat — 25% execution-gate progress
+### Ecosystem Chat — 38% execution-gate progress
 
 Issue: `StegVerse-Labs/Site#242`.
+Surface: `ecosystem-chat.html`.
+Machine state: `ACTIVATION_PENDING_LIVE_PROVIDER_AND_PERSISTENT_ENDPOINT`.
 
-Current evidence:
+Verified gates:
 
-- public surface exists;
-- canonical event projection exists;
-- canonical hosted StegGate resident service is not yet live;
-- real provider execution is not yet verified for the four-app gate;
-- provider-usage persistence/custody/reconstruction is not yet verified for the complete path;
-- zero-blocker activation receipt is not yet observed;
-- public end-to-end observation is not yet complete.
+- `public_surface_present` — VERIFIED
+- `canonical_event_projection_present` — VERIFIED
+- `canonical_steggate_live` — VERIFIED
 
-### VACC / VA Claims Chat — 29% execution-gate progress
+Remaining gates:
 
-Issue: `StegVerse-Labs/Site#241`, coordinated with `#113`.
+- `real_provider_execution` — NOT VERIFIED
+- `provider_usage_persistence` — NOT VERIFIED
+- `custody_reconstruction_pass` — NOT VERIFIED
+- `zero_blocker_activation_receipt` — NOT VERIFIED
+- `public_end_to_end_observation` — NOT VERIFIED
 
-Current evidence:
+Current blockers:
 
-- released public source-grounded surface is verified;
-- bounded source-grounded capability is active;
-- canonical hosted StegGate resident service is not yet live;
-- real provider-backed VACC governed execution is not yet verified for this proof;
-- VA runtime route/source constraints are not yet verified in that real path;
-- custody/reconstruction evidence for the real execution is absent;
-- public end-to-end governed observation remains open.
+- authorized real-provider and persistent endpoint evidence absent
+- provider-usage custody/reconstruction and zero-blocker activation receipt absent
 
-The existing released bounded surface must not be regressed while the governed LLM path is added.
+### VACC / VA Claims Chat — 43% execution-gate progress
 
-### Math Solver — 14% execution-gate progress / implementation complete, activation machine-owned
+Issue: `StegVerse-Labs/Site#241`.
+Surface: `va-claims-chat.html`.
+Machine state: `RELEASED_BOUNDED_SURFACE_GOVERNED_LLM_PENDING`.
+
+Verified gates:
+
+- `public_surface_released` — VERIFIED
+- `source_grounded_bounded_capability_verified` — VERIFIED
+- `canonical_steggate_live` — VERIFIED
+
+Remaining gates:
+
+- `real_provider_backed_vacc_execution` — NOT VERIFIED
+- `va_route_source_constraints_runtime_verified` — NOT VERIFIED
+- `custody_reconstruction_pass` — NOT VERIFIED
+- `public_end_to_end_observation` — NOT VERIFIED
+
+Current blockers:
+
+- coordinated provider-backed VACC runtime not yet verified
+- custody/reconstruction evidence for real governed execution absent
+
+### Math Solver — 29% execution-gate progress
 
 Issue: `StegVerse-Labs/Site#240`.
-Runtime owner: `StegVerse-org/LLM-adapter#132`.
-Runtime handoff: `StegVerse-org/LLM-adapter/docs/MATH_SOLVER_RUNTIME_MIRROR_HANDOFF.md`.
+Surface: `math-solver/index.html`.
+Machine state: `PUBLIC_CLIENT_IMPLEMENTED_BACKEND_CI_VALIDATED_HOST_DEPLOYMENT_BLOCKED`.
 
-Current implementation evidence:
+Verified gates:
 
-- the research-only Site page has been replaced by a fail-closed interactive governed client at `math-solver/index.html`;
-- the client probes hosted readiness, has no ungated local-solver fallback, sends requests only to the governed endpoint, and projects decision/result/replay evidence;
-- LLM-adapter contains a bounded deterministic arithmetic executor and routes `GET /api/math-solver/v1/readiness` plus `POST /api/math-solver/v1/solve`;
-- the executor is passed through the canonical portable StegGate consumer rather than a parallel evaluator;
-- CI run `31290093572`, job `93185673393` is SUCCESS;
-- integration artifact `9031088299`, digest `sha256:e863d4aaa6bf6fbc34746e1f0eb10028a320bf861bf2d2246cd673fdf0de67c1`, retains governed execution and deterministic replay evidence;
-- the runtime router is mounted on the existing Render Ecosystem Chat gateway deployment entrypoint;
-- current public runtime remains unavailable while Render source builds cannot complete;
-- LLM-adapter's hourly runtime observer persists `receipts/math-solver-public-runtime.latest.json` and advances to COMPLETE only after readiness plus two governed solve/replay calls pass;
-- Site now has `scripts/advance_math_solver_public_activation.py` and `.github/workflows/math-solver-public-activation.yml`, scheduled hourly at minute 47, consuming the LLM-adapter receipt, verifying the public Site runtime binding, validating four-app state, synchronizing this handoff, persisting only proven transitions, and remaining fail-closed while the source receipt is BLOCKED;
-- first Site activation-consumer run `31295535660`, job `93199914169`, completed SUCCESS and persisted `data/math-solver-public-activation.latest.json` as BLOCKED because the source runtime receipt was still BLOCKED. No execution gate was incorrectly advanced.
+- `public_surface_present` — VERIFIED
+- `canonical_steggate_live` — VERIFIED
 
-Why the product execution percentage remains 14%: direct public-runtime gates remain false until the backend actually deploys and the public solve/replay cycle is observed. Implementation, CI, workflow success, and blocker observations are intentionally not substituted for public execution evidence.
+Remaining gates:
 
-Machine-observable unblock: LLM-adapter's public runtime receipt becomes COMPLETE. The Site activation consumer then automatically verifies the public page binding and advances only the Math Solver gates represented by complete evidence. No chat polling or manual workflow dispatch is required.
+- `real_request_intake` — NOT VERIFIED
+- `steggate_pre_execution_decision` — NOT VERIFIED
+- `solver_execution_after_allow` — NOT VERIFIED
+- `result_receipt_binding` — NOT VERIFIED
+- `public_replay_verification` — NOT VERIFIED
 
-### HIL experiment — 25% execution-gate progress
+Current blockers:
 
-Issue: `StegVerse-Labs/Site#243`, coordinated with `#81` and `#136`.
+- Math Solver public readiness/solve route remains unavailable at its current hosted gateway
+- public Site solve/replay cycle not yet observed
 
-Current evidence:
+Latest public-runtime observation:
 
-- public participant surface exists;
-- browser client/contract exists;
-- live receiver/readiness is not verified for the complete production cycle;
-- canonical hosted StegGate resident service is not yet live;
-- no real public participant production cycle is complete under the four-app proof;
-- durable receipt/custody/reconstruction evidence remains incomplete;
-- public end-to-end observation remains open.
+- state: `BLOCKED`
+- reason: `HTTP 404 /api/math-solver/v1/readiness`
+- workflow run/job: `31296906541` / `93203396038`
+- receipt: `StegVerse-org/LLM-adapter/receipts/math-solver-public-runtime.latest.json`
+
+### HIL experiment — 38% execution-gate progress
+
+Issue: `StegVerse-Labs/Site#243`.
+Surface: `humans-as-interoperability-layer.html`.
+Machine state: `PUBLIC_EXPERIMENT_RUNTIME_ACTIVATION_BLOCKED`.
+
+Verified gates:
+
+- `public_participant_surface_present` — VERIFIED
+- `browser_client_contract_present` — VERIFIED
+- `canonical_steggate_live` — VERIFIED
+
+Remaining gates:
+
+- `live_receiver_ready` — NOT VERIFIED
+- `real_public_participant_cycle` — NOT VERIFIED
+- `durable_receipt_custody` — NOT VERIFIED
+- `reconstruction_pass` — NOT VERIFIED
+- `public_end_to_end_observation` — NOT VERIFIED
+
+Current blockers:
+
+- live HIL receiver/readiness not verified
+- production participant cycle not completed
+- authorized provider and Master Records configuration bindings remain unavailable to the machine runtime
+
+Active collision boundary:
+
+- task: `SITE-0001-UPLOAD`
+- owner: `external-active-session`
+- state: `RUNNING`
+- policy: do not duplicate upload-owned paths
+
+Queued live task:
+
+- task: `SITE-0002-HIL-LIVE`
+- state: `BLOCKED`
+- owner: `Site heartbeat orchestration`
+- release condition: end of current work task sequence 0001, no tasks running
+- dependency: StegVerse-org/LLM-adapter#18 authorized provider and Master Records bindings
+
+<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->
 
 ## Execution order
 
