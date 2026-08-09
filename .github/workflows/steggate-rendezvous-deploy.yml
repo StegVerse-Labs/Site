@@ -2,6 +2,8 @@ name: StegGate Rendezvous Deploy
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '41 * * * *'
   push:
     branches: [main]
     paths:
@@ -10,7 +12,8 @@ on:
       - '.github/workflows/steggate-rendezvous-deploy.yml'
 
 permissions:
-  contents: read
+  contents: write
+  issues: write
 
 concurrency:
   group: steggate-rendezvous-deploy
@@ -30,14 +33,46 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Validate deployment credentials
+      - name: Observe deployment credential boundary
+        id: credentials
         shell: bash
         run: |
           set -euo pipefail
-          test -n "$CLOUDFLARE_API_TOKEN"
-          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          mkdir -p deployment-evidence
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+            state='CLAIMED'
+            blocker=''
+            next_action='Deploy stable rendezvous and execute acceptance probes.'
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            state='BLOCKED'
+            blocker='cloudflare_actions_bindings_unavailable'
+            next_action='Retry on the next hourly schedule; deploy automatically when both bindings are available.'
+          fi
+          node - <<'NODE'
+          const fs = require('fs');
+          const ready = process.env.CLOUDFLARE_API_TOKEN.length > 0 && process.env.CLOUDFLARE_ACCOUNT_ID.length > 0;
+          const body = {
+            schema: 'stegverse.steggate_rendezvous_observation.v1',
+            goal_id: 'STEGGATE-FULL-FUNCTIONAL-ACTIVATION-001/FF-STABLE-RENDEZVOUS-10',
+            workflow_run: process.env.GITHUB_RUN_ID,
+            workflow_attempt: process.env.GITHUB_RUN_ATTEMPT,
+            source_commit: process.env.GITHUB_SHA,
+            state: ready ? 'CLAIMED' : 'BLOCKED',
+            credentials_available: ready,
+            blocker: ready ? null : 'cloudflare_actions_bindings_unavailable',
+            stable_origin: 'https://stegverse.org/api/steggate',
+            next_action: ready
+              ? 'Deploy stable rendezvous and execute acceptance probes.'
+              : 'Retry on the next hourly schedule; deploy automatically when both bindings are available.',
+            authority_attached: false
+          };
+          fs.writeFileSync('deployment-evidence/activation-observation.json', JSON.stringify(body, null, 2) + '\n');
+          NODE
 
       - name: Build production Wrangler configuration
+        if: steps.credentials.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -50,13 +85,15 @@ jobs:
           NODE
 
       - name: Deploy stable rendezvous Worker
+        if: steps.credentials.outputs.ready == 'true'
         run: npx --yes wrangler@latest deploy --config wrangler.steggate.production.json
 
       - name: Verify stable readiness and health routes
+        id: acceptance
+        if: steps.credentials.outputs.ready == 'true'
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p deployment-evidence
           READY=0
           for attempt in $(seq 1 24); do
             readiness_status=$(curl --silent --show-error --max-time 20 \
@@ -84,6 +121,7 @@ jobs:
           test "$READY" -eq 1
 
       - name: Verify stable self-test route
+        if: steps.credentials.outputs.ready == 'true'
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --max-time 30 \
@@ -97,11 +135,54 @@ jobs:
           for (const d of ['ALLOW','DENY','REVIEW','FAIL_CLOSED']) if (!dispositions.has(d)) process.exit(1);
           NODE
 
+      - name: Record live acceptance state
+        if: steps.credentials.outputs.ready == 'true' && success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'data/steggate-rendezvous-activation.json';
+          const body = JSON.parse(fs.readFileSync(path, 'utf8'));
+          body.state = 'COMPLETE';
+          body.claim_state = 'COMPLETE';
+          body.deployment_state = 'LIVE_ACCEPTANCE_PASS';
+          body.last_success = {
+            workflow_run: Number(process.env.GITHUB_RUN_ID),
+            workflow_attempt: Number(process.env.GITHUB_RUN_ATTEMPT),
+            source_commit: process.env.GITHUB_SHA,
+            stable_origin: 'https://stegverse.org/api/steggate',
+            acceptance: ['readiness', 'health', 'self_test']
+          };
+          body.next_machine_action = 'StegCore hourly live observer discovers the stable rendezvous, executes the full evaluate contract, persists canonical activation evidence, and closes issue #68 only after PASS.';
+          fs.writeFileSync(path, JSON.stringify(body, null, 2) + '\n');
+          NODE
+          git config user.name 'stegverse-automation'
+          git config user.email 'stegverse-automation@users.noreply.github.com'
+          git add data/steggate-rendezvous-activation.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record live StegGate rendezvous acceptance'
+            git push origin HEAD:main
+          fi
+
+      - name: Comment canonical endpoint owner after live acceptance
+        if: steps.credentials.outputs.ready == 'true' && success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment 24 --repo StegVerse-Labs/Site --body "StegGate stable rendezvous reached LIVE_ACCEPTANCE_PASS at https://stegverse.org/api/steggate in workflow run ${GITHUB_RUN_ID}. Readiness, canonical health, and exact four-disposition self-test passed. StegCore's independent hourly observer owns the final complete-matrix evaluation and issue #68 activation receipt."
+
       - name: Preserve deployment evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: steggate-rendezvous-deployment-${{ github.run_id }}
           path: deployment-evidence/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 90
+
+      - name: Keep blocked state explicit until credentials exist
+        if: steps.credentials.outputs.ready != 'true'
+        run: |
+          echo 'StegGate rendezvous remains BLOCKED at the authorized Cloudflare credential boundary; hourly retry is active.'
+          exit 1
