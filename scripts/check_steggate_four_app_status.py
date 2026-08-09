@@ -85,9 +85,16 @@ def main() -> int:
     if not goal_complete and data.get("state") == "COMPLETE":
         return fail("incomplete goal cannot set state COMPLETE")
 
+    orchestration = data.get("orchestration", {})
+    if orchestration.get("state") != "COMPLETE":
+        return fail("four-app progress orchestration must remain COMPLETE after observed validation")
+    if orchestration.get("product_activation_effect") is not False:
+        return fail("orchestration must not claim product activation effect")
+
     handoff = HANDOFF.read_text(encoding="utf-8")
     required_markers = [
         "Current execution progress",
+        "Orchestration progress",
         "Status-check contract",
         "Archive posture",
         f"Verified execution gates: {completed_sum} / {total_sum}",
