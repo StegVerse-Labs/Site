@@ -12,6 +12,7 @@
     "state": "COMPLETE",
     "validator": "PASS_OBSERVED",
     "handoff_sync": "INSTALLED_AND_WORKFLOW_VERIFIED",
+    "application_detail_sync": "INSTALLED_AND_WORKFLOW_VERIFIED",
     "worker_completion": "OBSERVED",
     "task_state_persistence": "REPAIRED",
     "product_activation_effect": false
@@ -24,6 +25,38 @@
     "observed_at": "2026-08-09T09:14:06.578269Z",
     "render_dependency": false,
     "handoff": "StegVerse-Labs/StegCore/STEGCORE_MIRROR_HANDOFF.md"
+  },
+  "common_runtime_binding": {
+    "state": "ACTIVE_INTEGRATION",
+    "issue": "StegVerse-Labs/StegCore#70",
+    "contract_version": "stegverse.steggate.runtime-identity.v1",
+    "runtime_identity": "stegverse:steggate:canonical:three-layer:v1",
+    "canonical_owner": "StegVerse-Labs/StegCore",
+    "canonical_admissibility_runtime": "stegcore.three_layer.evaluate_three_layer",
+    "transport_identity_authoritative": false,
+    "core_contract": "IMPLEMENTED_VALIDATED",
+    "core_validation": {
+      "run_id": 31338809707,
+      "job_id": 93308982069,
+      "artifact_id": 9045154237,
+      "artifact_digest": "sha256:e59d08fc0de1a4c4fdf893c5db1d857e20fe7e3fa77dc3cde44c1e6f4b2f6ab2"
+    },
+    "application_bindings": {
+      "ecosystem_chat": "PENDING_DIRECT_EVIDENCE",
+      "vacc": "PENDING_DIRECT_EVIDENCE",
+      "math_solver": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
+      "hil": "PENDING_DIRECT_EVIDENCE"
+    },
+    "math_solver_ci_validation": {
+      "run_id": 31338939595,
+      "job_id": 93309372914,
+      "artifact_id": 9045196248,
+      "artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
+      "public_deployment_proven": false
+    },
+    "public_direct_bindings": 0,
+    "required_public_direct_bindings": 4,
+    "activation_effect": false
   },
   "applications": {
     "ecosystem_chat": {
@@ -88,10 +121,11 @@
       "implementation_evidence": {
         "runtime_owner": "StegVerse-org/LLM-adapter#132",
         "runtime_handoff": "StegVerse-org/LLM-adapter/docs/MATH_SOLVER_RUNTIME_MIRROR_HANDOFF.md",
-        "runtime_ci_run": 31290093572,
-        "runtime_ci_job": 93185673393,
-        "runtime_ci_artifact": 9031088299,
-        "runtime_ci_artifact_digest": "sha256:e863d4aaa6bf6fbc34746e1f0eb10028a320bf861bf2d2246cd673fdf0de67c1",
+        "runtime_ci_run": 31338939595,
+        "runtime_ci_job": 93309372914,
+        "runtime_ci_artifact": 9045196248,
+        "runtime_ci_artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
+        "common_runtime_identity_ci_bound": true,
         "site_client_commit": "f45fe0ae7e21dd19b20b119ab78956a7c77eb72c",
         "host_service": "Render/srv-d9epkh3rjlhs73csc3qg",
         "latest_observed_deploy": "dep-d9rvocrbc2fs73avr6a0"
@@ -161,20 +195,22 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "StegVerse-Labs/StegCore#70: expose/consume common runtime identity binding across reference apps now that #68 is activated",
-    "StegVerse-Labs/Site#242: complete Ecosystem Chat live provider/persistence/custody/reconstruction activation through existing LLM-adapter#18 machine lane",
-    "StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner",
-    "Observe the LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
-    "StegVerse-Labs/Site#243: complete HIL upload claim without collision, then admit SITE-0002-HIL-LIVE when heartbeat release conditions pass"
+    "StegVerse-Labs/StegCore#70: common runtime identity core contract is validated; complete application bindings with direct retained evidence",
+    "StegVerse-Labs/Site#242: complete Ecosystem Chat live provider/persistence/custody/reconstruction activation through existing LLM-adapter#18 machine lane and bind runtime identity",
+    "StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner and bind runtime identity",
+    "Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
+    "StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and bind runtime identity in the real participant cycle"
   ],
   "status_check_contract": {
     "read_this_file": true,
     "read_handoff": "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
     "read_heartbeat": "data/ecosystem-heartbeat-state.json",
+    "read_common_runtime_binding": "StegVerse-Labs/StegCore/management/steggate-four-app-runtime-binding.json",
     "recompute_before_reporting": true,
     "report_orchestration_progress_separately": true,
+    "report_common_runtime_binding_separately": true,
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-09T15:47:00-05:00"
+  "updated_at": "2026-08-09T17:22:00-05:00"
 }
