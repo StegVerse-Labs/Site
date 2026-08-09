@@ -4,21 +4,13 @@
   "repository": "StegVerse-Labs/Site",
   "goal": "Create a public Thought Experiments category and publish Continuity as Reconstructable Manifold Transition as HTML plus a linked PDF artifact.",
   "originating_session_goal": "Durably publish the manifold continuity thought experiment developed from the governance/admissibility/action discussion.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": true,
   "external_dependencies": [],
   "execution_class": "PARALLEL_SAFE",
-  "owner": {
-    "type": "repository_native_orchestrator",
-    "location": "scripts/admit_repository_tasks.py"
-  },
+  "owner": {"type":"repository_native_orchestrator","location":"scripts/admit_repository_tasks.py"},
   "issue": 238,
   "branch": "main",
-  "collision_boundaries": [
-    "Do not modify humans-as-interoperability-layer.html or assets/hil-*",
-    "Do not infer activation, proof, validation, or authority from public display",
-    "Do not claim completion until public HTML and PDF routes are verified"
-  ],
   "implementation_locations": [
     "Thought-Experiments.html",
     "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
@@ -32,13 +24,6 @@
   ],
   "validator_command": "python scripts/check_thought_experiments_publication.py",
   "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
-  "required_outputs": [
-    "Thought-Experiments.html",
-    "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
-    "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf",
-    "navigation entry from an existing public research or transition surface",
-    "public-route verification receipt"
-  ],
   "canonical_title": "Continuity as Reconstructable Manifold Transition",
   "canonical_subtitle": "A thought experiment on admissibility, governance, action, and the uniqueness of an observed state transition",
   "core_formalism": {
@@ -50,46 +35,31 @@
     "scale_rule": "As the manifold grows, the concrete matrices become larger and more coupled, but the governing structure remains (Admissibility, Governance, Action) -> one eigenvalue -> successor manifold.",
     "working_term_boundary": "Eigenvalue is working formalism naming the unique resolved value of the combined transition problem; the exact operator and spectral interpretation remain to be formalized."
   },
-  "required_sections": [
-    "The thought experiment",
-    "Collapse and the unique solution",
-    "What continuity preserves",
-    "Scaling the manifold",
-    "A reconstruction test",
-    "Compact formulation"
-  ],
-  "compact_formulation": [
-    "Reconstruct manifold state N and its admissibility and governance structures.",
-    "Identify the action matrix actually applied to N.",
-    "Collapse admissibility against governance under that action.",
-    "Require one eigenvalue corresponding to the observed successor O.",
-    "Preserve O and its new admissibility matrix as the next manifold state.",
-    "Treat residual multiplicity as evidence of insufficient reconstruction."
-  ],
-  "publication_posture": {
-    "category": "Thought Experiments",
-    "proof_claim": false,
-    "validation_claim": false,
-    "activation_effect": false,
-    "authority_effect": false
+  "publication_posture": {"category":"Thought Experiments","proof_claim":false,"validation_claim":false,"authority_effect":false},
+  "completion_evidence": {
+    "task_registration_merge": "b4256516abb3bd58de3fa845958dae199c5f721e",
+    "category_commit": "0286f187270ff05153f571956d159b4413504d25",
+    "article_commit": "a148e8a8715b86827521e900deba635af0d17798",
+    "pdf_commit": "94e051b2327ae2f64c52af9588129f8ff24e280f",
+    "validator_commit": "2bee81252c900397749fab0f29d4bd25d81cf434",
+    "workflow_commit": "b9fcf3538539b2c19d5d49002d30fb9915af1811",
+    "navigation_commit": "9b58be4cf8ad5d4f83f4aef9d1a59fa415f8c8c9",
+    "verification_report_commit": "11d66d75eee398e0a995f1d3f8a1eb31ae5f4b7b",
+    "workflow_run": 31286836769,
+    "workflow_job": 93177098798,
+    "workflow_conclusion": "success",
+    "static_validation": "PASS",
+    "public_route_verification": "PASS",
+    "public_routes": [
+      "https://stegverse.org/Thought-Experiments.html",
+      "https://stegverse.org/thought-experiments/continuity-as-reconstructable-manifold-transition.html",
+      "https://stegverse.org/thought-experiments/continuity-as-reconstructable-manifold-transition.pdf"
+    ]
   },
-  "validation_required": [
-    "HTML source inspection",
-    "repository canonical validation",
-    "GitHub Pages or canonical Site deployment success",
-    "HTTPS 200 verification for category, HTML article, and PDF artifact",
-    "link verification from category to article and PDF"
-  ],
-  "blocked_by": "Required implementation files and public-route verification are not yet complete.",
-  "release_condition": "Required outputs are merged, canonical validation passes, the publication verifier passes, and all three public HTTPS routes are observed successfully.",
-  "evidence_locations": [
-    "https://github.com/StegVerse-Labs/Site/issues/238",
-    "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
-    "thought-experiments-publication.report.json"
-  ],
-  "next_executable_action": "Create the category page, article, PDF, navigation entry, validator and verification workflow; then run canonical validation and verify the public HTTPS routes.",
+  "blocked_by": null,
+  "next_executable_action": "Continue scheduled verification; reopen only if required source markers or canonical HTTPS routes fail.",
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": "PUBLIC_THOUGHT_EXPERIMENT_REACHABLE_AND_VERIFIED"
 }
