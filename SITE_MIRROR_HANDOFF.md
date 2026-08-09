@@ -4,111 +4,29 @@
 
 This file is the authoritative continuation record for `StegVerse-Labs/Site`.
 
-## Active goal state
+## Primary Site application goal
 
 ```text
 Goal: governed Ecosystem Chat and AI Entry application with fail-closed live activation, recoverability, release, and downstream evidence boundaries
 Repository-local result: COMPLETE
-Continuation mode: SCHEDULED_FAIL_CLOSED_EVIDENCE_MONITOR
 Manual user tasks: NONE
 Recursive repository-local goal expansion: DISABLED
 ```
 
-## Installed application and governance surfaces
+The completed primary Site application implementation remains governed by its existing validation, custody, reconstruction, release, and downstream evidence boundaries. Absent live evidence never becomes success.
 
-The repository contains the cohesive StegVerse AI entry window, chat and comparison routes, SDK guidance, governed backend preview, activation request/response fixtures, authority-decision fixtures, provider and receipt boundaries, operator-recoverability records, release-readiness lockfile, tag gate, downstream propagation records, and terminal monitoring records.
-
-Canonical validation:
-
-```bash
-python scripts/check_ecosystem_chat_application.py
-```
-
-Active workflow:
+## Adjacent active goal — StegGate stable rendezvous hardening
 
 ```text
-.github/workflows/validate.yml
+goal_id: STEGGATE-STABLE-RENDEZVOUS-HARDENING
+canonical_owner: StegVerse-Labs/Site#24
+originating_completed_dependencies:
+  - StegVerse-Labs/StegCore#68 — functional StegGate COMPLETE
+  - StegVerse-Labs/StegCore#75 — heartbeat/credential integration COMPLETE
+state: BLOCKED_CREDENTIAL_VALUES_ABSENT
+scheduler_authority: single StegVerse heartbeat
+wall_clock_scheduler_authority: false
 ```
-
-The iOS-safe restoration mirror remains:
-
-```text
-iosnoperiod/github/workflows/validate.yml
-```
-
-## Completed terminal chain
-
-```text
-cohesive AI Entry application
--> governed backend activation preview
--> authority service boundary
--> receipt/provider/SDK access boundaries
--> operator recoverability boundary
--> recovery fixtures and completion
--> cross-repository handoff consolidation
--> green-run visibility consolidation
--> release-readiness lockfile
--> tag gate
--> stable archive checkpoint
--> post-archive monitor
--> loop checkpoint
--> terminal loop cycle record
-```
-
-Key terminal records:
-
-```text
-data/ai-entry-backend-activation-progress.json
-data/ai-entry-recovery-completion.json
-data/ai-entry-cross-repo-handoff.json
-data/ai-entry-post-archive-monitor-completion.json
-data/ai-entry-loop-checkpoint-completion.json
-data/ai-entry-loop-cycle-record.json
-docs/ECOSYSTEM_CHAT_TERMINAL_LOOP_HANDOFF.md
-```
-
-The canonical validator includes `scripts/check_ai_entry_loop_cycle_record.py` and rejects manual tasks, recursive next-goal creation, or authority escalation.
-
-## Current evidence posture
-
-```text
-repository-local implementation: COMPLETE
-manual tasks remaining: 0
-connector-visible green run: NOT CONFIRMED
-live provider use: NOT CONFIRMED
-live SDK/runtime use: NOT CONFIRMED
-authenticated custody: NOT CONFIRMED
-reconstructability PASS: NOT CONFIRMED
-release or tag authority: NOT GRANTED
-```
-
-Absent CI or live evidence does not reopen design or implementation work. Existing scheduled workflows and authority-bearing systems own re-evaluation. Missing evidence remains fail-closed and is never treated as success.
-
-## Cross-repository continuation
-
-```text
-StegVerse-org/LLM-adapter
-  -> scheduled validation and live verification
-  -> stable pending blocker status
-  -> immutable verified activation receipt after all gates pass
-
-master-records/orchestration
-  -> authenticated custody and reconstruction evidence
-
-StegVerse-Labs/Site
-  -> automatic import, hash verification, activation-state recomputation, and propagation
-
-GCAT-BCAT-Engine/Publisher
-StegVerse-Labs/admissibility-wiki
-StegVerse-002/stegguardian-wiki
-  -> automatic non-authorizing downstream projections
-```
-
-No browser credential, artifact download, workflow dispatch, file transfer, screenshot confirmation, or manual publication task is required.
-
-## Adjacent StegGate stable-rendezvous lane
-
-Site issue #24 is also the canonical endpoint-publication/fail-closed-routing owner for the StegGate stable rendezvous required by `StegVerse-Labs/StegCore#68`. This is an adjacent integration lane and does not reopen the completed Site application implementation.
 
 Installed surfaces:
 
@@ -117,6 +35,7 @@ src/steggate-rendezvous-worker.js
 wrangler.steggate.jsonc
 .github/workflows/steggate-rendezvous-deploy.yml
 data/steggate-rendezvous-activation.json
+data/tvc-infrastructure-credential-consumer-authority.v1.json
 ```
 
 Intended stable origin:
@@ -125,49 +44,131 @@ Intended stable origin:
 https://stegverse.org/api/steggate
 ```
 
-The Worker contains no StegGate policy engine. It resolves the current verified micro-node, independently verifies canonical health, proxies only the bounded StegGate HTTP evaluation contract, and fails closed when no verified node exists.
+The Worker contains no StegGate policy engine. It routes only to a verified StegGate micro-node, independently verifies canonical health, proxies the bounded HTTP evaluation contract, and fails closed when no verified node exists.
 
-Deployment run `31286621905`, job `93176517796`, directly observed both `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as unavailable in the Actions runtime and therefore stopped before Wrangler deployment. No deployment success is claimed.
+## Scheduler model
 
-The deployment workflow is now machine-owned and scheduled hourly at minute 41. Every run emits `deployment-evidence/activation-observation.json`; missing credentials remain an explicit `BLOCKED` result and a failing workflow, not success. When both authorized bindings become available, the same workflow deploys the rendezvous, verifies readiness, canonical health and the exact four-disposition self-test, writes `LIVE_ACCEPTANCE_PASS` to `data/steggate-rendezvous-activation.json`, and comments issue #24. StegCore's independent hourly observer then discovers the stable rendezvous and owns the final complete-matrix evaluation and canonical issue #68 finalization.
+The old hourly cron is removed. `steggate-rendezvous-deploy.yml` now accepts:
+
+```text
+repository_dispatch: stegverse-heartbeat   # normative continuity/scheduling carrier
+workflow_dispatch                           # diagnostic only
+bounded push paths                          # configuration validation only
+```
+
+Time does not manufacture heartbeat progress and does not own StegGate lifecycle.
+
+## TV/TVC credential boundary
+
+TV owns credential-reference packaging. TVC owns exact-bound secret-reference read authority. Neither stores or transports raw credential values.
+
+Site imports the pinned no-secret TVC contract:
+
+```text
+data/tvc-infrastructure-credential-consumer-authority.v1.json
+source: StegVerse-Labs/TVC/contracts/infrastructure-credential-consumer-authority.v1.json
+source contract commit: ea6bc05c19001ab9731bc19fb59ff34eebf63e45
+validated TVC policy commit: 9105cae48db28780c7fdfd9de7db317bb4595112
+TVC validation run: 31305690694
+TVC validation artifact: 9035862288
+TVC artifact digest: sha256:a6ff49884bd4199f7b6f4ff8999d860d4517b547a4fd495118ccc59c00070562
+credentials_recorded: false
+credential_values_present: false
+```
+
+The Site workflow validates that pinned authority contract before examining execution-environment value presence.
+
+## Strongest current rendezvous evidence
+
+Run `31305845192`, job `93225990737` directly proved:
+
+```text
+pinned TVC authority contract validation: PASS
+exact Site consumer binding: PASS
+TVC reference-read authority: admissible
+CLOUDFLARE_API_TOKEN value present in Site Actions: NO
+CLOUDFLARE_ACCOUNT_ID value present in Site Actions: NO
+Wrangler configuration/deploy: SKIPPED
+stable endpoint acceptance: NOT EXECUTED
+state: FAIL_CLOSED_CREDENTIAL_ABSENT
+artifact: 9035908600
+artifact digest: sha256:fe1be4cbdb0cd0a87542fe1ee40b2a1dad561c9355b5647cbfdd187c331c2af8
+```
+
+This is the correct fail-closed state. TV/TVC cannot manufacture missing provider credential values.
+
+## Relationship to functional StegGate
+
+Functional StegGate activation is already COMPLETE through the heartbeat-owned ephemeral micro-node topology. Canonical StegCore receipt:
+
+```text
+StegVerse-Labs/StegCore/data/steggate-live-activation-receipt.json
+state: COMPLETE
+deployment_source: heartbeat_ephemeral_micronode
+```
+
+The stable `stegverse.org/api/steggate` route is therefore availability/discovery hardening, not a prerequisite for the already-proven StegGate decision/runtime capability.
+
+Canonical heartbeat-to-StegGate proof also exists independently of this stable route:
+
+```text
+StegVerse-Labs/.github workflow run 31306010854
+heartbeat job 93226408727 SUCCESS
+StegGate micro-node job 93226429725 SUCCESS
+canonical heartbeat epoch advanced to 4
+micro-node artifact 9035963753
+micro-node digest sha256:b496a848c0f2561e1eb3b3dcdc33502f3019252995fa83cbe81e1c13c32651ba
+```
+
+## Release condition and next executable action
 
 Machine-observable release condition:
 
 ```text
-CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are both non-empty in the Site Actions runtime,
-OR an already-authorized endpoint-publication plane deploys the same non-authorizing contract.
+CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID both exist in the Site execution environment
+AND the pinned TVC authority contract remains valid for the exact Site/workflow/branch binding.
 ```
 
-This lane has no remaining chat-only execution requirement. Its current claimant is repository automation, and the originating session may transfer/merge this lane to `StegVerse-Labs/Site#24 + data/steggate-rendezvous-activation.json + .github/workflows/steggate-rendezvous-deploy.yml`.
+When true, the same heartbeat-triggered workflow is authorized to:
 
-## Authority boundary
+1. build the production Wrangler configuration;
+2. deploy the non-authorizing rendezvous;
+3. verify readiness and canonical health;
+4. verify exact ALLOW/DENY/REVIEW/FAIL_CLOSED self-test;
+5. persist `LIVE_ACCEPTANCE_PASS` to `data/steggate-rendezvous-activation.json`;
+6. retain no-secret deployment evidence.
+
+If the credential values remain absent, the task remains `BLOCKED_CREDENTIAL_VALUES_ABSENT`; no alternate session may pretend the route is deployed.
+
+## Collision and authority boundaries
 
 ```text
+heartbeat != execution authority
+TVC secret-reference ALLOW != secret value presence
+credential value presence != StegGate admissibility
+rendezvous routing != StegGate policy authority
 provider output != authority
 SDK validation != execution
-usage measurement != admissibility
 local persistence != custody
-submission != custody
 custody receipt != execution authority
 reconstruction PASS != execution authority
-workflow artifact != live evidence
-pending status != activation
-verified receipt != release authority
-terminal monitor != CI success
-rendezvous routing != StegGate policy authority
-credential availability != deployment authority beyond the declared workflow contract
+workflow artifact != live endpoint evidence
 ```
 
-## Release posture
+Canonical owners:
 
-No release or tag is authorized until the existing machine gates receive visible validation, live runtime, custody, reconstruction, and downstream evidence. The decision is machine-gated; no manual review task is created.
+```text
+single heartbeat: StegVerse-Labs/.github#12
+StegGate runtime: StegVerse-Labs/StegCore
+TV credential-reference packaging: StegVerse-Labs/TV
+TVC secret-reference authority: StegVerse-Labs/TVC
+stable endpoint publication/discovery: StegVerse-Labs/Site#24
+```
 
-## Archive posture
+## Completion / archive posture
 
-Repository-local implementation is archive-ready because all local modules, contracts, validators, handoffs, and automation required by the original Site workstream are installed. The adjacent StegGate rendezvous lane is also repository-owned and machine-observed: implementation is installed, the precise credential blocker is durable, hourly retry is active, and successful deployment automatically hands final acceptance back to StegCore. Archive readiness does not assert that the stable rendezvous is live.
+Primary Site application work remains complete. The adjacent stable-rendezvous goal is not complete because actual Cloudflare credential values are absent from the authorized Site execution environment.
 
-## Archive determination
+No wall-clock retry is normative. The repository is ready to execute on the next admitted heartbeat after the credential-value release condition becomes true.
 
-No Site-local requirement from the originating conversations needs to remain only in chat. Remaining live-evidence conditions are owned by scheduled workflows and authority-bearing systems, including the StegGate rendezvous credential release condition above.
-
-**ARCHIVE NOW for the Site-local workstream; unresolved StegCore activation remains separately governed by its canonical handoff.**
+This handoff fully preserves the blocker and continuation path, but the originating cross-repository StegGate session remains active while the user-directed activation/hardening work is still being pursued.
