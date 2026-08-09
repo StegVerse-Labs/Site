@@ -1,0 +1,51 @@
+name: Math Solver public activation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "47 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/advance_math_solver_public_activation.py"
+      - ".github/workflows/math-solver-public-activation.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: math-solver-public-activation
+  cancel-in-progress: false
+
+jobs:
+  consume-and-advance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Consume canonical Math Solver runtime receipt
+        run: python scripts/advance_math_solver_public_activation.py
+      - name: Validate four-app status
+        run: python scripts/check_steggate_four_app_status.py
+      - name: Synchronize canonical handoff
+        run: python scripts/sync_steggate_four_app_handoff.py
+      - name: Persist activation observation and any proven gate transition
+        run: |
+          if [ -z "$(git status --porcelain -- data/math-solver-public-activation.latest.json data/steggate-four-app-status.json docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md)" ]; then
+            echo 'No Math Solver activation-state change.'
+            exit 0
+          fi
+          git config user.name 'stegverse-math-activation[bot]'
+          git config user.email 'stegverse-math-activation[bot]@users.noreply.github.com'
+          git add data/math-solver-public-activation.latest.json data/steggate-four-app-status.json docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md
+          git commit -m 'Observe Math Solver public activation [skip ci]'
+          git push
+      - name: Preserve activation observation
+        uses: actions/upload-artifact@v4
+        with:
+          name: math-solver-public-activation
+          path: data/math-solver-public-activation.latest.json
+          if-no-files-found: error
+          retention-days: 30
