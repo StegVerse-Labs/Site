@@ -42,10 +42,17 @@
       "artifact_digest": "sha256:e59d08fc0de1a4c4fdf893c5db1d857e20fe7e3fa77dc3cde44c1e6f4b2f6ab2"
     },
     "application_bindings": {
-      "ecosystem_chat": "PENDING_DIRECT_EVIDENCE",
+      "ecosystem_chat": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "vacc": "PENDING_DIRECT_EVIDENCE",
       "math_solver": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "hil": "PENDING_DIRECT_EVIDENCE"
+    },
+    "ecosystem_chat_ci_validation": {
+      "run_id": 31339336399,
+      "job_id": 93310410095,
+      "artifact_id": 9045322524,
+      "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
+      "public_provider_execution_proven": false
     },
     "math_solver_ci_validation": {
       "run_id": 31338939595,
@@ -54,6 +61,7 @@
       "artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
       "public_deployment_proven": false
     },
+    "applications_ci_or_stronger": 2,
     "public_direct_bindings": 0,
     "required_public_direct_bindings": 4,
     "activation_effect": false
@@ -62,7 +70,7 @@
     "ecosystem_chat": {
       "issue": 242,
       "surface": "ecosystem-chat.html",
-      "state": "ACTIVATION_PENDING_LIVE_PROVIDER_AND_PERSISTENT_ENDPOINT",
+      "state": "ACTIVATION_PENDING_SOVEREIGN_INFERENCE_AND_CUSTODY_EVIDENCE",
       "completed_gates": 3,
       "total_gates": 8,
       "progress_percent": 38,
@@ -76,8 +84,17 @@
         "zero_blocker_activation_receipt": false,
         "public_end_to_end_observation": false
       },
+      "identity_binding_evidence": {
+        "state": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
+        "owner": "StegVerse-org/LLM-adapter#18",
+        "workflow_run": 31339336399,
+        "workflow_job": 93310410095,
+        "artifact_id": 9045322524,
+        "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
+        "public_provider_execution_proven": false
+      },
       "blockers": [
-        "authorized real-provider and persistent endpoint evidence absent",
+        "sovereign/federated inference runtime has not yet been directly observed for the production path",
         "provider-usage custody/reconstruction and zero-blocker activation receipt absent"
       ]
     },
@@ -177,12 +194,12 @@
         "state": "BLOCKED",
         "owner": "Site heartbeat orchestration",
         "blocked_until": "end of current work task sequence 0001, no tasks running",
-        "external_blocker": "StegVerse-org/LLM-adapter#18 authorized provider and Master Records bindings"
+        "external_blocker": "StegVerse-org/LLM-adapter#18 sovereign inference and Master Records bindings"
       },
       "blockers": [
         "live HIL receiver/readiness not verified",
         "production participant cycle not completed",
-        "authorized provider and Master Records configuration bindings remain unavailable to the machine runtime"
+        "sovereign inference and Master Records runtime bindings remain unavailable to the machine runtime"
       ]
     }
   },
@@ -195,9 +212,9 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "StegVerse-Labs/StegCore#70: common runtime identity core contract is validated; complete application bindings with direct retained evidence",
-    "StegVerse-Labs/Site#242: complete Ecosystem Chat live provider/persistence/custody/reconstruction activation through existing LLM-adapter#18 machine lane and bind runtime identity",
-    "StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner and bind runtime identity",
+    "StegVerse-Labs/StegCore#70: core identity contract and two CI application bindings are validated; complete VACC and HIL bindings plus public retained evidence for all four",
+    "StegVerse-Labs/Site#241: locate and bind the canonical VACC governed runtime path without regressing the released bounded surface",
+    "StegVerse-Labs/Site#242 + StegVerse-org/LLM-adapter#18: observe real sovereign Ecosystem Chat inference, usage, custody/reconstruction, and zero-blocker activation while retaining the validated identity binding",
     "Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
     "StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and bind runtime identity in the real participant cycle"
   ],
@@ -212,5 +229,5 @@
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-09T17:22:00-05:00"
+  "updated_at": "2026-08-09T17:31:00-05:00"
 }
