@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "publication": "Continuity as Reconstructable Manifold Transition",
+  "category": "Thought Experiments",
+  "state": "PASS",
+  "validator_command": "python scripts/check_thought_experiments_publication.py",
+  "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
+  "workflow": ".github/workflows/verify-thought-experiments-publication.yml",
+  "workflow_run": 31286836769,
+  "workflow_job": 93177098798,
+  "static_validation": "PASS",
+  "public_route_verification": "PASS",
+  "public_routes": [
+    "https://stegverse.org/Thought-Experiments.html",
+    "https://stegverse.org/thought-experiments/continuity-as-reconstructable-manifold-transition.html",
+    "https://stegverse.org/thought-experiments/continuity-as-reconstructable-manifold-transition.pdf"
+  ],
+  "source_commits": {
+    "task_registration_merge": "b4256516abb3bd58de3fa845958dae199c5f721e",
+    "task_schema_repair": "cf335216927db1752a2fcfa4fdfe0569c925670f",
+    "category": "0286f187270ff05153f571956d159b4413504d25",
+    "article": "a148e8a8715b86827521e900deba635af0d17798",
+    "pdf": "94e051b2327ae2f64c52af9588129f8ff24e280f",
+    "validator": "2bee81252c900397749fab0f29d4bd25d81cf434",
+    "workflow": "b9fcf3538539b2c19d5d49002d30fb9915af1811",
+    "navigation": "9b58be4cf8ad5d4f83f4aef9d1a59fa415f8c8c9"
+  },
+  "authority_effect": false,
+  "activation_effect": "PUBLIC_THOUGHT_EXPERIMENT_REACHABLE_AND_VERIFIED"
+}
