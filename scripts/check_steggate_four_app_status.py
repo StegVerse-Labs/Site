@@ -96,7 +96,7 @@ def main() -> int:
         "Current execution progress",
         "Orchestration progress",
         "Status-check contract",
-        "Archive posture",
+        "Release / archive posture",
         f"Verified execution gates: {completed_sum} / {total_sum}",
         f"Aggregate execution progress: {aggregate_percent}%",
         f"Fully functional public applications: {functional} / 4",
