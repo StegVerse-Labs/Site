@@ -95,7 +95,7 @@ Current evidence:
 
 The existing released bounded surface must not be regressed while the governed LLM path is added.
 
-### Math Solver — 14% execution-gate progress / implementation substantially advanced
+### Math Solver — 14% execution-gate progress / implementation complete, activation machine-owned
 
 Issue: `StegVerse-Labs/Site#240`.
 Runtime owner: `StegVerse-org/LLM-adapter#132`.
@@ -105,17 +105,19 @@ Current implementation evidence:
 
 - the research-only Site page has been replaced by a fail-closed interactive governed client at `math-solver/index.html`;
 - the client probes hosted readiness, has no ungated local-solver fallback, sends requests only to the governed endpoint, and projects decision/result/replay evidence;
-- LLM-adapter now contains a bounded deterministic arithmetic executor and routes `GET /api/math-solver/v1/readiness` plus `POST /api/math-solver/v1/solve`;
+- LLM-adapter contains a bounded deterministic arithmetic executor and routes `GET /api/math-solver/v1/readiness` plus `POST /api/math-solver/v1/solve`;
 - the executor is passed through the canonical portable StegGate consumer rather than a parallel evaluator;
 - CI run `31290093572`, job `93185673393` is SUCCESS;
 - integration artifact `9031088299`, digest `sha256:e863d4aaa6bf6fbc34746e1f0eb10028a320bf861bf2d2246cd673fdf0de67c1`, retains governed execution and deterministic replay evidence;
 - the runtime router is mounted on the existing Render Ecosystem Chat gateway deployment entrypoint;
-- Render cancels current source deployments before build because the workspace has exhausted build-pipeline minutes;
-- hourly public runtime observation is installed in LLM-adapter; first run `31290234186` retained artifact `9031127945` and observed HTTP 404 at the readiness path, correctly remaining BLOCKED.
+- current public runtime remains unavailable while Render source builds cannot complete;
+- LLM-adapter's hourly runtime observer persists `receipts/math-solver-public-runtime.latest.json` and advances to COMPLETE only after readiness plus two governed solve/replay calls pass;
+- Site now has `scripts/advance_math_solver_public_activation.py` and `.github/workflows/math-solver-public-activation.yml`, scheduled hourly at minute 47, consuming the LLM-adapter receipt, verifying the public Site runtime binding, validating four-app state, synchronizing this handoff, persisting only proven transitions, and remaining fail-closed while the source receipt is BLOCKED;
+- first Site activation-consumer run `31295535660`, job `93199914169`, completed SUCCESS and persisted `data/math-solver-public-activation.latest.json` as BLOCKED because the source runtime receipt was still BLOCKED. No execution gate was incorrectly advanced.
 
-Why the product execution percentage remains 14%: the direct public-runtime gates remain false until the new backend actually deploys and the public Site solve/replay cycle is observed. Implementation and CI evidence are intentionally not substituted for public execution evidence.
+Why the product execution percentage remains 14%: direct public-runtime gates remain false until the backend actually deploys and the public solve/replay cycle is observed. Implementation, CI, workflow success, and blocker observations are intentionally not substituted for public execution evidence.
 
-Machine-observable unblock: a deployment containing the Math Solver route reaches live, then the hourly observer verifies readiness, two governed solve calls, ALLOW/EXECUTED/executor invocation, decision hash, replay hashes, and Site-compatible CORS. After that evidence exists, Site#240 may consume it and advance only the proven gates.
+Machine-observable unblock: LLM-adapter's public runtime receipt becomes COMPLETE. The Site activation consumer then automatically verifies the public page binding and advances only the Math Solver gates represented by complete evidence. No chat polling or manual workflow dispatch is required.
 
 ### HIL experiment — 25% execution-gate progress
 
@@ -136,11 +138,11 @@ Current evidence:
 Current dependency-aware route:
 
 1. `StegVerse-Labs/StegCore#68` — canonical resident hosted StegGate activation; machine observer/capacity watch remains active.
-2. Math Solver host route — LLM-adapter observer retries automatically while Render build capacity is unavailable; Site client is already implemented fail-closed.
+2. Math Solver host route — LLM-adapter observer retries automatically; Site activation consumer automatically consumes COMPLETE evidence and updates canonical Site state.
 3. `StegVerse-Labs/StegCore#70` — common runtime identity and reference-app binding contract.
 4. `Site#242` — Ecosystem Chat live activation.
 5. `Site#241` — VACC governed LLM execution.
-6. `Site#240` — consume direct Math Solver hosted evidence and complete public replay verification.
+6. `Site#240` — machine-owned Math Solver hosted/public acceptance completion.
 7. `Site#243` — HIL live participant cycle.
 8. Recompute `data/steggate-four-app-status.json` from direct evidence after every material transition.
 9. Close `Site#239` only at 4/4 verified functional public applications.
@@ -168,8 +170,9 @@ Progress synchronizer: `scripts/sync_steggate_four_app_handoff.py` — INSTALLED
 Canonical Site worker: `scripts/observe_and_complete_repository_tasks.py`
 Canonical Site admission controller: `scripts/admit_repository_tasks.py`
 Progress workflow: `.github/workflows/steggate-four-app-progress.yml` — PASS OBSERVED
+Math Solver activation consumer: `.github/workflows/math-solver-public-activation.yml` — ACTIVE, first BLOCKED observation successfully retained.
 
-Repository worker persistence was repaired so task-object completion mutations under `data/tasks/` are committed together with orchestration state and the observation report.
+Repository workers persist task and evidence mutations under canonical data/receipt surfaces. Missing runtime evidence remains BLOCKED rather than being converted into success.
 
 ## Status-check contract
 
@@ -180,9 +183,9 @@ Whenever asked for status:
 3. Read `data/site-orchestration-state.json` and `data/ecosystem-heartbeat-state.json`.
 4. Read the current mirror handoffs for any app whose state may have advanced.
 5. Check `StegCore#68` before claiming the resident canonical StegGate service is live.
-6. Distinguish portable canonical StegGate CI evidence from resident-host activation evidence.
+6. Distinguish portable canonical StegGate evidence from resident-host activation evidence.
 7. Recompute gate counts from direct evidence.
-8. Update the machine status after material execution transitions.
+8. Update machine status only after material execution transitions.
 9. Run the handoff synchronizer so this handoff carries the same progress snapshot.
 10. Report product execution progress separately from implementation/orchestration progress.
 11. Never infer 100% from code, CI, observer installation, or deployment configuration.
@@ -198,24 +201,39 @@ Whenever asked for status:
 
 `StegVerse-org/LLM-adapter`:
 
-- Math Solver hosted route activation observation;
-- automated public-runtime receipt progression;
+- machine-owned Math Solver hosted route observation and public-runtime receipt progression;
 - Ecosystem Chat/VACC/HIL work only through their existing canonical owners.
 
 `StegVerse-Labs/Site`:
 
 - Ecosystem Chat live integration;
 - VACC canonical StegGate integration;
-- deployed Math Solver client/runtime/replay observation;
+- machine-owned Math Solver receipt consumption/public activation;
 - HIL canonical StegGate production-cycle integration;
 - machine status recomputation and handoff progress synchronization after material transitions.
 
-Downstream Site/Publisher/admissibility-wiki/stegguardian-wiki propagation remains governed by each canonical activation/release gate and is not triggered merely because the Math Solver implementation exists.
+Downstream Publisher/admissibility-wiki/stegguardian-wiki propagation remains governed by each canonical activation/release gate and is not triggered merely because implementation exists.
+
+## Session consolidation
+
+The Math Solver implementation/integration session is merged into canonical machine-owned continuation:
+
+```text
+MERGED INTO: StegVerse-Labs/Site#240
+PARENT: StegVerse-Labs/Site#239
+RUNTIME OWNER: StegVerse-org/LLM-adapter#132
+BACKEND OBSERVER: StegVerse-org/LLM-adapter/.github/workflows/observe-math-solver-public-runtime.yml
+SITE ACTIVATION CONSUMER: StegVerse-Labs/Site/.github/workflows/math-solver-public-activation.yml
+```
+
+All unique Math Solver requirements, validation evidence, blocker state, release conditions, and cross-repository continuation introduced by that session are now durable. The product remains incomplete, but that conversation is no longer an execution dependency.
 
 ## Release / archive posture
 
-No four-app release or external partnership application is authorized by this coordination handoff.
+No four-app release or external partnership application is authorized by this handoff.
 
-Current state: `ACTIVE_INCOMPLETE`.
-Current fully functional application count: `0/4` under the common live-Steggate proof standard.
-Archive posture for the four-app goal: `NOT_READY` while unique execution responsibility remains in an active session; durable machine ownership must not be misreported as product completion.
+Project state: `ACTIVE_INCOMPLETE`.
+Current fully functional application count: `0/4` under the direct-runtime proof standard.
+Four-app product activation: NOT COMPLETE.
+Math Solver originating-session consolidation: COMPLETE by durable transfer.
+Conversation archival does not assert product activation; it only asserts that no unique Math Solver execution responsibility remains solely in chat.
