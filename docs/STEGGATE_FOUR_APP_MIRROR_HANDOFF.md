@@ -37,7 +37,7 @@ Math Solver: 29% (2/7)
 HIL experiment: 38% (3/8)
 ```
 
-Last machine status timestamp: `2026-08-09T17:22:00-05:00`
+Last machine status timestamp: `2026-08-09T17:31:00-05:00`
 <!-- STEGGATE_FOUR_APP_PROGRESS_END -->
 
 These percentages are direct execution-gate progress only. They are not estimates of code volume and cannot be increased by scaffolding, CI-only success, or documentation alone.
@@ -78,7 +78,7 @@ Core contract: `IMPLEMENTED_VALIDATED`.
 
 Application binding state:
 
-- Ecosystem Chat: `PENDING_DIRECT_EVIDENCE`
+- Ecosystem Chat: `CI_BOUND_PUBLIC_EVIDENCE_PENDING`
 - VACC / VA Claims Chat: `PENDING_DIRECT_EVIDENCE`
 - Math Solver: `CI_BOUND_PUBLIC_EVIDENCE_PENDING`
 - HIL experiment: `PENDING_DIRECT_EVIDENCE`
@@ -108,7 +108,7 @@ This integration state has no product-activation effect until direct public appl
 
 Issue: `StegVerse-Labs/Site#242`.
 Surface: `ecosystem-chat.html`.
-Machine state: `ACTIVATION_PENDING_LIVE_PROVIDER_AND_PERSISTENT_ENDPOINT`.
+Machine state: `ACTIVATION_PENDING_SOVEREIGN_INFERENCE_AND_CUSTODY_EVIDENCE`.
 
 Verified gates:
 
@@ -126,7 +126,7 @@ Remaining gates:
 
 Current blockers:
 
-- authorized real-provider and persistent endpoint evidence absent
+- sovereign/federated inference runtime has not yet been directly observed for the production path
 - provider-usage custody/reconstruction and zero-blocker activation receipt absent
 
 ### VACC / VA Claims Chat — 43% execution-gate progress
@@ -208,7 +208,7 @@ Current blockers:
 
 - live HIL receiver/readiness not verified
 - production participant cycle not completed
-- authorized provider and Master Records configuration bindings remain unavailable to the machine runtime
+- sovereign inference and Master Records runtime bindings remain unavailable to the machine runtime
 
 Active collision boundary:
 
@@ -223,7 +223,7 @@ Queued live task:
 - state: `BLOCKED`
 - owner: `Site heartbeat orchestration`
 - release condition: end of current work task sequence 0001, no tasks running
-- dependency: StegVerse-org/LLM-adapter#18 authorized provider and Master Records bindings
+- dependency: StegVerse-org/LLM-adapter#18 sovereign inference and Master Records bindings
 
 <!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->
 
@@ -232,9 +232,9 @@ Queued live task:
 
 Current dependency-aware route:
 
-1. StegVerse-Labs/StegCore#70: common runtime identity core contract is validated; complete application bindings with direct retained evidence
-2. StegVerse-Labs/Site#242: complete Ecosystem Chat live provider/persistence/custody/reconstruction activation through existing LLM-adapter#18 machine lane and bind runtime identity
-3. StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner and bind runtime identity
+1. StegVerse-Labs/StegCore#70: core identity contract and two CI application bindings are validated; complete VACC and HIL bindings plus public retained evidence for all four
+2. StegVerse-Labs/Site#241: locate and bind the canonical VACC governed runtime path without regressing the released bounded surface
+3. StegVerse-Labs/Site#242 + StegVerse-org/LLM-adapter#18: observe real sovereign Ecosystem Chat inference, usage, custody/reconstruction, and zero-blocker activation while retaining the validated identity binding
 4. Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240
 5. StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and bind runtime identity in the real participant cycle
 
