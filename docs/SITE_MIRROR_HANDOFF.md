@@ -4,6 +4,25 @@
 
 This file is the current handoff and task source of truth for `StegVerse-Labs/Site`.
 
+<!-- STEGGATE_FOUR_APP_SITE_STATUS_BEGIN -->
+## StegGate four-public-application execution status
+
+Canonical progress handoff: `docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md`
+Machine status: `data/steggate-four-app-status.json`
+Parent goal: `StegVerse-Labs/Site#239`
+
+```text
+execution_progress: 23% (7/30 verified gates)
+fully_functional_public_apps: 0/4
+goal_complete: false
+orchestration_state: COMPLETE
+archive_ready_for_four_app_goal: false
+status_timestamp: 2026-08-08T19:39:00-05:00
+```
+
+Status checks must read the dedicated four-app handoff and machine status, then current heartbeat/orchestration state, before reporting progress. Product completion is never inferred from orchestration completion.
+<!-- STEGGATE_FOUR_APP_SITE_STATUS_END -->
+
 ## Mandatory orchestration entry
 
 Every ChatGPT session or automation touching this repository must invoke the repository orchestration files before beginning new work. The incoming request is a candidate workload, not automatic execution authority.
