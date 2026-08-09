@@ -1,0 +1,30 @@
+{
+  "schema_version": "STEGVERSE-SITE-TASK-v1",
+  "task_id": "SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION",
+  "repository": "StegVerse-Labs/Site",
+  "originating_goal": "Install and maintain machine-readable progress for the four public StegGate reference applications without treating orchestration completion as product completion.",
+  "issue": 244,
+  "execution_class": "PARALLEL_SAFE",
+  "owner": "repository-native-task-worker",
+  "auto_admit": true,
+  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "implementation_locations": [
+    "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
+    "data/steggate-four-app-status.json",
+    "scripts/check_steggate_four_app_status.py"
+  ],
+  "verification_locations": [
+    "scripts/check_steggate_four_app_status.py",
+    "data/steggate-four-app-status.json",
+    "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md"
+  ],
+  "external_dependencies": [],
+  "acceptance": {
+    "validator_command": "python scripts/check_steggate_four_app_status.py",
+    "success_marker": "STEGGATE_FOUR_APP_STATUS_PASS"
+  },
+  "completion_boundary": "Completion of this task proves only that the progress/worker contract is installed and internally consistent. It does not prove any application functional and does not close Site#239.",
+  "next_action": "Machine admission and worker observation should validate this task; subsequent execution transitions must update both data/steggate-four-app-status.json and docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md.",
+  "authority_effect": false,
+  "activation_effect": false
+}
