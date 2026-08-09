@@ -6,17 +6,27 @@ on:
     paths:
       - 'data/ecosystem-heartbeat-state.json'
       - 'data/site-orchestration-state.json'
+      - 'data/session-work-claims.json'
       - 'docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md'
       - 'docs/SITE_MIRROR_HANDOFF.md'
+      - 'docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md'
       - 'scripts/check_ecosystem_heartbeat_orchestration.py'
+      - 'scripts/check_session_work_claims.py'
+      - 'scripts/site_handoff_orchestrator.py'
+      - 'tests/test_session_work_claims.py'
       - '.github/workflows/ecosystem-heartbeat-orchestration.yml'
   pull_request:
     paths:
       - 'data/ecosystem-heartbeat-state.json'
       - 'data/site-orchestration-state.json'
+      - 'data/session-work-claims.json'
       - 'docs/ECOSYSTEM_HEARTBEAT_ORCHESTRATION.md'
       - 'docs/SITE_MIRROR_HANDOFF.md'
+      - 'docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md'
       - 'scripts/check_ecosystem_heartbeat_orchestration.py'
+      - 'scripts/check_session_work_claims.py'
+      - 'scripts/site_handoff_orchestrator.py'
+      - 'tests/test_session_work_claims.py'
       - '.github/workflows/ecosystem-heartbeat-orchestration.yml'
   workflow_dispatch:
 
@@ -33,10 +43,31 @@ jobs:
           python-version: '3.12'
       - name: Validate heartbeat orchestration
         run: python scripts/check_ecosystem_heartbeat_orchestration.py
-      - name: Record repository workload reconciliation posture
+      - name: Validate exclusive pre-work claims
+        run: |
+          python scripts/check_session_work_claims.py
+          python -m unittest tests.test_session_work_claims -v
+      - name: Enforce repository workload reconciliation
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          python scripts/site_handoff_orchestrator.py || true
+          python scripts/site_handoff_orchestrator.py
           test -f site_handoff_orchestration.report.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('site_handoff_orchestration.report.json').read_text())
+          assert report['status'] == 'PASS', report
+          assert report['prework_claim_validation']['status'] == 'PASS', report
+          PY
+      - name: Upload orchestration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecosystem-heartbeat-orchestration-evidence
+          path: |
+            site_handoff_orchestration.report.json
+            session_work_claims.report.json
+            session_retirement.report.json
+          if-no-files-found: error
 
