@@ -1,0 +1,107 @@
+name: StegGate Rendezvous Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/steggate-rendezvous-worker.js'
+      - 'wrangler.steggate.jsonc'
+      - '.github/workflows/steggate-rendezvous-deploy.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: steggate-rendezvous-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Validate deployment credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+
+      - name: Build production Wrangler configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('fs');
+          const cfg = JSON.parse(fs.readFileSync('wrangler.steggate.jsonc', 'utf8'));
+          cfg.account_id = process.env.CLOUDFLARE_ACCOUNT_ID;
+          cfg.routes = [{ pattern: 'stegverse.org/api/steggate/*', zone_name: 'stegverse.org' }];
+          fs.writeFileSync('wrangler.steggate.production.json', JSON.stringify(cfg, null, 2) + '\n');
+          NODE
+
+      - name: Deploy stable rendezvous Worker
+        run: npx --yes wrangler@latest deploy --config wrangler.steggate.production.json
+
+      - name: Verify stable readiness and health routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deployment-evidence
+          READY=0
+          for attempt in $(seq 1 24); do
+            readiness_status=$(curl --silent --show-error --max-time 20 \
+              --output deployment-evidence/readiness.json \
+              --write-out '%{http_code}' \
+              https://stegverse.org/api/steggate/readiness || true)
+            health_status=$(curl --silent --show-error --max-time 20 \
+              --output deployment-evidence/health.json \
+              --write-out '%{http_code}' \
+              https://stegverse.org/api/steggate/health || true)
+            if [ "$readiness_status" = "200" ] && [ "$health_status" = "200" ]; then
+              if node - <<'NODE'
+          const fs = require('fs');
+          const readiness = JSON.parse(fs.readFileSync('deployment-evidence/readiness.json'));
+          const health = JSON.parse(fs.readFileSync('deployment-evidence/health.json'));
+          if (readiness.state !== 'READY' || health.healthy !== true || health.canonical_three_layer_bound !== true) process.exit(1);
+          NODE
+              then
+                READY=1
+                break
+              fi
+            fi
+            sleep 5
+          done
+          test "$READY" -eq 1
+
+      - name: Verify stable self-test route
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --max-time 30 \
+            https://stegverse.org/api/steggate/v1/self-test \
+            > deployment-evidence/self-test.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('deployment-evidence/self-test.json'));
+          if (data.status !== 'PASS') process.exit(1);
+          const dispositions = new Set((data.results || []).map(x => x.disposition));
+          for (const d of ['ALLOW','DENY','REVIEW','FAIL_CLOSED']) if (!dispositions.has(d)) process.exit(1);
+          NODE
+
+      - name: Preserve deployment evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: steggate-rendezvous-deployment-${{ github.run_id }}
+          path: deployment-evidence/
+          if-no-files-found: warn
+          retention-days: 90
