@@ -43,7 +43,7 @@
     },
     "application_bindings": {
       "ecosystem_chat": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
-      "vacc": "PENDING_DIRECT_EVIDENCE",
+      "vacc": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "math_solver": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
       "hil": "PENDING_DIRECT_EVIDENCE"
     },
@@ -54,6 +54,15 @@
       "artifact_digest": "sha256:611eee0419dbf82fc8ab026ae192c4cbcbe5e2953f5f068dd27c98c1caa95373",
       "public_provider_execution_proven": false
     },
+    "vacc_ci_validation": {
+      "run_id": 31339681257,
+      "job_id": 93311292315,
+      "artifact_id": 9045428133,
+      "artifact_digest": "sha256:5127b21f40554f9f6894c550ad54bb496d2bbbb0af374c927ebf0bc871309813",
+      "readiness_receipt": "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
+      "provider_execution_proven": false,
+      "public_end_to_end_proven": false
+    },
     "math_solver_ci_validation": {
       "run_id": 31338939595,
       "job_id": 93309372914,
@@ -61,7 +70,7 @@
       "artifact_digest": "sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d",
       "public_deployment_proven": false
     },
-    "applications_ci_or_stronger": 2,
+    "applications_ci_or_stronger": 3,
     "public_direct_bindings": 0,
     "required_public_direct_bindings": 4,
     "activation_effect": false
@@ -114,8 +123,19 @@
         "custody_reconstruction_pass": false,
         "public_end_to_end_observation": false
       },
+      "identity_binding_evidence": {
+        "state": "CI_BOUND_PUBLIC_EVIDENCE_PENDING",
+        "owner": "StegVerse-org/LLM-adapter#90",
+        "workflow_run": 31339681257,
+        "workflow_job": 93311292315,
+        "artifact_id": 9045428133,
+        "artifact_digest": "sha256:5127b21f40554f9f6894c550ad54bb496d2bbbb0af374c927ebf0bc871309813",
+        "readiness_receipt": "StegVerse-org/LLM-adapter/receipts/va-claim-assistant-service-connection-execution-readiness.json",
+        "provider_execution_proven": false,
+        "public_end_to_end_proven": false
+      },
       "blockers": [
-        "coordinated provider-backed VACC runtime not yet verified",
+        "real provider-backed VACC execution remains absent; current execution-readiness receipt is BLOCKED on provider_execution_evidence_missing",
         "custody/reconstruction evidence for real governed execution absent"
       ]
     },
@@ -212,11 +232,11 @@
     "goal_complete": false
   },
   "next_execution_order": [
-    "StegVerse-Labs/StegCore#70: core identity contract and two CI application bindings are validated; complete VACC and HIL bindings plus public retained evidence for all four",
-    "StegVerse-Labs/Site#241: locate and bind the canonical VACC governed runtime path without regressing the released bounded surface",
+    "StegVerse-Labs/StegCore#70: core identity contract and three CI application bindings are validated; inspect HIL claim boundaries and bind a nonconflicting HIL runtime surface if available",
+    "StegVerse-Labs/Site#241 + StegVerse-org/LLM-adapter#90: machine observer waits for a real identity-bound provider execution, then Master Records custody/reconstruction and public Site projection",
     "StegVerse-Labs/Site#242 + StegVerse-org/LLM-adapter#18: observe real sovereign Ecosystem Chat inference, usage, custody/reconstruction, and zero-blocker activation while retaining the validated identity binding",
     "Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
-    "StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and bind runtime identity in the real participant cycle"
+    "StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and complete the direct public participant cycle"
   ],
   "status_check_contract": {
     "read_this_file": true,
@@ -229,5 +249,5 @@
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-09T17:31:00-05:00"
+  "updated_at": "2026-08-09T17:35:00-05:00"
 }
