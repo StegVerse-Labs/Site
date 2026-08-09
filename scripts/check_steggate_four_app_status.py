@@ -14,6 +14,8 @@ LABELS = {
     "math_solver": "Math Solver",
     "hil": "HIL experiment",
 }
+APP_BEGIN = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->"
+APP_END = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->"
 
 
 def fail(message: str) -> int:
@@ -41,6 +43,7 @@ def main() -> int:
     total_sum = 0
     functional = 0
     expected_handoff_lines: list[str] = []
+    expected_detail_markers: list[str] = [APP_BEGIN, APP_END]
     for name in ("ecosystem_chat", "vacc", "math_solver", "hil"):
         app = apps[name]
         gates = app.get("gates")
@@ -64,6 +67,20 @@ def main() -> int:
         expected_handoff_lines.append(
             f"{LABELS[name]}: {percent}% ({completed}/{total})"
         )
+        expected_detail_markers.extend(
+            [
+                f"### {LABELS[name]} — {percent}% execution-gate progress",
+                f"Issue: `StegVerse-Labs/Site#{app.get('issue')}`.",
+                f"Surface: `{app.get('surface')}`.",
+                f"Machine state: `{app.get('state')}`.",
+            ]
+        )
+        for gate_name, gate_value in gates.items():
+            expected_detail_markers.append(
+                f"- `{gate_name}` — {'VERIFIED' if gate_value else 'NOT VERIFIED'}"
+            )
+        for blocker in app.get("blockers") or []:
+            expected_detail_markers.append(f"- {blocker}")
 
     aggregate = data.get("aggregate", {})
     aggregate_percent = round(completed_sum * 100 / total_sum)
@@ -104,6 +121,7 @@ def main() -> int:
         f"Archive ready: {str(goal_complete).lower()}",
         f"Last machine status timestamp: `{data.get('updated_at')}`",
         *expected_handoff_lines,
+        *expected_detail_markers,
     ]
     for marker in required_markers:
         if marker not in handoff:
