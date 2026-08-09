@@ -1,0 +1,35 @@
+{
+  "schema": "stegverse.steggate_rendezvous_activation.v1",
+  "goal_id": "STEGGATE-FULL-FUNCTIONAL-ACTIVATION-001/FF-STABLE-RENDEZVOUS-10",
+  "repository": "StegVerse-Labs/Site",
+  "branch": "main",
+  "canonical_owner": "StegVerse-Labs/Site#24 + .github/workflows/steggate-rendezvous-deploy.yml",
+  "originating_goal": "Provide a stable non-authorizing StegVerse endpoint over verified StegGate resident or ephemeral execution nodes.",
+  "state": "BLOCKED",
+  "claim_state": "MACHINE_OWNED",
+  "implementation_state": "COMPLETE",
+  "deployment_state": "BLOCKED_CREDENTIAL_BOUNDARY",
+  "stable_origin": "https://stegverse.org/api/steggate",
+  "required_runtime_bindings": [
+    "CLOUDFLARE_API_TOKEN",
+    "CLOUDFLARE_ACCOUNT_ID"
+  ],
+  "last_attempt": {
+    "workflow_run": 31286621905,
+    "job": 93176517796,
+    "result": "FAILURE",
+    "failed_step": "Validate deployment credentials",
+    "observed_condition": "Both required Cloudflare Actions bindings were empty before Wrangler execution."
+  },
+  "machine_observable_release_condition": "Both required Cloudflare deployment bindings become non-empty in the Site Actions runtime, or an already-authorized endpoint publication plane deploys the same contract.",
+  "next_machine_action": "Scheduled workflow retries the credential gate hourly; when satisfied it deploys, verifies readiness/health/self-test, persists evidence, and records LIVE_ACCEPTANCE_PASS.",
+  "authority": {
+    "policy_authority": false,
+    "execution_authority": false,
+    "continuity_authority": false,
+    "publication_authority": false,
+    "credential_authority": false
+  },
+  "archive_dependency_for_originating_chat": false,
+  "reason_archive_dependency_false": "All session-specific rendezvous requirements, blocker evidence, owner, retry path, release condition, and next action are durably assigned to repository-native automation."
+}
