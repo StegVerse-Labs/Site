@@ -42,26 +42,64 @@ Last machine status timestamp: `2026-08-09T17:22:00-05:00`
 
 These percentages are direct execution-gate progress only. They are not estimates of code volume and cannot be increased by scaffolding, CI-only success, or documentation alone.
 
+<!-- STEGGATE_FOUR_APP_ORCHESTRATION_BEGIN -->
 ## Orchestration progress
 
 ```text
 Four-app status contract: INSTALLED
-Status validator: INSTALLED + PASS OBSERVED
-Handoff synchronizer: INSTALLED
-Progress workflow: INSTALLED + PASS OBSERVED
-Repository task admission: OBSERVED
+Status validator: PASS_OBSERVED
+Handoff synchronizer: INSTALLED_AND_WORKFLOW_VERIFIED
+Application detail synchronization: INSTALLED_AND_WORKFLOW_VERIFIED
 Repository worker completion: OBSERVED
 Task object state: COMPLETE
 Product activation effect: NONE
 ```
 
-Observed validator output:
+Current validator target/output:
 
 ```text
-STEGGATE_FOUR_APP_STATUS_PASS completed_gates=7/30 execution_progress_percent=23 functional_apps=0/4 goal_complete=false
+STEGGATE_FOUR_APP_STATUS_PASS completed_gates=11/30 execution_progress_percent=37 functional_apps=0/4 goal_complete=false
 ```
 
-The repository worker persisted `SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION` as `COMPLETE`. That completion applies only to the progress/worker contract, not to any of the four products.
+The repository worker's orchestration completion applies only to the progress/worker contract, not to any of the four products.
+<!-- STEGGATE_FOUR_APP_ORCHESTRATION_END -->
+
+<!-- STEGGATE_FOUR_APP_INTEGRATION_BEGIN -->
+## Common runtime identity integration
+
+Issue: `StegVerse-Labs/StegCore#70`.
+State: `ACTIVE_INTEGRATION`.
+Contract version: `stegverse.steggate.runtime-identity.v1`.
+Runtime identity: `stegverse:steggate:canonical:three-layer:v1`.
+Canonical owner: `StegVerse-Labs/StegCore`.
+Canonical admissibility runtime: `stegcore.three_layer.evaluate_three_layer`.
+Transport identity authoritative: `false`.
+Core contract: `IMPLEMENTED_VALIDATED`.
+
+Application binding state:
+
+- Ecosystem Chat: `PENDING_DIRECT_EVIDENCE`
+- VACC / VA Claims Chat: `PENDING_DIRECT_EVIDENCE`
+- Math Solver: `CI_BOUND_PUBLIC_EVIDENCE_PENDING`
+- HIL experiment: `PENDING_DIRECT_EVIDENCE`
+
+Public direct bindings: 0 / 4.
+
+Core identity validation:
+
+- run/job: `31338809707` / `93308982069`
+- artifact: `9045154237`
+- digest: `sha256:e59d08fc0de1a4c4fdf893c5db1d857e20fe7e3fa77dc3cde44c1e6f4b2f6ab2`
+
+Math Solver identity-binding validation:
+
+- run/job: `31338939595` / `93309372914`
+- artifact: `9045196248`
+- digest: `sha256:5389162e3bef48594802aead69d309d5726bf0e046121129696179c60bce293d`
+- public deployment proven: `false`
+
+This integration state has no product-activation effect until direct public application evidence satisfies the corresponding execution gates.
+<!-- STEGGATE_FOUR_APP_INTEGRATION_END -->
 
 <!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->
 ## Application state
