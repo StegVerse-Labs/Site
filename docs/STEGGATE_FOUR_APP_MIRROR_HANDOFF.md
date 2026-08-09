@@ -68,7 +68,7 @@ Observed validator output:
 STEGGATE_FOUR_APP_STATUS_PASS completed_gates=7/30 execution_progress_percent=23 functional_apps=0/4 goal_complete=false
 ```
 
-The repository worker has now persisted `SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION` as `COMPLETE`. That completion applies only to the progress/worker contract, not to any of the four products.
+The repository worker has persisted `SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION` as `COMPLETE`. That completion applies only to the progress/worker contract, not to any of the four products.
 
 ## Application state
 
