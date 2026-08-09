@@ -1,71 +1,69 @@
 {
-  "schema": "stegverse.steggate_rendezvous_activation.v3",
-  "goal_id": "STEGGATE-STABLE-RENDEZVOUS-HARDENING",
+  "schema": "stegverse.steggate_rendezvous_activation.v4",
+  "goal_id": "STEGGATE-TUNNEL-NATIVE-RENDEZVOUS",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "canonical_owner": "StegVerse-Labs/Site#24 + .github/workflows/steggate-rendezvous-deploy.yml",
-  "originating_goal": "Provide a stable non-authorizing StegVerse endpoint over verified StegGate resident or ephemeral execution nodes after functional StegGate activation.",
-  "state": "BLOCKED_CREDENTIAL_VALUES_ABSENT",
+  "canonical_owner": "StegVerse-Labs/Site#24 + StegVerse-Labs/StegCore heartbeat tunnel runtime",
+  "originating_goal": "Provide a non-authorizing discovery/routing plane over verified heartbeat-owned StegGate micro-nodes without making a persistent third-party host an activation prerequisite.",
+  "state": "TUNNEL_NATIVE_ADOPTED",
   "claim_state": "MACHINE_OWNED",
   "implementation_state": "COMPLETE",
-  "deployment_state": "FAIL_CLOSED_CREDENTIAL_ABSENT",
+  "live_lease_state": "AWAIT_CURRENT_HEARTBEAT_TUNNEL",
   "functional_steggate_dependency": false,
-  "stable_origin": "https://stegverse.org/api/steggate",
+  "persistent_host_required": false,
+  "render_required": false,
+  "cloudflare_worker_required": false,
+  "stable_domain_route_required": false,
+  "canonical_tunnel": {
+    "runtime_workflow": "StegVerse-Labs/StegCore/.github/workflows/steggate-heartbeat-worker-reusable.yml",
+    "fallback_registry_workflow": "StegVerse-Labs/StegCore/.github/workflows/steggate-fallback-public-runtime.yml",
+    "registry_comment_id": 5228464425,
+    "registry_url": "https://api.github.com/repos/StegVerse-Labs/StegCore/issues/comments/5228464425",
+    "consumer": "src/steggate-rendezvous-worker.js",
+    "health_requirement": {
+      "healthy": true,
+      "canonical_three_layer_bound": true
+    },
+    "acceptance_contract": [
+      "/health",
+      "/v1/self-test exact ALLOW/DENY/REVIEW/FAIL_CLOSED",
+      "/v1/evaluate deterministic complete-matrix"
+    ],
+    "authority_effect": false
+  },
+  "strongest_completed_tunnel_evidence": {
+    "workflow_run": 31305399735,
+    "public_tunnel_step": "PASS",
+    "acceptance_step": "PASS",
+    "registry_update_step": "PASS",
+    "observed_at": "2026-08-09T09:14:06.578269Z",
+    "registry_state": "LIVE_ACCEPTANCE_PASS_AT_OBSERVATION",
+    "note": "The recorded quick-tunnel origin is lease-bound and must be re-resolved/reverified for current use; historical PASS does not assert present liveness."
+  },
   "scheduler": {
     "authority": "single_stegverse_heartbeat",
-    "event": "repository_dispatch:stegverse-heartbeat",
     "wall_clock_scheduler_authority": false,
+    "canonical_carrier": "StegVerse-Labs/.github/.github/workflows/steggate-heartbeat-integration.yml",
+    "micro_node_carrier": "reusable workflow_call",
     "manual_dispatch": "diagnostic_only"
   },
-  "tvc_authority": {
-    "source_contract": "data/tvc-infrastructure-credential-consumer-authority.v1.json",
-    "source_contract_commit": "ea6bc05c19001ab9731bc19fb59ff34eebf63e45",
-    "validated_policy_commit": "9105cae48db28780c7fdfd9de7db317bb4595112",
-    "validation_run": 31305690694,
-    "validation_job": 93225596181,
-    "validation_artifact": 9035862288,
-    "validation_artifact_digest": "sha256:a6ff49884bd4199f7b6f4ff8999d860d4517b547a4fd495118ccc59c00070562",
-    "reference_read_admissible": true,
-    "credentials_recorded": false
-  },
-  "cloudflare_credential_profile": {
-    "path": "data/cloudflare-steggate-credential-profile.json",
-    "preferred_method": "account_api_token",
-    "required_bindings": [
-      "CLOUDFLARE_API_TOKEN",
-      "CLOUDFLARE_ACCOUNT_ID"
-    ],
-    "required_capabilities": [
-      "Workers Scripts Write",
-      "Workers Routes Write"
-    ],
-    "legacy_global_api_key_required": false,
-    "legacy_email_required": false,
-    "raw_credentials_may_be_persisted": false,
-    "runtime_capability_probe": "GET /client/v4/accounts/{account_id}/workers/scripts"
-  },
-  "last_attempt": {
-    "workflow_run": 31316924782,
-    "job": 93253575487,
-    "source_commit": "f3afd66d3324ec4c1491c3da6ab7cd2c890a7b8d",
-    "result": "FAIL_CLOSED_CREDENTIAL_ABSENT",
-    "tvc_authority_import": "PASS",
-    "credential_profile_validation": "PASS",
+  "optional_stable_domain_hardening": {
+    "origin": "https://stegverse.org/api/steggate",
+    "state": "OPTIONAL_NOT_ACTIVATION_BLOCKER",
+    "worker": "src/steggate-rendezvous-worker.js",
     "credential_values_present": false,
-    "credential_capability_probe": "SKIPPED_VALUE_ABSENT",
-    "deployment_steps": "SKIPPED",
-    "artifact": 9039012210,
-    "artifact_digest": "sha256:3976a14ec571e01ad745da66d9579f7adae0ba1d0c3527bdef42e0295b012055"
+    "credential_blocker_effect": "NONE_ON_FUNCTIONAL_OR_TUNNEL_NATIVE_ACTIVATION",
+    "note": "A provider-specific stable-domain publication lane may be retained as availability/discovery hardening, but absence of its credentials must not block the canonical tunnel-native path."
   },
-  "machine_observable_release_condition": "Both CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID exist in the Site execution environment while the pinned TVC authority contract and bounded Cloudflare credential profile remain valid for the exact Site/workflow/branch binding.",
-  "next_machine_action": "On the next admitted StegVerse heartbeat after the release condition is true, validate the token/account capability without persisting secret values, deploy the Worker, verify readiness/health/four-disposition self-test, persist LIVE_ACCEPTANCE_PASS, and retain no-secret evidence.",
+  "machine_observable_release_condition": "A current heartbeat-owned StegGate tunnel is published or otherwise discoverable and independently passes canonical health plus the full StegGate acceptance contract.",
+  "next_machine_action": "Resolve the current heartbeat tunnel; if live, verify health/self-test/evaluate and record the current lease evidence. If no current tunnel is discoverable, use the canonical heartbeat worker path rather than waiting for Render or provider-specific stable-host credentials.",
   "authority": {
     "policy_authority": false,
     "steggate_execution_authority": false,
     "continuity_authority": false,
     "credential_value_authority": false,
-    "bounded_rendezvous_deployment_authority_after_release_condition": true
+    "routing_authority": false
   },
-  "archive_dependency_for_originating_chat": true,
-  "reason_archive_dependency_true": "The user-directed cross-repository activation session remains active while stable-rendezvous hardening is explicitly being pursued; the blocker is durable but the adjacent goal is not activated."
+  "archive_dependency_for_originating_chat": false,
+  "reason_archive_dependency_false": "The architecture no longer depends on absent persistent-host credentials; the canonical tunnel path and its current-liveness release condition are durable and machine-observable."
 }
