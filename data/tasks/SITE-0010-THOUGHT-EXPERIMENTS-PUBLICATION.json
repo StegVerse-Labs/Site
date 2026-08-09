@@ -13,12 +13,25 @@
     "location": "scripts/admit_repository_tasks.py"
   },
   "issue": 238,
-  "branch": "goal/thought-experiments-publication",
+  "branch": "main",
   "collision_boundaries": [
     "Do not modify humans-as-interoperability-layer.html or assets/hil-*",
     "Do not infer activation, proof, validation, or authority from public display",
-    "Do not merge or activate until repository orchestration admits this workload"
+    "Do not claim completion until public HTML and PDF routes are verified"
   ],
+  "implementation_locations": [
+    "Thought-Experiments.html",
+    "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
+    "thought-experiments/continuity-as-reconstructable-manifold-transition.pdf",
+    "index.html"
+  ],
+  "verification_locations": [
+    "scripts/check_thought_experiments_publication.py",
+    ".github/workflows/verify-thought-experiments-publication.yml",
+    "thought-experiments-publication.report.json"
+  ],
+  "validator_command": "python scripts/check_thought_experiments_publication.py",
+  "success_marker": "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
   "required_outputs": [
     "Thought-Experiments.html",
     "thought-experiments/continuity-as-reconstructable-manifold-transition.html",
@@ -67,13 +80,14 @@
     "HTTPS 200 verification for category, HTML article, and PDF artifact",
     "link verification from category to article and PDF"
   ],
-  "blocked_by": "Repository orchestration admission and binary PDF installation/publication verification.",
-  "release_condition": "Task is admitted by the repository orchestrator, required outputs are merged, canonical validation passes, and all three public HTTPS routes are observed successfully.",
+  "blocked_by": "Required implementation files and public-route verification are not yet complete.",
+  "release_condition": "Required outputs are merged, canonical validation passes, the publication verifier passes, and all three public HTTPS routes are observed successfully.",
   "evidence_locations": [
     "https://github.com/StegVerse-Labs/Site/issues/238",
-    "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json"
+    "data/tasks/SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION.json",
+    "thought-experiments-publication.report.json"
   ],
-  "next_executable_action": "Repository-native admission should claim the task; then implement the category/index/article/PDF outputs, run canonical validation, merge only after passing checks, and verify the public HTTPS routes.",
+  "next_executable_action": "Create the category page, article, PDF, navigation entry, validator and verification workflow; then run canonical validation and verify the public HTTPS routes.",
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
