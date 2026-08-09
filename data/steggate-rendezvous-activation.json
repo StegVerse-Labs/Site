@@ -1,35 +1,56 @@
 {
-  "schema": "stegverse.steggate_rendezvous_activation.v1",
-  "goal_id": "STEGGATE-FULL-FUNCTIONAL-ACTIVATION-001/FF-STABLE-RENDEZVOUS-10",
+  "schema": "stegverse.steggate_rendezvous_activation.v2",
+  "goal_id": "STEGGATE-STABLE-RENDEZVOUS-HARDENING",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
   "canonical_owner": "StegVerse-Labs/Site#24 + .github/workflows/steggate-rendezvous-deploy.yml",
-  "originating_goal": "Provide a stable non-authorizing StegVerse endpoint over verified StegGate resident or ephemeral execution nodes.",
-  "state": "BLOCKED",
+  "originating_goal": "Provide a stable non-authorizing StegVerse endpoint over verified StegGate resident or ephemeral execution nodes after functional StegGate activation.",
+  "state": "BLOCKED_CREDENTIAL_VALUES_ABSENT",
   "claim_state": "MACHINE_OWNED",
   "implementation_state": "COMPLETE",
-  "deployment_state": "BLOCKED_CREDENTIAL_BOUNDARY",
+  "deployment_state": "FAIL_CLOSED_CREDENTIAL_ABSENT",
+  "functional_steggate_dependency": false,
   "stable_origin": "https://stegverse.org/api/steggate",
+  "scheduler": {
+    "authority": "single_stegverse_heartbeat",
+    "event": "repository_dispatch:stegverse-heartbeat",
+    "wall_clock_scheduler_authority": false,
+    "manual_dispatch": "diagnostic_only"
+  },
+  "tvc_authority": {
+    "source_contract": "data/tvc-infrastructure-credential-consumer-authority.v1.json",
+    "source_contract_commit": "ea6bc05c19001ab9731bc19fb59ff34eebf63e45",
+    "validated_policy_commit": "9105cae48db28780c7fdfd9de7db317bb4595112",
+    "validation_run": 31305690694,
+    "validation_job": 93225596181,
+    "validation_artifact": 9035862288,
+    "validation_artifact_digest": "sha256:a6ff49884bd4199f7b6f4ff8999d860d4517b547a4fd495118ccc59c00070562",
+    "reference_read_admissible": true,
+    "credentials_recorded": false
+  },
   "required_runtime_bindings": [
     "CLOUDFLARE_API_TOKEN",
     "CLOUDFLARE_ACCOUNT_ID"
   ],
   "last_attempt": {
-    "workflow_run": 31286621905,
-    "job": 93176517796,
-    "result": "FAILURE",
-    "failed_step": "Validate deployment credentials",
-    "observed_condition": "Both required Cloudflare Actions bindings were empty before Wrangler execution."
+    "workflow_run": 31305845192,
+    "job": 93225990737,
+    "result": "FAIL_CLOSED_CREDENTIAL_ABSENT",
+    "tvc_authority_import": "PASS",
+    "credential_values_present": false,
+    "deployment_steps": "SKIPPED",
+    "artifact": 9035908600,
+    "artifact_digest": "sha256:fe1be4cbdb0cd0a87542fe1ee40b2a1dad561c9355b5647cbfdd187c331c2af8"
   },
-  "machine_observable_release_condition": "Both required Cloudflare deployment bindings become non-empty in the Site Actions runtime, or an already-authorized endpoint publication plane deploys the same contract.",
-  "next_machine_action": "Scheduled workflow retries the credential gate hourly; when satisfied it deploys, verifies readiness/health/self-test, persists evidence, and records LIVE_ACCEPTANCE_PASS.",
+  "machine_observable_release_condition": "Both CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID exist in the Site execution environment while the pinned TVC authority contract remains valid for the exact Site/workflow/branch binding.",
+  "next_machine_action": "On the next admitted StegVerse heartbeat after the release condition is true, deploy the Worker, verify readiness/health/four-disposition self-test, persist LIVE_ACCEPTANCE_PASS, and retain no-secret evidence.",
   "authority": {
     "policy_authority": false,
-    "execution_authority": false,
+    "steggate_execution_authority": false,
     "continuity_authority": false,
-    "publication_authority": false,
-    "credential_authority": false
+    "credential_value_authority": false,
+    "bounded_rendezvous_deployment_authority_after_release_condition": true
   },
-  "archive_dependency_for_originating_chat": false,
-  "reason_archive_dependency_false": "All session-specific rendezvous requirements, blocker evidence, owner, retry path, release condition, and next action are durably assigned to repository-native automation."
+  "archive_dependency_for_originating_chat": true,
+  "reason_archive_dependency_true": "The user-directed cross-repository activation session remains active while stable-rendezvous hardening is explicitly being pursued; the blocker is durable but the adjacent goal is not activated."
 }
