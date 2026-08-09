@@ -14,8 +14,14 @@ LABELS = {
     "math_solver": "Math Solver",
     "hil": "HIL experiment",
 }
+ORCH_BEGIN = "<!-- STEGGATE_FOUR_APP_ORCHESTRATION_BEGIN -->"
+ORCH_END = "<!-- STEGGATE_FOUR_APP_ORCHESTRATION_END -->"
+INTEGRATION_BEGIN = "<!-- STEGGATE_FOUR_APP_INTEGRATION_BEGIN -->"
+INTEGRATION_END = "<!-- STEGGATE_FOUR_APP_INTEGRATION_END -->"
 APP_BEGIN = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_BEGIN -->"
 APP_END = "<!-- STEGGATE_FOUR_APP_APPLICATION_STATE_END -->"
+ORDER_BEGIN = "<!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_BEGIN -->"
+ORDER_END = "<!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_END -->"
 
 
 def fail(message: str) -> int:
@@ -64,21 +70,15 @@ def main() -> int:
             functional += 1
         completed_sum += completed
         total_sum += total
-        expected_handoff_lines.append(
-            f"{LABELS[name]}: {percent}% ({completed}/{total})"
-        )
-        expected_detail_markers.extend(
-            [
-                f"### {LABELS[name]} — {percent}% execution-gate progress",
-                f"Issue: `StegVerse-Labs/Site#{app.get('issue')}`.",
-                f"Surface: `{app.get('surface')}`.",
-                f"Machine state: `{app.get('state')}`.",
-            ]
-        )
+        expected_handoff_lines.append(f"{LABELS[name]}: {percent}% ({completed}/{total})")
+        expected_detail_markers.extend([
+            f"### {LABELS[name]} — {percent}% execution-gate progress",
+            f"Issue: `StegVerse-Labs/Site#{app.get('issue')}`.",
+            f"Surface: `{app.get('surface')}`.",
+            f"Machine state: `{app.get('state')}`.",
+        ])
         for gate_name, gate_value in gates.items():
-            expected_detail_markers.append(
-                f"- `{gate_name}` — {'VERIFIED' if gate_value else 'NOT VERIFIED'}"
-            )
+            expected_detail_markers.append(f"- `{gate_name}` — {'VERIFIED' if gate_value else 'NOT VERIFIED'}")
         for blocker in app.get("blockers") or []:
             expected_detail_markers.append(f"- {blocker}")
 
@@ -108,21 +108,54 @@ def main() -> int:
     if orchestration.get("product_activation_effect") is not False:
         return fail("orchestration must not claim product activation effect")
 
+    binding = data.get("common_runtime_binding")
+    if not isinstance(binding, dict):
+        return fail("missing common_runtime_binding")
+    if binding.get("contract_version") != "stegverse.steggate.runtime-identity.v1":
+        return fail("unexpected common runtime contract version")
+    if binding.get("runtime_identity") != "stegverse:steggate:canonical:three-layer:v1":
+        return fail("unexpected canonical runtime identity")
+    if binding.get("canonical_owner") != "StegVerse-Labs/StegCore":
+        return fail("unexpected canonical runtime owner")
+    if binding.get("transport_identity_authoritative") is not False:
+        return fail("transport identity must not be authoritative")
+    if binding.get("activation_effect") is not False:
+        return fail("common runtime integration cannot claim product activation effect")
+    app_bindings = binding.get("application_bindings")
+    if not isinstance(app_bindings, dict) or set(app_bindings) != APPS:
+        return fail("common runtime application binding set mismatch")
+
     handoff = HANDOFF.read_text(encoding="utf-8")
     required_markers = [
         "Current execution progress",
         "Orchestration progress",
+        "Common runtime identity integration",
         "Status-check contract",
         "Release / archive posture",
+        ORCH_BEGIN,
+        ORCH_END,
+        INTEGRATION_BEGIN,
+        INTEGRATION_END,
+        APP_BEGIN,
+        APP_END,
+        ORDER_BEGIN,
+        ORDER_END,
         f"Verified execution gates: {completed_sum} / {total_sum}",
         f"Aggregate execution progress: {aggregate_percent}%",
         f"Fully functional public applications: {functional} / 4",
         f"Goal complete: {str(goal_complete).lower()}",
         f"Archive ready: {str(goal_complete).lower()}",
         f"Last machine status timestamp: `{data.get('updated_at')}`",
+        f"Runtime identity: `{binding.get('runtime_identity')}`.",
+        f"Contract version: `{binding.get('contract_version')}`.",
+        f"Public direct bindings: {binding.get('public_direct_bindings')} / {binding.get('required_public_direct_bindings')}.",
         *expected_handoff_lines,
         *expected_detail_markers,
     ]
+    for key in ("ecosystem_chat", "vacc", "math_solver", "hil"):
+        required_markers.append(f"- {LABELS[key]}: `{app_bindings.get(key)}`")
+    for task in data.get("next_execution_order") or []:
+        required_markers.append(task)
     for marker in required_markers:
         if marker not in handoff:
             return fail(f"handoff missing or stale marker: {marker}")
