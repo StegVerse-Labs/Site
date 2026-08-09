@@ -16,18 +16,27 @@
     "task_state_persistence": "REPAIRED",
     "product_activation_effect": false
   },
+  "canonical_steggate_activation": {
+    "state": "COMPLETE",
+    "issue": "StegVerse-Labs/StegCore#68",
+    "receipt": "StegVerse-Labs/StegCore/data/steggate-live-activation-receipt.json",
+    "deployment_source": "heartbeat_ephemeral_micronode",
+    "observed_at": "2026-08-09T09:14:06.578269Z",
+    "render_dependency": false,
+    "handoff": "StegVerse-Labs/StegCore/STEGCORE_MIRROR_HANDOFF.md"
+  },
   "applications": {
     "ecosystem_chat": {
       "issue": 242,
       "surface": "ecosystem-chat.html",
       "state": "ACTIVATION_PENDING_LIVE_PROVIDER_AND_PERSISTENT_ENDPOINT",
-      "completed_gates": 2,
+      "completed_gates": 3,
       "total_gates": 8,
-      "progress_percent": 25,
+      "progress_percent": 38,
       "gates": {
         "public_surface_present": true,
         "canonical_event_projection_present": true,
-        "canonical_steggate_live": false,
+        "canonical_steggate_live": true,
         "real_provider_execution": false,
         "provider_usage_persistence": false,
         "custody_reconstruction_pass": false,
@@ -35,7 +44,6 @@
         "public_end_to_end_observation": false
       },
       "blockers": [
-        "StegCore#68 hosted StegGate activation incomplete",
         "authorized real-provider and persistent endpoint evidence absent",
         "provider-usage custody/reconstruction and zero-blocker activation receipt absent"
       ]
@@ -44,20 +52,19 @@
       "issue": 241,
       "surface": "va-claims-chat.html",
       "state": "RELEASED_BOUNDED_SURFACE_GOVERNED_LLM_PENDING",
-      "completed_gates": 2,
+      "completed_gates": 3,
       "total_gates": 7,
-      "progress_percent": 29,
+      "progress_percent": 43,
       "gates": {
         "public_surface_released": true,
         "source_grounded_bounded_capability_verified": true,
-        "canonical_steggate_live": false,
+        "canonical_steggate_live": true,
         "real_provider_backed_vacc_execution": false,
         "va_route_source_constraints_runtime_verified": false,
         "custody_reconstruction_pass": false,
         "public_end_to_end_observation": false
       },
       "blockers": [
-        "StegCore#68 hosted StegGate activation incomplete",
         "coordinated provider-backed VACC runtime not yet verified",
         "custody/reconstruction evidence for real governed execution absent"
       ]
@@ -66,13 +73,13 @@
       "issue": 240,
       "surface": "math-solver/index.html",
       "state": "PUBLIC_CLIENT_IMPLEMENTED_BACKEND_CI_VALIDATED_HOST_DEPLOYMENT_BLOCKED",
-      "completed_gates": 1,
+      "completed_gates": 2,
       "total_gates": 7,
-      "progress_percent": 14,
+      "progress_percent": 29,
       "gates": {
         "public_surface_present": true,
         "real_request_intake": false,
-        "canonical_steggate_live": false,
+        "canonical_steggate_live": true,
         "steggate_pre_execution_decision": false,
         "solver_execution_after_allow": false,
         "result_receipt_binding": false,
@@ -99,24 +106,22 @@
         "activation_effect": false
       },
       "blockers": [
-        "Render workspace build-pipeline minutes exhausted before hosted source build",
-        "latest hourly observer still receives HTTP 404 at public readiness route",
-        "public Site solve/replay cycle not yet observed",
-        "StegCore#68 resident hosted activation remains incomplete; portable canonical runtime is CI-validated but does not satisfy that separate resident-host gate"
+        "Math Solver public readiness/solve route remains unavailable at its current hosted gateway",
+        "public Site solve/replay cycle not yet observed"
       ]
     },
     "hil": {
       "issue": 243,
       "surface": "humans-as-interoperability-layer.html",
       "state": "PUBLIC_EXPERIMENT_RUNTIME_ACTIVATION_BLOCKED",
-      "completed_gates": 2,
+      "completed_gates": 3,
       "total_gates": 8,
-      "progress_percent": 25,
+      "progress_percent": 38,
       "gates": {
         "public_participant_surface_present": true,
         "browser_client_contract_present": true,
         "live_receiver_ready": false,
-        "canonical_steggate_live": false,
+        "canonical_steggate_live": true,
         "real_public_participant_cycle": false,
         "durable_receipt_custody": false,
         "reconstruction_pass": false,
@@ -143,25 +148,23 @@
       "blockers": [
         "live HIL receiver/readiness not verified",
         "production participant cycle not completed",
-        "StegCore#68 hosted StegGate activation incomplete",
         "authorized provider and Master Records configuration bindings remain unavailable to the machine runtime"
       ]
     }
   },
   "aggregate": {
-    "completed_gates": 7,
+    "completed_gates": 11,
     "total_gates": 30,
-    "execution_progress_percent": 23,
+    "execution_progress_percent": 37,
     "fully_functional_public_apps": 0,
     "required_fully_functional_public_apps": 4,
     "goal_complete": false
   },
   "next_execution_order": [
-    "Observe/activate StegCore#68 canonical resident host through its machine-owned rendezvous/observer lanes",
-    "Observe the LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
-    "StegVerse-Labs/StegCore#70: expose/consume common runtime identity binding across reference apps after #68 resident activation",
-    "StegVerse-Labs/Site#242: complete Ecosystem Chat live activation through existing LLM-adapter#18 machine lane",
+    "StegVerse-Labs/StegCore#70: expose/consume common runtime identity binding across reference apps now that #68 is activated",
+    "StegVerse-Labs/Site#242: complete Ecosystem Chat live provider/persistence/custody/reconstruction activation through existing LLM-adapter#18 machine lane",
     "StegVerse-Labs/Site#241: complete VACC governed LLM execution through its existing owner",
+    "Observe the LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240",
     "StegVerse-Labs/Site#243: complete HIL upload claim without collision, then admit SITE-0002-HIL-LIVE when heartbeat release conditions pass"
   ],
   "status_check_contract": {
@@ -173,5 +176,5 @@
     "never_infer_100_from_scaffolding": true,
     "archive_ready_only_when_goal_complete": true
   },
-  "updated_at": "2026-08-09T00:36:00-05:00"
+  "updated_at": "2026-08-09T15:47:00-05:00"
 }
