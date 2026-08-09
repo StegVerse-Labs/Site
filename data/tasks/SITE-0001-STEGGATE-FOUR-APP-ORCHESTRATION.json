@@ -7,7 +7,7 @@
   "execution_class": "PARALLEL_SAFE",
   "owner": "repository-native-task-worker",
   "auto_admit": true,
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "implementation_locations": [
     "docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md",
     "data/steggate-four-app-status.json",
@@ -30,5 +30,12 @@
   "completion_boundary": "Completion of this task proves only that status, handoff synchronization, validator, workflow, and worker contract are installed and internally consistent. It does not prove any application functional and does not close Site#239.",
   "next_action": "Machine admission and worker observation validate this orchestration task and now persist completed task-object state. Every later material execution transition updates data/steggate-four-app-status.json; steggate-four-app-progress.yml synchronizes the progress block into docs/STEGGATE_FOUR_APP_MIRROR_HANDOFF.md and validates equality.",
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_steggate_four_app_status.py",
+    "success_marker": "STEGGATE_FOUR_APP_STATUS_PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

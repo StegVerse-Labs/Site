@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "goal": "Observe and validate the threshold between synchronized transition activity and recursively sustained coherent continuity.",
   "originating_session_goal": "Determine whether StegVerse contains the coherent-transition threshold layer, build it if absent, activate it when evidenced, and prevent unresolved status from halting development.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "claim_state": "MACHINE_OWNED",
   "owner": {
     "type": "repository_controller",
@@ -48,5 +48,12 @@
   },
   "external_dependencies": [],
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_coherent_transition_threshold.py",
+    "success_marker": "COHERENT_TRANSITION_THRESHOLD=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

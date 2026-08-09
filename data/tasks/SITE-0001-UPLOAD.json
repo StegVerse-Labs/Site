@@ -3,7 +3,7 @@
   "task_id": "SITE-0001-UPLOAD",
   "repository": "StegVerse-Labs/Site",
   "goal": "Provide and continuously verify the governed HIL v1.1 canonical paper and direct upload surface.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "owner": {
     "type": "repository_controller",
     "location": "scripts/observe_and_complete_repository_tasks.py"
@@ -32,5 +32,12 @@
   },
   "external_dependencies": [],
   "authority_effect": false,
-  "activation_effect": false
+  "activation_effect": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_hil_v1_1_release.py",
+    "success_marker": "HIL_V1_1_RELEASE_VERIFICATION=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

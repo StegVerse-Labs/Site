@@ -3,7 +3,7 @@
   "task_id": "SITE-0007-CHILD-MODE-DATA-AUTHORITY",
   "repository": "StegVerse-Labs/Site",
   "goal": "Protect device and account data from optional harvesting in Child Mode unless a legally authorized, purpose-scoped consent path exists.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": true,
   "owner": {
     "type": "repository_native_validator",
@@ -31,5 +31,12 @@
   ],
   "external_dependencies": [],
   "authority_effect": false,
-  "activation_effect": "PUBLIC_DATA_AUTHORITY_BOUNDARY_ONLY"
+  "activation_effect": "PUBLIC_DATA_AUTHORITY_BOUNDARY_ONLY",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_child_mode_data_authority.py",
+    "success_marker": "CHILD_MODE_DATA_AUTHORITY=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

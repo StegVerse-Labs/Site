@@ -3,7 +3,7 @@
   "task_id": "SITE-0001-PERSONAL-DATA-CONTROL",
   "repository": "StegVerse-Labs/Site",
   "goal": "Activate a public, observable personal-data access, restriction, deletion, processor-propagation, appeal, and completion-receipt contract for account-bearing Site services.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": true,
   "owner": {
     "type": "repository_controller",
@@ -30,5 +30,12 @@
   },
   "external_dependencies": [],
   "authority_effect": false,
-  "activation_effect": "PUBLIC_RUNTIME_CONTRACT_ONLY"
+  "activation_effect": "PUBLIC_RUNTIME_CONTRACT_ONLY",
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_personal_data_control_runtime.py",
+    "success_marker": "PERSONAL_DATA_CONTROL_RUNTIME=PASS",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }

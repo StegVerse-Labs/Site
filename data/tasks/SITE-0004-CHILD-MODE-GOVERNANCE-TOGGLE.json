@@ -3,7 +3,7 @@
   "task_id": "SITE-0004-CHILD-MODE-GOVERNANCE-TOGGLE",
   "repository": "StegVerse-Labs/Site",
   "goal": "Expose an obvious Normal Mode / Child Mode control while binding Child Mode to a non-cosmetic, jurisdiction-aware capability-governance contract.",
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "COMPLETE",
   "auto_admit": false,
   "owner": {
     "type": "repository_native_validator",
@@ -32,5 +32,12 @@
   ],
   "authority_effect": false,
   "activation_effect": "PUBLIC_DEMO_UI_AND_POLICY_CONTRACT_ONLY",
-  "legal_certification": false
+  "legal_certification": false,
+  "completion_observation": {
+    "controller": "scripts/observe_and_complete_repository_tasks.py",
+    "validator_command": "python scripts/check_child_safety_demo.py",
+    "success_marker": "MODE_TOGGLE=NORMAL_MODE_CHILD_MODE",
+    "success_marker_seen": true,
+    "external_dependencies": []
+  }
 }
