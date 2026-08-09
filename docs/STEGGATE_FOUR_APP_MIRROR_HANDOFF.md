@@ -37,7 +37,7 @@ Math Solver: 29% (2/7)
 HIL experiment: 38% (3/8)
 ```
 
-Last machine status timestamp: `2026-08-09T17:31:00-05:00`
+Last machine status timestamp: `2026-08-09T17:35:00-05:00`
 <!-- STEGGATE_FOUR_APP_PROGRESS_END -->
 
 These percentages are direct execution-gate progress only. They are not estimates of code volume and cannot be increased by scaffolding, CI-only success, or documentation alone.
@@ -79,7 +79,7 @@ Core contract: `IMPLEMENTED_VALIDATED`.
 Application binding state:
 
 - Ecosystem Chat: `CI_BOUND_PUBLIC_EVIDENCE_PENDING`
-- VACC / VA Claims Chat: `PENDING_DIRECT_EVIDENCE`
+- VACC / VA Claims Chat: `CI_BOUND_PUBLIC_EVIDENCE_PENDING`
 - Math Solver: `CI_BOUND_PUBLIC_EVIDENCE_PENDING`
 - HIL experiment: `PENDING_DIRECT_EVIDENCE`
 
@@ -150,7 +150,7 @@ Remaining gates:
 
 Current blockers:
 
-- coordinated provider-backed VACC runtime not yet verified
+- real provider-backed VACC execution remains absent; current execution-readiness receipt is BLOCKED on provider_execution_evidence_missing
 - custody/reconstruction evidence for real governed execution absent
 
 ### Math Solver — 29% execution-gate progress
@@ -232,11 +232,11 @@ Queued live task:
 
 Current dependency-aware route:
 
-1. StegVerse-Labs/StegCore#70: core identity contract and two CI application bindings are validated; complete VACC and HIL bindings plus public retained evidence for all four
-2. StegVerse-Labs/Site#241: locate and bind the canonical VACC governed runtime path without regressing the released bounded surface
+1. StegVerse-Labs/StegCore#70: core identity contract and three CI application bindings are validated; inspect HIL claim boundaries and bind a nonconflicting HIL runtime surface if available
+2. StegVerse-Labs/Site#241 + StegVerse-org/LLM-adapter#90: machine observer waits for a real identity-bound provider execution, then Master Records custody/reconstruction and public Site projection
 3. StegVerse-Labs/Site#242 + StegVerse-org/LLM-adapter#18: observe real sovereign Ecosystem Chat inference, usage, custody/reconstruction, and zero-blocker activation while retaining the validated identity binding
 4. Observe the identity-bound LLM-adapter Math Solver hosted route automatically; on COMPLETE, Site activation consumer verifies and advances Site#240
-5. StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and bind runtime identity in the real participant cycle
+5. StegVerse-Labs/Site#243: preserve HIL upload claim; after its release, admit SITE-0002-HIL-LIVE and complete the direct public participant cycle
 
 Nonconflicting application work may run in parallel. No application may manufacture a substitute StegGate authority.
 <!-- STEGGATE_FOUR_APP_EXECUTION_ORDER_END -->
