@@ -1,9 +1,9 @@
 {
   "schema_version": "stegverse.site.math_solver_activation.v1",
   "state": "BLOCKED",
-  "observed_at": "2026-08-10T21:25:46.897686+00:00",
+  "observed_at": "2026-08-10T22:19:49.247537+00:00",
   "source_receipt_state": "BLOCKED",
-  "source_receipt_observed_at": "2026-08-10T21:24:30.516074+00:00",
+  "source_receipt_observed_at": "2026-08-10T22:18:13.046706+00:00",
   "blocker": {
     "type": "PUBLIC_RUNTIME_UNAVAILABLE",
     "reason": "TimeoutError: The read operation timed out"
