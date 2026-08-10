@@ -1,12 +1,12 @@
 {
   "schema_version": "stegverse.site.math_solver_activation.v1",
   "state": "BLOCKED",
-  "observed_at": "2026-08-10T17:36:26.810077+00:00",
+  "observed_at": "2026-08-10T18:33:45.367733+00:00",
   "source_receipt_state": "BLOCKED",
-  "source_receipt_observed_at": "2026-08-10T17:33:14.674052+00:00",
+  "source_receipt_observed_at": "2026-08-10T18:30:39.968410+00:00",
   "blocker": {
     "type": "PUBLIC_RUNTIME_UNAVAILABLE",
-    "reason": "HTTPError: HTTP Error 503: Service Unavailable"
+    "reason": "TimeoutError: The read operation timed out"
   },
   "next_executable_action": "Retry automatically after the LLM-adapter public-runtime receipt becomes COMPLETE.",
   "authority_effect": false
