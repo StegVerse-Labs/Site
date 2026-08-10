@@ -66,7 +66,7 @@
   ],
   "completion_effect": "NONE_UNTIL_EXECUTED",
   "freshness_policy_path": "data/autonomy/freshness-policy.json",
-  "generated_at": "2026-08-10T10:51:46Z",
+  "generated_at": "2026-08-10T12:18:11Z",
   "objective_id": "site-public-autonomy-observability",
   "repository": "StegVerse-Labs/Site",
   "schema_version": "1.1"
