@@ -5,11 +5,11 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-11T21:33:25Z",
+  "generated_at": "2026-08-11T22:24:33Z",
   "organizations": [
     {
       "enumeration_error": null,
-      "inspection_error_count": 11,
+      "inspection_error_count": 0,
       "organization": "StegVerse-Labs",
       "repository_count": 48
     },
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T21:05:14Z",
+      "pushed_at": "2026-08-11T22:05:13Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -747,11 +747,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "Dockerfile: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -834,12 +831,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        ".github/workflows/ci.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        "netlify.toml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1050,12 +1043,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        ".github/workflows/validate.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        ".github/workflows/ci.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1094,13 +1083,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "objective-contract.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        "data/autonomy/completion-evidence.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        ".github/workflows/ci.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1179,11 +1163,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "autonomy/completion-evidence.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1382,12 +1363,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "vercel.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        "Dockerfile: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1767,7 +1744,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-11T21:28:38Z",
+      "pushed_at": "2026-08-11T22:22:11Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1912,11 +1889,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "autonomy/completion-evidence.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2075,11 +2049,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        ".github/workflows/validate.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2408,12 +2379,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "autonomy/objective-contract.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        "data/autonomy/completion-evidence.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2544,11 +2511,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "README.md: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2559,11 +2523,13 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [],
+        "handoff": [
+          "README.md"
+        ],
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T21:07:00Z",
+      "pushed_at": "2026-08-11T22:07:32Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2680,13 +2646,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        ".github/workflows/ci.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        ".github/workflows/autonomy-telemetry.yml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
-        "netlify.toml: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2841,7 +2802,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-11T21:27:19Z",
+      "pushed_at": "2026-08-11T22:23:33Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
