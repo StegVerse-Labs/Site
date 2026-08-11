@@ -5,8 +5,7 @@
     "ECAT-ICAT-Formal",
     "Infrastructure-Continuity-Ventures",
     "master-records",
-    "StegGhost",
-    "Triad-Test"
+    "StegGhost"
   ],
   "observations": [
     {
@@ -65,19 +64,20 @@
     },
     {
       "configured_state": "BLOCKED_NO_REPOSITORY",
-      "http_status": 200,
-      "next_action": "retain blocker",
-      "observed_state": "BLOCKED_NO_REPOSITORY",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
+      "next_action": "retry on repository-native schedule",
+      "observed_state": "RETRY",
       "organization": "Triad-Test",
       "release_condition": "GitHub organization exposes at least one repository that can own a canonical *_MIRROR_HANDOFF.md and node adapter",
-      "repository": null,
-      "repository_count_observed": 0
+      "repository": null
     }
   ],
-  "observed_at": "2026-08-11T13:35:57.677815Z",
+  "observed_at": "2026-08-11T19:15:51.119400Z",
   "observer": ".github/workflows/heartbeat-response-blocker-observer.yml",
   "owner": "StegVerse-Labs/Site issue #234",
-  "retry": [],
+  "retry": [
+    "Triad-Test"
+  ],
   "review_required": [],
   "schema_version": "1.0.0"
 }
