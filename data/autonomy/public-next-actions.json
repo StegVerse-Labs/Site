@@ -48,7 +48,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
@@ -510,7 +510,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/3I-Atlas",
       "repository_role": "UNCLASSIFIED",
-      "status": "AUTOMATIC_RETRY"
+      "status": "READY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -523,7 +523,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/Administrations",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -562,7 +562,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/CrystalWorks",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -575,7 +575,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/DiamondOps-Core",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -601,7 +601,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -640,7 +640,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/Fin-Co-Lab",
       "repository_role": "UNCLASSIFIED",
-      "status": "AUTOMATIC_RETRY"
+      "status": "READY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -666,7 +666,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/HEE-Showcase",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -822,7 +822,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/StegCustody",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -874,7 +874,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/StegScholar",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -965,7 +965,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/YieldOS",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -991,7 +991,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/stegseed",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -1035,6 +1035,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-11T19:47:22Z",
+  "generated_at": "2026-08-11T21:33:25Z",
   "schema_version": "1.1"
 }
