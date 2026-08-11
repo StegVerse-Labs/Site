@@ -120,7 +120,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: non_authorizing_projection",
@@ -510,7 +510,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/3I-Atlas",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -640,7 +640,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/Fin-Co-Lab",
       "repository_role": "UNCLASSIFIED",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -1035,6 +1035,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-11T17:41:52Z",
+  "generated_at": "2026-08-11T19:47:22Z",
   "schema_version": "1.1"
 }

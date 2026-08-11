@@ -5,11 +5,11 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-11T17:41:52Z",
+  "generated_at": "2026-08-11T19:47:22Z",
   "organizations": [
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 3,
       "organization": "StegVerse-Labs",
       "repository_count": 48
     },
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:28:14Z",
+      "pushed_at": "2026-08-11T19:35:02Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -491,7 +491,7 @@
           ".github/workflows/ci.yml"
         ]
       },
-      "pushed_at": "2026-08-11T13:45:51Z",
+      "pushed_at": "2026-08-11T19:28:20Z",
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
       "role_assignment_reason": "repository name matched term: gcat",
@@ -747,8 +747,12 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "vercel.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
+        "SITE_MIRROR_HANDOFF.md: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -765,7 +769,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:26:46Z",
+      "pushed_at": "2026-08-11T19:29:42Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -791,8 +795,11 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "SITE_MIRROR_HANDOFF.md: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -849,7 +856,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:05:14Z",
+      "pushed_at": "2026-08-11T18:12:32Z",
       "repository": "StegVerse-Labs/Administrations",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1141,7 +1148,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:05:40Z",
+      "pushed_at": "2026-08-11T18:13:03Z",
       "repository": "StegVerse-Labs/Epsteinality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1181,7 +1188,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:38:07Z",
+      "pushed_at": "2026-08-11T19:17:44Z",
       "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1221,7 +1228,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:06:19Z",
+      "pushed_at": "2026-08-11T18:16:28Z",
       "repository": "StegVerse-Labs/FREE-DOM",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1283,8 +1290,12 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/completion-evidence.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>",
+        "vercel.json: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1010)>"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -1341,7 +1352,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:06:03Z",
+      "pushed_at": "2026-08-11T18:13:39Z",
       "repository": "StegVerse-Labs/Giuffre-ality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1541,7 +1552,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:05:51Z",
+      "pushed_at": "2026-08-11T18:13:24Z",
       "repository": "StegVerse-Labs/Maxwellality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -1744,7 +1755,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-11T17:35:24Z",
+      "pushed_at": "2026-08-11T19:42:37Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1827,7 +1838,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:05:27Z",
+      "pushed_at": "2026-08-11T18:08:20Z",
       "repository": "StegVerse-Labs/StegBiography",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2317,7 +2328,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:06:46Z",
+      "pushed_at": "2026-08-11T18:16:11Z",
       "repository": "StegVerse-Labs/Trumpality",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2529,7 +2540,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-11T17:15:46Z",
+      "pushed_at": "2026-08-11T19:28:05Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2802,7 +2813,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-11T17:37:29Z",
+      "pushed_at": "2026-08-11T19:43:12Z",
       "repository": "StegVerse-org/LLM-adapter",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: adapter",
@@ -2849,7 +2860,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-11T17:39:03Z",
+      "pushed_at": "2026-08-11T19:44:20Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
