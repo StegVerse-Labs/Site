@@ -12,7 +12,7 @@
   "custody_authority": "NOT_GRANTED",
   "execution_authority": "NOT_GRANTED",
   "external_tasks": [],
-  "generated_at": "2026-08-10T23:15:44.292265Z",
+  "generated_at": "2026-08-11T00:04:34.961682Z",
   "importer_exit_code": 0,
   "importer_stderr_tail": "",
   "importer_stdout_tail": "",
@@ -23,8 +23,8 @@
   "schema": "stegverse.site.marketplace_coinbase_first_accessibility_task_state.v1",
   "state": "ACTIVE",
   "status": "ACCESSIBLE",
-  "status_digest": "sha256:c9a745c6ab897f0416eb4b3bec935f614a9985e2d17a7e3b8d112a530926cc3e",
-  "task_state_digest": "sha256:892a6b0410d13723b7b6a6bd7a534fa399c6216b18948ee9f3aea55f40634627",
+  "status_digest": "sha256:ed881cf9facfaf0cd7c5a674ee9b817ddca83948aaab3a9bf870bad076c14d43",
+  "task_state_digest": "sha256:3a6245169ca962d90fbb87fb8e6faa102ce3f3989ecf5aed2f6fadd129b43969",
   "tasks": [
     {
       "evidence": [
