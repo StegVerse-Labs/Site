@@ -1,0 +1,29 @@
+{
+  "schema": "stegverse.repo-heartbeat-adapter/v0.1",
+  "repo_id": "site",
+  "org": "StegVerse-Labs",
+  "repository": "StegVerse-Labs/Site",
+  "participant_class": "SERVICE",
+  "runtime_id": "stegverse-site-service",
+  "handoff_path": "docs/SITE_MIRROR_HANDOFF.md",
+  "capabilities": [
+    "ecosystem_chat_projection",
+    "activation_receipt_validation",
+    "governed_site_rendering",
+    "ecosystem_heartbeat_orchestration"
+  ],
+  "dependencies": [
+    {"repo_id": "llm-adapter", "required": true},
+    {"repo_id": "master-records-orchestration", "required": true},
+    {"repo_id": "tvc", "required": true}
+  ],
+  "status_source": "repository_orchestration_and_service_state",
+  "freshness_seconds": 300,
+  "authority": {
+    "credential_authority": "TV/TVC",
+    "heartbeat_grants_execution_authority": false,
+    "github_token_required": false
+  },
+  "central_contract": "StegVerse-Labs/.github/schemas/repo-heartbeat-manifest.schema.json",
+  "central_owner": "StegVerse-Labs/.github#81"
+}
