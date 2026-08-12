@@ -14,7 +14,7 @@ Canonical runtime owner: StegVerse-org/LLM-adapter#90
 Authorized provider task: StegVerse-org/LLM-adapter/tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json
 Custody/reconstruction owner: master-records/orchestration#15
 Canonical handoff: docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
-Latest originating-session transfer receipt: docs/receipts/vacc-final-submission-fallback-session-transfer-2026-08-07.md
+Latest originating-session transfer receipt: docs/receipts/vacc-pcp-timeline-reconciliation-session-transfer-2026-08-12.md
 ```
 
 No Site surface, model output, receipt, deployment, authentication event, or validator grants authority to adjudicate, diagnose, rate, represent, sign, or file a VA claim. The veteran remains claimant, fact confirmer, certifier, and submission authority unless an independently authorized representative acts within an admitted scope.
@@ -54,6 +54,8 @@ scripts/validate_va_claims_chat_surface.py
 
 Site issue #177 is closed complete and transferred all earlier originating-session requirements into #113, #116, #178-#184, LLM-adapter#90, and master-records/orchestration#15. Over-decomposed duplicate children #185-#214 were closed into those canonical owners.
 
+The 2026-08-12 PCP timeline-reconciliation session requirement is durably transferred by `docs/receipts/vacc-pcp-timeline-reconciliation-session-transfer-2026-08-12.md` into canonical Goal-3 owner Site#116. It adds chronology-reconciliation and explicit inclusion-purpose records for veteran-prepared clinician-facing syntheses without copying claimant medical facts into the public repository or treating those syntheses as independent medical opinions.
+
 Transferred invariants:
 
 ```text
@@ -76,6 +78,11 @@ ID.me/Login.gov branding or decorative stamp != independent document-ownership p
 VACC/service-organization/commercial use must be machine-verifiable in provenance
 public success metric = administrative workload reduction while preserving evidentiary/legal integrity
 regulatory self-help vs representation classification remains an explicit gate until authoritative evidence resolves it
+veteran-prepared syntheses may organize/reconcile chronology but are not independent nexus or diagnosis evidence
+later diagnostic language must not be projected backward absent qualified medical support
+chronology reconciliation must preserve competing mechanisms, adverse evidence, contradictions, and unresolved items
+underlying contemporaneous provider records remain preferred primary evidence where available
+every admitted synthesized chronology item must preserve an explicit purpose-of-inclusion record
 ```
 
 ## Goal 1 — veteran-facing deterministic Guide — COMPLETE
@@ -189,6 +196,12 @@ synthetic PII leakage regression
 page-level record facts and citation anchors
 privacy classification and redaction controls
 record fact vs official-source fact vs inference vs contradiction vs unresolved state
+chronology reconciliation with source-bound inclusion-purpose record
+symptom/report date separated from later diagnosis/recognition/treatment date
+medication authorization period separated from actual refill availability/exhaustion
+competing mechanism and access-barrier preservation
+retrospective diagnosis prohibition unless qualified medical linkage supports it
+unresolved orders/referrals/monitoring remain unresolved until source evidence proves completion
 evidence-to-criteria and claim-language provenance
 evidence completeness/review receipt
 packet manifest and download integrity receipt
@@ -198,6 +211,10 @@ VA-authenticated claimant binding only at authorized submission boundary
 final submission-confirmation correlation receipt
 deterministic multi-document fixtures and fail-closed receipts
 ```
+
+Canonical chronology-reconciliation transfer receipt:
+
+`docs/receipts/vacc-pcp-timeline-reconciliation-session-transfer-2026-08-12.md`
 
 Contracts and controlled-production-equivalent privacy preprocessing have advanced through merged PRs #227 and #230. Public private-document upload, retrieval, model review, and filing remain disabled until the applicable Goal 2, privacy, runtime, custody, reconstruction, malware, and authority gates pass.
 
@@ -288,6 +305,7 @@ Cloudflare Git integration also reported successful deployment during PR #232 va
 | Goal 2 runtime projection activation | Site#113 / runtime-projection.json | BLOCKED | NOT ACTIVE | fail-closed PASS | NOT ACTIVE | bind only real execution/custody receipts + HTTPS endpoint |
 | Goal 2 deployed end-to-end observation | Site#113 + LLM-adapter#90 | BLOCKED | MISSING | NOT OBSERVED | NOT INTEGRATED | execute after projection VERIFIED |
 | SV-VA-SECURE-DOCUMENTS-003 | Site#116 + #178-#184 | QUEUED / canonical | PARTIAL | contract/privacy PASS evidence exists | public activation disabled | continue only through canonical machine/issue lanes |
+| SV-VA-PCP-TIMELINE-RECONCILIATION-005 | Site#116 + transfer receipt | MERGED_INTO_CANONICAL_WORKSTREAM | REQUIREMENT TRANSFER COMPLETE | receipt + handoff bound | integrated into Goal 3 requirements | implement only through canonical Goal-3 document pipeline |
 | SV-VA-FINAL-SUBMISSION-FALLBACK-004 | Site#113/#116/#180 | COMPLETE / RELEASED | COMPLETE | PASS | MERGED | regression observation |
 
 ## Active claims and collision boundaries
@@ -299,6 +317,7 @@ Provider execution task claimant: null while BLOCKED
 Goal 2 runtime owner: StegVerse-org/LLM-adapter#90
 Goal 2 Site projection owner: StegVerse-Labs/Site#113
 Goal 3 owner: StegVerse-Labs/Site#116
+PCP chronology-reconciliation requirement: MERGED into Site#116 / no separate implementation claim
 Originating-session consolidation owner: closed Site#177
 ```
 
@@ -355,18 +374,20 @@ PR #232: canonical fallback implementation / merged
 Site#177: originating-session requirement consolidation / COMPLETE and closed
 Goal 2 provider execution: MERGED INTO canonical LLM-adapter#90 machine-owned lane
 Goal 3 secure documents: MERGED INTO canonical Site#116 + #178-#184 lanes
+SV-VA-PCP-TIMELINE-RECONCILIATION-005: MERGED INTO canonical Site#116 via docs/receipts/vacc-pcp-timeline-reconciliation-session-transfer-2026-08-12.md
 ```
 
 ## Session consolidation and archive condition
 
 The broader VACC program is not complete: Goal 2 real-provider activation remains blocked and Goal 3 public document/submission capability remains gated. Those incomplete goals are fully assigned to durable repository-native owners, task records, machine observers, issues, and release conditions.
 
-The originating conversation that introduced the final VA.gov fallback no longer needs to remain active after the latest transfer receipt and this handoff update are merged and referenced from #113/#116/#180. Archiving that conversation does not mean VACC is complete; it means no unique execution state remains only in chat.
+The originating conversations that introduced the final VA.gov fallback and PCP timeline-reconciliation requirement no longer need to remain active after their transfer receipts and this handoff update are merged and referenced from the canonical owners. Archiving those conversations does not mean VACC is complete; it means no unique execution state remains only in chat.
 
 Canonical continuation:
 
 ```text
 StegVerse-Labs/Site/docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
+StegVerse-Labs/Site/docs/receipts/vacc-pcp-timeline-reconciliation-session-transfer-2026-08-12.md
 StegVerse-Labs/Site#113
 StegVerse-Labs/Site#116
 StegVerse-Labs/Site#180
@@ -388,6 +409,6 @@ Goal 2 validation completion: 8/10 = 80%
 Goal 2 integration completion: 5/7 = 71%
 Goal 2 propagation completion: 2/4 = 50%
 Goal 2 activation: 6/10 = 60%
-Originating-session requirement transfer: 4/4 = 100%
+Originating-session requirement transfer: 5/5 = 100%
 Conversation archival readiness after transfer merge/reference: true
 ```
