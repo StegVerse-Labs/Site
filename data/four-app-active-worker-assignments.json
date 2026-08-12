@@ -1,0 +1,77 @@
+{
+  "schema_version": "stegverse.four_app.active_worker_assignments.v1",
+  "goal_id": "STEGGATE-FOUR-PUBLIC-APPS-001",
+  "parent_issue": "StegVerse-Labs/Site#239",
+  "created_at": "2026-08-12T10:23:00-05:00",
+  "policy": {
+    "unfinished_task_state": "WORKER_ACTIVE",
+    "blocked_is_valid_task_state": false,
+    "dependency_condition_is_task_state": false,
+    "dependency_condition_requires_solution_work": true,
+    "observer_only_loop_counts_as_progress": false,
+    "worker_must_name_next_solution_action": true,
+    "worker_must_persist_receipts": true,
+    "worker_must_fail_closed_on_missing_authority": true,
+    "github_token_production_authority": "NONE",
+    "credential_and_route_authority": "TV/TVC"
+  },
+  "applications": {
+    "ecosystem_chat": {
+      "issue": "StegVerse-Labs/Site#242",
+      "state": "WORKER_ACTIVE_SOVEREIGN_ACTIVATION",
+      "primary_worker": "StegVerse-Labs/.github/workers/ecosystem_chat_sovereign_inference_worker.py",
+      "worker_task": "StegVerse-Labs/.github#60 / SHWP-ECOSYSTEM-CHAT-INFERENCE-001",
+      "support_workers": [
+        "StegVerse-Labs/.github/workers/sovereign_runtime_activation_worker.py",
+        "StegVerse-Labs/TVC/tasks/TVC-SOVEREIGN-LOCAL-MODEL-ROUTE-002.json",
+        "StegVerse-org/LLM-adapter/tasks/LLMA-SOVEREIGN-CARRIER-EXECUTION-020.json",
+        "master-records/orchestration"
+      ],
+      "current_dependency_condition": "resident sovereign carrier has not yet emitted post-HB29 same-execution activation evidence",
+      "next_solution_action": "obtain/construct an eligible StegVerse-owned or federated carrier, run native heartbeat activation, recover the inference worker under a higher fence, then execute local-model -> TVC -> LLM-adapter -> Master Records",
+      "completion_evidence": "immutable zero-blocker same-execution activation receipt + Site ACTIVATION_COMPLETE"
+    },
+    "vacc": {
+      "issue": "StegVerse-Labs/Site#241",
+      "state": "WORKER_ACTIVE_AUTHORIZED_EXECUTION_RESOLUTION",
+      "primary_worker": "StegVerse-org/LLM-adapter/.github/workflows/va-claim-assistant-provider-preflight.yml",
+      "worker_task": "StegVerse-org/LLM-adapter#90 / tasks/VACP-ADAPTER-AUTHORIZED-EXECUTION-005.json",
+      "support_workers": [
+        "StegVerse-Labs/Site#113",
+        "master-records/orchestration#15",
+        "StegVerse-Labs/TVC"
+      ],
+      "current_dependency_condition": "authorized real provider execution and protected Master Records custody configuration/authority have not yet converged",
+      "next_solution_action": "continue machine resolution of an admitted provider route and exact-caller authority; when authority/configuration predicates exist, execute one real VA request, obtain custody/reconstruction PASS, and activate the Site runtime projection",
+      "completion_evidence": "real governed VA execution receipt + Master Records PASS + verified HTTPS runtime projection + deployed Site round trip"
+    },
+    "math_solver": {
+      "issue": "StegVerse-Labs/Site#240",
+      "state": "WORKER_ACTIVE_HOST_ROUTE_REPAIR",
+      "primary_worker": "StegVerse-org/LLM-adapter/.github/workflows/observe-math-solver-public-runtime.yml",
+      "worker_task": "StegVerse-org/LLM-adapter#132 / MATH-SOLVER-STEGGATE-RUNTIME-001",
+      "support_workers": [
+        "StegVerse-Labs/Site/.github/workflows/math-solver-public-activation.yml",
+        "StegVerse-Labs/Site/scripts/advance_math_solver_public_activation.py"
+      ],
+      "current_dependency_condition": "current hosted gateway has repeatedly failed to build and the last public readiness observation was HTTP 404",
+      "next_solution_action": "treat repeated build failure/404 as repair work, inspect host build/deploy configuration and source compatibility, repair or replace the admitted host route, then run readiness + governed solve + replay verification",
+      "completion_evidence": "reachable readiness + real ALLOW/EXECUTED solve + result receipt + public replay verification"
+    },
+    "hil": {
+      "issue": "StegVerse-Labs/Site#243",
+      "state": "WORKER_ACTIVE_PARTICIPANT_CYCLE_ACTIVATION",
+      "primary_worker": "StegVerse-Labs/hybrid-collab-bridge#11 / HIL qualified-recognition worker lane",
+      "worker_task": "HIL-QRL-002..007",
+      "support_workers": [
+        "StegVerse-Labs/Site heartbeat orchestration / SITE-0002-HIL-LIVE",
+        "GCAT-BCAT-Engine admission authority",
+        "master-records/orchestration"
+      ],
+      "current_dependency_condition": "hosted replay evidence, admission, custody, and live public participant cycle remain incomplete",
+      "next_solution_action": "execute hosted deterministic validation/replay, submit bounded admission request, preserve custody, then run the public participant cycle and issue activation evidence",
+      "completion_evidence": "hosted replay PASS + admission result + custody/reconstruction + governed public participant-cycle receipt"
+    }
+  },
+  "invariant": "No incomplete application may be represented as passively BLOCKED. A missing predicate is a dependency condition owned by an active worker whose job is to solve, route around, construct, or escalate the missing capability while preserving fail-closed execution authority."
+}
