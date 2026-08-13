@@ -1,6 +1,6 @@
 {
   "schema": "stegverse.site.tidc.coordinator_receipt.v0.2",
-  "generated_at": "2026-08-13T08:46:05.257272+00:00",
+  "generated_at": "2026-08-13T10:31:07.300416+00:00",
   "repository": "StegVerse-Labs/Site",
   "policy": {
     "no_external_task_handoff": true,
