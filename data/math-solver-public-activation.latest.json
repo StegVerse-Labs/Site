@@ -1,9 +1,9 @@
 {
   "schema_version": "stegverse.site.math_solver_activation.v1",
   "state": "BLOCKED",
-  "observed_at": "2026-08-14T18:32:32.972989+00:00",
+  "observed_at": "2026-08-14T19:36:58.622831+00:00",
   "source_receipt_state": "BLOCKED",
-  "source_receipt_observed_at": "2026-08-14T18:30:23.368667+00:00",
+  "source_receipt_observed_at": "2026-08-14T19:34:49.857107+00:00",
   "blocker": {
     "type": "PUBLIC_RUNTIME_UNAVAILABLE",
     "reason": "HTTPError: HTTP Error 404: Not Found"
