@@ -1,12 +1,12 @@
 {
   "schema_version": "stegverse.site.math_solver_activation.v1",
   "state": "BLOCKED",
-  "observed_at": "2026-08-14T21:58:22.768788+00:00",
+  "observed_at": "2026-08-14T22:59:27.487690+00:00",
   "source_receipt_state": "BLOCKED",
-  "source_receipt_observed_at": "2026-08-14T21:56:08.768429+00:00",
+  "source_receipt_observed_at": "2026-08-14T22:57:11.232308+00:00",
   "blocker": {
     "type": "PUBLIC_RUNTIME_UNAVAILABLE",
-    "reason": "TimeoutError: The read operation timed out"
+    "reason": "HTTPError: HTTP Error 404: Not Found"
   },
   "next_executable_action": "Retry automatically after the LLM-adapter public-runtime receipt becomes COMPLETE.",
   "authority_effect": false
