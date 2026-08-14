@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "repository": "StegVerse-Labs/Site",
-  "generated_at": "2026-08-14T16:31:32.904167Z",
+  "generated_at": "2026-08-14T17:36:03.199912Z",
   "latest_runtime_state": "PASS",
   "latest_failed_required_check_ids": [],
   "automatic_retry_required": false,
@@ -11,14 +11,6 @@
   "freshness_policy_id": "site-public-autonomy-freshness-v1",
   "maximum_age_minutes": 180,
   "history": [
-    {
-      "observed_at": "2026-08-13T00:13:52.294962Z",
-      "state": "PASS",
-      "passed_required_checks": 7,
-      "required_checks": 7,
-      "failed_required_check_ids": [],
-      "automatic_retry_required": false
-    },
     {
       "observed_at": "2026-08-13T03:18:28.501543Z",
       "state": "FAIL",
@@ -201,6 +193,14 @@
     },
     {
       "observed_at": "2026-08-14T16:31:32.818358Z",
+      "state": "PASS",
+      "passed_required_checks": 7,
+      "required_checks": 7,
+      "failed_required_check_ids": [],
+      "automatic_retry_required": false
+    },
+    {
+      "observed_at": "2026-08-14T17:36:03.130681Z",
       "state": "PASS",
       "passed_required_checks": 7,
       "required_checks": 7,
