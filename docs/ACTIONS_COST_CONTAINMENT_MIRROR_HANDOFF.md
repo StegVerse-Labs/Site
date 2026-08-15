@@ -15,6 +15,7 @@
 ## Current repository pressure
 
 - active GitHub workflows at audit start: 131
+- current active GitHub workflows after workflow-minimization batch 1: 130
 - open issue/PR aggregate reported by repository metadata at audit start: 60
 - branch inventory exceeds 100 and contains obvious duplicate/superseded branch families that require evidence-safe reconciliation
 
@@ -50,7 +51,9 @@ The following five additional recurring schedules were removed while preserving 
 
 No NON-TV/TVC project/provider secret/token was added by this batch.
 
-## Workflow-surface minimization batch 1 — validated merge candidate
+## Completed workflow-surface minimization batch 1
+
+Merged by PR #270 at merge commit `5fc9929f39c9feae2423b00e9d6830c65fd07ccd`.
 
 Canonical implementation claim:
 
@@ -59,13 +62,14 @@ issue: Site #268
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B1-20260815
 branch: chore/site-validation-workflow-minimization-batch1-20260815
 PR: #270
-state: VALIDATED_MERGE_CANDIDATE
+state: MERGED_INTO_CANONICAL_WORKSTREAM
+claim release commit: c994aa7b9ca08b1b0bf5dabb495957a025df627c
 ```
 
-The first-release HIL validator is consolidated into the existing stable HIL live-readiness dispatcher:
+The first-release HIL validator was consolidated into the existing stable HIL live-readiness dispatcher:
 
 - `.github/workflows/check-hil-first-release-readiness.yml` -> `.github/workflows/check-hil-live-readiness.yml`
-- the consolidated dispatcher retains push, pull-request, and manual first-release validation;
+- push, pull-request, and manual first-release validation are preserved;
 - deployed HIL observation remains excluded from pull-request execution;
 - `permissions: {}` is used;
 - repository acquisition uses anonymous public Git fetch rather than `actions/checkout`;
@@ -73,12 +77,15 @@ The first-release HIL validator is consolidated into the existing stable HIL liv
 - the job fails closed if GITHUB/GH/PAT/TVC ephemeral/Cloudflare HIL credential variables are exposed to the validation environment;
 - the workflow grants no activation, publication, execution, release, custody, provider, or Master Record authority.
 
-Direct hosted validation evidence on PR #270:
+Direct branch validation on the final PR #270 head:
 
 ```text
-HIL stable dispatcher run: 31869072980 SUCCESS
-Site Handoff Orchestrator run: 31869072953 SUCCESS
+HIL stable dispatcher run: 31869132762 SUCCESS
+Site Handoff Orchestrator run: 31869132816 SUCCESS
+Ecosystem Heartbeat Orchestration run: 31869132801 SUCCESS
+Site Bootstrap Validate run: 31869132796 SUCCESS
 repository-native branch claim: ADMITTED
+post-merge workflow count: 130
 ```
 
 The earlier PR #269 was closed unmerged and superseded by #270 because Site's repository-native pre-work gate correctly required exactly one branch-bound claim and a branch mapping to declared unfinished handoff work. Its implementation was retained in the replacement branch; the supersession was a collision-control correction, not a capability rollback.
@@ -96,16 +103,13 @@ Those two standalone workflows were restored unchanged. They are not counted as 
 
 Audit denominator remains 131 workflow surfaces.
 
-Before PR #270 merge:
-
 - recurring schedules removed in containment batch 1: 4
 - recurring schedules removed in containment batch 2: 5
 - total known recurring schedules removed: 9
-- workflow files removed by validated minimization candidates: 1
+- workflow files consolidated/eliminated: 1
 - explicitly classified/remediated audit-start surfaces: 10/131
 - remaining surfaces requiring KEEP_STANDALONE_EXCEPTION / CONSOLIDATE / TRANSFER / ELIMINATE classification: 121
-- current main workflow-file count: 131 until PR #270 is merged
-- expected post-merge workflow-file count: 130, subject to direct post-merge API observation
+- current main workflow-file count: 130
 
 Schedule removal does not itself reduce workflow-file count. The 121 remaining value is a classification denominator, not a claim that 121 schedules exist.
 
@@ -139,12 +143,13 @@ Known completed hygiene in this workstream:
 
 - Site PR #255 Vercel carrier closed as superseded by the StegVerse-only runtime architecture;
 - Site PR #269 closed unmerged as superseded by repository-native admitted replacement PR #270;
+- batch-1 implementation claim released after merge;
 - branch census confirmed more than 100 branches with duplicate families requiring bounded deletion after claim/evidence checks.
 
 ## Active claims / collision boundary
 
 - Site cost containment implementation: Site #265;
-- Site workflow minimization: Site #268, current exact claim `SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B1-20260815`;
+- Site workflow minimization continuation: Site #268; batch-1 claim released, next batch currently unclaimed until a new exact pre-work claim is installed;
 - Site pre-work admission: machine-owned claim `SITE-PREWORK-CLAIM-GATE-MACHINE-001` — admission only, not product implementation;
 - HIL semantic reconciliation: canonical HIL workstream / Site #81; observation only from this minimization lane;
 - live sovereign runtime activation and Ecosystem Chat inference: canonical resident StegVerse workers — observation only here;
@@ -153,21 +158,14 @@ Known completed hygiene in this workstream:
 
 ## Validation / release condition
 
-Containment batches 1 and 2 are merged. Workflow-minimization batch 1 is a validated merge candidate: the target HIL stable dispatcher and Site repository-native handoff admission both pass on PR #270.
-
-Batch 1 becomes complete only after:
-
-1. PR #270 merges;
-2. post-merge workflow-file count is directly observed;
-3. the exact claim is transitioned/released with merge evidence;
-4. this handoff is corrected on `main` from merge-candidate to merged state if needed.
+Containment batches 1 and 2 and workflow-minimization batch 1 are merged and validated. Batch 1 reduced the repository from 131 to 130 active GitHub workflows with no new production/runtime authority and no new NON-TV/TVC project/provider credential path.
 
 Full goal completion still requires classification of the remaining 121 audit-start workflow surfaces, reduction toward the minimum safe workflow count, evidence-backed exceptions for any standalone workflows above the minimum, and bounded issue/PR/branch reconciliation without deleting active evidence or claims.
 
 ## Current state
 
-`ACTIVE_REMEDIATION / CONTAINMENT_BATCHES_1_2_MERGED / WORKFLOW_MINIMIZATION_BATCH_1_VALIDATED_MERGE_CANDIDATE / FULL_CENSUS_PENDING`
+`ACTIVE_REMEDIATION / CONTAINMENT_BATCHES_1_2_MERGED / WORKFLOW_MINIMIZATION_BATCH_1_MERGED_VALIDATED / CURRENT_WORKFLOW_COUNT_130 / FULL_CENSUS_PENDING`
 
 ## Session consolidation
 
-The local-model/runtime and trade-readiness requirements are durably transferred to the canonical organization/runtime worker chain. This session still retains unique workflow-minimization/cost-containment/hygiene implementation responsibility until the active claim is released or transferred and the remaining cleanup work has durable executable owners.
+The local-model/runtime and trade-readiness requirements are durably transferred to the canonical organization/runtime worker chain. This session still retains unique workflow-minimization/cost-containment/hygiene implementation responsibility until remaining cleanup work is either completed or durably transferred to active executable claims/workers.
