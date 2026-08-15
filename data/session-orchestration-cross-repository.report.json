@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "state_type": "session_orchestration_cross_repository_report",
-  "status": "PASS",
+  "status": "FAIL",
   "source_targets": "data/session-orchestration-cross-repository-targets.json",
   "policy": {
     "handoff_required": true,
@@ -44,7 +44,7 @@
       "branch": "main",
       "canonical_handoff": "docs/PUBLISHER_MIRROR_HANDOFF.md",
       "expected_handoff_sha": "eeb57df384b59d300baeaeb480640e0ab3ad5570",
-      "observed_handoff_sha": "eeb57df384b59d300baeaeb480640e0ab3ad5570",
+      "observed_handoff_sha": "cbe627e6776a04cb284394dee94b2c5bb63f8c58",
       "required_markers": [
         "goal_id: PUBLISHER-ST017-SITE-PROPAGATION-001",
         "state: BLOCKED_BUT_OBSERVED",
@@ -62,8 +62,10 @@
       "canonical_owner": "GCAT-BCAT-Engine/Publisher/.github/workflows/validate-governed-ecosystem-awareness.yml",
       "successor_execution_source": ".github/workflows/validate-governed-ecosystem-awareness.yml",
       "successor_sha": "2a92f8264bb3011105b3b136acd40455a3bd0834",
-      "status": "PASS",
-      "failures": []
+      "status": "FAIL",
+      "failures": [
+        "STALE_HANDOFF:expected eeb57df384b59d300baeaeb480640e0ab3ad5570 observed cbe627e6776a04cb284394dee94b2c5bb63f8c58"
+      ]
     },
     {
       "repository": "StegVerse-Labs/admissibility-wiki",
@@ -136,14 +138,16 @@
   "owner_collisions": [],
   "summary": {
     "target_count": 4,
-    "passing_targets": 4,
+    "passing_targets": 3,
     "active_claim_scope_count": 3,
     "delegated_dependency_count": 1,
-    "stale_handoff_count": 0,
+    "stale_handoff_count": 1,
     "missing_authority_count": 0,
     "unresolved_successor_count": 0,
     "owner_collision_count": 0
   },
-  "next_action": "use the verified handoff and owner comparison as bounded succession evidence while preserving delegated dependency boundaries",
-  "failures": []
+  "next_action": "review stale, missing, unresolved, or conflicting authority before succession or archival",
+  "failures": [
+    "GCAT-BCAT-Engine/Publisher:STALE_HANDOFF:expected eeb57df384b59d300baeaeb480640e0ab3ad5570 observed cbe627e6776a04cb284394dee94b2c5bb63f8c58"
+  ]
 }
