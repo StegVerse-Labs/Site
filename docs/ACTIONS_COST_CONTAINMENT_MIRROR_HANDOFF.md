@@ -5,7 +5,6 @@
 - Goal ID: `SITE-ACTIONS-COST-CONTAINMENT-001`
 - Repository: `StegVerse-Labs/Site`
 - Canonical branch: `main`
-- Active remediation branch: `chore/actions-cost-containment-batch2-20260814`
 - Coordination: `StegVerse-Labs/.github#164`
 - Repository issue: `StegVerse-Labs/Site#265`
 - Governing invariant: production/continuity execution must remain `StegVerse -> StegVerse -> StegVerse`; GitHub Actions is not a required production carrier.
@@ -35,9 +34,11 @@ Classification:
 - Marketplace/Coinbase advancement: necessary only while the current task graph remains active; transfer candidate and TV/TVC-native credential review remains required because the retained GitHub workflow references a repository secret directly when explicitly invoked.
 - Heartbeat response network: recurring continuity behavior belongs to StegVerse runtime; GitHub retained for explicit validation only.
 
-## Active containment batch 2
+## Completed containment batch 2
 
-The following five additional recurring schedules are removed on `chore/actions-cost-containment-batch2-20260814` while preserving source-change/manual validation paths:
+Merged by PR #267 at merge commit `44f593f7b7075958d6b363ddf8caac1ee3541132`.
+
+The following five additional recurring schedules were removed while preserving source-change/manual validation paths:
 
 - `.github/workflows/steggate-four-app-progress.yml` — hourly handoff synchronization is operational progress reconciliation; `TRANSFER_TO_STEGVERSE_WORKER` for recurring ownership, GitHub retained for event/manual use.
 - `.github/workflows/check-hil-live-readiness.yml` — six-hour public readiness polling is observation work; `TRANSFER_TO_STEGVERSE_WORKER` for recurring ownership, GitHub retained for event/manual diagnostics.
@@ -87,27 +88,20 @@ Known completed hygiene in this workstream:
 
 ## Active claims / collision boundary
 
-- Site cost containment implementation: this remediation branch and Site #265;
+- Site cost containment implementation: Site #265 and subsequent bounded remediation branches;
 - live sovereign runtime activation and Ecosystem Chat inference: canonical resident StegVerse workers — observation only here;
 - local model implementation: complete/released — no competing implementation claim permitted;
 - TV/TVC credential/route authority: TV/TVC only.
 
 ## Validation / release condition
 
-Batch 2 is complete only when:
+Batch 2 is complete: the five workflow mutations are on `main`, source-change/manual semantics remain available, no GitHub-hosted recurring operation became production continuity authority, no NON-TV/TVC token/secret was introduced, and Site #265 records the batch evidence.
 
-1. the five workflow mutations are merged to `main`;
-2. repository-event/manual semantics remain available;
-3. no GitHub-hosted recurring operation is treated as production continuity authority;
-4. no NON-TV/TVC token/secret is introduced;
-5. Site #265 records the batch evidence;
-6. the remaining 122 workflow surfaces continue through the full census.
-
-Full goal completion additionally requires classification of all 131 workflow surfaces and bounded issue/PR/branch reconciliation without deleting active evidence or claims.
+Full goal completion still requires classification of the remaining 122 workflow surfaces and bounded issue/PR/branch reconciliation without deleting active evidence or claims.
 
 ## Current state
 
-`ACTIVE_REMEDIATION / BATCH_1_MERGED / BATCH_2_IMPLEMENTED_PENDING_MERGE / FULL_CENSUS_PENDING`
+`ACTIVE_REMEDIATION / BATCH_1_MERGED / BATCH_2_MERGED / FULL_CENSUS_PENDING`
 
 ## Session consolidation
 
