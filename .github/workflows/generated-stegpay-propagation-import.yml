@@ -11,8 +11,6 @@ on:
       - scripts/observe_and_complete_repository_tasks.py
       - .github/workflows/generated-stegpay-propagation-import.yml
   workflow_dispatch:
-  schedule:
-    - cron: "37 * * * *"
 
 permissions:
   contents: write

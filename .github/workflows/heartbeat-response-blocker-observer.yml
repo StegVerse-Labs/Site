@@ -7,8 +7,6 @@ on:
       - "data/heartbeat-response-adapter-targets.json"
       - "scripts/observe_heartbeat_response_blockers.py"
       - ".github/workflows/heartbeat-response-blocker-observer.yml"
-  schedule:
-    - cron: "7 */6 * * *"
 permissions:
   contents: write
 concurrency:
