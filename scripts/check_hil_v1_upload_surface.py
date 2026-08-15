@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
-"""Fail-closed verification for the canonical HIL v1 upload surface."""
+"""Fail-closed verification for the canonical HIL v1.x upload surface.
+
+The original guard was pinned to v1.0 after the repository had already advanced to
+v1.1, leaving the workflow permanently red. This guard follows the live canonical
+manifest and current same-origin governed receiver contract.
+"""
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "humans-as-interoperability-layer.html"
-SCRIPT = ROOT / "assets" / "hil-experiment-v1.js"
+SCRIPT = ROOT / "assets" / "hil-direct-upload-v1.js"
 MANIFEST = ROOT / "data" / "hil-experiment.json"
-GATEWAY_CONFIG = ROOT / "data" / "hil-gateway-config.json"
-PRIMARY = ROOT / "data" / "hil-primary-v1.0.pdf.b64"
+RECEIVER_CONFIG = ROOT / "data" / "hil-receiver-config.json"
+PRIMARY = ROOT / "data" / "HIL_Canonical_Paper_v1_1.pdf"
+RESULT_PAGE = ROOT / "hil-accepted.html"
+RESULT_SCRIPT = ROOT / "assets" / "hil-post-submit-continuity.js"
 
-PRIMARY_HASH = "e7a86cf05323d8352cfa188e0bff1c35fdb15f9fac6af91ca62b6a126ac4e68f"
-PROMPT_HASH = "bbb2db652a10ef404d565e561bb0a2f7b078bbe95105400faec14be9a6d5642a"
+PRIMARY_HASH = "a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462"
+PROMPT_HASH = "cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c"
 
 
 def require(condition: bool, message: str) -> None:
@@ -29,52 +37,80 @@ def read(path: Path) -> str:
 def main() -> None:
     page = read(PAGE)
     script = read(SCRIPT)
+    result_page = read(RESULT_PAGE)
+    result_script = read(RESULT_SCRIPT)
     manifest = json.loads(read(MANIFEST))
-    gateway = json.loads(read(GATEWAY_CONFIG))
-    require(PRIMARY.is_file(), "canonical v1 Primary base64 artifact missing")
+    receiver = json.loads(read(RECEIVER_CONFIG))
 
-    require(manifest["primary_document"]["version"] == "v1.0", "manifest is not v1.0")
+    require(manifest.get("schema_version") == "HIL-EXPERIMENT-v1.1", "manifest is not canonical v1.1")
+    require(manifest["primary_document"]["version"] == "v1.1", "Primary version is not v1.1")
     require(manifest["primary_document"]["sha256"] == PRIMARY_HASH, "manifest Primary hash mismatch")
     require(manifest["protocol"]["prompt_sha256"] == PROMPT_HASH, "manifest prompt hash mismatch")
     require(manifest["submission"]["provenance_manifest_required"] is True, "provenance must remain required")
+    require(manifest["submission"]["provenance_schema_version"] == "HIL-RESPONSE-PROVENANCE-v1.1", "provenance schema mismatch")
     require(all(value is False for value in manifest["authority"].values()), "manifest authority must remain false")
+
+    require(PRIMARY.is_file(), "canonical v1.1 Primary PDF missing")
+    primary_bytes = PRIMARY.read_bytes()
+    require(primary_bytes.startswith(b"%PDF-"), "canonical v1.1 Primary lacks PDF signature")
+    require(hashlib.sha256(primary_bytes).hexdigest() == PRIMARY_HASH, "canonical v1.1 Primary bytes do not match manifest")
 
     for marker in (
         PRIMARY_HASH,
-        PROMPT_HASH,
-        "Drop the response PDF here or select it below",
-        "Submit once",
-        "Download provenance JSON",
-        "Download receiver receipt",
+        "Submit the single Response PDF",
+        "Submit Response Packet",
+        "next Site page begins with the exact submission-result packet",
         "aria-live=\"polite\"",
     ):
         require(marker in page, f"page missing marker: {marker}")
 
     for marker in (
-        "data/hil-gateway-config.json",
-        "first_exact_ready_chain",
-        "fetchWithTimeout",
+        "const READINESS = '/api/hil/readiness'",
+        "const INGRESS = '/api/hil/submissions'",
+        "HIL-RESPONSE-PROVENANCE-v1.1",
+        "HIL-RECEIVER-RECEIPT-v2",
         "new FormData()",
         "crypto.subtle.digest('SHA-256'",
         "response_pdf",
         "provenance_manifest",
         "participant_consent_authority_acknowledged",
-        "No successful submission is being claimed",
+        "EXACT_BYTES_PERSISTED",
+        "RECORDED",
+        "hil-accepted.html?submission_id=",
+        "LOCAL_FALLBACK_PENDING_RESUBMISSION",
     ):
-        require(marker in script or marker in read(GATEWAY_CONFIG), f"client/config missing marker: {marker}")
+        require(marker in script, f"client missing marker: {marker}")
 
-    candidates = gateway.get("gateway_candidates")
-    require(isinstance(candidates, list) and len(candidates) >= 1, "gateway candidates missing")
-    require(candidates[0]["id"] == "same-origin", "same-origin must be first gateway candidate")
-    require(gateway.get("selection_policy") == "first_exact_ready_chain", "gateway selection policy mismatch")
-    require(gateway.get("fail_closed") is True, "gateway discovery must fail closed")
-    require(all(value is False for value in gateway["authority"].values()), "gateway config must not grant authority")
+    require("/api/hil/upload" not in script, "legacy /api/hil/upload route remains in canonical client")
+    require(receiver.get("receiver_base_url") == "https://stegverse.org", "receiver base must remain canonical public origin")
+    require(receiver.get("readiness_path") == "/api/hil/readiness", "receiver readiness path mismatch")
+    require(receiver.get("submission_path") == "/api/hil/submissions", "receiver submission path mismatch")
+    require(receiver.get("transport_requirements", {}).get("embedded_credentials_allowed") is False, "embedded credentials must remain prohibited")
+    require(all(value is False for value in receiver["authority"].values()), "receiver discovery config must not grant authority")
+
+    require(result_page.find('id="submission-result-packet"') < result_page.find('id="next-lifecycle-stage"'), "result packet is not prepended")
+    for marker in (
+        "HIL-SUBMISSION-RESULT-PACKET-v1",
+        "/api/hil/submissions/${encodeURIComponent(submissionId)}",
+        "/api/hil/submissions/${encodeURIComponent(submissionId)}/content",
+        "retrieved_packet_hash_mismatch",
+        "publication_authorized: false",
+        "master_record_append_authorized: false",
+        "execution_authorized: false",
+    ):
+        require(marker in result_script, f"result projection missing marker: {marker}")
+
+    require("GITHUB_TOKEN" not in script and "GITHUB_TOKEN" not in result_script, "GitHub token runtime authority introduced")
+    require("Authorization" not in script and "Authorization" not in result_script, "browser credential header introduced")
 
     print("HIL_V1_UPLOAD_SURFACE=PASS")
+    print("HIL_CANONICAL_VERSION=v1.1")
     print(f"HIL_PRIMARY_SHA256={PRIMARY_HASH}")
     print(f"HIL_PROMPT_SHA256={PROMPT_HASH}")
-    print("HIL_GATEWAY_DISCOVERY=SAME_ORIGIN_THEN_COMPATIBILITY_FALLBACK")
-    print("HIL_UPLOAD_FLOW=ONE_ACTION_HASH_PROVENANCE_UPLOAD_RECEIPT")
+    print("HIL_RECEIVER_ROUTE=/api/hil/submissions")
+    print("HIL_POST_SUBMIT_RESULT=HIL-SUBMISSION-RESULT-PACKET-v1")
+    print("HIL_LOCAL_FALLBACK=NONCUSTODIAL")
+    print("HIL_GITHUB_TOKEN_RUNTIME_AUTHORITY=NONE")
     print("HIL_AUTHORITY=NONE")
 
 
