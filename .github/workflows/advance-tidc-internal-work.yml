@@ -1,8 +1,8 @@
 name: Advance TIDC Internal Work
 
+# TIDC advancement is operational work and is a StegVerse-worker transfer
+# candidate. GitHub remains available for source-change and explicit validation.
 on:
-  schedule:
-    - cron: '41 */6 * * *'
   workflow_dispatch:
   push:
     paths:

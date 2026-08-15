@@ -1,9 +1,9 @@
 name: Site Handoff Orchestrator
 
+# Cost containment: repository events already provide the natural GitHub trigger.
+# Recurring orchestration belongs on StegVerse-controlled workers.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 * * * *"
   issues:
     types: [opened, edited, reopened, closed, labeled, unlabeled]
   pull_request:

@@ -1,8 +1,8 @@
 name: Advance Marketplace Coinbase Activation
 
+# Recurring activation advancement is a StegVerse-worker responsibility.
+# This GitHub surface remains manual/event-driven pending TV/TVC-native transfer.
 on:
-  schedule:
-    - cron: '37 * * * *'
   workflow_dispatch:
   push:
     branches:
