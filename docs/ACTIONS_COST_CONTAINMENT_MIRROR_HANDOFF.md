@@ -23,14 +23,14 @@ Repository-local implementation must continue through `data/session-work-claims.
 
 ```text
 audit_start_workflow_surfaces: 131
-current_active_workflow_surfaces: 128
-explicitly_classified_or_remediated_surfaces: 12/131
-remaining_classification_denominator: 119/131
-workflow_files_eliminated_or_consolidated: 3
+current_active_workflow_surfaces: 126
+explicitly_classified_or_remediated_surfaces: 14/131
+remaining_classification_denominator: 117/131
+workflow_files_eliminated_or_consolidated: 5
 recurring_schedules_removed_without_deleting_workflow_files: 9
 ```
 
-Schedule removal and workflow-file elimination are counted separately. The 119 remaining value is a classification denominator, not a claim that 119 schedules remain.
+Schedule removal and workflow-file elimination are counted separately. The 117 remaining value is a classification denominator, not a claim that 117 schedules remain.
 
 ## Completed containment batches
 
@@ -108,6 +108,32 @@ post_merge_workflow_count: 128
 
 No current HIL v1.1 validator, deployment, runtime, review, publication, TV/TVC authority, or participant-facing product semantics were modified. No NON-TV/TVC secret/token path was introduced.
 
+### Batch 3 — completed HIL deployment-investigation elimination
+
+Canonical HIL authority `docs/HIL_SITE_MIRROR_HANDOFF.md` records the original HIL Cloudflare deployment run `30573565667`, job `90976121829`, its exact credential-gate failure, preserved logs/evidence, and states that deployment-run discovery is resolved. The remaining production path is the current deployment/runtime path, not repeated historical investigation.
+
+The following completed one-off investigation workflows were therefore eliminated:
+
+- `.github/workflows/hil-deployment-authority-investigation.yml`
+- `.github/workflows/hil-deployment-investigation-handoff-update.yml`
+
+The first consumed `github.token`, Actions read authority and a GitHub-hosted runner to rediscover already-preserved evidence; the second rewrote already-preserved handoff text. Neither is a current deployment/runtime/validation authority surface.
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B3-20260815
+branch: chore/site-validation-workflow-minimization-batch3-20260815
+PR: #272
+merge: 093f627f08993048ce8a2b74d16b52bcddc410b1
+claim_release_commit: 00c70c82b7749ebc100ff890eebb61478bb618a3
+exact_changed_files: the two completed investigation workflows + data/session-work-claims.json
+Ecosystem Heartbeat Orchestration 31870167913 SUCCESS
+Site Handoff Orchestrator 31870167906 SUCCESS
+Site Bootstrap Validate 31870167864 SUCCESS
+post_merge_workflow_count: 126
+```
+
+No current HIL deployment workflow, provider route, canonical HIL v1.1 state, review/publication surface, TV/TVC authority, or participant-facing product semantics were modified. No NON-TV/TVC project/provider secret or token path was introduced.
+
 ## Classification states
 
 - `KEEP_GITHUB_VALIDATION`: bounded repository/CI behavior retained while consolidation is incomplete.
@@ -155,7 +181,8 @@ Site cost containment: Site #265
 Site workflow minimization: Site #268
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 batch 1 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
-batch 2 implementation: merged; claim must be released on main with PR #271 evidence
+batch 2 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 3 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
 HIL semantic reconciliation: Site #81 / separate canonical workstream
 repository hygiene: StegVerse-Labs/.github#165
 live sovereign runtime/inference: canonical StegVerse workers / observation only here
@@ -172,7 +199,7 @@ Known cleanup evidence:
 
 - Site PR #255 closed as superseded by StegVerse-only runtime architecture.
 - Site PR #269 closed unmerged and superseded by admitted PR #270.
-- batch-1 claim released after verified merge.
+- batch-1, batch-2, and batch-3 workflow-minimization claims released after verified merges.
 - branch inventory exceeds 100 and still requires bounded reconciliation.
 
 ## Validation and completion accounting
@@ -180,22 +207,22 @@ Known cleanup evidence:
 Current goal denominator is the 131 workflow surfaces present at audit start.
 
 ```text
-task_completion: 12/131 classified-or-remediated = 9.16%
-developed_files_for_completed_batches: 12/12 required mutations/records present
+task_completion: 14/131 classified-or-remediated = 10.69%
+developed_files_for_completed_batches: 14/14 required mutations/records present
 scaffolding_or_stubs_in_completed_batches: 0
 missing_required_files_in_completed_batches: 0
-batch_validation: 7/7 required workflow validation groups PASS
-batch_integration: 2/2 workflow-minimization batches merged
+batch_validation: 10/10 required workflow validation groups PASS
+batch_integration: 3/3 workflow-minimization batches merged
 propagation: not applicable until a release-bearing Site product change exists
-goal_activation: 12/131 = 9.16%
+goal_activation: 14/131 = 10.69%
 session_consolidation: incomplete while unique Site workflow minimization/hygiene work remains
 ```
 
 ## Next executable action
 
-1. Release `SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B2-20260815` in `data/session-work-claims.json` with PR #271 / merge / run / 128-workflow evidence.
-2. Under Site #268, inspect the next small family of workflow surfaces and create exactly one fresh branch-bound claim before mutation.
-3. Prefer eliminating clearly superseded one-version install/import workflows or consolidating compatible read-only validators; do not weaken current semantic guards to make cleanup pass.
+1. Under Site #268, inspect the next small family of workflow surfaces and create exactly one fresh branch-bound claim before mutation.
+2. Prefer eliminating completed one-off investigation/install/import surfaces or consolidating compatible read-only validators; do not weaken current semantic guards to make cleanup pass.
+3. For any necessary recurring operational surface, preserve the capability by transferring recurrence to a named StegVerse worker before deleting the GitHub entry point.
 4. Continue until every audit-start workflow surface is classified and the retained GitHub surface is the minimum technically necessary with explicit exceptions.
 
 ## Archive condition
