@@ -21,34 +21,14 @@
       "role": "IMPLEMENTATION",
       "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "session-prework-claim-enforcement",
-      "dependency_surface_keys": [
-        "site:session-orchestration-entry",
-        "site:heartbeat-worker-task-registry"
-      ],
-      "claimed_paths": [
-        "data/session-work-claims.json",
-        "scripts/check_session_work_claims.py",
-        "tests/test_session_work_claims.py",
-        ".github/workflows/ecosystem-heartbeat-orchestration.yml",
-        "scripts/site_handoff_orchestrator.py",
-        "docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md",
-        "SITE_MIRROR_HANDOFF.md"
-      ],
+      "dependency_surface_keys": ["site:session-orchestration-entry", "site:heartbeat-worker-task-registry"],
+      "claimed_paths": ["data/session-work-claims.json", "scripts/check_session_work_claims.py", "tests/test_session_work_claims.py", ".github/workflows/ecosystem-heartbeat-orchestration.yml", "scripts/site_handoff_orchestrator.py", "docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md", "SITE_MIRROR_HANDOFF.md"],
       "handoff": "docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md",
       "handoff_revision": "c2fa9d436381f13c109125367ce803518d4ff2e4",
       "claim_created_at": "2026-08-09T14:02:00-05:00",
       "claim_expires_when": "SATISFIED: merged by PR #260 and transferred to machine-owned heartbeat claim SITE-PREWORK-CLAIM-GATE-MACHINE-001",
-      "expected_evidence": [
-        "PR #260 merged at c2fa9d436381f13c109125367ce803518d4ff2e4",
-        "Ecosystem Heartbeat Orchestration main run 31330951273 SUCCESS",
-        "branch validation runs 31330859460, 31330859465, 31330859473, and 31330859476 SUCCESS"
-      ],
-      "collision_boundaries": [
-        "Do not modify Site issue #114 parent activation ownership",
-        "Do not modify Site issue #119 custody/reconstruction ownership",
-        "Do not claim Render as a governing dependency",
-        "Do not touch active HIL upload owned paths"
-      ],
+      "expected_evidence": ["PR #260 merged at c2fa9d436381f13c109125367ce803518d4ff2e4", "Ecosystem Heartbeat Orchestration main run 31330951273 SUCCESS", "branch validation runs 31330859460, 31330859465, 31330859473, and 31330859476 SUCCESS"],
+      "collision_boundaries": ["Do not modify Site issue #114 parent activation ownership", "Do not modify Site issue #119 custody/reconstruction ownership", "Do not claim Render as a governing dependency", "Do not touch active HIL upload owned paths"],
       "next_task_after_release": "Machine-owned heartbeat gate SITE-PREWORK-CLAIM-GATE-MACHINE-001 enforces Site pre-work admission"
     },
     {
@@ -61,33 +41,14 @@
       "role": "ORCHESTRATION",
       "state": "MACHINE_OWNED",
       "normalized_work_key": "session-prework-claim-gate-operations",
-      "dependency_surface_keys": [
-        "site:session-orchestration-entry",
-        "site:heartbeat-worker-task-registry"
-      ],
-      "claimed_paths": [
-        "data/session-work-claims.json",
-        "scripts/check_session_work_claims.py",
-        "scripts/site_handoff_orchestrator.py",
-        ".github/workflows/ecosystem-heartbeat-orchestration.yml"
-      ],
+      "dependency_surface_keys": ["site:session-orchestration-entry", "site:heartbeat-worker-task-registry"],
+      "claimed_paths": ["data/session-work-claims.json", "scripts/check_session_work_claims.py", "scripts/site_handoff_orchestrator.py", ".github/workflows/ecosystem-heartbeat-orchestration.yml"],
       "handoff": "docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md",
       "handoff_revision": "c2fa9d436381f13c109125367ce803518d4ff2e4",
       "claim_created_at": "2026-08-09T14:12:00-05:00",
       "claim_expires_when": "Released only after an organization-level heartbeat worker provides equal-or-stronger cross-repository pre-work collision enforcement and Site imports that authority",
-      "expected_evidence": [
-        "Ecosystem Heartbeat Orchestration runs on every pull request",
-        "scheduled heartbeat observation at minute 17 of each hour",
-        "session_work_claims.report.json PASS",
-        "site_handoff_orchestration.report.json PASS",
-        "Render convergence regression suite PASS"
-      ],
-      "collision_boundaries": [
-        "This worker owns orchestration admission only, not product implementation",
-        "It may block or redirect duplicate claims but may not mint product execution authority",
-        "Render remains incidental unless a canonical task explicitly marks it critical",
-        "Issue #114 and issue #119 retain their existing authority boundaries"
-      ],
+      "expected_evidence": ["Ecosystem Heartbeat Orchestration runs on every pull request", "scheduled heartbeat observation at minute 17 of each hour", "session_work_claims.report.json PASS", "site_handoff_orchestration.report.json PASS", "Render convergence regression suite PASS"],
+      "collision_boundaries": ["This worker owns orchestration admission only, not product implementation", "It may block or redirect duplicate claims but may not mint product execution authority", "Render remains incidental unless a canonical task explicitly marks it critical", "Issue #114 and issue #119 retain their existing authority boundaries"],
       "next_task_after_release": "Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
     },
     {
@@ -96,37 +57,18 @@
       "task_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B1",
       "originating_goal": "Reduce Site GitHub workflow surfaces toward the minimum technically necessary while preserving useful validation and TV/TVC-only credential authority",
       "repository": "StegVerse-Labs/Site",
-      "branch": "chore/site-workflow-minimization-batch1-20260815",
+      "branch": "chore/site-validation-workflow-minimization-batch1-20260815",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workflow-surface-minimization-268-batch-1",
-      "dependency_surface_keys": [
-        "site:workflow-surface-minimization"
-      ],
-      "claimed_paths": [
-        ".github/workflows/check-hil-live-readiness.yml",
-        ".github/workflows/check-hil-first-release-readiness.yml",
-        "data/session-work-claims.json",
-        "docs/SITE_MIRROR_HANDOFF.md",
-        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
-      ],
+      "dependency_surface_keys": ["site:workflow-surface-minimization"],
+      "claimed_paths": [".github/workflows/check-hil-live-readiness.yml", ".github/workflows/check-hil-first-release-readiness.yml", "data/session-work-claims.json", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "PR-269-HEAD-0f96883603199e6d73fb21b8345855d7a61c0e9b",
+      "handoff_revision": "PENDING_VALIDATED_BATCH_1_MERGE",
       "claim_created_at": "2026-08-15T01:14:00-05:00",
-      "claim_expires_when": "Release or transition after PR #269 is merged with passing Site pre-work/orchestration and target validation evidence, or mark BLOCKED with the exact machine-observable failure if admission cannot be satisfied",
-      "expected_evidence": [
-        "PR #269 exact changed-file review",
-        "HIL tokenless stable-dispatcher validation PASS",
-        "Site Handoff Orchestrator PASS with exactly one branch claim",
-        "post-merge workflow-count observation",
-        "canonical Actions cost-containment handoff update"
-      ],
-      "collision_boundaries": [
-        "Do not modify HIL activation-state or end-to-end protocol semantics in this minimization lane",
-        "Do not take TV/TVC, provider, publication, custody, release, or Master Record authority",
-        "Do not alter active HIL upload implementation paths",
-        "Do not take over the machine-owned Site pre-work admission surface"
-      ],
+      "claim_expires_when": "Release or transition after the replacement workflow-minimization PR is merged with passing Site pre-work/orchestration and target validation evidence, or mark BLOCKED with the exact machine-observable failure if admission cannot be satisfied",
+      "expected_evidence": ["replacement PR exact changed-file review", "HIL tokenless stable-dispatcher validation PASS", "Site Handoff Orchestrator PASS with exactly one branch claim", "post-merge workflow-count observation", "canonical Actions cost-containment handoff update"],
+      "collision_boundaries": ["Do not modify HIL activation-state or end-to-end protocol semantics in this minimization lane", "Do not take TV/TVC, provider, publication, custody, release, or Master Record authority", "Do not alter active HIL upload implementation paths", "Do not take over the machine-owned Site pre-work admission surface"],
       "next_task_after_release": "Continue the next unclaimed Site workflow-surface classification batch under issue #268"
     }
   ]
