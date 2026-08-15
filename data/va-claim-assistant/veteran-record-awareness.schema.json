@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/schemas/va-claim-assistant/veteran-record-awareness.schema.json",
+  "title": "VACC Veteran Record Awareness Review",
+  "type": "object",
+  "required": ["schema_version", "session_id", "scope", "findings", "claim_boundary", "authority_flags", "awareness_hash"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "session_id": {"type": "string", "minLength": 1},
+    "scope": {"const": "VETERAN_RECORD_AWARENESS"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id", "category", "summary", "evidence_refs", "observed_facts", "interpretation_state", "claim_relevance", "veteran_action"],
+        "properties": {
+          "finding_id": {"type": "string", "minLength": 1},
+          "category": {"enum": ["BEHAVIORAL_LABEL", "CARE_DISCONTINUITY", "MEDICATION_GAP", "ACCESS_FAILURE", "CONTRADICTION", "PROBLEM_LIST_INTEGRITY", "UNRESOLVED_ABNORMAL_FINDING", "REFERRAL_GAP", "OTHER"]},
+          "summary": {"type": "string", "minLength": 1},
+          "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "observed_facts": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "interpretation_state": {"enum": ["OBSERVED_ONLY", "POTENTIAL_DISCREPANCY", "CONTRADICTORY_RECORD", "REQUIRES_CLINICAL_REVIEW", "RESOLVED"]},
+          "claim_relevance": {"enum": ["NOT_EVALUATED", "NOT_RELEVANT", "POTENTIALLY_RELEVANT", "RELEVANT"]},
+          "veteran_action": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "claim_boundary": {
+      "type": "object",
+      "required": ["automatically_include_in_claim", "requires_separate_relevance_determination", "veteran_controls_escalation"],
+      "properties": {
+        "automatically_include_in_claim": {"const": false},
+        "requires_separate_relevance_determination": {"const": true},
+        "veteran_controls_escalation": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "authority_flags": {
+      "type": "object",
+      "required": ["adjudication", "representation", "medical_opinion", "rating", "execution", "publication"],
+      "properties": {
+        "adjudication": {"const": false},
+        "representation": {"const": false},
+        "medical_opinion": {"const": false},
+        "rating": {"const": false},
+        "execution": {"const": false},
+        "publication": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "awareness_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

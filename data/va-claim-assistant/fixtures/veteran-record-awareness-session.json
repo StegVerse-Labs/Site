@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "fixture-veteran-record-awareness-001",
+  "scope": "VETERAN_RECORD_AWARENESS",
+  "findings": [
+    {
+      "finding_id": "vra-001",
+      "category": "BEHAVIORAL_LABEL",
+      "summary": "A consequential behavioral characterization appears in the record and should be reviewed in context rather than treated as self-explanatory.",
+      "evidence_refs": ["fact-behavior-label", "fact-care-request"],
+      "observed_facts": [
+        "The record contains a behavioral characterization.",
+        "A separate record documents an attempt to obtain care before the characterization."
+      ],
+      "interpretation_state": "POTENTIAL_DISCREPANCY",
+      "claim_relevance": "NOT_EVALUATED",
+      "veteran_action": "Review the surrounding chronology and discuss the characterization with an appropriate clinician or representative if needed."
+    },
+    {
+      "finding_id": "vra-002",
+      "category": "MEDICATION_GAP",
+      "summary": "The chronology contains a possible interruption in medication continuity that warrants review.",
+      "evidence_refs": ["fact-medication-last-fill", "fact-refill-request"],
+      "observed_facts": [
+        "Medication availability may have ended before replacement was documented.",
+        "A refill or care request appears in the surrounding chronology."
+      ],
+      "interpretation_state": "REQUIRES_CLINICAL_REVIEW",
+      "claim_relevance": "NOT_EVALUATED",
+      "veteran_action": "Confirm the medication timeline and whether the gap affected care; do not infer fault from the gap alone."
+    }
+  ],
+  "claim_boundary": {
+    "automatically_include_in_claim": false,
+    "requires_separate_relevance_determination": true,
+    "veteran_controls_escalation": true
+  },
+  "authority_flags": {
+    "adjudication": false,
+    "representation": false,
+    "medical_opinion": false,
+    "rating": false,
+    "execution": false,
+    "publication": false
+  },
+  "awareness_hash": "4db361157c12096c9bf9a0efbafe149764e90d49e558742545cb5c08184ed71c"
+}

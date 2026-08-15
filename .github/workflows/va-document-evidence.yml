@@ -7,7 +7,10 @@ on:
     paths:
       - 'data/va-claim-assistant/document-index.schema.json'
       - 'data/va-claim-assistant/document-evidence-assessment.schema.json'
+      - 'data/va-claim-assistant/veteran-record-awareness.schema.json'
       - 'data/va-claim-assistant/fixtures/document-evidence-session.json'
+      - 'data/va-claim-assistant/fixtures/veteran-record-awareness-session.json'
+      - 'docs/VA_CLAIM_ASSISTANT_VETERAN_RECORD_AWARENESS_STANDARD.md'
       - 'scripts/check_va_document_evidence.py'
       - '.github/workflows/va-document-evidence.yml'
   schedule:
@@ -38,12 +41,13 @@ jobs:
           from pathlib import Path
           result=json.loads(Path('/tmp/va-document-evidence-result.json').read_text())
           receipt={
-            'schema_version':'1.0.0',
+            'schema_version':'1.1.0',
             'receipt_id':'site-va-document-evidence-validation-001',
             'observed_at':dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
             'state':'VERIFIED',
             'task_location':'StegVerse-Labs/Site#116',
             'fixture':'data/va-claim-assistant/fixtures/document-evidence-session.json',
+            'veteran_record_awareness_fixture':'data/va-claim-assistant/fixtures/veteran-record-awareness-session.json',
             'result':result,
             'public_upload_enabled':False,
             'authority_effect':False,
@@ -64,10 +68,11 @@ jobs:
           assert expected==actual
           assert r['state']=='VERIFIED'
           assert r['result']['result']=='PASS'
+          assert r['result']['veteran_record_awareness']['claim_auto_include'] is False
           assert r['public_upload_enabled'] is False
           assert r['authority_effect'] is False
           assert r['activation_effect'] is False
-          print('VA document evidence receipt: PASS')
+          print('VA document evidence + veteran record awareness receipt: PASS')
           PY
       - name: Persist validation receipt
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

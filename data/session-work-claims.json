@@ -89,6 +89,46 @@
         "Issue #114 and issue #119 retain their existing authority boundaries"
       ],
       "next_task_after_release": "Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id": "SITE-VACC-RECORD-AWARENESS-20260811",
+      "session_worker_id": "chatgpt-vacc-record-awareness-20260811",
+      "task_id": "SITE-VACC-VETERAN-RECORD-AWARENESS",
+      "originating_goal": "Add a claim-independent Veteran Record Awareness lane to VACC health-record review",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/vacc-claim-veteran-record-awareness",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "vacc-veteran-record-awareness",
+      "dependency_surface_keys": [
+        "site:vacc-document-evidence-awareness"
+      ],
+      "claimed_paths": [
+        "data/va-claim-assistant/veteran-record-awareness.schema.json",
+        "data/va-claim-assistant/fixtures/veteran-record-awareness-session.json",
+        "scripts/check_va_document_evidence.py",
+        ".github/workflows/va-document-evidence.yml",
+        "docs/VA_CLAIM_ASSISTANT_VETERAN_RECORD_AWARENESS_STANDARD.md",
+        "docs/VA_CLAIM_ASSISTANT_RECORD_AWARENESS_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/VA_CLAIM_ASSISTANT_RECORD_AWARENESS_MIRROR_HANDOFF.md",
+      "handoff_revision": "4f78f98e3cae060373177c92bb8aa9da1948a0dd",
+      "claim_created_at": "2026-08-11T18:12:00-05:00",
+      "claim_expires_when": "Released after the Veteran Record Awareness contract, fixture, validator, workflow coverage, and durable handoff are merged and validated on main",
+      "expected_evidence": [
+        "schema and fixture committed",
+        "document evidence validator PASS including claim_auto_include=false",
+        "VA Document Evidence workflow PASS",
+        "Site handoff orchestration PASS",
+        "merged PR and main readback"
+      ],
+      "collision_boundaries": [
+        "Do not activate private document upload or retrieval",
+        "Do not auto-insert awareness findings into disability claim evidence",
+        "Do not alter VACC filing, adjudication, representation, rating, or medical-opinion authority",
+        "Do not consume identifiable veteran records as population-level research inputs"
+      ],
+      "next_task_after_release": "Runtime/UI integration only after existing VACC Goal 2 and Goal 3 private-document activation gates are satisfied"
     }
   ]
 }
