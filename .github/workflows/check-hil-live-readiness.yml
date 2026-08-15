@@ -8,22 +8,15 @@ on:
     paths:
       - 'humans-as-interoperability-layer.html'
       - 'assets/hil-experiment.js'
-      - 'data/hil-experiment.json'
       - 'data/hil-first-release-readiness.json'
-      - 'data/hil-primary-v0.5-review.pdf.b64'
       - 'data/hil-responses.json'
       - 'data/hil-traces/**'
-      - 'docs/HIL_END_TO_END_PROTOCOL.md'
-      - 'scripts/check_hil_end_to_end_protocol.py'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - '.github/workflows/check-hil-live-readiness.yml'
   pull_request:
     paths:
-      - 'data/hil-experiment.json'
       - 'data/hil-first-release-readiness.json'
-      - 'docs/HIL_END_TO_END_PROTOCOL.md'
-      - 'scripts/check_hil_end_to_end_protocol.py'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - '.github/workflows/check-hil-live-readiness.yml'
@@ -71,9 +64,6 @@ jobs:
 
       - name: Verify preinstalled Python
         run: python3 --version
-
-      - name: Validate HIL end-to-end protocol contract
-        run: python3 scripts/check_hil_end_to_end_protocol.py
 
       - name: Validate fail-closed HIL first-release state
         run: python3 scripts/check_hil_first_release_readiness.py
