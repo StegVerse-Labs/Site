@@ -23,14 +23,14 @@ Repository-local implementation must continue through `data/session-work-claims.
 
 ```text
 audit_start_workflow_surfaces: 131
-current_active_workflow_surfaces: 126
-explicitly_classified_or_remediated_surfaces: 14/131
-remaining_classification_denominator: 117/131
-workflow_files_eliminated_or_consolidated: 5
+current_active_workflow_surfaces: 124
+explicitly_classified_or_remediated_surfaces: 16/131
+remaining_classification_denominator: 115/131
+workflow_files_eliminated_or_consolidated: 7
 recurring_schedules_removed_without_deleting_workflow_files: 9
 ```
 
-Schedule removal and workflow-file elimination are counted separately. The 117 remaining value is a classification denominator, not a claim that 117 schedules remain.
+Schedule removal and workflow-file elimination are counted separately. The 115 remaining value is a classification denominator, not a claim that 115 schedules remain.
 
 ## Completed containment batches
 
@@ -134,6 +134,32 @@ post_merge_workflow_count: 126
 
 No current HIL deployment workflow, provider route, canonical HIL v1.1 state, review/publication surface, TV/TVC authority, or participant-facing product semantics were modified. No NON-TV/TVC project/provider secret or token path was introduced.
 
+### Batch 4 — completed HIL pilot-validation evidence workflow elimination
+
+Canonical HIL pilot authority `docs/HIL_PILOT_VALIDATION_MIRROR_HANDOFF.md` preserves the exact four successful `Site Bootstrap Validate` runs, every job ID and step conclusion, complete logs, artifact inventories, and `data/hil-pilot-validation-complete-evidence.json`. It explicitly records that no pilot fixture or workflow defect is proven and that the complete pilot workflow evidence is preserved.
+
+The following GitHub-hosted write-capable evidence-retrieval/reconciliation workflows were therefore eliminated:
+
+- `.github/workflows/hil-pilot-validation-investigation.yml`
+- `.github/workflows/hil-pilot-validation-evidence-reconciliation.yml`
+
+Both used `github.token`, Actions-read authority, GitHub-hosted runners and `contents: write` to rediscover or rewrite evidence already committed and bound by the canonical pilot handoff. Neither is required for current HIL pilot validation, production deployment/runtime, participant upload, or pending model-return state.
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B4-20260815
+branch: chore/site-validation-workflow-minimization-batch4-20260815
+PR: #273
+merge: 1d5e1b202f13b881b19f84b05c7860040fbdac4d
+claim_release_commit: d6741b970b126fc10c6d48d939fa9e30c4e09d1c
+exact_changed_files: the two completed pilot evidence workflows + data/session-work-claims.json
+Ecosystem Heartbeat Orchestration 31871836352 SUCCESS
+Site Handoff Orchestrator 31871836339 SUCCESS
+Site Bootstrap Validate 31871836411 SUCCESS
+post_merge_workflow_count: 124
+```
+
+No canonical HIL pilot ledger, deterministic fixtures, current HIL deployment/runtime, participant-upload work, pending model response state, TV/TVC authority, provider route, publication, custody, release, or Master Record semantics were modified. No NON-TV/TVC project/provider secret or token path was introduced.
+
 ## Classification states
 
 - `KEEP_GITHUB_VALIDATION`: bounded repository/CI behavior retained while consolidation is incomplete.
@@ -183,6 +209,7 @@ Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / a
 batch 1 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
 batch 2 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
 batch 3 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 4 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
 HIL semantic reconciliation: Site #81 / separate canonical workstream
 repository hygiene: StegVerse-Labs/.github#165
 live sovereign runtime/inference: canonical StegVerse workers / observation only here
@@ -199,7 +226,7 @@ Known cleanup evidence:
 
 - Site PR #255 closed as superseded by StegVerse-only runtime architecture.
 - Site PR #269 closed unmerged and superseded by admitted PR #270.
-- batch-1, batch-2, and batch-3 workflow-minimization claims released after verified merges.
+- batch-1 through batch-4 workflow-minimization claims released after verified merges.
 - branch inventory exceeds 100 and still requires bounded reconciliation.
 
 ## Validation and completion accounting
@@ -207,14 +234,14 @@ Known cleanup evidence:
 Current goal denominator is the 131 workflow surfaces present at audit start.
 
 ```text
-task_completion: 14/131 classified-or-remediated = 10.69%
-developed_files_for_completed_batches: 14/14 required mutations/records present
+task_completion: 16/131 classified-or-remediated = 12.21%
+developed_files_for_completed_batches: 16/16 required mutations/records present
 scaffolding_or_stubs_in_completed_batches: 0
 missing_required_files_in_completed_batches: 0
-batch_validation: 10/10 required workflow validation groups PASS
-batch_integration: 3/3 workflow-minimization batches merged
+batch_validation: 13/13 required workflow validation groups PASS
+batch_integration: 4/4 workflow-minimization batches merged
 propagation: not applicable until a release-bearing Site product change exists
-goal_activation: 14/131 = 10.69%
+goal_activation: 16/131 = 12.21%
 session_consolidation: incomplete while unique Site workflow minimization/hygiene work remains
 ```
 
