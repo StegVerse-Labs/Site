@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="StegVerse phone-sovereign StegFin preparation surface. No hosted runtime, provider credential, GitHub token, signing, or broadcast authority is used by this page.">
+  <title>StegFin · Phone-Sovereign Trade Readiness</title>
+  <link rel="stylesheet" href="./assets/stegfin-phone/styles.css">
+  <style>
+    .projection-note{margin:0 0 14px;padding:12px 14px;border:1px solid #2d455f;border-radius:14px;background:#0d1825;color:#b7c8da;font-size:.82rem;line-height:1.45}.projection-note a{color:#cfe2ff}.projection-note strong{color:#f4f7fb}.projection-note code{font-size:.74rem}
+  </style>
+</head>
+<body>
+  <main class="shell" aria-live="polite">
+    <div class="projection-note"><strong>StegVerse participant projection.</strong> This HTTPS page mirrors the released StegFin phone carrier so the current phone can execute PREPARE locally. Credential authority remains TV/TVC. No Render, Vercel, Cloudflare runtime, GitHub token, provider secret, wallet signing, or broadcast authority is introduced here. <a href="./stegfinco.html">Back to StegFinCo</a>.</div>
+    <header class="topbar"><div><p class="eyebrow">StegFin · Governed Base Validation</p><h1>Trade Readiness</h1></div><span id="stateBadge" class="badge neutral">LOADING</span></header>
+    <section class="card trade-card" aria-labelledby="tradeTitle"><div class="card-head"><div><p class="eyebrow">Validation entry</p><h2 id="tradeTitle">12.50 USDC → WETH</h2></div><span id="chainLabel" class="chip">Base</span></div><dl class="metrics"><div><dt>Wallet</dt><dd id="wallet">—</dd></div><div><dt>Slippage ceiling</dt><dd id="slippage">—</dd></div><div><dt>Gas / tx ceiling</dt><dd id="gasTx">—</dd></div><div><dt>Session gas ceiling</dt><dd id="gasSession">—</dd></div></dl></section>
+    <section class="card" aria-labelledby="deviceTitle"><div class="card-head"><div><p class="eyebrow">Sovereign device</p><h2 id="deviceTitle">This phone is the StegVerse machine</h2></div></div><p class="status-copy">The first preparation gesture admits this phone through StegID when needed: browser-local non-exportable device possession plus platform user verification creates a PREPARE-only capability. The phone then uses the TV/TVC-admitted credential-free direct Base route to observe inventory and build the unsigned handoff entirely on this device.</p><button id="prepareOnPhone" type="button">Verify this phone and prepare wallet handoff</button><p id="phoneStatus" class="muted">Identity continuity, device admission and wallet capability are separate. No provider/GitHub/wallet credential is requested. Signing and broadcast remain USER_ONLY.</p></section>
+    <section class="card" aria-labelledby="gateTitle"><div class="card-head"><div><p class="eyebrow">Continuity gate</p><h2 id="gateTitle">Readiness path</h2></div></div><ol id="gateList" class="gate-list"></ol></section>
+    <section class="card" aria-labelledby="authorityTitle"><div class="card-head"><div><p class="eyebrow">Authority boundary</p><h2 id="authorityTitle">Secrets and signing</h2></div></div><div class="authority-grid"><div><span>Route credentials</span><strong>NONE · TV/TVC admitted</strong></div><div><span>GitHub token required</span><strong id="githubToken">No</strong></div><div><span>Wallet signing</span><strong>USER_ONLY</strong></div><div><span>Broadcast</span><strong>USER_ONLY</strong></div></div><p class="muted">StegVerse executes on this phone. Render, Vercel, Cloudflare and GitHub are not production execution dependencies for this path.</p></section>
+    <section class="card" aria-labelledby="actionTitle"><div class="card-head"><div><p class="eyebrow">User boundary</p><h2 id="actionTitle">Wallet action</h2></div></div><p id="actionMessage" class="status-copy">Waiting for a canonical phone or continuity receipt.</p><button id="reviewButton" type="button" disabled>Review wallet handoff</button><p class="muted">Unlocks only at <code>WALLET_HANDOFF_READY</code>; it never signs or broadcasts.</p></section>
+    <details class="card evidence-card"><summary>Canonical evidence</summary><pre id="evidence">Loading…</pre></details>
+  </main>
+  <script src="./assets/stegfin-phone/phone-direct-route.js" defer></script>
+  <script src="./assets/stegfin-phone/stegid-device-wallet-bootstrap.js" defer></script>
+  <script src="./assets/stegfin-phone/device-wallet-identity.js" defer></script>
+  <script src="./assets/stegfin-phone/app.js" defer></script>
+</body>
+</html>
