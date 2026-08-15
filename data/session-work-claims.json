@@ -110,6 +110,26 @@
       "expected_evidence": ["PR #272 merged at 093f627f08993048ce8a2b74d16b52bcddc410b1", "exact changed files: hil-deployment-authority-investigation.yml, hil-deployment-investigation-handoff-update.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31870167913 SUCCESS", "Site Handoff Orchestrator 31870167906 SUCCESS", "Site Bootstrap Validate 31870167864 SUCCESS", "post-merge active GitHub workflow count 126"],
       "collision_boundaries": ["Do not modify current HIL deployment runtime, canonical v1.1 state, current provider route, or current deployment workflow", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take provider, publication, custody, release, or Master Record authority", "Do not take over machine-owned Site pre-work admission"],
       "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
+    },
+    {
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B4-20260815",
+      "session_worker_id": "chatgpt-session-workflow-minimization-20260815",
+      "task_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B4",
+      "originating_goal": "Eliminate completed HIL pilot-validation evidence investigation/reconciliation workflows after their run, log, artifact, and handoff evidence was durably preserved",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-validation-workflow-minimization-batch4-20260815",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-workflow-surface-minimization-268-batch-4",
+      "dependency_surface_keys": ["site:workflow-surface-minimization:hil-pilot-completed-evidence"],
+      "claimed_paths": [".github/workflows/hil-pilot-validation-investigation.yml", ".github/workflows/hil-pilot-validation-evidence-reconciliation.yml", "data/session-work-claims.json", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_BATCH_4_VALIDATION",
+      "claim_created_at": "2026-08-15T02:22:00-05:00",
+      "claim_expires_when": "Release after a PR deleting only the two completed pilot evidence workflows merges with repository-native orchestration and Site validation passing, or mark BLOCKED with the exact machine-observable failure",
+      "expected_evidence": ["exact diff contains deletion of only the two completed pilot evidence workflows plus claim/handoff bookkeeping", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "Site Bootstrap Validate PASS", "post-merge active workflow count <=124"],
+      "collision_boundaries": ["Do not modify the canonical HIL pilot ledger, deterministic fixtures, current HIL deployment/runtime, participant-upload work, or pending model response states", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take provider, publication, custody, release, or Master Record authority", "Do not take over machine-owned Site pre-work admission"],
+      "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
     }
   ]
 }
