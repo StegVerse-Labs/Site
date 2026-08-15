@@ -150,6 +150,26 @@
       "expected_evidence": ["HIL Post-Submit Continuity 31872738022 SUCCESS", "Check HIL v1 Upload Surface 31872738030 SUCCESS", "Check HIL v1.1 Release 31872738020 SUCCESS", "Site Handoff Orchestrator 31872738026 SUCCESS", "Ecosystem Heartbeat Orchestration 31872738024 SUCCESS", "Cloudflare Workers build ec0dd15a-f6cc-4637-9bea-9a2f79ac8c1e SUCCESS", "PR #274 merge e5c4e70ccf341768940dbcedbf3171e921e28344"],
       "collision_boundaries": ["Do not mutate TVC exact-byte custody or authenticated private-review decisions", "Do not fabricate publication, release, Master Record, execution, provider, or wallet authority", "Do not use NON-TV/TVC secrets or tokens", "Do not duplicate Site #67 lifecycle integration or Site #81 hosted receiver activation"],
       "next_task_after_release": "Site #81 owns direct live receiver/readiness observation; Site #67 and TVC #8 continue lifecycle/private-review integration"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815",
+      "session_worker_id": "chatgpt-session-stegfin-phone-projection-20260815",
+      "task_id": "SITE-STEGFIN-PHONE-PROJECTION-261",
+      "originating_goal": "Expose the already-released StegFin phone-sovereign direct route on a participant-facing StegVerse Site surface so the current phone can begin PREPARE and wallet-handoff readiness without Render, hosted runtime authority, or non-TV/TVC credentials.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/stegfin-phone-participant-projection-20260815",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-phone-participant-projection",
+      "dependency_surface_keys": ["site:stegfin-phone-participant-projection"],
+      "claimed_paths": ["data/session-work-claims.json", "stegfinco.html", "stegfin-trade.html", "assets/stegfin-phone/", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md", "scripts/check_stegfin_phone_projection.py", ".github/workflows/check-stegfin-phone-projection.yml"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_BRANCH_HEAD",
+      "claim_created_at": "2026-08-15T16:47:00-05:00",
+      "claim_expires_when": "Release on validated merge to main; otherwise expire at 2026-08-15T18:47:00-05:00 and mark BLOCKED with exact machine-observable collision or validation condition.",
+      "expected_evidence": ["exact upstream StegFin phone UI source provenance recorded", "Site pre-work claim gate PASS", "projection validator PASS", "Site bootstrap/orchestration validation PASS", "merged participant-facing HTTPS path exposes phone PREPARE entry without hosted runtime or credential authority"],
+      "collision_boundaries": ["Do not mutate Site orchestration ownership beyond adding/releasing this claim", "Do not recreate the StegFin phone carrier or StegID/TVC authority", "Site projection must not gain provider, TV/TVC credential, wallet signing, broadcast, settlement, or Master Records authority", "No Render/Vercel/Cloudflare/GitHub-hosted production execution dependency", "Stop at unsigned WALLET_HANDOFF_READY; signing and broadcast remain USER_ONLY"],
+      "next_task_after_release": "StegVerse-Labs/stegfin-governance#60 observes actual current-phone PREPARE and terminal BLOCKED or WALLET_HANDOFF_READY evidence."
     }
   ]
 }
