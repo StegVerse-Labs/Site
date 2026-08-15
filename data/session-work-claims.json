@@ -138,18 +138,18 @@
       "originating_goal": "After a governed HIL submission succeeds, prepend the exact submission-result packet to the next Site page before the next lifecycle content",
       "repository": "StegVerse-Labs/Site",
       "branch": "feat/hil-post-submit-continuity-20260815",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "hil-post-submit-continuity",
       "dependency_surface_keys": ["site:hil-post-submit-continuity"],
       "claimed_paths": ["humans-as-interoperability-layer.html", "assets/hil-direct-upload-v1.js", "hil-accepted.html", "assets/hil-post-submit-continuity.js", "scripts/check_hil_post_submit_continuity.py", "scripts/check_hil_v1_upload_surface.py", "scripts/check_hil_v1_1_release.py", ".github/workflows/hil-post-submit-continuity.yml", "claims/HIL-POST-SUBMIT-CONTINUITY-001.json", "docs/HIL_POST_SUBMIT_CONTINUITY_MIRROR_HANDOFF.md", "docs/HIL_SITE_MIRROR_HANDOFF.md", "data/session-work-claims.json"],
       "handoff": "docs/HIL_POST_SUBMIT_CONTINUITY_MIRROR_HANDOFF.md",
-      "handoff_revision": "7d717d6ad5a128175b2335b74af2453cd1103726",
+      "handoff_revision": "e5c4e70ccf341768940dbcedbf3171e921e28344",
       "claim_created_at": "2026-08-15T02:22:00-05:00",
-      "claim_expires_when": "PR #274 merges or is explicitly superseded after final HIL post-submit continuity, v1 upload-surface, v1.1 release, Site handoff orchestration, and ecosystem heartbeat validation complete",
-      "expected_evidence": ["HIL Post-Submit Continuity PASS", "Check HIL v1 Upload Surface PASS", "Check HIL v1.1 Release PASS", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "PR #274 merged to main"],
+      "claim_expires_when": "SATISFIED: PR #274 merged to main at e5c4e70ccf341768940dbcedbf3171e921e28344 after all bounded validation and orchestration gates passed",
+      "expected_evidence": ["HIL Post-Submit Continuity 31872738022 SUCCESS", "Check HIL v1 Upload Surface 31872738030 SUCCESS", "Check HIL v1.1 Release 31872738020 SUCCESS", "Site Handoff Orchestrator 31872738026 SUCCESS", "Ecosystem Heartbeat Orchestration 31872738024 SUCCESS", "Cloudflare Workers build ec0dd15a-f6cc-4637-9bea-9a2f79ac8c1e SUCCESS", "PR #274 merge e5c4e70ccf341768940dbcedbf3171e921e28344"],
       "collision_boundaries": ["Do not mutate TVC exact-byte custody or authenticated private-review decisions", "Do not fabricate publication, release, Master Record, execution, provider, or wallet authority", "Do not use NON-TV/TVC secrets or tokens", "Do not duplicate Site #67 lifecycle integration or Site #81 hosted receiver activation"],
-      "next_task_after_release": "Return participant lifecycle continuation to Site #67, hosted receiver activation to Site #81, and exact-byte/private-review ownership to TVC #8"
+      "next_task_after_release": "Site #81 owns direct live receiver/readiness observation; Site #67 and TVC #8 continue lifecycle/private-review integration"
     }
   ]
 }
