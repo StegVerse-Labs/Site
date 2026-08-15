@@ -1,0 +1,30 @@
+{
+  "schema": "stegverse.site.stegfin_phone_source_manifest.v1",
+  "task_id": "SITE-STEGFIN-PHONE-PROJECTION-261",
+  "source_repository": "StegVerse-Labs/stegfin-governance",
+  "source_release_task": "STEGFIN-PHONE-DIRECT-ROUTE-011",
+  "source_issue": 61,
+  "source_pull_request": 62,
+  "source_merge_commit": "e19f64ca53699cc626cf05524ff8398544696067",
+  "live_terminal_observer_issue": 60,
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "non_tv_tvc_secret_or_token_used": false,
+  "hosted_runtime_required": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY",
+  "files": {
+    "stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
+    "stegfin-phone/stegid-device-wallet-bootstrap.js": "01df37b655f1dae8650c9102ffbd85f72432c47f",
+    "stegfin-phone/device-wallet-identity.js": "0f18f416dee3d2707ac47964a6b24fe918d6ef68",
+    "stegfin-phone/app.js": "ade469ac61df37da46bef1376cfdbb10d3c9b5f1",
+    "stegfin-phone/index.html": "8cff3f6efae7261822559ca0c7ba1b44c4cd5ce2",
+    "stegfin-phone/styles.css": "3a91c67d6088f75a93955a260985ce686eb5698f"
+  },
+  "inventory_scope": "BOUNDED_TRADE_RELEVANT_ASSETS",
+  "inventory_assets": ["ETH_GAS_RESERVE", "USDC_SELL_ASSET", "WETH_BUY_ASSET"],
+  "historical_transfer_log_scan_allowed": false,
+  "unknown_asset_enumeration_performed": false,
+  "exhaustive_wallet_asset_discovery_claimed": false,
+  "note": "The Site copy is a byte-identical participant projection of the released browser assets. Site receives no wallet, provider, route, credential, signing, broadcast, settlement, or trade authority."
+}
