@@ -1,0 +1,30 @@
+name: Check HIL End-to-End Protocol
+
+on:
+  push:
+    paths:
+      - "docs/HIL_END_TO_END_PROTOCOL.md"
+      - "data/hil-experiment.json"
+      - "scripts/check_hil_end_to_end_protocol.py"
+      - ".github/workflows/check-hil-end-to-end-protocol.yml"
+  pull_request:
+    paths:
+      - "docs/HIL_END_TO_END_PROTOCOL.md"
+      - "data/hil-experiment.json"
+      - "scripts/check_hil_end_to_end_protocol.py"
+      - ".github/workflows/check-hil-end-to-end-protocol.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate complete HIL protocol contract
+        run: python scripts/check_hil_end_to_end_protocol.py
