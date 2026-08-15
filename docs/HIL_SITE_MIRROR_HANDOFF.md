@@ -1,124 +1,178 @@
-# Humans as the Interoperability Layer — Site Handoff
+# Humans as the Interoperability Layer — Site Mirror Handoff
 
-## Source of truth
+Updated: 2026-08-15
+Repository: `StegVerse-Labs/Site`
+Canonical branch: `main`
+Current integration branch: `feat/hil-post-submit-continuity-20260815`
 
-This document owns participant-facing HIL continuation in `StegVerse-Labs/Site` and is subordinate to `docs/SITE_MIRROR_HANDOFF.md`. `docs/HIL_MIRROR_HANDOFF.md` owns detailed production deployment and controlled-cycle continuation.
+## Source-of-truth rule
 
-Read with:
+This document is the canonical participant-facing HIL continuation record in `StegVerse-Labs/Site` and is subordinate to `docs/SITE_MIRROR_HANDOFF.md`.
 
-1. `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`
-2. `docs/SITE_MIRROR_HANDOFF.md`
+Read with, in current-authority order:
+
+1. `docs/HIL_RUNTIME_PATH_RECONCILIATION.md`
+2. `docs/HIL_POST_SUBMIT_CONTINUITY_MIRROR_HANDOFF.md`
 3. `docs/HIL_MIRROR_HANDOFF.md`
-4. `docs/HIL_EXECUTION_SESSION_PROMPT.md`
-5. `data/hil-cloudflare-deployment-failure-evidence-30573565667.json`
-6. `data/hil-public-runtime-probe-latest.json`
-7. `data/hil-receiver-deployment-latest.json`
-8. `data/hil-controlled-cycle-failure-evidence-30569491378.json`
+4. `docs/HIL_END_TO_END_PROTOCOL.md`
+5. `data/hil-experiment.json`
+6. `data/hil-receiver-config.json`
+7. `src/worker.js`
+8. `data/session-work-claims.json`
+9. `StegVerse-Labs/TVC/docs/HIL_TVC_MIRROR_HANDOFF.md`
+10. `StegVerse-Labs/StegCore/docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md`
 
-Repository state, committed evidence, exact workflow logs, and direct provider observations are authoritative. This handoff grants no execution, custody, publication, activation, or release authority.
+Live repository state, active claims, workflow evidence, runtime observations, TVC receipts, and StegCore lifecycle evidence supersede older prose.
 
-## Objective
+The former Cloudflare/D1 GitHub-secret deployment instructions in earlier revisions of this handoff are **historical evidence only**. `docs/HIL_RUNTIME_PATH_RECONCILIATION.md` classifies that path `SUPERSEDED_FOR_ACTIVE_IMPLEMENTATION`. It must not be revived as the canonical HIL runtime path merely because the old attempt is preserved.
 
-Complete the first governed HIL participant lifecycle with exact-byte preservation, receipt issuance, durable custody, reconstruction, private review, separately authenticated publication, Site projection, HIL Master Record release, and verified downstream propagation.
-
-## Readiness classes
-
-1. `ANNOUNCEMENT_READY_WITH_MANAGED_RETURN`: bounded participant-managed return with no governed custody, registry, review, publication, or authority claim.
-2. Production receiver activation: scoped live route, D1 binding, exact-byte custody, controlled-cycle PASS, machine-published participant readiness, hosted restart persistence, public upload/received verification, genuine participant completion, private review, authenticated publication, Site projection, Master Record release, and downstream verification.
-
-Managed-return readiness is not production activation.
-
-## Canonical contract
+## Active goal
 
 ```text
-Repository: StegVerse-Labs/Site
-Participant launch: https://stegverse.org/hil-study-launch.html
-Managed return: https://stegverse.org/hil-managed-return.html
-Production upload: https://stegverse.org/hil/upload/
-Receiver route: stegverse.org/api/hil/*
-Configured Worker name: site
-Worker source: src/worker.js
-Binding: HIL_REGISTRY
-Backend: portable-sqlite-chunks-v1
-Primary: v1.1 / a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
-Prompt: HIL-PROMPT-v1.1 / cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
-Test case: HIL-E2E-001
-Synthetic boundaries: research_data=false; authority_effect=false
+goal_id: HIL-LIFECYCLE-ACTIVATION-001
+originating_goal: complete a governed HIL participant lifecycle with exact-byte preservation, receipt continuity, private review, separate publication authority, Site projection, Master Record validation/release, and reconstructable evidence
+credential_authority: TV/TVC
+non_tv_tvc_secret_or_token_allowed: false
+github_token_runtime_authority: NONE
+participant_surface_authority: StegVerse-Labs/Site
+exact_byte_custody_authority: StegVerse-Labs/TVC
+cross_repository_lifecycle_validation: StegVerse-Labs/StegCore
 ```
 
-## Exact deployment-authority investigation result
+No Site page, browser script, GitHub-hosted validation workflow, handoff, receipt projection, or result packet may create TV/TVC credential authority, private-review authority, publication authority, release authority, Master Record append authority, wallet authority, or provider authority.
 
-The push-triggered HIL deployment run is now identified and preserved:
+## Current canonical runtime path
 
 ```text
-Workflow: HIL Cloudflare Receiver Deploy
-Workflow path: .github/workflows/hil-cloudflare-deploy.yml
-Run ID: 30573565667
-Run number: 2
-Run attempt: 1
-Event: push
-Triggering commit: d5d1598a8c523e8665e4550ee5c272df09256379
-Run conclusion: failure
-Deployment job ID: 90976121829
-Deployment job: deploy
-Job conclusion: failure
-First failed step: 4 — Validate deployment credentials
-Step exit code: 1
-Exact error: Process completed with exit code 1.
+participant on stegverse.org
+-> same-origin GET /api/hil/readiness
+-> same-origin POST /api/hil/submissions
+-> Site worker src/worker.js
+-> exact PDF + HIL-RESPONSE-PROVENANCE-v1.1
+-> HIL-RECEIVER-RECEIPT-v2 only after persistent exact-byte reconstruction verifies
+-> same-origin status/content retrieval
+-> participant result projection
+-> TVC exact-byte/lifecycle verification
+-> authenticated private review
+-> separately authenticated publication
+-> Site lifecycle projection
+-> Master Records validation/release under its own authority
+-> StegCore cross-repository lifecycle validation
 ```
 
-All workflow steps:
+Canonical identities:
 
 ```text
-1  Set up job                                      success
-2  Run actions/checkout@v4                         success
-3  Run actions/setup-node@v4                       success
-4  Validate deployment credentials                 failure
-5  Build production Wrangler configuration         skipped
-6  Deploy receiver Worker                          skipped
-7  Verify production readiness route               skipped
-8  Commit deployment observation                   success
-9  Enforce live READY receiver                     skipped
-10 Upload deployment evidence                      success
-19 Post Run actions/setup-node@v4                   skipped
-20 Post Run actions/checkout@v4                     success
-21 Complete job                                    success
+Primary version: v1.1
+Primary SHA-256: a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462
+Prompt version: HIL-PROMPT-v1.1
+Prompt SHA-256: cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c
+Provenance: HIL-RESPONSE-PROVENANCE-v1.1
+Receiver receipt: HIL-RECEIVER-RECEIPT-v2
+Registry binding: HIL_REGISTRY
+Custody backend: portable-sqlite-chunks-v1
 ```
 
-The exact job log proves:
+`data/hil-receiver-config.json` declares the public receiver base as `https://stegverse.org`, readiness path `/api/hil/readiness`, and submission path `/api/hil/submissions`, with embedded credentials prohibited.
+
+## Post-submit participant behavior — current required contract
+
+Goal/task: `HIL-POST-SUBMIT-CONTINUITY-001`.
+
+Canonical handoff: `docs/HIL_POST_SUBMIT_CONTINUITY_MIRROR_HANDOFF.md`.
+
+Active pre-work claim:
 
 ```text
-CLOUDFLARE_API_TOKEN: EMPTY
-CLOUDFLARE_ACCOUNT_ID: EMPTY
-HIL_REGISTRY_DATABASE_ID: EMPTY
+registry: data/session-work-claims.json
+claim_id: HIL-POST-SUBMIT-CONTINUITY-001
+branch: feat/hil-post-submit-continuity-20260815
+state: CLAIMED_FOR_IMPLEMENTATION
+created: 2026-08-15T02:22:00-05:00
+release: PR #274 merge or explicit supersession after HIL continuity/release/handoff/heartbeat validation
 ```
 
-The credential gate executed:
+The participant behavior is:
 
 ```text
-set -euo pipefail
-test -n "$CLOUDFLARE_API_TOKEN"
-test -n "$CLOUDFLARE_ACCOUNT_ID"
-test -n "$HIL_REGISTRY_DATABASE_ID"
+successful governed submission
+-> receiver receipt proves EXACT_BYTES_PERSISTED + RECORDED
+-> navigate to hil-accepted.html?submission_id=<id>
+-> FIRST CONTENT: HIL-SUBMISSION-RESULT-PACKET-v1
+   -> receipt identity
+   -> independently retrieved exact PDF bytes
+   -> submitted SHA-256
+   -> retrieved SHA-256
+   -> exact-byte verification PASS
+   -> Primary/prompt provenance identities
+   -> current lifecycle state
+   -> explicit false authority fields
+-> NEXT LIFECYCLE CONTENT below the result packet
 ```
 
-Provider boundary:
+A receiver failure may preserve a hash-verified participant-device copy as `LOCAL_FALLBACK_PENDING_RESUBMISSION`, but that fallback goes to `hil-receipt.html` and does **not** claim StegVerse custody or successful governed submission.
+
+PR #274 corrects a live source mismatch: the public participant client previously posted to `/api/hil/upload`, while the canonical worker has no such route and instead implements `/api/hil/submissions`. The branch reconciles the public client, worker contract, v1.1 release guard, upload-surface guard, and result page to the same canonical route.
+
+## Existing genuine participant evidence
+
+TVC remains authoritative for exact-byte custody evidence. At least one genuine participant artifact is already recorded outside the later Gmail managed-return path:
 
 ```text
-production Wrangler configuration built: false
+submission_id: HIL-20260731-GPT56-001
+TVC receipt: HIL-TVC-1442c8407e6de8c6
+state: RECONSTRUCTED_HASH_VERIFIED
+private_review: pending under TVC #8
+publication_authorized: false
+release_authorized: false
+master_record_created: false
+```
+
+Absence of a managed-return email is not evidence that no HIL artifact exists.
+
+## Active ownership and collision boundaries
+
+```text
+HIL-POST-SUBMIT-CONTINUITY-001
+  owner: PR #274 bounded Site integration branch
+  role: CLAIMED_FOR_IMPLEMENTATION
+
+StegVerse-Labs/Site#67
+  owner: participant lifecycle projection
+  state: CLAIMED_FOR_INTEGRATION
+  do not duplicate private-review/publication/lifecycle projection work
+
+StegVerse-Labs/Site#81
+  owner: live hosted receiver/readiness/runtime activation
+  do not infer deployment from source merge
+
+StegVerse-Labs/TVC#8
+  owner: exact-byte lifecycle + authenticated private-review contract
+  do not fabricate review decision
+
+StegVerse-Labs/StegCore#41
+  owner: cross-repository lifecycle consistency and next-action coordination
+
+master-records/orchestration
+  owner: candidate validation/custody under independent predicates
+```
+
+The machine-owned Site pre-work admission gate remains `SITE-PREWORK-CLAIM-GATE-MACHINE-001` in `data/session-work-claims.json`. Pull-request work must resolve to exactly one active pre-work claim. A standalone claim file is not sufficient admission evidence.
+
+## Historical runtime path — preserved but superseded
+
+The following evidence remains valid historical provenance and must not be deleted:
+
+```text
+Cloudflare deployment run: 30573565667
+result: failed before provider invocation
+historical cause: required Actions values empty
 Wrangler invoked: false
 Cloudflare invoked: false
-Worker inspected or changed: false
-route inspected or changed: false
-D1 database inspected or changed: false
-HIL_REGISTRY inspected or changed: false
-Cloudflare provider error: none; provider execution never began
-failure class: GITHUB_ACTIONS_SECRET_BOUNDARY
+public probes/readiness at that time: GitHub Pages 404
 ```
 
-No deployment artifact was created because no `deployment-evidence/` directory existed after the pre-provider failure.
-
-Preserved evidence:
+Preserved evidence includes:
 
 ```text
 data/hil-cloudflare-deployment-investigation-d5d1598a.json
@@ -127,147 +181,100 @@ evidence/hil-cloudflare-deployment-d5d1598a8c52/job-90976121829-credential-gate-
 data/hil-receiver-deployment-latest.json
 ```
 
-## Fresh production-domain evidence
+These records explain a past failed path. They are **not** the current next-action contract. The current provider-neutral runtime decision is `docs/HIL_RUNTIME_PATH_RECONCILIATION.md`.
 
-A non-mutating public probe completed successfully as Actions run `30640006721`, job `91187220992`, and was preserved at commit `c2e479ee829bcc259b146669acbdfb5fc0b3c1c2`.
+## Validation state for PR #274
 
-```text
-/api/hil/probes:
-  HTTP 404
-  server: GitHub.com
-  body: GitHub Pages file-not-found HTML
-
-/api/hil/readiness:
-  HTTP 404
-  server: GitHub.com
-  body: GitHub Pages file-not-found HTML
-```
-
-Verification:
+Observed successful validation on the branch:
 
 ```text
-probes_http_200: false
-readiness_http_200: false
-readiness_state_ready: false
-canonical Primary v1.1 verified: false
-canonical prompt v1.1 verified: false
-HIL_REGISTRY bound and reachable: false
+HIL Post-Submit Continuity
+  run 31872177965: SUCCESS
+
+Check HIL v1 Upload Surface
+  run 31872177971: SUCCESS after stale v1.0-only guard was reconciled to canonical v1.1
+
+Check HIL v1.1 Release
+  run 31872177977: SUCCESS after stale /api/hil/upload expectation was reconciled to /api/hil/submissions
 ```
 
-Public-probe evidence:
+The Site Handoff Orchestrator correctly rejected an earlier head because the branch had no active claim in `data/session-work-claims.json`. The claim has now been installed in that canonical registry. Final handoff/heartbeat revalidation is required before merge.
+
+Validation commands:
 
 ```text
-data/hil-public-runtime-probe-latest.json
-data/hil-public-runtime-probe-run-investigation.json
-evidence/hil-public-runtime-probe/
+python scripts/check_hil_post_submit_continuity.py
+python scripts/check_hil_v1_upload_surface.py
+python scripts/check_hil_v1_1_release.py
+python scripts/check_session_work_claims.py
+python scripts/site_handoff_orchestrator.py
 ```
 
-## Exact controlled-cycle evidence
+Hosted validation is source/integration evidence only. It grants no production runtime authority.
+
+## Activation denominator
+
+Full HIL lifecycle activation remains separate from this bounded UI/source repair.
+
+Required product gates:
 
 ```text
-Workflow: hil-controlled-cycle.yml
-Run ID: 30569491378
-Run head: 04116dd23e6797406b603a06d30f24666e8778a3
-Run conclusion: failure
-Job ID: 90962296249
-Job: participant-readiness-gate
-First failed step: Capture and validate live runtime readiness
-Endpoint: https://stegverse.org/api/hil/readiness
-HTTP status: 404
-curl exit: 22
-Provider message: The requested URL returned error: 404
-Artifact ID: 8770179722
-Artifact: hil-participant-readiness-30569491378-1
-Artifact digest: sha256:b202bf1fb6341a6d5fde36c72a347b544284981a1b42c1f8b8e4bc1f3c2d0edd
+1 canonical v1.1 experiment identity/source
+2 live governed same-origin receiver readiness
+3 authentic participant governed submission + exact-byte receipt
+4 authenticated private review
+5 separately authenticated publication
+6 validated Site lifecycle projection
+7 Master Record validation/release under independent authority
+8 StegCore/downstream lifecycle verification
 ```
 
-All packet submission, receipt, retrieval, custody, negative-case, readiness-publication, and restart-persistence steps were skipped after readiness failed.
-
-## Current production state
+Current directly supported state:
 
 ```text
-Deployment trigger commit: d5d1598a8c523e8665e4550ee5c272df09256379
-Deployment run: 30573565667
-Deployment job: 90976121829
-Deployment conclusion: failure
-Deployment failure: required_github_actions_deployment_secrets_empty
-Cloudflare invoked: false
-Deployment state: deployed=false
-Deployment readiness: ready=false
-/api/hil/probes: HTTP 404 from GitHub Pages
-/api/hil/readiness: HTTP 404 from GitHub Pages
-Controlled-cycle result: failure
-Participant readiness: NOT_YET_VERIFIED
-participant_ready: false
-upload_button_authorized: false
-production submission ID: absent
-production receipt ID: absent
-exact-byte custody: unproven
-hosted restart persistence: unproven
-Deployed HIL Worker version: not established
-Scoped Cloudflare route: not established
-HIL D1 database identifier: not retrieved
-HIL_REGISTRY binding: not verified
-release/tag authority: false
+1 canonical source: COMPLETE
+2 live current receiver readiness after current source: NOT YET REOBSERVED
+3 genuine historical participant exact-byte custody: COMPLETE for HIL-20260731-GPT56-001; new canonical public-path submission not yet observed
+4 authenticated private review: PENDING TVC #8
+5 publication: PENDING separate authority
+6 lifecycle projection: PENDING Site #67
+7 Master Record release: PENDING independent authority
+8 downstream/cross-repository verification: PENDING
 ```
 
-The configured Worker name is `site`, but no HIL deployment version, scoped route, D1 identity, or binding was established because the provider was never invoked. Previously observed Worker deployment information is not proof of this HIL production deployment.
+Do not report HIL fully activated from PR #274 or any GitHub-hosted workflow.
 
-## Exact remaining external-authority block
-
-The deployment-run discovery block is resolved. The only proven deployment blocker is that `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` are absent or unavailable to the `StegVerse-Labs/Site` Actions secret context.
-
-This session exposes no GitHub Actions-secret write operation and no authenticated Cloudflare control plane. Secret values, account identity, and D1 database identity cannot be invented or committed.
-
-Repair requires an authorized secret boundary to populate the three proven-empty values using the existing Cloudflare account and preserved HIL D1 database identity. The D1 database must not be deleted or replaced. After repair, rerun `HIL Cloudflare Receiver Deploy` and preserve the first Wrangler/provider result before making any further change.
-
-No source file, Worker route, unrelated `stegverse.org` route, D1 resource, or binding was modified. No secret value was guessed, exposed, or committed.
-
-## Required production path
-
-1. At an authorized Actions secret boundary, populate `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` while preserving the existing Cloudflare account and HIL D1 database identity.
-2. Rerun `HIL Cloudflare Receiver Deploy`; preserve the first Wrangler/provider result and repair only any newly proven defect.
-3. Confirm the durable HIL D1 database identity and bind it as `HIL_REGISTRY` without deleting or replacing it.
-4. Route only `stegverse.org/api/hil/*` to `src/worker.js`, preserving unrelated routes.
-5. Require `/api/hil/probes` HTTP 200.
-6. Require `/api/hil/readiness` HTTP 200 with `state: READY` and exact v1.1 identities.
-7. Submit `HIL-E2E-001`; verify submission ID, receipt ID, SHA-256, byte size, chunk count, provenance, custody, exact-byte retrieval, reconstruction, and deterministic negative cases.
-8. Machine-publish `TEST_PARTICIPANT_PACKET_PASSED`, `participant_ready: true`, and `upload_button_authorized: true` only from successful source evidence.
-9. Prove survival across a real hosted deployment replacement or restart.
-10. Verify the public upload and received pages end-to-end.
-11. Complete genuine participant submission, private review, separately authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification.
-
-## Remaining modules and destinations
+## Exact next executable work
 
 ```text
-StegVerse-Labs/Site:
-- authorized Cloudflare Actions secret values and deployment rerun evidence
-- first Wrangler/provider result after credential repair
-- live scoped Worker route and preserved HIL_REGISTRY database binding
-- /api/hil/probes and /api/hil/readiness HTTP 200
-- controlled-cycle PASS
-- machine-derived participant readiness
-- hosted restart-persistence PASS
-- public upload/received verification
-- genuine participant receipt and private review
-- authenticated publication and HIL Master Record release
+PR #274 / HIL-POST-SUBMIT-CONTINUITY-001
+- require final Site Handoff Orchestrator PASS with the canonical registry claim
+- require final Ecosystem Heartbeat Orchestration PASS or preserve an exact independently owned blocker
+- merge only after collision-safe validation
+- release the bounded claim after merge
 
-After verified activation and release only:
-- master-records/orchestration
-- GCAT-BCAT-Engine/Publisher
-- StegVerse-Labs/admissibility-wiki
-- StegVerse-002/stegguardian-wiki
-- StegVerse-Labs/Sit only after repository identity and role are independently verified
+Site #81
+- directly observe the current deployed same-origin /api/hil/readiness and /api/hil/submissions runtime after canonical source reaches main
+- produce RETRY / REVIEW_REQUIRED / FAILED / CLAIMED / SUPERSEDED / COMPLETE evidence; no vague external task
+
+Site #67 + TVC #8
+- continue authentic lifecycle review/projection from real receipts without creating publication/release authority
 ```
 
-## Release posture
+## Session consolidation / archive conditions
 
-No tag or release is authorized. Production receiver activation, restart persistence, genuine participant receipt, private review, authenticated publication, Master Record release, and downstream verification remain unproven.
+The post-submit behavior that existed only in current conversation is now durable in:
 
-## Next-session prompt
+```text
+docs/HIL_POST_SUBMIT_CONTINUITY_MIRROR_HANDOFF.md
+claims/HIL-POST-SUBMIT-CONTINUITY-001.json
+data/session-work-claims.json
+PR #274
+```
 
-Continue HIL production activation directly in `StegVerse-Labs/Site` on `main`. Read `docs/CROSS_SESSION_EXECUTION_HANDOFF_PROTOCOL.md`, `docs/SITE_MIRROR_HANDOFF.md`, `docs/HIL_MIRROR_HANDOFF.md`, `docs/HIL_SITE_MIRROR_HANDOFF.md`, `data/hil-cloudflare-deployment-failure-evidence-30573565667.json`, `data/hil-public-runtime-probe-latest.json`, and `data/hil-receiver-deployment-latest.json`. The original deployment run is proven as run `30573565667`, job `90976121829`, triggered by `d5d1598a8c523e8665e4550ee5c272df09256379`; it failed at `Validate deployment credentials` because `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `HIL_REGISTRY_DATABASE_ID` were all empty, before Wrangler or Cloudflare executed. Use an environment exposing authorized GitHub Actions-secret management or direct Cloudflare control-plane access. Preserve the existing account and D1 database identity; do not delete or replace the database and do not alter unrelated routes. Populate only the proven missing values, rerun the deployment, preserve the first Wrangler/provider result, and continue through the scoped `stegverse.org/api/hil/*` route, `HIL_REGISTRY`, `/api/hil/probes` HTTP 200, `/api/hil/readiness` HTTP 200 with `state: READY` and exact v1.1 identities, controlled-cycle exact-byte custody, negative cases, machine-derived production readiness, hosted restart persistence, genuine participant receipt, private review, authenticated publication, Site projection, HIL Master Record release, release/tag evaluation, and authorized downstream verification. Update both HIL handoffs and machine-state records before responding. Stop only at live success or one exact newly proven provider/authority blocker.
+This session is **not archive-ready while PR #274 remains unmerged or its active claim remains unreleased**. Product-level HIL activation also remains incomplete and must continue through Site #81, Site #67, TVC #8, StegCore #41, and Master Records without relying on chat memory.
 
-## Archive readiness
-
-The exact deployment run, job, steps, credential-gate failure, fresh production-domain responses, participant state, authority boundary, remaining modules, and continuation instructions are preserved in repository evidence. Complete thread is ready for archiving without any additional part of the thread needed to move forward.
+Developed-file completion for bounded post-submit tranche: 9/9 required source/validator/claim/handoff surfaces installed.
+Validation completion: 3/5 required hosted validation groups observed PASS; handoff and heartbeat revalidation pending.
+Integration completion: 7/8 bounded predicates implemented; merge pending.
+Goal activation for bounded tranche: 7/8 before merge/claim release.

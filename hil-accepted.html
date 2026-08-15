@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Verify a received HIL response packet and review this browser's HIL submissions.">
+  <meta name="description" content="Verify a received HIL response packet and continue the governed HIL lifecycle.">
   <title>HIL Response Packet Received — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
@@ -11,88 +11,47 @@
     .receipt{white-space:pre-wrap;overflow-wrap:anywhere;background:#070b13;border:1px solid var(--border2);padding:16px;border-radius:8px}
     .pdf-frame{width:100%;min-height:62vh;border:1px solid var(--border2);border-radius:8px;background:#fff}
     .history{display:grid;gap:12px}.history-item{border:1px solid var(--border2);border-radius:9px;padding:14px}.history-item a{font-weight:800}.muted{opacity:.8}
+    .result-packet{border:2px solid var(--border2);border-radius:12px;padding:20px;margin:18px 0 30px;background:rgba(255,255,255,.015)}
+    .result-packet-label{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;opacity:.78}
+    .lifecycle-next{border-top:1px solid var(--border2);padding-top:24px;margin-top:30px}
   </style>
 </head>
 <body>
-<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-accepted.html">Receipt</a></nav>
+<nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="humans-as-interoperability-layer.html">Interoperability Study</a><a class="active" href="hil-accepted.html">Received</a></nav>
 <main class="sv-wrap">
-  <header class="sv-hero">
-    <div class="sv-eyebrow">Governed receiver · exact-byte verification</div>
-    <h1>Response Packet <em>Received</em></h1>
-    <p>Your receipt and all HIL submissions recorded by this browser appear below.</p>
-  </header>
+  <section id="submission-result-packet" class="result-packet" aria-labelledby="submission-result-heading">
+    <div class="result-packet-label">Prepended governed submission result</div>
+    <h1 id="submission-result-heading">HIL Submission Result Packet</h1>
+    <p>This packet is the first content shown after a successful governed submission. It binds the receiver receipt to an independently retrieved copy of the exact submitted PDF. It does not grant private-review, publication, release, execution, or Master Record authority.</p>
+    <section id="result-packet-state" class="notice" aria-live="polite">Loading governed result packet…</section>
+    <h2 class="sv-h2">Submission result</h2>
+    <pre id="result-packet-body" class="receipt">Loading result packet…</pre>
+    <div class="sv-btn-row"><button id="download-result-packet" class="sv-btn sv-btn-primary" disabled>Download Result Packet</button></div>
 
-  <section id="received-state" class="notice" aria-live="polite">Loading receipt…</section>
+    <h2 class="sv-h2">Exact submitted response PDF</h2>
+    <iframe id="response-pdf" class="pdf-frame" title="Exact submitted response PDF"></iframe>
 
-  <h2 class="sv-h2">Received response packet</h2>
-  <iframe id="response-pdf" class="pdf-frame" title="Received response PDF"></iframe>
+    <h2 class="sv-h2">Verified receiver receipt</h2>
+    <pre id="receipt-body" class="receipt">Loading receiver receipt…</pre>
+    <div class="sv-btn-row"><button id="download-receipt" class="sv-btn sv-btn-secondary" disabled>Download Receiver Receipt</button></div>
+  </section>
 
-  <h2 class="sv-h2">Verified receiver receipt</h2>
-  <pre id="receipt-body" class="receipt">Loading receipt…</pre>
+  <section id="next-lifecycle-stage" class="lifecycle-next" aria-labelledby="next-stage-heading">
+    <header class="sv-hero">
+      <div class="sv-eyebrow">Next governed lifecycle stage</div>
+      <h2 id="next-stage-heading">Submission received. Private review is next.</h2>
+      <p>The submission result above remains distinct from private review, publication, Site projection, and Master Record release. Those stages advance only from their own governed evidence.</p>
+    </header>
 
-  <div class="sv-btn-row">
-    <button id="download-receipt" class="sv-btn sv-btn-primary" disabled>Download Receipt</button>
-    <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html#submit">Submit Another Response</a>
-  </div>
+    <div class="sv-btn-row">
+      <a class="sv-btn sv-btn-secondary" href="humans-as-interoperability-layer.html#submit">Submit Another Response</a>
+    </div>
 
-  <h2 class="sv-h2">Your HIL submissions</h2>
-  <p class="muted">This list is stored in this browser. Each entry links back to its verified receipt.</p>
-  <div id="submission-history" class="history"></div>
+    <h2 class="sv-h2">Your HIL submissions</h2>
+    <p class="muted">This browser-local list is navigation only. It does not replace the governed receiver or its receipts.</p>
+    <div id="submission-history" class="history"></div>
+  </section>
 </main>
-<script>
-(() => {
-  'use strict';
-  const params=new URLSearchParams(location.search);
-  const submissionId=params.get('submission_id');
-  const byId=id=>document.getElementById(id);
-  let receipt=null;
-
-  function receiverBase(){
-    const host=location.hostname.toLowerCase();
-    if(host==='localhost'||host==='127.0.0.1') return '';
-    return 'https://receiver.stegverse.com';
-  }
-  async function sha256Hex(buffer){
-    const digest=await crypto.subtle.digest('SHA-256',buffer);
-    return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
-  }
-  function saveBlob(blob,filename){
-    const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=filename;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-  }
-  function historyRows(){try{return JSON.parse(localStorage.getItem('stegverse.hil.submissions.v1')||'[]');}catch{return [];}}
-  function renderHistory(){
-    const target=byId('submission-history');
-    const rows=historyRows();
-    if(!rows.length){target.textContent='No submissions are recorded in this browser yet.';return;}
-    target.replaceChildren();
-    rows.forEach(row=>{
-      const article=document.createElement('article');article.className='history-item';
-      const link=document.createElement('a');link.href=`hil-accepted.html?submission_id=${encodeURIComponent(row.submission_id)}`;link.textContent=row.submission_id;
-      const details=document.createElement('div');details.className='muted';details.textContent=`${row.received_at||'time unavailable'} · ${row.submitted_file_sha256||'hash unavailable'}`;
-      article.append(link,details);target.appendChild(article);
-    });
-  }
-  async function init(){
-    const state=byId('received-state');renderHistory();
-    if(!submissionId){state.dataset.state='error';state.textContent='No submission ID was supplied.';return;}
-    try{
-      const statusResponse=await fetch(`${receiverBase()}/api/hil/submissions/${encodeURIComponent(submissionId)}`,{cache:'no-store'});
-      if(!statusResponse.ok) throw new Error('submission_status_unavailable');
-      const status=await statusResponse.json();receipt=status.receipt;
-      if(!receipt||receipt.submission_id!==submissionId||status.state!=='ACCEPTED') throw new Error('accepted_receipt_invalid');
-      const contentResponse=await fetch(`${receiverBase()}/api/hil/submissions/${encodeURIComponent(submissionId)}/content`,{cache:'no-store'});
-      if(!contentResponse.ok) throw new Error('stored_packet_unavailable');
-      const buffer=await contentResponse.arrayBuffer();
-      const retrievedHash=await sha256Hex(buffer);
-      if(retrievedHash!==receipt.submitted_file_sha256) throw new Error('retrieved_packet_hash_mismatch');
-      byId('response-pdf').src=URL.createObjectURL(new Blob([buffer],{type:'application/pdf'}));
-      byId('receipt-body').textContent=JSON.stringify(receipt,null,2);
-      state.dataset.state='ok';state.textContent=`${submissionId} received. Exact-byte retrieval and SHA-256 verification passed.`;
-      const button=byId('download-receipt');button.disabled=false;button.addEventListener('click',()=>saveBlob(new Blob([`${JSON.stringify(receipt,null,2)}\n`],{type:'application/json'}),`${receipt.receipt_id||submissionId}.json`));
-    }catch(error){state.dataset.state='error';state.textContent=`Receipt verification could not be completed: ${error.message||'unknown_error'}.`;byId('response-pdf').removeAttribute('src');byId('receipt-body').textContent='No verified receiver receipt is available.';}
-  }
-  init();
-})();
-</script>
+<script src="assets/hil-post-submit-continuity.js"></script>
 </body>
 </html>

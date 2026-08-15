@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Download the canonical HIL paper and submit one unchanged response PDF.">
+  <meta name="description" content="Download the canonical HIL paper and submit one unchanged response PDF through the governed HIL receiver.">
   <link rel="canonical" href="https://stegverse.org/humans-as-interoperability-layer.html">
   <title>Humans as the Interoperability Layer — StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
@@ -12,9 +12,9 @@
 <body>
 <nav class="sv-nav"><a class="sv-nav-brand" href="index.html">StegVerse</a><a href="index.html">Home</a><a href="ecosystem-chat.html">Ecosystem Chat</a><a href="Papers.html">Papers</a><a class="active" href="humans-as-interoperability-layer.html">Interoperability Study</a><a href="hil-faq.html">HIL FAQ</a></nav>
 <main class="sv-wrap">
-<header class="sv-hero"><div class="sv-eyebrow">Canonical experiment input · v1.1</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>Download the canonical paper, obtain one complete response PDF from an LLM, and append that unchanged PDF to a participant-device record here.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" download>Download Canonical v1.1 Primary PDF</a><a class="sv-btn sv-btn-secondary" href="#submit">Append response PDF</a></div></header>
+<header class="sv-hero"><div class="sv-eyebrow">Canonical experiment input · v1.1</div><h1>Humans as the <em>Interoperability Layer</em></h1><p>Download the canonical paper, obtain one complete response PDF from an LLM, and submit that unchanged PDF to the governed HIL receiver. A successful governed submission advances to a page whose first content is the verified submission-result packet.</p><div class="sv-btn-row"><a class="sv-btn sv-btn-primary" href="data/HIL_Canonical_Paper_v1_1.pdf" download>Download Canonical v1.1 Primary PDF</a><a class="sv-btn sv-btn-secondary" href="#submit">Submit response PDF</a></div></header>
 <section class="sv-evidence"><div class="sv-evidence-row"><span class="k">Protocol authority</span><span class="v">StegVerse.org</span></div><div class="sv-evidence-row"><span class="k">Primary version</span><span class="v">v1.1</span></div><div class="sv-evidence-row"><span class="k">Primary SHA-256</span><span class="v">a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462</span></div></section>
-<h2 class="sv-h2">Participant path</h2><div class="grid"><div class="card">1. Download the canonical PDF.</div><div class="card">2. Upload it to an LLM and use the prompt.</div><div class="card">3. Download the single response PDF.</div><div class="card">4. Choose that PDF below.</div><div class="card">5. Confirm and append it.</div><div class="card">6. View or download the stored PDF and JSON record.</div></div>
+<h2 class="sv-h2">Participant path</h2><div class="grid"><div class="card">1. Download the canonical PDF.</div><div class="card">2. Upload it to an LLM and use the prompt.</div><div class="card">3. Download the single response PDF.</div><div class="card">4. Choose that unchanged PDF below.</div><div class="card">5. Submit it to the governed receiver after readiness and identity checks pass.</div><div class="card">6. On governed success, the next Site page begins with the exact submission-result packet, retrieved PDF hash proof, and receiver receipt.</div></div>
 <section id="submit"><h2 class="sv-h2">Exact canonical prompt</h2>
 <div id="canonical-prompt" class="prompt">Read the attached paper, “Humans as the Interoperability Layer,” in full. Analyze it independently and answer each numbered item. Do not agree with the author by default. Preserve disagreement, uncertainty, and limitations.
 
@@ -32,16 +32,16 @@ In the visible chat reply, provide a concise summary, the single downloadable PD
 8. Identify any phrasing, concept, distinction, or proposed test you would carry into a later conversation, model interaction, or artifact.
 9. End with the completed submission record.</div>
 <div class="actions"><button id="copy-prompt" class="sv-btn sv-btn-outline" type="button">Copy prompt</button></div>
-<h2 class="sv-h2">Append the single Response PDF</h2>
+<h2 class="sv-h2">Submit the single Response PDF</h2>
 <form id="upload-form" class="upload-panel">
   <div class="field"><label for="response-file">Response PDF</label><input id="response-file" name="response_pdf" type="file" accept="application/pdf,.pdf" required></div>
   <div class="field"><label for="display-name">Display name</label><input id="display-name" type="text" value="Anonymous" maxlength="100" autocomplete="name"><small>Leave as Anonymous, or enter a name or pseudonym.</small></div>
   <label class="choice"><input id="show-name" type="checkbox"><span>Display the name entered above if this response is later approved for publication.</span></label>
   <label class="choice"><input id="authorized" type="checkbox" required><span>I am authorized to submit this response packet.</span></label>
   <label class="choice"><input id="unchanged" type="checkbox" required><span>This is the unchanged response PDF supplied by the LLM.</span></label>
-  <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload" type="submit">Append Response Packet</button></div>
-  <div id="intake-status" class="status" aria-live="polite">The PDF is accepted only after its stored bytes are read back and their SHA-256 is verified.</div>
+  <div class="actions"><button id="upload-response" class="sv-btn sv-btn-primary primary-upload" type="submit">Submit Response Packet</button></div>
+  <div id="intake-status" class="status" aria-live="polite">The Site first requires governed receiver readiness and the exact v1.1 Primary/prompt identities. A receiver failure may retain a verified participant-device copy, but that fallback does not claim StegVerse custody.</div>
 </form></section></main>
 <script>(()=>{const copy=document.getElementById('copy-prompt'),status=document.getElementById('intake-status');copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('canonical-prompt').textContent.trim());copy.textContent='Copied';setTimeout(()=>copy.textContent='Copy prompt',1200);}catch{status.textContent='Select and copy the prompt manually.';}});})();</script>
-<script src="assets/hil-direct-upload-v1.js?v=20260731-1749"></script>
+<script src="assets/hil-direct-upload-v1.js?v=20260815-postsubmit"></script>
 </body></html>
