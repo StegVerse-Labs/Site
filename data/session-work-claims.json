@@ -170,6 +170,26 @@
       "expected_evidence": ["PR #276 merge 8b5319705dcf02c8edc8dd1612e9787cf70386a1", "Check StegFin Phone Projection run 31910836065 SUCCESS", "Ecosystem Heartbeat Orchestration run 31910836030 SUCCESS", "Site Handoff Orchestrator run 31910836202 SUCCESS", "Site Bootstrap Validate run 31910836064 SUCCESS", "exact mirrored upstream Git blobs preserved"],
       "collision_boundaries": ["Do not mutate Site orchestration ownership beyond adding/releasing this claim", "Do not recreate the StegFin phone carrier or StegID/TVC authority", "Site projection must not gain provider, TV/TVC credential, wallet signing, broadcast, settlement, or Master Records authority", "No Render/Vercel/Cloudflare/GitHub-hosted production execution dependency", "Stop at unsigned WALLET_HANDOFF_READY; signing and broadcast remain USER_ONLY"],
       "next_task_after_release": "StegVerse-Labs/stegfin-governance#60 observes actual current-phone PREPARE and terminal BLOCKED or WALLET_HANDOFF_READY evidence."
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815",
+      "session_worker_id": "chatgpt-session-stegfin-phone-hardening-projection-20260815",
+      "task_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING",
+      "originating_goal": "Refresh the already-released Site phone projection to the bounded Inventory N carrier released by StegFin task 011, without creating another participant surface or authority path.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegfin-phone-bounded-inventory-projection-261",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-phone-participant-projection-bounded-inventory-hardening",
+      "dependency_surface_keys": ["site:stegfin-phone-participant-projection"],
+      "claimed_paths": ["data/session-work-claims.json", "assets/stegfin-phone/phone-direct-route.js", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md", "scripts/check_stegfin_phone_projection.py"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "c22ff0a54038ffa8f710fc8a1133ba90acdedeab",
+      "claim_created_at": "2026-08-15T17:08:00-05:00",
+      "claim_expires_when": "Released after exact bounded upstream blob 31ed79cb56e8d2366e6d70f22e28c70162c88fd8 replaces the stale projected blob, projection validation and Site claim/orchestration checks pass, and the refresh PR merges.",
+      "expected_evidence": ["StegFin task 011 PR #62 merge e19f64ca53699cc626cf05524ff8398544696067", "projected phone-direct-route.js blob 31ed79cb56e8d2366e6d70f22e28c70162c88fd8", "Check StegFin Phone Projection PASS", "Site pre-work claim validation PASS", "Site PR merge and Pages rebuild"],
+      "collision_boundaries": ["Preserve existing stegfin-trade.html participant URL", "Do not create a second Site phone surface", "Do not alter StegID/TVC authority", "Do not use NON-TV/TVC secrets or tokens", "Do not add Render/Vercel/Cloudflare/GitHub-hosted production execution", "Do not sign or broadcast"],
+      "next_task_after_release": "StegFin #60 observes actual current-phone PREPARE and terminal BLOCKED or WALLET_HANDOFF_READY evidence from the refreshed public participant surface."
     }
   ]
 }
