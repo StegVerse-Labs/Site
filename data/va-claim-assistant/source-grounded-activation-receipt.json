@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "receipt_id": "site-va-source-grounded-activation-001",
-  "observed_at": "2026-08-15T11:39:30+00:00",
+  "observed_at": "2026-08-15T13:03:37+00:00",
   "capability": "SOURCE_GROUNDED_ASSISTANT",
   "state": "VERIFIED",
   "local": {
