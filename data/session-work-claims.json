@@ -89,6 +89,45 @@
         "Issue #114 and issue #119 retain their existing authority boundaries"
       ],
       "next_task_after_release": "Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B1-20260815",
+      "session_worker_id": "chatgpt-session-workflow-minimization-20260815",
+      "task_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B1",
+      "originating_goal": "Reduce Site GitHub workflow surfaces toward the minimum technically necessary while preserving useful validation and TV/TVC-only credential authority",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-workflow-minimization-batch1-20260815",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-workflow-surface-minimization-268-batch-1",
+      "dependency_surface_keys": [
+        "site:workflow-surface-minimization"
+      ],
+      "claimed_paths": [
+        ".github/workflows/check-hil-live-readiness.yml",
+        ".github/workflows/check-hil-first-release-readiness.yml",
+        "data/session-work-claims.json",
+        "docs/SITE_MIRROR_HANDOFF.md",
+        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "PR-269-HEAD-0f96883603199e6d73fb21b8345855d7a61c0e9b",
+      "claim_created_at": "2026-08-15T01:14:00-05:00",
+      "claim_expires_when": "Release or transition after PR #269 is merged with passing Site pre-work/orchestration and target validation evidence, or mark BLOCKED with the exact machine-observable failure if admission cannot be satisfied",
+      "expected_evidence": [
+        "PR #269 exact changed-file review",
+        "HIL tokenless stable-dispatcher validation PASS",
+        "Site Handoff Orchestrator PASS with exactly one branch claim",
+        "post-merge workflow-count observation",
+        "canonical Actions cost-containment handoff update"
+      ],
+      "collision_boundaries": [
+        "Do not modify HIL activation-state or end-to-end protocol semantics in this minimization lane",
+        "Do not take TV/TVC, provider, publication, custody, release, or Master Record authority",
+        "Do not alter active HIL upload implementation paths",
+        "Do not take over the machine-owned Site pre-work admission surface"
+      ],
+      "next_task_after_release": "Continue the next unclaimed Site workflow-surface classification batch under issue #268"
     }
   ]
 }
