@@ -1,5 +1,7 @@
 name: Heartbeat Response Network
 
+# Heartbeat continuity/response is StegVerse-controlled runtime work. GitHub is
+# retained only for explicit/manual and source-change validation.
 on:
   workflow_dispatch:
   push:
@@ -14,8 +16,6 @@ on:
       - "scripts/check_heartbeat_response_network.py"
       - "tests/test_heartbeat_response_network.py"
       - ".github/workflows/heartbeat-response-network.yml"
-  schedule:
-    - cron: "23 * * * *"
 
 permissions:
   contents: read
