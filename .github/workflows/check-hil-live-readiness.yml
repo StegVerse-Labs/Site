@@ -1,4 +1,4 @@
-name: Check HIL Live Readiness
+name: HIL Validation and Live Readiness - No Non-TV/TVC Credential Authority
 
 on:
   workflow_dispatch:
@@ -8,66 +8,90 @@ on:
     paths:
       - 'humans-as-interoperability-layer.html'
       - 'assets/hil-experiment.js'
-      - 'data/hil-experiment.json'
-      - 'data/hil-primary-v0.5-review.pdf.b64'
+      - 'data/hil-first-release-readiness.json'
       - 'data/hil-responses.json'
       - 'data/hil-traces/**'
+      - 'scripts/check_hil_first_release_readiness.py'
+      - 'scripts/check_hil_live_readiness.py'
+      - '.github/workflows/check-hil-live-readiness.yml'
+  pull_request:
+    paths:
+      - 'data/hil-first-release-readiness.json'
+      - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - '.github/workflows/check-hil-live-readiness.yml'
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
-  group: check-hil-live-readiness
+  group: hil-validation-live-readiness-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  observe:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
-      - name: Check out Site
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - name: Assert credential-clean validation environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID HIL_REGISTRY_DATABASE_ID; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'credential_authority=TV/TVC'
+          echo 'consumer_credential_present=false'
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Anonymous public repository fetch
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+
+      - name: Verify preinstalled Python
+        run: python3 --version
+
+      - name: Validate fail-closed HIL first-release state
+        run: python3 scripts/check_hil_first_release_readiness.py
 
       - name: Observe deployed HIL Site, artifact, intake, review, and publication surfaces
+        if: github.event_name != 'pull_request'
         id: observe
         continue-on-error: true
-        run: python scripts/check_hil_live_readiness.py --output reports/hil-live-readiness.latest.json
+        run: python3 scripts/check_hil_live_readiness.py --output reports/hil-live-readiness.latest.json
 
-      - name: Write workflow summary
+      - name: Write validation summary
         if: always()
+        shell: bash
         run: |
-          echo '## HIL live readiness observation' >> "$GITHUB_STEP_SUMMARY"
+          echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
-          echo 'This workflow observes deployed state only and grants no activation, publication, execution, or Master Record authority.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, or Master Record authority.' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-live-readiness.latest.json ]; then
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
             cat reports/hil-live-readiness.latest.json >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           else
-            echo 'Observation JSON was not produced.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Live observation is intentionally omitted for pull requests, or observation JSON was not produced.' >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Upload observation evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hil-live-readiness-${{ github.run_id }}-${{ github.run_attempt }}
-          path: reports/hil-live-readiness.latest.json
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Enforce approved Site surface
-        if: steps.observe.outcome == 'failure'
+      - name: Enforce approved deployed Site surface
+        if: github.event_name != 'pull_request' && steps.observe.outcome == 'failure'
         run: |
           echo 'The deployed approved HIL Site surface was not observed.' >&2
           exit 1
