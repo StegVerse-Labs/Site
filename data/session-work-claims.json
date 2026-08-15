@@ -70,6 +70,26 @@
       "expected_evidence": ["PR #270 merged at 5fc9929f39c9feae2423b00e9d6830c65fd07ccd", "HIL dispatcher run 31869132762 SUCCESS", "Site Handoff Orchestrator run 31869132816 SUCCESS", "Ecosystem Heartbeat Orchestration run 31869132801 SUCCESS", "Site Bootstrap Validate run 31869132796 SUCCESS", "post-merge GitHub Actions workflow count 130"],
       "collision_boundaries": ["Do not modify HIL activation-state or end-to-end protocol semantics in this minimization lane", "Do not take TV/TVC, provider, publication, custody, release, or Master Record authority", "Do not alter active HIL upload implementation paths", "Do not take over the machine-owned Site pre-work admission surface"],
       "next_task_after_release": "Continue the next unclaimed Site workflow-surface classification batch under issue #268"
+    },
+    {
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B2-20260815",
+      "session_worker_id": "chatgpt-session-workflow-minimization-20260815",
+      "task_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B2",
+      "originating_goal": "Eliminate obsolete HIL v0.5 installer workflows after canonical HIL v1.1 became authoritative, without weakening current HIL validation or introducing non-TV/TVC credentials",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-validation-workflow-minimization-batch2-20260815",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-workflow-surface-minimization-268-batch-2",
+      "dependency_surface_keys": ["site:workflow-surface-minimization:hil-obsolete-v0-5-installers"],
+      "claimed_paths": [".github/workflows/install-hil-primary.yml", ".github/workflows/install-hil-primary-v0.5.yml", "data/session-work-claims.json", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_BATCH_2_VALIDATION",
+      "claim_created_at": "2026-08-15T01:36:00-05:00",
+      "claim_expires_when": "Release after a PR deleting only the two superseded v0.5 installer workflows merges with repository-native orchestration and Site validation passing, or mark BLOCKED with the exact machine-observable failure",
+      "expected_evidence": ["exact diff contains deletion of only the two v0.5 installer workflows plus claim/handoff bookkeeping", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "Site Bootstrap Validate PASS", "post-merge active workflow count <=128"],
+      "collision_boundaries": ["Do not modify canonical HIL v1.1 product state or validators", "Do not modify HIL runtime/deployment/review/publication ownership", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take over machine-owned Site pre-work admission"],
+      "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
     }
   ]
 }
