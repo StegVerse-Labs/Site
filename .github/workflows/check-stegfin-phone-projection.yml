@@ -1,0 +1,74 @@
+name: Check StegFin Phone Projection - Validation Only / No GitHub Token Authority
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'stegfin-trade.html'
+      - 'stegfinco.html'
+      - 'assets/stegfin-phone/**'
+      - 'scripts/check_stegfin_phone_projection.py'
+      - 'docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.json'
+      - '.github/workflows/check-stegfin-phone-projection.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'stegfin-trade.html'
+      - 'stegfinco.html'
+      - 'assets/stegfin-phone/**'
+      - 'scripts/check_stegfin_phone_projection.py'
+      - 'docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.json'
+      - '.github/workflows/check-stegfin-phone-projection.yml'
+
+permissions: {}
+
+concurrency:
+  group: stegfin-phone-projection-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Anonymous public checkout without GitHub credential token
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          test -z "${GITHUB_TOKEN:-}"
+          test -z "${GH_TOKEN:-}"
+          git config --global --unset-all http.https://github.com/.extraheader || true
+          git init .
+          git remote add origin https://github.com/StegVerse-Labs/Site.git
+          if [ -n "${PR_NUMBER:-}" ]; then
+            env -u GITHUB_TOKEN -u GH_TOKEN git fetch --depth=1 origin "refs/pull/${PR_NUMBER}/merge"
+          else
+            env -u GITHUB_TOKEN -u GH_TOKEN git fetch --depth=1 origin "${GITHUB_SHA}"
+          fi
+          git checkout --detach FETCH_HEAD
+
+      - name: Validate Site pre-work claim registry
+        run: python3 scripts/check_session_work_claims.py
+
+      - name: Validate exact StegFin phone projection
+        run: python3 scripts/check_stegfin_phone_projection.py
+
+      - name: Prove validation workflow is non-authorizing
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path('.github/workflows/check-stegfin-phone-projection.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'contents'+': write',
+              'git'+' push',
+              '$'+'{{ '+'github.token'+' }}',
+              'actions/'+'checkout@',
+              '$'+'{{ '+'secrets.',
+          ]
+          found = [value for value in forbidden if value in text]
+          assert not found, found
+          assert 'permissions: {}' in text
+          print('STEGFIN_PHONE_PROJECTION_WORKFLOW_NON_AUTHORIZING_PASS')
+          PY
