@@ -12,8 +12,6 @@ on:
       - 'scripts/sync_steggate_four_app_site_handoff.py'
       - 'data/tasks/SITE-0001-STEGGATE-FOUR-APP-ORCHESTRATION.json'
   workflow_dispatch:
-  schedule:
-    - cron: '31 * * * *'
 
 permissions:
   contents: write
