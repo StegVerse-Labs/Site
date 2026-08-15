@@ -150,6 +150,26 @@
       "expected_evidence": ["HIL Post-Submit Continuity 31872738022 SUCCESS", "Check HIL v1 Upload Surface 31872738030 SUCCESS", "Check HIL v1.1 Release 31872738020 SUCCESS", "Site Handoff Orchestrator 31872738026 SUCCESS", "Ecosystem Heartbeat Orchestration 31872738024 SUCCESS", "Cloudflare Workers build ec0dd15a-f6cc-4637-9bea-9a2f79ac8c1e SUCCESS", "PR #274 merge e5c4e70ccf341768940dbcedbf3171e921e28344"],
       "collision_boundaries": ["Do not mutate TVC exact-byte custody or authenticated private-review decisions", "Do not fabricate publication, release, Master Record, execution, provider, or wallet authority", "Do not use NON-TV/TVC secrets or tokens", "Do not duplicate Site #67 lifecycle integration or Site #81 hosted receiver activation"],
       "next_task_after_release": "Site #81 owns direct live receiver/readiness observation; Site #67 and TVC #8 continue lifecycle/private-review integration"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815",
+      "session_worker_id": "chatgpt-session-stegfin-phone-projection-20260815",
+      "task_id": "SITE-STEGFIN-PHONE-PROJECTION-261",
+      "originating_goal": "Expose the released phone-sovereign StegFin carrier on a StegVerse participant surface so the authorized iPhone can produce PREPARE and WALLET_HANDOFF_READY evidence without Render or another machine",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "feat/stegfin-phone-participant-surface-261",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-phone-participant-projection-261",
+      "dependency_surface_keys": ["site:stegfin-phone-participant-surface"],
+      "claimed_paths": ["data/session-work-claims.json", "stegfin-phone/index.html", "stegfin-phone/phone-direct-route.js", "stegfin-phone/stegid-device-wallet-bootstrap.js", "stegfin-phone/device-wallet-identity.js", "stegfin-phone/app.js", "stegfin-phone/styles.css", "stegfin-phone/source-manifest.json", "scripts/check_stegfin_phone_participant_surface.py", "docs/STEGFIN_PHONE_PARTICIPANT_SURFACE_MIRROR_HANDOFF.md"],
+      "handoff": "docs/STEGFIN_PHONE_PARTICIPANT_SURFACE_MIRROR_HANDOFF.md",
+      "handoff_revision": "4ecac8268de5a3a46314c7faa3f1f3c840bda62a",
+      "claim_created_at": "2026-08-15T17:01:00-05:00",
+      "claim_expires_when": "Released after the exact hardened StegFin phone assets are projected, source-bound validation passes, the PR is merged, and the participant path is durable; live WebAuthn/wallet evidence remains owned by StegFin #60 and USER_ONLY boundaries.",
+      "expected_evidence": ["StegFin PR #62 merge e19f64ca53699cc626cf05524ff8398544696067", "source manifest binds exact upstream blobs", "Site participant-surface validator PASS", "Site PR merged", "Site #261 reconciled to released participant path"],
+      "collision_boundaries": ["Do not alter HIL upload-owned paths", "Do not alter Site #67/#81 lifecycle ownership", "Do not modify workflow-minimization surfaces", "Do not take TV/TVC credential or route authority", "Do not add NON-TV/TVC secrets or tokens", "Do not sign or broadcast wallet transactions", "Do not take over machine-owned Site pre-work admission"],
+      "next_task_after_release": "Actual authorized phone invokes the released participant surface; StegFin #60 records current-device PREPARE plus BLOCKED or WALLET_HANDOFF_READY terminal evidence."
     }
   ]
 }
