@@ -1,0 +1,40 @@
+name: HIL Post-Submit Continuity
+
+on:
+  pull_request:
+    paths:
+      - "humans-as-interoperability-layer.html"
+      - "hil-accepted.html"
+      - "assets/hil-direct-upload-v1.js"
+      - "assets/hil-post-submit-continuity.js"
+      - "src/worker.js"
+      - "data/hil-receiver-config.json"
+      - "scripts/check_hil_post_submit_continuity.py"
+      - ".github/workflows/hil-post-submit-continuity.yml"
+      - "docs/HIL_SITE_MIRROR_HANDOFF.md"
+  push:
+    paths:
+      - "humans-as-interoperability-layer.html"
+      - "hil-accepted.html"
+      - "assets/hil-direct-upload-v1.js"
+      - "assets/hil-post-submit-continuity.js"
+      - "src/worker.js"
+      - "data/hil-receiver-config.json"
+      - "scripts/check_hil_post_submit_continuity.py"
+      - ".github/workflows/hil-post-submit-continuity.yml"
+      - "docs/HIL_SITE_MIRROR_HANDOFF.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate governed submit and prepended result packet
+        run: python scripts/check_hil_post_submit_continuity.py
