@@ -2,8 +2,6 @@ name: TIDC Repository Task Coordinator
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 * * * *'
   push:
     paths:
       - 'data/tidc/task-graph.v0.1.json'
