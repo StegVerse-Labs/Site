@@ -6,8 +6,8 @@
   "blockers": [],
   "observer_id": "SV-VA-GOVERNED-SURFACES-DEPLOYMENT-001",
   "private_document_upload_enabled": false,
-  "receipt_sha256": "68d1823c5bdc28b28f63504e9abc3b72f3ab0fa8b1a1590b987a3ba8a643c01e",
-  "recorded_at": "2026-08-15T13:05:40.352611Z",
+  "receipt_sha256": "823163317ea314f9118b46c33e2f8a1354b283f704f858fd93825002004b40d8",
+  "recorded_at": "2026-08-15T18:53:47.932601Z",
   "schema_version": "1.0.0",
   "state": "VERIFIED",
   "surfaces": {
