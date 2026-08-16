@@ -1,6 +1,6 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-16T18:44:00-05:00
+Updated: 2026-08-16T18:48:00-05:00
 
 ## Canonical scope
 
@@ -94,18 +94,32 @@ evidence-export.js
 
 No remote executable script is authorized.
 
-## Released predecessors
+## Released predecessors and validator continuity invariants
+
+These exact identifiers remain in the canonical handoff because the phone projection validator binds the released evidence-export surface to all predecessor release contracts rather than allowing release bookkeeping to erase provenance:
 
 ```text
+parent phone task: STEGFIN-PHONE-DIRECT-ROUTE-011
+RPC source task: STEGFIN-PHONE-RPC-RESILIENCE-012
+Site RPC task: TASK-2026-0004
+source readiness: Site#282
+wallet review source task: STEGFIN-PHONE-WALLET-REVIEW-014
+source trade contract: COMPLETE_INSTALLED
+phone-direct-route.js blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
+rpc-resilience.js blob: 290b567eca2cc9f83e7438a80682ebaf8006ad76
+RPC resilience upstream merge: bcba49976a52024a233f998ce290ec4ab42618ff
+app.js blob: 433ef5e5db9f9f7af2c7c7df4ba01acc89125403
 original phone projection: PR #276 -> 8b5319705dcf02c8edc8dd1612e9787cf70386a1
 bounded Inventory N hardening: PR #278 -> 264c75f84361567bdc1126e0fdb13c7a7a90de1c
 hardening reconciliation: PR #279 -> 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f
 RPC resilience: PR #281 -> 19db08571c679c3143b4c2f2b380497eb8630cd4; Pages 1153990519
-source readiness: PR #283 -> 5941fd49647b9304d8220fcaf7155989feed89b1; Pages 1154089848
+source readiness projection: PR #283 -> 5941fd49647b9304d8220fcaf7155989feed89b1; Pages 1154089848
 sanitized StegID evidence: PR #285 -> 0e9921305cbe31eb2b00cf26baa7bba3e52de4bd; Pages 1154410266
 USER_ONLY wallet review: PR #288 -> abe63f6af052c460d102818e8dd16ccda90b72c6; Pages 1154455062
 evidence export product: PR #290 -> 9ad8c065ae756015086f5db0951c5e7179826fdc; Pages 1155718345
 ```
+
+Release reconciliation changes none of these predecessor bindings.
 
 ## Current phone continuation
 
