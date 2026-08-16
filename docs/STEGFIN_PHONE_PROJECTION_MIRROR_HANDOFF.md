@@ -30,9 +30,15 @@ This handoff is the canonical StegFin phone projection handoff. It supersedes it
 ## Completed predecessor releases
 
 ```text
+parent phone task: STEGFIN-PHONE-DIRECT-ROUTE-011
+RPC source task: STEGFIN-PHONE-RPC-RESILIENCE-012
+Site RPC task: TASK-2026-0004
+source readiness: Site#282
+wallet review source task: STEGFIN-PHONE-WALLET-REVIEW-014
 original phone projection: Site PR #276 -> 8b5319705dcf02c8edc8dd1612e9787cf70386a1
 bounded Inventory N hardening: Site PR #278 -> 264c75f84361567bdc1126e0fdb13c7a7a90de1c
 hardening reconciliation: Site PR #279 -> 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f
+RPC resilience upstream: StegFin PR #66 -> bcba49976a52024a233f998ce290ec4ab42618ff
 RPC resilience: Site PR #281 -> 19db08571c679c3143b4c2f2b380497eb8630cd4; Pages 1153990519 BUILT
 source readiness: Site PR #283 -> 5941fd49647b9304d8220fcaf7155989feed89b1; Pages 1154089848 BUILT
 sanitized StegID evidence: Site PR #285 -> 0e9921305cbe31eb2b00cf26baa7bba3e52de4bd; Pages 1154410266 BUILT
