@@ -207,7 +207,7 @@
       "handoff_revision": "99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f",
       "claim_created_at": "2026-08-15T19:38:00-05:00",
       "claim_expires_when": "SATISFIED: PR #279 merged at 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f after Check StegFin Phone Projection 31917723911, Site Handoff Orchestrator 31917723847, Ecosystem Heartbeat Orchestration 31917723743, and Site Bootstrap Validate 31917723793 all succeeded.",
-      "expected_evidence": ["stale hardening claim terminalized", "canonical phone handoff records PR #278/check/Pages evidence", "PR #279 merge 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f", "Check StegFin Phone Projection 31917723911 SUCCESS", "Ecosystem Heartbeat Orchestration 31917723743 SUCCESS", "Site Handoff Orchestrator 31917723847 SUCCESS", "Site Bootstrap Validate 31917723793 SUCCESS"],
+      "expected_evidence": ["stale hardening claim terminalized", "canonical phone handoff records PR #278/check/Pages evidence", "PR #279 merge 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f", "Check StegFin Phone Projection 31917723911 SUCCESS", "Ecosystem Heartbeat Orchestration 31917723743 SUCCESS", "Site Handoff Orchestrator 31917723847 SUCCESS", "Site Bootstrap Validate run 31917723793 SUCCESS"],
       "collision_boundaries": ["Metadata reconciliation only", "Do not mutate participant product assets", "Do not create or consume NON-TV/TVC secrets or tokens", "Do not create hosted runtime authority", "Do not change wallet signing or broadcast authority", "Do not claim TASK-2026-0004 product implementation"],
       "next_task_after_release": "SITE-PREWORK-CLAIM-GATE-MACHINE-001 may evaluate StegVerse-Labs/.github/tasks/TASK-2026-0004.json as the next bounded participant projection task."
     },
@@ -298,18 +298,18 @@
       "originating_goal": "Project the exact released StegFin current-phone evidence exporter into the canonical participant surface so fresh hash-bound WALLET_HANDOFF_READY plus StegID PREPARE evidence can be copied or shared to #68/#60 without gaining wallet or credential authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/stegfin-phone-evidence-export-289",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
-      "normalized_work_key": "site-stegfin-phone-evidence-export-projection",
-      "dependency_surface_keys": ["site:stegfin-phone-participant-projection:evidence-export"],
-      "claimed_paths": ["data/session-work-claims.json", "assets/stegfin-phone/evidence-export.js", "stegfin-trade.html", "scripts/check_stegfin_phone_projection.py", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
+      "role": "RELEASE_INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-stegfin-phone-evidence-export-release-reconciliation",
+      "dependency_surface_keys": ["site:stegfin-phone-evidence-export-release-metadata"],
+      "claimed_paths": ["data/session-work-claims.json", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
       "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "PENDING_PR_289_RELEASE",
+      "handoff_revision": "PENDING_PR_291_RELEASE",
       "claim_created_at": "2026-08-16T16:33:00-05:00",
-      "claim_expires_when": "Released when exact source blob projection passes all Site gates, PR merges, exact Pages build proves publication, and #68/#60 receive release evidence.",
-      "expected_evidence": ["StegFin PR #74 merge 0917f5283514a54db1c520f44126a78cfc6428d7", "exact evidence-export.js blob d545063b7024b60de702ece85bd23eac6096c8bb", "Check StegFin Phone Projection SUCCESS", "Site Handoff Orchestrator SUCCESS", "Ecosystem Heartbeat Orchestration SUCCESS", "Site Bootstrap Validate SUCCESS", "Site PR merge", "exact Pages build"],
-      "collision_boundaries": ["Do not alter trade construction, StegID semantics, route admission, wallet contact, signing, broadcast or settlement", "Do not use NON-TV/TVC secrets/tokens", "No Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Signing and broadcast remain USER_ONLY", "Static projection and evidence transport only"],
-      "next_task_after_release": "Current phone reloads the published participant surface, reruns Verify/prepare, exports exact canonical JSON; StegFin #68/#60 reconcile hashes and predicates."
+      "claim_expires_when": "Release reconciliation is terminalized immediately after PR #291 merges; product implementation was already released by PR #290 and Pages build 1155718345.",
+      "expected_evidence": ["StegFin PR #74 merge 0917f5283514a54db1c520f44126a78cfc6428d7", "exact evidence-export.js blob d545063b7024b60de702ece85bd23eac6096c8bb", "Check StegFin Phone Projection 31974427256 SUCCESS", "Site Handoff Orchestrator 31974427288 SUCCESS", "Ecosystem Heartbeat Orchestration 31974427476 SUCCESS", "Site Bootstrap Validate 31974427400 SUCCESS", "Site PR #290 merge 9ad8c065ae756015086f5db0951c5e7179826fdc", "Pages build 1155718345 BUILT from exact merge", "PR #291 release reconciliation gates PASS and merge"],
+      "collision_boundaries": ["Release metadata only", "Do not alter participant product assets, trade construction, StegID semantics, route admission, wallet contact, signing, broadcast or settlement", "Do not use NON-TV/TVC secrets/tokens", "No Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Signing and broadcast remain USER_ONLY"],
+      "next_task_after_release": "Terminalize this reconciliation claim on main, close Site #289, and leave current-phone exact evidence solely to StegFin #68/#60."
     }
   ]
 }
