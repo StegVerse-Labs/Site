@@ -1,6 +1,6 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-16T01:42:00-05:00
+Updated: 2026-08-16T01:48:00-05:00
 
 ## Canonical scope
 
@@ -9,10 +9,7 @@ goal_id: SITE-STEGFIN-PHONE-PROJECTION-261
 completed_goals:
   - TASK-2026-0004
   - SITE-STEGFIN-PHONE-SOURCE-READINESS-282
-active_goal: SITE-STEGFIN-STEGID-EVIDENCE-284
-active_claim: SITE-STEGFIN-STEGID-EVIDENCE-284-20260816
-active_branch: fix/stegfin-stegid-evidence-284
-active_pr: #285
+  - SITE-STEGFIN-STEGID-EVIDENCE-284
 capability: site-stegfin-phone-rpc-resilience-projection-v1 + source-readiness-projection-v1 + stegid-sanitized-admission-evidence-projection-v1
 parent_phone_task: STEGFIN-PHONE-DIRECT-ROUTE-011
 originating_goal: expose the phone-sovereign StegFin PREPARE path on the canonical Site surface, preserve TV/TVC credential authority, remove the single-public-RPC fragility, present canonical source readiness, and directly externalize sanitized StegID admission evidence without introducing hosted production execution authority
@@ -25,9 +22,12 @@ source_readiness_release_merge: 5941fd49647b9304d8220fcaf7155989feed89b1
 stegid_evidence_upstream_pr: StegVerse-Labs/stegfin-governance#70 MERGED
 stegid_evidence_upstream_merge: e801eba4f49e9fa199d8a11d766098806f6e2060
 stegid_evidence_upstream_blob: efc2c9c21d369bbc3d6817599f74496f918d721b
+stegid_evidence_site_pr: #285 MERGED
+stegid_evidence_site_merge: 0e9921305cbe31eb2b00cf26baa7bba3e52de4bd
+stegid_evidence_pages_build: 1154410266 BUILT
 canonical_intake_issue: StegVerse-Labs/Site#261
 source_readiness_issue: StegVerse-Labs/Site#282 COMPLETE
-stegid_evidence_issue: StegVerse-Labs/Site#284 ACTIVE
+stegid_evidence_issue: StegVerse-Labs/Site#284 COMPLETE
 canonical_live_activation_issue: StegVerse-Labs/stegfin-governance#60
 credential_authority: TV/TVC
 credential_requirement: NONE
@@ -116,11 +116,11 @@ claim release commit: 87bb63175fabf5ec6e85b0f2f4853a54627ffb4b
 
 The validator proves `COMPLETE_INSTALLED`, Base chain `0x2105`, TV/TVC credential authority, credential requirement `NONE`, no NON-TV/TVC secret/token use, no provider secret requirement/export, no GitHub token requirement, no hosted runtime requirement, and USER_ONLY signing/broadcast. It also explicitly rejects provider secret references, `vault://`, Authorization/Bearer markers, API-key markers, and GitHub-token markers from the participant projection.
 
-## Active sanitized StegID admission evidence projection
+## Released sanitized StegID admission evidence projection
 
-The live current-phone packet exposed a proof-externalization gap: StegID already stored the full admission packet in browser-local IndexedDB under `stegverse-stegid-device-wallet-v1/state/latest-admission`, while the canonical wallet handoff exposed only identity/device IDs plus the wallet-capability receipt commitment. The source fix is released upstream by StegFin PR #70 / merge `e801eba4f49e9fa199d8a11d766098806f6e2060` with exact `device-wallet-identity.js` blob `efc2c9c21d369bbc3d6817599f74496f918d721b`.
+The live current-phone packet exposed a proof-externalization gap: StegID already stored the full admission packet in browser-local IndexedDB under `stegverse-stegid-device-wallet-v1/state/latest-admission`, while the canonical wallet handoff exposed only identity/device IDs plus the wallet-capability receipt commitment. The source fix was released upstream by StegFin PR #70 / merge `e801eba4f49e9fa199d8a11d766098806f6e2060` with exact `device-wallet-identity.js` blob `efc2c9c21d369bbc3d6817599f74496f918d721b`.
 
-Site issue #284 and claim `SITE-STEGFIN-STEGID-EVIDENCE-284-20260816` own only the exact static projection of that released source. PR #285 projects the exact upstream blob and updates the validator. The projected `WALLET_HANDOFF_READY` receipt now contains a sanitized, hash-bound `stegid_admission_evidence` object that can directly show:
+Site issue #284 and claim `SITE-STEGFIN-STEGID-EVIDENCE-284-20260816` owned only the exact static projection of that released source. Site PR #285 projected the exact upstream blob and updated the validator. The projected `WALLET_HANDOFF_READY` receipt now contains a sanitized, hash-bound `stegid_admission_evidence` object that can directly show:
 
 ```text
 identity_continuity.decision: IDENTITY_CONTINUITY_VALID
@@ -141,17 +141,21 @@ sanitized evidence hash: required
 
 The projection verifies the full browser-local packet remains bound to the already-admitted capability receipt before externalizing the whitelist-only evidence. It remains fail closed on mismatched capability hash, identity/device mismatch, missing validation steps, missing PREPARE, or any SIGN/BROADCAST grant. TV/TVC and USER_ONLY authority boundaries are unchanged.
 
-Current release state:
+Release evidence:
 
 ```text
-StegFin source issue #69: IMPLEMENTED
+StegFin source issue #69: COMPLETE via PR #70
 StegFin PR #70: MERGED at e801eba4f49e9fa199d8a11d766098806f6e2060
-Site issue #284: ACTIVE
-Site claim: SITE-STEGFIN-STEGID-EVIDENCE-284-20260816 CLAIMED_FOR_IMPLEMENTATION
-Site PR #285: OPEN
+Site issue #284: COMPLETE
+Site claim: SITE-STEGFIN-STEGID-EVIDENCE-284-20260816 RELEASED_IMPLEMENTATION / MERGED_INTO_CANONICAL_WORKSTREAM
+Site PR #285: MERGED at 0e9921305cbe31eb2b00cf26baa7bba3e52de4bd
 exact projected asset blob: efc2c9c21d369bbc3d6817599f74496f918d721b
-Check StegFin Phone Projection: PASS observed on PR head after validator update
-remaining release evidence: Site Handoff Orchestrator + Ecosystem Heartbeat + Site Bootstrap on final PR head, PR merge, exact Pages build
+Check StegFin Phone Projection: 31932197847 SUCCESS
+Site Handoff Orchestrator: 31932198066 SUCCESS
+Ecosystem Heartbeat Orchestration: 31932197886 SUCCESS
+Site Bootstrap Validate: 31932197849 SUCCESS
+Pages build: 1154410266 BUILT from exact merge 0e9921305cbe31eb2b00cf26baa7bba3e52de4bd
+claim release commit: 28cd1e6b10f9a3fe01a1844adb8133beb1fcb576
 ```
 
 ## Installed participant order
@@ -230,7 +234,7 @@ The Site is static delivery/projection only. GitHub-hosted validation is source 
 upstream resilience source: StegVerse-Labs/stegfin-governance/STEGFIN-PHONE-RPC-RESILIENCE-012 COMPLETE_RELEASED_SOURCE
 Site RPC projection: TASK-2026-0004 COMPLETE_RELEASED_SITE_PROJECTION
 Site source-readiness projection: Site#282 COMPLETE_RELEASED
-Site sanitized StegID evidence projection: Site#284 / PR#285 ACTIVE
+Site sanitized StegID evidence projection: Site#284 / PR#285 COMPLETE_RELEASED_SITE_PROJECTION
 long-term sovereign Base runtime: StegVerse-Labs/.github/tasks/TASK-2026-0005.json MACHINE_OWNED_REAL_ENDPOINT_PENDING
 TVC exact sovereign route admission: TVC-SOVEREIGN-BASE-RPC-ROUTE-003 COMPLETE_RELEASED_SOURCE
 current-phone terminal observer: StegVerse-Labs/stegfin-governance#60
@@ -238,7 +242,7 @@ current-phone evidence reconciliation: StegVerse-Labs/stegfin-governance#68
 wallet sign/broadcast: USER_ONLY
 ```
 
-The current phone already proved terminal `WALLET_HANDOFF_READY`, and StegFin #68 identified only one remaining direct-evidence gap: explicit externalization of the underlying StegID device-possession/HUMAN_CONTINUITY/PREPARE evidence. After Site #284 is merged and Pages proves publication, the current phone must rerun `Verify this phone and prepare wallet handoff` so a newly generated canonical receipt contains `stegid_admission_evidence`. The old retained receipt will not be retroactively rewritten. No signing or broadcast is required for that verification.
+The current phone already proved terminal `WALLET_HANDOFF_READY`, and StegFin #68 identified only one remaining direct-evidence gap: explicit externalization of the underlying StegID device-possession/HUMAN_CONTINUITY/PREPARE evidence. The Site fix is now published. The current phone must rerun `Verify this phone and prepare wallet handoff` so a newly generated canonical receipt contains `stegid_admission_evidence`. The old retained receipt is not retroactively rewritten. No signing or broadcast is required for that verification.
 
 ## Completion accounting
 
@@ -252,13 +256,16 @@ source-readiness projection Pages publication: COMPLETE
 source-readiness projection claim: RELEASED
 StegID evidence source developed files: 2/2 in stegfin-governance
 StegID evidence source merge: COMPLETE
-StegID evidence Site projection required files: 4/4 implemented on PR #285
-StegID evidence Site exact phone validator: PASS on PR head
-StegID evidence Site orchestration/merge/Pages: PENDING final release evidence
+StegID evidence Site projection required files: 4/4
+StegID evidence Site exact phone validator: PASS
+StegID evidence Site orchestration: 3/3 PASS
+StegID evidence Site merge: COMPLETE
+StegID evidence Site Pages publication: COMPLETE
+StegID evidence Site claim: RELEASED
 scaffolding/stubs: 0
 missing required files: 0
 ```
 
 ## Archive / continuation condition
 
-The StegID evidence projection claim remains active until PR #285 passes the required Site gates, merges, and Pages builds the exact merge. After publication, the current phone must generate a fresh unsigned `WALLET_HANDOFF_READY` receipt containing the sanitized StegID evidence, and StegFin #68/#60 must reconcile that observation. Signing and broadcast remain USER_ONLY. This handoff preserves the complete continuation path without requiring reconstruction from chat history.
+No Site implementation claim remains in this phone evidence projection lane. The only next live evidence action is current-phone generation of a fresh unsigned `WALLET_HANDOFF_READY` receipt containing `stegid_admission_evidence`, after which StegFin #68/#60 reconcile predicate #1. Signing and broadcast remain USER_ONLY. This handoff preserves the complete continuation path without requiring reconstruction from chat history.
