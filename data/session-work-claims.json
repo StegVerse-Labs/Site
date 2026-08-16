@@ -87,7 +87,7 @@
       "handoff_revision": "2d48a626f288e3583b7d69857ce012b82a0180dd",
       "claim_created_at": "2026-08-15T01:36:00-05:00",
       "claim_expires_when": "SATISFIED: PR #271 merged at 2d48a626f288e3583b7d69857ce012b82a0180dd after exact-file review and all repository-native validation groups passed",
-      "expected_evidence": ["PR #271 merged at 2d48a626f288e3583b7d69857ce012b82a0180dd", "exact changed files: install-hil-primary.yml, install-hil-primary-v0.5.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31869922325 SUCCESS", "Site Handoff Orchestrator 31869922332 SUCCESS", "Site Bootstrap Validate 31869922334 SUCCESS", "post-merge active GitHub workflow count 128"],
+      "expected_evidence": ["PR #271 merged at 2d48a626f288e3583b7d69857ce012b82a0180dd", "exact changed files: install-hil-primary.yml, install-hil-primary-v0.5.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31869922325 SUCCESS", "Site Handoff Orchestrator run 31869922332 SUCCESS", "Site Bootstrap Validate run 31869922334 SUCCESS", "post-merge active GitHub workflow count 128"],
       "collision_boundaries": ["Do not modify canonical HIL v1.1 product state or validators", "Do not modify HIL runtime/deployment/review/publication ownership", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take over machine-owned Site pre-work admission"],
       "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
     },
@@ -107,7 +107,7 @@
       "handoff_revision": "093f627f08993048ce8a2b74d16b52bcddc410b1",
       "claim_created_at": "2026-08-15T01:42:00-05:00",
       "claim_expires_when": "SATISFIED: PR #272 merged at 093f627f08993048ce8a2b74d16b52bcddc410b1 after exact-file review and all repository-native validation groups passed",
-      "expected_evidence": ["PR #272 merged at 093f627f08993048ce8a2b74d16b52bcddc410b1", "exact changed files: hil-deployment-authority-investigation.yml, hil-deployment-investigation-handoff-update.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31870167913 SUCCESS", "Site Handoff Orchestrator 31870167906 SUCCESS", "Site Bootstrap Validate 31870167864 SUCCESS", "post-merge active GitHub Actions workflow count 126"],
+      "expected_evidence": ["PR #272 merged at 093f627f08993048ce8a2b74d16b52bcddc410b1", "exact changed files: hil-deployment-authority-investigation.yml, hil-deployment-investigation-handoff-update.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31870167913 SUCCESS", "Site Handoff Orchestrator run 31870167906 SUCCESS", "Site Bootstrap Validate run 31870167864 SUCCESS", "post-merge active GitHub Actions workflow count 126"],
       "collision_boundaries": ["Do not modify current HIL deployment runtime, canonical v1.1 state, current provider route, or current deployment workflow", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take provider, publication, custody, release, or Master Record authority", "Do not take over machine-owned Site pre-work admission"],
       "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
     },
@@ -127,7 +127,7 @@
       "handoff_revision": "1d5e1b202f13b881b19f84b05c7860040fbdac4d",
       "claim_created_at": "2026-08-15T02:22:00-05:00",
       "claim_expires_when": "SATISFIED: PR #273 merged at 1d5e1b202f13b881b19f84b05c7860040fbdac4d after exact-file review and all repository-native validation groups passed",
-      "expected_evidence": ["PR #273 merged at 1d5e1b202f13b881b19f84b05c7860040fbdac4d", "exact changed files: hil-pilot-validation-investigation.yml, hil-pilot-validation-evidence-reconciliation.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31871836352 SUCCESS", "Site Handoff Orchestrator 31871836339 SUCCESS", "Site Bootstrap Validate 31871836411 SUCCESS", "post-merge active GitHub Actions workflow count 124"],
+      "expected_evidence": ["PR #273 merged at 1d5e1b202f13b881b19f84b05c7860040fbdac4d", "exact changed files: hil-pilot-validation-investigation.yml, hil-pilot-validation-evidence-reconciliation.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31871836352 SUCCESS", "Site Handoff Orchestrator run 31871836339 SUCCESS", "Site Bootstrap Validate run 31871836411 SUCCESS", "post-merge active GitHub Actions workflow count 124"],
       "collision_boundaries": ["Do not modify the canonical HIL pilot ledger, deterministic fixtures, current HIL deployment/runtime, participant-upload work, or pending model response states", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take provider, publication, custody, release, or Master Record authority", "Do not take over machine-owned Site pre-work admission"],
       "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
     },
@@ -190,6 +190,26 @@
       "expected_evidence": ["StegFin task 011 PR #62 merge e19f64ca53699cc626cf05524ff8398544696067", "Site PR #278 merge 264c75f84361567bdc1126e0fdb13c7a7a90de1c", "projected phone-direct-route.js blob 31ed79cb56e8d2366e6d70f22e28c70162c88fd8", "Check StegFin Phone Projection run 31911456225 SUCCESS", "Ecosystem Heartbeat Orchestration run 31911456207 SUCCESS", "Site Handoff Orchestrator run 31911456193 SUCCESS", "Site Bootstrap Validate run 31911501680 SUCCESS", "Pages build 1153840683 built from main 9724e7d4da384af3f47e1e7c02faf84d5e9e6062"],
       "collision_boundaries": ["Preserve existing stegfin-trade.html participant URL", "Do not create a second Site phone surface", "Do not alter StegID/TVC authority", "Do not use NON-TV/TVC secrets or tokens", "Do not add Render/Vercel/Cloudflare/GitHub-hosted production execution", "Do not sign or broadcast"],
       "next_task_after_release": "StegFin #60 observes actual current-phone PREPARE and terminal BLOCKED or WALLET_HANDOFF_READY evidence from the refreshed public participant surface."
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-HARDENING-RECONCILIATION-20260815",
+      "session_worker_id": "chatgpt-session-stegfin-phone-hardening-reconciliation-20260815",
+      "task_id": "SITE-STEGFIN-PHONE-HARDENING-RECONCILIATION",
+      "originating_goal": "Release stale Site ownership metadata after PR #278 satisfied the bounded phone hardening release predicates, without changing product execution authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/reconcile-stegfin-phone-hardening-claim-20260815",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-stegfin-phone-hardening-release-reconciliation",
+      "dependency_surface_keys": ["site:stegfin-phone-hardening-release-metadata"],
+      "claimed_paths": ["data/session-work-claims.json", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "50a7f38d10ce592df08bd88a347db508277246c9",
+      "claim_created_at": "2026-08-15T19:38:00-05:00",
+      "claim_expires_when": "Released immediately after this reconciliation PR passes Site claim/orchestration validation and merges; a post-merge bookkeeping update must terminalize this integration claim.",
+      "expected_evidence": ["stale hardening claim terminalized", "canonical phone handoff records PR #278/check/Pages evidence", "Check StegFin Phone Projection PASS", "Ecosystem Heartbeat Orchestration PASS", "Site Handoff Orchestrator PASS", "Site Bootstrap Validate PASS", "reconciliation PR merge"],
+      "collision_boundaries": ["Metadata reconciliation only", "Do not mutate participant product assets", "Do not create or consume NON-TV/TVC secrets or tokens", "Do not create hosted runtime authority", "Do not change wallet signing or broadcast authority", "Do not claim TASK-2026-0004 product implementation"],
+      "next_task_after_release": "SITE-PREWORK-CLAIM-GATE-MACHINE-001 may evaluate StegVerse-Labs/.github/tasks/TASK-2026-0004.json as the next bounded participant projection task."
     }
   ]
 }
