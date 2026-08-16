@@ -8,6 +8,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 
 UPSTREAM_BLOBS = {
+    "assets/stegfin-phone/rpc-resilience.js": "290b567eca2cc9f83e7438a80682ebaf8006ad76",
     "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
     "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "01df37b655f1dae8650c9102ffbd85f72432c47f",
     "assets/stegfin-phone/device-wallet-identity.js": "0f18f416dee3d2707ac47964a6b24fe918d6ef68",
@@ -51,6 +52,7 @@ def main() -> int:
     page = (ROOT / "stegfin-trade.html").read_text(encoding="utf-8")
     scripts = re.findall(r'<script\s+src="([^"]+)"', page)
     require(scripts == [
+        "./assets/stegfin-phone/rpc-resilience.js",
         "./assets/stegfin-phone/phone-direct-route.js",
         "./assets/stegfin-phone/stegid-device-wallet-bootstrap.js",
         "./assets/stegfin-phone/device-wallet-identity.js",
@@ -61,6 +63,25 @@ def main() -> int:
     require("TV/TVC" in page, "TV/TVC authority statement missing", failures)
     require("USER_ONLY" in page, "USER_ONLY wallet boundary missing", failures)
     require("StegVerse executes on this phone" in page, "phone sovereign execution statement missing", failures)
+
+    resilience = (ROOT / "assets/stegfin-phone/rpc-resilience.js").read_text(encoding="utf-8")
+    for phrase in (
+        "https://mainnet.base.org",
+        "https://base-rpc.publicnode.com",
+        "credential_authority: 'TV/TVC'",
+        "credential_requirement: 'NONE'",
+        "non_tv_tvc_secret_or_token_used: false",
+        "hosted_runtime_required: false",
+        "render_required: false",
+        "EXPECTED_CHAIN_ID = '0x2105'",
+        "MAX_ATTEMPTS_PER_ENDPOINT = 2",
+        "state: 'FAIL_CLOSED'",
+    ):
+        require(phrase in resilience, f"RPC resilience invariant missing: {phrase}", failures)
+    require("credentials: 'omit'" in resilience, "RPC resilience must not send ambient credentials", failures)
+    require("eth_chainId" in resilience, "fallback endpoint chain-id probe missing", failures)
+    for forbidden in ("Authorization", "Bearer ", "api-key", "API_KEY", "GITHUB_TOKEN", "RENDER"):
+        require(forbidden not in resilience, f"prohibited credential/host marker in RPC resilience asset: {forbidden}", failures)
 
     route = (ROOT / "assets/stegfin-phone/phone-direct-route.js").read_text(encoding="utf-8")
     for phrase in (
@@ -103,18 +124,22 @@ def main() -> int:
     claims = (ROOT / "data/session-work-claims.json").read_text(encoding="utf-8")
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815"' in claims, "released projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815"' in claims, "hardening projection claim missing", failures)
-    require('"state": "CLAIMED_FOR_IMPLEMENTATION"' in claims or '"state": "MERGED_INTO_CANONICAL_WORKSTREAM"' in claims, "hardening projection claim not active/released", failures)
+    require('"claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815"' in claims, "RPC resilience projection claim missing", failures)
+    require('"state": "CLAIMED_FOR_IMPLEMENTATION"' in claims or '"state": "MERGED_INTO_CANONICAL_WORKSTREAM"' in claims, "RPC resilience projection claim not active/released", failures)
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     for phrase in (
         "STEGFIN-PHONE-DIRECT-ROUTE-011",
+        "STEGFIN-PHONE-RPC-RESILIENCE-012",
         "SITE-STEGFIN-PHONE-PROJECTION-261",
+        "TASK-2026-0004",
         "credential_authority: TV/TVC",
         "non_tv_tvc_secret_or_token_allowed: false",
         "Render production runtime: PROHIBITED",
         "WALLET_HANDOFF_READY",
         "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
-        "e19f64ca53699cc626cf05524ff8398544696067",
+        "290b567eca2cc9f83e7438a80682ebaf8006ad76",
+        "bcba49976a52024a233f998ce290ec4ab42618ff",
     ):
         require(phrase in handoff, f"handoff invariant missing: {phrase}", failures)
 
@@ -123,7 +148,7 @@ def main() -> int:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
 
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=5 bounded_inventory=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
