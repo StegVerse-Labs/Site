@@ -1,5 +1,5 @@
 {
-  "schema": "site.stegfin.phone_source_readiness.v1",
+  "schema": "site.stegfin.phone_source_readiness_projection.v1",
   "source_repository": "StegVerse-Labs/stegfin-governance",
   "source_path": "task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json",
   "source_state": "SOURCE_TRADE_READY_MACHINE_LIVE_EVIDENCE_PENDING",
@@ -27,7 +27,7 @@
   },
   "authority_effect": "NONE_READINESS_PROJECTION_ONLY",
   "notes": [
-    "This is a redacted participant-facing projection of canonical StegFin source readiness.",
+    "Redacted participant-facing projection of canonical StegFin source readiness.",
     "No provider secret reference, token, credential value, signing authority, broadcast authority, or execution authority is projected."
   ]
 }

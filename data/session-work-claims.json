@@ -87,7 +87,7 @@
       "handoff_revision": "2d48a626f288e3583b7d69857ce012b82a0180dd",
       "claim_created_at": "2026-08-15T01:36:00-05:00",
       "claim_expires_when": "SATISFIED: PR #271 merged at 2d48a626f288e3583b7d69857ce012b82a0180dd after exact-file review and all repository-native validation groups passed",
-      "expected_evidence": ["PR #271 merged at 2d48a626f288e3583b7d69857ce012b82a0180dd", "exact changed files: install-hil-primary.yml, install-hil-primary-v0.5.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31869922325 SUCCESS", "Site Handoff Orchestrator run 31869922332 SUCCESS", "Site Bootstrap Validate run 31869922334 SUCCESS", "post-merge active GitHub workflow count 128"],
+      "expected_evidence": ["PR #271 merged at 2d48a626f288e3583b7d69857ce012b82a0180dd", "exact changed files: install-hil-primary.yml, install-hil-primary-v0.5.yml, data/session-work-claims.json", "Ecosystem Heartbeat Orchestration 31869922325 SUCCESS", "Site Handoff Orchestrator run 31869922332 SUCCESS", "Site Bootstrap Validate run 31869922334 SUCCESS", "post-merge active GitHub Actions workflow count 128"],
       "collision_boundaries": ["Do not modify canonical HIL v1.1 product state or validators", "Do not modify HIL runtime/deployment/review/publication ownership", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not take over machine-owned Site pre-work admission"],
       "next_task_after_release": "Continue next unclaimed Site workflow-surface classification batch under issue #268"
     },
@@ -230,6 +230,26 @@
       "expected_evidence": ["StegFin PR #66 merge bcba49976a52024a233f998ce290ec4ab42618ff", "exact rpc-resilience.js git blob 290b567eca2cc9f83e7438a80682ebaf8006ad76", "Check StegFin Phone Projection 31918210506 SUCCESS", "Site Handoff Orchestrator 31918210541 SUCCESS", "Ecosystem Heartbeat Orchestration 31918210505 SUCCESS", "Site Bootstrap Validate 31918210534 SUCCESS", "Site PR #281 merge 19db08571c679c3143b4c2f2b380497eb8630cd4", "Pages build 1153990519 BUILT from exact merge 19db08571c679c3143b4c2f2b380497eb8630cd4"],
       "collision_boundaries": ["Preserve existing stegfin-trade.html participant URL", "Do not recreate StegFin phone carrier or TV/TVC authority", "Do not use NON-TV/TVC secrets or tokens", "No Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Do not sign or broadcast", "Static projection only"],
       "next_task_after_release": "StegVerse-Labs/stegfin-governance#60 observes current-phone PREPARE and terminal BLOCKED or WALLET_HANDOFF_READY evidence using the resilient RPC policy."
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-SOURCE-READINESS-282",
+      "session_worker_id": "chatgpt-session-stegfin-source-readiness-projection-20260815",
+      "task_id": "SITE-STEGFIN-PHONE-SOURCE-READINESS-282",
+      "originating_goal": "Replace the false Source trade contract UNKNOWN display with a redacted participant projection of canonical StegFin source readiness after the current phone reached WALLET_HANDOFF_READY.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/stegfin-source-readiness-projection-282",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-phone-source-readiness-projection",
+      "dependency_surface_keys": ["site:stegfin-phone-source-readiness-projection"],
+      "claimed_paths": ["data/session-work-claims.json", "task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json", "scripts/check_stegfin_phone_projection.py", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "PENDING_PR_MERGE",
+      "claim_created_at": "2026-08-15T21:13:00-05:00",
+      "claim_expires_when": "PR #283 passes exact phone projection validation, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, and Site Bootstrap Validate; merges; Pages builds the merge; then this claim is released.",
+      "expected_evidence": ["participant /task-state readiness projection present", "exact_validation_trade_request COMPLETE_INSTALLED", "no provider secret reference/value projected", "TV/TVC credential authority and credential_requirement NONE preserved", "all four Site gates PASS", "PR #283 merge", "Pages build from merged lineage"],
+      "collision_boundaries": ["Do not modify phone-direct-route.js", "Do not modify rpc-resilience.js", "Do not modify StegID/TVC authority", "Do not introduce NON-TV/TVC secrets or tokens", "Do not add hosted production execution authority", "Do not alter wallet signing/broadcast authority", "Do not claim sovereign Base runtime activation"],
+      "next_task_after_release": "Current phone reloads the participant page to confirm Source trade contract=COMPLETE_INSTALLED while the already-retained WALLET_HANDOFF_READY remains USER_ONLY for review/sign/broadcast."
     }
   ]
 }

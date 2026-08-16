@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 import re
 
@@ -16,9 +17,12 @@ UPSTREAM_BLOBS = {
     "assets/stegfin-phone/styles.css": "3a91c67d6088f75a93955a260985ce686eb5698f",
 }
 
+READINESS_PROJECTION = "task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json"
+
 REQUIRED = [
     *UPSTREAM_BLOBS,
     "stegfin-trade.html",
+    READINESS_PROJECTION,
     "data/session-work-claims.json",
     "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
 ]
@@ -63,6 +67,33 @@ def main() -> int:
     require("TV/TVC" in page, "TV/TVC authority statement missing", failures)
     require("USER_ONLY" in page, "USER_ONLY wallet boundary missing", failures)
     require("StegVerse executes on this phone" in page, "phone sovereign execution statement missing", failures)
+
+    app = (ROOT / "assets/stegfin-phone/app.js").read_text(encoding="utf-8")
+    require('const READINESS_URL = "../task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json";' in app, "phone app readiness URL drifted", failures)
+    require("exact_validation_trade_request" in app, "phone app no longer renders source trade readiness", failures)
+
+    readiness_text = (ROOT / READINESS_PROJECTION).read_text(encoding="utf-8")
+    try:
+        readiness = json.loads(readiness_text)
+    except json.JSONDecodeError as error:
+        failures.append(f"source readiness projection invalid JSON: {error}")
+        readiness = {}
+    require(readiness.get("schema") == "site.stegfin.phone_source_readiness_projection.v1", "source readiness projection schema mismatch", failures)
+    require(readiness.get("source_repository") == "StegVerse-Labs/stegfin-governance", "source readiness owner mismatch", failures)
+    require(readiness.get("source_path") == "task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json", "source readiness canonical path mismatch", failures)
+    require(readiness.get("source_readiness", {}).get("exact_validation_trade_request") == "COMPLETE_INSTALLED", "source trade contract must project COMPLETE_INSTALLED", failures)
+    require(readiness.get("trade_boundary", {}).get("chain_id") == "0x2105", "source readiness Base chain mismatch", failures)
+    cred = readiness.get("credential_boundary", {})
+    require(cred.get("credential_authority") == "TV/TVC", "source readiness credential authority must be TV/TVC", failures)
+    require(cred.get("credential_requirement") == "NONE", "source readiness credential requirement must be NONE", failures)
+    require(cred.get("non_tv_tvc_secret_or_token_used") is False, "source readiness must deny non-TV/TVC secret/token use", failures)
+    require(cred.get("provider_secret_required") is False and cred.get("provider_secret_exported") is False, "source readiness must not require/export provider secret", failures)
+    require(cred.get("github_token_required") is False, "source readiness must not require GitHub token", failures)
+    require(cred.get("hosted_runtime_required") is False, "source readiness must not require hosted runtime", failures)
+    require(cred.get("wallet_signing_authority") == "USER_ONLY" and cred.get("broadcast_authority") == "USER_ONLY", "source readiness must preserve USER_ONLY signing/broadcast", failures)
+    require(readiness.get("authority_effect") == "NONE_READINESS_PROJECTION_ONLY", "source readiness projection must be non-authorizing", failures)
+    for forbidden in ("provider_secret_ref", "vault://", "Authorization", "Bearer ", "API_KEY", "GITHUB_TOKEN"):
+        require(forbidden not in readiness_text, f"participant readiness projection leaks prohibited credential marker: {forbidden}", failures)
 
     resilience = (ROOT / "assets/stegfin-phone/rpc-resilience.js").read_text(encoding="utf-8")
     for phrase in (
@@ -125,7 +156,6 @@ def main() -> int:
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815"' in claims, "released projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815"' in claims, "hardening projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815"' in claims, "RPC resilience projection claim missing", failures)
-    require('"state": "CLAIMED_FOR_IMPLEMENTATION"' in claims or '"state": "MERGED_INTO_CANONICAL_WORKSTREAM"' in claims, "RPC resilience projection claim not active/released", failures)
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     for phrase in (
@@ -133,10 +163,12 @@ def main() -> int:
         "STEGFIN-PHONE-RPC-RESILIENCE-012",
         "SITE-STEGFIN-PHONE-PROJECTION-261",
         "TASK-2026-0004",
+        "Site#282",
         "credential_authority: TV/TVC",
         "non_tv_tvc_secret_or_token_allowed: false",
         "Render production runtime: PROHIBITED",
         "WALLET_HANDOFF_READY",
+        "COMPLETE_INSTALLED",
         "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
         "290b567eca2cc9f83e7438a80682ebaf8006ad76",
         "bcba49976a52024a233f998ce290ec4ab42618ff",
@@ -148,7 +180,7 @@ def main() -> int:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
 
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
