@@ -1,26 +1,18 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-15T19:38:00-05:00
+Updated: 2026-08-15T19:50:00-05:00
 
 ## Canonical scope
 
 ```text
 goal_id: SITE-STEGFIN-PHONE-PROJECTION-261
-hardening_goal: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING
-parent_goal: STEGFIN-PHONE-DIRECT-ROUTE-011
-originating_goal: expose the StegVerse phone-sovereign preparation path on the participant-facing Site without Render or non-TV/TVC credentials, and keep that projection bound to the currently released phone carrier
+active_goal: TASK-2026-0004
+active_capability: site-stegfin-phone-rpc-resilience-projection-v1
+originating_goal: expose the phone-sovereign StegFin PREPARE path on the canonical Site surface, preserve TV/TVC credential authority, remove the single-public-RPC fragility, and introduce no hosted production execution authority
 repository: StegVerse-Labs/Site
-canonical_branch: main
-hardening_branch: fix/stegfin-phone-bounded-inventory-projection-261
+branch: fix/stegfin-phone-rpc-resilience-261
 canonical_intake_issue: StegVerse-Labs/Site#261
 canonical_live_activation_issue: StegVerse-Labs/stegfin-governance#60
-original_projection_pr: #276
-original_projection_merge: 8b5319705dcf02c8edc8dd1612e9787cf70386a1
-hardening_pr: #278
-hardening_merge: 264c75f84361567bdc1126e0fdb13c7a7a90de1c
-released_projection_claim: SITE-STEGFIN-PHONE-PROJECTION-261-20260815
-released_hardening_claim: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815
-hardening_claim_state: MERGED_INTO_CANONICAL_WORKSTREAM
 credential_authority: TV/TVC
 credential_requirement: NONE
 non_tv_tvc_secret_or_token_allowed: false
@@ -30,64 +22,85 @@ wallet signing authority: USER_ONLY
 broadcast authority: USER_ONLY
 ```
 
-`SITE_MIRROR_HANDOFF.md` remains the canonical repository parent. `docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md` remains authoritative for Site mutation admission. This handoff is bounded to participant-facing projection only and creates no new StegFin, StegID, TV/TVC, wallet, provider, settlement, signing, broadcast, or Master Records authority.
+`SITE_MIRROR_HANDOFF.md` remains the repository parent and `docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md` remains authoritative for mutation admission. This scoped handoff creates no provider, credential, wallet, signing, broadcast, settlement, execution, publication, or Master Records authority.
 
-## Upstream source of truth
+## Released predecessor work
 
-The original Site projection was released through PR #276. During subsequent live-executability review, StegFin task `STEGFIN-PHONE-DIRECT-ROUTE-011` found that the carrier's prior Inventory N logic attempted block-0 historical ERC-20 Transfer-log discovery. That was not a suitable bounded prerequisite for the authorized iPhone. The upstream carrier was hardened and released before actual phone activation, and Site PR #278 refreshed the existing participant projection to the exact hardened carrier.
+The participant surface and bounded current-block Inventory N carrier are already released:
 
 ```text
-StegFin handoff: StegVerse-Labs/stegfin-governance/docs/STEGFIN_PHONE_DIRECT_ROUTE_MIRROR_HANDOFF.md
-StegFin live activation observer: StegVerse-Labs/stegfin-governance#60
-StegFin hardening issue: StegVerse-Labs/stegfin-governance#61 CLOSED_COMPLETED
-StegFin hardening PR: #62
-StegFin hardening merge: e19f64ca53699cc626cf05524ff8398544696067
-StegFin hardening task: STEGFIN-PHONE-DIRECT-ROUTE-011 COMPLETE_RELEASED
-StegID current-phone bootstrap merge: 6a61dd291f7b66db31f1bb348975d8f829fca249
-TVC credential-free direct-route merge: a00e52e3cde60c08969e22cf11aeba3971172108
-Site hardening PR: #278
-Site hardening merge: 264c75f84361567bdc1126e0fdb13c7a7a90de1c
+original projection: Site PR #276 -> 8b5319705dcf02c8edc8dd1612e9787cf70386a1
+bounded Inventory N hardening: StegFin PR #62 -> e19f64ca53699cc626cf05524ff8398544696067
+Site hardening projection: PR #278 -> 264c75f84361567bdc1126e0fdb13c7a7a90de1c
+Site hardening metadata reconciliation: PR #279 -> 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f
+released hardened phone-direct-route.js blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
 ```
 
-The old projected route blob `87c39b623724c4c7f637f3747d7f8b965a6bad3a` is superseded for the active phone path by exact hardened upstream blob `31ed79cb56e8d2366e6d70f22e28c70162c88fd8`.
+The hardening and reconciliation claims are terminal `MERGED_INTO_CANONICAL_WORKSTREAM`; they do not own the active participant dependency surface.
 
-## Installed participant path
+## Active RPC resilience source
 
-Canonical participant entry remains unchanged:
+Canonical upstream owner:
+
+```text
+StegVerse-Labs/stegfin-governance/task-state/STEGFIN-PHONE-RPC-RESILIENCE-012.json
+StegVerse-Labs/stegfin-governance/ui/rpc-resilience.js
+StegFin PR #66 merge: bcba49976a52024a233f998ce290ec4ab42618ff
+exact released blob: 290b567eca2cc9f83e7438a80682ebaf8006ad76
+source claim: COMPLETE_RELEASED_SOURCE
+```
+
+Site projects that exact file without modification as:
+
+```text
+assets/stegfin-phone/rpc-resilience.js 290b567eca2cc9f83e7438a80682ebaf8006ad76
+```
+
+The asset wraps only Base JSON-RPC POSTs directed to the existing primary `https://mainnet.base.org`. It uses two credential-free endpoints, bounded attempts/backoff, explicit `eth_chainId == 0x2105` verification before fallback use, `credentials: omit`, local bounded evidence, and fail-closed termination when all endpoints fail. It carries no token, provider secret, signing authority, broadcast authority, or hosted-runtime authority.
+
+This public-RPC resilience layer is an immediate availability bridge. It is not classified as sovereign infrastructure and does not supersede the machine-owned StegVerse Base RPC activation chain.
+
+## Installed participant order
+
+The canonical participant URL remains:
 
 ```text
 https://stegverse.org/stegfin-trade.html
 ```
 
-No second Site participant surface is authorized or required.
-
-Execution chain:
+Required local script order is now:
 
 ```text
 stegfin-trade.html
--> exact hardened phone-direct-route.js
--> exact StegID current-phone bootstrap
--> exact device-wallet identity/capability guard
--> exact StegFin operator app
--> user gesture on this phone
--> non-exportable browser-local P-256 device possession
+-> assets/stegfin-phone/rpc-resilience.js
+-> assets/stegfin-phone/phone-direct-route.js
+-> assets/stegfin-phone/stegid-device-wallet-bootstrap.js
+-> assets/stegfin-phone/device-wallet-identity.js
+-> assets/stegfin-phone/app.js
+```
+
+Loading resilience before `phone-direct-route.js` ensures the phone carrier's Base calls traverse the bounded credential-free retry/failover policy. All executable scripts remain local Site assets; no remote executable script is introduced.
+
+## Phone execution contract
+
+```text
+user gesture on current phone
+-> browser-local non-exportable device possession
 -> platform WebAuthn HUMAN_CONTINUITY
 -> DEVICE_ADMITTED
 -> OBSERVE + PREPARE only
 -> bounded current-block Inventory N:
-   -> native ETH gas reserve
-   -> USDC sell balance
-   -> WETH buy/current-position balance
-   -> no historical Transfer-log scan
-   -> no unknown-token enumeration
-   -> no exhaustive wallet-discovery claim
--> fail closed if USDC < 12_500_000 atomic
+   ETH_GAS_RESERVE
+   USDC_SELL_ASSET
+   WETH_BUY_ASSET
+-> resilient credential-free Base observation
+-> fail closed if transport/chain identity/inventory evidence unavailable
 -> TV/TVC ROUTE_ADMITTED / credential_requirement=NONE
 -> pinned Uniswap V3 quote / exact allowance
 -> exact approval OR swap candidate
--> exact candidate gas-reserve sufficiency
+-> exact gas-reserve sufficiency
 -> <=50 bps slippage
--> <=$1 gas
+-> <=$1 transaction gas
 -> read-only eth_call simulation
 -> unsigned wallet handoff
 -> WALLET_HANDOFF_READY
@@ -95,38 +108,7 @@ stegfin-trade.html
 -> USER_ONLY review/sign/broadcast
 ```
 
-The Site is a static projection/delivery surface. It does not execute the trade on a server. The current phone executes the browser-local preparation path after the participant gesture.
-
-## Exact projected upstream blobs
-
-```text
-assets/stegfin-phone/phone-direct-route.js             31ed79cb56e8d2366e6d70f22e28c70162c88fd8
-assets/stegfin-phone/stegid-device-wallet-bootstrap.js 01df37b655f1dae8650c9102ffbd85f72432c47f
-assets/stegfin-phone/device-wallet-identity.js          0f18f416dee3d2707ac47964a6b24fe918d6ef68
-assets/stegfin-phone/app.js                             ade469ac61df37da46bef1376cfdbb10d3c9b5f1
-assets/stegfin-phone/styles.css                         3a91c67d6088f75a93955a260985ce686eb5698f
-```
-
-The dedicated validator recomputes Git blob identities and fails on drift. The phone-route validator additionally rejects `eth_getLogs`, `discoverContracts`, `discoveryChunk`, `transferTopic`, and an exhaustive `discovery_complete` claim from the active carrier.
-
-## Bounded Inventory N contract
-
-```text
-inventory_scope: BOUNDED_TRADE_RELEVANT_ASSETS
-scope_assets:
-  - ETH_GAS_RESERVE
-  - USDC_SELL_ASSET
-  - WETH_BUY_ASSET
-trade_relevant_scope_complete: true
-unknown_asset_enumeration_performed: false
-exhaustive_wallet_asset_discovery_claimed: false
-historical_transfer_log_scan_allowed: false
-minimum_usdc_atomic: 12500000
-native_gas_reserve_required: true
-candidate_gas_reserve_sufficiency_required: true
-```
-
-This is intentionally narrower and more truthful than attempting to reconstruct the wallet's entire asset history before one bounded validation transition.
+No historical transfer-log scan, unknown-token enumeration, automatic signing, or automatic broadcast is authorized.
 
 ## Authority invariants
 
@@ -144,130 +126,96 @@ Cloudflare production runtime: PROHIBITED
 GitHub Actions production runtime: PROHIBITED
 wallet signing authority: USER_ONLY
 broadcast authority: USER_ONLY
-automatic signing: false
-automatic broadcast: false
-settlement authority created by Site: false
-Master Records authority created by Site: false
+automatic_signing: false
+automatic_broadcast: false
 ```
 
-The public Site host delivers static files only and is not the sovereign production execution runtime for this path.
+The Site is a static delivery/projection surface. GitHub-hosted validation may prove source integrity but is not production execution authority.
 
-## Release evidence
-
-Original projection release:
+## Active claim
 
 ```text
-PR #276 merge: 8b5319705dcf02c8edc8dd1612e9787cf70386a1
-Check StegFin Phone Projection: run 31910836065 SUCCESS
-Ecosystem Heartbeat Orchestration: run 31910836030 SUCCESS
-Site Handoff Orchestrator: run 31910836202 SUCCESS
-Site Bootstrap Validate: run 31910836064 SUCCESS
-GitHub Pages exact build: 1153781444
+task_id: TASK-2026-0004
+claim_id: SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815
+role: IMPLEMENTATION
+state: CLAIMED_FOR_IMPLEMENTATION
+branch: fix/stegfin-phone-rpc-resilience-261
+collision_scope:
+  - data/session-work-claims.json
+  - assets/stegfin-phone/rpc-resilience.js
+  - stegfin-trade.html
+  - scripts/check_stegfin_phone_projection.py
+  - docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md
+release_condition:
+  exact upstream blob projected before phone-direct-route.js;
+  exact projection validator PASS;
+  Site Handoff Orchestrator PASS;
+  Ecosystem Heartbeat Orchestration PASS;
+  Site Bootstrap Validate PASS;
+  PR merged;
+  Pages build contains merged lineage;
+  StegFin #60 imports retry condition.
 ```
 
-Hardening release:
+No competing PR exists for this branch. The branch was a stale zero-ahead pointer and was advanced to current main only after the prior hardening/reconciliation claims were released.
+
+## Validation
+
+Required source validation:
 
 ```text
-StegFin PR #62 merge: e19f64ca53699cc626cf05524ff8398544696067
-StegFin phone source blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
-Site PR #278 merge: 264c75f84361567bdc1126e0fdb13c7a7a90de1c
-Site projected hardened blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
-Check StegFin Phone Projection: run 31911456225 SUCCESS
-Ecosystem Heartbeat Orchestration: run 31911456207 SUCCESS
-Site Handoff Orchestrator: run 31911456193 SUCCESS
-Site Bootstrap Validate: run 31911501680 SUCCESS
-Pages build: 1153840683 BUILT from descendant main 9724e7d4da384af3f47e1e7c02faf84d5e9e6062
+python scripts/check_stegfin_phone_projection.py
 ```
 
-No live phone execution is inferred from source or publication validation.
+The validator now requires all six exact upstream blobs, exact resilience-before-carrier script ordering, chain-id fallback verification, TV/TVC/NONE credential semantics, bounded retry/fail-closed behavior, and absence of token/provider/hosted-runtime markers.
 
-## Collision and claim disposition
-
-Both Site source implementation claims are terminal:
-
-```yaml
-task_id: SITE-STEGFIN-PHONE-PROJECTION-261
-claim_id: SITE-STEGFIN-PHONE-PROJECTION-261-20260815
-state: MERGED_INTO_CANONICAL_WORKSTREAM
-
----
-task_id: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING
-claim_id: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815
-role: RELEASED_IMPLEMENTATION
-state: MERGED_INTO_CANONICAL_WORKSTREAM
-release_evidence:
-  - PR #278 merge 264c75f84361567bdc1126e0fdb13c7a7a90de1c
-  - Check StegFin Phone Projection 31911456225 SUCCESS
-  - Ecosystem Heartbeat Orchestration 31911456207 SUCCESS
-  - Site Handoff Orchestrator 31911456193 SUCCESS
-  - Site Bootstrap Validate 31911501680 SUCCESS
-  - Pages build 1153840683 BUILT
-```
-
-PR #277's duplicate `/stegfin-phone/` implementation was closed unmerged after detecting that canonical PR #276 had already provided the participant surface. Do not reopen it.
-
-Do not duplicate the upstream phone carrier, StegID device bootstrap, TVC route, G18 runtime activation, MCP exact-artifact worker, provider route, signer, or broadcaster.
-
-## Current next implementation task
-
-The released hardening no longer owns the participant dependency surface. Organization task `StegVerse-Labs/.github/tasks/TASK-2026-0004.json` may now be admitted by `SITE-PREWORK-CLAIM-GATE-MACHINE-001` as the next bounded Site source task, provided the gate confirms no newer conflicting claim exists.
-
-That task is limited to projecting the released StegFin `rpc-resilience.js` asset before `phone-direct-route.js`. It must not import credential, provider, wallet, signing, broadcast, settlement, or hosted-runtime authority. The exact released upstream RPC-resilience blob is `290b567eca2cc9f83e7438a80682ebaf8006ad76`.
-
-## Live activation boundary
-
-After RPC-resilience projection is admitted, validated, merged and publicly rebuilt, the remaining phone step is participant-owned and directly executable from the current phone:
+Required repository gates on the PR head:
 
 ```text
-open https://stegverse.org/stegfin-trade.html
--> select "Verify this phone and prepare wallet handoff"
--> complete platform WebAuthn/device verification
--> phone observes bounded current-block Inventory N
--> carrier persists precise hash-bound BLOCKED evidence or WALLET_HANDOFF_READY
+Check StegFin Phone Projection
+Site Handoff Orchestrator
+Ecosystem Heartbeat Orchestration
+Site Bootstrap Validate
 ```
 
-Successful terminal evidence must preserve:
+No workflow result is represented as passing until directly observed.
+
+## Cross-repository continuation
 
 ```text
-credential_authority=TV/TVC
-credential_requirement=NONE
-non_tv_tvc_secret_or_token_used=false
-provider_secret_required=false
-hosted_runtime_required=false
-signed=false
-broadcast=false
+upstream resilience source: StegVerse-Labs/stegfin-governance/STEGFIN-PHONE-RPC-RESILIENCE-012 COMPLETE_RELEASED_SOURCE
+Site projection: TASK-2026-0004 / this branch
+long-term sovereign Base runtime: StegVerse-Labs/.github/tasks/TASK-2026-0005.json MACHINE_OWNED_REAL_ENDPOINT_PENDING
+TVC exact sovereign route admission: TVC-SOVEREIGN-BASE-RPC-ROUTE-003 COMPLETE_RELEASED_SOURCE
+current-phone terminal observer: StegVerse-Labs/stegfin-governance#60
+wallet sign/broadcast: USER_ONLY
 ```
 
-Issue `StegVerse-Labs/stegfin-governance#60` remains open until actual phone evidence is observed. `WALLET_HANDOFF_READY` is not signing permission; review/sign/broadcast remains USER_ONLY.
+The sovereign Base route and the immediate public failover are intentionally distinct. The latter reduces current-phone availability risk while the former removes permanent reliance on third-party public RPC transport after a real synchronized StegVerse Base endpoint is observed and admitted.
 
 ## Completion accounting
 
-For the released bounded hardening goal:
+For `TASK-2026-0004` at this branch state:
 
 ```text
-required developed projection surfaces: 8
-complete developed projection surfaces: 8
+required developed source surfaces: 5
+complete developed source surfaces: 5
 scaffolding/stubs: 0
 missing required files: 0
-hardening source projection: COMPLETE
-hardening validation: 4/4 PASS
-hardening merge: COMPLETE
-publication evidence: COMPLETE
-source goal activation: 100%
-source claim release: COMPLETE
-participant PREPARE execution: pending under canonical live observer
-terminal phone receipt: pending under canonical live observer
+exact upstream asset identity: PASS (290b567eca2cc9f83e7438a80682ebaf8006ad76)
+local source integration: COMPLETE
+hosted PR validation: PENDING
+merge: PENDING
+public Pages lineage: PENDING
+StegFin #60 propagation: PENDING
+developed-files: 100%
+validation: 1/5 evidence classes complete
+integration: 2/5 release stages complete
+goal activation: 40%
 ```
 
-## Session consolidation / archive condition
+The denominator is: exact asset/source integration, validator proof, repository gates, merge/publication lineage, and downstream live-observer propagation.
 
-The Site hardening implementation lane is fully released and no longer owns source implementation. Its remaining product continuation is durably transferred:
+## Archive condition
 
-```text
-MERGED INTO:
-- StegVerse-Labs/.github/tasks/TASK-2026-0004.json for RPC-resilience projection admission
-- StegVerse-Labs/stegfin-governance#60 for current-phone PREPARE and terminal receipt observation
-- StegVerse-Labs/Site#261 for intake/reconciliation visibility
-```
-
-This handoff is sufficient to continue without the hardening session history. Archive readiness for the larger trade-readiness thread depends on completion or durable machine ownership of `TASK-2026-0004`, the sovereign Base runtime/route activation chain, and the live phone observer; it does not depend on reopening this released hardening claim.
+This Site implementation claim is not archive-safe until repository validation succeeds, the PR merges, publication lineage is observed, the claim is released, and StegFin #60 imports the resilient-phone release condition. Live phone `WALLET_HANDOFF_READY` remains a distinct runtime observation owned by #60 and is not fabricated from source completion.
