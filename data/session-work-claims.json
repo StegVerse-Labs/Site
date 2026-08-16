@@ -67,8 +67,8 @@
       "handoff_revision": "5fc9929f39c9feae2423b00e9d6830c65fd07ccd",
       "claim_created_at": "2026-08-15T01:14:00-05:00",
       "claim_expires_when": "SATISFIED: PR #270 merged at 5fc9929f39c9feae2423b00e9d6830c65fd07ccd after target HIL validation, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, and Site Bootstrap validation succeeded",
-      "expected_evidence": ["PR #270 merged at 5fc9929f39c9feae2423b00e9d6830c65fd07ccd", "HIL dispatcher run 31869132762 SUCCESS", "Site Handoff Orchestrator run 31869132816 SUCCESS", "Ecosystem Heartbeat Orchestration run 31869132801 SUCCESS", "Site Bootstrap Validate run 31869132796 SUCCESS", "post-merge active GitHub Actions workflow count 130"],
-      "collision_boundaries": ["Do not modify HIL activation-state or end-to-end protocol semantics in this minimization lane", "Do not take TVC, provider, publication, custody, release, or Master Record authority", "Do not alter active HIL upload implementation paths", "Do not take over the machine-owned Site pre-work admission surface"],
+      "expected_evidence": ["PR #270 merge 5fc9929f39c9feae2423b00e9d6830c65fd07ccd", "HIL dispatcher run 31869132762 SUCCESS", "Site Handoff Orchestrator run 31869132816 SUCCESS", "Ecosystem Heartbeat Orchestration run 31869132801 SUCCESS", "Site Bootstrap Validate run 31869132796 SUCCESS", "post-merge active GitHub Actions workflow count 130"],
+      "collision_boundaries": ["Do not modify HIL activation-state or end-to-end protocol semantics in this minimization lane", "Do not take TV/TVC, provider, publication, custody, release, or Master Record authority", "Do not alter active HIL upload implementation paths", "Do not take over the machine-owned Site pre-work admission surface"],
       "next_task_after_release": "Continue the next unclaimed Site workflow-surface classification batch under issue #268"
     },
     {
@@ -207,7 +207,7 @@
       "handoff_revision": "99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f",
       "claim_created_at": "2026-08-15T19:38:00-05:00",
       "claim_expires_when": "SATISFIED: PR #279 merged at 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f after Check StegFin Phone Projection 31917723911, Site Handoff Orchestrator 31917723847, Ecosystem Heartbeat Orchestration 31917723743, and Site Bootstrap Validate 31917723793 all succeeded.",
-      "expected_evidence": ["stale hardening claim terminalized", "canonical phone handoff records PR #278/check/Pages evidence", "PR #279 merge 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f", "Check StegFin Phone Projection 31917723911 SUCCESS", "Ecosystem Heartbeat Orchestration 31917723743 SUCCESS", "Site Handoff Orchestrator 31917723847 SUCCESS", "Site Bootstrap Validate 31917723793 SUCCESS"],
+      "expected_evidence": ["stale hardening claim terminalized", "canonical phone handoff records PR #278/check/Pages evidence", "PR #279 merge 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f", "Check StegFin Phone Projection 31917723911 SUCCESS", "Ecosystem Heartbeat Orchestration 31917723743 SUCCESS", "Site Handoff Orchestrator 31917723847 SUCCESS", "Site Bootstrap Validate run 31917723793 SUCCESS"],
       "collision_boundaries": ["Metadata reconciliation only", "Do not mutate participant product assets", "Do not create or consume NON-TV/TVC secrets or tokens", "Do not create hosted runtime authority", "Do not change wallet signing or broadcast authority", "Do not claim TASK-2026-0004 product implementation"],
       "next_task_after_release": "SITE-PREWORK-CLAIM-GATE-MACHINE-001 may evaluate StegVerse-Labs/.github/tasks/TASK-2026-0004.json as the next bounded participant projection task."
     },
@@ -277,7 +277,7 @@
       "task_id": "SITE-STEGFIN-WALLET-REVIEW-286",
       "originating_goal": "Project the released StegFin human-readable USER_ONLY wallet handoff review into the canonical phone participant surface without changing transaction semantics or gaining wallet authority.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "fix/stegfin-wallet-review-286",
+      "branch": "claim/stegfin-wallet-review-286",
       "role": "IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-stegfin-phone-wallet-handoff-review-projection",
