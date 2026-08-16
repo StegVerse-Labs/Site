@@ -12,7 +12,7 @@ UPSTREAM_BLOBS = {
     "assets/stegfin-phone/rpc-resilience.js": "290b567eca2cc9f83e7438a80682ebaf8006ad76",
     "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
     "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "01df37b655f1dae8650c9102ffbd85f72432c47f",
-    "assets/stegfin-phone/device-wallet-identity.js": "0f18f416dee3d2707ac47964a6b24fe918d6ef68",
+    "assets/stegfin-phone/device-wallet-identity.js": "efc2c9c21d369bbc3d6817599f74496f918d721b",
     "assets/stegfin-phone/app.js": "ade469ac61df37da46bef1376cfdbb10d3c9b5f1",
     "assets/stegfin-phone/styles.css": "3a91c67d6088f75a93955a260985ce686eb5698f",
 }
@@ -151,6 +151,21 @@ def main() -> int:
     identity = (ROOT / "assets/stegfin-phone/device-wallet-identity.js").read_text(encoding="utf-8")
     require("granted_capabilities.includes('SIGN')" in identity and "granted_capabilities.includes('BROADCAST')" in identity, "identity guard must reject SIGN/BROADCAST", failures)
     require("non-TV/TVC credential use prohibited" in identity, "identity guard must reject non-TV/TVC credentials", failures)
+    for phrase in (
+        "stegverse-stegid-device-wallet-v1",
+        "latest-admission",
+        "stegverse.stegid.sanitized_admission_evidence.v1",
+        "IDENTITY_CONTINUITY_VALID",
+        "DEVICE_ADMITTED",
+        "DEVICE_POSSESSION",
+        "HUMAN_CONTINUITY",
+        "IDENTITY_CONTINUITY",
+        "stegid_admission_evidence",
+        "evidence_sha256",
+    ):
+        require(phrase in identity, f"StegID sanitized admission evidence invariant missing: {phrase}", failures)
+    require("granted_capabilities.includes('PREPARE')" in identity, "sanitized StegID evidence must prove PREPARE", failures)
+    require("protected credential field prohibited" in identity, "sanitized evidence must retain protected-field rejection", failures)
 
     claims = (ROOT / "data/session-work-claims.json").read_text(encoding="utf-8")
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815"' in claims, "released projection claim missing", failures)
@@ -180,7 +195,7 @@ def main() -> int:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
 
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
