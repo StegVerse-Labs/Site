@@ -14,6 +14,7 @@ UPSTREAM_BLOBS = {
     "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "01df37b655f1dae8650c9102ffbd85f72432c47f",
     "assets/stegfin-phone/device-wallet-identity.js": "efc2c9c21d369bbc3d6817599f74496f918d721b",
     "assets/stegfin-phone/app.js": "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
+    "assets/stegfin-phone/evidence-export.js": "d545063b7024b60de702ece85bd23eac6096c8bb",
     "assets/stegfin-phone/styles.css": "3a91c67d6088f75a93955a260985ce686eb5698f",
 }
 
@@ -61,6 +62,7 @@ def main() -> int:
         "./assets/stegfin-phone/stegid-device-wallet-bootstrap.js",
         "./assets/stegfin-phone/device-wallet-identity.js",
         "./assets/stegfin-phone/app.js",
+        "./assets/stegfin-phone/evidence-export.js",
     ], f"unexpected phone script order: {scripts}", failures)
     require(not any(src.startswith(("http://", "https://")) for src in scripts), "remote executable script dependency prohibited", failures)
     require("Verify this phone and prepare wallet handoff" in page, "participant PREPARE entry missing", failures)
@@ -109,6 +111,51 @@ def main() -> int:
         "RENDER_API_KEY",
     ):
         require(forbidden not in app, f"wallet review contains prohibited authority/API marker: {forbidden}", failures)
+
+    evidence_export = (ROOT / "assets/stegfin-phone/evidence-export.js").read_text(encoding="utf-8")
+    for phrase in (
+        "WALLET_HANDOFF_READY",
+        "stegverse.stegid.sanitized_admission_evidence.v1",
+        "IDENTITY_CONTINUITY_VALID",
+        "DEVICE_ADMITTED",
+        "DEVICE_POSSESSION",
+        "HUMAN_CONTINUITY",
+        "IDENTITY_CONTINUITY",
+        "PREPARE",
+        "SIGN",
+        "BROADCAST",
+        "TV/TVC",
+        "credential_requirement !== 'NONE'",
+        "non_tv_tvc_secret_or_token_used !== false",
+        "hosted_runtime_required !== false",
+        "signed !== false",
+        "broadcast !== false",
+        "evidence.evidence_sha256",
+        "receipt.receipt_sha256",
+        "JSON.stringify(packet, null, 2)",
+        "navigator.clipboard",
+        "navigator.share",
+        "Copy canonical evidence",
+        "Share canonical evidence",
+        "USER_ONLY",
+    ):
+        require(phrase in evidence_export, f"phone evidence export invariant missing: {phrase}", failures)
+    for forbidden in (
+        "window.ethereum",
+        "eth_sendTransaction",
+        "eth_sendRawTransaction",
+        "personal_sign",
+        "eth_sign",
+        "GITHUB_TOKEN",
+        "GH_TOKEN",
+        "ZEROEX_API_KEY",
+        "private_key",
+        "seed_phrase",
+        "fetch(",
+        "XMLHttpRequest",
+        "WebSocket",
+    ):
+        require(forbidden not in evidence_export, f"phone evidence export contains prohibited authority/network marker: {forbidden}", failures)
 
     readiness_text = (ROOT / READINESS_PROJECTION).read_text(encoding="utf-8")
     try:
@@ -210,12 +257,14 @@ def main() -> int:
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815"' in claims, "hardening projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815"' in claims, "RPC resilience projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-WALLET-REVIEW-286-20260816"' in claims, "wallet review projection claim missing", failures)
+    require('"claim_id": "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289-20260816"' in claims, "phone evidence export projection claim missing", failures)
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     for phrase in (
         "STEGFIN-PHONE-DIRECT-ROUTE-011",
         "STEGFIN-PHONE-RPC-RESILIENCE-012",
         "SITE-STEGFIN-PHONE-PROJECTION-261",
+        "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289",
         "TASK-2026-0004",
         "Site#282",
         "credential_authority: TV/TVC",
@@ -228,7 +277,10 @@ def main() -> int:
         "bcba49976a52024a233f998ce290ec4ab42618ff",
         "STEGFIN-PHONE-WALLET-REVIEW-014",
         "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
+        "d545063b7024b60de702ece85bd23eac6096c8bb",
+        "StegFin PR #74",
         "USER_ONLY wallet review",
+        "Copy canonical evidence",
     ):
         require(phrase in handoff, f"handoff invariant missing: {phrase}", failures)
 
@@ -237,7 +289,7 @@ def main() -> int:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
 
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS wallet_review=USER_ONLY participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
