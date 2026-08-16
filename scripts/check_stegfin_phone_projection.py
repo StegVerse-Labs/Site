@@ -13,7 +13,7 @@ UPSTREAM_BLOBS = {
     "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
     "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "01df37b655f1dae8650c9102ffbd85f72432c47f",
     "assets/stegfin-phone/device-wallet-identity.js": "efc2c9c21d369bbc3d6817599f74496f918d721b",
-    "assets/stegfin-phone/app.js": "ade469ac61df37da46bef1376cfdbb10d3c9b5f1",
+    "assets/stegfin-phone/app.js": "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
     "assets/stegfin-phone/styles.css": "3a91c67d6088f75a93955a260985ce686eb5698f",
 }
 
@@ -71,6 +71,44 @@ def main() -> int:
     app = (ROOT / "assets/stegfin-phone/app.js").read_text(encoding="utf-8")
     require('const READINESS_URL = "../task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json";' in app, "phone app readiness URL drifted", failures)
     require("exact_validation_trade_request" in app, "phone app no longer renders source trade readiness", failures)
+    for phrase in (
+        "function validateReviewableHandoff(local)",
+        "function walletReviewRows(local)",
+        "function renderWalletReview(local)",
+        "button.disabled = !reviewable",
+        "candidate.requires_user_wallet_signature !== true",
+        "handoff.wallet_is_only_signing_authority !== true",
+        "handoff.explicit_wallet_confirmation_required !== true",
+        "handoff.automatic_signing !== false",
+        "handoff.automatic_broadcast !== false",
+        "route.decision !== 'ROUTE_ADMITTED'",
+        "route.authority !== 'TV/TVC'",
+        "route.credential_requirement !== 'NONE'",
+        "candidate.purpose === 'exact_erc20_approval'",
+        "candidate.exact_allowance_atomic",
+        "candidate.unlimited_allowance === false",
+        "Spender / SwapRouter02",
+        "Quote minimum out",
+        "Gas estimate",
+        "Yes · USER_ONLY",
+        "Review only: this control never contacts a wallet, signs, broadcasts, or settles.",
+        "No wallet action occurred.",
+    ):
+        require(phrase in app, f"wallet review invariant missing: {phrase}", failures)
+    for forbidden in (
+        "eth_sendRawTransaction",
+        "eth_sendTransaction",
+        "personal_sign",
+        "eth_sign",
+        "wallet_requestPermissions",
+        "wallet_addEthereumChain",
+        "window.ethereum.request",
+        "Authorization",
+        "Bearer ",
+        "GITHUB_TOKEN",
+        "RENDER_API_KEY",
+    ):
+        require(forbidden not in app, f"wallet review contains prohibited authority/API marker: {forbidden}", failures)
 
     readiness_text = (ROOT / READINESS_PROJECTION).read_text(encoding="utf-8")
     try:
@@ -171,6 +209,7 @@ def main() -> int:
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815"' in claims, "released projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815"' in claims, "hardening projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815"' in claims, "RPC resilience projection claim missing", failures)
+    require('"claim_id": "SITE-STEGFIN-WALLET-REVIEW-286-20260816"' in claims, "wallet review projection claim missing", failures)
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     for phrase in (
@@ -187,6 +226,9 @@ def main() -> int:
         "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
         "290b567eca2cc9f83e7438a80682ebaf8006ad76",
         "bcba49976a52024a233f998ce290ec4ab42618ff",
+        "STEGFIN-PHONE-WALLET-REVIEW-014",
+        "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
+        "USER_ONLY wallet review",
     ):
         require(phrase in handoff, f"handoff invariant missing: {phrase}", failures)
 
@@ -195,7 +237,7 @@ def main() -> int:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
 
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=6 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS wallet_review=USER_ONLY participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 

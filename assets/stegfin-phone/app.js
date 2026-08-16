@@ -35,10 +35,143 @@ function gateRows(state) {
   return rows;
 }
 
+function atomicDisplay(value, decimals, symbol) {
+  if (value === undefined || value === null || value === "") return "—";
+  const text = String(value);
+  if (!/^\d+$/.test(text) || !Number.isInteger(decimals) || decimals < 0) return `${text}${symbol ? ` atomic ${symbol}` : " atomic"}`;
+  const padded = text.padStart(decimals + 1, '0');
+  const whole = decimals ? padded.slice(0, -decimals) : padded;
+  const fraction = decimals ? padded.slice(-decimals).replace(/0+$/, '') : '';
+  return `${whole}${fraction ? `.${fraction}` : ''}${symbol ? ` ${symbol}` : ''}`;
+}
+
+function candidateAsset(local, candidate) {
+  const assets = local?.inventory?.assets || [];
+  const target = String(candidate?.to || '').toLowerCase();
+  return assets.find((asset) => String(asset?.contract_address || '').toLowerCase() === target)
+    || assets.find((asset) => asset?.symbol === 'USDC')
+    || null;
+}
+
+function validateReviewableHandoff(local) {
+  const receipt = local?.receipt || {};
+  const handoff = local?.wallet_handoff || {};
+  const candidate = handoff?.transaction_candidate || {};
+  const route = local?.route_admission || {};
+  if (receipt.state !== WALLET_READY) throw new Error('wallet handoff is not terminal');
+  if (receipt.credential_authority !== 'TV/TVC' || receipt.credential_requirement !== 'NONE') throw new Error('wallet handoff credential boundary mismatch');
+  if (receipt.non_tv_tvc_secret_or_token_used !== false || receipt.hosted_runtime_required !== false) throw new Error('wallet handoff authority boundary mismatch');
+  if (handoff.chain_id !== '0x2105' || candidate.chain_id !== '0x2105') throw new Error('wallet handoff must target Base 0x2105');
+  if (!handoff.wallet_address || String(candidate.from || '').toLowerCase() !== String(handoff.wallet_address).toLowerCase()) throw new Error('wallet handoff sender mismatch');
+  if (!candidate.to || !candidate.purpose) throw new Error('wallet transaction candidate incomplete');
+  if (candidate.requires_user_wallet_signature !== true) throw new Error('wallet signature must remain explicitly USER_ONLY');
+  if (handoff.wallet_is_only_signing_authority !== true || handoff.explicit_wallet_confirmation_required !== true) throw new Error('wallet authority confirmation missing');
+  if (handoff.automatic_signing !== false || handoff.automatic_broadcast !== false) throw new Error('automatic wallet action prohibited');
+  if (handoff.signed !== false || handoff.broadcast !== false || receipt.signed !== false || receipt.broadcast !== false) throw new Error('review requires unsigned/unbroadcast handoff');
+  if (route.decision !== 'ROUTE_ADMITTED' || route.authority !== 'TV/TVC' || route.credential_requirement !== 'NONE') throw new Error('TV/TVC route admission missing');
+  return { receipt, handoff, candidate, route };
+}
+
+function walletReviewRows(local) {
+  const { receipt, handoff, candidate, route } = validateReviewableHandoff(local);
+  const asset = candidateAsset(local, candidate);
+  const quote = local?.quote || {};
+  const capability = receipt?.stegid_admission_evidence?.wallet_capability || {};
+  const device = receipt?.stegid_admission_evidence?.device_admission || {};
+  const rows = [
+    ["State", WALLET_READY],
+    ["Chain", "Base · 0x2105"],
+    ["Wallet", handoff.wallet_address],
+    ["Candidate purpose", candidate.purpose],
+    [candidate.purpose === 'exact_erc20_approval' ? "Approval token contract" : "Transaction target", candidate.to],
+  ];
+  if (candidate.purpose === 'exact_erc20_approval') {
+    rows.push(["Exact approval", atomicDisplay(candidate.exact_allowance_atomic, asset?.decimals, asset?.symbol)]);
+    rows.push(["Unlimited allowance", candidate.unlimited_allowance === false ? "No" : String(candidate.unlimited_allowance)]);
+    rows.push(["Spender / SwapRouter02", route?.route?.swap_router_02 || "—"]);
+  } else {
+    rows.push(["Amount in", atomicDisplay(quote.amount_in, asset?.decimals, asset?.symbol)]);
+  }
+  rows.push(
+    ["Quote minimum out", quote.amount_out_minimum ? `${quote.amount_out_minimum} atomic WETH` : "—"],
+    ["Fee tier", quote.fee !== undefined ? String(quote.fee) : "—"],
+    ["Slippage ceiling", route.maximum_slippage_bps !== undefined ? `${route.maximum_slippage_bps} bps` : "—"],
+    ["Gas estimate", candidate.gas_estimate_usd !== undefined ? `$${candidate.gas_estimate_usd}` : "—"],
+    ["Gas reserve sufficient", candidate.gas_reserve_sufficient === true ? "Yes" : String(candidate.gas_reserve_sufficient ?? "—")],
+    ["TV/TVC route", `${route.decision} · credentials ${route.credential_requirement}`],
+    ["StegID device", device.decision || receipt.stegid_device_id || "Bound by receipt hash"],
+    ["StegID capability", Array.isArray(capability.granted_capabilities) ? capability.granted_capabilities.join(' + ') : "Bound by capability receipt hash"],
+    ["Wallet signature required", candidate.requires_user_wallet_signature === true ? "Yes · USER_ONLY" : "No"],
+    ["Signed", "No"],
+    ["Broadcast", "No"],
+  );
+  return rows;
+}
+
+function ensureWalletReviewCard() {
+  let card = el('walletReviewCard');
+  if (card) return card;
+  const evidenceCard = document.querySelector('.evidence-card');
+  card = document.createElement('section');
+  card.id = 'walletReviewCard';
+  card.className = 'card';
+  card.hidden = true;
+  card.setAttribute('aria-labelledby', 'walletReviewTitle');
+
+  const head = document.createElement('div');
+  head.className = 'card-head';
+  const heading = document.createElement('div');
+  const eyebrow = document.createElement('p');
+  eyebrow.className = 'eyebrow';
+  eyebrow.textContent = 'USER_ONLY review';
+  const title = document.createElement('h2');
+  title.id = 'walletReviewTitle';
+  title.textContent = 'Unsigned wallet handoff';
+  heading.append(eyebrow, title);
+  head.append(heading);
+
+  const copy = document.createElement('p');
+  copy.className = 'status-copy';
+  copy.textContent = 'Human-readable projection of the exact retained candidate. Review only: this control never contacts a wallet, signs, broadcasts, or settles.';
+
+  const grid = document.createElement('div');
+  grid.id = 'walletReviewGrid';
+  grid.className = 'authority-grid';
+
+  const warning = document.createElement('p');
+  warning.className = 'muted';
+  warning.textContent = 'Canonical JSON remains below for exact hash-bound evidence. Any mismatch fails closed and disables this review projection.';
+
+  card.append(head, copy, grid, warning);
+  evidenceCard?.parentNode?.insertBefore(card, evidenceCard);
+  return card;
+}
+
+function renderWalletReview(local) {
+  const card = ensureWalletReviewCard();
+  const grid = el('walletReviewGrid');
+  grid.replaceChildren();
+  for (const [label, value] of walletReviewRows(local)) {
+    const item = document.createElement('div');
+    const name = document.createElement('span');
+    const strong = document.createElement('strong');
+    name.textContent = label;
+    strong.textContent = value ?? '—';
+    item.append(name, strong);
+    grid.append(item);
+  }
+  card.hidden = false;
+  return card;
+}
+
 function render(state) {
   const boundary = state.trade_boundary || {};
   const credential = state.credential_boundary || {};
   const local = localPhoneResult();
+  let reviewable = false;
+  if (local) {
+    try { validateReviewableHandoff(local); reviewable = true; } catch { reviewable = false; }
+  }
   const ready = Boolean(local);
 
   el("stateBadge").textContent = ready ? WALLET_READY : (state.state || "READY_TO_RUN_ON_DEVICE");
@@ -58,16 +191,29 @@ function render(state) {
   }));
 
   const button = el("reviewButton");
-  button.disabled = !ready;
+  button.disabled = !reviewable;
   button.dataset.authority = "USER_ONLY";
-  el("actionMessage").textContent = ready
+  el("actionMessage").textContent = reviewable
     ? "Canonical wallet-handoff evidence is present on this phone. Review the exact unsigned handoff before any USER_ONLY action."
-    : "Use the phone-sovereign carrier above. This phone executes the TV/TVC-admitted credential-free direct Base route; signing and broadcast remain USER_ONLY.";
+    : ready
+      ? "Wallet handoff exists, but the human-readable review failed a boundary check. Canonical evidence remains available; no wallet action is enabled."
+      : "Use the phone-sovereign carrier above. This phone executes the TV/TVC-admitted credential-free direct Base route; signing and broadcast remain USER_ONLY.";
 
   button.onclick = () => {
-    if (!ready) return;
-    el("evidence").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!reviewable) return;
+    try {
+      const card = renderWalletReview(local);
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (error) {
+      button.disabled = true;
+      el("actionMessage").textContent = `Fail closed: ${String(error?.message || error)}. No wallet action occurred.`;
+    }
   };
+
+  if (!reviewable) {
+    const card = el('walletReviewCard');
+    if (card) card.hidden = true;
+  }
 
   el("evidence").textContent = JSON.stringify(local || {
     task_id: "STEGFIN-PHONE-DIRECT-ROUTE-010",
