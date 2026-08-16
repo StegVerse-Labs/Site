@@ -8,6 +8,7 @@ Updated: 2026-08-15T19:50:00-05:00
 goal_id: SITE-STEGFIN-PHONE-PROJECTION-261
 active_goal: TASK-2026-0004
 active_capability: site-stegfin-phone-rpc-resilience-projection-v1
+parent_phone_task: STEGFIN-PHONE-DIRECT-ROUTE-011
 originating_goal: expose the phone-sovereign StegFin PREPARE path on the canonical Site surface, preserve TV/TVC credential authority, remove the single-public-RPC fragility, and introduce no hosted production execution authority
 repository: StegVerse-Labs/Site
 branch: fix/stegfin-phone-rpc-resilience-261
@@ -30,6 +31,7 @@ The participant surface and bounded current-block Inventory N carrier are alread
 
 ```text
 original projection: Site PR #276 -> 8b5319705dcf02c8edc8dd1612e9787cf70386a1
+bounded Inventory N task: STEGFIN-PHONE-DIRECT-ROUTE-011
 bounded Inventory N hardening: StegFin PR #62 -> e19f64ca53699cc626cf05524ff8398544696067
 Site hardening projection: PR #278 -> 264c75f84361567bdc1126e0fdb13c7a7a90de1c
 Site hardening metadata reconciliation: PR #279 -> 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f
