@@ -278,18 +278,18 @@
       "originating_goal": "Project the released StegFin human-readable USER_ONLY wallet handoff review into the canonical phone participant surface without changing transaction semantics or gaining wallet authority.",
       "repository": "StegVerse-Labs/Site",
       "branch": "claim/stegfin-wallet-review-286",
-      "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_IMPLEMENTATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-stegfin-phone-wallet-handoff-review-projection",
       "dependency_surface_keys": ["site:stegfin-phone-participant-projection:wallet-review"],
       "claimed_paths": ["data/session-work-claims.json", "assets/stegfin-phone/app.js", "scripts/check_stegfin_phone_projection.py", "tests/test_stegfin_wallet_review_projection.py", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
       "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
-      "handoff_revision": "PENDING_PR_RELEASE",
+      "handoff_revision": "abe63f6af052c460d102818e8dd16ccda90b72c6",
       "claim_created_at": "2026-08-16T02:10:00-05:00",
-      "claim_expires_when": "Release after the exact upstream StegFin app.js blob is projected, bounded Site validation/orchestration gates pass, PR merges, and Pages builds the exact merge lineage; otherwise release on explicit blocker transfer.",
-      "expected_evidence": ["StegFin PR #72 merge a921c5250cb6800bfe552038a5ac1e896b44fe02", "exact upstream app.js blob 433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "Check StegFin Phone Projection PASS", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "Site Bootstrap Validate PASS", "Site PR merged", "Pages build exact merge"],
+      "claim_expires_when": "SATISFIED: Site PR #288 merged at abe63f6af052c460d102818e8dd16ccda90b72c6 after all four final-head gates passed and Pages build 1154455062 built that exact merge lineage.",
+      "expected_evidence": ["StegFin PR #72 merge a921c5250cb6800bfe552038a5ac1e896b44fe02", "exact upstream app.js blob 433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "Check StegFin Phone Projection run 31933589538 SUCCESS", "Site Handoff Orchestrator run 31933589536 SUCCESS", "Ecosystem Heartbeat Orchestration run 31933589540 SUCCESS", "Site Bootstrap Validate run 31933589547 SUCCESS", "Site PR #288 merge abe63f6af052c460d102818e8dd16ccda90b72c6", "Pages build 1154455062 BUILT from exact merge"],
       "collision_boundaries": ["Do not modify phone-direct-route.js, rpc-resilience.js, or StegID/TVC authority", "Do not alter transaction candidate semantics", "Do not introduce NON-TV/TVC secrets or tokens", "Do not introduce hosted production runtime authority", "Do not contact wallet, sign, broadcast, or settle", "Signing and broadcast remain USER_ONLY"],
-      "next_task_after_release": "Current phone reloads participant page and uses Review wallet handoff on a fresh WALLET_HANDOFF_READY packet; StegFin #68/#60 remain live evidence owners."
+      "next_task_after_release": "Current phone reloads participant page and reruns PREPARE to obtain fresh stegid_admission_evidence, then uses Review wallet handoff; StegFin #68/#60 reconcile direct activation evidence."
     }
   ]
 }
