@@ -1,0 +1,33 @@
+{
+  "schema": "site.stegfin.phone_source_readiness_projection.v1",
+  "source_repository": "StegVerse-Labs/stegfin-governance",
+  "source_path": "task-state/STEGFIN-LIVE-ENTRY-003-READINESS.json",
+  "source_state": "SOURCE_TRADE_READY_MACHINE_LIVE_EVIDENCE_PENDING",
+  "source_readiness": {
+    "exact_validation_trade_request": "COMPLETE_INSTALLED"
+  },
+  "trade_boundary": {
+    "chain": "Base",
+    "chain_id": "0x2105",
+    "wallet": "0xA503DCe5471492bbA2D06e9f78F4d9D6Bcc852aA",
+    "maximum_slippage_bps": 50,
+    "maximum_gas_per_transaction_usd": "1.00",
+    "maximum_session_gas_usd": "3.00"
+  },
+  "credential_boundary": {
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "non_tv_tvc_secret_or_token_used": false,
+    "provider_secret_required": false,
+    "provider_secret_exported": false,
+    "github_token_required": false,
+    "hosted_runtime_required": false,
+    "wallet_signing_authority": "USER_ONLY",
+    "broadcast_authority": "USER_ONLY"
+  },
+  "authority_effect": "NONE_READINESS_PROJECTION_ONLY",
+  "notes": [
+    "Redacted participant-facing projection of canonical StegFin source readiness.",
+    "No provider secret reference, token, credential value, signing authority, broadcast authority, or execution authority is projected."
+  ]
+}
