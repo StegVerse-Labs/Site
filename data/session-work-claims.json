@@ -210,6 +210,26 @@
       "expected_evidence": ["stale hardening claim terminalized", "canonical phone handoff records PR #278/check/Pages evidence", "PR #279 merge 99f510d7e1d2026d09df0a4997cd7c2c3d5e9f9f", "Check StegFin Phone Projection 31917723911 SUCCESS", "Ecosystem Heartbeat Orchestration 31917723743 SUCCESS", "Site Handoff Orchestrator 31917723847 SUCCESS", "Site Bootstrap Validate 31917723793 SUCCESS"],
       "collision_boundaries": ["Metadata reconciliation only", "Do not mutate participant product assets", "Do not create or consume NON-TV/TVC secrets or tokens", "Do not create hosted runtime authority", "Do not change wallet signing or broadcast authority", "Do not claim TASK-2026-0004 product implementation"],
       "next_task_after_release": "SITE-PREWORK-CLAIM-GATE-MACHINE-001 may evaluate StegVerse-Labs/.github/tasks/TASK-2026-0004.json as the next bounded participant projection task."
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815",
+      "session_worker_id": "chatgpt-session-stegfin-phone-rpc-resilience-20260815",
+      "task_id": "TASK-2026-0004",
+      "originating_goal": "Project the released StegFin phone RPC resilience asset into the canonical Site participant entry without importing credential, wallet, provider, or hosted-runtime authority.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/stegfin-phone-rpc-resilience-261",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-phone-rpc-resilience-projection",
+      "dependency_surface_keys": ["site:stegfin-phone-participant-projection"],
+      "claimed_paths": ["data/session-work-claims.json", "assets/stegfin-phone/rpc-resilience.js", "stegfin-trade.html", "scripts/check_stegfin_phone_projection.py", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "797572ec5e292bc0a5fbbb714393cafbdb70c5f1",
+      "claim_created_at": "2026-08-15T19:46:00-05:00",
+      "claim_expires_when": "Released after exact StegFin rpc-resilience blob 290b567eca2cc9f83e7438a80682ebaf8006ad76 is projected before phone-direct-route.js, Site validation/orchestration pass, PR merges, Pages build contains the merge lineage, and StegFin #60 imports the retry condition.",
+      "expected_evidence": ["StegFin PR #66 merge bcba49976a52024a233f998ce290ec4ab42618ff", "exact rpc-resilience.js git blob 290b567eca2cc9f83e7438a80682ebaf8006ad76", "Check StegFin Phone Projection PASS", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "Site Bootstrap Validate PASS", "Site PR merge", "Pages build from merged lineage", "StegFin #60 continuation updated"],
+      "collision_boundaries": ["Preserve existing stegfin-trade.html participant URL", "Do not recreate StegFin phone carrier or TV/TVC authority", "Do not use NON-TV/TVC secrets or tokens", "No Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Do not sign or broadcast", "Static projection only"],
+      "next_task_after_release": "StegVerse-Labs/stegfin-governance#60 observes current-phone PREPARE and terminal BLOCKED or WALLET_HANDOFF_READY evidence using the resilient RPC policy."
     }
   ]
 }
