@@ -1,12 +1,12 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-15T17:10:00-05:00
+Updated: 2026-08-15T19:38:00-05:00
 
 ## Canonical scope
 
 ```text
 goal_id: SITE-STEGFIN-PHONE-PROJECTION-261
-active_hardening_goal: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING
+hardening_goal: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING
 parent_goal: STEGFIN-PHONE-DIRECT-ROUTE-011
 originating_goal: expose the StegVerse phone-sovereign preparation path on the participant-facing Site without Render or non-TV/TVC credentials, and keep that projection bound to the currently released phone carrier
 repository: StegVerse-Labs/Site
@@ -16,9 +16,11 @@ canonical_intake_issue: StegVerse-Labs/Site#261
 canonical_live_activation_issue: StegVerse-Labs/stegfin-governance#60
 original_projection_pr: #276
 original_projection_merge: 8b5319705dcf02c8edc8dd1612e9787cf70386a1
+hardening_pr: #278
+hardening_merge: 264c75f84361567bdc1126e0fdb13c7a7a90de1c
 released_projection_claim: SITE-STEGFIN-PHONE-PROJECTION-261-20260815
-active_hardening_claim: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815
-hardening_claim_state: CLAIMED_FOR_IMPLEMENTATION
+released_hardening_claim: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815
+hardening_claim_state: MERGED_INTO_CANONICAL_WORKSTREAM
 credential_authority: TV/TVC
 credential_requirement: NONE
 non_tv_tvc_secret_or_token_allowed: false
@@ -32,7 +34,7 @@ broadcast authority: USER_ONLY
 
 ## Upstream source of truth
 
-The original Site projection was correctly released through PR #276, but it copied the first released phone carrier blob. During subsequent live-executability review, StegFin task `STEGFIN-PHONE-DIRECT-ROUTE-011` found that the carrier's prior Inventory N logic attempted block-0 historical ERC-20 Transfer-log discovery. That was not a suitable bounded prerequisite for the authorized iPhone. The upstream carrier was hardened and released before actual phone activation.
+The original Site projection was released through PR #276. During subsequent live-executability review, StegFin task `STEGFIN-PHONE-DIRECT-ROUTE-011` found that the carrier's prior Inventory N logic attempted block-0 historical ERC-20 Transfer-log discovery. That was not a suitable bounded prerequisite for the authorized iPhone. The upstream carrier was hardened and released before actual phone activation, and Site PR #278 refreshed the existing participant projection to the exact hardened carrier.
 
 ```text
 StegFin handoff: StegVerse-Labs/stegfin-governance/docs/STEGFIN_PHONE_DIRECT_ROUTE_MIRROR_HANDOFF.md
@@ -43,6 +45,8 @@ StegFin hardening merge: e19f64ca53699cc626cf05524ff8398544696067
 StegFin hardening task: STEGFIN-PHONE-DIRECT-ROUTE-011 COMPLETE_RELEASED
 StegID current-phone bootstrap merge: 6a61dd291f7b66db31f1bb348975d8f829fca249
 TVC credential-free direct-route merge: a00e52e3cde60c08969e22cf11aeba3971172108
+Site hardening PR: #278
+Site hardening merge: 264c75f84361567bdc1126e0fdb13c7a7a90de1c
 ```
 
 The old projected route blob `87c39b623724c4c7f637f3747d7f8b965a6bad3a` is superseded for the active phone path by exact hardened upstream blob `31ed79cb56e8d2366e6d70f22e28c70162c88fd8`.
@@ -148,9 +152,9 @@ Master Records authority created by Site: false
 
 The public Site host delivers static files only and is not the sovereign production execution runtime for this path.
 
-## Prior release and current hardening evidence
+## Release evidence
 
-Prior projection release remains valid historical evidence:
+Original projection release:
 
 ```text
 PR #276 merge: 8b5319705dcf02c8edc8dd1612e9787cf70386a1
@@ -161,56 +165,58 @@ Site Bootstrap Validate: run 31910836064 SUCCESS
 GitHub Pages exact build: 1153781444
 ```
 
-Current hardening source evidence:
+Hardening release:
 
 ```text
 StegFin PR #62 merge: e19f64ca53699cc626cf05524ff8398544696067
 StegFin phone source blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
-Site hardening claim: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815
+Site PR #278 merge: 264c75f84361567bdc1126e0fdb13c7a7a90de1c
 Site projected hardened blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
-Site hardening validator: scripts/check_stegfin_phone_projection.py
-hardening merge/publication evidence: PENDING
+Check StegFin Phone Projection: run 31911456225 SUCCESS
+Ecosystem Heartbeat Orchestration: run 31911456207 SUCCESS
+Site Handoff Orchestrator: run 31911456193 SUCCESS
+Site Bootstrap Validate: run 31911501680 SUCCESS
+Pages build: 1153840683 BUILT from descendant main 9724e7d4da384af3f47e1e7c02faf84d5e9e6062
 ```
 
 No live phone execution is inferred from source or publication validation.
 
 ## Collision and claim disposition
 
-Released original projection:
+Both Site source implementation claims are terminal:
 
 ```yaml
 task_id: SITE-STEGFIN-PHONE-PROJECTION-261
 claim_id: SITE-STEGFIN-PHONE-PROJECTION-261-20260815
 state: MERGED_INTO_CANONICAL_WORKSTREAM
-```
 
-Active noncompeting refresh:
-
-```yaml
+---
 task_id: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING
 claim_id: SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815
-role: IMPLEMENTATION
-state: CLAIMED_FOR_IMPLEMENTATION
-branch: fix/stegfin-phone-bounded-inventory-projection-261
-collision_scope:
-  - assets/stegfin-phone/phone-direct-route.js
-  - scripts/check_stegfin_phone_projection.py
-  - docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md
-  - data/session-work-claims.json
-release_condition: exact hardened upstream blob projected; validation and Site orchestration pass; PR merged; public build reflects merge
+role: RELEASED_IMPLEMENTATION
+state: MERGED_INTO_CANONICAL_WORKSTREAM
+release_evidence:
+  - PR #278 merge 264c75f84361567bdc1126e0fdb13c7a7a90de1c
+  - Check StegFin Phone Projection 31911456225 SUCCESS
+  - Ecosystem Heartbeat Orchestration 31911456207 SUCCESS
+  - Site Handoff Orchestrator 31911456193 SUCCESS
+  - Site Bootstrap Validate 31911501680 SUCCESS
+  - Pages build 1153840683 BUILT
 ```
 
 PR #277's duplicate `/stegfin-phone/` implementation was closed unmerged after detecting that canonical PR #276 had already provided the participant surface. Do not reopen it.
 
 Do not duplicate the upstream phone carrier, StegID device bootstrap, TVC route, G18 runtime activation, MCP exact-artifact worker, provider route, signer, or broadcaster.
 
-## Discoverability decision
+## Current next implementation task
 
-The canonical participant entry remains `stegfin-trade.html`. No functional or authority requirement requires creating another participant path or rewriting unrelated Site surfaces.
+The released hardening no longer owns the participant dependency surface. Organization task `StegVerse-Labs/.github/tasks/TASK-2026-0004.json` may now be admitted by `SITE-PREWORK-CLAIM-GATE-MACHINE-001` as the next bounded Site source task, provided the gate confirms no newer conflicting claim exists.
+
+That task is limited to projecting the released StegFin `rpc-resilience.js` asset before `phone-direct-route.js`. It must not import credential, provider, wallet, signing, broadcast, settlement, or hosted-runtime authority. The exact released upstream RPC-resilience blob is `290b567eca2cc9f83e7438a80682ebaf8006ad76`.
 
 ## Live activation boundary
 
-After this hardening refresh is merged and publicly rebuilt, the remaining live step is participant-owned and directly executable from the current phone:
+After RPC-resilience projection is admitted, validated, merged and publicly rebuilt, the remaining phone step is participant-owned and directly executable from the current phone:
 
 ```text
 open https://stegverse.org/stegfin-trade.html
@@ -236,26 +242,32 @@ Issue `StegVerse-Labs/stegfin-governance#60` remains open until actual phone evi
 
 ## Completion accounting
 
+For the released bounded hardening goal:
+
 ```text
 required developed projection surfaces: 8
 complete developed projection surfaces: 8
 scaffolding/stubs: 0
 missing required files: 0
-original source validation: 3/3 PASS
-hardening source projection: IMPLEMENTED
-hardening validation: PENDING PR checks
-Site hardening integration: 1/3 (claim + source update complete; validation/merge/publication pending)
-participant PREPARE execution: 0/1 pending current-phone gesture after public hardening refresh
-terminal phone receipt: 0/1 pending current-phone execution
+hardening source projection: COMPLETE
+hardening validation: 4/4 PASS
+hardening merge: COMPLETE
+publication evidence: COMPLETE
+source goal activation: 100%
+source claim release: COMPLETE
+participant PREPARE execution: pending under canonical live observer
+terminal phone receipt: pending under canonical live observer
 ```
 
 ## Session consolidation / archive condition
 
-The prior Site projection workstream is released. This session currently owns only the bounded hardening refresh above. Once the exact hardened source is validated, merged, publicly rebuilt, the claim is released, Site #261 is reconciled, and StegFin #60 imports the refreshed public evidence condition, no Site source implementation role remains.
+The Site hardening implementation lane is fully released and no longer owns source implementation. Its remaining product continuation is durably transferred:
 
 ```text
-MERGED INTO after hardening release:
-- StegVerse-Labs/stegfin-governance#60
-- StegVerse-Labs/Site#261
-- StegVerse-Labs/Site/docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md
+MERGED INTO:
+- StegVerse-Labs/.github/tasks/TASK-2026-0004.json for RPC-resilience projection admission
+- StegVerse-Labs/stegfin-governance#60 for current-phone PREPARE and terminal receipt observation
+- StegVerse-Labs/Site#261 for intake/reconciliation visibility
 ```
+
+This handoff is sufficient to continue without the hardening session history. Archive readiness for the larger trade-readiness thread depends on completion or durable machine ownership of `TASK-2026-0004`, the sovereign Base runtime/route activation chain, and the live phone observer; it does not depend on reopening this released hardening claim.
