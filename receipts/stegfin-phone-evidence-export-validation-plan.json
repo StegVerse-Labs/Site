@@ -1,0 +1,21 @@
+{
+  "schema": "stegverse.site-validation-plan/v1",
+  "task_id": "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289",
+  "required_gates": [
+    "Check StegFin Phone Projection",
+    "Site Handoff Orchestrator",
+    "Ecosystem Heartbeat Orchestration",
+    "Site Bootstrap Validate"
+  ],
+  "required_publication": "GitHub Pages build of exact merge lineage",
+  "required_propagation": [
+    "StegVerse-Labs/stegfin-governance#68",
+    "StegVerse-Labs/stegfin-governance#60"
+  ],
+  "fail_closed": true,
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "render_production_runtime_allowed": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY"
+}
