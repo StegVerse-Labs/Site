@@ -1,6 +1,6 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-15T19:50:00-05:00
+Updated: 2026-08-15T19:52:00-05:00
 
 ## Canonical scope
 
@@ -11,7 +11,9 @@ active_capability: site-stegfin-phone-rpc-resilience-projection-v1
 parent_phone_task: STEGFIN-PHONE-DIRECT-ROUTE-011
 originating_goal: expose the phone-sovereign StegFin PREPARE path on the canonical Site surface, preserve TV/TVC credential authority, remove the single-public-RPC fragility, and introduce no hosted production execution authority
 repository: StegVerse-Labs/Site
-branch: fix/stegfin-phone-rpc-resilience-261
+branch: claim/stegfin-phone-rpc-resilience-261
+current_pr: #281
+superseded_unmerged_pr: #280
 canonical_intake_issue: StegVerse-Labs/Site#261
 canonical_live_activation_issue: StegVerse-Labs/stegfin-governance#60
 credential_authority: TV/TVC
@@ -141,7 +143,8 @@ task_id: TASK-2026-0004
 claim_id: SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815
 role: IMPLEMENTATION
 state: CLAIMED_FOR_IMPLEMENTATION
-branch: fix/stegfin-phone-rpc-resilience-261
+branch: claim/stegfin-phone-rpc-resilience-261
+current_pr: #281
 collision_scope:
   - data/session-work-claims.json
   - assets/stegfin-phone/rpc-resilience.js
@@ -159,7 +162,7 @@ release_condition:
   StegFin #60 imports retry condition.
 ```
 
-No competing PR exists for this branch. The branch was a stale zero-ahead pointer and was advanced to current main only after the prior hardening/reconciliation claims were released.
+PR #280 was closed unmerged after the repository orchestrator proved that the original `fix/` branch class did not map to its parent handoff workload. The source was preserved unchanged on this `claim/` branch, which is still subject to the exact active pre-work claim and all repository gates. There is no competing open product PR for this scope.
 
 ## Validation
 
@@ -169,7 +172,7 @@ Required source validation:
 python scripts/check_stegfin_phone_projection.py
 ```
 
-The validator now requires all six exact upstream blobs, exact resilience-before-carrier script ordering, chain-id fallback verification, TV/TVC/NONE credential semantics, bounded retry/fail-closed behavior, and absence of token/provider/hosted-runtime markers.
+The validator requires all six exact upstream blobs, exact resilience-before-carrier script ordering, chain-id fallback verification, TV/TVC/NONE credential semantics, bounded retry/fail-closed behavior, and absence of token/provider/hosted-runtime markers.
 
 Required repository gates on the PR head:
 
@@ -180,13 +183,13 @@ Ecosystem Heartbeat Orchestration
 Site Bootstrap Validate
 ```
 
-No workflow result is represented as passing until directly observed.
+No workflow result is represented as passing until directly observed on the current PR #281 head.
 
 ## Cross-repository continuation
 
 ```text
 upstream resilience source: StegVerse-Labs/stegfin-governance/STEGFIN-PHONE-RPC-RESILIENCE-012 COMPLETE_RELEASED_SOURCE
-Site projection: TASK-2026-0004 / this branch
+Site projection: TASK-2026-0004 / PR #281
 long-term sovereign Base runtime: StegVerse-Labs/.github/tasks/TASK-2026-0005.json MACHINE_OWNED_REAL_ENDPOINT_PENDING
 TVC exact sovereign route admission: TVC-SOVEREIGN-BASE-RPC-ROUTE-003 COMPLETE_RELEASED_SOURCE
 current-phone terminal observer: StegVerse-Labs/stegfin-governance#60
@@ -206,7 +209,7 @@ scaffolding/stubs: 0
 missing required files: 0
 exact upstream asset identity: PASS (290b567eca2cc9f83e7438a80682ebaf8006ad76)
 local source integration: COMPLETE
-hosted PR validation: PENDING
+hosted PR validation: PENDING ON PR #281
 merge: PENDING
 public Pages lineage: PENDING
 StegFin #60 propagation: PENDING
@@ -220,4 +223,4 @@ The denominator is: exact asset/source integration, validator proof, repository 
 
 ## Archive condition
 
-This Site implementation claim is not archive-safe until repository validation succeeds, the PR merges, publication lineage is observed, the claim is released, and StegFin #60 imports the resilient-phone release condition. Live phone `WALLET_HANDOFF_READY` remains a distinct runtime observation owned by #60 and is not fabricated from source completion.
+This Site implementation claim is not archive-safe until repository validation succeeds, PR #281 merges, publication lineage is observed, the claim is released, and StegFin #60 imports the resilient-phone release condition. Live phone `WALLET_HANDOFF_READY` remains a distinct runtime observation owned by #60 and is not fabricated from source completion.
