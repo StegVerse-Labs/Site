@@ -16,6 +16,12 @@
   "render_required": false,
   "authority_effect": false,
   "activation_effect": false,
+  "current_main_reconstruction": {
+    "base_commit": "b9d59e919be31fb7ec1f84e40f4c6a7a5c530a10",
+    "reconstructed_at": "2026-08-17T17:27:00-05:00",
+    "branch_zero_behind_after_reconstruction": true,
+    "preserved_concurrent_change": "assets/stegfin-phone/wallet-user-handoff-ui.js persistent fail-closed wallet handoff UI fix from current main"
+  },
   "implemented": {
     "deterministic_validator": "scripts/check_thought_experiments_publication.py",
     "canonical_validation_lane": ".github/workflows/validate.yml",
@@ -57,5 +63,5 @@
     "workflow inventory one lower than pre-B27 census",
     "post-merge main-push public-route observation PASS"
   ],
-  "next_executable_action": "Do not merge while hosted validation is billing-blocked. When the release condition becomes true, reconstruct B27 from then-current main, preserve concurrent machine receipts/claims, run exact-head required gates, merge only if zero behind and green, inspect post-merge public-route observation, then release claim/task/handoff."
+  "next_executable_action": "Do not merge while hosted validation is billing-blocked. Re-check the exact current branch head whenever validation infrastructure can start; merge only if zero behind and all required exact-head gates are green, then inspect the main-push public-route observation and release claim/task/handoff."
 }
