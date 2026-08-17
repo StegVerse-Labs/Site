@@ -149,6 +149,7 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "097c44d33e1c2644017016b6b10f9cb0498281dd",
       "claim_created_at": "2026-08-17T02:00:00-05:00",
       "claim_expires_when": "Released after both standalone import workflows are absent, both deterministic validators execute through the credential-clean HIL dispatcher, required Site validation groups pass on the exact PR head, merge is verified, workflow census is observed, and this claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
       "expected_evidence": [
