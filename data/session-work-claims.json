@@ -73,19 +73,26 @@
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B10R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"a062d42933d87834b611d493c0669e0b578ac9e1"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B12-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"0965f24abb57aee0cf6237cb9cbad5dfecfb3cb0"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B13-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"6a4b09c5ffbfa672f06c3264ee2090b40b1c39d6"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B14-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1"},
     {
-      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817",
-      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B14-20260817",
-      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
-      "role": "RELEASED_INTEGRATION",
-      "branch": "chore/site-marketplace-first-accessibility-import-retirement-b14-20260817",
-      "released_at": "2026-08-17T10:13:00-05:00",
-      "release_commit": "7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1",
-      "final_head": "10fcb2896b34411950041c02578fbe47969a87dc",
-      "evidence": ["PR #327 merge 7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1","Site Bootstrap Validate 32041523825 SUCCESS","Site Handoff Orchestrator 32041523747 SUCCESS","Ecosystem Heartbeat Orchestration 32041523800 SUCCESS","Check StegFin Phone Projection 32041523811 SUCCESS","SESSION_WORK_CLAIMS_PASS","ST-017 sandbox PASS","workflow inventory 110; canonical 3; migration-required operational 107; placeholders 0","import-marketplace-coinbase-first-accessibility.yml absent after merge","deterministic importer/controller source and terminal ACCESSIBLE evidence retained","Site#130 remains closed completed"],
-      "authority_effect": false,
-      "runtime_activation_effect": false,
-      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268, separating terminal projections from nonterminal Marketplace activation work."
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817",
+      "session_worker_id": "chatgpt-session-site-marketplace-controller-reconciliation-20260817",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B15-20260817",
+      "originating_goal": "Remove GitHub-token dependence from the Marketplace-Coinbase controller, reconcile its stale blocked observations against directly available public evidence, and retire hosted controller/import surfaces only if the exact stop conditions are proven complete.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-marketplace-controller-token-retirement-b15-20260817",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-marketplace-controller-public-evidence-reconciliation",
+      "dependency_surface_keys": ["site:workflow-minimization:marketplace-controller","site:marketplace-coinbase:issue-131-controller"],
+      "claimed_paths": ["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md","docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md","scripts/advance_marketplace_coinbase_activation.py","data/marketplace-coinbase-activation-tasks.json",".github/workflows/advance-marketplace-coinbase-activation.yml",".github/workflows/import-marketplace-coinbase-accessibility.yml"],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "74fe6241565c81af932f66da393366040099d6eb",
+      "claim_created_at": "2026-08-17T10:16:00-05:00",
+      "claim_expires_when": "Released after direct evidence proves all Site#131 stop conditions, controller source no longer accepts GitHub token authority, exact-head validation passes, eligible hosted surfaces are removed, issue/handoff state is reconciled, merge completes, and the claim is released.",
+      "expected_evidence": ["crypto-bot first-accessibility status PASS with paper_trading_accessible true","Marketplace collection status COLLECTED with accepted/duplicate acknowledgement and sequence-2 transport","Publisher status VERIFIED with paper_release_verified true","Site projection PAPER_ACCESSIBLE with live_trading_accessible false","controller task state COMPLETE with four COMPLETE tasks","no GitHub/PAT/cross-repo token accepted by controller","Site Bootstrap Validate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","workflow census reflects only evidence-backed removals"],
+      "collision_boundaries": ["No funded Coinbase, live order, custody, withdrawal, settlement, publication or release authority","No StegFin wallet mutation or USER_ONLY signing/broadcast","No HIL/StegOS/runtime path mutation","No NON-TV/TVC secret/token","No TV/TVC credential export into GitHub Actions","No Render","Do not close non-Site upstream tasks that remain independently incomplete"],
+      "next_task_after_release": "Continue the next bounded unclaimed Site workflow/token family under Site#268 after preserving any independently incomplete upstream task in its canonical owner."
     }
   ]
 }
