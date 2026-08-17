@@ -168,6 +168,30 @@ jobs:
           print('CHILD_SAFETY_AUTHORITY_EFFECT=NONE')
           PY
 
+      - name: Validate Thought Experiments publication deterministically
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/check_thought_experiments_publication.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('thought-experiments-publication.report.json').read_text(encoding='utf-8'))
+          old_workflow = Path('.github/workflows/verify-thought-experiments-publication.yml')
+          if report.get('state') != 'PASS':
+              raise SystemExit('Thought Experiments publication validator did not PASS')
+          if report.get('authority_effect') is not False:
+              raise SystemExit('Thought Experiments validator asserted authority')
+          if report.get('activation_effect') is not False:
+              raise SystemExit('Thought Experiments validator asserted activation')
+          if old_workflow.exists():
+              raise SystemExit('standalone Thought Experiments hosted workflow still exists')
+          print('THOUGHT_EXPERIMENTS_PUBLICATION_VALIDATION=PASS')
+          print('THOUGHT_EXPERIMENTS_PUBLICATION_AUTHORITY_EFFECT=NONE')
+          print('THOUGHT_EXPERIMENTS_PUBLICATION_ACTIVATION_EFFECT=NONE')
+          print('THOUGHT_EXPERIMENTS_HOSTED_SCHEDULE=RETIRED')
+          PY
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -220,6 +244,8 @@ jobs:
           assert 'python3 scripts/validate_va_guided_visual_assets.py' in workflow
           assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
           assert 'CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS' in workflow
+          assert 'python3 scripts/check_thought_experiments_publication.py' in workflow
+          assert 'THOUGHT_EXPERIMENTS_PUBLICATION_VALIDATION=PASS' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
