@@ -3,11 +3,12 @@
   "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
   "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
   "repository": "StegVerse-Labs/Site",
-  "state": "IMPLEMENTED_VALIDATION_PENDING",
+  "state": "BLOCKED_UPSTREAM_VALIDATOR_HANDOFF_DRIFT",
   "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
   "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
   "parent_issue": 268,
   "branch": "claim/site-thought-experiments-validation-consolidation-b27-r1-20260817",
+  "pull_request": 386,
   "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B27-20260817",
   "credential_authority": "TV/TVC",
   "non_tv_tvc_secret_or_token_allowed": false,
@@ -24,7 +25,17 @@
     "checkout_action_retired_from_surface": true,
     "public_route_observation": "bounded main-push step in credential-clean validate.yml"
   },
-  "validation_required": [
+  "blocking_dependency": {
+    "owner": "StegVerse-Labs/Site#380",
+    "surface": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md <-> scripts/check_stegfin_phone_projection.py",
+    "run": 32067224879,
+    "job": 95502047293,
+    "state": "FAIL",
+    "cause": "The released #380 handoff rewrite removed predecessor invariant anchors still required by the canonical StegFin phone validator.",
+    "durable_notice_comment": 5320023447,
+    "release_condition": "A fresh canonical-main or PR run of scripts/check_stegfin_phone_projection.py returns STEGFIN_PHONE_PROJECTION_PASS without weakening TV/TVC-only credentials or USER_ONLY signing/broadcast."
+  },
+  "validation_required_after_release": [
     "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
     "Site Bootstrap Validate PASS",
     "Site Handoff Orchestrator PASS",
@@ -33,5 +44,5 @@
     "workflow inventory one lower than pre-B27 census",
     "post-merge main-push public-route observation PASS"
   ],
-  "next_executable_action": "Open the fresh-current-main PR, inspect exact-head workflow jobs and logs, merge only after pre-merge gates pass, then inspect the main-push public-route observation and release the claim/handoff only if all required evidence is PASS."
+  "next_executable_action": "Wait only for the machine-observable StegFin handoff/validator contract to return PASS; then refresh PR #386 against current main, inspect exact-head jobs/logs, merge only if all pre-merge gates pass, inspect the main-push public-route observation, and release the claim/handoff."
 }
