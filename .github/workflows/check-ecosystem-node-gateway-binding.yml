@@ -27,8 +27,7 @@ on:
       - 'docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md'
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   verify:
@@ -37,15 +36,55 @@ jobs:
         python-version: ['3.9', '3.11', '3.12']
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'ECOSYSTEM_NODE_GATEWAY_CREDENTIAL_REFUSAL=PASS'
+          echo 'ECOSYSTEM_NODE_GATEWAY_GITHUB_TOKEN_AUTHORITY=NONE'
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+          echo 'ECOSYSTEM_NODE_GATEWAY_ANONYMOUS_SOURCE_FETCH=PASS'
+      - name: Provision matrix Python without repository credential
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install canonical event test dependency
-        run: python -m pip install pytest
+        run: python -m pip install --disable-pip-version-check pytest
       - name: Validate browser gateway binding contract
         run: python scripts/check_ecosystem_node_gateway_binding.py
       - name: Revalidate canonical event integrity fixture
         run: python scripts/validate_ecosystem_node_canonical_events.py fixtures/ecosystem-node-canonical-events.json
       - name: Run canonical event adversarial tests
         run: python -m pytest tests/test_ecosystem_node_canonical_events.py -q
+      - name: Confirm validation-only authority boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow='.github/workflows/check-ecosystem-node-gateway-binding.yml'
+          ! grep -q 'actions/checkout@' "$workflow"
+          ! grep -q 'contents: read' "$workflow"
+          ! grep -q 'git push' "$workflow"
+          ! grep -q 'upload-artifact@' "$workflow"
+          echo 'ECOSYSTEM_NODE_GATEWAY_VALIDATION_ONLY=PASS'
+          echo 'ECOSYSTEM_NODE_GATEWAY_RUNTIME_AUTHORITY=NONE'
