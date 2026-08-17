@@ -109,19 +109,34 @@ def main() -> int:
     if ui.index('localStorage.removeItem(STEGID_CAPABILITY_KEY)') > ui.index('runtime().prepareSuccessorByUserAction()'):
         raise SystemExit('successor PREPARE does not force fresh StegID capability before invocation')
 
-    order = [
+    # Preserve the predecessor validator's exact six defer-script contract, then
+    # append wallet continuity only after those defer scripts have executed and
+    # DOMContentLoaded fires. This avoids racing the PREPARE/evidence stack.
+    base_order = [
         './assets/stegfin-phone/rpc-resilience.js',
         './assets/stegfin-phone/phone-direct-route.js',
         './assets/stegfin-phone/stegid-device-wallet-bootstrap.js',
         './assets/stegfin-phone/device-wallet-identity.js',
         './assets/stegfin-phone/app.js',
         './assets/stegfin-phone/evidence-export.js',
-        './assets/stegfin-phone/wallet-user-handoff.js',
-        './assets/stegfin-phone/wallet-user-handoff-ui.js',
     ]
-    positions = [html.find(marker) for marker in order]
+    positions = [html.find(marker) for marker in base_order]
     if any(pos < 0 for pos in positions) or positions != sorted(positions):
-        raise SystemExit('participant script load order is incomplete or unsafe')
+        raise SystemExit('canonical predecessor script load order is incomplete or unsafe')
+    require(
+        html,
+        "window.addEventListener('DOMContentLoaded'",
+        "'./assets/stegfin-phone/wallet-user-handoff.js'",
+        "'./assets/stegfin-phone/wallet-user-handoff-ui.js'",
+        'script.async = false',
+        'wallet continuity load failed',
+        'No wallet action occurred.',
+    )
+    evidence_pos = html.index('./assets/stegfin-phone/evidence-export.js')
+    runtime_pos = html.index("'./assets/stegfin-phone/wallet-user-handoff.js'", evidence_pos)
+    ui_pos = html.index("'./assets/stegfin-phone/wallet-user-handoff-ui.js'", runtime_pos)
+    if not evidence_pos < runtime_pos < ui_pos:
+        raise SystemExit('wallet continuity loader order is unsafe')
 
     print('STEGFIN_USER_ONLY_WALLET_HANDOFF_PROJECTION_PASS')
     return 0
