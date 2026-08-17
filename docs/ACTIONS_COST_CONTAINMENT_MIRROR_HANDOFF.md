@@ -7,6 +7,7 @@ goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 originating_goal: reduce GitHub-hosted workflow/token dependence to the minimum technically necessary while preserving StegVerse execution, TV/TVC credential authority, deterministic validation, and canonical authority boundaries
 repository: StegVerse-Labs/Site
 canonical_branch: main
+active_branch: chore/site-hil-end-to-end-validation-b15-20260817
 coordination: StegVerse-Labs/.github#164
 workflow_minimization_coordination: StegVerse-Labs/.github#167
 repository_issues: Site#265, Site#268
@@ -17,8 +18,8 @@ preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-back
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
-active_validation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817
+active_validation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
@@ -32,6 +33,7 @@ audit_start_workflow_surfaces: 131
 released_classified_or_remediated: 28/131 = 21.37%
 remaining_audit_start_surfaces: 103/131
 current_main_workflow_count: 110
+active_B15_branch_workflow_count_expected: 109
 workflow_files_eliminated_or_consolidated_by_released_cleanup: 17
 recurring_schedules_removed_by_released_cleanup: 12
 released_completed_batches: 14
@@ -43,7 +45,7 @@ migration_required_operational: 107
 placeholders: 0
 ```
 
-Exact batch-14 validation rebuilt the PR merge inventory and reported `110 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 107`, `PLACEHOLDERS: 0`.
+Exact batch-14 validation rebuilt the PR merge inventory and reported `110 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 107`, `PLACEHOLDERS: 0`. Batch 15 removes exactly one additional standalone validator only after exact-head validation and merge.
 
 ## Released minimization evidence
 
@@ -90,7 +92,6 @@ The removed continuation loop was still hourly after the bounded first-accessibi
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817
-branch: chore/site-marketplace-first-accessibility-import-retirement-b14-20260817
 PR: #327
 final_head: 10fcb2896b34411950041c02578fbe47969a87dc
 merge: 7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1
@@ -108,17 +109,36 @@ runtime_activation_effect: NONE
 financial_authority_effect: NONE
 ```
 
-Why batch 14 was valid:
+The first-accessibility projection remains state-retained, not clock-driven. Any future upstream change requires a fresh admitted task and claim rather than silently reactivating the retired hosted loops.
 
-- `data/marketplace-coinbase-first-accessibility-task-state.json` remains terminal with `activation_ready: true` and `status: ACCESSIBLE`;
-- `SITE-MCFA-001` through `SITE-MCFA-004` are completed;
-- `external_tasks` is empty and `Site#130` remains closed completed;
-- publication, release, execution, live, custody and withdrawal authority remain `NOT_GRANTED`;
-- the removed importer nevertheless retained an hourly GitHub-hosted schedule, `contents: write`, checkout credentials, repository commit/push writeback, setup action and artifact upload;
-- deterministic importer/controller source and terminal evidence remain retained for bounded StegVerse-local reconstruction;
-- no replacement hosted scheduler, writeback loop, GitHub token or NON-TV/TVC credential path was created.
+## Active batch 15 — HIL v1.1 release validator consolidation
 
-The canonical first-accessibility handoff now defines this completed projection as state-retained, not clock-driven. Any future upstream change requires a fresh admitted Site/StegVerse task and claim instead of silently reactivating either retired workflow.
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817
+branch: chore/site-hil-end-to-end-validation-b15-20260817
+state: IMPLEMENTED_UNVALIDATED
+scope: current v1.1 deterministic release-chain validator consolidation + claim/handoff only
+```
+
+Installed delta:
+
+- standalone `.github/workflows/check-hil-v1-1-release.yml` removed from the branch;
+- `scripts/check_hil_v1_1_release.py` retained unchanged;
+- the validator now runs inside credential-clean `.github/workflows/check-hil-live-readiness.yml` as `Verify exact canonical HIL v1.1 release chain`;
+- dispatcher triggers now cover the validator's actual v1.1 PDF, public page, direct-upload client, result page/client, experiment manifest, receiver config, and validator source dependencies;
+- the consolidated workflow remains `permissions: {}`, explicitly refuses credential-bearing environment variables, and anonymously fetches the exact source ref;
+- no HIL runtime/product state, live receiver, participant lifecycle, review, publication, Master Record, custody, provider, wallet, deployment, or execution authority is changed.
+
+The initially considered `check-hil-end-to-end-protocol.yml` family was not mutated because `docs/HIL_END_TO_END_PROTOCOL.md` still encodes the historical v0.5 Primary while the current experiment manifest is canonical v1.1. That semantic drift requires separate HIL-owner classification rather than being silently normalized by workflow cleanup.
+
+Required exact-head gates before merge:
+
+1. HIL Validation and Live Readiness, including `Verify exact canonical HIL v1.1 release chain`;
+2. Site Handoff Orchestrator;
+3. Ecosystem Heartbeat Orchestration;
+4. Check StegFin Phone Projection;
+5. Site Bootstrap Validate;
+6. exact workflow recensus showing one additional standalone workflow removed.
 
 ## HIL / Healer / runtime collision boundaries
 
@@ -131,6 +151,7 @@ TVC #8: exact-byte lifecycle + authenticated private review
 StegCore #41: cross-repository lifecycle consistency
 master-records/orchestration: custody/reconstruction/candidate release authority
 LinkedIn launch readiness: REVIEW_REQUIRED
+HIL end-to-end v0.5/v1.1 semantic drift: REVIEW_REQUIRED before validator cleanup
 StegOS admitted inference: separate active product paths
 Healer scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED
 ```
@@ -167,9 +188,11 @@ Trade execution remains machine/human-authority owned. Credential authority is T
 
 ```text
 workflow minimization/remediation through batch 14: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 15 HIL v1.1 release validator consolidation: CLAIMED_FOR_INTEGRATION
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
 HIL LinkedIn semantic drift: REVIEW_REQUIRED
+HIL end-to-end v0.5/v1.1 semantic drift: REVIEW_REQUIRED
 live sovereign runtime/inference: canonical StegVerse workers / observation only
 TV/TVC route/credential authority: TV/TVC only
 Healer resident scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED / do not compete
@@ -177,11 +200,11 @@ Healer resident scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED /
 
 ## Nonterminal Marketplace boundary
 
-`Site#131` remains open and governs the broader Marketplace–Coinbase accessibility chain. Its `advance-marketplace-coinbase-activation.yml` / `import-marketplace-coinbase-accessibility.yml` surfaces are not terminal first-accessibility leftovers. They require a separate claim and an explicit StegVerse/Healer migration or evidence-backed validation exception; they must not be deleted merely because batches 13–14 were terminal.
+`Site#131` remains open and governs the broader Marketplace–Coinbase accessibility chain. Its remaining nonterminal surfaces require a separate claim and an explicit StegVerse/Healer migration or evidence-backed validation exception; they must not be deleted merely because batches 13–14 were terminal.
 
 ## Next executable action
 
-Inspect the next bounded unclaimed token-bearing or redundant workflow family under Site #268. Prioritize hosted schedules/writeback/token surfaces, but preserve nonterminal product semantics. For `Site#131`, read its canonical product handoff and current state before deciding whether to migrate its controller into an existing StegVerse/Healer fixed local handler. Do not create a second scheduler or heartbeat. Do not modify `check-hil-linkedin-launch-readiness.yml` while its semantic drift remains `REVIEW_REQUIRED`.
+Open the batch-15 PR, validate the exact final head through all required gates, inspect the canonical v1.1 release-chain step and workflow inventory evidence, merge only on PASS, release the claim, update this handoff with exact evidence, then inspect the next bounded unclaimed workflow family under Site #268.
 
 ## Completion accounting — released work only
 
@@ -192,6 +215,7 @@ scaffolding_or_stubs: 0
 missing_required_files_for_completed_batches: 0
 validation: 59/59 released-batch groups PASS
 integration: 14/14 released workflow/token-remediation batches
+active_B15: implemented, unvalidated
 propagation: not applicable for workflow-only cleanup
 goal_activation_for_cleanup_goal: 28/131 = 21.37%
 session_consolidation: incomplete
@@ -199,4 +223,4 @@ session_consolidation: incomplete
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 103/131 audit-start Site workflow surfaces remain unremediated/unclassified, 107 operational workflows remain migration-required, and further unclaimed token-bearing/redundant workflow families remain executable under Site #268.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because batch 15 is unreleased, 103/131 audit-start Site workflow surfaces remain unremediated/unclassified, and further token-bearing/redundant workflow families remain executable under Site #268.
