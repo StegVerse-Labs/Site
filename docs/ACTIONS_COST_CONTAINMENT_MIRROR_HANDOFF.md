@@ -6,13 +6,14 @@
 goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 repository: StegVerse-Labs/Site
 canonical_branch: main
+active_branch: claim/site-tvc-receipt-import-token-retirement-20260817
 canonical_issue: Site#268
 credential_authority: TV/TVC
 non_tv_tvc_project_or_provider_secret_allowed: false
 github_actions_production_carrier_required: false
 preferred_workflow_surface: <=2 stable entry surfaces with evidence-backed exceptions
 canonical_claim_registry: data/session-work-claims.json
-active_implementation_claim: NONE
+active_implementation_claim: SITE-TVC-RECEIPT-IMPORT-GITHUB-TOKEN-RETIREMENT-20260817
 active_validation_claim: NONE
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
@@ -35,7 +36,7 @@ placeholders: 0
 review_required_surfaces: 1
 ```
 
-The current workflow census remains `101 / canonical 3 / migration-required 98 / placeholders 0` because the latest GP10 release hardened a retained workflow rather than removing it. It counts as an audit-start remediation without falsely decrementing the physical workflow count.
+The current workflow census remains `101 / canonical 3 / migration-required 98 / placeholders 0` because the latest GP10 release hardened a retained workflow rather than removing it. It counts as an audit-start remediation without falsely decrementing the physical workflow count. The active TVC receipt-import hardening is not counted as released until exact-head validation and merge.
 
 ## Latest release — GP10 GitHub-token/writeback/artifact-custody retirement
 
@@ -108,6 +109,31 @@ release_authority_effect: NONE
 
 Batch 23 retired `.github/workflows/check-master-records-persistent-service-evidence-import.yml`; its unchanged fail-closed validator now runs from credential-clean `.github/workflows/validate.yml`. Batch 22 / PR #355 and the released ST-018 credential cleanup remain prior canonical releases. Detailed historical evidence is preserved in Git history and `data/session-work-claims.json`.
 
+## Active remediation — TVC execution-receipt import validation token retirement
+
+```text
+claim: SITE-TVC-RECEIPT-IMPORT-GITHUB-TOKEN-RETIREMENT-20260817
+task: SITE-ACTIONS-COST-CONTAINMENT-TVC-RECEIPT-IMPORT-20260817
+branch: claim/site-tvc-receipt-import-token-retirement-20260817
+state: CLAIMED_FOR_IMPLEMENTATION
+retained_workflow: .github/workflows/check-tvc-execution-receipt-import.yml
+canonical_site_task: tasks/SITE-TVC-RUNTIME-ASSIST-001.json
+exclusive_runtime_owner: StegVerse-Labs/TVC
+```
+
+Installed bounded delta:
+
+- changes the retained workflow from `contents: read` to `permissions: {}`;
+- removes `actions/checkout@v4` and `actions/setup-python@v5`;
+- refuses credential-bearing environment variables before source acquisition;
+- fetches the exact Site PR merge ref or push SHA anonymously with Git credential helpers and extra headers disabled;
+- uses the preinstalled Python 3.12+ runtime and installs only public `pytest` without credentials;
+- preserves compilation of `scripts/check_tvc_execution_receipt_import.py`, its exact regression test file, and schema JSON validation;
+- adds an explicit self-check denying repository writeback, artifact custody, runtime authority, and execution-grant authority;
+- does not consume or expose TV/TVC protected values and does not modify TVC grant issuance, lease consumption, revocation, ingress, deployment, or protected runtime authority.
+
+Required validation before merge is: workflow-specific credential refusal/source-fetch/Python/compile/regression/schema/boundary PASS, `SESSION_WORK_CLAIMS_PASS`, Site Handoff Orchestrator PASS, Ecosystem Heartbeat PASS, Site Bootstrap PASS, StegFin phone projection PASS if triggered, and unchanged workflow census `101 / 3 / 98 / 0`.
+
 ## Protected and blocked surfaces
 
 `check-hil-session-consolidation.yml` remains blocked on Site #114 archival material-state migration. `check-hil-linkedin-launch-readiness.yml` remains REVIEW_REQUIRED. Active/protected owners include Site #81, Site #67, TVC #8, StegCore #41, master-records/orchestration, Site #114, `SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT`, `SITE-PREWORK-CLAIM-GATE-MACHINE-001`, `SHWP-HEALER-SOVEREIGN-SCHEDULER-001`, and USER_ONLY StegFin signing/broadcast. Cleanup must not duplicate those authorities.
@@ -123,25 +149,26 @@ local runtime continuation: StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md + 
 StegFin continuation: StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md + task-state/STEGFIN-CONTINUITY-CARRIER-007.json + StegFin #77
 HIL continuation: Site #81/#67 + TVC #8 + StegCore #41 + master-records/orchestration
 GP10 runtime/evidence continuation: StegVerse-Labs/GP10/GP10_MIRROR_HANDOFF.md
+TVC runtime/execution authority: StegVerse-Labs/TVC; Site remains sanitized import validation only
 ```
 
 USER_ONLY remains sole StegFin signing/broadcast authority. Source validation or merge does not imply a live trade or settlement.
 
 ## Next executable action
 
-Inspect the next bounded unclaimed token-bearing or redundant workflow under Site #268. Prefer checkout/setup/upload/writeback/schedule surfaces that can move into existing credential-clean validation or StegVerse-owned workers without weakening evidence. Do not collide with HIL/session-retirement, LinkedIn REVIEW_REQUIRED, StegOS, StegFin wallet, runtime/provider, publication, custody, Master Record, scheduler, orchestration, or GP10 canonical runtime/evidence owners.
+Open the TVC receipt-import hardening PR from this exact branch and inspect its exact-head workflow runs, jobs, and logs. Merge only if every required validation is green and Site's workflow census remains `101 / 3 / 98 / 0`. After merge, release the claim and record immutable evidence here, then inspect the next bounded unclaimed token-bearing or redundant Site workflow under Site #268.
 
 ## Completion and archive state
 
 ```text
-task_completion: 39/131 = 29.77%
-developed_files_for_completed_surfaces: 39/39
+task_completion: 39/131 = 29.77% released; active remediation not yet counted
+prepared_developed_files: 40/40 for released + active remediated surfaces
 scaffolding_or_stubs: 0
-missing_required_files_for_completed_surfaces: 0
-validation: historical 97/97 PASS + Batch 23 required path 4/4 PASS + GP10 required path 5/5 PASS = 106/106 PASS
-integration: 25/25
+missing_required_files_for_prepared_surfaces: 0
+validation: historical released 106/106 PASS; active TVC path pending
+integration: 25/25 released; active TVC integration pending
 session_consolidation: 3/5 durable goal groups complete or transferred
-goal_activation: 39/131 = 29.77%
+goal_activation: 39/131 = 29.77% released
 ```
 
-This session is not archive-ready: 92/131 audit-start surfaces remain unremediated/unclassified, 98 operational workflows remain migration-required, and distinct workflow/token minimization work remains executable under Site #268. Live HIL, sovereign runtime/inference, Healer execution, GP10 runtime/commercial activation, and StegFin settlement remain separately owned and are not inferred from source or CI state.
+This session is not archive-ready while the TVC receipt-import hardening is unreleased and broader Site #268 workflow/token debt remains. Live HIL, sovereign runtime/inference, Healer execution, GP10 runtime/commercial activation, TVC protected execution, and StegFin settlement remain separately owned and are not inferred from source or CI state.
