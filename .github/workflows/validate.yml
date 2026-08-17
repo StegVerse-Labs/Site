@@ -168,6 +168,65 @@ jobs:
           print('CHILD_SAFETY_AUTHORITY_EFFECT=NONE')
           PY
 
+      - name: Validate Thought Experiments publication deterministically
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/check_thought_experiments_publication.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('thought-experiments-publication.report.json').read_text(encoding='utf-8'))
+          if report.get('state') != 'PASS':
+              raise SystemExit('Thought Experiments deterministic publication report is not PASS')
+          if report.get('authority_effect') is not False:
+              raise SystemExit('Thought Experiments deterministic publication report asserted authority')
+          if report.get('activation_effect') is not False:
+              raise SystemExit('Thought Experiments deterministic publication report asserted activation')
+          if Path('.github/workflows/verify-thought-experiments-publication.yml').exists():
+              raise SystemExit('standalone Thought Experiments workflow was not retired')
+          print('THOUGHT_EXPERIMENTS_PUBLICATION=PASS')
+          print('THOUGHT_EXPERIMENTS_STANDALONE_WORKFLOW=RETIRED')
+          print('THOUGHT_EXPERIMENTS_AUTHORITY_EFFECT=NONE')
+          print('THOUGHT_EXPERIMENTS_ACTIVATION_EFFECT=NONE')
+          PY
+
+      - name: Verify Thought Experiments public routes after main publication
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import time
+          import urllib.request
+
+          urls = [
+              'https://stegverse.org/Thought-Experiments.html',
+              'https://stegverse.org/thought-experiments/continuity-as-reconstructable-manifold-transition.html',
+              'https://stegverse.org/thought-experiments/continuity-as-reconstructable-manifold-transition.pdf',
+          ]
+          last = []
+          for _ in range(12):
+              last = []
+              for url in urls:
+                  try:
+                      req = urllib.request.Request(url, method='GET', headers={'User-Agent': 'StegVerse-publication-verifier/1.0'})
+                      with urllib.request.urlopen(req, timeout=15) as response:
+                          last.append((url, response.status, response.read(128)))
+                  except Exception as exc:
+                      last.append((url, None, repr(exc).encode()))
+              if all(status == 200 for _, status, _ in last):
+                  for url, status, _ in last:
+                      print(f'PUBLIC_ROUTE_PASS {status} {url}')
+                  print('THOUGHT_EXPERIMENTS_PUBLIC_ROUTE_OBSERVATION=PASS')
+                  print('THOUGHT_EXPERIMENTS_PUBLIC_ROUTE_AUTHORITY_EFFECT=NONE')
+                  raise SystemExit(0)
+              time.sleep(10)
+          for url, status, body in last:
+              print(f'PUBLIC_ROUTE_FAIL {status} {url} {body!r}')
+          raise SystemExit(1)
+          PY
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -220,6 +279,8 @@ jobs:
           assert 'python3 scripts/validate_va_guided_visual_assets.py' in workflow
           assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
           assert 'CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS' in workflow
+          assert 'python3 scripts/check_thought_experiments_publication.py' in workflow
+          assert 'THOUGHT_EXPERIMENTS_PUBLIC_ROUTE_OBSERVATION=PASS' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
