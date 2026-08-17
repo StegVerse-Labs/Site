@@ -177,19 +177,26 @@ jobs:
           import json
           from pathlib import Path
           report = json.loads(Path('thought-experiments-publication.report.json').read_text(encoding='utf-8'))
-          old_workflow = Path('.github/workflows/verify-thought-experiments-publication.yml')
+          remote_workflow = Path('.github/workflows/verify-thought-experiments-publication.yml')
           if report.get('state') != 'PASS':
               raise SystemExit('Thought Experiments publication validator did not PASS')
           if report.get('authority_effect') is not False:
               raise SystemExit('Thought Experiments validator asserted authority')
           if report.get('activation_effect') is not False:
               raise SystemExit('Thought Experiments validator asserted activation')
-          if old_workflow.exists():
-              raise SystemExit('standalone Thought Experiments hosted workflow still exists')
+          if not remote_workflow.is_file():
+              raise SystemExit('event-bound public-route verification workflow missing')
+          remote = remote_workflow.read_text(encoding='utf-8')
+          forbidden = ['schedule:', 'actions/checkout@', 'actions/setup-python@', 'actions/upload-artifact@', 'secrets.', 'github.token', 'GH_TOKEN']
+          if 'permissions: {}' not in remote:
+              raise SystemExit('public-route workflow is not credential-clean')
+          if any(marker in remote for marker in forbidden):
+              raise SystemExit('public-route workflow retained forbidden hosted/scheduled/token mechanics')
           print('THOUGHT_EXPERIMENTS_PUBLICATION_VALIDATION=PASS')
           print('THOUGHT_EXPERIMENTS_PUBLICATION_AUTHORITY_EFFECT=NONE')
           print('THOUGHT_EXPERIMENTS_PUBLICATION_ACTIVATION_EFFECT=NONE')
           print('THOUGHT_EXPERIMENTS_HOSTED_SCHEDULE=RETIRED')
+          print('THOUGHT_EXPERIMENTS_REMOTE_ROUTE_VALIDATION=EVENT_BOUND_CREDENTIAL_FREE')
           PY
 
       - name: Inventory and validate workflow entry points
