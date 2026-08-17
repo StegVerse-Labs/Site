@@ -57,8 +57,6 @@ PYTHONPATH=. pytest -q tests/test_marketplace_coinbase_accessibility.py
 historical result: 4 passed in 0.03s
 ```
 
-The tests verify the committed projection digest, paper-only state, valid Publisher acceptance, authority-escalation rejection after re-signing, and tampered-status rejection.
-
 ## Exact evidence bindings
 
 - intent: `intent-marketplace-release-73a0543ddb27`
@@ -71,20 +69,7 @@ The tests verify the committed projection digest, paper-only state, valid Publis
 
 ## Credential-clean controller retirement
 
-The former standalone `.github/workflows/advance-marketplace-coinbase-activation.yml` is being retired under the workflow-cleanup claim because it consumed or depended on:
-
-```text
-secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN
-github.token
-contents: write
-issues: write
-actions/checkout
-actions/setup-python
-repository commit/push writeback
-actions/upload-artifact
-```
-
-Those GitHub-hosted mechanics are not required to preserve the already-bound Site product state and conflict with the current governing boundary that NON-TV/TVC secrets/tokens must not be used and GitHub Actions must not become production/runtime/control-plane authority.
+The former standalone `.github/workflows/advance-marketplace-coinbase-activation.yml` is removed on the active cleanup branch. It previously depended on `secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `github.token`, repository write permissions, checkout/setup actions, git commit/push writeback, and artifact upload.
 
 The retained deterministic observation surface is:
 
@@ -93,13 +78,13 @@ scripts/advance_marketplace_coinbase_activation.py
 data/marketplace-coinbase-activation-tasks.json
 ```
 
-Its v3 contract is credential-clean and fail-closed:
+Its v3 contract is local-only, credential-free, and fail-closed:
 
 ```text
 credential_requirement: NONE
 github_token_allowed: false
 non_tv_tvc_secret_or_token_allowed: false
-anonymous_public_observation_only: true
+remote_github_api_observation: false
 continuation_mode: STEGVERSE_OWNED_OBSERVATION_ONLY
 publication_authority: false
 release_authority: false
@@ -108,9 +93,24 @@ live_authority: false
 financial_authority: false
 ```
 
-The observer refuses `STEGVERSE_CROSS_REPO_READ_TOKEN`, `MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `GITHUB_TOKEN`, `GH_TOKEN`, and `STEGVERSE_GITHUB_TOKEN`; it sends no Authorization header. If an upstream evidence path is not anonymously observable, it records `BLOCKED_DEPENDENCY` and preserves the named repository/issue as the continuation owner rather than requesting or inventing a credential.
+The observer rejects GitHub/Marketplace evidence credential variables and reads cross-repository evidence only from already-materialized repositories supplied through `STEGVERSE_REPO_ROOTS_JSON`. Missing local repositories or evidence become `BLOCKED_DEPENDENCY` owned by the named canonical repository/issue; no token, remote checkout, or anonymous GitHub API fallback is authorized.
 
-This observation path may be invoked by an admitted StegVerse-owned lane. No GitHub schedule, GitHub-hosted writeback, GitHub token, provider token, or Render runtime is a continuation prerequisite.
+## Canonical continuation owner
+
+The fixed local invocation path is now source-merged in `StegVerse-Labs/StegVerse-Healer`:
+
+```text
+Healer issue: #6
+Healer PR: #7
+Healer merge: ecf96188348c097dfdea3ce55c47db9dff6e84ef
+Healer exact-head credential-clean validation: 32044423476 SUCCESS
+Healer job: 95429249175 SUCCESS
+scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001
+target: marketplace-coinbase-local-observer
+runtime inputs: already-materialized StegVerse repositories only
+```
+
+This is source integration only. Ordinary Healer runtime activation remains machine-owned and is not inferred from merge or CI.
 
 ## Current continuation ownership
 
@@ -119,18 +119,32 @@ MC-01 crypto accessibility -> StegVerse-Labs/crypto-bot#7
 MC-02 Marketplace collection -> GCAT-BCAT-Engine/Marketplace#1
 MC-03 Publisher verification -> GCAT-BCAT-Engine/Publisher#19 / COMPLETE when VERIFIED
 MC-04 Site projection -> StegVerse-Labs/Site#131 / COMPLETE when PAPER_ACCESSIBLE and live_trading_accessible=false
+observer scheduling -> StegVerse-Labs/StegVerse-Healer#6 / SHWP-HEALER-SOVEREIGN-SCHEDULER-001
 ```
 
-An anonymous observation block is not task failure and does not authorize GitHub-token repair. Canonical upstream repositories remain responsible for their own evidence production and custody.
+## Validation evidence for active Site cleanup
+
+At Site branch commit `29eb59b8bc2aeaa2d138bfce39b5c418ab916a09`, all required credential-clean validation groups passed:
+
+```text
+Site Bootstrap Validate 32044334378 SUCCESS
+Check StegFin Phone Projection 32044334428 SUCCESS
+Ecosystem Heartbeat Orchestration 32044334416 SUCCESS
+Site Handoff Orchestrator 32044334442 SUCCESS
+workflow inventory: 109 / canonical 3 / migration-required operational 106 / placeholders 0
+```
+
+The branch has exactly one fewer workflow than the released 110-workflow baseline and retains all three canonical workflows. A final exact-head validation is still required after this handoff/evidence update before merge.
 
 ## Incomplete work
 
 ### Controller retirement integration
 
 - Owner: `SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817`
+- PR: `StegVerse-Labs/Site#329`
 - Branch: `chore/site-marketplace-coinbase-controller-validation-20260817`
-- State: implementation installed; exact-head validation pending
-- Release condition: credential-clean Site claim/orchestrator/bootstrap checks PASS; workflow census decrements by exactly one from current released main without canonical-surface loss; PR merges; main no longer contains the standalone controller workflow; claim and Actions handoff are released with immutable evidence.
+- State: implementation + canonical Healer source continuation installed; final exact-head validation pending after handoff update
+- Release condition: exact-head Site claim/orchestrator/bootstrap/StegFin checks PASS; workflow census remains 109 with canonical 3 and placeholders 0; PR merges; main no longer contains the standalone controller workflow; claim and Actions handoff are released with immutable evidence.
 
 ### Exact paper-release tag evidence
 
@@ -142,7 +156,7 @@ An anonymous observation block is not task failure and does not authorize GitHub
 
 - TV/TVC remains credential authority.
 - Do not export TV/TVC credentials into GitHub Actions.
-- Do not use a GitHub/project/provider token to repair anonymous observation.
+- Do not use a GitHub/project/provider token to repair observation.
 - Do not create a second scheduler, heartbeat, runtime, Marketplace owner, Publisher owner, crypto-bot owner, or Site product owner.
 - Do not infer Coinbase live trading, custody, withdrawal, funded execution, publication, release, or financial authority from paper accessibility or workflow cleanup.
 - Do not modify StegFin, StegOS, or HIL claimed product paths.
@@ -158,7 +172,9 @@ The Site paper-accessibility projection is already established, but the workflow
 paper-accessibility developed files: 5/5
 paper-accessibility deterministic validation: previously PASS
 Site paper projection integration: COMPLETE
+Healer local observer source integration: MERGED
 controller token-retirement implementation: INSTALLED_ON_BRANCH
-controller exact-head validation: PENDING
+controller validation before final handoff update: PASS
+controller final exact-head validation: PENDING
 live/financial authority: NOT GRANTED
 ```
