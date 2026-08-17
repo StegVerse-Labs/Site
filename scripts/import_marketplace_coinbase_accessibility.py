@@ -3,14 +3,23 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib import error, request
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "marketplace-coinbase-accessibility-status.json"
-SOURCE_URL = "https://raw.githubusercontent.com/GCAT-BCAT-Engine/Publisher/main/data/marketplace-coinbase-release-evidence-status.json"
+PUBLISHER_REPO = "GCAT-BCAT-Engine/Publisher"
+PUBLISHER_RELATIVE_PATH = Path("data/marketplace-coinbase-release-evidence-status.json")
+FORBIDDEN_CREDENTIAL_ENV = (
+    "GITHUB_TOKEN",
+    "GH_TOKEN",
+    "GITHUB_PAT",
+    "STEGVERSE_GITHUB_TOKEN",
+    "STEGVERSE_CROSS_REPO_READ_TOKEN",
+    "MARKETPLACE_COINBASE_EVIDENCE_TOKEN",
+)
 
 
 def canonical(value: Any) -> bytes:
@@ -21,10 +30,37 @@ def digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(canonical(value)).hexdigest()
 
 
+def reject_credentials() -> None:
+    present = sorted(name for name in FORBIDDEN_CREDENTIAL_ENV if os.environ.get(name))
+    if present:
+        raise RuntimeError("FORBIDDEN_CREDENTIAL_ENV:" + ",".join(present))
+
+
+def repo_roots() -> dict[str, Path]:
+    raw = os.environ.get("STEGVERSE_REPO_ROOTS_JSON", "").strip()
+    if not raw:
+        raise ValueError("STEGVERSE_REPO_ROOTS_JSON_REQUIRED")
+    parsed = json.loads(raw)
+    if not isinstance(parsed, dict):
+        raise ValueError("STEGVERSE_REPO_ROOTS_JSON_NOT_OBJECT")
+    roots: dict[str, Path] = {}
+    for repository, value in parsed.items():
+        if isinstance(repository, str) and isinstance(value, str):
+            path = Path(value).expanduser().resolve()
+            if path.is_dir():
+                roots[repository] = path
+    return roots
+
+
 def fetch_source() -> dict[str, Any]:
-    req = request.Request(SOURCE_URL, headers={"User-Agent": "StegVerse-Site-Marketplace-Coinbase-Accessibility/1.0"})
-    with request.urlopen(req, timeout=30) as response:
-        value = json.loads(response.read().decode("utf-8"))
+    reject_credentials()
+    publisher_root = repo_roots().get(PUBLISHER_REPO)
+    if publisher_root is None:
+        raise FileNotFoundError("PUBLISHER_LOCAL_REPOSITORY_NOT_MATERIALIZED")
+    source_path = publisher_root / PUBLISHER_RELATIVE_PATH
+    if not source_path.is_file():
+        raise FileNotFoundError("PUBLISHER_LOCAL_EVIDENCE_NOT_MATERIALIZED")
+    value = json.loads(source_path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
         raise ValueError("publisher_status_not_object")
     return value
@@ -37,8 +73,12 @@ def project(state: str, reason: str, source: dict[str, Any] | None = None, findi
         "state": state,
         "reason": reason,
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "source_repository": "GCAT-BCAT-Engine/Publisher",
-        "source_path": "data/marketplace-coinbase-release-evidence-status.json",
+        "source_repository": PUBLISHER_REPO,
+        "source_path": str(PUBLISHER_RELATIVE_PATH),
+        "source_transport": "LOCAL_MATERIALIZED_REPOSITORY",
+        "credential_requirement": "NONE",
+        "github_token_allowed": False,
+        "remote_source_fetch_allowed": False,
         "publisher_status": source.get("status"),
         "publisher_status_digest": source.get("status_digest"),
         "publisher_sources": source.get("sources") or {},
@@ -50,6 +90,7 @@ def project(state: str, reason: str, source: dict[str, Any] | None = None, findi
         "release_authority": "NOT_GRANTED",
         "execution_authority": "NOT_GRANTED",
         "live_authority": "NOT_GRANTED",
+        "financial_authority": "NOT_GRANTED",
     }
     return {**body, "projection_digest": digest(body)}
 
@@ -83,8 +124,11 @@ def write(payload: dict[str, Any]) -> None:
 def main() -> int:
     try:
         source = fetch_source()
-    except (error.HTTPError, error.URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as exc:
-        write(project("PENDING_UPSTREAM", f"publisher_status_unavailable:{type(exc).__name__}"))
+    except RuntimeError as exc:
+        write(project("BLOCKED_DEPENDENCY", str(exc)))
+        return 3
+    except (FileNotFoundError, OSError, ValueError, json.JSONDecodeError) as exc:
+        write(project("PENDING_UPSTREAM", f"publisher_local_status_unavailable:{exc}"))
         return 0
 
     if source.get("status") in {"PENDING_CREDENTIAL", "PENDING_SOURCE"}:
