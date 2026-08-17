@@ -23,43 +23,25 @@ Repository-local implementation must continue through `data/session-work-claims.
 
 ```text
 audit_start_workflow_surfaces: 131
-current_active_workflow_surfaces: 124
-explicitly_classified_or_remediated_surfaces: 16/131
-remaining_classification_denominator: 115/131
-workflow_files_eliminated_or_consolidated: 7
+current_active_workflow_surfaces: 122
+explicitly_classified_or_remediated_surfaces: 18/131 = 13.74%
+remaining_classification_denominator: 113/131
+workflow_files_eliminated_or_consolidated: 9
 recurring_schedules_removed_without_deleting_workflow_files: 9
+completed_workflow_minimization_batches: 5
 ```
 
-Schedule removal and workflow-file elimination are counted separately. The 115 remaining value is a classification denominator, not a claim that 115 schedules remain.
+The current workflow count is derived from the previously verified 124-file canonical census minus the two exact workflow files removed by PR #305; both removed paths were directly re-observed absent on `main`, while the retained HIL dispatcher was directly observed present. Schedule removal and workflow-file elimination are counted separately.
 
 ## Completed containment batches
 
 ### Containment batch 1
 
-Merged PR #266 at `41db95c9df05e4a91b44d466ca1ed1231d46cfef`.
-
-Recurring GitHub-hosted schedules removed while event/manual validation remained available:
-
-- `.github/workflows/site-handoff-orchestrator.yml`
-- `.github/workflows/advance-tidc-internal-work.yml`
-- `.github/workflows/advance-marketplace-coinbase-activation.yml`
-- `.github/workflows/heartbeat-response-network.yml`
-
-Operational recurrence for these surfaces is a StegVerse-worker responsibility when still required; GitHub is retained only where bounded repository validation remains useful.
+PR #266 merged at `41db95c9df05e4a91b44d466ca1ed1231d46cfef`. Recurring GitHub-hosted schedules were removed from `site-handoff-orchestrator.yml`, `advance-tidc-internal-work.yml`, `advance-marketplace-coinbase-activation.yml`, and `heartbeat-response-network.yml` while bounded event/manual validation remained available.
 
 ### Containment batch 2
 
-Merged PR #267 at `44f593f7b7075958d6b363ddf8caac1ee3541132`.
-
-Recurring schedules removed from:
-
-- `.github/workflows/steggate-four-app-progress.yml`
-- `.github/workflows/check-hil-live-readiness.yml`
-- `.github/workflows/tidc-task-coordinator.yml`
-- `.github/workflows/heartbeat-response-blocker-observer.yml`
-- `.github/workflows/generated-stegpay-propagation-import.yml`
-
-Necessary recurring operational ownership transfers to StegVerse-controlled workers; source-change/manual validation may remain on GitHub where justified.
+PR #267 merged at `44f593f7b7075958d6b363ddf8caac1ee3541132`. Recurrence was removed from `steggate-four-app-progress.yml`, `check-hil-live-readiness.yml`, `tidc-task-coordinator.yml`, `heartbeat-response-blocker-observer.yml`, and `generated-stegpay-propagation-import.yml`. Necessary recurring operations belong to StegVerse-controlled workers.
 
 ## Completed workflow-minimization batches
 
@@ -67,98 +49,83 @@ Necessary recurring operational ownership transfers to StegVerse-controlled work
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B1-20260815
-branch: chore/site-validation-workflow-minimization-batch1-20260815
 PR: #270
 merge: 5fc9929f39c9feae2423b00e9d6830c65fd07ccd
 claim_release_commit: c994aa7b9ca08b1b0bf5dabb495957a025df627c
 post_merge_workflow_count: 130
+validation: HIL 31869132762; orchestrator 31869132816; heartbeat 31869132801; bootstrap 31869132796 — SUCCESS
 ```
 
-`.github/workflows/check-hil-first-release-readiness.yml` was consolidated into `.github/workflows/check-hil-live-readiness.yml`. The retained dispatcher uses `permissions: {}`, anonymous public Git acquisition, preinstalled Python, and fails closed if GitHub/PAT/TVC-ephemeral/Cloudflare-HIL credential variables are exposed. It grants no activation, execution, provider, publication, custody, release, or Master Record authority.
+`check-hil-first-release-readiness.yml` was consolidated into credential-clean `check-hil-live-readiness.yml`. The retained dispatcher uses `permissions: {}`, anonymous Git acquisition, preinstalled Python, and credential refusal. It grants no activation, provider, publication, custody, release, or Master Record authority.
 
-Validation evidence:
-
-```text
-HIL dispatcher 31869132762 SUCCESS
-Site Handoff Orchestrator 31869132816 SUCCESS
-Ecosystem Heartbeat Orchestration 31869132801 SUCCESS
-Site Bootstrap Validate 31869132796 SUCCESS
-```
-
-Two older HIL guards were intentionally not weakened or removed: `check_hil_activation_state.py` and `check_hil_end_to_end_protocol.py` contain historical v0.5 assumptions while HIL v1.1 is canonical. Semantic reconciliation remains owned by Site #81.
-
-### Batch 2 — obsolete HIL v0.5 installer elimination
-
-Canonical HIL authority `docs/HIL_SITE_MIRROR_HANDOFF.md` defines Primary v1.1 / `a7b1c62e336b4e244ecf7fdcd10af195401f6c44328de32615b073d2a5c3c462` as current. The following two GitHub-hosted write-capable v0.5 installers were therefore obsolete, not current validation/runtime surfaces:
-
-- `.github/workflows/install-hil-primary.yml`
-- `.github/workflows/install-hil-primary-v0.5.yml`
+### Batch 2 — obsolete HIL v0.5 installers
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B2-20260815
-branch: chore/site-validation-workflow-minimization-batch2-20260815
 PR: #271
 merge: 2d48a626f288e3583b7d69857ce012b82a0180dd
-exact_changed_files: the two v0.5 installer workflows + data/session-work-claims.json
-Ecosystem Heartbeat Orchestration 31869922325 SUCCESS
-Site Handoff Orchestrator 31869922332 SUCCESS
-Site Bootstrap Validate 31869922334 SUCCESS
 post_merge_workflow_count: 128
+validation: heartbeat 31869922325; orchestrator 31869922332; bootstrap 31869922334 — SUCCESS
 ```
 
-No current HIL v1.1 validator, deployment, runtime, review, publication, TV/TVC authority, or participant-facing product semantics were modified. No NON-TV/TVC secret/token path was introduced.
+Removed obsolete `install-hil-primary.yml` and `install-hil-primary-v0.5.yml`; canonical HIL Primary remains v1.1.
 
-### Batch 3 — completed HIL deployment-investigation elimination
-
-Canonical HIL authority `docs/HIL_SITE_MIRROR_HANDOFF.md` records the original HIL Cloudflare deployment run `30573565667`, job `90976121829`, its exact credential-gate failure, preserved logs/evidence, and states that deployment-run discovery is resolved. The remaining production path is the current deployment/runtime path, not repeated historical investigation.
-
-The following completed one-off investigation workflows were therefore eliminated:
-
-- `.github/workflows/hil-deployment-authority-investigation.yml`
-- `.github/workflows/hil-deployment-investigation-handoff-update.yml`
-
-The first consumed `github.token`, Actions read authority and a GitHub-hosted runner to rediscover already-preserved evidence; the second rewrote already-preserved handoff text. Neither is a current deployment/runtime/validation authority surface.
+### Batch 3 — completed HIL deployment investigation
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B3-20260815
-branch: chore/site-validation-workflow-minimization-batch3-20260815
 PR: #272
 merge: 093f627f08993048ce8a2b74d16b52bcddc410b1
 claim_release_commit: 00c70c82b7749ebc100ff890eebb61478bb618a3
-exact_changed_files: the two completed investigation workflows + data/session-work-claims.json
-Ecosystem Heartbeat Orchestration 31870167913 SUCCESS
-Site Handoff Orchestrator 31870167906 SUCCESS
-Site Bootstrap Validate 31870167864 SUCCESS
 post_merge_workflow_count: 126
+validation: heartbeat 31870167913; orchestrator 31870167906; bootstrap 31870167864 — SUCCESS
 ```
 
-No current HIL deployment workflow, provider route, canonical HIL v1.1 state, review/publication surface, TV/TVC authority, or participant-facing product semantics were modified. No NON-TV/TVC project/provider secret or token path was introduced.
+Removed completed one-off `hil-deployment-authority-investigation.yml` and `hil-deployment-investigation-handoff-update.yml`; preserved historical evidence remains authoritative.
 
-### Batch 4 — completed HIL pilot-validation evidence workflow elimination
-
-Canonical HIL pilot authority `docs/HIL_PILOT_VALIDATION_MIRROR_HANDOFF.md` preserves the exact four successful `Site Bootstrap Validate` runs, every job ID and step conclusion, complete logs, artifact inventories, and `data/hil-pilot-validation-complete-evidence.json`. It explicitly records that no pilot fixture or workflow defect is proven and that the complete pilot workflow evidence is preserved.
-
-The following GitHub-hosted write-capable evidence-retrieval/reconciliation workflows were therefore eliminated:
-
-- `.github/workflows/hil-pilot-validation-investigation.yml`
-- `.github/workflows/hil-pilot-validation-evidence-reconciliation.yml`
-
-Both used `github.token`, Actions-read authority, GitHub-hosted runners and `contents: write` to rediscover or rewrite evidence already committed and bound by the canonical pilot handoff. Neither is required for current HIL pilot validation, production deployment/runtime, participant upload, or pending model-return state.
+### Batch 4 — completed HIL pilot evidence investigation
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B4-20260815
-branch: chore/site-validation-workflow-minimization-batch4-20260815
 PR: #273
 merge: 1d5e1b202f13b881b19f84b05c7860040fbdac4d
 claim_release_commit: d6741b970b126fc10c6d48d939fa9e30c4e09d1c
-exact_changed_files: the two completed pilot evidence workflows + data/session-work-claims.json
-Ecosystem Heartbeat Orchestration 31871836352 SUCCESS
-Site Handoff Orchestrator 31871836339 SUCCESS
-Site Bootstrap Validate 31871836411 SUCCESS
 post_merge_workflow_count: 124
+validation: heartbeat 31871836352; orchestrator 31871836339; bootstrap 31871836411 — SUCCESS
 ```
 
-No canonical HIL pilot ledger, deterministic fixtures, current HIL deployment/runtime, participant-upload work, pending model response state, TV/TVC authority, provider route, publication, custody, release, or Master Record semantics were modified. No NON-TV/TVC project/provider secret or token path was introduced.
+Removed completed `hil-pilot-validation-investigation.yml` and `hil-pilot-validation-evidence-reconciliation.yml`; canonical pilot evidence remains committed.
+
+### Batch 5 — HIL import-validation consolidation
+
+Canonical HIL handoff `docs/HIL_SITE_MIRROR_HANDOFF.md` was read before mutation. Site #81 retains live same-origin receiver/readiness/runtime ownership, Site #67 participant lifecycle projection, TVC #8 private review, and StegCore #41 cross-repository lifecycle validation. The stale-semantic `check-hil-activation-state.yml` and `check-hil-end-to-end-protocol.yml` surfaces were intentionally not weakened or modified.
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B5-20260817
+branch: chore/site-hil-import-validation-consolidation-20260817
+PR: #305
+final head: 2d8f77d44e8390f80987a083fca79b122180c376
+merge: 1f59d1861bed56cf90354df06b753e44fd2fb7ed
+claim_release_commit: efb4daa7369d30bc69e9a6a58fd114cdce5da730
+HIL Validation and Live Readiness: 32003984673 SUCCESS
+Site Handoff Orchestrator: 32003984788 SUCCESS
+Ecosystem Heartbeat Orchestration: 32003984727 SUCCESS
+Check StegFin Phone Projection: 32003984698 SUCCESS
+Site Bootstrap Validate: 32003984664 SUCCESS
+post_merge_workflow_count: 122
+```
+
+Disposition:
+
+```text
+.github/workflows/check-hil-full-cycle-artifact-verification-import.yml -> CONSOLIDATE_INTO_STABLE_DISPATCHER / removed
+.github/workflows/check-hil-https-receiver-probe-import.yml -> CONSOLIDATE_INTO_STABLE_DISPATCHER / removed
+.github/workflows/check-hil-live-readiness.yml -> retained credential-clean HIL validation dispatcher
+scripts/check_hil_full_cycle_artifact_verification_import.py -> retained and executed by dispatcher
+scripts/check_hil_https_receiver_probe_import.py -> retained and executed by dispatcher
+```
+
+The retained dispatcher now watches both schemas, both data directories, and both validators. Its exact-head PR run proved credential refusal, anonymous public repository fetch, both deterministic import validators, and fail-closed first-release validation. No live observation is executed on pull requests. No NON-TV/TVC project/provider secret/token path, runtime authority, publication authority, custody authority, or wallet authority was introduced.
 
 ## Classification states
 
@@ -171,8 +138,6 @@ No canonical HIL pilot ledger, deterministic fixtures, current HIL deployment/ru
 
 ## Local model/runtime convergence
 
-Do not duplicate the local-model/runtime implementation in Site.
-
 ```text
 formal_local_model: COMPLETE_RELEASED
 local_runtime_discovery_launch_inference_proof: COMPLETE_RELEASED
@@ -182,23 +147,11 @@ credential_authority: TV/TVC
 github_token_production_authority: NONE
 ```
 
-Canonical continuation:
-
-- `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md`
-- `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`
+Canonical continuation is `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md` plus `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`. Do not duplicate this implementation in Site.
 
 ## StegFin convergence
 
-Site workflow remediation does not compete with StegFin execution.
-
-Canonical trade continuation:
-
-- `StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md`
-- `StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json`
-- `StegVerse-Labs/.github/handoffs/STEGFIN-CONTINUITY-CARRIER-007.json`
-- `StegVerse-Labs/.github/control/worker-registry.d/stegfin-continuity-carrier-007.json`
-
-Current trade state remains `WALLET_HANDOFF_READY_NOT_YET_OBSERVED`; the registered `stegfin-continuity-carrier-worker` is machine-owned and manual execution is prohibited. Credential authority remains TV/TVC and wallet signing/broadcast remain USER_ONLY.
+Trade execution remains machine/human-authority owned by `StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md`, `STEGFIN-CONTINUITY-CARRIER-007`, TV/TVC/vault, and USER_ONLY signing/broadcast. `WALLET_HANDOFF_READY` is not inferred from Site cleanup.
 
 ## Active claims and collision boundaries
 
@@ -206,52 +159,43 @@ Current trade state remains `WALLET_HANDOFF_READY_NOT_YET_OBSERVED`; the registe
 Site cost containment: Site #265
 Site workflow minimization: Site #268
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
-batch 1 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
-batch 2 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
-batch 3 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
-batch 4 implementation: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 1: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 2: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 3: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 4: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 5: MERGED_INTO_CANONICAL_WORKSTREAM
 HIL semantic reconciliation: Site #81 / separate canonical workstream
 repository hygiene: StegVerse-Labs/.github#165
 live sovereign runtime/inference: canonical StegVerse workers / observation only here
 TV/TVC credential and route authority: TV/TVC only
 ```
 
-No next workflow-minimization mutation is admitted until a fresh exact claim is installed in `data/session-work-claims.json` for the next nonoverlapping batch.
+No next workflow-minimization mutation is admitted until a fresh exact branch-bound claim is installed in `data/session-work-claims.json` for a nonoverlapping family.
 
 ## Repository hygiene
 
-Preserve active claims, protected/release branches, evaluation snapshots, current worker-owned branches, immutable evidence, and release references. Completed/superseded branch/PR families may be removed only in bounded evidence-safe batches under `StegVerse-Labs/.github#165`.
-
-Known cleanup evidence:
-
-- Site PR #255 closed as superseded by StegVerse-only runtime architecture.
-- Site PR #269 closed unmerged and superseded by admitted PR #270.
-- batch-1 through batch-4 workflow-minimization claims released after verified merges.
-- branch inventory exceeds 100 and still requires bounded reconciliation.
+Preserve active claims, protected/release branches, evaluation snapshots, current worker-owned branches, immutable evidence, and release references. Completed/superseded branch/PR families may be reconciled only in bounded evidence-safe batches under `StegVerse-Labs/.github#165`.
 
 ## Validation and completion accounting
 
 Current goal denominator is the 131 workflow surfaces present at audit start.
 
 ```text
-task_completion: 16/131 classified-or-remediated = 12.21%
-developed_files_for_completed_batches: 16/16 required mutations/records present
+task_completion: 18/131 classified-or-remediated = 13.74%
+developed_files_for_completed_batches: 18/18 required mutations/records present
 scaffolding_or_stubs_in_completed_batches: 0
 missing_required_files_in_completed_batches: 0
-batch_validation: 13/13 required workflow validation groups PASS
-batch_integration: 4/4 workflow-minimization batches merged
+batch_validation: 17/17 required workflow validation groups PASS
+batch_integration: 5/5 workflow-minimization batches merged
 propagation: not applicable until a release-bearing Site product change exists
-goal_activation: 16/131 = 12.21%
+goal_activation: 18/131 = 13.74%
 session_consolidation: incomplete while unique Site workflow minimization/hygiene work remains
 ```
 
 ## Next executable action
 
-1. Under Site #268, inspect the next small family of workflow surfaces and create exactly one fresh branch-bound claim before mutation.
-2. Prefer eliminating completed one-off investigation/install/import surfaces or consolidating compatible read-only validators; do not weaken current semantic guards to make cleanup pass.
-3. For any necessary recurring operational surface, preserve the capability by transferring recurrence to a named StegVerse worker before deleting the GitHub entry point.
-4. Continue until every audit-start workflow surface is classified and the retained GitHub surface is the minimum technically necessary with explicit exceptions.
+Under Site #268, inspect the next small unclaimed workflow family and create exactly one fresh branch-bound claim before mutation. Prefer completed one-off investigation/install/import surfaces or compatible read-only validators. Do not weaken current semantic guards to make cleanup pass. Necessary recurring operational behavior must be transferred to a named StegVerse worker before deleting its hosted entry surface.
 
 ## Archive condition
 
-This handoff preserves the local-runtime/model convergence, TV/TVC credential boundary, StegFin machine-owned continuation, completed Site minimization evidence, remaining denominator, collision policy, and exact next executable action. This session is not archive-ready because it still owns unique Site workflow-minimization/hygiene implementation work that has not yet been fully completed or transferred to an active executable worker claim.
+The local-model/runtime and StegFin requirements are durably transferred, and Site batch 5 is released. This session is still not archive-ready because 113/131 audit-start Site workflow surfaces remain unclassified/unremediated and repository hygiene remains executable. Continue through exact claims or durably transfer that remaining cleanup to an active canonical worker before archive.
