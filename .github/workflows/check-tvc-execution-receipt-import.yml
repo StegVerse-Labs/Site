@@ -1,4 +1,4 @@
-name: Check TVC Execution Receipt Import
+name: Check TVC Execution Receipt Import - Validation Only / No GitHub Token Authority
 
 on:
   workflow_dispatch:
@@ -18,22 +18,92 @@ on:
       - ".github/workflows/check-tvc-execution-receipt-import.yml"
       - "tasks/SITE-TVC-RUNTIME-ASSIST-001.json"
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install test dependency
-        run: python -m pip install --disable-pip-version-check pytest
+      - name: Refuse credential-bearing environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'TVC_RECEIPT_IMPORT_CREDENTIAL_REFUSAL=PASS'
+          echo 'TVC_RECEIPT_IMPORT_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'TVC_RECEIPT_IMPORT_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
+          fi
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
+          echo 'TVC_RECEIPT_IMPORT_SOURCE_FETCH=PASS'
+
+      - name: Verify preinstalled Python 3.12+
+        shell: bash
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 12), sys.version
+          print('TVC_RECEIPT_IMPORT_PYTHON=PASS')
+          PY
+
+      - name: Install public test dependency without credential
+        run: python3 -m pip install --disable-pip-version-check pytest
+
       - name: Compile validator
-        run: python -m py_compile scripts/check_tvc_execution_receipt_import.py
+        run: python3 -m py_compile scripts/check_tvc_execution_receipt_import.py
+
       - name: Run regression tests
-        run: python -m pytest -q tests/test_tvc_execution_receipt_import.py
+        run: python3 -m pytest -q tests/test_tvc_execution_receipt_import.py
+
       - name: Validate schema JSON
-        run: python -m json.tool schemas/tvc_execution_receipt_import.schema.json >/dev/null
+        run: python3 -m json.tool schemas/tvc_execution_receipt_import.schema.json >/dev/null
+
+      - name: Confirm validation-only authority boundary
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/check-tvc-execution-receipt-import.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'persist-' + 'credentials',
+              'git ' + 'push',
+              'contents:' + ' write',
+              'issues:' + ' write',
+              'pull-requests:' + ' write',
+              'TVC_EPHEMERAL_GITHUB_TOKEN' + ':',
+              'STEGVERSE_PROVIDER_TOKEN' + ':',
+          ]
+          assert 'permissions: {}' in workflow
+          assert 'Refuse credential-bearing environment' in workflow
+          assert 'Fetch exact Site source anonymously' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('TVC_RECEIPT_IMPORT_VALIDATION_ONLY=PASS')
+          print('TVC_RECEIPT_IMPORT_REPOSITORY_WRITEBACK=NONE')
+          print('TVC_RECEIPT_IMPORT_ARTIFACT_CUSTODY=NONE')
+          print('TVC_RECEIPT_IMPORT_RUNTIME_AUTHORITY=NONE')
+          print('TVC_RECEIPT_IMPORT_EXECUTION_GRANT_AUTHORITY=NONE')
+          PY
