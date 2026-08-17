@@ -154,44 +154,45 @@
       "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817",
       "session_worker_id": "chatgpt-session-site-workflow-minimization-20260817",
       "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B6-20260817",
-      "originating_goal": "Consolidate HIL release-chain and launch-readiness deterministic validation into the credential-clean HIL dispatcher without transferring Master Records, publication, or runtime authority to Site or GitHub Actions.",
+      "originating_goal": "Consolidate the HIL Master Record release-chain projection validator into the credential-clean HIL dispatcher while preserving the independently failing LinkedIn launch-readiness surface for semantic reconciliation; do not transfer Master Records, publication, or runtime authority to Site or GitHub Actions.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "chore/site-hil-release-readiness-consolidation-20260817",
+      "branch": "chore/site-hil-validation-release-readiness-20260817",
       "role": "CLAIMED_FOR_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
-      "normalized_work_key": "site-workflow-minimization-hil-release-readiness-batch6",
+      "normalized_work_key": "site-workflow-minimization-hil-validation-release-readiness-batch6",
       "dependency_surface_keys": ["site:hil:release-readiness-validation-workflow-surfaces"],
       "claimed_paths": [
         "data/session-work-claims.json",
         ".github/workflows/check-hil-master-record-release.yml",
-        ".github/workflows/check-hil-linkedin-launch-readiness.yml",
         ".github/workflows/check-hil-live-readiness.yml",
         "scripts/check_hil_master_record_release.py",
+        ".github/workflows/check-hil-linkedin-launch-readiness.yml",
         "scripts/check_hil_linkedin_launch_readiness.py",
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "2da476ef4db5a175c77d8eb248036e59971e1521",
       "claim_created_at": "2026-08-17T02:07:00-05:00",
-      "claim_expires_when": "Released after both standalone workflows are absent, both deterministic validators execute through the credential-clean HIL dispatcher, exact-head Site validation passes, merge and post-merge census are verified, and the claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
+      "claim_expires_when": "Released after check-hil-master-record-release.yml is absent, check_hil_master_record_release.py executes through the credential-clean HIL dispatcher, check-hil-linkedin-launch-readiness.yml remains present and is explicitly classified REVIEW_REQUIRED with its current prompt-hash drift preserved, exact-head Site validation passes, merge and post-merge census are verified, and the claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
       "expected_evidence": [
         "check-hil-master-record-release.yml absent",
-        "check-hil-linkedin-launch-readiness.yml absent",
         "check_hil_master_record_release.py retained and executed",
-        "check_hil_linkedin_launch_readiness.py retained and executed",
-        "HIL dispatcher PASS",
+        "check-hil-linkedin-launch-readiness.yml retained",
+        "LinkedIn launch-readiness drift preserved as REVIEW_REQUIRED: public HIL page missing current prompt SHA marker cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+        "HIL dispatcher PASS without invoking the known-failing LinkedIn validator",
         "Site Handoff Orchestrator PASS",
         "Ecosystem Heartbeat Orchestration PASS",
         "Site Bootstrap Validate PASS"
       ],
       "collision_boundaries": [
         "Do not mint Master Records validation/release authority; this lane validates Site-side imported/projection structure only",
+        "Do not weaken or delete the LinkedIn launch-readiness validator merely to make cleanup pass",
         "Do not mint publication authority; LinkedIn readiness remains a deterministic boundary check only",
         "Do not modify Site #81 runtime activation, Site #67 lifecycle projection, TVC #8 private review, or StegCore #41 lifecycle authority",
         "Do not introduce or consume NON-TV/TVC secrets or tokens",
         "Do not use Render as a production continuation path"
       ],
-      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268; LinkedIn semantic drift remains owned by the canonical HIL/Site reconciliation workstream until corrected with independent evidence."
     }
   ]
 }
