@@ -76,6 +76,26 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B18-20260817",
+      "session_worker_id":"chatgpt-session-site-user-llm-bounded-capability-validation-b18-20260817",
+      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B18-20260817",
+      "originating_goal":"Retire the standalone bounded user-LLM capability-import workflow by folding its unchanged deterministic validator into the canonical credential-clean Site application aggregate without creating runtime or execution authority.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-user-llm-bounded-capability-validation-b18-20260817",
+      "role":"IMPLEMENTATION_VALIDATION",
+      "state":"CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key":"site-user-llm-bounded-capability-validation-b18",
+      "dependency_surface_keys":["site:user-llm:bounded-capability-validation"],
+      "claimed_paths":["data/session-work-claims.json",".github/workflows/check-user-llm-bounded-capability-import.yml","scripts/check_user_llm_bounded_capability_import.py","scripts/check_ecosystem_chat_application.py","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision":"2bfbc2cf3df80e54dd2e19dba09ff388419d594c",
+      "claim_created_at":"2026-08-17T11:29:00-05:00",
+      "claim_expires_when":"Released after exact-head validation and merge prove the standalone workflow absent, the unchanged bounded-capability validator executing through canonical Site application validation, workflow recensus, and durable claim/handoff release.",
+      "expected_evidence":["check-user-llm-bounded-capability-import.yml absent","check_user_llm_bounded_capability_import.py PASS through check_ecosystem_chat_application.py","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","Site Bootstrap Validate PASS","workflow inventory decremented by one with canonical workflows retained and zero placeholders"],
+      "collision_boundaries":["Do not recreate local-model/runtime execution","Do not grant user-LLM execution or provider authority","Do not touch active StegOS claimed product paths","Do not modify HIL live/runtime, review, publication, or Master Records ownership","Do not modify StegFin wallet semantics","Do not introduce or consume NON-TV/TVC secrets or tokens","Do not use Render as production authority"],
+      "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
     }
   ]
 }
