@@ -35,6 +35,7 @@
     "ci_workflow_original": ".github/workflows/check-tvc-execution-receipt-import.yml@503d2eec7354b5814dbde0597c84f8e8b03fcdd1",
     "ci_workflow_credential_clean": ".github/workflows/check-tvc-execution-receipt-import.yml@771aef05c6c7d99db0c386dc95d75bb62c89238d",
     "ci_workflow_release_merge": "8d85061bbc20d08449381b63f9c74c00b709830d",
+    "credential_clean_claim_release": "97fa7890414a85bac40c3b1ff1bbf301a1983ae5",
     "hosted_validation_receipt": "data/validation-receipts/HIL-TVC-RECEIPT-IMPORT-2026-08-02.json@67c140d9be90258e4aaf20fc7e71bbaaf5baaf55"
   },
   "validation_result": {
@@ -63,7 +64,7 @@
     "github_token_authority": "NONE",
     "credential_authority": "TV/TVC",
     "workflow_inventory": "101 / canonical 3 / migration-required 98 / placeholders 0",
-    "claim_released": false
+    "claim_released": true
   },
   "remaining_upstream_crossings": [
     "successful hosted execution-grant proof run with inspected artifact",
