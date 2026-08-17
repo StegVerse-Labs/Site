@@ -2,7 +2,7 @@
   "schema": "site.stegfin.user_only_wallet_handoff_release_receipt.v1",
   "task_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301",
   "claim_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817",
-  "state": "PRODUCT_MERGED_PAGES_BUILT_AWAITING_CLAIM_RELEASE",
+  "state": "COMPLETE_RELEASED_PRODUCT",
   "source_repository": "StegVerse-Labs/stegfin-governance",
   "source_task": "STEGFIN-USER-ONLY-WALLET-HANDOFF-017",
   "source_issue": 77,
@@ -14,15 +14,30 @@
   "pages_build": 1156335357,
   "pages_status": "built",
   "pages_commit": "4e876834ad8822dd55db3cafb60152390c60a086",
+  "site_release_pr": 303,
+  "site_release_merge": "2338dd8a2f3bca64ede3bad2ba18cc762cd1aba6",
+  "validator_release_pr": 304,
+  "validator_release_merge": "7529e4534bf3749141bff1921d92ede2a22144cb",
+  "claim_release_commit": "7a48e735b4ff434a8571809ae942ef537811d1f3",
   "source_blobs": {
     "assets/stegfin-phone/wallet-user-handoff.js": "c9c0688ab58e1a196bd777c45fa6f33fa7b9601b",
     "assets/stegfin-phone/wallet-user-handoff-ui.js": "83a36d6b622c45be35d1af14d96f7ff92e71ced3"
   },
   "validation": {
-    "check_stegfin_phone_projection": {"run_id": 31999164165, "conclusion": "success"},
-    "site_handoff_orchestrator": {"run_id": 31999164164, "conclusion": "success"},
-    "ecosystem_heartbeat_orchestration": {"run_id": 31999164196, "conclusion": "success"},
-    "site_bootstrap_validate": {"run_id": 31999164179, "conclusion": "success"}
+    "product_check_stegfin_phone_projection": {"run_id": 31999164165, "conclusion": "success"},
+    "product_site_handoff_orchestrator": {"run_id": 31999164164, "conclusion": "success"},
+    "product_ecosystem_heartbeat": {"run_id": 31999164196, "conclusion": "success"},
+    "product_site_bootstrap": {"run_id": 31999164179, "conclusion": "success"},
+    "release_site_handoff_orchestrator": {"run_id": 31999296401, "conclusion": "success"},
+    "release_ecosystem_heartbeat": {"run_id": 31999296406, "conclusion": "success"},
+    "release_site_bootstrap": {"run_id": 31999296433, "conclusion": "success"},
+    "validator_pr_check": {"run_id": 32003248523, "conclusion": "success"},
+    "validator_pr_site_handoff": {"run_id": 32003248512, "conclusion": "success"},
+    "validator_pr_ecosystem_heartbeat": {"run_id": 32003248521, "conclusion": "success"},
+    "validator_pr_site_bootstrap": {"run_id": 32003248538, "conclusion": "success"},
+    "post_claim_release_main_projection": {"run_id": 32003358306, "conclusion": "success"},
+    "post_claim_release_main_ecosystem_heartbeat": {"run_id": 32003358246, "conclusion": "success"},
+    "post_claim_release_main_site_bootstrap": {"run_id": 32003358251, "conclusion": "success"}
   },
   "transition_contract": {
     "wallet_handoff_requires_explicit_user_action": true,
@@ -46,5 +61,6 @@
   "automatic_signing": false,
   "automatic_broadcast": false,
   "authority_effect": "NONE_RELEASE_EVIDENCE_ONLY",
-  "release_condition": "Release reconciliation PR passes Site gates and merges; terminal main bookkeeping then marks this receipt COMPLETE_RELEASED_PRODUCT, releases the Site claim, closes Site #301, and transfers live compatibility/successor proof to StegFin #77/current phone."
+  "continued_by": "StegVerse-Labs/stegfin-governance#77 + task-state/STEGFIN-USER-ONLY-WALLET-HANDOFF-017.json + current phone/USER_ONLY",
+  "archive_dependency": "NONE_SITE_CHAT_SPECIFIC"
 }
