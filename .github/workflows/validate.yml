@@ -89,7 +89,7 @@ jobs:
           python3 scripts/check_ecosystem_heartbeat_orchestration.py
 
       - name: Validate canonical Site application directly
-        run: python3 scripts/check_ecosystem_chat_application.py
+        run: python scripts/check_ecosystem_chat_application.py
 
       - name: Execute ST-017 isolated validation without artifact transport
         run: python3 scripts/run_sandbox_validation.py
@@ -117,6 +117,7 @@ jobs:
           ]
           assert 'permissions: {}' in workflow
           assert 'Refuse credential-bearing environment' in workflow
+          assert 'python scripts/check_ecosystem_chat_application.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
           print('SITE_BOOTSTRAP_RUNTIME_EXECUTION_AUTHORITY=NONE')
