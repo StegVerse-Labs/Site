@@ -139,40 +139,60 @@
       "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-workflow-minimization-hil-import-validation-batch5",
       "dependency_surface_keys": ["site:hil:import-validation-workflow-surfaces"],
-      "claimed_paths": [
-        "data/session-work-claims.json",
-        ".github/workflows/check-hil-full-cycle-artifact-verification-import.yml",
-        ".github/workflows/check-hil-https-receiver-probe-import.yml",
-        ".github/workflows/check-hil-live-readiness.yml",
-        "scripts/check_hil_full_cycle_artifact_verification_import.py",
-        "scripts/check_hil_https_receiver_probe_import.py",
-        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
-      ],
+      "claimed_paths": ["data/session-work-claims.json", ".github/workflows/check-hil-full-cycle-artifact-verification-import.yml", ".github/workflows/check-hil-https-receiver-probe-import.yml", ".github/workflows/check-hil-live-readiness.yml", "scripts/check_hil_full_cycle_artifact_verification_import.py", "scripts/check_hil_https_receiver_probe_import.py", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
       "handoff_revision": "097c44d33e1c2644017016b6b10f9cb0498281dd",
       "claim_created_at": "2026-08-17T02:00:00-05:00",
       "released_at": "2026-08-17T02:03:00-05:00",
       "release_commit": "1f59d1861bed56cf90354df06b753e44fd2fb7ed",
       "claim_expires_when": "SATISFIED: PR #305 merged after exact-head HIL dispatcher, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Check StegFin Phone Projection and Site Bootstrap Validate succeeded; both standalone import workflows are absent and deterministic validators execute through the credential-clean HIL dispatcher.",
+      "expected_evidence": ["PR #305 merge 1f59d1861bed56cf90354df06b753e44fd2fb7ed", "HIL validation dispatcher 32003984673 SUCCESS", "Site Handoff Orchestrator 32003984788 SUCCESS", "Ecosystem Heartbeat Orchestration 32003984727 SUCCESS", "Check StegFin Phone Projection 32003984698 SUCCESS", "Site Bootstrap Validate 32003984664 SUCCESS", "check-hil-full-cycle-artifact-verification-import.yml absent on main", "check-hil-https-receiver-probe-import.yml absent on main"],
+      "collision_boundaries": ["Do not modify Site #81 live receiver/runtime activation ownership", "Do not modify Site #67 lifecycle projection ownership", "Do not compete with TVC #8 private review", "Do not weaken check-hil-activation-state.yml or check-hil-end-to-end-protocol.yml stale-semantic reconciliation owned by Site #81", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not use Render as a production continuation path"],
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
+    },
+    {
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817",
+      "session_worker_id": "chatgpt-session-site-workflow-minimization-20260817",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B6-20260817",
+      "originating_goal": "Consolidate the HIL Master Record release-chain projection validator into the credential-clean HIL dispatcher while preserving the independently failing LinkedIn launch-readiness surface for semantic reconciliation; do not transfer Master Records, publication, or runtime authority to Site or GitHub Actions.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-hil-validation-release-readiness-20260817",
+      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-workflow-minimization-hil-validation-release-readiness-batch6",
+      "dependency_surface_keys": ["site:hil:release-readiness-validation-workflow-surfaces"],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        ".github/workflows/check-hil-master-record-release.yml",
+        ".github/workflows/check-hil-live-readiness.yml",
+        "scripts/check_hil_master_record_release.py",
+        ".github/workflows/check-hil-linkedin-launch-readiness.yml",
+        "scripts/check_hil_linkedin_launch_readiness.py",
+        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "2da476ef4db5a175c77d8eb248036e59971e1521",
+      "claim_created_at": "2026-08-17T02:07:00-05:00",
+      "claim_expires_when": "Released after check-hil-master-record-release.yml is absent, check_hil_master_record_release.py executes through the credential-clean HIL dispatcher, check-hil-linkedin-launch-readiness.yml remains present and is explicitly classified REVIEW_REQUIRED with its current prompt-hash drift preserved, exact-head Site validation passes, merge and post-merge census are verified, and the claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
       "expected_evidence": [
-        "PR #305 merge 1f59d1861bed56cf90354df06b753e44fd2fb7ed",
-        "HIL validation dispatcher 32003984673 SUCCESS",
-        "Site Handoff Orchestrator 32003984788 SUCCESS",
-        "Ecosystem Heartbeat Orchestration 32003984727 SUCCESS",
-        "Check StegFin Phone Projection 32003984698 SUCCESS",
-        "Site Bootstrap Validate 32003984664 SUCCESS",
-        "check-hil-full-cycle-artifact-verification-import.yml absent on main",
-        "check-hil-https-receiver-probe-import.yml absent on main"
+        "check-hil-master-record-release.yml absent",
+        "check_hil_master_record_release.py retained and executed",
+        "check-hil-linkedin-launch-readiness.yml retained",
+        "LinkedIn launch-readiness drift preserved as REVIEW_REQUIRED: public HIL page missing current prompt SHA marker cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
+        "HIL dispatcher PASS without invoking the known-failing LinkedIn validator",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Bootstrap Validate PASS"
       ],
       "collision_boundaries": [
-        "Do not modify Site #81 live receiver/runtime activation ownership",
-        "Do not modify Site #67 lifecycle projection ownership",
-        "Do not compete with TVC #8 private review",
-        "Do not weaken check-hil-activation-state.yml or check-hil-end-to-end-protocol.yml stale-semantic reconciliation owned by Site #81",
+        "Do not mint Master Records validation/release authority; this lane validates Site-side imported/projection structure only",
+        "Do not weaken or delete the LinkedIn launch-readiness validator merely to make cleanup pass",
+        "Do not mint publication authority; LinkedIn readiness remains a deterministic boundary check only",
+        "Do not modify Site #81 runtime activation, Site #67 lifecycle projection, TVC #8 private review, or StegCore #41 lifecycle authority",
         "Do not introduce or consume NON-TV/TVC secrets or tokens",
         "Do not use Render as a production continuation path"
       ],
-      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268; LinkedIn semantic drift remains owned by the canonical HIL/Site reconciliation workstream until corrected with independent evidence."
     }
   ]
 }

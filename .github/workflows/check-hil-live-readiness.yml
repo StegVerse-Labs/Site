@@ -13,24 +13,32 @@ on:
       - 'data/hil-traces/**'
       - 'data/hil-full-cycle-artifact-verifications/**'
       - 'data/hil-https-receiver-probes/**'
+      - 'data/hil-master-records.json'
+      - 'data/hil-master-record-releases/**'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
+      - 'schemas/hil_master_record_release.schema.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
+      - 'scripts/check_hil_master_record_release.py'
       - '.github/workflows/check-hil-live-readiness.yml'
   pull_request:
     paths:
       - 'data/hil-first-release-readiness.json'
       - 'data/hil-full-cycle-artifact-verifications/**'
       - 'data/hil-https-receiver-probes/**'
+      - 'data/hil-master-records.json'
+      - 'data/hil-master-record-releases/**'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
+      - 'schemas/hil_master_record_release.schema.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
+      - 'scripts/check_hil_master_record_release.py'
       - '.github/workflows/check-hil-live-readiness.yml'
 
 permissions: {}
@@ -48,7 +56,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID HIL_REGISTRY_DATABASE_ID; do
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID HIL_REGISTRY_DATABASE_ID STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN; do
             if [ -n "${!name:-}" ]; then
               echo "forbidden credential environment variable present: ${name}" >&2
               exit 1
@@ -86,6 +94,9 @@ jobs:
       - name: Validate governed HTTPS receiver probe imports
         run: python3 scripts/check_hil_https_receiver_probe_import.py
 
+      - name: Validate Site-side HIL Master Record release-chain projection
+        run: python3 scripts/check_hil_master_record_release.py
+
       - name: Observe deployed HIL Site, artifact, intake, review, and publication surfaces
         if: github.event_name != 'pull_request'
         id: observe
@@ -98,8 +109,8 @@ jobs:
         run: |
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, or Master Record authority.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Governed full-cycle artifact-verification imports and HTTPS receiver-probe imports are validated here without separate token-backed workflow entry surfaces.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Import and Site-side Master Record release-chain projection validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-live-readiness.latest.json ]; then
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
