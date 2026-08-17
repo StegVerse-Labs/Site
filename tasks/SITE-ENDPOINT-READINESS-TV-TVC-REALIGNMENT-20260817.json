@@ -6,9 +6,15 @@
   "owner_repository":"StegVerse-Labs/Site",
   "canonical_issue":"StegVerse-Labs/Site#268",
   "product_owner_issue":"StegVerse-Labs/Site#24",
-  "state":"UNCLAIMED",
+  "state":"BLOCKED_VALIDATED_CANDIDATE_NEEDS_FRESH_MAIN_RECONSTRUCTION",
+  "current_owner":"StegVerse-Labs/Site#268 repository-native continuation",
+  "validated_candidate":"StegVerse-Labs/Site#378",
+  "validated_head":"beba608f65c725c7fbbbb0c3ceacc6657e9a78a4",
+  "blocker":"Current main advanced during exact-head validation and PR #378 became merge-conflicted. Current Site #268 B25 owns a separate active mutation lane; do not overwrite its claim-registry state.",
+  "machine_observable_release_condition":"The active Site #268 B25 claim is released or a fresh current-main branch can preserve all current claims while reapplying the validated endpoint-readiness delta with zero base divergence.",
   "authority":{
     "credential_authority":"TV/TVC",
+    "credential_requirement":"NONE_AT_SITE_VALIDATION_BOUNDARY",
     "non_tv_tvc_secret_or_token_allowed":false,
     "github_token_runtime_authority":"NONE",
     "site_runtime_authority":false,
@@ -16,12 +22,14 @@
     "master_records_custody_authority":false,
     "wallet_authority":false
   },
-  "surfaces":[
-    "data/stegverse-endpoint-activation-readiness.json",
-    "scripts/check_stegverse_endpoint_activation_readiness.py",
-    ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
-    "data/session-work-claims.json",
-    "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
+  "evidence":[
+    "endpoint readiness run 32058258015 SUCCESS",
+    "endpoint job 95473307158 SUCCESS",
+    "Site Bootstrap 32058257956 SUCCESS",
+    "Site Handoff Orchestrator 32058258094 SUCCESS",
+    "Ecosystem Heartbeat 32058257951 SUCCESS",
+    "StegFin phone projection 32058257985 SUCCESS",
+    "Site #268 continuation comment 5319003397"
   ],
   "success_conditions":[
     "Site endpoint-readiness data contains no provider-token or Master-Records-token requirement",
@@ -29,7 +37,8 @@
     "workflow uses permissions empty and anonymous exact-source fetch rather than actions/checkout or actions/setup-python",
     "issue #24 StegVerse-owned endpoint and non-authorizing boundary remains intact",
     "canonical Site validation and orchestration pass",
+    "merged current-main state records the correction",
     "no live activation is inferred"
   ],
-  "next_executable_action":"Acquire a collision-safe Site claim, implement the bounded realignment, validate exact-head, and release only after merge evidence."
+  "next_executable_action":"After the release condition becomes true, reconstruct the exact validated #378 delta from fresh current main under a new collision-safe claim; then run the same required validation set, merge, release the claim, and reconcile the cost-containment handoff."
 }
