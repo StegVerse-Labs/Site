@@ -1,81 +1,90 @@
 {
-  "authority": {
-    "execution": false,
-    "live": false,
-    "publication": false,
-    "release": false
-  },
-  "continuation_mode": "COMPLETE_IN_PLACE_AND_CONTINUE_ADJACENT_WORK",
-  "controller_access": {
-    "access_failure_is_not_task_failure": true,
-    "access_failure_owner": "StegVerse-Labs/Site#131",
-    "cross_repo_token_configured": true
-  },
+  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v3",
   "controller_issue": "StegVerse-Labs/Site#131",
+  "generated_at": "2026-08-17T16:03:00Z",
+  "state": "COMPLETE",
   "development_halt": false,
-  "generated_at": "2026-08-15T04:04:22.670408Z",
-  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v2",
-  "state": "ACTIVE_AUTONOMOUS_CONTINUATION",
+  "continuation_mode": "TERMINAL_STATE_RETAINED_NO_HOSTED_CONTROLLER",
+  "controller_access": {
+    "credential_authority": "TV/TVC",
+    "non_tv_tvc_token_required": false,
+    "github_token_authority": "NONE",
+    "observation_mode": "DIRECT_REPOSITORY_EVIDENCE_RECONCILED",
+    "network_reobservation_required": false,
+    "previous_token_dependent_observation": "SUPERSEDED"
+  },
+  "authority": {
+    "publication": false,
+    "release": false,
+    "execution": false,
+    "live": false
+  },
   "tasks": [
     {
-      "completion_action": "The repository workflow owns regeneration of the committed first-accessibility receipt.",
-      "development_halt": false,
-      "evidence_path": "data/first-accessibility-mark-status.json",
-      "issue": "StegVerse-Labs/crypto-bot#7",
-      "next_action": "Repair the controller observation path in StegVerse-Labs/Site#131 while the named repository workflow continues owning task completion; continue adjacent development.",
-      "observation": "OBSERVATION_PATH_BLOCKED",
-      "observation_detail": "github_api_http_404",
-      "observed_status": null,
-      "repository": "StegVerse-Labs/crypto-bot",
-      "state": "CONTROLLER_ACCESS_REPAIR",
-      "stop_condition": "status=PASS and paper_trading_accessible=true",
       "task_id": "MC-01-CRYPTO-ACCESSIBILITY",
-      "workflow": ".github/workflows/first-accessibility-mark.yml"
+      "repository": "StegVerse-Labs/crypto-bot",
+      "issue": "StegVerse-Labs/crypto-bot#7",
+      "evidence_path": "data/first-accessibility-mark-status.json",
+      "state": "COMPLETE",
+      "observed_status": "PASS",
+      "stop_condition": "status=PASS and paper_trading_accessible=true",
+      "stop_condition_satisfied": true,
+      "credential_used": false,
+      "evidence": {
+        "paper_trading_accessible": true,
+        "receipt_digest": "sha256:3d1e2dd243a9c8539a53f5ef2724404f882b874dfa34997f533fa5dd4a2f452b"
+      },
+      "next_action": "none"
     },
     {
-      "completion_action": "The Marketplace workflow owns collection, acknowledgement, sequence-2 generation, and durable status commit.",
-      "development_halt": false,
-      "evidence_path": "data/marketplace-coinbase-outbound-collection-status.json",
-      "issue": "GCAT-BCAT-Engine/Marketplace#1",
-      "next_action": "Repair the controller observation path in StegVerse-Labs/Site#131 while the named repository workflow continues owning task completion; continue adjacent development.",
-      "observation": "OBSERVATION_PATH_BLOCKED",
-      "observation_detail": "github_api_http_404",
-      "observed_status": null,
-      "repository": "GCAT-BCAT-Engine/Marketplace",
-      "state": "CONTROLLER_ACCESS_REPAIR",
-      "stop_condition": "status=COLLECTED; acknowledgement ACCEPTED or DUPLICATE; sequence-2 transport present",
       "task_id": "MC-02-MARKETPLACE-COLLECTION",
-      "workflow": ".github/workflows/import-marketplace-coinbase-settlements.yml"
+      "repository": "GCAT-BCAT-Engine/Marketplace",
+      "issue": "GCAT-BCAT-Engine/Marketplace#1",
+      "evidence_path": "data/marketplace-coinbase-outbound-collection-status.json",
+      "state": "COMPLETE",
+      "observed_status": "COLLECTED",
+      "stop_condition": "status=COLLECTED; acknowledgement ACCEPTED or DUPLICATE; sequence-2 transport present",
+      "stop_condition_satisfied": true,
+      "credential_used": false,
+      "evidence": {
+        "acknowledgement_result": "ACCEPTED",
+        "sequence_2_transport_digest": "sha256:805000ab776b00863f5962514bcb8f843ccaa27ab9e0ac7821b92499b2e347f1",
+        "packet_digest": "sha256:ae990ce837cac3077a80c966b4e2d960f4158065dcec9c7fdc4da8b8f26ea89b"
+      },
+      "next_action": "none"
     },
     {
-      "completion_action": "The Publisher workflow owns bounded reconstruction, verification, and committed public status.",
-      "development_halt": false,
-      "evidence_path": "data/marketplace-coinbase-release-evidence-status.json",
-      "issue": "GCAT-BCAT-Engine/Publisher#19",
-      "next_action": "none",
-      "observation": "OBSERVED",
-      "observation_detail": null,
-      "observed_status": "VERIFIED",
-      "repository": "GCAT-BCAT-Engine/Publisher",
-      "state": "COMPLETE",
-      "stop_condition": "status=VERIFIED and paper_release_verified=true",
       "task_id": "MC-03-PUBLISHER-VERIFY",
-      "workflow": ".github/workflows/collect-marketplace-coinbase-release-evidence.yml"
+      "repository": "GCAT-BCAT-Engine/Publisher",
+      "issue": "GCAT-BCAT-Engine/Publisher#19",
+      "evidence_path": "data/marketplace-coinbase-release-evidence-status.json",
+      "state": "COMPLETE",
+      "observed_status": "VERIFIED",
+      "stop_condition": "status=VERIFIED and paper_release_verified=true",
+      "stop_condition_satisfied": true,
+      "credential_used": false,
+      "evidence": {
+        "paper_release_verified": true,
+        "status_digest": "sha256:e0561bb4fbe70bc9531bd73d311a00a0040e549d799f743382c50758c2666fed"
+      },
+      "next_action": "none"
     },
     {
-      "completion_action": "The Site import workflow owns projection regeneration after Publisher verification.",
-      "development_halt": false,
-      "evidence_path": "data/marketplace-coinbase-accessibility-status.json",
-      "issue": "StegVerse-Labs/Site#131",
-      "next_action": "none",
-      "observation": "OBSERVED",
-      "observation_detail": null,
-      "observed_status": "PAPER_ACCESSIBLE",
-      "repository": "StegVerse-Labs/Site",
-      "state": "COMPLETE",
-      "stop_condition": "state=PAPER_ACCESSIBLE and live_trading_accessible=false",
       "task_id": "MC-04-SITE-PROJECTION",
-      "workflow": ".github/workflows/import-marketplace-coinbase-accessibility.yml"
+      "repository": "StegVerse-Labs/Site",
+      "issue": "StegVerse-Labs/Site#131",
+      "evidence_path": "data/marketplace-coinbase-accessibility-status.json",
+      "state": "COMPLETE",
+      "observed_status": "PAPER_ACCESSIBLE",
+      "stop_condition": "state=PAPER_ACCESSIBLE and live_trading_accessible=false",
+      "stop_condition_satisfied": true,
+      "credential_used": false,
+      "evidence": {
+        "paper_trading_accessible": true,
+        "live_trading_accessible": false,
+        "projection_digest": "sha256:ce064993487fa872ef79a79ba43fb9991e29cb12cc1b57c6aeeb83c213d0fbd3"
+      },
+      "next_action": "none"
     }
   ]
 }
