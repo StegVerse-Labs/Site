@@ -10,7 +10,7 @@
 - Financial/live execution authority: `NOT_GRANTED`
 - Wallet/custody/withdrawal authority: `NOT_GRANTED`
 - Current bounded Site projection: `ACCESSIBLE`
-- Current task state: terminal repository work complete; no recurring hosted continuation is required.
+- Current task state: terminal repository work complete; no recurring hosted continuation or importer is required.
 
 This handoff governs the bounded public Site projection only. It does not grant funded Coinbase, live-order, custody, withdrawal, settlement, publication, release, or wallet authority.
 
@@ -26,9 +26,9 @@ Site status: data/marketplace-coinbase-first-accessibility-status.json
 Site task state: data/marketplace-coinbase-first-accessibility-task-state.json
 ```
 
-The checked-in task state is the durable terminal evidence. It records `activation_ready: true`, `status: ACCESSIBLE`, `SITE-MCFA-001` through `SITE-MCFA-004` all `COMPLETED`, and no external tasks. Publication, release, execution, live, custody, and withdrawal authority remain `NOT_GRANTED`. Issue `Site#130` is closed completed. Those durable facts supersede the earlier pre-activation wording in this handoff.
+The checked-in task state is durable terminal evidence: `activation_ready: true`, `status: ACCESSIBLE`, `SITE-MCFA-001` through `SITE-MCFA-004` all `COMPLETED`, and no external tasks. Publication, release, execution, live, custody, and withdrawal authority remain `NOT_GRANTED`. `Site#130` is closed completed.
 
-## Retained implementation
+## Retained deterministic implementation
 
 ```text
 scripts/import_marketplace_coinbase_first_accessibility.py
@@ -38,19 +38,22 @@ data/marketplace-coinbase-first-accessibility-task-state.json
 data/marketplace-coinbase-first-accessibility-source-observation.json
 ```
 
-Retaining deterministic source does not authorize recurring execution. It remains available for StegVerse-local inspection/reconstruction if another canonical owner explicitly consumes it.
+Retaining deterministic source does not authorize recurring execution. It is available for StegVerse-local inspection/reconstruction only if a fresh canonical task explicitly consumes it.
 
-## Hosted continuation retirement
+## Hosted execution retirement
 
-The former `.github/workflows/continue-marketplace-coinbase-first-accessibility.yml` loop is superseded and removed under Site workflow-minimization batch 13.
+Two obsolete GitHub-hosted loops are superseded:
 
-Retirement is bounded because the projection is already terminally `ACCESSIBLE`, all four repository tasks are complete, the coordination issue is closed, and there are no unnamed external tasks. The retired workflow nevertheless continued to run hourly with repository/issue write permission, persisted checkout credentials, `github.token`, issue mutation, commit/push writeback, and artifact upload.
+1. batch 13 removed `.github/workflows/continue-marketplace-coinbase-first-accessibility.yml`;
+2. batch 14 removes `.github/workflows/import-marketplace-coinbase-first-accessibility.yml`.
+
+Both removals are bounded by the already-terminal checked-in state. The batch-13 continuation loop was hourly and retained repository/issue writeback plus `github.token`. The batch-14 importer was also hourly, used `contents: write`, GitHub checkout credentials, repository commit/push writeback, setup action, and artifact upload after the projection was already terminal.
 
 No replacement hosted schedule, writeback loop, GitHub token, or NON-TV/TVC credential path is created. No TV/TVC protected value is exported into GitHub Actions.
 
 ## Continuation semantics
 
-The completed projection is state-retained rather than clock-driven. A future source change that genuinely requires new work must enter through a fresh admitted Site/StegVerse task and claim; it may not silently reactivate the retired GitHub-hosted loop.
+The completed projection is state-retained rather than clock-driven. A future upstream source change that genuinely requires renewed projection work must create a fresh admitted Site/StegVerse task and claim. It may not silently reactivate either retired hosted workflow.
 
 Any future task must preserve:
 
@@ -61,9 +64,9 @@ live_authority: NOT_GRANTED unless separately governed
 wallet_signing_broadcast: outside this Site projection
 ```
 
-## Batch-13 release gate
+## Batch-14 release gate
 
-Batch 13 is complete only when the terminal task state remains intact; `Site#130` remains closed; the former hosted continuation workflow is absent; workflow inventory decreases by exactly one; Site pre-work claims, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Site Bootstrap Validate, and Check StegFin Phone Projection pass; and no hosted validation result is treated as live financial/product activation.
+Batch 14 is complete only when the terminal evidence remains intact; `Site#130` remains closed; both retired first-accessibility hosted workflows are absent; deterministic importer/controller source remains; workflow inventory decreases exactly from 111 to 110; Site pre-work claims, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Site Bootstrap Validate, and Check StegFin Phone Projection pass; and hosted validation is not treated as live financial/product activation.
 
 ## Canonical continuation
 
