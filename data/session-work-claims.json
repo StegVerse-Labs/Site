@@ -3,8 +3,8 @@
   "registry_type": "stegverse_session_work_claim_registry",
   "repository": "StegVerse-Labs/Site",
   "historical_registry": {
-    "preserved_at_commit": "08d53d12a540554512fbcda4ab636334a0b6764b",
-    "note": "Detailed released claim history through Batch 23, GP10, TVC receipt-import credential cleanup, iPhone HB30 projection, and prior StegFin work is immutable in Git history. Released anchors and all active claims remain explicit below."
+    "preserved_at_commit": "db7da79ee1916a0249c3d1893cedac4861326961",
+    "note": "Detailed released claim history through Batch 24, GP10, TVC receipt-import credential cleanup, iPhone HB30 projection, and prior StegFin work is immutable in Git history. Released anchors and all active claims remain explicit below."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -24,27 +24,8 @@
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B23-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"e936f1481bf9b13468e83c80b7289f657640c81c"},
     {"claim_id":"SITE-GP10-GITHUB-TOKEN-WRITEBACK-RETIREMENT-R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"96423f16cf6d3f440630d322cc5d5c196e4fa672"},
     {"claim_id":"SITE-TVC-RECEIPT-IMPORT-GITHUB-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"8d85061bbc20d08449381b63f9c74c00b709830d","claim_release_commit":"97fa7890414a85bac40c3b1ff1bbf301a1983ae5","task_release_commit":"08d53d12a540554512fbcda4ab636334a0b6764b"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B24-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B24-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","branch":"claim/site-sv-continuity-109-validation-b24-r2-20260817","release_commit":"db7da79ee1916a0249c3d1893cedac4861326961","final_head":"c17725d6e78919b582167cdafa2dd4bb060bc4bf","evidence":["PR #372 merge db7da79ee1916a0249c3d1893cedac4861326961","Site Bootstrap Validate 32056528914 SUCCESS","Bootstrap job 95467858873 SUCCESS","Site Handoff Orchestrator 32056529186 SUCCESS","Ecosystem Heartbeat Orchestration 32056528958 SUCCESS","Check StegFin Phone Projection 32056528989 SUCCESS","VALID: Site verification decision BLOCK","synthetic premature PASS rejected: PASS requires Site activation and downstream verified ingestion","SV_CONTINUITY_109_SITE_VALIDATION=PASS","SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS","SV_CONTINUITY_109_AUTHORITY_EFFECT=NONE","SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS","ECOSYSTEM_CHAT_APPLICATION_PASS","IPHONE_HB30_PROJECTION_PASS","ST-017 sandbox PASS","workflow inventory 100; canonical 3; migration-required operational 97; placeholders 0","standalone validate-sv-continuity-109-site.yml absent after merge","retained receipt and validator unchanged","StegFin wallet_review=USER_ONLY signing_broadcast=USER_ONLY hosted_runtime_authority=NONE"],"authority_effect":false,"runtime_activation_effect":false,"downstream_ingestion_effect":false,"site_activation_effect":false,"custody_authority_effect":false,"provider_authority_effect":false,"financial_authority_effect":false,"next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow under Site #268."},
     {"claim_id":"SITE-IPHONE-HB30-TRANSITION-PROJECTION-358-R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"37c8ac81b8b00e22310b8f03687f4b9f42581d31"},
-    {
-      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B24-20260817",
-      "session_worker_id": "chatgpt-session-site-sv-continuity-109-b24-20260817",
-      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B24-20260817",
-      "originating_goal": "Consolidate deterministic SV-CONTINUITY-109 Site receipt validation into the credential-clean canonical Site validation path while preserving the current BLOCK truth, the premature-PASS negative test, and authority=false semantics.",
-      "repository": "StegVerse-Labs/Site",
-      "branch": "claim/site-sv-continuity-109-validation-b24-r2-20260817",
-      "role": "IMPLEMENTATION_VALIDATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
-      "normalized_work_key": "site-sv-continuity-109-validation-consolidation",
-      "dependency_surface_keys": ["site:sv-continuity-109:receipt-validation"],
-      "claimed_paths": ["data/session-work-claims.json",".github/workflows/validate.yml",".github/workflows/validate-sv-continuity-109-site.yml","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
-      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "f0959e565e2857648562c097eb27cb833702180d",
-      "claim_created_at": "2026-08-17T13:43:00-05:00",
-      "claim_expires_when": "Released after exact-head validation proves the current SV-CONTINUITY-109 BLOCK receipt remains valid, a synthetic premature PASS is rejected fail-closed, canonical Site validation remains credential-clean, the standalone workflow is absent, required Site orchestration and StegFin gates pass, the branch is current with main, and the change is merged and reflected in the canonical handoff.",
-      "expected_evidence": ["SV-CONTINUITY-109 current receipt validates as BLOCK","synthetic premature PASS is rejected","SV_CONTINUITY_109_SITE_VALIDATION=PASS","SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS","SV_CONTINUITY_109_AUTHORITY_EFFECT=NONE","standalone validate-sv-continuity-109-site.yml absent","Site Bootstrap Validate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS"],
-      "collision_boundaries": ["Do not modify receipts/sv-continuity-109-site-verification.json truth or decision","Do not claim Site activation or downstream verified ingestion","Do not create runtime/provider/HIL/StegOS/Master Record/publication/custody/StegFin wallet authority","Do not introduce or export TV/TVC credentials into GitHub Actions","No Render production path","Historical verify/sv-continuity-109 branch is not merge authority"],
-      "next_task_after_release": "Inspect the next bounded unclaimed token-bearing or redundant Site workflow under Site #268."
-    },
     {
       "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
       "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
