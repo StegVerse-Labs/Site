@@ -1,6 +1,6 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-17T15:34:00-05:00
+Updated: 2026-08-17T16:38:00-05:00
 
 ## Canonical state
 
@@ -24,6 +24,38 @@ broadcast_authority: USER_ONLY
 ```
 
 Site is static transport/materialization only. The corrected first-passkey participant is published, but Site does not own wallet keys, signatures, broadcast, settlement, TV/TVC credential authority, model/runtime authority, sovereign heartbeat authority, or live current-phone activation.
+
+## Released predecessor continuity anchors
+
+The #380 publication handoff is a compact successor handoff, but the canonical phone validator also preserves the immutable predecessor chain below. These anchors are provenance and continuity evidence only; restoring them does not reactivate predecessor claims or grant execution authority.
+
+```text
+STEGFIN-PHONE-DIRECT-ROUTE-011
+STEGFIN-PHONE-RPC-RESILIENCE-012
+SITE-STEGFIN-PHONE-PROJECTION-261
+SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289
+SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292
+STEGFIN-PHONE-STEGID-FRESHNESS-016
+TASK-2026-0004
+Site#282
+source trade contract: COMPLETE_INSTALLED
+phone direct-route blob: 31ed79cb56e8d2366e6d70f22e28c70162c88fd8
+RPC resilience blob: 290b567eca2cc9f83e7438a80682ebaf8006ad76
+StegFin RPC resilience source merge: bcba49976a52024a233f998ce290ec4ab42618ff
+STEGFIN-PHONE-WALLET-REVIEW-014
+USER_ONLY wallet review app blob: 433ef5e5db9f9f7af2c7c7df4ba01acc89125403
+current StegID bootstrap blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
+freshness identity blob: 1180d8ee929c161978d095c91514cbc3d873d3fd
+freshness evidence-export blob: 29ddb120fe6d1bd7c5118b41c4ef061d2db90a58
+StegFin PR #75
+USER_ONLY wallet review
+Copy canonical evidence
+Share canonical evidence
+unexpired StegID admission evidence required before PREPARE
+WALLET_HANDOFF_READY remains unsigned until USER_ONLY review
+```
+
+These predecessor anchors remain released history. They do not authorize reuse of expired evidence, automatic signing, automatic broadcast, hosted runtime execution, Render, or any NON-TV/TVC secret/token.
 
 ## Current iOS correction release
 
