@@ -14,7 +14,8 @@
     h1 { font-size: 1.65rem; margin-bottom: .25rem; }
     .sub { opacity: .75; margin-top: 0; }
     section { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 14px; margin: 14px 0; }
-    button { font: inherit; padding: 12px 14px; margin: 5px 4px 5px 0; border-radius: 10px; border: 1px solid rgba(127,127,127,.45); }
+    button { font: inherit; padding: 12px 14px; margin: 5px 4px 5px 0; border-radius: 10px; border: 1px solid rgba(127,127,127,.45); -webkit-appearance: none; appearance: none; touch-action: manipulation; cursor: pointer; }
+    button:disabled { opacity: .45; cursor: default; }
     code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; }
     pre { white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow: auto; }
     .value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
@@ -35,28 +36,31 @@
   <section>
     <strong>Runtime capability</strong>
     <pre id="capabilities">Checking…</pre>
+    <p>Operational readiness: <span id="operational-readiness" class="value">CHECKING</span></p>
   </section>
 
   <section>
     <strong>Node</strong>
     <p>State: <span id="node-state" class="value">NOT_ESTABLISHED</span></p>
     <p>Node ID: <span id="node-id" class="value">—</span></p>
-    <button id="establish">Establish StegVerse Node</button>
+    <p>Action: <span id="node-action-state" class="value">WAITING_FOR_READY</span></p>
+    <button id="establish" type="button" disabled>Establish StegVerse Node</button>
+    <pre id="node-error"></pre>
   </section>
 
   <section>
     <strong>Ecosystem Chat</strong>
     <p>State: <span id="chat-state" class="value">DORMANT</span></p>
     <p>Inference: <span id="inference-state" class="value">FAIL_CLOSED_UNTIL_STEGVERSE_MODEL_EVIDENCE</span></p>
-    <button id="activate-chat">Activate Ecosystem Chat</button>
+    <button id="activate-chat" type="button">Activate Ecosystem Chat</button>
   </section>
 
   <section>
     <strong>Continuity</strong>
     <p>Replay: <span id="replay-state" class="value">NOT_RUN</span></p>
     <p>Tail: <span id="tail" class="value">—</span></p>
-    <button id="replay">Replay Local Journal</button>
-    <button id="evidence">Show Evidence Bundle</button>
+    <button id="replay" type="button">Replay Local Journal</button>
+    <button id="evidence" type="button">Show Evidence Bundle</button>
     <pre id="evidence-output"></pre>
   </section>
 
@@ -72,28 +76,60 @@
       "use strict";
       var api = window.StegOSWebBootstrap;
       var caps = api.runtimeCapabilities();
+      var establishButton = document.getElementById("establish");
+      var nodeActionState = document.getElementById("node-action-state");
+      var nodeError = document.getElementById("node-error");
+      var lastActivationAt = 0;
       document.getElementById("capabilities").textContent = JSON.stringify(caps, null, 2);
 
       function showError(error) {
         document.getElementById("evidence-output").textContent = String(error && error.message ? error.message : error);
       }
 
+      function showNodeError(error) {
+        var message = String(error && error.message ? error.message : error);
+        nodeActionState.textContent = "ERROR";
+        nodeError.textContent = message;
+        document.getElementById("node-state").textContent = "NOT_ESTABLISHED";
+        showError(error);
+      }
+
       function establish() {
+        nodeActionState.textContent = "WORKING";
+        nodeError.textContent = "";
+        establishButton.disabled = true;
         return api.establishNode().then(function (state) {
           document.getElementById("node-state").textContent = "ESTABLISHED";
           document.getElementById("node-id").textContent = state.node.node_id;
+          nodeActionState.textContent = state.reused ? "ESTABLISHED_REUSED" : "ESTABLISHED_NEW";
+          establishButton.disabled = false;
           return state;
-        }).catch(function (error) { showError(error); throw error; });
+        }).catch(function (error) {
+          establishButton.disabled = false;
+          showNodeError(error);
+          throw error;
+        });
       }
 
-      document.getElementById("establish").addEventListener("click", function () {
+      function requestEstablish(event) {
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        var now = Date.now();
+        if (now - lastActivationAt < 400) { return; }
+        lastActivationAt = now;
         establish().catch(function () {});
-      });
+      }
+
+      establishButton.addEventListener("click", requestEstablish, false);
+      establishButton.addEventListener("touchend", requestEstablish, false);
 
       document.getElementById("activate-chat").addEventListener("click", function () {
         api.activateEcosystemChat().then(function (result) {
           document.getElementById("node-state").textContent = "ESTABLISHED";
           document.getElementById("node-id").textContent = result.node.node_id;
+          nodeActionState.textContent = "ESTABLISHED_REUSED";
           document.getElementById("chat-state").textContent = result.service.state;
           document.getElementById("inference-state").textContent = result.service.inference_actions_state;
           document.getElementById("tail").textContent = result.entry.entry_sha256;
@@ -117,18 +153,23 @@
         document.getElementById("offline-state").textContent = result.state + (result.scope ? " / " + result.scope : "");
       });
 
-      establish().then(function () {
-        return api.exportEvidence();
-      }).then(function (bundle) {
-        var services = bundle.receipts.filter(function (row) {
-          return row.receipt && row.receipt.schema === "stegos.web_service_activation_receipt.v1";
-        });
-        if (services.length) {
-          var latest = services[services.length - 1].receipt.service;
-          document.getElementById("chat-state").textContent = latest.state;
-          document.getElementById("inference-state").textContent = latest.inference_actions_state;
+      api.probeOperationalReadiness().then(function (probe) {
+        document.getElementById("operational-readiness").textContent = probe.state;
+        if (probe.state === "READY") {
+          establishButton.disabled = false;
+          nodeActionState.textContent = "READY";
+        } else {
+          nodeActionState.textContent = "BLOCKED";
+          nodeError.textContent = probe.reason || "Local runtime readiness failed";
         }
-      }).catch(function () {});
+        return api.readExistingNode();
+      }).then(function (existing) {
+        if (existing) {
+          document.getElementById("node-state").textContent = "ESTABLISHED";
+          document.getElementById("node-id").textContent = existing.node_id;
+          nodeActionState.textContent = "ESTABLISHED_REUSED";
+        }
+      }).catch(showNodeError);
     }());
   </script>
 </body>
