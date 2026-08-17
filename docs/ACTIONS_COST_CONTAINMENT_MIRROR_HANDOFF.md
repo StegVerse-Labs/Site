@@ -6,12 +6,15 @@
 goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 repository: StegVerse-Labs/Site
 canonical_branch: main
+active_branch: docs/site-actions-cost-b22-release-20260817
 canonical_issue: Site#268
 credential_authority: TV/TVC
 non_tv_tvc_secret_or_token_allowed: false
 github_actions_production_carrier_required: false
 preferred_workflow_surface: <=2 stable entry surfaces with evidence-backed exceptions only
 canonical_claim_registry: data/session-work-claims.json
+active_implementation_claim: SITE-ACTIONS-COST-CONTAINMENT-B22-HANDOFF-RECONCILIATION-20260817
+active_validation_claim: NONE
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
@@ -67,6 +70,20 @@ The surviving gateway workflow still uses hosted checkout/setup mechanics. Those
 
 PR #354 is closed unmerged and non-authoritative; PR #355 is the fresh-current-main canonical release.
 
+## Active handoff reconciliation
+
+```text
+claim: SITE-ACTIONS-COST-CONTAINMENT-B22-HANDOFF-RECONCILIATION-20260817
+role: INTEGRATION
+branch: docs/site-actions-cost-b22-release-20260817
+PR: #356
+claimed_path: docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md
+state: CLAIMED_FOR_INTEGRATION
+release_condition: exact-head Site orchestration and credential-clean validation PASS, merge to main, then claim release
+```
+
+This bounded claim exists only because the canonical main handoff still carries the pre-release Batch-22 state even though the implementation and release claim are already canonical on main. It changes no workflow or runtime path. The claim must be released immediately after PR #356 is validated and merged.
+
 ## Collision boundaries
 
 Active non-overlapping claims include `SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT`, `SITE-PREWORK-CLAIM-GATE-MACHINE-001`, and `SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817`. The ST-018 owner controls `.github/workflows/capture-validation-evidence.yml`, `docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md`, and its task record; do not compete.
@@ -90,7 +107,7 @@ Runtime continuation is `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md` and 
 
 ## Next executable action
 
-Respect the active ST-018 claim and inspect the next unclaimed workflow family under Site #268. Prefer redundant validation or hosted schedule/token/writeback mechanics that can be removed without taking ownership from HIL, StegOS, ST-018, StegFin, publication, custody, Master Records, or machine runtime owners.
+Validate exact PR #356 head. If Site Bootstrap, Site Handoff Orchestrator, Ecosystem Heartbeat, and StegFin projection are green, merge PR #356, release `SITE-ACTIONS-COST-CONTAINMENT-B22-HANDOFF-RECONCILIATION-20260817`, and then inspect the next unclaimed workflow family under Site #268. Respect the active ST-018 claim and all runtime/product collision boundaries.
 
 ## Completion accounting
 
@@ -107,4 +124,4 @@ session_consolidation: incomplete
 
 ## Archive condition
 
-This session is not archive-ready. Ninety-five audit-start surfaces remain unremediated/unclassified and 99 operational workflows remain migration-required. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or CI state.
+This session is not archive-ready. PR #356 must reconcile the canonical handoff, then ninety-five audit-start surfaces remain unremediated/unclassified and 99 operational workflows remain migration-required. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or CI state.
