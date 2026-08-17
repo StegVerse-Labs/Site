@@ -9,7 +9,13 @@ from urllib import error, request
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "marketplace-coinbase-activation-tasks.json"
-TOKEN = os.environ.get("STEGVERSE_CROSS_REPO_READ_TOKEN") or os.environ.get("GH_TOKEN") or ""
+FORBIDDEN_CREDENTIAL_ENV = (
+    "STEGVERSE_CROSS_REPO_READ_TOKEN",
+    "MARKETPLACE_COINBASE_EVIDENCE_TOKEN",
+    "GITHUB_TOKEN",
+    "GH_TOKEN",
+    "STEGVERSE_GITHUB_TOKEN",
+)
 
 SOURCES = [
     {
@@ -20,7 +26,7 @@ SOURCES = [
         "evidence_path": "data/first-accessibility-mark-status.json",
         "complete": lambda v: v.get("status") == "PASS" and v.get("paper_trading_accessible") is True,
         "stop_condition": "status=PASS and paper_trading_accessible=true",
-        "completion_action": "The repository workflow owns regeneration of the committed first-accessibility receipt.",
+        "completion_action": "The canonical crypto-bot owner regenerates the committed first-accessibility receipt.",
     },
     {
         "task_id": "MC-02-MARKETPLACE-COLLECTION",
@@ -30,7 +36,7 @@ SOURCES = [
         "evidence_path": "data/marketplace-coinbase-outbound-collection-status.json",
         "complete": lambda v: v.get("status") == "COLLECTED",
         "stop_condition": "status=COLLECTED; acknowledgement ACCEPTED or DUPLICATE; sequence-2 transport present",
-        "completion_action": "The Marketplace workflow owns collection, acknowledgement, sequence-2 generation, and durable status commit.",
+        "completion_action": "The canonical Marketplace owner retains collection, acknowledgement, sequence-2 generation, and durable status.",
     },
     {
         "task_id": "MC-03-PUBLISHER-VERIFY",
@@ -40,7 +46,7 @@ SOURCES = [
         "evidence_path": "data/marketplace-coinbase-release-evidence-status.json",
         "complete": lambda v: v.get("status") == "VERIFIED" and v.get("paper_release_verified") is True,
         "stop_condition": "status=VERIFIED and paper_release_verified=true",
-        "completion_action": "The Publisher workflow owns bounded reconstruction, verification, and committed public status.",
+        "completion_action": "The canonical Publisher owner retains bounded reconstruction, verification, and committed public status.",
     },
     {
         "task_id": "MC-04-SITE-PROJECTION",
@@ -50,9 +56,18 @@ SOURCES = [
         "evidence_path": "data/marketplace-coinbase-accessibility-status.json",
         "complete": lambda v: v.get("state") == "PAPER_ACCESSIBLE" and v.get("live_trading_accessible") is False,
         "stop_condition": "state=PAPER_ACCESSIBLE and live_trading_accessible=false",
-        "completion_action": "The Site import workflow owns projection regeneration after Publisher verification.",
+        "completion_action": "The canonical Site projection owner retains regeneration after Publisher verification.",
     },
 ]
+
+
+def reject_credentials() -> None:
+    present = [name for name in FORBIDDEN_CREDENTIAL_ENV if os.environ.get(name)]
+    if present:
+        raise RuntimeError(
+            "credential-bearing environment is prohibited for Marketplace Coinbase observation: "
+            + ", ".join(sorted(present))
+        )
 
 
 def api_url(repository: str, path: str) -> str:
@@ -72,11 +87,9 @@ def fetch_json(repository: str, path: str) -> tuple[str, dict, str | None]:
 
     headers = {
         "Accept": "application/vnd.github+json",
-        "User-Agent": "StegVerse-Marketplace-Coinbase-Activation-Controller/2.0",
+        "User-Agent": "StegVerse-Marketplace-Coinbase-Observation/3.0",
         "X-GitHub-Api-Version": "2022-11-28",
     }
-    if TOKEN:
-        headers["Authorization"] = f"Bearer {TOKEN}"
     try:
         req = request.Request(api_url(repository, path), headers=headers)
         with request.urlopen(req, timeout=20) as response:
@@ -90,13 +103,14 @@ def fetch_json(repository: str, path: str) -> tuple[str, dict, str | None]:
         return "OBSERVED", value if isinstance(value, dict) else {}, None
     except error.HTTPError as exc:
         if exc.code in {401, 403, 404}:
-            return "OBSERVATION_PATH_BLOCKED", {}, f"github_api_http_{exc.code}"
+            return "OBSERVATION_PATH_BLOCKED", {}, f"anonymous_github_api_http_{exc.code}"
         return f"HTTP_{exc.code}", {}, str(exc)
     except (error.URLError, TimeoutError, OSError, json.JSONDecodeError, ValueError) as exc:
         return type(exc).__name__.upper(), {}, str(exc)
 
 
-def main() -> int:
+def build_payload() -> dict:
+    reject_credentials()
     tasks = []
     all_complete = True
     for source in SOURCES:
@@ -108,48 +122,63 @@ def main() -> int:
             state = "COMPLETE"
             next_action = "none"
         elif observation == "OBSERVATION_PATH_BLOCKED":
-            state = "CONTROLLER_ACCESS_REPAIR"
+            state = "BLOCKED_DEPENDENCY"
             next_action = (
-                "Repair the controller observation path in StegVerse-Labs/Site#131 while the named repository workflow "
-                "continues owning task completion; continue adjacent development."
+                "The anonymous observation path cannot see this evidence. The named repository/issue remains the "
+                "canonical owner; do not repair observation by introducing a GitHub token."
             )
         else:
-            state = "ACTIVE_RETRY"
-            next_action = source["completion_action"] + " Continue adjacent development while scheduled observation retries."
+            state = "RETRY"
+            next_action = source["completion_action"] + " StegVerse-owned observation may retry later."
 
-        tasks.append({
-            "task_id": source["task_id"],
-            "repository": source["repository"],
-            "issue": source["issue"],
-            "workflow": source["workflow"],
-            "evidence_path": source["evidence_path"],
-            "observation": observation,
-            "observation_detail": detail,
-            "state": state,
-            "stop_condition": source["stop_condition"],
-            "observed_status": value.get("status", value.get("state")),
-            "development_halt": False,
-            "completion_action": source["completion_action"],
-            "next_action": next_action,
-        })
+        tasks.append(
+            {
+                "task_id": source["task_id"],
+                "repository": source["repository"],
+                "issue": source["issue"],
+                "workflow": source["workflow"],
+                "evidence_path": source["evidence_path"],
+                "observation": observation,
+                "observation_detail": detail,
+                "state": state,
+                "stop_condition": source["stop_condition"],
+                "observed_status": value.get("status", value.get("state")),
+                "development_halt": False,
+                "completion_action": source["completion_action"],
+                "next_action": next_action,
+            }
+        )
 
-    payload = {
-        "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v2",
+    return {
+        "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v3",
         "controller_issue": "StegVerse-Labs/Site#131",
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "state": "COMPLETE" if all_complete else "ACTIVE_AUTONOMOUS_CONTINUATION",
+        "state": "COMPLETE" if all_complete else "ACTIVE_STEGVERSE_CONTINUATION",
         "development_halt": False,
-        "continuation_mode": "COMPLETE_IN_PLACE_AND_CONTINUE_ADJACENT_WORK",
+        "continuation_mode": "STEGVERSE_OWNED_OBSERVATION_ONLY",
         "controller_access": {
-            "cross_repo_token_configured": bool(TOKEN),
+            "credential_requirement": "NONE",
+            "github_token_allowed": False,
+            "non_tv_tvc_secret_or_token_allowed": False,
+            "anonymous_public_observation_only": True,
             "access_failure_is_not_task_failure": True,
             "access_failure_owner": "StegVerse-Labs/Site#131",
         },
         "tasks": tasks,
-        "authority": {"publication": False, "release": False, "execution": False, "live": False},
+        "authority": {
+            "publication": False,
+            "release": False,
+            "execution": False,
+            "live": False,
+            "financial": False,
+        },
     }
+
+
+def main() -> int:
+    payload = build_payload()
     OUTPUT.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(json.dumps({"state": payload["state"], "tasks": len(tasks)}, sort_keys=True))
+    print(json.dumps({"state": payload["state"], "tasks": len(payload["tasks"])}, sort_keys=True))
     return 0
 
 
