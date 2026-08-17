@@ -127,6 +127,50 @@
       "expected_evidence": ["Ecosystem Heartbeat Orchestration runs on every pull request", "scheduled heartbeat observation at minute 17 of each hour", "session_work_claims.report.json PASS", "site_handoff_orchestration.report.json PASS"],
       "collision_boundaries": ["This worker owns orchestration admission only, not product implementation", "It may block or redirect duplicate claims but may not mint product execution authority", "Render remains incidental unless a canonical task explicitly marks it critical"],
       "next_task_after_release": "Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B5-20260817",
+      "session_worker_id": "chatgpt-session-site-workflow-minimization-20260817",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
+      "originating_goal": "Consolidate redundant HIL import-only validation entry surfaces into the credential-clean HIL validation dispatcher while preserving deterministic import validators and canonical HIL authority boundaries.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-hil-import-validation-consolidation-20260817",
+      "role": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-workflow-minimization-hil-import-validation-batch5",
+      "dependency_surface_keys": ["site:hil:import-validation-workflow-surfaces"],
+      "claimed_paths": [
+        "data/session-work-claims.json",
+        ".github/workflows/check-hil-full-cycle-artifact-verification-import.yml",
+        ".github/workflows/check-hil-https-receiver-probe-import.yml",
+        ".github/workflows/check-hil-live-readiness.yml",
+        "scripts/check_hil_full_cycle_artifact_verification_import.py",
+        "scripts/check_hil_https_receiver_probe_import.py",
+        "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
+      ],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "claim_created_at": "2026-08-17T02:00:00-05:00",
+      "claim_expires_when": "Released after both standalone import workflows are absent, both deterministic validators execute through the credential-clean HIL dispatcher, required Site validation groups pass on the exact PR head, merge is verified, workflow census is observed, and this claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
+      "expected_evidence": [
+        "check-hil-full-cycle-artifact-verification-import.yml absent",
+        "check-hil-https-receiver-probe-import.yml absent",
+        "check_hil_full_cycle_artifact_verification_import.py retained and executed",
+        "check_hil_https_receiver_probe_import.py retained and executed",
+        "HIL validation dispatcher PASS",
+        "Site Handoff Orchestrator PASS",
+        "Ecosystem Heartbeat Orchestration PASS",
+        "Site Bootstrap Validate PASS",
+        "post-merge workflow census observed"
+      ],
+      "collision_boundaries": [
+        "Do not modify Site #81 live receiver/runtime activation ownership",
+        "Do not modify Site #67 lifecycle projection ownership",
+        "Do not compete with TVC #8 private review",
+        "Do not weaken check-hil-activation-state.yml or check-hil-end-to-end-protocol.yml stale-semantic reconciliation owned by Site #81",
+        "Do not introduce or consume NON-TV/TVC secrets or tokens",
+        "Do not use Render as a production continuation path"
+      ],
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
     }
   ]
 }
