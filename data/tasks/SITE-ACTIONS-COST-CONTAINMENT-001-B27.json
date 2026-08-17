@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
+  "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
+  "repository": "StegVerse-Labs/Site",
+  "state": "READY_FOR_CLAIM",
+  "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
+  "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+  "parent_issue": 268,
+  "intended_branch": "claim/site-thought-experiments-validation-consolidation-b27-r1-20260817",
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_actions_runtime_authority": "NONE",
+  "render_required": false,
+  "authority_effect": false,
+  "activation_effect": false,
+  "next_executable_action": "Install the exact branch-bound claim from current main, fold the unchanged deterministic validator and bounded main-push public-route check into credential-clean validate.yml, delete the standalone hourly workflow, then validate and release only from fresh current main."
+}
