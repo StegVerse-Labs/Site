@@ -4,34 +4,31 @@
 
 ```text
 goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
-originating_goal: reduce GitHub-hosted workflow/token dependence to the minimum technically necessary while preserving StegVerse execution, TV/TVC credential authority, deterministic validation, and canonical authority boundaries
 repository: StegVerse-Labs/Site
 canonical_branch: main
-coordination: StegVerse-Labs/.github#164
-workflow_minimization_coordination: StegVerse-Labs/.github#167
-repository_issues: Site#265, Site#268
+active_branch: chore/site-user-llm-bounded-receipt-validation-b20-20260817
+canonical_issue: Site#268
 credential_authority: TV/TVC
-non_tv_tvc_project_or_provider_secret_allowed: false
+non_tv_tvc_secret_or_token_allowed: false
 github_actions_production_carrier_required: false
-preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-backed standalone exceptions only
+preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-backed exceptions only
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
-active_validation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B20-20260817
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
 
-Production/runtime continuity is StegVerse-owned. GitHub Actions is non-authorizing source validation only. No Render production path is allowed and no TV/TVC protected value is exported into GitHub Actions.
+Production/runtime continuity is StegVerse-owned. GitHub Actions is non-authorizing source validation only. No Render production path is allowed. No TV/TVC protected value is exported into GitHub Actions.
 
-## Current released accounting and exact census
+## Released accounting before active Batch 20
 
 ```text
 audit_start_workflow_surfaces: 131
 released_classified_or_remediated: 33/131 = 25.19%
 remaining_audit_start_surfaces: 98/131
-current_main_workflow_count: 105
+current_released_main_workflow_count: 105
 workflow_files_eliminated_or_consolidated_by_released_cleanup: 22
 released_completed_batches_or_equivalent_semantic_migrations: 19
 released_validation_groups: 80/80 PASS
@@ -42,96 +39,90 @@ migration_required_operational: 102
 placeholders: 0
 ```
 
-The current released census is bound to PR #349 exact merge-checkout validation: `105 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 102`, `PLACEHOLDERS: 0`.
+Current released census is bound to PR #349 exact merge-checkout validation: 105 workflows / canonical 3 / migration-required operational 102 / placeholders 0. Detailed historical evidence through Batch 19 remains immutable in Git history and the prior handoff revision.
 
-## Released minimization evidence
+## Released minimization sequence
+
+Released Site workflow/token-remediation work includes PRs #270, #271, #272, #273, #305, #308, #310, #312, #313, #315, #316, #318, #324, #327, #329, #333, #337, #345, and #349.
+
+Most recent released state:
 
 ```text
-PR #270 — HIL first-release validation consolidation
-PR #271 — obsolete HIL v0.5 installers removed
-PR #272 — completed HIL deployment investigation removed
-PR #273 — completed HIL pilot evidence investigation removed
-PR #305 — HIL import validators folded
-PR #308 — Master Record release projection folded; LinkedIn retained REVIEW_REQUIRED
-PR #310 — Federal-Plus validation folded; hosted schedule retired
-PR #312 — Master Records return-receipt validation folded
-PR #313 — Master Records transfer-packet validation folded
-PR #315 — Site Bootstrap token/writeback/private-runtime authority retired
-PR #316 — HIL public-response import validation folded
-PR #318 — HIL activation-state validation folded and stale validator semantics repaired
-PR #324 — terminal Marketplace first-accessibility hosted continuation retired
-PR #327 — terminal Marketplace first-accessibility hosted importer retired
-PR #329 — Marketplace Coinbase GitHub-token/writeback controller retired; continuation bound to sovereign Healer scheduler
-PR #333 — HIL HTTPS receiver-probe regression workflow retired; deterministic regression suite folded into credential-clean HIL dispatcher
-PR #337 — Marketplace Coinbase hosted accessibility importer retired after bounded Site projection was already PAPER_ACCESSIBLE
-PR #345 — bounded user-LLM capability validator folded into canonical credential-clean Site application validation
-PR #349 — bounded user-LLM execution-import-status validator folded into canonical credential-clean Site application validation
+Batch 18 / PR #345 / merge c31413fb9ddba1de4590efd377f6fc6059e49f3f
+  bounded user-LLM capability validator folded into canonical Site application validation
+Batch 19 / PR #349 / merge 706e6da29009b66e8aeea53e435b6849d2a71d59
+  bounded user-LLM execution-import-status validator folded into canonical Site application validation
+Batch 19 validation groups: all PASS
+workflow census after Batch 19: 105 / 3 / 102 / 0
 ```
 
-Detailed historical run IDs, claim records and immutable diffs remain in Git history and `data/session-work-claims.json`.
-
-## Latest release — Batch 19 bounded user-LLM execution status consolidation
+## Active Batch 20 — bounded execution receipt import validation
 
 ```text
-claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B19-20260817
-state: MERGED_INTO_CANONICAL_WORKSTREAM / RELEASED_INTEGRATION
-PR: #349
-final_head: 01d6ed1129f23aad1965c3c54c486fb8975d295f
-merge: 706e6da29009b66e8aeea53e435b6849d2a71d59
-Site Bootstrap Validate: 32046106942 SUCCESS
-Site Handoff Orchestrator: 32046106825 SUCCESS
-Ecosystem Heartbeat Orchestration: 32046106807 SUCCESS
-Check StegFin Phone Projection: 32046106919 SUCCESS
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B20-20260817
+task: SITE-ACTIONS-COST-CONTAINMENT-B20-20260817
+branch: chore/site-user-llm-bounded-receipt-validation-b20-20260817
+state: CLAIMED_FOR_IMPLEMENTATION / VALIDATION_PENDING
+```
+
+The standalone workflow being retired is:
+
+```text
+.github/workflows/check-user-llm-bounded-execution-receipt-import.yml
+```
+
+It is a validation-only surface but still uses `actions/checkout@v4` and `actions/setup-python@v5`. Its retained deterministic validator is:
+
+```text
+scripts/check_user_llm_bounded_execution_receipt_import.py
+```
+
+The validator is fail-closed and non-authorizing. It requires bounded returned-execution evidence to preserve exact route/action scope, hashes, `status=RETURNED`, `execution_observed=true`, `authority_attached=false`, and all production/publication/continuity/custody/Master-Record/Site-activation claims false. Optional transport endpoints must be credential-free HTTPS and public-address-safe.
+
+Installed Batch-20 delta:
+
+- add `scripts/check_user_llm_bounded_execution_receipt_import.py` to `scripts/check_ecosystem_chat_application.py` immediately after the bounded execution status validator;
+- remove the standalone workflow only;
+- retain the validator and receipt data/schema surfaces unchanged;
+- do not add a schedule, checkout/setup/upload action, write permission, repository mutation, secret/token, runtime, provider, publication, wallet, or execution authority.
+
+Required release evidence:
+
+```text
 SESSION_WORK_CLAIMS_PASS
-SITE_HANDOFF_ORCHESTRATION_PASS
-ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS
-ST-017 sandbox: PASS
-canonical Site application: PASS
-bounded execution-status child validator: PASS
-workflow inventory: 105 / canonical 3 / migration-required operational 102 / placeholders 0
-authority_effect: NONE
-runtime_activation_effect: NONE
-provider_authority_effect: NONE
-execution_authority_effect: NONE
+bounded receipt child validator PASS inside canonical Site application validation
+Site Handoff Orchestrator PASS
+Ecosystem Heartbeat Orchestration PASS
+Site Bootstrap Validate PASS including ST-017 sandbox and canonical Site application
+Check StegFin Phone Projection PASS if triggered
+merge-checkout workflow census: 104 total / canonical 3 / migration-required 101 / placeholders 0
+standalone bounded receipt workflow absent
+retained validator present and invoked by canonical aggregate
 ```
 
-Released delta:
+Hosted validation is source/test evidence only and cannot establish user-LLM production execution, provider authority, local-model/runtime activation, publication, custody, Master Record release, Site product activation, StegFin execution, wallet signing/broadcast, or settlement.
 
-- `.github/workflows/check-user-llm-bounded-execution-import-status.yml` is absent from current main;
-- `scripts/check_user_llm_bounded_execution_import_status.py` is retained unchanged and executed by `scripts/check_ecosystem_chat_application.py` through credential-clean Site Bootstrap Validate;
-- the validator continues to require exactly three bounded returned-execution evidence imports while `production_execution_authorized`, `publication_authorized`, `continuity_authorized`, `custody_authorized`, `master_record_release_authorized`, `site_activation_complete`, `activation_effect`, and `authority_effect` remain false;
-- no local-model/runtime execution, provider authority, user-LLM production authority, secret/token, scheduler, wallet authority, or product activation was created.
+## Blocked HIL session-consolidation candidate
 
-## Prior release — Batch 18 bounded capability validation
+`.github/workflows/check-hil-session-consolidation.yml` remains present and must not be changed by this batch. Prior attempts proved `check_session_retirement.py` fails closed because the ARCHIVABLE `hil-runtime-consolidation-2026-08-02` record still names that workflow as a required `material_state_location`. Canonical migration belongs to Site #114. Durable blocker evidence remains in Site #268 comment `5317670388`.
 
-PR #345 / merge `c31413fb9ddba1de4590efd377f6fc6059e49f3f` retired `.github/workflows/check-user-llm-bounded-capability-import.yml` and retained its unchanged validator in canonical Site application validation. Exact-head workflow inventory was 106 / canonical 3 / migration-required 103 / placeholders 0. Authority effect remained NONE.
+`check-hil-linkedin-launch-readiness.yml` also remains REVIEW_REQUIRED and is outside this batch.
 
-## Blocked distinct candidate — HIL session-consolidation workflow
-
-The standalone `.github/workflows/check-hil-session-consolidation.yml` is still present. Attempts #338 and #341 were closed unmerged.
-
-Exact-head PR #341 validation proved that `SESSION_WORK_CLAIMS_PASS` succeeds, but `check_session_retirement.py` fails closed because the ARCHIVABLE `hil-runtime-consolidation-2026-08-02` receipt in `data/session-orchestration-registry.json` still names `.github/workflows/check-hil-session-consolidation.yml` as a required `material_state_location`.
-
-Correct migration therefore requires the canonical session-orchestration owner (Site issue #114) to update or explicitly admit migration of that archival material-state pointer to the credential-clean HIL dispatcher. Workflow cleanup must not weaken retirement validation or silently rewrite session-orchestration authority. Durable blocker evidence is preserved in Site #268 comment `5317670388`.
-
-## HIL / Healer / runtime collision boundaries
-
-Canonical HIL participant/runtime handoff: `docs/HIL_SITE_MIRROR_HANDOFF.md`.
+## Collision boundaries
 
 ```text
-Site #81: live same-origin receiver/readiness/runtime observation
-Site #67: participant lifecycle projection/integration
-TVC #8: exact-byte lifecycle + authenticated private review
-StegCore #41: cross-repository lifecycle consistency
-master-records/orchestration: custody/reconstruction/candidate release authority
-LinkedIn launch readiness: REVIEW_REQUIRED
-StegOS admitted inference: separate active product paths
-Healer scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED
+Site #81: live HIL receiver/readiness/runtime observation
+Site #67: HIL lifecycle projection/integration
+TVC #8: exact-byte lifecycle and authenticated private review
+StegCore #41: cross-repository lifecycle authority
+master-records/orchestration: custody/reconstruction/candidate release
+Site #114: session-orchestration/retirement authority
+SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT: separate claimed product paths
+SHWP-HEALER-SOVEREIGN-SCHEDULER-001: machine-owned scheduler
 StegFin wallet signing/broadcast: USER_ONLY
-session orchestration/retirement: Site #114 / do not silently rewrite archival evidence
 ```
 
-Cleanup may not create a second scheduler, runtime, review path, publication path, wallet authority, financial authority, provider authority or product-activation claim. Do not modify `check-hil-linkedin-launch-readiness.yml` while its semantic drift remains `REVIEW_REQUIRED`.
+Batch 20 may not create or duplicate any of those authorities.
 
 ## Local model/runtime convergence
 
@@ -148,29 +139,19 @@ Canonical continuation remains `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.m
 
 ## StegFin convergence
 
-Canonical continuation:
-- `StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md`
-- `StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json`
-- StegFin #77 / current phone participant path
-
-Trade execution remains machine/human-authority owned. Credential authority is TV/TVC. Wallet signing/broadcast are USER_ONLY. Workflow cleanup does not imply trade execution or settlement.
-
-## Current claims / collision state
+Canonical continuation remains:
 
 ```text
-workflow minimization/remediation through Batch 19: MERGED_INTO_CANONICAL_WORKSTREAM
-HIL session-consolidation workflow retirement: BLOCKED on Site #114 archival material-state migration
-Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
-StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
-HIL LinkedIn semantic drift: REVIEW_REQUIRED
-live sovereign runtime/inference: canonical StegVerse workers / observation only
-TV/TVC route/credential authority: TV/TVC only
-Healer resident scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED / do not compete
+StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md
+StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json
+StegFin #77 / current phone participant path
 ```
+
+Credentials are TV/TVC. Wallet signing/broadcast are USER_ONLY. This workflow cleanup grants no trade, sizing, broadcast, settlement, or wallet authority.
 
 ## Next executable action
 
-Inspect the next bounded unclaimed token-bearing or redundant workflow family under Site #268. The adjacent standalone `.github/workflows/check-user-llm-bounded-execution-receipt-import.yml` is a natural inspection target, but it must be independently checked for archival references, active authority dependencies, and deterministic no-authority semantics before any claim. Continue to avoid HIL/session-retirement, StegOS, StegFin, provider, publication, wallet, and runtime authority collisions.
+Open the exact Batch-20 PR. Inspect exact-head workflow runs, jobs, and relevant logs. Correct only deterministic credential-clean validation defects. Merge only after all required validation passes and the merge-checkout census is 104 / canonical 3 / migration-required operational 101 / placeholders 0. Then release the claim, update this handoff to 34/131 released, and inspect the next unclaimed Site #268 workflow family.
 
 ## Completion accounting — released work only
 
@@ -181,11 +162,11 @@ scaffolding_or_stubs: 0
 missing_required_files_for_completed_surfaces: 0
 validation: 80/80 released validation groups PASS
 integration: 19/19 released workflow/token-remediation groups
-propagation: not applicable to Batch 19 validation-only consolidation
+active_batch_20: implementation installed; exact-head validation pending
 goal_activation_for_cleanup_goal: 33/131 = 25.19%
 session_consolidation: incomplete
 ```
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 98/131 audit-start Site workflow surfaces remain unremediated/unclassified, 102 operational workflows remain migration-required, the HIL session-consolidation candidate is blocked on a separate canonical owner, and further unclaimed token-bearing/redundant workflow families remain executable under Site #268. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or validation state.
+This session is not archive-ready while Batch 20 is unreleased and broader Site #268 workflow/token debt remains. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or validation state.
