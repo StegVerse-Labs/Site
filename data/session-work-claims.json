@@ -39,24 +39,10 @@
       "released_at":"2026-08-17T11:21:00-05:00",
       "release_commit":"b106d3479bafa458d56f4f450f1975925e7887e6",
       "final_head":"799455e1ae32ce40d1050ac6020331891c21ac9c",
-      "evidence":[
-        "PR #337 merge b106d3479bafa458d56f4f450f1975925e7887e6",
-        "Site Bootstrap Validate 32045148638 SUCCESS",
-        "Site Handoff Orchestrator 32045148600 SUCCESS",
-        "Ecosystem Heartbeat Orchestration 32045148625 SUCCESS",
-        "Check StegFin Phone Projection 32045148618 SUCCESS",
-        "SESSION_WORK_CLAIMS_PASS",
-        "SITE_HANDOFF_ORCHESTRATION_PASS",
-        "ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS",
-        "ST-017 sandbox PASS",
-        "canonical Site application PASS",
-        "workflow inventory 107; canonical 3; migration-required operational 104; placeholders 0",
-        "import-marketplace-coinbase-accessibility.yml absent after merge",
-        "deterministic importer source/tests and PAPER_ACCESSIBLE committed state retained"
-      ],
-      "authority_effect": false,
-      "runtime_activation_effect": false,
-      "financial_authority_effect": false,
+      "evidence":["PR #337 merge b106d3479bafa458d56f4f450f1975925e7887e6","Site Bootstrap Validate 32045148638 SUCCESS","Site Handoff Orchestrator 32045148600 SUCCESS","Ecosystem Heartbeat Orchestration 32045148625 SUCCESS","Check StegFin Phone Projection 32045148618 SUCCESS","workflow inventory 107; canonical 3; migration-required operational 104; placeholders 0","import-marketplace-coinbase-accessibility.yml absent after merge","deterministic importer source/tests and PAPER_ACCESSIBLE committed state retained"],
+      "authority_effect":false,
+      "runtime_activation_effect":false,
+      "financial_authority_effect":false,
       "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
     },
     {
@@ -98,6 +84,25 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id":"SITE-MARKETPLACE-PROJECTION-LOCAL-SOURCE-HARDENING-20260817",
+      "session_worker_id":"chatgpt-session-site-marketplace-projection-local-source-20260817",
+      "task_id":"SITE-MARKETPLACE-PROJECTION-LOCAL-SOURCE-HARDENING-001",
+      "originating_goal":"Harden the deterministic Marketplace-Coinbase projection importer retained by released B16R1 so the newly source-bound Healer local target cannot execute a remote GitHub fetch path.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"fix/site-marketplace-projection-local-source-20260817",
+      "role":"IMPLEMENTATION_VALIDATION",
+      "state":"CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key":"site-marketplace-projection-local-source-hardening",
+      "dependency_surface_keys":["site:marketplace-coinbase:projection-source-hardening"],
+      "claimed_paths":["data/session-work-claims.json","scripts/import_marketplace_coinbase_accessibility.py","tests/test_marketplace_coinbase_accessibility.py","docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff":"docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md",
+      "claim_created_at":"2026-08-17T11:26:00-05:00",
+      "claim_expires_when":"Released after Healer issue #8 capability gate is source-merged, Site exact-head deterministic/claim/orchestrator/bootstrap validation passes, source-hardening PR merges, and handoff/claim release evidence is durable.",
+      "expected_evidence":["raw.githubusercontent.com absent from importer","urllib absent from importer","GitHub/Marketplace credential environment refused","Publisher source resolves only from STEGVERSE_REPO_ROOTS_JSON","projection regression tests PASS","Healer remote-capability fail-closed gate merged","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS"],
+      "collision_boundaries":["B16R1 workflow retirement is already canonical; do not recreate or recount it","Do not grant Coinbase live/financial/custody/withdrawal authority","Do not modify Publisher/Marketplace/crypto-bot authority","Do not modify StegFin, StegOS or HIL claimed product paths","Do not create another scheduler/heartbeat","Do not export TV/TVC credentials or use GitHub tokens","Do not use Render"],
+      "next_task_after_release":"Return to Site #268 and inspect the next unclaimed workflow family; this hardening does not increment the 131-workflow remediation denominator because B16R1 already retired/counts the workflow surface."
     }
   ]
 }
