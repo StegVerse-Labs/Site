@@ -7,6 +7,7 @@ goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 originating_goal: reduce GitHub-hosted workflow/token dependence to the minimum technically necessary while preserving StegVerse execution, TV/TVC credential authority, deterministic validation, and canonical authority boundaries
 repository: StegVerse-Labs/Site
 canonical_branch: main
+active_branch: chore/site-ecosystem-node-gateway-token-clean-b23r1-20260817
 coordination: StegVerse-Labs/.github#164
 workflow_minimization_coordination: StegVerse-Labs/.github#167
 repository_issues: Site#265, Site#268
@@ -17,15 +18,15 @@ preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-back
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
-active_validation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B23R1-20260817
+active_validation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B23R1-20260817
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
 
 Production/runtime continuity is StegVerse-owned. GitHub Actions is non-authorizing source validation only. No Render production path is allowed and no TV/TVC protected value is exported into GitHub Actions.
 
-## Current released accounting and exact census
+## Current released accounting
 
 ```text
 audit_start_workflow_surfaces: 131
@@ -42,88 +43,83 @@ migration_required_operational: 99
 placeholders: 0
 ```
 
-The current workflow census is bound to PR #355 exact merge-checkout validation: `102 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 99`, `PLACEHOLDERS: 0`.
+The released workflow census remains `102 / canonical 3 / migration-required 99 / placeholders 0`. Batch 23R1 hardens one retained workflow in place and therefore does not project a workflow-count decrement.
 
-## Released minimization evidence
+## Released state through Batch 22 and ST-018
 
-Released workflow/token-remediation work includes PRs #270, #271, #272, #273, #305, #308, #310, #312, #313, #315, #316, #318, #324, #327, #329, #333, #337, #345, #349, #351, #353, #355, plus the ST-018 credential-clean remediation merged at commit `69f1f89e09b6b4e4d2d89267d3c148435df9b061`.
+Batch 22 / PR #355 retired `.github/workflows/validate-ecosystem-node-canonical-events.yml` while preserving Python 3.9/3.11/3.12 compatibility, browser gateway validation, canonical fixture validation, and adversarial tests in `.github/workflows/check-ecosystem-node-gateway-binding.yml`. Canonical merge: `1b0391f3b9b0de65524aff5dbf10959b7573e67d`; final head: `eda1bef70514295838d991ba2e87ef369f9b4837`.
 
-The Marketplace projection local-import correction is separately released at PR #352 / merge `218fee91a7d2214fec328f74247e079292c45ce0`; it hardens retained acquisition but is not counted as an additional audit-start workflow remediation.
+ST-018 credential cleanup is released at PR #346 / commit `69f1f89e09b6b4e4d2d89267d3c148435df9b061`. `docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md` is canonical for that scoped remediation. Historical GitHub artifact/issue-comment custody requirements are superseded by the TV/TVC-only credential policy.
 
-## Latest release — Batch 22 Ecosystem Node canonical-event validation consolidation
+Marketplace local-projection acquisition hardening remains separately released at PR #352 / merge `218fee91a7d2214fec328f74247e079292c45ce0` and is not an additional workflow-surface retirement.
+
+## Active Batch 23R1 — Ecosystem Node gateway credential cleanup
 
 ```text
-claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B22-20260817
-state: MERGED_INTO_CANONICAL_WORKSTREAM / RELEASED_INTEGRATION
-PR: #355
-final_head: eda1bef70514295838d991ba2e87ef369f9b4837
-merge: 1b0391f3b9b0de65524aff5dbf10959b7573e67d
-Site Handoff Orchestrator: 32051234538 SUCCESS
-Ecosystem Heartbeat Orchestration: 32051178520 SUCCESS
-Check StegFin Phone Projection: 32051178509 SUCCESS
-Site Bootstrap Validate: 32051179223 SUCCESS
-Check Ecosystem Node Gateway Binding: 32051181466 SUCCESS
-workflow inventory: 102 / canonical 3 / migration-required operational 99 / placeholders 0
-ST-017 sandbox: PASS
-SESSION_WORK_CLAIMS_PASS
-SITE_HANDOFF_ORCHESTRATION_PASS
-ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS
-authority_effect: NONE
-runtime_activation_effect: NONE
-provider_authority_effect: NONE
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B23R1-20260817
+task: SITE-ACTIONS-COST-CONTAINMENT-B23-20260817
+branch: chore/site-ecosystem-node-gateway-token-clean-b23r1-20260817
+base_commit: 7293fef76ed6d10fe62ec6da81b67a147674bac8
+state: CLAIMED_FOR_INTEGRATION / IMPLEMENTED_VALIDATION_PENDING
+surface: .github/workflows/check-ecosystem-node-gateway-binding.yml
 ```
 
-The retired standalone surface is `.github/workflows/validate-ecosystem-node-canonical-events.yml`. The surviving `.github/workflows/check-ecosystem-node-gateway-binding.yml` preserves Python 3.9/3.11/3.12 compatibility, browser gateway binding validation, canonical fixture validation, and adversarial canonical-event tests. Exact-head jobs `verify (3.9)`, `verify (3.11)`, and `verify (3.12)` all passed. Hosted execution remains source/test evidence only and creates no provider/runtime/publication/custody/Master Record/wallet authority.
-
-PR #354 is superseded and closed unmerged. It exposed a stale branch claim-registry copy; PR #355 was reconstructed from fresh current main and is canonical.
-
-## Released adjacent remediation — ST-018 GitHub-token validation custody retirement
+Installed correction:
 
 ```text
-claim: SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817
-state: MERGED_INTO_CANONICAL_WORKSTREAM / RELEASED_INTEGRATION
-release_commit: 69f1f89e09b6b4e4d2d89267d3c148435df9b061
-final_head: a16f58fd2f138825f674afb714826b7af91fe331
-Capture Validation Evidence: 32051470522 SUCCESS
-Ecosystem Heartbeat Orchestration: 32051470520 SUCCESS
-Site Handoff Orchestrator: 32051470664 SUCCESS
-Site Bootstrap Validate: 32051470819 SUCCESS
-credential refusal: PASS
-exact public source fetch: PASS
-declared validator receipt enforcement: PASS
-artifact custody: NONE
-issue custody: NONE
-authority_effect: NONE
-runtime_activation_effect: NONE
-custody_authority_effect: NONE
+permissions: {}
+actions/checkout: REMOVED
+contents: read: REMOVED
+credential-bearing environment refusal: INSTALLED
+anonymous exact PR-merge/source fetch: INSTALLED
+git credential helper/extraheader persistence: REFUSED
+actions/setup-python: RETAINED ONLY for technically necessary Python 3.9/3.11/3.12 compatibility provisioning
+pytest public dependency install: RETAINED
+browser gateway binding validator: RETAINED
+canonical event fixture validator: RETAINED
+canonical event adversarial tests: RETAINED
+repository writeback: NONE
+artifact upload: NONE
+runtime/provider authority: NONE
 ```
 
-`.github/workflows/capture-validation-evidence.yml` remains as deterministic validation but is now credential-clean: `permissions: {}`, no `actions/checkout`, no `actions/setup-python`, no `actions/upload-artifact`, no `issues: write`, no `GH_TOKEN`/`${{ github.token }}`, no issue mutation, anonymous exact-SHA public source fetch, explicit credential-environment refusal, and retained fail-closed validation receipt enforcement. Canonical scoped continuation is `docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md` and Site #141.
+`actions/setup-python` is retained because the three-version compatibility matrix is direct released evidence and hosted validation may remain where credential-clean and technically necessary. No GitHub/project/provider/TV/TVC credential is passed into the job environment.
 
-## Blocked distinct candidate — HIL session-consolidation workflow
+Required exact-head evidence before merge:
+- credential-environment refusal PASS;
+- anonymous exact-ref source fetch PASS;
+- Python 3.9, 3.11, and 3.12 matrix lanes PASS;
+- browser gateway binding PASS;
+- canonical fixture PASS;
+- canonical-event adversarial tests PASS;
+- SESSION_WORK_CLAIMS_PASS;
+- Site Handoff Orchestrator PASS;
+- Ecosystem Heartbeat Orchestration PASS;
+- Site Bootstrap Validate PASS;
+- Check StegFin Phone Projection PASS.
 
-The standalone `.github/workflows/check-hil-session-consolidation.yml` remains present. Prior attempts proved `check_session_retirement.py` correctly fails closed because the ARCHIVABLE `hil-runtime-consolidation-2026-08-02` receipt in `data/session-orchestration-registry.json` names that workflow as a required `material_state_location`.
+Source merge or CI success does not establish provider execution, runtime activation, HIL activation, publication, custody, Master Record authority, StegFin execution, settlement, or wallet authority.
 
-Correct migration requires the canonical session-orchestration owner, Site #114, to update or explicitly admit migration of that archival material-state pointer. Cleanup must not weaken retirement validation or silently rewrite session-orchestration authority. `check-hil-linkedin-launch-readiness.yml` remains REVIEW_REQUIRED and must not be changed by cost-containment cleanup while that semantic drift remains unresolved.
+## Blocked and collision boundaries
 
-## Collision boundaries
+`.github/workflows/check-hil-session-consolidation.yml` remains blocked because Site #114 archival material-state evidence still points to it. `check-hil-linkedin-launch-readiness.yml` remains REVIEW_REQUIRED. Neither is an ordinary cleanup target.
 
 ```text
-Site #81: live same-origin HIL receiver/readiness/runtime observation
+Site #81: live HIL receiver/readiness/runtime observation
 Site #67: HIL lifecycle projection/integration
-TVC #8: exact-byte lifecycle + authenticated private review
+TVC #8: authenticated lifecycle/private review
 StegCore #41: cross-repository lifecycle consistency
-master-records/orchestration: custody/reconstruction/candidate release authority
+master-records/orchestration: custody/reconstruction/release authority
 Site #114: session orchestration/retirement authority
 SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT: separate claimed product paths
 SITE-PREWORK-CLAIM-GATE-MACHINE-001: MACHINE_OWNED orchestration admission
 SHWP-HEALER-SOVEREIGN-SCHEDULER-001: MACHINE_OWNED scheduler
-StegFin wallet signing/broadcast: USER_ONLY
+StegFin signing/broadcast: USER_ONLY
 ```
 
-Cleanup may not create or duplicate those authorities. Retained hosted validation mechanics remain migration debt unless evidence proves them technically necessary; they never become production/runtime/control-plane authority.
+Batch 23R1 creates none of those authorities.
 
-## Local model/runtime convergence
+## Local model/runtime and StegFin convergence
 
 ```text
 formal_local_model: COMPLETE_RELEASED
@@ -134,33 +130,24 @@ credential_authority: TV/TVC
 github_token_production_authority: NONE
 ```
 
-Canonical continuation remains `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md` and `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`. Do not recreate local-model/runtime execution in Site or GitHub Actions.
+Local runtime/model continuation: `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md` and `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`. Do not recreate this execution in Site or GitHub Actions.
 
-## StegFin convergence
-
-Canonical continuation remains:
-
-```text
-StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md
-StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json
-StegFin #77 / current phone participant path
-```
-
-Credential authority is TV/TVC. Wallet signing/broadcast are USER_ONLY. No workflow cleanup, source merge, CI success, publication, or deployment implies trade execution or settlement.
+StegFin continuation: `StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md`, `StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json`, and StegFin #77/current phone participant path. Credentials remain TV/TVC; wallet signing/broadcast remain USER_ONLY.
 
 ## Session goal transfer inventory
 
 ```text
-local model/runtime implementation: COMPLETE_RELEASED -> StegVerse-Labs/.github + StegVerse-002/micro-node-runtime handoffs
-StegFin trade preparation/authority continuation: MERGED_INTO_CANONICAL_WORKSTREAM -> stegfin-governance handoff/task-state + StegFin #77
-HIL live lifecycle/review/custody: MERGED_INTO_CANONICAL_WORKSTREAM -> Site #81/#67, TVC #8, StegCore #41, master-records/orchestration
-Site workflow/token minimization: ACTIVE_REMEDIATION -> this handoff + Site #268
-session archival determination: ACTIVE until no unique validation/integration/reconciliation/propagation responsibility remains
+local runtime discovery/launch/inference/proof: COMPLETE_RELEASED / transferred
+formal local model development: COMPLETE_RELEASED / transferred
+StegFin source/trade preparation: MERGED_INTO_CANONICAL_WORKSTREAM / transferred
+HIL lifecycle/review/custody: MERGED_INTO_CANONICAL_WORKSTREAM / transferred
+Site workflow/token minimization: ACTIVE_REMEDIATION / this handoff + Site #268
+session consolidation/archival determination: ACTIVE / depends on release or transfer of unique support work
 ```
 
 ## Next executable action
 
-Inspect the next bounded unclaimed token-bearing or redundant workflow family under Site #268. Prioritize credential-bearing checkout/setup/upload/writeback/schedule surfaces. Preserve declared compatibility/adversarial coverage when technically necessary. Avoid HIL/session-retirement, LinkedIn REVIEW_REQUIRED, StegOS claimed paths, StegFin wallet authority, provider/runtime, publication, custody, Master Record and machine-owned scheduler/orchestration collisions.
+Open the Batch 23R1 PR, run exact-head validation, inspect jobs/logs, and merge only if all required gates pass and the branch remains fresh against main. Then release the claim, finalize this handoff with exact evidence, and inspect the next unclaimed token-bearing workflow under Site #268.
 
 ## Completion accounting — released work only
 
@@ -170,11 +157,12 @@ developed_files_for_completed_surfaces: 37/37
 scaffolding_or_stubs: 0
 missing_required_files_for_completed_surfaces: 0
 validation: 97/97 released validation groups PASS
-integration: 23/23 released workflow/token-remediation groups
+integration: 23/23 released remediation groups
+Batch 23R1: implemented / exact-head validation pending
 goal_activation_for_cleanup_goal: 37/131 = 28.24%
-session_consolidation: 3/5 durable goal groups complete or transferred
+session_consolidation: 4/6 session goal groups complete or transferred
 ```
 
 ## Archive condition
 
-This session is not archive-ready because 94/131 audit-start workflow surfaces remain unremediated/unclassified, 99 operational workflows remain migration-required, the HIL session-consolidation surface remains blocked on Site #114, and further unclaimed workflow/token remediation remains executable under Site #268. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately owned and are not inferred from source or validation state.
+This session is not archive-ready while Batch 23R1 is unreleased and broader Site #268 workflow/token debt remains. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately owned and are not inferred from source or validation state.
