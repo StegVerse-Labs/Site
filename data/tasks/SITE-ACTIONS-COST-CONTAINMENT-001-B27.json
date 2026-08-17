@@ -3,7 +3,7 @@
   "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
   "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
   "repository": "StegVerse-Labs/Site",
-  "state": "BLOCKED_UPSTREAM_VALIDATOR_HANDOFF_DRIFT",
+  "state": "IMPLEMENTED_PENDING_FRESH_RECONSTRUCTION",
   "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
   "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
   "parent_issue": 268,
@@ -18,24 +18,14 @@
   "activation_effect": false,
   "implemented": {
     "deterministic_validator": "scripts/check_thought_experiments_publication.py",
-    "validator_blob_expected_unchanged": "d92cfff0bc6d8cabdb3ffa298a7a953f197a346a",
     "canonical_validation_lane": ".github/workflows/validate.yml",
     "standalone_workflow_retired": ".github/workflows/verify-thought-experiments-publication.yml",
     "hourly_schedule_retired": true,
     "checkout_action_retired_from_surface": true,
-    "public_route_observation": "bounded main-push step in credential-clean validate.yml"
+    "public_route_observation": "bounded main-push step in credential-clean validate.yml",
+    "stegfin_handoff_continuity_repair": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md historical released predecessor anchors restored without reactivating claims or authority"
   },
-  "blocking_dependency": {
-    "owner": "StegVerse-Labs/Site#380",
-    "surface": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md <-> scripts/check_stegfin_phone_projection.py",
-    "run": 32067224879,
-    "job": 95502047293,
-    "state": "FAIL",
-    "cause": "The released #380 handoff rewrite removed predecessor invariant anchors still required by the canonical StegFin phone validator.",
-    "durable_notice_comment": 5320023447,
-    "release_condition": "A fresh canonical-main or PR run of scripts/check_stegfin_phone_projection.py returns STEGFIN_PHONE_PROJECTION_PASS without weakening TV/TVC-only credentials or USER_ONLY signing/broadcast."
-  },
-  "validation_required_after_release": [
+  "validation_required": [
     "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
     "Site Bootstrap Validate PASS",
     "Site Handoff Orchestrator PASS",
@@ -44,5 +34,5 @@
     "workflow inventory one lower than pre-B27 census",
     "post-merge main-push public-route observation PASS"
   ],
-  "next_executable_action": "Wait only for the machine-observable StegFin handoff/validator contract to return PASS; then refresh PR #386 against current main, inspect exact-head jobs/logs, merge only if all pre-merge gates pass, inspect the main-push public-route observation, and release the claim/handoff."
+  "next_executable_action": "Reconstruct this exact bounded tranche from then-current main, preserving all concurrent machine receipts and claims; validate the restored StegFin continuity anchors and Thought Experiments consolidation together; merge only if zero-behind and all exact-head gates pass."
 }
