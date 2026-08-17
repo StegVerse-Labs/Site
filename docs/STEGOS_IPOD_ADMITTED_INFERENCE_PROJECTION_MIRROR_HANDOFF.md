@@ -1,24 +1,25 @@
 # StegOS iPod Admitted Inference Projection Mirror Handoff
 
-Updated: `2026-08-17T03:07:00-05:00`
+Updated: `2026-08-17T03:11:36-05:00`
 
-## Active goal
+## Released goal
 
 ```text
 goal_id: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298
 originating_goal: project the exact merged StegOS admitted-inference browser consumer to the established physical iPod surface without a second non-StegVerse machine or any NON-TV/TVC secret/token
 repository: StegVerse-Labs/Site
-branch: feat/stegos-ipod-admitted-inference-canonical-validation-298
+release_branch: release/stegos-ipod-admitted-inference-298
 canonical_issue: StegVerse-Labs/Site#298
-canonical_pr: StegVerse-Labs/Site#309
+product_pr: StegVerse-Labs/Site#309
+product_merge: 1f5ab3acde796d2787edf0493c19e193ca72eda4
 canonical_source_owner: StegVerse-Labs/StegOS#15
 source_merge: 441b72a467753a753f3cb9ac1dbced99f10de884
 claim: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT
-claim_state: CLAIMED_FOR_INTEGRATION
-claim_created_at: 2026-08-17T02:56:00-05:00
-claim_release_condition: merge exact projection, pass Site gates, observe Pages built from merge, then transfer physical execution to StegVerse-Labs/StegOS#15
+claim_state: MERGED_INTO_CANONICAL_WORKSTREAM
+claim_released_at: 2026-08-17T03:11:36-05:00
+continued_by: StegVerse-Labs/StegOS#15
 credential_authority: TV/TVC
-non_tv_tvc_secret_or_token_allowed: false
+non_tv_tvc_secret_or_token_used: false
 render_production_authority: NONE
 site_authority_effect: TRANSPORT_MATERIALIZATION_ONLY
 ```
@@ -32,15 +33,15 @@ site_authority_effect: TRANSPORT_MATERIALIZATION_ONLY
 - Site `data/session-work-claims.json`
 - Site issues #298 and #301
 
-## Convergence / collision state
+## Convergence and collision history
 
-Historical PR #300 is closed/not merged because Site #301 then owned overlapping coordination paths. Site #301 is now released and closed completed; its exact Site merge, Pages build `1156335357`, release-aware validator merge, and transfer to StegFin #77/current phone are recorded in the current claim registry.
+Historical PR #300 is closed/not merged because Site #301 then owned overlapping coordination paths. Site #301 later released and closed completed; its exact Site merge, Pages build `1156335357`, release-aware validator merge, and transfer to StegFin #77/current phone are retained in the Site claim registry.
 
-PR #307 was also closed/not merged after its first current-main validation exposed a repository-orchestrator naming mismatch: the pre-work claim validator passed, but the branch name did not overlap any root `SITE_MIRROR_HANDOFF.md` Remaining-work token. Rather than mutate the machine-owned orchestrator, canonical continuation moved unchanged product state to `feat/stegos-ipod-admitted-inference-canonical-validation-298`, which maps to the existing unfinished `canonical Site validation` workload.
+PR #307 is also closed/not merged. Its current-main attempt proved the pre-work claim contract but exposed a root Site handoff workload-name mismatch. Rather than weaken or bypass the machine-owned orchestrator, continuation moved unchanged product state onto the canonical-validation branch consumed by PR #309.
 
-The current branch descends directly from exact PR #307 head `e801aecf6d9977b92ee9646aaaae6a96abe85575`. It does not modify StegFin product semantics.
+PR #309 is the released current-main product integration. No StegFin wallet semantics, TV/TVC authority, model authority, heartbeat authority, or custody authority were duplicated or transferred to Site.
 
-## Exact source projection
+## Exact released source projection
 
 ```text
 stegos-bootstrap/index.html                018c97360e7064bf677944b79c1a3ba72dc64f51
@@ -50,39 +51,65 @@ stegos-bootstrap/service-worker.js         00de0178f5bfc881b5d3e729734d519035de9
 stegos-bootstrap/manifest.webmanifest       a223ec9454f46d0e9b91d4862f11de701792144a
 ```
 
-The first-node bootstrap JS and manifest remain unchanged. Index, admitted-inference consumer, and service worker are exact projections of merged StegOS source.
+The first-node bootstrap JS and manifest remain exact canonical source. Index, admitted-inference consumer, and service worker are exact projections of merged StegOS source.
 
-## Installed behavior
+## Released behavior
 
-The projected consumer validates canonical model ownership at `StegVerse-002/micro-node-runtime`, TVC route ownership/task at `StegVerse-Labs/TVC / TVC-SOVEREIGN-LOCAL-MODEL-ROUTE-002`, raw TVC receipt schema, exact model-proof/route endpoint binding, protected-material rejection, credential requirement `NONE`, `github_token_required=false`, model-output authority `NONE`, measured model-use proof, and local `stegos.web_admitted_inference_receipt.v1` continuity.
+The Site projection now materializes the canonical consumer that validates:
+
+- model ownership at `StegVerse-002/micro-node-runtime`;
+- TVC route ownership/task at `StegVerse-Labs/TVC / TVC-SOVEREIGN-LOCAL-MODEL-ROUTE-002`;
+- raw TVC receipt schema `stegverse.tvc.sovereign-local-model-route-receipt.v1`;
+- exact model-proof / route-endpoint binding;
+- protected credential/token/private-key rejection;
+- `credential_requirement=NONE`;
+- `github_token_required=false`;
+- model-output authority `NONE`;
+- measured model-use proof;
+- local `stegos.web_admitted_inference_receipt.v1` continuity.
 
 Inference requests use `credentials: omit`, carry no Authorization/Bearer header, and service-worker cache v2 includes `admitted-inference.js`.
 
-## Validation history and current state
+## Release validation evidence
 
-Historical exact projection validation on retired PR #300:
-
-```text
-Site Bootstrap Validate 31997844850: SUCCESS
-Site Handoff Orchestrator 31997845009: SUCCESS
-Ecosystem Heartbeat Orchestration 31997844921: SUCCESS
-artifact 9277419489
-artifact ZIP sha256 da6425b2f445b3f09fb6802d6eced893982ae5a019b198e54db1aadba865726a
-```
-
-PR #307 current-main validation before branch-name reconciliation:
+Exact PR #309 head:
+`a2d05aa23c76aad72ad75a0d7cfa114d1089bc4a`
 
 ```text
-Check StegFin Phone Projection 32008566785: SUCCESS
-Ecosystem Heartbeat 32008566717: FAIL only at root unfinished-workload mapping after heartbeat + claim validation PASS
-Site Bootstrap 32008566761: sandbox validate-application FAIL; artifact 9280894268 / sha256 30bbe9e3e20cbe09a138d9c5e90fcdae6430f667264686eaabcc1c3a7b82ca13
+Check StegFin Phone Projection 32009057684: SUCCESS
+Site Handoff Orchestrator 32009057649: SUCCESS
+Ecosystem Heartbeat Orchestration 32009057623: SUCCESS
+Site Bootstrap Validate 32009057658: SUCCESS
+Site Bootstrap job 95324526399: Validate application PASS
+canonical aggregate: ECOSYSTEM_CHAT_APPLICATION_PASS
+site-application-validation-result artifact: 9281071966
+artifact ZIP sha256: c1a5c56e23175387901fa85b5fa4217569f19479e0969d12a65ee7563c960b5a
+site mirror live-verification artifact: 9281072422
+site mirror artifact ZIP sha256: 5de0baa991a74c53b77163d2edf06106c0f4898881ba5dae42e56271fcb8ceed
 ```
 
-Current PR #309 must now rerun exact projection, canonical aggregate, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Site Bootstrap Validate, and the StegFin non-regression gate against the live merge candidate. Any remaining failure is retained and corrected before merge.
+PR #309 merged at `2026-08-17T03:11:12-05:00` as:
 
-Hosted CI is source/publication evidence only. GitHub-generated workflow credentials have zero activation, route, credential, model, custody, signing, broadcast, or production-runtime authority.
+`1f5ab3acde796d2787edf0493c19e193ca72eda4`
 
-## Machine-owned and cross-repository continuation
+Exact GitHub Pages publication:
+
+```text
+pages_build_id: 1156543676
+status: built
+source_commit: 1f5ab3acde796d2787edf0493c19e193ca72eda4
+created_at: 2026-08-17T03:11:13-05:00
+built_at: 2026-08-17T03:11:36-05:00
+canonical_public_path: https://stegverse.org/stegos-bootstrap/
+```
+
+Hosted CI and Pages are source/publication evidence only. GitHub-generated workflow credentials have zero activation, route, credential, model, custody, signing, broadcast, or production-runtime authority.
+
+## Released claim and continuation
+
+Site claim `SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT` is released as `MERGED_INTO_CANONICAL_WORKSTREAM`. The Site release condition is satisfied.
+
+Canonical continuation is now:
 
 ```text
 physical admitted inference: StegVerse-Labs/StegOS#15
@@ -91,23 +118,26 @@ model/runtime proof: StegVerse-002/micro-node-runtime
 route/credential authority: StegVerse-Labs/TV + StegVerse-Labs/TVC
 transport: StegVerse-org/LLM-adapter
 custody/reconstruction: master-records/orchestration
-Site publication: Site #298 / PR #309 only
 ```
 
-No Render production authority and no NON-TV/TVC secret/token may enter this lane.
+The next physical transition is not a Site publication task. The established iPod must consume current canonical model proof plus TVC `ROUTE_ADMITTED`, reach the admitted StegVerse endpoint, execute inference, accept measured usage proof, append `stegos.web_admitted_inference_receipt.v1`, and replay its local journal PASS.
+
+If the endpoint is only loopback/private on another StegVerse machine and is not reachable by the iPod through StegVerse, the physical goal remains incomplete and the canonical carrier/route implementation must continue building. That condition cannot be normalized into an acceptable external-machine activation state.
 
 ## Completion accounting
 
 ```text
-developed_files: 6/6 current Site projection surfaces installed
+developed_files: 6/6
 scaffolding_or_stubs: 0
 missing_required_files: 0
-validation: 2/5 gate groups have direct current-main/non-regression evidence; PR #309 rerun pending
-integration: 1/3 source projection installed; merge and Pages pending
-goal_activation: 50% TO CURRENT-MAIN SITE PUBLICATION
+validation: 5/5 release gate groups PASS
+integration: 3/3 Site publication integration complete
+goal_activation: 100% TO CURRENT-MAIN SITE PUBLICATION
 session_consolidation: 8/8 originating goal groups durably owned
+site_archive_dependency: NONE
+physical_inference_archive_dependency: StegVerse-Labs/StegOS#15
 ```
 
 ## Archive condition
 
-This Site lane releases only after #309 passes required gates, merges, exact Pages build is observed, the claim is released, and #298 closes. Physical inference then remains StegOS #15 plus canonical machine owners; publication alone never proves inference activation.
+This Site publication lane is complete and released. Site #298 may close after this release bookkeeping merges. Publication does not prove physical admitted inference activation. The remaining physical and StegAI work continues under StegOS #15 and the canonical machine owners above.
