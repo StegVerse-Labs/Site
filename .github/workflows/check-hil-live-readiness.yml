@@ -8,29 +8,48 @@ on:
     paths:
       - 'humans-as-interoperability-layer.html'
       - 'assets/hil-experiment.js'
+      - 'assets/hil-experiment-v1.1.js'
       - 'data/hil-first-release-readiness.json'
       - 'data/hil-responses.json'
       - 'data/hil-traces/**'
       - 'data/hil-full-cycle-artifact-verifications/**'
       - 'data/hil-https-receiver-probes/**'
+      - 'data/hil-master-records.json'
+      - 'data/hil-master-record-releases/**'
+      - 'data/hil-linkedin-launch-readiness.json'
+      - 'data/HIL_Canonical_Paper_v1_1.pdf'
+      - 'docs/HIL_LINKEDIN_LAUNCH_CHECKLIST.md'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
+      - 'schemas/hil_master_record_release.schema.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
+      - 'scripts/check_hil_master_record_release.py'
+      - 'scripts/check_hil_linkedin_launch_readiness.py'
       - '.github/workflows/check-hil-live-readiness.yml'
   pull_request:
     paths:
+      - 'humans-as-interoperability-layer.html'
+      - 'assets/hil-experiment-v1.1.js'
       - 'data/hil-first-release-readiness.json'
       - 'data/hil-full-cycle-artifact-verifications/**'
       - 'data/hil-https-receiver-probes/**'
+      - 'data/hil-master-records.json'
+      - 'data/hil-master-record-releases/**'
+      - 'data/hil-linkedin-launch-readiness.json'
+      - 'data/HIL_Canonical_Paper_v1_1.pdf'
+      - 'docs/HIL_LINKEDIN_LAUNCH_CHECKLIST.md'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
+      - 'schemas/hil_master_record_release.schema.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
+      - 'scripts/check_hil_master_record_release.py'
+      - 'scripts/check_hil_linkedin_launch_readiness.py'
       - '.github/workflows/check-hil-live-readiness.yml'
 
 permissions: {}
@@ -48,7 +67,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID HIL_REGISTRY_DATABASE_ID; do
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID HIL_REGISTRY_DATABASE_ID STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN; do
             if [ -n "${!name:-}" ]; then
               echo "forbidden credential environment variable present: ${name}" >&2
               exit 1
@@ -86,6 +105,12 @@ jobs:
       - name: Validate governed HTTPS receiver probe imports
         run: python3 scripts/check_hil_https_receiver_probe_import.py
 
+      - name: Validate Site-side HIL Master Record release-chain projection
+        run: python3 scripts/check_hil_master_record_release.py
+
+      - name: Validate HIL v1.1 LinkedIn launch boundary
+        run: python3 scripts/check_hil_linkedin_launch_readiness.py
+
       - name: Observe deployed HIL Site, artifact, intake, review, and publication surfaces
         if: github.event_name != 'pull_request'
         id: observe
@@ -98,8 +123,8 @@ jobs:
         run: |
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, or Master Record authority.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Governed full-cycle artifact-verification imports and HTTPS receiver-probe imports are validated here without separate token-backed workflow entry surfaces.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Import, Site-side Master Record release-chain projection, and LinkedIn launch-boundary validators are consolidated here without separate token-backed workflow entry surfaces.' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-live-readiness.latest.json ]; then
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
