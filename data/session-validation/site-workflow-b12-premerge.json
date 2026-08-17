@@ -1,0 +1,32 @@
+{
+  "schema": "stegverse.site.workflow_minimization.premerge_validation.v1",
+  "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B12-20260817",
+  "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817",
+  "pull_request": 320,
+  "branch": "chore/site-marketplace-coinbase-token-retirement-b12-20260817",
+  "initial_head": "aa6803e1dcfd507cf533948fbf07d48f93a2cb87",
+  "initial_site_bootstrap_run": 32040805772,
+  "initial_result": "FAILED_CLAIM_SCHEMA_ONLY",
+  "initial_observations": {
+    "credential_environment_refusal": "PASS",
+    "anonymous_source_fetch": "PASS",
+    "deterministic_hil_validation": "PASS",
+    "workflow_inventory_total": 112,
+    "workflow_inventory_canonical": 3,
+    "workflow_inventory_migration_required": 109,
+    "claim_failure": "missing handoff_revision"
+  },
+  "claim_correction_commit": "af7721f7dea284580a50da9c584895238696b1aa",
+  "handoff_revision": "6076abb34d8ae7e04e0f5d46d394f9cb8a5c608e",
+  "release_state": "PENDING_FRESH_EXACT_HEAD_VALIDATION",
+  "authority": {
+    "credential_authority": "TV/TVC",
+    "non_tv_tvc_secret_or_token_allowed": false,
+    "github_actions_production_authority": false,
+    "publication": false,
+    "release": false,
+    "execution": false,
+    "live": false,
+    "financial": false
+  }
+}
