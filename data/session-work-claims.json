@@ -5,7 +5,7 @@
   "historical_registry": {
     "preserved_at_commit": "f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7",
     "preserved_blob_sha": "798272e9688445e1e367b1aa29df370d10d98114",
-    "note": "Detailed completed/released claim history is immutable in Git history. Current active claims remain complete below; released claims may be represented compactly once their canonical merge/evidence is durable."
+    "note": "Detailed released claim history is immutable in Git history. Released claims are compacted below once canonical merge/evidence is durable."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -24,6 +24,17 @@
     {"claim_id":"SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"e9be3d220c09f51150a5983c0f048991531c5bc2"},
     {"claim_id":"SITE-STEGOS-IPOD-BROWSER-BOOTSTRAP-294-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"312261808b1e98927a66488ffa066d5a3abd475f"},
     {"claim_id":"SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"7529e4534bf3749141bff1921d92ede2a22144cb","continued_by":"StegVerse-Labs/stegfin-governance#77/current phone"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B5-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1f59d1861bed56cf90354df06b753e44fd2fb7ed"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"00123d8cd46ceaab9492d3d07939d65b2bfc0529"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B7-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"bbf285af75e6473dfd09bbee6db8f6d1280a298d"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B8-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"104a823254cccf0b2ae15a5524fb762ad05c6ec4"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B9-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"5b7e4bb563d9c335e986e03a06be5e372637456c"},
+    {"claim_id":"SITE-BOOTSTRAP-TOKEN-AUTHORITY-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"a062d42933d87834b611d493c0669e0b578ac9e1"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"0965f24abb57aee0cf6237cb9cbad5dfecfb3cb0"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"6a4b09c5ffbfa672f06c3264ee2090b40b1c39d6"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1"},
+    {"claim_id":"SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"72ca1b9377a918983d5bcb329fa4c13ab0294cc8","healer_merge":"ecf96188348c097dfdea3ce55c47db9dff6e84ef"},
     {
       "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
       "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
@@ -40,9 +51,9 @@
       "handoff_revision":"fcac165ce577a94dc2f7916bcf5df3a8f1d43ea6",
       "claim_created_at":"2026-08-17T02:56:00-05:00",
       "claim_expires_when":"Released after Site issue #298 exact projection, canonical validation, merge, and Pages built evidence are complete and physical continuation is transferred to StegVerse-Labs/StegOS#15.",
-      "expected_evidence":["exact upstream index blob 018c97360e7064bf677944b79c1a3ba72dc64f51","exact upstream admitted-inference blob 7f4773757a8d1a81ad2a29e0dbed8662e5b89194","exact upstream service-worker blob 00de0178f5bfc881b5d3e729734d519035de9901","projection validator PASS","Site canonical application aggregate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged fresh-current-main Site PR","Pages build built from merged Site projection"],
+      "expected_evidence":["projection validator PASS","Site canonical application aggregate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged fresh-current-main Site PR","Pages build built from merged Site projection"],
       "collision_boundaries":["Site is transport/materialization only","Do not mint TVC route authority","Do not launch or duplicate model runtime or heartbeat worker","Do not modify StegFin wallet semantics","Do not introduce NON-TV/TVC secret/token","Do not use Render as production authority","Do not assign authority to model output","Do not imply physical admitted inference from publication alone"],
-      "next_task_after_release":"StegVerse-Labs/StegOS#15 observes current canonical model/TVC evidence and physical admitted inference on node stegnode-web-cc9e0b8608af6043aed37808004b0233."
+      "next_task_after_release":"StegVerse-Labs/StegOS#15 observes current canonical model/TVC evidence and physical admitted inference on the established node."
     },
     {
       "claim_id":"SITE-PREWORK-CLAIM-GATE-MACHINE-001",
@@ -64,16 +75,25 @@
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
     },
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B5-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1f59d1861bed56cf90354df06b753e44fd2fb7ed"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"00123d8cd46ceaab9492d3d07939d65b2bfc0529"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B7-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"bbf285af75e6473dfd09bbee6db8f6d1280a298d"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B8-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"104a823254cccf0b2ae15a5524fb762ad05c6ec4"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B9-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"5b7e4bb563d9c335e986e03a06be5e372637456c"},
-    {"claim_id":"SITE-BOOTSTRAP-TOKEN-AUTHORITY-RETIREMENT-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B11-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B10R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"a062d42933d87834b611d493c0669e0b578ac9e1"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B12-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"0965f24abb57aee0cf6237cb9cbad5dfecfb3cb0"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B13-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"6a4b09c5ffbfa672f06c3264ee2090b40b1c39d6"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B14-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1","claim_release_commit":"12998c22125430d5c7610d19ba807fc915ea2b03","final_head":"10fcb2896b34411950041c02578fbe47969a87dc"},
-    {"claim_id":"SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-MARKETPLACE-ACTIVATION-CONTROLLER-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"72ca1b9377a918983d5bcb329fa4c13ab0294cc8","final_head":"caf9b6dae32f09b7475a0dbe61cbc5e7e873c089","healer_merge":"ecf96188348c097dfdea3ce55c47db9dff6e84ef","evidence":["PR #329 merge 72ca1b9377a918983d5bcb329fa4c13ab0294cc8","Site Bootstrap Validate 32044523223 SUCCESS","Site Handoff Orchestrator 32044523168 SUCCESS","Ecosystem Heartbeat Orchestration 32044523264 SUCCESS","Check StegFin Phone Projection 32044523162 SUCCESS","workflow inventory 109; canonical 3; migration-required operational 106; placeholders 0","advance-marketplace-coinbase-activation.yml absent","Healer PR #7 merge ecf96188348c097dfdea3ce55c47db9dff6e84ef","Healer Test Readiness 32044423476 SUCCESS"],"authority_effect":false,"runtime_activation_effect":false,"financial_authority_effect":false,"next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."}
+    {
+      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16-20260817",
+      "session_worker_id":"chatgpt-session-site-provider-neutral-validation-20260817",
+      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B16-20260817",
+      "originating_goal":"Eliminate the standalone GitHub-hosted Ecosystem Chat provider-neutral validation surface while preserving its deterministic validator inside the credential-clean canonical Site validation path.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-ecosystem-chat-provider-neutral-validation-b16-20260817",
+      "role":"INTEGRATION",
+      "state":"CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key":"site-ecosystem-chat-provider-neutral-validation-consolidation",
+      "dependency_surface_keys":["site:workflow-minimization:ecosystem-chat-provider-neutral-validation"],
+      "claimed_paths":["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md","scripts/check_ecosystem_chat_application.py","scripts/check_ecosystem_chat_provider_neutral_binding.py",".github/workflows/check-ecosystem-chat-provider-neutral-binding.yml"],
+      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision":"68fc18721c04653588b0b947d51d62da4e1bde0f",
+      "claim_created_at":"2026-08-17T11:03:00-05:00",
+      "claim_expires_when":"Released after the deterministic provider-neutral validator is bound into credential-clean canonical Site validation, the standalone workflow is absent, exact-head validation passes, workflow census decreases exactly by one, merge completes, handoff is updated, and the claim is released.",
+      "expected_evidence":["provider-neutral validator remains installed","canonical Site application executes provider-neutral validator","standalone provider-neutral workflow absent","Site Bootstrap Validate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","workflow inventory 108 total / 3 canonical / 105 migration-required operational / 0 placeholders"],
+      "collision_boundaries":["No provider execution or route authority","No runtime/local-model/heartbeat mutation","No HIL or StegOS claimed-path mutation","No StegFin wallet mutation or signing/broadcast","No NON-TV/TVC secret/token","No TV/TVC credential export into GitHub Actions","No Render","Validation consolidation grants no activation authority"],
+      "next_task_after_release":"Inspect the next bounded unclaimed redundant or token-bearing Site workflow under Site#268."
+    }
   ]
 }
