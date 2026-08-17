@@ -140,19 +140,21 @@ jobs:
           from pathlib import Path
           workflow = Path('.github/workflows/gp10-workspace-security.yml').read_text(encoding='utf-8')
           forbidden = [
-              'permissions:\n  contents: write',
+              'permissions:' + '\n  contents: ' + 'write',
               'actions/' + 'checkout@',
               'actions/' + 'setup-python@',
               'actions/' + 'upload-artifact@',
-              'issues: write',
+              'issues:' + ' write',
               'GH_' + 'TOKEN:',
               '$' + '{{ github.' + 'token }}',
               'git ' + 'push',
               'git ' + 'commit',
           ]
+          hits = [marker for marker in forbidden if marker in workflow]
+          if hits:
+              raise SystemExit(f'forbidden GP10 hosted authority marker(s): {hits}')
           assert 'permissions: {}' in workflow
           assert 'Refuse credential-bearing GP10 validation configuration' in workflow
-          assert all(marker not in workflow for marker in forbidden), forbidden
           print('GP10_VALIDATION_ONLY=PASS')
           print('GP10_REPOSITORY_WRITEBACK=NONE')
           print('GP10_ARTIFACT_CUSTODY=NONE')
