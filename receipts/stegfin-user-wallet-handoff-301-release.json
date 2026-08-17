@@ -1,0 +1,50 @@
+{
+  "schema": "site.stegfin.user_only_wallet_handoff_release_receipt.v1",
+  "task_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301",
+  "claim_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817",
+  "state": "PRODUCT_MERGED_PAGES_BUILT_AWAITING_CLAIM_RELEASE",
+  "source_repository": "StegVerse-Labs/stegfin-governance",
+  "source_task": "STEGFIN-USER-ONLY-WALLET-HANDOFF-017",
+  "source_issue": 77,
+  "source_pr": 78,
+  "source_merge": "7c71636ef3e682443f561f3f1162673b42e12036",
+  "site_issue": 301,
+  "site_product_pr": 302,
+  "site_product_merge": "4e876834ad8822dd55db3cafb60152390c60a086",
+  "pages_build": 1156335357,
+  "pages_status": "built",
+  "pages_commit": "4e876834ad8822dd55db3cafb60152390c60a086",
+  "source_blobs": {
+    "assets/stegfin-phone/wallet-user-handoff.js": "c9c0688ab58e1a196bd777c45fa6f33fa7b9601b",
+    "assets/stegfin-phone/wallet-user-handoff-ui.js": "83a36d6b622c45be35d1af14d96f7ff92e71ced3"
+  },
+  "validation": {
+    "check_stegfin_phone_projection": {"run_id": 31999164165, "conclusion": "success"},
+    "site_handoff_orchestrator": {"run_id": 31999164164, "conclusion": "success"},
+    "ecosystem_heartbeat_orchestration": {"run_id": 31999164196, "conclusion": "success"},
+    "site_bootstrap_validate": {"run_id": 31999164179, "conclusion": "success"}
+  },
+  "transition_contract": {
+    "wallet_handoff_requires_explicit_user_action": true,
+    "wallet_provider_type": "ALREADY_INJECTED_EIP1193_ONLY",
+    "automatic_network_switching": false,
+    "submitted_transaction_hash_is_settlement": false,
+    "chain_receipt_required_before_successor": true,
+    "stale_quote_reuse_allowed_after_confirmation": false,
+    "stale_simulation_reuse_allowed_after_confirmation": false,
+    "stale_candidate_reuse_allowed_after_confirmation": false,
+    "successor_prepare_requires_explicit_user_presence": true,
+    "successor_stops_at_wallet_handoff_ready": true
+  },
+  "credential_authority": "TV/TVC",
+  "credential_requirement": "NONE",
+  "non_tv_tvc_secret_or_token_used": false,
+  "hosted_wallet_relay_used": false,
+  "render_required": false,
+  "wallet_signing_authority": "USER_ONLY",
+  "broadcast_authority": "USER_ONLY",
+  "automatic_signing": false,
+  "automatic_broadcast": false,
+  "authority_effect": "NONE_RELEASE_EVIDENCE_ONLY",
+  "release_condition": "Release reconciliation PR passes Site gates and merges; terminal main bookkeeping then marks this receipt COMPLETE_RELEASED_PRODUCT, releases the Site claim, closes Site #301, and transfers live compatibility/successor proof to StegFin #77/current phone."
+}
