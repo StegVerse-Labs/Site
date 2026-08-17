@@ -10,6 +10,7 @@ on:
       - 'assets/hil-experiment.js'
       - 'data/hil-first-release-readiness.json'
       - 'data/hil-responses.json'
+      - 'data/hil-public-response-imports/**'
       - 'data/hil-traces/**'
       - 'data/hil-full-cycle-artifact-verifications/**'
       - 'data/hil-https-receiver-probes/**'
@@ -19,6 +20,7 @@ on:
       - 'data/hil-master-record-transfers/**'
       - 'data/hil-federal-plus-security-baseline.json'
       - 'data/hil-federal-control-floor.json'
+      - 'schemas/hil_public_response_import.schema.json'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
       - 'schemas/hil_master_record_release.schema.json'
@@ -31,6 +33,7 @@ on:
       - 'data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
+      - 'scripts/check_hil_public_response_import.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
       - 'scripts/check_hil_master_record_release.py'
@@ -41,6 +44,8 @@ on:
   pull_request:
     paths:
       - 'data/hil-first-release-readiness.json'
+      - 'data/hil-responses.json'
+      - 'data/hil-public-response-imports/**'
       - 'data/hil-full-cycle-artifact-verifications/**'
       - 'data/hil-https-receiver-probes/**'
       - 'data/hil-master-records.json'
@@ -49,6 +54,7 @@ on:
       - 'data/hil-master-record-transfers/**'
       - 'data/hil-federal-plus-security-baseline.json'
       - 'data/hil-federal-control-floor.json'
+      - 'schemas/hil_public_response_import.schema.json'
       - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
       - 'schemas/hil_https_receiver_probe_import.schema.json'
       - 'schemas/hil_master_record_release.schema.json'
@@ -61,6 +67,7 @@ on:
       - 'data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
+      - 'scripts/check_hil_public_response_import.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
       - 'scripts/check_hil_master_record_release.py'
@@ -116,6 +123,9 @@ jobs:
       - name: Validate fail-closed HIL first-release state
         run: python3 scripts/check_hil_first_release_readiness.py
 
+      - name: Validate HIL public response import boundary
+        run: python3 scripts/check_hil_public_response_import.py
+
       - name: Validate governed full-cycle artifact verification imports
         run: python3 scripts/check_hil_full_cycle_artifact_verification_import.py
 
@@ -147,7 +157,7 @@ jobs:
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, custody, reconstruction, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Import, Site-side Master Record release projection, Master Records return-receipt and transfer-packet, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Public-response import, artifact-verification import, HTTPS probe import, Site-side Master Record release projection, Master Records return-receipt and transfer-packet, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-federal-plus-security-validation.json ]; then
             echo '' >> "$GITHUB_STEP_SUMMARY"
             echo '### HIL Federal-Plus Security Validation' >> "$GITHUB_STEP_SUMMARY"
