@@ -7,18 +7,19 @@ goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 originating_goal: reduce GitHub-hosted workflow/token dependence to the minimum technically necessary while preserving StegVerse execution, TV/TVC credential authority, deterministic validation, and canonical authority boundaries
 repository: StegVerse-Labs/Site
 canonical_branch: main
+active_branch: chore/site-marketplace-coinbase-token-retirement-b13-20260817
 coordination: StegVerse-Labs/.github#164
 workflow_minimization_coordination: StegVerse-Labs/.github#167
 repository_issues: Site#265, Site#268
 credential_authority: TV/TVC
-non_tv_tvc_project_or_provider_secret_allowed: false
+non_tv_tvc_secret_or_token_allowed: false
 github_actions_production_carrier_required: false
 preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-backed standalone exceptions only
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
-active_validation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817
+active_validation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
@@ -32,6 +33,7 @@ audit_start_workflow_surfaces: 131
 released_classified_or_remediated: 26/131 = 19.85%
 remaining_audit_start_surfaces: 105/131
 current_main_workflow_count: 112
+active_B13_branch_workflow_count_expected: 111
 workflow_files_eliminated_or_consolidated_by_released_cleanup: 15
 recurring_schedules_removed_by_released_cleanup: 10
 released_completed_batches: 12
@@ -40,7 +42,7 @@ released_batch_integrations: 12/12
 review_required_surfaces: 1
 ```
 
-Exact batch-12 validation rebuilt the merge checkout inventory and reported `SITE WORKFLOW INVENTORY: 112 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 109`, `PLACEHOLDERS: 0`.
+Exact batch-12 validation rebuilt the merge checkout inventory and reported `SITE WORKFLOW INVENTORY: 112 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 109`, `PLACEHOLDERS: 0`. Batch 13 is not counted as released until exact-head validation and merge evidence exist.
 
 ## Released minimization evidence
 
@@ -59,7 +61,7 @@ PR #316 merge a062d42933d87834b611d493c0669e0b578ac9e1 — HIL public-response i
 PR #318 merge 0965f24abb57aee0cf6237cb9cbad5dfecfb3cb0 — HIL activation-state validation folded and stale validator semantics repaired
 ```
 
-Detailed prior batch evidence remains immutable in Git history and in the released claim records. Batch 11 established the token-clean Site Bootstrap validation path; B10R1 then released the public-response import consolidation against that baseline.
+Detailed prior batch evidence remains immutable in Git history and released claim records.
 
 ## Batch 12 release — HIL activation-state validator consolidation
 
@@ -80,16 +82,58 @@ authority_effect: NONE
 runtime_activation_effect: NONE
 ```
 
-Released delta:
+Standalone `.github/workflows/check-hil-activation-state.yml` is absent from main. The retained validator distinguishes preserved historical v0.5 custody evidence from current v1.1 state and remains credential-clean validation only.
 
-- standalone `.github/workflows/check-hil-activation-state.yml` is absent;
-- `scripts/check_hil_activation_state.py` remains the deterministic validator, but its stale cross-version assumptions were repaired after the first exact-head run exposed a pre-existing `manifest Primary state mismatch`;
-- the repair explicitly separates preserved historical v0.5 custody evidence from the current canonical v1.1 experiment artifact and verifies both exact hashes/paths/states without changing `data/hil-activation-state.json` or `data/hil-experiment.json`;
-- `data/hil-activation-state.json`, `data/hil-experiment.json`, `data/hil-primary-v0.5-review.pdf.b64`, `data/HIL_Canonical_Paper_v1_1.pdf`, and the validator are now covered by credential-clean HIL validation semantics as applicable;
-- `Validate fail-closed HIL activation state` executes inside `.github/workflows/check-hil-live-readiness.yml`;
-- the consolidated workflow remains `permissions: {}`, explicitly refuses credential-bearing environment variables, anonymously fetches the exact source ref, and creates no HIL activation, review, publication, custody, Master Record, provider, wallet, deployment, or execution authority.
+## Batch 13 active — Marketplace Coinbase GitHub-token/controller retirement
 
-The first batch-12 run also exposed a claim-schema defect (`handoff_revision` absent); that claim metadata was corrected before the final exact-head validation. Neither discovery required private GitHub dependencies, NON-TV/TVC credentials, or restoration of hosted runtime authority.
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817
+task: SITE-ACTIONS-COST-CONTAINMENT-B13-20260817
+branch: chore/site-marketplace-coinbase-token-retirement-b13-20260817
+superseded_attempt: PR #320 CLOSED_UNMERGED
+claim_commit: 21991d798878c508e99532f34ee57be6ff5cd3e1
+workflow_removal_commit: 6a074afd19ff509386902a502995d3c5e5d73346
+credential_clean_observer_commit: 1febc8d23d4d999014596c563555a2b4c2e5522b
+state_binding_commit: 98126cbbb10da96c464f254c0425ca26d3f3deb6
+marketplace_handoff_commit: 515ee3d43a68a253417870d8d147e493de4ea94e
+state: IMPLEMENTED / EXACT_HEAD_VALIDATION_PENDING
+```
+
+The removed standalone `.github/workflows/advance-marketplace-coinbase-activation.yml` used:
+
+```text
+permissions: contents: write, issues: write
+STEGVERSE_CROSS_REPO_READ_TOKEN <- secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN
+GH_TOKEN <- github.token
+actions/checkout@v4
+actions/setup-python@v5
+git commit/push writeback
+actions/upload-artifact@v4
+```
+
+Those mechanics are not an admissible standalone exception. The branch keeps `scripts/advance_marketplace_coinbase_activation.py` but converts it into a credential-clean StegVerse observer. It rejects `STEGVERSE_CROSS_REPO_READ_TOKEN`, `MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `GITHUB_TOKEN`, `GH_TOKEN`, and `STEGVERSE_GITHUB_TOKEN`; sends no Authorization header; and records inaccessible public evidence as `BLOCKED_DEPENDENCY` assigned to the named upstream repository/issue rather than asking for a token.
+
+The v3 state contract records:
+
+```text
+credential_requirement: NONE
+github_token_allowed: false
+non_tv_tvc_secret_or_token_allowed: false
+anonymous_public_observation_only: true
+continuation_mode: STEGVERSE_OWNED_OBSERVATION_ONLY
+publication/release/execution/live/financial authority: false
+```
+
+No Coinbase/live-trading, Marketplace, Publisher, crypto-bot, StegFin, StegOS, HIL, wallet, publication, provider, credential, or runtime authority is added or transferred. The prior PR #320 is closed and explicitly superseded because it reused the already-released B12 claim; B13 is the collision-safe reconstruction from current main.
+
+Required exact-head release gates:
+
+1. Site Handoff Orchestrator PASS;
+2. Ecosystem Heartbeat Orchestration PASS;
+3. Site Bootstrap Validate PASS;
+4. any path-triggered Marketplace/Site deterministic validation PASS;
+5. workflow inventory proves exactly one standalone workflow removed (112 -> 111) with no unexpected canonical-surface loss;
+6. branch/claim remains nonoverlapping with active StegOS and machine-owned product paths.
 
 ## HIL / Healer / runtime collision boundaries
 
@@ -138,7 +182,9 @@ Trade execution remains machine/human-authority owned. Credential authority is T
 
 ```text
 workflow minimization/remediation through batch 12: MERGED_INTO_CANONICAL_WORKSTREAM
-batch 10 old PR #314: SUPERSEDED / CLOSED_UNMERGED
+batch 13 Marketplace Coinbase controller retirement: CLAIMED_FOR_IMPLEMENTATION_VALIDATION
+PR #320: SUPERSEDED / CLOSED_UNMERGED
+PR #321: DUPLICATE B12 / CLOSED_UNMERGED
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
 HIL LinkedIn semantic drift: REVIEW_REQUIRED
@@ -153,7 +199,7 @@ Workflow-only cleanup does not create a product release requiring Publisher, adm
 
 ## Next executable action
 
-Inspect Site #268 and current `.github/workflows` for the next bounded unclaimed token-bearing or redundant workflow family. Create a fresh branch-bound claim before mutation, preserve deterministic validators where necessary, transfer operational recurrence to StegVerse workers rather than GitHub Actions, and retain evidence-backed standalone exceptions only when technically necessary. Do not modify `check-hil-linkedin-launch-readiness.yml` while its semantic drift remains `REVIEW_REQUIRED`.
+Open the fresh B13 pull request, inspect exact-head jobs/logs, correct only credential-clean deterministic validation defects, merge only on required PASS evidence, verify main workflow count 111, release the B13 claim, update this handoff with exact immutable evidence, then continue the next unclaimed workflow family under Site #268.
 
 ## Completion accounting — released work only
 
@@ -164,6 +210,7 @@ scaffolding_or_stubs: 0
 missing_required_files_for_completed_batches: 0
 validation: 51/51 released-batch groups PASS
 integration: 12/12 released workflow/token-remediation batches
+active_B13: implementation installed; exact-head validation pending
 propagation: not applicable for workflow-only cleanup
 goal_activation_for_cleanup_goal: 26/131 = 19.85%
 session_consolidation: incomplete
@@ -171,4 +218,4 @@ session_consolidation: incomplete
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 105/131 audit-start Site workflow surfaces remain unremediated/unclassified and the next bounded unclaimed cleanup family remains executable under Site #268.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because B13 is unreleased and 105/131 audit-start Site workflow surfaces remain unremediated/unclassified.
