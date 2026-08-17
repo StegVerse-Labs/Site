@@ -67,6 +67,8 @@
     card.append(head, copy, handoff, observe, successor, status, boundary);
     evidence.parentNode.insertBefore(card, evidence);
 
+    let persistentFailure = '';
+
     function renderState() {
       let rt;
       try { rt = runtime(); } catch (error) {
@@ -77,7 +79,7 @@
         return;
       }
       const s = rt.getState();
-      status.textContent = stateText(s);
+      status.textContent = persistentFailure || stateText(s);
       observe.disabled = !s || !['SUBMITTED_NOT_SETTLED', 'SUBMITTED_AWAITING_CHAIN_RECEIPT'].includes(s.state);
       successor.disabled = !s || s.state !== 'CONFIRMED_REPREPARE_REQUIRED';
       handoff.disabled = false;
@@ -85,12 +87,13 @@
 
     async function run(button, label, fn) {
       const original = button.textContent;
+      persistentFailure = '';
       button.disabled = true;
       button.textContent = label;
       try {
         await fn();
       } catch (error) {
-        status.textContent = `Fail closed: ${String(error?.message || error)}`;
+        persistentFailure = `Fail closed: ${String(error?.message || error)}`;
       } finally {
         button.textContent = original;
         renderState();
@@ -111,12 +114,18 @@
       window.dispatchEvent(new Event('stegfin:successor-prepared'));
     });
 
-    window.addEventListener('stegfin:user-wallet-handoff-state', renderState);
+    window.addEventListener('stegfin:user-wallet-handoff-state', () => {
+      persistentFailure = '';
+      renderState();
+    });
     renderState();
 
     const initial = runtime().getState();
     if (initial && ['SUBMITTED_NOT_SETTLED', 'SUBMITTED_AWAITING_CHAIN_RECEIPT'].includes(initial.state)) {
-      runtime().observeSubmittedTransaction().then(renderState).catch(() => renderState());
+      runtime().observeSubmittedTransaction().then(renderState).catch((error) => {
+        persistentFailure = `Fail closed: ${String(error?.message || error)}`;
+        renderState();
+      });
     }
   }
 
