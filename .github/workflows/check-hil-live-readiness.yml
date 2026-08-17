@@ -9,6 +9,9 @@ on:
       - 'humans-as-interoperability-layer.html'
       - 'assets/hil-experiment.js'
       - 'data/hil-first-release-readiness.json'
+      - 'data/hil-activation-state.json'
+      - 'data/hil-experiment.json'
+      - 'data/hil-primary-v0.5-review.pdf.b64'
       - 'data/hil-responses.json'
       - 'data/hil-public-response-imports/**'
       - 'data/hil-traces/**'
@@ -32,6 +35,7 @@ on:
       - 'docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md'
       - 'data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json'
       - 'scripts/check_hil_first_release_readiness.py'
+      - 'scripts/check_hil_activation_state.py'
       - 'scripts/check_hil_live_readiness.py'
       - 'scripts/check_hil_public_response_import.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
@@ -44,6 +48,9 @@ on:
   pull_request:
     paths:
       - 'data/hil-first-release-readiness.json'
+      - 'data/hil-activation-state.json'
+      - 'data/hil-experiment.json'
+      - 'data/hil-primary-v0.5-review.pdf.b64'
       - 'data/hil-responses.json'
       - 'data/hil-public-response-imports/**'
       - 'data/hil-full-cycle-artifact-verifications/**'
@@ -66,6 +73,7 @@ on:
       - 'docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md'
       - 'data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json'
       - 'scripts/check_hil_first_release_readiness.py'
+      - 'scripts/check_hil_activation_state.py'
       - 'scripts/check_hil_live_readiness.py'
       - 'scripts/check_hil_public_response_import.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
@@ -123,6 +131,9 @@ jobs:
       - name: Validate fail-closed HIL first-release state
         run: python3 scripts/check_hil_first_release_readiness.py
 
+      - name: Validate fail-closed HIL activation state
+        run: python3 scripts/check_hil_activation_state.py
+
       - name: Validate HIL public response import boundary
         run: python3 scripts/check_hil_public_response_import.py
 
@@ -157,7 +168,7 @@ jobs:
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, custody, reconstruction, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Public-response import, artifact-verification import, HTTPS probe import, Site-side Master Record release projection, Master Records return-receipt and transfer-packet, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Activation-state, public-response import, artifact-verification import, HTTPS probe import, Site-side Master Record release projection, Master Records return-receipt and transfer-packet, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-federal-plus-security-validation.json ]; then
             echo '' >> "$GITHUB_STEP_SUMMARY"
             echo '### HIL Federal-Plus Security Validation' >> "$GITHUB_STEP_SUMMARY"
