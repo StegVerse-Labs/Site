@@ -4,7 +4,7 @@
   "custody_authority": "NOT_GRANTED",
   "execution_authority": "NOT_GRANTED",
   "failures": [],
-  "generated_at": "2026-08-17T05:19:22.467674Z",
+  "generated_at": "2026-08-17T05:54:29.831020Z",
   "live_authority": "NOT_GRANTED",
   "outbound_manifest_digest": "sha256:854bd485bb93a50a086778d21a33da33299ef3abc36552547a5bf41d9e797333",
   "paper_trading_accessible": true,
@@ -23,6 +23,6 @@
   "source_repository": "StegVerse-Labs/crypto-bot",
   "source_workflow_run_id": "30681165495",
   "status": "ACCESSIBLE",
-  "status_digest": "sha256:87e89981e71bde88a99e8d42c45ee0ee2f03f8efbe4bb000eada611996aa0e56",
+  "status_digest": "sha256:73a184f00bf2ad4b94332ddf3b6c5627b39379d0a14242dd0ae322167cb2c101",
   "withdrawal_authority": "NOT_GRANTED"
 }
