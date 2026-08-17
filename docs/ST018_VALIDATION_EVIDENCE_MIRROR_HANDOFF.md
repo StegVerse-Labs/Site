@@ -4,72 +4,46 @@
 
 ```text
 goal_id: SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817
-originating_goal: Preserve ST-018 deterministic validation evidence while removing NON-TV/TVC GitHub-token use, issue mutation, and GitHub-hosted custody/writeback semantics.
+parent_goal: SITE-ACTIONS-COST-CONTAINMENT-001
+batch_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B17R1-20260817
 repository: StegVerse-Labs/Site
-branch: main
+branch: chore/site-st018-token-custody-retirement-b17r1-20260817
 canonical_issue: StegVerse-Labs/Site#141
 parent_workflow_minimization_issue: StegVerse-Labs/Site#268
 credential_authority: TV/TVC
 non_tv_tvc_secret_or_token_allowed: false
 github_actions_production_runtime_control_plane_authority: NONE
-runtime_authority_effect: NONE
-publication_authority_effect: NONE
-release_authority_effect: NONE
+state: CLAIMED_FOR_IMPLEMENTATION
 ```
 
-This file is the scoped continuation source for the ST-018 hosted validation-evidence surface. Live repository state and exact validation evidence supersede chat history.
+Live repository state, claim state, exact validation evidence, and the parent cost-containment handoff supersede chat.
 
-## Existing contract
+## Retained deterministic contract
 
-ST-018 declares deterministic validation through:
+`validation_manifests/repository-core.json`, `schemas/validation-execution-receipt.schema.json`, `scripts/capture_validation_manifest.py`, `scripts/write_site_current_main_validation_receipt.py`, `scripts/check_site_current_main_validation_receipt_writer.py`, `scripts/check_site_current_main_validation_evidence.py`, and `data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json` remain retained.
 
-```text
-validation_manifests/repository-core.json
-schemas/validation-execution-receipt.schema.json
-scripts/capture_validation_manifest.py
-scripts/write_site_current_main_validation_receipt.py
-scripts/check_site_current_main_validation_receipt_writer.py
-scripts/check_site_current_main_validation_evidence.py
-data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json
-```
+## B17R1 migration
 
-The existing `.github/workflows/capture-validation-evidence.yml` is noncompliant with the current credential policy because it grants `issues: write`, uses `actions/checkout`, `actions/setup-python`, `actions/upload-artifact`, and exports `GH_TOKEN=${{ github.token }}` to publish a GitHub issue comment. Those mechanics may provide evidence transport but cannot remain a required evidence/custody or authority path under the TV/TVC-only credential rule.
+The retired `.github/workflows/capture-validation-evidence.yml` used `issues: write`, `actions/checkout`, `actions/setup-python`, `actions/upload-artifact`, and `GH_TOKEN=${{ github.token }}` issue mutation. Those hosted transport/custody mechanics are not ST-018 semantics and conflict with the TV/TVC-only credential requirement.
 
-## Active claim
+B17R1 removes that workflow and transfers unfinished native-main observation to the existing Site heartbeat capability `.stegverse/repo-heartbeat.json::activation_receipt_validation`, with `github_token_required=false`. No second scheduler, heartbeat, custody authority, runtime, publication path, or product activation lane is created.
 
-No implementation claim is granted by this handoff itself. A branch-bound implementation claim must be installed in `data/session-work-claims.json` before source mutation.
+Canonical task: `data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json`, state `BLOCKED_DEPENDENCY_MACHINE_OWNED`, owner `Site repository heartbeat activation_receipt_validation capability / StegVerse control plane`.
 
-Collision boundaries:
-- do not weaken the declared validators or receipt schema;
-- do not claim ST-018 validation proves factual truth, admissibility, publication, deployment, release, standing, certification, or runtime activation;
-- do not export TV/TVC credentials into GitHub Actions;
-- do not introduce any alternate GitHub/project/provider token;
-- do not modify the active StegOS admitted-inference paths;
-- do not duplicate Site pre-work admission or sovereign worker authority.
+## Collision boundaries
 
-## Intended transition
+Do not weaken validators/receipt schema, export TV/TVC credentials, add alternate GitHub/project/provider tokens, modify active StegOS admitted-inference or HIL product paths, duplicate Site pre-work admission/heartbeat/scheduler/Master Records custody, or infer runtime/HIL/StegFin/wallet authority from validation cleanup.
 
-```text
-GitHub-hosted token/write-capable evidence publication
--> credential-clean deterministic validation execution only
--> local repository receipt generation/checking
--> durable repository state where source changes are appropriate
--> StegVerse/Master Records custody only when a canonical custody contract requires it
-```
+## Release gates
 
-GitHub-hosted validation may remain only to the minimum technically necessary and with `permissions: {}` plus explicit credential-environment refusal. GitHub artifacts and issue comments are not custody authority.
+Before merge: claim validation, Site handoff/orchestration, Site Bootstrap Validate, Ecosystem Heartbeat Orchestration, retained ST-018 deterministic source presence, and no new non-TV/TVC credential use must pass.
 
-## Exact next tasks
+After merge: release B17R1 claim, update `docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md`, reconcile Site #141 so GitHub artifact ID/digest and issue-comment custody are not required completion evidence, and leave actual native-main ST-018 completion machine-owned until its own evidence is observed.
 
-1. Create a bounded implementation branch from current main.
-2. Install a branch-bound claim in `data/session-work-claims.json` with this handoff revision.
-3. Replace or retire the token/write-capable ST-018 workflow while preserving deterministic validator execution.
-4. Remove `issues: write`, `GH_TOKEN`, issue mutation, and upload-artifact dependency from the ST-018 validation path.
-5. Prefer the existing anonymous exact-ref / preinstalled-Python validation pattern already established in Site Bootstrap where hosted validation remains necessary.
-6. Validate exact branch state through Site claim/orchestration/bootstrap checks.
-7. Merge only after exact evidence is green; release the claim and update the parent cost-containment handoff.
-8. Reconcile Site #141 so its completion/evidence contract no longer requires a GitHub-hosted artifact or issue-comment custody path.
+## Supersession
+
+PR #343 / branch `chore/site-st018-token-custody-retirement-b17-20260817` is superseded because `main` advanced the canonical claim registry during implementation. B17R1 is reconstructed from the newer base and must be validated independently.
 
 ## Archive condition
 
-This scoped task becomes archive-safe only after source integration, exact validation evidence, released claim state, and durable update of Site #141 and `docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md`. Product/runtime activation remains independent.
+This scoped cleanup is archive-safe only after exact validation, merge, claim release, parent handoff update, and Site #141 contract reconciliation. Product/runtime activation remains independent.
