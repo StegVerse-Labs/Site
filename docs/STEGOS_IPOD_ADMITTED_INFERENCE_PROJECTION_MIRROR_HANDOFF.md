@@ -1,6 +1,6 @@
 # StegOS iPod Admitted Inference Projection Mirror Handoff
 
-Updated: `2026-08-17T00:20:00-05:00`
+Updated: `2026-08-17T00:25:00-05:00`
 
 ## Active goal
 
@@ -8,7 +8,7 @@ Updated: `2026-08-17T00:20:00-05:00`
 goal_id: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298
 originating_goal: project the exact merged StegOS admitted-inference browser consumer to the established physical iPod surface without a second non-StegVerse machine or any NON-TV/TVC secret/token
 repository: StegVerse-Labs/Site
-branch: feat/stegos-ipod-admitted-inference-298
+branch: feat/stegos-ipod-canonical-inference-298
 canonical_issue: StegVerse-Labs/Site#298
 canonical_source_owner: StegVerse-Labs/StegOS#15
 source_merge: 441b72a467753a753f3cb9ac1dbced99f10de884
@@ -23,12 +23,16 @@ site_authority_effect: TRANSPORT_MATERIALIZATION_ONLY
 
 ## Authoritative handoffs read
 
-- `SITE_MIRROR_HANDOFF.md`
+- `docs/SITE_MIRROR_HANDOFF.md`
 - `StegVerse-Labs/StegOS/docs/STEGOS_MIRROR_HANDOFF.md`
 - `StegVerse-Labs/StegOS/docs/IPOD_ADMITTED_INFERENCE_MIRROR_HANDOFF.md`
 - canonical model/runtime and TVC route handoffs were read in the source integration lane before StegOS PR #16.
 
-## Collision review
+## Convergence / branch reconciliation
+
+Initial Site PR #299 was created from main `5f9a9a2f...`. Site main then advanced independently to `ddcc370b...` through the Math Solver public-activation observer. The first PR's handoff-orchestrator run also exposed that its branch name did not resolve to a token in the broad root remaining-work inventory. No product collision occurred; pre-work claim validation itself passed.
+
+Rather than force or overwrite concurrent Site state, this canonical replacement branch was created from current main `ddcc370bdf9060b7071e4d2bb212e40f4a9e6718`. The exact product blobs and the admitted-inference claim were reapplied. The branch name deliberately preserves the canonical-inference relationship to the root Site workload while the scoped handoff remains the detailed owner record. PR #299 is superseded by the replacement PR for this branch.
 
 The active VACC PR #263 owns `site:vacc-document-evidence-awareness` and distinct files. It does not overlap this claim's dependency surface `site:stegos-ipod-bootstrap:admitted-inference` or product paths. The machine pre-work claim owns orchestration admission, not this product integration. Older StegOS bootstrap claim #294 is released/merged.
 
@@ -48,16 +52,16 @@ The first-node bootstrap JS and manifest are unchanged. The index, admitted-infe
 
 ## Validation
 
-`scripts/check_stegos_ipod_bootstrap_projection.py` now pins all five exact blobs and checks the admitted-inference authority boundaries. It remains wired as the second command in `scripts/check_ecosystem_chat_application.py`.
+`scripts/check_stegos_ipod_bootstrap_projection.py` pins all five exact blobs and checks the admitted-inference authority boundaries. It remains wired as the second command in `scripts/check_ecosystem_chat_application.py`.
 
 Validation state:
 
 ```text
-claim registry static admission: PENDING_PR_VALIDATION
-exact projection validator: PENDING_PR_VALIDATION
-canonical Site aggregate: PENDING_PR_VALIDATION
-Site Handoff Orchestrator: PENDING_PR_VALIDATION
-Ecosystem Heartbeat Orchestration: PENDING_PR_VALIDATION
+claim registry static admission: PENDING_REPLACEMENT_PR_VALIDATION
+exact projection validator: PENDING_REPLACEMENT_PR_VALIDATION
+canonical Site aggregate: PENDING_REPLACEMENT_PR_VALIDATION
+Site Handoff Orchestrator: PENDING_REPLACEMENT_PR_VALIDATION
+Ecosystem Heartbeat Orchestration: PENDING_REPLACEMENT_PR_VALIDATION
 Pages build: PENDING_AFTER_MERGE
 physical admitted inference: OUTSIDE_SITE / StegVerse-Labs/StegOS#15
 ```
