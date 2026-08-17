@@ -2,7 +2,22 @@
   'use strict';
 
   const WALLET_READY = 'WALLET_HANDOFF_READY';
+  const MAX_CLOCK_SKEW_MS = 5 * 60 * 1000;
   const el = (id) => document.getElementById(id);
+
+  function parseTime(value, label) {
+    const parsed = Date.parse(String(value || ''));
+    if (!Number.isFinite(parsed)) throw new Error(`${label} timestamp missing or invalid`);
+    return parsed;
+  }
+
+  function assertFreshReceipt(receipt, label, now = Date.now()) {
+    const issuedAt = parseTime(receipt?.issued_at, `${label} issued_at`);
+    const expiresAt = parseTime(receipt?.expires_at, `${label} expires_at`);
+    if (expiresAt <= issuedAt) throw new Error(`${label} freshness window invalid`);
+    if (issuedAt > now + MAX_CLOCK_SKEW_MS) throw new Error(`${label} issued_at is implausibly future-dated`);
+    if (expiresAt <= now) throw new Error(`${label} expired; rerun current-phone verification`);
+  }
 
   function canonicalEvidenceText() {
     const node = el('evidence');
@@ -10,7 +25,11 @@
     const text = String(node.textContent || '').trim();
     if (!text) throw new Error('canonical evidence is empty');
     let packet;
-    try { packet = JSON.parse(text); } catch { throw new Error('canonical evidence is not valid JSON'); }
+    try {
+      packet = JSON.parse(text);
+    } catch {
+      throw new Error('canonical evidence is not valid JSON');
+    }
     validatePacket(packet);
     const canonicalText = JSON.stringify(packet, null, 2);
     if (text !== canonicalText) throw new Error('canonical evidence text is not the exact retained JSON projection');
@@ -23,6 +42,7 @@
     const identity = evidence?.identity_continuity || {};
     const device = evidence?.device_admission || {};
     const capability = evidence?.wallet_capability || {};
+
     if (receipt.state !== WALLET_READY) throw new Error('fresh terminal WALLET_HANDOFF_READY evidence required');
     if (receipt.credential_authority !== 'TV/TVC' || receipt.credential_requirement !== 'NONE') throw new Error('TV/TVC credential boundary mismatch');
     if (receipt.non_tv_tvc_secret_or_token_used !== false || receipt.hosted_runtime_required !== false) throw new Error('runtime authority boundary mismatch');
@@ -30,6 +50,12 @@
     if (evidence.schema !== 'stegverse.stegid.sanitized_admission_evidence.v1') throw new Error('fresh StegID admission evidence missing');
     if (identity.decision !== 'IDENTITY_CONTINUITY_VALID') throw new Error('identity continuity evidence missing');
     if (device.decision !== 'DEVICE_ADMITTED') throw new Error('device admission evidence missing');
+    if (capability.decision !== 'ALLOW_DEVICE_WALLET_CAPABILITY') throw new Error('wallet capability evidence missing');
+
+    assertFreshReceipt(identity, 'StegID identity continuity');
+    assertFreshReceipt(device, 'StegID device admission');
+    assertFreshReceipt(capability, 'StegID wallet capability');
+
     const steps = Array.isArray(device.validation_steps) ? device.validation_steps : [];
     for (const required of ['DEVICE_POSSESSION', 'HUMAN_CONTINUITY', 'IDENTITY_CONTINUITY']) {
       if (!steps.includes(required)) throw new Error(`StegID admission evidence missing ${required}`);
@@ -37,6 +63,8 @@
     const granted = Array.isArray(capability.granted_capabilities) ? capability.granted_capabilities : [];
     if (!granted.includes('PREPARE')) throw new Error('StegID PREPARE evidence missing');
     if (granted.includes('SIGN') || granted.includes('BROADCAST')) throw new Error('StegID evidence may not grant SIGN/BROADCAST');
+    if (capability.identity_receipt_sha256 !== identity.receipt_sha256) throw new Error('identity commitment linkage mismatch');
+    if (capability.device_admission_receipt_sha256 !== device.receipt_sha256) throw new Error('device commitment linkage mismatch');
     if (!evidence.evidence_sha256 || !receipt.receipt_sha256) throw new Error('hash-bound phone evidence required');
     return packet;
   }
@@ -65,7 +93,7 @@
     const status = document.createElement('p');
     status.id = 'phoneEvidenceExportStatus';
     status.className = 'muted';
-    status.textContent = 'Fresh WALLET_HANDOFF_READY + StegID admission evidence is required. Export never signs or broadcasts.';
+    status.textContent = 'Fresh WALLET_HANDOFF_READY + unexpired StegID admission evidence is required. Export never signs or broadcasts.';
 
     controls.append(copy, share, status);
     evidence.insertAdjacentElement('afterend', controls);

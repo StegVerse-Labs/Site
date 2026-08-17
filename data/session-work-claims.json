@@ -15,7 +15,7 @@
       "claim_id": "SITE-259-PREWORK-CLAIM-ENFORCEMENT-20260809",
       "session_worker_id": "chatgpt-session-render-collision-repair-20260809",
       "task_id": "SITE-259-PREWORK-CLAIM-ENFORCEMENT",
-      "originating_goal": "Prevent redundant ChatGPT sessions from converging on the same incidental dependency before mutable work begins",
+      "originating_goal": "Prevent redundant ChatGPT sessions from independently converging on the same incidental dependency before mutable work begins",
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/session-prework-claims-259",
       "role": "IMPLEMENTATION",
@@ -310,6 +310,26 @@
       "expected_evidence": ["StegFin PR #74 merge 0917f5283514a54db1c520f44126a78cfc6428d7", "exact evidence-export.js blob d545063b7024b60de702ece85bd23eac6096c8bb", "Check StegFin Phone Projection 31974427256 SUCCESS", "Site Handoff Orchestrator 31974427288 SUCCESS", "Ecosystem Heartbeat Orchestration 31974427476 SUCCESS", "Site Bootstrap Validate 31974427400 SUCCESS", "Site PR #290 merge 9ad8c065ae756015086f5db0951c5e7179826fdc", "Pages build 1155718345 BUILT from exact merge", "Release PR #291 merge c11a3f8a75f4fd78103cd8f34b1089016933d3c6", "Release Check StegFin Phone Projection 31980127362 SUCCESS", "Release Site Handoff Orchestrator 31980127379 SUCCESS", "Release Ecosystem Heartbeat Orchestration 31980127253 SUCCESS", "Release Site Bootstrap Validate 31980127332 SUCCESS"],
       "collision_boundaries": ["Release metadata only", "Do not alter participant product assets, trade construction, StegID semantics, route admission, wallet contact, signing, broadcast or settlement", "Do not use NON-TV/TVC secrets/tokens", "No Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Signing and broadcast remain USER_ONLY"],
       "next_task_after_release": "NONE_SITE; current-phone exact evidence is owned solely by StegFin #68/#60 and USER_ONLY sign/broadcast remains outside Site authority."
+    },
+    {
+      "claim_id": "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816",
+      "session_worker_id": "chatgpt-session-stegfin-phone-stegid-freshness-20260816",
+      "task_id": "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292",
+      "originating_goal": "Project the released StegFin stale-PREPARE fail-closed correction into the canonical Site phone surface so only current, unexpired WebAuthn/device-possession/PREPARE evidence may be retained or exported as WALLET_HANDOFF_READY.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/stegfin-phone-stegid-freshness-292",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-phone-stegid-freshness-projection",
+      "dependency_surface_keys": ["site:stegfin-phone-participant-projection:stegid-freshness"],
+      "claimed_paths": ["data/session-work-claims.json", "assets/stegfin-phone/stegid-device-wallet-bootstrap.js", "assets/stegfin-phone/device-wallet-identity.js", "assets/stegfin-phone/evidence-export.js", "scripts/check_stegfin_phone_projection.py", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "2ca75908a9452b45c78fc3e155f65d1a7da9400a",
+      "claim_created_at": "2026-08-16T21:15:00-05:00",
+      "claim_expires_when": "Release after exact StegFin PR #75 source blobs are projected, Site projection validator plus orchestration gates pass, merge and exact Pages publication are verified, then transfer live proof back to StegFin #68/#60; otherwise mark BLOCKED with the failing gate as machine-observable release condition.",
+      "expected_evidence": ["StegFin PR #75 merge b0973b0c99fde2e8860952a0167a56a6e8890aa2", "exact upstream bootstrap blob 403d164b21a1c6e812d31f7ab45635baab59b73c", "exact upstream device-wallet-identity blob 1180d8ee929c161978d095c91514cbc3d873d3fd", "exact upstream evidence-export blob 29ddb120fe6d1bd7c5118b41c4ef061d2db90a58", "Site validator proves expires_at freshness, five-minute remaining-validity boundary, stale terminal clearing, receipt linkage, TV/TVC credential_requirement NONE, no NON-TV/TVC secret/token, and USER_ONLY sign/broadcast", "Site PR merge", "exact Pages publication from merge lineage"],
+      "collision_boundaries": ["Exact projection only; do not fork StegFin freshness semantics", "Do not modify phone-direct-route.js, rpc-resilience.js, app.js, transaction construction, quote, allowance, gas or simulation semantics", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not use Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Do not contact wallet, sign, broadcast or settle", "Signing and broadcast remain USER_ONLY"],
+      "next_task_after_release": "StegFin #68/#60 obtains a newly issued, unexpired current-phone WebAuthn/device-possession/PREPARE packet from the exact published Site projection and reconciles live activation."
     }
   ]
 }
