@@ -12,7 +12,6 @@
   "auto_discovered_tasks": [
     "SITE-0001-CHILD-SAFE-NETWORKING",
     "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-ST018-VALIDATION-EVIDENCE",
     "TIDC-ADJ-NET-001-DATES",
     "TIDC-SPLIT-AI-001",
     "TIDC-SPLIT-NET-002"
@@ -24,8 +23,7 @@
     "TIDC-SPLIT-AI-001",
     "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
     "SITE-0001-CHILD-SAFE-NETWORKING",
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-ST018-VALIDATION-EVIDENCE"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "ownership_reconciliations": [],
   "observations": [
@@ -75,11 +73,6 @@
       "success_marker": "THRESHOLD_ESTABLISHED=true",
       "success_marker_seen": false,
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
-    },
-    {
-      "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
-      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
-      "task_location": "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json"
     }
   ],
   "completed_tasks": [],
@@ -90,8 +83,7 @@
     "TIDC-SPLIT-AI-001",
     "SITE-0010-THOUGHT-EXPERIMENTS-PUBLICATION",
     "SITE-0001-CHILD-SAFE-NETWORKING",
-    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-    "SITE-ST018-VALIDATION-EVIDENCE"
+    "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION"
   ],
   "blockers": [
     {
@@ -140,11 +132,6 @@
       "success_marker": "THRESHOLD_ESTABLISHED=true",
       "success_marker_seen": false,
       "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
-    },
-    {
-      "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
-      "state": "BLOCKED_NO_IMPLEMENTATION_LOCATIONS",
-      "task_location": "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json"
     }
   ],
   "state_updated": true,
