@@ -1,0 +1,15 @@
+{
+  "schema": "stegverse.site.task.v1",
+  "task_id": "SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
+  "state": "UNCLAIMED",
+  "owner_repository": "StegVerse-Labs/Site",
+  "canonical_issue": "StegVerse-Labs/Site#141",
+  "parent_issue": "StegVerse-Labs/Site#268",
+  "handoff": "docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
+  "goal": "Remove NON-TV/TVC GitHub-token, issue-write, and artifact-custody mechanics from the ST-018 validation-evidence path while preserving deterministic validation.",
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_actions_runtime_or_control_plane_authority": false,
+  "next_action": "Create an exact branch-bound claim and implement the credential-clean ST-018 validation boundary.",
+  "release_condition": "Merged exact-head implementation with required Site validation PASS, claim released, Site #141 reconciled, and cost-containment handoff updated."
+}
