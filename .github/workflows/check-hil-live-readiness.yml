@@ -40,6 +40,7 @@ on:
       - 'scripts/check_hil_public_response_import.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
+      - 'tests/test_hil_https_receiver_probe_import.py'
       - 'scripts/check_hil_master_record_release.py'
       - 'scripts/check_hil_master_records_return_receipts.py'
       - 'scripts/check_hil_master_records_transfer.py'
@@ -78,6 +79,7 @@ on:
       - 'scripts/check_hil_public_response_import.py'
       - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
       - 'scripts/check_hil_https_receiver_probe_import.py'
+      - 'tests/test_hil_https_receiver_probe_import.py'
       - 'scripts/check_hil_master_record_release.py'
       - 'scripts/check_hil_master_records_return_receipts.py'
       - 'scripts/check_hil_master_records_transfer.py'
@@ -143,6 +145,9 @@ jobs:
       - name: Validate governed HTTPS receiver probe imports
         run: python3 scripts/check_hil_https_receiver_probe_import.py
 
+      - name: Run governed receiver import regression tests
+        run: python3 -m unittest tests/test_hil_https_receiver_probe_import.py
+
       - name: Validate Site-side HIL Master Record release-chain projection
         run: python3 scripts/check_hil_master_record_release.py
 
@@ -168,7 +173,7 @@ jobs:
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, Master Record, review, custody, reconstruction, or wallet authority.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Activation-state, public-response import, artifact-verification import, HTTPS probe import, Site-side Master Record release projection, Master Records return-receipt and transfer-packet, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Activation-state, public-response import, artifact-verification import, HTTPS probe import/regression, Site-side Master Record release projection, Master Records return-receipt and transfer-packet, and Federal-Plus security validators are consolidated here without separate token-backed workflow entry surfaces. LinkedIn launch readiness remains isolated because its current deterministic check exposes unresolved public-page marker drift.' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-federal-plus-security-validation.json ]; then
             echo '' >> "$GITHUB_STEP_SUMMARY"
             echo '### HIL Federal-Plus Security Validation' >> "$GITHUB_STEP_SUMMARY"
