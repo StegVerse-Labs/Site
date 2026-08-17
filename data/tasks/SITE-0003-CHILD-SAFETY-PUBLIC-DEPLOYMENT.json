@@ -1,13 +1,16 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "task_id": "SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT",
   "repository": "StegVerse-Labs/Site",
   "goal": "Verify that the governed child-safety interactive demo is publicly reachable over verified HTTPS at the canonical Site domain and serves the exact validated policy surface.",
-  "state": "COMPLETE",
+  "state": "COMPLETE_SOURCE_TRANSFERRED_TO_SOVEREIGN_OBSERVER",
   "auto_admit": false,
   "owner": {
-    "type": "repository_native_workflow",
-    "location": ".github/workflows/verify-child-safety-public-deployment.yml"
+    "type": "stegverse_sovereign_scheduler_fixed_handler",
+    "repository": "StegVerse-Labs/StegVerse-Healer",
+    "machine_task": "SHWP-HEALER-SOVEREIGN-SCHEDULER-001",
+    "target": "child-safety-public-deployment-observer",
+    "issue": 13
   },
   "implementation_locations": [
     "child-safety-demo.html",
@@ -15,10 +18,11 @@
   ],
   "verification_locations": [
     "scripts/check_child_safety_public_deployment.py",
-    ".github/workflows/verify-child-safety-public-deployment.yml",
-    "child-safety-public-deployment.report.json"
+    "StegVerse-Labs/StegVerse-Healer:data/orchestrator_targets.json::child-safety-public-deployment-observer",
+    "StegVerse-Labs/StegVerse-Healer:app/sovereign_scheduler.py::_execute_target",
+    "StegVerse-Labs/StegVerse-Healer:tests/test_site_child_safety_public_observer.py"
   ],
-  "completion_evidence": {
+  "historical_completion_evidence": {
     "github_pages_status": "built",
     "github_pages_build_id": 1137699817,
     "github_pages_build_commit": "ab4487bd96e1dbde364ed709f2f6da2f024058ea",
@@ -27,12 +31,28 @@
     "verification_job": 92899242614,
     "verification_artifact_id": 8997779738,
     "verification_artifact_sha256": "3c9f20070fd2258fde6288aa647484591cbc8fc16ad2c37ba3cc6a2607dc4cd4",
-    "canonical_target": "https://stegverse.org/child-safety-demo.html"
+    "canonical_target": "https://stegverse.org/child-safety-demo.html",
+    "note": "Historical GitHub workflow/artifact evidence remains immutable history but is no longer the continuing observation carrier or required custody mechanism."
+  },
+  "current_observer_contract": {
+    "credential_authority": "TV/TVC",
+    "credential_requirement": "NONE",
+    "github_token_required": false,
+    "non_tv_tvc_secret_or_token_allowed": false,
+    "artifact_custody_required": false,
+    "remote_source_checkout_required": false,
+    "report_path_env": "STEGVERSE_CHILD_SAFETY_REPORT",
+    "canonical_target": "https://stegverse.org/child-safety-demo.html",
+    "fail_closed": true
   },
   "blocked_by": null,
-  "next_executable_action": "Continue scheduled public-route verification; reopen only if the canonical HTTPS route or required markers fail.",
+  "next_executable_action": "The existing sovereign Healer scheduler observes the canonical public route hourly when the local Site root is materialized; any BLOCKED receipt names the failed route/script condition. Do not restore GitHub-hosted scheduled observation.",
+  "machine_observable_release_condition": "Healer fixed-handler source remains validated and ordinary scheduler receipts report COMPLETE or an explicit BLOCKED condition; absence of a live scheduler receipt is not success.",
   "external_session_ownership_required": false,
   "manual_user_action_required": false,
   "authority_effect": false,
-  "activation_effect": "PUBLIC_INTERACTIVE_DEMO_REACHABLE_AND_VERIFIED"
+  "activation_effect": "PUBLIC_INTERACTIVE_DEMO_REACHABILITY_OBSERVATION_ONLY",
+  "publication_authority": false,
+  "custody_authority": false,
+  "runtime_authority": false
 }
