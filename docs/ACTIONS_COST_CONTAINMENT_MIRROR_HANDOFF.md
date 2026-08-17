@@ -7,7 +7,7 @@ goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 originating_goal: reduce GitHub-hosted workflow/token dependence to the minimum technically necessary while preserving StegVerse execution, TV/TVC credential authority, deterministic validation, and canonical authority boundaries
 repository: StegVerse-Labs/Site
 canonical_branch: main
-active_branch: chore/site-hil-https-probe-regression-consolidation-b12-20260817
+active_branch: chore/site-hil-https-probe-validation-b12-20260817
 coordination: StegVerse-Labs/.github#164
 workflow_minimization_coordination: StegVerse-Labs/.github#167
 repository_issues: Site#265, Site#268
@@ -115,7 +115,7 @@ Released delta:
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817
-branch: chore/site-hil-https-probe-regression-consolidation-b12-20260817
+branch: chore/site-hil-https-probe-validation-b12-20260817
 state: IMPLEMENTED_UNVALIDATED
 scope: deterministic receiver-probe regression coverage + workflow consolidation + claim/handoff records only
 ```
@@ -197,7 +197,7 @@ Workflow-only cleanup does not create a product release requiring Publisher, adm
 
 ## Next executable action
 
-Open the batch-12 PR, validate its exact final head through all five required gates, inspect the receiver import regression child step and workflow inventory evidence, merge only on PASS, release the batch-12 claim, update this handoff with exact evidence, recensus `.github/workflows`, then inspect the next bounded unclaimed workflow family under Site #268.
+Open the batch-12 replacement PR from the validation-mapped branch, validate its exact final head through all five required gates, inspect the receiver import regression child step and workflow inventory evidence, merge only on PASS, release the batch-12 claim, update this handoff with exact evidence, recensus `.github/workflows`, then inspect the next bounded unclaimed workflow family under Site #268.
 
 ## Completion accounting — released work only
 
