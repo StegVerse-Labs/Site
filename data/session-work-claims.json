@@ -2,19 +2,8 @@
   "schema_version": "1.1.0",
   "registry_type": "stegverse_session_work_claim_registry",
   "repository": "StegVerse-Labs/Site",
-  "historical_registry": {
-    "preserved_at_commit": "f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7",
-    "preserved_blob_sha": "798272e9688445e1e367b1aa29df370d10d98114",
-    "note": "Detailed completed/released claim history is immutable in Git history. Current active claims remain complete below; released claims may be represented compactly once their canonical merge/evidence is durable."
-  },
-  "policy": {
-    "one_active_owner_per_task": true,
-    "one_active_owner_per_dependency_surface": true,
-    "missing_or_stale_claim_fails_closed": true,
-    "incidental_dependency_cannot_become_governing_objective": true,
-    "distinct_support_roles_require_explicit_non_overlap": true,
-    "collision_redirects_to_next_unclaimed_canonical_task": true
-  },
+  "historical_registry": {"preserved_at_commit":"f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7","preserved_blob_sha":"798272e9688445e1e367b1aa29df370d10d98114","note":"Detailed completed/released claim history is immutable in Git history. Current active claims remain complete below; released claims may be represented compactly once their canonical merge/evidence is durable."},
+  "policy": {"one_active_owner_per_task":true,"one_active_owner_per_dependency_surface":true,"missing_or_stale_claim_fails_closed":true,"incidental_dependency_cannot_become_governing_objective":true,"distinct_support_roles_require_explicit_non_overlap":true,"collision_redirects_to_next_unclaimed_canonical_task":true},
   "claims": [
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
@@ -25,52 +14,7 @@
     {"claim_id":"SITE-STEGOS-IPOD-BROWSER-BOOTSTRAP-294-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"312261808b1e98927a66488ffa066d5a3abd475f"},
     {"claim_id":"SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"7529e4534bf3749141bff1921d92ede2a22144cb","continued_by":"StegVerse-Labs/stegfin-governance#77/current phone"},
     {"claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1f5ab3acde796d2787edf0493c19e193ca72eda4","pages_build":1156543676,"continued_by":"StegVerse-Labs/StegOS#15"},
-    {
-      "claim_id": "SITE-IPHONE-HB30-TRANSITION-CAPSULE-322-20260817",
-      "session_worker_id": "chatgpt-session-hb30-transition-capsule-20260817",
-      "task_id": "SITE-IPHONE-HB30-TRANSITION-CAPSULE-322",
-      "originating_goal": "Publish the canonical non-authorizing HB29-to-HB30 portable transition capsule so CURRENT_USER_IPHONE can emit the exact transition receipt without another machine or NON-TV/TVC secret/token.",
-      "repository": "StegVerse-Labs/Site",
-      "branch": "feat/heartbeat-transition-iphone-322",
-      "role": "CLAIMED_FOR_INTEGRATION",
-      "state": "CLAIMED_FOR_INTEGRATION",
-      "normalized_work_key": "site-iphone-heartbeat-transition-capsule",
-      "dependency_surface_keys": ["site:heartbeat-transition:iphone-hb30"],
-      "claimed_paths": [
-        "data/session-work-claims.json",
-        "heartbeat-transition/index.html",
-        "heartbeat-transition/heartbeat-transition.js",
-        "scripts/check_iphone_heartbeat_transition_projection.py",
-        "scripts/check_ecosystem_chat_application.py",
-        "docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md"
-      ],
-      "handoff": "docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md",
-      "claim_created_at": "2026-08-17T10:01:00-05:00",
-      "claim_expires_when": "Released after Site issue #322 exact capsule validation, merge, Pages built evidence, and physical execution continuation transfers to StegVerse-Labs/.github#209/current iPhone.",
-      "expected_evidence": [
-        "source merge StegVerse-Labs/.github@9015c67d8356bf7e9e3db71488b2468581829e7a",
-        "browser capsule exact constants match canonical contract",
-        "receipt canonicalization and WebCrypto SHA-256 validation PASS",
-        "no credential/network request path",
-        "canonical Site application aggregate PASS",
-        "Site Handoff Orchestrator PASS",
-        "Ecosystem Heartbeat Orchestration PASS",
-        "Site Bootstrap Validate PASS",
-        "merged Site PR",
-        "Pages build built from merged Site projection"
-      ],
-      "collision_boundaries": [
-        "Site is transport/materialization only",
-        "do not materialize canonical .github HB30 state from Site",
-        "do not acquire or mutate G18 claim/fence/lease or WorkerCoordinator authority",
-        "do not mint TVC route or credential authority",
-        "do not introduce or consume NON-TV/TVC secrets or tokens",
-        "do not use Render/Vercel/Cloudflare/GitHub-hosted execution as production heartbeat authority",
-        "do not imply HB30 activation from publication or browser receipt alone",
-        "do not modify active HIL upload-owned paths"
-      ],
-      "next_task_after_release": "CURRENT_USER_IPHONE executes the published capsule; the portable receipt is preserved and independently verified/materialized by the canonical .github transition owner, then WorkerCoordinator observes HB30+."
-    },
+    {"claim_id":"SITE-IPHONE-HB30-TRANSITION-CAPSULE-322-20260817","session_worker_id":"chatgpt-session-hb30-transition-capsule-20260817","task_id":"SITE-IPHONE-HB30-TRANSITION-CAPSULE-322","originating_goal":"Publish the canonical non-authorizing HB29-to-HB30 portable transition capsule so CURRENT_USER_IPHONE can emit the exact transition receipt without another machine or NON-TV/TVC secret/token.","repository":"StegVerse-Labs/Site","branch":"feat/heartbeat-transition-iphone-322","role":"CLAIMED_FOR_INTEGRATION","state":"CLAIMED_FOR_INTEGRATION","normalized_work_key":"site-iphone-heartbeat-transition-capsule","dependency_surface_keys":["site:heartbeat-transition:iphone-hb30"],"claimed_paths":["data/session-work-claims.json","heartbeat-transition/index.html","heartbeat-transition/heartbeat-transition.js","scripts/check_iphone_heartbeat_transition_projection.py","scripts/check_ecosystem_chat_application.py","docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md"],"handoff":"docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md","handoff_revision":"8509f28a929667e19930039a04417955fa999209","claim_created_at":"2026-08-17T10:01:00-05:00","claim_expires_when":"Released after Site issue #322 exact capsule validation, merge, Pages built evidence, and physical execution continuation transfers to StegVerse-Labs/.github#209/current iPhone.","expected_evidence":["source merge StegVerse-Labs/.github@9015c67d8356bf7e9e3db71488b2468581829e7a","browser capsule exact constants match canonical contract","receipt canonicalization and WebCrypto SHA-256 validation PASS","no credential/network request path","canonical Site application aggregate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged Site PR","Pages build built from merged Site projection"],"collision_boundaries":["Site is transport/materialization only","do not materialize canonical .github HB30 state from Site","do not acquire or mutate G18 claim/fence/lease or WorkerCoordinator authority","do not mint TVC route or credential authority","do not introduce or consume NON-TV/TVC secrets or tokens","do not use Render/Vercel/Cloudflare/GitHub-hosted execution as production heartbeat authority","do not imply HB30 activation from publication or browser receipt alone","do not modify active HIL upload-owned paths"],"next_task_after_release":"CURRENT_USER_IPHONE executes the published capsule; the portable receipt is preserved and independently verified/materialized by the canonical .github transition owner, then WorkerCoordinator observes HB30+."},
     {"claim_id":"SITE-PREWORK-CLAIM-GATE-MACHINE-001","session_worker_id":"github-actions:ecosystem-heartbeat-orchestration","task_id":"SITE-PREWORK-CLAIM-GATE-OPERATIONS","originating_goal":"Continuously enforce exclusive session and dependency-surface ownership before mutable Site work begins","repository":"StegVerse-Labs/Site","branch":"main","role":"ORCHESTRATION","state":"MACHINE_OWNED","normalized_work_key":"session-prework-claim-gate-operations","dependency_surface_keys":["site:session-orchestration-entry","site:heartbeat-worker-task-registry"],"claimed_paths":["data/session-work-claims.json","scripts/check_session_work_claims.py","scripts/site_handoff_orchestrator.py",".github/workflows/ecosystem-heartbeat-orchestration.yml"],"handoff":"docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md","handoff_revision":"c2fa9d436381f13c109125367ce803518d4ff2e4","claim_created_at":"2026-08-09T14:12:00-05:00","claim_expires_when":"Released only after an organization-level heartbeat worker provides equal-or-stronger cross-repository pre-work collision enforcement and Site imports that authority","expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],"collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],"next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B5-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1f59d1861bed56cf90354df06b753e44fd2fb7ed"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"00123d8cd46ceaab9492d3d07939d65b2bfc0529"},
