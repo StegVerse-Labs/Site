@@ -2,6 +2,97 @@
   "assignments": [
     {
       "missing_exit_gates": [
+        "freshness_evidence",
+        "publication_accuracy_evidence"
+      ],
+      "reason": "repository name matched term: .github",
+      "repository": "AaCT-E/.github",
+      "required_exit_gates": [
+        "source_binding",
+        "freshness_evidence",
+        "non_authorizing_projection",
+        "publication_accuracy_evidence"
+      ],
+      "role": "DOCUMENTATION_OR_PROJECTION",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: demo",
+      "repository": "AaCT-E/demo",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "AaCT-E/telemetry",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: test",
+      "repository": "Data-Continuation/RTG-Tests",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "repository_role_determination"
+      ],
+      "reason": "no deterministic role rule matched",
+      "repository": "Data-Continuation/core-lite",
+      "required_exit_gates": [
+        "repository_role_determination"
+      ],
+      "role": "UNCLASSIFIED",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence"
+      ],
+      "reason": "repository name matched term: test",
+      "repository": "Data-Continuation/formalism-tests",
+      "required_exit_gates": [
+        "objective_contract",
+        "machine_validation_workflow",
+        "reproducible_test_evidence",
+        "declared_non_production_boundary"
+      ],
+      "role": "TEST_OR_FIXTURE",
+      "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
         "objective_contract",
         "machine_validation_workflow",
         "executed_policy_evidence",
@@ -888,6 +979,24 @@
       ],
       "role": "UNCLASSIFIED",
       "role_exit_gate_complete": false
+    },
+    {
+      "missing_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "reason": "repository name matched term: master-record",
+      "repository": "master-records/monitoring",
+      "required_exit_gates": [
+        "custody_evidence",
+        "reconstruction_evidence",
+        "retention_or_transfer_evidence",
+        "fresh_completion_evidence"
+      ],
+      "role": "ARCHIVE_OR_CONTINUITY",
+      "role_exit_gate_complete": false
     }
   ],
   "authority": {
@@ -895,20 +1004,20 @@
     "role_assignment_is_completion": false,
     "role_exit_gate_completion_is_release_authority": false
   },
-  "inventory_generated_at": "2026-08-17T17:05:51Z",
-  "repository_count": 63,
+  "inventory_generated_at": "2026-08-17T18:07:50Z",
+  "repository_count": 70,
   "role_complete_counts": {},
   "role_counts": {
-    "ARCHIVE_OR_CONTINUITY": 1,
-    "DOCUMENTATION_OR_PROJECTION": 7,
+    "ARCHIVE_OR_CONTINUITY": 2,
+    "DOCUMENTATION_OR_PROJECTION": 8,
     "GOVERNANCE_ENGINE": 7,
     "LIBRARY_OR_SDK": 2,
     "RUNTIME_PRODUCT": 1,
-    "TEST_OR_FIXTURE": 5,
-    "UNCLASSIFIED": 40
+    "TEST_OR_FIXTURE": 8,
+    "UNCLASSIFIED": 42
   },
   "role_exit_gate_complete": 0,
-  "role_exit_gate_incomplete": 63,
+  "role_exit_gate_incomplete": 70,
   "schema_version": "1.0",
   "taxonomy_path": "data/autonomy/repository-role-taxonomy.json"
 }
