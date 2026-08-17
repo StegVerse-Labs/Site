@@ -1,7 +1,7 @@
 {
   "schema":"stegverse.site.task.v1",
   "task_id":"SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
-  "state":"IMPLEMENTED_PENDING_VALIDATION",
+  "state":"COMPLETE_RELEASED",
   "owner_repository":"StegVerse-Labs/Site",
   "canonical_issue":"StegVerse-Labs/Site#141",
   "parent_issue":"StegVerse-Labs/Site#268",
@@ -11,6 +11,13 @@
   "credential_authority":"TV/TVC",
   "non_tv_tvc_secret_or_token_allowed":false,
   "github_actions_runtime_or_control_plane_authority":false,
-  "implemented":"credential-clean validation only; no checkout/setup-python/upload-artifact/issues-write/GH_TOKEN/issue mutation; deterministic receipt enforcement retained",
-  "release_condition":"Exact-head validation/merge, claim release, Site #141 reconciliation, and cost-containment handoff update."
+  "release_commit":"69f1f89e09b6b4e4d2d89267d3c148435df9b061",
+  "validated_head":"a16f58fd2f138825f674afb714826b7af91fe331",
+  "validation_runs":{"capture_validation_evidence":32051470522,"ecosystem_heartbeat":32051470520,"site_handoff_orchestrator":32051470664,"site_bootstrap_validate":32051470819},
+  "implementation":"credential-clean validation only; no checkout/setup-python/upload-artifact/issues-write/GH_TOKEN/issue mutation; deterministic receipt enforcement retained",
+  "propagation":{"repository":"StegVerse-Labs/repo-standards","path":"adoption/st018-validation-evidence.registry.json","commit":"42631865975ae96cbcb0a3be0f507eeea91732fa","state":"INSTALLED","evidence_mode":"credential-clean-ephemeral"},
+  "authority_effect":"NONE",
+  "runtime_activation_effect":"NONE",
+  "custody_authority_effect":"NONE",
+  "next_action":"No further ST-018 implementation is owned here. Continue Site#268 only through the next unclaimed bounded remediation surface."
 }
