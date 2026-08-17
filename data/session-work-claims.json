@@ -157,8 +157,8 @@
       "originating_goal": "Consolidate the HIL Master Record release-chain projection validator into the credential-clean HIL dispatcher while preserving the independently failing LinkedIn launch-readiness surface for semantic reconciliation; do not transfer Master Records, publication, or runtime authority to Site or GitHub Actions.",
       "repository": "StegVerse-Labs/Site",
       "branch": "chore/site-hil-validation-release-readiness-20260817",
-      "role": "CLAIMED_FOR_IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "role": "RELEASED_INTEGRATION",
+      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
       "normalized_work_key": "site-workflow-minimization-hil-validation-release-readiness-batch6",
       "dependency_surface_keys": ["site:hil:release-readiness-validation-workflow-surfaces"],
       "claimed_paths": [
@@ -171,18 +171,22 @@
         "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
-      "handoff_revision": "2da476ef4db5a175c77d8eb248036e59971e1521",
+      "handoff_revision": "8c7380e3be9055a4108b18ca91d56dcd269d33ed",
       "claim_created_at": "2026-08-17T02:07:00-05:00",
-      "claim_expires_when": "Released after check-hil-master-record-release.yml is absent, check_hil_master_record_release.py executes through the credential-clean HIL dispatcher, check-hil-linkedin-launch-readiness.yml remains present and is explicitly classified REVIEW_REQUIRED with its current prompt-hash drift preserved, exact-head Site validation passes, merge and post-merge census are verified, and the claim is marked MERGED_INTO_CANONICAL_WORKSTREAM.",
+      "released_at": "2026-08-17T03:04:00-05:00",
+      "release_commit": "00123d8cd46ceaab9492d3d07939d65b2bfc0529",
+      "claim_expires_when": "SATISFIED: PR #308 merged after exact-head HIL dispatcher, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Check StegFin Phone Projection and Site Bootstrap Validate all succeeded; check-hil-master-record-release.yml is absent on main; check-hil-linkedin-launch-readiness.yml remains present as REVIEW_REQUIRED with prompt-hash drift preserved.",
       "expected_evidence": [
-        "check-hil-master-record-release.yml absent",
-        "check_hil_master_record_release.py retained and executed",
-        "check-hil-linkedin-launch-readiness.yml retained",
+        "PR #308 merge 00123d8cd46ceaab9492d3d07939d65b2bfc0529",
+        "HIL Validation and Live Readiness 32008475367 SUCCESS",
+        "Site Handoff Orchestrator 32008475454 SUCCESS",
+        "Ecosystem Heartbeat Orchestration 32008475401 SUCCESS",
+        "Check StegFin Phone Projection 32008475518 SUCCESS",
+        "Site Bootstrap Validate 32008475512 SUCCESS",
+        "check-hil-master-record-release.yml absent on main",
+        "check-hil-linkedin-launch-readiness.yml present on main",
         "LinkedIn launch-readiness drift preserved as REVIEW_REQUIRED: public HIL page missing current prompt SHA marker cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c",
-        "HIL dispatcher PASS without invoking the known-failing LinkedIn validator",
-        "Site Handoff Orchestrator PASS",
-        "Ecosystem Heartbeat Orchestration PASS",
-        "Site Bootstrap Validate PASS"
+        "post-merge workflow census derived from verified prior 122 minus one exact removed workflow = 121"
       ],
       "collision_boundaries": [
         "Do not mint Master Records validation/release authority; this lane validates Site-side imported/projection structure only",
