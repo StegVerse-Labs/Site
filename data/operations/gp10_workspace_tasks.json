@@ -2,8 +2,9 @@
   "registry_id": "GP10-SITE-WORKSPACE-TASKS-001",
   "repository": "StegVerse-Labs/Site",
   "branch": "main",
-  "updated_at": "2026-08-02T21:55:00-05:00",
+  "updated_at": "2026-08-17T13:22:00-05:00",
   "execution_authority": false,
+  "credential_authority": "TV/TVC",
   "tasks": [
     {
       "task_id": "GP10-SITE-SECURITY-HARDENING",
@@ -13,28 +14,15 @@
       "role": "RELEASED_IMPLEMENTATION_CLAIM",
       "claim_created_at": "2026-08-02T19:30:00-05:00",
       "claim_released_at": "2026-08-02T20:00:00-05:00",
-      "surfaces": [
-        "gp10-workspace.html",
-        "gp10-workspace-examples.html",
-        "assets/gp10-security.js",
-        "scripts/check_gp10_workspace.py",
-        "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
-        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",
-        ".github/workflows/gp10-workspace-security.yml"
-      ],
+      "surfaces": ["gp10-workspace.html","gp10-workspace-examples.html","assets/gp10-security.js","scripts/check_gp10_workspace.py","docs/GP10_WORKSPACE_SECURITY_BASELINE.md","docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",".github/workflows/gp10-workspace-security.yml"],
       "release_condition": "Satisfied by committed controls, checker, workflow, task registry, mirror handoff, GP10 transfer record, and Issue #1 continuity update.",
-      "evidence": [
-        "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md#Implementation-evidence",
-        "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
-        ".github/workflows/gp10-workspace-security.yml"
-      ],
       "collision_boundary": "Did not modify StegVerse-Labs/GP10 runtime validation surfaces.",
       "next_task": "GP10-SITE-DEPLOYMENT-OBSERVATION"
     },
     {
       "task_id": "GP10-SITE-DEPLOYMENT-OBSERVATION",
       "originating_goal": "Verify that the hosted unlisted pages correspond exactly to the hardened committed source.",
-      "owner": "StegVerse-Labs/Site:.github/workflows/gp10-workspace-security.yml",
+      "owner": "StegVerse-Labs/Site",
       "state": "COMPLETE",
       "role": "RELEASED_MACHINE_VALIDATION_CLAIM",
       "claim_created_at": "2026-08-02T20:00:00-05:00",
@@ -45,30 +33,33 @@
       "artifact_id": 8843410533,
       "artifact_digest": "sha256:417f8160a6bf9d7eb211da3da4ef236dbe453d930905c1cb4bf8d128cc42ddb6",
       "receipt_commit": "018a58f5c60434d51ea3762e2bba119a94eaeaac",
-      "surfaces": [
-        "scripts/check_gp10_workspace_deployment.py",
-        ".github/workflows/gp10-workspace-security.yml",
-        "docs/receipts/gp10-site/security-80fbf35d2a824f689050c7ec69e579c2ddf8f196.txt",
-        "docs/receipts/gp10-site/deployment-80fbf35d2a824f689050c7ec69e579c2ddf8f196.json",
-        "https://stegverse-labs.github.io/Site/gp10-workspace.html",
-        "https://stegverse-labs.github.io/Site/gp10-workspace-examples.html"
-      ],
+      "surfaces": ["scripts/check_gp10_workspace_deployment.py","docs/receipts/gp10-site/security-80fbf35d2a824f689050c7ec69e579c2ddf8f196.txt","docs/receipts/gp10-site/deployment-80fbf35d2a824f689050c7ec69e579c2ddf8f196.json","https://stegverse-labs.github.io/Site/gp10-workspace.html","https://stegverse-labs.github.io/Site/gp10-workspace-examples.html"],
       "result": "PASS",
       "attempts_used": 1,
-      "evidence": {
-        "workspace_sha256": "2a151a37ebfa9937f64f67b285151f4895b81e875076226e4fdcba18215b1f48",
-        "examples_sha256": "502d385f3c534365e5488f10b8011efb988a5634734df5b086177c7d3133701f",
-        "exact_byte_match": true,
-        "all_required_markers_present": true,
-        "static_validation": "PASS",
-        "deployment_observation": "PASS",
-        "receipt_persistence": "PASS",
-        "artifact_upload": "PASS",
-        "final_enforcement": "PASS"
-      },
-      "release_condition": "SATISFIED: committed PASS receipt, successful run/job, exact local/remote hashes, required markers, persisted receipt, and artifact were directly inspected.",
-      "collision_boundary": "This completion proves only correspondence of the two static pages and named controls. It does not establish authentication, evidence truth, custody, federal certification, commercial approval, or execution authority.",
-      "next_task": "No Site deployment-observation task remains for this session. Future page-changing commits automatically create new commit-specific receipts without reopening this released claim."
+      "evidence": {"workspace_sha256":"2a151a37ebfa9937f64f67b285151f4895b81e875076226e4fdcba18215b1f48","examples_sha256":"502d385f3c534365e5488f10b8011efb988a5634734df5b086177c7d3133701f","exact_byte_match":true,"all_required_markers_present":true,"static_validation":"PASS","deployment_observation":"PASS","receipt_persistence":"HISTORICAL_PASS","artifact_upload":"HISTORICAL_PASS","final_enforcement":"PASS"},
+      "release_condition": "SATISFIED by immutable historical evidence. No future GitHub-hosted custody is required to keep this claim complete.",
+      "collision_boundary": "This proves only static-page correspondence and named controls; it grants no authentication, evidence truth, custody, certification, commercial approval, or execution authority.",
+      "next_task": "GP10-SITE-GITHUB-TOKEN-WRITEBACK-RETIREMENT-20260817"
+    },
+    {
+      "task_id": "GP10-SITE-GITHUB-TOKEN-WRITEBACK-RETIREMENT-20260817",
+      "originating_goal": "Preserve GP10 Site static/deployment validation while removing NON-TV/TVC GitHub token, repository writeback, and artifact-custody mechanics.",
+      "owner": "StegVerse-Labs/Site#268 credential-clean validation lane",
+      "state": "COMPLETE",
+      "role": "RELEASED_INTEGRATION",
+      "claim_id": "SITE-GP10-GITHUB-TOKEN-WRITEBACK-RETIREMENT-R1-20260817",
+      "branch": "claim/site-gp10-github-token-writeback-retirement-r1-20260817",
+      "final_head": "850af41a7acf31bb32d1a24e4d7b838916129fa1",
+      "merge_commit": "96423f16cf6d3f440630d322cc5d5c196e4fa672",
+      "claim_release_commit": "2ba971bbde99f6eca43a4087bf89d7deb4c9b9f6",
+      "surfaces": [".github/workflows/gp10-workspace-security.yml","docs/GP10_WORKSPACE_MIRROR_HANDOFF.md","data/operations/gp10_workspace_tasks.json","data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "installed": ["permissions {}","credential-bearing environment refusal","anonymous exact-SHA public source fetch","preinstalled Python validation","static workspace checker retained","main-only hosted-page observer retained","historical committed receipts retained","artifact upload removed","repository commit/push writeback removed","checkout/setup-python actions removed"],
+      "evidence": ["PR #367 merge 96423f16cf6d3f440630d322cc5d5c196e4fa672","GP10 workspace security 32054495179 SUCCESS","GP10 job 95461396822 SUCCESS","Site Handoff Orchestrator 32054495369 SUCCESS","Ecosystem Heartbeat Orchestration 32054495300 SUCCESS","Site Bootstrap Validate 32054495168 SUCCESS","Bootstrap job 95461397278 SUCCESS","Check StegFin Phone Projection 32054495265 SUCCESS","GP10_CREDENTIAL_REFUSAL=PASS","GP10_SOURCE_FETCH=PASS","GP10_STATIC_VALIDATION=PASS","GP10_DEPLOYMENT_OBSERVATION=BLOCKED_PR_NOT_DEPLOYED_MAIN","GP10_RECEIPT_CUSTODY=NONE","GP10_VALIDATION_ONLY=PASS","GP10_REPOSITORY_WRITEBACK=NONE","GP10_ARTIFACT_CUSTODY=NONE","GP10_RUNTIME_CONTROL_PLANE_AUTHORITY=NONE","SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS","ST-017 sandbox PASS","workflow inventory 101; canonical 3; migration-required 98; placeholders 0","StegFin wallet_review=USER_ONLY; signing_broadcast=USER_ONLY; hosted_runtime_authority=NONE"],
+      "authority_effect": false,
+      "custody_authority_effect": false,
+      "runtime_activation_effect": false,
+      "release_condition": "SATISFIED by exact-head validation, collision-free merge, released claim, credential-clean workflow boundary, and durable handoff/task reconciliation.",
+      "next_task": "Inspect the next bounded unclaimed Site #268 workflow/token surface."
     },
     {
       "task_id": "GP10-SITE-AUTHENTICATED-SERVICE",
@@ -76,29 +67,18 @@
       "owner": "Future named StegVerse service repository and deployment control plane",
       "state": "BLOCKED",
       "role": "BLOCKED",
-      "surfaces": [
-        "Future approved service repository",
-        "Future approved hosting control plane"
-      ],
+      "surfaces": ["Future approved service repository","Future approved hosting control plane"],
       "release_condition": "A named service owner, approved domain and scope, authentication design, deployment authority, privacy terms, and server security-header controls are committed.",
-      "expected_evidence": [
-        "Service mirror handoff",
-        "Deployment configuration",
-        "Security assessment receipt"
-      ],
+      "expected_evidence": ["Service mirror handoff","Deployment configuration","Security assessment receipt"],
       "collision_boundary": "The current static Site must not be represented as authenticated, durable, or production-authoritative.",
       "next_task": "Service-specific security implementation"
     }
   ],
   "session_transfer": {
     "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
-    "canonical_locations": [
-      "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",
-      "data/operations/gp10_workspace_tasks.json",
-      "docs/receipts/gp10-site/",
-      "StegVerse-Labs/GP10/docs/SESSION_ADJACENT_SITE_SECURITY_TRANSFER_2026-08-02.md",
-      "StegVerse-Labs/GP10 issue #1"
-    ],
-    "unique_chat_owned_work_remaining": false
+    "canonical_locations": ["docs/GP10_WORKSPACE_MIRROR_HANDOFF.md","data/operations/gp10_workspace_tasks.json","docs/receipts/gp10-site/","StegVerse-Labs/GP10/docs/SESSION_ADJACENT_SITE_SECURITY_TRANSFER_2026-08-02.md","StegVerse-Labs/GP10 issue #1"],
+    "historical_receipts_preserved": true,
+    "future_github_artifact_or_writeback_custody_required": false,
+    "unique_originating_chat_owned_work_remaining": false
   }
 }
