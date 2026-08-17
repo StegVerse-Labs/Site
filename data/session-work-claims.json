@@ -5,7 +5,7 @@
   "historical_registry": {
     "preserved_at_commit": "b106d3479bafa458d56f4f450f1975925e7887e6",
     "preserved_blob_sha": "e8d1d8fb7ee765cb955b679b895e2fdd91ddc5c8",
-    "note": "Detailed released claim history through B16R1 is immutable in Git history. Active claims remain complete below; released claims are compact once canonical merge/evidence is durable."
+    "note": "Detailed released claim history through B16R1 is immutable in Git history. Released StegFin projection claim IDs required by deterministic Site validators remain represented compactly; active claims remain complete below."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -17,6 +17,11 @@
   },
   "claims": [
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-WALLET-REVIEW-286-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"e9be3d220c09f51150a5983c0f048991531c5bc2"},
     {"claim_id":"SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"7529e4534bf3749141bff1921d92ede2a22144cb","continued_by":"StegVerse-Labs/stegfin-governance#77/current phone"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B5-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1f59d1861bed56cf90354df06b753e44fd2fb7ed"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"00123d8cd46ceaab9492d3d07939d65b2bfc0529"},
