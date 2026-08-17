@@ -57,6 +57,7 @@ COMMANDS: tuple[tuple[str,...],...]=(
 (sys.executable,'scripts/check_llm_adapter_usage_endpoint_conformance.py'),
 (sys.executable,'scripts/check_user_llm_bounded_capability_import.py'),
 (sys.executable,'scripts/check_user_llm_bounded_execution_import_status.py'),
+(sys.executable,'scripts/check_user_llm_bounded_execution_receipt_import.py'),
 (sys.executable,'scripts/check_usage_endpoint_activation_evidence.py'),
 (sys.executable,'scripts/check_usage_endpoint_preactivation_checkpoint.py'),
 (sys.executable,'scripts/check_ecosystem_chat_activation_receipt_import.py'),
