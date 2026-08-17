@@ -1,16 +1,16 @@
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "task_id": "SITE-ST018-VALIDATION-EVIDENCE",
   "goal_id": "ST018-SITE-ADOPTION-001",
   "originating_session_goal": "replace inaccessible chat-dependent work with repository-native execution, validation, custody, consolidation, and archival determination",
   "repository": "StegVerse-Labs/Site",
-  "owner": "repository-native GitHub Actions",
+  "owner": "Site repository heartbeat activation_receipt_validation capability / StegVerse control plane",
   "claim_state": "MACHINE_OWNED",
   "issue": 141,
-  "state": "READY_FOR_MACHINE_COMPLETION_CHECK",
+  "state": "BLOCKED_DEPENDENCY_MACHINE_OWNED",
   "trigger": {
-    "type": "pull_request_or_push",
-    "workflow": ".github/workflows/capture-validation-evidence.yml",
+    "type": "repository_heartbeat_or_relevant_source_change",
+    "heartbeat": ".stegverse/repo-heartbeat.json::activation_receipt_validation",
     "watched_paths": [
       "validation_manifests/repository-core.json",
       "schemas/validation-execution-receipt.schema.json",
@@ -18,8 +18,7 @@
       "scripts/write_site_current_main_validation_receipt.py",
       "scripts/check_site_current_main_validation_receipt_writer.py",
       "scripts/check_site_current_main_validation_evidence.py",
-      "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
-      ".github/workflows/capture-validation-evidence.yml"
+      "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json"
     ]
   },
   "inputs": [
@@ -35,16 +34,11 @@
     "reports/site-current-main-validation-evidence.log",
     "reports/st018-native-main-custody.receipt.md"
   ],
-  "status_contract": [
-    "COMPLETE",
-    "BLOCKED",
-    "RETRY",
-    "REVIEW_REQUIRED",
-    "FAILED",
-    "CLAIMED",
-    "SUPERSEDED",
-    "MERGED"
-  ],
+  "status_contract": ["COMPLETE","BLOCKED","RETRY","REVIEW_REQUIRED","FAILED","CLAIMED","SUPERSEDED","MERGED"],
+  "credential_authority": "TV/TVC",
+  "non_tv_tvc_secret_or_token_allowed": false,
+  "github_token_required": false,
+  "github_actions_runtime_or_custody_authority": false,
   "observed_evidence": {
     "implementation_pr": 145,
     "implementation_merge_observed": true,
@@ -64,39 +58,39 @@
     "native_main_probe_commit": "d1609e721c82d8938c7d74902e65fc9b829614af",
     "central_registry_validation_commit": "0111b107d403cfc986d2a9190ea5bf04acda3c0b",
     "central_registry_state": "validated",
-    "native_main_run_observed": false
+    "native_main_run_observed": false,
+    "hosted_token_custody_path": "RETIRED_BY_B17_PENDING_MERGE"
   },
   "completion_conditions": [
-    "pull-request capture workflow succeeds",
-    "validation evidence artifact is inspected",
-    "native-main capture workflow succeeds",
-    "native-main custody receipt is published to issue 141",
-    "central ST-018 registry is updated with commit, run, artifact, digest, and inspection evidence"
+    "deterministic ST-018 manifest and receipt validation succeeds against exact current-main source",
+    "native-main receipt/log hashes are directly inspectable through StegVerse-owned observation",
+    "any custody action is performed only by an explicitly authorized StegVerse/Master Records custody contract, not by GitHub artifact or issue-comment semantics",
+    "central ST-018 registry is updated with exact commit and validation evidence",
+    "no NON-TV/TVC credential or GitHub-generated token is used"
   ],
   "next_executable_task": {
-    "task": "Inspect the native-main ST-018 run triggered by d1609e721c82d8938c7d74902e65fc9b829614af and persist its custody evidence",
-    "location": "StegVerse-Labs/Site:.github/workflows/capture-validation-evidence.yml"
+    "task": "Site repository heartbeat activation_receipt_validation observes the unfinished ST-018 task, executes or routes the deterministic validators against exact current-main source, and emits COMPLETE/BLOCKED/RETRY/REVIEW_REQUIRED/FAILED without GitHub-token custody semantics.",
+    "location": "StegVerse-Labs/Site:.stegverse/repo-heartbeat.json::activation_receipt_validation"
   },
+  "machine_observable_release_conditions": [
+    "exact current-main source is available to the StegVerse-owned validation lane",
+    "capture_validation_manifest.py and receipt validators PASS",
+    "receipt/log hashes are recorded without GitHub artifact custody",
+    "central ST-018 registry moves from validated to active/complete only on the contract's own evidence"
+  ],
   "duplicate_key": "StegVerse-Labs/Site::ST018-SITE-ADOPTION-001",
-  "claim_release_condition": "native-main PASS artifact and issue #141 custody receipt are directly observed and the central registry moves Site from validated to active",
+  "claim_release_condition": "deterministic native-main evidence is directly observed by the StegVerse-owned lane and central registry state is reconciled without GitHub-token custody",
   "collision_boundaries": [
     "do not create another Site ST-018 implementation lane",
-    "validation and registry propagation may proceed as distinct roles",
+    "do not create a second heartbeat or scheduler",
+    "do not export TV/TVC credentials into GitHub Actions",
+    "do not use GITHUB_TOKEN, GH_TOKEN, STEGVERSE_GITHUB_TOKEN, PAT, or provider credential fallback",
     "authority remains false"
   ],
   "session_consolidation": {
     "classification": "MERGED_INTO_CANONICAL_WORKSTREAM",
     "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
     "central_registry": "StegVerse-Labs/repo-standards:adoption/st018-validation-evidence.registry.json::StegVerse-Labs/Site",
-    "transferred_requirements": [
-      "repository-native observation and completion",
-      "no unspecified external tasks",
-      "exact repository:path task references",
-      "duplicate-work prevention",
-      "durable PR and native-main evidence custody",
-      "central adoption propagation",
-      "session archival only after native custody and registry activation"
-    ],
     "unique_chat_dependency_remaining": false
   },
   "canonical_continuation": "StegVerse-Labs/Site:data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
