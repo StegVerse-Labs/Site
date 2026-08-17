@@ -23,122 +23,139 @@ on:
       - 'docs/GP10_WORKSPACE_MIRROR_HANDOFF.md'
       - 'docs/GP10_WORKSPACE_SECURITY_BASELINE.md'
       - 'data/operations/gp10_workspace_tasks.json'
+      - '.github/workflows/gp10-workspace-security.yml'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_REPOSITORY: StegVerse-Labs/Site
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate GP10 workspace security and isolation
-        id: static_validation
-        continue-on-error: true
+      - name: Refuse credential-bearing GP10 validation configuration
+        shell: bash
         run: |
-          set -o pipefail
-          mkdir -p validation
-          {
-            echo "receipt_type=GP10_SITE_SECURITY_VALIDATION"
-            echo "commit=${GITHUB_SHA}"
-            echo "run_id=${GITHUB_RUN_ID}"
-            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
-            echo "started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            if python3 scripts/check_gp10_workspace.py; then
-              echo "result=PASS"
-              exit_code=0
-            else
-              exit_code=$?
-              echo "result=FAILED"
-              echo "exit_code=${exit_code}"
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT INPUT_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN; do
+            if [[ -n "${!name-}" ]]; then
+              echo "Credential-bearing environment is prohibited for GP10 Site validation: ${name}" >&2
+              exit 1
             fi
-            echo "completed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            exit "${exit_code}"
-          } | tee validation/gp10-workspace-security-receipt.txt
-      - name: Observe deployed GP10 pages
-        id: deployment_observation
-        if: github.event_name != 'pull_request'
-        continue-on-error: true
+          done
+          echo 'GP10_CREDENTIAL_REFUSAL=PASS'
+          echo 'GP10_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'GP10_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact public Site source without checkout credentials
+        shell: bash
         run: |
+          set -euo pipefail
+          test -n "$SOURCE_SHA"
+          python3 - <<'PY'
+          import os, tarfile, urllib.request
+          from pathlib import Path
+          sha = os.environ['SOURCE_SHA']
+          url = f"https://codeload.github.com/{os.environ['SOURCE_REPOSITORY']}/tar.gz/{sha}"
+          archive = Path('/tmp/gp10-site-source.tar.gz')
+          extract_dir = Path('/tmp/gp10-site-source')
+          urllib.request.urlretrieve(url, archive)
+          extract_dir.mkdir(parents=True, exist_ok=True)
+          with tarfile.open(archive, 'r:gz') as tf:
+              tf.extractall(extract_dir)
+          roots = [p for p in extract_dir.iterdir() if p.is_dir()]
+          if len(roots) != 1:
+              raise SystemExit(f'expected one extracted source root, found {len(roots)}')
+          Path('/tmp/gp10-site-source-root').write_text(str(roots[0]), encoding='utf-8')
+          print(f'GP10_SOURCE_FETCH=PASS sha={sha}')
+          PY
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('GP10_PYTHON=PASS')
+          PY
+
+      - name: Validate GP10 workspace security and isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$(cat /tmp/gp10-site-source-root)"
+          cd "$ROOT"
+          python3 scripts/check_gp10_workspace.py
+          echo 'GP10_STATIC_VALIDATION=PASS'
+          echo 'GP10_EXECUTION_AUTHORITY=NONE'
+          echo 'GP10_CUSTODY_AUTHORITY=NONE'
+
+      - name: Observe deployed GP10 pages without GitHub custody
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$(cat /tmp/gp10-site-source-root)"
+          cd "$ROOT"
+          mkdir -p /tmp/gp10-validation
           python3 scripts/check_gp10_workspace_deployment.py \
-            --commit "${GITHUB_SHA}" \
+            --commit "$SOURCE_SHA" \
             --run-id "${GITHUB_RUN_ID}" \
             --attempts 18 \
             --delay-seconds 20 \
-            --output validation/gp10-workspace-deployment-receipt.json
+            --output /tmp/gp10-validation/gp10-workspace-deployment-receipt.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('/tmp/gp10-validation/gp10-workspace-deployment-receipt.json').read_text(encoding='utf-8'))
+          if receipt.get('result') != 'PASS':
+              raise SystemExit('GP10 deployed-page observation did not pass')
+          if receipt.get('execution_authority') not in (False, None):
+              raise SystemExit('GP10 deployment observation attempted authority escalation')
+          print('GP10_DEPLOYMENT_OBSERVATION=PASS')
+          print('GP10_RECEIPT_CUSTODY=NONE')
+          PY
+
       - name: Record pull-request deployment boundary
         if: github.event_name == 'pull_request'
-        run: |
-          cat > validation/gp10-workspace-deployment-receipt.json <<EOF
-          {
-            "receipt_type": "GP10_SITE_DEPLOYMENT_OBSERVATION",
-            "schema_version": "1.0.0",
-            "tested_commit": "${GITHUB_SHA}",
-            "workflow_run_id": "${GITHUB_RUN_ID}",
-            "result": "BLOCKED",
-            "blocker": "Pull-request source is not the deployed main branch.",
-            "next_action": "Run deployment observation after merge to main.",
-            "execution_authority": false
-          }
-          EOF
-      - name: Persist main-branch receipts
-        if: always() && github.event_name != 'pull_request'
+        shell: bash
         run: |
           set -euo pipefail
-          receipt_dir="docs/receipts/gp10-site"
-          mkdir -p "${receipt_dir}"
-          cp validation/gp10-workspace-security-receipt.txt \
-            "${receipt_dir}/security-${GITHUB_SHA}.txt"
-          if [ -f validation/gp10-workspace-deployment-receipt.json ]; then
-            cp validation/gp10-workspace-deployment-receipt.json \
-              "${receipt_dir}/deployment-${GITHUB_SHA}.json"
-          else
-            cat > "${receipt_dir}/deployment-${GITHUB_SHA}.json" <<EOF
-          {
-            "receipt_type": "GP10_SITE_DEPLOYMENT_OBSERVATION",
-            "schema_version": "1.0.0",
-            "tested_commit": "${GITHUB_SHA}",
-            "workflow_run_id": "${GITHUB_RUN_ID}",
-            "result": "FAILED",
-            "blocker": "Deployment observer did not produce a receipt.",
-            "next_action": "Inspect the workflow job and retry after correcting the observer failure.",
-            "execution_authority": false
-          }
-          EOF
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "${receipt_dir}"
-          if git diff --cached --quiet; then
-            echo "No new receipt content to commit."
-          else
-            git commit -m "receipt: preserve GP10 Site validation ${GITHUB_SHA} [skip ci]"
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
-      - name: Upload GP10 validation receipts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gp10-workspace-security-${{ github.sha }}
-          path: |
-            validation/gp10-workspace-security-receipt.txt
-            validation/gp10-workspace-deployment-receipt.json
-          if-no-files-found: error
-      - name: Enforce validation result
-        if: always()
+          echo 'GP10_DEPLOYMENT_OBSERVATION=BLOCKED_PR_NOT_DEPLOYED_MAIN'
+          echo 'GP10_RECEIPT_CUSTODY=NONE'
+          echo 'GP10_EXECUTION_AUTHORITY=NONE'
+
+      - name: Confirm validation-only boundary
+        shell: bash
         run: |
-          static_outcome='${{ steps.static_validation.outcome }}'
-          deployment_outcome='${{ steps.deployment_observation.outcome }}'
-          if [ "${static_outcome}" != "success" ]; then
-            echo "Static GP10 workspace validation failed."
-            exit 1
-          fi
-          if [ "${{ github.event_name }}" != "pull_request" ] && [ "${deployment_outcome}" != "success" ]; then
-            echo "Hosted GP10 deployment observation failed."
-            exit 1
-          fi
+          set -euo pipefail
+          ROOT="$(cat /tmp/gp10-site-source-root)"
+          cd "$ROOT"
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/gp10-workspace-security.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'permissions:' + '\n  contents: ' + 'write',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'issues:' + ' write',
+              'GH_' + 'TOKEN:',
+              '$' + '{{ github.' + 'token }}',
+              'git ' + 'push',
+              'git ' + 'commit',
+          ]
+          hits = [marker for marker in forbidden if marker in workflow]
+          if hits:
+              raise SystemExit(f'forbidden GP10 hosted authority marker(s): {hits}')
+          assert 'permissions: {}' in workflow
+          assert 'Refuse credential-bearing GP10 validation configuration' in workflow
+          print('GP10_VALIDATION_ONLY=PASS')
+          print('GP10_REPOSITORY_WRITEBACK=NONE')
+          print('GP10_ARTIFACT_CUSTODY=NONE')
+          print('GP10_RUNTIME_CONTROL_PLANE_AUTHORITY=NONE')
+          PY
