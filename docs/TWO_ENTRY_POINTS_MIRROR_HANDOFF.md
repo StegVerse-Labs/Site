@@ -16,8 +16,9 @@ canonical_issue: Site#152
 stale_claim_reconciliation: MERGED_INTO_CANONICAL_WORKSTREAM
 reconciliation_pr: #373
 reconciliation_merge: 792eff2396758761f94c2c062c5662f6e5132e4b
-reconciliation_head: ef8275ae9d21a86ca0e6b175c097abc2eb49b43e
-active_chat_support_claim: NONE
+active_product_support_claim: NONE
+active_observer_transport_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B25-20260817
+observer_transport_branch: claim/site-two-entry-observer-token-retirement-b25-20260817
 product_authority_effect: NONE
 ```
 
@@ -63,9 +64,9 @@ stale_claims: ECP-001, ECP-002, VACP-001, CONS-001
 failure_reason: all four legacy active claims expired on 2026-08-03
 ```
 
-The failure was correct fail-closed behavior. PR #373 then reconciled current ownership without renewing any expired product claim.
+PR #373 reconciled current ownership without renewing any expired product claim.
 
-Exact final-head validation after preserving all required StegFin release anchors:
+Exact final-head reconciliation evidence:
 
 ```text
 Two Entry Points Execution State: 32057353466 SUCCESS
@@ -79,13 +80,11 @@ Site Handoff Orchestrator: 32057353527 SUCCESS
 Ecosystem Heartbeat Orchestration: 32057353465 SUCCESS
 Site Bootstrap Validate: 32057353481 SUCCESS
 Check StegFin Phone Projection: 32057353472 SUCCESS
-branch divergence immediately before merge: 4 ahead / 0 behind
 merge: 792eff2396758761f94c2c062c5662f6e5132e4b
 support claim release: 7a34f676bb7e6034059adaf74294c005f7fe05c0
 execution-state release: aafa592c46ed6bedf1684566294ceecbc04f4f4a
+handoff release: 834a6751ba5f82313a01f49b5d680220d5975820
 ```
-
-A first PR-head validation also proved the registry repair itself but exposed missing compacted StegFin history anchors. StegFin correctly failed; those immutable release anchors were restored rather than weakening the StegFin validator. The corrected exact head then passed all five required groups.
 
 ## Current execution registry
 
@@ -110,7 +109,51 @@ CONS-001: MERGED_INTO_CANONICAL_WORKSTREAM
   active chat claimant: NONE
 ```
 
-The three expired product claims were not renewed. Their blockers, machine-observable release conditions, and current owners are explicit. The reconciliation support role is released and may not become a standing product owner.
+The three expired product claims were not renewed. Their blockers, machine-observable release conditions, and current owners remain explicit.
+
+## Active Site #268 observer-transport remediation — Batch 25
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B25-20260817
+task: SITE-ACTIONS-COST-CONTAINMENT-B25-20260817
+branch: claim/site-two-entry-observer-token-retirement-b25-20260817
+state: CLAIMED_FOR_IMPLEMENTATION
+workflow: .github/workflows/two-entry-points-execution-state.yml
+validator: scripts/validate_two_entry_points_execution_state.py
+schedule: 11 */6 * * *
+product_owner_change: NONE
+```
+
+Installed transport hardening preserves the six-hour scheduled observer and deterministic validator semantics while removing hosted credential/writeback/custody mechanics:
+
+- `permissions: {}`;
+- explicit refusal of GitHub/OIDC/provider/Master-Records/HIL credential-bearing environment;
+- anonymous exact-SHA public Site source fetch through codeload;
+- preinstalled Python instead of `actions/setup-python`;
+- unchanged execution-state validator generates an ephemeral receipt in the fetched tree;
+- receipt result, stale claims, authority flags, and canonical SHA-256 are revalidated;
+- run log and job summary preserve inspectable observation evidence;
+- repository writeback: `NONE`;
+- artifact upload/custody: `NONE`;
+- `actions/checkout`: removed;
+- `actions/setup-python`: removed;
+- `actions/upload-artifact`: removed;
+- persisted GitHub credentials: removed;
+- Git commit/push receipt persistence: removed;
+- product/runtime/control-plane authority effect: `NONE`.
+
+This remediation does **not** modify `data/two-entry-points-execution-state.json`, `scripts/validate_two_entry_points_execution_state.py`, ECP/VACP blockers, or product ownership.
+
+Required exact-head release evidence:
+
+1. `TWO_ENTRY_OBSERVER_CREDENTIAL_REFUSAL=PASS`.
+2. `TWO_ENTRY_OBSERVER_SOURCE_FETCH=PASS`.
+3. `TWO ENTRY POINTS EXECUTION STATE: PASS` with `Stale claims: none` and `Errors: none`.
+4. `TWO_ENTRY_OBSERVER_RECEIPT_HASH=PASS` and receipt authority/release flags false.
+5. `TWO_ENTRY_OBSERVER_VALIDATION_ONLY=PASS`.
+6. `TWO_ENTRY_OBSERVER_REPOSITORY_WRITEBACK=NONE` and `TWO_ENTRY_OBSERVER_ARTIFACT_CUSTODY=NONE`.
+7. Site Handoff Orchestrator, Ecosystem Heartbeat, Site Bootstrap, and StegFin projection PASS.
+8. Branch zero commits behind current `main` immediately before merge.
 
 ## Validation and automation
 
@@ -119,9 +162,7 @@ validator: scripts/validate_two_entry_points_execution_state.py
 observer: .github/workflows/two-entry-points-execution-state.yml
 ```
 
-The validator continues to reject duplicate IDs, stale active claims, collisions, unsupported completion, false archival, authority escalation, incomplete fields, and handoff-only transfer claims.
-
-The observer currently uses GitHub `contents: write`, persisted checkout credentials, setup-python, repository writeback, and artifact transport. Those mechanics are **not product authority**, but they remain a separate Site #268 cost-containment candidate now that stale ownership is repaired. Any cleanup must preserve deterministic validation/receipt integrity and may not alter ECP/VACP product ownership.
+The validator continues to reject duplicate IDs, stale active claims, collisions, unsupported completion, false archival, authority escalation, incomplete fields, and handoff-only transfer claims. The observer remains scheduled and repository-native, but its GitHub-hosted execution is validation/observation only and is not a StegVerse product authority.
 
 ## Collision and authority boundaries
 
@@ -135,14 +176,15 @@ The observer currently uses GitHub `contents: write`, persisted checkout credent
 
 ## Session consolidation
 
-The stale-claim reconciliation contains no remaining unique chat-owned implementation, validation, integration, propagation, or observation responsibility. Product continuation is fully transferred to the canonical owners above.
+The stale-claim reconciliation contains no remaining unique chat-owned product support responsibility. Product continuation is fully transferred to the canonical owners above. Batch 25 is a separate product-independent Site #268 validation-transport remediation and must release after exact-head proof and merge.
 
 ```text
 reconciliation_session: MERGED_INTO_CANONICAL_WORKSTREAM
-chat_only_reconciliation_requirements_remaining: 0
+chat_only_product_reconciliation_requirements_remaining: 0
+observer_transport_remediation: ACTIVE_UNIQUE_WORK
 Ecosystem Chat product activation: BLOCKED / MACHINE_OWNED RUNTIME OBSERVATION
 VA Claim Assistant product activation: PARTIAL / BLOCKED AT GOVERNED PROVIDER + DOCUMENT GATES
-project_archive_state: ACTIVE_DISTINCT_SUPPORT_WORK_REMAINS because product work remains with canonical owners
+project_archive_state: ACTIVE_DISTINCT_SUPPORT_WORK_REMAINS
 ```
 
-MERGED INTO: `StegVerse-Labs/Site/docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md` + `data/two-entry-points-execution-state.json` + current product-owner handoffs named above.
+MERGED INTO product continuation: `StegVerse-Labs/Site/docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md` + `data/two-entry-points-execution-state.json` + current product-owner handoffs named above.
