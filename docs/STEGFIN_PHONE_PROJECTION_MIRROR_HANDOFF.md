@@ -1,21 +1,20 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-17T01:58:00-05:00
+Updated: 2026-08-17T13:37:00-05:00
 
 ## Canonical state
 
 ```text
-goal_id: SITE-STEGFIN-USER-WALLET-HANDOFF-301
-originating_session_goal: make the current-phone StegFin path continue beyond WALLET_HANDOFF_READY without chat memory while preserving TV/TVC-only credentials and USER_ONLY signing/broadcast
+goal_id: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380
+originating_session_goal: correct the current-phone iOS first-passkey PREPARE double-ceremony failure while preserving TV/TVC-only credentials and USER_ONLY signing/broadcast
 repository: StegVerse-Labs/Site
 canonical_parent_handoff: docs/SITE_MIRROR_HANDOFF.md
 prework_authority: docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md + data/session-work-claims.json
-claim_id: SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817
-claim_state: MERGED_INTO_CANONICAL_WORKSTREAM
-product_state: COMPLETE_RELEASED_PRODUCT
-site_execution_responsibility: NONE
-source_owner: StegVerse-Labs/stegfin-governance#77
-live_owner: StegVerse-Labs/stegfin-governance#77 + current phone + USER_ONLY
+claim_id: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817
+claim_state: CLAIMED_FOR_INTEGRATION
+product_state: SOURCE_PROJECTED_VALIDATION_PENDING
+source_owner: StegVerse-Labs/stegfin-governance#79
+parent_live_owner: StegVerse-Labs/stegfin-governance#77 + current phone + USER_ONLY
 credential_authority: TV/TVC
 credential_requirement: NONE
 non_tv_tvc_secret_or_token_allowed: false
@@ -25,7 +24,7 @@ wallet_signing_authority: USER_ONLY
 broadcast_authority: USER_ONLY
 ```
 
-Site product implementation, publication, validation, release reconciliation and claim release are complete. No active Site product claim remains for this capability. Site remains static transport/materialization only; it does not own wallet keys, signatures, broadcast, settlement, TV/TVC credential authority, or a hosted production runtime.
+Site remains static transport/materialization only. It does not own wallet keys, signatures, broadcast, settlement, TV/TVC credential authority, model/runtime authority, sovereign heartbeat authority, or a hosted production runtime.
 
 ## Released predecessor chain
 
@@ -44,7 +43,7 @@ RPC resilience blob: 290b567eca2cc9f83e7438a80682ebaf8006ad76
 StegFin RPC resilience source merge: bcba49976a52024a233f998ce290ec4ab42618ff
 STEGFIN-PHONE-WALLET-REVIEW-014
 USER_ONLY wallet review app blob: 433ef5e5db9f9f7af2c7c7df4ba01acc89125403
-freshness bootstrap blob: 403d164b21a1c6e812d31f7ab45635baab59b73c
+current StegID bootstrap blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
 freshness identity blob: 1180d8ee929c161978d095c91514cbc3d873d3fd
 freshness evidence-export blob: 29ddb120fe6d1bd7c5118b41c4ef061d2db90a58
 StegFin PR #75: freshness source release b0973b0c99fde2e8860952a0167a56a6e8890aa2
@@ -79,7 +78,46 @@ release receipt: receipts/stegfin-user-wallet-handoff-301-release.json
 validator release receipt: receipts/stegfin-user-wallet-handoff-301-validator-release.json
 ```
 
+## Current-phone iOS first-passkey correction
+
+Current-phone evidence on 2026-08-17 directly showed the iOS platform passkey creation ceremony completing with `Done`, followed by the published participant rendering the WebAuthn `NotAllowedError` text. Source inspection proved the first-time bootstrap immediately performed a second `navigator.credentials.get()` after successful `navigator.credentials.create()`.
+
+Canonical source correction:
+
+```text
+StegFin child task: STEGFIN-IOS-FIRST-PASSKEY-PREPARE-018
+StegFin issue: #79
+source PR: #80
+released source bootstrap blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
+Site issue: #380
+Site claim: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817
+```
+
+Required behavior now projected into Site:
+
+```text
+first-time/no stored WebAuthn credential
+-> navigator.credentials.create
+-> platform authenticator required
+-> residentKey required
+-> userVerification required
+-> public-key credential + rawId required
+-> persist credential identifier metadata
+-> return HUMAN_CONTINUITY with ceremony=CREDENTIAL_CREATION
+-> DO NOT perform an immediate second WebAuthn operation
+
+later PREPARE with stored credential
+-> explicit new user gesture
+-> navigator.credentials.get
+-> userVerification required
+-> return HUMAN_CONTINUITY with ceremony=CREDENTIAL_ASSERTION
+```
+
+This is not a retry, downgrade, bypass, or cached signing authority. Cancellation/failure of either required ceremony remains fail-closed. It does not revive the expired historical wallet candidate. A new current-device PREPARE must still create a fresh wallet candidate before any USER_ONLY wallet action.
+
 ## Validation evidence
+
+Historical predecessor release evidence remains:
 
 ```text
 product Check StegFin Phone Projection: 31999164165 SUCCESS
@@ -98,22 +136,22 @@ post-claim-release main Ecosystem Heartbeat Orchestration: 32003358246 SUCCESS
 post-claim-release main Site Bootstrap Validate: 32003358251 SUCCESS
 ```
 
-The release-aware validator correction is validation-only. The prior validator incorrectly required a literal active implementation-state substring after the freshness claim was already released. PR #304 replaced that stale-state assumption with structural claim-registry checks and preserved the existing phone, freshness, credential and USER_ONLY invariants. Main validation passed after the product claim was actually released.
+The current #380 projection requires fresh Site gates against bootstrap blob `9cac39a990a956f16fcde3681cbcc7d47b2fc704`, merge, exact Pages build, and current-phone proof. None of those later states may be inferred from this handoff alone.
 
-The auxiliary `capture-validation-evidence` run `32003357586` failed before creating any job; it is not a release gate for this capability and produced no task-specific job or artifact. The task-specific projection, orchestration and bootstrap release gates above are the authoritative validation evidence.
+## Published transition after #380 release
 
-## Published transition
-
-Canonical participant URL:
+Canonical participant URL remains:
 
 ```text
 https://stegverse.org/stegfin-trade.html
 ```
 
-Published execution:
+After exact publication, required live continuation is:
 
 ```text
-fresh current-device WebAuthn/device-possession/PREPARE
+reload current participant
+-> explicit Verify this phone and prepare wallet handoff
+-> current-device WebAuthn/device-possession/PREPARE
 -> fresh unsigned WALLET_HANDOFF_READY candidate
 -> explicit USER_ONLY tap: Hand exact candidate to wallet
 -> require already-injected EIP-1193 wallet on Base 0x2105 and exact governed account
@@ -126,7 +164,7 @@ fresh current-device WebAuthn/device-possession/PREPARE
 -> successful receipt: CONFIRMED_REPREPARE_REQUIRED
 -> remove stale handoff and prohibit old quote/simulation/candidate reuse
 -> explicit tap: Verify phone and prepare successor
--> remove cached StegID capability so current-device user verification/PREPARE renews
+-> current-device user verification/PREPARE renews
 -> re-observe allowance + bounded inventory + fresh quote + fresh simulation
 -> fresh successor transaction candidate
 -> WALLET_HANDOFF_READY
@@ -142,14 +180,14 @@ Only an already-injected EIP-1193 provider is supported. The released path does 
 ## Ownership and continuation
 
 ```yaml
-released_site_task:
-  task_id: SITE-STEGFIN-USER-WALLET-HANDOFF-301
-  state: COMPLETE_RELEASED_PRODUCT
-  worker_registry_ref: data/session-work-claims.json#SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817
-  manual_execution_allowed: false
-  collision_scope: no remaining mutable Site product scope
-  release_condition: SATISFIED
-  next_executable_action: NONE_SITE
+active_site_task:
+  task_id: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380
+  state: CLAIMED_FOR_INTEGRATION
+  worker_registry_ref: data/session-work-claims.json#SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817
+  manual_execution_allowed: true
+  collision_scope: bootstrap projection + validator + this handoff + scoped claim records only
+  release_condition: exact source projection + Site gates PASS + merge + exact Pages built evidence + claim release
+  next_executable_action: validate branch, merge, verify Pages, release claim
 
 machine_owned_do_not_compete:
   site_claim_gate: SITE-PREWORK-CLAIM-GATE-MACHINE-001
@@ -157,24 +195,23 @@ machine_owned_do_not_compete:
   sovereign_base: StegVerse-Labs/.github/tasks/TASK-2026-0005.json
 
 human_authority_and_live_observation:
-  owner: StegVerse-Labs/stegfin-governance#77 + current phone + USER_ONLY
-  state: LIVE_COMPATIBILITY_OBSERVATION
-  next_executable_action: reload participant, run NEW Verify/PREPARE, then exercise wallet handoff only if the user explicitly chooses
+  owner: StegVerse-Labs/stegfin-governance#77 + #79 + current phone + USER_ONLY
+  state: WAITING_FOR_SITE_380_PUBLICATION
+  next_executable_action: after publication, reload participant and run NEW Verify/PREPARE; exercise wallet handoff only if a fresh candidate is produced and the user explicitly chooses
 ```
 
-MERGED INTO: `StegVerse-Labs/stegfin-governance#77` + `task-state/STEGFIN-USER-ONLY-WALLET-HANDOFF-017.json` for continuation beyond Site publication.
+MERGED INTO after release: `StegVerse-Labs/stegfin-governance#79` -> `#77` + current phone + USER_ONLY.
 
 ## Completion and archive condition
 
 ```text
-developed product/control files: 10/10
+developed product/control files for #380: 4/4 projected/updated on claim branch
 scaffolding or stubs: 0
 missing required product files: 0
-validation: 14/14 task-specific product/release/post-release gates recorded
-integration: 7/7 source + exact import + product merge + Pages + release + validator hardening + claim release
-Site goal activation: 100% for source/Site USER_ONLY wallet-handoff publication and durable continuation transfer
-Site session-specific work transferred: 100%
-chat-specific Site archive dependency: NONE
+validation: pending fresh Site gates
+integration: source projection installed; merge/Pages/current-phone proof outstanding
+Site goal activation: not complete until exact Pages publication
+chat-specific Site archive dependency: active until claim released or transferred
 ```
 
-Remaining current-phone wallet compatibility/signature/broadcast/successor observation is not Site execution work and does not require a chat session to remain open. Wallet signing and broadcast remain USER_ONLY.
+The prior #301 Site product remains complete/released. #380 is a bounded current defect correction and does not reopen Site wallet authority.
