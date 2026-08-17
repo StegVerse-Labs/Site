@@ -1,10 +1,11 @@
 "use strict";
 
-var CACHE_NAME = "stegos-web-bootstrap-v1";
+var CACHE_NAME = "stegos-web-bootstrap-v2";
 var SHELL = [
   "./",
   "./index.html",
   "./stegos-bootstrap.js",
+  "./admitted-inference.js",
   "./manifest.webmanifest"
 ];
 
