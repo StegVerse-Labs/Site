@@ -41,6 +41,7 @@
         "heartbeat-transition/index.html",
         "heartbeat-transition/heartbeat-transition.js",
         "scripts/check_iphone_heartbeat_transition_projection.py",
+        "scripts/check_ecosystem_chat_application.py",
         "docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md"
       ],
       "handoff": "docs/IPHONE_HEARTBEAT_TRANSITION_PROJECTION_MIRROR_HANDOFF.md",
@@ -51,6 +52,7 @@
         "browser capsule exact constants match canonical contract",
         "receipt canonicalization and WebCrypto SHA-256 validation PASS",
         "no credential/network request path",
+        "canonical Site application aggregate PASS",
         "Site Handoff Orchestrator PASS",
         "Ecosystem Heartbeat Orchestration PASS",
         "Site Bootstrap Validate PASS",
