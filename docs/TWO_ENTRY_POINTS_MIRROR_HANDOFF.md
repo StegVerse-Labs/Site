@@ -2,268 +2,139 @@
 
 ## Source of truth
 
-This file is the canonical continuation record for the two public entry points established by the originating session. Live repository state, issue state, workflow runs, receipts, deployments, and runtime observations override prior chat statements.
+This is the canonical Site continuation record for the originating two-entry-point session. Live repository state, current owner handoffs, claim registries, workflow runs/jobs/logs, receipts, deployments, and runtime observations override older claim timestamps and prior chat statements.
 
-## Active goal and goal ID
+## Goal
 
 ```text
 goal_id: TWO-ENTRY-POINTS-2026-08-02
-active_goal: Complete and activate two continuously extensible but fully functional public entry points
-entry_points:
-  - Ecosystem Chat
-  - VA Claim Assistant
+originating_goal: Complete and activate two continuously extensible but fully functional public entry points
+entry_points: Ecosystem Chat; VA Claim Assistant
 repository: StegVerse-Labs/Site
-branch: main
-canonical_issue: StegVerse-Labs/Site#152
+canonical_branch: main
+canonical_issue: Site#152
+current_support_claim: SITE-TWO-ENTRY-POINTS-STALE-CLAIM-RECONCILIATION-20260817
+support_branch: claim/site-two-entry-stale-claim-reconciliation-20260817
+support_role: VALIDATION_RECONCILIATION
+product_authority_effect: NONE
 ```
 
-Originating session goal: neither surface may be represented as complete until its intended end-to-end path is installed, validated, integrated, activated, and durably owned.
+## Canonical current owners
 
-## Canonical continuation locations
+### Ecosystem Chat
 
 ```text
-Cross-entry coordination:
-  StegVerse-Labs/Site#152
-  docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md
-  data/two-entry-points-execution-state.json
-  scripts/validate_two_entry_points_execution_state.py
-  .github/workflows/two-entry-points-execution-state.yml
-
-Ecosystem Chat runtime:
-  StegVerse-org/LLM-adapter#18
-  StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md
-
-Ecosystem Chat Site activation:
-  StegVerse-Labs/Site#24
-  StegVerse-Labs/Site/docs/SITE_MIRROR_HANDOFF.md
-
-VA Claim Assistant:
-  StegVerse-Labs/Site#113
-  docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md
-  data/va-claim-assistant/source-registry.json
+runtime/provider transport: StegVerse-org/LLM-adapter#18
+runtime handoff: StegVerse-org/LLM-adapter/LLM_ADAPTER_MIRROR_HANDOFF.md
+canonical local model/runtime: StegVerse-002/micro-node-runtime#16/#22
+sovereign carrier lifecycle: StegVerse-Labs/.github#60 / SHWP-ECOSYSTEM-CHAT-INFERENCE-001
+route authority: StegVerse-Labs/TVC
+custody/reconstruction: master-records/orchestration
+Site activation/projection: StegVerse-Labs/Site#24/#239/#242 + docs/SITE_MIRROR_HANDOFF.md
+downstream after verified activation: Publisher + admissibility-wiki + stegguardian-wiki
 ```
 
-## Transfer rule
+Repository-local adapter implementation, formal local-model/runtime implementation, persistent local endpoint proof, and same-carrier executor implementation are complete/released. The remaining gap is direct machine-owned same-carrier runtime observation, provider-usage custody/reconstruction, same-execution transition reconstruction, immutable zero-blocker activation receipt, Site activation, and downstream ingestion. No chat or Site validation claim may substitute for those observations.
 
-Work is transferred only when a named executor has accepted a bounded claim, has mutation authority, and produces inspectable commits, runs, logs, artifacts, deployments, or receipts. A handoff alone never proves transfer or execution.
-
-## Claim policy
-
-All active claims are bounded to 24 hours without new inspectable evidence. Renewal requires a new commit, workflow run, artifact, receipt, deployment observation, or issue-state change. A stale claim is invalid and must be blocked and released for reclaim rather than silently renewed.
-
-The machine-readable source is `data/two-entry-points-execution-state.json`. The validator rejects:
-
-- duplicate task IDs;
-- missing owners, evidence, blockers, release conditions, or next actions;
-- unbounded or expired active claims;
-- duplicate collision-boundary ownership;
-- unsupported completion;
-- unsupported merge or archive state;
-- authority escalation;
-- treatment of a handoff as transfer evidence.
-
-## Active claims
-
-### ECP-001 — Ecosystem Chat runtime activation
+### VA Claim Assistant
 
 ```text
-repository: StegVerse-org/LLM-adapter
-branch: main
-owner: issue #18 and repository-native activation workflows
-role: implementation and validation
-claim_state: MACHINE_OWNED
-completion_state: BLOCKED
-claim_expires_at: 2026-08-03T08:35:00Z
-blocker: no verified authorized persistent runtime supplies provider and Master-Records configuration and exposes a healthy endpoint
-machine release condition: receipts/ecosystem-chat-live-activation.verified.json has state VERIFIED and blockers []
-next task: ECP-002 imports and validates the immutable adapter receipt
+Guide / public Site coordination: Site#113
+secure-document lifecycle: Site#116 + #178-#184
+claimant/submission binding: Site#180
+provider runtime: StegVerse-org/LLM-adapter#90
+custody/reconstruction: master-records/orchestration#15
+canonical Site handoff: docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
 ```
 
-### ECP-002 — Ecosystem Chat Site activation and propagation
+Current VA posture remains fail-closed: deterministic Guide complete; coordinated LLM path blocked at authorized real-provider execution; secure-document contracts/privacy preprocessing partially complete with public private-document activation disabled; official VA.gov submission fallback complete. The veteran remains claimant/fact confirmer/certifier/submission authority unless an independently authorized representative acts within scope.
+
+## Hosted execution evidence and stale-claim finding
+
+The earlier handoff incorrectly stated that the hosted two-entry validation workflow had not been observed. Live workflow history now proves 64 hosted runs.
+
+Latest inspected run:
 
 ```text
-repository: StegVerse-Labs/Site
-branch: main
-owner: issue #24
-role: integration
-claim_state: CLAIMED_FOR_INTEGRATION
-completion_state: BLOCKED
-claim_expires_at: 2026-08-03T08:35:00Z
-blocker: adapter immutable verified receipt is absent
-machine release condition: adapter immutable receipt exists and Site activation validator reports ACTIVATION_COMPLETE
-next task: verify Publisher, admissibility-wiki, and stegguardian-wiki ingestion receipts
+workflow: Two Entry Points Execution State
+run: 32032867908
+job: 95396593477
+head: e53fe54d617bc4ae6a314ad73e602940e0bf213c
+event: schedule
+conclusion: FAILURE
+validator_result: FAIL
+stale_claims: ECP-001, ECP-002, VACP-001, CONS-001
+failure_reason: active_claim_stale for all four 2026-08-02 claims
 ```
 
-### VACP-001 — VA governed claim session
+The failure is a correct fail-closed result. The prior active claims expired on 2026-08-03 and were never validly renewed by new evidence. The workflow also currently uses `contents: write`, persisted checkout credentials, setup-python, writeback, and artifact transport; those mechanics are a separate cost-containment concern and are not changed by this reconciliation.
+
+## Reconciled execution registry
+
+Canonical machine state: `data/two-entry-points-execution-state.json`.
 
 ```text
-repository: StegVerse-Labs/Site
-branch: main
-owner: issue #113
-role: implementation
-claim_state: CLAIMED_FOR_IMPLEMENTATION
-completion_state: PARTIALLY_IMPLEMENTED
-claim_expires_at: 2026-08-03T08:35:00Z
-blocker: governed retrieval, document-aware session, TVC capability, custody, and reconstruction chain remain incomplete
-machine release condition: VA activation receipt validates with all ten gates true and blockers []
-next task: derive public capability status from the verified activation receipt
+ECP-001: BLOCKED
+  successor owner: LLM-adapter#18 + sovereign carrier/TVC/Master Records chain
+  blocker: real same-carrier provider execution and custody/reconstruction not observed
+
+ECP-002: BLOCKED
+  successor owner: Site activation integration
+  blocker: immutable zero-blocker upstream VERIFIED receipt absent
+
+VACP-001: BLOCKED
+  successor owners: Site#113/#116 + LLM-adapter#90 + master-records#15
+  blocker: authorized real-provider execution and required custody/runtime evidence incomplete
+
+CONS-001: CLAIMED_FOR_VALIDATION
+  claimant: SITE-TWO-ENTRY-POINTS-STALE-CLAIM-RECONCILIATION-20260817
+  expires: 2026-08-18T13:50:00-05:00
+  scope: stale-claim reconciliation and hosted validator proof only
 ```
 
-### CONS-001 — Cross-session consolidation
+The three expired product claims were **not renewed**. `BLOCKED` preserves their exact owner, blocker, release condition, and next action without pretending this session owns implementation. Only the distinct reconciliation role receives a fresh bounded claim.
+
+## Validation contract
 
 ```text
-repository: StegVerse-Labs/Site
-branch: main
-owner: issue #152
-role: integration and validation
-claim_state: CLAIMED_FOR_INTEGRATION
-completion_state: IN_PROGRESS
-claim_expires_at: 2026-08-03T08:35:00Z
-blocker: hosted validator workflow run and retained receipt have not yet been observed
-machine release condition: reports/two-entry-points-execution-state-validation.json reports PASS and hosted workflow evidence exists
-next task: reclassify this session only after no unique execution responsibility remains
-```
-
-## Installed coordination controls
-
-```text
-commit 98f441b01caf9940f6a5230047b73886a0928a32
-  created this canonical handoff
-
-commit 59aa5c1d0e768aafdd25a9908c57d77c885f82e7
-  created the machine-readable execution registry
-
-commit 3dc00412492ee6fd9ca38a575746fb6e4801242a
-  installed the fail-closed execution-state validator
-
-commit fc208fb133359880a9aa8a51e8c4ce2859c68e27
-  installed push, pull-request, scheduled, and manual validation workflow
-
-commit 922041b37d76a11b78c3af6cf405c5e2c3118fd6
-  added bounded claims, collision boundaries, expected evidence, and post-release routing
-
-commit ada55f96fb525c0efcc98468ecf86a1816f311a0
-  enforced claim expiration, stale-claim failure, false completion rejection, and archive gating
-```
-
-## Automation behavior
-
-Workflow `.github/workflows/two-entry-points-execution-state.yml` runs on relevant pushes and pull requests, every six hours, and explicit dispatch. It:
-
-1. validates the canonical registry;
-2. produces `reports/two-entry-points-execution-state-validation.json`;
-3. validates the receipt hash and authority boundary;
-4. commits the receipt on `main` when changed;
-5. uploads registry and receipt evidence;
-6. publishes task and archive posture in the workflow summary.
-
-The workflow has not yet been proven successful by an inspected hosted run. File installation is not workflow success.
-
-## Required Ecosystem Chat capability
-
-- governed request and real provider response;
-- durable provider-usage persistence;
-- authenticated provider-usage custody;
-- transition custody;
-- reconstruction PASS for both chains;
-- immutable zero-blocker activation receipt;
-- Site activation;
-- verified Publisher, admissibility-wiki, and stegguardian-wiki propagation.
-
-## Required VA Claim Assistant capability
-
-- bounded procedural guide retained;
-- source-authority registry and freshness/supersession checks;
-- claim-route classification;
-- proposition-level provenance and citations;
-- source fact, user-record fact, inference, contradiction, and uncertainty separation;
-- document identity, page anchors, hashes, privacy classes, and contradiction extraction;
-- TVC-scoped provider/source execution;
-- Master-Records custody and reconstruction;
-- deployed end-to-end governed claim session;
-- exact public capability status derived from verified evidence.
-
-## Validation commands
-
-```bash
 python scripts/validate_two_entry_points_execution_state.py
-python -m json.tool data/two-entry-points-execution-state.json >/dev/null
-python -m json.tool reports/two-entry-points-execution-state-validation.json >/dev/null
 ```
 
-## Cross-repository dependencies and propagation
+The validator must continue to reject duplicate IDs, unsupported completion, stale active claims, claim collisions, false archival, authority escalation, incomplete required fields, and handoff-only transfer claims. Required task IDs remain `ECP-001`, `ECP-002`, `VACP-001`, and `CONS-001`.
+
+Required release evidence for the current support claim:
+
+1. `data/two-entry-points-execution-state.json` validates PASS with `stale_claims: []`.
+2. Pull-request hosted workflow succeeds and receipt hash/authority checks pass.
+3. Site pre-work claim validation, Site Handoff Orchestrator, Ecosystem Heartbeat, Site Bootstrap, and StegFin projection remain PASS where triggered.
+4. Branch is current with `main` immediately before merge.
+5. Claim is released after merge and this handoff records final evidence.
+
+## Collision boundaries
+
+- Do not implement, launch, or activate Ecosystem Chat runtime from this support lane.
+- Do not duplicate formal local-model/runtime, sovereign carrier, TVC route, or Master Records work.
+- Do not implement or activate VACC provider/private-document runtime from this support lane.
+- Do not touch active StegOS/HIL/wallet authority surfaces.
+- No NON-TV/TVC secret/token may be introduced or exposed.
+- No Render production path.
+- Validation/receipt success grants no deployment, execution, publication, adjudication, filing, custody, medical, representation, or release authority.
+
+## Automation and continuation
+
+`.github/workflows/two-entry-points-execution-state.yml` remains the repository-native observer for this coordination registry during reconciliation. Its product-independent CI/token/writeback cleanup is not part of the present claim and must be handled only through a separate collision-free Site #268 remediation after this owner state is stable.
+
+Product continuation remains entirely with the canonical owners above. Once `CONS-001` reconciliation is validated and integrated, this support claim must release; it must not become a standing product owner.
+
+## Completion / archival posture
+
+The originating session requirements are durably represented, but the two products are not both activated. Therefore product goal completion and archive readiness must not be inferred from this reconciliation.
 
 ```text
-StegVerse-org/LLM-adapter
-  produces immutable Ecosystem Chat activation receipt
-
-StegVerse-Labs/TVC and TV
-  provide scoped VA provider/source execution and capability admission
-
-master-records/orchestration
-  provides provider-usage, transition, document, and session custody/reconstruction
-
-StegVerse-Labs/Site
-  imports verified receipts and exposes exact public capability status
-
-GCAT-BCAT-Engine/Publisher
-StegVerse-Labs/admissibility-wiki
-StegVerse-002/stegguardian-wiki
-  receive verified downstream projections only after Site activation
+Ecosystem Chat activation: BLOCKED / MACHINE_OWNED RUNTIME OBSERVATION
+VA Claim Assistant activation: PARTIAL / BLOCKED AT GOVERNED PROVIDER + DOCUMENT GATES
+cross-entry stale-claim reconciliation: ACTIVE DISTINCT SUPPORT ROLE
+archive_state: ACTIVE_DISTINCT_SUPPORT_WORK_REMAINS
 ```
 
-No propagation is claimed merely because destinations are named.
-
-## Duplicate and supersession record
-
-- Site issue `#153` was closed as duplicate of canonical issue `#152`.
-- Site issues `#154` and `#155` were accidental empty issues, closed as not planned, and own no work.
-- Existing issues `LLM-adapter#18`, `Site#24`, and `Site#113` remain canonical implementation lanes and are not replaced by issue `#152`.
-
-## Authority boundary
-
-No handoff, task claim, workflow, monitor, provider output, receipt, custody event, reconstruction result, or public display independently grants deployment, adjudication, medical, representation, publication, release, or execution authority.
-
-## Completion percentages
-
-Denominators cover nine shared coordination and activation-control deliverables, eight validation classes, seven integrations, and four originating session goals.
-
-```text
-developed files: 7/9
-validation: 3/8 installed or statically inspectable; hosted execution unobserved
-integration: 2/7
-session consolidation: 4/4 requirements durably represented
-goal activation: Ecosystem Chat pending; VA Claim Assistant building
-```
-
-## Incomplete work
-
-```text
-StegVerse-Labs/Site
-  reports/two-entry-points-execution-state-validation.json — not yet observed from hosted workflow
-  hosted workflow run, jobs, logs, and artifact — not yet inspected
-  Ecosystem Chat Site ACTIVATION_COMPLETE — not observed
-  Publisher/wiki ingestion receipts — not observed
-  VA source-grounded and document-aware session — incomplete
-
-StegVerse-org/LLM-adapter
-  authorized persistent endpoint — not verified
-  real provider-use receipt — not verified
-  provider-usage custody and reconstruction — not verified
-  transition custody and reconstruction — not verified
-  immutable zero-blocker activation receipt — not observed
-
-StegVerse-Labs/TVC / TV
-  VA scoped source/provider capability receipt — not observed
-
-master-records/orchestration
-  VA document/session custody and reconstruction receipts — not observed
-```
-
-## Session consolidation state
-
-All unique requirements introduced in the originating session are now represented in issue `#152`, this handoff, and the machine registry. That preservation does not complete or transfer unfinished implementation. This session still owns the distinct validation and consolidation role until the hosted registry workflow is observed and its claim is either completed or actually transferred.
-
-## Archive conditions
-
-This workstream is not complete until both entry points are activated or every incomplete item is actually transferred to separately verified active executors. Documentation without active execution is insufficient. No archive state may be asserted while any archival-dependent task remains nonterminal or any active claim is stale, unvalidated, or unsupported by evidence.
+MERGED INTO canonical continuation after reconciliation: `StegVerse-Labs/Site/docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md` + `data/two-entry-points-execution-state.json` + current product-owner handoffs named above.
