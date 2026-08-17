@@ -112,8 +112,8 @@ jobs:
               'STEGVERSE_PROVIDER_TOKEN' + ':',
               'STEGVERSE_MASTER_RECORDS_TOKEN' + ':',
               'schedule' + ':',
-              'repository: StegVerse-org/LLM-adapter',
-              "pip install -e './adapter-source[service]'",
+              'repository:' + ' StegVerse-org/LLM-adapter',
+              'pip install -e ' + "'./adapter-source[service]'",
           ]
           assert 'permissions: {}' in workflow
           assert 'Refuse credential-bearing environment' in workflow
