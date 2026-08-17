@@ -5,7 +5,7 @@
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-17T14:40:54Z",
+  "generated_at": "2026-08-17T16:18:44Z",
   "organizations": [
     {
       "enumeration_error": null,
@@ -15,7 +15,7 @@
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 1,
+      "inspection_error_count": 0,
       "organization": "StegVerse-org",
       "repository_count": 10
     },
@@ -391,7 +391,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T14:25:29Z",
+      "pushed_at": "2026-08-17T15:49:23Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -765,7 +765,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T08:16:43Z",
+      "pushed_at": "2026-08-17T15:11:27Z",
       "repository": "StegVerse-Labs/.github",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: .github",
@@ -1698,7 +1698,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-17T14:05:16Z",
+      "pushed_at": "2026-08-17T16:11:19Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1763,8 +1763,11 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "Dockerfile: HTTP 504"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2111,7 +2114,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-12T19:32:32Z",
+      "pushed_at": "2026-08-17T16:08:08Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2385,11 +2388,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "Dockerfile: HTTP 504"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2406,7 +2406,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T13:55:34Z",
+      "pushed_at": "2026-08-17T15:43:26Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2676,7 +2676,7 @@
           ".github/workflows/validate.yml"
         ]
       },
-      "pushed_at": "2026-08-16T18:00:13Z",
+      "pushed_at": "2026-08-17T14:45:31Z",
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
       "role_assignment_reason": "repository name matched term: sdk",
@@ -2858,7 +2858,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-06-21T23:37:43Z",
+      "pushed_at": "2026-08-17T14:47:20Z",
       "repository": "StegVerse-org/discovery",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2965,11 +2965,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "render.yaml: HTTP 504"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
