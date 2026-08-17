@@ -6,9 +6,12 @@
   "owner_repository":"StegVerse-Labs/Site",
   "canonical_issue":"StegVerse-Labs/Site#268",
   "product_owner_issue":"StegVerse-Labs/Site#24",
-  "state":"UNCLAIMED",
+  "state":"CLAIMED_FOR_IMPLEMENTATION",
+  "claim_ref":"data/session-work-claims.json#SITE-ENDPOINT-READINESS-TV-TVC-REALIGNMENT-20260817",
+  "branch":"claim/site-endpoint-readiness-tvtvc-realignment-20260817",
   "authority":{
     "credential_authority":"TV/TVC",
+    "credential_requirement":"NONE_AT_SITE_VALIDATION_BOUNDARY",
     "non_tv_tvc_secret_or_token_allowed":false,
     "github_token_runtime_authority":"NONE",
     "site_runtime_authority":false,
@@ -31,5 +34,5 @@
     "canonical Site validation and orchestration pass",
     "no live activation is inferred"
   ],
-  "next_executable_action":"Acquire a collision-safe Site claim, implement the bounded realignment, validate exact-head, and release only after merge evidence."
+  "next_executable_action":"Implement the bounded realignment, validate exact-head, and release only after merge evidence."
 }
