@@ -59,6 +59,23 @@ jobs:
       - name: Install public validation dependency without credential
         run: python3 -m pip install jsonschema
 
+      - name: Execute ST-018 deterministic validation receipt locally
+        run: |
+          python3 scripts/capture_validation_manifest.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('reports/validation-execution-receipt.json').read_text(encoding='utf-8'))
+          if receipt.get('status') != 'PASS':
+              raise SystemExit('ST-018 deterministic validation receipt did not PASS')
+          authority = receipt.get('authority', {})
+          if any(authority.values()):
+              raise SystemExit('ST-018 authority ceiling violated')
+          print('SITE_ST018_LOCAL_RECEIPT=PASS')
+          print('SITE_ST018_GITHUB_ARTIFACT_CUSTODY=NONE')
+          print('SITE_ST018_GITHUB_ISSUE_MUTATION=NONE')
+          PY
+
       - name: Validate HIL pilot ledger, announcement status, and deterministic fixtures
         run: |
           python3 scripts/validate_hil_pilot_ledger.py
@@ -109,6 +126,8 @@ jobs:
               'actions/' + 'upload-artifact@',
               'persist-' + 'credentials',
               'git ' + 'push',
+              'GH_' + 'TOKEN:',
+              'github.' + 'token',
               'STEGVERSE_PROVIDER_TOKEN' + ':',
               'STEGVERSE_MASTER_RECORDS_TOKEN' + ':',
               'schedule' + ':',
@@ -118,11 +137,13 @@ jobs:
           assert 'permissions: {}' in workflow
           assert 'Refuse credential-bearing environment' in workflow
           assert 'python scripts/check_ecosystem_chat_application.py' in workflow
+          assert 'python3 scripts/capture_validation_manifest.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
           print('SITE_BOOTSTRAP_RUNTIME_EXECUTION_AUTHORITY=NONE')
           print('SITE_BOOTSTRAP_REPOSITORY_WRITEBACK=NONE')
           print('SITE_BOOTSTRAP_ARTIFACT_TRANSPORT=NONE')
+          print('SITE_ST018_ISSUE_MUTATION=NONE')
           PY
 
 # Portable-node gateway launch/inference proof is intentionally not performed here.
