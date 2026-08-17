@@ -73,19 +73,26 @@
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B10R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"a062d42933d87834b611d493c0669e0b578ac9e1"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B12-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"0965f24abb57aee0cf6237cb9cbad5dfecfb3cb0"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B13-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"6a4b09c5ffbfa672f06c3264ee2090b40b1c39d6"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B14-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1"},
     {
-      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817",
-      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B14-20260817",
-      "state": "MERGED_INTO_CANONICAL_WORKSTREAM",
-      "role": "RELEASED_INTEGRATION",
-      "branch": "chore/site-marketplace-first-accessibility-import-retirement-b14-20260817",
-      "released_at": "2026-08-17T10:13:00-05:00",
-      "release_commit": "7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1",
-      "final_head": "10fcb2896b34411950041c02578fbe47969a87dc",
-      "evidence": ["PR #327 merge 7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1","Site Bootstrap Validate 32041523825 SUCCESS","Site Handoff Orchestrator 32041523747 SUCCESS","Ecosystem Heartbeat Orchestration 32041523800 SUCCESS","Check StegFin Phone Projection 32041523811 SUCCESS","SESSION_WORK_CLAIMS_PASS","ST-017 sandbox PASS","workflow inventory 110; canonical 3; migration-required operational 107; placeholders 0","import-marketplace-coinbase-first-accessibility.yml absent after merge","deterministic importer/controller source and terminal ACCESSIBLE evidence retained","Site#130 remains closed completed"],
-      "authority_effect": false,
-      "runtime_activation_effect": false,
-      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268, separating terminal projections from nonterminal Marketplace activation work."
+      "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817",
+      "session_worker_id": "chatgpt-session-distinct-support-b15-20260817",
+      "task_id": "SITE-ACTIONS-COST-CONTAINMENT-B15-20260817",
+      "originating_goal": "Remove the standalone GitHub-token-backed HIL end-to-end protocol validator workflow while preserving current deterministic protocol validation inside the credential-clean HIL dispatcher.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "chore/site-hil-end-to-end-validation-b15-20260817",
+      "role": "INTEGRATION",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "site-hil-end-to-end-protocol-validation-consolidation",
+      "dependency_surface_keys": ["site:workflow-minimization:hil-end-to-end-protocol-validator"],
+      "claimed_paths": ["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",".github/workflows/check-hil-live-readiness.yml",".github/workflows/check-hil-end-to-end-protocol.yml","scripts/check_hil_end_to_end_protocol.py"],
+      "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "74fe6241565c81af932f66da393366040099d6eb",
+      "claim_created_at": "2026-08-17T11:09:00-05:00",
+      "claim_expires_when": "Released after exact-head validation, merge, claim release, handoff update, and workflow recensus.",
+      "expected_evidence": ["check-hil-end-to-end-protocol.yml absent on merged main","current HIL end-to-end protocol validation PASS","HIL Validation and Live Readiness PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","Site Bootstrap Validate PASS","workflow inventory decreases by exactly one"],
+      "collision_boundaries": ["Do not modify HIL runtime/product activation state","Do not modify Site #81 or #67 product paths","Do not modify TVC private review or StegCore lifecycle authority","Do not introduce NON-TV/TVC secret/token","Do not export TV/TVC credentials into GitHub Actions","GitHub Actions remains deterministic validation only","No Render path","No wallet/provider/publication/custody/review/runtime authority"],
+      "next_task_after_release": "Inspect the next bounded unclaimed Site workflow family under Site #268."
     }
   ]
 }
