@@ -1,20 +1,20 @@
 {
   "schema":"stegverse.site.task.v1",
   "task_id":"SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817",
-  "state":"IMPLEMENTED_PENDING_VALIDATION",
+  "state":"COMPLETE_RELEASED",
   "owner_repository":"StegVerse-Labs/Site",
   "canonical_issue":"StegVerse-Labs/Site#131",
   "parent_issue":"StegVerse-Labs/Site#268",
   "cross_repository_issue":"StegVerse-Labs/StegVerse-Healer#8",
   "claim_id":"SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817",
-  "branch":"claim/site-marketplace-projection-local-import-correction-20260817",
-  "handoff":"docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md",
+  "merge_commit":"218fee91a7d2214fec328f74247e079292c45ce0",
+  "final_head":"1706f22da79fd8e8c90cbad4d9ff5f088410142d",
   "credential_authority":"TV/TVC",
   "credential_requirement":"NONE",
   "non_tv_tvc_secret_or_token_allowed":false,
   "github_api_or_raw_source_required":false,
   "runtime_owner":"StegVerse-Labs/StegVerse-Healer:SHWP-HEALER-SOVEREIGN-SCHEDULER-001",
   "authority_effect":"NONE",
-  "validation_required":["marketplace accessibility tests PASS","SESSION_WORK_CLAIMS_PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","Check StegFin Phone Projection PASS","exact-head merge evidence"],
-  "release_condition":"Site merge plus StegVerse-Healer#8 reconciliation; ordinary Healer activation remains separately machine-owned."
+  "validation":{"site_bootstrap":"32050796944 SUCCESS","site_handoff":"32050796941 SUCCESS","ecosystem_heartbeat":"32050797014 SUCCESS","stegfin_projection":"32050785197 SUCCESS"},
+  "remaining_activation_boundary":"Ordinary Healer scheduler execution remains MACHINE_OWNED and requires its separate sovereign runtime receipt."
 }
