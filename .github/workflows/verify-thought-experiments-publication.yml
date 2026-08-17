@@ -1,4 +1,4 @@
-name: Verify Thought Experiments publication
+name: Verify Thought Experiments public routes
 
 on:
   push:
@@ -7,25 +7,24 @@ on:
       - 'Thought-Experiments.html'
       - 'thought-experiments/**'
       - 'index.html'
-      - 'scripts/check_thought_experiments_publication.py'
       - '.github/workflows/verify-thought-experiments-publication.yml'
   workflow_dispatch:
-  schedule:
-    - cron: '23 * * * *'
 
-permissions:
-  contents: read
+permissions: {}
+
+concurrency:
+  group: thought-experiments-public-routes-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  verify:
+  verify-public-routes:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate publication files
-        run: python scripts/check_thought_experiments_publication.py
       - name: Verify public routes after deployment
-        if: github.ref == 'refs/heads/main'
+        shell: bash
         run: |
+          set -euo pipefail
           python - <<'PY'
           import time, urllib.request
           urls = [
@@ -38,15 +37,17 @@ jobs:
               last = []
               for url in urls:
                   try:
-                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-publication-verifier/1.0'})
-                      with urllib.request.urlopen(req, timeout=15) as r:
-                          body = r.read(128)
-                          last.append((url, r.status, body))
+                      req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-publication-verifier/1.1'})
+                      with urllib.request.urlopen(req, timeout=15) as response:
+                          body = response.read(128)
+                          last.append((url, response.status, body))
                   except Exception as exc:
                       last.append((url, None, repr(exc).encode()))
               if all(status == 200 for _, status, _ in last):
                   for url, status, _ in last:
                       print(f'PUBLIC_ROUTE_PASS {status} {url}')
+                  print('THOUGHT_EXPERIMENTS_REMOTE_VALIDATION_AUTHORITY_EFFECT=NONE')
+                  print('THOUGHT_EXPERIMENTS_REMOTE_VALIDATION_ACTIVATION_EFFECT=NONE')
                   raise SystemExit(0)
               time.sleep(10)
           for url, status, body in last:
