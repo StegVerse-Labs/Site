@@ -44,6 +44,7 @@
       "dependency_surface_keys": ["site:workflow-surface-minimization:user-llm-bounded-execution-receipt-import"],
       "claimed_paths": ["data/session-work-claims.json", ".github/workflows/check-user-llm-bounded-execution-receipt-import.yml", "scripts/check_ecosystem_chat_application.py", "scripts/check_user_llm_bounded_execution_receipt_import.py", "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
       "handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision": "1aacc4b4a4c34fd1bd6576e3e7c6e2f2feaadee1",
       "claim_created_at": "2026-08-17T12:18:00-05:00",
       "claim_expires_when": "Released after exact-head credential-clean validation, merge-checkout census proves exactly one workflow retired without canonical-surface loss, merge completes, and claim/handoff release evidence is durable.",
       "expected_evidence": ["check-user-llm-bounded-execution-receipt-import.yml absent", "check_user_llm_bounded_execution_receipt_import.py retained", "validator invoked by check_ecosystem_chat_application.py", "bounded receipt validator PASS", "Site Handoff Orchestrator PASS", "Ecosystem Heartbeat Orchestration PASS", "Site Bootstrap Validate PASS", "Check StegFin Phone Projection PASS", "workflow inventory decremented by exactly one from 105 with canonical 3 and placeholders 0"],
