@@ -3,16 +3,35 @@
   "task_id": "SITE-ACTIONS-COST-CONTAINMENT-001-B27",
   "goal_id": "SITE-ACTIONS-COST-CONTAINMENT-001",
   "repository": "StegVerse-Labs/Site",
-  "state": "READY_FOR_CLAIM",
+  "state": "IMPLEMENTED_VALIDATION_PENDING",
   "originating_goal": "Remove the redundant hourly GitHub-hosted Thought Experiments publication workflow surface while preserving deterministic publication validation and public-route observation without NON-TV/TVC secrets or tokens.",
   "canonical_handoff": "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
   "parent_issue": 268,
-  "intended_branch": "claim/site-thought-experiments-validation-consolidation-b27-r1-20260817",
+  "branch": "claim/site-thought-experiments-validation-consolidation-b27-r1-20260817",
+  "claim_id": "SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B27-20260817",
   "credential_authority": "TV/TVC",
   "non_tv_tvc_secret_or_token_allowed": false,
   "github_actions_runtime_authority": "NONE",
   "render_required": false,
   "authority_effect": false,
   "activation_effect": false,
-  "next_executable_action": "Install the exact branch-bound claim from current main, fold the unchanged deterministic validator and bounded main-push public-route check into credential-clean validate.yml, delete the standalone hourly workflow, then validate and release only from fresh current main."
+  "implemented": {
+    "deterministic_validator": "scripts/check_thought_experiments_publication.py",
+    "validator_blob_expected_unchanged": "d92cfff0bc6d8cabdb3ffa298a7a953f197a346a",
+    "canonical_validation_lane": ".github/workflows/validate.yml",
+    "standalone_workflow_retired": ".github/workflows/verify-thought-experiments-publication.yml",
+    "hourly_schedule_retired": true,
+    "checkout_action_retired_from_surface": true,
+    "public_route_observation": "bounded main-push step in credential-clean validate.yml"
+  },
+  "validation_required": [
+    "THOUGHT_EXPERIMENTS_PUBLICATION=PASS",
+    "Site Bootstrap Validate PASS",
+    "Site Handoff Orchestrator PASS",
+    "Ecosystem Heartbeat Orchestration PASS",
+    "Check StegFin Phone Projection PASS",
+    "workflow inventory one lower than pre-B27 census",
+    "post-merge main-push public-route observation PASS"
+  ],
+  "next_executable_action": "Open the fresh-current-main PR, inspect exact-head workflow jobs and logs, merge only after pre-merge gates pass, then inspect the main-push public-route observation and release the claim/handoff only if all required evidence is PASS."
 }
