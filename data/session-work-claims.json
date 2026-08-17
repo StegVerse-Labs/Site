@@ -108,6 +108,26 @@
       "render_production_authority": false,
       "github_hosted_validation_activation_authority": false,
       "continued_by": "StegVerse-Labs/StegOS#13 physical iPod node establishment and Ecosystem Chat activation"
+    },
+    {
+      "claim_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301-20260817",
+      "session_worker_id": "chatgpt-session-stegfin-user-wallet-handoff-20260817",
+      "task_id": "SITE-STEGFIN-USER-WALLET-HANDOFF-301",
+      "originating_goal": "Project the released StegFin USER_ONLY exact-candidate wallet handoff and post-confirmation successor PREPARE continuity into the canonical phone participant so the trade can continue without ChatGPT/session memory.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "claim/stegfin-user-wallet-handoff-301",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-stegfin-user-wallet-handoff-successor-prepare",
+      "dependency_surface_keys": ["site:stegfin-phone-participant-projection:user-wallet-handoff"],
+      "claimed_paths": ["data/session-work-claims.json", "assets/stegfin-phone/wallet-user-handoff.js", "assets/stegfin-phone/wallet-user-handoff-ui.js", "stegfin-trade.html", "scripts/check_stegfin_phone_projection.py", "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md", "receipts/stegfin-user-wallet-handoff-301-release.json"],
+      "handoff": "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "handoff_revision": "ddcc370bdf9060b7071e4d2bb212e40f4a9e6718",
+      "claim_created_at": "2026-08-17T00:36:44-05:00",
+      "claim_expires_when": "Release after StegFin PR #78 exact source blobs are projected, Site projection/orchestration/bootstrap gates pass, product PR merges, exact Pages publication is verified, and live continuation is transferred to StegFin #77/current phone; otherwise record the failing gate as the machine-observable blocker.",
+      "expected_evidence": ["StegFin PR #78 merge 7c71636ef3e682443f561f3f1162673b42e12036", "exact upstream wallet-user-handoff.js blob c9c0688ab58e1a196bd777c45fa6f33fa7b9601b", "exact upstream wallet-user-handoff-ui.js blob 83a36d6b622c45be35d1af14d96f7ff92e71ced3", "Site projection validator proves current PREPARE freshness, explicit USER_ONLY wallet action, receipt observation, stale candidate invalidation, separate successor WebAuthn/PREPARE gesture, TV/TVC/NONE, no NON-TV/TVC secret/token, and no hosted production authority", "Site PR merge", "exact Pages publication from merged commit lineage"],
+      "collision_boundaries": ["Exact source projection only; do not fork StegFin wallet handoff semantics", "Do not modify phone-direct-route.js, rpc-resilience.js, StegID source, quote/allowance/gas/simulation semantics", "Do not introduce WalletConnect relay or hosted wallet middleware", "Do not introduce or consume NON-TV/TVC secrets or tokens", "Do not use Render/Vercel/Cloudflare/GitHub-hosted production execution authority", "Do not sign or broadcast automatically; USER_ONLY remains sole wallet authority"],
+      "next_task_after_release": "StegFin #77/current phone generates a fresh PREPARE candidate, tests injected-wallet compatibility, observes any USER_ONLY-approved transaction, and proves successor PREPARE without chat dependency."
     }
   ]
 }
