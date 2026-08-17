@@ -1,22 +1,25 @@
 # GP10 Workspace Mirror Handoff
 
-Status: ACTIVE PROJECT — SITE WORKSTREAM VALIDATED
-Updated: 2026-08-02
+Status: ACTIVE PROJECT — SITE WORKSTREAM VALIDATED / CREDENTIAL-CLEAN REMEDIATION IN PROGRESS
+Updated: 2026-08-17
 Goal ID: `GP10-SITE-SECURE-GUIDED-WORKSPACE-001`
 Originating session goal: provide a simplified, logically narrowing GP10 evidence and commercial-posture workspace, a beginner examples surface, and browser security controls that treat applicable federal cybersecurity requirements as a minimum baseline rather than a target ceiling.
 Repository: `StegVerse-Labs/Site`
-Branch: `main`
+Canonical branch: `main`
+Active remediation branch: `claim/site-gp10-github-token-writeback-retirement-r1-20260817`
 
 ## Canonical ownership
 
 - GP10 domain logic, schemas, evidence custody, ingestion, runtime validation, and commercial governance remain canonical in `StegVerse-Labs/GP10`.
-- This repository owns the unlisted browser workspace, examples surface, browser-side security controls, Site isolation verification, hosted-page observation, and committed Site validation receipts.
+- This repository owns the unlisted browser workspace, examples surface, browser-side security controls, Site isolation verification, and non-authorizing hosted-page observation.
 - Canonical GP10 continuation: `StegVerse-Labs/GP10/GP10_MIRROR_HANDOFF.md`.
 - Canonical Site continuation: this file and `data/operations/gp10_workspace_tasks.json`.
+- Site is not the source of truth for GP10 evidence, approval, custody, runtime authority, or commercial authority.
+- Credential authority is TV/TVC; no NON-TV/TVC project/provider secret or token is a required GP10 Site validation dependency.
 
 MERGED INTO: `StegVerse-Labs/Site/docs/GP10_WORKSPACE_MIRROR_HANDOFF.md`
 
-The originating session has released its Site implementation and observation claims. Remaining service-boundary and GP10 commercial tasks are owned outside the conversation.
+The originating session has released its Site implementation and observation claims. Remaining service-boundary and GP10 commercial tasks are owned by durable repository owners. The current credential-clean remediation is a separate Site #268 cleanup lane and does not reopen GP10 product authority.
 
 ## Authoritative files
 
@@ -34,7 +37,7 @@ The originating session has released its Site implementation and observation cla
 - `docs/GP10_WORKSPACE_DEPLOYMENT_OBSERVER_ADDENDUM.md`
 - `data/operations/gp10_workspace_tasks.json`
 - `.github/workflows/gp10-workspace-security.yml`
-- `docs/receipts/gp10-site/`
+- `docs/receipts/gp10-site/` (historical immutable receipts)
 - `docs/GP10_WORKSPACE_HANDOFF.md` (legacy redirect)
 
 ## Claim state
@@ -59,7 +62,40 @@ The originating session has released its Site implementation and observation cla
 - Durable receipt: `docs/receipts/gp10-site/deployment-80fbf35d2a824f689050c7ec69e579c2ddf8f196.json`
 - Result: `PASS`
 
-The job, steps, logs, artifact, committed receipts, hashes, marker results, receipt persistence, and final enforcement were directly inspected before release.
+The historical job, steps, logs, artifact, committed receipts, hashes, marker results, receipt persistence, and final enforcement were directly inspected before release. Those historical artifact/writeback mechanics are immutable evidence of the completed observation, not continuing custody requirements.
+
+### `SITE-GP10-GITHUB-TOKEN-WRITEBACK-RETIREMENT-R1-20260817`
+
+- State: `CLAIMED_FOR_IMPLEMENTATION`
+- Role: `IMPLEMENTATION_VALIDATION`
+- Parent: `StegVerse-Labs/Site#268`
+- Branch: `claim/site-gp10-github-token-writeback-retirement-r1-20260817`
+- Goal: preserve GP10 Site static and hosted-page validation while removing GitHub token, repository writeback, and artifact-custody mechanics.
+- Credential authority: `TV/TVC`
+- GitHub runtime/control-plane authority: `NONE`
+- Execution authority effect: `NONE`
+- Custody authority effect: `NONE`
+- Release condition: exact-head GP10 workflow, Site Handoff Orchestrator, Ecosystem Heartbeat, Site Bootstrap, and StegFin projection PASS; merge; claim release; task/handoff reconciliation.
+
+Installed workflow boundary:
+
+```text
+permissions: {}
+credential-bearing environment refusal: INSTALLED
+anonymous exact-SHA public Site fetch: INSTALLED
+preinstalled Python: USED
+actions/checkout: REMOVED
+actions/setup-python: REMOVED
+actions/upload-artifact: REMOVED
+contents write: REMOVED
+repository commit/push writeback: REMOVED
+GitHub token consumption: REMOVED
+check_gp10_workspace.py: RETAINED
+check_gp10_workspace_deployment.py: RETAINED for main/non-PR observation
+PR deployment observation: BLOCKED_PR_NOT_DEPLOYED_MAIN
+historical committed receipts: RETAINED IMMUTABLY
+future GitHub artifact/repository custody: NONE
+```
 
 ## Preserved interaction requirements
 
@@ -84,7 +120,7 @@ The job, steps, logs, artifact, committed receipts, hashes, marker results, rece
 - explicit receipt limits: integrity does not prove truth, identity, authority, custody, approval, or execution authority;
 - fail-closed static verification of policy, adaptive UX, examples synchronization, authority denial, and public-navigation isolation;
 - exact-byte hosted deployment observation with bounded retries and cache-busting;
-- repository-native preservation of both PASS and FAILED security/deployment receipts using `[skip ci]` recursion protection.
+- historical repository-native PASS/FAILED receipts remain preserved; new GitHub writeback/artifact custody is being retired by the active Site #268 claim.
 
 The complete control contract and static-host limitations are in `docs/GP10_WORKSPACE_SECURITY_BASELINE.md`. This is not a federal compliance certification.
 
@@ -102,11 +138,11 @@ Workflow run `30780334497` completed successfully on Ubuntu 24.04 with Python 3.
 - noindex/noarchive marker: present on both pages.
 - no-execution-authority marker: present on both pages.
 - Attempts used: `1`.
-- Receipt persistence step: `success`.
-- Artifact upload step: `success`.
+- Historical receipt persistence step: `success`.
+- Historical artifact upload step: `success`.
 - Final enforcement step: `success`.
 
-The artifact contains two receipt files and has digest `sha256:417f8160a6bf9d7eb211da3da4ef236dbe453d930905c1cb4bf8d128cc42ddb6`.
+The historical artifact contains two receipt files and has digest `sha256:417f8160a6bf9d7eb211da3da4ef236dbe453d930905c1cb4bf8d128cc42ddb6`.
 
 ## Validation commands
 
@@ -115,10 +151,10 @@ python3 scripts/check_gp10_workspace.py
 python3 scripts/check_gp10_workspace_deployment.py \
   --commit "$(git rev-parse HEAD)" \
   --run-id local \
-  --output validation/gp10-workspace-deployment-receipt.json
+  --output /tmp/gp10-workspace-deployment-receipt.json
 ```
 
-Future relevant commits continue to run `.github/workflows/gp10-workspace-security.yml` and preserve commit-specific PASS or FAILED receipts under `docs/receipts/gp10-site/`.
+Future relevant commits may retain credential-clean validation and non-authorizing hosted-page observation. They must not require GitHub token, repository writeback, or GitHub artifact custody to preserve GP10 authority or completion state.
 
 ## Cross-repository integration
 
@@ -130,28 +166,28 @@ Future relevant commits continue to run `.github/workflows/gp10-workspace-securi
 
 ## Incomplete work and durable owners
 
-1. Authenticated durable service — `data/operations/gp10_workspace_tasks.json#GP10-SITE-AUTHENTICATED-SERVICE`; blocked until a named service owner, domain, scope, authentication design, privacy terms, and deployment authority exist.
-2. Real field validation and commercial activation — `StegVerse-Labs/GP10/data/operations/continuation_tasks.json`.
+1. Credential-clean Site validation transport — active claim `SITE-GP10-GITHUB-TOKEN-WRITEBACK-RETIREMENT-R1-20260817` on the named claim branch; release condition is exact-head validation and merge.
+2. Authenticated durable service — `data/operations/gp10_workspace_tasks.json#GP10-SITE-AUTHENTICATED-SERVICE`; blocked until a named service owner, domain, scope, authentication design, privacy terms, and deployment authority exist.
+3. Real field validation and commercial activation — `StegVerse-Labs/GP10/data/operations/continuation_tasks.json`.
 
-There are no unspecified external tasks and no remaining Site deployment-observation task for this session.
+There are no unspecified external tasks and no wallet, HIL, provider, Master Record, publication, commercial, or runtime authority assigned to this remediation.
 
 ## Session consolidation and archive conditions
 
-The unique Site UX and federal-floor security requirements are implemented, deployed, observed, receipt-bound, and transferred. Remaining work has named repository owners and release conditions.
-
-No Site-specific project decision, requirement, owner, blocker, evidence path, or next action depends on the originating conversation. Archiving that session does not impair execution.
+The unique originating Site UX and federal-floor security requirements remain implemented, deployed, observed, receipt-bound, and transferred. The originating GP10 session remains archive-safe. The active credential-clean remediation is fully durable in the current claim registry and this handoff and does not depend on the originating chat.
 
 ## Completion metrics
 
-Denominator: 14 required Site repository/control deliverables.
+Denominator: 14 required original Site repository/control deliverables.
 
-- Task completion: 13/14 = 93%.
+- Original task completion: 13/14 = 93%.
 - Developed-file completion: 14/14 = 100%.
-- Validation completion: 11/11 = 100%.
-- Integration completion: 6/6 = 100%.
+- Original validation completion: 11/11 = 100%.
+- Original integration completion: 6/6 = 100%.
 - Propagation completion: 1/1 = 100% for transfer into canonical GP10 continuation; release propagation remains GP10-release-bound.
-- Goal activation: 10/11 = 91%.
-- Session consolidation: 1/1 = 100%.
+- Original goal activation: 10/11 = 91%.
+- Originating-session consolidation: 1/1 = 100%.
 - Originating-session archival readiness for this Site goal: 100%.
+- Current credential-clean remediation: `CLAIMED_FOR_IMPLEMENTATION`; exact-head validation pending.
 - Scaffolding or stubs: 0 in the current static Site security scope.
 - Missing required files: 0.
