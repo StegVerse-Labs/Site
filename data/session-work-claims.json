@@ -1,21 +1,10 @@
 {
-  "schema_version": "1.1.0",
-  "registry_type": "stegverse_session_work_claim_registry",
-  "repository": "StegVerse-Labs/Site",
-  "historical_registry": {
-    "preserved_at_commit": "b106d3479bafa458d56f4f450f1975925e7887e6",
-    "preserved_blob_sha": "e8d1d8fb7ee765cb955b679b895e2fdd91ddc5c8",
-    "note": "Detailed released claim history is immutable in Git history. Required projection claims remain explicitly present because deterministic Site validators consume them as durable contract evidence."
-  },
-  "policy": {
-    "one_active_owner_per_task": true,
-    "one_active_owner_per_dependency_surface": true,
-    "missing_or_stale_claim_fails_closed": true,
-    "incidental_dependency_cannot_become_governing_objective": true,
-    "distinct_support_roles_require_explicit_non_overlap": true,
-    "collision_redirects_to_next_unclaimed_canonical_task": true
-  },
-  "claims": [
+  "schema_version":"1.1.0",
+  "registry_type":"stegverse_session_work_claim_registry",
+  "repository":"StegVerse-Labs/Site",
+  "historical_registry":{"preserved_at_commit":"bdc8868d2a83e454fb9f2dd8d6a914c8f18f6ec7","preserved_blob_sha":"4544940ec41453ae1952abb30b652c6b03a5d6c1","note":"Detailed released claim history is immutable in Git history. Required projection claims remain explicitly present because deterministic Site validators consume them as durable contract evidence."},
+  "policy":{"one_active_owner_per_task":true,"one_active_owner_per_dependency_surface":true,"missing_or_stale_claim_fails_closed":true,"incidental_dependency_cannot_become_governing_objective":true,"distinct_support_roles_require_explicit_non_overlap":true,"collision_redirects_to_next_unclaimed_canonical_task":true},
+  "claims":[
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
     {"claim_id":"SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
@@ -38,44 +27,13 @@
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"bb2850425943d1590594096b6d453a5c1822881f","final_head":"4f012fb34cf990eeecbced66cbc5046eb180ff0d"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"b106d3479bafa458d56f4f450f1975925e7887e6","final_head":"799455e1ae32ce40d1050ac6020331891c21ac9c","claim_release_commit":"7eca3a6a8d2b9b5f5853fd028aa4a26a8083a7ab"},
     {
-      "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
-      "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
-      "task_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298",
-      "originating_goal":"Project the exact merged StegOS admitted-inference browser consumer to the established physical iPod surface without a second non-StegVerse machine or any NON-TV/TVC secret/token.",
-      "repository":"StegVerse-Labs/Site",
-      "branch":"feat/stegos-ipod-admitted-inference-canonical-validation-298",
-      "role":"INTEGRATION",
-      "state":"CLAIMED_FOR_INTEGRATION",
-      "normalized_work_key":"site-stegos-ipod-admitted-inference-canonical-validation",
-      "dependency_surface_keys":["site:stegos-ipod-bootstrap:admitted-inference"],
-      "claimed_paths":["data/session-work-claims.json","stegos-bootstrap/index.html","stegos-bootstrap/admitted-inference.js","stegos-bootstrap/service-worker.js","scripts/check_stegos_ipod_bootstrap_projection.py","docs/STEGOS_IPOD_ADMITTED_INFERENCE_PROJECTION_MIRROR_HANDOFF.md"],
-      "handoff":"docs/STEGOS_IPOD_ADMITTED_INFERENCE_PROJECTION_MIRROR_HANDOFF.md",
-      "handoff_revision":"fcac165ce577a94dc2f7916bcf5df3a8f1d43ea6",
-      "claim_created_at":"2026-08-17T02:56:00-05:00",
-      "claim_expires_when":"Released after Site issue #298 exact projection, canonical validation, merge, and Pages built evidence are complete and physical continuation is transferred to StegVerse-Labs/StegOS#15.",
-      "expected_evidence":["projection validator PASS","Site canonical application aggregate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged fresh-current-main Site PR","Pages build built from merged Site projection"],
-      "collision_boundaries":["Site is transport/materialization only","Do not mint TVC route authority","Do not launch or duplicate model runtime or heartbeat worker","Do not modify StegFin wallet semantics","Do not introduce NON-TV/TVC secret/token","Do not use Render as production authority","Do not assign authority to model output","Do not imply physical admitted inference from publication alone"],
-      "next_task_after_release":"StegVerse-Labs/StegOS#15 observes current canonical model/TVC evidence and physical admitted inference on the established node."
+      "claim_id":"SITE-ST018-GITHUB-TOKEN-RETIREMENT-B17R1-20260817","session_worker_id":"chatgpt-session-site-st018-validation-consolidation-b17r1-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-ST018-B17R1-20260817","originating_goal":"Preserve ST-018 deterministic validation execution while removing GitHub-token issue mutation, artifact custody, checkout/setup and standalone hosted write-capable semantics by consolidating execution into the credential-clean canonical Site validator.","repository":"StegVerse-Labs/Site","branch":"chore/site-st018-validation-consolidation-b17r1-20260817","role":"IMPLEMENTATION_VALIDATION","state":"CLAIMED_FOR_IMPLEMENTATION","normalized_work_key":"site-st018-github-token-retirement-b17r1","dependency_surface_keys":["site:workflow-surface-minimization:st018-validation-evidence"],"claimed_paths":["data/session-work-claims.json",".github/workflows/capture-validation-evidence.yml",".github/workflows/validate.yml","docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],"handoff":"docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md","handoff_revision":"408b9c989af72ba9ba44c546bac07be21e28623d","claim_created_at":"2026-08-17T11:30:00-05:00","claim_expires_when":"Released after exact-head credential-clean validation, merge, post-merge workflow recensus, Site #141 reconciliation and canonical handoff/claim release; otherwise converted to BLOCKED with a machine-observable release condition.","expected_evidence":["capture-validation-evidence.yml absent","validate.yml executes scripts/capture_validation_manifest.py and enforces PASS without artifact/issue transport","issues:write absent from ST-018 path","GH_TOKEN/github.token absent from ST-018 path","actions/checkout/setup-python/upload-artifact absent from ST-018 path","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","Check StegFin Phone Projection PASS","workflow inventory 106; canonical 3; migration-required operational 103; placeholders 0"],"collision_boundaries":["Do not weaken ST-018 validator manifest or receipt schema","Do not claim validation proves factual truth/admissibility/publication/deployment/release/certification/runtime activation","Do not export TV/TVC credentials into GitHub Actions","Do not introduce alternate GitHub/project/provider tokens","Do not modify StegOS admitted inference, HIL runtime/private review, StegFin wallet, heartbeat or model authority","USER_ONLY remains sole StegFin signing/broadcast authority","Do not use Render"],"next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
     },
     {
-      "claim_id":"SITE-PREWORK-CLAIM-GATE-MACHINE-001",
-      "session_worker_id":"github-actions:ecosystem-heartbeat-orchestration",
-      "task_id":"SITE-PREWORK-CLAIM-GATE-OPERATIONS",
-      "originating_goal":"Continuously enforce exclusive session and dependency-surface ownership before mutable Site work begins",
-      "repository":"StegVerse-Labs/Site",
-      "branch":"main",
-      "role":"ORCHESTRATION",
-      "state":"MACHINE_OWNED",
-      "normalized_work_key":"session-prework-claim-gate-operations",
-      "dependency_surface_keys":["site:session-orchestration-entry","site:heartbeat-worker-task-registry"],
-      "claimed_paths":["data/session-work-claims.json","scripts/check_session_work_claims.py","scripts/site_handoff_orchestrator.py",".github/workflows/ecosystem-heartbeat-orchestration.yml"],
-      "handoff":"docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md",
-      "handoff_revision":"c2fa9d436381f13c109125367ce803518d4ff2e4",
-      "claim_created_at":"2026-08-09T14:12:00-05:00",
-      "claim_expires_when":"Released only after an organization-level heartbeat worker provides equal-or-stronger cross-repository pre-work collision enforcement and Site imports that authority",
-      "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
-      "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
-      "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+      "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT","session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817","task_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298","originating_goal":"Project the exact merged StegOS admitted-inference browser consumer to the established physical iPod surface without a second non-StegVerse machine or any NON-TV/TVC secret/token.","repository":"StegVerse-Labs/Site","branch":"feat/stegos-ipod-admitted-inference-canonical-validation-298","role":"INTEGRATION","state":"CLAIMED_FOR_INTEGRATION","normalized_work_key":"site-stegos-ipod-admitted-inference-canonical-validation","dependency_surface_keys":["site:stegos-ipod-bootstrap:admitted-inference"],"claimed_paths":["data/session-work-claims.json","stegos-bootstrap/index.html","stegos-bootstrap/admitted-inference.js","stegos-bootstrap/service-worker.js","scripts/check_stegos_ipod_bootstrap_projection.py","docs/STEGOS_IPOD_ADMITTED_INFERENCE_PROJECTION_MIRROR_HANDOFF.md"],"handoff":"docs/STEGOS_IPOD_ADMITTED_INFERENCE_PROJECTION_MIRROR_HANDOFF.md","handoff_revision":"fcac165ce577a94dc2f7916bcf5df3a8f1d43ea6","claim_created_at":"2026-08-17T02:56:00-05:00","claim_expires_when":"Released after Site issue #298 exact projection, canonical validation, merge, and Pages built evidence are complete and physical continuation is transferred to StegVerse-Labs/StegOS#15.","expected_evidence":["projection validator PASS","Site canonical application aggregate PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged fresh-current-main Site PR","Pages build built from merged Site projection"],"collision_boundaries":["Site is transport/materialization only","Do not mint TVC route authority","Do not launch or duplicate model runtime or heartbeat worker","Do not modify StegFin wallet semantics","Do not introduce NON-TV/TVC secret/token","Do not use Render as production authority","Do not assign authority to model output","Do not imply physical admitted inference from publication alone"],"next_task_after_release":"StegVerse-Labs/StegOS#15 observes current canonical model/TVC evidence and physical admitted inference on the established node."
+    },
+    {
+      "claim_id":"SITE-PREWORK-CLAIM-GATE-MACHINE-001","session_worker_id":"github-actions:ecosystem-heartbeat-orchestration","task_id":"SITE-PREWORK-CLAIM-GATE-OPERATIONS","originating_goal":"Continuously enforce exclusive session and dependency-surface ownership before mutable Site work begins","repository":"StegVerse-Labs/Site","branch":"main","role":"ORCHESTRATION","state":"MACHINE_OWNED","normalized_work_key":"session-prework-claim-gate-operations","dependency_surface_keys":["site:session-orchestration-entry","site:heartbeat-worker-task-registry"],"claimed_paths":["data/session-work-claims.json","scripts/check_session_work_claims.py","scripts/site_handoff_orchestrator.py",".github/workflows/ecosystem-heartbeat-orchestration.yml"],"handoff":"docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md","handoff_revision":"c2fa9d436381f13c109125367ce803518d4ff2e4","claim_created_at":"2026-08-09T14:12:00-05:00","claim_expires_when":"Released only after an organization-level heartbeat worker provides equal-or-stronger cross-repository pre-work collision enforcement and Site imports that authority","expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],"collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],"next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
     }
   ]
 }
