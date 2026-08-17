@@ -3,8 +3,8 @@
   "registry_type": "stegverse_session_work_claim_registry",
   "repository": "StegVerse-Labs/Site",
   "historical_registry": {
-    "preserved_at_commit": "72ca1b9377a918983d5bcb329fa4c13ab0294cc8",
-    "preserved_blob_sha": "b251b90b75dfca341a0a338cedacd784383ff683",
+    "preserved_at_commit": "bb2850425943d1590594096b6d453a5c1822881f",
+    "preserved_blob_sha": "4fc97547fe96e18811af2038fa2428cc6c1fa49c",
     "note": "Detailed completed/released claim history is immutable in Git history. Current active claims remain complete below; released claims are represented compactly once canonical merge/evidence is durable."
   },
   "policy": {
@@ -77,22 +77,16 @@
     {"claim_id":"SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"72ca1b9377a918983d5bcb329fa4c13ab0294cc8","final_head":"caf9b6dae32f09b7475a0dbe61cbc5e7e873c089"},
     {
       "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817",
-      "session_worker_id":"chatgpt-session-site-hil-https-probe-validation-b15-20260817",
       "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B15-20260817",
-      "originating_goal":"Consolidate the standalone HIL HTTPS receiver-probe regression workflow into the existing credential-clean HIL validation dispatcher while preserving deterministic fail-closed regression coverage and no-authority semantics.",
-      "repository":"StegVerse-Labs/Site",
+      "state":"MERGED_INTO_CANONICAL_WORKSTREAM",
+      "role":"RELEASED_INTEGRATION",
       "branch":"chore/site-hil-https-probe-validation-b15-20260817",
-      "role":"IMPLEMENTATION_VALIDATION",
-      "state":"CLAIMED_FOR_INTEGRATION",
-      "normalized_work_key":"site-hil-https-probe-regression-validation-b15",
-      "dependency_surface_keys":["site:hil:https-receiver-probe-regression-validation"],
-      "claimed_paths":["data/session-work-claims.json",".github/workflows/test-hil-https-receiver-probe-import.yml",".github/workflows/check-hil-live-readiness.yml","tests/test_hil_https_receiver_probe_import.py","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
-      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
-      "handoff_revision":"68fc18721c04653588b0b947d51d62da4e1bde0f",
-      "claim_created_at":"2026-08-17T11:10:00-05:00",
-      "claim_expires_when":"Released after exact-head credential-clean validation and merge prove the standalone regression workflow absent, the unchanged regression suite executing through the HIL dispatcher, workflow recensus, and durable claim/handoff release.",
-      "expected_evidence":["test-hil-https-receiver-probe-import.yml absent","Run governed receiver import regression tests SUCCESS inside check-hil-live-readiness.yml","HIL Validation and Live Readiness PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","Site Bootstrap Validate PASS","workflow inventory decremented by one with canonical workflows retained and zero placeholders"],
-      "collision_boundaries":["Do not modify Site #81 live receiver/runtime activation semantics","Do not modify Site #67 lifecycle projection ownership","Do not compete with TVC #8 private review or publication authority","Do not modify master-records/orchestration authority","Do not touch active StegOS claimed product paths","Do not weaken LinkedIn REVIEW_REQUIRED drift","Do not introduce or consume NON-TV/TVC secrets or tokens","Do not use Render as production authority"],
+      "released_at":"2026-08-17T11:16:00-05:00",
+      "release_commit":"bb2850425943d1590594096b6d453a5c1822881f",
+      "final_head":"4f012fb34cf990eeecbced66cbc5046eb180ff0d",
+      "evidence":["PR #333 merge bb2850425943d1590594096b6d453a5c1822881f","HIL Validation and Live Readiness 32044747293 SUCCESS","Run governed receiver import regression tests SUCCESS","Site Handoff Orchestrator 32044747255 SUCCESS","Ecosystem Heartbeat Orchestration 32044747259 SUCCESS","Check StegFin Phone Projection 32044747241 SUCCESS","Site Bootstrap Validate 32044747232 SUCCESS","SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS","ST-017 sandbox PASS","canonical Site application PASS","workflow inventory 108; canonical 3; migration-required operational 105; placeholders 0","test-hil-https-receiver-probe-import.yml absent after merge"],
+      "authority_effect":false,
+      "runtime_activation_effect":false,
       "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
     }
   ]
