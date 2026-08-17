@@ -4,7 +4,7 @@
   "repository": "StegVerse-Labs/Site",
   "historical_registry": {
     "preserved_at_commit": "1c36f0aef5a1af25cf9ec4d5c340aa3249af5337",
-    "note": "Detailed released claim history through Batch 24, GP10, TVC receipt-import cleanup, iPhone HB30 projection, and prior StegFin work is immutable in Git history. Released anchors and every active claim remain explicit below."
+    "note": "Detailed released claim history through Batch 24, GP10, TVC receipt-import cleanup, iPhone HB30 projection, and prior StegFin work is immutable in Git history. Required released StegFin anchors and every active claim remain explicit below."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -16,6 +16,11 @@
   },
   "claims": [
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-WALLET-REVIEW-286-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
+    {"claim_id":"SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"e9be3d220c09f51150a5983c0f048991531c5bc2"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B23-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"e936f1481bf9b13468e83c80b7289f657640c81c"},
     {"claim_id":"SITE-GP10-GITHUB-TOKEN-WRITEBACK-RETIREMENT-R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"96423f16cf6d3f440630d322cc5d5c196e4fa672"},
     {"claim_id":"SITE-TVC-RECEIPT-IMPORT-GITHUB-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"8d85061bbc20d08449381b63f9c74c00b709830d"},
