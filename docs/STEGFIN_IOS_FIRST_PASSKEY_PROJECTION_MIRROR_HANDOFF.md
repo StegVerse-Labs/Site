@@ -2,7 +2,7 @@
 
 Updated: 2026-08-17
 
-## Active goal
+## Canonical released state
 
 ```text
 goal_id: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380
@@ -10,80 +10,127 @@ source_goal: STEGFIN-IOS-FIRST-PASSKEY-PREPARE-018
 source_issue: StegVerse-Labs/stegfin-governance#79
 site_issue: StegVerse-Labs/Site#380
 repository: StegVerse-Labs/Site
-branch: claim/stegfin-ios-first-passkey-prepare-380
-canonical_parent: docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md
-claim: data/session-work-claims.json#SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817
-implementation_claim: CLAIMED_FOR_INTEGRATION
-validation_claim: SITE_CANONICAL_GATES
-claim_created: 2026-08-17T13:37:00-05:00
-claim_release_condition: exact source projection + Site validation + merge + exact Pages build + claim release
+source_pr: StegVerse-Labs/stegfin-governance#80
+source_merge: f5ff9b1aa2fad545cf9fd676c785438f306dda7a
+site_pr: StegVerse-Labs/Site#384
+site_merge: 0a0e00602ec2e3bbae3c9f1d05b65af27729e101
+pages_build: 1157682910 BUILT
+pages_commit: 0a0e00602ec2e3bbae3c9f1d05b65af27729e101
+source_bootstrap_blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
+site_claim_state: COMPLETE_RELEASED_PRODUCT
+site_execution_responsibility: NONE
+continuation_owner: StegVerse-Labs/stegfin-governance#79 -> #77 + current phone + USER_ONLY
+credential_authority: TV/TVC
+credential_requirement: NONE
+non_tv_tvc_secret_or_token_allowed: false
+github_token_runtime_authority: NONE
+render_required: false
+wallet_signing_authority: USER_ONLY
+broadcast_authority: USER_ONLY
 ```
 
-## Source evidence and defect
+Live repository state, exact Site validation, Pages build evidence, current-phone observations and StegFin task state supersede older chat claims.
 
-Current-phone evidence showed a successful iOS passkey creation ceremony (`Done`) followed by the published participant rendering the platform/user-agent `NotAllowedError` text. Source inspection established that first-time admission executed `navigator.credentials.create()` and then immediately executed `navigator.credentials.get()` from one original button gesture.
+## Defect and released correction
 
-The released StegFin correction makes the successful first platform credential creation with `userVerification='required'` the initial HUMAN_CONTINUITY ceremony and returns before any second WebAuthn operation. Existing credentials still require a fresh `navigator.credentials.get()` assertion on each later PREPARE gesture.
+The originating current-phone observation showed a successful iOS platform passkey creation ceremony followed by an immediate WebAuthn `NotAllowedError`. Source inspection established that first-time admission executed `navigator.credentials.create()` and then immediately executed `navigator.credentials.get()` from the same original user gesture.
 
-## Exact projection
+The released correction preserves fail-closed behavior:
 
 ```text
-source: StegVerse-Labs/stegfin-governance/ui/stegid-device-wallet-bootstrap.js
-source blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
-destination: assets/stegfin-phone/stegid-device-wallet-bootstrap.js
-expected destination blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
-source issue: #79
-source PR: #80
+first-time/no stored WebAuthn credential
+-> navigator.credentials.create
+-> platform authenticator required
+-> residentKey required
+-> userVerification required
+-> public-key credential + rawId required
+-> persist bounded credential identifier metadata
+-> return HUMAN_CONTINUITY with ceremony=CREDENTIAL_CREATION
+-> no immediate second WebAuthn operation
+
+later PREPARE with stored credential
+-> explicit new user gesture
+-> navigator.credentials.get
+-> userVerification required
+-> return HUMAN_CONTINUITY with ceremony=CREDENTIAL_ASSERTION
 ```
+
+The exact corrected source blob `9cac39a990a956f16fcde3681cbcc7d47b2fc704` is now published through Site. This correction is not a retry, downgrade, cached signing authority, or stale-candidate reauthorization.
+
+## Release validation
+
+The fresh-current-main Site projection was reconstructed only after B26 released the shared claim registry. Site #298's stale registry entry was terminalized from its already-recorded completed merge/Pages evidence.
+
+Exact pre-merge validation for Site PR #384:
+
+```text
+Check StegFin Phone Projection: 32066238396 SUCCESS
+Site Handoff Orchestrator: 32066238185 SUCCESS
+Ecosystem Heartbeat Orchestration: 32066237444 SUCCESS
+Site Bootstrap Validate: 32066238690 SUCCESS
+```
+
+Exact publication evidence:
+
+```text
+Site PR #384 merge: 0a0e00602ec2e3bbae3c9f1d05b65af27729e101
+Pages build: 1157682910
+Pages state: BUILT
+Pages commit: 0a0e00602ec2e3bbae3c9f1d05b65af27729e101
+canonical participant: https://stegverse.org/stegfin-trade.html
+```
+
+Publication and hosted validation do not grant wallet, signing, broadcast, route, runtime, settlement, or model-output authority.
 
 ## Authority boundaries
 
 - TV/TVC is the sole credential authority.
-- Phone-route credential requirement remains `NONE`.
-- NON-TV/TVC secrets/tokens are prohibited.
+- Phone route credential requirement remains `NONE`.
+- NON-TV/TVC secrets/tokens remain prohibited.
 - GitHub-token runtime authority is `NONE`.
-- Render/Vercel/Cloudflare/GitHub-hosted production execution is prohibited.
+- No Render/Vercel/Cloudflare/GitHub-hosted production execution is used.
 - Site is static transport/materialization only.
-- Wallet review/signing and broadcast remain `USER_ONLY`.
-- No stale/expired candidate becomes current authority through this projection.
-- This task does not modify sovereign heartbeat, local-model/runtime, route admission, settlement, or Master Records authority.
+- Wallet review, signature and broadcast remain `USER_ONLY`.
+- A stale/expired wallet candidate is not made valid by this release.
+- Sovereign heartbeat, model/runtime, TVC route admission, settlement and Master Records authority remain with their canonical owners.
 
-## Claim reconciliation performed before mutation
+## Current live continuation
 
-`data/session-work-claims.json` had retained Site #298 as active after its product scope was already closed/completed. The exact release evidence was already durable in Site #298 comment `5313605823`: PR #309 merge `1f5ab3acde796d2787edf0493c19e193ca72eda4`, Pages build `1156543676` built from that merge, and all required Site gates successful. The current #268 continuation explicitly records its next token-remediation candidate as UNCLAIMED. The #380 claim therefore terminalizes #298 to `MERGED_INTO_CANONICAL_WORKSTREAM` and admits a distinct nonoverlapping StegFin projection surface.
-
-## Validation requirements
+Site execution is complete. The next executable evidence must come from the current phone:
 
 ```text
-python scripts/check_stegfin_phone_projection.py
-python scripts/check_session_work_claims.py
-python scripts/site_handoff_orchestrator.py
-Site Bootstrap Validate
-Ecosystem Heartbeat Orchestration
+1 reload the canonical participant
+2 perform a fresh Verify this phone and prepare wallet handoff gesture
+3 first-time/reset-state path: one successful passkey creation must continue without immediate second-ceremony NotAllowedError
+4 later PREPARE path: a fresh platform assertion must still be required
+5 only a newly generated unexpired WALLET_HANDOFF_READY candidate may be presented at the USER_ONLY wallet boundary
 ```
 
-The canonical StegFin phone validator now requires the exact corrected bootstrap blob, both `CREDENTIAL_CREATION` and `CREDENTIAL_ASSERTION` proof markers, creation-before-assertion control flow, no forbidden credential/wallet middleware markers, terminal Site #298 claim state, and the active/released #380 claim.
+If no fresh candidate is produced, do not sign or broadcast anything. If a fresh candidate is produced, wallet confirmation remains a separate explicit USER_ONLY act.
 
-Hosted Site validation is publication/source evidence only. It grants no wallet, route, runtime, or live phone authority.
-
-## Current state
+## Post-candidate continuation
 
 ```text
-source_fix: RELEASED
-site_claim: CLAIMED_FOR_INTEGRATION
-exact_projection: INSTALLED_ON_BRANCH
-canonical_validator: UPDATED_ON_BRANCH
-canonical_phone_handoff: UPDATED_ON_BRANCH
-site_merge: PENDING
-pages_publication: PENDING
-current_phone_validation: PENDING
-wallet_signature_or_broadcast: USER_ONLY_NOT_AUTHORIZED_BY_THIS_TASK
+USER_ONLY wallet review/sign/broadcast
+-> transaction hash is SUBMITTED_NOT_SETTLED
+-> independent credential-free Base receipt observation
+-> successful receipt invalidates predecessor authority and requires fresh successor PREPARE
+-> fresh exit candidate
+-> USER_ONLY exit sign/broadcast
+-> settled round trip
+-> realized P&L / Master Records reconstruction / production sizing
 ```
 
-## Next executable action
+## Archive state for Site integration
 
-Open the Site PR from the admitted branch, inspect required Site gates, correct any branch-level validation defect without weakening authority boundaries, merge only after the strongest available validation, verify Pages built from the exact merge, terminalize the #380 claim, then transfer live observation to StegFin #79/#77. On the current phone, reload the participant and perform one fresh Verify/PREPARE gesture; only a newly generated candidate may proceed to the USER_ONLY wallet boundary.
+```text
+developed product/control files: 5/5
+scaffolding or stubs: 0
+missing required files: 0
+Site validation: 4/4 canonical pre-merge gates PASS
+Site integration: exact projection + merge + Pages = COMPLETE
+Site #380 claim: READY_FOR_TERMINAL_REGISTRY_RELEASE
+current-phone proof: PENDING outside Site execution authority
+```
 
-## Archive condition
-
-This Site integration task becomes archive-safe after merge, exact Pages publication, and claim release. Current-phone execution remains a separate live-observation requirement owned by StegFin #79/#77 + current phone + USER_ONLY.
+MERGED INTO: `StegVerse-Labs/stegfin-governance/task-state/STEGFIN-IOS-FIRST-PASSKEY-PREPARE-018.json` -> StegFin #79/#77 + current phone + USER_ONLY.
