@@ -1,6 +1,6 @@
 # iPhone Heartbeat Transition Projection Mirror Handoff
 
-Updated: `2026-08-17T13:10:00-05:00`
+Updated: `2026-08-17T13:13:00-05:00`
 
 ## Active goal and goal ID
 
@@ -48,22 +48,23 @@ credential_requirement: NONE
 credential_authority: TV/TVC
 ```
 
-## Required Site surfaces
+## Implemented Site surfaces
 
 ```text
 heartbeat-transition/index.html
 heartbeat-transition/heartbeat-transition.js
 scripts/check_iphone_heartbeat_transition_projection.py
+.github/workflows/validate.yml (credential-clean validator binding only)
 this handoff
 ```
 
-The browser capsule must fail closed unless all of these are true:
-- `location.origin` is HTTPS `stegverse.org` or `www.stegverse.org`;
+The browser capsule fails closed unless all of these are true:
+- `location.origin === https://stegverse.org`;
 - `navigator.userAgent` contains `iPhone`;
 - `window.isSecureContext === true`;
 - `crypto.subtle.digest` is available.
 
-It must derive exactly one portable receipt with immutable seed HB29/29, exact successor HB30/30, all authority flags non-authorizing, and SHA-256 over canonical JSON excluding `receipt_sha256`. It may offer local copy/share/download convenience but may not transmit the receipt automatically or contact a credentialed endpoint.
+It derives exactly one portable receipt with immutable seed HB29/29, exact successor HB30/30, all authority flags non-authorizing, and SHA-256 over canonical JSON excluding `receipt_sha256`. It persists the receipt only in browser-local storage and exposes user-initiated copy/share/file-save controls. It performs no automatic network/API request and carries no repository/provider/wallet credential material.
 
 ## Validation
 
@@ -73,7 +74,7 @@ Required deterministic validator:
 python3 scripts/check_iphone_heartbeat_transition_projection.py
 ```
 
-The canonical credential-clean Site validation workflow may invoke that validator, but hosted validation is source evidence only and cannot satisfy physical execution, materialization, or HB30 activation.
+The existing credential-clean Site Bootstrap validation now invokes that validator. Hosted validation is source evidence only and cannot satisfy physical execution, materialization, or HB30 activation.
 
 ## Integration and propagation
 
@@ -90,13 +91,9 @@ StegVerse-Labs/.github#209 portable contract
 
 No Site/Publisher/admissibility/stegguardian propagation is authorized merely from source validation or publication.
 
-## Incomplete work
+## Current incomplete work
 
-- exact browser HTML: pending
-- exact browser JavaScript: pending
-- deterministic projection validator: pending
-- credential-clean canonical validation binding: pending if needed
-- PR validation: pending
+- deterministic PR validation: pending
 - merge/release: pending
 - physical iPhone receipt: current-iPhone carrier boundary after source release
 - HB30 materialization: `.github` verifier/materializer / G18
@@ -109,10 +106,10 @@ This is a distinct support role for the original sovereign-heartbeat activation 
 ## Progress
 
 ```text
-developed files: 1/4
-validation: 0/1
-integration: 0/1
-source projection activation: 25%
+developed files: 5/5
+validation: 0/1 pending exact-head workflow evidence
+integration: 0/1 pending merge
+source projection activation: 80%
 product HB30 activation: not claimed
 archive dependency: this Site source lane must be released or durably blocked before the current session can close under the user's original-goal activation rule
 ```
