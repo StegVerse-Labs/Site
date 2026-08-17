@@ -17,7 +17,7 @@ preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-back
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817
 active_validation_claim: NONE
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
@@ -109,6 +109,22 @@ Released delta:
 - the retained validator preserves canonical HIL v1.1 primary/prompt hashes, response/receiver-receipt byte continuity, verified receiver chain state, authenticated private acceptance, authenticated append-only publication evidence, fail-closed acquisition state, and explicit no-authority escalation;
 - no private-review, publication, Master Record, custody, release, provider, wallet, deployment, or runtime authority was transferred.
 
+## Batch 12 active — retire superseded HIL v0.5 activation-state workflow
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B12-20260817
+branch: chore/site-hil-activation-state-workflow-retirement-b12-20260817
+claim_commit: 8a4a48400659168f02f8984819305308f0d5521b
+workflow_removal_commit: 08cfb1955867f62781d42e2ad0b18f2b1b1023c0
+state: CLAIMED_FOR_IMPLEMENTATION / VALIDATION_PENDING
+```
+
+The removed standalone `.github/workflows/check-hil-activation-state.yml` used `actions/checkout@v4` and `actions/setup-python@v5` and validated `data/hil-primary-v0.5-review.pdf.b64` plus the historical `PRIMARY_COMPLETE_DEPLOYED_CONTROLLED_CYCLE_PENDING` state. The current canonical HIL Site handoff instead binds the active product path to HIL v1.1 (`Primary SHA-256 a7b1c62e...`, `HIL-PROMPT-v1.1`) and the eight-gate lifecycle owned by Site #81/#67, TVC #8, StegCore #41, and Master Records.
+
+The historical deterministic validator `scripts/check_hil_activation_state.py` and its historical data are retained as provenance; this batch removes only the token-bearing standalone GitHub entry surface. It does not rewrite historical evidence into current activation, does not transfer any product authority, and does not modify live HIL runtime/lifecycle owner paths.
+
+Release requires exact-head repository validation, confirmation that the workflow inventory decrements by one, and merge/main verification. If current authority evidence proves this standalone v0.5 validator is still required, the batch fails closed rather than restoring token-bearing GitHub runtime mechanics.
+
 ## HIL / Healer / runtime collision boundaries
 
 Canonical HIL participant/runtime handoff: `docs/HIL_SITE_MIRROR_HANDOFF.md`.
@@ -154,6 +170,7 @@ Trade execution remains machine/human-authority owned. Credential authority is T
 
 ```text
 workflow minimization/remediation batches 1-9 + batch 11 + B10R1: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 12: CLAIMED_FOR_IMPLEMENTATION / branch-bound / validation pending
 batch 10 old PR #314: SUPERSEDED / CLOSED_UNMERGED
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
@@ -169,7 +186,7 @@ Workflow-only cleanup does not create a product release requiring Publisher, adm
 
 ## Next executable action
 
-Inspect Site #268 and current `.github/workflows` for the next bounded unclaimed token-bearing or redundant workflow family. Create a fresh branch-bound claim before mutation, preserve deterministic validators where necessary, transfer operational recurrence to StegVerse workers rather than GitHub Actions, and retain evidence-backed standalone exceptions only when technically necessary.
+Validate exact-head batch 12 through the repository's credential-clean Site validation surfaces. Merge only if the claim/orchestrator, Site Bootstrap deterministic validation, and applicable HIL validation remain green and the workflow census proves the standalone v0.5 activation-state entry was removed without modifying current HIL authority.
 
 ## Completion accounting — released work only
 
@@ -187,4 +204,4 @@ session_consolidation: incomplete
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 106/131 audit-start Site workflow surfaces remain unremediated/unclassified under the current denominator and the next bounded unclaimed cleanup family remains executable under Site #268.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because batch 12 is unvalidated/unmerged and 106/131 audit-start Site workflow surfaces remain unremediated/unclassified under the current denominator.
