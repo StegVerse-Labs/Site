@@ -1,83 +1,71 @@
-name: Site Bootstrap Validate
+name: Site Bootstrap Validate - No Non-TV/TVC Credential Authority
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "11 * * * *"
   push:
   pull_request:
 
-permissions:
-  contents: write
+permissions: {}
+
+concurrency:
+  group: site-bootstrap-validate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  adjacent-construction-receipt:
-    if: github.event_name != 'pull_request'
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Validate authoritative adjacent-construction packet
-        run: python scripts/persist_authoritative_site_receipt.py
-      - name: Persist Site-owned adjacent-construction receipt
+      - name: Refuse credential-bearing environment
+        shell: bash
         run: |
-          if git diff --quiet -- data/autonomy; then
-            exit 0
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT TVC_EPHEMERAL_GITHUB_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ACTIONS_ID_TOKEN_REQUEST_TOKEN; do
+            if [ -n "${!name:-}" ]; then
+              echo "forbidden credential environment variable present: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'SITE_BOOTSTRAP_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'SITE_BOOTSTRAP_GITHUB_TOKEN_AUTHORITY=NONE'
+
+      - name: Fetch exact Site source anonymously
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            SOURCE_REF="refs/pull/${PR_NUMBER}/merge"
+          else
+            SOURCE_REF="${GITHUB_SHA}"
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/autonomy/adjacent-construction-receipt.json data/autonomy/adjacent-construction-status.json
-          git commit -m "chore: persist Site adjacent construction receipt [adjacent-target-output]"
-          git push
-      - uses: actions/upload-artifact@v4
-        with:
-          name: site-adjacent-construction-receipt
-          path: |
-            data/autonomy/adjacent-construction-receipt.json
-            data/autonomy/adjacent-construction-status.json
-          if-no-files-found: error
+          git -c credential.helper= -c http.extraheader= fetch --no-tags --depth=50 origin "${SOURCE_REF}"
+          git checkout --detach FETCH_HEAD
+          test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
 
-  st017-sandbox:
-    name: ST-017 isolated validation
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Execute Site sandbox
-        run: python scripts/run_sandbox_validation.py
-      - name: Upload Site sandbox report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-st017-sandbox-report
-          path: reports/sandbox-first-validation.report.json
-          if-no-files-found: error
-          retention-days: 30
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('SITE_BOOTSTRAP_PYTHON=PASS')
+          PY
 
-  bootstrap-validate:
-    needs: st017-sandbox
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install validation dependencies
-        run: python -m pip install jsonschema
+      - name: Install public validation dependency without credential
+        run: python3 -m pip install jsonschema
+
       - name: Validate HIL pilot ledger, announcement status, and deterministic fixtures
         run: |
-          python scripts/validate_hil_pilot_ledger.py
-          python scripts/test_hil_pilot_validation.py
-          python scripts/derive_hil_announcement_status.py --check
-          python scripts/test_hil_announcement_status.py
-          python - <<'PY'
+          python3 scripts/validate_hil_pilot_ledger.py
+          python3 scripts/test_hil_pilot_validation.py
+          python3 scripts/derive_hil_announcement_status.py --check
+          python3 scripts/test_hil_announcement_status.py
+          python3 - <<'PY'
           import json
           from pathlib import Path
           from jsonschema import Draft202012Validator, FormatChecker
@@ -92,111 +80,56 @@ jobs:
               raise SystemExit('\n'.join(error.message for error in errors))
           print('HIL_ANNOUNCEMENT_STATUS_SCHEMA=PASS')
           PY
-      - name: Inventory workflow entry points
-        run: python scripts/write_site_workflow_inventory.py
-      - name: Enforce two operational workflows
-        run: python scripts/check_site_workflow_inventory.py
-      - name: Validate application
-        run: python scripts/check_ecosystem_chat_application.py
-      - name: Synchronize verified custody state into authoritative Site records
-        run: python scripts/sync_ecosystem_chat_custody_state.py
-      - name: Synchronize StegVerse provider-node state into authoritative Site records
-        run: python scripts/sync_ecosystem_chat_provider_node_state.py
-      - name: Synchronize provider TLS and ledger state into authoritative Site records
-        run: python scripts/sync_ecosystem_chat_provider_transport_state.py
-      - name: Check out canonical adapter source for bounded runtime verification
-        uses: actions/checkout@v4
-        with:
-          repository: StegVerse-org/LLM-adapter
-          ref: main
-          path: adapter-source
-          persist-credentials: false
-      - name: Install canonical adapter service dependencies
-        run: python -m pip install -e './adapter-source[service]'
-      - name: Start canonical portable-node gateway fail-closed
-        env:
-          STEGVERSE_PROVIDER_ENABLED: "false"
-          STEGVERSE_EXTERNAL_MUTATION_ENABLED: "false"
-          STEGVERSE_STORAGE_DURABLE_ACROSS_RESTARTS: "true"
-          STEGVERSE_TRANSITION_DB: ${{ runner.temp }}/stegverse-site-runtime.db
-          STEGVERSE_EXTERNAL_REVIEW_DB: ${{ runner.temp }}/stegverse-site-review.db
-          STEGVERSE_USAGE_SESSION_DB: ${{ runner.temp }}/stegverse-site-usage.db
+
+      - name: Execute ST-017 isolated validation without artifact transport
+        run: python3 scripts/run_sandbox_validation.py
+
+      - name: Inventory and validate workflow entry points
         run: |
-          python -m uvicorn llm_adapter.combined_gateway:app --app-dir adapter-source --host 127.0.0.1 --port 8000 > portable-node-runtime.log 2>&1 &
-          echo $! > portable-node-runtime.pid
-      - name: Execute Site-to-portable-node runtime slice
-        run: python scripts/verify_portable_node_site_runtime.py
-      - name: Stop portable-node runtime
-        if: always()
+          python3 scripts/write_site_workflow_inventory.py
+          python3 scripts/check_site_workflow_inventory.py
+
+      - name: Validate exclusive claims and Site orchestration
         run: |
-          if [ -f portable-node-runtime.pid ]; then
-            kill "$(cat portable-node-runtime.pid)" 2>/dev/null || true
-          fi
-      - name: Write bound current-main validation receipt
-        run: python scripts/write_site_current_main_validation_receipt.py
-      - name: Write validation artifact manifest
-        run: python scripts/write_site_validation_artifact_manifest.py
-      - name: Verify validation artifact bundle
-        run: python scripts/verify_site_validation_artifact_bundle.py .
-      - name: Upload application validation result, receipt, manifest, and portable-node runtime evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-application-validation-result
-          path: |
-            site_application_validation.result.json
-            site_current_main_validation.receipt.json
-            site_current_main_validation.manifest.json
-            reports/portable-node-site-runtime.json
-            portable-node-runtime.log
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_TLS_LEDGER.md
-          if-no-files-found: error
-      - name: Persist authoritative Ecosystem Chat custody state
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+          python3 scripts/check_session_work_claims.py
+          python3 scripts/site_handoff_orchestrator.py
+          python3 scripts/check_ecosystem_heartbeat_orchestration.py
+
+      - name: Validate canonical Site application
+        run: python3 scripts/check_ecosystem_chat_application.py
+
+      - name: Validate StegFin phone projection without wallet authority
+        run: python3 scripts/check_stegfin_phone_projection.py
+
+      - name: Confirm validation-only authority boundary
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            docs/ECOSYSTEM_CHAT_BUILD_GOAL.md \
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md \
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_CUSTODY_RECONSTRUCTION.md
-          if git diff --cached --quiet; then
-            echo "Authoritative Ecosystem Chat custody state unchanged."
-          else
-            git commit -m "docs: retain verified Ecosystem Chat custody state [skip ci]"
-            git pull --rebase
-            git push
-          fi
-      - name: Persist authoritative StegVerse provider-node state
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            docs/ECOSYSTEM_CHAT_BUILD_GOAL.md \
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING.md \
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-21_STEGVERSE_PROVIDER_NODE.md \
-            docs/ECOSYSTEM_CHAT_ACTIVE_BUILDING_CYCLE_2026-07-22_PROVIDER_TLS_LEDGER.md
-          if git diff --cached --quiet; then
-            echo "Authoritative StegVerse provider-node state unchanged."
-          else
-            git commit -m "docs: retain StegVerse provider-node state [skip ci]"
-            git pull --rebase
-            git push
-          fi
-      - name: Record live mirror verification status
-        id: live_verification
-        run: |
-          set +e
-          python scripts/check_site_mirror_live_verification.py --json > site_mirror_live_verification.result.json
-          status=$?
-          cat site_mirror_live_verification.result.json
-          echo "status=$status" >> "$GITHUB_OUTPUT"
-          exit 0
-      - name: Upload live mirror verification result
-        uses: actions/upload-artifact@v4
-        with:
-          name: site-mirror-live-verification-result
-          path: site_mirror_live_verification.result.json
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = Path('.github/workflows/validate.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'persist-' + 'credentials',
+              'git ' + 'push',
+              'STEGVERSE_PROVIDER_TOKEN' + ':',
+              'STEGVERSE_MASTER_RECORDS_TOKEN' + ':',
+              'schedule' + ':',
+              'repository: StegVerse-org/LLM-adapter',
+              "pip install -e './adapter-source[service]'",
+          ]
+          assert 'permissions: {}' in workflow
+          assert 'Refuse credential-bearing environment' in workflow
+          assert all(marker not in workflow for marker in forbidden), forbidden
+          print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
+          print('SITE_BOOTSTRAP_RUNTIME_EXECUTION_AUTHORITY=NONE')
+          print('SITE_BOOTSTRAP_REPOSITORY_WRITEBACK=NONE')
+          print('SITE_BOOTSTRAP_ARTIFACT_TRANSPORT=NONE')
+          PY
+
+# Portable-node gateway launch/inference proof is intentionally not performed here.
+# That runtime capability is already COMPLETE_RELEASED under the canonical
+# StegVerse resident-worker/local-runtime ownership and must not be recreated
+# through a GitHub-hosted validation job or a private GitHub dependency fetch.
