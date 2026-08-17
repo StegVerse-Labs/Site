@@ -2,7 +2,7 @@
   "schema": "site.stegfin.phone_stegid_freshness_release_receipt.v1",
   "task_id": "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292",
   "claim_id": "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816",
-  "state": "PRODUCT_MERGED_PAGES_BUILT_AWAITING_CLAIM_RELEASE",
+  "state": "COMPLETE_RELEASED_PRODUCT",
   "source_repository": "StegVerse-Labs/stegfin-governance",
   "source_task": "STEGFIN-PHONE-STEGID-FRESHNESS-016",
   "source_merge": "b0973b0c99fde2e8860952a0167a56a6e8890aa2",
@@ -11,6 +11,13 @@
   "pages_build": 1156068305,
   "pages_status": "built",
   "pages_commit": "1ef161a9e4b72579408a22057e5eccb8300c34a6",
+  "release_reconciliation_pr": 297,
+  "release_reconciliation_merge": "e9be3d220c09f51150a5983c0f048991531c5bc2",
+  "release_validation": {
+    "site_handoff_orchestrator": {"run_id": 31989781149, "conclusion": "success"},
+    "ecosystem_heartbeat_orchestration": {"run_id": 31989781188, "conclusion": "success"},
+    "site_bootstrap_validate": {"run_id": 31989781119, "conclusion": "success"}
+  },
   "fresh_phone_evidence_repository": "StegVerse-Labs/stegfin-governance",
   "fresh_phone_evidence_path": "receipts/phone-live/STEGFIN-PHONE-LIVE-EVIDENCE-20260816T2150-0500.json",
   "fresh_phone_evidence_commit": "53fc6263fa1e4f2e690389f16351b97a5ff9c880",
@@ -21,7 +28,7 @@
     "assets/stegfin-phone/device-wallet-identity.js": "1180d8ee929c161978d095c91514cbc3d873d3fd",
     "assets/stegfin-phone/evidence-export.js": "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58"
   },
-  "validation": {
+  "product_validation": {
     "check_stegfin_phone_projection": {"run_id": 31988094522, "conclusion": "success"},
     "site_handoff_orchestrator": {"run_id": 31988094681, "conclusion": "success"},
     "ecosystem_heartbeat_orchestration": {"run_id": 31988094498, "conclusion": "success"},
@@ -37,5 +44,6 @@
   "signed": false,
   "broadcast": false,
   "authority_effect": "NONE_RELEASE_EVIDENCE_ONLY",
-  "release_condition": "Release reconciliation PR passes Site gates and merges; then terminal main bookkeeping removes the satisfied active claim and marks this receipt COMPLETE_RELEASED_PRODUCT."
+  "release_condition_satisfied": true,
+  "continued_by": "StegVerse-Labs/stegfin-governance task-state/STEGFIN-PHONE-DIRECT-ROUTE-010.json; wallet sign/broadcast remains USER_ONLY"
 }
