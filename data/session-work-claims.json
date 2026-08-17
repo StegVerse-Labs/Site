@@ -98,6 +98,26 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id":"SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
+      "session_worker_id":"chatgpt-session-st018-token-retirement-20260817",
+      "task_id":"SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
+      "originating_goal":"Preserve ST-018 deterministic validation evidence while removing NON-TV/TVC GitHub-token use, issue mutation, artifact custody dependency, and GitHub-hosted write-capable evidence publication.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-st018-github-token-retirement-20260817",
+      "role":"IMPLEMENTATION",
+      "state":"CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key":"site-st018-github-token-retirement",
+      "dependency_surface_keys":["site:st018-validation-evidence"],
+      "claimed_paths":["data/session-work-claims.json",".github/workflows/capture-validation-evidence.yml","docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md","data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json"],
+      "handoff":"docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
+      "handoff_revision":"408b9c989af72ba9ba44c546bac07be21e28623d",
+      "claim_created_at":"2026-08-17T11:19:00-05:00",
+      "claim_expires_when":"Released after credential-clean ST-018 source integration, exact validation evidence, Site #141 reconciliation, and cost-containment handoff update are durable on main.",
+      "expected_evidence":["SESSION_WORK_CLAIMS_PASS","ST-018 deterministic validation PASS","no issues: write permission","no GH_TOKEN or github.token reference","no actions/upload-artifact custody dependency","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged exact-head PR"],
+      "collision_boundaries":["Do not weaken ST-018 validator or receipt semantics","Do not export TV/TVC credentials into GitHub Actions","Do not introduce alternate provider or project tokens","Do not modify active StegOS admitted-inference paths","Do not duplicate Site pre-work admission or sovereign worker authority","No runtime, publication, release, admissibility, or custody authority follows from hosted validation"],
+      "next_task_after_release":"Continue the next bounded unclaimed token-bearing or redundant workflow family under Site #268."
     }
   ]
 }
