@@ -33,22 +33,6 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     },
     {
-      "action_id": "role-remediate:master-records:monitoring",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "master-records/monitoring",
-      "requested_action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
-      "action_id": "role-remediate:AaCT-E:.github",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "AaCT-E/.github",
-      "requested_action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
       "action_id": "role-remediate:GCAT-BCAT-Engine:Publisher",
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
@@ -169,30 +153,6 @@
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     },
     {
-      "action_id": "role-remediate:AaCT-E:demo",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "AaCT-E/demo",
-      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
-      "action_id": "role-remediate:Data-Continuation:RTG-Tests",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "Data-Continuation/RTG-Tests",
-      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
-      "action_id": "role-remediate:Data-Continuation:formalism-tests",
-      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
-      "reason": "Site workflow token is not authorized to mutate another repository.",
-      "repository": "Data-Continuation/formalism-tests",
-      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
-    },
-    {
       "action_id": "role-remediate:StegVerse-Labs:Boundary-Test",
       "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
       "reason": "Site workflow token is not authorized to mutate another repository.",
@@ -207,9 +167,49 @@
       "repository": "StegVerse-org/demo-sandbox",
       "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
       "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-org:demo-suite-runner",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/demo-suite-runner",
+      "requested_action": "satisfy role-specific exit gates: objective_contract, reproducible_test_evidence",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-org:demo_ingest_engine",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/demo_ingest_engine",
+      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-org:stegverse-demo-suite",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-org/stegverse-demo-suite",
+      "requested_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-002:core-lite",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-002/core-lite",
+      "requested_action": "satisfy role-specific exit gates: repository_role_determination",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
+    },
+    {
+      "action_id": "role-remediate:StegVerse-Labs:3I-Atlas",
+      "machine_owned_next_action": "retain in queue for an authorized repository-owned runner",
+      "reason": "Site workflow token is not authorized to mutate another repository.",
+      "repository": "StegVerse-Labs/3I-Atlas",
+      "requested_action": "satisfy role-specific exit gates: repository_role_determination",
+      "status": "DENIED_CROSS_REPOSITORY_AUTHORITY"
     }
   ],
-  "generated_at": "2026-08-17T16:18:44Z",
+  "generated_at": "2026-08-17T17:05:51Z",
   "manual_user_action_required": false,
   "policy_id": "site-public-autonomy-dispatch-v1",
   "schema_version": "1.0"

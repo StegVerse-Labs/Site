@@ -1,5 +1,5 @@
 {
-  "action_count": 70,
+  "action_count": 63,
   "actions": [
     {
       "action": "satisfy role-specific exit gates: objective_contract, deployment_or_runtime_configuration, runtime_observed, user_visible_outcome_verified, fresh_completion_evidence",
@@ -32,36 +32,6 @@
       "priority": 2,
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
-      "action_id": "role-remediate:master-records:monitoring",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "priority": 2,
-      "repository": "master-records/monitoring",
-      "repository_role": "ARCHIVE_OR_CONTINUITY",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
-      "action_id": "role-remediate:AaCT-E:.github",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "freshness_evidence",
-        "publication_accuracy_evidence"
-      ],
-      "priority": 2,
-      "repository": "AaCT-E/.github",
-      "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "status": "READY"
     },
     {
@@ -176,7 +146,7 @@
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/Documentation",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
@@ -193,7 +163,7 @@
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/StegSim",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
@@ -208,7 +178,7 @@
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/Triage",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
@@ -225,7 +195,7 @@
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/core-lite",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
@@ -242,7 +212,7 @@
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/core-lite-prod",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
@@ -259,7 +229,7 @@
       "priority": 2,
       "repository": "GCAT-BCAT-Engine/workflows",
       "repository_role": "GOVERNANCE_ENGINE",
-      "status": "READY"
+      "status": "AUTOMATIC_RETRY"
     },
     {
       "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, executed_policy_evidence, fail_closed_authority_evidence, fresh_completion_evidence",
@@ -307,51 +277,6 @@
       "priority": 2,
       "repository": "StegVerse-org/StegVerse-SDK",
       "repository_role": "LIBRARY_OR_SDK",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "action_id": "role-remediate:AaCT-E:demo",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence"
-      ],
-      "priority": 2,
-      "repository": "AaCT-E/demo",
-      "repository_role": "TEST_OR_FIXTURE",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "action_id": "role-remediate:Data-Continuation:RTG-Tests",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence"
-      ],
-      "priority": 2,
-      "repository": "Data-Continuation/RTG-Tests",
-      "repository_role": "TEST_OR_FIXTURE",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "action_id": "role-remediate:Data-Continuation:formalism-tests",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence"
-      ],
-      "priority": 2,
-      "repository": "Data-Continuation/formalism-tests",
-      "repository_role": "TEST_OR_FIXTURE",
       "status": "READY"
     },
     {
@@ -426,32 +351,6 @@
       "priority": 2,
       "repository": "StegVerse-org/stegverse-demo-suite",
       "repository_role": "TEST_OR_FIXTURE",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: repository_role_determination",
-      "action_id": "role-remediate:AaCT-E:telemetry",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "repository_role_determination"
-      ],
-      "priority": 2,
-      "repository": "AaCT-E/telemetry",
-      "repository_role": "UNCLASSIFIED",
-      "status": "READY"
-    },
-    {
-      "action": "satisfy role-specific exit gates: repository_role_determination",
-      "action_id": "role-remediate:Data-Continuation:core-lite",
-      "machine_owned": true,
-      "manual_user_action_required": false,
-      "missing_gates": [
-        "repository_role_determination"
-      ],
-      "priority": 2,
-      "repository": "Data-Continuation/core-lite",
-      "repository_role": "UNCLASSIFIED",
       "status": "READY"
     },
     {
@@ -764,7 +663,7 @@
       "priority": 2,
       "repository": "StegVerse-Labs/StegBiography",
       "repository_role": "UNCLASSIFIED",
-      "status": "AUTOMATIC_RETRY"
+      "status": "READY"
     },
     {
       "action": "satisfy role-specific exit gates: repository_role_determination",
@@ -977,6 +876,6 @@
   ],
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-17T16:18:44Z",
+  "generated_at": "2026-08-17T17:05:51Z",
   "schema_version": "1.1"
 }

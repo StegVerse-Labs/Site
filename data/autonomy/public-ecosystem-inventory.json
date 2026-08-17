@@ -1,15 +1,15 @@
 {
   "classification_counts": {
     "ROLE_EXIT_GATE_COMPLETE": 0,
-    "ROLE_EXIT_GATE_INCOMPLETE": 70
+    "ROLE_EXIT_GATE_INCOMPLETE": 63
   },
   "completion_model": "ROLE_SPECIFIC_EXIT_GATES",
   "coverage": "PUBLIC_REPOSITORIES_ONLY",
-  "generated_at": "2026-08-17T16:18:44Z",
+  "generated_at": "2026-08-17T17:05:51Z",
   "organizations": [
     {
       "enumeration_error": null,
-      "inspection_error_count": 1,
+      "inspection_error_count": 0,
       "organization": "StegVerse-Labs",
       "repository_count": 44
     },
@@ -27,30 +27,30 @@
     },
     {
       "enumeration_error": null,
-      "inspection_error_count": 0,
+      "inspection_error_count": 6,
       "organization": "GCAT-BCAT-Engine",
       "repository_count": 7
     },
     {
-      "enumeration_error": null,
+      "enumeration_error": "HTTP 403",
       "inspection_error_count": 0,
       "organization": "master-records",
-      "repository_count": 1
+      "repository_count": 0
     },
     {
-      "enumeration_error": null,
+      "enumeration_error": "HTTP 403",
       "inspection_error_count": 0,
       "organization": "Data-Continuation",
-      "repository_count": 3
+      "repository_count": 0
     },
     {
-      "enumeration_error": null,
+      "enumeration_error": "HTTP 403",
       "inspection_error_count": 0,
       "organization": "AaCT-E",
-      "repository_count": 3
+      "repository_count": 0
     },
     {
-      "enumeration_error": null,
+      "enumeration_error": "HTTP 403",
       "inspection_error_count": 0,
       "organization": "StegGhost",
       "repository_count": 0
@@ -66,267 +66,25 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: freshness_evidence, publication_accuracy_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-04-27T02:51:03Z",
-      "repository": "AaCT-E/.github",
-      "repository_role": "DOCUMENTATION_OR_PROJECTION",
-      "role_assignment_reason": "repository name matched term: .github",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "freshness_evidence",
-        "publication_accuracy_evidence"
-      ],
-      "role_required_exit_gates": [
-        "source_binding",
-        "freshness_evidence",
-        "non_authorizing_projection",
-        "publication_accuracy_evidence"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/AaCT-E/.github"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-06-12T07:43:01Z",
-      "repository": "AaCT-E/demo",
-      "repository_role": "TEST_OR_FIXTURE",
-      "role_assignment_reason": "repository name matched term: demo",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence"
-      ],
-      "role_required_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence",
-        "declared_non_production_boundary"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/AaCT-E/demo"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: repository_role_determination",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-05-03T18:29:43Z",
-      "repository": "AaCT-E/telemetry",
-      "repository_role": "UNCLASSIFIED",
-      "role_assignment_reason": "no deterministic role rule matched",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role_required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/AaCT-E/telemetry"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-17T08:10:44Z",
-      "repository": "Data-Continuation/RTG-Tests",
-      "repository_role": "TEST_OR_FIXTURE",
-      "role_assignment_reason": "repository name matched term: test",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence"
-      ],
-      "role_required_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence",
-        "declared_non_production_boundary"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/Data-Continuation/RTG-Tests"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: repository_role_determination",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-16T17:57:36Z",
-      "repository": "Data-Continuation/core-lite",
-      "repository_role": "UNCLASSIFIED",
-      "role_assignment_reason": "no deterministic role rule matched",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "repository_role_determination"
-      ],
-      "role_required_exit_gates": [
-        "repository_role_determination"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/Data-Continuation/core-lite"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: objective_contract, machine_validation_workflow, reproducible_test_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-02T10:10:24Z",
-      "repository": "Data-Continuation/formalism-tests",
-      "repository_role": "TEST_OR_FIXTURE",
-      "role_assignment_reason": "repository name matched term: test",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence"
-      ],
-      "role_required_exit_gates": [
-        "objective_contract",
-        "machine_validation_workflow",
-        "reproducible_test_evidence",
-        "declared_non_production_boundary"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/Data-Continuation/formalism-tests"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -337,9 +95,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -391,7 +147,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T15:49:23Z",
+      "pushed_at": "2026-08-17T16:54:53Z",
       "repository": "GCAT-BCAT-Engine/Publisher",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: publisher",
@@ -417,8 +173,25 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -429,9 +202,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -467,8 +238,11 @@
         "critical_blockers_zero"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "critical_blockers_zero",
         "deployment_or_runtime_configuration",
         "runtime_observed",
@@ -481,9 +255,7 @@
           "data/autonomy/completion-evidence.json"
         ],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [
           "autonomy/objective-contract.json"
         ],
@@ -519,8 +291,25 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -531,9 +320,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -567,8 +354,25 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -579,9 +383,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -615,8 +417,25 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [],
+      "inspection_errors": [
+        "autonomy/objective-contract.json: HTTP 403",
+        "data/autonomy/objective-contract.json: HTTP 403",
+        "objective-contract.json: HTTP 403",
+        "autonomy/completion-evidence.json: HTTP 403",
+        "data/autonomy/completion-evidence.json: HTTP 403",
+        ".github/workflows/validate.yml: HTTP 403",
+        ".github/workflows/ci.yml: HTTP 403",
+        ".github/workflows/main.yml: HTTP 403",
+        ".github/workflows/autonomy-telemetry.yml: HTTP 403",
+        "render.yaml: HTTP 403",
+        "vercel.json: HTTP 403",
+        "netlify.toml: HTTP 403",
+        "Dockerfile: HTTP 403",
+        "SITE_MIRROR_HANDOFF.md: HTTP 403",
+        "README.md: HTTP 403"
+      ],
       "missing_gates": [
+        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -627,9 +446,7 @@
       "observed_artifacts": {
         "completion": [],
         "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
+        "handoff": [],
         "objective": [],
         "workflow": []
       },
@@ -1698,7 +1515,7 @@
           ".github/workflows/autonomy-telemetry.yml"
         ]
       },
-      "pushed_at": "2026-08-17T16:11:19Z",
+      "pushed_at": "2026-08-17T16:59:02Z",
       "repository": "StegVerse-Labs/Site",
       "repository_role": "DOCUMENTATION_OR_PROJECTION",
       "role_assignment_reason": "repository name matched term: site",
@@ -1763,11 +1580,8 @@
         "completion_evidence_missing"
       ],
       "completion_evidence_valid": false,
-      "inspection_errors": [
-        "Dockerfile: HTTP 504"
-      ],
+      "inspection_errors": [],
       "missing_gates": [
-        "complete_repository_inspection",
         "completion_evidence_missing",
         "deployment_or_runtime_configuration",
         "machine_validation_workflow",
@@ -2114,7 +1928,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T16:08:08Z",
+      "pushed_at": "2026-08-17T16:25:30Z",
       "repository": "StegVerse-Labs/StegVerse-Healer",
       "repository_role": "UNCLASSIFIED",
       "role_assignment_reason": "no deterministic role rule matched",
@@ -2406,7 +2220,7 @@
         "objective": [],
         "workflow": []
       },
-      "pushed_at": "2026-08-17T15:43:26Z",
+      "pushed_at": "2026-08-17T16:48:40Z",
       "repository": "StegVerse-Labs/continuity-vault-kit",
       "repository_role": "ARCHIVE_OR_CONTINUITY",
       "role_assignment_reason": "repository name matched term: continuity",
@@ -2996,65 +2810,19 @@
       ],
       "successor_eligible": false,
       "url": "https://github.com/StegVerse-org/stegverse-gsl"
-    },
-    {
-      "archived": false,
-      "classification": "ROLE_EXIT_GATE_INCOMPLETE",
-      "completion": false,
-      "completion_evidence_failures": [
-        "completion_evidence_missing"
-      ],
-      "completion_evidence_valid": false,
-      "inspection_errors": [],
-      "missing_gates": [
-        "completion_evidence_missing",
-        "deployment_or_runtime_configuration",
-        "machine_validation_workflow",
-        "objective_contract"
-      ],
-      "next_action": "satisfy role-specific exit gates: custody_evidence, reconstruction_evidence, retention_or_transfer_evidence, fresh_completion_evidence",
-      "objective_contract_valid": false,
-      "observed_artifacts": {
-        "completion": [],
-        "deployment": [],
-        "handoff": [
-          "README.md"
-        ],
-        "objective": [],
-        "workflow": []
-      },
-      "pushed_at": "2026-08-09T17:19:46Z",
-      "repository": "master-records/monitoring",
-      "repository_role": "ARCHIVE_OR_CONTINUITY",
-      "role_assignment_reason": "repository name matched term: master-record",
-      "role_exit_gate_complete": false,
-      "role_missing_exit_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "role_required_exit_gates": [
-        "custody_evidence",
-        "reconstruction_evidence",
-        "retention_or_transfer_evidence",
-        "fresh_completion_evidence"
-      ],
-      "successor_eligible": false,
-      "url": "https://github.com/master-records/monitoring"
     }
   ],
-  "repository_count": 70,
+  "repository_count": 63,
   "repository_role_taxonomy_path": "data/autonomy/repository-role-taxonomy.json",
   "role_complete_counts": {},
   "role_counts": {
-    "ARCHIVE_OR_CONTINUITY": 2,
-    "DOCUMENTATION_OR_PROJECTION": 8,
+    "ARCHIVE_OR_CONTINUITY": 1,
+    "DOCUMENTATION_OR_PROJECTION": 7,
     "GOVERNANCE_ENGINE": 7,
     "LIBRARY_OR_SDK": 2,
     "RUNTIME_PRODUCT": 1,
-    "TEST_OR_FIXTURE": 8,
-    "UNCLASSIFIED": 42
+    "TEST_OR_FIXTURE": 5,
+    "UNCLASSIFIED": 40
   },
   "schema_version": "1.1"
 }
