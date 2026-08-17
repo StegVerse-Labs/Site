@@ -11,14 +11,26 @@ on:
       - 'data/hil-first-release-readiness.json'
       - 'data/hil-responses.json'
       - 'data/hil-traces/**'
+      - 'data/hil-full-cycle-artifact-verifications/**'
+      - 'data/hil-https-receiver-probes/**'
+      - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
+      - 'schemas/hil_https_receiver_probe_import.schema.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
+      - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
+      - 'scripts/check_hil_https_receiver_probe_import.py'
       - '.github/workflows/check-hil-live-readiness.yml'
   pull_request:
     paths:
       - 'data/hil-first-release-readiness.json'
+      - 'data/hil-full-cycle-artifact-verifications/**'
+      - 'data/hil-https-receiver-probes/**'
+      - 'schemas/hil_full_cycle_artifact_verification_import.schema.json'
+      - 'schemas/hil_https_receiver_probe_import.schema.json'
       - 'scripts/check_hil_first_release_readiness.py'
       - 'scripts/check_hil_live_readiness.py'
+      - 'scripts/check_hil_full_cycle_artifact_verification_import.py'
+      - 'scripts/check_hil_https_receiver_probe_import.py'
       - '.github/workflows/check-hil-live-readiness.yml'
 
 permissions: {}
@@ -68,6 +80,12 @@ jobs:
       - name: Validate fail-closed HIL first-release state
         run: python3 scripts/check_hil_first_release_readiness.py
 
+      - name: Validate governed full-cycle artifact verification imports
+        run: python3 scripts/check_hil_full_cycle_artifact_verification_import.py
+
+      - name: Validate governed HTTPS receiver probe imports
+        run: python3 scripts/check_hil_https_receiver_probe_import.py
+
       - name: Observe deployed HIL Site, artifact, intake, review, and publication surfaces
         if: github.event_name != 'pull_request'
         id: observe
@@ -81,6 +99,7 @@ jobs:
           echo '## HIL validation and live-readiness observation' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           echo 'Credential authority remains TV/TVC. This workflow consumes no project/provider secret or token and grants no activation, publication, execution, release, or Master Record authority.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Governed full-cycle artifact-verification imports and HTTPS receiver-probe imports are validated here without separate token-backed workflow entry surfaces.' >> "$GITHUB_STEP_SUMMARY"
           echo '' >> "$GITHUB_STEP_SUMMARY"
           if [ -f reports/hil-live-readiness.latest.json ]; then
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
