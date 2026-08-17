@@ -17,21 +17,21 @@ preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-back
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: NONE
-active_validation_claim: NONE
+active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16-20260817
+active_validation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16-20260817
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
 
 Production/runtime continuity is StegVerse-owned. GitHub Actions is non-authorizing source validation only. No Render production path is allowed and no TV/TVC protected value is exported into GitHub Actions.
 
-## Current released accounting and exact census
+## Released accounting baseline
 
 ```text
 audit_start_workflow_surfaces: 131
 released_classified_or_remediated: 29/131 = 22.14%
 remaining_audit_start_surfaces: 102/131
-current_main_workflow_count: 109
+current_released_main_workflow_count: 109
 workflow_files_eliminated_or_consolidated_by_released_cleanup: 18
 released_completed_batches_or_equivalent_semantic_migrations: 15
 released_validation_groups: 63/63 PASS
@@ -42,7 +42,7 @@ migration_required_operational: 106
 placeholders: 0
 ```
 
-The current released main census is derived from the exact PR #329 merge-checkout validation: `109 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 106`, `PLACEHOLDERS: 0`.
+The released baseline is the exact PR #329 merge-checkout census: `109 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 106`, `PLACEHOLDERS: 0`.
 
 ## Released minimization evidence
 
@@ -87,11 +87,36 @@ runtime_activation_effect: NONE
 financial_authority_effect: NONE
 ```
 
-The removed `.github/workflows/advance-marketplace-coinbase-activation.yml` previously carried repository write authority, `secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `github.token`, checkout/setup actions, git commit/push writeback, and artifact upload. It is absent from current main.
+The removed `advance-marketplace-coinbase-activation.yml` previously carried repository write authority, `MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `github.token`, checkout/setup actions, git commit/push writeback, and artifact upload. Its local observer is bound to the existing sovereign Healer scheduler target `marketplace-coinbase-local-observer`. No second scheduler or heartbeat was created.
 
-The retained `scripts/advance_marketplace_coinbase_activation.py` is now a local-only observer. It rejects GitHub/Marketplace evidence credentials, uses `STEGVERSE_REPO_ROOTS_JSON` to resolve already-materialized repositories, has no GitHub API/token fallback, and fails closed to `BLOCKED_DEPENDENCY` when local evidence is unavailable. Its v3 task state binds `credential_requirement=NONE`, `github_token_allowed=false`, `non_tv_tvc_secret_or_token_allowed=false`, and publication/release/execution/live/financial authority all false.
+## Active B16 — retire hosted Marketplace accessibility importer
 
-Continuation scheduling is source-bound to existing `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` target `marketplace-coinbase-local-observer` in `StegVerse-Labs/StegVerse-Healer`. No second scheduler or heartbeat was created. Merge/CI does not prove ordinary Healer runtime activation; admitted post-carrier worker evidence remains required.
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16-20260817
+branch: chore/site-marketplace-accessibility-import-retirement-b16-20260817
+product_handoff: docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md
+state: CLAIMED_FOR_IMPLEMENTATION
+released_main_baseline: 109 workflows / canonical 3 / migration-required 106 / placeholders 0
+projected_branch_census: 108 workflows / canonical 3 / migration-required 105 / placeholders 0
+```
+
+The retired workflow is `.github/workflows/import-marketplace-coinbase-accessibility.yml`. Before retirement it was hourly, had `contents: write`, used `actions/checkout@v4`, `actions/setup-python@v5`, repository commit/pull/rebase/push writeback, and `actions/upload-artifact@v4`.
+
+The product handoff and committed state prove the Site projection is already terminal for this bounded projection:
+
+```text
+state: PAPER_ACCESSIBLE
+paper_trading_accessible: true
+live_trading_accessible: false
+publication_authority: NOT_GRANTED
+release_authority: NOT_GRANTED
+execution_authority: NOT_GRANTED
+live_authority: NOT_GRANTED
+```
+
+B16 retains `scripts/import_marketplace_coinbase_accessibility.py`, its deterministic tests, and the immutable committed projection. It does not create a replacement hosted workflow, scheduler, heartbeat, token path, or recurring Healer importer. A future upstream change requires a fresh admitted task/claim; state retention is not wall-clock authority.
+
+B16 release requires exact-head `SESSION_WORK_CLAIMS_PASS`, Site Handoff Orchestrator PASS, Ecosystem Heartbeat Orchestration PASS, Site Bootstrap Validate PASS, StegFin Phone Projection PASS, deterministic Marketplace accessibility tests PASS, and an exact workflow census of 108/3/105/0 before merge. Merge/CI cannot grant product, financial, runtime, or wallet authority.
 
 ## HIL / Healer / runtime collision boundaries
 
@@ -121,25 +146,21 @@ credential_authority: TV/TVC
 github_token_production_authority: NONE
 ```
 
-Canonical continuation:
-- `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md`
-- `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`
-
-Do not recreate local-model/runtime execution in Site or GitHub Actions.
+Canonical continuation remains `StegVerse-Labs/.github/docs/ORG_MIRROR_HANDOFF.md` and `StegVerse-002/micro-node-runtime/docs/SOVEREIGN_LOCAL_MODEL_RUNTIME_MIRROR_HANDOFF.md`. Do not recreate local model/runtime execution in Site or GitHub Actions.
 
 ## StegFin convergence
 
 Canonical continuation:
 - `StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md`
 - `StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json`
-- current machine continuation under StegFin #77 / current phone participant path
+- StegFin #77 / current phone participant path
 
 Trade execution remains machine/human-authority owned. Credential authority is TV/TVC. Wallet signing/broadcast are USER_ONLY. Workflow cleanup does not imply trade execution or settlement.
 
 ## Current claims / collision state
 
 ```text
-workflow minimization/remediation through Marketplace controller migration: MERGED_INTO_CANONICAL_WORKSTREAM
+B16 Marketplace accessibility importer retirement: CLAIMED_FOR_IMPLEMENTATION
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
 HIL LinkedIn semantic drift: REVIEW_REQUIRED
@@ -148,11 +169,9 @@ TV/TVC route/credential authority: TV/TVC only
 Healer resident scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001 / MACHINE_OWNED / do not compete
 ```
 
-Closed support attempts #320/#321/#325/#326/#328 are not canonical work and grant no authority; collision corrections are preserved in their closed PR bodies and Site #268 comment `5317270151`.
-
 ## Next executable action
 
-Inspect the next bounded unclaimed token-bearing or redundant workflow family under Site #268. Prioritize hosted schedules, repository writeback and GitHub-token surfaces, but preserve nonterminal product semantics. Read the applicable product handoff before mutation and prefer migration into an existing StegVerse/Healer fixed local handler over creating new schedulers. Do not modify `check-hil-linkedin-launch-readiness.yml` while its semantic drift remains `REVIEW_REQUIRED`.
+Validate B16 exact head. If green, merge, recensus current main, release the B16 claim and update this handoff. Then inspect the next bounded unclaimed token-bearing/redundant workflow under Site #268. Do not modify `check-hil-linkedin-launch-readiness.yml` while its semantic drift remains `REVIEW_REQUIRED`.
 
 ## Completion accounting — released work only
 
@@ -163,11 +182,10 @@ scaffolding_or_stubs: 0
 missing_required_files_for_completed_surfaces: 0
 validation: 63/63 released validation groups PASS
 integration: 15/15 released workflow/token-remediation groups
-propagation: Healer source binding MERGED; no product/runtime activation inferred
-goal_activation_for_cleanup_goal: 29/131 = 22.14%
+B16: implemented on branch / validation pending
 session_consolidation: incomplete
 ```
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 102/131 audit-start Site workflow surfaces remain unremediated/unclassified, 106 operational workflows remain migration-required, and further unclaimed token-bearing/redundant workflow families remain executable under Site #268. Live HIL, sovereign runtime/inference, ordinary Healer execution, and StegFin settlement remain separately worker-owned and are not inferred from source or validation state.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because B16 is not yet released and 102/131 audit-start Site workflow surfaces remain unremediated/unclassified at the released baseline.
