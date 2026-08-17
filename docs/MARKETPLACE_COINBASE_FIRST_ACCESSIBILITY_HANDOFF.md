@@ -1,111 +1,76 @@
 # Marketplace–Coinbase First-Accessibility — StegVerse Site Handoff
 
-## Determination
+## Authority and current state
 
-The crypto-bot paper-trading first-accessibility layer is active and PASS, but no equivalent bounded StegVerse Site projection existed before this work.
+- Goal: `MARKETPLACE-COINBASE-FIRST-ACCESSIBILITY-001`
+- Repository: `StegVerse-Labs/Site`
+- Canonical issue: `StegVerse-Labs/Site#130`
+- Credential authority: `TV/TVC`
+- GitHub token production authority: `NONE`
+- Financial/live execution authority: `NOT_GRANTED`
+- Wallet/custody/withdrawal authority: `NOT_GRANTED`
+- Current bounded Site projection: `ACCESSIBLE`
+- Current task state: terminal repository work complete; no recurring hosted continuation is required.
 
-Current Site-side state:
+This handoff governs the bounded public Site projection only. It does not grant funded Coinbase, live-order, custody, withdrawal, settlement, publication, release, or wallet authority.
 
-```text
-LAYER_BUILD_STARTED
-ACTIVATION_PENDING_AUTHORITATIVE_WORKFLOW_RESULT
-```
-
-This work is parallel-safe with the active HIL upload task because it claims only:
-
-```text
-scripts/import_marketplace_coinbase_first_accessibility.py
-.github/workflows/import-marketplace-coinbase-first-accessibility.yml
-data/marketplace-coinbase-first-accessibility-status.json
-docs/MARKETPLACE_COINBASE_FIRST_ACCESSIBILITY_HANDOFF.md
-```
-
-It does not touch the active HIL upload paths.
-
-## Source
+## Authoritative retained evidence
 
 ```text
-repository: StegVerse-Labs/crypto-bot
-path: data/first-accessibility-mark-status.json
+source repository: StegVerse-Labs/crypto-bot
 verified source commit: 73a0543ddb27a88fd4913e7dcfa2127132299baa
-verified workflow run: 30681165495
+verified source workflow run: 30681165495
 verified source receipt digest: sha256:5f6cc484c74f5795973cd2e6c52cc349e1cc464064841a29c3d28ed863e98758
 verified outbound manifest digest: sha256:854bd485bb93a50a086778d21a33da33299ef3abc36552547a5bf41d9e797333
-paper_trading_accessible: true
-live_authority: NOT_GRANTED
+Site status: data/marketplace-coinbase-first-accessibility-status.json
+Site task state: data/marketplace-coinbase-first-accessibility-task-state.json
 ```
 
-## Installed Site components
+The checked-in task state is the durable terminal evidence. It records `activation_ready: true`, `status: ACCESSIBLE`, `SITE-MCFA-001` through `SITE-MCFA-004` all `COMPLETED`, and no external tasks. Publication, release, execution, live, custody, and withdrawal authority remain `NOT_GRANTED`. Issue `Site#130` is closed completed. Those durable facts supersede the earlier pre-activation wording in this handoff.
+
+## Retained implementation
 
 ```text
 scripts/import_marketplace_coinbase_first_accessibility.py
-.github/workflows/import-marketplace-coinbase-first-accessibility.yml
+scripts/continue_marketplace_coinbase_first_accessibility.py
 data/marketplace-coinbase-first-accessibility-status.json
+data/marketplace-coinbase-first-accessibility-task-state.json
+data/marketplace-coinbase-first-accessibility-source-observation.json
 ```
 
-The importer verifies:
+Retaining deterministic source does not authorize recurring execution. It remains available for StegVerse-local inspection/reconstruction if another canonical owner explicitly consumes it.
 
-- source schema;
-- canonical receipt digest;
-- PASS state;
-- `paper_trading_accessible: true`;
-- exact source commit format;
-- workflow-run identity format;
-- outbound manifest digest format;
-- publication authority remains `NOT_GRANTED`;
-- release authority remains `NOT_GRANTED`;
-- live authority remains `NOT_GRANTED`;
-- execution authority is no broader than `PAPER_ONLY`.
+## Hosted continuation retirement
 
-The Site output is projection-only and always preserves:
+The former `.github/workflows/continue-marketplace-coinbase-first-accessibility.yml` loop is superseded and removed under Site workflow-minimization batch 13.
+
+Retirement is bounded because the projection is already terminally `ACCESSIBLE`, all four repository tasks are complete, the coordination issue is closed, and there are no unnamed external tasks. The retired workflow nevertheless continued to run hourly with repository/issue write permission, persisted checkout credentials, `github.token`, issue mutation, commit/push writeback, and artifact upload.
+
+No replacement hosted schedule, writeback loop, GitHub token, or NON-TV/TVC credential path is created. No TV/TVC protected value is exported into GitHub Actions.
+
+## Continuation semantics
+
+The completed projection is state-retained rather than clock-driven. A future source change that genuinely requires new work must enter through a fresh admitted Site/StegVerse task and claim; it may not silently reactivate the retired GitHub-hosted loop.
+
+Any future task must preserve:
 
 ```text
-publication_authority: NOT_GRANTED
-release_authority: NOT_GRANTED
-execution_authority: NOT_GRANTED
-live_authority: NOT_GRANTED
-custody_authority: NOT_GRANTED
-withdrawal_authority: NOT_GRANTED
-authority_effect: false
-activation_effect: false
+credential_authority: TV/TVC
+github_token_production_authority: NONE
+live_authority: NOT_GRANTED unless separately governed
+wallet_signing_broadcast: outside this Site projection
 ```
 
-## Activation gate
+## Batch-13 release gate
 
-Do not call this Site layer active until a workflow run is directly observed with:
+Batch 13 is complete only when the terminal task state remains intact; `Site#130` remains closed; the former hosted continuation workflow is absent; workflow inventory decreases by exactly one; Site pre-work claims, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Site Bootstrap Validate, and Check StegFin Phone Projection pass; and no hosted validation result is treated as live financial/product activation.
 
-```text
-exact run ID
-exact tested commit
-job ID
-all step conclusions
-complete logs
-artifact ID and digest
-committed data/marketplace-coinbase-first-accessibility-status.json
-status: ACCESSIBLE
-valid status_digest
-paper_trading_accessible: true
-```
+## Canonical continuation
 
-## Stop conditions
+Workflow/token minimization continues under:
 
-- `ACCESSIBLE`: activate the Site projection and coordinate any public surface or downstream consumer that requires it.
-- `PENDING_SOURCE`: inspect the source fetch failure without substituting a manually copied file.
-- `REJECTED`: inspect the exact source schema, digest, state, identity, or authority-boundary failure.
-- no workflow result: verify Site Actions enablement and `contents: write` workflow permissions.
+- `docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md`
+- `data/session-work-claims.json`
+- `StegVerse-Labs/Site#268`
 
-## Authority boundary
-
-This Site layer is a verified public projection of repository-resident paper-trading accessibility. It is not:
-
-- funded Coinbase authority;
-- live-order authority;
-- withdrawal or custody authority;
-- publication or release authority;
-- Marketplace settlement acceptance;
-- Publisher reconstruction verification;
-- final paper-release authorization.
-
-## Next task
-
-Observe the workflow triggered by this handoff commit, verify the complete run and artifact evidence, and activate the Site projection only if the committed output is `ACCESSIBLE` with a valid digest and all authority flags denied.
+The Marketplace first-accessibility projection itself has no recurring execution requirement at this terminal state.
