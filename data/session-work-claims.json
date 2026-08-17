@@ -76,6 +76,26 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B17R1-20260817",
+      "session_worker_id":"chatgpt-session-site-provider-neutral-validation-20260817",
+      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B17R1-20260817",
+      "originating_goal":"Eliminate the standalone GitHub-hosted Ecosystem Chat provider-neutral validation workflow while retaining its deterministic validator inside the credential-clean canonical Site validation path.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-ecosystem-chat-provider-neutral-validation-b17r1-20260817",
+      "role":"INTEGRATION",
+      "state":"CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key":"site-ecosystem-chat-provider-neutral-validation-consolidation",
+      "dependency_surface_keys":["site:workflow-minimization:ecosystem-chat-provider-neutral-validation"],
+      "claimed_paths":["data/session-work-claims.json","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",".github/workflows/validate.yml","scripts/check_ecosystem_chat_provider_neutral_binding.py",".github/workflows/check-ecosystem-chat-provider-neutral-binding.yml"],
+      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision":"2bfbc2cf3df80e54dd2e19dba09ff388419d594c",
+      "claim_created_at":"2026-08-17T11:27:00-05:00",
+      "claim_expires_when":"Released after deterministic provider-neutral validation is bound into credential-clean canonical Site validation, the standalone workflow is absent, exact-head validation passes, workflow census decreases exactly by one, merge completes, handoff is updated, and the claim is released.",
+      "expected_evidence":["provider-neutral validator remains installed","credential-clean validate.yml executes provider-neutral validator","standalone provider-neutral workflow absent","Site Bootstrap Validate PASS with provider-neutral step PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","workflow inventory 106 total / 3 canonical / 103 migration-required operational / 0 placeholders"],
+      "collision_boundaries":["No provider execution or route authority","No runtime/local-model/heartbeat mutation","No HIL or StegOS claimed-path mutation","No StegFin wallet mutation or signing/broadcast","No NON-TV/TVC secret/token","No TV/TVC credential export into GitHub Actions","No Render","Validation consolidation grants no activation authority"],
+      "next_task_after_release":"Inspect the next bounded unclaimed redundant or token-bearing Site workflow under Site#268."
     }
   ]
 }
