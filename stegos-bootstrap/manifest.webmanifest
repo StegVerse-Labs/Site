@@ -1,0 +1,11 @@
+{
+  "name": "StegOS",
+  "short_name": "StegOS",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "description": "StegOS browser-native first-node bootstrap and local service activation shell.",
+  "categories": ["utilities"]
+}
