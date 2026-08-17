@@ -1,54 +1,58 @@
 {
   "authority": {
     "execution": false,
+    "financial": false,
     "live": false,
     "publication": false,
     "release": false
   },
-  "continuation_mode": "COMPLETE_IN_PLACE_AND_CONTINUE_ADJACENT_WORK",
+  "continuation_mode": "STEGVERSE_OWNED_OBSERVATION_ONLY",
   "controller_access": {
     "access_failure_is_not_task_failure": true,
     "access_failure_owner": "StegVerse-Labs/Site#131",
-    "cross_repo_token_configured": true
+    "anonymous_public_observation_only": true,
+    "credential_requirement": "NONE",
+    "github_token_allowed": false,
+    "non_tv_tvc_secret_or_token_allowed": false
   },
   "controller_issue": "StegVerse-Labs/Site#131",
   "development_halt": false,
-  "generated_at": "2026-08-15T04:04:22.670408Z",
-  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v2",
-  "state": "ACTIVE_AUTONOMOUS_CONTINUATION",
+  "generated_at": "2026-08-17T15:15:00Z",
+  "schema": "stegverse.site.marketplace_coinbase_activation_tasks.v3",
+  "state": "ACTIVE_STEGVERSE_CONTINUATION",
   "tasks": [
     {
-      "completion_action": "The repository workflow owns regeneration of the committed first-accessibility receipt.",
+      "completion_action": "The canonical crypto-bot owner regenerates the committed first-accessibility receipt.",
       "development_halt": false,
       "evidence_path": "data/first-accessibility-mark-status.json",
       "issue": "StegVerse-Labs/crypto-bot#7",
-      "next_action": "Repair the controller observation path in StegVerse-Labs/Site#131 while the named repository workflow continues owning task completion; continue adjacent development.",
+      "next_action": "The anonymous observation path cannot see this evidence. The named repository/issue remains the canonical owner; do not repair observation by introducing a GitHub token.",
       "observation": "OBSERVATION_PATH_BLOCKED",
-      "observation_detail": "github_api_http_404",
+      "observation_detail": "anonymous_github_api_http_404",
       "observed_status": null,
       "repository": "StegVerse-Labs/crypto-bot",
-      "state": "CONTROLLER_ACCESS_REPAIR",
+      "state": "BLOCKED_DEPENDENCY",
       "stop_condition": "status=PASS and paper_trading_accessible=true",
       "task_id": "MC-01-CRYPTO-ACCESSIBILITY",
       "workflow": ".github/workflows/first-accessibility-mark.yml"
     },
     {
-      "completion_action": "The Marketplace workflow owns collection, acknowledgement, sequence-2 generation, and durable status commit.",
+      "completion_action": "The canonical Marketplace owner retains collection, acknowledgement, sequence-2 generation, and durable status.",
       "development_halt": false,
       "evidence_path": "data/marketplace-coinbase-outbound-collection-status.json",
       "issue": "GCAT-BCAT-Engine/Marketplace#1",
-      "next_action": "Repair the controller observation path in StegVerse-Labs/Site#131 while the named repository workflow continues owning task completion; continue adjacent development.",
+      "next_action": "The anonymous observation path cannot see this evidence. The named repository/issue remains the canonical owner; do not repair observation by introducing a GitHub token.",
       "observation": "OBSERVATION_PATH_BLOCKED",
-      "observation_detail": "github_api_http_404",
+      "observation_detail": "anonymous_github_api_http_404",
       "observed_status": null,
       "repository": "GCAT-BCAT-Engine/Marketplace",
-      "state": "CONTROLLER_ACCESS_REPAIR",
+      "state": "BLOCKED_DEPENDENCY",
       "stop_condition": "status=COLLECTED; acknowledgement ACCEPTED or DUPLICATE; sequence-2 transport present",
       "task_id": "MC-02-MARKETPLACE-COLLECTION",
       "workflow": ".github/workflows/import-marketplace-coinbase-settlements.yml"
     },
     {
-      "completion_action": "The Publisher workflow owns bounded reconstruction, verification, and committed public status.",
+      "completion_action": "The canonical Publisher owner retains bounded reconstruction, verification, and committed public status.",
       "development_halt": false,
       "evidence_path": "data/marketplace-coinbase-release-evidence-status.json",
       "issue": "GCAT-BCAT-Engine/Publisher#19",
@@ -63,7 +67,7 @@
       "workflow": ".github/workflows/collect-marketplace-coinbase-release-evidence.yml"
     },
     {
-      "completion_action": "The Site import workflow owns projection regeneration after Publisher verification.",
+      "completion_action": "The canonical Site projection owner retains regeneration after Publisher verification.",
       "development_halt": false,
       "evidence_path": "data/marketplace-coinbase-accessibility-status.json",
       "issue": "StegVerse-Labs/Site#131",
