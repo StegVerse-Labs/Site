@@ -69,20 +69,13 @@ jobs:
           import json
           from pathlib import Path
           from jsonschema import Draft202012Validator, FormatChecker
-
           status = json.loads(Path('data/hil-announcement-status.json').read_text(encoding='utf-8'))
           schema = json.loads(Path('data/schemas/hil-announcement-status.schema.json').read_text(encoding='utf-8'))
-          errors = sorted(
-              Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(status),
-              key=lambda error: list(error.path),
-          )
+          errors = sorted(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(status), key=lambda error: list(error.path))
           if errors:
               raise SystemExit('\n'.join(error.message for error in errors))
           print('HIL_ANNOUNCEMENT_STATUS_SCHEMA=PASS')
           PY
-
-      - name: Execute ST-017 isolated validation without artifact transport
-        run: python3 scripts/run_sandbox_validation.py
 
       - name: Inventory and validate workflow entry points
         run: |
@@ -95,8 +88,11 @@ jobs:
           python3 scripts/site_handoff_orchestrator.py
           python3 scripts/check_ecosystem_heartbeat_orchestration.py
 
-      - name: Validate canonical Site application
+      - name: Validate canonical Site application directly
         run: python3 scripts/check_ecosystem_chat_application.py
+
+      - name: Execute ST-017 isolated validation without artifact transport
+        run: python3 scripts/run_sandbox_validation.py
 
       - name: Validate StegFin phone projection without wallet authority
         run: python3 scripts/check_stegfin_phone_projection.py
@@ -106,7 +102,6 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
           workflow = Path('.github/workflows/validate.yml').read_text(encoding='utf-8')
           forbidden = [
               'actions/' + 'checkout@',
