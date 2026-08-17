@@ -30,35 +30,7 @@
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1"},
     {"claim_id":"SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"72ca1b9377a918983d5bcb329fa4c13ab0294cc8"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B15-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"bb2850425943d1590594096b6d453a5c1822881f","final_head":"4f012fb34cf990eeecbced66cbc5046eb180ff0d"},
-    {
-      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16R1-20260817",
-      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B16R1-20260817",
-      "state":"MERGED_INTO_CANONICAL_WORKSTREAM",
-      "role":"RELEASED_INTEGRATION",
-      "branch":"chore/site-marketplace-accessibility-import-retirement-b16r1-20260817",
-      "released_at":"2026-08-17T11:21:00-05:00",
-      "release_commit":"b106d3479bafa458d56f4f450f1975925e7887e6",
-      "final_head":"799455e1ae32ce40d1050ac6020331891c21ac9c",
-      "evidence":[
-        "PR #337 merge b106d3479bafa458d56f4f450f1975925e7887e6",
-        "Site Bootstrap Validate 32045148638 SUCCESS",
-        "Site Handoff Orchestrator 32045148600 SUCCESS",
-        "Ecosystem Heartbeat Orchestration 32045148625 SUCCESS",
-        "Check StegFin Phone Projection 32045148618 SUCCESS",
-        "SESSION_WORK_CLAIMS_PASS",
-        "SITE_HANDOFF_ORCHESTRATION_PASS",
-        "ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS",
-        "ST-017 sandbox PASS",
-        "canonical Site application PASS",
-        "workflow inventory 107; canonical 3; migration-required operational 104; placeholders 0",
-        "import-marketplace-coinbase-accessibility.yml absent after merge",
-        "deterministic importer source/tests and PAPER_ACCESSIBLE committed state retained"
-      ],
-      "authority_effect": false,
-      "runtime_activation_effect": false,
-      "financial_authority_effect": false,
-      "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
-    },
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16R1-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B16R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"b106d3479bafa458d56f4f450f1975925e7887e6","final_head":"799455e1ae32ce40d1050ac6020331891c21ac9c"},
     {
       "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
       "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
@@ -98,6 +70,26 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
+    },
+    {
+      "claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B17-20260817",
+      "session_worker_id":"chatgpt-session-site-hil-session-consolidation-validation-b17-20260817",
+      "task_id":"SITE-ACTIONS-COST-CONTAINMENT-B17-20260817",
+      "originating_goal":"Consolidate the standalone HIL session-consolidation validator into the existing credential-clean HIL dispatcher while preserving fail-closed session inventory/handoff validation and no-authority semantics.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"chore/site-hil-session-consolidation-validation-b17-20260817",
+      "role":"IMPLEMENTATION_VALIDATION",
+      "state":"CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key":"site-hil-session-consolidation-validation-b17",
+      "dependency_surface_keys":["site:hil:session-consolidation-validation"],
+      "claimed_paths":["data/session-work-claims.json",".github/workflows/check-hil-session-consolidation.yml",".github/workflows/check-hil-live-readiness.yml","scripts/check_hil_session_consolidation.py","docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"],
+      "handoff":"docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md",
+      "handoff_revision":"2bfbc2cf3df80e54dd2e19dba09ff388419d594c",
+      "claim_created_at":"2026-08-17T11:23:00-05:00",
+      "claim_expires_when":"Released after exact-head credential-clean validation and merge prove the standalone session-consolidation workflow absent, the unchanged validator executing through the HIL dispatcher, workflow recensus, and durable claim/handoff release.",
+      "expected_evidence":["check-hil-session-consolidation.yml absent","Validate canonical HIL session consolidation state SUCCESS inside check-hil-live-readiness.yml","HIL Validation and Live Readiness PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Check StegFin Phone Projection PASS","Site Bootstrap Validate PASS","workflow inventory decremented by one with canonical workflows retained and zero placeholders"],
+      "collision_boundaries":["Do not modify Site #81 live receiver/runtime activation semantics","Do not modify Site #67 lifecycle projection ownership","Do not compete with TVC #8 private review or publication authority","Do not modify master-records/orchestration authority","Do not touch active StegOS claimed product paths","Do not weaken LinkedIn REVIEW_REQUIRED drift","Do not introduce or consume NON-TV/TVC secrets or tokens","Do not use Render as production authority"],
+      "next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow family under Site #268."
     }
   ]
 }
