@@ -114,10 +114,10 @@
       "task_id": "SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298",
       "originating_goal": "Project the exact merged StegOS admitted-inference browser consumer to the established physical iPod surface without a second non-StegVerse machine or any NON-TV/TVC secret/token.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "feat/stegos-ipod-admitted-inference-298-current",
+      "branch": "feat/stegos-ipod-admitted-inference-canonical-validation-298",
       "role": "INTEGRATION",
       "state": "CLAIMED_FOR_INTEGRATION",
-      "normalized_work_key": "site-stegos-ipod-admitted-inference-projection-current",
+      "normalized_work_key": "site-stegos-ipod-admitted-inference-canonical-validation",
       "dependency_surface_keys": ["site:stegos-ipod-bootstrap:admitted-inference"],
       "claimed_paths": [
         "data/session-work-claims.json",
@@ -140,7 +140,7 @@
         "Site Handoff Orchestrator PASS",
         "Ecosystem Heartbeat Orchestration PASS",
         "Site Bootstrap Validate PASS",
-        "merged Site PR #307",
+        "merged fresh-current-main Site PR",
         "Pages build built from merged Site projection"
       ],
       "collision_boundaries": [
