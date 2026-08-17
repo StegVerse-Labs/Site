@@ -1,15 +1,39 @@
 {
   "schema": "stegverse.site.task.v1",
   "task_id": "SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
-  "state": "UNCLAIMED",
+  "state": "IMPLEMENTED_PENDING_VALIDATION",
   "owner_repository": "StegVerse-Labs/Site",
   "canonical_issue": "StegVerse-Labs/Site#141",
   "parent_issue": "StegVerse-Labs/Site#268",
   "handoff": "docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
+  "claim_id": "SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817",
+  "branch": "chore/site-st018-github-token-retirement-20260817",
   "goal": "Remove NON-TV/TVC GitHub-token, issue-write, and artifact-custody mechanics from the ST-018 validation-evidence path while preserving deterministic validation.",
   "credential_authority": "TV/TVC",
   "non_tv_tvc_secret_or_token_allowed": false,
   "github_actions_runtime_or_control_plane_authority": false,
-  "next_action": "Create an exact branch-bound claim and implement the credential-clean ST-018 validation boundary.",
+  "implemented_changes": [
+    "permissions set to empty",
+    "actions/checkout removed",
+    "actions/setup-python removed",
+    "actions/upload-artifact removed",
+    "issues write permission removed",
+    "GH_TOKEN and github.token use removed",
+    "issue-comment mutation removed",
+    "anonymous exact-SHA public source fetch added",
+    "credential-bearing environment refusal added",
+    "deterministic capture_validation_manifest execution retained",
+    "receipt enforcement retained as non-custodial validation evidence"
+  ],
+  "validation_required": [
+    "SESSION_WORK_CLAIMS_PASS",
+    "ST018_CREDENTIAL_REFUSAL=PASS",
+    "ST018_SOURCE_FETCH=PASS",
+    "ST018_VALIDATION=PASS",
+    "Site Handoff Orchestrator PASS",
+    "Ecosystem Heartbeat Orchestration PASS",
+    "Site Bootstrap Validate PASS"
+  ],
+  "next_action": "Inspect exact-head pull request validation runs and logs, repair only deterministic credential-clean validation failures, then merge and release the claim if all required gates pass.",
   "release_condition": "Merged exact-head implementation with required Site validation PASS, claim released, Site #141 reconciled, and cost-containment handoff updated."
 }
