@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="StegOS">
+  <meta name="theme-color" content="#111111">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>StegOS iPod Bootstrap</title>
+  <style>
+    :root { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; color-scheme: light dark; }
+    body { margin: 0; padding: 18px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    h1 { font-size: 1.65rem; margin-bottom: .25rem; }
+    .sub { opacity: .75; margin-top: 0; }
+    section { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 14px; margin: 14px 0; }
+    button { font: inherit; padding: 12px 14px; margin: 5px 4px 5px 0; border-radius: 10px; border: 1px solid rgba(127,127,127,.45); }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; }
+    pre { white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow: auto; }
+    .value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; }
+    .ok { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>StegOS</h1>
+  <p class="sub">Browser-native first-node bootstrap for iPod touch / iOS 15.</p>
+
+  <section>
+    <strong>Authority boundary</strong>
+    <p>Activation authority: <span class="value">STEGVERSE</span><br>
+    Credential authority: <span class="value">TV/TVC</span><br>
+    Second non-StegVerse machine required: <span class="value">NO</span></p>
+  </section>
+
+  <section>
+    <strong>Runtime capability</strong>
+    <pre id="capabilities">Checking…</pre>
+  </section>
+
+  <section>
+    <strong>Node</strong>
+    <p>State: <span id="node-state" class="value">NOT_ESTABLISHED</span></p>
+    <p>Node ID: <span id="node-id" class="value">—</span></p>
+    <button id="establish">Establish StegVerse Node</button>
+  </section>
+
+  <section>
+    <strong>Ecosystem Chat</strong>
+    <p>State: <span id="chat-state" class="value">DORMANT</span></p>
+    <p>Inference: <span id="inference-state" class="value">FAIL_CLOSED_UNTIL_STEGVERSE_MODEL_EVIDENCE</span></p>
+    <button id="activate-chat">Activate Ecosystem Chat</button>
+  </section>
+
+  <section>
+    <strong>Continuity</strong>
+    <p>Replay: <span id="replay-state" class="value">NOT_RUN</span></p>
+    <p>Tail: <span id="tail" class="value">—</span></p>
+    <button id="replay">Replay Local Journal</button>
+    <button id="evidence">Show Evidence Bundle</button>
+    <pre id="evidence-output"></pre>
+  </section>
+
+  <section>
+    <strong>Offline shell</strong>
+    <p id="offline-state" class="value">NOT_REGISTERED</p>
+    <p class="sub">The shell may be cached after first HTTPS materialization. Offline availability grants no authority and service activation remains local.</p>
+  </section>
+
+  <script src="./stegos-bootstrap.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var api = window.StegOSWebBootstrap;
+      var caps = api.runtimeCapabilities();
+      document.getElementById("capabilities").textContent = JSON.stringify(caps, null, 2);
+
+      function showError(error) {
+        document.getElementById("evidence-output").textContent = String(error && error.message ? error.message : error);
+      }
+
+      function establish() {
+        return api.establishNode().then(function (state) {
+          document.getElementById("node-state").textContent = "ESTABLISHED";
+          document.getElementById("node-id").textContent = state.node.node_id;
+          return state;
+        }).catch(function (error) { showError(error); throw error; });
+      }
+
+      document.getElementById("establish").addEventListener("click", function () {
+        establish().catch(function () {});
+      });
+
+      document.getElementById("activate-chat").addEventListener("click", function () {
+        api.activateEcosystemChat().then(function (result) {
+          document.getElementById("node-state").textContent = "ESTABLISHED";
+          document.getElementById("node-id").textContent = result.node.node_id;
+          document.getElementById("chat-state").textContent = result.service.state;
+          document.getElementById("inference-state").textContent = result.service.inference_actions_state;
+          document.getElementById("tail").textContent = result.entry.entry_sha256;
+        }).catch(showError);
+      });
+
+      document.getElementById("replay").addEventListener("click", function () {
+        api.replayJournal().then(function (report) {
+          document.getElementById("replay-state").textContent = report.state + " / " + report.entries + " entries";
+          document.getElementById("tail").textContent = report.tail_sha256 || "—";
+        }).catch(showError);
+      });
+
+      document.getElementById("evidence").addEventListener("click", function () {
+        api.exportEvidence().then(function (bundle) {
+          document.getElementById("evidence-output").textContent = JSON.stringify(bundle, null, 2);
+        }).catch(showError);
+      });
+
+      api.registerOfflineShell().then(function (result) {
+        document.getElementById("offline-state").textContent = result.state + (result.scope ? " / " + result.scope : "");
+      });
+
+      establish().then(function () {
+        return api.exportEvidence();
+      }).then(function (bundle) {
+        var services = bundle.receipts.filter(function (row) {
+          return row.receipt && row.receipt.schema === "stegos.web_service_activation_receipt.v1";
+        });
+        if (services.length) {
+          var latest = services[services.length - 1].receipt.service;
+          document.getElementById("chat-state").textContent = latest.state;
+          document.getElementById("inference-state").textContent = latest.inference_actions_state;
+        }
+      }).catch(function () {});
+    }());
+  </script>
+</body>
+</html>
