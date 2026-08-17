@@ -7,7 +7,6 @@ goal_id: SITE-ACTIONS-COST-CONTAINMENT-001
 originating_goal: reduce GitHub-hosted workflow/token dependence to the minimum technically necessary while preserving StegVerse execution, TV/TVC credential authority, deterministic validation, and canonical authority boundaries
 repository: StegVerse-Labs/Site
 canonical_branch: main
-active_branch: chore/site-hil-public-response-import-validation-b10r1-20260817
 coordination: StegVerse-Labs/.github#164
 workflow_minimization_coordination: StegVerse-Labs/.github#167
 repository_issues: Site#265, Site#268
@@ -18,8 +17,8 @@ preferred_workflow_surface: <=2 stable GitHub entry surfaces, with evidence-back
 canonical_claim_registry: data/session-work-claims.json
 prework_validator: scripts/check_session_work_claims.py
 repository_orchestrator: scripts/site_handoff_orchestrator.py
-active_implementation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817
-active_validation_claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817
+active_implementation_claim: NONE
+active_validation_claim: NONE
 state: ACTIVE_REMEDIATION
 thread_archive_ready: false
 ```
@@ -30,19 +29,18 @@ Production/runtime continuity is StegVerse-owned. GitHub Actions is non-authoriz
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 24/131 = 18.32%
-remaining_audit_start_surfaces: 107/131
-current_main_workflow_count: 114
-active_B10R1_branch_workflow_count_expected: 113
-workflow_files_eliminated_or_consolidated_by_released_cleanup: 13
+released_classified_or_remediated: 25/131 = 19.08%
+remaining_audit_start_surfaces: 106/131
+current_main_workflow_count: 113
+workflow_files_eliminated_or_consolidated_by_released_cleanup: 14
 recurring_schedules_removed_by_released_cleanup: 10
-released_completed_batches: 10
-released_validation_groups: 41/41 PASS
-released_batch_integrations: 10/10
+released_completed_batches: 11
+released_validation_groups: 46/46 PASS
+released_batch_integrations: 11/11
 review_required_surfaces: 1
 ```
 
-The exact token-clean batch-11 validation job rebuilt the repository inventory and reported `SITE WORKFLOW INVENTORY: 114 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 111`. Batch B10R1 removes exactly one standalone workflow from a fresh current-main base; no released accounting changes until its exact head validates and merges.
+Exact B10R1 bootstrap validation rebuilt the merge checkout inventory and reported `SITE WORKFLOW INVENTORY: 113 workflow file(s)`, `CANONICAL: 3`, `MIGRATION REQUIRED OPERATIONAL: 110`, `PLACEHOLDERS: 0`.
 
 ## Released minimization evidence
 
@@ -57,17 +55,16 @@ PR #310 merge bbf285af75e6473dfd09bbee6db8f6d1280a298d — Federal-Plus validati
 PR #312 merge 104a823254cccf0b2ae15a5524fb762ad05c6ec4 — Master Records return-receipt validation folded
 PR #313 merge 5b7e4bb563d9c335e986e03a06be5e372637456c — Master Records transfer-packet validation folded
 PR #315 merge f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7 — Site Bootstrap token/writeback/private-runtime authority retired
+PR #316 merge a062d42933d87834b611d493c0669e0b578ac9e1 — HIL public-response import validation folded into credential-clean HIL dispatcher
 ```
 
 ## Batch 11 release — Site Bootstrap token-authority retirement
 
 ```text
 claim: SITE-BOOTSTRAP-TOKEN-AUTHORITY-RETIREMENT-20260817
-branch: chore/site-bootstrap-token-authority-retirement-20260817
 PR: #315
 final_head: 002c152c4f32b850f08dc126d126bebdf29b8b11
 merge: f449a8dc1c4c1e8fc857cc8a9a1f16a1ecc3aac7
-claim_release_commit: b294a7cf9fbcb867c6a175274631cd669b465d8b
 Site Bootstrap Validate: 32014967587 SUCCESS
 Site Handoff Orchestrator: 32014967525 SUCCESS
 Ecosystem Heartbeat Orchestration: 32014967530 SUCCESS
@@ -81,38 +78,36 @@ The released `.github/workflows/validate.yml` has `permissions: {}`, no schedule
 
 Portable-node discovery/launch/inference proof remains `COMPLETE_RELEASED` under canonical StegVerse local-runtime/resident-worker owners. Site GitHub Actions does not recreate that runtime authority.
 
-## Active batch 10 reconstruction — B10R1
+## Batch 10 reconstruction release — B10R1
 
-Old PR #314 is closed unmerged and superseded because its exact head inherited the pre-batch-11 token/private-runtime bootstrap validation baseline.
-
-Fresh reconstruction:
+Old PR #314 is closed unmerged and superseded. Fresh current-main reconstruction PR #316 released the same bounded validator consolidation on top of the token-clean bootstrap baseline.
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B10R1-20260817
-branch: chore/site-hil-public-response-import-validation-b10r1-20260817
-base_commit: b945270e7a8ea15a916d581fb480391ff7512145
-state: IMPLEMENTED_UNVALIDATED
-scope: public-response import validator consolidation + claim/handoff only
+PR: #316
+final_head: 36d6d119882d5fa628cfb8232302e4b58c236bda
+merge: a062d42933d87834b611d493c0669e0b578ac9e1
+claim_release_commit: e0629a3d65b2f435ad0b401b41dd3e4547e61f4a
+HIL Validation and Live Readiness: 32040323559 SUCCESS
+Validate HIL public response import boundary: SUCCESS
+Site Handoff Orchestrator: 32040323598 SUCCESS
+Ecosystem Heartbeat Orchestration: 32040323544 SUCCESS
+Check StegFin Phone Projection: 32040323543 SUCCESS
+Site Bootstrap Validate: 32040323501 SUCCESS
+ST-017 isolated validation: PASS
+canonical Site application: PASS
+validation-only authority boundary: PASS
+workflow inventory: 113 / canonical 3 / migration-required operational 110
 ```
 
-Installed delta:
+Released delta:
 
-- `.github/workflows/check-hil-public-response-import.yml` removed;
-- `scripts/check_hil_public_response_import.py` retained unchanged;
-- `data/hil-responses.json`, `data/hil-public-response-imports/**`, `schemas/hil_public_response_import.schema.json`, and the retained validator are included in the credential-clean `check-hil-live-readiness.yml` path filters;
-- `Validate HIL public response import boundary` executes the deterministic validator in the consolidated HIL validation job;
-- the consolidated workflow remains `permissions: {}`, performs explicit credential refusal, and uses anonymous exact-ref source fetch;
-- no private-review, publication, Master Record, custody, release, provider, wallet, deployment, or runtime authority is transferred.
-
-Required exact-head gates before merge:
-
-1. HIL Validation and Live Readiness;
-2. Site Handoff Orchestrator;
-3. Ecosystem Heartbeat Orchestration;
-4. Check StegFin Phone Projection;
-5. Site Bootstrap Validate.
-
-The retained validator must prove canonical HIL v1.1 primary/prompt hashes, response/receiver-receipt byte continuity, verified receiver chain state, authenticated private acceptance, authenticated append-only publication evidence, fail-closed acquisition state, and explicit no-authority escalation.
+- `.github/workflows/check-hil-public-response-import.yml` is absent;
+- `scripts/check_hil_public_response_import.py` remains installed unchanged;
+- `data/hil-responses.json`, `data/hil-public-response-imports/**`, `schemas/hil_public_response_import.schema.json`, and the retained validator are bound to credential-clean `check-hil-live-readiness.yml` triggers;
+- `Validate HIL public response import boundary` executes inside the credential-clean HIL validation job;
+- the retained validator preserves canonical HIL v1.1 primary/prompt hashes, response/receiver-receipt byte continuity, verified receiver chain state, authenticated private acceptance, authenticated append-only publication evidence, fail-closed acquisition state, and explicit no-authority escalation;
+- no private-review, publication, Master Record, custody, release, provider, wallet, deployment, or runtime authority was transferred.
 
 ## HIL / Healer / runtime collision boundaries
 
@@ -150,16 +145,16 @@ Canonical continuation:
 
 Canonical continuation:
 - `StegVerse-Labs/stegfin-governance/docs/STEGFIN_MIRROR_HANDOFF.md`
-- current machine continuation under StegFin runtime/phone task state
+- `StegVerse-Labs/stegfin-governance/task-state/STEGFIN-CONTINUITY-CARRIER-007.json`
+- current machine continuation under StegFin #77 / current phone participant path
 
 Trade execution remains machine/human-authority owned. Credential authority is TV/TVC. Wallet signing/broadcast are USER_ONLY. Workflow cleanup does not imply trade execution or settlement.
 
 ## Current claims / collision state
 
 ```text
-workflow minimization/remediation batches 1-9 + batch 11: MERGED_INTO_CANONICAL_WORKSTREAM
+workflow minimization/remediation batches 1-9 + batch 11 + B10R1: MERGED_INTO_CANONICAL_WORKSTREAM
 batch 10 old PR #314: SUPERSEDED / CLOSED_UNMERGED
-batch 10 reconstruction B10R1: CLAIMED_FOR_INTEGRATION
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
 HIL LinkedIn semantic drift: REVIEW_REQUIRED
@@ -174,23 +169,22 @@ Workflow-only cleanup does not create a product release requiring Publisher, adm
 
 ## Next executable action
 
-Open the B10R1 PR from the fresh token-clean branch, validate the exact final head through all five current gates, inspect the HIL public-response validator step and workflow inventory evidence, merge only on PASS, release the B10R1 claim, update this handoff with exact merge/run evidence, recensus `.github/workflows`, then inspect the next bounded unclaimed workflow family under Site #268.
+Inspect Site #268 and current `.github/workflows` for the next bounded unclaimed token-bearing or redundant workflow family. Create a fresh branch-bound claim before mutation, preserve deterministic validators where necessary, transfer operational recurrence to StegVerse workers rather than GitHub Actions, and retain evidence-backed standalone exceptions only when technically necessary.
 
 ## Completion accounting — released work only
 
 ```text
-task_completion: 24/131 = 18.32%
-developed_files_for_completed_batches: 24/24
+task_completion: 25/131 = 19.08%
+developed_files_for_completed_batches: 25/25
 scaffolding_or_stubs: 0
 missing_required_files_for_completed_batches: 0
-validation: 41/41 released-batch groups PASS
-integration: 10/10 released workflow/token-remediation batches
-active_B10R1: implemented, unvalidated
+validation: 46/46 released-batch groups PASS
+integration: 11/11 released workflow/token-remediation batches
 propagation: not applicable for workflow-only cleanup
-goal_activation_for_cleanup_goal: 24/131 = 18.32%
+goal_activation_for_cleanup_goal: 25/131 = 19.08%
 session_consolidation: incomplete
 ```
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because B10R1 is an unreleased unique cleanup task and 107/131 audit-start Site workflow surfaces remain unremediated/unclassified under the current denominator.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because 106/131 audit-start Site workflow surfaces remain unremediated/unclassified under the current denominator and the next bounded unclaimed cleanup family remains executable under Site #268.
