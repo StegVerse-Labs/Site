@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>StegVerse Heartbeat Transition</title>
+  <style>
+    :root { font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #090b0f; color: #eef2f6; }
+    main { width: min(760px,100%); margin: 0 auto; padding: max(22px,env(safe-area-inset-top)) 18px max(36px,env(safe-area-inset-bottom)); }
+    h1 { font-size: 1.55rem; margin: 0 0 8px; }
+    h2 { font-size: 1rem; margin: 0 0 12px; }
+    p { line-height: 1.45; }
+    .muted { color: #aeb8c5; }
+    .card { border: 1px solid #2a323d; border-radius: 14px; padding: 16px; margin: 14px 0; background: #11161d; }
+    .row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid #222a33; }
+    .row:last-child { border-bottom: 0; }
+    .value { text-align: right; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap: anywhere; }
+    .authority { font-size: .9rem; }
+    button { width: 100%; min-height: 48px; margin: 7px 0; border-radius: 11px; border: 1px solid #536273; background: #1b2531; color: #fff; font: inherit; font-weight: 650; -webkit-appearance: none; appearance: none; touch-action: manipulation; }
+    button:disabled { opacity: .42; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .76rem; line-height: 1.35; padding: 12px; background: #090d12; border-radius: 10px; border: 1px solid #27303a; max-height: 520px; overflow-y: auto; }
+    .state { font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-weight: 700; overflow-wrap: anywhere; }
+    .warning { border-left: 4px solid #8c97a5; padding-left: 12px; }
+  </style>
+  <script src="heartbeat-transition.js" defer></script>
+</head>
+<body>
+<main>
+  <h1>StegVerse HB29 → HB30 Transition</h1>
+  <p class="muted">Physical transition capsule for the current iPhone. This page computes a bounded portable receipt locally. It does not itself modify the canonical heartbeat or grant authority.</p>
+
+  <section class="card authority" aria-labelledby="authority-title">
+    <h2 id="authority-title">Authority boundary</h2>
+    <div class="row"><span>Credential authority</span><strong>TV/TVC</strong></div>
+    <div class="row"><span>Credential requirement</span><strong>NONE</strong></div>
+    <div class="row"><span>GitHub token runtime authority</span><strong>NONE</strong></div>
+    <div class="row"><span>Second non-StegVerse machine required</span><strong>NO</strong></div>
+    <div class="row"><span>Browser receipt authority effect</span><strong>NONE</strong></div>
+  </section>
+
+  <section class="card" aria-labelledby="binding-title">
+    <h2 id="binding-title">Canonical binding</h2>
+    <div class="row"><span>Source merge</span><span class="value" id="source-merge">—</span></div>
+    <div class="row"><span>Legacy state</span><span class="value">HB29 / generation 29</span></div>
+    <div class="row"><span>Legacy Git blob</span><span class="value" id="seed-blob">—</span></div>
+    <div class="row"><span>Permitted successor</span><span class="value">HB30 / generation 30</span></div>
+  </section>
+
+  <section class="card" aria-labelledby="readiness-title">
+    <h2 id="readiness-title">Physical execution readiness</h2>
+    <div class="row"><span>Exact stegverse.org HTTPS origin</span><span class="state" id="origin-state">CHECKING</span></div>
+    <div class="row"><span>Secure context</span><span class="state" id="secure-state">CHECKING</span></div>
+    <div class="row"><span>WebCrypto</span><span class="state" id="crypto-state">CHECKING</span></div>
+    <div class="row"><span>iPhone execution</span><span class="state" id="iphone-state">CHECKING</span></div>
+    <div class="row"><span>Capsule</span><span class="state" id="capsule-readiness">CHECKING</span></div>
+    <p id="runtime-message" class="muted" aria-live="polite">Checking physical execution prerequisites…</p>
+    <button id="emit-transition" type="button" disabled>Emit HB30 Candidate Receipt</button>
+  </section>
+
+  <section class="card" aria-labelledby="transition-title">
+    <h2 id="transition-title">Transition result</h2>
+    <div class="row"><span>State</span><span class="state" id="transition-state">NOT_RUN</span></div>
+    <div class="row"><span>Receipt SHA-256</span><span class="value" id="receipt-digest">—</span></div>
+    <div id="receipt-panel" hidden>
+      <button id="copy-receipt" type="button" disabled>Copy Receipt</button>
+      <button id="share-receipt" type="button" disabled>Share / Preserve Receipt</button>
+      <pre id="receipt-json" tabindex="0" aria-label="Portable transition receipt"></pre>
+    </div>
+  </section>
+
+  <section class="card warning">
+    <h2>What this does not mean</h2>
+    <p>“HB30_CANDIDATE_EMITTED” is physical evidence only. Canonical HB30 exists only after the independent StegVerse verifier revalidates the immutable HB29 seed and materializes the carrier state. WorkerCoordinator must then independently observe HB30+ and reconstruction/no-duplicate-claim predicates must pass.</p>
+    <p class="muted">The capsule makes no network request, sends no Authorization/Bearer header, consumes no repository/provider/wallet credential, and cannot acquire or modify the G18 claim or fence.</p>
+  </section>
+</main>
+</body>
+</html>
