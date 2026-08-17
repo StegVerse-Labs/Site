@@ -40,14 +40,25 @@ def main() -> int:
 
     if WORKFLOW.exists():
         text = WORKFLOW.read_text(encoding="utf-8")
-        for marker in [
-            "st017-sandbox:",
-            "python scripts/run_sandbox_validation.py",
-            "site-st017-sandbox-report",
-            "needs: st017-sandbox",
-        ]:
+        required_markers = [
+            "Execute ST-017 isolated validation without artifact transport",
+            "python3 scripts/run_sandbox_validation.py",
+            "permissions: {}",
+            "Refuse credential-bearing environment",
+        ]
+        for marker in required_markers:
             if marker not in text:
                 errors.append("workflow_missing:" + marker)
+        forbidden_markers = [
+            "actions/" + "checkout@",
+            "actions/" + "setup-python@",
+            "actions/" + "upload-artifact@",
+            "site-st017-sandbox-report",
+            "needs: st017-sandbox",
+        ]
+        for marker in forbidden_markers:
+            if marker in text:
+                errors.append("workflow_forbidden:" + marker)
 
     if ADOPTION.exists():
         text = ADOPTION.read_text(encoding="utf-8")
