@@ -1,7 +1,7 @@
 {
-  "active_claim_count": 4,
+  "active_claim_count": 1,
   "archive_authorized": false,
-  "archive_state": "ACTIVE_UNIQUE_WORK_REMAINS",
+  "archive_state": "ACTIVE_DISTINCT_SUPPORT_WORK_REMAINS",
   "authority_granted": false,
   "complete_or_transferred_tasks": 0,
   "errors": [],
@@ -11,7 +11,7 @@
     "ECP-002",
     "VACP-001"
   ],
-  "receipt_sha256": "2db1fbec429897fefbc319c5804bfc5f487334cd360d4392fe8dc1ade3175ff0",
+  "receipt_sha256": "7e6de5ffcea3727e350b0599b3ac274eec0bcfcf349b47723ec504670f05cf22",
   "release_authorized": false,
   "repository": "StegVerse-Labs/Site",
   "required_task_ids": [
@@ -25,6 +25,6 @@
   "source": "data/two-entry-points-execution-state.json",
   "stale_claims": [],
   "task_count": 4,
-  "validated_at": "2026-08-03T03:48:06.342255+00:00",
+  "validated_at": "2026-08-17T18:55:17.738461+00:00",
   "warnings": []
 }
