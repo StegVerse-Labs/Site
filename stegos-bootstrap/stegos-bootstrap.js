@@ -63,6 +63,7 @@
       };
       request.onsuccess = function () { resolve(request.result); };
       request.onerror = function () { reject(request.error || new Error("IndexedDB open failed")); };
+      request.onblocked = function () { reject(new Error("IndexedDB open blocked")); };
     });
   }
 
@@ -145,6 +146,47 @@
     if (!caps.indexeddb) { throw new Error("FAIL_CLOSED: IndexedDB required for local continuity"); }
     if (!caps.webcrypto) { throw new Error("FAIL_CLOSED: WebCrypto required for receipt hashing"); }
     return caps;
+  }
+
+  function probeOperationalReadiness() {
+    var caps;
+    try {
+      caps = requireLocalRuntime();
+    } catch (error) {
+      return Promise.resolve({ state: "BLOCKED", reason: String(error.message || error), capabilities: runtimeCapabilities() });
+    }
+    return openDb().then(function (db) {
+      return sha256Hex("stegos-operational-readiness-v1").then(function (digest) {
+        return getMeta(db, NODE_KEY).then(function () {
+          db.close();
+          return {
+            state: "READY",
+            indexeddb_operational: true,
+            webcrypto_operational: typeof digest === "string" && digest.length === 64,
+            capabilities: caps,
+            authority_effect: "NONE"
+          };
+        });
+      });
+    }).catch(function (error) {
+      return {
+        state: "BLOCKED",
+        indexeddb_operational: false,
+        webcrypto_operational: false,
+        reason: String(error && error.message ? error.message : error),
+        capabilities: caps,
+        authority_effect: "NONE"
+      };
+    });
+  }
+
+  function readExistingNode() {
+    return openDb().then(function (db) {
+      return getMeta(db, NODE_KEY).then(function (node) {
+        db.close();
+        return node;
+      });
+    });
   }
 
   function establishNode() {
@@ -297,6 +339,8 @@
 
   window.StegOSWebBootstrap = {
     runtimeCapabilities: runtimeCapabilities,
+    probeOperationalReadiness: probeOperationalReadiness,
+    readExistingNode: readExistingNode,
     establishNode: establishNode,
     activateEcosystemChat: activateEcosystemChat,
     replayJournal: replayJournal,
