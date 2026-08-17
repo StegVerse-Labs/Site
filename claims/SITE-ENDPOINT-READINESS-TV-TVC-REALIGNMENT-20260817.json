@@ -1,0 +1,43 @@
+{
+  "schema":"stegverse.site.work-claim/v1",
+  "claim_id":"SITE-ENDPOINT-READINESS-TV-TVC-REALIGNMENT-20260817",
+  "task_id":"SITE-ENDPOINT-READINESS-TV-TVC-REALIGNMENT-20260817",
+  "repository":"StegVerse-Labs/Site",
+  "branch":"claim/site-endpoint-readiness-tvtvc-realignment-20260817",
+  "role":"IMPLEMENTATION_VALIDATION",
+  "state":"CLAIMED_FOR_IMPLEMENTATION",
+  "claimant":"chatgpt-session-endpoint-readiness-tvtvc-realignment-20260817",
+  "claimed_paths":[
+    "data/stegverse-endpoint-activation-readiness.json",
+    "scripts/check_stegverse_endpoint_activation_readiness.py",
+    ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
+    "tasks/SITE-ENDPOINT-READINESS-TV-TVC-REALIGNMENT-20260817.json",
+    "docs/ACTIONS_COST_CONTAINMENT_MIRROR_HANDOFF.md"
+  ],
+  "claim_created_at":"2026-08-17T13:57:00-05:00",
+  "claim_expires_when":"Released after exact-head validation, merge, claim/task release reconciliation, and canonical handoff evidence are complete; superseded immediately if a stronger canonical claimant appears on the same surfaces.",
+  "collision_boundaries":[
+    "StegVerse-Labs/Site#24 retains product ownership",
+    "TV/TVC retains credential and route authority",
+    "StegVerse-Labs/.github sovereign runtime/inference workers are not duplicated",
+    "StegVerse-org/LLM-adapter remains transport/evidence owner",
+    "master-records/orchestration retains custody and reconstruction authority",
+    "no Render",
+    "no NON-TV/TVC secret or token",
+    "no wallet signing or broadcast authority",
+    "no live activation inferred from source or CI"
+  ],
+  "expected_evidence":[
+    "no provider-token or Master-Records-token requirement in Site endpoint readiness state",
+    "validator rejects forbidden NON-TV/TVC token binding names",
+    "workflow permissions empty",
+    "no actions/checkout or actions/setup-python",
+    "anonymous exact-source fetch",
+    "endpoint readiness validator PASS_BLOCKED",
+    "Site Bootstrap Validate PASS",
+    "Site Handoff Orchestrator PASS",
+    "Ecosystem Heartbeat Orchestration PASS",
+    "StegFin phone projection PASS if triggered"
+  ],
+  "next_task_after_release":"Return to Site #268 and inspect the next unclaimed token-bearing or redundant validation workflow."
+}
