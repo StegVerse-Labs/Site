@@ -9,10 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "stegos_ipod_bootstrap_projection.report.json"
 UPSTREAM_REPO = "StegVerse-Labs/StegOS"
-UPSTREAM_COMMIT = "799e0f3fd2766a32cbf0720384db11f066d8e9b8"
+UPSTREAM_COMMIT = "55b9e95133c6037f4b8bcb02ea080f6c1b1cdc90"
 EXPECTED = {
-    "stegos-bootstrap/index.html": "0b3ca0df4f1c2e115f1a7040ab981ff5c7b67db0",
-    "stegos-bootstrap/stegos-bootstrap.js": "0f58bf5b8dd7b5de02c4113aebf798005f2e5808",
+    "stegos-bootstrap/index.html": "fc7663c900189806d68bd05f0eaf0b0a62219e9c",
+    "stegos-bootstrap/stegos-bootstrap.js": "15343c398c168f3d5f8fe6933aaf3073e89dd5c0",
     "stegos-bootstrap/service-worker.js": "d489341a69185a33e36c517177a2049a0b160ead",
     "stegos-bootstrap/manifest.webmanifest": "a223ec9454f46d0e9b91d4862f11de701792144a",
 }
@@ -48,6 +48,9 @@ def main() -> int:
         "local_journal_prerequisite": "local_receipt_journal_ready: true",
         "inference_fail_closed": 'inference_actions_state: "FAIL_CLOSED_UNTIL_STEGVERSE_MODEL_EVIDENCE"',
         "site_visible_no_second_machine": "Second non-StegVerse machine required",
+        "operational_probe": "probeOperationalReadiness",
+        "visible_node_action": 'id="node-action-state"',
+        "touch_activation": 'addEventListener("touchend", requestEstablish',
     }
     combined = js + "\n" + html
     for label, marker in required_markers.items():
@@ -69,7 +72,7 @@ def main() -> int:
             failures.append(f"prohibited credential/runtime marker projected: {marker}")
 
     report = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "status": "FAIL" if failures else "PASS",
         "source_repository": UPSTREAM_REPO,
         "source_commit": UPSTREAM_COMMIT,
@@ -83,6 +86,7 @@ def main() -> int:
         "hosted_ci_activation_authority": False,
         "site_authority_effect": "TRANSPORT_MATERIALIZATION_ONLY",
         "physical_activation_owner": "StegVerse-Labs/StegOS#13",
+        "control_repair": "OPERATIONAL_READINESS_PLUS_VISIBLE_TOUCH_ACTIVATION",
         "failures": failures,
     }
     REPORT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
