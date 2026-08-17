@@ -24,20 +24,66 @@ Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution i
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 41/131 = 31.30%
-remaining_audit_start_surfaces: 90/131
-current_main_workflow_count: 100
-workflow_files_eliminated_or_consolidated: 27
-released_integrations_or_semantic_remediations: 27/27
+released_classified_or_remediated: 42/131 = 32.06%
+remaining_audit_start_surfaces: 89/131
+current_main_workflow_count: 99
+workflow_files_eliminated_or_consolidated: 28
+released_integrations_or_semantic_remediations: 28/28
 canonical_workflows: 3
-migration_required_operational: 97
+migration_required_operational: 96
 placeholders: 0
 review_required_surfaces: 1
 ```
 
-Batch 24 removed one standalone workflow, so the physical census is now `100 / canonical 3 / migration-required 97 / placeholders 0`.
+Batch 25 removed one additional standalone workflow, so the physical census is now `99 / canonical 3 / migration-required 96 / placeholders 0`.
 
-## Latest release — Batch 24 SV-CONTINUITY-109 validation consolidation
+## Latest release — Batch 25 VA guided-workflow validation consolidation
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B25-20260817
+state: MERGED_INTO_CANONICAL_WORKSTREAM / RELEASED_INTEGRATION
+superseded_PR: #376 CLOSED_UNMERGED_MAIN_ADVANCED
+PR: #377
+final_head: 99378fed9f05186a8de41c00971de0c88ad72ebb
+merge: 692d9c6dd1253debb38efee9b6754b712dc07cb1
+claim_release_commit: f1c7477e516a16b533ba820750330f7e29c68b9c
+Site Bootstrap Validate: 32058208668 SUCCESS
+Bootstrap job: 95473143517 SUCCESS
+Site Handoff Orchestrator: 32058208567 SUCCESS
+Ecosystem Heartbeat Orchestration: 32058208599 SUCCESS
+Check StegFin Phone Projection: 32058208748 SUCCESS
+VA_GUIDED_WORKFLOW_VALIDATION: PASS
+VA_GUIDED_WORKFLOW_RECEIPTS: 3_LOCAL_DETERMINISTIC
+VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY: NONE
+VA_GUIDED_WORKFLOW_AUTHORITY_EFFECT: NONE
+VA_GUIDED_WORKFLOW_ACTIVATION_EFFECT: NONE
+private_document_upload_enabled: false
+automated_filing_enabled: false
+veteran_submission_authority_preserved: true
+SESSION_WORK_CLAIMS_PASS
+SITE_HANDOFF_ORCHESTRATION_PASS
+ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS
+ECOSYSTEM_CHAT_APPLICATION_PASS
+IPHONE_HB30_PROJECTION_PASS
+ST-017 sandbox: PASS
+workflow inventory: 99 / canonical 3 / migration-required 96 / placeholders 0
+StegFin wallet_review: USER_ONLY
+StegFin signing_broadcast: USER_ONLY
+StegFin hosted_runtime_authority: NONE
+authority_effect: NONE
+activation_effect: NONE
+runtime_activation_effect: NONE
+va_submission_authority_effect: NONE
+artifact_custody_effect: NONE
+provider_authority_effect: NONE
+financial_authority_effect: NONE
+```
+
+Batch 25 deleted `.github/workflows/va-guided-workflow-validation.yml`. Its unchanged deterministic validators now run from credential-clean `.github/workflows/validate.yml`: `scripts/validate_va_claims_guide_surface.py`, `scripts/test_va_guided_workflow_contract.py`, and `scripts/validate_va_guided_visual_assets.py`. Each locally produced receipt is required to report `state=PASS`, `authority_effect=false`, and `activation_effect=false`; the validation lane no longer uses `actions/checkout`, `actions/setup-python`, or GitHub artifact custody. No VA product surface, claimant submission authority, private document capability, automated filing, provider/runtime, HIL, StegOS, TVC, Master Record, or StegFin wallet semantics changed.
+
+PR #376 was deliberately closed unmerged after main advanced by three commits. PR #377 was reconstructed from fresh current main, reached zero base divergence, passed exact-head validation, and only then merged.
+
+## Prior release — Batch 24 SV-CONTINUITY-109 validation consolidation
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B24-20260817
@@ -174,14 +220,14 @@ Inspect the next bounded unclaimed token-bearing or redundant workflow under Sit
 ## Completion and archive state
 
 ```text
-task_completion: 41/131 = 31.30%
-developed_files_for_completed_surfaces: 41/41
+task_completion: 42/131 = 32.06%
+developed_files_for_completed_surfaces: 42/42
 scaffolding_or_stubs: 0
 missing_required_files_for_completed_surfaces: 0
-validation: 115/115 required released validation groups PASS
-integration: 27/27 released workflow/token-remediation groups
+validation: 119/119 required released validation groups PASS
+integration: 28/28 released workflow/token-remediation groups
 session_consolidation: 3/5 durable goal groups complete or transferred
-goal_activation: 41/131 = 31.30%
+goal_activation: 42/131 = 32.06%
 ```
 
-This session is not archive-ready: 90/131 audit-start surfaces remain unremediated/unclassified, 97 operational workflows remain migration-required, and distinct workflow/token minimization work remains executable under Site #268. Live HIL, sovereign runtime/inference, Healer execution, GP10 runtime/commercial activation, TVC protected execution, and StegFin settlement remain separately owned and are not inferred from source or CI state.
+This session is not archive-ready: 89/131 audit-start surfaces remain unremediated/unclassified, 96 operational workflows remain migration-required, and distinct workflow/token minimization work remains executable under Site #268. Live HIL, sovereign runtime/inference, Healer execution, GP10 runtime/commercial activation, TVC protected execution, and StegFin settlement remain separately owned and are not inferred from source or CI state.
