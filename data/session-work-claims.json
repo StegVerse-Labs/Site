@@ -3,8 +3,8 @@
   "registry_type": "stegverse_session_work_claim_registry",
   "repository": "StegVerse-Labs/Site",
   "historical_registry": {
-    "preserved_at_commit": "db7da79ee1916a0249c3d1893cedac4861326961",
-    "note": "Detailed released claim history through Batch 24, GP10, TVC receipt-import credential cleanup, iPhone HB30 projection, and prior StegFin work is immutable in Git history. Released anchors and all active claims remain explicit below."
+    "preserved_at_commit": "1c36f0aef5a1af25cf9ec4d5c340aa3249af5337",
+    "note": "Detailed released claim history through Batch 24, GP10, TVC receipt-import cleanup, iPhone HB30 projection, and prior StegFin work is immutable in Git history. Released anchors and every active claim remain explicit below."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -16,16 +16,31 @@
   },
   "claims": [
     {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
-    {"claim_id":"SITE-STEGFIN-PHONE-PROJECTION-261-HARDENING-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
-    {"claim_id":"SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
-    {"claim_id":"SITE-STEGFIN-WALLET-REVIEW-286-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
-    {"claim_id":"SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"1ef161a9e4b72579408a22057e5eccb8300c34a6"},
-    {"claim_id":"SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"e9be3d220c09f51150a5983c0f048991531c5bc2"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B23-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"e936f1481bf9b13468e83c80b7289f657640c81c"},
     {"claim_id":"SITE-GP10-GITHUB-TOKEN-WRITEBACK-RETIREMENT-R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"96423f16cf6d3f440630d322cc5d5c196e4fa672"},
-    {"claim_id":"SITE-TVC-RECEIPT-IMPORT-GITHUB-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"8d85061bbc20d08449381b63f9c74c00b709830d","claim_release_commit":"97fa7890414a85bac40c3b1ff1bbf301a1983ae5","task_release_commit":"08d53d12a540554512fbcda4ab636334a0b6764b"},
-    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B24-20260817","task_id":"SITE-ACTIONS-COST-CONTAINMENT-B24-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","branch":"claim/site-sv-continuity-109-validation-b24-r2-20260817","release_commit":"db7da79ee1916a0249c3d1893cedac4861326961","final_head":"c17725d6e78919b582167cdafa2dd4bb060bc4bf","evidence":["PR #372 merge db7da79ee1916a0249c3d1893cedac4861326961","Site Bootstrap Validate 32056528914 SUCCESS","Bootstrap job 95467858873 SUCCESS","Site Handoff Orchestrator 32056529186 SUCCESS","Ecosystem Heartbeat Orchestration 32056528958 SUCCESS","Check StegFin Phone Projection 32056528989 SUCCESS","VALID: Site verification decision BLOCK","synthetic premature PASS rejected: PASS requires Site activation and downstream verified ingestion","SV_CONTINUITY_109_SITE_VALIDATION=PASS","SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS","SV_CONTINUITY_109_AUTHORITY_EFFECT=NONE","SESSION_WORK_CLAIMS_PASS","SITE_HANDOFF_ORCHESTRATION_PASS","ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS","ECOSYSTEM_CHAT_APPLICATION_PASS","IPHONE_HB30_PROJECTION_PASS","ST-017 sandbox PASS","workflow inventory 100; canonical 3; migration-required operational 97; placeholders 0","standalone validate-sv-continuity-109-site.yml absent after merge","retained receipt and validator unchanged","StegFin wallet_review=USER_ONLY signing_broadcast=USER_ONLY hosted_runtime_authority=NONE"],"authority_effect":false,"runtime_activation_effect":false,"downstream_ingestion_effect":false,"site_activation_effect":false,"custody_authority_effect":false,"provider_authority_effect":false,"financial_authority_effect":false,"next_task_after_release":"Inspect the next bounded unclaimed token-bearing or redundant Site workflow under Site #268."},
+    {"claim_id":"SITE-TVC-RECEIPT-IMPORT-GITHUB-TOKEN-RETIREMENT-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"8d85061bbc20d08449381b63f9c74c00b709830d"},
+    {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B24-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"db7da79ee1916a0249c3d1893cedac4861326961","claim_release_commit":"c831d263167842bcce6d0dda685d2a54fda07822"},
     {"claim_id":"SITE-IPHONE-HB30-TRANSITION-PROJECTION-358-R1-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"37c8ac81b8b00e22310b8f03687f4b9f42581d31"},
+    {
+      "claim_id":"SITE-TWO-ENTRY-POINTS-STALE-CLAIM-RECONCILIATION-20260817",
+      "session_worker_id":"chatgpt-session-two-entry-stale-claim-reconciliation-20260817",
+      "task_id":"SITE-TWO-ENTRY-POINTS-CONSOLIDATION-RECONCILIATION-001",
+      "originating_goal":"Reconcile the two-entry-point execution registry against current canonical Ecosystem Chat and VA Claim Assistant owners after the machine validator exposed four expired active claims, without taking product implementation or activation authority.",
+      "repository":"StegVerse-Labs/Site",
+      "branch":"claim/site-two-entry-stale-claim-reconciliation-20260817",
+      "role":"VALIDATION_RECONCILIATION",
+      "state":"CLAIMED_FOR_VALIDATION",
+      "normalized_work_key":"site-two-entry-points-stale-claim-reconciliation",
+      "dependency_surface_keys":["site:two-entry-points:execution-state-reconciliation"],
+      "claimed_paths":["data/session-work-claims.json","data/two-entry-points-execution-state.json","docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md"],
+      "handoff":"docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md",
+      "handoff_revision":"33c8bba975d2c335c3ead89660f4179c17f8217e",
+      "claim_created_at":"2026-08-17T13:50:00-05:00",
+      "claim_expires_when":"Released after current canonical ownership is reflected without false renewal, hosted validation passes on the exact branch head, the handoff records the inspected failure and successor ownership, and the reconciliation merges or is superseded by stronger repository-native evidence.",
+      "expected_evidence":["latest Two Entry Points run 32032867908 inspected","stale ECP-001/ECP-002/VACP-001 claims reclassified without extending expired timestamps","CONS-001 receives only a fresh bounded validation claim","two-entry execution-state validator PASS","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","StegFin phone projection PASS"],
+      "collision_boundaries":["Do not implement or activate Ecosystem Chat runtime","Do not implement or activate VACC provider/document runtime","Do not alter StegOS or HIL claimed paths","Do not create provider, publication, custody, Master Record, TVC protected execution, or wallet authority","Do not introduce NON-TV/TVC secret/token","No Render production path"],
+      "next_task_after_release":"Return to the next unclaimed Site #268 workflow/token remediation or close this support lane if no unique reconciliation remains."
+    },
     {
       "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
       "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
