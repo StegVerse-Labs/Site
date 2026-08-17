@@ -13,9 +13,11 @@ entry_points: Ecosystem Chat; VA Claim Assistant
 repository: StegVerse-Labs/Site
 canonical_branch: main
 canonical_issue: Site#152
-current_support_claim: SITE-TWO-ENTRY-POINTS-STALE-CLAIM-RECONCILIATION-20260817
-support_branch: claim/site-two-entry-stale-claim-reconciliation-20260817
-support_role: VALIDATION_RECONCILIATION
+stale_claim_reconciliation: MERGED_INTO_CANONICAL_WORKSTREAM
+reconciliation_pr: #373
+reconciliation_merge: 792eff2396758761f94c2c062c5662f6e5132e4b
+reconciliation_head: ef8275ae9d21a86ca0e6b175c097abc2eb49b43e
+active_chat_support_claim: NONE
 product_authority_effect: NONE
 ```
 
@@ -49,92 +51,98 @@ canonical Site handoff: docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md
 
 Current VA posture remains fail-closed: deterministic Guide complete; coordinated LLM path blocked at authorized real-provider execution; secure-document contracts/privacy preprocessing partially complete with public private-document activation disabled; official VA.gov submission fallback complete. The veteran remains claimant/fact confirmer/certifier/submission authority unless an independently authorized representative acts within scope.
 
-## Hosted execution evidence and stale-claim finding
+## Reconciliation evidence — COMPLETE / RELEASED
 
-The earlier handoff incorrectly stated that the hosted two-entry validation workflow had not been observed. Live workflow history now proves 64 hosted runs.
-
-Latest inspected run:
+The earlier handoff said the hosted two-entry validation workflow had not been observed. Live history proved 64 hosted runs. The latest pre-repair scheduled run was directly inspected:
 
 ```text
-workflow: Two Entry Points Execution State
 run: 32032867908
 job: 95396593477
-head: e53fe54d617bc4ae6a314ad73e602940e0bf213c
-event: schedule
 conclusion: FAILURE
-validator_result: FAIL
 stale_claims: ECP-001, ECP-002, VACP-001, CONS-001
-failure_reason: active_claim_stale for all four 2026-08-02 claims
+failure_reason: all four legacy active claims expired on 2026-08-03
 ```
 
-The failure is a correct fail-closed result. The prior active claims expired on 2026-08-03 and were never validly renewed by new evidence. The workflow also currently uses `contents: write`, persisted checkout credentials, setup-python, writeback, and artifact transport; those mechanics are a separate cost-containment concern and are not changed by this reconciliation.
+The failure was correct fail-closed behavior. PR #373 then reconciled current ownership without renewing any expired product claim.
 
-## Reconciled execution registry
+Exact final-head validation after preserving all required StegFin release anchors:
+
+```text
+Two Entry Points Execution State: 32057353466 SUCCESS
+receipt result: PASS
+stale_claims: none
+errors: none
+receipt_sha256: 16449c36a21ba316a2ed705b40dbb788d183eb6ad8bb198d5eb4f5d65f2f4959
+authority_granted: false
+release_authorized: false
+Site Handoff Orchestrator: 32057353527 SUCCESS
+Ecosystem Heartbeat Orchestration: 32057353465 SUCCESS
+Site Bootstrap Validate: 32057353481 SUCCESS
+Check StegFin Phone Projection: 32057353472 SUCCESS
+branch divergence immediately before merge: 4 ahead / 0 behind
+merge: 792eff2396758761f94c2c062c5662f6e5132e4b
+support claim release: 7a34f676bb7e6034059adaf74294c005f7fe05c0
+execution-state release: aafa592c46ed6bedf1684566294ceecbc04f4f4a
+```
+
+A first PR-head validation also proved the registry repair itself but exposed missing compacted StegFin history anchors. StegFin correctly failed; those immutable release anchors were restored rather than weakening the StegFin validator. The corrected exact head then passed all five required groups.
+
+## Current execution registry
 
 Canonical machine state: `data/two-entry-points-execution-state.json`.
 
 ```text
 ECP-001: BLOCKED
-  successor owner: LLM-adapter#18 + sovereign carrier/TVC/Master Records chain
+  canonical continuation: LLM-adapter#18 + sovereign carrier + TVC + Master Records
   blocker: real same-carrier provider execution and custody/reconstruction not observed
 
 ECP-002: BLOCKED
-  successor owner: Site activation integration
+  canonical continuation: Site activation integration
   blocker: immutable zero-blocker upstream VERIFIED receipt absent
 
 VACP-001: BLOCKED
-  successor owners: Site#113/#116 + LLM-adapter#90 + master-records#15
+  canonical continuation: Site#113/#116 + LLM-adapter#90 + master-records#15
   blocker: authorized real-provider execution and required custody/runtime evidence incomplete
 
-CONS-001: CLAIMED_FOR_VALIDATION
-  claimant: SITE-TWO-ENTRY-POINTS-STALE-CLAIM-RECONCILIATION-20260817
-  expires: 2026-08-18T13:50:00-05:00
-  scope: stale-claim reconciliation and hosted validator proof only
+CONS-001: MERGED_INTO_CANONICAL_WORKSTREAM
+  completion: MERGED
+  hosted validation: PASS
+  active chat claimant: NONE
 ```
 
-The three expired product claims were **not renewed**. `BLOCKED` preserves their exact owner, blocker, release condition, and next action without pretending this session owns implementation. Only the distinct reconciliation role receives a fresh bounded claim.
+The three expired product claims were not renewed. Their blockers, machine-observable release conditions, and current owners are explicit. The reconciliation support role is released and may not become a standing product owner.
 
-## Validation contract
+## Validation and automation
 
 ```text
-python scripts/validate_two_entry_points_execution_state.py
+validator: scripts/validate_two_entry_points_execution_state.py
+observer: .github/workflows/two-entry-points-execution-state.yml
 ```
 
-The validator must continue to reject duplicate IDs, unsupported completion, stale active claims, claim collisions, false archival, authority escalation, incomplete required fields, and handoff-only transfer claims. Required task IDs remain `ECP-001`, `ECP-002`, `VACP-001`, and `CONS-001`.
+The validator continues to reject duplicate IDs, stale active claims, collisions, unsupported completion, false archival, authority escalation, incomplete fields, and handoff-only transfer claims.
 
-Required release evidence for the current support claim:
+The observer currently uses GitHub `contents: write`, persisted checkout credentials, setup-python, repository writeback, and artifact transport. Those mechanics are **not product authority**, but they remain a separate Site #268 cost-containment candidate now that stale ownership is repaired. Any cleanup must preserve deterministic validation/receipt integrity and may not alter ECP/VACP product ownership.
 
-1. `data/two-entry-points-execution-state.json` validates PASS with `stale_claims: []`.
-2. Pull-request hosted workflow succeeds and receipt hash/authority checks pass.
-3. Site pre-work claim validation, Site Handoff Orchestrator, Ecosystem Heartbeat, Site Bootstrap, and StegFin projection remain PASS where triggered.
-4. Branch is current with `main` immediately before merge.
-5. Claim is released after merge and this handoff records final evidence.
+## Collision and authority boundaries
 
-## Collision boundaries
-
-- Do not implement, launch, or activate Ecosystem Chat runtime from this support lane.
-- Do not duplicate formal local-model/runtime, sovereign carrier, TVC route, or Master Records work.
-- Do not implement or activate VACC provider/private-document runtime from this support lane.
+- Do not implement, launch, or activate Ecosystem Chat runtime from this coordination record.
+- Do not duplicate local-model/runtime, sovereign carrier, TVC route, or Master Records work.
+- Do not implement or activate VACC provider/private-document runtime here.
 - Do not touch active StegOS/HIL/wallet authority surfaces.
-- No NON-TV/TVC secret/token may be introduced or exposed.
+- No NON-TV/TVC secret/token.
 - No Render production path.
-- Validation/receipt success grants no deployment, execution, publication, adjudication, filing, custody, medical, representation, or release authority.
+- Validation or receipt success grants no deployment, execution, publication, adjudication, filing, custody, medical, representation, wallet, or release authority.
 
-## Automation and continuation
+## Session consolidation
 
-`.github/workflows/two-entry-points-execution-state.yml` remains the repository-native observer for this coordination registry during reconciliation. Its product-independent CI/token/writeback cleanup is not part of the present claim and must be handled only through a separate collision-free Site #268 remediation after this owner state is stable.
-
-Product continuation remains entirely with the canonical owners above. Once `CONS-001` reconciliation is validated and integrated, this support claim must release; it must not become a standing product owner.
-
-## Completion / archival posture
-
-The originating session requirements are durably represented, but the two products are not both activated. Therefore product goal completion and archive readiness must not be inferred from this reconciliation.
+The stale-claim reconciliation contains no remaining unique chat-owned implementation, validation, integration, propagation, or observation responsibility. Product continuation is fully transferred to the canonical owners above.
 
 ```text
-Ecosystem Chat activation: BLOCKED / MACHINE_OWNED RUNTIME OBSERVATION
-VA Claim Assistant activation: PARTIAL / BLOCKED AT GOVERNED PROVIDER + DOCUMENT GATES
-cross-entry stale-claim reconciliation: ACTIVE DISTINCT SUPPORT ROLE
-archive_state: ACTIVE_DISTINCT_SUPPORT_WORK_REMAINS
+reconciliation_session: MERGED_INTO_CANONICAL_WORKSTREAM
+chat_only_reconciliation_requirements_remaining: 0
+Ecosystem Chat product activation: BLOCKED / MACHINE_OWNED RUNTIME OBSERVATION
+VA Claim Assistant product activation: PARTIAL / BLOCKED AT GOVERNED PROVIDER + DOCUMENT GATES
+project_archive_state: ACTIVE_DISTINCT_SUPPORT_WORK_REMAINS because product work remains with canonical owners
 ```
 
-MERGED INTO canonical continuation after reconciliation: `StegVerse-Labs/Site/docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md` + `data/two-entry-points-execution-state.json` + current product-owner handoffs named above.
+MERGED INTO: `StegVerse-Labs/Site/docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md` + `data/two-entry-points-execution-state.json` + current product-owner handoffs named above.
