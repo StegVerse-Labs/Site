@@ -23,16 +23,17 @@ Repository-local implementation must continue through `data/session-work-claims.
 
 ```text
 audit_start_workflow_surfaces: 131
-current_active_workflow_surfaces: 121
-explicitly_classified_or_remediated_surfaces: 20/131 = 15.27%
-remaining_classification_denominator: 111/131
-workflow_files_eliminated_or_consolidated: 10
+current_active_workflow_surfaces_on_released_main: 121
+explicitly_classified_or_remediated_released: 20/131 = 15.27%
+remaining_classification_denominator_on_released_main: 111/131
+workflow_files_eliminated_or_consolidated_on_released_main: 10
 recurring_schedules_removed_without_deleting_workflow_files: 9
 completed_workflow_minimization_batches: 6
-active_batch: NONE
+active_batch: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B7-20260817
+active_branch_expected_workflow_surfaces: 120
 ```
 
-The current workflow count is derived from the previously verified 122-file canonical census after PR #305 minus the one exact standalone workflow removed by PR #308. `check-hil-master-record-release.yml` was directly re-observed absent on `main`; `check-hil-linkedin-launch-readiness.yml` was directly re-observed present. Schedule removal and workflow-file elimination are counted separately.
+The released-main workflow count is derived from the verified 122-file census after PR #305 minus the one exact workflow removed by PR #308. `check-hil-master-record-release.yml` is absent on `main`; `check-hil-linkedin-launch-readiness.yml` remains present as `REVIEW_REQUIRED`. Schedule removal and workflow-file elimination are counted separately.
 
 ## Completed containment batches
 
@@ -128,8 +129,6 @@ scripts/check_hil_https_receiver_probe_import.py -> retained and executed by dis
 
 The first attempt, PR #306, failed closed. HIL run `32004426198` proved the Site-side Master Record release-chain projection validator passed but `scripts/check_hil_linkedin_launch_readiness.py` failed because `humans-as-interoperability-layer.html` lacks current prompt SHA `cdff8d2266bb3eefbb6e5d28d9adc548e6c8dfc039debd72fe404f1d0249912c`. PR #306 was closed superseded; the LinkedIn workflow was restored rather than weakening validation.
 
-Reconciled release:
-
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B6-20260817
 branch: chore/site-hil-validation-release-readiness-20260817
@@ -155,7 +154,30 @@ scripts/check_hil_linkedin_launch_readiness.py -> retained unchanged
 .github/workflows/check-hil-live-readiness.yml -> retained credential-clean dispatcher; Master Record projection validation folded in
 ```
 
-The exact-head HIL job passed credential refusal, anonymous repository fetch, first-release validation, both prior import validators, and the folded Master Record release-chain projection validator. The exact-head repository orchestrator also passed after the reconciled branch mapped to the canonical unfinished Site-validation workload. The LinkedIn semantic failure is preserved as evidence and remains a separate reconciliation item; cleanup does not claim launch readiness, publication authority, or Master Records release authority.
+## Active batch 7 — Federal-Plus security validation consolidation
+
+Claim:
+
+```text
+SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B7-20260817
+branch: chore/site-hil-security-validation-consolidation-20260817
+state: CLAIMED_FOR_IMPLEMENTATION
+```
+
+Direct inspection established that `.github/workflows/check-hil-federal-plus-security-baseline.yml` is a scheduled GitHub-hosted validation doorway with `actions/checkout@v4`, `actions/setup-python@v5`, and `actions/upload-artifact@v4`. The deterministic validator itself is repository-local and writes a fail-closed non-authorizing validation receipt.
+
+Active implementation:
+
+```text
+.github/workflows/check-hil-federal-plus-security-baseline.yml -> CONSOLIDATE_INTO_STABLE_DISPATCHER / removed on active branch
+scripts/check_hil_federal_plus_security_baseline.py -> retained unchanged
+.github/workflows/check-hil-live-readiness.yml -> watches Federal-Plus policy/profile/floor/schema inputs and executes the deterministic validator with a local report
+schedule replacement: NONE
+GitHub token replacement: NONE
+artifact transport replacement: NONE; validation result remains visible in job summary and deterministic stdout/report
+```
+
+The consolidation preserves fail-closed Federal-Plus semantics while eliminating the recurring hosted schedule and checkout/setup/artifact token mechanics. It does not alter Site #81 runtime activation, Site #67 lifecycle projection, TVC #8 private review, Master Records authority, or the retained LinkedIn `REVIEW_REQUIRED` drift.
 
 ## Classification states
 
@@ -195,6 +217,7 @@ batch 3: MERGED_INTO_CANONICAL_WORKSTREAM
 batch 4: MERGED_INTO_CANONICAL_WORKSTREAM
 batch 5: MERGED_INTO_CANONICAL_WORKSTREAM
 batch 6: MERGED_INTO_CANONICAL_WORKSTREAM
+batch 7: CLAIMED_FOR_IMPLEMENTATION / chore/site-hil-security-validation-consolidation-20260817
 HIL LinkedIn launch semantic drift: REVIEW_REQUIRED / retained under canonical HIL/Site reconciliation
 HIL semantic reconciliation: Site #81 / separate canonical workstream
 repository hygiene: StegVerse-Labs/.github#165
@@ -202,7 +225,7 @@ live sovereign runtime/inference: canonical StegVerse workers / observation only
 TV/TVC credential and route authority: TV/TVC only
 ```
 
-No active session-owned Site workflow-minimization claim remains after batch 6 release. A fresh exact branch-bound claim is required before further mutation.
+No additional workflow-minimization mutation is admitted until batch 7 is released or explicitly superseded.
 
 ## Repository hygiene
 
@@ -210,25 +233,26 @@ Preserve active claims, protected/release branches, evaluation snapshots, curren
 
 ## Validation and completion accounting
 
-Current goal denominator is the 131 workflow surfaces present at audit start.
+Released-main denominator remains 131 audit-start workflow surfaces.
 
 ```text
-task_completion: 20/131 explicitly classified-or-remediated = 15.27%
+task_completion_released: 20/131 = 15.27%
 developed_files_for_completed_batches: 20/20 required mutations/records/classifications present
 scaffolding_or_stubs_in_completed_batches: 0
 missing_required_files_in_completed_batches: 0
-batch_validation: 22/22 required workflow validation groups PASS
-batch_integration: 6/6 workflow-minimization batches merged
+batch_validation_released: 22/22 required workflow validation groups PASS
+batch_integration_released: 6/6 workflow-minimization batches merged
+active_batch7_expected_after_release: 21/131 explicitly classified-or-remediated, 120 workflow files
 review_required: 1 retained LinkedIn launch-readiness semantic-drift surface
 propagation: not applicable until a release-bearing Site product change exists
-goal_activation: 20/131 = 15.27%
+goal_activation_released: 20/131 = 15.27%
 session_consolidation: incomplete while unique Site workflow minimization/hygiene work remains
 ```
 
 ## Next executable action
 
-Under Site #268, inspect the next small unclaimed workflow family and create exactly one fresh branch-bound claim before mutation. Prefer completed one-off investigation/install/import surfaces or compatible read-only validators. Preserve the LinkedIn `REVIEW_REQUIRED` surface until the canonical HIL/Site reconciliation workstream corrects the public-page identity with independent evidence. Necessary recurring operational behavior must be transferred to a named StegVerse worker before deleting its hosted entry surface.
+Validate the exact head of `chore/site-hil-security-validation-consolidation-20260817`. Release batch 7 only if the Federal-Plus validator passes through the credential-clean HIL dispatcher, the standalone scheduled workflow remains absent, and HIL Validation, Site Handoff Orchestrator, Ecosystem Heartbeat Orchestration, Check StegFin Phone Projection, and Site Bootstrap Validate pass on the exact head. Then merge, verify the 120-workflow census, release the claim, and inspect the next unclaimed Site #268 family.
 
 ## Archive condition
 
-The local-model/runtime and StegFin requirements are durably transferred, and Site batches 1-6 are released. This session remains not archive-ready because 111/131 audit-start Site workflow surfaces still require disposition and repository hygiene remains executable. Continue through exact claims or durably transfer the remaining cleanup to an active canonical worker before archive.
+The local-model/runtime and StegFin requirements are durably transferred, and Site batches 1-6 are released. This session is not archive-ready while batch 7 remains active and additional audit-start Site workflow surfaces/repository hygiene remain executable or untransferred.
