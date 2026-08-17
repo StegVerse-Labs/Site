@@ -17,8 +17,7 @@ on:
     - cron: '11 */6 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: two-entry-points-execution-state-${{ github.ref }}
@@ -28,31 +27,85 @@ jobs:
   validate-and-reconcile:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      SOURCE_REPOSITORY: StegVerse-Labs/Site
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
-      - name: Check out Site
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
+      - name: Refuse credential-bearing observer configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in GITHUB_TOKEN GH_TOKEN GITHUB_PAT INPUT_TOKEN ACTIONS_ID_TOKEN_REQUEST_TOKEN STEGVERSE_PROVIDER_TOKEN STEGVERSE_MASTER_RECORDS_TOKEN STEGVERSE_HIL_REVIEW_TOKEN STEGVERSE_HIL_PUBLICATION_TOKEN; do
+            if [[ -n "${!name-}" ]]; then
+              echo "Credential-bearing environment is prohibited for two-entry observer validation: ${name}" >&2
+              exit 1
+            fi
+          done
+          echo 'TWO_ENTRY_OBSERVER_CREDENTIAL_REFUSAL=PASS'
+          echo 'TWO_ENTRY_OBSERVER_CREDENTIAL_AUTHORITY=TV_TVC'
+          echo 'TWO_ENTRY_OBSERVER_GITHUB_TOKEN_AUTHORITY=NONE'
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Fetch exact public Site source without checkout credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$SOURCE_SHA"
+          python3 - <<'PY'
+          import os
+          import tarfile
+          import urllib.request
+          from pathlib import Path
 
-      - name: Validate execution registry
-        run: python scripts/validate_two_entry_points_execution_state.py
+          sha = os.environ['SOURCE_SHA']
+          url = f"https://codeload.github.com/{os.environ['SOURCE_REPOSITORY']}/tar.gz/{sha}"
+          archive = Path('/tmp/two-entry-site-source.tar.gz')
+          extract_dir = Path('/tmp/two-entry-site-source')
+          urllib.request.urlretrieve(url, archive)
+          extract_dir.mkdir(parents=True, exist_ok=True)
+          with tarfile.open(archive, 'r:gz') as tf:
+              tf.extractall(extract_dir)
+          roots = [p for p in extract_dir.iterdir() if p.is_dir()]
+          if len(roots) != 1:
+              raise SystemExit(f'expected one extracted source root, found {len(roots)}')
+          Path('/tmp/two-entry-site-source-root').write_text(str(roots[0]), encoding='utf-8')
+          print(f'TWO_ENTRY_OBSERVER_SOURCE_FETCH=PASS sha={sha}')
+          PY
+
+      - name: Verify preinstalled Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 - <<'PY'
+          import sys
+          assert sys.version_info >= (3, 11), sys.version
+          print('TWO_ENTRY_OBSERVER_PYTHON=PASS')
+          PY
+
+      - name: Validate execution registry and generate ephemeral receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$(cat /tmp/two-entry-site-source-root)"
+          cd "$ROOT"
+          python3 scripts/validate_two_entry_points_execution_state.py
 
       - name: Validate receipt hash and authority boundary
+        shell: bash
         run: |
-          python - <<'PY'
+          set -euo pipefail
+          ROOT="$(cat /tmp/two-entry-site-source-root)"
+          cd "$ROOT"
+          python3 - <<'PY'
           import hashlib
           import json
           from pathlib import Path
 
           path = Path('reports/two-entry-points-execution-state-validation.json')
-          value = json.loads(path.read_text())
+          value = json.loads(path.read_text(encoding='utf-8'))
           assert value['schema'] == 'stegverse.two_entry_points.execution_state_validation.v1'
           assert value['result'] == 'PASS'
+          assert value['stale_claims'] == []
           assert value['authority_granted'] is False
           assert value['release_authorized'] is False
           material = dict(value)
@@ -61,44 +114,65 @@ jobs:
               json.dumps(material, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
           ).hexdigest()
           assert expected == actual
-          print(f"validated receipt: {expected}")
+          print(f'TWO_ENTRY_OBSERVER_RECEIPT_HASH=PASS sha256={expected}')
+          print('TWO_ENTRY_OBSERVER_STALE_CLAIMS=NONE')
+          print('TWO_ENTRY_OBSERVER_AUTHORITY_GRANTED=FALSE')
+          print('TWO_ENTRY_OBSERVER_RELEASE_AUTHORIZED=FALSE')
+          print(json.dumps(value, sort_keys=True))
           PY
 
-      - name: Persist validation receipt
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Publish non-authorizing observation summary
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/two-entry-points-execution-state-validation.json
-          if git diff --cached --quiet; then
-            echo "Validation receipt unchanged."
-          else
-            git commit -m "chore: retain two-entry-point execution validation [skip ci]"
-            git pull --rebase
-            git push
-          fi
-
-      - name: Upload execution-state evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: two-entry-points-execution-state-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            data/two-entry-points-execution-state.json
-            reports/two-entry-points-execution-state-validation.json
-          if-no-files-found: error
-          retention-days: 30
-
-      - name: Publish summary
-        run: |
-          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          ROOT="$(cat /tmp/two-entry-site-source-root)"
+          cd "$ROOT"
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
           from pathlib import Path
-          value = json.loads(Path('reports/two-entry-points-execution-state-validation.json').read_text())
+          value = json.loads(Path('reports/two-entry-points-execution-state-validation.json').read_text(encoding='utf-8'))
           print('## Two Entry Points Execution State')
           print(f"Result: {value['result']}")
           print(f"Tasks: {value['task_count']}")
           print(f"Complete or transferred: {value['complete_or_transferred_tasks']}")
+          print(f"Stale claims: {', '.join(value['stale_claims']) or 'none'}")
           print(f"Archive state: {value['archive_state']}")
           print(f"Archive authorized: {value['archive_authorized']}")
           print(f"Receipt SHA-256: {value['receipt_sha256']}")
+          print('Repository writeback: NONE')
+          print('Artifact custody: NONE')
+          print('Execution authority: NONE')
+          PY
+
+      - name: Confirm credential-clean validation-only boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$(cat /tmp/two-entry-site-source-root)"
+          cd "$ROOT"
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/two-entry-points-execution-state.yml').read_text(encoding='utf-8')
+          forbidden = [
+              'permissions:' + '\n  contents: ' + 'write',
+              'actions/' + 'checkout@',
+              'actions/' + 'setup-python@',
+              'actions/' + 'upload-artifact@',
+              'persist-' + 'credentials',
+              'git ' + 'push',
+              'git ' + 'commit',
+              'GH_' + 'TOKEN:',
+              '$' + '{{ github.' + 'token }}',
+          ]
+          hits = [marker for marker in forbidden if marker in workflow]
+          if hits:
+              raise SystemExit(f'forbidden two-entry hosted authority marker(s): {hits}')
+          assert 'permissions: {}' in workflow
+          assert 'schedule:' in workflow
+          assert 'validate_two_entry_points_execution_state.py' in workflow
+          assert 'TWO_ENTRY_OBSERVER_STALE_CLAIMS=NONE' in workflow
+          print('TWO_ENTRY_OBSERVER_VALIDATION_ONLY=PASS')
+          print('TWO_ENTRY_OBSERVER_REPOSITORY_WRITEBACK=NONE')
+          print('TWO_ENTRY_OBSERVER_ARTIFACT_CUSTODY=NONE')
+          print('TWO_ENTRY_OBSERVER_RUNTIME_CONTROL_PLANE_AUTHORITY=NONE')
           PY
