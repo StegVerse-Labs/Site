@@ -1,6 +1,6 @@
 # iPhone Heartbeat Transition Projection Mirror Handoff
 
-Updated: `2026-08-17T13:25:00-05:00`
+Updated: `2026-08-17T13:27:00-05:00`
 
 ## Goal and release state
 
@@ -17,6 +17,7 @@ claim_state: COMPLETE_RELEASED / MERGED_INTO_CANONICAL_WORKSTREAM
 Site_PR: #368
 final_head: 0b1f7f741fe71057bea93241ad74b5b72f1cc20d
 merge: 37c8ac81b8b00e22310b8f03687f4b9f42581d31
+claim_release_commit: c789046c2404f2a9898d81e1bd7bd07b17e8c5d7
 credential_authority: TV/TVC
 github_token_runtime_authority: NONE
 non_tv_tvc_secret_or_token_allowed: false
@@ -31,7 +32,7 @@ heartbeat-transition/index.html
 heartbeat-transition/heartbeat-transition.js
 scripts/check_iphone_heartbeat_transition_projection.py
 .github/workflows/validate.yml credential-clean validator binding
-data/session-work-claims.json coordination/admission record
+data/session-work-claims.json released coordination record
 this handoff
 ```
 
