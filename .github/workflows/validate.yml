@@ -77,6 +77,9 @@ jobs:
           print('HIL_ANNOUNCEMENT_STATUS_SCHEMA=PASS')
           PY
 
+      - name: Validate Master Records persistent service evidence imports
+        run: python3 scripts/check_master_records_persistent_service_evidence_import.py
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -118,6 +121,7 @@ jobs:
           assert 'permissions: {}' in workflow
           assert 'Refuse credential-bearing environment' in workflow
           assert 'python scripts/check_ecosystem_chat_application.py' in workflow
+          assert 'python3 scripts/check_master_records_persistent_service_evidence_import.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
           print('SITE_BOOTSTRAP_RUNTIME_EXECUTION_AUTHORITY=NONE')
