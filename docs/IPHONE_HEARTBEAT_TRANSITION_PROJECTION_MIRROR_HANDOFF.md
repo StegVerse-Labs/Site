@@ -1,6 +1,6 @@
 # iPhone Heartbeat Transition Projection Mirror Handoff
 
-Updated: `2026-08-17T13:16:00-05:00`
+Updated: `2026-08-17T13:18:00-05:00`
 
 ## Active goal and goal ID
 
@@ -79,7 +79,7 @@ python3 scripts/check_iphone_heartbeat_transition_projection.py
 
 The existing credential-clean Site Bootstrap validation invokes that validator. Hosted validation is source evidence only and cannot satisfy physical execution, materialization, or HB30 activation.
 
-Initial PR #363 validation correctly failed closed at pre-work admission because the branch was not yet in `data/session-work-claims.json`; that admission defect is repaired by commit `8a3beffe58021adc7af0ffae11278f1306869daf`. Exact-head revalidation is pending.
+Initial PR #363 validation correctly failed closed at pre-work admission because the branch was not yet in `data/session-work-claims.json`. The admission defect was repaired in commit `8a3beffe58021adc7af0ffae11278f1306869daf`. Attempts to rerun the original check suite continued to use its immutable pre-admission merge snapshot, so PR #363 was closed/reopened against current `main` and this follow-on synchronize commit requests a fresh check suite against the admitted current head rather than treating stale reruns as evidence.
 
 ## Integration and propagation
 
@@ -98,7 +98,7 @@ No Site/Publisher/admissibility/stegguardian propagation is authorized merely fr
 
 ## Current incomplete work
 
-- exact-head deterministic PR validation: pending
+- fresh exact-head deterministic PR validation: pending
 - merge/release: pending
 - physical iPhone receipt: current-iPhone carrier boundary after source release
 - HB30 materialization: `.github` verifier/materializer / G18
@@ -112,7 +112,7 @@ This is a distinct support role for the original sovereign-heartbeat activation 
 
 ```text
 developed files: 6/6
-validation: 0/1 pending exact-head workflow evidence after claim admission
+validation: 0/1 pending fresh exact-head workflow evidence after claim admission
 integration: 0/1 pending merge
 source projection activation: 85%
 product HB30 activation: not claimed
