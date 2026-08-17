@@ -136,6 +136,38 @@ jobs:
           print('VA_GUIDED_WORKFLOW_ACTIVATION_EFFECT=NONE')
           PY
 
+      - name: Validate child-safety sovereign observer source contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          task = json.loads(Path('data/tasks/SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT.json').read_text(encoding='utf-8'))
+          script = Path('scripts/check_child_safety_public_deployment.py').read_text(encoding='utf-8')
+          old_workflow = Path('.github/workflows/verify-child-safety-public-deployment.yml')
+          owner = task.get('owner', {})
+          contract = task.get('current_observer_contract', {})
+          assert owner.get('repository') == 'StegVerse-Labs/StegVerse-Healer'
+          assert owner.get('machine_task') == 'SHWP-HEALER-SOVEREIGN-SCHEDULER-001'
+          assert owner.get('target') == 'child-safety-public-deployment-observer'
+          assert contract.get('credential_authority') == 'TV/TVC'
+          assert contract.get('credential_requirement') == 'NONE'
+          assert contract.get('github_token_required') is False
+          assert contract.get('non_tv_tvc_secret_or_token_allowed') is False
+          assert contract.get('artifact_custody_required') is False
+          assert contract.get('fail_closed') is True
+          assert 'STEGVERSE_CHILD_SAFETY_REPORT' in script
+          assert 'github_token_required' in script
+          assert 'artifact_custody_required' in script
+          assert not old_workflow.exists()
+          print('CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS')
+          print('CHILD_SAFETY_GITHUB_TOKEN_REQUIRED=false')
+          print('CHILD_SAFETY_ARTIFACT_CUSTODY_REQUIRED=false')
+          print('CHILD_SAFETY_HOSTED_SCHEDULE=RETIRED')
+          print('CHILD_SAFETY_AUTHORITY_EFFECT=NONE')
+          PY
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -187,6 +219,7 @@ jobs:
           assert 'python3 scripts/test_va_guided_workflow_contract.py' in workflow
           assert 'python3 scripts/validate_va_guided_visual_assets.py' in workflow
           assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
+          assert 'CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT=PASS' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
