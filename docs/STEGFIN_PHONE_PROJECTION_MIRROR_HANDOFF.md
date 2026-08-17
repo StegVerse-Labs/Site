@@ -1,6 +1,6 @@
 # StegFin Phone Participant Projection Mirror Handoff
 
-Updated: 2026-08-17T13:37:00-05:00
+Updated: 2026-08-17T15:31:00-05:00
 
 ## Canonical state
 
@@ -13,7 +13,7 @@ prework_authority: docs/SESSION_PREWORK_CLAIMS_MIRROR_HANDOFF.md + data/session-
 claim_id: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817
 claim_state: CLAIMED_FOR_INTEGRATION
 product_state: SOURCE_PROJECTED_VALIDATION_PENDING
-source_owner: StegVerse-Labs/stegfin-governance#79
+source_owner: StegVerse-Labs/stegfin-governance#79 (StegFin #79)
 parent_live_owner: StegVerse-Labs/stegfin-governance#77 + current phone + USER_ONLY
 credential_authority: TV/TVC
 credential_requirement: NONE
@@ -86,8 +86,9 @@ Canonical source correction:
 
 ```text
 StegFin child task: STEGFIN-IOS-FIRST-PASSKEY-PREPARE-018
-StegFin issue: #79
+StegFin issue: #79 (StegFin #79)
 source PR: #80
+source merge: f5ff9b1aa2fad545cf9fd676c785438f306dda7a
 released source bootstrap blob: 9cac39a990a956f16fcde3681cbcc7d47b2fc704
 Site issue: #380
 Site claim: SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817
