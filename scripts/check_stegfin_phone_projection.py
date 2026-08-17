@@ -11,10 +11,10 @@ ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM_BLOBS = {
     "assets/stegfin-phone/rpc-resilience.js": "290b567eca2cc9f83e7438a80682ebaf8006ad76",
     "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
-    "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "01df37b655f1dae8650c9102ffbd85f72432c47f",
-    "assets/stegfin-phone/device-wallet-identity.js": "efc2c9c21d369bbc3d6817599f74496f918d721b",
+    "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "403d164b21a1c6e812d31f7ab45635baab59b73c",
+    "assets/stegfin-phone/device-wallet-identity.js": "1180d8ee929c161978d095c91514cbc3d873d3fd",
     "assets/stegfin-phone/app.js": "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
-    "assets/stegfin-phone/evidence-export.js": "d545063b7024b60de702ece85bd23eac6096c8bb",
+    "assets/stegfin-phone/evidence-export.js": "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58",
     "assets/stegfin-phone/styles.css": "3a91c67d6088f75a93955a260985ce686eb5698f",
 }
 
@@ -138,6 +138,14 @@ def main() -> int:
         "Copy canonical evidence",
         "Share canonical evidence",
         "USER_ONLY",
+        "MAX_CLOCK_SKEW_MS",
+        "assertFreshReceipt(identity",
+        "assertFreshReceipt(device",
+        "assertFreshReceipt(capability",
+        "expires_at",
+        "identity commitment linkage mismatch",
+        "device commitment linkage mismatch",
+        "unexpired StegID admission evidence",
     ):
         require(phrase in evidence_export, f"phone evidence export invariant missing: {phrase}", failures)
     for forbidden in (
@@ -229,9 +237,22 @@ def main() -> int:
         require(forbidden not in route, f"unbounded/exhaustive inventory dependency remains: {forbidden}", failures)
 
     bootstrap = (ROOT / "assets/stegfin-phone/stegid-device-wallet-bootstrap.js").read_text(encoding="utf-8")
-    require("requested_capabilities:['OBSERVE','PREPARE']" in bootstrap, "StegID request must be OBSERVE+PREPARE only", failures)
-    require("granted_capabilities:['OBSERVE','PREPARE']" in bootstrap, "StegID grant must be OBSERVE+PREPARE only", failures)
-    require("automatic_signing:false" in bootstrap and "automatic_broadcast:false" in bootstrap, "StegID must not gain signing/broadcast authority", failures)
+    for phrase in (
+        "requested_capabilities: ['OBSERVE', 'PREPARE']",
+        "granted_capabilities: ['OBSERVE', 'PREPARE']",
+        "automatic_signing: false",
+        "automatic_broadcast: false",
+        "const expiresAt = expires.toISOString()",
+        "expires_at: expiresAt",
+        "navigator.credentials.get",
+        "userVerification: 'required'",
+        "DEVICE_POSSESSION",
+        "HUMAN_CONTINUITY",
+        "credential_authority: 'TV/TVC'",
+        "credential_requirement: 'NONE'",
+        "non_tv_tvc_secret_or_token_used: false",
+    ):
+        require(phrase in bootstrap, f"StegID bootstrap freshness invariant missing: {phrase}", failures)
 
     identity = (ROOT / "assets/stegfin-phone/device-wallet-identity.js").read_text(encoding="utf-8")
     require("granted_capabilities.includes('SIGN')" in identity and "granted_capabilities.includes('BROADCAST')" in identity, "identity guard must reject SIGN/BROADCAST", failures)
@@ -247,10 +268,25 @@ def main() -> int:
         "IDENTITY_CONTINUITY",
         "stegid_admission_evidence",
         "evidence_sha256",
+        "MIN_PREPARE_VALIDITY_MS = 5 * 60 * 1000",
+        "capabilityRequiresRenewal",
+        "assertFreshReceipt",
+        "expired or expires too soon",
+        "clearStalePhoneState",
+        "deleteDirectTerminal",
+        "persistIdentityBoundTerminal",
+        "localStorage.removeItem(WALLET_HANDOFF_KEY)",
+        "StegID identity receipt linkage mismatch",
+        "StegID device receipt linkage mismatch",
+        "assertFreshReceipt(capability",
+        "assertFreshReceipt(admissionEvidence.identity_continuity",
+        "assertFreshReceipt(admissionEvidence.device_admission",
+        "assertFreshReceipt(admissionEvidence.wallet_capability",
     ):
-        require(phrase in identity, f"StegID sanitized admission evidence invariant missing: {phrase}", failures)
+        require(phrase in identity, f"StegID freshness invariant missing: {phrase}", failures)
     require("granted_capabilities.includes('PREPARE')" in identity, "sanitized StegID evidence must prove PREPARE", failures)
     require("protected credential field prohibited" in identity, "sanitized evidence must retain protected-field rejection", failures)
+    require("if (raw) return raw;" not in identity, "legacy unconditional stale capability reuse remains", failures)
 
     claims = (ROOT / "data/session-work-claims.json").read_text(encoding="utf-8")
     require('"claim_id": "SITE-STEGFIN-PHONE-PROJECTION-261-20260815"' in claims, "released projection claim missing", failures)
@@ -258,6 +294,8 @@ def main() -> int:
     require('"claim_id": "SITE-STEGFIN-PHONE-RPC-RESILIENCE-0004-20260815"' in claims, "RPC resilience projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-WALLET-REVIEW-286-20260816"' in claims, "wallet review projection claim missing", failures)
     require('"claim_id": "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289-20260816"' in claims, "phone evidence export projection claim missing", failures)
+    require('"claim_id": "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816"' in claims, "StegID freshness projection claim missing", failures)
+    require('"state": "CLAIMED_FOR_IMPLEMENTATION"' in claims, "StegID freshness projection must be actively claimed on implementation branch", failures)
 
     handoff = (ROOT / "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md").read_text(encoding="utf-8")
     for phrase in (
@@ -265,6 +303,8 @@ def main() -> int:
         "STEGFIN-PHONE-RPC-RESILIENCE-012",
         "SITE-STEGFIN-PHONE-PROJECTION-261",
         "SITE-STEGFIN-PHONE-EVIDENCE-EXPORT-289",
+        "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292",
+        "STEGFIN-PHONE-STEGID-FRESHNESS-016",
         "TASK-2026-0004",
         "Site#282",
         "credential_authority: TV/TVC",
@@ -277,10 +317,13 @@ def main() -> int:
         "bcba49976a52024a233f998ce290ec4ab42618ff",
         "STEGFIN-PHONE-WALLET-REVIEW-014",
         "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
-        "d545063b7024b60de702ece85bd23eac6096c8bb",
-        "StegFin PR #74",
+        "403d164b21a1c6e812d31f7ab45635baab59b73c",
+        "1180d8ee929c161978d095c91514cbc3d873d3fd",
+        "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58",
+        "StegFin PR #75",
         "USER_ONLY wallet review",
         "Copy canonical evidence",
+        "unexpired",
     ):
         require(phrase in handoff, f"handoff invariant missing: {phrase}", failures)
 
@@ -289,7 +332,7 @@ def main() -> int:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
 
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=PASS wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
