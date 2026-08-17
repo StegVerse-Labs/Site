@@ -73,6 +73,7 @@ broadcast remains USER_ONLY
 The following predecessor assets remain unchanged and authoritative:
 
 ```text
+SITE-STEGFIN-PHONE-PROJECTION-261
 STEGFIN-PHONE-DIRECT-ROUTE-011
 STEGFIN-PHONE-RPC-RESILIENCE-012
 TASK-2026-0004
@@ -274,10 +275,10 @@ MERGED INTO: `StegVerse-Labs/stegfin-governance#68/#60` only after source + Site
 ## Completion and archive condition
 
 ```text
-developed product/control files: 5/6 (three exact assets + claim registry + validator installed; handoff installed by this change; merge/publication bookkeeping remains)
+developed product/control files: 6/6
 scaffolding or stubs: 0
 missing required product files: 0
-validation: 1/5 (exact upstream blob identities inspected; four Site PR-head gates pending)
+validation: 3/5 before final-head rerun (exact upstream blobs + Handoff Orchestrator + Ecosystem Heartbeat proven; projection rerun + Site Bootstrap pending)
 integration: 2/5 (source release + Site branch import complete; PR merge + Pages publication + live phone proof pending)
 Site goal activation: 0% until exact public publication is verified
 session consolidation: local-model/runtime source goal already complete/released; sovereign activation remains machine-owned; current session retains distinct Site propagation/live-proof support until this claim is released and #68/#60 receive fresh evidence
