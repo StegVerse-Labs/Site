@@ -4,10 +4,9 @@
 
 ```text
 goal_id: MARKETPLACE-COINBASE-PAPER-ACCESSIBILITY-001
-active_task: SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817
+released_task: SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817
 repository: StegVerse-Labs/Site
 canonical_branch: main
-active_branch: claim/site-marketplace-projection-local-import-correction-20260817
 owner_issue: Site#131
 parent_cleanup: Site#268
 cross_repository_owner: StegVerse-Labs/StegVerse-Healer#8
@@ -17,62 +16,36 @@ non_tv_tvc_secret_or_token_allowed: false
 github_production_authority: NONE
 ```
 
-Live repository state and exact validation evidence supersede chat history.
-
 ## Product boundary
 
-```text
-state: PAPER_ACCESSIBLE
-paper_trading_accessible: true
-live_trading_accessible: false
-publication_authority: NOT_GRANTED
-release_authority: NOT_GRANTED
-execution_authority: NOT_GRANTED
-live_authority: NOT_GRANTED
-financial_authority: NOT_GRANTED
-```
+`PAPER_ACCESSIBLE` remains true; live trading remains false; publication, release, execution, live, and financial authority remain `NOT_GRANTED`. USER_ONLY remains the sole StegFin signing/broadcast authority.
 
-`.github/workflows/import-marketplace-coinbase-accessibility.yml` was removed by released B16R1 and remains absent.
+## Released local-only integration
 
-## Cross-repository integration correction
-
-Healer PR #9 merged fixed target `marketplace-coinbase-local-projection-import` and supplies already-materialized Site and `GCAT-BCAT-Engine/Publisher` roots through `STEGVERSE_REPO_ROOTS_JSON`. The retained Site importer on canonical main still used `raw.githubusercontent.com`, so the child implementation ignored that local-only contract.
-
-The active correction now requires `STEGVERSE_REPO_ROOTS_JSON`, reads `GCAT-BCAT-Engine/Publisher/data/marketplace-coinbase-release-evidence-status.json` locally, removes raw GitHub acquisition, refuses GitHub/project credential environments, and fails closed to bounded `PENDING_UPSTREAM` when local evidence is unavailable. Existing schema, digest, VERIFIED-state, paper-only, and authority-escalation checks are retained.
-
-Authoritative correction files:
-- `scripts/import_marketplace_coinbase_accessibility.py`
-- `tests/test_marketplace_coinbase_accessibility.py`
-- `data/tasks/SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817.json`
-- `data/session-work-claims.json`
-- this handoff
-
-## Validation and release condition
-
-Required evidence:
+Healer PR #9 installed fixed target `marketplace-coinbase-local-projection-import` using already-materialized Site and Publisher roots. Site PR #352 completes that contract: the Site importer now requires `STEGVERSE_REPO_ROOTS_JSON`, reads `GCAT-BCAT-Engine/Publisher/data/marketplace-coinbase-release-evidence-status.json` locally, removes `raw.githubusercontent.com` acquisition, refuses GitHub/project credential environments, and fails closed to `PENDING_UPSTREAM` if local evidence is unavailable. Existing digest, schema, VERIFIED-state, paper-only, and authority-escalation checks remain intact.
 
 ```text
-PYTHONPATH=. pytest -q tests/test_marketplace_coinbase_accessibility.py
-SESSION_WORK_CLAIMS_PASS
-Site Handoff Orchestrator PASS
-Ecosystem Heartbeat Orchestration PASS
-Site Bootstrap Validate PASS
-Check StegFin Phone Projection PASS
-merged exact-head Site PR
-Healer #8 reconciliation after Site merge
+PR #352 final head: 1706f22da79fd8e8c90cbad4d9ff5f088410142d
+merge: 218fee91a7d2214fec328f74247e079292c45ce0
+Site Bootstrap Validate: 32050796944 SUCCESS
+Site Handoff Orchestrator: 32050796941 SUCCESS
+Ecosystem Heartbeat Orchestration: 32050797014 SUCCESS
+Check StegFin Phone Projection: 32050785197 SUCCESS
+claim: MERGED_INTO_CANONICAL_WORKSTREAM
+credential_requirement: NONE
+raw GitHub acquisition: NONE
+runtime_activation_effect: NONE
+financial_authority_effect: NONE
 ```
 
-No source/CI success grants ordinary Healer runtime activation. That remains MACHINE_OWNED under `SHWP-HEALER-SOVEREIGN-SCHEDULER-001`.
+`.github/workflows/import-marketplace-coinbase-accessibility.yml` remains absent after released B16R1.
 
-## Collision boundaries
+## Continuation
 
-- do not create a second scheduler or heartbeat;
-- do not modify Healer machine-owned runtime implementation in this Site claim;
-- do not export TV/TVC credentials or introduce any GitHub/PAT/provider token;
-- do not infer publication, release, live trading, custody, withdrawal, financial, HIL, StegFin, wallet, model, or runtime authority;
-- USER_ONLY remains sole StegFin signing/broadcast authority;
-- do not use Render.
+Recurring projection import belongs to `StegVerse-Labs/StegVerse-Healer#8` through existing `SHWP-HEALER-SOVEREIGN-SCHEDULER-001`. Ordinary Healer scheduler activation remains separately `MACHINE_OWNED` and requires its sovereign runtime receipt; source merge or CI does not prove activation.
+
+TV/TVC remains credential authority. No NON-TV/TVC secret/token, second scheduler, second heartbeat, Render path, publication authority, financial authority, or wallet authority is introduced.
 
 ## Session consolidation
 
-B16R1 is `MERGED_INTO_CANONICAL_WORKSTREAM`. This correction is `CLAIMED_FOR_INTEGRATION` until exact-head merge and Healer #8 reconciliation are durable. Developed correction files: 4/4; scaffolding/stubs: 0; integration remains pending.
+B16R1 and the local-import correction are `MERGED_INTO_CANONICAL_WORKSTREAM`. This Marketplace migration no longer requires unique chat implementation state. Broader Site #268 workflow/token minimization remains active separately.
