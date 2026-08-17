@@ -4,8 +4,9 @@
 
 - Goal ID: `MARKETPLACE-COINBASE-PAPER-ACCESSIBILITY-001`
 - Repository: `StegVerse-Labs/Site`
-- Branch: `main`
+- Canonical branch: `main`
 - Owner issue: `StegVerse-Labs/Site#131`
+- Workflow-minimization continuation: `SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817`
 - Goal: project the verified Publisher paper chain into a public StegVerse accessibility state without granting live or financial authority.
 
 ## Authoritative files
@@ -14,6 +15,8 @@
 - `tests/test_marketplace_coinbase_accessibility.py`
 - `data/marketplace-coinbase-accessibility-status.json`
 - `.github/workflows/import-marketplace-coinbase-accessibility.yml`
+- `scripts/advance_marketplace_coinbase_activation.py`
+- `data/marketplace-coinbase-activation-tasks.json`
 - this handoff
 
 ## Current state
@@ -59,23 +62,59 @@ Current projection digest:
 sha256:ce064993487fa872ef79a79ba43fb9991e29cb12cc1b57c6aeeb83c213d0fbd3
 ```
 
-## Validation
+## Deterministic validation
 
-The production Site contract was executed locally against the checked-in projection:
-
-```bash
-PYTHONPATH=. pytest -q tests/test_marketplace_coinbase_accessibility.py
-```
-
-Result:
+The production Site contract is retained and validated with:
 
 ```text
-4 passed in 0.03s
+PYTHONPATH=. pytest -q tests/test_marketplace_coinbase_accessibility.py
 ```
 
 The tests verify the committed projection digest, paper-only state, valid Publisher acceptance, authority-escalation rejection after re-signing, and tampered-status rejection.
 
-The workflow `.github/workflows/import-marketplace-coinbase-accessibility.yml` is active and the bot commit `99eeb59f757e4bdbaf020817b6ece5267349e93b` proves machine persistence. The later test-bound workflow run ID, job logs, and artifact ID have not yet been directly recorded.
+## Batch 13 — GitHub token/control-plane retirement
+
+Claim `SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817` retires the separate GitHub-hosted activation controller `.github/workflows/advance-marketplace-coinbase-activation.yml`.
+
+The retired workflow carried:
+
+```text
+MARKETPLACE_COINBASE_EVIDENCE_TOKEN
+GH_TOKEN = github.token
+contents: write
+issues: write
+actions/checkout
+actions/setup-python
+git commit/push writeback
+actions/upload-artifact
+```
+
+Those mechanics are not required for the already-proven paper-accessibility projection and conflict with the current boundary that NON-TV/TVC secrets/tokens must not be consumed and GitHub Actions must not become production/runtime/control-plane authority.
+
+The retained observation path is:
+
+```text
+scripts/advance_marketplace_coinbase_activation.py
+data/marketplace-coinbase-activation-tasks.json
+```
+
+Its v3 contract is credential-clean and fail-closed:
+
+```text
+credential_requirement: NONE
+github_token_allowed: false
+non_tv_tvc_secret_or_token_allowed: false
+anonymous_public_observation_only: true
+publication authority: false
+release authority: false
+execution authority: false
+live authority: false
+financial authority: false
+```
+
+The observer explicitly rejects `STEGVERSE_CROSS_REPO_READ_TOKEN`, `MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `GITHUB_TOKEN`, `GH_TOKEN`, and `STEGVERSE_GITHUB_TOKEN`. It sends no Authorization header. If a named upstream evidence path is not anonymously observable, it records `BLOCKED_DEPENDENCY` and preserves the named repository/issue as canonical owner instead of requesting a token.
+
+StegVerse-owned execution may invoke this observer against public/already-materialized evidence. No GitHub schedule, GitHub-hosted writeback, or GitHub credential is a continuation prerequisite.
 
 ## Exact evidence bindings
 
@@ -89,17 +128,18 @@ The workflow `.github/workflows/import-marketplace-coinbase-accessibility.yml` i
 
 ## Machine-owned continuation
 
-1. The hourly Site importer continues to revalidate Publisher state.
-2. Invalid digest, schema, source, binding, or authority evidence becomes `REJECTED_UPSTREAM` and fails after preserving the bounded record.
-3. Missing Publisher evidence becomes `PENDING_UPSTREAM` without halting adjacent Site development.
-4. Crypto-bot finalization proceeds independently at `StegVerse-Labs/crypto-bot#6` and `.github/workflows/finalize-paper-release.yml`.
+1. Canonical upstream repository/issue owners retain their own task completion and evidence production.
+2. Site #131 retains the public projection and bounded observation state.
+3. Credential-clean StegVerse-owned observation may rerun `scripts/advance_marketplace_coinbase_activation.py`; blocked anonymous paths remain exact dependency blockers rather than token requests.
+4. Invalid digest, schema, source, binding, or authority evidence remains fail-closed.
+5. Crypto-bot finalization proceeds independently at `StegVerse-Labs/crypto-bot#6`.
 
 ## Incomplete work
 
-- Record the test-bound Site workflow run, job logs, and uploaded projection artifact when observable.
-  - Owner: `StegVerse-Labs/Site#131`
-  - Workflow: `.github/workflows/import-marketplace-coinbase-accessibility.yml`
-  - Release condition: inspectable successful run and retained projection artifact.
+- Batch 13 workflow-retirement integration.
+  - Owner while active: `SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B13-20260817`
+  - Branch: `chore/site-marketplace-coinbase-token-retirement-b13-20260817`
+  - Release condition: claim/orchestrator/bootstrap validation PASS, exact PR head merged, post-merge workflow inventory recorded, claim released.
 - Complete exact paper-release tag evidence in crypto-bot.
   - Owner: `StegVerse-Labs/crypto-bot#6`
   - Required tag: `marketplace-coinbase-paper-v1.0.0`
@@ -107,11 +147,12 @@ The workflow `.github/workflows/import-marketplace-coinbase-accessibility.yml` i
 
 ## Archive conditions
 
-The Site portion is activated and self-continuing, but the complete session is not archive-ready until crypto-bot finalization and hosted evidence identities are preserved. No unspecified external task remains.
+The Site paper-accessibility product projection is already established. This workflow-minimization session remains active until Batch 13 is validated/merged/released and the broader Site #268 workflow surface is reduced or durably transferred. Nothing in this handoff grants live Coinbase/trading authority.
 
 ## Progress
 
-- developed files: 5/5 = 100%
-- deterministic validation: 100%
-- Site integration: 100%
-- complete session goal activation: 90%
+- paper-accessibility developed files: 5/5 = 100%
+- deterministic projection validation: previously validated; exact Batch 13 regression validation pending
+- Site paper projection integration: 100%
+- Batch 13 token/controller retirement: implementation installed on branch; exact-head validation pending
+- live/financial authority: NOT GRANTED
