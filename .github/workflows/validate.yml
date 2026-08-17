@@ -103,6 +103,39 @@ jobs:
           echo 'SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS'
           echo 'SV_CONTINUITY_109_AUTHORITY_EFFECT=NONE'
 
+      - name: Validate VA guided workflow deterministically without artifact custody
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/validate_va_claims_guide_surface.py
+          python3 scripts/test_va_guided_workflow_contract.py
+          python3 scripts/validate_va_guided_visual_assets.py
+          test -s data/va-claim-assistant/guide-surface-validation.json
+          test -s data/va-claim-assistant/guided-workflow-contract-validation.json
+          test -s data/va-claim-assistant/guided-visual-assets-validation.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          paths = [
+              Path('data/va-claim-assistant/guide-surface-validation.json'),
+              Path('data/va-claim-assistant/guided-workflow-contract-validation.json'),
+              Path('data/va-claim-assistant/guided-visual-assets-validation.json'),
+          ]
+          for path in paths:
+              body = json.loads(path.read_text(encoding='utf-8'))
+              if body.get('state') != 'PASS':
+                  raise SystemExit(f'VA guided validation receipt is not PASS: {path}')
+              if body.get('authority_effect') is not False:
+                  raise SystemExit(f'VA guided receipt asserted authority: {path}')
+              if body.get('activation_effect') is not False:
+                  raise SystemExit(f'VA guided receipt asserted activation: {path}')
+          print('VA_GUIDED_WORKFLOW_VALIDATION=PASS')
+          print('VA_GUIDED_WORKFLOW_RECEIPTS=3_LOCAL_DETERMINISTIC')
+          print('VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE')
+          print('VA_GUIDED_WORKFLOW_AUTHORITY_EFFECT=NONE')
+          print('VA_GUIDED_WORKFLOW_ACTIVATION_EFFECT=NONE')
+          PY
+
       - name: Inventory and validate workflow entry points
         run: |
           python3 scripts/write_site_workflow_inventory.py
@@ -150,6 +183,10 @@ jobs:
           assert 'python3 scripts/check_master_records_persistent_service_evidence_import.py' in workflow
           assert 'python3 scripts/check_sv_continuity_109_site_receipt.py receipts/sv-continuity-109-site-verification.json' in workflow
           assert 'SV_CONTINUITY_109_PREMATURE_PASS_REJECTION=PASS' in workflow
+          assert 'python3 scripts/validate_va_claims_guide_surface.py' in workflow
+          assert 'python3 scripts/test_va_guided_workflow_contract.py' in workflow
+          assert 'python3 scripts/validate_va_guided_visual_assets.py' in workflow
+          assert 'VA_GUIDED_WORKFLOW_ARTIFACT_CUSTODY=NONE' in workflow
           assert 'python3 scripts/check_iphone_heartbeat_transition_projection.py' in workflow
           assert all(marker not in workflow for marker in forbidden), forbidden
           print('SITE_BOOTSTRAP_VALIDATION_ONLY=PASS')
