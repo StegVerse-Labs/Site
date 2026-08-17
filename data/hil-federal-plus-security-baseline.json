@@ -57,7 +57,7 @@
       "state": "IMPLEMENTED",
       "owner": "StegVerse-Labs/Site",
       "evidence": ["scripts/check_hil_session_consolidation.py", "scripts/check_tvc_execution_receipt_import.py"],
-      "freshness_rule": "Run on push, pull request, scheduled observation, and evidence import.",
+      "freshness_rule": "Run on source/evidence change and through StegVerse-owned runtime observation when live evidence changes.",
       "release_condition": "All canonical validators reject missing, stale, simulated, conflicting, or authority-escalating evidence."
     },
     {
@@ -95,10 +95,10 @@
       "name": "Continuous control observation",
       "required": true,
       "state": "PARTIAL",
-      "owner": "StegVerse-Labs/Site",
-      "evidence": [".github/workflows/check-hil-federal-plus-security-baseline.yml"],
-      "freshness_rule": "Run on relevant changes and at least daily after production activation.",
-      "release_condition": "Scheduled workflow produces retained receipts and blocks stale or regressed control evidence."
+      "owner": "StegVerse-Labs/Site #81 + StegVerse-controlled HIL observation path",
+      "evidence": [".github/workflows/check-hil-live-readiness.yml", "docs/HIL_SITE_MIRROR_HANDOFF.md"],
+      "freshness_rule": "Source/profile changes are validated by the credential-clean dispatcher; post-activation recurrence belongs to the StegVerse-controlled Site #81 observation path, not a GitHub-hosted schedule.",
+      "release_condition": "Site #81 StegVerse observation produces durable fresh control receipts after production activation while the hosted dispatcher remains non-authorizing source validation only."
     },
     {
       "control_id": "HIL-SEC-010",
@@ -126,9 +126,9 @@
       "required": true,
       "state": "PARTIAL",
       "owner": "StegVerse-Labs/Site",
-      "evidence": ["scripts/check_hil_federal_plus_security_baseline.py", ".github/workflows/check-hil-federal-plus-security-baseline.yml"],
-      "freshness_rule": "Continuous; any failed required control returns activation to BLOCKED.",
-      "release_condition": "Hosted workflow validates the exact profile and retains an inspectable receipt."
+      "evidence": ["scripts/check_hil_federal_plus_security_baseline.py", ".github/workflows/check-hil-live-readiness.yml"],
+      "freshness_rule": "Continuous semantics; every relevant source/profile change executes the deterministic validator, and live recurrence is StegVerse-owned.",
+      "release_condition": "The stable credential-clean validation dispatcher validates the exact profile without secret/token authority, and StegVerse runtime observation preserves fresh live evidence."
     }
   ],
   "activation": {
