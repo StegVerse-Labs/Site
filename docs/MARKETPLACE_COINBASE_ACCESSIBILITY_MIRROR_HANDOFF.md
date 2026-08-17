@@ -1,27 +1,25 @@
 # Marketplace–Coinbase Accessibility Mirror Handoff
 
-## Active goal and goal ID
+## Canonical authority
 
-- Goal ID: `MARKETPLACE-COINBASE-PAPER-ACCESSIBILITY-001`
-- Repository: `StegVerse-Labs/Site`
-- Canonical branch: `main`
-- Owner issue: `StegVerse-Labs/Site#131`
-- Active cleanup claim: `SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B16R1-20260817`
-- Active branch: `chore/site-marketplace-accessibility-import-retirement-b16r1-20260817`
-- Goal: preserve the already-verified paper-accessibility projection while removing the remaining GitHub-hosted importer mechanics that are no longer required.
+```text
+goal_id: MARKETPLACE-COINBASE-PAPER-ACCESSIBILITY-001
+active_task: SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817
+repository: StegVerse-Labs/Site
+canonical_branch: main
+active_branch: claim/site-marketplace-projection-local-import-correction-20260817
+owner_issue: Site#131
+parent_cleanup: Site#268
+cross_repository_owner: StegVerse-Labs/StegVerse-Healer#8
+scheduler_owner: SHWP-HEALER-SOVEREIGN-SCHEDULER-001
+credential_authority: TV/TVC
+non_tv_tvc_secret_or_token_allowed: false
+github_production_authority: NONE
+```
 
-## Authoritative files
+Live repository state and exact validation evidence supersede chat history.
 
-- `scripts/import_marketplace_coinbase_accessibility.py`
-- `tests/test_marketplace_coinbase_accessibility.py`
-- `data/marketplace-coinbase-accessibility-status.json`
-- `scripts/advance_marketplace_coinbase_activation.py`
-- `data/marketplace-coinbase-activation-tasks.json`
-- this handoff
-
-`.github/workflows/import-marketplace-coinbase-accessibility.yml` is intentionally removed on B16R1. Deterministic source/tests and the committed projection are retained for bounded StegVerse-local reconstruction.
-
-## Current product state
+## Product boundary
 
 ```text
 state: PAPER_ACCESSIBLE
@@ -34,86 +32,47 @@ live_authority: NOT_GRANTED
 financial_authority: NOT_GRANTED
 ```
 
-The Site projection is display/continuity evidence only. It does not grant Coinbase credentials, funded-order authority, custody, withdrawal, publication, release, execution, or live financial authority.
+`.github/workflows/import-marketplace-coinbase-accessibility.yml` was removed by released B16R1 and remains absent.
 
-## Verified product evidence
+## Cross-repository integration correction
 
-- Publisher status: `VERIFIED`
-- Publisher status digest: `sha256:36a2f6da4b5af18375fd798ef954ec703ea719beefbab2d5949954b79ca1e477`
-- Publisher persistence commit: `913a89d0ec867c3c9b570ec8352be554790a45f0`
-- initial Site projection activation: `338abd5e008cda4af83a74ab3d1ac08e8e1c6103`
-- machine importer persistence: `99eeb59f757e4bdbaf020817b6ece5267349e93b`
-- deterministic projection tests: `f0efc721b217d243d0d4569fcc7f9ccc69d1e9b7`
-- projection digest: `sha256:ce064993487fa872ef79a79ba43fb9991e29cb12cc1b57c6aeeb83c213d0fbd3`
+Healer PR #9 merged fixed target `marketplace-coinbase-local-projection-import` and supplies already-materialized Site and `GCAT-BCAT-Engine/Publisher` roots through `STEGVERSE_REPO_ROOTS_JSON`. The retained Site importer on canonical main still used `raw.githubusercontent.com`, so the child implementation ignored that local-only contract.
 
-Retained deterministic contract:
+The active correction now requires `STEGVERSE_REPO_ROOTS_JSON`, reads `GCAT-BCAT-Engine/Publisher/data/marketplace-coinbase-release-evidence-status.json` locally, removes raw GitHub acquisition, refuses GitHub/project credential environments, and fails closed to bounded `PENDING_UPSTREAM` when local evidence is unavailable. Existing schema, digest, VERIFIED-state, paper-only, and authority-escalation checks are retained.
+
+Authoritative correction files:
+- `scripts/import_marketplace_coinbase_accessibility.py`
+- `tests/test_marketplace_coinbase_accessibility.py`
+- `data/tasks/SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817.json`
+- `data/session-work-claims.json`
+- this handoff
+
+## Validation and release condition
+
+Required evidence:
 
 ```text
 PYTHONPATH=. pytest -q tests/test_marketplace_coinbase_accessibility.py
-historical result: 4 passed
-```
-
-## Controller retirement — released
-
-PR #329 already removed the GitHub-token/writeback activation controller and bound local observation to the existing sovereign Healer scheduler `SHWP-HEALER-SOVEREIGN-SCHEDULER-001` target `marketplace-coinbase-local-observer`. That path remains machine-owned; B16R1 does not duplicate it.
-
-## B16R1 hosted importer retirement
-
-The removed importer workflow previously contained:
-
-```text
-hourly schedule
-permissions.contents: write
-actions/checkout@v4
-actions/setup-python@v5
-repository commit/pull/rebase/push writeback
-actions/upload-artifact@v4
-```
-
-Those mechanics are unnecessary after the bounded Site projection is already durably `PAPER_ACCESSIBLE`. No replacement GitHub workflow, scheduler, heartbeat, PAT, GitHub token, provider credential, or TV/TVC credential export is introduced.
-
-`import_marketplace_coinbase_accessibility.py` remains available only for bounded, admitted StegVerse-local reconstruction or a fresh explicit projection task. State retention is not wall-clock execution authority. A future upstream change requires a fresh claim rather than silently reactivating hosted automation.
-
-## Continuation ownership
-
-```text
-MC-01 crypto accessibility -> StegVerse-Labs/crypto-bot#7
-MC-02 Marketplace collection -> GCAT-BCAT-Engine/Marketplace#1
-MC-03 Publisher verification -> GCAT-BCAT-Engine/Publisher#19 / COMPLETE when VERIFIED
-MC-04 Site projection -> StegVerse-Labs/Site#131 / COMPLETE at PAPER_ACCESSIBLE with live_trading_accessible=false
-observer scheduling -> StegVerse-Labs/StegVerse-Healer / SHWP-HEALER-SOVEREIGN-SCHEDULER-001
-paper-release tag evidence -> StegVerse-Labs/crypto-bot#6
-```
-
-## B16R1 release condition
-
-```text
-import-marketplace-coinbase-accessibility.yml: ABSENT
-committed state remains PAPER_ACCESSIBLE
-live_trading_accessible: false
-publication/release/execution/live authority: NOT_GRANTED
-retained deterministic importer tests: PASS
 SESSION_WORK_CLAIMS_PASS
-Site Handoff Orchestrator: PASS
-Ecosystem Heartbeat Orchestration: PASS
-Site Bootstrap Validate: PASS
-Check StegFin Phone Projection: PASS
-workflow inventory: 107 total / 3 canonical / 104 migration-required / 0 placeholders
+Site Handoff Orchestrator PASS
+Ecosystem Heartbeat Orchestration PASS
+Site Bootstrap Validate PASS
+Check StegFin Phone Projection PASS
+merged exact-head Site PR
+Healer #8 reconciliation after Site merge
 ```
 
-Hosted validation remains source evidence only and cannot activate Marketplace, Coinbase, StegFin, HIL, heartbeat, model, wallet, publication, or financial authority.
+No source/CI success grants ordinary Healer runtime activation. That remains MACHINE_OWNED under `SHWP-HEALER-SOVEREIGN-SCHEDULER-001`.
 
 ## Collision boundaries
 
-- TV/TVC remains credential authority.
-- No NON-TV/TVC secret/token may become a project/runtime dependency.
-- Do not export TV/TVC credentials into GitHub Actions.
-- Do not create a second scheduler, heartbeat, runtime, Marketplace owner, Publisher owner, crypto-bot owner, or Site product owner.
-- Do not infer live trading, custody, withdrawal, funded execution, publication, release, or financial authority from paper accessibility or workflow cleanup.
-- Do not modify StegFin, StegOS, or HIL claimed product paths.
-- USER_ONLY remains the sole StegFin signing/broadcast authority.
-- Do not use Render.
+- do not create a second scheduler or heartbeat;
+- do not modify Healer machine-owned runtime implementation in this Site claim;
+- do not export TV/TVC credentials or introduce any GitHub/PAT/provider token;
+- do not infer publication, release, live trading, custody, withdrawal, financial, HIL, StegFin, wallet, model, or runtime authority;
+- USER_ONLY remains sole StegFin signing/broadcast authority;
+- do not use Render.
 
-## Archive condition
+## Session consolidation
 
-B16R1 may be released only after exact-head validation, merge, post-merge census, claim release, and canonical cost-containment handoff update. The broader Site #268 cleanup remains active afterward while workflow/token remediation debt exists.
+B16R1 is `MERGED_INTO_CANONICAL_WORKSTREAM`. This correction is `CLAIMED_FOR_INTEGRATION` until exact-head merge and Healer #8 reconciliation are durable. Developed correction files: 4/4; scaffolding/stubs: 0; integration remains pending.
