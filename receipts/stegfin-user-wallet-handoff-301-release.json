@@ -19,6 +19,7 @@
   "validator_release_pr": 304,
   "validator_release_merge": "7529e4534bf3749141bff1921d92ede2a22144cb",
   "claim_release_commit": "7a48e735b4ff434a8571809ae942ef537811d1f3",
+  "final_handoff_commit": "074bd184c47d2273588ce59fda487e70e1f4269e",
   "source_blobs": {
     "assets/stegfin-phone/wallet-user-handoff.js": "c9c0688ab58e1a196bd777c45fa6f33fa7b9601b",
     "assets/stegfin-phone/wallet-user-handoff-ui.js": "83a36d6b622c45be35d1af14d96f7ff92e71ced3"
