@@ -124,9 +124,21 @@
           attestation: 'none'
         }
       });
-      if (!created || created.type !== 'public-key') throw new Error('WebAuthn creation failed');
+      if (!created || created.type !== 'public-key' || !created.rawId) throw new Error('WebAuthn creation failed');
       record = { rawId: b64url(created.rawId), created_at: new Date().toISOString() };
       await put('webauthn', record);
+
+      // The creation ceremony itself required the platform authenticator and
+      // userVerification='required'. Treat that completed user gesture as the
+      // initial HUMAN_CONTINUITY proof. Do not immediately issue a second
+      // navigator.credentials.get() call: iOS may consume transient user
+      // activation during creation and reject the second ceremony even though
+      // the first ceremony completed successfully.
+      return {
+        webauthn_credential_id_sha256: await sha({ raw_id: record.rawId }),
+        user_verification: 'required',
+        ceremony: 'CREDENTIAL_CREATION'
+      };
     }
 
     const raw = Uint8Array.from(
@@ -144,7 +156,8 @@
     if (!assertion || assertion.type !== 'public-key') throw new Error('HUMAN_CONTINUITY WebAuthn assertion failed');
     return {
       webauthn_credential_id_sha256: await sha({ raw_id: record.rawId }),
-      user_verification: 'required'
+      user_verification: 'required',
+      ceremony: 'CREDENTIAL_ASSERTION'
     };
   }
 

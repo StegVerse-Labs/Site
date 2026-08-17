@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM_BLOBS = {
     "assets/stegfin-phone/rpc-resilience.js": "290b567eca2cc9f83e7438a80682ebaf8006ad76",
     "assets/stegfin-phone/phone-direct-route.js": "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
-    "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "403d164b21a1c6e812d31f7ab45635baab59b73c",
+    "assets/stegfin-phone/stegid-device-wallet-bootstrap.js": "9cac39a990a956f16fcde3681cbcc7d47b2fc704",
     "assets/stegfin-phone/device-wallet-identity.js": "1180d8ee929c161978d095c91514cbc3d873d3fd",
     "assets/stegfin-phone/app.js": "433ef5e5db9f9f7af2c7c7df4ba01acc89125403",
     "assets/stegfin-phone/evidence-export.js": "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58",
@@ -122,7 +122,23 @@ def main() -> int:
     forbid_markers(route, "direct route", ("eth_getLogs", "discoverContracts", "discoveryChunk", "transferTopic", "discovery_complete: true"), failures)
 
     bootstrap = (ROOT / "assets/stegfin-phone/stegid-device-wallet-bootstrap.js").read_text(encoding="utf-8")
-    require_markers(bootstrap, "StegID bootstrap", ("requested_capabilities: ['OBSERVE', 'PREPARE']", "granted_capabilities: ['OBSERVE', 'PREPARE']", "automatic_signing: false", "automatic_broadcast: false", "expires_at: expiresAt", "navigator.credentials.get", "userVerification: 'required'", "DEVICE_POSSESSION", "HUMAN_CONTINUITY", "credential_authority: 'TV/TVC'", "credential_requirement: 'NONE'", "non_tv_tvc_secret_or_token_used: false"), failures)
+    require_markers(bootstrap, "StegID bootstrap", (
+        "requested_capabilities: ['OBSERVE', 'PREPARE']", "granted_capabilities: ['OBSERVE', 'PREPARE']",
+        "automatic_signing: false", "automatic_broadcast: false", "expires_at: expiresAt",
+        "navigator.credentials.create", "navigator.credentials.get", "userVerification: 'required'",
+        "ceremony: 'CREDENTIAL_CREATION'", "ceremony: 'CREDENTIAL_ASSERTION'",
+        "if (!created || created.type !== 'public-key' || !created.rawId)",
+        "DEVICE_POSSESSION", "HUMAN_CONTINUITY", "credential_authority: 'TV/TVC'",
+        "credential_requirement: 'NONE'", "non_tv_tvc_secret_or_token_used: false"
+    ), failures)
+    creation_index = bootstrap.find("const created = await navigator.credentials.create(")
+    creation_proof_index = bootstrap.find("ceremony: 'CREDENTIAL_CREATION'")
+    assertion_index = bootstrap.find("const assertion = await navigator.credentials.get(")
+    require(creation_index >= 0 and creation_proof_index > creation_index and assertion_index > creation_proof_index,
+            "iOS first-passkey creation must return bounded HUMAN_CONTINUITY before later assertion path", failures)
+    require("return {" in bootstrap[creation_index:assertion_index] and "ceremony: 'CREDENTIAL_CREATION'" in bootstrap[creation_index:assertion_index],
+            "successful first-passkey creation does not return before assertion path", failures)
+    forbid_markers(bootstrap, "StegID bootstrap", ("GITHUB_TOKEN", "GH_TOKEN", "GITHUB_PAT", "ZEROEX_API_KEY", "WALLET_PRIVATE_KEY", "WalletConnect"), failures)
 
     identity = (ROOT / "assets/stegfin-phone/device-wallet-identity.js").read_text(encoding="utf-8")
     require_markers(identity, "StegID identity", ("granted_capabilities.includes('SIGN')", "granted_capabilities.includes('BROADCAST')", "non-TV/TVC credential use prohibited", "stegverse-stegid-device-wallet-v1", "latest-admission", "stegverse.stegid.sanitized_admission_evidence.v1", "IDENTITY_CONTINUITY_VALID", "DEVICE_ADMITTED", "DEVICE_POSSESSION", "HUMAN_CONTINUITY", "IDENTITY_CONTINUITY", "stegid_admission_evidence", "evidence_sha256", "MIN_PREPARE_VALIDITY_MS = 5 * 60 * 1000", "capabilityRequiresRenewal", "assertFreshReceipt", "expired or expires too soon", "clearStalePhoneState", "deleteDirectTerminal", "persistIdentityBoundTerminal", "localStorage.removeItem(WALLET_HANDOFF_KEY)", "StegID identity receipt linkage mismatch", "StegID device receipt linkage mismatch", "granted_capabilities.includes('PREPARE')", "protected credential field prohibited"), failures)
@@ -145,6 +161,10 @@ def main() -> int:
         require(claim_by_id(registry, claim_id) is not None, f"required projection claim missing: {claim_id}", failures)
     freshness = claim_by_id(registry, "SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816") or {}
     require(freshness.get("state") in RELEASED_STATES, "StegID freshness projection must be durably released on canonical branches", failures)
+    ios_claim = claim_by_id(registry, "SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380-20260817") or {}
+    require(ios_claim.get("state") in ACTIVE_STATES | RELEASED_STATES, "iOS first-passkey projection claim missing or invalid", failures)
+    stale_298 = claim_by_id(registry, "SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT") or {}
+    require(stale_298.get("state") in RELEASED_STATES, "completed Site #298 claim remains active/stale", failures)
     active_product_claims = [c for c in registry.get("claims", []) if c.get("state") in ACTIVE_STATES and c.get("branch") != "main"]
     for claim in active_product_claims:
         require(bool(claim.get("claim_expires_when")), f"active product claim lacks release condition: {claim.get('claim_id')}", failures)
@@ -156,15 +176,16 @@ def main() -> int:
         "TASK-2026-0004", "Site#282", "credential_authority: TV/TVC", "non_tv_tvc_secret_or_token_allowed: false",
         "Render production runtime: PROHIBITED", "WALLET_HANDOFF_READY", "COMPLETE_INSTALLED", "31ed79cb56e8d2366e6d70f22e28c70162c88fd8",
         "290b567eca2cc9f83e7438a80682ebaf8006ad76", "bcba49976a52024a233f998ce290ec4ab42618ff", "STEGFIN-PHONE-WALLET-REVIEW-014",
-        "433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "403d164b21a1c6e812d31f7ab45635baab59b73c", "1180d8ee929c161978d095c91514cbc3d873d3fd",
+        "433ef5e5db9f9f7af2c7c7df4ba01acc89125403", "9cac39a990a956f16fcde3681cbcc7d47b2fc704", "1180d8ee929c161978d095c91514cbc3d873d3fd",
         "29ddb120fe6d1bd7c5118b41c4ef061d2db90a58", "StegFin PR #75", "USER_ONLY wallet review", "Copy canonical evidence", "unexpired",
+        "SITE-STEGFIN-IOS-FIRST-PASSKEY-PREPARE-380", "StegFin #79", "CREDENTIAL_CREATION", "CREDENTIAL_ASSERTION"
     ), failures)
 
     if failures:
         for item in failures:
             print(f"STEGFIN_PHONE_PROJECTION_FAIL:{item}")
         return 1
-    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=RELEASE_AWARE wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
+    print("STEGFIN_PHONE_PROJECTION_PASS copied_upstream_blobs=7 rpc_resilience=PASS bounded_inventory=PASS source_trade_contract=COMPLETE_INSTALLED stegid_admission_evidence=PASS stegid_freshness=RELEASE_AWARE ios_first_passkey_prepare=PASS wallet_review=USER_ONLY evidence_export=PASS participant_entry=PASS tv_tvc=PASS hosted_runtime_authority=NONE signing_broadcast=USER_ONLY")
     return 0
 
 
