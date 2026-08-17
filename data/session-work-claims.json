@@ -3,8 +3,8 @@
   "registry_type": "stegverse_session_work_claim_registry",
   "repository": "StegVerse-Labs/Site",
   "historical_registry": {
-    "preserved_at_commit": "458261a2a57f42cf37bcd67e6f7d2310899ca7ea",
-    "note": "Detailed released claim history through Batch 21 is immutable in Git history. Released StegFin projection IDs required by deterministic validators and all active claims remain explicit below."
+    "preserved_at_commit": "218fee91a7d2214fec328f74247e079292c45ce0",
+    "note": "Detailed released claim history through the Marketplace projection local-import integration is immutable in Git history. Released StegFin projection IDs required by deterministic validators and all active claims remain explicit below."
   },
   "policy": {
     "one_active_owner_per_task": true,
@@ -23,6 +23,7 @@
     {"claim_id":"SITE-STEGFIN-PHONE-STEGID-FRESHNESS-292-20260816","state":"MERGED_INTO_CANONICAL_WORKSTREAM","canonical_history_commit":"e9be3d220c09f51150a5983c0f048991531c5bc2"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B20-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"46542f308a8bfe404ee9f9bd1e1099c062029d0e"},
     {"claim_id":"SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B21-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","release_commit":"458261a2a57f42cf37bcd67e6f7d2310899ca7ea"},
+    {"claim_id":"SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817","state":"MERGED_INTO_CANONICAL_WORKSTREAM","role":"RELEASED_INTEGRATION","release_commit":"218fee91a7d2214fec328f74247e079292c45ce0","final_head":"1706f22da79fd8e8c90cbad4d9ff5f088410142d","evidence":["PR #352 merge 218fee91a7d2214fec328f74247e079292c45ce0","Site Bootstrap Validate 32050796944 SUCCESS","Site Handoff Orchestrator 32050796941 SUCCESS","Ecosystem Heartbeat Orchestration 32050797014 SUCCESS","Check StegFin Phone Projection 32050785197 SUCCESS","local Publisher acquisition installed","raw GitHub acquisition removed","NON-TV/TVC credential environment refusal installed"],"authority_effect":false,"runtime_activation_effect":false,"financial_authority_effect":false},
     {
       "claim_id":"SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT",
       "session_worker_id":"chatgpt-session-stegos-ipod-admitted-inference-current-20260817",
@@ -62,26 +63,6 @@
       "expected_evidence":["Ecosystem Heartbeat Orchestration runs on every pull request","session_work_claims.report.json PASS","site_handoff_orchestration.report.json PASS"],
       "collision_boundaries":["This worker owns orchestration admission only, not product implementation","It may block or redirect duplicate claims but may not mint product execution authority"],
       "next_task_after_release":"Organization-level federation imports this contract and becomes the stronger canonical collision-control owner"
-    },
-    {
-      "claim_id":"SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817",
-      "session_worker_id":"chatgpt-session-marketplace-projection-local-import-correction-20260817",
-      "task_id":"SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817",
-      "originating_goal":"Complete the released Healer projection-import migration by making the retained Site importer consume only already-materialized local Publisher evidence and refuse NON-TV/TVC credential environments.",
-      "repository":"StegVerse-Labs/Site",
-      "branch":"claim/site-marketplace-projection-local-import-correction-20260817",
-      "role":"INTEGRATION",
-      "state":"CLAIMED_FOR_INTEGRATION",
-      "normalized_work_key":"site-marketplace-coinbase-projection-local-import-correction",
-      "dependency_surface_keys":["site:marketplace-coinbase:projection-local-import"],
-      "claimed_paths":["scripts/import_marketplace_coinbase_accessibility.py","tests/test_marketplace_coinbase_accessibility.py","docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md","data/tasks/SITE-MARKETPLACE-COINBASE-PROJECTION-LOCAL-IMPORT-CORRECTION-20260817.json"],
-      "handoff":"docs/MARKETPLACE_COINBASE_ACCESSIBILITY_MIRROR_HANDOFF.md",
-      "handoff_revision":"90a852b2f25cff3718af694f91f4092979deef40",
-      "claim_created_at":"2026-08-17T12:20:00-05:00",
-      "claim_expires_when":"Released after local-only Publisher acquisition tests pass, exact-head Site validation passes, merge is durable, Healer issue #8 is reconciled, and the Marketplace handoff records the completed cross-repository integration.",
-      "expected_evidence":["SESSION_WORK_CLAIMS_PASS","marketplace accessibility tests PASS","no raw.githubusercontent.com acquisition in importer","missing local Publisher fails closed","NON-TV/TVC credential environment refused","Site Handoff Orchestrator PASS","Ecosystem Heartbeat Orchestration PASS","Site Bootstrap Validate PASS","merged exact-head PR","Healer #8 reconciliation"],
-      "collision_boundaries":["Do not create a second scheduler or heartbeat","Do not modify Healer machine-owned scheduler implementation","Do not grant publication/release/live/financial authority","Do not modify StegFin, HIL, or StegOS claimed product paths","Do not export TV/TVC credentials","Do not introduce any GitHub/PAT/provider token","Do not use Render"],
-      "next_task_after_release":"Close or update StegVerse-Healer#8 with exact Site merge evidence, then continue the next unclaimed Site #268 workflow family."
     }
   ]
 }
