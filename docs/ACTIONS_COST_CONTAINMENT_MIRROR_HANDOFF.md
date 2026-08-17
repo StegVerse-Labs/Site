@@ -44,7 +44,7 @@ migration_required_operational: 107
 placeholders: 0
 ```
 
-The active claim is not counted as released. Its branch should contain 109 workflows after retiring exactly one standalone controller; exact merge-checkout validation is authoritative.
+The active claim is not counted as released. Its branch contains 109 workflows after retiring exactly one standalone controller; exact merge-checkout validation remains authoritative.
 
 ## Released minimization evidence
 
@@ -65,54 +65,22 @@ PR #324 merge 6a4b09c5ffbfa672f06c3264ee2090b40b1c39d6 — terminal Marketplace 
 PR #327 merge 7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1 — terminal Marketplace first-accessibility hosted importer retired
 ```
 
-## Batch 14 release — terminal Marketplace first-accessibility importer
-
-```text
-claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B14-20260817
-PR: #327
-final_head: 10fcb2896b34411950041c02578fbe47969a87dc
-merge: 7d0c34eb1bf8fa3d8237b474a21247b3762f5ab1
-claim_release_commit: 12998c22125430d5c7610d19ba807fc915ea2b03
-handoff_release_commit: 11462abe19cd9a24233e34e843ca273f5986f3cb
-Site Bootstrap Validate: 32041523825 SUCCESS
-Site Handoff Orchestrator: 32041523747 SUCCESS
-Ecosystem Heartbeat Orchestration: 32041523800 SUCCESS
-Check StegFin Phone Projection: 32041523811 SUCCESS
-workflow inventory: 110 / canonical 3 / migration-required operational 107 / placeholders 0
-authority_effect: NONE
-runtime_activation_effect: NONE
-financial_authority_effect: NONE
-```
-
 ## Active distinct cleanup — Marketplace Coinbase activation controller
 
 ```text
 claim: SITE-MARKETPLACE-COINBASE-ACTIVATION-CONTROLLER-TOKEN-RETIREMENT-20260817
 task: SITE-ACTIONS-COST-CONTAINMENT-MARKETPLACE-ACTIVATION-CONTROLLER-20260817
+Site PR: #329
 branch: chore/site-marketplace-coinbase-controller-validation-20260817
-claim_commit: ef2c16681794841da08aa4356dbf6a1de946ded6
 workflow_removal_commit: 053993a13ddec0371b6af6eee20a5176384ae382
 credential_clean_observer_commit: 3f46ba3a8840895f4344d0fb539c951f26910db2
-state_binding_commit: 4824aa26d162fde102f1bb44f911303ea1c33df1
-product_handoff_commit: c0b27cca372977d1a4882052e38dc145d133c035
-state: CLAIMED_FOR_IMPLEMENTATION / EXACT_HEAD_VALIDATION_PENDING
+local_only_observer_commit: 7c103f4c5e3ffb707fabfff5a54038a04f2e255c
+claim_reconciliation_commit: 29eb59b8bc2aeaa2d138bfce39b5c418ab916a09
+product_handoff_commit: 948734fbafcde316236fda35f6085eff57710d4a
+state: CLAIMED_FOR_IMPLEMENTATION / FINAL_EXACT_HEAD_VALIDATION_PENDING
 ```
 
-The removed standalone `.github/workflows/advance-marketplace-coinbase-activation.yml` used:
-
-```text
-permissions: contents: write, issues: write
-STEGVERSE_CROSS_REPO_READ_TOKEN <- secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN
-GH_TOKEN <- github.token
-actions/checkout@v4
-actions/setup-python@v5
-git commit/push writeback
-actions/upload-artifact@v4
-```
-
-This is a distinct nonterminal-controller migration, not a claim that the broader Marketplace/Coinbase product is terminal. `Site#131` remains the product owner.
-
-The retained `scripts/advance_marketplace_coinbase_activation.py` now acts only as a credential-clean StegVerse observer. It refuses `STEGVERSE_CROSS_REPO_READ_TOKEN`, `MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `GITHUB_TOKEN`, `GH_TOKEN`, and `STEGVERSE_GITHUB_TOKEN`; sends no Authorization header; and maps inaccessible anonymous upstream evidence to `BLOCKED_DEPENDENCY` owned by the named repository/issue instead of requesting a credential.
+The removed standalone `.github/workflows/advance-marketplace-coinbase-activation.yml` used repository write authority, `secrets.MARKETPLACE_COINBASE_EVIDENCE_TOKEN`, `github.token`, checkout/setup actions, git commit/push writeback and artifact upload. The retained Site observer no longer uses GitHub API observation at all; it reads only already-materialized StegVerse repositories supplied through `STEGVERSE_REPO_ROOTS_JSON` and fails closed on missing local evidence.
 
 The v3 task-state contract binds:
 
@@ -120,22 +88,41 @@ The v3 task-state contract binds:
 credential_requirement: NONE
 github_token_allowed: false
 non_tv_tvc_secret_or_token_allowed: false
-anonymous_public_observation_only: true
+remote_github_api_observation: false
 continuation_mode: STEGVERSE_OWNED_OBSERVATION_ONLY
 publication/release/execution/live/financial authority: false
 ```
 
-No replacement hosted schedule, writeback loop, GitHub token, TV/TVC credential export, or Render runtime is introduced. The cleanup does not grant Coinbase live/financial authority and does not take ownership from crypto-bot, Marketplace, Publisher, or Site #131.
+## Canonical Healer continuation
 
-Required exact-head release gates:
+The local scheduling/execution binding is now merged into the existing sovereign Healer scheduler rather than implemented as a second Site scheduler:
 
-1. `SESSION_WORK_CLAIMS_PASS` and Site Handoff Orchestrator PASS;
-2. Ecosystem Heartbeat Orchestration PASS;
-3. Site Bootstrap Validate PASS, including canonical application and ST-017 sandbox;
-4. StegFin phone projection PASS if triggered, without wallet authority;
-5. any path-triggered Marketplace deterministic checks PASS;
-6. merge-checkout workflow inventory shows exactly one workflow removed from the released 110 baseline, with all three canonical workflows retained and no placeholders;
-7. post-merge main no longer contains `.github/workflows/advance-marketplace-coinbase-activation.yml` and retained observer/task state matches credential-clean v3 semantics.
+```text
+repository: StegVerse-Labs/StegVerse-Healer
+issue: #6
+PR: #7
+merge: ecf96188348c097dfdea3ce55c47db9dff6e84ef
+exact-head credential-clean validation: 32044423476 SUCCESS
+job: 95429249175 SUCCESS
+scheduler: SHWP-HEALER-SOVEREIGN-SCHEDULER-001
+target: marketplace-coinbase-local-observer
+```
+
+The Healer source path uses fixed local handlers and already-materialized repositories only. Merge/CI does not prove ordinary Healer scheduler activation; admitted post-carrier worker evidence remains required.
+
+## Site validation evidence before final handoff update
+
+At Site head `29eb59b8bc2aeaa2d138bfce39b5c418ab916a09`:
+
+```text
+Site Bootstrap Validate 32044334378 SUCCESS
+Check StegFin Phone Projection 32044334428 SUCCESS
+Ecosystem Heartbeat Orchestration 32044334416 SUCCESS
+Site Handoff Orchestrator 32044334442 SUCCESS
+workflow inventory: 109 / canonical 3 / migration-required operational 106 / placeholders 0
+```
+
+These runs confirm the previous claim-registry collision was corrected by preserving the complete current StegOS and machine pre-work claims rather than overwriting their fields. A final exact-head validation after the two handoff updates remains required before merge.
 
 ## HIL / Healer / runtime collision boundaries
 
@@ -184,7 +171,8 @@ Trade execution remains machine/human-authority owned. Credential authority is T
 
 ```text
 workflow minimization/remediation through batch 14: MERGED_INTO_CANONICAL_WORKSTREAM
-Marketplace controller token retirement: CLAIMED_FOR_IMPLEMENTATION / this branch
+Marketplace controller token retirement: CLAIMED_FOR_IMPLEMENTATION / Site PR #329
+Healer local observer source integration: MERGED / issue #6 remains continuation record until Site release
 Site pre-work admission: SITE-PREWORK-CLAIM-GATE-MACHINE-001 / MACHINE_OWNED / admission only
 StegOS iPod admitted inference: SITE-STEGOS-IPOD-ADMITTED-INFERENCE-298-20260817-CURRENT / CLAIMED_FOR_INTEGRATION / separate product paths
 HIL LinkedIn semantic drift: REVIEW_REQUIRED
@@ -197,7 +185,7 @@ Closed support attempts #320/#321/#325/#326/#328 are not canonical work and gran
 
 ## Next executable action
 
-Open the exact branch PR and inspect all exact-head workflow runs, jobs and relevant logs. Correct only deterministic credential-clean validation defects. Do not restore private GitHub/token runtime dependencies. Merge only after required evidence passes, then verify main state, release the semantic claim, update this handoff with exact evidence and continue the next unclaimed workflow family under Site #268.
+Run and inspect final exact-head Site PR #329 validations after these handoff updates. If all required groups pass and merge checkout remains 109 workflows / canonical 3 / placeholders 0, merge PR #329, verify main absence of the hosted controller and presence of v3 local-only observer semantics, release the Site claim, update this handoff to 29/131 released, and update/close Healer issue #6 only after the Site continuation is durable.
 
 ## Completion accounting — released work only
 
@@ -208,12 +196,12 @@ scaffolding_or_stubs: 0
 missing_required_files_for_completed_batches: 0
 validation: 59/59 released-batch groups PASS
 integration: 14/14 released workflow/token-remediation batches
-active_controller_retirement: implementation installed; exact-head validation pending
-propagation: not applicable for workflow-only cleanup
+active_controller_retirement: implementation installed; preliminary exact-head validation PASS; final post-handoff validation pending
+propagation: Healer source binding merged; Site release pending
 goal_activation_for_cleanup_goal: 28/131 = 21.37%
 session_consolidation: incomplete
 ```
 
 ## Archive condition
 
-The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because the controller-retirement claim is unreleased, 103/131 audit-start Site workflow surfaces remain unremediated/unclassified, and 107 operational workflows remain migration-required before this active claim's delta.
+The local-model/runtime requirement and StegFin execution requirement are durably transferred to canonical owners. This session remains active because Site PR #329/claim is unreleased, 103/131 audit-start Site workflow surfaces remain unremediated/unclassified before this active delta, and broader token/workflow minimization under Site #268 remains executable.
