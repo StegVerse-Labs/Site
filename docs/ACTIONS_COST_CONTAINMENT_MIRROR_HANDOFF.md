@@ -24,20 +24,72 @@ Production/runtime continuity remains StegVerse-owned. GitHub-hosted execution i
 
 ```text
 audit_start_workflow_surfaces: 131
-released_classified_or_remediated: 42/131 = 32.06%
-remaining_audit_start_surfaces: 89/131
-current_main_workflow_count: 99
-workflow_files_eliminated_or_consolidated: 28
-released_integrations_or_semantic_remediations: 28/28
+released_classified_or_remediated: 43/131 = 32.82%
+remaining_audit_start_surfaces: 88/131
+current_main_workflow_count: 98
+workflow_files_eliminated_or_consolidated: 29
+released_integrations_or_semantic_remediations: 29/29
 canonical_workflows: 3
-migration_required_operational: 96
+migration_required_operational: 95
 placeholders: 0
 review_required_surfaces: 1
 ```
 
-Batch 25 removed one additional standalone workflow, so the physical census is now `99 / canonical 3 / migration-required 96 / placeholders 0`.
+Batch 26 removed one additional standalone workflow, so the physical census is now `98 / canonical 3 / migration-required 95 / placeholders 0`.
 
-## Latest release — Batch 25 VA guided-workflow validation consolidation
+## Latest release — Batch 26 child-safety sovereign observer migration
+
+```text
+claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B26-20260817
+state: MERGED_INTO_CANONICAL_WORKSTREAM / RELEASED_INTEGRATION
+superseded_PRs: #381, #382 CLOSED_UNMERGED_MAIN_ADVANCED
+PR: #383
+final_head: 4186a742066758dce4caae1a08635d7f81535da3
+merge: 7f5f66db30cce908b11a0ef6f8d862bcdafab51c
+claim_release_commit: 82e777182600cb9a343d92dc024d5a90a65717fe
+Healer owner: StegVerse-Labs/StegVerse-Healer#13
+machine_task: SHWP-HEALER-SOVEREIGN-SCHEDULER-001
+fixed_target: child-safety-public-deployment-observer
+Healer source commits: 81cb23510bc5cb1fc976b473a38e14113360a0f5, 8575b000e7584dbe2d629236859cf0f45e85145a, b17ad66c2f9c1425280b688efa579e2cdde5a8ba
+Healer canonical handoff: 1eb7ea712f965cfff4b9a28a693fc7f8888729da
+Site Bootstrap Validate: 32065423981 SUCCESS
+Bootstrap job: 95496269204 SUCCESS
+Site Handoff Orchestrator: 32065423885 SUCCESS
+Ecosystem Heartbeat Orchestration: 32065423882 SUCCESS
+StegFin phone projection: PASS inside Site Bootstrap validation
+CHILD_SAFETY_SOVEREIGN_OBSERVER_CONTRACT: PASS
+CHILD_SAFETY_GITHUB_TOKEN_REQUIRED: false
+CHILD_SAFETY_ARTIFACT_CUSTODY_REQUIRED: false
+CHILD_SAFETY_HOSTED_SCHEDULE: RETIRED
+CHILD_SAFETY_AUTHORITY_EFFECT: NONE
+SESSION_WORK_CLAIMS_PASS
+SITE_HANDOFF_ORCHESTRATION_PASS
+ECOSYSTEM_HEARTBEAT_ORCHESTRATION_PASS
+ECOSYSTEM_CHAT_APPLICATION_PASS
+IPHONE_HB30_PROJECTION_PASS
+ST-017 sandbox: PASS
+workflow inventory: 98 / canonical 3 / migration-required 95 / placeholders 0
+StegFin source_trade_contract: COMPLETE_INSTALLED
+StegFin wallet_review: USER_ONLY
+StegFin signing_broadcast: USER_ONLY
+StegFin hosted_runtime_authority: NONE
+credential_authority: TV/TVC
+non_tv_tvc_secret_or_token_allowed: false
+authority_effect: NONE
+activation_effect: NONE
+runtime_activation_effect: NONE
+publication_authority_effect: NONE
+custody_authority_effect: NONE
+financial_authority_effect: NONE
+```
+
+Batch 26 deleted `.github/workflows/verify-child-safety-public-deployment.yml`, which had an hourly GitHub-hosted checkout and artifact-custody loop. The unchanged public-route semantics now run through the existing sovereign Healer scheduler target `child-safety-public-deployment-observer`, while credential-clean `.github/workflows/validate.yml` deterministically checks the source contract. `scripts/check_child_safety_public_deployment.py` supports a local/ephemeral receipt path and records `credential_authority=TV/TVC`, `github_token_required=false`, and `artifact_custody_required=false`. `data/tasks/SITE-0003-CHILD-SAFETY-PUBLIC-DEPLOYMENT.json` records the Healer machine owner and fails closed when ordinary scheduler evidence is unavailable.
+
+PRs #381 and #382 were deliberately closed unmerged as main advanced. PR #383 was reconstructed from current main `01faafe0a759d009d704e04ad8ba1ee8c7d884ff`, was four commits ahead and zero behind immediately before release, and its exact merge ref `9d3013656ceb0695ac411f6db9a5706f0f6aa8e5` passed Site Bootstrap, Site Handoff, Ecosystem Heartbeat, child-safety source-contract, workflow-inventory, claim-gate, canonical application, ST-017, and integrated StegFin phone validation before merge.
+
+This release proves source-carrier installation and repository integration only. It does not assert that an ordinary Healer scheduler cycle has subsequently executed, and it grants no publication, governance, custody, runtime, HIL, StegOS, TVC, Master Records, trade-signing, broadcast, or settlement authority.
+
+## Prior release — Batch 25 VA guided-workflow validation consolidation
 
 ```text
 claim: SITE-WORKFLOW-SURFACE-MINIMIZATION-268-B25-20260817
@@ -211,7 +263,7 @@ USER_ONLY remains sole StegFin signing/broadcast authority. Source validation or
 
 ## Automation and continuation
 
-Credential-clean `.github/workflows/validate.yml` is the machine continuation path for deterministic repository validation. `data/session-work-claims.json` and the MACHINE_OWNED Site pre-work gate prevent duplicate mutation and require explicit bounded claims before mutable work.
+Credential-clean `.github/workflows/validate.yml` is the machine continuation path for deterministic repository validation. `data/session-work-claims.json` and the MACHINE_OWNED Site pre-work gate prevent duplicate mutation and require explicit bounded claims before mutable work. Recurring child-safety public-route observation now belongs to the existing Healer machine task `SHWP-HEALER-SOVEREIGN-SCHEDULER-001`, fixed target `child-safety-public-deployment-observer`; missing ordinary scheduler evidence remains fail-closed and is not substituted by GitHub Actions.
 
 ## Next executable action
 
@@ -220,14 +272,14 @@ Inspect the next bounded unclaimed token-bearing or redundant workflow under Sit
 ## Completion and archive state
 
 ```text
-task_completion: 42/131 = 32.06%
-developed_files_for_completed_surfaces: 42/42
+task_completion: 43/131 = 32.82%
+developed_files_for_completed_surfaces: 43/43
 scaffolding_or_stubs: 0
 missing_required_files_for_completed_surfaces: 0
-validation: 119/119 required released validation groups PASS
-integration: 28/28 released workflow/token-remediation groups
+validation: 123/123 required released validation groups PASS
+integration: 29/29 released workflow/token-remediation groups
 session_consolidation: 3/5 durable goal groups complete or transferred
-goal_activation: 42/131 = 32.06%
+goal_activation: 43/131 = 32.82%
 ```
 
-This session is not archive-ready: 89/131 audit-start surfaces remain unremediated/unclassified, 96 operational workflows remain migration-required, and distinct workflow/token minimization work remains executable under Site #268. Live HIL, sovereign runtime/inference, Healer execution, GP10 runtime/commercial activation, TVC protected execution, and StegFin settlement remain separately owned and are not inferred from source or CI state.
+This session is not archive-ready: 88/131 audit-start surfaces remain unremediated/unclassified, 95 operational workflows remain migration-required, and distinct workflow/token minimization work remains executable under Site #268. Live HIL, sovereign runtime/inference, ordinary Healer execution, GP10 runtime/commercial activation, TVC protected execution, and StegFin settlement remain separately owned and are not inferred from source or CI state.
